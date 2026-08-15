@@ -3708,9 +3708,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
   chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
-  **Goethe German set** by `.claude/goethe/`, and the **French set** — DELF A1–B2, DALF C1–C2 and a
-  seventh of **common phrases and expressions** (402), seven files plus a **combined `French-A1-C2`**
-  (7,648 notes / 15,296 cards, a subdeck per level and one of idiom) — by
+  **Goethe German set** by `.claude/goethe/`, the **CAPLE Portuguese set** (all six CEFR levels, plus a
+  seventh deck of phrases and expressions) by `.claude/caple/`, and the **French set** — DELF A1–B2,
+  DALF C1–C2 and a seventh of **common phrases and expressions** (402), seven files plus a **combined
+  `French-A1-C2`** (7,648 notes / 15,296 cards, a subdeck per level and one of idiom) — by
   `.claude/delf/` — see their own bullets below. **A COMBINED FILE IS GITIGNORED**, French and Spanish
   alike: it is an artefact of the levels it combines rather than another deck, so committing it
   duplicates every megabyte the repo already carries for them, and its own `combine.py` regenerates it
@@ -4298,6 +4299,494 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   it runs after the content has been written and it needs the network, so a failure prints one line and
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
+  Not part of the site.
+- `.claude/caple/` — the generator behind the six `decks/CAPLE-<level>-Portuguese.folio-deck.json`
+  files, **all six CEFR levels** (A1: 498 notes / 996 cards, 1.8 MB; A2: 500 / 1,000, 2.0 MB;
+  B1: 998 / 1,996, 3.4 MB; B2: 1,400 / 2,800, 4.1 MB; C1: 999 / 1,998, 3.0 MB; C2: 700 / 1,400,
+  2.0 MB) **and, since Aug 2026, a seventh deck that is not a level**
+  (`decks/Portuguese-Phrases-and-Expressions.folio-deck.json`; 1,342 notes / 2,684 cards, 2.2 MB),
+  community decks rather than site content:
+  `python3 .claude/caple/run.py [--level c2] [--no-fetch] [--variety-check]`. Seven stages, run by
+  `run.py`, caching its corpora in `.claude/caple-cache/` (~750 MB, gitignored). PYTHON, like
+  `.claude/dele/` and `.claude/goethe/` and for the same reason: a further level is a re-run against
+  the next inventory rather than a rebuild. **ONE LEVEL PER RUN** (`caple_level` reads the level once,
+  at import), and a level is taught on top of the ones below it, read out of the SHIPPED deck files —
+  the DELE and Goethe arrangement exactly. It takes the **Goethe SHAPE** rather than the DELE one: one
+  note with two card templates, so a corrected gloss is corrected both ways at once and each direction
+  still keeps a schedule of its own.
+  · **THE PHRASES DECK IS THE SEVENTH AND IT IS NOT A CEFR LEVEL** (`--level phr`; `parse_phrases.py`,
+    and `PHRASES` / `SUBS` / `headwords_below` in `caple_level.py`. Aug 2026, on request: "add a deck
+    with common phrases and expressions"). **It is the Mandarin set's own arrangement** — that deck
+    teaches the seven HSK levels and then two subdecks carry Phrases and Idioms, "the two the syllabus
+    leaves out" — and the reason is the same here: a Referencial level is an inventory of WORDS, so a
+    set expression reaches those decks only where the inventory happens to name one, and what the six
+    between them teach is **17 of the 1,342 this pool holds**. Eight things are decisions rather than
+    plumbing.
+    **IT REUSES EVERY STAGE THAT IS ABOUT PORTUGUESE AND REPLACES THE FOUR THAT ARE ABOUT THE
+    REFERENCIAL.** `examples.py` and `build_deck.py` are the same code with the same European filters
+    and the same card type; `parse_phrases.py` stands in for parse_referencial + supplement +
+    extract_kaikki + select, because none of the cascade those run applies when the pool IS the deck —
+    that cascade exists to stop the closed classes competing with nouns on raw frequency while choosing
+    500 words from several thousand, and here nothing is being chosen.
+    **WHAT COUNTS AS AN EXPRESSION IS TWO TESTS, and each misses what the other catches**: a part of
+    speech only a phrase can have (`phrase`, `proverb`, `prep_phrase`, `intj`) OR an `idiomatic` tag on
+    any sense. `de vez em quando` is an ADVERB and `pão e circo` a NOUN, so the POS test alone loses
+    both; `não sei` and `com certeza` are filed as phrases and carry no tag, so the tag alone loses
+    those. **What the pair keeps OUT is the point** — `cartão de crédito`, `fim de semana` and `banda
+    desenhada` are all in the dump, all multi-word, and none is in this deck, being nouns that happen
+    to be spelled with a space.
+    **THE ORDER IS THE CORPUS COUNT, and it has to be**: hermitdave's frequency lists are SEGMENTED, so
+    `de vez em quando` appears in them as four ordinary words and the phrase has no rank at all.
+    `select.py` solves that for the handful of phrases in a word deck by counting them in Tatoeba and
+    calibrating onto the subtitle scale through the single words that carry both; here every entry is a
+    phrase, there is nothing to calibrate against, and the calibration would be monotone in the count
+    anyway. **Counted on WORD BOUNDARIES** — the pipeline's own `poder com` / `poder comprar` fault,
+    worth more here because a short phrase is common: `a par` matches 7,847 times as a substring
+    (almost all `a parte` and `a partir`) and 21 on boundaries.
+    **715 OF THE 1,342 ARE IN NO CORPUS AT ALL, and that is the subject rather than a gap** — an idiom
+    is literary where a sentence-pair corpus is conversational, and the Mandarin deck records exactly
+    the same of its chengyu (361 of 5,227 appear even once). Stated in the deck's own description and
+    NOT repaired by truncating to what the corpus can rank, which would let the corpus choose the
+    syllabus — the DELE pipeline's own finding.
+    **THE BRAZIL FILTER IS ENTRY-LEVEL HERE where the word decks demote a SENSE**, and the difference
+    follows from what is being taught: a word usually means the same thing on both sides of the
+    Atlantic and differs in one sense, so the sense is demoted and the word ships, while an idiom is
+    the whole of what is being taught and one whose every recorded meaning is marked Brazil is not said
+    in Portugal at all. **178 go that way — much the largest filter here**, which is what a corpus of
+    idioms should look like, set expressions being the most regionally divided part of a language.
+    **…AND THE TAG CANNOT SEE AN EXPRESSION THAT IS BRAZILIAN IN ITS WORDS**, which is a second filter
+    and was nearly missed: `a grama do vizinho é sempre mais verde` is filed as Portuguese generally,
+    so nothing marks it, and in Portugal a lawn is `relva` while a `grama` is a gram. The first hand
+    table was swept with **the seven shibboleth PAIRS `run.py` checks the corpora with**, and every
+    leak turned on a word outside that list — so the sweep is now against the **whole frequency list**
+    (`variety_report`, printed on every run) and the table names **15**. **THE LINE IS ZERO EUROPEAN
+    HITS**: a word common in Brazil and wholly absent from a European list of the same size is a
+    variety marker rather than a rarity, and that took nine (`sumiço`, `mané`, `eita`, `cê`, `capim`,
+    `pingando`, `oras`, and `cômico`, which is a SPELLING — Wiktionary's own `cómico` entry glosses
+    itself "European Portuguese standard spelling of cômico"). The rest were read: `grama` at 9.5×
+    against `relva`'s 0.23, `fumaça` 16.7× against Portugal's `fumo`, `paletó` 19.4×.
+    **AND THE REST IS REPORTED AND LEFT, WHICH IS `select.py`'S OWN RULE.** 78 shipped phrases still
+    carry a word said ≥8× more often in Brazil and taking them wholesale would cost more than it
+    saved: `em suma` is flagged for the coincidence of `suma` and `grão a grão enche a galinha o papo`
+    for `papo`, both of them Portugal's own, and they sit in the same band as the real Brazilianisms
+    (`tô ligado`, four on `botar`, `chutar o balde`). **Read the report, do not automate it.**
+    **AND `headwords_below` IS A SECOND FUNCTION RATHER THAN A WIDER `words_below` — BUT IT RETURNS
+    BOTH FORMS, AND SHIPPED RETURNING ONE.** A level asks "is this WORD already taught?" and strips a
+    leading article, so `a distância` goes into its exclusion set as `distância`; this deck asks "is
+    this PHRASE already taught?", and the two answers differ at BOTH ends. Keeping the unstripped form
+    is what saves the adverbial locutions (`a par`, `a seco`, `a pé`), which stripped would enter as
+    `par`, `seco` and `pé` and match nothing. Keeping the STRIPPED form is what was missing: **a noun
+    is keyed WITH its article**, so C1's `o peso morto` never matched the candidate `peso morto` and
+    the deck taught one lexeme twice under one gloss. A noun's article there is the deck's own
+    typography — it is what colours the gender — and no part of the headword. Widening the shared
+    `words_below` is still refused: it would drop six adverbial locutions from C1 and C2, which ship
+    correctly. Widening THIS one is safe because only `parse_phrases` imports it, and measured over
+    the pool the union excludes exactly one phrase the old rule kept — that duplicate.
+    **TWO SUBDECKS, READ AND NOT GUESSED**: Wiktionary files a proverb under a part of speech of its
+    own, so **Expressions (1,127)** and **Proverbs (215)** are split on the record rather than on the
+    shape of the words. `build_deck.py` writes the `sub` string; the deck's subdecks are the distinct
+    values its cards name, which is what makes them cost the file nothing.
+    **A BOUNDARY MATCH FINDS THE WORDS AND NOT ALWAYS THE EXPRESSION**, which is `poder com` /
+    `poder comprar` one level deeper — there the boundary rule fixed it, and here the boundaries are
+    already right. `que foi` is the exclamation "what's the matter?" and also the two words in `a
+    primeira vez que foi preso`, so the card came up glossed as an interjection over three sentences
+    in which it is a relative clause: **teaching the wrong thing rather than nothing**, which is worse
+    than an empty fold. **What separates them is the ENGLISH** — `reflexives.py`'s own answer to the
+    same question, where `KEYWORDS` requires the translation to carry a word the reflexive means — and
+    here the keyword set is free, being the entry's own gloss. It is scored as a **PREFERENCE and not
+    a filter**: an idiom translates loosely (`bater as botas` is "to kick the bucket" and its sentence
+    may say "he died"), so a hard test would drop good sentences to remove bad ones. Measured on the
+    pool as it then stood, it took the mismatches from 149 of 445 to 108, and `que foi` now opens on
+    "Que foi que eu fiz de errado?".
+    The rest is stated in the deck's own description rather than repaired. **Gated on `PHRASES`** for
+    the ordinary reason: it changes which sentence is chosen, so ungated it would re-pick examples
+    across all six word decks for a problem those decks barely have, their entries being single words
+    where an inflected form is its own evidence of which word it is.
+    **AND THE BOLDER MATCHED AGAINST ALREADY-ESCAPED TEXT**, found by the same assertion that caught
+    `poder com` (a card with examples must have a bolded term in them): the pattern is built from the
+    raw form and was applied to `esc(pt)`, so a form carrying an escapable character matched nothing
+    and its sentences shipped with no bold at all. **One form on the whole shelf does** —
+    `tempestade em copo d'água`, whose apostrophe becomes `&#x27;` — which is why it went unseen and
+    why the fix is provably inert on the six: swept over every level's examples, no other form
+    contains `'`, `&`, `<` or `>`. Matched on the raw sentence and escaped afterwards now.
+    **ITS LOUDEST FAULT WAS TWO MISSING KEYS IN `POS_NAME`** — `recs_of` keeps a record only if its
+    `pos` is a key there, and `proverb` and `prep_phrase` were not, so all 218 proverbs and 19
+    prepositional phrases arrived with no records, no senses and no meaning. **The guard caught it
+    outright** ("cards with no meaning at all") rather than shipping, which is the failure shape this
+    pipeline wants. Both were added UNCONDITIONALLY because they are **provably inert** — swept over
+    all six shipped word lists, not one word has such a record — where `name` was NOT in that position
+    (B1's `terra` and C2's `ártico` each have one) and is therefore added only under `PHRASES`, rather
+    than quietly re-picking the primary record of two cards in decks nobody was editing.
+  · **THE BUILD WAS NOT DETERMINISTIC, FOR THREE LEVELS, AND ONLY THE BYTE-FOR-BYTE RULE COULD SEE IT**
+    (Aug 2026, found while adding B2). `examples.py` banked its per-sentence findings in a SET of
+    `(word, form)` pairs and then iterated it — and Python randomises string hashing per process, so
+    the order varied between runs. It decides which candidate a word banks FIRST, which decides which
+    of its sentences survive the scoring, so **A2 rebuilt twice from an unchanged cache produced two
+    different decks**. It shows only where one sentence carries two forms of the same word — `Ele
+    ganha o dobro do que eu ganho` banked as `ganha` on one run and `ganho` on the next, so the card
+    bolded a different word and chose a different third sentence — which is why A1, B1 and B2 all
+    reproduced and A2 did not. **Every deck was correct either way**, which is exactly why nothing but
+    the rebuild-and-diff discipline was ever going to find it. Sorted at the point of use, and
+    verified the strong way: **all four levels built under two different `PYTHONHASHSEED` values are
+    byte-identical**, which is a better check than two ordinary runs and is the one to repeat.
+  · **B2 IS WHERE THE TABLE'S OWN GUESSES CAME DUE** (Aug 2026). Three of them, and each was corrected
+    by measurement rather than by judgement. **ITS TARGET WAS WRONG**: `TARGET` said 2,000, written
+    when only A1 existed, and the Referencial's levels are not a widening syllabus — B2's Noções
+    section has the same 162 headings as B1's and largely repeats its bullets, so what B2 ADDS once
+    the 2,216 words below are removed is a pool of **1,491**. `select.py` REFUSES a level short of its
+    target rather than taking what it can get, so the guess announced itself on the first build; it is
+    1,400 now, with the margin a corpus refresh needs. **ITS REFLEXIVES ARE 78 NAMED AND 41 GLOSSED**
+    — and the second test grew a third family, the phrase-bound `dever-se`, which occurs only ever as
+    `dever-se a` and so is a headword the inventory has not got, exactly as `ir-se embora` is at A2.
+    **AND 206 OF ITS 1,400 WORDS HAVE NO EXAMPLE SENTENCE**, against B1's 40 in 1,000: B2's inventory
+    is a fifth multi-word phrases and its single words are rarer, and Tatoeba's Portuguese does not
+    reach them. That figure is stated in the deck's own description rather than repaired, because
+    repairing it means letting the corpus choose the syllabus — the DELE pipeline's own rule.
+  · **C2 COMPLETES THE SIX AND ITS FINDING IS THE SHAPE OF THE LADDER** (Aug 2026). Measured the way
+    the guard forces, the levels ADD **500, 500, 1,000, 1,400, 1,054, 741** — it rises to B2 and then
+    falls away, so the two C levels together are smaller than B2 alone. That is not the Referencial
+    running out of language: it describes what a speaker can DO at each level, and by C1 most of the
+    doing is done with vocabulary the lower levels have already given, so the top of the ladder
+    contributes the specialised words and little else. **Its own two drops are one of each kind the
+    pass has met, and neither could have been found by the ratio report.** `parabenizar` occurs
+    exactly ONCE in the whole document and it is inside a worked example — a word the Referencial
+    USES rather than one it LISTS, which is `segurar-se`'s test — so it is in `BLOCK` rather than
+    `BRAZILIAN`, even though it is also Brazilian and posted the highest ratio the pass has produced
+    (814×); **a word the inventory does not name has no place in the deck whichever side of the
+    Atlantic says it.** And `cesta básica` is `varal`'s case — listed alone, with `cabaz` nowhere in
+    the document — but it is **the first PHRASE in that table, so it carries no frequency count and
+    the ratio report is blind to it**; it was found by reading the level's own no-example list, which
+    is where the rare and the foreign both end up. **293 of its 700 words have no example sentence**,
+    42% against B2's 15%, which is the same curve seen from the corpus's side and is stated in the
+    deck rather than repaired. Two smaller things: `concernir` is the shelf's first **defective**
+    verb — used only in the third person, so it has no imperative for a reason that is not
+    impersonality — and it renders honestly, dashes in the persons it has not got; and `linhagem` is
+    the sense ranking's one remaining shape, below.
+  · **A WORD MAY HAVE TWO NOUN RECORDS WITH THE ODD SENSE FILED FIRST, AND NO TAG SEPARATES THEM**
+    (Aug 2026, C2). `o comboio`'s "convoy" is fixed by scoring a European tag negatively; here
+    neither of `linhagem`'s two records carries a tag at all, so the pick is pure Wiktionary record
+    ORDER and it led with "burlap" for a word that means lineage. **Measured before it was treated as
+    a class**: 177 shipped words across the six levels carry two or more noun records, and reading
+    C2's seventeen by eye this is the only one the order gets wrong — `coração`, `bar`, `canto`,
+    `gota`, `pilha` and `teto` all lead with their central sense. So it is an `AUTHORED` entry rather
+    than a rule, and **the next one is found the same way: read the level's own multi-record nouns
+    when adding a level**, which is a list of seventeen rather than a corpus.
+  · **C1 CORRECTED 108 CARDS IN THE FOUR DECKS ALREADY SHIPPED, AND ADDED NONE OF ITS OWN FINDINGS TO
+    ITS OWN DECK** (Aug 2026). That is the rebuild-every-level rule paying for itself: nothing in C1
+    needed a new stage, and the three faults it surfaced were all in shared code, all silent, and all
+    older than the level that found them. **THE `-s` DROP BEFORE `vos` WAS A RULE APPLIED ONE TENSE TOO
+    WIDE**, and it is the one that was not merely archaic but wrong: `enclitic` dropped a final `-s`
+    before `vos` on every form, where that belongs to the FORMATION of the affirmative imperative
+    (`chamais` → `chamai`), which the source hands over already formed — so the present became
+    `chamai-vos` for `chamais-vos`, the personal infinitive `chamarde-vos`, and the preterite
+    **`chamaste-vos`, which is the second person SINGULAR verb carrying a plural pronoun** and reads as
+    an ordinary word. Measured on two sources that do not know about each other before it was touched:
+    Tatoeba's Portuguese is unanimous on the 1pl drop (129 `-mo-nos` against 0) while every `-vos` token
+    but one is an imperative and says nothing either way, and the single informative one,
+    `lembrais-vos`, keeps its `-s`; Wiktionary's own generated pronominal table keeps it in all four
+    non-imperative tenses and drops it in the imperative. 103 reflexive cards across A1–B2. **THE
+    LESSON IS THAT ONE FIX MADE TWO CARDS OF ONE DECK SPELL THE SAME CONSTRUCTION TWO WAYS**, which is
+    what forced the measurement — see the next bullet.
+  · **A VERB THAT IS INHERENTLY PRONOMINAL COMES WITH ITS PRONOUN ALREADY IN THE TABLE** (Aug 2026, C1;
+    `is_pronominal` / `remark` in build_deck.py). `arrepender` is only ever used as `arrepender-se`, so
+    Wiktionary's `pt-conj` generated it in the pronominal form — every cell reads `arrependo-me`,
+    `arrepender-me-ei`, `me arrependa` — and the reflexive branch attached a SECOND pronoun, so 29 rows
+    of one card printed the word twice. Nothing threw, the paradigm was the right shape and the right
+    length, and the only symptom was the pronoun twice; **`check-caple.js`'s existing sweep for a still
+    hyphenated clitic would have caught it, and there was no `c1` PROBE row yet to run**. One card of
+    3,397 on the shelf. **THE FORMS ARE RE-MARKED RATHER THAN STRIPPED AND REBUILT**: inverting the
+    source's transformation means guessing which `-s` it dropped, the table IS the reflexive paradigm,
+    and all it needs is the hyphen turned into a colour. **AND THE TWO CONVENTIONS AGREE EVERYWHERE
+    ELSE**, which is the closest thing to an independent check the clitic module has — the generated
+    table puts the pronoun after the verb, inside the future and the conditional, before the verb in
+    the conjuntivo and after `não` in the negative imperative, cell for cell what `TENSES` says. It is
+    also what exposed the `vos` rule above, by putting the source's spelling and ours on two cards of
+    one deck.
+  · **AN ARTICLE IS COLOURED ONLY WHERE THE PIPELINE PUT ONE** (Aug 2026, found while adding C1;
+    `headword_html`). It re-derived the article by matching a leading `a`/`o` in the STRING, and the
+    Referencial names adverbial locutions built on the preposition `a` — so five B2 cards set `a fim
+    de`, `a menos que`, `a não ser que`, `a distância` and `a seco` with their first word in the
+    FEMININE-ARTICLE colour, contradicting the part of speech printed two lines below. On a deck whose
+    whole visual grammar is that the article's colour teaches the gender, that is the Goethe deck's own
+    fault the other way round. Nothing threw and every count was right; the symptom was a colour.
+    **THE COLLISION IT ALSO EXPLAINS IS NOT A DUPLICATE**: `a distância` is taught at A2 as a feminine
+    noun and at B2 as an adverb, which `words_below` cannot see because it strips the article from the
+    lower deck's headword and the upper candidate carries it as a preposition. Six such candidates
+    exist across the four levels (`a pé`, `a seguir`, `a princípio`, `a distância`, `a seco`) and
+    **every one is an adverb**, so they ship: the noun colours its article and the locution does not,
+    which with the part of speech under it is how the two cards say which they are. A NOUN doing the
+    same thing would be two identical headwords, so `select.py` reports that case and is silent today.
+    · **AND ONE REDUNDANCY IS RECORDED RATHER THAN REPAIRED, because the repair is the riskier
+      change.** The same sweep finds three words taught both alone and as the feminine half of a noun
+      pair — `menina` and `senhora` in A1, `corretora` in C1 — because `merges_with` folds a feminine
+      onto its masculine's card only where the two entries point at each other, and these do not. That
+      guard is what keeps a real noun that merely LOOKS like a feminine from being swallowed, and the
+      shelf is full of them: `a cara` beside `caro, cara`, `a curva` beside `curvo, curva`, `a física`
+      beside `físico, física`, `a corretora` ("brokerage") beside `o corretor, a corretora`
+      ("corrector"). Loosening it to catch three notes in 4,395 would put all of those at risk of
+      losing a card, and a swallowed word is a worse fault than a word taught twice — both cards being
+      correct Portuguese under correct glosses.
+  · **THE SOURCE ALSO LISTS A BRAZILIAN WORD ON ITS OWN, WHICH IS NOT THE SLASH CASE** (Aug 2026, B2).
+    `xícara` arrives beside `chávena` and the drop swaps one word for another; `varal` and `coquetel`
+    appear with no European alternative anywhere in the document — `estendal` and `cocktail` are not
+    in it — so the drop **loses the concept** rather than swapping it. Deliberately not repaired by
+    adding the European word, which would be the pipeline writing the syllabus instead of reading it.
+    `o varal` also showed the two faults compounding: Wiktionary glosses it "shaft (of a cart)", the
+    sense European Portuguese does keep, so the card was a Brazilian word under a meaning the
+    inventory does not mean.
+  · **THE 1990 ORTHOGRAPHIC REFORM IS WHY THE VARIETY RATIO CAN NEVER BE AUTOMATIC** (Aug 2026, B2),
+    and it is a far stronger case than B1's four false positives. The European subtitle corpus largely
+    predates the reform, so **the correct modern European spellings all look Brazilian**: `extrato`,
+    `incorreto`, `ótica`, `indireta`, `exatidão`, `subjetivo`, `redator`, `direto`, `reto`, `adotivo`
+    — ten of B2's twenty-eight flagged words are one family, and every one of them is right.
+    **AND THE REFORM ALSO DEFEATS THE BETWEEN-LEVELS EXCLUSION**: `words_below` is a string match, so
+    B1's `atual` does not exclude B2's `actual`, which shipped as a second card with the same meaning.
+    Swept over all four decks there are exactly two pairs differing by a reform consonant, and **the
+    other one is why this is a hand table and not a rule** — `facto` (A1) and `fato` (A2) look
+    identical in shape and are two different words, a fact and a suit. Hence `SPELLING` in select.py,
+    one entry, naming the level below that already teaches it.
+  · **B1 IS THE LEVEL WHERE THE LOWER DECKS STOP BEING SPECTATORS, and that is what to expect of B2**
+    (Aug 2026). A2 was a re-run and a table row; B1 needed no new stage either, and its whole cost was
+    in the three places a level is built ON something else. **THE REFLEXIVES STOP BEING A HANDFUL**:
+    its inventory names **56** `-se` strings against A2's 32, and `reflexives.py` glosses 31 of them by
+    hand — the rest being inflected forms out of the Referencial's own example sentences (`pode-se`,
+    `sente-se`, `formaram-se`) or the impersonal `se` (`como se escreve?`), which is a construction
+    rather than a verb. **A missing gloss is SILENT**: the word is simply not offered, the cascade
+    takes the next one, and the deck builds at exactly its target — so read the inventory rather than
+    waiting for a warning, and note that a gloss added here is offered at EVERY level whose inventory
+    names it, so check the lower candidate lists before writing one (none of B1's 31 is named at A1 or
+    A2 — measured, not assumed). **AND A WORD WHOSE ENTRY IS A POINTER MAY POINT AT NOTHING**:
+    `vários` reads "masculine plural of vário" and `vário` has no Wiktionary entry at all, so it is
+    written into `AUTHORED`. That one is loud — `build_deck` refuses a card with no meaning — which is
+    the shape to want and the reason that refusal exists.
+  · **THE REFERENCIAL DESCRIBES PORTUGUESE, NOT ONLY EUROPEAN PORTUGUESE** (`BRAZILIAN` / `BR_RATIO` in
+    select.py; Aug 2026, found by B1). Where the two varieties differ it writes both with a slash —
+    `uma chávena/xícara de` — and `segments` splits on that slash, so the Brazilian half arrives as an
+    ordinary candidate: B1 shipped a Brazilian teacup in a deck for an exam set in Lisbon until it was
+    caught. **The slash cannot simply be read left-to-right**: measured over the whole document it
+    holds **1,553 distinct pairs**, almost all of them antonyms and near-synonyms (`alto/baixo`,
+    `abrir/fechar`, `achar/pensar`), so a rule taking the left-hand side would throw away a good word
+    in nearly every case.
+    **THE MEASUREMENT IS AUTOMATIC AND THE DROP IS BY HAND, and the arithmetic is why.** A word
+    markedly commoner in the Brazilian frequency list than the European one is the obvious test and it
+    separates the known pairs cleanly (xícara 19×, trem 18×, ônibus 31×, celular 25×, banheiro 26×
+    against chávena 0.1×, comboio 0.2×, autocarro 0.1×). Run as an automatic DROP over the three
+    finished word lists it takes **one right answer and four wrong ones** — `você`, which is ordinary
+    European Portuguese and which this deck teaches on purpose; `hidratar`, absent from a small
+    subtitle corpus rather than from Portugal; and `policial` and `conexão`, both standard here and
+    merely commoner there. **A ratio measures how often Brazilians say a word, which is not the same
+    question as whether the word is Brazilian.** So `select.py` prints the flagged words on every run
+    and drops only what `BRAZILIAN` names, each entry naming the European word it stands for. The
+    Brazilian list is now a normal source rather than `--variety-check`'s alone.
+  · **A DISPLAY CHANGE BROKE THE EXCLUSION BETWEEN LEVELS, AND IT SHIPPED** (Aug 2026; `words_below`).
+    Colouring the clitic took the hyphen out of the printed headword, and `words_below` read that
+    field — so A1's `sentir-se` entered A2's exclusion set as `sentirse`, matched nothing A2 offered,
+    and **the A2 deck re-taught `chamar-se`, `levantar-se` and `sentir-se`**, pushing three real A2
+    nouns out. Both decks looked perfect: a duplicated word is a well-formed card. It reads
+    `question` now — the plain lemma the whole pipeline is keyed on, which a rendering decision cannot
+    move. **The lesson is the coupling rather than the field**: a deck FILE is an input to the next
+    level, so anything that changes what is printed in it has to be checked against what reads it, and
+    the check is to rebuild every level and diff — which is what found this.
+  · **A PHRASE IS MATCHED ON WORD BOUNDARIES, NEVER AS A BARE SUBSTRING** (`PH_RX` in examples.py; Aug
+    2026, found by B1's `poder com`). `if p in low` gave that phrase three sentences about `poder
+    comprar` — real Portuguese, correctly translated, on a card of the right shape, about a different
+    phrase. **What caught it is the BOLDER**, which does anchor on boundaries and so refused to mark a
+    term it could not find, and `check-caple.js`'s assertion that a card with examples has a bolded
+    word in them. The two now share one boundary class, so a phrase that is FOUND can be MARKED.
+  · **A2 WAS A RE-RUN AND A TABLE ROW, WHICH IS WHAT THE PIPELINE WAS BUILT FOR** — the Referencial's
+    six levels are siblings in one HTML file and every node carries `id="nivel<LEVEL>-…"`, so the
+    parser was already level-scoped and the A2 inventory is a genuinely different and larger one
+    (3,036 candidates against A1's 1,646, sharing 841). **What it did cost is a REFLEXIVE PASS**: the
+    A2 inventory names thirty-two `-se` verbs where A1 names eleven, and since Wiktionary has a record
+    for none of them the twenty worth teaching had to be glossed by hand in `reflexives.py`. Adding a
+    level means reading its inventory for those; nothing warns, because a reflexive with no gloss is
+    simply not offered and the deck builds cleanly at exactly 500 words without it.
+  · **A REFLEXIVE'S BASE VERB IS FETCHED FOR ITS PARADIGM AND MUST NOT JOIN THE WORD LIST BY ITSELF.**
+    `run.py` adds every reflexive's base to the Wiktionary lookup, and `select.py`'s pool is
+    everything with a record — so once `reflexives.py` covered two levels at once, A2's twenty bases
+    (`voltar`, `casar`, `tornar`, `divertir`, …) entered **A1's** pool and pushed nineteen real A1
+    nouns out of its top 500, with A1 still building cleanly at exactly 500 words. The guard is one
+    `if k in cands`: fetch a base only where this level's inventory names the reflexive.
+  · **CAPLE PUBLISHES NO VOCABULARY LIST, and that was established rather than assumed** — its site
+    carries exam specifications and nothing else, checked page by page, and the one PDF that looks like
+    a syllabus is an image-only scan of a brochure. So the words come from the reference description
+    **CAPLE's own Recursos page links to**: the Referencial Camões PLE, the Instituto Camões'
+    level-by-level account of Portuguese. That is the DELE pipeline's relationship with the Cervantes
+    *Plan curricular* with one difference worth having — **here the exam board points at the source
+    rather than being it**, so the choice is the board's rather than this repo's. Only the inventory of
+    WORDS is taken; the Referencial's own prose is not reproduced, exactly as the Goethe pipeline takes
+    the Wortliste and leaves the Goethe-Institut's example sentences alone.
+  · **THE DECK IS EUROPEAN PORTUGUESE, AND THAT REACHES INTO FOUR STAGES RATHER THAN SITTING IN THE
+    DESCRIPTION.** CAPLE sets its exams on the European standard, so: the frequency ordering comes from
+    the European half of the subtitle corpus (`pt_50k.txt`, **not** `pt_br_50k.txt`); Wiktionary's
+    Brazil-tagged verb FORMS are dropped (5,464 of the 6,511 verbs carrying a table have one, so
+    without it almost every -ar verb shows `falamos` beside `falámos` with nothing to say which is
+    which); Brazil-tagged SENSES are outranked; and an example sentence carrying a Brazilian marker is
+    rejected. **Nothing in either frequency file says which variety it is**, so `--variety-check`
+    re-proves it on fourteen shibboleths (comboio/trem, autocarro/ónibus, telemóvel/celular…) and exits
+    non-zero if they come out the wrong way round — a measurement that can be re-run rather than a
+    comment that can rot.
+  · **THE SENSE RANKING IS THE BUG THIS DECK IS MOST LIKELY TO GET WRONG AGAIN.** `o comboio` shipped
+    for an hour glossed **"convoy"**: Wiktionary's "train" sense is tagged `Portugal` *and* `Africa`,
+    and any ranking that merely penalises Brazil scores it worse than the untagged "convoy" — so a
+    European tag has to score NEGATIVELY, and only the best-ranked senses survive. Every count was
+    healthy throughout and the card read perfectly. `check-caple.js` pins five of these glosses.
+  · **WHERE THE PRONOUN GOES IS FOUR RULES, NOT ONE, AND A WRONG ONE RENDERS AS A PERFECTLY REGULAR
+    TABLE.** European Portuguese's default is enclisis (`chamo-me`, where Brazil writes `me chamo`),
+    with the first person plural dropping its -s before `-nos` (`chamamo-nos`) — but the **conjuntivo**
+    is subordinate by nature and takes proclisis (`que eu me chame`), a **negative imperative** takes
+    proclisis after `não` (`não te chames`), and the **future and conditional take MESOCLISIS**, the
+    pronoun going INSIDE the verb between its stem and its ending: `chamar-me-ei`, `chamar-nos-emos`,
+    `chamar-me-ia`. That last one shipped as ordinary enclisis for a session — `chamarei-me`, which is
+    not Portuguese at all — on all eleven reflexives, twelve rows apiece, with the table the right
+    shape and the right length throughout. The split is found by **stripping the ending** rather than
+    by assuming the stem is the infinitive (the irregular futures are irregular in the stem: `dizer` →
+    `direi` → `dir-me-á`), the ending list is **sorted by length** (the conditional's `íeis` must beat
+    the future's `eis`, or `chamaríeis` comes out `chamarí-vos-eis`), and a form matching no ending is
+    reported at the end of the run rather than falling back silently.
+  · **…AND THE PRONOUN IS PRINTED AS A COLOUR RATHER THAN WITH A HYPHEN** (`marked` / `clitic_html` /
+    `CL_A` / `.uc-cl`; Aug 2026, on request). The card shows `sintome`, `sentirmeei` and `me sinta`
+    with the pronoun in indigo, where standard orthography writes `sinto-me`, `sentir-me-ei` and
+    `me sinta`. **The trade is real and is recorded rather than smoothed over**: the hyphen is not
+    decoration a learner can do without, it is how the form is SPELLED, so the card teaches the right
+    word in the wrong orthography — and the example sentences under the table are Tatoeba's own
+    Portuguese and keep their hyphens, so a reflexive card shows both spellings a few lines apart.
+    What it buys is that the three parts of `sentir·me·ei` read as three parts at a glance. The deck's
+    own description says which way round it is, so a learner meeting `chamo-me` in a book is not left
+    thinking one of the two is a misprint.
+    **THE COLOUR IS VERMILION**, where it was indigo for a day (Aug 2026, on request): it is the
+    colour the mood headings and the example bolding already use, so the card says one thing in one
+    colour, and the two cannot be confused — a mood heading is 10px letterspaced capitals on a line of
+    its own and the pronoun is two letters inside a word.
+    **THE MARK IS A SENTINEL, NOT A TAG**, because every one of these strings goes through `esc()` on
+    its way onto the card and a `<span>` built in the builder would arrive as visible angle brackets:
+    two control characters no source text can contain survive the escape and become the span after it.
+    It is a **weight as well as a colour** — with the hyphen gone, a `chamome` whose mark did not land
+    is simply a misspelling, so the one channel that can fail for a reader (high contrast, bright sun,
+    these two hues being one colour to them) is not the only one. And it reaches the **headword** too:
+    `chamar-se` at the top of the card over `chamome` in the table would show both spellings with
+    nothing to say which is the rule. The stored key keeps its hyphen — this is the printed form only,
+    and the word is still looked up, spoken and matched as `chamar-se`.
+  · **A BRACKET CAN CONTAIN A BRACKET, AND EVERY CUT CAN LAND INSIDE ONE** (`strip_parens` /
+    `split_top` / `debracket`). Three faults, one shape, and all three were found by LOOKING at a
+    rendered card rather than by any count. A gloss is split on `;` and `,` to make the meaning lines,
+    and a separator INSIDE a parenthesis is not a separator — `to feel (well, ill, tired)` came out as
+    three lines reading `to feel (well`, `ill`, `tired)`. A parenthetical is stripped to find a
+    definition's head, and `\([^)]*\)` ends at the FIRST `)` — which on `our (… of us, excluding the
+    person(s) being addressed)` is the one inside `person(s)`, leaving the gloss **`our being
+    addressed`**: not a shortened meaning but a different and wrong one that reads as ordinary English.
+    And the 92-character cut simply stops, leaving a bracket that never closes. So the splitting and
+    the stripping both count depth, and whatever is still half-open at the end is dropped whole — a
+    parenthetical is a qualifier, so losing it entirely is honest where losing half of it is not.
+    Every count stayed healthy throughout: the glosses were non-empty strings of the right shape on
+    cards of the right length.
+  · **WIKTIONARY HAS NO RECORD FOR ANY PORTUGUESE REFLEXIVE**, so `reflexives.py` carries all
+    thirty-one by hand — eleven attested in the A1 Referencial and twenty in the A2 one — and the
+    paradigm is built from the base verb, which is why `run.py` adds a reflexive's base to the lookup
+    set before the extraction runs. **Four of A2's thirty-two are deliberately absent and the file
+    says why**: `ir-se` and `vir-se` are named only inside `ir-se/vir-se embora`, where the unit is
+    the phrase, and `ver-se` and `dizer-se` mean what their base verbs mean with a pronoun on them —
+    which is the test, and the reason the table is not simply every `-se` string in the source.
+  · **`se` IS BOTH THE THIRD-PERSON CLITIC AND THE CONJUNCTION `IF`, AND NOTHING STRUCTURAL TELLS THEM
+    APART.** `KEYWORDS` in `reflexives.py` is what does — the English translation has to carry a word
+    the reflexive means — and it existed unused for a session while the docstring claimed
+    `examples.py` applied it. Wired in, it replaced a `sentir-se` example that was actually
+    `sentar-se` ("Por favor sente-se" / "Please sit") and an `apresentar-se` one that meant
+    "volunteered". **Proclisis is also ADJACENT** in European Portuguese, so the two-token window that
+    let `Me deixa voltar a dormir` count as `voltar-se` is now one. The cost is honest and stated in
+    each deck's own description: A2 has eight words the corpus cannot illustrate at all, where a
+    looser rule gave them wrong sentences.
+  · **A PORTUGUESE INFINITIVE IS VERY OFTEN A NOUN**, so a verb record alone is not grounds for
+    printing a paradigm: `o jantar` is dinner and `jantar` is to dine, `a colher` a spoon and `colher`
+    to harvest, `o colar` a necklace and `colar` to glue. Four cards printed a noun's headword and
+    gloss over a conjugation of the other word — `o prazer` "pleasure" over the defective paradigm of
+    `prazer` "to please" — and the table was correct in every case, simply about something the card
+    does not claim to teach. The paradigm is now gated on the card's PRIMARY part of speech, and those
+    four gained their plural line instead.
+  · **A PARENTHESIS IN THE INVENTORY MEANS FOUR DIFFERENT THINGS** (`unparen`): `segunda(-feira)` is one
+    word with an optional tail, `irmã(o)` is TWO words, `pequeno(a)` is a feminine ending, and a
+    trailing gloss is neither — so both readings are returned and the junk (`pequenoa`) dies harmlessly
+    at the Wiktionary lookup rather than being guessed at.
+  · **THE CORPUS DOES NOT GET A VOTE ON THE WORD LIST.** One word (`arrendar`) has no Tatoeba sentence
+    at all and is kept: the syllabus is set by the inventory and by frequency, and dropping a word
+    because the corpus cannot illustrate it would be letting the corpus set the syllabus — the DELE
+    pipeline's own finding, where that rule fired on 117 of 2,000 B2 words. The count is stated in the
+    deck's description instead.
+  · **ITS HONEST LIMITATION IS TATOEBA, and the description says so rather than implying otherwise**:
+    the corpus's Portuguese is overwhelmingly Brazilian (measured at about 10:1), so the filter rejects
+    16,732 sentences outright and what remains is mostly variety-NEUTRAL rather than positively
+    European. That is a limit of the corpus and not something a filter can repair.
+  · **`node .claude/caple/check-caple.js [a1|a2|b1|b2|c1|c2|phr]` is the browser half**, and it exists because
+    `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything
+    Portuguese this deck is FOR is unchecked by anything until there. It splits its assertions on
+    purpose: what is EUROPEAN is checked in the FILE, exactly, over every card (a wrong clitic on one
+    verb in eleven would never be reached by a walk through a session), and what is RENDERED is checked
+    in the BROWSER. **Its Brazilian sweep is written by hand and is deliberately not the generator's**
+    — re-using `examples.py`'s pattern would pass by construction on whatever it let through — and it
+    runs over the PORTUGUESE half of each example only, since the English beside it says "next time"
+    and `time` is also the Brazilian word for a football team. It writes screenshots to look at.
+    **Its probes are PER LEVEL** (`PROBE`), because the assertions are about European Portuguese and
+    have to be asked about a word the level teaches — `o comboio` is in A1 and in no other deck — and
+    the expected verb forms are written out rather than derived from the infinitive, since a
+    derivation here could share a bug with `build_deck.py` and the two would then be wrong together.
+    A level's row also states what only that level can lose: B1 carries a `minReflexives` floor,
+    since a gloss missing from `reflexives.py` drops a word in silence, and a `noBrazilian` list,
+    since the inventory's `chávena/xícara` pairs arrive split; B2 a `plainArticle` list, since its
+    preposition-led locutions are the ones the headword used to colour; **C1's reflexive is an
+    -ER verb and the shelf's only already-pronominal table**, so its row is what pins the endings
+    every other level's -ar probe cannot reach and what would catch the re-marking and our own rules
+    drifting apart; and **C2's is an IRREGULAR -er verb** (`abster`, which conjugates like `ter`), so
+    its 2pl forms end `-des` and `-stes` and are the sharpest case of the rule below.
+    **EVERY LEVEL NOW PINS THE `-vos` ENCLISIS, which nothing did until C1 corrected it** — a
+    `presVos` and a `pretVos` row apiece, because the present is the common case and the preterite is
+    where dropping the `-s` produced the second person SINGULAR verb under a plural pronoun, a real
+    Portuguese word in the wrong cell. **A rule corrected is a rule to add a probe for**; that one had
+    been wrong on every reflexive on the shelf and no assertion was looking at it.
+    A probe verb also has to be one THAT level teaches, which is not automatic once a level is built
+    on the ones below: C2's preterite probe was written as `preparar` and C2 has no such card,
+    `preparar` being an A1 word.
+    **Each expected form is asserted TWICE, as text and as HTML** (`clText` / `clHtml`, the clitic
+    written between pipes): the text says WHERE the pronoun sits and the HTML says that it is actually
+    marked up, and with the hyphen gone the markup is the only thing separating the pronoun from the
+    letters around it — so a text-only assertion passes on `chamarmeei` with the span dropped, which
+    on the page is a misspelling. The text side is **space-blind**, since `txt` turns every tag into a
+    space and a pronoun in a span of its own reads `chamar se ei` however tightly the card sets it.
+    The browser half then asserts the colour LANDS — a deck's CSS is scoped per (deck, type) at
+    install, so a rule that stopped matching would leave every reflexive flat and correct-looking —
+    and that a reflexive is recognised by **having coloured pronouns** rather than by a headword
+    ending `-se`, which is exactly the hyphen this change removed: read the old way, no reflexive is
+    ever found, the screenshot is never taken and the walk reports nothing wrong.
+    **A marker in its Brazilian sweep must be a word Portugal does not use in that sense at all**:
+    `calçada` and `grama` were in the list and came out, a *calçada* being an ordinary paved street
+    in Portugal and a *grama* a gram.
+    **THE `phr` ROW ASKS A DIFFERENT SET OF QUESTIONS, and half the file is SKIPPED there rather than
+    loosened** — there is no article to colour, no gendered pair and no reflexive lemma, and the
+    European question is about whole idioms rather than about lexis. Three things it pins that nothing
+    else can: **an ordinary compound is NOT in the deck** (`cartão de crédito`, `fim de semana`), which
+    is the whole of what the idiomatic test buys and which no count can see — a filter that stopped
+    firing leaves a deck of perfectly good cards that is no longer a deck of idioms; **the commonest
+    expressions come first**, the corpus ordering being the only one there is and its loss leaving a
+    deck that is still complete and still well formed; and **no expression is given an article**, which
+    is the stronger form of the word decks' own colour assertion. Two of its skips are ACTIVE rather
+    than passive: the three mesoclisis sweeps run over an empty list there and would report a clean
+    pass on nothing, so they are gated off — **three ticks proving nothing is worse than three missing
+    lines** — and the impersonal-verb list becomes a printed COUNT, since a verb phrase nobody can be
+    told to do (`bater as botas`) is the rule rather than the exception there.
+  Re-running it must reproduce the shipped decks byte for byte, **and ALL SIX levels plus `phr` have to
+  be re-run, IN ORDER**: the stages are shared, so a change made for C2 reaches A1, and a level is built
+  on the shipped decks BELOW it, so a stale file lower down is a higher level quietly teaching the
+  same word twice. **Build them under two different `PYTHONHASHSEED` values** rather than twice the
+  ordinary way — that is what caught the set-iteration non-determinism above, which two default runs
+  would have found only by luck. This is the check to make after any edit, since every fault above is
+  silent, and it is not a formality: it has now caught a level re-teaching three of the level below,
+  three levels' worth of builds that could not be reproduced at all, and — adding C1 — **108 cards
+  across the four decks already shipped**, corrected by two shared-stage fixes that C1 found and that
+  nothing in C1's own deck would have shown. **It reports the other answer just as usefully**: C2
+  touched no shared stage and all five earlier decks came back byte-identical, which is how a level
+  is known to have cost the ones below it nothing. **Adding the phrases deck reported it a third way**:
+  it changed three shared stages and the six word decks still came back byte-identical, because each
+  change was either gated on `PHRASES` or provably inert (see the `POS_NAME` note above) — which is the
+  cheaper half of the discipline and the half to reach for whenever two readings could ever collide.
   Not part of the site.
 - `.claude/dele/` — the generator behind the four `decks/DELE-<level>-Spanish.folio-deck.json` files
   (A1, A2, B1, B2), community decks rather than site content:
