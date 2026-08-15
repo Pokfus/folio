@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-024` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-025` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 24 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 25 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10374,6 +10374,36 @@ concluding a legendary subject cannot be dated** — a myth about an appearance 
 myth about a person may not. And **`Fenghuang` is a county in Hunan**, the namesake trap a seventh time
 after the dwarf planet, the warship, the Shandong city, the surname, the hydrangea and the dragon boat:
 searching the characters found the plate where searching the name found a tourist town.
+  **`cnh-025` IS WHERE THE PICTURE CORRECTED THE PROSE, WHICH IS THE OTHER DIRECTION FROM cnh-024's**
+(Aug 2026). That card found a fault in how a picture was RENDERED; this one found a fault in what the card
+SAID, by looking at the plate beside it. The draft had the qilin's single horn on the authority of the
+Erya, and the 1607 painting manual plate it ships with draws the beast with **a pair of horns swept back
+over its shoulders** — and Doré's own footnote, already in hand, says outright that "it had but one horn is
+contradicted by later writers". So the sentence now reads "a single horn, though later pictures give it a
+pair", which is what the sources carry and what the reader can see. **Read a card's picture against its
+prose before shipping the two together**: neither is a source for the other, but a disagreement between
+them is a question worth asking, and here the answer was already in a footnote nobody had reached for.
+**AND A ROMANISATION MAY BE UNUSABLE AS AN ALIAS FOR THE cnh-023 REASON, TWICE OVER ON ONE TERM.** The
+obvious aliases are the halves of the name — `qi` and `lin` — and both are ordinary words in Folio's own
+prose: `lin` is a Chinese surname this deck already prints (Ma Lin, Lin Ling-su) and `qi` is a term of art
+the collection will card later. Neither can be separated by case, so neither exists; the term ships with
+**`Chinese unicorn` alone**, which is unambiguous, and a bare `unicorn` was refused as well, since Greece
+and Rome will meet the European one. Measured over the whole corpus before it was decided: every occurrence
+of all four surfaces is on this card.
+**ITS SOURCES ARE FIVE VOLUMES OF THE OUT-OF-COPYRIGHT SHELF AND FOUR OF THE SEVEN CAME FROM A
+CROSS-REFERENCE**, cnh-018's rule paying for the fourth time: Mayers closes his entry "cf. L. C. I, proleg.
+p. 86" and Doré's footnotes name Legge's vol. 5 pt. 2 p. 834, his Bamboo Annals p. 109, and Doolittle vol.
+II p. 322 — each a locator into a book this deck already has. **Every one was read and every page number
+checked against the running heads**, which is how the Bamboo Annals' 109 was confirmed rather than trusted
+(`108]` sits four lines above the passage) and how Legge vol. 1's Prolegomena 85–86 was read off a clean
+run of 83, 84, 85.
+**AND THREE SOURCES GIVE THREE DIFFERENT YEARS FOR THE ONE EVENT, so the card gives none.** The capture of
+the lin is dated 479 BCE by Doré, 480 BCE by Legge's own biography, and 481 BCE by the standard conversion
+of the reign year — while all three agree on **the fourteenth year of Duke Ai of Lu**, which is what both
+the card and its date line say. cnh-015's rule (a reference work is evidence for what a Chinese text says
+and not automatically right about when) met on a date three ways contested: **where the sources disagree
+about the Western year and agree about the reign year, give the reign year**, which needs no conversion and
+is how the event is cited anyway.
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
