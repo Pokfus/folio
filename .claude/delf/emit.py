@@ -307,12 +307,28 @@ refl = sum(1 for e in entries if e['reflexive'])
 ex3 = sum(1 for c in cards if c['fields']['Examples'].count('uc-exi') == 3)
 ex0 = sum(1 for c in cards if not c['fields']['Examples'])
 
-# A word the sentence corpus cannot illustrate is SAID, not swapped out.
-EX_NOTE = ('Every word also carries three real example sentences'
+# A word the sentence corpus cannot illustrate is SAID, not swapped out.  THE
+# HOW-THEY-WERE-CHOSEN CLAUSE BELONGS TO THE SENTENCES, so it is written here
+# rather than appended to whatever this returns: appended, it landed after the
+# "nothing at all for the other N" clause and read as though those N words had
+# been chosen — which is what a B2 deck with 223 of them made obvious and a B1
+# deck with 7 had already been shipping.
+# …and a count of one is not a plural.  B2 teaches a single pronominal verb,
+# which no level below it does.
+REFL_NOTE = (
+    '' if not refl else
+    (f"The {refl} pronominal verbs carry their pronouns" if refl > 1 else
+     "The one pronominal verb carries its pronouns") +
+    " throughout — je me lève, je me suis levé(e) — including in the imperative, where French "
+    "moves the pronoun behind the verb: lève-toi, levez-vous. ")
+
+_HOW = (', chosen where possible to show three different inflected forms rather than the '
+        'same one three times, with the word picked out in colour. ')
+EX_NOTE = ('Every word also carries three real example sentences' + _HOW
            if ex3 == n else
            f'Real example sentences come with {n - ex0} of the {n} words, three apiece for '
-           f'{ex3} of them and one or two for the rest'
-           + (f'; the corpus has nothing at all for the other {ex0}' if ex0 else ''))
+           f'{ex3} of them and one or two for the rest' + _HOW.rstrip(' ')
+           + (f' The corpus has nothing at all for the other {ex0}. ' if ex0 else ' '))
 
 # WHAT THE LIST GOT WRONG IS DESCRIBED FROM WHAT WAS ACTUALLY REPAIRED, never
 # written out.  This paragraph named A1's five broken entries and its three
@@ -404,18 +420,19 @@ DESC = (
     "ils/elles. The passé composé is the point — it is how a French speaker talks about the "
     f"past, and whether a verb takes avoir or être has to be learnt with the verb ({etre} of "
     "them take être). Agreement is printed the way a textbook prints it, je suis allé(e), so the "
-    f"bracket teaches the rule rather than hiding it. The {refl} pronominal verbs carry their "
-    "pronouns throughout — je me lève, je me suis levé(e) — including in the imperative, where "
-    f"French moves the pronoun behind the verb: lève-toi, levez-vous. Adjectives carry their "
+    f"bracket teaches the rule rather than hiding it. {REFL_NOTE}Adjectives carry their "
     f"feminine and their agreement table ({adjs} of them), since French forms the feminine "
-    "unpredictably — blanc, blanche; beau, belle; vieux, vieille — and the few that change "
-    f"before a vowel carry that form too ({bvow}: un bel homme, un vieil ami). "
-    f"The pronunciation is given in the international phonetic alphabet on the back of every "
+    "unpredictably — blanc, blanche; beau, belle; vieux, vieille"
+    # A CLAUSE FOR A FEATURE THE DECK HAS NONE OF IS NOT PRINTED.  Written flat
+    # it read "the few that change before a vowel carry that form too (0: un bel
+    # homme, un vieil ami)", which promises something and then says there is
+    # none of it -- shipped on A2 and B1 as well as here.
+    + (f" — and the few that change before a vowel carry that form too ({bvow}: un bel "
+       "homme, un vieil ami). " if bvow else ". ")
+    + f"The pronunciation is given in the international phonetic alphabet on the back of every "
     f"card that has one ({ipas} of them), because French spelling does not say how a word "
     "sounds, and there is a speaker button on the word and on every example sentence. "
     + EX_NOTE +
-    ", chosen where possible to show three different inflected forms rather than the same one "
-    "three times, with the word picked out in colour. "
     f"Word list: the {LEVEL.upper()} list at minddory.com (the list of words only). Meanings, "
     "genders, "
     "plurals, feminines, conjugations and pronunciations: English Wiktionary, via the kaikki.org "

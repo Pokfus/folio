@@ -4588,25 +4588,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
   A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
   the site.
-- `.claude/delf/` — the generator behind the DELF French decks: `decks/DELF-A1-French.folio-deck.json`
-  (**379 notes / 758 cards**, 670 KB), `decks/DELF-A2-French.folio-deck.json` (**545 notes / 1,090
-  cards**, 1.22 MB) and `decks/DELF-B1-French.folio-deck.json` (**887 notes / 1,774 cards**, 2.22 MB),
-  community decks rather than site content:
-  `python3 .claude/delf/run.py [--level a1|a2|b1|b2] [--no-fetch]`. Six stages, run by `run.py`, caching
-  its corpora in `.claude/delf-cache/` (~760 MB, gitignored). PYTHON, like `.claude/dele/` and
+- `.claude/delf/` — the generator behind the DELF French decks, **all four levels**:
+  `decks/DELF-A1-French.folio-deck.json` (**379 notes / 758 cards**, 0.65 MB),
+  `decks/DELF-A2-French.folio-deck.json` (**545 / 1,090**, 1.19 MB),
+  `decks/DELF-B1-French.folio-deck.json` (**887 / 1,774**, 2.16 MB) and
+  `decks/DELF-B2-French.folio-deck.json` (**1,646 / 3,292**, 3.66 MB), community decks rather than site
+  content: `python3 .claude/delf/run.py [--level a1|a2|b1|b2] [--no-fetch]`. Six stages, run by `run.py`,
+  caching its corpora in `.claude/delf-cache/` (~760 MB, gitignored). PYTHON, like `.claude/dele/` and
   `.claude/goethe/` and unlike every other helper here, and for the same reason: a further level is a
   re-run against the next page rather than a rebuild. **ONE LEVEL PER RUN** (`delf_level` reads the level
   once, at import), and a level is taught on top of the ones below it, read out of the shipped deck FILES
-  so they cannot drift — the DELE and Goethe arrangement exactly. The same site publishes B2 (1,673
-  words), so `LISTS` and `BELOW` are written for four levels rather than three.
+  so they cannot drift — the DELE and Goethe arrangement exactly. The ladder is complete, so `LISTS` and
+  `BELOW` name every level the source publishes.
   · **THE WORD LIST IS NOT AN EXAM BOARD'S, AND THAT CHANGES WHAT THE PIPELINE MAY DO WITH IT.** The
     Goethe deck teaches the Goethe-Institut's own published Wortliste, and its standing rule is that the
     list IS the syllabus — a word the sentence corpus cannot illustrate still ships, because the board
     sets the scope and the corpus gets no vote. **France Éducation international publishes no such list
     for the DELF**: it publishes a syllabus of THEMES, and the reference that turns those into words
     (Beacco et al., *Niveau A1 pour le français*, Didier) is a commercially published book. So the list
-    here is a third party's — the A1 page of minddory.com at 384 words, the A2 page at 554 and the B1
-    page at 893 — and **a compilation with typos in it has no authority to defer to**. Its defects are repaired, every repair
+    here is a third party's — the four pages of minddory.com at 384, 554, 893 and 1,673 words — and **a
+    compilation with typos in it has no authority to defer to**. Its defects are repaired, every repair
     is declared in `REPAIRS_BY_LEVEL` with the reason, and the deck's own description tells the reader
     whose list it is.
     **THE REPAIR TABLE IS PER LEVEL, AND SO IS EVERY SENTENCE WRITTEN ABOUT IT.** A repair is a statement
@@ -4658,6 +4659,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     deliberate**, rather than matching the shape. Its other defects are the two already met — two letters
     dropped (`implquer`, `questioner`, both beside the correct spelling) and four nouns printed in both
     numbers (`étude`, `média`, `sentiment`, `solde`).
+    **THE B2 PAGE HAS THIRTY-THREE DEFECTS AND THAT IS THE SAME RATE, WHICH IS THE MEASUREMENT WORTH
+    TAKING RATHER THAN THE COUNT**: 33 of 1,673 is 2.0% against A1's 8 of 384 at 2.1%, so a list four
+    times longer is not four times worse and the sweeps simply have four times as much to find. What
+    makes it far easier to read than the count suggests is that **the page is ALPHABETICAL and every
+    defect sits immediately beside its own correct spelling** — `aboroder` after `aborder`, `emettre`
+    before `émettre`, `tenacité` before `ténacité` — which is better evidence of what was meant than any
+    inference, and which makes nineteen of the thirty-three merges rather than corrections. **Read the
+    NEIGHBOURS of a defect before deciding what it was.** Four things it settled beyond that:
+    · **A COLLISION IS STILL NOT A DUPLICATE, and at B2 the ratio flips.** Stripping the accents finds
+      eight twins and only three are duplicates: `contraste`/`contrasté`, `controverse`/`controversé`,
+      `enthousiasme`/`enthousiasmé` and `stéréotype`/`stéréotypé` are a noun beside an adjective in each
+      case, as `contrainte`/`contraint` and `étendue`/`étendu` are, and `composant`/`composante` and
+      `dominant`/`dominante` are two nouns with real independent records. **Eight of the thirteen
+      collisions are two words**; a rule applied to the shape would have merged them all.
+    · **THE DANGEROUS ONES ARE THE ENTRIES WITH A SECOND, RARER RECORD**, because a bare form-of record
+      loses to the next and the card then teaches the rarity. `volatile` would card as *a fowl* rather
+      than as the feminine of `volatil`, `revenue` as *the action of game leaving the forest to graze*
+      rather than as the noun beside it, and `explicit` — which IS French, for the closing words of a
+      medieval manuscript — as that, beside `explicite` on the same page. **No sweep here can see one**:
+      the word has a record, so the no-record test passes it, and the record is not a pointer, so the
+      only-pointer test passes it too. They were found by reading the collisions.
+    · **THE PARTICIPLE-AS-ADJECTIVE CLASS SCALES WITH THE LEVEL AND GAINS A SECOND SHAPE.** 27 of B2's
+      entries have nothing but a pointer against B1's 11, and after the merges fourteen need `FORCE_POS`
+      + `AUTHORED` — including two PRESENT participles (`contrastant`, `convergent`), which B1 had none
+      of and which need it for the same reason, `convergent` also being the third-person plural of
+      `converger`.
+    · **AND `déchets` IS WHERE A1 AND B1 STOP LOOKING LIKE THEY CONTRADICT EACH OTHER.** A1 keeps
+      `chaussettes` and B1 repairs `aspects`, and the test that separates them is a fact about the WORD:
+      is the plural how the word is normally met? French says *les déchets* for waste, so it stays — and
+      staying means writing it into **`PLURAL_ONLY` in `build_deck.py`**, which is hand-written for
+      exactly this reason. A word in that table cards as `les chaussettes` and one outside it as
+      `l'aspects`, which is the whole of B1's justification and is worth knowing before trusting it: the
+      Wiktionary records of the two are identical.
   · **WIKTIONARY'S OWN RECORD ORDER IS THE SIGNAL, and a preference list is not** — the Goethe build
     reaches this about SENSES (a commoner sense is not a shorter one) and it holds one level up, about
     which PART OF SPEECH an entry leads with. Measured: a fixed order (noun, then verb, then adjective…)
@@ -4836,6 +4870,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the 8 that are pronunciations. **A REGION TAG ON A PRONUNCIATION IS NOT ONE ON A SENSE**, either:
     rejecting `['Belgium','France']` the way a regional sense is rejected left `le chien` with no
     transcription at all, when that tag marks the ordinary European one against Quebec's.
+  · **THE DECK'S OWN DESCRIPTION IS GENERATED PROSE AND HAS TO BE READ AT EVERY LEVEL'S NUMBERS, because
+    a count of one and a count of zero are where generated prose goes wrong** (Aug 2026, adding B2 — and
+    two of the three faults were already SHIPPING on A2 and B1). A clause built by concatenation reads
+    perfectly at the numbers it was written against and stops being true at somebody else's.
+    **A CLAUSE FOR A FEATURE THE DECK HAS NONE OF IS NOT PRINTED**: "the few that change before a vowel
+    carry that form too (0: un bel homme, un vieil ami)" promises something and then says there is none
+    of it, and it went out on A2 and B1 as well as B2, A1 being the only level with any.
+    **A COUNT OF ONE IS NOT A PLURAL**: B2 teaches a single pronominal verb and no level below it does,
+    so "The 1 pronominal verbs carry their pronouns" had never been reachable before.
+    **AND A TRAILING CLAUSE ATTACHES TO WHATEVER ENDS UP LAST**: "chosen where possible to show three
+    different inflected forms" was appended after the sentence, so on a level with words the corpus
+    cannot illustrate it landed after "the corpus has nothing at all for the other 223" and read as
+    though those words had been chosen — on B1's 7 as well. It belongs to the sentences, so it is now
+    written inside the branch that talks about them rather than glued on after.
   · **`check-delf.js` is the browser half** and exists because `check-decks.js` skips the card-level
     checks for a deck that is not Mandarin — so everything French this deck is FOR is unchecked by
     anything until here. It studies the deck and asserts what the PAGE says (the coloured article, the
@@ -4852,10 +4900,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   make after any edit, since every fault above is silent — and the stages are SHARED, so a change made for
   one level has to be run across the OTHERS and its diff READ rather than glanced at. That is what found
   the `la amie` elision and the five reflexive senses on A1's bare verbs (seven A1 cards changed while A2
-  was being built), and it is what the near-duplicate rule's 111 changed cards were read out of while B1
-  was. **Every one of those was an improvement except the one named above**, which is the point of reading
-  them: a shared-stage change reaches decks nobody is looking at. Verified across `PYTHONHASHSEED`. Not
-  part of the site.
+  was being built), it is what the near-duplicate rule's 111 changed cards were read out of while B1 was,
+  and it is what turned B2's three description faults into fixes for A2 and B1 as well. **Every one of
+  those was an improvement except the one named above**, which is the point of reading them: a
+  shared-stage change reaches decks nobody is looking at. **Diff the CARDS and the DESCRIPTION
+  separately** — B2's fixes changed two levels' prose and not one card, and a whole-file md5 cannot tell
+  that from a level whose cards have quietly moved. Verified across `PYTHONHASHSEED`. Not part of the
+  site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's

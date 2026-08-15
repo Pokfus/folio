@@ -297,6 +297,21 @@ FORCE_POS = {
     'reconnu': 'adj', 'lié': 'adj', 'énervé': 'adj', 'guéri': 'adj',
     'examiné': 'adj', 'soulagé': 'adj', 'amélioré': 'adj', 'estimé': 'adj',
     'équilibré': 'adj', 'dominé': 'adj', 'découragé': 'adj',
+
+    # ------------------------------------------------------------------ B2
+    # THE SAME CLASS AT THE SAME RATE, which is the useful measurement rather
+    # than the count: 27 of B2's 1,671 entries have nothing but a pointer, and
+    # after the merges and the repairs in `REPAIRS_BY_LEVEL` fourteen are left,
+    # every one a participle standing as an adjective.  Two are PRESENT
+    # participles (`contrastant`, `convergent`), which B1 had none of and which
+    # need the same treatment for the same reason — `convergent` is also the
+    # third-person plural of `converger`, and a vocabulary list means the
+    # adjective.
+    'accru': 'adj', 'approfondi': 'adj', 'averti': 'adj', 'berné': 'adj',
+    'contrastant': 'adj', 'contrasté': 'adj', 'convergent': 'adj',
+    'élaboré': 'adj', 'embrouillé': 'adj', 'fragmenté': 'adj',
+    'impliqué': 'adj', 'intégré': 'adj', 'stéréotypé': 'adj',
+    'vérifié': 'adj',
 }
 
 # WHERE WIKTIONARY HAS NO USABLE MEANING, IT IS WRITTEN OUT.  Each of these was
@@ -373,6 +388,29 @@ AUTHORED = {
     'équilibré': ['balanced, well-balanced'],
     'dominé':    ['dominated'],
     'découragé': ['discouraged, disheartened'],
+    # AND B2's FOURTEEN, the same operation.  `impliqué` is the one worth
+    # reading twice: the verb means to imply AND to involve, and the participle
+    # standing as an adjective carries only the second.
+    'accru':       ['increased, greater'],
+    'approfondi':  ['thorough, in-depth'],
+    'averti':      ['informed, well-informed', 'forewarned'],
+    'berné':       ['fooled, duped'],
+    'contrastant': ['contrasting'],
+    'contrasté':   ['contrasting', 'high-contrast'],
+    'convergent':  ['convergent, converging'],
+    'élaboré':     ['elaborate, sophisticated'],
+    'embrouillé':  ['muddled, confused', 'tangled'],
+    'fragmenté':   ['fragmented'],
+    'impliqué':    ['involved', 'implicated'],
+    'intégré':     ['integrated', 'built-in'],
+    'stéréotypé':  ['stereotyped, formulaic'],
+    'vérifié':     ['verified, checked'],
+    # THREE MORE REAL PHRASES THE DICTIONARY HAS NO ENTRY FOR, `faire du
+    # sport`'s case at B2.  Each is ordinary French whose parts do not add up
+    # to it, which is what makes it worth a card.
+    'mettre en perspective': ['to put into perspective'],
+    'mettre en relief':      ['to highlight, to bring out'],
+    'tendre vers':           ['to tend towards, to approach'],
 }
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
@@ -955,8 +993,16 @@ def ipa_of(recs):
 GENDER_CLASS = {'m': 'uc-m', 'f': 'uc-f'}
 GENDER_NAME = {'m': 'masculine', 'f': 'feminine'}
 
+# A PLURAL THAT IS HOW THE WORD IS MET, which is what tells A1's `chaussettes`
+# from B1's `aspects`: a word in here cards as `les chaussettes` and one outside
+# it as `l'aspects`.  Hand-written because the question is about the WORD rather
+# than about its record -- both have a single Wiktionary sense reading `plural
+# of X` and nothing else -- and it is read off the word, never derived.
+# `déchets` is B2's one: French says `les déchets` for waste, and the list
+# prints no singular, so it stays and is carded in the plural.
 PLURAL_ONLY = {'les', 'des', 'ces', 'mes', 'ils', 'elles', 'chaussettes',
-               'sandales', 'devoirs', 'gens', 'vêtements', 'parents'}
+               'sandales', 'devoirs', 'gens', 'vêtements', 'parents',
+               'déchets'}
 
 cards, stats, forced_missing = [], Counter(), []
 for i, e in enumerate(entries, 1):

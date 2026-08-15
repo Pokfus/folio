@@ -157,15 +157,12 @@ REPAIRS_BY_LEVEL = {
     # plural is how the word is met -- `faire ses devoirs`, a pair of socks --
     # where `un aspect` is ordinary French and an adjective's citation form is
     # the masculine singular by universal convention.  A list heading an
-    # adjective at its feminine plural has made a mistake, not a choice.
-    # AN INFLECTED FORM PRINTED AS A HEADWORD, which is a different fault from
-    # the four above it and is repaired for a reason A1's `chaussettes` shows
-    # the other side of.  There the list prints the plural ALONE, so the plural
-    # is that syllabus's entry and normalising it would be editing a syllabus;
-    # here the list prints neither `aspect` nor `profond`, so this is not a
-    # choice about scope but a slip that leaves the level without the word.
-    # Both would otherwise head a card `l'aspects` / `un aspects`, ungrammatical
-    # French on a card whose whole subject is which article a word takes.
+    # adjective at its feminine plural has made a mistake, not a choice.  The
+    # difference is a fact about the WORD and is settled by reading it: is the
+    # plural how the word is normally met?  `PLURAL_ONLY` in build_deck.py is
+    # where a yes is written down, and it is hand-written for exactly that
+    # reason -- a plural in that table cards as `les chaussettes` and one
+    # outside it as `l'aspects`.
     'aspects':    ('aspect',  'the plural of a countable noun whose singular is '
                               'the citation form; the list has no aspect', 'form'),
     'profondes':  ('profond', 'the feminine plural of an adjective; the citation '
@@ -178,6 +175,95 @@ REPAIRS_BY_LEVEL = {
     # kept, and `examples.py` routes a reflexive sentence to the pronominal card.
     # Every one of the four plurals above, by contrast, has a single Wiktionary
     # record reading `plural of X` and nothing else.
+},
+'b2': {
+    # THE LONGEST LIST HAS THE MOST FAULTS AND NOT A HIGHER RATE OF THEM: 33 of
+    # 1,673, which is 2.0% against A1's 8 of 384 at 2.1%.  What is new is that
+    # the page is ALPHABETICAL and every defect sits immediately beside its own
+    # correct spelling -- `aboroder` after `aborder`, `emettre` before
+    # `émettre`, `tenacité` before `ténacité` -- which is far better evidence of
+    # what was meant than any guess, and which makes most of these merges.
+    #
+    # · THE SAME SPELLING FAULTS, all with the correct form on the list too.
+    'aboroder':      ('aborder',      'a letter added, and the list carries aborder too'),
+    'circumstance':  ('circonstance', 'the English spelling; the list carries circonstance too'),
+    'emettre':       ('émettre',      'the accent dropped, and the list carries émettre too'),
+    'neutral':       ('neutre',       'the English spelling; the list carries neutre too'),
+    'profonément':   ('profondément', 'a letter dropped, and the list carries profondément too'),
+    'rationnaliser': ('rationaliser', 'a doubled n, and the list carries rationaliser too'),
+    'tenacité':      ('ténacité',     'the accent dropped, and the list carries ténacité too'),
+    'uniformer':     ('uniformiser',  'not a French verb; uniformiser is, and is on the list too'),
+    'vulnerable':    ('vulnérable',   'the accent dropped, and the list carries vulnérable too'),
+    # · AND FOUR WHOSE CORRECT FORM IS NOT ON THE LIST, so each is a genuine
+    #   correction rather than a merge and the level would otherwise lack the
+    #   word.  `philanthrope` is on the list and the noun for the thing is not.
+    'budgeter':      ('budgéter',     'the accent dropped; the list has no budgéter'),
+    'philanthrophie':('philanthropie','an h too many; the list has philanthrope and not the noun'),
+    'relativer':     ('relativiser',  'not a French verb; relativiser is, and is not on the list'),
+    'vociferer':     ('vociférer',    'the accent dropped; the list has no vociférer'),
+    # · TWO SPELLING VARIANTS Wiktionary files as alternatives rather than as
+    #   words, so each would card glossed by a pointer to the form it is a
+    #   variant of.  `oxymore` is the French word and `oxymoron` the Greek and
+    #   English one; `ressurgir` is the spelling with the ordinary prefix.
+    'oxymoron':      ('oxymore',      'the English and Greek form; the French word is oxymore'),
+    'resurgir':      ('ressurgir',    'the variant spelling; Wiktionary files it under ressurgir'),
+    # · THE REAL BUT WRONG WORD, which is A1's `renter` shape and the reason
+    #   that row exists.  `explicit` IS a French noun -- the closing words of a
+    #   medieval manuscript -- so no sweep here can see it, and a B2 list
+    #   printing it beside `explicite` plainly means the adjective.
+    'explicit':      ('explicite',    'a real but codicological noun; beside explicite on the '
+                                      'list, plainly the adjective'),
+    # · THE SAME-WORD-TWICE FAULT, in its three shapes.  Read before merging:
+    #   `contraste`/`contrasté`, `controverse`/`controversé`, `stéréotype`/
+    #   `stéréotypé`, `enthousiasme`/`enthousiasmé`, `contrainte`/`contraint`,
+    #   `étendue`/`étendu`, `composant`/`composante` and `dominant`/`dominante`
+    #   all collide the same way and are NOT merged -- each is a noun beside an
+    #   adjective, or two nouns, with real independent records.
+    'capacités':     ('capacité',     'the list carries the singular too'),
+    'notions':       ('notion',       'the list carries the singular too'),
+    'principes':     ('principe',     'the list carries the singular too'),
+    'globale':       ('global',       'the masculine is on the list and prints it as its feminine'),
+    'potentielle':   ('potentiel',    'the masculine is on the list and prints it as its feminine'),
+    'progressive':   ('progressif',   'the masculine is on the list and prints it as its feminine'),
+    'marginaux':     ('marginal',     'the masculine plural; the singular is on the list too'),
+    # · AND TWO WHOSE OTHER READING IS A RARE NOUN, which is what makes them
+    #   dangerous rather than merely duplicated: left alone the form-of record
+    #   loses to the noun and the card teaches it.  `volatile` would come out
+    #   as a fowl and `revenue` as game leaving the forest to graze.
+    'volatile':      ('volatil',      'the feminine, printed beside its masculine; the only '
+                                      'other reading is a rare noun for a bird'),
+    'revenue':       ('revenu',       'a verb form, printed beside the noun; the only other '
+                                      'reading is a rare hunting term'),
+    # · AN INFLECTED FORM PRINTED AS A HEADWORD, B1's class again in four
+    #   shapes.  `implique` resolves to a word B1 already teaches, so repairing
+    #   it makes the entry vanish rather than card a conjugated form; the other
+    #   three would leave the level without the word altogether.  `déchets` is
+    #   NOT here: waste is normally met in the plural, so it stays and is
+    #   written into `PLURAL_ONLY` instead, which is A1's `chaussettes` answer.
+    'implique':      ('impliquer',    'the third-person singular; impliquer is taught at B1',
+                                      'form'),
+    'proportionne':  ('proportionner','the third-person singular; neither proportionner nor '
+                                      'proportionné is on the list', 'form'),
+    'essentielle':   ('essentiel',    'the feminine of an adjective; the list has no essentiel',
+                                      'form'),
+    'tortueuse':     ('tortueux',     'the feminine of an adjective; the list has no tortueux',
+                                      'form'),
+    'avatars':       ('avatar',       'a plural whose singular is how the word is met; the '
+                                      'list has no avatar', 'form'),
+    # · AND FOUR DROPPED RATHER THAN GUESSED AT, which is A1's `loud` rule.
+    #   `malentente` is the sharpest of them: it is not French, and BOTH
+    #   candidates are real words meaning different things -- `malentendu` is a
+    #   misunderstanding and `mésentente` a falling-out -- so choosing either
+    #   composes a syllabus entry out of a typo.  `relevance` and `relevant`
+    #   are printed one after the other and are English; the French word for
+    #   the first is `pertinence`, which this list already teaches, and the
+    #   second is a real French participle nobody teaches at B2.
+    'malentente':    (None, 'not French; malentendu and mésentente are both real and mean '
+                            'different things'),
+    'relevance':     (None, 'an English word; the list already teaches pertinence'),
+    'relevant':      (None, 'the English word, printed after relevance; the French participle '
+                            'means something else and has no gloss of its own'),
+    'worldview':     (None, 'an English word, with no French spelling anywhere near it'),
 },
 }
 REPAIRS = REPAIRS_BY_LEVEL.get(LEVEL, {})
