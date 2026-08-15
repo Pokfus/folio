@@ -52,6 +52,9 @@ BYKEY = {e['key']: e for e in entries}
 SKIP_TAGS = {'table-tags', 'inflection-template', 'error-unrecognized-form',
              'auxiliary', 'class', 'multiword-construction'}
 
+# forms that are DERIVED WORDS rather than inflections -- see `forms_of`
+DERIVED_TAGS = {'diminutive', 'augmentative', 'pejorative', 'derogatory', 'endearing'}
+
 
 def forms_of(lemma, pos=''):
     """Every inflected form Wiktionary lists for a lemma, destressed, lowercased.
@@ -91,6 +94,18 @@ def forms_of(lemma, pos=''):
             # `incidere` by one about an `incidente`.  The tag says so outright,
             # so no guessing is involved.
             if {'participle', 'present'} <= tags:
+                continue
+            # **A DIMINUTIVE IS NOT A FORM OF A WORD, IT IS ANOTHER WORD**, and
+            # Wiktionary lists both in the same `forms` array.  `diavolo` carries
+            # `diavolétto`, `diavolìno`, `diavolóne`, `diavolàccio` and
+            # `diavolùccio` beside its plural, so the first card of the C1 deck
+            # was illustrated by "Lui è un DIAVOLETTO" -- a sentence about a
+            # little devil, marking a word the card does not teach and which has
+            # a dictionary entry of its own.  38 sentences across the five bands.
+            # The tag says so outright, as with the participle above, so nothing
+            # is being guessed at; and these forms are not shown on the card
+            # either, so only the example matcher is affected.
+            if tags & DERIVED_TAGS:
                 continue
             if len(s) < 2 or s.count(' ') > 1:
                 continue

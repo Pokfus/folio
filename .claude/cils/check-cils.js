@@ -48,6 +48,13 @@ const ok = (c, m, extra) => {
 const MONO_OK = new Set(["è", "dà", "dì", "là", "lì", "né", "sé", "sì", "tè",
                          "ciò", "già", "giù", "più", "può", "cioè", "ahimè", "piè"]);
 
+// **ITALIAN WRITES AN ACCENT ONLY ON A FINAL VOWEL, EXCEPT ON THE WORDS IT DID
+// NOT MAKE.**  The mid-word rule below exists to catch Wiktionary's PRONUNCIATION
+// stress marks (`pàrlo`, `và`), which are not orthography and must never reach a
+// card; a French borrowing Italian keeps whole is the one thing that looks the
+// same and is correct.  Swept over all five bands, there are exactly two.
+const LOAN_OK = new Set(["élite", "tournée"]);
+
 (async () => {
   await new Promise((r) => server.listen(0, r));
   const base = "http://127.0.0.1:" + server.address().port + "/index.html";
@@ -94,7 +101,12 @@ const MONO_OK = new Set(["è", "dà", "dì", "là", "lì", "né", "sé", "sì", 
      [...wrong].slice(0, 10).join(" "));
   const midStress = new Set();
   for (const w of words) {
-    const body = w.slice(0, -1);
+    // an elided article and its word arrive as one token (`l'élite`), so the
+    // article is taken off before the word is judged -- which narrows nothing,
+    // since `l'àncora` still carries its stress mark after the strip
+    const bare = w.replace(/^[a-z]{1,4}'(?=.)/i, "");
+    if (LOAN_OK.has(bare.toLowerCase())) continue;
+    const body = bare.slice(0, -1);
     if (/[àáèéìíòóùú]/.test(body)) midStress.add(w);
   }
   ok(midStress.size === 0, "no card carries a stress mark inside a word",

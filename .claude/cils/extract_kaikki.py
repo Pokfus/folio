@@ -35,6 +35,8 @@ fetched, and the pass is skipped altogether when there are none.
 """
 import json, sys
 
+from wikt import pointer_targets
+
 want = set(json.load(open(sys.argv[1])))
 out_fn = sys.argv[2]
 dump = sys.argv[3] if len(sys.argv) > 3 else 'kaikki-it.jsonl'
@@ -61,15 +63,14 @@ if missing:
     show = ', '.join(missing[:25]) + (' …' if len(missing) > 25 else '')
     print(f'  not in the dump: {len(missing)} -- {show}')
 
+# READ THROUGH `pointer_targets` RATHER THAN INLINE, which is the whole reason
+# `wikt.py` exists: a target this pass does not fetch is one `build_deck` cannot
+# follow however well it reads the pointer, and the two lists coming apart is
+# invisible -- the word simply has no meaning to card.  `fintanto` is that fault:
+# its pointer names two words in one field, so neither was fetched.
 targets = set()
 for recs in kept.values():
-    for r in recs:
-        for s_ in r.get('senses', []):
-            for k in ('form_of', 'alt_of'):
-                for f_ in (s_.get(k) or []):
-                    w_ = f_.get('word') if isinstance(f_, dict) else f_
-                    if w_:
-                        targets.add(w_.strip())
+    targets.update(pointer_targets(recs))
 targets -= set(kept)
 if targets:
     n2 = 0

@@ -36,6 +36,20 @@ from cils_level import LEVEL, EXPECT, LIST_URL, f as lvlf
 
 CACHE_HTML = f'list-{LEVEL}.html'
 
+# the list's own misspellings -> the spelling the dictionary carries, as
+# `(lemma, display)`.  See the comment where it is applied.
+RESPELL = {
+    'colonello': ('colonnello', 'colonnello'),   # C1; `colonello` is no word
+    'milionare': ('milionario', 'milionario'),   # C1
+}
+
+# AN ACCENT THAT IS NOT ON THE LAST VOWEL, which the rule below cannot reach --
+# it offers `città` for `citta` and has nothing to say about `élite` for
+# `elite`.  Offered as one more candidate lemma and nothing else: the two fold
+# equal, so `select`'s accent branch adopts the dictionary's spelling for the
+# display exactly as it does for `assurdità`, and this table never states one.
+ACCENTED = {'elite': 'élite'}                    # C1
+
 # `<li>parola <span>A1</span></li>` -- the badge is what marks a vocabulary row
 ROW = re.compile(r'<li>\s*([^<>]+?)\s*<span>\s*([ABC][12])\s*</span>\s*</li>', re.I)
 TITLE_N = re.compile(r'<title>[^<]*?([\d,]+)\s+Words', re.I)
@@ -87,16 +101,76 @@ def main():
                          f'written against {EXPECT[LEVEL]} -- the list has been revised, '
                          f'so re-read it before raising the number in cils_level.EXPECT')
 
+    # the accented spellings a bare final vowel may stand for; `à` and `ù` are
+    # the ones that actually occur in these lists (`città`, `più`), but the
+    # others cost nothing and cannot fire unless the dictionary has the word
+    ACCENTS = {'a': 'à', 'e': 'èé', 'i': 'ì', 'o': 'òó', 'u': 'ù'}
+
     entries = []
     for w in words:
+        # **THE LIST'S OWN MISSPELLINGS, hand-read, one row each.**  The accent
+        # rule below is a RULE because a lost final accent has one repair; these
+        # have none that is safe to generalise -- a "try doubling a consonant"
+        # rule would fire on hundreds of words and could silently swap in a
+        # different lemma.  Each of these was looked up in the dump and in the
+        # subtitle and Tatoeba corpora before it was written, and each is a word
+        # the list plainly meant: `colonnello` (13,506 subtitle hits, De Mauro
+        # basic) for `colonello`, which is not an Italian word at all.
+        #
+        # The DISPLAY moves with the lemma, unlike the accent case: `select`'s
+        # recasing can only adopt a spelling that FOLDS equal to the printed one,
+        # so `colonello` would otherwise be headed as printed and glossed
+        # "colonel" -- teaching the misspelling with a correct definition, which
+        # is worse than dropping it.
+        w, disp = RESPELL.get(w, (w, w))
         lemmas = [w]
+        if w in ACCENTED:
+            lemmas.append(ACCENTED[w])
         # a proper noun arrives lower-cased; offer the capital as an alternative
         # rather than imposing it, and let the dictionary decide
         if w[:1].islower() and w.capitalize() not in lemmas:
             lemmas.append(w.capitalize())
+        # **THE LIST HAS LOST SOME FINAL ACCENTS, AND ITALIAN WRITES THEM.**
+        # C1 prints `assurdita`, `mentalita`, `dignita`, `oscurita`, `perlopiu`,
+        # `elite` and `cliche` -- none of which is an Italian word: they are
+        # `assurdità`, `mentalità` and the rest, and the accent is not optional
+        # in the way an English one might be.  Unfound, they were dropped, so a
+        # deck claiming 2,842 words taught neither the word nor its spelling.
+        # OFFERED rather than imposed, exactly like the capital above: the
+        # accented form is one more thing to look up, the dictionary decides,
+        # and a word whose bare form has an entry is never touched.
+        if w[-1:] in 'aeiou':
+            lemmas += [w[:-1] + a for a in ACCENTS[w[-1]]]
+        # …AND TWO TRUNCATED INFINITIVES.  `convincer` and `incastrar` are the
+        # elided forms poetry and song use for `convincere` and `incastrare`.
+        if w[-2:] in ('ar', 'er', 'ir'):
+            lemmas.append(w + 'e')
+        # **A PRONOMINAL VERB'S CITATION FORM CARRIES ITS CLITIC, AND THE LIST
+        # PRINTS IT WITHOUT.**  C1 lists `imbattere` and `attendare`; Italian has
+        # only `imbattersi` ("to run into, come across") and `attendarsi` ("to
+        # pitch camp"), which is where Wiktionary files both, so the bare form
+        # matched nothing and two verbs were dropped.  OFFERED, like everything
+        # else here -- a verb whose bare infinitive has a real entry never
+        # reaches this candidate, since `pick_lemma` prefers the form that says
+        # something.  The DISPLAY stays as printed: that is already how the
+        # feminine adjectives this list prints are treated, and `select` reads
+        # `-rsi` off the resolved lemma anyway, so the card is built as the
+        # reflexive it is.
+        if w[-3:] in ('are', 'ere', 'ire'):
+            lemmas.append(w[:-1] + 'si')
+        elif w.endswith('rre'):                     # porre -> porsi
+            lemmas.append(w[:-2] + 'si')
+        # **AN ABSOLUTE SUPERLATIVE IS FILED UNDER ITS MASCULINE.**  The list
+        # prints `importantissima` and `stranissima`; Wiktionary carries neither
+        # and carries both masculines, glossed "superlative degree of importante
+        # (very important)".  Narrowed to `-issim-` rather than every `-a`: the
+        # suffix is unambiguous, where a general feminine-to-masculine rule would
+        # gloss a feminine noun with no entry as some unrelated adjective.
+        if w[-6:] in ('issima', 'issime', 'issimi'):
+            lemmas.append(w[:-1] + 'o')
         entries.append({
             'word': w,
-            'display': w,
+            'display': disp,
             'lemmas': lemmas,
             'multiword': ' ' in w,
         })

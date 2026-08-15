@@ -42,7 +42,7 @@ from collections import Counter
 
 from cils_level import LEVEL, f as lvlf, words_below
 from italian import fold
-from wikt import real_senses, letter_name
+from wikt import real_senses, letter_name, pointer_targets
 
 wl = json.load(open(lvlf('wordlist.json')))
 W = json.load(open(lvlf('wikt.json')))
@@ -62,9 +62,9 @@ else:
 
 
 # ------------------------------------------------------------------ lemma
-def says_something(recs):
+def says_something(recs, others=()):
     """Whether any of these records glosses the word as something OTHER than
-    itself.
+    itself.  `others` is the folded set of this entry's OTHER candidate lemmas.
 
     **A GLOSS EQUAL TO ITS OWN HEADWORD IS USUALLY CORRECT AND OCCASIONALLY
     EMPTY**, which is why this is a tie-break and not a filter.  Measured over
@@ -81,6 +81,30 @@ def says_something(recs):
             g = (s.get('glosses') or [''])[0]
             if fold(g) != fold(r.get('word', '')):
                 return True
+    # **A POINTER WHOSE TARGET EXISTS SAYS SOMETHING TOO**, because `build_deck`
+    # can now follow it -- see `pointer_targets`.  Without this the search falls
+    # past a perfectly good lower-case entry to a differently-cased proper noun:
+    # `altissimo` ("superlative of alto"), `carissimo`, `santissimo`, `obbiettivo`
+    # and `ghetto` all came out headed as names, and `mila` -- the `mila` of
+    # `duemila` -- as a female given name.
+    #
+    # THE ONE WORD THIS COSTS IS `usa`, whose lower-case entry really is a form
+    # of `usare` and whose list entry really is the country; it is in AUTHORED,
+    # which is what that table is for.  A rule right six times with one written
+    # exception beats a rule wrong six times.
+    #
+    # **A POINTER AT ONE OF THIS ENTRY'S OWN CANDIDATES SAYS NOTHING**, because
+    # it is the entry being redirected to itself.  `menu` is glossed "menu" --
+    # circular, so the test above declines it -- while the accented `menù`, which
+    # the accent rule offers as a candidate, is filed as "alternative spelling of
+    # menu"; so this promoted the pointer over the word it points at and the card
+    # was re-spelt for no reason.  Both spellings are Italian and the list prints
+    # `menu`.
+    for t in pointer_targets(recs):
+        if fold(t) in others:
+            continue
+        if any(real_senses(r) for r in (W.get(t) or [])):
+            return True
     return False
 
 
@@ -94,7 +118,11 @@ def pick_lemma(e):
     form that says something beats one that only repeats itself.
     """
     for l in e['lemmas']:
-        if says_something(W.get(l) or []):
+        # by exact string, NOT by fold: the candidates that matter here are the
+        # case and accent variants, which all fold to the same thing, so folding
+        # both sides empties the set and the guard never fires
+        others = {fold(x) for x in e['lemmas'] if x != l}
+        if says_something(W.get(l) or [], others):
             return l
     for l in e['lemmas']:
         if any(real_senses(r) for r in (W.get(l) or [])):
@@ -191,7 +219,69 @@ for e in entries:
     #
     # PROPOSED here and APPLIED after the corpus count below, because it is not
     # always right -- see `recase` there.
-    e['_cap'] = e['lemma'] if e['lemma'].lower() == e['display'].lower() else ''
+    #
+    # **AN ACCENT IS TAKEN OUTRIGHT WHERE A CAPITAL IS ARGUED ABOUT.**  `fold`
+    # ignores case AND diacritics, so this catches `assurdita` -> `assurdità`
+    # as well as `italia` -> `Italia`; but the corpus test below is about
+    # CAPITALISATION and has nothing to say about an accent, so a difference
+    # that is only an accent is adopted here and never questioned.  Italian
+    # writes the accent, there is no second reading to weigh, and the card must
+    # show the spelling a learner is meant to reproduce.
+    if fold(e['lemma']) == fold(e['display']):
+        if e['lemma'].lower() != e['display'].lower():
+            e['display'] = e['lemma']       # an accent: settled
+            e['_cap'] = ''
+        elif e['lemma'] != e['display']:
+            e['_cap'] = e['lemma']          # a capital: weighed below
+        else:
+            e['_cap'] = ''                  # identical: nothing to weigh
+    else:
+        e['_cap'] = ''
+    # **AND THE CAPITAL MAY BE ONE `pick_lemma` DECLINED**, which is the other
+    # half of the same question and needs the opposite burden of proof.
+    #
+    # The rule above promoted a pointer over a differently-cased proper noun, so
+    # that `carissimo` would not be headed as a surname -- and it costs the
+    # proper nouns whose OWN lower-case spelling is also an inflected form of
+    # something: `africa` is the feminine of `africo`, `capri` the plural of
+    # `capro`, `toscana` of `toscano`, `bretagna` and `india` and `marche` the
+    # same, so six continents, islands and regions came out as goats and brands.
+    # The two shapes are IDENTICAL in the dictionary -- a pointer-only lower-case
+    # record against a capitalised one with real senses -- and nothing but the
+    # corpus separates them, which is what it is asked below.
+    #
+    # PROPOSED here and, unlike `_cap`, adopted only on POSITIVE evidence: the
+    # dictionary has already argued for the lower-case reading, so silence must
+    # leave it standing.  That is what keeps `carissimo` (0 capitalised, 3 lower)
+    # and `usa` (21 against 274) where they are.
+    e['_capalt'] = ''
+    if not e['_cap'] and not any(real_senses(r) for r in (W.get(e['lemma']) or [])):
+        for l in e['lemmas']:
+            if l[:1].isupper() and l.lower() == e['display'].lower() \
+                    and any(real_senses(r) for r in (W.get(l) or [])):
+                e['_capalt'] = l
+                break
+    # **A PRONOMINAL VERB IS HEADED BY ITS PRONOMINAL FORM**, which is what the
+    # `+si` candidate in `parse_cils` resolves to and what every dictionary
+    # prints.  The list gives `imbattere` and `attendare`; those forms do not
+    # occur -- the verb is `imbattersi`, and the card is being built as a
+    # reflexive two lines below whatever the head says, so a head reading
+    # `imbattere` would sit above `mi imbatto, ti imbatti`.  It fires only where
+    # the bare form resolved to nothing of its own, since `pick_lemma` prefers a
+    # candidate that says something.
+    # The test reconstructs the two candidates `parse_cils` offers and nothing
+    # else, so it cannot fire on a word that merely ends in `-si`.
+    #
+    # **AND A TRUNCATED INFINITIVE IS HEADED BY THE WHOLE ONE**, for the same
+    # reason and with the same test.  The C1 list prints eleven of them --
+    # `risolver`, `convincer`, `preveder` -- which are the elisions verse and
+    # song use, not forms anybody writes; the card headed `risolver` above a
+    # paradigm whose own first row read `infinito  risolvere`, which is the head
+    # contradicting the panel under it.
+    if e['lemma'] in (e['display'][:-1] + 'si', e['display'][:-2] + 'si',
+                      e['display'] + 'e'):
+        e['display'] = e['lemma']
+        e['key'] = e['lemma']
     # a reflexive infinitive is its own lemma in Italian (`chiamarsi`), and the
     # base verb is what its compound tenses are built from
     e['reflexive'] = bool(re.search(r'[aei]rsi$', e['lemma']))
@@ -213,7 +303,8 @@ for line in open('it_50k.txt', encoding='utf-8'):
 phrases = [e for e in entries if e['multiword']]
 counts, scale = Counter(), 1.0
 cap_seen, low_seen = Counter(), Counter()
-cap_cand = {e['key']: e['_cap'] for e in entries if e['_cap']}
+cap_cand = {e['key']: (e['_cap'] or e['_capalt'])
+            for e in entries if e['_cap'] or e['_capalt']}
 if phrases or cap_cand:
     plook = {e['word'].lower(): e['key'] for e in phrases}
     singles = {e['word'].lower(): e['key'] for e in entries
@@ -259,21 +350,55 @@ if phrases or cap_cand:
 # The corpus alone gets `Usa` wrong in the other direction: it is written
 # lower-case 274 times against 21, because `usa` is also the third person of
 # `usare`.  So the lower-case hits are only evidence about THIS word when the
-# lower-case spelling has no entry of its own -- which is precisely the `tour`
+# lower-case spelling is NOT SOME OTHER WORD -- which is precisely the `tour`
 # case and not the `Usa` one.
+#
+# **THAT TEST WAS FIRST WRITTEN AS "the lower-case spelling has no entry at
+# all", WHICH IS ONE NOTCH TOO COARSE and let `Ghetto` through**: `ghetto` has an
+# entry of its own, glossed "ghetto" -- a true cognate, the case
+# `says_something` already documents -- so the corpus's seven lower-case hits
+# were thrown away as evidence about a different word, and the C1 card came out
+# headed `Ghetto` and glossed "a small area of Venice where the Jews of the city
+# were confined".  What makes the `usa` hits inadmissible is not that the
+# spelling has an entry but that the entry is a POINTER AT SOMETHING ELSE, so
+# that is what is tested.
 #
 # "No lower-case entry" is NOT usable on its own either, and it was tried:
 # `Italia`, `Firenze` and `Londra` have none, because for a proper noun that is
 # the norm rather than the exception.  Thirty-seven of the forty-two would have
 # been un-capitalised by it.
-recased, refused = [], []
+def other_word(k):
+    """Whether the lower-case spelling is an inflected form of a DIFFERENT lemma,
+    which is what makes its corpus hits say nothing about this entry."""
+    recs = W.get(k) or []
+    return bool(recs) and not any(real_senses(r) for r in recs)
+recased, refused, adopted, declined = [], [], [], []
 for e in entries:
+    alt = e.pop('_capalt', '')
+    if alt:
+        n_cap, n_low = cap_seen[e['key']], low_seen[e['key']]
+        # any evidence at all, and clearly one-sided.  `Capri` is carried by a
+        # single corpus hit and by the dictionary agreeing with it, which is two
+        # weak signals pointing the same way; `Marche` (0 against 6) is not, and
+        # ships as the plural of `marca`, which is what the corpus shows.
+        if n_cap >= 1 and n_cap > 3 * n_low:
+            e['lemma'] = e['display'] = e['key'] = alt
+            e['pos'] = pick_pos(e, alt)
+            e['reflexive'], e['base'] = False, ''
+            adopted.append(f'{alt} ({n_cap} capitalised, {n_low} lower-case)')
+        else:
+            # REPORTED rather than passed over: the dictionary carries a proper
+            # noun under this spelling and the card is about to teach a common
+            # one, which is a decision and not a detail.  `Marche` is the case
+            # to read -- the region against the plural of `marca`, and the
+            # corpus writes it lower-case six times and never capitalised.
+            declined.append(f'{alt} ({n_low} lower-case, {n_cap} capitalised)')
     cap = e.pop('_cap', '')
     if not cap or cap == e['display']:
         continue
     k = e['key']
     n_cap, n_low = cap_seen[k], low_seen[k]
-    common = n_cap + n_low >= 5 and n_low > n_cap and not W.get(k)
+    common = n_cap + n_low >= 5 and n_low > n_cap and not other_word(k)
     if common:
         refused.append(f'{cap} (corpus: {n_low} lower-case, {n_cap} capitalised)')
     else:
@@ -281,6 +406,10 @@ for e in entries:
         recased.append(cap)
 if recased:
     print(f'  capitalised from the dictionary: {len(recased)} -- ' + ', '.join(recased))
+if adopted:
+    print('  capitalised on the corpus, over a pointer: ' + '; '.join(adopted))
+if declined:
+    print('  a capitalised entry the corpus declined: ' + '; '.join(declined))
 if refused:
     print('  left lower-case, the corpus says a common noun: ' + '; '.join(refused))
 

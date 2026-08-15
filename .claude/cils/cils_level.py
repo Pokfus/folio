@@ -43,6 +43,18 @@ worded and ordered:
     `scusi` are in NONE of the six bands at all** -- not A1, not C2, nowhere in
     7,208 words.  No vocabulary list built for teaching omits `buongiorno`.
 
+  · **AND THE UPPER BANDS ARE PARTLY NOT ITALIAN.**  De Mauro's basic vocabulary
+    covers 97% of A1, 92% of A2, 83% of B1, 71% of B2 and 24% of C1, which is
+    what a frequency gradient looks like and is fine.  What C1 also shows -- the
+    first band big enough for it to be visible -- is that a band cut out of a
+    SUBTITLE corpus sweeps in whatever is frequent in subtitles: `metropolis`,
+    `paranoid`, `faust`, `faber` and `graves` are a film, a song and three
+    surnames, each with 260-470 subtitle hits and no Italian dictionary entry.
+    It also carries the list's own misspellings (`colonello`, `milionare`) and
+    accents it has dropped (`assurdita`, `elite`).  `parse_cils.RESPELL` repairs
+    the spellings and `build_deck.REFUSED` turns the non-words away with a
+    reason each; both are hand-read tables, and both are printed on every run.
+
 None of that makes the list useless: it is 961 real Italian words, every one of
 them worth knowing, and it is what was asked for.  It makes it a list that must
 be NAMED rather than attributed to an exam board, and ORDERED, which is what

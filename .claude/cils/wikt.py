@@ -39,3 +39,54 @@ def letter_name(r):
         return True
     gs = [(s.get('glosses') or [''])[0] for s in real_senses(r)]
     return bool(gs) and all(_LETTER_RX.match(g or '') for g in gs)
+
+
+def pointer_targets(recs):
+    """The lemmas these records point at, best first.
+
+    **A POINTER'S MEANING IS AT THE OTHER END OF IT**, and in the upper bands
+    that is not a corner case but the commonest shape there is.  The C1 list
+    prints feminine adjectives, past participles and superlatives as headwords of
+    their own -- `stupenda`, `ammesso`, `felicissimo`, `sovietica` -- and
+    Wiktionary files each as nothing but "feminine singular of stupendo", with no
+    gloss to read.  A hundred and twenty-four words came back with no meaning at
+    all and were dropped from a deck that says it teaches 2,842.
+
+    `sense_gloss` already recovers a meaning written AFTER the pointer ("clitic
+    accusative of io. me"), which is what the lower bands needed; this is for the
+    entries that carry no tail, where the only way to the meaning is to look the
+    target up.  Ordered by how many senses point there, so a word pointing mostly
+    at one lemma is not diverted by a stray second sense.
+
+    **A POINTER MAY NAME MORE THAN ONE WORD IN ONE FIELD**, which is a template
+    artefact rather than a lemma: C1's `fintanto` carries the single target
+    `"fintantoché or finché"`, which is no word at all, so the chase found
+    nothing and a common conjunction was dropped from the deck.  The whole
+    string is offered FIRST -- it is what the dictionary literally wrote, and a
+    lemma really containing a space (`viva voce`) must still resolve -- and the
+    parts after it, so the split can only ever add a fallback.
+    """
+    seen = {}
+
+    def note(w):
+        if w and w not in seen:
+            seen[w] = 0
+        if w:
+            seen[w] += 1
+
+    for r in recs:
+        for s in (r.get('senses') or []):
+            for f in (s.get('form_of') or s.get('alt_of') or []):
+                w = (f or {}).get('word') if isinstance(f, dict) else f
+                if not w:
+                    continue
+                w = w.strip()
+                note(w)
+                parts = [p.strip() for p in _POINTER_SPLIT.split(w)]
+                if len(parts) > 1:
+                    for p in parts:
+                        note(p)
+    return [w for w, _ in sorted(seen.items(), key=lambda kv: -kv[1])]
+
+
+_POINTER_SPLIT = re.compile(r'\s+(?:or|and)\s+|\s*,\s*')

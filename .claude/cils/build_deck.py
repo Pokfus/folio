@@ -41,7 +41,7 @@ from collections import Counter
 from cils_level import LEVEL, f as lvlf
 from italian import (article, with_article, indefinite, agree,
                      adj_forms_regular, clean_form, destress, fold)
-from wikt import real_senses, letter_name
+from wikt import real_senses, letter_name, pointer_targets
 
 entries = json.load(open(lvlf('entries.json')))
 W = json.load(open(lvlf('wikt.json')))
@@ -132,6 +132,20 @@ def sense_gloss(s_, head=''):
         return ''
     g = gs[0]
     if s_.get('form_of') or s_.get('alt_of'):
+        # **THE POINTER OFTEN STATES THE TARGET'S MEANING IN A FIELD OF ITS OWN**,
+        # and reading it is strictly better than following the pointer.  An
+        # absolute superlative is the class that made this visible: `altissimo`
+        # is glossed "superlative degree of alto (“highest”)" with
+        # `form_of: [{word: alto, extra: highest}]`, so chasing the pointer gives
+        # `alto` -> "high" and the card loses the superlative altogether.  Taken
+        # from `extra` it reads "highest", which is what the word means.  Prose
+        # is not parsed for it -- the parenthetical is a rendering of this field,
+        # and the field is unambiguous where the prose is not.
+        for k in ('form_of', 'alt_of'):
+            for f_ in (s_.get(k) or []):
+                x = (f_ or {}).get('extra') if isinstance(f_, dict) else None
+                if x and x.strip():
+                    return tidy(x, head)
         # THE SEPARATOR IS A FULL STOP AS WELL AS A COLON, which the German
         # stage did not need: Italian entries write `clitic accusative of io.
         # me` where German writes `agent noun of lehren: teacher`.  Reading only
@@ -252,10 +266,63 @@ AUTHORED = {
     # the card came out headed `Mila` and glossed "a surname; a female given
     # name".  It is the `mila` of `duemila`.
     'mila': ('num', 'thousand (in compounds: duemila, tremila)'),
+    # `usa` is the one word `says_something`'s pointer rule costs: its lower-case
+    # entry is a real form of `usare`, so the lemma search now stops there and the
+    # card would read "he/she uses" for a list entry that means the country
+    'usa': ('name', 'the USA, the United States'),
     # `g` for gram, the third of these after `km` and `cm` -- and the only one
     # whose spelling is also a letter of the alphabet, which is the record the
     # dictionary offers and the gloss the card had
     'g': ('noun', 'gram (abbreviation of grammo)', 'm'),
+    # C1.  Nine borrowings Italian takes whole and one native compound, none of
+    # which English Wiktionary carries an Italian entry for at all.  **EACH WAS
+    # MEASURED BEFORE IT WAS WRITTEN, against the subtitle frequency list and the
+    # Tatoeba corpus this pipeline already downloads**, because "I am fairly sure
+    # that is a word" is exactly what this table must not be built out of: every
+    # one below is in real Italian use (`vivavoce` 741 subtitle hits, `eros` 459,
+    # `offshore` 464, `mousse` in De Mauro's basic vocabulary), and three words
+    # that failed the same test are refused instead -- see REFUSED.
+    'ultimatum': ('noun', 'ultimatum', 'm'),
+    'auditorium': ('noun', 'auditorium, concert hall', 'm'),
+    'cannabis': ('noun', 'cannabis', 'f'),
+    'mantra': ('noun', 'mantra', 'm'),
+    'mousse': ('noun', 'mousse', 'f'),
+    'noir': ('noun', 'noir (film or literary genre)', 'm'),
+    'eros': ('noun', 'eros, erotic love', 'm'),
+    'offshore': ('adj', 'offshore'),
+    # Wiktionary carries this one, as a bare pointer to `viva voce` -- which it
+    # does not carry either, so the pointer chase has nowhere to go
+    'vivavoce': ('noun', 'speakerphone, hands-free', 'm'),
+}
+
+# **A WORD THIS DECK WILL NOT TEACH, and why.**  A drop is otherwise silent: the
+# run prints a count, the deck builds, and only a reader counting the cards ever
+# finds out.  Everything here was looked up in the Wiktionary dump and in both
+# corpora first, and each falls into one of two kinds.
+#
+# NOT ITALIAN.  The list is a frequency band built from a subtitle corpus, so it
+# has swept in proper nouns and English words that are frequent in Italian
+# subtitles without being Italian: `metropolis` (Italian is `metropoli`, which
+# the band also lists), `paranoid` (`paranoico`), and three names -- `faust`,
+# `faber`, `graves`.  Each has 260-470 subtitle hits, which is what a title or a
+# surname looks like, and none has a dictionary entry.
+#
+# NOT ATTESTED.  `stupidire`, `autodifendere` and `interrogatore` are all
+# plausible Italian and all three come back ZERO in the subtitle list, zero in
+# Tatoeba, absent from De Mauro and absent from the dictionary.  Plausible is not
+# evidence, and a deck that invents a headword is worse than one that is three
+# words short of a list it did not write.  (`autodifesa`, the noun, has 790
+# subtitle hits -- which is the shape of the thing: the noun is the word and the
+# verb is not.)
+REFUSED = {
+    'metropolis': 'the English word; Italian is `metropoli`, also in this band',
+    'paranoid': 'the English word; Italian is `paranoico`',
+    'faust': 'a name',
+    'faber': 'a name',
+    'graves': 'a name',
+    'stupidire': 'no dictionary entry and no corpus attestation',
+    'autodifendere': 'no dictionary entry and no corpus attestation',
+    'interrogatore': 'no dictionary entry and no corpus attestation',
 }
 
 # A NAME THE DICTIONARY DOES NOT CARRY IS SPELT HERE, since `select`'s
@@ -274,6 +341,7 @@ AUTHORED_DISPLAY = {
     # than by loosening that rule, which protects `Usa` -- whose lower-case
     # spelling is likewise a pointer, to `usare`, and which really is the name.
     'mila': 'mila',
+    'usa': 'Usa',
 }
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
@@ -281,6 +349,46 @@ POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
             'num': 'number', 'intj': 'interjection', 'det': 'determiner',
             'article': 'article', 'particle': 'particle', 'name': 'proper noun',
             'phrase': 'phrase', 'character': 'letter', 'other': ''}
+
+
+def pointer_gender(recs):
+    """The gender a form-of sense states about ITSELF, or ''.
+
+    Read off the pointer rather than off the word it points at, because those
+    disagree exactly where it matters: `esperta` is "female equivalent of
+    esperto", and `esperto` is masculine.  The sense's own tags say `feminine`,
+    which is a fact about `esperta`.
+    """
+    for r in recs:
+        for s in (r.get('senses') or []):
+            if not (s.get('form_of') or s.get('alt_of')):
+                continue
+            tags = set(s.get('tags') or [])
+            if 'feminine' in tags:
+                return 'f'
+            if 'masculine' in tags:
+                return 'm'
+    return ''
+
+
+def pick_record(recs, pos):
+    """The best record in a list for a given part of speech.
+
+    Shared with `rec_for` so that a record reached through a pointer is chosen by
+    the same rules as one reached directly -- including the letter-name refusal,
+    which is what keeps a one-letter target from glossing as the alphabet.
+    """
+    def usable(r):
+        return any(sense_gloss(s) for s in (r.get('senses') or []))
+
+    same = [r for r in recs if r.get('pos') == pos]
+    for pool in (same, recs):
+        for test in (lambda r: real_senses(r) and not letter_name(r),
+                     lambda r: usable(r) and not letter_name(r)):
+            for r in pool:
+                if test(r):
+                    return r
+    return same[0] if same else (recs[0] if recs else None)
 
 
 def rec_for(e):
@@ -652,9 +760,12 @@ def examples_html(exs):
 
 # ---------------------------------------------------------------- build
 cards, stats = [], Counter()
-no_meaning = []
+no_meaning, refused = [], []
 
 for e in entries:
+    if e['word'].lower() in REFUSED:
+        refused.append(e['display'])
+        continue
     rec = rec_for(e)
     pos = e['pos']
     gender = gender_of(rec, e['lemma']) if pos == 'noun' else ''
@@ -668,6 +779,23 @@ for e in entries:
             gender = auth[2]     # the record it would be read from is not there
     else:
         gl = glosses_for(rec, head=e['display'])
+        # …AND IF THIS ENTRY IS NOTHING BUT A POINTER, THE MEANING IS AT THE
+        # OTHER END OF IT.  See `pointer_targets`: the upper bands list feminine
+        # adjectives, participles and superlatives as headwords, and Wiktionary
+        # glosses each only as "feminine singular of stupendo".  The gender is
+        # re-read from the target too, since a feminine noun filed as the "female
+        # equivalent of" a masculine one carries none of its own.
+        if not gl:
+            own = W.get(e['lemma']) or []
+            for t in pointer_targets(own):
+                trec = pick_record(W.get(t) or [], pos)
+                gl = glosses_for(trec, head=e['display'])
+                if gl:
+                    if pos == 'noun' and not gender:
+                        gender = pointer_gender(own) or gender_of(trec, t)
+                    if rec is None:
+                        rec = trec
+                    break
 
     if not gl:
         no_meaning.append(e['display'])
@@ -709,6 +837,9 @@ for e in entries:
 if no_meaning:
     show = ', '.join(no_meaning[:20]) + (' …' if len(no_meaning) > 20 else '')
     print(f'  no meaning to card, dropped: {len(no_meaning)} -- {show}')
+if refused:
+    print(f'  refused, each with a reason in REFUSED: {len(refused)} -- '
+          + ', '.join(f"{w} ({REFUSED[w.lower()]})" for w in refused))
 print(f'  cards {len(cards)} | nouns {stats["noun"]} ({stats["article"]} with an article, '
       f'{stats["plural"]} with a plural, {stats["feminine"]} with a feminine) | '
       f'verbs {stats["verb"]} ({stats["aux"]} with an auxiliary, {stats["paradigm"]} '
