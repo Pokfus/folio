@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-034` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-035` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 34 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 35 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10701,6 +10701,42 @@ PRACTICE rather than the gods — a pair of studded doors with an armed figure o
 better-provenanced colour photograph of a temple whose doors were standing open. (The seven citations
 reading "Henri Doré" were restandardised to the "Henry Doré" of the volume's own title page, which the
 other nineteen already used.)
+  **`cnh-035` IS THE FIRST CARD ON THE DECK WHOSE OWN ANSWER TERM IS A MISNOMER, AND SAYING SO IS THE
+CARD** (Aug 2026). Mayers files the twelve animals at pt. II no. 303 and, separately at no. 302½, "The
+Twelve Divisions of the Ecliptic", which he quotes John Williams calling "in some degree analogous to
+our signs of the Zodiac" — so the ANIMALS are not the Chinese zodiac in the astronomical sense and the
+ecliptic divisions are. The English name is what a reader will meet, so it stays the answer term, and
+the fifth sentence of the abstract says what it actually is: twelve animals attached to a counting
+series, the earthly branches, which also number the double hours and the points of the compass. **Where
+the established English name for a thing misdescribes it, keep the name and spend a sentence on the
+correction** — the alternative is a key nobody searches for.
+**`cnh-034`'s NEW SOURCE PAID FOR ITSELF THE NEXT DAY, WHICH IS THE ARGUMENT FOR NOTING WHAT A CACHE
+NOW HOLDS.** Forke's *Lun-hêng* was fetched for the door gods; its Part I carries Wang Chong taking the
+whole elemental scheme apart on the evidence — if water beats fire, why does the rat not drive off the
+horse, and why does the cock not eat the hare? — and its Part II carries an entire **Appendix II on the
+cycle of the twelve animals**, with the list, the statement that Wang Chong is "perhaps our oldest
+source", Chavannes's estimate of the 1st or 2nd century BCE, and the divided opinion on a Turkic
+origin. Two of the card's seven citations and its whole closing argument came out of a book already on
+disk. **Before searching, grep the caches** — `cnh-031`'s rule, met on a book fetched for an unrelated
+card one day earlier.
+**AND PART II'S SCAN IS A 1962 REPRINT WHERE PART I'S IS THE ORIGINAL, WHICH ONLY THE TITLE PAGE
+SAYS.** The two archive.org items look alike and are cited alike everywhere else; Part II's front matter
+reads "SECOND EDITION … PARAGON BOOK GALLERY, New York, 1962 … an unaltered and unabridged reprint of
+the last (1911) edition", so the citation names the 1911 edition and the reprint that was actually
+read. **Check the front matter of every scan for a reprint notice** rather than trusting the year an
+item's title carries; the page numbers are only the 1911's because the reprint says it is unaltered.
+**THE MAYERS SCAN'S LEADING 3 IS AN 8 AGAIN, ON A THIRD SET OF PAGES.** The run over the sexagenary
+entry reads 849, 850, 351, [352 lost], 353 — that is 349 and 350 mangled — which `cnh-023` first found
+in this book and `cnh-034` met as a 151 rendered "454" in Giles. It is the same scanning house and the
+same digit, and reading the RUN rather than one header is what put the citations at 348–49 and 351–52.
+**THE DATE LINE CARRIES THREE ATTEMPTS AT DATING ONE THING AND THAT IS HONEST RATHER THAN UNTIDY**: the
+oldest witness (Wang Chong, born 27 CE, off Forke's own biography), Chavannes's guess at the 1st or 2nd
+century BCE, and Chao Yih's 2nd century CE for naming years by animals. `cardYears` reads only the
+first, so the card sorts at 27 CE — the earliest attestation, which is `cnh-019`'s rule for a subject
+older than anything that can date it. Note what the probe found while the rows were being chosen:
+**a bare three-digit year is invisible to `cardYears` and a three-digit year followed by CE is not**
+(`627 – 650` yields nothing, `627 – 650 CE` yields both), so the blind spot `cnh-031` recorded is
+narrower than it looked — it is the missing ERA MARKER rather than the digit count.
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
