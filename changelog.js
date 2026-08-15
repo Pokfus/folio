@@ -35,14 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.239", released: "2026-08-15T18:43Z" };
+window.FOLIO_VERSION = { v: "1.240", released: "2026-08-15T19:21Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-15",
-    t: "The China collection gains the mountain at the centre of the world, the isle the First Emperor sent a fleet after, the Eight Immortals, the dragon, the phoenix, the unicorn, the four quarters of the sky, the monster on the bronzes, the book the myths come from, the poems of the drowned minister, the god an emperor put on the list, the underworld that was given a Chinese address, the ten courts it was divided into, the god of the kitchen, the gods on the door, the twelve animals of the years and five figures of myth",
+    t: "The China collection gains the mountain at the centre of the world, the isle the First Emperor sent a fleet after, the Eight Immortals, the dragon, the phoenix, the unicorn, the four quarters of the sky, the monster on the bronzes, the book the myths come from, the poems of the drowned minister, the god an emperor put on the list, the underworld that was given a Chinese address, the ten courts it was divided into, the god of the kitchen, the gods on the door, the twelve animals of the years, five figures of myth and the tale of the white snake",
     items: [
-      "Twenty-one new cards in the <b>China</b> collection, each with a new glossary term, though China is still coming soon.",
+      "Twenty-two new cards in the <b>China</b> collection, each with a new glossary term, though China is still coming soon.",
       "Line-drawn illustrations no longer come out blank on the <b>dark themes</b>.",
     ],
   },

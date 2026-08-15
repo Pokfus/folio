@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-036` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-037` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 36 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 37 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10764,6 +10764,45 @@ records shipping with. The Long Corridor panel taken instead names no painter an
 card is about: the two of them meeting on the bridge of magpies, with the children between them. **Where
 two candidates are both honest, prefer the one whose FRAME is the picture** — a calibration bar is a fact
 about the scan and a `desc` that ignores it is a caption that does not describe its own image.
+
+  **`cnh-037` IS WHERE THE 19th-CENTURY SHELF FINALLY RAN OUT, AND THE TOOL THAT REPLACED IT SHOULD HAVE
+BEEN INSTALLED THIRTY CARDS AGO** (Aug 2026). Every card before this one is carried by Mayers, Giles,
+Legge, Doré, Werner, Doolittle, Wylie, Forke and Chavannes; **not one of them mentions the White Snake**
+— checked across every cached volume, and Dennys's *Folk-Lore of China* and Couling's *Encyclopaedia
+Sinica* were fetched and searched as well. That is a fact about Victorian sinology rather than about the
+search: it worked on the canon, and this is a vernacular story. So the card is the deck's first built
+entirely on modern scholarship, and what unlocked it was **`pip install pypdf` in a venv**. Two of the
+three best sources are PDFs whose fonts carry no ToUnicode map, and a hand-rolled stream reader returns
+a substitution cipher — the UW dissertation decodes into readable English only after cracking about
+forty characters by crib, and the *Asian Folklore Studies* article does not decode at all. **`pypdf`
+reads both perfectly in one line.** The system `pypdf` is unusable here (its `cryptography` import
+panics); `python3 -m venv` plus `pip install pypdf cryptography` works, and that venv should be the
+first thing reached for on any PDF from now on — see `cnh-003`, which wrote three CJK-PDF rules the
+hard way for exactly this reason.
+**AND THE CIPHER GOT A DATE WRONG, WHICH IS THE POINT.** Read through the crib the dissertation's own
+title page gave "12/14/2018" and a fluent, confident 2018; read by `pypdf` it is **2020**, examined
+12/16/2019, and Feng Menglong's dates are 1574–1645 where the cipher offered two incompatible readings.
+`cnh-011`'s rule is that a locator must be READ and never computed — this is the same rule about a
+DECODING, and the failure is worse than an unreadable page, because a cracked cipher reads as clean
+prose and gives no sign of which characters are still wrong.
+**FOUR ACCESS FINDINGS GO WITH IT.** **A DEAD LINK ON A JOURNAL'S OWN SITE MAY BE ALIVE IN THE WAYBACK
+MACHINE**, and that is a citable URL: `asianethnology.org` is JavaScript-driven (`cnh-001`) and 404s on
+every path to Lai's article, while `http://archive.org/wayback/available?url=…` finds a 200 snapshot
+that serves the PDF. **THE FREE BIBLIOGRAPHIC APIs HAVE CLOSED**: OpenAlex now answers "Insufficient
+budget" without a key and Semantic Scholar 429s, so DOAJ's `api.ctext`-style open endpoint and plain
+site-scoped search are what remain. **`nhuir.nhu.edu.tw` RESETS THE CONNECTION** — checked against
+`$HTTPS_PROXY/__agentproxy/status`, which reported no relay failures, so it is that host and not the
+proxy, and a refused connection is a different fact from a paywall. **AND `api.ctext.org/gettext`
+REQUIRES AUTHENTICATION** where `ctext.org/wiki.pl?if=gb&chapter=N` is open, which is how both primary
+texts were cited; a query-string URL with a bare `&` is already used by 61 shipped citations and
+`SRC_URL_RX` takes it.
+**ITS MIS-LINK WAS MEASURED AND DELIBERATELY KEPT, which is `cnh-031`'s question answered the other
+way.** "the European stories of marriage with a demon woman" links *European*, an alias of `Europe`, and
+the surface occurs **114 times across the corpus, every one of them the adjective**. That looks like
+`cnh-028`'s `Chinese` alias, which was removed at 1 apt use against 40 — and it is the opposite case:
+*Chinese* myth is not the country, where *European* fossils really are of Europe, so the link's referent
+is right in all 114. **Ask whether the adjective means the PLACE before reading a loud link as a wrong
+one.**
 
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
