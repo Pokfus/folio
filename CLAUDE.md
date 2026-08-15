@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-030` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-031` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 30 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 31 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10543,6 +10543,55 @@ site is English-only, since it still asks for nine translated pools.
 curl-every-URL check impossible — and the API's `imageinfo` will still hand back the file's `sha1` and
 `size`. Comparing those against the copy already downloaded proves the URL names the file that was looked
 at, which is what the check is actually for; a 200 only proves the CDN is answering today.
+  **`cnh-031` PROVED THAT WIKIMEDIA'S 429s WERE NEVER RATE LIMITING, AND THIS CORRECTS THE NOTE UNDER
+`cnh-030` DIRECTLY** (Aug 2026). Three cards running, `upload.wikimedia.org` answered 429 to every request
+for the best part of an hour and the response was treated as congestion — background retry loops,
+`Special:FilePath` as a way round, and a sha1 comparison standing in for the curl check the file's standing
+rule demands. **The body of the 429 says what it actually is**: "Your request does not comply with our robot
+policy". It is the USER-AGENT, not the rate — curl's default identifies nothing, and Wikimedia's policy
+refuses it. One `-H "User-Agent: <name>/<version> (<contact URL>; purpose) curl/8"` fetched the file **first
+try**, at full size, seconds after two hundred patient retries had failed. **READ THE BODY OF AN ERROR
+BEFORE INFERRING WHAT IT MEANS FROM ITS STATUS CODE** — a 429 with `retry-after: 2` looks exactly like a
+condition that will pass, and this one never would have. The sha1 workaround stays useful and is no longer
+needed here: the standing curl of every citation and image URL is possible again, and all nine of this
+card's returned 200.
+**A CROSS-REFERENCE CHAIN PAID FOR THE FOURTH TIME AND THE BOOK IT NAMED WAS ALREADY ON DISK.** Doré's
+footnote on the Taoist handbook cites "Wylie. Notes on Chinese Literature, p. 224", and `cnh-028` and
+`cnh-029` had already cached both of Wylie's editions for unrelated reasons — so the fifth work cost one
+grep and supplied what no other source states: that the *Yuli chaozhuan* is a late Taoist production by a
+monk named Tan Chi who claimed to have visited the regions of darkness and come back with the account.
+**A caches directory built for one card is a library for the next**; before searching for a new work, grep
+what is already there. (Note the edition offset `cnh-029` records, working here in reverse: the passage is
+p. 224 in the 1902 reprint Doré cites and **p. 179** in the 1867 this deck cites, and neither is derivable
+from the other.)
+**ITS SUBJECT IS A NATURALISATION, AND THE PICTURE RESERVED FOR `cnh-032` DISAGREES WITH IT ABOUT THE
+DATE — WHICH IS SAID HERE SO THAT CARD CANNOT INHERIT IT QUIETLY.** Doré puts the ten courts and the Jade
+Emperor's rule over hell under the Song, and the British Museum's *Kshitigarbha with the Ten Kings of Hell*
+from Dunhuang — the obvious illustration for the next card — is dated late 9th to early 10th century, which
+is before it. This card says what its source says; **`cnh-032` must settle the tension rather than carry
+both**, and the Dunhuang scroll is the picture to reach for there. `cnh-031` takes the Metropolitan Museum's
+Jin Chushi instead, whose record was corroborated against the **museum's own API** (`Ten Kings of Hell`, Jin
+Chushi, before 1195) rather than against the uploader's title, which names a king the Met does not — so the
+caption states the set the museum names and **attributes the identification of Yama to the uploader**, which
+is `cnh-019`'s rule.
+**AND THE PICTURE AGREES WITH THE PROSE, WHICH IS WORTH SAYING BECAUSE `cnh-025` IS THE CASE WHERE IT DID
+NOT.** The scroll's upper register is a king at a desk with a clerk in green leaning in holding out an open
+document — the life-register the card's last sentence is about — with a soul dragged towards a mirror below
+and torments at the foot. Read the two against each other every time; here the agreement is the check
+passing rather than a coincidence.
+**A THREE-DIGIT YEAR IS INVISIBLE TO `cardYears`, SO A DATE LINE SPANNING ONE SORTS FROM ITS LATER END.**
+The obvious first row was "the Song, 960 – 1279", and the year pattern matches `1\d{3}` and `20\d{2}` and
+nothing shorter, so that line would have sorted the card at **1279 — the end of the span it opens** — with
+nothing thrown and every count healthy. Huizong's reign (1101 – 1126) states the same fact in four digits
+and sorts at 1101. **Measured over the whole corpus before it was written up: no shipped card is affected
+today**, so this is a rule for writing a date line rather than a bug to fix — and it is the century problem
+`cnh-027` records, one order of magnitude down.
+**AND A MIS-LINK WAS MEASURED AND DELIBERATELY LEFT, WHICH IS THE OTHER HALF OF `cnh-010` AND `cnh-012`.**
+"walking to an iron gate" auto-links `Iron`, the metal — noise on a card about hell, and **not a category
+error**: the gate is made of the substance the term defines, where `afar` pointed at an Ethiopian region and
+`tripod` at a Greek cauldron. The term is lower-case by necessity (the deck says "smelting iron", "iron
+tools"), so `GLOSSARY_CASESENSITIVE` would break the majority to mend a distraction. **Ask whether a link is
+WRONG or merely loud before reaching for the tools that fix a wrong one.**
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
