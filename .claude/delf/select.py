@@ -94,6 +94,15 @@ GROUP_POS = {'numbers': ('num', 'adj'), 'colours': ('adj',),
 
 
 def pos_hint(e, lemma):
+    # AN ENTRY THAT ALREADY KNOWS ITS CLASS KEEPS IT.  Only `phraselist.py`
+    # writes this, and it writes the dictionary's own first record RESTRICTED to
+    # the classes an expression falls into -- which is a strictly better reading
+    # than `poss[0]` here, because kaikki files several of these entries under a
+    # class the phrases deck deliberately excludes.  Left to the line below,
+    # `en dehors` and `à peu près` would come back as NOUNS and be carded with an
+    # article in front of them.
+    if e.get('pos'):
+        return e['pos']
     if e['reflexive']:
         return 'verb'
     recs = [r for r in (W.get(lemma) or []) if real_senses(r)] or (W.get(lemma) or [])

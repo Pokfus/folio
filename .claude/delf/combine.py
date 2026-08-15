@@ -68,9 +68,20 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 DECKS = os.path.abspath(os.path.join(HERE, '..', '..', 'decks'))
 
-from delf_level import EXAM, DECK_FILES
+from delf_level import EXAM, DECK_FILES, PHRASES
 
 LEVELS = ['a1', 'a2', 'b1', 'b2', 'c1', 'c2']
+
+# THE SEVENTH SUBDECK IS NOT A SEVENTH LEVEL, and the two lists say so.  Every
+# figure here that is per level (`title`, the exam runs, the `A1`…`C2` subdeck
+# names) walks LEVELS; everything that is per subdeck walks PARTS.  Merged into
+# one list the title would ask `EXAM['phrases']` and die -- which is the right
+# failure, and is why the tables are kept apart rather than given a row that
+# calls the expressions a diploma.
+PARTS = LEVELS + [PHRASES]
+SUB_NAME = {lv: lv.upper() for lv in LEVELS}
+SUB_NAME[PHRASES] = 'Expressions'
+
 DECK_ID = 'delfall'
 
 # app.js's own limits, restated here so this refuses to write a file that cannot
@@ -95,7 +106,10 @@ def title():
             runs.append([EXAM[lv], [lv]])
     parts = [f"{ex} {ls[0].upper()}–{ls[-1].upper()}" if len(ls) > 1
              else f"{ex} {ls[0].upper()}" for ex, ls in runs]
-    return ' & '.join(parts) + ' — French'
+    # …and the expressions are named separately, because they are not an exam
+    # level and a title that folded them into the runs above would say there is
+    # a DALF paper in idiom.
+    return ' & '.join(parts) + ' + expressions — French'
 
 
 def stats(cards):
@@ -121,19 +135,40 @@ def stats(cards):
 
 
 def desc(s, per_level):
-    per = ', '.join(f'{lv.upper()} {n:,}' for lv, n in per_level[:-1])
-    per += f' and {per_level[-1][0].upper()} {per_level[-1][1]:,}'
+    lvls = [(lv, n) for lv, n in per_level if lv in LEVELS]
+    phr = dict(per_level).get(PHRASES, 0)
+    per = ', '.join(f'{lv.upper()} {n:,}' for lv, n in lvls[:-1])
+    per += f' and {lvls[-1][0].upper()} {lvls[-1][1]:,}'
+    n_lvl = sum(n for _, n in lvls)
     return (
-        'All six French levels in one deck, a subdeck per level. Add a whole level, or just '
+        'All six French levels in one deck, a subdeck per level, plus a seventh of the set '
+        'expressions no vocabulary list can teach. Add a whole level, or just '
         'one direction of it: each word is a single note carrying two cards — French → English '
         '(see the French, recall the meaning) and English → French (see an English meaning, '
         'recall the French) — so the two directions are listed under each level and study '
         'separately, on schedules of their own, while a correction to a word is a correction '
         'to both. '
-        f'The levels teach {per} words — {s["words"]:,} in all, on {s["words"] * 2:,} cards, '
-        'and no word is taught twice, since each level excludes every word the levels below it '
-        'contains. '
-        'A1 to B2 are the DELF and C1 and C2 are the DALF, the diplôme approfondi de langue '
+        f'The levels teach {per} words — {n_lvl:,} in all — and no word is taught twice, since '
+        'each level excludes every word the levels below it contains. '
+        + ('' if not phr else
+           f'The Expressions subdeck adds {phr:,} more: the things French says as a unit, which '
+           'a list of words cannot give you because they are not words. avoir is on the A1 page '
+           'and faim is on the A2 page and avoir faim is on neither, and knowing the two halves '
+           'does not tell you it means to be hungry rather than to have hunger — the same goes '
+           'for tout de suite, du coup, en train de and ça marche. They are not from a list at '
+           'all: they are the dictionary\'s own multi-word entries, ranked by how often they '
+           'turn up in a corpus of everyday sentences and then read one by one, with the '
+           'compound nouns, the regional, the obsolete and sixty-odd ordinary runs of words '
+           'thrown out. That subdeck\'s own description says which and why. ')
+        # the total belongs to whatever came before it, so it is worded to close
+        # the paragraph it follows rather than left as a bare figure sentence
+        + (f'Between them that is {s["words"]:,} words and expressions, on '
+           f'{s["words"] * 2:,} cards. ' if phr else
+           f'{s["words"]:,} in all, on {s["words"] * 2:,} cards. ')
+        # NOTE THE `+`: implicit concatenation joins two string LITERALS, and the
+        # line above is now a parenthesised expression, so the rest of the
+        # paragraph has to be added rather than juxtaposed.
+        + 'A1 to B2 are the DELF and C1 and C2 are the DALF, the diplôme approfondi de langue '
         'française — a different diploma under the same authority, France Éducation '
         'international, for the French Ministry of Education. '
         'A NOTE ON THE WORD LISTS, because they are not the exam board\'s. France Éducation '
@@ -175,7 +210,8 @@ def desc(s, per_level):
         'The pronunciation is given in the international phonetic alphabet on the back of every '
         f'card that has one ({s["ipa"]:,} of them), because French spelling does not say how a '
         'word sounds, and there is a speaker button on the word and on every example sentence. '
-        f'Real example sentences come with {s["exs"]:,} of the {s["words"]:,} words, up to three '
+        f'Real example sentences come with {s["exs"]:,} of the {s["words"]:,} words and '
+        'expressions, up to three '
         'apiece, chosen where possible to show three different inflected forms rather than the '
         'same one three times, with the word picked out in colour; the sentence corpus has '
         f'nothing at all for the other {s["words"] - s["exs"]:,}, which are kept because a word '
@@ -192,7 +228,7 @@ def main():
     out = sys.argv[1] if len(sys.argv) > 1 else os.path.join(
         DECKS, 'French-A1-C2.folio-deck.json')
 
-    decks = [(lv, load(lv)) for lv in LEVELS]
+    decks = [(lv, load(lv)) for lv in PARTS]
 
     # the type block is shared, and that is asserted rather than assumed
     sigs = {lv: hashlib.sha1(json.dumps(d['meta']['types'], sort_keys=True,
@@ -215,7 +251,8 @@ def main():
                 raise SystemExit(f'{lv} card {c["id"]} already has a sub: '
                                  f'{c["sub"]!r}')
             cards.append(dict(c, id=f'u_{DECK_ID}_{n}', num=str(n),
-                              category=EXAM[lv], sub=lv.upper()))
+                              category=EXAM.get(lv, 'Expressions'),
+                              sub=SUB_NAME[lv]))
 
     if len(cards) > MAX_NOTES:
         raise SystemExit(f'{len(cards)} notes, over app.js\'s {MAX_NOTES} cap')
@@ -228,14 +265,14 @@ def main():
         'meta': {
             'id': DECK_ID,
             'title': title(),
-            'subtitle': f'{s["words"]:,} words across all six levels · a subdeck '
-                        'per level, both directions in each',
+            'subtitle': f'{s["words"]:,} words and expressions · a subdeck per '
+                        'level and one of idiom, both directions in each',
             'desc': desc(s, per_level),
             'author': '',
             'language': 'en',
             'color': decks[0][1]['meta'].get('color', ''),
             'tags': ['french', 'delf', 'dalf', 'a1', 'a2', 'b1', 'b2', 'c1',
-                     'c2', 'cefr', 'vocabulary'],
+                     'c2', 'cefr', 'vocabulary', 'expressions'],
             'glossMode': 'site',
             'types': types,
             'version': 1,

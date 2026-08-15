@@ -3698,8 +3698,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
   chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
-  **Goethe German set** by `.claude/goethe/`, and the **French set** — DELF A1–B2 and DALF C1–C2, six
-  files plus a **combined `French-A1-C2`** (7,249 notes / 14,498 cards, one subdeck per level) — by
+  **Goethe German set** by `.claude/goethe/`, and the **French set** — DELF A1–B2, DALF C1–C2 and a
+  seventh of **common phrases and expressions** (402), seven files plus a **combined `French-A1-C2`**
+  (7,651 notes / 15,302 cards, a subdeck per level and one of idiom) — by
   `.claude/delf/` — see their own bullets below. **A COMBINED FILE IS GITIGNORED**, French and Spanish
   alike: it is an artefact of the levels it combines rather than another deck, so committing it
   duplicates every megabyte the repo already carries for them, and its own `combine.py` regenerates it
@@ -4313,9 +4314,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   files do not record which, so the 4,000 comes from `TARGET` and only the CARD counts are counted. It reads
   no clock (the timestamps come from the newest source), so the same inputs write the same bytes.
   **The combined file is deliberately NOT committed** — it duplicates ~27 MB already in the repo and this
-  regenerates it. **Combining ALL nine decks in `decks/` is not possible as one importable file**: 19,819
-  cards against `UDECK_MAX_CARDS` and 50.4 MB against `UDECK_MAX_BYTES`, measured, which is why the
-  combined deck is the four Spanish levels and not everything.
+  regenerates it. **Combining EVERY deck in `decks/` is not possible as one importable file**: measured
+  again on 2026-08-15 it is **28,255 notes against `UDECK_MAX_CARDS`'s 12,000 and 64.7 MB against
+  `UDECK_MAX_BYTES`'s 48**, which is why a combined deck is one language's levels and not everything.
+  **Re-measure rather than quoting it** — this line said 19,819 and 50.4 MB, which was true of nine
+  decks and is now four short.
   The stage headers carry what the build found, and ten of those findings are the ones to read before
   touching it.
   **THE EXAMPLE CORPUS DOES NOT GET A VOTE ON WHICH WORDS A LEVEL TEACHES**, and the rule that said
@@ -5069,7 +5072,95 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and the attribute are on the same element and the descendant form silently clicks nothing and reports
     a deck with no nouns, verbs or adjectives in it; and **a walk this long levels the reader up**, which
     opens an artefact chest over the card and swallows the click on Reveal.
-  **Re-running it must reproduce the shipped deck byte for byte, ON EVERY LEVEL**; that is the check to
+  · **A SEVENTH DECK THAT IS NOT A SEVENTH LEVEL** (`.claude/delf/phraselist.py`,
+    `decks/French-Phrases.folio-deck.json` — **402 expressions / 804 cards**, Aug 2026, on request).
+    The six levels teach WORDS and a set expression is not one: `avoir` is on the A1 page, `faim` is
+    on the A2 page and `avoir faim` is on neither, because a vocabulary syllabus enumerates the
+    vocabulary and leaves the reader to assemble it — which for `avoir faim`, `tout de suite` and
+    `du coup` is exactly what cannot be done. It is built by the same six stages with the FIRST one
+    swapped, and `run.py` branches on whether the level has a `LISTS` row rather than on its name.
+    **IT TAKES EXPLICIT ROWS RATHER THAN AN `EXAM` ENTRY**, which is the whole of why it is a
+    separate thing: `EXAM['phrases'] = 'DELF'` would title it "DELF PHRASES — French", naming a
+    diploma that has no such paper. `TITLES`/`DECK_IDS`/`DECK_FILES` are given it directly, `BELOW`
+    excludes all six, and `combine.py` keeps `LEVELS` and `PARTS` apart for the same reason — every
+    per-level figure walks the first and every per-subdeck one the second, so the title cannot ask
+    `EXAM` for a row that does not exist.
+    Six things it settled are worth carrying.
+    **THE CANDIDATES ARE THE DICTIONARY'S OWN MULTI-WORD ENTRIES**, which is `phrasepick.js`'s
+    precedent: a lexicographer has already judged that a string is worth an entry, and that is better
+    evidence than any rule about shape or length. **`noun` IS THE FIRST CUT AND IT IS 12,177 OF THE
+    66,000** — a French compound noun is a WORD wearing a space (`pomme de terre`, `chemin de fer`,
+    `homme d'affaires`), met with a gender and an article rather than explained as an expression, and
+    it is what the six levels are already for.
+    **THE FILTERS RUN PER SENSE AND NOT PER ENTRY**, and the difference is 14 ordinary expressions:
+    `ça marche`, `au fond`, `sans faute` and `péter un câble` each carry a "used other than
+    figuratively or idiomatically" sense beside the idiom, so testing the ENTRY throws the idiom away
+    to remove a sense nobody would card.
+    **…AND A FILTER THAT RUNS ONLY AT SELECTION TIME DOES NOT REACH THE CARD**, which is the quietest
+    fault of the batch. `phraselist.py` chose which ENTRIES to teach and `build_deck.py` then read the
+    record again and merged whatever senses it found — so every sense refused here arrived on the card
+    anyway, and **`ça marche` shipped glossed "OK; see ça, marche"**, which is the literal reading the
+    filter exists to drop. It bit on all ~36 entries a per-sense rule saved, i.e. on exactly the
+    entries the rule was written for. The surviving senses are written to `phrase-senses.json` and
+    read back, so the card shows what was actually judged usable; they are READ rather than written,
+    so they are kept apart from `AUTHORED`. **Ask where a filtered value is next read from**, not only
+    whether the filter is right.
+    **AND A CLASS OVERRIDE HAS TO REACH `FORCE_POS`, NOT ONLY THE ENTRY.** `pick_pos` falls back to
+    the dictionary's own record when the class asked for has none — its `une` rule, stated in its own
+    docstring — so of the four hand-set classes `au fait` came out right (it HAS an adverb record) and
+    **`en dehors` went on printing "adjectival phrase" over "outside"** (it has none), with the
+    corrected gloss sitting under a contradicting label. The class and the meaning are one decision
+    and are written in one row.
+    **THE FREQUENCY MEASUREMENT IS A SORT KEY AND NOT A VERDICT, because substring counting
+    over-counts a phrase that is also an ordinary word sequence**: `pas que` scores 2,692 and is
+    almost entirely `je ne pense pas que`, `de par` matches *de partir* and *de parler*, `être à`
+    matches every *est à* in the corpus. So everything above the floor is READ — `pick-images.js`'s
+    rule, that the machine ranks and a reader chooses — and **64 of 466 are refused under four
+    declared reasons** (`DROP` in phraselist.py: an ordinary run of words or a fragment of a longer
+    phrase; a first dictionary sense that is not the ordinary one; a person-variant or near-synonym
+    of one already kept; a whole sentence; an inflected form). **A DROP THAT MATCHES NOTHING IS
+    REPORTED**, since a refusal stops working silently the day Wiktionary re-glosses an entry and the
+    expression simply comes back.
+    **ITS ONE REAL LIMITATION IS THE CONJUGATION AND IT IS MEASURED RATHER THAN ASSUMED**: kaikki
+    carries **zero inflected forms for every multi-word verb** on the shelf (`avoir faim`, `faire la
+    vaisselle`, `prendre soin`, `laisser tomber` — all ten probed), the paradigm belonging to the head
+    verb, which the levels already card in full. Composing thirty forms out of a lemma the entry never
+    names is the composition this pipeline refuses everywhere else, so there is no table and the
+    deck's own first screen says so.
+    **THE TWO `build_deck.py` GATES KEY ON THE DECK, NOT ON `e['phrase']`** — and that is the
+    shared-stage discipline biting exactly as it is meant to. **63 entries across the six levels carry
+    that flag** (`salle de bains`, `par exemple`, `mettre en cause`), so keyed on it, adding this deck
+    would have relabelled all 63 and changed six shipped files as a side effect of adding a seventh.
+    On a word list `salle de bains` is a noun with a gender and an article and `noun` is the right
+    label; here the distinction between a word and an expression is the point. (The paradigm gate was
+    provably inert on those seven multi-word verbs — every one is already 0 characters — and is gated
+    anyway, or a level that later gained one WITH forms would lose its table in silence.)
+    **THE SIBLING DIFF THEN FOUND ONE REGRESSION AND ONE FIX, which is why it is read rather than
+    glanced at.** The regression: rewriting `EX_NOTE`'s empty branch from `' '` to `''` closed
+    "colour." up against "Word list:" on **every deck the corpus illustrates entirely**, which is A2
+    and nothing else — a lost space, invisible except in a byte diff. The fix: adding `prep_phrase`
+    and `proverb` to `POS_NAME` corrected **C2's `en filigrane`**, which had been printing the raw
+    internal token `prep_phrase` as its class since the day it shipped, the table's `.get(pos, pos)`
+    fallback returning the key. A shared-stage change reaches decks nobody is looking at, in both
+    directions.
+    **AND A DESCRIPTION MUST NOT BE BUILT ON A DECK IT IS NOT FOR.** Both paragraphs were plain
+    assignments, so each was evaluated on every level: the levels' one asks `EXAM[LEVEL]` and died on
+    the phrases build, and the phrases one calls `_and(_ref_bits)` on an empty list and **broke all
+    six**. Both are conditional expressions now, so only the branch that is used is built. Its own
+    prose also produced the **one-is-not-a-plural fault for the third time in this file** — "the other
+    1", "The 1 adjectival phrases", "16 because it is the dictionary's first sense is not…" — so the
+    refusal list is worded as `N for <noun phrase>`, a form that cannot make the mistake at any count,
+    and the singular cases are branched.
+    **`check-phrases.js` is its browser half and is a file of its own**, because `check-delf.js`'s
+    stated premise is that its assertions are about FRENCH rather than about a level — and this deck
+    breaks it, having none of the article, elision, paradigm or agreement that checker exists to
+    verify. Its sharpest assertions are NEGATIVE and run on every card walked: **no article** (the
+    fault `pos_hint` would produce, and `le à peu près` is ungrammatical French rendered beautifully)
+    and **no paradigm**, the latter checked against the description promising there is none, since
+    those fail in opposite directions. It reads the deck's name, its refusals and its written-in
+    meanings out of `delf_level.py` and `phraselist.py` rather than carrying copies.
+  **Re-running it must reproduce the shipped deck byte for byte, ON EVERY LEVEL AND ON THE EXPRESSIONS
+  DECK**; that is the check to
   make after any edit, since every fault above is silent — and the stages are SHARED, so a change made for
   one level has to be run across the OTHERS and its diff READ rather than glanced at. That is what found
   the `la amie` elision and the five reflexive senses on A1's bare verbs (seven A1 cards changed while A2
@@ -5080,7 +5171,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   separately** — B2's fixes changed two levels' prose and not one card, and a whole-file md5 cannot tell
   that from a level whose cards have quietly moved. Verified across `PYTHONHASHSEED`. **And rebuild the
   COMBINED file with them** (`combine.py`), or it goes on carrying the previous build's cards under the
-  current description. Not part of the site.
+  current description. The browser checkers are `check-delf.js <level>` for a level,
+  **`check-phrases.js`** for the expressions and `check-combined.js` for the combined file. Not part of
+  the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's

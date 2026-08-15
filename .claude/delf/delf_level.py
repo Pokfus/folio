@@ -48,6 +48,19 @@ TITLES = {lv: f'{EXAM[lv]} {lv.upper()} — French' for lv in EXAM}
 DECK_IDS = {lv: f'{EXAM[lv].lower()}{lv}' for lv in EXAM}
 DECK_FILES = {lv: f'{EXAM[lv]}-{lv.upper()}-French.folio-deck.json' for lv in EXAM}
 
+# THE PHRASES DECK IS NOT A LEVEL AND MUST NOT CLAIM TO BE ONE.  It is a seventh
+# member of this family built by the same six stages, and everything above is
+# keyed on an exam level, so it takes explicit rows rather than an EXAM entry:
+# writing `EXAM['phrases'] = 'DELF'` would title it "DELF PHRASES — French",
+# which names a diploma that has no such paper.  What it teaches is the set
+# expressions the six word lists leave out, because a word list is a list of
+# WORDS and an expression is not one -- see `phraselist.py` for where the
+# candidates come from and which are refused.
+PHRASES = 'phrases'
+TITLES[PHRASES] = 'French — Common phrases and expressions'
+DECK_IDS[PHRASES] = 'frphrases'
+DECK_FILES[PHRASES] = 'French-Phrases.folio-deck.json'
+
 # The page each level's list is read from.  A further level is a row here plus a
 # `BELOW` entry, exactly as the four DELE levels and the three Goethe ones are --
 # and the same site publishes A2 (554 words), B1 (893) and B2 (1,673), so the
@@ -67,7 +80,15 @@ LISTS = {
 # working file, so the exclusion is against what actually went out.
 BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'b2': ['a1', 'a2', 'b1'],
          'c1': ['a1', 'a2', 'b1', 'b2'],
-         'c2': ['a1', 'a2', 'b1', 'b2', 'c1']}
+         'c2': ['a1', 'a2', 'b1', 'b2', 'c1'],
+         # The phrases deck sits BESIDE the ladder rather than on top of it, so
+         # it excludes all six -- but note the exclusion catches far less here
+         # than between two levels, because `words_below` compares whole
+         # headwords: the levels teach `avoir` and `faim` and this teaches
+         # `avoir faim`, which is a different string and is the point of the
+         # deck.  What it does catch is the handful of expressions a list
+         # printed as though they were words (`tout de suite`, `bien sûr`).
+         PHRASES: ['a1', 'a2', 'b1', 'b2', 'c1', 'c2']}
 
 
 def f(name):

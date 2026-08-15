@@ -3,7 +3,8 @@
 import json, os, re
 from collections import Counter
 
-from delf_level import LEVEL, f as lvlf, TITLES, DECK_IDS, DECK_FILES, LISTS, EXAM
+from delf_level import (LEVEL, f as lvlf, TITLES, DECK_IDS, DECK_FILES, LISTS,
+                        EXAM, PHRASES)
 
 cards = json.load(open(lvlf('cards.json')))
 entries = json.load(open(lvlf('entries.json')))
@@ -322,13 +323,30 @@ REFL_NOTE = (
     " throughout — je me lève, je me suis levé(e) — including in the imperative, where French "
     "moves the pronoun behind the verb: lève-toi, levez-vous. ")
 
+# WHAT THE DECK TEACHES ONE OF.  The six levels teach words and the seventh
+# teaches set expressions, and every sentence counting them has to say which --
+# "three real example sentences for each word" is simply false on a deck whose
+# entries are `avoir faim` and `tout de suite`.  One variable rather than two
+# copies of the note, since the reasoning in it is the same either way.
+UNIT = 'expression' if LEVEL == PHRASES else 'word'
+UNITS = UNIT + 's'
+
 _HOW = (', chosen where possible to show three different inflected forms rather than the '
-        'same one three times, with the word picked out in colour. ')
-EX_NOTE = ('Every word also carries three real example sentences' + _HOW
+        f'same one three times, with the {UNIT} picked out in colour. ')
+EX_NOTE = (f'Every {UNIT} also carries three real example sentences' + _HOW
            if ex3 == n else
-           f'Real example sentences come with {n - ex0} of the {n} words, three apiece for '
+           f'Real example sentences come with {n - ex0} of the {n} {UNITS}, three apiece for '
            f'{ex3} of them and one or two for the rest' + _HOW.rstrip(' ')
-           + (f' The corpus has nothing at all for the other {ex0}. ' if ex0 else ' '))
+           # …and a count of one is not a plural, which is the third time this
+           # file has met that.  On the levels ex0 ran to 7 and 223; the phrases
+           # deck has exactly one and "the other 1" is not English.  NOTE THE
+           # BARE SPACE ON THE EMPTY BRANCH: this clause is concatenated with the
+           # sentence after it, and dropping the space closed "colour." up
+           # against "Word list:" on every deck the corpus illustrates entirely
+           # -- which is A2, and is how the six-level diff caught it.
+           + (' ' if not ex0 else
+              f' The corpus has nothing at all for the other {ex0}. ' if ex0 > 1 else
+              ' The corpus has nothing at all for the remaining one. '))
 
 # WHAT THE LIST GOT WRONG IS DESCRIBED FROM WHAT WAS ACTUALLY REPAIRED, never
 # written out.  This paragraph named A1's five broken entries and its three
@@ -466,7 +484,107 @@ ADDED = ('' if not _add else
          "frequency order as the rest, and any of them a lower level already "
          "teaches is dropped. ")
 
-DESC = (
+# ------------------------------------------------- the phrases deck's own prose
+#
+# A SEPARATE DESCRIPTION RATHER THAN A BRANCHED ONE, and the reason is that
+# almost nothing in the six levels' paragraph is true here.  It names a diploma
+# this deck is not for, a published list this deck does not read, a repair table
+# this deck does not have, articles on nouns this deck has none of, and a
+# conjugation for every verb where this deck's whole limitation is that it has
+# none.  Threading a flag through all of that would leave one sentence in three
+# saying "except on the phrases deck", which is how the before-vowel and
+# zero-être faults got in.  What IS shared is shared as a variable (EX_NOTE,
+# UNIT) so the two cannot come apart about the sentences or the licences.
+_REFUSED = REP.get('refused') or {}
+# EACH REASON IS A NOUN PHRASE AFTER "N for", which is the shape that survives a
+# count of one.  Written as clauses ("N because it is …") the list read "16
+# because it is the dictionary's first sense is not the ordinary one", and the
+# singular categories would have read "1 because they are a whole sentence" the
+# moment a second one was refused.  This file has now made the one-is-not-a-
+# plural mistake three times; a form that cannot make it is worth more than a
+# form that happens not to today.
+_WHY = {
+    'sequence': "being an ordinary run of words rather than a unit, or a fragment "
+                "of a longer expression that is one",
+    'gloss': "leading with a dictionary sense that is not the one you will meet, "
+             "where the right one is arguable",
+    'duplicate': "repeating an expression already here in another person, or "
+                 "saying the same thing as one",
+    'sentence': "being a whole sentence rather than an expression",
+    'form': "being an inflected form or a bare dictionary lemma",
+}
+_ref_bits = [f"{len(ws)} for {_WHY[why]}"
+             for why, ws in _REFUSED.items() if ws]
+_n_ref = sum(len(ws) for ws in _REFUSED.values())
+# The written-in meanings are COUNTED rather than named, for the reason every
+# other figure in this paragraph is: `phraselist.py` decides how many there are
+# and a number typed here would be a stale copy of that decision.
+_pgf = lvlf('phrase-glosses.json')
+_n_gloss = len(json.load(open(_pgf, encoding='utf-8'))) if os.path.exists(_pgf) else 0
+
+# GUARDED FOR THE SAME REASON `DESC` IS, and it is the same mistake made in the
+# other direction: written as a plain assignment this one is built on every
+# level too, where `_ref_bits` is empty and `_and([])` dies on an index -- so
+# adding the seventh deck broke the six.  Neither paragraph may be evaluated
+# except on the deck it is for.
+PHRASE_DESC = '' if LEVEL != PHRASES else (
+    "Both study directions in one deck: French → English (see the French, recall the meaning) "
+    "and English → French (see an English meaning, recall the French). Each direction is a card "
+    "of its own with its own schedule, so recognising an expression and producing it are learnt "
+    f"separately. {n} set expressions — the things French says as a unit, which a vocabulary "
+    "list cannot teach you because they are not words. avoir is on any beginner's list and faim "
+    "is on any elementary one; avoir faim is on neither, and no amount of learning the two "
+    "halves tells you it means to be hungry rather than to have hunger. The same goes for tout "
+    "de suite, du coup, en train de, ça marche and n'importe quoi. "
+    "WHERE THESE COME FROM, because unlike the six level decks it is not a published list. "
+    "They are Wiktionary's own multi-word French entries: a lexicographer has already judged "
+    "that a string is worth an entry of its own, which is better evidence than any rule about "
+    "shape or length could be. Compound nouns are left out — pomme de terre and chemin de fer "
+    "are words that happen to contain a space, and belong on a vocabulary deck rather than "
+    "here — as are the obsolete, the regional and the coarse. "
+    f"What was left was ranked by how often it turns up in a corpus of everyday sentences, "
+    f"everything above the line was read, and {_n_ref} were refused: "
+    + _and(_ref_bits) + ". "
+    "The refusals matter because the ranking is a rough guide and not a verdict: counting a "
+    "phrase means counting a run of words, so pas que scores high and is almost always je ne "
+    "pense pas que, and de par matches de partir. "
+    + ('' if not _n_gloss else
+       f"Where the right meaning was not in doubt the expression was kept and the meaning "
+       f"written in instead, which is what happened to {_n_gloss} of them. ")
+    +
+    "The cards are ordered roughly by how common the expression is, so the ones you will hear "
+    "first come first. Each says what it behaves like — an adverbial phrase, a verbal phrase, "
+    "an interjection — which is the one thing about a set expression that its translation does "
+    "not tell you. "
+    # THE LIMITATION, ON THE FIRST SCREEN.  A reader who has met the level decks
+    # will look for the conjugation table and has to be told why there is none,
+    # rather than left to conclude the deck forgot.
+    "ONE THING THIS DECK DOES NOT DO: a verbal expression carries no conjugation table. "
+    "avoir faim is conjugated on avoir and faire la vaisselle on faire, and those verbs are "
+    "taught with their full paradigms on the level decks; the dictionary records no forms for "
+    "the expressions themselves, and inventing thirty of them per card is not something this "
+    "deck will do behind your back. Conjugate the verb you already know and leave the rest of "
+    "the expression alone. "
+    + ('' if not fems else
+       (f"The {fems} adjectival phrases that agree carry their feminines "
+        if fems > 1 else "The one adjectival phrase that agrees carries its feminine ")
+       + "(tout seul, toute seule). ")
+    +
+    f"The pronunciation is given in the international phonetic alphabet on the back of every "
+    f"card that has one ({ipas} of them), because French spelling does not say how a word "
+    "sounds, and there is a speaker button on the expression and on every example sentence. "
+    + EX_NOTE +
+    "Expressions, meanings and pronunciations: English Wiktionary, via the kaikki.org "
+    "extraction (CC BY-SA 4.0). Ordering and example sentences: Tatoeba (tatoeba.org), "
+    "CC BY 2.0 FR."
+)
+
+# A CONDITIONAL EXPRESSION RATHER THAN TWO STATEMENTS, because the paragraph
+# below reads `EXAM[LEVEL]` and `LEVELS_SAID[LEVEL]` and the phrases deck is in
+# neither table BY DESIGN -- it is not an exam level and must not be given a row
+# that says it is.  Written as two assignments this one still evaluates and dies
+# with a KeyError; written this way only the branch that is used is built.
+DESC = PHRASE_DESC if LEVEL == PHRASES else (
     "Both study directions in one deck: French → English (see the French, recall the meaning) "
     "and English → French (see an English meaning, recall the French). Each direction is a card "
     "of its own with its own schedule, so recognising a word and producing it are learnt "
@@ -538,12 +656,20 @@ DESC = (
 meta = {
     'id': DECK,
     'title': TITLES[LEVEL],
-    'subtitle': f'{n} words · both directions, as two cards per word',
+    'subtitle': (f'{n} expressions · both directions, as two cards each'
+                 if LEVEL == PHRASES else
+                 f'{n} words · both directions, as two cards per word'),
     'desc': DESC,
     'author': '',
     'language': 'en',
-    'color': '#14468C',
-    'tags': ['french', 'delf', LEVEL, 'cefr', 'vocabulary'],
+    # A COLOUR OF ITS OWN, because it is not one of the six.  The levels share
+    # the DELF's own blue and the shelf paints a row in its deck's colour, so a
+    # seventh in that blue would read as a seventh level.  This is the same
+    # blue's warm complement, which says "beside them" rather than "after them".
+    'color': '#A8541E' if LEVEL == PHRASES else '#14468C',
+    'tags': (['french', 'phrases', 'expressions', 'idioms', 'vocabulary']
+             if LEVEL == PHRASES else
+             ['french', 'delf', LEVEL, 'cefr', 'vocabulary']),
     'glossMode': 'site',
     'types': {
         TYPE_ID: {

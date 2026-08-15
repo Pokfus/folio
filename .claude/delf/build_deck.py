@@ -48,10 +48,20 @@ rule of the language rather than a pattern -- which auxiliary is read off
 Wiktionary's own `avoir + past participle` row, and `te` becomes `toi` after the
 verb because that is what French does.  Every other form on every card is read.
 """
-import json, re
+import json, os, re
 from collections import Counter
 
-from delf_level import f as lvlf
+from delf_level import LEVEL, PHRASES, f as lvlf
+
+# WHETHER THIS IS THE EXPRESSIONS DECK, and the two rules below are gated on it
+# rather than on an entry's own `phrase` flag -- which the six levels also set,
+# on 63 entries between them (`salle de bains`, `par exemple`, `mettre en
+# cause`).  Gated on the flag, adding this deck would have relabelled all 63 and
+# changed six shipped files as a side effect of adding a seventh.  On a word
+# list `salle de bains` is a noun with a gender and an article and `noun` is the
+# right label; on this deck the distinction between a word and an expression is
+# the whole point.
+IS_PHRASES = LEVEL == PHRASES
 
 entries = json.load(open(lvlf('entries.json')))
 W = json.load(open(lvlf('wikt.json')))
@@ -373,6 +383,17 @@ FORCE_POS = {
     'partant': 'conj',
 }
 
+# THE EXPRESSIONS DECK'S FOUR CLASS OVERRIDES, decided in `phraselist.py` beside
+# the meanings they go with.  They have to arrive HERE rather than only on the
+# entry, because `pick_pos` falls back to the dictionary's own record when the
+# class asked for has none -- which is `en dehors`, filed adjective-only, whose
+# card went on saying "adjectival phrase" over "outside" after the gloss was
+# corrected.  This is the `une` rule stated in `pick_pos`: a forced class wins
+# where the dump has no record for it, and the meaning comes from AUTHORED.
+_pp = lvlf('phrase-pos.json')
+if os.path.exists(_pp):
+    FORCE_POS.update(json.load(open(_pp, encoding='utf-8')))
+
 # WHERE WIKTIONARY HAS NO USABLE MEANING, IT IS WRITTEN OUT.  Each of these was
 # read off the entry first and written only because the entry gives a learner
 # nothing: a gloss that explains a grammatical function rather than translating
@@ -557,11 +578,48 @@ AUTHORED = {
     'partant': ['hence, therefore (formal)'],
 }
 
+# THE PHRASES DECK'S FOUR ARE WRITTEN WHERE THEY ARE WEIGHED, in phraselist.py,
+# beside the fifteen expressions refused for the same fault -- a first sense that
+# is real and is not the one a learner meets.  They are merged in rather than
+# copied here, so the reasoning and the gloss cannot come apart, and the file
+# only exists on that level, so every other build reads an empty table.
+_pg = lvlf('phrase-glosses.json')
+if os.path.exists(_pg):
+    AUTHORED.update(json.load(open(_pg, encoding='utf-8')))
+
+# THE SENSES THAT SURVIVED THE EXPRESSIONS DECK'S OWN FILTERS, which is NOT the
+# same as the senses on the record.  `phraselist.py` drops a sense that is
+# obsolete, regional, coarse, or marked by Wiktionary as the string's LITERAL
+# reading -- and it drops them per sense rather than per entry, so an entry is
+# kept for its idiom and refused its literal.  Reading the record again here
+# undoes that: `ça marche` shipped glossed "OK; see ça, marche", which is the
+# very sense the filter exists to remove, and the same went for every one of the
+# ~36 entries the per-sense rule saved.  These are read rather than written, so
+# they are not AUTHORED and are kept in a table of their own.
+_ps = lvlf('phrase-senses.json')
+PHRASE_SENSES = json.load(open(_ps, encoding='utf-8')) if os.path.exists(_ps) else {}
+
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
             'pron': 'pronoun', 'det': 'determiner', 'prep': 'preposition',
             'conj': 'conjunction', 'num': 'number', 'intj': 'interjection',
             'particle': 'particle', 'article': 'article', 'phrase': 'phrase',
-            'name': 'proper noun'}
+            'name': 'proper noun',
+            # The phrases deck's own classes.  The word `phrase` is doing real
+            # work on those cards -- it is what tells a reader that `avoir faim`
+            # behaves like a verb and `à peu près` like an adverb, which is the
+            # one thing about a set expression that cannot be guessed from its
+            # translation.
+            'prep_phrase': 'prepositional phrase', 'proverb': 'proverb'}
+
+# WHAT A SET EXPRESSION IS CALLED ON ITS OWN CARD.  `avoir faim` is not a verb,
+# it is a verbal PHRASE, and the difference is the thing the reader has to know:
+# it takes a subject and a tense like a verb and it is learnt whole like a word.
+# Only entries whose `phrase` flag is set are named this way, so the six word
+# decks are untouched -- their handful of multi-word entries (`salle de bains`,
+# `tout de suite`) go on saying `noun` and `adverb`, which is right for a word
+# list that happens to print one.
+PHRASE_NAME = {'verb': 'verbal phrase', 'adv': 'adverbial phrase',
+               'adj': 'adjectival phrase', 'noun': 'noun phrase'}
 
 
 def pick_pos(e):
@@ -1210,6 +1268,8 @@ for i, e in enumerate(entries, 1):
 
     if e['key'] in AUTHORED:
         glosses = AUTHORED[e['key']]
+    elif e['key'] in PHRASE_SENSES:
+        glosses = PHRASE_SENSES[e['key']][:3]
     else:
         glosses = merged_glosses(same_pos, gender == 'f', e['reflexive'])
         if not glosses:
@@ -1222,7 +1282,8 @@ for i, e in enumerate(entries, 1):
     if not glosses:
         stats['no gloss'] += 1
 
-    label = POS_NAME.get(pos, pos)
+    label = (PHRASE_NAME.get(pos, POS_NAME.get(pos, pos)) if IS_PHRASES
+             else POS_NAME.get(pos, pos))
     if pos == 'noun' and gender and not plural_only:
         label += ', ' + ' or '.join(GENDER_NAME.get(g, g) for g in gender)
     if plural_only:
@@ -1233,7 +1294,20 @@ for i, e in enumerate(entries, 1):
     english = ('<div class="uc-sense"><div class="uc-pos">' + esc(label) + '</div>' +
                meanings_html(glosses) + '</div>')
 
-    if pos == 'verb':
+    # A SET EXPRESSION GETS NO PARADIGM, and this is the deck's one real
+    # limitation rather than an oversight.  Measured over the dictionary before
+    # the deck was built: EVERY multi-word verb here carries zero inflected forms
+    # -- `avoir faim`, `faire la vaisselle`, `prendre soin`, `laisser tomber`,
+    # all of them -- because the paradigm belongs to the head verb, which the six
+    # levels already teach and card in full.  Left to the branch below it would
+    # print an infinitive and an auxiliary under an empty table, which tells a
+    # reader that `avoir faim` has no conjugation rather than that this deck does
+    # not carry it.  Building one would mean composing thirty forms out of a
+    # lemma the entry never names, which is the composition this pipeline
+    # refuses everywhere else.  Said on the deck's own first screen.
+    if IS_PHRASES and pos in ('verb', 'adj'):
+        conj = ''
+    elif pos == 'verb':
         conj = conjugation_html(e, rec, e['reflexive'])
     elif pos == 'adj':
         conj = adj_panel(e, rec)

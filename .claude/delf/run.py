@@ -96,17 +96,30 @@ def main():
 
     sys.path.insert(0, HERE)
     from delf_level import LISTS, f as lvlf
-    page, page_url = LISTS[level]
+
+    # THE FIRST STAGE IS THE ONE THING THAT DIFFERS, and the branch is on whether
+    # the level HAS a published list rather than on its name.  Six of the seven
+    # read a page; the phrases deck has no page to read, because a vocabulary
+    # list is a list of words and a set expression is not one -- so it chooses
+    # its own headwords out of the dictionary instead.  Everything after this
+    # point is shared, which is the whole reason the stages hand each other files
+    # rather than calling one another.
+    page, page_url = LISTS.get(level, (None, None))
 
     if '--no-fetch' not in sys.argv:
         print('sources:')
-        fetch([(page, page_url, False)])
+        fetch([(page, page_url, False)] if page else [])
     os.makedirs(CACHE, exist_ok=True)
     os.chdir(CACHE)
 
-    print('word list:')
-    sys.argv = ['wordlist.py', page]
-    runpy.run_path(os.path.join(HERE, 'wordlist.py'), run_name='__main__')
+    if page:
+        print('word list:')
+        sys.argv = ['wordlist.py', page]
+        runpy.run_path(os.path.join(HERE, 'wordlist.py'), run_name='__main__')
+    else:
+        print('phrase list:')
+        sys.argv = ['phraselist.py']
+        runpy.run_path(os.path.join(HERE, 'phraselist.py'), run_name='__main__')
 
     # every lemma any entry might be looked up under, plus the two auxiliaries.
     # AVOIR AND ÊTRE ARE ALWAYS FETCHED, whether or not this level teaches them:

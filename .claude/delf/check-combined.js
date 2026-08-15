@@ -30,6 +30,13 @@ const { chromium } = require("playwright");
 const ROOT = path.resolve(__dirname, "..", "..");
 const DECK = "French-A1-C2.folio-deck.json";
 const LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"];
+/* The seventh subdeck is not a seventh level, and the two lists are kept apart
+   here for the same reason `combine.py` keeps LEVELS and PARTS apart: the
+   per-level assertions below (the exam runs in the title, the "A1 446" figures
+   in the description) are false of it, and folding it in would assert there is a
+   DALF paper in idiom. */
+const PHRASES = "Expressions";
+const PARTS = LEVELS.concat([PHRASES]);
 
 let pass = 0, fail = 0;
 const ok = (c, m, extra) => {
@@ -58,8 +65,8 @@ const ok = (c, m, extra) => {
      deck.cards.find((c) => !/^u_delfall_\d+$/.test(c.id))?.id);
 
   const subs = [...new Set(deck.cards.map((c) => c.sub))];
-  ok(JSON.stringify(subs) === JSON.stringify(LEVELS),
-     "one subdeck per level, in order", JSON.stringify(subs));
+  ok(JSON.stringify(subs) === JSON.stringify(PARTS),
+     "one subdeck per level plus the expressions, in order", JSON.stringify(subs));
   ok(subs.every((s) => !s.includes("::")),
      "and the tree is FLAT -- the directions are templates, not subdecks");
 
@@ -68,8 +75,13 @@ const ok = (c, m, extra) => {
   ok((deck.meta.types[types[0]].cards || []).length === 2,
      "carrying two templates, which is what makes a note two cards");
 
-  // the description's figures are COUNTED, so they must agree with the cards
-  const words = (deck.meta.desc.match(/([\d,]+) in all, on ([\d,]+) cards/) || []);
+  /* The description's figures are COUNTED, so they must agree with the cards.
+     Matched on the numbers and the word "cards" rather than on one phrasing:
+     the sentence is worded differently with the expressions in ("Between them
+     that is N words and expressions, on M cards") and without them ("N in all,
+     on M cards"), and a pattern pinned to one of those reports a correct deck as
+     broken the moment the other is used. */
+  const words = (deck.meta.desc.match(/([\d,]+)(?: words and expressions| in all),? on ([\d,]+) cards/) || []);
   ok(words[1] && +words[1].replace(/,/g, "") === n,
      "the description's word count is the deck's", words[1]);
   ok(words[2] && +words[2].replace(/,/g, "") === n * 2,
@@ -79,8 +91,15 @@ const ok = (c, m, extra) => {
     ok(deck.meta.desc.includes(`${lv} ${c.toLocaleString()}`),
        `and it states ${lv}'s own count (${c.toLocaleString()})`);
   }
+  const nph = deck.cards.filter((x) => x.sub === PHRASES).length;
+  ok(deck.meta.desc.includes(`adds ${nph.toLocaleString()} more`),
+     `and the expressions' count (${nph.toLocaleString()})`);
   ok(/DELF A1.B2 . DALF C1.C2/.test(deck.meta.title),
      "the title says DELF of A1-B2 and DALF of C1-C2", deck.meta.title);
+  /* AND NAMES THE EXPRESSIONS SEPARATELY.  Folded into the exam runs the title
+     would read "DALF C1–Expressions", which claims a paper that does not exist. */
+  ok(/expressions/i.test(deck.meta.title) && !/DALF C1.Expressions/i.test(deck.meta.title),
+     "and names the expressions apart from the exam runs", deck.meta.title);
 
   // ---------------------------------------------------------- in a browser
   const browser = await chromium.launch({
@@ -106,8 +125,9 @@ const ok = (c, m, extra) => {
   const offered = await pg.evaluate(() =>
     [...document.querySelectorAll("[data-uaddsub]")]
       .map((b) => decodeURIComponent(b.getAttribute("data-uaddsub"))));
-  ok(LEVELS.every((lv) => offered.some((o) => o.endsWith("/" + lv))),
-     "every level is offered as a subdeck of its own", JSON.stringify(offered));
+  ok(PARTS.every((lv) => offered.some((o) => o.endsWith("/" + lv))),
+     "every level and the expressions are offered as subdecks of their own",
+     JSON.stringify(offered));
 
   const dirs = await pg.evaluate(() =>
     [...document.querySelectorAll("[data-usubtpl]")]
