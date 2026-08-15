@@ -420,6 +420,47 @@ for e in entries:
     e['freq'] = f_
 
 entries.sort(key=lambda e: (-e['freq'], e['display'].lower()))
+# ------------------------------------------------------------------ duplicates
+# **A REPAIR CAN COLLIDE WITH A WORD THE LIST ALREADY PRINTS CORRECTLY**, and
+# then the band teaches it twice.  C1 lists `oscurita` AND `oscurità`, `assurdita`
+# and `assurdità`, `incastrar` and `incastrare`, `milionare` and `milionario` --
+# the list carries both the broken spelling and the right one -- so once the
+# accent rule, the truncated-infinitive rule and RESPELL have done their work,
+# eleven pairs of entries resolve to one word.  Two cards with the same front,
+# the same meaning and two separate schedules is the reader answering one
+# question twice, and nothing else in this pipeline can see it: every count is
+# healthy, both cards are perfectly formed, and `parse_cils` deduped correctly on
+# what the page prints.
+#
+# The FIRST is kept, which after the ordering above is the commoner spelling, and
+# a pair that is not really the same word is reported rather than merged.
+#
+# **THE KEY IS THE EXACT SPELLING AND MUST NEVER BE FOLDED.**  Written with
+# `fold`, which ignores diacritics, this deleted `sì`, `lì`, `là`, `né` and `sé`
+# from A1 -- five of the commonest words in the language -- because in Italian
+# the accent on a monosyllable is precisely what distinguishes two different
+# words: `si` is the reflexive pronoun and `sì` is yes, `ne` is "of it" and `né`
+# is "nor", `se` is "if" and `sé` is "oneself".  The A1 list prints both members
+# of each pair and is right to.  What this is deduping is two spellings that the
+# repairs have already made IDENTICAL, so equality is the whole test; the
+# disagreement warning below is what caught it.
+seen_disp, dupes, odd = {}, [], []
+for e in list(entries):
+    k = e['display']
+    first = seen_disp.get(k)
+    if first is None:
+        seen_disp[k] = e
+        continue
+    if (first['lemma'], first['pos']) != (e['lemma'], e['pos']):
+        odd.append(f"{e['display']} ({first['lemma']}/{first['pos']} vs {e['lemma']}/{e['pos']})")
+    dupes.append(f"{first['word']} + {e['word']} -> {e['display']}")
+    entries.remove(e)
+if dupes:
+    print(f'  the list printed the same word twice, once misspelt: {len(dupes)} -- '
+          + '; '.join(dupes))
+if odd:
+    print('  ⚠ merged entries that disagree about lemma or part of speech: ' + '; '.join(odd))
+
 unseen = sum(1 for e in entries if not e['freq'])
 print(f'  ordered by frequency; {unseen} words the subtitle list has never seen, '
       'which go to the end')

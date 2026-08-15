@@ -243,8 +243,19 @@ adj_cards = [c for c in cards if is_pos(c, 'adjective')]
 # reader meets last; proper nouns are skipped because a place name says nothing
 # about the band's difficulty.  The De Mauro membership is measured in `select`,
 # which is where the reference is read, and carried on the entry.
-tail_words = ', '.join(e['display'] for e in
-                       [x for x in entries if x['pos'] != 'name'][-3:])
+_ordered = [x for x in entries if x['pos'] != 'name']
+tail_words = ', '.join(e['display'] for e in _ordered[-3:])
+# **AND THE HEAD IS DERIVED FOR THE SAME REASON THE TAIL IS.**  This sentence
+# named `essere, avere, fare, dire and andare` as a literal -- roughly true of
+# A1, which carries all five near the front, and a promise NO OTHER BAND CAN
+# KEEP, since the six are strictly DISJOINT and those words are in exactly one
+# of them.  Five shipped decks told a reader they would meet `essere` first:
+# B1 opens on `era, mamma, signora`, C1 on `diavolo, unica, maledizione`, C2 on
+# `incantesimo, giurato, autopsia`.  Nothing threw and every count read healthy;
+# the deck simply said something untrue about itself on the page a reader
+# decides from.  (A1's own first five are `e, non, che, di, la`, so the literal
+# was not quite right even there.)
+head_words = ', '.join(e['display'] for e in _ordered[:5])
 nvdb_n = sum(1 for e in entries if e.get('nvdb'))
 arts = sum(1 for c in cards if 'uc-art' in c['fields']['Italian'])
 plurals = sum(1 for c in nouns if '>plural<' in c['fields']['Forms'])
@@ -288,8 +299,8 @@ DESC = (
     "De Mauro's nuovo vocabolario di base, the standard reference for the core of the language. "
     "SO THE ORDER IS DOING THE WORK. The cards are dealt by how common the word actually is in "
     "everyday spoken Italian, taken from a frequency list built from film and television "
-    "subtitles, so you meet essere, avere, fare, dire and andare in the first handful and the "
-    "administrative vocabulary near the end. "
+    f"subtitles, so you meet {head_words} in the first handful and the rarest of the band at "
+    "the end. "
     f"Every noun carries its definite article, so the gender is learnt with the word ({arts} of "
     "them), and the article is coloured by gender: masculine blue, feminine red. That article is "
     "worth learning as a rule and not as a fact, because Italian picks it by spelling as well as "

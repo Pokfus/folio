@@ -293,6 +293,26 @@ AUTHORED = {
     # Wiktionary carries this one, as a bare pointer to `viva voce` -- which it
     # does not carry either, so the pointer chase has nowhere to go
     'vivavoce': ('noun', 'speakerphone, hands-free', 'm'),
+    # C2.  Nine more the dictionary has no Italian entry for, measured the same
+    # way -- and two of them refine the test.  **ASK THE PLURAL BEFORE CONCLUDING
+    # A NOUN IS UNATTESTED**: `feromone` and `maceria` come back zero in both
+    # corpora and would have been refused on C1's rule, while `feromoni` has 286
+    # subtitle hits and `macerie` 788, is in De Mauro's basic vocabulary and has
+    # a dictionary entry of its own.  Italian simply does not use either
+    # singular; the word is real and the lemma the list prints is the right one.
+    'chakra': ('noun', 'chakra', 'm'),
+    'graal': ('noun', 'grail; the Holy Grail', 'm'),
+    'ossicodone': ('noun', 'oxycodone', 'm'),
+    'continuum': ('noun', 'continuum', 'm'),
+    'interim': ('noun', 'interim, the period between two appointments', 'm'),
+    'corpus': ('noun', 'corpus, a body of texts', 'm'),
+    'feromone': ('noun', 'pheromone', 'm'),
+    # transcribed from the dictionary's own entry for the plural `macerie`
+    'maceria': ('noun', 'rubble, wreckage, debris', 'f'),
+    # no dictionary entry anywhere, and 302 subtitle hits: a science-fiction
+    # coinage from dubbed television, transparently sub- + `spaziale`.  Attested,
+    # so it is carded rather than refused -- REFUSED is for what is not.
+    'subspaziale': ('adj', 'subspace'),
 }
 
 # **A WORD THIS DECK WILL NOT TEACH, and why.**  A drop is otherwise silent: the
@@ -323,6 +343,23 @@ REFUSED = {
     'stupidire': 'no dictionary entry and no corpus attestation',
     'autodifendere': 'no dictionary entry and no corpus attestation',
     'interrogatore': 'no dictionary entry and no corpus attestation',
+    # C2.  The same two kinds, and the band is small enough that they are a
+    # twelfth of it.  `fulcrum` and `vogue` are the sharpest illustration of what
+    # the list is: Italian has `fulcro` and `voga`, both in the dictionary and
+    # both glossed with exactly these English words, and what put the English
+    # spellings in a band of Italian vocabulary is that `Fulcrum` is the NATO
+    # reporting name for the MiG-29 and `Vogue` is a magazine.
+    'fulcrum': 'the English word; Italian is `fulcro`',
+    'vogue': 'the English word; Italian is `voga`',
+    'capere': 'Latin; the Italian verb is `capire`',
+    'ultro': 'a Latin adverb',
+    # 532 and 429 subtitle hits between them and no dictionary entry, no corpus
+    # sentence and no reading anyone here could put to them.  A high subtitle
+    # count is not evidence that a string is a word -- see `faust` above.
+    'trofobico': 'no dictionary entry and no identifiable meaning',
+    'supersimo': 'no dictionary entry and no identifiable meaning',
+    'divisare': 'no dictionary entry and no corpus attestation',
+    'indettare': 'no dictionary entry and no corpus attestation',
 }
 
 # A NAME THE DICTIONARY DOES NOT CARRY IS SPELT HERE, since `select`'s
@@ -342,6 +379,10 @@ AUTHORED_DISPLAY = {
     # spelling is likewise a pointer, to `usare`, and which really is the name.
     'mila': 'mila',
     'usa': 'Usa',
+    # C2.  A proper noun in Italian, printed bare by the list, and with no
+    # record of its own for the recasing to read a spelling off -- the corpus
+    # writes it capitalised ("I banditi hanno rubato il Sacro Graal").
+    'graal': 'Graal',
 }
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',

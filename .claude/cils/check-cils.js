@@ -82,6 +82,15 @@ const LOAN_OK = new Set(["élite", "tournée"]);
   ok(new Set(deck.cards.map((c) => c.id)).size === deck.cards.length, "no id occurs twice");
   ok(deck.cards.every((c) => /^u_cils[a-z0-9]+_\d+$/.test(c.id)), "every id carries the deck");
 
+  // **TWO CARDS WITH THE SAME FRONT IS THE READER ANSWERING ONE QUESTION TWICE**, and
+  // nothing else can see it: both cards are perfectly formed, every count is healthy, and the ids
+  // differ.  It happens when a repair collides with a spelling the list already prints correctly --
+  // C1 lists `oscurita` AND `oscurità`, `incastrar` AND `incastrare` -- so it is a property of the
+  // shipped deck rather than of any one stage, and belongs here.
+  const heads = deck.cards.map((c) => (c.fields.Word || "").replace(/<[^>]*>/g, " ").trim());
+  const headDup = [...new Set(heads.filter((w, i) => heads.indexOf(w) !== i))];
+  ok(headDup.length === 0, "no headword occurs twice", headDup.slice(0, 8).join(" "));
+
   // ------------------------------------------------- the spelling sweep
   // Scoped to the fields built out of DICTIONARY forms, which is what the stress marks come in on.
   // `Examples` is Tatoeba's own running Italian and `English` is English -- and the English is the
