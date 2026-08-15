@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-025` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-026` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 25 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 26 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10404,6 +10404,34 @@ the card and its date line say. cnh-015's rule (a reference work is evidence for
 and not automatically right about when) met on a date three ways contested: **where the sources disagree
 about the Western year and agree about the reign year, give the reign year**, which needs no conversion and
 is how the event is cited anyway.
+  **`cnh-026` IS THE SECOND CARD ON THE DECK WITH AN EMPTY DATE LINE, AND THAT IS NOW A NAMED SET RATHER
+THAN A ONE-OFF** (Aug 2026). `cnh-007` leaves the field empty because the tradition declines to date the
+Yellow Emperor; here nothing in any source dates the scheme at all — Chavannes, Mayers, Legge and Doré each
+describe the four quarters without placing them in a year, and Doré's "at the present day" is 1914. The
+tempting rows are counts (four quarters, 28 mansions, seven to each), and a row of counts is **not a date
+line**: the field exists for the dates worth memorising beside the answer term, and filling it with
+arithmetic to avoid an empty box is the field losing its meaning. The browser harness's exemption is
+therefore a LIST rather than a card name, so a third card joining it has to be added deliberately.
+**AND THE ANSWER TERM'S OWN NAME IS NOT WHAT ANY SOURCE CALLS IT**, which is worth stating because the
+plan line said "Four Symbols" and every work on the shelf says something else — Mayers "the Four
+Quadrants, or Divisions of the 28 Constellations", Chavannes "quatre animaux", Legge only the four names
+themselves. The plan's term is kept because it is the established English name a reader will meet, and the
+card says plainly what the four are rather than resting on the label; the four individual names ship as
+ALIASES, which is where the reader's own vocabulary actually is. Mind that 四象 also names the Yijing's
+four bigram states, an entirely different thing, so the glossary description says outright that these are
+quarters of the SKY.
+**ITS SHARPEST FINDING IS THAT TWO SETS OF FOUR ARE CONSTANTLY CONFLATED AND MAYERS KEEPS THEM APART IN
+NUMBERED ENTRIES.** The four supernatural creatures (qilin, phoenix, tortoise, dragon — pt. II, no. 94)
+are not the four celestial quadrants (pt. II, no. 91), only the dragon and the tortoise are in both, and
+`cnh-023`, `cnh-024` and `cnh-025` all open on the FIRST set. A card written without checking would have
+said "one of the four" and meant the wrong four. **Where a reference work numbers two similar lists
+separately, that separation is itself the fact.**
+**AND THE cnh-023 RUNNING-HEAD FAULT PAID FOR ITSELF A SECOND TIME.** The Mayers scan renders a leading 3
+as an 8 in its running heads, so the run over this entry reads 808, 304, 305, 306, 307 — the first is
+p. 303 — and reading the RUN rather than one header is what put the four quadrants on p. 307 with
+confidence. Where the run gave no clean read the citation names the edition's own division instead
+(pt. II, no. 313 for the 28 mansions; pt. II, no. 94), which is cnh-011's rule. Chavannes' two notes were
+placed the same way, off clean runs of 43, 44, 45 and 45, 47, 48, 49.
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
