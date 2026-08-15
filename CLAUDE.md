@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-037` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-038` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 37 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 38 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10804,6 +10804,45 @@ the surface occurs **114 times across the corpus, every one of them the adjectiv
 is right in all 114. **Ask whether the adjective means the PLACE before reading a loud link as a wrong
 one.**
 
+  **`cnh-038` IS WHERE A MANGLED FIGURE WAS DECODED, CONFIDENTLY, AND THE DECODING WAS WRONG** (Aug 2026).
+  Williams's *Middle Kingdom* gives the Ningbo Mazu temple as "founded by Fuhkien men in the **liJth**
+  century" in the Google scan this deck has been using — and `liJth` reads as `13th` at a glance (l for 1,
+  J for 3), which is what the draft said. A second copy of the same 1883 volume, the Wellcome scan
+  `b29352897_0001`, prints it clean: **12th century**. `cnh-011`'s rule is that a locator must be READ and
+  never computed and `cnh-023`'s is that a bad scan needs the RUN of running heads rather than one header;
+  this is the same rule on a FIGURE IN THE PROSE, where it matters more, because a page number that is
+  wrong sends a reader to the wrong page and a century that is wrong is simply a false statement about the
+  world. **The fault is invisible to everything**: "13th century" is a well-formed sentence, `check-style`
+  passes it, the date line takes it, and no count anywhere can see it. **Where an OCR mangles a figure,
+  fetch a second scan rather than reading the mangling** — and then cite the copy a reader can actually
+  read, which is why the citation names the Wellcome scan and not the Google one.
+  **FINDING A SECOND SCAN IS TWO REQUESTS.** `archive.org/advancedsearch.php?q=title:(…)+AND+creator:(…)&output=json`
+  lists every copy of a book with its year, and where `download/<id>/<id>_djvu.txt` answers **500** — which
+  it does for a good half of these items — **`stream/<id>/<id>_djvu.txt` answers 200**, returning an HTML
+  wrapper with the whole OCR inside it, which greps exactly as well. The clean copy also confirmed the page
+  independently (its plate list reads "Temple of the Goddess Ma Tsu-pu, Ningpo, . . . to face 123" and its
+  running head "NINGPO, CHINHAI, AND THE ARCHIPELAGO. 123" sits directly above the passage) and its
+  signature marks "Vol. I.—1" onward confirm the volume, which is what a citation asserts.
+  **THE PICTURE CORRECTED THE PROSE, WHICH IS `cnh-025`'s TEST FIRING A SECOND TIME.** The draft read "In
+  her temples she stands between two assistants", and the Qing statue chosen shows her ENTHRONED — which
+  sent me back to Doolittle, who writes that the goddess "has two principal assistants, whose images stand
+  one on each side of her own in her temples". It is the ATTENDANTS who stand, and the draft had it the
+  wrong way round. **Read a card's picture against its prose in both directions**: a disagreement between
+  them is a question worth asking, and here the answer was in the source all along.
+  **THE 19th-CENTURY SHELF DELIVERS HERE, AND ONLY UNDER EACH AUTHOR'S OWN ROMANISATION.** Doolittle's
+  Fuzhou goddess is **"Ma Chu"** and Williams's Ningbo one is **"Ma Tsupu"**; a search for *Mazu* finds
+  neither, which is `cnh-005`/`008`/`009`/`010`/`014`'s grep rule for the sixth time. **AND TWO NAME
+  COLLISIONS HAD TO BE CLEARED BEFORE ANY OF IT COULD BE USED**: Doré's "Ma-tsu" is **Mazu Daoyi**
+  (馬祖道一), the Chan patriarch, a different person by seven centuries, and Giles's "Goddess of Sailors" is
+  Lung Mu. So `Ma-tsu` was drafted as a glossary alias and **dropped before shipping**, on `cnh-023`'s rule
+  that an alias another real subject can claim must not exist — the collection will card Chan Buddhism
+  later, and that is when it would have bitten.
+  **AND ITS HEADLINE FIGURES ARE CONTESTED, SO THE CARD CARRIES NONE OF THEM.** Three open papers, two of
+  them a year apart, give the cult's reach as 200 million followers in 33 countries with 5,000 temples,
+  300 million in 46 with 10,000, and 300 million in 49 with 10,000 — a half again on the first figure. The
+  card says the cult spread with emigration and stops. **Where several open sources state a headline figure
+  and disagree about it, that figure is not something the card knows**; what they agree on — the UNESCO
+  inscription of 2009, which two of them date to the day — is what it carries.
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
