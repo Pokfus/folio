@@ -18,6 +18,13 @@
 const fs = require("fs"), path = require("path");
 const dataPath = path.join(__dirname, "..", "data.js");
 const I18N_LANGS = ["es", "fr", "de", "it", "nl", "ru", "ar", "zh", "ja"];
+/* ENGLISH ONLY, like add-card.js and add-glossary.js (Aug 2026, on request — see the MULTILANG bullet in
+   CLAUDE.md). This tool demanded all nine translations until the card `i18n` blocks were REMOVED from
+   data.js on 2026-08-08, after which it could only ever be run with `--partial` — a flag documented as
+   being for a deliberate staged batch, not for the only shape the corpus can now have. Flip this back
+   with the two in add-card.js and add-glossary.js when translations resume; a supplied translation is
+   still checked either way, so the machinery below stays live rather than rotting. */
+const REQUIRE_TRANSLATIONS = false;
 const Q_MIN = 20, Q_MAX = 34, Q_TR_MAX_WORDS = 40, Q_TR_MAX_CHARS = 95, MAX_TOTAL = 10;
 const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 /* An IMPERIAL CONVERSION does not count towards a length limit (Aug 2026, on request). Measurements are
@@ -56,7 +63,7 @@ for (const id of Object.keys(batch.cards)) {
   }
   const tr = u.i18n || {};
   const missing = I18N_LANGS.filter(l => !(Array.isArray(tr[l]) && tr[l].length === qs.length && tr[l].every(q => typeof q === "string" && q.trim())));
-  if (missing.length && !partial) {
+  if (missing.length && !partial && REQUIRE_TRANSLATIONS) {
     console.error("ERROR: " + id + " needs `i18n` extras for all 9 languages, each with " + qs.length + " phrasings (missing/short: " + missing.join(", ") + ") — or pass --partial for a deliberate staged batch");
     process.exit(1);
   }

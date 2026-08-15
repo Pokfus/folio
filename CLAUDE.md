@@ -4410,6 +4410,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
   since every fault above is silent. Not part of the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
+  **A BATCH TOOL RE-SERIALIZES THE WHOLE CARD, NEVER A LIST OF FIELDS** (Aug 2026, after this one stripped
+  every card's rating). It kept a private copy of `serializeCardData`'s field list and emitted only what
+  that copy named — written before `difficulty` existed and knowing nothing about `undatable` — so **ONE
+  run silently removed both from all 500 cards**: the tags were written correctly, the file parsed, nothing
+  threw, and the only symptom was every minigame's pool quietly emptying. A whitelist in a tool can only
+  ever be a copy of app.js's, and a copy goes stale on a change made in another file by someone with no
+  reason to look here; `JSON.stringify(c)` cannot, since the cards are read from data.js and written back
+  with their own keys in their own order. It also spliced a `tail` starting at `window.COLLECTION_TREE`,
+  which dropped the comment standing above the tree on every run — both headers are written out in full
+  now. **Diff `data.js` after any tool run**: a whole-file rewrite normalises every card's KEY ORDER, which
+  is semantically identical and turns a one-card change into 400 lines of review noise (the fix above
+  prevents it, and the cure is to splice the changed line into the old text).
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
   ANSWER TERM is, in batches: `node .claude/add-card-difficulty.js <batch.json>` over
@@ -8085,8 +8097,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   non-English `S.settings.lang` to `"en"` on boot. Without it, a reader who had chosen Spanish would be held
   in Spanish for ever with no control left on the page to escape — the one way removing a setting can
   genuinely strand someone. The content pipeline has the same switch twice over
-  (`REQUIRE_TRANSLATIONS` in `add-card.js` and `add-glossary.js`) and, since the removal, a second guard
-  beyond it: both tools **DROP** a supplied `i18n` / `translations` block with a warning rather than writing
+  (`REQUIRE_TRANSLATIONS` in `add-card.js`, `add-glossary.js` and `add-questions.js`) and, since the
+  removal, a second guard
+  beyond it: both content tools **DROP** a supplied `i18n` / `translations` block with a warning rather than writing
   it, so the eager path cannot regain megabytes because one batch file still carried its nine languages. The
   changelog rule in the golden rules is suspended to match. Guarded by `test-layout.js` (the gate) and `test-i18n-lang.js`, which asserts the
   gate UNPATCHED and then **serves an app.js with the flag flipped** so the machinery behind it stays tested
@@ -11404,9 +11417,13 @@ form as the head word (`Operation Barbarossa`, not `Barbarossa`).
 **ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**
 The site ships in English while the work is on making the English as good as it can be, so put the effort
 that went into nine translations into the English instead — the sourcing, the sentence rhythm, the
-question pool. `add-card.js` and `add-glossary.js` each carry a `REQUIRE_TRANSLATIONS = false` beside
-their `I18N_LANGS`, which is the content-pipeline half of `MULTILANG` in app.js; flip both back and new
-entries are held to all nine again. **Translations that ARE supplied are still written and still checked**
+question pool. `add-card.js`, `add-glossary.js` **and `add-questions.js`** each carry a
+`REQUIRE_TRANSLATIONS = false` beside their `I18N_LANGS`, which is the content-pipeline half of
+`MULTILANG` in app.js; flip all three back and new entries are held to all nine again. (`add-questions.js`
+gained its copy in Aug 2026, having demanded nine translations that no longer exist since 2026-08-08 — so
+it could only be run with `--partial`, a flag documented as being for a deliberate staged batch rather
+than for the only shape the corpus can now have. **A gate lifted in one tool has to be lifted in every
+tool the same content passes through**, or the pipeline refuses work the rule says is finished.) **Translations that ARE supplied are still written and still checked**
 (question length, footnote-marker parity) — the requirement is lifted, the machinery is not, and the
 existing 105 cards and 333 terms keep the translations they have. What is written below about the nine
 languages is the rule to resume, not the rule in force.
