@@ -222,15 +222,28 @@ n0 = sum(1 for c in cards if c['sub'].startswith('Spanish') and not c['fields'][
 # word list is chosen by the inventory and by frequency, and dropping `matizar`
 # because Tatoeba has no sentence for it would be letting the corpus set the
 # syllabus.  So the count is stated rather than engineered away.
-EX_NOTE = ('Every word also carries three real example sentences'
+# The noun, and the reason a covered item can still have no sentence, both
+# differ for the phrases deck -- whose list IS set by the corpus, so "the word
+# list is set by the exam board and not by the corpus" would be flatly untrue
+# there.  What is true is that the two corpus passes ask different questions: a
+# phrase is RANKED on how often it turns up in Spanish sentences and ILLUSTRATED
+# only from the ones that carry an aligned English translation, so a common
+# phrase can still have nothing to show.
+_ITEM = 'phrases' if LEVEL == 'ph' else 'words'
+_KEPT = (' because a phrase is ranked on how often it appears in Spanish and illustrated only '
+         'from the sentences that carry an English translation beside them, and the two are not '
+         'the same set'
+         if LEVEL == 'ph' else
+         ' because the word list is set by the exam board and not by the corpus')
+_ONE = 'phrase' if LEVEL == 'ph' else 'word'
+EX_NOTE = (f'Every {_ONE} also carries three real example sentences'
            if n3 == ntot else
-           f'Every word also carries real example sentences, three of them for {n3} of the '
+           f'Every {_ONE} also carries real example sentences, three of them for {n3} of the '
            f'{ntot} and one or two where the corpus had no more'
            if not n0 else
-           f'Real example sentences come with {ntot - n0} of the {ntot} words, three apiece for '
+           f'Real example sentences come with {ntot - n0} of the {ntot} {_ITEM}, three apiece for '
            f'{n3} of them and one or two for the rest; the sentence corpus has nothing at all for '
-           f'the remaining {n0}, which are kept because the word list is set by the exam board and '
-           f'not by the corpus')
+           f'the remaining {n0}, which are kept' + _KEPT)
 narts = sum(1 for c in cards if c['sub'].startswith('Spanish')
             and c['fields']['Spanish'].split(' ')[0] in ('el', 'la', 'los', 'las', 'el/la', 'los/las'))
 npairs = sum(1 for c in cards if c['sub'].startswith('Spanish')
@@ -244,9 +257,15 @@ BELOW_NOTE = {
     'a2': ' None of them appears in the A1 deck, so the two together come to 1,000 words.',
     'b1': ' None of them appears in the A1 or A2 deck, so the three together come to 2,000 words.',
     'b2': ' None of them appears in the A1, A2 or B1 deck, so the four together come to 4,000 words.',
+    'c1': ' None of them appears in the A1, A2, B1 or B2 deck, so the five together come to 6,000 '
+          'words.',
+    'c2': ' None of them appears in the A1, A2, B1, B2 or C1 deck, so the six together come to '
+          '8,000 words.',
+    'ph': '',
 }[LEVEL]
 COLUMN_NOTE = f'the {LEVEL_U} column'
-PAIRED_WITH = 'A1 and A2' if LEVEL in ('a1', 'a2') else 'B1 and B2'
+PAIRED_WITH = ('A1 and A2' if LEVEL in ('a1', 'a2') else
+               'B1 and B2' if LEVEL in ('b1', 'b2') else 'C1 and C2')
 CLOSED_NOTE = (
     "Those inventories list topics rather than words, so the closed classes they name without "
     "writing out — the numbers, the days, the months, the seasons, and the pronouns, articles, "
@@ -269,7 +288,42 @@ CLOSED_NOTE = (
     "conclude, inventoried separately under Gramática and Tácticas pragmáticas — so those are "
     "supplied here, most of them as the phrases they are (por consiguiente, aun cuando, en la "
     f"medida en que, a diferencia de); the rest of the {NW} is filled from the B2 column in order "
-    "of frequency. ")
+    "of frequency. "
+    if LEVEL == 'b2' else
+    # At C1 and C2 the supplement has nothing left to add, and that is a fact
+    # about the levels rather than an omission: the closed classes, the
+    # comparatives and the whole connective layer are taught by A1 to B2, so
+    # anything the earlier supplements carry is already excluded as taught. The
+    # C columns are large enough to fill the level several times over on their
+    # own -- 6,011 and 6,497 candidate lemmas against the 2,000 taken.
+    "Those inventories carry this level on their own: by C1 the closed classes, the comparatives "
+    "and the connectives that structure an argument have all been taught by the levels below, so "
+    f"nothing has to be supplied from outside the column and the whole {NW} is filled from it in "
+    "order of frequency. ")
+
+PHRASE_DESC = (
+    "Both study directions in one deck, as subdecks you can add and study separately: "
+    "Spanish → English (see the Spanish, recall the meaning) and English → Spanish "
+    f"(see an English meaning, recall the Spanish). {NW} set phrases and fixed expressions — the "
+    "ones whose meaning is not the sum of their parts, or which are fixed enough to be looked up: "
+    "echar de menos, a lo mejor, dar igual, por si acaso. "
+    "There is no published list of the expressions a learner should know, the way there is for the "
+    "DELE vocabulary, so inventing one would be asserting a syllabus rather than reporting one. "
+    "The candidates are instead every MULTI-WORD entry in the Spanish Wiktionary: a dictionary "
+    "gives a string of words an entry only when it is an expression in its own right, so echar de "
+    "menos has one and comer pan does not. "
+    "Which of them are COMMON is then measured rather than asserted, because a dictionary records "
+    "an expression whether it is said every day or twice a century: each one is counted in a "
+    "corpus of everyday sentences, anything the corpus never says is dropped whatever its entry "
+    f"looks like, and the {NW} shipped are the top of that count — so the cards run from the "
+    "expressions you will hear today to the ones you will meet occasionally. "
+    "None of them appears in the six DELE decks, which teach their own multi-word items, so the "
+    "seven can be studied together without teaching anything twice. "
+    + EX_NOTE +
+    ", with the expression picked out in colour and a speaker beside it. "
+    "Meanings: English Wiktionary, via the kaikki.org extraction (CC BY-SA 4.0). Example sentences "
+    "and the frequency count behind the ordering: Tatoeba (tatoeba.org), CC BY 2.0 FR."
+)
 
 DESC = (
     "Both study directions in one deck, as subdecks you can add and study separately: "
@@ -316,11 +370,21 @@ meta = {
                  if LEVEL == 'a2' else
                  f'{NW} more words, none of them in A1 or A2 · both directions, as two subdecks'
                  if LEVEL == 'b1' else
-                 f'{NW} more words, none of them in A1, A2 or B1 · both directions, as two subdecks'),
-    'desc': DESC,
+                 f'{NW} more words, none of them in A1, A2 or B1 · both directions, as two subdecks'
+                 if LEVEL == 'b2' else
+                 f'{NW} more words, none of them in A1, A2, B1 or B2 · both directions, as two '
+                 'subdecks'
+                 if LEVEL == 'c1' else
+                 f'{NW} more words, none of them in A1, A2, B1, B2 or C1 · both directions, as two '
+                 'subdecks'
+                 if LEVEL == 'c2' else
+                 f'{NW} set phrases and expressions, ranked by how often they are said · both '
+                 'directions, as two subdecks'),
+    'desc': PHRASE_DESC if LEVEL == 'ph' else DESC,
     'author': '',
     'language': 'en',
-    'tags': ['spanish', 'dele', LEVEL, 'cefr', 'vocabulary'],
+    'tags': (['spanish', 'phrases', 'expressions', 'idioms', 'vocabulary']
+             if LEVEL == 'ph' else ['spanish', 'dele', LEVEL, 'cefr', 'vocabulary']),
     'glossMode': 'site',
     'types': {
         'es-to-en': {'id': 'es-to-en', 'name': 'Spanish → English', 'speechLang': 'es-ES',

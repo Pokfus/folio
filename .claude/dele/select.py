@@ -120,7 +120,23 @@ def is_inflection(k, recs, vocab):
     return any(b in vocab for b in inflection_bases(recs, first_only=True))
 
 # fragments of the inventory's own frames and section headings, not vocabulary
+#
+# `van` is the one entry here that is a WORD rather than a fragment, and it is
+# blocked for a reason worth keeping.  It is overwhelmingly the third person
+# plural of `ir`, which `is_inflection` cannot see: Wiktionary's Spanish entry
+# for it OPENS on a noun -- the anglicism for a van -- so the first-record test
+# reads it as a lemma that merely collides with a verb form, which is the same
+# reading that correctly keeps `libro` and `vino`.  What makes it intolerable is
+# not that the noun is marginal but WHERE the ordering puts it: `es_50k` counts
+# surface forms, so the card inherits the frequency of the verb and `el van`
+# came out 4th in C1, ahead of `el cuerpo` and `la fuerza`.  Measured over the
+# other seven C1 words inside the 600 commonest surface forms -- `espera`,
+# `dicho`, `muerto`, `cuerpo`, `oportunidad`, `arma`, `vivo` -- every one is a
+# real word in its own right and only its position is flattered, so this is the
+# single case rather than a class.  In none of A1, A2, B1 or B2, checked against
+# the shipped decks, so blocking it moves no level already out.
 BLOCK = {
+    'van',
     'laos', 'bali', 'mozambique', 'okay', 'ser de', 'en grupos', 'en parejas',
     'grupos', 'parejas', 'herramientas', 'lugares', 'marítimo', 'fluvial',
     'administrativo', 'auxiliar', 'civil', 'ida', 'vuelta', 'doble', 'fijo',

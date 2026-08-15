@@ -5,6 +5,9 @@
     python3 .claude/dele/run.py --level a2            # A2, on top of A1
     python3 .claude/dele/run.py --level b1            # B1, on top of A1 and A2
     python3 .claude/dele/run.py --level b2            # B2, on top of all three
+    python3 .claude/dele/run.py --level c1            # C1, on top of A1-B2
+    python3 .claude/dele/run.py --level c2            # C2, on top of all five
+    python3 .claude/dele/run.py --level ph            # the phrases deck, on top of all six
     python3 .claude/dele/run.py --level b2 --no-fetch # reuse whatever is cached
 
 ONE LEVEL PER RUN.  `dele_level` reads the level once, at import, so a second
@@ -13,8 +16,8 @@ level in the same process would be built against the first one's settings.
 A LEVEL IS TAUGHT ON TOP OF THE ONES BELOW IT: each level excludes every word
 the SHIPPED decks below it contain, read out of `decks/DELE-*.folio-deck.json`
 rather than out of a working file, so they can never drift apart and a rebuilt
-level cannot start teaching a word a lower one already covers.  The four come
-to 500 + 500 + 1,000 + 2,000 = 4,000 words with no overlap.
+level cannot start teaching a word a lower one already covers.  The six come
+to 500 + 500 + 1,000 + 2,000 + 2,000 + 2,000 = 8,000 words with no overlap.
 
 Downloads its sources into `.claude/dele-cache/` (gitignored) and leaves
 them there, so a re-run costs nothing.  The largest is the Wiktionary dump at
@@ -57,13 +60,16 @@ PCIC = 'https://cvc.cervantes.es/ensenanza/biblioteca_ele/plan_curricular/nivele
 TATOEBA = 'https://downloads.tatoeba.org/exports/per_language/'
 
 # (local name, url, bunzip2?)
-# The Nociones inventories are printed two levels to a page, A1 beside A2 and B1
-# beside B2, so a level needs one pair and both pairs are kept in the cache.
+# The Nociones inventories are printed two levels to a page, A1 beside A2, B1
+# beside B2 and C1 beside C2, so a level needs one pair and all three pairs are
+# kept in the cache.
 SOURCES = [
     ('pcic_a1a2.htm',      PCIC + '09_nociones_especificas_inventario_a1-a2.htm', False),
     ('pcic_gen_a1a2.htm',  PCIC + '08_nociones_generales_inventario_a1-a2.htm',   False),
     ('pcic_b1b2.htm',      PCIC + '09_nociones_especificas_inventario_b1-b2.htm', False),
     ('pcic_gen_b1b2.htm',  PCIC + '08_nociones_generales_inventario_b1-b2.htm',   False),
+    ('pcic_c1c2.htm',      PCIC + '09_nociones_especificas_inventario_c1-c2.htm', False),
+    ('pcic_gen_c1c2.htm',  PCIC + '08_nociones_generales_inventario_c1-c2.htm',   False),
     ('es_50k.txt',         'https://raw.githubusercontent.com/hermitdave/FrequencyWords/'
                            'master/content/2018/es/es_50k.txt',                   False),
     ('kaikki-es.jsonl',    'https://kaikki.org/dictionary/Spanish/'
@@ -108,29 +114,39 @@ def main():
     from dele_level import f as lvlf
     import json
 
-    # the candidate list the Wiktionary extraction is run over is the union of
-    # the inventory's own words and the closed classes; both stages write it
-    runpy.run_path(os.path.join(HERE, 'parse_pcic.py'), run_name='__main__')
-    runpy.run_path(os.path.join(HERE, 'supplement.py'), run_name='__main__')
-    cands = json.load(open(lvlf('pcic_candidates.json')))
-    supp = json.load(open(lvlf('supplement.json')))
-    json.dump(sorted(set(list(cands) + supp)), open(lvlf('lookup.json'), 'w'), ensure_ascii=False)
-    sys.argv = ['extract_kaikki.py', lvlf('lookup.json'), lvlf('wikt.json')]
-    runpy.run_path(os.path.join(HERE, 'extract_kaikki.py'), run_name='__main__')
+    if level == 'ph':
+        # THE PHRASES DECK CHOOSES ITS WORDS A DIFFERENT WAY and needs none of
+        # the three stages below: there is no Cervantes column to parse, nothing
+        # to supplement, and the selection is a corpus count rather than a
+        # weighted cascade.  `phrases.py` writes the same three files those
+        # stages between them produce -- the word list, the ranked order and the
+        # Wiktionary records -- so everything after this point is shared.
+        print('--- phrases.py')
+        runpy.run_path(os.path.join(HERE, 'phrases.py'), run_name='__main__')
+    else:
+        # the candidate list the Wiktionary extraction is run over is the union of
+        # the inventory's own words and the closed classes; both stages write it
+        runpy.run_path(os.path.join(HERE, 'parse_pcic.py'), run_name='__main__')
+        runpy.run_path(os.path.join(HERE, 'supplement.py'), run_name='__main__')
+        cands = json.load(open(lvlf('pcic_candidates.json')))
+        supp = json.load(open(lvlf('supplement.json')))
+        json.dump(sorted(set(list(cands) + supp)), open(lvlf('lookup.json'), 'w'), ensure_ascii=False)
+        sys.argv = ['extract_kaikki.py', lvlf('lookup.json'), lvlf('wikt.json')]
+        runpy.run_path(os.path.join(HERE, 'extract_kaikki.py'), run_name='__main__')
 
-    print('--- select.py')
-    runpy.run_path(os.path.join(HERE, 'select.py'), run_name='__main__')
+        print('--- select.py')
+        runpy.run_path(os.path.join(HERE, 'select.py'), run_name='__main__')
 
-    # A reflexive's paradigm is its base verb's, so the bases are fetched once
-    # the words are chosen -- derived from the selection rather than named here,
-    # or a level whose inventory lists different reflexives would silently get
-    # no conjugation for them.
-    chosen = json.load(open(lvlf('wordlist.json')))
-    bases = sorted({k[:-2] for k in chosen if k.endswith(('arse', 'erse', 'irse'))})
-    print(f'    reflexives: {len(bases)} base verbs to fetch')
-    json.dump(bases, open(lvlf('bases.json'), 'w'), ensure_ascii=False)
-    sys.argv = ['extract_kaikki.py', lvlf('bases.json'), lvlf('wikt_bases.json')]
-    runpy.run_path(os.path.join(HERE, 'extract_kaikki.py'), run_name='__main__')
+        # A reflexive's paradigm is its base verb's, so the bases are fetched once
+        # the words are chosen -- derived from the selection rather than named here,
+        # or a level whose inventory lists different reflexives would silently get
+        # no conjugation for them.
+        chosen = json.load(open(lvlf('wordlist.json')))
+        bases = sorted({k[:-2] for k in chosen if k.endswith(('arse', 'erse', 'irse'))})
+        print(f'    reflexives: {len(bases)} base verbs to fetch')
+        json.dump(bases, open(lvlf('bases.json'), 'w'), ensure_ascii=False)
+        sys.argv = ['extract_kaikki.py', lvlf('bases.json'), lvlf('wikt_bases.json')]
+        runpy.run_path(os.path.join(HERE, 'extract_kaikki.py'), run_name='__main__')
 
     print('--- examples.py')
     runpy.run_path(os.path.join(HERE, 'examples.py'), run_name='__main__')

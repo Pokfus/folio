@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Assemble one level's DELE Spanish deck."""
 import json, re, html
-from dele_level import LEVEL, DECK_IDS, f as lvlf
+from dele_level import LEVEL, DECK_IDS, CATEGORIES, f as lvlf
 
 words = json.load(open(lvlf('wordlist.json')))
 W = json.load(open(lvlf('wikt.json')))
@@ -73,9 +73,18 @@ def glosses_for(rec, limit=2):
     # a sense carrying a form_of FIELD is a cross-reference, not a translation:
     # `santa` offered "saintess" and then "female equivalent of santo".  The
     # 'form-of' TAG alone does not catch it -- Wiktionary does not always set it.
+    # A SUM-OF-PARTS GLOSS IS NOT A MEANING.  Wiktionary marks a multi-word
+    # entry whose meaning IS the sum of its words with `Used other than
+    # figuratively or idiomatically: see x, y`, which is a note to a dictionary
+    # reader and useless on a card -- the shipped B1 taught `otra vez` as
+    # "Used other than figuratively or idiomatically: see otra, vez. again,
+    # once more", with the real meaning trailing after the apparatus.  Dropping
+    # the sense loses nothing, since an entry that has ONLY such senses is one
+    # `phrases.py` will not offer and a level's own word list does not reach.
     cands = [s for s in rec.get('senses', [])
              if not (BAD_TAGS & set(s.get('tags', [])))
-             and not (s.get('form_of') or s.get('alt_of')) and s.get('glosses')]
+             and not (s.get('form_of') or s.get('alt_of')) and s.get('glosses')
+             and 'used other than figuratively' not in s['glosses'][0].lower()]
     if any(sense_rank(s) == 0 for s in cands):
         cands = [s for s in cands if sense_rank(s) == 0]
     for s in sorted(cands, key=sense_rank):
@@ -125,10 +134,18 @@ PLURAL_GLOSS = {
     'deberes': ['homework'], 'padres': ['parents'],
 }
 
+# This table is BOTH the label printed on the card and the filter `recs_of`
+# applies -- a record whose pos is not a key here is discarded before its gloss
+# is ever read.  That is why the three EXPRESSION classes are in it: without
+# them every Wiktionary entry filed as a `phrase` loses its meaning silently and
+# `build_deck` refuses the deck, which is what the phrases deck did on its first
+# run for 87 perfectly good expressions (`sin duda`, `hasta luego`, `ni idea`,
+# `al fin y al cabo`).
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
             'pron': 'pronoun', 'num': 'numeral', 'intj': 'interjection',
             'det': 'determiner', 'prep': 'preposition', 'conj': 'conjunction',
-            'article': 'article', 'particle': 'particle'}
+            'article': 'article', 'particle': 'particle',
+            'phrase': 'phrase', 'prep_phrase': 'phrase', 'proverb': 'proverb'}
 
 # ---------------------------------------------------------------- gender
 # a feminine noun beginning with a stressed a- takes `el` in the singular
@@ -705,7 +722,7 @@ for word in words:
             # installing A2 after A1 overwrote A1's cards in the shared store
             # one for one, silently, with both decks still on the shelf.
             'id': f'u_{DECK_IDS[LEVEL]}_{n}', 'num': str(idx),
-            'category': 'DELE ' + LEVEL.upper(),
+            'category': CATEGORIES.get(LEVEL, 'DELE ' + LEVEL.upper()),
             'sub': sub,
             'question': headword if direction == 'es' else plain,
             'answer': plain if direction == 'es' else headword,

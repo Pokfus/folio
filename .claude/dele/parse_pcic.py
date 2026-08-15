@@ -77,11 +77,34 @@ def segments(t):
                 out.append(alt)
     return out
 
+def is_affix(t):
+    """A DERIVATIONAL AFFIX IS NOT A WORD, and the C levels list them.
+
+    The Nociones inventories turn morphological at C1 and C2 -- `-ecer`, `-ote`,
+    `-ón`, `-ado`, `mega-`, `post-`, `requete-` -- which are a notion the way a
+    suffix is, and are not vocabulary a card can ask for.  `select.py`'s
+    `GOOD_POS` would drop them a stage later, Wiktionary filing them as
+    `suffix`/`prefix`, but that is an indirect guard over a table kept for
+    another purpose; a thing that is not a word should not become a candidate at
+    all.
+
+    MEASURED BEFORE IT WAS KEPT, and it is NOT inert everywhere, which is worth
+    saying rather than claiming a clean sweep.  A1 and A2 are byte-identical.
+    B1 and B2 are not: B1 loses `-ito`, `-ísimo` and a frame reading `-ito
+    buenísima librito [v`, and with that frame the two words reachable only
+    inside it (`buenísima`, `librito`, which are the printed EXAMPLES of the
+    diminutive and the superlative rather than vocabulary); B2 loses `ex-`,
+    `super-` and a stray `-¿`.  None of the seven is in the shipped B1 or B2 --
+    checked against the deck files, not assumed -- so the candidate lists move
+    and the decks do not.
+    """
+    return t.startswith('-') or t.endswith('-')
+
 cands = {}   # lowercased candidate -> set of source files
 for src, raw in items:
     for seg in segments(clean(raw)):
         seg = seg.lower().strip()
-        if not seg or re.search(r'\d', seg):
+        if not seg or re.search(r'\d', seg) or is_affix(seg):
             continue
         cands.setdefault(seg, set()).add(src)
         # also offer the individual words, in case the segment is a frame
@@ -89,7 +112,8 @@ for src, raw in items:
         ws = [w for w in re.split(r'\s+', seg) if w and w not in SCAFFOLD]
         if len(ws) > 1 or (len(ws) == 1 and ws[0] != seg):
             for w in ws:
-                cands.setdefault(w, set()).add(src)
+                if not is_affix(w):
+                    cands.setdefault(w, set()).add(src)
 
 print('cells        :', len(items))
 print('candidates   :', len(cands))
