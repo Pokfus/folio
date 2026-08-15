@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-021` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-022` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 21 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 22 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10296,6 +10296,34 @@ had exactly equalled the corpus size, so the session dealt twenty cards and repo
 21" — a test fixture's daily cap reading as a missing card, on the one run where a missing card was the
 likeliest explanation. **A seeded limit that happens to equal the data is a limit nobody notices until
 the data passes it**; it is 200 now.
+**`cnh-022` FOUND THE DECK'S FOURTH REFERENCE WORK, AND IT IS THE FIRST THAT IS NEITHER A DICTIONARY NOR
+A NARRATIVE** (Aug 2026). Mayers and Herbert Giles give biographies and Werner retells the tales; Henri
+Doré's *Researches into Chinese Superstitions* (Shanghai, 1914–1938, on archive.org in full) is an
+inventory of **PRACTICE** — what is on the wall, what the figure is holding, which class of person it
+stands for — and its volume IX carried more than half this card: the classification of the Eight as old
+man, youth, soldier, scholar, noble, pauper, cripple and woman; each one's identifying emblem; the two
+picture series; and a "General Conclusion" that dates the group, names the three members who were real
+people and observes that the legends do not keep their own chronology. **Reach for Doré whenever a card is
+about something a Chinese reader would have SEEN rather than read.**
+**IT IS ALSO WHERE A SOURCE PRINTED FOUR ANSWERS TO ONE QUESTION AND ALL FOUR WERE WORTH KEEPING.** Doré
+sets out four early lists of the Eight from four different works, and they do not agree: one substitutes
+Li Yuanzhong for Li Tieguai, one drops both Zhang Guolao and He Xiangu, and one shares almost no names
+with the other three. A card built on the familiar list alone would have been true of the popular
+tradition and false about its history — so **ask whether a canonical set was ever actually canonical**,
+and note that the woman among them is missing from two of the four.
+**AND 八仙 IS THE HYDRANGEA.** A Commons search on the characters returned twenty photographs of
+*Hydrangea macrophylla*, whose Chinese name is 八仙花 — the Gonggong dwarf planet, the Kunlun warship and
+the Penglai city a fifth time, and the first namesake to defeat the search-the-characters rule that beat
+the other four. What worked was searching the SUBJECT in English with its religion attached ("Eight
+Immortals Taoist"), and the picture taken is the argument rather than an illustration of it: an octagonal
+**Longquan celadon vase of the YUAN DYNASTY**, its eight faces mould-stamped with the eight figures, at
+the Asian Art Museum in San Francisco — the dating claim and the on-a-vase claim in one object.
+**ITS ONE CARE IS THAT TWO CONVENTIONS DATE THE YUAN DIFFERENTLY**: Werner gives 1280–1368 and the museum
+labels the vase 1271–1368, one counting from the fall of the Song and the other from Kublai's
+proclamation. The date line takes Werner's, being the figure a citation on this card actually carries, and
+the museum's range was **cut from the picture's own caption** rather than left to sit four inches away
+from a different pair of years — a reader cannot be expected to know that is a convention rather than a
+mistake, and a card must not manufacture a disagreement it is not making.
 **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
