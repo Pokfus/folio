@@ -216,12 +216,16 @@ CSS = """.card {
    information the letters no longer carry -- which is why it is a weight as
    well as a colour: on a phone in bright sun, in high-contrast mode, or to a
    reader who cannot separate these two hues, `chamome` with no bold in it is
-   just a misspelling.  Indigo rather than the vermilion the mood headings and
-   the example bolding already use, and free on these cards for a second
-   reason: only a reflexive verb shows one, and a verb never carries the
-   gender-coloured article that is the other indigo on this deck. */
+   just a misspelling.
+   VERMILION, on request, where this was indigo for a day.  It is the colour the
+   mood headings and the example bolding already use, so the card now says one
+   thing in one colour -- and the two cannot be confused for each other, a mood
+   heading being 10px letterspaced capitals on a line of its own and the pronoun
+   two letters inside a word.  Its own reading is unambiguous on these cards
+   whichever hue it takes: only a reflexive verb shows one, and a verb never
+   carries the gender-coloured article that is the deck's other use of colour. */
 .uc-cl {
-  color: var(--indigo, #3D4E8F);
+  color: var(--zh, #C8453C);
   font-weight: 700;
 }
 .uc-exs {
@@ -308,7 +312,9 @@ DESC = (
     "ordering is taken from the European half of the subtitle corpus and not "
     "the Brazilian one, Wiktionary's Brazil-marked verb forms and word senses "
     "are excluded, and example sentences carrying a Brazilian marker are "
-    "rejected. "
+    "rejected. Where the reference inventory gives both a European and a "
+    "Brazilian word for the same thing — it writes them together, as uma "
+    "chávena/xícara de — the deck teaches the European one. "
 
     "There is no published CAPLE word list — the exam board publishes exam "
     "specifications and no vocabulary inventory — so the words are taken from "

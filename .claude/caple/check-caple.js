@@ -74,6 +74,29 @@ const PROBE = {
              neg: ["tu", "não |te| tornes"], pinf: ["nós", "tornarmo|nos|"] },
     impersonal: [],
   },
+  b1: {
+    // `chávena` is the pair that made B1 worth probing: the Referencial writes
+    // `uma chávena/xícara de`, the parser splits the slash, and the Brazilian
+    // half reached the pool.  Asserting the European one is here is half of it;
+    // `noBrazilian` below asserts the other half is not.
+    glosses: [["a chávena", /cup/i], ["o fiambre", /(ham|cold)/i],
+              ["o relvado", /lawn/i]],
+    numbers: [],
+    preterite: ["melhorar", "melhorámos", "melhoramos"],
+    reflexive: "mudar-se",
+    forms: { pres: ["eu", "mudo|me|"], plural: ["nós", "mudamo|nos|"],
+             conj: ["eu", "|me| mude"],
+             fut: ["eu", "mudar|me|ei"], futPl: ["nós", "mudar|nos|emos"],
+             cond: ["eu", "mudar|me|ia"], condVos: ["vós", "mudar|vos|íeis"],
+             neg: ["tu", "não |te| mudes"], pinf: ["nós", "mudarmo|nos|"] },
+    impersonal: [],
+    // the level is where the reflexives stop being a handful: its inventory
+    // names 56 `-se` strings, and a gloss missing from `reflexives.py` is
+    // SILENT -- the word is simply not offered and the deck builds at target
+    minReflexives: 25,
+    // dropped by hand in `select.py`; the European word it stands for is above
+    noBrazilian: ["xícara"],
+  },
 }[LEVEL];
 if (!PROBE) { console.error("no probes written for level " + LEVEL); process.exit(2); }
 const DECK = "CAPLE-" + LEVEL.toUpperCase() + "-Portuguese.folio-deck.json";
@@ -157,7 +180,15 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
   // FOUR PLACEMENTS, and each is a different rule.  Nothing else in this repo can see any of them:
   // every table is the right shape and the right length whichever way round the pronoun is written.
   const refl = cards.filter((c) => /-se$/.test(c.question));
-  ok(refl.length > 0, "the deck teaches reflexive verbs", String(refl.length));
+  ok(refl.length >= (PROBE.minReflexives || 1), "the deck teaches reflexive verbs",
+     String(refl.length));
+  // A REFLEXIVE THE INVENTORY NAMES AND `reflexives.py` DOES NOT GLOSS IS DROPPED IN SILENCE — the
+  // word is not offered, the cascade takes the next one, and the deck builds at exactly its target.
+  // B1 names 56 of them where A2 names 32, so the floor is a level's own number rather than one.
+  // A LEVEL WITHOUT A HAND-WRITTEN VARIETY DROP is the other silent one: the Referencial writes
+  // `chávena/xícara` and the parser splits it, so the Brazilian half is a candidate like any other.
+  for (const w of PROBE.noBrazilian || [])
+    ok(!by[w], "the Brazilian " + w + " is not in the deck");
   // `chamo|me|` -> the text the card shows, and the HTML it shows it as.  Odd pipe-separated
   // pieces are the clitic; the pipes are the test's own notation and appear nowhere in the deck.
   const clText = (s) => s.split("|").join("");

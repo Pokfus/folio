@@ -82,6 +82,10 @@ TARGET = {'a1': 500, 'a2': 500, 'b1': 1000, 'b2': 2000}
 # lists are ever rebuilt; it is `--variety-check` on run.py.
 PT_IS_EUROPEAN = True
 FREQ_FILE = 'pt_50k.txt'
+# The Brazilian list is fetched too, and not only by `--variety-check`: it is
+# what lets `select.py` REPORT a candidate that looks Brazilian, which is how
+# `xícara` was found sitting in B1.  It orders nothing.
+BR_FREQ_FILE = 'ptbr_50k.txt'
 
 
 def f(name):
@@ -106,15 +110,20 @@ def words_below():
     re-teach a feminine A1 already covers, which is the fault `dele_level`
     records finding the hard way.
 
-    THE FIELD IS HTML AND THE TAGS COME OFF FIRST, which is not a tidiness
-    point: the headword prints its article in a coloured span, so the field
-    holds `<span class="uc-art">o</span> comboio` and a rule that tests the
-    first SPACE-SEPARATED token against a list of articles is testing the span
-    and never matching.  The word then goes into the exclusion set with its
-    markup still on it, matches nothing the next level offers, and the level
-    quietly re-teaches every noun below it -- with both decks looking perfect,
-    since a duplicated word is a well-formed card.
-    `goethe_level.words_below` has exactly this fault: run over the shipped A1
+    IT READS `question`, THE PLAIN HEADWORD, AND NOT THE `Portuguese` FIELD
+    BESIDE IT -- and that is a correction rather than a preference.  The field
+    is the PRINTED form and the printed form is lossy: it sets a reflexive's
+    pronoun as a coloured span instead of hyphenating it, so stripping its tags
+    gives `sentirse`, which is not a word and matches nothing the next level
+    offers.  The level then re-teaches every reflexive below it, with both decks
+    looking perfect, since a duplicated word is a well-formed card.  `question`
+    is the lemma the whole pipeline is keyed on and cannot drift from it.
+
+    THE TAGS STILL COME OFF, as a fallback and as the lesson: a rule that tests
+    the first SPACE-SEPARATED token against a list of articles is, on the HTML,
+    testing `<span class="uc-art">o</span>` and never matching, so the word goes
+    into the exclusion set with its markup on and does nothing.
+    `goethe_level.words_below` has exactly that fault: run over the shipped A1
     deck it returns 394 of its 792 entries still carrying a tag.  It has never
     shipped a wrong deck, because the German A2 and B1 files are deliberately
     not in the repo and A1 has nothing below it -- but it is the same function,
@@ -127,8 +136,9 @@ def words_below():
             raise SystemExit(f'{LEVEL} is built on {lvl}, but {p} is missing')
         deck = json.load(open(p, encoding='utf-8'))
         for c in deck['cards']:
-            w = strip_tags((c.get('fields') or {}).get('Portuguese', ''))
-            for half in w.split(', '):
+            w = c.get('question') or strip_tags(
+                (c.get('fields') or {}).get('Portuguese', ''))
+            for half in strip_tags(w).split(', '):
                 parts = half.split(' ', 1)
                 out.add(parts[1] if parts[0] in ARTICLES and len(parts) > 1
                         else half)

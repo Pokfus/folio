@@ -16,14 +16,26 @@ Referencial's own inventory names.  Every key below appears in that level's
 Noções or Funções section; none was added because it seemed useful.
 
 THE TABLE COVERS EVERY LEVEL AT ONCE and `select.py` offers a key only where
-the level being built names it, so a reflexive cannot arrive early.  Adding a
+the level being built names it, so a reflexive cannot arrive early.  **Adding a
 level means reading its inventory for `-se` verbs and glossing the ones it
-introduces: A2 names thirty-two of them, of which four are deliberately absent
-below.  `ir-se` and `vir-se` are named only inside `ir-se/vir-se embora`, where
-the unit a learner needs is the whole phrase and the bare verb would be a
-headword the inventory does not have; `ver-se` and `dizer-se` mean what their
-base verbs mean with a pronoun on them, which is the test in the paragraph
-above and the reason this file is not simply every `-se` string in the source.
+introduces, and NOTHING WARNS**: a reflexive with no gloss is not offered, the
+deck builds cleanly at exactly its target, and the level simply does not teach a
+word its own inventory names.  A2 names thirty-two, of which four are absent
+below; B1 names fifty-six, of which twenty-five are.
+
+WHAT THE TWO TESTS THROW AWAY, since at B1 they throw away nearly half.  It must
+be a HEADWORD -- eleven of B1's fifty-six are inflected forms lifted out of the
+Referencial's own example sentences -- and it must be a DIFFERENT WORD from its
+base.  `ir-se` and `vir-se` are named only inside `ir-se/vir-se embora`, where
+the unit a learner needs is the whole phrase; `ver-se`, `dizer-se`,
+`escrever-se`, `ouvir-se`, `poder-se` and `rir-se` mean what their base verbs
+mean with a pronoun on them, which is the test in the paragraph above and the
+reason this file is not simply every `-se` string in the source.
+
+ADDING A GLOSS CAN CHANGE A LEVEL THAT HAS ALREADY SHIPPED, so check before
+writing one: a key is offered wherever the level's own inventory names it, and
+this table is shared.  None of B1's thirty-one appears in the A1 or A2
+candidate lists -- measured before they were added, not assumed.
 
 `select.py` admits a `-se` word only if it is in this table, so a reflexive can
 never reach a card without a meaning on it.
@@ -69,6 +81,53 @@ GLOSS = {
     'calar-se':     ['to be quiet, to stop talking'],       # A2 Funções
     'esquecer-se':  ['to forget'],                          # A2 Funções
     'recordar-se':  ['to remember'],                        # A2 Funções
+
+    # B1, where the reflexives stop being a handful and become a class: its
+    # inventory names FIFTY-SIX `-se` strings against A2's thirty-two, and the
+    # thirty-one below are what is left after the two tests this file already
+    # applies.  Neither is new; what is new is how much they now throw away.
+    #   · IT MUST BE A HEADWORD.  Eleven of the fifty-six are inflected forms
+    #     lifted out of the Referencial's own example sentences -- `escreve-se`,
+    #     `pode-se`, `sente-se`, `importava-se`, `formaram-se`, `recusando-se`
+    #     and the bare `-se` itself -- and `is_reflexive_ok` refuses them
+    #     anyway, their base being no infinitive.  They are not glossed here.
+    #   · IT MUST BE A DIFFERENT WORD FROM ITS BASE.  `escrever-se`, `ouvir-se`
+    #     and `poder-se` are the IMPERSONAL `se` (`como se escreve?`, `ouve-se
+    #     bem`, `pode-se fumar?`) -- a construction rather than a verb, and one
+    #     the base verb's own card already teaches.  `rir-se` fails the same
+    #     test from the other side: it is the ordinary European form of `rir`
+    #     and means exactly what `rir` means.
+    'acalmar-se':    ['to calm down'],                      # B1 Noções
+    'afastar-se':    ['to move away, to go away'],          # B1 Noções
+    'alimentar-se':  ['to eat, to feed oneself'],           # B1 Noções
+    'aproximar-se':  ['to approach, to get closer'],        # B1 Noções
+    'assustar-se':   ['to get frightened, to be startled'],  # B1 Funções
+    'avariar-se':    ['to break down, to stop working'],    # B1 Noções
+    'cansar-se':     ['to get tired'],                      # B1 Noções
+    'cortar-se':     ['to cut oneself'],                    # B1 Noções
+    'descontrair-se': ['to relax, to unwind'],              # B1 Noções
+    'desculpar-se':  ['to apologise'],                      # B1 Noções
+    'despedir-se':   ['to say goodbye; to resign'],         # B1 Noções
+    'encontrar-se':  ['to meet; to be located'],            # B1 Noções, Funções
+    'enganar-se':    ['to be mistaken, to make a mistake'],  # B1 Noções
+    'ferir-se':      ['to hurt oneself, to get injured'],   # B1 Noções
+    'importar-se':   ['to mind, to care'],                  # B1 Funções
+    'inscrever-se':  ['to enrol, to sign up'],              # B1 Noções
+    'interessar-se': ['to take an interest'],               # B1 Funções
+    'irritar-se':    ["to get annoyed, to lose one's temper"],  # B1 Funções
+    'localizar-se':  ['to be located'],                     # B1 Noções
+    'magoar-se':     ['to hurt oneself, to get hurt'],      # B1 Funções
+    'manter-se':     ['to stay, to remain'],                # B1 Noções
+    'mover-se':      ['to move'],                           # B1 Noções
+    'mudar-se':      ['to move house'],                     # B1 Noções
+    'parecer-se':    ['to look like, to resemble'],         # B1 Noções
+    'partir-se':     ['to break, to snap'],                 # B1 Noções
+    'passar-se':     ['to happen, to go on'],               # B1 Noções, Funções
+    'perguntar-se':  ['to wonder'],                         # B1 Noções
+    'queimar-se':    ['to burn oneself'],                   # B1 Noções
+    'reformar-se':   ['to retire'],                         # B1 Noções
+    'situar-se':     ['to be situated, to be located'],     # B1 Noções, Funções
+    'transformar-se': ['to turn into, to become'],          # B1 Noções
 }
 
 # The English a sentence must carry for it to be an example of the reflexive
@@ -120,6 +179,39 @@ KEYWORDS = {
     'pentear-se':   ('comb', 'combed', 'hair'),
     'maquilhar-se': ('make-up', 'makeup', 'made up'),
     'divertir-se':  ('fun', 'enjoy', 'enjoyed', 'good time', 'amuse'),
+    # B1
+    'acalmar-se':    ('calm',),
+    'afastar-se':    ('away', 'apart', 'distance'),
+    'alimentar-se':  ('eat', 'ate', 'feed', 'fed', 'diet'),
+    'aproximar-se':  ('approach', 'closer', 'nearer', 'coming up'),
+    'assustar-se':   ('frighten', 'scared', 'startled', 'afraid'),
+    'avariar-se':    ('break down', 'broke down', 'broken down', 'out of order'),
+    'cansar-se':     ('tired', 'tire', 'weary'),
+    'cortar-se':     ('cut',),
+    'descontrair-se': ('relax', 'unwind'),
+    'desculpar-se':  ('apolog', 'sorry', 'excuse'),
+    'despedir-se':   ('goodbye', 'good-bye', 'farewell', 'resign', 'quit'),
+    'encontrar-se':  ('meet', 'met', 'located', 'situated'),
+    'enganar-se':    ('mistaken', 'mistake', 'wrong'),
+    'ferir-se':      ('hurt', 'injur', 'wound'),
+    'importar-se':   ('mind', 'care'),
+    'inscrever-se':  ('enrol', 'sign up', 'signed up', 'register'),
+    'interessar-se': ('interest',),
+    'irritar-se':    ('annoy', 'irritat', 'angry', 'mad', 'temper'),
+    'localizar-se':  ('locat', 'situated'),
+    'magoar-se':     ('hurt', 'get hurt'),
+    'manter-se':     ('stay', 'stayed', 'remain', 'keep', 'kept'),
+    'mover-se':      ('move', 'moved', 'moving'),
+    'mudar-se':      ('move', 'moved', 'moving'),
+    'parecer-se':    ('look like', 'looks like', 'resemble', 'similar', 'alike'),
+    'partir-se':     ('break', 'broke', 'broken', 'snap'),
+    'passar-se':     ('happen', 'going on', 'matter', 'wrong'),
+    'perguntar-se':  ('wonder',),
+    'queimar-se':    ('burn', 'burnt', 'burned'),
+    'reformar-se':   ('retire', 'retired', 'retirement'),
+    'situar-se':     ('situated', 'locat'),
+    'transformar-se': ('turn into', 'turned into', 'become', 'became',
+                       'transform'),
 }
 
 

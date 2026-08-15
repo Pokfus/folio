@@ -31,7 +31,8 @@ import statistics
 from collections import Counter
 
 import supplement as S
-from caple_level import LEVEL, TARGET, FREQ_FILE, f as lvlf, words_below
+from caple_level import (LEVEL, TARGET, FREQ_FILE, BR_FREQ_FILE, f as lvlf,
+                         words_below)
 from reflexives import GLOSS as REFL_GLOSS, base as refl_base
 
 W = json.load(open(lvlf('wikt.json')))
@@ -41,10 +42,13 @@ suppset = set(SUPP)
 nocoes = {k for k, v in REF.items() if 'nocoes' in v}
 
 freq = {}
+freq_count = {}          # the raw hits, for the variety measurement below
 for i, line in enumerate(open(FREQ_FILE, encoding='utf-8')):
     t = line.split()
     if t:
         freq.setdefault(t[0], i)
+    if len(t) == 2:
+        freq_count.setdefault(t[0], int(t[1]))
 
 GOOD_POS = {'noun', 'verb', 'adj', 'adv', 'pron', 'num', 'intj', 'det', 'prep',
             'conj', 'article', 'particle', 'contraction'}
@@ -165,6 +169,51 @@ BLOCK = {
     'cumprir', 'identificar', 'definir', 'bater',
 }
 
+# ------------------------------------------------------------------ variety
+# THE REFERENCIAL DESCRIBES PORTUGUESE, NOT ONLY EUROPEAN PORTUGUESE, and where
+# the two varieties differ it writes both with a slash: `uma chávena/xícara de`.
+# `segments` splits on that slash because the slash is overwhelmingly used for
+# ANTONYMS AND NEAR-SYNONYMS -- measured over the whole document, 1,553 distinct
+# pairs, almost all of them `alto/baixo`, `abrir/fechar`, `achar/pensar` -- so
+# splitting is right and a rule that always took the left-hand side would throw
+# away a legitimate word in nearly every case.  The variety pairs come through
+# with it, and B1's `xícara` is one: a Brazilian teacup in a deck for an exam
+# set in Lisbon, which is the one thing this pipeline exists to prevent.
+#
+# IT IS REPORTED AUTOMATICALLY AND DROPPED BY HAND, and the measurement below is
+# why round.  A word markedly commoner in the Brazilian frequency list than in
+# the European one is the obvious test and it separates the known pairs cleanly
+# -- xícara 19x, trem 18x, ônibus 31x, celular 25x, geladeira 26x, banheiro 26x,
+# garota 22x against chávena 0.1x, comboio 0.2x, autocarro 0.1x, rapariga 0.1x.
+# Run as an automatic DROP over the three levels' finished word lists it takes
+# ONE right answer and FOUR wrong ones: `você`, which is ordinary European
+# Portuguese and which this deck teaches on purpose; `hidratar`, absent from a
+# small subtitle corpus rather than absent from Portugal; and `policial` and
+# `conexão`, both standard here and merely commoner there.  A ratio measures how
+# often Brazilians say a word, which is not the same question as whether the
+# word is Brazilian.
+# (The gerunds it flags in the CANDIDATE pool -- `dando`, `indo`, `agradecendo`,
+# a dozen more, Brazil using the gerund where Portugal uses `a` + infinitive --
+# never reach a word list: `is_inflection` has already dropped them.  So the
+# report stays short enough to read.)
+BR_RATIO, BR_MIN = 12, 200
+
+# word -> the European word the deck teaches instead.  Each is a claim being
+# made here rather than read, so each names its counterpart and each was
+# checked against both frequency lists.
+BRAZILIAN = {
+    'xícara': 'chávena',      # B1 Noções, written `uma chávena/xícara de`
+}
+
+
+def br_freq():
+    d = {}
+    for line in open(BR_FREQ_FILE, encoding='utf-8'):
+        t = line.split()
+        if len(t) == 2:
+            d.setdefault(t[0], int(t[1]))
+    return d
+
 
 def is_reflexive_ok(k):
     """A `-se` word is admitted only if a gloss is written for it and its base
@@ -185,7 +234,7 @@ VOCAB = TAUGHT | set(W)
 
 pool = {}
 for k, recs in W.items():
-    if k in BLOCK or k in TAUGHT or re.search(r'[\[\]?]', k):
+    if k in BLOCK or k in TAUGHT or k in BRAZILIAN or re.search(r'[\[\]?]', k):
         continue
     if is_inflection(k, recs, VOCAB):
         continue
@@ -249,6 +298,22 @@ take(sorted([k for k in pool if k in REF], key=rank))      # Funções, Gramáti
 take(sorted(pool, key=rank))                               # anything else
 
 final = chosen[:TARGET[LEVEL]]
+
+# WHAT THE VARIETY MEASUREMENT SAYS ABOUT THE LIST THAT IS ACTUALLY SHIPPING.
+# Reported rather than acted on -- see the note above `BRAZILIAN` for why a
+# ratio cannot be trusted to drop a word by itself -- and reported over `final`
+# rather than over the pool, so it names the handful a person has to look at
+# instead of the gerunds `is_inflection` was going to remove anyway.
+_br = br_freq()
+_flag = sorted(((_br.get(k, 0) / (freq_count.get(k, 0) + 1), k) for k in final
+                if _br.get(k, 0) >= BR_MIN
+                and _br.get(k, 0) >= BR_RATIO * (freq_count.get(k, 0) + 1)),
+               reverse=True)
+print(f'  dropped as Brazilian: {len(BRAZILIAN)} '
+      f'({", ".join(f"{a} -> {b}" for a, b in sorted(BRAZILIAN.items()))})')
+if _flag:
+    print('  ! commoner in Brazilian Portuguese than in European, READ THESE: '
+          + ', '.join(f'{k} x{r:.0f}' for r, k in _flag))
 
 # ----------------------------------------------------- the order they ship in
 UNRANKED = 10 ** 6

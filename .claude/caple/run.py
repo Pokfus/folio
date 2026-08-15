@@ -6,10 +6,18 @@
     python3 .claude/caple/run.py --variety-check    # re-prove the corpus choice
 
 ONE LEVEL PER RUN.  `caple_level` reads the level once, at import, so a second
-level in the same process would be built against the first one's settings.  A1
-is the only level with a deck so far; A2 and above would each take a row in that
-module's tables plus a `BELOW` entry, which is how the four DELE levels and the
-three Goethe ones avoid teaching the same word twice.
+level in the same process would be built against the first one's settings.  A1,
+A2 and B1 have decks; B2 and above would each take a row in that module's tables
+plus a `BELOW` entry, which is how the four DELE levels and the three Goethe
+ones avoid teaching the same word twice.
+
+A LEVEL IS BUILT ON THE SHIPPED DECKS BELOW IT, so build them IN ORDER and
+rebuild the lot after any change to a shared stage -- `words_below` reads A1's
+and A2's deck FILES to know what B1 may not re-teach, so a stale file lower down
+is a higher level quietly teaching the same word twice.  It is also why every
+level must reproduce byte for byte after a change that was meant for one of
+them: that is the only thing standing between a shared stage and a silent
+regression in a deck nobody was looking at.
 
 Downloads its sources into `.claude/caple-cache/` (gitignored) and leaves them
 there, so a re-run costs nothing.  The largest is the Wiktionary dump at about
@@ -70,15 +78,17 @@ SOURCES = [
     ('pt_50k.txt',
      'https://raw.githubusercontent.com/hermitdave/FrequencyWords/master/'
      'content/2018/pt/pt_50k.txt', False),
+    # THE BRAZILIAN LIST ORDERS NOTHING and is fetched all the same: `select.py`
+    # reads it to REPORT a candidate that is markedly commoner there than here,
+    # which is how `xícara` was found in B1.  See the note above `BRAZILIAN`.
+    ('ptbr_50k.txt',
+     'https://raw.githubusercontent.com/hermitdave/FrequencyWords/master/'
+     'content/2018/pt_br/pt_br_50k.txt', False),
     ('por_sentences_detailed.tsv', TATOEBA + 'por/por_sentences_detailed.tsv.bz2', True),
     ('eng_sentences.tsv',          TATOEBA + 'eng/eng_sentences.tsv.bz2',          True),
     ('por-eng_links.tsv',          TATOEBA + 'por/por-eng_links.tsv.bz2',          True),
 ]
 
-# only fetched by --variety-check; not needed to build the deck
-BR_FREQ = ('ptbr_50k.txt',
-           'https://raw.githubusercontent.com/hermitdave/FrequencyWords/master/'
-           'content/2018/pt_br/pt_br_50k.txt', False)
 
 
 def fetch(extra=()):
@@ -105,7 +115,7 @@ def variety_check():
     getting it the right way round -- so the claim is a measurement that can be
     re-run rather than a comment that can rot.
     """
-    fetch([BR_FREQ])
+    fetch()
     os.chdir(CACHE)
 
     def load(p):

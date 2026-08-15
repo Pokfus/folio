@@ -98,6 +98,10 @@ for k in words:
     for form in forms_of(k):
         FORM2WORD[form].add(k)
 ALLFORMS = set(FORM2WORD)
+# the same boundary class the bolder in `build_deck.py` uses, so a phrase that
+# is FOUND here is a phrase that can be MARKED there
+PH_RX = {p: re.compile(r'(?<![0-9a-zà-öø-ÿ])' + re.escape(p)
+                       + r'(?![0-9a-zà-öø-ÿ])') for p in PHRASES}
 print('  distinct forms indexed:', len(FORM2WORD), ' phrases:', len(PHRASES),
       ' reflexives:', len(REFLEXIVES))
 
@@ -306,7 +310,15 @@ for sid, text in por.items():
                         hits.add((k, t))
     low = text.lower()
     for p in PHRASES:
-        if p in low:
+        # ON WORD BOUNDARIES, NEVER AS A BARE SUBSTRING.  `poder com` is inside
+        # `poder comprar`, so the plain `in` gave that phrase three sentences
+        # about buying a car and none about coping with anything -- and the
+        # failure is nearly silent, because the sentences are real Portuguese,
+        # correctly translated, and the card is the right shape.  What showed it
+        # is the BOLDER, which does anchor on boundaries and so refused to mark
+        # a word it could not find: `check-caple.js` asserts that every card
+        # with examples has a bolded term in them, and this is the one it caught.
+        if PH_RX[p].search(low):
             hits.add((p, p))
     if not hits:
         continue

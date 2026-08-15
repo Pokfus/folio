@@ -232,6 +232,14 @@ report_missing(words, 'build_deck.py')
 AUTHORED = {
     'obrigado': ['thank you (said by a man)'],
     'obrigada': ['thank you (said by a woman)'],
+    # B1.  A WORD WHOSE ENTRY IS A POINTER AND WHOSE TARGET IS NOT IN THE DUMP.
+    # `vários` reads "masculine plural of vário", and `vário` has no entry at
+    # all -- so the pointer cannot be followed and the meaning has to be written
+    # down.  It is a real B1 headword: the Referencial lists the plural, which
+    # is the only form anyone uses.  Watch for more of these as the levels go up
+    # -- `build_deck` REFUSES a card with no meaning, so they announce
+    # themselves rather than shipping blank, which is what this entry is.
+    'vários': ['several, various'],
     'faz favor': ['please; excuse me'],
     'se calhar': ['maybe, perhaps'],
     'de nada': ["you're welcome; not at all"],
