@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Combine the six CILS bands and the core deck into ONE importable deck file.
+"""Combine the six CILS bands, the core deck and the phrases deck into ONE file.
 
     python3 .claude/cils/combine.py [out.folio-deck.json]
 
-It reads the seven shipped `decks/*.folio-deck.json` and writes a single deck
+It reads the eight shipped `decks/*.folio-deck.json` and writes a single deck
 with a subdeck per level:
 
-    A1  A2  B1  B2  C1  C2  Core vocabulary
+    A1  A2  B1  B2  C1  C2  Core vocabulary  Phrases and expressions
 
 **IT NEEDS NO `::` NESTING, WHICH IS THE ONE PLACE IT DIFFERS FROM THE SPANISH
 COMBINER AND IS WORTH SAYING.**  DELE writes a level and the two directions
@@ -31,7 +31,7 @@ rendered by another level's, which on a language deck means the wrong side of
 the card face up.
 
 THE COUNTS IN THE DESCRIPTION ARE COUNTED off the cards, never carried over from
-the seven descriptions and added up.  A figure restated by hand goes stale the
+the eight descriptions and added up.  A figure restated by hand goes stale the
 next time a level is rebuilt, and nothing reports it.
 
 THE CAPS ARE CHECKED BEFORE THE FILE IS WRITTEN.  `UDECK_MAX_CARDS` counts NOTES
@@ -40,10 +40,10 @@ and app.js REFUSES an over-size file rather than trimming it, so the failure
 would be at the reader's end.
 
 AND IT IS REPRODUCIBLE: no clock is read.  The timestamps come from the newest
-of the seven sources, so re-running with the same inputs writes the same bytes
+of the eight sources, so re-running with the same inputs writes the same bytes
 and a diff means something.
 
-Not part of the site.  The combined file is an ARTEFACT of the seven shipped
+Not part of the site.  The combined file is an ARTEFACT of the eight shipped
 decks and is deliberately NOT committed -- it duplicates ~21 MB already in the
 repo, and this script regenerates it.
 """
@@ -62,7 +62,11 @@ from cils_level import BANDS, DECK_FILES
 LEVELS = ([(lv, lv.upper()) for lv in BANDS]
           + [('core', 'Core vocabulary'), ('phrases', 'Phrases and expressions')])
 DECK_ID = 'itall'
-TITLE = 'Italian — CILS A1–C2 and the core vocabulary'
+TITLE = 'Italian — CILS A1–C2, the core vocabulary and common phrases'
+# the subdeck count in words, for the subtitle; derived from LEVELS so a
+# ninth deck cannot leave a stale number on the shelf
+NUMWORD = ('zero one two three four five six seven eight nine ten eleven '
+           'twelve').split()[len(LEVELS)] if len(LEVELS) <= 12 else str(len(LEVELS))
 SUB_SEP = '::'          # app.js's own subdeck separator; keep the two in step
 
 # app.js's own limits, restated here so this refuses to write a file that cannot
@@ -78,7 +82,7 @@ def load(level):
 
 
 def stats(cards):
-    """Counted off the cards, not read out of the seven descriptions.
+    """Counted off the cards, not read out of the source descriptions.
 
     A note carries two cards -- the two templates -- so `notes` is what the file
     holds and `notes * 2` is what a reader studies.  Both are quoted, because a
@@ -215,7 +219,7 @@ def main():
                                          ensure_ascii=False).encode()).hexdigest()
             for _, lab, d in decks}
     if len(set(sigs.values())) != 1:
-        raise SystemExit('the seven decks no longer share a card-type block: '
+        raise SystemExit('the decks no longer share a card-type block: '
                          + json.dumps(sigs, indent=2))
     types = decks[0][2]['meta']['types']
 
@@ -248,7 +252,10 @@ def main():
         'meta': {
             'id': DECK_ID,
             'title': TITLE,
-            'subtitle': f'{len(cards):,} words · seven subdecks · both '
+            # DERIVED, never written down: the subtitle said `seven` for a
+            # fortnight after the eighth deck was added, while the
+            # description beside it -- which counts -- correctly said eight.
+            'subtitle': f'{len(cards):,} words · {NUMWORD} subdecks · both '
                         'directions, as two cards per word',
             'desc': desc(s, per_level),
             'author': '',

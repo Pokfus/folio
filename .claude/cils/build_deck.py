@@ -41,7 +41,7 @@ from collections import Counter
 from cils_level import LEVEL, f as lvlf
 from italian import (article, with_article, indefinite, agree,
                      adj_forms_regular, clean_form, destress, fold)
-from wikt import real_senses, letter_name, pointer_targets
+from wikt import real_senses, letter_name, pointer_targets, _COMPOUND_RX
 
 entries = json.load(open(lvlf('entries.json')))
 W = json.load(open(lvlf('wikt.json')))
@@ -156,6 +156,33 @@ def sense_gloss(s_, head=''):
             return ''
         return tidy(parts[1], head)
 
+    # **A CLITIC STUCK ON A VERB IS A POINTER THAT IS NOT TAGGED AS ONE.**  An
+    # ordinary inflected form carries `form_of` and is handled above; a verb with
+    # an object pronoun on it is filed as its own entry whose only gloss is a
+    # sentence of grammar -- "compound of the infinitive discutere with ne" --
+    # with no field to read and no meaning after a separator.  The C1 list prints
+    # eighteen (`discuterne`, `trasferirti`, `slegami`), and each shipped as a
+    # card whose meaning explains how the word is BUILT and never what it means,
+    # while sixteen of the eighteen are a clitic form of a verb the collection
+    # already teaches.  The sense contributes nothing, so the word falls to the
+    # ordinary no-meaning refusal and is named in REFUSED rather than shipped.
+    #
+    # **AND IT MAY BE HIDING BEHIND A PREAMBLE, WHICH IS WHY THE TEST IS APPLIED
+    # TWICE.**  Four reflexive verbs came through with it -- `arrabbiarsi`,
+    # `arrendersi`, `sbarazzarsi`, `susseguirsi` -- because Wiktionary files
+    # their third sense as "Used other than figuratively or idiomatically:
+    # compound of the infinitive arrabbiare with si.", so the raw gloss opens on
+    # the preamble and this match fails.  `clean` below strips exactly that
+    # preamble, so the description reappears as a candidate a few lines later and
+    # ships as a fourth bullet under three real meanings.  Nothing reports it:
+    # the card is well formed and the meaning it leads with is correct, and only
+    # a sweep of the finished collection for the phrase found them.  **Test the
+    # CLEANED candidate as well as the raw gloss** -- and note the two are not
+    # interchangeable, since the raw test is what stops a word whose ONLY sense
+    # is this from reaching `clean` at all.
+    if _COMPOUND_RX.match(g):
+        return ''
+
     # A GLOSS MAY OPEN ON A USAGE NOTE AND THEN TRANSLATE: `essere` is glossed
     # "Used as a copula. to be", and taken whole that is what the card leads
     # with.  The note is dropped and the translation kept.
@@ -165,7 +192,7 @@ def sense_gloss(s_, head=''):
         out = tidy(m.group(1) if m else x, head)
         return '' if out.endswith(':') else out
 
-    cands = [c for c in (clean(x) for x in gs) if c]
+    cands = [c for c in (clean(x) for x in gs) if c and not _COMPOUND_RX.match(c)]
     for c in cands:
         if not _NOTE_RX.match(c):
             return c
@@ -810,7 +837,18 @@ def examples_html(exs):
         it, en, form = x['it'], x['en'], x['form']
         pat = re.compile(r'(?<![^\W\d_])(' + re.escape(form) + r')(?![^\W\d_])',
                          re.I | re.UNICODE)
-        shown = pat.sub(lambda m: '<b>' + esc(m.group(1)) + '</b>', esc(it), count=1)
+        # **MATCH THE RAW SENTENCE AND ESCAPE THE PIECES, NEVER THE OTHER WAY
+        # ROUND.**  Searching the escaped text for a pattern built from the raw
+        # form means an apostrophe in the form is looking for itself where `esc`
+        # has already written `&#x27;` -- so `un po'`, `dare un'occhiata` and
+        # `al giorno d'oggi` are never found and the sentence ships with the
+        # phrase not picked out at all.  Nothing throws, the example is correct
+        # and complete, and the only symptom is a missing highlight: 114 of the
+        # phrases deck's sentences across 50 expressions, and every single one of
+        # them an apostrophe.
+        m = pat.search(it)
+        shown = (esc(it[:m.start()]) + '<b>' + esc(m.group(1)) + '</b>' +
+                 esc(it[m.end():])) if m else esc(it)
         out.append('<div class="uc-exi">'
                    f'<div class="uc-exz"><span class="uc-tts uc-exsay" data-say="{esc(it)}"></span>{shown}</div>'
                    f'<div class="uc-exe">{esc(en)}</div></div>')

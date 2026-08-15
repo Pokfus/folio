@@ -23,7 +23,23 @@ def real_senses(r):
     """Senses that say what the word MEANS, rather than pointing at another word."""
     return [s for s in (r.get('senses') or [])
             if s.get('glosses') and not (s.get('form_of') or s.get('alt_of'))
-            and not _SEE_ALSO_RX.match(s['glosses'][0] or '')]
+            and not _SEE_ALSO_RX.match(s['glosses'][0] or '')
+            and not _COMPOUND_RX.match(s['glosses'][0] or '')]
+
+
+# **A CLITIC STUCK ON AN INFINITIVE IS A POINTER TOO, AND IT IS NOT TAGGED LIKE
+# ONE.**  Wiktionary marks an ordinary inflected form with `form_of`, which the
+# rule above refuses; a verb carrying an object pronoun is filed as its own entry
+# whose only gloss is a sentence of grammar -- "compound of the infinitive
+# discutere with ne".  The C1 list prints eighteen of them (`discuterne`,
+# `trasferirti`, `fraintendermi`, `slegami`), each of which shipped as a card
+# whose meaning field explains how the word is BUILT and never what it means, and
+# sixteen of the eighteen teach a clitic form of a verb the collection already
+# carries.  Nothing could report it: the card is well formed, the gloss is
+# accurate, and the count is right.  Refused here rather than in `select`,
+# because it is a fact about the SENSE and not about the word -- a headword with
+# a real sense as well keeps its card and simply loses this one.
+_COMPOUND_RX = re.compile(r'^(compound|contraction|combination) of\b', re.I)
 
 
 # **A ONE-LETTER WORD IS NOT THE NAME OF A LETTER**, and Wiktionary files that
