@@ -65,7 +65,10 @@ function pieces(block) {
   // here, and a lookahead anchored straight to a letter matches none of them. (The genus rule above
   // carries the same blind spot on its lookahead; nothing in the corpus writes "H. <i>sapiens</i>" yet.)
   hold(/\b(?:ssp|subsp|var|cf|aff|sp|spp)\.\s(?=(?:<[^>]*>)*\p{Ll})/gu);
-  hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Mt)\.\s?/g);        // "Roberts Jr. used the name in 1940"
+  // "Ste" is the French feminine of "St" and is the shape a scholar's surname is written in — G. E. M. de
+  // Ste. Croix, cited across the Greek cards — so a card naming him split at the stop with the two halves
+  // both reading as sentences. Same family as the honorifics beside it, and no sentence ends on any of them.
+  hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Ste|Mt)\.\s?/g);    // "Roberts Jr. used the name in 1940"
   hold(new RegExp("\\d{1,2}\\.\\s(?=(?:" + MONTHS + "))", "g"));   // "25. August"
   hold(/\d{1,2}\.\s(?=Jahrhundert|Jh\.)/g);                 // "im frühen 19. Jahrhundert"
   // A German ordinal before any capitalised noun — "ab 1900 der 1. Baron Avebury", which split the

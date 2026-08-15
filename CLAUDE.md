@@ -3697,7 +3697,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   The Mandarin set is **three** files: **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), and
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
-  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`.
+  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, and the
+  **Goethe German set** by `.claude/goethe/` — see its own bullet below.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -4409,6 +4410,185 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   compares a rebuild against a shipped file that was already unreproducible.
   **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
   since every fault above is silent. Not part of the site.
+- `.claude/goethe/` — the generator behind the Goethe decks: `decks/Goethe-A1-German.folio-deck.json`
+  (**785 notes / 1,570 cards**), an **A2** built the same way (**1,072 notes / 2,144 cards**) and a **B1**
+  (**2,525 notes / 5,050 cards**), the last two DELIBERATELY NOT COMMITTED — see the last sub-bullet.
+  `python3 .claude/goethe/run.py [--level a1|a2|b1] [--no-fetch]`. Seven stages, caching its corpora and the
+  Goethe-Institut's own PDFs in `.claude/goethe-cache/` (~1.3 GB, gitignored). PYTHON, like `.claude/dele/`
+  and unlike every other helper here, and for the same reason: a further level is a re-run against the next
+  Wortliste rather than a rebuild. **ONE LEVEL PER RUN** (`goethe_level` reads the level once, at import),
+  and a level is taught on top of the ones below it, read out of the SHIPPED deck files so they cannot
+  drift — the DELE arrangement exactly (A2's list REPEATS 330 A1 words and B1 repeats 571 of both, which is
+  what `BELOW` removes). B2 has a published Wortliste of its own and would take a row in each of that
+  module's tables plus a `BELOW` entry.
+  **THE SECOND LEVEL IS WHERE THE PIPELINE'S ASSUMPTIONS WERE TESTED, and almost every one of them was a
+  fact about A1's TYPESETTING rather than about German.** Six things it settled are worth carrying.
+  · **THE PAGE GEOMETRY IS A TABLE, NOT A CONSTANT.** A1 is ONE pair of columns and A2 is TWO pairs side by
+    side, so a page reads down the left pair and then down the right; a reader written for one finds half
+    of the other. `HEAD_COLUMNS` / `LIST_PAGES` / `SUB_INDENT` / `GROUP_PAGES` / `FURNITURE` are per level,
+    each measured off that PDF's own x-histogram. A1 also indents "ableitbare Nebeneinträge" and A2 has no
+    such level at all, which is why `SUB_INDENT` may be None.
+  · **A RULE THAT CANNOT BE MADE GENERAL IS GATED PER LEVEL RATHER THAN MADE CLEVERER** (`BRACKET_CONT`).
+    In A2, eighteen lines OPENING on a bracket are continuations of the line above (`(Sg.)`, `(sich),`) and
+    four are headwords; in A1 every one is a headword — the eight `(sich) anziehen` reflexives and
+    `(Kredit)-Karte`. Two attempts at a single predicate each swallowed one of A1's shapes, so the rule is
+    declared per list and is **inert on A1 by construction rather than by a re-run**.
+  · **THE REFLEXIVE MARKER SITS ON EITHER SIDE OF THE VERB, and which side is a fact about the LIST.** A1
+    writes `(sich) anziehen` and A2 writes `anziehen (sich)`, for the same word — nine prefixed against
+    twenty-five suffixed. A prefix-only rule leaves twenty-five A2 verbs looked up under a lemma with
+    `(sich)` on the end, which Wiktionary has not got; nothing throws and the cards come out bare.
+  · **A2 PRINTS A VERB'S PRINCIPAL PARTS AND AN ADJECTIVE'S COMPARISON UNDER THE HEADWORD** and A1 does
+    not (`besichtigen, besichtigt, hat besichtigt`; `gut, besser, am besten`), which is what most of
+    `split_entry`'s new work is for — the deck builds both from Wiktionary, so what is wanted off the page
+    is the first part. Two tests, because a paradigm is not always three parts: a part opening on an
+    auxiliary, or more than one comma on an entry that is not a noun.
+  · **THE ONE FAULT THAT COST REAL WORK WAS `der/das`** (`ART` in parse_goethe.py). A slash between two
+    articles is ONE noun with two genders; the pair rule matches a slash before an article, so `der/das
+    Blog` was split into halves and shipped as a card headed **`der`** with `Blog` filed as its partner.
+    Three A2 entries. Inventoried over both lists rather than guessed.
+  · **AND THE A2 WORK FOUND SIXTEEN FAULTY GENDER LABELS IN THE SHIPPED A1 DECK** — the argument for
+    running a change across the SIBLING that the Library's importer already records. `der Erwachsene` was
+    labelled "noun, feminine" (Wiktionary files the nominalised adjectives under the feminine) and twelve
+    cards carried a raw two-letter code, "noun, mn". On a deck whose whole point is that the article's
+    colour teaches the gender, a label contradicting the article teaches the opposite of what it shows.
+    **THE LABEL NOW FOLLOWS THE ARTICLE THE CARD PRINTS** and Wiktionary is the fallback, and `by_article`
+    narrows a merged homograph by the list's own article — which also stopped `der See` and `die See`
+    rendering as the same card twice, both glossed "lake, sea, ocean", and took "momentum" off `der Moment`
+    and "twig" off `der Reis` (those are `das Moment` and `das Reis`). 26 A1 notes changed, every one a
+    correction. Two guards keep it honest: a record tagged with TWO genders answers to both (testing only
+    its first tag cost `das Viertel` the meaning "quarter"), and the narrowed set must still carry a gloss
+    (narrowing on gender alone left eight cards with no meaning at all).
+  · **UNLIKE THE DELE, THERE IS NOTHING TO SELECT: the exam board publishes the word list, and the deck
+    teaches it.** So `select.py` does no choosing — it settles which Wiktionary LEMMA each headword is and
+    orders the result by frequency, where the Spanish pipeline's whole difficulty is deciding which 500
+    words a level should hold. What replaces that difficulty is reading a two-column PDF (pdfplumber word
+    x-coordinates, `COLUMN_X = 236` measured off the whole histogram rather than guessed — a threshold of
+    230 silently truncated `die Sehenswürdigkeit, -en`, whose `-en` sits at 233) and building the German a
+    card needs: the gender, the plural, the feminine, the paradigm. **The Wortgruppen — the numbers, days,
+    months and colours the alphabetical list omits — are declared and then ASSERTED against the PDF's own
+    pages 5–7**; that check is what found `der Monat`, which is in no list at all, and the gap is the exam
+    board's and is recorded rather than filled.
+  · **WHAT IS TAKEN FROM THE PDF IS THE WORD LIST AND NOTHING ELSE.** It prints an example sentence under
+    almost every entry and not one is reproduced: those are the Goethe-Institut's own authored prose, where
+    this deck's sentences come from Tatoeba and its meanings from Wiktionary. They ARE read while the
+    pipeline is written — they are the evidence for which sense of `aus` or `laut` the list means, and for
+    the `FORCE_POS` table's 83 multi-POS entries — but they do not travel into the deck, and
+    `check-goethe.js` asserts no card text quotes the document.
+  · **A FEMININE IS READ AND THEN CHECKED, because Wiktionary lists one wherever German CAN make one and
+    not only where it uses one.** Read straight, `der Mann` shipped with `die Männin` beside it. Nothing in
+    the tags separates that from `die Lehrerin` — all of them are a bare `['feminine']`, and Männin's entry
+    carries an ordinary gloss whose only marks are a `Bible` CATEGORY on one sense and `rare` on the other.
+    What does separate them is CURRENCY, measured on the frequency list the ordering already uses: **a
+    feminine of a common masculine that appears not once in 50,000 words is not a word in use.** Mann
+    222,707/Männin 0, Fisch 6,038/Fischin 0, Gast 5,053/Gästin 0 all fall; `die Doktorin` at 64 hits
+    survives, and so do `die Absenderin` and `die Empfängerin`, ordinary words whose masculines are
+    themselves too rare for the list to say anything about. Two more go for reasons that are not about
+    frequency: a feminine equal to the headword is not a feminine (`Mensch` gave its own name, meaning the
+    neuter `das Mensch`), and a STEM has none (`Lieblings-` gave `die Lieblingin`). 23 → 18.
+  · **A GERMAN NOUN IS CAPITALISED, WHICH CUTS BOTH WAYS — AND AT THE HEAD OF A SENTENCE IT CUTS NEITHER.**
+    The first two rules are what keep `fernsehen` off "dass Fernsehen schlecht für Kinder ist" and the
+    adverb `morgen` off "heute Morgen"; the hole they leave is position 0, where every word is capitalised
+    and the capital is therefore no evidence of a noun at all. `die Bitte` came out illustrated by "**Bitte**
+    erklären Sie, warum Sie nicht kommen können", which is the particle `bitte` — **the other entry in this
+    very deck**. So where the deck also teaches a lowercase word of the same spelling, the noun reading is
+    declined in first position and the lowercase one keeps the sentence; it bites on the handful of words
+    that are two words (bitte/Bitte, essen/Essen, morgen/Morgen) and separates all three cleanly.
+  · **A TWO-TOKEN FORM IS A SEPARABLE VERB ONLY WHERE IT IS FINITE, and the rule had to be positive.**
+    Blacklisting the shapes was tried twice and is the wrong shape: 4,779 of the deck's 5,301 distinct
+    multiword forms are not separable pairs at all, in at least four families — Wiktionary's
+    `includes-article` declensions (`der gute`, 8,288 of them), the two-word superlative (`am besten`),
+    compound tenses (`hat gesagt`, which also made the build unreproducible, since a sentence then hit one
+    key under two forms and which was recorded came off a set), and **names leaking out of citation
+    metadata into `forms`** (`Sebastian Brant`, filed under `sein`). Requiring a finite tag keeps 522 and
+    every one is `lade ein`, `höre auf`, `stelle vor`. The article ones bit hardest: the adjective `best-`
+    resolves to the lemma `gut`, so its card came out with three sentences bolding `am`, `das` and `Die`
+    and never `besten` — every count healthy, since the sentences really do contain the word.
+  · **WIKTIONARY'S OWN SENSE ORDER IS THE SIGNAL** — the DELE ranks a sense by how SHORT its gloss is, which
+    is a fair proxy in Spanish and gave `das Haus` as "theatre" and `gehen` as "to leave" here. The only
+    reordering is to push a sense labelled obsolete or dialectal behind the plain ones, **and one more: a
+    gloss that describes a grammatical FUNCTION rather than translating.** `haben` opened on "forms the
+    perfect aspect" and gave "to have" second. **The tag `auxiliary` is the wrong test and was tried**: on
+    the modals the auxiliary sense IS the meaning, so demoting it gave `müssen` Wiktionary's mangled
+    intransitive reading ("to have to do something implied") ahead of "must". The gloss is what separates
+    them, and swept over the deck all 21 glosses opening on "Used…" are usage notes and not one is a
+    meaning. Where no rule can settle it the answer is written down and read off the list's own example:
+    Wiktionary opens `werden` on the future auxiliary and the Goethe example is `Mein Sohn will Arzt
+    werden`, so that one joins `möchten`, `geboren`, `lieber` and `der Lkw` in `AUTHORED`.
+  · **A STEM ENTRY IS ILLUSTRATED BY ITS OWN FORM OR NOT AT ALL** (`own_stem_only`), a BAR and not a
+    penalty, which is this pipeline's standing rule that under-marking beats mis-marking: as a penalty
+    `Lieblings-` still took "**Liebling**, ich kann es dir erklären!", which is the noun and a different
+    word from the prefix. Measured over all fifteen stems it costs NOTHING — barring the wrong sentence let
+    a lower-scoring right one through.
+  · **THE CARD IS ONE NOTE AND TWO TEMPLATES**, the Mandarin shape rather than the DELE's two-notes-per-word:
+    785 notes, 1,570 cards, 1.59 MB. A corrected gloss is corrected in both directions at once and each
+    direction keeps a schedule of its own. Its `.uc-field` needs a `min-width` the Mandarin decks do not,
+    because German's commonest words gloss in ONE word and `ich` → `I` left an 80px stamp adrift in a 680px
+    card under a rule spanning the whole of it.
+  · **`check-goethe.js` is the browser half** and exists because `check-decks.js` skips the card-level
+    checks for a deck that is not Mandarin — so everything German this deck is FOR is unchecked by anything
+    until here. It studies the deck and asserts what the PAGE says (a coloured article and a plural, a
+    paradigm with Präsens/Perfekt/Imperativ and its auxiliary, a comparative and superlative, der/die/das in
+    three distinct colours) and **writes four screenshots to look at** — front, back, noun, verb, adjective
+    — which is where the bolding fault and the `bitte` sentences were actually found. Two things it has to
+    keep doing: **grade EASY** (a new card graded Good requeues as a learning step and the walk stands
+    still) and **raise the day's allowance**, since five new cards is five function words and no noun, verb
+    or adjective is ever reached. It takes the level as its argument (`node check-goethe.js b1`).
+  **THE THIRD LEVEL IS WHERE THE LIST'S OWN TYPESETTING BECAME THE WHOLE JOB.** B1 is 2,529 headwords
+  against A2's 1,300, set in a narrower column with two or three numbered example sentences under each, so
+  it wraps constantly and in every direction — and a wrapped line read as a headword is a card for a word
+  that does not exist. Seven things it settled are worth carrying.
+  · **A LINE IS A CLUSTER OF TOPS, NOT A ROUNDED ONE, AND THAT CHANGE BROKE A1 IN A PLACE NOTHING WAS
+    WATCHING.** B1 sets the regional-variant arrow 1.42 points above the headword it belongs to, which
+    `round` files in the next bucket down, so `→` became a row of its own and — a row ending in an arrow
+    being a continuation — swallowed the real headword under it. Clustering fixed that and merged two A1
+    lines the rounding had kept apart: the running head at x 17 and the section letter at 143 sit on ONE
+    line, so `Alphabetische A` and `wortliste ab` became entries and `ab` was lost. **The column, not the
+    line grouping, is what should have separated them** — A1's `HEAD_COLUMNS` opened at 0 and now opens at
+    140, with `SUB_INDENT` moved from 146 to 6 to stay relative to it.
+    **AND IT WENT UNNOTICED FOR A SESSION BECAUSE THE BASELINE WAS THE CACHE.** `wortliste-a1.json` in
+    `.claude/goethe-cache/` was already carrying the fault when it was copied as the "before"; the only
+    honest baseline is **the committed deck rebuilt from the committed code**, which is what `git stash` and
+    an md5 give in two commands.
+  · **A VERB PARADIGM RUNS TO FOUR PARTS AND THE LINE OFTEN ENDS BEFORE IT DOES**, 58 times, and the break
+    falls anywhere in it — after the auxiliary (`baden, badet, badete, hat` over `gebadet`, 25 of those),
+    after a finite form whose separable prefix or reflexive pronoun wrapped (`sich amüsieren, amüsiert` over
+    `sich, amüsierte sich, …`), inside a word (`hat geant-` over `wortet`). So the test is **the paradigm's
+    own arithmetic** rather than the shape of the break: four comma-parts, the last not a bare auxiliary.
+    Gated per level (`VERB_WRAP`) because A2 prints a bare `abholen` as a headword and the rule joins it.
+  · **THE UMLAUT MARK COMES BACK AS A CURLY QUOTE ON ONE ROW IN THREE HUNDRED** (`die Angst, “-e`) and the
+    marker's hyphen is set clear of its ending on two more (`der Klick, - s`). Both are repaired in
+    `fix_glyphs`, before anything reads the row — a mark that is not a mark is a noun shipped under a lemma
+    no dictionary has, and the count of nouns stays perfect throughout.
+  · **A FEMININE IS RECOGNISED BY COMPARISON, NOT BY CONSTRUCTION.** Adding `-in` to the masculine catches
+    `Absender`/`Absenderin` and misses every noun that umlauts (`Anwalt`/`Anwältin`, `Arzt`/`Ärztin`) and
+    every weak masculine in `-e` (`Kollege`/`Kollegin`) — eight adjacent pairs, each of which then ships as
+    a card of its own with **no meaning at all**, Wiktionary glossing a feminine "female equivalent of X".
+    Fixing it also gave A2's `der Partner` the feminine it had been missing.
+  · **A LEMMA WHOSE EVERY SENSE IS A POINTER HAS NO MEANING TO CARD, AND THE MEANING IS AT THE OTHER END.**
+    Nineteen B1 words are filed as inflections or variants — `Früchte` "plural of Frucht", `ausgebildet`
+    "past participle of ausbilden", `die Mail` "alternative form of E-Mail", `Bub` "alternative form of
+    Bube", `Coiffeuse` "female equivalent of Coiffeur". `extract_kaikki` now takes a **third pass** to fetch
+    the pointer targets and `pointed_glosses` follows them **only when there is nothing else**, so every
+    earlier level is inert. It is the general form of what the `STEM` table does by hand.
+  · **THE REGIONAL NOTE IS THE LIST'S OWN COLUMN AND IT WRAPS FIVE DIFFERENT WAYS** — before the arrow,
+    after it, on a country code and a comma (`→ A,` over `CH: Pension`), with the whole bracket on the next
+    line (`(D) → A: e-card`), and once at the very tail of a phrase the note has already named. Each was
+    inventoried before it was written; the last is a single row, and left alone it ships a card for the bare
+    verb `gehen/sein`.
+  · **WHAT WIKTIONARY CANNOT GLOSS IS AUTHORED, NEVER DROPPED.** B1's residue is 40 words — the
+    compound-forming prefixes (`Bio-`, `Schwieger-`, `Sonder-`), the correlative conjunctions (`weder …
+    noch`, `je … desto …`), the phrases (`sich scheiden lassen`, `in Rente gehen/sein`) and the Austrian and
+    Swiss words the list gives entries of their own (`der Führerausweis`, `die e-card`, `der Zivilstand`) —
+    and each is written into `AUTHORED` with its country where the country is the point. `build_deck` still
+    REFUSES a card with no meaning, which is what keeps that list honest.
+  · **A1 IS IN THE REPO AND A2 AND B1 ARE NOT** (on request, Aug 2026): they are files to hand a reader for
+    import, not something the site should carry, so `.gitignore` names both and a `git add -A` cannot sweep
+    them in. Deleting a line ships that deck. Nothing on the site links to any of them — a community deck is
+    user content, which is also why none of them goes in the changelog.
+  **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
+  since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
+  A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
+  the site.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   **A BATCH TOOL RE-SERIALIZES THE WHOLE CARD, NEVER A LIST OF FIELDS** (Aug 2026, after this one stripped
   every card's rating). It kept a private copy of `serializeCardData`'s field list and emitted only what
