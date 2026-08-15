@@ -559,20 +559,37 @@ body.night .banner{
 .banner .stat{display:flex; flex-direction:column; align-items:center; gap:2px; text-align:center;}
 .banner .stat b{font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); line-height:1; color:var(--indigo);}
 .banner .stat span{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
-/* the day's time on cards: a SMALL figure, on request, and in the ordinary ink rather than the piles'
-   indigo — it is not a fourth pile, and at their size it would compete with the three numbers that say
-   where the day's work actually is */
-.banner .stat.st-time b{font-size:calc(14px * var(--fs)); color:var(--ink); font-variant-numeric:tabular-nums;}
+/* (the day's time on cards was a fourth `.stat` here until Aug 2026 — it is `.rv-time` under the deck
+   list now, on request; see the note there) */
 .banner .cta{margin-left:auto;}   /* sits on the SAME line as the three piles, pushed to the right edge */
 /* ---------- the footer row under the DECK LIST ----------
    "+ New group" sat at its left (`.rv-tools` / `.rv-newgroup`) and both are GONE — Aug 2026, on request:
    the group function has left the daily study block. What the row still does is hold `.rv-lip` against the
    review group's own bottom edge, which is why the lip is not simply the group's last child.
    `margin-inline-start:auto` is what keeps it at the right-hand end, and it is deliberately not
-   `justify-content:space-between`: on a one-item row — which this now always is — that puts the item at
-   the START. */
+   `justify-content:space-between`: that would put a ONE-item row's item at the start, and this row is one
+   item whenever the reader has not studied yet. */
 .rv-foot{display:flex; align-items:flex-start; gap:12px;}
 .rv-foot .rv-lip{align-self:flex-start; margin-inline-start:auto;}
+/* THE DAY'S TIME ON CARDS, at the left end of that same edge (Aug 2026, on request — it was a stat in the
+   banner's meta row beside the three piles). Out here it is on the page's own paper rather than on the
+   card, and the row it joins is one small tab high, so it is ONE line rather than the piles' figure over a
+   word: the figure in the display face at the caption's own size, the words in the mono caption style the
+   lip opposite it uses, and the word LEADING it ("studied 13m today", on request) so it reads as a
+   sentence rather than as a labelled statistic. The inset matches the lip's `margin-inline-end`, so the
+   two sit symmetrically at the two ends of the block; the padding is what puts its line on the lip's,
+   which is set by that tab's own 6px/-1px rather than by anything here — measured on the rendered page,
+   not derived. */
+.rv-time{
+  display:inline-flex; align-items:baseline; gap:6px; flex:0 1 auto; min-width:0;
+  margin-inline-start:20px; padding:7px 0 0;
+  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.rv-time b{
+  font-family:var(--display); font-weight:600; font-size:calc(13px * var(--fs)); line-height:1;
+  letter-spacing:0; text-transform:none; color:var(--ink-soft); font-variant-numeric:tabular-nums;
+}
 .banner .glyph{
   position:absolute; right:-10px; bottom:-26px; font-family:var(--han); font-weight:700;
   font-size:calc(150px * var(--fs)); line-height:1; color:var(--indigo); opacity:.05; pointer-events:none; user-select:none;
@@ -4336,6 +4353,11 @@ button.game-tile .gt-glyph{opacity:.14;}
   .grade-wrap{gap:8px;}
   body.grading .stage{padding-bottom:150px;}
   body.grading .wb-tools{bottom:120px;}
+  /* "studied 3h 07m today" — the longest this line gets — runs into the "+ Add decks" lip on a 320px
+     screen, and at Very large text on a 390px one, and ellipsises, which says less than the shorter
+     sentence does. Nothing is lost: the block it sits in is called Daily study, so the day is not what
+     the line is carrying. Measured at both, in the medium and largest text sizes. */
+  .rv-time .rv-today{display:none;}
 }
 
 /* ---------- the global motion killswitch ----------
@@ -5853,6 +5875,9 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .ddetail-nodesc p{color:var(--ink-faint); font-style:italic;}
 .ddetail-warn{border-left:3px solid var(--ochre,var(--ink-faint)); background:color-mix(in srgb,var(--ochre,#8A6D3F) 7%, transparent); padding:11px 14px; border-radius:0 9px 9px 0; font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft); max-width:66ch; margin-bottom:18px;}
 .ddetail-actions{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:28px;}
+/* why "Add to my account" is offered over a deck the reader can already see — a note about the account,
+   not a warning about the deck, so it takes the quiet ink rather than the ochre rule above it */
+.ddetail-adopt{font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft); max-width:66ch; margin:-18px 0 26px;}
 .ddetail-sample h2{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; margin:0 0 12px;}
 .creports{margin-top:34px; border:1.5px dashed color-mix(in srgb,var(--zh) 45%, var(--rule)); border-radius:13px; padding:15px 17px;}
 .creports-head{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--zh); margin:0 0 11px; font-weight:600;}

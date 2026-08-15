@@ -2237,13 +2237,25 @@
     }, 4000);
   }
   async function cloudBootOverrides() {
-    const r = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=data,updated_at");
-    if (!r.ok || !Array.isArray(r.data) || !r.data.length) return;   // table not migrated yet / offline → shipped files only
-    const row = r.data[0];
+    /* TWO REQUESTS, AND THE FIRST IS A TIMESTAMP (Aug 2026). This selected `data` up front, which
+       downloads the WHOLE published overlay on every page load before anything has decided whether it
+       is needed — the `updated_at` comparison below was already there and was being made against a body
+       that had by then been paid for. Measured on a row that had accumulated a copy of the timeline:
+       1.17 MB gzipped per visitor per load, more than `data.js`, and for an eagerly-fetched row against
+       a `timeline.js` that is deliberately lazy. The stamp alone is ~100 bytes, and the body is fetched
+       only when it can actually be used: this device has not got this version (a first visit, or a real
+       publish), or this device is an admin whose own overlay may need publishing. */
+    const head = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=updated_at");
+    if (!head.ok || !Array.isArray(head.data) || !head.data.length) return;   // table not migrated yet / offline → shipped files only
     if (isDevOrigin()) return;   // the dev machine's local overlay is its working copy — never overwrite it, signed-in or not
     let baseline = null; try { baseline = localStorage.getItem(CLOUD_TS_KEY); } catch (e) {}
+    const fresh = head.data[0].updated_at !== baseline;
+    if (!fresh && !cloudCanPublish()) return;   // nothing to adopt and nothing to publish — the body is never needed
+    const r = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=data,updated_at");
+    if (!r.ok || !Array.isArray(r.data) || !r.data.length) return;
+    const row = r.data[0];
     const remote = stableJson(row.data || {});
-    if (row.updated_at !== baseline) {
+    if (fresh) {
       // the published content changed since this device last saw it → adopt it (reset to pristine + re-apply)
       reapplyAdminOverlay(row.data || {});
       try { localStorage.setItem(ADMIN_KEY, JSON.stringify(row.data || {})); localStorage.setItem(CLOUD_TS_KEY, row.updated_at); } catch (e) {}
@@ -6273,16 +6285,25 @@
     if (!src) return null;
     return { src: src, title: uSP(raw.title).slice(0, 200), desc: uSP(raw.desc).slice(0, 1000), credit: uSP(raw.credit).slice(0, 300) };
   }
-  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000. The number is not a
-     view about how large a deck may usefully be — it is a guard against a hostile or runaway file — so it
-     is set from the largest legitimate deck anyone has brought, and that is now the whole of HSK 3.0 in
-     one file: 10,896 notes, being the standard's 11,000 rows less the words it lists again at a higher
-     level. **IT COUNTS NOTES, NOT CARDS**, and since reverse cards that is a real distinction — those
-     10,896 notes carry 21,792 cards to study, and the cap is deliberately left on the thing the FILE holds
-     rather than on the thing the reader studies, since what it guards against is the cost of parsing
-     somebody else's file. An over-size one is REFUSED with both figures rather than silently trimmed (see
-     uDeckImportText), so raising this cannot hide anything. */
-  const UDECK_MAX_CARDS = 12000, UDECK_MAX_TERMS = 400;
+  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000, then 12,000. The
+     number is not a view about how large a deck may usefully be — it is a guard against a hostile or
+     runaway file — so it is set from the largest legitimate deck anyone has brought. That was the whole of
+     HSK 3.0 in one file (10,896 rows), then all the Italian in one (16,782); it is now EVERY vocabulary
+     deck on the shelf in one, across five languages: 39,830 rows, and 44,000 leaves it the sort of headroom 12,000 left HSK.
+     **IT COUNTS ROWS IN THE FILE, NOT CARDS TO STUDY**, and since reverse cards that is a real
+     distinction — but it cuts BOTH ways, and the two largest single-language decks sit on opposite sides
+     of it, which is worth knowing before reading anything into the figure. HSK 3.0 asks a word in both
+     directions from ONE row, by giving its card type two templates, so its 10,896 rows are 21,792 cards.
+     A deck whose two directions are separately addable SUBDECKS cannot do that, a subdeck being a
+     property of a row, so there a word is two rows and 16,782 rows is 16,782 cards and only 8,400 words.
+     The cap stays on the thing the FILE holds rather than on the thing the reader studies, since what it
+     guards against is the cost of parsing somebody else's file. An over-size one is REFUSED with both
+     figures rather than silently trimmed (see uDeckImportText), so raising this cannot hide anything.
+     RAISING IT IS NOT FREE AND THE COST WAS MEASURED RATHER THAN ARGUED ABOUT, because a file this size
+     is read into a string, parsed into an object and then written one record per note inside a single
+     IndexedDB transaction — see the import timings in CLAUDE.md's community-decks Persistence bullet
+     before raising it again. */
+  const UDECK_MAX_CARDS = 44000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -7207,13 +7228,26 @@
   }
   /* A SECOND CAP, ON THE BYTES, and it has to be kept in step with the card cap by hand or the two refuse
      different files for different reasons. This one guards the READ: a card count can only be taken after
-     the whole file is a string and then an object, so something has to stop a 500 MB file before that. At
-     ~2 KB a note — measured over the HSK decks, whose notes are the largest here — UDECK_MAX_CARDS notes
-     come to ~24 MB, and this is set at twice that so a legitimate file at the card cap is never turned away
-     by the byte one. It was 8 MB and unexplained, which the HSK 3.0 level 6 deck had quietly come within
-     600 KB of; a deck refused here says nothing about how to split it, so the message now gives both
-     figures rather than "too large to be a deck". */
-  const UDECK_MAX_BYTES = 48 * 1024 * 1024;
+     the whole file is a string and then an object, so something has to stop a 500 MB file before that.
+     **THE PER-ROW FIGURE IS MEASURED, AND HAS BEEN STALE TWICE**: it once said "~2 KB a note, measured
+     over the HSK decks, whose notes are the largest here" when the HSK rows are in fact the LIGHTEST, and
+     the 4 KB that replaced it was overtaken within the day by the bolding of the conjugation tables.
+     Measured over all 23 shipped decks: 1.08 KB a row at the lightest (Italian phrases, no paradigm) and
+     4.31 KB at the heaviest (DELE B1, a full one), with the all-languages file averaging 2.42.
+     **THE STRICT DERIVATION IS THEREFORE ABANDONED, AND SAYING SO IS THE POINT.** It used to be "at the
+     heaviest row anyone has shipped, UDECK_MAX_CARDS rows must still be under it, or the byte cap turns
+     away a file the card cap allows", which at 44,000 rows now means 185 MB — a byte cap that guards
+     nothing, on the ground that a file of 44,000 uniformly heaviest rows might one day exist. What is set
+     instead is the largest real file plus headroom, and the tension is REAL rather than papered over: a
+     hypothetical deck of 30,000 all-heavy rows is under the row cap and over this one. That is tolerable
+     only because it is not silent — uDeckImportFile names the size AND the limit and says to split it —
+     which is what the 8 MB cap it replaced did not do, having quietly come within 600 KB of refusing the
+     HSK 3.0 level 6 deck for no reason a reader could find.
+     **THE HONEST COST OF RAISING IT**: a file this size is read into a string and then JSON.parse'd, so a
+     phone briefly holds several times the file in JS heap, and on a low-end device a deck near this cap
+     may fail to import where two half-size ones would not. The cap is a guard against a hostile file and
+     not a promise that anything under it will import on any device. */
+  const UDECK_MAX_BYTES = 128 * 1024 * 1024;
   function uDeckImportFile(file, cb) {
     if (!file) return;
     if (file.size > UDECK_MAX_BYTES) {
@@ -7559,23 +7593,47 @@
     };
     return uDeckNormalize(rec);   // sanitizes the glossary too — the server copy is not trusted
   }
+  // Tell the account this deck is one of its own. Separated from the install itself because ADOPTING a
+  // deck already on the device is exactly this and nothing else — see uDeckInstall's `adopt` branch.
+  async function deckInstallRowWrite(remoteId, version) {
+    if (!supaLoggedIn()) return { ok: false, signedOut: true };
+    return supaFetch("/rest/v1/deck_installs", {
+      method: "POST", body: { deck_id: remoteId, user_id: SUPA.user.id, version: version || 1 },
+      headers: { Prefer: "resolution=merge-duplicates" },
+    });
+  }
   async function uDeckInstall(row, cards, gloss) {
     const existing = localDeckForRemote(row.id);
-    const norm = remoteToLocal(row, cards, existing ? existing.id : null, gloss);
-    if (!norm) return { error: "That deck couldn't be read." };
-    if (existing) (existing.cardIds || []).forEach((id) => { if (norm.cards.every((c) => c.id !== id)) delete UCARDS[id]; });   // cards the update removed
-    const d = uDeckMount(norm);
-    await uDeckSaveAll(d.id);
-    if (supaLoggedIn()) {
-      await supaFetch("/rest/v1/deck_installs", {
-        method: "POST", body: { deck_id: row.id, user_id: SUPA.user.id, version: row.version },
-        headers: { Prefer: "resolution=merge-duplicates" },
-      });
+    /* ADOPTING A DECK THIS DEVICE ALREADY AUTHORED (Aug 2026, on a bug report: a deck imported and shared
+       under one account, then added from the Shared decks list under a SECOND account on the same device,
+       reached no other device of that second account).
+       Community decks are device-local and every account signing in here sees them — the whole reason
+       `deckSyncRead().by` exists — so the deck is already physically present, under the record its author
+       made. Re-mounting the server's copy over it would take the AUTHOR's `origin: "mine"` away and with it
+       their only handle on the published row: `uDeckPublish` PATCHes by `remoteId`, and a record without
+       one publishes a second, separate deck. So the local record is left exactly as it is and only the
+       ACCOUNT's list is written — which is all that was ever missing. */
+    const adopt = !!(existing && existing.origin !== "installed");
+    let d = existing;
+    if (!adopt) {
+      const norm = remoteToLocal(row, cards, existing ? existing.id : null, gloss);
+      if (!norm) return { error: "That deck couldn't be read." };
+      if (existing) (existing.cardIds || []).forEach((id) => { if (norm.cards.every((c) => c.id !== id)) delete UCARDS[id]; });   // cards the update removed
+      d = uDeckMount(norm);
+      await uDeckSaveAll(d.id);
     }
-    // …and whose install this is — signed OUT it records that nobody has announced it, which is what stops
-    // a re-install being read as the removal that came before it
-    deckSyncInstalled(row.id);
-    return { ok: true, deck: d };
+    const ins = await deckInstallRowWrite(row.id, row.version);
+    /* …and whose install this is — signed OUT it records that nobody has announced it, which is what stops
+       a re-install being read as the removal that came before it. Recorded ONLY when the row was actually
+       written: `by[id] === me` with no row on the server is read by the very next sync as a removal made on
+       another device, so a POST that failed would have this deck deleted off the device it was just added
+       to. Unrecorded, the deck simply stays unannounced and the reader can try again. */
+    if (ins.ok || ins.signedOut) deckSyncInstalled(row.id);
+    if (!ins.ok && !ins.signedOut) return { ok: true, deck: d, adopted: adopt, unannounced: true };
+    // every device files a shared deck under the same local id, which is what carries the reader's own
+    // arrangement of it across — an adopted deck still wears the random id its import minted
+    if (adopt && d) await communityAlignDeckIds();
+    return { ok: true, deck: UDECKS[d && d.id] || d, adopted: adopt };
   }
   /* Removing an installed deck takes it off the ACCOUNT's list too, so the removal reaches every other
      device. A delete the server would not take is therefore worth both recording and reporting: the row
@@ -7656,6 +7714,21 @@
   }
   function deckSyncWrite(rec) { try { localStorage.setItem(DECK_SYNC_KEY, JSON.stringify(rec)); } catch (e) {} }
   function deckSyncList(rec, part, owner) { const a = rec[part][owner]; return Array.isArray(a) ? a : []; }
+  /* DOES THE SIGNED-IN ACCOUNT LIST THIS DECK? — which is NOT the same question as "is this deck on this
+     device", and mistaking one for the other is what stranded a reader's decks on the phone they were added
+     on. Community decks are device-local and shared by every account that signs in here, so a second
+     account meets the first's decks already present; only the account's own install list makes a deck
+     travel, and until this was asked the deck page read presence on the device as ownership by the account
+     and offered no way to add it.
+     Answered from this device's own sync record — the same two signals `communitySyncInstalls` reconciles
+     on, so the page and the sync cannot come to disagree — and therefore with no request. Signed out there
+     is no account to ask, and presence on the device is the only honest answer. */
+  function accountHasDeck(remoteId) {
+    if (!remoteId) return false;
+    if (!supaLoggedIn()) return !!localDeckForRemote(remoteId);
+    const rec = deckSyncRead(), me = SUPA.user.id;
+    return rec.by[remoteId] === me || deckSyncList(rec, "seen", me).indexOf(remoteId) >= 0;
+  }
   /* Who installed a deck, recorded AT THE INSTALL rather than at the next sync — which is what makes the
      removal half safe. A sync interrupted by a navigation writes nothing, so a deck installed and then
      removed on another device before this device ever completed a sync would look, here, like a deck
@@ -7780,7 +7853,10 @@
      costs nothing to check. */
   async function communityAlignDeckIds() {
     for (const d of uDeckList()) {
-      if (d.origin !== "installed" || !d.remoteId) continue;
+      // …or ADOPTED: a deck the account lists but whose local record its author made, which still wears the
+      // random id that import minted. Aligning it is what carries the reader's own arrangement of the deck
+      // — its review entry, its limits, its colour — onto every other device the account reaches.
+      if (!d.remoteId || (d.origin !== "installed" && !accountHasDeck(d.remoteId))) continue;
       const want = deckIdFromRemote(d.remoteId);
       if (d.id === want || UDECKS[want]) continue;
       await uDeckRekeyStored(d.id, want);
@@ -17900,14 +17976,26 @@
       if ((st.last === todayStr() || st.last === yest) && st.count >= 2) return `<div class="stat streak" title="Days studied in a row"><b>🔥 ${st.count}</b><span>Day streak</span></div>`;
       return "";
     })();
-    /* The day's time on cards (Aug 2026, on request), beside the streak and in the same shape as the three
-       piles: a figure over a word. It is drawn only once there is time to report — a "0s" before the first
-       card of the day is a clock reporting that nothing has happened, which is what the empty row already
-       says — and it counts the study page alone, so the minigames are outside it by construction rather
-       than by a rule (see studyTimeAdd). */
-    const timeChip = (() => {
+    /* THE DAY'S TIME ON CARDS SITS UNDER THE DECK LIST, NOT IN THE BANNER (Aug 2026, on request — it was a
+       fourth `.stat` in the meta row beside New / Learning / Review). It is not a pile: those three say
+       what is left to do today and this says what has been done, so standing it among them made a reader
+       read four numbers of two different kinds off one line. It goes to the bottom LEFT of the review
+       group, on the `.rv-foot` line the "+ Add decks" lip already hangs from — the two ends of the block's
+       own bottom edge, which is where a footnote about the day belongs.
+       Being out of the banner it also stops being a figure-over-a-word: the row it joins is one small tab
+       high, so it is one line, and it names the day now that nothing beside it supplies one. Drawn only
+       once there is time to report — a "0s" before the first card is a clock reporting that nothing has
+       happened, which the empty row already says — and it counts the study page alone, so the minigames
+       are outside it by construction rather than by a rule (see studyTimeAdd). */
+    const timeFoot = (() => {
       const ms = studyTimeToday();
-      return ms > 0 ? `<div class="stat st-time" title="Time spent on cards today — the daily games are not counted"><b>${esc(fmtStudyTime(ms))}</b><span>Studied</span></div>` : "";
+      /* THE WORD LEADS AND THE FIGURE FOLLOWS — "studied 13m today", not "13m studied today" (Aug 2026, on
+         request). It reads as a sentence about the day rather than as a labelled statistic, which is what
+         the three piles in the banner are and what this deliberately stopped being when it left them.
+         Three flex children rather than two, so the gap spaces them and no text node carries a space of
+         its own; "today" is last and is its own span so the narrowest phones can drop it (see .rv-today),
+         where the longest this prints — "studied 3h 07m today" — runs past the lip and ellipsises. */
+      return ms > 0 ? `<div class="rv-time" title="Time spent on cards today — the daily games are not counted"><span>studied</span><b>${esc(fmtStudyTime(ms))}</b><span class="rv-today">today</span></div>` : "";
     })();
     /* THE CHEST NEVER SHOWS AS A NUMBER ON THIS BANNER (Aug 2026, on request). It was a `chest-chip` stat
        standing in the meta row beside New / Learning / Review — a fourth figure in a row of three, counting
@@ -17974,7 +18062,7 @@
               ${/* a "Seen total" stat sat here and was removed on request (Aug 2026) — the xp bar directly
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
-              ${timeChip}
+              ${/* the day's time on cards stood here and is now under the deck list — see `timeFoot` above */""}
               ${streakChip}
               <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
           dueN + newN ? "Start" : "Browse collections"
@@ -18011,17 +18099,19 @@
        where that function was defined for what deliberately STAYS, and why.
        The footer row it shared is kept as it is rather than collapsed into the lip: `.rv-foot` is what
        holds the lip against the group's own bottom EDGE, and the lip is held to the right of it by
-       `margin-inline-start:auto`, so a one-item row still puts it where it has always hung. */
+       `margin-inline-start:auto`, so a one-item row still puts it where it has always hung — which is also
+       what lets the day's timer take the LEFT end of the same line without moving it (Aug 2026). */
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu) — see the comment there. */""}
             ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
-            ${/* The footer row under the deck list. It held "+ New group" at its left until Aug 2026 and
-                  now carries only the lip to the collections, which has always hung off the group's own
-                  bottom EDGE — hence a row rather than the lip on its own, and hence nothing stacked
-                  between the two. */""}
-            <div class="rv-foot">${addDecksLip}</div>
+            ${/* The footer row under the deck list: the day's time studied at its left, the lip to the
+                  collections at its right, each against one end of the group's own bottom EDGE. "+ New
+                  group" held the left until Aug 2026; the timer took it when it left the banner's meta
+                  row, which is why the row survived that control's removal rather than collapsing into
+                  the lip. */""}
+            <div class="rv-foot">${timeFoot}${addDecksLip}</div>
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
@@ -21980,6 +22070,11 @@
   function deckDetailRender(root, row, cards, gloss) {
     const local = localDeckForRemote(row.id);
     const mine = supaLoggedIn() && SUPA.user && row.owner === SUPA.user.id;
+    /* PRESENT ON THIS DEVICE AND PRESENT ON THIS ACCOUNT ARE TWO QUESTIONS, and this page asked only the
+       first — which is what stranded a reader's decks on the phone they were added on. See accountHasDeck.
+       The AUTHOR is counted as having their own deck however they came by it: they published it, and asking
+       them to add it to their own account would be a control that says the wrong thing. */
+    const onAccount = mine || accountHasDeck(row.id);
     const hasUpdate = local && Number(row.version) > Number(local.installedVersion || 0) && local.origin === "installed";
     const n = row.card_count || cards.length;
     root.innerHTML =
@@ -22014,9 +22109,14 @@
       '<div class="ddetail-warn">Written by a Folio user, not by Folio. Nothing here has been fact-checked — check anything that matters against a source you trust.</div>' +
       '<div class="ddetail-actions">' +
         (local
-          ? (hasUpdate ? '<button class="btn" type="button" id="ddUpdate">Update to the latest version</button>' : '<button class="btn" type="button" id="ddStudy">Study</button>') +
-            '<button class="btn ghost" type="button" id="ddRemove">Remove from this device</button>'
-          : '<button class="btn" type="button" id="ddInstall">Add to my decks</button>') +
+          ? (hasUpdate ? '<button class="btn" type="button" id="ddUpdate">Update to the latest version</button>' : '<button class="btn" type="button" id="ddStudy">Study</button>')
+          : "") +
+        // shown whenever the ACCOUNT does not list the deck — whether or not this device happens to hold a
+        // copy somebody else put here. Over a deck already present it adds nothing to the device and says so.
+        (onAccount && local ? "" :
+          '<button class="btn' + (local ? " ghost" : "") + '" type="button" id="ddInstall">' +
+            (local ? "Add to my account" : "Add to my decks") + '</button>') +
+        (local ? '<button class="btn ghost" type="button" id="ddRemove">Remove from this device</button>' : "") +
         /* …and the file itself (Aug 2026, on request). "Add to my decks" installs it into Folio; this
            downloads the same `.folio-deck.json` a Studio export writes, which is what lets a reader keep a
            copy, pass it on, or open it in a Folio that is not signed in to anything. It needs no install
@@ -22027,6 +22127,11 @@
         (isAdmin() && row.status === "hidden" ? '<button class="btn ghost" type="button" id="ddUnhide">Restore (admin)</button>' : "") +
         (isAdmin() ? '<button class="btn ghost" type="button" id="ddPick">' + (row.staff_pick ? "Remove staff pick" : "Mark staff pick") + "</button>" : "") +
       '</div>' +
+      // …and why that button is there over a deck the reader can already see: shared decks live on the
+      // device and are shared by every account signing in on it, so this one is here without being yours
+      (onAccount || !local ? "" :
+        '<p class="ddetail-adopt">This deck is already on this device, but it isn&rsquo;t on your account &mdash; ' +
+        'so it won&rsquo;t appear on your other devices. Adding it to your account fixes that and downloads nothing.</p>') +
       '<div class="ddetail-sample"><h2>A card from this deck</h2><div id="ddSample"></div></div>' +
       '<div class="ddetail-reviews" id="ddReviews"></div>' +
       '<div class="ddetail-more" id="ddMore"></div>';
@@ -22048,10 +22153,15 @@
 
     const inst = root.querySelector("#ddInstall");
     if (inst) inst.addEventListener("click", async () => {
+      const was = inst.textContent;
       inst.disabled = true; inst.textContent = "Adding…";
       const r = await uDeckInstall(row, cards, gloss);
-      if (r.error) { toast(r.error); inst.disabled = false; inst.textContent = "Add to my decks"; return; }
-      toast("Added to your decks");
+      if (r.error) { toast(r.error); inst.disabled = false; inst.textContent = was; return; }
+      // a write the account did not take is worth saying: the deck is usable here and will not travel, which
+      // is precisely the silence this whole path exists to end
+      toast(r.unannounced ? "Added here, but your account couldn't be reached — it won't reach your other devices yet"
+            : r.adopted ? "Added to your account — it will appear on your other devices"
+            : "Added to your decks");
       render();
     });
     const upd = root.querySelector("#ddUpdate");
