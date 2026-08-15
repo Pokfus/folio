@@ -17914,18 +17914,19 @@
        group, on the `.rv-foot` line the "+ Add decks" lip already hangs from — the two ends of the block's
        own bottom edge, which is where a footnote about the day belongs.
        Being out of the banner it also stops being a figure-over-a-word: the row it joins is one small tab
-       high, so it is one line, and it says "studied today" rather than "Studied" now that nothing beside
-       it supplies the day. Drawn only once there is time to report — a "0s" before the first card is a
-       clock reporting that nothing has happened, which the empty row already says — and it counts the
-       study page alone, so the minigames are outside it by construction rather than by a rule (see
-       studyTimeAdd). */
+       high, so it is one line, and it names the day now that nothing beside it supplies one. Drawn only
+       once there is time to report — a "0s" before the first card is a clock reporting that nothing has
+       happened, which the empty row already says — and it counts the study page alone, so the minigames
+       are outside it by construction rather than by a rule (see studyTimeAdd). */
     const timeFoot = (() => {
       const ms = studyTimeToday();
-      /* "today" is its own span so the narrowest phones can drop it (see .rv-today): the longest figure this
-         prints is "3h 07m", and at 320px — or at Very large text on any phone — the full line runs past the
-         lip and ellipsises, which is worse than the shorter sentence. Nothing is lost by the cut: the line
-         is inside the Daily study block, which is today's by definition. */
-      return ms > 0 ? `<div class="rv-time" title="Time spent on cards today — the daily games are not counted"><b>${esc(fmtStudyTime(ms))}</b><span>studied<span class="rv-today"> today</span></span></div>` : "";
+      /* THE WORD LEADS AND THE FIGURE FOLLOWS — "studied 13m today", not "13m studied today" (Aug 2026, on
+         request). It reads as a sentence about the day rather than as a labelled statistic, which is what
+         the three piles in the banner are and what this deliberately stopped being when it left them.
+         Three flex children rather than two, so the gap spaces them and no text node carries a space of
+         its own; "today" is last and is its own span so the narrowest phones can drop it (see .rv-today),
+         where the longest this prints — "studied 3h 07m today" — runs past the lip and ellipsises. */
+      return ms > 0 ? `<div class="rv-time" title="Time spent on cards today — the daily games are not counted"><span>studied</span><b>${esc(fmtStudyTime(ms))}</b><span class="rv-today">today</span></div>` : "";
     })();
     /* THE CHEST NEVER SHOWS AS A NUMBER ON THIS BANNER (Aug 2026, on request). It was a `chest-chip` stat
        standing in the meta row beside New / Learning / Review — a fourth figure in a row of three, counting

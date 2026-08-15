@@ -8781,8 +8781,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     where its `--ink-faint` label measures exactly what the About line below it already measures (2.78–5.23
     across the six themes both ways, sampled from painted pixels; the shipped bar is folio/light/`body.hc`,
     where it reads 4.96) — so it introduces no contrast state the site had not got. And it stops being a
-    figure over a word: the row is one small tab high, so it is **one line**, and it says "studied today"
-    rather than "Studied" now that nothing beside it supplies the day.
+    figure over a word: the row is one small tab high, so it is **one line**, and it names the day now that
+    nothing beside it supplies one.
+  · **THE WORD LEADS AND THE FIGURE FOLLOWS** — "studied 13m today", not "13m studied today" (Aug 2026, on
+    request). A figure with its label under it is what the three piles in the banner are, and reversing the
+    order is what stops this reading as a fourth one: it is a sentence about the day rather than a labelled
+    statistic. Three flex children rather than two, so the row's own `gap` spaces them and no text node
+    carries a space of its own — and "today" is LAST, which is what lets `.rv-today` drop it below 430px
+    without leaving the line ungrammatical ("studied 3h 07m" is whole; "13m studied" was not).
   The figure is day-stamped like `reviewDay` and `deckDay`, so it resets in place with nothing to run at
   midnight, and is **drawn only once there is time to report** — a "0s" before the first card is a clock
   saying nothing has happened, which the empty row already says. `fmtStudyTime` prints seconds below a
