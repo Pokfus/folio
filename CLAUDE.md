@@ -3692,21 +3692,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
   connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
 - `decks/*.folio-deck.json` — **deck files a reader imports through the Studio.** They are still not
-  *loaded* by the site — no `<script>`, nothing in the eager path — but since Aug 2026 **five of them are
-  LINKED from it**: the Mandarin deck and the four DELE levels are the two **Language collections** on the
-  Collections page, downloaded on request and marked `origin: "curated"` (see THE LANGUAGE COLLECTIONS
-  bullet). Every file still goes through `uDeckNormalize` on import exactly as a stranger's would, and a
-  file this repo does not link to — the Goethe A1 German deck — is what it always was: a file to hand
-  somebody.
+  *loaded* by the site — no `<script>`, nothing in the eager path — but since Aug 2026 **ALL SIX of them
+  are LINKED from it**: the Mandarin deck, the four DELE levels and the Goethe A1 German deck are the three
+  **Language collections** on the Collections page, downloaded on request and marked `origin: "curated"`
+  (see THE LANGUAGE COLLECTIONS bullet). Every file still goes through `uDeckNormalize` on import exactly
+  as a stranger's would.
   The Mandarin set is **one** file since Aug 2026: **Mandarin Chinese**, 11,532 notes / 23,064 cards as
   **nine subdecks**, the seven HSK 3.0 levels of the 2026 standard plus the two the syllabus leaves out,
   **Phrases** (159) and **Idioms** (477 chengyu), 20.6 MB. **HSK1 and HSK2 were DELETED on request** — the
   2012 standard at 150 and 151 words, both of them subsets of the deck beside them, so two shelves of one
   subject where the smaller contains nothing the larger has not got. The **DELE Spanish set** sits beside
   it — four files, A1 to B2, 3,993 notes / 7,986 cards, built by `.claude/dele/` — and the **Goethe German
-  set** by `.claude/goethe/`. All three sets are now one note per word with a template each way, which is
+  set** by `.claude/goethe/`, of which only **A1** (785 notes / 1,570 cards) is in the repo, A2 and B1 being
+  gitignored. All three sets are now one note per word with a template each way, which is
   what makes the options sheet's "Both directions together" reachable on any of them; see each generator's
-  own bullet below.
+  own bullet below. **There is no French or Italian deck and no generator for either** — asked for in Aug
+  2026 alongside German and recorded here rather than left to be rediscovered.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -4648,8 +4649,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     REFUSES a card with no meaning, which is what keeps that list honest.
   · **A1 IS IN THE REPO AND A2 AND B1 ARE NOT** (on request, Aug 2026): they are files to hand a reader for
     import, not something the site should carry, so `.gitignore` names both and a `git add -A` cannot sweep
-    them in. Deleting a line ships that deck. Nothing on the site links to any of them — a community deck is
-    user content, which is also why none of them goes in the changelog.
+    them in. Deleting a line ships that deck.
+    **THE REASONING BEHIND THAT WAS REVERSED WEEKS LATER, and only for A1** (Aug 2026, on request): the
+    Collections page now has a **Language** section and A1 is one of its three collections, downloaded from
+    the site and marked `origin: "curated"`. So "nothing on the site links to any of them" and "none of them
+    goes in the changelog" — both true when the line above was written — hold for A2 and B1 alone; the
+    Language section IS a change to Folio and is announced. Shipping the other two is deleting the two
+    `.gitignore` lines, rebuilding (the ~1.3 GB cache is gitignored, so it is a fetch rather than a re-run)
+    and adding a row to `LANG_COLLECTIONS`, whose figures `langRegistryChecks()` then holds to the files.
   **Re-running it must reproduce the shipped deck byte for byte**; that is the check to make after any edit,
   since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
   A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
@@ -9349,9 +9356,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THEY ARE FILES, NOT CONTENT — which is why this is a table rather than a tree.** The Mandarin deck
     alone is 20.6 MB; putting any of it in `data.js` or in `COLLECTION_TREE` would put it in the eager load
     path, where the whole of that path is 5.9 MB today. So a language collection is a registry row naming a
-    FILE, and a reader who wants it downloads it once to this device. **`LANG_COLLECTIONS` carries five decks
-    in two collections** (`hsk30`, and `delea1`…`deleb2`), each row `{ id, file, label, title, sub, cards,
-    bytes }`.
+    FILE, and a reader who wants it downloads it once to this device. **`LANG_COLLECTIONS` carries six decks
+    in three collections** (`hsk30`; `delea1`…`deleb2`; `goethea1`), each row
+    `{ id, file, label, title, sub, cards, bytes }`.
+  · **ADDING A LANGUAGE IS A ROW, A HUE AND AN ICON — and German is the proof** (Aug 2026, on request): its
+    deck had been built and committed months before anything linked to it, so listing it took no new code at
+    all. **FRENCH AND ITALIAN WERE ASKED FOR IN THE SAME BREATH AND ARE NOT HERE, AND THAT IS A CONTENT GAP
+    RATHER THAN A DECISION**: there is no `decks/*French*` or `decks/*Italian*` file and no generator for
+    either under `.claude/`, so a registry row would name a file that 404s. Each is a `.claude/dele/`-shaped
+    job — a word list to settle on (**what the DELF/DALF and the CILS/PLIDA actually publish has not been
+    checked here, so do that first**: the Spanish pipeline's own difficulty was that no official DELE list
+    exists and the German one's was that the Goethe-Institut's is a two-column PDF), Wiktionary and Tatoeba
+    to mine, and a card type to write.
+  · **THE GERMAN COLLECTION IS ONE LEVEL AND THE OTHER TWO ARE A DELIBERATE ABSENCE.**
+    `.claude/goethe/run.py` builds A2 and B1 as well and `.gitignore` names both, on a request taken when
+    the deck was a file to hand somebody — **which is the reasoning this section reverses**, so shipping
+    them is deleting two lines from `.gitignore` and rebuilding (the ~1.3 GB corpus cache behind that
+    generator is gitignored too, so it is a fetch rather than a re-run). Until then the registry states
+    what the repo actually holds, which `langRegistryChecks()` enforces by reading the files.
   · **THE FIGURES ARE ASSERTED AGAINST THE FILES, never trusted** — `.claude/decks/check-decks.js`'s
     `langRegistryChecks()` reads every file and fails if the id, the title, the subtitle, the card count or
     the byte size has moved. A deck is rebuilt by its generator every few weeks and a figure restated by
@@ -9403,12 +9425,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE BANNER DOES NOT STUDY ON A BODY CLICK** the way a history collection's can: `buildSession` has no
     scope spanning several decks, and a collection whose four levels are separate decks has nothing to hand
     it. It toggles the fold; the rows below are where studying starts.
-  · **The two hues are MEASURED, not picked** (`COLL_THEME`): `lang-zh` `#3F7A22` and `lang-es` `#0E8C99`,
+  · **The hues are MEASURED, not picked** (`COLL_THEME`): `lang-zh` `#3F7A22` and `lang-es` `#0E8C99`,
     the greenest and the cyan-most corners the shelf still had. The teal is the compromise of the pair and it
     is worth recording why — the better-separated alternatives were a fourth blue at ΔE 25.8, which would
     have said Spanish belongs with Greece and Rome, and a magenta 12.7 from Japan, inside the shelf's own
-    tightest pair. Their `COLLECTION_ICON` marks are a 米 grid and an inverted **¿**, both drawn to read at
-    28px on a deck row as well as 34px on a banner.
+    tightest pair.
+    **GERMAN (`lang-de` `#780C72`) IS WHERE THE BAND RAN OUT OF QUARTERS, and it is the first hue on the
+    shelf chosen on its distance from its own SECTION rather than from the shelf as a whole.** With twelve
+    colours placed there is no gap 25° wide left anywhere off the greens, and the two finalists tie on the
+    shelf-wide number: this purple-magenta at ΔE 26.6 from Japan and a dark amber at 26.2 from World
+    History's sepia, both above 8:1 on the tightest of the six light papers. What separates them is that
+    these three sit one above another in one short section, which is where a reader actually compares them
+    — the magenta is **115 and 84** from the green and the teal, the amber only **62 and 68**. It is a third
+    colour in the purple arc (Rome 285, Japan 307), which the Thucydides rule warns about, and the warning
+    is weakest here: both are history collections behind a fold and nobody reads German against either.
+    Its chroma (61) is at the top of the band DELIBERATELY — the hue's main job is a 30% wash, and the
+    better-separated muted magenta (C 21) measured as very nearly grey at that strength, which is a fact
+    about this use that the book-spine palette (where the colour is TEXT) never has to weigh.
+    **The green was refused outright even though it wins on the raw number** (ΔE 28.4): Mandarin is green,
+    three rows up, and two greens in a five-row section read as a set rather than as two subjects.
+    Their `COLLECTION_ICON` marks are a 米 grid, an inverted **¿** and a **ß** — each the writing system's
+    own mark rather than anything national, since a flag says something about a country where the
+    collection is about a language, and all three drawn to read at 28px on a deck row as well as 34px on a
+    banner (the ß in four variants against a typeset one before one was kept, which is the wreath's lesson).
   · **HSK 1 and HSK 2 WERE DELETED** (Aug 2026, on request): those two files were the 2012 standard at 150
     and 151 words, and the Mandarin deck beside them is the 2026 standard's seven levels plus phrases and
     idioms, 11,532 words, which contains them. Two shelves of the same subject where the smaller is a subset

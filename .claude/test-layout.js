@@ -1029,6 +1029,7 @@ function scrimCheck() {
         langNums: [...document.querySelectorAll(".lang-row .node-num")].map((x) => x.textContent),
         // …and an action, which before anything is downloaded can only be "get the lot"
         langGetAll: document.querySelectorAll("[data-langgetall]").length,
+        langTitles: [...document.querySelectorAll(".lang-coll .collection-title")].map((x) => x.textContent),
         soonBadge: has(soon, ".coll-ic"), soonXp: has(soon, ".xp"), soonPill: has(soon, ".pill.soon"),
         liveBadge: has(live, ".coll-ic"), liveXp: has(live, ".deck-prog"), liveCount: has(live, ".collection-count"),
         // …and the DECK rows inside keep theirs, which is what makes the line above a rule rather than a loss
@@ -1040,9 +1041,32 @@ function scrimCheck() {
        ones after them, then LANGUAGE — Folio's own vocabulary decks, offered for download. The label
        matters as much as the section: "Collections" inside a page titled Collections said nothing about
        which of the two a reader was looking at. */
+    /* The page is checked against the REGISTRY rather than against numbers written here, so adding a
+       language is covered by the rule instead of by somebody remembering to come back and edit a 5 into a
+       6. Sliced out of app.js by the bracket walk check-decks uses, for the same reason: LANG_COLLECTIONS
+       is inside the IIFE and no page can be asked for it. */
+    lib.langRegDecks = (() => {
+      const src = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
+      const i = src.indexOf("const LANG_COLLECTIONS = [");
+      if (i < 0) return -1;
+      const body = src.slice(src.indexOf("[", i));
+      let depth = 0, end = -1;
+      for (let k = 0; k < body.length; k++) {
+        if (body[k] === "[") depth++;
+        else if (body[k] === "]" && --depth === 0) { end = k + 1; break; }
+      }
+      try {
+        const reg = new Function("return " + body.slice(0, end))();
+        lib.langRegTitles = reg.map((c) => c.title);
+        return reg.reduce((a, c) => a + c.decks.length, 0);
+      } catch (e) { return -1; }
+    })();
     check("the first group is called History", lib.groupLabel === "History", lib.groupLabel);
     check("…with Language under it", lib.labels.indexOf("Language") > lib.labels.indexOf("History"), lib.labels.join(" | "));
-    check("…holding two collections", lib.langCount === 2, lib.langCount);
+    check("…holding every registered language collection",
+          lib.langCount > 0 && lib.langCount === (lib.langRegTitles || []).length &&
+          lib.langTitles.join("|") === (lib.langRegTitles || []).join("|"),
+          lib.langTitles.join("|") + "   registry: " + (lib.langRegTitles || []).join("|"));
     check("…each with its own hue and mark", !!lib.langHue && lib.langIcon, lib.langHue);
     /* BUILT TO THE HISTORY COLLECTION'S PLAN (Aug 2026, on request: "should appear the same way as the
        history collections do in their respective section"). The four things that makes it are a
@@ -1051,13 +1075,20 @@ function scrimCheck() {
     check("…each drawn like a history collection — bar, chevron, fold",
           lib.langBar && lib.langChev && lib.langFold,
           "bar " + lib.langBar + " chev " + lib.langChev + " fold " + lib.langFold);
-    check("…with its decks numbered inside it", lib.langNums.join(",") === "01,01,02,03,04", lib.langNums.join(","));
-    /* Five rows, and EVERY one offering a download: a reader who has downloaded none must be shown the way
+    // numbered from 01 within each collection, which is what a history collection's deck rows do
+    check("…with its decks numbered inside it",
+          lib.langNums.length === lib.langRegDecks && lib.langNums[0] === "01" &&
+          lib.langNums.filter((x) => x === "01").length === lib.langCount,
+          lib.langNums.join(","));
+    /* Six rows, and EVERY one offering a download: a reader who has downloaded none must be shown the way
        to all of them, and a row whose button had gone missing would look exactly like one already here.
-       The banners offer the same in one press, which is the only action they can honestly carry yet. */
-    check("…and five deck rows, all downloadable", lib.langRows === 5 && lib.langGet === 5,
-          lib.langRows + " rows / " + lib.langGet + " download buttons");
-    check("…over two download-everything buttons", lib.langGetAll === 2, lib.langGetAll);
+       The banners offer the same in one press, which is the only action they can honestly carry yet.
+       Read off LANG_COLLECTIONS rather than written down, so adding a language is covered by the rule
+       instead of by somebody remembering to come back here. */
+    check("…and a deck row for every registered deck, all downloadable",
+          lib.langRows === lib.langRegDecks && lib.langGet === lib.langRegDecks && lib.langRows > 0,
+          lib.langRows + " rows / " + lib.langGet + " download buttons / " + lib.langRegDecks + " registered");
+    check("…over a download-everything button on each collection", lib.langGetAll === lib.langCount, lib.langGetAll);
     // a level meter towards a level in a collection that cannot be studied, over a "0 / 3 cards" figure that
     // reads as a card count when the collection holds none
     check("a coming-soon collection carries no icon", !lib.soonBadge);

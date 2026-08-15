@@ -30,13 +30,21 @@ working directory and run the scripts from there.
     node extras.js                      # adds the character breakdown and the example sentences
     node extras2.js                     # the same for HSK 2.0 (words1.json / words2.json)
     node build-mandarin.js              # → decks/Mandarin-Chinese.folio-deck.json
-    node build-hsk20.js                 # → decks/HSK1-Mandarin, HSK2-Mandarin
+    node build-hsk20.js                 # → HSK1-Mandarin, HSK2-Mandarin — NOTHING SHIPS FROM THIS ANY MORE
     node build-extra.js                 # the phrases and the idioms, as two decks of their own
 
 `build-mandarin.js` is the one that writes what ships: it requires `build-extra.js` as a MODULE and files
 its two lists as the eighth and ninth subdecks of the one deck. Run on its own, `build-extra.js` writes
 them as two separate decks instead — the same rows either way, so it is one flag rather than two builders,
 and the standalone files are not in `decks/` today.
+
+**`build-hsk20.js` ships nothing since Aug 2026.** Its two decks were deleted on request: they are the 2012
+standard at 150 and 151 words and both are subsets of `Mandarin-Chinese.folio-deck.json` beside them, so
+they offered a reader a choice they could not make on any grounds. The builder and `extras2.js` behind it
+are kept — the HSK 2.0 lists are a different syllabus and might be wanted again — but running it writes
+files nothing links to. Note what `decks/` now is: the Collections page's **Language** section downloads
+from it, so a file listed in app.js's `LANG_COLLECTIONS` is offered to every reader. A file merely sitting
+here is not linked, but it IS deployed and fetchable by URL, so leave nothing here you would not hand out.
 
 `extras.js` is **both a script and a module**: required, it runs down to the pool and the segmenter and
 stops, which is how `build-extra.js` gets the same corpus, the same traditional-script exclusions and the

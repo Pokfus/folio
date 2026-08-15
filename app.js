@@ -16017,11 +16017,12 @@
     ww2: '<path d="M12 2.8c.9 0 1.5 1.4 1.5 3.4v1.3l6.5 3.9v2.1l-6.5-1.8v3.8l2.5 2v1.7L12 18.3l-4 .9v-1.7l2.5-2v-3.8L4 13.5v-2.1l6.5-3.9V6.2c0-2 .6-3.4 1.5-3.4z"/>',
     // torii gate
     japan: '<path d="M2.5 6h19"/><path d="M4.5 9h15"/><path d="M7.5 6v14"/><path d="M16.5 6v14"/><path d="M6 20h3"/><path d="M15 20h3"/>',
-    /* The two LANGUAGE collections (Aug 2026, on request). Each takes the writing system's own mark rather
+    /* The LANGUAGE collections (Aug 2026, on request). Each takes the writing system's own mark rather
        than anything national — a flag or a landmark would be saying something about a country where the
        collection is about a language. Mandarin gets the 米字格, the ruled grid a character is practised in;
-       Spanish gets the ¿, which is Spanish's own punctuation and reads instantly at 28px. The ¿ is drawn as
-       an ordinary question mark turned through half a circle, which is exactly what it is, and is what
+       Spanish gets the ¿, which is Spanish's own punctuation and reads instantly at 28px; German gets the
+       ß, which is a letter no other language has and so is the same kind of mark as the ¿. The ¿ is drawn
+       as an ordinary question mark turned through half a circle, which is exactly what it is, and is what
        keeps the two curves from having to be hand-fitted. */
     "lang-zh": '<path d="M4 4h16v16H4z"/><path d="M12 4v16"/><path d="M4 12h16"/><path d="M4.9 4.9 19.1 19.1"/><path d="M19.1 4.9 4.9 19.1"/>',
     /* …and the ¿'s dot carries its own stroke-width. A round-capped zero-length path is a dot the width of
@@ -16029,6 +16030,15 @@
        question mark. */
     "lang-es": '<g transform="rotate(180 12 12)"><path d="M8.2 8.6a3.8 3.8 0 1 1 4.6 3.7v2.1"/>' +
       '<path d="M12.8 18.2h.01" stroke-width="2.6"/></g>',
+    /* The ß in ONE stroke: the stem, a semicircle over the top of it, a waist pulled back to the middle,
+       then the lower bowl and its terminal. Drawn as a single path rather than as a stem plus two bowls
+       because the join at the waist is where a ß stops looking like a ß — four variants were rendered at
+       34, 28 and 20px against a typeset one before this was kept, which is the wreath's lesson (an icon
+       here is 34px on a banner and 28px on a deck row, and a shape that survives one may not survive the
+       other). It is deliberately NOT a Greek beta: the descender is squared off at the foot and the two
+       bowls are unequal, which is what separates the two letters at this size. */
+    "lang-de": '<path d="M7.2 20.5V8.8a3.4 3.4 0 0 1 6.8 0c0 2.6-2.2 3.2-2.2 3.2s4.2.5 4.2 3.9' +
+      'c0 2.5-2 3.5-3.6 3.5-1.1 0-2-.4-2.5-.9"/>',
     // fallback — a stack of cards
     _: '<path d="M12 4.5 4 8.5l8 4 8-4z"/><path d="M4 12.5l8 4 8-4"/><path d="M4 16.5l8 4 8-4"/>',
   };
@@ -18785,9 +18795,13 @@
      its generator every few weeks, and a figure restated by hand is a figure that goes stale — this file
      has learnt that often enough to write the check first.
 
-     Adding a language is a row here plus a `COLL_THEME` hue and a `COLLECTION_ICON` mark. The German deck
-     (`decks/Goethe-A1-German.folio-deck.json`) is a one-row change away and is deliberately NOT listed:
-     the request named Mandarin and Spanish. */
+     Adding a language is a row here plus a `COLL_THEME` hue and a `COLLECTION_ICON` mark — which is all
+     German took (Aug 2026, on request), its deck having been built and committed months before anything
+     linked to it. **FRENCH AND ITALIAN WERE ASKED FOR IN THE SAME BREATH AND ARE NOT HERE**, because no
+     such deck exists: there is no `decks/*French*` or `decks/*Italian*` file and no generator for either
+     under `.claude/`, so a row for them would name a file that 404s. Each would be a `.claude/dele/`-shaped
+     job of its own — a word list to settle on, Wiktionary and Tatoeba to mine, and a card type to write —
+     and not a line in this table. */
   const LANG_COLLECTIONS = [
     {
       id: "lang-zh",
@@ -18814,6 +18828,21 @@
         { id: "deleb2", file: "decks/DELE-B2-Spanish.folio-deck.json",
           label: "DELE B2", title: "DELE B2 — Spanish",
           sub: "2,000 more words, none of them in A1, A2 or B1 · both directions", cards: 3998, bytes: 7006378 },
+      ],
+    },
+    {
+      id: "lang-de",
+      title: "German",
+      /* ONE LEVEL, and the other two are a deliberate absence rather than a gap: `.claude/goethe/run.py`
+         builds A2 and B1 as well, and `.gitignore` names both — a decision taken on request when the deck
+         was a file to hand somebody. That reasoning is what this section reverses, so shipping them is
+         deleting two lines from `.gitignore` and rebuilding them (the ~1.3 GB corpus cache behind that
+         generator is gitignored too, so it is a fetch rather than a re-run). Until then the registry
+         states what the repo actually holds. */
+      decks: [
+        { id: "goethea1", file: "decks/Goethe-A1-German.folio-deck.json",
+          label: "Goethe A1", title: "Goethe A1 — German",
+          sub: "785 words · both directions, as two cards per word", cards: 1570, bytes: 2313916 },
       ],
     },
   ];
@@ -19290,7 +19319,7 @@
     egypt:    { bg: "#1F6F5C" }, // malachite (Ancient Egypt)
     ww2:      { bg: "#4A4038" }, // dark iron (The Second World War)
     japan:    { bg: "#8A2E5C" }, // kuwazome red-purple (Japan)
-    /* The two LANGUAGE collections (Aug 2026, on request), measured against the ten above in CIELAB rather
+    /* The LANGUAGE collections (Aug 2026, on request), measured against the ten above in CIELAB rather
        than eyeballed, as every colour on this site is. The history hues sit at h 33/34/64/66/79/172/247/
        284/306/351 and their own tightest pair is ΔE 12.9 (China's vermilion against Russia's lacquer red),
        so the two quarters genuinely empty are the greens (100–160) and the cyans (185–240). The green is
@@ -19298,9 +19327,22 @@
        Aegean blue; the two are 57.4 apart from each other, which is what stops the section reading as one
        colour twice. The teal is the compromise of the pair: the better-separated alternatives were a
        fourth blue (25.8, in a quarter already holding Greece, Rome and the United States) and a magenta
-       that lands 12.7 from Japan, and a hue that crowds is worse than one that is merely close. */
+       that lands 12.7 from Japan, and a hue that crowds is worse than one that is merely close.
+       GERMAN IS WHERE THE BAND RAN OUT OF QUARTERS, and it is the first hue here chosen on its distance
+       from its own SECTION rather than from the shelf as a whole. With twelve colours placed there is no
+       gap 25° wide left anywhere off the greens, and the two finalists tie on the shelf-wide number: this
+       purple-magenta at ΔE 26.6 from Japan, and a dark amber at 26.2 from World History's sepia, both
+       above 8:1 on the tightest of the six light papers. What separates them is that these three sit one
+       above another in one short section, which is where a reader actually compares them — the magenta is
+       115 and 84 from the green and the teal, the amber only 62 and 68. It is a third colour in the
+       purple arc (Rome 285, Japan 307), which the Thucydides rule warns about, and that warning is
+       weakest here: those two are history collections behind a fold, and nobody reads German against
+       either. Looked at rendered in both modes before it was kept, which is the golden rule.
+       Its chroma (61) is at the top of the band and deliberately so — the hue's main job is a 30% wash,
+       and the better-separated MUTED magenta (C 21) measured as very nearly grey at that strength. */
     "lang-zh": { bg: "#3F7A22" }, // bamboo green (Mandarin Chinese)
     "lang-es": { bg: "#0E8C99" }, // teal (Spanish)
+    "lang-de": { bg: "#780C72" }, // purple-magenta (German)
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
