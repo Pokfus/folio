@@ -148,7 +148,100 @@ FREQ = {'a1': ('de_50k.txt', 'subs'), 'a2': ('de_50k.txt', 'subs'),
 # register decides among the very common words and the written register decides
 # among the rest, which is what a learner's ladder needs and what neither corpus
 # gives on its own.
-FREQ_BLEND = [('de_50k.txt', 'subs'), ('leipzig-news-words.txt', 'leipzig')]
+FREQ_BLEND = [('de_50k.txt', 'subs', False),
+              ('leipzig-news-words.txt', 'leipzig', True)]
+
+
+def load_freq(announce=True):
+    """The blended scale, as one `rate(word)` both stages share.
+
+    ONE CORPUS IS CASE-FOLDED AND THE OTHER IS NOT, AND BOTH OBVIOUS READINGS OF
+    THAT ARE WRONG IN OPPOSITE DIRECTIONS (Aug 2026).  The subtitle list is lower
+    case throughout -- 577 capitalised lines in 50,000, all acronyms -- so it
+    cannot tell `Würde` (dignity) from `würde` (would), while the news list can.
+
+    · Read `exact or folded`, a capitalised word finds only the news rate and
+      never reaches the folded key carrying both.  German capitalises its nouns,
+      so that is EVERY NOUN scored on a corpus a tenth the size while every verb
+      and function word is scored on both: measured over A1, 394 of 748 words,
+      `Sie` at 1,576 rate points where it is really 28,051.
+    · Read `max(exact, folded)`, a noun collects the whole subtitle count of its
+      lowercase homograph -- so B2 came out headed `Des, Habe, Einer, Hast, Muss,
+      Soll, Würde`, real nouns every one, wearing the frequency of the very
+      common verb forms they are spelled like.
+
+    Neither is a rounding error and neither throws; the deck is simply ordered
+    wrongly, one way with the nouns pushed to the back and the other with the
+    homographs pulled to the front.  So the folded figure is APPORTIONED by the
+    split a case-SENSITIVE corpus reports for the same word: `Arbeit` takes 1.00
+    of it (news has `Arbeit` 3,957 against `arbeit` 4), `Habe` 0.00, `Würde`
+    0.05, `Sie` 0.35, `Essen` 0.76.  Sentence-initial capitals inflate the
+    capitalised share, but in the same direction for every word.  With no
+    evidence either way the share is 1.0 -- absence of a twin must not be read as
+    a penalty.
+    """
+    cased_cap, cased_low = {}, {}
+    corpora = []
+    for path, shape, cased in FREQ_BLEND:
+        ex, fo, total = {}, {}, 0
+        for line in open(path, encoding='utf-8'):
+            if shape == 'leipzig':
+                t = line.rstrip('\n').split('\t')
+                if len(t) != 3:
+                    continue
+                w, n = t[1], int(t[2])
+            else:
+                t = line.split()
+                if len(t) != 2:
+                    continue
+                w, n = t[0], int(t[1])
+            total += n
+            # `setdefault`: the file is rank-ordered, so the first spelling to
+            # fold onto a key is the commoner of the two
+            ex.setdefault(w, n)
+            fo.setdefault(w.lower(), n)
+            if cased:
+                d = cased_cap if w[:1].isupper() else cased_low
+                d[w.lower()] = d.get(w.lower(), 0) + n
+        corpora.append((cased, ex, fo, 1e6 / total))
+        if announce:
+            print(f'  ordering by {path}: {len(ex):,} words, {total:,} tokens')
+
+    def share(w):
+        lo = w.lower()
+        cap, low = cased_cap.get(lo, 0), cased_low.get(lo, 0)
+        if not cap and not low:
+            return 1.0
+        return (cap if w[:1].isupper() else low) / (cap + low)
+
+    def rate(w):
+        if not w:
+            return 0.0
+        lo, s = w.lower(), None
+        out = 0.0
+        for cased, ex, fo, per in corpora:
+            if cased:
+                out += ex.get(w, 0) * per
+            else:
+                if s is None:
+                    s = share(w)
+                out += fo.get(lo, 0) * per * s
+        return out
+
+    def top(n):
+        """The commonest n words on this scale, for a deck that brings none.
+
+        A phrase is put on the word scale through the single words carrying both
+        a corpus count and a rate; a deck that is ALL phrases has none of its
+        own, so the reference words are borrowed from here.
+        """
+        pool = set()
+        for _cased, _ex, fo, _per in corpora:
+            pool.update(fo)
+        return sorted(pool, key=lambda w: -rate(w))[:n]
+
+    rate.top = top
+    return rate
 
 # WHERE THE WORDS ARE ON THE PAGE, and it is not the same shape twice.  The A1
 # list is ONE pair of columns, a headword at x 143-233 and its example from 237;
@@ -325,6 +418,39 @@ def words_below():
 # the marker is lifted out wherever it sits, the pronoun is dropped, and the
 # result is folded.  Both the raw and the normalised forms go into the set, since
 # the caller tests a raw `word` against it.
+def glosses_below():
+    """`{base word: meaning}` for every card a lower level ships.
+
+    The companion to `words_below`, and it exists because that one compares what
+    was PRINTED while a list prints one word several ways -- see the note beside
+    `drop_repeats` in `build_deck.py`.  The base word is the headword with its
+    article and any trailing hyphen taken off, folded, so `hier-` and `hier` meet;
+    the meaning is the plain `answerText` the card actually shows.
+    """
+    out = {}
+    for lvl in BELOW.get(LEVEL, []):
+        p = os.path.join('..', '..', 'decks', DECK_FILES[lvl])
+        if not os.path.exists(p):
+            continue
+        for c in json.load(open(p, encoding='utf-8'))['cards']:
+            w = re.sub(r'<[^>]*>', ' ', (c.get('fields') or {}).get('German', ''))
+            parts = w.split()
+            if parts and parts[0] in ART and len(parts) > 1:
+                parts = parts[1:]
+            mean = (c.get('answerText') or '').strip()
+            # THE HALVES TOO, and reading only the whole made the test asymmetric
+            # -- `drop_repeats` splits its CANDIDATE on the comma and the slash
+            # and this side did not, so A2's `heraus/raus` registered the single
+            # key `heraus/raus` and B1's `heraus-, raus-` matched nothing.  Five
+            # cards.  Both sides split the same way or the comparison is between
+            # two different things.
+            for half in [' '.join(parts)] + re.split(r'[,/]', ' '.join(parts)):
+                key = half.strip().rstrip('-').lower()
+                if key:
+                    out.setdefault(key, mean)
+    return out
+
+
 _SICH = re.compile(r'\(sich\)|\bsich\b')
 
 

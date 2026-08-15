@@ -50,7 +50,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from inflect_mark import mark as mark_inflections
 from collections import Counter
 
-from goethe_level import LEVEL, f as lvlf, EXAM, CATEGORIES
+from goethe_level import LEVEL, f as lvlf, EXAM, CATEGORIES, glosses_below, ART
 
 entries = json.load(open(lvlf('entries.json')))
 W = json.load(open(lvlf('wikt.json')))
@@ -461,21 +461,56 @@ def pointed_glosses(same, article=''):
 # randomness" and its trailing pointer.  The pointer's own words are kept in front
 # of what they resolve to, because WHICH word it is a synonym of is worth knowing
 # and is often the standard form the learner should recognise.
+# THE TARGET MAY BE SEVERAL WORDS, and a one-token capture silently gives up on
+# the phrases (Aug 2026).  `frohes Neues` is glossed "synonym of frohes neues
+# Jahr" and `kein Ding` "synonym of keine Ursache": captured to the first space
+# the target is `frohes`, which no dictionary has, so the pointer is not followed
+# and the card ships teaching a German phrase with another German phrase -- the
+# very thing this exists to stop, on exactly the entries a phrases deck is made
+# of.  The target runs to the end of the gloss or to its first punctuation.
 PROSE_POINTER = re.compile(
-    r'^(synonym of|alternative (?:form|spelling) of)\s+([^\s,;:(]+)', re.I)
+    r'^(synonym of|alternative (?:form|spelling) of)\s+([^,;:(]+)', re.I)
 
 
-def follow_prose_pointer(glosses, article=''):
+# WIKTIONARY WRITES A NOUN'S GENDER AFTER IT, so a captured target may end in a
+# bare `m`/`f`/`n`: "synonym of Ecke f" resolves nothing, no dictionary being
+# keyed by `Ecke f`.  One card in B1, shipping a German word defined by another
+# German word, which is the whole thing this exists to stop.
+GENDER_TAIL = re.compile(r'\s+[mfn]$')
+
+
+def follow_prose_pointer(glosses, article='', depth=3):
     hits = [PROSE_POINTER.match(g.strip()) for g in glosses]
     if not glosses or not all(hits):
         return glosses
     for m in hits:
-        for base in W.get(m.group(2).strip(), []):
+        tgt = GENDER_TAIL.sub('', m.group(2).strip())
+        for base in W.get(tgt, []):
             g = merged_glosses([base], article)
             # never point at a word that is itself only a pointer
             g = [x for x in g if not PROSE_POINTER.match(x.strip())]
             if g:
                 return [glosses[0] + ': ' + '; '.join(g[:2])]
+        # A POINTER MAY POINT AT A POINTER: `nun ja` is a synonym of `na ja`,
+        # which is itself an alternative form of `naja`, so one hop leaves the
+        # card reading "synonym of na ja".  The chain is followed, BOUNDED, so
+        # that two entries pointing at each other cannot spin.
+        if depth > 1:
+            onward = []
+            for base in W.get(tgt, []):
+                for s_ in base.get('senses', []):
+                    for k in ('form_of', 'alt_of'):
+                        for f_ in (s_.get(k) or []):
+                            w_ = f_.get('word') if isinstance(f_, dict) else f_
+                            if w_:
+                                onward.append('synonym of ' + w_.strip())
+                    for g_ in (s_.get('glosses') or []):
+                        if PROSE_POINTER.match((g_ or '').strip()):
+                            onward.append(g_.strip())
+            if onward:
+                got = follow_prose_pointer(onward[:1], article, depth - 1)
+                if got and not PROSE_POINTER.match(got[0].strip()):
+                    return [glosses[0] + ': ' + got[0].split(': ', 1)[-1]]
     return glosses
 
 
@@ -1297,8 +1332,66 @@ for i, e in enumerate(entries, 1):
 # read back into words -- which cost a whole pass over B1's residue, `die Angst`
 # being investigated as a missing entry when the entry was `die Angst, “-e` and
 # the fault was the plural marker.
+def drop_repeats(cards):
+    """Remove, in place, any card a level below already ships word for word.
+
+    A card qualifies only when BOTH match: some half of its printed headword is
+    a headword below, and the meaning it shows is that card's meaning.  Matching
+    on the word alone would take `zusammen/zusammen-`, which B1 glosses
+    differently from A1's `zusammen` and is therefore a card worth having.
+    """
+    below = glosses_below()
+    if not below:
+        return []
+    gone = []
+    for c in list(cards):
+        w = re.sub(r'<[^>]*>', ' ', c['fields']['German'])
+        parts = w.split()
+        if parts and parts[0] in ART and len(parts) > 1:
+            parts = parts[1:]
+        mine = (c['answerText'] or '').strip()
+        for half in re.split(r'[,/]', ' '.join(parts)):
+            key = half.strip().rstrip('-').lower()
+            if key and below.get(key, object()) == mine:
+                cards.remove(c)
+                gone.append(c['question'])
+                break
+    # the ids run 1..N and are what a reader's schedule is keyed by, so they are
+    # renumbered rather than left with holes in them
+    for n, c in enumerate(cards, 1):
+        c['id'] = f'u_{{DECK}}_{n}'
+        c['num'] = str(n)
+    return gone
+
+
 blank = [c['question'] for c in cards if not c['answerText'].strip()]
 if blank:
     raise SystemExit('cards with no meaning at all: ' + ' | '.join(blank))
+
+# A CARD THE LEVEL BELOW ALREADY TEACHES, WORD FOR WORD, AND ONLY THE MEANING CAN
+# SEE IT (Aug 2026).  `words_below` compares PRINTED FORMS, and the lists print
+# one word several ways: A1 prints `hier` and B1 prints `hier/hier-`, A1 `viel`
+# and B1 `viel/viele`, A1 `oft` and B1 `oft/öfter`, A2 `gern` and B1 `gern/gerne`.
+# The exclusion is deliberately not a match on a HALF, and rightly -- `hier-` is
+# the separable prefix and a level may well be teaching that -- but the argument
+# is about what the list MEANS by printing the form, and what the deck SHIPS is
+# decided by Wiktionary, which glosses `hier/hier-` as the plain adverb `here`.
+# So fourteen cards repeated a lower level word for word, four of them in B1's
+# first ten once the decks were ordered by frequency, and each read as an
+# ordinary card because it is one -- it is the card A1 already has.
+#
+# The test therefore runs HERE, where the gloss exists, rather than in the
+# exclusion, where it does not: same base word below, same meaning, drop it.  A
+# form the level genuinely uses differently keeps its card, which is what
+# separates `zusammen/zusammen-` (a different gloss) from `hier/hier-`.
+dup = drop_repeats(cards)
+if dup:
+    print(f'  {len(dup)} printed a lower level\'s word again with the same'
+          f' meaning: {", ".join(dup[:8])}'
+          + (' …' if len(dup) > 8 else ''))
+    # `select.py` prints its own first ten, which is the order BEFORE this pass;
+    # on B1 four of those ten are cards the deck no longer ships, so the run
+    # would name them as its opening cards.  Reprint what actually leads.
+    print('  first ten now:', ', '.join(c['question'] for c in cards[:10]))
 print('  cards:', len(cards), dict(stats))
 json.dump(cards, open(lvlf('cards.json'), 'w'), ensure_ascii=False)

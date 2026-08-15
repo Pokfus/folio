@@ -36,7 +36,7 @@ speech, and a missing count must not read as a count of zero.
 import json, math, re
 from collections import Counter
 
-from goethe_level import LEVEL, FREQ_BLEND, f as lvlf, words_below, normal_key
+from goethe_level import LEVEL, load_freq, f as lvlf, words_below, normal_key
 
 wl = json.load(open(lvlf('wortliste.json')))
 wg = json.load(open(lvlf('wordgroups.json')))
@@ -93,6 +93,31 @@ POS_ORDER = ['noun', 'verb', 'adj', 'adv', 'pron', 'det', 'prep', 'conj',
              'num', 'intj', 'particle', 'article', 'phrase', 'name']
 
 
+# A READING NOBODY WOULD MEET IS STILL A READING, and `POS_ORDER` alone cannot
+# see that (Aug 2026).  Wiktionary files `ob` as both a conjunction -- "if,
+# whether", which is the word every learner needs -- and a preposition meaning
+# "on account of", and `prep` comes before `conj` in that list, so B1's ninth
+# card taught the preposition.  The order is a tie-break and was being asked to
+# make a judgement.
+#
+# So a record EVERY sense of which is marked loses to one that has a plain sense.
+# `formal` is deliberately NOT a mark: it is a register rather than a statement
+# that the reading is out of use, and including it flips `ebenso` from the adverb
+# "likewise" (both senses tagged formal) to an interjection.  What the eight below
+# have in common is that they say you will not meet this in ordinary modern
+# German.  Measured over the three list levels: eleven entries change, and every
+# one is a correction -- `man` and `was` become pronouns, `hinter` a preposition,
+# `bevor` and `ob` conjunctions, `nämlich` an adverb.
+MARKED = {'obsolete', 'archaic', 'dialectal', 'rare', 'literary', 'poetic',
+          'regional', 'nonstandard'}
+
+
+def plain_senses(r):
+    """Senses that are not marked as out of ordinary modern use."""
+    return [s for s in real_senses(r)
+            if not (MARKED & set(s.get('tags') or []))]
+
+
 def pos_hint(e, lemma):
     """What to treat the word as.  The PRINTED entry decides before Wiktionary
     does: an article on the headword makes it a noun whatever else the string
@@ -103,6 +128,7 @@ def pos_hint(e, lemma):
     if e['reflexive']:
         return 'verb'
     recs = [r for r in (W.get(lemma) or []) if real_senses(r)] or (W.get(lemma) or [])
+    recs = [r for r in recs if plain_senses(r)] or recs
     poss = [r.get('pos') for r in recs]
     for p in POS_ORDER:
         if p in poss:
@@ -129,54 +155,16 @@ if no_rec:
 # decides among the very common words and the written register among the rest.
 #
 # THE SUBTITLE LIST IS ALL LOWER CASE AND THE LEIPZIG ONE IS NOT, which matters
-# on a language that capitalises every noun: keyed only by the lowercased form,
-# `Recht` and `recht` are one entry and whichever is commoner supplies the count
-# for both.
+# on a language that capitalises every noun: the folded corpus cannot tell
+# `Würde` from `würde` at all.  `load_freq` apportions its figure by the split
+# the case-sensitive corpus reports, and its docstring records what each of the
+# two obvious readings of that does to the deck -- both wrong, in opposite
+# directions, and neither visible in any count.
 #
-# THE TWO MAPS HAVE TO BE SEPARATE, and writing both spellings into one was the
-# whole of a bug that only the C2 build made visible.  `Schulen` comes first in a
-# rank-ordered file and writes its own count under `schulen` as well; the real
-# lowercase line then finds that key taken and is discarded, so the EXACT lookup
-# for the verb `schulen` returns the noun's count.  Every German noun is
-# capitalised and most have a lowercase homograph, so at a level whose words come
-# from the corpus this floated a whole page of verbs-read-as-nouns to the top of
-# the deck -- `schulen`, `fällen`, `aussagen`, `orten`, `strecken` -- each
-# carrying a frequency that belongs to a word already taught.  Nothing threw and
-# every count in the run was right; only the ORDER was wrong, which is invisible
-# unless you read the first ten words out loud.
-#
-# WITHIN one file a repeated key keeps its FIRST count, which is the higher, the
-# file being rank-ordered.  ACROSS the two the rates are SUMMED, which is the
-# whole point and is why this cannot be written with `setdefault` over both.
-def _read_freq(path, shape):
-    """One file to `{word: count}` twice over, exact and case-folded."""
-    ex, fo, total = {}, {}, 0
-    for line in open(path, encoding='utf-8'):
-        if shape == 'leipzig':
-            t = line.rstrip('\n').split('\t')
-            if len(t) != 3:
-                continue
-            w, n = t[1], int(t[2])
-        else:
-            t = line.split()
-            if len(t) != 2:
-                continue
-            w, n = t[0], int(t[1])
-        total += n
-        ex.setdefault(w, n)
-        fo.setdefault(w.lower(), n)
-    return ex, fo, total
-
-
-freq, fold = {}, {}
-for _path, _shape in FREQ_BLEND:
-    _ex, _fo, _tot = _read_freq(_path, _shape)
-    per = 1e6 / _tot
-    for k, n in _ex.items():
-        freq[k] = freq.get(k, 0.0) + n * per
-    for k, n in _fo.items():
-        fold[k] = fold.get(k, 0.0) + n * per
-    print(f'  ordering by {_path}: {len(_ex):,} words, {_tot:,} tokens')
+# IT IS ONE FUNCTION SHARED WITH `corpus_wordlist`, which cuts the three upper
+# tranches on this same scale: two copies of an estimator drift, and here a drift
+# would move a word between decks as well as within one.
+rate = load_freq()
 
 # A phrase is counted by scanning the corpus, and the single words are counted in
 # the SAME pass to calibrate it -- but by tokenising each sentence once rather
@@ -190,7 +178,7 @@ if phrases:
     # `zum Beispiel/z. B.`, and the string to look for in a corpus is the phrase
     plook = {e['lemma'].lower(): e['key'] for e in phrases}
     singles = {e['word'].lower(): e['key'] for e in entries
-               if ' ' not in e['word'] and fold.get(e['word'].lower())}
+               if ' ' not in e['word'] and rate(e['word'])}
     # A DECK THAT IS ALL PHRASES HAS NO SINGLE WORDS TO CALIBRATE AGAINST, and
     # the failure is silent: `ratios` comes back empty, the scale falls to 1.0
     # and the deck is ordered by raw corpus hits -- fine on its own, since every
@@ -200,8 +188,7 @@ if phrases:
     # the frequency list: the commonest few thousand, counted in the same pass,
     # which is what the ratio needs and costs nothing extra to count.
     if not singles:
-        top = sorted(fold.items(), key=lambda kv: -kv[1])[:4000]
-        singles = {w: '\0ref:' + w for w, _ in top}
+        singles = {w: '\0ref:' + w for w in rate.top(4000)}
         print(f'  no single words of its own; calibrating against '
               f'{len(singles):,} reference words')
     tok = re.compile(r"[a-zäöüßA-ZÄÖÜ]+")
@@ -220,12 +207,8 @@ if phrases:
     # calibrate: the ratio between a word's blended rate and its Tatoeba count,
     # taken over the single words that carry both, is what puts a phrase on the
     # same scale as a word rather than on a scale of its own.
-    # READ THE FOLDED MAP, NOT THE EXACT ONE.  `singles` is keyed by the
-    # LOWERCASED word and only `fold` is guaranteed to hold it -- the guard above
-    # tests `fold` -- so an exact lookup here is a KeyError waiting for the first
-    # word that exists only capitalised.
-    ratios = sorted(fold[w] / counts[k] for w, k in singles.items()
-                    if counts.get(k, 0) >= 5 and w in fold)
+    ratios = sorted(rate(w) / counts[k] for w, k in singles.items()
+                    if counts.get(k, 0) >= 5 and rate(w))
     scale = ratios[len(ratios) // 2] if ratios else 1.0
     print(f'  phrases counted in Tatoeba; calibration {scale:.2f} rate points per '
           f'corpus hit, from {len(ratios)} words carrying both')
@@ -237,14 +220,13 @@ for e in entries:
     # count falls back to the LEMMA -- which is the DELE pipeline's rule that a
     # reflexive is placed by the verb it is formed from, arrived at from the
     # other side.
-    f = (freq.get(e['word'], 0) or fold.get(e['word'].lower(), 0)
-         or freq.get(e['lemma'], 0) or fold.get(e['lemma'].lower(), 0))
+    f = rate(e['word']) or rate(e['lemma'])
     # A STEM HAS NO BARE SURFACE AT ALL: `nächst-` is printed with a hyphen
     # because the word only ever appears with an ending on it, so neither the
     # stem nor its dictionary lemma is a string a corpus can have counted.  The
     # commonest of its endings stands for it.
     if not f and e['display'].endswith('-'):
-        f = max(fold.get(e['lemma'].lower() + suf, 0)
+        f = max(rate(e['lemma'] + suf)
                 for suf in ('', 'e', 'er', 'es', 'en', 'em'))
     if not f and ' ' in e['lemma']:
         f = counts.get(e['key'], 0) * scale

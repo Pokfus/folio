@@ -95,7 +95,7 @@ taught.
 """
 import json, re, sys
 
-from goethe_level import LEVEL, FREQ, FREQ_BLEND, f as lvlf, words_below
+from goethe_level import load_freq, LEVEL, FREQ, f as lvlf, words_below
 
 # HOW MANY WORDS EACH LEVEL TAKES AND HOW FAR DOWN THE CORPUS IT LOOKS.  The three
 # corpus levels are ONE LADDER cut into equal tranches: B2 takes the 3,000 most
@@ -157,32 +157,14 @@ print(f'  corpus: {len(cands)} surfaces above {MIN_COUNT} occurrences')
 # too because SELECTION now uses it -- see the note above `keep.sort`.  Read the
 # two files to rates per million and sum them; a repeated key keeps its first
 # count within a file, which is the higher, both files being rank-ordered.
-_blend_ex, _blend_fo = {}, {}
-for _path, _shape in FREQ_BLEND:
-    _ex, _fo, _tot = {}, {}, 0
-    for _l in open(_path, encoding='utf-8'):
-        if _shape == 'leipzig':
-            _t = _l.rstrip('\n').split('\t')
-            if len(_t) != 3:
-                continue
-            _w, _n = _t[1], int(_t[2])
-        else:
-            _t = _l.split()
-            if len(_t) != 2:
-                continue
-            _w, _n = _t[0], int(_t[1])
-        _tot += _n
-        _ex.setdefault(_w, _n)
-        _fo.setdefault(_w.lower(), _n)
-    _per = 1e6 / _tot
-    for _k, _n in _ex.items():
-        _blend_ex[_k] = _blend_ex.get(_k, 0.0) + _n * _per
-    for _k, _n in _fo.items():
-        _blend_fo[_k] = _blend_fo.get(_k, 0.0) + _n * _per
-
-
-def blend(w):
-    return _blend_ex.get(w, 0.0) or _blend_fo.get(w.lower(), 0.0)
+# THE SCALE IS THE ONE `select.py` ORDERS BY -- see `goethe_level.load_freq`,
+# which also records why a case-folded corpus and a case-sensitive one cannot
+# simply be looked up `exact or folded` (every German noun under-rated) nor
+# `max(exact, folded)` (every noun that is spelled like a common verb form
+# pulled to the front).  Shared rather than reimplemented because here it
+# decides which TRANCHE a word lands in as well as where it sits in one, so two
+# copies drifting apart would move words between decks.
+blend = load_freq()
 
 
 # ------------------------------------------------------------ one dump pass
@@ -347,8 +329,14 @@ json.dump([], open(lvlf('wordgroups.json'), 'w'), ensure_ascii=False)
 # The frequency FLOOR travels to the deck's own description, which tells a reader
 # how far into the tail the last card sits.  Written here rather than recomputed
 # there because this is the only stage that sees the corpus counts at all.
-json.dump({'floor': counts[keep[-1]], 'word': keep[-1],
-           'rate': round(blend(keep[-1]), 2)},
+# THE LAST WORD IN ORDER IS NOT THE RAREST ONE, now that the order and the cut
+# are the blended scale and this figure is a newspaper count.  The description
+# says "even the rarest word here turns up N times", which is a claim about the
+# MINIMUM -- so take the minimum rather than the last, or the sentence is a
+# statement about one scale dressed as a statement about another.
+_rare = min(keep, key=lambda w: counts[w])
+json.dump({'floor': counts[_rare], 'word': _rare,
+           'last': keep[-1], 'rate': round(blend(keep[-1]), 2)},
           open(lvlf('corpus-floor.json'), 'w'), ensure_ascii=False)
 print('  words:', len(entries))
 print('  first ten:', ', '.join(keep[:10]))

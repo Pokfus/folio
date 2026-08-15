@@ -4631,6 +4631,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   its rate per million in the news corpus**. Four things about it.
   · **RATES, NEVER COUNTS.** The corpora are 152M and 18M tokens, so the raw numbers are an order of
     magnitude apart and adding them would be adding the subtitle list to itself.
+  · **ONE CORPUS IS CASE-FOLDED AND THE OTHER IS NOT, AND BOTH OBVIOUS READINGS OF THAT ARE WRONG IN
+    OPPOSITE DIRECTIONS** (`goethe_level.load_freq`, whose docstring is the long version). The subtitle
+    list is lower case throughout — 577 capitalised lines in 50,000, all acronyms — so it cannot tell
+    `Würde` (dignity) from `würde` (would), while the news list can. Read **`exact or folded`**, a
+    capitalised word finds only the news rate and never reaches the folded key carrying both: German
+    capitalises its nouns, so that is EVERY NOUN scored on a corpus a tenth the size while every verb and
+    function word is scored on both — measured over A1, **394 of 748 words**, `Sie` at 1,576 rate points
+    where it is really 28,051. Read **`max(exact, folded)`**, a noun collects the whole subtitle count of
+    its lowercase homograph — so B2 came out headed **`Des, Habe, Einer, Hast, Muss, Soll, Würde`**, real
+    nouns every one, wearing the frequency of the very common verb forms they are spelled like.
+    **Neither throws and neither is a rounding error**: the deck is ordered, one way with the nouns pushed
+    to the back and the other with the homographs pulled to the front, and on a vocabulary deck that reads
+    as an odd running order rather than as a bug. The folded figure is **APPORTIONED** by the split the
+    case-sensitive corpus reports for the same word — `Arbeit` takes 1.00 of it (news has `Arbeit` 3,957
+    against `arbeit` 4), `Habe` 0.00, `Würde` 0.05, `Sie` 0.35, `Essen` 0.76 — with no evidence either way
+    reading as 1.0, since the absence of a twin must not be a penalty. Since the tranches are cut on this
+    scale it decides B2/C1/C2 MEMBERSHIP as well as order, which is why `load_freq` is **one function both
+    stages share** rather than an estimator written twice. **Ask which case each corpus is in before
+    deciding which key is the fuller one**; a fallback chain quietly encodes an assumption about that.
+    **The residual is stated rather than engineered away**: a share is inflated for the capitalised member
+    of a pair because a news corpus capitalises every sentence's first word too, so a noun spelled like a
+    very common verb form keeps a little of it — `Hast` (haste) sits fifth in B2 on 11% of `hast`'s
+    subtitle count. Correcting that needs a figure for sentence-initial position that a word list does not
+    carry, and the decks say "roughly how often a word is used" for this reason.
   · **WHY THE SUM RATHER THAN EITHER ALONE, measured over the shipped decks rather than argued.** The
     subtitle list is the top 50,000 words only, so it scores **zero for 45% of C2 and 30% of C1** and would
     pile most of those decks at the end in one undifferentiated block; the news corpus covers the lower
@@ -4657,9 +4681,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     frequency, and with no single words the ratio list is empty, the scale falls to 1.0 and the deck is
     ordered by raw corpus hits — fine alone, wrong the moment it stands beside six decks of words in one
     file. Reference words are borrowed from the frequency list where the level brings none of its own.
-  **THE AUDIT THAT CAME WITH IT FOUND SIX FAULTS, AND EVERY ONE WAS SILENT** (Aug 2026, on request: "check
+  **THE AUDIT THAT CAME WITH IT FOUND ELEVEN FAULTS, AND EVERY ONE WAS SILENT** (Aug 2026, on request: "check
   the deck for any mistakes or inconsistencies"). Worth reading as a set, because what they have in common
-  is that each renders as a perfectly ordinary card.
+  is that each renders as a perfectly ordinary card — or, for the last two, as a perfectly ordinary sentence
+  about one. **Two of them were only visible ONCE the decks were ordered by frequency**, having sat in the
+  middle of a list nobody reads end to end and moved to the first screen: an order is a check as well as a
+  convenience.
   · **B1's FIRST CARD WAS THE DEFINITE ARTICLE, GLOSSED AS THE RELATIVE PRONOUN.** The list prints the
     two-gender form with a comma — `die, das Glace/Glacé`, the Swiss word for ice cream — and `ART` in
     `parse_goethe.py` carried `der/die` and `der/das` but not `die/das`, so the entry was read as the bare
@@ -4696,6 +4723,53 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     record and kept on a `noun` one meaning "a painting by Van Gogh" — after which `select.pos_hint`
     declined THAT reading, wanting a capitalised headword for a noun, and the card shipped as the name after
     all. A name record now disqualifies the word rather than only itself.
+  · **EIGHTEEN B1 CARDS REPEATED A LOWER LEVEL WORD FOR WORD, AND ONLY THE MEANING COULD SEE IT.**
+    `words_below` compares PRINTED FORMS, and the lists print one word several ways: A1 prints `hier` and
+    B1 `hier/hier-`, A1 `viel` and B1 `viel/viele`, A1 `oft` and B1 `oft/öfter`, A2 `gern` and B1
+    `gern/gerne`. The exclusion is deliberately not a match on a HALF — `hier-` is the separable prefix and
+    a level may well be teaching that — but **that argument is about what the LIST means and the card is
+    written by Wiktionary**, which glosses `hier/hier-` as the plain adverb "here", identically to A1's.
+    So the theory was right about the printed form and wrong about the shipped card. **Ordering the decks
+    by frequency is what made it visible**: those four went straight to B1's first ten, where before they
+    had been scattered down a list nobody read end to end. The test now runs in `build_deck`, where the
+    gloss exists — same base word below, same meaning, drop it and renumber — so `zusammen/zusammen-`,
+    which B1 really does gloss differently, keeps its card. **Put a test where the evidence is, not where
+    the related code already lives.** **AND BOTH SIDES OF THAT TEST MUST SPLIT THE SAME WAY**, which the
+    first cut did not: `drop_repeats` splits its CANDIDATE on the comma and the slash while
+    `glosses_below` recorded the whole headword only, so A2's `heraus/raus` registered the single key
+    `heraus/raus` and B1's `heraus-, raus-` matched nothing — five more cards, found by the audit's own
+    run rather than by eye. A comparison between two differently-normalised keys is a comparison between
+    two different things.
+  · **AND A POINTER MAY POINT AT A POINTER.** `nun ja` is a synonym of `na ja`, which is itself an
+    alternative form of `naja`: one hop leaves the card reading "synonym of na ja", which is the very
+    fault `follow_prose_pointer` exists to stop, one link further along. The chain is followed bounded,
+    and `extract_kaikki`'s target fetch became a bounded LOOP for the same reason — a target's own
+    targets were never fetched, so the far end of a chain was not in the dictionary at all. Two smaller
+    things went with it: **a captured target may end in Wiktionary's gender marker** ("synonym of Ecke f",
+    which no dictionary is keyed by), and **it may be several words** — captured to the first space,
+    `frohes Neues` looked for `frohes` and every phrase target was missed, on exactly the entries a
+    phrases deck is made of.
+  · **AND `POS_ORDER` WAS BEING ASKED TO MAKE A JUDGEMENT IT IS ONLY A TIE-BREAK FOR.** Wiktionary files
+    `ob` as a conjunction — "if, whether", the word every learner needs — and as a preposition meaning "on
+    account of"; `prep` sits before `conj` in that list, so B1's ninth card taught the preposition. A record
+    every sense of which is marked now loses to one with a plain sense. **`formal` is deliberately not a
+    mark**: it is a register rather than a statement that the reading is out of use, and including it flips
+    `ebenso` from the adverb "likewise" (both senses tagged formal) to an interjection — measured, not
+    guessed. Over the three list levels **eleven entries change and every one is a correction**: `man` and
+    `was` become pronouns, `hinter` a preposition, `bevor` and `ob` conjunctions, `nämlich` an adverb.
+  · **EVERY DECK CREDITED HALF OF WHAT ORDERS IT**, which is the change's own doing and is an attribution
+    fault rather than an untidiness, both corpora being CC BY-SA. The credit line was written when each
+    band had its own scale — A1–B1 named OpenSubtitles, B2–C2 and the phrases named Leipzig — and one
+    blended scale now orders all seven, so each was naming one of the two sources it uses. `FREQ_CREDIT`
+    is unconditional and names both; `CREDIT_SENT` was narrowed to what SELECTED the words, which is the
+    thing that really does still differ per level. **When two things are merged, re-read what each of them
+    SAYS about itself** — the code was correct and the sentence describing it was not.
+  · **AND "EVEN THE LAST WORD HERE" STOPPED BEING A CLAIM ABOUT THE RAREST ONE.** The three corpus decks
+    tell a reader how far into the tail they go, and the figure is a newspaper COUNT while the order and
+    the cut are now the blended scale — so the last word in order is no longer the word with the smallest
+    count, and "even the last" quietly asserted a minimum it had stopped being. Both `corpus_wordlist` and
+    `phrase_wordlist` write the true minimum now and the sentence says "the rarest". A statement about one
+    scale must not be dressed as a statement about another.
   **THE TOP THREE LEVELS HAVE NO WORD LIST TO TEACH, AND THAT IS THE EXAM BOARD'S POSITION RATHER THAN A
   GAP** (`corpus_wordlist.py`, `TARGET` 3,000 apiece; Aug 2026, on request). The published Wortlisten STOP
   AT B1. Checked

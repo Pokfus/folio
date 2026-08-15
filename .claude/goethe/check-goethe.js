@@ -50,9 +50,11 @@ const [DECK, DECK_ID, SHELF, SUBDECKS] = LEVELS[LEVEL];
 // definite article its seventh.  The walk reaches them there for free only because a single deck is
 // dealt in its own frequency order; the combined file is added alongside its seven subdecks, so the
 // pooled review draws across eight entries and seeded-shuffles what it draws, and a hundred and fifty
-// cards of 26,690 no longer reach note 1 by luck.  Asserting them off the PAGE there would be asserting
-// the shuffle.  What proves the concatenation kept its cards intact is `SOURCES` below, which compares
-// every note against the deck it came from — cheaper, and stronger, since it covers all 13,345.
+// hundred and fifty cards of twenty-odd thousand no longer reach note 1 by luck.  Asserting them off the
+// PAGE there would be asserting the shuffle.  What proves the concatenation kept its cards intact is
+// `SOURCES` below, which compares every note against the deck it came from — cheaper, and stronger, since
+// it covers every one of them.  (No figure is written down here on purpose: the decks are rebuilt whenever
+// the pipeline changes, and a count in a comment is one nobody updates.)
 const COMPOSED = LEVEL === "a1";
 // the seven decks a combined file must carry unchanged, in the order it concatenates them
 const SOURCES = LEVEL === "combined"

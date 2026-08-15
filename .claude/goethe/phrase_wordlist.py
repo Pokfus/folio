@@ -238,7 +238,11 @@ entries = [{
 
 json.dump(entries, open(lvlf('wortliste.json'), 'w'), ensure_ascii=False, indent=1)
 json.dump([], open(lvlf('wordgroups.json'), 'w'), ensure_ascii=False)
-json.dump({'floor': counts[keep[-1]], 'word': keep[-1]},
+# The RAREST rather than the last, for `corpus_wordlist`'s reason: the deck's
+# description makes a claim about the minimum, and the two coincide only while
+# the shipped order is this stage's order.
+_rare = min(keep, key=lambda w: counts[w])
+json.dump({'floor': counts[_rare], 'word': _rare, 'last': keep[-1]},
           open(lvlf('corpus-floor.json'), 'w'), ensure_ascii=False)
 print('  phrases:', len(entries))
 print('  first ten:', ', '.join(keep[:10]))

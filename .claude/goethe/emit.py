@@ -447,26 +447,37 @@ ORDER_BASE = ("The cards are ordered by roughly how often a word is used, so the
               "job alone — the spoken one barely knows the vocabulary of the upper levels, and "
               "the written one flattens the everyday words the lower ones are about — so the "
               "two are added, and the spoken register decides among the very common words while "
-              "the written register decides among the rest. ")
+              "the written register decides among the rest. The spoken list is written without "
+              "capitals, so it cannot tell Würde from würde; where a word is spelled like another "
+              "that way, its share of that list is the share the written corpus gives it. ")
 ORDER_SENT = {
     'phrases': ORDER_BASE
               + "A frequency list is a list of single words and cannot see an expression at all, "
                 "so each phrase is counted in the Tatoeba corpus of 777,128 German sentences "
                 "instead, and that count is put on the same scale as the words"
-              + (f". Even the last of them turns up {FLOOR:,} times in it" if FLOOR else "")
+              + (f". Even the rarest of them turns up {FLOOR:,} times in it" if FLOOR else "")
               + ". ",
     'corpus': ORDER_BASE
               + (f"The three levels are cut on that same scale, so they are frequency bands "
                  f"rather than three separate lists: what separates this one from the next is "
-                 f"where a word falls on it, and even the last word here turns up {FLOOR:,} "
-                 f"times in the newspaper corpus alone. " if FLOOR else ""),
+                 f"where a word falls on it, and even the rarest word here turns up {FLOOR:,} "
+                 f"times in the newspaper corpus. " if FLOOR else ""),
 }
+# WHAT SELECTED THE WORDS, per level.  The ORDERING credit is separate and
+# UNCONDITIONAL (see FREQ_CREDIT): every deck here is now ordered by the same two
+# corpora, and while each level credited only the one it used to be ordered by,
+# each was crediting half of what actually orders it -- which on two CC BY-SA
+# sources is an attribution fault rather than an untidiness.
 CREDIT_SENT = {
     'phrases': "Selection: the multiword entries of English Wiktionary, via the kaikki.org "
-          "extraction (CC BY-SA 4.0). Ordering: Tatoeba (tatoeba.org), CC BY 2.0 FR. ",
-    'corpus': "Word selection and ordering: the Leipzig Corpora Collection, deu_news_2024 "
+          "extraction (CC BY-SA 4.0). A phrase is counted for ordering in Tatoeba "
+          "(tatoeba.org), CC BY 2.0 FR. ",
+    'corpus': "Word selection: the Leipzig Corpora Collection, deu_news_2024 "
           "(wortschatz-leipzig.de), used for word frequencies only. ",
 }
+FREQ_CREDIT = ("Frequency ordering: a word list built from OpenSubtitles "
+               "(hermitdave/FrequencyWords, CC BY-SA 4.0) together with the Leipzig Corpora "
+               "Collection, deu_news_2024 (wortschatz-leipzig.de). ")
 
 # WHAT A PHRASE CARD SHOWS, which is not what a vocabulary card shows.  The
 # paragraph it replaces is four sentences about articles, genders, plurals and
@@ -519,8 +530,7 @@ DESC = (
        "reproduced here. " if LEVEL in EXAM else CREDIT_SENT[LIST_KEY])
     + "Meanings, genders, plurals, feminines and conjugations: English Wiktionary, via the "
       "kaikki.org extraction (CC BY-SA 4.0). "
-    + ("Frequency ordering: a word list built from OpenSubtitles "
-       "(hermitdave/FrequencyWords, CC BY-SA 4.0). " if LEVEL in EXAM else "")
+    + FREQ_CREDIT
     + "Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR."
 )
 

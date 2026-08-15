@@ -64,24 +64,45 @@ if missing:
 # Wiktionary defines a regional word by its standard twin in the gloss itself --
 # "synonym of Januar", "alternative form of Bube" -- with no `form_of` on the
 # sense at all, and the card then teaches a German word with another German word.
+# the target may be SEVERAL words -- see the note beside `PROSE_POINTER` in
+# build_deck.py; captured to the first space, every phrase target is missed
 PROSE_PTR = re.compile(
-    r'^(?:synonym of|alternative (?:form|spelling) of)\s+([^\s,;:(]+)', re.I)
+    r'^(?:synonym of|alternative (?:form|spelling) of)\s+([^,;:(]+)', re.I)
 
-targets = set()
-for recs in kept.values():
+# WIKTIONARY WRITES A NOUN'S GENDER AFTER IT -- "synonym of Ecke f" -- and the
+# dictionary is not keyed by that
+GENDER_TAIL = re.compile(r'\s+[mfn]$')
+
+
+def pointer_targets(recs):
+    out = set()
     for r in recs:
         for s_ in r.get('senses', []):
             for k in ('form_of', 'alt_of'):
                 for f_ in (s_.get(k) or []):
                     w_ = f_.get('word') if isinstance(f_, dict) else f_
                     if w_:
-                        targets.add(w_.strip())
+                        out.add(w_.strip())
             for g_ in (s_.get('glosses') or []):
                 m_ = PROSE_PTR.match((g_ or '').strip())
                 if m_:
-                    targets.add(m_.group(1).strip())
-targets -= set(kept)
-if targets:
+                    out.add(GENDER_TAIL.sub('', m_.group(1).strip()))
+    return out
+
+
+# A POINTER MAY POINT AT A POINTER, so the fetch is a bounded LOOP rather than a
+# single pass: `nun ja` is a synonym of `na ja`, which is itself an alternative
+# form of `naja`, and one round leaves `naja` unfetched -- after which
+# `follow_prose_pointer` has nothing at the far end and the card ships reading
+# "synonym of na ja".  Each round costs a scan of the dump, so the cap is low;
+# in practice the second round wants a handful of words and the third none.
+for _round in range(3):
+    targets = set()
+    for recs in kept.values():
+        targets |= pointer_targets(recs)
+    targets -= set(kept)
+    if not targets:
+        break
     n2 = 0
     for line in open(dump, encoding='utf-8'):
         try:
@@ -92,7 +113,7 @@ if targets:
         if w in targets and r.get('lang_code') == 'de':
             kept.setdefault(w, []).append(r)
             n2 += 1
-    print('  pointer targets:', len(targets), 'wanted,',
+    print(f'  pointer targets, round {_round + 1}:', len(targets), 'wanted,',
           len(targets & set(kept)), 'found,', n2, 'records')
 
 json.dump(kept, open(out_fn, 'w'), ensure_ascii=False)
