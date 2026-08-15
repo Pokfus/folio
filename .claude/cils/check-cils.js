@@ -110,8 +110,13 @@ const MONO_OK = new Set(["è", "dà", "dì", "là", "lì", "né", "sé", "sì", 
   //
   // `lo`/`gli` before impure s, z, gn, ps, pn, x, y, j and i+vowel; `l'` before a vowel in
   // BOTH genders (which is why the plural is what carries the gender); `il`/`la` otherwise.
+  // AN INITIAL `h` IS SILENT IN ITALIAN, so the article behaves as if it were not
+  // there: `l'hotel`, `gli hotel`, `l'handicap`. The generator has had this rule
+  // from the start and this check did not, so B2 -- the first band with a word
+  // beginning in `h` -- reported two correct cards as wrong. A check written from
+  // a rule is only as good as its reading of the rule.
   const artFor = (w, g) => {
-    const s = w.trim().toLowerCase();
+    const s = w.trim().toLowerCase().replace(/^h(?=[aeiouàáèéìíòóùú])/, "");
     if (/^[aeiouàáèéìíòóùú]/.test(s)) return "l'";
     if (g === "f") return "la";
     return /^(s(?![aeiouàáèéìíòóùú])|z|gn|ps|pn|x|y|j|i(?=[aeiouàáèéìíòóùú]))/.test(s) ? "lo" : "il";

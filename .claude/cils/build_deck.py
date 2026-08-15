@@ -40,7 +40,7 @@ from collections import Counter
 
 from cils_level import LEVEL, f as lvlf
 from italian import (article, with_article, indefinite, agree,
-                     adj_forms_regular, clean_form, destress)
+                     adj_forms_regular, clean_form, destress, fold)
 from wikt import real_senses, letter_name
 
 entries = json.load(open(lvlf('entries.json')))
@@ -82,7 +82,7 @@ def sense_rank(s):
     return 1 if (not g or _NOTE_RX.match(g)) else 0
 
 
-def tidy(g):
+def tidy(g, head=''):
     g = re.sub(r'\s+', ' ', g).strip()
     # A CROSS-REFERENCE TO THE WIKI IS NOT A MEANING.  `avere` glosses "to have
     # (done something); See Category:Italian transitive verbs and Category:…",
@@ -92,11 +92,21 @@ def tidy(g):
                '', g, flags=re.I)
     g = re.sub(r'^\[[^\]]*\]\s*', '', g)
     g = re.sub(r'\s*\[[^\]]*\]', '', g)
-    g = re.sub(r'\s*\((?:[^()]|\([^()]*\))*\)\s*$', '', g).strip()
-    return re.sub(r'\s+', ' ', g).strip(' ;:,.')
+    # A TRAILING PARENTHETICAL IS USUALLY A USAGE NOTE AND OCCASIONALLY THE WHOLE
+    # MEANING, and which it is shows in what is left without it.  Wiktionary
+    # glosses a place as `Marche (an administrative region in central Italy)`,
+    # and stripped that reads "Marche" -- a card whose English side is its own
+    # Italian side, which taught fifteen of them nothing at all.  `Russia` and
+    # `Siena` gloss themselves too and are simply correct; the test cannot be
+    # "is it a proper noun", it has to be whether the sentence still says
+    # something.
+    cut = re.sub(r'\s*\((?:[^()]|\([^()]*\))*\)\s*$', '', g).strip()
+    if not cut or (head and fold(cut) == fold(head)):
+        cut = g.strip()
+    return re.sub(r'\s+', ' ', cut).strip(' ;:,.')
 
 
-def sense_gloss(s_):
+def sense_gloss(s_, head=''):
     """What one sense contributes, or ''.
 
     A SENSE THAT POINTS AT ANOTHER WORD STILL OFTEN CARRIES THE MEANING after a
@@ -130,7 +140,7 @@ def sense_gloss(s_):
         parts = re.split(r'[:;.]\s+', g, 1)
         if len(parts) < 2 or not parts[1].strip():
             return ''
-        return tidy(parts[1])
+        return tidy(parts[1], head)
 
     # A GLOSS MAY OPEN ON A USAGE NOTE AND THEN TRANSLATE: `essere` is glossed
     # "Used as a copula. to be", and taken whole that is what the card leads
@@ -138,7 +148,7 @@ def sense_gloss(s_):
     def clean(x):
         m = re.match(r'(?:used|denotes|indicates?|expresses?)\b[^.;:]*[.;:]\s+(.+)',
                      x, re.I)
-        out = tidy(m.group(1) if m else x)
+        out = tidy(m.group(1) if m else x, head)
         return '' if out.endswith(':') else out
 
     cands = [c for c in (clean(x) for x in gs) if c]
@@ -148,7 +158,7 @@ def sense_gloss(s_):
     return cands[0] if cands else ''
 
 
-def glosses_for(rec, limit=3):
+def glosses_for(rec, limit=3, head=''):
     """The meanings a card shows, best first.
 
     A USAGE NOTE IS SHOWN ONLY WHERE THE WORD HAS NO PLAIN MEANING.  Ranking
@@ -163,7 +173,7 @@ def glosses_for(rec, limit=3):
         return []
     bands = {}
     for s_ in rec.get('senses', []):
-        g = sense_gloss(s_)
+        g = sense_gloss(s_, head)
         if not g:
             continue
         bands.setdefault(sense_rank(s_), [])
@@ -221,6 +231,31 @@ AUTHORED = {
     'invece di': ('phrase', 'instead of'),
     'sino a': ('phrase', 'up to, until, as far as'),
     'unione sovietica': ('name', 'the Soviet Union'),
+    # B2.  Five English borrowings Italian takes whole and genders by sense, two
+    # more abbreviations, four phrases, and two words whose only record belongs
+    # to somebody else -- see `mila` and `g` below.
+    'band': ('noun', 'band (musical group)', 'f'),
+    'network': ('noun', 'network', 'm'),
+    'master': ("noun", "master's degree; postgraduate course", 'm'),
+    'punk': ('noun', 'punk', 'm'),
+    'aids': ('noun', 'AIDS', 'm'),
+    'cm': ('noun', 'centimetre (abbreviation of centimetro)', 'm'),
+    'dietro a': ('phrase', 'behind'),
+    'a fianco': ('phrase', 'beside, alongside'),
+    'nel quadro di': ('phrase', 'within the framework of, as part of'),
+    'nel contempo': ('phrase', 'at the same time, meanwhile'),
+    'nazioni unite': ('name', 'the United Nations'),
+    # filed as a bare participle of `rivedere`, with no gloss of its own
+    'rivisto': ('adj', 'revised, reviewed'),
+    # Italian Wiktionary's only lower-case `mila` is a pointer ("plural of
+    # mille"), so the lemma search falls through to `Mila`, a given name -- and
+    # the card came out headed `Mila` and glossed "a surname; a female given
+    # name".  It is the `mila` of `duemila`.
+    'mila': ('num', 'thousand (in compounds: duemila, tremila)'),
+    # `g` for gram, the third of these after `km` and `cm` -- and the only one
+    # whose spelling is also a letter of the alphabet, which is the record the
+    # dictionary offers and the gloss the card had
+    'g': ('noun', 'gram (abbreviation of grammo)', 'm'),
 }
 
 # A NAME THE DICTIONARY DOES NOT CARRY IS SPELT HERE, since `select`'s
@@ -231,6 +266,14 @@ AUTHORED_DISPLAY = {
     'stati uniti': 'Stati Uniti',
     'gran bretagna': 'Gran Bretagna',
     'unione sovietica': 'Unione Sovietica',
+    'nazioni unite': 'Nazioni Unite',
+    'aids': 'AIDS',
+    # `select` recased this one on the dictionary's word: its only lower-case
+    # record is a pointer, so the corpus refusal (which needs the lower-case
+    # spelling to have NO record) could not reach it.  Forced back here rather
+    # than by loosening that rule, which protects `Usa` -- whose lower-case
+    # spelling is likewise a pointer, to `usare`, and which really is the name.
+    'mila': 'mila',
 }
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',
@@ -624,7 +667,7 @@ for e in entries:
         if len(auth) > 2:
             gender = auth[2]     # the record it would be read from is not there
     else:
-        gl = glosses_for(rec)
+        gl = glosses_for(rec, head=e['display'])
 
     if not gl:
         no_meaning.append(e['display'])
