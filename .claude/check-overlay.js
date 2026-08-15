@@ -40,13 +40,24 @@ const bad = (...a) => { problems++; console.log("  ✗", ...a); };
 const note = (...a) => { notes++; console.log("  •", ...a); };
 
 (async () => {
-  const url = SUPA_URL + "/rest/v1/content_overrides?id=eq.1&select=data,updated_at";
+  /* `--file=<path>` audits a LOCAL overlay JSON instead of the live row — which is how a replacement is
+     checked BEFORE it is pasted into production, rather than by pasting it and looking at the site. The
+     file is the bare `data` value (what goes in the cell), not the PostgREST row wrapper. */
+  const fileArg = process.argv.slice(2).find((a) => a.startsWith("--file="));
   let rows;
-  try {
-    const r = await fetch(url, { headers: { apikey: SUPA_KEY } });
-    if (!r.ok) { console.error("ERROR: " + r.status + " fetching the overlay — is the table migrated?"); process.exit(1); }
-    rows = await r.json();
-  } catch (e) { console.error("ERROR: could not reach Supabase (" + e.message + ")"); process.exit(1); }
+  if (fileArg) {
+    const p = fileArg.slice(7);
+    let raw; try { raw = fs.readFileSync(p, "utf8"); } catch (e) { console.error("ERROR: cannot read " + p); process.exit(1); }
+    let parsed; try { parsed = JSON.parse(raw); } catch (e) { console.error("ERROR: " + p + " is not valid JSON — " + e.message); process.exit(1); }
+    rows = [{ data: parsed, updated_at: "(local file " + p + ")" }];
+  } else {
+    const url = SUPA_URL + "/rest/v1/content_overrides?id=eq.1&select=data,updated_at";
+    try {
+      const r = await fetch(url, { headers: { apikey: SUPA_KEY } });
+      if (!r.ok) { console.error("ERROR: " + r.status + " fetching the overlay — is the table migrated?"); process.exit(1); }
+      rows = await r.json();
+    } catch (e) { console.error("ERROR: could not reach Supabase (" + e.message + ")"); process.exit(1); }
+  }
   if (!Array.isArray(rows) || !rows.length) { console.log("No overlay row — the shipped files are what every reader sees. Nothing to check."); return; }
 
   const row = rows[0], d = row.data || {};

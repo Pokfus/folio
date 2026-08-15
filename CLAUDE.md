@@ -3530,8 +3530,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   longer exists, a live collection the overlay DELETES, timeline eras that differ from `timeline.js`, footnote
   markers or licence attributions an edit has dropped, and what the row costs every visitor on every page load.
   It reads and never writes. Needs the network; reads `SUPA_URL`/`SUPA_KEY` out of app.js rather than restating
-  them, and fails loudly if it cannot find them. **Run it after any renumbering and after baking.** Not part of
-  the site.
+  them, and fails loudly if it cannot find them. **Run it after any renumbering and after baking.**
+  **`--file=<path>` audits a LOCAL overlay JSON instead of the live row**, which is how a REPLACEMENT is checked
+  before it is pasted into production rather than by pasting it and looking at the site — the file is the bare
+  `data` value, not the PostgREST row wrapper. Not part of the site.
 - `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
