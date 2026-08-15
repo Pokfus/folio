@@ -6600,8 +6600,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **⚠ NO NEW GROUP CAN BE MADE — THE FUNCTION WAS REMOVED FROM THE DAILY STUDY BLOCK** (Aug 2026, on
     request: "remove the group function from the daily study/active decks banner"). "+ New group" stood
     inside the banner, then at the bottom left of the DECK LIST for a fortnight, and is now gone along with
-    `promptNewGroup`, `.rv-tools` and `.rv-newgroup`; `.rv-foot` survives holding the lip alone, since that
-    row is what keeps `.rv-lip` against the review group's own bottom edge.
+    `promptNewGroup`, `.rv-tools` and `.rv-newgroup`; `.rv-foot` survives, since that row is what keeps
+    `.rv-lip` against the review group's own bottom edge — it held the lip alone for a fortnight and now
+    carries the day's timer (`.rv-time`) at the left end it vacated.
     **WHAT DELIBERATELY STAYS is everything a reader who ALREADY made one needs**: the group row in the
     list, its hue, dragging a deck in, and Rename / Colour / Ungroup in its own options sheet. Deleting
     that code would leave such a reader a container on their home page that nothing could open — and there
@@ -8744,8 +8745,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be a function of the column width. The banner shows a **🔥 day-streak
   chip** (`S.streak`, shown at 2+ when the run is alive).
   **…AND, SINCE AUG 2026 ON REQUEST, THE DAY'S TIME ON CARDS** (`S.studyTime = { d, ms }`, `studyTimeAdd` /
-  `studyTimeToday` / `fmtStudyTime` / `STUDY_TICK_MS` / `STUDY_IDLE_MS`; the `.stat.st-time` chip). Five
-  things are decisions rather than plumbing.
+  `studyTimeToday` / `fmtStudyTime` / `STUDY_TICK_MS` / `STUDY_IDLE_MS`; **`.rv-time` in the `.rv-foot`
+  row**, not in the banner — see the last bullet). Five things are decisions rather than plumbing.
   · **THE MINIGAMES ARE EXCLUDED BY CONSTRUCTION, NOT BY A RULE** — the clock is a ticker living inside
     `PAGES.study` and `studyTimeAdd` has exactly that one caller, so no game can reach it and none has to
     be named. A rule listing the games would be a list to keep in step with the grid.
@@ -8767,13 +8768,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     every five seconds for a figure nothing else reads is a great deal of traffic for a clock. The grade
     path saves anyway, so in ordinary use the day is written down card by card; at most a minute is lost to
     an abrupt close, which is inside the honesty of the figure.
-  The chip is day-stamped like `reviewDay` and `deckDay`, so it resets in place with nothing to run at
+  · **IT SITS AT THE BOTTOM LEFT OF THE REVIEW GROUP, NOT IN THE BANNER** (Aug 2026, on request — it was a
+    fourth `.stat` in the meta row beside New / Learning / Review, and `.banner .stat.st-time` is gone).
+    Those three say what is LEFT to do today and this says what has been DONE, so standing it among them
+    asked a reader to take four numbers of two different kinds off one line. It takes the left end of the
+    **`.rv-foot`** row instead, the line the "+ Add decks" lip already hangs from, so the two sit at the
+    two ends of the block's own bottom edge — which cost that row nothing, `margin-inline-start:auto` on
+    the lip having always held it right whatever stood to its left ("+ New group" did, until it went).
+    Two consequences worth knowing. Out there it is on the page's own **paper** rather than on the card,
+    where its `--ink-faint` label measures exactly what the About line below it already measures (2.78–5.23
+    across the six themes both ways, sampled from painted pixels; the shipped bar is folio/light/`body.hc`,
+    where it reads 4.96) — so it introduces no contrast state the site had not got. And it stops being a
+    figure over a word: the row is one small tab high, so it is **one line**, and it says "studied today"
+    rather than "Studied" now that nothing beside it supplies the day.
+  The figure is day-stamped like `reviewDay` and `deckDay`, so it resets in place with nothing to run at
   midnight, and is **drawn only once there is time to report** — a "0s" before the first card is a clock
   saying nothing has happened, which the empty row already says. `fmtStudyTime` prints seconds below a
   minute ("45s"), because rounding the first card of the day up to "1m" is a small lie and "<1m" is not a
-  figure. Its `<b>` is **smaller than the three piles' and in the ordinary ink** rather than their indigo:
-  it is not a fourth pile, and at their size it would compete with the numbers that say where the day's
-  work actually is. It is in `PROGRESS_FIELDS` (time studied is a fact about the reader, so a phone and a
+  figure. It is in `PROGRESS_FIELDS` (time studied is a fact about the reader, so a phone and a
   laptop agree) and deliberately NOT in `RESET_KEEPS` — it is study history, which is what that control
   names. Measured at 390px with everything on the row: it fits with the streak chip beside it.
   **Completion is a MARK in the top-right corner, and
