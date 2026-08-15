@@ -35,13 +35,17 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.243", released: "2026-08-15T10:04Z" };
+window.FOLIO_VERSION = { v: "1.244", released: "2026-08-15T11:47Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-15",
-    t: "The whiteboard marker can be turned off, the card browser scrolls past 300, artefact plates take their rarity's colour, and every picture now carries a caption",
+    t: "An enlarged picture stays open while you zoom it, a card shows how well known its answer is, the Daily study banner times your day, and the whiteboard marker can be turned off",
     items: [
+      "<b>An enlarged picture no longer closes when you tap it</b>, and can be pinched to zoom on a phone; the × in the corner is the way out.",
+      "<b>A card now shows how well known its answer is</b>, as five stars in its top right corner.",
+      "<b>The Daily study banner now says how long you have spent on cards today</b>, counting the study page alone and none of the daily games.",
+      "<b>The Grave Circle A card now shows the grave circle itself</b>, photographed from above at Mycenae.",
       "<b>A card in the Ancient Rome collection has been rewritten</b> around the land, its people and how we know about them, rather than its languages.",
       "<b>The whiteboard marker can be turned off altogether</b>, in Settings under Study, so it stops appearing over cards, books and the Atlas.",
       "<b>The card browser now loads more cards as you scroll</b>, instead of stopping at the first 300 and asking you to narrow the search.",

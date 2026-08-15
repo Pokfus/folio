@@ -559,6 +559,10 @@ body.night .banner{
 .banner .stat{display:flex; flex-direction:column; align-items:center; gap:2px; text-align:center;}
 .banner .stat b{font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); line-height:1; color:var(--indigo);}
 .banner .stat span{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
+/* the day's time on cards: a SMALL figure, on request, and in the ordinary ink rather than the piles'
+   indigo — it is not a fourth pile, and at their size it would compete with the three numbers that say
+   where the day's work actually is */
+.banner .stat.st-time b{font-size:calc(14px * var(--fs)); color:var(--ink); font-variant-numeric:tabular-nums;}
 .banner .cta{margin-left:auto;}   /* sits on the SAME line as the three piles, pushed to the right edge */
 /* ---------- the footer row under the DECK LIST ----------
    "+ New group" sat at its left (`.rv-tools` / `.rv-newgroup`) and both are GONE — Aug 2026, on request:
@@ -1003,6 +1007,15 @@ body[data-theme="folio"] .collection-deco::after{
 .study-card .head-text{flex:1; min-width:0; padding-bottom:3px;}
 .study-card .tag{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); font-weight:500; display:block;}
 .study-card .label{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.2em; text-transform:uppercase; color:var(--indigo); font-weight:600; margin:0 0 7px; display:block; opacity:.5;}
+/* the difficulty rating, top right of a study card (Aug 2026, on request). It takes the QUESTION/ANSWER
+   label's own --indigo at the same .5, so the corner is the same voice as the two headers under it; an
+   unearned star is the same colour at a fraction of the opacity, which reads as an outline without
+   needing a second glyph. It is absolutely positioned so it costs the question no width, and it yields
+   to the read-aloud mute button, which holds this corner when read-aloud is on. */
+.study-card .card-stars{position:absolute; top:14px; right:16px; z-index:2; display:inline-flex; gap:2px; align-items:center; pointer-events:none;}
+.study-card:has(.tts-mute) .card-stars{right:52px;}
+.card-stars .cs-star svg{width:calc(12px * var(--fs)); height:calc(12px * var(--fs)); display:block; fill:var(--indigo); opacity:.13;}
+.card-stars .cs-star.on svg{opacity:.5;}
 /* ---------- stepping through a card's phrasings (Aug 2026, on request) ----------
    Every card carries three ways of asking the same thing, and until now which one a reader met was a coin
    toss they could not appeal. The chevrons sit on the Question label because that is what they qualify —
@@ -1175,6 +1188,7 @@ body[data-theme="folio"] .collection-deco::after{
 .iv-stage.zoomed{cursor:grab;}
 .iv-stage.zoomed:active{cursor:grabbing;}
 .iv-img{max-width:94%; max-height:94%; object-fit:contain; transition:transform .18s var(--ease); user-select:none;}
+.iv-stage.iv-live .iv-img{transition:none;}   /* a pinch or a drag moves the picture per frame; the ease would lag behind the fingers */
 /* the same overlay for a video: no zoom/pan, just the biggest 16:9 the viewport allows */
 .iv-vidstage{cursor:default;}
 .iv-vid{width:min(94%, calc((94vh - 120px) * 16 / 9)); aspect-ratio:16/9; max-height:94%; border:0; display:block; background:#000; border-radius:8px;}

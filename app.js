@@ -245,6 +245,21 @@
     return typeof n === "number" && n >= CARD_DIFFICULTY_MIN && n <= CARD_DIFFICULTY_MAX ? n : 0;
   }
   function difficultyOK(c) { const n = cardDifficulty(c); return n > 0 && n <= GAME_MAX_DIFFICULTY; }
+  /* The rating as five stars in the corner of a study card (Aug 2026, on request). It is DECORATIVE to a
+     screen reader — one `aria-label` on the row says the rating in words, and five identical glyphs read
+     out one at a time say nothing — and it renders as NOTHING at 0, which is every community-deck card and
+     any curated card not yet rated: five empty stars would claim a rating of zero, which is not on the
+     scale. The colour is the QUESTION/ANSWER label's own `--indigo`, on request, so the corner reads as
+     part of the card's own furniture rather than as a second kind of mark. */
+  function cardStarsHTML(c) {
+    const n = cardDifficulty(c);
+    if (!n) return "";
+    const star = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.5 5.6 6.1.6-4.6 4.1 1.3 6-5.3-3.1-5.3 3.1 1.3-6L3.4 9.8l6.1-.6z"/></svg>';
+    let out = '<span class="card-stars" title="How well known this card\'s answer is: ' + esc(CARD_DIFFICULTY_LABELS[n] || "") +
+      '" aria-label="Difficulty ' + n + " of " + CARD_DIFFICULTY_MAX + ': ' + esc(CARD_DIFFICULTY_LABELS[n] || "") + '">';
+    for (let i = 1; i <= CARD_DIFFICULTY_MAX; i++) out += '<span class="cs-star' + (i <= n ? " on" : "") + '">' + star + "</span>";
+    return out + "</span>";
+  }
   /* ---------- TERMS THAT DO NOT HAPPEN AT A TIME (Aug 2026, on a bug report) ----------
      `card.undatable` is a boolean saying that the answer term names something with no single moment a
      reader could be asked to place it at, and it exists because the Timeline game was asking readers to
@@ -1213,6 +1228,14 @@
       // day's pile is cleared and turns gold when miss === 0. reviewLog can't answer this: it counts every
       // grade (a learning card is graded again 10 minutes later) and only tracks mature ones.
       reviewDay: { d: "", n: 0, miss: 0 },
+      /* TIME ON CARDS TODAY: { d, ms } — the Daily study banner's timer (Aug 2026, on request). Day-stamped
+         so it resets in place, like reviewDay and deckDay, and never a running total (a lifetime figure is
+         a different question and nothing asks it). It counts what the request asks for and nothing else:
+         the seconds a card's question or answer is on screen. The MINIGAMES are excluded, which needs no
+         rule at all — the clock lives in the study page and no game goes near it. It cannot be derived
+         from revlog: that records a duration only for a card that was GRADED, capped at 60s, so a card
+         read for three minutes and one abandoned mid-session both count wrongly there. */
+      studyTime: { d: "", ms: 0 },
       streak: { count: 0, last: "" },
       // cards picked up one at a time from the home page's Card of the day (studied from the tile and then
       // graded). They join the daily review under the COTD_ENTRY pseudo-entry, so a card can be added
@@ -1555,7 +1578,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -4465,6 +4488,31 @@
     if (!correct) S.reviewDay.miss += 1;
   }
   function reviewDayRec() { const r = S.reviewDay; return r && r.d === todayStr() && r.n > 0 ? r : null; }
+  /* ---------- TIME ON CARDS TODAY (Aug 2026, on request) ----------
+     The Daily study banner's timer. `studyTimeAdd` is called by the study page's own ticker and by nothing
+     else, which is what keeps the minigames out of it — no rule names them, they simply never touch this.
+     Two guards make the figure honest rather than merely large, and both matter on a phone: a tick is
+     DISCARDED if the reader has been idle longer than STUDY_IDLE_MS (a card left open on a table is not
+     studying, and the per-review log makes the same judgement with its 60-second cap), and a tick is
+     CLAMPED to a little over its own interval, so a laptop waking from sleep cannot hand the day eight
+     hours in one go. */
+  const STUDY_TICK_MS = 5000, STUDY_IDLE_MS = 180000;
+  function studyTimeToday() { const r = S.studyTime; return r && r.d === todayStr() ? (r.ms | 0) : 0; }
+  function studyTimeAdd(ms) {
+    if (!(ms > 0)) return;
+    const d = todayStr();
+    if (!S.studyTime || S.studyTime.d !== d) S.studyTime = { d: d, ms: 0 };
+    S.studyTime.ms += Math.min(ms, STUDY_TICK_MS * 2);
+  }
+  // "45s" / "12m" / "1h 05m" — seconds below a minute, because rounding the first card of the day up to
+  // "1m" is a small lie and "<1m" is not a figure
+  function fmtStudyTime(ms) {
+    const s = Math.round(ms / 1000);
+    if (s < 60) return s + "s";
+    const m = Math.round(ms / 60000);
+    if (m < 60) return m + "m";
+    return Math.floor(m / 60) + "h " + String(m % 60).padStart(2, "0") + "m";
+  }
   // reviews per day over the last `days` days, oldest first: [{ d:"YYYY-MM-DD", n, date }]
   function reviewHistory(prog, days) {
     const log = (prog && prog.reviewLog) || {};
@@ -17833,6 +17881,15 @@
       if ((st.last === todayStr() || st.last === yest) && st.count >= 2) return `<div class="stat streak" title="Days studied in a row"><b>🔥 ${st.count}</b><span>Day streak</span></div>`;
       return "";
     })();
+    /* The day's time on cards (Aug 2026, on request), beside the streak and in the same shape as the three
+       piles: a figure over a word. It is drawn only once there is time to report — a "0s" before the first
+       card of the day is a clock reporting that nothing has happened, which is what the empty row already
+       says — and it counts the study page alone, so the minigames are outside it by construction rather
+       than by a rule (see studyTimeAdd). */
+    const timeChip = (() => {
+      const ms = studyTimeToday();
+      return ms > 0 ? `<div class="stat st-time" title="Time spent on cards today — the daily games are not counted"><b>${esc(fmtStudyTime(ms))}</b><span>Studied</span></div>` : "";
+    })();
     /* THE CHEST NEVER SHOWS AS A NUMBER ON THIS BANNER (Aug 2026, on request). It was a `chest-chip` stat
        standing in the meta row beside New / Learning / Review — a fourth figure in a row of three, counting
        something that is not a pile of cards at all — and it is gone from both branches. What replaces it is
@@ -17898,6 +17955,7 @@
               ${/* a "Seen total" stat sat here and was removed on request (Aug 2026) — the xp bar directly
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
+              ${timeChip}
               ${streakChip}
               <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
           dueN + newN ? "Start" : "Browse collections"
@@ -22211,6 +22269,38 @@
       writeStudySession({ scope: params.scope, queue: queue.slice(), id: queue[0] || null, qi: qIdx, rev: revealed, studied: studiedThisSession });
     }
 
+    /* ---------- the day's time on cards (Aug 2026, on request) ----------
+       A ticker rather than a stamp per card, because what the request asks for is the time a question or an
+       answer was ON SCREEN, and a card can be left mid-session, requeued, or read for three minutes without
+       anything being graded — none of which a per-grade duration can see (the per-review log's own figure is
+       capped at 60 seconds for exactly that reason, so it cannot be summed into this either).
+       It is SELF-STOPPING on `root.isConnected`, the shape `startMiniGlobe` uses: `render()` replaces #view
+       without telling anyone and there is no teardown hook to hang this on. It counts only while a card is
+       actually painted — the completion screen and the caught-up placard are not studying — and only while
+       the tab is visible and the reader has done something in the last STUDY_IDLE_MS.
+       It reaches `save()` once a minute rather than on every tick: `save()` queues a synced push, and a push
+       every five seconds for a figure nothing else reads would be a great deal of traffic for a clock. The
+       grade path saves anyway, so in ordinary use the day's time is written down card by card. */
+    let lastAct = Date.now(), lastTick = Date.now(), unsaved = 0;
+    const noteAct = () => { lastAct = Date.now(); };
+    const ACT_EVENTS = ["pointerdown", "pointermove", "keydown", "wheel", "scroll", "touchstart"];
+    ACT_EVENTS.forEach((n) => document.addEventListener(n, noteAct, { capture: true, passive: true }));
+    const studyTicker = setInterval(() => {
+      const now = Date.now(), gap = now - lastTick;
+      lastTick = now;
+      if (!root.isConnected) {   // the page has gone; take the listeners with it
+        clearInterval(studyTicker);
+        ACT_EVENTS.forEach((n) => document.removeEventListener(n, noteAct, true));
+        if (unsaved) save();
+        return;
+      }
+      if (document.hidden || !root.querySelector(".study-card")) return;
+      if (now - lastAct > STUDY_IDLE_MS) return;
+      studyTimeAdd(gap);
+      unsaved += gap;
+      if (unsaved >= 60000) { unsaved = 0; save(); }
+    }, STUDY_TICK_MS);
+
     /* ---------- undoing the last grade ----------
        A misclick on Again or Easy is otherwise unfixable from inside a session: the card has left the queue
        and its schedule has been rewritten. A grade is LOSSY — the old interval, ease and due date cannot be
@@ -22415,6 +22505,7 @@
           <div class="cardwrap swap">
             <div class="study-card">
               ${ttsEnabled() ? `<button class="tts-mute${S.settings.ttsMuted ? " muted" : ""}" id="ttsMute" type="button" aria-label="${S.settings.ttsMuted ? "Unmute read-aloud" : "Mute read-aloud"}" title="Mute / unmute read-aloud">${ttsMuteIconSVG()}</button>` : ""}
+              ${cardStarsHTML(c)}
               <span class="label">Question${pool.length > 1 ? `<span class="q-cycle"><button type="button" class="qc-btn" data-qc="-1" aria-label="Previous phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="qc-n" id="qcN">${qIdx + 1} / ${pool.length}</span><button type="button" class="qc-btn" data-qc="1" aria-label="Next phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></span>` : ""}${ttsPlayHTML("question", true)}</span>
               <div class="question">${cardFrontHTML(c)}</div>
               <div class="reveal" id="reveal"><div class="reveal-inner" id="revealInner"></div></div>
@@ -23745,8 +23836,20 @@
     }
     const stage = ov.querySelector(".iv-stage"), im = ov.querySelector(".iv-img");
     let scale = 1, tx = 0, ty = 0, drag = null;
+    // NOTHING inside the stage closes the viewer — not the image and not the space around it (on
+    // request, Aug 2026): a picture opened to be looked at is one a reader zooms and drags about, and
+    // every one of those gestures ends in a pointerup that a close-on-backdrop rule reads as "done".
+    // The × and Escape are the way out.
+    const pts = new Map();   // live pointers on the stage; two of them is a pinch
+    let pinch = null, pinched = false;
     const apply = () => { im.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + scale + ")"; stage.classList.toggle("zoomed", scale > 1); };
+    const live = (on) => stage.classList.toggle("iv-live", !!on);   // a gesture owns the frame: no transition to lag behind it
     const clampPan = () => { const lim = (scale - 1) * Math.max(stage.clientWidth, stage.clientHeight) * 0.5 + 40; tx = Math.max(-lim, Math.min(lim, tx)); ty = Math.max(-lim, Math.min(lim, ty)); };
+    const mid = () => {   // the two pointers' midpoint, relative to the stage's centre
+      const [a, b] = [...pts.values()];
+      const r = stage.getBoundingClientRect();
+      return { x: (a.x + b.x) / 2 - r.left - r.width / 2, y: (a.y + b.y) / 2 - r.top - r.height / 2, d: Math.hypot(a.x - b.x, a.y - b.y) };
+    };
     stage.addEventListener("wheel", (e) => {
       e.preventDefault();
       const ns = Math.max(1, Math.min(8, scale * Math.exp(-e.deltaY * 0.0016)));
@@ -23754,22 +23857,57 @@
       tx = px - (px - tx) * (ns / scale); ty = py - (py - ty) * (ns / scale);   // zoom toward the cursor
       scale = ns; if (scale === 1) { tx = 0; ty = 0; } clampPan(); apply();
     }, { passive: false });
-    stage.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, tx, ty, moved: false }; try { stage.setPointerCapture(e.pointerId); } catch (x) {} });
+    stage.addEventListener("pointerdown", (e) => {
+      pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      try { stage.setPointerCapture(e.pointerId); } catch (x) {}
+      if (pts.size === 2) {   // a second finger turns a pan into a pinch
+        drag = null; pinched = true; live(true);
+        const m = mid();
+        pinch = { d: m.d || 1, mx: m.x, my: m.y, scale, tx, ty };
+      } else if (pts.size === 1) {
+        /* WHETHER THE PRESS LANDED ON THE PICTURE IS RECORDED HERE AND NOWHERE ELSE. `setPointerCapture` on
+           the line above RETARGETS every later event for that pointer to the stage, so the `e.target === im`
+           this used to test at pointerup was false for a real finger or mouse even when the press was dead
+           centre of the image — which is how "a click on the image closes it" came to be reported: the tap
+           toggle could not fire and the close-on-backdrop branch took every press. A pointerdown's own
+           target is resolved BEFORE the capture it sets, so it is the honest one. */
+        drag = { x: e.clientX, y: e.clientY, tx, ty, moved: false, onImg: e.target === im };
+      }
+    });
     stage.addEventListener("pointermove", (e) => {
+      if (pts.has(e.pointerId)) pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pinch && pts.size >= 2) {
+        const m = mid();
+        const ns = Math.max(1, Math.min(8, pinch.scale * ((m.d || 1) / pinch.d)));
+        // hold whatever was under the fingers' midpoint under it, and let it follow the midpoint as that moves
+        tx = m.x - (pinch.mx - pinch.tx) * (ns / pinch.scale);
+        ty = m.y - (pinch.my - pinch.ty) * (ns / pinch.scale);
+        scale = ns; if (scale === 1) { tx = 0; ty = 0; }
+        clampPan(); apply();
+        return;
+      }
       if (!drag) return;
       const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
       if (Math.abs(dx) + Math.abs(dy) > 4) drag.moved = true;
-      if (scale > 1 && drag.moved) { tx = drag.tx + dx; ty = drag.ty + dy; clampPan(); apply(); }
+      if (scale > 1 && drag.moved) { live(true); tx = drag.tx + dx; ty = drag.ty + dy; clampPan(); apply(); }
     });
-    stage.addEventListener("pointerup", (e) => {
+    const liftPtr = (e) => {
+      const wasPinch = pinched, many = pts.size > 1, onImg = drag && drag.onImg;
+      pts.delete(e.pointerId);
+      if (pts.size < 2) pinch = null;
+      if (!pts.size) { pinched = false; live(false); }
       const wasDrag = drag && drag.moved; drag = null;
-      if (wasDrag) return;
-      if (e.target === im) {   // plain click on the image toggles zoom; on the backdrop it closes
+      return { spent: wasDrag || wasPinch || many, onImg: onImg };
+    };
+    stage.addEventListener("pointerup", (e) => {
+      const lift = liftPtr(e);
+      if (lift.spent) return;   // the end of a drag or a pinch, not a tap
+      if (lift.onImg) {         // a plain tap on the picture toggles zoom, for a device with no wheel
         if (scale > 1) { scale = 1; tx = 0; ty = 0; } else scale = 2.5;
         apply();
-      } else closeImageViewer();
+      }
     });
-    stage.addEventListener("pointercancel", () => { drag = null; });
+    stage.addEventListener("pointercancel", liftPtr);
     ov.querySelector(".iv-close").addEventListener("click", closeImageViewer);
     requestAnimationFrame(() => ov.classList.add("show"));
   }

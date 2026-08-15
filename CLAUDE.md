@@ -7586,6 +7586,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     RNG differed — **730 distinct grids became 60**, a repeat every fortnight. Nothing throws and every grid
     is still full; the game just quietly stops being daily. Taking a fraction restored it to 577, and a
     pool of 40+ still draws 40, so the large-pool behaviour is exactly what it was.
+  · **THE READER SEES IT, AS FIVE STARS IN THE CARD'S TOP RIGHT** (`cardStarsHTML` / `.card-stars`, Aug
+    2026, on request). Three decisions. It renders as **NOTHING at 0** — every community-deck card and any
+    curated card not yet rated — because five empty stars claim a rating of zero, which is not on the
+    scale. It is **DECORATIVE to a screen reader**: one `aria-label` on the row says the rating in words
+    (the `CARD_DIFFICULTY_LABELS` wording, so the star row and the tooltip cannot disagree), where five
+    identical glyphs read out one at a time say nothing. And the colour is the QUESTION/ANSWER label's own
+    `--indigo` at the same `.5` opacity, on request, so the corner reads as the card's own furniture rather
+    than as a second kind of mark; an unearned star is the same colour at a fraction of the opacity, which
+    reads as an outline without needing a second glyph. It is absolutely positioned so it costs the
+    question no width, and it steps left of `.tts-mute`, which holds that corner when read-aloud is on.
   · Written by `.claude/add-card-difficulty.js` in batches, editable per card in Admin → Cards (a select in
     the meta row beside the chronology — it offers the five ratings and **no "unrated" row**, since an
     undefined delta does not survive JSON round-tripping and a control whose only use is to drop a card out
@@ -8067,10 +8077,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Card image (optional):** `card.image = { src, title, desc, credit, alt }` — rendered by `buildBack` as a **16:9
   frame** (`.card-img`, `cardImageHTML`) at the top of the Background section, above the prose (the section now
   renders when a card has an image even without an abstract). Clicking it opens the **fullscreen viewer**
-  (`openImageViewer`: wheel zoom toward the cursor 1–8×, click toggles 1↔2.5×, drag pans when zoomed, Esc/×/backdrop
-  closes, `closeImageViewer()` runs in `render()`), with title/description/source in a bottom caption bar (a URL
-  source becomes a link). One **delegated** document click/keydown listener opens it from any `.card-img` (study,
-  previews, editor) via the figure's `data-img-*` attributes — no per-render wiring.
+  (`openImageViewer`: wheel zoom toward the cursor 1–8×, **pinch zoom**, tap toggles 1↔2.5×, drag pans when
+  zoomed, **only the × and Escape close**, `closeImageViewer()` runs in `render()`), with title/description/source
+  in a bottom caption bar (a URL source becomes a link). One **delegated** document click/keydown listener opens
+  it from any `.card-img` (study, previews, editor) via the figure's `data-img-*` attributes — no per-render wiring.
+  **NOTHING INSIDE THE STAGE CLOSES IT** (Aug 2026, on request: "a click on the image itself should not close
+  it; instead it should be possible to zoom in, especially on mobile, and only the X in the top right should
+  close"). A click on the image toggled zoom and a click on the space around it CLOSED, which is the same
+  gesture landing a few pixels apart doing opposite things — and a picture opened to be looked at is one a
+  reader zooms and drags about, so a close-on-backdrop rule reads the end of every clumsy gesture as "done".
+  **AND ON A REAL DEVICE THE TAP HALF COULD NOT FIRE AT ALL, WHICH IS WHY IT WAS REPORTED AS "A CLICK ON THE
+  IMAGE CLOSES IT"** — the finding worth carrying furthest. `stage.setPointerCapture(e.pointerId)` on
+  pointerdown **RETARGETS every later event for that pointer to the STAGE**, so the `e.target === im` the
+  toggle tested at pointerup was false for a real finger or mouse even dead centre of the picture, and the
+  close branch took every press. Whether the press landed on the picture is now recorded at POINTERDOWN,
+  whose own target is resolved before the capture it sets. **A synthetic `PointerEvent` dispatched at an
+  element bypasses that retargeting entirely**, so a test written with synthetic events passes on the broken
+  code — which is why `test-video.js`'s ninth section drives real mouse and real touch, and why a gesture
+  bug should be reproduced with real input before it is believed fixed.
+  **A VIDEO KEEPS ITS BACKDROP CLOSE**, deliberately: the player owns every pointer inside its own frame
+  (scrub, volume, fullscreen), so there is no zoom to protect and nothing but the frame to tap past.
+  **PINCH IS THE HALF THAT MADE THE ZOOM REACHABLE AT ALL** — there was only a `wheel` handler, so on a phone
+  the 1–8× range could not be reached and the tap toggle was the whole of it. Two pointers are tracked in a
+  `Map`; the pinch holds whatever was under the fingers' midpoint under it (the wheel's zoom-to-cursor
+  arithmetic, from a baseline captured when the second finger lands) and follows that midpoint as it moves.
+  Three things it has to get right, and each fails quietly: a second finger **cancels the one-finger pan** or
+  the two fight over `tx`/`ty`; **lifting either finger must not count as a tap**, or the end of every pinch
+  toggles the zoom back (hence the `pinched` flag, which survives until the last pointer is up); and
+  `.iv-live` **kills the `transform` transition while a gesture is in flight**, or the picture eases 180 ms
+  behind the fingers. `.iv-stage` already carried `touch-action:none`, so the browser never takes the pinch
+  for a page zoom.
   **`alt` is the text alternative, and it is a field of its own** (Aug 2026, on request: "add alt text for
   images, which can be added when editing/making cards"). Deliberately not a reuse of `title`: a title NAMES
   the picture for a reader who can already see it, where alt text has to DESCRIBE it to somebody who cannot,
@@ -8698,7 +8734,41 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   handler went with the markup. The title carries an explicit `<br>` after "Memorize anything," rather than
   leaving the two halves to the wrap: it is a promise and a price, and which line each falls on should not
   be a function of the column width. The banner shows a **🔥 day-streak
-  chip** (`S.streak`, shown at 2+ when the run is alive). **Completion is a MARK in the top-right corner, and
+  chip** (`S.streak`, shown at 2+ when the run is alive).
+  **…AND, SINCE AUG 2026 ON REQUEST, THE DAY'S TIME ON CARDS** (`S.studyTime = { d, ms }`, `studyTimeAdd` /
+  `studyTimeToday` / `fmtStudyTime` / `STUDY_TICK_MS` / `STUDY_IDLE_MS`; the `.stat.st-time` chip). Five
+  things are decisions rather than plumbing.
+  · **THE MINIGAMES ARE EXCLUDED BY CONSTRUCTION, NOT BY A RULE** — the clock is a ticker living inside
+    `PAGES.study` and `studyTimeAdd` has exactly that one caller, so no game can reach it and none has to
+    be named. A rule listing the games would be a list to keep in step with the grid.
+  · **IT IS A TICKER, NOT A STAMP PER CARD.** What was asked for is the time a question or an answer was ON
+    SCREEN, and a card can be left mid-session, requeued, or read for three minutes with nothing graded —
+    none of which a per-grade duration sees. **It cannot be summed out of `revlog` either**: that records a
+    duration only for a card that was GRADED, capped at `REV_MAX_DS` (60s) precisely so a card left open
+    over lunch cannot claim two hours, so both a long read and an abandoned session count wrongly there.
+  · **TWO GUARDS MAKE THE FIGURE HONEST RATHER THAN MERELY LARGE**, and both matter on a phone: a tick is
+    discarded while `document.hidden` or after `STUDY_IDLE_MS` (3 minutes) with no pointer, key, wheel,
+    scroll or touch — a card left face-up on a table is not studying — and a tick is CLAMPED to twice its
+    own interval, so a laptop waking from sleep cannot hand the day eight hours in one go. The idle window
+    is deliberately generous: a reader three minutes into a 300-word background is reading it.
+  · **THE TICKER IS SELF-STOPPING ON `root.isConnected`**, the shape `startMiniGlobe` uses — `render()`
+    replaces `#view` without telling anyone and there is no teardown hook to hang it on — and it takes its
+    document-level activity listeners with it when it goes. It counts only while a `.study-card` is
+    actually painted, so the completion screen and the caught-up placard are not studying.
+  · **IT REACHES `save()` ONCE A MINUTE, not on every tick**: `save()` queues a synced push, and a push
+    every five seconds for a figure nothing else reads is a great deal of traffic for a clock. The grade
+    path saves anyway, so in ordinary use the day is written down card by card; at most a minute is lost to
+    an abrupt close, which is inside the honesty of the figure.
+  The chip is day-stamped like `reviewDay` and `deckDay`, so it resets in place with nothing to run at
+  midnight, and is **drawn only once there is time to report** — a "0s" before the first card is a clock
+  saying nothing has happened, which the empty row already says. `fmtStudyTime` prints seconds below a
+  minute ("45s"), because rounding the first card of the day up to "1m" is a small lie and "<1m" is not a
+  figure. Its `<b>` is **smaller than the three piles' and in the ordinary ink** rather than their indigo:
+  it is not a fourth pile, and at their size it would compete with the numbers that say where the day's
+  work actually is. It is in `PROGRESS_FIELDS` (time studied is a fact about the reader, so a phone and a
+  laptop agree) and deliberately NOT in `RESET_KEEPS` — it is study history, which is what that control
+  names. Measured at 390px with everything on the row: it fits with the streak chip beside it.
+  **Completion is a MARK in the top-right corner, and
   it comes in TWO SHAPES** (`doneMarkHTML` in `PAGES.home`; Aug 2026). The tile used to FILL with its colour
   once played and turn gold on a perfect score, which was a lot of surface to change for one fact and fought
   every theme's own treatment of the card; that became a diagonal **ribbon**, and the ribbon then split in
@@ -12599,7 +12669,8 @@ dead code (never rendered).
     **or any of `supaSignIn` / `supaEmailForUsername` / `supaSwitchTo` / `supaRemember` / `supaForget` /
     `supaSetEmail` / `SUPA_ACCTS_KEY`** — a switch that carries the outgoing account's progress across is
     exactly what its `_supaOwner` assertions exist to catch, and nothing on screen would say so.**
-  · `node .claude/test-video.js` — 89 assertions on card + glossary videos: that every accepted link shape
+  · `node .claude/test-video.js` — 100 assertions on card + glossary videos **and the fullscreen viewer's
+    gestures**: that every accepted link shape
     resolves to the embed this code builds and **every other URL resolves to no player at all** (the check
     that keeps an `<iframe src>` off untrusted input), that the frame is byte-for-byte the image's frame
     (computed border-radius / aspect-ratio / border / size), that the expand control opens the viewer and a
@@ -12613,6 +12684,15 @@ dead code (never rendered).
     same-origin 404 leaves the AUTHOR the frame, marked and worded, and leaves the READER nothing at all
     (`height:0`, out of the flow — not a blank 16:9 box), with a click on it opening no empty viewer.
     Both halves matter: hiding it everywhere would leave the author with no way to notice.
+    **Its ninth section is the VIEWER'S GESTURES, and every assertion in it is made with REAL mouse and REAL
+    touch on purpose** (Aug 2026): a synthetic `PointerEvent` dispatched at an element BYPASSES
+    pointer-capture retargeting, which is the whole of the bug it exists for — `setPointerCapture` makes
+    every later event target the STAGE, so the tap toggle's `e.target === im` was false for a real finger
+    even dead centre of the picture and the close-on-backdrop branch took every press. **A synthetic version
+    of these checks passes on the broken code**, verified by reintroducing the fault. It covers the click
+    that must not close (on the picture and on the space around it), the tap that must zoom, the drag that
+    must pan without toggling the zoom back, a CDP two-finger pinch with `.iv-live` on during it, and the ×
+    as the only way out.
     **Re-run after touching `videoSource` / `cardVideoHTML` / `openMediaViewer` / `retireOther*Media` /
     the delegated `error` listener / `.media-dead` / the media panel, or the `media-src`/`frame-src` CSP.**
   · `node .claude/test-gloss-image.js` — 44 assertions on glossary images: the popup floats one to the
