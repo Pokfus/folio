@@ -576,6 +576,81 @@ async function openGlossEditor(page, base) {
   });
   check("...and a click on it opens no empty viewer", !viewer);
 
+  /* ---------- 9. THE FULLSCREEN VIEWER'S GESTURES, DRIVEN WITH REAL INPUT ----------
+     Aug 2026, on request: a click on the picture must not close the viewer, a pinch must zoom it, and the ×
+     must be the only way out. Every assertion here is made with REAL mouse and REAL touch, deliberately —
+     a synthetic PointerEvent dispatched at an element BYPASSES pointer-capture retargeting, and that is the
+     whole of the bug this section exists for: `stage.setPointerCapture` on pointerdown makes every later
+     event for that pointer target the STAGE, so the `e.target === im` the tap toggle used to test was false
+     for a real finger even dead centre of the picture, and the close-on-backdrop branch took every press.
+     A synthetic-event version of these checks passes on the broken code. */
+  const touchCtx = await browser.newContext({ viewport: { width: 900, height: 800 }, hasTouch: true });
+  const vp = await touchCtx.newPage();
+  vp.on("pageerror", (e) => errs.push("pageerror: " + e));
+  await vp.goto(base);
+  await vp.waitForTimeout(900);
+  // a picture of our own rather than a card's: this is about the viewer, and a card's own image is a
+  // remote URL that may not load in a sandbox — a figure with no box has no centre to click
+  await vp.evaluate(() => {
+    const f = document.createElement("figure");
+    f.className = "card-img"; f.setAttribute("role", "button"); f.tabIndex = 0;
+    f.dataset.imgSrc = "icon.svg"; f.dataset.imgTitle = "A test picture"; f.dataset.imgCredit = "https://example.org/x"; f.dataset.imgAlt = "test";
+    f.innerHTML = '<img src="icon.svg" alt="test">';
+    document.querySelector(".page").appendChild(f);
+  });
+  await vp.locator(".card-img").click();
+  await vp.waitForTimeout(500);
+  const ivOpen = () => vp.evaluate(() => !!document.querySelector(".img-viewer"));
+  const ivTf = () => vp.evaluate(() => getComputedStyle(document.querySelector(".iv-img")).transform);
+  const ivScale = async () => { const m = (await ivTf()).match(/matrix\(([-\d.]+)/); return m ? +m[1] : 0; };
+  check("the viewer opens on a picture", await ivOpen());
+  const ib = await vp.evaluate(() => { const r = document.querySelector(".iv-img").getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; });
+  await vp.mouse.click(Math.round(ib.x), Math.round(ib.y));
+  await vp.waitForTimeout(400);
+  check("a real click ON THE PICTURE does not close it", await ivOpen());
+  check("...it zooms in instead", (await ivScale()) > 1, await ivTf());
+  await vp.mouse.click(Math.round(ib.x), Math.round(ib.y));
+  await vp.waitForTimeout(400);
+  check("...and a second click zooms back out without closing", (await ivOpen()) && (await ivScale()) === 1);
+  await vp.mouse.click(6, 6);
+  await vp.waitForTimeout(400);
+  check("a real click on the SPACE around it does not close it either", await ivOpen());
+  await vp.touchscreen.tap(Math.round(ib.x), Math.round(ib.y));
+  await vp.waitForTimeout(400);
+  check("a real touch tap zooms rather than closing", (await ivOpen()) && (await ivScale()) > 1);
+  // a drag while zoomed pans, and must NOT be read as a tap when the finger lifts
+  const panned = await (async () => {
+    await vp.mouse.move(Math.round(ib.x), Math.round(ib.y));
+    await vp.mouse.down();
+    await vp.mouse.move(Math.round(ib.x) - 60, Math.round(ib.y) - 40, { steps: 8 });
+    await vp.mouse.up();
+    await vp.waitForTimeout(300);
+    return ivTf();
+  })();
+  check("a real drag pans and does not toggle the zoom back", /matrix\(2\.5.*-60, ?-40\)/.test(panned.replace(/\s+/g, " ")), panned);
+  // and the pinch, through CDP touch — two pointers the app has never been given before
+  await vp.evaluate(() => document.querySelector(".iv-close").click());
+  await vp.locator(".card-img").click();
+  await vp.waitForTimeout(500);
+  const cdp = await touchCtx.newCDPSession(vp);
+  const tp = (x, y, id) => ({ x: Math.round(x), y: Math.round(y), id: id });
+  await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [tp(ib.x - 50, ib.y, 1), tp(ib.x + 50, ib.y, 2)] });
+  let liveMid = false;
+  for (let i = 1; i <= 6; i++) {
+    const d = 50 + i * 25;
+    await cdp.send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [tp(ib.x - d, ib.y, 1), tp(ib.x + d, ib.y, 2)] });
+    await vp.waitForTimeout(30);
+    if (i === 3) liveMid = await vp.evaluate(() => document.querySelector(".iv-stage").classList.contains("iv-live"));
+  }
+  const pinchScale = await ivScale();
+  await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+  await vp.waitForTimeout(400);
+  check("a two-finger pinch zooms the picture", pinchScale > 1.5, "scale " + pinchScale);
+  check("...with the transform transition off while the fingers are on it", liveMid);
+  check("...and lifting the fingers neither closes it nor undoes the zoom", (await ivOpen()) && (await ivScale()) === pinchScale, "scale " + (await ivScale()));
+  check("the × is the way out", await vp.evaluate(() => { document.querySelector(".iv-close").click(); return !document.querySelector(".img-viewer"); }));
+  await touchCtx.close();
+
   /* ---------- 8. no console errors anywhere in the above ---------- */
   check("no page errors", errs.length === 0, errs.slice(0, 3).join(" | "));
 

@@ -3998,12 +3998,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   candidates were reviewed and rejected as not being the object — `gladius` matches *Xiphias gladius*, the
   swordfish. That is a fact rather than a backlog: a `src` is somebody else's URL and a `credit` is
   required beside it, so an invented one would be a fabricated source holding up a real object, and the
-  rarity-coloured placeholder is what the shape was designed for. **An artefact's image is three fields —
-  `src`, `credit`, `alt`** — not the card's five: the entry already carries the name, date, origin and
-  five-sentence description, so `credit` is the only place the attribution can go and it is written there
-  in full, URL included. Since Aug 2026 the plate's picture OPENS (see "THE PLATE'S PICTURE IS THE SITE'S
-  OWN MEDIA FRAME" under THE RELIQUARY), and the viewer's caption is built from those same three fields
-  plus the artefact's own name — nothing new is asked of an entry, and nothing is composed for it.
+  rarity-coloured placeholder is what the shape was designed for. **An artefact's image was three fields —
+  `src`, `credit`, `alt`** — not the card's five, on the reasoning that the entry already carries the name,
+  date, origin and five-sentence description, so `credit` was the only place the attribution could go and is
+  written there in full, URL included. **IT IS FIVE SINCE AUG 2026, on request** ("some images don't contain
+  titles or descriptions"): the plate's picture OPENS the site's fullscreen viewer, and with no `desc` all 99
+  of them opened it with the object's name over a blank caption. They gained `title` and `desc`, and NEITHER
+  composes anything — the title is the artefact's own name and the description is the `alt` this corpus
+  already wrote plus the attribution `credit` already carries, re-punctuated (see `.claude/fix-image-text.js`).
+  **Three places had to learn the two fields or the next admin keystroke would strip them**: `artefactSanitize`,
+  `serializeArtefacts` and `add-artefacts.js`'s own emitter, the last two writing them only where they exist so
+  an entry without them is byte-identical to what those always wrote.
   **THE PLATE ITSELF NO LONGER PRINTS THE CREDIT** (`.ar-wcredit`, deleted Aug 2026 on request): the viewer
   carries it a tap away from the picture it belongs to, where on the plate it was a grey line under five
   sentences it is not about. **The field is still REQUIRED** — `add-artefacts.js` and Admin → Artefacts both
@@ -4241,6 +4246,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is how the corpus went from one picture to several hundred in a day and then began drifting out of
     date the next. `.claude/suggest-image.js` is the single-item version, and `add-card.js`,
     `add-glossary.js` and `add-artefacts.js` each call it at the end of a successful add.
+- `.claude/fix-image-text.js` — the repair pass over the words that travel WITH a picture (Aug 2026, on
+  request: "some images don't contain titles or descriptions, and some of those that do contain grammatical
+  errors or spelling mistakes"). A picture's caption is ASSEMBLED rather than written — Commons' own English
+  description where there is one, the cleaned FILE NAME where there is not, plus the attribution the licence
+  requires — and that leaves residue a reader meets in the viewer's caption bar. Run it after a picture batch;
+  it is IDEMPOTENT for cards and the glossary (the hand-checked table is keyed on the exact text as it ships,
+  so an entry that has already been applied is REPORTED rather than silently doing nothing) and skips an
+  artefact that already has its two fields. Four things it settled:
+  · **AN ATTRIBUTION IS NOT A DESCRIPTION, and 56 captions were only that** — "Michael Gunther, CC BY-SA 4.0,
+    via Wikimedia Commons." and nothing else, where Commons carried no usable English and the file name
+    cleaned down to nothing. The repair composes NOTHING: those pictures already carry a full hand-written
+    `alt`, which is a description of the picture by definition, so the alt is PROMOTED to the caption.
+  · **A COLON IS NOT PUNCTUATION TO BE TIDIED.** The first cut spaced out every `,;:` with nothing after it,
+    which turned every URL in the corpus into "http: //", every wiki namespace into "en: William" and an
+    aspect ratio into "1.7477: 1". It is the one mark here as often structural as grammatical, and it is left
+    alone in both directions.
+  · **THE ELLIPSIS HAS TO BE NORMALISED BEFORE THE DOUBLED STOP**, or `\.{2}` eats the tail of one and leaves
+    a caption ending in two dots — the rule that exists to fix "12 by 19 cm.." breaking the truncation mark
+    that `pick-images.js` puts on a caption it cut at 300 characters.
+  · **AND THE HAND-CHECKED TABLE IS THE HONEST HALF.** A mechanical rule cannot know that "MeadowcroftPA" is
+    a rockshelter in Pennsylvania, that "afarensisIMG 2930" is a camera number welded to a species, or that a
+    flag file's caption is the SVG author's construction notes rather than anything about the flag. 35
+    captions and 9 alts are read by hand, each entry recording what the file name actually said. Not part of
+    the site.
 - `.claude/suggest-image.js` — the SINGLE-ITEM half of that pass, and the reason the corpus should not
   drift out of date again: `add-card.js`, `add-glossary.js` and `add-artefacts.js` each call
   `report(kind, key, subject)` at the end of a successful add, so a new card, term or artefact looks for
@@ -6321,6 +6350,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     overlay chrome (backdrop, ×, Escape) stays with `openArtefactWin`, since the preview has nothing to
     close; the FOOTNOTE NUMBERING stays with `wireFootnotes`, which needs rendered nodes, so every caller
     pairs the builder with `wireArtefactPlate` on the container it put the markup in.
+  · **THE PLATE IS WASHED IN ITS OWN RARITY, AND SO IS THE CHEST'S REVEAL** (Aug 2026, on request). The
+    rarity was already the plate's whole language — the chip, the top rule, the border, the picture frame —
+    and every one of those is an EDGE, so a common and a legendary read alike anywhere but the rim. Both now
+    carry a gradient of `--rar` running top to bottom, laid OVER `var(--card)` rather than mixed into it, so
+    it needs no per-theme rule: whatever paper a theme uses is what the wash fades into. Two things. It is
+    strongest at the top, where the name and the chip are, and gone by two thirds down, so the five sentences
+    and the citations under it sit on ordinary paper and lose no contrast — `test-a11y.js` measures every
+    text node against the background it really renders on. And NIGHT takes a weaker mix, for the reason every
+    other wash on the site does: a colour over a dark paper reads far stronger than the same percentage over
+    a light one. The chest's `.chest-reveal` is additionally BOXED, because it floats on the overlay's dark
+    backdrop rather than on a card, and a gradient fading to transparent there would fade into the backdrop
+    instead of into paper.
+  · **AND SHOWCASE SITS AT THE TOP OF THE PLATE** (same request). It used to close the plate, below five
+    sentences and a fold of citations — so on anything but the shortest artefact it was off the bottom of a
+    scrolling box, and a reader who opened a plate to pin it had to read past everything first. It is the one
+    ACTION on a page that is otherwise all reading, and an action belongs where the reader arrives.
   · **THE PLATE'S PICTURE IS THE SITE'S OWN MEDIA FRAME** (`artefactPlateArtHTML`, Aug 2026, on a bug
     report: "there's no way to zoom in on artefact images"). A TILE's `.ar-img` is a bare `<img>` inside a
     `<button>` and must stay one — a `role="button"` figure nested in a button is invalid markup and would
@@ -6371,8 +6416,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   retires its own row. The id carries a **colon** so it can never collide with a node id (plain slugs) or a `u:` deck.
   Two study-session details go with it: a **one-card session does not requeue** a learning step (`res.requeue &&
   scope.type !== "card"`) — with no other card between, the card would reappear instantly and read as a grade that
-  never landed, and it is scheduled properly regardless — and `fromHome` (review / card / cotd scopes) sends the exit
-  button, the completion screen and the caught-up placard back to **Home** rather than the collections.
+  never landed, and it is scheduled properly regardless. **EVERY SESSION NOW ENDS AT THE HOME PAGE** (Aug 2026,
+  on request): `fromHome` is gone, and the exit button, the caught-up placard and the completion screen all
+  route there. It used to depend on the scope — the review, the Card of the day and a group returned home
+  while a DECK returned to the collections — which was written when a deck was something a reader found on
+  that page. It is not any more: a deck is added to the daily study and tapped on its own row on the home
+  page, so that is where a reader finishing one came from and where their other decks are waiting, and the
+  collections are one press further on from the lip the home page advertises. It is ONE answer rather than a
+  rule per surface, since a completion screen going home while the exit beside it went to the collections
+  would be two answers to one question.
 - **Daily review order** (`S.settings.reviewRandom`): **Ordered** (labelled "Chrono" until Aug 2026, renamed on
   request — the old key is retired from all nine language tables) presents cards in their in-deck order;
   **Random** shuffles the session order. The **draw** of the day's new cards is date-seeded-random across the decks in BOTH
@@ -6416,7 +6468,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the fix, and the shape is Anki's.
   · **`deckLimits(id)`** → `{ newPerDay, maxReviews, newIgnoresReview }`, stored in **`S.deckOpts`** keyed by the same
     entry id as `S.active` and written only for decks the reader has actually changed — an absent deck follows
-    `S.settings.newPerDay`, exactly as before. `DECK_MAX_REVIEWS` (200) is Anki's own default.
+    `S.settings.newPerDay`, exactly as before. **`DECK_MAX_REVIEWS` is 50** (Aug 2026, on request; it was
+    Anki's own 200) — a view about what a day's studying should feel like rather than a technical bound, and
+    a DEFAULT only: a deck or the review can still be set as high as anybody likes in its own Daily limits
+    sheet, and a reader who has already chosen one keeps it, `deckLimits` reading the constant only where
+    nothing has been chosen.
   · **`S.deckDay`** holds TODAY only — `{ d, extra, skip }`, the Custom-study bump and "Skip today" — and resets in
     place, dropping every other stale record with it, so the table can never outgrow the decks in use.
   · **The COUNTS are DERIVED, never tallied** (`deckDoneToday`). `grade()` writes **`c.first`** — the day a card was
@@ -6636,6 +6692,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `warn` the Studio toasts, which is the card-types column's own pattern (an ADMIN gets a different
     sentence naming the block to run, being the one person who can clear it). A deck therefore publishes
     from an un-migrated database and simply arrives in the generic indigo.
+  · **A SHEET IS NOT LIVE THE INSTANT IT APPEARS** (`DECK_SHEET_ARM_MS`, Aug 2026, on a bug report: "when
+    the long-press menu loads, I sometimes accidentally immediately press a menu item"). A hold opens the
+    sheet UNDER the finger that is still down, so the lift that ends the gesture lands on whichever row
+    happens to be beneath it and fires it — a Remove or a Skip today the reader never chose. **The
+    document-level capture guard that swallows the click after a hold cannot help**: it deliberately steps
+    aside inside `.deck-menu`, which is what lets a fast deliberate click through. So `deckSheet` guards its
+    own clicks, on TWO tests. The first is EXACT rather than a guess at how fast a finger is: a pointer click
+    whose own pointerdown never landed in this sheet is by definition the tail of the press that opened it,
+    and is swallowed however long that press ran (`e.detail` is 0 for a keyboard or programmatic click, which
+    has no pointerdown to have seen and must go through). The second is a 500ms arming window, covering a
+    fresh tap made before the sheet has settled — half the second the report asks for, because the exact test
+    is what fixes the reported misfire and a full second is long enough that a reader reaching straight for a
+    row would meet a sheet that ignores them, which is the same complaint again.
   · **A × IN THE TOP RIGHT OF EVERY SHEET** (`.dm-x`, Aug 2026, on request). Escape and a backdrop tap both
     closed it already and neither says so: Escape is a key a phone has not got, and "tap outside" is a
     convention a reader has to know in advance. Three decisions.
@@ -7226,8 +7295,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     tells a reader strictly less than "Origins"). **Below 640px five of the nine columns go** rather than
     being squeezed: at 390px the card's own title is the only part of a row with no shorter form, so anything
     taking width from it is what gives, and the rest is one tap away in Card info.
-    **`BROWSE_CAP` (300) bounds what is DRAWN and the count line always states the true total** with the cap
-    named — a silent truncation would read as a search that found 300 things.
+    **`BROWSE_PAGE` (300) is a PAGE, not a ceiling** (Aug 2026, on request). It was a hard cut with a line
+    telling the reader to narrow the search, which on a few thousand cards makes the last two thirds of the
+    collection unreachable by scrolling at all. The table grows by a page whenever its foot comes into view,
+    watched by an **IntersectionObserver on a sentinel drawn as the body's last child** — a scroll listener
+    cannot see the case where the first page does not fill the window, since no scroll ever happens there.
+    One observer, re-pointed at each freshly drawn sentinel (the rows are rebuilt on every repaint, so an
+    observer left on the old one fires on a detached node) and disconnecting itself when the page goes. The
+    count line still states the true total and now says how much of it is on screen; a repaint that CHANGES
+    the list resets the depth, since a new search is a new list.
     **The query, the column and the selection are module-level and deliberately NOT in `S`**: they are a way
     of LOOKING at the collection rather than a preference about Folio, so they survive navigating away and
     back within a session and reset on reload — the glossary record's own call. Typing repaints IN PLACE
@@ -7510,6 +7586,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     RNG differed — **730 distinct grids became 60**, a repeat every fortnight. Nothing throws and every grid
     is still full; the game just quietly stops being daily. Taking a fraction restored it to 577, and a
     pool of 40+ still draws 40, so the large-pool behaviour is exactly what it was.
+  · **THE READER SEES IT, AS FIVE STARS IN THE CARD'S TOP RIGHT** (`cardStarsHTML` / `.card-stars`, Aug
+    2026, on request). Three decisions. It renders as **NOTHING at 0** — every community-deck card and any
+    curated card not yet rated — because five empty stars claim a rating of zero, which is not on the
+    scale. It is **DECORATIVE to a screen reader**: one `aria-label` on the row says the rating in words
+    (the `CARD_DIFFICULTY_LABELS` wording, so the star row and the tooltip cannot disagree), where five
+    identical glyphs read out one at a time say nothing. And the colour is the QUESTION/ANSWER label's own
+    `--indigo` at the same `.5` opacity, on request, so the corner reads as the card's own furniture rather
+    than as a second kind of mark; an unearned star is the same colour at a fraction of the opacity, which
+    reads as an outline without needing a second glyph. It is absolutely positioned so it costs the
+    question no width, and it steps left of `.tts-mute`, which holds that corner when read-aloud is on.
   · Written by `.claude/add-card-difficulty.js` in batches, editable per card in Admin → Cards (a select in
     the meta row beside the chronology — it offers the five ratings and **no "unrated" row**, since an
     undefined delta does not survive JSON round-tripping and a control whose only use is to drop a card out
@@ -7991,10 +8077,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Card image (optional):** `card.image = { src, title, desc, credit, alt }` — rendered by `buildBack` as a **16:9
   frame** (`.card-img`, `cardImageHTML`) at the top of the Background section, above the prose (the section now
   renders when a card has an image even without an abstract). Clicking it opens the **fullscreen viewer**
-  (`openImageViewer`: wheel zoom toward the cursor 1–8×, click toggles 1↔2.5×, drag pans when zoomed, Esc/×/backdrop
-  closes, `closeImageViewer()` runs in `render()`), with title/description/source in a bottom caption bar (a URL
-  source becomes a link). One **delegated** document click/keydown listener opens it from any `.card-img` (study,
-  previews, editor) via the figure's `data-img-*` attributes — no per-render wiring.
+  (`openImageViewer`: wheel zoom toward the cursor 1–8×, **pinch zoom**, tap toggles 1↔2.5×, drag pans when
+  zoomed, **only the × and Escape close**, `closeImageViewer()` runs in `render()`), with title/description/source
+  in a bottom caption bar (a URL source becomes a link). One **delegated** document click/keydown listener opens
+  it from any `.card-img` (study, previews, editor) via the figure's `data-img-*` attributes — no per-render wiring.
+  **NOTHING INSIDE THE STAGE CLOSES IT** (Aug 2026, on request: "a click on the image itself should not close
+  it; instead it should be possible to zoom in, especially on mobile, and only the X in the top right should
+  close"). A click on the image toggled zoom and a click on the space around it CLOSED, which is the same
+  gesture landing a few pixels apart doing opposite things — and a picture opened to be looked at is one a
+  reader zooms and drags about, so a close-on-backdrop rule reads the end of every clumsy gesture as "done".
+  **AND ON A REAL DEVICE THE TAP HALF COULD NOT FIRE AT ALL, WHICH IS WHY IT WAS REPORTED AS "A CLICK ON THE
+  IMAGE CLOSES IT"** — the finding worth carrying furthest. `stage.setPointerCapture(e.pointerId)` on
+  pointerdown **RETARGETS every later event for that pointer to the STAGE**, so the `e.target === im` the
+  toggle tested at pointerup was false for a real finger or mouse even dead centre of the picture, and the
+  close branch took every press. Whether the press landed on the picture is now recorded at POINTERDOWN,
+  whose own target is resolved before the capture it sets. **A synthetic `PointerEvent` dispatched at an
+  element bypasses that retargeting entirely**, so a test written with synthetic events passes on the broken
+  code — which is why `test-video.js`'s ninth section drives real mouse and real touch, and why a gesture
+  bug should be reproduced with real input before it is believed fixed.
+  **A VIDEO KEEPS ITS BACKDROP CLOSE**, deliberately: the player owns every pointer inside its own frame
+  (scrub, volume, fullscreen), so there is no zoom to protect and nothing but the frame to tap past.
+  **PINCH IS THE HALF THAT MADE THE ZOOM REACHABLE AT ALL** — there was only a `wheel` handler, so on a phone
+  the 1–8× range could not be reached and the tap toggle was the whole of it. Two pointers are tracked in a
+  `Map`; the pinch holds whatever was under the fingers' midpoint under it (the wheel's zoom-to-cursor
+  arithmetic, from a baseline captured when the second finger lands) and follows that midpoint as it moves.
+  Three things it has to get right, and each fails quietly: a second finger **cancels the one-finger pan** or
+  the two fight over `tx`/`ty`; **lifting either finger must not count as a tap**, or the end of every pinch
+  toggles the zoom back (hence the `pinched` flag, which survives until the last pointer is up); and
+  `.iv-live` **kills the `transform` transition while a gesture is in flight**, or the picture eases 180 ms
+  behind the fingers. `.iv-stage` already carried `touch-action:none`, so the browser never takes the pinch
+  for a page zoom.
   **`alt` is the text alternative, and it is a field of its own** (Aug 2026, on request: "add alt text for
   images, which can be added when editing/making cards"). Deliberately not a reuse of `title`: a title NAMES
   the picture for a reader who can already see it, where alt text has to DESCRIBE it to somebody who cannot,
@@ -8622,7 +8734,41 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   handler went with the markup. The title carries an explicit `<br>` after "Memorize anything," rather than
   leaving the two halves to the wrap: it is a promise and a price, and which line each falls on should not
   be a function of the column width. The banner shows a **🔥 day-streak
-  chip** (`S.streak`, shown at 2+ when the run is alive). **Completion is a MARK in the top-right corner, and
+  chip** (`S.streak`, shown at 2+ when the run is alive).
+  **…AND, SINCE AUG 2026 ON REQUEST, THE DAY'S TIME ON CARDS** (`S.studyTime = { d, ms }`, `studyTimeAdd` /
+  `studyTimeToday` / `fmtStudyTime` / `STUDY_TICK_MS` / `STUDY_IDLE_MS`; the `.stat.st-time` chip). Five
+  things are decisions rather than plumbing.
+  · **THE MINIGAMES ARE EXCLUDED BY CONSTRUCTION, NOT BY A RULE** — the clock is a ticker living inside
+    `PAGES.study` and `studyTimeAdd` has exactly that one caller, so no game can reach it and none has to
+    be named. A rule listing the games would be a list to keep in step with the grid.
+  · **IT IS A TICKER, NOT A STAMP PER CARD.** What was asked for is the time a question or an answer was ON
+    SCREEN, and a card can be left mid-session, requeued, or read for three minutes with nothing graded —
+    none of which a per-grade duration sees. **It cannot be summed out of `revlog` either**: that records a
+    duration only for a card that was GRADED, capped at `REV_MAX_DS` (60s) precisely so a card left open
+    over lunch cannot claim two hours, so both a long read and an abandoned session count wrongly there.
+  · **TWO GUARDS MAKE THE FIGURE HONEST RATHER THAN MERELY LARGE**, and both matter on a phone: a tick is
+    discarded while `document.hidden` or after `STUDY_IDLE_MS` (3 minutes) with no pointer, key, wheel,
+    scroll or touch — a card left face-up on a table is not studying — and a tick is CLAMPED to twice its
+    own interval, so a laptop waking from sleep cannot hand the day eight hours in one go. The idle window
+    is deliberately generous: a reader three minutes into a 300-word background is reading it.
+  · **THE TICKER IS SELF-STOPPING ON `root.isConnected`**, the shape `startMiniGlobe` uses — `render()`
+    replaces `#view` without telling anyone and there is no teardown hook to hang it on — and it takes its
+    document-level activity listeners with it when it goes. It counts only while a `.study-card` is
+    actually painted, so the completion screen and the caught-up placard are not studying.
+  · **IT REACHES `save()` ONCE A MINUTE, not on every tick**: `save()` queues a synced push, and a push
+    every five seconds for a figure nothing else reads is a great deal of traffic for a clock. The grade
+    path saves anyway, so in ordinary use the day is written down card by card; at most a minute is lost to
+    an abrupt close, which is inside the honesty of the figure.
+  The chip is day-stamped like `reviewDay` and `deckDay`, so it resets in place with nothing to run at
+  midnight, and is **drawn only once there is time to report** — a "0s" before the first card is a clock
+  saying nothing has happened, which the empty row already says. `fmtStudyTime` prints seconds below a
+  minute ("45s"), because rounding the first card of the day up to "1m" is a small lie and "<1m" is not a
+  figure. Its `<b>` is **smaller than the three piles' and in the ordinary ink** rather than their indigo:
+  it is not a fourth pile, and at their size it would compete with the numbers that say where the day's
+  work actually is. It is in `PROGRESS_FIELDS` (time studied is a fact about the reader, so a phone and a
+  laptop agree) and deliberately NOT in `RESET_KEEPS` — it is study history, which is what that control
+  names. Measured at 390px with everything on the row: it fits with the streak chip beside it.
+  **Completion is a MARK in the top-right corner, and
   it comes in TWO SHAPES** (`doneMarkHTML` in `PAGES.home`; Aug 2026). The tile used to FILL with its colour
   once played and turn gold on a perfect score, which was a lot of surface to change for one fact and fought
   every theme's own treatment of the card; that became a diagonal **ribbon**, and the ribbon then split in
@@ -8979,6 +9125,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     out of the arrows. Completing an entry then calls `nextOpen`, which finds the next entry still holding
     an unsolved square **and wraps**, so the last clue on the board leads back to the first rather than
     stopping dead.
+  · **A REVEALED LETTER IS RED, NOT GREEN** (Aug 2026, on request). Green is what a solved entry paints and
+    what locks a square against being typed over — it means "you got this" — so painting the whole board
+    green on a give-up told the reader they had answered a grid they in fact gave up on, and took away the
+    one thing they want to see afterwards: which letters were theirs. What each square WAS is read BEFORE the
+    answers are written over it, so a square whose own letter already matched stays green and every square
+    that was empty or wrong turns red; the clue rows keep their tick only where the reader earned it. The
+    whole square goes red for free, `.xw-sq:has(.xw-cell.bad)` already washing it.
   · **AND A GIVE-UP BUTTON REVEALS THE ANSWERS, WHICH HAD TO BE RECORDED** (`xwGaveUpToday` / `xwMarkGaveUp`,
     same request). The letters go into the very store the grid is restored from, so a revealed board reads
     back on the next visit as a board somebody filled in — a perfect score, a gold tile and a lifetime win.
@@ -9239,6 +9392,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `.globe-stage` and `.atlas-timebar` are each written ONCE against them rather than restated per
   breakpoint — which is how their old hard-coded `96px`/`118px` pair would have drifted apart the moment a
   third bar appeared. `.stage`, `#toast` and `.admin-edit-fab` take the same offset.
+- **THE WHITEBOARD MARKER CAN BE TURNED OFF ALTOGETHER** (`markerOn` beside `ensureWBTools`;
+  **Settings → Study → Whiteboard marker**, `S.settings.marker`, default ON. Aug 2026, on request). It floats
+  over every study card, every page of a book and the Atlas globe, and a reader who never draws has been
+  carrying it round the corner of the screen on all three. **ONE predicate, asked in the two places that
+  bring the marker into existence** — `showWBTools`, which puts the panel on screen, and `setupWhiteboard`,
+  which lays the ink canvas over the page — so a disabled marker costs a page neither the panel, the canvas
+  nor the pointer listeners that go with it. It needs no third gate: **the panel is the only way to put the
+  pen DOWN**, so `WB.enabled` can never become true and every page-specific hook (the globe's cursor, the
+  book's ink store) simply never fires. Two things are load-bearing. The guard in `setupWhiteboard` sits
+  AFTER that function's own teardown, or a fling or a resize listener left by the previous page would outlive
+  it. And the switch calls `hideWBTools()` when thrown OFF: Settings is not one of the three pages that mount
+  the marker, so nothing would repaint it away by itself, and a panel still floating over the page a switch
+  has just disabled reads as a switch that did nothing. Anything already drawn is kept — this decides whether
+  the marker APPEARS, not whether the ink exists.
 - **The whiteboard marker is DRAGGABLE anywhere on screen** (`wbMakeDraggable` / `wbApplyPos`, beside
   `ensureWBTools` — Aug 2026, on request). It is a fixed control floating over a card the reader is trying to
   read, and its default corner is exactly where some cards put the thing you want to look at.
@@ -12502,7 +12669,8 @@ dead code (never rendered).
     **or any of `supaSignIn` / `supaEmailForUsername` / `supaSwitchTo` / `supaRemember` / `supaForget` /
     `supaSetEmail` / `SUPA_ACCTS_KEY`** — a switch that carries the outgoing account's progress across is
     exactly what its `_supaOwner` assertions exist to catch, and nothing on screen would say so.**
-  · `node .claude/test-video.js` — 89 assertions on card + glossary videos: that every accepted link shape
+  · `node .claude/test-video.js` — 100 assertions on card + glossary videos **and the fullscreen viewer's
+    gestures**: that every accepted link shape
     resolves to the embed this code builds and **every other URL resolves to no player at all** (the check
     that keeps an `<iframe src>` off untrusted input), that the frame is byte-for-byte the image's frame
     (computed border-radius / aspect-ratio / border / size), that the expand control opens the viewer and a
@@ -12516,6 +12684,15 @@ dead code (never rendered).
     same-origin 404 leaves the AUTHOR the frame, marked and worded, and leaves the READER nothing at all
     (`height:0`, out of the flow — not a blank 16:9 box), with a click on it opening no empty viewer.
     Both halves matter: hiding it everywhere would leave the author with no way to notice.
+    **Its ninth section is the VIEWER'S GESTURES, and every assertion in it is made with REAL mouse and REAL
+    touch on purpose** (Aug 2026): a synthetic `PointerEvent` dispatched at an element BYPASSES
+    pointer-capture retargeting, which is the whole of the bug it exists for — `setPointerCapture` makes
+    every later event target the STAGE, so the tap toggle's `e.target === im` was false for a real finger
+    even dead centre of the picture and the close-on-backdrop branch took every press. **A synthetic version
+    of these checks passes on the broken code**, verified by reintroducing the fault. It covers the click
+    that must not close (on the picture and on the space around it), the tap that must zoom, the drag that
+    must pan without toggling the zoom back, a CDP two-finger pinch with `.iv-live` on during it, and the ×
+    as the only way out.
     **Re-run after touching `videoSource` / `cardVideoHTML` / `openMediaViewer` / `retireOther*Media` /
     the delegated `error` listener / `.media-dead` / the media panel, or the `media-src`/`frame-src` CSP.**
   · `node .claude/test-gloss-image.js` — 44 assertions on glossary images: the popup floats one to the

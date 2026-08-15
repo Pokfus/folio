@@ -559,6 +559,10 @@ body.night .banner{
 .banner .stat{display:flex; flex-direction:column; align-items:center; gap:2px; text-align:center;}
 .banner .stat b{font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); line-height:1; color:var(--indigo);}
 .banner .stat span{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
+/* the day's time on cards: a SMALL figure, on request, and in the ordinary ink rather than the piles'
+   indigo — it is not a fourth pile, and at their size it would compete with the three numbers that say
+   where the day's work actually is */
+.banner .stat.st-time b{font-size:calc(14px * var(--fs)); color:var(--ink); font-variant-numeric:tabular-nums;}
 .banner .cta{margin-left:auto;}   /* sits on the SAME line as the three piles, pushed to the right edge */
 /* ---------- the footer row under the DECK LIST ----------
    "+ New group" sat at its left (`.rv-tools` / `.rv-newgroup`) and both are GONE — Aug 2026, on request:
@@ -1003,6 +1007,15 @@ body[data-theme="folio"] .collection-deco::after{
 .study-card .head-text{flex:1; min-width:0; padding-bottom:3px;}
 .study-card .tag{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); font-weight:500; display:block;}
 .study-card .label{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.2em; text-transform:uppercase; color:var(--indigo); font-weight:600; margin:0 0 7px; display:block; opacity:.5;}
+/* the difficulty rating, top right of a study card (Aug 2026, on request). It takes the QUESTION/ANSWER
+   label's own --indigo at the same .5, so the corner is the same voice as the two headers under it; an
+   unearned star is the same colour at a fraction of the opacity, which reads as an outline without
+   needing a second glyph. It is absolutely positioned so it costs the question no width, and it yields
+   to the read-aloud mute button, which holds this corner when read-aloud is on. */
+.study-card .card-stars{position:absolute; top:14px; right:16px; z-index:2; display:inline-flex; gap:2px; align-items:center; pointer-events:none;}
+.study-card:has(.tts-mute) .card-stars{right:52px;}
+.card-stars .cs-star svg{width:calc(12px * var(--fs)); height:calc(12px * var(--fs)); display:block; fill:var(--indigo); opacity:.13;}
+.card-stars .cs-star.on svg{opacity:.5;}
 /* ---------- stepping through a card's phrasings (Aug 2026, on request) ----------
    Every card carries three ways of asking the same thing, and until now which one a reader met was a coin
    toss they could not appeal. The chevrons sit on the Question label because that is what they qualify —
@@ -1175,6 +1188,7 @@ body[data-theme="folio"] .collection-deco::after{
 .iv-stage.zoomed{cursor:grab;}
 .iv-stage.zoomed:active{cursor:grabbing;}
 .iv-img{max-width:94%; max-height:94%; object-fit:contain; transition:transform .18s var(--ease); user-select:none;}
+.iv-stage.iv-live .iv-img{transition:none;}   /* a pinch or a drag moves the picture per frame; the ease would lag behind the fingers */
 /* the same overlay for a video: no zoom/pan, just the biggest 16:9 the viewport allows */
 .iv-vidstage{cursor:default;}
 .iv-vid{width:min(94%, calc((94vh - 120px) * 16 / 9)); aspect-ratio:16/9; max-height:94%; border:0; display:block; background:#000; border-radius:8px;}
@@ -2719,7 +2733,19 @@ body.night .cb-ic{color:#E6C765;}
    moves with it, so a plate raised from a tile inside it still stacks above by source order. */
 .artefact-pop{position:fixed; inset:0; z-index:7600; display:flex; align-items:center; justify-content:center; padding:20px; background:color-mix(in srgb,#000 52%,transparent); opacity:0; transition:opacity .18s ease; overflow-y:auto;}
 .artefact-pop.show{opacity:1;}
-.ar-win{position:relative; display:flex; gap:22px; width:min(720px,96vw); max-height:min(88vh,760px); overflow-y:auto; padding:24px 26px; background:var(--card); border:1px solid color-mix(in srgb,var(--rar,var(--rule)) 45%,transparent); border-top:4px solid var(--rar,var(--indigo)); border-radius:14px; box-shadow:0 26px 64px rgba(0,0,0,.42);}
+/* THE PLATE IS WASHED IN ITS OWN RARITY, top to bottom (Aug 2026, on request). The rarity was already the
+   plate's whole language — the chip, the top rule, the border and the picture frame all speak it — and every
+   one of those is an EDGE, so a common and a legendary read alike anywhere but the rim. The gradient is laid
+   OVER `var(--card)` rather than mixed into it, so it needs no per-theme rule: whatever paper a theme uses is
+   what the wash fades into. Strongest at the top, where the name and the chip are, and gone by two thirds
+   down, so the five sentences and the citations under it sit on ordinary paper and lose no contrast —
+   `test-a11y.js` measures every text node against the background it really renders on. */
+.ar-win{position:relative; display:flex; gap:22px; width:min(720px,96vw); max-height:min(88vh,760px); overflow-y:auto; padding:24px 26px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--rar,transparent) 22%,transparent),color-mix(in srgb,var(--rar,transparent) 5%,transparent) 46%,transparent 72%), var(--card);
+  border:1px solid color-mix(in srgb,var(--rar,var(--rule)) 45%,transparent); border-top:4px solid var(--rar,var(--indigo)); border-radius:14px; box-shadow:0 26px 64px rgba(0,0,0,.42);}
+/* Night takes a weaker mix, for the reason every other wash on the site does: a colour laid over a dark
+   paper reads far stronger than the same percentage over a light one. */
+body.night .ar-win{background:linear-gradient(180deg,color-mix(in srgb,var(--rar,transparent) 16%,transparent),color-mix(in srgb,var(--rar,transparent) 4%,transparent) 46%,transparent 72%), var(--card);}
 .ar-close{position:absolute; top:8px; right:10px; width:28px; height:28px; border:0; background:transparent; color:var(--ink-faint); font-size:calc(20px * var(--fs)); line-height:1; cursor:pointer; border-radius:8px;}
 .ar-close:hover{background:var(--paper-2); color:var(--ink);}
 .ar-winart{flex:none; width:220px;}
@@ -2745,7 +2771,13 @@ body.night .cb-ic{color:#E6C765;}
 /* `.ar-wcredit` — the picture's credit under the plate's prose — is gone (Aug 2026, on request): the
    plate's picture opens the site's fullscreen viewer, whose caption bar carries the credit, so the plate
    itself no longer repeats it. */
-.ar-pinbtn{font-size:calc(12.5px * var(--fs));}
+/* Showcase, at the TOP of the plate now (Aug 2026, on request). It is an action on a page that is otherwise
+   all reading, so it sits where the reader arrives; `flex-start` keeps it the width of its own words rather
+   than the width of the column, which would read as a banner. */
+.ar-pinbtn{font-size:calc(12.5px * var(--fs)); display:inline-block; margin:0;}
+/* with the button above it the name's own top margin would double the gap; the × sits in the same corner,
+   so the row it opens on keeps clear of it */
+.ar-pinbtn + .ar-wtop{margin-top:10px;}
 
 /* ---- the whole collection, raised from the showcase's "See all" ----
    It reuses `.artefact-pop`'s backdrop and the inventory's own grid, so the list in here is byte-for-byte
@@ -2819,7 +2851,16 @@ body.night .chest-btn{color:#E6C765;}
 @keyframes chest-rays{0%{transform:scale(.2); opacity:0;} 40%{opacity:1;} 100%{transform:scale(2.4); opacity:0;}}
 .chest-hint{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); margin-top:12px; min-height:1em;}
 .chest-more{font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); margin-top:6px;}
-.chest-reveal{margin-top:6px; opacity:0; transform:translateY(14px) scale(.94); animation:chest-reveal .5s cubic-bezier(.18,1.35,.34,1) both;}
+/* The reveal is the artefact's first plate, so it is washed in its rarity exactly as `.ar-win` is (Aug 2026,
+   on request) — the same gradient, the same direction, and the same weaker mix at night. It carries its own
+   `data-rar`, so `--rar` is already here. It is boxed as well as washed: the reveal floats on the chest
+   overlay's dark backdrop rather than on a card, so without a surface under it a gradient fading to
+   transparent would fade into the backdrop instead of into paper. */
+.chest-reveal{margin-top:10px; padding:16px 18px 18px; border-radius:14px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--rar,transparent) 24%,var(--card)),var(--card) 72%);
+  border:1px solid color-mix(in srgb,var(--rar,var(--rule)) 42%,transparent); border-top:4px solid var(--rar,var(--indigo));
+  opacity:0; transform:translateY(14px) scale(.94); animation:chest-reveal .5s cubic-bezier(.18,1.35,.34,1) both;}
+body.night .chest-reveal{background:linear-gradient(180deg,color-mix(in srgb,var(--rar,transparent) 17%,var(--card)),var(--card) 72%);}
 @keyframes chest-reveal{to{opacity:1; transform:none;}}
 .chest-art{width:min(190px,52vw); margin:12px auto 0;}
 .chest-name{font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); letter-spacing:-.01em; margin:12px 0 5px;}
@@ -6437,6 +6478,8 @@ body.night .book-tile{
 .bw-tag{display:inline-block; font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); border:1px solid var(--rule); border-radius:99px; padding:0 6px; margin-left:5px; vertical-align:middle;}
 .bw-tag-leech{color:var(--zh); border-color:color-mix(in srgb,var(--zh) 40%,transparent);}
 .bw-none{margin:0; padding:20px 18px; font-family:var(--sans); font-size:calc(13px * var(--fs)); color:var(--ink-faint);}
+/* the foot of the table, which is both the "there is more" line and the mark the observer watches for */
+.bw-more{padding:14px 18px; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); border-top:1px solid color-mix(in srgb,var(--rule) 55%,transparent);}
 .bw-entry .rs-sub{max-width:60ch;}
 
 @media (max-width:640px){
