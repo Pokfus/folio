@@ -4,7 +4,8 @@ import json
 import os
 import re
 
-from caple_level import (LEVEL, EXAM, f as lvlf, TITLES, DECK_IDS, DECK_FILES)
+from caple_level import (LEVEL, EXAM, f as lvlf, TITLES, DECK_IDS, DECK_FILES,
+                         BELOW, TARGET)
 
 cards = json.load(open(lvlf('cards.json')))
 words = json.load(open(lvlf('wordlist.json')))
@@ -272,12 +273,22 @@ ex0 = sum(1 for c in cards if not c['fields']['Examples'])
 LEVEL_U = LEVEL.upper()
 NW = f'{len(words):,}'
 
-BELOW_NOTE = {
-    'a1': '',
-    'a2': ' None of them appears in the A1 deck, so the two together come to 1,000 words.',
-    'b1': ' None of them appears in the A1 or A2 deck.',
-    'b2': ' None of them appears in the A1, A2 or B1 deck.',
-}[LEVEL]
+# DERIVED FROM `BELOW`, NOT A ROW PER LEVEL.  It was a table keyed by level and
+# C1 fell straight through it with a KeyError -- the loud failure, and the good
+# one, but a table that has to be extended by hand for every new level is a
+# table that will one day be extended wrongly instead of not at all.  The levels
+# it names and the total it quotes both come from `caple_level`, so they cannot
+# disagree with what the decks actually teach.
+_COUNT = {2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six'}
+_below = [l.upper() for l in BELOW.get(LEVEL, [])]
+if not _below:
+    BELOW_NOTE = ''
+else:
+    _names = (_below[0] if len(_below) == 1
+              else ', '.join(_below[:-1]) + ' or ' + _below[-1])
+    _total = sum(TARGET[l] for l in BELOW[LEVEL]) + TARGET[LEVEL]
+    BELOW_NOTE = (f' None of them appears in the {_names} deck, so the '
+                  f'{_COUNT[len(_below) + 1]} together come to {_total:,} words.')
 
 # A word the sentence corpus cannot illustrate is SAID, not swapped out: the
 # word list is set by the inventory and by frequency, and dropping a word

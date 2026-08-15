@@ -190,7 +190,37 @@ GLOSS = {
     'sair-se':        ['to do well or badly at something'],  # B2 Noções
     'sujeitar-se':    ['to submit, to put up with'],        # B2 Funções
     'tranquilizar-se': ['to calm down, to set one’s mind at rest'],  # B2 Noções
-    'vacinar-se':     ['to get vaccinated'],                # B2 Noções
+    'vacinar-se':      ['to get vaccinated'],               # B2 Noções
+
+    # C1, which names forty-five and yields nineteen -- the lowest share yet,
+    # because by this level most of what the Referencial repeats has been taught
+    # below and what is left of its `-se` strings is mostly quotation.  Sixteen
+    # are inflected forms out of its examples (`conclui-se`, `registou-se`,
+    # `fizera-se`), `dizer-se` and `usa-se` are the impersonal, and `segurar-se`
+    # is refused for a reason worth naming because it is the first of its kind:
+    # it occurs ONLY inside an example sentence in the Gramática section -- `Ele
+    # ia caindo, mas conseguiu segurar-se!` -- so it is a word the document uses
+    # rather than a word it lists, which is the test `BLOCK` in select.py
+    # applies to `situar` and `realizar`.
+    'adequar-se':     ['to suit, to be appropriate'],       # C1 Noções
+    'ajustar-se':     ['to adjust, to fit'],                # C1 Noções
+    'arrepender-se':  ['to regret, to be sorry'],           # C1 Funções
+    'ausentar-se':    ['to go away, to be absent'],         # C1 Noções
+    'deformar-se':    ['to warp, to lose its shape'],       # C1 Noções
+    'deslocar-se':    ['to travel, to get about'],          # C1 Noções
+    'desorientar-se': ['to lose one’s bearings'],           # C1 Noções
+    'distrair-se':    ['to get distracted; to take one’s mind off things'],  # C1 Noções
+    'encaminhar-se':  ['to head for, to make one’s way'],   # C1 Noções
+    'equivocar-se':   ['to be mistaken'],                   # C1 Noções
+    'espalhar-se':    ['to spread, to scatter'],            # C1 Noções
+    'extinguir-se':   ['to die out, to become extinct'],    # C1 Noções
+    'mostrar-se':     ['to prove to be, to appear'],        # C1 Funções
+    'obrigar-se':     ['to undertake, to bind oneself'],    # C1 Funções
+    'oferecer-se':    ['to volunteer, to offer to'],        # C1 Funções
+    'opor-se':        ['to oppose, to object'],             # C1 Noções, Funções
+    'orientar-se':    ['to find one’s bearings'],           # C1 Noções
+    'originar-se':    ['to originate, to arise'],           # C1 Noções
+    'resignar-se':    ['to resign oneself'],                # C1 Funções
 }
 
 # The English a sentence must carry for it to be an example of the reflexive
@@ -327,6 +357,29 @@ KEYWORDS = {
     'tranquilizar-se': ('calm', 'relax', 'reassur'),
     'vacinar-se':     ('vaccinat', 'vaccine', 'immunis', 'immuniz',
                        'get a shot'),
+    # C1
+    'adequar-se':     ('suit', 'suited', 'appropriate', 'adapt'),
+    'ajustar-se':     ('adjust', 'fit', 'fitted'),
+    'arrepender-se':  ('regret', 'sorry', 'repent'),
+    'ausentar-se':    ('away', 'absent', 'left'),
+    'deformar-se':    ('warp', 'deform', 'shape', 'bent'),
+    'deslocar-se':    ('travel', 'get around', 'gets around', 'got around',
+                       'move', 'commut'),
+    'desorientar-se': ('lost', 'disorient', 'bearings', 'confus'),
+    'distrair-se':    ('distract', 'mind off', 'amuse'),
+    'encaminhar-se':  ('head', 'made his way', 'made her way', 'went towards',
+                       'walked towards'),
+    'equivocar-se':   ('mistaken', 'mistake', 'wrong'),
+    'espalhar-se':    ('spread', 'scatter'),
+    'extinguir-se':   ('extinct', 'die out', 'died out', 'disappear'),
+    'mostrar-se':     ('proved', 'prove to be', 'appeared', 'seemed',
+                       'showed himself', 'showed herself'),
+    'obrigar-se':     ('undert', 'bound', 'oblig', 'commit'),
+    'oferecer-se':    ('volunteer', 'offer', 'offered'),
+    'opor-se':        ('oppose', 'opposed', 'object', 'against'),
+    'orientar-se':    ('bearings', 'orient', 'find his way', 'find her way'),
+    'originar-se':    ('originat', 'arise', 'arose', 'come from', 'came from'),
+    'resignar-se':    ('resign', 'accept', 'put up with'),
 }
 
 

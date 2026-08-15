@@ -547,10 +547,33 @@ def clitic_html(s):
 
 
 def enclitic(form, cl):
+    """The verb, then its pronoun.  ONE form loses a letter, not two.
+
+    THE `-s` DROP BELONGS TO THE FIRST PERSON PLURAL BEFORE `nos` AND TO
+    NOTHING ELSE, and this function used to apply it before `vos` as well --
+    which is the affirmative imperative's rule mistaken for a general one.  The
+    2pl imperative really does end in a bare `-i` (`chamai`, `arrependei`), but
+    that is how the imperative is FORMED and the source hands it over already
+    formed, so dropping an `-s` a second time takes it off the other tenses:
+    the present became `chamai-vos` for `chamais-vos`, the personal infinitive
+    `chamarde-vos` for `chamardes-vos`, and -- the one that is not merely
+    archaic but wrong -- the preterite became `chamaste-vos`, which is the
+    SECOND PERSON SINGULAR verb carrying a plural pronoun, and reads as an
+    ordinary Portuguese word.
+
+    MEASURED BEFORE IT WAS CHANGED, on two sources that do not know about each
+    other.  In Tatoeba's Portuguese the 1pl drop is unanimous -- 129 `-mo-nos`
+    against 0 `-mos-nos` -- while every `-vos` form but one is an imperative,
+    whose stem has no `-s` to lose and which therefore says nothing either way;
+    the single informative token, `lembrais-vos`, keeps it.  And Wiktionary's
+    own generated pronominal table for `arrepender` keeps it in all four
+    non-imperative tenses (`arrependeis-vos`, `arrependíeis-vos`,
+    `arrependerdes-vos`) while giving `arrependei-vos` for the imperative.  It
+    was found because that table is the shelf's only already-pronominal one, so
+    the two conventions ended up on two cards of one deck -- see `remark`.
+    """
     if cl == 'nos' and form.endswith('mos'):
         form = form[:-1]                  # chamamos -> chamamo-nos
-    elif cl == 'vos' and form.endswith('s'):
-        form = form[:-1]                  # chamais -> chamai-vos
     return form + marked(cl)
 
 
@@ -564,6 +587,7 @@ MESO_END = tuple(sorted(('emos', 'eis', 'ão', 'ei', 'ás', 'á',
                         key=len, reverse=True))
 
 _meso_missed = []
+_pronominal_tables = []
 
 
 def mesoclitic(form, cl):
@@ -583,6 +607,59 @@ def mesoclitic(form, cl):
     return enclitic(form, cl)
 
 
+# ------------------------------------------- a table that is already pronominal
+# A VERB THAT IS INHERENTLY PRONOMINAL HAS ITS WIKTIONARY TABLE CONJUGATED WITH
+# THE PRONOUN ALREADY IN IT, and the pipeline assumed a bare one.  `arrepender`
+# is only ever used as `arrepender-se`, so its `pt-conj` was generated in the
+# pronominal form: every cell reads `arrependo-me`, `arrepender-me-ei`, `me
+# arrependa` -- and the reflexive branch then attached a SECOND pronoun, so 29
+# rows of one C1 card printed `arrependo-me` with a coloured `me` after it.
+# Nothing threw, the card was the right length and the paradigm was the right
+# shape; the only symptom was the word twice.  One card of 3,397 on the shelf.
+#
+# THE FORMS ARE RE-MARKED RATHER THAN STRIPPED AND REBUILT, which is the
+# decision worth keeping.  Inverting the source's transformation means guessing
+# which `-s` it dropped, and it does not drop the same ones we do -- its
+# personal infinitive is `arrependerdes-vos` where our own rule gives
+# `arrependerdes` + `vos` -- so an inverse would have to be right about a
+# convention the source is not consistent in.  The table IS the reflexive
+# paradigm; all it needs is the hyphen turned into a colour.
+#
+# AND THE TWO AGREE EVERYWHERE ELSE, which is worth recording as the closest
+# thing to an independent check this module has: Wiktionary's generated
+# pronominal table puts the pronoun after the verb, inside the future and the
+# conditional, and before the verb in the conjuntivo and after `não` in the
+# negative imperative -- exactly what `TENSES` says, cell for cell.
+_CL = 'me|te|se|nos|vos'
+_PRON_ENC = re.compile(r'^(.*)-(' + _CL + r')$')
+_PRON_MESO = re.compile(r'^(.*?)-(' + _CL + r')-(.+)$')
+_PRON_PRO = re.compile(r'^(não\s+)?(' + _CL + r')\s+(.+)$')
+_PRON_ANY = re.compile(r'(?:^|(?<=\s))(?:' + _CL + r')(?=\s)'
+                       r'|-(?:' + _CL + r')(?:-|$)')
+
+
+def is_pronominal(forms):
+    """Does this table already carry the pronoun in most of its cells?"""
+    if not forms:
+        return False
+    n = sum(1 for _, s in forms if _PRON_ANY.search(s))
+    return n * 2 > len(forms)
+
+
+def remark(s):
+    """Colour the pronoun the SOURCE put there, wherever it put it."""
+    m = _PRON_MESO.match(s)
+    if m:
+        return m.group(1) + marked(m.group(2)) + m.group(3)
+    m = _PRON_ENC.match(s)
+    if m:
+        return m.group(1) + marked(m.group(2))
+    m = _PRON_PRO.match(s)
+    if m:
+        return (m.group(1) or '') + marked(m.group(2)) + ' ' + m.group(3)
+    return s
+
+
 def conjugation_html(word, rec, reflexive):
     forms = conj_forms(rec)
     if not forms:
@@ -593,11 +670,16 @@ def conjugation_html(word, rec, reflexive):
     par = pick(forms, lambda t: 'participle' in t and 'past' in t
                and 'masculine' in t) \
         or pick(forms, lambda t: 'participle' in t and 'past' in t)
+    # a verb that is only ever used pronominally comes with the pronoun already
+    # attached to every cell -- see `is_pronominal`
+    pron = reflexive and is_pronominal(forms)
+    if pron:
+        _pronominal_tables.append(word)
     if reflexive:
         # the lemma, with its own pronoun marked like every other row's
         inf = word[:-3] + marked('se') if word.endswith('-se') else word
         if ger:
-            ger = enclitic(ger, 'se')
+            ger = remark(ger) if pron else enclitic(ger, 'se')
 
     p = []
     nf = [(a, b) for a, b in (('infinitivo', inf), ('gerúndio', ger),
@@ -616,7 +698,9 @@ def conjugation_html(word, rec, reflexive):
             if not s:
                 rows.append((label, ''))
                 continue
-            if reflexive:
+            if pron:
+                s = remark(s)
+            elif reflexive:
                 cl = CLITIC[label]
                 s = (f'{marked(cl)} {s}' if place == 'pro'
                      else mesoclitic(s, cl) if place == 'meso'
@@ -635,7 +719,9 @@ def conjugation_html(word, rec, reflexive):
             if not s:
                 rows.append((label, ''))
                 continue
-            if reflexive:
+            if pron:
+                s = remark(s)
+            elif reflexive:
                 cl = IMP_CLITIC[label]
                 if neg:
                     # `não fales` -> `não te fales`? no: proclisis puts the
@@ -848,7 +934,7 @@ print('  gendered pairs:', sum(1 for v in PAIR.values() if v[0]),
 GENDER_CLASS = {'m': 'uc-m', 'f': 'uc-f'}
 
 
-def headword_html(headword, gender, reflexive=False):
+def headword_html(headword, gender, reflexive=False, art=''):
     """The word as it is printed, with the article coloured for its gender.
 
     A REFLEXIVE'S OWN PRONOUN IS COLOURED HERE TOO, and it has to be: the card
@@ -857,13 +943,27 @@ def headword_html(headword, gender, reflexive=False):
     shows a learner both spellings at once with nothing to say which is the
     rule.  The stored key keeps its hyphen -- this is the printed form only, and
     the word is still looked up, spoken and matched as `chamar-se`.
+
+    IT COLOURS THE ARTICLE THE PIPELINE PUT THERE AND NEVER ONE IT FINDS IN THE
+    STRING, which is a correction rather than a nicety.  Written as a regex over
+    the headword it marked up any leading `a`/`o`, and the Referencial names
+    several ADVERBIAL LOCUTIONS whose first word is the preposition `a`: `a fim
+    de`, `a menos que`, `a não ser que`, `a distância`, `a seco`.  Five B2 cards
+    therefore printed a preposition, a conjunction and an adverb with their
+    first word set in the FEMININE-ARTICLE colour -- on a deck whose whole
+    visual grammar is that the article's colour teaches the gender, that is the
+    card contradicting its own gloss two lines below (the Goethe deck records
+    the same fault the other way round, a label disagreeing with the article).
+    Nothing threw, every count was right, and the only symptom was a colour.
+    `art` is what the caller derived from the entry's own gender and is empty
+    for everything that is not a noun, so the phrases now print plainly.
     """
     parts = []
     for i, half in enumerate(headword.split(', ')):
         if reflexive and half.endswith('-se'):
             parts.append(clitic_html(half[:-3] + marked('se')))
             continue
-        m = re.match(r'^(o/a|os/as|os|as|o|a)\s+(.*)$', half)
+        m = re.match(r'^(o/a|os/as|os|as|o|a)\s+(.*)$', half) if art else None
         if m:
             g = ART_GENDER.get(m.group(1), '')
             cls = GENDER_CLASS.get(g, '')
@@ -1017,7 +1117,7 @@ for word in words:
         'answerText': plain,
         'type': 'caple',
         'fields': {
-            'Portuguese': headword_html(headword, gender, reflexive),
+            'Portuguese': headword_html(headword, gender, reflexive, art),
             'Word': speak,
             'English': english,
             'Forms': forms,
@@ -1035,4 +1135,7 @@ print('  cards:', len(cards), dict(stats))
 if _meso_missed:
     print(f'  ! {len(_meso_missed)} future/conditional forms took no mesoclisis '
           f'and shipped as enclisis: {" ".join(sorted(set(_meso_missed))[:12])}')
+if _pronominal_tables:
+    print('  already-pronominal tables, pronoun re-marked rather than added: '
+          + ', '.join(sorted(set(_pronominal_tables))))
 json.dump(cards, open(lvlf('cards.json'), 'w'), ensure_ascii=False)

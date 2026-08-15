@@ -44,15 +44,19 @@ EXAM = {'a1': 'ACESSO', 'a2': 'CIPLE', 'b1': 'DEPLE',
         'b2': 'DIPLE', 'c1': 'DAPLE', 'c2': 'DUPLE'}
 
 TITLES = {'a1': 'CAPLE A1 — Portuguese', 'a2': 'CAPLE A2 — Portuguese',
-          'b1': 'CAPLE B1 — Portuguese', 'b2': 'CAPLE B2 — Portuguese'}
-DECK_IDS = {'a1': 'caplea1', 'a2': 'caplea2', 'b1': 'capleb1', 'b2': 'capleb2'}
+          'b1': 'CAPLE B1 — Portuguese', 'b2': 'CAPLE B2 — Portuguese',
+          'c1': 'CAPLE C1 — Portuguese'}
+DECK_IDS = {'a1': 'caplea1', 'a2': 'caplea2', 'b1': 'capleb1', 'b2': 'capleb2',
+            'c1': 'caplec1'}
 DECK_FILES = {'a1': 'CAPLE-A1-Portuguese.folio-deck.json',
               'a2': 'CAPLE-A2-Portuguese.folio-deck.json',
               'b1': 'CAPLE-B1-Portuguese.folio-deck.json',
-              'b2': 'CAPLE-B2-Portuguese.folio-deck.json'}
+              'b2': 'CAPLE-B2-Portuguese.folio-deck.json',
+              'c1': 'CAPLE-C1-Portuguese.folio-deck.json'}
 
 # a level is taught on top of the ones below it, so their words are excluded
-BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'b2': ['a1', 'a2', 'b1']}
+BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'b2': ['a1', 'a2', 'b1'],
+         'c1': ['a1', 'a2', 'b1', 'b2']}
 
 # HOW MANY WORDS the level teaches.  A1 matches the DELE and Goethe A1 decks at
 # 500, which is also about what the Council of Europe's own A1 descriptors ask
@@ -65,9 +69,16 @@ BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'b2': ['a1', 'a2', 'b1']}
 # once the 2,216 words already taught below are removed, is a pool of ~1,500.
 # `select.py` REFUSES to ship a level short of its target rather than quietly
 # taking what it can get, so the guess announced itself the first time B2 was
-# built; 1,400 leaves it the margin a corpus refresh needs.  Expect the same at
-# C1 -- measure the pool before writing a number down.
-TARGET = {'a1': 500, 'a2': 500, 'b1': 1000, 'b2': 1400}
+# built; 1,400 leaves it the margin a corpus refresh needs.
+#
+# AND C1 IS 1,000 ON THE SAME MEASUREMENT, which is the guard earning its keep a
+# second time: the same 2,000 was guessed here and the pool is 1,054 once the
+# 3,398 words below are removed.  The shape is the source's again -- the
+# Referencial describes what a speaker at each level can DO, and by C1 most of
+# the doing is done with words the lower levels already have, so the level adds
+# specialised vocabulary rather than a fresh thousand of everything.  MEASURE
+# THE POOL BEFORE WRITING A NUMBER DOWN; the guess has now been wrong twice.
+TARGET = {'a1': 500, 'a2': 500, 'b1': 1000, 'b2': 1400, 'c1': 1000}
 
 # ------------------------------------------------------------------ variety
 # WHY THE FREQUENCY LIST IS `pt` AND NOT `pt_br`, measured rather than assumed.

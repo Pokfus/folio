@@ -3698,7 +3698,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
   chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
-  **Goethe German set** by `.claude/goethe/`, and the **CAPLE Portuguese set** (A1 to B2) by
+  **Goethe German set** by `.claude/goethe/`, and the **CAPLE Portuguese set** (A1 to C1) by
   `.claude/caple/` — each has its own bullet below.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
@@ -4255,10 +4255,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
   Not part of the site.
-- `.claude/caple/` — the generator behind the four `decks/CAPLE-<level>-Portuguese.folio-deck.json`
+- `.claude/caple/` — the generator behind the five `decks/CAPLE-<level>-Portuguese.folio-deck.json`
   files (A1: 498 notes / 996 cards, 1.8 MB; A2: 500 / 1,000, 2.0 MB; B1: 998 / 1,996, 3.4 MB;
-  B2: 1,400 / 2,800, 4.1 MB), community decks rather than site content:
-  `python3 .claude/caple/run.py [--level b2] [--no-fetch] [--variety-check]`. Seven stages, run by
+  B2: 1,400 / 2,800, 4.1 MB; C1: 999 / 1,998, 3.0 MB), community decks rather than site content:
+  `python3 .claude/caple/run.py [--level c1] [--no-fetch] [--variety-check]`. Seven stages, run by
   `run.py`, caching its corpora in `.claude/caple-cache/` (~750 MB, gitignored). PYTHON, like
   `.claude/dele/` and `.claude/goethe/` and for the same reason: a further level is a re-run against
   the next inventory rather than a rebuild. **ONE LEVEL PER RUN** (`caple_level` reads the level once,
@@ -4291,6 +4291,61 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is a fifth multi-word phrases and its single words are rarer, and Tatoeba's Portuguese does not
     reach them. That figure is stated in the deck's own description rather than repaired, because
     repairing it means letting the corpus choose the syllabus — the DELE pipeline's own rule.
+  · **C1 CORRECTED 108 CARDS IN THE FOUR DECKS ALREADY SHIPPED, AND ADDED NONE OF ITS OWN FINDINGS TO
+    ITS OWN DECK** (Aug 2026). That is the rebuild-every-level rule paying for itself: nothing in C1
+    needed a new stage, and the three faults it surfaced were all in shared code, all silent, and all
+    older than the level that found them. **THE `-s` DROP BEFORE `vos` WAS A RULE APPLIED ONE TENSE TOO
+    WIDE**, and it is the one that was not merely archaic but wrong: `enclitic` dropped a final `-s`
+    before `vos` on every form, where that belongs to the FORMATION of the affirmative imperative
+    (`chamais` → `chamai`), which the source hands over already formed — so the present became
+    `chamai-vos` for `chamais-vos`, the personal infinitive `chamarde-vos`, and the preterite
+    **`chamaste-vos`, which is the second person SINGULAR verb carrying a plural pronoun** and reads as
+    an ordinary word. Measured on two sources that do not know about each other before it was touched:
+    Tatoeba's Portuguese is unanimous on the 1pl drop (129 `-mo-nos` against 0) while every `-vos` token
+    but one is an imperative and says nothing either way, and the single informative one,
+    `lembrais-vos`, keeps its `-s`; Wiktionary's own generated pronominal table keeps it in all four
+    non-imperative tenses and drops it in the imperative. 103 reflexive cards across A1–B2. **THE
+    LESSON IS THAT ONE FIX MADE TWO CARDS OF ONE DECK SPELL THE SAME CONSTRUCTION TWO WAYS**, which is
+    what forced the measurement — see the next bullet.
+  · **A VERB THAT IS INHERENTLY PRONOMINAL COMES WITH ITS PRONOUN ALREADY IN THE TABLE** (Aug 2026, C1;
+    `is_pronominal` / `remark` in build_deck.py). `arrepender` is only ever used as `arrepender-se`, so
+    Wiktionary's `pt-conj` generated it in the pronominal form — every cell reads `arrependo-me`,
+    `arrepender-me-ei`, `me arrependa` — and the reflexive branch attached a SECOND pronoun, so 29 rows
+    of one card printed the word twice. Nothing threw, the paradigm was the right shape and the right
+    length, and the only symptom was the pronoun twice; **`check-caple.js`'s existing sweep for a still
+    hyphenated clitic would have caught it, and there was no `c1` PROBE row yet to run**. One card of
+    3,397 on the shelf. **THE FORMS ARE RE-MARKED RATHER THAN STRIPPED AND REBUILT**: inverting the
+    source's transformation means guessing which `-s` it dropped, the table IS the reflexive paradigm,
+    and all it needs is the hyphen turned into a colour. **AND THE TWO CONVENTIONS AGREE EVERYWHERE
+    ELSE**, which is the closest thing to an independent check the clitic module has — the generated
+    table puts the pronoun after the verb, inside the future and the conditional, before the verb in
+    the conjuntivo and after `não` in the negative imperative, cell for cell what `TENSES` says. It is
+    also what exposed the `vos` rule above, by putting the source's spelling and ours on two cards of
+    one deck.
+  · **AN ARTICLE IS COLOURED ONLY WHERE THE PIPELINE PUT ONE** (Aug 2026, found while adding C1;
+    `headword_html`). It re-derived the article by matching a leading `a`/`o` in the STRING, and the
+    Referencial names adverbial locutions built on the preposition `a` — so five B2 cards set `a fim
+    de`, `a menos que`, `a não ser que`, `a distância` and `a seco` with their first word in the
+    FEMININE-ARTICLE colour, contradicting the part of speech printed two lines below. On a deck whose
+    whole visual grammar is that the article's colour teaches the gender, that is the Goethe deck's own
+    fault the other way round. Nothing threw and every count was right; the symptom was a colour.
+    **THE COLLISION IT ALSO EXPLAINS IS NOT A DUPLICATE**: `a distância` is taught at A2 as a feminine
+    noun and at B2 as an adverb, which `words_below` cannot see because it strips the article from the
+    lower deck's headword and the upper candidate carries it as a preposition. Six such candidates
+    exist across the four levels (`a pé`, `a seguir`, `a princípio`, `a distância`, `a seco`) and
+    **every one is an adverb**, so they ship: the noun colours its article and the locution does not,
+    which with the part of speech under it is how the two cards say which they are. A NOUN doing the
+    same thing would be two identical headwords, so `select.py` reports that case and is silent today.
+    · **AND ONE REDUNDANCY IS RECORDED RATHER THAN REPAIRED, because the repair is the riskier
+      change.** The same sweep finds three words taught both alone and as the feminine half of a noun
+      pair — `menina` and `senhora` in A1, `corretora` in C1 — because `merges_with` folds a feminine
+      onto its masculine's card only where the two entries point at each other, and these do not. That
+      guard is what keeps a real noun that merely LOOKS like a feminine from being swallowed, and the
+      shelf is full of them: `a cara` beside `caro, cara`, `a curva` beside `curvo, curva`, `a física`
+      beside `físico, física`, `a corretora` ("brokerage") beside `o corretor, a corretora`
+      ("corrector"). Loosening it to catch three notes in 4,395 would put all of those at risk of
+      losing a card, and a swallowed word is a worse fault than a word taught twice — both cards being
+      correct Portuguese under correct glosses.
   · **THE SOURCE ALSO LISTS A BRAZILIAN WORD ON ITS OWN, WHICH IS NOT THE SLASH CASE** (Aug 2026, B2).
     `xícara` arrives beside `chávena` and the drop swaps one word for another; `varal` and `coquetel`
     appear with no European alternative anywhere in the document — `estendal` and `cocktail` are not
@@ -4481,7 +4536,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the corpus's Portuguese is overwhelmingly Brazilian (measured at about 10:1), so the filter rejects
     16,732 sentences outright and what remains is mostly variety-NEUTRAL rather than positively
     European. That is a limit of the corpus and not something a filter can repair.
-  · **`node .claude/caple/check-caple.js [a1|a2|b1|b2]` is the browser half**, and it exists because
+  · **`node .claude/caple/check-caple.js [a1|a2|b1|b2|c1]` is the browser half**, and it exists because
     `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything
     Portuguese this deck is FOR is unchecked by anything until there. It splits its assertions on
     purpose: what is EUROPEAN is checked in the FILE, exactly, over every card (a wrong clitic on one
@@ -4496,7 +4551,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     derivation here could share a bug with `build_deck.py` and the two would then be wrong together.
     A level's row also states what only that level can lose: B1 carries a `minReflexives` floor,
     since a gloss missing from `reflexives.py` drops a word in silence, and a `noBrazilian` list,
-    since the inventory's `chávena/xícara` pairs arrive split.
+    since the inventory's `chávena/xícara` pairs arrive split; B2 a `plainArticle` list, since its
+    preposition-led locutions are the ones the headword used to colour; and **C1's reflexive is an
+    -ER verb and the shelf's only already-pronominal table**, so its row is what pins the endings
+    every other level's -ar probe cannot reach and what would catch the re-marking and our own rules
+    drifting apart.
     **Each expected form is asserted TWICE, as text and as HTML** (`clText` / `clHtml`, the clitic
     written between pipes): the text says WHERE the pronoun sits and the HTML says that it is actually
     marked up, and with the hyphen gone the markup is the only thing separating the pronoun from the
@@ -4511,14 +4570,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **A marker in its Brazilian sweep must be a word Portugal does not use in that sense at all**:
     `calçada` and `grama` were in the list and came out, a *calçada* being an ordinary paved street
     in Portugal and a *grama* a gram.
-  Re-running it must reproduce the shipped decks byte for byte, **and ALL FOUR levels have to be
-  re-run, IN ORDER**: the stages are shared, so a change made for B2 reaches A1, and a level is built
+  Re-running it must reproduce the shipped decks byte for byte, **and ALL FIVE levels have to be
+  re-run, IN ORDER**: the stages are shared, so a change made for C1 reaches A1, and a level is built
   on the shipped decks BELOW it, so a stale file lower down is a higher level quietly teaching the
   same word twice. **Build them under two different `PYTHONHASHSEED` values** rather than twice the
   ordinary way — that is what caught the set-iteration non-determinism above, which two default runs
   would have found only by luck. This is the check to make after any edit, since every fault above is
   silent, and it is not a formality: it has now caught a level re-teaching three of the level below,
-  and three levels' worth of builds that could not be reproduced at all. Not part of the site.
+  three levels' worth of builds that could not be reproduced at all, and — adding C1 — **108 cards
+  across the four decks already shipped**, corrected by two shared-stage fixes that C1 found and that
+  nothing in C1's own deck would have shown. Not part of the site.
 - `.claude/dele/` — the generator behind the four `decks/DELE-<level>-Spanish.folio-deck.json` files
   (A1, A2, B1, B2), community decks rather than site content:
   `python3 .claude/dele/run.py [--level a2|b1|b2] [--no-fetch]`. Seven stages, run by `run.py`, caching

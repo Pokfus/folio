@@ -167,6 +167,17 @@ BLOCK = {
     'tratamento', 'designação', 'filiação', 'grau', 'nível', 'tipo',
     'individualizar', 'introduzir', 'situar', 'realizar', 'recusar',
     'cumprir', 'identificar', 'definir', 'bater',
+    # A FRAGMENT OF A MULTI-WORD ITEM THE INVENTORY DOES NAME, which is the same
+    # test in a new dress -- the string survived the parse and is not what the
+    # source is naming -- and C1's `trem` is worth writing down because it looks
+    # like something else entirely.  The bullet reads `(conjunto de) loiça, trem
+    # de cozinha, jogo de panelas`, so `trem de cozinha` is the item (pots and
+    # pans, ordinary European Portuguese) and the comma split left the bare word
+    # behind.  Alone it is the BRAZILIAN word for a train, which the variety
+    # report duly flagged at 18x -- the right verdict for the wrong reason, and
+    # a card glossed "train" in a deck that teaches `o comboio` at A1.  The
+    # phrase is a candidate in its own right, so nothing is lost.
+    'trem',
 }
 
 # ------------------------------------------------------------------ variety
@@ -216,6 +227,7 @@ BRAZILIAN = {
     'xícara': 'chávena',      # B1 Noções, written `uma chávena/xícara de`
     'varal': 'estendal',      # B2 Noções, on its own
     'coquetel': 'cocktail',   # B2 Noções, on its own
+    'vitrine': 'montra',      # C1 Noções, both listed -- `xícara`'s case again
 }
 
 # THE 1990 ORTHOGRAPHIC REFORM GIVES ONE WORD TWO SPELLINGS, AND THE REFERENCIAL
@@ -344,6 +356,27 @@ if _sp:
 if _flag:
     print('  ! commoner in Brazilian Portuguese than in European, READ THESE: '
           + ', '.join(f'{k} x{r:.0f}' for r, k in _flag))
+
+# A PHRASE THAT WOULD PRINT AS ANOTHER CARD'S HEADWORD.  The Referencial lists
+# adverbial locutions built on the preposition `a` -- `a pé`, `a seguir`, `a
+# princípio`, `a distância`, `a seco` -- and the word after the preposition is
+# often one a lower level already teaches.  That is fine and they ship: a noun
+# prints its article in the gender colour and these print theirs plainly, which
+# with the part of speech under it is how the two cards say which they are.
+# What would NOT be fine is the same collision on a NOUN, because then both
+# cards colour the article and a reader has two identical headwords, so that
+# case is reported.  Measured over all five levels it is empty today; the six
+# real locutions are all adverbs.  Silent unless something new appears.
+_ART = ('o', 'a', 'os', 'as')
+_dup = []
+for k in final:
+    t = k.split(' ', 1)
+    if len(t) == 2 and t[0] in _ART and t[1] in TAUGHT:
+        if any(r.get('pos') == 'noun' for r in W.get(k, [])):
+            _dup.append(k)
+if _dup:
+    print('  ! prints the same headword as a card taught below, READ THESE: '
+          + ', '.join(_dup))
 
 # ----------------------------------------------------- the order they ship in
 UNRANKED = 10 ** 6

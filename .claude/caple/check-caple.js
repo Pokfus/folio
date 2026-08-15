@@ -122,6 +122,34 @@ const PROBE = {
     // string match, so B1's `atual` does not exclude B2's `actual` and it
     // shipped as a second card with the same meaning
     notTwice: [["actual", "B1", "atual"]],
+    // `a fim de`, `a menos que`, `a não ser que`, `a distância` and `a seco`
+    // open on the PREPOSITION `a`, and the headword used to colour it as the
+    // feminine article — see `headword_html`
+    plainArticle: ["a fim de", "a distância", "a seco", "a menos que"],
+  },
+  c1: {
+    glosses: [["o ecrã", /screen/i], ["o couro cabeludo", /scalp/i],
+              ["o tubo de escape", /(tailpipe|exhaust)/i]],
+    numbers: [],
+    preterite: ["espalhar", "espalhámos", "espalhamos"],
+    // AN -ER REFLEXIVE, AND ONE WIKTIONARY ALREADY CONJUGATES PRONOMINALLY.
+    // Every level below probes an -ar verb, so the endings here are a
+    // different shape; and `arrepender` is the shelf's only verb whose source
+    // table carries the pronoun in every cell, which the build used to add a
+    // second one to.  The forms are written out rather than derived, so if the
+    // re-marking and our own rules ever disagree this says which is wrong.
+    reflexive: "arrepender-se",
+    forms: { pres: ["eu", "arrependo|me|"], plural: ["nós", "arrependemo|nos|"],
+             conj: ["eu", "|me| arrependa"],
+             fut: ["eu", "arrepender|me|ei"],
+             futPl: ["nós", "arrepender|nos|emos"],
+             cond: ["eu", "arrepender|me|ia"],
+             condVos: ["vós", "arrepender|vos|íeis"],
+             neg: ["tu", "não |te| arrependas"],
+             pinf: ["nós", "arrependermo|nos|"] },
+    impersonal: [],
+    minReflexives: 15,
+    noBrazilian: [],
   },
 }[LEVEL];
 if (!PROBE) { console.error("no probes written for level " + LEVEL); process.exit(2); }
@@ -166,7 +194,10 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
      "every id carries the deck");
   // The word inventory is taken from the Referencial; its prose is not, exactly as the German deck
   // takes the Wortliste and leaves the Goethe-Institut's example sentences alone.
-  ok(!/Referencial|instituto-camoes|Camões PLE/i.test(JSON.stringify(cards)),
+  // `\b` on the document's name, because C1 teaches `preferencialmente` and an
+  // unanchored `Referencial` matches inside it — a check that fails on a
+  // perfectly ordinary adverb is one the next person turns off.
+  ok(!/\bReferencial\b|instituto-camoes|Camões PLE/i.test(JSON.stringify(cards)),
      "no card text quotes the source document");
 
   // ------------------------------------------------- European, not Brazilian
@@ -292,6 +323,22 @@ const txt = (s) => String(s || "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ")
                                      || /-se/.test(txt(c.fields.Portuguese)));
   ok(headBad.length === 0, "the reflexive's own headword is marked the same way",
      JSON.stringify(headBad.slice(0, 3).map((c) => c.fields.Portuguese)));
+
+  // AN ARTICLE IS COLOURED ONLY ON A NOUN.  The Referencial names adverbial
+  // locutions built on the preposition `a` — `a fim de`, `a distância`, `a
+  // seco` — and the headword used to mark any leading `a`/`o` it found in the
+  // string, so five B2 cards set a preposition, a conjunction and an adverb in
+  // the FEMININE-ARTICLE colour with the part of speech contradicting it two
+  // lines below.  Nothing threw and every count was right; the symptom was a
+  // colour.  Read off the shipped cards rather than a list, so a new one fails.
+  const artNoun = cards.filter((c) => /uc-art/.test(c.fields.Portuguese)
+    && !(c.fields.English.match(/<div class="uc-pos">([^<]*)<\/div>/g) || [])
+         .some((p) => />noun/.test(p)));
+  ok(artNoun.length === 0, "an article is coloured only where the word is a noun",
+     JSON.stringify(artNoun.slice(0, 5).map((c) => c.question)));
+  for (const w of PROBE.plainArticle || [])
+    ok(by[w] && !/uc-art/.test(by[w].fields.Portuguese),
+       `${w} opens on the preposition, so its "a" is not set as an article`);
 
   // ------------------------------------------------- the paradigm's own shape
   const verbs = cards.filter((c) => c.fields.Conjugation);
