@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-032` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-033` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 32 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 33 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10624,6 +10624,41 @@ on the page that joins them.
 the name Wikipedia uses and the name the Met and Cleveland both give their paintings. The answer is an alias
 of it, which is what makes `autoLinkGlossary`'s answer-suppression work on this card and what lets a reader
 who has met either name find the entry.
+  **`cnh-033` SPLITS WIKIMEDIA'S 429 IN TWO, WHICH IS `cnh-031`'s RULE EARNING ITS KEEP RATHER THAN
+REPEATING IT** (Aug 2026). That card found that the 429s were the ROBOT POLICY refusing curl's default
+user agent, and the fix was one header. With that header in place a 429 came back anyway — and its body is
+a **different message**: "Too many requests … or instead use thumbnail images in sizes listed on
+https://w.wiki/GHai". This one is genuine congestion, and it names its own workaround. **Read the body every
+time; one status code can hide more than one condition, and the second one does not go away because the
+first was fixed.** Two follow-ons worth knowing. **THE THUMBNAIL ADVICE HAS NOTHING TO OFFER ON A SMALL
+FILE**: where the original is under the standard widths MediaWiki generates no thumbnail at all, and
+`iiurlwidth=640` hands back the ORIGINAL url with the requested dimensions beside it — so there is nothing
+to fall back to and a backoff is what remains (it landed on the second try). And **THAT is the case
+`cnh-030`'s sha1 check was written for**: with the CDN throttling, comparing the API's `sha1` and `size`
+against the bytes already downloaded proves the `src` names the file that was looked at, where a 200 only
+proves the CDN is answering this minute. The workaround is the right tool here and was the wrong one there.
+**THE STANDING CURL OF EVERY CITATION URL CAUGHT A DEAD ARCHIVE.ORG IDENTIFIER, AND THE CAUSE WAS A
+TRUNCATED GREP.** `https://archive.org/details/researchesintoch05doru` is a 404 — the identifier is
+`…doruoft` — and it reached both the card and its glossary term because it was copied out of a
+`grep -o "…\{0,150\}"` whose output had been **cut mid-URL**, and `…05doru` reads as a complete
+archive.org id. The corpus was otherwise clean, so it was introduced rather than inherited, and it was
+found in the one second it takes to curl five links. **Grep the IDENTIFIERS rather than a window of
+characters** (`grep -o "researchesintoch0[0-9][a-z]*" data.js glossary.js | sort | uniq -c` shows the whole
+distribution at once and makes the odd one out obvious) — and `cnh-006`'s rule stands: the tools check that
+a citation ENDS in a URL and never that the URL opens.
+**TWO SOURCES DISAGREE ABOUT HOW THE CULT'S FOUNDER ENDED, SO THE CARD ASSERTS NEITHER.** Werner has Li
+Shaojun put to death after forging a script inside an ox's stomach; Giles's dictionary entry says only that
+he pretended to have discovered the elixir of immortality and that he died while the emperor's expedition
+to the Isles of the Immortals was away. The ox forgery is told at the same court of a different magician,
+so the card says the legend has the worship beginning with a Han magician who persuaded Emperor Wu to offer
+the first sacrifice, and stops. `cnh-015`'s rule on a second card: a reference work is evidence for what a
+Chinese text says and is not automatically right about the rest of the story.
+**AND DORÉ CONTRADICTS HIMSELF ABOUT WHEN THE GOD COMES BACK** — the 4th day of the New Year in his note in
+volume 5, the last day of the old year in his narrative twenty-five pages later — so the date line carries
+only the ASCENT, on the 24th of the 12th moon, which he and Doolittle agree on. **A date line carries what
+the sources agree on**; the divergence belongs in the prose or nowhere. (`add-images.js` refused the `<i>`
+in the picture's description again, which `cnh-027` already records and which recurs on every illustrated
+card whose caption names a book.)
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
