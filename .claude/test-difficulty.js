@@ -34,6 +34,13 @@
 //  7. THE WHAT YEAR? POOL. That game stopped drawing from the cards in Aug 2026 and has its own event
 //     file; a year with fewer than five events is skipped in silence, and an entry carrying markup renders
 //     its own tags because the clue list escapes.
+//
+//  8. TERMS THAT DO NOT HAPPEN AT A TIME stay out of Timeline (`card.undatable`, Aug 2026, on a bug
+//     report about `human evolution` being ordered at the ape split). Both directions fail silently and
+//     look identical from the other's side: a flag that stops being read puts a river back in a
+//     chronological puzzle, and a flag applied too widely empties the game of the terms it is for — so
+//     this asserts that the filter is on Timeline's pool AND on no other game's, that the flagged cards
+//     really are flagged, and that what is left can still deal.
 const fs = require("fs"), path = require("path");
 const ROOT = path.join(__dirname, "..");
 const APP = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
@@ -141,7 +148,10 @@ const answers = new Set(easy.map((c) => c.answerText).filter(Boolean));
 ok(answers.size >= 4, "Multiple Choice can fill a round", answers.size + " distinct answers (needs the correct one + 3 decoys)");
 ok(easy.length >= 5, "Multiple Choice has five cards to ask about", easy.length + " cards");
 
-const years = new Set(easy.map(sy).filter((y) => y != null));
+/* Timeline's pool is the easy cards MINUS the ones whose term does not happen at a time — see section 8.
+   Measured against `easy` alone this would go on passing on a day the flag had swallowed the game. */
+const datable = easy.filter((c) => !c.undatable);
+const years = new Set(datable.map(sy).filter((y) => y != null));
 ok(years.size >= 5, "Timeline can order five different years", years.size + " distinct years");
 
 const XW_MIN = +(/const XW_MIN_LEN = (\d+), XW_MAX_LEN = (\d+);/.exec(APP) || [])[1] || 4;
@@ -186,6 +196,8 @@ console.log("\n-- the round trip --");
 const ser = poolBody("serializeCardData", "const countIds = (node)");
 ok(!!ser && /o\.difficulty = /.test(ser), "serializeCardData emits difficulty (an admin auto-save would otherwise strip every rating)");
 ok(/CARD_BY_ID\[id\]\.difficulty = p\.difficulty;/.test(APP), "revertCard restores the rating with the rest of the card");
+ok(!!ser && /o\.undatable = /.test(ser), "serializeCardData emits undatable (an admin auto-save would otherwise strip every flag)");
+ok(/CARD_BY_ID\[id\]\.undatable = p\.undatable;/.test(APP), "revertCard restores the flag with the rest of the card");
 
 // add-card.js refuses an unrated card
 const ADD = fs.readFileSync(path.join(__dirname, "add-card.js"), "utf8");
@@ -246,6 +258,61 @@ const wySize = fs.statSync(path.join(ROOT, "whatyear.js")).size;
 ok(wySize < 120 * 1024, "whatyear.js is small enough for the eager path", Math.round(wySize / 1024) + " KB");
 ok(/<script src="whatyear\.js"><\/script>/.test(fs.readFileSync(path.join(ROOT, "index.html"), "utf8")),
   "index.html loads whatyear.js");
+
+// ---- 8. terms that do not happen at a time ----
+console.log("\n-- terms with no single date --");
+const flagged = CARDS.filter((c) => c.undatable);
+console.log("      flagged " + flagged.length + " of " + CARDS.length + " cards  |  " +
+  flagged.filter((c) => Number.isInteger(c.difficulty) && c.difficulty <= BAR).length + " of them inside the games' pool");
+ok(/function cardUndatable\(/.test(APP), "app.js defines cardUndatable()");
+const badType = CARDS.filter((c) => "undatable" in c && c.undatable !== true);
+ok(!badType.length, "the flag is only ever written as true, never as a note or a falsy leftover",
+  badType.map((c) => c.id + ":" + JSON.stringify(c.undatable)).join(", "));
+ok(flagged.length > 0, "the corpus carries the flag at all", flagged.map((c) => c.answerText).slice(0, 4).join(", ") + " …");
+
+/* The filter is on TIMELINE and on nothing else. The other games ask what a term IS, which a process
+   answers perfectly well — so a `cardUndatable` appearing in one of their pools has narrowed a game for a
+   reason that does not apply to it, and nothing on screen would say so. */
+{
+  const chrono = poolBody("chronoPool", "function hashStr");
+  ok(!!chrono && /cardUndatable\(/.test(chrono), "Timeline's pool skips the undatable terms");
+  for (const [fn, end, label] of FED) {
+    if (fn === "chronoPool") continue;
+    const body = poolBody(fn, end);
+    ok(!!body && !/cardUndatable\(/.test(body), label + " does NOT apply Timeline's date filter");
+  }
+}
+/* The deck's own chronological order is untouched: `human evolution` still files at 8 Mya among its
+   neighbours, which is where a reader studying it expects to meet it. Only the game refuses to ask WHEN. */
+{
+  const body = poolBody("cardStartYear", "// years bounding a card's historical era");
+  ok(!!body && !/undatable/i.test(body), "cardStartYear knows nothing about the flag (the deck's order is unchanged)");
+}
+// the reported card itself, by name — the example the rule was written from
+{
+  const he = CARDS.find((c) => c.id === "wh-004");
+  ok(!!he && he.undatable === true, "human evolution — the card this was reported about — is flagged");
+  ok(!!he && sy(he) != null, "…and still carries a sort year, so its place in the deck is unaffected",
+    he ? String(sy(he)) : "");
+}
+/* A flag applied too widely is the opposite failure and just as quiet: the game falls back to a placard
+   that reads as content nobody has written. Five distinct years is what a round needs; the floor here is
+   well above it so that a batch which starts flagging conventional onsets fails before a reader meets it. */
+ok(datable.length >= 40, "the Timeline pool is still comfortably larger than a round",
+  datable.length + " datable cards of " + easy.length + " in the games' pool");
+
+// the batch tool refuses a flag with no reasoning behind it, and writes nothing when it does
+{
+  const MARK = fs.readFileSync(path.join(__dirname, "mark-undatable.js"), "utf8");
+  ok(/GAME_MAX_DIFFICULTY = \(\\d\+\)/.test(MARK), "mark-undatable.js greps the games' bar out of app.js rather than restating it");
+  const before2 = fs.readFileSync(dataPath);
+  const tmp2 = path.join(require("os").tmpdir(), "folio-undatable-bad-" + process.pid + ".json");
+  fs.writeFileSync(tmp2, JSON.stringify({ undatable: { [CARDS[0].id]: "too short" } }));
+  const r2 = require("child_process").spawnSync(process.execPath, [path.join(__dirname, "mark-undatable.js"), tmp2], { encoding: "utf8" });
+  fs.unlinkSync(tmp2);
+  ok(r2.status !== 0, "mark-undatable.js refuses a flag with no reason behind it");
+  ok(Buffer.compare(before2, fs.readFileSync(dataPath)) === 0, "…and wrote nothing at all");
+}
 
 console.log("\n" + pass + " passed, " + fail + " failed");
 process.exit(fail ? 1 : 0);

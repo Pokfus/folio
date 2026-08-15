@@ -245,6 +245,35 @@
     return typeof n === "number" && n >= CARD_DIFFICULTY_MIN && n <= CARD_DIFFICULTY_MAX ? n : 0;
   }
   function difficultyOK(c) { const n = cardDifficulty(c); return n > 0 && n <= GAME_MAX_DIFFICULTY; }
+  /* ---------- TERMS THAT DO NOT HAPPEN AT A TIME (Aug 2026, on a bug report) ----------
+     `card.undatable` is a boolean saying that the answer term names something with no single moment a
+     reader could be asked to place it at, and it exists because the Timeline game was asking readers to
+     place `human evolution` — which the deck sorts at 8 Mya, the ape split, because that is the earliest
+     figure on its date line. Human evolution is not an event that happened at 8 Mya; it is the whole span
+     between that date and the other one the same card prints.
+
+     THE TEST IS WHETHER THE SORT YEAR IS A DATE THE TERM IS CONVENTIONALLY GIVEN, and it fails two ways.
+     A term may not be located in time at all — a physical feature (`Tiber`, `Apennines`, `Dardanelles`),
+     a material (`Ochre`), a condition (`Ice age`, whose own background opens "not a slice of time but a
+     climate condition"), a way of life (`Hunter-gatherer`, "a subsistence strategy rather than a period
+     of the past", and whose only date is an END), a category (`zoonotic disease`), a question (`origins
+     of social inequality`) or a modern method (`ancient DNA`, which sorts at 2010 CE in a prehistory
+     deck). Or it may be a process so diffuse that the earliest figure on its date line is one arbitrary
+     moment inside it (`human evolution`, `bipedalism`, `control of fire`, `prehistoric warfare`,
+     `prehistoric trade`). What is NOT flagged is a term whose onset is the conventional one, however long
+     the process it names ran: `domestication`, `Neolithic Revolution` and `animal domestication` are all
+     placed where a reader would place them, and a Timeline round is answered to about that precision.
+
+     IT IS TIMELINE'S RULE AND NOTHING ELSE'S. Multiple Choice, the Crossword, the Picture round and
+     Common Thread ask what a term IS, which a process answers perfectly well; only this game asks WHEN.
+     THE DECK'S OWN ORDER IS UNTOUCHED for the same reason — `cardStartYear` is what files a card
+     chronologically among its neighbours, and human evolution belongs at 8 Mya there, so the flag is read
+     by `chronoPool` and by no other reader of a card's year.
+
+     A card with no date line is already out of the game for want of a year; three of the flagged cards are
+     in that position (`Apennines`, `Tiber` and the question) and are flagged anyway, because the day a
+     date line is added to one of them it would otherwise walk silently back into the puzzle. */
+  function cardUndatable(c) { const card = typeof c === "string" ? cardById(c) : c; return !!(card && card.undatable); }
   // pristine copies (taken before edits are applied) so any field can be reverted to what shipped
   const PRISTINE_CARDS = Object.fromEntries(CARDS.map((c) => [c.id, Object.assign({}, c)]));
   const BASE_CARD_IDS = new Set(Object.keys(PRISTINE_CARDS));   // shipped card ids (before any admin-created cards) — used to rebuild the deck from base on undo
@@ -671,6 +700,7 @@
     CARD_BY_ID[id].questions = p.questions; // and its extra question phrasings
     CARD_BY_ID[id].sources = p.sources;     // and the citations behind it
     CARD_BY_ID[id].difficulty = p.difficulty; // and how obscure its answer term was rated (see cardDifficulty)
+    CARD_BY_ID[id].undatable = p.undatable;   // and whether that term happens at a time at all (see cardUndatable)
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -24082,10 +24112,14 @@
     const y = cardStartYear(c);   // honour the manual chronology override; include BCE / ancient cards, not just 1500–2099 CE
     return y ? y : null;          // 0 = timeless → excluded from the puzzle
   }
-  // Shared by the Timeline game and by What year?, so both draw under the difficulty bar from one place.
+  /* The Timeline game's pool, and its alone since What year? left the cards for `whatyear.js`. Two filters
+     rather than one: `gameCardIdSet` keeps out the terms a reader has never met, and `cardUndatable` keeps
+     out the ones that did not happen at a time — see the comment on that predicate for why `human
+     evolution` must not be ordered at the ape split. Both are facts about the ANSWER TERM, so both are
+     read off the card rather than derived from its date line, which cannot tell an onset from a span. */
   function chronoPool() {
     const avail = gameCardIdSet();
-    return CARDS.filter((c) => avail.has(c.id)).map((c) => ({ id: c.id, name: cardLocalized(c).answerText, year: chronoYear(c) })).filter(
+    return CARDS.filter((c) => avail.has(c.id) && !cardUndatable(c)).map((c) => ({ id: c.id, name: cardLocalized(c).answerText, year: chronoYear(c) })).filter(
       (x) => x.year != null && x.name
     );
   }
@@ -31005,7 +31039,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -32241,6 +32275,10 @@
             (cardDifficulty(c) ? "" : '<option value="">— not yet rated —</option>') +
             [1, 2, 3, 4, 5].map((n) => '<option value="' + n + '"' + (cardDifficulty(c) === n ? " selected" : "") + '>' + n + ' — ' + esc(CARD_DIFFICULTY_LABELS[n]) + (n <= GAME_MAX_DIFFICULTY ? " (in the games)" : "") + '</option>').join("") +
           '</select></label>' +
+          /* Whether the ANSWER TERM happens at a time at all (see cardUndatable). A checkbox rather than a
+             rating, because it is one editorial judgement with two answers — and unlike `difficulty` it is
+             expressible in both directions, `false` being a real delta where an undefined one is not. */
+          '<label class="ces-m ces-m-check" title="Tick where the answer term names something with no single moment a reader could place it at — a process, a condition, a material, a category or a physical feature. The Timeline game skips it; the deck&#39;s own chronological order, the other games and studying are all unaffected."><span>timeline</span><span class="ces-chk"><input type="checkbox" id="adminUndatable"' + (cardUndatable(c) ? " checked" : "") + ' /> no single date</span></label>' +
           '<label class="ces-m ces-m-wide"><span>answer text — plain, used by the games</span><input class="af-input" id="cesAnswerText" type="text" spellcheck="false" /></label>' +
         '</div>' +
         '<div class="ces-decks"><button class="ces-decks-head" id="cesDecksHead" type="button" aria-expanded="false"><span class="afs-chev">&#9656;</span> Deck: <b id="cesDeckName">' + esc(node ? node.title : "not in a deck") + '</b></button><div class="ces-decks-body" id="cesDecksBody" hidden>' + deckHtml + '</div></div>'
@@ -32311,6 +32349,13 @@
       // the "not yet rated" row exists only until a rating is given; leaving it would offer a way back to
       // a state the editor cannot actually write (an undefined delta does not survive JSON round-tripping)
       const blank = diffS.querySelector('option[value=""]'); if (blank) blank.remove();
+      adminFlashSaved(); adminUpdateCount(); editedFx();
+    });
+    // "no single date" — Timeline's own filter (see cardUndatable). Written as a real false rather than
+    // deleted, so unticking a shipped flag is a delta the overlay can carry.
+    const undI = host.querySelector("#adminUndatable");
+    if (undI) undI.addEventListener("change", () => {
+      setCardEdit(id, "undatable", undI.checked);
       adminFlashSaved(); adminUpdateCount(); editedFx();
     });
     // deck-picker toggles (inside the collapsible "Appears in N decks" box)

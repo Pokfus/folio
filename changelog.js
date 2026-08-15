@@ -35,9 +35,16 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.241", released: "2026-08-14T22:35Z" };
+window.FOLIO_VERSION = { v: "1.242", released: "2026-08-15T04:05Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-15",
+    t: "A card in Ancient Rome is rewritten around the land, its people and how we know about them",
+    items: [
+      "<b>A card in the Ancient Rome collection has been rewritten</b> around the land, its people and how we know about them, rather than its languages.",
+    ],
+  },
   {
     d: "2026-08-14",
     t: "You can sign in with your username, a deck asked in two directions lists each direction on its own, five books join the Library, and Ancient Greece, Ancient Rome and World History all gain cards",
@@ -83,6 +90,7 @@ window.CHANGELOG = [
       "<b>Thirty-seven terms already here now open from more of the cards’ own words</b> — adjectives, surnames, regional names, the continents, and phrases the cards write in ordinary sentence case.",
       "<b>Your shared decks are now the same on every device you are signed in on</b> — one you add arrives, one you remove goes, and both keep the settings you gave them.",
       "A shared deck deleted by its author still stays on your device, as it always has.",
+      "<b>Timeline no longer asks you to place things that did not happen at a time</b> — human evolution, an ice age, the Tiber — which is fourteen terms in all.",
     ],
   },
   {

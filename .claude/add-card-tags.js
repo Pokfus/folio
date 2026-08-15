@@ -34,7 +34,7 @@ let batch;
 try { batch = JSON.parse(fs.readFileSync(batchFile, "utf8")); } catch (e) { die("could not read " + batchFile + ": " + e.message); }
 if (!batch || typeof batch.cards !== "object") die("batch file needs a `cards` object");
 
-const win = loadWindow(dataPath), cards = win.CARD_DATA;
+const win = loadWindow(dataPath), cards = win.CARD_DATA, tree = win.COLLECTION_TREE;
 if (!Array.isArray(cards)) die("data.js did not yield window.CARD_DATA");
 const byId = new Map(cards.map((c) => [c.id, c]));
 
@@ -57,25 +57,24 @@ for (const id of Object.keys(batch.cards)) {
 }
 edits.forEach(([card, tags]) => { card.tags = tags; });
 
-// ---- write data.js back, in the shape serializeCardData emits ---------------------------------------
-const FIELDS = ["num", "category", "question", "answer", "answerDate", "traditional", "hanzi", "pinyin", "translations", "abstract", "citation", "answerText"];
-const ser = (c) => {
-  const o = { id: c.id };
-  FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; });
-  if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions;
-  if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags;
-  if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources;
-  if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked;
-  if (c.i18n) o.i18n = c.i18n;
-  if (c.image && c.image.src) o.image = c.image;
-  else if (c.video && c.video.src) o.video = c.video;
-  return o;
-};
-const src = fs.readFileSync(dataPath, "utf8");
-const head = src.slice(0, src.indexOf("window.CARD_DATA = ["));
-const treeAt = src.indexOf("window.COLLECTION_TREE");
-const tail = src.slice(treeAt);
-const out = head + "window.CARD_DATA = [\n" + cards.map((c) => JSON.stringify(ser(c))).join(",\n") + "\n];\n\n" + tail;
+/* ---- write data.js back ------------------------------------------------------------------------------
+   THE WHOLE CARD IS RE-SERIALIZED, never a list of fields (fixed Aug 2026, after this tool stripped every
+   card's rating). It used to keep a private copy of `serializeCardData`'s field list and emit only what
+   that copy named — which was written before `difficulty` existed and knew nothing about `undatable`, so
+   ONE run of it silently removed both from all 500 cards. Nothing threw, the tags were written correctly,
+   the file parsed, and the only symptom was every minigame's pool quietly emptying.
+   A whitelist here can only ever be a copy of app.js's, and a copy is a thing that goes stale on a change
+   made somewhere else, by someone who has no reason to look in this file. `JSON.stringify(c)` cannot:
+   the cards are loaded from data.js and written back with their own keys in their own order, so a field
+   added later rides through untouched. It is what add-sources.js and add-questions.js already do.
+   The two comment lines are written out in full for the same reason: this used to keep the file's own
+   head and splice a `tail` starting at `window.COLLECTION_TREE`, which quietly dropped the comment
+   standing above the tree on every single run. */
+const out =
+  "/* Card data. Add cards one at a time with `node .claude/add-card.js <card.json> [deckId]` (see CLAUDE.md). */\n" +
+  "window.CARD_DATA = [\n" + cards.map((c) => JSON.stringify(c)).join(",\n") + "\n];\n\n" +
+  "/* Collection -> deck -> sub-deck tree. Leaf decks carry a `cardIds` array. */\n" +
+  "window.COLLECTION_TREE = " + JSON.stringify(tree, null, 2) + ";\n";
 fs.writeFileSync(dataPath, out);
 try { loadWindow(dataPath); } catch (e) { die("data.js no longer parses after the write: " + e.message); }
 
