@@ -2235,13 +2235,25 @@
     }, 4000);
   }
   async function cloudBootOverrides() {
-    const r = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=data,updated_at");
-    if (!r.ok || !Array.isArray(r.data) || !r.data.length) return;   // table not migrated yet / offline → shipped files only
-    const row = r.data[0];
+    /* TWO REQUESTS, AND THE FIRST IS A TIMESTAMP (Aug 2026). This selected `data` up front, which
+       downloads the WHOLE published overlay on every page load before anything has decided whether it
+       is needed — the `updated_at` comparison below was already there and was being made against a body
+       that had by then been paid for. Measured on a row that had accumulated a copy of the timeline:
+       1.17 MB gzipped per visitor per load, more than `data.js`, and for an eagerly-fetched row against
+       a `timeline.js` that is deliberately lazy. The stamp alone is ~100 bytes, and the body is fetched
+       only when it can actually be used: this device has not got this version (a first visit, or a real
+       publish), or this device is an admin whose own overlay may need publishing. */
+    const head = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=updated_at");
+    if (!head.ok || !Array.isArray(head.data) || !head.data.length) return;   // table not migrated yet / offline → shipped files only
     if (isDevOrigin()) return;   // the dev machine's local overlay is its working copy — never overwrite it, signed-in or not
     let baseline = null; try { baseline = localStorage.getItem(CLOUD_TS_KEY); } catch (e) {}
+    const fresh = head.data[0].updated_at !== baseline;
+    if (!fresh && !cloudCanPublish()) return;   // nothing to adopt and nothing to publish — the body is never needed
+    const r = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=data,updated_at");
+    if (!r.ok || !Array.isArray(r.data) || !r.data.length) return;
+    const row = r.data[0];
     const remote = stableJson(row.data || {});
-    if (row.updated_at !== baseline) {
+    if (fresh) {
       // the published content changed since this device last saw it → adopt it (reset to pristine + re-apply)
       reapplyAdminOverlay(row.data || {});
       try { localStorage.setItem(ADMIN_KEY, JSON.stringify(row.data || {})); localStorage.setItem(CLOUD_TS_KEY, row.updated_at); } catch (e) {}
