@@ -64,21 +64,28 @@ spoken Italian, so `essere`, `fare`, `casa` and `acqua` come first and
 this to the reader in plain words.  See the note on NVDB below for the
 cross-check that is reported on every run.
 """
-import json, os
+import json, os, re
 
 LEVEL = os.environ.get('CILS_LEVEL', 'a1').lower()
 
+# the six MindDory bands, as distinct from the derived `core` level below
+BANDS = ('a1', 'a2', 'b1', 'b2', 'c1', 'c2')
+
 TITLES = {'a1': 'CILS A1 — Italian', 'a2': 'CILS A2 — Italian',
           'b1': 'CILS B1 — Italian', 'b2': 'CILS B2 — Italian',
-          'c1': 'CILS C1 — Italian', 'c2': 'CILS C2 — Italian'}
+          'c1': 'CILS C1 — Italian', 'c2': 'CILS C2 — Italian',
+          'core': 'Italian core vocabulary — De Mauro'}
 DECK_IDS = {'a1': 'cilsa1', 'a2': 'cilsa2', 'b1': 'cilsb1',
-            'b2': 'cilsb2', 'c1': 'cilsc1', 'c2': 'cilsc2'}
-DECK_FILES = {lvl: f'CILS-{lvl.upper()}-Italian.folio-deck.json' for lvl in TITLES}
+            'b2': 'cilsb2', 'c1': 'cilsc1', 'c2': 'cilsc2', 'core': 'itcore'}
+DECK_FILES = {lvl: f'CILS-{lvl.upper()}-Italian.folio-deck.json' for lvl in BANDS}
+# NOT a CILS band and not named as one -- see the `core` note below
+DECK_FILES['core'] = 'Italian-Core-Vocabulary.folio-deck.json'
 
 # The page each level's words are read off.  A further level is a row here plus
 # a `BELOW` entry, exactly as the four DELE levels and the three Goethe ones are
-# -- there is nothing else to change.
-LIST_URL = {lvl: f'https://minddory.com/italian-vocabulary-list/{lvl}' for lvl in TITLES}
+# -- there is nothing else to change.  `core` has no page: its words are DERIVED,
+# which is the whole point of it.
+LIST_URL = {lvl: f'https://minddory.com/italian-vocabulary-list/{lvl}' for lvl in BANDS}
 
 # The count the page's own title states, which `parse_cils.py` asserts what it
 # extracted against.  A page that quietly changes under us is the one failure a
@@ -92,7 +99,35 @@ EXPECT = {'a1': 961, 'a2': 995, 'b1': 970, 'b2': 1011, 'c1': 2842, 'c2': 429}
 # sibling pipelines rely on and a later list that DOES overlap would otherwise
 # be found by a reader rather than by the build.
 BELOW = {'a1': [], 'a2': ['a1'], 'b1': ['a1', 'a2'], 'b2': ['a1', 'a2', 'b1'],
-         'c1': ['a1', 'a2', 'b1', 'b2'], 'c2': ['a1', 'a2', 'b1', 'b2', 'c1']}
+         'c1': ['a1', 'a2', 'b1', 'b2'], 'c2': ['a1', 'a2', 'b1', 'b2', 'c1'],
+         # …and `core` sits on top of all six, which is what it is FOR
+         'core': list(BANDS)}
+
+# **THE `core` LEVEL, AND WHY IT EXISTS.**  Measured across the finished six:
+# De Mauro's basic vocabulary covers 97% of A1 and 8% of C2, and the obvious
+# reading -- that A1 to B2 use the core up and leave the upper bands nothing --
+# is FALSE.  When C1 begins, 3,799 core words are still untouched, more than
+# C1's own size; the list simply never goes and gets them.  The two sets are
+# almost exactly the same size (7,171 against 7,180) and overlap by 57%.
+#
+# What the list misses is De Mauro's *alta disponibilità* stratum: concrete
+# everyday vocabulary everyone knows and nobody says on screen -- `astuccio`,
+# `aratro`, `cartolina`, `farfalla`, `salvietta`, `capanna`, `scalpello`,
+# `borsetta`.  One in five of the words it misses appears ZERO times in 50,000
+# subtitle words, against one in fifty of the ones it carries.  What it spends
+# those slots on instead is screen vocabulary -- `obitorio`, `narcotico`,
+# `guardiamarina`, `carburatore` -- at a median subtitle rank of 20,425.
+#
+# Two explanations were tested and dropped rather than asserted: DERIVATION
+# (that the upper bands are `-ità`/`-zione`/`-mente` forms of core words)
+# accounts for 6-16%, and LEMMATISATION (that feminines and participles like
+# `subdola` are core words in disguise) for twelve words in the whole corpus.
+#
+# So this level is the remainder: every word in De Mauro that the six bands
+# never reach, built by the same pipeline and ordered the same way.  Its word
+# list is not a third party's at all -- it is a published reference work, which
+# makes it the best-sourced of the seven.
+NVDB_FILE = 'nvdb.words.txt'
 
 
 def f(name):
@@ -106,8 +141,30 @@ def words_below():
 
     Taken from the deck FILE rather than from a working file, so the exclusion
     is against what actually went out and the two can never drift apart -- the
-    rule `goethe_level` records.  The headword field carries the article on a
-    noun (`la casa`), so the article is stripped back off here.
+    rule `goethe_level` records.
+
+    **THE HEADWORD FIELD CARRIES THE ARTICLE ON A NOUN (`la casa`), AND THIS
+    STRIPPED IT IN ITS DOCSTRING AND NOT IN ITS CODE.**  So the set came back
+    full of `il diavolo` while `select` tests a bare `diavolo` against it, and
+    the exclusion has matched nothing since the day it was written.  Nothing
+    reported it, because the six MindDory bands are strictly disjoint and the
+    correct answer really was "nothing to drop" every time: a rule that never
+    fires looks exactly like a rule with nothing to do.  It matters the moment a
+    level is built on top of the others rather than beside them.
+
+    The article is required to be followed by a SPACE, or by the apostrophe it
+    elides on -- without that, `^i` eats the `i` of `in` and leaves `n`.
+
+    **AND `select` MUST ASK THIS TWICE, BEFORE AND AFTER THE SPELLING SETTLES.**
+    Testing only the word as the LIST PRINTS IT is right for a word that arrives
+    spelt correctly and useless for one this pipeline has REPAIRED: C1 prints
+    `risolver`, no band carries that, so it passes -- and the truncated-infinitive
+    rule then adopts `risolvere`, which A1 has taught since it was built.  The
+    accent rule does the same for `dignita` -> `dignità`.  Fifteen words shipped
+    twice that way, each as two cards with one front, one meaning and two
+    schedules.  Nothing in a single band can see it, the six being disjoint; only
+    the combined deck holds two bands at once, and `check-combined.js` is what
+    found it.
     """
     out = set()
     for lvl in BELOW.get(LEVEL, []):
@@ -118,5 +175,13 @@ def words_below():
         for c in deck['cards']:
             w = (c.get('fields') or {}).get('Word', '')
             if w:
-                out.add(w.strip().lower())
+                out.add(strip_article(w))
     return out
+
+
+_ART = re.compile(r"^(?:il|lo|la|i|gli|le)\s+|^l'", re.I)
+
+
+def strip_article(w):
+    """`la casa` -> `casa`, `l'amico` -> `amico`, `in` -> `in`."""
+    return _ART.sub('', w.strip(), count=1).strip().lower()

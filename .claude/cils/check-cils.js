@@ -25,8 +25,13 @@ const { chromium } = require("playwright");
 const path = require("path"), http = require("http"), fs = require("fs");
 const ROOT = path.resolve(__dirname, "..", "..");
 const LEVEL = (process.argv[2] || "a1").toLowerCase();
-if (!/^[abc][12]$/.test(LEVEL)) { console.error("level must be a1..c2"); process.exit(2); }
-const DECK = "CILS-" + LEVEL.toUpperCase() + "-Italian.folio-deck.json";
+if (!/^([abc][12]|core)$/.test(LEVEL)) { console.error("level must be a1..c2 or core"); process.exit(2); }
+/* `core` is not a CILS band and is not named as one -- see cils_level.py.  Its deck
+   is built by the same pipeline and carries the same card type, so every assertion
+   below holds for it unchanged; only the file name and the title differ. */
+const DECK = LEVEL === "core" ? "Italian-Core-Vocabulary.folio-deck.json"
+                              : "CILS-" + LEVEL.toUpperCase() + "-Italian.folio-deck.json";
+const TITLE_WANT = LEVEL === "core" ? "Italian core vocabulary" : "CILS " + LEVEL.toUpperCase();
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css",
                ".json": "application/json", ".svg": "image/svg+xml" };
 const server = http.createServer((req, res) => {
@@ -80,7 +85,11 @@ const LOAN_OK = new Set(["élite", "tournée"]);
   ok(type.speechLang === "it-IT", "the speech language is Italian", type && type.speechLang);
   ok(deck.cards.every((c) => c.type === "cils"), "every note carries the type");
   ok(new Set(deck.cards.map((c) => c.id)).size === deck.cards.length, "no id occurs twice");
-  ok(deck.cards.every((c) => /^u_cils[a-z0-9]+_\d+$/.test(c.id)), "every id carries the deck");
+  // READ OFF THE DECK'S OWN ID rather than written down here: `u_cils…` passed for
+  // any CILS deck whatever, so it could not have caught a band's cards carrying
+  // another band's ids -- which is the collision this assertion exists for.
+  const idRx = new RegExp("^u_" + deck.meta.id.replace(/[^a-z0-9]/g, "") + "_\\d+$");
+  ok(deck.cards.every((c) => idRx.test(c.id)), "every id carries the deck", idRx.source);
 
   // **TWO CARDS WITH THE SAME FRONT IS THE READER ANSWERING ONE QUESTION TWICE**, and
   // nothing else can see it: both cards are perfectly formed, every count is healthy, and the ids
@@ -190,7 +199,7 @@ const LOAN_OK = new Set(["élite", "tournée"]);
   await pg.waitForTimeout(700);
   const rows = await pg.evaluate(() => [...document.querySelectorAll(".active-deck .dk-title")]
     .map((e) => e.textContent.trim()));
-  ok(rows.length === 1 && rows[0].includes("CILS " + LEVEL.toUpperCase()),
+  ok(rows.length === 1 && rows[0].includes(TITLE_WANT),
      "adding the deck adds the deck and not both directions with it", JSON.stringify(rows));
 
   // ---------------------------------------------------------------- study

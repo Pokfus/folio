@@ -257,6 +257,31 @@ tail_words = ', '.join(e['display'] for e in _ordered[-3:])
 # was not quite right even there.)
 head_words = ', '.join(e['display'] for e in _ordered[:5])
 nvdb_n = sum(1 for e in entries if e.get('nvdb'))
+
+# **HOW MUCH OF THE ORDERING IS BORROWED**, measured in `extract_kaikki` over the
+# whole dump and quoted by the `core` description.  A surface that is also some
+# other lemma's inflected form takes THAT lemma's frequency and therefore its
+# place in the deck: `credo` is dealt eighth because Italians say it meaning "I
+# believe", and the card teaches the noun "creed".  It is a fact about the word
+# list rather than a fault, so it is stated rather than repaired -- and it is
+# concentrated at the HEAD, which is the half a reader actually meets, so both
+# figures are given.
+try:
+    _homo = json.load(open(lvlf('homographs.json')))
+except FileNotFoundError:                       # a cache built before this existed
+    _homo = {}
+_words = [e['word'].lower() for e in entries]
+homo_pct = round(100 * sum(1 for w in _words if w in _homo) / max(1, len(_words)))
+_head = _words[:25]
+homo_head = round(100 * sum(1 for w in _head if w in _homo) / max(1, len(_head)))
+
+# …and the coarse register, counted off the glosses the cards actually carry.
+# De Mauro's list is DESCRIPTIVE -- a record of what adults know rather than a
+# curriculum -- so it includes these, and the frequency ordering puts several of
+# them early.  Counted rather than listed: the point is the size, not the words.
+_COARSE = re.compile(r'\b(dick|cock|prick|shit|arsehole|asshole|bastard|whore|slut|'
+                     r'bitch|fuck|cunt|turd|piss|bollocks|wank)\b', re.I)
+vulg_n = sum(1 for c in cards if _COARSE.search(re.sub(r'<[^>]*>', ' ', c['fields']['English'])))
 arts = sum(1 for c in cards if 'uc-art' in c['fields']['Italian'])
 plurals = sum(1 for c in nouns if '>plural<' in c['fields']['Forms'])
 fems = sum(1 for c in nouns if '>feminine<' in c['fields']['Forms'])
@@ -279,28 +304,82 @@ EX_NOTE = ('Every word also carries three real example sentences'
               'because the word list is what it is and not what the corpus can illustrate'
               if ex0 else ''))
 
+# **THE PROVENANCE PARAGRAPH IS THE ONE PART THAT IS NOT THE SAME DECK TWICE.**  A
+# CILS band has to say whose list it is and why that is not the exam board's; the
+# `core` deck has to say what it is a remainder OF.  Everything after it -- the
+# articles, the paradigms, the examples -- describes the CARDS, which are built
+# the same way whatever the word list was, so it is shared.
+if LEVEL == 'core':
+    PROVENANCE = (
+        f"{n} Italian words, for anyone learning Italian — and specifically the words the six "
+        "CILS decks beside this one leave out. WHERE THE WORDS COME FROM, and why this deck "
+        "exists: the list is not a third party's at all but a published reference work — Tullio "
+        "De Mauro's nuovo vocabolario di base della lingua italiana, which sets out the roughly "
+        "7,000 words an Italian adult uses and understands without effort. The six CILS decks are "
+        "built on a frequency band cut from a subtitle corpus, and measured against De Mauro that "
+        "band covers 97% of its A1 level and 8% of its C2. Not because the core runs out — that "
+        "was checked and is false, since 3,799 core words are still untouched when the C1 band "
+        "begins — but because a subtitle corpus and a core-vocabulary reference disagree about "
+        "what ordinary Italian is. What the bands miss is the concrete everyday half of the "
+        "language: astuccio, aratro, cartolina, farfalla, salvietta, capanna, scalpello, borsetta "
+        "— words every Italian knows and nobody says on television. One in five of them does not "
+        "appear once in 50,000 subtitle words. This deck is exactly that remainder: every word in "
+        f"De Mauro the six bands never reach, {n} of them, built by the same pipeline and ordered "
+        "the same way. On its own it is a better first deck than any of them. "
+        "THE ORDER IS THE SAME FREQUENCY ORDER, and it is worth saying that it does less well "
+        "here than in the six bands. The cards are dealt by how common the word is in everyday "
+        "spoken Italian, from a frequency list built from film and television subtitles — but "
+        "the bands have already taken the words that frequency list ranks cleanly, and what is "
+        "left is disproportionately spellings that are also some other word's inflected form: "
+        f"{homo_pct}% of this deck against a handful of each band, and {homo_head}% of the first "
+        "twenty-five. So credo is dealt early because Italians say it constantly meaning 'I "
+        "believe', and the card teaches the noun il credo, 'creed'; faro is the lighthouse and "
+        "pero the pear tree, ranked by farò and però. The words and their meanings are right — "
+        "it is their position in the deck that is borrowed. "
+        "ONE MORE THING TO EXPECT: De Mauro's list is descriptive, a record of what Italian "
+        f"adults actually know rather than a curriculum, so it includes the coarse words, and "
+        f"the frequency ordering puts several of the {vulg_n} of them in the first fifty. "
+    )
+    WORDLIST_SOURCE = (
+        "Word list: Tullio De Mauro, nuovo vocabolario di base della lingua italiana (2016), via "
+        "the public-domain extraction at pettarin/nvdb — the words it lists that the six CILS "
+        "decks do not teach. ")
+    # already cited, one sentence up
+    DEMAURO_TAIL = ''
+else:
+    PROVENANCE = (
+        f"{n} Italian words, for anyone working towards the CILS certification awarded by "
+        "the Università per Stranieri di Siena — or towards Italian generally. "
+        "WHERE THE WORDS COME FROM, plainly, because it is not what a deck named after an exam "
+        "usually means: CILS does not publish a vocabulary list. What the Università per Stranieri "
+        "di Siena publishes for each level is a syllabus of grammar and functions — the tenses, the "
+        "sentence types, the things a candidate must be able to do — and for vocabulary it asks only "
+        "for a basic repertoire suited to everyday situations. There is therefore no official list to "
+        f"read, and the words here are a third party's: the {LEVEL.upper()} band of MindDory's Italian "
+        f"vocabulary list ({LIST_URL[LEVEL]}), which sorts about 7,200 Italian words into six "
+        "CEFR-labelled bands. Those bands are a frequency gradient rather than a graded syllabus, so "
+        f"this one carries words a learner at this level would not meet early — {tail_words} are among "
+        "the last it deals — while leaving out some they would meet at once, including the greetings. "
+        f"What can be said for it is that the words are real and central: {nvdb_n} of the {n} are in "
+        "De Mauro's nuovo vocabolario di base, the standard reference for the core of the language. "
+        "SO THE ORDER IS DOING THE WORK. The cards are dealt by how common the word actually is in "
+        "everyday spoken Italian, taken from a frequency list built from film and television "
+        f"subtitles, so you meet {head_words} in the first handful and the rarest of the band at "
+        "the end. "
+    )
+    WORDLIST_SOURCE = (
+        f"Word list: MindDory Italian vocabulary list, {LEVEL.upper()} band — the list of words "
+        "only. ")
+    DEMAURO_TAIL = (
+        " The core-vocabulary check quoted above: Tullio De Mauro, nuovo vocabolario di base "
+        "della lingua italiana (2016), via the public-domain extraction at pettarin/nvdb.")
+
 DESC = (
     "Both study directions in one deck: Italian → English (see the Italian, recall the meaning) "
     "and English → Italian (see an English meaning, recall the Italian). Each direction is a card "
     "of its own with its own schedule, so recognising a word and producing it are learnt "
-    f"separately. {n} Italian words, for anyone working towards the CILS certification awarded by "
-    "the Università per Stranieri di Siena — or towards Italian generally. "
-    "WHERE THE WORDS COME FROM, plainly, because it is not what a deck named after an exam "
-    "usually means: CILS does not publish a vocabulary list. What the Università per Stranieri "
-    "di Siena publishes for each level is a syllabus of grammar and functions — the tenses, the "
-    "sentence types, the things a candidate must be able to do — and for vocabulary it asks only "
-    "for a basic repertoire suited to everyday situations. There is therefore no official list to "
-    f"read, and the words here are a third party's: the {LEVEL.upper()} band of MindDory's Italian "
-    f"vocabulary list ({LIST_URL[LEVEL]}), which sorts about 7,200 Italian words into six "
-    "CEFR-labelled bands. Those bands are a frequency gradient rather than a graded syllabus, so "
-    f"this one carries words a learner at this level would not meet early — {tail_words} are among "
-    "the last it deals — while leaving out some they would meet at once, including the greetings. "
-    f"What can be said for it is that the words are real and central: {nvdb_n} of the {n} are in "
-    "De Mauro's nuovo vocabolario di base, the standard reference for the core of the language. "
-    "SO THE ORDER IS DOING THE WORK. The cards are dealt by how common the word actually is in "
-    "everyday spoken Italian, taken from a frequency list built from film and television "
-    f"subtitles, so you meet {head_words} in the first handful and the rarest of the band at "
-    "the end. "
+    "separately. "
+    + PROVENANCE +
     f"Every noun carries its definite article, so the gender is learnt with the word ({arts} of "
     "them), and the article is coloured by gender: masculine blue, feminine red. That article is "
     "worth learning as a rule and not as a fact, because Italian picks it by spelling as well as "
@@ -322,12 +401,13 @@ DESC = (
     + EX_NOTE +
     ", chosen where possible to show three different inflected forms rather than the same one "
     "three times, with the word picked out in colour and a speaker beside it. "
-    f"Word list: MindDory Italian vocabulary list, {LEVEL.upper()} band — the list of words only. Meanings, "
+    + WORDLIST_SOURCE +
+    "Meanings, "
     "genders, plurals, feminines and conjugations: English Wiktionary, via the kaikki.org "
     "extraction (CC BY-SA 4.0). Frequency ordering: a word list built from OpenSubtitles "
     "(hermitdave/FrequencyWords, CC BY-SA 4.0). Example sentences: Tatoeba (tatoeba.org), "
-    "CC BY 2.0 FR. The core-vocabulary check quoted above: Tullio De Mauro, nuovo vocabolario di "
-    "base della lingua italiana (2016), via the public-domain extraction at pettarin/nvdb."
+    "CC BY 2.0 FR."
+    + DEMAURO_TAIL
 )
 
 meta = {

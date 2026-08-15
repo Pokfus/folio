@@ -33,14 +33,43 @@ meaning is at the other end of the pointer -- which is what this pass puts in
 the dump for the builder to reach.  Only targets nothing already wanted are
 fetched, and the pass is skipped altogether when there are none.
 """
-import json, sys
+import json, sys, unicodedata
 
+from cils_level import f as lvlf
 from wikt import pointer_targets
 
 want = set(json.load(open(sys.argv[1])))
 out_fn = sys.argv[2]
 dump = sys.argv[3] if len(sys.argv) > 3 else 'kaikki-it.jsonl'
 
+
+def destress(w):
+    """Drop the stress marks the conjugation tables add, keeping a written accent.
+
+    **WIKTIONARY'S ITALIAN FORM TABLES MARK THE STRESS** -- `crédo`, `prègo`,
+    `sentìto`, `dò` -- where ordinary Italian writes the vowel bare.  Compared
+    without this, half the ambiguity below is invisible: `credo` never matches
+    the `crédo` in `credere`'s table, so the surface reads as unambiguous when
+    it is the single most ambiguous word in the deck.
+    Italian WRITES an accent only on a final syllable (`però`, `città`, `sì`), so
+    the last character is left alone and everything before it is normalised.
+    """
+    w = w.lower()
+    if not w:
+        return w
+    head = ''.join(c for c in unicodedata.normalize('NFD', w[:-1])
+                   if not unicodedata.combining(c))
+    return unicodedata.normalize('NFC', head + w[-1])
+
+
+# **A SURFACE THAT IS ALSO SOME OTHER LEMMA'S INFLECTED FORM TAKES THAT LEMMA'S
+# FREQUENCY, AND THEREFORE ITS PLACE IN THE DECK.**  `credo` is dealt eighth
+# because Italians say it constantly meaning "I believe", and the card teaches
+# the noun "creed".  Measured here rather than assumed, because it is a fact
+# about the WHOLE dump (every lemma's forms, not just the wanted ones) and this
+# is the only pass that reads the whole dump.  It costs one set lookup per form.
+wantf = {destress(w) for w in want}
+homographs = {}
 kept = {}
 n = bad = 0
 for line in open(dump, encoding='utf-8'):
@@ -50,9 +79,16 @@ for line in open(dump, encoding='utf-8'):
     except Exception:
         bad += 1
         continue
+    if r.get('lang_code') != 'it':
+        continue
     w = r.get('word')
-    if w in want and r.get('lang_code') == 'it':
+    if w in want:
         kept.setdefault(w, []).append(r)
+    lem = (w or '').lower()
+    for f in r.get('forms') or []:
+        s = destress((f.get('form') or '').strip())
+        if s in wantf and s != lem:
+            homographs.setdefault(s, set()).add(lem)
 
 print('  lines scanned :', n, '(unparseable:', bad, ')')
 print('  lemmas wanted :', len(want))
@@ -86,4 +122,13 @@ if targets:
     print('  pointer targets:', len(targets), 'wanted,',
           len(targets & set(kept)), 'found,', n2, 'records')
 
+print(f'  ambiguous surfaces: {len(homographs)} of the {len(wantf)} wanted are also '
+      f'another lemma\'s inflected form')
+
 json.dump(kept, open(out_fn, 'w'), ensure_ascii=False)
+# beside the records, for the deck description to quote -- see `emit.py`.  The
+# name is built from the LEVEL rather than from `out_fn`, which is a caller's
+# argument: a string substitution on it would silently write nothing the day the
+# caller renames its intermediate.
+json.dump({k: sorted(v) for k, v in homographs.items()},
+          open(lvlf('homographs.json'), 'w'), ensure_ascii=False)

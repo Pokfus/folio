@@ -56,7 +56,7 @@ for e in wl:
         continue
     entries.append(e)
 if dropped:
-    print(f'  already taught by a lower level: {len(dropped)}')
+    print(f'  already taught by a lower level: {len(dropped)} -- ' + ', '.join(dropped))
 else:
     print('  nothing to drop: no lower level shares a word with this band')
 
@@ -460,6 +460,33 @@ if dupes:
           + '; '.join(dupes))
 if odd:
     print('  ⚠ merged entries that disagree about lemma or part of speech: ' + '; '.join(odd))
+
+# **AND NOW THE LOWER LEVELS AGAIN, ON THE SPELLING THAT ACTUALLY SHIPS.**  The
+# pass at the top of this file tests the word as the LIST PRINTS IT, which is
+# right for a word that arrives already spelt correctly and useless for one this
+# pipeline has repaired: C1 prints `risolver`, no band carries that, so it passes
+# -- and the truncated-infinitive rule then adopts `risolvere`, which A1 has
+# taught since the day it was built.  Eight words shipped twice that way
+# (`risolvere`, `dimostrare`, `convincere`, `impedire`, `interrogare`,
+# `seppellire`, `assicurare`, `abbattere`), each as two cards with the same
+# front, the same meaning and two schedules.
+#
+# **NOTHING IN A SINGLE BAND CAN SEE IT.**  The six MindDory bands are strictly
+# disjoint, so every in-band count is healthy and both cards are perfectly
+# formed; the collision exists only BETWEEN two files, and the only artefact that
+# holds two bands at once is the combined deck.  `check-combined.js` is what
+# found it and is what will find the next one.
+#
+# The first pass is kept rather than replaced: it is what stops a word that was
+# never going to survive being looked up, ordered and given example sentences.
+late = []
+for e in list(entries):
+    if e['display'].lower() in below:
+        late.append(e['display'])
+        entries.remove(e)
+if late:
+    print(f'  …and {len(late)} more once the spelling settled, which the printed '
+          f'form hid: ' + ', '.join(late))
 
 unseen = sum(1 for e in entries if not e['freq'])
 print(f'  ordered by frequency; {unseen} words the subtitle list has never seen, '

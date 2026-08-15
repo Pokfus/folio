@@ -32,7 +32,7 @@ printed.
 """
 import html, json, os, re, sys, urllib.request
 
-from cils_level import LEVEL, EXPECT, LIST_URL, f as lvlf
+from cils_level import LEVEL, EXPECT, LIST_URL, NVDB_FILE, f as lvlf
 
 CACHE_HTML = f'list-{LEVEL}.html'
 
@@ -69,7 +69,30 @@ def fetch():
     return page
 
 
+def core_words():
+    """De Mauro's basic vocabulary, whole.
+
+    The `core` level has no page to scrape and none of the assertions that go
+    with one: its list is a published reference work read straight off disk, and
+    the subtraction of what the six bands already teach is left to `select`,
+    which is where the exclusion machinery lives and where it is reported.
+    """
+    if not os.path.exists(NVDB_FILE):
+        raise SystemExit(f'{NVDB_FILE} is missing -- run without --no-fetch once')
+    ws, seen = [], set()
+    for line in open(NVDB_FILE, encoding='utf-8'):
+        w = line.strip()
+        if w and w not in seen:
+            seen.add(w)
+            ws.append(w)
+    print(f'  read  {NVDB_FILE}: {len(ws)} words of basic vocabulary')
+    return ws
+
+
 def main():
+    if LEVEL == 'core':
+        return emit(core_words())
+
     page = fetch()
 
     rows = ROW.findall(page)
@@ -101,6 +124,10 @@ def main():
                          f'written against {EXPECT[LEVEL]} -- the list has been revised, '
                          f'so re-read it before raising the number in cils_level.EXPECT')
 
+    return emit(words, stated)
+
+
+def emit(words, stated=None):
     # the accented spellings a bare final vowel may stand for; `à` and `ù` are
     # the ones that actually occur in these lists (`città`, `più`), but the
     # others cost nothing and cannot fire unless the dictionary has the word
@@ -177,7 +204,8 @@ def main():
 
     json.dump(entries, open(lvlf('wordlist.json'), 'w'), ensure_ascii=False, indent=1)
     multi = sum(1 for e in entries if e['multiword'])
-    print(f'  words {len(entries)} (the page states {stated}), of which {multi} are phrases')
+    src = f'the page states {stated}' if stated is not None else f'read from {NVDB_FILE}'
+    print(f'  words {len(entries)} ({src}), of which {multi} are phrases')
     print('  first ten:', ', '.join(e['display'] for e in entries[:10]))
 
 
