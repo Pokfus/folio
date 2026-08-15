@@ -84,9 +84,14 @@ const ok = (c, m, extra) => {
     phrase: firstIdx((c) => ((c.fields || {}).Word || "").includes(" ")),
     sentences: firstIdx((c) => (((c.fields || {}).Examples || "").match(/uc-exi/g) || []).length >= 3),
   };
-  const seedIds = Object.values(SPECIMENS).filter((i) => i >= 0).map((i) => deck.cards[i].id);
+  // WHICH SPECIMENS A LEVEL OWES is declared, for the reason set out beside the family range below:
+  // level 7 has no verb family to render, and asserting one of it would be asserting something
+  // untrue rather than guarding anything.  Everything else is owed by every level.
+  const WANT = Number(LEVEL) <= 6 ? ["family", "phrase", "sentences"] : ["phrase", "sentences"];
+  const seedIds = WANT.map((k) => SPECIMENS[k]).filter((i) => i >= 0).map((i) => deck.cards[i].id);
   console.log("   specimens at notes: "
-              + Object.entries(SPECIMENS).map(([k, v]) => k + " " + v).join(", "));
+              + Object.entries(SPECIMENS).map(([k, v]) => k + " " + v).join(", ")
+              + "   (this level owes: " + WANT.join(", ") + ")");
   // The day's new-card allowance, and the cap DERIVED from it: the session is at most `ALLOW` cards
   // plus the seeds, so a walk of `ALLOW + 40` cannot fail to reach a specimen that is in the queue.
   // Keep them in this relation -- two independent numbers is how the old cap came to be wrong twice.
@@ -250,6 +255,19 @@ const ok = (c, m, extra) => {
       "language about language": ["kaidah", "ejaan", "imbuhan", "sinonim", "antonim", "semantik"],
       "judging a claim": ["objektif", "valid", "sahih", "andal", "patokan", "kriteria"],
     },
+    // Level 7 is the formal register itself rather than a subject area, so its sets are
+    // MORPHOLOGICAL: the suffix families Indonesian builds scholarly prose out of.  That is what
+    // the inventory was mined on, and a set of five from each is what would catch the mine
+    // silently returning nothing -- which for a level whose words have no corpus frequency at all
+    // is exactly the failure nothing else could see.
+    7: {
+      "doctrines": ["determinisme", "fatalisme", "kolonialisme", "liberalisme", "strukturalisme"],
+      "measurable qualities": ["abnormalitas", "fleksibilitas", "mobilitas", "netralitas", "validitas"],
+      "abstractions": ["keandalan", "kecermatan", "kemandirian", "keterbacaan", "ketersediaan"],
+      "processes": ["pembakuan", "pembedaan", "pemidanaan", "pematuhan", "penangkalan"],
+      "the formal compounds": ["alih aksara", "alat bukti", "kata majemuk", "tata negara",
+                               "hak asasi manusia"],
+    },
   };
   for (let l = 1; l <= Number(LEVEL); l++) {
     for (const [name, members] of Object.entries(CORE[l] || {})) {
@@ -278,13 +296,31 @@ const ok = (c, m, extra) => {
   ok(phrases.length >= 10, "multi-word entries are taught as single items",
      phrases.length + ": " + phrases.slice(0, 6).join(", "));
 
-  // ------------------------------------------------- the affix families
+  /* ------------------------------------------------- the affix families
+     THE CARD'S CENTREPIECE STOPS APPLYING AT THE TOP LEVEL, AND THAT IS A FACT ABOUT ISTIMEWA
+     RATHER THAN A REGRESSION.  Levels 1-6 teach roots and the verbs built on them, so 67-89 cards
+     a level carry a root/active/passive row and the assertion is a real guarantee: a dropped forms
+     row leaves a good card that has quietly stopped teaching the hard part.  Level 7's vocabulary
+     IS the derived morphology -- `keandalan`, `absurditas`, `pemidanaan`, `keterbacaan` -- and
+     Wiktionary rightly lists each as a headword in its own right rather than as a form of anything,
+     so 15 of its 1,500 carry a family and only four show a passive.  Forcing that number up would
+     mean teaching roots at level 7 that belong at level 2.
+
+     So the bound is a RANGE, per level, and it is pinned in BOTH directions rather than skipped:
+     if level 7's families climbed to 50 its inventory would have changed character, and if they
+     fell to nothing the miner would have broken.  A skip written as a pass is the one thing this
+     file must not do -- but neither may it assert of a level something that is not true of it. */
   const withForms = deck.cards.filter((c) => c.fields.Forms);
-  ok(withForms.length >= 50, "the affix family is on a good many cards", String(withForms.length));
+  const FAM_RANGE = Number(LEVEL) <= 6 ? [50, Infinity] : [5, 40];
+  ok(withForms.length >= FAM_RANGE[0] && withForms.length <= FAM_RANGE[1],
+     "the affix family is on as many cards as this level's words allow",
+     withForms.length + " in [" + FAM_RANGE.join(", ") + "]");
   const labels = new Set();
   for (const c of withForms)
     for (const m of c.fields.Forms.matchAll(/uc-fl">([^<]+)</g)) labels.add(m[1]);
-  ok(labels.has("root") && labels.has("active") && labels.has("passive"),
+  // The passive needs a transitive verb to exist at all, and level 7 has almost none.
+  ok(labels.has("root") && labels.has("active")
+     && (labels.has("passive") || Number(LEVEL) === 7),
      "root, active and passive are all labelled", [...labels].join(" "));
   ok(withForms.every((c) => /uc-fhead/.test(c.fields.Forms)),
      "every forms row marks which form the card is asking for");
@@ -321,11 +357,11 @@ const ok = (c, m, extra) => {
   // passes at every level whose specimens happen to sit early and fails only at the deepest one.
   // `every` over an empty list is true, so the COUNT is asserted as well: with no specimens to seed
   // this would otherwise pass vacuously and hand the walk back to the natural queue in silence.
-  ok(seedIds.length === 3 && await pg.evaluate((ids) => {
+  ok(seedIds.length === WANT.length && await pg.evaluate((ids) => {
         const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
         return ids.every((i) => s.cards && s.cards[i] && s.cards[i].status === "review");
       }, seedIds),
-     "all three specimen cards are seeded as due", seedIds.join(" "));
+     "every specimen this level owes is seeded as due", seedIds.join(" "));
 
   // ---------------------------------------------------------------- study
   await pg.click(".review-group .cta .btn");
@@ -439,7 +475,7 @@ const ok = (c, m, extra) => {
   }
   console.log("   walked " + i + " cards, dismissed " + chests + " reward overlays");
 
-  ok(!!famCard, "a card shows a full affix family");
+  if (WANT.includes("family")) ok(!!famCard, "a card shows a full affix family");
   if (famCard) {
     console.log("   family: " + famCard.word + "  "
       + famCard.fi.map((f) => f.label + " " + f.form).join(" · "));

@@ -191,6 +191,16 @@ thin = sum(1 for e in entries if _freq.get(e['word'], 0) < 100)
 THIN_PCT = round(100 * thin / n) if n else 0
 passives = sum(1 for e in entries
                if any(l == 'passive' for _f, l in e['forms']))
+# A FULL FAMILY IS ROOT + ACTIVE + PASSIVE, and whether the level has ONE AT ALL
+# is a categorical fact where the per-card ratio is not: that ratio falls
+# smoothly from 13% at level 1 to 2.8% at level 6, so any cutoff on it would be a
+# number picked to separate two levels rather than a measurement.  Full families
+# number 42, 62, 70, 59, 42 and 29 at levels 1-6 and **zero** at level 7, whose
+# words are the derived forms themselves.  That is the cliff, and `check-ukbi.js`
+# draws the same line for the same reason -- see `WANT` there.
+full_fams = sum(1 for e in entries
+                if len(e['forms']) >= 3
+                and any(l == 'passive' for _f, l in e['forms']))
 # THE EXAMPLES ARE THIS DECK'S OWN, taken in the deck's own order (commonest
 # first), not four phrases typed out for level 1 -- which is the same fault
 # `SCOPE` records one field up, and it would name `terima kasih` in a deck that
@@ -228,7 +238,19 @@ DESC = (
     + ("The words already taught by the level"
        + ("s" if int(LEVEL) > 2 else "")
        + " below this one are left out, so nothing here repeats them. "
-       if int(LEVEL) > 1 else "") +
+       if int(LEVEL) > 1 else "")
+    # A LEVEL SMALLER THAN THE ONE BELOW IT HAS TO EXPLAIN ITSELF, or a reader
+    # comparing the two reads it as a claim that this predicate needs less
+    # vocabulary, which is the opposite of true.  Derived from the TARGET table
+    # rather than written for level 7, on the rule the two clauses below already
+    # follow: a claim about a level comes from a measurement, never from its
+    # number.  It has fired only at level 7 so far, where both sources run out.
+    + (f"This deck is smaller than the one for {PREDICATES[str(int(LEVEL) - 1)][0]} "
+       "below it, which is a fact about the sources rather than about the predicate: "
+       "the two things this list is assembled from both run out here. Everything "
+       "either of them can still supply is in it. "
+       if int(LEVEL) > 1
+       and TARGET.get(LEVEL, 0) < TARGET.get(str(int(LEVEL) - 1), 0) else "") +
     "WHERE THESE WORDS COME FROM, since it matters and since it is not what the other "
     "exam decks do: UKBI publishes no vocabulary list. It is a proficiency test rather "
     "than a syllabus, and the Badan Bahasa describes what a candidate at each predicate "
@@ -279,6 +301,14 @@ DESC = (
     "assimilates and swallows the root's first consonant, so tulis becomes menulis while "
     "nanti stays menanti, and there is no rule a learner can apply; the forms are read "
     "from a dictionary rather than derived. "
+    # A LEVEL WHOSE WORDS *ARE* THE DERIVED FORMS HAS ALMOST NO FAMILIES TO SHOW,
+    # and the paragraph above would otherwise present the card's centrepiece as
+    # though this deck were full of it.  Gated on `full_fams` -- see the note
+    # beside it for why a count of ZERO is the honest test and a ratio is not.
+    + ("Few of this level's words show one, and that is what the level is: its "
+       "vocabulary is the derived morphology itself — the -isme, -itas, ke-…-an "
+       "and peN-…-an forms — rather than the roots those are built on, and those "
+       "roots are in the decks below. " if not full_fams else "")
     # A COUNT THAT CAN REACH ZERO NEEDS THE SENTENCE GATED ON IT, which is the
     # `SCOPE` fault in miniature: this read "0 of the entries are phrases rather
     # than single words —  — which a list of single words cannot see at all" the

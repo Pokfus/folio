@@ -1090,8 +1090,216 @@ SECTIONS_6 = {
 # A LEVEL WITH NO INVENTORY OF ITS OWN GETS NONE, and that is deliberate rather
 # than an omission: `select.py` would then fill the whole level from frequency,
 # which is exactly what this file exists to stop, so the run says so out loud.
+# ===========================================================================
+# LEVEL 7 — ISTIMEWA.  THE LAST DOOR, AND THE FIRST INVENTORY THAT HAD TO BE
+# MINED FROM THE DICTIONARY RATHER THAN RECALLED.
+# ===========================================================================
+# ISTIMEWA IS THE ONLY PREDICATE WHOSE DESCRIPTOR LISTS `keilmiahan` AMONG THE
+# THINGS WITH NO KENDALA AT ALL.  It opens "Predikat ini menunjukkan bahwa
+# peserta uji memiliki kemahiran yang sempurna dalam berkomunikasi dengan
+# menggunakan bahasa Indonesia, baik lisan maupun tulis" and goes on: "Dengan
+# kemahiran ini yang bersangkutan tidak memiliki kendala dalam berkomunikasi
+# untuk keperluan personal, sosial, keprofesian, dan keilmiahan."  Level 6
+# constrains the complex end of academic work; here the constraint is gone.
+# (ukbi.kemendikdasmen.go.id/front-new/page/predikat, quoted.)
+#
+# BOTH SOURCES FAIL AT THIS LEVEL AND THEY FAIL DIFFERENTLY -- see the TARGET
+# comment in `ukbi_level.py` for the measurement.  The short version: the corpus
+# has 1,344 words left and every one of them is counted fewer than fifty times,
+# and the dictionary has never heard of `metodologi`, `paradigma`,
+# `epistemologi`, `kutipan` or `merujuk`.  A hand-written inventory of 352
+# scholarly candidates yielded 61 usable, a 17% hit rate, because English
+# Wiktionary's Indonesian is thinnest exactly where Istimewa lives.
+#
+# **SO THIS INVENTORY WAS MINED, WHICH IS THE FINDING TO CARRY.** Every earlier
+# level was written from what an inventory of the field ought to contain and
+# then checked; at this level that method returns mostly words the dictionary
+# cannot gloss, and the check does not help because there is nothing to
+# substitute.  The list below was instead read OUT of the dictionary: filter to
+# untaught single-word headwords with a real part of speech and a gloss that is
+# not a pointer, then take the formal-register morphology Indonesian actually
+# uses -- `-isme` for doctrines, `-is` for adherents and analytic adjectives,
+# `-itas` for measurable qualities, `ke-…-an` for abstractions, `peN-…-an` for
+# processes -- and read the result.  254 usable against 4 rejected, where
+# recall managed 61 against 64.  **Ask what the dictionary HAS before writing
+# down what the level ought to cover**; at every level below, the two agreed.
+#
+# THE MINING NEEDED A QUALITY FILTER AND THE ONE THAT WORKED IS PEDAGOGICAL.
+# Taken raw the suffix families yield 1,717 words and the tail of Wiktionary's
+# Indonesian is padded with one-off coinages -- `agapisme`, `adenomiosis`,
+# `keteranalisisan`, `ketersedotan`, `keterkutukan`, `jouska`.  Restricting to
+# derivations of a root the learner ALREADY HAS cuts it to 435 and the quality
+# changes completely: `keandalan` from `andal`, `absurditas` from `absurd`,
+# `keterbacaan` from `terbaca`, `pemidanaan` from `pidana`.  That is also the
+# right thing to teach at the top of a ladder -- the formal register built on
+# vocabulary already in place -- so the filter and the pedagogy agree.  The 435
+# were then read one by one; roughly half are here.
+#
+# WHAT IS DELIBERATELY NOT HERE: the internal terminology of any single
+# discipline, which is a specialist's vocabulary rather than a proficient
+# reader's, and the multi-word technical entries the dictionary is full of
+# (`wisatawan psikosentris`, `metode gaya berat`, `adenosina difosfat`).
+#
+# AND THE PHRASES WERE WRITTEN IN FROM THE START HERE, BECAUSE LEVEL 6 HAD
+# ALREADY PAID FOR THAT LESSON.  `estimate_phrases` finds none at either level --
+# the corpus is subtitles and subtitles do not say `alih aksara` -- so an
+# inventory that lists only single words ships a deck with no multi-word entry
+# in it at all, which is what level 6 did and what `check-ukbi.js` caught.  The
+# first draft of THIS inventory made the same mistake, and the same guard would
+# have caught it again; the phrases below were mined the same way the single
+# words were.  **A prediction written down in CLAUDE.md is only worth having if
+# the next level acts on it**, and the honest record is that this one did not
+# until the file assertion was re-read.
+#
+# The mining also shows why they had to be chosen rather than swept: Wiktionary's
+# Indonesian multi-word section is largely seeded specialist glossaries -- `afasia
+# Broca`, `aktivasi makrofag`, `alopesia androgenetik` -- so a keyword sweep
+# returns a medical dictionary.  These are the general formal-register compounds
+# a proficient reader meets, and `garis besar` was dropped from them for having
+# only the gloss "bigger line".
+
+# ---------------------------------------------- doctrines and movements
+# The -isme family IS the register: a scholarly argument in Indonesian names
+# positions, and this is how it names them.
+L7_ISM = """
+absolutisme absurdisme atomisme determinisme fatalisme
+formalisme fundamentalisme fungsionalisme globalisme humanisme
+imperialisme individualisme internasionalisme kolektivisme
+kolonialisme komersialisme konstitusionalisme liberalisme materialisme
+modernisme nasionalisme parasitisme profesionalisme radikalisme
+rasionalisme realisme regionalisme romantisisme sentralisme
+simbolisme sosialisme spesialisme strukturalisme tradisionalisme
+elektromagnetisme favoritisme federalisme verbalisme dadaisme
+"""
+
+# ------------------------------------------------------- the adherent
+L7_IST = """
+absolutis fatalis fundamentalis humanis imperialis
+kolonialis liberalis materialis rasionalis realis
+minimalis panelis ideolog cendekia budiman
+"""
+
+# --------------------------------------------- measurable qualities, -itas
+L7_ITAS = """
+abnormalitas absurditas adaptabilitas aktualitas ambiguitas
+disabilitas ekstremitas elastisitas fatalitas fleksibilitas
+imunitas legalitas mobilitas modalitas modernitas
+netralitas normalitas personalitas polaritas porositas
+profesionalitas rasionalitas relevansi konsistensi
+spesialitas spontanitas totalitas validitas vitalitas
+"""
+
+# ------------------------------------------------- abstractions, ke-…-an
+L7_KEAN = """
+keandalan keabsahan keaktualan keabnormalan keabsurdan
+keberagaman keberlangsungan kebermaknaan keberterimaan kecermatan
+kekompleksan kekreatifan kemandirian kemanjuran kemodernan
+kemutlakan kepakaran kepopuleran keproduktifan kepustakaan
+keradikalan kesalingan kesanggupan kesejalanan kesejatian
+kesepadanan kesepahaman keseragaman keserasian kesesuaian
+ketajaman keteladanan ketelitian keterbacaan keterdesakan
+keterlihatan ketersediaan ketertutupan ketuntasan keutamaan
+kewajaran kecukupan kepahaman kesudahan keusangan
+kebahasaan kearsipan kekerabatan kemasyarakatan kewartawanan
+"""
+
+# ---------------------------------------------------- processes, peN-…-an
+L7_PEAN = """
+pembakuan pembedaan pembobotan pemidanaan pematuhan
+pemusatan penangkalan pendelegasian penjenjangan penjumlahan
+pembelahan pembubaran pemekaran perikatan perpajakan
+pewarisan perkamusan perulangan perbanyakan peruntukan
+persangkaan pertanggungan pelambatan pembiasan pembuahan
+"""
+
+# ----------------------------------------------- analytic adjectives
+L7_ADJ = """
+alfabetis arkeologis atmosferis birokratis ekologis
+elektronis empatis ideologis magnetis prosais
+sensoris sistemis akrobatis agamais
+atributif deduktif ekspresif formatif induktif
+spekulatif suksesif transitif
+"""
+
+# ------------------------------------- the disciplines and their people
+L7_FIELD = """
+aksiologi ontologi etimologi epidemiologi
+falsafah antologi bibliografi anotasi kolegium
+akademikus budayawan kimiawan statistikawan rekayasawan
+antariksawan wisudawan seminaris juru tulis
+ilmu sosial
+ilmu alam
+ilmu bumi
+studi kasus
+dan sebagainya
+"""
+
+# ------------------------------------------------------------ argument
+L7_ARGUE = """
+denotasi konotasi silogisme paradoksal
+sanggah antitesis polemik argumentatif dogma
+dogmatis hakiki lugas
+"""
+
+# ------------------------------------------------------------ language
+L7_LANG = """
+diksi frasa klausa fonetik fonem
+morfem hipernim sintaksis idiom perbahasaan
+epos alegori antagonis
+alih aksara
+akar kata
+kata majemuk
+kata dasar
+kata serapan
+bahasa daerah
+juru bahasa
+karya sastra
+"""
+
+# ------------------------------------------ law and the formal register
+L7_LAW = """
+abolisi anulasi dispensasi arbitrer fatwa
+hasutan yurisprudensi litigasi legislasi praperadilan
+replik prerogatif selambat-lambatnya
+alat bukti
+hak asasi manusia
+tata negara
+tata usaha
+tata krama
+abdi negara
+administrasi publik
+pihak berwenang
+kekayaan intelektual
+akar rumput
+lembaga swadaya masyarakat
+"""
+
+# ------------------------------------------------------------- economy
+L7_ECON = """
+fiskal deflasi aktuaris jenama pailit
+likuidasi divestasi spekulan
+akuntan publik
+badan usaha
+neraca perdagangan
+angka kematian
+angka kelahiran
+"""
+
+# ------------------------------------------------------------- science
+L7_SCI = """
+hayati anorganik zarah inersia friksi
+katalisis harmonisasi peradangan
+"""
+
+SECTIONS_7 = {
+    'doctrines': L7_ISM, 'the adherent': L7_IST, 'measurable qualities': L7_ITAS,
+    'abstractions': L7_KEAN, 'processes': L7_PEAN, 'analytic adjectives': L7_ADJ,
+    'the disciplines': L7_FIELD, 'argument': L7_ARGUE, 'language': L7_LANG,
+    'law and the formal register': L7_LAW, 'economy': L7_ECON, 'science': L7_SCI,
+}
+
 LEVELS = {'1': SECTIONS_1, '2': SECTIONS_2, '3': SECTIONS_3, '4': SECTIONS_4,
-          '5': SECTIONS_5, '6': SECTIONS_6}
+          '5': SECTIONS_5, '6': SECTIONS_6, '7': SECTIONS_7}
 
 
 def sections():

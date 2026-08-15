@@ -18,10 +18,8 @@ import json, os
 
 LEVEL = os.environ.get('UKBI_LEVEL', '1')
 
-# The seven predicates, bottom-up.  Only level 1 is built today; the rest are
-# here so that the exclusion table below has something to name, and so that
-# nobody has to guess the order later.  The score bands are UKBI's own
-# (ukbi.kemendikdasmen.go.id/front-new/page/predikat).
+# The seven predicates, bottom-up.  All seven are built.  The score bands are
+# UKBI's own (ukbi.kemendikdasmen.go.id/front-new/page/predikat).
 PREDICATES = {
     '1': ('Terbatas',      'VII', '251-325'),
     '2': ('Marginal',      'VI',  '326-404'),
@@ -123,6 +121,19 @@ SCOPE = {
                   'diagrams, the language a test of Indonesian uses to talk about '
                   'Indonesian, letters and their forms, and the historical record',
     },
+    '7': {
+        'rank': 'the highest of the seven',
+        'quote': 'keperluan personal, sosial, keprofesian, dan keilmiahan',
+        'gloss': 'perfectly proficient — the descriptor says outright "memiliki kemahiran yang '
+                 'sempurna" — and it is the only one of the seven to list academic and scholarly '
+                 'purposes among the things a candidate has no difficulty with at all, where the '
+                 'level below still names the complex end of academic work as its own limit',
+        'topics': 'the doctrines and movements a scholarly argument names, the measurable '
+                  'qualities and abstractions a formal Indonesian sentence is built out of, the '
+                  'disciplines and the people who practise them, argument and the language used '
+                  'to talk about language, the administrative and legal register, and the '
+                  'vocabulary of weighing evidence',
+    },
 }
 
 TITLES = {k: f'UKBI {k} {v[0]} — Indonesian' for k, v in PREDICATES.items()}
@@ -149,7 +160,35 @@ BELOW = {k: [str(i) for i in range(1, int(k))] for k in PREDICATES}
 # actually covered -- it is what the sibling A1 decks on this shelf carry (DELE
 # A1, and the Goethe A1 list comes to 785) -- and the deck's own description
 # says outright that the number is chosen here and not by an exam board.
-TARGET = {'1': 500, '2': 750, '3': 1000, '4': 1500, '5': 2000, '6': 2500, '7': 3000}
+# LEVEL 7'S TARGET IS THE ONLY ONE DERIVED FROM THE SOURCES RATHER THAN CHOSEN,
+# and it is SMALLER than the level below it, which needs saying rather than
+# hiding.  The other six are decisions: 500 is the size at which a survival
+# vocabulary is covered, and the rest step up from it.  3,000 was tabled here for
+# Istimewa when level 1 was written, as the next step in the sequence, and the
+# sources cannot supply it -- **both** of them, in different ways.
+#
+# THE CORPUS IS EXHAUSTED.  Levels 1-6 teach 8,250 words; the subtitle frequency
+# list holds 11,364 that the dictionary can gloss, of which the cascade leaves
+# **1,344** free.  Every one of those 1,344 is counted fewer than 50 times
+# (median 26, maximum 39), so within a count band the ranking is alphabetical --
+# `peradangan, prefek, proporsional, provokatif, rampung, salamander` -- which is
+# the level 6 finding taken to its conclusion: the corpus has stopped measuring
+# anything.
+#
+# AND THE DICTIONARY CANNOT REACH THE REGISTER THE DESCRIPTOR NAMES.  English
+# Wiktionary's Indonesian is excellent on everyday words and thin on exactly the
+# scholarly vocabulary Istimewa is about: `metodologi`, `paradigma`,
+# `epistemologi`, `kutipan`, `merujuk`, `mengutamakan`, `normatif` and sixty more
+# are ordinary Indonesian and are simply not in it.  A first hand-written
+# inventory of 352 candidates yielded 61 usable.
+#
+# So the inventory was MINED from the dictionary instead of recalled -- see
+# `SECTIONS_7` -- which found 254 usable, of which 201 are not already in the
+# corpus pool.  1,344 + 201 = 1,545 is the whole of what the two sources support,
+# and 1,500 is that with a small margin.  **This is not a claim that Istimewa
+# needs fewer words than Sangat Unggul; it is the point at which the sources run
+# out, and the deck's own description says so in those words.**
+TARGET = {'1': 500, '2': 750, '3': 1000, '4': 1500, '5': 2000, '6': 2500, '7': 1500}
 
 
 def f(name):
