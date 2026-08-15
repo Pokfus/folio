@@ -575,9 +575,11 @@ body.night .banner{
    banner's meta row beside the three piles). Out here it is on the page's own paper rather than on the
    card, and the row it joins is one small tab high, so it is ONE line rather than the piles' figure over a
    word: the figure in the display face at the caption's own size, the words in the mono caption style the
-   lip opposite it uses. The inset matches the lip's `margin-inline-end`, so the two sit symmetrically at
-   the two ends of the block; the padding is what puts its line on the lip's, which is set by that tab's
-   own 6px/-1px rather than by anything here — measured on the rendered page, not derived. */
+   lip opposite it uses, and the word LEADING it ("studied 13m today", on request) so it reads as a
+   sentence rather than as a labelled statistic. The inset matches the lip's `margin-inline-end`, so the
+   two sit symmetrically at the two ends of the block; the padding is what puts its line on the lip's,
+   which is set by that tab's own 6px/-1px rather than by anything here — measured on the rendered page,
+   not derived. */
 .rv-time{
   display:inline-flex; align-items:baseline; gap:6px; flex:0 1 auto; min-width:0;
   margin-inline-start:20px; padding:7px 0 0;
@@ -4281,7 +4283,7 @@ button.game-tile .gt-glyph{opacity:.14;}
   .grade-wrap{gap:8px;}
   body.grading .stage{padding-bottom:150px;}
   body.grading .wb-tools{bottom:120px;}
-  /* "3h 07m studied today" — the longest this line gets — runs into the "+ Add decks" lip on a 320px
+  /* "studied 3h 07m today" — the longest this line gets — runs into the "+ Add decks" lip on a 320px
      screen, and at Very large text on a 390px one, and ellipsises, which says less than the shorter
      sentence does. Nothing is lost: the block it sits in is called Daily study, so the day is not what
      the line is carrying. Measured at both, in the medium and largest text sizes. */
