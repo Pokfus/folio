@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-033` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-034` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 33 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 34 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10659,6 +10659,48 @@ only the ASCENT, on the 24th of the 12th moon, which he and Doolittle agree on. 
 the sources agree on**; the divergence belongs in the prose or nowhere. (`add-images.js` refused the `<i>`
 in the picture's description again, which `cnh-027` already records and which recurs on every illustrated
 card whose caption names a book.)
+  **`cnh-034` REACHES PAST FOUR REFERENCE WORKS TO THE TEXT THEY ARE ALL REPORTING, AND THAT TEXT WAS
+ALREADY ON THE SHELF** (Aug 2026). Doré's footnotes on the door gods point to his own volume 3, page 261,
+which turns out to be a bare list — Menshen as the fourth of six tutelary household gods invoked in charms,
+beside the ancestral tablets and the god of the stove — one good sentence and no legend at all. What
+carried the card is `cnh-009`'s rule at full strength: the legend is quoted in **Wang Chong's *Lunheng*,
+Alfred Forke's translation of 1907 being open on archive.org**, and Wang Chong is quoting the *Classic of
+Mountains and Seas*, which is `cnh-028` and already a card. The mountain, the peach tree three thousand li
+round, the ghosts' door in its north-eastern boughs, the two spirits, the reeds, the tigers and the Yellow
+Emperor's peach-wood figure are all in one paragraph there, where the four mythographies each carry a
+retelling of it. **Before assembling reference works, ask which ancient text they are all retelling and
+whether a translation of it is free.**
+**TWO SOURCES QUOTE TWO DIFFERENT ANCIENT BOOKS FOR THE SAME LEGEND, AND THE DIVERGENCE IS THE FACT.**
+Forke's *Lunheng* cites the *Shanhaijing* and Mayers cites the *Fengsu tongyi*; the two brothers, the cords
+of reed and the tigers are the same in both, and what happens NEXT is not — the *Lunheng* has the Yellow
+Emperor paint the two spirits on house doors, the *Fengsu tongyi* has officials cut peach-wood figures on
+the year's last night and paint a TIGER on the doorway, and Mayers adds that in his own century what was
+pasted up was often the two NAMES on squares of paper and no picture at all. The card gives the practice as
+three stages rather than picking one, which is `cnh-030`'s rule about several origins applied to a custom.
+**AND THE BIBLIOGRAPHER IS WHAT SAYS HOW MUCH OF THE QUOTED BOOK SURVIVES** — `cnh-028`'s rule paying a
+second time: Wylie's *Notes on Chinese Literature* (p. 131) records that the *Fengsu tongyi* left Ying
+Shao's hand in 30 books and an appendix and has been "sorely mutilated in the course of transmission", the
+present edition standing at 10. That is a fact about the EVIDENCE which no mythography states.
+**A RUNNING HEAD CAN BE MIS-OCR'd INTO A FOUR-DIGIT NUMBER, AND ONLY THE RUN SHOWS IT.** Giles's page 151
+reads "A Chinese Biographical Dictionary 454" in the scan, and the run around it is 149, 150, **454**, 152,
+153. `cnh-023` found the same scanning house turning a leading 3 into an 8 in Mayers's heads; this is that
+rule on another book and another mangling, and it is what decided whether the citation reads 152 or 151–52.
+**Read the RUN, never one header** — and note that Giles's marginal entry numbers arrive as an unalignable
+block of five, so the citation gives the page alone, which is `cnh-018`'s rule.
+**A MOUNTAIN'S NAME WAS DROPPED RATHER THAN ROMANISED.** Werner writes "Mount Tu Shuo", Forke "the Tu So
+Mountain" and Mayers "mount Tu So", and not one of the three prints the characters in a form the OCR keeps.
+The deck's convention is pinyin, and composing one from characters nobody has read would be inventing a
+transliteration — so the card says "a mountain in the eastern sea" and does not name it. **Where the
+sources give two romanisations and the characters cannot be read, the NAME is what goes, not the sentence.**
+**AND A COMPOSED THUMBNAIL WIDTH 400s WHERE THE API'S OWN ANSWER WORKS**, which is `cnh-027`'s rule met on
+a rendering rather than an original: MediaWiki snaps to its own set of widths, so a hand-built `1600px-`
+URL is a 400 on a file for which it generated 1920. Ask with `iiurlwidth` and take the `thumburl` that
+comes back, stripped of its `utm_*` query — and expect `cnh-033`'s congestion 429 on the way, which cleared
+on a retry and handed back bytes identical to the ones that had been looked at. The picture taken shows the
+PRACTICE rather than the gods — a pair of studded doors with an armed figure on each leaf — which beat a
+better-provenanced colour photograph of a temple whose doors were standing open. (The seven citations
+reading "Henri Doré" were restandardised to the "Henry Doré" of the volume's own title page, which the
+other nineteen already used.)
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
