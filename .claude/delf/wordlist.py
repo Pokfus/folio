@@ -136,6 +136,49 @@ REPAIRS_BY_LEVEL = {
     #     be done about those at all: `words_below()` excludes an A1 word by its
     #     exact spelling, so all six ship, one pair to a level.
 },
+'b1': {
+    # The same two defects a third time, and on this page BOTH misspellings have
+    # their correct form on the list as well, so all six rows are merges.
+    'implquer':   ('impliquer',   'a letter dropped, and the list carries impliquer too'),
+    'questioner': ('questionner', 'a letter dropped, and the list carries questionner too'),
+    'études':     ('étude',     'the list carries the singular too'),
+    'médias':     ('média',     'the list carries the singular too'),
+    'sentiments': ('sentiment', 'the list carries the singular too'),
+    'soldes':     ('solde',     'the list carries the singular too'),
+    # A THIRD KIND, AND THE ONE THE OTHER TWO SWEEPS CANNOT SEE: an entry printed
+    # in an INFLECTED FORM whose base word is not on the list at all.  Both come
+    # out as cards -- `l'aspects` with `un aspects` beside it, ungrammatical
+    # twice over on a card whose subject is the article -- and neither sweep
+    # looks for them, the no-record test because the form has a record and the
+    # duplicate test because there is nothing to collide with.
+    #
+    # This is NOT A1's `chaussettes` case, though the Wiktionary records are
+    # identical (a bare `plural of X` and nothing else).  Those stay because the
+    # plural is how the word is met -- `faire ses devoirs`, a pair of socks --
+    # where `un aspect` is ordinary French and an adjective's citation form is
+    # the masculine singular by universal convention.  A list heading an
+    # adjective at its feminine plural has made a mistake, not a choice.
+    # AN INFLECTED FORM PRINTED AS A HEADWORD, which is a different fault from
+    # the four above it and is repaired for a reason A1's `chaussettes` shows
+    # the other side of.  There the list prints the plural ALONE, so the plural
+    # is that syllabus's entry and normalising it would be editing a syllabus;
+    # here the list prints neither `aspect` nor `profond`, so this is not a
+    # choice about scope but a slip that leaves the level without the word.
+    # Both would otherwise head a card `l'aspects` / `un aspects`, ungrammatical
+    # French on a card whose whole subject is which article a word takes.
+    'aspects':    ('aspect',  'the plural of a countable noun whose singular is '
+                              'the citation form; the list has no aspect', 'form'),
+    'profondes':  ('profond', 'the feminine plural of an adjective; the citation '
+                              'form is the masculine singular', 'form'),
+    # AND THE FOUR THAT LOOK LIKE PAIRS AND ARE NOT, read before being left.
+    # `équilibre`/`équilibré` and `limite`/`limité` collide once the accents are
+    # stripped and are the noun and the adjective in each case -- balance against
+    # balanced, limit against limited.  `préparer` and `se préparer` are the bare
+    # verb and the pronominal, which the A2 list settled: different verbs, both
+    # kept, and `examples.py` routes a reflexive sentence to the pronominal card.
+    # Every one of the four plurals above, by contrast, has a single Wiktionary
+    # record reading `plural of X` and nothing else.
+},
 }
 REPAIRS = REPAIRS_BY_LEVEL.get(LEVEL, {})
 
@@ -163,11 +206,19 @@ dropped = []
 for w in raw:
     note = ''
     if w in REPAIRS:
-        to, why = REPAIRS[w]
+        # THE KIND IS DECLARED, NOT DETECTED.  The deck's own description tells
+        # the reader what was wrong with the list, and the two faults do not
+        # read alike: `implquer` is misspelt, where `aspects` is spelt
+        # perfectly and is the wrong FORM of the word.  Structurally they are
+        # hard to tell apart -- the citation form happens to be a prefix of the
+        # plural and not of the typo, which holds for these four and would fail
+        # on the first suppletive one -- and this table is hand-written with
+        # every row read off the page, so the row says which it is.
+        to, why, *kind = REPAIRS[w]
         if to is None:
             dropped.append((w, why))
             continue
-        log.append((w, to, why))
+        log.append((w, to, why, kind[0] if kind else 'spelling'))
         note = why
         w = to
     if w in seen:                      # a repair that merged into an existing row
@@ -195,8 +246,8 @@ for w in raw:
     seen[w] = e
     entries.append(e)
 
-for w, to, why in log:
-    print(f'  repaired  {w!r} -> {to!r}  ({why})')
+for w, to, why, kind in log:
+    print(f'  repaired  {w!r} -> {to!r}  [{kind}]  ({why})')
 for w, why in dropped:
     print(f'  dropped   {w!r}  ({why})')
 merged = [e['word'] for e in entries if e['merged']]
@@ -209,7 +260,8 @@ if merged:
 # same fault the checker had.  Emitted here, where the repairs actually happen,
 # so the prose a reader is shown cannot come apart from what was done.
 json.dump({'raw': len(raw),
-           'fixed': [{'from': a, 'to': b, 'merged': b in raw} for a, b, _ in log],
+           'fixed': [{'from': a, 'to': b, 'merged': b in raw, 'kind': k}
+                     for a, b, _, k in log],
            'dropped': [a for a, _ in dropped]},
           open(lvlf('repairs.json'), 'w'), ensure_ascii=False, indent=1)
 

@@ -281,6 +281,22 @@ FORCE_POS = {
     # `voisine`, which is merged into it (see REPAIRS), so the card has to be the
     # noun or the merge would file a feminine noun under an adjective.
     'voisin': 'noun',
+
+    # ------------------------------------------------------------------ B1
+    # A PAST PARTICIPLE USED AS AN ADJECTIVE, WHERE WIKTIONARY HAS NO ADJECTIVE
+    # RECORD FOR IT.  The B1 list carries twenty of these -- `déçu`, `étonné`,
+    # `stressé`, `réservé`, `motivé`, `isolé`, `concerné` and the rest -- and
+    # nine come out right untouched, because a record whose every gloss is a
+    # form-of pointer already loses to the next and those nine have an adjective
+    # record to lose to.  Eleven have ONLY the participle, so the pointer-follower
+    # walks through to the base verb and the card came out labelled `verb`,
+    # glossed "to balance" and carrying `équilibrer`'s whole paradigm -- which is
+    # a different word from the one the list prints.  Forced to `adj`, which the
+    # dump has no record for, so each meaning is written out below; every one is
+    # the base verb's own gloss put into the participle and nothing more.
+    'reconnu': 'adj', 'lié': 'adj', 'énervé': 'adj', 'guéri': 'adj',
+    'examiné': 'adj', 'soulagé': 'adj', 'amélioré': 'adj', 'estimé': 'adj',
+    'équilibré': 'adj', 'dominé': 'adj', 'découragé': 'adj',
 }
 
 # WHERE WIKTIONARY HAS NO USABLE MEANING, IT IS WRITTEN OUT.  Each of these was
@@ -324,6 +340,10 @@ AUTHORED = {
     # came out "to brush, to whip, to beat, to play truant" -- the last two being
     # a different verb entirely.  What the list means is the everyday one.
     'se brosser': ['to brush (one’s hair, teeth)'],
+    # …AND THE SECOND ONE, FROM B1.  `préparer` likewise carries no reflexive
+    # sense, so `se préparer` came out glossed "to prepare, to prepare for" —
+    # word for word what its own bare verb says, on the card beside it.
+    'se préparer': ['to get ready, to prepare oneself'],
     # A POINTER WRITTEN AS PROSE, which nothing can follow.  Wiktionary's only
     # sense for `weekend` is the string "post-1990 spelling of week-end", with no
     # `alt_of` field on it -- so `pointed_glosses` has nothing to walk and the
@@ -338,6 +358,21 @@ AUTHORED = {
     # the run reports it beside the words that genuinely have no record so the
     # difference between the two is visible rather than assumed.
     'faire du sport': ['to do sport, to exercise'],
+    # THE ELEVEN PARTICIPLES FORCE_POS SENDS HERE, each read off its base verb's
+    # own gloss and put into the participle.  Wiktionary writes one of them out
+    # itself — `past participle of équilibrer (balanced)` — and the other ten are
+    # the same operation on the gloss beside it.
+    'reconnu':   ['recognised, acknowledged'],
+    'lié':       ['linked, connected', 'related'],
+    'énervé':    ['annoyed, irritated', 'worked up'],
+    'guéri':     ['cured, healed', 'better, recovered'],
+    'examiné':   ['examined'],
+    'soulagé':   ['relieved'],
+    'amélioré':  ['improved'],
+    'estimé':    ['estimated', 'esteemed, well regarded'],
+    'équilibré': ['balanced, well-balanced'],
+    'dominé':    ['dominated'],
+    'découragé': ['discouraged, disheartened'],
 }
 
 POS_NAME = {'noun': 'noun', 'verb': 'verb', 'adj': 'adjective', 'adv': 'adverb',

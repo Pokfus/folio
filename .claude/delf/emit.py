@@ -330,12 +330,25 @@ def _and(xs):
     return xs[0] if len(xs) == 1 else ', '.join(xs[:-1]) + ' and ' + xs[-1]
 
 
-_corr = [r for r in REP['fixed'] if not r['merged']]
+# THREE BUCKETS, NOT TWO, and the third is why the row declares its kind.  A
+# repair whose target is already on the list is a DUPLICATE however it is
+# spelt, so `implquer` beside `impliquer` reads as the same word printed twice
+# and belongs there.  What is left splits again: a word spelt wrongly, and a
+# word spelt perfectly in the wrong FORM.  Calling `aspects` a misspelling
+# would be telling the reader something untrue about a list this paragraph
+# exists to be honest about.
+_corr = [r for r in REP['fixed'] if not r['merged'] and r.get('kind') != 'form']
+_form = [r for r in REP['fixed'] if not r['merged'] and r.get('kind') == 'form']
 _dups = [r for r in REP['fixed'] if r['merged']]
 _bits = []
 if _corr:
     _bits.append(f"{len(_corr)} " + ("is" if len(_corr) == 1 else "are") +
                  " misspelt (" + _and(f"{r['from']} for {r['to']}" for r in _corr) + ")")
+if _form:
+    _bits.append(f"{len(_form)} " +
+                 ("is an inflected form standing" if len(_form) == 1 else
+                  "are inflected forms standing") + " in for the word itself (" +
+                 _and(f"{r['from']} for {r['to']}" for r in _form) + ")")
 if _dups:
     _bits.append(f"{len(_dups)} " + ("is" if len(_dups) == 1 else "are") +
                  " the same word printed twice (" +
@@ -349,6 +362,8 @@ if REP['dropped']:
 # clauses or one -- shared across a list it came out as the fragment "The
 # duplicates merged into one card." on the level that has only duplicates
 _did = ([] + (["the misspellings are corrected"] if _corr else [])
+        + ([("the inflected form is" if len(_form) == 1 else "the inflected forms are") +
+            " replaced by the word the level is missing"] if _form else [])
         + ([("the duplicate is" if len(_dups) == 1 else "the duplicates are") +
             " merged into one card"] if _dups else [])
         + ([("the rest is" if len(REP['dropped']) == 1 else "the others are") +

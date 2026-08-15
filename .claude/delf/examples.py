@@ -33,7 +33,7 @@ Tatoeba is a general corpus and carries adult, violent and graphic sentences,
 which a vocabulary deck sat an exam candidate in front of must not deal out; the
 two blocklists below are the German stage's, translated and extended.
 """
-import json, re
+import difflib, json, re, unicodedata
 from collections import defaultdict
 
 from delf_level import f as lvlf
@@ -365,6 +365,15 @@ def reflexive_here(toks, i, form, key, text='', spans=()):
         return False
     for j in range(max(0, i - 3), i):
         c = toks[j]
+        # THE EUPHONIC `-t-` IS NOT THE PRONOUN `t'`.  French wedges a bare t
+        # between a verb and an inverted subject that would otherwise meet two
+        # vowels — `a-t-il`, `va-t-elle`, `parle-t-on` — and it tokenises to the
+        # same `t` that `t'` does.  So `Comment ce gâteau a-t-il été préparé ?`,
+        # a passive with no pronoun in it anywhere, read as the pronominal and
+        # went to `se préparer`'s card.  The two are told apart by what precedes
+        # them: the infix always follows a hyphen and the pronoun an apostrophe.
+        if c == 't' and spans and text[spans[j].start() - 1:spans[j].start()] == '-':
+            continue
         if c in REFL_PN and (not pn or (REFL_PN[c] & pn)):
             return True
     # AND IN AN IMPERATIVE IT FOLLOWS, HYPHENATED: `Lave-toi les mains` is `se
@@ -441,6 +450,51 @@ def score(c, key):
     return s
 
 
+# TATOEBA CARRIES THE SAME SENTENCE SEVERAL TIMES OVER, and an exact-text check
+# does not see it.  The corpus is full of tu/vous pairs, masculine/feminine
+# agreement pairs and punctuation variants contributed as separate sentences, so
+# `la raison` came out illustrated by "Je ne suis pas sûr de la raison." and
+# "Je ne suis pas sûre de la raison." -- both translated "I'm not sure why." --
+# which spends one of the card's three examples saying nothing new.  Measured
+# over all three decks: 174 near-duplicate pairs across about a tenth of the
+# cards.  Found by LOOKING at a card, which no count here could have reported.
+#
+# TWO TESTS, and the pair was chosen by measuring what each rejects rather than
+# by picking a threshold that sounded right.  A SIGNATURE — accents and
+# punctuation gone, every token cut to three letters, the second-person pronouns
+# and determiners folded to one symbol — collapses 74 of the pairs and not one
+# sentence pair that is less than 80% alike, so it costs nothing.  A character
+# ratio catches the rest of the mechanical variants, and 0.90 is where it stops
+# being safe: at 0.86 it begins rejecting "Le film était un peu décevant" beside
+# "Le concert était un peu décevant", and at 0.82 "Elle était en train de faire
+# du thé" beside "Il est en train de boire du thé", which are different
+# sentences that happen to share a frame.  117 of the 174 go; the rest are
+# genuine variety.
+SECOND_PERSON = {'tu', 'vous', 'toi', 'te', 't', 'ton', 'ta', 'tes', 'votre', 'vos'}
+
+
+def _flat(s):
+    return ''.join(c for c in unicodedata.normalize('NFD', s.lower())
+                   if not unicodedata.combining(c))
+
+
+def ex_sig(s):
+    ts = re.sub(r"[^a-z ]+", ' ', _flat(s)).split()
+    return tuple('P' if t in SECOND_PERSON else t[:3] for t in ts)
+
+
+def too_alike(flat, sig, picked):
+    for psig, pflat in picked:
+        if sig == psig:
+            return True
+        # a length guard first: difflib is the expensive half and two sentences
+        # a fifth apart in length cannot reach 0.90 anyway
+        if abs(len(flat) - len(pflat)) * 5 <= max(len(flat), len(pflat)) and \
+           difflib.SequenceMatcher(None, flat, pflat).ratio() >= 0.90:
+            return True
+    return False
+
+
 chosen = {}
 for key, cs in cand.items():
     # THE TIE-BREAK IS WHAT MAKES THE BUILD REPRODUCIBLE.  Two candidates scoring
@@ -449,7 +503,7 @@ for key, cs in cand.items():
     # seed and therefore changes between runs.  The sentence id is unique, so
     # ordering on it as well makes the sort total.
     cs.sort(key=lambda c: (score(c, key), int(c[0])))
-    out, seen_forms, seen_txt = [], set(), set()
+    out, seen_forms, seen_txt, picked = [], set(), set(), []
     for c in cs:
         sid, eid, form, n, hard = c
         t = fra[sid]
@@ -458,18 +512,31 @@ for key, cs in cand.items():
         # three different inflected forms teach more than the same one thrice
         if form.lower() in seen_forms and len(out) < 3 and len(cs) > 6:
             continue
+        flat, sig = _flat(t), ex_sig(t)
+        if too_alike(flat, sig, picked):
+            continue
         seen_forms.add(form.lower())
         seen_txt.add(t)
+        picked.append((sig, flat))
         out.append({'fr': t, 'en': eng[eid], 'form': form})
         if len(out) == 3:
             break
     if len(out) < 3:
         for c in cs:
             sid, eid, form, n, hard = c
-            if fra[sid] in seen_txt:
+            t = fra[sid]
+            if t in seen_txt:
                 continue
-            seen_txt.add(fra[sid])
-            out.append({'fr': fra[sid], 'en': eng[eid], 'form': form})
+            flat, sig = _flat(t), ex_sig(t)
+            # THE FALLBACK APPLIES IT TOO.  Its job is to reach three, and a
+            # third example that repeats the second reaches three without
+            # teaching anything -- two good sentences is the better card, and
+            # the deck's own description counts them honestly.
+            if too_alike(flat, sig, picked):
+                continue
+            seen_txt.add(t)
+            picked.append((sig, flat))
+            out.append({'fr': t, 'en': eng[eid], 'form': form})
             if len(out) == 3:
                 break
     chosen[key] = out
