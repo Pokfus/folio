@@ -79,6 +79,22 @@ function alignZhuyin(pinyin, zh) {
   return zh;
 }
 
+/* THE CHARACTER ON THE CARD MUST HAVE A READING, and for five words in the list it had none (Aug 2026,
+   on a report about 好玩儿). Where the syllabus leaves the erhua unwritten the headword still prints its
+   三 characters, so 好玩儿 came out hǎo wán, 一点儿 yì diǎn, 有点儿 yǒu diǎn, 聊天儿 liáo tiān and 差点儿
+   chà diǎn — a card showing a character whose sound it does not give. The r is written onto the last
+   syllable, which is the modern convention and the deck's own majority form (miàn tiáor, yí huìr, gàn
+   huór); alignZhuyin then leaves the ㄦ alone, so the two lines count the same without being cut down.
+   It fires ONLY where the reading carries no counterpart for the 儿 at all, so a word whose 儿 is a full
+   syllable in its own right — 女儿 nǚ ér, 婴儿 yīng ér, 孤儿 gū ér — is untouched. */
+function writeErhua(word, pinyin) {
+  if (!/儿$/.test(word) || [...word].length < 2) return pinyin;
+  return String(pinyin).split("/").map((alt) => {
+    const a = alt.trim();
+    return /(?:r|ér|er)$/i.test(a) ? a : a + "r";
+  }).join(" / ");
+}
+
 // a cross-reference, a classifier note, a surname, or a pronunciation note is not a translation
 const DROP = /^(CL:|variant of|old variant of|erhua variant of|surname |abbr\. for|see [一-鿿]|also written|used in |also pr\.|Taiwan pr\.)|\(surname\)/i;
 const TOPONYM = /^[A-Z][a-zü]+(?:\s[A-Z][a-zü]+)*\s(County|Province|City|District|Prefecture|Autonomous|Township|Island|Mountain|River)\b/;
@@ -136,6 +152,22 @@ function readingKeys(word, pinyin) {
   });
   return [...outs];
 }
+/* TWO WORDS WHERE THE DICTIONARY'S FIRST ENTRY IS NOT THE READING THE SYLLABUS TEACHES, and the card's
+   own example sentences are what say so (Aug 2026, on a report). 后 came out glossed "queen, empress;
+   behind, after" while all three of its examples are "after" (晚饭后, 几分钟后, 出去后) and every one of
+   the eleven compounds in the deck — 以后, 然后, 最后, 后来, 后面 — is "after / behind"; the empress
+   sense is a different character in traditional (后 against 後) and is already taught by 皇后. And 背 came
+   out bēi "to carry on the back" while its three examples are all the body part (请帮我洗背, 帮我搓一下背,
+   他们的背都有毛病), which is bèi. THE EXAMPLES ARE THE EVIDENCE: they are drawn from a corpus rather than
+   from the same dictionary entry, so where they and the gloss disagree the gloss is what is wrong.
+   Written down here rather than inferred, because no rule can see it — both cards were well formed, the
+   right length and internally consistent, and only reading the sentences under the reading shows it. */
+const AUTHORED = {
+  "后": { pinyin: "hòu", zhuyin: "ㄏㄡˋ", senses: ["(n.) behind, after"] },
+  "背": { pinyin: "bèi / bēi", zhuyin: "ㄅㄟˋ / ㄅㄟ",
+          senses: ["bèi — (n.) back (of the body)", "bēi — (v.) to carry on the back"] },
+};
+
 /* A "VARIANT OF X" ENTRY IS A CROSS-REFERENCE, NOT THE WORD, and complete.json lists it FIRST. The
    traditional form is read off the first matching form, so 岸 came out 㟁, 纸 came out 帋, 时 came out 旹
    and 和 came out 咊 — obscure variants standing where the ordinary traditional character belongs, on 71
@@ -195,7 +227,7 @@ const WRITE = process.argv.slice(2).map(Number).filter((n) => LEVELS.includes(n)
 const WANT = WRITE.length ? WRITE : LEVELS;
 
 const seen = new Set();
-const report = { later: [], noForm: [], noZh: [], multi: [], xref: [], fromCedict: [], ambiguous: [], reading: [], kept: [] };
+const report = { later: [], noForm: [], noZh: [], multi: [], xref: [], fromCedict: [], ambiguous: [], reading: [], kept: [], authored: [] };
 /* complete.json's pinyin field is not always clean: it keeps CC-CEDICT's u: for ü and sometimes a trailing
    neutral-tone digit (méifǎr5), and writes a raised dot before a neutral syllable. None of that may reach
    a card, so a reading taken from it is tidied on the way. */
@@ -245,7 +277,7 @@ LEVELS.forEach((LEVEL) => {
         const x = followXref(fl.length ? fl : forms);
         if (x) { senses = x.senses; report.xref.push("L" + LEVEL + " " + w + " -> " + x.via); }
       }
-      const alts = String(r.pinyin).split("/").map((x) => x.trim()).filter(Boolean);
+      const alts = writeErhua(w, r.pinyin).split("/").map((x) => x.trim()).filter(Boolean);
       const zh = alts.map((alt, i) => {
         const own = i === 0 && fl[0] && fl[0].transcriptions.bopomofo;
         return alignZhuyin(alt, own || toZhuyin(alt));
@@ -273,6 +305,7 @@ LEVELS.forEach((LEVEL) => {
           report.reading.push("L" + LEVEL + " " + w + "  [" + r.pinyin + "] -> " + printed);
         } else report.kept.push("L" + LEVEL + " " + w + " [" + r.pinyin + "]  (" + readings.length + " readings in the dictionary)");
       }
+      printed = writeErhua(w, printed);
       return { row: { ...r, pinyin: printed }, forms: fl, trad: (fl[0] || fall[0] || {}).traditional || w, zhuyin: zh, senses };
     });
 
@@ -292,12 +325,15 @@ LEVELS.forEach((LEVEL) => {
     const classifiers = [];
     picked.forEach((p) => p.forms.forEach((f) => (f.classifiers || []).forEach((c) => { if (!classifiers.includes(c)) classifiers.push(c); })));
 
+    const auth = AUTHORED[w];
+    if (auth) report.authored.push("L" + LEVEL + " " + w + "  [" + picked.map((p) => p.row.pinyin).join(" / ") + "] -> " + auth.pinyin);
     out.push({
       simp: w,
       trad: ts.every((t) => t === ts[0]) ? (ts[0] === w ? "" : ts[0]) : ts.join(" / "),
-      pinyin: picked.map((p) => p.row.pinyin).join(" / "),
-      zhuyin: picked.map((p) => p.zhuyin).join(" / "),
-      senses, cls: classifiers, mw: [],
+      pinyin: auth ? auth.pinyin : picked.map((p) => p.row.pinyin).join(" / "),
+      zhuyin: auth ? auth.zhuyin : picked.map((p) => p.zhuyin).join(" / "),
+      senses: auth ? auth.senses.slice() : senses,
+      cls: classifiers, mw: [],
     });
   });
 
@@ -317,5 +353,6 @@ if (report.ambiguous.length) console.log("  MATCHED SEVERAL READINGS WITHOUT TON
 if (report.noForm.length) console.log("  NO CC-CEDICT FORM AT THE OFFICIAL READING (" + report.noForm.length + "): " + report.noForm.join(", "));
 if (report.reading.length) console.log("  READING TAKEN FROM THE DICTIONARY, THE LIST'S MATCHING NOTHING (" + report.reading.length + "): " + report.reading.join(", "));
 if (report.kept.length) console.log("  LIST'S READING KEPT, THE DICTIONARY BEING OF TWO MINDS (" + report.kept.length + "): " + report.kept.join(", "));
+if (report.authored.length) console.log("  WRITTEN BY HAND, THE DICTIONARY'S FIRST ENTRY NOT BEING THE TAUGHT READING (" + report.authored.length + "): " + report.authored.join(", "));
 if (report.noZh.length) console.log("  NO BOPOMOFO (" + report.noZh.length + "): " + report.noZh.join(", "));
 console.log("  carded at a lower level already (" + report.later.length + "): " + report.later.join(", "));

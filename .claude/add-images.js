@@ -5,7 +5,7 @@
   data.js (card.image) and artefacts.js (artefact.image).  Standalone Node helper, zero deps.  Not
   part of the site.
 
-    node .claude/add-images.js <batch.json> [--dry]
+    node .claude/add-images.js <batch.json> [--dry] [--replace]
 
   <batch.json> is { "glossary":  { "<slug>":   {src,title,desc,credit,alt} },
                     "cards":     { "<cardId>": {src,title,desc,credit,alt} },
@@ -23,8 +23,12 @@
      is the third door into the same store;
    · a missing `title` or `alt` — the frame names the picture and a reader who cannot see it gets
      the alt, and an image with neither is worse than no image;
-   · a card that already carries a picture or a video — ONE FRAME PER CARD is the store's rule
-     (see `retireOtherCardMedia` in app.js), and a batch must not be the thing that breaks it.
+   · a card that already carries a video — ONE FRAME PER CARD is the store's rule (see
+     `retireOtherCardMedia` in app.js), and a batch must not be the thing that breaks it;
+   · a DIFFERENT picture over one a card, term or artefact already carries — that is a
+     replacement rather than an addition, and `--replace` is the deliberate opt-in for it, which
+     prints the file it drops beside the file taking its place.  Re-running the same batch is
+     still a no-op: the refusal is about a different `src`, not about a second run.
 
   IT MUST STAY IN STEP WITH THE TWO GLOSSARY SERIALIZERS.  `add-glossary.js` and `add-sources.js`
   both REBUILD glossary.js from a fixed list of tables, so a table neither of them carries is
@@ -87,7 +91,7 @@ function writeGlossary(images, dry) {
 
 /* data.js is rewritten whole, exactly as add-card.js and update-cards.js write it — one JSON
    object per line for the cards, the tree pretty-printed. */
-function writeCards(cardImages, dry) {
+function writeCards(cardImages, dry, replace) {
   const win = loadWindow(DATA);
   const byId = new Map(win.CARD_DATA.map((c) => [c.id, c]));
   let n = 0;
@@ -97,10 +101,14 @@ function writeCards(cardImages, dry) {
     if (card.video && card.video.src) throw new Error(id + " has a video — one frame per card");
     /* A re-run of the same batch must be a no-op rather than an error — this pipeline is
        resumable, and the usual reason to run it twice is a reworded caption on the SAME file.
-       A different file over an existing picture is still refused: that is a replacement, and a
-       batch is not the place to make one silently. */
+       A different file over an existing picture is refused unless --replace is passed: that is a
+       replacement, and a batch is not the place to make one SILENTLY.  With the flag it is not
+       silent — the file being dropped and the file taking its place are both printed. */
     if (card.image && card.image.src) {
-      if (card.image.src !== img.src) throw new Error(id + " already has a different picture");
+      if (card.image.src !== img.src) {
+        if (!replace) throw new Error(id + " already has a different picture (pass --replace)");
+        console.log("replace " + id + "\n  was: " + card.image.src + "\n  now: " + img.src);
+      }
       if (JSON.stringify(card.image) === JSON.stringify(img)) continue;
     }
     card.image = img;
@@ -117,8 +125,16 @@ function writeCards(cardImages, dry) {
 
 /* artefacts.js is rewritten whole in `serializeArtefacts`'s exact output format — the same one
    add-artefacts.js and add-artefact-sources.js emit, so a hand edit and the next save from
-   Admin → Artefacts cannot drift apart.  An artefact's image is three fields, not five. */
-function writeArtefacts(images, dry) {
+   Admin → Artefacts cannot drift apart.
+
+   IT REWRITES EVERY ARTEFACT, SO ITS EMITTER MUST CARRY EVERY FIELD `serializeArtefacts` CARRIES.
+   An artefact's image was three fields and has been FIVE since Aug 2026 (the plate's picture opens
+   the viewer, and with no title or desc it opened on a blank caption) — and this emitter did not
+   learn the two, so one run to replace one picture silently stripped `title` and `desc` from all 99.
+   Nothing threw; the captions simply went.  That is the trap CLAUDE.md already records against
+   `artefactSanitize` / `serializeArtefacts` / `add-artefacts.js`, met on the fourth writer nobody
+   thought to name.  Both are written only where they exist, so an entry without them is unchanged. */
+function writeArtefacts(images, dry, replace) {
   const file = path.join(ROOT, "artefacts.js");
   const win = loadWindow(file);
   const all = win.ARTEFACTS;
@@ -128,10 +144,15 @@ function writeArtefacts(images, dry) {
     const a = byId.get(id);
     if (!a) throw new Error("no artefact with id " + id);
     if (a.image && a.image.src) {
-      if (a.image.src !== img.src) throw new Error(id + " already has a different picture");
-      continue;
+      if (a.image.src === img.src) continue;
+      if (!replace) throw new Error(id + " already has a different picture (pass --replace)");
+      console.log("replace " + id + "\n  was: " + a.image.src + "\n  now: " + img.src);
     }
-    a.image = { src: img.src, credit: img.credit, alt: img.alt };
+    /* A batch supplies the five card fields; an artefact takes all five where they are given,
+       keeping whatever it already carried for any the batch leaves out. */
+    a.image = Object.assign({}, a.image, { src: img.src, credit: img.credit, alt: img.alt });
+    if (img.title) a.image.title = img.title;
+    if (img.desc) a.image.desc = img.desc;
     n++;
   }
   const s = (v) => JSON.stringify(String(v == null ? "" : v));
@@ -140,7 +161,10 @@ function writeArtefacts(images, dry) {
     let out = "  {\n    id: " + s(a.id) + ",\n    name: " + s(a.name) + ",\n    rarity: " + s(a.rarity) + ",\n";
     if (a.date) out += "    date: " + s(a.date) + ",\n";
     if (a.origin) out += "    origin: " + s(a.origin) + ",\n";
-    if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) + ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
+    if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) +
+      (a.image.title ? ", title: " + s(a.image.title) : "") +
+      (a.image.desc ? ", desc: " + s(a.image.desc) : "") +
+      ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
     out += "    desc: " + s(a.desc) + ",\n";
     if (Array.isArray(a.sources) && a.sources.length) out += "    sources: [\n" + a.sources.map((x) => "      " + s(x) + ",").join("\n") + "\n    ],\n";
     return out + "  },";
@@ -153,7 +177,11 @@ function main() {
   const args = process.argv.slice(2);
   const file = args.find((a) => !a.startsWith("--"));
   const dry = args.includes("--dry");
-  if (!file) { console.error("usage: node .claude/add-images.js <batch.json> [--dry]"); process.exit(1); }
+  /* A picture already installed is never overwritten by accident: a batch naming a DIFFERENT file
+     for a card or an artefact that already has one is refused, and --replace is the deliberate
+     opt-in, which prints what it drops. */
+  const replace = args.includes("--replace");
+  if (!file) { console.error("usage: node .claude/add-images.js <batch.json> [--dry] [--replace]"); process.exit(1); }
   const batch = JSON.parse(fs.readFileSync(file, "utf8"));
 
   const gloss = batch.glossary || {};
@@ -181,8 +209,8 @@ function main() {
 
   const merged = Object.assign({}, win.GLOSSARY_IMAGES || {}, gloss);
   const g = writeGlossary(merged, dry);
-  const c = writeCards(cards, dry);
-  const ar = writeArtefacts(arte, dry);
+  const c = writeCards(cards, dry, replace);
+  const ar = writeArtefacts(arte, dry, replace);
 
   const total = loadWindow(DATA).CARD_DATA;
   console.log(`${dry ? "[dry] " : ""}glossary images: +${Object.keys(gloss).length} (table now ${g} of ${Object.keys(win.GLOSSARY).length} terms)`);

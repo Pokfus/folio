@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.285", released: "2026-08-20T19:35Z" };
+window.FOLIO_VERSION = { v: "1.286", released: "2026-08-20T21:59Z" };
 
 window.CHANGELOG = [
   {
@@ -109,6 +109,11 @@ window.CHANGELOG = [
       "<b>Finishing a study session now takes you back to the home page</b> rather than to the collections.",
       "<b>A deck's options menu ignores a press for a moment after it opens</b>, so the finger that opened it can no longer choose a row by accident.",
       "<b>A deck file may now hold up to 44,000 words and 128 MB</b>, up from 12,000 and 48 MB, so a large course no longer has to be split into parts to be imported.",
+      "<b>Cards and glossary terms have been corrected</b> where a date disagreed with the card's own background, a name went unexplained, or a measurement carried an imperial equivalent it should not have.",
+      "<b>A card's questions now use the article its background does</b>, so a term written as the Mycenaean civilisation is asked for that way as well.",
+      "<b>Six pictures have been replaced</b>, so Troy, Zakros, Latium, the Treasury of Atreus and the Peloponnesian League show the place itself rather than something found there.",
+      "<b>Every question now reads as one self-contained sentence</b> naming what matters most about its answer, checked across all 1,862 of them.",
+      "<b>A card in the Ancient Rome collection has been withdrawn</b>, its answer term being a phrase rather than a thing, and a new one planned in its place.",
     ],
   },
   {

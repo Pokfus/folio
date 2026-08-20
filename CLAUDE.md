@@ -3541,6 +3541,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   [--card=<id>]`. It reads each card's own citations, takes names only from AUTHOR POSITIONS (reviewer before
   "review of"; authors after "by" / "ed."), throws the titles away first so an ancient author named in one never
   counts, and reports both rules with an `EXEMPT` list for cards whose answer term IS modern. Not part of the site.
+- `.claude/check-questions.js` — the card QUESTION house rules, measured over the shipped `data.js`:
+  `node .claude/check-questions.js [--verbose]`, exit 1 on any violation, so it guards a batch the way
+  `check-style.js` does. Four rules — **one sentence**; **understandable on its own** (a question may not
+  OPEN on a pronoun whose only antecedent is the hidden answer, which is three words saying nothing until
+  the reader has read past the blank — the DUMMY `it` of a cleft is exempt and must stay exempt); **20–34
+  words** with the blank counted as one and an imperial conversion in parentheses NOT counted, the same
+  allowance `add-card.js` makes; and **the blank mid-sentence**. **A MAP CARD IS EXEMPT FROM THE LAST TWO
+  BY DESIGN** — its clue is the SHAPE, so its question is deliberately short and deliberately ends on the
+  blank — and is still held to the first two. It deliberately does NOT check that a question names its
+  topic's most important aspect: that is a judgement no checker can make, and it is stated here and read
+  by eye. Not part of the site.
 - `.claude/check-overlay.js` — audits the LIVE cloud content overlay (`content_overrides`) against the shipped
   data files: `node .claude/check-overlay.js`. It reports a card delta whose prose plainly belongs to ANOTHER
   card (the renumbering fault — see the overlay bullet under "Environment"), a delta pointing at an id that no
@@ -4069,9 +4080,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of them opened it with the object's name over a blank caption. They gained `title` and `desc`, and NEITHER
   composes anything — the title is the artefact's own name and the description is the `alt` this corpus
   already wrote plus the attribution `credit` already carries, re-punctuated (see `.claude/fix-image-text.js`).
-  **Three places had to learn the two fields or the next admin keystroke would strip them**: `artefactSanitize`,
-  `serializeArtefacts` and `add-artefacts.js`'s own emitter, the last two writing them only where they exist so
-  an entry without them is byte-identical to what those always wrote.
+  **FOUR places had to learn the two fields or the next write would strip them**: `artefactSanitize`,
+  `serializeArtefacts`, `add-artefacts.js`'s own emitter and — found in Aug 2026, a fortnight after the other
+  three — **`add-images.js`'s**, which is a FOURTH writer of this file and rewrites every artefact in it. One
+  run to replace one picture silently stripped `title` and `desc` from all 99: nothing threw, no count could
+  see it, and the only symptom was a caption bar that had gone blank again. **Ask which writers rewrite a file
+  WHOLE before adding a field to it** — the ones that touch the entry you are editing are not the whole list.
+  All four write the pair only where it exists, so an entry without them is byte-identical to what they
+  always wrote, which is the check to run after touching any of them.
   **THE PLATE ITSELF NO LONGER PRINTS THE CREDIT** (`.ar-wcredit`, deleted Aug 2026 on request): the viewer
   carries it a tap away from the picture it belongs to, where on the plate it was a grey line under five
   sentences it is not about. **The field is still REQUIRED** — `add-artefacts.js` and Admin → Artefacts both
@@ -16669,7 +16685,15 @@ dead code (never rendered).
     Card info's four actions and its re-opening on the state it has just changed, the search, the sort and
     its reversal, a bulk action reaching the selected card, and **both ways in** — the SIGNED-OUT account
     page and a deck's options sheet, asserted separately because they serve different readers and fail
-    differently. **Re-run after touching `schedSetDue` / `schedForget` / `parseSetDue` / `browseTokens` /
+    differently.
+    **ITS TWO DUE-DATE ASSERTIONS COUNTED HOURS WHERE THE SCHEDULER COUNTS DAYS, so they passed every morning
+    and failed every afternoon** (fixed Aug 2026). Anything scheduled in DAYS lands at the START of its day
+    (`schedDayDue` / `cfg.dayAnchor`), so `Math.round((due - Date.now()) / 864e5)` is a day short of the figure
+    the reader asked for from midday onwards — "9! puts the card nine days out" reported 8 at 21:51 UTC with
+    nothing whatever wrong. Both now round the difference between the two DAY STARTS, which is what "nine days
+    out" means and is what the reader sees. **A test that reads a clock has to read it the way the code does**;
+    a failure that depends on the hour reads as an intermittent bug and is the most expensive kind to chase.
+    **Re-run after touching `schedSetDue` / `schedForget` / `parseSetDue` / `browseTokens` /
     `browseTerm` / `browsePredicate` / `browseRowData` / `BROWSE_COLS` / `PAGES.browse` / `openFlagSheet` /
     `openSetDueSheet` / `openForgetSheet` / `openCardInfo` / `cardFlag` / `setCardFlag` / `S.flags`, or the
     account page's and the deck sheet's entries.**

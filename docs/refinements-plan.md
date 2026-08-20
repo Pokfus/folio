@@ -213,3 +213,41 @@ written and its version is bumped** — the three go in one commit, per the rule
   which is the right outcome for Sahul and Beringia, whose whole point is their EXTENT.
   **`ready()` had to become `!!(target || dot)`** — a locator resolves a dot and no target, so the test
   hook reported every one of them as a window that never loaded.
+
+- **H — Content corrections.** Shipped. `check-style.js` clean over all four files, the new
+  `.claude/check-questions.js` reporting 1,862 questions across 624 cards with every rule passing,
+  `test-date-line.js` 13/0, `test-card-plans.js` 151/0, `test-difficulty.js` 69/0, `test-discovery.js`
+  22/0, `test-artefacts.js` 77/0, `test-sources.js` 81/0, `test-i18n-lang.js` 21/0, `test-a11y.js` 9/0,
+  `test-cards.js` 114/0, `source-audit.js` and `gloss-source-audit.js` at the bar (1,124/1,124),
+  `gloss-length.js` 0 outside it. Sixteen items, mostly one card each; four things are worth carrying.
+  **A FILE REWRITTEN WHOLE HAS AS MANY WRITERS AS IT HAS WRITERS, AND `artefacts.js` HAS FOUR.** The
+  entry in CLAUDE.md said three — `artefactSanitize`, `serializeArtefacts`, `add-artefacts.js` — and
+  `.claude/add-images.js` rewrites it too, with an emitter written when an artefact's image was three
+  fields and never taught the two it gained in Aug 2026. **One run to replace one picture silently
+  stripped `title` and `desc` from all 99**: nothing threw, no count could see it, every `src` was
+  untouched, and the only symptom was a viewer caption bar that had gone blank again. Reverted, the
+  emitter taught both fields, and proved byte-inert by running it over an empty batch. **Ask which
+  writers rewrite a file WHOLE before adding a field to it** — the ones that touch the entry you are
+  editing are not the whole list.
+  **A TEST THAT READS A CLOCK HAS TO READ IT THE WAY THE CODE DOES.** `test-cards.js`'s two Set-due-date
+  assertions divided `due - now` by a day, where the scheduler lands a day-measured due date at the START
+  of its day (`schedDayDue` / `cfg.dayAnchor`) — so "nine days out" measured 8 from midday onwards and 9
+  before it. **The suite passed every morning and failed every afternoon, in the same session, with
+  nothing wrong**; it was confirmed pre-existing at HEAD by stashing before anything was touched. Both
+  now count day boundaries. A failure that depends on the hour reads as an intermittent bug and is the
+  most expensive kind to chase.
+  **THE TWO DATE LINES `test-date-line.js` HAD BEEN REPORTING WERE THE CENTURY RULE, TWICE.** `wh-177`
+  stated only centuries and `wh-178` only a millennium, so neither yielded a sort year at all and both
+  fell to 0 — "timeless", which on a BCE deck sorts after everything. Each was rewritten as the span its
+  unit MEANS, off the card's own sourced prose rather than a precision invented to satisfy the parser.
+  **AND A QUESTION IS NOW CHECKED AS PROSE, NOT ONLY AS A SHAPE.** The article audit had corrected every
+  background and left the questions alone, so a term written as *the Mycenaean civilisation* was asked
+  for without one; `.claude/check-questions.js` reads all 1,862 and holds each to the three rules asked
+  for — one sentence, self-contained, naming the answer's most important aspect.
+  **Two limits are stated rather than papered over.** The dotted-`ī` report is **not reproduced**: the
+  deck's data is precomposed U+012B with no combining diacritic anywhere, all three runs that carry one
+  already declare `PINYIN_FONT`, and EB Garamond, Newsreader, Cormorant Garamond and the generic serif
+  each render it dotless in this Chromium — it needs a screenshot from the reporting device before
+  anything is changed. And the Mandarin deck's byte-for-byte rebuild check **cannot be run here**: all
+  four builders' inputs are gitignored caches that this environment does not hold, so the deck's edits
+  were verified by reading the shipped file rather than by reproducing it.
