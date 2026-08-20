@@ -35,6 +35,8 @@ re-run of the same tests covers it.
 | K | Large passes | the Atlas info-box rewrite (plan + batch 1); the book text corrections (plan + batch 1) |
 | L | Late corrections | undo stepping back to the previous card's QUESTION; the War of Ages tab renamed Project W; an unlocked theme naming the day it was unlocked |
 | M | Language decks | the language decks listed on the Collections page in a Languages section of their own |
+| N | Late corrections | the Dressel 20 picture and the artefacts' context-free descriptions; the Clean Sweep badge's wording; the Editor/Visitor chip and the Project W tab out of the menu bar |
+| O | Language collections | the language decks presented as official curated collections, one collection per language inside a single Languages section |
 
 **Five items arrived after the batches were drawn** (Aug 2026, with the request to proceed). Three are
 small and sit together in a new batch L; one refines an item batch J already carried, and is done there
@@ -52,6 +54,19 @@ rather than twice; one is a feature of its own and gets batch M.
   which is the same code the rating is built out of.
 - *the language decks on the Collections page* → **M**, its own batch: it is a catalogue, an eager
   registry and a fetch-and-import path, which is more than the two authoring items beside it.
+
+**Four more arrived with the next request** (Aug 2026). Three are corrections and sit together in
+**N**; the fourth reverses what M shipped and gets **O** of its own.
+
+- *the Dressel 20 amphora's picture, and artefact descriptions that assume no context* → **N**.
+- *the Clean Sweep badge's wording* → **N**. The badge already required a PERFECT score in every
+  game; only its description said "win", so this is the wording catching up with the rule.
+- *the Editor/Visitor chip and the Project W tab out of the menu bar* → **N**. The TABS only: the
+  route, `PAGES.warofages`, its `PAGE_META` row and `ADMIN_ROUTES` all stay, because the request
+  says "in the menu bar" and "for now", and the page is admin-gated so nothing reader-facing is
+  left. Putting the tab back is one markup block.
+- *the language decks as official curated collections* → **O**, and it must land BEFORE batch I,
+  whose collection-icon work would otherwise be built on a presentation about to change.
 
 ## Rules that hold across every batch
 
@@ -302,3 +317,70 @@ written and its version is bumped** — the three go in one commit, per the rule
   the shipped catalogue must **reproduce byte for byte** from the shelf, which is the only thing that can
   see a stale one. A count of CARDS rather than notes is what makes the two deck shapes comparable, since a
   word may be one note with two templates (HSK, CILS, DELF) or two notes (DELE).
+
+- **N — Late corrections.** Shipped with Batch O in one commit at v1.288. `test-artefacts.js` 77/0,
+  `check-style.js` clean on all four files, `test-layout.js` 321/0. Four things are worth carrying,
+  and a fifth about the SUITE: the reader simulation had to change with the code. It faked a reader by
+  writing `settings.adminMode = false`, which the new back-fill clears on load — so the "reader" was an
+  editor and two assertions failed. With the chip gone that flag no longer MAKES a reader, it makes a
+  stranded editor; the honest way to be one on a dev origin is a legacy local account whose role is not
+  admin, which `adminEligible()` tests before it ever reaches the guest-on-dev-origin branch.
+  **A PICTURE OF A FRAGMENT IS NOT A PICTURE OF THE THING.** The Dressel 20 plate carried a sherd — a
+  real Dressel 20, correctly credited, and useless on a card whose whole point is the shape of the
+  vessel. What replaced it was chosen on the SILHOUETTE the description names (a globular body with two
+  short thick open-loop handles), not on resolution: the best-resolution rival was pear-shaped with its
+  handles buried in concretion. **Its record contradicted its own file name** — the name says Florence
+  and the description and categories say Monsummano Terme — which is `cnh-019`'s rule (a file NAME is an
+  uploader's identification), so the `desc` was written from the record and the name's century was left
+  out of it, the plate already printing the artefact's own date. Both URLs verified 200.
+  **AND "THE EMPIRE" WAS SWEPT FOR RATHER THAN FIXED WHERE IT WAS REPORTED.** All 100 descriptions were
+  grepped for a bare definite reference (`the|its|his|their` + `empire|emperor|republic|kingdom|dynasty|
+  war|…`); 23 matched and every one was read. Only TWO were genuinely bare (`dressel-20`,
+  `portland-vase`) — the rest name their entity in the same sentence or in the `origin` field the plate
+  prints directly under the name, which is a fact about the FORMAT rather than about those descriptions
+  and is why a rule about context-free prose does not mean every noun must be re-qualified.
+  **THE BADGE ALREADY ASKED FOR WHAT THE REQUEST ASKS FOR.** `allGamesWonToday` tests `g[k].won`, which
+  `gameWonToday` documents as a perfect run; only the badge's `desc` and the sweep toast said "win".
+  So this is the WORDING catching up with the rule, and no scoring changed — worth checking before
+  changing a rule that a description misstates.
+  **AND REMOVING THE CHIP WOULD HAVE STRANDED AN ADMIN IN VISITOR VIEW.** The Editor / Visitor chip was
+  the only thing that ever wrote `S.settings.adminMode = false`, so a stored `false` after its removal is
+  an editor with no control left to return with. A back-fill clears it on load, beside the other
+  `S.settings` back-fills; a first-time visitor is not admin-eligible at all and is unaffected.
+  `setMode` had no callers left and is DELETED rather than left unreachable. The route, `PAGES.warofages`,
+  its `PAGE_META` row and `ADMIN_ROUTES` are untouched — the request is about the menu bar — so
+  `test-layout.js`'s cold-load `#warofages` guard still has a route to resolve.
+
+- **O — Language collections.** Shipped in the SAME commit as Batch N at v1.288, on Batches L+M's
+  precedent: both land in one release, both touch app.js, and splitting a single file's diff would have
+  been fiddly for no gain. `test-lang-decks.js` 35/0 (rewritten for the new shape, 22 assertions → 35),
+  `test-artefacts.js` 77/0, `check-style.js` clean, `test-layout.js` 321/0. Five things are worth carrying.
+  **A LANGUAGE IS A COLLECTION AND CANNOT BE A TREE NODE, and the catalogue is what makes both true at
+  once.** The request is that these be "official curated collections, with the same type of banners … as
+  the history collections", and a `COLLECTION_TREE` node's cards live in `data.js`, which every visitor
+  downloads before flipping a card — these decks are 119 MB. So the BANNER is the curated one, built from
+  the same `.collection-row`, `.collection-deco`, `coll-ic`, title row and `deckProgMarkup` and folded
+  through `wireExpander`, while the CARDS stay in `decks/` and the section is drawn from `lang-decks.js`.
+  Nothing new was invented for the look: the whole of the CSS this needed is five rules, every one a
+  difference rather than a restatement.
+  **THE HUES WERE MEASURED, NOT PICKED, AND THE ASSIGNMENT IS DELIBERATELY NOT EVOCATIVE.** Seven swept in
+  CIELAB over the shelf's own band (L 25–52, chroma 26–58) and taken greedily; the worst clears 26.4 from
+  every hue already placed, against a tightest EXISTING pair of 12.9. Three sweeps were run before one was
+  kept — a 26–50 band produced two dull olives too near Geography's `#3E6610`, a 28–64 band a hot pink and
+  an over-saturated blue. They are handed out in the order the section lists the languages, because a flag
+  colour would be a claim: these are decks for a LANGUAGE, and Spanish is not Spain's.
+  **THE SEVEN SHARE ONE ICON, which is the one place they cannot match the history shelf.** Every curated
+  icon says what its collection is ABOUT, and a language cannot be drawn: a letter needs a font where these
+  are bare paths, and a flag or a landmark would be the same claim the hues refuse. `COLLECTION_ICON._lang`
+  is a speech bubble and the seven are told apart by title, hue and section.
+  **THE BANNER CARRIES NO `+`, WHICH IS A CONTROL THE TEST ASSERTS THE ABSENCE OF.** A curated
+  collection's + adds its whole subtree to the daily review, and there is no study scope for "several
+  community decks" — nor should pressing one silently download 21 MB of Mandarin. A + that appeared here
+  would look like a working control and would be one of those two things. **The deck rows are the curated
+  `.node` and are equally deliberately NOT pressable**, for the same reason at a smaller scale.
+  **AND THE BAR IS HONEST ABOUT CARDS THAT ARE NOT ON THE DEVICE.** Its total is the catalogue's count and
+  its studied figure is summed over the decks actually installed, so an untouched language reads 0 of
+  23,666 rather than 0 of 0. That figure is what sent `deckProgMarkup` to `toLocaleString`: the deck rows
+  under it have always grouped their thousands, and one screen reading 15296 above 1,178 reads as a
+  mistake. **Inert on every curated collection**, none of which passes 999 — and `test-artefacts.js`'s
+  regex was WIDENED to allow a separator rather than dropped.

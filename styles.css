@@ -283,23 +283,6 @@ body[data-theme="folio"] .topbar::after{
 .tab.active .ink{transform:scaleX(1); opacity:1;}
 .tab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 
-/* admin / first-time-visitor mode toggle in the top bar */
-.mode-switch{
-  position:relative; flex:none; display:inline-flex; align-items:center; gap:7px;
-  margin-right:4px; padding:7px 12px; border-radius:99px; cursor:pointer; appearance:none;
-  border:1px solid var(--rule); background:var(--paper-2);
-  font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.16em; text-transform:uppercase;
-  font-weight:600; color:var(--ink-soft);
-  transition:color .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
-}
-.mode-switch .ms-dot{width:7px; height:7px; border-radius:50%; flex:none; background:var(--ink-faint); transition:background .18s var(--ease);}
-.mode-switch:hover{border-color:color-mix(in srgb, var(--ink) 18%, var(--rule));}
-.mode-switch:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
-.mode-switch.on{color:var(--indigo); background:var(--indigo-wash); border-color:color-mix(in srgb, var(--indigo) 38%, var(--rule));}
-.mode-switch.on .ms-dot{background:var(--indigo);}
-.mode-switch:not(.on){color:var(--ochre);}
-.mode-switch:not(.on) .ms-dot{background:var(--ochre);}
-
 /* in first-time-visitor preview, the Admin entry point disappears */
 body.visitor-mode .tab-admin{display:none;}
 
@@ -4099,16 +4082,25 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
 .group-chev{width:15px; height:15px; flex:none; color:var(--ink-faint); transition:transform .2s var(--ease);}
 .collection-group-soon[open] > summary .group-chev{transform:rotate(180deg);}
 @media (prefers-reduced-motion:reduce){ .group-chev{transition:none;} }
-/* The Languages section's per-language folds. They REUSE .collection-group-soon for the fold itself —
-   the chevron, the head, the hover and the focus ring — so they cannot drift from the Coming-soon group
-   they are copied from; the only thing overridden is the spacing, since these sit INSIDE a section
-   rather than being one, and 32px between each of seven of them is a section of gaps. */
-.lang-fold{margin-top:10px;}
-.lang-fold > summary .group-label{font-size:calc(12px * var(--fs));}
-.lang-fold .collection-list{margin-top:6px;}
+/* The Languages section (Aug 2026, on request — "presented as official curated collections, with the
+   same type of banners … as the history collections"). It was seven <details> folds of deck rows and is
+   now seven .collection banners, so it INHERITS almost everything: .collection, .collection-row,
+   .collection-deco, .coll-ic, .collection-title-row and .deck-prog all style it exactly as they style
+   Ancient Greece, and every theme's banner treatment follows the --coll-bg set inline on the row. What
+   is left here is only what differs, and each line is a difference rather than a restatement. */
 .lang-deck .lang-size{color:var(--ink-faint); font-size:calc(11px * var(--fs));}
-.lang-deck .collection-actions{align-items:center;}
+/* The deck rows are the curated .node, whose right-hand cell is sized for a chevron; an Add button is
+   wider and must not be squeezed into it. */
+.lang-deck .collection-actions{align-items:center; flex:none;}
 .lang-add{flex:none; white-space:nowrap;}
+/* A deck row carries two quiet lines under its title where a curated one carries none, so its own
+   bottom padding is what keeps the box from reading as cramped; .udeck-sub's trailing margin does the
+   rest. The progress bar only appears on an installed deck, so the row has two heights by design. */
+.node.lang-deck{align-items:flex-start; padding-block:10px;}
+.node.lang-deck .node-main{min-width:0;}
+/* The deck count beside a language's title is a FACT ABOUT THE COLLECTION rather than a date, so it
+   borrows .collection-span's quiet setting and nothing else. */
+.lang-coll .collection-title-row .collection-span{font-variant-numeric:tabular-nums;}
 
 /* card count on a live collection — the one number that says "there is something here" */
 .collection-count{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
@@ -5544,7 +5536,6 @@ body[data-theme="arcade"] .brand .mark{ font-family:var(--px); font-weight:400; 
 body[data-theme="arcade"] .brand .tag{ font-family:"VT323",var(--mono); font-size:calc(13px * var(--fs)); letter-spacing:.2em; }
 body[data-theme="arcade"] .tab{ font-family:var(--px); font-size:calc(9px * var(--fs)); font-weight:400; letter-spacing:.04em; line-height:1.5; padding:12px 11px; }
 body[data-theme="arcade"] .tab .ink{ height:3px; bottom:3px; }
-body[data-theme="arcade"] .mode-switch{ border:2px solid var(--ink); }
 /* page head = level title card */
 body[data-theme="arcade"] .page-head h1{ font-family:var(--px); font-weight:400; font-size:calc(clamp(16px,2.8vw,21px) * var(--fs)); letter-spacing:.02em; line-height:1.55; text-transform:uppercase; }
 body[data-theme="arcade"] .eyebrow{ font-family:"VT323",var(--mono); font-size:calc(15px * var(--fs)); font-weight:400; letter-spacing:.18em; }
@@ -5629,7 +5620,6 @@ body[data-theme="academy"] .brand .tag{ font-family:var(--serif); font-style:ita
 body[data-theme="academy"] .tab{ font-family:var(--display); font-variant:small-caps; letter-spacing:.12em; font-size:calc(14px * var(--fs)); font-weight:600; border-radius:0; }
 body[data-theme="academy"] .tab .ink{ background:var(--zh); height:2px; border-radius:0; }
 body[data-theme="academy"] .tab.active{ color:var(--indigo); }
-body[data-theme="academy"] .mode-switch{ border-radius:2px; }
 
 /* page head: centred, double-rule, fleuron ornament */
 body[data-theme="academy"] .page-head{ text-align:center; }
@@ -5748,7 +5738,6 @@ body[data-theme="marble"] .brand .mark{ letter-spacing:.2em; }
 body[data-theme="marble"] .brand .tag{ font-family:var(--serif); font-style:italic; }
 body[data-theme="marble"] .tab{ font-family:var(--display); text-transform:uppercase; letter-spacing:.12em; font-size:calc(11.5px * var(--fs)); font-weight:600; border-radius:0; }
 body[data-theme="marble"] .tab .ink{ background:var(--indigo); }
-body[data-theme="marble"] .mode-switch{ border-radius:0; }
 /* page head: incised title, double-rule + fleuron ornament */
 body[data-theme="marble"] .page-head h1{ font-weight:700; letter-spacing:.14em; }
 body[data-theme="marble"] .eyebrow{ color:var(--indigo); letter-spacing:.24em; }
@@ -5879,7 +5868,7 @@ body[data-theme="gazette"] .faq-q, body[data-theme="gazette"] .chev, body[data-t
 body[data-theme="gazette"] .xp-fill, body[data-theme="gazette"] .prog, body[data-theme="gazette"] .prog .fill,
 body[data-theme="gazette"] .active-deck, body[data-theme="gazette"] .node, body[data-theme="gazette"] .pill,
 body[data-theme="gazette"] .daily-quote, body[data-theme="gazette"] .theme-opt,
-body[data-theme="gazette"] .mode-switch, body[data-theme="gazette"] .lang-opt{ border-radius:0; }
+body[data-theme="gazette"] .lang-opt{ border-radius:0; }
 
 /* ink frames + hard offsets */
 body[data-theme="gazette"] .banner{ border-color:var(--ink); box-shadow:var(--shadow-md); }

@@ -1418,6 +1418,11 @@
      someone who had already decided — so an older settings object (which cannot carry the key) is pinned
      to manual, and defaultState()'s `true` reaches first-time visitors alone. */
   if (S.settings && S.settings.themeAuto === undefined) S.settings.themeAuto = false;
+  /* The Editor / Visitor chip is gone from the menu bar (Aug 2026, on request) and was the only thing
+     that ever wrote this false. A stored `false` is therefore an admin stranded in the visitor view
+     with no way back, so it is cleared on load; a first-time visitor is not admin-eligible at all and
+     is unaffected. */
+  if (S.settings && S.settings.adminMode === false) S.settings.adminMode = true;
   if (S.settings && S.settings.units === undefined) S.settings.units = "metric";
   if (S.settings && S.settings.dayEnd === undefined) S.settings.dayEnd = 0;          // midnight — see dayKey
   if (S.settings && S.settings.animations === undefined) S.settings.animations = true;
@@ -13062,30 +13067,17 @@
   function applyMode() {
     const admin = isAdmin();
     document.body.classList.toggle("visitor-mode", !admin);
-    // Edit page is admin-only. querySelectorAll, not querySelector: the entry point exists twice —
-    // in the top bar and in the phone's bottom tab bar — and hiding only the first leaves the other live.
+    // The Admin page is admin-only. querySelectorAll, not querySelector: the entry point has existed in
+    // more than one bar before (the phone's bottom bar carried Project W until Aug 2026), and hiding only
+    // the first would leave any other live — a defensive sweep costs nothing and a stale count does not.
     document.querySelectorAll(".tab-admin").forEach((el) => { el.style.display = admin ? "" : "none"; });
-    const sw = document.getElementById("mode-switch");
-    if (sw) {
-      // the "Editor / Visitor" preview toggle shows only for accounts/devices that can hold the editor at all
-      sw.style.display = adminEligible() ? "" : "none";
-      sw.classList.toggle("on", admin);
-      sw.setAttribute("aria-checked", admin ? "true" : "false");
-      sw.title = admin
-        ? "Editor view — click to preview as a first-time visitor"
-        : "First-time visitor view — click to return to editing";
-      const lbl = document.getElementById("mode-label");
-      if (lbl) lbl.textContent = admin ? "Editor" : "Visitor";
-    }
-  }
-  function setMode(admin) {
-    S.settings.adminMode = !!admin;
-    save();
-    applyMode();
-    // Leaving the admin page if we just dropped admin rights; otherwise re-render so
-    // the library's editing affordances appear/disappear.
-    if (!isAdmin() && current.name === "admin") route("home");
-    else render();
+    /* THE EDITOR / VISITOR CHIP WAS REMOVED FROM THE MENU BAR (Aug 2026, on request), and `setMode` was
+       its only caller — so `S.settings.adminMode` can no longer be set to false by anything, and the
+       back-fill beside `themeAuto` clears a stored `false` on load. Without that back-fill an admin who
+       happened to be previewing as a visitor when this shipped would be held in the visitor view for
+       ever with no control left on the page to escape it, which is the one way removing a control can
+       genuinely strand somebody. `isAdmin()` still READS the flag, so putting the chip back is one
+       markup block and one listener. */
   }
 
   /* ---------- toast ---------- */
@@ -16749,6 +16741,15 @@
        right in (2.3 from the centre against the outer points' 8.6), which is what keeps four sharp
        spikes rather than a diamond at the 28px a deck row draws it. */
     geography: '<circle cx="12" cy="12" r="8.6"/><path d="M12 3.4 13.6 10.4 20.6 12 13.6 13.6 12 20.6 10.4 13.6 3.4 12 10.4 10.4Z"/>',
+    /* speech bubble — ALL SEVEN language collections share it, which is the one place on this shelf two
+       collections wear one mark, and it is a decision rather than an omission. Every icon above says what
+       its collection is ABOUT, and what a language collection is about is the language, which cannot be
+       drawn: a letter needs a font (these are bare paths), and a flag or a landmark would say something
+       about a NATION where the deck is for a language several nations speak. What the mark says instead
+       is "this is a language collection", which is true and useful — and the seven are told apart by
+       their titles and by seven measured hues, in a section of their own, where the history shelf's icons
+       are the only thing distinguishing subjects on one long list. */
+    _lang: '<path d="M3.5 6.5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4.5 4v-4h-.5a2 2 0 0 1-2-2z"/><path d="M7.5 8.5h9"/><path d="M7.5 11.5h5.5"/>',
     // fallback — a stack of cards
     _: '<path d="M12 4.5 4 8.5l8 4 8-4z"/><path d="M4 12.5l8 4 8-4"/><path d="M4 16.5l8 4 8-4"/>',
   };
@@ -16762,7 +16763,10 @@
   function deckProgMarkup(studied, total) {
     const pct = total > 0 ? Math.min(100, (studied / total) * 100) : 0;
     return '<div class="xp deck-prog" data-pct="' + pct.toFixed(2) + '">' +
-      '<div class="xp-head"><span class="xp-lvl">Studied</span><span class="xp-count">' + studied + ' / ' + total + ' cards</span></div>' +
+      /* Grouped, since a language collection reaches five figures (23,666 for Mandarin) and the deck rows
+         directly under it have always grouped theirs — one screen saying 15296 above 1,178 reads as a
+         mistake. Inert on every curated collection, none of which passes 999. */
+      '<div class="xp-head"><span class="xp-lvl">Studied</span><span class="xp-count">' + studied.toLocaleString() + ' / ' + total.toLocaleString() + ' cards</span></div>' +
       '<div class="xp-track"><div class="xp-fill"></div></div></div>';
   }
   /* The XP bar toward the next Folio level. ONE caller now — the home Daily-study banner — since
@@ -16990,7 +16994,7 @@
     if (S.sweepChest === todayStr() || !allGamesWonToday(S)) return;
     S.sweepChest = todayStr();
     grantChest();
-    toast("🎯 Every game won today — a chest is waiting in your account.");
+    toast("🎯 A perfect score in every game today — a chest is waiting in your account.");
   }
 
   /* Draw one artefact. Returns null when there is nothing left to find, which the overlay says out loud
@@ -19448,7 +19452,7 @@
             list of collections — the label contradicted both that and the page title above it. */""}
       ${available.length || admin ? section("Collections", available.length, "collection-list-all", available.length) : ""}
       ${comingSoon.length || admin ? soonSection(comingSoon.length, "collection-list-soon", comingSoon.length) : ""}
-      ${langDecksHTML()}
+      ${langCollectionsHTML()}
       ${communityLibraryHTML()}
       ${sharedDecksHTML()}`;
 
@@ -19899,6 +19903,23 @@
        the most saturated thing on the page. The kinship worth avoiding was Egypt's malachite, the only
        other green, and it stands 46 away. */
     geography: { bg: "#3E6610" },
+    /* THE SEVEN LANGUAGE COLLECTIONS (Aug 2026, on request). Measured exactly as the eleven above are —
+       swept in CIELAB over the shelf's own band (L 25–52, chroma 26–58) and taken greedily, each as far
+       as possible from every hue already placed and from every one taken before it. **The worst of the
+       seven clears 26.4, against a tightest EXISTING pair of 12.9**, so a language cannot be mistaken for
+       a history collection and the seven cannot be mistaken for each other.
+
+       THE ASSIGNMENT IS ALPHABETICAL AND DELIBERATELY NOT EVOCATIVE. The obvious move is a flag colour,
+       and it would be a claim: these are decks for a LANGUAGE, and Spanish is not Spain's, Portuguese is
+       not Portugal's and French is spoken on five continents. So the measured hues are handed out in the
+       order the section lists the languages, which asserts nothing about any of them. */
+    "lang-french":     { bg: "#107CD0" },
+    "lang-german":     { bg: "#AC6464" },
+    "lang-indonesian": { bg: "#108E52" },
+    "lang-italian":    { bg: "#642E16" },
+    "lang-mandarin-chinese": { bg: "#887C10" },
+    "lang-portuguese": { bg: "#B252A6" },
+    "lang-spanish":    { bg: "#946A8E" },
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
@@ -22851,77 +22872,125 @@
   }
   /* ---------- the Languages section (Aug 2026, on request) ----------
      "Ensure that all our language collections are visible on the Collections page in their own Languages
-     section." The vocabulary decks in `decks/` — 38 files, 119 MB, built by the generators under
-     `.claude/dele/`, `.claude/delf/`, `.claude/caple/`, `.claude/goethe/`, `.claude/ukbi/` and their
-     siblings — were files a reader had to be handed. Nothing on the site linked to one. Four things here
+     section", and then: "Ensure the language collections are presented as official curated collections,
+     with the same type of banners on the Collections page as the history collections \u2026 there should be
+     one section titled Languages; it should contain one collection for each language; each collection
+     should have all decks for that language inside it."
+
+     So a language is a COLLECTION here, drawn with the same banner, hue, icon, title row and studied/total
+     bar as Ancient Greece, and its decks are the curated tree's own `.node` rows inside it. Five things
      are decisions rather than plumbing.
 
-     IT IS DRAWN FROM A CATALOGUE, NEVER FROM THE DECKS. `lang-decks.js` carries a title, a subtitle, a
-     card count and a size per deck — 9 KB in all, generated by `.claude/build-lang-decks.js` so every
-     figure is read off the deck file it describes — and the deck itself is fetched only when somebody
-     presses Add. Listing 38 decks by fetching them would cost a reader the whole shelf to draw a list.
+     IT IS DRAWN FROM A CATALOGUE, NEVER FROM THE DECKS, and that is why it cannot be a real
+     COLLECTION_TREE node however official it looks. A tree node's cards live in `data.js`, which every
+     visitor downloads before the first card is flipped; these decks are 119 MB in `decks/`. What ships is
+     `lang-decks.js` \u2014 a title, a subtitle, a card count and a size per deck, 9 KB in all, generated by
+     `.claude/build-lang-decks.js` so every figure is read off the deck file it describes \u2014 and the deck
+     itself is fetched only when somebody presses Add.
 
-     ONE FOLD PER LANGUAGE, ALL SHUT. Flat, this is 38 rows on a page whose whole point is the curated
-     collections; shut, it is seven lines. The folds are the Coming-soon group's own `<details>`, so the
-     chevron, the head and the count come free and cannot drift from it.
+     ITS HUES ARE MEASURED, LIKE EVERY COLLECTION HUE. See COLL_THEME: seven swept in CIELAB over the
+     shelf's own band, the worst clearing 26.4 against a tightest existing pair of 12.9.
 
-     IT SAYS WHAT THE DECKS ARE AND ARE NOT. They are Folio's own builds — each read off an exam board's
-     published word list, or off the reference the board points at — and they are NOT held to the card
-     rules the curated collections are written to: no five citations, no ten-sentence background, no
-     fact-check. That is the same distinction "Shared decks" states one section down, and it belongs in
-     the UI rather than in a policy page.
+     THE SEVEN SHARE ONE ICON, which is the one place they cannot match the history shelf. Every curated
+     icon says what its collection is ABOUT, and a language cannot be drawn: a letter needs a font where
+     these are bare paths, and a flag or a landmark would be a claim about a NATION where the deck is for
+     a language several nations speak. So the mark says "this is a language collection" and the seven are
+     told apart by their titles, their hues and the section they sit in.
 
-     AN ADDED DECK OFFERS NOTHING HERE. Once it is in, the deck has a full row of its own in "Your decks"
-     directly below — with its subdecks, its directions and its add-to-review buttons — so a second and
-     poorer set of controls up here would be two answers to one question. The row says "added" and stops. */
+     THE BANNER CARRIES NO `+`, which is the one control a curated banner has that this has not. A
+     collection's + adds its whole subtree to the daily review, and there is no study scope for "several
+     community decks" \u2014 nor should pressing one silently download 21 MB of Mandarin. The chevron opens it
+     and each deck's own Add is what brings a deck in; once in, it has a full row in "Your decks" below.
+
+     THE BAR IS HONEST ON A DECK THAT IS NOT HERE YET: total is the catalogue's card count and studied is
+     summed over the decks actually installed, so an untouched language reads 0 of 23,666 rather than
+     claiming a denominator it has no cards for. */
   function langDeckMB(b) { return (b / 1048576).toFixed(1); }
+  /* An id of the collection's own, so it can carry a hue out of COLL_THEME exactly as a curated one does.
+     Built from the language NAME rather than written down, since the catalogue is generated and a language
+     added to it should not have to be added here twice. */
+  function langCollId(lang) { return "lang-" + String(lang).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
   function langDeckRowHTML(r) {
     const added = !!UDECKS[r.id];
-    return '<div class="collection udeck lang-deck">' +
-      '<div class="collection-row">' +
-        collectionIconMarkup(r.id) +
+    const studied = added ? uDeckStudied(UDECKS[r.id]) : 0;
+    /* A DECK ROW HERE IS THE CURATED TREE'S OWN `.node`, not a second shape — the same box, title, count
+       and indent a collection's decks wear one section up, so the two cannot drift.
+
+       IT IS NOT A BUTTON, which is the one place it departs from those rows. A curated deck row is
+       pressable because pressing it studies the deck; there is nothing here to press it INTO — the deck
+       is not on the device yet — and the only thing a row click could plausibly mean is Add, which for
+       Mandarin is a 21 MB download off a stray tap. The Add button is the control and the row is a row.
+       Once a deck IS added it has a full row of its own in "Your decks" below, with its subdecks, its
+       directions and its add-to-review buttons, so a second and poorer set of controls up here would be
+       two answers to one question. */
+    return '<div class="node lang-deck">' +
+      '<div class="node-main">' +
+        '<div class="node-title-row">' +
+          '<span class="node-title">' + esc(r.title) + '</span>' +
+          (added ? '<span class="pill udeck-tag">added</span>' : "") +
+          '<span class="node-count">' + r.cards.toLocaleString() + " cards</span>" +
+        '</div>' +
+        (r.sub ? '<div class="udeck-sub">' + esc(r.sub) + "</div>" : "") +
+        '<div class="udeck-sub lang-size">' + langDeckMB(r.bytes) + " MB" +
+          (added ? " \u00b7 already in Your decks below" : " to download") + "</div>" +
+        (added ? deckProgMarkup(studied, r.cards) : "") +
+      '</div>' +
+      '<div class="collection-actions">' +
+        (added ? "" : '<button class="btn tiny lang-add" type="button" data-langadd="' + esc(r.file) +
+          '" data-langtitle="' + esc(r.title) + '">Add</button>') +
+      '</div>' +
+    '</div>';
+  }
+  function langCollectionHTML(lang, rows) {
+    const id = langCollId(lang);
+    const theme = COLL_THEME[id];
+    const cards = rows.reduce((n, r) => n + (r.cards || 0), 0);
+    const studied = rows.reduce((n, r) => n + (UDECKS[r.id] ? uDeckStudied(UDECKS[r.id]) : 0), 0);
+    const chev = '<button class="chev" aria-label="Expand children"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>';
+    return '<div class="collection lang-coll" data-langcoll="' + esc(id) + '"' +
+        (theme ? ' style="--coll-bg:' + theme.bg + '"' : "") + '>' +
+      '<div class="collection-row" tabindex="0" role="button"' +
+        (theme ? ' style="--coll-bg:' + theme.bg + '"' : "") + '>' +
+        '<div class="collection-deco" aria-hidden="true"></div>' +
+        collectionIconMarkup("_lang") +
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
-            '<span class="collection-title">' + esc(r.title) + '</span>' +
-            (added ? '<span class="pill udeck-tag">added</span>' : "") +
-            '<span class="collection-count">' + r.cards.toLocaleString() + " cards</span>" +
+            '<span class="collection-title">' + esc(lang) + '</span>' +
+            '<span class="collection-span">' + rows.length + (rows.length === 1 ? " deck" : " decks") + '</span>' +
           '</div>' +
-          (r.sub ? '<div class="udeck-sub">' + esc(r.sub) + "</div>" : "") +
-          '<div class="udeck-sub lang-size">' + langDeckMB(r.bytes) + " MB to download" +
-            (added ? " · already in Your decks below" : "") + "</div>" +
+          deckProgMarkup(studied, cards) +
         '</div>' +
-        '<div class="collection-actions">' +
-          (added ? "" : '<button class="btn tiny lang-add" type="button" data-langadd="' + esc(r.file) +
-            '" data-langtitle="' + esc(r.title) + '">Add</button>') +
-        '</div>' +
-      '</div></div>';
+        '<div class="collection-actions">' + chev + '</div>' +
+      '</div>' +
+      '<div class="node-children"><div class="node-children-inner"><div class="node-children-pad">' +
+        rows.map(langDeckRowHTML).join("") +
+      '</div></div></div>' +
+    '</div>';
   }
-  function langDecksHTML() {
+  function langCollectionsHTML() {
     const rows = window.LANG_DECKS || [];
     if (!rows.length) return "";
     const langs = [];
     rows.forEach((r) => { if (langs.indexOf(r.lang) < 0) langs.push(r.lang); });
-    const chev = '<svg class="group-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
-    const fold = (lang) => {
-      const mine = rows.filter((r) => r.lang === lang);
-      return '<details class="collection-group collection-group-soon lang-fold">' +
-        '<summary class="group-head group-head-toggle">' +
-          '<span class="group-label">' + esc(lang) + '</span><span class="group-line"></span>' +
-          '<span class="group-count">' + mine.length + "</span>" + chev +
-        '</summary>' +
-        '<div class="collection-list">' + mine.map(langDeckRowHTML).join("") + "</div>" +
-      "</details>";
-    };
     return '<div class="collection-group community-group" id="langDecks">' +
       '<div class="group-head"><span class="group-label">Languages</span><span class="group-line"></span>' +
-        '<span class="group-count">' + rows.length + "</span></div>" +
-      '<p class="udeck-intro">Vocabulary decks Folio builds from each exam board&rsquo;s own published word list. ' +
-        'They are <b>not written to the rules the collections above are</b> — a word, its meaning and a few ' +
-        'real sentences, rather than a cited card. Adding one downloads it to this device.</p>' +
-      langs.map(fold).join("") +
+        '<span class="group-count">' + langs.length + "</span></div>" +
+      '<p class="udeck-intro">Folio\u2019s own vocabulary collections, each built from an exam board\u2019s ' +
+        'published word list. Open one to see its decks; adding a deck downloads it to this device.</p>' +
+      '<div class="collection-list">' + langs.map((l) => langCollectionHTML(l, rows.filter((r) => r.lang === l))).join("") + "</div>" +
     "</div>";
   }
   function wireLangDecks(root) {
+    /* The banner's own fold, wired through the curated tree's `wireExpander` rather than a listener of its
+       own, so the chevron, the open class, the row's Enter/Space and the children's entrance stagger are
+       all the collections' and cannot drift from them. No row click other than the toggle: there is
+       nothing to study until a deck has been added. */
+    root.querySelectorAll(".lang-coll").forEach((collEl) => {
+      const rowEl = collEl.querySelector(".collection-row");
+      const kids = collEl.querySelector(".node-children");
+      const chev = collEl.querySelector(".collection-actions > .chev");
+      if (rowEl && kids && chev) wireExpander(rowEl, kids, chev, collEl, null);
+    });
     root.querySelectorAll("[data-langadd]").forEach((b) => b.addEventListener("click", async (e) => {
       e.stopPropagation();
       if (b.disabled) return;
@@ -31334,7 +31403,7 @@
     { id: "friend5", icon: "🌐", name: "Well Connected", desc: "Have 5 friends", test: (s) => s.friends >= 5, prog: (s) => [s.friends, 5] },
     { id: "win1", icon: "🏅", name: "Victor", desc: "Win a daily challenge", test: (s) => s.wins >= 1 },
     { id: "win10", icon: "👑", name: "Champion", desc: "Win 10 daily challenges", test: (s) => s.wins >= 10, prog: (s) => [s.wins, 10] },
-    { id: "sweep", icon: "🎯", name: "Clean Sweep", desc: "Win every daily game in one day", test: (s) => s.dailySweep },
+    { id: "sweep", icon: "🎯", name: "Clean Sweep", desc: "Score perfectly in every daily game in one day", test: (s) => s.dailySweep },
     // the reading done AROUND the cards — the glossary and the Atlas, which until now earned nothing
     { id: "terms25", icon: "🔖", name: "Margin Notes", desc: "Open 25 glossary terms", test: (s) => s.terms >= 25, prog: (s) => [s.terms, 25] },
     { id: "terms100", icon: "📜", name: "Lexicographer", desc: "Open 100 glossary terms", test: (s) => s.terms >= 100, prog: (s) => [s.terms, 100] },
@@ -35913,10 +35982,6 @@
     t.addEventListener("click", () => route(t.dataset.route));
   });
   { const _brand = document.querySelector(".brand"); if (_brand) _brand.addEventListener("click", () => route("home")); }   // brand/logo removed from the top bar; guard in case it's re-added
-  const modeSwitch = document.getElementById("mode-switch");
-  if (modeSwitch) {
-    modeSwitch.addEventListener("click", () => setMode(!isAdmin()));
-  }
 
   /* ---------- i18n: site-chrome localisation ----------
      Translations live in i18n.js (window.I18N exact strings / I18N_RULES regex patterns / I18N_HTML whole

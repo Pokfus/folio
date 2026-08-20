@@ -12,10 +12,17 @@
    generators' own discipline: re-running the build must reproduce the shipped file BYTE FOR BYTE.
    It costs about a second, because the build reads 119 MB and writes 9 KB.
 
-   THE SECTION ITSELF fails silently twice over: a fold that lists nothing looks like a language with
-   no decks, and an Add that fetches nothing looks like a slow connection. So the browser half counts
-   the folds against the catalogue, reads a row's figures back against it, and then really adds the
-   smallest deck there is and checks it arrives in the store AND on the page. */
+   THE SECTION ITSELF fails silently three times over now that a language is a COLLECTION (Aug 2026,
+   on request): a banner drawn with no hue looks like a design choice rather than a missing COLL_THEME
+   key, a collection that lists nothing looks like a language with no decks, and an Add that fetches
+   nothing looks like a slow connection. So the browser half counts the banners against the catalogue,
+   reads each one's hue, icon and studied/total bar, opens one, reads a deck row's figures back against
+   the catalogue, and then really adds the smallest deck there is and checks it arrives on the page.
+
+   IT ALSO ASSERTS WHAT A LANGUAGE BANNER MUST **NOT** HAVE: the collection-level `+`. A curated
+   collection's + adds its whole subtree to the daily review, and there is no study scope for "several
+   community decks" — nor should pressing one silently download 21 MB of Mandarin. A + that appeared
+   here would look like a working control and would be one of those two things. */
 "use strict";
 const http = require("http");
 const fs = require("fs");
@@ -100,38 +107,96 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     return {
       label: (s.querySelector(".group-label") || {}).textContent || "",
       count: (s.querySelector(".group-count") || {}).textContent || "",
-      folds: [...s.querySelectorAll(".lang-fold")].map((f) => ({
-        lang: (f.querySelector(".group-label") || {}).textContent || "",
-        n: (f.querySelector(".group-count") || {}).textContent || "",
-        open: f.hasAttribute("open"),
-        rows: f.querySelectorAll(".lang-deck").length,
-      })),
-      caveat: (s.querySelector(".udeck-intro") || {}).textContent || "",
+      intro: (s.querySelector(".udeck-intro") || {}).textContent || "",
+      colls: [...s.querySelectorAll(".lang-coll")].map((c) => {
+        const row = c.querySelector(".collection-row");
+        return {
+          id: c.dataset.langcoll || "",
+          title: (c.querySelector(".collection-title") || {}).textContent || "",
+          span: (c.querySelector(".collection-span") || {}).textContent || "",
+          bar: (c.querySelector(".deck-prog .xp-count") || {}).textContent || "",
+          hue: row ? getComputedStyle(row).getPropertyValue("--coll-bg").trim() : "",
+          deco: !!c.querySelector(".collection-deco"),
+          icon: !!c.querySelector(".coll-ic svg path"),
+          chev: !!c.querySelector(".collection-actions > .chev"),
+          plus: !!c.querySelector(".collection-add"),
+          open: c.querySelector(".node-children").classList.contains("open"),
+          rows: c.querySelectorAll(".node.lang-deck").length,
+        };
+      }),
     };
   });
   check("the Collections page carries a Languages section", !!sec);
+  const langs = [...new Set(ROWS.map((r) => r.lang))];
   if (sec) {
     check("…headed Languages", sec.label === "Languages", sec.label);
-    check("…counting every deck in the catalogue", sec.count === String(ROWS.length), sec.count + " vs " + ROWS.length);
-    const langs = [...new Set(ROWS.map((r) => r.lang))];
-    check("…with one fold per language", sec.folds.length === langs.length,
-      sec.folds.map((f) => f.lang).join(", "));
-    check("…each naming its own deck count", sec.folds.every((f) =>
-      f.n === String(ROWS.filter((r) => r.lang === f.lang).length)),
-      sec.folds.map((f) => f.lang + ":" + f.n).join(" "));
+    /* COUNTING LANGUAGES, not decks. The section holds one collection per language exactly as the
+       Collections group above it holds one banner per subject, and the figure beside a group head is
+       how many rows are under it. */
+    check("…counting the languages, one collection each", sec.count === String(langs.length),
+      sec.count + " vs " + langs.length);
+    check("…and drawing one collection per language", sec.colls.length === langs.length,
+      sec.colls.map((c) => c.title).join(", "));
+    check("…titled by the language", sec.colls.map((c) => c.title).join("|") === langs.join("|"),
+      sec.colls.map((c) => c.title).join("|"));
+    check("…each saying how many decks it holds", sec.colls.every((c) =>
+      c.span === ROWS.filter((r) => r.lang === c.title).length + (ROWS.filter((r) => r.lang === c.title).length === 1 ? " deck" : " decks")),
+      sec.colls.map((c) => c.title + ":" + c.span).join(" "));
+
+    /* THE BANNER IS THE CURATED ONE. Each of these is a thing a history collection's banner has, and
+       each is invisible when it goes: a missing hue reads as a design choice, a missing icon as a
+       collection nobody drew a mark for, a missing bar as a collection with no cards. */
+    check("…drawn with the curated banner's wash", sec.colls.every((c) => c.deco));
+    check("…and its subject icon", sec.colls.every((c) => c.icon));
+    check("…and its studied/total bar", sec.colls.every((c) => /cards$/.test(c.bar)),
+      sec.colls.map((c) => c.bar).join(" | "));
+    /* THE DENOMINATOR IS THE CATALOGUE'S, which is the honest figure for a deck that is not on the
+       device yet: an untouched language reads 0 of 23,666 rather than 0 of 0. */
+    check("…whose total is the language's own card count", sec.colls.every((c) => {
+      const want = ROWS.filter((r) => r.lang === c.title).reduce((n, r) => n + r.cards, 0);
+      return c.bar.split("/")[1].replace(/[^\d]/g, "") === String(want);
+    }), sec.colls.map((c) => c.title + ":" + c.bar).join(" | "));
+
+    /* EVERY BANNER CARRIES A HUE AND NO TWO SHARE ONE — the whole point of measuring them. A language
+       with no COLL_THEME key renders with no wash at all, which looks deliberate. */
+    check("…each with a hue of its own", sec.colls.every((c) => /^#[0-9A-Fa-f]{6}$/.test(c.hue)),
+      sec.colls.map((c) => c.title + ":" + (c.hue || "—")).join(" "));
+    check("…and no two the same", new Set(sec.colls.map((c) => c.hue)).size === sec.colls.length,
+      sec.colls.map((c) => c.hue).join(" "));
+
     /* SHUT, and the rows still THERE. Flat this is 38 rows on a page whose subject is the curated
-       collections; the two are asserted together because a fold that is shut and empty looks
+       collections; the two are asserted together because a collection that is shut and empty looks
        identical to one that is shut and full. */
-    check("…all shut", sec.folds.every((f) => !f.open));
-    check("…and full all the same", sec.folds.every((f) => f.rows > 0),
-      sec.folds.map((f) => f.lang + ":" + f.rows).join(" "));
-    /* It must say what these decks are NOT. They are Folio's own builds off an exam board's word
-       list and they are not written to the card rules the collections above are — the same
-       distinction "Shared decks" states one section down, and the reason it is stated in the UI
-       rather than in a policy page. */
-    check("…and says outright that they are not written to the collections' rules",
-      /not written to the rules/i.test(sec.caveat), sec.caveat.slice(0, 60));
+    check("…all shut", sec.colls.every((c) => !c.open));
+    check("…and full all the same", sec.colls.every((c) => c.rows > 0),
+      sec.colls.map((c) => c.title + ":" + c.rows).join(" "));
+    check("…each holding exactly its own decks", sec.colls.every((c) =>
+      c.rows === ROWS.filter((r) => r.lang === c.title).length),
+      sec.colls.map((c) => c.title + ":" + c.rows).join(" "));
+
+    // the one control a curated banner has that this must not — see the header
+    check("…and no collection-level + on any of them", sec.colls.every((c) => !c.plus));
+    check("…while every one can be opened", sec.colls.every((c) => c.chev));
+
+    /* The one thing a reader needs told that no curated collection has to say: the cards are not here
+       yet, and pressing Add fetches them. */
+    check("…and the section says a deck is downloaded on Add",
+      /download/i.test(sec.intro), sec.intro.slice(0, 70));
   }
+
+  /* THE CHEVRON REALLY OPENS IT, which the shut-and-full pair above cannot show: those rows are in the
+     DOM either way, and a fold whose height never changes is a collection nobody can read. */
+  const opened = await page.evaluate(() => {
+    const c = document.querySelector(".lang-coll");
+    const before = c.querySelector(".node-children").getBoundingClientRect().height;
+    c.querySelector(".collection-actions > .chev").click();
+    return { before, after: c.querySelector(".node-children").getBoundingClientRect().height };
+  });
+  await page.waitForTimeout(500);
+  const openedNow = await page.evaluate(() =>
+    document.querySelector(".lang-coll .node-children").getBoundingClientRect().height);
+  check("the chevron opens a language", opened.before === 0 && openedNow > 100,
+    opened.before + " → " + Math.round(openedNow));
 
   // a row's figures come from the catalogue rather than from anywhere else
   const first = ROWS[0];
@@ -139,12 +204,20 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     const b = document.querySelector('[data-langadd="' + file + '"]');
     if (!b) return null;
     const el = b.closest(".lang-deck");
-    return { title: (el.querySelector(".collection-title") || {}).textContent || "",
-             count: (el.querySelector(".collection-count") || {}).textContent || "",
-             size: (el.querySelector(".lang-size") || {}).textContent || "" };
+    return { title: (el.querySelector(".node-title") || {}).textContent || "",
+             count: (el.querySelector(".node-count") || {}).textContent || "",
+             size: (el.querySelector(".lang-size") || {}).textContent || "",
+             /* THE DECK ROW IS THE CURATED TREE'S `.node` (Aug 2026, on request), so it is the same box
+                as a collection's decks one section up — but it is NOT a button, since there is nothing
+                to study until it has been added and a row click would mean a 21 MB download off a
+                stray tap. */
+             isNode: el.classList.contains("node"),
+             pressable: el.getAttribute("role") === "button" || el.hasAttribute("tabindex") };
   }, first.file);
   check("a row is drawn for the first deck in the catalogue", !!row, first.file);
   if (row) {
+    check("…in the curated tree's own row shape", row.isNode);
+    check("…and not itself pressable", !row.pressable);
     check("…titled from the catalogue", row.title === first.title, row.title);
     check("…and stating its card count", row.count.replace(/[^\d]/g, "") === String(first.cards), row.count);
     check("…and how much it will download", /MB to download/.test(row.size), row.size);
@@ -153,8 +226,13 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
   /* ---------- 3. Add really fetches, imports and lands ---------- */
   const small = ROWS.slice().sort((a, b) => a.bytes - b.bytes)[0];
   await page.evaluate((f) => {
-    const el = document.querySelector('.lang-fold [data-langadd="' + f + '"]');
-    if (el) { el.closest("details").setAttribute("open", ""); el.click(); }
+    const el = document.querySelector('#langDecks [data-langadd="' + f + '"]');
+    if (!el) return;
+    // its collection may be a different one from the one opened above, so open that too before pressing
+    const coll = el.closest(".lang-coll");
+    const kids = coll.querySelector(".node-children");
+    if (!kids.classList.contains("open")) coll.querySelector(".collection-actions > .chev").click();
+    el.click();
   }, small.file);
   await page.waitForTimeout(6000);
   /* Read off the PAGE and not out of the store, deliberately: the store is IndexedDB behind a
@@ -163,7 +241,7 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
      asserted. */
   const after = await page.evaluate((id) => ({
     yours: !!document.querySelector('[data-udeck="' + id + '"]'),
-    pill: [...document.querySelectorAll("#langDecks .lang-deck")].some((e) =>
+    pill: [...document.querySelectorAll("#langDecks .node.lang-deck")].some((e) =>
       /added/.test(e.textContent) && e.textContent.indexOf("Your decks") >= 0),
   }), small.id);
   const gone = await page.evaluate((f) => !document.querySelector('#langDecks [data-langadd="' + f + '"]'), small.file);
