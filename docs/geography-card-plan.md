@@ -31,6 +31,26 @@ the same ten-sentence background, the same five-source bar, the same date line, 
 app.js; today there is one, `us-states`) and `key` is a shape inside it, by name. An optional `zoom`
 overrides the automatic fit for a place the fit frames badly — no shipped card needs one.
 
+**A capital card adds `dot`**, and it is what makes the two subdecks two different questions:
+
+```json
+"map": { "layer": "us-states", "key": "Rhode Island", "dot": "Providence" }
+```
+
+`dot` names a point in the layer's own points table (`window.US_CAPITALS`, emitted by
+`.claude/build-us-states.js` beside the shapes) and is drawn as a gold dot on top of the shaded state — the
+Atlas's own focus mark, the same colour at full strength where the state around it is a 24% tint. Without it
+a capital card shades Rhode Island and asks for Providence, which says only which *state*: every capital
+card would be answerable from the same picture as its state card. The state answers "where"; the dot answers
+"which place". Its name is held back until the reveal, and the reveal labels the **dot**, not the shape.
+
+**The coordinates are generated, never typed.** Fifty hand-entered coordinates are fifty chances to put a
+city in the wrong state, and a dot a degree out still draws — inside the shaded state, on a card that looks
+entirely correct. Each entry carries the state it is in (`{s, c}`), so the card's claim is checkable:
+`add-card.js` refuses a dot the table has not got, refuses one whose state is not the card's own `key`, and
+warns if the answer is not the city. `cities.js` is the wrong source for this and was checked — it lives in
+the ~9.9 MB `atlas` bundle, and it drops sub-100k capitals, so Juneau is simply absent.
+
 `facts` is the numbers box under the answer. **It is not the date line**, and the two are easy to confuse:
 `isDateList` caps the date line at four rows and demands a number in every labelled row, so `Capital ·
 Sacramento` cannot go there. The date line carries the dates and the facts box carries everything else, and
