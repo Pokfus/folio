@@ -5228,6 +5228,43 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   an SVG (levels 4–7 dismiss eight of them); and the
   sandbox's Chromium is not where Playwright looks for it, so it needs
   `FOLIO_CHROMIUM=/opt/pw-browsers/chromium-<n>/chrome-linux/chrome`.
+  **`combine.py` is the ONE-FILE version of all seven** (`python3 .claude/ukbi/combine.py [out.json]`), on
+  request: 9,750 notes / 19,500 cards under a fresh deck id `ukbiall`, with **a subdeck per level** — and
+  the DIRECTIONS come free as a level below that, which is the one substantial difference from the DELE
+  combiner beside it. There a word is TWO notes, one per direction, so the direction can be written into
+  `sub`; **here a word is ONE note carrying two card TEMPLATES, and `sub` is a property of the NOTE**, so it
+  cannot name a direction at all — and does not need to, since app.js draws a DIRECTION ROW under any level
+  whose notes are all filed directly in it. So each of the seven levels lists `Indonesian → English` and
+  `English → Indonesian` beneath it and the deck row above them correctly gets none, a second pair over the
+  whole deck being the same cards offered twice under a name that says nothing new. **Nesting the directions
+  the DELE way would mean two notes per word, which is the duplication the one-note shape was adopted to
+  remove.** Five more things it has to get right, four of them silent.
+  **A CARD ID MUST CARRY THE DECK** — every note is renumbered `u_ukbiall_N`, since a deck FILE import mints
+  fresh ids only when the deck id is already taken, so an id left reading `u_ukbi1_1` would collide with an
+  installed level 1 in the shared `UCARDS` store and study the wrong card, with both decks on the shelf
+  showing their full counts.
+  **THE FILE HOLDS NOTES AND THE CAP COUNTS NOTES, which is why this fits at all**: 9,750 notes against
+  `UDECK_MAX_CARDS` (12,000) is comfortable, where the 19,500 cards they carry would not be — see the note
+  beside that constant, which says the bound is on what the FILE holds. At 7.4 MB it is far inside the
+  48 MB one.
+  **THE TYPE BLOCK, THE COLOUR AND THE TEMPLATE COUNT ARE ASSERTED RATHER THAN ASSUMED.** A level rebuilt
+  against a changed template would otherwise have its cards silently rendered by another level's; a level
+  that had quietly stopped carrying two templates would give up its two direction rows in silence, and the
+  deck would import, study and count perfectly with half of what was asked for.
+  **THE COUNTS IN THE DESCRIPTION ARE COUNTED** off the notes, never added up from the seven descriptions —
+  only the per-level word counts come from `TARGET`, a level's size being a decision the shipped file cannot
+  report. It reads no clock (the stamp comes from the newest source), so the same inputs write the same
+  bytes.
+  **AND UNLIKE THE DELE COMBINER'S, ITS OUTPUT IS COMMITTED** (`decks/UKBI-1-7-Indonesian.folio-deck.json`),
+  because it was asked for as a download and so needs a permanent home beside the seven it is made of; the
+  cost is ~7 MB of duplication, which is what being downloadable without running a script costs.
+  **`node .claude/ukbi/check-combined.js` is the browser half** (15 assertions): it RUNS `combine.py` first,
+  so it needs no committed artefact and works on a fresh clone, then imports the file through the real
+  Studio picker and reads the page — 21 rows in `-1,0,1` sevenfold, a level counting both directions and a
+  direction counting one, adding the deck bringing the seven levels and **not** the fourteen directions, and
+  a card rendering its word, its meaning and its speaker. `check-ukbi.js` asserts what is on an Indonesian
+  CARD and `check-nesting.js` the subdeck/direction machinery in app.js; what is left, and what this covers,
+  is the JOIN — seven decks poured into one file.
   **Re-running it must reproduce the shipped deck byte for byte** (a fixed `STAMP`, no clock read anywhere);
   that is the check to make after any edit, since every fault above is silent — **and it has to be run on
   EVERY level, since the stages are shared**: most of the fixes above were found while adding level 2 and
