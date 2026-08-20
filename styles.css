@@ -1200,7 +1200,16 @@ body[data-theme="folio"] .collection-deco::after{
    horizontal band across its middle: the whole picture is there and none of it is legible. Contained,
    a tall picture is whole, with paper either side. Inside the two floated slots there is no band to
    fill, the frame taking the picture's shape instead (Aug 2026, on request), and the rule is inert. */
-.card-img img{width:100%; height:100%; object-fit:contain; display:block; transition:transform .35s var(--ease);}
+/* A LIGHT GROUND UNDER THE PICTURE ITSELF, and it is a theme-independent literal on purpose (Aug 2026,
+   found on the China cards). A great many of the corpus's illustrations are woodblock and engraved PLATES
+   uploaded as PNGs with a TRANSPARENT background — black line and nothing else — so on a dark theme they
+   were black ink on `--paper-2`'s near-black and the picture was a blank rectangle: nothing throws, the
+   file decodes, `naturalWidth` is right, and only looking at it after dark shows anything. A `var(--paper)`
+   would flip dark with the theme and fix nothing; line art is ink on PAPER, which is a fact about the
+   object rather than about the reader's theme, so the colour is written out. An opaque photograph or flag
+   covers it entirely and never sees it, and in the two floated slots the frame takes the picture's own
+   shape, so the ground is confined to the picture. */
+.card-img img{width:100%; height:100%; object-fit:contain; display:block; background:#F7F5EF; transition:transform .35s var(--ease);}
 .card-img:hover img{transform:scale(1.025);}
 .card-img:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 .ci-zoom{
