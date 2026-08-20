@@ -140,19 +140,27 @@ const holdRow = (page, match) => page.evaluate((m) => {
   let s = await sheetInfo(page);
   check("holding it opens its options", s.open, JSON.stringify(s.title));
   check("…which offer 'Read aloud automatically'", s.has, JSON.stringify(s.label));
-  check("…starting OFF (a site that makes a noise is asked first)", s.on === false, String(s.on));
-  check("…and saying meanwhile how to hear a card", /speaker/i.test(s.note), JSON.stringify(s.note));
+  /* IT STARTS ON since Aug 2026, on request — where it was opt-in, on the reasoning that a site making a
+     noise by itself should be asked first. What makes that safe is the gate one line above: the row is
+     drawn only where the deck's own card type MARKS something to read, so the author of the deck has
+     already asked for it, and a deck that marks nothing is silent whatever this says. */
+  check("…starting ON, the deck's own type having asked for it", s.on === true, String(s.on));
+  check("…and saying what it is doing", /revealed/i.test(s.note), JSON.stringify(s.note));
 
   await page.click('[data-act="speak"]');
   await page.waitForTimeout(500);
   s = await sheetInfo(page);
   check("throwing it leaves the sheet open (a switch is a setting, not a command)", s.open);
-  check("…the switch reads on", s.on === true);
-  check("…and its note now says what it is doing", /revealed/i.test(s.note), JSON.stringify(s.note));
+  check("…the switch reads off", s.on === false);
+  check("…and its note now says how to hear a card instead", /speaker/i.test(s.note), JSON.stringify(s.note));
   const stored = await opts(page);
   check("the choice is stored against that deck alone",
-    stored["u:spkdeck"] && stored["u:spkdeck"].autoSpeak === true && !(stored["u:quietdeck"] || {}).autoSpeak,
+    stored["u:spkdeck"] && stored["u:spkdeck"].autoSpeak === false && !(stored["u:quietdeck"] || {}).autoSpeak,
     JSON.stringify(stored["u:spkdeck"] || null));
+  // …and back on, so the study section below meets the behaviour the deck ships with
+  await page.click('[data-act="speak"]');
+  await page.waitForTimeout(500);
+  check("…and throwing it back writes the other value", (await opts(page))["u:spkdeck"].autoSpeak === true);
   await page.keyboard.press("Escape");
   await page.waitForTimeout(400);
 

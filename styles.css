@@ -22,6 +22,14 @@
      is none of them, far enough round the wheel from --good's forest green (hue ~186 against ~152) to
      read as another thing rather than as a shade of the same one. */
   --newterm:#1E7A85;
+  /* An ADMIN-ONLY tab in the nav (Aug 2026, on request: "make it so that pages that are visible to admin
+     only appear with a different color in the menu bar than public pages"). A magenta-purple at hue ~305,
+     which is the quarter of the wheel nothing else here holds — --indigo is ~258, --newterm ~186, --good
+     ~152, --ochre/--geo ~35, --zh ~5 — so it reads as another KIND of destination rather than as a shade
+     of the active state. Measured against every paper the nav sits on rather than eyeballed: 5.6–7.2 in
+     light, 6.4–7.6 at night, so it needs no `body.hc` row of its own (that block re-tones the tokens that
+     fall SHORT, and this one does not). */
+  --admin:#8E2F86;
   --han:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
   --serif:"Newsreader", Georgia, "Times New Roman", serif;
   --display:"Fraunces", Georgia, serif;
@@ -50,7 +58,7 @@ body.night{
   --ink:#ECEAE3; --ink-soft:#D6D2C8; --ink-faint:#8A877F; --rule:#34343C;
   --indigo:#A6A4F0; --indigo-bright:#B9B7F7; --indigo-wash:#2E2E47; --ochre:#E0A45A;
   --zh:#F0938B; --zh-wash:#33262A; --geo:#E0A23F; --good:#79C39B;
-  --newterm:#5FC2CE;
+  --newterm:#5FC2CE; --admin:#CF93DC;
   --shadow-sm:none; --shadow-md:0 10px 30px rgba(0,0,0,.35);
   --shadow-lg:0 20px 60px rgba(0,0,0,.5);
 }
@@ -104,6 +112,38 @@ body.hc:not(.night) .coll-ic{color:#81661E;}
    clue's own text rather than furniture once a reader is in this mode, so they take `--ink-soft`, which
    is a solved ink rather than a quiet one and clears the bar on every surface the grid uses. */
 body.hc .xw-cn, body.hc .xw-len, body.hc .xw-n{color:var(--ink-soft);}
+/* THE DIFFICULTY ROW'S OWN TEXT is the same case one surface over (Aug 2026, with the word and the
+   community figure — the stars themselves are SVG and so are not measured at all, which is why that row
+   had nothing here until it gained words). Both are `--indigo` held down by opacity so they label the row
+   rather than competing with the question above it, and measured over all six themes in both modes that
+   is 1.77–3.28 for the word and 2.06–4.70 for the figure — quiet on purpose, and short of the bar in
+   every one of the twelve. Opacity alone does not rescue them either: at full strength the indigo is
+   still 3.32 on gazette's dark card and 4.70 on marble's light one. So in this mode they stop being a
+   quiet colour and become ordinary ink, which is what the re-tone above does for every other one. */
+body.hc .card-stars .cs-lbl, body.hc .card-stars .cs-pct{color:var(--ink); opacity:1;}
+/* THE GRADE BAR IS THE SAME CASE AGAIN AND IS THE SITE'S MOST-USED CONTROL (Aug 2026, found the day
+   `test-a11y.js` first reached a study card — the route list deliberately has no `study`, so every one
+   of these had been failing since the bar was built and nothing had ever measured them). All three of
+   its text runs are WHITE, at 1, .82 and .6, over four saturated backgrounds, and measured over both
+   modes not one of the twelve combinations clears 4.5: the label 2.25–4.56, the interval 1.97–3.64, the
+   key 1.66–2.69.
+   THE FIX IS THE BACKGROUND RATHER THAN THE INK, because the ink is what carries the meaning here: the
+   four colours ARE the four answers, so re-toning them to a common dark would take the grade bar's whole
+   language away. With all three runs at full-strength white the darkening needed is gentle — a factor of
+   .67 to .99 — so each button keeps its own hue and simply stops being a pastel. Solved per colour and
+   per mode against white; every one lands 4.61–4.71.
+   Written `body.hc:not(.night)` / `body.hc.night` (0,4,0) rather than `body.hc` alone, since `.night
+   .grade.again` is (0,3,0) and sits a thousand lines BELOW this block — at equal specificity it would
+   win on source order and the night bar would be unchanged. */
+body.hc .grade .gl, body.hc .grade .gi, body.hc .grade .gk{color:#fff;}
+body.hc:not(.night) .grade.again{background:#C54C45;}
+body.hc:not(.night) .grade.hard{background:#A2672B;}
+body.hc:not(.night) .grade.good{background:#428255;}
+body.hc:not(.night) .grade.easy{background:#4E73C0;}
+body.hc.night .grade.again{background:#B7574F;}
+body.hc.night .grade.hard{background:#966B3A;}
+body.hc.night .grade.good{background:#45805C;}
+body.hc.night .grade.easy{background:#5974AD;}
 /* a focus ring the mode can't leave to chance: thicker, and always the bright indigo rather than the theme's */
 body.hc :focus-visible{outline:3px solid var(--indigo-bright) !important; outline-offset:2px;}
 
@@ -224,6 +264,14 @@ body[data-theme="folio"] .topbar::after{
 }
 .tab:hover{color:var(--ink-soft); background:color-mix(in srgb, var(--ink) 5%, transparent);}
 .tab.active{color:var(--indigo);}
+/* …and an admin-only tab wears --admin instead, in every state. It is the colour that says so and not a
+   badge: the nav is icons and one word each, and a second mark on two of six tabs would be more furniture
+   than fact. `applyMode` still HIDES these for everyone else — this is what an editor sees, not a gate. */
+.tab.tab-admin{color:color-mix(in srgb, var(--admin) 62%, var(--ink-faint));}
+.tab.tab-admin:hover{color:var(--admin); background:color-mix(in srgb, var(--admin) 8%, transparent);}
+.tab.tab-admin.active{color:var(--admin);}
+.tab.tab-admin .ink{background:var(--admin);}
+.tab.tab-admin:focus-visible{outline-color:var(--admin);}
 /* the underline sits under the unfolded page NAME only, never the icon:
    --ink-start = horizontal padding + icon width + the open label's margin */
 .tab .ink{
@@ -563,14 +611,12 @@ body.night .banner{
    list now, on request; see the note there) */
 .banner .cta{margin-left:auto;}   /* sits on the SAME line as the three piles, pushed to the right edge */
 /* ---------- the footer row under the DECK LIST ----------
-   "+ New group" sat at its left (`.rv-tools` / `.rv-newgroup`) and both are GONE — Aug 2026, on request:
-   the group function has left the daily study block. What the row still does is hold `.rv-lip` against the
-   review group's own bottom edge, which is why the lip is not simply the group's last child.
-   `margin-inline-start:auto` is what keeps it at the right-hand end, and it is deliberately not
-   `justify-content:space-between`: that would put a ONE-item row's item at the start, and this row is one
-   item whenever the reader has not studied yet. */
+   It has lost both of the things that shared it with the day's timer: "+ New group" (`.rv-tools` /
+   `.rv-newgroup`) when the group function left the daily study block, and the "+ Add decks" lip
+   (`.rv-lip`) when the way to the collections became a button standing OUTSIDE the group — both Aug 2026,
+   both on request. So the row is one item wide and is drawn only when there is a timer to hold; see the
+   note in PAGES.home for why it is conditional rather than always present. */
 .rv-foot{display:flex; align-items:flex-start; gap:12px;}
-.rv-foot .rv-lip{align-self:flex-start; margin-inline-start:auto;}
 /* THE DAY'S TIME ON CARDS, at the left end of that same edge (Aug 2026, on request — it was a stat in the
    banner's meta row beside the three piles). Out here it is on the page's own paper rather than on the
    card, and the row it joins is one small tab high, so it is ONE line rather than the piles' figure over a
@@ -597,36 +643,20 @@ body.night .banner{
 .banner .glyph-svg{bottom:-22px; right:-14px;}
 .banner .glyph-svg svg{display:block; width:168px; height:168px;}
 
-/* ---------- completion is a RIBBON, not a filled tile (Aug 2026, on request) ----------
+/* ---------- completion is a MARK IN THE CORNER, not a filled tile (Aug 2026, on request) ----------
    The Daily-review banner and every game tile used to FILL with their colour once played, and turn gold on a
    perfect score. That is a lot of surface to change for one fact, and it fought every theme's own treatment
-   of the card. What marks completion now is a small diagonal ribbon across the TOP-RIGHT corner — the tile
-   underneath is left exactly as it was, so a played page still reads as a page of tiles rather than a page
-   of blocks of colour. `.done` / `.won` stay on the element (the ribbon is a child, and the classes are what
-   the tests and the achievements read); all they do now is carry the ribbon.
-   The ribbon takes the tile's own hue when played, and the same gold — with the same glint — when the score
-   was perfect. It is a real element rather than a ::before, because it carries a WORD: an unlabelled band of
-   colour says nothing to a screen reader, and little more to the eye. */
-.gt-ribbon{
-  position:absolute; top:0; right:0; width:82px; height:82px; overflow:hidden;
-  pointer-events:none; z-index:3;
-}
-.gt-ribbon span{
-  position:absolute; display:block; width:124px; right:-30px; top:15px;
-  transform:rotate(45deg); text-align:center; padding:3px 0;
-  font-family:var(--mono); font-size:calc(8.5px * var(--fs)); font-weight:700; letter-spacing:.12em; text-transform:uppercase;
-  /* GREEN, not the tile's own hue (Aug 2026, on request — Multiple Choice is red, and a red ribbon reading
-     "played" looked like a warning rather than a tick). Completion is green everywhere else in Folio: the
-     `--good` token is the same one the Review pile and the grade buttons use. A perfect score still takes
-     the gold below. */
-  background:var(--good, #4F9D67); color:#fff;
-  box-shadow:0 1px 5px rgba(0,0,0,.28);
-}
-/* HAVING PLAYED is a green circled CHECK, not a band (Aug 2026, on request) — the ribbon is kept for a
-   perfect score alone, below. Same corner, same green (--good, the token the Review pile and the grade
-   buttons use), a fraction of the surface. It is `role="img"` with an aria-label in the markup rather
-   than a decorative pseudo-element, for the reason the ribbon carries a word: a patch of colour with no
-   name is invisible to a screen reader. */
+   of the card. What marks completion now is a small mark in the TOP-RIGHT corner — the tile underneath is
+   left exactly as it was, so a played page still reads as a page of tiles rather than a page of blocks of
+   colour. `.done` / `.won` stay on the element (the mark is a child, and the classes are what the tests and
+   the achievements read); all they do now is carry the mark.
+   TWO SHAPES, ONE ANCHOR (Aug 2026, on a second request). Having played is a green circled check; a perfect
+   score is a gold WAX SEAL with the same check impressed in it, in the same corner and the same size class,
+   where it used to be a diagonal ribbon reading "Perfect!" across the whole corner. The two answer one
+   question, so they belong in one place and differ in the thing that differs — green circle against gold
+   wax — rather than in shape, position and surface all at once.
+   Both are real elements with an aria-label rather than pseudo-elements: a patch of colour with no name is
+   invisible to a screen reader whatever shape it is. */
 .gt-check{
   position:absolute; top:9px; right:9px; z-index:3; pointer-events:none;
   width:21px; height:21px; border-radius:50%;
@@ -640,25 +670,46 @@ body.night .banner{
 .review-group .banner .gt-check svg{width:14px; height:14px;}
 body[data-theme="arcade"] .gt-check{border-radius:0; box-shadow:none; border:2px solid var(--ink);}
 body[data-theme="gazette"] .gt-check{box-shadow:none;}
-/* a perfect score: the shining gold the filled tile used to wear, now on the band alone */
-.gt-ribbon.gr-gold span{
-  color:#3A2D07;
+/* A PERFECT SCORE IS A GOLD WAX SEAL (Aug 2026, on request), stamped in the corner the check sits in.
+   THE SHAPE IS A CLIP-PATH AND NOT A BORDER-RADIUS, because what makes a wax seal read as one at 24px is
+   the FLUTED RIM — the scalloped edge a seal press leaves — and a rounded rectangle cannot have one at any
+   radius. The polygon is 22 points alternating between r=50% and r=43% of the box, which is one flute per
+   32° and the coarsest scallop that still reads as a scallop rather than as a cog.
+   The DROP SHADOW is a `filter`, not a `box-shadow`: a clip-path clips the box shadow away with the box,
+   and a filter follows the clipped silhouette, which is what makes the wax look pressed onto the tile
+   rather than cut out of it.
+   The GLINT is the ribbon's own `gt-gold-shine` sweep, unchanged — the same gold and the same 3.4s rest
+   between passes, so a seal and a gold XP bar are the same material.
+   The CHECK is `.gt-seal-face`, a child rather than the seal itself, because the sweep lives on the seal's
+   own background and a check drawn on that element would be swept with it. It is set in the deep gold the
+   ribbon's word used, with a soft white shadow under it so it reads as impressed into the wax. */
+.gt-seal{
+  position:absolute; top:8px; right:8px; z-index:3; pointer-events:none;
+  width:24px; height:24px;
+  display:inline-flex; align-items:center; justify-content:center;
+  clip-path:polygon(50.0% 0.0%, 62.1% 8.7%, 77.0% 7.9%, 82.5% 21.8%, 95.5% 29.2%, 92.6% 43.9%, 99.5% 57.1%, 89.1% 67.9%, 87.8% 82.7%, 73.2% 86.2%, 64.1% 98.0%, 50.0% 93.0%, 35.9% 98.0%, 26.8% 86.2%, 12.2% 82.7%, 10.9% 67.9%, 0.5% 57.1%, 7.4% 43.9%, 4.5% 29.2%, 17.5% 21.8%, 23.0% 7.9%, 37.9% 8.7%);
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.34));
   background-image:
     linear-gradient(115deg, rgba(255,255,255,0) 40%, rgba(255,255,255,.75) 50%, rgba(255,255,255,0) 60%),
-    linear-gradient(150deg, #F4E39A 0%, #E5C765 45%, #C9A43A 100%);
+    radial-gradient(circle at 34% 28%, #F7ECBE 0%, #E5C765 46%, #BE9829 100%);
   background-size:250% 100%, 100% 100%;
   background-repeat:no-repeat;
   background-position:110% 0, 0 0;
   animation:gt-gold-shine 3.4s ease-in-out infinite;
 }
-@media (prefers-reduced-motion:reduce){ .gt-ribbon.gr-gold span{animation:none;} }
-/* arcade squares everything off already; the gazette prints its ribbon in the paper's own red */
-body[data-theme="arcade"] .gt-ribbon span{ border-top:2px solid var(--ink); border-bottom:2px solid var(--ink); box-shadow:none; }
-body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
-/* the banner's ribbon clears its rounded corner, and the title has to stop short of it */
+.gt-seal-face{
+  display:block; color:#4A3708;
+  filter:drop-shadow(0 1px 0 rgba(255,255,255,.45));
+}
+.gt-seal-face svg{width:13px; height:13px; display:block;}
+@media (prefers-reduced-motion:reduce){ .gt-seal{animation:none;} }
+/* the review banner is a bigger surface, so its seal is too — the check's own pair of sizes */
 .review-group .banner{position:relative;}
-.review-group .banner .gt-ribbon{width:96px; height:96px;}
-.review-group .banner .gt-ribbon span{width:146px; right:-34px; top:20px; font-size:calc(9.5px * var(--fs));}
+.review-group .banner .gt-seal{top:11px; right:11px; width:29px; height:29px;}
+.review-group .banner .gt-seal-face svg{width:16px; height:16px;}
+/* arcade squares every mark off and outlines it in ink; the gazette prints flat, so the wax loses its lift */
+body[data-theme="arcade"] .gt-seal{clip-path:none; border:2px solid var(--ink); filter:none;}
+body[data-theme="gazette"] .gt-seal{filter:none;}
 /* daily challenge accent treatment */
 .banner.challenge{background:linear-gradient(135deg, var(--card) 60%, var(--zh-wash));}
 .banner.challenge h2{color:var(--ink);}
@@ -677,32 +728,30 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
    from the lip under the review group, which is the route the home page advertises. */
 
 /* ---------- home: the way to the collections ----------
-   A whole banner of its own sat here until Aug 2026 — a second full-width block spending a heading and a
-   sentence on what one word says. This is what replaced it, on request: a small tab hanging off the bottom
-   edge of the review group, under the deck list it adds to. It is the group's last child and sits IN FLOW
-   (see .rv-lip in the markup), so it needs no guess at the list's height; the group's own bottom border runs
-   behind it, hence no top border and the -1px pull.
-   It was phone-only for a fortnight and now ships at EVERY width, the Collections tab having left the
-   desktop's top bar too (on request): this is the ONLY route to the collections anywhere on the site.
-   It is INDIGO (Aug 2026, on request), not a quiet paper tab: paper-on-paper it read as part of the card's
-   edge rather than as the way onward, and the blue is the site's own primary-button indigo, so it matches
-   Start review directly above it.
-   …and it hangs at the RIGHT-HAND end of that edge rather than in the middle of it (Aug 2026, on request).
-   `align-self:flex-end` with an inset, so it clears the card's own rounded corner instead of sitting on it;
-   `margin-inline-end` rather than `margin-right`, so Arabic finds it on the side Arabic reads from. */
-.rv-lip{
-  appearance:none; cursor:pointer; align-self:flex-end; margin-inline-end:20px; margin-top:-1px; position:relative; z-index:3;
-  display:inline-flex; align-items:center; padding:6px 17px 7px;
-  border:1px solid var(--indigo); border-top:0; border-radius:0 0 12px 12px;
+   THREE SHAPES, and the third is on request (Aug 2026). It was a full-width banner of its own — a second
+   block spending a heading and a sentence on what one word says — then a small "+ Add decks" tab hanging
+   off the review group's bottom edge (`.rv-lip`), and is now an UNATTACHED button standing under the
+   group. The tab said two things at once and only one was true: stuck to the block, "+ Add" reads as an
+   action performed on it, where pressing it goes to a page. Detached, it is named for where it leads.
+   It ships at EVERY width, the Collections tab having left the desktop's top bar too: this is the ONLY
+   route to the collections anywhere on the site.
+   It keeps the lip's INDIGO and its mono capitals — the blue is the site's own primary-button indigo, so
+   it matches Start directly above it — and gives up the tab geometry (the negative pull, the flat top, the
+   right-hand inset), all of which existed to join it to an edge it no longer touches. It is a block in the
+   `.banners` flex column, so the column's own gap is what separates it. */
+.home-collections{
+  appearance:none; cursor:pointer; align-self:center; position:relative;
+  display:inline-flex; align-items:center; justify-content:center; padding:11px 26px;
+  border:1px solid var(--indigo); border-radius:12px;
   background:var(--indigo); box-shadow:0 3px 7px rgba(0,0,0,.07);
-  font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:#fff;
+  font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:#fff;
   transition:background .16s var(--ease), border-color .16s var(--ease);
 }
-.rv-lip:hover{background:var(--indigo-bright); border-color:var(--indigo-bright);}
-.rv-lip:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.home-collections:hover{background:var(--indigo-bright); border-color:var(--indigo-bright);}
+.home-collections:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 /* ---------- home: the way to the About page on a phone ----------
    About left the bottom tab bar (Aug 2026, on request) and this took its place: a quiet grey line at the
-   foot of the page rather than a fifth of a row four readers share. Phone-only, like the lip above. */
+   foot of the page rather than a fifth of a row four readers share. Every width, like the button above. */
 .home-about{
   appearance:none; border:0; background:none; cursor:pointer; width:100%;
   padding:20px 0 16px; text-align:center;
@@ -939,15 +988,24 @@ body[data-theme="folio"] .collection-deco::after{
 /* nested branches (sub-subdecks) */
 .node-group{display:flex; flex-direction:column;}
 
-/* admin: drag handle + drop indicators on the library */
+/* admin: drag handle + drop indicators on the library
+   IT RESTS VISIBLE, AND THAT IS THE WHOLE OF THE Aug 2026 "I can no longer drag collections" REPORT.
+   The grip has always been rendered and `draggable`, and it was `opacity:0` until the row was hovered —
+   so on the live collections the one control that says the rows can be reordered was invisible until you
+   happened to point at it, while the Coming-soon rows showed theirs at rest (their `.placeholder`
+   overrides below exist to fight the ancestor's `filter:opacity(.5)`, and the side effect was a resting
+   grip on those rows and nowhere else). Reordering worked throughout; nothing said so. It rests at .32 —
+   present enough to be found, quiet enough that a reader-facing page is not a page of handles — and the
+   hover states are unchanged. Only an admin ever sees one: `wireLibraryDnd` returns before the grips are
+   built for anybody else. */
 .collection-row, .node{position:relative;}
 .lib-grip{
   position:absolute; left:2px; top:7px; bottom:7px; width:16px; z-index:3;
   display:flex; align-items:center; justify-content:center; border-radius:6px;
-  color:var(--ink-faint); cursor:grab; opacity:0;
+  color:var(--ink-faint); cursor:grab; opacity:.32;
   transition:opacity .15s var(--ease), color .15s, background .15s;
 }
-.collection-row:hover .lib-grip, .node:hover .lib-grip{opacity:.5;}
+.collection-row:hover .lib-grip, .node:hover .lib-grip{opacity:.6;}
 .lib-grip:hover{opacity:1; color:var(--indigo); background:var(--indigo-wash);}
 .lib-grip:active{cursor:grabbing;}
 .collection.placeholder .collection-row .lib-grip, .node.placeholder .lib-grip{opacity:.55;}
@@ -1033,6 +1091,16 @@ body[data-theme="folio"] .collection-deco::after{
 .study-card:has(.tts-mute) .card-stars{right:52px;}
 .card-stars .cs-star svg{width:calc(12px * var(--fs)); height:calc(12px * var(--fs)); display:block; fill:var(--indigo); opacity:.13;}
 .card-stars .cs-star.on svg{opacity:.5;}
+/* THE WORD, beside the stars (Aug 2026, on request): five small marks in a corner say that something is
+   being rated and not what. Small and thin, so it labels the row rather than competing with the question
+   it sits above; aria-hidden because the row's own aria-label already says "Difficulty N of 5" in words. */
+.card-stars .cs-lbl{font-family:var(--sans); font-size:calc(8.5px * var(--fs)); font-weight:400; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--indigo); opacity:.5; margin-right:5px; white-space:nowrap;}
+/* the community figure, where a card has enough answers behind it to have one. Mono, because it is a
+   measurement rather than a word, and it must not be mistaken for part of the label. */
+.card-stars .cs-pct{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.02em;
+  color:var(--indigo); opacity:.62; margin-left:5px;}
+.card-stars.cs-community .cs-star.on svg{opacity:.62;}
 /* ---------- stepping through a card's phrasings (Aug 2026, on request) ----------
    Every card carries three ways of asking the same thing, and until now which one a reader met was a coin
    toss they could not appeal. The chevrons sit on the Question label because that is what they qualify —
@@ -1067,6 +1135,17 @@ body[data-theme="folio"] .collection-deco::after{
 .answer-main{display:flex; flex-direction:column; align-items:flex-start; gap:4px; flex:0 1 auto; min-width:0;}
 .answer-main .label{margin:0; line-height:1.5; padding-top:0;}
 .answer-av{min-width:0;}
+/* The answer term and, where the card has one, its flag — a row so the flag is centred on the term rather
+   than on the block below it. Only emitted on a card that carries a flag (see cardFlagHTML), so nothing
+   else in the answer box changes shape. `min-width:0` on the term is what lets a long name ellipsise
+   rather than pushing the flag out of the box. */
+.av-term{display:flex; align-items:center; gap:12px; min-width:0;}
+.av-term .val{min-width:0;}
+.av-flag{
+  flex:0 0 auto; height:calc(26px * var(--fs)); width:auto; max-width:calc(56px * var(--fs));
+  object-fit:contain; border-radius:2px; border:1px solid var(--rule); box-shadow:var(--shadow-sm);
+  background:var(--card);
+}
 .av-row{display:flex; align-items:center; gap:14px; margin-top:7px;}
 .av-row:empty{margin-top:0;}
 .answer .val{font-family:var(--display); font-weight:600; font-size:calc(25px * var(--fs)); color:var(--zh); line-height:1.18; min-width:0; display:block;}
@@ -1186,9 +1265,48 @@ body[data-theme="folio"] .collection-deco::after{
 .map-card.mc-loading .mc-note, .map-card.mc-failed .mc-note{display:none;}
 @media (max-width:640px){ .mc-note{display:none;} }   /* at 390px it competes with the map it explains */
 
+/* ---------- the locator (see cardLocatorHTML in app.js) ----------
+   The same window on the back of a card whose answer is a place, saying where it is. It is shorter than a
+   map card's, which is the question and deserves the room; this is an annotation, so it takes about the
+   height of the card's own illustration. Its failure line has to differ too — a map card's says the answer
+   is below, which on the back of a card is nonsense. */
+.card-loc{margin-top:20px;}
+.card-loc .label{display:block; margin-bottom:7px;}
+.map-card.map-loc{margin-bottom:0;}
+.map-loc .mc-canvas{height:clamp(180px, 30vh, 260px);}
+.map-card.map-loc.mc-failed::after{content:"This map could not be loaded.";}
+
 /* the media frame's own chrome — the border, the rounding and the shadow every surface that shows a
    picture or a clip shares. The SHAPE is set by whoever mounts it: 16:9 here, which is what the editor's
    media slot, the deck page's sample and the picture round want, and the picture's own proportions
+/* ---- THE LIBRARY BANNER IN A GLOSS POPUP (Aug 2026, on request) ----
+   The shelf's banner at popup scale, below the prose and above the citations. It shares `--bk-accent`
+   with `.book-tile` — the four declarations above name both, so the day/night derivation and the OKLCh
+   refinement are written ONCE and a book cannot come to wear two different versions of its own colour on
+   two surfaces. What it does not share is the LAYOUT: a 360px popup has no room for the shelf's two
+   columns, so the title leads and the author drops to the foot beside the reading position.
+   `--bk-ink` is the shelf's own compromise for a title on a washed card and is repeated here for the same
+   reason: the accent alone is too light on night's paper for 14px type. */
+.gloss-book{
+  --bk-ink:color-mix(in srgb, var(--bk-accent) 80%, var(--ink));
+  position:relative; display:flex; gap:0; width:100%; text-align:left; padding:0; overflow:hidden;
+  margin:14px 0 0; clear:both;
+  background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 26%, transparent), transparent 70%) var(--card);
+  border:1px solid var(--rule); border-radius:11px; box-shadow:var(--shadow-sm);
+  cursor:pointer; font:inherit; color:inherit;
+  transition:transform .14s var(--ease), box-shadow .14s var(--ease), border-color .14s var(--ease);
+}
+body.night .gloss-book{background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 16%, transparent), transparent 70%) var(--card);}
+.gloss-book:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--bk-accent) 45%, var(--rule));}
+.gloss-book:active{transform:translateY(0) scale(.995);}
+.gloss-book:focus-visible{outline:2px solid var(--bk-accent); outline-offset:3px;}
+.gloss-book .bk-spine{flex:0 0 6px; align-self:stretch; background:var(--bk-accent);}
+.gb-body{flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; padding:9px 12px 10px;}
+.gb-eyebrow{font-family:var(--sans); font-size:calc(9px * var(--fs)); font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint);}
+.gb-title{font-family:var(--display); font-size:calc(14.5px * var(--fs)); font-weight:600; line-height:1.25; color:var(--bk-ink); overflow-wrap:anywhere;}
+.gb-foot{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-top:1px;}
+.gb-author{font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--ink-soft); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.gb-where{font-family:var(--sans); font-size:calc(11px * var(--fs)); font-weight:600; color:var(--bk-accent); flex:none;}
    inside `.card-imgslot` / `.gloss-imgslot`. Click to open the viewer. */
 .card-img{
   position:relative; display:block; margin:2px 0 18px; padding:0; cursor:zoom-in;
@@ -1450,6 +1568,19 @@ body.grading .stage{padding-bottom:150px;}
   animation:dl-spin 1.9s linear infinite reverse;
 }
 .data-loading.dl-fail .dl-globe{display:none;}
+/* the determinate progress bar. It counts FILES, not bytes — byte progress would need fetch() plus
+   running the text, i.e. an inline script, which script-src 'self' forbids — and it is drawn only where a
+   bundle set has two or more files (see dlBarHTML), so a bar is never a lie about a single big download.
+   The width TRANSITIONS, so the global reduced-motion killswitch already lands it on its true value. */
+.data-loading .dl-bar{
+  width:min(280px, 100%); height:5px; border-radius:99px; overflow:hidden;
+  background:var(--paper-2); border:1px solid var(--rule); margin-top:2px;
+}
+.data-loading .dl-bar i{
+  display:block; height:100%; width:0; border-radius:99px;
+  background:var(--indigo); transition:width .28s var(--ease);
+}
+.data-loading.dl-fail .dl-bar{display:none;}
 @keyframes dl-spin{to{transform:rotate(360deg);}}
 @media (prefers-reduced-motion:reduce){
   .data-loading .dl-globe, .data-loading .dl-globe::before{animation:none; border-color:var(--rule); border-top-color:var(--indigo);}
@@ -2012,9 +2143,15 @@ table.ci-hist tr td:first-child{color:var(--ink-soft);}
 .recovery-code{font-family:var(--mono); font-size:calc(22px * var(--fs)); letter-spacing:.18em; color:var(--indigo); background:var(--paper-2); border:1px dashed var(--rule); border-radius:10px; padding:14px; text-align:center; margin:14px 0; user-select:all;}
 .acct-tools{display:flex; gap:10px; margin:-6px 0 8px; flex-wrap:wrap;}
 .acct-panel{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); padding:18px 20px; margin-bottom:14px; display:flex; flex-direction:column; gap:11px; max-width:460px;}
-/* Change password and Sign out, side by side inside the profile card (Aug 2026, on request) — they act on
-   the same thing, and the sync line under them says what happens to it. */
-.acct-idacts{display:flex; align-items:center; gap:8px; flex:none; flex-wrap:wrap; justify-content:flex-end;}
+/* The account's own actions, inside the profile card (Aug 2026, on request) — they act on the same thing,
+   and the sync line under them says what happens to it.
+   A 2×2 GRID, not a flex row (Aug 2026, on a second request). Four buttons side by side ran to the width
+   of the card on a desktop and squeezed the name, the handle and the joined date into what was left, so
+   the block that IDENTIFIES the account had the least room in it. Two columns of two is the same four
+   controls in half the width, and the two columns are `1fr` so the buttons are one size rather than four
+   sized by their own words. It stays a flex row on a phone, where the card stacks (see the ≤640 block). */
+.acct-idacts{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px; flex:none; align-content:center;}
+.acct-idacts .ghost-btn{width:100%; justify-content:center; text-align:center;}
 .acct-syncnote{margin:-14px 0 16px; padding-left:2px;}
 /* THE ACCOUNT SWITCHER (Aug 2026, on request). A grid rather than a flex row, so the Forget × sits in a
    column of its own and every row's arrow lines up down the list however long the names are. */
@@ -2047,6 +2184,30 @@ table.ci-hist tr td:first-child{color:var(--ink-soft);}
 .friend-link{flex:1; min-width:0; display:flex; align-items:center; gap:11px; background:none; border:0; padding:4px; border-radius:9px; cursor:pointer; text-align:left; color:var(--ink);}
 .friend-link:not(.static):hover{background:var(--paper-2);}
 .friend-link.static{cursor:default;}
+/* A FRIEND'S BANNER IN THE THEME THEY WEAR (Aug 2026, on request — a theme is how an account presents
+   itself, not only a preference for its owner's own screen). It borrows the theme's own paper as a wash
+   and its accent as a left bar, and NOTHING ELSE: a nested `data-theme` would put that theme's whole
+   stylesheet — its fonts, its ornament, its chrome — onto a row inside a page drawn in the reader's own,
+   which is why the colours arrive as `--ft-*` custom properties instead.
+   The wash is a MIX toward the card rather than the paper colour flat, so a light theme worn by a friend
+   is still legible on a dark one and the row never fights `--ink`. `folio` is skipped outright: it is the
+   default everyone starts on, and washing every unthemed friend would say something the row does not
+   mean. */
+.friend-link[data-ftheme]:not([data-ftheme="folio"]){
+  background:color-mix(in srgb, var(--ft-p) 16%, var(--card));
+  box-shadow:inset 3px 0 0 var(--ft-a);
+  padding-inline-start:9px;
+}
+body.night .friend-link[data-ftheme]:not([data-ftheme="folio"]){background:color-mix(in srgb, var(--ft-a) 15%, var(--card));}
+.friend-link[data-ftheme]:not([data-ftheme="folio"]):not(.static):hover{background:color-mix(in srgb, var(--ft-p) 26%, var(--card));}
+body.night .friend-link[data-ftheme]:not([data-ftheme="folio"]):not(.static):hover{background:color-mix(in srgb, var(--ft-a) 24%, var(--card));}
+/* the same treatment one size up, on the profile box a friend's page opens with */
+.profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){
+  background:color-mix(in srgb, var(--ft-p) 20%, var(--card));
+  border-inline-start:5px solid var(--ft-a);
+}
+body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){background:color-mix(in srgb, var(--ft-a) 16%, var(--card));}
+.ft-wearing{color:var(--ink-faint);}
 .monogram.sm{width:38px; height:38px; border-radius:11px; font-size:calc(16px * var(--fs));}
 /* profile photo variant of the monogram + the change-photo button on the account page */
 .monogram.has-img{background:var(--paper-2); overflow:hidden; padding:0;}
@@ -2081,7 +2242,10 @@ table.ci-hist tr td:first-child{color:var(--ink-soft);}
 /* artefacts-mode: the chest pool takes over the admin area, exactly as the four above do */
 .admin.artefacts-mode .admin-tree,.admin.artefacts-mode .admin-side-foot,.admin.artefacts-mode .admin-collapse,.admin.artefacts-mode .admin-editor,.admin.artefacts-mode .admin-search,.admin.artefacts-mode .alt-right,.admin.artefacts-mode .alt-right-gloss,.admin.artefacts-mode .admin-sel-bar,.admin.artefacts-mode .admin-resizer{display:none;}
 .admin.artefacts-mode .admin-list{width:auto; flex:1; border-right:0;}
-.admin.feedback-mode .admin-side,.admin.timeline-mode .admin-side,.admin.dash-mode .admin-side,.admin.quotes-mode .admin-side,.admin.artefacts-mode .admin-side{background:transparent; border-right:0;}
+/* themes-mode: the theme collection takes over the admin area, exactly as the five above do */
+.admin.themes-mode .admin-tree,.admin.themes-mode .admin-side-foot,.admin.themes-mode .admin-collapse,.admin.themes-mode .admin-editor,.admin.themes-mode .admin-search,.admin.themes-mode .alt-right,.admin.themes-mode .alt-right-gloss,.admin.themes-mode .admin-sel-bar,.admin.themes-mode .admin-resizer{display:none;}
+.admin.themes-mode .admin-list{width:auto; flex:1; border-right:0;}
+.admin.feedback-mode .admin-side,.admin.timeline-mode .admin-side,.admin.dash-mode .admin-side,.admin.quotes-mode .admin-side,.admin.artefacts-mode .admin-side,.admin.themes-mode .admin-side{background:transparent; border-right:0;}
 
 /* ---------- Admin → Quotes: the home page's daily quote (Aug 2026, on request) ----------
    A list in RUNNING ORDER rather than array order — the order is solved from the pool, so where a quote
@@ -2160,6 +2324,21 @@ table.ci-hist tr td:first-child{color:var(--ink-soft);}
 .dl-code{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; color:var(--indigo); font-weight:600; flex:none; width:26px;}
 .dl-n{color:var(--ink-faint); font-size:calc(11.5px * var(--fs));}
 .dl-n + .dl-n{margin-left:auto;}
+.dsh-files{display:flex; flex-direction:column; gap:0;}
+.dsh-file{display:grid; grid-template-columns:1fr auto auto auto; align-items:baseline; gap:10px; font-family:var(--sans); font-size:calc(11.5px * var(--fs)); color:var(--ink-soft); border-bottom:1px dotted color-mix(in srgb,var(--rule) 80%,transparent); padding:4px 0;}
+.dsh-file:last-child{border-bottom:0;}
+.df-n{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); color:var(--ink);}
+.df-b,.df-t,.df-ms{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint); white-space:nowrap;}
+.df-b{color:var(--ink-soft);}
+.thr-list{display:flex; flex-direction:column; gap:12px;}
+.thr{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:12px;}
+.thr-mock{width:74px; flex:none;}
+.thr-mock .theme-mock{width:100%; height:auto; aspect-ratio:16/10;}
+.thr-locked .thr-mock{opacity:.55; filter:saturate(.55);}
+.thr-name{font-family:var(--display); font-size:calc(14px * var(--fs)); color:var(--ink); display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;}
+.thr-kind{font-family:var(--sans); font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
+.thr-tag{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); margin:2px 0 6px;}
+.thr-n{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-soft); white-space:nowrap;}
 .tl-edit{padding:22px 26px; max-width:900px;}
 .tl-intro{font-family:var(--serif); font-size:calc(14px * var(--fs)); line-height:1.6; color:var(--ink-soft); margin-bottom:20px;}
 .tl-add{border:1px solid var(--rule); border-radius:12px; background:var(--paper-2); padding:18px; margin-bottom:24px;}
@@ -2351,7 +2530,14 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
    streak figure it counts from. Pips rather than a bar: the unit is a DAY, and a continuous fill would
    suggest a part-finished one. The filled pips take the gold every other reward on this page wears. */
 .streak-chest{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm);
-  padding:14px 16px; margin:0 0 18px;}
+  padding:14px 16px; margin:0 0 18px; display:flex; align-items:center; gap:14px;}
+.sc-main{flex:1; min-width:0;}
+/* the thing the seven days are building towards, drawn once at the right of the block (Aug 2026, on
+   request). Quiet until the run is complete, then the same gold the filled pips wear. */
+.sc-chest{flex:none; width:46px; color:var(--ink-faint); opacity:.55; transition:color .2s, opacity .2s;}
+.sc-chest svg{width:100%; height:auto; display:block;}
+.sc-chest.won{color:#C39A2E; opacity:1;}
+body.night .sc-chest.won{color:#E6C765;}
 .sc-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px;}
 .sc-title{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
 .sc-count{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink);}
@@ -2590,6 +2776,34 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 .dm-switch{flex-direction:row; align-items:center; justify-content:space-between; gap:12px; cursor:pointer;}
 .dm-switch .dm-switchmain{display:flex; flex-direction:column; gap:2px; min-width:0;}
 .dm-switch .switch{flex:none;}
+/* THE REVIEW-ORDER CYCLER (Aug 2026, on request, when a third order arrived). Laid out exactly like a
+   switch row — the same two-line main block, the same right-hand control slot — so the sheet reads as one
+   list of settings rather than one of settings and one of something else. What sits in that slot is the
+   NAME of the order in force, in the mono face the sheet uses for every other figure, boxed so it reads
+   as a control rather than as a second note; pressing anywhere on the row steps it. It is a real <button>,
+   so it needs no role and no key handling of its own. */
+.dm-cycle{flex-direction:row; align-items:center; justify-content:space-between; gap:12px;}
+.dm-cyval{
+  flex:none; font-family:var(--mono); font-size:calc(11px * var(--fs)); font-weight:600;
+  letter-spacing:.02em; color:var(--ink-soft); background:var(--paper-2);
+  border:1px solid var(--rule); border-radius:999px; padding:5px 11px; white-space:nowrap;
+}
+.dm-cycle:hover .dm-cyval{border-color:var(--indigo); background:var(--card);}
+/* WHERE A SETTING COMES FROM. A third line under the note, quieter than either — it is a fact ABOUT the
+   row rather than part of what the row says — and set in the mono face because it names an entry rather
+   than reading as prose. `display:none` is spelled out: the author `display` below would otherwise beat
+   the UA's own [hidden] rule, which is this file's standing trap. */
+.dm-from{
+  display:inline-block; margin-top:3px; font-family:var(--mono);
+  font-size:calc(9.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-faint);
+}
+.dm-from[hidden]{display:none;}
+/* An inherited value is the stronger of the two marks — it is the one saying something the reader may
+   not expect — and it takes `--ink-soft`, a SOLVED ink, rather than `--indigo`, which is a brand colour
+   that falls short of the bar on several papers (see the CONTRAST block at the head of this file). */
+.dm-from.dm-inherit{color:var(--ink-soft);}
+
 /* a sheet row that is one of a SET rather than a command: the chosen one carries a tick, so the sheet
    says what the setting currently is and not only what it can be changed to. (No longer used by the
    review's order, which is a switch above; kept for the book shelf's own favourite row.) */
@@ -3068,11 +3282,6 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    (cpApplyH) and measured while it settles, and an animating height would be measured mid-flight. */
 .country-pop:not([hidden]){animation:cpIn .2s var(--ease) both;}
 @keyframes cpIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
-/* the phone sheet's resize grip — hidden on the desktop panel, which already runs the height of the stage.
-   touch-action:none, or the browser claims the drag as a page scroll before pointermove reaches us. */
-.cp-grab{display:none; position:absolute; top:0; left:0; right:0; height:18px; cursor:ns-resize; touch-action:none; z-index:2; align-items:center; justify-content:center;}
-.cp-grab span{display:block; width:38px; height:4px; border-radius:99px; background:var(--rule); pointer-events:none;}
-.cp-grab:hover span, .cp-resizing .cp-grab span{background:var(--ink-faint);}
 .cp-close{position:absolute; top:9px; right:10px; appearance:none; cursor:pointer; width:24px; height:24px; border-radius:7px; border:none; background:transparent; color:var(--ink-faint); font-size:calc(17px * var(--fs)); line-height:1; display:flex; align-items:center; justify-content:center; z-index:1;}
 .cp-close:hover{background:var(--rule); color:var(--ink);}
 /* the title block sits ABOVE the scroller and never moves: on the phone the sections below it are pages you
@@ -3144,16 +3353,17 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
      between, one page at a time, with the dots below saying how many there are. Every page is expanded (there
      is nothing under a page to uncover by folding it) and an empty one is dropped from the run rather than
      shown, so a swipe never lands on a dash. The title block above and the dots below stay put. */
-  .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:52%; padding:22px 16px 8px;}
+  .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:52%; padding:15px 16px 8px;}
   /* the sheet is centred by a transform, so its entrance has to carry that translate rather than replace it */
   .country-pop:not([hidden]){animation-name:cpInSheet;}
   @keyframes cpInSheet{from{opacity:0; transform:translateX(-50%) translateY(10px);} to{opacity:1; transform:translateX(-50%);}}
-  .cp-grab{display:flex;}
-  .cp-close{top:15px;}   /* the grip took the top edge */
-  /* dragged to a height of the reader's own: the 52% cap gives way to it entirely, and the head gives up
-     its share of the box first so the title survives all the way down to the floor */
-  .country-pop.cp-sized{max-height:none; overflow:hidden;}
-  .country-pop.cp-resizing{transition:none;}
+  /* THE FOLD (Aug 2026, on request — it was a jumpcut). The height is an explicit px value in both states
+     (cpApplyH: the measured name, or the page's own need), so it is the one thing here CSS can ease; the
+     52% cap gives way to it entirely, and the head gives up its share of the box first so the title
+     survives all the way down to the floor. What CSS cannot ease is the `display:none` below, which is why
+     JS applies .cp-shut at the two ENDS of the movement rather than at the start of it — keep this duration
+     in step with CP_FOLD_MS in app.js. */
+  .country-pop.cp-sized{max-height:none; overflow:hidden; transition:height .26s var(--ease);}
   .cp-sized .cp-head{max-height:none; flex:0 1 auto; min-height:0;}
   .cp-head{max-height:46%; overflow-y:auto;}   /* "Through the ages" can run to a dozen rows — cap it, or it pushes the pages off the sheet */
   .cp-cols{display:flex; flex-direction:row; flex:1; gap:0; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; padding-right:0; scrollbar-width:none; -webkit-overflow-scrolling:touch;}
@@ -3173,9 +3383,12 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
      The height is set in JS (see cpApplyH — the floor is measured, since a long name wraps and a drilled
      place carries a breadcrumb), so all this does is take the parts below the title out of the box and
      turn the chevron over. `overflow:hidden` on the sheet is already set by .cp-sized. */
+  /* No border and no fill (Aug 2026, on request): the chevron sits on the title's own line, and a boxed
+     tile there reads as a second thing to press rather than as the name's own control. The hit area stays
+     30px — the box was never what made it tappable. */
   .cp-more{display:inline-flex; align-items:center; justify-content:center; margin-left:auto; flex:none;
-    width:30px; height:30px; padding:0; border:1px solid var(--rule); border-radius:9px;
-    background:var(--paper-2); color:var(--ink-soft); cursor:pointer; transition:transform .22s var(--ease);}
+    width:30px; height:30px; padding:0; border:none; border-radius:9px;
+    background:transparent; color:var(--ink-soft); cursor:pointer; transition:transform .22s var(--ease);}
   .cp-more svg{width:17px; height:17px;}
   .cp-more[aria-expanded="true"]{transform:rotate(180deg);}
   .cp-shut .cp-cols,.cp-shut .cp-dots,.cp-shut .cp-tools,.cp-shut .cp-hist{display:none;}
@@ -3920,10 +4133,10 @@ button.game-tile:active{transform:translateY(0) scale(.99);}
 .game-tile.blank .gt-title{color:var(--ink-faint);}
 .game-tile.blank .gt-glyph{opacity:.16;}
 /* ---------- game-tile daily states ----------
-   The tile no longer FILLS when played (Aug 2026, on request) — see the .gt-ribbon block above. What is left
-   here is the idle treatment, which is what every tile now wears all day: the hue washing in from the left,
-   the theme colour in the left bar, a faint corner icon. Completion is the ribbon across the top-right
-   corner, gold on a perfect score. Daylight needs a far stronger mix than night to read at all; night keeps
+   The tile no longer FILLS when played (Aug 2026, on request) — see the .gt-check / .gt-seal block above.
+   What is left here is the idle treatment, which is what every tile now wears all day: the hue washing in
+   from the left, the theme colour in the left bar, a faint corner icon. Completion is a mark in the
+   top-right corner, a gold seal on a perfect score. Daylight needs a far stronger mix than night; night keeps
    the original whisper strength. */
 button.game-tile{
   background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 26%, transparent), transparent 64%),
@@ -3937,7 +4150,7 @@ body.night .game-tile{
 }
 button.game-tile .gt-title{color:color-mix(in srgb, var(--tile, var(--indigo)) 45%, var(--ink));}
 button.game-tile .gt-glyph{opacity:.14;}
-/* the ribbon crosses the corner the tagline never reaches, but a long score line would run under it */
+/* the mark sits in the corner the tagline never reaches, but a long score line would run under it */
 .game-tile.done .gt-body, .game-tile.won .gt-body{padding-right:6px;}
 @keyframes gt-gold-shine{
   0%, 14%   {background-position:110% 0, 0 0;}   /* the shine band waits off the left edge */
@@ -4172,6 +4385,10 @@ button.game-tile .gt-glyph{opacity:.14;}
     text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .tabbar .tab.active{color:var(--indigo);}
   .tabbar .tab.active::before{content:""; position:absolute; top:0; left:50%; transform:translateX(-50%); width:26px; height:2.5px; border-radius:0 0 3px 3px; background:var(--indigo);}
+  /* the phone bar draws its own active mark, so the admin colour is repeated here — with an extra class
+     for specificity, since a media query adds none and the rule above it is otherwise a tie */
+  .tabbar .tab.tab-admin.active{color:var(--admin);}
+  .tabbar .tab.tab-admin.active::before{background:var(--admin);}
   .tabbar .tab:active{background:color-mix(in srgb, var(--ink) 5%, transparent);}
   body.grading .tabbar{display:none;}
   /* everything anchored to the bottom of the viewport moves up by the bar's height. The Atlas needs no rule
@@ -4242,6 +4459,10 @@ button.game-tile .gt-glyph{opacity:.14;}
   }
   /* the chevron turns on the SAME clock as the fold it announces — see GB_FOLD_MS in app.js */
   .gb-fold svg{width:20px; height:20px; transition:transform .28s var(--ease);}
+  /* while the fold runs, the bar's CONTENTS are inert — see gbFoldingFor in app.js. A press into boxes
+     that are mid-animation is what leaves the buttons painted in one place and hit-tested in another,
+     which is the reported jam; the chevron sits outside .gradebar-inner and stays live throughout. */
+  body.gb-folding .gradebar-inner{pointer-events:none;}
   /* it points the way it will GO: down while the bar is tall (press to fold it away), up once it is short */
   body.gb-compact .gb-fold svg{transform:rotate(180deg);}
   .gb-fold:hover, .gb-fold:focus-visible{color:var(--indigo); opacity:1;}
@@ -4335,9 +4556,10 @@ button.game-tile .gt-glyph{opacity:.14;}
   .dp-name{width:120px;}
   .profile{flex-direction:column; text-align:center;}
   .namefield{text-align:center;}
-  /* the profile stacks here, so the two account buttons take the full width side by side rather than
-     hanging off a right edge that no longer exists */
-  .acct-idacts{width:100%; justify-content:center;}
+  /* the profile stacks here, so the account buttons take the full width in a row rather than hanging off
+     a right edge that no longer exists — the desktop's 2×2 grid is for the space beside the name, and
+     there is no beside once the card is a column */
+  .acct-idacts{display:flex; width:100%; justify-content:center; flex-wrap:wrap;}
   .acct-idacts .ghost-btn{flex:1; min-width:0;}
   .acct-syncnote{margin:-10px 0 16px; text-align:center; padding-left:0;}
 }
@@ -4385,7 +4607,7 @@ button.game-tile .gt-glyph{opacity:.14;}
 body.no-anim *,body.no-anim *::before,body.no-anim *::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
 body.no-anim .page > *{animation-delay:0s !important;}
 body.no-anim .lu-conf,body.no-anim .lu-burst{display:none;}
-body.no-anim .gt-ribbon.gr-gold span{animation:none;}
+body.no-anim .gt-seal{animation:none;}
 body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::before{animation:none; border-color:var(--rule); border-top-color:var(--indigo);}
 
 /* ============================================================
@@ -4678,6 +4900,8 @@ body.admin-mode .page{animation:none;}
 .admin-tab[data-atab="quotes"].active{color:#fff; background:#118e96; border-color:#118e96; box-shadow:0 5px 15px -7px rgba(15,138,145,.9);}
 .admin-tab[data-atab="artefacts"]{color:#a8478f; background:rgba(168,71,143,.13); border-color:rgba(168,71,143,.32);}
 .admin-tab[data-atab="artefacts"].active{color:#fff; background:#a8478f; border-color:#a8478f; box-shadow:0 5px 15px -7px rgba(168,71,143,.9);}
+.admin-tab[data-atab="themes"]{color:#6d8f1f; background:rgba(109,143,31,.14); border-color:rgba(109,143,31,.33);}
+.admin-tab[data-atab="themes"].active{color:#fff; background:#6d8f1f; border-color:#6d8f1f; box-shadow:0 5px 15px -7px rgba(109,143,31,.9);}
 .admin-tab[data-atab="timeline"]{color:#bd831f; background:rgba(201,138,43,.14); border-color:rgba(201,138,43,.33);}
 .admin-tab[data-atab="timeline"].active{color:#fff; background:#c98a2b; border-color:#c98a2b; box-shadow:0 5px 15px -7px rgba(201,138,43,.9);}
 .admin-tab[data-atab="feedback"]{color:#c0463a; background:rgba(192,70,58,.13); border-color:rgba(192,70,58,.32);}
@@ -4782,6 +5006,12 @@ body.admin-mode .page{animation:none;}
 .admin-revert:hover{color:var(--zh); border-color:color-mix(in srgb, var(--zh) 40%, var(--rule)); background:var(--zh-wash);}
 .admin-preview{appearance:none; border:1px solid var(--indigo); background:none; color:var(--indigo); font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; font-weight:600; padding:8px 12px; border-radius:7px; cursor:pointer; white-space:nowrap; transition:color .15s, background .15s;}
 .admin-preview:hover{background:var(--indigo); color:#fff;}
+/* the way back to a study session the editor was opened from (see studyHold in app.js). FILLED where
+   Preview is outlined: it is the primary way out of this trip, and the reader is here because a card in
+   front of them was wrong. It exists only while a session is being held, so it never sits there inert. */
+.admin-tostudy{appearance:none; border:1px solid var(--indigo); background:var(--indigo); color:#fff; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; font-weight:600; padding:8px 12px; border-radius:7px; cursor:pointer; white-space:nowrap; transition:filter .15s, transform .12s var(--ease);}
+.admin-tostudy:hover{filter:brightness(1.12);}
+.admin-tostudy:active{transform:scale(.97);}
 /* in-pane card preview (keeps the tree + card list visible while previewing) */
 .admin-pv{display:flex; flex-direction:column; gap:18px;}
 .admin-pv-bar{display:flex; align-items:center; gap:14px; min-width:0;}
@@ -5130,11 +5360,11 @@ body.grading .admin-edit-fab{bottom:108px;}
      the Quotes tab looked like on a phone (Aug 2026, on a bug report): the edit form filled the box, its
      Save button sat at the fold, and the running order under it was cut off mid-row. Timeline and Feedback
      were listed here from the day they were built; the Dashboard and Quotes arrived later and were not,
-     which is the whole of the bug. FIVE tabs take the area over — keep this list in step with the
+     which is the whole of the bug. SIX tabs take the area over — keep this list in step with the
      `*-mode` classes adminRefresh() sets, or the next one added will look broken the same way. */
   .admin.timeline-mode .admin-list-items,.admin.feedback-mode .admin-list-items,
   .admin.dash-mode .admin-list-items,.admin.quotes-mode .admin-list-items,
-  .admin.artefacts-mode .admin-list-items{max-height:none;}
+  .admin.artefacts-mode .admin-list-items,.admin.themes-mode .admin-list-items{max-height:none;}
   .tl-edit{padding:18px 14px;}
   .tl-era{flex-wrap:wrap; row-gap:8px;}
   /* the pane stops scrolling inside itself here (the admin stacks into one column and the PAGE scrolls), and
@@ -5690,6 +5920,18 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .theme-opt:hover{border-color:var(--ink-faint); transform:translateY(-1px);}
 .theme-opt.active{border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
 .theme-opt:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* A LOCKED THEME (Aug 2026) — shown rather than hidden, since a collectible nobody can see is one nobody
+   knows to want, and still PRESSABLE, since a disabled button fires no mouse events in Chrome and the
+   hover try-on is the best advertisement a theme has. What marks it is a dashed rim and a quieted
+   specimen; the name and the padlock stay at full strength, or the row reads as failed rather than
+   locked. `setTheme` is what actually refuses it. */
+.theme-opt.theme-locked{border-style:dashed; cursor:pointer;}
+.theme-opt.theme-locked .theme-mock{opacity:.5; filter:saturate(.55);}
+.theme-opt.theme-locked:hover .theme-mock{opacity:1; filter:none;}
+.theme-opt .theme-lock{font-size:calc(10px * var(--fs)); opacity:.75;}
+/* the chest's theme reveal: the same specimen the picker draws, at the size an artefact's plate gets */
+.chest-art.chest-theme{width:min(210px,58vw);}
+.chest-art.chest-theme .theme-mock{width:100%; height:auto; aspect-ratio:16/10;}
 .theme-swatches{display:flex; gap:5px;}
 .theme-swatches i{width:26px; height:26px; border-radius:6px; border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);}
 .theme-name{font-family:var(--display); font-size:calc(16px * var(--fs)); font-weight:600; color:var(--ink); line-height:1;}
@@ -5831,9 +6073,12 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .sd-row:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
 .sd-table td{padding:11px 14px; vertical-align:middle; font-size:calc(13.5px * var(--fs)); color:var(--ink);}
 .sd-table td.sd-num{text-align:right; font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink-faint); white-space:nowrap;}
-.sd-deck{display:flex; flex-wrap:wrap; align-items:center; gap:6px; min-width:190px;}
-.sd-title{font-family:var(--display); font-size:calc(15px * var(--fs)); color:var(--ink);}
-.sd-sub{flex-basis:100%; font-size:calc(12px * var(--fs)); color:var(--ink-faint); line-height:1.45;}
+/* NOWRAP, now that nothing in this cell takes a full basis: the author's description left the table on
+   request (see sharedRowsHTML) and the wrap that let it sit under the title would otherwise only ever
+   fire by accident, dropping a pill onto a second line and making one row of a scannable list taller
+   than its neighbours for no reason a reader could see. */
+.sd-deck{display:flex; align-items:center; gap:6px; min-width:190px;}
+.sd-title{font-family:var(--display); font-size:calc(15px * var(--fs)); color:var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .sd-author{color:var(--ink-faint); font-size:calc(12.5px * var(--fs)); white-space:nowrap;}
 .sd-rate .stars{justify-content:flex-end;}
 @media (max-width:640px){
@@ -5906,28 +6151,20 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .udeck-tag{font-size:calc(9px * var(--fs)); letter-spacing:.07em;}
 
 /* ---- a community deck's subdecks (Aug 2026) ----
-   Indented rows under their deck's own row, each addable and studiable on its own. They are deliberately
-   quieter than the deck above them — a hairline down the left instead of a card of their own — so the deck
-   still reads as one thing rather than as three siblings. A flat deck renders none of this. */
+   THEY ARE CURATED DECK ROWS NOW, in the curated fold (on request: "collapsible with chevrons and
+   visually look the same as the curated collections"). They were a flat always-open `.udeck-subs` list of
+   quiet hairline rows — a shape nothing else on the Collections page wears, and one that put nine rows
+   under a nine-level deck whether the reader wanted them or not. The markup is `buildNode`'s, so the box,
+   the border, the hover, the collection hue on the left hairline, the grid fold and the entrance stagger
+   are all the curated rules and cannot drift from them; what is left here is the DEPTH INDENT and
+   nothing else, a community deck's paths nesting where the curated tree nests its containers. */
 /* a subdeck added to the review on its own: named by itself, with its deck for context */
 .dk-sup{margin-left:8px; font-family:var(--sans); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-.udeck-subs{display:flex; flex-direction:column; border-top:1px solid var(--rule);}
-/* --sd is the row's DEPTH in the subdeck path, set inline by udeckSubRowsHTML. Both the padding and the
-   left rail take it, because an indent with the rail left behind at the same x reads as one flat list
-   whose titles happen to start further in. */
-.udeck-subrow{display:flex; align-items:center; gap:12px; padding:11px 16px 11px 22px; cursor:pointer; position:relative;
-  padding-inline-start:calc(22px + var(--sd, 0) * 18px);
-  border-top:1px solid var(--rule); transition:background .18s var(--ease);}
-.udeck-subs > .udeck-subrow:first-child{border-top:0;}
-.udeck-subrow::before{content:""; position:absolute; left:calc(10px + var(--sd, 0) * 18px); top:9px; bottom:9px;
-  width:2px; border-radius:2px; background:var(--coll-bg, var(--indigo)); opacity:.5;}
-.udeck-subrow[data-depth="1"]::before{opacity:.32;}
-.udeck-subrow[data-depth="2"]::before,.udeck-subrow[data-depth="3"]::before{opacity:.22;}
-.udeck-subrow:hover{background:var(--paper-2);}
-.udeck-subrow:focus-visible{outline:2px solid var(--indigo); outline-offset:-2px;}
-.udeck-subrow .collection-main{flex:1; min-width:0;}
-.udeck-subrow .deck-title{font-family:var(--sans); font-size:calc(13.5px * var(--fs)); font-weight:600; color:var(--ink);}
-.udeck-subrow .collection-count{font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--ink-faint);}
+/* --sd is the row's DEPTH in the subdeck path, set inline by udeckSubRowsHTML. A margin rather than the
+   old padding, because the row is a card of its own now: indenting inside the box would leave every
+   level's card starting at the same x with only its words moved, which reads as one flat list. */
+.node.udeck-subrow{margin-inline-start:calc(var(--sd, 0) * 20px);}
+.node.udeck-subrow .node-title{font-size:calc(15px * var(--fs));}
 .udeck-upd{font-size:calc(9px * var(--fs)); letter-spacing:.07em; color:#fff; background:var(--indigo); border-color:var(--indigo);}
 .collection.udeck-installed > .collection-row{border-left-color:var(--indigo);}
 
@@ -6165,7 +6402,7 @@ body.night .rv-star.on{color:#E6C765;}
    spine and read alike — which is the whole point of the colour.
    `--tile` is set INLINE on the element (bookColor in app.js), so it cannot be overridden from here; a
    derived property can, which is why the indirection exists at all. */
-.book-tile{
+.book-tile, .gloss-book{
   --bk-accent:var(--tile, var(--indigo));
   position:relative; display:flex; gap:0; text-align:left; padding:0; overflow:hidden;
   background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 34%, transparent), transparent 64%) var(--card);
@@ -6173,7 +6410,7 @@ body.night .rv-star.on{color:#E6C765;}
   box-shadow:var(--shadow-sm); cursor:pointer; font:inherit; color:inherit;
   transition:transform .14s var(--ease), box-shadow .14s var(--ease), border-color .14s var(--ease), background-color .14s var(--ease);
 }
-body.night .book-tile{
+body.night .book-tile, body.night .gloss-book{
   --bk-accent:color-mix(in srgb, var(--tile, var(--indigo)) 45%, #FFFFFF);
   background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 20%, transparent), transparent 64%) var(--card);
 }
@@ -6195,8 +6432,8 @@ body.night .book-tile{
    of the declaration above it, it would poison every property that reads it. Browsers without relative
    colour keep exactly the two rules above. */
 @supports (color: oklch(from red l c h)){
-  .book-tile{--bk-accent:oklch(from var(--tile, var(--indigo)) calc(l - 0.01) calc(c * 1.5) h);}
-  body.night .book-tile{--bk-accent:oklch(from var(--tile, var(--indigo)) 0.74 calc(c * 1.3) h);}
+  .book-tile, .gloss-book{--bk-accent:oklch(from var(--tile, var(--indigo)) calc(l - 0.01) calc(c * 1.5) h);}
+  body.night .book-tile, body.night .gloss-book{--bk-accent:oklch(from var(--tile, var(--indigo)) 0.74 calc(c * 1.3) h);}
 }
 /* A banner is HELD for its options sheet, so holding it must not select the title under the finger, and on
    iOS must not raise the platform's own callout — the guard the daily review's rows already carry. */
@@ -6245,7 +6482,6 @@ body.night .book-tile{
 .bk-tile-when{font-family:var(--serif); font-style:italic; font-size:calc(13px * var(--fs)); color:var(--ink-soft);}
 .bk-tile-foot{display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex:none; min-width:0;}
 .bk-tile-meta{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
-.bk-of{opacity:.72;}
 /* THE ORIGINAL-LANGUAGE CHIP (Aug 2026, on request): between how long the book is and the way into it,
    and drawn only on the twenty books that actually carry a facing original. It takes `--bk-accent` — the
    book's own colour, lightened for the paper in use — so it belongs to its banner rather than reading as

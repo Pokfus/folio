@@ -38,7 +38,7 @@ const api = new Function("DAY", SCHED_SRC + `
            fsrsForgetS, fsrsShortS, fsrsNextState, fsrsAnswer, fsrsSeed, fsrsPreviewIvs,
            FSRS_OPT, FSRS_LO, FSRS_HI, fsrsClampW, fsrsLossReviews, fsrsBatchLoss,
            fsrsOptimise, fsrsOptimiseStart, fsrsOptimiseStep, fsrsOptimiseFinish,
-           schedFuzzRange, schedSpread, schedPass, LOAD_AVOID };
+           schedFuzzRange, schedSpread, schedPass, schedDayDue, LOAD_AVOID };
 `)(DAY);
 const { SCHED, schedAnswer, schedPreview, schedBlank, schedIsLearning } = api;
 
@@ -650,6 +650,69 @@ section("10c. the FSRS optimiser");
     });
   }
   eq(dis, 0, "the button still schedules exactly what it says, with the balancer on");
+}
+
+/* ================= 12. A DUE DATE MEASURED IN DAYS LANDS AT THE START OF ITS DAY ===================
+   (Aug 2026, on request: Anki's behaviour.) A card answered at five in the afternoon used to come back at
+   five the following afternoon, because a day was `t + n * 24h`; everything due on a day should be waiting
+   at the top of that day instead. The anchor TRAVELS ON THE CFG for the load map's reason — the block reads
+   no global, and the preview and the grade have to be handed the same one — so the two things worth pinning
+   are that an ABSENT anchor is the old arithmetic exactly (which is what every earlier section here is
+   measuring, and what a caller that states none still gets) and that a present one never schedules into the
+   past, that being the one way an anchor at or before `t` could go wrong. */
+section("12. A due date measured in days lands at the start of its day");
+{
+  const HOUR = 3600000;
+  const midnight = 1770000000000 - (1770000000000 % DAY);   // an arbitrary day boundary
+  const t5pm = midnight + 17 * HOUR;                        // …and five in the afternoon of that day
+  const anch = Object.assign({}, SCHED, { dayAnchor: midnight });
+  const rev = (iv) => Object.assign(schedBlank(), { status: "review", interval: iv, ease: 2.5, reps: 3, due: t5pm - DAY, last: t5pm - DAY * iv });
+
+  // --- an absent anchor is the old behaviour, exactly
+  let drift = 0;
+  for (let iv = 1; iv <= 200; iv += 3) {
+    ["hard", "good", "easy"].forEach((g) => {
+      const a = schedAnswer(rev(iv), g, t5pm, "d" + iv);
+      if (Math.abs((a.due - t5pm) / DAY - a.interval) > 1e-6) drift++;
+    });
+  }
+  eq(drift, 0, "with no anchor a day is still t + n * 24h — a caller that states none is unchanged");
+
+  // --- with one, every day-scale due date sits ON a day boundary, and none of them in the past
+  let offGrid = 0, past = 0;
+  for (let iv = 1; iv <= 200; iv += 3) {
+    ["hard", "good", "easy"].forEach((g) => {
+      const a = schedAnswer(rev(iv), g, t5pm, "d" + iv, anch);
+      if ((a.due - midnight) % DAY !== 0) offGrid++;
+      if (a.due <= t5pm) past++;
+    });
+  }
+  eq(offGrid, 0, "every review due date lands on a day boundary rather than at the hour it was answered");
+  eq(past, 0, "…and never in the past, however late in the day the card was answered");
+
+  // --- a card graded at 5pm comes back at the START of tomorrow, not at 5pm tomorrow
+  const learning = Object.assign(schedBlank(), { status: "learning", step: 1, ease: 2.5, due: t5pm, last: t5pm - 600000 });
+  const grad = schedAnswer(learning, "good", t5pm, "wh-001", anch);
+  eq(grad.status, "review", "the second Good still graduates");
+  eq(grad.due, midnight + DAY, "…to the start of tomorrow, not to this time tomorrow");
+
+  // --- the MINUTE ladder is untouched: an anchor is about days
+  const step1 = schedAnswer(schedBlank(), "good", t5pm, "wh-001", anch);
+  eq(mins(step1, t5pm), 10, "a learning step is still measured in minutes from now");
+
+  // --- and the preview still says what the grade will do
+  let dis = 0;
+  for (let iv = 2; iv <= 90; iv += 5) {
+    const p = schedPreview(rev(iv), "p" + iv, t5pm, anch);
+    ["hard", "good", "easy"].forEach((g) => {
+      const a = schedAnswer(rev(iv), g, t5pm, "p" + iv, anch);
+      if (Math.round(a.interval) !== Math.round(p[g])) dis++;
+    });
+  }
+  eq(dis, 0, "the button still schedules the interval it says, with the anchor on");
+
+  eq(api.schedDayDue(t5pm, 1, anch), midnight + DAY, "schedDayDue counts from the anchor…");
+  eq(api.schedDayDue(t5pm, 1, {}), t5pm + DAY, "…and from `t` when there is none");
 }
 
 console.log("\n" + (fail ? "FAILED" : "PASSED") + " — " + pass + " passed, " + fail + " failed");

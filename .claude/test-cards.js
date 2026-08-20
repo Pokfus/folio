@@ -305,9 +305,15 @@ const SETTINGS = {
     await page.fill("#sdDays", "9!");
     await page.evaluate(() => [...document.querySelectorAll(".dm-actions .btn")].find((b) => /Set the date/.test(b.textContent)).click());
     await page.waitForTimeout(800);
+    /* COUNT THE DAY BOUNDARIES, NEVER THE ELAPSED HOURS. Anything scheduled in DAYS lands at the START
+       of its day (`schedDayDue` / `cfg.dayAnchor`), so `(due - now) / 864e5` is a day short of the figure
+       the reader asked for from midday onwards — this assertion passed every morning and failed every
+       afternoon, in the same session, with nothing wrong. What "nine days out" means is the day it lands
+       on, which is what the two day-starts measure. */
     const due = await page.evaluate((id) => {
       const c = (JSON.parse(localStorage.getItem("folio_v1") || "{}").cards || {})[id];
-      return c ? { st: c.status, iv: c.interval, days: Math.round((c.due - Date.now()) / 864e5) } : null;
+      const dayStart = (ts) => { const d = new Date(ts); d.setHours(0, 0, 0, 0); return d.getTime(); };
+      return c ? { st: c.status, iv: c.interval, days: Math.round((dayStart(c.due) - dayStart(Date.now())) / 864e5) } : null;
     }, studying);
     check("9! puts the card nine days out", due && due.days === 9, JSON.stringify(due));
     check("…as a review card with an interval of nine", due && due.st === "review" && due.iv === 9, JSON.stringify(due));
@@ -408,7 +414,8 @@ const SETTINGS = {
     await page.waitForTimeout(800);
     const bulk = await page.evaluate((id) => {
       const c = (JSON.parse(localStorage.getItem("folio_v1") || "{}").cards || {})[id];
-      return c ? Math.round((c.due - Date.now()) / 864e5) : null;
+      const dayStart = (ts) => { const d = new Date(ts); d.setHours(0, 0, 0, 0); return d.getTime(); };
+      return c ? Math.round((dayStart(c.due) - dayStart(Date.now())) / 864e5) : null;   // day boundaries, not hours
     }, someCards[1]);
     check("a bulk Set due date reaches the selected card", bulk === 3, String(bulk));
 

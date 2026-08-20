@@ -28,6 +28,15 @@ const server = http.createServer((req, res) => {
   });
 });
 
+/* A DECK SHEET SWALLOWS CLICKS FOR ITS FIRST HALF-SECOND (`DECK_SHEET_ARM_MS`), so a preset row pressed
+   sooner than that does nothing — and does it SILENTLY, which is how this suite came to abort at its first
+   preset click and run only 87 of its assertions while still reporting "82 passed". Wait past the arm,
+   reading the constant out of app.js rather than writing 500 down here, or the next change to it puts the
+   suite back where it was. */
+const ARM_MS = Number((/DECK_SHEET_ARM_MS\s*=\s*(\d+)/.exec(
+  fs.readFileSync(path.join(ROOT, "app.js"), "utf8")) || [])[1] || 500);
+const sheetArmed = (page) => page.waitForTimeout(ARM_MS + 150);
+
 let pass = 0, fail = 0;
 function check(name, ok, extra) {
   if (ok) { pass++; console.log("ok    " + name + (extra ? "  " + extra : "")); }
@@ -205,7 +214,7 @@ async function studioChecks(page, base) {
   check("the ready-made shapes are offered in the pane itself", (await page.$$(".ut-preset")).length === 4,
     String((await page.$$(".ut-preset")).length));
   await page.click("#stAddType");
-  await page.waitForTimeout(350);
+  await sheetArmed(page);
   check("Add a type offers the same shapes plus a blank one", (await page.$$(".deck-menu [data-preset]")).length === 5,
     String((await page.$$(".deck-menu [data-preset]")).length));
   await page.click('.deck-menu [data-preset=""]');
@@ -316,9 +325,9 @@ async function presetChecks(page, base) {
 
   // --- vocabulary: the one that reads its answer aloud ---
   await page.click("#stAddType");
-  await page.waitForTimeout(300);
+  await sheetArmed(page);
   await page.click('.deck-menu [data-preset="vocabulary"]');
-  await page.waitForTimeout(300);
+  await sheetArmed(page);   // the language sheet arms too, and #dmSpeechOk is a row inside it
   check("the vocabulary shape asks which language before creating anything", await page.$("#dmSpeechLang") !== null);
   await page.selectOption("#dmSpeechLang", "fr");
   await page.click("#dmSpeechOk");
@@ -351,7 +360,7 @@ async function presetChecks(page, base) {
 
   // --- fill in the blank: no language asked for, and the blanks close on the front only ---
   await page.click("#stAddType");
-  await page.waitForTimeout(300);
+  await sheetArmed(page);
   await page.click('.deck-menu [data-preset="cloze"]');
   await page.waitForTimeout(600);
   check("a shape with nothing to speak does not ask for a language",
@@ -711,7 +720,7 @@ async function reverseChecks(page, base) {
 
   // --- the Two-way preset, and the template controls it produces
   await page.click("#stAddType");
-  await page.waitForTimeout(350);
+  await sheetArmed(page);
   check("Add a type offers the Two-way shape", await page.$('.deck-menu [data-preset="two-way"]') !== null);
   await page.click('.deck-menu [data-preset="two-way"]');
   await page.waitForTimeout(600);

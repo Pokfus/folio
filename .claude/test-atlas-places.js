@@ -122,12 +122,28 @@ const check = (name, ok, extra) => {
      (Aug 2026, on request) rather than adding one on the reader's behalf. Read off the shipped tree
      rather than named: this seeding used to say `wh-prehistory`, a deck retired in the 2026-08-04
      replan, so it had been putting nothing in the review for months and only the hero's own add was
-     keeping the section alive. */
+     keeping the section alive.
+     …AND THE COLLECTION IS CHOSEN BY MEASUREMENT RATHER THAN BY BEING FIRST (Aug 2026). "The first live
+     collection" was China the day China opened, and a card of Chinese myth links no place term at all —
+     so the walk below found a country and an ordinary term and no POINT, and reported a marker that had
+     stopped working when nothing had. The collection taken is whichever one's own prose mentions the most
+     place terms, which is derived from the shipped data and cannot go stale the next time the shelf grows.
+     The day's allowance is raised with it: at five new cards the walk sees five, however many it asks for. */
   await page.evaluate(() => {
-    const cnt = (n) => (n.cardIds || []).length + (n.children || []).reduce((a, c) => a + cnt(c), 0);
-    const first = ((window.COLLECTION_TREE || {}).collections || []).find((c) => !c.placeholder && cnt(c) > 0);
+    const PLACES = Object.keys(window.GLOSSARY_PLACES || {}).map((k) => k.replace(/_/g, " ").toLowerCase());
+    const BY_ID = {}; (window.CARD_DATA || []).forEach((c) => { BY_ID[c.id] = c; });
+    const ids = (n) => (n.cardIds || []).concat(...(n.children || []).map(ids));
+    const score = (n) => ids(n).reduce((a, id) => {
+      const c = BY_ID[id]; if (!c) return a;
+      const t = ((c.abstract || "") + " " + (c.answerText || "")).toLowerCase();
+      return a + (PLACES.some((p) => p.length > 3 && t.indexOf(p) >= 0) ? 1 : 0);
+    }, 0);
+    const live = ((window.COLLECTION_TREE || {}).collections || []).filter((c) => !c.placeholder && ids(c).length);
+    const best = live.map((c) => ({ c: c, s: score(c) })).sort((a, b) => b.s - a.s)[0];
     const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
-    S.active = first ? [first.id] : []; localStorage.setItem("folio_v1", JSON.stringify(S));
+    S.active = best ? [best.c.id] : [];
+    S.settings = S.settings || {}; S.settings.newPerDay = 40;
+    localStorage.setItem("folio_v1", JSON.stringify(S));
   });
   await page.goto(base + "#home", { waitUntil: "load" });
   await page.reload({ waitUntil: "load" });

@@ -1020,7 +1020,7 @@ function aeneidChecks() {
     check("exactly one tab is called Library, and it is the books one",
       libTabs.length === 1 && libTabs[0].r === "library", JSON.stringify(d.tabs));
     /* …and there is no #decks TAB at all any more (Aug 2026, on request): Collections left the phone's bar
-       first and the desktop's a fortnight later, and is reached from the "+ Add decks" lip under the daily
+       first and the desktop's a fortnight later, and is reached from the "Collections" button under the daily
        review. So the assertion the rename needs is the pair — no tab called Collections, and none called
        Library except the books one, which is what "two pages called Library" was ever about. The ROUTE is
        asserted above, and separately: every #decks link ever shared still has to resolve. */

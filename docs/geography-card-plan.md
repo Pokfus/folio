@@ -56,6 +56,83 @@ the ~9.9 MB `atlas` bundle, and it drops sub-100k capitals, so Juneau is simply 
 Sacramento` cannot go there. The date line carries the dates and the facts box carries everything else, and
 a card may have both. At most eight rows (`CARD_FACTS_MAX`), plain text, `[label, value]`.
 
+**THE ORDER OF THE ROWS IS THE ORDER OF THE COLUMNS, so it is a decision rather than a list** (Aug 2026, on
+request). The box is a two-column grid filled row by row, so rows 1 and 3 stand above one another on the
+left and rows 2 and 4 on the right — which means the order decides what a reader compares at a glance. A
+state's four rows therefore run **Capital, Population, Largest city, Total area**: the two cities in one
+column and the two figures in the other, rather than a city over a figure in both. Write a new card's rows
+so that like sits over like.
+
+**A card about a place with a flag of its own carries one** (Aug 2026, on request), as a fourth field in
+the same three-field shape every other picture on the site uses:
+
+```json
+"answerFlag": { "src": "https://upload.wikimedia.org/…/Flag_of_Texas.svg",
+                "credit": "Paul B. Joiner, public domain, via Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg)",
+                "alt": "The flag of Texas: a blue vertical band at the hoist bearing a single white star, beside a white bar above a red bar." }
+```
+
+**IT IS `answerFlag` AND NOT `flag`, WHICH IS NOT PEDANTRY**: a card already has a FLAG in another sense —
+the reader's own 1-7 marker — and the helper reading it is `cardFlag(id)`. Shipped as a second `cardFlag(c)`
+this silently won for the whole of app.js and every reader flag read as unflagged, with nothing thrown. The
+field is named for what it is: the flag drawn beside the ANSWER.
+
+It is drawn inside the coloured answer box, to the right of the term and centred on it — a mark rather than
+an illustration, so it is **not** the card's one frame and does not retire `image` or `video`. Two rules
+`add-card.js` enforces. **`credit` is required**, like every picture here. And **`alt` is required as well,
+which is unusual**: a flag has no title, no caption and no fullscreen view, so a reader who cannot see it
+has nothing else at all — describe what the flag SHOWS rather than saying that it is a flag. Take the file
+from Commons and **look at it before using it**: a state flag is public domain, a city's often is too, and
+the file page states which.
+
+## The locator — a globe on a HISTORY card
+
+`locator` is the map card's sibling and is a **different field on purpose**, because it answers a different
+question. A map card's window is the QUESTION: it sits above the prompt, it shades a shape, and it holds
+the place's name back until the answer is shown. A locator is an ANNOTATION on the back of a card whose
+answer is already on the screen — a reader meeting Knossos, the Cycladic civilisation or the Tiber for the
+first time is being told a great deal about a place and nothing about where it is.
+
+```json
+"locator": { "name": "Knossos", "at": [25.1631, 35.2981] }
+```
+
+Optional `zoom` overrides the default, which is `CMAP_ZLOC` (4, about a 50° window) — a river wants less
+and an island more.
+
+**THE COORDINATE IS FETCHED AND NEVER TYPED.** `node .claude/add-locators.js <batch.json>` reads it off the
+named Wikipedia article's own published primary coordinate; `--check` reports which cards carry one and
+fetches nothing. A batch entry is `{ "title": "<article>", "name": "<the label>", "zoom": <optional> }`, and
+`name` defaults to the card's `answerText`. Three things about running it:
+
+- **One title per request.** `prop=coordinates` paginates, so a batched query records a handful and reports
+  the rest as having no coordinate — which is indistinguishable from the truth.
+- **READ THE `←` MARKERS.** The fetcher prints one wherever the API followed a redirect, and a redirect can
+  land somewhere else entirely: `Idaean Cave` resolves to **Psychro Cave**, which is a different cave on a
+  different mountain, and `Zagora, Andros` to **Zagora, Greece**, the village in Pelion. Both shipped wrong
+  for a run. Where the exact place has no article, name the FEATURE the card's own first sentence puts it on
+  (Mount Ida for the Idaean Cave, Andros for Zagora) — that is still fetched, still traceable through the
+  batch file, and true at a locator's scale.
+- **An article with no primary coordinate gets no locator and is reported by name.** That is the right
+  outcome for a continental landmass whose whole point is its EXTENT — Sahul and Beringia have none
+  deliberately, a single dot misrepresenting both — and for a place Pausanias puts on a road (Thornax).
+
+**IT DOES NOT SHADE THE MODERN COUNTRY, and that is the decision worth keeping.** The gold fill means
+*this is the answer* on a map card; lighting up modern Greece for Knossos would reuse that mark for a second
+meaning and make a claim about a border drawn three and a half thousand years later. The dot's existing
+meaning — *the place being pointed at* — is exactly right and needs no country to be chosen. So a locator's
+layer is `world`, which every map window already loads for the coastline under it, and it carries no
+`points` table: nothing may put a table dot on it, since a locator gives its coordinate outright.
+
+It renders at the FOOT of the card, **after the Background fold and before the citations** — it is not
+prose, so it does not belong under that heading, and a reader who shut the fold to see only the answer has
+not asked to lose it — and it NAMES its place from the first frame, unlike a map card's window.
+
+**Its failure modes are all silent**, which is why `test-map-cards.js` section 8 reveals a real card and
+reads what is painted: a card whose `locator` the serializer forgot, a canvas nobody mounted, and a window
+that resolved no place all render as a card that never had one. `ready()` is `!!(target || dot)` for that
+reason — a locator has a dot and no target, so testing `target` alone reports every one as unmounted.
+
 ### Rules the format imposes
 
 - **A map card carries NO extra phrasings.** `add-card.js` refuses them. The other two would have to ask

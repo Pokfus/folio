@@ -74,20 +74,32 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "admin", 
   await page.reload({ waitUntil: "load" });
   await page.waitForTimeout(2600);
 
+  /* THE FOUR ACCOUNT ACTIONS ARE A 2×2 GRID, not the one row they were until Aug 2026 — four buttons side
+     by side ran to the width of the card and squeezed the name and handle beside them into what was left.
+     So what is asserted is the GRID: two columns, four buttons of ONE width (the columns are `1fr` exactly
+     so the four are the same size rather than four different label widths), and Change password above Sign
+     out in the same block. Reading "are they on one row" would now pass only on a regression. */
   const a = await page.evaluate(() => {
     const pw = document.querySelector("#pwToggle"), so = document.querySelector("#signout"), note = document.querySelector(".acct-syncnote"), stats = document.querySelector(".ph-stats");
     if (!pw || !so || !note) return { missing: !pw ? "pwToggle" : !so ? "signout" : "note" };
+    const box = pw.parentElement;
+    const btns = [...box.querySelectorAll(".ghost-btn")];
     const p = pw.getBoundingClientRect(), s = so.getBoundingClientRect(), n = note.getBoundingClientRect(), st = stats.getBoundingClientRect();
+    const cols = getComputedStyle(box).gridTemplateColumns.trim().split(/\s+/).length;
+    const w = btns.map((b) => Math.round(b.getBoundingClientRect().width));
     return {
-      sameRow: Math.abs(p.top - s.top) < 4,
+      cols, buttons: btns.length,
+      oneWidth: w.length > 1 && Math.max(...w) - Math.min(...w) < 2,
       siblings: pw.parentElement === so.parentElement,
+      stacked: s.top > p.top + 4,
       inProfile: !!pw.closest(".profile"),
       noteBelowButtons: n.top >= Math.min(p.bottom, s.bottom) - 1,
       noteAboveStats: n.bottom <= st.top + 1,
       order: pw.compareDocumentPosition(so) & Node.DOCUMENT_POSITION_FOLLOWING ? "pw,signout" : "signout,pw",
     };
   });
-  check("Change password and Sign out are on one row", a.sameRow && a.siblings, JSON.stringify(a));
+  check("the four account actions are a 2×2 grid", a.cols === 2 && a.buttons === 4 && a.siblings, JSON.stringify(a));
+  check("…with the four buttons one size rather than four", a.oneWidth, JSON.stringify(a));
   check("…inside the profile card", a.inProfile, JSON.stringify(a));
   check("the sync note sits directly below them", a.noteBelowButtons && a.noteAboveStats, JSON.stringify(a));
   check("nothing else was left in the old tools row", await page.evaluate(() => !document.querySelector(".acct-tools #pwToggle, .acct-tools .auth-note")));
@@ -113,8 +125,11 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "admin", 
   });
   await page.reload({ waitUntil: "load" });
   await page.waitForTimeout(2200);
-  const label = (await page.evaluate(() => { const b = document.querySelector("#showcase [data-arall]"); return b && b.textContent; })) || "";
-  check("…and a collection of two carries one", /\b2\b/.test(label), label.trim() + " (" + owned.join(", ") + ")");
+  /* The button reads "See Reliquary" since Aug 2026 and the COUNT moved into its title — the label names
+     the place it opens, which a reader can act on, where a bare figure named only a quantity. So the count
+     is read off the title; asserting it in the text would be pinning the label the button no longer has. */
+  const all = (await page.evaluate(() => { const b = document.querySelector("#showcase [data-arall]"); return b && { text: b.textContent.trim(), title: b.getAttribute("title") || "" }; })) || {};
+  check("…and a collection of two carries one", /\b2 artefacts\b/.test(all.title || ""), JSON.stringify(all) + " (" + owned.join(", ") + ")");
   await page.evaluate(() => document.querySelector("#showcase [data-arall]").click());
   await page.waitForTimeout(400);
   const coll = await page.evaluate(() => {

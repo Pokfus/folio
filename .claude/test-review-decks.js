@@ -59,17 +59,27 @@ const SETTINGS = {
   const browser = await chromium.launch(LAUNCH);
   const errs = [];
 
-  // the two leaf decks that actually hold cards, read off the shipped tree rather than hard-coded
   const probe = await browser.newPage();
   await probe.goto(base, { waitUntil: "load" });
   await probe.waitForTimeout(1200);
+  /* The two leaf decks that actually hold cards, read off the shipped tree rather than hard-coded — and
+     PREFERRED FROM ONE COLLECTION, which sections 8 and 11 depend on and which stopped happening by itself
+     when the China collection was opened (Aug 2026). Those sections need a level of the review list holding
+     more than one row: two leaves of one collection give their shared parent two children, where two leaves
+     of DIFFERENT collections give each parent one and leave nothing to reorder or to drag into a group.
+     Read the flat way it silently became a fixture for a list nobody could rearrange — the drag sections
+     then reported the top level, and the group section found no deck to carry and crashed the run before
+     everything after it could execute. Falls back to the first two anywhere, so a tree that offers no such
+     pair still tests what it can. */
   const leaves = await probe.evaluate(() => {
-    const out = [];
-    (window.COLLECTION_TREE.collections || []).forEach(function walk(n) {
+    const byRoot = {};
+    (window.COLLECTION_TREE.collections || []).forEach((c) => (function walk(n) {
       (n.children || []).forEach(walk);
-      if (!(n.children || []).length && (n.cardIds || []).length) out.push(n.id);
-    });
-    return out;
+      if (!(n.children || []).length && (n.cardIds || []).length) (byRoot[c.id] = byRoot[c.id] || []).push(n.id);
+    })(c));
+    const roots = Object.keys(byRoot);
+    const shared = roots.find((r) => byRoot[r].length > 1);
+    return shared ? byRoot[shared].slice(0, 2) : roots.flatMap((r) => byRoot[r]).slice(0, 2);
   });
   await probe.close();
   if (leaves.length < 2) { console.log("FAIL  the tree needs two leaf decks with cards to test a pooled review"); process.exit(1); }
@@ -154,19 +164,19 @@ const SETTINGS = {
       return {
         items: [...ov.querySelectorAll(".dm-item")].map((b) => b.querySelector("b").textContent),
         switches: [...ov.querySelectorAll(".dm-switch")].map((r) => r.querySelector("b").textContent),
-        // read per switch, not as a total: the two default OPPOSITE ways — the order is Ordered (off)
-        // and question variety is on, which is the point of it — so a count says nothing about either
-        order: !!ov.querySelector('.dm-switch[data-act="order"] .switch.on'),
+        cycles: [...ov.querySelectorAll(".dm-cycle")].map((r) => r.querySelector("b").textContent),
+        // read per control, not as a total: they default OPPOSITE ways — the order is Ordered and
+        // question variety is on, which is the point of it — so a count says nothing about either
+        order: (ov.querySelector('.dm-cycle[data-act="order"] .dm-cyval') || {}).textContent,
         variety: !!ov.querySelector('.dm-switch[data-act="variety"] .switch.on'),
         choices: ov.querySelectorAll(".dm-choice").length,
       };
     });
     /* The banner's sheet IS the deck sheet, one level up (Aug 2026, on request: "the same menu, without
        the delete option"), and NO Remove — there is nothing to take the review out of.
-       The ORDER is a SWITCH now, not a pair of rows to choose between (Aug 2026, on a second request):
-       two rows for one bit of state spent a third of a phone sheet saying what one line says. QUESTION
-       VARIETY arrived beside it the same day and takes the same shape. Both start OFF here, since this
-       harness boots with reviewRandom false and no per-deck override. */
+       The ORDER is a CYCLER since Aug 2026 — it was a pair of rows, then a switch, and a third order
+       (By difficulty) will not fit in a switch — so it is one row naming the order in force, which steps
+       and wraps. QUESTION VARIETY beside it is still a switch, that one having only two states. */
     /* BROWSE YOUR CARDS joined both sheets in Aug 2026 — the everyday way into the card browser, since the
        moment somebody wants to find a card is usually the moment they are looking at their decks. It is on
        EVERY entry, the pooled review included: the browser searches the whole collection rather than the
@@ -175,22 +185,44 @@ const SETTINGS = {
        through a hue a day, and a colour chosen here holds it at one. It is last because it is the only row
        that changes nothing about what the session DEALS. */
     check("holding the banner offers the deck sheet's options, minus Remove",
-      rm && rm.items.join(",") === "Random order,Question variety,Browse your cards,Custom study,Daily limits,Skip today,Colour", JSON.stringify(rm));
-    check("...the order and the phrasing pool are SWITCHES, not a pair of rows",
-      rm && rm.switches.join(",") === "Random order,Question variety" && rm.choices === 0, JSON.stringify(rm));
+      rm && rm.items.join(",") === "Review order,Question variety,Browse your cards,Custom study,Daily limits,Skip today,Colour", JSON.stringify(rm));
+    check("...the order is a CYCLER and the phrasing pool a switch, with no pair of rows for either",
+      rm && rm.cycles.join(",") === "Review order" && rm.switches.join(",") === "Question variety" && rm.choices === 0,
+      JSON.stringify(rm));
     check("...each showing its own current state — Ordered, and variety on by default",
-      rm && rm.order === false && rm.variety === true, JSON.stringify(rm && { order: rm.order, variety: rm.variety }));
-    await page.evaluate(() => document.querySelector('.deck-menu .dm-switch[data-act="order"]').click());
-    await page.waitForTimeout(600);
-    check("...and throwing it writes the setting",
-      await page.evaluate(() => (JSON.parse(localStorage.getItem("folio_v1")).settings || {}).reviewRandom) === true);
+      rm && rm.order === "Ordered" && rm.variety === true, JSON.stringify(rm && { order: rm.order, variety: rm.variety }));
+    /* THE THIRD ORDER IS REACHED BY PRESSING AGAIN, and the wrap is what makes the control usable at all:
+       a cycler that stopped at the end would leave a reader who overshot with no way back but a reload.
+       Both are asserted, and the STORE is read as well as the chip — the review writes `reviewOrder` and
+       keeps `reviewRandom` in step for an older build, so a chip that changed while the store did not is
+       exactly the failure a label-only assertion would pass on. */
+    const cyc = async () => {
+      await page.evaluate(() => document.querySelector('.deck-menu .dm-cycle[data-act="order"]').click());
+      await page.waitForTimeout(450);
+      return page.evaluate(() => {
+        const st = JSON.parse(localStorage.getItem("folio_v1")).settings || {};
+        return { chip: document.querySelector('.deck-menu .dm-cycle[data-act="order"] .dm-cyval').textContent,
+                 order: st.reviewOrder, random: st.reviewRandom };
+      });
+    };
+    const c1 = await cyc();
+    check("...one press steps it to Random, in the store as well as on the chip",
+      c1.chip === "Random" && c1.order === "random" && c1.random === true, JSON.stringify(c1));
+    const c2 = await cyc();
+    check("...a second reaches By difficulty, the order that had no control until now",
+      c2.chip === "By difficulty" && c2.order === "difficulty" && c2.random === false, JSON.stringify(c2));
+    const c3 = await cyc();
+    check("...and a third wraps back to Ordered", c3.chip === "Ordered" && c3.order === "ordered", JSON.stringify(c3));
+    const c4 = await cyc();
+    check("...leaving it on Random for the rest of this section", c4.order === "random" && c4.random === true, JSON.stringify(c4));
     /* …and the SHEET STAYS OPEN, which is the whole difference between a switch and a command: every
        other row here closes behind itself, and taking the sheet away is what makes a reader wonder
        whether the throw landed. (It must also not repaint — render() closes this very sheet.) */
-    check("...leaving the sheet open, with the switch now on",
+    check("...leaving the sheet open, with the chip showing the order it stepped to",
       await page.evaluate(() => {
         const ov = document.querySelector(".deck-menu");
-        return !!(ov && ov.querySelector('.dm-switch[data-act="order"] .switch.on'));
+        const v = ov && ov.querySelector('.dm-cycle[data-act="order"] .dm-cyval');
+        return !!(v && v.textContent === "Random");
       }));
     /* QUESTION VARIETY is the second switch, and it is stored PER ENTRY (deckLimits' shape) rather than
        as one global flag: the sheet opens on a deck's own row as well as on the pooled review, and a
@@ -342,17 +374,17 @@ const SETTINGS = {
     check("...without changing what each deck offers on its own", capped.rows.every((n) => n === 5), JSON.stringify(capped.rows));
     check("...and is stored under the review's own entry", capped.stored && capped.stored.newPerDay === 2, JSON.stringify(capped.stored));
 
-    // …and the REVIEW's order switch writes the GLOBAL, which is what Settings shows — the other half of
-    // the per-deck assertion in section 4, and they fail in opposite directions
+    // …and the REVIEW's order cycler writes the GLOBAL — the other half of the per-deck assertion in
+    // section 4, and they fail in opposite directions
     await page.evaluate(() => document.querySelector("#b-review").dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })));
     await page.waitForTimeout(300);
-    await page.evaluate(() => document.querySelector('.deck-menu .dm-switch[data-act="order"]').click());
+    await page.evaluate(() => document.querySelector('.deck-menu .dm-cycle[data-act="order"]').click());
     await page.waitForTimeout(400);
     const revOrder = await page.evaluate(() => {
       const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
       return { global: !!(S.settings || {}).reviewRandom, entry: ((S.deckOpts || {})["review:all"] || {}).random };
     });
-    check("the review's own order switch writes the global setting, not a per-entry flag",
+    check("the review's own order cycler writes the global setting, not a per-entry flag",
       revOrder.global === true && revOrder.entry === undefined, JSON.stringify(revOrder));
     await page.close();
   }
@@ -429,29 +461,41 @@ const SETTINGS = {
        both curated and imported") — it used to be containers only. It sits before Remove, which stays
        last, being the one row that takes the deck off the list. */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Random order", "Question variety", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Colour", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Colour", "Remove"]),
       JSON.stringify(menu.items));
 
-    /* THE ORDER SWITCH IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they
-       are stored in different places on purpose (see deckRandom): a deck writes `S.deckOpts[id].random`
-       while the review writes `S.settings.reviewRandom`, which is what Settings → Random review order
-       shows — a private copy there would leave two controls disagreeing with nothing to say which wins.
-       Throwing it must also NOT close the sheet, which is the rule every switch row here follows. */
-    const throwOrder = () => page.evaluate(() => {
-      document.querySelector('.dm-switch[data-act="order"]').click();
-      return { open: !!document.querySelector(".deck-menu"), on: document.querySelector('.dm-switch[data-act="order"] .switch').classList.contains("on") };
+    /* THE ORDER IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they are
+       stored in different places on purpose (see deckOrderMode): a deck writes `S.deckOpts[id]` while the
+       review writes `S.settings.reviewOrder` — a private copy there would leave two controls disagreeing
+       with nothing to say which wins. Stepping it must also NOT close the sheet, which is the rule every
+       setting row here follows.
+       BOTH NAMES ARE READ BACK: `setDeckOrderMode` writes `order` AND keeps the older `random` boolean in
+       step, so a build that knows only the boolean still deals this deck the right way round. */
+    const stepOrder = () => page.evaluate(() => {
+      document.querySelector('.dm-cycle[data-act="order"]').click();
+      return { open: !!document.querySelector(".deck-menu"), chip: document.querySelector('.dm-cycle[data-act="order"] .dm-cyval').textContent };
     });
-    const flipped = await throwOrder();
+    const flipped = await stepOrder();
     await page.waitForTimeout(300);
     const storedRandom = await page.evaluate(() => {
       const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
       const id = document.querySelector(".active-deck[data-review]").dataset.review;
-      return { deck: (S.deckOpts || {})[id] && (S.deckOpts || {})[id].random, global: !!(S.settings || {}).reviewRandom, id };
+      const o = (S.deckOpts || {})[id] || {};
+      return { deck: o.random, order: o.order, global: !!(S.settings || {}).reviewRandom, id };
     });
-    check("a deck's Random-order switch stores against that DECK, not the global setting",
-      flipped.open && flipped.on === true && storedRandom.deck === true && storedRandom.global === false,
+    check("a deck's order cycler stores against that DECK, not the global setting",
+      flipped.open && flipped.chip === "Random" && storedRandom.deck === true &&
+      storedRandom.order === "random" && storedRandom.global === false,
       JSON.stringify({ flipped, storedRandom }));
-    await throwOrder();   // put it back, so the sections below deal in deck order
+    /* …AND THE ROW SAYS THE SETTING IS ITS OWN NOW (Aug 2026, with the cascade). Before it was stepped
+       this deck was following the global, so the mark was hidden; a cascade the reader cannot see reads
+       as a control that did nothing. */
+    check("...and the row now marks the setting as set here",
+      await page.evaluate(() => {
+        const m = document.querySelector('.dm-cycle[data-act="order"] .dm-from');
+        return !!(m && !m.hasAttribute("hidden") && /set here/i.test(m.textContent));
+      }));
+    await stepOrder(); await stepOrder();   // Random → By difficulty → Ordered, so the sections below deal in deck order
     await page.waitForTimeout(300);
 
     // Daily limits — Anki's three, and the deck's own new count follows the one it sets
@@ -834,7 +878,7 @@ const SETTINGS = {
      drop that lands as a REORDER rather than a nesting simply looks like a drag that did not take.
      The drag is driven with real mouse input, like section 8's, so the middle-band test, the pointer capture
      and the slop are exercised as a hand exercises them. */
-  {
+  groups: {
     /* The COLLECTION is seeded active as well as its leaves — which is what `addActive`'s cascade does when
        a reader adds one — because a collection the reader never added is a greyed signpost rather than a
        group header, and this section is about the header. */
@@ -937,6 +981,11 @@ const SETTINGS = {
         x: s.x + s.width / 2, y: s.y + s.height / 2, tx: d.x + d.width / 2, ty: d.y + d.height / 2 };
     });
     check("...with a deck to drag into it", !!geo, JSON.stringify(geo));
+    /* …and if there is not one, SAY SO AND STOP THIS SECTION rather than taking the run down with it. The
+       assertions below all address the group by id, so a null `geo` reaches `document.querySelector(...)
+       .dispatchEvent` and throws inside page.evaluate — which aborts node and means every section AFTER
+       this one silently never executes, which is a far worse outcome than one reported failure. */
+    if (!geo) { console.log("SKIP  the rest of the group section needs a draggable leaf"); await page.close(); break groups; }
     /* …and what its COLLECTION says it holds before the move. The collection, not the row's immediate
        parent: only a root collection is drawn as a group header, so a mid-tree deck has no count on it to
        read — and the collection is the container whose figure the request is about, since that is where a
@@ -1189,7 +1238,11 @@ const SETTINGS = {
     const mature = { reps: 9, lapses: 1, ease: 2.6, interval: 34, due: Date.now() - 36e5, status: "review", last: Date.now() - 34 * 864e5, step: 0, first: "2026-05-01" };
     const page = await newPage({
       active: [deckA], settings: SETTINGS,
-      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.9 } },
+      /* newPerDay 0 so the day offers NOTHING but the mature card. The session used to be the mature card
+         followed by the day's new ones, so reading `queue[0]` found it; since `mixPiles` interleaves the
+         two piles (Aug 2026) a fresh card can legitimately come first, and this section is about SEEDING
+         rather than about order — so the pile is narrowed instead of the head being guessed at. */
+      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.9, newPerDay: 0 } },
       cards: { a: done(), b: done(), c: done(), "wh-001": mature },
     });
     await page.goto(base + "#home", { waitUntil: "load" });
@@ -1217,7 +1270,7 @@ const SETTINGS = {
       check("an SM-2 card's interval seeded its stability rather than restarting it", !!rec && rec.stability > 20, JSON.stringify(rec && rec.stability));
       check("…and its next interval is measured in weeks, not days", !!rec && (rec.due - Date.now()) / 864e5 > 14, String(rec && Math.round((rec.due - Date.now()) / 864e5)));
     } else {
-      check("the mature card was dealt first (queue order)", false, "queue head was " + cur);
+      check("the session opened on the mature card, with no new cards allowed", false, "queue head was " + cur);
     }
     await page.close();
   }
@@ -1237,8 +1290,10 @@ const SETTINGS = {
     const t = Date.now();
     const page = await newPage({
       active: [deckA], settings: SETTINGS,
-      // 85%, deliberately NOT 90 — the two numbers on that panel mean different things and must read as it
-      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.85 } },
+      // 85%, deliberately NOT 90 — the two numbers on that panel mean different things and must read as it.
+      // newPerDay 0 for section 14's reason: since `mixPiles` interleaves the due and new piles (Aug 2026)
+      // the seeded card is no longer guaranteed to be the queue's head, and this section is about the PANEL.
+      deckOpts: { [deckA]: { sched: "fsrs", retention: 0.85, newPerDay: 0 } },
       cards: { a: done(), b: done(), c: done(), "wh-001": {
         status: "review", step: 0, reps: 6, lapses: 1, interval: 34, ease: 2.6,
         stability: 34.2, difficulty: 6.4, due: t - 36e5, last: t - 34 * 864e5, first: "2026-05-01",
@@ -1438,6 +1493,135 @@ const SETTINGS = {
       return { lb: !!st.loadBalance, sun: (document.querySelector('#edDays [data-ed="0"]') || {}).className || "" };
     });
     check("a fresh load paints the switch from what is stored", back.lb === false && !/off/.test(back.sun), JSON.stringify(back));
+    await page.close();
+  }
+
+  /* ================= 18. new cards and review cards arrive MIXED (Aug 2026, on request) =================
+     Ordered used to mean "every card due today, and then the day's new ones" — the piles were concatenated,
+     so a reader with forty reviews met their first new card forty cards in. Anki mixes them, and so does
+     this now. The mixing is RANDOM, so the browser half alone could pass on a queue that happened to come
+     out sorted; `mixPiles` is therefore also run here as the pure function it is, which is the only way to
+     say anything about a distribution. What it must never do is disturb either pile's own order — that
+     order is the whole of what "ordered" means. */
+  {
+    const src = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
+    const i = src.indexOf("function mixPiles(");
+    const j = src.indexOf("\n  }", i);
+    const mixPiles = new Function(src.slice(i, j + 4) + "; return mixPiles;")();
+    const due = ["d1", "d2", "d3", "d4", "d5", "d6"], fresh = ["n1", "n2", "n3", "n4", "n5"];
+    let sorted = 0, badOrder = 0, wrongSet = 0;
+    for (let k = 0; k < 400; k++) {
+      const out = mixPiles(due, fresh);
+      if (out.slice().sort().join() !== due.concat(fresh).sort().join()) wrongSet++;
+      if (out.filter((x) => x[0] === "d").join() !== due.join() || out.filter((x) => x[0] === "n").join() !== fresh.join()) badOrder++;
+      if (out.join() === due.concat(fresh).join()) sorted++;
+    }
+    check("mixing keeps every card and invents none", wrongSet === 0);
+    check("…and leaves each pile in its own order, which is what Ordered means", badOrder === 0);
+    check("…and does not simply put the reviews first", sorted < 20, sorted + "/400 came out pile-after-pile");
+    check("a pile with nothing to mix into is returned unchanged", mixPiles(due, []).join() === due.join() && mixPiles([], fresh).join() === fresh.join());
+  }
+
+  /* …and the same thing in a real session: a reader with reviews waiting AND new cards to come must meet
+     both kinds before the reviews run out. Seeded with six of the deck's cards already due, so a queue that
+     still concatenated would put every new card after all six. */
+  {
+    const probe2 = await browser.newPage();
+    await probe2.goto(base, { waitUntil: "load" });
+    await probe2.waitForTimeout(1200);
+    const ids = await probe2.evaluate((deck) => {
+      let found = null;
+      (window.COLLECTION_TREE.collections || []).forEach(function walk(n) { if (n.id === deck) found = n; (n.children || []).forEach(walk); });
+      return (found && found.cardIds ? found.cardIds : []).slice(0, 6);
+    }, deckA);
+    await probe2.close();
+
+    const dueRec = () => ({ reps: 2, lapses: 0, ease: 2.5, interval: 3, due: Date.now() - 864e5, status: "review", last: Date.now() - 4 * 864e5, first: "2026-01-01" });
+    const cards = {};
+    ids.forEach((id) => { cards[id] = dueRec(); });
+    const page = await newPage({ active: [deckA], settings: SETTINGS, cards: cards });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+    await page.waitForTimeout(1500);
+    const q = await page.evaluate(() => { try { return JSON.parse(sessionStorage.getItem("folio_study_v1")).queue; } catch (e) { return []; } });
+    const known = new Set(ids);
+    const kinds = q.map((x) => (known.has(x) ? "d" : "n"));
+    check("the session holds both the reviews and the day's new cards", kinds.includes("d") && kinds.includes("n"), kinds.join(""));
+    const firstNew = kinds.indexOf("n"), lastDue = kinds.lastIndexOf("d");
+    check("…and a new card arrives before the reviews are finished", firstNew < lastDue, kinds.join(""));
+    await page.close();
+  }
+
+  /* ================= 19. suspending a NEW card does not cost the day one (Aug 2026, on request) =========
+     Suspending shifted the card off the queue and stopped there, so a reader who set aside two of their
+     five new cards studied three — the allowance quietly spent on cards they never saw. A replacement is
+     drawn instead, and it is a replacement rather than a bonus: nothing is added when the suspended card
+     had already been studied, since the allowance was never charged for it. */
+  {
+    const page = await newPage({ active: [deckA], settings: SETTINGS, cards: { a: done(), b: done(), c: done() } });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+    await page.waitForTimeout(1500);
+    const before = await page.evaluate(() => { try { const r = JSON.parse(sessionStorage.getItem("folio_study_v1")); return { n: r.queue.length, q: r.queue.slice(), id: r.id }; } catch (e) { return null; } });
+    check("a fresh session offers the day's allowance", before && before.n === 5, before ? String(before.n) : "none");
+    /* Reveal FIRST: the only Suspend button on the page lives inside the grade bar, which does not exist
+       until the answer is shown — so a click dispatched at `.suspendbtn` on the question side lands on
+       nothing at all, and the queue is then unchanged for the least interesting reason there is. */
+    await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await page.waitForTimeout(400);
+    await page.evaluate(() => { const b = document.querySelector(".suspendbtn"); if (b) b.click(); });
+    await page.waitForTimeout(900);
+    const after = await page.evaluate(() => { try { const r = JSON.parse(sessionStorage.getItem("folio_study_v1")); return { n: r.queue.length, q: r.queue.slice() }; } catch (e) { return null; } });
+    check("suspending a new card leaves the day's count where it was", after && after.n === before.n, after ? before.n + " -> " + after.n : "none");
+    const fresh = after ? after.q.filter((x) => before.q.indexOf(x) < 0) : [];
+    check("…because another card takes its place", fresh.length === 1 && fresh[0] !== before.id, fresh.join());
+    const susp = await page.evaluate((id) => !!(JSON.parse(localStorage.getItem("folio_v1") || "{}").suspended || {})[id], before.id);
+    check("…and the suspended card really is set aside", susp);
+    await page.close();
+  }
+
+  /* ================= 20. Undo steps back exactly ONE card (Aug 2026, on a bug report) ===================
+     "The undo button sometimes goes back two cards." The action is reachable four ways — two buttons, a
+     key and the ink layer's pass-through — and a single press could arrive twice, popping two snapshots
+     and returning two cards with nothing on screen to say so. The guard is on the ACTION rather than on
+     one listener, which is what this asserts: two clicks inside the window give back one card. */
+  {
+    const page = await newPage({ active: [deckA], settings: SETTINGS, cards: { a: done(), b: done(), c: done() } });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+    await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+    await page.waitForTimeout(1500);
+    const graded = [];
+    for (let k = 0; k < 3; k++) {
+      graded.push(await page.evaluate(() => { try { return JSON.parse(sessionStorage.getItem("folio_study_v1")).id; } catch (e) { return null; } }));
+      await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+      await page.waitForTimeout(400);
+      await page.evaluate(() => { const g = document.querySelector(".grade.easy"); if (g) g.click(); });
+      await page.waitForTimeout(600);
+    }
+    const seenBefore = await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem("folio_v1") || "{}").cards || {}).length);
+    // the same press arriving twice — both inside the guard window
+    await page.evaluate(() => { const u = document.querySelector("#undoGrade") || document.querySelector("#undoGradeBar"); if (u) { u.click(); u.click(); } });
+    await page.waitForTimeout(800);
+    const st = await page.evaluate(() => ({
+      seen: Object.keys(JSON.parse(localStorage.getItem("folio_v1") || "{}").cards || {}).length,
+      id: (() => { try { return JSON.parse(sessionStorage.getItem("folio_study_v1")).id; } catch (e) { return null; } })(),
+    }));
+    check("a doubled press gives back exactly one card", st.seen === seenBefore - 1, seenBefore + " -> " + st.seen);
+    check("…and it is the card that was just graded", st.id === graded[2], st.id + " vs " + graded[2]);
+    // …and a deliberate SECOND undo, well outside the window, still works
+    await page.evaluate(() => { const u = document.querySelector("#undoGrade") || document.querySelector("#undoGradeBar"); if (u) u.click(); });
+    await page.waitForTimeout(800);
+    const st2 = await page.evaluate(() => ({
+      seen: Object.keys(JSON.parse(localStorage.getItem("folio_v1") || "{}").cards || {}).length,
+      id: (() => { try { return JSON.parse(sessionStorage.getItem("folio_study_v1")).id; } catch (e) { return null; } })(),
+    }));
+    check("a real second press still steps back another card", st2.seen === seenBefore - 2 && st2.id === graded[1], st2.seen + " " + st2.id);
     await page.close();
   }
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Folio — the three minigames added in Aug 2026: Crossword, Picture round, What year?
+/* Folio — the minigames: Crossword, Picture round, What year?, Common Thread and Who said it?
    ==================================================================================
    Every failure this file guards is SILENT. None of it throws, none of it shows up in a screenshot of one
    state, and each one has either happened already or is one edit away:
@@ -30,6 +30,11 @@
        in. Put any of them on the page early and the game still works perfectly and teaches nothing.
      · **A NEW GAME NOT JOINING THE SWEEP.** DAILY_GAMES drives the Clean Sweep badge and the daily chest.
        A game on the grid but not in that list means a sweep claiming something it never measured.
+     · **WHO SAID IT'S DECOY LADDER.** The three wrong names are ranked to share the answer's family and
+       period. Revert the ranking to a random draw and the game deals, scores and reads exactly as it did,
+       and is won by spotting which of the four names is a thousand years out of place. Its round count
+       moved from five to three in the same batch, and every figure on the page is derived from
+       `rounds.length` — so a literal left behind shows up on one screen and nowhere else.
 
    TODAY'S ANSWERS ARE GENERATED HERE, in Node, and handed to the browser (`crosswordForPage`). They used
    to be read off the check button's reveal, and there is no reveal any more — which is a better position
@@ -117,7 +122,13 @@ function builder() {
      with the bar read out of app.js rather than written down here — because the whole value of the
      730-day sweep is that it deals from the pool the site deals from. Shimming it to "every card", the
      way `availableCardIdSet` is shimmed, would sweep two years of puzzles the reader never sees and
-     would go on passing on the day the filter starved a game. */
+     would go on passing on the day the filter starved a game.
+     A MAP CARD IS EXCLUDED HERE TOO, and the shim went a fortnight without it: `cardMapSpec` joined the
+     real rule when the Geography collection landed (a map card's clue IS its picture, so dealt cold it
+     asks "the state shaded on the map is ____" with no map beside it), and until this line the Node
+     builder drew from a pool five cards wider than the page's — so `crosswordForPage` compared two
+     genuinely different grids and reported "no matching day", which reads as a SEEDING fault rather
+     than as a stale shim. A shim of a rule is a copy of it, and it goes stale the day the rule grows. */
   const GAME_MAX = (() => { const m = /const GAME_MAX_DIFFICULTY = (\d+);/.exec(src); if (!m) throw new Error("test-minigames: no GAME_MAX_DIFFICULTY in app.js"); return +m[1]; })();
   const shim = `
     const ADMIN_EDITS = {};
@@ -125,7 +136,8 @@ function builder() {
     const GAME_MAX_DIFFICULTY = ${GAME_MAX};
     const availableCardIdSet = () => new Set(CARDS.map((c) => c.id));
     const difficultyOK = (c) => typeof (c && c.difficulty) === "number" && c.difficulty >= 1 && c.difficulty <= GAME_MAX_DIFFICULTY;
-    const gameCardIdSet = () => new Set(CARDS.filter(difficultyOK).map((c) => c.id));
+    const gameCardIdSet = () => new Set(CARDS.filter((c) => difficultyOK(c) && !cardMapSpec(c)).map((c) => c.id));
+    const cardMapSpec = (c) => (c && c.map && c.map.layer && c.map.key ? c.map : null);
     const localStorage = { getItem: () => null, setItem: () => {} };
     const chronoYear = (c) => { const y = cardStartYear(c); return y ? y : null; };
     const chronoPool = () => CARDS.filter(difficultyOK).map((c) => ({ id: c.id, name: c.answerText, year: chronoYear(c) })).filter((x) => x.year != null && x.name);
@@ -570,21 +582,30 @@ function crosswordForPage(clueIds) {
     /* THE PLANTED POOL MUST BE THE WHOLE POOL, not ten entries added on top of it.  `picturePool`
        gathers every card, glossary and artefact picture, so once the corpus gained real pictures a
        seeded draw of five reached the real ones and every assertion below — which is about the
-       PLANTED captions and credits — failed on content rather than on behaviour.  Replacing the
-       table and clearing the cards' pictures makes the draw deterministic at any corpus size. */
+       PLANTED captions and credits — failed on content rather than on behaviour.  Replacing one
+       table and clearing the other two makes the draw deterministic at any corpus size.
+       IT IS PLANTED ON THE ARTEFACTS, AND THAT IS THE ONE HALF OF THE POOL A FILTER CANNOT REACH.
+       Since Aug 2026 a CARD's picture is admitted only under `gameCardIdSet()` and a GLOSSARY term's
+       only under `threadEasyKeys()`, and either may then be refused by `PIC_ABSTRACT_KINDS` — so a
+       fixture planted on the first ten glossary keys yields NO POOL AT ALL, which is what this
+       section reported the day those filters landed.  An artefact is a photograph of one object,
+       carries no difficulty and is filed under no kind, so `picturePool` takes it unconditionally
+       and says so in its own comment; planting here asserts the ROUND rather than re-asserting the
+       pool rules, which are checked over the shipped corpus above and in `test-difficulty.js`. */
     const planted = await page.evaluate(() => {
-      const keys = Object.keys(window.GLOSSARY).slice(0, 10);
-      window.GLOSSARY_IMAGES = {};
-      keys.forEach((k, i) => {
+      const arts = (window.ARTEFACTS || []).slice(0, 10);
+      arts.forEach((a, i) => {
         /* Every planted src RESOLVES.  The rotted-link case below is driven by firing the error event
            at the frame on the page, so a genuinely 404 src here buys nothing and costs a real console
            error that the end-of-run "no page errors" watcher counts against the whole file. */
-        window.GLOSSARY_IMAGES[k] = { src: "/icon.svg", title: "Plate " + i, desc: "A description naming " + k + ".", credit: "https://example.org/" + k };
+        a.image = { src: "/icon.svg", title: "Plate " + i, desc: "A description naming " + a.name + ".", credit: "https://example.org/" + a.id };
       });
+      (window.ARTEFACTS || []).slice(10).forEach((a) => { delete a.image; });
+      window.GLOSSARY_IMAGES = {};
+      window.GLOSSARY_VIDEOS = {};
       (window.CARD_DATA || []).forEach((c) => { delete c.image; });
-      (window.ARTEFACTS || []).forEach((a) => { delete a.image; });
       location.hash = "#picture";
-      return keys.map((k) => k.replace(/_/g, " "));
+      return arts.map((a) => a.name);
     });
     await page.waitForTimeout(1000);
     const round = await page.evaluate(() => ({
@@ -713,6 +734,87 @@ function crosswordForPage(clueIds) {
       return { lives: document.querySelectorAll(".th-dot").length, mentions: /mistakes remaining/i.test(t) };
     });
     check("[ct] …and four mistakes to spare", groups.lives === 4 && groups.mentions, JSON.stringify(groups));
+    await ctx.close();
+  }
+
+  /* ============ WHO SAID IT: three rounds, and decoys that share a family and a period ============
+     Two silent failures, and the second is the whole point of the change. THE ROUND COUNT went from five
+     to three in Aug 2026 (on request), and every figure the page shows — the header, the pips, the score,
+     the tile — is derived from `rounds.length`, so a stray literal would show up in exactly one of them
+     and nowhere else. AND THE DECOY RANKING is a strict ladder: a name sharing the answer's category AND
+     era first, then the category, then the era, then anybody. Revert it to random and the game still
+     deals, still scores and still looks right — it is simply won by noticing which of the four names is
+     two thousand years older than the other three, which is what the ladder exists to stop.
+
+     The ladder's outcome is EXACT rather than a preference, so it can be asserted exactly: with the pool
+     sorted into those four tiers, the greedy fill uses tiers 0..t for the smallest t whose cumulative
+     count reaches three, and every decoy must come from one of them. That is computed from the shipped
+     `window.QUOTEGAME` rather than from a list written down here, so a pool edit cannot make this stale —
+     and it degrades honestly on a thin cell, where t simply lands further down the ladder. */
+  {
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    const page = await ctx.newPage();
+    watch(page);
+    await page.goto(base + "#whosaid", { waitUntil: "load" });
+    await page.waitForTimeout(700);
+
+    const head = await page.evaluate(() => ({
+      h1: (document.querySelector("h1") || {}).textContent.replace(/\s+/g, " ").trim(),
+      pips: document.querySelectorAll(".tf-pip").length,
+      opts: document.querySelectorAll("#opts .opt").length,
+      pool: (window.QUOTEGAME || []).length,
+      era: (window.QUOTEGAME || []).filter((x) => x.era).length,
+    }));
+    check("[ws] the game deals three rounds, not five", /\/ 3\b/.test(head.h1) && head.pips === 3, JSON.stringify(head));
+    check("[ws] …with four options on the round", head.opts === 4, String(head.opts));
+    check("[ws] …and every quotation in the pool carries a period", head.pool > 90 && head.era === head.pool, JSON.stringify(head));
+
+    /* Walk all three rounds, answering each so the page moves on. The tier check is made per round from
+       the quote's own entry — the pool is keyed on the English `q`, and the site is English-only. */
+    const rows = [];
+    for (let i = 0; i < 3; i++) {
+      const row = await page.evaluate(() => {
+        const q = (document.querySelector(".ws-quote") || {}).textContent.trim();
+        const opts = [...document.querySelectorAll("#opts .opt")].map((b) => b.textContent.replace(/^[ABCD]/, "").trim());
+        const pool = window.QUOTEGAME || [];
+        const mine = pool.find((x) => x.q.trim() === q);
+        if (!mine) return { q: q.slice(0, 50), missing: true };
+        const meta = new Map();
+        pool.forEach((x) => { if (!meta.has(x.who)) meta.set(x.who, { cat: x.cat || "", era: x.era || "" }); });
+        const tier = (w) => {
+          const m = meta.get(w) || { cat: "", era: "" };
+          const c = !!mine.cat && m.cat === mine.cat, e = !!mine.era && m.era === mine.era;
+          return c && e ? 0 : c ? 1 : e ? 2 : 3;
+        };
+        // how far down the ladder the greedy fill has to reach for three decoys
+        const counts = [0, 0, 0, 0];
+        [...meta.keys()].forEach((w) => { if (w !== mine.who) counts[tier(w)]++; });
+        let need = 0, run = 0;
+        while (need < 3 && run + counts[need] < 3) { run += counts[need]; need++; }
+        const decoys = opts.filter((o) => o !== mine.who);
+        return { who: mine.who, need, worst: Math.max(...decoys.map(tier)), decoys, hasAnswer: opts.includes(mine.who) };
+      });
+      rows.push(row);
+      await page.evaluate(() => document.querySelector("#opts .opt").click());
+      await page.waitForTimeout(120);
+      await page.evaluate(() => { const b = document.querySelector("#ws-next"); if (b) b.click(); });
+      await page.waitForTimeout(200);
+    }
+    check("[ws] …the answer is always among the four", rows.every((r) => r.hasAnswer), JSON.stringify(rows.map((r) => r.who)));
+    check("[ws] …and no decoy comes from further down the ladder than the pool forces",
+      rows.every((r) => !r.missing && r.worst <= r.need),
+      JSON.stringify(rows.map((r) => ({ who: r.who, need: r.need, worst: r.worst, decoys: r.decoys }))));
+
+    const end = await page.evaluate(() => ({
+      h1: (document.querySelector("h1") || {}).textContent.replace(/\s+/g, " ").trim(),
+      rows: document.querySelectorAll(".tf-sum-row").length,
+      tomorrow: (document.querySelector(".tf-tomorrow") || {}).textContent || "",
+      again: /play again/i.test((document.querySelector("#view") || {}).textContent),
+    }));
+    check("[ws] …three rounds end on a score out of three and no second go",
+      /\/ 3\b/.test(end.h1) && !end.again, JSON.stringify(end));
+    check("[ws] …and the closing line counts the same three",
+      /^Three fresh voices/.test(end.tomorrow.trim()), end.tomorrow);
     await ctx.close();
   }
 

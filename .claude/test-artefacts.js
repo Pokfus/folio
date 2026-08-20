@@ -183,6 +183,11 @@ function syntheticPool() {
       localStorage.setItem("folio_admin_v1", JSON.stringify(ov));
       const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
       s.chests = 40; s.artefacts = {}; s.showcase = [];
+      /* Every collectible theme is already owned, so `rollChestItem` has nothing but artefacts left to
+         hand back and this sweep measures exactly what it measured before themes were collectible. The
+         theme drop is asserted on its own in 3b, where it can be made deterministic; left locked here it
+         would take a random ~14% of these 32 openings and the run would fail on a coin toss. */
+      s.themes = { synth: 1, arcade: 1, academy: 1, marble: 1, gazette: 1 };
       localStorage.setItem("folio_v1", JSON.stringify(s));
     }, syntheticPool());
     await page.reload({ waitUntil: "domcontentloaded" });
@@ -190,6 +195,7 @@ function syntheticPool() {
     await page.evaluate(() => { location.hash = "account"; });
     await page.waitForTimeout(600);
 
+    const badgesBefore = await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem("folio_v1")).achievements || {}).length);
     const seen = [], rarSeen = {};
     let exhausted = null;
     for (let i = 0; i < 34; i++) {
@@ -217,8 +223,85 @@ function syntheticPool() {
     check("the 33rd chest says the pool is exhausted rather than opening", exhausted === 32, String(exhausted));
 
     const st = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")));
-    check("one chest was spent per artefact", st.chests === 40 - 32, String(st.chests));
+    check("one chest was spent per artefact", (st.chestsOpened | 0) === 32, String(st.chestsOpened));
+    /* …and the BALANCE is not 40 - 32, because the collector's badges are earned during this very sweep
+       and every unlocked badge grants a chest. That is the intended behaviour and it cannot run away (a
+       badge unlocks once), but it does mean the balance has to be read against the badges rather than
+       assumed — an assertion of 8 would fail the day another collector badge is added. */
+    const badgesAfter = Object.keys(st.achievements || {}).length;
+    check("…and the balance is what the badges earned along the way leave",
+      st.chests === 40 - 32 + (badgesAfter - badgesBefore),
+      st.chests + " left, " + (badgesAfter - badgesBefore) + " badges earned");
     check("…and the inventory holds all 32", Object.keys(st.artefacts).length === 32);
+  }
+
+  /* ================= 3b. a chest may hand back a THEME =================
+     Made deterministic rather than sampled: with the artefact pool exhausted, `rollChestItem` has only
+     themes left, so a locked theme MUST come out and an all-owned reader must be told the pool is empty.
+     Both halves are needed — a drop that never fires and a drop that fires when nothing is left look
+     identical from one side, and neither throws. */
+  {
+    await page.evaluate(() => {
+      const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+      s.chests = 2; s.themes = {};                       // every collectible theme locked again
+      localStorage.setItem("folio_v1", JSON.stringify(s));
+    });
+    /* THEMES lives inside the IIFE, so it is read out of app.js by text — the shape this file already
+       uses for ARTEFACT_SRC_TARGET. It is worth asserting rather than assuming: the fixtures above and
+       below seed the five by name, and a seventh theme added later would silently stop them being the
+       whole collectible set. */
+    const themeList = ((fs.readFileSync(path.join(ROOT, "app.js"), "utf8").match(/const\s+THEMES\s*=\s*\[([^\]]*)\]/) || [])[1] || "")
+      .split(",").map((x) => x.trim().replace(/^["']|["']$/g, "")).filter(Boolean);
+    check("the collectible themes are the five the fixtures seed",
+      themeList.filter((t) => t !== "folio").join(",") === "synth,arcade,academy,marble,gazette", themeList.join(","));
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await page.waitForTimeout(700);
+    await page.evaluate(() => { location.hash = "account"; });
+    await page.waitForTimeout(600);
+    await page.locator("#arOpen").click();
+    await page.waitForTimeout(150);
+    const hint1 = await page.locator("#chestHint").textContent();
+    check("with artefacts exhausted but themes locked, the chest still opens", !/every artefact/i.test(hint1), hint1.slice(0, 60));
+    await page.locator("#chestBtn").click();
+    await page.waitForTimeout(300);
+    const rev = await page.evaluate(() => {
+      const r = document.querySelector("#chestReveal");
+      return { chip: (r.querySelector(".ar-chip") || {}).textContent || "", mock: !!r.querySelector(".theme-mock"), name: (r.querySelector(".chest-name") || {}).textContent || "" };
+    });
+    check("…and what comes out is a theme", rev.chip === "Theme" && rev.mock, rev.chip + " / mock:" + rev.mock);
+    check("…named, so it is not an unlabelled swatch", !!rev.name.trim(), rev.name);
+    await page.evaluate(() => { const b = document.querySelectorAll("#chestActs button"); b[b.length - 1].click(); });
+    await page.waitForTimeout(200);
+    const afterTheme = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")));
+    check("…written into the reader's own themes", Object.keys(afterTheme.themes || {}).length === 1, JSON.stringify(afterTheme.themes));
+    check("…and the chest was spent", afterTheme.chests === 1, String(afterTheme.chests));
+    check("…and counted as opened", (afterTheme.chestsOpened | 0) > 0, String(afterTheme.chestsOpened));
+
+    // now own the lot: nothing left of either kind, so the chest says so instead of opening
+    await page.evaluate(() => {
+      const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+      s.themes = { synth: 1, arcade: 1, academy: 1, marble: 1, gazette: 1 };
+      localStorage.setItem("folio_v1", JSON.stringify(s));
+    });
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await page.waitForTimeout(700);
+    await page.evaluate(() => { location.hash = "account"; });
+    await page.waitForTimeout(600);
+    await page.locator("#arOpen").click();
+    await page.waitForTimeout(150);
+    const hint2 = await page.locator("#chestHint").textContent();
+    check("with both pools exhausted the chest says so", /every artefact/i.test(hint2), hint2.slice(0, 60));
+    await page.evaluate(() => { const b = document.querySelector("#chestActs button"); if (b) b.click(); });
+    await page.waitForTimeout(150);
+
+    // put the sweep's state back for section 4, which counts the 32 tiles and pins four showcase slots
+    await page.evaluate(() => {
+      const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+      s.chests = 8;
+      localStorage.setItem("folio_v1", JSON.stringify(s));
+    });
+    await page.reload({ waitUntil: "domcontentloaded" });
+    await page.waitForTimeout(700);
   }
 
   /* ================= 4. the queue, the inventory, the showcase ================= */

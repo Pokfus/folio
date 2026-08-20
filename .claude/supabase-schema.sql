@@ -874,3 +874,97 @@ end $$;
 -- the caller has not signed in yet, which is the entire point of the function
 revoke all on function public.login_email(text, text) from public;
 grant execute on function public.login_email(text, text) to anon, authenticated;
+
+
+-- ============================================================================================
+-- 13) COMMUNITY CARD DIFFICULTY  (run once)
+-- ============================================================================================
+-- Four integers per card, pooled over every reader: how many times it was answered Again, Hard, Good
+-- and Easy. The site turns them into the figure out of 100 that a card's stars show once it has been
+-- answered 20 times; below that the editorial 1-5 rating stands in.
+--
+-- THERE IS DELIBERATELY NO PER-READER ROW. What this table holds cannot say who answered what — it is
+-- four counters and a card id, and that is the whole of the privacy design. Nothing here is joined to
+-- auth.users, and nothing needs to be.
+--
+-- READ BY EVERYONE, WRITTEN BY NOBODY. The publishable key ships in app.js, so a table a browser may
+-- write to is a table anyone may write anything to: there is no insert, update or delete policy at
+-- all, and the only way in is the function below, which can add one to a counter and do nothing else.
+
+create table if not exists public.card_stats (
+  card_id text primary key,
+  a int not null default 0,   -- Again
+  h int not null default 0,   -- Hard
+  g int not null default 0,   -- Good
+  e int not null default 0,   -- Easy
+  updated_at timestamptz not null default now()
+);
+
+alter table public.card_stats enable row level security;
+
+drop policy if exists "card stats are public" on public.card_stats;
+create policy "card stats are public" on public.card_stats for select using (true);
+-- and no write policy: RLS denies by default, so the table is read-only to every client
+
+-- One call per flush, carrying however many cards the reader graded in the last few seconds. The
+-- increments are CLAMPED: a caller can add at most a few counts per card per call, so a hostile client
+-- cannot move a rating with one request, and the honest client never comes close to the ceiling.
+create or replace function public.bump_card_grades(rows jsonb)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare r jsonb;
+begin
+  if jsonb_typeof(rows) <> 'array' or jsonb_array_length(rows) > 500 then return; end if;
+  for r in select * from jsonb_array_elements(rows) loop
+    -- a card id is a slug or a community card's u_<deck>_<n>; anything else is not ours to count
+    continue when coalesce(r->>'card_id', '') !~ '^[A-Za-z0-9_~.:-]{1,64}$';
+    insert into public.card_stats as s (card_id, a, h, g, e, updated_at)
+    values (
+      r->>'card_id',
+      least(greatest(coalesce((r->>'a')::int, 0), 0), 50),
+      least(greatest(coalesce((r->>'h')::int, 0), 0), 50),
+      least(greatest(coalesce((r->>'g')::int, 0), 0), 50),
+      least(greatest(coalesce((r->>'e')::int, 0), 0), 50),
+      now()
+    )
+    on conflict (card_id) do update
+      set a = s.a + excluded.a, h = s.h + excluded.h,
+          g = s.g + excluded.g, e = s.e + excluded.e, updated_at = now();
+  end loop;
+end $$;
+
+revoke all on function public.bump_card_grades(jsonb) from public;
+grant execute on function public.bump_card_grades(jsonb) to anon, authenticated;
+
+-- ============================================================================================
+-- 14) THE THEME AN ACCOUNT WEARS  (run once)
+-- ============================================================================================
+-- Aug 2026, on request: themes became a second kind of collectible, and "a user's name banner should
+-- appear in the theme that user is using … it is not only a theme for personal use, but also how your
+-- account is presented to others."
+--
+-- WHY THE COLUMN IS ON `profiles` AND NOT IN `progress`.
+-- The obvious home is the synced progress blob, which already carries `themes` (what the reader owns).
+-- It is the wrong one for the DISPLAYED theme, for two reasons. `progress` is readable only by its owner
+-- and their accepted friends, so a friends list would have to fetch every friend's WHOLE blob — hundreds
+-- of kilobytes each — to read one string out of it. And an admin counting which themes are worn could
+-- not read it at all, so there would be no honest usage figure to show. `profiles` is readable by any
+-- signed-in user, is already how an account presents itself (name, username, avatar) and is a few dozen
+-- bytes a row.
+--
+-- WHAT KEEPS IT SAFE IS THE COLUMN-LEVEL GRANT, not a trigger. `profiles` revokes UPDATE wholesale and
+-- grants it back column by column, so adding `theme` to that list is the whole of the permission: a
+-- caller still cannot write `role` or `id`, and no guard function has to learn a new field name.
+--
+-- Until this block is run, PATCHing the column answers PGRST204 and the app carries on: a friend's banner
+-- is drawn in Folio's own colours and the admin Themes tab says the block has not been run. Nothing else
+-- changes, and no reader loses a theme — what they OWN is in their progress, which needs no schema at all.
+
+alter table public.profiles add column if not exists theme text not null default 'folio';
+
+-- the grant is REPLACED rather than added to: `grant update (col)` is per column, so naming all four in
+-- one statement is idempotent and re-runnable, which is the property every block here has.
+grant update (username, name, avatar, theme) on table public.profiles to authenticated;

@@ -297,7 +297,7 @@ sites than by scholarship and the cited source has to be chosen with care.
 ### Rome under the kings — `rm-kings`
 
     rm-046  The Roman Kingdom
-    rm-047  The site of Rome
+    rm-047  Forum Boarium
     rm-048  The Seven Hills of Rome
     rm-049  Palatine Hill
     rm-050  Capitoline Hill

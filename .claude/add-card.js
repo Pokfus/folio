@@ -20,6 +20,15 @@
 //                "map": { "layer": "us-states", "key": "California" },
 //                "facts": [["Capital", "Sacramento"], ["Population", "39.4 million"], …],
 //                "questions": []
+//              A card whose ANSWER IS A PLACE may carry a `locator` — a globe at the foot of the card with
+//              that place marked. Written by `.claude/add-locators.js`, never by hand: the coordinate is
+//              the one the place's own Wikipedia article publishes, and a typed pair is a dot a degree out
+//              that draws perfectly and points at the wrong place.
+//                "locator": { "name": "Knossos", "at": [25.163, 35.2979], "zoom": 6 }
+//              Any card may also carry an `answerFlag` — the flag of the place it is about, drawn inside
+//              coloured answer box beside the term. Three fields, and `credit` AND `alt` are both required:
+//                "answerFlag": { "src": "https://…", "credit": "…, public domain, via Wikimedia Commons (…)",
+//                          "alt": "The flag of Texas: a blue band at the hoist bearing a white star, …" }
 const fs = require("fs"), path = require("path");
 const { isDateList } = require("./date-line.js");
 const dataPath = path.join(__dirname, "..", "data.js");
@@ -301,7 +310,7 @@ delete card.skipSources;   // control flag only — never written to data.js
 
 // nothing Folio shows is uncredited — the editors gate this too (wireMediaSource in app.js), and a card
 // written straight into data.js has to meet the same rule or the credit is simply never added
-for (const m of ["image", "video"]) {
+for (const m of ["image", "video", "answerFlag"]) {
   if (card[m] && String(card[m].src || "").trim() && !String(card[m].credit || "").trim()) {
     console.error("ERROR: card." + m + " has a src but no `credit` — every picture and clip carries its source (see CLAUDE.md).");
     process.exit(1);
@@ -311,6 +320,29 @@ for (const m of ["image", "video"]) {
 // its title, which names it for somebody who can. Warned rather than refused; most shipped images predate it.
 if (card.image && String(card.image.src || "").trim() && !String(card.image.alt || "").trim()) {
   console.warn("WARNING: card.image has no `alt` — a screen reader will fall back to its title.");
+}
+/* A FLAG IS THE ONE PICTURE ON A CARD THAT `alt` IS THE WHOLE OF. It is drawn inside the answer box at
+   about the height of a line, it never opens fullscreen, and it carries no title and no caption — so a
+   reader who cannot see it has nothing else to go on, and the field is REFUSED rather than warned about.
+   Describe what the flag shows, not that it is a flag. */
+/* A LOCATOR IS CHECKED FOR SHAPE AND NOT WRITTEN HERE. `add-locators.js` is what fetches the coordinate,
+   so anything arriving in a card file is a hand-typed pair — which is the one thing that rule exists to
+   prevent — but a card being re-added after an edit legitimately carries the one already fetched, so the
+   pair is validated rather than refused. A coordinate outside the globe is a dot that never draws. */
+if (card.locator) {
+  const at = card.locator.at;
+  if (!Array.isArray(at) || at.length !== 2 || !isFinite(at[0]) || !isFinite(at[1]) || Math.abs(at[0]) > 180 || Math.abs(at[1]) > 90) {
+    console.error("ERROR: card.locator.at must be [lon, lat] within the globe — write it with `node .claude/add-locators.js`, which fetches the coordinate rather than trusting a typed one.");
+    process.exit(1);
+  }
+  if (!String(card.locator.name || "").trim()) {
+    console.error("ERROR: card.locator has no `name` — the dot is drawn labelled, so an unnamed one is a mark with nothing to say.");
+    process.exit(1);
+  }
+}
+if (card.answerFlag && String(card.answerFlag.src || "").trim() && !String(card.answerFlag.alt || "").trim()) {
+  console.error("ERROR: card.answerFlag has a src but no `alt` — the flag is drawn with no title and no caption, so `alt` is all a reader who cannot see it gets.");
+  process.exit(1);
 }
 if (REQUIRE_TRANSLATIONS && !card.skipTranslations) {   // a new card ships in all 9 site languages (i18n block)
   const missing = [];

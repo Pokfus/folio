@@ -3541,6 +3541,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   [--card=<id>]`. It reads each card's own citations, takes names only from AUTHOR POSITIONS (reviewer before
   "review of"; authors after "by" / "ed."), throws the titles away first so an ancient author named in one never
   counts, and reports both rules with an `EXEMPT` list for cards whose answer term IS modern. Not part of the site.
+- `.claude/check-questions.js` — the card QUESTION house rules, measured over the shipped `data.js`:
+  `node .claude/check-questions.js [--verbose]`, exit 1 on any violation, so it guards a batch the way
+  `check-style.js` does. Four rules — **one sentence**; **understandable on its own** (a question may not
+  OPEN on a pronoun whose only antecedent is the hidden answer, which is three words saying nothing until
+  the reader has read past the blank — the DUMMY `it` of a cleft is exempt and must stay exempt); **20–34
+  words** with the blank counted as one and an imperial conversion in parentheses NOT counted, the same
+  allowance `add-card.js` makes; and **the blank mid-sentence**. **A MAP CARD IS EXEMPT FROM THE LAST TWO
+  BY DESIGN** — its clue is the SHAPE, so its question is deliberately short and deliberately ends on the
+  blank — and is still held to the first two. It deliberately does NOT check that a question names its
+  topic's most important aspect: that is a judgement no checker can make, and it is stated here and read
+  by eye. Not part of the site.
 - `.claude/check-overlay.js` — audits the LIVE cloud content overlay (`content_overrides`) against the shipped
   data files: `node .claude/check-overlay.js`. It reports a card delta whose prose plainly belongs to ANOTHER
   card (the renumbering fault — see the overlay bullet under "Environment"), a delta pointing at an id that no
@@ -4069,9 +4080,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   of them opened it with the object's name over a blank caption. They gained `title` and `desc`, and NEITHER
   composes anything — the title is the artefact's own name and the description is the `alt` this corpus
   already wrote plus the attribution `credit` already carries, re-punctuated (see `.claude/fix-image-text.js`).
-  **Three places had to learn the two fields or the next admin keystroke would strip them**: `artefactSanitize`,
-  `serializeArtefacts` and `add-artefacts.js`'s own emitter, the last two writing them only where they exist so
-  an entry without them is byte-identical to what those always wrote.
+  **FOUR places had to learn the two fields or the next write would strip them**: `artefactSanitize`,
+  `serializeArtefacts`, `add-artefacts.js`'s own emitter and — found in Aug 2026, a fortnight after the other
+  three — **`add-images.js`'s**, which is a FOURTH writer of this file and rewrites every artefact in it. One
+  run to replace one picture silently stripped `title` and `desc` from all 99: nothing threw, no count could
+  see it, and the only symptom was a caption bar that had gone blank again. **Ask which writers rewrite a file
+  WHOLE before adding a field to it** — the ones that touch the entry you are editing are not the whole list.
+  All four write the pair only where it exists, so an entry without them is byte-identical to what they
+  always wrote, which is the check to run after touching any of them.
   **THE PLATE ITSELF NO LONGER PRINTS THE CREDIT** (`.ar-wcredit`, deleted Aug 2026 on request): the viewer
   carries it a tap away from the picture it belongs to, where on the plate it was a grey line under five
   sentences it is not about. **The field is still REQUIRED** — `add-artefacts.js` and Admin → Artefacts both
@@ -6734,7 +6750,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the reasoning for including it (a real destination even without a tab, and leaving it out makes the
     sequence a subset of the bar) is backwards once the bar is what a reader has to go on: the swipe was
     landing them on a page the bar cannot reach, with nothing lit in it to say where they were. It is
-    reached from the review's own lip ("+ Add decks"), which is the route the home page advertises, and
+    reached from the home page's own Collections button, which is the route it advertises, and
     that is now the only one.
   · **It is a full CROSS-SLIDE** (Aug 2026, on a report that it was "a hard cut"). It was a 26px nudge under
     a cross-fade, which at that distance is a fade with a lean in it — so after a finger had dragged a page
@@ -7653,7 +7669,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **`count` and `total` are equal now and BOTH are kept**: `count` is what Folio holds and `total` what
     the work contains, and they part company again the moment a book arrives in instalments. Seneca's own
     `total` is the EXTANT letters, not everything he wrote — Aulus Gellius quotes a book numbered past
-    anything that survives.
+    anything that survives. **The chip says the two figures and stops** (Aug 2026, on request): it read
+    "235 of 235 chapters <i>on Folio so far</i>", and those last three words are a promise about the future
+    on a chip whose job is to state a quantity — and they were doubly odd on a book that is complete, where
+    the chip drops the "of N" too and simply says how long the book is.
     **The bar and the Contents panel are ONE sticky block** (`.bk-barwrap`, Aug 2026, on a bug report). The
     bar has always been sticky and the panel sat below it in the FLOW, so opening it a few screens into a
     chapter drew the contents back at the top of the DOCUMENT — off screen, nowhere near the button just
@@ -7996,6 +8015,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `renderComplete` clears it too, or a reload from the completion screen would resurrect an empty queue.
   · The `hashchange` branch for `study` must come BEFORE the generic `valid.includes(hh)` one, which would call
     `route("study")` with no scope.
+  · **AND THE EDITOR OFFERS A WAY BACK INTO IT** (`studyHold` / the `#adminToStudy` button / `.admin-tostudy`,
+    Aug 2026, on request). Pressing Edit on a study card routes to the admin area, which is a navigation, so
+    `route()`'s own choke point clears the session — correctly, since every other way of leaving a session
+    means leaving it. The Edit button therefore CAPTURES the record first (`showAdminEditBtn`, into a
+    module-level `studyHold`), and the editor draws a "Back to studying" button that puts it back and routes
+    to `study` with `resume`. Two things follow. **It is a module-level variable rather than a second
+    storage key**: a held session must not survive a reload, since the reader would meet a Back button for a
+    session the editor no longer knows anything about. And **`clearStudySession()` is the one function every
+    caller goes through** — `route()`, `renderComplete` and the hold's own consumer — so there is one place
+    that knows what clearing means.
+  · **A SUSPENDED NEW CARD NO LONGER COSTS THE DAY ONE** (`refillAfterSuspend(oldId)`, Aug 2026, on request).
+    Suspending is the reader saying *not this card*, and the day's allowance had already been spent on it —
+    so a reader who suspended five cards got a session of nothing, with the banner still claiming five new.
+    The queue is topped back up from the same entry's own unseen cards, skipping anything already in it,
+    already seen or suspended. It refills only where the suspended card was NEW: a suspended REVIEW card is
+    work the day genuinely no longer has, and manufacturing a replacement for it would deal a card the
+    schedule did not choose.
 - **A card's PHRASING is state, and the reader can step through it** (`qIdx` in `PAGES.study`, the `.q-cycle`
   chevrons beside the Question label — Aug 2026, on request). Every card carries three ways of asking the same
   thing and which one you met used to be a coin toss per render, with no appeal and nothing surviving a reload.
@@ -8010,11 +8046,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   resolves `true`/`false` and **never rejects**, so a fire-and-forget caller can't raise an unhandled
   rejection; a failed bundle is retried on the next call. Consumers:
   · **`PAGES.map`** holds a `.data-loading` placard until `world` + `atlas` land, then re-renders (`render()`
-    re-invokes the *current* page, so this covers `PAGES.findit` too).
+    re-invokes the *current* page, so this covers `PAGES.findit` too). **It is the one placard with a
+    PROGRESS BAR** — see the next paragraph.
   · **`startMiniGlobe`** (home) fetches `world` at **idle** so a 170px ornament never delays first paint,
     and skips entirely under `navigator.connection.saveData`.
   · **Settings' home-location picker** holds just the current home until `world` arrives, then fills.
   · **`loadLangData`** pulls `uiI18n` + `glossI18n` whenever the language isn't English.
+  **THE LOAD BAR COUNTS FILES, NOT BYTES** (`dlBarHTML(names)` / `wireDlBar(host, names)` / `_bundleWatch`
+  / `bundleFileCount` / `bundleDoneCount` / `watchBundles`, beside `ensureData`; `.dl-bar` in styles.css.
+  Aug 2026, on request: "when there are loadscreens, can we add a load bar"). `ensureData` counts each
+  file as it settles — **whichever way it settles**, so a bar cannot stall on a failed bundle whose caller
+  is about to paint a failure state — and notifies whatever is watching that bundle. Three decisions.
+  **Bytes are impossible here and that is a CSP fact rather than an omission**: reading a download's
+  progress means `fetch()` plus running the text yourself, i.e. an inline script, and `script-src 'self'`
+  holds only because there are no inline scripts (see `_headers`). Per-file is what can be counted
+  honestly, so per-file is what is shown. **A bar is DETERMINATE or it is nothing**: `dlBarHTML` returns
+  `""` below two files, so a single-file bundle (a book, `usstates`) keeps its spinner rather than showing
+  a bar that jumps 0 → 100 and has told the reader nothing. The Atlas — the load anybody actually waits
+  for — is twelve files, and measured in a browser it steps 8, 17, 25, 33, 42, 50, 67, 75, 83, 92.
+  **And the fill TRANSITIONS its width**, so the global reduced-motion killswitch already lands it on its
+  true value with no rule of its own; `wireDlBar` takes itself off the watch list when its bar leaves the
+  document, the self-stopping shape `startMiniGlobe` uses.
+  **NO COMMITTED SUITE GUARDS IT, and that is worth knowing before trusting it**: the bar lives on the
+  Atlas's own load screen, which is gone within a second or two of the page opening, so a browser test
+  would be racing the thing it measures. The figures above were read off a live run with the bundles
+  instrumented, and that is the check to repeat by hand after touching `ensureData`'s counting.
   **A bundle's `after` hook re-establishes what boot would have done had the file been present** — this is
   the part that bites. `timeline.js` assigns `window.TIMELINE` over the empty array `applyAdminEdits()` left
   at boot, so the atlas hook re-applies `ADMIN_EDITS.timeline` on top or **the admin's working era set is
@@ -8058,7 +8114,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `deckLimits`/`reviewLimits` read `S.settings.newPerDay` with **no fallback of their own** — so a save old
   enough to lack the key (it predates every other back-fill line) gives `newPerDay: undefined`, which runs
   as NaN through `deckNewRemaining` into a `slice(0, NaN)` that returns nothing. **The review then offers no
-  new cards, ever, with no error and no zero to explain it**: the banner just reads "Browse collections" for
+  new cards, ever, with no error and no zero to explain it**: the banner just says the day is done, for
   good. Found by seeding a partial settings object for `test-reset.js` — which is exactly the shape an old
   save has. **When a reader in `S.settings` has no default of its own, it needs a back-fill line.**
 - **Admin edits:** `localStorage["folio_admin_v1"]` stores edits as *deltas*, applied at startup
@@ -8345,7 +8401,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **THE PROGRESS IS ON THE ACCOUNT PAGE, UNDER THE STAT TILES** (`streakChestHTML` / `.streak-chest`) —
     beside the streak figure it counts from, since that tile says how long the run is and this says what the
     run is worth, which are two halves of one fact and read badly a section apart. **Seven pips rather than
-    a bar**: the unit is a DAY, and a continuous fill would suggest a part-finished one. It takes a `prog`
+    a bar**: the unit is a DAY, and a continuous fill would suggest a part-finished one. **A CHEST SITS AT
+    THE RIGHT-HAND END** (`.sc-chest`, Aug 2026, on request), drawn in the quiet ink and lighting to the
+    earned gold on the seventh day, so the row says what the pips are building towards rather than leaving
+    it to the heading; it is the same `CHEST_SVG` the overlay and the notice use, so the three cannot come
+    to disagree about what a chest looks like, and it is `aria-hidden`, the row being named in words. It takes a `prog`
     like every other figure in that section, so a friend's would render correctly — **nothing calls it that
     way today**, and that is a gap rather than a decision.
     **THE TWO CALLERS GATE IT DIFFERENTLY, ON PURPOSE.** On your OWN record it is always drawn, and at a
@@ -8372,7 +8432,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     so the four tiles read as the whole of it. It opens as an OVERLAY rather than scrolling to that section
     — the same list wherever a showcase is rendered, including a page that carries no inventory section at
     all — and it is built from **`reliquaryHTML`**, so the overlay and the page's own section cannot come to
-    disagree about what is collected. Two things: it is absent when nothing is owned ("See all 0" is a
+    disagree about what is collected. **It is the ONLY way to the collection since Aug 2026** (on
+    request): the account page carried a second, full Reliquary section lower down, so a reader's
+    artefacts were listed twice on one page — the section is gone from both your own account and a
+    friend's, and this button reads **See Reliquary** with the count moved into its `title`. The
+    SIGNED-OUT page keeps its own `#reliquary` section, deliberately: that page has no showcase, so
+    removing it would leave a guest's own collection unreachable. Two things: it is absent when nothing is owned ("See Reliquary" over nothing is a
     control that does nothing), and **`wireReliquary(host, prog, own)` takes the progress it opens FOR** —
     a friend's showcase must raise a friend's collection, and the earlier one-argument form would quietly
     have shown the reader their own list under somebody else's name.
@@ -8436,8 +8501,55 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `render()` closes them (`closeChestPop`, `closeArtefactWin`, `closeCollectionWin`, in the close list). The chest is
     deliberately NOT dismissed by a backdrop click: unlike the level-up popup it holds buttons, and an
     overlay where a stray tap outside the card takes the reward away is one nobody trusts.
-  `S.artefacts` / `S.chests` / `S.showcase` / `S.sweepChest` are in `defaultState` AND `PROGRESS_FIELDS` — an
-  artefact is something the reader earned, so the shelf a phone shows is the shelf a laptop shows. Guarded by
+  · **A CHEST MAY ALSO HOLD A THEME** (`COLLECTIBLE_THEMES` / `THEME_DROP` / `ownedThemes` /
+    `themeUnlocked` / `lockedThemes` / `unlockTheme` / `claimTheme` / `rollChestItem` / `themeGrandfather`;
+    Aug 2026, on request: "besides artifacts, we will add a second type of item users may occasionally
+    collect: Themes"). The five non-`folio` themes are locked until one comes out of a chest, at
+    `THEME_DROP` (14%) of an opening **while any are still locked** — so a reader collects them at roughly
+    the rate they collect artefacts and the drop retires itself rather than dwindling to noise. Six things
+    are decisions rather than plumbing.
+    **`folio` IS NEVER IN THE REGISTER.** `S.themes` holds only what was WON, so "unlocked" is
+    `id === "folio" || owned[id]` and the default can never be lost, missing or granted twice.
+    **NOTHING IS TAKEN FROM A READER WHO ALREADY WEARS ONE** (`themeGrandfather`, called at boot and again
+    from `applyProgress`): a theme in `S.settings.theme` that is not in the register is written into it,
+    once, and the function only ever unlocks. Without it the change would have quietly stripped five of the
+    six themes from every existing reader, which is the one way a collectible can be worse than no
+    collectible at all.
+    **A LOCKED THEME'S BUTTON IS PRESSABLE, NOT `disabled`** — Chrome fires no mouse events at all on a
+    disabled button, so the hover try-on would be taken away from exactly the themes that most need
+    advertising. `setTheme` is the gate (it refuses a locked id outright), and the click toasts the reason;
+    the picker marks the row with a dashed border, a desaturated mock and a padlock, and its tag reads
+    "From a chest" where an owned one reads its own tagline.
+    **THE REVEAL OPENS AS AN "EPIC"** so the chest animation has a rarity to size its shake, its burst and
+    its sound by, without borrowing the legendary flourish — and the plate shows the same `themeMockHTML`
+    the Settings picker draws, so the two cannot come to disagree about what a theme looks like. Its two
+    actions are **Wear it now** and **Keep it for later**, because a theme is the one collectible that
+    changes the site under the reader the moment it is claimed.
+    **`THEME_OPTS` MOVED UP BESIDE `THEMES`** (with `THEME_BY_ID` / `themeName` / `themeMockHTML`), out of
+    `PAGES.settings`' closure: the chest overlay, the friends list, the admin tab and the picker all draw a
+    theme now, and a table reachable from one page only would have become four copies of itself.
+    **AND `spendChest()` IS THE ONE PLACE A CHEST IS SPENT**, incrementing `S.chestsOpened` — a lifetime
+    tally that only ever goes up. It cannot be derived from the artefacts any more, since an opening may
+    hand back a theme instead, and the badges below read it, so the banner's count and the badges' count
+    cannot drift.
+  · **FIFTEEN COLLECTOR'S BADGES** (Aug 2026, on request), reading `progStats`' new fields: chests opened
+    (1 / 10 / 50), artefacts held (10 / 25 / 50), a legendary found, a deck published, books started
+    (1 / 5 / 10), 250 glossary terms, and **an hour, three hours and eight hours studied in ONE day**.
+    Three things about them. **They are tested at the moment they are earned, not at the next card** —
+    `checkAchievements()` is called from `spendChest`, from `uDeckPublish` and from `setReadingPos`' first
+    write for a book, because being told about a chest badge three cards later reads as the site having
+    lost count. **A badge grants a chest**, which is what `checkAchievements` has always done, so opening
+    chests earns badges which grant chests — it cannot run away (a badge unlocks once) and it does mean
+    the chest BALANCE is not a plain subtraction, which `test-artefacts.js` now asserts against the badges
+    rather than against a constant. And **the day figures read `S.studyTime` only where its day stamp is
+    today** (`dayKey()`), so the three hour badges are about one day's work rather than a lifetime total,
+    which is what was asked for.
+  `S.artefacts` / `S.chests` / `S.showcase` / `S.sweepChest` — and, since Aug 2026, `S.chestsOpened`,
+  `S.themes`, `S.published`, `S.publishedIds` and `S.theme` — are in `defaultState` AND `PROGRESS_FIELDS`:
+  an artefact is something the reader earned, so the shelf a phone shows is the shelf a laptop shows.
+  **`themes` and `theme` are additionally in `RESET_KEEPS`** — Reset progress names the study history, the
+  streak and the badges, and a collectible taken away by a control that does not mention it is the failure
+  that bullet exists to prevent; the artefacts and chests still go, being what a LEVEL bought. Guarded by
   `.claude/test-artefacts.js`.
 - **Card-of-the-day additions** (`COTD_ENTRY` / `cotdIds` / `cotdAdd`, beside the other entry helpers): the home tile's
   button studies **that one card** (`scope {type:"card", id, addTo:"cotd"}`), and **grading it** — not opening it — drops
@@ -8462,11 +8574,49 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   request — the old key is retired from all nine language tables) presents cards in their in-deck order;
   **Random** shuffles the session order. The **draw** of the day's new cards is date-seeded-random across the decks in BOTH
   modes now (see the next bullet) — the setting decides presentation order only.
-  **IT IS PER ENTRY, LIKE QUESTION VARIETY AND THE DAILY LIMITS** (`deckRandom` / `setDeckRandom`, Aug 2026, on
-  request: the switch appeared on the review banner's sheet alone, so a deck held on its own row had no way to
-  ask for a shuffled session). `S.deckOpts[id].random` where the reader has thrown it on that deck,
-  `S.settings.reviewRandom` as the default everywhere else, so **nothing migrates**. Two things are decisions
-  rather than plumbing. **The REVIEW writes the GLOBAL rather than a per-entry flag** — Settings → Random review
+  **THERE ARE THREE ORDERS SINCE AUG 2026, AND ORDERED NO LONGER MEANS "EVERY REVIEW FIRST"** (`DECK_ORDERS` /
+  `deckOrderMode` / `setDeckOrderMode` / `mixPiles` / `orderPile` / `deckByDifficulty` / `sortByDifficulty` /
+  `cardDifficultyRank`, on request). **Ordered**, **Random** and **By difficulty** (easiest first, on
+  `cardDifficultyShown` — so a card with enough answers is ranked by how hard readers actually found it and one
+  without by how obscure its answer term is).
+  **IT IS REACHED BY A CYCLER, NOT A SWITCH** (`cyRow` / `.dm-cycle` / `.dm-cyval` / `DECK_ORDER_LABEL` /
+  `DECK_ORDER_NOTE`, Aug 2026, on request). The data layer shipped a batch ahead of the control, which
+  this file recorded as a warning at the time — a setter nothing calls being the next person's bug — and
+  the control is what closes it. **A switch cannot express three answers**, so the row states the order
+  currently in force and steps to the next on a press, wrapping; its `small` line says what that order
+  DOES rather than what the next one would do, so it reads as a sentence in whichever of the three
+  positions it is in. Three things about the shape carry over from the switch beside it and one does not.
+  It is a `<div>` carrying `role="button"` (the row is the target, and a control inside a button is
+  invalid); pressing it must NOT close the sheet and must NOT repaint, since `render()` closes this very
+  sheet through `closeDeckMenu`; and it is **excluded from the generic command selector** in
+  `openDeckMenu`'s click handler, or one press would step the order and then run the sheet's ordinary
+  dismiss-and-act path on top of it. What does not carry over is that a cycler cannot be answered by a
+  keyboard's Space alone the way a `role="switch"` can — it takes Enter and Space through the row, which
+  is what `role="button"` buys, and there is deliberately no arrow-key handling, three values in a ring
+  having no "up". **`test-review-decks.js` pins the sheet's row list EXACTLY**, so the cycler was an
+  assertion change as well as a UI one, and it asserts the full ring (Ordered → Random → By difficulty
+  → Ordered) with the store read back at each step rather than only that the label moved. Three things
+  about the ORDERS themselves are load-bearing.
+  **`mixPiles(due, fresh)` INTERLEAVES THE TWO PILES IN EVERY BRANCH**, weighted by what is left of each and
+  preserving both piles' own order, because a session that deals every due card and then every new one is two
+  sessions rather than one — and on a large deck the new cards, which are the reason a reader added it, arrive
+  after forty reviews or not at all. It replaces the bare `[...due, ...fresh]` in all five `buildSession` branches
+  and in the review's own queue, so a deck studied from its row and the same deck studied from the pooled review
+  cannot come to disagree about what a session looks like.
+  **AND `setDeckOrderMode` IS NAMED THAT WAY BECAUSE `setDeckOrder` WAS ALREADY TAKEN** — it is the DRAG order
+  setter (`setDeckOrder(parentKey, ids)`, writing `S.deckOrder`), and a second `function setDeckOrder` at the same
+  scope wins for the whole scope, silently: the drag setter simply stopped existing and a reader's arrangement of
+  their own deck list stopped being saved, with nothing thrown and the rows still moving under the finger.
+  `test-review-decks.js` section 8 is what caught it. **A duplicate function declaration at module scope is
+  invisible** — sweep for one when a working feature stops working for no reason a diff explains.
+  **IT IS PER ENTRY, LIKE QUESTION VARIETY AND THE DAILY LIMITS** (`deckRandom` / `deckOrderMode` /
+  `setDeckOrderMode`, Aug 2026, on request: the switch appeared on the review banner's sheet alone, so a
+  deck held on its own row had no way to ask for a shuffled session). `S.deckOpts[id].order` where the
+  reader has chosen on that deck, the older `S.deckOpts[id].random` boolean read as a fallback beside it,
+  and `S.settings.reviewOrder` / `reviewRandom` as the default everywhere else, so **nothing migrates**.
+  **`setDeckRandom` is RETIRED** — `deckRandom` is now derived from `deckOrderMode`, so one function decides
+  which of the three orders is in force and the two shuffles in `buildSession` cannot come to disagree with
+  the control that set it. Two things are decisions rather than plumbing. **The REVIEW writes the GLOBAL rather than a per-entry flag** — Settings → Random review
   order shows that value, and giving the review a private copy would leave two controls disagreeing about the
   pooled session with nothing on either page to say which was in force (this is where it differs from
   `deckVariety`, whose review flag is per-entry because Settings has no switch for it). And **`buildSession`
@@ -8625,9 +8775,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **⚠ NO NEW GROUP CAN BE MADE — THE FUNCTION WAS REMOVED FROM THE DAILY STUDY BLOCK** (Aug 2026, on
     request: "remove the group function from the daily study/active decks banner"). "+ New group" stood
     inside the banner, then at the bottom left of the DECK LIST for a fortnight, and is now gone along with
-    `promptNewGroup`, `.rv-tools` and `.rv-newgroup`; `.rv-foot` survives, since that row is what keeps
-    `.rv-lip` against the review group's own bottom edge — it held the lip alone for a fortnight and now
-    carries the day's timer (`.rv-time`) at the left end it vacated.
+    `promptNewGroup`, `.rv-tools` and `.rv-newgroup`; `.rv-foot` survives, carrying the day's timer
+    (`.rv-time`) alone at the left end it vacated — and is now drawn only once there is a time to report,
+    the Collections button having left that row for a place of its own under the whole group.
     **WHAT DELIBERATELY STAYS is everything a reader who ALREADY made one needs**: the group row in the
     list, its hue, dragging a deck in, and Rename / Colour / Ungroup in its own options sheet. Deleting
     that code would leave such a reader a container on their home page that nothing could open — and there
@@ -8801,6 +8951,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     today's figures would silently stop following it. It is offered only where there is something to clear.
     `.dm-pane[hidden]{display:none}` is required — the author `display` beats the UA rule, the trap
     `.ces-imgpanel[hidden]` already carries.
+  · **A SETTING CASCADES TO WHAT IS UNDER IT** (`DECK_OPT_INHERIT` / `entryChain` / `deckOpt` /
+    `deckOptFrom` / `deckOwnOverrides` / `clearDeckOverrides`, Aug 2026, on request). A community deck may
+    nest nine levels deep and end in a direction row, and until this every one of those rows answered for
+    itself — so setting FSRS, or a review order, or read-aloud on the DECK did nothing at all to the levels
+    inside it, which is where the reader actually studies. `entryChain(id)` walks outward from an entry to
+    everything that contains it — a direction to its subdeck, a subdeck path to its parents, a subdeck to
+    its deck, a tree node to its ancestors, and anything to the GROUP it has been dragged into — and
+    `deckOpt(id, key)` returns the nearest answer with `from` (which entry gave it) and `own` (whether that
+    was this one). Four things are decisions rather than plumbing.
+    **THE DAILY LIMITS DELIBERATELY DO NOT INHERIT, and that is the whole of `DECK_OPT_INHERIT`.** A POLICY
+    — how to order, whether to shuffle, which scheduler, whether to speak — means the same thing wherever it
+    is applied, so handing it down is what a reader means by setting it on a deck. A QUANTITY does not:
+    handed down to nine levels, "five new a day" becomes forty-five, and the pooled review would then draw
+    a number no deck agreed to, which is the exact bug the per-deck limits were built to fix. So
+    `newPerDay`, `maxReviews` and `newIgnoresReview` are absent from that list and `deckOpt` answers for
+    them from the entry alone; `deckLimits` keeps its own fallback to the All-decks default, which is a
+    different mechanism and is where a limit is meant to be inherited from.
+    **THE CHAIN IS WALKED ONCE PER QUESTION, NEVER ONCE PER KEY.** `deckOrderMode` has to ask each entry for
+    BOTH the new `order` string and the older `random` boolean before moving outward — two passes would let
+    a deck's stale boolean beat a subdeck's explicit choice, which is a setting silently ignored rather than
+    an error.
+    **THE ROW SAYS WHERE ITS VALUE CAME FROM** (`.dm-from`, `fromMark`): "Set here" on an entry that carries
+    its own, or "From &lt;the entry's title&gt;" where it is inherited — because a sheet showing a value that
+    is not this entry's, with nothing to say so, teaches a reader that a setting they never made is theirs.
+    `markOwn(rowEl)` re-marks the row in place when a switch is thrown, since throwing one must not repaint
+    (`render()` closes this very sheet), and `.dm-from[hidden]{display:none}` is spelled out for the reason
+    every `[hidden]` in this file is.
+    **AND "FOLLOW &lt;PARENT&gt;" IS OFFERED ONLY WHERE THERE IS SOMETHING TO CLEAR**, `clearDeckOverrides`
+    DELETING every inherited key on that entry rather than writing the parent's current values into it —
+    the Daily limits tab's own rule, and the same difference: an entry cleared this way follows a later
+    change made higher up, where one holding a copy of today's answers would silently stop following it.
   · **QUESTION VARIETY** (`deckVariety` / `setDeckVariety` / `scopeEntryId` / `S.settings.questionVariety`,
     Aug 2026, on request). Whether a card asks one of its three phrasings at random or always the first.
     It is **PER ENTRY with a global default**, exactly like the daily limits and for the same reason: this
@@ -8819,11 +9000,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `fromReader` argument to `PAGES.study`'s `showAnswer`; Aug 2026, on request — Anki's "read the answer
     aloud"). Revealing a card speaks it, with no button pressed. Four things are decisions rather than
     plumbing.
-    **IT IS PER ENTRY WITH NO GLOBAL DEFAULT AND IT STARTS OFF**, which is the opposite of the two switches
-    above and is the point: those choose between two ways of doing something the reader has already asked
-    for, where this one makes the site start making a noise on its own. A thing done TO a reader is opted
-    into — the same line `ttsEnabled()` draws site-wide. It rides in `S.deckOpts`, so it syncs and survives a
-    reset (`deckOpts` is in `RESET_KEEPS`) with no field of its own and nothing to migrate.
+    **IT IS PER ENTRY WITH NO GLOBAL DEFAULT, AND SINCE AUG 2026 IT STARTS ON** (on request; it was opt-in,
+    on the reasoning that a site which makes a noise by itself should be asked first). **What makes the
+    default safe is the gate below it rather than a change of view about consent**: the switch — and the
+    behaviour — exist only where the deck's own card TYPE marks a run `.uc-tts`, so the person who wrote
+    the deck has already asked for those words to be speakable, and a deck that marks nothing is silent
+    whatever this says. The reader who does not want it throws one switch, and it cascades to that deck's
+    subdecks. It rides in `S.deckOpts`, so it syncs and survives a reset (`deckOpts` is in `RESET_KEEPS`)
+    with no field of its own and **nothing migrates** — an absent key is the new default, which is the
+    intended behaviour for everyone who has never opened the sheet, and a reader who explicitly turned it
+    OFF keeps that. `.claude/test-speak.js` asserts the default in both directions.
     **THE SWITCH APPEARS ONLY WHERE SOMETHING CAN SPEAK** (`entryHasSpeech`), because a control that answers
     a press with silence is worse than none — the test `.uc-tts` already applies to its own chrome through
     `body.no-tts`. A curated card has no templates and so never speaks; a community deck speaks when one of
@@ -8937,9 +9123,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     || due - now <= SCHED_AHEAD_MS)}`. The old 11-minute window silently stopped requeuing the moment a step ran longer
     than it; the learn-ahead allowance is Anki's, and is what stops the last card of a late-night session being stranded
     a few minutes the wrong side of the cut-off.
+  · **A DUE DATE MEASURED IN DAYS LANDS AT THE START OF ITS DAY** (`dayStartTs` / `SCHED.dayAnchor` / `schedDayDue`,
+    Aug 2026, on request). An interval of one day used to mean *twenty-four hours from the moment you graded it*, so a
+    card answered at nine in the evening was not offered again until nine the next evening — which makes "today's
+    review" a moving window rather than a day, and means a reader who studies in the morning meets none of yesterday
+    evening's cards. Anything scheduled in **days** is now anchored to the start of the reader's own day (`dayEnd`
+    included, so it is the same boundary the streak, the quote and the day's allowance turn over on) plus the fuzz;
+    anything in **minutes** — the learning steps — is untouched, since those are genuinely a delay from now.
+    **It is a `cfg` field, not a global read**, so the pure block stays pure: `deckSchedCfg` and `schedCfgFor` attach
+    `dayAnchor`, and a `cfg` without one behaves exactly as before, which is what keeps `test-scheduler.js`'s older
+    sections describing the same function. Both schedulers go through it — `fsrsAnswer` routes its interval through
+    `schedPass` — so neither knows about it.
   · `S.intro.count` (the daily new-card cap via `newRemainingToday`) is still incremented only on a card's FIRST grade
     (`fresh`), so a requeued learning card is never re-counted.
-  · **Guarded by `.claude/test-scheduler.js` (127 assertions, no browser, no dependencies)** — including the ordering
+  · **Guarded by `.claude/test-scheduler.js` (136 assertions, no browser, no dependencies)** — including the ordering
     guarantee Hard < Good < Easy over 1,600 interval/ease combinations, that preview and grade agree over 360 cases,
     that nothing is ever scheduled into the past, and that old records back-fill. Its two most useful finds were both
     invisible on the page: the ordering floor walking Easy past the maximum interval, and the preview/grade clock
@@ -8947,7 +9144,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **tracks the card by ID out of the session record, never by the question on screen**, which is a different one of
     its three phrasings each time it is shown.
   · **Re-run both after touching `SCHED` / `schedAnswer` / `schedPreview` / `schedPass` / `schedFuzz` / `schedIsLearning`
-    / `fmtInterval`, or the requeue line in `grade()`.**
+    / `schedDayDue` / `dayStartTs` / `fmtInterval`, or the requeue line in `grade()`.**
 - **FSRS, CHOSEN PER DECK (Aug 2026, on request).** The `FSRS` block in app.js, between SM-2 and the SRS helpers.
   SM-2 asks *how did that go* and multiplies an interval; FSRS models the memory — a **stability** (the delay at which
   recall is about 90%) and a **difficulty** (1–10) carried on the card record beside the interval — and computes the delay
@@ -9168,6 +9365,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   as a graduated card. The card comes back **revealed** (`studyRevealId`), on the grade row it was mis-answered on.
   Two things it deliberately does NOT take back, both additive and harmless: a badge or level-up already announced
   (`checkAchievements` only ever adds) and a Card of the day already dropped into the review list.
+  **IT STEPS BACK ONE CARD, NOT TWO** (`UNDO_GUARD_MS` (90) / `undoAt`, Aug 2026, on a report). There are
+  three ways in — the button, the shortcut and the completion screen's link — and a press that reached two of
+  them, or a key held a moment too long, popped two snapshots: the reader lost the card they meant to fix AND
+  the one before it, which is the one outcome an undo must never produce. A pop inside the guard window is
+  refused. It is deliberately a TIME guard rather than a flag cleared on the next render: the render is what
+  the second press races.
   **The Ctrl+Z guard is not `!typing`**: the cloze box takes focus as each card opens, so refusing whenever it is
   focused would mean the shortcut never fired at the one moment it is wanted — the card AFTER the misclick, which
   has just opened with an empty box. It yields to the browser's own typing-undo only while the box actually holds
@@ -9243,6 +9446,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   or the whole movement ends on a 5px jump the instant everything else settles.
   **The chevron is dimmed to `opacity:.5`** (Aug 2026, on request), full strength on hover and focus: it
   is a quiet control sitting directly above four saturated colours.
+  **AND IT NO LONGER JAMS HALF WAY** (`_gbAnims` / `_gbFoldT` / `gbStopFold` / `gbFoldingFor` /
+  `body.gb-folding`, Aug 2026, on a report that pressing the chevron twice quickly left the bar stuck).
+  Two faults, and each is invisible on a single press. The FLIP's animations were fired and forgotten, so a
+  second press started a second set over the first and the four buttons settled wherever the two disagreed —
+  they are kept in `_gbAnims` now and cancelled at the head of the next fold, which is `flipMove` and
+  `flipHeight` having been taught to RETURN what they created (they returned nothing, so no caller could
+  have cancelled anything). And the CSS transitions have a duration of their own, so a press landing inside
+  it measured a height half way between the two states and folded to the wrong one — `body.gb-folding` is
+  set for `GB_FOLD_MS` and takes the bar's own contents out of hit-testing while it moves, with a
+  capture-phase `pointerdown` **exempting `.gb-fold` itself** so the chevron stays pressable: a reader who
+  presses it twice means to end up where the second press says, and swallowing that press would be the same
+  jam wearing a different coat.
+  **ITS TEST MUST DRIVE REAL INPUT AND MUST CLEAR THE LEVEL-UP CHEST**, and the second half is what made
+  the block honest. `el.click()` bypasses hit-testing entirely — which is the whole of what breaks here —
+  so a scripted version passes on the bug and the rounds have to go through `page.mouse.click`. But six
+  grades takes a fresh reader past level 2 (`XP_PER_LEVEL` is 5), and a level buys an artefact chest whose
+  overlay swallows every REAL pointer event: the chevron presses land on nothing and the grade's own centre
+  hit-tests to the overlay, so the round reports a jam that is the REWARD working exactly as designed. It
+  shows as **1 of 6** — the scripted reveal goes through regardless, so only the real-input half is blocked
+  — which reads like a rare intermittent fault rather than a fixture problem. The chests are dismissed at
+  the head of each round and **counted**, so a dismissal that stopped firing cannot put the false failure
+  back quietly. **And the sub-block after the loop has to REVEAL again**: the loop now ends on a grade that
+  succeeds, which moves to the next card and hides the bar, and `#gradebar` is `pointer-events:auto` only
+  while it carries `.show` — so the mid-fold probe read `none` on everything and reported a fold that never
+  started. It had been passing for the wrong reason, on a round 6 whose grade the chest was swallowing.
+  **A fixture that depends on an earlier step failing passes until that step is fixed.**
 - **Undo is repeated INSIDE the grade bar on a phone** (`#undoGradeBar`, `.gb-undo` — Aug 2026, on request).
   The study bar's `#undoGrade` sits at the top of a card that runs several screens, so on a phone the one way
   back from a misclicked grade was scrolled off screen at exactly the moment it was wanted. The grade bar's copy
@@ -9630,6 +9859,52 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     than as a second kind of mark; an unearned star is the same colour at a fraction of the opacity, which
     reads as an outline without needing a second glyph. It is absolutely positioned so it costs the
     question no width, and it steps left of `.tts-mute`, which holds that corner when read-aloud is on.
+  · **THERE ARE TWO RATINGS AND THE CARD SHOWS WHICHEVER IT HAS EVIDENCE FOR** (`CARD_STATS` /
+    `CARD_STATS_MIN` / `CARD_GRADE_WEIGHT` / `cardStatsFor` / `cardDifficultyShown`, Aug 2026, on request).
+    `card.difficulty` is an EDITORIAL judgement about how well known the answer term is, made once when the
+    card is written; what a reader actually wants to know is how hard the card is to answer, which only the
+    answers can say. So every grade is counted (`bump_card_grades`, an RPC in section 13 of
+    `.claude/supabase-schema.sql` — **the user must run it once**; it clamps each increment to 0–50, caps a
+    batch at 500 rows and validates the id, since anyone with the publishable key can call it), and once a
+    card has **`CARD_STATS_MIN` (20)** answers the stars show the community figure instead. Four decisions.
+    **It is ANONYMOUS AND AGGREGATE** — four counters per card, no reader attached — which is what makes it
+    safe to publish and to read without a session. **The threshold is what stops one bad morning becoming a
+    rating**: below it the card keeps the editorial one, so a new card is never rated by three people.
+    **`pct` is null on the editorial rating**, deliberately: it is a judgement rather than a measurement and
+    printing it as a figure out of a hundred would dress it up as one, which is why only the community
+    rating carries `.cs-pct`. And **the rank is derived from the percentage** (`floor(pct / 20) + 1`) rather
+    than stored, so the two ratings share one five-star scale and one row of markup.
+    **THE WORD "Difficulty" IS PRINTED BESIDE THE STARS** (same request): five small stars in a corner say
+    that something is being rated and not what. Set small and thin, so it labels the row rather than
+    competing with the question beside it. **AND IT IS THE FIRST TEXT IN THAT ROW, SO IT NEEDED A
+    `body.hc` RULE** — the stars are SVG and `test-a11y.js` measures text, so until the row gained words
+    there was nothing there to measure. Both the word and the community figure are `--indigo` held down by
+    opacity, which over the six themes in both modes is **1.77–3.28** and **2.06–4.70** — quiet on purpose,
+    short of the bar in all twelve, and correctly REPORTED rather than failed in the default mode. Opacity
+    is not the rescue: at full strength the indigo is still 3.32 on gazette's dark card. So with the mode on
+    they become ordinary `--ink`, which is what the re-tone does for every other quiet token. **A row that
+    gains its first text node gains an accessibility surface it did not have.**
+    **AND `test-a11y.js` COULD NOT SEE IT, WHICH IS THE HALF WORTH CARRYING**: its high-contrast sweep
+    walks `ROUTES`, and `study` is deliberately not a restorable hash — so it visited every page a reader
+    can type and none of the one they spend their time on, and the assertion "nothing falls short" was
+    passing on a set that excluded the whole study card. It reaches one now, the way a reader does, with a
+    guard asserting the card and the difficulty row are actually THERE: a sweep that reached no card would
+    report clean for the worst possible reason.
+    **AND THE FIRST THING IT SAW THERE WAS NOT THIS ROW BUT THE GRADE BAR**, failing in all twelve
+    combinations — which is the argument for widening a sweep even when you are widening it to check your
+    own change. Its three text runs are white at 1, .82 and .6 over four saturated backgrounds, and
+    measured they are 2.25–4.56 for the label, 1.97–3.64 for the interval and 1.66–2.69 for the key: the
+    site's most-used control, wrong since the bar was built, and unreported because nothing had ever
+    looked. **The fix is the BACKGROUND rather than the ink**, and that follows from what the colours are
+    for — the four hues ARE the four answers, so re-toning the text to a common dark would take the bar's
+    whole language away, while darkening each background by a factor of .67–.99 keeps every hue and simply
+    stops it being a pastel. Solved per colour and per mode with all three runs at full-strength white;
+    every one lands 4.61–4.71. **The rules are written `body.hc:not(.night)` / `body.hc.night` (0,4,0),
+    not `body.hc` (0,3,0)** — `.night .grade.again` is (0,3,0) and sits a thousand lines below the
+    CONTRAST block, so at equal specificity source order would win and the night bar would be untouched.
+    **The RPC degrades rather than breaking** — a database without
+    section 13 answers 404 and the card simply keeps its editorial rating, which is the standing rule that a
+    later schema block is never a prerequisite.
   · Written by `.claude/add-card-difficulty.js` in batches, editable per card in Admin → Cards (a select in
     the meta row beside the chronology — it offers the five ratings and **no "unrated" row**, since an
     undefined delta does not survive JSON round-tripping and a control whose only use is to drop a card out
@@ -10413,7 +10688,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   styles.css; fonts in the single @import). **Seven themes — atlas, press, bloom, tide, scroll, grove, dynasty — were
   REMOVED on request** (a saved selection of one falls back to folio via the `THEMES` whitelist); don't reintroduce
   them. **Collection banners and all theme decorations are STATIC — no animated/moving patterns (removed on request).**
-  Themes register in `THEMES` (app.js) + the `THEME_OPTS` settings-picker table (mini-mockup previews, hover try-on).
+  Themes register in `THEMES` (app.js) + the `THEME_OPTS` settings-picker table (mini-mockup previews, hover try-on),
+  **both at module scope beside each other since Aug 2026** — `THEME_OPTS` lived inside `PAGES.settings` until the
+  chest overlay, the friends list and the admin tab all needed to draw a theme too. **Five of the six are COLLECTIBLE**
+  (everything but `folio`): see the theme bullet under THE RELIQUARY for the drop, the grandfathering and why a locked
+  theme's button stays pressable. **AND THE ONE A READER WEARS IS SYNCED, on `profiles` rather than in the progress
+  blob** (`S.theme`, `themePushSoon`, schema section 14) — a friend's row on the Account page is drawn in that
+  friend's own theme, which is what makes it "how your account is presented to others" rather than a private
+  preference. The column choice is the whole of the design and is argued in the schema: `progress` is RLS-scoped to
+  its owner and their accepted friends, so a friends list would have to pull every friend's whole blob to read one
+  string and an editor counting themes could not read it at all, where `profiles` is readable by any signed-in user
+  and its column-level grant makes adding one column the entire permission change. `themeSyncMissing` turns
+  PostgREST's 400/404 into silence, so a database that has not run section 14 simply presents every account in the
+  default — **a later schema block is never a prerequisite.**
 - **Text size** (**Settings → Appearance → Text size**, `FONT_SIZES` / `setFontSize` / `S.settings.fontSize`, Aug
   2026, on request): **very small / small / medium / large / very large**, written by `applyTheme` as
   `body[data-fs]` — so it is re-applied on
@@ -10834,7 +11121,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `q` too; `null` retires a shipped quote, and a key matching nothing shipped is one the admin added.
   `QUOTES` and `QUOTE_ORDER` are therefore both `let` and both DERIVED: the order is a property of the
   whole pool, so adding or retiring one quote re-solves the lot. **Any writer calls `refreshQuotes()`**,
-  and `reapplyAdminOverlay` does too (undo, and a cloud-adopted overlay)) → review banner (+ the "+ Add decks"
+  and `reapplyAdminOverlay` does too (undo, and a cloud-adopted overlay)) → review banner (+ the Collections button
   lip) → (first-run only) a 3-step how-it-works strip → a **Minigames** heading over the game tiles. That is the
   whole page, at every width.
   **THE DISCOVERY ROW IS GONE** (`.explore-grid`, and with it the **Card of the day** flip tile, the **Term of the
@@ -10879,13 +11166,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   they still get the hero, exactly as before. Anyone with a studiable deck in their review gets the
   ordinary banner and their decks, whether they arrived there by resetting or by adding a collection before
   turning a single card over; that second case is an improvement rather than a side effect, since somebody
-  who has just pressed "+ Add decks" is better served by their own pile and a Start button than by being
+  who has just pressed Collections is better served by their own pile and a Start button than by being
   told again what Folio is for. **A state that is empty for a REASON is not the same as a state that has
   never been used, and a first-run screen keyed on emptiness alone cannot tell them apart.** Guarded by
   `.claude/test-reset.js`, in both directions.
   **The hero offers ONE way in, and its title breaks where it is written to** (Aug 2026, on request). The
   quiet "or browse the collections" beside the button is gone and `.hero-alt` with it — the collections are
-  one press further on from wherever that button lands, and the `.rv-lip` under the review group is the route
+  one press further on from wherever that button lands, and the Collections button under the review group is the route
   the home page advertises, so a second and quieter link in the same row only asked a first-time reader to
   choose between two things they cannot yet tell apart. The `#hero-browse` branch in the banner's own click
   handler went with the markup. The title carries an explicit `<br>` after "Memorize anything," rather than
@@ -10920,7 +11207,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     fourth `.stat` in the meta row beside New / Learning / Review, and `.banner .stat.st-time` is gone).
     Those three say what is LEFT to do today and this says what has been DONE, so standing it among them
     asked a reader to take four numbers of two different kinds off one line. It takes the left end of the
-    **`.rv-foot`** row instead, the line the "+ Add decks" lip already hangs from, so the two sit at the
+    **`.rv-foot`** row instead, the line under the deck list, so the two sit at the
     two ends of the block's own bottom edge — which cost that row nothing, `margin-inline-start:auto` on
     the lip having always held it right whatever stood to its left ("+ New group" did, until it went).
     Two consequences worth knowing. Out there it is on the page's own **paper** rather than on the card,
@@ -10979,6 +11266,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   yet, and neither is visible anywhere else on the banner. The level is still spelled out by `xpBarMarkup`
   directly underneath. **`test-account-switch.js` therefore reads the xp bar**, not a badge, to tell an
   account that has studied from one that has not.
+  **AND A FINISHED DAY OFFERS NO BUTTON AT ALL** (Aug 2026, on request). The CTA used to become "Browse
+  collections" once the pile was empty, which is a second route to a page the Collections button under the
+  group already reaches, dressed as the primary action of a banner whose own subject is finished — so the
+  `.cta` is simply not emitted when `dueN + newN` is zero and the sentence saying the day is done stands
+  alone. **Nothing pressable becomes a dead no-op**: the banner's own click handler still falls through to
+  the collections, so an idle tap on the card does what it always did; what is gone is the invitation.
   **The banner counts ANKI'S THREE PILES** (Aug 2026, on request — it was a Due / New pair): **New** in blue,
   **Learning** in red, **Review** in green (`pileCounts` in `PAGES.home`; the tokens are the study bar's own
   `--indigo-bright` / `--zh` / `--good`, so all three sites agree). The same three numbers, unlabelled, open every
@@ -11043,26 +11336,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     above it) and from the desktop with the discovery row, on request. **Today's SCORE stays**, in its bare
     figures ("3/5"): it is not a description, it is the one thing on the tile that changes during the day. The
     blank sixth tile lost its sentence the same way.
-  · **The way to the collections is `.rv-lip`** — a small "+ Add decks" tab hanging off the bottom edge of the
-    review group, replacing the full-width `.lib-banner` that sat under it (removed Aug 2026, on request). It is
-    the group's **last child, in flow**: the deck list is glued flush to the banner above it (`.has-active`), so
-    there is no bottom edge to hang from until the whole group has one, and an absolutely-positioned lip would
-    have to guess the list's height on every render. It was phone-only for a fortnight and now ships at **EVERY
-    width**, the Collections tab having left the desktop's top bar too (Aug 2026, on request): it is **the ONLY
-    route to the collections anywhere on the site**, so it ships in every state the review can be in, first run
-    included — don't gate it on having decks or on a breakpoint. The `#decks` ROUTE is untouched and must stay
-    so: every link ever shared points at it, and `test-library.js` loads one.
-    It is **filled indigo with white text** (Aug 2026, on request), not the paper tab it started as: it is the
-    only route to the collections down here, and paper-on-paper it read as part of the card's own edge. The
-    blue is the site's primary-button indigo, so it matches Start review directly above it.
-    It hangs at the **RIGHT-HAND end** of that edge rather than in the middle of it (Aug 2026, on request):
-    `align-self:flex-end` with a 20px `margin-inline-end`, so it clears the card's own rounded corner instead
-    of sitting on it, and the inset is written logical-side so Arabic finds it where Arabic reads from.
+  · **The way to the collections is `.home-collections`** — a free-standing button reading **Collections**,
+    centred under the review group (`#b-addDecks` → `route("decks")`). It replaced the `.rv-lip` tab in Aug
+    2026, on request, which had itself replaced the full-width `.lib-banner`. It is **the ONLY route to the
+    collections anywhere on the site**, so it ships at every width and in every state the review can be in,
+    first run included — don't gate it on having decks or on a breakpoint. The `#decks` ROUTE is untouched
+    and must stay so: every link ever shared points at it, and `test-library.js` loads one.
+    Two things about the shape are load-bearing. **It is a SIBLING of the review group inside `.banners`,
+    not a child of it** — that is the whole of "unattached", and it is what the lip could not be: a lip has
+    to hang off an edge, so it had to be the group's last child, in flow, because the deck list is glued
+    flush to the banner above it and an absolutely-positioned tab would have to guess the list's height on
+    every render. Out here none of that arises. And **`.banners` is a flex COLUMN, so `align-self:center`
+    is what stops it spanning the whole width** — a block child there is full width by default, which
+    reads as a second banner rather than as a button, which is exactly what the lip replaced.
+    It keeps the lip's **indigo fill with white text** (Aug 2026, on request), the site's own
+    primary-button colour, so it matches Start review directly above it; paper-on-paper it read as part of
+    the card's own edge, which is the failure that colour fixes.
+    `.rv-foot` survives and now holds the day's timer alone, so it is drawn only once there is a time to
+    report — an empty row would otherwise leave a band of nothing under the deck list.
   · **`.home-about`** — a centred grey "About Folio" line (`#b-about` → `route("mission")`) at the foot, from
     when About left the tab bar. It was phone-only for a fortnight and now ships at **EVERY width** (Aug
     2026, on request), the About tab having left the DESKTOP's top bar too: this is the only route to the
-    page anywhere on the site, so it must not be gated on a breakpoint — exactly the rule the `.rv-lip`
-    already follows for the collections. The `#mission` ROUTE is untouched and must stay so: every link ever
+    page anywhere on the site, so it must not be gated on a breakpoint — exactly the rule the Collections
+    button already follows. The `#mission` ROUTE is untouched and must stay so: every link ever
     shared points at it, and `setActiveTab` already handles a route with no tab (nothing lights). Its
     `20px 0 16px` padding is the whole of its separation
     from the games above it (Aug 2026, on request — it was `4px 0 2px`, leaving it crowded against the grid),
@@ -11444,6 +11740,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first, and the drop targets are reachable the moment it is open). This exists because
   the collections still being written far outnumber the finished ones (currently 6 to 1), and listing them flat made
   the Library read as empty.
+  **THE DRAG HANDLE IS VISIBLE AT REST** (`.lib-grip`, Aug 2026, on a report that admin reordering had
+  stopped working there). It had NOT: every row rendered its grip and carried `draggable="true"` the whole
+  time — the grip sat at `opacity:0` until the row was hovered, so on a live collection there was nothing
+  to reach for, while a **Coming soon** row showed its own at rest as a side effect of the overrides that
+  compensate for that group's `filter:opacity(.5)`. So the one place it looked like a feature was the one
+  place it was an accident. It is `.32` at rest and `.6` on hover now. **A discoverability fault reads
+  exactly like a broken feature** — check whether the affordance is on the page before looking for the
+  handler.
   **A COLLECTION STATES ITS SIZE ONCE, ON THE BAR** (Aug 2026, on request). Its banner carried a
   `.collection-count` behind the title AND a studied/total bar under it, so the row read "412 cards" beside
   "0 / 412 cards" — one number, said twice, in two registers. The count behind the title is gone and the bar
@@ -11521,7 +11825,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   that same query runs ONCE over the static DOM, so a nav item added later still has to live in index.html.
   **Edit is NOT in this bar** — it left it the same week (Aug 2026, on request) for the top-right button
   described below: the editor is one person's tool and it was taking a seventh of a row six readers share.
-  **Nor is COLLECTIONS** (`#decks`, Aug 2026, on request): it is reached from the home page's `.rv-lip`
+  **Nor is COLLECTIONS** (`#decks`, Aug 2026, on request): it is reached from the home page's Collections button
   instead, which is why nothing in the bar is active there — that page is not one of the bar's destinations.
   **The page swipe stopped reaching it too** (Aug 2026, on request), for the same reason and a fortnight
   later: a gesture that lands a reader on a page the bar cannot reach leaves them somewhere with nothing lit
@@ -11843,6 +12147,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   layers over a transform the element already has rather than replacing it. Both helpers gate on
   `prefersReducedMotion()` internally, so no caller has to. Used by `gbSetCompact` and by the Timeline
   game's drag and arrows — **reach for it rather than adding a transition that cannot fire.**
+  **BOTH RETURN WHAT THEY CREATED** (`flipMove` an array of animations, `flipHeight` one or null; Aug 2026,
+  on the grade bar's fold jam). They returned nothing, so a caller firing a second FLIP over a first had no
+  way to cancel it and the two settled wherever they disagreed — which on the grade bar is a control stuck
+  half folded. **A helper that starts an animation must hand it back**, or every caller that can be
+  re-entered is one press away from that. An empty array is still an array, so a caller can cancel
+  unconditionally.
 - **Atlas:** an orthographic Canvas-2D globe (drag to rotate, wheel/pinch zoom, **on-screen `+`/`−` buttons (`#gzIn`/`#gzOut`,
   `.globe-zoom`) + keyboard `+`/`−`** via `zoomStep()`; `ZMIN 0.82 … ZMAX 10`). Zooming scales the disk
   radius (`R = baseR·zoom`), so the globe fills the screen by ~zoom 2.1 (`R ≥ dist(centre,corner)`). The **wheel-zoom listener is
@@ -12539,6 +12849,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     record's call — so it survives navigating away and back within a session and resets on reload. And
     **below 640px the author, installs and updated columns go** rather than being squeezed: at 390px the
     deck's title is the only part of a row with no shorter form.
+    **A ROW IS ONE LINE** (Aug 2026, on request): the title cell carried the deck's first description line
+    under it (`.sd-sub`), which made every row two or three lines tall and turned a table into a stack of
+    paragraphs — so `.sd-deck` no longer wraps and the title ellipsises. The description is on the deck's
+    own page, under a heading, which is where a reader deciding whether to install it goes. **Mind that
+    `.sd-sub` exists TWICE in styles.css** — the Studio's deck row uses the same name for a different
+    element — and only the table's rule went.
     **AND THE DECK'S PAGE IS WHERE EVERYTHING ABOUT IT IS** (same request). Four things were named and three
     of them were already there — its information, the author's own description (the Studio's `desc`,
     published as `description`), and other people's comments (see the ratings bullet: a comment is a rating
@@ -12791,6 +13107,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   subdecks, so one file holds what would otherwise be several decks — an HSK deck with a direction each way,
   a course with a chapter each. Each is addable and studiable on its own, exactly as a curated collection's
   decks are, and it needs **no schema change anywhere**, which is the whole of the design.
+  · **THEY ARE THE CURATED TREE'S OWN ROWS AND ITS OWN FOLD** (`udeckSubRowsHTML`, Aug 2026, on request:
+    "collapsible with chevrons and visually look the same as the curated collections"). They were a flat
+    `.udeck-subs` list, always open and hard against the deck row above it, so a nine-level deck put nine
+    rows on the Collections page whether the reader wanted them or not, in a shape nothing else on that
+    page wears. Each row is now a **`.node`** with `.node-main` / `.node-title-row` / `.node-title` /
+    `.node-count`, inside `.node-children` / `-inner` / `-pad`, wired by **`wireExpander`** — the same
+    markup and the same helper `buildNode` uses — so the grid fold, the entrance stagger, the card box,
+    the hover and the collection hue on the left hairline all come free and **cannot drift from the
+    curated ones**. Four things follow.
+    **THE CHEVRON IS DRAWN ONLY WHERE THERE IS SOMETHING TO FOLD**: a flat deck with one template has no
+    children at all, and a chevron over nothing is a control that answers a press by doing nothing.
+    **`.udeck-subrow` SURVIVES AS A MODIFIER carrying the depth indent and nothing else** — one rule,
+    `margin-inline-start:calc(var(--sd,0) * 20px)`, so a child is the same 46px box as its parent stepped
+    in from it rather than a padded row growing its own left gutter. (The indent used to be a padding;
+    anything measuring it reads `marginInlineStart` now.)
+    **THE ROW KEEPS ITS PROGRESS BAR where a curated deck row has none**, and that is deliberate: a
+    subdeck is the unit a community deck is actually studied by — nine levels of one file, each with a
+    schedule of its own — so the bar is the only thing on the row saying how far through it the reader
+    is, and dropping it to match would be losing information rather than matching a look.
+    **AND THE FOLD STARTS SHUT, like a curated collection's.** A shut fold is clipped to zero height, so
+    a subrow's `+` is in the DOM and cannot be pressed — which is right for a reader and is a trap for a
+    test: read the markup freely, but anything CLICKING a subrow has to open the deck first (`openFolds`
+    in `test-subdecks.js`). Every `data-*` attribute is untouched, so `wireCommunityLibrary`'s
+    `[data-usub]` wiring needed no change at all.
   · **A SUBDECKED ENTRY DEALS ITS SUBDECKS ROUND-ROBIN, EACH ONE A DAY BEHIND** (`studyGroupOf` /
     `studyOrder`, Aug 2026, on a bug report: studying a level of a two-direction deck gave one direction
     and never the other). A deck stores its cards one subdeck after another, and both `reviewQueue` and
@@ -12976,6 +13316,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `reload()` or the next `save()` puts the in-memory state straight back over it. **`check-decks.js` is
     the other half**, since it studies the shipped decks through the pooled review, which is where a
     cascade that is too wide shows up as reverses on the first day.
+    **THEIR SUBROW HOOKS ARE THE CURATED NAMES SINCE AUG 2026** — `.node-title`, `.node-count`,
+    `.node-main`, where they were `.deck-title` / `.collection-count` / `.collection-main` — and the
+    migration was the right way round rather than a convenience: those three styled NOTHING anywhere
+    (checked before touching them), so they were pure test hooks over rows that genuinely ARE curated
+    `.node` rows now, and re-adding a dead class to keep a selector working would be two names for one
+    thing. `check-nesting.js`'s depth probe reads **`marginInlineStart`** for the same reason, and
+    anything CLICKING a subrow calls `openFolds` first — see the fold trap above. **Re-run all three
+    (`test-subdecks.js`, `check-nesting.js`, `test-publish.js`) after touching `udeckSubRowsHTML` /
+    `udeckRowHTML` / `wireCommunityLibrary` / `.udeck-subrow`**: a changed class name there is invisible
+    in review and takes the suites down rather than failing them, which reports every assertion before it
+    as a pass.
 - **Community decks — CARD TYPES (Aug 2026, on request).** Anki's note types, cut to the three things an
   author actually programs: the **front template**, the **back template** and the **CSS** for the card as a
   whole. A type declares its own field names; a card of that type carries a `fields` map instead of the
@@ -13384,6 +13735,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a `+` if it filled the page — an honest floor beats a row of em dashes that looks like a broken panel); and
   **a mock must send the expose header too**, or every figure comes back null and the panel reports a
   connection failure that is really a CORS one.
+  **A THIRD HALF SINCE AUG 2026 — THE DEV FIGURES** (`dashDelivery` / `fmtBytes`, on request: "list some
+  dev-side statistics such as server file size, connection speeds, where users are connecting from"). Folio
+  has no server to ask, so every figure here is MEASURED on the page rather than asserted: the browser's own
+  **Resource Timing** gives each request's `encodedBodySize` (what was sent over the wire), its
+  `transferSize` (**0** for a file the cache or the service worker already had) and its duration, so the
+  card reports what a reader on this machine really paid rather than what the files weigh on disk, and the
+  eight biggest same-origin files are listed with a row reading **cached** where nothing was fetched. It is
+  same-origin only — a font from Google is not Folio's weight — and `navigator.connection` supplies the
+  connection class, downlink and round trip **where it exists**, which is Chromium and not Safari or
+  Firefox, so those tiles read an em dash rather than a guess. **WHERE READERS CONNECT FROM IS NOT
+  COLLECTED AND IS NOT GUESSED AT**, which is the People card's own rule about RLS applied to a question no
+  policy could answer either way: the only geography on the page is THIS machine's `Intl` time zone and
+  browser language, both labelled as such and neither sent anywhere.
+- **Admin → Themes: who wears what (Aug 2026, on request: "add another tab for Themes, showing their usage
+  stats etc.").** `adminRenderThemes` / `themeLoadUsage`, a seventh tab taking the admin area over the way
+  the Dashboard, Quotes, Artefacts, Timeline and Feedback do (`themes-mode`, the same hide list, the same
+  ≤860px panel-cap exception). Three things.
+  **THE QUESTION THE DATABASE CAN ANSWER IS WHO WEARS ONE, and that is why the column is on `profiles`.**
+  A theme is now both a collectible and how an account presents itself, and only the second is readable:
+  `profiles.theme` is public to any signed-in user, so an editor can count it, where a reader's own
+  `S.themes` register lives in `progress` and RLS keeps it private — **so there is no figure here for how
+  many people have UNLOCKED a theme without wearing it, and the panel says so rather than leaving a gap to
+  be read as a zero.** One `count=exact` request per theme plus a total, which is seven tiny requests
+  against one large one and needs no paging.
+  **A DATABASE WITHOUT SECTION 14 SAYS SO AND NAMES THE BLOCK**, exactly as the publish path does for the
+  deck-colour column: PostgREST answers 400/404 on a column that does not exist, which the loader turns into
+  a `missing` flag rather than an error, and every account simply presents itself in the default meanwhile.
+  **AND ITS TAB COLOUR IS OLIVE** (`#6d8f1f`), the one quarter of the wheel the other six leave empty
+  (purple, blue, green, teal, magenta, amber, red) — **every `data-atab` needs a pair of rules**, a resting
+  one and an `.active` one, or the tab renders in the inherited ink and reads as DISABLED beside six that
+  are lit, which is what happened to Quotes and Artefacts when they arrived.
 - **ONE DECK PER CARD (Aug 2026, on request).** The card editor's deck picker was checkboxes — a card could be
   cross-listed into any number of decks with one set of scheduling. Nothing shipped ever used it (all 119 cards
   sit in exactly one deck) and it made "which deck is this card in" a question with no single answer, which the
@@ -13400,6 +13782,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   same thing — and the "Progress synced to your account" line moved directly under them (`.acct-syncnote`),
   with the password panel following it so it opens where the button is. `.acct-tools` survives for the
   Remove-photo button and renders only when there is a photo.
+  **THE FOUR BUTTONS SIT IN A 2×2 BLOCK ON A WIDE SCREEN** (Aug 2026, on request): in one row they ran the
+  width of the card and squeezed the name and picture beside them into a column of two or three words.
+  `grid-template-columns:repeat(2, minmax(0, 1fr))` with `flex:none`, so the block takes only what four
+  buttons need and the identity beside it takes the rest. **The ≤640px rule sets `display:flex` back
+  explicitly** — a phone stacks them full width, and a media query adds no specificity, so the grid would
+  otherwise carry straight through.
 
 ## Generating cards & glossary entries
 
@@ -16090,7 +16478,7 @@ dead code (never rendered).
     page, which is now ASSERTED THE SAME AT BOTH WIDTHS and was asserted as opposites for a fortnight
     (one column, no pager, no card of the day, no gloss of the day and no Atlas teaser — none of which is
     BUILT at any width, watched on the desktop through the REQUEST LOG as well as the markup, since the
-    teaser's ornament was the only thing outside the Atlas that fetched the ~1.6 MB globe; the "+ Add decks" lip hanging off
+    teaser's ornament was the only thing outside the Atlas that fetched the ~1.6 MB globe; the Collections button standing under
     the bottom of the review group, centred, narrower than the group, routing to the collections and filled
     in the site's own `--indigo` read off a probe rather than hard-coded — and, since Aug 2026, sharing a
     `.rv-foot` line with "+ New group", which is asserted OUT of the banner while the chest is asserted out
@@ -16148,7 +16536,7 @@ dead code (never rendered).
     never a click, since a click would dismiss it anyway and prove nothing.
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
     media queries / `.settings` / `.auth-split` / the coming-soon rows / `wireOnePageSwipe`
-    / `.rv-lip` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `adProg` / `.active-deck` /
+    / `.home-collections` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `adProg` / `.active-deck` /
     `gbWireResize` / `.gb-fold` / `body.gb-compact` / `wirePageSwipe` / `SWIPE_ORDER` /
     `makePageGhost` / `clipStageFor` / the `.page-next`/`.page-prev` keyframes /
     `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` / `#fsRange` / `MULTILANG` /
@@ -16244,7 +16632,7 @@ dead code (never rendered).
     passes 1 — which is what the first run reported, and is a fault in the test rather than in the code.
     **Re-run after touching `bumpStreak` / `maybeStreakChest` / `streakChestProgress` / `STREAK_CHEST_EVERY`
     / `S.streak`.**
-  · `node .claude/test-scheduler.js` — 127 assertions on **the schedule itself**, which is the thing a study site is
+  · `node .claude/test-scheduler.js` — 136 assertions on **the schedule itself**, which is the thing a study site is
     most worth getting right and the thing that fails most silently: a wrong interval is still a number on a button,
     and a card that graduates a step early looks exactly like a card being studied. Nobody reports it; they just learn
     less. So it is pinned as ARITHMETIC — the pure `THE SCHEDULER` block is sliced out of app.js by text and run in a
@@ -16297,7 +16685,15 @@ dead code (never rendered).
     Card info's four actions and its re-opening on the state it has just changed, the search, the sort and
     its reversal, a bulk action reaching the selected card, and **both ways in** — the SIGNED-OUT account
     page and a deck's options sheet, asserted separately because they serve different readers and fail
-    differently. **Re-run after touching `schedSetDue` / `schedForget` / `parseSetDue` / `browseTokens` /
+    differently.
+    **ITS TWO DUE-DATE ASSERTIONS COUNTED HOURS WHERE THE SCHEDULER COUNTS DAYS, so they passed every morning
+    and failed every afternoon** (fixed Aug 2026). Anything scheduled in DAYS lands at the START of its day
+    (`schedDayDue` / `cfg.dayAnchor`), so `Math.round((due - Date.now()) / 864e5)` is a day short of the figure
+    the reader asked for from midday onwards — "9! puts the card nine days out" reported 8 at 21:51 UTC with
+    nothing whatever wrong. Both now round the difference between the two DAY STARTS, which is what "nine days
+    out" means and is what the reader sees. **A test that reads a clock has to read it the way the code does**;
+    a failure that depends on the hour reads as an intermittent bug and is the most expensive kind to chase.
+    **Re-run after touching `schedSetDue` / `schedForget` / `parseSetDue` / `browseTokens` /
     `browseTerm` / `browsePredicate` / `browseRowData` / `BROWSE_COLS` / `PAGES.browse` / `openFlagSheet` /
     `openSetDueSheet` / `openForgetSheet` / `openCardInfo` / `cardFlag` / `setCardFlag` / `S.flags`, or the
     account page's and the deck sheet's entries.**
@@ -16412,6 +16808,24 @@ dead code (never rendered).
     from the existing interval** rather than starting the card over; and (section 15) what **Card info** says
     about an FSRS card, read off the rendered panel because both of its faults were in the wording rather than
     in the numbers.
+    **Sections 18–20 are the Aug 2026 study-flow batch**: `mixPiles` sliced out and walked as a pure function
+    (both piles' own order preserved, neither pile ever exhausted early) and then a REAL session read back to
+    prove the day's new cards genuinely arrive among the reviews rather than after them; that suspending a new
+    card refills the day rather than costing it one; and that undo steps back exactly ONE card however fast
+    the button is pressed twice.
+    **ITS FIXTURE PICKS TWO LEAVES OF ONE COLLECTION, AND FOR A FORTNIGHT IT DID NOT** (Aug 2026). Sections 8
+    and 11 need a level of the review list holding more than one row — a reorder needs two siblings and a
+    group needs a deck to carry into it — and the flat "first two leaves anywhere" rule stopped supplying one
+    the day the China collection was opened: `cn-myth` and `wh-evolution` are leaves of DIFFERENT
+    collections, so each parent had exactly one child and there was nothing to rearrange. **Nothing said so.**
+    The drag section quietly reported the top level instead, and the group section's `geo` finder returned
+    null, reached `document.querySelector(...).dispatchEvent` inside `page.evaluate` and **aborted node**, so
+    every section after it — including the three new ones — silently never ran at all. Two fixes, and the
+    second matters as much as the first: the leaves are chosen preferring a pair under one root, and the
+    group section is a **labelled block** that `break`s with a printed SKIP when there is no deck to drag.
+    **`return` would have been the same bug again** — these sections are bare `{ }` blocks inside one async
+    IIFE, so returning skips every later section. **A test that takes the process down is worse than a test
+    that fails**, and a fixture derived from shipped data goes stale the day the data changes.
     **Section 17 is LOAD BALANCING and EASY DAYS in Settings**, where test-scheduler has the arithmetic: that
     both are **OFF by default** (the assertion most worth having — they change what the scheduler does, and
     an existing reader's intervals must not move because they updated), that the seven days are drawn
@@ -16431,6 +16845,8 @@ dead code (never rendered).
     **In this file, the state to look at is the state that is seeded.**
     **Re-run after
     touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` / `deckLimits` / `globalLimits` /
+    `mixPiles` / `orderPile` / `DECK_ORDERS` / `deckOrderMode` / `setDeckOrderMode` / `sortByDifficulty` /
+    `refillAfterSuspend` / `UNDO_GUARD_MS` / `studyHold` / `clearStudySession` /
     `clearDeckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` / `openDeckLimits` / `addActive` /
     `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` / `orderedIds` / `setupDeckDrag` /
     `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` / `setNestParent` / `nestChildren` /
@@ -16642,8 +17058,21 @@ dead code (never rendered).
     than the store, and to update on the rarity `<select>`, which fires `change` and not `input`.
     **The showcase's "See all" is NOT here** — the signed-out account page has no showcase, so it lives in
     `test-account-page.js`, which has the session; what this file asserts is the other half, that a guest is
-    shown no orphan control for a section they have not got. **Re-run
-    after touching the `THE RELIQUARY` block, `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`,
+    shown no orphan control for a section they have not got.
+    **ITS SECTION 3b IS THE THEME DROP AND IT IS MADE DETERMINISTIC RATHER THAN SAMPLED** (Aug 2026): with
+    the artefact pool exhausted `rollChestItem` has only themes left, so a locked theme MUST come out, and
+    with every theme owned as well the chest must say the pool is empty — **both halves, since a drop that
+    never fires and a drop that fires when nothing is left look identical from one side and neither
+    throws.** The 32-chest sweep above it seeds every theme as already owned for the same reason: left
+    locked, the drop would take a random ~14% of those openings and the run would fail on a coin toss. The
+    five collectible themes are read out of app.js by text and ASSERTED to be the whole set, so a seventh
+    theme added later fails here rather than silently invalidating both fixtures.
+    **AND THE CHEST BALANCE IS ASSERTED AGAINST THE BADGES, NOT AGAINST A CONSTANT** — the collector's
+    badges are earned during that very sweep and each grants a chest, so `40 - 32` is not the answer; what
+    is invariant is `chestsOpened`, which is exactly what that counter exists for.
+    **Re-run after touching the `THE RELIQUARY` block, `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`,
+    `rollChestItem` / `spendChest` / `claimTheme` / `unlockTheme` / `themeGrandfather` / `THEME_DROP` /
+    `THEMES` / `ACHIEVEMENTS` / `progStats`,
     `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` /
     `addActive`, `serializeArtefacts`, or the `--newterm` / `--rar-*` tokens.**
   · `node .claude/test-deck-ux.js` — **49 assertions on six things asked for in Aug 2026, every one of
@@ -16923,18 +17352,36 @@ dead code (never rendered).
     figures (Aug 2026). Neither is reachable without a session, so Supabase is a `page.route` stand-in —
     deliberately, and for the same reason as `test-publish.js`'s mock: the publishable key in app.js points
     at the REAL project. Like that mock it is a stand-in for the policies, never a proof they are right.
-    It asserts Change password beside Sign out inside the profile card with the sync line under the two of
+    It asserts the four account actions as a **2×2 grid** inside the profile card with the sync line under
     them, that the glossary meter is a link on your own record, and that the dashboard's People panel fills
     from the database and still says in prose what RLS will not let it count. **The mock sends
     `Access-Control-Expose-Headers: Content-Range` on purpose** — that header is not CORS-safelisted, and a
     mock that forgets it reports a connection failure that is really a CORS one. It also owns the **Profile
-    showcase's "See all" button** (Aug 2026) — absent when the reader holds nothing, labelled with how many
+    showcase's "See Reliquary" button** (Aug 2026) — absent when the reader holds nothing, saying how many
     they DO hold, opening the collection and closing on Escape — because the signed-out account page carries
-    no showcase at all and `test-artefacts.js` therefore cannot reach one. **Re-run after touching
+    no showcase at all and `test-artefacts.js` therefore cannot reach one.
+    **TWO OF ITS ASSERTIONS WERE STALE FOR A BATCH, AND BOTH HAD BEEN PINNING WHAT THE PAGE NO LONGER DID**
+    (Aug 2026, found while shipping the collectibles): the account actions became a 2×2 grid and "See all 2"
+    became "See Reliquary" with the count moved into the button's `title`, and the two checks went on
+    demanding one row and a figure in the label. Neither was a regression — both were changes made the batch
+    before, in a suite that batch did not name. **A suite is stale the moment a change lands that it does
+    not run against**, and rewriting one to the current rule is not weakening it: what replaced the row test
+    is a stronger claim (two columns, four buttons of ONE width, which is what the `1fr` columns are for),
+    and what replaced the label test reads the count where the count now is. **Re-run after touching
     `acctSelfView` / `showcaseHTML` / `openCollectionWin` / `adminRenderDashboard` / `dashLoadRemote` /
     `supaFetch`'s count parsing.**
   · `node .claude/test-card-types.js` — the XP curve, community-deck **card types**, reverse cards,
-    **bury siblings** and **one card per cloze** (Aug 2026), 224 assertions in five parts. The **XP** part slices `levelFromXP` out of app.js and walks every threshold
+    **bury siblings** and **one card per cloze** (Aug 2026), 228 assertions in five parts.
+    **⚠ IT RAN 87 OF THEM FOR A FORTNIGHT AND SAID "82 passed"** (found and fixed Aug 2026): a `deckSheet`
+    swallows clicks for its first `DECK_SHEET_ARM_MS` (500ms) and five of this file's sheet rows were pressed
+    at 300–350ms, so the very first preset click did nothing, the `page.fill` after it timed out, and the
+    whole browser half from that line on **never ran** — while the summary line still reported a pass count
+    and only a lone "the run completed" FAIL said otherwise. **A suite that aborts mid-run reports its
+    assertions so far as passes**, which is the most expensive kind of green there is; `sheetArmed(page)`
+    now waits past the arm and **reads the constant out of app.js** rather than writing 500 down, so the
+    next change to it cannot put the suite back. Watch for the same in any file that opens a sheet: the
+    LANGUAGE sheet arms too, and its Ok button was the second offender.
+    The **XP** part slices `levelFromXP` out of app.js and walks every threshold
     through level 13, so the shape of the curve is asserted rather than three sample points. The **pure** part
     runs `sanitizeCSSText` / `cssScoped` / `tplRender` as string functions with no browser at all — a scoping
     bug reads far better as a failed comparison than as a screenshot of a restyled page — and its central
@@ -16995,8 +17442,9 @@ dead code (never rendered).
   Static hosting on Cloudflare Pages fed by GitHub pushes (`git push` = deploy; content files like `data.js` ship with deploys).
   Schema + RLS: `.claude/supabase-schema.sql` (applied; tables `profiles` / `progress` / `friends`, plus the later blocks'
   `user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`, and — **still to be run once each** —
-  **section 11 `user_decks.color`** and **section 12 `login_email()`**, the deck's default colour and username
-  sign-in; signup trigger creates the
+  **section 11 `user_decks.color`**, **section 12 `login_email()`** and **section 13 `card_stats` +
+  `bump_card_grades()`**, the deck's default colour, username sign-in and the community difficulty rating;
+  signup trigger creates the
   profile + empty progress row). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature that needs one
   degrades to a sentence rather than an error (`colorColumnMissing`, the `login_email` 404 → "use your email
   address"), so the site works on a database that has only the first block. **Keep it that way** — a block

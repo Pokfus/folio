@@ -28,6 +28,8 @@ const { chromium } = require("playwright");
 const ROOT = path.join(__dirname, "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png" };
 const PHONE = { width: 390, height: 800 };
+// GB_FOLD_MS (280) plus the margin gbFoldingFor adds — read anything sooner and it is measured mid-flight
+const GB_SETTLE = 450;
 const DESKTOP = { width: 1440, height: 950 };
 
 let pass = 0, fail = 0;
@@ -521,6 +523,89 @@ function scrimCheck() {
     await page.close();
   }
   {
+    /* THE FOLD MUST NOT LEAVE THE GRADES UN-PRESSABLE (Aug 2026, on a bug report: "the chevron to
+       expand/collapse the grading buttons sometimes bugs out after a few times and the buttons can no
+       longer be pressed"). A fold FLIPs about twenty elements, and nothing used to cancel the previous
+       set — so pressing the chevron again mid-flight left up to fifty concurrent transform animations on
+       the four grade buttons. While those run, Chromium's hit-testing and getBoundingClientRect disagree:
+       elementFromPoint at a button's own centre returns #gradebar, so a real tap lands on the bar's
+       background and the grade never fires — and a tap that lands in that gap can leave the bar
+       un-hittable with no animation left running at all.
+       It is asserted with REAL MOUSE INPUT and by the CARD CHANGING, not by clicking the element from
+       script: el.click() bypasses hit-testing entirely, which is the whole of what breaks here, so a
+       scripted version passes on the bug. Every count reads healthy throughout — the buttons are there, the
+       right size, in the right place, with their listeners attached — so nothing but this can see it. */
+    const page = await browser.newPage({ viewport: PHONE });
+    await watch(page);
+    await studyEasy(page, base, 0);
+    const chev = async () => {
+      const b = await page.$(".gb-fold");
+      const r = await b.boundingBox();
+      await page.mouse.click(r.x + r.width / 2, r.y + r.height / 2);
+    };
+    /* Six grades takes a fresh reader past level 2 (XP_PER_LEVEL is 5), and a level buys an artefact
+       chest whose overlay sits over the card and swallows every REAL pointer event — so the chevron
+       presses land on nothing, the grade's own centre hit-tests to the overlay, and the round reports a
+       jam that is the reward working exactly as designed. It shows as 1 of 6 because the scripted reveal
+       (`el.click()`) goes through regardless, so only the real-input half of the round is blocked. The
+       chests are dismissed at the head of each round and COUNTED, since a dismissal that silently stopped
+       firing would put the false failure back. */
+    let jammed = 0, ungraded = 0, chests = 0;
+    for (let i = 0; i < 6; i++) {
+      if (await page.$(".chest-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(250); chests++; }
+      await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+      await page.waitForTimeout(420);
+      // hammer it: the second press lands while the first fold is still in flight, which is the case
+      await chev(); await page.waitForTimeout(90);
+      await chev(); await page.waitForTimeout(90);
+      await chev(); await page.waitForTimeout(GB_SETTLE);
+      const hit = await page.evaluate(() => {
+        const g = document.querySelector(".grade.good"); if (!g) return "none";
+        const r = g.getBoundingClientRect();
+        const el = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+        return el && el.closest(".grade") ? "grade" : (el ? el.tagName + "." + el.className : "null");
+      });
+      if (hit !== "grade") jammed++;
+      const before = await page.evaluate(() => { try { return JSON.parse(sessionStorage.getItem("folio_study_v1")).id; } catch (e) { return null; } });
+      const box = await (await page.$(".grade.good")).boundingBox();
+      await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+      await page.waitForTimeout(700);
+      const after = await page.evaluate(() => { try { return JSON.parse(sessionStorage.getItem("folio_study_v1")).id; } catch (e) { return null; } });
+      if (after === before) ungraded++;
+    }
+    check("the grade buttons stay hit-testable through repeated folding", jammed === 0, jammed + "/6 rounds the button's own centre hit something else");
+    check("...and a real tap still grades the card", ungraded === 0, ungraded + "/6 rounds the tap did nothing");
+    check("...with the level-up chest dismissed rather than left to swallow the taps", chests > 0, chests + " chests met");
+    /* …and while a fold IS running the bar's contents are inert rather than half-moved targets — the other
+       half of the fix, and the half no amount of cancelling afterwards can replace. The CHEVRON stays live
+       throughout, or a reader could not fold it back. */
+    /* The loop ends on a GRADE, which moves to the next card and hides the bar — and `#gradebar` is only
+       `pointer-events:auto` while it carries `.show`, so a probe run here reads `none` on everything and
+       reports a fold that never started. (It passed before the chest was dismissed above, for the wrong
+       reason: round 6's grade was being swallowed, so the bar was still up.) Reveal again first, and clear
+       any chest that grade may have bought. */
+    if (await page.$(".chest-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(250); }
+    await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await page.waitForTimeout(500);
+    check("...the grade bar is up again to fold", await page.evaluate(() => {
+      const b = document.querySelector("#gradebar");
+      return !!(b && b.classList.contains("show"));
+    }));
+    const mid = await page.evaluate(async () => {
+      document.querySelector(".gb-fold").click();
+      await new Promise((r) => setTimeout(r, 60));
+      const inner = getComputedStyle(document.querySelector(".gradebar-inner")).pointerEvents;
+      const chevPE = getComputedStyle(document.querySelector(".gb-fold")).pointerEvents;
+      return { folding: document.body.classList.contains("gb-folding"), inner: inner, chev: chevPE };
+    });
+    check("...while it moves, the bar's contents do not hit-test", mid.folding && mid.inner === "none", JSON.stringify(mid));
+    check("...but the chevron does, so the reader can fold it back", mid.chev !== "none", mid.chev);
+    await page.waitForTimeout(GB_SETTLE);
+    const done2 = await page.evaluate(() => ({ folding: document.body.classList.contains("gb-folding"), inner: getComputedStyle(document.querySelector(".gradebar-inner")).pointerEvents }));
+    check("...and they are live again the moment it settles", !done2.folding && done2.inner !== "none", JSON.stringify(done2));
+    await page.close();
+  }
+  {
     // above the breakpoint there is nothing to reclaim: one comfortable row already, and no chevron
     const page = await browser.newPage({ viewport: DESKTOP });
     await watch(page);
@@ -751,7 +836,8 @@ function scrimCheck() {
       const b = f && f.getBoundingClientRect();
       return { shown: !!f && f.checkVisibility(), plain: !!f && f.classList.contains("aef-plain"),
         right: b ? Math.round(innerWidth - b.right) : null, top: b ? Math.round(b.top) : null, vw: innerWidth, vh: innerHeight,
-        tabbarEdit: !!document.querySelector(".tabbar .tab-admin"), topbarEdit: !!document.querySelector(".topbar .tab-admin") };
+        tabbarEdit: !!document.querySelector(".tabbar .tab[data-route='admin']"), topbarEdit: !!document.querySelector(".topbar .tab[data-route='admin']"),
+        adminTabs: [...document.querySelectorAll(".tab.tab-admin")].map((t) => t.dataset.route) };
     });
     check("[" + tag + "] the tab bar no longer carries Edit", !home.tabbarEdit);
     check("[" + tag + "] ...the top bar still does", home.topbarEdit);
@@ -790,6 +876,18 @@ function scrimCheck() {
     await page.waitForTimeout(1200);
     await studyEasy(page, base, 0);
     check("[" + tag + "] a reader gets no Edit button at all", !(await page.evaluate(() => !!document.querySelector("#admin-edit-fab"))));
+    /* An admin-only TAB is hidden the same way, and is asserted separately because it fails differently:
+       the Edit tab has a button of its own to fall back on and War of Ages has none, so a tab left showing
+       is the only thing between a reader and a page written for nobody but the editor. */
+    const readerTabs = await page.evaluate(() =>
+      [...document.querySelectorAll(".tab.tab-admin")].map((t) => ({ r: t.dataset.route, on: t.checkVisibility() })));
+    check("[" + tag + "] ...nor any admin-only tab", readerTabs.length > 0 && readerTabs.every((t) => !t.on), JSON.stringify(readerTabs));
+    /* …and the guard is the ROUTE rather than the hidden tab, since the address is typeable. Boot renders
+       directly rather than through route(), so a cold load is a second door and is checked as one. */
+    await page.goto(base + "?cold=1#warofages", { waitUntil: "load" });
+    await page.waitForTimeout(1200);
+    const cold = await page.evaluate(() => ({ hash: location.hash, wa: !!document.querySelector(".woa-page") }));
+    check("[" + tag + "] ...and a typed admin address sends a reader home", cold.hash !== "#warofages" && !cold.wa, JSON.stringify(cold));
     await page.evaluate(() => { const s = JSON.parse(localStorage.getItem("folio_v1")); s.settings.adminMode = true; localStorage.setItem("folio_v1", JSON.stringify(s)); });
     await page.close();
   }
@@ -1054,7 +1152,7 @@ function scrimCheck() {
     await page.waitForTimeout(1600);
     const h = await page.evaluate(() => {
       const grp = document.querySelector(".review-group"), grid = document.querySelector(".game-grid");
-      const head = document.querySelector(".games-head"), lip = document.querySelector(".rv-lip");
+      const head = document.querySelector(".games-head"), lip = document.querySelector(".home-collections");
       const quote = document.querySelector(".daily-quote, .dq, figure");
       const tiles = [...document.querySelectorAll(".game-tile")];
       const top = (el) => Math.round(el.getBoundingClientRect().top);
@@ -1063,20 +1161,17 @@ function scrimCheck() {
         atlasTile: !!document.querySelector("#exp-atlas"), cod: !!document.querySelector("#exp-card"),
         tod: !!document.querySelector("#exp-term"), explore: !!document.querySelector(".explore-grid"),
         libBanner: !!document.querySelector("#b-library"),
-        // the lip hangs off the BOTTOM of the review group, under the deck list it adds to — at its
-        // RIGHT-HAND end since Aug 2026 (on request; it was centred), and clear of the card's rounded
-        // corner rather than sitting on it, which is the whole of "a lip" as against "a button somebody
-        // left there"
+        /* THE LIP IS GONE AND A FREE-STANDING BUTTON REPLACES IT (Aug 2026, on request). It was a tab
+           hanging off the review group's own bottom edge — part of the card — and it is now an ordinary
+           button sitting BELOW that card with air around it, which is what "unattached" means and what
+           these three fields measure: it is a SIBLING of the group rather than its last child, it clears
+           the group's bottom edge by a real gap, and it is CENTRED rather than tucked into a corner. */
         lip: lip ? lip.textContent.trim() : "",
-        /* The lip sits in a footer row of its own (`.rv-foot`, which it shared with "+ New group" until
-           that control was removed), so it is the last thing in that row and the row is the last thing in
-           the group — the same claim as before ("nothing is drawn below it"), one element deeper. */
-        lipLast: !!(lip && grp && lip.parentElement && lip.parentElement.classList.contains("rv-foot") &&
-                    lip.parentElement === grp.lastElementChild && lip === lip.parentElement.lastElementChild),
-        lipInsetR: lip && grp ? Math.round(grp.getBoundingClientRect().right - lip.getBoundingClientRect().right) : 999,
+        lipDetached: !!(lip && grp && lip.parentElement === grp.parentElement &&
+                        !grp.contains(lip) && lip.previousElementSibling === grp),
         lipCentreOff: lip && grp ? Math.round(Math.abs((lip.getBoundingClientRect().left + lip.getBoundingClientRect().width / 2)
-          - (grp.getBoundingClientRect().left + grp.getBoundingClientRect().width / 2))) : 0,
-        lipAtBottom: lip && grp ? Math.round(lip.getBoundingClientRect().bottom - grp.getBoundingClientRect().bottom) : 999,
+          - (grp.getBoundingClientRect().left + grp.getBoundingClientRect().width / 2))) : 999,
+        lipGap: lip && grp ? Math.round(lip.getBoundingClientRect().top - grp.getBoundingClientRect().bottom) : -999,
         /* THE CHEST AND "+ NEW GROUP" HAVE BOTH LEFT THE BANNER (Aug 2026, on request). Each is asserted
            in both directions, since a control that has merely stopped rendering looks the same from one
            side as one that has moved: the chip must be GONE from the banner and the notice must be a real
@@ -1092,11 +1187,11 @@ function scrimCheck() {
         // the group function left the daily study block altogether in Aug 2026 (on request) — it is not
         // in the banner, and it is not under the deck list either
         newGroupAnywhere: !!document.querySelector("#b-newgroup, .rv-newgroup, [data-newgroup]"),
-        // a TAB, not another full-width banner — which is what it replaced
+        // a BUTTON, not another full-width banner — which is what the lip before it replaced
         lipFrac: lip && grp ? +(lip.getBoundingClientRect().width / grp.getBoundingClientRect().width).toFixed(2) : 1,
         /* …and BLUE (Aug 2026, on request): the site's own primary-button indigo, read off a probe rather
-           than hard-coded, so a theme that re-tones --indigo moves the lip with it. Paper-on-paper it read
-           as part of the card's bottom edge, which is the failure this pins. */
+           than hard-coded, so a theme that re-tones --indigo moves the button with it. Paper-on-paper it
+           read as part of the card's bottom edge, which is the failure this pins. */
         lipBlue: (() => {
           if (!lip) return "";
           const p = document.createElement("i");
@@ -1143,20 +1238,23 @@ function scrimCheck() {
     check("the phone's home page is one column again — no pager", !h.pager && !h.dots, JSON.stringify({ pager: h.pager, dots: h.dots }));
     check("...with no card of the day and no gloss of the day", !h.cod && !h.tod && !h.explore, JSON.stringify(h));
     check("...and no Atlas teaser: a phone never fetches the globe for an ornament", !h.atlasTile);
-    check("the collections banner is gone, replaced by a lip on the review", !h.libBanner && /add decks/i.test(h.lip), JSON.stringify({ banner: h.libBanner, lip: h.lip }));
-    check("...hanging off the bottom edge of the review group", h.lipLast && Math.abs(h.lipAtBottom) <= 1, JSON.stringify({ last: h.lipLast, edge: h.lipAtBottom }));
+    check("the collections banner is gone, replaced by a Collections button under the review",
+      !h.libBanner && /^collections$/i.test(h.lip), JSON.stringify({ banner: h.libBanner, label: h.lip }));
+    check("...standing free of the review group rather than hanging off its edge",
+      h.lipDetached && h.lipGap >= 4, JSON.stringify({ detached: h.lipDetached, gap: h.lipGap }));
     check("the banner never counts chests: the notice is a slot above it instead",
       !h.chestChip && h.chestSlotAbove, JSON.stringify({ chip: h.chestChip, above: h.chestSlotAbove }));
     check("...and the group function is gone from the daily study block entirely", !h.newGroupAnywhere);
-    /* …at the RIGHT-HAND end of that edge, not the middle (Aug 2026, on request) — asserted in BOTH
-       directions, since "somewhere near the right" is also true of a lip that has simply overflowed its
-       group: it must be inset from the corner rather than flush with it, and plainly off centre. */
-    check("...at its right-hand end, inset from the corner, and a tab rather than a second banner",
-      h.lipInsetR >= 8 && h.lipInsetR <= 40 && h.lipCentreOff > 40 && h.lipFrac < 0.7,
-      JSON.stringify({ insetR: h.lipInsetR, offCentre: h.lipCentreOff, frac: h.lipFrac }));
+    /* CENTRED, and narrower than the group. `.banners` is a flex COLUMN, so a block child spans the whole
+       width by default — a button that has silently lost its `align-self:center` is the full width of the
+       review group above it and reads as a second banner, which is exactly what it replaced. Both halves
+       are needed: the centre test alone passes on a full-width block, since that is centred too. */
+    check("...centred under it, and a button rather than a second banner",
+      h.lipCentreOff <= 2 && h.lipFrac < 0.7,
+      JSON.stringify({ offCentre: h.lipCentreOff, frac: h.lipFrac }));
     check("...filled in the same indigo as Start review, not paper on paper", h.lipBlue === "ok", h.lipBlue);
     check("...and routing to the collections", await page.evaluate(async () => {
-      document.querySelector(".rv-lip").click();
+      document.querySelector(".home-collections").click();
       await new Promise((r) => setTimeout(r, 700));
       return location.hash;
     }) === "#decks");
@@ -1568,7 +1666,7 @@ function scrimCheck() {
     const d = await page.evaluate(() => {
       const top = (s) => { const el = document.querySelector(s); return el ? Math.round(el.getBoundingClientRect().top) : -1; };
       const grp = document.querySelector(".review-group"), grid = document.querySelector(".game-grid");
-      const head = document.querySelector(".games-head"), lip = document.querySelector(".rv-lip");
+      const head = document.querySelector(".games-head"), lip = document.querySelector(".home-collections");
       return {
         order: [top(".review-group"), top(".games-head"), top(".game-grid")],
         explore: !!document.querySelector(".explore-grid"),
@@ -1578,10 +1676,10 @@ function scrimCheck() {
         subs: [...document.querySelectorAll(".game-tile")].filter((t) => t.querySelector(".gt-sub")).length,
         mgHead: head ? head.textContent.trim() : "",
         lip: lip ? lip.textContent.trim() : "",
-        // …one element deeper since the lip sits inside `.rv-foot` — see the phone block above
-        lipLast: !!(lip && grp && lip.parentElement === grp.lastElementChild && lip === lip.parentElement.lastElementChild),
+        // …a SIBLING of the review group drawn directly after it — see the phone block above for why
+        lipLast: !!(lip && grp && lip.parentElement === grp.parentElement && lip.previousElementSibling === grp),
         about: !!document.querySelector(".home-about"),
-        // Collections left the top bar with the tile row; the lip is the only way to it now
+        // Collections left the top bar with the tile row; that button is the only way to it now
         decksTab: !!document.querySelector('.topbar [data-route="decks"]'),
         // …and About left it a fortnight later, so the home page's own line is the only way there too
         aboutTab: !!document.querySelector('.topbar [data-route="mission"]'),
@@ -1593,8 +1691,8 @@ function scrimCheck() {
       !asked.some((u) => /\/world\.js/.test(u)), asked.filter((u) => /\/world\.js/.test(u)).join(","));
     check("[desktop] ...the games three to a row, and no taglines on them", d.cols === 3 && d.subs === 0, JSON.stringify({ cols: d.cols, subs: d.subs }));
     check("[desktop] ...under a Minigames heading, under the review", /minigames/i.test(d.mgHead) && d.order[0] < d.order[1] && d.order[1] < d.order[2], JSON.stringify(d.order));
-    check("[desktop] ...with the Add decks lip on the review group", /add decks/i.test(d.lip) && d.lipLast, JSON.stringify({ lip: d.lip, last: d.lipLast }));
-    check("[desktop] ...and Collections gone from the top bar, the lip being the way to it", !d.decksTab);
+    check("[desktop] ...with the Collections button under the review group", /^collections$/i.test(d.lip) && d.lipLast, JSON.stringify({ label: d.lip, after: d.lipLast }));
+    check("[desktop] ...and Collections gone from the top bar, that button being the way to it", !d.decksTab);
     /* About left the DESKTOP's top bar too (Aug 2026, on request), a fortnight after Collections did and
        for the same reason: the two bars now name the same destinations, and the home page's own line is
        the only route to the page at every width. This assertion was the opposite way round while the tab
@@ -1896,11 +1994,15 @@ function scrimCheck() {
        list written out here, so a tab added or removed later fails on the rule instead of on a copy of it
        that nobody remembered to update. */
     const order = await page.evaluate(() =>
-      ({ tabs: [...document.querySelectorAll(".tabbar .tab")].map((t) => t.dataset.route) }));
+      ({ tabs: [...document.querySelectorAll(".tabbar .tab:not(.tab-admin)")].map((t) => t.dataset.route) }));
     const appjs = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
     const swipeOrder = (appjs.match(/const SWIPE_ORDER = \[([^\]]*)\]/) || [])[1] || "";
     const swipeNames = swipeOrder.split(",").map((s) => s.trim().replace(/^"|"$/g, "")).filter(Boolean);
-    check("the swipe order is the tab bar's, minus the Atlas",
+    /* …minus the ADMIN-ONLY tabs too (Aug 2026, with War of Ages). A swipe must not be able to land a
+       reader on a page most readers cannot reach at all, and deriving the order from what is VISIBLE
+       would make it a different order for an editor than for everybody else — so the rule is about the
+       kind of destination rather than about who is looking. */
+    check("the swipe order is the tab bar's, minus the Atlas and the admin-only pages",
       swipeNames.join(",") === order.tabs.filter((t) => t !== "map").join(","),
       swipeNames.join(",") + "  vs bar " + order.tabs.join(","));
 
@@ -2014,11 +2116,15 @@ function scrimCheck() {
       const p = document.querySelector("#countryPop").getBoundingClientRect();
       return { slack: Math.round(cols.clientHeight - panes[i].scrollHeight), h: Math.round(p.height), top: Math.round(p.top), pane: i, panes: panes.length };
     });
+    /* THE DRAG IS GONE (Aug 2026, on request — "remove the size dragging system, and keep only the
+       chevron"). Asserted as an ABSENCE from the DOM rather than as a hidden element: a grip that is
+       merely display:none is still a pointer target on any width where the rule stops matching, and the
+       whole point of removing it is that there is one control and not two. */
     const start = await page.evaluate(() => {
       const p = document.querySelector("#countryPop");
-      return { hidden: p.hidden, grip: getComputedStyle(document.querySelector("#cpGrab")).display, h: Math.round(p.getBoundingClientRect().height) };
+      return { hidden: p.hidden, grip: !!document.querySelector("#cpGrab"), h: Math.round(p.getBoundingClientRect().height) };
     });
-    check("the place sheet carries a resize grip", !start.hidden && start.grip !== "none", JSON.stringify(start));
+    check("the place sheet has no resize grip", !start.hidden && !start.grip, JSON.stringify(start));
 
     /* SHUT BY DEFAULT since Aug 2026, on request: "the popup panel at the bottom should only open far
        enough to reveal the name of the state, but have a chevron that can reveal the information sections,
@@ -2030,20 +2136,31 @@ function scrimCheck() {
       const p = document.querySelector("#countryPop"), t = document.querySelector(".cp-titlerow");
       const more = document.querySelector("#cpMore");
       const pr = p.getBoundingClientRect(), tr = t.getBoundingClientRect();
+      const cs = getComputedStyle(more);
+      const mr = more.getBoundingClientRect();
       return {
         h: Math.round(pr.height),
         shut: p.classList.contains("cp-shut"),
         titleShown: tr.top >= pr.top - 1 && tr.bottom <= pr.bottom + 1,
         name: (document.querySelector("#cpName") || {}).textContent || "",
-        chevron: !!more && !more.hidden && getComputedStyle(more).display !== "none",
+        chevron: !!more && !more.hidden && cs.display !== "none",
         expanded: more && more.getAttribute("aria-expanded"),
         colsShown: getComputedStyle(document.querySelector(".cp-cols")).display !== "none",
+        border: parseFloat(cs.borderTopWidth) || 0,
+        bg: cs.backgroundColor,
+        cw: Math.round(mr.width), ch: Math.round(mr.height),
       };
     });
     check("a place opens SHUT — its name and nothing else", shut.shut && !shut.colsShown, JSON.stringify(shut));
     check("...still showing the name it was opened for", shut.titleShown && shut.name.length > 0, shut.name);
     check("...with a chevron offering the rest", shut.chevron && shut.expanded === "false", JSON.stringify(shut));
     check("...and covering a fraction of the map", shut.h < PHONE.height * 0.3, shut.h + " of " + PHONE.height);
+    /* No border and no fill (Aug 2026, on request — "remove the darkened background square behind the
+       chevron"), and still a real target: the box was never what made it tappable, so losing it must not
+       shrink the hit area. */
+    check("...drawn bare rather than as a boxed tile",
+      shut.border === 0 && /rgba\(0, 0, 0, 0\)|transparent/.test(shut.bg), JSON.stringify({ border: shut.border, bg: shut.bg }));
+    check("...at a tappable size all the same", shut.cw >= 28 && shut.ch >= 28, shut.cw + "x" + shut.ch);
 
     await page.click("#cpMore");
     await page.waitForTimeout(500);
@@ -2061,20 +2178,30 @@ function scrimCheck() {
 
     const s0 = await slack();
     check("...and opens no taller than the page in it needs", s0.slack <= 24, JSON.stringify(s0));
-    const drag = async (toY) => {
-      const g = await page.evaluate(() => document.querySelector("#cpGrab").getBoundingClientRect().toJSON());
-      await page.mouse.move(g.x + g.width / 2, g.y + g.height / 2);
-      await page.mouse.down();
-      await page.mouse.move(g.x + g.width / 2, toY, { steps: 12 });
-      await page.mouse.up();
-      await page.waitForTimeout(350);
-    };
-    // dragged hard at the top of the screen it must NOT grow past its content — that is the whole request
-    await drag(8);
-    const tall = await slack();
-    check("...and dragging it up stops at the content, not the screen", tall.slack <= 24 && tall.top > 8,
-      JSON.stringify({ start: s0, tall: tall }));
+
+    /* IT FOLDS RATHER THAN CUTTING (Aug 2026, on request), and both halves are measured MID-FLIGHT — a
+       settled fold and a jumpcut end in exactly the same place, so anything asserted afterwards passes on
+       either. The height must genuinely be BETWEEN the two states part way through; and the sections must
+       still be on the page while it shrinks, since `display:none` cannot be transitioned and taking the
+       content away before the box closes is the jumpcut the request is about. */
+    const folding = await page.evaluate(async () => {
+      const p = document.querySelector("#countryPop");
+      const from = p.getBoundingClientRect().height;
+      document.querySelector("#cpMore").click();
+      await new Promise((r) => setTimeout(r, 90));
+      const mid = p.getBoundingClientRect().height;
+      const colsShown = getComputedStyle(document.querySelector(".cp-cols")).display !== "none";
+      await new Promise((r) => setTimeout(r, 600));
+      return { from: Math.round(from), mid: Math.round(mid), to: Math.round(p.getBoundingClientRect().height), colsShown };
+    });
+    check("...and shutting it EASES rather than cutting", folding.mid < folding.from - 4 && folding.mid > folding.to + 4,
+      JSON.stringify(folding));
+    check("...with its sections still on the page while it closes", folding.colsShown, JSON.stringify(folding));
+
+    await page.click("#cpMore");
+    await page.waitForTimeout(600);
     // …and a swipe to another page re-fits it. The figures grid is far shorter than the description.
+    const tall = await slack();
     await page.evaluate(async () => {
       const cols = document.querySelector(".cp-cols");
       cols.scrollLeft = cols.clientWidth * ([...cols.children].filter((c) => !c.hidden && !c.classList.contains("cp-blank")).length - 1);
@@ -2085,32 +2212,24 @@ function scrimCheck() {
     const swiped = await slack();
     check("...swiping to a shorter page shrinks the sheet to fit it", swiped.slack <= 24 && swiped.h <= tall.h + 1,
       JSON.stringify({ tall: tall, swiped: swiped }));
-    // shrunk by hand: the floor still shows the title, and the height carries to the next place
-    await drag(PHONE.height - 10);
-    const small = await page.evaluate(() => {
-      const p = document.querySelector("#countryPop").getBoundingClientRect();
-      const t = document.querySelector(".cp-titlerow").getBoundingClientRect();
-      return { h: Math.round(p.height), titleShown: t.top >= p.top - 1 && t.bottom <= p.bottom + 1 };
-    });
-    check("...shrunk to the floor it still shows its title bar", small.titleShown && small.h < 220, JSON.stringify(small));
 
-    /* THE DRAGGED HEIGHT IS KEPT AS THE CEILING THE CHEVRON OPENS TO, not as the height the next place
-       shows — which is the whole of what "always collapsed by default" changed here. Both halves are
-       asserted, because they fail in opposite directions: a sheet that opened at the remembered height
-       would be ignoring the request, and one that FORGOT the height would make the drag pointless. */
+    /* THE NEXT PLACE OPENS SHUT, AND THEN TO ITS OWN PAGE'S HEIGHT — there is nothing remembered now, which
+       is what removing the drag bought. Both halves are asserted because they fail in opposite directions:
+       a sheet still carrying a height from the last place would be the thing the grip was removed for, and
+       one that would not open at all is worse than either. */
     await page.evaluate(() => { location.hash = "#map/2026/spain"; });
     await page.waitForTimeout(1800);
     const next = await page.evaluate(() => {
       const p = document.querySelector("#countryPop");
       return { h: Math.round(p.getBoundingClientRect().height), shut: p.classList.contains("cp-shut") };
     });
-    check("...and the NEXT place opens shut too, whatever the last was left at", next.shut && next.h <= small.h + 6,
-      JSON.stringify({ next: next, last: small.h }));
+    check("...and the NEXT place opens shut too", next.shut && next.h < PHONE.height * 0.3,
+      JSON.stringify(next));
     await page.click("#cpMore");
-    await page.waitForTimeout(500);
-    const reopened = await page.evaluate(() => Math.round(document.querySelector("#countryPop").getBoundingClientRect().height));
-    check("...and opening it lands on the height the reader dragged to", Math.abs(reopened - small.h) <= 8,
-      reopened + " vs " + small.h);
+    await page.waitForTimeout(600);
+    const reopened = await slack();
+    check("...and opens to what ITS own page needs", reopened.slack <= 24 && reopened.h > next.h,
+      JSON.stringify({ shut: next.h, opened: reopened }));
     await page.close();
   }
 

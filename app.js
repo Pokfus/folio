@@ -251,13 +251,71 @@
      any curated card not yet rated: five empty stars would claim a rating of zero, which is not on the
      scale. The colour is the QUESTION/ANSWER label's own `--indigo`, on request, so the corner reads as
      part of the card's own furniture rather than as a second kind of mark. */
+  /* ---------- TWO DIFFICULTY RATINGS (Aug 2026, on request) ----------
+     The stars have always shown ONE number: an editorial judgement of how well known the answer term is,
+     written card by card. That is a good guess and it is a guess — what a card is actually like to study
+     is a fact about the people studying it, and Folio has been throwing that fact away.
+
+     SO THERE ARE TWO, AND THE SECOND SUPERSEDES THE FIRST. Every grade anywhere on the site increments
+     one of four counters on that card, pooled across all readers; once a card has `CARD_STATS_MIN`
+     answers behind it the community score is what the stars show, with the figure itself printed beside
+     them out of 100. Below that the editorial rating stands in, which is what it was written for — a
+     placeholder good enough to deal a minigame round on until the reading public has spoken.
+
+     THE PERCENTAGE IS A WEIGHTED FAILURE RATE, not a lapse count: Again is a complete miss, Hard is a
+     recall that cost something, Good is the ordinary case and Easy is a card the reader did not need.
+     100 is a card everybody fails and 0 one nobody ever hesitates over. The five-star rank is that figure
+     in five buckets, so the two say the same thing at two precisions and can never disagree.
+
+     IT IS ANONYMOUS BY CONSTRUCTION. What the server holds is four integers per card and nothing else —
+     no rows per reader, no timestamps per answer — so there is nothing in the table that could say who
+     answered what. See `card_stats` and `bump_card_grades` in .claude/supabase-schema.sql. */
+  const CARD_STATS_MIN = 20;            // answers before the community score takes over from the editorial one
+  let CARD_STATS = {};                  // cardId -> { a, h, g, e }; filled by cardStatsLoad, empty until then
+  const CARD_GRADE_WEIGHT = { again: 1, hard: 0.5, good: 0.15, easy: 0 };
+  // a card's pooled counters, or null. CARD_STATS is filled by cardStatsLoad() from the server, cached
+  // for the day in localStorage — see the CARD STATS block further down.
+  function cardStatsFor(id) {
+    const r = CARD_STATS[id];
+    if (!r) return null;
+    const total = (r.a || 0) + (r.h || 0) + (r.g || 0) + (r.e || 0);
+    if (total < CARD_STATS_MIN) return null;
+    const w = (r.a || 0) * CARD_GRADE_WEIGHT.again + (r.h || 0) * CARD_GRADE_WEIGHT.hard +
+              (r.g || 0) * CARD_GRADE_WEIGHT.good + (r.e || 0) * CARD_GRADE_WEIGHT.easy;
+    const pct = Math.max(0, Math.min(100, Math.round((w / total) * 100)));
+    return { pct: pct, total: total, rank: Math.max(1, Math.min(CARD_DIFFICULTY_MAX, Math.floor(pct / 20) + 1)) };
+  }
+  /* WHICH RATING A CARD SHOWS. `{ rank, pct, community }` — pct is null on the editorial one, which is a
+     judgement rather than a measurement and must not be dressed up as a figure out of a hundred. */
+  function cardDifficultyShown(c) {
+    const card = typeof c === "string" ? cardById(c) : c;
+    if (!card) return null;
+    const st = cardStatsFor(card.id);
+    if (st) return { rank: st.rank, pct: st.pct, total: st.total, community: true };
+    const n = cardDifficulty(card);
+    return n ? { rank: n, pct: null, total: 0, community: false } : null;
+  }
+  /* The rating as five stars in the corner of a study card (Aug 2026, on request). It is DECORATIVE to a
+     screen reader — one `aria-label` on the row says the rating in words, and five identical glyphs read
+     out one at a time say nothing — and it renders as NOTHING where there is no rating at all, which is
+     every community-deck card and any curated card not yet rated: five empty stars would claim a rating of
+     zero, which is not on the scale. The colour is the QUESTION/ANSWER label's own `--indigo`, on request,
+     so the corner reads as part of the card's own furniture rather than as a second kind of mark.
+     THE WORD "Difficulty" IS PRINTED BESIDE THEM (Aug 2026, on request): five small stars in a corner say
+     that something is being rated and not what. It is set small and thin so it labels the row rather than
+     competing with the question beside it. */
   function cardStarsHTML(c) {
-    const n = cardDifficulty(c);
-    if (!n) return "";
+    const d = cardDifficultyShown(c);
+    if (!d) return "";
     const star = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.5 5.6 6.1.6-4.6 4.1 1.3 6-5.3-3.1-5.3 3.1 1.3-6L3.4 9.8l6.1-.6z"/></svg>';
-    let out = '<span class="card-stars" title="How well known this card\'s answer is: ' + esc(CARD_DIFFICULTY_LABELS[n] || "") +
-      '" aria-label="Difficulty ' + n + " of " + CARD_DIFFICULTY_MAX + ': ' + esc(CARD_DIFFICULTY_LABELS[n] || "") + '">';
-    for (let i = 1; i <= CARD_DIFFICULTY_MAX; i++) out += '<span class="cs-star' + (i <= n ? " on" : "") + '">' + star + "</span>";
+    const words = d.community
+      ? "How hard readers find this card: " + d.pct + " out of 100, from " + d.total + " answers"
+      : "How well known this card's answer is: " + (CARD_DIFFICULTY_LABELS[d.rank] || "");
+    let out = '<span class="card-stars' + (d.community ? " cs-community" : "") + '" title="' + esc(words) +
+      '" aria-label="' + esc("Difficulty " + d.rank + " of " + CARD_DIFFICULTY_MAX + ". " + words) + '">' +
+      '<span class="cs-lbl" aria-hidden="true">Difficulty</span>';
+    for (let i = 1; i <= CARD_DIFFICULTY_MAX; i++) out += '<span class="cs-star' + (i <= d.rank ? " on" : "") + '">' + star + "</span>";
+    if (d.community) out += '<span class="cs-pct" aria-hidden="true">' + d.pct + "%</span>";
     return out + "</span>";
   }
   /* ---------- TERMS THAT DO NOT HAPPEN AT A TIME (Aug 2026, on a bug report) ----------
@@ -718,6 +776,8 @@
     CARD_BY_ID[id].undatable = p.undatable;   // and whether that term happens at a time at all (see cardUndatable)
     CARD_BY_ID[id].map = p.map;               // and the place its question shades on the globe (see cardMapSpec)
     CARD_BY_ID[id].facts = p.facts;           // and the figures box beside its answer (see cardFacts)
+    CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
+    CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -1084,6 +1144,55 @@
     if (c) return { kind: "country", name: c, label: glossTitle(key) };
     return null;
   }
+  /* Does this term name a book the LIBRARY actually holds? (Aug 2026, on request: "for gloss that are
+     about books or documents we hold in the library … a small version of the book banner of the library
+     page, i.e. a link to take the user to read the book.")
+     IT IS A DECLARED TABLE AND NOT A TITLE MATCH, which is the whole of the care here. Folding both sides
+     and joining on the name is the obvious implementation, it is two lines, and it is confidently wrong:
+     measured over the shelf and the glossary, "The Republic" matches Czech_Republic, Central_African_
+     Republic, Republic_of_the_Congo, Democratic_Republic_of_the_Congo and Dominican_Republic — five
+     countries offered as Plato — while the loosest join that avoids them still finds only three of the
+     forty-eight books, which are exactly the three named below. A claim that a term IS a shelved work is a
+     judgement rather than a string comparison, so it is written down, the way `ENTITY_SINCE` and the
+     importers' own tables are. Three rows today because the glossary has three such terms; a book term
+     written later adds one, and one that does not is simply a term with no banner.
+     A community deck's own term never gets one, for `glossPlace`'s reason: this is curated data, and a
+     deck key is namespaced so it cannot collide, but the check is explicit rather than accidental. */
+  const GLOSS_BOOK = {
+    Iliad: "homer-iliad",
+    Odyssey: "homer-odyssey",
+    Epic_of_Gilgamesh: "epic-of-gilgamesh",
+  };
+  function glossBook(key) {
+    if (!key || isDeckGlossKey(key)) return null;
+    const id = GLOSS_BOOK[key];
+    return id ? (BOOK_BY_ID[id] || null) : null;
+  }
+  /* The shelf's banner at popup scale: spine, author, title, and where the reader got to. It is a real
+     `<button>` and not an `<a href="#book/…">` so that closing the popup and routing happen in one place —
+     a bare anchor changes the hash, which routes, and leaves the window floating over the book it just
+     opened.
+     WHAT IT DROPS is as deliberate as what it keeps: no star, no length, no original-language chip and no
+     date. Those are the shelf's own comparisons, made when a reader is choosing between forty-eight books;
+     here they have chosen a TERM and the banner is answering one question — this is a book, and it is
+     here. The reading position stays, being the only part that is about them.
+     It is built by `glossBookHTML` rather than by the shelf's own `tile()` because that one lives inside
+     PAGES.library's closure and carries the sort, the search and the hold sheet with it. */
+  function glossBookHTML(b) {
+    if (!b) return "";
+    const pos = readingPos(b.id), pct = readingPct(b);
+    const where = pos && pos.ch === 0 ? "About this book" : pos ? `${b.chapterWord} ${pos.ch} · ${pct}%` : "Start reading";
+    return `<button class="gloss-book" type="button" data-glossbook="${esc(b.id)}" style="--tile:${bookColor(b)}"
+        aria-label="Read ${esc(b.title)} by ${esc(b.author)} in the Library">
+      <span class="bk-spine" aria-hidden="true"></span>
+      <span class="gb-body">
+        <span class="gb-eyebrow">In the Library</span>
+        <span class="gb-title">${esc(b.title)}</span>
+        <span class="gb-foot"><span class="gb-author">${esc(b.author)}</span><span class="gb-where">${esc(where)}</span></span>
+      </span>
+      ${pos ? `<span class="bk-tile-bar"><span style="width:${pct}%"></span></span>` : ""}
+    </button>`;
+  }
   function glossTags(k) {
     const u = uGlossParse(k);
     if (u) return u.entry.tags || [];
@@ -1285,6 +1394,16 @@
       showcase: [],      // up to SHOWCASE_MAX artefact ids, in the order the reader arranged them, shown on the profile
       sweepChest: "",    // the day a Clean-Sweep chest was granted, so a second win that day cannot grant another
       streakChest: 0,    // the streak COUNT a chest was last granted at — see maybeStreakChest for why it is a count
+      /* Three counters the badges added in Aug 2026 need, and each is a counter rather than something
+         derivable. `chestsOpened` cannot be read off `artefacts` any more, a chest now sometimes giving
+         a theme instead; `themes` is what a chest gives when it does; `published` is a fact about this
+         READER, where the deck they published lives in this DEVICE's IndexedDB and would not follow them
+         to a second machine. */
+      chestsOpened: 0,   // chests actually opened, whatever came out of them
+      themes: {},        // theme id -> when it was unlocked. `folio` is everyone's and is never in here.
+      published: 0,      // how many of the reader's own decks have been published to the shared decks
+      publishedIds: {},  // remote deck id -> when it first went up, so an UPDATE is not counted a second time
+      theme: "folio",    // the theme this reader wears — synced, because a friend's banner is drawn in it
     };
   }
   let S = load();
@@ -1308,7 +1427,7 @@
      and `deckLimits`/`reviewLimits` read `S.settings.newPerDay` with no fallback of their own, so a save
      old enough to lack the key yields `newPerDay: undefined` → NaN through `deckNewRemaining` → a
      `slice(0, NaN)` that returns nothing. The review then offers **no new cards, ever**, with no error and
-     no zero to explain it: the banner simply reads "Browse collections" for good. Found while seeding a
+     no zero to explain it: the banner simply never offers a card again. Found while seeding a
      partial settings object for `test-reset.js`, which is exactly the shape an old save has. */
   if (S.settings && !Number.isFinite(S.settings.newPerDay)) S.settings.newPerDay = 3;
   /* THE SYMPOSIUM BECAME A CHAPTER OF THE DIALOGUES (Aug 2026), and both registers that remember a
@@ -1580,7 +1699,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -1635,6 +1754,10 @@
   function applyProgress(p) {
     const base = emptyProgress();
     PROGRESS_FIELDS.forEach((k) => { S[k] = JSON.parse(JSON.stringify(p && p[k] !== undefined ? p[k] : base[k])); });
+    /* An adopted blob carries its own `themes`, so a reader signing in on a fresh device must not have
+       the theme they are wearing pulled out from under them: grandfather again on the new set, exactly as
+       boot does. `themeGrandfather` only ever unlocks, so this can never take one away. */
+    themeGrandfather();
     S.revlog = Array.isArray(p && p.revlog) ? JSON.parse(JSON.stringify(p.revlog)) : [];
     try { localStorage.removeItem(REV_SYNC_KEY); } catch (e) {}
   }
@@ -1664,7 +1787,11 @@
   /* …and the reader's FLAGS (Aug 2026). A flag is an annotation, not history: "come back to this one" is
      the kind of note that survives clearing a schedule, exactly as a starred book and a reader's place in
      one do. The dialog names the study history, the streak and the badges, and a flag is none of them. */
-  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest", "flags"];
+  /* `themes` and `theme` are KEPT for the reason the decks are: a reset names the study history, the
+     streak and the badges, and an unlocked theme is an appearance the reader is wearing — clearing it
+     would take the site's own look away from somebody who reset a card schedule, and would leave them
+     wearing a theme they no longer own. `chestsOpened` and `published` are history and go. */
+  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest", "flags", "themes", "theme"];
   function resetProgress() {
     const base = emptyProgress();
     PROGRESS_FIELDS.forEach((k) => { if (RESET_KEEPS.indexOf(k) < 0) S[k] = JSON.parse(JSON.stringify(base[k])); });
@@ -1825,7 +1952,24 @@
   function supaForget(id) { const o = supaAccounts(); if (o[id]) { delete o[id]; supaAccountsSave(o); } }
   let SUPA = null;          // the live session (or null = signed out / guest)
   let SUPA_PROFILE = null;  // cached profiles row { id, username, name, role, joined }
-  let _bootWantedAdmin = false;   // the page loaded on #admin before the admin role could be known — supaBoot routes back once it is
+  // the page loaded on an ADMIN-ONLY route before the admin role could be known — supaBoot routes back
+  // once it is. It holds the ROUTE NAME rather than a flag, since there is more than one of them now.
+  let _bootWantedAdmin = null;
+  /* THE BOOT REFUSAL IS PROVISIONAL, SO THE ADDRESS IS LEFT ALONE UNTIL THE ANSWER IS KNOWN. Boot renders
+     directly rather than through route(), so a cold load on an admin-only route is refused there — but at
+     that moment nobody knows whether this reader is an admin, and rewriting the address then would take
+     `#admin` away from an editor whose session merely had not been restored yet. supaBoot calls this on
+     every path where the answer IS settled: an admin is sent back to the page they reloaded, and everybody
+     else has the address corrected to the page they are actually looking at.
+     `replaceState`, never `location.hash`: assigning that fires a hashchange and re-renders the page being
+     rendered, and it would leave the refused route in the history for Back to land on. */
+  function bootAdminSettled() {
+    if (!_bootWantedAdmin) return;
+    const want = _bootWantedAdmin;
+    _bootWantedAdmin = null;
+    if (isAdmin() && current && current.name === "home") { route(want); return; }
+    try { history.replaceState(null, "", location.pathname + location.search + "#home"); } catch (e) {}
+  }
   function supaLoggedIn() { return !!(SUPA && SUPA.user && SUPA.user.id); }
   function supaSaveSession() { try { if (SUPA) localStorage.setItem(SUPA_SESS_KEY, JSON.stringify(SUPA)); else localStorage.removeItem(SUPA_SESS_KEY); } catch (e) {} }
   function supaAdoptSession(d) {   // d = an auth response with access_token/refresh_token/expires_in/user
@@ -1905,6 +2049,31 @@
     if (SUPA_PROFILE) SUPA_PROFILE.avatar = dataUri;
     return { ok: true };
   }
+  /* THE THEME AN ACCOUNT WEARS, pushed to the reader's own PROFILE row (Aug 2026, on request: the theme
+     is "how your account is presented to others"). Three decisions.
+     · **IT GOES ON `profiles`, NOT IN THE PROGRESS BLOB** — see section 14 of the schema for the whole
+       of why: progress is readable only by the owner and their accepted friends, so a friends list would
+       have to pull every friend's entire blob to read one string, and an admin could not count them at
+       all. `profiles` is a few dozen bytes a row and is already how an account presents itself.
+     · **IT IS FIRE-AND-FORGET AND NEVER REPORTS.** A theme is a look; a reader who changes one and is
+       offline has changed it on this device, which is the thing they asked for, and telling them a
+       cosmetic failed to sync is noise. `themeSyncMissing` remembers a PGRST204 so the admin tab can say
+       the block has not been run rather than showing everybody as wearing Folio.
+     · **AND IT IS DEBOUNCED**, because the theme picker's hover try-on writes nothing but its CLICK does,
+       and a reader comparing four themes in ten seconds should cost one request rather than four. */
+  let themeSyncMissing = false, _themePushTimer = null, _themeSent = null;
+  function themePushSoon() {
+    if (!supaLoggedIn()) return;
+    clearTimeout(_themePushTimer);
+    _themePushTimer = setTimeout(async () => {
+      const t = (S.settings && S.settings.theme) || "folio";
+      if (t === _themeSent) return;
+      const r = await supaFetch("/rest/v1/profiles?id=eq." + SUPA.user.id, { method: "PATCH", body: { theme: t } });
+      if (r.ok) { _themeSent = t; if (SUPA_PROFILE) SUPA_PROFILE.theme = t; themeSyncMissing = false; }
+      else if (r.status === 400 || r.status === 404) themeSyncMissing = true;   // the column isn't there yet
+    }, 1200);
+  }
+
   /* --- progress sync (debounced push on save(); pull + reconcile at boot/login) --- */
   let _supaLastSent = null, _supaPushTimer = null;
   // order-insensitive serialization for change detection — Postgres jsonb does NOT preserve key order,
@@ -2095,6 +2264,11 @@
     save();
     applyMode();   // the server role may change admin visibility
     communitySyncSoon();   // …and bring over any shared decks this account added on another device
+    /* …and tell the account which theme this reader wears, since a friend's list is drawn from `profiles`
+       rather than from anybody's progress. A theme is a device SETTING (settings are not synced), so the
+       honest account-level answer is the one last chosen — `setTheme` pushes on every change and this
+       covers the case it cannot: a theme chosen before signing in at all. */
+    themePushSoon();
   }
   async function supaSignUp(email, username, name, pw) {
     const r = await supaFetch("/auth/v1/signup", { method: "POST", auth: false, body: { email, password: pw, data: { username, name } } });
@@ -2286,8 +2460,8 @@
       return;
     }
     try { SUPA = JSON.parse(localStorage.getItem(SUPA_SESS_KEY) || "null"); } catch (e) { SUPA = null; }
-    if (!supaLoggedIn()) { SUPA = null; return; }
-    if (Date.now() > (SUPA.expires_at || 0)) { if (!(await supaRefresh())) { applyMode(); if (current && current.name === "account") render(); return; } }
+    if (!supaLoggedIn()) { SUPA = null; bootAdminSettled(); return; }
+    if (Date.now() > (SUPA.expires_at || 0)) { if (!(await supaRefresh())) { applyMode(); bootAdminSettled(); if (current && current.name === "account") render(); return; } }
     // back-fill ownership for sessions signed in before _supaOwner existed: the progress on this device is
     // this account's. Without it, an older save's progress reads as unclaimed and the NEXT account would inherit it.
     if (S._supaOwner !== SUPA.user.id) { supaClaimLocal(); try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
@@ -2297,9 +2471,7 @@
     // and photo shown on its button follow the profile rather than freezing at whatever sign-in knew.
     supaRemember();
     applyMode();
-    // the reload happened ON the Edit page — now that the role is known, send an admin back there
-    // (only if they're still sitting on the Home page the boot fallback left them on)
-    if (_bootWantedAdmin && isAdmin() && current && current.name === "home") { _bootWantedAdmin = false; route("admin"); }
+    bootAdminSettled();   // the role has arrived: send an admin back to the page they reloaded
     const row = await supaPull();
     if (row && row.updated_at && row.updated_at !== S._supaTs) {
       // another device wrote since this one last synced → adopt the server copy (last write wins)
@@ -2369,6 +2541,17 @@
     d.setHours(0, 0, 0, 0);
     d.setMinutes(dayEndMin());
     if (d.getTime() <= Date.now()) d.setDate(d.getDate() + 1);
+    return d.getTime();
+  }
+  /* THE INSTANT TODAY BEGAN — the other end of dayEndTs, and what makes a due date land at the START of
+     its day rather than at the clock time the card happened to be graded (Aug 2026, on request: "a card
+     studied at 5 pm should return at midnight, when the site moves to the next day"). It is the reader's
+     own boundary, so a scholar who has set the day to end at 3 a.m. gets due dates at 3 a.m. */
+  function dayStartTs() {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    d.setMinutes(dayEndMin());
+    if (d.getTime() > Date.now()) d.setDate(d.getDate() - 1);
     return d.getTime();
   }
   /* A page left open across the boundary must not go on showing yesterday. One timer, re-armed each time it
@@ -2998,6 +3181,17 @@
     } catch (e) { return null; }
   }
   function clearStudySession() { try { sessionStorage.removeItem(STUDY_KEY); } catch (e) {} }
+  /* …and ONE record held aside, so an admin can edit the card they are studying and come straight back to
+     it (Aug 2026, on request: "when clicking the edit button while studying a card, there should be a button
+     to take me back to my studies once edits are made"). The editor is a PAGE, so reaching it routes — and
+     route() clears the session record by design, that being the single choke point that stops a stale queue
+     outliving the page it belongs to. So rather than weaken that rule for one caller, the record is CAPTURED
+     at the moment the card's own Edit button is pressed and written back when the reader presses Back to
+     studying. Module-level rather than in S, exactly as the record itself is: a held session is a fact about
+     this tab, and a reader who closes it has finished studying.
+     It is cleared by route() on any navigation that is neither the editor nor the study page, so a hold can
+     never sit waiting on a page the reader reached some other way. */
+  let studyHold = null;
 
   // remember which gloss popups are open (owning route + term + position) so a page reload can re-open them.
   // Uses sessionStorage: it survives an F5 / dev-server live-reload in the SAME tab, but a tab/browser CLOSE clears it,
@@ -3312,7 +3506,7 @@
         '<button class="gloss-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       '</div>' +
       // the image slot comes FIRST: it floats to the top-right and the prose wraps down its left
-      '<div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-srcslot"></div></div>';
+      '<div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-bookslot"></div><div class="gloss-srcslot"></div></div>';
     win.querySelector(".gloss-title").textContent = glossTitle(key);
     const dEl = win.querySelector(".gloss-dates");
     const dates = glossDates(key);
@@ -3323,6 +3517,10 @@
     renderGlossImage(win.querySelector(".gloss-imgslot"), key);         // the term's illustration, floated top-right
     // the works behind the description, as a compact fold under it. It sits AFTER the floated image slot
     // in the flow, so it clears the picture rather than wrapping beside it.
+    /* …and, where the term names a book the Library holds, a way into it — below the prose and above the
+       citations, which is where the request puts it and where it reads as an offer rather than as part of
+       the definition. It sits after the floated image slot in the flow, so it clears the picture. */
+    win.querySelector(".gloss-bookslot").innerHTML = glossBookHTML(glossBook(key));
     win.querySelector(".gloss-srcslot").innerHTML = sourcesHTML(glossSources(key), { compact: true });
     /* THE PICTURE AND THE WORDS ARRIVE TOGETHER (Aug 2026, on a bug report: "the text loads before the
        image, so a split second after opening we see the text jump to make space for the picture").
@@ -3385,6 +3583,17 @@
         const place = glossPlace(key);
         closeAllGloss();
         if (place) route("map", { focus: place });
+      });
+    }
+    {
+      // the Library banner: same reasoning as the map marker above — the book is the answer to what the
+      // banner offers, and a popup left over it would cover the page it sent the reader to
+      const bb = win.querySelector(".gloss-book");
+      if (bb) bb.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const id = bb.getAttribute("data-glossbook");
+        closeAllGloss();
+        if (id) route("book", { id: id });
       });
     }
     { const eb = win.querySelector(".gloss-edit"); if (eb) eb.addEventListener("click", () => { removeGlossWin(win, true); route("admin", { gloss: key }); }); }   // admin: jump to this term's editor
@@ -3480,7 +3689,22 @@
     ivMult: 1,               // a thumb on the scale for every review interval
     maxIv: 36500,            // a hundred years, Anki's ceiling
     leech: 8,                // lapses before a card is called a leech
+    /* THE INSTANT THE READER'S CURRENT DAY BEGAN, or null. A due date measured in DAYS lands at the start
+       of its day rather than `t + n * 24h` — Anki's behaviour, and the one a reader expects: everything
+       due on a day is waiting at the top of that day rather than trickling in at whatever hour each card
+       was last answered. It TRAVELS ON THE CFG rather than being read, for the reason the load map does:
+       the pure block reads no global, and the preview and the grade must be handed the same one.
+       NULL IS THE OLD BEHAVIOUR and is what every test that builds its own cfg gets, so an absent anchor
+       is honest rather than broken. `schedCfgFor` is what attaches the real one. */
+    dayAnchor: null,
   };
+  /* A due date measured in whole days. With an anchor it is the START of the day `days` ahead, which is
+     always in the future for days >= 1: the anchor is at or before `t` and the anchor plus a day is after
+     it by definition. Without one it is the old `t + days * DAY`. */
+  function schedDayDue(t, days, cfg) {
+    const a = cfg && cfg.dayAnchor;
+    return (a == null ? t : a) + days * DAY;
+  }
   const MIN_MS = 60 * 1000;
   const SCHED_AHEAD_MS = 20 * MIN_MS;   // Anki's learn-ahead limit: how far into the future a learning step may be pulled
   const schedIsLearning = (st) => st === "learning" || st === "relearn";
@@ -3716,7 +3940,7 @@
       c.status = "review";
       c.step = 0;
       c.interval = schedPass(fsrsInterval(w, c.stability, cfg.retention), 1, cfg, String(seed) + ":" + (c.reps || 0));
-      c.due = t + c.interval * DAY;
+      c.due = schedDayDue(t, c.interval, cfg);
       delete c.lapseIv;
     };
     if (c.status === "new" || schedIsLearning(c.status)) {
@@ -3949,7 +4173,7 @@
         c.status = "review";
         c.step = 0;
         c.interval = Math.min(cfg.maxIv, Math.max(1, Math.round(base)));
-        c.due = t + c.interval * DAY;
+        c.due = schedDayDue(t, c.interval, cfg);
         c.reps = (c.reps || 0) + 1;
         delete c.lapseIv;
       }
@@ -3968,7 +4192,7 @@
         } else {
           c.status = "review";                 // no relearning steps configured: straight back to a day
           c.interval = back;
-          c.due = t + c.interval * DAY;
+          c.due = schedDayDue(t, c.interval, cfg);
         }
         if (c.lapses >= cfg.leech) c.leech = true;   // recorded, never acted on — Folio does not auto-suspend
       } else {
@@ -3978,7 +4202,7 @@
         c.status = "review";
         c.step = 0;
         c.interval = ivs[g] || ivs.good;
-        c.due = t + c.interval * DAY;
+        c.due = schedDayDue(t, c.interval, cfg);
         c.reps = (c.reps || 0) + 1;
       }
     }
@@ -4028,10 +4252,12 @@
      browser's bulk actions and the single-card sheets are the same code. */
 
   /* Push a card to a day. `days` is whole days from `t` — 0 meaning now — and the instant is computed the
-     same way schedAnswer computes every other due date (`t + days * DAY`) rather than being snapped to the
-     reader's day boundary. That is deliberate consistency rather than laziness: a card graded at ten in the
-     evening with a one-day interval already comes due at ten the next evening, so a Set-due-date that
-     behaved differently would be the one place in Folio where "a day" meant something else.
+     same way schedAnswer computes every other due date, which since Aug 2026 means the START of that day
+     rather than `t + days * DAY`. It is the same consistency argument the other way round: a card graded at
+     ten in the evening with a one-day interval now comes due at the next day's boundary, so a Set-due-date
+     that still counted 24-hour blocks would be the one place in Folio where "a day" meant something else.
+     ZERO IS THE EXCEPTION and stays exactly `t`: "today" means due NOW, and anchoring it would put the card
+     a few hours in the past, which is the same thing said less clearly.
 
      A NEW or LEARNING card becomes a REVIEW card, which is Anki's behaviour and the only coherent one — a
      due date is a review card's property, and leaving it in learning would have the next grade walk the
@@ -4045,7 +4271,7 @@
     const d = Math.max(0, Math.min(cfg.maxIv, Math.floor(Number(days) || 0)));
     c.status = "review";
     c.step = 0;
-    c.due = t + d * DAY;
+    c.due = d === 0 ? t : schedDayDue(t, d, cfg);
     /* A card that has never been a review card has no interval to keep, so it takes the one it was just
        given — a floor of a day, since a review card with an interval of 0 would be scheduled by nothing.
        An existing review card keeps its own unless the reader asked otherwise. */
@@ -4094,21 +4320,23 @@
      review's own sheet does not offer the switch: it schedules nothing of its own, it deals what its decks
      hand it. A card in more than one deck takes the first, deterministically. */
   function schedModeOf(entryId) {
-    const o = (S.deckOpts || {})[entryId] || {};
-    return o.sched === "fsrs" ? "fsrs" : "sm2";
+    // …and it cascades to subdecks, like every other policy in the sheet — see entryChain
+    const v = deckOpt(entryId, "sched");
+    return v && v.value === "fsrs" ? "fsrs" : "sm2";
   }
   function deckSchedCfg(entryId) {
-    const o = (S.deckOpts || {})[entryId] || {};
+    const ret = deckOpt(entryId, "retention"), par = deckOpt(entryId, "fsrsParams");
     const cfg = Object.assign({}, SCHED, {
       mode: schedModeOf(entryId),
-      retention: Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, Number(o.retention) || FSRS_RETENTION)),
+      retention: Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, (ret && Number(ret.value)) || FSRS_RETENTION)),
     });
-    if (Array.isArray(o.fsrsParams) && o.fsrsParams.length === 21) cfg.fsrsParams = o.fsrsParams;
+    if (par && Array.isArray(par.value) && par.value.length === 21) cfg.fsrsParams = par.value;
     /* The load map rides on the cfg so the pure scheduler can read it and so the preview and the grade are
        handed the SAME one — see schedSpread. It is null unless the reader has asked for one of the two
        settings, which is what keeps every existing schedule exactly as it was. */
     const lm = loadMapNow();
     if (lm) cfg.load = lm;
+    cfg.dayAnchor = dayStartTs();   // due dates land at the start of their day — see SCHED.dayAnchor
     return cfg;
   }
   // the entry whose options govern this card: its community deck, or the leaf it sits in
@@ -4137,7 +4365,9 @@
   }
   function schedCfgFor(id) {
     const e = cardEntryId(id);
-    return e ? deckSchedCfg(e) : SCHED;
+    // no entry (a card studied outside any deck) still gets the day anchor — SCHED itself must stay null,
+    // being the shipped default every test builds from
+    return e ? deckSchedCfg(e) : Object.assign({}, SCHED, { dayAnchor: dayStartTs() });
   }
   /* ---------- the load map (Aug 2026) ----------
      The impure half of load balancing: how many cards are already due on each of the next few weeks' days,
@@ -4310,6 +4540,7 @@
        front, so a length recorded before the append can be the same length after it, and truncating to it
        would leave the phantom review behind — with the reader's own history quietly one review wrong. */
     lastRevRow = logReviewEntry(id, g, preStatus, preInterval, c, t, ms);
+    cardStatsBump(id, g);   // the pooled, anonymous counters behind the community difficulty rating
 
     // count new-card introductions per day
     if (fresh) {
@@ -5250,6 +5481,83 @@
     delete o.newPerDay; delete o.maxReviews; delete o.newIgnoresReview;
     save();
   }
+  /* ---------- ONE WALK: A SETTING SET ON A DECK GOVERNS ITS SUBDECKS ----------
+     (Aug 2026, on request.) `deckPairNew` had been doing this by hand since the day it shipped, and
+     nothing else did — so a reader who set the review order, question variety, read-aloud or the
+     scheduler on a deck found every one of its levels still following the global default, silently. The
+     walk is generalised here and every reader of `S.deckOpts` goes through it.
+
+     THE CHAIN IS NEAREST FIRST: the entry itself, then the subdeck path upward (a direction, then its
+     level, then the levels above it, then the deck), or for a curated row the tree upward to its
+     collection — and then any container the reader has dragged the row into. Cycles cannot hang it: the
+     `seen` set is what the loop is bounded by, and a group nested into itself simply appears once.
+
+     WHAT DOES *NOT* INHERIT IS THE DAILY LIMITS, and that is the one exclusion worth stating. `order`,
+     `variety`, `autoSpeak`, `burySiblings`, `pairNew` and the scheduler are POLICIES — how the material
+     is dealt — and a policy set on a deck plainly means the deck. `newPerDay` and `maxReviews` are
+     QUANTITIES: handed down to nine levels, "five new a day" becomes forty-five, which is the opposite of
+     what the reader asked for. So `deckLimits` still reads one entry and falls back to the "All decks"
+     figures, exactly as it always has.
+
+     AND THE READER IS TOLD WHERE A VALUE COMES FROM. A cascade a reader cannot see is a cascade that
+     reads as a control that did nothing: `deckOptFrom` reports the entry a value was found on, the sheet
+     marks a row it INHERITS with the name of the deck above it, and throwing the switch there writes an
+     override on this row and says so. */
+  const DECK_OPT_INHERIT = ["order", "random", "variety", "autoSpeak", "burySiblings", "pairNew",
+                            "sched", "retention", "fsrsParams"];
+  function entryChain(id) {
+    const out = [], seen = new Set();
+    const push = (e) => { if (e && typeof e === "string" && !seen.has(e)) { seen.add(e); out.push(e); } };
+    push(id);
+    const deckId = uDeckIdOf(id);
+    if (deckId && UDECKS[deckId]) {
+      // a direction sits inside its level, which sits inside the levels above it, which sit in the deck
+      if (uTplOf(id) >= 0) push(uSubEntry(deckId, uSubOf(id)));
+      for (let p = uSubOf(id); p; p = uSubParent(p)) push(uSubEntry(deckId, p));
+      push(uDeckEntry(deckId));
+    } else if (!isGroupId(id)) {
+      let n = NODE_BY_ID[id];
+      for (let i = 0; n && n.parentId && i < 64; i++) { n = NODE_BY_ID[n.parentId]; if (n) push(n.id); }
+    }
+    // …and whatever the row, or anything above it, has been dragged into. The array grows as it is walked,
+    // so a group inside a group is reached; `seen` is what makes that terminate.
+    for (let i = 0; i < out.length && i < 64; i++) { const g = nestParentOf(out[i]); if (g) push(g); }
+    return out;
+  }
+  // the value in force for this entry, and the entry it was found on. `null` is read as "not set here",
+  // which is what `setDeckFsrsParams` writes to clear an override.
+  function deckOpt(id, key) {
+    const ch = DECK_OPT_INHERIT.indexOf(key) < 0 ? [id] : entryChain(id);
+    for (let i = 0; i < ch.length; i++) {
+      const v = ((S.deckOpts && S.deckOpts[ch[i]]) || {})[key];
+      if (v !== undefined && v !== null) return { value: v, from: ch[i], own: i === 0 };
+    }
+    return null;
+  }
+  // …the same question asked of a GROUP of keys, for a row whose value is written under more than one name
+  // (the review order writes both `order` and `random`, so that it still deals right under an older build)
+  function deckOptFrom(id, keys) {
+    const ch = entryChain(id);
+    for (let i = 0; i < ch.length; i++) {
+      const o = (S.deckOpts && S.deckOpts[ch[i]]) || {};
+      for (let k = 0; k < keys.length; k++) {
+        if (o[keys[k]] !== undefined && o[keys[k]] !== null) return { from: ch[i], own: i === 0 };
+      }
+    }
+    return null;
+  }
+  // does this row hold a setting of its own that an ancestor could otherwise have supplied? — what the
+  // "Follow …" row is offered on, and what its own note counts
+  function deckOwnOverrides(id) {
+    const o = (S.deckOpts && S.deckOpts[id]) || {};
+    return DECK_OPT_INHERIT.filter((k) => o[k] !== undefined && o[k] !== null);
+  }
+  function clearDeckOverrides(id) {
+    const o = S.deckOpts && S.deckOpts[id];
+    if (!o) return;
+    DECK_OPT_INHERIT.forEach((k) => { delete o[k]; });
+    save();
+  }
   /* QUESTION VARIETY (Aug 2026, on request) — whether a card asks one of its three phrasings at random,
      or always asks the first. Every curated card carries a pool of three, which is what makes a reader
      learn the concept rather than the shape of one sentence; a reader who would rather meet the same
@@ -5263,28 +5571,88 @@
      behaves exactly as it always has. The REVIEW's own flag governs the pooled session, which is what
      `scopeEntryId` resolves a study scope to. */
   function deckVariety(id) {
-    const o = (S.deckOpts && S.deckOpts[id]) || {};
-    if (typeof o.variety === "boolean") return o.variety;
+    const v = deckOpt(id, "variety");            // …and it cascades — see entryChain
+    if (v && typeof v.value === "boolean") return v.value;
     return S.settings.questionVariety !== false;
   }
   function setDeckVariety(id, on) { setDeckLimits(id, { variety: !!on }); }
-  /* ORDERED / RANDOM, per entry (Aug 2026, on request: the switch used to appear on the review banner's
-     sheet alone, and a deck held on its own row had no way to ask for a shuffled session). It follows
-     question variety exactly — `S.deckOpts[id].random` where the reader has thrown the switch on that
-     deck, and `S.settings.reviewRandom` (Settings → Random review order) as the default everywhere else,
-     so nothing migrates and an untouched deck behaves as it always did.
-     The REVIEW is the one entry that writes the global rather than a per-entry flag, because the Settings
-     page's own switch shows that value: giving the review a private copy would leave the two disagreeing
-     about the pooled session with nothing on either page to say which was in force. */
-  function deckRandom(id) {
-    const o = (S.deckOpts && S.deckOpts[id]) || {};
-    if (id !== REVIEW_ENTRY && typeof o.random === "boolean") return o.random;
-    return !!S.settings.reviewRandom;
+  /* IS THIS ENTRY SHUFFLED? — the boolean the two shuffles in `buildSession` read. It is DERIVED from
+     `deckOrderMode` since Aug 2026, when a third order arrived and the sheet's switch became a cycler:
+     one function decides which of the three is in force, so the shuffle and the control it is set by
+     cannot come to disagree. `setDeckRandom` went with the switch; `setDeckOrderMode` is the writer.
+     `S.settings.reviewRandom` survives as the REVIEW's own stored value — it is what an older build reads,
+     and `setDeckOrderMode` keeps it in step. */
+  function deckRandom(id) { return deckOrderMode(id) === "random"; }
+  /* ---------- A THIRD ORDER: BY DIFFICULTY (Aug 2026, on request) ----------
+     Ordered and Random were a BOOLEAN, and a third answer will not fit in one — so `order` is a string
+     beside it and the boolean stays the fallback, which is what keeps every existing save working
+     untouched: a deck that has never been asked reads its old `random` flag exactly as it did.
+
+     WHAT IT SORTS BY IS `cardDifficulty`, the 1–5 rating of how well known the answer term is — the
+     figure the stars in the card's corner already show — with the COMMUNITY score preferred where a card
+     has one (see cardDifficultyShown). Easiest first, so a session opens on ground the reader is likely
+     to hold and works outward.
+
+     IT SORTS EACH PILE, NOT THE SESSION. The due cards and the new ones are ordered independently and
+     then mixed through each other by mixPiles, exactly as the other two orders now are: what the setting
+     decides is the order WITHIN a pile, never which cards the day's allowances let through.
+
+     TIES KEEP THE DECK'S OWN ORDER. `sort` is stable in every engine this site supports, and the list
+     arriving here is already in deck order, so five cards all rated 3 stay in the order their deck puts
+     them — which is the honest reading of "by difficulty" on a corpus where the rating is five buckets
+     rather than a continuum. */
+  const DECK_ORDERS = ["ordered", "random", "difficulty"];
+  /* …AND THE CONTROL IS A CYCLER, NOT A SWITCH (Aug 2026, on request). Two orders were a switch and three
+     will not fit in one: what replaces it is a single row naming the order in force, which steps to the
+     next on every press and wraps. Three rows with a tick would say the same thing in three times the
+     height, on a sheet a phone already has to scroll — and the switch's own reasoning was that a setting
+     with a name for each state reads as a sentence, which a cycler keeps. */
+  const DECK_ORDER_LABEL = { ordered: "Ordered", random: "Random", difficulty: "By difficulty" };
+  const DECK_ORDER_NOTE = {
+    ordered: "Cards come up in their deck order, oldest history first",
+    random: "The session is shuffled each day",
+    difficulty: "The best-known terms first, working outward",
+  };
+  function deckOrderMode(id) {
+    if (id === REVIEW_ENTRY) {
+      if (DECK_ORDERS.includes(S.settings.reviewOrder)) return S.settings.reviewOrder;
+      return S.settings.reviewRandom ? "random" : "ordered";
+    }
+    /* The chain is walked ONCE and each entry is asked for both names, rather than asking every entry for
+       `order` and then every entry for `random`: a subdeck that carries only the old boolean must beat a
+       deck above it that carries the new string, and two passes would let the deck win. */
+    const ch = entryChain(id);
+    for (let i = 0; i < ch.length; i++) {
+      const o = (S.deckOpts && S.deckOpts[ch[i]]) || {};
+      if (DECK_ORDERS.includes(o.order)) return o.order;
+      if (typeof o.random === "boolean") return o.random ? "random" : "ordered";
+    }
+    if (DECK_ORDERS.includes(S.settings.reviewOrder)) return S.settings.reviewOrder;
+    return S.settings.reviewRandom ? "random" : "ordered";
   }
-  function setDeckRandom(id, on) {
-    if (id === REVIEW_ENTRY) { S.settings.reviewRandom = !!on; save(); return; }
-    setDeckLimits(id, { random: !!on });
+  function setDeckOrderMode(id, mode) {
+    if (!DECK_ORDERS.includes(mode)) return;
+    if (id === REVIEW_ENTRY) {
+      S.settings.reviewOrder = mode;
+      S.settings.reviewRandom = mode === "random";   // the Settings page's own switch shows this value
+      save(); return;
+    }
+    // both are written, so a build that only knows the boolean still deals this deck the right way round
+    setDeckLimits(id, { order: mode, random: mode === "random" });
   }
+  function deckByDifficulty(id) { return deckOrderMode(id) === "difficulty"; }
+  function sortByDifficulty(list) {
+    return list.slice().sort((a, b) => (cardDifficultyRank(a) - cardDifficultyRank(b)));
+  }
+  // a card with no rating at all sorts LAST rather than first: an unrated card is unknown, not easy
+  function cardDifficultyRank(id) {
+    const c = cardById(id);
+    const d = c ? cardDifficultyShown(c) : null;
+    return d && d.rank ? d.rank : 99;
+  }
+  // one pile, in whatever order this entry asks for. Ordered and Random both leave it as the deck put it —
+  // Random shuffles the whole queue afterwards, so shuffling a pile here would be doing it twice.
+  function orderPile(id, list) { return deckByDifficulty(id) ? sortByDifficulty(list) : list; }
   /* AUTOMATIC READ-ALOUD, per entry (Aug 2026, on request — Anki's "read the answer aloud"). A card type
      may mark a run of text as something to hear (`<span class="uc-tts">` — see the read-aloud block further
      down); this is the reader asking for that to happen BY ITSELF the moment the answer is revealed, rather
@@ -5298,8 +5666,8 @@
      It rides in `S.deckOpts`, so it is carried by the synced progress blob and survives a reset (deckOpts is
      in RESET_KEEPS) with no field of its own. */
   function deckAutoSpeak(id) {
-    const o = (S.deckOpts && S.deckOpts[id]) || {};
-    return o.autoSpeak === true;
+    const v = deckOpt(id, "autoSpeak");
+    return v && typeof v.value === "boolean" ? v.value : true;
   }
   function setDeckAutoSpeak(id, on) { setDeckLimits(id, { autoSpeak: !!on }); }
   /* BURY SIBLINGS, per entry (Aug 2026, on request). Default ON, which is the opposite of how the other
@@ -5312,8 +5680,8 @@
     // opposite intents: pairing gathers the reverse and burying takes it straight out again, leaving a
     // session half the size it promised. One switch decides, so the two cannot come to contradict.
     if (deckPairNew(id)) return false;
-    const o = (S.deckOpts && S.deckOpts[id]) || {};
-    return o.burySiblings !== false;
+    const v = deckOpt(id, "burySiblings");
+    return v && typeof v.value === "boolean" ? v.value : true;
   }
   function setDeckBurySiblings(id, on) { setDeckLimits(id, { burySiblings: !!on }); }
   /* BOTH DIRECTIONS TOGETHER, per entry (Aug 2026, on request: "I want them interleaved"). Default OFF,
@@ -5333,18 +5701,10 @@
      its levels — which is what a reader setting it on the deck plainly means, and the levels are what the
      cascade actually adds. */
   function deckPairNew(id) {
-    const deckId = uDeckIdOf(id);
-    if (!deckId) return false;                       // curated decks and groups have no templates to pair
-    const at = (e) => (S.deckOpts && S.deckOpts[e]) || {};
-    if (typeof at(id).pairNew === "boolean") return at(id).pairNew;
-    if (uTplOf(id) >= 0 && typeof at(uSubEntry(deckId, uSubOf(id))).pairNew === "boolean") {
-      return at(uSubEntry(deckId, uSubOf(id))).pairNew;
-    }
-    for (let p = uSubOf(id); p; p = uSubParent(p)) {
-      const v = at(uSubEntry(deckId, p)).pairNew;
-      if (typeof v === "boolean") return v;
-    }
-    return at(uDeckEntry(deckId)).pairNew === true;
+    // curated decks and groups have no templates to pair, whatever an ancestor may say
+    if (!uDeckIdOf(id)) return false;
+    const v = deckOpt(id, "pairNew");                // the walk this used to do by hand — see entryChain
+    return !!(v && v.value === true);
   }
   function setDeckPairNew(id, on) { setDeckLimits(id, { pairNew: !!on }); }
   /* WHICH SCHEDULER, per entry — SM-2 or FSRS (Aug 2026, on request). Read by deckSchedCfg beside the
@@ -5512,6 +5872,84 @@
     const fresh = seededShuffle(pool, mulberry32(hashStr("review-" + todayStr()))).slice(0, take);
     return { due: dueCapped, fresh, all: [...dueCapped, ...fresh] };
   }
+  /* ============================================================
+     CARD STATS — the pooled counters behind the community difficulty rating
+     ============================================================
+     Four integers per card, summed over every reader on the site: how many times it was answered Again,
+     Hard, Good and Easy. `cardStatsFor` turns them into the figure out of 100 that the stars show once a
+     card has been answered CARD_STATS_MIN times; everything here is the plumbing that fills them.
+
+     WHY IT IS AN RPC AND NOT AN INSERT. The publishable key ships in this file, so any table a browser may
+     write to is a table anyone may write anything to. `bump_card_grades(rows jsonb)` is
+     `security definer` and can do exactly one thing — add to four counters on a batch of rows, each
+     increment clamped and each card id validated — so the
+     worst an abuser can do is skew a rating, which is the same thing they could do by grading cards.
+     There is deliberately NO per-reader row: what the server holds cannot say who answered what.
+
+     THE SEND IS BATCHED AND FIRE-AND-FORGET. A grade must never wait on the network, and a lost batch
+     costs a few counts out of thousands. Pending increments are held in memory, flushed on a debounce and
+     on pagehide, and dropped rather than retried — a rating is a statistic, not a record.
+
+     THE READ IS ONE REQUEST A DAY, CACHED. The whole table is a few hundred rows and every card on screen
+     may want it, so it is fetched whole (paged, for PostgREST's 1,000-row cap — the fault communityFetchDeck
+     already records) and kept in localStorage against the day key. A reader who is offline, or a site whose
+     owner has not run the schema block, simply sees the editorial rating: cardStatsFor returns null and
+     cardDifficultyShown falls back, which is the placeholder doing exactly the job it was written for. */
+  const CARD_STATS_KEY = "folio_card_stats_v1";
+  const CARD_STATS_FLUSH_MS = 8000;
+  const CARD_STATS_MAX_PEND = 200;      // a runaway loop must not build an unbounded body
+  let _cardStatsPend = Object.create(null), _cardStatsT = null, _cardStatsOff = false;
+  const CARD_GRADE_KEY = { again: "a", hard: "h", good: "g", easy: "e" };
+
+  function cardStatsBump(id, g) {
+    const k = CARD_GRADE_KEY[g];
+    if (!k || _cardStatsOff || isDevOrigin()) return;
+    // the reader's own answer counts towards what they are shown, at once, so a card they have just
+    // failed twice does not go on claiming to be easy until tomorrow's fetch
+    const r = CARD_STATS[id] || (CARD_STATS[id] = { a: 0, h: 0, g: 0, e: 0 });
+    r[k] = (r[k] || 0) + 1;
+    const p = _cardStatsPend[id] || (_cardStatsPend[id] = { a: 0, h: 0, g: 0, e: 0 });
+    p[k] += 1;
+    if (Object.keys(_cardStatsPend).length > CARD_STATS_MAX_PEND) { cardStatsFlush(); return; }
+    if (!_cardStatsT) _cardStatsT = setTimeout(() => { _cardStatsT = null; cardStatsFlush(); }, CARD_STATS_FLUSH_MS);
+  }
+  async function cardStatsFlush() {
+    if (_cardStatsT) { clearTimeout(_cardStatsT); _cardStatsT = null; }
+    const pend = _cardStatsPend;
+    if (!Object.keys(pend).length) return;
+    _cardStatsPend = Object.create(null);   // taken BEFORE the await, so a grade mid-flight joins the next batch
+    const rows = Object.keys(pend).map((id) => ({ card_id: id, a: pend[id].a, h: pend[id].h, g: pend[id].g, e: pend[id].e }));
+    const r = await supaFetch("/rest/v1/rpc/bump_card_grades", { method: "POST", body: { rows: rows } });
+    // 404 = the schema block has not been run on this project. Stop asking rather than posting on every
+    // grade for ever; the site is entirely usable without it.
+    if (r.status === 404) _cardStatsOff = true;
+  }
+  function cardStatsRead() {
+    try {
+      const raw = JSON.parse(localStorage.getItem(CARD_STATS_KEY) || "null");
+      if (raw && raw.d === todayStr() && raw.s && typeof raw.s === "object") return raw.s;
+    } catch (e) {}
+    return null;
+  }
+  async function cardStatsLoad() {
+    if (isDevOrigin()) return;                       // the dev machine has no traffic to pool
+    const cached = cardStatsRead();
+    if (cached) { CARD_STATS = cached; return; }
+    const out = Object.create(null);
+    for (let from = 0; ; from += SUPA_PAGE) {
+      const r = await supaFetch("/rest/v1/card_stats?select=card_id,a,h,g,e", {
+        auth: false, headers: { Range: from + "-" + (from + SUPA_PAGE - 1) },
+      });
+      if (r.status === 404) { _cardStatsOff = true; return; }
+      if (!r.ok || !Array.isArray(r.data)) return;   // offline, or a project without the block: keep the editorial rating
+      r.data.forEach((row) => { if (row && row.card_id) out[row.card_id] = { a: row.a || 0, h: row.h || 0, g: row.g || 0, e: row.e || 0 }; });
+      if (r.data.length < SUPA_PAGE) break;
+    }
+    CARD_STATS = out;
+    try { localStorage.setItem(CARD_STATS_KEY, JSON.stringify({ d: todayStr(), s: out })); } catch (e) {}
+  }
+  window.addEventListener("pagehide", () => { cardStatsFlush(); });
+
   function dueCountNow() {
     return activeCardIds().filter((id) => isDueNow(id) && !isSuspended(id) && !isBuried(id)).length;
   }
@@ -7419,6 +7857,17 @@
     d.publishedVersion = row.version;
     d.ownerName = row.author;
     uDeckSave(deckId);
+    /* PUBLISHING IS A FACT ABOUT THE READER, so it is counted in the SYNCED blob rather than derived from
+       the decks on this device: a deck lives in this machine's IndexedDB, so a badge read off `UDECKS`
+       would be earned on the phone and unearned on the laptop. It counts DISTINCT decks — re-publishing
+       an update to the same deck is not a second one — which is what `publishedIds` is for. */
+    if (!S.publishedIds || typeof S.publishedIds !== "object") S.publishedIds = {};
+    if (!S.publishedIds[row.id]) {
+      S.publishedIds[row.id] = Date.now();
+      S.published = Object.keys(S.publishedIds).length;
+      save();
+      checkAchievements();
+    }
     return { ok: true, deck: d, row: row, warn: warn };
   }
   async function uDeckUnpublish(deckId) {
@@ -11922,16 +12371,72 @@
   // Load a bundle's files (in parallel — each one only assigns its own global, so order is
   // irrelevant). Resolves true on success, false on failure; never rejects, so a caller that
   // doesn't care about the outcome can fire and forget. A failed bundle is retried next call.
+  /* IT COUNTS ITS FILES AS THEY LAND, so a loading screen can say how far in it is (Aug 2026, on request:
+     "when there are loadscreens, can we add a load bar"). `b.done` rises per file and `_bundleWatch`
+     notifies whoever is drawing the bar; a bundle already in flight from an earlier caller reports the
+     count it has reached rather than starting again from nothing.
+     IT IS PER FILE AND NOT PER BYTE, and that is a limit rather than a shortcut. Byte progress means
+     `fetch` + a ReadableStream and then running the text, which on this site is an INLINE script — and
+     `script-src 'self'` holds precisely because there are none (see `_headers`). So a bundle of one large
+     file has nothing to report and keeps its spinner; the Atlas, which is the load anybody actually waits
+     for, is twelve files and gets a real bar. */
+  const _bundleWatch = {};
+  function bundleFileCount(names) {
+    return names.reduce((n, x) => n + (((DATA_BUNDLES[x] || {}).files || []).length), 0);
+  }
+  function bundleDoneCount(names) {
+    return names.reduce((n, x) => n + (((DATA_BUNDLES[x] || {}).done) || 0), 0);
+  }
+  // fn is called after every file of any of `names` settles; returns an unsubscribe
+  function watchBundles(names, fn) {
+    names.forEach((x) => { (_bundleWatch[x] = _bundleWatch[x] || []).push(fn); });
+    return () => names.forEach((x) => {
+      const a = _bundleWatch[x]; const i = a ? a.indexOf(fn) : -1;
+      if (i >= 0) a.splice(i, 1);
+    });
+  }
   function ensureData(name) {
     if (_bundlePromises[name]) return _bundlePromises[name];
     const b = DATA_BUNDLES[name];
     if (!b) return Promise.resolve(true);
-    return (_bundlePromises[name] = Promise.all(b.files.map(loadScriptOnce)).then(
+    b.done = 0;
+    const step = () => {
+      b.done = (b.done || 0) + 1;
+      (_bundleWatch[name] || []).slice().forEach((fn) => { try { fn(); } catch (e) {} });
+    };
+    return (_bundlePromises[name] = Promise.all(b.files.map(
+      // count a file whichever way it settles: a bar that stalls on a failed file says "still loading"
+      // about a bundle that has already given up, where the caller's own failure branch is about to paint
+      (f) => loadScriptOnce(f).then((v) => { step(); return v; }, (e) => { step(); throw e; })
+    )).then(
       () => { if (b.after) b.after(); b.ready = true; return true; },
       () => { _bundlePromises[name] = null; return false; }
     ));
   }
   function dataReady(name) { const b = DATA_BUNDLES[name]; return !!(b && b.ready); }
+  /* THE BAR ITSELF. Determinate or nothing: an indeterminate sweep says "something is happening", which
+     the spinner beside it already says, and the request was for how much progress has been MADE. So a
+     bundle set with fewer than two files renders no bar at all and keeps the spinner alone. */
+  function dlBarHTML(names) {
+    const total = bundleFileCount(names);
+    if (total < 2) return "";
+    return '<div class="dl-bar" id="dlBar" role="progressbar" aria-label="Loading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i style="width:0%"></i></div>';
+  }
+  // draws `names`' progress into whatever `dlBarHTML` put in `host`, and keeps it in step until it is gone
+  function wireDlBar(host, names) {
+    const bar = host && host.querySelector("#dlBar");
+    if (!bar) return () => {};
+    const total = bundleFileCount(names), fill = bar.querySelector("i");
+    const paint = () => {
+      if (!bar.isConnected) { off(); return; }   // the placard was replaced — stop holding a dead node
+      const pct = Math.min(100, Math.round((bundleDoneCount(names) / (total || 1)) * 100));
+      fill.style.width = pct + "%";
+      bar.setAttribute("aria-valuenow", String(pct));
+    };
+    const off = watchBundles(names, paint);
+    paint();
+    return off;
+  }
   // run once the browser is idle, so a background fetch never competes with first paint
   function whenIdle(fn) {
     if (window.requestIdleCallback) requestIdleCallback(fn, { timeout: 2500 });
@@ -11962,6 +12467,10 @@
      index.html ships the home-page values as the static baseline (link-preview crawlers generally
      don't run JS, so that baseline is what most of them will see); this keeps them in step for
      everything that does — the tab strip, history, bookmarks and in-app share sheets. */
+  /* The routes only an editor may reach. It is a LIST rather than a test on the page, because three
+     things read it — the route guard, the nav's own colouring and `applyMode` — and a fourth will be
+     added by somebody who has never read this. */
+  const ADMIN_ROUTES = ["admin", "warofages"];
   const PAGE_META = {
     home:      ["Folio — a study companion", "Spaced-repetition flashcards for history, daily games and an interactive atlas."],
     decks:     ["Collections — Folio", "Browse Folio's collections and decks, and pick what to review each day."],
@@ -11973,6 +12482,7 @@
     account:   ["Account — Folio", "Your study progress, statistics and badges."],
     glossary:  ["Glossary discovered — Folio", "Every glossary term you have opened while studying."],
     browse:    ["Card browser — Folio", "Search every card you could study by state, flag, deck, tag or how often you have forgotten it."],
+    warofages: ["War of Ages — Folio", "A game in the making. Not yet open to readers."],
     settings:  ["Settings — Folio", "Themes, study options, language and your Atlas home location."],
     challenge: ["Multiple Choice — Folio", "Today's five-question history quiz."],
     chrono:    ["Timeline — Folio", "Put today's historical events into the right order."],
@@ -12012,7 +12522,12 @@
     // leaving study ends the session the reload-record describes — one choke point, so no page has to
     // remember to tidy up after itself (a language switch repaints through render(), which is not this)
     if (name !== "study") clearStudySession();
-    if (name === "admin" && !isAdmin()) name = "home";
+    // the hold belongs to the trip between the study page and the editor; going anywhere else ends it
+    if (name !== "admin" && name !== "study") studyHold = null;
+    /* An admin-only route is refused HERE and not in the page, so a deep link, a Back and a stray
+       `route()` are all covered by one line. `warofages` joins `admin`: the tab is hidden for everybody
+       else (applyMode), but a hidden tab is not a guard — the address is typeable. */
+    if (ADMIN_ROUTES.indexOf(name) >= 0 && !isAdmin()) name = "home";
     current = { name, params: params || {} };
     // #deck/<slug> is a shareable address, so the slug rides in the hash (the same shape as #map/<year>/<slug>)
     location.hash =
@@ -12261,7 +12776,8 @@
   function flipMove(els, mutate, opts) {
     const list = [].slice.call(els || []).filter(Boolean);
     const o = opts || {};
-    if (prefersReducedMotion() || !list.length || typeof list[0].animate !== "function") { mutate(); return; }
+    if (prefersReducedMotion() || !list.length || typeof list[0].animate !== "function") { mutate(); return []; }
+    const out = [];
     const first = new Map();
     list.forEach((el) => first.set(el, el.getBoundingClientRect()));
     mutate();
@@ -12272,29 +12788,51 @@
       const sx = o.scale ? a.width / b.width : 1, sy = o.scale ? a.height / b.height : 1;
       if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5 && Math.abs(sx - 1) < 0.01 && Math.abs(sy - 1) < 0.01) return;
       try {
-        el.animate(
+        const an = el.animate(
           [{ transform: "translate(" + dx + "px," + dy + "px) scale(" + sx + "," + sy + ")" }, { transform: "none" }],
           { duration: o.duration || 260, easing: o.easing || "cubic-bezier(.22,.61,.36,1)", composite: "add" }
         );
+        if (an) out.push(an);
       } catch (e) {}
     });
+    return out;
   }
   /* Animate an element between two CONTENT heights across a change that alters them. The height is
      measured on both sides and animated explicitly, because `height:auto` is not an animatable value and
      a container that snaps while its contents slide reads worse than either moving alone. */
   function flipHeight(el, mutate, dur, easing) {
-    if (!el || prefersReducedMotion() || typeof el.animate !== "function") { mutate(); return; }
+    if (!el || prefersReducedMotion() || typeof el.animate !== "function") { mutate(); return null; }
     const from = el.getBoundingClientRect().height;
     mutate();
     const to = el.getBoundingClientRect().height;
-    if (Math.abs(from - to) < 1) return;
+    if (Math.abs(from - to) < 1) return null;
     try {
-      el.animate([{ height: from + "px" }, { height: to + "px" }],
+      return el.animate([{ height: from + "px" }, { height: to + "px" }],
         { duration: dur || 260, easing: easing || "cubic-bezier(.22,.61,.36,1)" });
     } catch (e) {}
+    return null;
   }
 
   const THEMES = ["folio", "synth", "arcade", "academy", "marble", "gazette"];
+  /* id, name, one-line description, and the three colours the tiny mockup is drawn in. It lives beside
+     THEMES rather than in PAGES.settings because three places read it now — the picker, the chest reveal
+     and the admin Themes tab — and a second copy is how a theme comes to be named two different things. */
+  const THEME_OPTS = [
+    ["folio", "Folio", "Editorial serif", "#36357A", "#C8453C", "#F6F5F1"],
+    ["synth", "Synth", "Neon", "#7C2DFF", "#FF2D7A", "#F2EEFB"],
+    ["arcade", "Arcade", "16-bit console", "#0968C4", "#C98E06", "#EDF3F7"],
+    ["academy", "Academy", "Formal faculty", "#16305B", "#8E2233", "#F5F0E4"],
+    ["marble", "Marble", "Marble &amp; bronze", "#8C6A3F", "#7E2F27", "#F2F0EA"],
+    ["gazette", "Gazette", "1940s newsprint", "#1D1C1A", "#B5271D", "#DAD8CF"],
+  ];
+  const THEME_BY_ID = {};
+  THEME_OPTS.forEach((t) => { THEME_BY_ID[t[0]] = t; });
+  function themeName(id) { return (THEME_BY_ID[id] && THEME_BY_ID[id][1]) || id; }
+  // the tiny specimen: paper, a title bar, two lines of text and an accent dot, in the theme's own colours
+  function themeMockHTML(t) {
+    return '<span class="theme-mock" style="--tm-a:' + t[3] + ';--tm-b:' + t[4] + ';--tm-p:' + t[5] + '" aria-hidden="true">' +
+      '<i class="tm-bar"></i><i class="tm-line"></i><i class="tm-line short"></i><i class="tm-dot"></i></span>';
+  }
   /* Reading-text size (Aug 2026, on request). `--fs` is a multiplier the READING surfaces are written
      against — a card's question and background, a glossary popup, a place panel on the Atlas — and nothing
      else. It is deliberately not a whole-site zoom: styles.css sizes 522 things in px, and the shell's
@@ -12377,11 +12915,22 @@
       else if (mq.addListener) mq.addListener(onScheme);
     }
   } catch (e) {}
+  /* A theme has to be OWNED since Aug 2026 — five of the six are what a chest gives (see
+     COLLECTIBLE_THEMES). The gate is here rather than only in the picker, so a stale hash, an older build
+     or a restored save cannot put a reader in a theme they have not unlocked; `themeGrandfather` at boot
+     is what keeps anybody already wearing one.
+     `S.theme` is the same value mirrored into the SYNCED blob, because a friend's name banner on the
+     account page is drawn in the theme its owner wears — the theme is how the account is presented to
+     others, not only a preference for this device. `S.settings.theme` stays the device's own copy, so a
+     reader signed in on two machines can wear a different one on each and the friend view shows whichever
+     they last set. */
   function setTheme(theme) {
-    if (!THEMES.includes(theme)) return;
+    if (!THEMES.includes(theme) || !themeUnlocked(theme)) return;
     S.settings.theme = theme;
+    S.theme = theme;
     applyTheme();
     save();
+    themePushSoon();
   }
   function setFontSize(size) {
     if (FONT_SIZES.indexOf(size) < 0) return;
@@ -12799,14 +13348,34 @@
        Night-mode row uses under "Match my device": a reader needs to see that the site knows the setting
        is off, and a row that vanishes and comes back reads as a page that failed to draw. Never
        pointer-events:none — a press has to be able to say why. */
-    const swRow = (act, label, noteOn, noteOff, on, locked) =>
+    /* WHERE A SETTING COMES FROM (Aug 2026, with the cascade — see entryChain). A cascade the reader
+       cannot SEE reads as a control that did nothing: a row whose value was found on a deck above this one
+       says whose it is, and throwing it here writes an override and says that instead. The span is emitted
+       even when there is nothing to say, hidden, so the flip handler has somewhere to write. */
+    const fromMark = (keys) => {
+      const src = deckOptFrom(id, keys);
+      const txt = !src ? "" : src.own ? "Set here" : "From " + entryInfo(src.from).title;
+      return '<span class="dm-from' + (src && !src.own ? " dm-inherit" : "") + '"' +
+             (txt ? "" : " hidden") + ">" + esc(txt) + "</span>";
+    };
+    const swRow = (act, label, noteOn, noteOff, on, locked, mark) =>
       '<div class="dm-item dm-switch' + (locked ? " row-locked" : "") + '" data-act="' + act + '">' +
-        '<div class="dm-switchmain"><b>' + esc(label) + "</b><small>" + esc(on ? noteOn : noteOff) + "</small></div>" +
+        '<div class="dm-switchmain"><b>' + esc(label) + "</b><small>" + esc(on ? noteOn : noteOff) + "</small>" +
+          (mark || "") + "</div>" +
         '<div class="switch' + (on ? " on" : "") + (locked ? " switch-locked" : "") +
           '" role="switch" tabindex="0" aria-label="' + esc(label) +
           '" aria-checked="' + (on ? "true" : "false") + '"></div>' +
       "</div>";
-    const random = deckRandom(id);
+    /* THE CYCLER. A real <button>, so Enter and Space come free and it needs no role of its own — which is
+       why it must be excluded from the generic command handler at the foot of this sheet, or one press
+       would step the order AND be read as a command. */
+    const cyRow = (act, label, note, value, mark) =>
+      '<button type="button" class="dm-item dm-cycle" data-act="' + act + '">' +
+        '<div class="dm-switchmain"><b>' + esc(label) + "</b><small>" + esc(note) + "</small>" +
+          (mark || "") + "</div>" +
+        '<span class="dm-cyval">' + esc(value) + "</span>" +
+      "</button>";
+    const order = deckOrderMode(id);
     const variety = deckVariety(id);
     // shown only where something in this entry can actually speak — see entryHasSpeech
     const canSpeak = entryHasSpeech(id), autoSpeak = deckAutoSpeak(id);
@@ -12817,6 +13386,8 @@
        sheet, so it answers for a deck, for a community deck, for the Card-of-the-day list and for the
        pooled review alike. */
     const ids = entryCardIds(id), total = ids.length, studied = ids.filter(isSeen).length;
+    // the nearest row above this one, and whatever this one has been given of its own — see clearDeckOverrides
+    const own = deckOwnOverrides(id), followFrom = own.length ? (entryChain(id)[1] || null) : null;
     /* A GROUP is not in `S.active` — it has no cards of its own and the review iterates the decks inside
        it, not the container round them — so the three daily-allowance rows are left off its sheet rather
        than shown doing nothing to the pooled review. What it DOES have is a session of its own, which is
@@ -12843,24 +13414,32 @@
         (isReview ? '<span class="dm-where">Applies to every added deck</span>'
                   : (info.parent ? '<span class="dm-where">' + esc(info.parent) + "</span>" : "")) + "</div>" +
         (total ? '<span class="dm-studied">' + studied + "/" + total + " studied</span>" : "") + "</div>" +
-      swRow("order", "Random order", "The session is shuffled each day",
-        "Cards come up in their deck order, oldest history first", random) +
+      cyRow("order", "Review order", DECK_ORDER_NOTE[order], DECK_ORDER_LABEL[order],
+        fromMark(["order", "random"])) +
       swRow("variety", "Question variety",
         "Each card asks one of its phrasings at random",
-        "Every card always asks its first phrasing", variety) +
+        "Every card always asks its first phrasing", variety, false, fromMark(["variety"])) +
       (canSpeak ? swRow("speak", "Read aloud automatically",
         "The answer is spoken as soon as it is revealed",
-        "Press the speaker on a card to hear it", autoSpeak) : "") +
+        "Press the speaker on a card to hear it", autoSpeak, false, fromMark(["autoSpeak"])) : "") +
       // only where something in this entry can HAVE siblings — a curated card is one card, and a switch that
       // cannot change anything is the thing the read-aloud row's own note warns against
       (entryHasSiblings(id) ? swRow("pair", "Both directions together",
         "The day's new words arrive both ways, shuffled",
-        "Each direction is introduced in its own pass, forward first", deckPairNew(id)) : "") +
+        "Each direction is introduced in its own pass, forward first", deckPairNew(id), false,
+        fromMark(["pairNew"])) : "") +
       (entryHasSiblings(id) ? swRow("bury", "Bury siblings",
         deckPairNew(id) ? "Off while both directions arrive together"
                         : "A note's other cards wait until tomorrow",
         "Every card of a note can come up the same day", deckBurySiblings(id),
-        deckPairNew(id)) : "") +
+        deckPairNew(id), fromMark(["burySiblings"])) : "") +
+      /* THE WAY BACK OUT OF AN OVERRIDE, offered only where there is both something above this row and
+         something set on it — a row already following its deck has nothing to follow. It clears the
+         inheritable keys and leaves the rest of the entry alone, which is `clearDeckLimits`' own rule one
+         drawer over: the daily limits, the colour and the day it was skipped are not settings this
+         cascade governs. */
+      (followFrom ? item("follow", "Follow " + entryInfo(followFrom).title,
+        "Use its settings here instead of the " + own.length + " set on this row") : "") +
       /* THE EVERYDAY WAY INTO THE BROWSER. The account page has the other one, at the head of the reader's
          record where the rest of their statistics live — but the moment somebody wants to find a card is
          usually the moment they are looking at their decks, and this sheet is one press from any of them.
@@ -12915,6 +13494,30 @@
         bnote.textContent = locked ? "Off while both directions arrive together"
           : on ? "A note's other cards wait until tomorrow" : "Every card of a note can come up the same day";
       };
+      /* A row throwing its own switch has stopped inheriting, so its mark has to say so at once — the
+         sheet does not repaint (render() closes it), and a row still reading "From Mandarin Chinese"
+         beside a value this row has just set is two statements about one setting on one screen. */
+      const markOwn = (rowEl) => {
+        const m = rowEl.querySelector(".dm-from");
+        if (!m) return;
+        m.textContent = "Set here";
+        m.classList.remove("dm-inherit");
+        m.removeAttribute("hidden");
+      };
+      /* THE CYCLER steps and wraps, and stays put like the switches beside it. It writes through
+         `setDeckOrderMode`, which is what keeps the review's own `S.settings.reviewRandom` in step. */
+      const cyEl = ov.querySelector('.dm-cycle[data-act="order"]');
+      if (cyEl) {
+        const step = () => {
+          const next = DECK_ORDERS[(DECK_ORDERS.indexOf(deckOrderMode(id)) + 1) % DECK_ORDERS.length];
+          setDeckOrderMode(id, next);
+          cyEl.querySelector(".dm-cyval").textContent = DECK_ORDER_LABEL[next];
+          cyEl.querySelector("small").textContent = DECK_ORDER_NOTE[next];
+          if (id !== REVIEW_ENTRY) markOwn(cyEl);   // the review writes the global, so it never inherits
+          toast("Review order: " + DECK_ORDER_LABEL[next].toLowerCase());
+        };
+        cyEl.addEventListener("click", step);
+      }
       ov.querySelectorAll(".dm-switch").forEach((rowEl) => {
         const sw = rowEl.querySelector(".switch"), note = rowEl.querySelector("small");
         const flip = () => {
@@ -12927,16 +13530,13 @@
           const on = !sw.classList.contains("on");
           sw.classList.toggle("on", on);
           sw.setAttribute("aria-checked", on ? "true" : "false");
+          markOwn(rowEl);
           if (rowEl.dataset.act === "pair") {
             setDeckPairNew(id, on);
             note.textContent = on ? "The day's new words arrive both ways, shuffled"
                                   : "Each direction is introduced in its own pass, forward first";
             syncBury();
             toast(on ? "Both directions together" : "One direction at a time");
-          } else if (rowEl.dataset.act === "order") {
-            setDeckRandom(id, on);
-            note.textContent = on ? "The session is shuffled each day" : "Cards come up in their deck order, oldest history first";
-            toast(on ? "Review order: random" : "Review order: ordered");
           } else if (rowEl.dataset.act === "bury") {
             setDeckBurySiblings(id, on);
             note.textContent = on ? "A note's other cards wait until tomorrow" : "Every card of a note can come up the same day";
@@ -12963,9 +13563,15 @@
         ov.querySelectorAll(".dm-swatch").forEach((o) => o.classList.toggle("on", o === sw));
         repaintReviewHues();
       }));
-      ov.querySelectorAll(".dm-item:not(.dm-switch):not(.dm-colors)").forEach((b) => b.addEventListener("click", () => {
+      ov.querySelectorAll(".dm-item:not(.dm-switch):not(.dm-colors):not(.dm-cycle)").forEach((b) => b.addEventListener("click", () => {
         const act = b.dataset.act;
         if (act === "browse") { close(); route("browse"); return; }
+        if (act === "follow") {
+          clearDeckOverrides(id);
+          close();
+          toast("Following " + entryInfo(followFrom).title);
+          return;
+        }
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
         if (act === "rename") {
@@ -13905,9 +14511,9 @@
     {
       route: "home",
       title: "Nothing is scheduled until you choose it",
-      body: "Folio does not pick your subjects. You add decks, and only those decks are dealt.<p>This tab under " +
+      body: "Folio does not pick your subjects. You add decks, and only those decks are dealt.<p>This button under " +
         "the banner is the way to them — it is the only route to the collections anywhere on the site.</p>",
-      target: [".rv-lip", "#b-addDecks"],
+      target: [".home-collections", "#b-addDecks"],
     },
     {
       route: "decks",
@@ -14339,6 +14945,29 @@
      rather than as two animations. One clock, one curve. */
   const GB_FOLD_EASE = "cubic-bezier(.2,.7,.2,1)";
   let gbCompact = null;
+  /* The fold's in-flight animations, so a second press can end them rather than layering a second set
+     over the first. Held here rather than derived from document.getAnimations(), which would also sweep
+     up the page entrance, the reveal and the marker panel. */
+  let _gbAnims = [];
+  let _gbFoldT = null;
+  function gbStopFold() {
+    _gbAnims.forEach((a) => { try { a.cancel(); } catch (e) {} });
+    _gbAnims = [];
+    if (_gbFoldT) { clearTimeout(_gbFoldT); _gbFoldT = null; }
+    document.body.classList.remove("gb-folding");
+  }
+  /* …and while it runs, the bar's CONTENTS do not hit-test at all (body.gb-folding — one rule in
+     styles.css). That is the other half of the jam above and the half that cannot be reasoned around: a
+     press landing inside a subtree whose boxes are mid-animation is what leaves Chromium's hit-testing
+     stale, and no amount of cancelling afterwards puts it back. Made inert for the fold's own 280ms, the
+     press lands on #gradebar — a static box with no listener — and is simply swallowed, which is what a
+     tap into a control that is still moving should do anyway. The CHEVRON is outside .gradebar-inner and
+     stays live, so the reader can keep folding; and gbStopFold clears it early whenever a press or a card
+     change ends the fold before its time. */
+  function gbFoldingFor(ms) {
+    document.body.classList.add("gb-folding");
+    _gbFoldT = setTimeout(() => { _gbFoldT = null; document.body.classList.remove("gb-folding"); }, ms);
+  }
   function gbReadCompact() {
     if (gbCompact == null) { try { gbCompact = localStorage.getItem(GB_H_KEY) === "1"; } catch (e) { gbCompact = false; } }
     return gbCompact;
@@ -14368,14 +14997,31 @@
       });
     };
     if (animate && wrap && bar.classList.contains("show")) {
+      /* A FOLD ALREADY RUNNING IS ENDED BEFORE A NEW ONE STARTS, and this is the whole of the fix for a
+         reported jam (Aug 2026: "sometimes after closing/opening it a few times I can no longer press the
+         buttons"). Reproduced: a fold FLIPs about twenty elements, and nothing cancelled the previous
+         set — so tapping the chevron again while one was in flight left up to 53 concurrent transform
+         animations on the four grade buttons and the row around them. While those run, Chromium's
+         hit-testing and getBoundingClientRect disagree: elementFromPoint at a button's own centre
+         returns #gradebar (or nothing at all), so a real tap lands on the bar's background and the grade
+         never fires — and once the reader has tapped into that gap the bar can stay un-hittable with no
+         animation left running at all. Every count reads healthy throughout: the buttons are there, they
+         are the right size, in the right place, with their listeners attached.
+         Cancelling is right rather than merely safe: these animations are fill:none, so a cancelled one
+         reverts to the element's own layout position at once — which is exactly where the reader can see
+         the button, and where the press has to land. */
+      gbStopFold();
+      // …but not under reduced motion, where nothing moves and the bar must stay live throughout
+      if (!prefersReducedMotion()) gbFoldingFor(GB_FOLD_MS + 40);
       // the grade buttons AND the row of controls: the buttons change row and size, the controls change row
       const parts = [].concat([].slice.call(wrap.children), [].slice.call(wrap.querySelectorAll(".grade")));
-      flipHeight(
+      const h = flipHeight(
         bar.querySelector(".gradebar-inner"),
-        () => flipMove(parts, apply, { duration: GB_FOLD_MS, easing: GB_FOLD_EASE }),
+        () => { _gbAnims = flipMove(parts, apply, { duration: GB_FOLD_MS, easing: GB_FOLD_EASE }) || []; },
         GB_FOLD_MS, GB_FOLD_EASE
       );
-    } else apply();
+      if (h) _gbAnims.push(h);
+    } else { gbStopFold(); apply(); }
     if (persist) { try { gbCompact ? localStorage.setItem(GB_H_KEY, "1") : localStorage.removeItem(GB_H_KEY); } catch (e) {} }
   }
   function gbWireResize(fold) {
@@ -14396,6 +15042,15 @@
       gradeBarEl.innerHTML = '<button class="gb-fold" id="gbFold" type="button" aria-expanded="true" aria-label="Shrink the grade buttons" title="Shrink the grade buttons">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>' +
         '</button><div class="gradebar-inner"></div>';
+      /* …and a press anywhere in the bar ends a fold that is still running, BEFORE the press is
+         hit-tested. Capture phase on the bar itself: pointerdown is the first thing a tap does, so
+         cancelling here puts every button back at its layout position for the pointerup that follows.
+         The chevron is exempt — gbSetCompact cancels for itself, and cancelling here as well would end
+         the fold this very press is asking for. */
+      gradeBarEl.addEventListener("pointerdown", (e) => {
+        if (e.target && e.target.closest && e.target.closest(".gb-fold")) return;
+        gbStopFold();
+      }, true);
       document.body.appendChild(gradeBarEl);
       gbWireResize(gradeBarEl.querySelector("#gbFold"));
     }
@@ -14404,6 +15059,7 @@
   function showGradeBar(innerHTML, onGrade) {
     const bar = ensureGradeBar();
     const inner = bar.querySelector(".gradebar-inner");
+    gbStopFold();   // the elements a fold is animating are about to be replaced
     inner.innerHTML = innerHTML;
     inner.querySelectorAll(".grade").forEach((b) =>
       b.addEventListener("click", () => onGrade(b.dataset.g))
@@ -14413,6 +15069,7 @@
     requestAnimationFrame(() => bar.classList.add("show"));
   }
   function hideGradeBar() {
+    gbStopFold();
     document.body.classList.remove("grading");
     if (gradeBarEl) {
       gradeBarEl.classList.remove("show");
@@ -14448,7 +15105,7 @@
      device, `pointerType === "pen"` draws and `"touch"` is handed back to the browser to scroll with.
 
      It is DETECTED, not configured — the request is that the site recognise a stylus — but it is not
-     irreversible: the panel grows a "Stylus only" row the moment one is seen, so a reader who wants to
+     irreversible: the panel grows a "Stylus mode" row the moment one is seen, so a reader who wants to
      go back to drawing with a finger can, and the choice is remembered. Detection is remembered too
      (device-local, like where the marker sits and how tall the Atlas sheet is): a pen that has touched
      this screen once will touch it again, and asking the reader to re-teach the site every reload is
@@ -14513,6 +15170,19 @@
   /* The custom colour beside the five presets. It is device-local and NOT in S: a marker colour is a fact
      about this device's screen, like where the marker sits. One per palette — a highlighter yellow chosen
      for marking is not a pen colour — kept in a single record so both survive a reload. */
+  /* THE BRUSH WIDTH IS REMEMBERED (Aug 2026, on request). It was module state, so it survived a session
+     and not a reload — and a reader who works at the fine width had to reach for it again every visit,
+     which is the same friction the stylus mode and the custom colour are already spared. Device-local
+     like both of those, and like where the marker sits: how wide somebody draws is a fact about the hand
+     and the screen, not something the synced progress blob should carry between devices.
+     It stores the WIDTH and not the tool: a size click also puts the pen DOWN (the sizes ARE the pen), and
+     restoring that would have the marker start drawing over a page the reader has only just opened. */
+  const WB_SIZE_KEY = "folio_wb_size_v1";
+  function wbLoadSize() {
+    try { const v = +localStorage.getItem(WB_SIZE_KEY); if (WB_SIZES.indexOf(v) >= 0) WB.size = v; } catch (e) {}
+  }
+  function wbSaveSize() { try { localStorage.setItem(WB_SIZE_KEY, String(WB.size)); } catch (e) {} }
+  wbLoadSize();
   const WB_CUSTOM_KEY = "folio_wb_custom_v1";
   const WB_CUSTOM_DEF = { pen: "#7A4FC2", hl: "#B9FF6A" };
   let wbCustom = null;
@@ -14890,7 +15560,7 @@
               stays, because detection is remembered and a reader who wants to go back to drawing with a
               finger needs a way to say so. It is marked with `wb-on` and NOT `sel` — see refreshModes. */""}
         <div class="wb-row wb-stylus-row" hidden>
-          <button class="wb-btn wb-stylus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19 3 21l2-9L15.5 1.5a2.1 2.1 0 0 1 3 3z"/><path d="m13.5 3.5 4 4"/></svg>Stylus only</button>
+          <button class="wb-btn wb-stylus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19 3 21l2-9L15.5 1.5a2.1 2.1 0 0 1 3 3z"/><path d="m13.5 3.5 4 4"/></svg>Stylus mode</button>
         </div>
         <div class="wb-row">
           <button class="wb-btn wb-undo" aria-label="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Undo</button>
@@ -15043,6 +15713,7 @@
       b.addEventListener("click", () => {
         const s = +b.dataset.s, same = WB.size === s;
         WB.size = s;
+        wbSaveSize();
         if (WB.enabled && (WB.mode === "hl" || WB.mode === "erase")) { /* width only */ }
         else if (WB.enabled && WB.mode === "pen" && same) wbSetEnabled(false);
         else { WB.mode = "pen"; WB.color = WB.penColor; wbSetEnabled(true); }
@@ -15306,8 +15977,18 @@
        very words a reader most wants to underline. Tap it and it speaks; draw across it and it takes ink.
        `.uc-tts` sets `role="button"` on itself, which is exactly why CTL_SEL does not simply widen to
        `[role="button"]` — a card's picture is one of those too, and drawing on a diagram is the point of
-       having a marker at all. */
-    const TIP_SEL = ".ttip, .uc-tts";
+       having a marker at all.
+       A FOOTNOTE MARKER, THE NUMBER THAT JUMPS BACK, AND A PICTURE JOINED IT (Aug 2026, on request: "with
+       the marker and stylus mode selected, source citation numbers and images are still clickable, all
+       buttons should still be clickable"). None of the three is a real control — a marker is a `<sup>` and
+       a picture a `<figure>`, each promoted with `role="button"` after the fact — so CTL_SEL could not see
+       them, and with the pen down the apparatus stopped working: a reader could underline a claim and not
+       follow it to the work it rests on.
+       They are TIP_SEL targets rather than CTL_SEL ones for the reason `.uc-tts` is, and the picture is
+       the case that makes it plain: claimed at pointerdown, a picture could not be drawn on at all, which
+       is exactly what the comment above says a marker is for. Here a tap opens it and a line across it is
+       a line across it. */
+    const TIP_SEL = ".ttip, .uc-tts, sup.fn, .src-n.src-back, .card-img";
     const hitUnder = (e, sel) => {
       const prev = canvas.style.pointerEvents;
       canvas.style.pointerEvents = "none";
@@ -16241,6 +16922,42 @@
   }
   function ownsArtefact(id) { return !!(S.artefacts && S.artefacts[id]); }
   function chestCount() { return Math.max(0, (S.chests | 0)); }
+
+  /* ---------- THE SECOND KIND OF THING A CHEST HOLDS: A THEME (Aug 2026, on request) ----------
+     "Besides artifacts, we will add a second type of item users may occasionally collect: Themes."
+     Five decisions, and the first two were taken with the reader before a line was written.
+     · **THE FIVE NON-`folio` THEMES ARE THE FIRST BATCH.** `folio` is the default everyone has and is
+       never a collectible — a site whose own look has to be won is a site that starts broken.
+     · **A READER ALREADY WEARING ONE KEEPS IT**, grandfathered at boot by `themeGrandfather`. A feature
+       that takes away a theme somebody chose is a punishment rather than a reward, and there is no
+       honest way to tell "chose it last year" from "should not have it".
+     · **THE ROLL PREFERS AN ARTEFACT.** `THEME_DROP` is the chance a chest hands back a theme WHEN there
+       is a locked one left, and it is deliberately low: there are five of them against a hundred
+       artefacts, so at any higher rate a reader would have the set inside a fortnight and the Reliquary —
+       which is what a chest is mostly for — would go quiet while they did.
+     · **A THEME IS NEVER A DUPLICATE**, exactly as an artefact is not: the pool is what is still locked,
+       and when it empties the chest simply rolls an artefact. So the two kinds cannot starve each other.
+     · **AND IT IS SYNCED** (`S.themes` in PROGRESS_FIELDS): a theme is something the reader earned, so
+       the phone and the laptop agree about what they own — and `S.theme` beside it is what a FRIEND's
+       banner is drawn in, which is the other half of what was asked for. */
+  const COLLECTIBLE_THEMES = THEMES.filter((t) => t !== "folio");
+  const THEME_DROP = 0.14;
+  function ownedThemes() { const o = S.themes; return (o && typeof o === "object") ? o : (S.themes = {}); }
+  function themeUnlocked(id) { return id === "folio" || !!ownedThemes()[id]; }
+  function lockedThemes() { return COLLECTIBLE_THEMES.filter((t) => !ownedThemes()[t]); }
+  function unlockTheme(id) {
+    if (id === "folio" || COLLECTIBLE_THEMES.indexOf(id) < 0) return false;
+    if (ownedThemes()[id]) return false;
+    ownedThemes()[id] = Date.now();
+    return true;
+  }
+  /* Run once at boot and again after a sign-in adopts somebody's progress: whatever theme is on screen is
+     a theme this reader owns. It never LOCKS anything — checkAchievements' rule, one feature over. */
+  function themeGrandfather() {
+    const t = S.settings && S.settings.theme;
+    if (t && t !== "folio" && COLLECTIBLE_THEMES.indexOf(t) >= 0 && !ownedThemes()[t]) ownedThemes()[t] = 0;
+    if (!S.theme || THEMES.indexOf(S.theme) < 0) S.theme = (t && THEMES.indexOf(t) >= 0) ? t : "folio";
+  }
   /* THREE THINGS GRANT A CHEST, and they are deliberately in three different places: a LEVEL
      (announceLevelUps, which also opens it — there the chest is the celebration), a BADGE
      (checkAchievements, which queues it — there the toast is), and the daily sweep below. */
@@ -16278,8 +16995,34 @@
     if (!a) return;
     if (!S.artefacts || typeof S.artefacts !== "object") S.artefacts = {};
     S.artefacts[a.id] = Date.now();
+    spendChest();
+  }
+  /* One place spends a chest, so the counter the badges read cannot drift from the one the banner reads.
+     `chestsOpened` only ever goes up — it is a lifetime tally, not a balance. */
+  function spendChest() {
     S.chests = Math.max(0, chestCount() - 1);
+    S.chestsOpened = (S.chestsOpened | 0) + 1;
     save();
+    /* The collector's badges are tested HERE rather than waiting for the next card, which is where
+       `checkAchievements` is otherwise reached from: opening a chest is exactly the moment one of them is
+       earned, and being told about it three cards later reads as the site having lost count. It grants a
+       chest of its own, which cannot recurse — that path adds to `S.chests` and never spends one. */
+    checkAchievements();
+  }
+  function claimTheme(id) {
+    unlockTheme(id);
+    spendChest();
+  }
+  /* WHAT IS IN THIS CHEST, decided once and read twice — the overlay asks before the lid is tapped (to
+     know whether there is anything left at all) and again on the tap. Both go through here, so the two
+     cannot disagree about whether a chest is empty. Returns null only when the reader has everything. */
+  function rollChestItem() {
+    const locked = lockedThemes();
+    const art = rollArtefact();
+    if (locked.length && (!art || Math.random() < THEME_DROP)) {
+      return { kind: "theme", theme: locked[Math.floor(Math.random() * locked.length)] };
+    }
+    return art ? { kind: "artefact", artefact: art } : null;
   }
 
   /* ---------- the showcase: up to four pinned to the profile ---------- */
@@ -16368,12 +17111,17 @@
        scrolling to that section, for two reasons — it is the same list wherever the showcase is rendered,
        including a page that carries no inventory section at all, and a reader who came to look at four
        artefacts is asking to see more of them, not to be moved somewhere else on a long page.
-       It appears only once there is something behind it: "See all 0" is a control that does nothing. */
+       It appears only once there is something behind it: a control over an empty collection does nothing.
+       IT IS NAMED FOR WHERE IT LEADS (Aug 2026, on request — it read "See all N artefacts"). The inventory
+       had a section of its own further down this page as well, so the reader met the same list twice under
+       two names; that section is gone from the signed-in view and this is the only way to the whole
+       collection, which makes naming it after the place the right way round. The count moves into the
+       title, where it is still a fact about the collection and no longer the button's own name. */
     const n = ownedArtefacts(prog).length;
     const head = n
       ? '<div class="ar-schead"><button type="button" class="ghost-btn ar-all" data-arall="1" title="' +
-        (own ? "Everything you have collected" : "Everything this scholar has collected") + '">' +
-        "See all " + n + " artefact" + (n === 1 ? "" : "s") + "</button></div>"
+        (own ? "Everything you have collected" : "Everything this scholar has collected") +
+        " — " + n + " artefact" + (n === 1 ? "" : "s") + '">See Reliquary</button></div>'
       : "";
     return head + '<div class="showcase">' + cells + '</div>' +
       (own ? '<p class="ar-note">Open an artefact below to pin it here — up to ' + SHOWCASE_MAX + ', shown to anyone who visits your profile.</p>' : "");
@@ -16620,7 +17368,7 @@
     closeChestPop();
     const ov = document.createElement("div");
     ov.className = "chest-pop";
-    const nothingLeft = !rollArtefact();
+    const nothingLeft = !rollChestItem();
     ov.innerHTML =
       '<div class="chest-stage" role="dialog" aria-live="polite">' +
         (opts.level ? '<div class="chest-lvl">Level ' + esc(String(opts.level)) + ' reached</div>' : "") +
@@ -16629,7 +17377,7 @@
           '<div class="chest-rays" aria-hidden="true"></div>' +
         '</div>' +
         '<div class="chest-hint" id="chestHint">' + (nothingLeft
-          ? "You have found every artefact Folio holds. This chest will keep until there are more."
+          ? "You have found everything Folio holds — every artefact and every theme. This chest will keep until there is more."
           : "Tap the chest") + '</div>' +
         (chestCount() > 1 ? '<div class="chest-more" id="chestMore">' + chestCount() + ' chests waiting</div>' : "") +
         '<div class="chest-reveal" id="chestReveal" hidden></div>' +
@@ -16659,9 +17407,15 @@
     btn.addEventListener("click", () => {
       if (opening) return;
       opening = true;
-      const a = rollArtefact();
-      if (!a) { close(); return; }
-      const r = rarityId(a);
+      const item = rollChestItem();
+      if (!item) { close(); return; }
+      const isTheme = item.kind === "theme";
+      const a = item.artefact;
+      /* A THEME OPENS AS AN EPIC, and that is a decision rather than a placeholder: the whole chest
+         animation — the shake, the burst, the confetti, the sound — is sized by rarity, and a theme has
+         none. Epic is what a thing five-of-a-kind deep should feel like, and it means a theme never
+         steals the legendary flourish that three artefacts in a hundred earn. */
+      const r = isTheme ? "epic" : rarityId(a);
       const dur = prefersReducedMotion() ? 120 : (CHEST_MS[r] || 900);
       ov.dataset.rar = r;
       ov.classList.add("opening");
@@ -16672,19 +17426,34 @@
       sfx("chest");
       if (!prefersReducedMotion()) chestConfetti(ov, r);
       setTimeout(() => {
-        claimArtefact(a);
+        if (isTheme) claimTheme(item.theme); else claimArtefact(a);
         sfx("loot-" + r);
         ov.classList.add("opened");
         const rev = ov.querySelector("#chestReveal");
         rev.hidden = false;
         rev.dataset.rar = r;
-        rev.innerHTML =
-          '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + '</span>' +
-          '<div class="chest-art">' + artefactArtHTML(a, "ar-big") + '</div>' +
-          '<h3 class="chest-name">' + esc(a.name) + '</h3>' +
-          (a.date ? '<div class="chest-meta">' + esc(a.date) + '</div>' : "") +
-          (a.origin ? '<div class="chest-meta">' + esc(a.origin) + '</div>' : "");
-        addAct("Read about it", () => { close(); openArtefactWin(a.id); });
+        if (isTheme) {
+          const t = THEME_BY_ID[item.theme] || [item.theme, item.theme, "", "#36357A", "#C8453C", "#F6F5F1"];
+          rev.innerHTML =
+            '<span class="ar-chip" data-rar="' + r + '">Theme</span>' +
+            '<div class="chest-art chest-theme">' + themeMockHTML(t) + '</div>' +
+            '<h3 class="chest-name">' + esc(t[1]) + '</h3>' +
+            '<div class="chest-meta">' + t[2] + '</div>' +
+            '<div class="chest-meta">A new look for the whole site — and for how your account appears to friends.</div>';
+          /* WEARING IT IS ONE PRESS, and it is the primary action: a theme is the only collectible on the
+             site that DOES something, and burying that behind Settings → Appearance would make it read as
+             a certificate. Keeping it is still the default — the button is offered, not applied. */
+          addAct("Wear it now", () => { setTheme(item.theme); close(); toast("Now wearing " + t[1] + "."); });
+          addAct("Keep it for later", close, true);
+        } else {
+          rev.innerHTML =
+            '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + '</span>' +
+            '<div class="chest-art">' + artefactArtHTML(a, "ar-big") + '</div>' +
+            '<h3 class="chest-name">' + esc(a.name) + '</h3>' +
+            (a.date ? '<div class="chest-meta">' + esc(a.date) + '</div>' : "") +
+            (a.origin ? '<div class="chest-meta">' + esc(a.origin) + '</div>' : "");
+          addAct("Read about it", () => { close(); openArtefactWin(a.id); });
+        }
         if (chestCount() > 0) addAct("Open another", () => { close(); openChestPop(); }, true);
         addAct("Close", close, true);
         unitizeTree(rev);
@@ -17851,19 +18620,25 @@
     const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread"), crossword: gameWonToday("crossword"), picture: gameWonToday("picture"), whatyear: gameWonToday("whatyear") };
     /* The game tiles' and the banner's marks are at module scope now (see ICON, above PAGES.home) —
        the daily "Played today" placard needs them too. */
-    /* THE DAY'S COMPLETION MARK — two shapes, not one (Aug 2026, on request).
-       A PERFECT score keeps the shining gold ribbon: it is the rarer thing and it earns the whole corner.
-       Merely HAVING PLAYED is now a small green circled check in the top-right instead of a green band
-       reading "Done!" — a ribbon is a lot of tile for a fact that only says "you have been here today",
-       and six of them across the grid read as six announcements rather than as six ticked-off games.
-       Both still carry a NAME: the ribbon has its word, and the circle an aria-label, because an
-       unlabelled patch of colour says nothing to a screen reader and little more to the eye — which is
-       the reasoning the ribbon was built on and is not weakened by the mark getting smaller. */
+    /* THE DAY'S COMPLETION MARK — two shapes in ONE PLACE (Aug 2026, on request).
+       Merely HAVING PLAYED is a small green circled check in the top-right. A PERFECT score is a shining
+       gold WAX SEAL with the same check impressed in it, in the SAME corner and at the same anchor — where
+       it used to be a diagonal ribbon reading "Perfect!" across the whole corner.
+       WHY THE SAME PLACE IS THE POINT: the two marks answer one question — how did today go — and while
+       one of them crossed the corner and the other sat inside it, a grid of nine tiles was two different
+       kinds of announcement in two different places, and the eye had to read the shape before it could
+       read the state. Same anchor, same size class, and the DIFFERENCE is the thing that differs: green
+       circle against gold wax. The seal is a fraction of the ribbon's surface and says more, because a
+       wax seal already means "sealed, finished, done properly" before a word is read.
+       Both still carry a NAME, which is what the ribbon was built for and is not weakened by the mark
+       getting smaller: each is `role="img"` with an aria-label, since a patch of colour says nothing to a
+       screen reader whatever shape it is. The check inside the seal is `aria-hidden` — the label on the
+       seal names it once, and reading a tick out twice says nothing the second time. */
     const GT_CHECK_SVG =
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
     const doneMarkHTML = (done, won) =>
       won
-        ? '<span class="gt-ribbon gr-gold"><span>Perfect!</span></span>'
+        ? '<span class="gt-seal" role="img" aria-label="Perfect today"><span class="gt-seal-face">' + GT_CHECK_SVG + "</span></span>"
         : done
           ? '<span class="gt-check" role="img" aria-label="Played today">' + GT_CHECK_SVG + "</span>"
           : "";
@@ -18064,9 +18839,13 @@
                     next level rather than as a bare number. */""}
               ${/* the day's time on cards stood here and is now under the deck list — see `timeFoot` above */""}
               ${streakChip}
-              <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
-          dueN + newN ? "Start" : "Browse collections"
-        }</span></span>
+              ${/* THE CTA IS DRAWN ONLY WHILE THERE IS WORK (Aug 2026, on request). A cleared day used to
+                    swap "Start" for a ghost "Browse collections", which is a second route to a page the
+                    Collections button under this group already names — and it named it in the one place a
+                    reader looks for what to STUDY. The banner's own click still falls through to the
+                    collections when the day is empty, so nothing that could be pressed becomes a dead
+                    no-op; only the redundant chrome goes. */""}
+              ${dueN + newN ? `<span class="cta"><span class="btn">Start</span></span>` : ""}
             </div>
             ${/* "+ New group" stood here, inside the banner, until Aug 2026 and is now under the LAST deck
                   row instead (see `newGroupTools` below) — beside the list it acts on rather than inside the
@@ -18076,17 +18855,15 @@
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`;
-    /* The way to the collections (Aug 2026, on request). It was a banner of its own under the review — a
-       second full-width block saying, at length, what one word says — and is now a small tab hanging off
-       the BOTTOM EDGE of the review group, under the list of decks it adds to. It is the LAST child of that
-       group rather than a floating overlay: the deck list is glued flush to the banner above it (see
-       .has-active in styles.css), so there is no bottom edge to hang from until the whole group has one, and
-       an absolutely-positioned lip would have to guess the list's height on every render.
-       It was PHONE-ONLY for a fortnight and now ships at EVERY width, because the Collections tab has left
-       the desktop's top bar too (on request, bringing the two pages into line): this is the ONLY route to
-       the collections anywhere on the site, so it ships in every state the review can be in, first run
-       included, and must not be gated on having decks or on a breakpoint. */
-    const addDecksLip = `<button class="rv-lip" id="b-addDecks" type="button">+ Add decks</button>`;
+    /* THE WAY TO THE COLLECTIONS IS A BUTTON OF ITS OWN, STANDING UNDER THE REVIEW GROUP (Aug 2026, on
+       request). It has been three things: a full-width banner, then a small "+ Add decks" tab hanging off
+       the BOTTOM EDGE of the group (`.rv-lip`), and now an unattached button below it. The lip said two
+       things at once and only one of them was true — "+ Add" reads as an action performed on the group it
+       is stuck to, where pressing it goes to a PAGE — so it is detached and named for where it leads.
+       It ships at EVERY width and in every state the review can be in, first run included, because the
+       Collections tab has left the desktop's top bar too: this is the ONLY route to the collections
+       anywhere on the site, so it must not be gated on having decks or on a breakpoint. */
+    const collectionsBtn = `<button class="home-collections" id="b-addDecks" type="button">Collections</button>`;
     /* THE WAY TO THE ABOUT PAGE — a quiet grey line at the foot of the home page. It was PHONE-ONLY for a
        fortnight, on the reasoning that a desktop still had an About tab in its top bar to reach the page
        with; that tab has now left the desktop too (Aug 2026, on request, bringing the two into line with
@@ -18097,21 +18874,20 @@
        having moved out of the banner a fortnight earlier; the request is to take the group function off
        the daily study block altogether, so the control goes and `promptNewGroup` with it — see the note
        where that function was defined for what deliberately STAYS, and why.
-       The footer row it shared is kept as it is rather than collapsed into the lip: `.rv-foot` is what
-       holds the lip against the group's own bottom EDGE, and the lip is held to the right of it by
-       `margin-inline-start:auto`, so a one-item row still puts it where it has always hung — which is also
-       what lets the day's timer take the LEFT end of the same line without moving it (Aug 2026). */
+       THE FOOTER ROW NOW HOLDS THE DAY'S TIMER ALONE, and is therefore DRAWN ONLY WHEN THERE IS A TIMER
+       TO HOLD: the lip that used to hang from its right went out of the group altogether (see
+       `collectionsBtn`), and `timeFoot` is empty until the first card of the day is studied, so an
+       unconditional row would spend the group's own bottom padding on nothing every morning. */
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu) — see the comment there. */""}
             ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
-            ${/* The footer row under the deck list: the day's time studied at its left, the lip to the
-                  collections at its right, each against one end of the group's own bottom EDGE. "+ New
-                  group" held the left until Aug 2026; the timer took it when it left the banner's meta
-                  row, which is why the row survived that control's removal rather than collapsing into
-                  the lip. */""}
-            <div class="rv-foot">${timeFoot}${addDecksLip}</div>
+            ${/* The footer row under the deck list: the day's time studied, against the left end of the
+                  group's own bottom EDGE. "+ New group" held that end until Aug 2026 and the timer took
+                  it; the lip to the collections held the right until it became a button standing outside
+                  the group, which is why the row is now conditional rather than always drawn. */""}
+            ${timeFoot ? `<div class="rv-foot">${timeFoot}</div>` : ""}
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
@@ -18140,6 +18916,9 @@
               can fill and empty it in place, without rebuilding the page under a reader. */""}
         <div id="chestSlot">${chestBannerHTML()}</div>
         ${reviewGroup}
+        ${/* The way to the collections, standing on its own under the review group rather than stuck to
+              its bottom edge — see `collectionsBtn` above for why it was detached and renamed. */""}
+        ${collectionsBtn}
         ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}
@@ -18188,8 +18967,8 @@
        inside the banner, so it needs no keydown handler of its own — which is the whole reason for
        getting it out of there. ("+ New group" was wired here too, and went with the control.) */
     wireChestBanner(root);
-    // the lip under the review group and the About line under the games — both at every width now, each
-    // being the only route to the page it names anywhere on the site
+    // the Collections button under the review group and the About line under the games — both at every
+    // width now, each being the only route to the page it names anywhere on the site
     { const add = root.querySelector("#b-addDecks"); if (add) add.addEventListener("click", () => route("decks")); }
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
     /* THE BREAKPOINT NO LONGER CHANGES WHAT THIS PAGE IS, and the listener below is retired with the last
@@ -18676,6 +19455,7 @@
     const n = uDeckStudyIds(d.cardIds || []).length, studied = uDeckStudied(d);
     const entry = uDeckEntry(d.id), on = isActive(entry);
     const installed = !uDeckIsMine(d);
+    const subs = udeckSubRowsHTML(d);   // "" where the deck has nothing under it — see the chevron below
     return '<div class="collection udeck' + (installed ? " udeck-installed" : "") + '">' +
       '<div class="collection-row" role="button" tabindex="0" data-udeck="' + esc(d.id) + '">' +
         collectionIconMarkup(d.id) +
@@ -18694,14 +19474,27 @@
           '<button class="udeck-edit" type="button" data-uedit="' + esc(d.id) + '" title="Edit in the Studio" aria-label="Edit in the Studio">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>' +
           '</button>' +
+          /* THE CHEVRON, drawn only where there is something under the row to fold (Aug 2026, on request).
+             A deck with no subdecks and one template has no children at all, and a chevron over nothing is
+             a control that answers a press with nothing happening. */
+          (subs ? chevBtn() : "") +
         '</div>' +
-      '</div>' + udeckSubRowsHTML(d) + '</div>';
+      '</div>' + subs + '</div>';
   }
   /* A deck's subdecks, each addable and studiable on its own — the same affordances a curated collection's
      decks get, and the reason a deck may hold two directions in one file. A deck with no subdecks renders
      nothing here, so a flat deck's row is exactly what it always was. Cards that name no subdeck are left
      out of this list rather than given an "Other" row: on a fully-grouped deck there are none, and on a
-     partly-grouped one the parent row already studies the whole deck. */
+     partly-grouped one the parent row already studies the whole deck.
+     THEY ARE THE CURATED TREE'S OWN ROWS AND ITS OWN FOLD (Aug 2026, on request: "collapsible with
+     chevrons and visually look the same as the curated collections"). They were a flat `.udeck-subs`
+     list, always open, hard against the deck row above it — so a nine-level deck put nine rows on the
+     Collections page whether the reader wanted them or not, in a shape nothing else on that page wears.
+     The container is `.node-children` / `.node-children-inner` / `.node-children-pad` and each row is a
+     `.node`, exactly as `buildNode` emits them, so the grid fold, the stagger, the card box, the hover
+     and the collection hue on the left hairline all come free and cannot drift from the curated ones.
+     `.udeck-subrow` survives as a MODIFIER carrying the depth indent and nothing else; the data
+     attributes are untouched, so `wireCommunityLibrary`'s `[data-usub]` wiring is unchanged. */
   function udeckSubRowsHTML(d) {
     /* A row per CARD TEMPLATE under whichever levels hold their cards directly — see uEntryTemplates. The
        deck's own come first and only where it has no subdecks to hang them off, since a container's
@@ -18711,14 +19504,18 @@
     const rowFor = (entry, name, depth, sub, tpl) => {
       const ids = entryCardIds(entry), n = ids.length, on = isActive(entry);
       const studied = ids.filter(isSeen).length;
-      return '<div class="deck-row udeck-subrow" role="button" tabindex="0" data-usub="' + esc(d.id) +
+      return '<div class="node udeck-subrow" role="button" tabindex="0" data-usub="' + esc(d.id) +
         '" data-usubname="' + esc(sub) + '" data-usubtpl="' + tpl + '" data-depth="' + depth + '"' +
         (depth ? ' style="--sd:' + depth + '"' : "") + '>' +
-        '<div class="collection-main">' +
-          '<div class="collection-title-row">' +
-            '<span class="deck-title">' + esc(name) + '</span>' +
-            '<span class="collection-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
+        '<div class="node-main">' +
+          '<div class="node-title-row">' +
+            '<span class="node-title">' + esc(name) + '</span>' +
+            '<span class="node-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
           '</div>' +
+          /* The curated deck row carries no progress bar and this one keeps its own: a subdeck is the
+             unit a community deck is actually studied by — nine levels of one file, each with a schedule
+             of its own — so the bar is the only thing on the row saying how far through it the reader is,
+             and dropping it to match would be losing information rather than matching a look. */
           deckProgMarkup(studied, n) +
         '</div>' +
         '<div class="collection-actions">' +
@@ -18727,10 +19524,12 @@
         '</div>' +
       '</div>';
     };
-    if (!uDeckSubs(d.id).length) {
-      const own = tplRows("", 0);
-      return own ? '<div class="udeck-subs">' + own + '</div>' : "";
-    }
+    // the curated tree's own fold, so a deck's children behave exactly as a collection's decks do
+    const fold = (rows) => rows
+      ? '<div class="node-children"><div class="node-children-inner"><div class="node-children-pad">' +
+          rows + '</div></div></div>'
+      : "";
+    if (!uDeckSubs(d.id).length) return fold(tplRows("", 0));
     /* Nested, since a subdeck may hold subdecks: each row draws its own children under it, indented by
        its depth in the path. The indent is a style rather than a nested container so a child's row is the
        same 46px box as its parent's — the curated tree's own arrangement one store over. */
@@ -18740,7 +19539,7 @@
       rowFor(uSubEntry(d.id, sub), uSubName(sub), depth, sub, -1) +
       tplRows(sub, depth + 1) +
       uSubChildren(d.id, sub).map((c) => row(c, depth + 1)).join("");
-    return '<div class="udeck-subs">' + uSubChildren(d.id, "").map((s) => row(s, 0)).join("") + '</div>';
+    return fold(uSubChildren(d.id, "").map((s) => row(s, 0)).join(""));
   }
   function communityLibraryHTML() {
     const decks = uDeckList();
@@ -18797,6 +19596,15 @@
         if (!(d.cardIds || []).length) { studioState.deck = d.id; studioState.card = null; route("studio"); return; }   // nothing to study yet — go and write it
         route("study", { scope: { type: "udeck", id: d.id } });
       };
+      /* A deck with children is wired by `wireExpander`, exactly as a curated collection is: the ROW
+         studies the whole deck and the CHEVRON folds its subdecks, the chevron's own stopPropagation
+         keeping one press from doing both. It must be one or the other and never both handlers — the
+         plain listeners below would fire alongside the expander's and study the deck out from under a
+         reader who had only asked to see what was inside it. */
+      const coll = rowEl.closest(".collection");
+      const childrenEl = coll ? coll.querySelector(":scope > .node-children") : null;
+      const chev = rowEl.querySelector(".collection-actions > .chev");
+      if (childrenEl && chev) { wireExpander(rowEl, childrenEl, chev, coll, go); return; }
       rowEl.addEventListener("click", go);
       rowEl.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
     });
@@ -19147,19 +19955,44 @@
      STUDY SESSION
      ============================================================ */
   function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  /* NEW CARDS MIXED THROUGH THE REVIEWS, which is Anki's default and what a reader means by "ordered"
+     (Aug 2026, on request). Every branch below used to concatenate — every due card, then every new one —
+     so a session opened on a wall of reviews and closed on a run of cards the reader had never met, and
+     the two halves of the day's work were never seen against each other.
+
+     IT INTERLEAVES WITHOUT REORDERING EITHER PILE, which is the whole of why this is not just `shuffle`.
+     Ordered mode means the cards arrive in their decks' own order, and that promise is kept WITHIN each
+     pile: what is randomised is only which pile the next card comes from. Random mode still shuffles the
+     lot afterwards and is unaffected.
+
+     THE DRAW IS WEIGHTED BY WHAT IS LEFT, so five new cards among forty reviews are spread evenly through
+     them rather than landing in a clump — an unweighted coin toss exhausts the smaller pile in the first
+     tenth of the session, which is the concatenation again with extra steps. */
+  function mixPiles(due, fresh) {
+    if (!due.length || !fresh.length) return [...due, ...fresh];
+    const d = due.slice(), f = fresh.slice(), out = [];
+    while (d.length || f.length) {
+      if (!d.length) { out.push(f.shift()); continue; }
+      if (!f.length) { out.push(d.shift()); continue; }
+      out.push(Math.random() * (d.length + f.length) < f.length ? f.shift() : d.shift());
+    }
+    return out;
+  }
   function buildSession(scope) {
     let queue, where, total;
     if (scope.type === "review") {
       const q = reviewQueue();
       queue = q.all.slice();
       if (deckRandom(REVIEW_ENTRY)) shuffle(queue);                                            // daily-review order toggle (hold the banner)
-      else {                                                                                   // "Chrono" = the cards' order of appearance within their decks (set by drag-reordering in the editor)
+      else if (deckByDifficulty(REVIEW_ENTRY)) queue = mixPiles(sortByDifficulty(q.due), sortByDifficulty(q.fresh));
+      else {                                                                                   // "Ordered" = the cards' order of appearance within their decks (set by drag-reordering in the editor)
         const seq = TREE.collections.flatMap(subtreeCardIds), oi = {};
         // the user's own decks follow, in their authored order — expanded, or a note's second card would
         // have no place in the sequence and every one of them would sort to the very end together
         Object.keys(UDECKS).forEach((k) => uDeckStudyIds(UDECKS[k].cardIds || []).forEach((id) => seq.push(id)));
         for (let i = 0; i < seq.length; i++) if (!(seq[i] in oi)) oi[seq[i]] = i;
-        queue.sort((a, b) => ((oi[a] == null ? 1e9 : oi[a]) - (oi[b] == null ? 1e9 : oi[b])) || (cardStartYear(cardById(a)) - cardStartYear(cardById(b))));
+        const inOrder = (list) => list.slice().sort((a, b) => ((oi[a] == null ? 1e9 : oi[a]) - (oi[b] == null ? 1e9 : oi[b])) || (cardStartYear(cardById(a)) - cardStartYear(cardById(b))));
+        queue = mixPiles(inOrder(q.due), inOrder(q.fresh));   // each pile in its decks' order, the two mixed
       }
       where = "Review";
       total = queue.length;
@@ -19174,7 +20007,7 @@
     } else if (scope.type === "cotd") {
       const ids = cotdIds().filter((id) => !isSuspended(id) && !isBuried(id));
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due);
-      queue = [...due, ...ids.filter((id) => !isSeen(id))];   // every card here was added BY being studied, so unseen is rare
+      queue = mixPiles(due, ids.filter((id) => !isSeen(id)));   // every card here was added BY being studied, so unseen is rare
       // this list's own Random-order switch. It has a row on the home page, so its sheet can be held open,
       // and a switch that is reachable and inert is the one thing the per-entry design must not produce.
       if (deckRandom(COTD_ENTRY)) shuffle(queue);
@@ -19193,7 +20026,7 @@
       const gIds = studyOrder(scope.id, entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id)));
       const gDue = gIds.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(scope.id));
       const gNew = gIds.filter((id) => !isSeen(id)).slice(0, Math.max(deckNewRemaining(scope.id), 0));
-      queue = [...gDue, ...gNew];
+      queue = mixPiles(orderPile(scope.id, gDue), orderPile(scope.id, gNew));
       if (deckRandom(scope.id)) shuffle(queue);
       total = queue.length;
     } else if (scope.type === "udeck") {
@@ -19216,7 +20049,7 @@
          already, so this is the one place that has to do it. */
       const freshU = unseen.slice(0, Math.max(deckNewRemaining(ue), 0));
       if (deckPairNew(ue)) shuffle(freshU);
-      queue = [...due, ...freshU];
+      queue = mixPiles(orderPile(ue, due), orderPile(ue, freshU));
       // the deck's own Random-order switch (hold its row in the review). The PILES are chosen first and
       // shuffled after, so a random session still deals the same cards a chrono one would — the setting
       // decides presentation order and never which cards the day's allowances let through.
@@ -19239,7 +20072,7 @@
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(sd.id));
       const unseen = ids.filter((id) => !isSeen(id));
       const fresh = unseen.slice(0, Math.max(deckNewRemaining(sd.id), 0));   // new cards in deck (card) order — set via the editor's drag-reorder
-      queue = [...due, ...fresh];
+      queue = mixPiles(orderPile(sd.id, due), orderPile(sd.id, fresh));
       if (deckRandom(sd.id)) shuffle(queue);   // this deck's own Random-order switch — see the udeck branch
 
       // if nothing scheduled and no new allowance left but deck still has unseen, let the user push through extras
@@ -19461,6 +20294,11 @@
     if (prev && prev.ch === ch && Math.abs((prev.y || 0) - y) < 0.02) return;
     S.reading[id] = { ch: ch, y: y, at: Date.now() };
     save();
+    /* The Library's badges count books STARTED, so the only moment worth testing is the one where a book
+       gains a record it did not have — never on the scrolls after it, which is why this is gated on
+       `prev`. `checkAchievements` is otherwise only reached by grading a card, so without this a reader
+       who spent an evening reading would be told about it at the next card rather than at the book. */
+    if (!prev) checkAchievements();
   }
   /* ============================================================
      BOOK INK — the marker's notes, kept (Aug 2026, on request)
@@ -19852,14 +20690,16 @@
         : (b.chapterWordPlural || b.chapterWord + "s").toLowerCase();
       // "Letter 0" is not a letter Seneca wrote — a reader still in the front matter is told so
       const where = pos && pos.ch === 0 ? "About this book" : pos ? `${b.chapterWord} ${pos.ch} · ${pct}%` : "";
-      /* HOW MUCH OF THE WORK IS HERE, said in words rather than as a bare ratio (Aug 2026, on a question:
-         "what does the 65 out of 124 letters refer to?"). It is how many of the book's chapters have been
-         imported so far, and "65 of 124 letters" beside a reading-progress bar reads as though it were
-         reading progress, which is the one thing it is not. A partial book now says "on Folio so far",
-         and a complete one just says how long it is. */
-      const len = b.total > b.count
-        ? `${b.count} of ${b.total} ${unit} <span class="bk-of">on Folio so far</span>`
-        : `${b.count} ${unit}`;
+      /* HOW MUCH OF THE WORK IS HERE. It is how many of the book's chapters have been imported, which for
+         a partial book is not the same question as how far the reader has got — and the chip sits beside
+         a reading-progress bar, so the two are easy to read as one. It carried "on Folio so far" to say
+         which for a fortnight and the tail is GONE on request (Aug 2026): five words of explanation
+         appended to every partial book's chip is a caption rather than a figure, and the chip is read at
+         a glance in a list of forty-eight. The ratio alone says how much of the work is available, which
+         is what was asked for; what it no longer says out loud is that the remainder is missing from
+         FOLIO rather than from the reader — that is on the book's own first page, where a book states
+         its own limitations at length. */
+      const len = b.total > b.count ? `${b.count} of ${b.total} ${unit}` : `${b.count} ${unit}`;
       const fav = isBookFav(b.id);
       /* A CHIP FOR A BOOK THAT CARRIES ITS ORIGINAL (Aug 2026, on request). Ten of the thirty books here
          are a translation with nothing to set beside it and twenty print the text the author actually
@@ -20902,6 +21742,23 @@
     ["author", "Author", "text", "Your name or handle — travels with the file"],
   ];
 
+  /* WAR OF AGES — a placeholder for a game not yet built (Aug 2026, on request: "add another page titled
+     'War of Ages', a game we will work on in the future. Make the page only visible to admin accounts for
+     now").
+     It is a real ROUTE with a real page rather than a disabled tab, because the point of it is to exist:
+     the tab is where the work will be picked up from, and a control that goes nowhere is one nobody trusts
+     when it finally does. What keeps it out of a reader's way is `ADMIN_ROUTES`, which is the guard rather
+     than the hidden tab — the address is typeable, and a hidden tab stops nobody.
+     Its own page says plainly that it is unbuilt, so an editor who lands on it by pressing something is
+     never left wondering whether it failed to draw. */
+  PAGES.warofages = function (root) {
+    root.innerHTML =
+      '<div class="page-head woa-page"><span class="eyebrow">In the making</span><h1>War of Ages</h1>' +
+      '<p>A game to be built here. Nothing is wired up yet.</p></div>' +
+      '<div class="set-card" style="padding:18px 22px"><p style="margin:0; color:var(--ink-soft)">This page is a ' +
+      'placeholder, kept where the work will start from. It is visible to editors only — readers see no tab for ' +
+      'it, and the address turns them back to the home page.</p></div>';
+  };
   PAGES.studio = function (root) {
     if (!communityReady()) { root.innerHTML = '<div class="page-head"><span class="eyebrow">Studio</span><h1>Your decks</h1></div><div class="data-loading">Loading your decks…</div>'; return; }
     if (studioState.deck && !UDECKS[studioState.deck]) { studioState.deck = null; studioState.card = null; }
@@ -21951,7 +22808,13 @@
           '<td class="sd-deck sd-c-title"><span class="sd-title">' + esc(row.title) + "</span>" +
             (row.staff_pick ? '<span class="cdeck-pick" title="Chosen by Folio&rsquo;s editors">✦</span>' : "") +
             (local ? '<span class="cdeck-have">Installed</span>' : "") +
-            (row.subtitle ? '<span class="sd-sub">' + esc(row.subtitle) + "</span>" : "") + "</td>" +
+            /* THE AUTHOR'S ONE-LINE DESCRIPTION IS NOT IN THE TABLE (Aug 2026, on request). It was a
+               `.sd-sub` taking a full flex basis under the title, so every row carrying one was two lines
+               deep and the six columns beside it were left floating against a title that had moved up —
+               a list a reader is scanning to COMPARE decks reads better thin, with every deck's figures
+               on one line. The description is not lost: it is on the deck's own page, under a heading of
+               its own, where a reader deciding whether to install one is actually reading. */
+            "</td>" +
           '<td class="sd-author sd-c-author">' + esc(row.author || "—") + "</td>" +
           '<td class="sd-num sd-c-cards">' + n + "</td>" +
           '<td class="sd-num sd-rate sd-c-rating">' + (row.rating_count ? starsHTML(row.rating_avg, row.rating_count) : '<span class="stars-none">—</span>') + "</td>" +
@@ -22451,6 +23314,24 @@
        schedule, and that is restored exactly. */
     const UNDO_CAP = 40;   // a session's worth of second thoughts, bounded — each entry holds a copy of the queue
     const undoStack = [];
+    /* ---------- ONE PRESS, ONE CARD (Aug 2026, on a bug report: "Undo sometimes goes back two") ----------
+       There are four ways to ask for an undo — the study bar's button, the grade bar's copy on a phone,
+       Ctrl+Z, and the completion screen's — plus, with the whiteboard pen down, the ink layer's own
+       pass-through, which finds a button under the canvas and activates it. Any two of those firing for one
+       press takes two cards off the stack, and the reader sees a card they never answered.
+
+       THE GUARD IS A WINDOW, AND THE NUMBER IS CHOSEN RATHER THAN GUESSED. Tying it to the paint was tried
+       and does not work: an undo repaints synchronously, so by the time a second listener for the same
+       press runs, the paint it was supposed to be waiting for has already happened. What genuinely
+       separates the two cases is TIME, and the two are nowhere near each other — a second activation of
+       one gesture lands in the same tick or one frame later (0–16 ms), while the fastest a person can
+       deliberately press a button twice is upwards of 100 ms and a double-click is defined at 500. So 90 ms
+       is comfortably above every double-fire and comfortably below every real second press.
+
+       IT GUARDS THE ACTION, NOT ONE BUTTON, which is the point of it being here rather than on a listener:
+       the two controls, the keyboard and the ink layer's pass-through all come through this function. */
+    const UNDO_GUARD_MS = 90;
+    let undoAt = 0;
     function undoSnapshot(id) {
       const d = todayStr();
       return {
@@ -22481,8 +23362,11 @@
     }
     function canUndo() { return undoStack.length > 0; }
     function undoGrade() {
+      const tNow = Date.now();
+      if (tNow - undoAt < UNDO_GUARD_MS) return;   // the same press arriving twice — see UNDO_GUARD_MS
       const s = undoStack.pop();
       if (!s) return;
+      undoAt = tNow;
       if (s.card) S.cards[s.id] = s.card; else delete S.cards[s.id];   // a card graded for the FIRST time goes back to having no record at all
       if (!S.reviewLog || typeof S.reviewLog !== "object") S.reviewLog = {};
       if (s.log) S.reviewLog[s.day] = s.log; else delete S.reviewLog[s.day];
@@ -22700,12 +23584,44 @@
          reason to un-reveal it. renderCard() re-runs this same function, which redraws the bar with the new
          colour on it and calls showAnswer() again for a card that was open. */
       { const fb = root.querySelector("#flagBtn"); if (fb) fb.addEventListener("click", () => openFlagSheet([id], () => renderCard())); }
+      /* ---------- A SUSPENDED NEW CARD IS REPLACED (Aug 2026, on a bug report) ----------
+         Suspending costs the reader one of the day's new cards. Not the ALLOWANCE — that is derived from
+         `c.first`, the day a card was first graded, so a card set aside without ever being answered spends
+         nothing — but the QUEUE, which was built once at the start of the session with exactly the day's
+         five in it. Take one out and four remain, and there is nothing on screen to say why.
+
+         So an unseen card taken out is topped back up from the same place the session drew it, in the same
+         order, skipping anything already in hand. A REVIEW card needs none of this: setting one aside does
+         not change how many new cards the day is offering. And where the deck has nothing left to offer —
+         a five-card deck with five suspended — nothing is pushed and the session simply ends, which is the
+         truth rather than a queue padded from somewhere else. */
+      function refillAfterSuspend(oldId) {
+        if (isSeen(oldId)) return;                       // a card already studied: the new-card count is untouched
+        const inQ = new Set(queue), avail = availableCardIdSet();
+        const pick = (ids) => ids.find((x) => x !== oldId && !inQ.has(x) && !isSeen(x) && !isSuspended(x) && !isBuried(x) && avail.has(x));
+        let rep = null;
+        if (params.scope.type === "review") {
+          const entries = activeEntryIds();
+          for (let i = 0; i < entries.length && !rep; i++) {
+            if (deckSkippedToday(entries[i])) continue;
+            rep = pick(studyOrder(entries[i], entryCardIds(entries[i])));
+          }
+        } else if (params.scope.type !== "card" && params.scope.type !== "cotd") {
+          const e = scopeEntryId(params.scope);
+          if (e) rep = pick(studyOrder(e, entryCardIds(e)));
+        }
+        if (rep) queue.push(rep);
+        return !!rep;
+      }
       function suspendCurrent() {
         if (!S.suspended) S.suspended = {};
         S.suspended[id] = Date.now();
         save();
-        toast("Card suspended — it won't appear again");
         queue.shift();
+        const filled = refillAfterSuspend(id);
+        toast(filled
+          ? "Card suspended — another new card takes its place."
+          : "Card suspended — it won't appear again");
         hideGradeBar();
         studyRevealId = null;
         qIdx = null;
@@ -22734,6 +23650,7 @@
         setupTooltips(inner);
         wireFootnotes(inner);   // number the in-prose markers and join them to the source list below
         wireSpeakControls(inner);   // a card type's read-aloud spans become real, focusable controls
+        mountCardMaps(inner);   // …and start the locator globe, if the card carries one (see cardLocatorHTML)
         /* …and, if this deck's sheet asked for it, say the first of them without being pressed. The FIRST
            only: a type that marks several runs is asking for a control on each, not for a recital. */
         if (fromReader && autoSpeakOn) {
@@ -23741,6 +24658,9 @@
     // a layer names the bundle that carries its polygons, the global that bundle assigns, and — where the
     // layer has one — the global holding the POINTS a card may put a dot on (see `map.dot`)
     "us-states": { bundle: "usstates", global: "US_STATES", what: "state", points: "US_CAPITALS", dotWhat: "city" },
+    /* The world's own borders, which every map window already loads for the coastline under it. It carries
+       no `points`, so nothing may put a table dot on it — a locator gives its coordinates outright. */
+    world: { bundle: "world", global: "WORLD_GEO", what: "country" },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z
@@ -23750,6 +24670,10 @@
      half the window rather than stair-stepped. It is the only one of the layer's 51 entries that is capped
      — measured, and reported by name in test-map-cards.js so a second one cannot appear quietly. */
   const CMAP_ZMIN = 0.85, CMAP_ZMAX = 180;
+  /* A LOCATOR has no shape to read a zoom off, so it takes one: about a 50° window, which puts Knossos in
+     the Aegean with the Greek mainland, Anatolia and Crete's own coast all in the frame. A card may still
+     say `zoom` where that frames its own subject badly — a river wants less and an island more. */
+  const CMAP_ZLOC = 4;
   const CMAP_DEG = Math.PI / 180;
   /* The card's map, or null. Validated rather than trusted: `map` is a hand-authored field in data.js and a
      layer name with a typo in it would otherwise reach the renderer and paint an empty window. */
@@ -23804,8 +24728,15 @@
     const layerName = host.getAttribute("data-map-layer"), key = host.getAttribute("data-map-key");
     const def = CARD_MAP_LAYERS[layerName];
     if (!def) return;
+    /* `map.zoom` was written into the markup from the day map cards shipped and NEVER READ, so a card
+       saying it framed itself badly was ignored in silence — found while adding the locator, which needs
+       that knob more than a map card does. It overrides the fit rather than seeding it. */
+    const zoomAttr = Number(host.getAttribute("data-map-zoom")) || 0;
+    /* NAMED FROM THE START, which is what separates a locator from a map card: a map card holds the place
+       name back because the shape IS the question, and a locator is an annotation on the BACK of a card
+       whose answer is already on screen — so holding it back there would be a mark nothing accounts for. */
     const ctx = cv.getContext("2d");
-    let stopped = false, target = null, shapes = null, revealed = false, dot = null;
+    let stopped = false, target = null, shapes = null, revealed = host.hasAttribute("data-map-named"), dot = null;
     let rotLon = 0, rotLat = 0, zoom = 1, homeLon = 0, homeLat = 0, homeZoom = 1;
     let W = 0, H = 0, cx = 0, cy = 0, R = 0, baseR = 0, dpr = 1;
     let Cx = 0, Cy = 0, Cz = 0, Ex = 0, Ey = 0, Ez = 0, Nx = 0, Ny = 0, Nz = 0;
@@ -23919,7 +24850,9 @@
          overhangs a state, its grey survives and reads as the neighbouring shore, which is honest.
          One extra fill pass over the same culled paths, and at these zooms the cull leaves almost
          nothing to draw. */
-      if (shapes) {
+      /* `shapes !== GEO` is the LOCATOR's case: its layer is the world itself, so the pass below would
+         redraw all 117,000 vertices a second time for nothing — every frame, on every drag. */
+      if (shapes && shapes !== GEO) {
         ctx.fillStyle = land; ctx.strokeStyle = sub; ctx.lineWidth = 0.6;
         for (let i = 0; i < shapes.length; i++) { pathOf(shapes[i].p); ctx.fill("evenodd"); if (shapes[i] !== target) ctx.stroke(); }
       }
@@ -23997,8 +24930,9 @@
        is what keeps Rhode Island and Texas both legible without fifty hand-tuned numbers — and a card may
        still override it with `map.zoom` where the automatic figure frames something badly. */
     function fitTarget(fitRings) {
-      homeLon = target ? target.c[0] : 0; homeLat = target ? target.c[1] : 0;
-      let z = 4;
+      const at = target ? target.c : dot ? dot.c : null;
+      homeLon = at ? at[0] : 0; homeLat = at ? at[1] : 0;
+      let z = target ? 4 : CMAP_ZLOC;
       if (target) {
         let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
         for (const ring of fitRings) { const b = bbox(ring); if (b[0] < x0) x0 = b[0]; if (b[1] < y0) y0 = b[1]; if (b[2] > x1) x1 = b[2]; if (b[3] > y1) y1 = b[3]; }
@@ -24006,7 +24940,7 @@
         const span = Math.max(y1 - y0, (x1 - x0) * Math.cos(homeLat * CMAP_DEG), 0.2);
         z = 0.55 / (0.46 * CMAP_DEG * span);
       }
-      homeZoom = clampN(z, CMAP_ZMIN, CMAP_ZMAX);
+      homeZoom = clampN(zoomAttr || z, CMAP_ZMIN, CMAP_ZMAX);
       rotLon = homeLon; rotLat = homeLat; zoom = homeZoom;
     }
     /* Alaska crosses the antimeridian, so a bbox taken in raw longitude spans nearly the globe and the
@@ -24026,8 +24960,10 @@
       reveal() { revealed = true; schedule(); },
       // read by the tests: a window that never resolved its place is a window with nothing to guess,
       // and a drag that does not move `view()` is a globe that does not turn — neither of which can be
-      // seen from the outside, the canvas looking much the same either way
-      ready() { return !!target; },
+      // seen from the outside, the canvas looking much the same either way. A LOCATOR resolves a `dot`
+      // and no `target` — it gives its coordinate outright rather than naming a shape — so testing
+      // `target` alone reports every locator as a window that never loaded.
+      ready() { return !!(target || dot); },
       view() { return { lon: rotLon, lat: rotLat, zoom: zoom, home: [homeLon, homeLat, homeZoom] }; },
     };
     let ro = null;
@@ -24100,20 +25036,37 @@
       host.classList.remove("mc-loading");
       if (!ok[0] || !ok[1] || !Array.isArray(window[def.global])) { host.classList.add("mc-failed"); return; }
       shapes = window[def.global];
-      target = shapes.find((s) => s.n === key) || shapes.find((s) => s.a === key) || null;
-      if (!target) { host.classList.add("mc-failed"); return; }
-      /* The dot, where the card asked for one. A name the layer's point table does not carry is a FAILURE
-         rather than a card that quietly draws no dot: the dot IS the answer on a capital card, so a silent
-         miss leaves a question nobody can answer and nothing on screen to say why. `add-card.js` checks the
-         name against the same table when the card is written, so reaching here means the table moved. */
-      const dotName = host.getAttribute("data-map-dot");
-      if (dotName) {
-        const tbl = (def.points && window[def.points]) || null;
-        const p = tbl && tbl[dotName];
-        if (!p || !Array.isArray(p.c)) { host.classList.add("mc-failed"); return; }
-        dot = { n: dotName, c: p.c };
+      /* A MAP CARD names a shape and a LOCATOR does not, which is the one branch between them: a locator
+         points at a coordinate, so there is nothing to shade and nothing to look up. */
+      if (key) {
+        target = shapes.find((s) => s.n === key) || shapes.find((s) => s.a === key) || null;
+        if (!target) { host.classList.add("mc-failed"); return; }
       }
-      fitTarget(nearRings(target));
+      /* A LOCATOR CARRIES ITS OWN COORDINATE, and it is a coordinate rather than a name in a table because
+         there is no table: the places a history card is about — a palace, a river, a valley, a group of
+         islands — are not an enumerable set the way a country's capitals are. It is still FETCHED rather
+         than typed (see .claude/add-locators.js): a hand-entered pair is a dot a degree out, which draws
+         perfectly and points at the wrong place. */
+      const atAttr = host.getAttribute("data-map-at");
+      if (atAttr) {
+        const at = atAttr.split(",").map(Number);
+        if (at.length !== 2 || !isFinite(at[0]) || !isFinite(at[1])) { host.classList.add("mc-failed"); return; }
+        dot = { n: host.getAttribute("data-map-atname") || "", c: at };
+      } else {
+        /* The dot, where the card asked for one. A name the layer's point table does not carry is a FAILURE
+           rather than a card that quietly draws no dot: the dot IS the answer on a capital card, so a silent
+           miss leaves a question nobody can answer and nothing on screen to say why. `add-card.js` checks the
+           name against the same table when the card is written, so reaching here means the table moved. */
+        const dotName = host.getAttribute("data-map-dot");
+        if (dotName) {
+          const tbl = (def.points && window[def.points]) || null;
+          const p = tbl && tbl[dotName];
+          if (!p || !Array.isArray(p.c)) { host.classList.add("mc-failed"); return; }
+          dot = { n: dotName, c: p.c };
+        }
+      }
+      if (!target && !dot) { host.classList.add("mc-failed"); return; }
+      fitTarget(target ? nearRings(target) : null);
       resize();
     });
   }
@@ -24155,6 +25108,95 @@
       '<div class="cf-tile"><span class="cf-k">' + esc(r[0]) + '</span><span class="cf-v">' + esc(r[1]) + "</span></div>").join("") + "</div>";
   }
 
+  /* ---------- the flag beside the answer (Aug 2026, on request) ----------
+     `answerFlag: { src, credit, alt }` — a state's or a city's own flag, drawn inside the coloured answer
+     box to the right of the term and centred on it.
+
+     **IT IS NOT `cardFlag`, AND THE NAMES MUST STAY APART.** A card already has a FLAG in another sense —
+     the reader's own 1-7 marker, `S.flags[id]`, read by `cardFlag(id)` a few thousand lines up — and this
+     shipped for an hour as a second `cardFlag(c)` at module scope, which in JavaScript means the later
+     declaration wins for the WHOLE file: every reader flag silently read as unflagged, with nothing thrown
+     and the browse column, the study bar and the Ctrl+1 chord all quietly answering 0. Nothing but reading
+     the declaration list can see it. **Sweep for a duplicate declaration when adding a helper whose noun
+     the file already uses.** It is the same three fields every other picture on the site
+     carries, and it is held to the same rule: **a `src` with no `credit` is refused**, here and in
+     `add-card.js`, because a flag is somebody else's file like any other.
+
+     IT IS A FIELD ON THE CARD RATHER THAN A TABLE KEYED BY THE ANSWER, which is a decision: two geography
+     cards may be about the same state and want different flags — Rhode Island's card wants the state's and
+     Providence's card wants the city's — so the flag is a fact about the CARD's own subject rather than
+     about the shape its map shades. It rides through the serializer, the overlay and `revertCard` exactly
+     as `image` does.
+
+     IT IS NOT THE CARD'S ONE FRAME. `image` and `video` are alternatives and the card shows one of them;
+     this is a small mark inside the answer box, never opened fullscreen and never a `.card-img`, so it does
+     not retire either of them. It is deliberately NOT a community-deck field: `CARD_FIELDS` does not carry
+     it, so a stranger's deck cannot ship one and nothing has to sanitize it. */
+  function answerFlag(c) {
+    const f = c && c.answerFlag;
+    if (!f || typeof f !== "object") return null;
+    /* `sanitizeUrl` takes its allowed schemes as a SECOND argument and has no default: called with one,
+       `schemes.indexOf` throws the moment the URL has a scheme at all — which every flag's does — so
+       `buildBack` died and the whole BACK of every geography card came back blank. It shipped that way
+       for a session and nothing on the page said so: the front was perfect and revealing simply did
+       nothing. Pass the list, as all eleven other callers do. */
+    const src = sanitizeUrl(String(f.src || "").trim(), ["http", "https"]);
+    const credit = String(f.credit || "").trim();
+    if (!src || !credit) return null;   // uncredited is the same as absent — see the media source gate
+    return { src: src, credit: credit, alt: String(f.alt || "").trim() };
+  }
+  /* The `alt` is the flag's own description where the card carries one and the CREDIT otherwise, never an
+     empty string: a reader who cannot see it is owed at least whose file it is. `title` carries the credit
+     in both cases, since there is nowhere else on a card for a flag's provenance to be read. */
+  function answerFlagHTML(c) {
+    const f = answerFlag(c);
+    if (!f) return "";
+    return '<img class="av-flag" src="' + esc(f.src) + '" alt="' + esc(f.alt || f.credit) + '" title="' + esc(f.credit) + '" loading="lazy">';
+  }
+
+  /* ---------- the locator map (Aug 2026, on request) ----------
+     `locator: { name, at: [lon, lat], zoom? }` — a globe at the foot of a card whose ANSWER IS A PLACE,
+     with that place marked. A reader meeting Knossos, the Cycladic civilisation or the Tiber for the first
+     time is being told a great deal about a place and nothing about where it is, and the site already has
+     a globe that answers exactly that question.
+
+     IT IS A DIFFERENT THING FROM `map`, WHICH IS WHY IT IS A DIFFERENT FIELD. A map card's window is the
+     QUESTION — it sits above the prompt, it shades a shape, and it holds the name back until the answer is
+     shown. This is an ANNOTATION on the back of a card whose answer is already on screen, so it is named
+     from the first frame and shades nothing at all.
+
+     AND SHADING IS DELIBERATELY NOT USED. The obvious implementation lights up the modern country the
+     place is in, and it would be saying something the card does not mean twice over: the gold fill means
+     "this is the answer" on a map card, and "Knossos is in Greece" is a claim about a border drawn three
+     and a half thousand years later. The DOT is reused instead, whose meaning — this is the place being
+     pointed at — is exactly right, and which needs no country to be chosen.
+
+     THE COORDINATE IS FETCHED, NEVER TYPED (see `.claude/add-locators.js`): a hand-entered pair is a dot a
+     degree out, which draws perfectly and points at the wrong place, and nothing on the page could say so. */
+  function cardLocator(c) {
+    const l = c && c.locator;
+    if (!l || typeof l !== "object" || !Array.isArray(l.at)) return null;
+    const lon = Number(l.at[0]), lat = Number(l.at[1]);
+    if (!isFinite(lon) || !isFinite(lat) || Math.abs(lon) > 180 || Math.abs(lat) > 90) return null;
+    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0 };
+  }
+  function cardLocatorHTML(c) {
+    const l = cardLocator(c);
+    if (!l) return "";
+    const said = (l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
+      "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and \u2212 zoom.";
+    return '<div class="card-loc"><span class="label">Location</span>' +
+      '<div class="map-card map-loc" data-map-layer="world" data-map-named data-map-at="' + l.at[0] + "," + l.at[1] + '"' +
+      (l.name ? ' data-map-atname="' + esc(l.name) + '"' : "") +
+      (l.zoom ? ' data-map-zoom="' + l.zoom + '"' : "") + ">" +
+      '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' +
+      '<div class="mc-zoom">' +
+      '<button type="button" class="mc-btn" data-mc="in" aria-label="Zoom in" title="Zoom in">+</button>' +
+      '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
+      '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
+      '</div><div class="mc-note">' + esc("Drag to turn \u00b7 zoom to look closer") + "</div></div></div>";
+  }
   function buildBack(c) {
     // a custom type owns the whole of the back — but keeps the site's own source apparatus below it, since
     // a community card can carry citations and the fold is not the template's to reinvent
@@ -24164,7 +25206,12 @@
     if (c.answer) {
       const hasTr = !!c.hanzi;
       html += '<div class="answer"><div class="answer-main"><span class="label">Answer' + ttsPlayHTML("answer", true) + "</span>";
-      html += '<div class="answer-av"><span class="val">' + c.answer + "</span>";
+      /* The flag, where the card has one, sits BESIDE the term inside `.answer-av` — so the wrapper is
+         emitted only when there is one, and every card without a flag keeps byte-identical markup. */
+      const flagHTML = answerFlagHTML(c);
+      html += '<div class="answer-av">' +
+        (flagHTML ? '<div class="av-term"><span class="val">' + c.answer + "</span>" + flagHTML + "</div>"
+                  : '<span class="val">' + c.answer + "</span>");
       html += '<div class="av-row">' + (c.answerDate || "") + "</div></div></div>";
       /* The figures sit BESIDE the answer, not under it (Aug 2026, on request) — a sibling of .answer-main
          inside the coloured box, which is the slot `.answer-tr` already occupies on a Chinese card. That is
@@ -24215,6 +25262,10 @@
       if (c.abstract) html += '<p class="abstract">' + c.abstract + "</p>";
       html += "</div></div>";
     }
+    /* Where the place is, at the foot of the card and OUTSIDE the Background fold: it is not prose, so it
+       does not belong under that heading, and a reader who has shut the fold to see only the answer has not
+       asked to lose it. The citations still come last, being the one thing checked after everything else. */
+    html += cardLocatorHTML(c);
     // the citations behind the background, at the very foot of the card — outside the Background fold, so
     // they can be checked without re-opening prose the reader has already read
     html += sourcesHTML(cardSources(c));
@@ -24872,20 +25923,44 @@
      two is filed. Same-family names are offered first and the rest of the pool fills in behind them, so a
      small family still deals a full round rather than refusing to deal one. `quoteLocalized` may translate
      the name, so the categories are read off the ORIGINAL entries and the localised name taken from the
-     same index — a translated `who` would match nothing in the table. */
+     same index — a translated `who` would match nothing in the table.
+
+     AND SINCE AUG 2026 THE DECOYS SHARE A PERIOD AS WELL, on the same request, because the category alone
+     left a round winnable on nothing but a date: a Stoic maxim answered against Nietzsche, Kant and
+     Simone de Beauvoir is four philosophers, and the one that is two thousand years older than the rest
+     is the answer. `era` is the second axis (quotes.js's header has the five and where they cut) and the
+     ranking is a strict LADDER rather than a score — both, then the category, then the era, then anybody
+     — so a thin cell degrades one rung at a time instead of refusing to deal. It cannot fail closed:
+     `rest` is every remaining name in the pool, so the fourth rung always fills the round.
+
+     AND THE ROUND COUNT IS THREE, not the five it was (same request). The pool went from 64 quotations to
+     102 in the same batch, so this is not about running out of material: three tightly-matched rounds ask
+     more than five loose ones, and the game's tile still reads N/3 with its own gold seal at 3/3. It is
+     WY_ROUNDS' shape — a named constant read by the page and by nothing else — so the results screen, the
+     score and the tile all follow the one figure. */
+  const WS_ROUNDS = 3;
   function buildWhoSaidRounds() {
     const RAW = window.QUOTEGAME || [];
     const POOL = RAW.map((x) => quoteLocalized(x));
     const catOf = new Map();   // localised speaker name -> the family it is filed under
-    POOL.forEach((x, i) => { if (!catOf.has(x.who)) catOf.set(x.who, (RAW[i] && RAW[i].cat) || ""); });
-    const picks = pick(POOL, Math.min(5, POOL.length));
+    const eraOf = new Map();   // localised speaker name -> the period they lived in
+    POOL.forEach((x, i) => {
+      if (catOf.has(x.who)) return;
+      catOf.set(x.who, (RAW[i] && RAW[i].cat) || "");
+      eraOf.set(x.who, (RAW[i] && RAW[i].era) || "");
+    });
+    const picks = pick(POOL, Math.min(WS_ROUNDS, POOL.length));
     const allWho = [...new Set(POOL.map((x) => x.who))];
     return picks.map((it) => {
-      const mine = catOf.get(it.who) || "";
+      const myCat = catOf.get(it.who) || "", myEra = eraOf.get(it.who) || "";
       const others = pick(allWho.filter((w) => w !== it.who));
-      const kin = others.filter((w) => mine && catOf.get(w) === mine);
-      const rest = others.filter((w) => !mine || catOf.get(w) !== mine);
-      const distractors = kin.concat(rest).slice(0, 3);
+      const sameCat = (w) => myCat && catOf.get(w) === myCat;
+      const sameEra = (w) => myEra && eraOf.get(w) === myEra;
+      const both = others.filter((w) => sameCat(w) && sameEra(w));
+      const cat  = others.filter((w) => sameCat(w) && !sameEra(w));
+      const era  = others.filter((w) => !sameCat(w) && sameEra(w));
+      const rest = others.filter((w) => !sameCat(w) && !sameEra(w));
+      const distractors = both.concat(cat, era, rest).slice(0, 3);
       return { it, options: pick([it.who, ...distractors]) };
     });
   }
@@ -24953,7 +26028,7 @@
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div><p class="tf-sum-q">“${esc(rd.it.q)}”</p><p class="tf-sum-a"><b>${esc(rd.it.who)}</b> — ${esc(rd.it.context)}</p></div>
             </div>`).join("")}</div>
-          <p class="tf-tomorrow">Five fresh voices arrive tomorrow.</p>
+          <p class="tf-tomorrow">${["No", "One", "Two", "Three", "Four", "Five"][ROUNDS] || ROUNDS} fresh voices arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="ws-home">Home</button></div>
         </div>`;
       root.querySelector("#ws-home").addEventListener("click", () => route("home"));
@@ -26065,12 +27140,11 @@
      Five pictures, four options each, drawn from every illustration Folio holds — a card's, a glossary
      term's or an artefact's — so a picture added anywhere feeds the game without a second registry.
 
-     ⚠ THE CORPUS CURRENTLY HOLDS ONE PICTURE, so this game shows its "not enough pictures" placard rather
-     than a round. That is a CONTENT gap and not a wiring one: Folio has no upload path (every picture is
-     somebody else's URL, credited), and the fields exist on all three kinds of record — `card.image`,
-     `GLOSSARY_IMAGES`, an artefact's `image` — so the game starts working the moment eight of them carry
-     one. It ships now so that the pass which adds them has somewhere to land, and the tile says
-     "Coming soon" until then rather than promising a round it cannot deal.
+     TWO FILTERS NARROW THAT (Aug 2026, on request) and both are documented where they are applied: the
+     DIFFICULTY bar now reaches the glossary half as well as the cards, and a subject whose picture can
+     only EXEMPLIFY it — a state, a period, an abstraction — is out. Measured over the shipped corpus the
+     pool is 157, against a floor of 8; the placard below is what a starved pool gets instead of a bad
+     round, and it was the whole of this game for the fortnight before the picture pass ran.
 
      TWO THINGS ARE DELIBERATE ABOUT WHAT IS SHOWN. The picture's own TITLE, DESCRIPTION AND CREDIT are
      held back until the guess is in — every one of them names the subject, so showing the credit up front
@@ -26079,29 +27153,70 @@
      invented ones, which is the rule Who said it? already follows: three plausible wrong answers teach
      something, three obvious ones teach nothing. */
   const PIC_ROUNDS = 5, PIC_OPTS = 4, PIC_MIN_POOL = 8;
+  /* A SUBJECT WHOSE PICTURE CAN ONLY EXEMPLIFY IT IS NOT A PICTURE ROUND (Aug 2026, on request: "states,
+     time periods or abstract terms should not appear … those pictures are unlikely to be interpreted as
+     their larger general meaning"). The game works when the picture DEPICTS its subject — point at it and
+     say "that is a hand-axe", "that is Ur", "that is Homo erectus". It fails when the picture is one
+     instance standing for a class: a hand-axe under "Acheulean", a temple under "Classical antiquity", a
+     flag under a country. Both are perfectly good illustrations and only one of them is a question.
+     The test is the subject's KIND — the first of its tags, which is the vocabulary `GLOSSARY_TAGS` and
+     `card.tags` are already written in — and the list is DECLARED rather than derived, because "does this
+     picture depict or exemplify?" is a judgement about a category and not something a rule can read off a
+     record. Three of the twelve are the request's own words (`state`, `era`, `concept`); the rest are the
+     same shape (`practice`, `theory`, `institution`, `title`, `language`, `symbol`) or a class of objects
+     rather than an object (`industry`, `culture`, `people` — the Acheulean is not a hand-axe).
+     What is NOT on it and could have been: `event` (a painting of a battle depicts the battle about as
+     well as a picture depicts anything), `hominin` and `fossil` (a skull IS the specimen), `text` (a
+     manuscript page IS the text). Those are kept because the request names three things and stretching a
+     principle past what it was asked for is how a filter starves its own game.
+     A subject whose kind cannot be read at all is KEPT, which is the safe direction — measured over the
+     shipped corpus it never happens today, the glossary fallback below covering every untagged card. */
+  const PIC_ABSTRACT_KINDS = new Set(
+    ("era,state,concept,theory,practice,institution,title,language,symbol,industry,culture,people").split(",")
+  );
   function picturePool() {
     const out = [], seen = new Set();
     const add = (img, label, kind, gloss, tags) => {
       if (!img || !img.src || !label) return;
       const l = String(label).trim();
       if (!l || seen.has(l.toLowerCase())) return;   // one entry per subject, or a round could offer the answer twice
+      const t = Array.isArray(tags) && tags.length ? tags : [kind];
+      if (PIC_ABSTRACT_KINDS.has(String(t[0] || "").toLowerCase())) return;
       seen.add(l.toLowerCase());
       out.push({ src: img.src, label: l, title: img.title || "", desc: img.desc || "", credit: img.credit || "", alt: img.alt || "",
-                 kind: kind, gloss: gloss || "", tags: Array.isArray(tags) && tags.length ? tags : [kind] });
+                 kind: kind, gloss: gloss || "", tags: t });
     };
-    /* The CARD half draws under the difficulty bar, like every other card-fed game. The glossary and
-       artefact halves are not rated at all — `difficulty` is a card field, and this is the one game
-       whose pool reaches past the cards — so they enter as they always did. Said here rather than left
-       to be discovered: rating the 836 glossary terms is a separate content pass, and until it happens
-       this game's answers are easier than the others' on average rather than uniformly so. */
+    /* EVERY SUBJECT DRAWN FROM THE CORPUS IS NOW UNDER THE DIFFICULTY BAR (Aug 2026, on request: "ensure
+       the Picture Round minigame uses only cards with level 1 or 2 difficulty rating"). The CARD half
+       always was, through `gameCardIdSet()`. The GLOSSARY half was not — `difficulty` is a card field and
+       this is the one game whose pool reaches past the cards — so a round could deal a term rated nowhere
+       at all, cold, with three specialist decoys beside it.
+       The rating a glossary term has not got is the rating of the CARD it answers, which the card→glossary
+       pairing rule guarantees exists, so the half goes through **`threadEasyKeys()`** — the very set Common
+       Thread built for its own version of this problem. One door, one bar, and a game added later reaches
+       for the same function rather than inventing a second rule. Measured over the shipped corpus: the
+       glossary half falls from 684 subjects to 96, and the pool as a whole to 157, comfortably above
+       `PIC_MIN_POOL`.
+       ARTEFACTS are deliberately NOT filtered and cannot be: an artefact is a photograph of one object,
+       which is the ideal subject for this game and the one kind of record with no difficulty to read. */
+    const easyGloss = threadEasyKeys();
     /* Each entry carries the TAGS its subject is filed under, which is what lets a round's three wrong
        answers be things of the same kind (Aug 2026, on request). They come from the two tables that
        already hold them — a card's own `tags`, a glossary term's `GLOSSARY_TAGS` row — and an artefact,
        which is filed under neither, is simply an artefact: that is one honest category rather than a
        guess dressed up as several. */
     const avail = gameCardIdSet();
-    CARDS.forEach((c) => { if (avail.has(c.id)) add(c.image, cardLocalized(c).answerText, "card", "", c.tags); });
-    Object.keys(window.GLOSSARY || {}).forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k, glossTags(k)); });
+    /* A card with no tags of its own borrows its ANSWER TERM's, which is the same pairing the bar above
+       leans on — without it 26 illustrated cards have no readable kind, so the abstract filter cannot see
+       them and the kinship measure ranks their decoys on nothing. */
+    const idx = glossIndexFor(GLOSS_SCOPE_SITE);
+    const kindTags = (c) => {
+      if (Array.isArray(c.tags) && c.tags.length) return c.tags;
+      const k = idx && idx.byAnySurface ? idx.byAnySurface[String(c.answerText || "").trim().toLowerCase()] : null;
+      return k && !isDeckGlossKey(k) ? glossTags(k) : null;
+    };
+    CARDS.forEach((c) => { if (avail.has(c.id)) add(c.image, cardLocalized(c).answerText, "card", "", kindTags(c)); });
+    easyGloss.forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k, glossTags(k)); });
     artefactsMerged().forEach((a) => add(a.image, a.name, "artefact"));
     return out;
   }
@@ -26460,7 +27575,9 @@
           <span class="dl-globe" aria-hidden="true"></span>
           <strong>Drawing the Atlas</strong>
           <span class="dl-note">Fetching the world's borders, rivers and historical maps — once per visit.</span>
+          ${dlBarHTML(["world", "atlas"])}
         </div>`;
+      wireDlBar(root, ["world", "atlas"]);
       const want = current.name;
       Promise.all([ensureData("world"), ensureData("atlas")]).then((ok) => {
         if (current.name !== want || !view.contains(root)) return;   // navigated away while it loaded
@@ -26587,7 +27704,6 @@
             ${/* the phone sheet's resize grip (Aug 2026, on request): drag the top edge to give the panel
                   more of the screen or less. It shows only on the sheet layout — on the desktop the panel
                   already runs the height of the stage. */""}
-            <div class="cp-grab" id="cpGrab" role="separator" aria-orientation="horizontal" title="Drag to resize"><span></span></div>
             <button class="cp-close" id="cpClose" type="button" aria-label="Close">×</button>
             <div class="cp-head">
               <div class="cp-crumb" id="cpCrumb" hidden></div>
@@ -26799,26 +27915,40 @@
        It is remembered across places, so the next country opens at the height the last one was left at,
        which is the whole point of setting it. The desktop panel is untouched: it already runs the height of
        the stage, and there is nothing to give it. */
-    const CP_H_KEY = "folio_cp_h_v1";
     const CP_TOP_GAP = 8, CP_BOTTOM_GAP = 14;   // clearance at the top of the screen; the sheet's own bottom offset
-    let cpUserH = null, cpUserHRead = false;
+    /* THE DRAG IS GONE AND THE CHEVRON IS THE WHOLE CONTROL (Aug 2026, on request). The sheet had two ways
+       to be resized — a grip along its top edge and the chevron beside the name — which is two answers to
+       one question, and the grip was the worse of them: it asked the reader to choose a height for a box
+       whose right height is a fact about the page in it, and it stored that choice, so the sheet then
+       opened at a size chosen for some other place. The chevron opens it to what the page on screen
+       actually needs (cpMaxH) and shuts it to the name, and there is nothing to remember: `folio_cp_h_v1`
+       is no longer read or written. */
     /* ---- …AND IT OPENS SHUT (Aug 2026, on request) ----
        On a phone, clicking a country used to raise a sheet that took half the screen — over the very map
        the reader had just pointed at, and before they had said they wanted to read anything. It opens at
        the NAME now, which is the answer to the question a tap on a country asks, and the chevron beside
        the name is what asks for the rest.
-       `cpShut` is deliberately NOT remembered. The stored height is (that is the reader's setting, and it
-       is what the sheet expands TO); whether the sheet is open is a fact about the place in front of them,
-       reset on every one — which is the request's own "always collapsed by default". A drag on the grip
-       counts as asking for it open, or the gesture would fight the state. */
+       `cpShut` is deliberately NOT remembered: whether the sheet is open is a fact about the place in front
+       of the reader, reset on every one — which is the request's own "always collapsed by default". */
     let cpShut = true;
-    function cpReadH() {
-      if (cpUserHRead) return cpUserH;
-      cpUserHRead = true;
-      try { const v = parseFloat(localStorage.getItem(CP_H_KEY)); if (isFinite(v) && v > 0 && v <= 1) cpUserH = v; } catch (e) {}
-      return cpUserH;
+    /* ---- …AND IT FOLDS RATHER THAN CUTTING (Aug 2026, on request) ----
+       The height is an explicit px value in both states, so CSS transitions it; what CSS cannot do is the
+       `display:none` that takes the pages, the dots and the tools out of the box while it is shut, and a
+       box whose contents vanish before it shrinks is the jumpcut the request is about. So the class is
+       applied at the two ends of the movement rather than at the start of it: OPENING removes it at once
+       (the content has to be there to be revealed, and cpMaxH measures a pane that is displayed), and
+       SHUTTING waits out the transition. Keep CP_FOLD_MS in step with the duration in styles.css.
+       Anything that is not the chevron — a fresh place, a rotation, a swipe to a shorter page — applies
+       the class immediately, since there is no gesture there to answer. */
+    const CP_FOLD_MS = 260;
+    let cpFoldT = null;
+    function cpFoldClass(animate) {
+      if (!cpEl) return;
+      if (cpFoldT) { clearTimeout(cpFoldT); cpFoldT = null; }
+      if (!animate || prefersReducedMotion()) { cpEl.classList.toggle("cp-shut", cpShut); return; }
+      if (!cpShut) { cpEl.classList.remove("cp-shut"); return; }
+      cpFoldT = setTimeout(() => { cpFoldT = null; if (cpShut && cpEl) cpEl.classList.add("cp-shut"); }, CP_FOLD_MS);
     }
-    function cpSaveH() { try { cpUserH == null ? localStorage.removeItem(CP_H_KEY) : localStorage.setItem(CP_H_KEY, String(cpUserH)); } catch (e) {} }
     /* The floor: the grip and the title bar, and nothing below them. Measured rather than guessed — a long
        name wraps to two lines and a drilled place carries a breadcrumb above it — and measured through
        `offsetTop`/`offsetHeight` rather than `getBoundingClientRect`, which is the whole trick here: the
@@ -26862,25 +27992,20 @@
       const room = (document.documentElement.clientHeight || window.innerHeight || 0) - CP_TOP_GAP - CP_BOTTOM_GAP;
       return Math.max(cpMinH(), Math.min(room, cpPaneNeedH()));
     }
-    // apply the stored fraction (or clear back to the stylesheet's own 52% cap when there isn't one)
-    function cpApplyH() {
+    /* Two heights and nothing in between: the name (cpMinH) or the page (cpMaxH). Above the pager's
+       breakpoint the sheet is a column beside the globe and neither applies, so the inline height and both
+       classes come off and the stylesheet has it back. */
+    function cpApplyH(animate) {
       if (!cpEl) return;
-      const f = cpReadH();
       if (!cpPagerOn()) { cpEl.classList.remove("cp-sized", "cp-shut"); cpEl.style.height = ""; cpSyncMore(); return; }
-      const vh = document.documentElement.clientHeight || 0;
       cpEl.classList.add("cp-sized");
-      cpEl.classList.toggle("cp-shut", cpShut);
+      cpFoldClass(animate);
       cpSyncMore();
-      /* Shut, the height IS the floor — the grip, the crumb, the name and nothing else. It is measured
-         rather than written down for cpMinH's own reason: a long name wraps and a drilled place carries a
-         breadcrumb above it, so the "title bar" is not one number. */
+      /* Shut, the height IS the floor — the crumb, the name and nothing else. It is measured rather than
+         written down for cpMinH's own reason: a long name wraps and a drilled place carries a breadcrumb
+         above it, so the "title bar" is not one number. */
       if (cpShut) { cpEl.style.height = Math.round(cpMinH()) + "px"; return; }
-      // with no stored height the sheet still fits its page rather than sitting at the stylesheet's flat 52%
-      const want = f == null ? vh : f * vh;
-      cpEl.style.height = Math.round(Math.max(56, Math.min(want, cpMaxH()))) + "px";
-      // the floor can only be measured once the box is laid out, so clamp on the second pass
-      const min = cpMinH();
-      if (cpEl.getBoundingClientRect().height < min) cpEl.style.height = Math.round(min) + "px";
+      cpEl.style.height = Math.round(cpMaxH()) + "px";
     }
     // the chevron says which way pressing it will go, and is absent entirely where there is nothing to reveal
     function cpSyncMore() {
@@ -26894,7 +28019,7 @@
     }
     function cpSetShut(v) {
       cpShut = !!v;
-      cpApplyH();
+      cpApplyH(true);
       // the pager measures its panes against the box's width, which has just changed
       if (!cpShut) { cpSyncDots(); cpActiveDot(); }
     }
@@ -26904,40 +28029,6 @@
       const max = cpMaxH();
       if (cpEl.getBoundingClientRect().height > max + 1) cpEl.style.height = Math.round(max) + "px";
       else cpApplyH();
-    }
-    function cpWireResize(grip) {
-      if (!grip) return;
-      let drag = null;
-      grip.addEventListener("pointerdown", (e) => {
-        if (!cpPagerOn() || (e.button != null && e.button !== 0)) return;
-        drag = { id: e.pointerId, y: e.clientY, h: cpEl.getBoundingClientRect().height };
-        // a drag on the grip IS asking for the sheet, so it takes the shut state off rather than fighting
-        // it — the height below is free to move only once nothing is pinning it to the floor
-        if (cpShut) { cpShut = false; cpEl.classList.remove("cp-shut"); cpSyncMore(); cpSyncDots(); }
-        cpEl.classList.add("cp-resizing");
-        try { grip.setPointerCapture(e.pointerId); } catch (x) {}
-        e.preventDefault();
-      });
-      grip.addEventListener("pointermove", (e) => {
-        if (!drag || e.pointerId !== drag.id) return;
-        e.preventDefault();
-        // the sheet is anchored at the BOTTOM, so dragging the top edge UP (a negative dy) makes it taller
-        const h = Math.max(cpMinH(), Math.min(drag.h - (e.clientY - drag.y), cpMaxH()));
-        cpEl.classList.add("cp-sized");
-        cpEl.style.height = Math.round(h) + "px";
-      });
-      const release = (e) => {
-        if (!drag || (e.pointerId != null && e.pointerId !== drag.id)) return;
-        drag = null;
-        cpEl.classList.remove("cp-resizing");
-        const vh = document.documentElement.clientHeight || 0;
-        cpUserH = vh ? cpEl.getBoundingClientRect().height / vh : null;
-        cpUserHRead = true;
-        cpSaveH();
-        cpActiveDot();
-      };
-      grip.addEventListener("pointerup", release);
-      grip.addEventListener("pointercancel", release);
     }
     // crossing the pager's breakpoint (a rotated phone, a dragged window edge) changes what the sections ARE
     function cpResize() {
@@ -29196,7 +30287,6 @@
     cpSrcEl = root.querySelector("#cpSrc"); cpSrcSecEl = root.querySelector("#cpSrcSec");
     { const cpClose = root.querySelector("#cpClose"); if (cpClose) cpClose.addEventListener("click", hideCountryPopup); }
     { const more = root.querySelector("#cpMore"); if (more) more.addEventListener("click", () => cpSetShut(!cpShut)); }
-    cpWireResize(root.querySelector("#cpGrab"));
     // one delegated listener folds any of the three sections open or shut, so a reader can put away the part
     // they aren't reading — a long description on a phone sheet buries the year paragraph under it.
     // On the phone the sections are PAGES, not folds: there is nothing below a section to uncover by shutting
@@ -30116,6 +31206,34 @@
     { id: "terms100", icon: "📜", name: "Lexicographer", desc: "Open 100 glossary terms", test: (s) => s.terms >= 100, prog: (s) => [s.terms, 100] },
     { id: "places50", icon: "🧭", name: "Cartographer", desc: "Open 50 countries on the Atlas", test: (s) => s.countries >= 50, prog: (s) => [s.countries, 50] },
     { id: "placesAll", icon: "🌍", name: "Circumnavigator", desc: "Open every present-day country on the Atlas", test: (s) => s.countryTotal > 0 && s.countries >= s.countryTotal, prog: (s) => [s.countries, s.countryTotal || 258] },
+    { id: "terms250", icon: "🗝️", name: "Glossarist", desc: "Open 250 glossary terms", test: (s) => s.terms >= 250, prog: (s) => [s.terms, 250] },
+    /* THE COLLECTOR'S BADGES (Aug 2026, on request). What a chest gives had no ladder of its own: the
+       Reliquary counted artefacts and nothing rewarded filling it. Chests OPENED and artefacts HELD are
+       two different counts and both are worth having — a chest may now hand back a theme instead, so
+       artefacts alone would quietly stop measuring how many chests a reader has had. */
+    { id: "chest1", icon: "🎁", name: "First Chest", desc: "Open your first chest", test: (s) => s.chestsOpened >= 1 },
+    { id: "chest10", icon: "🧰", name: "Chest Hunter", desc: "Open 10 chests", test: (s) => s.chestsOpened >= 10, prog: (s) => [s.chestsOpened, 10] },
+    { id: "chest50", icon: "🗄️", name: "Hoarder", desc: "Open 50 chests", test: (s) => s.chestsOpened >= 50, prog: (s) => [s.chestsOpened, 50] },
+    { id: "art10", icon: "🏺", name: "Antiquarian", desc: "Collect 10 artefacts", test: (s) => s.artefacts >= 10, prog: (s) => [s.artefacts, 10] },
+    { id: "art25", icon: "🖼️", name: "Curator", desc: "Collect 25 artefacts", test: (s) => s.artefacts >= 25, prog: (s) => [s.artefacts, 25] },
+    { id: "art50", icon: "🏛️", name: "Keeper of the Reliquary", desc: "Collect 50 artefacts", test: (s) => s.artefacts >= 50, prog: (s) => [s.artefacts, 50] },
+    /* A legendary is 3% of a roll, so this is the one badge here that a reader cannot simply grind
+       towards — hence no `prog`: "0 / 1" over a thing decided by chance says nothing useful. */
+    { id: "legend1", icon: "🌟", name: "Once in a Lifetime", desc: "Find a legendary artefact", test: (s) => s.legendaries >= 1 },
+    { id: "share1", icon: "📤", name: "Deck Builder", desc: "Publish a deck of your own to the shared decks", test: (s) => s.published >= 1 },
+    /* THE LIBRARY EARNED NOTHING UNTIL NOW. These count books OPENED rather than finished, and the
+       wording says so: what `S.reading` records is a place in a book, and a book whose chapters are not
+       numbered 1..N (the Ramayana skips, Marco Polo runs to 235) gives no honest test for "read to the
+       end". A badge that claimed one would be guessing. */
+    { id: "book1", icon: "📕", name: "Opened a Book", desc: "Start reading a book in the Library", test: (s) => s.books >= 1 },
+    { id: "book5", icon: "📗", name: "Wide Reader", desc: "Start reading 5 books", test: (s) => s.books >= 5, prog: (s) => [s.books, 5] },
+    { id: "book10", icon: "📘", name: "Well Read", desc: "Start reading 10 books", test: (s) => s.books >= 10, prog: (s) => [s.books, 10] },
+    /* Hours in ONE day, off `S.studyTime`, which keeps today and nothing else. That is enough: a badge is
+       tested on every grade and is never revoked, so it unlocks the moment the day's total crosses the
+       line and keeps. A best-ever field would be a second thing to keep in step for no gain. */
+    { id: "hour1", icon: "⏳", name: "An Hour's Work", desc: "Study for an hour in one day", test: (s) => s.studyMs >= 3600e3, prog: (s) => [Math.round(s.studyMs / 60000), 60] },
+    { id: "hour3", icon: "🕰️", name: "Long Session", desc: "Study for three hours in one day", test: (s) => s.studyMs >= 3 * 3600e3, prog: (s) => [Math.round(s.studyMs / 60000), 180] },
+    { id: "hour8", icon: "🌙", name: "All Day at the Desk", desc: "Study for eight hours in one day", test: (s) => s.studyMs >= 8 * 3600e3, prog: (s) => [Math.round(s.studyMs / 60000), 480] },
   ];
   function progStats(prog, friendsCount) {
     const cards = prog.cards || {};
@@ -30126,8 +31244,20 @@
     // reading done around the cards. `countries` is 0 until world.js has loaded (a lazy bundle), which only
     // ever DELAYS one of these badges — checkAchievements adds and never revokes, so a badge earned on the
     // Atlas cannot be lost by looking at the account page in a later session.
+    /* The collection, the Library and the day's clock (Aug 2026). Every one of these is DERIVED from a
+       field the progress blob already carries — `chestsOpened` is the one new counter, and it exists
+       because artefacts can no longer stand in for it now that a chest may hand back a theme. `studyMs`
+       is TODAY's, off the day-stamped record, which is what the hour badges are about; on a friend's
+       progress it reads their today, and reads 0 on a day they have not studied, which is honest. */
+    const arts = (prog.artefacts && typeof prog.artefacts === "object") ? Object.keys(prog.artefacts) : [];
+    const legendaries = arts.filter((id) => ARTEFACT_BY_ID[id] && rarityId(ARTEFACT_BY_ID[id]) === "legendary").length;
+    const st = prog.studyTime;
     return { seen, mature, streak: (prog.streak && prog.streak.count) || 0, wins: (prog.daily && prog.daily.wins) || 0, dailySweep: allGamesWonToday(prog), decksStarted, decksDone, friends: friendsCount || 0,
-      terms: glossSeenCount(prog), countries: countrySeenCount(prog), countryTotal: (window.WORLD_GEO && window.WORLD_GEO.length) || 0 };
+      terms: glossSeenCount(prog), countries: countrySeenCount(prog), countryTotal: (window.WORLD_GEO && window.WORLD_GEO.length) || 0,
+      chestsOpened: (prog.chestsOpened | 0), artefacts: arts.length, legendaries,
+      published: (prog.published | 0),
+      books: (prog.reading && typeof prog.reading === "object") ? Object.keys(prog.reading).length : 0,
+      studyMs: (st && st.d === dayKey() ? (st.ms | 0) : 0) };
   }
   // unlock any newly-earned achievements for the active (S) profile; toast each unless silent
   /* A BADGE EARNS A CHEST — one per badge, so unlocking three at once grants three (Aug 2026, on
@@ -30181,11 +31311,20 @@
       : p.left === 0
         ? "Seven days in a row — a chest is yours. The next one is seven days away."
         : p.left + (p.left === 1 ? " more day" : " more days") + " in a row for your next chest.";
+    /* THE CHEST ITSELF, at the right of the block (Aug 2026, on request). Seven pips lighting up said what
+       was being counted and not what it was FOR — the word "chest" was in the heading and in the sentence
+       and the thing was nowhere on the page. It is the same `CHEST_SVG` the overlay and the home page's
+       waiting-chest notice draw, so the reader has met it before and meets one shape everywhere; it is
+       DECORATIVE, the pips carrying the label a screen reader needs. It goes gold on the day the chest is
+       earned, which is the one state the pips alone cannot distinguish from six-of-seven at a glance. */
     return '<div class="streak-chest">' +
-      '<div class="sc-head"><span class="sc-title">Next streak chest</span>' +
-        '<span class="sc-count">' + p.into + " / " + p.need + "</span></div>" +
-      '<div class="sc-pips" role="img" aria-label="' + esc(p.into + " of " + p.need + " days towards the next streak chest") + '">' + pips + "</div>" +
-      '<div class="sc-note">' + esc(note) + "</div>" +
+      '<div class="sc-main">' +
+        '<div class="sc-head"><span class="sc-title">Next streak chest</span>' +
+          '<span class="sc-count">' + p.into + " / " + p.need + "</span></div>" +
+        '<div class="sc-pips" role="img" aria-label="' + esc(p.into + " of " + p.need + " days towards the next streak chest") + '">' + pips + "</div>" +
+        '<div class="sc-note">' + esc(note) + "</div>" +
+      "</div>" +
+      '<span class="sc-chest' + (p.left === 0 && p.count > 0 ? " won" : "") + '" aria-hidden="true">' + CHEST_SVG + "</span>" +
     "</div>";
   }
   function badgesHTML(achObj, stats) {
@@ -30453,8 +31592,13 @@
       <div class="friends-box" id="friendsBox"></div>
       <div class="section-label">Badges</div>
       <div class="badges-box" id="badgesBox"></div>
-      <div class="section-label">Reliquary</div>
-      <div class="reliquary" id="reliquary"></div>
+      ${/* THE INVENTORY STOOD HERE AND IS GONE (Aug 2026, on request). This page carried the artefacts
+            TWICE — four of them in the showcase above, all of them in a section here — under two names, so
+            a reader met the same collection at two points on one page and had no way to tell what the
+            difference between them was meant to be. The showcase keeps its four (they are a CHOICE, and
+            part of the profile) and its "See Reliquary" button is now the one way to the whole thing.
+            The SIGNED-OUT page keeps its own copy of this section, which is not a duplicate there: that
+            page has no showcase at all, so without it a guest's collection would be unreachable. */""}
       <div class="section-label">Collection progress</div>
       <div class="coll-levels" id="collLevels"></div>
       <div id="statWrap"></div>
@@ -30560,9 +31704,6 @@
     root.querySelector("#badgesBox").innerHTML = badgesHTML(S.achievements, progStats(S, 0));
     root.querySelector("#showcase").innerHTML = showcaseHTML(S, true);
     wireReliquary(root.querySelector("#showcase"));
-    const relHost = root.querySelector("#reliquary");
-    relHost.innerHTML = reliquaryHTML(S, true);
-    wireReliquary(relHost);
     renderCollectionLevels(root.querySelector("#collLevels"), S.cards);
 
     const dp = root.querySelector("#deckprog");
@@ -30591,10 +31732,20 @@
     if (!supaLoggedIn()) { box.innerHTML = ""; return; }
     const me = SUPA.user.id;
     box.innerHTML = '<div class="friend-empty">Loading friends…</div>';
+    /* A FRIEND'S BANNER IS DRAWN IN THE THEME THEY WEAR (Aug 2026, on request): the theme is how an
+       account presents itself, not only a preference for its owner's own screen. `profiles.theme` is what
+       carries it — see themePushSoon and section 14 of the schema — and a row whose owner is on a database
+       without that column simply reads `folio`, which is the site's own look and says nothing false.
+       It is a `data-ftheme` attribute rather than a nested `data-theme`, deliberately: `data-theme` is
+       what the whole page is keyed on and setting a second one inside the page would put every rule of
+       that theme onto the row, chrome, ornament and all. This borrows the two COLOURS and nothing else. */
     const userRow = (id, profs, extra, viewable) => {
       const u = profs[id]; if (!u) return "";
+      const t = THEME_BY_ID[u.theme] || THEME_BY_ID.folio;
+      const skin = ' data-ftheme="' + esc(t[0]) + '" style="--ft-a:' + t[3] + ';--ft-b:' + t[4] + ';--ft-p:' + t[5] + '"';
       const inner = monogramHTML(u.avatar, u.name, "sm") + '<span class="friend-name">' + esc(u.name) + ' <small>@' + esc(u.username) + '</small></span>';
-      const link = viewable ? '<button class="friend-link" data-view="' + esc(id) + '">' + inner + '</button>' : '<div class="friend-link static">' + inner + '</div>';
+      const link = viewable ? '<button class="friend-link" data-view="' + esc(id) + '"' + skin + '>' + inner + '</button>'
+                            : '<div class="friend-link static"' + skin + '>' + inner + '</div>';
       return '<div class="friend-row">' + link + (extra || "") + '</div>';
     };
     (async () => {
@@ -30659,11 +31810,17 @@
         return;
       }
       const prog = Object.assign(emptyProgress(), row.data || {});
+      /* THEIR PROFILE BOX WEARS THEIR THEME, which is the same request as the friends list's rows and the
+         place it matters most — this page IS how the account presents itself. The two colours are set as
+         custom properties and the theme is named on the element; nothing sets a nested `data-theme`, which
+         would put that theme's whole stylesheet on a page drawn in the reader's own. */
+      const ft = THEME_BY_ID[u.theme] || THEME_BY_ID.folio;
+      const fskin = ' data-ftheme="' + esc(ft[0]) + '" style="--ft-a:' + ft[3] + ';--ft-b:' + ft[4] + ';--ft-p:' + ft[5] + '"';
       root.innerHTML = `
         <button class="back-link" id="backBtn" type="button">← Back to your account</button>
-        <div class="profile">
+        <div class="profile friend-profile"${fskin}>
           ${monogramHTML(u.avatar, u.name)}
-          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}</div></div>
+          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + '</span>' : ""}</div></div>
           <button class="ghost-btn" id="rmFriend" type="button">Remove friend</button>
         </div>
         ${/* the four artefacts they chose to be seen holding — the whole point of the showcase is that
@@ -30681,8 +31838,10 @@
         <div class="badges-box" id="fBadges"></div>
         <div class="section-label">Collection progress</div>
         <div class="coll-levels" id="fLevels"></div>
-        <div class="section-label">Reliquary</div>
-        <div class="reliquary" id="fReliquary"></div>
+        ${/* Their inventory stood here and is gone, as it has on your own page (Aug 2026, on request):
+              their showcase at the top of this profile carries the same "See Reliquary" button, opening
+              THEIR whole collection over the page. Two sections of the same artefacts under two names was
+              as confusing on a friend's profile as on your own, and it was the same fault twice. */""}
         <div class="section-label">Progress by deck</div>
         <div class="suspbox"><div class="suspbox-collapse"><div class="suspbox-collapse-inner"><div class="deckprog" id="fDeck"></div></div></div></div>`;
       root.querySelector("#fStat").innerHTML = statGridHTML(prog, null);
@@ -30692,10 +31851,7 @@
       root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog, 0));
       renderCollectionLevels(root.querySelector("#fLevels"), prog.cards || {}, S.cards);   // their progress, with a "You: …" chip beside each
       root.querySelector("#fShowcase").innerHTML = showcaseHTML(prog, false);
-      wireReliquary(root.querySelector("#fShowcase"), prog, false);   // …so "See all" opens THEIR collection, not yours
-      const fRel = root.querySelector("#fReliquary");
-      fRel.innerHTML = reliquaryHTML(prog, false);   // `own` false → no chest button and no pinning
-      wireReliquary(fRel, prog, false);
+      wireReliquary(root.querySelector("#fShowcase"), prog, false);   // …so "See Reliquary" opens THEIR collection, not yours
       renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
       root.querySelector("#backBtn").addEventListener("click", () => route("account"));
       root.querySelector("#rmFriend").addEventListener("click", async () => {
@@ -31055,14 +32211,6 @@
      PAGE: SETTINGS
      ============================================================ */
   // settings picker data: [id, name, tag, primary, accent, paper]
-  const THEME_OPTS = [
-    ["folio", "Folio", "Editorial serif", "#36357A", "#C8453C", "#F6F5F1"],
-    ["synth", "Synth", "Neon", "#7C2DFF", "#FF2D7A", "#F2EEFB"],
-    ["arcade", "Arcade", "16-bit console", "#0968C4", "#C98E06", "#EDF3F7"],
-    ["academy", "Academy", "Formal faculty", "#16305B", "#8E2233", "#F5F0E4"],
-    ["marble", "Marble", "Marble &amp; bronze", "#8C6A3F", "#7E2F27", "#F2F0EA"],
-    ["gazette", "Gazette", "1940s newsprint", "#1D1C1A", "#B5271D", "#DAD8CF"],
-  ];
   PAGES.settings = function (root) {
     const homeName = (S.settings.home && S.settings.home.name) || "Netherlands";
     const fsNow = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
@@ -31075,9 +32223,19 @@
     const worldNames = () => (window.WORLD_GEO || []).map((c) => c.n).filter((n) => n && n.trim()).sort((a, b) => placeName(a).localeCompare(placeName(b)));
     const homeOpts = homeOptsFor(dataReady("world") ? worldNames() : [homeName]);
     // each theme option shows a tiny mockup of itself: paper, a title bar, two text lines, an accent dot
-    const themeBtn = (t) => `<button class="theme-opt" data-theme="${t[0]}" type="button">
-      <span class="theme-mock" style="--tm-a:${t[3]};--tm-b:${t[4]};--tm-p:${t[5]}" aria-hidden="true"><i class="tm-bar"></i><i class="tm-line"></i><i class="tm-line short"></i><i class="tm-dot"></i></span>
-      <span class="theme-name">${t[1]}</span><span class="theme-tag">${t[2]}</span></button>`;
+    /* A LOCKED THEME IS SHOWN, AND IT IS STILL PRESSABLE (Aug 2026, on request — themes are what a chest
+       gives). Two decisions in that. A hidden collectible is one nobody knows to want, and the whole
+       point of a set is that a reader can see what is missing from it. And it is NOT `disabled`: a
+       disabled button fires no mouse events at all in Chrome, which would take the hover try-on away
+       from exactly the themes that most need advertising — so it stays live, `setTheme` refuses it (the
+       gate is there rather than here, so no route can get round it) and the press says where it comes
+       from instead of doing nothing. */
+    const themeBtn = (t) => {
+      const has = themeUnlocked(t[0]);
+      return `<button class="theme-opt${has ? "" : " theme-locked"}" data-theme="${t[0]}" type="button" title="${esc(has ? t[1] : t[1] + " — locked. Themes come from chests.")}">
+      ${themeMockHTML(t)}
+      <span class="theme-name">${t[1]}${has ? "" : ' <span class="theme-lock" aria-hidden="true">🔒</span>'}</span><span class="theme-tag">${has ? t[2] : "From a chest"}</span></button>`;
+    };
     const setHead = (accent, svg, title) => `<div class="set-head" style="--msn-accent:${accent}"><span class="msn-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${svg}</svg></span><h2>${title}</h2></div>`;
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Preferences</span><h1>Settings</h1>
@@ -31295,7 +32453,12 @@
     const markTheme = () => themeGrid.querySelectorAll(".theme-opt").forEach((b) => b.classList.toggle("active", b.dataset.theme === (S.settings.theme || "folio")));
     markTheme();
     themeGrid.querySelectorAll(".theme-opt").forEach((b) => {
-      b.addEventListener("click", () => { setTheme(b.dataset.theme); markTheme(); });
+      b.addEventListener("click", () => {
+        const t = b.dataset.theme;
+        if (!themeUnlocked(t)) { toast(themeName(t) + " is locked — themes come from chests."); return; }
+        setTheme(t);
+        markTheme();
+      });
       // live try-on: rest the pointer on a tile to preview that theme, leave to snap back to the kept one
       b.addEventListener("mouseenter", () => { document.body.dataset.theme = b.dataset.theme; });
       b.addEventListener("mouseleave", () => { document.body.dataset.theme = THEMES.includes(S.settings.theme) ? S.settings.theme : "folio"; });
@@ -31449,7 +32612,12 @@
     b.setAttribute("aria-label", cardId ? "Edit this card in the admin editor" : "Open the admin page");
     b.title = cardId ? "Edit this card" : "Open the admin page";
     b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>' + (cardId ? "Edit" : "Admin");
-    b.addEventListener("click", () => route("admin", cardId ? { card: cardId, tab: "cards" } : { tab: "cards" }));
+    b.addEventListener("click", () => {
+      // the CARD variant is pressed from inside a session, so the record is taken before route() clears it;
+      // the plain one is pressed from the home page and has nothing to hold
+      studyHold = cardId ? readStudySession() : null;
+      route("admin", cardId ? { card: cardId, tab: "cards" } : { tab: "cards" });
+    });
     document.body.appendChild(b);
   }
 
@@ -31929,7 +33097,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -33176,7 +34344,7 @@
     const whereTxt = node ? nodeWhere(node) : (memberLeaves.size ? "" : "no deck");
     host.innerHTML =
       '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(c.answer || "(untitled)") + '</h2><div class="admin-ed-key">' + esc(id) + (whereTxt ? ' &middot; ' + esc(whereTxt) : "") + '</div></div>' +
-      '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span><button class="admin-preview" id="adminPreview" type="button">Preview</button><button class="admin-revert" id="adminRevert" type="button"' + (cardIsEdited(id) ? "" : " hidden") + '>Revert card</button><button class="admin-delete" id="adminDelete" type="button">Delete card</button></div></div>' +
+      '<div class="admin-ed-actions">' + (studyHold ? '<button class="admin-tostudy" id="adminToStudy" type="button">&#8617; Back to studying</button>' : "") + '<span class="admin-saved" id="adminSaved"></span><button class="admin-preview" id="adminPreview" type="button">Preview</button><button class="admin-revert" id="adminRevert" type="button"' + (cardIsEdited(id) ? "" : " hidden") + '>Revert card</button><button class="admin-delete" id="adminDelete" type="button">Delete card</button></div></div>' +
       liveCardEditorHTML({ dirAttr: dirAttr, metaHtml: metaRow, imagePanel: isEnLang, videoPanel: isEnLang, sourcesPanel: isEnLang });
     const editedFx = () => {
       const row = adminFindRow("card", id); if (row) row.classList.toggle("edited", cardIsEdited(id));
@@ -33276,6 +34444,16 @@
     });
     const pv = host.querySelector("#adminPreview");
     if (pv) pv.addEventListener("click", () => previewCard(id));
+    /* Back to the session the Edit button was pressed from. The record is put back BEFORE routing, since
+       PAGES.study reads it through params.resume and #study with no record simply goes home — and the hold
+       is dropped either way, a session being resumable once. */
+    const ts = host.querySelector("#adminToStudy");
+    if (ts) ts.addEventListener("click", () => {
+      const rec = studyHold; studyHold = null;
+      if (!rec) { route("home"); return; }
+      writeStudySession(rec);
+      route("study", { scope: rec.scope, resume: rec });
+    });
   }
 
   // Render a card exactly as it appears on the study page; any grade button returns to its editor.
@@ -33566,6 +34744,7 @@
             '<button class="admin-tab" type="button" data-atab="glossary">Glossary</button>' +
             '<button class="admin-tab" type="button" data-atab="quotes">Quotes</button>' +
             '<button class="admin-tab" type="button" data-atab="artefacts">Artefacts</button>' +
+            '<button class="admin-tab" type="button" data-atab="themes">Themes</button>' +
             '<button class="admin-tab" type="button" data-atab="timeline">Timeline</button>' +
             '<button class="admin-tab" type="button" data-atab="feedback">Feedback<span class="admin-tab-badge" id="fbTabBadge" hidden></span></button>' +
           '</div>' +
@@ -33805,9 +34984,55 @@
       if (people === null && decks === null && feedback === null) return { error: "Couldn't reach the account database — sign in as an admin, or check that the schema has been applied." };
       return { people, decks, published, installs, ratings, feedback, reports };
     }
+    /* THE DEV-SIDE FIGURES (Aug 2026, on request: "list some dev-side statistics such as server file
+       size, connection speeds, where users are connecting from"). Everything here is MEASURED on this
+       device, by the browser's own Resource Timing API, and the card says so in those words. Three
+       decisions, and the third is the one that matters.
+       · **THE FILE SIZES ARE REAL, not a manifest.** `transferSize` is what actually came down the wire
+         for each resource this page loaded, and `encodedBodySize` is what it would have been uncached —
+         so the pair says both what Folio costs a first visitor and what it costs a returning one. A table
+         of expected sizes written down here would be out of date the day a data file grew.
+       · **THE SPEED IS TIMED, not asked for.** `navigator.connection` reports a browser's own estimate
+         and is absent in Safari and Firefox, so it is shown where it exists and the measured throughput —
+         bytes actually transferred over the time they took — is what is always shown.
+       · **WHERE READERS CONNECT FROM IS NOT COLLECTED, AND IS NOT GUESSED AT.** Folio logs no request and
+         has no server of its own to log one; the only geography available is this device's own time zone
+         and locale, which is a fact about the editor rather than about the readership. The card says that
+         plainly rather than showing a map built out of nothing — the same rule the People card already
+         follows about progress that row-level security will not hand over. */
+    function dashDelivery() {
+      const out = { entries: 0, transfer: 0, encoded: 0, ms: 0, biggest: [], conn: null, tz: "", locale: "" };
+      try {
+        const rs = (performance.getEntriesByType && performance.getEntriesByType("resource")) || [];
+        const here = location.origin;
+        rs.forEach((r) => {
+          if (r.name.indexOf(here) !== 0) return;   // ours only: a font from Google is not Folio's weight
+          out.entries++;
+          out.transfer += r.transferSize || 0;
+          out.encoded += r.encodedBodySize || 0;
+          out.ms += r.duration || 0;
+          out.biggest.push({ n: r.name.slice(here.length).replace(/^\//, "") || "/", b: r.encodedBodySize || 0, t: r.transferSize || 0, ms: Math.round(r.duration || 0) });
+        });
+        out.biggest.sort((a, b) => b.b - a.b);
+        out.biggest = out.biggest.slice(0, 8);
+        const nav = (performance.getEntriesByType && performance.getEntriesByType("navigation")) || [];
+        if (nav[0]) { out.entries++; out.transfer += nav[0].transferSize || 0; out.encoded += nav[0].encodedBodySize || 0; }
+      } catch (e) {}
+      const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (c) out.conn = { type: c.effectiveType || "", down: c.downlink || 0, rtt: c.rtt || 0, save: !!c.saveData };
+      try { out.tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) {}
+      out.locale = navigator.language || "";
+      return out;
+    }
+    function fmtBytes(n) {
+      if (!n) return "—";
+      if (n >= 1048576) return (n / 1048576).toFixed(n >= 10485760 ? 0 : 1) + " MB";
+      if (n >= 1024) return Math.round(n / 1024) + " KB";
+      return n + " B";
+    }
     function adminRenderDashboard() {
       const items = root.querySelector("#adminListItems"), countEl = root.querySelector("#adminListCount");
-      const s = dashContentStats();
+      const s = dashContentStats(), d = dashDelivery();
       if (countEl) countEl.textContent = s.cards + " cards · " + s.gloss + " glossary terms";
       const tile = (v, label, hint) => '<div class="dsh-tile"' + (hint ? ' title="' + esc(hint) + '"' : "") + "><b>" + esc(String(v)) + "</b><span>" + esc(label) + "</span></div>";
       const bar = (n, total, label, note) => {
@@ -33887,10 +35112,27 @@
               '<div class="dsh-langs">' + langRows + "</div>" +
               '<div class="dsh-note">Counted against ' + s.cards + " cards and " + s.gloss + " terms. Everything written since the English-only gate went up is English alone, so the nine move together and none is behind the others.</div>") +
             card("People & sharing", "From the account database", remoteBody) +
+            card("Delivery", d.entries + " files fetched on this page",
+              '<div class="dsh-tiles">' +
+                tile(fmtBytes(d.encoded), "Sent over the wire", "Compressed size of everything this page asked for") +
+                tile(fmtBytes(d.transfer), "Actually transferred", "0 for a file the browser or the service worker already had") +
+                tile(d.entries, "Requests") +
+                tile(d.conn ? (d.conn.type || "—") : "—", "Connection class", "The browser's own estimate; absent on Safari and Firefox") +
+                tile(d.conn && d.conn.down ? d.conn.down + " Mb/s" : "—", "Downlink estimate") +
+                tile(d.conn && d.conn.rtt ? d.conn.rtt + " ms" : "—", "Round trip estimate") +
+              "</div>" +
+              (d.biggest.length ? '<div class="dsh-files">' + d.biggest.map((f) =>
+                '<div class="dsh-file"><span class="df-n" title="' + esc(f.n) + '">' + esc(f.n) + "</span>" +
+                '<span class="df-b">' + esc(fmtBytes(f.b)) + "</span>" +
+                '<span class="df-t">' + (f.t ? esc(fmtBytes(f.t)) : "cached") + "</span>" +
+                '<span class="df-ms">' + f.ms + " ms</span></div>").join("") + "</div>" : "") +
+              '<div class="dsh-note">Measured on this page load through the browser\'s own Resource Timing, so it is what a reader on this machine really paid rather than what the files weigh on disk. A row reading <b>cached</b> cost nothing this time. Where readers connect FROM is deliberately not collected and is not guessed at.</div>') +
             card("This device", s.overlay + " unsaved edits",
               '<div class="dsh-tiles">' +
                 tile(s.overlay, "Overlay edits", "Card, glossary and tree changes not yet baked into the data files") +
                 tile(s.localDecks, "Community decks here", "Decks written or installed on this device") +
+                tile(d.tz || "—", "This machine's time zone", "Used for the day boundary; never sent anywhere") +
+                tile(d.locale || "—", "Browser language") +
               "</div>") +
           "</div>" +
         "</div>";
@@ -34397,16 +35639,99 @@
       }
     }
 
+    /* THE THEMES TAB (Aug 2026, on request: "add another tab for Themes, showing their usage stats etc.").
+       A theme is a collectible now, and it is also how an account presents itself to its friends — so the
+       question worth asking of the database is how many accounts WEAR each one, which is a column on
+       `profiles` rather than anything in the progress blob (see the schema's section 14 for why). That is
+       readable by any signed-in user, so an editor can count it; a reader's own progress is not, which is
+       why there is no figure here for how many people have UNLOCKED a theme without wearing it, and none
+       is guessed at. Until section 14 has been run the column does not exist and every count comes back
+       null — the panel says so and names the block, exactly as the publish path does. */
+    let _themeRows = null, _themeErr = "", _themeLoading = false;
+    async function themeLoadUsage() {
+      const CAP = 1000;
+      const count = (q) => supaFetch("/rest/v1/profiles?select=id&limit=" + CAP + (q ? "&" + q : ""), { headers: { Prefer: "count=exact" } })
+        .then((r) => {
+          if (!r.ok) return r.status === 400 || r.status === 404 ? "nocol" : null;
+          if (typeof r.count === "number") return r.count;
+          if (!Array.isArray(r.data)) return null;
+          return r.data.length >= CAP ? CAP : r.data.length;
+        });
+      const capped = (p) => Promise.race([p, new Promise((r) => setTimeout(() => r(null), 12000))]);
+      const wanted = THEMES.slice();
+      const res = await Promise.all([capped(count(""))].concat(wanted.map((t) => capped(count("theme=eq." + encodeURIComponent(t))))));
+      const total = res[0];
+      if (res.slice(1).some((v) => v === "nocol")) return { missing: true };
+      const per = {};
+      wanted.forEach((t, i) => { per[t] = res[i + 1]; });
+      return { total: typeof total === "number" ? total : null, per };
+    }
+    function adminRenderThemes() {
+      const items = root.querySelector("#adminListItems"), countEl = root.querySelector("#adminListCount");
+      const owned = ownedThemes(), have = THEMES.filter(themeUnlocked).length;
+      if (countEl) countEl.textContent = THEMES.length + " themes \u00b7 " + COLLECTIBLE_THEMES.length + " from chests";
+      if (_themeRows === null && !_themeErr && !_themeLoading && supaLoggedIn()) {
+        _themeLoading = true;
+        themeLoadUsage().then((r) => {
+          _themeLoading = false;
+          _themeRows = r;
+          if (current && current.name === "admin" && adminState.tab === "themes") adminRenderThemes();
+        });
+      }
+      const u = _themeRows, total = u && typeof u.total === "number" ? u.total : 0;
+      const rows = THEMES.map((id) => {
+        const t = THEME_BY_ID[id] || [id, id, ""];
+        const n = u && u.per && typeof u.per[id] === "number" ? u.per[id] : null;
+        const pct = n !== null && total ? Math.round((n / total) * 100) : 0;
+        const free = id === "folio";
+        return '<div class="thr' + (themeUnlocked(id) ? "" : " thr-locked") + '">' +
+          '<div class="thr-mock">' + themeMockHTML(t) + "</div>" +
+          '<div class="thr-body"><div class="thr-name">' + esc(t[1]) +
+            '<span class="thr-kind">' + (free ? "everyone's" : "from a chest") + "</span></div>" +
+            '<div class="thr-tag">' + esc(t[2] || "") + "</div>" +
+            '<div class="ds-bar"><i style="width:' + pct + '%"></i></div>' +
+          "</div>" +
+          '<div class="thr-n">' + (n === null ? "\u2014" : n + (total ? " \u00b7 " + pct + "%" : "")) + "</div>" +
+        "</div>";
+      }).join("");
+      let note;
+      if (!supaLoggedIn()) note = "Sign in to count how many accounts wear each theme \u2014 the figures come from the account database.";
+      else if (u && u.missing) note = "The theme column isn't on this database yet. Run section 14 of .claude/supabase-schema.sql once and the counts will fill in; until then everyone's account simply presents itself in the default.";
+      else if (_themeLoading || _themeRows === null) note = "Counting\u2026";
+      else if (!total) note = "No accounts to count yet.";
+      else note = "Counted over " + total + " account" + (total === 1 ? "" : "s") + ". This is what each account WEARS \u2014 how many readers have unlocked a theme without wearing it is in their own progress, which row-level security keeps private, and no figure for it is guessed at here.";
+      items.innerHTML =
+        '<div class="dsh-wrap">' +
+          '<div class="dsh-lede">Six themes. One is everyone\'s and the other five come out of chests, at about ' +
+            Math.round(THEME_DROP * 100) + "% of an opening while any are still locked \u2014 so a reader collects them at roughly the rate they collect artefacts. A theme is also how an account looks to its friends, which is why the usage figures below are worth having.</div>" +
+          '<div class="dsh-grid">' +
+            '<section class="dsh-card"><div class="dsh-head"><h3>Worn by</h3><span class="dsh-sub">From the account database</span></div>' +
+              '<div class="thr-list">' + rows + "</div>" +
+              '<div class="dsh-note">' + esc(note) + "</div>" +
+            "</section>" +
+            '<section class="dsh-card"><div class="dsh-head"><h3>On this device</h3><span class="dsh-sub">' + have + " of " + THEMES.length + " unlocked</span></div>" +
+              '<div class="dsh-tiles">' +
+                '<div class="dsh-tile"><b>' + have + '</b><span>Unlocked here</span></div>' +
+                '<div class="dsh-tile"><b>' + (COLLECTIBLE_THEMES.length - Object.keys(owned).length) + '</b><span>Still to find</span></div>' +
+                '<div class="dsh-tile"><b>' + esc(themeName((S.settings && S.settings.theme) || "folio")) + '</b><span>Wearing now</span></div>' +
+                '<div class="dsh-tile"><b>' + (S.chestsOpened | 0) + '</b><span>Chests opened</span></div>' +
+              "</div>" +
+              '<div class="dsh-note">A theme unlocked before it was a collectible is grandfathered in on the next load, so nobody loses one they were already wearing.</div>' +
+            "</section>" +
+          "</div>" +
+        "</div>";
+    }
     function adminRefresh() {
       root.querySelectorAll(".admin-tab").forEach((t) => t.classList.toggle("active", t.dataset.atab === adminState.tab));
-      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", timeline = adminState.tab === "timeline", dash = adminState.tab === "dashboard", quotes = adminState.tab === "quotes", artefacts = adminState.tab === "artefacts";
-      const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("timeline-mode", timeline); admEl.classList.toggle("dash-mode", dash); admEl.classList.toggle("quotes-mode", quotes); admEl.classList.toggle("artefacts-mode", artefacts); }
+      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", timeline = adminState.tab === "timeline", dash = adminState.tab === "dashboard", quotes = adminState.tab === "quotes", artefacts = adminState.tab === "artefacts", themes = adminState.tab === "themes";
+      const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("timeline-mode", timeline); admEl.classList.toggle("dash-mode", dash); admEl.classList.toggle("quotes-mode", quotes); admEl.classList.toggle("artefacts-mode", artefacts); admEl.classList.toggle("themes-mode", themes); }
       // the feedback/timeline branches return before adminRenderList(), which owns this class — clear it here or the
       // glossary tab's column divider lingers as a stray vertical line over those pages
       { const al = root.querySelector(".admin-list"); if (al) al.classList.toggle("gloss-cols", adminState.tab === "glossary"); }
       if (dash) { adminState.selected.clear(); adminRenderDashboard(); return; }
       if (quotes) { adminState.selected.clear(); adminRenderQuotes(); return; }
       if (artefacts) { adminState.selected.clear(); adminRenderArtefacts(); return; }
+      if (themes) { adminState.selected.clear(); adminRenderThemes(); return; }
       if (feedback) { adminState.selected.clear(); adminRenderFeedback(); return; }
       if (timeline) { adminState.selected.clear(); adminRenderTimeline(); return; }
       search.placeholder = cards ? "Search cards by title, id, hanzi…" : "Search glossary terms…";
@@ -34656,7 +35981,7 @@
   /* `community` is deliberately NOT here any more (Aug 2026): the shared-deck list is a section of the
      Collections page, so that address is retired — and a retired address is REDIRECTED rather than dropped,
      since links to it have been shared. Both readers of the hash map it to `decks` below. */
-  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "mission", "studio", "deck", "glossary", "browse", "library", "book"];
+  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = hParts[0] === "community" ? "decks" : valid.includes(hParts[0]) ? hParts[0] : "home";
@@ -34685,9 +36010,17 @@
   }
   // A refresh on #admin lands BEFORE supaBoot() has restored the session and loaded the profile role, so
   // isAdmin() says no for a signed-in admin and the editor reader was bounced to Home on every reload.
-  // Boot to Home as before, but remember the intent — supaBoot routes back once the role has arrived.
-  if (initName === "admin" && !isAdmin()) { _bootWantedAdmin = true; initName = "home"; }
+  /* Boot renders DIRECTLY rather than through route(), so the guard there does not cover a cold load —
+     which is how `#warofages` reached a visitor for an hour. Every admin-only route is refused here and
+     the intent REMEMBERED rather than acted on, because at this moment the role is not known: see
+     bootAdminSettled, which supaBoot calls on every path where it is. */
+  if (ADMIN_ROUTES.indexOf(initName) >= 0 && !isAdmin()) { _bootWantedAdmin = initName; initName = "home"; }
   current = { name: initName, params: initParams };
+  /* WHATEVER THEME IS ON SCREEN IS A THEME THIS READER OWNS. Five of the six became collectibles in
+     Aug 2026 and a reader wearing one from before that must not lose it — there is no honest way to tell
+     "chose it last year" from "should not have it", and taking a look away is a punishment rather than a
+     reward. It runs BEFORE applyTheme so the first paint is already the theme they kept. */
+  themeGrandfather();
   applyTheme();
   applyMode();
   const _glossToRestore = readGlossOpen();   // capture before render()'s closeAllGloss clears the record
@@ -34705,6 +36038,9 @@
   restoreGlossWins(_glossToRestore);   // re-open any gloss popups that were on screen before the reload
   communityBoot();   // async: the user's own decks load from IndexedDB, then the deck pages re-render
   supaBoot().then(cloudBootOverrides);   // async: restore the session, handle emailed auth links, reconcile progress — then adopt the published content overrides (live edits)
+  // …and the pooled card counters behind the community difficulty rating, at idle: nothing on the first
+  // paint depends on them, and a card without them simply shows the editorial rating it always did
+  whenIdle(() => { cardStatsLoad(); });
 
   // Service worker (sw.js) — makes Folio installable and usable offline. Registered after boot so
   // it never competes with first paint, and NEVER on a dev origin: a file-watching dev server's
