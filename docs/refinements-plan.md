@@ -113,3 +113,29 @@ written and its version is bumped** — the three go in one commit, per the rule
   already cached, the eight biggest files — and says outright that where readers connect FROM is not
   collected and is not guessed at, which is the People card's own rule about RLS applied to a question no
   policy could answer either way.
+- **E — Minigames.** `test-minigames.js` 82/0 (a new WHO SAID IT section), `test-difficulty.js` 69/0,
+  `test-layout.js`, `test-a11y.js`.
+  **The decoy ladder is the item that reached furthest.** Who said it? already preferred a speaker of the
+  same CATEGORY, and a category alone is not narrow enough — a Stoic maxim answered against Nietzsche,
+  Kant and Simone de Beauvoir is a round a reader wins by noticing which name is two thousand years older
+  than the other three. Every entry now carries an `era` as well, and `buildWhoSaidRounds` fills a round
+  from a four-tier ladder: share both, share the category, share the era, anybody. **The ladder's outcome
+  is EXACT rather than a preference**, because the greedy fill is determined by the cumulative tier counts
+  — so the test computes those in the page and requires every decoy to come from at or above the smallest
+  tier the fill must reach, which degrades honestly on a thin cell and cannot go stale when the pool is
+  edited.
+  **TWO CELLS HOLD ONE PERSON EACH AND ARE LEFT THAT WAY** (reform/earlymodern, science/medieval), named
+  in `quotes.js`'s own header rather than padded: inventing a companion for a cell is how a pool acquires
+  a speaker nobody has heard of, or a quotation nobody said.
+  **The picture round's two filters cost the test its fixture, which is the finding.** The glossary half
+  now goes through `threadEasyKeys()` and either half may be refused by `PIC_ABSTRACT_KINDS`, so the
+  section's planted pool — the first ten glossary keys — yields NO POOL AT ALL. It is planted on the
+  ARTEFACTS instead, which `picturePool` takes unconditionally and says so in its own comment: an
+  artefact is a photograph of one object, carries no difficulty and is filed under no kind. The section
+  then asserts the ROUND rather than re-asserting the pool rules.
+  **AND A SHIM OF A RULE IS A COPY OF IT.** `[xw] the page's grid is the one the date deals` had been
+  failing with "no matching day" since the Geography collection landed: `gameCardIdSet` excludes a MAP
+  CARD (its clue is its picture, so dealt cold it asks "the state shaded on the map is ____" with no map
+  beside it) and the Node builder's shim did not, so the two drew from pools five cards apart and
+  compared two genuinely different grids. It reads as a SEEDING fault rather than as a stale shim, which
+  is why it sat there; the shim carries `cardMapSpec` now.

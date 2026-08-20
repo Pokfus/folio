@@ -18507,19 +18507,25 @@
     const wonToday = { challenge: gameWonToday("challenge"), chrono: gameWonToday("chrono"), truefalse: gameWonToday("truefalse"), whosaid: gameWonToday("whosaid"), findit: gameWonToday("findit"), thread: gameWonToday("thread"), crossword: gameWonToday("crossword"), picture: gameWonToday("picture"), whatyear: gameWonToday("whatyear") };
     /* The game tiles' and the banner's marks are at module scope now (see ICON, above PAGES.home) —
        the daily "Played today" placard needs them too. */
-    /* THE DAY'S COMPLETION MARK — two shapes, not one (Aug 2026, on request).
-       A PERFECT score keeps the shining gold ribbon: it is the rarer thing and it earns the whole corner.
-       Merely HAVING PLAYED is now a small green circled check in the top-right instead of a green band
-       reading "Done!" — a ribbon is a lot of tile for a fact that only says "you have been here today",
-       and six of them across the grid read as six announcements rather than as six ticked-off games.
-       Both still carry a NAME: the ribbon has its word, and the circle an aria-label, because an
-       unlabelled patch of colour says nothing to a screen reader and little more to the eye — which is
-       the reasoning the ribbon was built on and is not weakened by the mark getting smaller. */
+    /* THE DAY'S COMPLETION MARK — two shapes in ONE PLACE (Aug 2026, on request).
+       Merely HAVING PLAYED is a small green circled check in the top-right. A PERFECT score is a shining
+       gold WAX SEAL with the same check impressed in it, in the SAME corner and at the same anchor — where
+       it used to be a diagonal ribbon reading "Perfect!" across the whole corner.
+       WHY THE SAME PLACE IS THE POINT: the two marks answer one question — how did today go — and while
+       one of them crossed the corner and the other sat inside it, a grid of nine tiles was two different
+       kinds of announcement in two different places, and the eye had to read the shape before it could
+       read the state. Same anchor, same size class, and the DIFFERENCE is the thing that differs: green
+       circle against gold wax. The seal is a fraction of the ribbon's surface and says more, because a
+       wax seal already means "sealed, finished, done properly" before a word is read.
+       Both still carry a NAME, which is what the ribbon was built for and is not weakened by the mark
+       getting smaller: each is `role="img"` with an aria-label, since a patch of colour says nothing to a
+       screen reader whatever shape it is. The check inside the seal is `aria-hidden` — the label on the
+       seal names it once, and reading a tick out twice says nothing the second time. */
     const GT_CHECK_SVG =
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>';
     const doneMarkHTML = (done, won) =>
       won
-        ? '<span class="gt-ribbon gr-gold"><span>Perfect!</span></span>'
+        ? '<span class="gt-seal" role="img" aria-label="Perfect today"><span class="gt-seal-face">' + GT_CHECK_SVG + "</span></span>"
         : done
           ? '<span class="gt-check" role="img" aria-label="Played today">' + GT_CHECK_SVG + "</span>"
           : "";
@@ -25652,20 +25658,44 @@
      two is filed. Same-family names are offered first and the rest of the pool fills in behind them, so a
      small family still deals a full round rather than refusing to deal one. `quoteLocalized` may translate
      the name, so the categories are read off the ORIGINAL entries and the localised name taken from the
-     same index — a translated `who` would match nothing in the table. */
+     same index — a translated `who` would match nothing in the table.
+
+     AND SINCE AUG 2026 THE DECOYS SHARE A PERIOD AS WELL, on the same request, because the category alone
+     left a round winnable on nothing but a date: a Stoic maxim answered against Nietzsche, Kant and
+     Simone de Beauvoir is four philosophers, and the one that is two thousand years older than the rest
+     is the answer. `era` is the second axis (quotes.js's header has the five and where they cut) and the
+     ranking is a strict LADDER rather than a score — both, then the category, then the era, then anybody
+     — so a thin cell degrades one rung at a time instead of refusing to deal. It cannot fail closed:
+     `rest` is every remaining name in the pool, so the fourth rung always fills the round.
+
+     AND THE ROUND COUNT IS THREE, not the five it was (same request). The pool went from 64 quotations to
+     102 in the same batch, so this is not about running out of material: three tightly-matched rounds ask
+     more than five loose ones, and the game's tile still reads N/3 with its own gold seal at 3/3. It is
+     WY_ROUNDS' shape — a named constant read by the page and by nothing else — so the results screen, the
+     score and the tile all follow the one figure. */
+  const WS_ROUNDS = 3;
   function buildWhoSaidRounds() {
     const RAW = window.QUOTEGAME || [];
     const POOL = RAW.map((x) => quoteLocalized(x));
     const catOf = new Map();   // localised speaker name -> the family it is filed under
-    POOL.forEach((x, i) => { if (!catOf.has(x.who)) catOf.set(x.who, (RAW[i] && RAW[i].cat) || ""); });
-    const picks = pick(POOL, Math.min(5, POOL.length));
+    const eraOf = new Map();   // localised speaker name -> the period they lived in
+    POOL.forEach((x, i) => {
+      if (catOf.has(x.who)) return;
+      catOf.set(x.who, (RAW[i] && RAW[i].cat) || "");
+      eraOf.set(x.who, (RAW[i] && RAW[i].era) || "");
+    });
+    const picks = pick(POOL, Math.min(WS_ROUNDS, POOL.length));
     const allWho = [...new Set(POOL.map((x) => x.who))];
     return picks.map((it) => {
-      const mine = catOf.get(it.who) || "";
+      const myCat = catOf.get(it.who) || "", myEra = eraOf.get(it.who) || "";
       const others = pick(allWho.filter((w) => w !== it.who));
-      const kin = others.filter((w) => mine && catOf.get(w) === mine);
-      const rest = others.filter((w) => !mine || catOf.get(w) !== mine);
-      const distractors = kin.concat(rest).slice(0, 3);
+      const sameCat = (w) => myCat && catOf.get(w) === myCat;
+      const sameEra = (w) => myEra && eraOf.get(w) === myEra;
+      const both = others.filter((w) => sameCat(w) && sameEra(w));
+      const cat  = others.filter((w) => sameCat(w) && !sameEra(w));
+      const era  = others.filter((w) => !sameCat(w) && sameEra(w));
+      const rest = others.filter((w) => !sameCat(w) && !sameEra(w));
+      const distractors = both.concat(cat, era, rest).slice(0, 3);
       return { it, options: pick([it.who, ...distractors]) };
     });
   }
@@ -25733,7 +25763,7 @@
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
               <div><p class="tf-sum-q">“${esc(rd.it.q)}”</p><p class="tf-sum-a"><b>${esc(rd.it.who)}</b> — ${esc(rd.it.context)}</p></div>
             </div>`).join("")}</div>
-          <p class="tf-tomorrow">Five fresh voices arrive tomorrow.</p>
+          <p class="tf-tomorrow">${["No", "One", "Two", "Three", "Four", "Five"][ROUNDS] || ROUNDS} fresh voices arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="ws-home">Home</button></div>
         </div>`;
       root.querySelector("#ws-home").addEventListener("click", () => route("home"));
@@ -26845,12 +26875,11 @@
      Five pictures, four options each, drawn from every illustration Folio holds — a card's, a glossary
      term's or an artefact's — so a picture added anywhere feeds the game without a second registry.
 
-     ⚠ THE CORPUS CURRENTLY HOLDS ONE PICTURE, so this game shows its "not enough pictures" placard rather
-     than a round. That is a CONTENT gap and not a wiring one: Folio has no upload path (every picture is
-     somebody else's URL, credited), and the fields exist on all three kinds of record — `card.image`,
-     `GLOSSARY_IMAGES`, an artefact's `image` — so the game starts working the moment eight of them carry
-     one. It ships now so that the pass which adds them has somewhere to land, and the tile says
-     "Coming soon" until then rather than promising a round it cannot deal.
+     TWO FILTERS NARROW THAT (Aug 2026, on request) and both are documented where they are applied: the
+     DIFFICULTY bar now reaches the glossary half as well as the cards, and a subject whose picture can
+     only EXEMPLIFY it — a state, a period, an abstraction — is out. Measured over the shipped corpus the
+     pool is 157, against a floor of 8; the placard below is what a starved pool gets instead of a bad
+     round, and it was the whole of this game for the fortnight before the picture pass ran.
 
      TWO THINGS ARE DELIBERATE ABOUT WHAT IS SHOWN. The picture's own TITLE, DESCRIPTION AND CREDIT are
      held back until the guess is in — every one of them names the subject, so showing the credit up front
@@ -26859,29 +26888,70 @@
      invented ones, which is the rule Who said it? already follows: three plausible wrong answers teach
      something, three obvious ones teach nothing. */
   const PIC_ROUNDS = 5, PIC_OPTS = 4, PIC_MIN_POOL = 8;
+  /* A SUBJECT WHOSE PICTURE CAN ONLY EXEMPLIFY IT IS NOT A PICTURE ROUND (Aug 2026, on request: "states,
+     time periods or abstract terms should not appear … those pictures are unlikely to be interpreted as
+     their larger general meaning"). The game works when the picture DEPICTS its subject — point at it and
+     say "that is a hand-axe", "that is Ur", "that is Homo erectus". It fails when the picture is one
+     instance standing for a class: a hand-axe under "Acheulean", a temple under "Classical antiquity", a
+     flag under a country. Both are perfectly good illustrations and only one of them is a question.
+     The test is the subject's KIND — the first of its tags, which is the vocabulary `GLOSSARY_TAGS` and
+     `card.tags` are already written in — and the list is DECLARED rather than derived, because "does this
+     picture depict or exemplify?" is a judgement about a category and not something a rule can read off a
+     record. Three of the twelve are the request's own words (`state`, `era`, `concept`); the rest are the
+     same shape (`practice`, `theory`, `institution`, `title`, `language`, `symbol`) or a class of objects
+     rather than an object (`industry`, `culture`, `people` — the Acheulean is not a hand-axe).
+     What is NOT on it and could have been: `event` (a painting of a battle depicts the battle about as
+     well as a picture depicts anything), `hominin` and `fossil` (a skull IS the specimen), `text` (a
+     manuscript page IS the text). Those are kept because the request names three things and stretching a
+     principle past what it was asked for is how a filter starves its own game.
+     A subject whose kind cannot be read at all is KEPT, which is the safe direction — measured over the
+     shipped corpus it never happens today, the glossary fallback below covering every untagged card. */
+  const PIC_ABSTRACT_KINDS = new Set(
+    ("era,state,concept,theory,practice,institution,title,language,symbol,industry,culture,people").split(",")
+  );
   function picturePool() {
     const out = [], seen = new Set();
     const add = (img, label, kind, gloss, tags) => {
       if (!img || !img.src || !label) return;
       const l = String(label).trim();
       if (!l || seen.has(l.toLowerCase())) return;   // one entry per subject, or a round could offer the answer twice
+      const t = Array.isArray(tags) && tags.length ? tags : [kind];
+      if (PIC_ABSTRACT_KINDS.has(String(t[0] || "").toLowerCase())) return;
       seen.add(l.toLowerCase());
       out.push({ src: img.src, label: l, title: img.title || "", desc: img.desc || "", credit: img.credit || "", alt: img.alt || "",
-                 kind: kind, gloss: gloss || "", tags: Array.isArray(tags) && tags.length ? tags : [kind] });
+                 kind: kind, gloss: gloss || "", tags: t });
     };
-    /* The CARD half draws under the difficulty bar, like every other card-fed game. The glossary and
-       artefact halves are not rated at all — `difficulty` is a card field, and this is the one game
-       whose pool reaches past the cards — so they enter as they always did. Said here rather than left
-       to be discovered: rating the 836 glossary terms is a separate content pass, and until it happens
-       this game's answers are easier than the others' on average rather than uniformly so. */
+    /* EVERY SUBJECT DRAWN FROM THE CORPUS IS NOW UNDER THE DIFFICULTY BAR (Aug 2026, on request: "ensure
+       the Picture Round minigame uses only cards with level 1 or 2 difficulty rating"). The CARD half
+       always was, through `gameCardIdSet()`. The GLOSSARY half was not — `difficulty` is a card field and
+       this is the one game whose pool reaches past the cards — so a round could deal a term rated nowhere
+       at all, cold, with three specialist decoys beside it.
+       The rating a glossary term has not got is the rating of the CARD it answers, which the card→glossary
+       pairing rule guarantees exists, so the half goes through **`threadEasyKeys()`** — the very set Common
+       Thread built for its own version of this problem. One door, one bar, and a game added later reaches
+       for the same function rather than inventing a second rule. Measured over the shipped corpus: the
+       glossary half falls from 684 subjects to 96, and the pool as a whole to 157, comfortably above
+       `PIC_MIN_POOL`.
+       ARTEFACTS are deliberately NOT filtered and cannot be: an artefact is a photograph of one object,
+       which is the ideal subject for this game and the one kind of record with no difficulty to read. */
+    const easyGloss = threadEasyKeys();
     /* Each entry carries the TAGS its subject is filed under, which is what lets a round's three wrong
        answers be things of the same kind (Aug 2026, on request). They come from the two tables that
        already hold them — a card's own `tags`, a glossary term's `GLOSSARY_TAGS` row — and an artefact,
        which is filed under neither, is simply an artefact: that is one honest category rather than a
        guess dressed up as several. */
     const avail = gameCardIdSet();
-    CARDS.forEach((c) => { if (avail.has(c.id)) add(c.image, cardLocalized(c).answerText, "card", "", c.tags); });
-    Object.keys(window.GLOSSARY || {}).forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k, glossTags(k)); });
+    /* A card with no tags of its own borrows its ANSWER TERM's, which is the same pairing the bar above
+       leans on — without it 26 illustrated cards have no readable kind, so the abstract filter cannot see
+       them and the kinship measure ranks their decoys on nothing. */
+    const idx = glossIndexFor(GLOSS_SCOPE_SITE);
+    const kindTags = (c) => {
+      if (Array.isArray(c.tags) && c.tags.length) return c.tags;
+      const k = idx && idx.byAnySurface ? idx.byAnySurface[String(c.answerText || "").trim().toLowerCase()] : null;
+      return k && !isDeckGlossKey(k) ? glossTags(k) : null;
+    };
+    CARDS.forEach((c) => { if (avail.has(c.id)) add(c.image, cardLocalized(c).answerText, "card", "", kindTags(c)); });
+    easyGloss.forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k, glossTags(k)); });
     artefactsMerged().forEach((a) => add(a.image, a.name, "artefact"));
     return out;
   }

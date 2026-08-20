@@ -627,36 +627,20 @@ body.night .banner{
 .banner .glyph-svg{bottom:-22px; right:-14px;}
 .banner .glyph-svg svg{display:block; width:168px; height:168px;}
 
-/* ---------- completion is a RIBBON, not a filled tile (Aug 2026, on request) ----------
+/* ---------- completion is a MARK IN THE CORNER, not a filled tile (Aug 2026, on request) ----------
    The Daily-review banner and every game tile used to FILL with their colour once played, and turn gold on a
    perfect score. That is a lot of surface to change for one fact, and it fought every theme's own treatment
-   of the card. What marks completion now is a small diagonal ribbon across the TOP-RIGHT corner — the tile
-   underneath is left exactly as it was, so a played page still reads as a page of tiles rather than a page
-   of blocks of colour. `.done` / `.won` stay on the element (the ribbon is a child, and the classes are what
-   the tests and the achievements read); all they do now is carry the ribbon.
-   The ribbon takes the tile's own hue when played, and the same gold — with the same glint — when the score
-   was perfect. It is a real element rather than a ::before, because it carries a WORD: an unlabelled band of
-   colour says nothing to a screen reader, and little more to the eye. */
-.gt-ribbon{
-  position:absolute; top:0; right:0; width:82px; height:82px; overflow:hidden;
-  pointer-events:none; z-index:3;
-}
-.gt-ribbon span{
-  position:absolute; display:block; width:124px; right:-30px; top:15px;
-  transform:rotate(45deg); text-align:center; padding:3px 0;
-  font-family:var(--mono); font-size:calc(8.5px * var(--fs)); font-weight:700; letter-spacing:.12em; text-transform:uppercase;
-  /* GREEN, not the tile's own hue (Aug 2026, on request — Multiple Choice is red, and a red ribbon reading
-     "played" looked like a warning rather than a tick). Completion is green everywhere else in Folio: the
-     `--good` token is the same one the Review pile and the grade buttons use. A perfect score still takes
-     the gold below. */
-  background:var(--good, #4F9D67); color:#fff;
-  box-shadow:0 1px 5px rgba(0,0,0,.28);
-}
-/* HAVING PLAYED is a green circled CHECK, not a band (Aug 2026, on request) — the ribbon is kept for a
-   perfect score alone, below. Same corner, same green (--good, the token the Review pile and the grade
-   buttons use), a fraction of the surface. It is `role="img"` with an aria-label in the markup rather
-   than a decorative pseudo-element, for the reason the ribbon carries a word: a patch of colour with no
-   name is invisible to a screen reader. */
+   of the card. What marks completion now is a small mark in the TOP-RIGHT corner — the tile underneath is
+   left exactly as it was, so a played page still reads as a page of tiles rather than a page of blocks of
+   colour. `.done` / `.won` stay on the element (the mark is a child, and the classes are what the tests and
+   the achievements read); all they do now is carry the mark.
+   TWO SHAPES, ONE ANCHOR (Aug 2026, on a second request). Having played is a green circled check; a perfect
+   score is a gold WAX SEAL with the same check impressed in it, in the same corner and the same size class,
+   where it used to be a diagonal ribbon reading "Perfect!" across the whole corner. The two answer one
+   question, so they belong in one place and differ in the thing that differs — green circle against gold
+   wax — rather than in shape, position and surface all at once.
+   Both are real elements with an aria-label rather than pseudo-elements: a patch of colour with no name is
+   invisible to a screen reader whatever shape it is. */
 .gt-check{
   position:absolute; top:9px; right:9px; z-index:3; pointer-events:none;
   width:21px; height:21px; border-radius:50%;
@@ -670,25 +654,46 @@ body.night .banner{
 .review-group .banner .gt-check svg{width:14px; height:14px;}
 body[data-theme="arcade"] .gt-check{border-radius:0; box-shadow:none; border:2px solid var(--ink);}
 body[data-theme="gazette"] .gt-check{box-shadow:none;}
-/* a perfect score: the shining gold the filled tile used to wear, now on the band alone */
-.gt-ribbon.gr-gold span{
-  color:#3A2D07;
+/* A PERFECT SCORE IS A GOLD WAX SEAL (Aug 2026, on request), stamped in the corner the check sits in.
+   THE SHAPE IS A CLIP-PATH AND NOT A BORDER-RADIUS, because what makes a wax seal read as one at 24px is
+   the FLUTED RIM — the scalloped edge a seal press leaves — and a rounded rectangle cannot have one at any
+   radius. The polygon is 22 points alternating between r=50% and r=43% of the box, which is one flute per
+   32° and the coarsest scallop that still reads as a scallop rather than as a cog.
+   The DROP SHADOW is a `filter`, not a `box-shadow`: a clip-path clips the box shadow away with the box,
+   and a filter follows the clipped silhouette, which is what makes the wax look pressed onto the tile
+   rather than cut out of it.
+   The GLINT is the ribbon's own `gt-gold-shine` sweep, unchanged — the same gold and the same 3.4s rest
+   between passes, so a seal and a gold XP bar are the same material.
+   The CHECK is `.gt-seal-face`, a child rather than the seal itself, because the sweep lives on the seal's
+   own background and a check drawn on that element would be swept with it. It is set in the deep gold the
+   ribbon's word used, with a soft white shadow under it so it reads as impressed into the wax. */
+.gt-seal{
+  position:absolute; top:8px; right:8px; z-index:3; pointer-events:none;
+  width:24px; height:24px;
+  display:inline-flex; align-items:center; justify-content:center;
+  clip-path:polygon(50.0% 0.0%, 62.1% 8.7%, 77.0% 7.9%, 82.5% 21.8%, 95.5% 29.2%, 92.6% 43.9%, 99.5% 57.1%, 89.1% 67.9%, 87.8% 82.7%, 73.2% 86.2%, 64.1% 98.0%, 50.0% 93.0%, 35.9% 98.0%, 26.8% 86.2%, 12.2% 82.7%, 10.9% 67.9%, 0.5% 57.1%, 7.4% 43.9%, 4.5% 29.2%, 17.5% 21.8%, 23.0% 7.9%, 37.9% 8.7%);
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.34));
   background-image:
     linear-gradient(115deg, rgba(255,255,255,0) 40%, rgba(255,255,255,.75) 50%, rgba(255,255,255,0) 60%),
-    linear-gradient(150deg, #F4E39A 0%, #E5C765 45%, #C9A43A 100%);
+    radial-gradient(circle at 34% 28%, #F7ECBE 0%, #E5C765 46%, #BE9829 100%);
   background-size:250% 100%, 100% 100%;
   background-repeat:no-repeat;
   background-position:110% 0, 0 0;
   animation:gt-gold-shine 3.4s ease-in-out infinite;
 }
-@media (prefers-reduced-motion:reduce){ .gt-ribbon.gr-gold span{animation:none;} }
-/* arcade squares everything off already; the gazette prints its ribbon in the paper's own red */
-body[data-theme="arcade"] .gt-ribbon span{ border-top:2px solid var(--ink); border-bottom:2px solid var(--ink); box-shadow:none; }
-body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
-/* the banner's ribbon clears its rounded corner, and the title has to stop short of it */
+.gt-seal-face{
+  display:block; color:#4A3708;
+  filter:drop-shadow(0 1px 0 rgba(255,255,255,.45));
+}
+.gt-seal-face svg{width:13px; height:13px; display:block;}
+@media (prefers-reduced-motion:reduce){ .gt-seal{animation:none;} }
+/* the review banner is a bigger surface, so its seal is too — the check's own pair of sizes */
 .review-group .banner{position:relative;}
-.review-group .banner .gt-ribbon{width:96px; height:96px;}
-.review-group .banner .gt-ribbon span{width:146px; right:-34px; top:20px; font-size:calc(9.5px * var(--fs));}
+.review-group .banner .gt-seal{top:11px; right:11px; width:29px; height:29px;}
+.review-group .banner .gt-seal-face svg{width:16px; height:16px;}
+/* arcade squares every mark off and outlines it in ink; the gazette prints flat, so the wax loses its lift */
+body[data-theme="arcade"] .gt-seal{clip-path:none; border:2px solid var(--ink); filter:none;}
+body[data-theme="gazette"] .gt-seal{filter:none;}
 /* daily challenge accent treatment */
 .banner.challenge{background:linear-gradient(135deg, var(--card) 60%, var(--zh-wash));}
 .banner.challenge h2{color:var(--ink);}
@@ -4063,10 +4068,10 @@ button.game-tile:active{transform:translateY(0) scale(.99);}
 .game-tile.blank .gt-title{color:var(--ink-faint);}
 .game-tile.blank .gt-glyph{opacity:.16;}
 /* ---------- game-tile daily states ----------
-   The tile no longer FILLS when played (Aug 2026, on request) — see the .gt-ribbon block above. What is left
-   here is the idle treatment, which is what every tile now wears all day: the hue washing in from the left,
-   the theme colour in the left bar, a faint corner icon. Completion is the ribbon across the top-right
-   corner, gold on a perfect score. Daylight needs a far stronger mix than night to read at all; night keeps
+   The tile no longer FILLS when played (Aug 2026, on request) — see the .gt-check / .gt-seal block above.
+   What is left here is the idle treatment, which is what every tile now wears all day: the hue washing in
+   from the left, the theme colour in the left bar, a faint corner icon. Completion is a mark in the
+   top-right corner, a gold seal on a perfect score. Daylight needs a far stronger mix than night; night keeps
    the original whisper strength. */
 button.game-tile{
   background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 26%, transparent), transparent 64%),
@@ -4080,7 +4085,7 @@ body.night .game-tile{
 }
 button.game-tile .gt-title{color:color-mix(in srgb, var(--tile, var(--indigo)) 45%, var(--ink));}
 button.game-tile .gt-glyph{opacity:.14;}
-/* the ribbon crosses the corner the tagline never reaches, but a long score line would run under it */
+/* the mark sits in the corner the tagline never reaches, but a long score line would run under it */
 .game-tile.done .gt-body, .game-tile.won .gt-body{padding-right:6px;}
 @keyframes gt-gold-shine{
   0%, 14%   {background-position:110% 0, 0 0;}   /* the shine band waits off the left edge */
@@ -4533,7 +4538,7 @@ button.game-tile .gt-glyph{opacity:.14;}
 body.no-anim *,body.no-anim *::before,body.no-anim *::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
 body.no-anim .page > *{animation-delay:0s !important;}
 body.no-anim .lu-conf,body.no-anim .lu-burst{display:none;}
-body.no-anim .gt-ribbon.gr-gold span{animation:none;}
+body.no-anim .gt-seal{animation:none;}
 body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::before{animation:none; border-color:var(--rule); border-top-color:var(--indigo);}
 
 /* ============================================================

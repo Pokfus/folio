@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.282", released: "2026-08-20T14:41Z" };
+window.FOLIO_VERSION = { v: "1.283", released: "2026-08-20T15:46Z" };
 
 window.CHANGELOG = [
   {
@@ -72,6 +72,11 @@ window.CHANGELOG = [
       "<b>A friend's row on your account now wears that friend's own theme</b>, so a profile is presented in the colours its owner chose.",
       "<b>Fifteen new badges</b> for opening chests, collecting artefacts, finding a legendary, sharing a deck of your own, opening books and glossary terms, and studying an hour, three or eight in one day.",
       "For those with the editor: a new <b>Themes</b> tab counts how many accounts wear each one, and the dashboard now measures what this page actually cost to load.",
+      "<b>Who said it? is now three rounds</b>, and its three wrong answers are people of the same field and the same period as the right one.",
+      "<b>Thirty-eight more quotations</b> in Who said it?, from Euclid and Ibn Khaldun to Ada Lovelace, Hannah Arendt and Alan Turing.",
+      "<b>Forty-eight more True or False statements</b>, including thirteen on psychology, where a good many confident beliefs turn out never to have been established.",
+      "<b>The picture round no longer asks you to name a period, a state or an idea</b> from one picture of it, and draws only on well-known subjects.",
+      "<b>A perfect game now leaves a gold wax seal</b> on its tile, in the corner where a finished game shows its green check.",
     ],
   },
   {
