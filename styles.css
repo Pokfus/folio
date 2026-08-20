@@ -2632,6 +2632,34 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 .dm-switch{flex-direction:row; align-items:center; justify-content:space-between; gap:12px; cursor:pointer;}
 .dm-switch .dm-switchmain{display:flex; flex-direction:column; gap:2px; min-width:0;}
 .dm-switch .switch{flex:none;}
+/* THE REVIEW-ORDER CYCLER (Aug 2026, on request, when a third order arrived). Laid out exactly like a
+   switch row — the same two-line main block, the same right-hand control slot — so the sheet reads as one
+   list of settings rather than one of settings and one of something else. What sits in that slot is the
+   NAME of the order in force, in the mono face the sheet uses for every other figure, boxed so it reads
+   as a control rather than as a second note; pressing anywhere on the row steps it. It is a real <button>,
+   so it needs no role and no key handling of its own. */
+.dm-cycle{flex-direction:row; align-items:center; justify-content:space-between; gap:12px;}
+.dm-cyval{
+  flex:none; font-family:var(--mono); font-size:calc(11px * var(--fs)); font-weight:600;
+  letter-spacing:.02em; color:var(--ink-soft); background:var(--paper-2);
+  border:1px solid var(--rule); border-radius:999px; padding:5px 11px; white-space:nowrap;
+}
+.dm-cycle:hover .dm-cyval{border-color:var(--indigo); background:var(--card);}
+/* WHERE A SETTING COMES FROM. A third line under the note, quieter than either — it is a fact ABOUT the
+   row rather than part of what the row says — and set in the mono face because it names an entry rather
+   than reading as prose. `display:none` is spelled out: the author `display` below would otherwise beat
+   the UA's own [hidden] rule, which is this file's standing trap. */
+.dm-from{
+  display:inline-block; margin-top:3px; font-family:var(--mono);
+  font-size:calc(9.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase;
+  color:var(--ink-faint);
+}
+.dm-from[hidden]{display:none;}
+/* An inherited value is the stronger of the two marks — it is the one saying something the reader may
+   not expect — and it takes `--ink-soft`, a SOLVED ink, rather than `--indigo`, which is a brand colour
+   that falls short of the bar on several papers (see the CONTRAST block at the head of this file). */
+.dm-from.dm-inherit{color:var(--ink-soft);}
+
 /* a sheet row that is one of a SET rather than a command: the chosen one carries a tick, so the sheet
    says what the setting currently is and not only what it can be changed to. (No longer used by the
    review's order, which is a switch above; kept for the book shelf's own favourite row.) */

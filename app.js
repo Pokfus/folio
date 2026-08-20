@@ -4191,16 +4191,17 @@
      review's own sheet does not offer the switch: it schedules nothing of its own, it deals what its decks
      hand it. A card in more than one deck takes the first, deterministically. */
   function schedModeOf(entryId) {
-    const o = (S.deckOpts || {})[entryId] || {};
-    return o.sched === "fsrs" ? "fsrs" : "sm2";
+    // …and it cascades to subdecks, like every other policy in the sheet — see entryChain
+    const v = deckOpt(entryId, "sched");
+    return v && v.value === "fsrs" ? "fsrs" : "sm2";
   }
   function deckSchedCfg(entryId) {
-    const o = (S.deckOpts || {})[entryId] || {};
+    const ret = deckOpt(entryId, "retention"), par = deckOpt(entryId, "fsrsParams");
     const cfg = Object.assign({}, SCHED, {
       mode: schedModeOf(entryId),
-      retention: Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, Number(o.retention) || FSRS_RETENTION)),
+      retention: Math.min(FSRS_RET_MAX, Math.max(FSRS_RET_MIN, (ret && Number(ret.value)) || FSRS_RETENTION)),
     });
-    if (Array.isArray(o.fsrsParams) && o.fsrsParams.length === 21) cfg.fsrsParams = o.fsrsParams;
+    if (par && Array.isArray(par.value) && par.value.length === 21) cfg.fsrsParams = par.value;
     /* The load map rides on the cfg so the pure scheduler can read it and so the preview and the grade are
        handed the SAME one — see schedSpread. It is null unless the reader has asked for one of the two
        settings, which is what keeps every existing schedule exactly as it was. */
@@ -5351,6 +5352,83 @@
     delete o.newPerDay; delete o.maxReviews; delete o.newIgnoresReview;
     save();
   }
+  /* ---------- ONE WALK: A SETTING SET ON A DECK GOVERNS ITS SUBDECKS ----------
+     (Aug 2026, on request.) `deckPairNew` had been doing this by hand since the day it shipped, and
+     nothing else did — so a reader who set the review order, question variety, read-aloud or the
+     scheduler on a deck found every one of its levels still following the global default, silently. The
+     walk is generalised here and every reader of `S.deckOpts` goes through it.
+
+     THE CHAIN IS NEAREST FIRST: the entry itself, then the subdeck path upward (a direction, then its
+     level, then the levels above it, then the deck), or for a curated row the tree upward to its
+     collection — and then any container the reader has dragged the row into. Cycles cannot hang it: the
+     `seen` set is what the loop is bounded by, and a group nested into itself simply appears once.
+
+     WHAT DOES *NOT* INHERIT IS THE DAILY LIMITS, and that is the one exclusion worth stating. `order`,
+     `variety`, `autoSpeak`, `burySiblings`, `pairNew` and the scheduler are POLICIES — how the material
+     is dealt — and a policy set on a deck plainly means the deck. `newPerDay` and `maxReviews` are
+     QUANTITIES: handed down to nine levels, "five new a day" becomes forty-five, which is the opposite of
+     what the reader asked for. So `deckLimits` still reads one entry and falls back to the "All decks"
+     figures, exactly as it always has.
+
+     AND THE READER IS TOLD WHERE A VALUE COMES FROM. A cascade a reader cannot see is a cascade that
+     reads as a control that did nothing: `deckOptFrom` reports the entry a value was found on, the sheet
+     marks a row it INHERITS with the name of the deck above it, and throwing the switch there writes an
+     override on this row and says so. */
+  const DECK_OPT_INHERIT = ["order", "random", "variety", "autoSpeak", "burySiblings", "pairNew",
+                            "sched", "retention", "fsrsParams"];
+  function entryChain(id) {
+    const out = [], seen = new Set();
+    const push = (e) => { if (e && typeof e === "string" && !seen.has(e)) { seen.add(e); out.push(e); } };
+    push(id);
+    const deckId = uDeckIdOf(id);
+    if (deckId && UDECKS[deckId]) {
+      // a direction sits inside its level, which sits inside the levels above it, which sit in the deck
+      if (uTplOf(id) >= 0) push(uSubEntry(deckId, uSubOf(id)));
+      for (let p = uSubOf(id); p; p = uSubParent(p)) push(uSubEntry(deckId, p));
+      push(uDeckEntry(deckId));
+    } else if (!isGroupId(id)) {
+      let n = NODE_BY_ID[id];
+      for (let i = 0; n && n.parentId && i < 64; i++) { n = NODE_BY_ID[n.parentId]; if (n) push(n.id); }
+    }
+    // …and whatever the row, or anything above it, has been dragged into. The array grows as it is walked,
+    // so a group inside a group is reached; `seen` is what makes that terminate.
+    for (let i = 0; i < out.length && i < 64; i++) { const g = nestParentOf(out[i]); if (g) push(g); }
+    return out;
+  }
+  // the value in force for this entry, and the entry it was found on. `null` is read as "not set here",
+  // which is what `setDeckFsrsParams` writes to clear an override.
+  function deckOpt(id, key) {
+    const ch = DECK_OPT_INHERIT.indexOf(key) < 0 ? [id] : entryChain(id);
+    for (let i = 0; i < ch.length; i++) {
+      const v = ((S.deckOpts && S.deckOpts[ch[i]]) || {})[key];
+      if (v !== undefined && v !== null) return { value: v, from: ch[i], own: i === 0 };
+    }
+    return null;
+  }
+  // …the same question asked of a GROUP of keys, for a row whose value is written under more than one name
+  // (the review order writes both `order` and `random`, so that it still deals right under an older build)
+  function deckOptFrom(id, keys) {
+    const ch = entryChain(id);
+    for (let i = 0; i < ch.length; i++) {
+      const o = (S.deckOpts && S.deckOpts[ch[i]]) || {};
+      for (let k = 0; k < keys.length; k++) {
+        if (o[keys[k]] !== undefined && o[keys[k]] !== null) return { from: ch[i], own: i === 0 };
+      }
+    }
+    return null;
+  }
+  // does this row hold a setting of its own that an ancestor could otherwise have supplied? — what the
+  // "Follow …" row is offered on, and what its own note counts
+  function deckOwnOverrides(id) {
+    const o = (S.deckOpts && S.deckOpts[id]) || {};
+    return DECK_OPT_INHERIT.filter((k) => o[k] !== undefined && o[k] !== null);
+  }
+  function clearDeckOverrides(id) {
+    const o = S.deckOpts && S.deckOpts[id];
+    if (!o) return;
+    DECK_OPT_INHERIT.forEach((k) => { delete o[k]; });
+    save();
+  }
   /* QUESTION VARIETY (Aug 2026, on request) — whether a card asks one of its three phrasings at random,
      or always asks the first. Every curated card carries a pool of three, which is what makes a reader
      learn the concept rather than the shape of one sentence; a reader who would rather meet the same
@@ -5364,28 +5442,18 @@
      behaves exactly as it always has. The REVIEW's own flag governs the pooled session, which is what
      `scopeEntryId` resolves a study scope to. */
   function deckVariety(id) {
-    const o = (S.deckOpts && S.deckOpts[id]) || {};
-    if (typeof o.variety === "boolean") return o.variety;
+    const v = deckOpt(id, "variety");            // …and it cascades — see entryChain
+    if (v && typeof v.value === "boolean") return v.value;
     return S.settings.questionVariety !== false;
   }
   function setDeckVariety(id, on) { setDeckLimits(id, { variety: !!on }); }
-  /* ORDERED / RANDOM, per entry (Aug 2026, on request: the switch used to appear on the review banner's
-     sheet alone, and a deck held on its own row had no way to ask for a shuffled session). It follows
-     question variety exactly — `S.deckOpts[id].random` where the reader has thrown the switch on that
-     deck, and `S.settings.reviewRandom` (Settings → Random review order) as the default everywhere else,
-     so nothing migrates and an untouched deck behaves as it always did.
-     The REVIEW is the one entry that writes the global rather than a per-entry flag, because the Settings
-     page's own switch shows that value: giving the review a private copy would leave the two disagreeing
-     about the pooled session with nothing on either page to say which was in force. */
-  function deckRandom(id) {
-    const o = (S.deckOpts && S.deckOpts[id]) || {};
-    if (id !== REVIEW_ENTRY && typeof o.random === "boolean") return o.random;
-    return !!S.settings.reviewRandom;
-  }
-  function setDeckRandom(id, on) {
-    if (id === REVIEW_ENTRY) { S.settings.reviewRandom = !!on; save(); return; }
-    setDeckLimits(id, { random: !!on });
-  }
+  /* IS THIS ENTRY SHUFFLED? — the boolean the two shuffles in `buildSession` read. It is DERIVED from
+     `deckOrderMode` since Aug 2026, when a third order arrived and the sheet's switch became a cycler:
+     one function decides which of the three is in force, so the shuffle and the control it is set by
+     cannot come to disagree. `setDeckRandom` went with the switch; `setDeckOrderMode` is the writer.
+     `S.settings.reviewRandom` survives as the REVIEW's own stored value — it is what an older build reads,
+     and `setDeckOrderMode` keeps it in step. */
+  function deckRandom(id) { return deckOrderMode(id) === "random"; }
   /* ---------- A THIRD ORDER: BY DIFFICULTY (Aug 2026, on request) ----------
      Ordered and Random were a BOOLEAN, and a third answer will not fit in one — so `order` is a string
      beside it and the boolean stays the fallback, which is what keeps every existing save working
@@ -5405,14 +5473,31 @@
      them — which is the honest reading of "by difficulty" on a corpus where the rating is five buckets
      rather than a continuum. */
   const DECK_ORDERS = ["ordered", "random", "difficulty"];
+  /* …AND THE CONTROL IS A CYCLER, NOT A SWITCH (Aug 2026, on request). Two orders were a switch and three
+     will not fit in one: what replaces it is a single row naming the order in force, which steps to the
+     next on every press and wraps. Three rows with a tick would say the same thing in three times the
+     height, on a sheet a phone already has to scroll — and the switch's own reasoning was that a setting
+     with a name for each state reads as a sentence, which a cycler keeps. */
+  const DECK_ORDER_LABEL = { ordered: "Ordered", random: "Random", difficulty: "By difficulty" };
+  const DECK_ORDER_NOTE = {
+    ordered: "Cards come up in their deck order, oldest history first",
+    random: "The session is shuffled each day",
+    difficulty: "The best-known terms first, working outward",
+  };
   function deckOrderMode(id) {
-    const o = (S.deckOpts && S.deckOpts[id]) || {};
     if (id === REVIEW_ENTRY) {
       if (DECK_ORDERS.includes(S.settings.reviewOrder)) return S.settings.reviewOrder;
       return S.settings.reviewRandom ? "random" : "ordered";
     }
-    if (DECK_ORDERS.includes(o.order)) return o.order;
-    if (typeof o.random === "boolean") return o.random ? "random" : "ordered";
+    /* The chain is walked ONCE and each entry is asked for both names, rather than asking every entry for
+       `order` and then every entry for `random`: a subdeck that carries only the old boolean must beat a
+       deck above it that carries the new string, and two passes would let the deck win. */
+    const ch = entryChain(id);
+    for (let i = 0; i < ch.length; i++) {
+      const o = (S.deckOpts && S.deckOpts[ch[i]]) || {};
+      if (DECK_ORDERS.includes(o.order)) return o.order;
+      if (typeof o.random === "boolean") return o.random ? "random" : "ordered";
+    }
     if (DECK_ORDERS.includes(S.settings.reviewOrder)) return S.settings.reviewOrder;
     return S.settings.reviewRandom ? "random" : "ordered";
   }
@@ -5452,8 +5537,8 @@
      It rides in `S.deckOpts`, so it is carried by the synced progress blob and survives a reset (deckOpts is
      in RESET_KEEPS) with no field of its own. */
   function deckAutoSpeak(id) {
-    const o = (S.deckOpts && S.deckOpts[id]) || {};
-    return o.autoSpeak === true;
+    const v = deckOpt(id, "autoSpeak");
+    return v && typeof v.value === "boolean" ? v.value : true;
   }
   function setDeckAutoSpeak(id, on) { setDeckLimits(id, { autoSpeak: !!on }); }
   /* BURY SIBLINGS, per entry (Aug 2026, on request). Default ON, which is the opposite of how the other
@@ -5466,8 +5551,8 @@
     // opposite intents: pairing gathers the reverse and burying takes it straight out again, leaving a
     // session half the size it promised. One switch decides, so the two cannot come to contradict.
     if (deckPairNew(id)) return false;
-    const o = (S.deckOpts && S.deckOpts[id]) || {};
-    return o.burySiblings !== false;
+    const v = deckOpt(id, "burySiblings");
+    return v && typeof v.value === "boolean" ? v.value : true;
   }
   function setDeckBurySiblings(id, on) { setDeckLimits(id, { burySiblings: !!on }); }
   /* BOTH DIRECTIONS TOGETHER, per entry (Aug 2026, on request: "I want them interleaved"). Default OFF,
@@ -5487,18 +5572,10 @@
      its levels — which is what a reader setting it on the deck plainly means, and the levels are what the
      cascade actually adds. */
   function deckPairNew(id) {
-    const deckId = uDeckIdOf(id);
-    if (!deckId) return false;                       // curated decks and groups have no templates to pair
-    const at = (e) => (S.deckOpts && S.deckOpts[e]) || {};
-    if (typeof at(id).pairNew === "boolean") return at(id).pairNew;
-    if (uTplOf(id) >= 0 && typeof at(uSubEntry(deckId, uSubOf(id))).pairNew === "boolean") {
-      return at(uSubEntry(deckId, uSubOf(id))).pairNew;
-    }
-    for (let p = uSubOf(id); p; p = uSubParent(p)) {
-      const v = at(uSubEntry(deckId, p)).pairNew;
-      if (typeof v === "boolean") return v;
-    }
-    return at(uDeckEntry(deckId)).pairNew === true;
+    // curated decks and groups have no templates to pair, whatever an ancestor may say
+    if (!uDeckIdOf(id)) return false;
+    const v = deckOpt(id, "pairNew");                // the walk this used to do by hand — see entryChain
+    return !!(v && v.value === true);
   }
   function setDeckPairNew(id, on) { setDeckLimits(id, { pairNew: !!on }); }
   /* WHICH SCHEDULER, per entry — SM-2 or FSRS (Aug 2026, on request). Read by deckSchedCfg beside the
@@ -13037,14 +13114,34 @@
        Night-mode row uses under "Match my device": a reader needs to see that the site knows the setting
        is off, and a row that vanishes and comes back reads as a page that failed to draw. Never
        pointer-events:none — a press has to be able to say why. */
-    const swRow = (act, label, noteOn, noteOff, on, locked) =>
+    /* WHERE A SETTING COMES FROM (Aug 2026, with the cascade — see entryChain). A cascade the reader
+       cannot SEE reads as a control that did nothing: a row whose value was found on a deck above this one
+       says whose it is, and throwing it here writes an override and says that instead. The span is emitted
+       even when there is nothing to say, hidden, so the flip handler has somewhere to write. */
+    const fromMark = (keys) => {
+      const src = deckOptFrom(id, keys);
+      const txt = !src ? "" : src.own ? "Set here" : "From " + entryInfo(src.from).title;
+      return '<span class="dm-from' + (src && !src.own ? " dm-inherit" : "") + '"' +
+             (txt ? "" : " hidden") + ">" + esc(txt) + "</span>";
+    };
+    const swRow = (act, label, noteOn, noteOff, on, locked, mark) =>
       '<div class="dm-item dm-switch' + (locked ? " row-locked" : "") + '" data-act="' + act + '">' +
-        '<div class="dm-switchmain"><b>' + esc(label) + "</b><small>" + esc(on ? noteOn : noteOff) + "</small></div>" +
+        '<div class="dm-switchmain"><b>' + esc(label) + "</b><small>" + esc(on ? noteOn : noteOff) + "</small>" +
+          (mark || "") + "</div>" +
         '<div class="switch' + (on ? " on" : "") + (locked ? " switch-locked" : "") +
           '" role="switch" tabindex="0" aria-label="' + esc(label) +
           '" aria-checked="' + (on ? "true" : "false") + '"></div>' +
       "</div>";
-    const random = deckRandom(id);
+    /* THE CYCLER. A real <button>, so Enter and Space come free and it needs no role of its own — which is
+       why it must be excluded from the generic command handler at the foot of this sheet, or one press
+       would step the order AND be read as a command. */
+    const cyRow = (act, label, note, value, mark) =>
+      '<button type="button" class="dm-item dm-cycle" data-act="' + act + '">' +
+        '<div class="dm-switchmain"><b>' + esc(label) + "</b><small>" + esc(note) + "</small>" +
+          (mark || "") + "</div>" +
+        '<span class="dm-cyval">' + esc(value) + "</span>" +
+      "</button>";
+    const order = deckOrderMode(id);
     const variety = deckVariety(id);
     // shown only where something in this entry can actually speak — see entryHasSpeech
     const canSpeak = entryHasSpeech(id), autoSpeak = deckAutoSpeak(id);
@@ -13055,6 +13152,8 @@
        sheet, so it answers for a deck, for a community deck, for the Card-of-the-day list and for the
        pooled review alike. */
     const ids = entryCardIds(id), total = ids.length, studied = ids.filter(isSeen).length;
+    // the nearest row above this one, and whatever this one has been given of its own — see clearDeckOverrides
+    const own = deckOwnOverrides(id), followFrom = own.length ? (entryChain(id)[1] || null) : null;
     /* A GROUP is not in `S.active` — it has no cards of its own and the review iterates the decks inside
        it, not the container round them — so the three daily-allowance rows are left off its sheet rather
        than shown doing nothing to the pooled review. What it DOES have is a session of its own, which is
@@ -13081,24 +13180,32 @@
         (isReview ? '<span class="dm-where">Applies to every added deck</span>'
                   : (info.parent ? '<span class="dm-where">' + esc(info.parent) + "</span>" : "")) + "</div>" +
         (total ? '<span class="dm-studied">' + studied + "/" + total + " studied</span>" : "") + "</div>" +
-      swRow("order", "Random order", "The session is shuffled each day",
-        "Cards come up in their deck order, oldest history first", random) +
+      cyRow("order", "Review order", DECK_ORDER_NOTE[order], DECK_ORDER_LABEL[order],
+        fromMark(["order", "random"])) +
       swRow("variety", "Question variety",
         "Each card asks one of its phrasings at random",
-        "Every card always asks its first phrasing", variety) +
+        "Every card always asks its first phrasing", variety, false, fromMark(["variety"])) +
       (canSpeak ? swRow("speak", "Read aloud automatically",
         "The answer is spoken as soon as it is revealed",
-        "Press the speaker on a card to hear it", autoSpeak) : "") +
+        "Press the speaker on a card to hear it", autoSpeak, false, fromMark(["autoSpeak"])) : "") +
       // only where something in this entry can HAVE siblings — a curated card is one card, and a switch that
       // cannot change anything is the thing the read-aloud row's own note warns against
       (entryHasSiblings(id) ? swRow("pair", "Both directions together",
         "The day's new words arrive both ways, shuffled",
-        "Each direction is introduced in its own pass, forward first", deckPairNew(id)) : "") +
+        "Each direction is introduced in its own pass, forward first", deckPairNew(id), false,
+        fromMark(["pairNew"])) : "") +
       (entryHasSiblings(id) ? swRow("bury", "Bury siblings",
         deckPairNew(id) ? "Off while both directions arrive together"
                         : "A note's other cards wait until tomorrow",
         "Every card of a note can come up the same day", deckBurySiblings(id),
-        deckPairNew(id)) : "") +
+        deckPairNew(id), fromMark(["burySiblings"])) : "") +
+      /* THE WAY BACK OUT OF AN OVERRIDE, offered only where there is both something above this row and
+         something set on it — a row already following its deck has nothing to follow. It clears the
+         inheritable keys and leaves the rest of the entry alone, which is `clearDeckLimits`' own rule one
+         drawer over: the daily limits, the colour and the day it was skipped are not settings this
+         cascade governs. */
+      (followFrom ? item("follow", "Follow " + entryInfo(followFrom).title,
+        "Use its settings here instead of the " + own.length + " set on this row") : "") +
       /* THE EVERYDAY WAY INTO THE BROWSER. The account page has the other one, at the head of the reader's
          record where the rest of their statistics live — but the moment somebody wants to find a card is
          usually the moment they are looking at their decks, and this sheet is one press from any of them.
@@ -13153,6 +13260,30 @@
         bnote.textContent = locked ? "Off while both directions arrive together"
           : on ? "A note's other cards wait until tomorrow" : "Every card of a note can come up the same day";
       };
+      /* A row throwing its own switch has stopped inheriting, so its mark has to say so at once — the
+         sheet does not repaint (render() closes it), and a row still reading "From Mandarin Chinese"
+         beside a value this row has just set is two statements about one setting on one screen. */
+      const markOwn = (rowEl) => {
+        const m = rowEl.querySelector(".dm-from");
+        if (!m) return;
+        m.textContent = "Set here";
+        m.classList.remove("dm-inherit");
+        m.removeAttribute("hidden");
+      };
+      /* THE CYCLER steps and wraps, and stays put like the switches beside it. It writes through
+         `setDeckOrderMode`, which is what keeps the review's own `S.settings.reviewRandom` in step. */
+      const cyEl = ov.querySelector('.dm-cycle[data-act="order"]');
+      if (cyEl) {
+        const step = () => {
+          const next = DECK_ORDERS[(DECK_ORDERS.indexOf(deckOrderMode(id)) + 1) % DECK_ORDERS.length];
+          setDeckOrderMode(id, next);
+          cyEl.querySelector(".dm-cyval").textContent = DECK_ORDER_LABEL[next];
+          cyEl.querySelector("small").textContent = DECK_ORDER_NOTE[next];
+          if (id !== REVIEW_ENTRY) markOwn(cyEl);   // the review writes the global, so it never inherits
+          toast("Review order: " + DECK_ORDER_LABEL[next].toLowerCase());
+        };
+        cyEl.addEventListener("click", step);
+      }
       ov.querySelectorAll(".dm-switch").forEach((rowEl) => {
         const sw = rowEl.querySelector(".switch"), note = rowEl.querySelector("small");
         const flip = () => {
@@ -13165,16 +13296,13 @@
           const on = !sw.classList.contains("on");
           sw.classList.toggle("on", on);
           sw.setAttribute("aria-checked", on ? "true" : "false");
+          markOwn(rowEl);
           if (rowEl.dataset.act === "pair") {
             setDeckPairNew(id, on);
             note.textContent = on ? "The day's new words arrive both ways, shuffled"
                                   : "Each direction is introduced in its own pass, forward first";
             syncBury();
             toast(on ? "Both directions together" : "One direction at a time");
-          } else if (rowEl.dataset.act === "order") {
-            setDeckRandom(id, on);
-            note.textContent = on ? "The session is shuffled each day" : "Cards come up in their deck order, oldest history first";
-            toast(on ? "Review order: random" : "Review order: ordered");
           } else if (rowEl.dataset.act === "bury") {
             setDeckBurySiblings(id, on);
             note.textContent = on ? "A note's other cards wait until tomorrow" : "Every card of a note can come up the same day";
@@ -13201,9 +13329,15 @@
         ov.querySelectorAll(".dm-swatch").forEach((o) => o.classList.toggle("on", o === sw));
         repaintReviewHues();
       }));
-      ov.querySelectorAll(".dm-item:not(.dm-switch):not(.dm-colors)").forEach((b) => b.addEventListener("click", () => {
+      ov.querySelectorAll(".dm-item:not(.dm-switch):not(.dm-colors):not(.dm-cycle)").forEach((b) => b.addEventListener("click", () => {
         const act = b.dataset.act;
         if (act === "browse") { close(); route("browse"); return; }
+        if (act === "follow") {
+          clearDeckOverrides(id);
+          close();
+          toast("Following " + entryInfo(followFrom).title);
+          return;
+        }
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
         if (act === "rename") {

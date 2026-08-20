@@ -42,3 +42,24 @@ re-run of the same tests covers it.
 - **English only** — `MULTILANG` is false, so no new content carries its nine translations.
 - **Nothing is invented**: a corrected date, a new citation and a replaced picture each rest on a
   source that was actually opened.
+
+## Where the work has got to
+
+One line per batch as it ships, so a session picking this up mid-way can see the boundary without
+reading the diff. **A batch is "shipped" only once its named suites are green, its changelog line is
+written and its version is bumped** — the three go in one commit, per the rules above.
+
+- **A — Study flow.** Shipped `8188840`. `test-scheduler.js` 136/0, `test-review-decks.js` 140/0,
+  `test-difficulty.js` 69/0, `test-layout.js` 315/0, `test-a11y.js` 9/0. Its accessibility extension
+  (a study card added to `ROUTES`) turned up a defect of its own — every one of the grade bar's twelve
+  text-on-colour combinations was below 4.5:1 in High contrast mode, and had been since the bar was
+  built, because nothing had ever measured a study card. Fixed by darkening the eight backgrounds
+  rather than re-toning the ink, the four colours being what the four answers MEAN.
+  **Two date lines are left for Batch H** (`wh-177`, `wh-178`) and were failing before this work began.
+- **B — Deck settings.** `test-review-decks.js` 144/0 (four new cycler assertions), `test-speak.js` 32/0,
+  `test-card-types.js` 228/0, `test-deck-ux.js` 49/0.
+  **`test-card-types.js` had been running 87 of its 228 assertions and reporting "82 passed"** — five of
+  its sheet rows were pressed inside `DECK_SHEET_ARM_MS`, so the first preset click did nothing and the
+  browser half aborted there. Pre-existing (confirmed against HEAD with the batch stashed) and fixed
+  here rather than left, since a suite this batch names cannot be read while it aborts; see the
+  `⚠ IT RAN 87 OF THEM` note under that file in CLAUDE.md.

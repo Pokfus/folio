@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.279", released: "2026-08-20T11:03Z" };
+window.FOLIO_VERSION = { v: "1.280", released: "2026-08-20T11:38Z" };
 
 window.CHANGELOG = [
   {
@@ -54,7 +54,10 @@ window.CHANGELOG = [
       "<b>The grade bar no longer jams half-folded</b> when its chevron is pressed twice in quick succession.",
       "<b>A card now prints the word Difficulty beside its stars</b>, and once enough readers have answered it the stars say how hard <i>they</i> found it.",
       "<b>Editing a card while studying now offers a way straight back to the session</b>, instead of leaving you to find your place again.",
-    "<b>The grade buttons now hold their colour in High contrast mode</b>, where the white on them fell short of a readable ratio on every one of the four.",
+      "<b>The grade buttons now hold their colour in High contrast mode</b>, where the white on them fell short of a readable ratio on every one of the four.",
+      "<b>Review order is now three</b> — Ordered, Random and By difficulty — chosen by tapping the row in a deck's options rather than by a switch.",
+      "<b>A setting made on a deck now reaches the subdecks inside it</b>, and each row says whether the setting is its own or inherited, with one tap to follow the deck again.",
+      "<b>Read-aloud now starts switched on</b> for the decks whose cards offer it.",
     ],
   },
   {

@@ -8484,13 +8484,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `cardDifficultyRank`, on request). **Ordered**, **Random** and **By difficulty** (easiest first, on
   `cardDifficultyShown` — so a card with enough answers is ranked by how hard readers actually found it and one
   without by how obscure its answer term is).
-  **⚠ THE THIRD ORDER HAS NO CONTROL YET AND IS THEREFORE UNREACHABLE.** The data layer shipped with the
-  `mixPiles` work because the two are one change to how a pile is built; the chevron cycler that lets a reader
-  ASK for it is the next batch, so `setDeckOrderMode` currently has no caller and `deckOrderMode` can only ever
-  return the two the old boolean expresses. Said here rather than left to be discovered, since a setter nothing
-  calls is exactly what this file warns is the next person's bug — and note that the review sheet still draws
-  **Random order as a SWITCH**, whose row list `test-review-decks.js` pins exactly, so the cycler is an
-  assertion change as well as a UI one. Three things about it are load-bearing.
+  **IT IS REACHED BY A CYCLER, NOT A SWITCH** (`cyRow` / `.dm-cycle` / `.dm-cyval` / `DECK_ORDER_LABEL` /
+  `DECK_ORDER_NOTE`, Aug 2026, on request). The data layer shipped a batch ahead of the control, which
+  this file recorded as a warning at the time — a setter nothing calls being the next person's bug — and
+  the control is what closes it. **A switch cannot express three answers**, so the row states the order
+  currently in force and steps to the next on a press, wrapping; its `small` line says what that order
+  DOES rather than what the next one would do, so it reads as a sentence in whichever of the three
+  positions it is in. Three things about the shape carry over from the switch beside it and one does not.
+  It is a `<div>` carrying `role="button"` (the row is the target, and a control inside a button is
+  invalid); pressing it must NOT close the sheet and must NOT repaint, since `render()` closes this very
+  sheet through `closeDeckMenu`; and it is **excluded from the generic command selector** in
+  `openDeckMenu`'s click handler, or one press would step the order and then run the sheet's ordinary
+  dismiss-and-act path on top of it. What does not carry over is that a cycler cannot be answered by a
+  keyboard's Space alone the way a `role="switch"` can — it takes Enter and Space through the row, which
+  is what `role="button"` buys, and there is deliberately no arrow-key handling, three values in a ring
+  having no "up". **`test-review-decks.js` pins the sheet's row list EXACTLY**, so the cycler was an
+  assertion change as well as a UI one, and it asserts the full ring (Ordered → Random → By difficulty
+  → Ordered) with the store read back at each step rather than only that the label moved. Three things
+  about the ORDERS themselves are load-bearing.
   **`mixPiles(due, fresh)` INTERLEAVES THE TWO PILES IN EVERY BRANCH**, weighted by what is left of each and
   preserving both piles' own order, because a session that deals every due card and then every new one is two
   sessions rather than one — and on a large deck the new cards, which are the reason a reader added it, arrive
@@ -8503,11 +8514,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   their own deck list stopped being saved, with nothing thrown and the rows still moving under the finger.
   `test-review-decks.js` section 8 is what caught it. **A duplicate function declaration at module scope is
   invisible** — sweep for one when a working feature stops working for no reason a diff explains.
-  **IT IS PER ENTRY, LIKE QUESTION VARIETY AND THE DAILY LIMITS** (`deckRandom` / `setDeckRandom`, Aug 2026, on
-  request: the switch appeared on the review banner's sheet alone, so a deck held on its own row had no way to
-  ask for a shuffled session). `S.deckOpts[id].random` where the reader has thrown it on that deck,
-  `S.settings.reviewRandom` as the default everywhere else, so **nothing migrates**. Two things are decisions
-  rather than plumbing. **The REVIEW writes the GLOBAL rather than a per-entry flag** — Settings → Random review
+  **IT IS PER ENTRY, LIKE QUESTION VARIETY AND THE DAILY LIMITS** (`deckRandom` / `deckOrderMode` /
+  `setDeckOrderMode`, Aug 2026, on request: the switch appeared on the review banner's sheet alone, so a
+  deck held on its own row had no way to ask for a shuffled session). `S.deckOpts[id].order` where the
+  reader has chosen on that deck, the older `S.deckOpts[id].random` boolean read as a fallback beside it,
+  and `S.settings.reviewOrder` / `reviewRandom` as the default everywhere else, so **nothing migrates**.
+  **`setDeckRandom` is RETIRED** — `deckRandom` is now derived from `deckOrderMode`, so one function decides
+  which of the three orders is in force and the two shuffles in `buildSession` cannot come to disagree with
+  the control that set it. Two things are decisions rather than plumbing. **The REVIEW writes the GLOBAL rather than a per-entry flag** — Settings → Random review
   order shows that value, and giving the review a private copy would leave two controls disagreeing about the
   pooled session with nothing on either page to say which was in force (this is where it differs from
   `deckVariety`, whose review flag is per-entry because Settings has no switch for it). And **`buildSession`
@@ -8842,6 +8856,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     today's figures would silently stop following it. It is offered only where there is something to clear.
     `.dm-pane[hidden]{display:none}` is required — the author `display` beats the UA rule, the trap
     `.ces-imgpanel[hidden]` already carries.
+  · **A SETTING CASCADES TO WHAT IS UNDER IT** (`DECK_OPT_INHERIT` / `entryChain` / `deckOpt` /
+    `deckOptFrom` / `deckOwnOverrides` / `clearDeckOverrides`, Aug 2026, on request). A community deck may
+    nest nine levels deep and end in a direction row, and until this every one of those rows answered for
+    itself — so setting FSRS, or a review order, or read-aloud on the DECK did nothing at all to the levels
+    inside it, which is where the reader actually studies. `entryChain(id)` walks outward from an entry to
+    everything that contains it — a direction to its subdeck, a subdeck path to its parents, a subdeck to
+    its deck, a tree node to its ancestors, and anything to the GROUP it has been dragged into — and
+    `deckOpt(id, key)` returns the nearest answer with `from` (which entry gave it) and `own` (whether that
+    was this one). Four things are decisions rather than plumbing.
+    **THE DAILY LIMITS DELIBERATELY DO NOT INHERIT, and that is the whole of `DECK_OPT_INHERIT`.** A POLICY
+    — how to order, whether to shuffle, which scheduler, whether to speak — means the same thing wherever it
+    is applied, so handing it down is what a reader means by setting it on a deck. A QUANTITY does not:
+    handed down to nine levels, "five new a day" becomes forty-five, and the pooled review would then draw
+    a number no deck agreed to, which is the exact bug the per-deck limits were built to fix. So
+    `newPerDay`, `maxReviews` and `newIgnoresReview` are absent from that list and `deckOpt` answers for
+    them from the entry alone; `deckLimits` keeps its own fallback to the All-decks default, which is a
+    different mechanism and is where a limit is meant to be inherited from.
+    **THE CHAIN IS WALKED ONCE PER QUESTION, NEVER ONCE PER KEY.** `deckOrderMode` has to ask each entry for
+    BOTH the new `order` string and the older `random` boolean before moving outward — two passes would let
+    a deck's stale boolean beat a subdeck's explicit choice, which is a setting silently ignored rather than
+    an error.
+    **THE ROW SAYS WHERE ITS VALUE CAME FROM** (`.dm-from`, `fromMark`): "Set here" on an entry that carries
+    its own, or "From &lt;the entry's title&gt;" where it is inherited — because a sheet showing a value that
+    is not this entry's, with nothing to say so, teaches a reader that a setting they never made is theirs.
+    `markOwn(rowEl)` re-marks the row in place when a switch is thrown, since throwing one must not repaint
+    (`render()` closes this very sheet), and `.dm-from[hidden]{display:none}` is spelled out for the reason
+    every `[hidden]` in this file is.
+    **AND "FOLLOW &lt;PARENT&gt;" IS OFFERED ONLY WHERE THERE IS SOMETHING TO CLEAR**, `clearDeckOverrides`
+    DELETING every inherited key on that entry rather than writing the parent's current values into it —
+    the Daily limits tab's own rule, and the same difference: an entry cleared this way follows a later
+    change made higher up, where one holding a copy of today's answers would silently stop following it.
   · **QUESTION VARIETY** (`deckVariety` / `setDeckVariety` / `scopeEntryId` / `S.settings.questionVariety`,
     Aug 2026, on request). Whether a card asks one of its three phrasings at random or always the first.
     It is **PER ENTRY with a global default**, exactly like the daily limits and for the same reason: this
@@ -8860,11 +8905,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `fromReader` argument to `PAGES.study`'s `showAnswer`; Aug 2026, on request — Anki's "read the answer
     aloud"). Revealing a card speaks it, with no button pressed. Four things are decisions rather than
     plumbing.
-    **IT IS PER ENTRY WITH NO GLOBAL DEFAULT AND IT STARTS OFF**, which is the opposite of the two switches
-    above and is the point: those choose between two ways of doing something the reader has already asked
-    for, where this one makes the site start making a noise on its own. A thing done TO a reader is opted
-    into — the same line `ttsEnabled()` draws site-wide. It rides in `S.deckOpts`, so it syncs and survives a
-    reset (`deckOpts` is in `RESET_KEEPS`) with no field of its own and nothing to migrate.
+    **IT IS PER ENTRY WITH NO GLOBAL DEFAULT, AND SINCE AUG 2026 IT STARTS ON** (on request; it was opt-in,
+    on the reasoning that a site which makes a noise by itself should be asked first). **What makes the
+    default safe is the gate below it rather than a change of view about consent**: the switch — and the
+    behaviour — exist only where the deck's own card TYPE marks a run `.uc-tts`, so the person who wrote
+    the deck has already asked for those words to be speakable, and a deck that marks nothing is silent
+    whatever this says. The reader who does not want it throws one switch, and it cascades to that deck's
+    subdecks. It rides in `S.deckOpts`, so it syncs and survives a reset (`deckOpts` is in `RESET_KEEPS`)
+    with no field of its own and **nothing migrates** — an absent key is the new default, which is the
+    intended behaviour for everyone who has never opened the sheet, and a reader who explicitly turned it
+    OFF keeps that. `.claude/test-speak.js` asserts the default in both directions.
     **THE SWITCH APPEARS ONLY WHERE SOMETHING CAN SPEAK** (`entryHasSpeech`), because a control that answers
     a press with silence is worse than none — the test `.uc-tts` already applies to its own chrome through
     `body.no-tts`. A curated card has no templates and so never speaks; a community deck speaks when one of
@@ -17090,7 +17140,17 @@ dead code (never rendered).
     `acctSelfView` / `showcaseHTML` / `openCollectionWin` / `adminRenderDashboard` / `dashLoadRemote` /
     `supaFetch`'s count parsing.**
   · `node .claude/test-card-types.js` — the XP curve, community-deck **card types**, reverse cards,
-    **bury siblings** and **one card per cloze** (Aug 2026), 224 assertions in five parts. The **XP** part slices `levelFromXP` out of app.js and walks every threshold
+    **bury siblings** and **one card per cloze** (Aug 2026), 228 assertions in five parts.
+    **⚠ IT RAN 87 OF THEM FOR A FORTNIGHT AND SAID "82 passed"** (found and fixed Aug 2026): a `deckSheet`
+    swallows clicks for its first `DECK_SHEET_ARM_MS` (500ms) and five of this file's sheet rows were pressed
+    at 300–350ms, so the very first preset click did nothing, the `page.fill` after it timed out, and the
+    whole browser half from that line on **never ran** — while the summary line still reported a pass count
+    and only a lone "the run completed" FAIL said otherwise. **A suite that aborts mid-run reports its
+    assertions so far as passes**, which is the most expensive kind of green there is; `sheetArmed(page)`
+    now waits past the arm and **reads the constant out of app.js** rather than writing 500 down, so the
+    next change to it cannot put the suite back. Watch for the same in any file that opens a sheet: the
+    LANGUAGE sheet arms too, and its Ok button was the second offender.
+    The **XP** part slices `levelFromXP` out of app.js and walks every threshold
     through level 13, so the shape of the curve is asserted rather than three sample points. The **pure** part
     runs `sanitizeCSSText` / `cssScoped` / `tplRender` as string functions with no browser at all — a scoping
     bug reads far better as a failed comparison than as a screenshot of a restyled page — and its central

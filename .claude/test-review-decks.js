@@ -164,19 +164,19 @@ const SETTINGS = {
       return {
         items: [...ov.querySelectorAll(".dm-item")].map((b) => b.querySelector("b").textContent),
         switches: [...ov.querySelectorAll(".dm-switch")].map((r) => r.querySelector("b").textContent),
-        // read per switch, not as a total: the two default OPPOSITE ways — the order is Ordered (off)
-        // and question variety is on, which is the point of it — so a count says nothing about either
-        order: !!ov.querySelector('.dm-switch[data-act="order"] .switch.on'),
+        cycles: [...ov.querySelectorAll(".dm-cycle")].map((r) => r.querySelector("b").textContent),
+        // read per control, not as a total: they default OPPOSITE ways — the order is Ordered and
+        // question variety is on, which is the point of it — so a count says nothing about either
+        order: (ov.querySelector('.dm-cycle[data-act="order"] .dm-cyval') || {}).textContent,
         variety: !!ov.querySelector('.dm-switch[data-act="variety"] .switch.on'),
         choices: ov.querySelectorAll(".dm-choice").length,
       };
     });
     /* The banner's sheet IS the deck sheet, one level up (Aug 2026, on request: "the same menu, without
        the delete option"), and NO Remove — there is nothing to take the review out of.
-       The ORDER is a SWITCH now, not a pair of rows to choose between (Aug 2026, on a second request):
-       two rows for one bit of state spent a third of a phone sheet saying what one line says. QUESTION
-       VARIETY arrived beside it the same day and takes the same shape. Both start OFF here, since this
-       harness boots with reviewRandom false and no per-deck override. */
+       The ORDER is a CYCLER since Aug 2026 — it was a pair of rows, then a switch, and a third order
+       (By difficulty) will not fit in a switch — so it is one row naming the order in force, which steps
+       and wraps. QUESTION VARIETY beside it is still a switch, that one having only two states. */
     /* BROWSE YOUR CARDS joined both sheets in Aug 2026 — the everyday way into the card browser, since the
        moment somebody wants to find a card is usually the moment they are looking at their decks. It is on
        EVERY entry, the pooled review included: the browser searches the whole collection rather than the
@@ -185,22 +185,44 @@ const SETTINGS = {
        through a hue a day, and a colour chosen here holds it at one. It is last because it is the only row
        that changes nothing about what the session DEALS. */
     check("holding the banner offers the deck sheet's options, minus Remove",
-      rm && rm.items.join(",") === "Random order,Question variety,Browse your cards,Custom study,Daily limits,Skip today,Colour", JSON.stringify(rm));
-    check("...the order and the phrasing pool are SWITCHES, not a pair of rows",
-      rm && rm.switches.join(",") === "Random order,Question variety" && rm.choices === 0, JSON.stringify(rm));
+      rm && rm.items.join(",") === "Review order,Question variety,Browse your cards,Custom study,Daily limits,Skip today,Colour", JSON.stringify(rm));
+    check("...the order is a CYCLER and the phrasing pool a switch, with no pair of rows for either",
+      rm && rm.cycles.join(",") === "Review order" && rm.switches.join(",") === "Question variety" && rm.choices === 0,
+      JSON.stringify(rm));
     check("...each showing its own current state — Ordered, and variety on by default",
-      rm && rm.order === false && rm.variety === true, JSON.stringify(rm && { order: rm.order, variety: rm.variety }));
-    await page.evaluate(() => document.querySelector('.deck-menu .dm-switch[data-act="order"]').click());
-    await page.waitForTimeout(600);
-    check("...and throwing it writes the setting",
-      await page.evaluate(() => (JSON.parse(localStorage.getItem("folio_v1")).settings || {}).reviewRandom) === true);
+      rm && rm.order === "Ordered" && rm.variety === true, JSON.stringify(rm && { order: rm.order, variety: rm.variety }));
+    /* THE THIRD ORDER IS REACHED BY PRESSING AGAIN, and the wrap is what makes the control usable at all:
+       a cycler that stopped at the end would leave a reader who overshot with no way back but a reload.
+       Both are asserted, and the STORE is read as well as the chip — the review writes `reviewOrder` and
+       keeps `reviewRandom` in step for an older build, so a chip that changed while the store did not is
+       exactly the failure a label-only assertion would pass on. */
+    const cyc = async () => {
+      await page.evaluate(() => document.querySelector('.deck-menu .dm-cycle[data-act="order"]').click());
+      await page.waitForTimeout(450);
+      return page.evaluate(() => {
+        const st = JSON.parse(localStorage.getItem("folio_v1")).settings || {};
+        return { chip: document.querySelector('.deck-menu .dm-cycle[data-act="order"] .dm-cyval').textContent,
+                 order: st.reviewOrder, random: st.reviewRandom };
+      });
+    };
+    const c1 = await cyc();
+    check("...one press steps it to Random, in the store as well as on the chip",
+      c1.chip === "Random" && c1.order === "random" && c1.random === true, JSON.stringify(c1));
+    const c2 = await cyc();
+    check("...a second reaches By difficulty, the order that had no control until now",
+      c2.chip === "By difficulty" && c2.order === "difficulty" && c2.random === false, JSON.stringify(c2));
+    const c3 = await cyc();
+    check("...and a third wraps back to Ordered", c3.chip === "Ordered" && c3.order === "ordered", JSON.stringify(c3));
+    const c4 = await cyc();
+    check("...leaving it on Random for the rest of this section", c4.order === "random" && c4.random === true, JSON.stringify(c4));
     /* …and the SHEET STAYS OPEN, which is the whole difference between a switch and a command: every
        other row here closes behind itself, and taking the sheet away is what makes a reader wonder
        whether the throw landed. (It must also not repaint — render() closes this very sheet.) */
-    check("...leaving the sheet open, with the switch now on",
+    check("...leaving the sheet open, with the chip showing the order it stepped to",
       await page.evaluate(() => {
         const ov = document.querySelector(".deck-menu");
-        return !!(ov && ov.querySelector('.dm-switch[data-act="order"] .switch.on'));
+        const v = ov && ov.querySelector('.dm-cycle[data-act="order"] .dm-cyval');
+        return !!(v && v.textContent === "Random");
       }));
     /* QUESTION VARIETY is the second switch, and it is stored PER ENTRY (deckLimits' shape) rather than
        as one global flag: the sheet opens on a deck's own row as well as on the pooled review, and a
@@ -352,17 +374,17 @@ const SETTINGS = {
     check("...without changing what each deck offers on its own", capped.rows.every((n) => n === 5), JSON.stringify(capped.rows));
     check("...and is stored under the review's own entry", capped.stored && capped.stored.newPerDay === 2, JSON.stringify(capped.stored));
 
-    // …and the REVIEW's order switch writes the GLOBAL, which is what Settings shows — the other half of
-    // the per-deck assertion in section 4, and they fail in opposite directions
+    // …and the REVIEW's order cycler writes the GLOBAL — the other half of the per-deck assertion in
+    // section 4, and they fail in opposite directions
     await page.evaluate(() => document.querySelector("#b-review").dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })));
     await page.waitForTimeout(300);
-    await page.evaluate(() => document.querySelector('.deck-menu .dm-switch[data-act="order"]').click());
+    await page.evaluate(() => document.querySelector('.deck-menu .dm-cycle[data-act="order"]').click());
     await page.waitForTimeout(400);
     const revOrder = await page.evaluate(() => {
       const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
       return { global: !!(S.settings || {}).reviewRandom, entry: ((S.deckOpts || {})["review:all"] || {}).random };
     });
-    check("the review's own order switch writes the global setting, not a per-entry flag",
+    check("the review's own order cycler writes the global setting, not a per-entry flag",
       revOrder.global === true && revOrder.entry === undefined, JSON.stringify(revOrder));
     await page.close();
   }
@@ -439,29 +461,41 @@ const SETTINGS = {
        both curated and imported") — it used to be containers only. It sits before Remove, which stays
        last, being the one row that takes the deck off the list. */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Random order", "Question variety", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Colour", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Colour", "Remove"]),
       JSON.stringify(menu.items));
 
-    /* THE ORDER SWITCH IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they
-       are stored in different places on purpose (see deckRandom): a deck writes `S.deckOpts[id].random`
-       while the review writes `S.settings.reviewRandom`, which is what Settings → Random review order
-       shows — a private copy there would leave two controls disagreeing with nothing to say which wins.
-       Throwing it must also NOT close the sheet, which is the rule every switch row here follows. */
-    const throwOrder = () => page.evaluate(() => {
-      document.querySelector('.dm-switch[data-act="order"]').click();
-      return { open: !!document.querySelector(".deck-menu"), on: document.querySelector('.dm-switch[data-act="order"] .switch').classList.contains("on") };
+    /* THE ORDER IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they are
+       stored in different places on purpose (see deckOrderMode): a deck writes `S.deckOpts[id]` while the
+       review writes `S.settings.reviewOrder` — a private copy there would leave two controls disagreeing
+       with nothing to say which wins. Stepping it must also NOT close the sheet, which is the rule every
+       setting row here follows.
+       BOTH NAMES ARE READ BACK: `setDeckOrderMode` writes `order` AND keeps the older `random` boolean in
+       step, so a build that knows only the boolean still deals this deck the right way round. */
+    const stepOrder = () => page.evaluate(() => {
+      document.querySelector('.dm-cycle[data-act="order"]').click();
+      return { open: !!document.querySelector(".deck-menu"), chip: document.querySelector('.dm-cycle[data-act="order"] .dm-cyval').textContent };
     });
-    const flipped = await throwOrder();
+    const flipped = await stepOrder();
     await page.waitForTimeout(300);
     const storedRandom = await page.evaluate(() => {
       const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
       const id = document.querySelector(".active-deck[data-review]").dataset.review;
-      return { deck: (S.deckOpts || {})[id] && (S.deckOpts || {})[id].random, global: !!(S.settings || {}).reviewRandom, id };
+      const o = (S.deckOpts || {})[id] || {};
+      return { deck: o.random, order: o.order, global: !!(S.settings || {}).reviewRandom, id };
     });
-    check("a deck's Random-order switch stores against that DECK, not the global setting",
-      flipped.open && flipped.on === true && storedRandom.deck === true && storedRandom.global === false,
+    check("a deck's order cycler stores against that DECK, not the global setting",
+      flipped.open && flipped.chip === "Random" && storedRandom.deck === true &&
+      storedRandom.order === "random" && storedRandom.global === false,
       JSON.stringify({ flipped, storedRandom }));
-    await throwOrder();   // put it back, so the sections below deal in deck order
+    /* …AND THE ROW SAYS THE SETTING IS ITS OWN NOW (Aug 2026, with the cascade). Before it was stepped
+       this deck was following the global, so the mark was hidden; a cascade the reader cannot see reads
+       as a control that did nothing. */
+    check("...and the row now marks the setting as set here",
+      await page.evaluate(() => {
+        const m = document.querySelector('.dm-cycle[data-act="order"] .dm-from');
+        return !!(m && !m.hasAttribute("hidden") && /set here/i.test(m.textContent));
+      }));
+    await stepOrder(); await stepOrder();   // Random → By difficulty → Ordered, so the sections below deal in deck order
     await page.waitForTimeout(300);
 
     // Daily limits — Anki's three, and the deck's own new count follows the one it sets
