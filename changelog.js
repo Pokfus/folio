@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.286", released: "2026-08-20T21:59Z" };
+window.FOLIO_VERSION = { v: "1.287", released: "2026-08-20T23:06Z" };
 
 window.CHANGELOG = [
   {
@@ -81,10 +81,13 @@ window.CHANGELOG = [
       "<b>A glossary term about a book on the shelf now offers that book</b>, as a small banner under the description that opens it in the Library.",
       "<b>The whiteboard marker now remembers the width you last drew at</b> between visits, and its Stylus only row is now called Stylus mode.",
       "<b>Footnote numbers and a card\u2019s picture can now be tapped while the marker is out</b>, so following a citation no longer means putting the pen away first.",
-      "For those with the editor: a <b>War of Ages</b> tab holds a place for a game to come, and the tabs only editors can see are drawn in a colour of their own.",
+      "For those with the editor: a <b>Project W</b> tab holds a place for a game to come, and the tabs only editors can see are drawn in a colour of their own.",
       "<b>A history card about a place now carries a small globe</b> at the foot of its answer, marking where that place is \u2014 ninety-four of them so far, from Knossos and the Tiber to Olduvai Gorge.",
       "<b>A geography card about a state or a capital now shows its flag</b> beside the answer term.",
       "<b>A geography card\u2019s figures now read down the page</b>, with the two places above the two numbers rather than paired across.",
+      "<b>Undo now brings the last card back at its question</b>, asked the way you were asked it, rather than at the answer you had just seen.",
+      "<b>A theme you have unlocked now says the day you unlocked it.</b>",
+      "<b>The language decks are now on the Collections page</b>, in a Languages section \u2014 Spanish, French, Italian, German, Portuguese, Indonesian and Mandarin, ready to add.",
     ],
   },
   {

@@ -636,7 +636,12 @@ const SETTINGS = {
       const rec2 = await page.evaluate(() => {
         const S = JSON.parse(localStorage.getItem("folio_v1"));
         const ids = Object.keys(S.cards).filter((k) => S.cards[k].status === "review");
-        return { graduated: ids.length, days: ids.length ? Math.round((S.cards[ids[0]].due - Date.now()) / 864e5) : null };
+        /* DAY STARTS, NOT HOURS. Anything scheduled in DAYS lands at the start of its day
+           (`schedDayDue` / `cfg.dayAnchor`), so `(due - now) / 864e5` is short of the figure the
+           scheduler chose from midday onwards — this read 0 for a one-day interval at 22:28 UTC with
+           nothing whatever wrong. test-cards.js carries the same fix for the same reason. */
+        const dayStart = (ts) => { const d = new Date(ts); d.setHours(0, 0, 0, 0); return d.getTime(); };
+        return { graduated: ids.length, days: ids.length ? Math.round((dayStart(S.cards[ids[0]].due) - dayStart(Date.now())) / 864e5) : null };
       });
       check("a SECOND Good graduates it to tomorrow", rec2.graduated >= 1 && rec2.days === 1, JSON.stringify(rec2));
     }
@@ -1596,9 +1601,11 @@ const SETTINGS = {
     await page.waitForTimeout(1400);
     await page.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
     await page.waitForTimeout(1500);
-    const graded = [];
+    const graded = [], asked = [];
     for (let k = 0; k < 3; k++) {
       graded.push(await page.evaluate(() => { try { return JSON.parse(sessionStorage.getItem("folio_study_v1")).id; } catch (e) { return null; } }));
+      // the WORDING on screen, so the undo can be held to bringing back the phrasing that was answered
+      asked.push(await page.evaluate(() => { const q = document.querySelector(".question"); return q ? q.textContent.replace(/\s+/g, " ").trim() : null; }));
       await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
       await page.waitForTimeout(400);
       await page.evaluate(() => { const g = document.querySelector(".grade.easy"); if (g) g.click(); });
@@ -1614,6 +1621,18 @@ const SETTINGS = {
     }));
     check("a doubled press gives back exactly one card", st.seen === seenBefore - 1, seenBefore + " -> " + st.seen);
     check("…and it is the card that was just graded", st.id === graded[2], st.id + " vs " + graded[2]);
+    /* AND IT COMES BACK AT ITS QUESTION (Aug 2026, on request). Undo used to restore the card REVEALED,
+       on the reasoning that the reader had just been looking at the answer — which puts them back on the
+       grade row rather than at the thing they are meant to reconsider. Both halves are asserted because
+       they fail in opposite directions: a card still showing its answer, and one that came back asking a
+       DIFFERENT one of its three phrasings, which reads as the undo having fetched another card. */
+    const back = await page.evaluate(() => ({
+      grading: document.body.classList.contains("grading"),
+      reveal: !!document.querySelector("#reveal-btn"),
+      q: (() => { const q = document.querySelector(".question"); return q ? q.textContent.replace(/\s+/g, " ").trim() : null; })(),
+    }));
+    check("…it comes back at the QUESTION, not the answer", !back.grading && back.reveal, JSON.stringify({ grading: back.grading, reveal: back.reveal }));
+    check("…and at the phrasing the reader answered", !!back.q && back.q === asked[2], (back.q || "").slice(0, 60));
     // …and a deliberate SECOND undo, well outside the window, still works
     await page.evaluate(() => { const u = document.querySelector("#undoGrade") || document.querySelector("#undoGradeBar"); if (u) u.click(); });
     await page.waitForTimeout(800);

@@ -4099,6 +4099,16 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
 .group-chev{width:15px; height:15px; flex:none; color:var(--ink-faint); transition:transform .2s var(--ease);}
 .collection-group-soon[open] > summary .group-chev{transform:rotate(180deg);}
 @media (prefers-reduced-motion:reduce){ .group-chev{transition:none;} }
+/* The Languages section's per-language folds. They REUSE .collection-group-soon for the fold itself —
+   the chevron, the head, the hover and the focus ring — so they cannot drift from the Coming-soon group
+   they are copied from; the only thing overridden is the spacing, since these sit INSIDE a section
+   rather than being one, and 32px between each of seven of them is a section of gaps. */
+.lang-fold{margin-top:10px;}
+.lang-fold > summary .group-label{font-size:calc(12px * var(--fs));}
+.lang-fold .collection-list{margin-top:6px;}
+.lang-deck .lang-size{color:var(--ink-faint); font-size:calc(11px * var(--fs));}
+.lang-deck .collection-actions{align-items:center;}
+.lang-add{flex:none; white-space:nowrap;}
 
 /* card count on a live collection — the one number that says "there is something here" */
 .collection-count{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}

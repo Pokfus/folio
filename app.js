@@ -12482,7 +12482,7 @@
     account:   ["Account — Folio", "Your study progress, statistics and badges."],
     glossary:  ["Glossary discovered — Folio", "Every glossary term you have opened while studying."],
     browse:    ["Card browser — Folio", "Search every card you could study by state, flag, deck, tag or how often you have forgotten it."],
-    warofages: ["War of Ages — Folio", "A game in the making. Not yet open to readers."],
+    warofages: ["Project W — Folio", "A game in the making. Not yet open to readers."],
     settings:  ["Settings — Folio", "Themes, study options, language and your Atlas home location."],
     challenge: ["Multiple Choice — Folio", "Today's five-question history quiz."],
     chrono:    ["Timeline — Folio", "Put today's historical events into the right order."],
@@ -16944,6 +16944,23 @@
   const THEME_DROP = 0.14;
   function ownedThemes() { const o = S.themes; return (o && typeof o === "object") ? o : (S.themes = {}); }
   function themeUnlocked(id) { return id === "folio" || !!ownedThemes()[id]; }
+  /* WHEN a theme was unlocked, or 0 for one there is no date for (Aug 2026, on request: "unlocked themes
+     in the theme selection should mention the date on which they were unlocked"). The date was already
+     being stored — `unlockTheme` writes `Date.now()` — so nothing new is recorded and no save migrates;
+     this is only the reading of it.
+     ZERO IS A REAL ANSWER AND MUST NOT BE PRINTED AS ONE. `themeGrandfather` writes 0 for a reader who was
+     already wearing a theme when the collectibles shipped, which means "owned, date unknown" — and 0 as a
+     timestamp is 1 January 1970, so a caller that formatted it blindly would put a confident wrong date on
+     the one theme whose history nobody recorded. The picker falls back to the theme's own tagline there
+     rather than inventing a day. */
+  function themeUnlockedOn(id) {
+    const v = ownedThemes()[id];
+    return (typeof v === "number" && v > 0) ? v : 0;
+  }
+  function themeUnlockedOnText(id) {
+    const t = themeUnlockedOn(id);
+    return t ? new Date(t).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" }) : "";
+  }
   function lockedThemes() { return COLLECTIBLE_THEMES.filter((t) => !ownedThemes()[t]); }
   function unlockTheme(id) {
     if (id === "folio" || COLLECTIBLE_THEMES.indexOf(id) < 0) return false;
@@ -19431,6 +19448,7 @@
             list of collections — the label contradicted both that and the page title above it. */""}
       ${available.length || admin ? section("Collections", available.length, "collection-list-all", available.length) : ""}
       ${comingSoon.length || admin ? soonSection(comingSoon.length, "collection-list-soon", comingSoon.length) : ""}
+      ${langDecksHTML()}
       ${communityLibraryHTML()}
       ${sharedDecksHTML()}`;
 
@@ -19439,6 +19457,7 @@
     if (allList) available.forEach((d) => allList.appendChild(buildCollection(d)));
     if (soonList) comingSoon.forEach((d) => soonList.appendChild(buildCollection(d)));
     wireLibraryDnd(root);
+    wireLangDecks(root);
     wireCommunityLibrary(root);
     wireSharedDecks(root);
     animateProgs(root);   // fill the collection XP bars from their data-pct
@@ -21742,9 +21761,13 @@
     ["author", "Author", "text", "Your name or handle — travels with the file"],
   ];
 
-  /* WAR OF AGES — a placeholder for a game not yet built (Aug 2026, on request: "add another page titled
+  /* PROJECT W — a placeholder for a game not yet built (Aug 2026, on request: "add another page titled
      'War of Ages', a game we will work on in the future. Make the page only visible to admin accounts for
-     now").
+     now"; RENAMED to 'Project W' on request the same month).
+     THE ROUTE ID STAYS `warofages` AND ONLY THE VISIBLE TEXT MOVES, which is the World War II rename's
+     rule: an id is an address, and every link ever made points at it. What a reader is shown has to be
+     ONE name, everywhere, or somebody goes looking for the wrong page — so the tab, the page head, the
+     title and the description all say Project W and nothing in the code does.
      It is a real ROUTE with a real page rather than a disabled tab, because the point of it is to exist:
      the tab is where the work will be picked up from, and a control that goes nowhere is one nobody trusts
      when it finally does. What keeps it out of a reader's way is `ADMIN_ROUTES`, which is the guard rather
@@ -21753,7 +21776,7 @@
      never left wondering whether it failed to draw. */
   PAGES.warofages = function (root) {
     root.innerHTML =
-      '<div class="page-head woa-page"><span class="eyebrow">In the making</span><h1>War of Ages</h1>' +
+      '<div class="page-head woa-page"><span class="eyebrow">In the making</span><h1>Project W</h1>' +
       '<p>A game to be built here. Nothing is wired up yet.</p></div>' +
       '<div class="set-card" style="padding:18px 22px"><p style="margin:0; color:var(--ink-soft)">This page is a ' +
       'placeholder, kept where the work will start from. It is visible to editors only — readers see no tab for ' +
@@ -22826,6 +22849,106 @@
       }).join("") +
       "</tbody></table></div>";
   }
+  /* ---------- the Languages section (Aug 2026, on request) ----------
+     "Ensure that all our language collections are visible on the Collections page in their own Languages
+     section." The vocabulary decks in `decks/` — 38 files, 119 MB, built by the generators under
+     `.claude/dele/`, `.claude/delf/`, `.claude/caple/`, `.claude/goethe/`, `.claude/ukbi/` and their
+     siblings — were files a reader had to be handed. Nothing on the site linked to one. Four things here
+     are decisions rather than plumbing.
+
+     IT IS DRAWN FROM A CATALOGUE, NEVER FROM THE DECKS. `lang-decks.js` carries a title, a subtitle, a
+     card count and a size per deck — 9 KB in all, generated by `.claude/build-lang-decks.js` so every
+     figure is read off the deck file it describes — and the deck itself is fetched only when somebody
+     presses Add. Listing 38 decks by fetching them would cost a reader the whole shelf to draw a list.
+
+     ONE FOLD PER LANGUAGE, ALL SHUT. Flat, this is 38 rows on a page whose whole point is the curated
+     collections; shut, it is seven lines. The folds are the Coming-soon group's own `<details>`, so the
+     chevron, the head and the count come free and cannot drift from it.
+
+     IT SAYS WHAT THE DECKS ARE AND ARE NOT. They are Folio's own builds — each read off an exam board's
+     published word list, or off the reference the board points at — and they are NOT held to the card
+     rules the curated collections are written to: no five citations, no ten-sentence background, no
+     fact-check. That is the same distinction "Shared decks" states one section down, and it belongs in
+     the UI rather than in a policy page.
+
+     AN ADDED DECK OFFERS NOTHING HERE. Once it is in, the deck has a full row of its own in "Your decks"
+     directly below — with its subdecks, its directions and its add-to-review buttons — so a second and
+     poorer set of controls up here would be two answers to one question. The row says "added" and stops. */
+  function langDeckMB(b) { return (b / 1048576).toFixed(1); }
+  function langDeckRowHTML(r) {
+    const added = !!UDECKS[r.id];
+    return '<div class="collection udeck lang-deck">' +
+      '<div class="collection-row">' +
+        collectionIconMarkup(r.id) +
+        '<div class="collection-main">' +
+          '<div class="collection-title-row">' +
+            '<span class="collection-title">' + esc(r.title) + '</span>' +
+            (added ? '<span class="pill udeck-tag">added</span>' : "") +
+            '<span class="collection-count">' + r.cards.toLocaleString() + " cards</span>" +
+          '</div>' +
+          (r.sub ? '<div class="udeck-sub">' + esc(r.sub) + "</div>" : "") +
+          '<div class="udeck-sub lang-size">' + langDeckMB(r.bytes) + " MB to download" +
+            (added ? " · already in Your decks below" : "") + "</div>" +
+        '</div>' +
+        '<div class="collection-actions">' +
+          (added ? "" : '<button class="btn tiny lang-add" type="button" data-langadd="' + esc(r.file) +
+            '" data-langtitle="' + esc(r.title) + '">Add</button>') +
+        '</div>' +
+      '</div></div>';
+  }
+  function langDecksHTML() {
+    const rows = window.LANG_DECKS || [];
+    if (!rows.length) return "";
+    const langs = [];
+    rows.forEach((r) => { if (langs.indexOf(r.lang) < 0) langs.push(r.lang); });
+    const chev = '<svg class="group-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>';
+    const fold = (lang) => {
+      const mine = rows.filter((r) => r.lang === lang);
+      return '<details class="collection-group collection-group-soon lang-fold">' +
+        '<summary class="group-head group-head-toggle">' +
+          '<span class="group-label">' + esc(lang) + '</span><span class="group-line"></span>' +
+          '<span class="group-count">' + mine.length + "</span>" + chev +
+        '</summary>' +
+        '<div class="collection-list">' + mine.map(langDeckRowHTML).join("") + "</div>" +
+      "</details>";
+    };
+    return '<div class="collection-group community-group" id="langDecks">' +
+      '<div class="group-head"><span class="group-label">Languages</span><span class="group-line"></span>' +
+        '<span class="group-count">' + rows.length + "</span></div>" +
+      '<p class="udeck-intro">Vocabulary decks Folio builds from each exam board&rsquo;s own published word list. ' +
+        'They are <b>not written to the rules the collections above are</b> — a word, its meaning and a few ' +
+        'real sentences, rather than a cited card. Adding one downloads it to this device.</p>' +
+      langs.map(fold).join("") +
+    "</div>";
+  }
+  function wireLangDecks(root) {
+    root.querySelectorAll("[data-langadd]").forEach((b) => b.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      if (b.disabled) return;
+      b.disabled = true;
+      const was = b.textContent;
+      b.textContent = "Adding…";
+      let text = "";
+      try {
+        const res = await fetch("decks/" + encodeURIComponent(b.dataset.langadd), { cache: "no-store" });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        text = await res.text();
+      } catch (err) {
+        /* A DECK FILE IS FETCHED, so this is the one part of the section a `file://` copy cannot do —
+           Chrome refuses a fetch of a local file whatever the page. The rest of the section paints from
+           `lang-decks.js`, which is an ordinary script, so opening index.html directly still WORKS; only
+           Add needs a server, and it says so rather than failing silently. */
+        b.disabled = false; b.textContent = was;
+        toast("Couldn't fetch “" + (b.dataset.langtitle || "that deck") + "”. Deck files need the site served over http.");
+        return;
+      }
+      /* uImportDone repaints the page, so this button is gone by the time it returns — which is why the
+         failure paths above put it back themselves rather than leaving it to a render that never comes. */
+      const r = uDeckImportText(text, false);
+      if (r.error) { b.disabled = false; b.textContent = was; }
+      await uImportDone(r);
+    }));
+  }
   function sharedDecksHTML() {
     return '<div class="collection-group community-group" id="sharedDecks">' +
       '<div class="group-head"><span class="group-label">Shared decks</span><span class="group-line"></span>' +
@@ -23346,6 +23469,11 @@
         intro: S.intro ? Object.assign({}, S.intro) : null,
         streak: S.streak ? Object.assign({}, S.streak) : null,
         studied: studiedThisSession,
+        /* WHICH PHRASING WAS ON SCREEN. A card carries up to three ways of asking the same thing and
+           `renderCard` picks one at random when `qIdx` is null, so an undo that did not record it would
+           bring the card back asking something else — which reads as the undo having fetched a different
+           card. It is the question the reader answered; it is the question they get back. */
+        qi: qIdx,
       };
     }
     /* The per-review row is taken back BY IDENTITY, not by position. The snapshot above is taken before the
@@ -23378,10 +23506,16 @@
       queue = s.queue;
       studiedThisSession = s.studied;
       save();
-      studyRevealId = s.id;   // the card comes back REVEALED, on the grade row it was mis-answered on
-      qIdx = null;
+      /* IT COMES BACK AT ITS QUESTION, NOT AT ITS ANSWER (Aug 2026, on request). It used to be restored
+         REVEALED, on the grade row it was mis-answered on, which is the fastest way to re-grade and the
+         wrong thing to offer: a reader who has just undone a grade wants to ANSWER the card again, and a
+         card whose answer is already showing cannot be answered — it can only be re-scored against prose
+         they are looking at. So the reveal is dropped and the phrasing they saw is put back, which
+         together are the question they were asked. */
+      studyRevealId = null;
+      qIdx = Number.isInteger(s.qi) ? s.qi : null;
       renderCard();
-      toast("Grade undone — answer this card again.");
+      toast("Grade undone — here is the question again.");
     }
 
     if (queue.length === 0) {
@@ -32230,11 +32364,23 @@
        from exactly the themes that most need advertising — so it stays live, `setTheme` refuses it (the
        gate is there rather than here, so no route can get round it) and the press says where it comes
        from instead of doing nothing. */
+    /* THE TAG SAYS WHEN IT WAS UNLOCKED WHERE THERE IS A DAY TO NAME (Aug 2026, on request), and the
+       theme's own tagline where there is not — `folio`, which nobody unlocked, and a grandfathered theme,
+       whose stored 0 means "owned, date unknown". The tagline is not lost: it moves into the tooltip, so
+       the one line the tile has room for carries the thing that changes rather than the thing that never
+       does. */
     const themeBtn = (t) => {
-      const has = themeUnlocked(t[0]);
-      return `<button class="theme-opt${has ? "" : " theme-locked"}" data-theme="${t[0]}" type="button" title="${esc(has ? t[1] : t[1] + " — locked. Themes come from chests.")}">
+      /* `t[2]` IS PRE-ESCAPED HTML, NOT PLAIN TEXT — Marble's tagline is written `Marble &amp; bronze`,
+         and every other reader of it (the chest reveal, the admin tab) emits it raw. Passing it through
+         `esc` here would print the entity itself. Only the date is escaped, being the one part composed
+         at render out of the reader's own locale. */
+      const has = themeUnlocked(t[0]), when = has ? esc(themeUnlockedOnText(t[0])) : "";
+      const tag = has ? (when ? "Unlocked " + when : t[2]) : "From a chest";
+      const tip = has ? (t[1] + " — " + t[2] + (when ? ". Unlocked " + when : "") + ".")
+                      : t[1] + " — locked. Themes come from chests.";
+      return `<button class="theme-opt${has ? "" : " theme-locked"}" data-theme="${t[0]}" type="button" title="${tip}">
       ${themeMockHTML(t)}
-      <span class="theme-name">${t[1]}${has ? "" : ' <span class="theme-lock" aria-hidden="true">🔒</span>'}</span><span class="theme-tag">${has ? t[2] : "From a chest"}</span></button>`;
+      <span class="theme-name">${t[1]}${has ? "" : ' <span class="theme-lock" aria-hidden="true">🔒</span>'}</span><span class="theme-tag">${tag}</span></button>`;
     };
     const setHead = (accent, svg, title) => `<div class="set-head" style="--msn-accent:${accent}"><span class="msn-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${svg}</svg></span><h2>${title}</h2></div>`;
     root.innerHTML = `
