@@ -35,14 +35,17 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.277", released: "2026-08-20T06:24Z" };
+window.FOLIO_VERSION = { v: "1.278", released: "2026-08-20T06:54Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-20",
-    t: "Ancient Greece gains cards, and mentions of Asia Minor now link to the right place",
+    t: "The China collection opens for study with forty cards of myth, Ancient Greece gains cards, and mentions of Asia Minor now link to the right place",
     items: [
-      "Four new cards in the <b>Ancient Greece</b> collection, with four new glossary terms.",
+      "<b>The China collection is now open to study</b>, where it sat under Coming soon, so its cards reach your daily review, the games and the card of the day.",
+      "Forty-four new cards — forty in <b>China</b>, from Pangu splitting the world-egg to the table of sovereigns nobody can date, and four in <b>Ancient Greece</b> — with forty-four new glossary terms.",
+      "Line-drawn illustrations no longer come out blank on the <b>dark themes</b>.",
+      "The ordinary word <b>afar</b> no longer links to the Afar Region of Ethiopia, and the adjective <b>Chinese</b> no longer links to China.",
       "<b>Asia Minor</b> now links to Anatolia wherever it is mentioned, instead of sending you to the continent.",
     ],
   },
