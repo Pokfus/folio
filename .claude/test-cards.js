@@ -131,7 +131,7 @@ const parse = (() => {
 --------------------------------------------------------------------------------------------------- */
 const parseQuery = (() => {
   // from the cap and the operator table (browseTerm reads both) to the first impure line
-  const body = slice("const BROWSE_CAP =", "function browseRowData(", "the browse search");
+  const body = slice("const BROWSE_PAGE =", "function browseRowData(", "the browse search");
   return new Function(body + "\nreturn { browseTokens, browsePredicate };")();
 })();
 

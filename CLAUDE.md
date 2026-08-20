@@ -106,6 +106,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 |---|---|---|
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
+| `usstates` | `us-states.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
 | ~~`glossI18n:<lang>`~~ | *(removed 2026-08-08)* | the glossary translations were deleted on request; `loadLangData` no longer asks for this bundle, and the registration in `langBundle` is inert |
 | `gamesI18n:<lang>` | `i18n/games-<lang>.js` | ditto (the True-or-False / Who-said-it pools) |
@@ -3513,6 +3514,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the ones to read before writing anything. The next card to write is the lowest `ww2-NNN` not yet in
   `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **No card
   has been written yet.** Not part of the site.
+- `docs/geography-card-plan.md` — the running order for the **Geography collection** (`geography`), and **the
+  only plan that is not a thousand cards**: its United States deck is fifty states (`geo-001`–`geo-050`) and
+  their fifty capitals (`geo-501`–`geo-550`), a capital being `geo-500+N` for state `N` so the two subdecks
+  pair by number. The eleventh planned collection and the only one whose cards use the **map card** format,
+  so the file describes the format as well as the order: what `map` and `facts` are, why a map card carries
+  no extra phrasings and a short question, why it is kept out of the minigames, and **the accessibility
+  limitation stated rather than papered over** — the shape is the whole question, so there is no text
+  alternative that does not answer it. It also carries the three glossary collisions already waiting
+  (`Alaska`, `Olympia`, `Georgia`), the reachable-source spine (Census CSVs, Library of Congress state
+  guides, National Park Service), and the finding that `history.house.gov` serves a 200-status error
+  document. The next card is the lowest `geo-NNN` not yet in `data.js`; see the "GEOGRAPHY" bullet under
+  "Generating cards & glossary entries". Not part of the site.
 - `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
   finds cards written the other way round (24 of 119 flagged, measured before the 2026-08-04 renumbering — the
   flags travel with the cards, the ids in its table do not), and the six rewrite batches. Opened Aug 2026 on request
@@ -3524,6 +3537,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   [--card=<id>]`. It reads each card's own citations, takes names only from AUTHOR POSITIONS (reviewer before
   "review of"; authors after "by" / "ed."), throws the titles away first so an ancient author named in one never
   counts, and reports both rules with an `EXEMPT` list for cards whose answer term IS modern. Not part of the site.
+- `.claude/check-overlay.js` — audits the LIVE cloud content overlay (`content_overrides`) against the shipped
+  data files: `node .claude/check-overlay.js`. It reports a card delta whose prose plainly belongs to ANOTHER
+  card (the renumbering fault — see the overlay bullet under "Environment"), a delta pointing at an id that no
+  longer exists, a live collection the overlay DELETES, timeline eras that differ from `timeline.js`, footnote
+  markers or licence attributions an edit has dropped, and what the row costs every visitor on every page load.
+  It reads and never writes. Needs the network; reads `SUPA_URL`/`SUPA_KEY` out of app.js rather than restating
+  them, and fails loudly if it cannot find them. **Run it after any renumbering and after baking.**
+  **`--file=<path>` audits a LOCAL overlay JSON instead of the live row**, which is how a REPLACEMENT is checked
+  before it is pasted into production rather than by pasting it and looking at the site — the file is the bare
+  `data` value, not the PostgREST row wrapper. Not part of the site.
 - `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
@@ -3697,8 +3720,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   The Mandarin set is **three** files: **HSK1** and **HSK2** (the 2012 standard, 150 and 151 words), and
   **Mandarin Chinese** — 11,532 notes / 23,064 cards in ONE file as **nine subdecks**, the seven HSK 3.0
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
-  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, and the
-  **Goethe German set** by `.claude/goethe/` — see its own bullet below.
+  chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
+  **Goethe German set** by `.claude/goethe/`, the **CAPLE Portuguese set** (all six CEFR levels, plus a
+  seventh deck of phrases and expressions) by `.claude/caple/`, the **French set** — DELF A1–B2,
+  DALF C1–C2 and a seventh of **common phrases and expressions** (402), seven files plus a **combined
+  `French-A1-C2`** (7,648 notes / 15,296 cards, a subdeck per level and one of idiom) — by
+  `.claude/delf/`, and the **UKBI Indonesian set** — all seven predicates plus an eighth deck of
+  phrases, idioms and proverbs (228) — by `.claude/ukbi/`: see their own bullets below. The Indonesian
+  one is the odd one out and its bullet says why: **its exam board publishes no word list at all**, so
+  unlike every other deck here its vocabulary is assembled rather than read, and the deck's own
+  description states that in those words. **A COMBINED FILE IS GITIGNORED**, French, Spanish, Italian
+  and Indonesian alike: it is an artefact of the levels it combines rather than another deck, so
+  committing it duplicates every megabyte the repo already carries for them, and its own `combine.py`
+  regenerates it byte for byte.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -3814,12 +3848,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `docs/user-decks-plan.md` — the design plan for **community decks** (user-created decks, sharing,
   ratings, an optional per-deck glossary, and a later paid tier). Phases 0–1 have shipped; see the bullet
   in "How the app is wired". Not part of the site.
-- `data.js` (~2.1 MB) — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 409 cards** (measured
-  2026-08-10; this line said 99 for weeks, so **count them rather than quoting it**:
-  `node -e "global.window={};require('./data.js');console.log(window.CARD_DATA.length)"`) — **119 in World
-  History** (`col-8`, scattered across the first subdecks of its 1000-slot plan), **250 in Ancient Greece**
-  (`gr-001`…`gr-250`) and **40 in Ancient Rome** (`rm-001`…`rm-040`) — **each carrying its full pool of 3
-  question phrasings** (`question` + 2 `questions` extras) **and a `difficulty` of 1–5** (all rated on
+- `data.js` (~2.9 MB) — `window.CARD_DATA` and `window.COLLECTION_TREE`. **Currently 560 cards** (measured
+  2026-08-15; this line said 99 for weeks and then 409 for days, so **count them rather than quoting it**:
+  `node -e "global.window={};require('./data.js');console.log(window.CARD_DATA.length)"`) — **200 in World
+  History** (`col-8`, scattered across the first subdecks of its 1000-slot plan), **305 in Ancient Greece**
+  (`gr-001`…`gr-305`), **50 in Ancient Rome** (`rm-001`…`rm-050`) and **5 in Geography** — **each carrying its
+  full pool of 3
+  question phrasings** (`question` + 2 `questions` extras — **except a MAP CARD, which carries exactly one**,
+  see the map-card bullet) **and a `difficulty` of 1–5** (all rated on
   2026-08-10; see the card-difficulty bullet under "How the app is wired") **and, on 14 of them, an
   `undatable: true`** (the terms Timeline must not ask a reader to place — see the bullet beside that one),
   **in ENGLISH ONLY: the per-card `i18n` blocks were removed on 2026-08-08, on
@@ -3846,6 +3882,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   it — dropping the duplicate `col-9 Xin`, retitling `col-30 Jin` → `Jurchen Jin` and `col-2 Xia` →
   `Neolithic China and the Xia`, and adding the `cn-state` / `cn-belief` / `cn-culture` thematic decks —
   taking it to 7 decks and 39 leaf decks. Its `placeholder: true` was deliberately left alone.
+  **`geography` is new — the collection was created on 2026-08-15** by `docs/geography-card-plan.md`, with
+  one deck (`geo-us` The United States) and two leaf subdecks (`geo-us-states`, `geo-us-capitals`), a
+  `COLL_THEME` hue and a `COLLECTION_ICON` compass rose of its own. It is the fourth collection a plan has
+  had to bring into existence, after Egypt, the Second World War and Japan — and the FIRST that ships with
+  cards rather than empty: **five**, `geo-001`–`geo-004` and `geo-504`. Its cards carry two fields no other
+  card has, **`map` and `facts`**, so `serializeCardData` and `revertCard` had to learn both — the
+  documented whitelist trap, and the reason `test-map-cards.js` asserts them in the file rather than on the
+  page. See the map-card bullet under "How the app is wired".
 - `glossary.js` — `window.GLOSSARY` plus `window.GLOSSARY_DATES`, `GLOSSARY_TITLES`, `GLOSSARY_ALIASES`,
   `GLOSSARY_CASESENSITIVE`, `GLOSSARY_TAGS` (per-term category tags — the admin glossary's left-bar
   filter), `GLOSSARY_IMAGES` (per-term illustration, **771 of the 836 terms** since Aug 2026 — see the
@@ -3887,6 +3931,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   them. See the "Language picker + i18n" bullet below.
 - `world.js` (~1.6 MB) — `window.WORLD_GEO`, country-border polygons (Natural Earth 110m, ~117k verts) for the
   Atlas globe.
+- `us-states.js` (~600 KB) — `window.US_STATES = [ { n, a, c:[lon,lat], p:[rings] } ]`, the 50 US states and the
+  District of Columbia (Natural Earth 10m admin-1), for the **map cards** in the Geography collection. `n` is the
+  name a card's `map.key` addresses it by, `a` the postal abbreviation, `c` Natural Earth's own published label
+  point (what the card centres on). Same SHAPE as `world.js`, so `startCardGlobe` draws a state with the code
+  that draws a country. **Lazy** (bundle `usstates`), generated by `.claude/build-us-states.js`, never hand-edited.
+  **It is traced TEN TIMES FINER than world.js (Douglas–Peucker 0.002, 3dp against 0.02, 2dp), and that is a
+  decision rather than an oversight.** The first cut copied world.js's figures, on the reasoning that two traces
+  drawn into one canvas should match — which is a rule about a WORLD map, and this is not one: world.js is seen at
+  zoom 1–10 and a state card opens at whatever zoom frames its state, 79× for Rhode Island. At 0.02/2dp Rhode
+  Island came out as **49 points** — Narragansett Bay three triangular spikes, Block Island a triangle — and
+  nothing was WRONG with it, which is why no count could see it and it took looking at the card. The tolerance is
+  derived from the card's own zoom ceiling instead (see the builder), and the disagreement with world.js's coarser
+  shore is answered in the RENDERER, which fills the states as land. `test-map-cards.js` asserts a floor on the
+  vertex count, so a re-coarsening fails there rather than shipping a hexagon.
 - `uk.js` (~47 KB) — `window.UK_SUBUNITS = [ { n, p:[rings], c:[mask] } ]`, the UK's constituent countries (England,
   Scotland, Wales, Northern Ireland) + Ireland (the whole island, for the pre-1922 all-Ireland UK), from Natural Earth
   10m admin-0 **map subunits** (matched by `SU_A3`, since the NAME field abbreviates "Northern Ireland" → "N. Ireland").
@@ -3998,12 +4056,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   candidates were reviewed and rejected as not being the object — `gladius` matches *Xiphias gladius*, the
   swordfish. That is a fact rather than a backlog: a `src` is somebody else's URL and a `credit` is
   required beside it, so an invented one would be a fabricated source holding up a real object, and the
-  rarity-coloured placeholder is what the shape was designed for. **An artefact's image is three fields —
-  `src`, `credit`, `alt`** — not the card's five: the entry already carries the name, date, origin and
-  five-sentence description, so `credit` is the only place the attribution can go and it is written there
-  in full, URL included. Since Aug 2026 the plate's picture OPENS (see "THE PLATE'S PICTURE IS THE SITE'S
-  OWN MEDIA FRAME" under THE RELIQUARY), and the viewer's caption is built from those same three fields
-  plus the artefact's own name — nothing new is asked of an entry, and nothing is composed for it.
+  rarity-coloured placeholder is what the shape was designed for. **An artefact's image was three fields —
+  `src`, `credit`, `alt`** — not the card's five, on the reasoning that the entry already carries the name,
+  date, origin and five-sentence description, so `credit` was the only place the attribution could go and is
+  written there in full, URL included. **IT IS FIVE SINCE AUG 2026, on request** ("some images don't contain
+  titles or descriptions"): the plate's picture OPENS the site's fullscreen viewer, and with no `desc` all 99
+  of them opened it with the object's name over a blank caption. They gained `title` and `desc`, and NEITHER
+  composes anything — the title is the artefact's own name and the description is the `alt` this corpus
+  already wrote plus the attribution `credit` already carries, re-punctuated (see `.claude/fix-image-text.js`).
+  **Three places had to learn the two fields or the next admin keystroke would strip them**: `artefactSanitize`,
+  `serializeArtefacts` and `add-artefacts.js`'s own emitter, the last two writing them only where they exist so
+  an entry without them is byte-identical to what those always wrote.
   **THE PLATE ITSELF NO LONGER PRINTS THE CREDIT** (`.ar-wcredit`, deleted Aug 2026 on request): the viewer
   carries it a tap away from the picture it belongs to, where on the plate it was a grey line under five
   sentences it is not about. **The field is still REQUIRED** — `add-artefacts.js` and Admin → Artefacts both
@@ -4111,6 +4174,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   single-response reader records a handful and reports the rest as having no coordinate, which is
   indistinguishable from the truth. Rate-limited hard: it backs off and retries rather than recording a 429 as
   "no coordinate". Not part of the site.
+- `.claude/build-us-states.js` — builds `us-states.js` from Natural Earth 10m admin-1: `node
+  .claude/build-us-states.js [--refetch]`, caching the 40 MB source in `.claude/ne-cache/` (gitignored).
+  Zero deps. It **asserts exactly 51 shapes and unique postal abbreviations** and re-parses the file it
+  writes, on `add-card.js`'s discipline — a builder that quietly drops a state produces a card whose key
+  names nothing, which paints an empty window and throws. Its header carries the tolerance arithmetic, which
+  is the part worth reading before touching it: the figures are derived from the map card's own zoom ceiling
+  and **must not be re-synced to world.js's**, which is where they started and which produced a 49-point
+  Rhode Island. Filters on `adm0_a3 === "USA"` and `type_en === "State"`, plus DC by name — that last is a
+  named exception because Natural Earth does not type it as a state and the layer would otherwise be 50.
+  Not part of the site.
 - `.claude/fetch-images.js` → `.claude/search-images.js` → `.claude/pick-images.js` → `.claude/add-images.js`
   — the four-step **picture pass** that put an illustration on 233 cards and 547 glossary terms (Aug 2026, on
   request; the site had exactly ONE picture before it). Standalone Node helpers, zero deps, resumable, cache
@@ -4241,6 +4314,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is how the corpus went from one picture to several hundred in a day and then began drifting out of
     date the next. `.claude/suggest-image.js` is the single-item version, and `add-card.js`,
     `add-glossary.js` and `add-artefacts.js` each call it at the end of a successful add.
+- `.claude/fix-image-text.js` — the repair pass over the words that travel WITH a picture (Aug 2026, on
+  request: "some images don't contain titles or descriptions, and some of those that do contain grammatical
+  errors or spelling mistakes"). A picture's caption is ASSEMBLED rather than written — Commons' own English
+  description where there is one, the cleaned FILE NAME where there is not, plus the attribution the licence
+  requires — and that leaves residue a reader meets in the viewer's caption bar. Run it after a picture batch;
+  it is IDEMPOTENT for cards and the glossary (the hand-checked table is keyed on the exact text as it ships,
+  so an entry that has already been applied is REPORTED rather than silently doing nothing) and skips an
+  artefact that already has its two fields. Four things it settled:
+  · **AN ATTRIBUTION IS NOT A DESCRIPTION, and 56 captions were only that** — "Michael Gunther, CC BY-SA 4.0,
+    via Wikimedia Commons." and nothing else, where Commons carried no usable English and the file name
+    cleaned down to nothing. The repair composes NOTHING: those pictures already carry a full hand-written
+    `alt`, which is a description of the picture by definition, so the alt is PROMOTED to the caption.
+  · **A COLON IS NOT PUNCTUATION TO BE TIDIED.** The first cut spaced out every `,;:` with nothing after it,
+    which turned every URL in the corpus into "http: //", every wiki namespace into "en: William" and an
+    aspect ratio into "1.7477: 1". It is the one mark here as often structural as grammatical, and it is left
+    alone in both directions.
+  · **THE ELLIPSIS HAS TO BE NORMALISED BEFORE THE DOUBLED STOP**, or `\.{2}` eats the tail of one and leaves
+    a caption ending in two dots — the rule that exists to fix "12 by 19 cm.." breaking the truncation mark
+    that `pick-images.js` puts on a caption it cut at 300 characters.
+  · **AND THE HAND-CHECKED TABLE IS THE HONEST HALF.** A mechanical rule cannot know that "MeadowcroftPA" is
+    a rockshelter in Pennsylvania, that "afarensisIMG 2930" is a camera number welded to a species, or that a
+    flag file's caption is the SVG author's construction notes rather than anything about the flag. 35
+    captions and 9 alts are read by hand, each entry recording what the file name actually said. Not part of
+    the site.
 - `.claude/suggest-image.js` — the SINGLE-ITEM half of that pass, and the reason the corpus should not
   drift out of date again: `add-card.js`, `add-glossary.js` and `add-artefacts.js` each call
   `report(kind, key, subject)` at the end of a successful add, so a new card, term or artefact looks for
@@ -4253,6 +4350,494 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   it runs after the content has been written and it needs the network, so a failure prints one line and
   leaves the exit status alone — a content tool must not start failing because Commons is slow.
   `--no-image` skips it. Run it directly with `node .claude/suggest-image.js "<subject>" [--slug=<key>]`.
+  Not part of the site.
+- `.claude/caple/` — the generator behind the six `decks/CAPLE-<level>-Portuguese.folio-deck.json`
+  files, **all six CEFR levels** (A1: 498 notes / 996 cards, 1.8 MB; A2: 500 / 1,000, 2.0 MB;
+  B1: 998 / 1,996, 3.4 MB; B2: 1,400 / 2,800, 4.1 MB; C1: 999 / 1,998, 3.0 MB; C2: 700 / 1,400,
+  2.0 MB) **and, since Aug 2026, a seventh deck that is not a level**
+  (`decks/Portuguese-Phrases-and-Expressions.folio-deck.json`; 1,342 notes / 2,684 cards, 2.2 MB),
+  community decks rather than site content:
+  `python3 .claude/caple/run.py [--level c2] [--no-fetch] [--variety-check]`. Seven stages, run by
+  `run.py`, caching its corpora in `.claude/caple-cache/` (~750 MB, gitignored). PYTHON, like
+  `.claude/dele/` and `.claude/goethe/` and for the same reason: a further level is a re-run against
+  the next inventory rather than a rebuild. **ONE LEVEL PER RUN** (`caple_level` reads the level once,
+  at import), and a level is taught on top of the ones below it, read out of the SHIPPED deck files —
+  the DELE and Goethe arrangement exactly. It takes the **Goethe SHAPE** rather than the DELE one: one
+  note with two card templates, so a corrected gloss is corrected both ways at once and each direction
+  still keeps a schedule of its own.
+  · **THE PHRASES DECK IS THE SEVENTH AND IT IS NOT A CEFR LEVEL** (`--level phr`; `parse_phrases.py`,
+    and `PHRASES` / `SUBS` / `headwords_below` in `caple_level.py`. Aug 2026, on request: "add a deck
+    with common phrases and expressions"). **It is the Mandarin set's own arrangement** — that deck
+    teaches the seven HSK levels and then two subdecks carry Phrases and Idioms, "the two the syllabus
+    leaves out" — and the reason is the same here: a Referencial level is an inventory of WORDS, so a
+    set expression reaches those decks only where the inventory happens to name one, and what the six
+    between them teach is **17 of the 1,342 this pool holds**. Eight things are decisions rather than
+    plumbing.
+    **IT REUSES EVERY STAGE THAT IS ABOUT PORTUGUESE AND REPLACES THE FOUR THAT ARE ABOUT THE
+    REFERENCIAL.** `examples.py` and `build_deck.py` are the same code with the same European filters
+    and the same card type; `parse_phrases.py` stands in for parse_referencial + supplement +
+    extract_kaikki + select, because none of the cascade those run applies when the pool IS the deck —
+    that cascade exists to stop the closed classes competing with nouns on raw frequency while choosing
+    500 words from several thousand, and here nothing is being chosen.
+    **WHAT COUNTS AS AN EXPRESSION IS TWO TESTS, and each misses what the other catches**: a part of
+    speech only a phrase can have (`phrase`, `proverb`, `prep_phrase`, `intj`) OR an `idiomatic` tag on
+    any sense. `de vez em quando` is an ADVERB and `pão e circo` a NOUN, so the POS test alone loses
+    both; `não sei` and `com certeza` are filed as phrases and carry no tag, so the tag alone loses
+    those. **What the pair keeps OUT is the point** — `cartão de crédito`, `fim de semana` and `banda
+    desenhada` are all in the dump, all multi-word, and none is in this deck, being nouns that happen
+    to be spelled with a space.
+    **THE ORDER IS THE CORPUS COUNT, and it has to be**: hermitdave's frequency lists are SEGMENTED, so
+    `de vez em quando` appears in them as four ordinary words and the phrase has no rank at all.
+    `select.py` solves that for the handful of phrases in a word deck by counting them in Tatoeba and
+    calibrating onto the subtitle scale through the single words that carry both; here every entry is a
+    phrase, there is nothing to calibrate against, and the calibration would be monotone in the count
+    anyway. **Counted on WORD BOUNDARIES** — the pipeline's own `poder com` / `poder comprar` fault,
+    worth more here because a short phrase is common: `a par` matches 7,847 times as a substring
+    (almost all `a parte` and `a partir`) and 21 on boundaries.
+    **715 OF THE 1,342 ARE IN NO CORPUS AT ALL, and that is the subject rather than a gap** — an idiom
+    is literary where a sentence-pair corpus is conversational, and the Mandarin deck records exactly
+    the same of its chengyu (361 of 5,227 appear even once). Stated in the deck's own description and
+    NOT repaired by truncating to what the corpus can rank, which would let the corpus choose the
+    syllabus — the DELE pipeline's own finding.
+    **THE BRAZIL FILTER IS ENTRY-LEVEL HERE where the word decks demote a SENSE**, and the difference
+    follows from what is being taught: a word usually means the same thing on both sides of the
+    Atlantic and differs in one sense, so the sense is demoted and the word ships, while an idiom is
+    the whole of what is being taught and one whose every recorded meaning is marked Brazil is not said
+    in Portugal at all. **178 go that way — much the largest filter here**, which is what a corpus of
+    idioms should look like, set expressions being the most regionally divided part of a language.
+    **…AND THE TAG CANNOT SEE AN EXPRESSION THAT IS BRAZILIAN IN ITS WORDS**, which is a second filter
+    and was nearly missed: `a grama do vizinho é sempre mais verde` is filed as Portuguese generally,
+    so nothing marks it, and in Portugal a lawn is `relva` while a `grama` is a gram. The first hand
+    table was swept with **the seven shibboleth PAIRS `run.py` checks the corpora with**, and every
+    leak turned on a word outside that list — so the sweep is now against the **whole frequency list**
+    (`variety_report`, printed on every run) and the table names **15**. **THE LINE IS ZERO EUROPEAN
+    HITS**: a word common in Brazil and wholly absent from a European list of the same size is a
+    variety marker rather than a rarity, and that took nine (`sumiço`, `mané`, `eita`, `cê`, `capim`,
+    `pingando`, `oras`, and `cômico`, which is a SPELLING — Wiktionary's own `cómico` entry glosses
+    itself "European Portuguese standard spelling of cômico"). The rest were read: `grama` at 9.5×
+    against `relva`'s 0.23, `fumaça` 16.7× against Portugal's `fumo`, `paletó` 19.4×.
+    **AND THE REST IS REPORTED AND LEFT, WHICH IS `select.py`'S OWN RULE.** 78 shipped phrases still
+    carry a word said ≥8× more often in Brazil and taking them wholesale would cost more than it
+    saved: `em suma` is flagged for the coincidence of `suma` and `grão a grão enche a galinha o papo`
+    for `papo`, both of them Portugal's own, and they sit in the same band as the real Brazilianisms
+    (`tô ligado`, four on `botar`, `chutar o balde`). **Read the report, do not automate it.**
+    **AND `headwords_below` IS A SECOND FUNCTION RATHER THAN A WIDER `words_below` — BUT IT RETURNS
+    BOTH FORMS, AND SHIPPED RETURNING ONE.** A level asks "is this WORD already taught?" and strips a
+    leading article, so `a distância` goes into its exclusion set as `distância`; this deck asks "is
+    this PHRASE already taught?", and the two answers differ at BOTH ends. Keeping the unstripped form
+    is what saves the adverbial locutions (`a par`, `a seco`, `a pé`), which stripped would enter as
+    `par`, `seco` and `pé` and match nothing. Keeping the STRIPPED form is what was missing: **a noun
+    is keyed WITH its article**, so C1's `o peso morto` never matched the candidate `peso morto` and
+    the deck taught one lexeme twice under one gloss. A noun's article there is the deck's own
+    typography — it is what colours the gender — and no part of the headword. Widening the shared
+    `words_below` is still refused: it would drop six adverbial locutions from C1 and C2, which ship
+    correctly. Widening THIS one is safe because only `parse_phrases` imports it, and measured over
+    the pool the union excludes exactly one phrase the old rule kept — that duplicate.
+    **TWO SUBDECKS, READ AND NOT GUESSED**: Wiktionary files a proverb under a part of speech of its
+    own, so **Expressions (1,127)** and **Proverbs (215)** are split on the record rather than on the
+    shape of the words. `build_deck.py` writes the `sub` string; the deck's subdecks are the distinct
+    values its cards name, which is what makes them cost the file nothing.
+    **A BOUNDARY MATCH FINDS THE WORDS AND NOT ALWAYS THE EXPRESSION**, which is `poder com` /
+    `poder comprar` one level deeper — there the boundary rule fixed it, and here the boundaries are
+    already right. `que foi` is the exclamation "what's the matter?" and also the two words in `a
+    primeira vez que foi preso`, so the card came up glossed as an interjection over three sentences
+    in which it is a relative clause: **teaching the wrong thing rather than nothing**, which is worse
+    than an empty fold. **What separates them is the ENGLISH** — `reflexives.py`'s own answer to the
+    same question, where `KEYWORDS` requires the translation to carry a word the reflexive means — and
+    here the keyword set is free, being the entry's own gloss. It is scored as a **PREFERENCE and not
+    a filter**: an idiom translates loosely (`bater as botas` is "to kick the bucket" and its sentence
+    may say "he died"), so a hard test would drop good sentences to remove bad ones. Measured on the
+    pool as it then stood, it took the mismatches from 149 of 445 to 108, and `que foi` now opens on
+    "Que foi que eu fiz de errado?".
+    The rest is stated in the deck's own description rather than repaired. **Gated on `PHRASES`** for
+    the ordinary reason: it changes which sentence is chosen, so ungated it would re-pick examples
+    across all six word decks for a problem those decks barely have, their entries being single words
+    where an inflected form is its own evidence of which word it is.
+    **AND THE BOLDER MATCHED AGAINST ALREADY-ESCAPED TEXT**, found by the same assertion that caught
+    `poder com` (a card with examples must have a bolded term in them): the pattern is built from the
+    raw form and was applied to `esc(pt)`, so a form carrying an escapable character matched nothing
+    and its sentences shipped with no bold at all. **One form on the whole shelf does** —
+    `tempestade em copo d'água`, whose apostrophe becomes `&#x27;` — which is why it went unseen and
+    why the fix is provably inert on the six: swept over every level's examples, no other form
+    contains `'`, `&`, `<` or `>`. Matched on the raw sentence and escaped afterwards now.
+    **ITS LOUDEST FAULT WAS TWO MISSING KEYS IN `POS_NAME`** — `recs_of` keeps a record only if its
+    `pos` is a key there, and `proverb` and `prep_phrase` were not, so all 218 proverbs and 19
+    prepositional phrases arrived with no records, no senses and no meaning. **The guard caught it
+    outright** ("cards with no meaning at all") rather than shipping, which is the failure shape this
+    pipeline wants. Both were added UNCONDITIONALLY because they are **provably inert** — swept over
+    all six shipped word lists, not one word has such a record — where `name` was NOT in that position
+    (B1's `terra` and C2's `ártico` each have one) and is therefore added only under `PHRASES`, rather
+    than quietly re-picking the primary record of two cards in decks nobody was editing.
+  · **THE BUILD WAS NOT DETERMINISTIC, FOR THREE LEVELS, AND ONLY THE BYTE-FOR-BYTE RULE COULD SEE IT**
+    (Aug 2026, found while adding B2). `examples.py` banked its per-sentence findings in a SET of
+    `(word, form)` pairs and then iterated it — and Python randomises string hashing per process, so
+    the order varied between runs. It decides which candidate a word banks FIRST, which decides which
+    of its sentences survive the scoring, so **A2 rebuilt twice from an unchanged cache produced two
+    different decks**. It shows only where one sentence carries two forms of the same word — `Ele
+    ganha o dobro do que eu ganho` banked as `ganha` on one run and `ganho` on the next, so the card
+    bolded a different word and chose a different third sentence — which is why A1, B1 and B2 all
+    reproduced and A2 did not. **Every deck was correct either way**, which is exactly why nothing but
+    the rebuild-and-diff discipline was ever going to find it. Sorted at the point of use, and
+    verified the strong way: **all four levels built under two different `PYTHONHASHSEED` values are
+    byte-identical**, which is a better check than two ordinary runs and is the one to repeat.
+  · **B2 IS WHERE THE TABLE'S OWN GUESSES CAME DUE** (Aug 2026). Three of them, and each was corrected
+    by measurement rather than by judgement. **ITS TARGET WAS WRONG**: `TARGET` said 2,000, written
+    when only A1 existed, and the Referencial's levels are not a widening syllabus — B2's Noções
+    section has the same 162 headings as B1's and largely repeats its bullets, so what B2 ADDS once
+    the 2,216 words below are removed is a pool of **1,491**. `select.py` REFUSES a level short of its
+    target rather than taking what it can get, so the guess announced itself on the first build; it is
+    1,400 now, with the margin a corpus refresh needs. **ITS REFLEXIVES ARE 78 NAMED AND 41 GLOSSED**
+    — and the second test grew a third family, the phrase-bound `dever-se`, which occurs only ever as
+    `dever-se a` and so is a headword the inventory has not got, exactly as `ir-se embora` is at A2.
+    **AND 206 OF ITS 1,400 WORDS HAVE NO EXAMPLE SENTENCE**, against B1's 40 in 1,000: B2's inventory
+    is a fifth multi-word phrases and its single words are rarer, and Tatoeba's Portuguese does not
+    reach them. That figure is stated in the deck's own description rather than repaired, because
+    repairing it means letting the corpus choose the syllabus — the DELE pipeline's own rule.
+  · **C2 COMPLETES THE SIX AND ITS FINDING IS THE SHAPE OF THE LADDER** (Aug 2026). Measured the way
+    the guard forces, the levels ADD **500, 500, 1,000, 1,400, 1,054, 741** — it rises to B2 and then
+    falls away, so the two C levels together are smaller than B2 alone. That is not the Referencial
+    running out of language: it describes what a speaker can DO at each level, and by C1 most of the
+    doing is done with vocabulary the lower levels have already given, so the top of the ladder
+    contributes the specialised words and little else. **Its own two drops are one of each kind the
+    pass has met, and neither could have been found by the ratio report.** `parabenizar` occurs
+    exactly ONCE in the whole document and it is inside a worked example — a word the Referencial
+    USES rather than one it LISTS, which is `segurar-se`'s test — so it is in `BLOCK` rather than
+    `BRAZILIAN`, even though it is also Brazilian and posted the highest ratio the pass has produced
+    (814×); **a word the inventory does not name has no place in the deck whichever side of the
+    Atlantic says it.** And `cesta básica` is `varal`'s case — listed alone, with `cabaz` nowhere in
+    the document — but it is **the first PHRASE in that table, so it carries no frequency count and
+    the ratio report is blind to it**; it was found by reading the level's own no-example list, which
+    is where the rare and the foreign both end up. **293 of its 700 words have no example sentence**,
+    42% against B2's 15%, which is the same curve seen from the corpus's side and is stated in the
+    deck rather than repaired. Two smaller things: `concernir` is the shelf's first **defective**
+    verb — used only in the third person, so it has no imperative for a reason that is not
+    impersonality — and it renders honestly, dashes in the persons it has not got; and `linhagem` is
+    the sense ranking's one remaining shape, below.
+  · **A WORD MAY HAVE TWO NOUN RECORDS WITH THE ODD SENSE FILED FIRST, AND NO TAG SEPARATES THEM**
+    (Aug 2026, C2). `o comboio`'s "convoy" is fixed by scoring a European tag negatively; here
+    neither of `linhagem`'s two records carries a tag at all, so the pick is pure Wiktionary record
+    ORDER and it led with "burlap" for a word that means lineage. **Measured before it was treated as
+    a class**: 177 shipped words across the six levels carry two or more noun records, and reading
+    C2's seventeen by eye this is the only one the order gets wrong — `coração`, `bar`, `canto`,
+    `gota`, `pilha` and `teto` all lead with their central sense. So it is an `AUTHORED` entry rather
+    than a rule, and **the next one is found the same way: read the level's own multi-record nouns
+    when adding a level**, which is a list of seventeen rather than a corpus.
+  · **C1 CORRECTED 108 CARDS IN THE FOUR DECKS ALREADY SHIPPED, AND ADDED NONE OF ITS OWN FINDINGS TO
+    ITS OWN DECK** (Aug 2026). That is the rebuild-every-level rule paying for itself: nothing in C1
+    needed a new stage, and the three faults it surfaced were all in shared code, all silent, and all
+    older than the level that found them. **THE `-s` DROP BEFORE `vos` WAS A RULE APPLIED ONE TENSE TOO
+    WIDE**, and it is the one that was not merely archaic but wrong: `enclitic` dropped a final `-s`
+    before `vos` on every form, where that belongs to the FORMATION of the affirmative imperative
+    (`chamais` → `chamai`), which the source hands over already formed — so the present became
+    `chamai-vos` for `chamais-vos`, the personal infinitive `chamarde-vos`, and the preterite
+    **`chamaste-vos`, which is the second person SINGULAR verb carrying a plural pronoun** and reads as
+    an ordinary word. Measured on two sources that do not know about each other before it was touched:
+    Tatoeba's Portuguese is unanimous on the 1pl drop (129 `-mo-nos` against 0) while every `-vos` token
+    but one is an imperative and says nothing either way, and the single informative one,
+    `lembrais-vos`, keeps its `-s`; Wiktionary's own generated pronominal table keeps it in all four
+    non-imperative tenses and drops it in the imperative. 103 reflexive cards across A1–B2. **THE
+    LESSON IS THAT ONE FIX MADE TWO CARDS OF ONE DECK SPELL THE SAME CONSTRUCTION TWO WAYS**, which is
+    what forced the measurement — see the next bullet.
+  · **A VERB THAT IS INHERENTLY PRONOMINAL COMES WITH ITS PRONOUN ALREADY IN THE TABLE** (Aug 2026, C1;
+    `is_pronominal` / `remark` in build_deck.py). `arrepender` is only ever used as `arrepender-se`, so
+    Wiktionary's `pt-conj` generated it in the pronominal form — every cell reads `arrependo-me`,
+    `arrepender-me-ei`, `me arrependa` — and the reflexive branch attached a SECOND pronoun, so 29 rows
+    of one card printed the word twice. Nothing threw, the paradigm was the right shape and the right
+    length, and the only symptom was the pronoun twice; **`check-caple.js`'s existing sweep for a still
+    hyphenated clitic would have caught it, and there was no `c1` PROBE row yet to run**. One card of
+    3,397 on the shelf. **THE FORMS ARE RE-MARKED RATHER THAN STRIPPED AND REBUILT**: inverting the
+    source's transformation means guessing which `-s` it dropped, the table IS the reflexive paradigm,
+    and all it needs is the hyphen turned into a colour. **AND THE TWO CONVENTIONS AGREE EVERYWHERE
+    ELSE**, which is the closest thing to an independent check the clitic module has — the generated
+    table puts the pronoun after the verb, inside the future and the conditional, before the verb in
+    the conjuntivo and after `não` in the negative imperative, cell for cell what `TENSES` says. It is
+    also what exposed the `vos` rule above, by putting the source's spelling and ours on two cards of
+    one deck.
+  · **AN ARTICLE IS COLOURED ONLY WHERE THE PIPELINE PUT ONE** (Aug 2026, found while adding C1;
+    `headword_html`). It re-derived the article by matching a leading `a`/`o` in the STRING, and the
+    Referencial names adverbial locutions built on the preposition `a` — so five B2 cards set `a fim
+    de`, `a menos que`, `a não ser que`, `a distância` and `a seco` with their first word in the
+    FEMININE-ARTICLE colour, contradicting the part of speech printed two lines below. On a deck whose
+    whole visual grammar is that the article's colour teaches the gender, that is the Goethe deck's own
+    fault the other way round. Nothing threw and every count was right; the symptom was a colour.
+    **THE COLLISION IT ALSO EXPLAINS IS NOT A DUPLICATE**: `a distância` is taught at A2 as a feminine
+    noun and at B2 as an adverb, which `words_below` cannot see because it strips the article from the
+    lower deck's headword and the upper candidate carries it as a preposition. Six such candidates
+    exist across the four levels (`a pé`, `a seguir`, `a princípio`, `a distância`, `a seco`) and
+    **every one is an adverb**, so they ship: the noun colours its article and the locution does not,
+    which with the part of speech under it is how the two cards say which they are. A NOUN doing the
+    same thing would be two identical headwords, so `select.py` reports that case and is silent today.
+    · **AND ONE REDUNDANCY IS RECORDED RATHER THAN REPAIRED, because the repair is the riskier
+      change.** The same sweep finds three words taught both alone and as the feminine half of a noun
+      pair — `menina` and `senhora` in A1, `corretora` in C1 — because `merges_with` folds a feminine
+      onto its masculine's card only where the two entries point at each other, and these do not. That
+      guard is what keeps a real noun that merely LOOKS like a feminine from being swallowed, and the
+      shelf is full of them: `a cara` beside `caro, cara`, `a curva` beside `curvo, curva`, `a física`
+      beside `físico, física`, `a corretora` ("brokerage") beside `o corretor, a corretora`
+      ("corrector"). Loosening it to catch three notes in 4,395 would put all of those at risk of
+      losing a card, and a swallowed word is a worse fault than a word taught twice — both cards being
+      correct Portuguese under correct glosses.
+  · **THE SOURCE ALSO LISTS A BRAZILIAN WORD ON ITS OWN, WHICH IS NOT THE SLASH CASE** (Aug 2026, B2).
+    `xícara` arrives beside `chávena` and the drop swaps one word for another; `varal` and `coquetel`
+    appear with no European alternative anywhere in the document — `estendal` and `cocktail` are not
+    in it — so the drop **loses the concept** rather than swapping it. Deliberately not repaired by
+    adding the European word, which would be the pipeline writing the syllabus instead of reading it.
+    `o varal` also showed the two faults compounding: Wiktionary glosses it "shaft (of a cart)", the
+    sense European Portuguese does keep, so the card was a Brazilian word under a meaning the
+    inventory does not mean.
+  · **THE 1990 ORTHOGRAPHIC REFORM IS WHY THE VARIETY RATIO CAN NEVER BE AUTOMATIC** (Aug 2026, B2),
+    and it is a far stronger case than B1's four false positives. The European subtitle corpus largely
+    predates the reform, so **the correct modern European spellings all look Brazilian**: `extrato`,
+    `incorreto`, `ótica`, `indireta`, `exatidão`, `subjetivo`, `redator`, `direto`, `reto`, `adotivo`
+    — ten of B2's twenty-eight flagged words are one family, and every one of them is right.
+    **AND THE REFORM ALSO DEFEATS THE BETWEEN-LEVELS EXCLUSION**: `words_below` is a string match, so
+    B1's `atual` does not exclude B2's `actual`, which shipped as a second card with the same meaning.
+    Swept over all four decks there are exactly two pairs differing by a reform consonant, and **the
+    other one is why this is a hand table and not a rule** — `facto` (A1) and `fato` (A2) look
+    identical in shape and are two different words, a fact and a suit. Hence `SPELLING` in select.py,
+    one entry, naming the level below that already teaches it.
+  · **B1 IS THE LEVEL WHERE THE LOWER DECKS STOP BEING SPECTATORS, and that is what to expect of B2**
+    (Aug 2026). A2 was a re-run and a table row; B1 needed no new stage either, and its whole cost was
+    in the three places a level is built ON something else. **THE REFLEXIVES STOP BEING A HANDFUL**:
+    its inventory names **56** `-se` strings against A2's 32, and `reflexives.py` glosses 31 of them by
+    hand — the rest being inflected forms out of the Referencial's own example sentences (`pode-se`,
+    `sente-se`, `formaram-se`) or the impersonal `se` (`como se escreve?`), which is a construction
+    rather than a verb. **A missing gloss is SILENT**: the word is simply not offered, the cascade
+    takes the next one, and the deck builds at exactly its target — so read the inventory rather than
+    waiting for a warning, and note that a gloss added here is offered at EVERY level whose inventory
+    names it, so check the lower candidate lists before writing one (none of B1's 31 is named at A1 or
+    A2 — measured, not assumed). **AND A WORD WHOSE ENTRY IS A POINTER MAY POINT AT NOTHING**:
+    `vários` reads "masculine plural of vário" and `vário` has no Wiktionary entry at all, so it is
+    written into `AUTHORED`. That one is loud — `build_deck` refuses a card with no meaning — which is
+    the shape to want and the reason that refusal exists.
+  · **THE REFERENCIAL DESCRIBES PORTUGUESE, NOT ONLY EUROPEAN PORTUGUESE** (`BRAZILIAN` / `BR_RATIO` in
+    select.py; Aug 2026, found by B1). Where the two varieties differ it writes both with a slash —
+    `uma chávena/xícara de` — and `segments` splits on that slash, so the Brazilian half arrives as an
+    ordinary candidate: B1 shipped a Brazilian teacup in a deck for an exam set in Lisbon until it was
+    caught. **The slash cannot simply be read left-to-right**: measured over the whole document it
+    holds **1,553 distinct pairs**, almost all of them antonyms and near-synonyms (`alto/baixo`,
+    `abrir/fechar`, `achar/pensar`), so a rule taking the left-hand side would throw away a good word
+    in nearly every case.
+    **THE MEASUREMENT IS AUTOMATIC AND THE DROP IS BY HAND, and the arithmetic is why.** A word
+    markedly commoner in the Brazilian frequency list than the European one is the obvious test and it
+    separates the known pairs cleanly (xícara 19×, trem 18×, ônibus 31×, celular 25×, banheiro 26×
+    against chávena 0.1×, comboio 0.2×, autocarro 0.1×). Run as an automatic DROP over the three
+    finished word lists it takes **one right answer and four wrong ones** — `você`, which is ordinary
+    European Portuguese and which this deck teaches on purpose; `hidratar`, absent from a small
+    subtitle corpus rather than from Portugal; and `policial` and `conexão`, both standard here and
+    merely commoner there. **A ratio measures how often Brazilians say a word, which is not the same
+    question as whether the word is Brazilian.** So `select.py` prints the flagged words on every run
+    and drops only what `BRAZILIAN` names, each entry naming the European word it stands for. The
+    Brazilian list is now a normal source rather than `--variety-check`'s alone.
+  · **A DISPLAY CHANGE BROKE THE EXCLUSION BETWEEN LEVELS, AND IT SHIPPED** (Aug 2026; `words_below`).
+    Colouring the clitic took the hyphen out of the printed headword, and `words_below` read that
+    field — so A1's `sentir-se` entered A2's exclusion set as `sentirse`, matched nothing A2 offered,
+    and **the A2 deck re-taught `chamar-se`, `levantar-se` and `sentir-se`**, pushing three real A2
+    nouns out. Both decks looked perfect: a duplicated word is a well-formed card. It reads
+    `question` now — the plain lemma the whole pipeline is keyed on, which a rendering decision cannot
+    move. **The lesson is the coupling rather than the field**: a deck FILE is an input to the next
+    level, so anything that changes what is printed in it has to be checked against what reads it, and
+    the check is to rebuild every level and diff — which is what found this.
+  · **A PHRASE IS MATCHED ON WORD BOUNDARIES, NEVER AS A BARE SUBSTRING** (`PH_RX` in examples.py; Aug
+    2026, found by B1's `poder com`). `if p in low` gave that phrase three sentences about `poder
+    comprar` — real Portuguese, correctly translated, on a card of the right shape, about a different
+    phrase. **What caught it is the BOLDER**, which does anchor on boundaries and so refused to mark a
+    term it could not find, and `check-caple.js`'s assertion that a card with examples has a bolded
+    word in them. The two now share one boundary class, so a phrase that is FOUND can be MARKED.
+  · **A2 WAS A RE-RUN AND A TABLE ROW, WHICH IS WHAT THE PIPELINE WAS BUILT FOR** — the Referencial's
+    six levels are siblings in one HTML file and every node carries `id="nivel<LEVEL>-…"`, so the
+    parser was already level-scoped and the A2 inventory is a genuinely different and larger one
+    (3,036 candidates against A1's 1,646, sharing 841). **What it did cost is a REFLEXIVE PASS**: the
+    A2 inventory names thirty-two `-se` verbs where A1 names eleven, and since Wiktionary has a record
+    for none of them the twenty worth teaching had to be glossed by hand in `reflexives.py`. Adding a
+    level means reading its inventory for those; nothing warns, because a reflexive with no gloss is
+    simply not offered and the deck builds cleanly at exactly 500 words without it.
+  · **A REFLEXIVE'S BASE VERB IS FETCHED FOR ITS PARADIGM AND MUST NOT JOIN THE WORD LIST BY ITSELF.**
+    `run.py` adds every reflexive's base to the Wiktionary lookup, and `select.py`'s pool is
+    everything with a record — so once `reflexives.py` covered two levels at once, A2's twenty bases
+    (`voltar`, `casar`, `tornar`, `divertir`, …) entered **A1's** pool and pushed nineteen real A1
+    nouns out of its top 500, with A1 still building cleanly at exactly 500 words. The guard is one
+    `if k in cands`: fetch a base only where this level's inventory names the reflexive.
+  · **CAPLE PUBLISHES NO VOCABULARY LIST, and that was established rather than assumed** — its site
+    carries exam specifications and nothing else, checked page by page, and the one PDF that looks like
+    a syllabus is an image-only scan of a brochure. So the words come from the reference description
+    **CAPLE's own Recursos page links to**: the Referencial Camões PLE, the Instituto Camões'
+    level-by-level account of Portuguese. That is the DELE pipeline's relationship with the Cervantes
+    *Plan curricular* with one difference worth having — **here the exam board points at the source
+    rather than being it**, so the choice is the board's rather than this repo's. Only the inventory of
+    WORDS is taken; the Referencial's own prose is not reproduced, exactly as the Goethe pipeline takes
+    the Wortliste and leaves the Goethe-Institut's example sentences alone.
+  · **THE DECK IS EUROPEAN PORTUGUESE, AND THAT REACHES INTO FOUR STAGES RATHER THAN SITTING IN THE
+    DESCRIPTION.** CAPLE sets its exams on the European standard, so: the frequency ordering comes from
+    the European half of the subtitle corpus (`pt_50k.txt`, **not** `pt_br_50k.txt`); Wiktionary's
+    Brazil-tagged verb FORMS are dropped (5,464 of the 6,511 verbs carrying a table have one, so
+    without it almost every -ar verb shows `falamos` beside `falámos` with nothing to say which is
+    which); Brazil-tagged SENSES are outranked; and an example sentence carrying a Brazilian marker is
+    rejected. **Nothing in either frequency file says which variety it is**, so `--variety-check`
+    re-proves it on fourteen shibboleths (comboio/trem, autocarro/ónibus, telemóvel/celular…) and exits
+    non-zero if they come out the wrong way round — a measurement that can be re-run rather than a
+    comment that can rot.
+  · **THE SENSE RANKING IS THE BUG THIS DECK IS MOST LIKELY TO GET WRONG AGAIN.** `o comboio` shipped
+    for an hour glossed **"convoy"**: Wiktionary's "train" sense is tagged `Portugal` *and* `Africa`,
+    and any ranking that merely penalises Brazil scores it worse than the untagged "convoy" — so a
+    European tag has to score NEGATIVELY, and only the best-ranked senses survive. Every count was
+    healthy throughout and the card read perfectly. `check-caple.js` pins five of these glosses.
+  · **WHERE THE PRONOUN GOES IS FOUR RULES, NOT ONE, AND A WRONG ONE RENDERS AS A PERFECTLY REGULAR
+    TABLE.** European Portuguese's default is enclisis (`chamo-me`, where Brazil writes `me chamo`),
+    with the first person plural dropping its -s before `-nos` (`chamamo-nos`) — but the **conjuntivo**
+    is subordinate by nature and takes proclisis (`que eu me chame`), a **negative imperative** takes
+    proclisis after `não` (`não te chames`), and the **future and conditional take MESOCLISIS**, the
+    pronoun going INSIDE the verb between its stem and its ending: `chamar-me-ei`, `chamar-nos-emos`,
+    `chamar-me-ia`. That last one shipped as ordinary enclisis for a session — `chamarei-me`, which is
+    not Portuguese at all — on all eleven reflexives, twelve rows apiece, with the table the right
+    shape and the right length throughout. The split is found by **stripping the ending** rather than
+    by assuming the stem is the infinitive (the irregular futures are irregular in the stem: `dizer` →
+    `direi` → `dir-me-á`), the ending list is **sorted by length** (the conditional's `íeis` must beat
+    the future's `eis`, or `chamaríeis` comes out `chamarí-vos-eis`), and a form matching no ending is
+    reported at the end of the run rather than falling back silently.
+  · **…AND THE PRONOUN IS PRINTED AS A COLOUR RATHER THAN WITH A HYPHEN** (`marked` / `clitic_html` /
+    `CL_A` / `.uc-cl`; Aug 2026, on request). The card shows `sintome`, `sentirmeei` and `me sinta`
+    with the pronoun in indigo, where standard orthography writes `sinto-me`, `sentir-me-ei` and
+    `me sinta`. **The trade is real and is recorded rather than smoothed over**: the hyphen is not
+    decoration a learner can do without, it is how the form is SPELLED, so the card teaches the right
+    word in the wrong orthography — and the example sentences under the table are Tatoeba's own
+    Portuguese and keep their hyphens, so a reflexive card shows both spellings a few lines apart.
+    What it buys is that the three parts of `sentir·me·ei` read as three parts at a glance. The deck's
+    own description says which way round it is, so a learner meeting `chamo-me` in a book is not left
+    thinking one of the two is a misprint.
+    **THE COLOUR IS VERMILION**, where it was indigo for a day (Aug 2026, on request): it is the
+    colour the mood headings and the example bolding already use, so the card says one thing in one
+    colour, and the two cannot be confused — a mood heading is 10px letterspaced capitals on a line of
+    its own and the pronoun is two letters inside a word.
+    **THE MARK IS A SENTINEL, NOT A TAG**, because every one of these strings goes through `esc()` on
+    its way onto the card and a `<span>` built in the builder would arrive as visible angle brackets:
+    two control characters no source text can contain survive the escape and become the span after it.
+    It is a **weight as well as a colour** — with the hyphen gone, a `chamome` whose mark did not land
+    is simply a misspelling, so the one channel that can fail for a reader (high contrast, bright sun,
+    these two hues being one colour to them) is not the only one. And it reaches the **headword** too:
+    `chamar-se` at the top of the card over `chamome` in the table would show both spellings with
+    nothing to say which is the rule. The stored key keeps its hyphen — this is the printed form only,
+    and the word is still looked up, spoken and matched as `chamar-se`.
+  · **A BRACKET CAN CONTAIN A BRACKET, AND EVERY CUT CAN LAND INSIDE ONE** (`strip_parens` /
+    `split_top` / `debracket`). Three faults, one shape, and all three were found by LOOKING at a
+    rendered card rather than by any count. A gloss is split on `;` and `,` to make the meaning lines,
+    and a separator INSIDE a parenthesis is not a separator — `to feel (well, ill, tired)` came out as
+    three lines reading `to feel (well`, `ill`, `tired)`. A parenthetical is stripped to find a
+    definition's head, and `\([^)]*\)` ends at the FIRST `)` — which on `our (… of us, excluding the
+    person(s) being addressed)` is the one inside `person(s)`, leaving the gloss **`our being
+    addressed`**: not a shortened meaning but a different and wrong one that reads as ordinary English.
+    And the 92-character cut simply stops, leaving a bracket that never closes. So the splitting and
+    the stripping both count depth, and whatever is still half-open at the end is dropped whole — a
+    parenthetical is a qualifier, so losing it entirely is honest where losing half of it is not.
+    Every count stayed healthy throughout: the glosses were non-empty strings of the right shape on
+    cards of the right length.
+  · **WIKTIONARY HAS NO RECORD FOR ANY PORTUGUESE REFLEXIVE**, so `reflexives.py` carries all
+    thirty-one by hand — eleven attested in the A1 Referencial and twenty in the A2 one — and the
+    paradigm is built from the base verb, which is why `run.py` adds a reflexive's base to the lookup
+    set before the extraction runs. **Four of A2's thirty-two are deliberately absent and the file
+    says why**: `ir-se` and `vir-se` are named only inside `ir-se/vir-se embora`, where the unit is
+    the phrase, and `ver-se` and `dizer-se` mean what their base verbs mean with a pronoun on them —
+    which is the test, and the reason the table is not simply every `-se` string in the source.
+  · **`se` IS BOTH THE THIRD-PERSON CLITIC AND THE CONJUNCTION `IF`, AND NOTHING STRUCTURAL TELLS THEM
+    APART.** `KEYWORDS` in `reflexives.py` is what does — the English translation has to carry a word
+    the reflexive means — and it existed unused for a session while the docstring claimed
+    `examples.py` applied it. Wired in, it replaced a `sentir-se` example that was actually
+    `sentar-se` ("Por favor sente-se" / "Please sit") and an `apresentar-se` one that meant
+    "volunteered". **Proclisis is also ADJACENT** in European Portuguese, so the two-token window that
+    let `Me deixa voltar a dormir` count as `voltar-se` is now one. The cost is honest and stated in
+    each deck's own description: A2 has eight words the corpus cannot illustrate at all, where a
+    looser rule gave them wrong sentences.
+  · **A PORTUGUESE INFINITIVE IS VERY OFTEN A NOUN**, so a verb record alone is not grounds for
+    printing a paradigm: `o jantar` is dinner and `jantar` is to dine, `a colher` a spoon and `colher`
+    to harvest, `o colar` a necklace and `colar` to glue. Four cards printed a noun's headword and
+    gloss over a conjugation of the other word — `o prazer` "pleasure" over the defective paradigm of
+    `prazer` "to please" — and the table was correct in every case, simply about something the card
+    does not claim to teach. The paradigm is now gated on the card's PRIMARY part of speech, and those
+    four gained their plural line instead.
+  · **A PARENTHESIS IN THE INVENTORY MEANS FOUR DIFFERENT THINGS** (`unparen`): `segunda(-feira)` is one
+    word with an optional tail, `irmã(o)` is TWO words, `pequeno(a)` is a feminine ending, and a
+    trailing gloss is neither — so both readings are returned and the junk (`pequenoa`) dies harmlessly
+    at the Wiktionary lookup rather than being guessed at.
+  · **THE CORPUS DOES NOT GET A VOTE ON THE WORD LIST.** One word (`arrendar`) has no Tatoeba sentence
+    at all and is kept: the syllabus is set by the inventory and by frequency, and dropping a word
+    because the corpus cannot illustrate it would be letting the corpus set the syllabus — the DELE
+    pipeline's own finding, where that rule fired on 117 of 2,000 B2 words. The count is stated in the
+    deck's description instead.
+  · **ITS HONEST LIMITATION IS TATOEBA, and the description says so rather than implying otherwise**:
+    the corpus's Portuguese is overwhelmingly Brazilian (measured at about 10:1), so the filter rejects
+    16,732 sentences outright and what remains is mostly variety-NEUTRAL rather than positively
+    European. That is a limit of the corpus and not something a filter can repair.
+  · **`node .claude/caple/check-caple.js [a1|a2|b1|b2|c1|c2|phr]` is the browser half**, and it exists because
+    `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything
+    Portuguese this deck is FOR is unchecked by anything until there. It splits its assertions on
+    purpose: what is EUROPEAN is checked in the FILE, exactly, over every card (a wrong clitic on one
+    verb in eleven would never be reached by a walk through a session), and what is RENDERED is checked
+    in the BROWSER. **Its Brazilian sweep is written by hand and is deliberately not the generator's**
+    — re-using `examples.py`'s pattern would pass by construction on whatever it let through — and it
+    runs over the PORTUGUESE half of each example only, since the English beside it says "next time"
+    and `time` is also the Brazilian word for a football team. It writes screenshots to look at.
+    **Its probes are PER LEVEL** (`PROBE`), because the assertions are about European Portuguese and
+    have to be asked about a word the level teaches — `o comboio` is in A1 and in no other deck — and
+    the expected verb forms are written out rather than derived from the infinitive, since a
+    derivation here could share a bug with `build_deck.py` and the two would then be wrong together.
+    A level's row also states what only that level can lose: B1 carries a `minReflexives` floor,
+    since a gloss missing from `reflexives.py` drops a word in silence, and a `noBrazilian` list,
+    since the inventory's `chávena/xícara` pairs arrive split; B2 a `plainArticle` list, since its
+    preposition-led locutions are the ones the headword used to colour; **C1's reflexive is an
+    -ER verb and the shelf's only already-pronominal table**, so its row is what pins the endings
+    every other level's -ar probe cannot reach and what would catch the re-marking and our own rules
+    drifting apart; and **C2's is an IRREGULAR -er verb** (`abster`, which conjugates like `ter`), so
+    its 2pl forms end `-des` and `-stes` and are the sharpest case of the rule below.
+    **EVERY LEVEL NOW PINS THE `-vos` ENCLISIS, which nothing did until C1 corrected it** — a
+    `presVos` and a `pretVos` row apiece, because the present is the common case and the preterite is
+    where dropping the `-s` produced the second person SINGULAR verb under a plural pronoun, a real
+    Portuguese word in the wrong cell. **A rule corrected is a rule to add a probe for**; that one had
+    been wrong on every reflexive on the shelf and no assertion was looking at it.
+    A probe verb also has to be one THAT level teaches, which is not automatic once a level is built
+    on the ones below: C2's preterite probe was written as `preparar` and C2 has no such card,
+    `preparar` being an A1 word.
+    **Each expected form is asserted TWICE, as text and as HTML** (`clText` / `clHtml`, the clitic
+    written between pipes): the text says WHERE the pronoun sits and the HTML says that it is actually
+    marked up, and with the hyphen gone the markup is the only thing separating the pronoun from the
+    letters around it — so a text-only assertion passes on `chamarmeei` with the span dropped, which
+    on the page is a misspelling. The text side is **space-blind**, since `txt` turns every tag into a
+    space and a pronoun in a span of its own reads `chamar se ei` however tightly the card sets it.
+    The browser half then asserts the colour LANDS — a deck's CSS is scoped per (deck, type) at
+    install, so a rule that stopped matching would leave every reflexive flat and correct-looking —
+    and that a reflexive is recognised by **having coloured pronouns** rather than by a headword
+    ending `-se`, which is exactly the hyphen this change removed: read the old way, no reflexive is
+    ever found, the screenshot is never taken and the walk reports nothing wrong.
+    **A marker in its Brazilian sweep must be a word Portugal does not use in that sense at all**:
+    `calçada` and `grama` were in the list and came out, a *calçada* being an ordinary paved street
+    in Portugal and a *grama* a gram.
+    **THE `phr` ROW ASKS A DIFFERENT SET OF QUESTIONS, and half the file is SKIPPED there rather than
+    loosened** — there is no article to colour, no gendered pair and no reflexive lemma, and the
+    European question is about whole idioms rather than about lexis. Three things it pins that nothing
+    else can: **an ordinary compound is NOT in the deck** (`cartão de crédito`, `fim de semana`), which
+    is the whole of what the idiomatic test buys and which no count can see — a filter that stopped
+    firing leaves a deck of perfectly good cards that is no longer a deck of idioms; **the commonest
+    expressions come first**, the corpus ordering being the only one there is and its loss leaving a
+    deck that is still complete and still well formed; and **no expression is given an article**, which
+    is the stronger form of the word decks' own colour assertion. Two of its skips are ACTIVE rather
+    than passive: the three mesoclisis sweeps run over an empty list there and would report a clean
+    pass on nothing, so they are gated off — **three ticks proving nothing is worse than three missing
+    lines** — and the impersonal-verb list becomes a printed COUNT, since a verb phrase nobody can be
+    told to do (`bater as botas`) is the rule rather than the exception there.
+  Re-running it must reproduce the shipped decks byte for byte, **and ALL SIX levels plus `phr` have to
+  be re-run, IN ORDER**: the stages are shared, so a change made for C2 reaches A1, and a level is built
+  on the shipped decks BELOW it, so a stale file lower down is a higher level quietly teaching the
+  same word twice. **Build them under two different `PYTHONHASHSEED` values** rather than twice the
+  ordinary way — that is what caught the set-iteration non-determinism above, which two default runs
+  would have found only by luck. This is the check to make after any edit, since every fault above is
+  silent, and it is not a formality: it has now caught a level re-teaching three of the level below,
+  three levels' worth of builds that could not be reproduced at all, and — adding C1 — **108 cards
+  across the four decks already shipped**, corrected by two shared-stage fixes that C1 found and that
+  nothing in C1's own deck would have shown. **It reports the other answer just as usefully**: C2
+  touched no shared stage and all five earlier decks came back byte-identical, which is how a level
+  is known to have cost the ones below it nothing. **Adding the phrases deck reported it a third way**:
+  it changed three shared stages and the six word decks still came back byte-identical, because each
+  change was either gated on `PHRASES` or provably inert (see the `POS_NAME` note above) — which is the
+  cheaper half of the discipline and the half to reach for whenever two readings could ever collide.
   Not part of the site.
 - `.claude/dele/` — the generator behind the four `decks/DELE-<level>-Spanish.folio-deck.json` files
   (A1, A2, B1, B2), community decks rather than site content:
@@ -4310,9 +4895,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   files do not record which, so the 4,000 comes from `TARGET` and only the CARD counts are counted. It reads
   no clock (the timestamps come from the newest source), so the same inputs write the same bytes.
   **The combined file is deliberately NOT committed** — it duplicates ~27 MB already in the repo and this
-  regenerates it. **Combining ALL nine decks in `decks/` is not possible as one importable file**: 19,819
-  cards against `UDECK_MAX_CARDS` and 50.4 MB against `UDECK_MAX_BYTES`, measured, which is why the
-  combined deck is the four Spanish levels and not everything.
+  regenerates it. **Combining EVERY deck in `decks/` IS possible and is `.claude/combine-decks.py`** — this
+  line said it was not, on the caps as they then stood, and **a legitimate deck that will not fit is what
+  moves a cap** (it has moved three of them since, twice over this very file),
+  which is what happened. See that file's own bullet below. **Re-measure rather than quoting any of it** —
+  the same line has said 19,819 notes and 50.4 MB, which was true of nine decks and is now six short.
   The stage headers carry what the build found, and ten of those findings are the ones to read before
   touching it.
   **THE EXAMPLE CORPUS DOES NOT GET A VOTE ON WHICH WORDS A LEVEL TEACHES**, and the rule that said
@@ -4589,6 +5176,1476 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   since every fault above is silent — **and it has to be run on every level, since the parser is shared**:
   A1 must stay byte-identical to what is committed, and A2 and B1 must reproduce themselves. Not part of
   the site.
+- `.claude/delf/` — the generator behind the French decks, **all six levels plus the expressions**:
+  `decks/DELF-A1-French.folio-deck.json` (**446 notes / 892 cards**, 0.78 MB),
+  `decks/DELF-A2-French.folio-deck.json` (**589 / 1,178**, 1.37 MB),
+  `decks/DELF-B1-French.folio-deck.json` (**895 / 1,790**, 2.34 MB),
+  `decks/DELF-B2-French.folio-deck.json` (**1,654 / 3,308**, 3.96 MB),
+  `decks/DALF-C1-French.folio-deck.json` (**3,231 / 6,462**, 5.91 MB) and
+  `decks/DALF-C2-French.folio-deck.json` (**431 / 862**, 0.53 MB), community decks rather than site
+  content: `python3 .claude/delf/run.py [--level a1|a2|b1|b2|c1|c2|phrases] [--no-fetch]`. Six stages, run by
+  `run.py`,
+  caching its corpora in `.claude/delf-cache/` (~760 MB, gitignored). PYTHON, like `.claude/dele/` and
+  `.claude/goethe/` and unlike every other helper here, and for the same reason: a further level is a
+  re-run against the next page rather than a rebuild. **ONE LEVEL PER RUN** (`delf_level` reads the level
+  once, at import), and a level is taught on top of the ones below it, read out of the shipped deck FILES
+  so they cannot drift — the DELE and Goethe arrangement exactly. The ladder is complete, so `LISTS` and
+  `BELOW` name every level the source publishes.
+  · **THE DIPLOMA CHANGES ITS NAME AT C1, AND THE DECK HAS TO CHANGE WITH IT** (`EXAM` in
+    `delf_level.py`). The **DELF** covers A1–B2; C1 and C2 are the **DALF**, the *diplôme approfondi de
+    langue française* — a different diploma under the same authority — so those two files are
+    `DALF-C1-French` and `DALF-C2-French` with deck ids `dalfc1` / `dalfc2`, and the exam name is a
+    TABLE rather than a literal in the prose (two sites in the description read it). A level above B2
+    calling itself a DELF would be telling its reader something false about the exam it is for. **The
+    GENERATOR keeps its own name** (`.claude/delf/`, `delf_level`) — that is what the pipeline is
+    called, and renaming it would churn every stage for nothing. The four existing titles, ids and
+    filenames are derived from the same table and were verified unchanged.
+  · **THE WORD LIST IS NOT AN EXAM BOARD'S, AND THAT CHANGES WHAT THE PIPELINE MAY DO WITH IT.** The
+    Goethe deck teaches the Goethe-Institut's own published Wortliste, and its standing rule is that the
+    list IS the syllabus — a word the sentence corpus cannot illustrate still ships, because the board
+    sets the scope and the corpus gets no vote. **France Éducation international publishes no such list
+    for the DELF or the DALF**: it publishes a syllabus of THEMES, and the reference that turns those
+    into words
+    (Beacco et al., *Niveau A1 pour le français*, Didier) is a commercially published book. So the list
+    here is a third party's — the six pages of minddory.com at 384, 554, 893, 1,673, 3,220 and 376 words
+    — and **a
+    compilation with typos in it has no authority to defer to**. Its defects are repaired, every repair
+    is declared in `REPAIRS_BY_LEVEL` with the reason, and the deck's own description tells the reader
+    whose list it is.
+    **AND THE LIST IS GRADED BY FREQUENCY, WHICH WAS MEASURED RATHER THAN TAKEN ON TRUST** — the check
+    to run before building a level nobody has looked at. Ranked against the OpenSubtitles list the six
+    pages' medians run **700 / 1,754 / 4,861 / 15,490 / 18,538 / 21,194**, and the share falling in the
+    commonest five thousand runs **88% / 80% / 50% / 11% / 6% / 4%** — monotone both ways, so each page
+    really is rarer vocabulary than the one below it and "is C1 junk?" is a measured no.
+    **BUT THE CORPUS BEHIND THAT RANKING IS FILM AND TELEVISION SUBTITLES, AND THE HIGHER THE BAND THE
+    MORE ITS CHARACTER DOMINATES.** At A1 the commonest words are the commonest words whatever the
+    corpus; by C2 the corpus's own character is all that is left, and its 376 words are Star Trek
+    (*hyperespace*, *téléportation*, *symbiote*, and among the dropped entries *cardassien*,
+    *romulien*, *phaseur*, *réplicateurs*), hospital drama (*anévrisme*, *défibrillateur*,
+    *pneumothorax*), crime procedural (*légiste*, *perquisition*, *macchabée*) and the occult
+    (*exorcisme*, *grimoire*) — **rare French worth knowing, and not the abstract argumentative register
+    a DALF C2 candidate is examined on**. The answer is neither to withhold the deck nor to let its name
+    make a claim it cannot keep: **`LIST_NOTE` in `emit.py` is a per-level paragraph, written only for
+    c1 and c2**, telling the reader exactly that in the deck's own description. The lower four need
+    none.
+  · **AND THE PAGES ARE ADDED TO, WHICH IS A DIFFERENT ACT FROM REPAIRING THEM AND NEEDS ITS OWN
+    WARRANT** (`SUPPLEMENT_BY_LEVEL` in `wordlist.py`; Aug 2026, on request — "add more core words or
+    less common ones where appropriate"). Everything in `REPAIRS_BY_LEVEL` is a correction: the list
+    printed something and the something was defective. An addition is not, and the pipeline's standing
+    position is that the list is somebody else's. **The warrant is that a frequency cut is not a
+    language, and it fails at BOTH ends — measured, over all six shipped decks against the same
+    50,000-word list.**
+    **AT THE TOP THE CLOSED CLASSES COME THROUGH WITH HOLES IN THEM, because a frequency cut has no
+    notion of a paradigm.** The A1 deck taught **`pas` and not `ne`** — a learner could not form a
+    negative sentence — and taught `je`, `tu`, `il`, `elle`, `nous` and `vous` but not **`on`**, which
+    is how French says *we*. Absent from all six: `ne` (rank 17), `on` (21), `ça` (22), `si` (38), `du`
+    (39), `y` (40), `au` (50), `moi` (52), `comme` (63), `toi` (69), `lui` (72) — **eleven of the
+    hundred commonest words in the language**, plus the demonstratives, the relatives and the
+    contracted articles. The DELE pipeline reached this first and states it in one line: a 500-word A1
+    list without `yo` and `tú` is not an A1 list.
+    **AT THE BOTTOM THE CORPUS SIMPLY DOES NOT CONTAIN THE REGISTER**, which is the C2 finding above
+    arriving from the other side: no amount of counting subtitles turns up the connectives and abstract
+    vocabulary of argument, because they are not in the thing being counted. So **the two halves have
+    two different warrants and are kept apart on purpose** — the lower levels' additions are DERIVED
+    (the commonest words no deck taught, read off the same frequency list that orders the cards, then
+    hand-filtered for the proper nouns, English and swearing a subtitle corpus is full of) and C1's and
+    C2's are **AUTHORED**. 253 words in all: 67 / 44 / 9 / 8 / 53 / 72.
+    Four things about it are decisions rather than lists.
+    **FREQUENT IS NOT THE SAME TEST AS EVERYDAY, and at A1 the difference is the whole filter.** The
+    subtitle corpus puts `meurtre`, `prison`, `arme` and `capitaine` inside the first eight hundred
+    words of French — frequent because of what films are about, not because a beginner needs them — so
+    the A1 additions are the ones that are frequent AND ordinary, and those are left for the levels
+    whose own pages print them.
+    **A GROUP CARRIES THE REASON IT IS THERE, and the reader is told**: the table is keyed by a phrase
+    finishing "the level's own list does not print …", and `emit.py` reads those back into the
+    description, with a different sentence for the derived half and the authored half. A deck that says
+    "the list is a third party's" and then quietly teaches two hundred words the third party never
+    printed has told the reader something false about its own scope.
+    **`page` AND `raw` ARE NOT THE SAME LIST**, which is the one thing here that would have gone wrong
+    silently: the description says "Of its 384 entries, 3 are misspelt", which is a claim about the
+    PAGE, and counting the supplement into `repairs.json`'s `raw` would have every level report a page
+    longer than the one anybody can go and read.
+    **AND A PHRASE IS SEPARATED BY `|`, NOT BY A SPACE** — the B1 lesson in another coat, and it bites
+    harder here, since half of what C1 and C2 add IS a phrase (`dans la mesure où`, `quand bien même`,
+    `si tant est que`). A group whose value carries a `|` is a list of phrases; anything else splits on
+    whitespace as before.
+    Its own supporting changes: **six `FORCE_POS` rows** where the dump's first record is a different
+    part of speech from the word being taught (`voici`/`voilà` are filed as VERBS and would be sent to
+    the conjugation builder for a paradigm they have not got; `sauf` leads as the adjective *safe* and
+    `envers` as the noun *the reverse*; `or` leads as *gold* and `partant` as a runner in a race), and
+    **`AUTHORED` glosses for the contracted articles**, which are the clearest case in that table of a
+    gloss that has to be written — `du`, `au` and `aux` are pointer-only records pointing at `de` and
+    `à`, so the pointer walk hands back the meaning of the OTHER half of the contraction and says
+    nothing about the word in front of the reader.
+    **`CLOSED_FORMS` in `build_deck.py` is the other half, and it is what stopped the supplement being
+    four cards where one will do.** `forms_html` reads the dictionary, which supplies a feminine for a
+    noun and an agreement for an adjective and **nothing at all for a pronoun or a determiner** — so
+    `celui` came out taught alone, its `celle`, `ceux` and `celles` being bare pointers back to it with
+    no meaning of their own, and `mon` was carded without `ma` or `mes`. Hand-written, because these
+    ARE the closed classes: enumerable, unchanging, and precisely the exceptions any derived rule would
+    be about. One trap it hit: **`mien`/`tien`/`sien` are filed as ADJECTIVES**, so the adjective branch
+    already reads `mienne` off the dictionary and a `feminine` row here printed the feminine twice on
+    one card; what the dictionary cannot say is that the word takes an article, which is the whole
+    difference between `mon livre` and `le mien`.
+  · **`combine.py` IS THE SIX IN ONE IMPORTABLE FILE** (`python3 .claude/delf/combine.py`, Aug 2026, on
+    request), a subdeck per level: **7,249 notes / 14,498 cards, 13.9 MB**, inside app.js's caps
+    (12,000 NOTES — what the file holds — and 48 MB), both of which it restates and refuses to exceed
+    rather than leaving the failure to be found on a phone.
+    **THE TREE IS FLAT, AND THAT IS THE DIFFERENCE FROM THE SPANISH ONE.** `dele/combine.py` nests a
+    direction inside each level, because a DELE deck writes the study direction into the card's own
+    `sub` — it is two notes per word, one each way. A French deck is ONE note with TWO TEMPLATES, so
+    the direction is not a subdeck and **cannot be made one**: `sub` is a property of the note, and the
+    note is both directions. What replaces it is better and costs nothing, since app.js already draws a
+    level's two templates as rows of their own beneath it — so the reader gets `A1` → `French →
+    English` / `English → French` out of a file with one `sub` per level and no `::` in it anywhere.
+    **THE EXAM NAME CHANGES AT C1 AND THE TITLE HAS TO SAY SO** — `DELF A1–B2 & DALF C1–C2 — French`,
+    built by walking `delf_level.EXAM` rather than typed, so it cannot drift from the six files it is
+    made of; a combined deck called `DELF A1–C2` would be making a claim about the exam that is false
+    for a third of it. The rest is the Spanish version's discipline unchanged: ids renumbered
+    `u_delfall_N` (a combined deck reusing `u_delfa1_1` collides with an installed A1 in the shared
+    `UCARDS` store and studies the wrong card), the type block **asserted** identical across the six
+    rather than assumed, every figure in the description COUNTED off the cards, and no clock read, so
+    the same inputs write the same bytes and a diff means something. Here the note count IS the word
+    count, which the Spanish version cannot say — a pair card there may teach two words, so how many
+    WORDS a level teaches is not derivable from its shipped file at all.
+    **IT IS GITIGNORED, like the Spanish one**: a combined deck is an ARTEFACT of the levels it
+    combines, so committing it duplicates every megabyte the repo already carries for them, and one
+    command regenerates it byte for byte.
+    **`check-combined.js` is its browser half** and exists because everything `check-delf.js` asserts
+    about a French card is true of this file by construction — the cards are copied over unchanged —
+    while everything `combine.py` BUILDS fails silently: an id collision studies the wrong card with
+    both decks on the shelf and their full counts showing, a lost `sub` lands seven thousand words in
+    one undivided pile, a mismatched type block renders one level with another's templates, and a file
+    over the note cap is refused with a message about the file rather than about the deck. So it
+    imports the real file through the real picker, asserts the six subdecks and the direction rows
+    underneath them, adds A1, studies it, and checks **the word dealt is one of A1's**.
+    **THE REPAIR TABLE IS PER LEVEL, AND SO IS EVERY SENTENCE WRITTEN ABOUT IT.** A repair is a statement
+    about ONE page, so a flat table shared across levels fires a merge on a list with nothing to merge —
+    silently, since a repair whose source word is absent does nothing and reports nothing — and, worse,
+    applies one page's correction to another nobody has read. The same fault had already been made twice
+    in prose: `check-delf.js` hard-coded A1's five broken entries and three duplicate pairs as literals
+    and **failed on A2 over `cinéma`, a word that page does not print**, and the deck's own DESCRIPTION
+    told an A2 reader about `chaussures` while saying nothing about its own seven duplicates. Both are
+    derived now — the checker parses `REPAIRS_BY_LEVEL` out of `wordlist.py`, and `wordlist.py` writes a
+    `repairs.json` the description reads back. **A level-parameterised thing with one level's answers
+    baked into it does not guard the rule, it pins a stale copy of it.**
+  · **THE DEFECTS WERE FOUND BY A MEASUREMENT, NOT BY EYE.** Looking every entry up in the dump, **four
+    of the 384 have no French record at all** — `exercise` (the English spelling of *exercice*), `france`
+    (uncapitalised), `cinema` (the accent dropped, and `cinéma` is on the list too) and `loud`, which is
+    an English word — and **four more are the same word printed twice** (`chaussure`/`chaussures`,
+    `parent`/`parents`, `salle de bain`/`salle de bains`). Four in 384 is a sharp test rather than a
+    suggestive one, and all four are the ones a reader would flinch at. `loud` is DROPPED rather than
+    guessed at: `lourd` is the obvious near-miss and choosing it would be composing a syllabus entry out
+    of a typo. **`renter` is the one repair the dictionary does not make for us and is marked as such** —
+    it IS a French word, meaning to yield an income, so the no-record test walks past it; what gives it
+    away is that it lands LAST of 379 in the frequency ordering, among `regarder` and `rester`, in a list
+    with no word for coming home. **What is deliberately NOT repaired is the harder half**: `chaussettes`,
+    `sandales` and `devoirs` are printed only in the plural and stay there, since each is a real word in a
+    real form and normalising them would be editing a syllabus rather than correcting an error.
+    **THE A2 PAGE HAS THE SAME TWO DEFECTS AT THE SAME RATE, WHICH IS THE ARGUMENT FOR RUNNING BOTH
+    MEASUREMENTS ON EVERY NEW LIST** rather than trusting that a longer page was compiled more carefully:
+    one accent dropped off a word the list also prints correctly (`temperature` beside `température`) and
+    four nouns printed in both numbers (`cheveu`, `loisir`, `personne`, `quelque`). **A COLLISION IS NOT A
+    DUPLICATE UNTIL IT HAS BEEN READ**: `âge`/`âgé` collide within A2 and are the noun and the adjective,
+    and `salé`/`sale`, `sucré`/`sucre` and `sûr`/`sur` collide ACROSS the levels and are six different
+    words — nothing has to be done about those, since `words_below()` excludes by exact spelling.
+    **AND A THIRD SHAPE OF DUPLICATE IS INVISIBLE TO BOTH SWEEPS: the same word printed in both GENDERS.**
+    Neither the no-record test nor the accent sweep nor the singular/plural sweep can see `joli`/`jolie`
+    or `voisin`/`voisine`, because all four are real words in real forms. What shows it is **a card whose
+    Forms row names another card** — which `parti`/`partie` (party against part) and `surpris`/`surprise`
+    (surprised against a surprise) also do and deliberately are not. Read all four before merging any.
+    **AND A FOURTH: the bare infinitive beside its pronominal.** A2 prints `promener` AND `se promener`,
+    `sentir` AND `se sentir`. Those are NOT merged — they are different verbs — but they came out sharing
+    glosses and an example; see the two entries below.
+    **THE B1 PAGE ADDS A FIFTH SHAPE AND IT IS THE ONE THE EARLIER RULE FORBIDS: an INFLECTED FORM
+    printed as a headword.** `aspects` and `profondes` are a plural noun and a feminine-plural adjective,
+    so both build a card headed `l'aspects` / `un aspects` — ungrammatical French on a card whose whole
+    subject is the article a word takes. **It looks exactly like A1's `chaussettes`, which is deliberately
+    NOT repaired**, and what separates them is whether the list ALSO prints the citation form: A1 prints
+    `chaussettes` alone, so the plural is that syllabus's entry and normalising it would be editing a
+    syllabus; B1 prints neither `aspect` nor `profond`, so those are not a choice about scope but a slip
+    that leaves the level without the word at all. **Ask what the list would look like if the entry were
+    deliberate**, rather than matching the shape. Its other defects are the two already met — two letters
+    dropped (`implquer`, `questioner`, both beside the correct spelling) and four nouns printed in both
+    numbers (`étude`, `média`, `sentiment`, `solde`).
+    **THE B2 PAGE HAS THIRTY-THREE DEFECTS AND THAT IS THE SAME RATE, WHICH IS THE MEASUREMENT WORTH
+    TAKING RATHER THAN THE COUNT**: 33 of 1,673 is 2.0% against A1's 8 of 384 at 2.1%, so a list four
+    times longer is not four times worse and the sweeps simply have four times as much to find. What
+    makes it far easier to read than the count suggests is that **the page is ALPHABETICAL and every
+    defect sits immediately beside its own correct spelling** — `aboroder` after `aborder`, `emettre`
+    before `émettre`, `tenacité` before `ténacité` — which is better evidence of what was meant than any
+    inference, and which makes nineteen of the thirty-three merges rather than corrections. **Read the
+    NEIGHBOURS of a defect before deciding what it was.** Four things it settled beyond that:
+    · **A COLLISION IS STILL NOT A DUPLICATE, and at B2 the ratio flips.** Stripping the accents finds
+      eight twins and only three are duplicates: `contraste`/`contrasté`, `controverse`/`controversé`,
+      `enthousiasme`/`enthousiasmé` and `stéréotype`/`stéréotypé` are a noun beside an adjective in each
+      case, as `contrainte`/`contraint` and `étendue`/`étendu` are, and `composant`/`composante` and
+      `dominant`/`dominante` are two nouns with real independent records. **Eight of the thirteen
+      collisions are two words**; a rule applied to the shape would have merged them all.
+    · **THE DANGEROUS ONES ARE THE ENTRIES WITH A SECOND, RARER RECORD**, because a bare form-of record
+      loses to the next and the card then teaches the rarity. `volatile` would card as *a fowl* rather
+      than as the feminine of `volatil`, `revenue` as *the action of game leaving the forest to graze*
+      rather than as the noun beside it, and `explicit` — which IS French, for the closing words of a
+      medieval manuscript — as that, beside `explicite` on the same page. **No sweep here can see one**:
+      the word has a record, so the no-record test passes it, and the record is not a pointer, so the
+      only-pointer test passes it too. They were found by reading the collisions.
+    · **THE PARTICIPLE-AS-ADJECTIVE CLASS SCALES WITH THE LEVEL AND GAINS A SECOND SHAPE.** 27 of B2's
+      entries have nothing but a pointer against B1's 11, and after the merges fourteen need `FORCE_POS`
+      + `AUTHORED` — including two PRESENT participles (`contrastant`, `convergent`), which B1 had none
+      of and which need it for the same reason, `convergent` also being the third-person plural of
+      `converger`.
+    · **AND `déchets` IS WHERE A1 AND B1 STOP LOOKING LIKE THEY CONTRADICT EACH OTHER.** A1 keeps
+      `chaussettes` and B1 repairs `aspects`, and the test that separates them is a fact about the WORD:
+      is the plural how the word is normally met? French says *les déchets* for waste, so it stays — and
+      staying means writing it into **`PLURAL_ONLY` in `build_deck.py`**, which is hand-written for
+      exactly this reason. A word in that table cards as `les chaussettes` and one outside it as
+      `l'aspects`, which is the whole of B1's justification and is worth knowing before trusting it: the
+      Wiktionary records of the two are identical.
+    **THE C1 PAGE'S DEFECTS ARE THE SAME FIVE SHAPES AT 3,220 ENTRIES**, which is the point: fifty-odd
+    rows, and not one of them a shape the four levels below had not already met — nine accents dropped,
+    twelve duplicates, fourteen feminines and three plurals standing in for their citation form, and
+    fourteen with no record at all. **Only the LIGATURE is new** (`manoeuvre` for *manœuvre*, `écoeurant`
+    for *écœurant*), and it is the accent case wearing another coat: `œ` is a single letter, so a page
+    that types it as two has misspelt the word exactly as one that drops a circumflex has. Its
+    participle-as-adjective class is B2's at three times the size — **46 rows of `FORCE_POS` +
+    `AUTHORED`** — and `PLURAL_ONLY` gained `oreillons`, `ossements` and `pourparlers`, three more words
+    French does not have a singular for in ordinary use.
+    **AND THE C2 PAGE IS THE ONE WHOSE DEFECTS ARE MOSTLY NOT DEFECTS.** Seventeen rows against C1's
+    fifty on a page a ninth the size, and sixteen of them are drops: `cardassien`, `romulien`,
+    `excalibur`, `prométhée`, `phaseur`, `métamorphe`, `nobel`, `sapiens`, `mystic`, `maxim`, `serial`.
+    A proper noun and an English word are what the no-record test is for, and finding eleven of them in
+    376 entries is the same finding as the subtitle-corpus measurement above, arriving from the other
+    side. **The one repair is an accent** (`eventreur` beside `éventreur`, a duplicate). What that means
+    for the pipeline is that a page can be clean and still be wrong for its name — the defect count says
+    nothing about whether the list is the right list, which is why `LIST_NOTE` exists and is not a
+    repair.
+  · **WIKTIONARY'S OWN RECORD ORDER IS THE SIGNAL, and a preference list is not** — the Goethe build
+    reaches this about SENSES (a commoner sense is not a shorter one) and it holds one level up, about
+    which PART OF SPEECH an entry leads with. Measured: a fixed order (noun, then verb, then adjective…)
+    disagrees with the first record on **73 of the 379 words**, and reading all 73 the first record is
+    right almost every time — `être`, `avoir`, `aller`, `parler` and `dire` are verbs that happen to have
+    a noun record, `grand`, `beau`, `petit` and `vieux` adjectives that happen to have one. French
+    nominalises so freely that preferring `noun` makes two thirds of the deck a noun, which is how the
+    first build came out with **245 nouns and 35 verbs** against the true 195 and 43.
+  · **A FORCED CLASS MUST WIN EVEN WHERE THE DICTIONARY HAS NO RECORD FOR IT.** `une` is the indefinite
+    article, which Wiktionary files under `un` as a bare form-of with no senses of its own — so the only
+    record for `une` carrying a real sense is the NOUN, *la une*, a newspaper's front page. Read with
+    `FORCE_POS` as a mere preference, the entry fell through to that noun, took the feminine article,
+    elided it, and the card came out reading **`l'une`** with a forms row offering *une une*. The table is
+    hand-written and every row was read off the page, so where it names a class the dump has no record
+    for, the class stands and the meaning comes from `AUTHORED` — and a forced class with no record is
+    now REPORTED on the run, because otherwise the build dies at the blank-meaning guard with no clue why.
+  · **…AND ON A2 THE PIPELINE ALREADY HANDLED THE FAMILY THAT LOOKED WORST, which is worth measuring
+    before writing a table.** Swept over all **159** of that list's multi-record entries, a record whose
+    every gloss is a form-of pointer already loses to the next, so `produit`, `tapis`, `fermé`,
+    `amusant`, `pressé`, `bruyant`, `surprise` and `droite` come out right untouched. **Ten do not, and
+    they are two shapes.** A DEVERBAL NOUN FILED AHEAD OF ITS VERB — `devenir` glosses "future" and
+    `toucher` "the act of touching, a way of touching, the sense of touch", both real nouns and neither
+    what a learner means by the word; nothing structural separates those from a word that genuinely is a
+    noun first, so they were found by reading. And A RARE SENSE FILED AHEAD OF THE EVERYDAY ONE, which is
+    the A1 table's own `journal`/`menu` shape at greater length: `pendant` leads with the participle
+    "hanging" where the word is *during*, `parti` with a heraldic adjective and "drunk" where it is the
+    political party, `cher` with the vocative "dear, honey, hon" where it is *expensive*, `reçu` with
+    "accomplished" where it is a receipt, `général` with the military rank, and `devoir` with the noun
+    "duty, homework" — **which A1 already teaches as `devoirs`, so at A2 the word left to learn is the
+    verb *must***.
+  · **…AND ON B1 THAT FAMILY IS A SINGLE CLASS OF ELEVEN: the PAST PARTICIPLE used as an adjective.**
+    `reconnu`, `lié`, `énervé`, `guéri`, `examiné`, `soulagé`, `amélioré`, `estimé`, `équilibré`,
+    `dominé` and `découragé` are all printed by the list without their verbs, and Wiktionary files each
+    as "past participle of X" — a record with no meaning of its own, so the card came out glossed as the
+    BASE VERB (`reconnu` as "to recognise") on a level that does not teach the verb. Forced to `adj` and
+    given an `AUTHORED` gloss apiece, which is the `une` rule at eleven times the scale: **a forced class
+    the dump has no record for is REPORTED on the run**, and the eleven lines it prints are the check
+    that the table has not drifted from the list.
+    **THEIR EXAMPLES ARE COMPOUND TENSES AND THAT IS CORRECT, NOT A COLLISION.** A participle mostly
+    appears after an auxiliary, so `estimé` is illustrated by "Nous avons estimé les dommages à mille
+    dollars" — the verb, on a card glossed "estimated, valued", which shows the reader exactly that
+    meaning in use. The `été` rule does not fire here and must not: there the noun and the participle are
+    DIFFERENT WORDS, where these are one word in two classes.
+  · **A FEMININE TAKES ITS OWN ARTICLE, NOT THE HEADWORD'S** — the sharpest fault of the A2 batch and it
+    was in the SHIPPED A1 deck too. The forms row was written `'la ' + fem`, so it printed **`la
+    étudiante`**, `la amie`, `la employée`: ungrammatical French, on a card whose entire subject is which
+    article a word takes, directly under a headword correctly reading `l'étudiant`. It survives because a
+    feminine begins with the same letter as its masculine and so gets it right often enough to look like
+    an exception rather than a rule — the elision has to be recomputed for the feminine, and `elides()`
+    was already sitting there unused by that line. One A1 card changed (`ami`).
+  · **`œ` AND `æ` ARE VOWELS**, and leaving them out of the elision set is how **`le œuf`** reached a
+    card. They are single letters rather than the two-letter sequences they look like, so a set written
+    out of the ASCII vowels plus the accents misses them — and `œuf`, `œil` and `sœur` are exactly the
+    words a beginners' list carries.
+  · **A MONTH TAKES NO ARTICLE AND A DAY WITH ONE MEANS SOMETHING ELSE.** `le janvier` is not French;
+    `le lundi` is French and means "on Mondays", so an article there changes the card from the NAME of the
+    day into a habit. Both groups print bare and the gender still shows in the label line. The SEASONS
+    keep theirs, because that is how they are said (`le printemps`, `l'été`).
+  · **THE ELIDED ARTICLE HIDES THE ONE THING IT IS THERE TO TEACH**, which is the French problem the
+    German deck never had: `le` and `la` both become `l'`, so `l'arbre` and `l'année` print the same
+    article and say nothing about gender — and the words it happens to are not marginal (`l'eau`,
+    `l'homme`, `l'école`, `l'hôtel`, `l'argent`). `un` and `une` do not elide, so those **25** cards carry
+    the indefinite form as well, on exactly the words that need it rather than on all of them.
+  · **A NOUN'S EXAMPLES MUST NOT BE SENTENCES WHERE THE SAME STRING IS A PARTICIPLE** — the German deck's
+    `essen`/`das Essen` collision in a language with no capitalisation to settle it. `l'été` is the summer
+    AND the past participle of `être`, so the card teaching *summer* was illustrated with "Tout le monde a
+    **été** invité sauf moi", which is grammatical, correctly translated and about the wrong word. The
+    ambiguity penalty cannot help, because every occurrence of `été` is ambiguous and the penalty falls on
+    all of them equally. What separates the readings is POSITION: a participle follows a conjugated
+    `avoir` or `être`, where a noun would need a determiner in between (`a été invité` against `a un été
+    chaud`). **Written as "the token before it", the rule caught that sentence and walked straight past
+    `n'ai jamais été`** — French puts adverbs between the auxiliary and the participle — so the fault
+    survived its own fix and the card simply showed a different wrong sentence. It is a short scan back
+    that stops at a determiner; it changes two cards, `été` and `marché` (the participle of *marcher*,
+    which nobody had spotted), and both were wrong before.
+  · **A HYPHEN EITHER ATTACHES A CLITIC OR BUILDS A COMPOUND WORD, and the tokeniser cannot tell them
+    apart** — `-` is not a word character, exactly as the apostrophe is not, which is right half the time.
+    `Donnez-moi`, `pensez-vous`, `Amuse-toi` and `adresse-t-il` are the verb the card teaches with its
+    pronoun stuck on and a learner wants to see them; `passe-temps`, `porte-monnaie`, `couvre-feu`,
+    `sèche-linge`, `après-midi`, `centre-ville` and `sous-entends` are single words meaning what their
+    halves do not, so the `temps` card was illustrated twice over by a HOBBY. Measured before the rule was
+    written: **72 hyphen-adjacent matches across both decks, about fifteen of them compounds.** What
+    separates them is a CLOSED CLASS — everything a hyphen legitimately attaches is a clitic pronoun or a
+    deictic particle, two dozen words that have not changed since the seventeenth century — so a match
+    beside a hyphen is kept when either side of it is one of them. Deliberately a test on the NEIGHBOUR
+    rather than on the compound: asking whether `passe-temps` "is a word" needs a dictionary of compounds,
+    and the one to hand holds only the five hundred headwords being taught. Every compound goes; the two
+    documented false accepts are `monsieur-je-sais-tout` and `ras-le-bol`, whose second halves really do
+    follow a clitic.
+  · **…AND THE MIRROR OF THAT RULE IS WHY EIGHT CARDS HAD NO EXAMPLES AT ALL.** A hyphenated HEADWORD is
+    not a token either, and it is not a `phrase` — that test is a space — so `là-bas`, `grand-mère`,
+    `grand-père`, `après-midi`, `peut-être`, `rendez-vous`, `petit-déjeuner` and `micro-ondes` could never
+    match anything, silently, since a word with no examples simply prints none. They are matched against
+    the TEXT like a phrase: `compound_here` stops a HALF of a compound matching and this lets the WHOLE of
+    one match.
+  · **WHERE THE LIST TEACHES BOTH MEMBERS OF A PAIR, A PRONOMINAL SENTENCE BELONGS TO THE PRONOMINAL
+    CARD** — and the two cards came out sharing an example word for word ("Ils se promenèrent le long de
+    la plage" sat on both `promener` and `se promener`), because a reflexive occurrence matches the bare
+    verb's forms as readily as the pronominal's. `reflexive_here` already existed to REQUIRE the pronoun
+    for the pronominal card; this is the same test read backwards to EXCLUDE it from the plain one. **It
+    is safe only because the pronominal is on the list**: where it is not, `se` before a plain verb is
+    very often the ordinary passive-reflexive ("la porte se ferme", "ça se voit"), which illustrates that
+    verb perfectly well and is deliberately left alone — measured, and the alternative would remove good
+    examples with the poor ones. **The same rule applies to the GLOSSES**, one file over: a sense tagged
+    `reflexive` is dropped from the bare verb's card, which took "to walk (leisurely), to go for a walk"
+    off `promener` and, on A1, "to use" off `aider`, "to wonder" off `demander`, "to wash oneself" off
+    `laver` and "to be read" off `lire` — four cards that had been quietly glossing `s'aider`, `se
+    demander`, `se laver` and `se lire`.
+  · **THAT TEST WAS BLIND IN THREE PLACES AND EACH IS A DIFFERENT FACT ABOUT FRENCH.** **A PAST PARTICIPLE
+    CARRIES NO PERSON**, so there is nothing for the pronoun to agree with and `Il s'est senti mis à
+    l'écart` was invisible — the docstring had CLAIMED compound tenses worked, which is worse than an
+    unstated limit; on a participle the window test now runs alone. **IN AN IMPERATIVE THE PRONOUN
+    FOLLOWS, HYPHENATED, AND IS A DIFFERENT WORD**: `Lave-toi` is `se laver`, and `toi` and `moi` are the
+    STRESSED forms, in no reflexive table — kept in `ENCL_PN` of their own rather than added to `REFL_PN`,
+    because before a verb `moi` and `toi` mark nothing (`c'est à moi de jouer`). And **AN ESSENTIALLY
+    PRONOMINAL VERB CARRIES ITS PRONOUN INSIDE ITS OWN FORMS**: `se souvenir` does not exist without one,
+    so kaikki conjugates it `me souviens`, `te souviens`, `se souvient` — and every form-reader here drops
+    anything containing a space, so all six persons were thrown away and that card had no examples while
+    the corpus held a thousand sentences. The pronoun is stripped back off and the bare form indexed,
+    which costs no precision because `reflexive_here` then demands it back.
+  · **…AND PAIRING IT WITH ITSELF IS HOW THAT CARD STAYED EMPTY AFTER THE FIX.** `se souvenir`'s own lemma
+    IS `se souvenir`, so the plain-key → pronominal-key map mapped it to itself, every occurrence read as
+    "belongs to the other card", and the card came out empty a second time. **A pair must be two DIFFERENT
+    entries**, which is not the tautology it looks like.
+  · **AND THE EUPHONIC `-t-` IS NOT THE PRONOUN `t'`** — the fourth blind spot, found on B1's `se
+    préparer`, which came out illustrated by "Le dîner **a-t-il** été préparé ?": a PASSIVE, and not the
+    pronominal verb at all. French inserts a meaningless `t` between a verb ending in a vowel and an
+    inverted `il`/`elle`/`on`, the tokeniser sees the bare letter `t`, and the reflexive test read it as
+    an elided `te`. What separates them is the HYPHEN BEFORE IT, which the euphonic one always carries
+    and the clitic never does, so the scan skips a `t` whose preceding character is `-` and keeps
+    looking. Note the two facts it turns on: the test had only just learned to accept a participle with
+    no person (the bullet above), which is what let this sentence through at all, and the character
+    before a token is reachable only because the loop keeps its `spans`.
+  · **TATOEBA CARRIES THE SAME SENTENCE SEVERAL TIMES OVER, AND AN EXACT-TEXT CHECK CANNOT SEE IT.** The
+    corpus is contributed sentence by sentence, so it is full of tu/vous pairs, masculine/feminine
+    agreement pairs and punctuation variants: `la raison` was illustrated by "Je ne suis pas sûr de la
+    raison." and "Je ne suis pas sûre de la raison.", both translated "I'm not sure why.", which spends
+    one of a card's three examples saying nothing new. **Measured over all three decks: 174 near-duplicate
+    pairs across about a tenth of the cards** — and found by LOOKING at a card, since every count in this
+    pipeline reads healthy either way.
+    **TWO TESTS, AND THE PAIR WAS CHOSEN BY MEASURING WHAT EACH REJECTS rather than by picking a
+    threshold that sounded right.** A SIGNATURE — accents and punctuation gone, every token cut to three
+    letters, the second-person pronouns and determiners folded to one symbol — collapses 74 of the pairs
+    and not one sentence pair that is less than 80% alike, so it costs nothing. A character ratio catches
+    the mechanical variants the signature misses, and **0.90 is where it stops being safe**: at 0.86 it
+    begins rejecting "Le film était un peu décevant" beside "Le concert était un peu décevant", and at
+    0.82 "Elle était en train de faire du thé" beside "Il est en train de boire du thé", which are
+    different sentences about different things. It runs in the FALLBACK pass as well as the preferred one,
+    because two good sentences is the better card. **111 cards changed across the three levels and every
+    substitution was read**; the one that came out worse is `surpris`, which lost a duplicate and took
+    "Ma journée entière a été pleine de surprises" in its place — the NOUN, which A2 teaches as its own
+    card. That is the homograph hazard rather than this rule: the +12 ambiguity penalty had been
+    outvoting it all along and stopped once the two duplicates went. **It is recorded rather than fixed,
+    because French has no cheap positional rule for it** — the `été` fix works because a participle
+    follows an auxiliary, where an adjective and a noun both follow a determiner ("un bon film" against
+    "de surprises"), so the rule that would catch this would reject a fifth of the adjective cards.
+  · **A TRANSLATION IS SHORT AND A DEFINITION IS LONG**, and Wiktionary writes both in the same field:
+    `l'eau` came out glossed "water, a liquid that is transparent, colorless, odorless, and tasteless in
+    its pure form…", and sixteen more did the same. Only 15 of 508 leading glosses run past 80 characters,
+    so the trim bites where it should; the head is salvaged (`water`, `a sponge cake`, `banana`) and the
+    definition dropped where the card already has a meaning. **A SUB-SENSE OPENS ON A DISCOURSE MARKER
+    AND THE COMMA AFTER IT IS NOT A LIST COMMA** — "In particular, rain" was split into two lines, so the
+    card offered "water", "In particular" and "rain" as three meanings, one of which is not a word.
+  · **A PRONOMINAL VERB'S MEANING IS IN THE SENSES TAGGED `reflexive`, and the entry's first sense is
+    usually the opposite of it**: `se lever` came out "to raise, lift", which is what `lever` means, where
+    the word means to get up. Four of the five have such senses; `brosser` has none, so `se brosser` is
+    the one AUTHORED there. **Three forms are COMPOSED and they are the only ones** — the passé composé
+    (the auxiliary's own présent plus the participle, with the agreement printed as `je suis allé(e)` so
+    the bracket teaches the rule), the pronominal finite forms, and the pronominal imperative, where the
+    pronoun moves behind the verb and `te` becomes `toi` (`lève-toi`). Which auxiliary a verb takes is
+    **read** off Wiktionary's own `avoir + past participle` row, never guessed.
+  · **kaikki INTERLEAVES THE PRONUNCIATION INTO THE CONJUGATION TABLE**, with the same tags as the
+    spelling it belongs to (`paʁl` beside `parle`, on four verbs). The obvious test — look for IPA
+    characters — is wrong: it also throws away `sœurs` and `œufs`, because `œ` is a French letter. So the
+    test is positive, that every character be one French orthography uses; it keeps 4,023 forms and drops
+    the 8 that are pronunciations. **A REGION TAG ON A PRONUNCIATION IS NOT ONE ON A SENSE**, either:
+    rejecting `['Belgium','France']` the way a regional sense is rejected left `le chien` with no
+    transcription at all, when that tag marks the ordinary European one against Quebec's.
+  · **THE DECK'S OWN DESCRIPTION IS GENERATED PROSE AND HAS TO BE READ AT EVERY LEVEL'S NUMBERS, because
+    a count of one and a count of zero are where generated prose goes wrong** (Aug 2026, adding B2 — and
+    two of the three faults were already SHIPPING on A2 and B1). A clause built by concatenation reads
+    perfectly at the numbers it was written against and stops being true at somebody else's.
+    **A CLAUSE FOR A FEATURE THE DECK HAS NONE OF IS NOT PRINTED**: "the few that change before a vowel
+    carry that form too (0: un bel homme, un vieil ami)" promises something and then says there is none
+    of it, and it went out on A2 and B1 as well as B2, A1 being the only level with any.
+    **A COUNT OF ONE IS NOT A PLURAL**: B2 teaches a single pronominal verb and no level below it does,
+    so "The 1 pronominal verbs carry their pronouns" had never been reachable before.
+    **AND A TRAILING CLAUSE ATTACHES TO WHATEVER ENDS UP LAST**: "chosen where possible to show three
+    different inflected forms" was appended after the sentence, so on a level with words the corpus
+    cannot illustrate it landed after "the corpus has nothing at all for the other 223" and read as
+    though those words had been chosen — on B1's 7 as well. It belongs to the sentences, so it is now
+    written inside the branch that talks about them rather than glued on after.
+    **C1 AND C2 THEN FOUND THREE MORE, and two of them are the same fault as the first three: a claim
+    that was true where it was written and is false somewhere else.** **A COUNT OF ZERO IS THE
+    BEFORE-VOWEL FAULT ONE CLAUSE ALONG** — "whether a verb takes avoir or être has to be learnt with
+    the verb (0 of them take être)" is a bracket promising a figure and then saying there is none of it,
+    and on a deck whose six verbs all take avoir the sentence before it teaches a distinction the reader
+    will not meet; it says "here they all take avoir" instead, and bites at C2 alone, the être verbs
+    being common ones the lower levels take. **AND A SIZE CLAIM NOBODY MEASURED IS NOT MADE AT ALL**:
+    "a third party's compilation **of roughly the right size for** C2" is an assertion about the exam's
+    own scope that this pipeline has no way to check, and which the `LIST_NOTE` two sentences later
+    flatly contradicts — so it says where the list came from and stops. The third is about what a DROP
+    means: "are not French words in any spelling" is true of `loud` and `worldview` and **false of
+    `argus`** (a real noun, the used-car guide), `goder`, `intraçable` and B2's `relevant`, all of them
+    real French the extraction simply has no record of. The honest claim is the one the pipeline can
+    make — "could not be matched to a French dictionary entry". **A generated sentence must state the
+    TEST that was actually run, not the conclusion it feels like.**
+  · **`check-delf.js` is the browser half** and exists because `check-decks.js` skips the card-level
+    checks for a deck that is not Mandarin — so everything French this deck is FOR is unchecked by
+    anything until here. It studies the deck and asserts what the PAGE says (the coloured article, the
+    elided `l'` with its `un`/`une`, all five tenses in six persons, the auxiliary, `je` eliding before a
+    vowel, the agreement table's cells on one line and not overlapping) and **writes seven screenshots to
+    look at** — which is how the `été` sentence was found, every assertion having passed. It takes the
+    level as its argument (`node .claude/delf/check-delf.js b1`) and reads that level's repairs out of
+    `wordlist.py` rather than carrying a copy, so a list defect met on one page cannot be asserted on
+    another that does not print it.
+    **EVERYTHING ELSE LEVEL-SPECIFIC IN IT IS DERIVED THE SAME WAY, AND C1 IS WHY** (Aug 2026). The
+    deck's FILENAME, its ID and the LADDER below it were literals — right for the four DELF levels and
+    wrong the moment C1 became a DALF and the ladder five deep — so all three are now parsed out of
+    `delf_level.py` (`EXAM`, `BELOW`). That is the fifth time this file has recorded the same lesson,
+    after the repairs table, the checker's repairs, the deck description and the exam name: **a
+    level-parameterised thing with one level's answers baked into it does not guard the rule, it pins a
+    stale copy of it.**
+    **AND THE ÊTRE ASSERTION IS THREE-WAY, because a deck may honestly have no être verb at all.** It
+    was "the walk reached a verb taking être", which C1 failed with 2 of 428 and C2 with 0 of 6 — a
+    healthy deck reported as broken. Made proportional it would go quiet on C2 exactly when the
+    auxiliary machinery could be broken and nothing would say so, so: walked one → assert it agrees with
+    the deck; **many and none walked** → fail; some but few → read off the deck file; **NONE IN THE DECK
+    AT ALL** → assert the deck teaches no verb from a closed list of 19 motion verbs, which is the only
+    reading under which zero is the truth rather than a bug.
+    Two harness notes: the grade button is `.grade[data-g='easy']` and NOT `.grade [data-g='easy']`, since the class
+    and the attribute are on the same element and the descendant form silently clicks nothing and reports
+    a deck with no nouns, verbs or adjectives in it; and **a walk this long levels the reader up**, which
+    opens an artefact chest over the card and swallows the click on Reveal.
+  · **A SEVENTH DECK THAT IS NOT A SEVENTH LEVEL** (`.claude/delf/phraselist.py`,
+    `decks/French-Phrases.folio-deck.json` — **402 expressions / 804 cards**, Aug 2026, on request).
+    The six levels teach WORDS and a set expression is not one: `avoir` is on the A1 page, `faim` is
+    on the A2 page and `avoir faim` is on neither, because a vocabulary syllabus enumerates the
+    vocabulary and leaves the reader to assemble it — which for `avoir faim`, `tout de suite` and
+    `du coup` is exactly what cannot be done. It is built by the same six stages with the FIRST one
+    swapped, and `run.py` branches on whether the level has a `LISTS` row rather than on its name.
+    **IT TAKES EXPLICIT ROWS RATHER THAN AN `EXAM` ENTRY**, which is the whole of why it is a
+    separate thing: `EXAM['phrases'] = 'DELF'` would title it "DELF PHRASES — French", naming a
+    diploma that has no such paper. `TITLES`/`DECK_IDS`/`DECK_FILES` are given it directly, `BELOW`
+    excludes all six, and `combine.py` keeps `LEVELS` and `PARTS` apart for the same reason — every
+    per-level figure walks the first and every per-subdeck one the second, so the title cannot ask
+    `EXAM` for a row that does not exist.
+    Six things it settled are worth carrying.
+    **THE CANDIDATES ARE THE DICTIONARY'S OWN MULTI-WORD ENTRIES**, which is `phrasepick.js`'s
+    precedent: a lexicographer has already judged that a string is worth an entry, and that is better
+    evidence than any rule about shape or length. **`noun` IS THE FIRST CUT AND IT IS 12,177 OF THE
+    66,000** — a French compound noun is a WORD wearing a space (`pomme de terre`, `chemin de fer`,
+    `homme d'affaires`), met with a gender and an article rather than explained as an expression, and
+    it is what the six levels are already for.
+    **THE FILTERS RUN PER SENSE AND NOT PER ENTRY**, and the difference is 14 ordinary expressions:
+    `ça marche`, `au fond`, `sans faute` and `péter un câble` each carry a "used other than
+    figuratively or idiomatically" sense beside the idiom, so testing the ENTRY throws the idiom away
+    to remove a sense nobody would card.
+    **…AND A FILTER THAT RUNS ONLY AT SELECTION TIME DOES NOT REACH THE CARD**, which is the quietest
+    fault of the batch. `phraselist.py` chose which ENTRIES to teach and `build_deck.py` then read the
+    record again and merged whatever senses it found — so every sense refused here arrived on the card
+    anyway, and **`ça marche` shipped glossed "OK; see ça, marche"**, which is the literal reading the
+    filter exists to drop. It bit on all ~36 entries a per-sense rule saved, i.e. on exactly the
+    entries the rule was written for. The surviving senses are written to `phrase-senses.json` and
+    read back, so the card shows what was actually judged usable; they are READ rather than written,
+    so they are kept apart from `AUTHORED`. **Ask where a filtered value is next read from**, not only
+    whether the filter is right.
+    **AND A CLASS OVERRIDE HAS TO REACH `FORCE_POS`, NOT ONLY THE ENTRY.** `pick_pos` falls back to
+    the dictionary's own record when the class asked for has none — its `une` rule, stated in its own
+    docstring — so of the four hand-set classes `au fait` came out right (it HAS an adverb record) and
+    **`en dehors` went on printing "adjectival phrase" over "outside"** (it has none), with the
+    corrected gloss sitting under a contradicting label. The class and the meaning are one decision
+    and are written in one row.
+    **THE FREQUENCY MEASUREMENT IS A SORT KEY AND NOT A VERDICT, because substring counting
+    over-counts a phrase that is also an ordinary word sequence**: `pas que` scores 2,692 and is
+    almost entirely `je ne pense pas que`, `de par` matches *de partir* and *de parler*, `être à`
+    matches every *est à* in the corpus. So everything above the floor is READ — `pick-images.js`'s
+    rule, that the machine ranks and a reader chooses — and **64 of 466 are refused under four
+    declared reasons** (`DROP` in phraselist.py: an ordinary run of words or a fragment of a longer
+    phrase; a first dictionary sense that is not the ordinary one; a person-variant or near-synonym
+    of one already kept; a whole sentence; an inflected form). **A DROP THAT MATCHES NOTHING IS
+    REPORTED**, since a refusal stops working silently the day Wiktionary re-glosses an entry and the
+    expression simply comes back.
+    **ITS ONE REAL LIMITATION IS THE CONJUGATION AND IT IS MEASURED RATHER THAN ASSUMED**: kaikki
+    carries **zero inflected forms for every multi-word verb** on the shelf (`avoir faim`, `faire la
+    vaisselle`, `prendre soin`, `laisser tomber` — all ten probed), the paradigm belonging to the head
+    verb, which the levels already card in full. Composing thirty forms out of a lemma the entry never
+    names is the composition this pipeline refuses everywhere else, so there is no table and the
+    deck's own first screen says so.
+    **THE TWO `build_deck.py` GATES KEY ON THE DECK, NOT ON `e['phrase']`** — and that is the
+    shared-stage discipline biting exactly as it is meant to. **63 entries across the six levels carry
+    that flag** (`salle de bains`, `par exemple`, `mettre en cause`), so keyed on it, adding this deck
+    would have relabelled all 63 and changed six shipped files as a side effect of adding a seventh.
+    On a word list `salle de bains` is a noun with a gender and an article and `noun` is the right
+    label; here the distinction between a word and an expression is the point. (The paradigm gate was
+    provably inert on those seven multi-word verbs — every one is already 0 characters — and is gated
+    anyway, or a level that later gained one WITH forms would lose its table in silence.)
+    **THE SIBLING DIFF THEN FOUND ONE REGRESSION AND ONE FIX, which is why it is read rather than
+    glanced at.** The regression: rewriting `EX_NOTE`'s empty branch from `' '` to `''` closed
+    "colour." up against "Word list:" on **every deck the corpus illustrates entirely**, which is A2
+    and nothing else — a lost space, invisible except in a byte diff. The fix: adding `prep_phrase`
+    and `proverb` to `POS_NAME` corrected **C2's `en filigrane`**, which had been printing the raw
+    internal token `prep_phrase` as its class since the day it shipped, the table's `.get(pos, pos)`
+    fallback returning the key. A shared-stage change reaches decks nobody is looking at, in both
+    directions.
+    **AND A DESCRIPTION MUST NOT BE BUILT ON A DECK IT IS NOT FOR.** Both paragraphs were plain
+    assignments, so each was evaluated on every level: the levels' one asks `EXAM[LEVEL]` and died on
+    the phrases build, and the phrases one calls `_and(_ref_bits)` on an empty list and **broke all
+    six**. Both are conditional expressions now, so only the branch that is used is built. Its own
+    prose also produced the **one-is-not-a-plural fault for the third time in this file** — "the other
+    1", "The 1 adjectival phrases", "16 because it is the dictionary's first sense is not…" — so the
+    refusal list is worded as `N for <noun phrase>`, a form that cannot make the mistake at any count,
+    and the singular cases are branched.
+    **`check-phrases.js` is its browser half and is a file of its own**, because `check-delf.js`'s
+    stated premise is that its assertions are about FRENCH rather than about a level — and this deck
+    breaks it, having none of the article, elision, paradigm or agreement that checker exists to
+    verify. Its sharpest assertions are NEGATIVE and run on every card walked: **no article** (the
+    fault `pos_hint` would produce, and `le à peu près` is ungrammatical French rendered beautifully)
+    and **no paradigm**, the latter checked against the description promising there is none, since
+    those fail in opposite directions. It reads the deck's name, its refusals and its written-in
+    meanings out of `delf_level.py` and `phraselist.py` rather than carrying copies.
+  · **WHAT CONJUGATES IS SET IN BOLD RED, AND WHICH CHARACTERS THOSE ARE IS MEASURED**
+    (`common_prefix` / `mark_tail` / `.uc-cj-e`; Aug 2026, on request — the expressions deck
+    deliberately keeps no conjugation at all, see the bullet above). The obvious implementation is a
+    table of `-e -es -e -ons -ez -ent` per group and it is wrong twice over: it says nothing about
+    the second and third groups, and it is silent about the verbs a learner most needs warning of,
+    whose STEM moves as well. What is actually being asked is *which characters differ within this
+    tense*, and that is arithmetic — **the longest prefix all six forms share is the part that does
+    not change**. It lands on the textbook analysis wherever there is one (`parl|e … parl|ons`,
+    `parler|ai … parler|ont`) and tells the truth where there is not: `être` shares no prefix across
+    suis/es/est/sommes/êtes/sont, so the whole of every form is marked, which is exactly the fact
+    about `être` a beginner needs. Measured **per tense**, not over the verb — a stem constant
+    through the présent may still move in the futur (`je b|ois` against `nous b|uvons`, `j'ir|ai`).
+    Five things about it.
+    **THE PREFIX IS CAPPED SO EVERY FORM KEEPS AT LEAST ONE MARKED CHARACTER, and that is a repair
+    rather than a tidying rule.** The `-ger` verbs soften their stem before `-ons`, so `mange` is a
+    PREFIX of `mangeons` and the raw common prefix of the présent came out as the whole of `je
+    mange` — that row marked nothing at all while `nous mange|ons` marked three letters, which read
+    beside `je parl|e` on the next card is a contradiction rather than an oddity. One character back
+    gives `mang|e … mang|eons`, the textbook analysis, and the cap can only bite where one form is
+    spelled inside another: measured over all six decks, **8 verbs move and every one is `-ger`**.
+    **THE PASSÉ COMPOSÉ MARKS THE AUXILIARY AND NOT THE PARTICIPLE**, which is the tense's whole
+    point — `je SUIS allé(e)`, `nous SOMMES allé(e)s` — and because avoir and être are suppletive the
+    mark covers all of it.
+    **ONE MECHANISM SERVES EVERY ROW BECAUSE THE MARK IS A TAIL**: the subject and any pronominal
+    pronoun are composed onto the FRONT and elision only ever shortens the pronoun, so the ending is
+    always the last *n* characters of whatever `finite` returns, whatever stands before it. The
+    imperative is the one exception — its pronoun is composed onto the END, hyphenated — so there the
+    form is marked before `-toi` is appended.
+    **THE COLOUR IS `var(--zh, #C8453C)`, the one the tense heading already uses**, so the panel gains
+    no new colour; keep the hex fallback, a deck file being readable outside the site.
+    **AND IT EXPOSED A SHIPPED FAULT NOTHING ELSE HAD SEEN**: `se souvenir` was rendering **"je me me
+    souviens"** and **"souviens-toi-toi"**. An essentially pronominal verb carries its pronoun inside
+    its own dictionary forms (`me souviens`, `nous souvenons`) — which `examples.py` already records
+    and strips for its own indexing — and `finite` was composing a second one onto the front. The
+    doubled word had been on the card for months; the red run is what made it legible, and the common
+    prefix of `me souviens … nous souvenons` being EMPTY is what made it impossible to ignore.
+    Stripped in `conj_rows` and `imperative_rows`, gated on `reflexive`, which is as narrow as the
+    evidence: **one card in 7,648**.
+  · **THE GLOSS SCAN, AND WHY A COLON IS A DECLARED TABLE RATHER THAN A RULE** (`COLON_GLOSS` /
+    `colon_fix` / `colon_sweep`; Aug 2026, on request to scan the deck for mistakes — and the scan ran
+    over all seven, since the pipeline is shared). Wiktionary uses a colon for two opposite things:
+    `<usage label>: <gloss>` (`Sports game: away`, `Exclamation of surprise…: crap!`) and
+    `<gloss>: <definition>` (`friction: the rubbing`, `A hardware store: a store where…`). `head_of`
+    already carries a colon branch and it is **gated on the part running past `MAX_LINE`**, so it
+    never sees any of these, a label being short. **Ungating it was tried and is worse than useless**:
+    of the twelve it gets four right, five wrong, and leaves two shipping whole through the no-meaning
+    fallback. Length does not separate them either — `Sports game: away` and `all the way: totally`
+    have identical head lengths and opposite answers. So each was read once and written down, which is
+    this file's own answer at this size, and **any colon line NOT in the table is REPORTED on the
+    run**. A thirteenth row DROPS rather than replaces: `dernier` was carding "see: ce dernier" as a
+    fourth meaning — a cross-reference to an entry the deck has not got. **The staleness check lives in
+    `combine.py`, not in `build_deck.py`**: a level carries only some of the thirteen, so a per-level
+    check fires every run and becomes a warning nobody reads, where the combined build has all seven
+    decks in hand and can see both failures at once — a KEY still on a card (the fix did not fire) and
+    a replacement on no card (the source has reworded it).
+  · **FOUR MORE LIST DEFECTS THE SAME SCAN TURNED UP, and each was found by a sweep rather than by
+    eye.** **A PLURAL PRINTED AS THE HEADWORD RENDERS AS UNGRAMMATICAL FRENCH** — sweeping every card
+    for an article disagreeing in number with its noun found `le vœux`, `l'achats`, `le gants`,
+    `le degrés` and `le confins`. They divide on the test `déchets` is already here on: a wish and a
+    purchase are made one at a time, so those are slips and are repaired; gloves come in pairs and
+    `aux confins de` is the only way the last is ever said, so those go to `PLURAL_ONLY`. **A LIGATURE
+    TYPED AS `oe` SURVIVES THE NO-RECORD TEST WHERE WIKTIONARY DOCUMENTS THE `oe` FORM** — which is
+    why `manoeuvre` and `écoeurant` were caught and `voeu` was not: it HAS a record, the
+    pointer-follower resolves it to the real word's gloss, and C1 shipped `le vœu` and `le voeu` with
+    identical meanings. Normalise the ligature and read the collisions; the no-record sweep cannot see
+    it. **A PLURAL ALSO HIDES A CROSS-LEVEL DUPLICATE**: `words_below()` excludes by EXACT spelling,
+    so B1's `degrés` slipped past A2's `degré` — repaired, B1 ships 895 rather than 896, and there is
+    no back-fill, because this pipeline teaches the page rather than selecting a quota from it. **AND
+    A LEADING RECORD MAY BE A VERB THE LANGUAGE DOES NOT USE ALONE**: Wiktionary leads `souvenir` with
+    the verb, so B1 was teaching a bare `souvenir` nobody says AND teaching A2's `se souvenir` a
+    second time under another spelling; `FORCE_POS` makes it the noun and the two cards are two
+    different words again.
+  **Re-running it must reproduce the shipped deck byte for byte, ON EVERY LEVEL AND ON THE EXPRESSIONS
+  DECK**; that is the check to
+  make after any edit, since every fault above is silent — and the stages are SHARED, so a change made for
+  one level has to be run across the OTHERS and its diff READ rather than glanced at. That is what found
+  the `la amie` elision and the five reflexive senses on A1's bare verbs (seven A1 cards changed while A2
+  was being built), it is what the near-duplicate rule's 111 changed cards were read out of while B1 was,
+  and it is what turned B2's three description faults into fixes for A2 and B1 as well. **Every one of
+  those was an improvement except the one named above**, which is the point of reading them: a
+  shared-stage change reaches decks nobody is looking at. **Diff the CARDS and the DESCRIPTION
+  separately** — B2's fixes changed two levels' prose and not one card, and a whole-file md5 cannot tell
+  that from a level whose cards have quietly moved. Verified across `PYTHONHASHSEED`. **And rebuild the
+  COMBINED file with them** (`combine.py`), or it goes on carrying the previous build's cards under the
+  current description. The browser checkers are `check-delf.js <level>` for a level,
+  **`check-phrases.js`** for the expressions and `check-combined.js` for the combined file. Not part of
+  the site.
+- `.claude/ukbi/` — the generator behind the UKBI Indonesian decks: **level 1
+  `UKBI-1-Terbatas-Indonesian.folio-deck.json`** (500 notes / 1,000 cards, 533 KB), **level 2
+  `UKBI-2-Marginal-Indonesian.folio-deck.json`** (750 / 1,500, 789 KB), **level 3
+  `UKBI-3-Semenjana-Indonesian.folio-deck.json`** (1,000 / 2,000, 925 KB), **level 4
+  `UKBI-4-Madya-Indonesian.folio-deck.json`** (1,500 / 3,000, 1.09 MB), **level 5
+  `UKBI-5-Unggul-Indonesian.folio-deck.json`** (2,000 / 4,000, 1.10 MB), **level 6
+  `UKBI-6-Sangat-Unggul-Indonesian.folio-deck.json`** (2,500 / 5,000, 1.14 MB) and **level 7
+  `UKBI-7-Istimewa-Indonesian.folio-deck.json`** (1,500 / 3,000, 618 KB — smaller than the level below it,
+  for the reason its own bullet gives).
+  `python3 .claude/ukbi/run.py [--level 1..7] [--no-fetch]`. Six stages, caching its
+  corpora in `.claude/ukbi-cache/` (~180 MB, gitignored). PYTHON, like `.claude/dele/` and `.claude/goethe/`
+  and unlike every other helper here, for the same reason: a further level is a re-run rather than a rebuild.
+  **ONE LEVEL PER RUN** (`ukbi_level` reads the level once, at import), and a level is taught on top of the
+  ones below it, read out of the SHIPPED deck files so they cannot drift — the DELE arrangement exactly.
+  **THE LEVELS ARE NUMBERED FROM THE BOTTOM, which is the opposite of how UKBI prints them.** UKBI reports a
+  *peringkat* I–VII from the TOP down, so Istimewa is I and **Terbatas is VII, score 251–325, the lowest**. A
+  learner meets them the other way up, so the decks are numbered in the order they are studied and the
+  predicate's own name is carried in the title. Level 1 is Terbatas, level 2 Marginal (peringkat VI, score
+  326–404), level 3 Semenjana (V, 405–481), level 4 Madya (IV, 482–577), level 5 Unggul (III, 578–640),
+  level 6 Sangat Unggul (II, 641–724) and level 7 Istimewa (I, 725–800). **All seven are built.**
+  **A PREDICATE'S NAME MAY BE TWO WORDS AND A FILE NAME MAY NOT HAVE A SPACE IN IT** — the first five are
+  single words, so `DECK_FILES` went five levels before Sangat Unggul wrote `UKBI-6-Sangat Unggul-….json`,
+  a name that works on disk, breaks any shell command typed without quoting it, and is what every reader
+  who saves the deck gets. The hyphen is applied to all seven, which leaves levels 1–5 byte-identical
+  because a name with no space cannot change.
+  **A LEVEL'S SCOPE IS ITS OWN DESCRIPTOR, AND THE DESCRIPTOR EXCLUDES AS WELL AS INCLUDES.** Terbatas is
+  "keperluan **sintas**", survival, so `SECTIONS_1` is greetings, numbers, days, food, money, the body and the
+  closed classes. Marginal is everyday and community life **and its official descriptor says outright that a
+  candidate at this level cannot yet use Indonesian for professional or academic purposes** — so `SECTIONS_2`
+  is feelings, the home, clothes, errands, travel, narration and opinion, and deliberately carries no office,
+  no contract and no essay vocabulary. **Semenjana is where that door opens**: "keperluan **keprofesian yang
+  tidak kompleks**", non-complex professional purposes, so `SECTIONS_3` is precisely the list level 2 refused
+  to write — a job, a rota, a colleague, a payslip, a bank, a government counter — plus the abstract and
+  connective vocabulary a paragraph is built out of. **The same list is wrong one level down and right one
+  level up, and the descriptor is what says which**, which is why the two section headers should be read
+  together. `keilmiahan` (academic) is still shut at Semenjana, so there is no `hipotesis`, `metodologi` or
+  `analisis` in it either.
+  **MADYA IS THE FIRST LEVEL WHOSE DESCRIPTOR ADDS NO NEW DOMAIN, AND THAT HAD TO BE READ RATHER THAN
+  ASSUMED.** Every step so far opened a door — survival, then community life, then the non-complex
+  professions — so the obvious reading of a fourth level is a fourth subject area. Madya's descriptor says
+  something else: "berkomunikasi untuk keperluan sintas dan kemasyarakatan **dengan baik**", the SAME
+  purposes as the levels below, done WELL, with the professional ones still short of the complex end and
+  academic communication still out of reach. So `SECTIONS_4` is not a new field but the vocabulary that
+  doing the old ones well takes — the shape of an organisation, how work is planned and checked, a formal
+  letter, a meeting, rules and what breaks them, and above all the `ke-…-an` abstractions and the hedges a
+  formal sentence is built out of. **Ask what the descriptor's ADVERB is doing before writing the next
+  inventory**; here it is carrying the whole of the difference.
+  **AND UNGGUL'S DOOR IS NAMED BY THE LEVEL BELOW IT, IN AS MANY WORDS.** Madya's descriptor ends "tetapi
+  masih mengalami kendala dalam hal keprofesian yang **kompleks**"; Unggul's says the candidate "tidak
+  terkendala … untuk keperluan keprofesian, baik keprofesian yang sederhana **maupun kompleks**". So `SECTIONS_5`
+  is not a subject area chosen here — it is the one thing the level below states it cannot do, lifted:
+  contracts, the papers a complex job turns on, accounts and the money markets, what a company is and who
+  governs it, courts, specifications, the standard Indonesian of computing, and the vocabulary of integrity
+  and its failures. **Read the next level's descriptor against the current one's LIMIT clause**; three times
+  now the two have fitted together exactly.
+  **AND SANGAT UNGGUL'S DOOR IS OPENED BY AN ADJECTIVE.** Its descriptor grants survival, social and
+  professional purposes outright and then says "Untuk kepentingan akademik yang **kompleks**, yang
+  bersangkutan masih memiliki kendala" — and **constraining the HARD case is a statement that the ordinary
+  one is within reach**, so this is where `keilmiahan` begins and only its hardest end waits for Istimewa,
+  whose descriptor is the first to list academic purposes among the things with no kendala at all. So
+  `SECTIONS_6` is the STUDENT'S register rather than the professor's: doing a piece of research and writing
+  it up, the parts of a paper, the apparatus of citation, the university and its degrees, argument and the
+  evidence under it, the words for judging a claim, and the language a test of Indonesian uses to talk about
+  Indonesian — not the internal terminology of any one field. **Much of the obvious list had already been
+  taught**: `penelitian`, `hipotesis`, `teori`, `metode`, `analisis`, `sampel`, `populasi` and some seventy
+  more arrived on frequency alone at lower levels, because film dialogue talks about science. What is left
+  for an inventory at this level is the part a corpus of SPEECH never says aloud — the apparatus.
+  **AND ISTIMEWA'S DESCRIPTOR IS THE ONLY ONE OF THE SEVEN THAT NAMES NO LIMIT AT ALL**, which is where the
+  chain of "read the next level's descriptor against the current one's LIMIT clause" finally stops: it says
+  the candidate "memiliki kemahiran yang **sempurna**" and lists survival, social, professional AND
+  `keilmiahan` among the purposes with no kendala whatever, where every level below names something it
+  cannot yet do. So there is no door left for `SECTIONS_7` to open, and the level is not a subject area but
+  a REGISTER — the derived morphology a formal Indonesian sentence is built out of (`-isme`, `-itas`,
+  `ke-…-an`, `peN-…-an`), the doctrines and disciplines a scholarly argument names, argument itself and the
+  language used to talk about language, and the administrative and legal vocabulary. **Ask what is left when
+  a descriptor states no limit**; the answer here is the WORDS rather than the topics.
+  **THE ACADEMIC DOOR IS THE LAST ONE, AND THE MADYA HEADER GUESSED IT WRONG.** That header said `keilmiahan`
+  "is Unggul's", written while building level 4 from the reasonable assumption that a ladder opens one door
+  per rung. The board's own descriptors say otherwise: Unggul's does not mention `keilmiahan` at all, and
+  **Sangat Unggul's — one rung higher still — says "Untuk kepentingan akademik yang kompleks, yang
+  bersangkutan masih memiliki kendala"**. Academic communication opens at Istimewa. The wrong sentence is
+  left in `supplement.py` with the correction under it, because its shape is the one to remember: **a claim
+  about the NEXT level, made while writing the current one, from a pattern rather than from the source.**
+  Read the descriptor of the level you are naming, not the one you are building. **IT WAS THEN MADE A SECOND
+  TIME, IN THE VERY NEXT HEADER, BY SOMEBODY WHO HAD JUST CORRECTED IT** — level 5's said writing about the
+  literature "is Istimewa's" — so it is a pattern with a structural cause rather than a slip: an inventory is
+  written by deciding what the level does NOT cover, and the shortest way to say that is to name the level
+  that does, which is the one thing not yet read. Both wrong sentences are left in `supplement.py` with
+  their corrections under them.
+  `supplement.LEVELS` maps the level to its inventory and `supplement.sections()` reads it; a level with no
+  inventory contributes nothing rather than falling back to another level's, which would fill Marginal with
+  words level 1 has already taught.
+  **THE ONE FACT THE WHOLE GENERATOR RESTS ON: UKBI PUBLISHES NO VOCABULARY LIST.** It is a proficiency test
+  rather than a syllabus — it reports a score and a predicate, and the Badan Bahasa publishes descriptors of
+  what a candidate at each predicate can DO, never the words they should know. Neither does BIPA:
+  Permendikbud 27/2017 sets the Standar Kompetensi Lulusan in competences. **This was checked before anything
+  was built**, because the alternative was to imply an official list that does not exist. That is the
+  substantial difference from the siblings — the Goethe decks read the exam board's own printed Wortliste and
+  the DELE decks the Instituto Cervantes' Plan curricular, so in both the board chooses the vocabulary and the
+  generator only reads it. **Here the generator chooses it, and the deck's own description says outright that
+  it does.** What keeps that from being arbitrary is that both inputs are stated: the level's SCOPE is UKBI's
+  own descriptor — Terbatas is "berkomunikasi untuk keperluan **sintas**", survival communication — which is
+  what `supplement.py` is an inventory of, and the ORDER and the fill are corpus frequency. **Ask whether an
+  exam board publishes a word list before assuming the sibling's shape transfers.**
+  What it settled is below, and there is **deliberately no count in front of it** — this bullet said
+  "fifteen things" while carrying eighteen, having been written at level 2 and added to at every level
+  since. A tally in prose is a tally nobody re-counts; the findings are the thing.
+  **A DESCRIPTION IS PROSE, AND PROSE WRITTEN ONCE FOR ONE LEVEL GOES ON BEING PRINTED FOR EVERY LEVEL AFTER
+  IT.** `emit.py` was written for level 1 and templated only the NAME and the NUMBERS, so **levels 2 and 3
+  shipped calling themselves "the first and most basic level of the UKBI", saying each was "the lowest of
+  them", and quoting Terbatas's descriptor verbatim under their own names** — "untuk keperluan sintas",
+  survival, against predicates whose own descriptors say something else entirely — over a topic list that
+  was level 1's inventory and an example of phrases (`terima kasih`, `apa kabar`) that those decks do not
+  contain. Nothing threw and every count was right. **A deck's description is the one place that has to state
+  true things about the deck**, so every claim in it now comes from `SCOPE` in `ukbi_level.py` (rank, the
+  short verbatim phrase of that predicate's own descriptor, its plain-English reading, and what that level's
+  inventory actually covers) or is derived from the built deck — the inventory/frequency split is carried
+  through `wordlist.json` because it moves from 378-of-500 to 200-of-1,000, and the phrase examples are the
+  deck's own first four. **Templating the name is not the same as templating the claims.**
+  **AND A DERIVED SENTENCE HAS TO SURVIVE ITS OWN QUANTITY GOING TO ZERO**, which is the same lesson one
+  level down. The phrase sentence is built from a count and a sample, and at level 6 the count was 0, so the
+  deck shipped saying "0 of the entries are phrases rather than single words —  — which a list of single
+  words cannot see at all": a sentence about nothing, with an empty sample between two dashes. It is gated
+  on there being phrases now. **Read a derived clause at both ends of its range**, not only at the value the
+  level in hand happens to have.
+  **THE AFFIX FAMILY IS INDONESIAN'S ANSWER TO A PARADIGM, AND IT IS THE WHOLE POINT OF THE CARD.** The
+  siblings spend their card on morphology a learner cannot guess — German's gender and plural, Spanish's
+  conjugation, Mandarin's character breakdown — and Indonesian has none of that: no gender, no agreement, no
+  conjugation, no tense. What it has instead is a family of derived words around a root, so the card carries
+  `lihat` / `melihat` / `dilihat` labelled **root, active and passive** (67 of level 1 and 89 of level 2; 42
+  and 63 show a passive, which Indonesian uses far more readily than English). **The forms are READ from the
+  dictionary and never derived by stripping affixes**, because `meN-` assimilates and swallows the root's
+  first consonant: `tulis` → `menulis` but `nanti` → `menanti`, and no rule can undo that without a
+  dictionary.
+  **THE RELATION IS OFTEN IN THE TAGS RATHER THAN IN THE WORDING, and reading only the wording left a fifth
+  of the rows with a cell that had no label against it** (21 of level 1's and 10 of level 2's, measured).
+  Wiktionary states a VERB's relation in the gloss — "active of lihat" — and nearly everything else's in the
+  sense's own tags: `terbaik` is glossed "superlative degree of baik: best" and TAGGED `superlative`, `sebaik`
+  `equative`, `pergilah` `jussive`, `raja-raja` `plural`, `siswi` `feminine`. **An unlabelled cell is worse
+  than no cell**: it asserts that the word is a form of the headword without saying which form, on a row whose
+  whole purpose is to name the relation. So the tags are read first, the gloss second, and anything still
+  unnamed is dropped from the row and REPORTED rather than printed bare.
+  **TWO KINDS OF RELATIVE ARE REAL AND ARE STILL NOT SHOWN** (`FORM_HIDE`). A **colloquial respelling** —
+  `udah` for `sudah`, `malem` for `malam`, `dapet` for `dapat` — contradicts the deck's own promise on the
+  card itself, and is not an affix family at all: `udah` is not derived from `sudah` by any affix, it is the
+  same word with a syllable knocked off. And **the word plus a possessive clitic** — `hatiku`, `hatinya`,
+  `sakitnya` — is mechanical and reversible with no sound change, which is why `read_frequency` already strips
+  it; `hati` was showing four cells, three of them `hati` with a pronoun on the end. **Hidden from the ROW,
+  not removed from the FAMILY**: freeing them would promote each to a headword whose only gloss is a
+  cross-reference.
+  **A PARADIGM ARGUMENT LIST IS NOT PURELY LABEL/VALUE.** The id-adj template writes `superlative | paling
+  aman | or | teraman` — the periphrastic superlative as a proper pair, then the literal word `or`
+  introducing the affixed alternative — and id-verb writes `used in the form | menyanyi`. Read as pairs those
+  label `teraman` "or" and `menyanyi` "used in the form", and both reached the card. A label the file cannot
+  NAME is now held back and the sense's own tags and gloss are asked instead (superlative; active of nyanyi);
+  an unrecognised label is still used where nothing else names the form, and is reported when it is.
+  **THE CLITICS ARE THE ONE THING THAT CAN SAFELY BE STRIPPED**, and doing it recovers a fifth of the
+  frequency list: Indonesian writes `-ku`, `-mu`, `-nya` onto the word, so a surface list counts `ayahku`
+  apart from `ayah` and 342 of the top 1,500 are absent from the dictionary largely because of it. Those are
+  pure suffixes with no sound change, which is exactly what the prefixes are not.
+  **THE FAMILY RELATION POINTS BOTH WAYS IN THE SOURCE, so it is a UNION-FIND and not a walk.** `mengirim`'s
+  paradigm names `kirim` as its base and `kirim`'s own entry is glossed "infinitive, imperative and colloquial
+  of mengirim" — a two-element cycle — and chains occur too (`kata` → `katakan` → `mengatakan`). Union-find
+  flattens both without having to decide which arrow is true, and **the headword is then the family's most
+  frequent member**, which is what stops the deck teaching `erti`: it is used nineteen times in the corpus
+  against 47,243 for `mengerti`, and it is Malay rather than Indonesian.
+  **AN AFFIXED VERB OFTEN HAS NO ENTRY OF ITS OWN AND ITS ROOT DOES**, which is a fact about Wiktionary's
+  Indonesian coverage rather than about the language, and it bites hardest on an intermediate inventory: of
+  level 3's list, `mengurus`, `menyetujui`, `membandingkan`, `menyebutkan`, `mengharapkan`, `membutuhkan`,
+  `mengalami`, `menghadapi`, `melibatkan`, `melapor` and `menandatangani` are all absent while `urus`,
+  `setuju`, `banding`, `sebut`, `harap`, `butuh`, `hadap` and `lapor` are all there and correctly glossed.
+  The affixed form is how a learner meets the verb and the root is what the dictionary can teach, so the
+  inventory is written in roots — and the ones whose root teaches something ELSE are dropped rather than
+  substituted (`alam`/`alami` for `mengalami` is nature and natural, not to experience). Level 2 hit the same
+  wall and it is a standing step: **write the inventory, run it, and read the "the dictionary does not carry"
+  report before believing the list.** Three more went for the sibling reason — `satpam` is glossed only as
+  the expansion of its own abbreviation, `diskon` is tagged colloquial, `rawat` says only "basic form of
+  merawat" — which is `build_deck.py`'s meaning test doing its job at the inventory rather than at the card.
+  **A RELATION IS QUALIFIED AS OFTEN AS NOT, and a family that fails to form is INVISIBLE.** `menjaga` is
+  glossed "**transitive** active of jaga", and a pattern anchored hard at the start misses it — so the word
+  never joins its root's family, gets no forms row, and gets no MEANING either, since the meaning lives on the
+  root. It was found from the other end, by `build_deck.py` refusing to write a card for a common verb: a word
+  whose family fails to form simply ships alone, looking exactly like a word that has no relatives.
+  `build_deck.py`'s own pattern already allowed the modifier and the two had drifted apart.
+  **…AND WIDENING IT THEN BUILT FALSE FAMILIES, which is the other half of the same lesson.** With an
+  optional leading word, "**syllabic** abbreviation of kepala bagian" matched, and `kabag` (a head of
+  division) was carded as a form of `kepala` (head) — with `warnet` under `warung`, `miras` under `minuman`
+  and `toserba` under `toko`. Two fixes, and both are statements about what an affix family IS. **Inflection
+  only**: an abbreviation, an ellipsis, a contraction and an alternative spelling are LEXICAL VARIANTS rather
+  than morphological forms, and the row exists to show a root and what is derived from it by prefix and
+  suffix. And **a multi-word target is taken whole or not at all**: reducing "kepala bagian" to its first word
+  invents a kinship that does not exist.
+  **A WORD WITH ANY LIVE ENTRY OF ITS OWN IS A HEADWORD, and that single line saves `mereka`.** It carries
+  two entries — the third-person plural pronoun, and a verb form glossed "active of reka" — and a rule that
+  merged on the existence of any derived entry would have filed **"they" under the root "to devise"** and
+  deleted the commonest plural pronoun in the language from a beginners' deck. Measured: 128 of the top 1,500
+  carry a derived reading and eleven of those also carry an unrelated live one.
+  **`informal` AND `colloquial` ARE NOT THE SAME TAG AND MUST NOT BE TREATED ALIKE.** UKBI tests bahasa baku,
+  so the nonstandard family is dropped (`nggak`, `gue`, `banget`, `dimana`) — but `kamu` and `aku` are tagged
+  `informal`, which is the familiar register OF the standard language, and they are the first and thirty-first
+  commonest words there are. The blanket rule took `kamu`, `aku`, `saya` and `Anda`; the narrow one drops 584
+  words of 50,000 and keeps all four. **And it must read EVERY sense, not the first**: `bumi`, `kereta`,
+  `pasukan`, `ratu` and `tangkap` all open on an alt-of and carry the ordinary meaning further down.
+  **`Anda` IS CAPITALISED AND THAT IS NOT A TYPO** — the dictionary files the lowercase form as an
+  alternative letter-case spelling — so the frequency lookup is case-insensitive or the standard formal
+  pronoun ranks on nothing. It also earns `Minggu` (Sunday) and `minggu` (week) as two separate cards.
+  **THE SAME EXCLUSION IS RIGHT AT ONE STAGE AND WRONG AT THE NEXT.** `select.py` excludes proper nouns —
+  2,153 of the dictionary's entries are names and a frequency-ranked pool fills with them — and carrying that
+  into the GLOSSING stage refused **all twelve months and two days** for having no meaning, Wiktionary filing
+  `April`, `Mei` and half the week as names. A survival deck with no word for Monday is the exact failure
+  `supplement.py` exists to prevent, reintroduced one stage further down. Choosing and glossing are different
+  questions; ask which one a filter is answering.
+  **A WORD CAN INHERIT A FREQUENCY FROM A FORM THE DECK REFUSES TO TEACH, and this has now happened three
+  times.** `tau` is the nineteenth of the top 19,125 words of the corpus, because in speech it is the
+  colloquial form of `tahu`, "to know" — and that reading is tagged colloquial and correctly refused, which
+  leaves the entry Wiktionary files for the **Greek letter Τ** standing alone. So level 2 taught a Greek
+  letter on the strength of an Indonesian colloquialism's frequency. It is the `kan` / `ku` / `mu` / `nya`
+  shape already in `EXCLUDE` — "the frequency belongs to a form the deck does not teach and the surviving
+  sense does not deserve it" — and there the answer was to widen `LETTER_NAME` rather than name `tau` by hand,
+  which leaves it with no meaning at all and lets the pool's own meaning test refuse it. Swept before it was
+  widened: **31 senses are newly dropped and every one defines a letter of an alphabet**; `es` (ice) and `ha`
+  (an interjection) both carry a letter sense and both keep their real meanings, which is why the sweep was
+  the check rather than the pattern.
+  **A CARD MAY BE DEFINED IN INDONESIAN, AND 62 OF THEM WERE** (Aug 2026, on request: "check the deck
+  for any mistakes or inconsistencies"). Wiktionary writes `synonym of paham` where it means "to
+  understand", and `synonym of` is **not a form-of relation** — the target is a different lexeme rather
+  than a member of this word's affix family — so `REL`, which drops `active of` and `plural of`, never
+  saw it and the pointer shipped as the meaning. **Eighteen of the 62 carried no English anywhere at
+  all**: the reader was shown a word they do not know and told it means another word they do not know
+  (`perkosaan` → "synonym of pemerkosaan"). Every count was healthy throughout and the cards were well
+  formed. **TWO THINGS ARE READ RATHER THAN COMPOSED, in this order**: the dictionary usually writes
+  the meaning into the gloss itself — `synonym of beri (“to give”)` — and that parenthetical IS the
+  English, sitting two characters from where it was needed; where there is none, the TARGET is looked
+  up and its own glosses are taken, one hop. Where neither works the word is refused, which is how
+  `momod` (an internet clipping of `moderator`) left the decks. **THE PARENTHETICAL CLOSES WITH TWO
+  CHARACTERS**, `”` and `)`, and a pattern allowing one matched nothing at all — silently, since the
+  caller then falls through to the lookup and usually finds something. **A cross-reference may also be
+  a CLAUSE inside a gloss** (`a dance; synonym of tari`), where the tail is cut and the meaning kept —
+  and **`see` is not one of the words that may introduce such a tail**, which it was for a run:
+  `arrivederci` is glossed "farewell, goodbye, see you later" and cutting there leaves a greeting with
+  no greeting in it. Swept over the whole dictionary, allowing `see` touches eleven glosses and gets
+  two wrong.
+  **THE TWO WORST CARDS IN THE STACK WERE BOTH ON LEVEL 1 AND BOTH MEANT "TO GIVE".** `memberi` was
+  glossed **"berry (a small succulent fruit, of any one of many varieties)"** and `memberikan`
+  **"have a fish; full of fish"**, on a 500-word survival deck. Two independent causes, and each is a
+  general rule:
+  · **A SENSE THE DICTIONARY ITSELF CALLS `formal` IS STANDARD, whatever else it is tagged.** `beri`
+    ("to give") is tagged `['dialectal', 'formal']`, `dialectal` is in `NONSTANDARD`, so the register
+    filter refused it and left the English loanword for a berry as the only surviving `beri` entry —
+    and both verbs take their meaning from it. The filter was doing exactly what it was written to do.
+    `formal` and `dialectal` together is the source disagreeing with itself, and the tag naming the
+    register UKBI actually examines is the one to believe. **Measured before it was kept: twelve senses
+    in the whole dictionary carry a nonstandard tag beside `formal`**, half of them alt-of forms `REL`
+    drops anyway, so it cannot reach far enough to do damage. The same line is in `select.py`'s
+    `entry_nonstandard` and **the two have to be kept in step** — the stages would otherwise disagree
+    about whether `beri` is a word at all.
+  · **A FAMILY MEMBER'S MEANING COMES FROM THE ENTRY THAT CLAIMS THE WORD.** `memberikan` falls back to
+    `berikan`, which has three entries: two are `ber-` + `ikan` and mean fish, one is `beri` + `-kan`
+    and means to give. Wiktionary's own order — which this generator otherwise trusts — puts the fish
+    first. **The source separates them cleanly and the separator was already extracted**: the third
+    entry's head template reads `active: memberikan, passive: diberikan`, so the entry naming the word
+    we came from is the entry the word belongs to. Exact rather than heuristic, and no etymology
+    parsing. A `pos_hint` backs it up where no entry names the word, so a verb cannot be answered with
+    a homograph noun.
+  **AND A WORD WHOSE ONLY SURVIVING GLOSS SAYS THE HEADWORD IS NOT USED IS NOT TAUGHT.** `kejam`'s two
+  adjective senses (brutal, violent, vicious, ruthless, cruel) are both tagged `colloquial` and both
+  refused, leaving a verb entry glossed "to close (eyes) **(used in the form mengejamkan)**" — a sense
+  the gloss itself says belongs to a different word. The card taught a Semenjana candidate that a very
+  common adjective means to close one's eyes. It is the `tau` shape with the opposite outcome: there
+  the refused sense left a Greek letter and the word fell out, here it left a rarer homograph and the
+  word stayed with the wrong meaning. Dropped, after which `kejam` has no standard meaning in this
+  dictionary and is refused — the honest reading of a source that tags every sense a reader wants as
+  outside the standard language.
+  **TWO NONSTANDARD FORMS CARRY NO NONSTANDARD TAG AND WERE FOUND BY AUDITING THE GLOSSES RATHER THAN
+  THE WORDS**: `enggak` (the written-out `nggak`, tagged `informal`, which this generator deliberately
+  keeps because `aku`, `kamu` and `Anda` are tagged the same) and `momod` (tagged nothing at all).
+  Neither is reachable by any rule — what gave them away is that their only gloss named another
+  Indonesian word, which is what a variant's entry looks like — so both go in `EXCLUDE` by hand.
+  **The synonym resolution is exactly why they needed naming**: it turns their glosses into ordinary
+  English and makes them look like ordinary words.
+  **What the audit found NOTHING wrong with is worth recording too**, since it is what a later pass
+  need not re-check: no word is taught on two levels, no card has an empty field, every forms row's
+  labels match its cells, the HTML balances in every field of all 9,750 cards, and every card id
+  follows its deck.
+  **`kayak` AT LEVEL 3 IS THE SAME SHAPE AND SHOWS WHY IT CANNOT BE AUTOMATED.** It is very common as the
+  colloquial preposition "like, such as"; that sense is refused, leaving the untagged noun — `kayak`, the
+  boat. `tau` was reachable by a rule because its surviving sense was recognisably not an Indonesian word at
+  all, where this one is a perfectly good Indonesian noun, so no rule can see it and the exclusion is by hand.
+  **The harm is worse than a useless card**: the sentences come from a corpus in which nearly every `kayak` is
+  the preposition, so the card would gloss it "a canoe" and print three sentences meaning "like". Found by
+  `check-ukbi.js`, which lists it among the colloquial forms that must never be taught — the assertion
+  catching a word the deck arrived at from the other direction.
+  **A DEEPER POOL REACHES JUNK THE SHALLOW ONES NEVER TOUCHED, AND TWO GENERAL RULES CLEARED IT — one about
+  LENGTH and one about CASE.** Level 4 draws 1,357 words off the frequency list where level 1 drew 122, so it
+  is the first level to meet the corpus's tail, and what came up was not rare Indonesian but two kinds of
+  thing that are not Indonesian words at all. **A SINGLE CHARACTER IS NOT A WORD THIS DECK TEACHES**:
+  Indonesian's shortest are two letters (`di`, `ke`, `ya`), so a length floor of 2 can never refuse a real
+  one — and it catches what `LETTER_NAME` cannot, a letter that ALSO carries a live non-letter sense the
+  meaning test therefore lets through (`P` arrived glossed "used to ping or otherwise start a text messaging
+  conversation", its `character` entry correctly ignored and its interjection entry perfectly good).
+  **AND A CAPITALISED HEADWORD MUST NOT RANK ON ITS LOWERCASE HOMOGRAPH'S COUNT**, which is the `Anda` fold
+  paying for itself twice over: that fold exists so the formal pronoun can be ranked on `anda`, and run
+  blind it also handed `Maya` the count of `maya`, `Nabi` the count of `nabi`, `BA` the count of `ba` and
+  `Insinyur` the count of `insinyur`. `freq` now returns the capitalised form's OWN count wherever the
+  lowercase spelling is itself a live word (`live_lower`), and falls back to the fold only where it is not —
+  so `Anda` still ranks and the four impostors fall out. **Both rules are general, so both reached back into
+  the SHIPPED levels**: level 3 lost `B`, `C`, `D` and `E` — carded as American academic grades and Roman
+  numerals — and `Bapa` ("God, the father of Creation"), and level 2 lost `Bu` and `Nyonya`. **A filter
+  written for the level in hand is a filter the levels below it have been missing all along**, so re-run and
+  diff every level after adding one rather than shipping the new deck alone.
+  **THE DECKS HAD BEEN SLOWLY FILLING UP WITH ARITHMETIC** (`compound_numeral`). A multi-word cardinal —
+  `delapan puluh sembilan`, eighty-nine — is generated from parts a learner has had since level 1, so a card
+  for it teaches nothing; the dictionary states the part of speech (`num`) and multi-word is the whole of the
+  test, so `sepuluh` and `seratus` are untouched. What makes it worth a rule rather than a tidy-up is the
+  measurement: level 2 had one, level 3 four, level 4 **nine** — including `puluh ribu`, which is not even a
+  number but "tens of thousands" — level 5 seven more and level 6 two. **Twenty-five cards of counting
+  practice, arriving a few at a time and never enough at once to be noticed.** It is applied to the POOL and not to the
+  supplement, which is what lets it be this blunt: level 1's inventory asks for `sebelas`, `dua belas` and
+  `dua puluh` deliberately, as the PATTERN rather than as a run, and a hand-written entry is forced in without
+  consulting a frequency — so what goes is precisely the numbers nobody chose, the ones a film said aloud.
+  **ONE OCCURRENCE IS NOT A FREQUENCY, AND AT 2,000 WORDS THE PHRASE ESTIMATOR WAS RUNNING ON HAPAXES**
+  (`PHRASE_MIN`). A phrase cannot appear in a segmented frequency list, so it is counted in Tatoeba and
+  calibrated onto the subtitle scale — sound in the middle of the range and worthless at the bottom, because
+  a count of 1 says only that the phrase exists somewhere in 28,192 sentences and **every hapax then gets the
+  SAME estimate**, 245. They therefore do not spread along the ranking: they arrive together, as one block,
+  sorted alphabetically. Measured — of the 579 multi-word entries Tatoeba contains at all, **263 occur exactly
+  once**, and at level 5 those filled **234 of the deck's 360 phrases**, a run of cards from about rank 1200
+  reading `air putih, air tenang menghanyutkan, akal imitasi, aksi terorisme, alat bantu` straight down the
+  alphabet — visibly not the frequency ordering the deck's own description promises. Not one of them is a bad
+  Indonesian word (`bola voli`, `burung hantu`, `bawang merah`); what is missing is any evidence they belong
+  at THIS rank rather than three levels on. **The floor costs the shipped levels nothing** — 0, 1, 0 and 0 of
+  levels 1–4's phrases rest on a single occurrence, and the one is `hari raya`, which is in level 2's
+  inventory and forced in regardless — and it takes level 5 from 360 phrases to 124, which is the sane
+  progression 19, 31, 56, 100, 124.
+  **…AND AT LEVEL 6 IT TOOK THE PHRASES TO NOTHING AT ALL, WHICH IS THE FLOOR WORKING AND THE INVENTORY
+  FAILING.** Every earlier level got its phrases free — `estimate_phrases` finds them in the corpus — so no
+  inventory had ever needed to write one down, and `SECTIONS_6` was drafted the same way and contained not a
+  single multi-word line. A film corpus does not say `daftar pustaka`, so the estimator found none above the
+  floor and **the level shipped with zero phrases**. Nothing in the build could see it: 2,500 single words is
+  a perfectly ordinary-looking deck. `check-ukbi.js` caught it, on the file assertion that a deck carries at
+  least ten multi-word entries, and it caught it twice over, since the walk then had no phrase to reach.
+  **TWO SIGNS WERE ALREADY IN THE FILE AND NEITHER WAS READ AS ONE**: the inventory carried bare `tolok`,
+  which outside `tolok ukur` is a word almost nobody uses, and bare `pustaka` — **a HALF of a set phrase
+  standing alone in an inventory is what the missing whole looks like** — and the section header above them
+  already PROMISED `daftar pustaka`, prose describing a list it had drifted out of. Sixteen were written in,
+  each confirmed present in the dictionary and absent from levels 1–5 first, which is where the finding
+  repeats itself: eight of the obvious candidates (`hak cipta`, `ilmu pengetahuan`, `sumber daya`, `tata
+  bahasa`, `kata kerja`, `kata benda`, `kata ganti`, `di samping itu`) had already arrived on frequency at a
+  lower level. **The register's set phrases have to be written down from the level a hand-written inventory
+  starts carrying the vocabulary** — expect the same of level 7. **And level 7 did the same thing again**,
+  which is what makes it a rule rather than one level's mistake: `SECTIONS_7` was drafted from the dictionary
+  (see below) and a mined inventory is a list of HEADWORDS, so it contained no multi-word line either — the
+  same zero, from a different cause. Twenty-two were written in before the build was run, so the assertion
+  never had to fire; the deck ships 29 phrases, the extras being the few the corpus supplies at this depth.
+  **THE `kayak` SHAPE A FOURTH TIME, AND TWO RULES FOR IT WERE MEASURED AND REFUSED.** Level 5 goes 2,000
+  words into a corpus of film subtitles, and a subtitle file is full of English — so a word spelled like a
+  common English one collects that word's count and the reader is shown whatever marginal Indonesian sense
+  the dictionary files under the spelling: `station` glossed as an obstetric measurement, `cup` as "sound of
+  something immersed in water", `along` as "abundant catch of fishermen", `lukas` as a fish species ranked on
+  the name Lucas. **The obvious automations both cost more than they save.** Dropping Wiktionary's "unadapted
+  borrowing" etymology takes `bank`, `si`, `laptop`, `tank`, `tsunami` and `siku` to catch four; dropping
+  anything spelled like a common English word takes `digital`, `legal`, `formal`, `vitamin`, `stadium`,
+  `diagnosis` and `proposal` — ordinary Indonesian, and several of them this level's own subject matter.
+  Indonesian has borrowed too well for either test to separate a borrowing from an intruder, so this stays a
+  hand list and will grow by a few at every level. **The test is not whether the count is borrowed but
+  whether the CARD teaches something false**: `bridge` (the card game), `port` (port wine) and `flat` (an
+  apartment) are ranked by their English homographs too and are deliberately KEPT, because their glosses are
+  true and only their rank is inflated — which the deck's description already warns about.
+  **A PHRASE MUST BE WRITTEN ON A LINE OF ITS OWN, NEVER INFERRED FROM A LINE OF SINGLE WORDS.** The
+  supplement reader scanned each line for the longest run that happened to be a dictionary entry, and
+  Indonesian compounds freely: `kopi teh susu` resolved as `kopi` plus `teh susu`, which is a real entry
+  meaning milk tea, so the deck silently lost its words for tea and for milk. It shipped at rank 500 with a
+  frequency of zero, **which is the only reason it was seen**. The opposite failure is the DELE's own — a bare
+  `.split()` tore `o sea` in two — and here it would break `terima kasih`, `rumah sakit`, `di mana`,
+  `dua belas` and `kamar mandi`, a fifth of the survival core.
+  **A PHRASE CANNOT APPEAR IN A SEGMENTED FREQUENCY LIST AT ALL**, so all nineteen scored zero and sorted
+  last, behind `sialan` — `terima kasih` among the very last cards of a survival deck. They are counted in the
+  Tatoeba corpus the pipeline already downloads and calibrated onto the subtitle scale through the single
+  words, which carry both, on the MEDIAN ratio so that one wildly disagreeing word cannot drag the scale.
+  `terima kasih` lands at rank 276 and `di sini` at 91. The DELE's rejected fallback — giving a phrase the
+  rank of its rarest component — is rejected here for its own reason: it is a true ceiling and a hopeless
+  estimate.
+  **AND ITS REAL LIMITATION IS THE CORPUS THE FILL COMES FROM, which is stated rather than smoothed over.**
+  The 123 words not in the survival inventory are the commonest words of film dialogue, so `membunuh` (to
+  kill) outranks `air` (water) and `sialan`, `bodoh` and `polisi` all arrive before a word for food or a day
+  of the week. That is an accurate description of what people say in films and a poor one of what a beginner
+  needs, which is why 378 of the 500 come from the inventory instead; the deck's description says which half
+  is which. **The higher the level, the more of it the corpus decides** — level 2 is 313 from its inventory
+  and 437 by frequency, level 3 **199 against 801**, level 4 **143 against 1,357**, level 5 **196 against
+  1,804**, level 6 **152 against 2,348**, level 7 **279 against 1,221** — the first level whose inventory
+  share RISES, because it was mined from the dictionary rather than recalled — so the caveat gets
+  heavier as the levels climb, not lighter, and the description now derives the split rather than restating
+  level 1's. **AND ONCE THE CORPUS IS CHOOSING MOST OF THE LIST THE DESCRIPTION SAYS SO IN AS MANY WORDS**,
+  which is a clause of its own added at level 4 and fired **on the measurement rather than on the level
+  number** — it appears wherever the corpus supplies the majority, so it reaches back into levels 2 (58%),
+  3 (80%), 5 (90%) and 6 (94%) and stays silent at level 1 (24%). The reason to state it is that the earlier sentence — "the
+  commonest words of everyday Indonesian, taken from a frequency list built from film and television
+  subtitles" — is equally true at every level and stops being the WHOLE truth at the point where the
+  inventory has run out and the subtitles are picking nine words in ten. What that produces at level 4 is
+  overwhelmingly ordinary vocabulary (`orbit`, `karbon`, `reputasi`, `pengelolaan`, `musyawarah`,
+  `sutradara`) with a handful of marginal-but-real dictionary entries in the tail (`bong`, `dom`, `ken`,
+  `bedebah`) — none invented, all glossed from Wiktionary, and exactly what a film corpus yields.
+  **THERE ARE THREE SENTENCE SOURCES AND THE ORDER THEY GO IN IS THE WHOLE DESIGN** (Aug 2026, on
+  request: "add example sentences for as many as you can that don't have any yet"). Tatoeba is a
+  pair bank of everyday sentences written and translated by people, and it runs out — 22,008
+  Indonesian sentences with an English pair covers a survival vocabulary almost completely and an
+  academic one hardly at all. **Two things were measured and REFUSED before a source was added**, and
+  both are the obvious moves: **raising the length cap does nothing** (110 characters already admits
+  99% of that corpus — p99 is 102 — so lifting it to 150 recovers 55 words across the whole stack and
+  to 180 recovers 79, each a longer sentence on a card), and **the matcher was already correct** (a
+  re-implementation with no limits found no extra matches at all). What is missing is not long
+  sentences, it is the words. So two sources were added, strictly in order of how much they can be
+  trusted, and each word takes the best three it can get:
+  **1. Tatoeba** (CC BY 2.0 FR), human-written pairs; **2. Wiktionary's own usage examples**
+  (CC BY-SA 4.0, the same source and licence as the definitions already on the card, carried through
+  `extract_kaikki.py` — 1,257 usable of 2,583 raw, the rest being `Near-synonyms:` lists, collocations
+  written with an em-dash gloss, and literary quotations in older orthography); **3. Global Voices news
+  articles via OPUS** (CC BY 3.0).
+  **THE THIRD IS A DELIBERATE TRADE AND ITS COST IS STATED RATHER THAN HIDDEN.** OPUS aligns Global
+  Voices sentence by sentence with SOFTWARE, and software drifts: reading thirty random pairs by hand
+  found one where the two sides were different sentences from the same article — both real, both
+  fluent, neither a translation of the other. A wrong English under a right Indonesian teaches a wrong
+  meaning, which is worse than teaching nothing. Four things make it acceptable, and the first is the
+  one that matters: **it is reached ONLY where the other two have nothing**, so the risk falls on
+  exactly the words that would otherwise have no example at all; it is filtered hard (see `gv_pairs` —
+  two complete sentences, no URL, a length ratio inside a factor of two, and **where both sides state
+  a number they must state the same one**); where several of its sentences carry the word, the one
+  whose English contains the word's own dictionary gloss is preferred, which raised the confirmed rate
+  of what is actually chosen from 52% to **64%**; and the deck's own description says it used an
+  automatically aligned source and that a few sentences may not line up.
+  **THE PROPER-NOUN VERSION OF THAT NUMBER CHECK WAS TRIED AND THROWN AWAY**, which is the finding:
+  a translated proper noun changes form — `Korea Utara` against `North Korea`, `Eropa` against
+  `Europe`, `Islam` against `Islamic` — so a rule keyed on them rejected **28% of the corpus, of
+  which seven in eight were correctly aligned**. Numbers survive translation and names do not.
+  **THE LICENCE WAS READ RATHER THAN RECALLED**, which is this file's standing rule and mattered here:
+  OPUS's own LICENSE file says only "the same license as the original sources", so it settles nothing
+  — Global Voices' attribution policy is what states CC BY 3.0, and it was fetched. **TED2020 and
+  WikiMatrix were checked and refused**: TED is CC BY-NC-**ND**, which the site's own bar rules out
+  (Folio may sell premium accounts), and WikiMatrix is machine-MINED rather than human-translated, so
+  its misalignment rate is far worse than the one being weighed here.
+  **THE RESULT: 1,528 words gained an example**, and the stack went from 5,602 words with no sentence
+  to 4,074. Per level, "with none" went 2 → 1, 33 → 11, 180 → 46, 591 → 271, 1,313 → 849, 2,096 →
+  1,643 and 1,387 → 1,253. **The bulk of the remainder is not recoverable from any corpus**: level 7's
+  vocabulary is the `-isme`/`-itas`/`ke-…-an` morphology, which no sentence bank of any size contains.
+  **THE CLITIC WAS A REAL MATCHER BUG AND IS WORTH 72 WORDS ON ITS OWN.** Indonesian writes `-ku`,
+  `-mu` and `-nya` onto the end of the word, so a sentence about `peradangannya` is a sentence about
+  `peradangan` — and a whole-word match refuses it. `select.py`'s `read_frequency` had stripped those
+  for exactly this reason since level 1 and `examples.py` had not. **The fix has a second half that
+  fails silently**: `build_deck.bold` picks the word out of the sentence with its own pattern, and
+  left demanding the bare form it marked NOTHING in precisely the sentences the clitic rule had just
+  admitted — the card renders, the sentence is there, the English is there, and the word is simply no
+  longer picked out. Caught by an assertion counting `<b>` against sentences, not by eye. Nothing is
+  ever stripped off the FRONT anywhere in this generator, because `meN-` assimilates and eats the
+  root's first consonant.
+  Tatoeba's Indonesian is
+  small — 28,192 sentences, 22,023 with an English pair, against hundreds of thousands for Spanish — and was
+  **measured before each level was built rather than assumed**: 494 of level 1's cards carry three sentences
+  and one carries none; at level 2 it is 703 and 11; at level 3, whose words are rarer again, **814 with three
+  and 46 with none**; at level 4, **779 with three and 271 with none**, 18% of the deck; at
+  level 5, **382 with three and 849 with none**, which is 42%; at level 6, **174 with three and 1,643 with
+  none**, 66%; at level 7, **28 with three and 1,253 with none**, which is 84%. Those are kept: a word is chosen for being
+  worth knowing and not for
+  being well covered by a sentence bank, and each deck's own description states its own figure. **That
+  figure is the honest output of a small corpus meeting a large deck, and the answer is to print it rather
+  than to filter the words down to the ones the sentence bank happens to cover** — which would let Tatoeba
+  choose the vocabulary, and Tatoeba is not a syllabus either. **At level 5 the same argument settles the
+  TARGET as well**: 2,000 words is a statement about what the level teaches, and cutting it because the
+  sentence bank is small would let Tatoeba choose the deck's SIZE — and the professional vocabulary this
+  level exists for (`wanprestasi`, `arus kas`, `pemutusan hubungan kerja`) is exactly what a conversational
+  sentence bank will never contain, so filtering on coverage would produce a level 5 that is a level 2 with
+  rarer words in it.
+  **AND AT LEVEL 6 THE FREQUENCY SOURCE IS EXHAUSTED, WHICH IS A FACT ABOUT THE CORPUS RATHER THAN ABOUT THE
+  LEVEL AND IS THE MEASUREMENT TO TAKE BEFORE BUILDING LEVEL 7.** Dictionary headwords with a subtitle count
+  of 200 or more number **5,770**; levels 1–5 already teach **5,750**. So level 6 is the first whose fill is
+  drawn almost entirely from the tail, and the shape of that shows in every figure at once: the MEDIAN
+  subtitle count per level runs 22,238 / 5,640 / 2,042 / 720 / 250 / **76**, the share of a level's words
+  counted under 100 runs 4% / 4% / 5% / 8% / 10% / **68%**, and sentence coverage runs 99% / 95% / 82% / 60%
+  / 34% / **16%**. Under a hundred occurrences the count cannot rank one word against another with any
+  confidence, so **the deck is still frequency-ordered and the ordering has stopped meaning much**, and the
+  hand-written inventory items — which have no corpus frequency at all — sort to the very end (median
+  position 2,404 of 2,500). **THE ANSWER IS TO SAY SO RATHER THAN TO FILTER OR RE-SORT** (`THIN_PCT` in
+  `emit.py`): a second derived clause fires at 50% thin and tells the reader to treat the sequence as a rough
+  guide and not a ranking. Filtering to the well-counted words would let a film corpus decide what an
+  academic-register level teaches, and a two-group sort was measured and declined — only ~50 words have a
+  frequency of exactly zero, so the re-sort would move almost nothing while claiming the order meant more
+  than it does.
+  **AT LEVEL 7 BOTH SOURCES RUN OUT, DIFFERENTLY, AND THE HONEST ANSWER WAS TO SIZE THE LEVEL FROM THEM
+  RATHER THAN FROM THE SEQUENCE.** `TARGET` was 500 / 750 / 1,000 / 1,500 / 2,000 / 2,500 and had **3,000
+  tabled for Istimewa** when level 1 was written; the level ships **1,500**, which is smaller than the level
+  below it and is the only one of the seven derived rather than chosen. Two measurements, taken before
+  anything was drafted.
+  · **THE CORPUS IS EXHAUSTED, which level 6's own paragraph above predicted.** Levels 1–6 teach 8,250 words;
+    the subtitle list holds 11,364 the dictionary can gloss, of which the cascade leaves **1,344** free — and
+    every one of those 1,344 is counted **fewer than 50 times** (median 26, maximum 39). Within a count band
+    the ordering is therefore alphabetical (`peradangan, prefek, proporsional, provokatif, rampung,
+    salamander`), which is level 6's finding taken to its conclusion: the corpus has stopped measuring
+    anything at all.
+  · **AND THE DICTIONARY CANNOT REACH THE REGISTER THE DESCRIPTOR NAMES**, which is the new one and the
+    binding constraint. English Wiktionary's Indonesian is excellent on everyday words and thin on exactly
+    the scholarly vocabulary Istimewa is about: `metodologi`, `paradigma`, `epistemologi`, `kutipan`,
+    `merujuk`, `mengutamakan` and `normatif` are ordinary Indonesian and are simply not in it. **A
+    hand-written inventory of 352 recalled candidates yielded 61 usable.**
+  **SO THE INVENTORY WAS MINED RATHER THAN RECALLED, AND THAT IS THE METHOD TO CARRY.** Every earlier level's
+  `SECTIONS_n` is written from the descriptor and then checked against the dictionary; at this level that
+  loop returns almost nothing, so the direction was inverted — sweep the dictionary for the suffix families
+  the register is MADE of (`-isme`, `-is`, `-itas`, `ke-…-an`, `peN-…-an`, `-if`/`-al`/`-er`), take what is
+  actually there, and let the descriptor decide which of it belongs. **The quality filter is pedagogical and
+  is what made it usable**: a derivation whose ROOT the reader has already been taught teaches almost nothing
+  (`keadaan` beside `ada`), so those are dropped, which cut 1,717 raw hits to **435** good ones and yielded
+  **254 usable, of which 201 are not already in the corpus pool**. 1,344 + 201 = 1,545 is the whole of what
+  the two sources support, and 1,500 is that with a small margin. **This is not a claim that Istimewa needs
+  fewer words than Sangat Unggul** — it is the point at which the sources run out, and `emit.py` gained a
+  derived clause (gated on this level's target being below the one below it) so the deck's own description
+  says so in those words rather than leaving a reader to wonder.
+  **AND THE AFFIX FAMILY ALL BUT DISAPPEARS AT THIS LEVEL, WHICH IS THE LEVEL RATHER THAN A FAULT.** The
+  family row is the centrepiece of every card below — 67 at level 1, 89 at level 2 — and level 7 carries
+  **15, of which 4 show a passive**. It is arithmetic rather than a dropped rule: this level's vocabulary IS
+  the derived morphology, so its headwords are the `-isme`, `-itas` and `ke-…-an` forms themselves and the
+  ROOTS they are built on were taught three levels ago. The share of a level's words carrying a full family
+  runs 13.4 / 11.9 / 8.4 / 5.3 / 4.0 / 2.8 / **1.0%** — no cliff anywhere, so no ratio threshold could name
+  it — and `emit.py` states it in the description on the **categorical** test (zero full families with a
+  passive: 42/62/70/59/42/29 at levels 1–6 and **0** at level 7). `check-ukbi.js` takes it as a declared
+  per-level EXCEPTION rather than a skip — `FAM_RANGE` is a two-sided range (`[50, ∞)` below, `[5, 40]` here)
+  and `WANT` drops the family specimen from the walk — because a silent skip and a broken extractor look the
+  same. **The one that had to be read rather than assumed** was `keandalan`, whose family is `['keandalan']`
+  alone: Wiktionary lists it as a headword in its own right rather than as a derivation of `andal`, so the
+  count is TRUE and the fix is the range, not the reader.
+  **`node .claude/ukbi/check-ukbi.js [1..7]` is the browser half** (49 assertions at level 1, 53 at level 2,
+  57 at level 3, 61 at level 4, 67 at level 5, 73 at level 6, 74 at level 7), and it exists because
+  `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything Indonesian the
+  deck is FOR is unchecked by anything until there. Every fault it hunts is quiet: a dropped forms row leaves
+  a good card that has stopped teaching the hard part, a colloquial form that slips the filter looks exactly
+  like a word, and a torn phrase leaves two ordinary cards. So it asserts the closed SETS whole (all seven
+  days, all twelve months, one to ten, the question words), that no colloquial form is taught while every
+  standard one is, that tea and milk survived as two words, and — on the page, after walking to a card that
+  has one — that the family row renders with its labels and marks which form is being asked for. **It runs
+  under `reducedMotion`**, or every screenshot is a card caught half way through its fade.
+  **A LEVEL'S CLOSED SETS ARE ASSERTED AGAINST THE WHOLE STACK, NOT AGAINST THAT DECK** (`CORE`, keyed by
+  level; `taught` is this deck's words plus every lower deck's, read off the shipped files exactly as
+  `words_below()` reads them). Checking only the deck in hand reported level 2 as having no word for Monday —
+  which is TRUE and is the entire point of `words_below()` — and dropping a lower level's sets once past them
+  would stop watching the thing they were written to watch, so a level-1 regression now fails a level-2 run
+  as well. Level 2 adds three sets of its own, clothes being the cleanest (not one of the five is in level 1);
+  level 3 adds the workplace, money at a bank and the abstract nouns — **the set that would have been WRONG
+  one level down**, which is the descriptor doing its work in the test as well as in the inventory; level 4
+  adds the shape of an organisation, the running of a meeting and the `ke-…-an` abstractions, which is where
+  a descriptor that opens no new door instead takes the vocabulary; level 5 adds contracts, the books, the
+  courts, the standard Indonesian of computing — and **a set of professional COMPOUNDS** (`arus kas`, `tata
+  kelola`, `pemangku kepentingan`, `pemutusan hubungan kerja`), which is that level's own finding: at this
+  register a great deal of the vocabulary is multi-word, so an assertion on single words alone would miss the
+  half that matters; level 6 adds research and its writing-up, the apparatus of citation, the university, the
+  words for judging a claim, and the language a test of Indonesian uses to talk about Indonesian; level 7
+  adds the doctrines, the measurable qualities, the abstractions, the processes and the formal compounds —
+  **five MORPHOLOGICAL sets rather than topical ones**, which is that level's own finding restated as an
+  assertion, since a set of subject vocabulary would say nothing about a level whose subject is the
+  derivation itself.
+  **Every member of a new set is checked to
+  be in that level AND in none below it**, or the assertion passes on a lower level's word and says nothing
+  about the one being added — and it names the HEADWORD the deck actually teaches (`mengunggah`, whose root
+  `unggah` is shown in its forms row) rather than the root a reader might expect.
+  **And a new assertion the stack needed: no word is taught again from a level below**, whose failure is not
+  an error but a duplicate — the learner meets one word on two decks with two schedules and nothing says so.
+  **THREE ASSERTIONS COME FROM THE AUG 2026 AUDIT AND EACH GUARDS A FAULT THAT LOOKED LIKE A WORKING
+  CARD.** **No card is defined by naming another Indonesian word** — a sweep for `synonym of` /
+  `basic form of` / `used in the form` in the rendered English, which is what the 62 bad cards had in
+  common and what no count could see. **The words for giving are glossed as giving** — asserted by
+  MEANING rather than by presence, since `memberi` and `memberikan` were on the deck all along and it
+  was their definitions that were fruit and fish. And **`kejam` is not taught**, which is the one place
+  the check asserts an ABSENCE for a content reason rather than a register one. Two more cover the new
+  sentence sources, and they assert the property all three must share rather than which source a row
+  came from: **every sentence is paired with an English and has its word marked**, and **every sentence
+  contains the form it is credited to** — a row with no pair is what a half-read corpus leaves behind
+  and a sentence without the word is what an over-eager matcher leaves behind, and both render as an
+  ordinary card. The second tolerates a clitic on purpose, for the reason the matcher does.
+  **THE SPECIMENS ARE SEEDED AS DUE RATHER THAN WALKED TO, AND THAT IS THE THIRD ANSWER TO A QUESTION
+  THIS CHECK KEPT GETTING WRONG** (`SPECIMENS` / `WANT` / `seedIds`). The walk exists to prove that a card carrying an
+  affix family, one carrying a phrase and one carrying three sentences all RENDER, and it used to reach them
+  by grading real cards under a cap written down as a number. **The cap was wrong twice for the same reason**:
+  all three are properties of the WORD, the deck is frequency-ordered, so the higher the level the later the
+  first falls. 240 cleared level 3's family at note 167 by 73 and **did not clear level 4's at 383**,
+  reporting a deck carrying 79 families as having none; 600 then did not clear **level 6's at 886**. And the
+  first PHRASE went from note 14 at level 1 to **2,445 at level 6**, because that level's phrases are all
+  hand-written inventory items with no corpus frequency and the deck sorts them last — so the honest cap
+  became 2,485, or eight minutes and fifty artefact chests to prove something about markup.
+  **A DUE CARD IS IN THE QUEUE WHATEVER THE DAY'S NEW-CARD ALLOWANCE IS**, and that — rather than any claim
+  about order — is what the seeding rests on: a session is at most `ALLOW` cards plus the seeds, so a walk of
+  `ALLOW + 40` reaches them at every level however deep they sit. **It does NOT put them first**, which was
+  the first guess and was wrong: the review's Ordered presentation re-sorts the whole queue into in-deck
+  order, so a specimen from the end of the deck is dealt at the end of the SESSION — which is why the cap is
+  derived from the allowance rather than being a small number. What it gives up is the incidental proof that
+  a reader working the deck normally will meet them, so the positions are PRINTED on every run instead.
+  **A specimen the deck does not contain AT ALL is still a failure**, and never a skip — that is what caught
+  level 6 shipping with no phrases in it. Verified by removing the seed and watching level 6 fail exactly the
+  two assertions it is for; and the seeding itself is asserted, count included, since `every` over an empty
+  list passes vacuously and a seed that never landed would hand the walk silently back to the natural queue.
+  **WHICH IS WHY THE ONE LEVEL THAT GENUINELY HAS NO FAMILY SPECIMEN DROPS IT FROM `WANT` RATHER THAN
+  FAILING QUIETLY**: `WANT` is per level, `seedIds.length === WANT.length` still has to hold, and the walk's
+  family assertion is skipped only where the level has declared it has none — so a family specimen going
+  missing at any of levels 1–6 still fails, and level 7 is asserted on its own `FAM_RANGE` instead. **A
+  per-level exception is a DECLARATION, not a condition tested at run time**; written the other way round it
+  would pass on a deck whose families had stopped being built.
+  Three more things that bit: `.grade` carries `data-g` ITSELF, so a descendant selector matches nothing and
+  the walk stands still at zero cards; **studying several hundred cards levels the reader up, and a level
+  buys an artefact chest** whose modal overlay intercepts the pointer and stops the walk on a timeout naming
+  an SVG (levels 4–7 dismiss eight of them); and the
+  sandbox's Chromium is not where Playwright looks for it, so it needs
+  `FOLIO_CHROMIUM=/opt/pw-browsers/chromium-<n>/chrome-linux/chrome`.
+  **`combine.py` is the ONE-FILE version of the lot** (`python3 .claude/ukbi/combine.py [out.json]`), on
+  request — `decks/Indonesian-UKBI-1-7-and-Expressions.folio-deck.json`: 9,978 notes / 19,956 cards under a
+  fresh deck id `ukbiall`, with **a subdeck per level plus the phrases deck nested under one parent of its
+  own** (the seven predicates are flat and the expressions are not, which is the tree saying that the eighth
+  row is not an eighth level) — and
+  the DIRECTIONS come free as a level below that, which is the one substantial difference from the DELE
+  combiner beside it. There a word is TWO notes, one per direction, so the direction can be written into
+  `sub`; **here a word is ONE note carrying two card TEMPLATES, and `sub` is a property of the NOTE**, so it
+  cannot name a direction at all — and does not need to, since app.js draws a DIRECTION ROW under any level
+  whose notes are all filed directly in it. So each of the seven levels lists `Indonesian → English` and
+  `English → Indonesian` beneath it and the deck row above them correctly gets none, a second pair over the
+  whole deck being the same cards offered twice under a name that says nothing new. **Nesting the directions
+  the DELE way would mean two notes per word, which is the duplication the one-note shape was adopted to
+  remove.** Five more things it has to get right, four of them silent.
+  **A CARD ID MUST CARRY THE DECK** — every note is renumbered `u_ukbiall_N`, since a deck FILE import mints
+  fresh ids only when the deck id is already taken, so an id left reading `u_ukbi1_1` would collide with an
+  installed level 1 in the shared `UCARDS` store and study the wrong card, with both decks on the shelf
+  showing their full counts.
+  **THE FILE HOLDS NOTES AND THE CAP COUNTS NOTES, which is why this fits at all**: 9,978 notes against
+  `UDECK_MAX_CARDS` (12,000) is comfortable, where the 19,956 cards they carry would not be — see the note
+  beside that constant, which says the bound is on what the FILE holds. At 7.5 MB it is far inside the
+  48 MB one.
+  **THE TYPE BLOCK, THE COLOUR AND THE TEMPLATE COUNT ARE ASSERTED RATHER THAN ASSUMED.** A level rebuilt
+  against a changed template would otherwise have its cards silently rendered by another level's; a level
+  that had quietly stopped carrying two templates would give up its two direction rows in silence, and the
+  deck would import, study and count perfectly with half of what was asked for.
+  **THE COUNTS IN THE DESCRIPTION ARE COUNTED** off the notes, never added up from the seven descriptions —
+  only the per-level word counts come from `TARGET`, a level's size being a decision the shipped file cannot
+  report. It reads no clock (the stamp comes from the newest source), so the same inputs write the same
+  bytes.
+  **AND ITS OUTPUT IS GITIGNORED, like every other combined file's.** It was committed for a fortnight, on
+  the reasoning that it had been asked for as a download and so wanted a permanent home beside the seven it
+  is made of — and that is the whole shelf's rule the other way round: a combined deck is an ARTEFACT of the
+  decks it combines, every byte of it already in the repo, so committing one duplicates ~7.5 MB for nothing
+  a re-run cannot produce. See the `.gitignore` block naming all five.
+  **`node .claude/ukbi/check-combined.js` is the browser half** (16 assertions): it RUNS `combine.py` first,
+  so it needs no committed artefact and works on a fresh clone, then imports the file through the real
+  Studio picker and reads the page — 31 rows, ten card-holding subdecks with their directions plus the one
+  parent that correctly gets none, a level counting both directions and a direction counting one, adding the
+  deck bringing the subdecks and **not** the twenty directions, and a card rendering its word, its meaning
+  and its speaker. `check-ukbi.js` asserts what is on an Indonesian
+  CARD and `check-nesting.js` the subdeck/direction machinery in app.js; what is left, and what this covers,
+  is the JOIN — seven decks poured into one file.
+  **THE EIGHTH DECK IS PHRASES, IDIOMS AND PROVERBS, AND IT IS NOT AN EIGHTH PREDICATE**
+  (`phrases.py` → `examples.py` → `build_deck.py` → `emit_phrases.py`, driven by
+  `python3 .claude/ukbi/run.py --phrases`; `decks/Indonesian-Phrases-and-Expressions.folio-deck.json`, **228
+  expressions — 84 Phrases, 111 Idioms, 33 Proverbs** — Aug 2026, on request). There are seven predicates and
+  this is not one of them, so the deck's own description says so in those words: a row sitting beside
+  `UKBI 1 Terbatas` … `UKBI 7 Istimewa` will be read as an eighth level unless it states otherwise, and in
+  the combined file the seven are FLAT while this one NESTS under a parent of its own, which is the tree
+  saying the same thing without prose. **WHY THE LEVELS CANNOT REACH THESE EXPRESSIONS is the reason it
+  exists**: a phrase cannot appear in a segmented frequency list at all, so the whole cascade — which ranks
+  on that list — is blind to them, and `PHRASE_MIN` additionally floors a phrase at two corpus occurrences
+  precisely because one occurrence is not a frequency. Everything here is a phrase, so none of it could ever
+  have arrived by the ordinary route.
+  **THE SELECTION IS THE DICTIONARY'S OWN CLASSIFICATION AND NEVER A JUDGEMENT MADE HERE**, which is the
+  house rule against inventing content applied to CHOOSING it: a candidate is taken because Wiktionary files
+  it under a phrase part of speech, puts it in `Indonesian proverbs` or `Indonesian phrasebook`, or tags a
+  sense `idiomatic` / `figuratively` — and is dropped because the dictionary says it is a misspelling, a
+  borrowing, or a form of something else. Six things it settled are worth carrying.
+  **THE `phrase` PART OF SPEECH IS A TRAP: most of its entries are LATIN AND FRENCH.** `de facto`,
+  `s'il vous plaît`, `en route`, `ad hominem`, `force majeure`, `primus inter pares` — all filed as
+  Indonesian phrases, all useless to a candidate, and a deck that shipped them would be teaching the wrong
+  language under the right heading. The dictionary marks them itself, two ways, and both are needed: the
+  etymology's "Unadapted borrowing" / "Learned borrowing" (159), and the `Indonesian internationalisms`
+  category (19). **`in situ` still leaked**, its etymology reading only "Borrowed from Latin" with no
+  qualifier and no category, so a third rule matches the plain form for six source languages —
+  **guarded on `calque`**, since a calque is made of Indonesian words and is exactly what the deck wants
+  (`kambing hitam` is one).
+  **WIKTIONARY CARRIES MISSPELLINGS AS ENTRIES** — `terimah kasih`, `selamat tinngal` — and this is a deck
+  for a test that marks `dimana` wrong, so 107 go on the tag alone. **And a gloss reading "passive of X" or
+  "synonym of Y" is a cross-reference rather than a meaning**: `diberi tahu` and `direka ulang` are the same
+  fault one level down, dropped at selection so the counts agree, since `build_deck` refuses a card with no
+  meaning and a candidate refused there leaves the wordlist and the deck disagreeing about their own size.
+  **THE CENTRAL FINDING IS THAT A MARKED EXPRESSION MAY NOT BE FILTERED ON USE.** Measured over both corpora
+  (28,192 Tatoeba sentences and 16,043 Global Voices pairs), only **9 of 38 idioms and 8 of 46 proverbs occur
+  even once** — an idiom being literary and a corpus of subtitles and news conversational. Filtering on
+  occurrence would delete the deck's subject, which is the Mandarin deck's own recorded finding at a smaller
+  scale (of 5,227 non-syllabus chengyu only 361 are in Tatoeba). **So what the dictionary MARKS is taken
+  whatever the corpus says, and what only the POS suggests must be shown in use** — that second rule costs
+  89 of 110 and 86 of 120, and every one of them is a string nobody says.
+  **A PROVERB DEDUPLICATES ITSELF, THROUGH THE DICTIONARY AGAIN**: `di mana bumi dipijak, di situ langit
+  dijunjung` has seven spellings on the wiki, six of them glossed "synonym of" the seventh, so the
+  cross-reference rule that drops a form-of gloss leaves exactly one card per proverb rather than seven.
+  **THE `figuratively` INTRUDERS WERE A GLOSS-ORDER PROBLEM, NOT A SELECTION ONE, and the fix is DATA.**
+  `kambing hitam` is genuinely idiomatic and belongs here; what was wrong is that Wiktionary lists "black
+  goat" before "scapegoat", so the card taught the literal reading. `phrases.py` rewrites `wikt-p.json` with
+  the marked sense first — **never `build_deck.py`, which is shared with all seven levels** and where the
+  same change would re-order glosses in decks nobody was editing. Its diagnostic reports the STATE ("N
+  entries carry both a literal and a figurative sense; the figurative one is put first") rather than the
+  number it moved, since the file is rewritten in place and a count of moves reads 0 on the second run —
+  which looks exactly like a rule that has stopped firing.
+  **A DOMAIN-CATEGORY FILTER WAS MEASURED AND REFUSED**, which is the finding to read before adding one: 37
+  chosen entries carry a subject category (law, medicine, computing), and most of them are precisely what a
+  Semenjana-and-above candidate needs — so a term-of-art rule would have deleted `atas nama`, `balik kanan`,
+  `saham gorengan` and `kuda troya`. The subdeck was renamed `Everyday expressions` → **`Phrases`** instead,
+  a label everything under it answers to, which is the honest fix for a heading that had grown narrower than
+  its contents.
+  **`deck_type.py` IS THE CARD TYPE, DEFINED ONCE**, lifted out of `emit.py` when this deck gave it a second
+  emitter: copied into each they would drift invisibly, which is the `deckcore.js` fault this file already
+  records one directory over. **Verified inert: all seven level decks rebuild byte-for-byte identical.**
+  **`node .claude/ukbi/check-phrases.js` is the browser half** (23 assertions), and almost every one guards a
+  silent fault — a foreign phrase, a misspelling or a compound noun in this deck looks exactly like an entry
+  somebody chose. It asserts each named intruder is absent AND that a marked noun is KEPT (`kambing hitam`,
+  `lintah darat`), which fail in opposite directions; one card per proverb rather than one per spelling; no
+  cross-reference gloss anywhere; the three subdecks with 9 rows and their directions; and — on the page —
+  that `kambing hitam` shows "scapegoat" before "black goat", which is the only place the gloss order can
+  actually be seen.
+  **Re-running it must reproduce the shipped deck byte for byte** (a fixed `STAMP`, no clock read anywhere);
+  that is the check to make after any edit, since every fault above is silent — **and it has to be run on
+  EVERY level, since the stages are shared**: most of the fixes above were found while adding level 2 and
+  every one of them changed level 1 as well. **A community deck is not a change to Folio**, so these get no
+  changelog line and no version bump. Not part of the site.
+- `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
+  (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
+  request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
+  combine.py` and `delf/combine.py` each know their own pipeline — its levels, its exam name, its
+  per-level figures — where this one knows a TABLE (`PARTS`) of which shipped file goes where in the
+  tree, so a pipeline change reaches the language combiner and a new language reaches this one without
+  the two being kept in step. It was **39,830 rows = 79,660 cards, 94.05 MB** in five branches: French
+  7,648 (A1 446, A2 589, B1 895, B2 1,654, C1 3,231, C2 431, Expressions 402), German 785, Italian 11,578
+  (A1 961, A2 995, B1 970, B2 1,011, C1 2,809, C2 417, Core vocabulary 3,039, Phrases 1,376), Mandarin
+  11,833 (HSK 1 150, HSK 2 151, HSK 3.0 11,532), Spanish 7,986 (A1 992, A2 998, B1 1,998, B2 3,998); a
+  sixth branch, **Indonesian 9,978** (the seven UKBI predicates plus 228 phrases), is now in the table too.
+  It is **gitignored**, like the other two combined files: every byte of it is already in the repo and this
+  regenerates it, reading no clock (`exportedAt` comes from the newest source), so the same inputs write
+  the same bytes and a diff means something.
+  **⚠ IT DOES NOT CURRENTLY RUN, and the reason is the unlisted-file check below doing exactly its job.**
+  The seven **CAPLE Portuguese** files are in `decks/` and are not in `PARTS`, so the combiner refuses to
+  write a file that would quietly be a smaller shelf, and `.claude/decks/check-all-languages.js` fails with
+  "All-Languages.folio-deck.json is not built" — **on main, before and independently of the Indonesian
+  rows**, which were added and verified against a temporarily raised cap (the Indonesian branch builds
+  correctly at 9,978). Filling the Portuguese gap in is not enough on its own: with all six languages
+  listed the file comes to **56,245 notes against `UDECK_MAX_CARDS`' 44,000**, so this needs the Portuguese
+  rows AND a cap raise, which is the bullet directly below saying what the intended direction of causation
+  is. Both are somebody's decision rather than a merge's, so they are recorded here rather than taken.
+  Six things are decisions rather than plumbing.
+  · **IT IS WHAT RAISED BOTH CAPS, and that is the intended direction of causation.** At 2.4× the note cap
+    and 1.4× the byte cap that stood before it, this file did not fit — and `UDECK_MAX_CARDS` /
+    `UDECK_MAX_BYTES` are guards against a hostile or runaway file rather than views about how large a
+    deck may usefully be, each set from the largest legitimate deck anyone had brought. So a legitimate
+    deck this size is the thing that moves them, which is what happened twice before. **The caps are READ
+    out of app.js by `app_const`** rather than restated here, so this tool and the app can never come to
+    disagree about what will import.
+  · **A FILE IN `decks/` THAT `PARTS` DOES NOT NAME IS AN ERROR, not a silent omission** — combining
+    "every deck" and quietly leaving one out is the failure the whole file exists to avoid, and it looks
+    exactly like a smaller shelf. `ARTEFACTS` names the two pipelines' own combined files so the check can
+    tell one of those from a deck somebody added.
+  · **A SOURCE DECK'S OWN SUBDECKS SURVIVE BELOW THE LANGUAGE**, at no cost in the table: `sub` is
+    `[lang] + [path] + [the card's own]`, so HSK 3.0 keeps its nine levels and the four Spanish levels
+    keep their two directions. Depth is checked against `SUB_MAX_DEPTH`, also read off app.js.
+  · **A CARD ID MUST CARRY THE DECK** (`u_alldecks_N`), the Spanish generator's own lesson: a deck FILE
+    import only mints fresh ids when the DECK id already exists, so a reused `u_delfa1_1` collides with an
+    installed DELF A1 in the shared `UCARDS` store and studies the wrong card.
+  · **TWO DECKS DEFINING ONE TYPE ID DIFFERENTLY IS REFUSED rather than picked between** — one language's
+    cards rendered with another's templates reads as a card merely laid out oddly, not as a fault. (The
+    23 decks use six: `cils`, `delf`, `en-to-es`, `es-to-en`, `goethe`, `hsk`.)
+  · **THE STAMP COMES FROM `meta.updatedAt`, NOT `exportedAt`.** The two pipelines write that top-level
+    field differently — French an epoch integer, Mandarin an ISO string — so comparing them raises on the
+    first mixed pair, and picking either convention would silently ignore half the shelf.
+  **`.claude/decks/check-all-languages.js` is its browser half**, and it MEASURES as well as asserting:
+  everything `check-combined.js` covers is true here by construction (the cards are copied unchanged),
+  where what this file BUILDS is the branch per language, six card types in one file and 39,830
+  renumbered ids — and, above all, whether a file this size is usable. **Measured on one machine: JSON.parse
+  690 ms in node, import visible in 30.2 s and fully written in 56.8 s, and a later boot 861 ms with the
+  deck installed** — that last being the cost every visit after the first pays, and small because boot
+  reads the note INDEX and no prose at all (see the Persistence bullet under COMMUNITY DECKS). **The
+  import is the honest cost and it is nearly a minute**: it is ONE IndexedDB transaction, so it is atomic
+  and an interrupted import leaves the old state rather than half a deck, but it is a real wait and the
+  reader is told so ("Saving…"). Those timings are the evidence for the raised caps and the thing to
+  **re-run** rather than re-read — they measure one file on one machine and go out of date the moment a
+  language is added (at 28,252 rows / 66 MB they were 514 ms, 13.7 s, 31.1 s and 636 ms). **Time the boot
+  with no settling wait after it**, or a fixed `waitForTimeout` lands in the figure and a fast boot reads
+  as a slow one (it did: 2.1 s, of which 1.5 was mine). Not part of the site.
+- `.claude/split-decks.js` — **the inverse of that one: an all-languages file back into a deck per
+  language** (`node .claude/split-decks.js <combined.folio-deck.json> [outDir] [--drop=Lang]
+  [--add=Lang/Sub=file] [--add=Lang=file]`; Aug 2026, on request). Standalone Node, zero deps, not part of
+  the site. Five decks out of the 94 MB file: **French 7,648 notes / 16.7 MB, German 13,244 / 43.5,
+  Italian 11,578 / 24.7, Mandarin 11,833 / 23.9, Spanish 16,782 / 56.5**, each keeping its own subdeck
+  tree below the language (HSK 3.0's nine levels, the Spanish levels' two directions). **Gitignored**, on
+  the artefact rule above.
+  · **ITS REASON IS NOT THE ONE IT WAS WRITTEN WITH, and the correction is the point.** It was built
+    because at 94 MB and 39,830 notes the combined file was over both caps as they then stood, so the one
+    file carrying everything was the one file no device could open. `combine-decks.py` then raised them to
+    44,000 and 128 MB for a combined file of its own — **so that argument is gone**, and what remains is
+    the reason the reader actually gave and the caps never answered: a language per deck, so the languages
+    you study are the ones you add. **The SIZE argument survives it**: app.js's own note beside
+    `UDECK_MAX_BYTES` says a cap is a guard against a hostile file rather than a promise that anything
+    under it imports on the device the reader studies on, and five files of 17–57 MB are a far safer thing
+    to hand a phone than one of 94.
+  · **THE CAPS ARE READ OUT OF app.js** (`appConst`), never restated — combine-decks.py's rule, and this
+    is what it is for: both figures were written into this file as literals, and the raise above left them
+    silently wrong within the hour. A renamed constant is FATAL rather than assumed.
+  · **CARD IDS ARE RENUMBERED PER DECK**, the same lesson one level over: an import only mints fresh ids
+    when the DECK id already exists, so a German deck carrying the `u_goethea1_…` ids of the file it was
+    built from collides with an installed Goethe A1 in the shared `UCARDS` store.
+  · **`--add` TAKES TWO FORMS and the difference is whether the added deck is already divided**:
+    `Lang/Sub=file` files a whole deck as ONE subdeck (the seven German level files, each a flat list),
+    `Lang=file` keeps the added deck's OWN tree (the Spanish DELE A1–C2 file, whose fourteen subdecks are
+    seven levels × two directions). Splitting that one on its own first segment would have made seven
+    decks called A1, A2 … out of one language.
+  · **GERMAN AND SPANISH ARE NOT PURE SPLITS**, and it is why these five are the one set of artefacts here
+    that the repo could NOT reproduce: the combined file predates both languages' later levels — German A1
+    alone, Spanish only to B2 — so each is rebuilt with `--drop` / `--add` from the reader's own files,
+    which are not in `decks/`.
+  · **SPANISH IS THE ONE TO WATCH.** At 16,782 notes and 56.5 MB it is 38% of the note cap and 44% of the
+    byte cap, which is comfortable — but it is also the only one of the five that grew by a whole exam
+    ladder in a day, and the next such growth is what would need it split by band rather than by language.
+  A rebuild reproduces every deck **byte for byte** (`updatedAt` comes from the files that fed each
+  language, not the clock), which is the standing check here and the only way to tell a deliberate change
+  from a re-run. Nothing is written unchecked: each file is re-parsed, measured against both caps, its ids
+  checked unique and its notes counted back against the source.
 - `.claude/add-card-tags.js` — writes `card.tags` (see the card-tags bullet under "How the app is wired").
   **A BATCH TOOL RE-SERIALIZES THE WHOLE CARD, NEVER A LIST OF FIELDS** (Aug 2026, after this one stripped
   every card's rating). It kept a private copy of `serializeCardData`'s field list and emitted only what
@@ -6321,6 +8378,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     overlay chrome (backdrop, ×, Escape) stays with `openArtefactWin`, since the preview has nothing to
     close; the FOOTNOTE NUMBERING stays with `wireFootnotes`, which needs rendered nodes, so every caller
     pairs the builder with `wireArtefactPlate` on the container it put the markup in.
+  · **THE PLATE IS WASHED IN ITS OWN RARITY, AND SO IS THE CHEST'S REVEAL** (Aug 2026, on request). The
+    rarity was already the plate's whole language — the chip, the top rule, the border, the picture frame —
+    and every one of those is an EDGE, so a common and a legendary read alike anywhere but the rim. Both now
+    carry a gradient of `--rar` running top to bottom, laid OVER `var(--card)` rather than mixed into it, so
+    it needs no per-theme rule: whatever paper a theme uses is what the wash fades into. Two things. It is
+    strongest at the top, where the name and the chip are, and gone by two thirds down, so the five sentences
+    and the citations under it sit on ordinary paper and lose no contrast — `test-a11y.js` measures every
+    text node against the background it really renders on. And NIGHT takes a weaker mix, for the reason every
+    other wash on the site does: a colour over a dark paper reads far stronger than the same percentage over
+    a light one. The chest's `.chest-reveal` is additionally BOXED, because it floats on the overlay's dark
+    backdrop rather than on a card, and a gradient fading to transparent there would fade into the backdrop
+    instead of into paper.
+  · **AND SHOWCASE SITS AT THE TOP OF THE PLATE** (same request). It used to close the plate, below five
+    sentences and a fold of citations — so on anything but the shortest artefact it was off the bottom of a
+    scrolling box, and a reader who opened a plate to pin it had to read past everything first. It is the one
+    ACTION on a page that is otherwise all reading, and an action belongs where the reader arrives.
   · **THE PLATE'S PICTURE IS THE SITE'S OWN MEDIA FRAME** (`artefactPlateArtHTML`, Aug 2026, on a bug
     report: "there's no way to zoom in on artefact images"). A TILE's `.ar-img` is a bare `<img>` inside a
     `<button>` and must stay one — a `role="button"` figure nested in a button is invalid markup and would
@@ -6371,8 +8444,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   retires its own row. The id carries a **colon** so it can never collide with a node id (plain slugs) or a `u:` deck.
   Two study-session details go with it: a **one-card session does not requeue** a learning step (`res.requeue &&
   scope.type !== "card"`) — with no other card between, the card would reappear instantly and read as a grade that
-  never landed, and it is scheduled properly regardless — and `fromHome` (review / card / cotd scopes) sends the exit
-  button, the completion screen and the caught-up placard back to **Home** rather than the collections.
+  never landed, and it is scheduled properly regardless. **EVERY SESSION NOW ENDS AT THE HOME PAGE** (Aug 2026,
+  on request): `fromHome` is gone, and the exit button, the caught-up placard and the completion screen all
+  route there. It used to depend on the scope — the review, the Card of the day and a group returned home
+  while a DECK returned to the collections — which was written when a deck was something a reader found on
+  that page. It is not any more: a deck is added to the daily study and tapped on its own row on the home
+  page, so that is where a reader finishing one came from and where their other decks are waiting, and the
+  collections are one press further on from the lip the home page advertises. It is ONE answer rather than a
+  rule per surface, since a completion screen going home while the exit beside it went to the collections
+  would be two answers to one question.
 - **Daily review order** (`S.settings.reviewRandom`): **Ordered** (labelled "Chrono" until Aug 2026, renamed on
   request — the old key is retired from all nine language tables) presents cards in their in-deck order;
   **Random** shuffles the session order. The **draw** of the day's new cards is date-seeded-random across the decks in BOTH
@@ -6416,7 +8496,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the fix, and the shape is Anki's.
   · **`deckLimits(id)`** → `{ newPerDay, maxReviews, newIgnoresReview }`, stored in **`S.deckOpts`** keyed by the same
     entry id as `S.active` and written only for decks the reader has actually changed — an absent deck follows
-    `S.settings.newPerDay`, exactly as before. `DECK_MAX_REVIEWS` (200) is Anki's own default.
+    `S.settings.newPerDay`, exactly as before. **`DECK_MAX_REVIEWS` is 50** (Aug 2026, on request; it was
+    Anki's own 200) — a view about what a day's studying should feel like rather than a technical bound, and
+    a DEFAULT only: a deck or the review can still be set as high as anybody likes in its own Daily limits
+    sheet, and a reader who has already chosen one keeps it, `deckLimits` reading the constant only where
+    nothing has been chosen.
   · **`S.deckDay`** holds TODAY only — `{ d, extra, skip }`, the Custom-study bump and "Skip today" — and resets in
     place, dropping every other stale record with it, so the table can never outgrow the decks in use.
   · **The COUNTS are DERIVED, never tallied** (`deckDoneToday`). `grade()` writes **`c.first`** — the day a card was
@@ -6536,8 +8620,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **⚠ NO NEW GROUP CAN BE MADE — THE FUNCTION WAS REMOVED FROM THE DAILY STUDY BLOCK** (Aug 2026, on
     request: "remove the group function from the daily study/active decks banner"). "+ New group" stood
     inside the banner, then at the bottom left of the DECK LIST for a fortnight, and is now gone along with
-    `promptNewGroup`, `.rv-tools` and `.rv-newgroup`; `.rv-foot` survives holding the lip alone, since that
-    row is what keeps `.rv-lip` against the review group's own bottom edge.
+    `promptNewGroup`, `.rv-tools` and `.rv-newgroup`; `.rv-foot` survives, since that row is what keeps
+    `.rv-lip` against the review group's own bottom edge — it held the lip alone for a fortnight and now
+    carries the day's timer (`.rv-time`) at the left end it vacated.
     **WHAT DELIBERATELY STAYS is everything a reader who ALREADY made one needs**: the group row in the
     list, its hue, dragging a deck in, and Rename / Colour / Ungroup in its own options sheet. Deleting
     that code would leave such a reader a container on their home page that nothing could open — and there
@@ -6636,6 +8721,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `warn` the Studio toasts, which is the card-types column's own pattern (an ADMIN gets a different
     sentence naming the block to run, being the one person who can clear it). A deck therefore publishes
     from an un-migrated database and simply arrives in the generic indigo.
+  · **A SHEET IS NOT LIVE THE INSTANT IT APPEARS** (`DECK_SHEET_ARM_MS`, Aug 2026, on a bug report: "when
+    the long-press menu loads, I sometimes accidentally immediately press a menu item"). A hold opens the
+    sheet UNDER the finger that is still down, so the lift that ends the gesture lands on whichever row
+    happens to be beneath it and fires it — a Remove or a Skip today the reader never chose. **The
+    document-level capture guard that swallows the click after a hold cannot help**: it deliberately steps
+    aside inside `.deck-menu`, which is what lets a fast deliberate click through. So `deckSheet` guards its
+    own clicks, on TWO tests. The first is EXACT rather than a guess at how fast a finger is: a pointer click
+    whose own pointerdown never landed in this sheet is by definition the tail of the press that opened it,
+    and is swallowed however long that press ran (`e.detail` is 0 for a keyboard or programmatic click, which
+    has no pointerdown to have seen and must go through). The second is a 500ms arming window, covering a
+    fresh tap made before the sheet has settled — half the second the report asks for, because the exact test
+    is what fixes the reported misfire and a full second is long enough that a reader reaching straight for a
+    row would meet a sheet that ignores them, which is the same complaint again.
   · **A × IN THE TOP RIGHT OF EVERY SHEET** (`.dm-x`, Aug 2026, on request). Escape and a backdrop tap both
     closed it already and neither says so: Escape is a key a phone has not got, and "tap outside" is a
     convention a reader has to know in advance. Three decisions.
@@ -7226,8 +9324,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     tells a reader strictly less than "Origins"). **Below 640px five of the nine columns go** rather than
     being squeezed: at 390px the card's own title is the only part of a row with no shorter form, so anything
     taking width from it is what gives, and the rest is one tap away in Card info.
-    **`BROWSE_CAP` (300) bounds what is DRAWN and the count line always states the true total** with the cap
-    named — a silent truncation would read as a search that found 300 things.
+    **`BROWSE_PAGE` (300) is a PAGE, not a ceiling** (Aug 2026, on request). It was a hard cut with a line
+    telling the reader to narrow the search, which on a few thousand cards makes the last two thirds of the
+    collection unreachable by scrolling at all. The table grows by a page whenever its foot comes into view,
+    watched by an **IntersectionObserver on a sentinel drawn as the body's last child** — a scroll listener
+    cannot see the case where the first page does not fill the window, since no scroll ever happens there.
+    One observer, re-pointed at each freshly drawn sentinel (the rows are rebuilt on every repaint, so an
+    observer left on the old one fires on a detached node) and disconnecting itself when the page goes. The
+    count line still states the true total and now says how much of it is on screen; a repaint that CHANGES
+    the list resets the depth, since a new search is a new list.
     **The query, the column and the selection are module-level and deliberately NOT in `S`**: they are a way
     of LOOKING at the collection rather than a preference about Folio, so they survive navigating away and
     back within a session and reset on reload — the glossary record's own call. Typing repaints IN PLACE
@@ -7510,6 +9615,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     RNG differed — **730 distinct grids became 60**, a repeat every fortnight. Nothing throws and every grid
     is still full; the game just quietly stops being daily. Taking a fraction restored it to 577, and a
     pool of 40+ still draws 40, so the large-pool behaviour is exactly what it was.
+  · **THE READER SEES IT, AS FIVE STARS IN THE CARD'S TOP RIGHT** (`cardStarsHTML` / `.card-stars`, Aug
+    2026, on request). Three decisions. It renders as **NOTHING at 0** — every community-deck card and any
+    curated card not yet rated — because five empty stars claim a rating of zero, which is not on the
+    scale. It is **DECORATIVE to a screen reader**: one `aria-label` on the row says the rating in words
+    (the `CARD_DIFFICULTY_LABELS` wording, so the star row and the tooltip cannot disagree), where five
+    identical glyphs read out one at a time say nothing. And the colour is the QUESTION/ANSWER label's own
+    `--indigo` at the same `.5` opacity, on request, so the corner reads as the card's own furniture rather
+    than as a second kind of mark; an unearned star is the same colour at a fraction of the opacity, which
+    reads as an outline without needing a second glyph. It is absolutely positioned so it costs the
+    question no width, and it steps left of `.tts-mute`, which holds that corner when read-aloud is on.
   · Written by `.claude/add-card-difficulty.js` in batches, editable per card in Admin → Cards (a select in
     the meta row beside the chronology — it offers the five ratings and **no "unrated" row**, since an
     undefined delta does not survive JSON round-tripping and a control whose only use is to drop a card out
@@ -7991,10 +10106,36 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - **Card image (optional):** `card.image = { src, title, desc, credit, alt }` — rendered by `buildBack` as a **16:9
   frame** (`.card-img`, `cardImageHTML`) at the top of the Background section, above the prose (the section now
   renders when a card has an image even without an abstract). Clicking it opens the **fullscreen viewer**
-  (`openImageViewer`: wheel zoom toward the cursor 1–8×, click toggles 1↔2.5×, drag pans when zoomed, Esc/×/backdrop
-  closes, `closeImageViewer()` runs in `render()`), with title/description/source in a bottom caption bar (a URL
-  source becomes a link). One **delegated** document click/keydown listener opens it from any `.card-img` (study,
-  previews, editor) via the figure's `data-img-*` attributes — no per-render wiring.
+  (`openImageViewer`: wheel zoom toward the cursor 1–8×, **pinch zoom**, tap toggles 1↔2.5×, drag pans when
+  zoomed, **only the × and Escape close**, `closeImageViewer()` runs in `render()`), with title/description/source
+  in a bottom caption bar (a URL source becomes a link). One **delegated** document click/keydown listener opens
+  it from any `.card-img` (study, previews, editor) via the figure's `data-img-*` attributes — no per-render wiring.
+  **NOTHING INSIDE THE STAGE CLOSES IT** (Aug 2026, on request: "a click on the image itself should not close
+  it; instead it should be possible to zoom in, especially on mobile, and only the X in the top right should
+  close"). A click on the image toggled zoom and a click on the space around it CLOSED, which is the same
+  gesture landing a few pixels apart doing opposite things — and a picture opened to be looked at is one a
+  reader zooms and drags about, so a close-on-backdrop rule reads the end of every clumsy gesture as "done".
+  **AND ON A REAL DEVICE THE TAP HALF COULD NOT FIRE AT ALL, WHICH IS WHY IT WAS REPORTED AS "A CLICK ON THE
+  IMAGE CLOSES IT"** — the finding worth carrying furthest. `stage.setPointerCapture(e.pointerId)` on
+  pointerdown **RETARGETS every later event for that pointer to the STAGE**, so the `e.target === im` the
+  toggle tested at pointerup was false for a real finger or mouse even dead centre of the picture, and the
+  close branch took every press. Whether the press landed on the picture is now recorded at POINTERDOWN,
+  whose own target is resolved before the capture it sets. **A synthetic `PointerEvent` dispatched at an
+  element bypasses that retargeting entirely**, so a test written with synthetic events passes on the broken
+  code — which is why `test-video.js`'s ninth section drives real mouse and real touch, and why a gesture
+  bug should be reproduced with real input before it is believed fixed.
+  **A VIDEO KEEPS ITS BACKDROP CLOSE**, deliberately: the player owns every pointer inside its own frame
+  (scrub, volume, fullscreen), so there is no zoom to protect and nothing but the frame to tap past.
+  **PINCH IS THE HALF THAT MADE THE ZOOM REACHABLE AT ALL** — there was only a `wheel` handler, so on a phone
+  the 1–8× range could not be reached and the tap toggle was the whole of it. Two pointers are tracked in a
+  `Map`; the pinch holds whatever was under the fingers' midpoint under it (the wheel's zoom-to-cursor
+  arithmetic, from a baseline captured when the second finger lands) and follows that midpoint as it moves.
+  Three things it has to get right, and each fails quietly: a second finger **cancels the one-finger pan** or
+  the two fight over `tx`/`ty`; **lifting either finger must not count as a tap**, or the end of every pinch
+  toggles the zoom back (hence the `pinched` flag, which survives until the last pointer is up); and
+  `.iv-live` **kills the `transform` transition while a gesture is in flight**, or the picture eases 180 ms
+  behind the fingers. `.iv-stage` already carried `touch-action:none`, so the browser never takes the pinch
+  for a page zoom.
   **`alt` is the text alternative, and it is a field of its own** (Aug 2026, on request: "add alt text for
   images, which can be added when editing/making cards"). Deliberately not a reuse of `title`: a title NAMES
   the picture for a reader who can already see it, where alt text has to DESCRIBE it to somebody who cannot,
@@ -8049,6 +10190,129 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and **`frame-src`** for the two embed hosts. `.ces-imgpanel[hidden]{display:none}` is
   **required** — the author `display:flex` beats the UA `[hidden]` rule, and without it the panel sits
   permanently open and the click-to-edit toggle does nothing. Guarded by `.claude/test-video.js` (89 assertions).
+- **MAP CARDS — a shape on a globe as the question** (the `MAP CARDS` block in app.js, just above
+  `cardFrontHTML`; `us-states.js`; the Geography collection. Aug 2026, on request). The card shows a place
+  shaded on a globe the reader can turn and zoom but not click, and asks what it is; the back names it and
+  adds a box of figures. Two new card fields carry it — **`map`** (`{ layer, key, zoom? }`) and **`facts`**
+  (`[[label, value], …]`) — and everything else about such a card is an ordinary curated card. Six decisions
+  are load-bearing.
+  · **IT IS A BUILT-IN FORMAT AND NOT A COMMUNITY CARD TYPE, and that was settled before anything was
+    written.** A card type is templates plus scoped CSS and cannot run code — deliberately, since a type is a
+    stranger's content and `sanitizeHTML` plus the CSP exist to keep it inert. A globe needs a canvas, an
+    animation frame and pointer handlers, so it cannot be one, and the reasoning is worth keeping because
+    the request said "a new card type" and the honest answer was that the machinery it needs is exactly what
+    a card type may not have.
+  · **THE MAP IS DRAWN HERE RATHER THAN BY REUSING THE ATLAS.** `PAGES.map` is one enormous closure holding a
+    timeline, an editor, twelve layers, a search index and a game mode, all keyed to a full-bleed stage —
+    none of which belongs in a 260px window on a study card, and half of which (clicking a country to open
+    its panel) is exactly what this must NOT do. What is shared is the ARITHMETIC: `startCardGlobe`'s
+    orthographic basis is the Atlas's `setBasis`/`proj`, so a state sits where the Atlas would put it.
+  · **NOTHING IS CLICKABLE, which is the point of the exercise.** No click handler, no hit test, no hover.
+    The pointer turns the globe and the buttons zoom it — a reader who could tap the shaded state and be
+    told its name would not be studying. Asserted in `test-map-cards.js`, since a map that has become
+    clickable looks exactly like one that has not.
+  · **A MAP CARD IS KEPT OUT OF EVERY DAILY MINIGAME, BY CONSTRUCTION** (`gameCardIdSet` tests
+    `cardMapSpec`). The games deal a question cold with no map beside it, so "the state shaded on the map is
+    ____" is unanswerable there. Unlike `difficulty` and `undatable` this needs no editorial judgement and
+    so needs no field: a card whose clue is its map is by definition unanswerable without it. It also means
+    **`undatable` should NOT be set on one** — Timeline is behind that filter and can never reach it.
+  · **THE FIT IS READ OFF THE SHAPE**, centred on Natural Earth's published label point and zoomed so the
+    longest side fills a little over half the window, with `map.zoom` as an override no shipped card needs.
+    Fifty hand-tuned numbers would be fifty things to keep right. Two subtleties: the fit is taken from the
+    rings NEAR the label point (`nearRings`, ±25°), or **Alaska's bbox spans the antimeridian and it opens on
+    the whole planet** — while every ring is still SHADED, or the Aleutians drop out of Alaska — and
+    `fitTarget` takes those rings as an ARGUMENT rather than narrowing `target.p`, since `shapes[i] ===
+    target` is what stops the target being drawn twice.
+  · **AND IT IS HONESTLY INACCESSIBLE TO A READER WHO CANNOT SEE IT.** A shape is the whole question, so
+    there is no text alternative that does not give the answer away — an `alt` describing the outline has
+    answered the card. The canvas says what it IS and what to do with it, and the answer is announced
+    normally once revealed, so the card can be READ where it cannot be ANSWERED. That is the Picture round's
+    position; it is stated in `docs/geography-card-plan.md` rather than papered over.
+  **THE SHADED PLACE IS THE ATLAS'S OWN SELECTION GOLD, AND `TINT_SEL` IS HOISTED SO THERE IS ONE OF IT**
+  (Aug 2026, on request — it was `--ochre`, which renders as a mid brown, then briefly a gold of the
+  widget's own). That constant lived inside `PAGES.map`'s closure where a card could not see it, so the
+  card had a second gold; it is module scope now, beside `CARD_MAP_LAYERS`, and the Atlas closes over it.
+  **Two golds for one idea is exactly how they drift**, and this pair drifts INVISIBLY — a card and the
+  Atlas are never on screen together, so a second copy is just a slightly different gold nobody can see is
+  wrong. Hence `test-map-cards.js` asserts both halves: `app.js` defines `TINT_SEL` **exactly once** (a
+  re-copied local inside the closure would shadow the module one in silence) and the canvas really paints
+  it, with the expected values **read out of `app.js` rather than written into the test** — a literal
+  there pins today's value instead of the rule, which is `test-tour.js`'s own lesson about a button's
+  label.
+  **AND THE TREATMENT IS SHARED TOO, WHICH IT WAS NOT FOR A DAY** (Aug 2026, on a second request: "the
+  gold overlay doesn't really look the same as when I click a country on the atlas page"). The card
+  filled SOLID with a darkened edge, on the reasoning that the Atlas tints at 24% because a country
+  there sits over borders, cities, terrain and an era fill, where a card's land is a flat wash — so a
+  24% tint would leave the answer barely distinguishable. That reasoning was written down here and in
+  app.js and **it was wrong**, in the way this file keeps warning about: it was reasoned about rather
+  than LOOKED at. The tint is most of what the Atlas's selection looks like, and at a card's zooms one
+  state fills a third of the window, so it reads perfectly well. It is now the Atlas's three marks
+  exactly — `fillA` tint, `shadowBlur 9` glow, `lineWidth 2.6` stroke in `TINT_SEL.line`.
+  **The three numbers are written out rather than derived from `TINT_SEL.rgb`**: the outline is a
+  LIGHTER amber than the fill and the glow lighter still, and deriving them from one triple is exactly
+  what would quietly flatten that.
+  **PROVING IT IS A TINT NEEDED THREE ATTEMPTS AND THE FIRST TWO PASSED ON A SOLID FILL.** Picking the
+  fill out of a histogram by how WARM it is skips it entirely — a 24% tint is nothing like as saturated
+  as the solid gold it replaced, `r - b` falling from 209 to 54 — so the check measured an antialiased
+  fringe. SEARCHING the histogram for any pair of bulk colours satisfying the blend is worse: the glow
+  lays the same gold over the land at every alpha there is, so some pair always satisfies it. What works
+  is the pixel at the CENTRE of the window, which is inside the shaded shape by construction (`fitTarget`
+  centres on the target's label point, and Natural Earth's label point is inside its polygon) — the land
+  is then solved back out of the blend and required to be a real bulk colour on the canvas. Verified by
+  reintroducing the solid fill and the darkened edge; each fails.
+  **AND `h2r` HAD TO LEARN `rgb()`**, since `TINT_SEL` states its colour as a triple: without that branch
+  `parseInt` reads it as NaN, `|| 0` makes it black, and the state fills BLACK — which reads as a
+  rendering fault rather than as a colour that failed to parse.
+  **THE FIGURES SIT BESIDE THE ANSWER, NOT UNDER IT** (Aug 2026, on request), as a sibling of
+  `.answer-main` inside the coloured box — the slot `.answer-tr` already occupies on a Chinese card — which
+  is what lets them be a two-column grid rather than a row that wraps. They cannot be inside `.answer-av`
+  and be to the right of it. Below 640px `.answer` stacks, so "on the right" has nowhere to be and
+  `.card-facts` goes back under the answer at full width, still two columns, which at 390px is what the
+  tiles were sized for anyway.
+  **`facts` IS NOT THE DATE LINE and the two are easy to confuse**: `isDateList` caps the date line at four
+  rows and demands a number in every labelled row, so `Capital · Sacramento` cannot go there — the date line
+  carries dates and the facts box everything else, and a card may have both (`CARD_FACTS_MAX` 8, plain text).
+  **A CITY IS A DOT, AND A STATE ALONE CANNOT ASK ABOUT ONE** (`map.dot`, `window.US_CAPITALS`; Aug 2026,
+  on request — "when the answer term is a city, it should appear as a dot on the globe, not just show the
+  state"). A capital card shaded Rhode Island and asked for Providence, which says only which state: every
+  capital card in a state's subdeck would have been answerable from the same picture as its state card.
+  `map.dot` names a point in the layer's own `points` table (`CARD_MAP_LAYERS` gained `points` and
+  `dotWhat`) and it is drawn as **the Atlas's own focus mark** — the same gold at full strength, the same
+  5.5px radius, the same dark ring — on top of the shaded state, so the state answers "where" and the dot
+  answers "which place". Its NAME is held back until the reveal, and the reveal labels the DOT where there
+  is one, left-aligned beside it rather than centred over it, or the mark it names is under the word.
+  **THE COORDINATES ARE GENERATED, NEVER TYPED** — `build-us-states.js` emits `US_CAPITALS` from the same
+  Natural Earth download as the shapes (10m populated places), because fifty hand-entered coordinates are
+  fifty chances to put a city in the wrong state and a dot a degree out still draws, inside the shaded
+  state, on a card that looks entirely correct. **`cities.js` is the wrong source and was checked**: it is
+  in the ~9.9 MB `atlas` bundle, and it drops sub-100k capitals, so Juneau is simply absent.
+  **THE MARKER IS `FEATURECLA: "Admin-1 capital"`, NOT `ADM1CAP`** — that field does not exist in this
+  vintage, so the first extraction returned zero and a rule testing only the flag ships a dotless deck in
+  silence; both are read now. Each entry carries the state it is IN (`{s, c}`), which is what makes the
+  card's claim machine-checkable: `add-card.js` refuses a dot the table has not got, refuses one whose `s`
+  is not the card's own `key` (the dot would fall outside the shape), and warns if the answer is not the
+  city. The test asserts the same three off the shipped files, plus that every capital falls inside its
+  own state's bounding box.
+  **`add-card.js` validates the key against the real data file** and suggests a near match on a typo, since a
+  key naming nothing paints an empty window and throws; it also refuses extra phrasings on a map card and
+  holds its question to 5–20 words rather than 20–34, the picture being the clue.
+  **THE ZOOM CEILING IS WHAT THE POLYGONS SUPPORT** (`CMAP_ZMAX` 180), not what a place wants: at 3dp every
+  vertex sits on a 0.001° grid, which is half a CSS pixel at 180× on a 340px window and a visible step past
+  it. The District of Columbia is 0.15° across and wants roughly twice that, so it is the one entry of the
+  layer's 51 that is capped — measured, and reported by name by the test so a second cannot appear quietly.
+  Guarded by `.claude/test-map-cards.js`, which sweeps the fit over all 51 shapes, **asserts the VIEW rather
+  than sampled pixels** (an earlier drag check compared two pixels and reported "the drag did nothing" on a
+  globe that had turned four degrees — both samples sat on the same flat fill), and pins its own copy of the
+  fit formula against app.js so it cannot go stale. Its **section 7 is the dot**, and both ends of it are
+  needed because they fail differently and silently: a dot that never resolves leaves a perfectly good STATE
+  card under a city's question, and a dot drawn but never named on the reveal leaves the reader looking at a
+  gold speck nothing accounts for. It asserts the pure `TINT_SEL.rgb` triple appears in a small ROUND
+  quantity — which on a card is the dot and nothing else, the outline being a different colour and the fill a
+  blend of this one — and that `mc-failed` is NOT set, a missing capitals table being exactly what would take
+  the dot away without a word. **Re-run after touching the `MAP CARDS` block, `startCardGlobe` /
+  `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `TINT_SEL` /
+  `serializeCardData` / `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map
+  card.**
 - **ONE media panel on the card surface** (Aug 2026, on request — it was two, with a `.ces-media-swap` pill
   between them). A card shows one frame, so the editor offers one slot (`#cesMediaSlot`) and one panel
   (`#cesMediaPanel`, fields `data-mediafield="src|title|desc|credit"`), and the pasted URL decides which of the
@@ -8622,7 +10886,58 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   handler went with the markup. The title carries an explicit `<br>` after "Memorize anything," rather than
   leaving the two halves to the wrap: it is a promise and a price, and which line each falls on should not
   be a function of the column width. The banner shows a **🔥 day-streak
-  chip** (`S.streak`, shown at 2+ when the run is alive). **Completion is a MARK in the top-right corner, and
+  chip** (`S.streak`, shown at 2+ when the run is alive).
+  **…AND, SINCE AUG 2026 ON REQUEST, THE DAY'S TIME ON CARDS** (`S.studyTime = { d, ms }`, `studyTimeAdd` /
+  `studyTimeToday` / `fmtStudyTime` / `STUDY_TICK_MS` / `STUDY_IDLE_MS`; **`.rv-time` in the `.rv-foot`
+  row**, not in the banner — see the last bullet). Five things are decisions rather than plumbing.
+  · **THE MINIGAMES ARE EXCLUDED BY CONSTRUCTION, NOT BY A RULE** — the clock is a ticker living inside
+    `PAGES.study` and `studyTimeAdd` has exactly that one caller, so no game can reach it and none has to
+    be named. A rule listing the games would be a list to keep in step with the grid.
+  · **IT IS A TICKER, NOT A STAMP PER CARD.** What was asked for is the time a question or an answer was ON
+    SCREEN, and a card can be left mid-session, requeued, or read for three minutes with nothing graded —
+    none of which a per-grade duration sees. **It cannot be summed out of `revlog` either**: that records a
+    duration only for a card that was GRADED, capped at `REV_MAX_DS` (60s) precisely so a card left open
+    over lunch cannot claim two hours, so both a long read and an abandoned session count wrongly there.
+  · **TWO GUARDS MAKE THE FIGURE HONEST RATHER THAN MERELY LARGE**, and both matter on a phone: a tick is
+    discarded while `document.hidden` or after `STUDY_IDLE_MS` (3 minutes) with no pointer, key, wheel,
+    scroll or touch — a card left face-up on a table is not studying — and a tick is CLAMPED to twice its
+    own interval, so a laptop waking from sleep cannot hand the day eight hours in one go. The idle window
+    is deliberately generous: a reader three minutes into a 300-word background is reading it.
+  · **THE TICKER IS SELF-STOPPING ON `root.isConnected`**, the shape `startMiniGlobe` uses — `render()`
+    replaces `#view` without telling anyone and there is no teardown hook to hang it on — and it takes its
+    document-level activity listeners with it when it goes. It counts only while a `.study-card` is
+    actually painted, so the completion screen and the caught-up placard are not studying.
+  · **IT REACHES `save()` ONCE A MINUTE, not on every tick**: `save()` queues a synced push, and a push
+    every five seconds for a figure nothing else reads is a great deal of traffic for a clock. The grade
+    path saves anyway, so in ordinary use the day is written down card by card; at most a minute is lost to
+    an abrupt close, which is inside the honesty of the figure.
+  · **IT SITS AT THE BOTTOM LEFT OF THE REVIEW GROUP, NOT IN THE BANNER** (Aug 2026, on request — it was a
+    fourth `.stat` in the meta row beside New / Learning / Review, and `.banner .stat.st-time` is gone).
+    Those three say what is LEFT to do today and this says what has been DONE, so standing it among them
+    asked a reader to take four numbers of two different kinds off one line. It takes the left end of the
+    **`.rv-foot`** row instead, the line the "+ Add decks" lip already hangs from, so the two sit at the
+    two ends of the block's own bottom edge — which cost that row nothing, `margin-inline-start:auto` on
+    the lip having always held it right whatever stood to its left ("+ New group" did, until it went).
+    Two consequences worth knowing. Out there it is on the page's own **paper** rather than on the card,
+    where its `--ink-faint` label measures exactly what the About line below it already measures (2.78–5.23
+    across the six themes both ways, sampled from painted pixels; the shipped bar is folio/light/`body.hc`,
+    where it reads 4.96) — so it introduces no contrast state the site had not got. And it stops being a
+    figure over a word: the row is one small tab high, so it is **one line**, and it names the day now that
+    nothing beside it supplies one.
+  · **THE WORD LEADS AND THE FIGURE FOLLOWS** — "studied 13m today", not "13m studied today" (Aug 2026, on
+    request). A figure with its label under it is what the three piles in the banner are, and reversing the
+    order is what stops this reading as a fourth one: it is a sentence about the day rather than a labelled
+    statistic. Three flex children rather than two, so the row's own `gap` spaces them and no text node
+    carries a space of its own — and "today" is LAST, which is what lets `.rv-today` drop it below 430px
+    without leaving the line ungrammatical ("studied 3h 07m" is whole; "13m studied" was not).
+  The figure is day-stamped like `reviewDay` and `deckDay`, so it resets in place with nothing to run at
+  midnight, and is **drawn only once there is time to report** — a "0s" before the first card is a clock
+  saying nothing has happened, which the empty row already says. `fmtStudyTime` prints seconds below a
+  minute ("45s"), because rounding the first card of the day up to "1m" is a small lie and "<1m" is not a
+  figure. It is in `PROGRESS_FIELDS` (time studied is a fact about the reader, so a phone and a
+  laptop agree) and deliberately NOT in `RESET_KEEPS` — it is study history, which is what that control
+  names. Measured at 390px with everything on the row: it fits with the streak chip beside it.
+  **Completion is a MARK in the top-right corner, and
   it comes in TWO SHAPES** (`doneMarkHTML` in `PAGES.home`; Aug 2026). The tile used to FILL with its colour
   once played and turn gold on a perfect score, which was a lot of surface to change for one fact and fought
   every theme's own treatment of the card; that became a diagonal **ribbon**, and the ribbon then split in
@@ -8979,6 +11294,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     out of the arrows. Completing an entry then calls `nextOpen`, which finds the next entry still holding
     an unsolved square **and wraps**, so the last clue on the board leads back to the first rather than
     stopping dead.
+  · **A REVEALED LETTER IS RED, NOT GREEN** (Aug 2026, on request). Green is what a solved entry paints and
+    what locks a square against being typed over — it means "you got this" — so painting the whole board
+    green on a give-up told the reader they had answered a grid they in fact gave up on, and took away the
+    one thing they want to see afterwards: which letters were theirs. What each square WAS is read BEFORE the
+    answers are written over it, so a square whose own letter already matched stays green and every square
+    that was empty or wrong turns red; the clue rows keep their tick only where the reader earned it. The
+    whole square goes red for free, `.xw-sq:has(.xw-cell.bad)` already washing it.
   · **AND A GIVE-UP BUTTON REVEALS THE ANSWERS, WHICH HAD TO BE RECORDED** (`xwGaveUpToday` / `xwMarkGaveUp`,
     same request). The letters go into the very store the grid is restored from, so a revealed board reads
     back on the next visit as a board somebody filled in — a perfect score, a gold tile and a lifetime win.
@@ -9239,6 +11561,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `.globe-stage` and `.atlas-timebar` are each written ONCE against them rather than restated per
   breakpoint — which is how their old hard-coded `96px`/`118px` pair would have drifted apart the moment a
   third bar appeared. `.stage`, `#toast` and `.admin-edit-fab` take the same offset.
+- **THE WHITEBOARD MARKER CAN BE TURNED OFF ALTOGETHER** (`markerOn` beside `ensureWBTools`;
+  **Settings → Study → Whiteboard marker**, `S.settings.marker`, default ON. Aug 2026, on request). It floats
+  over every study card, every page of a book and the Atlas globe, and a reader who never draws has been
+  carrying it round the corner of the screen on all three. **ONE predicate, asked in the two places that
+  bring the marker into existence** — `showWBTools`, which puts the panel on screen, and `setupWhiteboard`,
+  which lays the ink canvas over the page — so a disabled marker costs a page neither the panel, the canvas
+  nor the pointer listeners that go with it. It needs no third gate: **the panel is the only way to put the
+  pen DOWN**, so `WB.enabled` can never become true and every page-specific hook (the globe's cursor, the
+  book's ink store) simply never fires. Two things are load-bearing. The guard in `setupWhiteboard` sits
+  AFTER that function's own teardown, or a fling or a resize listener left by the previous page would outlive
+  it. And the switch calls `hideWBTools()` when thrown OFF: Settings is not one of the three pages that mount
+  the marker, so nothing would repaint it away by itself, and a panel still floating over the page a switch
+  has just disabled reads as a switch that did nothing. Anything already drawn is kept — this decides whether
+  the marker APPEARS, not whether the ink exists.
 - **The whiteboard marker is DRAGGABLE anywhere on screen** (`wbMakeDraggable` / `wbApplyPos`, beside
   `ensureWBTools` — Aug 2026, on request). It is a fixed control floating over a card the reader is trying to
   read, and its default corner is exactly where some cards put the thing you want to look at.
@@ -10065,7 +12401,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `&` can produce no element and decode no entity, so `body.textContent` is provably the input and only
     the whitespace collapse is left. **88% of the string fields in a large deck take it**, and each was a
     DOMParser round trip. It applies everywhere, imports included — it is not gated on trust.
-  · **`UDECK_MAX_CARDS` is 12,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
+  · **`UDECK_MAX_CARDS` is 44,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
     applied by a silent `slice` in `uDeckNormalize`, and the failure shape is the one this file keeps
     recording: an over-size deck imported cleanly, toasted success, and was simply missing everything past
     the five hundredth card — which reads as a deck rather than as a failure, and is found weeks later by a
@@ -10073,20 +12409,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `uDeckImportText` turns any positive value into an error naming both numbers. **The slice stays** as the
     defensive floor, because that function also loads IndexedDB rows and installs, where refusing would mean
     a deck that cannot be opened at all. The number itself is a guard against a hostile file rather than a
-    view about how big a deck should be, and it is set from the largest legitimate deck anyone has brought:
-    the whole of HSK 3.0 in one file is 10,896 notes. **IT COUNTS NOTES, NOT CARDS**, which since reverse
-    cards is a real distinction — those 10,896 notes carry 21,792 cards to study — and it is deliberately
-    left on the thing the FILE holds, since what it guards is the cost of parsing somebody else's file.
+    view about how big a deck should be, and **it is set from the largest legitimate deck anyone has
+    brought — so a legitimate deck that will not fit is what MOVES it**, which has now happened three
+    times: the whole of HSK 3.0 in one file took it to 12,000, all the Italian in one to 20,000, and every
+    vocabulary deck on the shelf combined (`.claude/combine-decks.py`, **39,830 rows across five
+    languages**) to here. **A deck that size is usable and that was MEASURED rather than assumed** — see
+    the timings under that file's own bullet, and the Persistence bullet above for why a later boot is
+    cheap. **IT COUNTS ROWS IN THE FILE, NOT CARDS TO STUDY**, which since reverse cards is a real
+    distinction — and **it cuts BOTH ways, which is worth knowing before reading anything into the
+    figure**: HSK 3.0 asks a word in both directions from ONE row, by giving its card type two templates,
+    so its 10,896 rows are 21,792 cards; a deck whose two directions are separately addable SUBDECKS
+    cannot, a subdeck being a property of a row, so there a word is two rows and 16,782 rows is only 8,400
+    words. It is deliberately left on the thing the FILE holds, since what it guards is the cost of
+    parsing somebody else's file.
   · **…AND THERE IS A SECOND CAP, ON THE BYTES, which has to be kept in step BY HAND** (`UDECK_MAX_BYTES`,
-    48 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
-    whole file is a string and then an object, so something has to stop a 500 MB file before that. Two
+    128 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
+    whole file is a string and then an object, so something has to stop a 500 MB file before that. Four
     things about it. **It was 8 MB, unexplained, and nothing tied it to the card cap**: the two disagreed
     for a fortnight, and the HSK 3.0 level 6 deck had quietly come within 600 KB of it — an unrelated magic
-    number is how a legitimate deck comes to be refused for a reason nobody can find. At ~2 KB a note
-    (measured over these decks, whose notes are the largest here) the card cap comes to ~24 MB, and this is
-    twice that so a file at one cap can never be turned away by the other. And **the message names the
-    figures**: "too large to be a deck" tells a reader nothing they can act on, where the size and the limit
-    tell them how far to split it.
+    number is how a legitimate deck comes to be refused for a reason nobody can find. **The per-row figure
+    is measured, and has been stale TWICE**: the comment once said "~2 KB a note, measured over the HSK
+    decks, whose notes are the largest here" when the HSK rows are in fact the LIGHTEST, and the 4 KB that
+    replaced it was overtaken within the day by the bolding of the conjugation tables — measured over all
+    23 shipped decks it runs **1.08 KB a row** (Italian phrases, no paradigm) to **4.31** (DELE B1, a full
+    one), the combined file averaging 2.42. **THE STRICT DERIVATION IS THEREFORE ABANDONED, AND SAYING SO
+    IS THE POINT**: "the row cap × the heaviest row must fit" now means 185 MB, a byte cap that guards
+    nothing, justified by a file of 44,000 uniformly heaviest rows that does not exist. What is set is the
+    largest real file plus headroom, and the tension is left REAL rather than papered over — a deck of
+    30,000 all-heavy rows is under the row cap and over this one. That is tolerable **only because it is
+    not silent**: the message names the size AND the limit and says to split it, which is exactly what the
+    8 MB cap did not do.
+    **THE HONEST COST OF THE RAISE, stated in app.js and not only here**: a file near this cap is read into
+    a string and then `JSON.parse`d, so a phone briefly holds several times the file in JS heap and a deck
+    at the limit may fail to import on a low-end device where two half-size ones would not. The cap is a
+    guard against a hostile file, not a promise that anything under it imports anywhere.
   · **Bridges into the rest of the app** are deliberately few: `entryCardIds` / `entryInfo` /
     `activeEntryIds` (accept `u:` entries), `availableCardIdSet` (adds community cards so they reach the
     daily review), `buildSession`'s `scope.type === "udeck"`, and `cardById`. **The daily games are NOT
@@ -10295,6 +12651,50 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     one wording, so it cannot reach one of them and not the other.
     Guarded by the last two sections of `.claude/test-publish.js`, where a fresh browser context is a
     second device.
+  · **PRESENT ON THE DEVICE AND PRESENT ON THE ACCOUNT ARE TWO QUESTIONS, AND THE DECK PAGE ASKED ONLY THE
+    FIRST** (`accountHasDeck` / `deckInstallRowWrite` / `uDeckInstall`'s `adopt` branch / `.ddetail-adopt`;
+    Aug 2026, on a bug report — a deck imported and shared under one account, then added from the Shared
+    decks list under a SECOND account **on the same device**, reached no other device of that second
+    account). The bullet above is the sync, and the sync was never reached: **the failure is on the device
+    the deck was added on.**
+    Community decks are DEVICE-local and shared by every account signing in on the device — the whole
+    reason `by` exists, and stated three paragraphs up — so the second account meets the first's decks
+    already present. `deckDetailRender` derived its actions from `localDeckForRemote`, which answers *is
+    this deck on this device*, and read that as *does this account have it*: it showed **Study / Remove
+    from this device** and offered no way in. No `deck_installs` row was ever written, so the account's
+    list never mentioned the deck, so no other device could learn of it. **Nothing threw and nothing was
+    missing** — the deck was genuinely there and studiable — and the only symptom was on a different
+    device, where a deck that never arrives is indistinguishable from a deck nobody added.
+    Four things about the fix.
+    **THE QUESTION IS ANSWERED FROM THIS DEVICE'S OWN SYNC RECORD** (`by[id] === me` or `seen[me]`), which
+    is the pair `communitySyncInstalls` already reconciles on — so the page and the sync cannot come to
+    disagree, and it costs no request. Signed out there is no account to ask and device presence is the
+    only honest answer; the AUTHOR (`row.owner === me`) counts as having their own deck however they came
+    by it, since asking them to add their own published deck to their own account says the wrong thing.
+    **ADOPTING DOES NOT RE-MOUNT THE SERVER'S COPY**, and that is the load-bearing half. The obvious
+    implementation lets `uDeckInstall` run as usual, which overwrites the existing record — taking the
+    author's `origin: "mine"` away and with it their only handle on the published row, since `uDeckPublish`
+    PATCHes by `remoteId` and a record without one publishes a **second, separate deck** instead of
+    updating theirs. So the local record is left exactly as it is and only the ACCOUNT's list is written,
+    which is all that was ever missing. Asserted directly, because the loss would be silent until the
+    author next tried to ship an update.
+    **THE ADOPTED DECK IS THEN ALIGNED ONTO `deckIdFromRemote`** (`communityAlignDeckIds`, widened from
+    `origin === "installed"` to anything the account lists). Without it the two devices file the same deck
+    under different local ids — the adopting device keeps the random id its IMPORT minted — so the deck
+    arrives on the other device and the reader's `S.active` entry, daily limits, colour and groups all
+    stop at the device they were made on. That is the reader's actual complaint: it is the DAILY STUDY the
+    deck has to reach, and arriving in the Studio alone would have read as still broken.
+    **AND `by` IS RECORDED ONLY ON A SUCCESSFUL POST** (a pre-existing hazard this surfaced): `by[id] === me`
+    with no row on the server is read by the very next sync as a removal made on another device, so an
+    install whose POST failed had the deck **deleted off the device it was just added to** — and for an
+    adopted deck that would be the author's own copy. Unrecorded it simply stays unannounced, the reader
+    is told so in the toast, and nothing is lost.
+    Guarded by `test-publish.js`'s last section, which is the only one giving TWO accounts ONE device.
+    **It must NOT use `newSession`**: that helper's `addInitScript` is fixed at add time and re-writes its
+    account's session on every load, so a device switched to the second account is silently switched back
+    on the next navigation — the app stays signed in as the first while the mock answers as the second, and
+    the page then reads as the author looking at their own deck (which it did, and the section passed for
+    the wrong reason until the session was written by hand instead).
   · **The column guard — `guard_user_deck_columns()`.** RLS decides which ROWS you may write, **never which
     COLUMNS**. "edit your own decks" therefore let an owner PATCH their own `install_count`, `rating_avg`,
     `staff_pick` or even `owner` — inventing an editorial endorsement and a five-star average for
@@ -11084,6 +13484,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   CITATIONS (three spellings now — a card's `"sources":[…]`, glossary.js's whole `GLOSSARY_SOURCES` block, and
   artefacts.js's unquoted `sources: [`), and any **URL**, since a Commons file really is called
   `…c_2700_BC_(10465349433).jpg` and renaming it in an href breaks the picture.
+  **THE CENTURY RULE HAS A DELIBERATE GAP AND IT SHOULD STAY** (Aug 2026): `ORD_RE`'s lookahead is `\s*`, so
+  it does not see the ATTRIBUTIVE hyphenated form — "nineteenth-century city", "second-millennium BCE".
+  Measured when it was found: **32 hyphenated century NUMERALS against 2 hyphenated WORDS**, so the house
+  convention plainly covers the shape and the rule simply cannot reach it. **Widening it to `[\s-]*` was
+  tried and reverted**, because the cases it then finds are not all violations and `--fix` would damage two
+  of them: `Eighth-century_revival` is a GLOSSARY KEY and the term's own name, and "A Seventeenth-Century
+  manual of arms" sits inside an image credit quoting the scan's own book title — neither of which the
+  citation mask covers. It wants a pass that masks glossary keys and quoted titles first, which is a job of
+  its own rather than a character class. The reasoning is in the script's own header too.
 
 **FOLIO IS A HISTORY SITE, NOT AN ARCHAEOLOGY SITE (Aug 2026, on request).** A card is about the PAST it
 names, not about the people who dug it up: the excavation is how we know, not what the reader came for.
@@ -11185,7 +13594,7 @@ shipped `data.js` — the China deck was trimmed to nothing and regrown as `wh-`
 `placeholder: true`, so it sits under "Coming soon" and `availableCardIdSet()` (app.js) keeps its cards
 out of the daily review, the games, the card of the day and study deep-links.
 
-**THE TEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE ELEVEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -11204,6 +13613,7 @@ lookup.
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
+| Geography | `geography` | `geo-` | `docs/geography-card-plan.md` | 1 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
 
 The next id for any of them (substitute the prefix):
 
@@ -11593,6 +14003,44 @@ from the start** at the `GLOSS_SRC_TARGET` bar, and mind that this collection ha
 ordinary-English-word surfaces than any other (`Resistance`, `Blitz`, `Ultra`, `Enigma`, `Overlord`)
 because operation code names were chosen to be ordinary words: use `GLOSSARY_CASESENSITIVE` or the full
 form as the head word (`Operation Barbarossa`, not `Barbarossa`).
+
+**GEOGRAPHY (`geography`) is the ELEVENTH and is not like the other ten (Aug 2026, on request).** Its deck
+is `geo-us` The United States, in two subdecks — `geo-us-states` (`geo-001`–`geo-050`) and
+`geo-us-capitals` (`geo-501`–`geo-550`) — and its plan is `docs/geography-card-plan.md`, used the same
+way: **"generate the next Geography card" means take the lowest `geo-NNN` not yet in `data.js`, read its
+subject from that plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
+The next number is:
+`node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='geo-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"`
+**Five cards are written** — `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode
+Island and `geo-504` Providence — so the next state is `geo-005` and the next capital `geo-501`.
+**IT IS 100 CARDS, NOT 1000**, which is the first thing that differs and is declared in
+`test-card-plans.js`'s own `PLANS` table rather than assumed: the other ten each run a contiguous 1–1000
+and this runs 1–50 and 501–550. **A capital is `geo-500+N` for state `N`**, so `geo-004` Rhode Island and
+`geo-504` Providence are the same state seen twice — the two subdecks show the same fifty pictures and ask
+two different questions of them, and `studyOrder`'s round-robin lag then deals a state and its capital a
+day apart, which is the right way round.
+**ITS CARDS USE A FORMAT NO OTHER COLLECTION USES** — a MAP CARD, which puts a globe on the front and asks
+what the shaded shape is; see the map-card bullet under "How the app is wired" for the machinery and the
+plan for the rules it imposes on the writing. The two that bite hardest: **a map card carries NO extra
+phrasings** (`add-card.js` refuses them — two more ways of describing one shape is the same sentence
+twice), and **its question is 5–20 words** rather than 20–34, the picture being the clue.
+**THE RUNNING ORDER IS BY HOW RECOGNISABLE THE OUTLINE IS**, not alphabetical and not by anything else:
+that is the question the card actually asks, and alphabetical would open on Alabama, Alaska and Arizona.
+Four bands, unmistakable to hard, ending on the plains rectangles and the New England cluster — which are
+the reason a shape deck is worth studying at all.
+**THREE GLOSSARY COLLISIONS ARE ALREADY WAITING and each is named in the plan rather than left to be
+discovered**: `Alaska` exists and is a prehistory framing written for `wh-097` Beringia, so it must be
+EXTENDED rather than replaced; `Olympia` exists and is the Greek sanctuary, so Washington's capital needs
+a disambiguated key and must not claim the bare surface; and **`Georgia` is an ALIAS of
+`Georgia_(country)`**, which is batch N7's own recorded lesson arriving on schedule — *an alias list
+written before the sibling term existed will contain the sibling's name*. Decide that one explicitly when
+`geo-027` is written; do not add a second claimant to one surface and let the two race.
+**AND ITS SOURCING IS THE BEST ON THE SITE, which is worth knowing before assuming a US subject is hard**:
+the Census Bureau publishes area and population as CSVs, the Library of Congress publishes per-state
+resource guides with named authors and revision dates, and the National Park Service publishes real
+history under `/learn/historyculture/`. Two access findings in the plan: `history.house.gov`'s statehood
+pages serve a **200-status "Error Document"**, and the state-capital city governments are the weak point —
+JavaScript sites with no citable text — which is why a capital card leans on the Census place file.
 
 **ENGLISH ONLY (Aug 2026, on request): a new card or glossary term does NOT need its nine translations.**
 The site ships in English while the work is on making the English as good as it can be, so put the effort
@@ -12333,7 +14781,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Forty committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Forty-one committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-scheduler.js` and `test-streak-chest.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -12502,7 +14950,8 @@ dead code (never rendered).
     **or any of `supaSignIn` / `supaEmailForUsername` / `supaSwitchTo` / `supaRemember` / `supaForget` /
     `supaSetEmail` / `SUPA_ACCTS_KEY`** — a switch that carries the outgoing account's progress across is
     exactly what its `_supaOwner` assertions exist to catch, and nothing on screen would say so.**
-  · `node .claude/test-video.js` — 89 assertions on card + glossary videos: that every accepted link shape
+  · `node .claude/test-video.js` — 100 assertions on card + glossary videos **and the fullscreen viewer's
+    gestures**: that every accepted link shape
     resolves to the embed this code builds and **every other URL resolves to no player at all** (the check
     that keeps an `<iframe src>` off untrusted input), that the frame is byte-for-byte the image's frame
     (computed border-radius / aspect-ratio / border / size), that the expand control opens the viewer and a
@@ -12516,6 +14965,15 @@ dead code (never rendered).
     same-origin 404 leaves the AUTHOR the frame, marked and worded, and leaves the READER nothing at all
     (`height:0`, out of the flow — not a blank 16:9 box), with a click on it opening no empty viewer.
     Both halves matter: hiding it everywhere would leave the author with no way to notice.
+    **Its ninth section is the VIEWER'S GESTURES, and every assertion in it is made with REAL mouse and REAL
+    touch on purpose** (Aug 2026): a synthetic `PointerEvent` dispatched at an element BYPASSES
+    pointer-capture retargeting, which is the whole of the bug it exists for — `setPointerCapture` makes
+    every later event target the STAGE, so the tap toggle's `e.target === im` was false for a real finger
+    even dead centre of the picture and the close-on-backdrop branch took every press. **A synthetic version
+    of these checks passes on the broken code**, verified by reintroducing the fault. It covers the click
+    that must not close (on the picture and on the space around it), the tap that must zoom, the drag that
+    must pan without toggling the zoom back, a CDP two-finger pinch with `.iv-live` on during it, and the ×
+    as the only way out.
     **Re-run after touching `videoSource` / `cardVideoHTML` / `openMediaViewer` / `retireOther*Media` /
     the delegated `error` listener / `.media-dead` / the media panel, or the `media-src`/`frame-src` CSP.**
   · `node .claude/test-gloss-image.js` — 44 assertions on glossary images: the popup floats one to the
@@ -12693,16 +15151,22 @@ dead code (never rendered).
     theme is caught. The default mode is REPORTED — the quiet tokens are quiet on purpose and the high-contrast
     mode is the answer to them — while **with `body.hc` on, nothing may fall short**, which is the assertion.
     **Re-run after touching a control's markup, `body.hc`, or any theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 125 assertions on **the join between the ten card plans and
+  · `node .claude/test-card-plans.js` — 150 assertions on **the join between the eleven card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. Everything it guards
     fails SILENTLY, and the worst of them is not a crash: **a plan naming a deck id the tree hasn't got
     makes `add-card.js` file the card in the FIRST leaf of the whole tree, which is `cn-myth`, in
     China** — nothing throws, and the card sits in the wrong collection until somebody notices. It also
     asserts that no leaf in `data.js` goes unnamed by a plan (cards could never be routed there), that
-    each running order covers 1–1000 with no gaps, no duplicate ids and no two cards naming the same
+    each running order covers **the numbers its own collection declares** with no gaps and nothing
+    outside them, no duplicate ids and no two cards naming the same
     topic, that CLAUDE.md carries every plan and a working next-id command, and that the **index table**
     under "Generating cards & glossary entries" still matches the tree. **No browser and no
-    dependencies.** Two things it had to learn, both of which made a first draft report faults that were
+    dependencies.**
+    **A COLLECTION NEED NOT BE A THOUSAND CARDS, and the numbering is DECLARED rather than assumed**
+    (Aug 2026, adding Geography). The check was a flat 1–1000, which is right for the ten planned
+    histories and wrong for a deck of fifty states and their fifty capitals: `PLANS`' third element is
+    now either `1000` or a list of ranges (`[[1,50],[501,550]]`), and a number outside the declared set
+    fails too — a mistyped one otherwise reads as a card the plan does not have. Two things it had to learn, both of which made a first draft report faults that were
     not there: **a `##` heading may name a FLAT DECK** — a deck that is itself a leaf (`gr-iron`,
     `ru-federation`, `cn-myth`) — so reading only `###` misses it and reading `##` as always-a-leaf
     misfires on the branch decks; and **`docs/world-history-card-plan.md` carries an appendix**, the
@@ -12939,6 +15403,29 @@ dead code (never rendered).
     info panel** — the reader has just read the term, and a second description is not what the marker
     offered. **Re-run after touching `glossPlace` / `focusPlace` / `CITY_SEP` / `computeCityLayout` /
     `gsIndex` / `hmOpacity`, or after re-running `.claude/fetch-place-coords.js`.**
+  · `node .claude/test-map-cards.js` — **the geography map-card format** (76 assertions, Aug 2026), half of it
+    with no browser. Everything it guards is silent on the page. **The FIT**: a map that does not frame its
+    state still draws a globe — the reader gets an ocean, or a continent with a speck in it — so it sweeps
+    all 51 shapes and asserts each fills a useful part of its window without overflowing, that Alaska's fit
+    ignores the rings across the antimeridian, and that **at most one entry sits at the zoom ceiling**, which
+    it names (the District of Columbia). **The RESOLUTION**: a floor on Rhode Island's vertex count and on
+    the layer's, which is what fails if somebody re-syncs the tolerance to world.js's and turns the bay back
+    into three spikes — no count of states or rings can see that. **The BEHAVIOUR**: dragging turns the globe
+    and does not zoom it, the three buttons do what they say, recentre returns EXACTLY to the opening view,
+    and a click opens no place panel and no popup of any kind. **The SERIALIZER**: `map` and `facts` carried
+    by `serializeCardData` and restored by `revertCard`, read out of app.js by text — a whitelist that drops
+    a field strips it from every card on the next admin keystroke. Plus that map cards are out of
+    `gameCardIdSet`, that `us-states.js` is lazy and not in `index.html`, and that each card's key names a
+    shape the layer actually has.
+    **ASSERT THE VIEW, NOT PIXELS** — `_folioMap.view()` exists for this. An earlier drag check compared two
+    sampled pixels and reported "the drag did nothing" on a globe that had turned four degrees, both samples
+    having landed on the same flat fill. **And its copy of the fit formula is PINNED against app.js** (the
+    span, the zoom, the near-ring test, the disk radius, and both zoom limits read out by regex), because
+    the real fit lives inside `startCardGlobe`'s closure with no way in from outside and a copy is exactly
+    what goes stale. Verified against two reintroduced faults — the game filter removed, and the layer
+    re-coarsened — each caught. **Re-run after touching the `MAP CARDS` block, `startCardGlobe` /
+    `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `serializeCardData` /
+    `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map card.**
   · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's restricted
     pool** (75 assertions), and every one of
     its checks is for something that fails SILENTLY. **The wiring**: each of the three is a route, has a
@@ -13542,3 +16029,34 @@ dead code (never rendered).
   `applyAdminEdits`) and **must list every overlay key — `mission` was once missing from the load path, silently dropping
   Mission-page edits on reload**. **Hygiene:** after baking the overlay into `data.js`/`glossary.js`/`timeline.js` and
   deploying, reset `content_overrides.data` to `{}` (Table Editor) so a stale cloud overlay can't shadow the newer shipped files.
+  · **AN OVERLAY DELTA IS KEYED BY ID, SO RENUMBERING IDS SILENTLY REPOINTS EVERY EDIT** (Aug 2026, on a bug
+    report: "some cards in the World History collection are getting their background sections mixed up with
+    those of other cards"). The key is the ONLY thing joining an edit to its subject, and it lives in a
+    Supabase row that no repo operation touches — so the day an id changes meaning, the delta goes on being
+    applied and paints its content onto whoever inherited the number. The **2026-08-04 World History
+    renumbering** moved 89 cards into their planned slots and left the previous week's live edits on the old
+    numbers: seven cards spent the next fortnight showing another card's background, and the mapping was
+    exact both ways — old `wh-001` is now `wh-046`, so `wh-001` (Prehistory) served the Paleolithic card's
+    prose, while `wh-014` and `wh-017`, which map to themselves in the table, stayed correct. **Nothing threw
+    and no count could see it**: the question, answer, date line, difficulty and star rating are all read
+    from `data.js` and were right, and only the prose inside the Background fold was wrong — which is why it
+    took a reader to notice. **Renumber the overlay in the same pass as the cards, or clear it**;
+    `docs/world-history-card-plan.md` holds the old→new table.
+    **AND THE SAME ROW ACCUMULATES DAMAGE NOBODY IS WATCHING.** Audited at the same time, that overlay was
+    also **deleting `col-41` and `col-42`** — the live United States and Russia collections, gone from the
+    Collections page for every visitor — re-creating decks retired in the same replan, **shadowing the fixed
+    1900 map** with the pre-fix one (no Ottoman Empire, no Greece; see `build-era.js`'s `SUP_MIN`), and
+    carrying eleven further timeline eras byte-identical to the shipped ones as dead weight. Of 4 MB, three
+    things were worth keeping. **`node .claude/check-overlay.js` is the audit** — it reads the live row
+    against the shipped files and reports a delta whose prose belongs to another card, a delta pointing at a
+    dead id, a live collection the overlay deletes, timeline eras that differ, footnote markers or licence
+    attributions an edit has dropped, and what the row costs every visitor. **Run it after any renumbering
+    and after baking.**
+    · **A CONTENTEDITABLE ROUND TRIP IS NOT LOSSLESS, and what it drops is the apparatus.** Several edits in
+      that row had lost **every** `<sup class="fn">` marker while the prose stayed word-for-word identical
+      (both artefacts, four glossary descriptions, one abstract) — so the citations were still listed and
+      nothing pointed at them, which `add-sources.js` refuses and no render-time check can see. Others moved
+      a space inside the opening `<b>` (`The<b> Minoan`), dropped an image's `alt`, or dropped the licence
+      line out of a picture's `desc` — losing a required CC BY-SA attribution. Ordinary typing is safe
+      (verified in a browser); it is select-all, paste and heavy restructuring that strip them. **Check the
+      marker count after editing prose that carries citations**, which is what `check-overlay.js` does.

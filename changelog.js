@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.267", released: "2026-08-20T05:58Z" };
+window.FOLIO_VERSION = { v: "1.277", released: "2026-08-20T06:24Z" };
 
 window.CHANGELOG = [
   {
@@ -48,10 +48,26 @@ window.CHANGELOG = [
   },
   {
     d: "2026-08-15",
-    t: "Ancient Greece gains cards, and a card in Ancient Rome is rewritten around the land, its people and how we know about them",
+    t: "A new Geography collection asks you to name a state from its shape on the globe, an enlarged picture stays open while you zoom it, and your daily study times your day",
     items: [
-      "Twenty-one new cards in the <b>Ancient Greece</b> collection, with twenty new glossary terms.",
+      "<b>A new Geography collection</b> asks you to name a state shaded in gold on a globe you can turn and zoom, or a capital marked on it with a dot, with its figures beside the answer.",
+      "<b>Twenty-six new cards</b>: twenty-one in <b>Ancient Greece</b>, with twenty new glossary terms, and five in the new <b>Geography</b> collection.",
+      "<b>A shared deck already on your device can now be added to your account</b>, so it reaches your other devices instead of staying on the one you added it on.",
+      "<b>Seven World History cards were showing another card's background</b>, and now show their own again.",
+      "<b>An enlarged picture no longer closes when you tap it</b>, and can be pinched to zoom on a phone; the × in the corner is the way out.",
+      "<b>A card now shows how well known its answer is</b>, as five stars in its top right corner.",
+      "<b>Your daily study now says how long you have spent on cards today</b>, under the list of decks, counting the study page alone and none of the daily games.",
+      "<b>The Grave Circle A card now shows the grave circle itself</b>, photographed from above at Mycenae.",
       "<b>A card in the Ancient Rome collection has been rewritten</b> around the land, its people and how we know about them, rather than its languages.",
+      "<b>The whiteboard marker can be turned off altogether</b>, in Settings under Study, so it stops appearing over cards, books and the Atlas.",
+      "<b>The card browser now loads more cards as you scroll</b>, instead of stopping at the first 300 and asking you to narrow the search.",
+      "<b>An artefact's plate now carries its rarity as a colour</b>, washed down the page, and the button to show it on your profile has moved to the top.",
+      "<b>Every picture now carries a title and a description</b>, and several hundred captions have had their spelling and punctuation corrected.",
+      "<b>Giving up on the crossword now fills the answers in red</b> rather than green, so the letters you found are still the ones marked as yours.",
+      "<b>The maximum reviews a day now starts at 50</b> rather than 200, for any deck you have not given a limit of its own.",
+      "<b>Finishing a study session now takes you back to the home page</b> rather than to the collections.",
+      "<b>A deck's options menu ignores a press for a moment after it opens</b>, so the finger that opened it can no longer choose a row by accident.",
+      "<b>A deck file may now hold up to 44,000 words and 128 MB</b>, up from 12,000 and 48 MB, so a large course no longer has to be split into parts to be imported.",
     ],
   },
   {
