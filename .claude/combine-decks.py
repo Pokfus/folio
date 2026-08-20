@@ -67,6 +67,20 @@ PARTS = [
     ('Italian-Core-Vocabulary.folio-deck.json', 'Italian', 'Core vocabulary'),
     ('Italian-Phrases-Expressions.folio-deck.json', 'Italian',
      'Phrases and expressions'),
+    # Indonesian is named by its PREDICATE and not by a CEFR band, because UKBI
+    # does not use one -- and the predicate is what a candidate quotes, so the
+    # path carries both the number the deck is studied in and the name the
+    # certificate prints.  The eighth is not a predicate; see `.claude/ukbi/`.
+    ('UKBI-1-Terbatas-Indonesian.folio-deck.json', 'Indonesian', 'UKBI 1 Terbatas'),
+    ('UKBI-2-Marginal-Indonesian.folio-deck.json', 'Indonesian', 'UKBI 2 Marginal'),
+    ('UKBI-3-Semenjana-Indonesian.folio-deck.json', 'Indonesian', 'UKBI 3 Semenjana'),
+    ('UKBI-4-Madya-Indonesian.folio-deck.json', 'Indonesian', 'UKBI 4 Madya'),
+    ('UKBI-5-Unggul-Indonesian.folio-deck.json', 'Indonesian', 'UKBI 5 Unggul'),
+    ('UKBI-6-Sangat-Unggul-Indonesian.folio-deck.json', 'Indonesian',
+     'UKBI 6 Sangat Unggul'),
+    ('UKBI-7-Istimewa-Indonesian.folio-deck.json', 'Indonesian', 'UKBI 7 Istimewa'),
+    ('Indonesian-Phrases-and-Expressions.folio-deck.json', 'Indonesian',
+     'Phrases and expressions'),
     ('HSK1-Mandarin.folio-deck.json',     'Mandarin', 'HSK 1'),
     ('HSK2-Mandarin.folio-deck.json',     'Mandarin', 'HSK 2'),
     ('Mandarin-Chinese.folio-deck.json',  'Mandarin', 'HSK 3.0'),
@@ -79,7 +93,8 @@ PARTS = [
 # listed, and named here so the unlisted-file check above can tell "an artefact
 # we already know about" from "a deck somebody added and this table missed".
 ARTEFACTS = {'French-A1-C2.folio-deck.json', 'Italian-Complete.folio-deck.json',
-             'DELE-A1-B2-Spanish.folio-deck.json', OUT}
+             'DELE-A1-B2-Spanish.folio-deck.json',
+             'Indonesian-UKBI-1-7-and-Expressions.folio-deck.json', OUT}
 
 
 def app_const(name, src):

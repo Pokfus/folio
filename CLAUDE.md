@@ -3722,13 +3722,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   levels of the 2026 standard plus the two the syllabus leaves out, **Phrases** (159) and **Idioms** (477
   chengyu). 22 MB in all. The DELE Spanish set sits beside it and is built by `.claude/dele/`, the
   **Goethe German set** by `.claude/goethe/`, the **CAPLE Portuguese set** (all six CEFR levels, plus a
-  seventh deck of phrases and expressions) by `.claude/caple/`, and the **French set** — DELF A1–B2,
+  seventh deck of phrases and expressions) by `.claude/caple/`, the **French set** — DELF A1–B2,
   DALF C1–C2 and a seventh of **common phrases and expressions** (402), seven files plus a **combined
   `French-A1-C2`** (7,648 notes / 15,296 cards, a subdeck per level and one of idiom) — by
-  `.claude/delf/` — see their own bullets below. **A COMBINED FILE IS GITIGNORED**, French and Spanish
-  alike: it is an artefact of the levels it combines rather than another deck, so committing it
-  duplicates every megabyte the repo already carries for them, and its own `combine.py` regenerates it
-  byte for byte.
+  `.claude/delf/`, and the **UKBI Indonesian set** — all seven predicates plus an eighth deck of
+  phrases, idioms and proverbs (228) — by `.claude/ukbi/`: see their own bullets below. The Indonesian
+  one is the odd one out and its bullet says why: **its exam board publishes no word list at all**, so
+  unlike every other deck here its vocabulary is assembled rather than read, and the deck's own
+  description states that in those words. **A COMBINED FILE IS GITIGNORED**, French, Spanish, Italian
+  and Indonesian alike: it is an artefact of the levels it combines rather than another deck, so
+  committing it duplicates every megabyte the repo already carries for them, and its own `combine.py`
+  regenerates it byte for byte.
   · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
     phrases and the idioms are the same card type from the same corpus, so three files was three imports
     and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
@@ -5823,19 +5827,750 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   current description. The browser checkers are `check-delf.js <level>` for a level,
   **`check-phrases.js`** for the expressions and `check-combined.js` for the combined file. Not part of
   the site.
+- `.claude/ukbi/` — the generator behind the UKBI Indonesian decks: **level 1
+  `UKBI-1-Terbatas-Indonesian.folio-deck.json`** (500 notes / 1,000 cards, 533 KB), **level 2
+  `UKBI-2-Marginal-Indonesian.folio-deck.json`** (750 / 1,500, 789 KB), **level 3
+  `UKBI-3-Semenjana-Indonesian.folio-deck.json`** (1,000 / 2,000, 925 KB), **level 4
+  `UKBI-4-Madya-Indonesian.folio-deck.json`** (1,500 / 3,000, 1.09 MB), **level 5
+  `UKBI-5-Unggul-Indonesian.folio-deck.json`** (2,000 / 4,000, 1.10 MB), **level 6
+  `UKBI-6-Sangat-Unggul-Indonesian.folio-deck.json`** (2,500 / 5,000, 1.14 MB) and **level 7
+  `UKBI-7-Istimewa-Indonesian.folio-deck.json`** (1,500 / 3,000, 618 KB — smaller than the level below it,
+  for the reason its own bullet gives).
+  `python3 .claude/ukbi/run.py [--level 1..7] [--no-fetch]`. Six stages, caching its
+  corpora in `.claude/ukbi-cache/` (~180 MB, gitignored). PYTHON, like `.claude/dele/` and `.claude/goethe/`
+  and unlike every other helper here, for the same reason: a further level is a re-run rather than a rebuild.
+  **ONE LEVEL PER RUN** (`ukbi_level` reads the level once, at import), and a level is taught on top of the
+  ones below it, read out of the SHIPPED deck files so they cannot drift — the DELE arrangement exactly.
+  **THE LEVELS ARE NUMBERED FROM THE BOTTOM, which is the opposite of how UKBI prints them.** UKBI reports a
+  *peringkat* I–VII from the TOP down, so Istimewa is I and **Terbatas is VII, score 251–325, the lowest**. A
+  learner meets them the other way up, so the decks are numbered in the order they are studied and the
+  predicate's own name is carried in the title. Level 1 is Terbatas, level 2 Marginal (peringkat VI, score
+  326–404), level 3 Semenjana (V, 405–481), level 4 Madya (IV, 482–577), level 5 Unggul (III, 578–640),
+  level 6 Sangat Unggul (II, 641–724) and level 7 Istimewa (I, 725–800). **All seven are built.**
+  **A PREDICATE'S NAME MAY BE TWO WORDS AND A FILE NAME MAY NOT HAVE A SPACE IN IT** — the first five are
+  single words, so `DECK_FILES` went five levels before Sangat Unggul wrote `UKBI-6-Sangat Unggul-….json`,
+  a name that works on disk, breaks any shell command typed without quoting it, and is what every reader
+  who saves the deck gets. The hyphen is applied to all seven, which leaves levels 1–5 byte-identical
+  because a name with no space cannot change.
+  **A LEVEL'S SCOPE IS ITS OWN DESCRIPTOR, AND THE DESCRIPTOR EXCLUDES AS WELL AS INCLUDES.** Terbatas is
+  "keperluan **sintas**", survival, so `SECTIONS_1` is greetings, numbers, days, food, money, the body and the
+  closed classes. Marginal is everyday and community life **and its official descriptor says outright that a
+  candidate at this level cannot yet use Indonesian for professional or academic purposes** — so `SECTIONS_2`
+  is feelings, the home, clothes, errands, travel, narration and opinion, and deliberately carries no office,
+  no contract and no essay vocabulary. **Semenjana is where that door opens**: "keperluan **keprofesian yang
+  tidak kompleks**", non-complex professional purposes, so `SECTIONS_3` is precisely the list level 2 refused
+  to write — a job, a rota, a colleague, a payslip, a bank, a government counter — plus the abstract and
+  connective vocabulary a paragraph is built out of. **The same list is wrong one level down and right one
+  level up, and the descriptor is what says which**, which is why the two section headers should be read
+  together. `keilmiahan` (academic) is still shut at Semenjana, so there is no `hipotesis`, `metodologi` or
+  `analisis` in it either.
+  **MADYA IS THE FIRST LEVEL WHOSE DESCRIPTOR ADDS NO NEW DOMAIN, AND THAT HAD TO BE READ RATHER THAN
+  ASSUMED.** Every step so far opened a door — survival, then community life, then the non-complex
+  professions — so the obvious reading of a fourth level is a fourth subject area. Madya's descriptor says
+  something else: "berkomunikasi untuk keperluan sintas dan kemasyarakatan **dengan baik**", the SAME
+  purposes as the levels below, done WELL, with the professional ones still short of the complex end and
+  academic communication still out of reach. So `SECTIONS_4` is not a new field but the vocabulary that
+  doing the old ones well takes — the shape of an organisation, how work is planned and checked, a formal
+  letter, a meeting, rules and what breaks them, and above all the `ke-…-an` abstractions and the hedges a
+  formal sentence is built out of. **Ask what the descriptor's ADVERB is doing before writing the next
+  inventory**; here it is carrying the whole of the difference.
+  **AND UNGGUL'S DOOR IS NAMED BY THE LEVEL BELOW IT, IN AS MANY WORDS.** Madya's descriptor ends "tetapi
+  masih mengalami kendala dalam hal keprofesian yang **kompleks**"; Unggul's says the candidate "tidak
+  terkendala … untuk keperluan keprofesian, baik keprofesian yang sederhana **maupun kompleks**". So `SECTIONS_5`
+  is not a subject area chosen here — it is the one thing the level below states it cannot do, lifted:
+  contracts, the papers a complex job turns on, accounts and the money markets, what a company is and who
+  governs it, courts, specifications, the standard Indonesian of computing, and the vocabulary of integrity
+  and its failures. **Read the next level's descriptor against the current one's LIMIT clause**; three times
+  now the two have fitted together exactly.
+  **AND SANGAT UNGGUL'S DOOR IS OPENED BY AN ADJECTIVE.** Its descriptor grants survival, social and
+  professional purposes outright and then says "Untuk kepentingan akademik yang **kompleks**, yang
+  bersangkutan masih memiliki kendala" — and **constraining the HARD case is a statement that the ordinary
+  one is within reach**, so this is where `keilmiahan` begins and only its hardest end waits for Istimewa,
+  whose descriptor is the first to list academic purposes among the things with no kendala at all. So
+  `SECTIONS_6` is the STUDENT'S register rather than the professor's: doing a piece of research and writing
+  it up, the parts of a paper, the apparatus of citation, the university and its degrees, argument and the
+  evidence under it, the words for judging a claim, and the language a test of Indonesian uses to talk about
+  Indonesian — not the internal terminology of any one field. **Much of the obvious list had already been
+  taught**: `penelitian`, `hipotesis`, `teori`, `metode`, `analisis`, `sampel`, `populasi` and some seventy
+  more arrived on frequency alone at lower levels, because film dialogue talks about science. What is left
+  for an inventory at this level is the part a corpus of SPEECH never says aloud — the apparatus.
+  **AND ISTIMEWA'S DESCRIPTOR IS THE ONLY ONE OF THE SEVEN THAT NAMES NO LIMIT AT ALL**, which is where the
+  chain of "read the next level's descriptor against the current one's LIMIT clause" finally stops: it says
+  the candidate "memiliki kemahiran yang **sempurna**" and lists survival, social, professional AND
+  `keilmiahan` among the purposes with no kendala whatever, where every level below names something it
+  cannot yet do. So there is no door left for `SECTIONS_7` to open, and the level is not a subject area but
+  a REGISTER — the derived morphology a formal Indonesian sentence is built out of (`-isme`, `-itas`,
+  `ke-…-an`, `peN-…-an`), the doctrines and disciplines a scholarly argument names, argument itself and the
+  language used to talk about language, and the administrative and legal vocabulary. **Ask what is left when
+  a descriptor states no limit**; the answer here is the WORDS rather than the topics.
+  **THE ACADEMIC DOOR IS THE LAST ONE, AND THE MADYA HEADER GUESSED IT WRONG.** That header said `keilmiahan`
+  "is Unggul's", written while building level 4 from the reasonable assumption that a ladder opens one door
+  per rung. The board's own descriptors say otherwise: Unggul's does not mention `keilmiahan` at all, and
+  **Sangat Unggul's — one rung higher still — says "Untuk kepentingan akademik yang kompleks, yang
+  bersangkutan masih memiliki kendala"**. Academic communication opens at Istimewa. The wrong sentence is
+  left in `supplement.py` with the correction under it, because its shape is the one to remember: **a claim
+  about the NEXT level, made while writing the current one, from a pattern rather than from the source.**
+  Read the descriptor of the level you are naming, not the one you are building. **IT WAS THEN MADE A SECOND
+  TIME, IN THE VERY NEXT HEADER, BY SOMEBODY WHO HAD JUST CORRECTED IT** — level 5's said writing about the
+  literature "is Istimewa's" — so it is a pattern with a structural cause rather than a slip: an inventory is
+  written by deciding what the level does NOT cover, and the shortest way to say that is to name the level
+  that does, which is the one thing not yet read. Both wrong sentences are left in `supplement.py` with
+  their corrections under them.
+  `supplement.LEVELS` maps the level to its inventory and `supplement.sections()` reads it; a level with no
+  inventory contributes nothing rather than falling back to another level's, which would fill Marginal with
+  words level 1 has already taught.
+  **THE ONE FACT THE WHOLE GENERATOR RESTS ON: UKBI PUBLISHES NO VOCABULARY LIST.** It is a proficiency test
+  rather than a syllabus — it reports a score and a predicate, and the Badan Bahasa publishes descriptors of
+  what a candidate at each predicate can DO, never the words they should know. Neither does BIPA:
+  Permendikbud 27/2017 sets the Standar Kompetensi Lulusan in competences. **This was checked before anything
+  was built**, because the alternative was to imply an official list that does not exist. That is the
+  substantial difference from the siblings — the Goethe decks read the exam board's own printed Wortliste and
+  the DELE decks the Instituto Cervantes' Plan curricular, so in both the board chooses the vocabulary and the
+  generator only reads it. **Here the generator chooses it, and the deck's own description says outright that
+  it does.** What keeps that from being arbitrary is that both inputs are stated: the level's SCOPE is UKBI's
+  own descriptor — Terbatas is "berkomunikasi untuk keperluan **sintas**", survival communication — which is
+  what `supplement.py` is an inventory of, and the ORDER and the fill are corpus frequency. **Ask whether an
+  exam board publishes a word list before assuming the sibling's shape transfers.**
+  What it settled is below, and there is **deliberately no count in front of it** — this bullet said
+  "fifteen things" while carrying eighteen, having been written at level 2 and added to at every level
+  since. A tally in prose is a tally nobody re-counts; the findings are the thing.
+  **A DESCRIPTION IS PROSE, AND PROSE WRITTEN ONCE FOR ONE LEVEL GOES ON BEING PRINTED FOR EVERY LEVEL AFTER
+  IT.** `emit.py` was written for level 1 and templated only the NAME and the NUMBERS, so **levels 2 and 3
+  shipped calling themselves "the first and most basic level of the UKBI", saying each was "the lowest of
+  them", and quoting Terbatas's descriptor verbatim under their own names** — "untuk keperluan sintas",
+  survival, against predicates whose own descriptors say something else entirely — over a topic list that
+  was level 1's inventory and an example of phrases (`terima kasih`, `apa kabar`) that those decks do not
+  contain. Nothing threw and every count was right. **A deck's description is the one place that has to state
+  true things about the deck**, so every claim in it now comes from `SCOPE` in `ukbi_level.py` (rank, the
+  short verbatim phrase of that predicate's own descriptor, its plain-English reading, and what that level's
+  inventory actually covers) or is derived from the built deck — the inventory/frequency split is carried
+  through `wordlist.json` because it moves from 378-of-500 to 200-of-1,000, and the phrase examples are the
+  deck's own first four. **Templating the name is not the same as templating the claims.**
+  **AND A DERIVED SENTENCE HAS TO SURVIVE ITS OWN QUANTITY GOING TO ZERO**, which is the same lesson one
+  level down. The phrase sentence is built from a count and a sample, and at level 6 the count was 0, so the
+  deck shipped saying "0 of the entries are phrases rather than single words —  — which a list of single
+  words cannot see at all": a sentence about nothing, with an empty sample between two dashes. It is gated
+  on there being phrases now. **Read a derived clause at both ends of its range**, not only at the value the
+  level in hand happens to have.
+  **THE AFFIX FAMILY IS INDONESIAN'S ANSWER TO A PARADIGM, AND IT IS THE WHOLE POINT OF THE CARD.** The
+  siblings spend their card on morphology a learner cannot guess — German's gender and plural, Spanish's
+  conjugation, Mandarin's character breakdown — and Indonesian has none of that: no gender, no agreement, no
+  conjugation, no tense. What it has instead is a family of derived words around a root, so the card carries
+  `lihat` / `melihat` / `dilihat` labelled **root, active and passive** (67 of level 1 and 89 of level 2; 42
+  and 63 show a passive, which Indonesian uses far more readily than English). **The forms are READ from the
+  dictionary and never derived by stripping affixes**, because `meN-` assimilates and swallows the root's
+  first consonant: `tulis` → `menulis` but `nanti` → `menanti`, and no rule can undo that without a
+  dictionary.
+  **THE RELATION IS OFTEN IN THE TAGS RATHER THAN IN THE WORDING, and reading only the wording left a fifth
+  of the rows with a cell that had no label against it** (21 of level 1's and 10 of level 2's, measured).
+  Wiktionary states a VERB's relation in the gloss — "active of lihat" — and nearly everything else's in the
+  sense's own tags: `terbaik` is glossed "superlative degree of baik: best" and TAGGED `superlative`, `sebaik`
+  `equative`, `pergilah` `jussive`, `raja-raja` `plural`, `siswi` `feminine`. **An unlabelled cell is worse
+  than no cell**: it asserts that the word is a form of the headword without saying which form, on a row whose
+  whole purpose is to name the relation. So the tags are read first, the gloss second, and anything still
+  unnamed is dropped from the row and REPORTED rather than printed bare.
+  **TWO KINDS OF RELATIVE ARE REAL AND ARE STILL NOT SHOWN** (`FORM_HIDE`). A **colloquial respelling** —
+  `udah` for `sudah`, `malem` for `malam`, `dapet` for `dapat` — contradicts the deck's own promise on the
+  card itself, and is not an affix family at all: `udah` is not derived from `sudah` by any affix, it is the
+  same word with a syllable knocked off. And **the word plus a possessive clitic** — `hatiku`, `hatinya`,
+  `sakitnya` — is mechanical and reversible with no sound change, which is why `read_frequency` already strips
+  it; `hati` was showing four cells, three of them `hati` with a pronoun on the end. **Hidden from the ROW,
+  not removed from the FAMILY**: freeing them would promote each to a headword whose only gloss is a
+  cross-reference.
+  **A PARADIGM ARGUMENT LIST IS NOT PURELY LABEL/VALUE.** The id-adj template writes `superlative | paling
+  aman | or | teraman` — the periphrastic superlative as a proper pair, then the literal word `or`
+  introducing the affixed alternative — and id-verb writes `used in the form | menyanyi`. Read as pairs those
+  label `teraman` "or" and `menyanyi` "used in the form", and both reached the card. A label the file cannot
+  NAME is now held back and the sense's own tags and gloss are asked instead (superlative; active of nyanyi);
+  an unrecognised label is still used where nothing else names the form, and is reported when it is.
+  **THE CLITICS ARE THE ONE THING THAT CAN SAFELY BE STRIPPED**, and doing it recovers a fifth of the
+  frequency list: Indonesian writes `-ku`, `-mu`, `-nya` onto the word, so a surface list counts `ayahku`
+  apart from `ayah` and 342 of the top 1,500 are absent from the dictionary largely because of it. Those are
+  pure suffixes with no sound change, which is exactly what the prefixes are not.
+  **THE FAMILY RELATION POINTS BOTH WAYS IN THE SOURCE, so it is a UNION-FIND and not a walk.** `mengirim`'s
+  paradigm names `kirim` as its base and `kirim`'s own entry is glossed "infinitive, imperative and colloquial
+  of mengirim" — a two-element cycle — and chains occur too (`kata` → `katakan` → `mengatakan`). Union-find
+  flattens both without having to decide which arrow is true, and **the headword is then the family's most
+  frequent member**, which is what stops the deck teaching `erti`: it is used nineteen times in the corpus
+  against 47,243 for `mengerti`, and it is Malay rather than Indonesian.
+  **AN AFFIXED VERB OFTEN HAS NO ENTRY OF ITS OWN AND ITS ROOT DOES**, which is a fact about Wiktionary's
+  Indonesian coverage rather than about the language, and it bites hardest on an intermediate inventory: of
+  level 3's list, `mengurus`, `menyetujui`, `membandingkan`, `menyebutkan`, `mengharapkan`, `membutuhkan`,
+  `mengalami`, `menghadapi`, `melibatkan`, `melapor` and `menandatangani` are all absent while `urus`,
+  `setuju`, `banding`, `sebut`, `harap`, `butuh`, `hadap` and `lapor` are all there and correctly glossed.
+  The affixed form is how a learner meets the verb and the root is what the dictionary can teach, so the
+  inventory is written in roots — and the ones whose root teaches something ELSE are dropped rather than
+  substituted (`alam`/`alami` for `mengalami` is nature and natural, not to experience). Level 2 hit the same
+  wall and it is a standing step: **write the inventory, run it, and read the "the dictionary does not carry"
+  report before believing the list.** Three more went for the sibling reason — `satpam` is glossed only as
+  the expansion of its own abbreviation, `diskon` is tagged colloquial, `rawat` says only "basic form of
+  merawat" — which is `build_deck.py`'s meaning test doing its job at the inventory rather than at the card.
+  **A RELATION IS QUALIFIED AS OFTEN AS NOT, and a family that fails to form is INVISIBLE.** `menjaga` is
+  glossed "**transitive** active of jaga", and a pattern anchored hard at the start misses it — so the word
+  never joins its root's family, gets no forms row, and gets no MEANING either, since the meaning lives on the
+  root. It was found from the other end, by `build_deck.py` refusing to write a card for a common verb: a word
+  whose family fails to form simply ships alone, looking exactly like a word that has no relatives.
+  `build_deck.py`'s own pattern already allowed the modifier and the two had drifted apart.
+  **…AND WIDENING IT THEN BUILT FALSE FAMILIES, which is the other half of the same lesson.** With an
+  optional leading word, "**syllabic** abbreviation of kepala bagian" matched, and `kabag` (a head of
+  division) was carded as a form of `kepala` (head) — with `warnet` under `warung`, `miras` under `minuman`
+  and `toserba` under `toko`. Two fixes, and both are statements about what an affix family IS. **Inflection
+  only**: an abbreviation, an ellipsis, a contraction and an alternative spelling are LEXICAL VARIANTS rather
+  than morphological forms, and the row exists to show a root and what is derived from it by prefix and
+  suffix. And **a multi-word target is taken whole or not at all**: reducing "kepala bagian" to its first word
+  invents a kinship that does not exist.
+  **A WORD WITH ANY LIVE ENTRY OF ITS OWN IS A HEADWORD, and that single line saves `mereka`.** It carries
+  two entries — the third-person plural pronoun, and a verb form glossed "active of reka" — and a rule that
+  merged on the existence of any derived entry would have filed **"they" under the root "to devise"** and
+  deleted the commonest plural pronoun in the language from a beginners' deck. Measured: 128 of the top 1,500
+  carry a derived reading and eleven of those also carry an unrelated live one.
+  **`informal` AND `colloquial` ARE NOT THE SAME TAG AND MUST NOT BE TREATED ALIKE.** UKBI tests bahasa baku,
+  so the nonstandard family is dropped (`nggak`, `gue`, `banget`, `dimana`) — but `kamu` and `aku` are tagged
+  `informal`, which is the familiar register OF the standard language, and they are the first and thirty-first
+  commonest words there are. The blanket rule took `kamu`, `aku`, `saya` and `Anda`; the narrow one drops 584
+  words of 50,000 and keeps all four. **And it must read EVERY sense, not the first**: `bumi`, `kereta`,
+  `pasukan`, `ratu` and `tangkap` all open on an alt-of and carry the ordinary meaning further down.
+  **`Anda` IS CAPITALISED AND THAT IS NOT A TYPO** — the dictionary files the lowercase form as an
+  alternative letter-case spelling — so the frequency lookup is case-insensitive or the standard formal
+  pronoun ranks on nothing. It also earns `Minggu` (Sunday) and `minggu` (week) as two separate cards.
+  **THE SAME EXCLUSION IS RIGHT AT ONE STAGE AND WRONG AT THE NEXT.** `select.py` excludes proper nouns —
+  2,153 of the dictionary's entries are names and a frequency-ranked pool fills with them — and carrying that
+  into the GLOSSING stage refused **all twelve months and two days** for having no meaning, Wiktionary filing
+  `April`, `Mei` and half the week as names. A survival deck with no word for Monday is the exact failure
+  `supplement.py` exists to prevent, reintroduced one stage further down. Choosing and glossing are different
+  questions; ask which one a filter is answering.
+  **A WORD CAN INHERIT A FREQUENCY FROM A FORM THE DECK REFUSES TO TEACH, and this has now happened three
+  times.** `tau` is the nineteenth of the top 19,125 words of the corpus, because in speech it is the
+  colloquial form of `tahu`, "to know" — and that reading is tagged colloquial and correctly refused, which
+  leaves the entry Wiktionary files for the **Greek letter Τ** standing alone. So level 2 taught a Greek
+  letter on the strength of an Indonesian colloquialism's frequency. It is the `kan` / `ku` / `mu` / `nya`
+  shape already in `EXCLUDE` — "the frequency belongs to a form the deck does not teach and the surviving
+  sense does not deserve it" — and there the answer was to widen `LETTER_NAME` rather than name `tau` by hand,
+  which leaves it with no meaning at all and lets the pool's own meaning test refuse it. Swept before it was
+  widened: **31 senses are newly dropped and every one defines a letter of an alphabet**; `es` (ice) and `ha`
+  (an interjection) both carry a letter sense and both keep their real meanings, which is why the sweep was
+  the check rather than the pattern.
+  **A CARD MAY BE DEFINED IN INDONESIAN, AND 62 OF THEM WERE** (Aug 2026, on request: "check the deck
+  for any mistakes or inconsistencies"). Wiktionary writes `synonym of paham` where it means "to
+  understand", and `synonym of` is **not a form-of relation** — the target is a different lexeme rather
+  than a member of this word's affix family — so `REL`, which drops `active of` and `plural of`, never
+  saw it and the pointer shipped as the meaning. **Eighteen of the 62 carried no English anywhere at
+  all**: the reader was shown a word they do not know and told it means another word they do not know
+  (`perkosaan` → "synonym of pemerkosaan"). Every count was healthy throughout and the cards were well
+  formed. **TWO THINGS ARE READ RATHER THAN COMPOSED, in this order**: the dictionary usually writes
+  the meaning into the gloss itself — `synonym of beri (“to give”)` — and that parenthetical IS the
+  English, sitting two characters from where it was needed; where there is none, the TARGET is looked
+  up and its own glosses are taken, one hop. Where neither works the word is refused, which is how
+  `momod` (an internet clipping of `moderator`) left the decks. **THE PARENTHETICAL CLOSES WITH TWO
+  CHARACTERS**, `”` and `)`, and a pattern allowing one matched nothing at all — silently, since the
+  caller then falls through to the lookup and usually finds something. **A cross-reference may also be
+  a CLAUSE inside a gloss** (`a dance; synonym of tari`), where the tail is cut and the meaning kept —
+  and **`see` is not one of the words that may introduce such a tail**, which it was for a run:
+  `arrivederci` is glossed "farewell, goodbye, see you later" and cutting there leaves a greeting with
+  no greeting in it. Swept over the whole dictionary, allowing `see` touches eleven glosses and gets
+  two wrong.
+  **THE TWO WORST CARDS IN THE STACK WERE BOTH ON LEVEL 1 AND BOTH MEANT "TO GIVE".** `memberi` was
+  glossed **"berry (a small succulent fruit, of any one of many varieties)"** and `memberikan`
+  **"have a fish; full of fish"**, on a 500-word survival deck. Two independent causes, and each is a
+  general rule:
+  · **A SENSE THE DICTIONARY ITSELF CALLS `formal` IS STANDARD, whatever else it is tagged.** `beri`
+    ("to give") is tagged `['dialectal', 'formal']`, `dialectal` is in `NONSTANDARD`, so the register
+    filter refused it and left the English loanword for a berry as the only surviving `beri` entry —
+    and both verbs take their meaning from it. The filter was doing exactly what it was written to do.
+    `formal` and `dialectal` together is the source disagreeing with itself, and the tag naming the
+    register UKBI actually examines is the one to believe. **Measured before it was kept: twelve senses
+    in the whole dictionary carry a nonstandard tag beside `formal`**, half of them alt-of forms `REL`
+    drops anyway, so it cannot reach far enough to do damage. The same line is in `select.py`'s
+    `entry_nonstandard` and **the two have to be kept in step** — the stages would otherwise disagree
+    about whether `beri` is a word at all.
+  · **A FAMILY MEMBER'S MEANING COMES FROM THE ENTRY THAT CLAIMS THE WORD.** `memberikan` falls back to
+    `berikan`, which has three entries: two are `ber-` + `ikan` and mean fish, one is `beri` + `-kan`
+    and means to give. Wiktionary's own order — which this generator otherwise trusts — puts the fish
+    first. **The source separates them cleanly and the separator was already extracted**: the third
+    entry's head template reads `active: memberikan, passive: diberikan`, so the entry naming the word
+    we came from is the entry the word belongs to. Exact rather than heuristic, and no etymology
+    parsing. A `pos_hint` backs it up where no entry names the word, so a verb cannot be answered with
+    a homograph noun.
+  **AND A WORD WHOSE ONLY SURVIVING GLOSS SAYS THE HEADWORD IS NOT USED IS NOT TAUGHT.** `kejam`'s two
+  adjective senses (brutal, violent, vicious, ruthless, cruel) are both tagged `colloquial` and both
+  refused, leaving a verb entry glossed "to close (eyes) **(used in the form mengejamkan)**" — a sense
+  the gloss itself says belongs to a different word. The card taught a Semenjana candidate that a very
+  common adjective means to close one's eyes. It is the `tau` shape with the opposite outcome: there
+  the refused sense left a Greek letter and the word fell out, here it left a rarer homograph and the
+  word stayed with the wrong meaning. Dropped, after which `kejam` has no standard meaning in this
+  dictionary and is refused — the honest reading of a source that tags every sense a reader wants as
+  outside the standard language.
+  **TWO NONSTANDARD FORMS CARRY NO NONSTANDARD TAG AND WERE FOUND BY AUDITING THE GLOSSES RATHER THAN
+  THE WORDS**: `enggak` (the written-out `nggak`, tagged `informal`, which this generator deliberately
+  keeps because `aku`, `kamu` and `Anda` are tagged the same) and `momod` (tagged nothing at all).
+  Neither is reachable by any rule — what gave them away is that their only gloss named another
+  Indonesian word, which is what a variant's entry looks like — so both go in `EXCLUDE` by hand.
+  **The synonym resolution is exactly why they needed naming**: it turns their glosses into ordinary
+  English and makes them look like ordinary words.
+  **What the audit found NOTHING wrong with is worth recording too**, since it is what a later pass
+  need not re-check: no word is taught on two levels, no card has an empty field, every forms row's
+  labels match its cells, the HTML balances in every field of all 9,750 cards, and every card id
+  follows its deck.
+  **`kayak` AT LEVEL 3 IS THE SAME SHAPE AND SHOWS WHY IT CANNOT BE AUTOMATED.** It is very common as the
+  colloquial preposition "like, such as"; that sense is refused, leaving the untagged noun — `kayak`, the
+  boat. `tau` was reachable by a rule because its surviving sense was recognisably not an Indonesian word at
+  all, where this one is a perfectly good Indonesian noun, so no rule can see it and the exclusion is by hand.
+  **The harm is worse than a useless card**: the sentences come from a corpus in which nearly every `kayak` is
+  the preposition, so the card would gloss it "a canoe" and print three sentences meaning "like". Found by
+  `check-ukbi.js`, which lists it among the colloquial forms that must never be taught — the assertion
+  catching a word the deck arrived at from the other direction.
+  **A DEEPER POOL REACHES JUNK THE SHALLOW ONES NEVER TOUCHED, AND TWO GENERAL RULES CLEARED IT — one about
+  LENGTH and one about CASE.** Level 4 draws 1,357 words off the frequency list where level 1 drew 122, so it
+  is the first level to meet the corpus's tail, and what came up was not rare Indonesian but two kinds of
+  thing that are not Indonesian words at all. **A SINGLE CHARACTER IS NOT A WORD THIS DECK TEACHES**:
+  Indonesian's shortest are two letters (`di`, `ke`, `ya`), so a length floor of 2 can never refuse a real
+  one — and it catches what `LETTER_NAME` cannot, a letter that ALSO carries a live non-letter sense the
+  meaning test therefore lets through (`P` arrived glossed "used to ping or otherwise start a text messaging
+  conversation", its `character` entry correctly ignored and its interjection entry perfectly good).
+  **AND A CAPITALISED HEADWORD MUST NOT RANK ON ITS LOWERCASE HOMOGRAPH'S COUNT**, which is the `Anda` fold
+  paying for itself twice over: that fold exists so the formal pronoun can be ranked on `anda`, and run
+  blind it also handed `Maya` the count of `maya`, `Nabi` the count of `nabi`, `BA` the count of `ba` and
+  `Insinyur` the count of `insinyur`. `freq` now returns the capitalised form's OWN count wherever the
+  lowercase spelling is itself a live word (`live_lower`), and falls back to the fold only where it is not —
+  so `Anda` still ranks and the four impostors fall out. **Both rules are general, so both reached back into
+  the SHIPPED levels**: level 3 lost `B`, `C`, `D` and `E` — carded as American academic grades and Roman
+  numerals — and `Bapa` ("God, the father of Creation"), and level 2 lost `Bu` and `Nyonya`. **A filter
+  written for the level in hand is a filter the levels below it have been missing all along**, so re-run and
+  diff every level after adding one rather than shipping the new deck alone.
+  **THE DECKS HAD BEEN SLOWLY FILLING UP WITH ARITHMETIC** (`compound_numeral`). A multi-word cardinal —
+  `delapan puluh sembilan`, eighty-nine — is generated from parts a learner has had since level 1, so a card
+  for it teaches nothing; the dictionary states the part of speech (`num`) and multi-word is the whole of the
+  test, so `sepuluh` and `seratus` are untouched. What makes it worth a rule rather than a tidy-up is the
+  measurement: level 2 had one, level 3 four, level 4 **nine** — including `puluh ribu`, which is not even a
+  number but "tens of thousands" — level 5 seven more and level 6 two. **Twenty-five cards of counting
+  practice, arriving a few at a time and never enough at once to be noticed.** It is applied to the POOL and not to the
+  supplement, which is what lets it be this blunt: level 1's inventory asks for `sebelas`, `dua belas` and
+  `dua puluh` deliberately, as the PATTERN rather than as a run, and a hand-written entry is forced in without
+  consulting a frequency — so what goes is precisely the numbers nobody chose, the ones a film said aloud.
+  **ONE OCCURRENCE IS NOT A FREQUENCY, AND AT 2,000 WORDS THE PHRASE ESTIMATOR WAS RUNNING ON HAPAXES**
+  (`PHRASE_MIN`). A phrase cannot appear in a segmented frequency list, so it is counted in Tatoeba and
+  calibrated onto the subtitle scale — sound in the middle of the range and worthless at the bottom, because
+  a count of 1 says only that the phrase exists somewhere in 28,192 sentences and **every hapax then gets the
+  SAME estimate**, 245. They therefore do not spread along the ranking: they arrive together, as one block,
+  sorted alphabetically. Measured — of the 579 multi-word entries Tatoeba contains at all, **263 occur exactly
+  once**, and at level 5 those filled **234 of the deck's 360 phrases**, a run of cards from about rank 1200
+  reading `air putih, air tenang menghanyutkan, akal imitasi, aksi terorisme, alat bantu` straight down the
+  alphabet — visibly not the frequency ordering the deck's own description promises. Not one of them is a bad
+  Indonesian word (`bola voli`, `burung hantu`, `bawang merah`); what is missing is any evidence they belong
+  at THIS rank rather than three levels on. **The floor costs the shipped levels nothing** — 0, 1, 0 and 0 of
+  levels 1–4's phrases rest on a single occurrence, and the one is `hari raya`, which is in level 2's
+  inventory and forced in regardless — and it takes level 5 from 360 phrases to 124, which is the sane
+  progression 19, 31, 56, 100, 124.
+  **…AND AT LEVEL 6 IT TOOK THE PHRASES TO NOTHING AT ALL, WHICH IS THE FLOOR WORKING AND THE INVENTORY
+  FAILING.** Every earlier level got its phrases free — `estimate_phrases` finds them in the corpus — so no
+  inventory had ever needed to write one down, and `SECTIONS_6` was drafted the same way and contained not a
+  single multi-word line. A film corpus does not say `daftar pustaka`, so the estimator found none above the
+  floor and **the level shipped with zero phrases**. Nothing in the build could see it: 2,500 single words is
+  a perfectly ordinary-looking deck. `check-ukbi.js` caught it, on the file assertion that a deck carries at
+  least ten multi-word entries, and it caught it twice over, since the walk then had no phrase to reach.
+  **TWO SIGNS WERE ALREADY IN THE FILE AND NEITHER WAS READ AS ONE**: the inventory carried bare `tolok`,
+  which outside `tolok ukur` is a word almost nobody uses, and bare `pustaka` — **a HALF of a set phrase
+  standing alone in an inventory is what the missing whole looks like** — and the section header above them
+  already PROMISED `daftar pustaka`, prose describing a list it had drifted out of. Sixteen were written in,
+  each confirmed present in the dictionary and absent from levels 1–5 first, which is where the finding
+  repeats itself: eight of the obvious candidates (`hak cipta`, `ilmu pengetahuan`, `sumber daya`, `tata
+  bahasa`, `kata kerja`, `kata benda`, `kata ganti`, `di samping itu`) had already arrived on frequency at a
+  lower level. **The register's set phrases have to be written down from the level a hand-written inventory
+  starts carrying the vocabulary** — expect the same of level 7. **And level 7 did the same thing again**,
+  which is what makes it a rule rather than one level's mistake: `SECTIONS_7` was drafted from the dictionary
+  (see below) and a mined inventory is a list of HEADWORDS, so it contained no multi-word line either — the
+  same zero, from a different cause. Twenty-two were written in before the build was run, so the assertion
+  never had to fire; the deck ships 29 phrases, the extras being the few the corpus supplies at this depth.
+  **THE `kayak` SHAPE A FOURTH TIME, AND TWO RULES FOR IT WERE MEASURED AND REFUSED.** Level 5 goes 2,000
+  words into a corpus of film subtitles, and a subtitle file is full of English — so a word spelled like a
+  common English one collects that word's count and the reader is shown whatever marginal Indonesian sense
+  the dictionary files under the spelling: `station` glossed as an obstetric measurement, `cup` as "sound of
+  something immersed in water", `along` as "abundant catch of fishermen", `lukas` as a fish species ranked on
+  the name Lucas. **The obvious automations both cost more than they save.** Dropping Wiktionary's "unadapted
+  borrowing" etymology takes `bank`, `si`, `laptop`, `tank`, `tsunami` and `siku` to catch four; dropping
+  anything spelled like a common English word takes `digital`, `legal`, `formal`, `vitamin`, `stadium`,
+  `diagnosis` and `proposal` — ordinary Indonesian, and several of them this level's own subject matter.
+  Indonesian has borrowed too well for either test to separate a borrowing from an intruder, so this stays a
+  hand list and will grow by a few at every level. **The test is not whether the count is borrowed but
+  whether the CARD teaches something false**: `bridge` (the card game), `port` (port wine) and `flat` (an
+  apartment) are ranked by their English homographs too and are deliberately KEPT, because their glosses are
+  true and only their rank is inflated — which the deck's description already warns about.
+  **A PHRASE MUST BE WRITTEN ON A LINE OF ITS OWN, NEVER INFERRED FROM A LINE OF SINGLE WORDS.** The
+  supplement reader scanned each line for the longest run that happened to be a dictionary entry, and
+  Indonesian compounds freely: `kopi teh susu` resolved as `kopi` plus `teh susu`, which is a real entry
+  meaning milk tea, so the deck silently lost its words for tea and for milk. It shipped at rank 500 with a
+  frequency of zero, **which is the only reason it was seen**. The opposite failure is the DELE's own — a bare
+  `.split()` tore `o sea` in two — and here it would break `terima kasih`, `rumah sakit`, `di mana`,
+  `dua belas` and `kamar mandi`, a fifth of the survival core.
+  **A PHRASE CANNOT APPEAR IN A SEGMENTED FREQUENCY LIST AT ALL**, so all nineteen scored zero and sorted
+  last, behind `sialan` — `terima kasih` among the very last cards of a survival deck. They are counted in the
+  Tatoeba corpus the pipeline already downloads and calibrated onto the subtitle scale through the single
+  words, which carry both, on the MEDIAN ratio so that one wildly disagreeing word cannot drag the scale.
+  `terima kasih` lands at rank 276 and `di sini` at 91. The DELE's rejected fallback — giving a phrase the
+  rank of its rarest component — is rejected here for its own reason: it is a true ceiling and a hopeless
+  estimate.
+  **AND ITS REAL LIMITATION IS THE CORPUS THE FILL COMES FROM, which is stated rather than smoothed over.**
+  The 123 words not in the survival inventory are the commonest words of film dialogue, so `membunuh` (to
+  kill) outranks `air` (water) and `sialan`, `bodoh` and `polisi` all arrive before a word for food or a day
+  of the week. That is an accurate description of what people say in films and a poor one of what a beginner
+  needs, which is why 378 of the 500 come from the inventory instead; the deck's description says which half
+  is which. **The higher the level, the more of it the corpus decides** — level 2 is 313 from its inventory
+  and 437 by frequency, level 3 **199 against 801**, level 4 **143 against 1,357**, level 5 **196 against
+  1,804**, level 6 **152 against 2,348**, level 7 **279 against 1,221** — the first level whose inventory
+  share RISES, because it was mined from the dictionary rather than recalled — so the caveat gets
+  heavier as the levels climb, not lighter, and the description now derives the split rather than restating
+  level 1's. **AND ONCE THE CORPUS IS CHOOSING MOST OF THE LIST THE DESCRIPTION SAYS SO IN AS MANY WORDS**,
+  which is a clause of its own added at level 4 and fired **on the measurement rather than on the level
+  number** — it appears wherever the corpus supplies the majority, so it reaches back into levels 2 (58%),
+  3 (80%), 5 (90%) and 6 (94%) and stays silent at level 1 (24%). The reason to state it is that the earlier sentence — "the
+  commonest words of everyday Indonesian, taken from a frequency list built from film and television
+  subtitles" — is equally true at every level and stops being the WHOLE truth at the point where the
+  inventory has run out and the subtitles are picking nine words in ten. What that produces at level 4 is
+  overwhelmingly ordinary vocabulary (`orbit`, `karbon`, `reputasi`, `pengelolaan`, `musyawarah`,
+  `sutradara`) with a handful of marginal-but-real dictionary entries in the tail (`bong`, `dom`, `ken`,
+  `bedebah`) — none invented, all glossed from Wiktionary, and exactly what a film corpus yields.
+  **THERE ARE THREE SENTENCE SOURCES AND THE ORDER THEY GO IN IS THE WHOLE DESIGN** (Aug 2026, on
+  request: "add example sentences for as many as you can that don't have any yet"). Tatoeba is a
+  pair bank of everyday sentences written and translated by people, and it runs out — 22,008
+  Indonesian sentences with an English pair covers a survival vocabulary almost completely and an
+  academic one hardly at all. **Two things were measured and REFUSED before a source was added**, and
+  both are the obvious moves: **raising the length cap does nothing** (110 characters already admits
+  99% of that corpus — p99 is 102 — so lifting it to 150 recovers 55 words across the whole stack and
+  to 180 recovers 79, each a longer sentence on a card), and **the matcher was already correct** (a
+  re-implementation with no limits found no extra matches at all). What is missing is not long
+  sentences, it is the words. So two sources were added, strictly in order of how much they can be
+  trusted, and each word takes the best three it can get:
+  **1. Tatoeba** (CC BY 2.0 FR), human-written pairs; **2. Wiktionary's own usage examples**
+  (CC BY-SA 4.0, the same source and licence as the definitions already on the card, carried through
+  `extract_kaikki.py` — 1,257 usable of 2,583 raw, the rest being `Near-synonyms:` lists, collocations
+  written with an em-dash gloss, and literary quotations in older orthography); **3. Global Voices news
+  articles via OPUS** (CC BY 3.0).
+  **THE THIRD IS A DELIBERATE TRADE AND ITS COST IS STATED RATHER THAN HIDDEN.** OPUS aligns Global
+  Voices sentence by sentence with SOFTWARE, and software drifts: reading thirty random pairs by hand
+  found one where the two sides were different sentences from the same article — both real, both
+  fluent, neither a translation of the other. A wrong English under a right Indonesian teaches a wrong
+  meaning, which is worse than teaching nothing. Four things make it acceptable, and the first is the
+  one that matters: **it is reached ONLY where the other two have nothing**, so the risk falls on
+  exactly the words that would otherwise have no example at all; it is filtered hard (see `gv_pairs` —
+  two complete sentences, no URL, a length ratio inside a factor of two, and **where both sides state
+  a number they must state the same one**); where several of its sentences carry the word, the one
+  whose English contains the word's own dictionary gloss is preferred, which raised the confirmed rate
+  of what is actually chosen from 52% to **64%**; and the deck's own description says it used an
+  automatically aligned source and that a few sentences may not line up.
+  **THE PROPER-NOUN VERSION OF THAT NUMBER CHECK WAS TRIED AND THROWN AWAY**, which is the finding:
+  a translated proper noun changes form — `Korea Utara` against `North Korea`, `Eropa` against
+  `Europe`, `Islam` against `Islamic` — so a rule keyed on them rejected **28% of the corpus, of
+  which seven in eight were correctly aligned**. Numbers survive translation and names do not.
+  **THE LICENCE WAS READ RATHER THAN RECALLED**, which is this file's standing rule and mattered here:
+  OPUS's own LICENSE file says only "the same license as the original sources", so it settles nothing
+  — Global Voices' attribution policy is what states CC BY 3.0, and it was fetched. **TED2020 and
+  WikiMatrix were checked and refused**: TED is CC BY-NC-**ND**, which the site's own bar rules out
+  (Folio may sell premium accounts), and WikiMatrix is machine-MINED rather than human-translated, so
+  its misalignment rate is far worse than the one being weighed here.
+  **THE RESULT: 1,528 words gained an example**, and the stack went from 5,602 words with no sentence
+  to 4,074. Per level, "with none" went 2 → 1, 33 → 11, 180 → 46, 591 → 271, 1,313 → 849, 2,096 →
+  1,643 and 1,387 → 1,253. **The bulk of the remainder is not recoverable from any corpus**: level 7's
+  vocabulary is the `-isme`/`-itas`/`ke-…-an` morphology, which no sentence bank of any size contains.
+  **THE CLITIC WAS A REAL MATCHER BUG AND IS WORTH 72 WORDS ON ITS OWN.** Indonesian writes `-ku`,
+  `-mu` and `-nya` onto the end of the word, so a sentence about `peradangannya` is a sentence about
+  `peradangan` — and a whole-word match refuses it. `select.py`'s `read_frequency` had stripped those
+  for exactly this reason since level 1 and `examples.py` had not. **The fix has a second half that
+  fails silently**: `build_deck.bold` picks the word out of the sentence with its own pattern, and
+  left demanding the bare form it marked NOTHING in precisely the sentences the clitic rule had just
+  admitted — the card renders, the sentence is there, the English is there, and the word is simply no
+  longer picked out. Caught by an assertion counting `<b>` against sentences, not by eye. Nothing is
+  ever stripped off the FRONT anywhere in this generator, because `meN-` assimilates and eats the
+  root's first consonant.
+  Tatoeba's Indonesian is
+  small — 28,192 sentences, 22,023 with an English pair, against hundreds of thousands for Spanish — and was
+  **measured before each level was built rather than assumed**: 494 of level 1's cards carry three sentences
+  and one carries none; at level 2 it is 703 and 11; at level 3, whose words are rarer again, **814 with three
+  and 46 with none**; at level 4, **779 with three and 271 with none**, 18% of the deck; at
+  level 5, **382 with three and 849 with none**, which is 42%; at level 6, **174 with three and 1,643 with
+  none**, 66%; at level 7, **28 with three and 1,253 with none**, which is 84%. Those are kept: a word is chosen for being
+  worth knowing and not for
+  being well covered by a sentence bank, and each deck's own description states its own figure. **That
+  figure is the honest output of a small corpus meeting a large deck, and the answer is to print it rather
+  than to filter the words down to the ones the sentence bank happens to cover** — which would let Tatoeba
+  choose the vocabulary, and Tatoeba is not a syllabus either. **At level 5 the same argument settles the
+  TARGET as well**: 2,000 words is a statement about what the level teaches, and cutting it because the
+  sentence bank is small would let Tatoeba choose the deck's SIZE — and the professional vocabulary this
+  level exists for (`wanprestasi`, `arus kas`, `pemutusan hubungan kerja`) is exactly what a conversational
+  sentence bank will never contain, so filtering on coverage would produce a level 5 that is a level 2 with
+  rarer words in it.
+  **AND AT LEVEL 6 THE FREQUENCY SOURCE IS EXHAUSTED, WHICH IS A FACT ABOUT THE CORPUS RATHER THAN ABOUT THE
+  LEVEL AND IS THE MEASUREMENT TO TAKE BEFORE BUILDING LEVEL 7.** Dictionary headwords with a subtitle count
+  of 200 or more number **5,770**; levels 1–5 already teach **5,750**. So level 6 is the first whose fill is
+  drawn almost entirely from the tail, and the shape of that shows in every figure at once: the MEDIAN
+  subtitle count per level runs 22,238 / 5,640 / 2,042 / 720 / 250 / **76**, the share of a level's words
+  counted under 100 runs 4% / 4% / 5% / 8% / 10% / **68%**, and sentence coverage runs 99% / 95% / 82% / 60%
+  / 34% / **16%**. Under a hundred occurrences the count cannot rank one word against another with any
+  confidence, so **the deck is still frequency-ordered and the ordering has stopped meaning much**, and the
+  hand-written inventory items — which have no corpus frequency at all — sort to the very end (median
+  position 2,404 of 2,500). **THE ANSWER IS TO SAY SO RATHER THAN TO FILTER OR RE-SORT** (`THIN_PCT` in
+  `emit.py`): a second derived clause fires at 50% thin and tells the reader to treat the sequence as a rough
+  guide and not a ranking. Filtering to the well-counted words would let a film corpus decide what an
+  academic-register level teaches, and a two-group sort was measured and declined — only ~50 words have a
+  frequency of exactly zero, so the re-sort would move almost nothing while claiming the order meant more
+  than it does.
+  **AT LEVEL 7 BOTH SOURCES RUN OUT, DIFFERENTLY, AND THE HONEST ANSWER WAS TO SIZE THE LEVEL FROM THEM
+  RATHER THAN FROM THE SEQUENCE.** `TARGET` was 500 / 750 / 1,000 / 1,500 / 2,000 / 2,500 and had **3,000
+  tabled for Istimewa** when level 1 was written; the level ships **1,500**, which is smaller than the level
+  below it and is the only one of the seven derived rather than chosen. Two measurements, taken before
+  anything was drafted.
+  · **THE CORPUS IS EXHAUSTED, which level 6's own paragraph above predicted.** Levels 1–6 teach 8,250 words;
+    the subtitle list holds 11,364 the dictionary can gloss, of which the cascade leaves **1,344** free — and
+    every one of those 1,344 is counted **fewer than 50 times** (median 26, maximum 39). Within a count band
+    the ordering is therefore alphabetical (`peradangan, prefek, proporsional, provokatif, rampung,
+    salamander`), which is level 6's finding taken to its conclusion: the corpus has stopped measuring
+    anything at all.
+  · **AND THE DICTIONARY CANNOT REACH THE REGISTER THE DESCRIPTOR NAMES**, which is the new one and the
+    binding constraint. English Wiktionary's Indonesian is excellent on everyday words and thin on exactly
+    the scholarly vocabulary Istimewa is about: `metodologi`, `paradigma`, `epistemologi`, `kutipan`,
+    `merujuk`, `mengutamakan` and `normatif` are ordinary Indonesian and are simply not in it. **A
+    hand-written inventory of 352 recalled candidates yielded 61 usable.**
+  **SO THE INVENTORY WAS MINED RATHER THAN RECALLED, AND THAT IS THE METHOD TO CARRY.** Every earlier level's
+  `SECTIONS_n` is written from the descriptor and then checked against the dictionary; at this level that
+  loop returns almost nothing, so the direction was inverted — sweep the dictionary for the suffix families
+  the register is MADE of (`-isme`, `-is`, `-itas`, `ke-…-an`, `peN-…-an`, `-if`/`-al`/`-er`), take what is
+  actually there, and let the descriptor decide which of it belongs. **The quality filter is pedagogical and
+  is what made it usable**: a derivation whose ROOT the reader has already been taught teaches almost nothing
+  (`keadaan` beside `ada`), so those are dropped, which cut 1,717 raw hits to **435** good ones and yielded
+  **254 usable, of which 201 are not already in the corpus pool**. 1,344 + 201 = 1,545 is the whole of what
+  the two sources support, and 1,500 is that with a small margin. **This is not a claim that Istimewa needs
+  fewer words than Sangat Unggul** — it is the point at which the sources run out, and `emit.py` gained a
+  derived clause (gated on this level's target being below the one below it) so the deck's own description
+  says so in those words rather than leaving a reader to wonder.
+  **AND THE AFFIX FAMILY ALL BUT DISAPPEARS AT THIS LEVEL, WHICH IS THE LEVEL RATHER THAN A FAULT.** The
+  family row is the centrepiece of every card below — 67 at level 1, 89 at level 2 — and level 7 carries
+  **15, of which 4 show a passive**. It is arithmetic rather than a dropped rule: this level's vocabulary IS
+  the derived morphology, so its headwords are the `-isme`, `-itas` and `ke-…-an` forms themselves and the
+  ROOTS they are built on were taught three levels ago. The share of a level's words carrying a full family
+  runs 13.4 / 11.9 / 8.4 / 5.3 / 4.0 / 2.8 / **1.0%** — no cliff anywhere, so no ratio threshold could name
+  it — and `emit.py` states it in the description on the **categorical** test (zero full families with a
+  passive: 42/62/70/59/42/29 at levels 1–6 and **0** at level 7). `check-ukbi.js` takes it as a declared
+  per-level EXCEPTION rather than a skip — `FAM_RANGE` is a two-sided range (`[50, ∞)` below, `[5, 40]` here)
+  and `WANT` drops the family specimen from the walk — because a silent skip and a broken extractor look the
+  same. **The one that had to be read rather than assumed** was `keandalan`, whose family is `['keandalan']`
+  alone: Wiktionary lists it as a headword in its own right rather than as a derivation of `andal`, so the
+  count is TRUE and the fix is the range, not the reader.
+  **`node .claude/ukbi/check-ukbi.js [1..7]` is the browser half** (49 assertions at level 1, 53 at level 2,
+  57 at level 3, 61 at level 4, 67 at level 5, 73 at level 6, 74 at level 7), and it exists because
+  `check-decks.js` skips the card-level checks for a deck that is not Mandarin — so everything Indonesian the
+  deck is FOR is unchecked by anything until there. Every fault it hunts is quiet: a dropped forms row leaves
+  a good card that has stopped teaching the hard part, a colloquial form that slips the filter looks exactly
+  like a word, and a torn phrase leaves two ordinary cards. So it asserts the closed SETS whole (all seven
+  days, all twelve months, one to ten, the question words), that no colloquial form is taught while every
+  standard one is, that tea and milk survived as two words, and — on the page, after walking to a card that
+  has one — that the family row renders with its labels and marks which form is being asked for. **It runs
+  under `reducedMotion`**, or every screenshot is a card caught half way through its fade.
+  **A LEVEL'S CLOSED SETS ARE ASSERTED AGAINST THE WHOLE STACK, NOT AGAINST THAT DECK** (`CORE`, keyed by
+  level; `taught` is this deck's words plus every lower deck's, read off the shipped files exactly as
+  `words_below()` reads them). Checking only the deck in hand reported level 2 as having no word for Monday —
+  which is TRUE and is the entire point of `words_below()` — and dropping a lower level's sets once past them
+  would stop watching the thing they were written to watch, so a level-1 regression now fails a level-2 run
+  as well. Level 2 adds three sets of its own, clothes being the cleanest (not one of the five is in level 1);
+  level 3 adds the workplace, money at a bank and the abstract nouns — **the set that would have been WRONG
+  one level down**, which is the descriptor doing its work in the test as well as in the inventory; level 4
+  adds the shape of an organisation, the running of a meeting and the `ke-…-an` abstractions, which is where
+  a descriptor that opens no new door instead takes the vocabulary; level 5 adds contracts, the books, the
+  courts, the standard Indonesian of computing — and **a set of professional COMPOUNDS** (`arus kas`, `tata
+  kelola`, `pemangku kepentingan`, `pemutusan hubungan kerja`), which is that level's own finding: at this
+  register a great deal of the vocabulary is multi-word, so an assertion on single words alone would miss the
+  half that matters; level 6 adds research and its writing-up, the apparatus of citation, the university, the
+  words for judging a claim, and the language a test of Indonesian uses to talk about Indonesian; level 7
+  adds the doctrines, the measurable qualities, the abstractions, the processes and the formal compounds —
+  **five MORPHOLOGICAL sets rather than topical ones**, which is that level's own finding restated as an
+  assertion, since a set of subject vocabulary would say nothing about a level whose subject is the
+  derivation itself.
+  **Every member of a new set is checked to
+  be in that level AND in none below it**, or the assertion passes on a lower level's word and says nothing
+  about the one being added — and it names the HEADWORD the deck actually teaches (`mengunggah`, whose root
+  `unggah` is shown in its forms row) rather than the root a reader might expect.
+  **And a new assertion the stack needed: no word is taught again from a level below**, whose failure is not
+  an error but a duplicate — the learner meets one word on two decks with two schedules and nothing says so.
+  **THREE ASSERTIONS COME FROM THE AUG 2026 AUDIT AND EACH GUARDS A FAULT THAT LOOKED LIKE A WORKING
+  CARD.** **No card is defined by naming another Indonesian word** — a sweep for `synonym of` /
+  `basic form of` / `used in the form` in the rendered English, which is what the 62 bad cards had in
+  common and what no count could see. **The words for giving are glossed as giving** — asserted by
+  MEANING rather than by presence, since `memberi` and `memberikan` were on the deck all along and it
+  was their definitions that were fruit and fish. And **`kejam` is not taught**, which is the one place
+  the check asserts an ABSENCE for a content reason rather than a register one. Two more cover the new
+  sentence sources, and they assert the property all three must share rather than which source a row
+  came from: **every sentence is paired with an English and has its word marked**, and **every sentence
+  contains the form it is credited to** — a row with no pair is what a half-read corpus leaves behind
+  and a sentence without the word is what an over-eager matcher leaves behind, and both render as an
+  ordinary card. The second tolerates a clitic on purpose, for the reason the matcher does.
+  **THE SPECIMENS ARE SEEDED AS DUE RATHER THAN WALKED TO, AND THAT IS THE THIRD ANSWER TO A QUESTION
+  THIS CHECK KEPT GETTING WRONG** (`SPECIMENS` / `WANT` / `seedIds`). The walk exists to prove that a card carrying an
+  affix family, one carrying a phrase and one carrying three sentences all RENDER, and it used to reach them
+  by grading real cards under a cap written down as a number. **The cap was wrong twice for the same reason**:
+  all three are properties of the WORD, the deck is frequency-ordered, so the higher the level the later the
+  first falls. 240 cleared level 3's family at note 167 by 73 and **did not clear level 4's at 383**,
+  reporting a deck carrying 79 families as having none; 600 then did not clear **level 6's at 886**. And the
+  first PHRASE went from note 14 at level 1 to **2,445 at level 6**, because that level's phrases are all
+  hand-written inventory items with no corpus frequency and the deck sorts them last — so the honest cap
+  became 2,485, or eight minutes and fifty artefact chests to prove something about markup.
+  **A DUE CARD IS IN THE QUEUE WHATEVER THE DAY'S NEW-CARD ALLOWANCE IS**, and that — rather than any claim
+  about order — is what the seeding rests on: a session is at most `ALLOW` cards plus the seeds, so a walk of
+  `ALLOW + 40` reaches them at every level however deep they sit. **It does NOT put them first**, which was
+  the first guess and was wrong: the review's Ordered presentation re-sorts the whole queue into in-deck
+  order, so a specimen from the end of the deck is dealt at the end of the SESSION — which is why the cap is
+  derived from the allowance rather than being a small number. What it gives up is the incidental proof that
+  a reader working the deck normally will meet them, so the positions are PRINTED on every run instead.
+  **A specimen the deck does not contain AT ALL is still a failure**, and never a skip — that is what caught
+  level 6 shipping with no phrases in it. Verified by removing the seed and watching level 6 fail exactly the
+  two assertions it is for; and the seeding itself is asserted, count included, since `every` over an empty
+  list passes vacuously and a seed that never landed would hand the walk silently back to the natural queue.
+  **WHICH IS WHY THE ONE LEVEL THAT GENUINELY HAS NO FAMILY SPECIMEN DROPS IT FROM `WANT` RATHER THAN
+  FAILING QUIETLY**: `WANT` is per level, `seedIds.length === WANT.length` still has to hold, and the walk's
+  family assertion is skipped only where the level has declared it has none — so a family specimen going
+  missing at any of levels 1–6 still fails, and level 7 is asserted on its own `FAM_RANGE` instead. **A
+  per-level exception is a DECLARATION, not a condition tested at run time**; written the other way round it
+  would pass on a deck whose families had stopped being built.
+  Three more things that bit: `.grade` carries `data-g` ITSELF, so a descendant selector matches nothing and
+  the walk stands still at zero cards; **studying several hundred cards levels the reader up, and a level
+  buys an artefact chest** whose modal overlay intercepts the pointer and stops the walk on a timeout naming
+  an SVG (levels 4–7 dismiss eight of them); and the
+  sandbox's Chromium is not where Playwright looks for it, so it needs
+  `FOLIO_CHROMIUM=/opt/pw-browsers/chromium-<n>/chrome-linux/chrome`.
+  **`combine.py` is the ONE-FILE version of the lot** (`python3 .claude/ukbi/combine.py [out.json]`), on
+  request — `decks/Indonesian-UKBI-1-7-and-Expressions.folio-deck.json`: 9,978 notes / 19,956 cards under a
+  fresh deck id `ukbiall`, with **a subdeck per level plus the phrases deck nested under one parent of its
+  own** (the seven predicates are flat and the expressions are not, which is the tree saying that the eighth
+  row is not an eighth level) — and
+  the DIRECTIONS come free as a level below that, which is the one substantial difference from the DELE
+  combiner beside it. There a word is TWO notes, one per direction, so the direction can be written into
+  `sub`; **here a word is ONE note carrying two card TEMPLATES, and `sub` is a property of the NOTE**, so it
+  cannot name a direction at all — and does not need to, since app.js draws a DIRECTION ROW under any level
+  whose notes are all filed directly in it. So each of the seven levels lists `Indonesian → English` and
+  `English → Indonesian` beneath it and the deck row above them correctly gets none, a second pair over the
+  whole deck being the same cards offered twice under a name that says nothing new. **Nesting the directions
+  the DELE way would mean two notes per word, which is the duplication the one-note shape was adopted to
+  remove.** Five more things it has to get right, four of them silent.
+  **A CARD ID MUST CARRY THE DECK** — every note is renumbered `u_ukbiall_N`, since a deck FILE import mints
+  fresh ids only when the deck id is already taken, so an id left reading `u_ukbi1_1` would collide with an
+  installed level 1 in the shared `UCARDS` store and study the wrong card, with both decks on the shelf
+  showing their full counts.
+  **THE FILE HOLDS NOTES AND THE CAP COUNTS NOTES, which is why this fits at all**: 9,978 notes against
+  `UDECK_MAX_CARDS` (12,000) is comfortable, where the 19,956 cards they carry would not be — see the note
+  beside that constant, which says the bound is on what the FILE holds. At 7.5 MB it is far inside the
+  48 MB one.
+  **THE TYPE BLOCK, THE COLOUR AND THE TEMPLATE COUNT ARE ASSERTED RATHER THAN ASSUMED.** A level rebuilt
+  against a changed template would otherwise have its cards silently rendered by another level's; a level
+  that had quietly stopped carrying two templates would give up its two direction rows in silence, and the
+  deck would import, study and count perfectly with half of what was asked for.
+  **THE COUNTS IN THE DESCRIPTION ARE COUNTED** off the notes, never added up from the seven descriptions —
+  only the per-level word counts come from `TARGET`, a level's size being a decision the shipped file cannot
+  report. It reads no clock (the stamp comes from the newest source), so the same inputs write the same
+  bytes.
+  **AND ITS OUTPUT IS GITIGNORED, like every other combined file's.** It was committed for a fortnight, on
+  the reasoning that it had been asked for as a download and so wanted a permanent home beside the seven it
+  is made of — and that is the whole shelf's rule the other way round: a combined deck is an ARTEFACT of the
+  decks it combines, every byte of it already in the repo, so committing one duplicates ~7.5 MB for nothing
+  a re-run cannot produce. See the `.gitignore` block naming all five.
+  **`node .claude/ukbi/check-combined.js` is the browser half** (16 assertions): it RUNS `combine.py` first,
+  so it needs no committed artefact and works on a fresh clone, then imports the file through the real
+  Studio picker and reads the page — 31 rows, ten card-holding subdecks with their directions plus the one
+  parent that correctly gets none, a level counting both directions and a direction counting one, adding the
+  deck bringing the subdecks and **not** the twenty directions, and a card rendering its word, its meaning
+  and its speaker. `check-ukbi.js` asserts what is on an Indonesian
+  CARD and `check-nesting.js` the subdeck/direction machinery in app.js; what is left, and what this covers,
+  is the JOIN — seven decks poured into one file.
+  **THE EIGHTH DECK IS PHRASES, IDIOMS AND PROVERBS, AND IT IS NOT AN EIGHTH PREDICATE**
+  (`phrases.py` → `examples.py` → `build_deck.py` → `emit_phrases.py`, driven by
+  `python3 .claude/ukbi/run.py --phrases`; `decks/Indonesian-Phrases-and-Expressions.folio-deck.json`, **228
+  expressions — 84 Phrases, 111 Idioms, 33 Proverbs** — Aug 2026, on request). There are seven predicates and
+  this is not one of them, so the deck's own description says so in those words: a row sitting beside
+  `UKBI 1 Terbatas` … `UKBI 7 Istimewa` will be read as an eighth level unless it states otherwise, and in
+  the combined file the seven are FLAT while this one NESTS under a parent of its own, which is the tree
+  saying the same thing without prose. **WHY THE LEVELS CANNOT REACH THESE EXPRESSIONS is the reason it
+  exists**: a phrase cannot appear in a segmented frequency list at all, so the whole cascade — which ranks
+  on that list — is blind to them, and `PHRASE_MIN` additionally floors a phrase at two corpus occurrences
+  precisely because one occurrence is not a frequency. Everything here is a phrase, so none of it could ever
+  have arrived by the ordinary route.
+  **THE SELECTION IS THE DICTIONARY'S OWN CLASSIFICATION AND NEVER A JUDGEMENT MADE HERE**, which is the
+  house rule against inventing content applied to CHOOSING it: a candidate is taken because Wiktionary files
+  it under a phrase part of speech, puts it in `Indonesian proverbs` or `Indonesian phrasebook`, or tags a
+  sense `idiomatic` / `figuratively` — and is dropped because the dictionary says it is a misspelling, a
+  borrowing, or a form of something else. Six things it settled are worth carrying.
+  **THE `phrase` PART OF SPEECH IS A TRAP: most of its entries are LATIN AND FRENCH.** `de facto`,
+  `s'il vous plaît`, `en route`, `ad hominem`, `force majeure`, `primus inter pares` — all filed as
+  Indonesian phrases, all useless to a candidate, and a deck that shipped them would be teaching the wrong
+  language under the right heading. The dictionary marks them itself, two ways, and both are needed: the
+  etymology's "Unadapted borrowing" / "Learned borrowing" (159), and the `Indonesian internationalisms`
+  category (19). **`in situ` still leaked**, its etymology reading only "Borrowed from Latin" with no
+  qualifier and no category, so a third rule matches the plain form for six source languages —
+  **guarded on `calque`**, since a calque is made of Indonesian words and is exactly what the deck wants
+  (`kambing hitam` is one).
+  **WIKTIONARY CARRIES MISSPELLINGS AS ENTRIES** — `terimah kasih`, `selamat tinngal` — and this is a deck
+  for a test that marks `dimana` wrong, so 107 go on the tag alone. **And a gloss reading "passive of X" or
+  "synonym of Y" is a cross-reference rather than a meaning**: `diberi tahu` and `direka ulang` are the same
+  fault one level down, dropped at selection so the counts agree, since `build_deck` refuses a card with no
+  meaning and a candidate refused there leaves the wordlist and the deck disagreeing about their own size.
+  **THE CENTRAL FINDING IS THAT A MARKED EXPRESSION MAY NOT BE FILTERED ON USE.** Measured over both corpora
+  (28,192 Tatoeba sentences and 16,043 Global Voices pairs), only **9 of 38 idioms and 8 of 46 proverbs occur
+  even once** — an idiom being literary and a corpus of subtitles and news conversational. Filtering on
+  occurrence would delete the deck's subject, which is the Mandarin deck's own recorded finding at a smaller
+  scale (of 5,227 non-syllabus chengyu only 361 are in Tatoeba). **So what the dictionary MARKS is taken
+  whatever the corpus says, and what only the POS suggests must be shown in use** — that second rule costs
+  89 of 110 and 86 of 120, and every one of them is a string nobody says.
+  **A PROVERB DEDUPLICATES ITSELF, THROUGH THE DICTIONARY AGAIN**: `di mana bumi dipijak, di situ langit
+  dijunjung` has seven spellings on the wiki, six of them glossed "synonym of" the seventh, so the
+  cross-reference rule that drops a form-of gloss leaves exactly one card per proverb rather than seven.
+  **THE `figuratively` INTRUDERS WERE A GLOSS-ORDER PROBLEM, NOT A SELECTION ONE, and the fix is DATA.**
+  `kambing hitam` is genuinely idiomatic and belongs here; what was wrong is that Wiktionary lists "black
+  goat" before "scapegoat", so the card taught the literal reading. `phrases.py` rewrites `wikt-p.json` with
+  the marked sense first — **never `build_deck.py`, which is shared with all seven levels** and where the
+  same change would re-order glosses in decks nobody was editing. Its diagnostic reports the STATE ("N
+  entries carry both a literal and a figurative sense; the figurative one is put first") rather than the
+  number it moved, since the file is rewritten in place and a count of moves reads 0 on the second run —
+  which looks exactly like a rule that has stopped firing.
+  **A DOMAIN-CATEGORY FILTER WAS MEASURED AND REFUSED**, which is the finding to read before adding one: 37
+  chosen entries carry a subject category (law, medicine, computing), and most of them are precisely what a
+  Semenjana-and-above candidate needs — so a term-of-art rule would have deleted `atas nama`, `balik kanan`,
+  `saham gorengan` and `kuda troya`. The subdeck was renamed `Everyday expressions` → **`Phrases`** instead,
+  a label everything under it answers to, which is the honest fix for a heading that had grown narrower than
+  its contents.
+  **`deck_type.py` IS THE CARD TYPE, DEFINED ONCE**, lifted out of `emit.py` when this deck gave it a second
+  emitter: copied into each they would drift invisibly, which is the `deckcore.js` fault this file already
+  records one directory over. **Verified inert: all seven level decks rebuild byte-for-byte identical.**
+  **`node .claude/ukbi/check-phrases.js` is the browser half** (23 assertions), and almost every one guards a
+  silent fault — a foreign phrase, a misspelling or a compound noun in this deck looks exactly like an entry
+  somebody chose. It asserts each named intruder is absent AND that a marked noun is KEPT (`kambing hitam`,
+  `lintah darat`), which fail in opposite directions; one card per proverb rather than one per spelling; no
+  cross-reference gloss anywhere; the three subdecks with 9 rows and their directions; and — on the page —
+  that `kambing hitam` shows "scapegoat" before "black goat", which is the only place the gloss order can
+  actually be seen.
+  **Re-running it must reproduce the shipped deck byte for byte** (a fixed `STAMP`, no clock read anywhere);
+  that is the check to make after any edit, since every fault above is silent — **and it has to be run on
+  EVERY level, since the stages are shared**: most of the fixes above were found while adding level 2 and
+  every one of them changed level 1 as well. **A community deck is not a change to Folio**, so these get no
+  changelog line and no version bump. Not part of the site.
 - `.claude/combine-decks.py` — **every deck in `decks/` as ONE importable file, a language per branch**
   (`python3 .claude/combine-decks.py [out.json]` → `decks/All-Languages.folio-deck.json`; Aug 2026, on
   request). The THIRD combiner, and the one that knows nothing about how any deck was built: `dele/
   combine.py` and `delf/combine.py` each know their own pipeline — its levels, its exam name, its
   per-level figures — where this one knows a TABLE (`PARTS`) of which shipped file goes where in the
   tree, so a pipeline change reaches the language combiner and a new language reaches this one without
-  the two being kept in step. **39,830 rows = 79,660 cards, 94.05 MB**, in five branches: French 7,648
-  (A1 446, A2 589, B1 895, B2 1,654, C1 3,231, C2 431, Expressions 402), German 785, Italian 11,578
+  the two being kept in step. It was **39,830 rows = 79,660 cards, 94.05 MB** in five branches: French
+  7,648 (A1 446, A2 589, B1 895, B2 1,654, C1 3,231, C2 431, Expressions 402), German 785, Italian 11,578
   (A1 961, A2 995, B1 970, B2 1,011, C1 2,809, C2 417, Core vocabulary 3,039, Phrases 1,376), Mandarin
-  11,833 (HSK 1 150, HSK 2 151, HSK 3.0 11,532), Spanish 7,986 (A1 992, A2 998, B1 1,998, B2 3,998). It is
-  **gitignored**, like the other two combined files: every byte of it is already in the repo and this
+  11,833 (HSK 1 150, HSK 2 151, HSK 3.0 11,532), Spanish 7,986 (A1 992, A2 998, B1 1,998, B2 3,998); a
+  sixth branch, **Indonesian 9,978** (the seven UKBI predicates plus 228 phrases), is now in the table too.
+  It is **gitignored**, like the other two combined files: every byte of it is already in the repo and this
   regenerates it, reading no clock (`exportedAt` comes from the newest source), so the same inputs write
-  the same bytes and a diff means something. Six things are decisions rather than plumbing.
+  the same bytes and a diff means something.
+  **⚠ IT DOES NOT CURRENTLY RUN, and the reason is the unlisted-file check below doing exactly its job.**
+  The seven **CAPLE Portuguese** files are in `decks/` and are not in `PARTS`, so the combiner refuses to
+  write a file that would quietly be a smaller shelf, and `.claude/decks/check-all-languages.js` fails with
+  "All-Languages.folio-deck.json is not built" — **on main, before and independently of the Indonesian
+  rows**, which were added and verified against a temporarily raised cap (the Indonesian branch builds
+  correctly at 9,978). Filling the Portuguese gap in is not enough on its own: with all six languages
+  listed the file comes to **56,245 notes against `UDECK_MAX_CARDS`' 44,000**, so this needs the Portuguese
+  rows AND a cap raise, which is the bullet directly below saying what the intended direction of causation
+  is. Both are somebody's decision rather than a merge's, so they are recorded here rather than taken.
+  Six things are decisions rather than plumbing.
   · **IT IS WHAT RAISED BOTH CAPS, and that is the intended direction of causation.** At 2.4× the note cap
     and 1.4× the byte cap that stood before it, this file did not fit — and `UDECK_MAX_CARDS` /
     `UDECK_MAX_BYTES` are guards against a hostile or runaway file rather than views about how large a
