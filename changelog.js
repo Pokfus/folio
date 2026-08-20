@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.284", released: "2026-08-20T18:02Z" };
+window.FOLIO_VERSION = { v: "1.285", released: "2026-08-20T19:35Z" };
 
 window.CHANGELOG = [
   {
@@ -82,6 +82,9 @@ window.CHANGELOG = [
       "<b>The whiteboard marker now remembers the width you last drew at</b> between visits, and its Stylus only row is now called Stylus mode.",
       "<b>Footnote numbers and a card\u2019s picture can now be tapped while the marker is out</b>, so following a citation no longer means putting the pen away first.",
       "For those with the editor: a <b>War of Ages</b> tab holds a place for a game to come, and the tabs only editors can see are drawn in a colour of their own.",
+      "<b>A history card about a place now carries a small globe</b> at the foot of its answer, marking where that place is \u2014 ninety-four of them so far, from Knossos and the Tiber to Olduvai Gorge.",
+      "<b>A geography card about a state or a capital now shows its flag</b> beside the answer term.",
+      "<b>A geography card\u2019s figures now read down the page</b>, with the two places above the two numbers rather than paired across.",
     ],
   },
   {

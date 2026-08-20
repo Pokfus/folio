@@ -776,6 +776,8 @@
     CARD_BY_ID[id].undatable = p.undatable;   // and whether that term happens at a time at all (see cardUndatable)
     CARD_BY_ID[id].map = p.map;               // and the place its question shades on the globe (see cardMapSpec)
     CARD_BY_ID[id].facts = p.facts;           // and the figures box beside its answer (see cardFacts)
+    CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
+    CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -23648,6 +23650,7 @@
         setupTooltips(inner);
         wireFootnotes(inner);   // number the in-prose markers and join them to the source list below
         wireSpeakControls(inner);   // a card type's read-aloud spans become real, focusable controls
+        mountCardMaps(inner);   // …and start the locator globe, if the card carries one (see cardLocatorHTML)
         /* …and, if this deck's sheet asked for it, say the first of them without being pressed. The FIRST
            only: a type that marks several runs is asking for a control on each, not for a recital. */
         if (fromReader && autoSpeakOn) {
@@ -24655,6 +24658,9 @@
     // a layer names the bundle that carries its polygons, the global that bundle assigns, and — where the
     // layer has one — the global holding the POINTS a card may put a dot on (see `map.dot`)
     "us-states": { bundle: "usstates", global: "US_STATES", what: "state", points: "US_CAPITALS", dotWhat: "city" },
+    /* The world's own borders, which every map window already loads for the coastline under it. It carries
+       no `points`, so nothing may put a table dot on it — a locator gives its coordinates outright. */
+    world: { bundle: "world", global: "WORLD_GEO", what: "country" },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z
@@ -24664,6 +24670,10 @@
      half the window rather than stair-stepped. It is the only one of the layer's 51 entries that is capped
      — measured, and reported by name in test-map-cards.js so a second one cannot appear quietly. */
   const CMAP_ZMIN = 0.85, CMAP_ZMAX = 180;
+  /* A LOCATOR has no shape to read a zoom off, so it takes one: about a 50° window, which puts Knossos in
+     the Aegean with the Greek mainland, Anatolia and Crete's own coast all in the frame. A card may still
+     say `zoom` where that frames its own subject badly — a river wants less and an island more. */
+  const CMAP_ZLOC = 4;
   const CMAP_DEG = Math.PI / 180;
   /* The card's map, or null. Validated rather than trusted: `map` is a hand-authored field in data.js and a
      layer name with a typo in it would otherwise reach the renderer and paint an empty window. */
@@ -24718,8 +24728,15 @@
     const layerName = host.getAttribute("data-map-layer"), key = host.getAttribute("data-map-key");
     const def = CARD_MAP_LAYERS[layerName];
     if (!def) return;
+    /* `map.zoom` was written into the markup from the day map cards shipped and NEVER READ, so a card
+       saying it framed itself badly was ignored in silence — found while adding the locator, which needs
+       that knob more than a map card does. It overrides the fit rather than seeding it. */
+    const zoomAttr = Number(host.getAttribute("data-map-zoom")) || 0;
+    /* NAMED FROM THE START, which is what separates a locator from a map card: a map card holds the place
+       name back because the shape IS the question, and a locator is an annotation on the BACK of a card
+       whose answer is already on screen — so holding it back there would be a mark nothing accounts for. */
     const ctx = cv.getContext("2d");
-    let stopped = false, target = null, shapes = null, revealed = false, dot = null;
+    let stopped = false, target = null, shapes = null, revealed = host.hasAttribute("data-map-named"), dot = null;
     let rotLon = 0, rotLat = 0, zoom = 1, homeLon = 0, homeLat = 0, homeZoom = 1;
     let W = 0, H = 0, cx = 0, cy = 0, R = 0, baseR = 0, dpr = 1;
     let Cx = 0, Cy = 0, Cz = 0, Ex = 0, Ey = 0, Ez = 0, Nx = 0, Ny = 0, Nz = 0;
@@ -24833,7 +24850,9 @@
          overhangs a state, its grey survives and reads as the neighbouring shore, which is honest.
          One extra fill pass over the same culled paths, and at these zooms the cull leaves almost
          nothing to draw. */
-      if (shapes) {
+      /* `shapes !== GEO` is the LOCATOR's case: its layer is the world itself, so the pass below would
+         redraw all 117,000 vertices a second time for nothing — every frame, on every drag. */
+      if (shapes && shapes !== GEO) {
         ctx.fillStyle = land; ctx.strokeStyle = sub; ctx.lineWidth = 0.6;
         for (let i = 0; i < shapes.length; i++) { pathOf(shapes[i].p); ctx.fill("evenodd"); if (shapes[i] !== target) ctx.stroke(); }
       }
@@ -24911,8 +24930,9 @@
        is what keeps Rhode Island and Texas both legible without fifty hand-tuned numbers — and a card may
        still override it with `map.zoom` where the automatic figure frames something badly. */
     function fitTarget(fitRings) {
-      homeLon = target ? target.c[0] : 0; homeLat = target ? target.c[1] : 0;
-      let z = 4;
+      const at = target ? target.c : dot ? dot.c : null;
+      homeLon = at ? at[0] : 0; homeLat = at ? at[1] : 0;
+      let z = target ? 4 : CMAP_ZLOC;
       if (target) {
         let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
         for (const ring of fitRings) { const b = bbox(ring); if (b[0] < x0) x0 = b[0]; if (b[1] < y0) y0 = b[1]; if (b[2] > x1) x1 = b[2]; if (b[3] > y1) y1 = b[3]; }
@@ -24920,7 +24940,7 @@
         const span = Math.max(y1 - y0, (x1 - x0) * Math.cos(homeLat * CMAP_DEG), 0.2);
         z = 0.55 / (0.46 * CMAP_DEG * span);
       }
-      homeZoom = clampN(z, CMAP_ZMIN, CMAP_ZMAX);
+      homeZoom = clampN(zoomAttr || z, CMAP_ZMIN, CMAP_ZMAX);
       rotLon = homeLon; rotLat = homeLat; zoom = homeZoom;
     }
     /* Alaska crosses the antimeridian, so a bbox taken in raw longitude spans nearly the globe and the
@@ -24940,8 +24960,10 @@
       reveal() { revealed = true; schedule(); },
       // read by the tests: a window that never resolved its place is a window with nothing to guess,
       // and a drag that does not move `view()` is a globe that does not turn — neither of which can be
-      // seen from the outside, the canvas looking much the same either way
-      ready() { return !!target; },
+      // seen from the outside, the canvas looking much the same either way. A LOCATOR resolves a `dot`
+      // and no `target` — it gives its coordinate outright rather than naming a shape — so testing
+      // `target` alone reports every locator as a window that never loaded.
+      ready() { return !!(target || dot); },
       view() { return { lon: rotLon, lat: rotLat, zoom: zoom, home: [homeLon, homeLat, homeZoom] }; },
     };
     let ro = null;
@@ -25014,20 +25036,37 @@
       host.classList.remove("mc-loading");
       if (!ok[0] || !ok[1] || !Array.isArray(window[def.global])) { host.classList.add("mc-failed"); return; }
       shapes = window[def.global];
-      target = shapes.find((s) => s.n === key) || shapes.find((s) => s.a === key) || null;
-      if (!target) { host.classList.add("mc-failed"); return; }
-      /* The dot, where the card asked for one. A name the layer's point table does not carry is a FAILURE
-         rather than a card that quietly draws no dot: the dot IS the answer on a capital card, so a silent
-         miss leaves a question nobody can answer and nothing on screen to say why. `add-card.js` checks the
-         name against the same table when the card is written, so reaching here means the table moved. */
-      const dotName = host.getAttribute("data-map-dot");
-      if (dotName) {
-        const tbl = (def.points && window[def.points]) || null;
-        const p = tbl && tbl[dotName];
-        if (!p || !Array.isArray(p.c)) { host.classList.add("mc-failed"); return; }
-        dot = { n: dotName, c: p.c };
+      /* A MAP CARD names a shape and a LOCATOR does not, which is the one branch between them: a locator
+         points at a coordinate, so there is nothing to shade and nothing to look up. */
+      if (key) {
+        target = shapes.find((s) => s.n === key) || shapes.find((s) => s.a === key) || null;
+        if (!target) { host.classList.add("mc-failed"); return; }
       }
-      fitTarget(nearRings(target));
+      /* A LOCATOR CARRIES ITS OWN COORDINATE, and it is a coordinate rather than a name in a table because
+         there is no table: the places a history card is about — a palace, a river, a valley, a group of
+         islands — are not an enumerable set the way a country's capitals are. It is still FETCHED rather
+         than typed (see .claude/add-locators.js): a hand-entered pair is a dot a degree out, which draws
+         perfectly and points at the wrong place. */
+      const atAttr = host.getAttribute("data-map-at");
+      if (atAttr) {
+        const at = atAttr.split(",").map(Number);
+        if (at.length !== 2 || !isFinite(at[0]) || !isFinite(at[1])) { host.classList.add("mc-failed"); return; }
+        dot = { n: host.getAttribute("data-map-atname") || "", c: at };
+      } else {
+        /* The dot, where the card asked for one. A name the layer's point table does not carry is a FAILURE
+           rather than a card that quietly draws no dot: the dot IS the answer on a capital card, so a silent
+           miss leaves a question nobody can answer and nothing on screen to say why. `add-card.js` checks the
+           name against the same table when the card is written, so reaching here means the table moved. */
+        const dotName = host.getAttribute("data-map-dot");
+        if (dotName) {
+          const tbl = (def.points && window[def.points]) || null;
+          const p = tbl && tbl[dotName];
+          if (!p || !Array.isArray(p.c)) { host.classList.add("mc-failed"); return; }
+          dot = { n: dotName, c: p.c };
+        }
+      }
+      if (!target && !dot) { host.classList.add("mc-failed"); return; }
+      fitTarget(target ? nearRings(target) : null);
       resize();
     });
   }
@@ -25069,6 +25108,95 @@
       '<div class="cf-tile"><span class="cf-k">' + esc(r[0]) + '</span><span class="cf-v">' + esc(r[1]) + "</span></div>").join("") + "</div>";
   }
 
+  /* ---------- the flag beside the answer (Aug 2026, on request) ----------
+     `answerFlag: { src, credit, alt }` — a state's or a city's own flag, drawn inside the coloured answer
+     box to the right of the term and centred on it.
+
+     **IT IS NOT `cardFlag`, AND THE NAMES MUST STAY APART.** A card already has a FLAG in another sense —
+     the reader's own 1-7 marker, `S.flags[id]`, read by `cardFlag(id)` a few thousand lines up — and this
+     shipped for an hour as a second `cardFlag(c)` at module scope, which in JavaScript means the later
+     declaration wins for the WHOLE file: every reader flag silently read as unflagged, with nothing thrown
+     and the browse column, the study bar and the Ctrl+1 chord all quietly answering 0. Nothing but reading
+     the declaration list can see it. **Sweep for a duplicate declaration when adding a helper whose noun
+     the file already uses.** It is the same three fields every other picture on the site
+     carries, and it is held to the same rule: **a `src` with no `credit` is refused**, here and in
+     `add-card.js`, because a flag is somebody else's file like any other.
+
+     IT IS A FIELD ON THE CARD RATHER THAN A TABLE KEYED BY THE ANSWER, which is a decision: two geography
+     cards may be about the same state and want different flags — Rhode Island's card wants the state's and
+     Providence's card wants the city's — so the flag is a fact about the CARD's own subject rather than
+     about the shape its map shades. It rides through the serializer, the overlay and `revertCard` exactly
+     as `image` does.
+
+     IT IS NOT THE CARD'S ONE FRAME. `image` and `video` are alternatives and the card shows one of them;
+     this is a small mark inside the answer box, never opened fullscreen and never a `.card-img`, so it does
+     not retire either of them. It is deliberately NOT a community-deck field: `CARD_FIELDS` does not carry
+     it, so a stranger's deck cannot ship one and nothing has to sanitize it. */
+  function answerFlag(c) {
+    const f = c && c.answerFlag;
+    if (!f || typeof f !== "object") return null;
+    /* `sanitizeUrl` takes its allowed schemes as a SECOND argument and has no default: called with one,
+       `schemes.indexOf` throws the moment the URL has a scheme at all — which every flag's does — so
+       `buildBack` died and the whole BACK of every geography card came back blank. It shipped that way
+       for a session and nothing on the page said so: the front was perfect and revealing simply did
+       nothing. Pass the list, as all eleven other callers do. */
+    const src = sanitizeUrl(String(f.src || "").trim(), ["http", "https"]);
+    const credit = String(f.credit || "").trim();
+    if (!src || !credit) return null;   // uncredited is the same as absent — see the media source gate
+    return { src: src, credit: credit, alt: String(f.alt || "").trim() };
+  }
+  /* The `alt` is the flag's own description where the card carries one and the CREDIT otherwise, never an
+     empty string: a reader who cannot see it is owed at least whose file it is. `title` carries the credit
+     in both cases, since there is nowhere else on a card for a flag's provenance to be read. */
+  function answerFlagHTML(c) {
+    const f = answerFlag(c);
+    if (!f) return "";
+    return '<img class="av-flag" src="' + esc(f.src) + '" alt="' + esc(f.alt || f.credit) + '" title="' + esc(f.credit) + '" loading="lazy">';
+  }
+
+  /* ---------- the locator map (Aug 2026, on request) ----------
+     `locator: { name, at: [lon, lat], zoom? }` — a globe at the foot of a card whose ANSWER IS A PLACE,
+     with that place marked. A reader meeting Knossos, the Cycladic civilisation or the Tiber for the first
+     time is being told a great deal about a place and nothing about where it is, and the site already has
+     a globe that answers exactly that question.
+
+     IT IS A DIFFERENT THING FROM `map`, WHICH IS WHY IT IS A DIFFERENT FIELD. A map card's window is the
+     QUESTION — it sits above the prompt, it shades a shape, and it holds the name back until the answer is
+     shown. This is an ANNOTATION on the back of a card whose answer is already on screen, so it is named
+     from the first frame and shades nothing at all.
+
+     AND SHADING IS DELIBERATELY NOT USED. The obvious implementation lights up the modern country the
+     place is in, and it would be saying something the card does not mean twice over: the gold fill means
+     "this is the answer" on a map card, and "Knossos is in Greece" is a claim about a border drawn three
+     and a half thousand years later. The DOT is reused instead, whose meaning — this is the place being
+     pointed at — is exactly right, and which needs no country to be chosen.
+
+     THE COORDINATE IS FETCHED, NEVER TYPED (see `.claude/add-locators.js`): a hand-entered pair is a dot a
+     degree out, which draws perfectly and points at the wrong place, and nothing on the page could say so. */
+  function cardLocator(c) {
+    const l = c && c.locator;
+    if (!l || typeof l !== "object" || !Array.isArray(l.at)) return null;
+    const lon = Number(l.at[0]), lat = Number(l.at[1]);
+    if (!isFinite(lon) || !isFinite(lat) || Math.abs(lon) > 180 || Math.abs(lat) > 90) return null;
+    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0 };
+  }
+  function cardLocatorHTML(c) {
+    const l = cardLocator(c);
+    if (!l) return "";
+    const said = (l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
+      "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and \u2212 zoom.";
+    return '<div class="card-loc"><span class="label">Location</span>' +
+      '<div class="map-card map-loc" data-map-layer="world" data-map-named data-map-at="' + l.at[0] + "," + l.at[1] + '"' +
+      (l.name ? ' data-map-atname="' + esc(l.name) + '"' : "") +
+      (l.zoom ? ' data-map-zoom="' + l.zoom + '"' : "") + ">" +
+      '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' +
+      '<div class="mc-zoom">' +
+      '<button type="button" class="mc-btn" data-mc="in" aria-label="Zoom in" title="Zoom in">+</button>' +
+      '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
+      '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
+      '</div><div class="mc-note">' + esc("Drag to turn \u00b7 zoom to look closer") + "</div></div></div>";
+  }
   function buildBack(c) {
     // a custom type owns the whole of the back — but keeps the site's own source apparatus below it, since
     // a community card can carry citations and the fold is not the template's to reinvent
@@ -25078,7 +25206,12 @@
     if (c.answer) {
       const hasTr = !!c.hanzi;
       html += '<div class="answer"><div class="answer-main"><span class="label">Answer' + ttsPlayHTML("answer", true) + "</span>";
-      html += '<div class="answer-av"><span class="val">' + c.answer + "</span>";
+      /* The flag, where the card has one, sits BESIDE the term inside `.answer-av` — so the wrapper is
+         emitted only when there is one, and every card without a flag keeps byte-identical markup. */
+      const flagHTML = answerFlagHTML(c);
+      html += '<div class="answer-av">' +
+        (flagHTML ? '<div class="av-term"><span class="val">' + c.answer + "</span>" + flagHTML + "</div>"
+                  : '<span class="val">' + c.answer + "</span>");
       html += '<div class="av-row">' + (c.answerDate || "") + "</div></div></div>";
       /* The figures sit BESIDE the answer, not under it (Aug 2026, on request) — a sibling of .answer-main
          inside the coloured box, which is the slot `.answer-tr` already occupies on a Chinese card. That is
@@ -25129,6 +25262,10 @@
       if (c.abstract) html += '<p class="abstract">' + c.abstract + "</p>";
       html += "</div></div>";
     }
+    /* Where the place is, at the foot of the card and OUTSIDE the Background fold: it is not prose, so it
+       does not belong under that heading, and a reader who has shut the fold to see only the answer has not
+       asked to lose it. The citations still come last, being the one thing checked after everything else. */
+    html += cardLocatorHTML(c);
     // the citations behind the background, at the very foot of the card — outside the Background fold, so
     // they can be checked without re-opening prose the reader has already read
     html += sourcesHTML(cardSources(c));
@@ -32960,7 +33097,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };

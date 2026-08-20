@@ -178,3 +178,38 @@ written and its version is bumped** — the three go in one commit, per the rule
   The collection is DERIVED now, by counting how many of a collection's cards name a term the Atlas can
   place, and the day's allowance is raised with it: at five new cards a day a fourteen-card walk only ever
   sees five, so a fixture that names a quantity has to name the limit that lets it reach one.
+
+- **G — Maps on cards.** Shipped. `test-map-cards.js` 301/0 (it grew a section 8), `test-layout.js`
+  321/0, `test-a11y.js` 9/0, `test-card-types.js` 228/0, plus `test-card-plans.js` 151/0,
+  `test-difficulty.js` 69/0, `check-style.js` clean. Three items, and each turned up something.
+  **THE ANSWER GRID'S ORDER IS A COLUMN ORDER.** `.card-facts` is a two-column grid filled row by row, so
+  rows 1 and 3 stand above one another and rows 2 and 4 do — which means swapping two rows decides what a
+  reader compares at a glance. A state's four now run Capital, Population, Largest city, Total area: the
+  two cities in one column and the two figures in the other.
+  **THE FLAG'S FIELD IS `answerFlag` AND THE NAME IS THE WHOLE FINDING.** Written as `flag`, its helper
+  was a second `cardFlag(c)` at module scope — and in JavaScript the later declaration wins for the WHOLE
+  file, so `cardFlag(id)`, the reader's own 1–7 marker, silently answered 0 everywhere: the browse column,
+  the study bar and the Ctrl+1 chord all quietly unflagged, with nothing thrown. **Nothing but reading the
+  declaration list can see it.** Recorded in app.js and in `docs/geography-card-plan.md`.
+  **AND THAT FIELD THEN SHIPPED A BLANK BACK FOR A SESSION**, which is the sharper lesson: `answerFlag`
+  called `sanitizeUrl` with ONE argument, and that function takes its allowed schemes as a second and has
+  no default — so `schemes.indexOf` threw the moment a URL had a scheme, `buildBack` died, and the whole
+  BACK of every geography card came back empty. The front was perfect and Reveal did nothing at all.
+  `test-map-cards.js` caught it; **the reason it could is that its section 5 reads the ANSWER off a
+  revealed card** rather than asserting the front. It was found the first time the suite ran after the
+  change, and would have been found by nothing else.
+  **THE LOCATOR IS A SEPARATE FIELD FROM `map`, NOT A MODE OF IT.** A map card's window is the QUESTION —
+  above the prompt, shading a shape, holding the name back; a locator is an ANNOTATION at the foot of a
+  card whose answer is already showing, so it names its place from the first frame, sits after the
+  Background fold and before the citations, and marks the place with the Atlas's own DOT rather than
+  shading a country. That last is the decision worth keeping: the gold fill means *this is the answer* on
+  a map card, and lighting up modern Greece for Knossos would both reuse that mark for a second meaning
+  and make a claim about a border drawn three and a half thousand years later.
+  **94 cards carry one**, written by the new `.claude/add-locators.js`, which FETCHES every coordinate off
+  the named article's own published primary and never types one. Two of its findings are in
+  `docs/geography-card-plan.md`: **read the `←` redirect markers** (`Idaean Cave` resolves to Psychro Cave,
+  a different cave on a different mountain, and `Zagora, Andros` to the Pelion village — both shipped
+  wrong for a run and were caught by reading the log), and **an article with no coordinate gets none**,
+  which is the right outcome for Sahul and Beringia, whose whole point is their EXTENT.
+  **`ready()` had to become `!!(target || dot)`** — a locator resolves a dot and no target, so the test
+  hook reported every one of them as a window that never loaded.

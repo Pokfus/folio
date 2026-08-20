@@ -138,6 +138,24 @@ function staticChecks() {
   // and the bundle really is lazy — a 600 KB file in the eager path would slow the site for every visitor
   ok(!/<script[^>]+us-states\.js/.test(fs.readFileSync(path.join(ROOT, "index.html"), "utf8")), "us-states.js is NOT in index.html's eager path");
   ok(/usstates:\s*\{\s*files:\s*\["us-states\.js"\]/.test(app), "us-states.js is registered as a lazy bundle");
+
+  /* THE LOCATOR'S DATA (Aug 2026, on request). A globe at the FOOT of a card whose answer is a place. It
+     rides in the same whitelist and is lost the same way — a field the serializer does not name is
+     stripped from every card on the next admin keystroke. The coordinate is FETCHED by
+     .claude/add-locators.js and never typed, so what is checked here is that what shipped is a coordinate
+     at all: a `[0, 0]` is what a failed fetch leaves behind, and it draws a perfectly good globe with a
+     dot in the Gulf of Guinea. */
+  const withLoc = cards.filter((c) => c.locator);
+  ok(withLoc.length > 20, "cards carry a locator", withLoc.length + " of " + cards.length);
+  withLoc.forEach((c) => {
+    const l = c.locator;
+    ok(Array.isArray(l.at) && l.at.length === 2 && isFinite(l.at[0]) && isFinite(l.at[1]) &&
+      Math.abs(l.at[0]) <= 180 && Math.abs(l.at[1]) <= 90 && (l.at[0] !== 0 || l.at[1] !== 0),
+      c.id + ": the locator is a real coordinate", JSON.stringify(l.at));
+    ok(String(l.name || "").trim().length > 0, c.id + ": …and names the place it marks", l.name);
+  });
+  ok(/o\.locator\s*=\s*c\.locator/.test(ser), "serializeCardData carries `locator` through");
+  ok(/\.locator\s*=\s*p\.locator/.test(rev), "revertCard restores `locator`");
 }
 
 /* ---- the browser half ---- */
@@ -160,6 +178,21 @@ async function browserChecks(page) {
     }, id);
     await page.goto("http://localhost:" + PORT + "/?c=" + (++visit) + "#study");
     await page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h._folioMap && h._folioMap.ready(); }, null, { timeout: 20000 });
+    await page.waitForTimeout(250);
+  };
+  /* A LOCATOR CARD HAS NO WINDOW ON ITS FRONT, so `study` above — which waits for a mounted `.map-card` —
+     times out on one. This lands on the card, reveals it, and waits for the window the ANSWER carries. */
+  const studyReveal = async (id) => {
+    await page.addInitScript((cid) => {
+      localStorage.setItem("folio_tour_v1", "1");
+      localStorage.setItem("folio_atlas_tour_v1", "1");
+      localStorage.setItem("folio_library_tour_v1", "1");
+      sessionStorage.setItem("folio_study_v1", JSON.stringify({ scope: { type: "card", id: cid }, queue: [cid], id: cid, qi: 0, rev: false, studied: 0 }));
+    }, id);
+    await page.goto("http://localhost:" + PORT + "/?c=" + (++visit) + "#study");
+    await page.waitForSelector("#reveal-btn", { timeout: 20000 });
+    await page.evaluate(() => document.querySelector("#reveal-btn").click());
+    await page.waitForFunction(() => { const h = document.querySelector(".card-loc .map-card"); return h && h._folioMap && h._folioMap.ready(); }, null, { timeout: 20000 });
     await page.waitForTimeout(250);
   };
 
@@ -408,6 +441,56 @@ async function browserChecks(page) {
      it cannot quietly go back to labelling the state on a card whose answer is the city. */
   ok(dotBack.png !== dotBefore, "the reveal repainted the map");
   ok(/const nm = dot \? dot\.n : target \? target\.n : ""/.test(APP), "the revealed label names the dot where there is one");
+
+  /* 8. THE LOCATOR (Aug 2026, on request). A globe at the FOOT of a card whose answer is a place, saying
+     where it is. It is not a map card — it has no shape to shade and no question to hold back — and the
+     ways it can fail are all silent. A card whose `locator` the serializer forgot renders as a card that
+     never had one. A canvas nobody mounted is a card that never had one. A window that resolved no place
+     is a card that never had one. And the fault this section was written after is worse than any of them:
+     `answerFlag` called `sanitizeUrl` with one argument, which throws the moment a URL has a scheme, so
+     `buildBack` died and the whole BACK of every geography card came back blank — the front perfect, the
+     Reveal button doing nothing at all, and no count anywhere able to see it. Hence the assertions run on
+     a real REVEALED card and read what is painted. */
+  sect("8. the locator: a place card says where it is");
+  await studyReveal("gr-008");   // Knossos — the card the request names
+  const loc = await page.evaluate(() => {
+    const l = document.querySelector(".card-loc");
+    if (!l) return { found: false, revealed: !!document.querySelector(".answer .val") };
+    const map = l.querySelector(".map-card"), cv = l.querySelector("canvas");
+    const bg = document.querySelector(".bg-collapse"), src = document.querySelector(".src-note");
+    let shades = 0;
+    try {
+      const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data, seen = new Set();
+      for (let i = 0; i < d.length; i += 4 * 97) seen.add(d[i] + "," + d[i + 1] + "," + d[i + 2]);
+      shades = seen.size;
+    } catch (e) { shades = -1; }
+    return {
+      found: true, revealed: !!document.querySelector(".answer .val"),
+      failed: map.classList.contains("mc-failed"),
+      ready: !!(map._folioMap && map._folioMap.ready()),
+      shades: shades, btns: l.querySelectorAll(".mc-btn").length,
+      said: cv.getAttribute("aria-label") || "",
+      afterBg: !!(bg && (l.compareDocumentPosition(bg) & Node.DOCUMENT_POSITION_PRECEDING)),
+      beforeSrc: !!(src && (l.compareDocumentPosition(src) & Node.DOCUMENT_POSITION_FOLLOWING)),
+    };
+  });
+  ok(loc.revealed, "revealing a card with a locator still builds the back at all");
+  ok(loc.found, "…and the back carries the locator window");
+  if (loc.found) {
+    ok(!loc.failed, "the locator resolved its coordinate");
+    /* `ready()` is `!!(target || dot)`: a locator has a dot and NO target, so a rule testing `target`
+       alone reports every one of them as a window that never loaded. */
+    ok(loc.ready, "…and the globe reports itself mounted");
+    ok(loc.shades > 40, "…and really painted a globe rather than a blank rectangle", loc.shades);
+    ok(loc.btns === 3, "it carries the same three zoom controls a map card has", loc.btns);
+    /* A locator is an ANNOTATION on a card whose answer is already showing, so unlike a map card's window
+       it NAMES the place from the start — holding it back would be asking a question nobody was asked. */
+    ok(/knossos/i.test(loc.said), "the canvas names the place, this being the back of the card", loc.said);
+    /* Below the prose and above the citations: it is not prose, so it does not belong inside the Background
+       fold, and a reader who shut that fold to see only the answer has not asked to lose it. */
+    ok(loc.afterBg, "it sits after the background fold rather than inside it");
+    ok(loc.beforeSrc, "…and before the citations, which stay last");
+  }
 
   ok(!errs.length, "no console errors", errs.join(" | "));
 }

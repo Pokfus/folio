@@ -1135,6 +1135,17 @@ body[data-theme="folio"] .collection-deco::after{
 .answer-main{display:flex; flex-direction:column; align-items:flex-start; gap:4px; flex:0 1 auto; min-width:0;}
 .answer-main .label{margin:0; line-height:1.5; padding-top:0;}
 .answer-av{min-width:0;}
+/* The answer term and, where the card has one, its flag — a row so the flag is centred on the term rather
+   than on the block below it. Only emitted on a card that carries a flag (see cardFlagHTML), so nothing
+   else in the answer box changes shape. `min-width:0` on the term is what lets a long name ellipsise
+   rather than pushing the flag out of the box. */
+.av-term{display:flex; align-items:center; gap:12px; min-width:0;}
+.av-term .val{min-width:0;}
+.av-flag{
+  flex:0 0 auto; height:calc(26px * var(--fs)); width:auto; max-width:calc(56px * var(--fs));
+  object-fit:contain; border-radius:2px; border:1px solid var(--rule); box-shadow:var(--shadow-sm);
+  background:var(--card);
+}
 .av-row{display:flex; align-items:center; gap:14px; margin-top:7px;}
 .av-row:empty{margin-top:0;}
 .answer .val{font-family:var(--display); font-weight:600; font-size:calc(25px * var(--fs)); color:var(--zh); line-height:1.18; min-width:0; display:block;}
@@ -1253,6 +1264,17 @@ body[data-theme="folio"] .collection-deco::after{
 .map-card.mc-loading .mc-zoom, .map-card.mc-failed .mc-zoom,
 .map-card.mc-loading .mc-note, .map-card.mc-failed .mc-note{display:none;}
 @media (max-width:640px){ .mc-note{display:none;} }   /* at 390px it competes with the map it explains */
+
+/* ---------- the locator (see cardLocatorHTML in app.js) ----------
+   The same window on the back of a card whose answer is a place, saying where it is. It is shorter than a
+   map card's, which is the question and deserves the room; this is an annotation, so it takes about the
+   height of the card's own illustration. Its failure line has to differ too — a map card's says the answer
+   is below, which on the back of a card is nonsense. */
+.card-loc{margin-top:20px;}
+.card-loc .label{display:block; margin-bottom:7px;}
+.map-card.map-loc{margin-bottom:0;}
+.map-loc .mc-canvas{height:clamp(180px, 30vh, 260px);}
+.map-card.map-loc.mc-failed::after{content:"This map could not be loaded.";}
 
 /* the media frame's own chrome — the border, the rounding and the shadow every surface that shows a
    picture or a clip shares. The SHAPE is set by whoever mounts it: 16:9 here, which is what the editor's
