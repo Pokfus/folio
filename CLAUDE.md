@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-039` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-040` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 39 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 40 cards — `cn-myth` complete — and still **`placeholder: true`**, so read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10877,6 +10877,50 @@ one.**
   support one.** The cost is named rather than hidden — the scroll paints his face a warm tan where the
   legend makes it red, and the dark-faced figure in it is an attendant, so the caption identifies the central
   figure instead of leaving a reader to pick him out.
+  **`cnh-040` IS WHERE TWO PICTURE RECORDS FAILED IN OPPOSITE DIRECTIONS AND ONLY LOOKING TOLD THEM
+APART** (Aug 2026). The Vanderbilt Fine Arts Gallery's *Ink Rubbing of Reliefs from the Offering Shrine
+of Wu Liang* (4589 × 3071, accession 1985.022, public domain) is a record that is TRUE and misleading:
+the Wu Liang shrine is famous for its register of ancient sovereigns, and what is in this particular
+frame is three bands of chariots, horses and a procession. The Übersee-Museum Bremen photographs
+described as "Grabstein aus der Zeit der Han-Dynastie … Teil eines Reliefs vom Grab der Familie Wu in
+Jianxiang" (4752 × 3168, CC BY-SA, the largest candidate by a wide margin) are the other kind: a seated
+Buddha with a mandorla between two attendants under an inscription — a **Buddhist votive stele**, not a
+Han relief and not the Wu family shrine, with the file's own second Commons category, "Buddhist
+gravestones in China", carrying the accurate reading. **A record can be right and misleading, or wrong
+outright, and the picture is the only thing that says which** — cnh-013's rule that a `desc` is a claim,
+met on a record whose claim is false rather than merely thin. Had either been trusted on its resolution
+and its description, a procession or a Buddhist stele would have shipped as the legendary sovereigns.
+  **SO THE PICTURE TAKEN IS SMALL, AND THAT IS THE TRADE STATED RATHER THAN HIDDEN**: Chavannes's own
+plate of 武梁祠第一石 at **617 × 815**, under the ~900 px bar, because it is the only free image showing
+the sovereigns AS A SEQUENCE — a row of robed figures each framed in his own compartment, which is what
+a card about a legendary PERIOD is about, where a single sovereign is not. Two things fell out of it.
+The man who published the plate, 沙畹, **is Édouard Chavannes**, cited twice on this same card, so the
+illustration and the apparatus come from one hand. And the record names the STONE and not the figures on
+it, so the caption names the stone and the `alt` describes what is in the frame — cnh-019's rule, which
+is what keeps a picture from being read as a source.
+  **A COMPOSED THUMBNAIL WIDTH RETURNS 400, NOT 404**, which is cnh-027's rule one notch sharper:
+Commons generates a fixed set of widths and answers any other with "Error: 400, Use thumbnail sizes
+listed on …", so a hand-built `1024px-` URL fails differently from a wrong file name and reads like a
+missing file. Ask the API and take the `thumburl` it hands back. And when the standing curl of every
+image URL came back **429** — the congestion kind, with a proper user agent already in place (cnh-031,
+cnh-033) — the file was verified by **SHA1 against the API** and matched byte for byte before a retry got
+its 200, which is cnh-030's check doing the job it was written for.
+  **THE DECK NOW DISAGREES WITH ITSELF ABOUT TWO DATES, AND THIS IS THE ONE CARD WHERE THAT IS THE
+SUBJECT.** `cnh-005` gives Fuxi 3322 BCE and this card 2852; `cnh-010` gives Yao 2357 and this card
+2356. Every figure is cited and hedged, and the divergences are exactly what Mayers's own footnote under
+the table says they are — numerous dissimilar schemes whose "mutually antagonistic views" are the
+evidence against every date. What the card does about it is **one word**: "**The** standard table" became
+"**A** standard table", so a reader who has met 3322 on the Fuxi card reads this one as another reckoning
+rather than as an error. **Where a deck's sources genuinely disagree, write "a" and not "the".**
+  **AND THE ANSWER TERM WAS CHOSEN AGAINST SLOTS THE PLAN HAS ALREADY RESERVED.** `Gonghe regency`,
+`Sima Qian`, `Records of the Grand Historian` and `Chinese historiography` are cnh-134, cnh-240, cnh-241
+and cnh-736, so none of them could be this card's answer; *euhemerism* appears in none of the forty
+cached volumes and DOAJ returns nothing usable on it, so it was refused rather than composed. What is
+left is Mayers's own heading — THE LEGENDARY PERIOD, which his prose glosses as "the legendary — as
+distinct from the purely mythical — period of Chinese history" — and the key carries **no bare "legendary
+period" alias**, on cnh-013's rule, since Greece, Rome and Egypt all have one. Its six citations were
+each placed off a RUN of running heads, and the Mayers scan mangles a leading 3 **two different ways on
+one opening** (866 for 366, 967 for 367), which is cnh-023's fault on a third set of pages.
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
