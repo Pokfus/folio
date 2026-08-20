@@ -131,6 +131,18 @@ const readDecks = (page) => page.evaluate(() => new Promise((res) => {
 const active = (page) => page.evaluate(() => {
   try { return JSON.parse(localStorage.getItem("folio_v1") || "{}").active || []; } catch (e) { return []; }
 });
+/* A deck's subdeck rows live in the curated tree's own FOLD since Aug 2026, and — like a curated
+   collection's decks — that fold starts SHUT. A shut fold is clipped to zero height, so a subrow's
+   controls are there in the DOM and cannot be pressed: anything reading them may go straight to the
+   markup, and anything CLICKING one has to open the deck first, exactly as a reader does. */
+const openFolds = async (page) => {
+  await page.evaluate(() => {
+    document.querySelectorAll(".udeck > .collection-row .collection-actions > .chev").forEach((c) => {
+      if (!c.classList.contains("open")) c.click();   // wireExpander marks the open state with a class
+    });
+  });
+  await page.waitForTimeout(600);   // the fold is a .42s grid transition
+};
 
 (async () => {
   await new Promise((r) => server.listen(0, r));
@@ -165,7 +177,7 @@ const active = (page) => page.evaluate(() => {
   await page.waitForTimeout(1400);
   const rows = await page.evaluate(() => [...document.querySelectorAll(".udeck-subrow")].map((r) => ({
     name: r.dataset.usubname,
-    count: (r.querySelector(".collection-count") || {}).textContent || "",
+    count: (r.querySelector(".node-count") || {}).textContent || "",
     add: !!r.querySelector("[data-uaddsub]"),
   })));
   check("one row per subdeck, in card order", rows.length === 2 && rows[0].name === "Alpha" && rows[1].name === "Beta",
@@ -176,6 +188,7 @@ const active = (page) => page.evaluate(() => {
     /6 cards/.test(await page.evaluate(() => (document.querySelector(".udeck .collection-count") || {}).textContent || "")));
 
   /* ---------- adding and studying one subdeck ---------- */
+  await openFolds(page);
   await page.click('.udeck-subrow[data-usubname="Beta"] [data-uaddsub]');
   await page.waitForTimeout(700);
   let act = await active(page);
@@ -191,7 +204,8 @@ const active = (page) => page.evaluate(() => {
 
   await page.goto(base + "/#decks");
   await page.waitForTimeout(1300);
-  await page.click('.udeck-subrow[data-usubname="Beta"] .collection-main');
+  await openFolds(page);
+  await page.click('.udeck-subrow[data-usubname="Beta"] .node-main');
   await page.waitForTimeout(1400);
   const q = await page.evaluate(() => (document.querySelector(".question") || {}).textContent || "");
   // Alpha is cards 1-2, Beta 3-4, and the ungrouped pair is 5-6
@@ -265,10 +279,10 @@ const active = (page) => page.evaluate(() => {
   await page.goto(base + "/#decks");
   await page.waitForTimeout(1300);
   const tree = await page.evaluate(() => [...document.querySelectorAll(".udeck-subrow")].map((r) => ({
-    title: (r.querySelector(".deck-title") || {}).textContent || "",
+    title: (r.querySelector(".node-title") || {}).textContent || "",
     depth: r.dataset.depth,
     path: r.dataset.usubname,
-    count: (r.querySelector(".collection-count") || {}).textContent || "",
+    count: (r.querySelector(".node-count") || {}).textContent || "",
   })));
   check("an intermediate subdeck exists even though no card names it on its own",
     tree.length === 6 && tree[0].path === "A1" && tree[0].depth === "0",

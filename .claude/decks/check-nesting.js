@@ -50,10 +50,12 @@ const deck = {
   // ---- 1. the Collections page draws the tree
   await pg.goto(base + "#decks", { waitUntil: "load" }); await pg.waitForTimeout(500);
   const rows = await pg.evaluate(() => [...document.querySelectorAll(".udeck-subrow")].map((e) => ({
-    name: (e.querySelector(".deck-title") || {}).textContent || "",
+    name: (e.querySelector(".node-title") || {}).textContent || "",
     depth: e.getAttribute("data-depth"),
-    pad: parseInt(getComputedStyle(e).paddingLeft, 10),
-    count: (e.querySelector(".collection-count") || {}).textContent || "",
+    // the depth indent is a MARGIN since the rows became curated .node rows — each is the same 46px
+    // box as its parent and is stepped in from it, rather than a padded row growing its own left gutter
+    pad: parseInt(getComputedStyle(e).marginInlineStart, 10) || 0,
+    count: (e.querySelector(".node-count") || {}).textContent || "",
     sub: e.getAttribute("data-usubname"),
   })));
   rows.forEach((r) => console.log("   depth " + r.depth + "  pad " + r.pad + "  " + r.name.padEnd(20) + r.count));
@@ -144,10 +146,10 @@ const deck = {
   const dr = await pg.evaluate(() => {
     const deck = [...document.querySelectorAll(".udeck")].find((e) => /Direction check/.test(e.textContent));
     return [...deck.querySelectorAll(".udeck-subrow")].map((e) => ({
-      name: (e.querySelector(".deck-title") || {}).textContent || "",
+      name: (e.querySelector(".node-title") || {}).textContent || "",
       depth: e.getAttribute("data-depth"), tpl: e.getAttribute("data-usubtpl"),
       sub: e.getAttribute("data-usubname"),
-      count: (e.querySelector(".collection-count") || {}).textContent || "",
+      count: (e.querySelector(".node-count") || {}).textContent || "",
     }));
   });
   dr.forEach((r) => console.log("   depth " + r.depth + "  tpl " + r.tpl + "  " + r.name.padEnd(22) + r.count));

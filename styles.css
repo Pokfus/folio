@@ -595,14 +595,12 @@ body.night .banner{
    list now, on request; see the note there) */
 .banner .cta{margin-left:auto;}   /* sits on the SAME line as the three piles, pushed to the right edge */
 /* ---------- the footer row under the DECK LIST ----------
-   "+ New group" sat at its left (`.rv-tools` / `.rv-newgroup`) and both are GONE — Aug 2026, on request:
-   the group function has left the daily study block. What the row still does is hold `.rv-lip` against the
-   review group's own bottom edge, which is why the lip is not simply the group's last child.
-   `margin-inline-start:auto` is what keeps it at the right-hand end, and it is deliberately not
-   `justify-content:space-between`: that would put a ONE-item row's item at the start, and this row is one
-   item whenever the reader has not studied yet. */
+   It has lost both of the things that shared it with the day's timer: "+ New group" (`.rv-tools` /
+   `.rv-newgroup`) when the group function left the daily study block, and the "+ Add decks" lip
+   (`.rv-lip`) when the way to the collections became a button standing OUTSIDE the group — both Aug 2026,
+   both on request. So the row is one item wide and is drawn only when there is a timer to hold; see the
+   note in PAGES.home for why it is conditional rather than always present. */
 .rv-foot{display:flex; align-items:flex-start; gap:12px;}
-.rv-foot .rv-lip{align-self:flex-start; margin-inline-start:auto;}
 /* THE DAY'S TIME ON CARDS, at the left end of that same edge (Aug 2026, on request — it was a stat in the
    banner's meta row beside the three piles). Out here it is on the page's own paper rather than on the
    card, and the row it joins is one small tab high, so it is ONE line rather than the piles' figure over a
@@ -709,32 +707,30 @@ body[data-theme="gazette"] .gt-ribbon span{ box-shadow:none; }
    from the lip under the review group, which is the route the home page advertises. */
 
 /* ---------- home: the way to the collections ----------
-   A whole banner of its own sat here until Aug 2026 — a second full-width block spending a heading and a
-   sentence on what one word says. This is what replaced it, on request: a small tab hanging off the bottom
-   edge of the review group, under the deck list it adds to. It is the group's last child and sits IN FLOW
-   (see .rv-lip in the markup), so it needs no guess at the list's height; the group's own bottom border runs
-   behind it, hence no top border and the -1px pull.
-   It was phone-only for a fortnight and now ships at EVERY width, the Collections tab having left the
-   desktop's top bar too (on request): this is the ONLY route to the collections anywhere on the site.
-   It is INDIGO (Aug 2026, on request), not a quiet paper tab: paper-on-paper it read as part of the card's
-   edge rather than as the way onward, and the blue is the site's own primary-button indigo, so it matches
-   Start review directly above it.
-   …and it hangs at the RIGHT-HAND end of that edge rather than in the middle of it (Aug 2026, on request).
-   `align-self:flex-end` with an inset, so it clears the card's own rounded corner instead of sitting on it;
-   `margin-inline-end` rather than `margin-right`, so Arabic finds it on the side Arabic reads from. */
-.rv-lip{
-  appearance:none; cursor:pointer; align-self:flex-end; margin-inline-end:20px; margin-top:-1px; position:relative; z-index:3;
-  display:inline-flex; align-items:center; padding:6px 17px 7px;
-  border:1px solid var(--indigo); border-top:0; border-radius:0 0 12px 12px;
+   THREE SHAPES, and the third is on request (Aug 2026). It was a full-width banner of its own — a second
+   block spending a heading and a sentence on what one word says — then a small "+ Add decks" tab hanging
+   off the review group's bottom edge (`.rv-lip`), and is now an UNATTACHED button standing under the
+   group. The tab said two things at once and only one was true: stuck to the block, "+ Add" reads as an
+   action performed on it, where pressing it goes to a page. Detached, it is named for where it leads.
+   It ships at EVERY width, the Collections tab having left the desktop's top bar too: this is the ONLY
+   route to the collections anywhere on the site.
+   It keeps the lip's INDIGO and its mono capitals — the blue is the site's own primary-button indigo, so
+   it matches Start directly above it — and gives up the tab geometry (the negative pull, the flat top, the
+   right-hand inset), all of which existed to join it to an edge it no longer touches. It is a block in the
+   `.banners` flex column, so the column's own gap is what separates it. */
+.home-collections{
+  appearance:none; cursor:pointer; align-self:center; position:relative;
+  display:inline-flex; align-items:center; justify-content:center; padding:11px 26px;
+  border:1px solid var(--indigo); border-radius:12px;
   background:var(--indigo); box-shadow:0 3px 7px rgba(0,0,0,.07);
-  font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:#fff;
+  font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:#fff;
   transition:background .16s var(--ease), border-color .16s var(--ease);
 }
-.rv-lip:hover{background:var(--indigo-bright); border-color:var(--indigo-bright);}
-.rv-lip:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.home-collections:hover{background:var(--indigo-bright); border-color:var(--indigo-bright);}
+.home-collections:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 /* ---------- home: the way to the About page on a phone ----------
    About left the bottom tab bar (Aug 2026, on request) and this took its place: a quiet grey line at the
-   foot of the page rather than a fifth of a row four readers share. Phone-only, like the lip above. */
+   foot of the page rather than a fifth of a row four readers share. Every width, like the button above. */
 .home-about{
   appearance:none; border:0; background:none; cursor:pointer; width:100%;
   padding:20px 0 16px; text-align:center;
@@ -971,15 +967,24 @@ body[data-theme="folio"] .collection-deco::after{
 /* nested branches (sub-subdecks) */
 .node-group{display:flex; flex-direction:column;}
 
-/* admin: drag handle + drop indicators on the library */
+/* admin: drag handle + drop indicators on the library
+   IT RESTS VISIBLE, AND THAT IS THE WHOLE OF THE Aug 2026 "I can no longer drag collections" REPORT.
+   The grip has always been rendered and `draggable`, and it was `opacity:0` until the row was hovered —
+   so on the live collections the one control that says the rows can be reordered was invisible until you
+   happened to point at it, while the Coming-soon rows showed theirs at rest (their `.placeholder`
+   overrides below exist to fight the ancestor's `filter:opacity(.5)`, and the side effect was a resting
+   grip on those rows and nowhere else). Reordering worked throughout; nothing said so. It rests at .32 —
+   present enough to be found, quiet enough that a reader-facing page is not a page of handles — and the
+   hover states are unchanged. Only an admin ever sees one: `wireLibraryDnd` returns before the grips are
+   built for anybody else. */
 .collection-row, .node{position:relative;}
 .lib-grip{
   position:absolute; left:2px; top:7px; bottom:7px; width:16px; z-index:3;
   display:flex; align-items:center; justify-content:center; border-radius:6px;
-  color:var(--ink-faint); cursor:grab; opacity:0;
+  color:var(--ink-faint); cursor:grab; opacity:.32;
   transition:opacity .15s var(--ease), color .15s, background .15s;
 }
-.collection-row:hover .lib-grip, .node:hover .lib-grip{opacity:.5;}
+.collection-row:hover .lib-grip, .node:hover .lib-grip{opacity:.6;}
 .lib-grip:hover{opacity:1; color:var(--indigo); background:var(--indigo-wash);}
 .lib-grip:active{cursor:grabbing;}
 .collection.placeholder .collection-row .lib-grip, .node.placeholder .lib-grip{opacity:.55;}
@@ -1492,6 +1497,19 @@ body.grading .stage{padding-bottom:150px;}
   animation:dl-spin 1.9s linear infinite reverse;
 }
 .data-loading.dl-fail .dl-globe{display:none;}
+/* the determinate progress bar. It counts FILES, not bytes — byte progress would need fetch() plus
+   running the text, i.e. an inline script, which script-src 'self' forbids — and it is drawn only where a
+   bundle set has two or more files (see dlBarHTML), so a bar is never a lie about a single big download.
+   The width TRANSITIONS, so the global reduced-motion killswitch already lands it on its true value. */
+.data-loading .dl-bar{
+  width:min(280px, 100%); height:5px; border-radius:99px; overflow:hidden;
+  background:var(--paper-2); border:1px solid var(--rule); margin-top:2px;
+}
+.data-loading .dl-bar i{
+  display:block; height:100%; width:0; border-radius:99px;
+  background:var(--indigo); transition:width .28s var(--ease);
+}
+.data-loading.dl-fail .dl-bar{display:none;}
 @keyframes dl-spin{to{transform:rotate(360deg);}}
 @media (prefers-reduced-motion:reduce){
   .data-loading .dl-globe, .data-loading .dl-globe::before{animation:none; border-color:var(--rule); border-top-color:var(--indigo);}
@@ -2054,9 +2072,15 @@ table.ci-hist tr td:first-child{color:var(--ink-soft);}
 .recovery-code{font-family:var(--mono); font-size:calc(22px * var(--fs)); letter-spacing:.18em; color:var(--indigo); background:var(--paper-2); border:1px dashed var(--rule); border-radius:10px; padding:14px; text-align:center; margin:14px 0; user-select:all;}
 .acct-tools{display:flex; gap:10px; margin:-6px 0 8px; flex-wrap:wrap;}
 .acct-panel{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm); padding:18px 20px; margin-bottom:14px; display:flex; flex-direction:column; gap:11px; max-width:460px;}
-/* Change password and Sign out, side by side inside the profile card (Aug 2026, on request) — they act on
-   the same thing, and the sync line under them says what happens to it. */
-.acct-idacts{display:flex; align-items:center; gap:8px; flex:none; flex-wrap:wrap; justify-content:flex-end;}
+/* The account's own actions, inside the profile card (Aug 2026, on request) — they act on the same thing,
+   and the sync line under them says what happens to it.
+   A 2×2 GRID, not a flex row (Aug 2026, on a second request). Four buttons side by side ran to the width
+   of the card on a desktop and squeezed the name, the handle and the joined date into what was left, so
+   the block that IDENTIFIES the account had the least room in it. Two columns of two is the same four
+   controls in half the width, and the two columns are `1fr` so the buttons are one size rather than four
+   sized by their own words. It stays a flex row on a phone, where the card stacks (see the ≤640 block). */
+.acct-idacts{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:8px; flex:none; align-content:center;}
+.acct-idacts .ghost-btn{width:100%; justify-content:center; text-align:center;}
 .acct-syncnote{margin:-14px 0 16px; padding-left:2px;}
 /* THE ACCOUNT SWITCHER (Aug 2026, on request). A grid rather than a flex row, so the Forget × sits in a
    column of its own and every row's arrow lines up down the list however long the names are. */
@@ -2393,7 +2417,14 @@ body.night .ph-lvl{color:#F3E3B2; background:#4A3B10; border-color:#E6C765;}
    streak figure it counts from. Pips rather than a bar: the unit is a DAY, and a continuous fill would
    suggest a part-finished one. The filled pips take the gold every other reward on this page wears. */
 .streak-chest{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-sm);
-  padding:14px 16px; margin:0 0 18px;}
+  padding:14px 16px; margin:0 0 18px; display:flex; align-items:center; gap:14px;}
+.sc-main{flex:1; min-width:0;}
+/* the thing the seven days are building towards, drawn once at the right of the block (Aug 2026, on
+   request). Quiet until the run is complete, then the same gold the filled pips wear. */
+.sc-chest{flex:none; width:46px; color:var(--ink-faint); opacity:.55; transition:color .2s, opacity .2s;}
+.sc-chest svg{width:100%; height:auto; display:block;}
+.sc-chest.won{color:#C39A2E; opacity:1;}
+body.night .sc-chest.won{color:#E6C765;}
 .sc-head{display:flex; align-items:baseline; justify-content:space-between; gap:10px;}
 .sc-title{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
 .sc-count{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink);}
@@ -4409,9 +4440,10 @@ button.game-tile .gt-glyph{opacity:.14;}
   .dp-name{width:120px;}
   .profile{flex-direction:column; text-align:center;}
   .namefield{text-align:center;}
-  /* the profile stacks here, so the two account buttons take the full width side by side rather than
-     hanging off a right edge that no longer exists */
-  .acct-idacts{width:100%; justify-content:center;}
+  /* the profile stacks here, so the account buttons take the full width in a row rather than hanging off
+     a right edge that no longer exists — the desktop's 2×2 grid is for the space beside the name, and
+     there is no beside once the card is a column */
+  .acct-idacts{display:flex; width:100%; justify-content:center; flex-wrap:wrap;}
   .acct-idacts .ghost-btn{flex:1; min-width:0;}
   .acct-syncnote{margin:-10px 0 16px; text-align:center; padding-left:0;}
 }
@@ -5911,9 +5943,12 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .sd-row:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
 .sd-table td{padding:11px 14px; vertical-align:middle; font-size:calc(13.5px * var(--fs)); color:var(--ink);}
 .sd-table td.sd-num{text-align:right; font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink-faint); white-space:nowrap;}
-.sd-deck{display:flex; flex-wrap:wrap; align-items:center; gap:6px; min-width:190px;}
-.sd-title{font-family:var(--display); font-size:calc(15px * var(--fs)); color:var(--ink);}
-.sd-sub{flex-basis:100%; font-size:calc(12px * var(--fs)); color:var(--ink-faint); line-height:1.45;}
+/* NOWRAP, now that nothing in this cell takes a full basis: the author's description left the table on
+   request (see sharedRowsHTML) and the wrap that let it sit under the title would otherwise only ever
+   fire by accident, dropping a pill onto a second line and making one row of a scannable list taller
+   than its neighbours for no reason a reader could see. */
+.sd-deck{display:flex; align-items:center; gap:6px; min-width:190px;}
+.sd-title{font-family:var(--display); font-size:calc(15px * var(--fs)); color:var(--ink); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
 .sd-author{color:var(--ink-faint); font-size:calc(12.5px * var(--fs)); white-space:nowrap;}
 .sd-rate .stars{justify-content:flex-end;}
 @media (max-width:640px){
@@ -5986,28 +6021,20 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .udeck-tag{font-size:calc(9px * var(--fs)); letter-spacing:.07em;}
 
 /* ---- a community deck's subdecks (Aug 2026) ----
-   Indented rows under their deck's own row, each addable and studiable on its own. They are deliberately
-   quieter than the deck above them — a hairline down the left instead of a card of their own — so the deck
-   still reads as one thing rather than as three siblings. A flat deck renders none of this. */
+   THEY ARE CURATED DECK ROWS NOW, in the curated fold (on request: "collapsible with chevrons and
+   visually look the same as the curated collections"). They were a flat always-open `.udeck-subs` list of
+   quiet hairline rows — a shape nothing else on the Collections page wears, and one that put nine rows
+   under a nine-level deck whether the reader wanted them or not. The markup is `buildNode`'s, so the box,
+   the border, the hover, the collection hue on the left hairline, the grid fold and the entrance stagger
+   are all the curated rules and cannot drift from them; what is left here is the DEPTH INDENT and
+   nothing else, a community deck's paths nesting where the curated tree nests its containers. */
 /* a subdeck added to the review on its own: named by itself, with its deck for context */
 .dk-sup{margin-left:8px; font-family:var(--sans); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-.udeck-subs{display:flex; flex-direction:column; border-top:1px solid var(--rule);}
-/* --sd is the row's DEPTH in the subdeck path, set inline by udeckSubRowsHTML. Both the padding and the
-   left rail take it, because an indent with the rail left behind at the same x reads as one flat list
-   whose titles happen to start further in. */
-.udeck-subrow{display:flex; align-items:center; gap:12px; padding:11px 16px 11px 22px; cursor:pointer; position:relative;
-  padding-inline-start:calc(22px + var(--sd, 0) * 18px);
-  border-top:1px solid var(--rule); transition:background .18s var(--ease);}
-.udeck-subs > .udeck-subrow:first-child{border-top:0;}
-.udeck-subrow::before{content:""; position:absolute; left:calc(10px + var(--sd, 0) * 18px); top:9px; bottom:9px;
-  width:2px; border-radius:2px; background:var(--coll-bg, var(--indigo)); opacity:.5;}
-.udeck-subrow[data-depth="1"]::before{opacity:.32;}
-.udeck-subrow[data-depth="2"]::before,.udeck-subrow[data-depth="3"]::before{opacity:.22;}
-.udeck-subrow:hover{background:var(--paper-2);}
-.udeck-subrow:focus-visible{outline:2px solid var(--indigo); outline-offset:-2px;}
-.udeck-subrow .collection-main{flex:1; min-width:0;}
-.udeck-subrow .deck-title{font-family:var(--sans); font-size:calc(13.5px * var(--fs)); font-weight:600; color:var(--ink);}
-.udeck-subrow .collection-count{font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--ink-faint);}
+/* --sd is the row's DEPTH in the subdeck path, set inline by udeckSubRowsHTML. A margin rather than the
+   old padding, because the row is a card of its own now: indenting inside the box would leave every
+   level's card starting at the same x with only its words moved, which reads as one flat list. */
+.node.udeck-subrow{margin-inline-start:calc(var(--sd, 0) * 20px);}
+.node.udeck-subrow .node-title{font-size:calc(15px * var(--fs));}
 .udeck-upd{font-size:calc(9px * var(--fs)); letter-spacing:.07em; color:#fff; background:var(--indigo); border-color:var(--indigo);}
 .collection.udeck-installed > .collection-row{border-left-color:var(--indigo);}
 
@@ -6325,7 +6352,6 @@ body.night .book-tile{
 .bk-tile-when{font-family:var(--serif); font-style:italic; font-size:calc(13px * var(--fs)); color:var(--ink-soft);}
 .bk-tile-foot{display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex:none; min-width:0;}
 .bk-tile-meta{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint);}
-.bk-of{opacity:.72;}
 /* THE ORIGINAL-LANGUAGE CHIP (Aug 2026, on request): between how long the book is and the way into it,
    and drawn only on the twenty books that actually carry a facing original. It takes `--bk-accent` — the
    book's own colour, lightened for the paper in use — so it belongs to its banner rather than reading as

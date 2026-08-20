@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.280", released: "2026-08-20T11:38Z" };
+window.FOLIO_VERSION = { v: "1.281", released: "2026-08-20T13:13Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-20",
-    t: "The China collection opens for study, the daily review now mixes the day's new cards in among the ones due, and a card says how hard other readers found it",
+    t: "The China collection opens for study, the daily review now mixes the day's new cards in among the ones due, and the home page, your account and your own decks are all tidied",
     items: [
       "<b>The China collection is now open to study</b>, where it sat under Coming soon, so its cards reach your daily review, the games and the card of the day.",
       "Forty-four new cards — forty in <b>China</b>, from Pangu splitting the world-egg to the table of sovereigns nobody can date, and four in <b>Ancient Greece</b> — with forty-four new glossary terms.",
@@ -58,6 +58,16 @@ window.CHANGELOG = [
       "<b>Review order is now three</b> — Ordered, Random and By difficulty — chosen by tapping the row in a deck's options rather than by a switch.",
       "<b>A setting made on a deck now reaches the subdecks inside it</b>, and each row says whether the setting is its own or inherited, with one tap to follow the deck again.",
       "<b>Read-aloud now starts switched on</b> for the decks whose cards offer it.",
+      "<b>A Collections button now stands under your daily study</b>, in place of the small tab that hung off the bottom of the card.",
+      "<b>The Browse collections button is gone from a finished day</b>, which now simply says the day is done.",
+      "<b>Your own decks now fold and unfold with a chevron</b>, and their subdecks are drawn exactly like the decks inside a Folio collection.",
+      "<b>A shared deck's row is now a single line</b>, so a list of them reads as a table rather than a stack of paragraphs.",
+      "<b>The buttons at the top of your account now sit in a two-by-two block</b>, leaving the name and picture beside them room to breathe.",
+      "<b>The streak meter now shows the chest it is building towards</b>, which lights up on the seventh day.",
+      "<b>Your artefacts are now in one place</b>: the showcase on your profile opens the whole Reliquary, and the second copy of it lower down is gone.",
+      "<b>A book's chip now just says how much of it is here</b> — \u201c235 of 235 chapters\u201d rather than trailing \u201con Folio so far\u201d.",
+      "<b>The Atlas load screen now shows how far along it is</b>, instead of a spinner that says only that something is happening.",
+      "For those with the editor: the handle for dragging collections into order on the Collections page is now visible at rest, as it always was in Coming soon.",
     ],
   },
   {

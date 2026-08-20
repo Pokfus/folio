@@ -940,7 +940,7 @@ async function typeField(page, field, text) {
     /* the row's LABEL, not its data-usubname — that attribute is the subdeck PATH, which a direction row
        shares with the level it hangs off; the template's own name is what the reader is shown. */
     return [...d.querySelectorAll(".udeck-subrow")].map((e) => ({
-      name: (e.querySelector(".deck-title") || {}).textContent || "",
+      name: (e.querySelector(".node-title") || {}).textContent || "",
       sub: (e.getAttribute("data-usubname") || "").split("::").pop(),
       tpl: e.getAttribute("data-usubtpl"),
     }));

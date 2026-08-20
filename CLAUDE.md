@@ -6734,7 +6734,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the reasoning for including it (a real destination even without a tab, and leaving it out makes the
     sequence a subset of the bar) is backwards once the bar is what a reader has to go on: the swipe was
     landing them on a page the bar cannot reach, with nothing lit in it to say where they were. It is
-    reached from the review's own lip ("+ Add decks"), which is the route the home page advertises, and
+    reached from the home page's own Collections button, which is the route it advertises, and
     that is now the only one.
   · **It is a full CROSS-SLIDE** (Aug 2026, on a report that it was "a hard cut"). It was a 26px nudge under
     a cross-fade, which at that distance is a fade with a lean in it — so after a finger had dragged a page
@@ -7653,7 +7653,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **`count` and `total` are equal now and BOTH are kept**: `count` is what Folio holds and `total` what
     the work contains, and they part company again the moment a book arrives in instalments. Seneca's own
     `total` is the EXTANT letters, not everything he wrote — Aulus Gellius quotes a book numbered past
-    anything that survives.
+    anything that survives. **The chip says the two figures and stops** (Aug 2026, on request): it read
+    "235 of 235 chapters <i>on Folio so far</i>", and those last three words are a promise about the future
+    on a chip whose job is to state a quantity — and they were doubly odd on a book that is complete, where
+    the chip drops the "of N" too and simply says how long the book is.
     **The bar and the Contents panel are ONE sticky block** (`.bk-barwrap`, Aug 2026, on a bug report). The
     bar has always been sticky and the panel sat below it in the FLOW, so opening it a few screens into a
     chapter drew the contents back at the top of the DOCUMENT — off screen, nowhere near the button just
@@ -8027,11 +8030,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   resolves `true`/`false` and **never rejects**, so a fire-and-forget caller can't raise an unhandled
   rejection; a failed bundle is retried on the next call. Consumers:
   · **`PAGES.map`** holds a `.data-loading` placard until `world` + `atlas` land, then re-renders (`render()`
-    re-invokes the *current* page, so this covers `PAGES.findit` too).
+    re-invokes the *current* page, so this covers `PAGES.findit` too). **It is the one placard with a
+    PROGRESS BAR** — see the next paragraph.
   · **`startMiniGlobe`** (home) fetches `world` at **idle** so a 170px ornament never delays first paint,
     and skips entirely under `navigator.connection.saveData`.
   · **Settings' home-location picker** holds just the current home until `world` arrives, then fills.
   · **`loadLangData`** pulls `uiI18n` + `glossI18n` whenever the language isn't English.
+  **THE LOAD BAR COUNTS FILES, NOT BYTES** (`dlBarHTML(names)` / `wireDlBar(host, names)` / `_bundleWatch`
+  / `bundleFileCount` / `bundleDoneCount` / `watchBundles`, beside `ensureData`; `.dl-bar` in styles.css.
+  Aug 2026, on request: "when there are loadscreens, can we add a load bar"). `ensureData` counts each
+  file as it settles — **whichever way it settles**, so a bar cannot stall on a failed bundle whose caller
+  is about to paint a failure state — and notifies whatever is watching that bundle. Three decisions.
+  **Bytes are impossible here and that is a CSP fact rather than an omission**: reading a download's
+  progress means `fetch()` plus running the text yourself, i.e. an inline script, and `script-src 'self'`
+  holds only because there are no inline scripts (see `_headers`). Per-file is what can be counted
+  honestly, so per-file is what is shown. **A bar is DETERMINATE or it is nothing**: `dlBarHTML` returns
+  `""` below two files, so a single-file bundle (a book, `usstates`) keeps its spinner rather than showing
+  a bar that jumps 0 → 100 and has told the reader nothing. The Atlas — the load anybody actually waits
+  for — is twelve files, and measured in a browser it steps 8, 17, 25, 33, 42, 50, 67, 75, 83, 92.
+  **And the fill TRANSITIONS its width**, so the global reduced-motion killswitch already lands it on its
+  true value with no rule of its own; `wireDlBar` takes itself off the watch list when its bar leaves the
+  document, the self-stopping shape `startMiniGlobe` uses.
+  **NO COMMITTED SUITE GUARDS IT, and that is worth knowing before trusting it**: the bar lives on the
+  Atlas's own load screen, which is gone within a second or two of the page opening, so a browser test
+  would be racing the thing it measures. The figures above were read off a live run with the bundles
+  instrumented, and that is the check to repeat by hand after touching `ensureData`'s counting.
   **A bundle's `after` hook re-establishes what boot would have done had the file been present** — this is
   the part that bites. `timeline.js` assigns `window.TIMELINE` over the empty array `applyAdminEdits()` left
   at boot, so the atlas hook re-applies `ADMIN_EDITS.timeline` on top or **the admin's working era set is
@@ -8075,7 +8098,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `deckLimits`/`reviewLimits` read `S.settings.newPerDay` with **no fallback of their own** — so a save old
   enough to lack the key (it predates every other back-fill line) gives `newPerDay: undefined`, which runs
   as NaN through `deckNewRemaining` into a `slice(0, NaN)` that returns nothing. **The review then offers no
-  new cards, ever, with no error and no zero to explain it**: the banner just reads "Browse collections" for
+  new cards, ever, with no error and no zero to explain it**: the banner just says the day is done, for
   good. Found by seeding a partial settings object for `test-reset.js` — which is exactly the shape an old
   save has. **When a reader in `S.settings` has no default of its own, it needs a back-fill line.**
 - **Admin edits:** `localStorage["folio_admin_v1"]` stores edits as *deltas*, applied at startup
@@ -8362,7 +8385,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **THE PROGRESS IS ON THE ACCOUNT PAGE, UNDER THE STAT TILES** (`streakChestHTML` / `.streak-chest`) —
     beside the streak figure it counts from, since that tile says how long the run is and this says what the
     run is worth, which are two halves of one fact and read badly a section apart. **Seven pips rather than
-    a bar**: the unit is a DAY, and a continuous fill would suggest a part-finished one. It takes a `prog`
+    a bar**: the unit is a DAY, and a continuous fill would suggest a part-finished one. **A CHEST SITS AT
+    THE RIGHT-HAND END** (`.sc-chest`, Aug 2026, on request), drawn in the quiet ink and lighting to the
+    earned gold on the seventh day, so the row says what the pips are building towards rather than leaving
+    it to the heading; it is the same `CHEST_SVG` the overlay and the notice use, so the three cannot come
+    to disagree about what a chest looks like, and it is `aria-hidden`, the row being named in words. It takes a `prog`
     like every other figure in that section, so a friend's would render correctly — **nothing calls it that
     way today**, and that is a gap rather than a decision.
     **THE TWO CALLERS GATE IT DIFFERENTLY, ON PURPOSE.** On your OWN record it is always drawn, and at a
@@ -8389,7 +8416,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     so the four tiles read as the whole of it. It opens as an OVERLAY rather than scrolling to that section
     — the same list wherever a showcase is rendered, including a page that carries no inventory section at
     all — and it is built from **`reliquaryHTML`**, so the overlay and the page's own section cannot come to
-    disagree about what is collected. Two things: it is absent when nothing is owned ("See all 0" is a
+    disagree about what is collected. **It is the ONLY way to the collection since Aug 2026** (on
+    request): the account page carried a second, full Reliquary section lower down, so a reader's
+    artefacts were listed twice on one page — the section is gone from both your own account and a
+    friend's, and this button reads **See Reliquary** with the count moved into its `title`. The
+    SIGNED-OUT page keeps its own `#reliquary` section, deliberately: that page has no showcase, so
+    removing it would leave a guest's own collection unreachable. Two things: it is absent when nothing is owned ("See Reliquary" over nothing is a
     control that does nothing), and **`wireReliquary(host, prog, own)` takes the progress it opens FOR** —
     a friend's showcase must raise a friend's collection, and the earlier one-argument form would quietly
     have shown the reader their own list under somebody else's name.
@@ -8680,9 +8712,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **⚠ NO NEW GROUP CAN BE MADE — THE FUNCTION WAS REMOVED FROM THE DAILY STUDY BLOCK** (Aug 2026, on
     request: "remove the group function from the daily study/active decks banner"). "+ New group" stood
     inside the banner, then at the bottom left of the DECK LIST for a fortnight, and is now gone along with
-    `promptNewGroup`, `.rv-tools` and `.rv-newgroup`; `.rv-foot` survives, since that row is what keeps
-    `.rv-lip` against the review group's own bottom edge — it held the lip alone for a fortnight and now
-    carries the day's timer (`.rv-time`) at the left end it vacated.
+    `promptNewGroup`, `.rv-tools` and `.rv-newgroup`; `.rv-foot` survives, carrying the day's timer
+    (`.rv-time`) alone at the left end it vacated — and is now drawn only once there is a time to report,
+    the Collections button having left that row for a place of its own under the whole group.
     **WHAT DELIBERATELY STAYS is everything a reader who ALREADY made one needs**: the group row in the
     list, its hue, dragging a deck in, and Rename / Colour / Ungroup in its own options sheet. Deleting
     that code would leave such a reader a container on their home page that nothing could open — and there
@@ -11014,7 +11046,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `q` too; `null` retires a shipped quote, and a key matching nothing shipped is one the admin added.
   `QUOTES` and `QUOTE_ORDER` are therefore both `let` and both DERIVED: the order is a property of the
   whole pool, so adding or retiring one quote re-solves the lot. **Any writer calls `refreshQuotes()`**,
-  and `reapplyAdminOverlay` does too (undo, and a cloud-adopted overlay)) → review banner (+ the "+ Add decks"
+  and `reapplyAdminOverlay` does too (undo, and a cloud-adopted overlay)) → review banner (+ the Collections button
   lip) → (first-run only) a 3-step how-it-works strip → a **Minigames** heading over the game tiles. That is the
   whole page, at every width.
   **THE DISCOVERY ROW IS GONE** (`.explore-grid`, and with it the **Card of the day** flip tile, the **Term of the
@@ -11059,13 +11091,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   they still get the hero, exactly as before. Anyone with a studiable deck in their review gets the
   ordinary banner and their decks, whether they arrived there by resetting or by adding a collection before
   turning a single card over; that second case is an improvement rather than a side effect, since somebody
-  who has just pressed "+ Add decks" is better served by their own pile and a Start button than by being
+  who has just pressed Collections is better served by their own pile and a Start button than by being
   told again what Folio is for. **A state that is empty for a REASON is not the same as a state that has
   never been used, and a first-run screen keyed on emptiness alone cannot tell them apart.** Guarded by
   `.claude/test-reset.js`, in both directions.
   **The hero offers ONE way in, and its title breaks where it is written to** (Aug 2026, on request). The
   quiet "or browse the collections" beside the button is gone and `.hero-alt` with it — the collections are
-  one press further on from wherever that button lands, and the `.rv-lip` under the review group is the route
+  one press further on from wherever that button lands, and the Collections button under the review group is the route
   the home page advertises, so a second and quieter link in the same row only asked a first-time reader to
   choose between two things they cannot yet tell apart. The `#hero-browse` branch in the banner's own click
   handler went with the markup. The title carries an explicit `<br>` after "Memorize anything," rather than
@@ -11100,7 +11132,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     fourth `.stat` in the meta row beside New / Learning / Review, and `.banner .stat.st-time` is gone).
     Those three say what is LEFT to do today and this says what has been DONE, so standing it among them
     asked a reader to take four numbers of two different kinds off one line. It takes the left end of the
-    **`.rv-foot`** row instead, the line the "+ Add decks" lip already hangs from, so the two sit at the
+    **`.rv-foot`** row instead, the line under the deck list, so the two sit at the
     two ends of the block's own bottom edge — which cost that row nothing, `margin-inline-start:auto` on
     the lip having always held it right whatever stood to its left ("+ New group" did, until it went).
     Two consequences worth knowing. Out there it is on the page's own **paper** rather than on the card,
@@ -11159,6 +11191,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   yet, and neither is visible anywhere else on the banner. The level is still spelled out by `xpBarMarkup`
   directly underneath. **`test-account-switch.js` therefore reads the xp bar**, not a badge, to tell an
   account that has studied from one that has not.
+  **AND A FINISHED DAY OFFERS NO BUTTON AT ALL** (Aug 2026, on request). The CTA used to become "Browse
+  collections" once the pile was empty, which is a second route to a page the Collections button under the
+  group already reaches, dressed as the primary action of a banner whose own subject is finished — so the
+  `.cta` is simply not emitted when `dueN + newN` is zero and the sentence saying the day is done stands
+  alone. **Nothing pressable becomes a dead no-op**: the banner's own click handler still falls through to
+  the collections, so an idle tap on the card does what it always did; what is gone is the invitation.
   **The banner counts ANKI'S THREE PILES** (Aug 2026, on request — it was a Due / New pair): **New** in blue,
   **Learning** in red, **Review** in green (`pileCounts` in `PAGES.home`; the tokens are the study bar's own
   `--indigo-bright` / `--zh` / `--good`, so all three sites agree). The same three numbers, unlabelled, open every
@@ -11223,26 +11261,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     above it) and from the desktop with the discovery row, on request. **Today's SCORE stays**, in its bare
     figures ("3/5"): it is not a description, it is the one thing on the tile that changes during the day. The
     blank sixth tile lost its sentence the same way.
-  · **The way to the collections is `.rv-lip`** — a small "+ Add decks" tab hanging off the bottom edge of the
-    review group, replacing the full-width `.lib-banner` that sat under it (removed Aug 2026, on request). It is
-    the group's **last child, in flow**: the deck list is glued flush to the banner above it (`.has-active`), so
-    there is no bottom edge to hang from until the whole group has one, and an absolutely-positioned lip would
-    have to guess the list's height on every render. It was phone-only for a fortnight and now ships at **EVERY
-    width**, the Collections tab having left the desktop's top bar too (Aug 2026, on request): it is **the ONLY
-    route to the collections anywhere on the site**, so it ships in every state the review can be in, first run
-    included — don't gate it on having decks or on a breakpoint. The `#decks` ROUTE is untouched and must stay
-    so: every link ever shared points at it, and `test-library.js` loads one.
-    It is **filled indigo with white text** (Aug 2026, on request), not the paper tab it started as: it is the
-    only route to the collections down here, and paper-on-paper it read as part of the card's own edge. The
-    blue is the site's primary-button indigo, so it matches Start review directly above it.
-    It hangs at the **RIGHT-HAND end** of that edge rather than in the middle of it (Aug 2026, on request):
-    `align-self:flex-end` with a 20px `margin-inline-end`, so it clears the card's own rounded corner instead
-    of sitting on it, and the inset is written logical-side so Arabic finds it where Arabic reads from.
+  · **The way to the collections is `.home-collections`** — a free-standing button reading **Collections**,
+    centred under the review group (`#b-addDecks` → `route("decks")`). It replaced the `.rv-lip` tab in Aug
+    2026, on request, which had itself replaced the full-width `.lib-banner`. It is **the ONLY route to the
+    collections anywhere on the site**, so it ships at every width and in every state the review can be in,
+    first run included — don't gate it on having decks or on a breakpoint. The `#decks` ROUTE is untouched
+    and must stay so: every link ever shared points at it, and `test-library.js` loads one.
+    Two things about the shape are load-bearing. **It is a SIBLING of the review group inside `.banners`,
+    not a child of it** — that is the whole of "unattached", and it is what the lip could not be: a lip has
+    to hang off an edge, so it had to be the group's last child, in flow, because the deck list is glued
+    flush to the banner above it and an absolutely-positioned tab would have to guess the list's height on
+    every render. Out here none of that arises. And **`.banners` is a flex COLUMN, so `align-self:center`
+    is what stops it spanning the whole width** — a block child there is full width by default, which
+    reads as a second banner rather than as a button, which is exactly what the lip replaced.
+    It keeps the lip's **indigo fill with white text** (Aug 2026, on request), the site's own
+    primary-button colour, so it matches Start review directly above it; paper-on-paper it read as part of
+    the card's own edge, which is the failure that colour fixes.
+    `.rv-foot` survives and now holds the day's timer alone, so it is drawn only once there is a time to
+    report — an empty row would otherwise leave a band of nothing under the deck list.
   · **`.home-about`** — a centred grey "About Folio" line (`#b-about` → `route("mission")`) at the foot, from
     when About left the tab bar. It was phone-only for a fortnight and now ships at **EVERY width** (Aug
     2026, on request), the About tab having left the DESKTOP's top bar too: this is the only route to the
-    page anywhere on the site, so it must not be gated on a breakpoint — exactly the rule the `.rv-lip`
-    already follows for the collections. The `#mission` ROUTE is untouched and must stay so: every link ever
+    page anywhere on the site, so it must not be gated on a breakpoint — exactly the rule the Collections
+    button already follows. The `#mission` ROUTE is untouched and must stay so: every link ever
     shared points at it, and `setActiveTab` already handles a route with no tab (nothing lights). Its
     `20px 0 16px` padding is the whole of its separation
     from the games above it (Aug 2026, on request — it was `4px 0 2px`, leaving it crowded against the grid),
@@ -11624,6 +11665,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   first, and the drop targets are reachable the moment it is open). This exists because
   the collections still being written far outnumber the finished ones (currently 6 to 1), and listing them flat made
   the Library read as empty.
+  **THE DRAG HANDLE IS VISIBLE AT REST** (`.lib-grip`, Aug 2026, on a report that admin reordering had
+  stopped working there). It had NOT: every row rendered its grip and carried `draggable="true"` the whole
+  time — the grip sat at `opacity:0` until the row was hovered, so on a live collection there was nothing
+  to reach for, while a **Coming soon** row showed its own at rest as a side effect of the overrides that
+  compensate for that group's `filter:opacity(.5)`. So the one place it looked like a feature was the one
+  place it was an accident. It is `.32` at rest and `.6` on hover now. **A discoverability fault reads
+  exactly like a broken feature** — check whether the affordance is on the page before looking for the
+  handler.
   **A COLLECTION STATES ITS SIZE ONCE, ON THE BAR** (Aug 2026, on request). Its banner carried a
   `.collection-count` behind the title AND a studied/total bar under it, so the row read "412 cards" beside
   "0 / 412 cards" — one number, said twice, in two registers. The count behind the title is gone and the bar
@@ -11701,7 +11750,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   that same query runs ONCE over the static DOM, so a nav item added later still has to live in index.html.
   **Edit is NOT in this bar** — it left it the same week (Aug 2026, on request) for the top-right button
   described below: the editor is one person's tool and it was taking a seventh of a row six readers share.
-  **Nor is COLLECTIONS** (`#decks`, Aug 2026, on request): it is reached from the home page's `.rv-lip`
+  **Nor is COLLECTIONS** (`#decks`, Aug 2026, on request): it is reached from the home page's Collections button
   instead, which is why nothing in the bar is active there — that page is not one of the bar's destinations.
   **The page swipe stopped reaching it too** (Aug 2026, on request), for the same reason and a fortnight
   later: a gesture that lands a reader on a page the bar cannot reach leaves them somewhere with nothing lit
@@ -12725,6 +12774,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     record's call — so it survives navigating away and back within a session and resets on reload. And
     **below 640px the author, installs and updated columns go** rather than being squeezed: at 390px the
     deck's title is the only part of a row with no shorter form.
+    **A ROW IS ONE LINE** (Aug 2026, on request): the title cell carried the deck's first description line
+    under it (`.sd-sub`), which made every row two or three lines tall and turned a table into a stack of
+    paragraphs — so `.sd-deck` no longer wraps and the title ellipsises. The description is on the deck's
+    own page, under a heading, which is where a reader deciding whether to install it goes. **Mind that
+    `.sd-sub` exists TWICE in styles.css** — the Studio's deck row uses the same name for a different
+    element — and only the table's rule went.
     **AND THE DECK'S PAGE IS WHERE EVERYTHING ABOUT IT IS** (same request). Four things were named and three
     of them were already there — its information, the author's own description (the Studio's `desc`,
     published as `description`), and other people's comments (see the ratings bullet: a comment is a rating
@@ -12977,6 +13032,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   subdecks, so one file holds what would otherwise be several decks — an HSK deck with a direction each way,
   a course with a chapter each. Each is addable and studiable on its own, exactly as a curated collection's
   decks are, and it needs **no schema change anywhere**, which is the whole of the design.
+  · **THEY ARE THE CURATED TREE'S OWN ROWS AND ITS OWN FOLD** (`udeckSubRowsHTML`, Aug 2026, on request:
+    "collapsible with chevrons and visually look the same as the curated collections"). They were a flat
+    `.udeck-subs` list, always open and hard against the deck row above it, so a nine-level deck put nine
+    rows on the Collections page whether the reader wanted them or not, in a shape nothing else on that
+    page wears. Each row is now a **`.node`** with `.node-main` / `.node-title-row` / `.node-title` /
+    `.node-count`, inside `.node-children` / `-inner` / `-pad`, wired by **`wireExpander`** — the same
+    markup and the same helper `buildNode` uses — so the grid fold, the entrance stagger, the card box,
+    the hover and the collection hue on the left hairline all come free and **cannot drift from the
+    curated ones**. Four things follow.
+    **THE CHEVRON IS DRAWN ONLY WHERE THERE IS SOMETHING TO FOLD**: a flat deck with one template has no
+    children at all, and a chevron over nothing is a control that answers a press by doing nothing.
+    **`.udeck-subrow` SURVIVES AS A MODIFIER carrying the depth indent and nothing else** — one rule,
+    `margin-inline-start:calc(var(--sd,0) * 20px)`, so a child is the same 46px box as its parent stepped
+    in from it rather than a padded row growing its own left gutter. (The indent used to be a padding;
+    anything measuring it reads `marginInlineStart` now.)
+    **THE ROW KEEPS ITS PROGRESS BAR where a curated deck row has none**, and that is deliberate: a
+    subdeck is the unit a community deck is actually studied by — nine levels of one file, each with a
+    schedule of its own — so the bar is the only thing on the row saying how far through it the reader
+    is, and dropping it to match would be losing information rather than matching a look.
+    **AND THE FOLD STARTS SHUT, like a curated collection's.** A shut fold is clipped to zero height, so
+    a subrow's `+` is in the DOM and cannot be pressed — which is right for a reader and is a trap for a
+    test: read the markup freely, but anything CLICKING a subrow has to open the deck first (`openFolds`
+    in `test-subdecks.js`). Every `data-*` attribute is untouched, so `wireCommunityLibrary`'s
+    `[data-usub]` wiring needed no change at all.
   · **A SUBDECKED ENTRY DEALS ITS SUBDECKS ROUND-ROBIN, EACH ONE A DAY BEHIND** (`studyGroupOf` /
     `studyOrder`, Aug 2026, on a bug report: studying a level of a two-direction deck gave one direction
     and never the other). A deck stores its cards one subdeck after another, and both `reviewQueue` and
@@ -13162,6 +13241,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `reload()` or the next `save()` puts the in-memory state straight back over it. **`check-decks.js` is
     the other half**, since it studies the shipped decks through the pooled review, which is where a
     cascade that is too wide shows up as reverses on the first day.
+    **THEIR SUBROW HOOKS ARE THE CURATED NAMES SINCE AUG 2026** — `.node-title`, `.node-count`,
+    `.node-main`, where they were `.deck-title` / `.collection-count` / `.collection-main` — and the
+    migration was the right way round rather than a convenience: those three styled NOTHING anywhere
+    (checked before touching them), so they were pure test hooks over rows that genuinely ARE curated
+    `.node` rows now, and re-adding a dead class to keep a selector working would be two names for one
+    thing. `check-nesting.js`'s depth probe reads **`marginInlineStart`** for the same reason, and
+    anything CLICKING a subrow calls `openFolds` first — see the fold trap above. **Re-run all three
+    (`test-subdecks.js`, `check-nesting.js`, `test-publish.js`) after touching `udeckSubRowsHTML` /
+    `udeckRowHTML` / `wireCommunityLibrary` / `.udeck-subrow`**: a changed class name there is invisible
+    in review and takes the suites down rather than failing them, which reports every assertion before it
+    as a pass.
 - **Community decks — CARD TYPES (Aug 2026, on request).** Anki's note types, cut to the three things an
   author actually programs: the **front template**, the **back template** and the **CSS** for the card as a
   whole. A type declares its own field names; a card of that type carries a `fields` map instead of the
@@ -13586,6 +13676,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   same thing — and the "Progress synced to your account" line moved directly under them (`.acct-syncnote`),
   with the password panel following it so it opens where the button is. `.acct-tools` survives for the
   Remove-photo button and renders only when there is a photo.
+  **THE FOUR BUTTONS SIT IN A 2×2 BLOCK ON A WIDE SCREEN** (Aug 2026, on request): in one row they ran the
+  width of the card and squeezed the name and picture beside them into a column of two or three words.
+  `grid-template-columns:repeat(2, minmax(0, 1fr))` with `flex:none`, so the block takes only what four
+  buttons need and the identity beside it takes the rest. **The ≤640px rule sets `display:flex` back
+  explicitly** — a phone stacks them full width, and a media query adds no specificity, so the grid would
+  otherwise carry straight through.
 
 ## Generating cards & glossary entries
 
@@ -16276,7 +16372,7 @@ dead code (never rendered).
     page, which is now ASSERTED THE SAME AT BOTH WIDTHS and was asserted as opposites for a fortnight
     (one column, no pager, no card of the day, no gloss of the day and no Atlas teaser — none of which is
     BUILT at any width, watched on the desktop through the REQUEST LOG as well as the markup, since the
-    teaser's ornament was the only thing outside the Atlas that fetched the ~1.6 MB globe; the "+ Add decks" lip hanging off
+    teaser's ornament was the only thing outside the Atlas that fetched the ~1.6 MB globe; the Collections button standing under
     the bottom of the review group, centred, narrower than the group, routing to the collections and filled
     in the site's own `--indigo` read off a probe rather than hard-coded — and, since Aug 2026, sharing a
     `.rv-foot` line with "+ New group", which is asserted OUT of the banner while the chest is asserted out
@@ -16334,7 +16430,7 @@ dead code (never rendered).
     never a click, since a click would dismiss it anyway and prove nothing.
     **Re-run after touching `.tabbar` / `--tabbar-h` / `--timebar-h` / `layoutTicks` / the Atlas chrome's
     media queries / `.settings` / `.auth-split` / the coming-soon rows / `wireOnePageSwipe`
-    / `.rv-lip` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `adProg` / `.active-deck` /
+    / `.home-collections` / `.games-sec` / `.home-about` / `gameSub` / `pileCounts` / `adProg` / `.active-deck` /
     `gbWireResize` / `.gb-fold` / `body.gb-compact` / `wirePageSwipe` / `SWIPE_ORDER` /
     `makePageGhost` / `clipStageFor` / the `.page-next`/`.page-prev` keyframes /
     `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` / `#fsRange` / `MULTILANG` /

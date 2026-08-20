@@ -1139,7 +1139,7 @@ function scrimCheck() {
     await page.waitForTimeout(1600);
     const h = await page.evaluate(() => {
       const grp = document.querySelector(".review-group"), grid = document.querySelector(".game-grid");
-      const head = document.querySelector(".games-head"), lip = document.querySelector(".rv-lip");
+      const head = document.querySelector(".games-head"), lip = document.querySelector(".home-collections");
       const quote = document.querySelector(".daily-quote, .dq, figure");
       const tiles = [...document.querySelectorAll(".game-tile")];
       const top = (el) => Math.round(el.getBoundingClientRect().top);
@@ -1148,20 +1148,17 @@ function scrimCheck() {
         atlasTile: !!document.querySelector("#exp-atlas"), cod: !!document.querySelector("#exp-card"),
         tod: !!document.querySelector("#exp-term"), explore: !!document.querySelector(".explore-grid"),
         libBanner: !!document.querySelector("#b-library"),
-        // the lip hangs off the BOTTOM of the review group, under the deck list it adds to — at its
-        // RIGHT-HAND end since Aug 2026 (on request; it was centred), and clear of the card's rounded
-        // corner rather than sitting on it, which is the whole of "a lip" as against "a button somebody
-        // left there"
+        /* THE LIP IS GONE AND A FREE-STANDING BUTTON REPLACES IT (Aug 2026, on request). It was a tab
+           hanging off the review group's own bottom edge — part of the card — and it is now an ordinary
+           button sitting BELOW that card with air around it, which is what "unattached" means and what
+           these three fields measure: it is a SIBLING of the group rather than its last child, it clears
+           the group's bottom edge by a real gap, and it is CENTRED rather than tucked into a corner. */
         lip: lip ? lip.textContent.trim() : "",
-        /* The lip sits in a footer row of its own (`.rv-foot`, which it shared with "+ New group" until
-           that control was removed), so it is the last thing in that row and the row is the last thing in
-           the group — the same claim as before ("nothing is drawn below it"), one element deeper. */
-        lipLast: !!(lip && grp && lip.parentElement && lip.parentElement.classList.contains("rv-foot") &&
-                    lip.parentElement === grp.lastElementChild && lip === lip.parentElement.lastElementChild),
-        lipInsetR: lip && grp ? Math.round(grp.getBoundingClientRect().right - lip.getBoundingClientRect().right) : 999,
+        lipDetached: !!(lip && grp && lip.parentElement === grp.parentElement &&
+                        !grp.contains(lip) && lip.previousElementSibling === grp),
         lipCentreOff: lip && grp ? Math.round(Math.abs((lip.getBoundingClientRect().left + lip.getBoundingClientRect().width / 2)
-          - (grp.getBoundingClientRect().left + grp.getBoundingClientRect().width / 2))) : 0,
-        lipAtBottom: lip && grp ? Math.round(lip.getBoundingClientRect().bottom - grp.getBoundingClientRect().bottom) : 999,
+          - (grp.getBoundingClientRect().left + grp.getBoundingClientRect().width / 2))) : 999,
+        lipGap: lip && grp ? Math.round(lip.getBoundingClientRect().top - grp.getBoundingClientRect().bottom) : -999,
         /* THE CHEST AND "+ NEW GROUP" HAVE BOTH LEFT THE BANNER (Aug 2026, on request). Each is asserted
            in both directions, since a control that has merely stopped rendering looks the same from one
            side as one that has moved: the chip must be GONE from the banner and the notice must be a real
@@ -1177,11 +1174,11 @@ function scrimCheck() {
         // the group function left the daily study block altogether in Aug 2026 (on request) — it is not
         // in the banner, and it is not under the deck list either
         newGroupAnywhere: !!document.querySelector("#b-newgroup, .rv-newgroup, [data-newgroup]"),
-        // a TAB, not another full-width banner — which is what it replaced
+        // a BUTTON, not another full-width banner — which is what the lip before it replaced
         lipFrac: lip && grp ? +(lip.getBoundingClientRect().width / grp.getBoundingClientRect().width).toFixed(2) : 1,
         /* …and BLUE (Aug 2026, on request): the site's own primary-button indigo, read off a probe rather
-           than hard-coded, so a theme that re-tones --indigo moves the lip with it. Paper-on-paper it read
-           as part of the card's bottom edge, which is the failure this pins. */
+           than hard-coded, so a theme that re-tones --indigo moves the button with it. Paper-on-paper it
+           read as part of the card's bottom edge, which is the failure this pins. */
         lipBlue: (() => {
           if (!lip) return "";
           const p = document.createElement("i");
@@ -1228,20 +1225,23 @@ function scrimCheck() {
     check("the phone's home page is one column again — no pager", !h.pager && !h.dots, JSON.stringify({ pager: h.pager, dots: h.dots }));
     check("...with no card of the day and no gloss of the day", !h.cod && !h.tod && !h.explore, JSON.stringify(h));
     check("...and no Atlas teaser: a phone never fetches the globe for an ornament", !h.atlasTile);
-    check("the collections banner is gone, replaced by a lip on the review", !h.libBanner && /add decks/i.test(h.lip), JSON.stringify({ banner: h.libBanner, lip: h.lip }));
-    check("...hanging off the bottom edge of the review group", h.lipLast && Math.abs(h.lipAtBottom) <= 1, JSON.stringify({ last: h.lipLast, edge: h.lipAtBottom }));
+    check("the collections banner is gone, replaced by a Collections button under the review",
+      !h.libBanner && /^collections$/i.test(h.lip), JSON.stringify({ banner: h.libBanner, label: h.lip }));
+    check("...standing free of the review group rather than hanging off its edge",
+      h.lipDetached && h.lipGap >= 4, JSON.stringify({ detached: h.lipDetached, gap: h.lipGap }));
     check("the banner never counts chests: the notice is a slot above it instead",
       !h.chestChip && h.chestSlotAbove, JSON.stringify({ chip: h.chestChip, above: h.chestSlotAbove }));
     check("...and the group function is gone from the daily study block entirely", !h.newGroupAnywhere);
-    /* …at the RIGHT-HAND end of that edge, not the middle (Aug 2026, on request) — asserted in BOTH
-       directions, since "somewhere near the right" is also true of a lip that has simply overflowed its
-       group: it must be inset from the corner rather than flush with it, and plainly off centre. */
-    check("...at its right-hand end, inset from the corner, and a tab rather than a second banner",
-      h.lipInsetR >= 8 && h.lipInsetR <= 40 && h.lipCentreOff > 40 && h.lipFrac < 0.7,
-      JSON.stringify({ insetR: h.lipInsetR, offCentre: h.lipCentreOff, frac: h.lipFrac }));
+    /* CENTRED, and narrower than the group. `.banners` is a flex COLUMN, so a block child spans the whole
+       width by default — a button that has silently lost its `align-self:center` is the full width of the
+       review group above it and reads as a second banner, which is exactly what it replaced. Both halves
+       are needed: the centre test alone passes on a full-width block, since that is centred too. */
+    check("...centred under it, and a button rather than a second banner",
+      h.lipCentreOff <= 2 && h.lipFrac < 0.7,
+      JSON.stringify({ offCentre: h.lipCentreOff, frac: h.lipFrac }));
     check("...filled in the same indigo as Start review, not paper on paper", h.lipBlue === "ok", h.lipBlue);
     check("...and routing to the collections", await page.evaluate(async () => {
-      document.querySelector(".rv-lip").click();
+      document.querySelector(".home-collections").click();
       await new Promise((r) => setTimeout(r, 700));
       return location.hash;
     }) === "#decks");
@@ -1653,7 +1653,7 @@ function scrimCheck() {
     const d = await page.evaluate(() => {
       const top = (s) => { const el = document.querySelector(s); return el ? Math.round(el.getBoundingClientRect().top) : -1; };
       const grp = document.querySelector(".review-group"), grid = document.querySelector(".game-grid");
-      const head = document.querySelector(".games-head"), lip = document.querySelector(".rv-lip");
+      const head = document.querySelector(".games-head"), lip = document.querySelector(".home-collections");
       return {
         order: [top(".review-group"), top(".games-head"), top(".game-grid")],
         explore: !!document.querySelector(".explore-grid"),
@@ -1663,10 +1663,10 @@ function scrimCheck() {
         subs: [...document.querySelectorAll(".game-tile")].filter((t) => t.querySelector(".gt-sub")).length,
         mgHead: head ? head.textContent.trim() : "",
         lip: lip ? lip.textContent.trim() : "",
-        // …one element deeper since the lip sits inside `.rv-foot` — see the phone block above
-        lipLast: !!(lip && grp && lip.parentElement === grp.lastElementChild && lip === lip.parentElement.lastElementChild),
+        // …a SIBLING of the review group drawn directly after it — see the phone block above for why
+        lipLast: !!(lip && grp && lip.parentElement === grp.parentElement && lip.previousElementSibling === grp),
         about: !!document.querySelector(".home-about"),
-        // Collections left the top bar with the tile row; the lip is the only way to it now
+        // Collections left the top bar with the tile row; that button is the only way to it now
         decksTab: !!document.querySelector('.topbar [data-route="decks"]'),
         // …and About left it a fortnight later, so the home page's own line is the only way there too
         aboutTab: !!document.querySelector('.topbar [data-route="mission"]'),
@@ -1678,8 +1678,8 @@ function scrimCheck() {
       !asked.some((u) => /\/world\.js/.test(u)), asked.filter((u) => /\/world\.js/.test(u)).join(","));
     check("[desktop] ...the games three to a row, and no taglines on them", d.cols === 3 && d.subs === 0, JSON.stringify({ cols: d.cols, subs: d.subs }));
     check("[desktop] ...under a Minigames heading, under the review", /minigames/i.test(d.mgHead) && d.order[0] < d.order[1] && d.order[1] < d.order[2], JSON.stringify(d.order));
-    check("[desktop] ...with the Add decks lip on the review group", /add decks/i.test(d.lip) && d.lipLast, JSON.stringify({ lip: d.lip, last: d.lipLast }));
-    check("[desktop] ...and Collections gone from the top bar, the lip being the way to it", !d.decksTab);
+    check("[desktop] ...with the Collections button under the review group", /^collections$/i.test(d.lip) && d.lipLast, JSON.stringify({ label: d.lip, after: d.lipLast }));
+    check("[desktop] ...and Collections gone from the top bar, that button being the way to it", !d.decksTab);
     /* About left the DESKTOP's top bar too (Aug 2026, on request), a fortnight after Collections did and
        for the same reason: the two bars now name the same destinations, and the home page's own line is
        the only route to the page at every width. This assertion was the opposite way round while the tab

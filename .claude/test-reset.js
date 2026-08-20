@@ -85,7 +85,7 @@ function serve() {
 
   /* ================= 2. …and a reader with decks does not, even before studying =================
      This is the case that used to be indistinguishable from a first visit: someone who pressed
-     "+ Add decks", added a collection and came back before turning a single card over. */
+     "Collections", added a collection and came back before turning a single card over. */
   v = await seedHome(() => {
     const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
     s.active = ["col-8", "col-13"];

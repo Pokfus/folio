@@ -63,3 +63,27 @@ written and its version is bumped** — the three go in one commit, per the rule
   browser half aborted there. Pre-existing (confirmed against HEAD with the batch stashed) and fixed
   here rather than left, since a suite this batch names cannot be read while it aborts; see the
   `⚠ IT RAN 87 OF THEM` note under that file in CLAUDE.md.
+- **C — Shell layout.** `test-layout.js` 315/0, `test-library.js` 333/0, `test-publish.js` 138/0,
+  `test-artefacts.js` 68/0, `test-subdecks.js` 30/0, `check-nesting.js` 28/0, `test-streak-chest.js`,
+  `test-tour.js` 70/0, `test-a11y.js` 9/0, `test-reset.js` 21/0.
+  **The Your-decks fold is the item that reached furthest.** Making a community deck's subdecks look
+  and behave like a curated collection's meant giving them the curated tree's OWN markup — `.node` /
+  `.node-main` / `.node-title` / `.node-count` inside `.node-children`, wired by `wireExpander` — so
+  the grid fold, the stagger, the card box, the hover and the collection hue all come free and cannot
+  drift from the curated ones. `.udeck-subrow` survives as a modifier carrying the depth indent alone,
+  and every `data-*` attribute is untouched, so the `[data-usub]` wiring needed no change.
+  **The old class names were TEST HOOKS and nothing else** (`.deck-title` styled nothing anywhere), so
+  four suites read them and three broke: `test-publish.js`, `test-subdecks.js` and `check-nesting.js`
+  are updated to the curated names, and `check-nesting.js`'s depth probe now reads
+  `marginInlineStart` — the indent moved from a padding to a margin when the row became the same 46px
+  box as its parent.
+  **AND A SHUT FOLD IS UNCLICKABLE, WHICH IS THE POINT AND ALSO THE TRAP**: a curated collection's
+  decks start folded, so these do too, and a subrow's `+` is in the DOM and clipped to zero height —
+  anything reading it may go straight to the markup, and anything PRESSING one has to open the deck
+  first, exactly as a reader does (`openFolds` in `test-subdecks.js`).
+  **The load bar counts FILES, not bytes**, and is drawn only where a bundle set has two or more of
+  them (`dlBarHTML` / `wireDlBar`). Byte progress needs `fetch()` plus running the text, i.e. an inline
+  script, which `script-src 'self'` forbids — so the honest choices were a per-file bar or none, and a
+  bundle of one large file keeps its spinner rather than showing a bar that jumps 0 → 100. The Atlas,
+  which is the load anybody actually waits for, is twelve files: measured in a browser it steps
+  8, 17, 25, 33, 42, 50, 67, 75, 83, 92.

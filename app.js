@@ -1366,7 +1366,7 @@
      and `deckLimits`/`reviewLimits` read `S.settings.newPerDay` with no fallback of their own, so a save
      old enough to lack the key yields `newPerDay: undefined` → NaN through `deckNewRemaining` → a
      `slice(0, NaN)` that returns nothing. The review then offers **no new cards, ever**, with no error and
-     no zero to explain it: the banner simply reads "Browse collections" for good. Found while seeding a
+     no zero to explain it: the banner simply never offers a card again. Found while seeding a
      partial settings object for `test-reset.js`, which is exactly the shape an old save has. */
   if (S.settings && !Number.isFinite(S.settings.newPerDay)) S.settings.newPerDay = 3;
   /* THE SYMPOSIUM BECAME A CHAPTER OF THE DIALOGUES (Aug 2026), and both registers that remember a
@@ -12231,16 +12231,72 @@
   // Load a bundle's files (in parallel — each one only assigns its own global, so order is
   // irrelevant). Resolves true on success, false on failure; never rejects, so a caller that
   // doesn't care about the outcome can fire and forget. A failed bundle is retried next call.
+  /* IT COUNTS ITS FILES AS THEY LAND, so a loading screen can say how far in it is (Aug 2026, on request:
+     "when there are loadscreens, can we add a load bar"). `b.done` rises per file and `_bundleWatch`
+     notifies whoever is drawing the bar; a bundle already in flight from an earlier caller reports the
+     count it has reached rather than starting again from nothing.
+     IT IS PER FILE AND NOT PER BYTE, and that is a limit rather than a shortcut. Byte progress means
+     `fetch` + a ReadableStream and then running the text, which on this site is an INLINE script — and
+     `script-src 'self'` holds precisely because there are none (see `_headers`). So a bundle of one large
+     file has nothing to report and keeps its spinner; the Atlas, which is the load anybody actually waits
+     for, is twelve files and gets a real bar. */
+  const _bundleWatch = {};
+  function bundleFileCount(names) {
+    return names.reduce((n, x) => n + (((DATA_BUNDLES[x] || {}).files || []).length), 0);
+  }
+  function bundleDoneCount(names) {
+    return names.reduce((n, x) => n + (((DATA_BUNDLES[x] || {}).done) || 0), 0);
+  }
+  // fn is called after every file of any of `names` settles; returns an unsubscribe
+  function watchBundles(names, fn) {
+    names.forEach((x) => { (_bundleWatch[x] = _bundleWatch[x] || []).push(fn); });
+    return () => names.forEach((x) => {
+      const a = _bundleWatch[x]; const i = a ? a.indexOf(fn) : -1;
+      if (i >= 0) a.splice(i, 1);
+    });
+  }
   function ensureData(name) {
     if (_bundlePromises[name]) return _bundlePromises[name];
     const b = DATA_BUNDLES[name];
     if (!b) return Promise.resolve(true);
-    return (_bundlePromises[name] = Promise.all(b.files.map(loadScriptOnce)).then(
+    b.done = 0;
+    const step = () => {
+      b.done = (b.done || 0) + 1;
+      (_bundleWatch[name] || []).slice().forEach((fn) => { try { fn(); } catch (e) {} });
+    };
+    return (_bundlePromises[name] = Promise.all(b.files.map(
+      // count a file whichever way it settles: a bar that stalls on a failed file says "still loading"
+      // about a bundle that has already given up, where the caller's own failure branch is about to paint
+      (f) => loadScriptOnce(f).then((v) => { step(); return v; }, (e) => { step(); throw e; })
+    )).then(
       () => { if (b.after) b.after(); b.ready = true; return true; },
       () => { _bundlePromises[name] = null; return false; }
     ));
   }
   function dataReady(name) { const b = DATA_BUNDLES[name]; return !!(b && b.ready); }
+  /* THE BAR ITSELF. Determinate or nothing: an indeterminate sweep says "something is happening", which
+     the spinner beside it already says, and the request was for how much progress has been MADE. So a
+     bundle set with fewer than two files renders no bar at all and keeps the spinner alone. */
+  function dlBarHTML(names) {
+    const total = bundleFileCount(names);
+    if (total < 2) return "";
+    return '<div class="dl-bar" id="dlBar" role="progressbar" aria-label="Loading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i style="width:0%"></i></div>';
+  }
+  // draws `names`' progress into whatever `dlBarHTML` put in `host`, and keeps it in step until it is gone
+  function wireDlBar(host, names) {
+    const bar = host && host.querySelector("#dlBar");
+    if (!bar) return () => {};
+    const total = bundleFileCount(names), fill = bar.querySelector("i");
+    const paint = () => {
+      if (!bar.isConnected) { off(); return; }   // the placard was replaced — stop holding a dead node
+      const pct = Math.min(100, Math.round((bundleDoneCount(names) / (total || 1)) * 100));
+      fill.style.width = pct + "%";
+      bar.setAttribute("aria-valuenow", String(pct));
+    };
+    const off = watchBundles(names, paint);
+    paint();
+    return off;
+  }
   // run once the browser is idle, so a background fetch never competes with first paint
   function whenIdle(fn) {
     if (window.requestIdleCallback) requestIdleCallback(fn, { timeout: 2500 });
@@ -14277,9 +14333,9 @@
     {
       route: "home",
       title: "Nothing is scheduled until you choose it",
-      body: "Folio does not pick your subjects. You add decks, and only those decks are dealt.<p>This tab under " +
+      body: "Folio does not pick your subjects. You add decks, and only those decks are dealt.<p>This button under " +
         "the banner is the way to them — it is the only route to the collections anywhere on the site.</p>",
-      target: [".rv-lip", "#b-addDecks"],
+      target: [".home-collections", "#b-addDecks"],
     },
     {
       route: "decks",
@@ -16791,12 +16847,17 @@
        scrolling to that section, for two reasons — it is the same list wherever the showcase is rendered,
        including a page that carries no inventory section at all, and a reader who came to look at four
        artefacts is asking to see more of them, not to be moved somewhere else on a long page.
-       It appears only once there is something behind it: "See all 0" is a control that does nothing. */
+       It appears only once there is something behind it: a control over an empty collection does nothing.
+       IT IS NAMED FOR WHERE IT LEADS (Aug 2026, on request — it read "See all N artefacts"). The inventory
+       had a section of its own further down this page as well, so the reader met the same list twice under
+       two names; that section is gone from the signed-in view and this is the only way to the whole
+       collection, which makes naming it after the place the right way round. The count moves into the
+       title, where it is still a fact about the collection and no longer the button's own name. */
     const n = ownedArtefacts(prog).length;
     const head = n
       ? '<div class="ar-schead"><button type="button" class="ghost-btn ar-all" data-arall="1" title="' +
-        (own ? "Everything you have collected" : "Everything this scholar has collected") + '">' +
-        "See all " + n + " artefact" + (n === 1 ? "" : "s") + "</button></div>"
+        (own ? "Everything you have collected" : "Everything this scholar has collected") +
+        " — " + n + " artefact" + (n === 1 ? "" : "s") + '">See Reliquary</button></div>'
       : "";
     return head + '<div class="showcase">' + cells + '</div>' +
       (own ? '<p class="ar-note">Open an artefact below to pin it here — up to ' + SHOWCASE_MAX + ', shown to anyone who visits your profile.</p>' : "");
@@ -18487,9 +18548,13 @@
                     next level rather than as a bare number. */""}
               ${/* the day's time on cards stood here and is now under the deck list — see `timeFoot` above */""}
               ${streakChip}
-              <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
-          dueN + newN ? "Start" : "Browse collections"
-        }</span></span>
+              ${/* THE CTA IS DRAWN ONLY WHILE THERE IS WORK (Aug 2026, on request). A cleared day used to
+                    swap "Start" for a ghost "Browse collections", which is a second route to a page the
+                    Collections button under this group already names — and it named it in the one place a
+                    reader looks for what to STUDY. The banner's own click still falls through to the
+                    collections when the day is empty, so nothing that could be pressed becomes a dead
+                    no-op; only the redundant chrome goes. */""}
+              ${dueN + newN ? `<span class="cta"><span class="btn">Start</span></span>` : ""}
             </div>
             ${/* "+ New group" stood here, inside the banner, until Aug 2026 and is now under the LAST deck
                   row instead (see `newGroupTools` below) — beside the list it acts on rather than inside the
@@ -18499,17 +18564,15 @@
           </div>
           <span class="glyph glyph-svg">${ICON.review}</span>
         </button>`;
-    /* The way to the collections (Aug 2026, on request). It was a banner of its own under the review — a
-       second full-width block saying, at length, what one word says — and is now a small tab hanging off
-       the BOTTOM EDGE of the review group, under the list of decks it adds to. It is the LAST child of that
-       group rather than a floating overlay: the deck list is glued flush to the banner above it (see
-       .has-active in styles.css), so there is no bottom edge to hang from until the whole group has one, and
-       an absolutely-positioned lip would have to guess the list's height on every render.
-       It was PHONE-ONLY for a fortnight and now ships at EVERY width, because the Collections tab has left
-       the desktop's top bar too (on request, bringing the two pages into line): this is the ONLY route to
-       the collections anywhere on the site, so it ships in every state the review can be in, first run
-       included, and must not be gated on having decks or on a breakpoint. */
-    const addDecksLip = `<button class="rv-lip" id="b-addDecks" type="button">+ Add decks</button>`;
+    /* THE WAY TO THE COLLECTIONS IS A BUTTON OF ITS OWN, STANDING UNDER THE REVIEW GROUP (Aug 2026, on
+       request). It has been three things: a full-width banner, then a small "+ Add decks" tab hanging off
+       the BOTTOM EDGE of the group (`.rv-lip`), and now an unattached button below it. The lip said two
+       things at once and only one of them was true — "+ Add" reads as an action performed on the group it
+       is stuck to, where pressing it goes to a PAGE — so it is detached and named for where it leads.
+       It ships at EVERY width and in every state the review can be in, first run included, because the
+       Collections tab has left the desktop's top bar too: this is the ONLY route to the collections
+       anywhere on the site, so it must not be gated on having decks or on a breakpoint. */
+    const collectionsBtn = `<button class="home-collections" id="b-addDecks" type="button">Collections</button>`;
     /* THE WAY TO THE ABOUT PAGE — a quiet grey line at the foot of the home page. It was PHONE-ONLY for a
        fortnight, on the reasoning that a desktop still had an About tab in its top bar to reach the page
        with; that tab has now left the desktop too (Aug 2026, on request, bringing the two into line with
@@ -18520,21 +18583,20 @@
        having moved out of the banner a fortnight earlier; the request is to take the group function off
        the daily study block altogether, so the control goes and `promptNewGroup` with it — see the note
        where that function was defined for what deliberately STAYS, and why.
-       The footer row it shared is kept as it is rather than collapsed into the lip: `.rv-foot` is what
-       holds the lip against the group's own bottom EDGE, and the lip is held to the right of it by
-       `margin-inline-start:auto`, so a one-item row still puts it where it has always hung — which is also
-       what lets the day's timer take the LEFT end of the same line without moving it (Aug 2026). */
+       THE FOOTER ROW NOW HOLDS THE DAY'S TIMER ALONE, and is therefore DRAWN ONLY WHEN THERE IS A TIMER
+       TO HOLD: the lip that used to hang from its right went out of the group altogether (see
+       `collectionsBtn`), and `timeFoot` is empty until the first card of the day is studied, so an
+       unconditional row would spend the group's own bottom padding on nothing every morning. */
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu) — see the comment there. */""}
             ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
-            ${/* The footer row under the deck list: the day's time studied at its left, the lip to the
-                  collections at its right, each against one end of the group's own bottom EDGE. "+ New
-                  group" held the left until Aug 2026; the timer took it when it left the banner's meta
-                  row, which is why the row survived that control's removal rather than collapsing into
-                  the lip. */""}
-            <div class="rv-foot">${timeFoot}${addDecksLip}</div>
+            ${/* The footer row under the deck list: the day's time studied, against the left end of the
+                  group's own bottom EDGE. "+ New group" held that end until Aug 2026 and the timer took
+                  it; the lip to the collections held the right until it became a button standing outside
+                  the group, which is why the row is now conditional rather than always drawn. */""}
+            ${timeFoot ? `<div class="rv-foot">${timeFoot}</div>` : ""}
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
@@ -18563,6 +18625,9 @@
               can fill and empty it in place, without rebuilding the page under a reader. */""}
         <div id="chestSlot">${chestBannerHTML()}</div>
         ${reviewGroup}
+        ${/* The way to the collections, standing on its own under the review group rather than stuck to
+              its bottom edge — see `collectionsBtn` above for why it was detached and renamed. */""}
+        ${collectionsBtn}
         ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}
@@ -18611,8 +18676,8 @@
        inside the banner, so it needs no keydown handler of its own — which is the whole reason for
        getting it out of there. ("+ New group" was wired here too, and went with the control.) */
     wireChestBanner(root);
-    // the lip under the review group and the About line under the games — both at every width now, each
-    // being the only route to the page it names anywhere on the site
+    // the Collections button under the review group and the About line under the games — both at every
+    // width now, each being the only route to the page it names anywhere on the site
     { const add = root.querySelector("#b-addDecks"); if (add) add.addEventListener("click", () => route("decks")); }
     { const ab = root.querySelector("#b-about"); if (ab) ab.addEventListener("click", () => route("mission")); }
     /* THE BREAKPOINT NO LONGER CHANGES WHAT THIS PAGE IS, and the listener below is retired with the last
@@ -19099,6 +19164,7 @@
     const n = uDeckStudyIds(d.cardIds || []).length, studied = uDeckStudied(d);
     const entry = uDeckEntry(d.id), on = isActive(entry);
     const installed = !uDeckIsMine(d);
+    const subs = udeckSubRowsHTML(d);   // "" where the deck has nothing under it — see the chevron below
     return '<div class="collection udeck' + (installed ? " udeck-installed" : "") + '">' +
       '<div class="collection-row" role="button" tabindex="0" data-udeck="' + esc(d.id) + '">' +
         collectionIconMarkup(d.id) +
@@ -19117,14 +19183,27 @@
           '<button class="udeck-edit" type="button" data-uedit="' + esc(d.id) + '" title="Edit in the Studio" aria-label="Edit in the Studio">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>' +
           '</button>' +
+          /* THE CHEVRON, drawn only where there is something under the row to fold (Aug 2026, on request).
+             A deck with no subdecks and one template has no children at all, and a chevron over nothing is
+             a control that answers a press with nothing happening. */
+          (subs ? chevBtn() : "") +
         '</div>' +
-      '</div>' + udeckSubRowsHTML(d) + '</div>';
+      '</div>' + subs + '</div>';
   }
   /* A deck's subdecks, each addable and studiable on its own — the same affordances a curated collection's
      decks get, and the reason a deck may hold two directions in one file. A deck with no subdecks renders
      nothing here, so a flat deck's row is exactly what it always was. Cards that name no subdeck are left
      out of this list rather than given an "Other" row: on a fully-grouped deck there are none, and on a
-     partly-grouped one the parent row already studies the whole deck. */
+     partly-grouped one the parent row already studies the whole deck.
+     THEY ARE THE CURATED TREE'S OWN ROWS AND ITS OWN FOLD (Aug 2026, on request: "collapsible with
+     chevrons and visually look the same as the curated collections"). They were a flat `.udeck-subs`
+     list, always open, hard against the deck row above it — so a nine-level deck put nine rows on the
+     Collections page whether the reader wanted them or not, in a shape nothing else on that page wears.
+     The container is `.node-children` / `.node-children-inner` / `.node-children-pad` and each row is a
+     `.node`, exactly as `buildNode` emits them, so the grid fold, the stagger, the card box, the hover
+     and the collection hue on the left hairline all come free and cannot drift from the curated ones.
+     `.udeck-subrow` survives as a MODIFIER carrying the depth indent and nothing else; the data
+     attributes are untouched, so `wireCommunityLibrary`'s `[data-usub]` wiring is unchanged. */
   function udeckSubRowsHTML(d) {
     /* A row per CARD TEMPLATE under whichever levels hold their cards directly — see uEntryTemplates. The
        deck's own come first and only where it has no subdecks to hang them off, since a container's
@@ -19134,14 +19213,18 @@
     const rowFor = (entry, name, depth, sub, tpl) => {
       const ids = entryCardIds(entry), n = ids.length, on = isActive(entry);
       const studied = ids.filter(isSeen).length;
-      return '<div class="deck-row udeck-subrow" role="button" tabindex="0" data-usub="' + esc(d.id) +
+      return '<div class="node udeck-subrow" role="button" tabindex="0" data-usub="' + esc(d.id) +
         '" data-usubname="' + esc(sub) + '" data-usubtpl="' + tpl + '" data-depth="' + depth + '"' +
         (depth ? ' style="--sd:' + depth + '"' : "") + '>' +
-        '<div class="collection-main">' +
-          '<div class="collection-title-row">' +
-            '<span class="deck-title">' + esc(name) + '</span>' +
-            '<span class="collection-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
+        '<div class="node-main">' +
+          '<div class="node-title-row">' +
+            '<span class="node-title">' + esc(name) + '</span>' +
+            '<span class="node-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
           '</div>' +
+          /* The curated deck row carries no progress bar and this one keeps its own: a subdeck is the
+             unit a community deck is actually studied by — nine levels of one file, each with a schedule
+             of its own — so the bar is the only thing on the row saying how far through it the reader is,
+             and dropping it to match would be losing information rather than matching a look. */
           deckProgMarkup(studied, n) +
         '</div>' +
         '<div class="collection-actions">' +
@@ -19150,10 +19233,12 @@
         '</div>' +
       '</div>';
     };
-    if (!uDeckSubs(d.id).length) {
-      const own = tplRows("", 0);
-      return own ? '<div class="udeck-subs">' + own + '</div>' : "";
-    }
+    // the curated tree's own fold, so a deck's children behave exactly as a collection's decks do
+    const fold = (rows) => rows
+      ? '<div class="node-children"><div class="node-children-inner"><div class="node-children-pad">' +
+          rows + '</div></div></div>'
+      : "";
+    if (!uDeckSubs(d.id).length) return fold(tplRows("", 0));
     /* Nested, since a subdeck may hold subdecks: each row draws its own children under it, indented by
        its depth in the path. The indent is a style rather than a nested container so a child's row is the
        same 46px box as its parent's — the curated tree's own arrangement one store over. */
@@ -19163,7 +19248,7 @@
       rowFor(uSubEntry(d.id, sub), uSubName(sub), depth, sub, -1) +
       tplRows(sub, depth + 1) +
       uSubChildren(d.id, sub).map((c) => row(c, depth + 1)).join("");
-    return '<div class="udeck-subs">' + uSubChildren(d.id, "").map((s) => row(s, 0)).join("") + '</div>';
+    return fold(uSubChildren(d.id, "").map((s) => row(s, 0)).join(""));
   }
   function communityLibraryHTML() {
     const decks = uDeckList();
@@ -19220,6 +19305,15 @@
         if (!(d.cardIds || []).length) { studioState.deck = d.id; studioState.card = null; route("studio"); return; }   // nothing to study yet — go and write it
         route("study", { scope: { type: "udeck", id: d.id } });
       };
+      /* A deck with children is wired by `wireExpander`, exactly as a curated collection is: the ROW
+         studies the whole deck and the CHEVRON folds its subdecks, the chevron's own stopPropagation
+         keeping one press from doing both. It must be one or the other and never both handlers — the
+         plain listeners below would fire alongside the expander's and study the deck out from under a
+         reader who had only asked to see what was inside it. */
+      const coll = rowEl.closest(".collection");
+      const childrenEl = coll ? coll.querySelector(":scope > .node-children") : null;
+      const chev = rowEl.querySelector(".collection-actions > .chev");
+      if (childrenEl && chev) { wireExpander(rowEl, childrenEl, chev, coll, go); return; }
       rowEl.addEventListener("click", go);
       rowEl.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
     });
@@ -20300,14 +20394,16 @@
         : (b.chapterWordPlural || b.chapterWord + "s").toLowerCase();
       // "Letter 0" is not a letter Seneca wrote — a reader still in the front matter is told so
       const where = pos && pos.ch === 0 ? "About this book" : pos ? `${b.chapterWord} ${pos.ch} · ${pct}%` : "";
-      /* HOW MUCH OF THE WORK IS HERE, said in words rather than as a bare ratio (Aug 2026, on a question:
-         "what does the 65 out of 124 letters refer to?"). It is how many of the book's chapters have been
-         imported so far, and "65 of 124 letters" beside a reading-progress bar reads as though it were
-         reading progress, which is the one thing it is not. A partial book now says "on Folio so far",
-         and a complete one just says how long it is. */
-      const len = b.total > b.count
-        ? `${b.count} of ${b.total} ${unit} <span class="bk-of">on Folio so far</span>`
-        : `${b.count} ${unit}`;
+      /* HOW MUCH OF THE WORK IS HERE. It is how many of the book's chapters have been imported, which for
+         a partial book is not the same question as how far the reader has got — and the chip sits beside
+         a reading-progress bar, so the two are easy to read as one. It carried "on Folio so far" to say
+         which for a fortnight and the tail is GONE on request (Aug 2026): five words of explanation
+         appended to every partial book's chip is a caption rather than a figure, and the chip is read at
+         a glance in a list of forty-eight. The ratio alone says how much of the work is available, which
+         is what was asked for; what it no longer says out loud is that the remainder is missing from
+         FOLIO rather than from the reader — that is on the book's own first page, where a book states
+         its own limitations at length. */
+      const len = b.total > b.count ? `${b.count} of ${b.total} ${unit}` : `${b.count} ${unit}`;
       const fav = isBookFav(b.id);
       /* A CHIP FOR A BOOK THAT CARRIES ITS ORIGINAL (Aug 2026, on request). Ten of the thirty books here
          are a translation with nothing to set beside it and twenty print the text the author actually
@@ -22399,7 +22495,13 @@
           '<td class="sd-deck sd-c-title"><span class="sd-title">' + esc(row.title) + "</span>" +
             (row.staff_pick ? '<span class="cdeck-pick" title="Chosen by Folio&rsquo;s editors">✦</span>' : "") +
             (local ? '<span class="cdeck-have">Installed</span>' : "") +
-            (row.subtitle ? '<span class="sd-sub">' + esc(row.subtitle) + "</span>" : "") + "</td>" +
+            /* THE AUTHOR'S ONE-LINE DESCRIPTION IS NOT IN THE TABLE (Aug 2026, on request). It was a
+               `.sd-sub` taking a full flex basis under the title, so every row carrying one was two lines
+               deep and the six columns beside it were left floating against a title that had moved up —
+               a list a reader is scanning to COMPARE decks reads better thin, with every deck's figures
+               on one line. The description is not lost: it is on the deck's own page, under a heading of
+               its own, where a reader deciding whether to install one is actually reading. */
+            "</td>" +
           '<td class="sd-author sd-c-author">' + esc(row.author || "—") + "</td>" +
           '<td class="sd-num sd-c-cards">' + n + "</td>" +
           '<td class="sd-num sd-rate sd-c-rating">' + (row.rating_count ? starsHTML(row.rating_avg, row.rating_count) : '<span class="stars-none">—</span>') + "</td>" +
@@ -26961,7 +27063,9 @@
           <span class="dl-globe" aria-hidden="true"></span>
           <strong>Drawing the Atlas</strong>
           <span class="dl-note">Fetching the world's borders, rivers and historical maps — once per visit.</span>
+          ${dlBarHTML(["world", "atlas"])}
         </div>`;
+      wireDlBar(root, ["world", "atlas"]);
       const want = current.name;
       Promise.all([ensureData("world"), ensureData("atlas")]).then((ok) => {
         if (current.name !== want || !view.contains(root)) return;   // navigated away while it loaded
@@ -30682,11 +30786,20 @@
       : p.left === 0
         ? "Seven days in a row — a chest is yours. The next one is seven days away."
         : p.left + (p.left === 1 ? " more day" : " more days") + " in a row for your next chest.";
+    /* THE CHEST ITSELF, at the right of the block (Aug 2026, on request). Seven pips lighting up said what
+       was being counted and not what it was FOR — the word "chest" was in the heading and in the sentence
+       and the thing was nowhere on the page. It is the same `CHEST_SVG` the overlay and the home page's
+       waiting-chest notice draw, so the reader has met it before and meets one shape everywhere; it is
+       DECORATIVE, the pips carrying the label a screen reader needs. It goes gold on the day the chest is
+       earned, which is the one state the pips alone cannot distinguish from six-of-seven at a glance. */
     return '<div class="streak-chest">' +
-      '<div class="sc-head"><span class="sc-title">Next streak chest</span>' +
-        '<span class="sc-count">' + p.into + " / " + p.need + "</span></div>" +
-      '<div class="sc-pips" role="img" aria-label="' + esc(p.into + " of " + p.need + " days towards the next streak chest") + '">' + pips + "</div>" +
-      '<div class="sc-note">' + esc(note) + "</div>" +
+      '<div class="sc-main">' +
+        '<div class="sc-head"><span class="sc-title">Next streak chest</span>' +
+          '<span class="sc-count">' + p.into + " / " + p.need + "</span></div>" +
+        '<div class="sc-pips" role="img" aria-label="' + esc(p.into + " of " + p.need + " days towards the next streak chest") + '">' + pips + "</div>" +
+        '<div class="sc-note">' + esc(note) + "</div>" +
+      "</div>" +
+      '<span class="sc-chest' + (p.left === 0 && p.count > 0 ? " won" : "") + '" aria-hidden="true">' + CHEST_SVG + "</span>" +
     "</div>";
   }
   function badgesHTML(achObj, stats) {
@@ -30954,8 +31067,13 @@
       <div class="friends-box" id="friendsBox"></div>
       <div class="section-label">Badges</div>
       <div class="badges-box" id="badgesBox"></div>
-      <div class="section-label">Reliquary</div>
-      <div class="reliquary" id="reliquary"></div>
+      ${/* THE INVENTORY STOOD HERE AND IS GONE (Aug 2026, on request). This page carried the artefacts
+            TWICE — four of them in the showcase above, all of them in a section here — under two names, so
+            a reader met the same collection at two points on one page and had no way to tell what the
+            difference between them was meant to be. The showcase keeps its four (they are a CHOICE, and
+            part of the profile) and its "See Reliquary" button is now the one way to the whole thing.
+            The SIGNED-OUT page keeps its own copy of this section, which is not a duplicate there: that
+            page has no showcase at all, so without it a guest's collection would be unreachable. */""}
       <div class="section-label">Collection progress</div>
       <div class="coll-levels" id="collLevels"></div>
       <div id="statWrap"></div>
@@ -31061,9 +31179,6 @@
     root.querySelector("#badgesBox").innerHTML = badgesHTML(S.achievements, progStats(S, 0));
     root.querySelector("#showcase").innerHTML = showcaseHTML(S, true);
     wireReliquary(root.querySelector("#showcase"));
-    const relHost = root.querySelector("#reliquary");
-    relHost.innerHTML = reliquaryHTML(S, true);
-    wireReliquary(relHost);
     renderCollectionLevels(root.querySelector("#collLevels"), S.cards);
 
     const dp = root.querySelector("#deckprog");
@@ -31182,8 +31297,10 @@
         <div class="badges-box" id="fBadges"></div>
         <div class="section-label">Collection progress</div>
         <div class="coll-levels" id="fLevels"></div>
-        <div class="section-label">Reliquary</div>
-        <div class="reliquary" id="fReliquary"></div>
+        ${/* Their inventory stood here and is gone, as it has on your own page (Aug 2026, on request):
+              their showcase at the top of this profile carries the same "See Reliquary" button, opening
+              THEIR whole collection over the page. Two sections of the same artefacts under two names was
+              as confusing on a friend's profile as on your own, and it was the same fault twice. */""}
         <div class="section-label">Progress by deck</div>
         <div class="suspbox"><div class="suspbox-collapse"><div class="suspbox-collapse-inner"><div class="deckprog" id="fDeck"></div></div></div></div>`;
       root.querySelector("#fStat").innerHTML = statGridHTML(prog, null);
@@ -31193,10 +31310,7 @@
       root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog, 0));
       renderCollectionLevels(root.querySelector("#fLevels"), prog.cards || {}, S.cards);   // their progress, with a "You: …" chip beside each
       root.querySelector("#fShowcase").innerHTML = showcaseHTML(prog, false);
-      wireReliquary(root.querySelector("#fShowcase"), prog, false);   // …so "See all" opens THEIR collection, not yours
-      const fRel = root.querySelector("#fReliquary");
-      fRel.innerHTML = reliquaryHTML(prog, false);   // `own` false → no chest button and no pinning
-      wireReliquary(fRel, prog, false);
+      wireReliquary(root.querySelector("#fShowcase"), prog, false);   // …so "See Reliquary" opens THEIR collection, not yours
       renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
       root.querySelector("#backBtn").addEventListener("click", () => route("account"));
       root.querySelector("#rmFriend").addEventListener("click", async () => {
