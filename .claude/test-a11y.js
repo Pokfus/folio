@@ -315,6 +315,37 @@ const PROBE = () => {
     const r = await hcPage.evaluate(PROBE);
     r.bad.forEach((b) => hcBad.push(route + ": " + b.el + " " + b.r + "<" + b.need + " (" + b.px + "px) “" + b.text + "”"));
   }
+  /* …AND A STUDY CARD, which no route in the list can reach — `study` is deliberately not a restorable
+     hash, so the loop above walks every page a reader can type and none of the one they spend their time
+     on. That left the card's own surfaces unmeasured, and the assertion below passing on a set that
+     excluded them: the difficulty row's label and its community figure are the first TEXT that row has
+     ever carried (the stars are SVG, which is not measured at all), so they arrived into a sweep that
+     could not see them. Reached the way a reader reaches it — add a collection through the page's own +,
+     press Start, reveal — and the reveal matters, since half the card only exists after it. */
+  {
+    await hcPage.goto(base + "#decks", { waitUntil: "load" });
+    await hcPage.waitForTimeout(1000);
+    await hcPage.evaluate(() => {
+      const b = document.querySelector("#collection-list-all .collection-add[data-id]");
+      if (b && !b.classList.contains("added")) b.click();
+    });
+    await hcPage.goto(base + "#home", { waitUntil: "load" });
+    await hcPage.waitForTimeout(1400);
+    await hcPage.evaluate(() => { const b = document.querySelector(".banner .cta .btn"); if (b) b.click(); });
+    await hcPage.waitForTimeout(1500);
+    await hcPage.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await hcPage.waitForTimeout(800);
+    const seen = await hcPage.evaluate(() => ({
+      card: !!document.querySelector(".study-card"),
+      stars: !!document.querySelector(".card-stars .cs-lbl"),
+      hc: document.body.classList.contains("hc"),
+    }));
+    // a sweep that reached no card would report clean for the worst possible reason
+    check("...the high-contrast sweep reaches a study card, with its difficulty row on it",
+      seen.card && seen.stars && seen.hc, JSON.stringify(seen));
+    const r = await hcPage.evaluate(PROBE);
+    r.bad.forEach((b) => hcBad.push("study: " + b.el + " " + b.r + "<" + b.need + " (" + b.px + "px) \u201c" + b.text + "\u201d"));
+  }
   await hcPage.close();
   check("with High contrast on, every text colour clears its WCAG ratio", hcBad.length === 0,
     hcBad.length ? "\n    " + hcBad.slice(0, 20).join("\n    ") : "");

@@ -35,18 +35,26 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.278", released: "2026-08-20T06:54Z" };
+window.FOLIO_VERSION = { v: "1.279", released: "2026-08-20T11:03Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-20",
-    t: "The China collection opens for study with forty cards of myth, Ancient Greece gains cards, and mentions of Asia Minor now link to the right place",
+    t: "The China collection opens for study, the daily review now mixes the day's new cards in among the ones due, and a card says how hard other readers found it",
     items: [
       "<b>The China collection is now open to study</b>, where it sat under Coming soon, so its cards reach your daily review, the games and the card of the day.",
       "Forty-four new cards — forty in <b>China</b>, from Pangu splitting the world-egg to the table of sovereigns nobody can date, and four in <b>Ancient Greece</b> — with forty-four new glossary terms.",
       "Line-drawn illustrations no longer come out blank on the <b>dark themes</b>.",
       "The ordinary word <b>afar</b> no longer links to the Afar Region of Ethiopia, and the adjective <b>Chinese</b> no longer links to China.",
       "<b>Asia Minor</b> now links to Anatolia wherever it is mentioned, instead of sending you to the continent.",
+      "<b>The daily review now mixes the day's new cards in among the ones due</b>, instead of dealing every review first and the new cards after them.",
+      "<b>A card due later today is offered today</b>, rather than waiting until the same hour tomorrow.",
+      "<b>Suspending a card no longer costs you one of the day's new cards</b> — another takes its place.",
+      "<b>Undo now steps back exactly one card</b>, where a quick second press could take back two.",
+      "<b>The grade bar no longer jams half-folded</b> when its chevron is pressed twice in quick succession.",
+      "<b>A card now prints the word Difficulty beside its stars</b>, and once enough readers have answered it the stars say how hard <i>they</i> found it.",
+      "<b>Editing a card while studying now offers a way straight back to the session</b>, instead of leaving you to find your place again.",
+    "<b>The grade buttons now hold their colour in High contrast mode</b>, where the white on them fell short of a readable ratio on every one of the four.",
     ],
   },
   {

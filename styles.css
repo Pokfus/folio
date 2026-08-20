@@ -104,6 +104,38 @@ body.hc:not(.night) .coll-ic{color:#81661E;}
    clue's own text rather than furniture once a reader is in this mode, so they take `--ink-soft`, which
    is a solved ink rather than a quiet one and clears the bar on every surface the grid uses. */
 body.hc .xw-cn, body.hc .xw-len, body.hc .xw-n{color:var(--ink-soft);}
+/* THE DIFFICULTY ROW'S OWN TEXT is the same case one surface over (Aug 2026, with the word and the
+   community figure — the stars themselves are SVG and so are not measured at all, which is why that row
+   had nothing here until it gained words). Both are `--indigo` held down by opacity so they label the row
+   rather than competing with the question above it, and measured over all six themes in both modes that
+   is 1.77–3.28 for the word and 2.06–4.70 for the figure — quiet on purpose, and short of the bar in
+   every one of the twelve. Opacity alone does not rescue them either: at full strength the indigo is
+   still 3.32 on gazette's dark card and 4.70 on marble's light one. So in this mode they stop being a
+   quiet colour and become ordinary ink, which is what the re-tone above does for every other one. */
+body.hc .card-stars .cs-lbl, body.hc .card-stars .cs-pct{color:var(--ink); opacity:1;}
+/* THE GRADE BAR IS THE SAME CASE AGAIN AND IS THE SITE'S MOST-USED CONTROL (Aug 2026, found the day
+   `test-a11y.js` first reached a study card — the route list deliberately has no `study`, so every one
+   of these had been failing since the bar was built and nothing had ever measured them). All three of
+   its text runs are WHITE, at 1, .82 and .6, over four saturated backgrounds, and measured over both
+   modes not one of the twelve combinations clears 4.5: the label 2.25–4.56, the interval 1.97–3.64, the
+   key 1.66–2.69.
+   THE FIX IS THE BACKGROUND RATHER THAN THE INK, because the ink is what carries the meaning here: the
+   four colours ARE the four answers, so re-toning them to a common dark would take the grade bar's whole
+   language away. With all three runs at full-strength white the darkening needed is gentle — a factor of
+   .67 to .99 — so each button keeps its own hue and simply stops being a pastel. Solved per colour and
+   per mode against white; every one lands 4.61–4.71.
+   Written `body.hc:not(.night)` / `body.hc.night` (0,4,0) rather than `body.hc` alone, since `.night
+   .grade.again` is (0,3,0) and sits a thousand lines BELOW this block — at equal specificity it would
+   win on source order and the night bar would be unchanged. */
+body.hc .grade .gl, body.hc .grade .gi, body.hc .grade .gk{color:#fff;}
+body.hc:not(.night) .grade.again{background:#C54C45;}
+body.hc:not(.night) .grade.hard{background:#A2672B;}
+body.hc:not(.night) .grade.good{background:#428255;}
+body.hc:not(.night) .grade.easy{background:#4E73C0;}
+body.hc.night .grade.again{background:#B7574F;}
+body.hc.night .grade.hard{background:#966B3A;}
+body.hc.night .grade.good{background:#45805C;}
+body.hc.night .grade.easy{background:#5974AD;}
 /* a focus ring the mode can't leave to chance: thicker, and always the bright indigo rather than the theme's */
 body.hc :focus-visible{outline:3px solid var(--indigo-bright) !important; outline-offset:2px;}
 
@@ -1033,6 +1065,16 @@ body[data-theme="folio"] .collection-deco::after{
 .study-card:has(.tts-mute) .card-stars{right:52px;}
 .card-stars .cs-star svg{width:calc(12px * var(--fs)); height:calc(12px * var(--fs)); display:block; fill:var(--indigo); opacity:.13;}
 .card-stars .cs-star.on svg{opacity:.5;}
+/* THE WORD, beside the stars (Aug 2026, on request): five small marks in a corner say that something is
+   being rated and not what. Small and thin, so it labels the row rather than competing with the question
+   it sits above; aria-hidden because the row's own aria-label already says "Difficulty N of 5" in words. */
+.card-stars .cs-lbl{font-family:var(--sans); font-size:calc(8.5px * var(--fs)); font-weight:400; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--indigo); opacity:.5; margin-right:5px; white-space:nowrap;}
+/* the community figure, where a card has enough answers behind it to have one. Mono, because it is a
+   measurement rather than a word, and it must not be mistaken for part of the label. */
+.card-stars .cs-pct{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.02em;
+  color:var(--indigo); opacity:.62; margin-left:5px;}
+.card-stars.cs-community .cs-star.on svg{opacity:.62;}
 /* ---------- stepping through a card's phrasings (Aug 2026, on request) ----------
    Every card carries three ways of asking the same thing, and until now which one a reader met was a coin
    toss they could not appeal. The chevrons sit on the Question label because that is what they qualify —
@@ -4242,6 +4284,10 @@ button.game-tile .gt-glyph{opacity:.14;}
   }
   /* the chevron turns on the SAME clock as the fold it announces — see GB_FOLD_MS in app.js */
   .gb-fold svg{width:20px; height:20px; transition:transform .28s var(--ease);}
+  /* while the fold runs, the bar's CONTENTS are inert — see gbFoldingFor in app.js. A press into boxes
+     that are mid-animation is what leaves the buttons painted in one place and hit-tested in another,
+     which is the reported jam; the chevron sits outside .gradebar-inner and stays live throughout. */
+  body.gb-folding .gradebar-inner{pointer-events:none;}
   /* it points the way it will GO: down while the bar is tall (press to fold it away), up once it is short */
   body.gb-compact .gb-fold svg{transform:rotate(180deg);}
   .gb-fold:hover, .gb-fold:focus-visible{color:var(--indigo); opacity:1;}
@@ -4782,6 +4828,12 @@ body.admin-mode .page{animation:none;}
 .admin-revert:hover{color:var(--zh); border-color:color-mix(in srgb, var(--zh) 40%, var(--rule)); background:var(--zh-wash);}
 .admin-preview{appearance:none; border:1px solid var(--indigo); background:none; color:var(--indigo); font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; font-weight:600; padding:8px 12px; border-radius:7px; cursor:pointer; white-space:nowrap; transition:color .15s, background .15s;}
 .admin-preview:hover{background:var(--indigo); color:#fff;}
+/* the way back to a study session the editor was opened from (see studyHold in app.js). FILLED where
+   Preview is outlined: it is the primary way out of this trip, and the reader is here because a card in
+   front of them was wrong. It exists only while a session is being held, so it never sits there inert. */
+.admin-tostudy{appearance:none; border:1px solid var(--indigo); background:var(--indigo); color:#fff; font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; font-weight:600; padding:8px 12px; border-radius:7px; cursor:pointer; white-space:nowrap; transition:filter .15s, transform .12s var(--ease);}
+.admin-tostudy:hover{filter:brightness(1.12);}
+.admin-tostudy:active{transform:scale(.97);}
 /* in-pane card preview (keeps the tree + card list visible while previewing) */
 .admin-pv{display:flex; flex-direction:column; gap:18px;}
 .admin-pv-bar{display:flex; align-items:center; gap:14px; min-width:0;}

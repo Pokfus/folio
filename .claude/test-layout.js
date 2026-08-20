@@ -28,6 +28,8 @@ const { chromium } = require("playwright");
 const ROOT = path.join(__dirname, "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png" };
 const PHONE = { width: 390, height: 800 };
+// GB_FOLD_MS (280) plus the margin gbFoldingFor adds — read anything sooner and it is measured mid-flight
+const GB_SETTLE = 450;
 const DESKTOP = { width: 1440, height: 950 };
 
 let pass = 0, fail = 0;
@@ -518,6 +520,89 @@ function scrimCheck() {
     await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
     await page.waitForTimeout(600);
     check("...and remembered for the next card", await page.evaluate(() => document.body.classList.contains("gb-compact")));
+    await page.close();
+  }
+  {
+    /* THE FOLD MUST NOT LEAVE THE GRADES UN-PRESSABLE (Aug 2026, on a bug report: "the chevron to
+       expand/collapse the grading buttons sometimes bugs out after a few times and the buttons can no
+       longer be pressed"). A fold FLIPs about twenty elements, and nothing used to cancel the previous
+       set — so pressing the chevron again mid-flight left up to fifty concurrent transform animations on
+       the four grade buttons. While those run, Chromium's hit-testing and getBoundingClientRect disagree:
+       elementFromPoint at a button's own centre returns #gradebar, so a real tap lands on the bar's
+       background and the grade never fires — and a tap that lands in that gap can leave the bar
+       un-hittable with no animation left running at all.
+       It is asserted with REAL MOUSE INPUT and by the CARD CHANGING, not by clicking the element from
+       script: el.click() bypasses hit-testing entirely, which is the whole of what breaks here, so a
+       scripted version passes on the bug. Every count reads healthy throughout — the buttons are there, the
+       right size, in the right place, with their listeners attached — so nothing but this can see it. */
+    const page = await browser.newPage({ viewport: PHONE });
+    await watch(page);
+    await studyEasy(page, base, 0);
+    const chev = async () => {
+      const b = await page.$(".gb-fold");
+      const r = await b.boundingBox();
+      await page.mouse.click(r.x + r.width / 2, r.y + r.height / 2);
+    };
+    /* Six grades takes a fresh reader past level 2 (XP_PER_LEVEL is 5), and a level buys an artefact
+       chest whose overlay sits over the card and swallows every REAL pointer event — so the chevron
+       presses land on nothing, the grade's own centre hit-tests to the overlay, and the round reports a
+       jam that is the reward working exactly as designed. It shows as 1 of 6 because the scripted reveal
+       (`el.click()`) goes through regardless, so only the real-input half of the round is blocked. The
+       chests are dismissed at the head of each round and COUNTED, since a dismissal that silently stopped
+       firing would put the false failure back. */
+    let jammed = 0, ungraded = 0, chests = 0;
+    for (let i = 0; i < 6; i++) {
+      if (await page.$(".chest-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(250); chests++; }
+      await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+      await page.waitForTimeout(420);
+      // hammer it: the second press lands while the first fold is still in flight, which is the case
+      await chev(); await page.waitForTimeout(90);
+      await chev(); await page.waitForTimeout(90);
+      await chev(); await page.waitForTimeout(GB_SETTLE);
+      const hit = await page.evaluate(() => {
+        const g = document.querySelector(".grade.good"); if (!g) return "none";
+        const r = g.getBoundingClientRect();
+        const el = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
+        return el && el.closest(".grade") ? "grade" : (el ? el.tagName + "." + el.className : "null");
+      });
+      if (hit !== "grade") jammed++;
+      const before = await page.evaluate(() => { try { return JSON.parse(sessionStorage.getItem("folio_study_v1")).id; } catch (e) { return null; } });
+      const box = await (await page.$(".grade.good")).boundingBox();
+      await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+      await page.waitForTimeout(700);
+      const after = await page.evaluate(() => { try { return JSON.parse(sessionStorage.getItem("folio_study_v1")).id; } catch (e) { return null; } });
+      if (after === before) ungraded++;
+    }
+    check("the grade buttons stay hit-testable through repeated folding", jammed === 0, jammed + "/6 rounds the button's own centre hit something else");
+    check("...and a real tap still grades the card", ungraded === 0, ungraded + "/6 rounds the tap did nothing");
+    check("...with the level-up chest dismissed rather than left to swallow the taps", chests > 0, chests + " chests met");
+    /* …and while a fold IS running the bar's contents are inert rather than half-moved targets — the other
+       half of the fix, and the half no amount of cancelling afterwards can replace. The CHEVRON stays live
+       throughout, or a reader could not fold it back. */
+    /* The loop ends on a GRADE, which moves to the next card and hides the bar — and `#gradebar` is only
+       `pointer-events:auto` while it carries `.show`, so a probe run here reads `none` on everything and
+       reports a fold that never started. (It passed before the chest was dismissed above, for the wrong
+       reason: round 6's grade was being swallowed, so the bar was still up.) Reveal again first, and clear
+       any chest that grade may have bought. */
+    if (await page.$(".chest-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(250); }
+    await page.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await page.waitForTimeout(500);
+    check("...the grade bar is up again to fold", await page.evaluate(() => {
+      const b = document.querySelector("#gradebar");
+      return !!(b && b.classList.contains("show"));
+    }));
+    const mid = await page.evaluate(async () => {
+      document.querySelector(".gb-fold").click();
+      await new Promise((r) => setTimeout(r, 60));
+      const inner = getComputedStyle(document.querySelector(".gradebar-inner")).pointerEvents;
+      const chevPE = getComputedStyle(document.querySelector(".gb-fold")).pointerEvents;
+      return { folding: document.body.classList.contains("gb-folding"), inner: inner, chev: chevPE };
+    });
+    check("...while it moves, the bar's contents do not hit-test", mid.folding && mid.inner === "none", JSON.stringify(mid));
+    check("...but the chevron does, so the reader can fold it back", mid.chev !== "none", mid.chev);
+    await page.waitForTimeout(GB_SETTLE);
+    const done2 = await page.evaluate(() => ({ folding: document.body.classList.contains("gb-folding"), inner: getComputedStyle(document.querySelector(".gradebar-inner")).pointerEvents }));
+    check("...and they are live again the moment it settles", !done2.folding && done2.inner !== "none", JSON.stringify(done2));
     await page.close();
   }
   {

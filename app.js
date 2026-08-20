@@ -251,13 +251,71 @@
      any curated card not yet rated: five empty stars would claim a rating of zero, which is not on the
      scale. The colour is the QUESTION/ANSWER label's own `--indigo`, on request, so the corner reads as
      part of the card's own furniture rather than as a second kind of mark. */
+  /* ---------- TWO DIFFICULTY RATINGS (Aug 2026, on request) ----------
+     The stars have always shown ONE number: an editorial judgement of how well known the answer term is,
+     written card by card. That is a good guess and it is a guess — what a card is actually like to study
+     is a fact about the people studying it, and Folio has been throwing that fact away.
+
+     SO THERE ARE TWO, AND THE SECOND SUPERSEDES THE FIRST. Every grade anywhere on the site increments
+     one of four counters on that card, pooled across all readers; once a card has `CARD_STATS_MIN`
+     answers behind it the community score is what the stars show, with the figure itself printed beside
+     them out of 100. Below that the editorial rating stands in, which is what it was written for — a
+     placeholder good enough to deal a minigame round on until the reading public has spoken.
+
+     THE PERCENTAGE IS A WEIGHTED FAILURE RATE, not a lapse count: Again is a complete miss, Hard is a
+     recall that cost something, Good is the ordinary case and Easy is a card the reader did not need.
+     100 is a card everybody fails and 0 one nobody ever hesitates over. The five-star rank is that figure
+     in five buckets, so the two say the same thing at two precisions and can never disagree.
+
+     IT IS ANONYMOUS BY CONSTRUCTION. What the server holds is four integers per card and nothing else —
+     no rows per reader, no timestamps per answer — so there is nothing in the table that could say who
+     answered what. See `card_stats` and `bump_card_grades` in .claude/supabase-schema.sql. */
+  const CARD_STATS_MIN = 20;            // answers before the community score takes over from the editorial one
+  let CARD_STATS = {};                  // cardId -> { a, h, g, e }; filled by cardStatsLoad, empty until then
+  const CARD_GRADE_WEIGHT = { again: 1, hard: 0.5, good: 0.15, easy: 0 };
+  // a card's pooled counters, or null. CARD_STATS is filled by cardStatsLoad() from the server, cached
+  // for the day in localStorage — see the CARD STATS block further down.
+  function cardStatsFor(id) {
+    const r = CARD_STATS[id];
+    if (!r) return null;
+    const total = (r.a || 0) + (r.h || 0) + (r.g || 0) + (r.e || 0);
+    if (total < CARD_STATS_MIN) return null;
+    const w = (r.a || 0) * CARD_GRADE_WEIGHT.again + (r.h || 0) * CARD_GRADE_WEIGHT.hard +
+              (r.g || 0) * CARD_GRADE_WEIGHT.good + (r.e || 0) * CARD_GRADE_WEIGHT.easy;
+    const pct = Math.max(0, Math.min(100, Math.round((w / total) * 100)));
+    return { pct: pct, total: total, rank: Math.max(1, Math.min(CARD_DIFFICULTY_MAX, Math.floor(pct / 20) + 1)) };
+  }
+  /* WHICH RATING A CARD SHOWS. `{ rank, pct, community }` — pct is null on the editorial one, which is a
+     judgement rather than a measurement and must not be dressed up as a figure out of a hundred. */
+  function cardDifficultyShown(c) {
+    const card = typeof c === "string" ? cardById(c) : c;
+    if (!card) return null;
+    const st = cardStatsFor(card.id);
+    if (st) return { rank: st.rank, pct: st.pct, total: st.total, community: true };
+    const n = cardDifficulty(card);
+    return n ? { rank: n, pct: null, total: 0, community: false } : null;
+  }
+  /* The rating as five stars in the corner of a study card (Aug 2026, on request). It is DECORATIVE to a
+     screen reader — one `aria-label` on the row says the rating in words, and five identical glyphs read
+     out one at a time say nothing — and it renders as NOTHING where there is no rating at all, which is
+     every community-deck card and any curated card not yet rated: five empty stars would claim a rating of
+     zero, which is not on the scale. The colour is the QUESTION/ANSWER label's own `--indigo`, on request,
+     so the corner reads as part of the card's own furniture rather than as a second kind of mark.
+     THE WORD "Difficulty" IS PRINTED BESIDE THEM (Aug 2026, on request): five small stars in a corner say
+     that something is being rated and not what. It is set small and thin so it labels the row rather than
+     competing with the question beside it. */
   function cardStarsHTML(c) {
-    const n = cardDifficulty(c);
-    if (!n) return "";
+    const d = cardDifficultyShown(c);
+    if (!d) return "";
     const star = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.6l2.5 5.6 6.1.6-4.6 4.1 1.3 6-5.3-3.1-5.3 3.1 1.3-6L3.4 9.8l6.1-.6z"/></svg>';
-    let out = '<span class="card-stars" title="How well known this card\'s answer is: ' + esc(CARD_DIFFICULTY_LABELS[n] || "") +
-      '" aria-label="Difficulty ' + n + " of " + CARD_DIFFICULTY_MAX + ': ' + esc(CARD_DIFFICULTY_LABELS[n] || "") + '">';
-    for (let i = 1; i <= CARD_DIFFICULTY_MAX; i++) out += '<span class="cs-star' + (i <= n ? " on" : "") + '">' + star + "</span>";
+    const words = d.community
+      ? "How hard readers find this card: " + d.pct + " out of 100, from " + d.total + " answers"
+      : "How well known this card's answer is: " + (CARD_DIFFICULTY_LABELS[d.rank] || "");
+    let out = '<span class="card-stars' + (d.community ? " cs-community" : "") + '" title="' + esc(words) +
+      '" aria-label="' + esc("Difficulty " + d.rank + " of " + CARD_DIFFICULTY_MAX + ". " + words) + '">' +
+      '<span class="cs-lbl" aria-hidden="true">Difficulty</span>';
+    for (let i = 1; i <= CARD_DIFFICULTY_MAX; i++) out += '<span class="cs-star' + (i <= d.rank ? " on" : "") + '">' + star + "</span>";
+    if (d.community) out += '<span class="cs-pct" aria-hidden="true">' + d.pct + "%</span>";
     return out + "</span>";
   }
   /* ---------- TERMS THAT DO NOT HAPPEN AT A TIME (Aug 2026, on a bug report) ----------
@@ -2371,6 +2429,17 @@
     if (d.getTime() <= Date.now()) d.setDate(d.getDate() + 1);
     return d.getTime();
   }
+  /* THE INSTANT TODAY BEGAN — the other end of dayEndTs, and what makes a due date land at the START of
+     its day rather than at the clock time the card happened to be graded (Aug 2026, on request: "a card
+     studied at 5 pm should return at midnight, when the site moves to the next day"). It is the reader's
+     own boundary, so a scholar who has set the day to end at 3 a.m. gets due dates at 3 a.m. */
+  function dayStartTs() {
+    const d = new Date();
+    d.setHours(0, 0, 0, 0);
+    d.setMinutes(dayEndMin());
+    if (d.getTime() > Date.now()) d.setDate(d.getDate() - 1);
+    return d.getTime();
+  }
   /* A page left open across the boundary must not go on showing yesterday. One timer, re-armed each time it
      fires, and it only repaints the HOME page — that is where everything dated lives (the quote, the card
      and term of the day, the review's counts), and a repaint under a reader mid-card would take the card
@@ -2998,6 +3067,17 @@
     } catch (e) { return null; }
   }
   function clearStudySession() { try { sessionStorage.removeItem(STUDY_KEY); } catch (e) {} }
+  /* …and ONE record held aside, so an admin can edit the card they are studying and come straight back to
+     it (Aug 2026, on request: "when clicking the edit button while studying a card, there should be a button
+     to take me back to my studies once edits are made"). The editor is a PAGE, so reaching it routes — and
+     route() clears the session record by design, that being the single choke point that stops a stale queue
+     outliving the page it belongs to. So rather than weaken that rule for one caller, the record is CAPTURED
+     at the moment the card's own Edit button is pressed and written back when the reader presses Back to
+     studying. Module-level rather than in S, exactly as the record itself is: a held session is a fact about
+     this tab, and a reader who closes it has finished studying.
+     It is cleared by route() on any navigation that is neither the editor nor the study page, so a hold can
+     never sit waiting on a page the reader reached some other way. */
+  let studyHold = null;
 
   // remember which gloss popups are open (owning route + term + position) so a page reload can re-open them.
   // Uses sessionStorage: it survives an F5 / dev-server live-reload in the SAME tab, but a tab/browser CLOSE clears it,
@@ -3480,7 +3560,22 @@
     ivMult: 1,               // a thumb on the scale for every review interval
     maxIv: 36500,            // a hundred years, Anki's ceiling
     leech: 8,                // lapses before a card is called a leech
+    /* THE INSTANT THE READER'S CURRENT DAY BEGAN, or null. A due date measured in DAYS lands at the start
+       of its day rather than `t + n * 24h` — Anki's behaviour, and the one a reader expects: everything
+       due on a day is waiting at the top of that day rather than trickling in at whatever hour each card
+       was last answered. It TRAVELS ON THE CFG rather than being read, for the reason the load map does:
+       the pure block reads no global, and the preview and the grade must be handed the same one.
+       NULL IS THE OLD BEHAVIOUR and is what every test that builds its own cfg gets, so an absent anchor
+       is honest rather than broken. `schedCfgFor` is what attaches the real one. */
+    dayAnchor: null,
   };
+  /* A due date measured in whole days. With an anchor it is the START of the day `days` ahead, which is
+     always in the future for days >= 1: the anchor is at or before `t` and the anchor plus a day is after
+     it by definition. Without one it is the old `t + days * DAY`. */
+  function schedDayDue(t, days, cfg) {
+    const a = cfg && cfg.dayAnchor;
+    return (a == null ? t : a) + days * DAY;
+  }
   const MIN_MS = 60 * 1000;
   const SCHED_AHEAD_MS = 20 * MIN_MS;   // Anki's learn-ahead limit: how far into the future a learning step may be pulled
   const schedIsLearning = (st) => st === "learning" || st === "relearn";
@@ -3716,7 +3811,7 @@
       c.status = "review";
       c.step = 0;
       c.interval = schedPass(fsrsInterval(w, c.stability, cfg.retention), 1, cfg, String(seed) + ":" + (c.reps || 0));
-      c.due = t + c.interval * DAY;
+      c.due = schedDayDue(t, c.interval, cfg);
       delete c.lapseIv;
     };
     if (c.status === "new" || schedIsLearning(c.status)) {
@@ -3949,7 +4044,7 @@
         c.status = "review";
         c.step = 0;
         c.interval = Math.min(cfg.maxIv, Math.max(1, Math.round(base)));
-        c.due = t + c.interval * DAY;
+        c.due = schedDayDue(t, c.interval, cfg);
         c.reps = (c.reps || 0) + 1;
         delete c.lapseIv;
       }
@@ -3968,7 +4063,7 @@
         } else {
           c.status = "review";                 // no relearning steps configured: straight back to a day
           c.interval = back;
-          c.due = t + c.interval * DAY;
+          c.due = schedDayDue(t, c.interval, cfg);
         }
         if (c.lapses >= cfg.leech) c.leech = true;   // recorded, never acted on — Folio does not auto-suspend
       } else {
@@ -3978,7 +4073,7 @@
         c.status = "review";
         c.step = 0;
         c.interval = ivs[g] || ivs.good;
-        c.due = t + c.interval * DAY;
+        c.due = schedDayDue(t, c.interval, cfg);
         c.reps = (c.reps || 0) + 1;
       }
     }
@@ -4028,10 +4123,12 @@
      browser's bulk actions and the single-card sheets are the same code. */
 
   /* Push a card to a day. `days` is whole days from `t` — 0 meaning now — and the instant is computed the
-     same way schedAnswer computes every other due date (`t + days * DAY`) rather than being snapped to the
-     reader's day boundary. That is deliberate consistency rather than laziness: a card graded at ten in the
-     evening with a one-day interval already comes due at ten the next evening, so a Set-due-date that
-     behaved differently would be the one place in Folio where "a day" meant something else.
+     same way schedAnswer computes every other due date, which since Aug 2026 means the START of that day
+     rather than `t + days * DAY`. It is the same consistency argument the other way round: a card graded at
+     ten in the evening with a one-day interval now comes due at the next day's boundary, so a Set-due-date
+     that still counted 24-hour blocks would be the one place in Folio where "a day" meant something else.
+     ZERO IS THE EXCEPTION and stays exactly `t`: "today" means due NOW, and anchoring it would put the card
+     a few hours in the past, which is the same thing said less clearly.
 
      A NEW or LEARNING card becomes a REVIEW card, which is Anki's behaviour and the only coherent one — a
      due date is a review card's property, and leaving it in learning would have the next grade walk the
@@ -4045,7 +4142,7 @@
     const d = Math.max(0, Math.min(cfg.maxIv, Math.floor(Number(days) || 0)));
     c.status = "review";
     c.step = 0;
-    c.due = t + d * DAY;
+    c.due = d === 0 ? t : schedDayDue(t, d, cfg);
     /* A card that has never been a review card has no interval to keep, so it takes the one it was just
        given — a floor of a day, since a review card with an interval of 0 would be scheduled by nothing.
        An existing review card keeps its own unless the reader asked otherwise. */
@@ -4109,6 +4206,7 @@
        settings, which is what keeps every existing schedule exactly as it was. */
     const lm = loadMapNow();
     if (lm) cfg.load = lm;
+    cfg.dayAnchor = dayStartTs();   // due dates land at the start of their day — see SCHED.dayAnchor
     return cfg;
   }
   // the entry whose options govern this card: its community deck, or the leaf it sits in
@@ -4137,7 +4235,9 @@
   }
   function schedCfgFor(id) {
     const e = cardEntryId(id);
-    return e ? deckSchedCfg(e) : SCHED;
+    // no entry (a card studied outside any deck) still gets the day anchor — SCHED itself must stay null,
+    // being the shipped default every test builds from
+    return e ? deckSchedCfg(e) : Object.assign({}, SCHED, { dayAnchor: dayStartTs() });
   }
   /* ---------- the load map (Aug 2026) ----------
      The impure half of load balancing: how many cards are already due on each of the next few weeks' days,
@@ -4310,6 +4410,7 @@
        front, so a length recorded before the append can be the same length after it, and truncating to it
        would leave the phantom review behind — with the reader's own history quietly one review wrong. */
     lastRevRow = logReviewEntry(id, g, preStatus, preInterval, c, t, ms);
+    cardStatsBump(id, g);   // the pooled, anonymous counters behind the community difficulty rating
 
     // count new-card introductions per day
     if (fresh) {
@@ -5285,6 +5386,59 @@
     if (id === REVIEW_ENTRY) { S.settings.reviewRandom = !!on; save(); return; }
     setDeckLimits(id, { random: !!on });
   }
+  /* ---------- A THIRD ORDER: BY DIFFICULTY (Aug 2026, on request) ----------
+     Ordered and Random were a BOOLEAN, and a third answer will not fit in one — so `order` is a string
+     beside it and the boolean stays the fallback, which is what keeps every existing save working
+     untouched: a deck that has never been asked reads its old `random` flag exactly as it did.
+
+     WHAT IT SORTS BY IS `cardDifficulty`, the 1–5 rating of how well known the answer term is — the
+     figure the stars in the card's corner already show — with the COMMUNITY score preferred where a card
+     has one (see cardDifficultyShown). Easiest first, so a session opens on ground the reader is likely
+     to hold and works outward.
+
+     IT SORTS EACH PILE, NOT THE SESSION. The due cards and the new ones are ordered independently and
+     then mixed through each other by mixPiles, exactly as the other two orders now are: what the setting
+     decides is the order WITHIN a pile, never which cards the day's allowances let through.
+
+     TIES KEEP THE DECK'S OWN ORDER. `sort` is stable in every engine this site supports, and the list
+     arriving here is already in deck order, so five cards all rated 3 stay in the order their deck puts
+     them — which is the honest reading of "by difficulty" on a corpus where the rating is five buckets
+     rather than a continuum. */
+  const DECK_ORDERS = ["ordered", "random", "difficulty"];
+  function deckOrderMode(id) {
+    const o = (S.deckOpts && S.deckOpts[id]) || {};
+    if (id === REVIEW_ENTRY) {
+      if (DECK_ORDERS.includes(S.settings.reviewOrder)) return S.settings.reviewOrder;
+      return S.settings.reviewRandom ? "random" : "ordered";
+    }
+    if (DECK_ORDERS.includes(o.order)) return o.order;
+    if (typeof o.random === "boolean") return o.random ? "random" : "ordered";
+    if (DECK_ORDERS.includes(S.settings.reviewOrder)) return S.settings.reviewOrder;
+    return S.settings.reviewRandom ? "random" : "ordered";
+  }
+  function setDeckOrderMode(id, mode) {
+    if (!DECK_ORDERS.includes(mode)) return;
+    if (id === REVIEW_ENTRY) {
+      S.settings.reviewOrder = mode;
+      S.settings.reviewRandom = mode === "random";   // the Settings page's own switch shows this value
+      save(); return;
+    }
+    // both are written, so a build that only knows the boolean still deals this deck the right way round
+    setDeckLimits(id, { order: mode, random: mode === "random" });
+  }
+  function deckByDifficulty(id) { return deckOrderMode(id) === "difficulty"; }
+  function sortByDifficulty(list) {
+    return list.slice().sort((a, b) => (cardDifficultyRank(a) - cardDifficultyRank(b)));
+  }
+  // a card with no rating at all sorts LAST rather than first: an unrated card is unknown, not easy
+  function cardDifficultyRank(id) {
+    const c = cardById(id);
+    const d = c ? cardDifficultyShown(c) : null;
+    return d && d.rank ? d.rank : 99;
+  }
+  // one pile, in whatever order this entry asks for. Ordered and Random both leave it as the deck put it —
+  // Random shuffles the whole queue afterwards, so shuffling a pile here would be doing it twice.
+  function orderPile(id, list) { return deckByDifficulty(id) ? sortByDifficulty(list) : list; }
   /* AUTOMATIC READ-ALOUD, per entry (Aug 2026, on request — Anki's "read the answer aloud"). A card type
      may mark a run of text as something to hear (`<span class="uc-tts">` — see the read-aloud block further
      down); this is the reader asking for that to happen BY ITSELF the moment the answer is revealed, rather
@@ -5512,6 +5666,84 @@
     const fresh = seededShuffle(pool, mulberry32(hashStr("review-" + todayStr()))).slice(0, take);
     return { due: dueCapped, fresh, all: [...dueCapped, ...fresh] };
   }
+  /* ============================================================
+     CARD STATS — the pooled counters behind the community difficulty rating
+     ============================================================
+     Four integers per card, summed over every reader on the site: how many times it was answered Again,
+     Hard, Good and Easy. `cardStatsFor` turns them into the figure out of 100 that the stars show once a
+     card has been answered CARD_STATS_MIN times; everything here is the plumbing that fills them.
+
+     WHY IT IS AN RPC AND NOT AN INSERT. The publishable key ships in this file, so any table a browser may
+     write to is a table anyone may write anything to. `bump_card_grades(rows jsonb)` is
+     `security definer` and can do exactly one thing — add to four counters on a batch of rows, each
+     increment clamped and each card id validated — so the
+     worst an abuser can do is skew a rating, which is the same thing they could do by grading cards.
+     There is deliberately NO per-reader row: what the server holds cannot say who answered what.
+
+     THE SEND IS BATCHED AND FIRE-AND-FORGET. A grade must never wait on the network, and a lost batch
+     costs a few counts out of thousands. Pending increments are held in memory, flushed on a debounce and
+     on pagehide, and dropped rather than retried — a rating is a statistic, not a record.
+
+     THE READ IS ONE REQUEST A DAY, CACHED. The whole table is a few hundred rows and every card on screen
+     may want it, so it is fetched whole (paged, for PostgREST's 1,000-row cap — the fault communityFetchDeck
+     already records) and kept in localStorage against the day key. A reader who is offline, or a site whose
+     owner has not run the schema block, simply sees the editorial rating: cardStatsFor returns null and
+     cardDifficultyShown falls back, which is the placeholder doing exactly the job it was written for. */
+  const CARD_STATS_KEY = "folio_card_stats_v1";
+  const CARD_STATS_FLUSH_MS = 8000;
+  const CARD_STATS_MAX_PEND = 200;      // a runaway loop must not build an unbounded body
+  let _cardStatsPend = Object.create(null), _cardStatsT = null, _cardStatsOff = false;
+  const CARD_GRADE_KEY = { again: "a", hard: "h", good: "g", easy: "e" };
+
+  function cardStatsBump(id, g) {
+    const k = CARD_GRADE_KEY[g];
+    if (!k || _cardStatsOff || isDevOrigin()) return;
+    // the reader's own answer counts towards what they are shown, at once, so a card they have just
+    // failed twice does not go on claiming to be easy until tomorrow's fetch
+    const r = CARD_STATS[id] || (CARD_STATS[id] = { a: 0, h: 0, g: 0, e: 0 });
+    r[k] = (r[k] || 0) + 1;
+    const p = _cardStatsPend[id] || (_cardStatsPend[id] = { a: 0, h: 0, g: 0, e: 0 });
+    p[k] += 1;
+    if (Object.keys(_cardStatsPend).length > CARD_STATS_MAX_PEND) { cardStatsFlush(); return; }
+    if (!_cardStatsT) _cardStatsT = setTimeout(() => { _cardStatsT = null; cardStatsFlush(); }, CARD_STATS_FLUSH_MS);
+  }
+  async function cardStatsFlush() {
+    if (_cardStatsT) { clearTimeout(_cardStatsT); _cardStatsT = null; }
+    const pend = _cardStatsPend;
+    if (!Object.keys(pend).length) return;
+    _cardStatsPend = Object.create(null);   // taken BEFORE the await, so a grade mid-flight joins the next batch
+    const rows = Object.keys(pend).map((id) => ({ card_id: id, a: pend[id].a, h: pend[id].h, g: pend[id].g, e: pend[id].e }));
+    const r = await supaFetch("/rest/v1/rpc/bump_card_grades", { method: "POST", body: { rows: rows } });
+    // 404 = the schema block has not been run on this project. Stop asking rather than posting on every
+    // grade for ever; the site is entirely usable without it.
+    if (r.status === 404) _cardStatsOff = true;
+  }
+  function cardStatsRead() {
+    try {
+      const raw = JSON.parse(localStorage.getItem(CARD_STATS_KEY) || "null");
+      if (raw && raw.d === todayStr() && raw.s && typeof raw.s === "object") return raw.s;
+    } catch (e) {}
+    return null;
+  }
+  async function cardStatsLoad() {
+    if (isDevOrigin()) return;                       // the dev machine has no traffic to pool
+    const cached = cardStatsRead();
+    if (cached) { CARD_STATS = cached; return; }
+    const out = Object.create(null);
+    for (let from = 0; ; from += SUPA_PAGE) {
+      const r = await supaFetch("/rest/v1/card_stats?select=card_id,a,h,g,e", {
+        auth: false, headers: { Range: from + "-" + (from + SUPA_PAGE - 1) },
+      });
+      if (r.status === 404) { _cardStatsOff = true; return; }
+      if (!r.ok || !Array.isArray(r.data)) return;   // offline, or a project without the block: keep the editorial rating
+      r.data.forEach((row) => { if (row && row.card_id) out[row.card_id] = { a: row.a || 0, h: row.h || 0, g: row.g || 0, e: row.e || 0 }; });
+      if (r.data.length < SUPA_PAGE) break;
+    }
+    CARD_STATS = out;
+    try { localStorage.setItem(CARD_STATS_KEY, JSON.stringify({ d: todayStr(), s: out })); } catch (e) {}
+  }
+  window.addEventListener("pagehide", () => { cardStatsFlush(); });
+
   function dueCountNow() {
     return activeCardIds().filter((id) => isDueNow(id) && !isSuspended(id) && !isBuried(id)).length;
   }
@@ -12012,6 +12244,8 @@
     // leaving study ends the session the reload-record describes — one choke point, so no page has to
     // remember to tidy up after itself (a language switch repaints through render(), which is not this)
     if (name !== "study") clearStudySession();
+    // the hold belongs to the trip between the study page and the editor; going anywhere else ends it
+    if (name !== "admin" && name !== "study") studyHold = null;
     if (name === "admin" && !isAdmin()) name = "home";
     current = { name, params: params || {} };
     // #deck/<slug> is a shareable address, so the slug rides in the hash (the same shape as #map/<year>/<slug>)
@@ -12261,7 +12495,8 @@
   function flipMove(els, mutate, opts) {
     const list = [].slice.call(els || []).filter(Boolean);
     const o = opts || {};
-    if (prefersReducedMotion() || !list.length || typeof list[0].animate !== "function") { mutate(); return; }
+    if (prefersReducedMotion() || !list.length || typeof list[0].animate !== "function") { mutate(); return []; }
+    const out = [];
     const first = new Map();
     list.forEach((el) => first.set(el, el.getBoundingClientRect()));
     mutate();
@@ -12272,26 +12507,29 @@
       const sx = o.scale ? a.width / b.width : 1, sy = o.scale ? a.height / b.height : 1;
       if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5 && Math.abs(sx - 1) < 0.01 && Math.abs(sy - 1) < 0.01) return;
       try {
-        el.animate(
+        const an = el.animate(
           [{ transform: "translate(" + dx + "px," + dy + "px) scale(" + sx + "," + sy + ")" }, { transform: "none" }],
           { duration: o.duration || 260, easing: o.easing || "cubic-bezier(.22,.61,.36,1)", composite: "add" }
         );
+        if (an) out.push(an);
       } catch (e) {}
     });
+    return out;
   }
   /* Animate an element between two CONTENT heights across a change that alters them. The height is
      measured on both sides and animated explicitly, because `height:auto` is not an animatable value and
      a container that snaps while its contents slide reads worse than either moving alone. */
   function flipHeight(el, mutate, dur, easing) {
-    if (!el || prefersReducedMotion() || typeof el.animate !== "function") { mutate(); return; }
+    if (!el || prefersReducedMotion() || typeof el.animate !== "function") { mutate(); return null; }
     const from = el.getBoundingClientRect().height;
     mutate();
     const to = el.getBoundingClientRect().height;
-    if (Math.abs(from - to) < 1) return;
+    if (Math.abs(from - to) < 1) return null;
     try {
-      el.animate([{ height: from + "px" }, { height: to + "px" }],
+      return el.animate([{ height: from + "px" }, { height: to + "px" }],
         { duration: dur || 260, easing: easing || "cubic-bezier(.22,.61,.36,1)" });
     } catch (e) {}
+    return null;
   }
 
   const THEMES = ["folio", "synth", "arcade", "academy", "marble", "gazette"];
@@ -14339,6 +14577,29 @@
      rather than as two animations. One clock, one curve. */
   const GB_FOLD_EASE = "cubic-bezier(.2,.7,.2,1)";
   let gbCompact = null;
+  /* The fold's in-flight animations, so a second press can end them rather than layering a second set
+     over the first. Held here rather than derived from document.getAnimations(), which would also sweep
+     up the page entrance, the reveal and the marker panel. */
+  let _gbAnims = [];
+  let _gbFoldT = null;
+  function gbStopFold() {
+    _gbAnims.forEach((a) => { try { a.cancel(); } catch (e) {} });
+    _gbAnims = [];
+    if (_gbFoldT) { clearTimeout(_gbFoldT); _gbFoldT = null; }
+    document.body.classList.remove("gb-folding");
+  }
+  /* …and while it runs, the bar's CONTENTS do not hit-test at all (body.gb-folding — one rule in
+     styles.css). That is the other half of the jam above and the half that cannot be reasoned around: a
+     press landing inside a subtree whose boxes are mid-animation is what leaves Chromium's hit-testing
+     stale, and no amount of cancelling afterwards puts it back. Made inert for the fold's own 280ms, the
+     press lands on #gradebar — a static box with no listener — and is simply swallowed, which is what a
+     tap into a control that is still moving should do anyway. The CHEVRON is outside .gradebar-inner and
+     stays live, so the reader can keep folding; and gbStopFold clears it early whenever a press or a card
+     change ends the fold before its time. */
+  function gbFoldingFor(ms) {
+    document.body.classList.add("gb-folding");
+    _gbFoldT = setTimeout(() => { _gbFoldT = null; document.body.classList.remove("gb-folding"); }, ms);
+  }
   function gbReadCompact() {
     if (gbCompact == null) { try { gbCompact = localStorage.getItem(GB_H_KEY) === "1"; } catch (e) { gbCompact = false; } }
     return gbCompact;
@@ -14368,14 +14629,31 @@
       });
     };
     if (animate && wrap && bar.classList.contains("show")) {
+      /* A FOLD ALREADY RUNNING IS ENDED BEFORE A NEW ONE STARTS, and this is the whole of the fix for a
+         reported jam (Aug 2026: "sometimes after closing/opening it a few times I can no longer press the
+         buttons"). Reproduced: a fold FLIPs about twenty elements, and nothing cancelled the previous
+         set — so tapping the chevron again while one was in flight left up to 53 concurrent transform
+         animations on the four grade buttons and the row around them. While those run, Chromium's
+         hit-testing and getBoundingClientRect disagree: elementFromPoint at a button's own centre
+         returns #gradebar (or nothing at all), so a real tap lands on the bar's background and the grade
+         never fires — and once the reader has tapped into that gap the bar can stay un-hittable with no
+         animation left running at all. Every count reads healthy throughout: the buttons are there, they
+         are the right size, in the right place, with their listeners attached.
+         Cancelling is right rather than merely safe: these animations are fill:none, so a cancelled one
+         reverts to the element's own layout position at once — which is exactly where the reader can see
+         the button, and where the press has to land. */
+      gbStopFold();
+      // …but not under reduced motion, where nothing moves and the bar must stay live throughout
+      if (!prefersReducedMotion()) gbFoldingFor(GB_FOLD_MS + 40);
       // the grade buttons AND the row of controls: the buttons change row and size, the controls change row
       const parts = [].concat([].slice.call(wrap.children), [].slice.call(wrap.querySelectorAll(".grade")));
-      flipHeight(
+      const h = flipHeight(
         bar.querySelector(".gradebar-inner"),
-        () => flipMove(parts, apply, { duration: GB_FOLD_MS, easing: GB_FOLD_EASE }),
+        () => { _gbAnims = flipMove(parts, apply, { duration: GB_FOLD_MS, easing: GB_FOLD_EASE }) || []; },
         GB_FOLD_MS, GB_FOLD_EASE
       );
-    } else apply();
+      if (h) _gbAnims.push(h);
+    } else { gbStopFold(); apply(); }
     if (persist) { try { gbCompact ? localStorage.setItem(GB_H_KEY, "1") : localStorage.removeItem(GB_H_KEY); } catch (e) {} }
   }
   function gbWireResize(fold) {
@@ -14396,6 +14674,15 @@
       gradeBarEl.innerHTML = '<button class="gb-fold" id="gbFold" type="button" aria-expanded="true" aria-label="Shrink the grade buttons" title="Shrink the grade buttons">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>' +
         '</button><div class="gradebar-inner"></div>';
+      /* …and a press anywhere in the bar ends a fold that is still running, BEFORE the press is
+         hit-tested. Capture phase on the bar itself: pointerdown is the first thing a tap does, so
+         cancelling here puts every button back at its layout position for the pointerup that follows.
+         The chevron is exempt — gbSetCompact cancels for itself, and cancelling here as well would end
+         the fold this very press is asking for. */
+      gradeBarEl.addEventListener("pointerdown", (e) => {
+        if (e.target && e.target.closest && e.target.closest(".gb-fold")) return;
+        gbStopFold();
+      }, true);
       document.body.appendChild(gradeBarEl);
       gbWireResize(gradeBarEl.querySelector("#gbFold"));
     }
@@ -14404,6 +14691,7 @@
   function showGradeBar(innerHTML, onGrade) {
     const bar = ensureGradeBar();
     const inner = bar.querySelector(".gradebar-inner");
+    gbStopFold();   // the elements a fold is animating are about to be replaced
     inner.innerHTML = innerHTML;
     inner.querySelectorAll(".grade").forEach((b) =>
       b.addEventListener("click", () => onGrade(b.dataset.g))
@@ -14413,6 +14701,7 @@
     requestAnimationFrame(() => bar.classList.add("show"));
   }
   function hideGradeBar() {
+    gbStopFold();
     document.body.classList.remove("grading");
     if (gradeBarEl) {
       gradeBarEl.classList.remove("show");
@@ -19147,19 +19436,44 @@
      STUDY SESSION
      ============================================================ */
   function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  /* NEW CARDS MIXED THROUGH THE REVIEWS, which is Anki's default and what a reader means by "ordered"
+     (Aug 2026, on request). Every branch below used to concatenate — every due card, then every new one —
+     so a session opened on a wall of reviews and closed on a run of cards the reader had never met, and
+     the two halves of the day's work were never seen against each other.
+
+     IT INTERLEAVES WITHOUT REORDERING EITHER PILE, which is the whole of why this is not just `shuffle`.
+     Ordered mode means the cards arrive in their decks' own order, and that promise is kept WITHIN each
+     pile: what is randomised is only which pile the next card comes from. Random mode still shuffles the
+     lot afterwards and is unaffected.
+
+     THE DRAW IS WEIGHTED BY WHAT IS LEFT, so five new cards among forty reviews are spread evenly through
+     them rather than landing in a clump — an unweighted coin toss exhausts the smaller pile in the first
+     tenth of the session, which is the concatenation again with extra steps. */
+  function mixPiles(due, fresh) {
+    if (!due.length || !fresh.length) return [...due, ...fresh];
+    const d = due.slice(), f = fresh.slice(), out = [];
+    while (d.length || f.length) {
+      if (!d.length) { out.push(f.shift()); continue; }
+      if (!f.length) { out.push(d.shift()); continue; }
+      out.push(Math.random() * (d.length + f.length) < f.length ? f.shift() : d.shift());
+    }
+    return out;
+  }
   function buildSession(scope) {
     let queue, where, total;
     if (scope.type === "review") {
       const q = reviewQueue();
       queue = q.all.slice();
       if (deckRandom(REVIEW_ENTRY)) shuffle(queue);                                            // daily-review order toggle (hold the banner)
-      else {                                                                                   // "Chrono" = the cards' order of appearance within their decks (set by drag-reordering in the editor)
+      else if (deckByDifficulty(REVIEW_ENTRY)) queue = mixPiles(sortByDifficulty(q.due), sortByDifficulty(q.fresh));
+      else {                                                                                   // "Ordered" = the cards' order of appearance within their decks (set by drag-reordering in the editor)
         const seq = TREE.collections.flatMap(subtreeCardIds), oi = {};
         // the user's own decks follow, in their authored order — expanded, or a note's second card would
         // have no place in the sequence and every one of them would sort to the very end together
         Object.keys(UDECKS).forEach((k) => uDeckStudyIds(UDECKS[k].cardIds || []).forEach((id) => seq.push(id)));
         for (let i = 0; i < seq.length; i++) if (!(seq[i] in oi)) oi[seq[i]] = i;
-        queue.sort((a, b) => ((oi[a] == null ? 1e9 : oi[a]) - (oi[b] == null ? 1e9 : oi[b])) || (cardStartYear(cardById(a)) - cardStartYear(cardById(b))));
+        const inOrder = (list) => list.slice().sort((a, b) => ((oi[a] == null ? 1e9 : oi[a]) - (oi[b] == null ? 1e9 : oi[b])) || (cardStartYear(cardById(a)) - cardStartYear(cardById(b))));
+        queue = mixPiles(inOrder(q.due), inOrder(q.fresh));   // each pile in its decks' order, the two mixed
       }
       where = "Review";
       total = queue.length;
@@ -19174,7 +19488,7 @@
     } else if (scope.type === "cotd") {
       const ids = cotdIds().filter((id) => !isSuspended(id) && !isBuried(id));
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due);
-      queue = [...due, ...ids.filter((id) => !isSeen(id))];   // every card here was added BY being studied, so unseen is rare
+      queue = mixPiles(due, ids.filter((id) => !isSeen(id)));   // every card here was added BY being studied, so unseen is rare
       // this list's own Random-order switch. It has a row on the home page, so its sheet can be held open,
       // and a switch that is reachable and inert is the one thing the per-entry design must not produce.
       if (deckRandom(COTD_ENTRY)) shuffle(queue);
@@ -19193,7 +19507,7 @@
       const gIds = studyOrder(scope.id, entryCardIds(scope.id).filter((id) => !isSuspended(id) && !isBuried(id) && availG.has(id)));
       const gDue = gIds.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(scope.id));
       const gNew = gIds.filter((id) => !isSeen(id)).slice(0, Math.max(deckNewRemaining(scope.id), 0));
-      queue = [...gDue, ...gNew];
+      queue = mixPiles(orderPile(scope.id, gDue), orderPile(scope.id, gNew));
       if (deckRandom(scope.id)) shuffle(queue);
       total = queue.length;
     } else if (scope.type === "udeck") {
@@ -19216,7 +19530,7 @@
          already, so this is the one place that has to do it. */
       const freshU = unseen.slice(0, Math.max(deckNewRemaining(ue), 0));
       if (deckPairNew(ue)) shuffle(freshU);
-      queue = [...due, ...freshU];
+      queue = mixPiles(orderPile(ue, due), orderPile(ue, freshU));
       // the deck's own Random-order switch (hold its row in the review). The PILES are chosen first and
       // shuffled after, so a random session still deals the same cards a chrono one would — the setting
       // decides presentation order and never which cards the day's allowances let through.
@@ -19239,7 +19553,7 @@
       const due = ids.filter((id) => isDueNow(id)).sort((a, b) => S.cards[a].due - S.cards[b].due).slice(0, deckReviewRemaining(sd.id));
       const unseen = ids.filter((id) => !isSeen(id));
       const fresh = unseen.slice(0, Math.max(deckNewRemaining(sd.id), 0));   // new cards in deck (card) order — set via the editor's drag-reorder
-      queue = [...due, ...fresh];
+      queue = mixPiles(orderPile(sd.id, due), orderPile(sd.id, fresh));
       if (deckRandom(sd.id)) shuffle(queue);   // this deck's own Random-order switch — see the udeck branch
 
       // if nothing scheduled and no new allowance left but deck still has unseen, let the user push through extras
@@ -22451,6 +22765,24 @@
        schedule, and that is restored exactly. */
     const UNDO_CAP = 40;   // a session's worth of second thoughts, bounded — each entry holds a copy of the queue
     const undoStack = [];
+    /* ---------- ONE PRESS, ONE CARD (Aug 2026, on a bug report: "Undo sometimes goes back two") ----------
+       There are four ways to ask for an undo — the study bar's button, the grade bar's copy on a phone,
+       Ctrl+Z, and the completion screen's — plus, with the whiteboard pen down, the ink layer's own
+       pass-through, which finds a button under the canvas and activates it. Any two of those firing for one
+       press takes two cards off the stack, and the reader sees a card they never answered.
+
+       THE GUARD IS A WINDOW, AND THE NUMBER IS CHOSEN RATHER THAN GUESSED. Tying it to the paint was tried
+       and does not work: an undo repaints synchronously, so by the time a second listener for the same
+       press runs, the paint it was supposed to be waiting for has already happened. What genuinely
+       separates the two cases is TIME, and the two are nowhere near each other — a second activation of
+       one gesture lands in the same tick or one frame later (0–16 ms), while the fastest a person can
+       deliberately press a button twice is upwards of 100 ms and a double-click is defined at 500. So 90 ms
+       is comfortably above every double-fire and comfortably below every real second press.
+
+       IT GUARDS THE ACTION, NOT ONE BUTTON, which is the point of it being here rather than on a listener:
+       the two controls, the keyboard and the ink layer's pass-through all come through this function. */
+    const UNDO_GUARD_MS = 90;
+    let undoAt = 0;
     function undoSnapshot(id) {
       const d = todayStr();
       return {
@@ -22481,8 +22813,11 @@
     }
     function canUndo() { return undoStack.length > 0; }
     function undoGrade() {
+      const tNow = Date.now();
+      if (tNow - undoAt < UNDO_GUARD_MS) return;   // the same press arriving twice — see UNDO_GUARD_MS
       const s = undoStack.pop();
       if (!s) return;
+      undoAt = tNow;
       if (s.card) S.cards[s.id] = s.card; else delete S.cards[s.id];   // a card graded for the FIRST time goes back to having no record at all
       if (!S.reviewLog || typeof S.reviewLog !== "object") S.reviewLog = {};
       if (s.log) S.reviewLog[s.day] = s.log; else delete S.reviewLog[s.day];
@@ -22700,12 +23035,44 @@
          reason to un-reveal it. renderCard() re-runs this same function, which redraws the bar with the new
          colour on it and calls showAnswer() again for a card that was open. */
       { const fb = root.querySelector("#flagBtn"); if (fb) fb.addEventListener("click", () => openFlagSheet([id], () => renderCard())); }
+      /* ---------- A SUSPENDED NEW CARD IS REPLACED (Aug 2026, on a bug report) ----------
+         Suspending costs the reader one of the day's new cards. Not the ALLOWANCE — that is derived from
+         `c.first`, the day a card was first graded, so a card set aside without ever being answered spends
+         nothing — but the QUEUE, which was built once at the start of the session with exactly the day's
+         five in it. Take one out and four remain, and there is nothing on screen to say why.
+
+         So an unseen card taken out is topped back up from the same place the session drew it, in the same
+         order, skipping anything already in hand. A REVIEW card needs none of this: setting one aside does
+         not change how many new cards the day is offering. And where the deck has nothing left to offer —
+         a five-card deck with five suspended — nothing is pushed and the session simply ends, which is the
+         truth rather than a queue padded from somewhere else. */
+      function refillAfterSuspend(oldId) {
+        if (isSeen(oldId)) return;                       // a card already studied: the new-card count is untouched
+        const inQ = new Set(queue), avail = availableCardIdSet();
+        const pick = (ids) => ids.find((x) => x !== oldId && !inQ.has(x) && !isSeen(x) && !isSuspended(x) && !isBuried(x) && avail.has(x));
+        let rep = null;
+        if (params.scope.type === "review") {
+          const entries = activeEntryIds();
+          for (let i = 0; i < entries.length && !rep; i++) {
+            if (deckSkippedToday(entries[i])) continue;
+            rep = pick(studyOrder(entries[i], entryCardIds(entries[i])));
+          }
+        } else if (params.scope.type !== "card" && params.scope.type !== "cotd") {
+          const e = scopeEntryId(params.scope);
+          if (e) rep = pick(studyOrder(e, entryCardIds(e)));
+        }
+        if (rep) queue.push(rep);
+        return !!rep;
+      }
       function suspendCurrent() {
         if (!S.suspended) S.suspended = {};
         S.suspended[id] = Date.now();
         save();
-        toast("Card suspended — it won't appear again");
         queue.shift();
+        const filled = refillAfterSuspend(id);
+        toast(filled
+          ? "Card suspended — another new card takes its place."
+          : "Card suspended — it won't appear again");
         hideGradeBar();
         studyRevealId = null;
         qIdx = null;
@@ -31449,7 +31816,12 @@
     b.setAttribute("aria-label", cardId ? "Edit this card in the admin editor" : "Open the admin page");
     b.title = cardId ? "Edit this card" : "Open the admin page";
     b.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>' + (cardId ? "Edit" : "Admin");
-    b.addEventListener("click", () => route("admin", cardId ? { card: cardId, tab: "cards" } : { tab: "cards" }));
+    b.addEventListener("click", () => {
+      // the CARD variant is pressed from inside a session, so the record is taken before route() clears it;
+      // the plain one is pressed from the home page and has nothing to hold
+      studyHold = cardId ? readStudySession() : null;
+      route("admin", cardId ? { card: cardId, tab: "cards" } : { tab: "cards" });
+    });
     document.body.appendChild(b);
   }
 
@@ -33176,7 +33548,7 @@
     const whereTxt = node ? nodeWhere(node) : (memberLeaves.size ? "" : "no deck");
     host.innerHTML =
       '<div class="admin-ed-head"><div class="admin-ed-headinfo"><h2 class="admin-ed-title">' + esc(c.answer || "(untitled)") + '</h2><div class="admin-ed-key">' + esc(id) + (whereTxt ? ' &middot; ' + esc(whereTxt) : "") + '</div></div>' +
-      '<div class="admin-ed-actions"><span class="admin-saved" id="adminSaved"></span><button class="admin-preview" id="adminPreview" type="button">Preview</button><button class="admin-revert" id="adminRevert" type="button"' + (cardIsEdited(id) ? "" : " hidden") + '>Revert card</button><button class="admin-delete" id="adminDelete" type="button">Delete card</button></div></div>' +
+      '<div class="admin-ed-actions">' + (studyHold ? '<button class="admin-tostudy" id="adminToStudy" type="button">&#8617; Back to studying</button>' : "") + '<span class="admin-saved" id="adminSaved"></span><button class="admin-preview" id="adminPreview" type="button">Preview</button><button class="admin-revert" id="adminRevert" type="button"' + (cardIsEdited(id) ? "" : " hidden") + '>Revert card</button><button class="admin-delete" id="adminDelete" type="button">Delete card</button></div></div>' +
       liveCardEditorHTML({ dirAttr: dirAttr, metaHtml: metaRow, imagePanel: isEnLang, videoPanel: isEnLang, sourcesPanel: isEnLang });
     const editedFx = () => {
       const row = adminFindRow("card", id); if (row) row.classList.toggle("edited", cardIsEdited(id));
@@ -33276,6 +33648,16 @@
     });
     const pv = host.querySelector("#adminPreview");
     if (pv) pv.addEventListener("click", () => previewCard(id));
+    /* Back to the session the Edit button was pressed from. The record is put back BEFORE routing, since
+       PAGES.study reads it through params.resume and #study with no record simply goes home — and the hold
+       is dropped either way, a session being resumable once. */
+    const ts = host.querySelector("#adminToStudy");
+    if (ts) ts.addEventListener("click", () => {
+      const rec = studyHold; studyHold = null;
+      if (!rec) { route("home"); return; }
+      writeStudySession(rec);
+      route("study", { scope: rec.scope, resume: rec });
+    });
   }
 
   // Render a card exactly as it appears on the study page; any grade button returns to its editor.
@@ -34705,6 +35087,9 @@
   restoreGlossWins(_glossToRestore);   // re-open any gloss popups that were on screen before the reload
   communityBoot();   // async: the user's own decks load from IndexedDB, then the deck pages re-render
   supaBoot().then(cloudBootOverrides);   // async: restore the session, handle emailed auth links, reconcile progress — then adopt the published content overrides (live edits)
+  // …and the pooled card counters behind the community difficulty rating, at idle: nothing on the first
+  // paint depends on them, and a card without them simply shows the editorial rating it always did
+  whenIdle(() => { cardStatsLoad(); });
 
   // Service worker (sw.js) — makes Folio installable and usable offline. Registered after boot so
   // it never competes with first paint, and NEVER on a dev origin: a file-watching dev server's

@@ -874,3 +874,67 @@ end $$;
 -- the caller has not signed in yet, which is the entire point of the function
 revoke all on function public.login_email(text, text) from public;
 grant execute on function public.login_email(text, text) to anon, authenticated;
+
+
+-- ============================================================================================
+-- 13) COMMUNITY CARD DIFFICULTY  (run once)
+-- ============================================================================================
+-- Four integers per card, pooled over every reader: how many times it was answered Again, Hard, Good
+-- and Easy. The site turns them into the figure out of 100 that a card's stars show once it has been
+-- answered 20 times; below that the editorial 1-5 rating stands in.
+--
+-- THERE IS DELIBERATELY NO PER-READER ROW. What this table holds cannot say who answered what — it is
+-- four counters and a card id, and that is the whole of the privacy design. Nothing here is joined to
+-- auth.users, and nothing needs to be.
+--
+-- READ BY EVERYONE, WRITTEN BY NOBODY. The publishable key ships in app.js, so a table a browser may
+-- write to is a table anyone may write anything to: there is no insert, update or delete policy at
+-- all, and the only way in is the function below, which can add one to a counter and do nothing else.
+
+create table if not exists public.card_stats (
+  card_id text primary key,
+  a int not null default 0,   -- Again
+  h int not null default 0,   -- Hard
+  g int not null default 0,   -- Good
+  e int not null default 0,   -- Easy
+  updated_at timestamptz not null default now()
+);
+
+alter table public.card_stats enable row level security;
+
+drop policy if exists "card stats are public" on public.card_stats;
+create policy "card stats are public" on public.card_stats for select using (true);
+-- and no write policy: RLS denies by default, so the table is read-only to every client
+
+-- One call per flush, carrying however many cards the reader graded in the last few seconds. The
+-- increments are CLAMPED: a caller can add at most a few counts per card per call, so a hostile client
+-- cannot move a rating with one request, and the honest client never comes close to the ceiling.
+create or replace function public.bump_card_grades(rows jsonb)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare r jsonb;
+begin
+  if jsonb_typeof(rows) <> 'array' or jsonb_array_length(rows) > 500 then return; end if;
+  for r in select * from jsonb_array_elements(rows) loop
+    -- a card id is a slug or a community card's u_<deck>_<n>; anything else is not ours to count
+    continue when coalesce(r->>'card_id', '') !~ '^[A-Za-z0-9_~.:-]{1,64}$';
+    insert into public.card_stats as s (card_id, a, h, g, e, updated_at)
+    values (
+      r->>'card_id',
+      least(greatest(coalesce((r->>'a')::int, 0), 0), 50),
+      least(greatest(coalesce((r->>'h')::int, 0), 0), 50),
+      least(greatest(coalesce((r->>'g')::int, 0), 0), 50),
+      least(greatest(coalesce((r->>'e')::int, 0), 0), 50),
+      now()
+    )
+    on conflict (card_id) do update
+      set a = s.a + excluded.a, h = s.h + excluded.h,
+          g = s.g + excluded.g, e = s.e + excluded.e, updated_at = now();
+  end loop;
+end $$;
+
+revoke all on function public.bump_card_grades(jsonb) from public;
+grant execute on function public.bump_card_grades(jsonb) to anon, authenticated;

@@ -7996,6 +7996,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `renderComplete` clears it too, or a reload from the completion screen would resurrect an empty queue.
   · The `hashchange` branch for `study` must come BEFORE the generic `valid.includes(hh)` one, which would call
     `route("study")` with no scope.
+  · **AND THE EDITOR OFFERS A WAY BACK INTO IT** (`studyHold` / the `#adminToStudy` button / `.admin-tostudy`,
+    Aug 2026, on request). Pressing Edit on a study card routes to the admin area, which is a navigation, so
+    `route()`'s own choke point clears the session — correctly, since every other way of leaving a session
+    means leaving it. The Edit button therefore CAPTURES the record first (`showAdminEditBtn`, into a
+    module-level `studyHold`), and the editor draws a "Back to studying" button that puts it back and routes
+    to `study` with `resume`. Two things follow. **It is a module-level variable rather than a second
+    storage key**: a held session must not survive a reload, since the reader would meet a Back button for a
+    session the editor no longer knows anything about. And **`clearStudySession()` is the one function every
+    caller goes through** — `route()`, `renderComplete` and the hold's own consumer — so there is one place
+    that knows what clearing means.
+  · **A SUSPENDED NEW CARD NO LONGER COSTS THE DAY ONE** (`refillAfterSuspend(oldId)`, Aug 2026, on request).
+    Suspending is the reader saying *not this card*, and the day's allowance had already been spent on it —
+    so a reader who suspended five cards got a session of nothing, with the banner still claiming five new.
+    The queue is topped back up from the same entry's own unseen cards, skipping anything already in it,
+    already seen or suspended. It refills only where the suspended card was NEW: a suspended REVIEW card is
+    work the day genuinely no longer has, and manufacturing a replacement for it would deal a card the
+    schedule did not choose.
 - **A card's PHRASING is state, and the reader can step through it** (`qIdx` in `PAGES.study`, the `.q-cycle`
   chevrons beside the Question label — Aug 2026, on request). Every card carries three ways of asking the same
   thing and which one you met used to be a coin toss per render, with no appeal and nothing surviving a reload.
@@ -8462,6 +8479,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   request — the old key is retired from all nine language tables) presents cards in their in-deck order;
   **Random** shuffles the session order. The **draw** of the day's new cards is date-seeded-random across the decks in BOTH
   modes now (see the next bullet) — the setting decides presentation order only.
+  **THERE ARE THREE ORDERS SINCE AUG 2026, AND ORDERED NO LONGER MEANS "EVERY REVIEW FIRST"** (`DECK_ORDERS` /
+  `deckOrderMode` / `setDeckOrderMode` / `mixPiles` / `orderPile` / `deckByDifficulty` / `sortByDifficulty` /
+  `cardDifficultyRank`, on request). **Ordered**, **Random** and **By difficulty** (easiest first, on
+  `cardDifficultyShown` — so a card with enough answers is ranked by how hard readers actually found it and one
+  without by how obscure its answer term is).
+  **⚠ THE THIRD ORDER HAS NO CONTROL YET AND IS THEREFORE UNREACHABLE.** The data layer shipped with the
+  `mixPiles` work because the two are one change to how a pile is built; the chevron cycler that lets a reader
+  ASK for it is the next batch, so `setDeckOrderMode` currently has no caller and `deckOrderMode` can only ever
+  return the two the old boolean expresses. Said here rather than left to be discovered, since a setter nothing
+  calls is exactly what this file warns is the next person's bug — and note that the review sheet still draws
+  **Random order as a SWITCH**, whose row list `test-review-decks.js` pins exactly, so the cycler is an
+  assertion change as well as a UI one. Three things about it are load-bearing.
+  **`mixPiles(due, fresh)` INTERLEAVES THE TWO PILES IN EVERY BRANCH**, weighted by what is left of each and
+  preserving both piles' own order, because a session that deals every due card and then every new one is two
+  sessions rather than one — and on a large deck the new cards, which are the reason a reader added it, arrive
+  after forty reviews or not at all. It replaces the bare `[...due, ...fresh]` in all five `buildSession` branches
+  and in the review's own queue, so a deck studied from its row and the same deck studied from the pooled review
+  cannot come to disagree about what a session looks like.
+  **AND `setDeckOrderMode` IS NAMED THAT WAY BECAUSE `setDeckOrder` WAS ALREADY TAKEN** — it is the DRAG order
+  setter (`setDeckOrder(parentKey, ids)`, writing `S.deckOrder`), and a second `function setDeckOrder` at the same
+  scope wins for the whole scope, silently: the drag setter simply stopped existing and a reader's arrangement of
+  their own deck list stopped being saved, with nothing thrown and the rows still moving under the finger.
+  `test-review-decks.js` section 8 is what caught it. **A duplicate function declaration at module scope is
+  invisible** — sweep for one when a working feature stops working for no reason a diff explains.
   **IT IS PER ENTRY, LIKE QUESTION VARIETY AND THE DAILY LIMITS** (`deckRandom` / `setDeckRandom`, Aug 2026, on
   request: the switch appeared on the review banner's sheet alone, so a deck held on its own row had no way to
   ask for a shuffled session). `S.deckOpts[id].random` where the reader has thrown it on that deck,
@@ -8937,9 +8978,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     || due - now <= SCHED_AHEAD_MS)}`. The old 11-minute window silently stopped requeuing the moment a step ran longer
     than it; the learn-ahead allowance is Anki's, and is what stops the last card of a late-night session being stranded
     a few minutes the wrong side of the cut-off.
+  · **A DUE DATE MEASURED IN DAYS LANDS AT THE START OF ITS DAY** (`dayStartTs` / `SCHED.dayAnchor` / `schedDayDue`,
+    Aug 2026, on request). An interval of one day used to mean *twenty-four hours from the moment you graded it*, so a
+    card answered at nine in the evening was not offered again until nine the next evening — which makes "today's
+    review" a moving window rather than a day, and means a reader who studies in the morning meets none of yesterday
+    evening's cards. Anything scheduled in **days** is now anchored to the start of the reader's own day (`dayEnd`
+    included, so it is the same boundary the streak, the quote and the day's allowance turn over on) plus the fuzz;
+    anything in **minutes** — the learning steps — is untouched, since those are genuinely a delay from now.
+    **It is a `cfg` field, not a global read**, so the pure block stays pure: `deckSchedCfg` and `schedCfgFor` attach
+    `dayAnchor`, and a `cfg` without one behaves exactly as before, which is what keeps `test-scheduler.js`'s older
+    sections describing the same function. Both schedulers go through it — `fsrsAnswer` routes its interval through
+    `schedPass` — so neither knows about it.
   · `S.intro.count` (the daily new-card cap via `newRemainingToday`) is still incremented only on a card's FIRST grade
     (`fresh`), so a requeued learning card is never re-counted.
-  · **Guarded by `.claude/test-scheduler.js` (127 assertions, no browser, no dependencies)** — including the ordering
+  · **Guarded by `.claude/test-scheduler.js` (136 assertions, no browser, no dependencies)** — including the ordering
     guarantee Hard < Good < Easy over 1,600 interval/ease combinations, that preview and grade agree over 360 cases,
     that nothing is ever scheduled into the past, and that old records back-fill. Its two most useful finds were both
     invisible on the page: the ordering floor walking Easy past the maximum interval, and the preview/grade clock
@@ -8947,7 +8999,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **tracks the card by ID out of the session record, never by the question on screen**, which is a different one of
     its three phrasings each time it is shown.
   · **Re-run both after touching `SCHED` / `schedAnswer` / `schedPreview` / `schedPass` / `schedFuzz` / `schedIsLearning`
-    / `fmtInterval`, or the requeue line in `grade()`.**
+    / `schedDayDue` / `dayStartTs` / `fmtInterval`, or the requeue line in `grade()`.**
 - **FSRS, CHOSEN PER DECK (Aug 2026, on request).** The `FSRS` block in app.js, between SM-2 and the SRS helpers.
   SM-2 asks *how did that go* and multiplies an interval; FSRS models the memory — a **stability** (the delay at which
   recall is about 90%) and a **difficulty** (1–10) carried on the card record beside the interval — and computes the delay
@@ -9168,6 +9220,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   as a graduated card. The card comes back **revealed** (`studyRevealId`), on the grade row it was mis-answered on.
   Two things it deliberately does NOT take back, both additive and harmless: a badge or level-up already announced
   (`checkAchievements` only ever adds) and a Card of the day already dropped into the review list.
+  **IT STEPS BACK ONE CARD, NOT TWO** (`UNDO_GUARD_MS` (90) / `undoAt`, Aug 2026, on a report). There are
+  three ways in — the button, the shortcut and the completion screen's link — and a press that reached two of
+  them, or a key held a moment too long, popped two snapshots: the reader lost the card they meant to fix AND
+  the one before it, which is the one outcome an undo must never produce. A pop inside the guard window is
+  refused. It is deliberately a TIME guard rather than a flag cleared on the next render: the render is what
+  the second press races.
   **The Ctrl+Z guard is not `!typing`**: the cloze box takes focus as each card opens, so refusing whenever it is
   focused would mean the shortcut never fired at the one moment it is wanted — the card AFTER the misclick, which
   has just opened with an empty box. It yields to the browser's own typing-undo only while the box actually holds
@@ -9243,6 +9301,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   or the whole movement ends on a 5px jump the instant everything else settles.
   **The chevron is dimmed to `opacity:.5`** (Aug 2026, on request), full strength on hover and focus: it
   is a quiet control sitting directly above four saturated colours.
+  **AND IT NO LONGER JAMS HALF WAY** (`_gbAnims` / `_gbFoldT` / `gbStopFold` / `gbFoldingFor` /
+  `body.gb-folding`, Aug 2026, on a report that pressing the chevron twice quickly left the bar stuck).
+  Two faults, and each is invisible on a single press. The FLIP's animations were fired and forgotten, so a
+  second press started a second set over the first and the four buttons settled wherever the two disagreed —
+  they are kept in `_gbAnims` now and cancelled at the head of the next fold, which is `flipMove` and
+  `flipHeight` having been taught to RETURN what they created (they returned nothing, so no caller could
+  have cancelled anything). And the CSS transitions have a duration of their own, so a press landing inside
+  it measured a height half way between the two states and folded to the wrong one — `body.gb-folding` is
+  set for `GB_FOLD_MS` and takes the bar's own contents out of hit-testing while it moves, with a
+  capture-phase `pointerdown` **exempting `.gb-fold` itself** so the chevron stays pressable: a reader who
+  presses it twice means to end up where the second press says, and swallowing that press would be the same
+  jam wearing a different coat.
+  **ITS TEST MUST DRIVE REAL INPUT AND MUST CLEAR THE LEVEL-UP CHEST**, and the second half is what made
+  the block honest. `el.click()` bypasses hit-testing entirely — which is the whole of what breaks here —
+  so a scripted version passes on the bug and the rounds have to go through `page.mouse.click`. But six
+  grades takes a fresh reader past level 2 (`XP_PER_LEVEL` is 5), and a level buys an artefact chest whose
+  overlay swallows every REAL pointer event: the chevron presses land on nothing and the grade's own centre
+  hit-tests to the overlay, so the round reports a jam that is the REWARD working exactly as designed. It
+  shows as **1 of 6** — the scripted reveal goes through regardless, so only the real-input half is blocked
+  — which reads like a rare intermittent fault rather than a fixture problem. The chests are dismissed at
+  the head of each round and **counted**, so a dismissal that stopped firing cannot put the false failure
+  back quietly. **And the sub-block after the loop has to REVEAL again**: the loop now ends on a grade that
+  succeeds, which moves to the next card and hides the bar, and `#gradebar` is `pointer-events:auto` only
+  while it carries `.show` — so the mid-fold probe read `none` on everything and reported a fold that never
+  started. It had been passing for the wrong reason, on a round 6 whose grade the chest was swallowing.
+  **A fixture that depends on an earlier step failing passes until that step is fixed.**
 - **Undo is repeated INSIDE the grade bar on a phone** (`#undoGradeBar`, `.gb-undo` — Aug 2026, on request).
   The study bar's `#undoGrade` sits at the top of a card that runs several screens, so on a phone the one way
   back from a misclicked grade was scrolled off screen at exactly the moment it was wanted. The grade bar's copy
@@ -9630,6 +9714,52 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     than as a second kind of mark; an unearned star is the same colour at a fraction of the opacity, which
     reads as an outline without needing a second glyph. It is absolutely positioned so it costs the
     question no width, and it steps left of `.tts-mute`, which holds that corner when read-aloud is on.
+  · **THERE ARE TWO RATINGS AND THE CARD SHOWS WHICHEVER IT HAS EVIDENCE FOR** (`CARD_STATS` /
+    `CARD_STATS_MIN` / `CARD_GRADE_WEIGHT` / `cardStatsFor` / `cardDifficultyShown`, Aug 2026, on request).
+    `card.difficulty` is an EDITORIAL judgement about how well known the answer term is, made once when the
+    card is written; what a reader actually wants to know is how hard the card is to answer, which only the
+    answers can say. So every grade is counted (`bump_card_grades`, an RPC in section 13 of
+    `.claude/supabase-schema.sql` — **the user must run it once**; it clamps each increment to 0–50, caps a
+    batch at 500 rows and validates the id, since anyone with the publishable key can call it), and once a
+    card has **`CARD_STATS_MIN` (20)** answers the stars show the community figure instead. Four decisions.
+    **It is ANONYMOUS AND AGGREGATE** — four counters per card, no reader attached — which is what makes it
+    safe to publish and to read without a session. **The threshold is what stops one bad morning becoming a
+    rating**: below it the card keeps the editorial one, so a new card is never rated by three people.
+    **`pct` is null on the editorial rating**, deliberately: it is a judgement rather than a measurement and
+    printing it as a figure out of a hundred would dress it up as one, which is why only the community
+    rating carries `.cs-pct`. And **the rank is derived from the percentage** (`floor(pct / 20) + 1`) rather
+    than stored, so the two ratings share one five-star scale and one row of markup.
+    **THE WORD "Difficulty" IS PRINTED BESIDE THE STARS** (same request): five small stars in a corner say
+    that something is being rated and not what. Set small and thin, so it labels the row rather than
+    competing with the question beside it. **AND IT IS THE FIRST TEXT IN THAT ROW, SO IT NEEDED A
+    `body.hc` RULE** — the stars are SVG and `test-a11y.js` measures text, so until the row gained words
+    there was nothing there to measure. Both the word and the community figure are `--indigo` held down by
+    opacity, which over the six themes in both modes is **1.77–3.28** and **2.06–4.70** — quiet on purpose,
+    short of the bar in all twelve, and correctly REPORTED rather than failed in the default mode. Opacity
+    is not the rescue: at full strength the indigo is still 3.32 on gazette's dark card. So with the mode on
+    they become ordinary `--ink`, which is what the re-tone does for every other quiet token. **A row that
+    gains its first text node gains an accessibility surface it did not have.**
+    **AND `test-a11y.js` COULD NOT SEE IT, WHICH IS THE HALF WORTH CARRYING**: its high-contrast sweep
+    walks `ROUTES`, and `study` is deliberately not a restorable hash — so it visited every page a reader
+    can type and none of the one they spend their time on, and the assertion "nothing falls short" was
+    passing on a set that excluded the whole study card. It reaches one now, the way a reader does, with a
+    guard asserting the card and the difficulty row are actually THERE: a sweep that reached no card would
+    report clean for the worst possible reason.
+    **AND THE FIRST THING IT SAW THERE WAS NOT THIS ROW BUT THE GRADE BAR**, failing in all twelve
+    combinations — which is the argument for widening a sweep even when you are widening it to check your
+    own change. Its three text runs are white at 1, .82 and .6 over four saturated backgrounds, and
+    measured they are 2.25–4.56 for the label, 1.97–3.64 for the interval and 1.66–2.69 for the key: the
+    site's most-used control, wrong since the bar was built, and unreported because nothing had ever
+    looked. **The fix is the BACKGROUND rather than the ink**, and that follows from what the colours are
+    for — the four hues ARE the four answers, so re-toning the text to a common dark would take the bar's
+    whole language away, while darkening each background by a factor of .67–.99 keeps every hue and simply
+    stops it being a pastel. Solved per colour and per mode with all three runs at full-strength white;
+    every one lands 4.61–4.71. **The rules are written `body.hc:not(.night)` / `body.hc.night` (0,4,0),
+    not `body.hc` (0,3,0)** — `.night .grade.again` is (0,3,0) and sits a thousand lines below the
+    CONTRAST block, so at equal specificity source order would win and the night bar would be untouched.
+    **The RPC degrades rather than breaking** — a database without
+    section 13 answers 404 and the card simply keeps its editorial rating, which is the standing rule that a
+    later schema block is never a prerequisite.
   · Written by `.claude/add-card-difficulty.js` in batches, editable per card in Admin → Cards (a select in
     the meta row beside the chronology — it offers the five ratings and **no "unrated" row**, since an
     undefined delta does not survive JSON round-tripping and a control whose only use is to drop a card out
@@ -11843,6 +11973,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   layers over a transform the element already has rather than replacing it. Both helpers gate on
   `prefersReducedMotion()` internally, so no caller has to. Used by `gbSetCompact` and by the Timeline
   game's drag and arrows — **reach for it rather than adding a transition that cannot fire.**
+  **BOTH RETURN WHAT THEY CREATED** (`flipMove` an array of animations, `flipHeight` one or null; Aug 2026,
+  on the grade bar's fold jam). They returned nothing, so a caller firing a second FLIP over a first had no
+  way to cancel it and the two settled wherever they disagreed — which on the grade bar is a control stuck
+  half folded. **A helper that starts an animation must hand it back**, or every caller that can be
+  re-entered is one press away from that. An empty array is still an array, so a caller can cancel
+  unconditionally.
 - **Atlas:** an orthographic Canvas-2D globe (drag to rotate, wheel/pinch zoom, **on-screen `+`/`−` buttons (`#gzIn`/`#gzOut`,
   `.globe-zoom`) + keyboard `+`/`−`** via `zoomStep()`; `ZMIN 0.82 … ZMAX 10`). Zooming scales the disk
   radius (`R = baseR·zoom`), so the globe fills the screen by ~zoom 2.1 (`R ≥ dist(centre,corner)`). The **wheel-zoom listener is
@@ -16244,7 +16380,7 @@ dead code (never rendered).
     passes 1 — which is what the first run reported, and is a fault in the test rather than in the code.
     **Re-run after touching `bumpStreak` / `maybeStreakChest` / `streakChestProgress` / `STREAK_CHEST_EVERY`
     / `S.streak`.**
-  · `node .claude/test-scheduler.js` — 127 assertions on **the schedule itself**, which is the thing a study site is
+  · `node .claude/test-scheduler.js` — 136 assertions on **the schedule itself**, which is the thing a study site is
     most worth getting right and the thing that fails most silently: a wrong interval is still a number on a button,
     and a card that graduates a step early looks exactly like a card being studied. Nobody reports it; they just learn
     less. So it is pinned as ARITHMETIC — the pure `THE SCHEDULER` block is sliced out of app.js by text and run in a
@@ -16412,6 +16548,24 @@ dead code (never rendered).
     from the existing interval** rather than starting the card over; and (section 15) what **Card info** says
     about an FSRS card, read off the rendered panel because both of its faults were in the wording rather than
     in the numbers.
+    **Sections 18–20 are the Aug 2026 study-flow batch**: `mixPiles` sliced out and walked as a pure function
+    (both piles' own order preserved, neither pile ever exhausted early) and then a REAL session read back to
+    prove the day's new cards genuinely arrive among the reviews rather than after them; that suspending a new
+    card refills the day rather than costing it one; and that undo steps back exactly ONE card however fast
+    the button is pressed twice.
+    **ITS FIXTURE PICKS TWO LEAVES OF ONE COLLECTION, AND FOR A FORTNIGHT IT DID NOT** (Aug 2026). Sections 8
+    and 11 need a level of the review list holding more than one row — a reorder needs two siblings and a
+    group needs a deck to carry into it — and the flat "first two leaves anywhere" rule stopped supplying one
+    the day the China collection was opened: `cn-myth` and `wh-evolution` are leaves of DIFFERENT
+    collections, so each parent had exactly one child and there was nothing to rearrange. **Nothing said so.**
+    The drag section quietly reported the top level instead, and the group section's `geo` finder returned
+    null, reached `document.querySelector(...).dispatchEvent` inside `page.evaluate` and **aborted node**, so
+    every section after it — including the three new ones — silently never ran at all. Two fixes, and the
+    second matters as much as the first: the leaves are chosen preferring a pair under one root, and the
+    group section is a **labelled block** that `break`s with a printed SKIP when there is no deck to drag.
+    **`return` would have been the same bug again** — these sections are bare `{ }` blocks inside one async
+    IIFE, so returning skips every later section. **A test that takes the process down is worse than a test
+    that fails**, and a fixture derived from shipped data goes stale the day the data changes.
     **Section 17 is LOAD BALANCING and EASY DAYS in Settings**, where test-scheduler has the arithmetic: that
     both are **OFF by default** (the assertion most worth having — they change what the scheduler does, and
     an existing reader's intervals must not move because they updated), that the seven days are drawn
@@ -16431,6 +16585,8 @@ dead code (never rendered).
     **In this file, the state to look at is the state that is seeded.**
     **Re-run after
     touching `reviewQueue` / `reviewLimits` / `REVIEW_ENTRY` / `deckLimits` / `globalLimits` /
+    `mixPiles` / `orderPile` / `DECK_ORDERS` / `deckOrderMode` / `setDeckOrderMode` / `sortByDifficulty` /
+    `refillAfterSuspend` / `UNDO_GUARD_MS` / `studyHold` / `clearStudySession` /
     `clearDeckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` / `openDeckLimits` / `addActive` /
     `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` / `orderedIds` / `setupDeckDrag` /
     `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` / `setNestParent` / `nestChildren` /
@@ -16995,8 +17151,9 @@ dead code (never rendered).
   Static hosting on Cloudflare Pages fed by GitHub pushes (`git push` = deploy; content files like `data.js` ship with deploys).
   Schema + RLS: `.claude/supabase-schema.sql` (applied; tables `profiles` / `progress` / `friends`, plus the later blocks'
   `user_*` / `deck_*` / `feedback` / `content_overrides` / `review_log`, and — **still to be run once each** —
-  **section 11 `user_decks.color`** and **section 12 `login_email()`**, the deck's default colour and username
-  sign-in; signup trigger creates the
+  **section 11 `user_decks.color`**, **section 12 `login_email()`** and **section 13 `card_stats` +
+  `bump_card_grades()`**, the deck's default colour, username sign-in and the community difficulty rating;
+  signup trigger creates the
   profile + empty progress row). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature that needs one
   degrades to a sentence rather than an error (`colorColumnMissing`, the `login_email` 404 → "use your email
   address"), so the site works on a database that has only the first block. **Keep it that way** — a block
