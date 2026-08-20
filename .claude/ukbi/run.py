@@ -131,7 +131,14 @@ def fetch():
 
 
 def main():
-    level = '1'
+    # `--phrases` builds the companion deck of phrases, idioms and proverbs
+    # rather than a level.  It is NOT an eighth predicate -- UKBI has seven --
+    # and it runs `phrases.py` where a level runs `select.py`; everything after
+    # that is the same four stages, because a phrase is carded exactly like a
+    # word.  Its level key is 'p', which keeps its intermediates out of the
+    # numbered levels' way in the shared cache.
+    phrases = '--phrases' in sys.argv
+    level = 'p' if phrases else '1'
     if '--level' in sys.argv:
         level = sys.argv[sys.argv.index('--level') + 1]
     os.environ['UKBI_LEVEL'] = level       # read by ukbi_level, at import
@@ -142,9 +149,15 @@ def main():
     os.chdir(CACHE)
     sys.path.insert(0, HERE)               # so a stage can `import supplement`
     from ukbi_level import PREDICATES, TARGET, f as lvlf
-    name, peringkat, band = PREDICATES[level]
-    print(f'building level {level}: {name} (peringkat {peringkat}, score {band}), '
-          f'target {TARGET[level]} words')
+    if phrases:
+        STAGES = ('phrases.py', 'examples.py', 'build_deck.py', 'emit_phrases.py')
+        print('building the companion deck of phrases, idioms and proverbs '
+              '(not a UKBI predicate — there are seven, and this is not one)')
+    else:
+        STAGES = ('select.py', 'examples.py', 'build_deck.py', 'emit.py')
+        name, peringkat, band = PREDICATES[level]
+        print(f'building level {level}: {name} (peringkat {peringkat}, score {band}), '
+              f'target {TARGET[level]} words')
 
     # THE DICTIONARY IS REDUCED ONCE AND REUSED.  It is the same file whatever
     # level is being built, so a second level costs nothing here -- but it IS
@@ -154,7 +167,7 @@ def main():
     sys.argv = ['extract_kaikki.py', 'kaikki-id.jsonl', lvlf('wikt.json')]
     runpy.run_path(os.path.join(HERE, 'extract_kaikki.py'), run_name='__main__')
 
-    for stage in ('select.py', 'examples.py', 'build_deck.py', 'emit.py'):
+    for stage in STAGES:
         print(f'--- {stage}')
         runpy.run_path(os.path.join(HERE, stage), run_name='__main__')
 

@@ -3,14 +3,19 @@
 
     python3 .claude/ukbi/combine.py [out.folio-deck.json]
 
-It reads `decks/UKBI-*.folio-deck.json` and writes a single deck with a subdeck
-per level, so a reader adds a whole predicate or the lot, and the seven stay
-separable inside one file rather than being poured together:
+It reads the seven level decks and the companion phrases deck and writes a
+single file, so a reader adds a whole predicate or the lot and they stay
+separable inside it rather than being poured together:
 
-    1 Terbatas        5 Unggul
-    2 Marginal        6 Sangat Unggul
-    3 Semenjana       7 Istimewa
-    4 Madya
+    1 Terbatas        5 Unggul          Phrases and expressions
+    2 Marginal        6 Sangat Unggul     Everyday expressions
+    3 Semenjana       7 Istimewa          Idioms
+    4 Madya                               Proverbs
+
+THE EIGHTH ROW IS NOT AN EIGHTH LEVEL and the tree says so by its shape: the
+seven predicates are flat and the phrases hang under one parent of their own,
+because they are a companion to the seven rather than a step past Istimewa.
+UKBI has seven predicates and no eighth; see `emit_phrases.PREDICATE_NOTE`.
 
 SIX THINGS IT HAS TO GET RIGHT, and five of them fail silently.
 
@@ -69,9 +74,11 @@ DECKS = os.path.abspath(os.path.join(HERE, '..', '..', 'decks'))
 from ukbi_level import PREDICATES, TARGET, DECK_FILES, SCOPE
 
 LEVELS = ['1', '2', '3', '4', '5', '6', '7']
+PHRASES = 'Indonesian-Phrases-and-Expressions.folio-deck.json'
+PHRASES_SUB = 'Phrases and expressions'
 DECK_ID = 'ukbiall'
 SUB_SEP = '::'          # app.js's own subdeck separator; keep the two in step
-TITLE = 'UKBI 1–7 — Indonesian'
+TITLE = 'Indonesian — UKBI 1–7 and expressions'
 COLOR = '#B32821'       # all seven carry it; asserted below rather than assumed
 
 # app.js's own limits, restated here so this refuses to write a file that
@@ -82,13 +89,13 @@ MAX_NOTES = 12000
 MAX_BYTES = 48 * 1024 * 1024
 
 
-def load(level):
-    with open(os.path.join(DECKS, DECK_FILES[level]), encoding='utf-8') as f:
+def load(name):
+    with open(os.path.join(DECKS, name), encoding='utf-8') as f:
         return json.load(f)
 
 
 def stats(cards):
-    """Counted off the notes, never read out of the seven descriptions."""
+    """Counted off the notes, never read out of the eight descriptions."""
     fams = sum(1 for c in cards if c['fields'].get('Forms'))
     passives = sum(1 for c in cards if '>passive<' in c['fields'].get('Forms', ''))
     phrases = sum(1 for c in cards if ' ' in c['fields']['Word'])
@@ -98,11 +105,12 @@ def stats(cards):
                 exany=sum(1 for k in exn if k))
 
 
-def desc(s):
+def desc(s, nphrase):
     n, sizes = s['notes'], [TARGET[l] for l in LEVELS]
     return (
-        'All seven UKBI levels in one deck, a subdeck per level. Each level '
-        'carries both study directions — Indonesian → English (see the '
+        'All seven UKBI levels in one deck, a subdeck per level, and a '
+        'companion subdeck of phrases, idioms and proverbs beside them. Each '
+        'subdeck carries both study directions — Indonesian → English (see the '
         'Indonesian, recall the meaning) and English → Indonesian (see an '
         'English meaning, recall the Indonesian) — as two cards of one word, '
         'each with a schedule of its own, so recognising a word and producing '
@@ -120,7 +128,15 @@ def desc(s):
         'The seven levels teach ' + ', '.join(f'{c:,}' for c in sizes[:-1])
         + f' and {sizes[-1]:,} words — {sum(sizes):,} in all, and no word is '
         'taught twice, since each level excludes every word the levels below '
-        f'it contain. They sit on {n:,} words in each direction. '
+        'it contain. '
+        f'The eighth subdeck is not an eighth level: UKBI has seven predicates '
+        f'and no more. It holds {nphrase} expressions the seven cannot reach, '
+        'because a phrase cannot appear in a word-frequency list at all — '
+        'every word counter treats kambing hitam as kambing and hitam — so the '
+        'idioms and proverbs were out of reach of every level however well '
+        'known they are. It is split again into everyday expressions, idioms '
+        'and proverbs, and repeats nothing the seven levels teach. '
+        f'Altogether that is {n:,} entries in each direction. '
         'Istimewa, the highest, is smaller than Sangat Unggul below it, which '
         'is a fact about the sources rather than about the predicate: both of '
         'the things the list is assembled from run out there, and everything '
@@ -187,16 +203,16 @@ def desc(s):
 
 def main():
     out = sys.argv[1] if len(sys.argv) > 1 else os.path.join(
-        DECKS, 'UKBI-1-7-Indonesian.folio-deck.json')
+        DECKS, 'Indonesian-UKBI-1-7-and-Expressions.folio-deck.json')
 
-    decks = [(lv, load(lv)) for lv in LEVELS]
+    decks = [(lv, load(DECK_FILES[lv])) for lv in LEVELS] + [('P', load(PHRASES))]
 
     # the type block is shared, and that is asserted rather than assumed
     sigs = {lv: hashlib.sha1(json.dumps(d['meta']['types'], sort_keys=True,
                                         ensure_ascii=False).encode()).hexdigest()
             for lv, d in decks}
     if len(set(sigs.values())) != 1:
-        raise SystemExit('the seven decks no longer share a card-type block: '
+        raise SystemExit('the decks no longer share a card-type block: '
                          + json.dumps(sigs, indent=2))
     types = decks[0][1]['meta']['types']
     # …and so is the colour, which is a fact about the deck rather than about a
@@ -204,7 +220,7 @@ def main():
     # deck wearing whichever level happened to be read first.
     cols = {lv: d['meta'].get('color') for lv, d in decks}
     if set(cols.values()) != {COLOR}:
-        raise SystemExit(f'the seven decks no longer share {COLOR}: '
+        raise SystemExit(f'the decks no longer share {COLOR}: '
                          + json.dumps(cols, indent=2))
 
     # THE DIRECTION ROWS COME FROM THE TEMPLATES, so a level that had stopped
@@ -217,13 +233,22 @@ def main():
 
     cards = []
     for lv, d in decks:
-        name = PREDICATES[lv][0]
-        sub = f'{lv} {name}'
-        if SUB_SEP in sub:
-            raise SystemExit(f'sub title contains {SUB_SEP!r}: {sub!r}')
+        # A LEVEL IS FLAT AND THE PHRASES DECK IS NOT, and each is asserted to
+        # be what it is: a level that grew subdecks of its own would otherwise
+        # have them silently flattened away, and the phrases deck losing its
+        # three would leave one row of 228 unsorted expressions.
         for c in d['cards']:
-            if c.get('sub'):        # the seven are flat; a nested one would need a plan
-                raise SystemExit(f'level {lv} now has subdecks of its own: {c["sub"]!r}')
+            if lv == 'P':
+                own = (c.get('sub') or '').strip()
+                if not own:
+                    raise SystemExit('the phrases deck has lost its subdecks')
+                sub = f'{PHRASES_SUB}{SUB_SEP}{own}'
+            else:
+                if c.get('sub'):
+                    raise SystemExit(f'level {lv} now has subdecks of its own: {c["sub"]!r}')
+                sub = f'{lv} {PREDICATES[lv][0]}'
+            if SUB_SEP in sub.replace(f'{PHRASES_SUB}{SUB_SEP}', '', 1):
+                raise SystemExit(f'sub title contains {SUB_SEP!r}: {sub!r}')
             n = len(cards) + 1
             cards.append(dict(c, id=f'u_{DECK_ID}_{n}', sub=sub))
 
@@ -231,6 +256,7 @@ def main():
         raise SystemExit(f'{len(cards)} notes, over app.js\'s {MAX_NOTES} cap')
 
     s = stats(cards)
+    nphrase = sum(1 for c in cards if c['sub'].startswith(PHRASES_SUB))
     ts = max(d['meta']['updatedAt'] for _, d in decks)
     doc = {
         'folioDeck': 1,
@@ -239,15 +265,16 @@ def main():
             'id': DECK_ID,
             'title': TITLE,
             'subtitle': f'{sum(TARGET[l] for l in LEVELS):,} words across all '
-                        'seven levels · a subdeck per level, both directions '
-                        'inside it',
-            'desc': desc(s),
+                        f'seven levels, plus {nphrase} phrases and proverbs · '
+                        'a subdeck each, both directions inside',
+            'desc': desc(s, nphrase),
             'author': '',
             'language': 'en',
             'color': COLOR,
             'tags': ['indonesian', 'bahasa indonesia', 'ukbi', 'terbatas',
                      'marginal', 'semenjana', 'madya', 'unggul',
-                     'sangat unggul', 'istimewa', 'vocabulary'],
+                     'sangat unggul', 'istimewa', 'vocabulary', 'phrases',
+                     'idioms', 'proverbs'],
             'glossMode': 'site',
             'types': types,
             'version': 1,
@@ -267,20 +294,26 @@ def main():
     with open(out, 'w', encoding='utf-8') as f:
         f.write(text)
 
-    subs = []
+    leaves, nodes = [], []
     for c in cards:
-        if c['sub'] not in subs:
-            subs.append(c['sub'])
+        if c['sub'] in leaves:
+            continue
+        leaves.append(c['sub'])
+        parts = c['sub'].split(SUB_SEP)
+        for i in range(1, len(parts) + 1):
+            q = SUB_SEP.join(parts[:i])
+            if q not in nodes:
+                nodes.append(q)
     print(f'{out}')
     print(f'  {len(cards):,} notes = {len(cards)*2:,} cards, '
           f'{nbytes/1048576:.1f} MB (caps: {MAX_NOTES:,} notes, '
           f'{MAX_BYTES/1048576:.0f} MB)')
-    print(f'  {len(subs)} subdecks, each with {len(tpl)} direction rows:')
-    for q in subs:
+    print(f'  {len(nodes)} subdecks, {len(leaves)} of them holding cards; each '
+          f'of those gets {len(tpl)} direction rows:')
+    for q in nodes:
+        pad = '  ' * q.count(SUB_SEP)
         k = sum(1 for c in cards if c['sub'] == q)
-        print(f'    {q:<18} {k:>5,} words')
-        for t in tpl:
-            print(f'      {t["name"]}')
+        print(f'    {pad}{q.split(SUB_SEP)[-1]:<24}' + (f'{k:>5,} words' if k else ''))
     print('  ' + '  '.join(f'{k} {v:,}' for k, v in s.items()))
 
 

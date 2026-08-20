@@ -5228,8 +5228,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   an SVG (levels 4–7 dismiss eight of them); and the
   sandbox's Chromium is not where Playwright looks for it, so it needs
   `FOLIO_CHROMIUM=/opt/pw-browsers/chromium-<n>/chrome-linux/chrome`.
-  **`combine.py` is the ONE-FILE version of all seven** (`python3 .claude/ukbi/combine.py [out.json]`), on
-  request: 9,750 notes / 19,500 cards under a fresh deck id `ukbiall`, with **a subdeck per level** — and
+  **`combine.py` is the ONE-FILE version of the lot** (`python3 .claude/ukbi/combine.py [out.json]`), on
+  request — `decks/Indonesian-UKBI-1-7-and-Expressions.folio-deck.json`: 9,978 notes / 19,956 cards under a
+  fresh deck id `ukbiall`, with **a subdeck per level plus the phrases deck nested under one parent of its
+  own** (the seven predicates are flat and the expressions are not, which is the tree saying that the eighth
+  row is not an eighth level) — and
   the DIRECTIONS come free as a level below that, which is the one substantial difference from the DELE
   combiner beside it. There a word is TWO notes, one per direction, so the direction can be written into
   `sub`; **here a word is ONE note carrying two card TEMPLATES, and `sub` is a property of the NOTE**, so it
@@ -5243,9 +5246,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   fresh ids only when the deck id is already taken, so an id left reading `u_ukbi1_1` would collide with an
   installed level 1 in the shared `UCARDS` store and study the wrong card, with both decks on the shelf
   showing their full counts.
-  **THE FILE HOLDS NOTES AND THE CAP COUNTS NOTES, which is why this fits at all**: 9,750 notes against
-  `UDECK_MAX_CARDS` (12,000) is comfortable, where the 19,500 cards they carry would not be — see the note
-  beside that constant, which says the bound is on what the FILE holds. At 7.4 MB it is far inside the
+  **THE FILE HOLDS NOTES AND THE CAP COUNTS NOTES, which is why this fits at all**: 9,978 notes against
+  `UDECK_MAX_CARDS` (12,000) is comfortable, where the 19,956 cards they carry would not be — see the note
+  beside that constant, which says the bound is on what the FILE holds. At 7.5 MB it is far inside the
   48 MB one.
   **THE TYPE BLOCK, THE COLOUR AND THE TEMPLATE COUNT ARE ASSERTED RATHER THAN ASSUMED.** A level rebuilt
   against a changed template would otherwise have its cards silently rendered by another level's; a level
@@ -5255,16 +5258,82 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   only the per-level word counts come from `TARGET`, a level's size being a decision the shipped file cannot
   report. It reads no clock (the stamp comes from the newest source), so the same inputs write the same
   bytes.
-  **AND UNLIKE THE DELE COMBINER'S, ITS OUTPUT IS COMMITTED** (`decks/UKBI-1-7-Indonesian.folio-deck.json`),
+  **AND UNLIKE THE DELE COMBINER'S, ITS OUTPUT IS COMMITTED** (`decks/Indonesian-UKBI-1-7-and-Expressions.folio-deck.json`),
   because it was asked for as a download and so needs a permanent home beside the seven it is made of; the
   cost is ~7 MB of duplication, which is what being downloadable without running a script costs.
-  **`node .claude/ukbi/check-combined.js` is the browser half** (15 assertions): it RUNS `combine.py` first,
+  **`node .claude/ukbi/check-combined.js` is the browser half** (16 assertions): it RUNS `combine.py` first,
   so it needs no committed artefact and works on a fresh clone, then imports the file through the real
-  Studio picker and reads the page — 21 rows in `-1,0,1` sevenfold, a level counting both directions and a
-  direction counting one, adding the deck bringing the seven levels and **not** the fourteen directions, and
-  a card rendering its word, its meaning and its speaker. `check-ukbi.js` asserts what is on an Indonesian
+  Studio picker and reads the page — 31 rows, ten card-holding subdecks with their directions plus the one
+  parent that correctly gets none, a level counting both directions and a direction counting one, adding the
+  deck bringing the subdecks and **not** the twenty directions, and a card rendering its word, its meaning
+  and its speaker. `check-ukbi.js` asserts what is on an Indonesian
   CARD and `check-nesting.js` the subdeck/direction machinery in app.js; what is left, and what this covers,
   is the JOIN — seven decks poured into one file.
+  **THE EIGHTH DECK IS PHRASES, IDIOMS AND PROVERBS, AND IT IS NOT AN EIGHTH PREDICATE**
+  (`phrases.py` → `examples.py` → `build_deck.py` → `emit_phrases.py`, driven by
+  `python3 .claude/ukbi/run.py --phrases`; `decks/Indonesian-Phrases-and-Expressions.folio-deck.json`, **228
+  expressions — 84 Phrases, 111 Idioms, 33 Proverbs** — Aug 2026, on request). There are seven predicates and
+  this is not one of them, so the deck's own description says so in those words: a row sitting beside
+  `UKBI 1 Terbatas` … `UKBI 7 Istimewa` will be read as an eighth level unless it states otherwise, and in
+  the combined file the seven are FLAT while this one NESTS under a parent of its own, which is the tree
+  saying the same thing without prose. **WHY THE LEVELS CANNOT REACH THESE EXPRESSIONS is the reason it
+  exists**: a phrase cannot appear in a segmented frequency list at all, so the whole cascade — which ranks
+  on that list — is blind to them, and `PHRASE_MIN` additionally floors a phrase at two corpus occurrences
+  precisely because one occurrence is not a frequency. Everything here is a phrase, so none of it could ever
+  have arrived by the ordinary route.
+  **THE SELECTION IS THE DICTIONARY'S OWN CLASSIFICATION AND NEVER A JUDGEMENT MADE HERE**, which is the
+  house rule against inventing content applied to CHOOSING it: a candidate is taken because Wiktionary files
+  it under a phrase part of speech, puts it in `Indonesian proverbs` or `Indonesian phrasebook`, or tags a
+  sense `idiomatic` / `figuratively` — and is dropped because the dictionary says it is a misspelling, a
+  borrowing, or a form of something else. Six things it settled are worth carrying.
+  **THE `phrase` PART OF SPEECH IS A TRAP: most of its entries are LATIN AND FRENCH.** `de facto`,
+  `s'il vous plaît`, `en route`, `ad hominem`, `force majeure`, `primus inter pares` — all filed as
+  Indonesian phrases, all useless to a candidate, and a deck that shipped them would be teaching the wrong
+  language under the right heading. The dictionary marks them itself, two ways, and both are needed: the
+  etymology's "Unadapted borrowing" / "Learned borrowing" (159), and the `Indonesian internationalisms`
+  category (19). **`in situ` still leaked**, its etymology reading only "Borrowed from Latin" with no
+  qualifier and no category, so a third rule matches the plain form for six source languages —
+  **guarded on `calque`**, since a calque is made of Indonesian words and is exactly what the deck wants
+  (`kambing hitam` is one).
+  **WIKTIONARY CARRIES MISSPELLINGS AS ENTRIES** — `terimah kasih`, `selamat tinngal` — and this is a deck
+  for a test that marks `dimana` wrong, so 107 go on the tag alone. **And a gloss reading "passive of X" or
+  "synonym of Y" is a cross-reference rather than a meaning**: `diberi tahu` and `direka ulang` are the same
+  fault one level down, dropped at selection so the counts agree, since `build_deck` refuses a card with no
+  meaning and a candidate refused there leaves the wordlist and the deck disagreeing about their own size.
+  **THE CENTRAL FINDING IS THAT A MARKED EXPRESSION MAY NOT BE FILTERED ON USE.** Measured over both corpora
+  (28,192 Tatoeba sentences and 16,043 Global Voices pairs), only **9 of 38 idioms and 8 of 46 proverbs occur
+  even once** — an idiom being literary and a corpus of subtitles and news conversational. Filtering on
+  occurrence would delete the deck's subject, which is the Mandarin deck's own recorded finding at a smaller
+  scale (of 5,227 non-syllabus chengyu only 361 are in Tatoeba). **So what the dictionary MARKS is taken
+  whatever the corpus says, and what only the POS suggests must be shown in use** — that second rule costs
+  89 of 110 and 86 of 120, and every one of them is a string nobody says.
+  **A PROVERB DEDUPLICATES ITSELF, THROUGH THE DICTIONARY AGAIN**: `di mana bumi dipijak, di situ langit
+  dijunjung` has seven spellings on the wiki, six of them glossed "synonym of" the seventh, so the
+  cross-reference rule that drops a form-of gloss leaves exactly one card per proverb rather than seven.
+  **THE `figuratively` INTRUDERS WERE A GLOSS-ORDER PROBLEM, NOT A SELECTION ONE, and the fix is DATA.**
+  `kambing hitam` is genuinely idiomatic and belongs here; what was wrong is that Wiktionary lists "black
+  goat" before "scapegoat", so the card taught the literal reading. `phrases.py` rewrites `wikt-p.json` with
+  the marked sense first — **never `build_deck.py`, which is shared with all seven levels** and where the
+  same change would re-order glosses in decks nobody was editing. Its diagnostic reports the STATE ("N
+  entries carry both a literal and a figurative sense; the figurative one is put first") rather than the
+  number it moved, since the file is rewritten in place and a count of moves reads 0 on the second run —
+  which looks exactly like a rule that has stopped firing.
+  **A DOMAIN-CATEGORY FILTER WAS MEASURED AND REFUSED**, which is the finding to read before adding one: 37
+  chosen entries carry a subject category (law, medicine, computing), and most of them are precisely what a
+  Semenjana-and-above candidate needs — so a term-of-art rule would have deleted `atas nama`, `balik kanan`,
+  `saham gorengan` and `kuda troya`. The subdeck was renamed `Everyday expressions` → **`Phrases`** instead,
+  a label everything under it answers to, which is the honest fix for a heading that had grown narrower than
+  its contents.
+  **`deck_type.py` IS THE CARD TYPE, DEFINED ONCE**, lifted out of `emit.py` when this deck gave it a second
+  emitter: copied into each they would drift invisibly, which is the `deckcore.js` fault this file already
+  records one directory over. **Verified inert: all seven level decks rebuild byte-for-byte identical.**
+  **`node .claude/ukbi/check-phrases.js` is the browser half** (23 assertions), and almost every one guards a
+  silent fault — a foreign phrase, a misspelling or a compound noun in this deck looks exactly like an entry
+  somebody chose. It asserts each named intruder is absent AND that a marked noun is KEPT (`kambing hitam`,
+  `lintah darat`), which fail in opposite directions; one card per proverb rather than one per spelling; no
+  cross-reference gloss anywhere; the three subdecks with 9 rows and their directions; and — on the page —
+  that `kambing hitam` shows "scapegoat" before "black goat", which is the only place the gloss order can
+  actually be seen.
   **Re-running it must reproduce the shipped deck byte for byte** (a fixed `STAMP`, no clock read anywhere);
   that is the check to make after any edit, since every fault above is silent — **and it has to be run on
   EVERY level, since the stages are shared**: most of the fixes above were found while adding level 2 and

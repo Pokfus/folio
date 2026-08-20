@@ -10,7 +10,7 @@
 
    `check-ukbi.js` asserts what is on an Indonesian CARD and `check-nesting.js` asserts the
    subdeck/direction machinery in app.js.  What is left, and what this file is for, is the JOIN
-   between them: seven decks poured into one file, where every way it can be wrong is silent.
+   between them: eight decks poured into one file, where every way it can be wrong is silent.
    A card id left carrying its own level's deck collides with an installed copy of that level in
    the shared `UCARDS` store and studies the wrong card, with both decks on the shelf showing
    their full counts.  A level whose notes lost their `sub` falls into the deck's own loose pile
@@ -20,10 +20,14 @@ const { chromium } = require("playwright");
 const path = require("path"), http = require("http"), fs = require("fs");
 const { execFileSync } = require("child_process");
 const ROOT = path.resolve(__dirname, "..", "..");
-const OUT = path.join(ROOT, "decks", "UKBI-1-7-Indonesian.folio-deck.json");
+const OUT = path.join(ROOT, "decks", "Indonesian-UKBI-1-7-and-Expressions.folio-deck.json");
 const LEVELS = [["1 Terbatas", 500], ["2 Marginal", 750], ["3 Semenjana", 1000],
                 ["4 Madya", 1500], ["5 Unggul", 2000], ["6 Sangat Unggul", 2500],
-                ["7 Istimewa", 1500]];
+                ["7 Istimewa", 1500],
+                ["Phrases and expressions::Phrases", 84],
+                ["Phrases and expressions::Idioms", 111],
+                ["Phrases and expressions::Proverbs", 33]];
+const NOTES = LEVELS.reduce((a, l) => a + l[1], 0);
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css",
                ".json": "application/json", ".svg": "image/svg+xml" };
 const server = http.createServer((req, res) => {
@@ -60,12 +64,20 @@ const ok = (c, m, extra) => {
   ok(deck.cards.every((c, i) => c.id === "u_ukbiall_" + (i + 1)),
      "every note is renumbered onto the combined deck",
      deck.cards.find((c, i) => c.id !== "u_ukbiall_" + (i + 1)) || "");
-  ok(deck.cards.length === 9750, "9,750 notes", deck.cards.length);
+  ok(deck.cards.length === NOTES, NOTES.toLocaleString() + " notes", deck.cards.length);
   const subs = [...new Set(deck.cards.map((c) => c.sub))];
   ok(subs.join(" | ") === LEVELS.map((l) => l[0]).join(" | "),
-     "seven subdecks, in the order they are studied", subs.join(" | "));
+     "ten card-holding subdecks, in the order they are studied", subs.join(" | "));
+  /* THE EIGHTH ROW IS NOT AN EIGHTH LEVEL, and the tree is what says so: the
+     seven predicates are flat and the expressions hang under a parent of their
+     own.  Flattened in they would read as a step past Istimewa, which UKBI has
+     not got. */
+  ok(subs.filter((x) => x.indexOf("::") > 0).length === 3
+     && subs.filter((x) => x.indexOf("::") < 0).length === 7,
+     "the seven predicates are flat and the expressions nest under one parent",
+     subs.join(" | "));
   ok(LEVELS.every(([s, n]) => deck.cards.filter((c) => c.sub === s).length === n),
-     "each level brings its own words and all of them",
+     "each subdeck brings its own words and all of them",
      JSON.stringify(LEVELS.map(([s]) => [s, deck.cards.filter((c) => c.sub === s).length])));
   /* A LEVEL EXCLUDES THE LEVELS BELOW IT, so a word appearing twice would mean two subdecks
      teaching one word on two schedules with nothing to say which is which. */
@@ -92,7 +104,7 @@ const ok = (c, m, extra) => {
   (await chooser).setFiles(OUT);
   await pg.waitForSelector(".studio-deck", { timeout: 300000 });
   ok(await pg.evaluate(() => /9,?750/.test(document.body.innerText)),
-     "all 9,750 notes arrive");
+     "all " + NOTES.toLocaleString() + " notes arrive");
 
   /* ------------------------------------------------------- the rows it offers */
   console.log("-- the rows");
@@ -108,9 +120,13 @@ const ok = (c, m, extra) => {
   });
   rows.forEach((r) => console.log("   tpl " + String(r.tpl).padStart(2) + "  "
                                   + r.name.padEnd(22) + r.count));
-  ok(rows.length === 21, "seven levels, each followed by its two directions", rows.length);
-  ok(rows.map((r) => r.tpl).join(",") === "-1,0,1,".repeat(7).slice(0, -1),
-     "the directions belong to the level above them, never to the deck",
+  /* 10 card-holding subdecks with two directions each, plus the one parent
+     that groups the expressions and correctly gets none of its own. */
+  ok(rows.length === 31, "ten subdecks with their directions, plus one parent",
+     rows.length);
+  ok(rows.map((r) => r.tpl).join(",")
+     === ("-1,0,1,".repeat(7) + "-1," + "-1,0,1,".repeat(3)).slice(0, -1),
+     "the directions belong to the subdeck above them, and a parent gets none",
      rows.map((r) => r.tpl).join(","));
   /* A LEVEL COUNTS BOTH DIRECTIONS AND EACH DIRECTION COUNTS ONE — the file holds notes and the
      review deals cards, and a level reading 500 rather than 1,000 is the shape of a count that
@@ -132,7 +148,9 @@ const ok = (c, m, extra) => {
     return (S.active || []).filter((x) => String(x).indexOf("u:ukbiall") === 0)
       .map(decodeURIComponent);
   });
-  ok(active.length === 8, "the deck and its seven levels", active.length);
+  ok(active.length === 12,
+     "the deck, its seven levels, the phrases parent and its three",
+     active.length);
   ok(!active.some((x) => /#\d$/.test(x)),
      "the directions are the reader's own choice, not the cascade's", active.join(" "));
 
@@ -148,8 +166,9 @@ const ok = (c, m, extra) => {
   const home = await pg.evaluate(() => [...document.querySelectorAll(".active-deck .dk-title")]
     .map((e) => e.textContent.replace(/\s+/g, " ").trim()));
   console.log("   " + home.join(" | "));
-  ok(home.length === 8 && LEVELS.every(([s]) => home.some((h) => h.indexOf(s) === 0)),
-     "the deck and every level get a row of their own", home.join(" | "));
+  ok(home.length === 12
+     && LEVELS.every(([s]) => home.some((h) => h.indexOf(s.split("::").pop()) === 0)),
+     "the deck and every subdeck get a row of their own", home.join(" | "));
   await pg.screenshot({ path: "/tmp/ukbi-combined-home.png" });
   await pg.click(".review-group .cta .btn");
   await pg.waitForSelector(".question", { timeout: 30000 });
