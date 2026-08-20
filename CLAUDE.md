@@ -8485,8 +8485,55 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `render()` closes them (`closeChestPop`, `closeArtefactWin`, `closeCollectionWin`, in the close list). The chest is
     deliberately NOT dismissed by a backdrop click: unlike the level-up popup it holds buttons, and an
     overlay where a stray tap outside the card takes the reward away is one nobody trusts.
-  `S.artefacts` / `S.chests` / `S.showcase` / `S.sweepChest` are in `defaultState` AND `PROGRESS_FIELDS` — an
-  artefact is something the reader earned, so the shelf a phone shows is the shelf a laptop shows. Guarded by
+  · **A CHEST MAY ALSO HOLD A THEME** (`COLLECTIBLE_THEMES` / `THEME_DROP` / `ownedThemes` /
+    `themeUnlocked` / `lockedThemes` / `unlockTheme` / `claimTheme` / `rollChestItem` / `themeGrandfather`;
+    Aug 2026, on request: "besides artifacts, we will add a second type of item users may occasionally
+    collect: Themes"). The five non-`folio` themes are locked until one comes out of a chest, at
+    `THEME_DROP` (14%) of an opening **while any are still locked** — so a reader collects them at roughly
+    the rate they collect artefacts and the drop retires itself rather than dwindling to noise. Six things
+    are decisions rather than plumbing.
+    **`folio` IS NEVER IN THE REGISTER.** `S.themes` holds only what was WON, so "unlocked" is
+    `id === "folio" || owned[id]` and the default can never be lost, missing or granted twice.
+    **NOTHING IS TAKEN FROM A READER WHO ALREADY WEARS ONE** (`themeGrandfather`, called at boot and again
+    from `applyProgress`): a theme in `S.settings.theme` that is not in the register is written into it,
+    once, and the function only ever unlocks. Without it the change would have quietly stripped five of the
+    six themes from every existing reader, which is the one way a collectible can be worse than no
+    collectible at all.
+    **A LOCKED THEME'S BUTTON IS PRESSABLE, NOT `disabled`** — Chrome fires no mouse events at all on a
+    disabled button, so the hover try-on would be taken away from exactly the themes that most need
+    advertising. `setTheme` is the gate (it refuses a locked id outright), and the click toasts the reason;
+    the picker marks the row with a dashed border, a desaturated mock and a padlock, and its tag reads
+    "From a chest" where an owned one reads its own tagline.
+    **THE REVEAL OPENS AS AN "EPIC"** so the chest animation has a rarity to size its shake, its burst and
+    its sound by, without borrowing the legendary flourish — and the plate shows the same `themeMockHTML`
+    the Settings picker draws, so the two cannot come to disagree about what a theme looks like. Its two
+    actions are **Wear it now** and **Keep it for later**, because a theme is the one collectible that
+    changes the site under the reader the moment it is claimed.
+    **`THEME_OPTS` MOVED UP BESIDE `THEMES`** (with `THEME_BY_ID` / `themeName` / `themeMockHTML`), out of
+    `PAGES.settings`' closure: the chest overlay, the friends list, the admin tab and the picker all draw a
+    theme now, and a table reachable from one page only would have become four copies of itself.
+    **AND `spendChest()` IS THE ONE PLACE A CHEST IS SPENT**, incrementing `S.chestsOpened` — a lifetime
+    tally that only ever goes up. It cannot be derived from the artefacts any more, since an opening may
+    hand back a theme instead, and the badges below read it, so the banner's count and the badges' count
+    cannot drift.
+  · **FIFTEEN COLLECTOR'S BADGES** (Aug 2026, on request), reading `progStats`' new fields: chests opened
+    (1 / 10 / 50), artefacts held (10 / 25 / 50), a legendary found, a deck published, books started
+    (1 / 5 / 10), 250 glossary terms, and **an hour, three hours and eight hours studied in ONE day**.
+    Three things about them. **They are tested at the moment they are earned, not at the next card** —
+    `checkAchievements()` is called from `spendChest`, from `uDeckPublish` and from `setReadingPos`' first
+    write for a book, because being told about a chest badge three cards later reads as the site having
+    lost count. **A badge grants a chest**, which is what `checkAchievements` has always done, so opening
+    chests earns badges which grant chests — it cannot run away (a badge unlocks once) and it does mean
+    the chest BALANCE is not a plain subtraction, which `test-artefacts.js` now asserts against the badges
+    rather than against a constant. And **the day figures read `S.studyTime` only where its day stamp is
+    today** (`dayKey()`), so the three hour badges are about one day's work rather than a lifetime total,
+    which is what was asked for.
+  `S.artefacts` / `S.chests` / `S.showcase` / `S.sweepChest` — and, since Aug 2026, `S.chestsOpened`,
+  `S.themes`, `S.published`, `S.publishedIds` and `S.theme` — are in `defaultState` AND `PROGRESS_FIELDS`:
+  an artefact is something the reader earned, so the shelf a phone shows is the shelf a laptop shows.
+  **`themes` and `theme` are additionally in `RESET_KEEPS`** — Reset progress names the study history, the
+  streak and the badges, and a collectible taken away by a control that does not mention it is the failure
+  that bullet exists to prevent; the artefacts and chests still go, being what a LEVEL bought. Guarded by
   `.claude/test-artefacts.js`.
 - **Card-of-the-day additions** (`COTD_ENTRY` / `cotdIds` / `cotdAdd`, beside the other entry helpers): the home tile's
   button studies **that one card** (`scope {type:"card", id, addTo:"cotd"}`), and **grading it** — not opening it — drops
@@ -10625,7 +10672,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   styles.css; fonts in the single @import). **Seven themes — atlas, press, bloom, tide, scroll, grove, dynasty — were
   REMOVED on request** (a saved selection of one falls back to folio via the `THEMES` whitelist); don't reintroduce
   them. **Collection banners and all theme decorations are STATIC — no animated/moving patterns (removed on request).**
-  Themes register in `THEMES` (app.js) + the `THEME_OPTS` settings-picker table (mini-mockup previews, hover try-on).
+  Themes register in `THEMES` (app.js) + the `THEME_OPTS` settings-picker table (mini-mockup previews, hover try-on),
+  **both at module scope beside each other since Aug 2026** — `THEME_OPTS` lived inside `PAGES.settings` until the
+  chest overlay, the friends list and the admin tab all needed to draw a theme too. **Five of the six are COLLECTIBLE**
+  (everything but `folio`): see the theme bullet under THE RELIQUARY for the drop, the grandfathering and why a locked
+  theme's button stays pressable. **AND THE ONE A READER WEARS IS SYNCED, on `profiles` rather than in the progress
+  blob** (`S.theme`, `themePushSoon`, schema section 14) — a friend's row on the Account page is drawn in that
+  friend's own theme, which is what makes it "how your account is presented to others" rather than a private
+  preference. The column choice is the whole of the design and is argued in the schema: `progress` is RLS-scoped to
+  its owner and their accepted friends, so a friends list would have to pull every friend's whole blob to read one
+  string and an editor counting themes could not read it at all, where `profiles` is readable by any signed-in user
+  and its column-level grant makes adding one column the entire permission change. `themeSyncMissing` turns
+  PostgREST's 400/404 into silence, so a database that has not run section 14 simply presents every account in the
+  default — **a later schema block is never a prerequisite.**
 - **Text size** (**Settings → Appearance → Text size**, `FONT_SIZES` / `setFontSize` / `S.settings.fontSize`, Aug
   2026, on request): **very small / small / medium / large / very large**, written by `applyTheme` as
   `body[data-fs]` — so it is re-applied on
@@ -13660,6 +13719,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   a `+` if it filled the page — an honest floor beats a row of em dashes that looks like a broken panel); and
   **a mock must send the expose header too**, or every figure comes back null and the panel reports a
   connection failure that is really a CORS one.
+  **A THIRD HALF SINCE AUG 2026 — THE DEV FIGURES** (`dashDelivery` / `fmtBytes`, on request: "list some
+  dev-side statistics such as server file size, connection speeds, where users are connecting from"). Folio
+  has no server to ask, so every figure here is MEASURED on the page rather than asserted: the browser's own
+  **Resource Timing** gives each request's `encodedBodySize` (what was sent over the wire), its
+  `transferSize` (**0** for a file the cache or the service worker already had) and its duration, so the
+  card reports what a reader on this machine really paid rather than what the files weigh on disk, and the
+  eight biggest same-origin files are listed with a row reading **cached** where nothing was fetched. It is
+  same-origin only — a font from Google is not Folio's weight — and `navigator.connection` supplies the
+  connection class, downlink and round trip **where it exists**, which is Chromium and not Safari or
+  Firefox, so those tiles read an em dash rather than a guess. **WHERE READERS CONNECT FROM IS NOT
+  COLLECTED AND IS NOT GUESSED AT**, which is the People card's own rule about RLS applied to a question no
+  policy could answer either way: the only geography on the page is THIS machine's `Intl` time zone and
+  browser language, both labelled as such and neither sent anywhere.
+- **Admin → Themes: who wears what (Aug 2026, on request: "add another tab for Themes, showing their usage
+  stats etc.").** `adminRenderThemes` / `themeLoadUsage`, a seventh tab taking the admin area over the way
+  the Dashboard, Quotes, Artefacts, Timeline and Feedback do (`themes-mode`, the same hide list, the same
+  ≤860px panel-cap exception). Three things.
+  **THE QUESTION THE DATABASE CAN ANSWER IS WHO WEARS ONE, and that is why the column is on `profiles`.**
+  A theme is now both a collectible and how an account presents itself, and only the second is readable:
+  `profiles.theme` is public to any signed-in user, so an editor can count it, where a reader's own
+  `S.themes` register lives in `progress` and RLS keeps it private — **so there is no figure here for how
+  many people have UNLOCKED a theme without wearing it, and the panel says so rather than leaving a gap to
+  be read as a zero.** One `count=exact` request per theme plus a total, which is seven tiny requests
+  against one large one and needs no paging.
+  **A DATABASE WITHOUT SECTION 14 SAYS SO AND NAMES THE BLOCK**, exactly as the publish path does for the
+  deck-colour column: PostgREST answers 400/404 on a column that does not exist, which the loader turns into
+  a `missing` flag rather than an error, and every account simply presents itself in the default meanwhile.
+  **AND ITS TAB COLOUR IS OLIVE** (`#6d8f1f`), the one quarter of the wheel the other six leave empty
+  (purple, blue, green, teal, magenta, amber, red) — **every `data-atab` needs a pair of rules**, a resting
+  one and an `.active` one, or the tab renders in the inherited ink and reads as DISABLED beside six that
+  are lit, which is what happened to Quotes and Artefacts when they arrived.
 - **ONE DECK PER CARD (Aug 2026, on request).** The card editor's deck picker was checkboxes — a card could be
   cross-listed into any number of decks with one set of scheduling. Nothing shipped ever used it (all 119 cards
   sit in exactly one deck) and it made "which deck is this card in" a question with no single answer, which the
@@ -16944,8 +17034,21 @@ dead code (never rendered).
     than the store, and to update on the rarity `<select>`, which fires `change` and not `input`.
     **The showcase's "See all" is NOT here** — the signed-out account page has no showcase, so it lives in
     `test-account-page.js`, which has the session; what this file asserts is the other half, that a guest is
-    shown no orphan control for a section they have not got. **Re-run
-    after touching the `THE RELIQUARY` block, `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`,
+    shown no orphan control for a section they have not got.
+    **ITS SECTION 3b IS THE THEME DROP AND IT IS MADE DETERMINISTIC RATHER THAN SAMPLED** (Aug 2026): with
+    the artefact pool exhausted `rollChestItem` has only themes left, so a locked theme MUST come out, and
+    with every theme owned as well the chest must say the pool is empty — **both halves, since a drop that
+    never fires and a drop that fires when nothing is left look identical from one side and neither
+    throws.** The 32-chest sweep above it seeds every theme as already owned for the same reason: left
+    locked, the drop would take a random ~14% of those openings and the run would fail on a coin toss. The
+    five collectible themes are read out of app.js by text and ASSERTED to be the whole set, so a seventh
+    theme added later fails here rather than silently invalidating both fixtures.
+    **AND THE CHEST BALANCE IS ASSERTED AGAINST THE BADGES, NOT AGAINST A CONSTANT** — the collector's
+    badges are earned during that very sweep and each grants a chest, so `40 - 32` is not the answer; what
+    is invariant is `chestsOpened`, which is exactly what that counter exists for.
+    **Re-run after touching the `THE RELIQUARY` block, `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`,
+    `rollChestItem` / `spendChest` / `claimTheme` / `unlockTheme` / `themeGrandfather` / `THEME_DROP` /
+    `THEMES` / `ACHIEVEMENTS` / `progStats`,
     `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` /
     `addActive`, `serializeArtefacts`, or the `--newterm` / `--rar-*` tokens.**
   · `node .claude/test-deck-ux.js` — **49 assertions on six things asked for in Aug 2026, every one of
@@ -17225,14 +17328,22 @@ dead code (never rendered).
     figures (Aug 2026). Neither is reachable without a session, so Supabase is a `page.route` stand-in —
     deliberately, and for the same reason as `test-publish.js`'s mock: the publishable key in app.js points
     at the REAL project. Like that mock it is a stand-in for the policies, never a proof they are right.
-    It asserts Change password beside Sign out inside the profile card with the sync line under the two of
+    It asserts the four account actions as a **2×2 grid** inside the profile card with the sync line under
     them, that the glossary meter is a link on your own record, and that the dashboard's People panel fills
     from the database and still says in prose what RLS will not let it count. **The mock sends
     `Access-Control-Expose-Headers: Content-Range` on purpose** — that header is not CORS-safelisted, and a
     mock that forgets it reports a connection failure that is really a CORS one. It also owns the **Profile
-    showcase's "See all" button** (Aug 2026) — absent when the reader holds nothing, labelled with how many
+    showcase's "See Reliquary" button** (Aug 2026) — absent when the reader holds nothing, saying how many
     they DO hold, opening the collection and closing on Escape — because the signed-out account page carries
-    no showcase at all and `test-artefacts.js` therefore cannot reach one. **Re-run after touching
+    no showcase at all and `test-artefacts.js` therefore cannot reach one.
+    **TWO OF ITS ASSERTIONS WERE STALE FOR A BATCH, AND BOTH HAD BEEN PINNING WHAT THE PAGE NO LONGER DID**
+    (Aug 2026, found while shipping the collectibles): the account actions became a 2×2 grid and "See all 2"
+    became "See Reliquary" with the count moved into the button's `title`, and the two checks went on
+    demanding one row and a figure in the label. Neither was a regression — both were changes made the batch
+    before, in a suite that batch did not name. **A suite is stale the moment a change lands that it does
+    not run against**, and rewriting one to the current rule is not weakening it: what replaced the row test
+    is a stronger claim (two columns, four buttons of ONE width, which is what the `1fr` columns are for),
+    and what replaced the label test reads the count where the count now is. **Re-run after touching
     `acctSelfView` / `showcaseHTML` / `openCollectionWin` / `adminRenderDashboard` / `dashLoadRemote` /
     `supaFetch`'s count parsing.**
   · `node .claude/test-card-types.js` — the XP curve, community-deck **card types**, reverse cards,

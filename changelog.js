@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.281", released: "2026-08-20T13:13Z" };
+window.FOLIO_VERSION = { v: "1.282", released: "2026-08-20T14:41Z" };
 
 window.CHANGELOG = [
   {
@@ -68,6 +68,10 @@ window.CHANGELOG = [
       "<b>A book's chip now just says how much of it is here</b> — \u201c235 of 235 chapters\u201d rather than trailing \u201con Folio so far\u201d.",
       "<b>The Atlas load screen now shows how far along it is</b>, instead of a spinner that says only that something is happening.",
       "For those with the editor: the handle for dragging collections into order on the Collections page is now visible at rest, as it always was in Coming soon.",
+      "<b>Themes are now collectible</b>: five of the six come out of chests, and one you were already wearing stays yours.",
+      "<b>A friend's row on your account now wears that friend's own theme</b>, so a profile is presented in the colours its owner chose.",
+      "<b>Fifteen new badges</b> for opening chests, collecting artefacts, finding a legendary, sharing a deck of your own, opening books and glossary terms, and studying an hour, three or eight in one day.",
+      "For those with the editor: a new <b>Themes</b> tab counts how many accounts wear each one, and the dashboard now measures what this page actually cost to load.",
     ],
   },
   {

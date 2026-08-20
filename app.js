@@ -1343,6 +1343,16 @@
       showcase: [],      // up to SHOWCASE_MAX artefact ids, in the order the reader arranged them, shown on the profile
       sweepChest: "",    // the day a Clean-Sweep chest was granted, so a second win that day cannot grant another
       streakChest: 0,    // the streak COUNT a chest was last granted at — see maybeStreakChest for why it is a count
+      /* Three counters the badges added in Aug 2026 need, and each is a counter rather than something
+         derivable. `chestsOpened` cannot be read off `artefacts` any more, a chest now sometimes giving
+         a theme instead; `themes` is what a chest gives when it does; `published` is a fact about this
+         READER, where the deck they published lives in this DEVICE's IndexedDB and would not follow them
+         to a second machine. */
+      chestsOpened: 0,   // chests actually opened, whatever came out of them
+      themes: {},        // theme id -> when it was unlocked. `folio` is everyone's and is never in here.
+      published: 0,      // how many of the reader's own decks have been published to the shared decks
+      publishedIds: {},  // remote deck id -> when it first went up, so an UPDATE is not counted a second time
+      theme: "folio",    // the theme this reader wears — synced, because a friend's banner is drawn in it
     };
   }
   let S = load();
@@ -1638,7 +1648,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -1693,6 +1703,10 @@
   function applyProgress(p) {
     const base = emptyProgress();
     PROGRESS_FIELDS.forEach((k) => { S[k] = JSON.parse(JSON.stringify(p && p[k] !== undefined ? p[k] : base[k])); });
+    /* An adopted blob carries its own `themes`, so a reader signing in on a fresh device must not have
+       the theme they are wearing pulled out from under them: grandfather again on the new set, exactly as
+       boot does. `themeGrandfather` only ever unlocks, so this can never take one away. */
+    themeGrandfather();
     S.revlog = Array.isArray(p && p.revlog) ? JSON.parse(JSON.stringify(p.revlog)) : [];
     try { localStorage.removeItem(REV_SYNC_KEY); } catch (e) {}
   }
@@ -1722,7 +1736,11 @@
   /* …and the reader's FLAGS (Aug 2026). A flag is an annotation, not history: "come back to this one" is
      the kind of note that survives clearing a schedule, exactly as a starred book and a reader's place in
      one do. The dialog names the study history, the streak and the badges, and a flag is none of them. */
-  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest", "flags"];
+  /* `themes` and `theme` are KEPT for the reason the decks are: a reset names the study history, the
+     streak and the badges, and an unlocked theme is an appearance the reader is wearing — clearing it
+     would take the site's own look away from somebody who reset a card schedule, and would leave them
+     wearing a theme they no longer own. `chestsOpened` and `published` are history and go. */
+  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest", "flags", "themes", "theme"];
   function resetProgress() {
     const base = emptyProgress();
     PROGRESS_FIELDS.forEach((k) => { if (RESET_KEEPS.indexOf(k) < 0) S[k] = JSON.parse(JSON.stringify(base[k])); });
@@ -1963,6 +1981,31 @@
     if (SUPA_PROFILE) SUPA_PROFILE.avatar = dataUri;
     return { ok: true };
   }
+  /* THE THEME AN ACCOUNT WEARS, pushed to the reader's own PROFILE row (Aug 2026, on request: the theme
+     is "how your account is presented to others"). Three decisions.
+     · **IT GOES ON `profiles`, NOT IN THE PROGRESS BLOB** — see section 14 of the schema for the whole
+       of why: progress is readable only by the owner and their accepted friends, so a friends list would
+       have to pull every friend's entire blob to read one string, and an admin could not count them at
+       all. `profiles` is a few dozen bytes a row and is already how an account presents itself.
+     · **IT IS FIRE-AND-FORGET AND NEVER REPORTS.** A theme is a look; a reader who changes one and is
+       offline has changed it on this device, which is the thing they asked for, and telling them a
+       cosmetic failed to sync is noise. `themeSyncMissing` remembers a PGRST204 so the admin tab can say
+       the block has not been run rather than showing everybody as wearing Folio.
+     · **AND IT IS DEBOUNCED**, because the theme picker's hover try-on writes nothing but its CLICK does,
+       and a reader comparing four themes in ten seconds should cost one request rather than four. */
+  let themeSyncMissing = false, _themePushTimer = null, _themeSent = null;
+  function themePushSoon() {
+    if (!supaLoggedIn()) return;
+    clearTimeout(_themePushTimer);
+    _themePushTimer = setTimeout(async () => {
+      const t = (S.settings && S.settings.theme) || "folio";
+      if (t === _themeSent) return;
+      const r = await supaFetch("/rest/v1/profiles?id=eq." + SUPA.user.id, { method: "PATCH", body: { theme: t } });
+      if (r.ok) { _themeSent = t; if (SUPA_PROFILE) SUPA_PROFILE.theme = t; themeSyncMissing = false; }
+      else if (r.status === 400 || r.status === 404) themeSyncMissing = true;   // the column isn't there yet
+    }, 1200);
+  }
+
   /* --- progress sync (debounced push on save(); pull + reconcile at boot/login) --- */
   let _supaLastSent = null, _supaPushTimer = null;
   // order-insensitive serialization for change detection — Postgres jsonb does NOT preserve key order,
@@ -2153,6 +2196,11 @@
     save();
     applyMode();   // the server role may change admin visibility
     communitySyncSoon();   // …and bring over any shared decks this account added on another device
+    /* …and tell the account which theme this reader wears, since a friend's list is drawn from `profiles`
+       rather than from anybody's progress. A theme is a device SETTING (settings are not synced), so the
+       honest account-level answer is the one last chosen — `setTheme` pushes on every change and this
+       covers the case it cannot: a theme chosen before signing in at all. */
+    themePushSoon();
   }
   async function supaSignUp(email, username, name, pw) {
     const r = await supaFetch("/auth/v1/signup", { method: "POST", auth: false, body: { email, password: pw, data: { username, name } } });
@@ -7728,6 +7776,17 @@
     d.publishedVersion = row.version;
     d.ownerName = row.author;
     uDeckSave(deckId);
+    /* PUBLISHING IS A FACT ABOUT THE READER, so it is counted in the SYNCED blob rather than derived from
+       the decks on this device: a deck lives in this machine's IndexedDB, so a badge read off `UDECKS`
+       would be earned on the phone and unearned on the laptop. It counts DISTINCT decks — re-publishing
+       an update to the same deck is not a second one — which is what `publishedIds` is for. */
+    if (!S.publishedIds || typeof S.publishedIds !== "object") S.publishedIds = {};
+    if (!S.publishedIds[row.id]) {
+      S.publishedIds[row.id] = Date.now();
+      S.published = Object.keys(S.publishedIds).length;
+      save();
+      checkAchievements();
+    }
     return { ok: true, deck: d, row: row, warn: warn };
   }
   async function uDeckUnpublish(deckId) {
@@ -12666,6 +12725,25 @@
   }
 
   const THEMES = ["folio", "synth", "arcade", "academy", "marble", "gazette"];
+  /* id, name, one-line description, and the three colours the tiny mockup is drawn in. It lives beside
+     THEMES rather than in PAGES.settings because three places read it now — the picker, the chest reveal
+     and the admin Themes tab — and a second copy is how a theme comes to be named two different things. */
+  const THEME_OPTS = [
+    ["folio", "Folio", "Editorial serif", "#36357A", "#C8453C", "#F6F5F1"],
+    ["synth", "Synth", "Neon", "#7C2DFF", "#FF2D7A", "#F2EEFB"],
+    ["arcade", "Arcade", "16-bit console", "#0968C4", "#C98E06", "#EDF3F7"],
+    ["academy", "Academy", "Formal faculty", "#16305B", "#8E2233", "#F5F0E4"],
+    ["marble", "Marble", "Marble &amp; bronze", "#8C6A3F", "#7E2F27", "#F2F0EA"],
+    ["gazette", "Gazette", "1940s newsprint", "#1D1C1A", "#B5271D", "#DAD8CF"],
+  ];
+  const THEME_BY_ID = {};
+  THEME_OPTS.forEach((t) => { THEME_BY_ID[t[0]] = t; });
+  function themeName(id) { return (THEME_BY_ID[id] && THEME_BY_ID[id][1]) || id; }
+  // the tiny specimen: paper, a title bar, two lines of text and an accent dot, in the theme's own colours
+  function themeMockHTML(t) {
+    return '<span class="theme-mock" style="--tm-a:' + t[3] + ';--tm-b:' + t[4] + ';--tm-p:' + t[5] + '" aria-hidden="true">' +
+      '<i class="tm-bar"></i><i class="tm-line"></i><i class="tm-line short"></i><i class="tm-dot"></i></span>';
+  }
   /* Reading-text size (Aug 2026, on request). `--fs` is a multiplier the READING surfaces are written
      against — a card's question and background, a glossary popup, a place panel on the Atlas — and nothing
      else. It is deliberately not a whole-site zoom: styles.css sizes 522 things in px, and the shell's
@@ -12748,11 +12826,22 @@
       else if (mq.addListener) mq.addListener(onScheme);
     }
   } catch (e) {}
+  /* A theme has to be OWNED since Aug 2026 — five of the six are what a chest gives (see
+     COLLECTIBLE_THEMES). The gate is here rather than only in the picker, so a stale hash, an older build
+     or a restored save cannot put a reader in a theme they have not unlocked; `themeGrandfather` at boot
+     is what keeps anybody already wearing one.
+     `S.theme` is the same value mirrored into the SYNCED blob, because a friend's name banner on the
+     account page is drawn in the theme its owner wears — the theme is how the account is presented to
+     others, not only a preference for this device. `S.settings.theme` stays the device's own copy, so a
+     reader signed in on two machines can wear a different one on each and the friend view shows whichever
+     they last set. */
   function setTheme(theme) {
-    if (!THEMES.includes(theme)) return;
+    if (!THEMES.includes(theme) || !themeUnlocked(theme)) return;
     S.settings.theme = theme;
+    S.theme = theme;
     applyTheme();
     save();
+    themePushSoon();
   }
   function setFontSize(size) {
     if (FONT_SIZES.indexOf(size) < 0) return;
@@ -16720,6 +16809,42 @@
   }
   function ownsArtefact(id) { return !!(S.artefacts && S.artefacts[id]); }
   function chestCount() { return Math.max(0, (S.chests | 0)); }
+
+  /* ---------- THE SECOND KIND OF THING A CHEST HOLDS: A THEME (Aug 2026, on request) ----------
+     "Besides artifacts, we will add a second type of item users may occasionally collect: Themes."
+     Five decisions, and the first two were taken with the reader before a line was written.
+     · **THE FIVE NON-`folio` THEMES ARE THE FIRST BATCH.** `folio` is the default everyone has and is
+       never a collectible — a site whose own look has to be won is a site that starts broken.
+     · **A READER ALREADY WEARING ONE KEEPS IT**, grandfathered at boot by `themeGrandfather`. A feature
+       that takes away a theme somebody chose is a punishment rather than a reward, and there is no
+       honest way to tell "chose it last year" from "should not have it".
+     · **THE ROLL PREFERS AN ARTEFACT.** `THEME_DROP` is the chance a chest hands back a theme WHEN there
+       is a locked one left, and it is deliberately low: there are five of them against a hundred
+       artefacts, so at any higher rate a reader would have the set inside a fortnight and the Reliquary —
+       which is what a chest is mostly for — would go quiet while they did.
+     · **A THEME IS NEVER A DUPLICATE**, exactly as an artefact is not: the pool is what is still locked,
+       and when it empties the chest simply rolls an artefact. So the two kinds cannot starve each other.
+     · **AND IT IS SYNCED** (`S.themes` in PROGRESS_FIELDS): a theme is something the reader earned, so
+       the phone and the laptop agree about what they own — and `S.theme` beside it is what a FRIEND's
+       banner is drawn in, which is the other half of what was asked for. */
+  const COLLECTIBLE_THEMES = THEMES.filter((t) => t !== "folio");
+  const THEME_DROP = 0.14;
+  function ownedThemes() { const o = S.themes; return (o && typeof o === "object") ? o : (S.themes = {}); }
+  function themeUnlocked(id) { return id === "folio" || !!ownedThemes()[id]; }
+  function lockedThemes() { return COLLECTIBLE_THEMES.filter((t) => !ownedThemes()[t]); }
+  function unlockTheme(id) {
+    if (id === "folio" || COLLECTIBLE_THEMES.indexOf(id) < 0) return false;
+    if (ownedThemes()[id]) return false;
+    ownedThemes()[id] = Date.now();
+    return true;
+  }
+  /* Run once at boot and again after a sign-in adopts somebody's progress: whatever theme is on screen is
+     a theme this reader owns. It never LOCKS anything — checkAchievements' rule, one feature over. */
+  function themeGrandfather() {
+    const t = S.settings && S.settings.theme;
+    if (t && t !== "folio" && COLLECTIBLE_THEMES.indexOf(t) >= 0 && !ownedThemes()[t]) ownedThemes()[t] = 0;
+    if (!S.theme || THEMES.indexOf(S.theme) < 0) S.theme = (t && THEMES.indexOf(t) >= 0) ? t : "folio";
+  }
   /* THREE THINGS GRANT A CHEST, and they are deliberately in three different places: a LEVEL
      (announceLevelUps, which also opens it — there the chest is the celebration), a BADGE
      (checkAchievements, which queues it — there the toast is), and the daily sweep below. */
@@ -16757,8 +16882,34 @@
     if (!a) return;
     if (!S.artefacts || typeof S.artefacts !== "object") S.artefacts = {};
     S.artefacts[a.id] = Date.now();
+    spendChest();
+  }
+  /* One place spends a chest, so the counter the badges read cannot drift from the one the banner reads.
+     `chestsOpened` only ever goes up — it is a lifetime tally, not a balance. */
+  function spendChest() {
     S.chests = Math.max(0, chestCount() - 1);
+    S.chestsOpened = (S.chestsOpened | 0) + 1;
     save();
+    /* The collector's badges are tested HERE rather than waiting for the next card, which is where
+       `checkAchievements` is otherwise reached from: opening a chest is exactly the moment one of them is
+       earned, and being told about it three cards later reads as the site having lost count. It grants a
+       chest of its own, which cannot recurse — that path adds to `S.chests` and never spends one. */
+    checkAchievements();
+  }
+  function claimTheme(id) {
+    unlockTheme(id);
+    spendChest();
+  }
+  /* WHAT IS IN THIS CHEST, decided once and read twice — the overlay asks before the lid is tapped (to
+     know whether there is anything left at all) and again on the tap. Both go through here, so the two
+     cannot disagree about whether a chest is empty. Returns null only when the reader has everything. */
+  function rollChestItem() {
+    const locked = lockedThemes();
+    const art = rollArtefact();
+    if (locked.length && (!art || Math.random() < THEME_DROP)) {
+      return { kind: "theme", theme: locked[Math.floor(Math.random() * locked.length)] };
+    }
+    return art ? { kind: "artefact", artefact: art } : null;
   }
 
   /* ---------- the showcase: up to four pinned to the profile ---------- */
@@ -17104,7 +17255,7 @@
     closeChestPop();
     const ov = document.createElement("div");
     ov.className = "chest-pop";
-    const nothingLeft = !rollArtefact();
+    const nothingLeft = !rollChestItem();
     ov.innerHTML =
       '<div class="chest-stage" role="dialog" aria-live="polite">' +
         (opts.level ? '<div class="chest-lvl">Level ' + esc(String(opts.level)) + ' reached</div>' : "") +
@@ -17113,7 +17264,7 @@
           '<div class="chest-rays" aria-hidden="true"></div>' +
         '</div>' +
         '<div class="chest-hint" id="chestHint">' + (nothingLeft
-          ? "You have found every artefact Folio holds. This chest will keep until there are more."
+          ? "You have found everything Folio holds — every artefact and every theme. This chest will keep until there is more."
           : "Tap the chest") + '</div>' +
         (chestCount() > 1 ? '<div class="chest-more" id="chestMore">' + chestCount() + ' chests waiting</div>' : "") +
         '<div class="chest-reveal" id="chestReveal" hidden></div>' +
@@ -17143,9 +17294,15 @@
     btn.addEventListener("click", () => {
       if (opening) return;
       opening = true;
-      const a = rollArtefact();
-      if (!a) { close(); return; }
-      const r = rarityId(a);
+      const item = rollChestItem();
+      if (!item) { close(); return; }
+      const isTheme = item.kind === "theme";
+      const a = item.artefact;
+      /* A THEME OPENS AS AN EPIC, and that is a decision rather than a placeholder: the whole chest
+         animation — the shake, the burst, the confetti, the sound — is sized by rarity, and a theme has
+         none. Epic is what a thing five-of-a-kind deep should feel like, and it means a theme never
+         steals the legendary flourish that three artefacts in a hundred earn. */
+      const r = isTheme ? "epic" : rarityId(a);
       const dur = prefersReducedMotion() ? 120 : (CHEST_MS[r] || 900);
       ov.dataset.rar = r;
       ov.classList.add("opening");
@@ -17156,19 +17313,34 @@
       sfx("chest");
       if (!prefersReducedMotion()) chestConfetti(ov, r);
       setTimeout(() => {
-        claimArtefact(a);
+        if (isTheme) claimTheme(item.theme); else claimArtefact(a);
         sfx("loot-" + r);
         ov.classList.add("opened");
         const rev = ov.querySelector("#chestReveal");
         rev.hidden = false;
         rev.dataset.rar = r;
-        rev.innerHTML =
-          '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + '</span>' +
-          '<div class="chest-art">' + artefactArtHTML(a, "ar-big") + '</div>' +
-          '<h3 class="chest-name">' + esc(a.name) + '</h3>' +
-          (a.date ? '<div class="chest-meta">' + esc(a.date) + '</div>' : "") +
-          (a.origin ? '<div class="chest-meta">' + esc(a.origin) + '</div>' : "");
-        addAct("Read about it", () => { close(); openArtefactWin(a.id); });
+        if (isTheme) {
+          const t = THEME_BY_ID[item.theme] || [item.theme, item.theme, "", "#36357A", "#C8453C", "#F6F5F1"];
+          rev.innerHTML =
+            '<span class="ar-chip" data-rar="' + r + '">Theme</span>' +
+            '<div class="chest-art chest-theme">' + themeMockHTML(t) + '</div>' +
+            '<h3 class="chest-name">' + esc(t[1]) + '</h3>' +
+            '<div class="chest-meta">' + t[2] + '</div>' +
+            '<div class="chest-meta">A new look for the whole site — and for how your account appears to friends.</div>';
+          /* WEARING IT IS ONE PRESS, and it is the primary action: a theme is the only collectible on the
+             site that DOES something, and burying that behind Settings → Appearance would make it read as
+             a certificate. Keeping it is still the default — the button is offered, not applied. */
+          addAct("Wear it now", () => { setTheme(item.theme); close(); toast("Now wearing " + t[1] + "."); });
+          addAct("Keep it for later", close, true);
+        } else {
+          rev.innerHTML =
+            '<span class="ar-chip" data-rar="' + r + '">' + esc(rarityLabel(r)) + '</span>' +
+            '<div class="chest-art">' + artefactArtHTML(a, "ar-big") + '</div>' +
+            '<h3 class="chest-name">' + esc(a.name) + '</h3>' +
+            (a.date ? '<div class="chest-meta">' + esc(a.date) + '</div>' : "") +
+            (a.origin ? '<div class="chest-meta">' + esc(a.origin) + '</div>' : "");
+          addAct("Read about it", () => { close(); openArtefactWin(a.id); });
+        }
         if (chestCount() > 0) addAct("Open another", () => { close(); openChestPop(); }, true);
         addAct("Close", close, true);
         unitizeTree(rev);
@@ -20003,6 +20175,11 @@
     if (prev && prev.ch === ch && Math.abs((prev.y || 0) - y) < 0.02) return;
     S.reading[id] = { ch: ch, y: y, at: Date.now() };
     save();
+    /* The Library's badges count books STARTED, so the only moment worth testing is the one where a book
+       gains a record it did not have — never on the scrolls after it, which is why this is gated on
+       `prev`. `checkAchievements` is otherwise only reached by grading a card, so without this a reader
+       who spent an evening reading would be told about it at the next card rather than at the book. */
+    if (!prev) checkAchievements();
   }
   /* ============================================================
      BOOK INK — the marker's notes, kept (Aug 2026, on request)
@@ -30721,6 +30898,34 @@
     { id: "terms100", icon: "📜", name: "Lexicographer", desc: "Open 100 glossary terms", test: (s) => s.terms >= 100, prog: (s) => [s.terms, 100] },
     { id: "places50", icon: "🧭", name: "Cartographer", desc: "Open 50 countries on the Atlas", test: (s) => s.countries >= 50, prog: (s) => [s.countries, 50] },
     { id: "placesAll", icon: "🌍", name: "Circumnavigator", desc: "Open every present-day country on the Atlas", test: (s) => s.countryTotal > 0 && s.countries >= s.countryTotal, prog: (s) => [s.countries, s.countryTotal || 258] },
+    { id: "terms250", icon: "🗝️", name: "Glossarist", desc: "Open 250 glossary terms", test: (s) => s.terms >= 250, prog: (s) => [s.terms, 250] },
+    /* THE COLLECTOR'S BADGES (Aug 2026, on request). What a chest gives had no ladder of its own: the
+       Reliquary counted artefacts and nothing rewarded filling it. Chests OPENED and artefacts HELD are
+       two different counts and both are worth having — a chest may now hand back a theme instead, so
+       artefacts alone would quietly stop measuring how many chests a reader has had. */
+    { id: "chest1", icon: "🎁", name: "First Chest", desc: "Open your first chest", test: (s) => s.chestsOpened >= 1 },
+    { id: "chest10", icon: "🧰", name: "Chest Hunter", desc: "Open 10 chests", test: (s) => s.chestsOpened >= 10, prog: (s) => [s.chestsOpened, 10] },
+    { id: "chest50", icon: "🗄️", name: "Hoarder", desc: "Open 50 chests", test: (s) => s.chestsOpened >= 50, prog: (s) => [s.chestsOpened, 50] },
+    { id: "art10", icon: "🏺", name: "Antiquarian", desc: "Collect 10 artefacts", test: (s) => s.artefacts >= 10, prog: (s) => [s.artefacts, 10] },
+    { id: "art25", icon: "🖼️", name: "Curator", desc: "Collect 25 artefacts", test: (s) => s.artefacts >= 25, prog: (s) => [s.artefacts, 25] },
+    { id: "art50", icon: "🏛️", name: "Keeper of the Reliquary", desc: "Collect 50 artefacts", test: (s) => s.artefacts >= 50, prog: (s) => [s.artefacts, 50] },
+    /* A legendary is 3% of a roll, so this is the one badge here that a reader cannot simply grind
+       towards — hence no `prog`: "0 / 1" over a thing decided by chance says nothing useful. */
+    { id: "legend1", icon: "🌟", name: "Once in a Lifetime", desc: "Find a legendary artefact", test: (s) => s.legendaries >= 1 },
+    { id: "share1", icon: "📤", name: "Deck Builder", desc: "Publish a deck of your own to the shared decks", test: (s) => s.published >= 1 },
+    /* THE LIBRARY EARNED NOTHING UNTIL NOW. These count books OPENED rather than finished, and the
+       wording says so: what `S.reading` records is a place in a book, and a book whose chapters are not
+       numbered 1..N (the Ramayana skips, Marco Polo runs to 235) gives no honest test for "read to the
+       end". A badge that claimed one would be guessing. */
+    { id: "book1", icon: "📕", name: "Opened a Book", desc: "Start reading a book in the Library", test: (s) => s.books >= 1 },
+    { id: "book5", icon: "📗", name: "Wide Reader", desc: "Start reading 5 books", test: (s) => s.books >= 5, prog: (s) => [s.books, 5] },
+    { id: "book10", icon: "📘", name: "Well Read", desc: "Start reading 10 books", test: (s) => s.books >= 10, prog: (s) => [s.books, 10] },
+    /* Hours in ONE day, off `S.studyTime`, which keeps today and nothing else. That is enough: a badge is
+       tested on every grade and is never revoked, so it unlocks the moment the day's total crosses the
+       line and keeps. A best-ever field would be a second thing to keep in step for no gain. */
+    { id: "hour1", icon: "⏳", name: "An Hour's Work", desc: "Study for an hour in one day", test: (s) => s.studyMs >= 3600e3, prog: (s) => [Math.round(s.studyMs / 60000), 60] },
+    { id: "hour3", icon: "🕰️", name: "Long Session", desc: "Study for three hours in one day", test: (s) => s.studyMs >= 3 * 3600e3, prog: (s) => [Math.round(s.studyMs / 60000), 180] },
+    { id: "hour8", icon: "🌙", name: "All Day at the Desk", desc: "Study for eight hours in one day", test: (s) => s.studyMs >= 8 * 3600e3, prog: (s) => [Math.round(s.studyMs / 60000), 480] },
   ];
   function progStats(prog, friendsCount) {
     const cards = prog.cards || {};
@@ -30731,8 +30936,20 @@
     // reading done around the cards. `countries` is 0 until world.js has loaded (a lazy bundle), which only
     // ever DELAYS one of these badges — checkAchievements adds and never revokes, so a badge earned on the
     // Atlas cannot be lost by looking at the account page in a later session.
+    /* The collection, the Library and the day's clock (Aug 2026). Every one of these is DERIVED from a
+       field the progress blob already carries — `chestsOpened` is the one new counter, and it exists
+       because artefacts can no longer stand in for it now that a chest may hand back a theme. `studyMs`
+       is TODAY's, off the day-stamped record, which is what the hour badges are about; on a friend's
+       progress it reads their today, and reads 0 on a day they have not studied, which is honest. */
+    const arts = (prog.artefacts && typeof prog.artefacts === "object") ? Object.keys(prog.artefacts) : [];
+    const legendaries = arts.filter((id) => ARTEFACT_BY_ID[id] && rarityId(ARTEFACT_BY_ID[id]) === "legendary").length;
+    const st = prog.studyTime;
     return { seen, mature, streak: (prog.streak && prog.streak.count) || 0, wins: (prog.daily && prog.daily.wins) || 0, dailySweep: allGamesWonToday(prog), decksStarted, decksDone, friends: friendsCount || 0,
-      terms: glossSeenCount(prog), countries: countrySeenCount(prog), countryTotal: (window.WORLD_GEO && window.WORLD_GEO.length) || 0 };
+      terms: glossSeenCount(prog), countries: countrySeenCount(prog), countryTotal: (window.WORLD_GEO && window.WORLD_GEO.length) || 0,
+      chestsOpened: (prog.chestsOpened | 0), artefacts: arts.length, legendaries,
+      published: (prog.published | 0),
+      books: (prog.reading && typeof prog.reading === "object") ? Object.keys(prog.reading).length : 0,
+      studyMs: (st && st.d === dayKey() ? (st.ms | 0) : 0) };
   }
   // unlock any newly-earned achievements for the active (S) profile; toast each unless silent
   /* A BADGE EARNS A CHEST — one per badge, so unlocking three at once grants three (Aug 2026, on
@@ -31207,10 +31424,20 @@
     if (!supaLoggedIn()) { box.innerHTML = ""; return; }
     const me = SUPA.user.id;
     box.innerHTML = '<div class="friend-empty">Loading friends…</div>';
+    /* A FRIEND'S BANNER IS DRAWN IN THE THEME THEY WEAR (Aug 2026, on request): the theme is how an
+       account presents itself, not only a preference for its owner's own screen. `profiles.theme` is what
+       carries it — see themePushSoon and section 14 of the schema — and a row whose owner is on a database
+       without that column simply reads `folio`, which is the site's own look and says nothing false.
+       It is a `data-ftheme` attribute rather than a nested `data-theme`, deliberately: `data-theme` is
+       what the whole page is keyed on and setting a second one inside the page would put every rule of
+       that theme onto the row, chrome, ornament and all. This borrows the two COLOURS and nothing else. */
     const userRow = (id, profs, extra, viewable) => {
       const u = profs[id]; if (!u) return "";
+      const t = THEME_BY_ID[u.theme] || THEME_BY_ID.folio;
+      const skin = ' data-ftheme="' + esc(t[0]) + '" style="--ft-a:' + t[3] + ';--ft-b:' + t[4] + ';--ft-p:' + t[5] + '"';
       const inner = monogramHTML(u.avatar, u.name, "sm") + '<span class="friend-name">' + esc(u.name) + ' <small>@' + esc(u.username) + '</small></span>';
-      const link = viewable ? '<button class="friend-link" data-view="' + esc(id) + '">' + inner + '</button>' : '<div class="friend-link static">' + inner + '</div>';
+      const link = viewable ? '<button class="friend-link" data-view="' + esc(id) + '"' + skin + '>' + inner + '</button>'
+                            : '<div class="friend-link static"' + skin + '>' + inner + '</div>';
       return '<div class="friend-row">' + link + (extra || "") + '</div>';
     };
     (async () => {
@@ -31275,11 +31502,17 @@
         return;
       }
       const prog = Object.assign(emptyProgress(), row.data || {});
+      /* THEIR PROFILE BOX WEARS THEIR THEME, which is the same request as the friends list's rows and the
+         place it matters most — this page IS how the account presents itself. The two colours are set as
+         custom properties and the theme is named on the element; nothing sets a nested `data-theme`, which
+         would put that theme's whole stylesheet on a page drawn in the reader's own. */
+      const ft = THEME_BY_ID[u.theme] || THEME_BY_ID.folio;
+      const fskin = ' data-ftheme="' + esc(ft[0]) + '" style="--ft-a:' + ft[3] + ';--ft-b:' + ft[4] + ';--ft-p:' + ft[5] + '"';
       root.innerHTML = `
         <button class="back-link" id="backBtn" type="button">← Back to your account</button>
-        <div class="profile">
+        <div class="profile friend-profile"${fskin}>
           ${monogramHTML(u.avatar, u.name)}
-          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}</div></div>
+          <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + '</span>' : ""}</div></div>
           <button class="ghost-btn" id="rmFriend" type="button">Remove friend</button>
         </div>
         ${/* the four artefacts they chose to be seen holding — the whole point of the showcase is that
@@ -31670,14 +31903,6 @@
      PAGE: SETTINGS
      ============================================================ */
   // settings picker data: [id, name, tag, primary, accent, paper]
-  const THEME_OPTS = [
-    ["folio", "Folio", "Editorial serif", "#36357A", "#C8453C", "#F6F5F1"],
-    ["synth", "Synth", "Neon", "#7C2DFF", "#FF2D7A", "#F2EEFB"],
-    ["arcade", "Arcade", "16-bit console", "#0968C4", "#C98E06", "#EDF3F7"],
-    ["academy", "Academy", "Formal faculty", "#16305B", "#8E2233", "#F5F0E4"],
-    ["marble", "Marble", "Marble &amp; bronze", "#8C6A3F", "#7E2F27", "#F2F0EA"],
-    ["gazette", "Gazette", "1940s newsprint", "#1D1C1A", "#B5271D", "#DAD8CF"],
-  ];
   PAGES.settings = function (root) {
     const homeName = (S.settings.home && S.settings.home.name) || "Netherlands";
     const fsNow = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
@@ -31690,9 +31915,19 @@
     const worldNames = () => (window.WORLD_GEO || []).map((c) => c.n).filter((n) => n && n.trim()).sort((a, b) => placeName(a).localeCompare(placeName(b)));
     const homeOpts = homeOptsFor(dataReady("world") ? worldNames() : [homeName]);
     // each theme option shows a tiny mockup of itself: paper, a title bar, two text lines, an accent dot
-    const themeBtn = (t) => `<button class="theme-opt" data-theme="${t[0]}" type="button">
-      <span class="theme-mock" style="--tm-a:${t[3]};--tm-b:${t[4]};--tm-p:${t[5]}" aria-hidden="true"><i class="tm-bar"></i><i class="tm-line"></i><i class="tm-line short"></i><i class="tm-dot"></i></span>
-      <span class="theme-name">${t[1]}</span><span class="theme-tag">${t[2]}</span></button>`;
+    /* A LOCKED THEME IS SHOWN, AND IT IS STILL PRESSABLE (Aug 2026, on request — themes are what a chest
+       gives). Two decisions in that. A hidden collectible is one nobody knows to want, and the whole
+       point of a set is that a reader can see what is missing from it. And it is NOT `disabled`: a
+       disabled button fires no mouse events at all in Chrome, which would take the hover try-on away
+       from exactly the themes that most need advertising — so it stays live, `setTheme` refuses it (the
+       gate is there rather than here, so no route can get round it) and the press says where it comes
+       from instead of doing nothing. */
+    const themeBtn = (t) => {
+      const has = themeUnlocked(t[0]);
+      return `<button class="theme-opt${has ? "" : " theme-locked"}" data-theme="${t[0]}" type="button" title="${esc(has ? t[1] : t[1] + " — locked. Themes come from chests.")}">
+      ${themeMockHTML(t)}
+      <span class="theme-name">${t[1]}${has ? "" : ' <span class="theme-lock" aria-hidden="true">🔒</span>'}</span><span class="theme-tag">${has ? t[2] : "From a chest"}</span></button>`;
+    };
     const setHead = (accent, svg, title) => `<div class="set-head" style="--msn-accent:${accent}"><span class="msn-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${svg}</svg></span><h2>${title}</h2></div>`;
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Preferences</span><h1>Settings</h1>
@@ -31910,7 +32145,12 @@
     const markTheme = () => themeGrid.querySelectorAll(".theme-opt").forEach((b) => b.classList.toggle("active", b.dataset.theme === (S.settings.theme || "folio")));
     markTheme();
     themeGrid.querySelectorAll(".theme-opt").forEach((b) => {
-      b.addEventListener("click", () => { setTheme(b.dataset.theme); markTheme(); });
+      b.addEventListener("click", () => {
+        const t = b.dataset.theme;
+        if (!themeUnlocked(t)) { toast(themeName(t) + " is locked — themes come from chests."); return; }
+        setTheme(t);
+        markTheme();
+      });
       // live try-on: rest the pointer on a tile to preview that theme, leave to snap back to the kept one
       b.addEventListener("mouseenter", () => { document.body.dataset.theme = b.dataset.theme; });
       b.addEventListener("mouseleave", () => { document.body.dataset.theme = THEMES.includes(S.settings.theme) ? S.settings.theme : "folio"; });
@@ -34196,6 +34436,7 @@
             '<button class="admin-tab" type="button" data-atab="glossary">Glossary</button>' +
             '<button class="admin-tab" type="button" data-atab="quotes">Quotes</button>' +
             '<button class="admin-tab" type="button" data-atab="artefacts">Artefacts</button>' +
+            '<button class="admin-tab" type="button" data-atab="themes">Themes</button>' +
             '<button class="admin-tab" type="button" data-atab="timeline">Timeline</button>' +
             '<button class="admin-tab" type="button" data-atab="feedback">Feedback<span class="admin-tab-badge" id="fbTabBadge" hidden></span></button>' +
           '</div>' +
@@ -34435,9 +34676,55 @@
       if (people === null && decks === null && feedback === null) return { error: "Couldn't reach the account database — sign in as an admin, or check that the schema has been applied." };
       return { people, decks, published, installs, ratings, feedback, reports };
     }
+    /* THE DEV-SIDE FIGURES (Aug 2026, on request: "list some dev-side statistics such as server file
+       size, connection speeds, where users are connecting from"). Everything here is MEASURED on this
+       device, by the browser's own Resource Timing API, and the card says so in those words. Three
+       decisions, and the third is the one that matters.
+       · **THE FILE SIZES ARE REAL, not a manifest.** `transferSize` is what actually came down the wire
+         for each resource this page loaded, and `encodedBodySize` is what it would have been uncached —
+         so the pair says both what Folio costs a first visitor and what it costs a returning one. A table
+         of expected sizes written down here would be out of date the day a data file grew.
+       · **THE SPEED IS TIMED, not asked for.** `navigator.connection` reports a browser's own estimate
+         and is absent in Safari and Firefox, so it is shown where it exists and the measured throughput —
+         bytes actually transferred over the time they took — is what is always shown.
+       · **WHERE READERS CONNECT FROM IS NOT COLLECTED, AND IS NOT GUESSED AT.** Folio logs no request and
+         has no server of its own to log one; the only geography available is this device's own time zone
+         and locale, which is a fact about the editor rather than about the readership. The card says that
+         plainly rather than showing a map built out of nothing — the same rule the People card already
+         follows about progress that row-level security will not hand over. */
+    function dashDelivery() {
+      const out = { entries: 0, transfer: 0, encoded: 0, ms: 0, biggest: [], conn: null, tz: "", locale: "" };
+      try {
+        const rs = (performance.getEntriesByType && performance.getEntriesByType("resource")) || [];
+        const here = location.origin;
+        rs.forEach((r) => {
+          if (r.name.indexOf(here) !== 0) return;   // ours only: a font from Google is not Folio's weight
+          out.entries++;
+          out.transfer += r.transferSize || 0;
+          out.encoded += r.encodedBodySize || 0;
+          out.ms += r.duration || 0;
+          out.biggest.push({ n: r.name.slice(here.length).replace(/^\//, "") || "/", b: r.encodedBodySize || 0, t: r.transferSize || 0, ms: Math.round(r.duration || 0) });
+        });
+        out.biggest.sort((a, b) => b.b - a.b);
+        out.biggest = out.biggest.slice(0, 8);
+        const nav = (performance.getEntriesByType && performance.getEntriesByType("navigation")) || [];
+        if (nav[0]) { out.entries++; out.transfer += nav[0].transferSize || 0; out.encoded += nav[0].encodedBodySize || 0; }
+      } catch (e) {}
+      const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      if (c) out.conn = { type: c.effectiveType || "", down: c.downlink || 0, rtt: c.rtt || 0, save: !!c.saveData };
+      try { out.tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) {}
+      out.locale = navigator.language || "";
+      return out;
+    }
+    function fmtBytes(n) {
+      if (!n) return "—";
+      if (n >= 1048576) return (n / 1048576).toFixed(n >= 10485760 ? 0 : 1) + " MB";
+      if (n >= 1024) return Math.round(n / 1024) + " KB";
+      return n + " B";
+    }
     function adminRenderDashboard() {
       const items = root.querySelector("#adminListItems"), countEl = root.querySelector("#adminListCount");
-      const s = dashContentStats();
+      const s = dashContentStats(), d = dashDelivery();
       if (countEl) countEl.textContent = s.cards + " cards · " + s.gloss + " glossary terms";
       const tile = (v, label, hint) => '<div class="dsh-tile"' + (hint ? ' title="' + esc(hint) + '"' : "") + "><b>" + esc(String(v)) + "</b><span>" + esc(label) + "</span></div>";
       const bar = (n, total, label, note) => {
@@ -34517,10 +34804,27 @@
               '<div class="dsh-langs">' + langRows + "</div>" +
               '<div class="dsh-note">Counted against ' + s.cards + " cards and " + s.gloss + " terms. Everything written since the English-only gate went up is English alone, so the nine move together and none is behind the others.</div>") +
             card("People & sharing", "From the account database", remoteBody) +
+            card("Delivery", d.entries + " files fetched on this page",
+              '<div class="dsh-tiles">' +
+                tile(fmtBytes(d.encoded), "Sent over the wire", "Compressed size of everything this page asked for") +
+                tile(fmtBytes(d.transfer), "Actually transferred", "0 for a file the browser or the service worker already had") +
+                tile(d.entries, "Requests") +
+                tile(d.conn ? (d.conn.type || "—") : "—", "Connection class", "The browser's own estimate; absent on Safari and Firefox") +
+                tile(d.conn && d.conn.down ? d.conn.down + " Mb/s" : "—", "Downlink estimate") +
+                tile(d.conn && d.conn.rtt ? d.conn.rtt + " ms" : "—", "Round trip estimate") +
+              "</div>" +
+              (d.biggest.length ? '<div class="dsh-files">' + d.biggest.map((f) =>
+                '<div class="dsh-file"><span class="df-n" title="' + esc(f.n) + '">' + esc(f.n) + "</span>" +
+                '<span class="df-b">' + esc(fmtBytes(f.b)) + "</span>" +
+                '<span class="df-t">' + (f.t ? esc(fmtBytes(f.t)) : "cached") + "</span>" +
+                '<span class="df-ms">' + f.ms + " ms</span></div>").join("") + "</div>" : "") +
+              '<div class="dsh-note">Measured on this page load through the browser\'s own Resource Timing, so it is what a reader on this machine really paid rather than what the files weigh on disk. A row reading <b>cached</b> cost nothing this time. Where readers connect FROM is deliberately not collected and is not guessed at.</div>') +
             card("This device", s.overlay + " unsaved edits",
               '<div class="dsh-tiles">' +
                 tile(s.overlay, "Overlay edits", "Card, glossary and tree changes not yet baked into the data files") +
                 tile(s.localDecks, "Community decks here", "Decks written or installed on this device") +
+                tile(d.tz || "—", "This machine's time zone", "Used for the day boundary; never sent anywhere") +
+                tile(d.locale || "—", "Browser language") +
               "</div>") +
           "</div>" +
         "</div>";
@@ -35027,16 +35331,99 @@
       }
     }
 
+    /* THE THEMES TAB (Aug 2026, on request: "add another tab for Themes, showing their usage stats etc.").
+       A theme is a collectible now, and it is also how an account presents itself to its friends — so the
+       question worth asking of the database is how many accounts WEAR each one, which is a column on
+       `profiles` rather than anything in the progress blob (see the schema's section 14 for why). That is
+       readable by any signed-in user, so an editor can count it; a reader's own progress is not, which is
+       why there is no figure here for how many people have UNLOCKED a theme without wearing it, and none
+       is guessed at. Until section 14 has been run the column does not exist and every count comes back
+       null — the panel says so and names the block, exactly as the publish path does. */
+    let _themeRows = null, _themeErr = "", _themeLoading = false;
+    async function themeLoadUsage() {
+      const CAP = 1000;
+      const count = (q) => supaFetch("/rest/v1/profiles?select=id&limit=" + CAP + (q ? "&" + q : ""), { headers: { Prefer: "count=exact" } })
+        .then((r) => {
+          if (!r.ok) return r.status === 400 || r.status === 404 ? "nocol" : null;
+          if (typeof r.count === "number") return r.count;
+          if (!Array.isArray(r.data)) return null;
+          return r.data.length >= CAP ? CAP : r.data.length;
+        });
+      const capped = (p) => Promise.race([p, new Promise((r) => setTimeout(() => r(null), 12000))]);
+      const wanted = THEMES.slice();
+      const res = await Promise.all([capped(count(""))].concat(wanted.map((t) => capped(count("theme=eq." + encodeURIComponent(t))))));
+      const total = res[0];
+      if (res.slice(1).some((v) => v === "nocol")) return { missing: true };
+      const per = {};
+      wanted.forEach((t, i) => { per[t] = res[i + 1]; });
+      return { total: typeof total === "number" ? total : null, per };
+    }
+    function adminRenderThemes() {
+      const items = root.querySelector("#adminListItems"), countEl = root.querySelector("#adminListCount");
+      const owned = ownedThemes(), have = THEMES.filter(themeUnlocked).length;
+      if (countEl) countEl.textContent = THEMES.length + " themes \u00b7 " + COLLECTIBLE_THEMES.length + " from chests";
+      if (_themeRows === null && !_themeErr && !_themeLoading && supaLoggedIn()) {
+        _themeLoading = true;
+        themeLoadUsage().then((r) => {
+          _themeLoading = false;
+          _themeRows = r;
+          if (current && current.name === "admin" && adminState.tab === "themes") adminRenderThemes();
+        });
+      }
+      const u = _themeRows, total = u && typeof u.total === "number" ? u.total : 0;
+      const rows = THEMES.map((id) => {
+        const t = THEME_BY_ID[id] || [id, id, ""];
+        const n = u && u.per && typeof u.per[id] === "number" ? u.per[id] : null;
+        const pct = n !== null && total ? Math.round((n / total) * 100) : 0;
+        const free = id === "folio";
+        return '<div class="thr' + (themeUnlocked(id) ? "" : " thr-locked") + '">' +
+          '<div class="thr-mock">' + themeMockHTML(t) + "</div>" +
+          '<div class="thr-body"><div class="thr-name">' + esc(t[1]) +
+            '<span class="thr-kind">' + (free ? "everyone's" : "from a chest") + "</span></div>" +
+            '<div class="thr-tag">' + esc(t[2] || "") + "</div>" +
+            '<div class="ds-bar"><i style="width:' + pct + '%"></i></div>' +
+          "</div>" +
+          '<div class="thr-n">' + (n === null ? "\u2014" : n + (total ? " \u00b7 " + pct + "%" : "")) + "</div>" +
+        "</div>";
+      }).join("");
+      let note;
+      if (!supaLoggedIn()) note = "Sign in to count how many accounts wear each theme \u2014 the figures come from the account database.";
+      else if (u && u.missing) note = "The theme column isn't on this database yet. Run section 14 of .claude/supabase-schema.sql once and the counts will fill in; until then everyone's account simply presents itself in the default.";
+      else if (_themeLoading || _themeRows === null) note = "Counting\u2026";
+      else if (!total) note = "No accounts to count yet.";
+      else note = "Counted over " + total + " account" + (total === 1 ? "" : "s") + ". This is what each account WEARS \u2014 how many readers have unlocked a theme without wearing it is in their own progress, which row-level security keeps private, and no figure for it is guessed at here.";
+      items.innerHTML =
+        '<div class="dsh-wrap">' +
+          '<div class="dsh-lede">Six themes. One is everyone\'s and the other five come out of chests, at about ' +
+            Math.round(THEME_DROP * 100) + "% of an opening while any are still locked \u2014 so a reader collects them at roughly the rate they collect artefacts. A theme is also how an account looks to its friends, which is why the usage figures below are worth having.</div>" +
+          '<div class="dsh-grid">' +
+            '<section class="dsh-card"><div class="dsh-head"><h3>Worn by</h3><span class="dsh-sub">From the account database</span></div>' +
+              '<div class="thr-list">' + rows + "</div>" +
+              '<div class="dsh-note">' + esc(note) + "</div>" +
+            "</section>" +
+            '<section class="dsh-card"><div class="dsh-head"><h3>On this device</h3><span class="dsh-sub">' + have + " of " + THEMES.length + " unlocked</span></div>" +
+              '<div class="dsh-tiles">' +
+                '<div class="dsh-tile"><b>' + have + '</b><span>Unlocked here</span></div>' +
+                '<div class="dsh-tile"><b>' + (COLLECTIBLE_THEMES.length - Object.keys(owned).length) + '</b><span>Still to find</span></div>' +
+                '<div class="dsh-tile"><b>' + esc(themeName((S.settings && S.settings.theme) || "folio")) + '</b><span>Wearing now</span></div>' +
+                '<div class="dsh-tile"><b>' + (S.chestsOpened | 0) + '</b><span>Chests opened</span></div>' +
+              "</div>" +
+              '<div class="dsh-note">A theme unlocked before it was a collectible is grandfathered in on the next load, so nobody loses one they were already wearing.</div>' +
+            "</section>" +
+          "</div>" +
+        "</div>";
+    }
     function adminRefresh() {
       root.querySelectorAll(".admin-tab").forEach((t) => t.classList.toggle("active", t.dataset.atab === adminState.tab));
-      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", timeline = adminState.tab === "timeline", dash = adminState.tab === "dashboard", quotes = adminState.tab === "quotes", artefacts = adminState.tab === "artefacts";
-      const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("timeline-mode", timeline); admEl.classList.toggle("dash-mode", dash); admEl.classList.toggle("quotes-mode", quotes); admEl.classList.toggle("artefacts-mode", artefacts); }
+      const feedback = adminState.tab === "feedback", cards = adminState.tab === "cards", timeline = adminState.tab === "timeline", dash = adminState.tab === "dashboard", quotes = adminState.tab === "quotes", artefacts = adminState.tab === "artefacts", themes = adminState.tab === "themes";
+      const admEl = root.querySelector(".admin"); if (admEl) { admEl.classList.toggle("feedback-mode", feedback); admEl.classList.toggle("timeline-mode", timeline); admEl.classList.toggle("dash-mode", dash); admEl.classList.toggle("quotes-mode", quotes); admEl.classList.toggle("artefacts-mode", artefacts); admEl.classList.toggle("themes-mode", themes); }
       // the feedback/timeline branches return before adminRenderList(), which owns this class — clear it here or the
       // glossary tab's column divider lingers as a stray vertical line over those pages
       { const al = root.querySelector(".admin-list"); if (al) al.classList.toggle("gloss-cols", adminState.tab === "glossary"); }
       if (dash) { adminState.selected.clear(); adminRenderDashboard(); return; }
       if (quotes) { adminState.selected.clear(); adminRenderQuotes(); return; }
       if (artefacts) { adminState.selected.clear(); adminRenderArtefacts(); return; }
+      if (themes) { adminState.selected.clear(); adminRenderThemes(); return; }
       if (feedback) { adminState.selected.clear(); adminRenderFeedback(); return; }
       if (timeline) { adminState.selected.clear(); adminRenderTimeline(); return; }
       search.placeholder = cards ? "Search cards by title, id, hanzi…" : "Search glossary terms…";
@@ -35318,6 +35705,11 @@
   // Boot to Home as before, but remember the intent — supaBoot routes back once the role has arrived.
   if (initName === "admin" && !isAdmin()) { _bootWantedAdmin = true; initName = "home"; }
   current = { name: initName, params: initParams };
+  /* WHATEVER THEME IS ON SCREEN IS A THEME THIS READER OWNS. Five of the six became collectibles in
+     Aug 2026 and a reader wearing one from before that must not lose it — there is no honest way to tell
+     "chose it last year" from "should not have it", and taking a look away is a punishment rather than a
+     reward. It runs BEFORE applyTheme so the first paint is already the theme they kept. */
+  themeGrandfather();
   applyTheme();
   applyMode();
   const _glossToRestore = readGlossOpen();   // capture before render()'s closeAllGloss clears the record

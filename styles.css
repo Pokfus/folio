@@ -2113,6 +2113,30 @@ table.ci-hist tr td:first-child{color:var(--ink-soft);}
 .friend-link{flex:1; min-width:0; display:flex; align-items:center; gap:11px; background:none; border:0; padding:4px; border-radius:9px; cursor:pointer; text-align:left; color:var(--ink);}
 .friend-link:not(.static):hover{background:var(--paper-2);}
 .friend-link.static{cursor:default;}
+/* A FRIEND'S BANNER IN THE THEME THEY WEAR (Aug 2026, on request — a theme is how an account presents
+   itself, not only a preference for its owner's own screen). It borrows the theme's own paper as a wash
+   and its accent as a left bar, and NOTHING ELSE: a nested `data-theme` would put that theme's whole
+   stylesheet — its fonts, its ornament, its chrome — onto a row inside a page drawn in the reader's own,
+   which is why the colours arrive as `--ft-*` custom properties instead.
+   The wash is a MIX toward the card rather than the paper colour flat, so a light theme worn by a friend
+   is still legible on a dark one and the row never fights `--ink`. `folio` is skipped outright: it is the
+   default everyone starts on, and washing every unthemed friend would say something the row does not
+   mean. */
+.friend-link[data-ftheme]:not([data-ftheme="folio"]){
+  background:color-mix(in srgb, var(--ft-p) 16%, var(--card));
+  box-shadow:inset 3px 0 0 var(--ft-a);
+  padding-inline-start:9px;
+}
+body.night .friend-link[data-ftheme]:not([data-ftheme="folio"]){background:color-mix(in srgb, var(--ft-a) 15%, var(--card));}
+.friend-link[data-ftheme]:not([data-ftheme="folio"]):not(.static):hover{background:color-mix(in srgb, var(--ft-p) 26%, var(--card));}
+body.night .friend-link[data-ftheme]:not([data-ftheme="folio"]):not(.static):hover{background:color-mix(in srgb, var(--ft-a) 24%, var(--card));}
+/* the same treatment one size up, on the profile box a friend's page opens with */
+.profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){
+  background:color-mix(in srgb, var(--ft-p) 20%, var(--card));
+  border-inline-start:5px solid var(--ft-a);
+}
+body.night .profile.friend-profile[data-ftheme]:not([data-ftheme="folio"]){background:color-mix(in srgb, var(--ft-a) 16%, var(--card));}
+.ft-wearing{color:var(--ink-faint);}
 .monogram.sm{width:38px; height:38px; border-radius:11px; font-size:calc(16px * var(--fs));}
 /* profile photo variant of the monogram + the change-photo button on the account page */
 .monogram.has-img{background:var(--paper-2); overflow:hidden; padding:0;}
@@ -2147,7 +2171,10 @@ table.ci-hist tr td:first-child{color:var(--ink-soft);}
 /* artefacts-mode: the chest pool takes over the admin area, exactly as the four above do */
 .admin.artefacts-mode .admin-tree,.admin.artefacts-mode .admin-side-foot,.admin.artefacts-mode .admin-collapse,.admin.artefacts-mode .admin-editor,.admin.artefacts-mode .admin-search,.admin.artefacts-mode .alt-right,.admin.artefacts-mode .alt-right-gloss,.admin.artefacts-mode .admin-sel-bar,.admin.artefacts-mode .admin-resizer{display:none;}
 .admin.artefacts-mode .admin-list{width:auto; flex:1; border-right:0;}
-.admin.feedback-mode .admin-side,.admin.timeline-mode .admin-side,.admin.dash-mode .admin-side,.admin.quotes-mode .admin-side,.admin.artefacts-mode .admin-side{background:transparent; border-right:0;}
+/* themes-mode: the theme collection takes over the admin area, exactly as the five above do */
+.admin.themes-mode .admin-tree,.admin.themes-mode .admin-side-foot,.admin.themes-mode .admin-collapse,.admin.themes-mode .admin-editor,.admin.themes-mode .admin-search,.admin.themes-mode .alt-right,.admin.themes-mode .alt-right-gloss,.admin.themes-mode .admin-sel-bar,.admin.themes-mode .admin-resizer{display:none;}
+.admin.themes-mode .admin-list{width:auto; flex:1; border-right:0;}
+.admin.feedback-mode .admin-side,.admin.timeline-mode .admin-side,.admin.dash-mode .admin-side,.admin.quotes-mode .admin-side,.admin.artefacts-mode .admin-side,.admin.themes-mode .admin-side{background:transparent; border-right:0;}
 
 /* ---------- Admin → Quotes: the home page's daily quote (Aug 2026, on request) ----------
    A list in RUNNING ORDER rather than array order — the order is solved from the pool, so where a quote
@@ -2226,6 +2253,21 @@ table.ci-hist tr td:first-child{color:var(--ink-soft);}
 .dl-code{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.08em; color:var(--indigo); font-weight:600; flex:none; width:26px;}
 .dl-n{color:var(--ink-faint); font-size:calc(11.5px * var(--fs));}
 .dl-n + .dl-n{margin-left:auto;}
+.dsh-files{display:flex; flex-direction:column; gap:0;}
+.dsh-file{display:grid; grid-template-columns:1fr auto auto auto; align-items:baseline; gap:10px; font-family:var(--sans); font-size:calc(11.5px * var(--fs)); color:var(--ink-soft); border-bottom:1px dotted color-mix(in srgb,var(--rule) 80%,transparent); padding:4px 0;}
+.dsh-file:last-child{border-bottom:0;}
+.df-n{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-family:var(--mono); font-size:calc(10.5px * var(--fs)); color:var(--ink);}
+.df-b,.df-t,.df-ms{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); color:var(--ink-faint); white-space:nowrap;}
+.df-b{color:var(--ink-soft);}
+.thr-list{display:flex; flex-direction:column; gap:12px;}
+.thr{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:12px;}
+.thr-mock{width:74px; flex:none;}
+.thr-mock .theme-mock{width:100%; height:auto; aspect-ratio:16/10;}
+.thr-locked .thr-mock{opacity:.55; filter:saturate(.55);}
+.thr-name{font-family:var(--display); font-size:calc(14px * var(--fs)); color:var(--ink); display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;}
+.thr-kind{font-family:var(--sans); font-size:calc(10px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);}
+.thr-tag{font-family:var(--sans); font-size:calc(11.5px * var(--fs)); color:var(--ink-faint); margin:2px 0 6px;}
+.thr-n{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-soft); white-space:nowrap;}
 .tl-edit{padding:22px 26px; max-width:900px;}
 .tl-intro{font-family:var(--serif); font-size:calc(14px * var(--fs)); line-height:1.6; color:var(--ink-soft); margin-bottom:20px;}
 .tl-add{border:1px solid var(--rule); border-radius:12px; background:var(--paper-2); padding:18px; margin-bottom:24px;}
@@ -4784,6 +4826,8 @@ body.admin-mode .page{animation:none;}
 .admin-tab[data-atab="quotes"].active{color:#fff; background:#118e96; border-color:#118e96; box-shadow:0 5px 15px -7px rgba(15,138,145,.9);}
 .admin-tab[data-atab="artefacts"]{color:#a8478f; background:rgba(168,71,143,.13); border-color:rgba(168,71,143,.32);}
 .admin-tab[data-atab="artefacts"].active{color:#fff; background:#a8478f; border-color:#a8478f; box-shadow:0 5px 15px -7px rgba(168,71,143,.9);}
+.admin-tab[data-atab="themes"]{color:#6d8f1f; background:rgba(109,143,31,.14); border-color:rgba(109,143,31,.33);}
+.admin-tab[data-atab="themes"].active{color:#fff; background:#6d8f1f; border-color:#6d8f1f; box-shadow:0 5px 15px -7px rgba(109,143,31,.9);}
 .admin-tab[data-atab="timeline"]{color:#bd831f; background:rgba(201,138,43,.14); border-color:rgba(201,138,43,.33);}
 .admin-tab[data-atab="timeline"].active{color:#fff; background:#c98a2b; border-color:#c98a2b; box-shadow:0 5px 15px -7px rgba(201,138,43,.9);}
 .admin-tab[data-atab="feedback"]{color:#c0463a; background:rgba(192,70,58,.13); border-color:rgba(192,70,58,.32);}
@@ -5242,11 +5286,11 @@ body.grading .admin-edit-fab{bottom:108px;}
      the Quotes tab looked like on a phone (Aug 2026, on a bug report): the edit form filled the box, its
      Save button sat at the fold, and the running order under it was cut off mid-row. Timeline and Feedback
      were listed here from the day they were built; the Dashboard and Quotes arrived later and were not,
-     which is the whole of the bug. FIVE tabs take the area over — keep this list in step with the
+     which is the whole of the bug. SIX tabs take the area over — keep this list in step with the
      `*-mode` classes adminRefresh() sets, or the next one added will look broken the same way. */
   .admin.timeline-mode .admin-list-items,.admin.feedback-mode .admin-list-items,
   .admin.dash-mode .admin-list-items,.admin.quotes-mode .admin-list-items,
-  .admin.artefacts-mode .admin-list-items{max-height:none;}
+  .admin.artefacts-mode .admin-list-items,.admin.themes-mode .admin-list-items{max-height:none;}
   .tl-edit{padding:18px 14px;}
   .tl-era{flex-wrap:wrap; row-gap:8px;}
   /* the pane stops scrolling inside itself here (the admin stacks into one column and the PAGE scrolls), and
@@ -5802,6 +5846,18 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .theme-opt:hover{border-color:var(--ink-faint); transform:translateY(-1px);}
 .theme-opt.active{border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
 .theme-opt:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* A LOCKED THEME (Aug 2026) — shown rather than hidden, since a collectible nobody can see is one nobody
+   knows to want, and still PRESSABLE, since a disabled button fires no mouse events in Chrome and the
+   hover try-on is the best advertisement a theme has. What marks it is a dashed rim and a quieted
+   specimen; the name and the padlock stay at full strength, or the row reads as failed rather than
+   locked. `setTheme` is what actually refuses it. */
+.theme-opt.theme-locked{border-style:dashed; cursor:pointer;}
+.theme-opt.theme-locked .theme-mock{opacity:.5; filter:saturate(.55);}
+.theme-opt.theme-locked:hover .theme-mock{opacity:1; filter:none;}
+.theme-opt .theme-lock{font-size:calc(10px * var(--fs)); opacity:.75;}
+/* the chest's theme reveal: the same specimen the picker draws, at the size an artefact's plate gets */
+.chest-art.chest-theme{width:min(210px,58vw);}
+.chest-art.chest-theme .theme-mock{width:100%; height:auto; aspect-ratio:16/10;}
 .theme-swatches{display:flex; gap:5px;}
 .theme-swatches i{width:26px; height:26px; border-radius:6px; border:1px solid color-mix(in srgb,var(--ink) 14%,transparent);}
 .theme-name{font-family:var(--display); font-size:calc(16px * var(--fs)); font-weight:600; color:var(--ink); line-height:1;}

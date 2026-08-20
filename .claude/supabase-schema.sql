@@ -938,3 +938,33 @@ end $$;
 
 revoke all on function public.bump_card_grades(jsonb) from public;
 grant execute on function public.bump_card_grades(jsonb) to anon, authenticated;
+
+-- ============================================================================================
+-- 14) THE THEME AN ACCOUNT WEARS  (run once)
+-- ============================================================================================
+-- Aug 2026, on request: themes became a second kind of collectible, and "a user's name banner should
+-- appear in the theme that user is using … it is not only a theme for personal use, but also how your
+-- account is presented to others."
+--
+-- WHY THE COLUMN IS ON `profiles` AND NOT IN `progress`.
+-- The obvious home is the synced progress blob, which already carries `themes` (what the reader owns).
+-- It is the wrong one for the DISPLAYED theme, for two reasons. `progress` is readable only by its owner
+-- and their accepted friends, so a friends list would have to fetch every friend's WHOLE blob — hundreds
+-- of kilobytes each — to read one string out of it. And an admin counting which themes are worn could
+-- not read it at all, so there would be no honest usage figure to show. `profiles` is readable by any
+-- signed-in user, is already how an account presents itself (name, username, avatar) and is a few dozen
+-- bytes a row.
+--
+-- WHAT KEEPS IT SAFE IS THE COLUMN-LEVEL GRANT, not a trigger. `profiles` revokes UPDATE wholesale and
+-- grants it back column by column, so adding `theme` to that list is the whole of the permission: a
+-- caller still cannot write `role` or `id`, and no guard function has to learn a new field name.
+--
+-- Until this block is run, PATCHing the column answers PGRST204 and the app carries on: a friend's banner
+-- is drawn in Folio's own colours and the admin Themes tab says the block has not been run. Nothing else
+-- changes, and no reader loses a theme — what they OWN is in their progress, which needs no schema at all.
+
+alter table public.profiles add column if not exists theme text not null default 'folio';
+
+-- the grant is REPLACED rather than added to: `grant update (col)` is per column, so naming all four in
+-- one statement is idempotent and re-runnable, which is the property every block here has.
+grant update (username, name, avatar, theme) on table public.profiles to authenticated;

@@ -87,3 +87,29 @@ written and its version is bumped** — the three go in one commit, per the rule
   bundle of one large file keeps its spinner rather than showing a bar that jumps 0 → 100. The Atlas,
   which is the load anybody actually waits for, is twelve files: measured in a browser it steps
   8, 17, 25, 33, 42, 50, 67, 75, 83, 92.
+- **D — Collectibles.** `test-artefacts.js` 77/0 (a new section 3b), `test-layout.js` 315/0,
+  `test-publish.js` 138/0, `test-account-page.js` 16/0, `test-reset.js` 21/0, `test-streak-chest.js` (all pass).
+  **`test-account-page.js` had two assertions left stale by Batch C** — the account actions became a 2×2
+  grid and "See all 2" became "See Reliquary" with the count moved into the title — which is what a suite
+  a batch does not name looks like a batch later. Rewritten to the current rule rather than relaxed: two
+  columns and four buttons of ONE width is a stronger claim than "are they on one row", and the count is
+  read where it now lives.
+  **The one decision that shaped the rest is where a worn theme lives.** A theme is now both a collectible
+  and how an account presents itself to its friends, and the obvious home — the synced progress blob — is
+  wrong twice over: `progress` is RLS-scoped to its owner and their accepted friends, so a friends list
+  would have to fetch every friend's whole blob to read one string, and an editor counting themes could not
+  read it at all. It goes on `profiles` (schema **section 14**, one column plus a column-level grant), which
+  is readable by any signed-in user — and that single choice serves the friend banner AND the admin Themes
+  tab, which is why both landed together.
+  **The chest balance stopped being a subtraction**, which is the finding the test caught rather than a
+  reader: the collector's badges are earned by opening chests and every badge grants a chest, so
+  `test-artefacts.js`' 32-chest sweep no longer ends at `40 - 32`. What is invariant is `chestsOpened`, and
+  the balance is now asserted against the badges earned along the way.
+  **A theme's picker button stays PRESSABLE while locked** — Chrome fires no mouse events on a `disabled`
+  button, so marking it disabled would take the hover try-on away from exactly the themes that most need
+  advertising. `setTheme` refuses a locked id; the click toasts the reason.
+  **And the dev figures are MEASURED rather than asserted.** Folio has no server to ask, so the dashboard's
+  Delivery card reads the browser's own Resource Timing — what was actually sent over the wire, what was
+  already cached, the eight biggest files — and says outright that where readers connect FROM is not
+  collected and is not guessed at, which is the People card's own rule about RLS applied to a question no
+  policy could answer either way.
