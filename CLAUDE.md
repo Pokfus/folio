@@ -2672,7 +2672,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   be grown one card at a time over many sessions. The sixth of the planned collections, and **the only one
   written onto a tree that already existed** — the dynastic tree is kept and the four changes made to it
   are listed at the top of the file. The next card to write is the lowest `cnh-NNN` not yet in `data.js`;
-  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-038` have
+  see the "CHINA" bullet under "Generating cards & glossary entries". **`cnh-001` to `cnh-039` have
   shipped** (Aug 2026)
   and the rest of the collection is open ground — **but the collection still carries `placeholder: true`**
   (set aside July 2026), which `availableCardIdSet()` reads, so what is written into it reaches no daily
@@ -9740,7 +9740,7 @@ lookup.
 | United States | `col-41` | `us-` | `docs/us-card-plan.md` | 9 / 33 | empty |
 | Russia | `col-42` | `ru-` | `docs/russia-card-plan.md` | 9 / 29 | empty |
 | India | `col-43` | `in-` | `docs/india-card-plan.md` | 9 / 31 | empty |
-| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 38 cards, and still **`placeholder: true`** — read the warning first |
+| China | `china` | `cnh-` | `docs/china-card-plan.md` | 7 / 39 | 39 cards, and still **`placeholder: true`** — read the warning first |
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
@@ -10843,6 +10843,40 @@ one.**
   card says the cult spread with emigration and stops. **Where several open sources state a headline figure
   and disagree about it, that figure is not something the card knows**; what they agree on — the UNESCO
   inscription of 2009, which two of them date to the day — is what it carries.
+  **`cnh-039` IS WHERE A FOOTNOTE NAMED A WHOLE VOLUME THE DECK DID NOT HAVE** (Aug 2026). The
+  cross-reference rule has paid five times by pointing at a page; here Doré's note on the Buddhist legend
+  cites "Chinese Superstitions. Vol. VI. p. 71-88" — a seventeen-page article on the God of War in a volume
+  that had never been fetched — and that article carries the entire deification sequence with its dates, the
+  Qing elevation of 1856, the temple count and the reason a war god is worshipped by scholars. **Follow a
+  footnote that names a volume as readily as one that names a page**; four of this card's six citations came
+  out of it and its neighbour.
+  **FOUR INDEPENDENT WITNESSES, AND THE MOST CITED OF THEM PUTS HIM IN THE WRONG PROVINCE.** Mayers, Werner
+  and Doré each make Guan Yu a native of Jiezhou in **Shanxi**; Herbert Giles's dictionary says **Shandong**.
+  The card follows the three, which is `cnh-029`'s rule that a slip in one source is corrected by two — and
+  the thing to carry is which source slipped, since Giles is the authority the other three keep citing in
+  their own footnotes. **A reference work being everybody's authority is not the same as its being right.**
+  **AND A PAGE CITED BY ONE SOURCE AND FOUND INDEPENDENTLY IN ANOTHER IS THE CHEAPEST CORROBORATION THERE
+  IS** — `cnh-032`'s rule again: Doré's footnotes give "Giles. Chinese Biographical Dictionary, p. 383" and
+  "p. 384", and reading the run of Giles's own running heads (381 through 388) puts entry 1009 on exactly
+  those two pages.
+  **BOTH ARCHIVE.ORG IDENTIFIERS WERE WRITTEN FROM MEMORY AND BOTH WERE WRONG BY ONE LETTER** —
+  `chinesereadersma00maye` for `chinesereadersm00maye`, `chinesebiographi00gile` for `chinesebiograph00gile`,
+  each of which is a 404 and neither of which any tool here can see, `cnh-006`'s rule being that the checks
+  test that a citation ENDS in a URL and never that the URL opens. What caught them before a single fetch was
+  **grepping the shipped corpus for the identifiers it already cites**
+  (`grep -o "archive.org/details/[a-zA-Z0-9._-]*" data.js glossary.js | sort -u`), which costs nothing and
+  additionally keeps one book cited one way. **Do that first whenever a card reaches for a work the deck has
+  used before**, and copy the whole citation form while you are there — this deck writes Doré as "trans.
+  M. Kennelly, second part, vol. N (Shanghai: T'usewei Printing Press, YEAR)", and the volume's own title
+  page is what says which part and which year rather than the archive.org item's metadata.
+  **AND THE BEST PICTURE FOR THE CARD'S BEST FACT WAS NOT THE ONE SHIPPED.** Commons carries a wall painting
+  of Guan Yu reading the Spring and Autumn Annals by candlelight — the card's closing sentence exactly, red
+  face and all — and it is an undated modern mural photographed by a traveller, where the Metropolitan
+  Museum's hanging scroll is catalogued to about 1700 with a medium, a size and an accession number that its
+  own API confirms. `cnh-013`'s rule settled it: **a `desc` is a claim, so prefer the file whose record can
+  support one.** The cost is named rather than hidden — the scroll paints his face a warm tan where the
+  legend makes it red, and the dark-faced figure in it is an attendant, so the caption identifies the central
+  figure instead of leaving a reader to pick him out.
   **It is the ONLY plan written onto a tree that already existed**, and the four changes it made are listed
 at the top of the file: the **duplicate `col-9 Xin`** is dropped (Xin stays at `col-11`, inside Han, which
 is where Wang Mang belongs); **`col-30 Jin` is retitled `Jurchen Jin`**, the tree having carried two decks
