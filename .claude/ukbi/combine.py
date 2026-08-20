@@ -8,7 +8,7 @@ single file, so a reader adds a whole predicate or the lot and they stay
 separable inside it rather than being poured together:
 
     1 Terbatas        5 Unggul          Phrases and expressions
-    2 Marginal        6 Sangat Unggul     Everyday expressions
+    2 Marginal        6 Sangat Unggul     Phrases
     3 Semenjana       7 Istimewa          Idioms
     4 Madya                               Proverbs
 
@@ -40,7 +40,7 @@ own deck id, so the combined deck and the seven separate ones can sit on one
 shelf without either disturbing the other's schedule.
 
 THE FILE HOLDS NOTES AND THE CAP COUNTS NOTES, which is why this fits at all.
-9,750 notes carry 19,500 cards to study -- over `UDECK_MAX_CARDS` read as a
+9,978 notes carry 19,956 cards to study -- over `UDECK_MAX_CARDS` read as a
 count of cards, and comfortably inside it read as what it actually is, a bound
 on what the FILE holds.  See the note beside that constant in app.js.
 
@@ -55,15 +55,17 @@ from a table (`ukbi_level.TARGET`), because a level's size is a decision rather
 than a measurement and the shipped file cannot tell you what it was.
 
 AND IT IS REPRODUCIBLE: no clock is read.  `exportedAt` and the timestamps come
-from the newest of the seven sources, so re-running with the same inputs writes
+from the newest of the eight sources, so re-running with the same inputs writes
 the same bytes and a diff means something.
 
-Not part of the site.  The combined file IS committed, unlike the DELE
-combiner's, and that is a deliberate difference rather than an oversight: it
-was asked for as a download, so it needs a permanent home beside the seven it
-is made of.  The cost is ~7 MB of duplication, which is what being downloadable
-without running a script costs.  `check-combined.js` regenerates it and looks at
-it in a browser.
+Not part of the site, and the combined file is GITIGNORED like every other one
+on this shelf.  It was committed for a fortnight, on the reasoning that it had
+been asked for as a download and so wanted a permanent home beside the seven it
+is made of -- which is the shelf's own rule the other way round: a combined deck
+is an ARTEFACT of the decks it combines, every byte already in the repo, so
+committing it duplicates ~7.5 MB for nothing this script cannot reproduce.
+`check-combined.js` regenerates it and looks at it in a browser, so it needs no
+committed artefact and works on a fresh clone.
 """
 import json, os, sys, hashlib
 
@@ -134,8 +136,8 @@ def desc(s, nphrase):
         'because a phrase cannot appear in a word-frequency list at all — '
         'every word counter treats kambing hitam as kambing and hitam — so the '
         'idioms and proverbs were out of reach of every level however well '
-        'known they are. It is split again into everyday expressions, idioms '
-        'and proverbs, and repeats nothing the seven levels teach. '
+        'known they are. It is split again into phrases, idioms and proverbs, '
+        'and repeats nothing the seven levels teach. '
         f'Altogether that is {n:,} entries in each direction. '
         'Istimewa, the highest, is smaller than Sangat Unggul below it, which '
         'is a fact about the sources rather than about the predicate: both of '

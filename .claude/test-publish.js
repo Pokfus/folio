@@ -1299,7 +1299,158 @@ async function typeField(page, field, text) {
   });
   check("...and its cards survived it", /Planted by the test/.test(kept), kept.slice(0, 60));
 
-  const errs = [...A.errs, ...B.errs, ...M.errs, ...B2.errs, ...gerrs, ...derrs];
+  /* ================= TWO ACCOUNTS ON ONE DEVICE (Aug 2026, on a bug report) =================
+     A deck imported and shared under one account, then added from the Shared decks list under a SECOND
+     account on the same device, reached no other device of that second account.
+
+     Every earlier section here gives each account a device of its own, which is the case the sync was
+     written against and is not how a phone is used. Community decks are DEVICE-local and shared by every
+     account signing in on it, so the second account meets the first's decks already present — and the deck
+     page read that presence as "your account has this", showed Study/Remove, and offered no way in. No
+     `deck_installs` row was ever written, so the account's list never mentioned the deck and no other
+     device could learn of it. The reader had the deck on the phone and nothing on the PC, with nothing
+     anywhere saying why.
+
+     EVERY ASSERTION BELOW FAILS SILENTLY on a real site: the deck is genuinely present and studiable on the
+     device it was added on, so the only symptom is on a DIFFERENT device, where a deck that never arrives
+     looks exactly like a deck nobody added. The last two are the reader's actual complaint — it is the
+     DAILY STUDY the deck has to reach, which additionally requires both devices to file it under the same
+     local id. */
+  /* Deliberately NOT newSession: its addInitScript is fixed at add time and re-writes THAT account's
+     session on every single load, so a device switched to the second account is silently switched back on
+     the next navigation — the app stays signed in as the first while the mock answers as the second, and
+     the page then reads as the author looking at their own deck. The session is written by hand instead. */
+  const oneDevice = await (async () => {
+    const ctx = await browser.newContext({ acceptDownloads: true });
+    const ref = { user: ALICE };
+    await attachMock(ctx, db, ref);
+    const page = await ctx.newPage();
+    const errs = [];
+    page.on("pageerror", (e) => errs.push("pageerror: " + String(e).slice(0, 200)));
+    page.on("console", (m) => { if (m.type() === "error" && !/Failed to load resource|ERR_/.test(m.text())) errs.push("console: " + m.text().slice(0, 200)); });
+    // a fresh page sits on about:blank, whose origin is opaque — reading localStorage there is a
+    // SecurityError, and one thrown here fails the whole file's error watcher
+    await page.goto(base, { waitUntil: "load" });
+    return { ctx, page, errs, ref };
+  })();
+  async function deviceSignsInAs(who) {
+    oneDevice.ref.user = who;
+    await oneDevice.page.evaluate((u) => {
+      localStorage.setItem("folio_supa_v1", JSON.stringify({
+        access_token: "mock-token", refresh_token: "mock-refresh",
+        expires_at: Date.now() + 3600e3, user: { id: u.id, email: u.email },
+      }));
+    }, who);
+    // a query string, so this is a cross-document load and boot actually runs — see the note on #community
+    await oneDevice.page.goto(base + "?as=" + who.username + "#home", { waitUntil: "load" });
+    await oneDevice.page.waitForTimeout(2200);
+  }
+  await deviceSignsInAs(ALICE);
+  await oneDevice.page.goto(base + "#studio", { waitUntil: "load" });
+  await oneDevice.page.waitForTimeout(1200);
+  await oneDevice.page.click("#stNew");
+  await oneDevice.page.waitForTimeout(400);
+  await oneDevice.page.click(".studio-settings > summary");
+  await oneDevice.page.fill('[data-meta="title"]', "Shared On One Device");
+  await oneDevice.page.waitForTimeout(200);
+  await oneDevice.page.click("#stAddCard");
+  await oneDevice.page.waitForTimeout(300);
+  await typeField(oneDevice.page, "question", "The word for water is ___.");
+  await typeField(oneDevice.page, "answer", "shui");
+  await oneDevice.page.waitForTimeout(300);
+  await oneDevice.page.click("#stPublish");
+  await oneDevice.page.waitForTimeout(1200);
+  const sharedRow = db.decks.find((d) => d.title === "Shared On One Device");
+  check("a deck shared by the first account on this device", !!sharedRow, JSON.stringify(db.decks.map((d) => d.title)));
+
+  await deviceSignsInAs(BOB);
+  await oneDevice.page.goto(base + "#deck/" + sharedRow.slug, { waitUntil: "load" });
+  await oneDevice.page.waitForTimeout(1600);
+  /* THE FIX'S OWN ASSERTION: the second account is offered a way in over a deck it can already see.
+     Both halves matter — the button must be there, and Study/Remove must NOT have been taken away, since
+     the deck really is on this device and removing the way to study it would be a second bug. */
+  const acts = await oneDevice.page.textContent(".ddetail-actions");
+  check("the second account is offered the deck even though the device holds it", /Add to my account/.test(acts), acts);
+  check("...without losing the actions for the copy that is already here", /Study/.test(acts) && /Remove from this device/.test(acts), acts);
+  check("...and is told why a deck it can see is not on its account",
+    await oneDevice.page.evaluate(() => !!document.querySelector(".ddetail-adopt")));
+  await oneDevice.page.click("#ddInstall");
+  await oneDevice.page.waitForTimeout(2200);
+  check("adding it records the install on the second account",
+    db.installs.some((i) => i.user_id === BOB.id && i.deck_id === sharedRow.id),
+    JSON.stringify(db.installs.filter((i) => i.deck_id === sharedRow.id).map((i) => i.user_id.slice(0, 6))));
+  /* …and the AUTHOR's own record survives it. Re-mounting the server's copy over it would take the
+     `origin: "mine"` away and with it the only handle on the published row — uDeckPublish PATCHes by
+     remoteId, so an author left without one publishes a second, separate deck instead of updating theirs. */
+  const stillMine = await oneDevice.page.evaluate((t) => {
+    return new Promise((res) => {
+      const rq = indexedDB.open("folio-community");
+      rq.onsuccess = () => {
+        const d2 = rq.result;
+        const q = d2.transaction("decks", "readonly").objectStore("decks").getAll();
+        q.onsuccess = () => {
+          const hit = q.result.find((x) => (x.meta || {}).title === t);
+          d2.close(); res(hit ? { origin: hit.meta.origin, remoteId: !!hit.meta.remoteId } : null);
+        };
+        q.onerror = () => { d2.close(); res(null); };
+      };
+      rq.onerror = () => res(null);
+    });
+  }, "Shared On One Device");
+  check("...leaving the author's own record intact, so they can still publish updates from this device",
+    !!stillMine && stillMine.origin !== "installed" && stillMine.remoteId, JSON.stringify(stillMine));
+
+  // the reader's actual complaint: it is the DAILY STUDY the deck has to reach on the other device
+  await oneDevice.page.goto(base + "#decks", { waitUntil: "load" });
+  await oneDevice.page.waitForTimeout(1600);
+  await oneDevice.page.evaluate(() => { const b = document.querySelector("[data-uadd]"); if (b) b.click(); });
+  await oneDevice.page.waitForTimeout(1200);
+  const phoneActive = await oneDevice.page.evaluate(() =>
+    (JSON.parse(localStorage.getItem("folio_v1") || "{}").active || []).filter((x) => String(x).startsWith("u:")));
+  // THIS deck's entry, not a count: the account already studies a deck from an earlier section, and its
+  // S.active came down with the progress blob the moment this device signed in as it
+  const localIdHere = await oneDevice.page.evaluate((t) => {
+    return new Promise((res) => {
+      const rq = indexedDB.open("folio-community");
+      rq.onsuccess = () => {
+        const d2 = rq.result;
+        const q = d2.transaction("decks", "readonly").objectStore("decks").getAll();
+        q.onsuccess = () => { const hit = q.result.find((x) => (x.meta || {}).title === t); d2.close(); res(hit ? hit.id : ""); };
+        q.onerror = () => { d2.close(); res(""); };
+      };
+      rq.onerror = () => res("");
+    });
+  }, "Shared On One Device");
+  check("the second account puts it in the daily study here", !!localIdHere && phoneActive.indexOf("u:" + localIdHere) >= 0,
+    "id=" + localIdHere + " active=" + JSON.stringify(phoneActive));
+
+  const otherDevice = await newSession(browser, db, BOB, base);
+  await otherDevice.page.goto(base + "#home", { waitUntil: "load" });
+  await otherDevice.page.waitForTimeout(3600);
+  const landed = await otherDevice.page.evaluate(() => {
+    return new Promise((res) => {
+      const rq = indexedDB.open("folio-community");
+      rq.onsuccess = () => {
+        const d2 = rq.result;
+        const q = d2.transaction("decks", "readonly").objectStore("decks").getAll();
+        q.onsuccess = () => { const r = q.result.map((x) => (x.meta || {}).title); d2.close(); res(r); };
+        q.onerror = () => { d2.close(); res([]); };
+      };
+      rq.onerror = () => res([]);
+    });
+  });
+  check("THE SECOND ACCOUNT'S OTHER DEVICE RECEIVES THE DECK", landed.indexOf("Shared On One Device") >= 0, JSON.stringify(landed));
+  const otherActive = await otherDevice.page.evaluate(() =>
+    (JSON.parse(localStorage.getItem("folio_v1") || "{}").active || []).filter((x) => String(x).startsWith("u:")));
+  check("...under the same local id, so the reader's arrangement of it came too",
+    JSON.stringify(otherActive) === JSON.stringify(phoneActive), "other=" + JSON.stringify(otherActive) + " first=" + JSON.stringify(phoneActive));
+  await otherDevice.page.goto(base + "#home", { waitUntil: "load" });
+  await otherDevice.page.waitForTimeout(2500);
+  const inReview = await otherDevice.page.evaluate(() =>
+    [...document.querySelectorAll(".active-deck .dk-title")].map((e) => e.textContent.trim()));
+  check("...AND IT IS IN THE DAILY STUDY THERE", inReview.some((t) => /Shared On One Device/.test(t)), JSON.stringify(inReview));
+
+  const errs = [...A.errs, ...B.errs, ...M.errs, ...B2.errs, ...gerrs, ...derrs, ...oneDevice.errs, ...otherDevice.errs];
   check("no console/page errors", errs.length === 0, [...new Set(errs)].join(" | "));
 
   await browser.close();

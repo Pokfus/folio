@@ -39,19 +39,33 @@ const CARDS = window.CARD_DATA;
 const CLAUDE = fs.readFileSync(path.join(ROOT, "CLAUDE.md"), "utf8");
 const APP = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
 
-// collection id → [plan slug, card prefix]
+/* collection id → [plan slug, card prefix, numbering].
+   NUMBERING is the set of card numbers the plan is expected to cover, and it exists because a collection
+   need not be a thousand cards. Ten of them are: the planned histories all run 1–1000, which is written
+   here as the number 1000. Geography is not — its United States deck is fifty states and their fifty
+   capitals, and the capitals are numbered 500 higher than their own state so the two subdecks pair by
+   number. A missing number is still a hole either way; what differs is which numbers are expected. */
 const PLANS = {
-  "col-13": ["greece", "gr-"],
-  "col-8": ["world-history", "wh-"],
-  "col-40": ["rome", "rm-"],
-  "col-41": ["us", "us-"],
-  "col-42": ["russia", "ru-"],
-  "col-43": ["india", "in-"],
-  china: ["china", "cnh-"],
-  egypt: ["egypt", "eg-"],
-  ww2: ["ww2", "ww2-"],
-  japan: ["japan", "jp-"],
+  "col-13": ["greece", "gr-", 1000],
+  "col-8": ["world-history", "wh-", 1000],
+  "col-40": ["rome", "rm-", 1000],
+  "col-41": ["us", "us-", 1000],
+  "col-42": ["russia", "ru-", 1000],
+  "col-43": ["india", "in-", 1000],
+  china: ["china", "cnh-", 1000],
+  egypt: ["egypt", "eg-", 1000],
+  ww2: ["ww2", "ww2-", 1000],
+  japan: ["japan", "jp-", 1000],
+  geography: ["geography", "geo-", [[1, 50], [501, 550]]],
 };
+// a numbering as a flat list of the numbers it expects, in order
+const expand = (num) => {
+  const out = [];
+  if (typeof num === "number") { for (let i = 1; i <= num; i++) out.push(i); return out; }
+  for (const [a, b] of num) for (let i = a; i <= b; i++) out.push(i);
+  return out;
+};
+const numLabel = (num) => (typeof num === "number" ? "1–" + num : num.map(([a, b]) => a + "–" + b).join(" and "));
 
 let pass = 0, fail = 0;
 const ok = (m, extra) => { pass++; console.log("ok    " + m + (extra ? "  " + extra : "")); };
@@ -99,7 +113,7 @@ function readPlan(slug, prefix) {
 
 console.log("Card plans ↔ data.js\n");
 
-for (const [colId, [slug, prefix]] of Object.entries(PLANS)) {
+for (const [colId, [slug, prefix, numbering]] of Object.entries(PLANS)) {
   const col = TREE.collections.find((c) => c.id === colId);
   const label = `${slug} (${colId})`;
   console.log(`— ${label}`);
@@ -127,16 +141,20 @@ for (const [colId, [slug, prefix]] of Object.entries(PLANS)) {
   is(!unnamed.length, `${label}: every leaf deck in data.js is named by the plan`,
      unnamed.length ? "unnamed: " + unnamed.join(", ") : `${treeLeaves.length} leaves`);
 
-  /* the running order: 1..1000, contiguous, no duplicates */
+  /* the running order: exactly the numbers this collection declares, contiguous, no duplicates */
   const ns = plan.cards.map((c) => c.n);
   const uniq = new Set(ns);
   const dupes = ns.filter((n, i) => ns.indexOf(n) !== i);
   is(!dupes.length, `${label}: no duplicate ids in the running order`,
      dupes.length ? "dupes: " + [...new Set(dupes)].slice(0, 8).join(", ") : `${ns.length} cards`);
-  const gaps = [];
-  for (let i = 1; i <= 1000; i++) if (!uniq.has(i)) gaps.push(i);
-  is(!gaps.length, `${label}: the running order covers 1–1000 with no gaps`,
+  const want = expand(numbering), wantSet = new Set(want);
+  const gaps = want.filter((n) => !uniq.has(n));
+  is(!gaps.length, `${label}: the running order covers ${numLabel(numbering)} with no gaps`,
      gaps.length ? `${gaps.length} missing, first ${gaps.slice(0, 5).join(",")}` : "");
+  // …and nothing OUTSIDE it, or a mistyped number reads as a card the plan does not have
+  const stray = ns.filter((n) => !wantSet.has(n));
+  is(!stray.length, `${label}: the running order names no number outside ${numLabel(numbering)}`,
+     stray.slice(0, 8).join(", "));
 
   /* topics: no two cards in one plan naming the same subject */
   const seen = new Map(); const same = [];

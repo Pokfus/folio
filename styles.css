@@ -559,20 +559,37 @@ body.night .banner{
 .banner .stat{display:flex; flex-direction:column; align-items:center; gap:2px; text-align:center;}
 .banner .stat b{font-family:var(--display); font-weight:600; font-size:calc(21px * var(--fs)); line-height:1; color:var(--indigo);}
 .banner .stat span{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint);}
-/* the day's time on cards: a SMALL figure, on request, and in the ordinary ink rather than the piles'
-   indigo — it is not a fourth pile, and at their size it would compete with the three numbers that say
-   where the day's work actually is */
-.banner .stat.st-time b{font-size:calc(14px * var(--fs)); color:var(--ink); font-variant-numeric:tabular-nums;}
+/* (the day's time on cards was a fourth `.stat` here until Aug 2026 — it is `.rv-time` under the deck
+   list now, on request; see the note there) */
 .banner .cta{margin-left:auto;}   /* sits on the SAME line as the three piles, pushed to the right edge */
 /* ---------- the footer row under the DECK LIST ----------
    "+ New group" sat at its left (`.rv-tools` / `.rv-newgroup`) and both are GONE — Aug 2026, on request:
    the group function has left the daily study block. What the row still does is hold `.rv-lip` against the
    review group's own bottom edge, which is why the lip is not simply the group's last child.
    `margin-inline-start:auto` is what keeps it at the right-hand end, and it is deliberately not
-   `justify-content:space-between`: on a one-item row — which this now always is — that puts the item at
-   the START. */
+   `justify-content:space-between`: that would put a ONE-item row's item at the start, and this row is one
+   item whenever the reader has not studied yet. */
 .rv-foot{display:flex; align-items:flex-start; gap:12px;}
 .rv-foot .rv-lip{align-self:flex-start; margin-inline-start:auto;}
+/* THE DAY'S TIME ON CARDS, at the left end of that same edge (Aug 2026, on request — it was a stat in the
+   banner's meta row beside the three piles). Out here it is on the page's own paper rather than on the
+   card, and the row it joins is one small tab high, so it is ONE line rather than the piles' figure over a
+   word: the figure in the display face at the caption's own size, the words in the mono caption style the
+   lip opposite it uses, and the word LEADING it ("studied 13m today", on request) so it reads as a
+   sentence rather than as a labelled statistic. The inset matches the lip's `margin-inline-end`, so the
+   two sit symmetrically at the two ends of the block; the padding is what puts its line on the lip's,
+   which is set by that tab's own 6px/-1px rather than by anything here — measured on the rendered page,
+   not derived. */
+.rv-time{
+  display:inline-flex; align-items:baseline; gap:6px; flex:0 1 auto; min-width:0;
+  margin-inline-start:20px; padding:7px 0 0;
+  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.rv-time b{
+  font-family:var(--display); font-weight:600; font-size:calc(13px * var(--fs)); line-height:1;
+  letter-spacing:0; text-transform:none; color:var(--ink-soft); font-variant-numeric:tabular-nums;
+}
 .banner .glyph{
   position:absolute; right:-10px; bottom:-26px; font-family:var(--han); font-weight:700;
   font-size:calc(150px * var(--fs)); line-height:1; color:var(--indigo); opacity:.05; pointer-events:none; user-select:none;
@@ -1101,6 +1118,73 @@ body[data-theme="folio"] .collection-deco::after{
 .tr-lit{color:var(--ink-soft); font-style:italic; font-family:var(--serif); font-size:calc(13.5px * var(--fs));}
 .tr-k{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); font-weight:500; flex:none; align-self:center;}
 .py{font-family:var(--sans); font-style:normal; font-weight:400;}
+
+/* ---------- the figures box beside an answer (map cards; see cardFactsHTML) ----------
+   Tiles rather than the date line's two aligned columns, and deliberately so: `.dt` answers "when", in one
+   narrow key/value list, and this answers "how many" — a capital, a population, an area — which reads far
+   better as small facts than as more rows under the same labels.
+
+   IT IS A GRID ON THE RIGHT OF THE ANSWER BOX, a sibling of `.answer-main` in `.answer`'s flex row — the
+   slot `.answer-tr` takes on a Chinese card, and `.answer` is `space-between`, so it goes to the far edge
+   with no rule of its own. TWO COLUMNS RATHER THAN `auto-fit`: the tiles are different widths (a capital
+   against an area with its conversion), so an auto-fitting track count re-flows between one card and the
+   next and the box stops being a shape a reader recognises. `minmax(0,1fr)` because a grid item's
+   automatic minimum is its content's, and without it a long value pushes the column past its share and
+   squeezes the answer beside it.
+
+   `align-content:start` keeps the tiles at the TOP of the box rather than spread down it — the answer
+   term is the tall thing here and the figures annotate it, so they line up with its first line. */
+.card-facts{
+  display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:6px;
+  align-content:start; flex:0 1 auto; min-width:0; max-width:min(58%, 340px);
+}
+.cf-tile{
+  display:flex; flex-direction:column; gap:1px; min-width:0; padding:5px 10px 6px;
+  border:1px solid var(--rule); border-radius:7px; background:var(--card);
+}
+.cf-k{font-family:var(--mono); font-size:calc(8.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); font-weight:600; opacity:.62; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.cf-v{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink-soft); line-height:1.35; overflow-wrap:anywhere;}
+
+/* ---------- a map card's window (see the MAP CARDS block in app.js) ----------
+   The question is a canvas: one place shaded on the globe, turned and zoomed by the reader. `touch-action:
+   none` is what makes it work on a phone at all — the same rule the whiteboard canvas needs, and for the
+   same reason: under the default the browser claims the drag as a page scroll and fires `pointercancel`
+   at the element before it has seen two moves. */
+.map-card{
+  position:relative; margin:2px 0 16px; border-radius:10px; overflow:hidden;
+  border:1px solid var(--rule); background:var(--paper-2); box-shadow:var(--shadow-sm);
+}
+.mc-canvas{
+  display:block; width:100%; height:clamp(210px, 42vh, 340px);
+  touch-action:none; cursor:grab; background:var(--paper-2);
+}
+.mc-canvas:active{cursor:grabbing;}
+.mc-canvas:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+.mc-zoom{position:absolute; right:9px; top:9px; display:flex; flex-direction:column; gap:5px;}
+.mc-btn{
+  width:29px; height:29px; border-radius:8px; border:1px solid var(--rule); cursor:pointer;
+  background:color-mix(in srgb, var(--card) 88%, transparent); color:var(--ink-soft);
+  font:600 15px/1 var(--sans); display:flex; align-items:center; justify-content:center;
+  transition:background .15s var(--ease), color .15s var(--ease);
+}
+.mc-btn:hover{background:var(--card); color:var(--ink);}
+.mc-btn svg{width:14px; height:14px;}
+/* the hint, bottom-left, quiet — it says what to DO, which a canvas cannot say for itself */
+.mc-note{
+  position:absolute; left:11px; bottom:9px; pointer-events:none;
+  font:500 calc(9.5px * var(--fs))/1.2 var(--sans); letter-spacing:.04em; text-transform:uppercase;
+  color:var(--ink-faint); background:color-mix(in srgb, var(--card) 74%, transparent);
+  padding:3px 7px; border-radius:5px;
+}
+/* the two lazy bundles behind it. A window that says nothing while it waits reads as one that failed. */
+.map-card.mc-loading::after, .map-card.mc-failed::after{
+  content:"Loading the map…"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  background:var(--paper-2); color:var(--ink-faint); font:500 calc(12px * var(--fs))/1.4 var(--sans); text-align:center; padding:16px;
+}
+.map-card.mc-failed::after{content:"This map could not be loaded. The answer is below.";}
+.map-card.mc-loading .mc-zoom, .map-card.mc-failed .mc-zoom,
+.map-card.mc-loading .mc-note, .map-card.mc-failed .mc-note{display:none;}
+@media (max-width:640px){ .mc-note{display:none;} }   /* at 390px it competes with the map it explains */
 
 /* the media frame's own chrome — the border, the rounding and the shadow every surface that shows a
    picture or a clip shares. The SHAPE is set by whoever mounts it: 16:9 here, which is what the editor's
@@ -4106,6 +4190,9 @@ button.game-tile .gt-glyph{opacity:.14;}
   .answer-main{flex-direction:column; align-items:flex-start; gap:5px; width:100%;}
   .av-row{flex-direction:column; align-items:flex-start; gap:10px;}
   .answer-tr{align-self:stretch; justify-content:flex-end;}
+  /* .answer stacks here, so "on the right" has nowhere to be — the figures go back under the answer and
+     take the full width. Two columns still, which at 390px is what the tiles were sized for anyway. */
+  .card-facts{max-width:none; width:100%; margin-top:12px;}
   .grades{grid-template-columns:repeat(2,1fr);}
   .grade-wrap{grid-template-columns:auto auto 1fr; grid-template-areas:"grades grades grades" "help undo suspend"; gap:10px;}
   .grade-wrap .grades{grid-area:grades; justify-self:stretch; grid-template-columns:repeat(2,1fr);}
@@ -4266,6 +4353,11 @@ button.game-tile .gt-glyph{opacity:.14;}
   .grade-wrap{gap:8px;}
   body.grading .stage{padding-bottom:150px;}
   body.grading .wb-tools{bottom:120px;}
+  /* "studied 3h 07m today" — the longest this line gets — runs into the "+ Add decks" lip on a 320px
+     screen, and at Very large text on a 390px one, and ellipsises, which says less than the shorter
+     sentence does. Nothing is lost: the block it sits in is called Daily study, so the day is not what
+     the line is carrying. Measured at both, in the medium and largest text sizes. */
+  .rv-time .rv-today{display:none;}
 }
 
 /* ---------- the global motion killswitch ----------
@@ -5783,6 +5875,9 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
 .ddetail-nodesc p{color:var(--ink-faint); font-style:italic;}
 .ddetail-warn{border-left:3px solid var(--ochre,var(--ink-faint)); background:color-mix(in srgb,var(--ochre,#8A6D3F) 7%, transparent); padding:11px 14px; border-radius:0 9px 9px 0; font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft); max-width:66ch; margin-bottom:18px;}
 .ddetail-actions{display:flex; flex-wrap:wrap; gap:9px; margin-bottom:28px;}
+/* why "Add to my account" is offered over a deck the reader can already see — a note about the account,
+   not a warning about the deck, so it takes the quiet ink rather than the ochre rule above it */
+.ddetail-adopt{font-family:var(--sans); font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft); max-width:66ch; margin:-18px 0 26px;}
 .ddetail-sample h2{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; margin:0 0 12px;}
 .creports{margin-top:34px; border:1.5px dashed color-mix(in srgb,var(--zh) 45%, var(--rule)); border-radius:13px; padding:15px 17px;}
 .creports-head{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.09em; text-transform:uppercase; color:var(--zh); margin:0 0 11px; font-weight:600;}

@@ -716,6 +716,8 @@
     CARD_BY_ID[id].sources = p.sources;     // and the citations behind it
     CARD_BY_ID[id].difficulty = p.difficulty; // and how obscure its answer term was rated (see cardDifficulty)
     CARD_BY_ID[id].undatable = p.undatable;   // and whether that term happens at a time at all (see cardUndatable)
+    CARD_BY_ID[id].map = p.map;               // and the place its question shades on the globe (see cardMapSpec)
+    CARD_BY_ID[id].facts = p.facts;           // and the figures box beside its answer (see cardFacts)
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -2235,13 +2237,25 @@
     }, 4000);
   }
   async function cloudBootOverrides() {
-    const r = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=data,updated_at");
-    if (!r.ok || !Array.isArray(r.data) || !r.data.length) return;   // table not migrated yet / offline → shipped files only
-    const row = r.data[0];
+    /* TWO REQUESTS, AND THE FIRST IS A TIMESTAMP (Aug 2026). This selected `data` up front, which
+       downloads the WHOLE published overlay on every page load before anything has decided whether it
+       is needed — the `updated_at` comparison below was already there and was being made against a body
+       that had by then been paid for. Measured on a row that had accumulated a copy of the timeline:
+       1.17 MB gzipped per visitor per load, more than `data.js`, and for an eagerly-fetched row against
+       a `timeline.js` that is deliberately lazy. The stamp alone is ~100 bytes, and the body is fetched
+       only when it can actually be used: this device has not got this version (a first visit, or a real
+       publish), or this device is an admin whose own overlay may need publishing. */
+    const head = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=updated_at");
+    if (!head.ok || !Array.isArray(head.data) || !head.data.length) return;   // table not migrated yet / offline → shipped files only
     if (isDevOrigin()) return;   // the dev machine's local overlay is its working copy — never overwrite it, signed-in or not
     let baseline = null; try { baseline = localStorage.getItem(CLOUD_TS_KEY); } catch (e) {}
+    const fresh = head.data[0].updated_at !== baseline;
+    if (!fresh && !cloudCanPublish()) return;   // nothing to adopt and nothing to publish — the body is never needed
+    const r = await supaFetch("/rest/v1/content_overrides?id=eq.1&select=data,updated_at");
+    if (!r.ok || !Array.isArray(r.data) || !r.data.length) return;
+    const row = r.data[0];
     const remote = stableJson(row.data || {});
-    if (row.updated_at !== baseline) {
+    if (fresh) {
       // the published content changed since this device last saw it → adopt it (reset to pristine + re-apply)
       reapplyAdminOverlay(row.data || {});
       try { localStorage.setItem(ADMIN_KEY, JSON.stringify(row.data || {})); localStorage.setItem(CLOUD_TS_KEY, row.updated_at); } catch (e) {}
@@ -4804,9 +4818,14 @@
      are `lawagetas`, `qa-si-re-u` and `damos` is a round answerable by elimination and teaches nothing —
      three plausible wrong answers are what make the question, which is the same reasoning that had them
      drawn by tag kinship in the first place. */
+  /* …and a MAP CARD is out of the games too, for a reason that needs no editorial judgement and so is
+     derived rather than authored. A game deals a card's question COLD — four options, a crossword square,
+     a timeline row — and never its map, so "the state shaded on the map is ____" is unanswerable there
+     however well known the state is. Rating them 3+ would be the other way to keep them out and would be
+     a lie: Texas is a household name. See the MAP CARDS block. */
   function gameCardIdSet() {
     const s = new Set();
-    availableCardIdSet().forEach((id) => { if (difficultyOK(cardById(id))) s.add(id); });
+    availableCardIdSet().forEach((id) => { const c = cardById(id); if (difficultyOK(c) && !cardMapSpec(c)) s.add(id); });
     return s;
   }
   function activeCardIds() {
@@ -6266,16 +6285,25 @@
     if (!src) return null;
     return { src: src, title: uSP(raw.title).slice(0, 200), desc: uSP(raw.desc).slice(0, 1000), credit: uSP(raw.credit).slice(0, 300) };
   }
-  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000. The number is not a
-     view about how large a deck may usefully be — it is a guard against a hostile or runaway file — so it
-     is set from the largest legitimate deck anyone has brought, and that is now the whole of HSK 3.0 in
-     one file: 10,896 notes, being the standard's 11,000 rows less the words it lists again at a higher
-     level. **IT COUNTS NOTES, NOT CARDS**, and since reverse cards that is a real distinction — those
-     10,896 notes carry 21,792 cards to study, and the cap is deliberately left on the thing the FILE holds
-     rather than on the thing the reader studies, since what it guards against is the cost of parsing
-     somebody else's file. An over-size one is REFUSED with both figures rather than silently trimmed (see
-     uDeckImportText), so raising this cannot hide anything. */
-  const UDECK_MAX_CARDS = 12000, UDECK_MAX_TERMS = 400;
+  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000, then 12,000. The
+     number is not a view about how large a deck may usefully be — it is a guard against a hostile or
+     runaway file — so it is set from the largest legitimate deck anyone has brought. That was the whole of
+     HSK 3.0 in one file (10,896 rows), then all the Italian in one (16,782); it is now EVERY vocabulary
+     deck on the shelf in one, across five languages: 39,830 rows, and 44,000 leaves it the sort of headroom 12,000 left HSK.
+     **IT COUNTS ROWS IN THE FILE, NOT CARDS TO STUDY**, and since reverse cards that is a real
+     distinction — but it cuts BOTH ways, and the two largest single-language decks sit on opposite sides
+     of it, which is worth knowing before reading anything into the figure. HSK 3.0 asks a word in both
+     directions from ONE row, by giving its card type two templates, so its 10,896 rows are 21,792 cards.
+     A deck whose two directions are separately addable SUBDECKS cannot do that, a subdeck being a
+     property of a row, so there a word is two rows and 16,782 rows is 16,782 cards and only 8,400 words.
+     The cap stays on the thing the FILE holds rather than on the thing the reader studies, since what it
+     guards against is the cost of parsing somebody else's file. An over-size one is REFUSED with both
+     figures rather than silently trimmed (see uDeckImportText), so raising this cannot hide anything.
+     RAISING IT IS NOT FREE AND THE COST WAS MEASURED RATHER THAN ARGUED ABOUT, because a file this size
+     is read into a string, parsed into an object and then written one record per note inside a single
+     IndexedDB transaction — see the import timings in CLAUDE.md's community-decks Persistence bullet
+     before raising it again. */
+  const UDECK_MAX_CARDS = 44000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -7200,13 +7228,26 @@
   }
   /* A SECOND CAP, ON THE BYTES, and it has to be kept in step with the card cap by hand or the two refuse
      different files for different reasons. This one guards the READ: a card count can only be taken after
-     the whole file is a string and then an object, so something has to stop a 500 MB file before that. At
-     ~2 KB a note — measured over the HSK decks, whose notes are the largest here — UDECK_MAX_CARDS notes
-     come to ~24 MB, and this is set at twice that so a legitimate file at the card cap is never turned away
-     by the byte one. It was 8 MB and unexplained, which the HSK 3.0 level 6 deck had quietly come within
-     600 KB of; a deck refused here says nothing about how to split it, so the message now gives both
-     figures rather than "too large to be a deck". */
-  const UDECK_MAX_BYTES = 48 * 1024 * 1024;
+     the whole file is a string and then an object, so something has to stop a 500 MB file before that.
+     **THE PER-ROW FIGURE IS MEASURED, AND HAS BEEN STALE TWICE**: it once said "~2 KB a note, measured
+     over the HSK decks, whose notes are the largest here" when the HSK rows are in fact the LIGHTEST, and
+     the 4 KB that replaced it was overtaken within the day by the bolding of the conjugation tables.
+     Measured over all 23 shipped decks: 1.08 KB a row at the lightest (Italian phrases, no paradigm) and
+     4.31 KB at the heaviest (DELE B1, a full one), with the all-languages file averaging 2.42.
+     **THE STRICT DERIVATION IS THEREFORE ABANDONED, AND SAYING SO IS THE POINT.** It used to be "at the
+     heaviest row anyone has shipped, UDECK_MAX_CARDS rows must still be under it, or the byte cap turns
+     away a file the card cap allows", which at 44,000 rows now means 185 MB — a byte cap that guards
+     nothing, on the ground that a file of 44,000 uniformly heaviest rows might one day exist. What is set
+     instead is the largest real file plus headroom, and the tension is REAL rather than papered over: a
+     hypothetical deck of 30,000 all-heavy rows is under the row cap and over this one. That is tolerable
+     only because it is not silent — uDeckImportFile names the size AND the limit and says to split it —
+     which is what the 8 MB cap it replaced did not do, having quietly come within 600 KB of refusing the
+     HSK 3.0 level 6 deck for no reason a reader could find.
+     **THE HONEST COST OF RAISING IT**: a file this size is read into a string and then JSON.parse'd, so a
+     phone briefly holds several times the file in JS heap, and on a low-end device a deck near this cap
+     may fail to import where two half-size ones would not. The cap is a guard against a hostile file and
+     not a promise that anything under it will import on any device. */
+  const UDECK_MAX_BYTES = 128 * 1024 * 1024;
   function uDeckImportFile(file, cb) {
     if (!file) return;
     if (file.size > UDECK_MAX_BYTES) {
@@ -7552,23 +7593,47 @@
     };
     return uDeckNormalize(rec);   // sanitizes the glossary too — the server copy is not trusted
   }
+  // Tell the account this deck is one of its own. Separated from the install itself because ADOPTING a
+  // deck already on the device is exactly this and nothing else — see uDeckInstall's `adopt` branch.
+  async function deckInstallRowWrite(remoteId, version) {
+    if (!supaLoggedIn()) return { ok: false, signedOut: true };
+    return supaFetch("/rest/v1/deck_installs", {
+      method: "POST", body: { deck_id: remoteId, user_id: SUPA.user.id, version: version || 1 },
+      headers: { Prefer: "resolution=merge-duplicates" },
+    });
+  }
   async function uDeckInstall(row, cards, gloss) {
     const existing = localDeckForRemote(row.id);
-    const norm = remoteToLocal(row, cards, existing ? existing.id : null, gloss);
-    if (!norm) return { error: "That deck couldn't be read." };
-    if (existing) (existing.cardIds || []).forEach((id) => { if (norm.cards.every((c) => c.id !== id)) delete UCARDS[id]; });   // cards the update removed
-    const d = uDeckMount(norm);
-    await uDeckSaveAll(d.id);
-    if (supaLoggedIn()) {
-      await supaFetch("/rest/v1/deck_installs", {
-        method: "POST", body: { deck_id: row.id, user_id: SUPA.user.id, version: row.version },
-        headers: { Prefer: "resolution=merge-duplicates" },
-      });
+    /* ADOPTING A DECK THIS DEVICE ALREADY AUTHORED (Aug 2026, on a bug report: a deck imported and shared
+       under one account, then added from the Shared decks list under a SECOND account on the same device,
+       reached no other device of that second account).
+       Community decks are device-local and every account signing in here sees them — the whole reason
+       `deckSyncRead().by` exists — so the deck is already physically present, under the record its author
+       made. Re-mounting the server's copy over it would take the AUTHOR's `origin: "mine"` away and with it
+       their only handle on the published row: `uDeckPublish` PATCHes by `remoteId`, and a record without
+       one publishes a second, separate deck. So the local record is left exactly as it is and only the
+       ACCOUNT's list is written — which is all that was ever missing. */
+    const adopt = !!(existing && existing.origin !== "installed");
+    let d = existing;
+    if (!adopt) {
+      const norm = remoteToLocal(row, cards, existing ? existing.id : null, gloss);
+      if (!norm) return { error: "That deck couldn't be read." };
+      if (existing) (existing.cardIds || []).forEach((id) => { if (norm.cards.every((c) => c.id !== id)) delete UCARDS[id]; });   // cards the update removed
+      d = uDeckMount(norm);
+      await uDeckSaveAll(d.id);
     }
-    // …and whose install this is — signed OUT it records that nobody has announced it, which is what stops
-    // a re-install being read as the removal that came before it
-    deckSyncInstalled(row.id);
-    return { ok: true, deck: d };
+    const ins = await deckInstallRowWrite(row.id, row.version);
+    /* …and whose install this is — signed OUT it records that nobody has announced it, which is what stops
+       a re-install being read as the removal that came before it. Recorded ONLY when the row was actually
+       written: `by[id] === me` with no row on the server is read by the very next sync as a removal made on
+       another device, so a POST that failed would have this deck deleted off the device it was just added
+       to. Unrecorded, the deck simply stays unannounced and the reader can try again. */
+    if (ins.ok || ins.signedOut) deckSyncInstalled(row.id);
+    if (!ins.ok && !ins.signedOut) return { ok: true, deck: d, adopted: adopt, unannounced: true };
+    // every device files a shared deck under the same local id, which is what carries the reader's own
+    // arrangement of it across — an adopted deck still wears the random id its import minted
+    if (adopt && d) await communityAlignDeckIds();
+    return { ok: true, deck: UDECKS[d && d.id] || d, adopted: adopt };
   }
   /* Removing an installed deck takes it off the ACCOUNT's list too, so the removal reaches every other
      device. A delete the server would not take is therefore worth both recording and reporting: the row
@@ -7649,6 +7714,21 @@
   }
   function deckSyncWrite(rec) { try { localStorage.setItem(DECK_SYNC_KEY, JSON.stringify(rec)); } catch (e) {} }
   function deckSyncList(rec, part, owner) { const a = rec[part][owner]; return Array.isArray(a) ? a : []; }
+  /* DOES THE SIGNED-IN ACCOUNT LIST THIS DECK? — which is NOT the same question as "is this deck on this
+     device", and mistaking one for the other is what stranded a reader's decks on the phone they were added
+     on. Community decks are device-local and shared by every account that signs in here, so a second
+     account meets the first's decks already present; only the account's own install list makes a deck
+     travel, and until this was asked the deck page read presence on the device as ownership by the account
+     and offered no way to add it.
+     Answered from this device's own sync record — the same two signals `communitySyncInstalls` reconciles
+     on, so the page and the sync cannot come to disagree — and therefore with no request. Signed out there
+     is no account to ask, and presence on the device is the only honest answer. */
+  function accountHasDeck(remoteId) {
+    if (!remoteId) return false;
+    if (!supaLoggedIn()) return !!localDeckForRemote(remoteId);
+    const rec = deckSyncRead(), me = SUPA.user.id;
+    return rec.by[remoteId] === me || deckSyncList(rec, "seen", me).indexOf(remoteId) >= 0;
+  }
   /* Who installed a deck, recorded AT THE INSTALL rather than at the next sync — which is what makes the
      removal half safe. A sync interrupted by a navigation writes nothing, so a deck installed and then
      removed on another device before this device ever completed a sync would look, here, like a deck
@@ -7773,7 +7853,10 @@
      costs nothing to check. */
   async function communityAlignDeckIds() {
     for (const d of uDeckList()) {
-      if (d.origin !== "installed" || !d.remoteId) continue;
+      // …or ADOPTED: a deck the account lists but whose local record its author made, which still wears the
+      // random id that import minted. Aligning it is what carries the reader's own arrangement of the deck
+      // — its review entry, its limits, its colour — onto every other device the account reaches.
+      if (!d.remoteId || (d.origin !== "installed" && !accountHasDeck(d.remoteId))) continue;
       const want = deckIdFromRemote(d.remoteId);
       if (d.id === want || UDECKS[want]) continue;
       await uDeckRekeyStored(d.id, want);
@@ -8016,6 +8099,12 @@
     // present-day country borders — the Atlas, the home page's decorative mini globe and the
     // Settings home-location picker all read window.WORLD_GEO
     world: { files: ["world.js"] },
+    /* The 50 US states + DC as POLYGONS, for a map card's window (see cardMapHTML). Its own bundle rather
+       than a file inside `atlas`: that one is eleven files and ~4 MB for the globe page, and a map card
+       needs the state shapes and the world's coastline and nothing else — a reader studying the geography
+       deck must not pay for the historical eras to be asked which state is shaded. It is lazy for the same
+       reason every other bundle is: a reader who never opens such a card never fetches it. */
+    usstates: { files: ["us-states.js"] },
     // everything else the Atlas needs: historical eras, physical layers, per-country prose + figures
     atlas: {
       files: ["uk.js", "lakes.js", "rivers.js", "water.js", "cities.js", "timeline.js", "countries.js", "country-stats.js", "country-spans.js", "country-years.js", "country-sources.js"],
@@ -15973,6 +16062,12 @@
     ww2: '<path d="M12 2.8c.9 0 1.5 1.4 1.5 3.4v1.3l6.5 3.9v2.1l-6.5-1.8v3.8l2.5 2v1.7L12 18.3l-4 .9v-1.7l2.5-2v-3.8L4 13.5v-2.1l6.5-3.9V6.2c0-2 .6-3.4 1.5-3.4z"/>',
     // torii gate
     japan: '<path d="M2.5 6h19"/><path d="M4.5 9h15"/><path d="M7.5 6v14"/><path d="M16.5 6v14"/><path d="M6 20h3"/><path d="M15 20h3"/>',
+    /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
+       History already wears it, which is the whole reason to look for a second: two collections sharing
+       an icon is two collections a reader cannot tell apart on the shelf. The inner points are drawn
+       right in (2.3 from the centre against the outer points' 8.6), which is what keeps four sharp
+       spikes rather than a diamond at the 28px a deck row draws it. */
+    geography: '<circle cx="12" cy="12" r="8.6"/><path d="M12 3.4 13.6 10.4 20.6 12 13.6 13.6 12 20.6 10.4 13.6 3.4 12 10.4 10.4Z"/>',
     // fallback — a stack of cards
     _: '<path d="M12 4.5 4 8.5l8 4 8-4z"/><path d="M4 12.5l8 4 8-4"/><path d="M4 16.5l8 4 8-4"/>',
   };
@@ -17881,14 +17976,26 @@
       if ((st.last === todayStr() || st.last === yest) && st.count >= 2) return `<div class="stat streak" title="Days studied in a row"><b>🔥 ${st.count}</b><span>Day streak</span></div>`;
       return "";
     })();
-    /* The day's time on cards (Aug 2026, on request), beside the streak and in the same shape as the three
-       piles: a figure over a word. It is drawn only once there is time to report — a "0s" before the first
-       card of the day is a clock reporting that nothing has happened, which is what the empty row already
-       says — and it counts the study page alone, so the minigames are outside it by construction rather
-       than by a rule (see studyTimeAdd). */
-    const timeChip = (() => {
+    /* THE DAY'S TIME ON CARDS SITS UNDER THE DECK LIST, NOT IN THE BANNER (Aug 2026, on request — it was a
+       fourth `.stat` in the meta row beside New / Learning / Review). It is not a pile: those three say
+       what is left to do today and this says what has been done, so standing it among them made a reader
+       read four numbers of two different kinds off one line. It goes to the bottom LEFT of the review
+       group, on the `.rv-foot` line the "+ Add decks" lip already hangs from — the two ends of the block's
+       own bottom edge, which is where a footnote about the day belongs.
+       Being out of the banner it also stops being a figure-over-a-word: the row it joins is one small tab
+       high, so it is one line, and it names the day now that nothing beside it supplies one. Drawn only
+       once there is time to report — a "0s" before the first card is a clock reporting that nothing has
+       happened, which the empty row already says — and it counts the study page alone, so the minigames
+       are outside it by construction rather than by a rule (see studyTimeAdd). */
+    const timeFoot = (() => {
       const ms = studyTimeToday();
-      return ms > 0 ? `<div class="stat st-time" title="Time spent on cards today — the daily games are not counted"><b>${esc(fmtStudyTime(ms))}</b><span>Studied</span></div>` : "";
+      /* THE WORD LEADS AND THE FIGURE FOLLOWS — "studied 13m today", not "13m studied today" (Aug 2026, on
+         request). It reads as a sentence about the day rather than as a labelled statistic, which is what
+         the three piles in the banner are and what this deliberately stopped being when it left them.
+         Three flex children rather than two, so the gap spaces them and no text node carries a space of
+         its own; "today" is last and is its own span so the narrowest phones can drop it (see .rv-today),
+         where the longest this prints — "studied 3h 07m today" — runs past the lip and ellipsises. */
+      return ms > 0 ? `<div class="rv-time" title="Time spent on cards today — the daily games are not counted"><span>studied</span><b>${esc(fmtStudyTime(ms))}</b><span class="rv-today">today</span></div>` : "";
     })();
     /* THE CHEST NEVER SHOWS AS A NUMBER ON THIS BANNER (Aug 2026, on request). It was a `chest-chip` stat
        standing in the meta row beside New / Learning / Review — a fourth figure in a row of three, counting
@@ -17955,7 +18062,7 @@
               ${/* a "Seen total" stat sat here and was removed on request (Aug 2026) — the xp bar directly
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
-              ${timeChip}
+              ${/* the day's time on cards stood here and is now under the deck list — see `timeFoot` above */""}
               ${streakChip}
               <span class="cta"><span class="btn ${dueN + newN ? "" : "ghost"}">${
           dueN + newN ? "Start" : "Browse collections"
@@ -17992,17 +18099,19 @@
        where that function was defined for what deliberately STAYS, and why.
        The footer row it shared is kept as it is rather than collapsed into the lip: `.rv-foot` is what
        holds the lip against the group's own bottom EDGE, and the lip is held to the right of it by
-       `margin-inline-start:auto`, so a one-item row still puts it where it has always hung. */
+       `margin-inline-start:auto`, so a one-item row still puts it where it has always hung — which is also
+       what lets the day's timer take the LEFT end of the same line without moving it (Aug 2026). */
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu) — see the comment there. */""}
             ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
-            ${/* The footer row under the deck list. It held "+ New group" at its left until Aug 2026 and
-                  now carries only the lip to the collections, which has always hung off the group's own
-                  bottom EDGE — hence a row rather than the lip on its own, and hence nothing stacked
-                  between the two. */""}
-            <div class="rv-foot">${addDecksLip}</div>
+            ${/* The footer row under the deck list: the day's time studied at its left, the lip to the
+                  collections at its right, each against one end of the group's own bottom EDGE. "+ New
+                  group" held the left until Aug 2026; the timer took it when it left the banner's meta
+                  row, which is why the row survived that control's removal rather than collapsing into
+                  the lip. */""}
+            <div class="rv-foot">${timeFoot}${addDecksLip}</div>
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
@@ -18955,6 +19064,14 @@
     egypt:    { bg: "#1F6F5C" }, // malachite (Ancient Egypt)
     ww2:      { bg: "#4A4038" }, // dark iron (The Second World War)
     japan:    { bg: "#8A2E5C" }, // kuwazome red-purple (Japan)
+    /* deep olive (Geography) — MEASURED rather than picked, like every hue above it. The obvious choice is
+       a teal, and the whole teal band is unusable: swept in CIELAB, every candidate lands 5–11 of Egypt's
+       malachite or Greece's Aegean blue, against a tightest EXISTING pair of 12.9. The green band is
+       empty, and this sits 36.7 from World History's sepia — nearly three times that pair — at L 39 and
+       chroma 50, both mid-band (the shelf runs L 28–55, chroma 7–62), so it is neither the darkest nor
+       the most saturated thing on the page. The kinship worth avoiding was Egypt's malachite, the only
+       other green, and it stands 46 away. */
+    geography: { bg: "#3E6610" },
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
@@ -21953,6 +22070,11 @@
   function deckDetailRender(root, row, cards, gloss) {
     const local = localDeckForRemote(row.id);
     const mine = supaLoggedIn() && SUPA.user && row.owner === SUPA.user.id;
+    /* PRESENT ON THIS DEVICE AND PRESENT ON THIS ACCOUNT ARE TWO QUESTIONS, and this page asked only the
+       first — which is what stranded a reader's decks on the phone they were added on. See accountHasDeck.
+       The AUTHOR is counted as having their own deck however they came by it: they published it, and asking
+       them to add it to their own account would be a control that says the wrong thing. */
+    const onAccount = mine || accountHasDeck(row.id);
     const hasUpdate = local && Number(row.version) > Number(local.installedVersion || 0) && local.origin === "installed";
     const n = row.card_count || cards.length;
     root.innerHTML =
@@ -21987,9 +22109,14 @@
       '<div class="ddetail-warn">Written by a Folio user, not by Folio. Nothing here has been fact-checked — check anything that matters against a source you trust.</div>' +
       '<div class="ddetail-actions">' +
         (local
-          ? (hasUpdate ? '<button class="btn" type="button" id="ddUpdate">Update to the latest version</button>' : '<button class="btn" type="button" id="ddStudy">Study</button>') +
-            '<button class="btn ghost" type="button" id="ddRemove">Remove from this device</button>'
-          : '<button class="btn" type="button" id="ddInstall">Add to my decks</button>') +
+          ? (hasUpdate ? '<button class="btn" type="button" id="ddUpdate">Update to the latest version</button>' : '<button class="btn" type="button" id="ddStudy">Study</button>')
+          : "") +
+        // shown whenever the ACCOUNT does not list the deck — whether or not this device happens to hold a
+        // copy somebody else put here. Over a deck already present it adds nothing to the device and says so.
+        (onAccount && local ? "" :
+          '<button class="btn' + (local ? " ghost" : "") + '" type="button" id="ddInstall">' +
+            (local ? "Add to my account" : "Add to my decks") + '</button>') +
+        (local ? '<button class="btn ghost" type="button" id="ddRemove">Remove from this device</button>' : "") +
         /* …and the file itself (Aug 2026, on request). "Add to my decks" installs it into Folio; this
            downloads the same `.folio-deck.json` a Studio export writes, which is what lets a reader keep a
            copy, pass it on, or open it in a Folio that is not signed in to anything. It needs no install
@@ -22000,6 +22127,11 @@
         (isAdmin() && row.status === "hidden" ? '<button class="btn ghost" type="button" id="ddUnhide">Restore (admin)</button>' : "") +
         (isAdmin() ? '<button class="btn ghost" type="button" id="ddPick">' + (row.staff_pick ? "Remove staff pick" : "Mark staff pick") + "</button>" : "") +
       '</div>' +
+      // …and why that button is there over a deck the reader can already see: shared decks live on the
+      // device and are shared by every account signing in on it, so this one is here without being yours
+      (onAccount || !local ? "" :
+        '<p class="ddetail-adopt">This deck is already on this device, but it isn&rsquo;t on your account &mdash; ' +
+        'so it won&rsquo;t appear on your other devices. Adding it to your account fixes that and downloads nothing.</p>') +
       '<div class="ddetail-sample"><h2>A card from this deck</h2><div id="ddSample"></div></div>' +
       '<div class="ddetail-reviews" id="ddReviews"></div>' +
       '<div class="ddetail-more" id="ddMore"></div>';
@@ -22021,10 +22153,15 @@
 
     const inst = root.querySelector("#ddInstall");
     if (inst) inst.addEventListener("click", async () => {
+      const was = inst.textContent;
       inst.disabled = true; inst.textContent = "Adding…";
       const r = await uDeckInstall(row, cards, gloss);
-      if (r.error) { toast(r.error); inst.disabled = false; inst.textContent = "Add to my decks"; return; }
-      toast("Added to your decks");
+      if (r.error) { toast(r.error); inst.disabled = false; inst.textContent = was; return; }
+      // a write the account did not take is worth saying: the deck is usable here and will not travel, which
+      // is precisely the silence this whole path exists to end
+      toast(r.unannounced ? "Added here, but your account couldn't be reached — it won't reach your other devices yet"
+            : r.adopted ? "Added to your account — it will appear on your other devices"
+            : "Added to your decks");
       render();
     });
     const upd = root.querySelector("#ddUpdate");
@@ -22518,6 +22655,7 @@
       shownAt = Date.now();   // the question is on screen — the per-review log times from here (see the declaration)
       openLinks(cardRoot);
       setupCloze(cardRoot.querySelector(".question"));
+      mountCardMaps(cardRoot);   // a map card's question is a canvas — see the MAP CARDS block
       /* Stepping through the card's phrasings. It swaps the question IN PLACE rather than re-rendering the
          card: the answer may already be showing, and a reader who cycles to compare two wordings has not
          asked for the answer to be taken away again. `c` is a copy whenever there is a pool to cycle, so
@@ -22527,8 +22665,12 @@
         qIdx = (qIdx + (+b.dataset.qc) + pool.length) % pool.length;
         c.question = pool[qIdx];
         const qEl = cardRoot.querySelector(".question");
-        qEl.innerHTML = c.question;
+        // cardFrontHTML rather than the bare question: on a map card the window is part of the front, and
+        // writing only the words would wipe the very clue being asked about. (No map card carries a pool
+        // today, so this is insurance rather than a fix — and it is one line either way.)
+        qEl.innerHTML = cardFrontHTML(c);
         setupCloze(qEl);
+        mountCardMaps(qEl);
         if (revealed) gradeCloze(qEl, c.answer);   // the blank stays filled in — reveal is not undone by this
         const n = cardRoot.querySelector("#qcN"); if (n) n.textContent = (qIdx + 1) + " / " + pool.length;
         persistStudy();
@@ -22584,6 +22726,7 @@
         studyRevealId = id;   // so a language switch re-render re-opens this card rather than resetting it
         persistStudy();       // …and so does a reload
         gradeCloze(cardRoot.querySelector(".question"), c.answer);
+        cardMapReveal(cardRoot);   // the map may now name what it was shading — the shape and its name together
         const inner = root.querySelector("#revealInner");
         inner.innerHTML = buildBack(c);
         openLinks(inner);
@@ -23552,10 +23695,464 @@
     return '<div class="uc-card uc-' + side + owns + '" data-uct="' + esc(scopeId) + '"' + tplN + lang + ">" +
       ucRestoreDetails(sanitizeHTML(html), scopeId) + "</div>";
   }
-  // what goes in the study card's question area: a custom type's front template, or the Basic question
+  /* ============================================================
+     MAP CARDS — the question is a place on the globe (Aug 2026, on request)
+     ============================================================
+     A card may carry `map: { layer, key }`, and then its question is a WINDOW onto the Atlas's globe with
+     one place shaded: the reader turns and zooms it, works out what they are looking at, and types the
+     name into the blank. The back is an ordinary Folio back — ten cited sentences and a figures box.
+
+     FIVE THINGS ARE DECISIONS RATHER THAN PLUMBING.
+
+     · IT IS A BUILT-IN CARD FORMAT AND COULD NOT HAVE BEEN A COMMUNITY-DECK CARD TYPE. Those are the
+       right place for a new card SHAPE — templates and scoped CSS — and they are deliberately inert: a
+       deck is a stranger's file, so `sanitizeHTML` drops every script and the CSP forbids one anyway.
+       A turning globe needs code, so it has to be Folio's own.
+
+     · THE MAP IS DRAWN HERE RATHER THAN BY REUSING THE ATLAS. `PAGES.map` is one enormous closure holding
+       a timeline, an editor, twelve layers, a search index and a game mode, all keyed to a full-bleed
+       stage — none of which belongs in a 260px window on a study card, and half of which (clicking a
+       country to open its panel) is exactly what this must NOT do. What is shared is the ARITHMETIC: the
+       orthographic basis below is the same one `setBasis`/`proj` use, so a state sits where the Atlas
+       would put it.
+
+     · NOTHING IS CLICKABLE, which is the point of the exercise. There is no click handler, no hit test
+       and no hover: a reader who could tap the shaded state and be told its name would not be studying.
+       The pointer does one thing — turn the globe — and the buttons zoom it.
+
+     · A MAP CARD IS KEPT OUT OF THE DAILY MINIGAMES (see gameCardIdSet). They deal a card's question COLD,
+       with no map beside it, so "the state shaded on the map is ____" is unanswerable there. Unlike
+       `difficulty` and `undatable` this needs no editorial judgement and is DERIVED: a card whose clue is
+       its map is by construction unanswerable without it.
+
+     · AND IT IS HONESTLY INACCESSIBLE TO A READER WHO CANNOT SEE IT. A shape is the whole question, so
+       there is no text alternative that does not give the answer away; the canvas says what it is and what
+       to do with it, and the answer is announced normally once revealed. It is the Picture round's
+       position, and it is stated in docs/geography-card-plan.md rather than papered over. */
+  /* THE MAP'S SELECTION GOLD, DEFINED ONCE AND READ BY BOTH MAPS (Aug 2026, on request: a map card's
+     shaded place should be "the same gold we use when clicking a country in the atlas"). It lived inside
+     `PAGES.map`'s closure, where a card could not see it, so a card had a gold of its own — and two golds
+     for one idea is exactly how they come to disagree, silently, on a site where the two are never on
+     screen together. Hoisted here rather than copied: the Atlas closes over this, so there is one triple.
+     `line` and `glow` are written out rather than derived from `rgb`, which is the Atlas's own note — its
+     outline is a LIGHTER amber than its fill, and deriving them would quietly have flattened that. */
+  const TINT_SEL = { rgb: "255,178,46", fillA: 0.24, line: "rgba(255,192,74,1)", glow: "rgba(255,184,60,0.75)" };
+  const CARD_MAP_LAYERS = {
+    // a layer names the bundle that carries its polygons, the global that bundle assigns, and — where the
+    // layer has one — the global holding the POINTS a card may put a dot on (see `map.dot`)
+    "us-states": { bundle: "usstates", global: "US_STATES", what: "state", points: "US_CAPITALS", dotWhat: "city" },
+  };
+  /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
+     by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z
+     one CSS pixel is 1/(0.46*min(W,H)*Z*π/180) degrees, which on a 340px window puts that grid at half a
+     pixel around Z=180 and at a whole visible step past it. So 180, and the small places that want more do
+     not get it: the District of Columbia is 0.15° across and would need ~346, so it opens filling about
+     half the window rather than stair-stepped. It is the only one of the layer's 51 entries that is capped
+     — measured, and reported by name in test-map-cards.js so a second one cannot appear quietly. */
+  const CMAP_ZMIN = 0.85, CMAP_ZMAX = 180;
+  const CMAP_DEG = Math.PI / 180;
+  /* The card's map, or null. Validated rather than trusted: `map` is a hand-authored field in data.js and a
+     layer name with a typo in it would otherwise reach the renderer and paint an empty window. */
+  function cardMapSpec(c) {
+    const m = c && c.map;
+    if (!m || typeof m !== "object") return null;
+    const layer = CARD_MAP_LAYERS[m.layer];
+    if (!layer || !m.key) return null;
+    // `dot` names a point in the layer's own table — a city, on a card whose answer is one
+    const dot = m.dot && layer.points ? String(m.dot) : "";
+    return { layer: m.layer, key: String(m.key), dot: dot, zoom: Number(m.zoom) || 0, def: layer };
+  }
+  /* The window's markup. It is built here and WIRED separately (mountCardMaps), the way `.card-img` is
+     built here and opened by a delegated listener: a canvas cannot be started from a string. */
+  function cardMapHTML(spec) {
+    const what = spec.def.what, dotWhat = spec.def.dotWhat || "place";
+    /* What the canvas SAYS it is showing follows what it is showing: on a capital card the shape is the
+       clue and the dot is the question, so the label must not tell a reader to name the state. It still
+       gives the answer away to nobody — see the accessibility note in the block header, which is why the
+       label describes the task rather than the shape. */
+    const said = spec.dot
+      ? "An interactive globe with one " + what + " shaded and a dot marking a " + dotWhat + " in it. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + dotWhat + " is it?"
+      : "An interactive globe with one " + what + " shaded. Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and − zoom. Which " + what + " is it?";
+    return '<div class="map-card" data-map-layer="' + esc(spec.layer) + '" data-map-key="' + esc(spec.key) + '"' +
+      (spec.dot ? ' data-map-dot="' + esc(spec.dot) + '"' : "") +
+      (spec.zoom ? ' data-map-zoom="' + spec.zoom + '"' : "") + ">" +
+      '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' +
+      '<div class="mc-zoom">' +
+      '<button type="button" class="mc-btn" data-mc="in" aria-label="Zoom in" title="Zoom in">+</button>' +
+      '<button type="button" class="mc-btn" data-mc="out" aria-label="Zoom out" title="Zoom out">&minus;</button>' +
+      '<button type="button" class="mc-btn mc-home" data-mc="home" aria-label="Recentre the map" title="Recentre the map">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></button>' +
+      "</div><div class=\"mc-note\">" + esc("Drag to turn · zoom to look closer") + "</div></div>";
+  }
+  /* Start every map window inside `root` that has not been started. Called from renderCard and from the
+     editor previews — the same two places `setupCloze` is called from, and for the same reason. */
+  function mountCardMaps(root) {
+    if (!root || !root.querySelectorAll) return;
+    root.querySelectorAll(".map-card").forEach((host) => {
+      if (host._folioMap) host._folioMap.stop();   // a repaint re-mounts: never leave the old one drawing
+      startCardGlobe(host);
+    });
+  }
+  // the answer has been shown, so the map may name what it was shading — the shape and its name together
+  function cardMapReveal(root) {
+    if (!root || !root.querySelectorAll) return;
+    root.querySelectorAll(".map-card").forEach((h) => { if (h._folioMap) h._folioMap.reveal(); });
+  }
+  function startCardGlobe(host) {
+    const cv = host.querySelector(".mc-canvas");
+    if (!cv) return;
+    const layerName = host.getAttribute("data-map-layer"), key = host.getAttribute("data-map-key");
+    const def = CARD_MAP_LAYERS[layerName];
+    if (!def) return;
+    const ctx = cv.getContext("2d");
+    let stopped = false, target = null, shapes = null, revealed = false, dot = null;
+    let rotLon = 0, rotLat = 0, zoom = 1, homeLon = 0, homeLat = 0, homeZoom = 1;
+    let W = 0, H = 0, cx = 0, cy = 0, R = 0, baseR = 0, dpr = 1;
+    let Cx = 0, Cy = 0, Cz = 0, Ex = 0, Ey = 0, Ez = 0, Nx = 0, Ny = 0, Nz = 0;
+    let PX = 0, PY = 0, PV = 0, P3x = 0, P3y = 0, P3z = 0;
+    const HP = { x: 0, y: 0 };
+    let ocean = "#b3ebff", land = "#ddd", border = "#999", sub = "#bbb", ink = "#222", halo = "#fff", font = "sans-serif";
+    const clampN = (v, a, b) => (v < a ? a : v > b ? b : v);
+    /* Hex OR an `rgb(r,g,b)` string, because the shaded place's colour comes from `TINT_SEL`, which states
+       its own as a triple. Without the second branch `parseInt` reads "rgb(255,178,46)" as NaN, `|| 0`
+       makes it black, and the state fills BLACK — which reads as a rendering fault rather than as a
+       colour that failed to parse. */
+    const h2r = (h) => {
+      const m = /rgba?\(([^)]+)\)/.exec(String(h));
+      if (m) { const p = m[1].split(/[,\s/]+/).filter(Boolean).map((x) => parseInt(x, 10) || 0); return [p[0], p[1], p[2]]; }
+      h = String(h).replace("#", ""); if (h.length === 3) h = h.split("").map((c) => c + c).join(""); const n = parseInt(h, 16) || 0; return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    };
+    const mixc = (a, b, t) => { const A = h2r(a), B = h2r(b); return "rgb(" + Math.round(A[0] + (B[0] - A[0]) * t) + "," + Math.round(A[1] + (B[1] - A[1]) * t) + "," + Math.round(A[2] + (B[2] - A[2]) * t) + ")"; };
+    const rgbaOf = (a, al) => { const A = h2r(a); return "rgba(" + A[0] + "," + A[1] + "," + A[2] + "," + al + ")"; };
+    /* The theme's own tokens, read off the body exactly as the Atlas reads them — they are all hex for
+       precisely this reason, so a canvas can parse and blend them. Re-read on every paint of the card,
+       which is when a theme change reaches this widget anyway. */
+    function readCols() {
+      const cs = getComputedStyle(document.body), cv2 = (n) => (cs.getPropertyValue(n) || "").trim() || "#888888";
+      const inkc = cv2("--ink"), paper = cv2("--paper"), paper2 = cv2("--paper-2"), indigo = cv2("--indigo");
+      const L = h2r(paper), dark = (L[0] * 0.299 + L[1] * 0.587 + L[2] * 0.114) < 128;
+      ocean = dark ? mixc(paper2, indigo, 0.30) : "#b3ebff";
+      land = mixc(paper, inkc, 0.10); border = mixc(paper, inkc, 0.42); sub = rgbaOf(inkc, 0.22);
+      /* The shaded place's own colour is NOT read here: it is `TINT_SEL`, a module-level literal, and it is
+         theme-INDEPENDENT on purpose — the whole question a map card asks is "which shape is lit up", and
+         the lit shape must not be a different colour on marble than on gazette. See the draw pass below. */
+      ink = dark ? "#ffffff" : "#221808"; halo = dark ? "rgba(0,0,0,0.9)" : "rgba(255,255,255,0.94)";
+      font = cv2("--sans") || "system-ui, sans-serif";
+    }
+    function setBasis() {
+      const lo = rotLon * CMAP_DEG, la = rotLat * CMAP_DEG, clo = Math.cos(lo), slo = Math.sin(lo), cla = Math.cos(la), sla = Math.sin(la);
+      Cx = cla * clo; Cy = cla * slo; Cz = sla;
+      Ex = -slo; Ey = clo; Ez = 0;
+      Nx = -sla * clo; Ny = -sla * slo; Nz = cla;
+    }
+    function proj(lon, lat) {
+      const lo = lon * CMAP_DEG, la = lat * CMAP_DEG, cla = Math.cos(la);
+      const x = cla * Math.cos(lo), y = cla * Math.sin(lo), z = Math.sin(la);
+      P3x = x; P3y = y; P3z = z;
+      PV = x * Cx + y * Cy + z * Cz;
+      PX = cx + R * (x * Ex + y * Ey + z * Ez);
+      PY = cy - R * (x * Nx + y * Ny + z * Nz);
+    }
+    // where a segment crosses the horizon, renormalised back onto the sphere so the seam sits on the limb
+    function crossing(ax, ay, az, av, bx, by, bz, bv) {
+      const t = av / (av - bv);
+      let x = ax + (bx - ax) * t, y = ay + (by - ay) * t, z = az + (bz - az) * t;
+      const m = Math.hypot(x, y, z) || 1; x /= m; y /= m; z /= m;
+      HP.x = cx + R * (x * Ex + y * Ey + z * Ez);
+      HP.y = cy - R * (x * Nx + y * Ny + z * Nz);
+    }
+    /* A ring's bounding box, computed ONCE and cached on the ring itself. It is what makes deep zoom
+       affordable: world.js is 117,000 vertices and at zoom 40 all but a handful are off the disk, so
+       without the cull every drag frame walks the whole planet to draw one state. */
+    function bbox(ring) {
+      if (ring._bb) return ring._bb;
+      let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
+      for (let i = 0; i < ring.length; i++) { const p = ring[i]; if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; }
+      return (ring._bb = [x0, y0, x1, y1, (x0 + x1) / 2, (y0 + y1) / 2, Math.hypot(x1 - x0, y1 - y0) / 2]);
+    }
+    let visDeg = 180;   // angular radius of what the window can show, refreshed per frame
+    function visible(ring) {
+      const b = bbox(ring);
+      // great-circle distance from the view centre to the ring's bbox centre, minus the bbox's own reach
+      const dLon = (b[4] - rotLon) * CMAP_DEG, la1 = rotLat * CMAP_DEG, la2 = b[5] * CMAP_DEG;
+      const cosd = Math.sin(la1) * Math.sin(la2) + Math.cos(la1) * Math.cos(la2) * Math.cos(dLon);
+      return Math.acos(clampN(cosd, -1, 1)) / CMAP_DEG - b[6] <= visDeg;
+    }
+    function addRing(ring) {
+      let open = false, px = 0, py = 0, pz = 0, pv = 0, first = true;
+      for (let i = 0; i < ring.length; i++) {
+        proj(ring[i][0], ring[i][1]);
+        const x = P3x, y = P3y, z = P3z, v = PV, sx = PX, sy = PY;
+        if (v >= 0) {
+          if (!open) {
+            if (!first && pv < 0) { crossing(px, py, pz, pv, x, y, z, v); ctx.moveTo(HP.x, HP.y); ctx.lineTo(sx, sy); }
+            else ctx.moveTo(sx, sy);
+            open = true;
+          } else ctx.lineTo(sx, sy);
+        } else if (open) { crossing(px, py, pz, pv, x, y, z, v); ctx.lineTo(HP.x, HP.y); open = false; }
+        px = x; py = y; pz = z; pv = v; first = false;
+      }
+      if (open) ctx.closePath();
+    }
+    function pathOf(rings) { ctx.beginPath(); for (let i = 0; i < rings.length; i++) if (visible(rings[i])) addRing(rings[i]); }
+    function draw() {
+      if (stopped || !W) return;
+      setBasis();
+      R = baseR * zoom;
+      visDeg = Math.asin(clampN(Math.hypot(W, H) / 2 / R, 0, 1)) / CMAP_DEG + 2;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      ctx.save();
+      // everything is clipped to the disk, so a polygon straddling the limb can never bleed into the margin
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.clip();
+      ctx.fillStyle = ocean; ctx.fill();
+      const GEO = window.WORLD_GEO || [];
+      ctx.fillStyle = land; ctx.strokeStyle = border; ctx.lineWidth = 0.7;
+      for (let i = 0; i < GEO.length; i++) { pathOf(GEO[i].p); ctx.fill("evenodd"); ctx.stroke(); }
+      /* The layer's own shapes are FILLED with the land colour before they are outlined, because the two
+         files trace the same coastline at different tolerances: world.js at 0.02 for a world map, this
+         layer at 0.002 for a card that zooms to 90×. So the states are the finer of the two and routinely
+         reach past world.js's shore, and unfilled that overhang shows the ocean straight through — a
+         hairline of sea between a state and the coast it is on. It is only ever a sliver, since the
+         boundary they disagree about is the same boundary, but it runs the whole length of a coast.
+         What it deliberately does NOT do is hide the disagreement the other way round: where world.js
+         overhangs a state, its grey survives and reads as the neighbouring shore, which is honest.
+         One extra fill pass over the same culled paths, and at these zooms the cull leaves almost
+         nothing to draw. */
+      if (shapes) {
+        ctx.fillStyle = land; ctx.strokeStyle = sub; ctx.lineWidth = 0.6;
+        for (let i = 0; i < shapes.length; i++) { pathOf(shapes[i].p); ctx.fill("evenodd"); if (shapes[i] !== target) ctx.stroke(); }
+      }
+      /* THE SHADED PLACE IS PAINTED THE WAY THE ATLAS PAINTS A CLICKED COUNTRY, and that is the request
+         rather than an inference from it: a translucent warm tint that lets the map read through, a crisp
+         brighter outline over it, and a soft glow behind that outline. It was a SOLID fill with a darkened
+         edge for a day, on the reasoning that a card's land is flat and a 24% tint would leave the answer
+         barely distinguishable — which was wrong, and wrong in the way this file keeps warning about: it
+         was reasoned about rather than looked at. The tint is what carries most of the Atlas's look, and
+         at these zooms one state fills a third of the window, so it reads perfectly well.
+         The three numbers are `paintFillGroups`' own, deliberately written out here rather than derived
+         from `TINT_SEL.rgb`: its outline is a LIGHTER amber than its fill and its glow lighter still, and
+         deriving them from one triple is exactly what would quietly flatten that. */
+      if (target) {
+        pathOf(target.p);
+        ctx.fillStyle = "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")"; ctx.fill("evenodd");
+        ctx.save();
+        ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9;
+        ctx.strokeStyle = TINT_SEL.line; ctx.lineWidth = 2.6; ctx.stroke();
+        ctx.restore();
+      }
+      /* A CITY IS A DOT, because a capital card's answer is the city and shading its state alone says only
+         which state (Aug 2026, on request). It is the Atlas's own focus-point mark — the same gold at full
+         strength, the same 5.5px radius, the same dark ring — so a place pointed at on a card and a place
+         pointed at on the Atlas are the same thing. It draws ON TOP of the shaded state, which is the
+         clue: the state answers "where", the dot answers "which place". Its NAME is held back until the
+         answer is shown, for the obvious reason. */
+      if (dot) {
+        proj(dot.c[0], dot.c[1]);
+        if (PV >= 0) {
+          ctx.save();
+          ctx.beginPath(); ctx.arc(PX, PY, 5.5, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fill();
+          ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke();
+          ctx.restore();
+        }
+      }
+      ctx.restore();
+      // the rim, drawn last so the clipped fills sit inside a clean edge
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.strokeStyle = rgbaOf("#000000", 0.28); ctx.lineWidth = 1; ctx.stroke();
+      /* The name of whatever the card was asking about — the dot's where there is one, the shape's
+         otherwise, since on a capital card the state is the clue and the city is the answer. A dot's label
+         sits BESIDE it rather than over it, the Atlas's placement, or the mark it names is under the word. */
+      if (revealed) {
+        const at = dot ? dot.c : target ? target.c : null;
+        const nm = dot ? dot.n : target ? target.n : "";
+        if (at && nm) {
+          proj(at[0], at[1]);
+          if (PV >= 0) {
+            ctx.font = "600 13px " + font;
+            ctx.textAlign = dot ? "left" : "center"; ctx.textBaseline = "middle";
+            const lx = dot ? PX + 10 : PX;
+            ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, lx, PY);
+            ctx.fillStyle = ink; ctx.fillText(nm, lx, PY);
+          }
+        }
+      }
+    }
+    let raf = 0;
+    function schedule() { if (!raf) raf = requestAnimationFrame(() => { raf = 0; draw(); }); }
+    function resize() {
+      if (stopped) return;
+      const r = cv.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = Math.round(r.width); H = Math.round(r.height);
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      cx = W / 2; cy = H / 2; baseR = Math.min(W, H) * 0.46;
+      readCols();
+      draw();
+    }
+    /* The opening view: centred on the place's own published label point, zoomed so its longest side fills
+       a little over half the window. Reading the zoom off the SHAPE rather than writing one into every card
+       is what keeps Rhode Island and Texas both legible without fifty hand-tuned numbers — and a card may
+       still override it with `map.zoom` where the automatic figure frames something badly. */
+    function fitTarget(fitRings) {
+      homeLon = target ? target.c[0] : 0; homeLat = target ? target.c[1] : 0;
+      let z = 4;
+      if (target) {
+        let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
+        for (const ring of fitRings) { const b = bbox(ring); if (b[0] < x0) x0 = b[0]; if (b[1] < y0) y0 = b[1]; if (b[2] > x1) x1 = b[2]; if (b[3] > y1) y1 = b[3]; }
+        // longitude degrees shrink with latitude; without the cosine Alaska opens far too close
+        const span = Math.max(y1 - y0, (x1 - x0) * Math.cos(homeLat * CMAP_DEG), 0.2);
+        z = 0.55 / (0.46 * CMAP_DEG * span);
+      }
+      homeZoom = clampN(z, CMAP_ZMIN, CMAP_ZMAX);
+      rotLon = homeLon; rotLat = homeLat; zoom = homeZoom;
+    }
+    /* Alaska crosses the antimeridian, so a bbox taken in raw longitude spans nearly the globe and the
+       automatic zoom would open on the whole planet. The rings NEAR the label point are the body of the
+       place in every case that matters, so the FIT is taken from those — which is also the right answer
+       for Michigan's islands and Florida's keys. It narrows the zoom only: every ring is still SHADED, or
+       the Aleutians would drop out of Alaska. */
+    function nearRings(st) {
+      const near = st.p.filter((ring) => {
+        const b = bbox(ring);
+        return Math.abs(b[4] - st.c[0]) < 25 && Math.abs(b[5] - st.c[1]) < 25;
+      });
+      return near.length ? near : st.p;
+    }
+    host._folioMap = {
+      stop() { stopped = true; if (raf) cancelAnimationFrame(raf); if (ro) ro.disconnect(); host._folioMap = null; },
+      reveal() { revealed = true; schedule(); },
+      // read by the tests: a window that never resolved its place is a window with nothing to guess,
+      // and a drag that does not move `view()` is a globe that does not turn — neither of which can be
+      // seen from the outside, the canvas looking much the same either way
+      ready() { return !!target; },
+      view() { return { lon: rotLon, lat: rotLat, zoom: zoom, home: [homeLon, homeLat, homeZoom] }; },
+    };
+    let ro = null;
+    if (window.ResizeObserver) { ro = new ResizeObserver(() => resize()); ro.observe(cv); }
+
+    /* Turning it. `setPointerCapture` is what keeps this self-contained — the stream keeps arriving after
+       the pointer leaves the canvas without a single window-level listener to remove afterwards. */
+    const ptrs = new Map();
+    let last = null, pinch = 0;
+    cv.addEventListener("pointerdown", (e) => {
+      cv.setPointerCapture(e.pointerId);
+      ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+      last = [e.clientX, e.clientY]; pinch = 0;
+      // the canvas is focusable, and a drag that did not focus it leaves the arrow keys pointing elsewhere
+      if (document.activeElement !== cv) cv.focus({ preventScroll: true });
+    });
+    const ptrDist = () => { const a = [...ptrs.values()]; return a.length < 2 ? 0 : Math.hypot(a[0][0] - a[1][0], a[0][1] - a[1][1]); };
+    cv.addEventListener("pointermove", (e) => {
+      if (!ptrs.has(e.pointerId)) return;
+      ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+      if (ptrs.size >= 2) { const d = ptrDist(); if (pinch) { zoom = clampN(zoom * (d / pinch), CMAP_ZMIN, CMAP_ZMAX); schedule(); } pinch = d; last = null; return; }
+      if (!last) { last = [e.clientX, e.clientY]; return; }
+      // a degree spans R·DEG pixels at the centre, so this is "the point under the finger follows it"
+      const k = R * CMAP_DEG || 1;
+      rotLon -= (e.clientX - last[0]) / k;
+      rotLat = clampN(rotLat + (e.clientY - last[1]) / k, -88, 88);
+      last = [e.clientX, e.clientY];
+      schedule();
+    });
+    const release = (e) => { ptrs.delete(e.pointerId); if (ptrs.size < 2) pinch = 0; if (!ptrs.size) last = null; };
+    cv.addEventListener("pointerup", release);
+    cv.addEventListener("pointercancel", release);
+    /* The wheel is taken only when it is a ZOOM gesture on this canvas, and `preventDefault` is what stops
+       the study page scrolling out from under it. `deltaMode` is normalised for the reason the Atlas
+       normalises it: a line-mode mouse otherwise barely moves the zoom at all. */
+    cv.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const px = e.deltaMode === 1 ? e.deltaY * 33 : e.deltaMode === 2 ? e.deltaY * H : e.deltaY;
+      zoom = clampN(zoom * Math.exp(-px * 0.0019), CMAP_ZMIN, CMAP_ZMAX);
+      schedule();
+    }, { passive: false });
+    host.querySelectorAll(".mc-btn").forEach((b) => b.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const w = b.getAttribute("data-mc");
+      if (w === "home") { rotLon = homeLon; rotLat = homeLat; zoom = homeZoom; }
+      else zoom = clampN(zoom * (w === "in" ? 1.45 : 1 / 1.45), CMAP_ZMIN, CMAP_ZMAX);
+      schedule();
+    }));
+    // …and from the keyboard, which is the only way a reader who cannot use a pointer reaches it at all
+    cv.addEventListener("keydown", (e) => {
+      const step = 6 / Math.max(1, Math.sqrt(zoom));
+      let hit = true;
+      if (e.key === "ArrowLeft") rotLon -= step;
+      else if (e.key === "ArrowRight") rotLon += step;
+      else if (e.key === "ArrowUp") rotLat = clampN(rotLat + step, -88, 88);
+      else if (e.key === "ArrowDown") rotLat = clampN(rotLat - step, -88, 88);
+      else if (e.key === "+" || e.key === "=") zoom = clampN(zoom * 1.45, CMAP_ZMIN, CMAP_ZMAX);
+      else if (e.key === "-" || e.key === "_") zoom = clampN(zoom / 1.45, CMAP_ZMIN, CMAP_ZMAX);
+      else if (e.key === "0") { rotLon = homeLon; rotLat = homeLat; zoom = homeZoom; }
+      else hit = false;
+      if (hit) { e.preventDefault(); schedule(); }
+    });
+
+    /* The geometry is two lazy bundles, so the window says it is loading rather than sitting blank — and
+       says so in words if it cannot load, which is what a reader on a flaky connection is owed. Both are
+       needed: the world for the coastline the place sits on, the layer for the place itself. */
+    host.classList.add("mc-loading");
+    Promise.all([ensureData("world"), ensureData(def.bundle)]).then((ok) => {
+      if (stopped) return;
+      host.classList.remove("mc-loading");
+      if (!ok[0] || !ok[1] || !Array.isArray(window[def.global])) { host.classList.add("mc-failed"); return; }
+      shapes = window[def.global];
+      target = shapes.find((s) => s.n === key) || shapes.find((s) => s.a === key) || null;
+      if (!target) { host.classList.add("mc-failed"); return; }
+      /* The dot, where the card asked for one. A name the layer's point table does not carry is a FAILURE
+         rather than a card that quietly draws no dot: the dot IS the answer on a capital card, so a silent
+         miss leaves a question nobody can answer and nothing on screen to say why. `add-card.js` checks the
+         name against the same table when the card is written, so reaching here means the table moved. */
+      const dotName = host.getAttribute("data-map-dot");
+      if (dotName) {
+        const tbl = (def.points && window[def.points]) || null;
+        const p = tbl && tbl[dotName];
+        if (!p || !Array.isArray(p.c)) { host.classList.add("mc-failed"); return; }
+        dot = { n: dotName, c: p.c };
+      }
+      fitTarget(nearRings(target));
+      resize();
+    });
+  }
+
+  // what goes in the study card's question area: a custom type's front template, or the Basic question —
+  // and, on a map card, the globe window ABOVE the prompt, since the map is the clue and the words only
+  // say what to do with it
   function cardFrontHTML(c) {
     const custom = cardTypeSideHTML(c, "front");
-    return custom == null ? ((c && c.question) || "") : custom;
+    if (custom != null) return custom;
+    const q = (c && c.question) || "";
+    const spec = cardMapSpec(c);
+    return spec ? cardMapHTML(spec) + q : q;
+  }
+
+  /* ---------- the figures box (Aug 2026, with map cards) ----------
+     `facts: [[label, value], …]` — the numbers worth having beside the answer term: a state's capital, its
+     population, its area, when it joined the Union. It sits under the date line, inside the answer block.
+
+     IT IS NOT THE DATE LINE, and reusing that field was tried and is wrong twice over: `isDateList` holds
+     it to four rows and demands a number in every labelled one, so "Capital · Sacramento" cannot go in it
+     at all — and a date line is dates, which is a different question from figures. So the two are separate
+     and both render: dates in `.dt`, figures here.
+
+     The values are PLAIN TEXT and escaped. Nothing in a figures box wants markup, and escaping is what
+     lets the box be filled from a statistical source without thinking about it. Metric first with the
+     imperial in brackets, like all Folio prose — `unitizeTree` walks these text nodes with the rest, so a
+     reader who has chosen imperial gets it here too, free. */
+  const CARD_FACTS_MAX = 8;
+  function cardFacts(c) {
+    const f = c && c.facts;
+    if (!Array.isArray(f)) return [];
+    return f.filter((r) => Array.isArray(r) && String(r[0] || "").trim() && String(r[1] || "").trim()).slice(0, CARD_FACTS_MAX);
+  }
+  function cardFactsHTML(c) {
+    const rows = cardFacts(c);
+    if (!rows.length) return "";
+    return '<div class="card-facts">' + rows.map((r) =>
+      '<div class="cf-tile"><span class="cf-k">' + esc(r[0]) + '</span><span class="cf-v">' + esc(r[1]) + "</span></div>").join("") + "</div>";
   }
 
   function buildBack(c) {
@@ -23569,6 +24166,12 @@
       html += '<div class="answer"><div class="answer-main"><span class="label">Answer' + ttsPlayHTML("answer", true) + "</span>";
       html += '<div class="answer-av"><span class="val">' + c.answer + "</span>";
       html += '<div class="av-row">' + (c.answerDate || "") + "</div></div></div>";
+      /* The figures sit BESIDE the answer, not under it (Aug 2026, on request) — a sibling of .answer-main
+         inside the coloured box, which is the slot `.answer-tr` already occupies on a Chinese card. That is
+         what lets them be a GRID: given the whole right-hand side they pair up two to a row, where under
+         the date line they were a wrapping strip whose rows broke wherever the widths happened to fall.
+         They cannot be inside .answer-av and be on the right of it. */
+      html += cardFactsHTML(c);
       if (hasTr) {
         const trCol = S.settings.trCollapsed !== false; // collapsed by default
         html += '<div class="answer-tr' + (trCol ? " collapsed" : "") + '">';
@@ -23921,6 +24524,9 @@
       '</div>';
     const inner = box.querySelector(".reveal-inner");
     openLinks(box);
+    // the preview shows the whole card, so a map card's window is started AND already naming its place —
+    // an editor checking a card should see what a reader sees after revealing it
+    mountCardMaps(box); cardMapReveal(box);
     inner.querySelectorAll(".bg-collapse, .bg-toggle, .answer-tr").forEach((el) => el.classList.remove("collapsed"));   // expand so all edits are visible
     const bh = inner.querySelector(".bg-head"); if (bh) bh.setAttribute("aria-expanded", "true");
     const tt = inner.querySelector(".tr-toggle"); if (tt) tt.setAttribute("aria-expanded", "true");
@@ -27088,10 +27694,8 @@
     /* A highlight's colours, derived from one rgb triple so a second one costs a line rather than a fork of
        the painter. The map has exactly one — its gold — until the Find-it game, which has to say three
        different things on the same map (here is the answer · here is where you went · you found it) and
-       cannot say them all in one colour. `line` and `glow` are written out on the gold so the shipped
-       selection stays exactly as it was: its outline is a LIGHTER amber than its fill, not the same value
-       at full alpha, which is what deriving them would have quietly made it. */
-    const TINT_SEL = { rgb: "255,178,46", fillA: 0.24, line: "rgba(255,192,74,1)", glow: "rgba(255,184,60,0.75)" };
+       cannot say them all in one colour. `TINT_SEL` itself is module-level (see its note beside
+       CARD_MAP_LAYERS): a MAP CARD shades its place in that same gold, and the two must not drift. */
     const tintOf = (rgb, fillA) => ({ rgb: rgb, fillA: fillA, line: "rgba(" + rgb + ",1)", glow: "rgba(" + rgb + ",0.75)" });
     // paint a country with its stable matte colour (clipped to the country) when hovered / selected
     function paintFill(idx, selected) {
@@ -31325,7 +31929,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };

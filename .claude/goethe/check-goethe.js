@@ -192,6 +192,21 @@ const ok = (c, m, extra) => {
           })),
         ex: [...document.querySelectorAll(".uc-exz")].map((e) => e.textContent.trim()),
         bold: [...document.querySelectorAll(".uc-exz b")].map((e) => e.textContent.trim()),
+        // the conjugated part of each form, read AS RENDERED -- an unstyled mark
+        // is invisible, and a split that has stopped splitting leaves a table
+        // that still reads perfectly and teaches nothing
+        ends: [...document.querySelectorAll(".uc-cj-e")].map((e) => e.textContent),
+        endStyle: (() => {
+          const e = document.querySelector(".uc-cj-e");
+          if (!e) return null;
+          const cs = getComputedStyle(e);
+          return { color: cs.color, weight: cs.fontWeight,
+                   stem: getComputedStyle(e.parentElement).color };
+        })(),
+        cells: [...document.querySelectorAll(".uc-cj-f")].map((f) => ({
+          all: f.textContent,
+          marked: [...f.querySelectorAll(".uc-cj-e")].map((e) => e.textContent).join(""),
+        })),
       };
     });
     // A screenshot of each KIND, with the folds open: the examples and the paradigm are the two things
@@ -247,6 +262,22 @@ const ok = (c, m, extra) => {
     ok(seen.verb.nonfinite.some((s) => /auxiliary/i.test(s)),
        "and which auxiliary it takes", JSON.stringify(seen.verb.nonfinite));
     ok(seen.verb.conjRows.length >= 6, "six persons are shown");
+
+    // ---- the conjugated part, as the reader sees it
+    const es = seen.verb.endStyle;
+    console.log("   endings: " + seen.verb.ends.slice(0, 8).join(" · ") +
+                "   " + JSON.stringify(es));
+    ok(seen.verb.ends.length > 0, "the conjugated part of each form is marked");
+    ok(es && Number(es.weight) >= 600, "it is bold", es && es.weight);
+    // red, MEASURED rather than compared against a literal, so re-toning `--zh`
+    // moves this with it
+    const rgb = es && /^rgb\((\d+), (\d+), (\d+)\)/.exec(es.color);
+    ok(rgb && +rgb[1] > 150 && +rgb[1] > +rgb[2] + 40 && +rgb[1] > +rgb[3] + 40,
+       "and red", es && es.color);
+    ok(es && es.color !== es.stem, "the stem is left in the ordinary ink", es && es.stem);
+    const split = seen.verb.cells.filter((c) => c.marked && c.marked !== c.all);
+    ok(split.length > 0, "and a stem really is left unmarked in some cell",
+       JSON.stringify(seen.verb.cells.slice(0, 4)));
   }
   console.log("   adj:   " + JSON.stringify(seen.adj && [seen.adj.word, seen.adj.forms]));
   ok(seen.adj, "an adjective came up");
