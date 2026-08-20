@@ -1142,6 +1142,55 @@
     if (c) return { kind: "country", name: c, label: glossTitle(key) };
     return null;
   }
+  /* Does this term name a book the LIBRARY actually holds? (Aug 2026, on request: "for gloss that are
+     about books or documents we hold in the library … a small version of the book banner of the library
+     page, i.e. a link to take the user to read the book.")
+     IT IS A DECLARED TABLE AND NOT A TITLE MATCH, which is the whole of the care here. Folding both sides
+     and joining on the name is the obvious implementation, it is two lines, and it is confidently wrong:
+     measured over the shelf and the glossary, "The Republic" matches Czech_Republic, Central_African_
+     Republic, Republic_of_the_Congo, Democratic_Republic_of_the_Congo and Dominican_Republic — five
+     countries offered as Plato — while the loosest join that avoids them still finds only three of the
+     forty-eight books, which are exactly the three named below. A claim that a term IS a shelved work is a
+     judgement rather than a string comparison, so it is written down, the way `ENTITY_SINCE` and the
+     importers' own tables are. Three rows today because the glossary has three such terms; a book term
+     written later adds one, and one that does not is simply a term with no banner.
+     A community deck's own term never gets one, for `glossPlace`'s reason: this is curated data, and a
+     deck key is namespaced so it cannot collide, but the check is explicit rather than accidental. */
+  const GLOSS_BOOK = {
+    Iliad: "homer-iliad",
+    Odyssey: "homer-odyssey",
+    Epic_of_Gilgamesh: "epic-of-gilgamesh",
+  };
+  function glossBook(key) {
+    if (!key || isDeckGlossKey(key)) return null;
+    const id = GLOSS_BOOK[key];
+    return id ? (BOOK_BY_ID[id] || null) : null;
+  }
+  /* The shelf's banner at popup scale: spine, author, title, and where the reader got to. It is a real
+     `<button>` and not an `<a href="#book/…">` so that closing the popup and routing happen in one place —
+     a bare anchor changes the hash, which routes, and leaves the window floating over the book it just
+     opened.
+     WHAT IT DROPS is as deliberate as what it keeps: no star, no length, no original-language chip and no
+     date. Those are the shelf's own comparisons, made when a reader is choosing between forty-eight books;
+     here they have chosen a TERM and the banner is answering one question — this is a book, and it is
+     here. The reading position stays, being the only part that is about them.
+     It is built by `glossBookHTML` rather than by the shelf's own `tile()` because that one lives inside
+     PAGES.library's closure and carries the sort, the search and the hold sheet with it. */
+  function glossBookHTML(b) {
+    if (!b) return "";
+    const pos = readingPos(b.id), pct = readingPct(b);
+    const where = pos && pos.ch === 0 ? "About this book" : pos ? `${b.chapterWord} ${pos.ch} · ${pct}%` : "Start reading";
+    return `<button class="gloss-book" type="button" data-glossbook="${esc(b.id)}" style="--tile:${bookColor(b)}"
+        aria-label="Read ${esc(b.title)} by ${esc(b.author)} in the Library">
+      <span class="bk-spine" aria-hidden="true"></span>
+      <span class="gb-body">
+        <span class="gb-eyebrow">In the Library</span>
+        <span class="gb-title">${esc(b.title)}</span>
+        <span class="gb-foot"><span class="gb-author">${esc(b.author)}</span><span class="gb-where">${esc(where)}</span></span>
+      </span>
+      ${pos ? `<span class="bk-tile-bar"><span style="width:${pct}%"></span></span>` : ""}
+    </button>`;
+  }
   function glossTags(k) {
     const u = uGlossParse(k);
     if (u) return u.entry.tags || [];
@@ -1901,7 +1950,24 @@
   function supaForget(id) { const o = supaAccounts(); if (o[id]) { delete o[id]; supaAccountsSave(o); } }
   let SUPA = null;          // the live session (or null = signed out / guest)
   let SUPA_PROFILE = null;  // cached profiles row { id, username, name, role, joined }
-  let _bootWantedAdmin = false;   // the page loaded on #admin before the admin role could be known — supaBoot routes back once it is
+  // the page loaded on an ADMIN-ONLY route before the admin role could be known — supaBoot routes back
+  // once it is. It holds the ROUTE NAME rather than a flag, since there is more than one of them now.
+  let _bootWantedAdmin = null;
+  /* THE BOOT REFUSAL IS PROVISIONAL, SO THE ADDRESS IS LEFT ALONE UNTIL THE ANSWER IS KNOWN. Boot renders
+     directly rather than through route(), so a cold load on an admin-only route is refused there — but at
+     that moment nobody knows whether this reader is an admin, and rewriting the address then would take
+     `#admin` away from an editor whose session merely had not been restored yet. supaBoot calls this on
+     every path where the answer IS settled: an admin is sent back to the page they reloaded, and everybody
+     else has the address corrected to the page they are actually looking at.
+     `replaceState`, never `location.hash`: assigning that fires a hashchange and re-renders the page being
+     rendered, and it would leave the refused route in the history for Back to land on. */
+  function bootAdminSettled() {
+    if (!_bootWantedAdmin) return;
+    const want = _bootWantedAdmin;
+    _bootWantedAdmin = null;
+    if (isAdmin() && current && current.name === "home") { route(want); return; }
+    try { history.replaceState(null, "", location.pathname + location.search + "#home"); } catch (e) {}
+  }
   function supaLoggedIn() { return !!(SUPA && SUPA.user && SUPA.user.id); }
   function supaSaveSession() { try { if (SUPA) localStorage.setItem(SUPA_SESS_KEY, JSON.stringify(SUPA)); else localStorage.removeItem(SUPA_SESS_KEY); } catch (e) {} }
   function supaAdoptSession(d) {   // d = an auth response with access_token/refresh_token/expires_in/user
@@ -2392,8 +2458,8 @@
       return;
     }
     try { SUPA = JSON.parse(localStorage.getItem(SUPA_SESS_KEY) || "null"); } catch (e) { SUPA = null; }
-    if (!supaLoggedIn()) { SUPA = null; return; }
-    if (Date.now() > (SUPA.expires_at || 0)) { if (!(await supaRefresh())) { applyMode(); if (current && current.name === "account") render(); return; } }
+    if (!supaLoggedIn()) { SUPA = null; bootAdminSettled(); return; }
+    if (Date.now() > (SUPA.expires_at || 0)) { if (!(await supaRefresh())) { applyMode(); bootAdminSettled(); if (current && current.name === "account") render(); return; } }
     // back-fill ownership for sessions signed in before _supaOwner existed: the progress on this device is
     // this account's. Without it, an older save's progress reads as unclaimed and the NEXT account would inherit it.
     if (S._supaOwner !== SUPA.user.id) { supaClaimLocal(); try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
@@ -2403,9 +2469,7 @@
     // and photo shown on its button follow the profile rather than freezing at whatever sign-in knew.
     supaRemember();
     applyMode();
-    // the reload happened ON the Edit page — now that the role is known, send an admin back there
-    // (only if they're still sitting on the Home page the boot fallback left them on)
-    if (_bootWantedAdmin && isAdmin() && current && current.name === "home") { _bootWantedAdmin = false; route("admin"); }
+    bootAdminSettled();   // the role has arrived: send an admin back to the page they reloaded
     const row = await supaPull();
     if (row && row.updated_at && row.updated_at !== S._supaTs) {
       // another device wrote since this one last synced → adopt the server copy (last write wins)
@@ -3440,7 +3504,7 @@
         '<button class="gloss-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       '</div>' +
       // the image slot comes FIRST: it floats to the top-right and the prose wraps down its left
-      '<div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-srcslot"></div></div>';
+      '<div class="gloss-body"><div class="gloss-imgslot"></div><span class="gloss-dates"></span><p class="gloss-desc"></p><div class="gloss-bookslot"></div><div class="gloss-srcslot"></div></div>';
     win.querySelector(".gloss-title").textContent = glossTitle(key);
     const dEl = win.querySelector(".gloss-dates");
     const dates = glossDates(key);
@@ -3451,6 +3515,10 @@
     renderGlossImage(win.querySelector(".gloss-imgslot"), key);         // the term's illustration, floated top-right
     // the works behind the description, as a compact fold under it. It sits AFTER the floated image slot
     // in the flow, so it clears the picture rather than wrapping beside it.
+    /* …and, where the term names a book the Library holds, a way into it — below the prose and above the
+       citations, which is where the request puts it and where it reads as an offer rather than as part of
+       the definition. It sits after the floated image slot in the flow, so it clears the picture. */
+    win.querySelector(".gloss-bookslot").innerHTML = glossBookHTML(glossBook(key));
     win.querySelector(".gloss-srcslot").innerHTML = sourcesHTML(glossSources(key), { compact: true });
     /* THE PICTURE AND THE WORDS ARRIVE TOGETHER (Aug 2026, on a bug report: "the text loads before the
        image, so a split second after opening we see the text jump to make space for the picture").
@@ -3513,6 +3581,17 @@
         const place = glossPlace(key);
         closeAllGloss();
         if (place) route("map", { focus: place });
+      });
+    }
+    {
+      // the Library banner: same reasoning as the map marker above — the book is the answer to what the
+      // banner offers, and a popup left over it would cover the page it sent the reader to
+      const bb = win.querySelector(".gloss-book");
+      if (bb) bb.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const id = bb.getAttribute("data-glossbook");
+        closeAllGloss();
+        if (id) route("book", { id: id });
       });
     }
     { const eb = win.querySelector(".gloss-edit"); if (eb) eb.addEventListener("click", () => { removeGlossWin(win, true); route("admin", { gloss: key }); }); }   // admin: jump to this term's editor
@@ -12386,6 +12465,10 @@
      index.html ships the home-page values as the static baseline (link-preview crawlers generally
      don't run JS, so that baseline is what most of them will see); this keeps them in step for
      everything that does — the tab strip, history, bookmarks and in-app share sheets. */
+  /* The routes only an editor may reach. It is a LIST rather than a test on the page, because three
+     things read it — the route guard, the nav's own colouring and `applyMode` — and a fourth will be
+     added by somebody who has never read this. */
+  const ADMIN_ROUTES = ["admin", "warofages"];
   const PAGE_META = {
     home:      ["Folio — a study companion", "Spaced-repetition flashcards for history, daily games and an interactive atlas."],
     decks:     ["Collections — Folio", "Browse Folio's collections and decks, and pick what to review each day."],
@@ -12397,6 +12480,7 @@
     account:   ["Account — Folio", "Your study progress, statistics and badges."],
     glossary:  ["Glossary discovered — Folio", "Every glossary term you have opened while studying."],
     browse:    ["Card browser — Folio", "Search every card you could study by state, flag, deck, tag or how often you have forgotten it."],
+    warofages: ["War of Ages — Folio", "A game in the making. Not yet open to readers."],
     settings:  ["Settings — Folio", "Themes, study options, language and your Atlas home location."],
     challenge: ["Multiple Choice — Folio", "Today's five-question history quiz."],
     chrono:    ["Timeline — Folio", "Put today's historical events into the right order."],
@@ -12438,7 +12522,10 @@
     if (name !== "study") clearStudySession();
     // the hold belongs to the trip between the study page and the editor; going anywhere else ends it
     if (name !== "admin" && name !== "study") studyHold = null;
-    if (name === "admin" && !isAdmin()) name = "home";
+    /* An admin-only route is refused HERE and not in the page, so a deep link, a Back and a stray
+       `route()` are all covered by one line. `warofages` joins `admin`: the tab is hidden for everybody
+       else (applyMode), but a hidden tab is not a guard — the address is typeable. */
+    if (ADMIN_ROUTES.indexOf(name) >= 0 && !isAdmin()) name = "home";
     current = { name, params: params || {} };
     // #deck/<slug> is a shareable address, so the slug rides in the hash (the same shape as #map/<year>/<slug>)
     location.hash =
@@ -15016,7 +15103,7 @@
      device, `pointerType === "pen"` draws and `"touch"` is handed back to the browser to scroll with.
 
      It is DETECTED, not configured — the request is that the site recognise a stylus — but it is not
-     irreversible: the panel grows a "Stylus only" row the moment one is seen, so a reader who wants to
+     irreversible: the panel grows a "Stylus mode" row the moment one is seen, so a reader who wants to
      go back to drawing with a finger can, and the choice is remembered. Detection is remembered too
      (device-local, like where the marker sits and how tall the Atlas sheet is): a pen that has touched
      this screen once will touch it again, and asking the reader to re-teach the site every reload is
@@ -15081,6 +15168,19 @@
   /* The custom colour beside the five presets. It is device-local and NOT in S: a marker colour is a fact
      about this device's screen, like where the marker sits. One per palette — a highlighter yellow chosen
      for marking is not a pen colour — kept in a single record so both survive a reload. */
+  /* THE BRUSH WIDTH IS REMEMBERED (Aug 2026, on request). It was module state, so it survived a session
+     and not a reload — and a reader who works at the fine width had to reach for it again every visit,
+     which is the same friction the stylus mode and the custom colour are already spared. Device-local
+     like both of those, and like where the marker sits: how wide somebody draws is a fact about the hand
+     and the screen, not something the synced progress blob should carry between devices.
+     It stores the WIDTH and not the tool: a size click also puts the pen DOWN (the sizes ARE the pen), and
+     restoring that would have the marker start drawing over a page the reader has only just opened. */
+  const WB_SIZE_KEY = "folio_wb_size_v1";
+  function wbLoadSize() {
+    try { const v = +localStorage.getItem(WB_SIZE_KEY); if (WB_SIZES.indexOf(v) >= 0) WB.size = v; } catch (e) {}
+  }
+  function wbSaveSize() { try { localStorage.setItem(WB_SIZE_KEY, String(WB.size)); } catch (e) {} }
+  wbLoadSize();
   const WB_CUSTOM_KEY = "folio_wb_custom_v1";
   const WB_CUSTOM_DEF = { pen: "#7A4FC2", hl: "#B9FF6A" };
   let wbCustom = null;
@@ -15458,7 +15558,7 @@
               stays, because detection is remembered and a reader who wants to go back to drawing with a
               finger needs a way to say so. It is marked with `wb-on` and NOT `sel` — see refreshModes. */""}
         <div class="wb-row wb-stylus-row" hidden>
-          <button class="wb-btn wb-stylus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19 3 21l2-9L15.5 1.5a2.1 2.1 0 0 1 3 3z"/><path d="m13.5 3.5 4 4"/></svg>Stylus only</button>
+          <button class="wb-btn wb-stylus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19 3 21l2-9L15.5 1.5a2.1 2.1 0 0 1 3 3z"/><path d="m13.5 3.5 4 4"/></svg>Stylus mode</button>
         </div>
         <div class="wb-row">
           <button class="wb-btn wb-undo" aria-label="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Undo</button>
@@ -15611,6 +15711,7 @@
       b.addEventListener("click", () => {
         const s = +b.dataset.s, same = WB.size === s;
         WB.size = s;
+        wbSaveSize();
         if (WB.enabled && (WB.mode === "hl" || WB.mode === "erase")) { /* width only */ }
         else if (WB.enabled && WB.mode === "pen" && same) wbSetEnabled(false);
         else { WB.mode = "pen"; WB.color = WB.penColor; wbSetEnabled(true); }
@@ -15874,8 +15975,18 @@
        very words a reader most wants to underline. Tap it and it speaks; draw across it and it takes ink.
        `.uc-tts` sets `role="button"` on itself, which is exactly why CTL_SEL does not simply widen to
        `[role="button"]` — a card's picture is one of those too, and drawing on a diagram is the point of
-       having a marker at all. */
-    const TIP_SEL = ".ttip, .uc-tts";
+       having a marker at all.
+       A FOOTNOTE MARKER, THE NUMBER THAT JUMPS BACK, AND A PICTURE JOINED IT (Aug 2026, on request: "with
+       the marker and stylus mode selected, source citation numbers and images are still clickable, all
+       buttons should still be clickable"). None of the three is a real control — a marker is a `<sup>` and
+       a picture a `<figure>`, each promoted with `role="button"` after the fact — so CTL_SEL could not see
+       them, and with the pen down the apparatus stopped working: a reader could underline a claim and not
+       follow it to the work it rests on.
+       They are TIP_SEL targets rather than CTL_SEL ones for the reason `.uc-tts` is, and the picture is
+       the case that makes it plain: claimed at pointerdown, a picture could not be drawn on at all, which
+       is exactly what the comment above says a marker is for. Here a tap opens it and a line across it is
+       a line across it. */
+    const TIP_SEL = ".ttip, .uc-tts, sup.fn, .src-n.src-back, .card-img";
     const hitUnder = (e, sel) => {
       const prev = canvas.style.pointerEvents;
       canvas.style.pointerEvents = "none";
@@ -21629,6 +21740,23 @@
     ["author", "Author", "text", "Your name or handle — travels with the file"],
   ];
 
+  /* WAR OF AGES — a placeholder for a game not yet built (Aug 2026, on request: "add another page titled
+     'War of Ages', a game we will work on in the future. Make the page only visible to admin accounts for
+     now").
+     It is a real ROUTE with a real page rather than a disabled tab, because the point of it is to exist:
+     the tab is where the work will be picked up from, and a control that goes nowhere is one nobody trusts
+     when it finally does. What keeps it out of a reader's way is `ADMIN_ROUTES`, which is the guard rather
+     than the hidden tab — the address is typeable, and a hidden tab stops nobody.
+     Its own page says plainly that it is unbuilt, so an editor who lands on it by pressing something is
+     never left wondering whether it failed to draw. */
+  PAGES.warofages = function (root) {
+    root.innerHTML =
+      '<div class="page-head woa-page"><span class="eyebrow">In the making</span><h1>War of Ages</h1>' +
+      '<p>A game to be built here. Nothing is wired up yet.</p></div>' +
+      '<div class="set-card" style="padding:18px 22px"><p style="margin:0; color:var(--ink-soft)">This page is a ' +
+      'placeholder, kept where the work will start from. It is visible to editors only — readers see no tab for ' +
+      'it, and the address turns them back to the home page.</p></div>';
+  };
   PAGES.studio = function (root) {
     if (!communityReady()) { root.innerHTML = '<div class="page-head"><span class="eyebrow">Studio</span><h1>Your decks</h1></div><div class="data-loading">Loading your decks…</div>'; return; }
     if (studioState.deck && !UDECKS[studioState.deck]) { studioState.deck = null; studioState.card = null; }
@@ -27439,7 +27567,6 @@
             ${/* the phone sheet's resize grip (Aug 2026, on request): drag the top edge to give the panel
                   more of the screen or less. It shows only on the sheet layout — on the desktop the panel
                   already runs the height of the stage. */""}
-            <div class="cp-grab" id="cpGrab" role="separator" aria-orientation="horizontal" title="Drag to resize"><span></span></div>
             <button class="cp-close" id="cpClose" type="button" aria-label="Close">×</button>
             <div class="cp-head">
               <div class="cp-crumb" id="cpCrumb" hidden></div>
@@ -27651,26 +27778,40 @@
        It is remembered across places, so the next country opens at the height the last one was left at,
        which is the whole point of setting it. The desktop panel is untouched: it already runs the height of
        the stage, and there is nothing to give it. */
-    const CP_H_KEY = "folio_cp_h_v1";
     const CP_TOP_GAP = 8, CP_BOTTOM_GAP = 14;   // clearance at the top of the screen; the sheet's own bottom offset
-    let cpUserH = null, cpUserHRead = false;
+    /* THE DRAG IS GONE AND THE CHEVRON IS THE WHOLE CONTROL (Aug 2026, on request). The sheet had two ways
+       to be resized — a grip along its top edge and the chevron beside the name — which is two answers to
+       one question, and the grip was the worse of them: it asked the reader to choose a height for a box
+       whose right height is a fact about the page in it, and it stored that choice, so the sheet then
+       opened at a size chosen for some other place. The chevron opens it to what the page on screen
+       actually needs (cpMaxH) and shuts it to the name, and there is nothing to remember: `folio_cp_h_v1`
+       is no longer read or written. */
     /* ---- …AND IT OPENS SHUT (Aug 2026, on request) ----
        On a phone, clicking a country used to raise a sheet that took half the screen — over the very map
        the reader had just pointed at, and before they had said they wanted to read anything. It opens at
        the NAME now, which is the answer to the question a tap on a country asks, and the chevron beside
        the name is what asks for the rest.
-       `cpShut` is deliberately NOT remembered. The stored height is (that is the reader's setting, and it
-       is what the sheet expands TO); whether the sheet is open is a fact about the place in front of them,
-       reset on every one — which is the request's own "always collapsed by default". A drag on the grip
-       counts as asking for it open, or the gesture would fight the state. */
+       `cpShut` is deliberately NOT remembered: whether the sheet is open is a fact about the place in front
+       of the reader, reset on every one — which is the request's own "always collapsed by default". */
     let cpShut = true;
-    function cpReadH() {
-      if (cpUserHRead) return cpUserH;
-      cpUserHRead = true;
-      try { const v = parseFloat(localStorage.getItem(CP_H_KEY)); if (isFinite(v) && v > 0 && v <= 1) cpUserH = v; } catch (e) {}
-      return cpUserH;
+    /* ---- …AND IT FOLDS RATHER THAN CUTTING (Aug 2026, on request) ----
+       The height is an explicit px value in both states, so CSS transitions it; what CSS cannot do is the
+       `display:none` that takes the pages, the dots and the tools out of the box while it is shut, and a
+       box whose contents vanish before it shrinks is the jumpcut the request is about. So the class is
+       applied at the two ends of the movement rather than at the start of it: OPENING removes it at once
+       (the content has to be there to be revealed, and cpMaxH measures a pane that is displayed), and
+       SHUTTING waits out the transition. Keep CP_FOLD_MS in step with the duration in styles.css.
+       Anything that is not the chevron — a fresh place, a rotation, a swipe to a shorter page — applies
+       the class immediately, since there is no gesture there to answer. */
+    const CP_FOLD_MS = 260;
+    let cpFoldT = null;
+    function cpFoldClass(animate) {
+      if (!cpEl) return;
+      if (cpFoldT) { clearTimeout(cpFoldT); cpFoldT = null; }
+      if (!animate || prefersReducedMotion()) { cpEl.classList.toggle("cp-shut", cpShut); return; }
+      if (!cpShut) { cpEl.classList.remove("cp-shut"); return; }
+      cpFoldT = setTimeout(() => { cpFoldT = null; if (cpShut && cpEl) cpEl.classList.add("cp-shut"); }, CP_FOLD_MS);
     }
-    function cpSaveH() { try { cpUserH == null ? localStorage.removeItem(CP_H_KEY) : localStorage.setItem(CP_H_KEY, String(cpUserH)); } catch (e) {} }
     /* The floor: the grip and the title bar, and nothing below them. Measured rather than guessed — a long
        name wraps to two lines and a drilled place carries a breadcrumb above it — and measured through
        `offsetTop`/`offsetHeight` rather than `getBoundingClientRect`, which is the whole trick here: the
@@ -27714,25 +27855,20 @@
       const room = (document.documentElement.clientHeight || window.innerHeight || 0) - CP_TOP_GAP - CP_BOTTOM_GAP;
       return Math.max(cpMinH(), Math.min(room, cpPaneNeedH()));
     }
-    // apply the stored fraction (or clear back to the stylesheet's own 52% cap when there isn't one)
-    function cpApplyH() {
+    /* Two heights and nothing in between: the name (cpMinH) or the page (cpMaxH). Above the pager's
+       breakpoint the sheet is a column beside the globe and neither applies, so the inline height and both
+       classes come off and the stylesheet has it back. */
+    function cpApplyH(animate) {
       if (!cpEl) return;
-      const f = cpReadH();
       if (!cpPagerOn()) { cpEl.classList.remove("cp-sized", "cp-shut"); cpEl.style.height = ""; cpSyncMore(); return; }
-      const vh = document.documentElement.clientHeight || 0;
       cpEl.classList.add("cp-sized");
-      cpEl.classList.toggle("cp-shut", cpShut);
+      cpFoldClass(animate);
       cpSyncMore();
-      /* Shut, the height IS the floor — the grip, the crumb, the name and nothing else. It is measured
-         rather than written down for cpMinH's own reason: a long name wraps and a drilled place carries a
-         breadcrumb above it, so the "title bar" is not one number. */
+      /* Shut, the height IS the floor — the crumb, the name and nothing else. It is measured rather than
+         written down for cpMinH's own reason: a long name wraps and a drilled place carries a breadcrumb
+         above it, so the "title bar" is not one number. */
       if (cpShut) { cpEl.style.height = Math.round(cpMinH()) + "px"; return; }
-      // with no stored height the sheet still fits its page rather than sitting at the stylesheet's flat 52%
-      const want = f == null ? vh : f * vh;
-      cpEl.style.height = Math.round(Math.max(56, Math.min(want, cpMaxH()))) + "px";
-      // the floor can only be measured once the box is laid out, so clamp on the second pass
-      const min = cpMinH();
-      if (cpEl.getBoundingClientRect().height < min) cpEl.style.height = Math.round(min) + "px";
+      cpEl.style.height = Math.round(cpMaxH()) + "px";
     }
     // the chevron says which way pressing it will go, and is absent entirely where there is nothing to reveal
     function cpSyncMore() {
@@ -27746,7 +27882,7 @@
     }
     function cpSetShut(v) {
       cpShut = !!v;
-      cpApplyH();
+      cpApplyH(true);
       // the pager measures its panes against the box's width, which has just changed
       if (!cpShut) { cpSyncDots(); cpActiveDot(); }
     }
@@ -27756,40 +27892,6 @@
       const max = cpMaxH();
       if (cpEl.getBoundingClientRect().height > max + 1) cpEl.style.height = Math.round(max) + "px";
       else cpApplyH();
-    }
-    function cpWireResize(grip) {
-      if (!grip) return;
-      let drag = null;
-      grip.addEventListener("pointerdown", (e) => {
-        if (!cpPagerOn() || (e.button != null && e.button !== 0)) return;
-        drag = { id: e.pointerId, y: e.clientY, h: cpEl.getBoundingClientRect().height };
-        // a drag on the grip IS asking for the sheet, so it takes the shut state off rather than fighting
-        // it — the height below is free to move only once nothing is pinning it to the floor
-        if (cpShut) { cpShut = false; cpEl.classList.remove("cp-shut"); cpSyncMore(); cpSyncDots(); }
-        cpEl.classList.add("cp-resizing");
-        try { grip.setPointerCapture(e.pointerId); } catch (x) {}
-        e.preventDefault();
-      });
-      grip.addEventListener("pointermove", (e) => {
-        if (!drag || e.pointerId !== drag.id) return;
-        e.preventDefault();
-        // the sheet is anchored at the BOTTOM, so dragging the top edge UP (a negative dy) makes it taller
-        const h = Math.max(cpMinH(), Math.min(drag.h - (e.clientY - drag.y), cpMaxH()));
-        cpEl.classList.add("cp-sized");
-        cpEl.style.height = Math.round(h) + "px";
-      });
-      const release = (e) => {
-        if (!drag || (e.pointerId != null && e.pointerId !== drag.id)) return;
-        drag = null;
-        cpEl.classList.remove("cp-resizing");
-        const vh = document.documentElement.clientHeight || 0;
-        cpUserH = vh ? cpEl.getBoundingClientRect().height / vh : null;
-        cpUserHRead = true;
-        cpSaveH();
-        cpActiveDot();
-      };
-      grip.addEventListener("pointerup", release);
-      grip.addEventListener("pointercancel", release);
     }
     // crossing the pager's breakpoint (a rotated phone, a dragged window edge) changes what the sections ARE
     function cpResize() {
@@ -30048,7 +30150,6 @@
     cpSrcEl = root.querySelector("#cpSrc"); cpSrcSecEl = root.querySelector("#cpSrcSec");
     { const cpClose = root.querySelector("#cpClose"); if (cpClose) cpClose.addEventListener("click", hideCountryPopup); }
     { const more = root.querySelector("#cpMore"); if (more) more.addEventListener("click", () => cpSetShut(!cpShut)); }
-    cpWireResize(root.querySelector("#cpGrab"));
     // one delegated listener folds any of the three sections open or shut, so a reader can put away the part
     // they aren't reading — a long description on a phone sheet buries the year paragraph under it.
     // On the phone the sections are PAGES, not folds: there is nothing below a section to uncover by shutting
@@ -35743,7 +35844,7 @@
   /* `community` is deliberately NOT here any more (Aug 2026): the shared-deck list is a section of the
      Collections page, so that address is retired — and a retired address is REDIRECTED rather than dropped,
      since links to it have been shared. Both readers of the hash map it to `decks` below. */
-  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "mission", "studio", "deck", "glossary", "browse", "library", "book"];
+  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = hParts[0] === "community" ? "decks" : valid.includes(hParts[0]) ? hParts[0] : "home";
@@ -35772,8 +35873,11 @@
   }
   // A refresh on #admin lands BEFORE supaBoot() has restored the session and loaded the profile role, so
   // isAdmin() says no for a signed-in admin and the editor reader was bounced to Home on every reload.
-  // Boot to Home as before, but remember the intent — supaBoot routes back once the role has arrived.
-  if (initName === "admin" && !isAdmin()) { _bootWantedAdmin = true; initName = "home"; }
+  /* Boot renders DIRECTLY rather than through route(), so the guard there does not cover a cold load —
+     which is how `#warofages` reached a visitor for an hour. Every admin-only route is refused here and
+     the intent REMEMBERED rather than acted on, because at this moment the role is not known: see
+     bootAdminSettled, which supaBoot calls on every path where it is. */
+  if (ADMIN_ROUTES.indexOf(initName) >= 0 && !isAdmin()) { _bootWantedAdmin = initName; initName = "home"; }
   current = { name: initName, params: initParams };
   /* WHATEVER THEME IS ON SCREEN IS A THEME THIS READER OWNS. Five of the six became collectibles in
      Aug 2026 and a reader wearing one from before that must not lose it — there is no honest way to tell

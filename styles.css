@@ -22,6 +22,14 @@
      is none of them, far enough round the wheel from --good's forest green (hue ~186 against ~152) to
      read as another thing rather than as a shade of the same one. */
   --newterm:#1E7A85;
+  /* An ADMIN-ONLY tab in the nav (Aug 2026, on request: "make it so that pages that are visible to admin
+     only appear with a different color in the menu bar than public pages"). A magenta-purple at hue ~305,
+     which is the quarter of the wheel nothing else here holds — --indigo is ~258, --newterm ~186, --good
+     ~152, --ochre/--geo ~35, --zh ~5 — so it reads as another KIND of destination rather than as a shade
+     of the active state. Measured against every paper the nav sits on rather than eyeballed: 5.6–7.2 in
+     light, 6.4–7.6 at night, so it needs no `body.hc` row of its own (that block re-tones the tokens that
+     fall SHORT, and this one does not). */
+  --admin:#8E2F86;
   --han:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
   --serif:"Newsreader", Georgia, "Times New Roman", serif;
   --display:"Fraunces", Georgia, serif;
@@ -50,7 +58,7 @@ body.night{
   --ink:#ECEAE3; --ink-soft:#D6D2C8; --ink-faint:#8A877F; --rule:#34343C;
   --indigo:#A6A4F0; --indigo-bright:#B9B7F7; --indigo-wash:#2E2E47; --ochre:#E0A45A;
   --zh:#F0938B; --zh-wash:#33262A; --geo:#E0A23F; --good:#79C39B;
-  --newterm:#5FC2CE;
+  --newterm:#5FC2CE; --admin:#CF93DC;
   --shadow-sm:none; --shadow-md:0 10px 30px rgba(0,0,0,.35);
   --shadow-lg:0 20px 60px rgba(0,0,0,.5);
 }
@@ -256,6 +264,14 @@ body[data-theme="folio"] .topbar::after{
 }
 .tab:hover{color:var(--ink-soft); background:color-mix(in srgb, var(--ink) 5%, transparent);}
 .tab.active{color:var(--indigo);}
+/* …and an admin-only tab wears --admin instead, in every state. It is the colour that says so and not a
+   badge: the nav is icons and one word each, and a second mark on two of six tabs would be more furniture
+   than fact. `applyMode` still HIDES these for everyone else — this is what an editor sees, not a gate. */
+.tab.tab-admin{color:color-mix(in srgb, var(--admin) 62%, var(--ink-faint));}
+.tab.tab-admin:hover{color:var(--admin); background:color-mix(in srgb, var(--admin) 8%, transparent);}
+.tab.tab-admin.active{color:var(--admin);}
+.tab.tab-admin .ink{background:var(--admin);}
+.tab.tab-admin:focus-visible{outline-color:var(--admin);}
 /* the underline sits under the unfolded page NAME only, never the icon:
    --ink-start = horizontal padding + icon width + the open label's margin */
 .tab .ink{
@@ -1241,6 +1257,34 @@ body[data-theme="folio"] .collection-deco::after{
 /* the media frame's own chrome — the border, the rounding and the shadow every surface that shows a
    picture or a clip shares. The SHAPE is set by whoever mounts it: 16:9 here, which is what the editor's
    media slot, the deck page's sample and the picture round want, and the picture's own proportions
+/* ---- THE LIBRARY BANNER IN A GLOSS POPUP (Aug 2026, on request) ----
+   The shelf's banner at popup scale, below the prose and above the citations. It shares `--bk-accent`
+   with `.book-tile` — the four declarations above name both, so the day/night derivation and the OKLCh
+   refinement are written ONCE and a book cannot come to wear two different versions of its own colour on
+   two surfaces. What it does not share is the LAYOUT: a 360px popup has no room for the shelf's two
+   columns, so the title leads and the author drops to the foot beside the reading position.
+   `--bk-ink` is the shelf's own compromise for a title on a washed card and is repeated here for the same
+   reason: the accent alone is too light on night's paper for 14px type. */
+.gloss-book{
+  --bk-ink:color-mix(in srgb, var(--bk-accent) 80%, var(--ink));
+  position:relative; display:flex; gap:0; width:100%; text-align:left; padding:0; overflow:hidden;
+  margin:14px 0 0; clear:both;
+  background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 26%, transparent), transparent 70%) var(--card);
+  border:1px solid var(--rule); border-radius:11px; box-shadow:var(--shadow-sm);
+  cursor:pointer; font:inherit; color:inherit;
+  transition:transform .14s var(--ease), box-shadow .14s var(--ease), border-color .14s var(--ease);
+}
+body.night .gloss-book{background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 16%, transparent), transparent 70%) var(--card);}
+.gloss-book:hover{transform:translateY(-2px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--bk-accent) 45%, var(--rule));}
+.gloss-book:active{transform:translateY(0) scale(.995);}
+.gloss-book:focus-visible{outline:2px solid var(--bk-accent); outline-offset:3px;}
+.gloss-book .bk-spine{flex:0 0 6px; align-self:stretch; background:var(--bk-accent);}
+.gb-body{flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; padding:9px 12px 10px;}
+.gb-eyebrow{font-family:var(--sans); font-size:calc(9px * var(--fs)); font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint);}
+.gb-title{font-family:var(--display); font-size:calc(14.5px * var(--fs)); font-weight:600; line-height:1.25; color:var(--bk-ink); overflow-wrap:anywhere;}
+.gb-foot{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-top:1px;}
+.gb-author{font-family:var(--sans); font-size:calc(11px * var(--fs)); color:var(--ink-soft); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.gb-where{font-family:var(--sans); font-size:calc(11px * var(--fs)); font-weight:600; color:var(--bk-accent); flex:none;}
    inside `.card-imgslot` / `.gloss-imgslot`. Click to open the viewer. */
 .card-img{
   position:relative; display:block; margin:2px 0 18px; padding:0; cursor:zoom-in;
@@ -3216,11 +3260,6 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    (cpApplyH) and measured while it settles, and an animating height would be measured mid-flight. */
 .country-pop:not([hidden]){animation:cpIn .2s var(--ease) both;}
 @keyframes cpIn{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
-/* the phone sheet's resize grip — hidden on the desktop panel, which already runs the height of the stage.
-   touch-action:none, or the browser claims the drag as a page scroll before pointermove reaches us. */
-.cp-grab{display:none; position:absolute; top:0; left:0; right:0; height:18px; cursor:ns-resize; touch-action:none; z-index:2; align-items:center; justify-content:center;}
-.cp-grab span{display:block; width:38px; height:4px; border-radius:99px; background:var(--rule); pointer-events:none;}
-.cp-grab:hover span, .cp-resizing .cp-grab span{background:var(--ink-faint);}
 .cp-close{position:absolute; top:9px; right:10px; appearance:none; cursor:pointer; width:24px; height:24px; border-radius:7px; border:none; background:transparent; color:var(--ink-faint); font-size:calc(17px * var(--fs)); line-height:1; display:flex; align-items:center; justify-content:center; z-index:1;}
 .cp-close:hover{background:var(--rule); color:var(--ink);}
 /* the title block sits ABOVE the scroller and never moves: on the phone the sections below it are pages you
@@ -3292,16 +3331,17 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
      between, one page at a time, with the dots below saying how many there are. Every page is expanded (there
      is nothing under a page to uncover by folding it) and an empty one is dropped from the run rather than
      shown, so a swipe never lands on a dash. The title block above and the dots below stay put. */
-  .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:52%; padding:22px 16px 8px;}
+  .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:52%; padding:15px 16px 8px;}
   /* the sheet is centred by a transform, so its entrance has to carry that translate rather than replace it */
   .country-pop:not([hidden]){animation-name:cpInSheet;}
   @keyframes cpInSheet{from{opacity:0; transform:translateX(-50%) translateY(10px);} to{opacity:1; transform:translateX(-50%);}}
-  .cp-grab{display:flex;}
-  .cp-close{top:15px;}   /* the grip took the top edge */
-  /* dragged to a height of the reader's own: the 52% cap gives way to it entirely, and the head gives up
-     its share of the box first so the title survives all the way down to the floor */
-  .country-pop.cp-sized{max-height:none; overflow:hidden;}
-  .country-pop.cp-resizing{transition:none;}
+  /* THE FOLD (Aug 2026, on request — it was a jumpcut). The height is an explicit px value in both states
+     (cpApplyH: the measured name, or the page's own need), so it is the one thing here CSS can ease; the
+     52% cap gives way to it entirely, and the head gives up its share of the box first so the title
+     survives all the way down to the floor. What CSS cannot ease is the `display:none` below, which is why
+     JS applies .cp-shut at the two ENDS of the movement rather than at the start of it — keep this duration
+     in step with CP_FOLD_MS in app.js. */
+  .country-pop.cp-sized{max-height:none; overflow:hidden; transition:height .26s var(--ease);}
   .cp-sized .cp-head{max-height:none; flex:0 1 auto; min-height:0;}
   .cp-head{max-height:46%; overflow-y:auto;}   /* "Through the ages" can run to a dozen rows — cap it, or it pushes the pages off the sheet */
   .cp-cols{display:flex; flex-direction:row; flex:1; gap:0; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; padding-right:0; scrollbar-width:none; -webkit-overflow-scrolling:touch;}
@@ -3321,9 +3361,12 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
      The height is set in JS (see cpApplyH — the floor is measured, since a long name wraps and a drilled
      place carries a breadcrumb), so all this does is take the parts below the title out of the box and
      turn the chevron over. `overflow:hidden` on the sheet is already set by .cp-sized. */
+  /* No border and no fill (Aug 2026, on request): the chevron sits on the title's own line, and a boxed
+     tile there reads as a second thing to press rather than as the name's own control. The hit area stays
+     30px — the box was never what made it tappable. */
   .cp-more{display:inline-flex; align-items:center; justify-content:center; margin-left:auto; flex:none;
-    width:30px; height:30px; padding:0; border:1px solid var(--rule); border-radius:9px;
-    background:var(--paper-2); color:var(--ink-soft); cursor:pointer; transition:transform .22s var(--ease);}
+    width:30px; height:30px; padding:0; border:none; border-radius:9px;
+    background:transparent; color:var(--ink-soft); cursor:pointer; transition:transform .22s var(--ease);}
   .cp-more svg{width:17px; height:17px;}
   .cp-more[aria-expanded="true"]{transform:rotate(180deg);}
   .cp-shut .cp-cols,.cp-shut .cp-dots,.cp-shut .cp-tools,.cp-shut .cp-hist{display:none;}
@@ -4320,6 +4363,10 @@ button.game-tile .gt-glyph{opacity:.14;}
     text-align:center; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .tabbar .tab.active{color:var(--indigo);}
   .tabbar .tab.active::before{content:""; position:absolute; top:0; left:50%; transform:translateX(-50%); width:26px; height:2.5px; border-radius:0 0 3px 3px; background:var(--indigo);}
+  /* the phone bar draws its own active mark, so the admin colour is repeated here — with an extra class
+     for specificity, since a media query adds none and the rule above it is otherwise a tie */
+  .tabbar .tab.tab-admin.active{color:var(--admin);}
+  .tabbar .tab.tab-admin.active::before{background:var(--admin);}
   .tabbar .tab:active{background:color-mix(in srgb, var(--ink) 5%, transparent);}
   body.grading .tabbar{display:none;}
   /* everything anchored to the bottom of the viewport moves up by the bar's height. The Atlas needs no rule
@@ -6333,7 +6380,7 @@ body.night .rv-star.on{color:#E6C765;}
    spine and read alike — which is the whole point of the colour.
    `--tile` is set INLINE on the element (bookColor in app.js), so it cannot be overridden from here; a
    derived property can, which is why the indirection exists at all. */
-.book-tile{
+.book-tile, .gloss-book{
   --bk-accent:var(--tile, var(--indigo));
   position:relative; display:flex; gap:0; text-align:left; padding:0; overflow:hidden;
   background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 34%, transparent), transparent 64%) var(--card);
@@ -6341,7 +6388,7 @@ body.night .rv-star.on{color:#E6C765;}
   box-shadow:var(--shadow-sm); cursor:pointer; font:inherit; color:inherit;
   transition:transform .14s var(--ease), box-shadow .14s var(--ease), border-color .14s var(--ease), background-color .14s var(--ease);
 }
-body.night .book-tile{
+body.night .book-tile, body.night .gloss-book{
   --bk-accent:color-mix(in srgb, var(--tile, var(--indigo)) 45%, #FFFFFF);
   background:linear-gradient(105deg, color-mix(in srgb, var(--bk-accent) 20%, transparent), transparent 64%) var(--card);
 }
@@ -6363,8 +6410,8 @@ body.night .book-tile{
    of the declaration above it, it would poison every property that reads it. Browsers without relative
    colour keep exactly the two rules above. */
 @supports (color: oklch(from red l c h)){
-  .book-tile{--bk-accent:oklch(from var(--tile, var(--indigo)) calc(l - 0.01) calc(c * 1.5) h);}
-  body.night .book-tile{--bk-accent:oklch(from var(--tile, var(--indigo)) 0.74 calc(c * 1.3) h);}
+  .book-tile, .gloss-book{--bk-accent:oklch(from var(--tile, var(--indigo)) calc(l - 0.01) calc(c * 1.5) h);}
+  body.night .book-tile, body.night .gloss-book{--bk-accent:oklch(from var(--tile, var(--indigo)) 0.74 calc(c * 1.3) h);}
 }
 /* A banner is HELD for its options sheet, so holding it must not select the title under the finger, and on
    iOS must not raise the platform's own callout — the guard the daily review's rows already carry. */

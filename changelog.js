@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.283", released: "2026-08-20T15:46Z" };
+window.FOLIO_VERSION = { v: "1.284", released: "2026-08-20T18:02Z" };
 
 window.CHANGELOG = [
   {
@@ -77,6 +77,11 @@ window.CHANGELOG = [
       "<b>Forty-eight more True or False statements</b>, including thirteen on psychology, where a good many confident beliefs turn out never to have been established.",
       "<b>The picture round no longer asks you to name a period, a state or an idea</b> from one picture of it, and draws only on well-known subjects.",
       "<b>A perfect game now leaves a gold wax seal</b> on its tile, in the corner where a finished game shows its green check.",
+      "<b>A place\u2019s panel on the Atlas now opens and closes with one chevron</b>, sliding rather than jumping, and the handle for dragging it taller is gone.",
+      "<b>A glossary term about a book on the shelf now offers that book</b>, as a small banner under the description that opens it in the Library.",
+      "<b>The whiteboard marker now remembers the width you last drew at</b> between visits, and its Stylus only row is now called Stylus mode.",
+      "<b>Footnote numbers and a card\u2019s picture can now be tapped while the marker is out</b>, so following a citation no longer means putting the pen away first.",
+      "For those with the editor: a <b>War of Ages</b> tab holds a place for a game to come, and the tabs only editors can see are drawn in a colour of their own.",
     ],
   },
   {

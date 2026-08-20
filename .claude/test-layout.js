@@ -836,7 +836,8 @@ function scrimCheck() {
       const b = f && f.getBoundingClientRect();
       return { shown: !!f && f.checkVisibility(), plain: !!f && f.classList.contains("aef-plain"),
         right: b ? Math.round(innerWidth - b.right) : null, top: b ? Math.round(b.top) : null, vw: innerWidth, vh: innerHeight,
-        tabbarEdit: !!document.querySelector(".tabbar .tab-admin"), topbarEdit: !!document.querySelector(".topbar .tab-admin") };
+        tabbarEdit: !!document.querySelector(".tabbar .tab[data-route='admin']"), topbarEdit: !!document.querySelector(".topbar .tab[data-route='admin']"),
+        adminTabs: [...document.querySelectorAll(".tab.tab-admin")].map((t) => t.dataset.route) };
     });
     check("[" + tag + "] the tab bar no longer carries Edit", !home.tabbarEdit);
     check("[" + tag + "] ...the top bar still does", home.topbarEdit);
@@ -875,6 +876,18 @@ function scrimCheck() {
     await page.waitForTimeout(1200);
     await studyEasy(page, base, 0);
     check("[" + tag + "] a reader gets no Edit button at all", !(await page.evaluate(() => !!document.querySelector("#admin-edit-fab"))));
+    /* An admin-only TAB is hidden the same way, and is asserted separately because it fails differently:
+       the Edit tab has a button of its own to fall back on and War of Ages has none, so a tab left showing
+       is the only thing between a reader and a page written for nobody but the editor. */
+    const readerTabs = await page.evaluate(() =>
+      [...document.querySelectorAll(".tab.tab-admin")].map((t) => ({ r: t.dataset.route, on: t.checkVisibility() })));
+    check("[" + tag + "] ...nor any admin-only tab", readerTabs.length > 0 && readerTabs.every((t) => !t.on), JSON.stringify(readerTabs));
+    /* …and the guard is the ROUTE rather than the hidden tab, since the address is typeable. Boot renders
+       directly rather than through route(), so a cold load is a second door and is checked as one. */
+    await page.goto(base + "?cold=1#warofages", { waitUntil: "load" });
+    await page.waitForTimeout(1200);
+    const cold = await page.evaluate(() => ({ hash: location.hash, wa: !!document.querySelector(".woa-page") }));
+    check("[" + tag + "] ...and a typed admin address sends a reader home", cold.hash !== "#warofages" && !cold.wa, JSON.stringify(cold));
     await page.evaluate(() => { const s = JSON.parse(localStorage.getItem("folio_v1")); s.settings.adminMode = true; localStorage.setItem("folio_v1", JSON.stringify(s)); });
     await page.close();
   }
@@ -1981,11 +1994,15 @@ function scrimCheck() {
        list written out here, so a tab added or removed later fails on the rule instead of on a copy of it
        that nobody remembered to update. */
     const order = await page.evaluate(() =>
-      ({ tabs: [...document.querySelectorAll(".tabbar .tab")].map((t) => t.dataset.route) }));
+      ({ tabs: [...document.querySelectorAll(".tabbar .tab:not(.tab-admin)")].map((t) => t.dataset.route) }));
     const appjs = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
     const swipeOrder = (appjs.match(/const SWIPE_ORDER = \[([^\]]*)\]/) || [])[1] || "";
     const swipeNames = swipeOrder.split(",").map((s) => s.trim().replace(/^"|"$/g, "")).filter(Boolean);
-    check("the swipe order is the tab bar's, minus the Atlas",
+    /* …minus the ADMIN-ONLY tabs too (Aug 2026, with War of Ages). A swipe must not be able to land a
+       reader on a page most readers cannot reach at all, and deriving the order from what is VISIBLE
+       would make it a different order for an editor than for everybody else — so the rule is about the
+       kind of destination rather than about who is looking. */
+    check("the swipe order is the tab bar's, minus the Atlas and the admin-only pages",
       swipeNames.join(",") === order.tabs.filter((t) => t !== "map").join(","),
       swipeNames.join(",") + "  vs bar " + order.tabs.join(","));
 
@@ -2099,11 +2116,15 @@ function scrimCheck() {
       const p = document.querySelector("#countryPop").getBoundingClientRect();
       return { slack: Math.round(cols.clientHeight - panes[i].scrollHeight), h: Math.round(p.height), top: Math.round(p.top), pane: i, panes: panes.length };
     });
+    /* THE DRAG IS GONE (Aug 2026, on request — "remove the size dragging system, and keep only the
+       chevron"). Asserted as an ABSENCE from the DOM rather than as a hidden element: a grip that is
+       merely display:none is still a pointer target on any width where the rule stops matching, and the
+       whole point of removing it is that there is one control and not two. */
     const start = await page.evaluate(() => {
       const p = document.querySelector("#countryPop");
-      return { hidden: p.hidden, grip: getComputedStyle(document.querySelector("#cpGrab")).display, h: Math.round(p.getBoundingClientRect().height) };
+      return { hidden: p.hidden, grip: !!document.querySelector("#cpGrab"), h: Math.round(p.getBoundingClientRect().height) };
     });
-    check("the place sheet carries a resize grip", !start.hidden && start.grip !== "none", JSON.stringify(start));
+    check("the place sheet has no resize grip", !start.hidden && !start.grip, JSON.stringify(start));
 
     /* SHUT BY DEFAULT since Aug 2026, on request: "the popup panel at the bottom should only open far
        enough to reveal the name of the state, but have a chevron that can reveal the information sections,
@@ -2115,20 +2136,31 @@ function scrimCheck() {
       const p = document.querySelector("#countryPop"), t = document.querySelector(".cp-titlerow");
       const more = document.querySelector("#cpMore");
       const pr = p.getBoundingClientRect(), tr = t.getBoundingClientRect();
+      const cs = getComputedStyle(more);
+      const mr = more.getBoundingClientRect();
       return {
         h: Math.round(pr.height),
         shut: p.classList.contains("cp-shut"),
         titleShown: tr.top >= pr.top - 1 && tr.bottom <= pr.bottom + 1,
         name: (document.querySelector("#cpName") || {}).textContent || "",
-        chevron: !!more && !more.hidden && getComputedStyle(more).display !== "none",
+        chevron: !!more && !more.hidden && cs.display !== "none",
         expanded: more && more.getAttribute("aria-expanded"),
         colsShown: getComputedStyle(document.querySelector(".cp-cols")).display !== "none",
+        border: parseFloat(cs.borderTopWidth) || 0,
+        bg: cs.backgroundColor,
+        cw: Math.round(mr.width), ch: Math.round(mr.height),
       };
     });
     check("a place opens SHUT — its name and nothing else", shut.shut && !shut.colsShown, JSON.stringify(shut));
     check("...still showing the name it was opened for", shut.titleShown && shut.name.length > 0, shut.name);
     check("...with a chevron offering the rest", shut.chevron && shut.expanded === "false", JSON.stringify(shut));
     check("...and covering a fraction of the map", shut.h < PHONE.height * 0.3, shut.h + " of " + PHONE.height);
+    /* No border and no fill (Aug 2026, on request — "remove the darkened background square behind the
+       chevron"), and still a real target: the box was never what made it tappable, so losing it must not
+       shrink the hit area. */
+    check("...drawn bare rather than as a boxed tile",
+      shut.border === 0 && /rgba\(0, 0, 0, 0\)|transparent/.test(shut.bg), JSON.stringify({ border: shut.border, bg: shut.bg }));
+    check("...at a tappable size all the same", shut.cw >= 28 && shut.ch >= 28, shut.cw + "x" + shut.ch);
 
     await page.click("#cpMore");
     await page.waitForTimeout(500);
@@ -2146,20 +2178,30 @@ function scrimCheck() {
 
     const s0 = await slack();
     check("...and opens no taller than the page in it needs", s0.slack <= 24, JSON.stringify(s0));
-    const drag = async (toY) => {
-      const g = await page.evaluate(() => document.querySelector("#cpGrab").getBoundingClientRect().toJSON());
-      await page.mouse.move(g.x + g.width / 2, g.y + g.height / 2);
-      await page.mouse.down();
-      await page.mouse.move(g.x + g.width / 2, toY, { steps: 12 });
-      await page.mouse.up();
-      await page.waitForTimeout(350);
-    };
-    // dragged hard at the top of the screen it must NOT grow past its content — that is the whole request
-    await drag(8);
-    const tall = await slack();
-    check("...and dragging it up stops at the content, not the screen", tall.slack <= 24 && tall.top > 8,
-      JSON.stringify({ start: s0, tall: tall }));
+
+    /* IT FOLDS RATHER THAN CUTTING (Aug 2026, on request), and both halves are measured MID-FLIGHT — a
+       settled fold and a jumpcut end in exactly the same place, so anything asserted afterwards passes on
+       either. The height must genuinely be BETWEEN the two states part way through; and the sections must
+       still be on the page while it shrinks, since `display:none` cannot be transitioned and taking the
+       content away before the box closes is the jumpcut the request is about. */
+    const folding = await page.evaluate(async () => {
+      const p = document.querySelector("#countryPop");
+      const from = p.getBoundingClientRect().height;
+      document.querySelector("#cpMore").click();
+      await new Promise((r) => setTimeout(r, 90));
+      const mid = p.getBoundingClientRect().height;
+      const colsShown = getComputedStyle(document.querySelector(".cp-cols")).display !== "none";
+      await new Promise((r) => setTimeout(r, 600));
+      return { from: Math.round(from), mid: Math.round(mid), to: Math.round(p.getBoundingClientRect().height), colsShown };
+    });
+    check("...and shutting it EASES rather than cutting", folding.mid < folding.from - 4 && folding.mid > folding.to + 4,
+      JSON.stringify(folding));
+    check("...with its sections still on the page while it closes", folding.colsShown, JSON.stringify(folding));
+
+    await page.click("#cpMore");
+    await page.waitForTimeout(600);
     // …and a swipe to another page re-fits it. The figures grid is far shorter than the description.
+    const tall = await slack();
     await page.evaluate(async () => {
       const cols = document.querySelector(".cp-cols");
       cols.scrollLeft = cols.clientWidth * ([...cols.children].filter((c) => !c.hidden && !c.classList.contains("cp-blank")).length - 1);
@@ -2170,32 +2212,24 @@ function scrimCheck() {
     const swiped = await slack();
     check("...swiping to a shorter page shrinks the sheet to fit it", swiped.slack <= 24 && swiped.h <= tall.h + 1,
       JSON.stringify({ tall: tall, swiped: swiped }));
-    // shrunk by hand: the floor still shows the title, and the height carries to the next place
-    await drag(PHONE.height - 10);
-    const small = await page.evaluate(() => {
-      const p = document.querySelector("#countryPop").getBoundingClientRect();
-      const t = document.querySelector(".cp-titlerow").getBoundingClientRect();
-      return { h: Math.round(p.height), titleShown: t.top >= p.top - 1 && t.bottom <= p.bottom + 1 };
-    });
-    check("...shrunk to the floor it still shows its title bar", small.titleShown && small.h < 220, JSON.stringify(small));
 
-    /* THE DRAGGED HEIGHT IS KEPT AS THE CEILING THE CHEVRON OPENS TO, not as the height the next place
-       shows — which is the whole of what "always collapsed by default" changed here. Both halves are
-       asserted, because they fail in opposite directions: a sheet that opened at the remembered height
-       would be ignoring the request, and one that FORGOT the height would make the drag pointless. */
+    /* THE NEXT PLACE OPENS SHUT, AND THEN TO ITS OWN PAGE'S HEIGHT — there is nothing remembered now, which
+       is what removing the drag bought. Both halves are asserted because they fail in opposite directions:
+       a sheet still carrying a height from the last place would be the thing the grip was removed for, and
+       one that would not open at all is worse than either. */
     await page.evaluate(() => { location.hash = "#map/2026/spain"; });
     await page.waitForTimeout(1800);
     const next = await page.evaluate(() => {
       const p = document.querySelector("#countryPop");
       return { h: Math.round(p.getBoundingClientRect().height), shut: p.classList.contains("cp-shut") };
     });
-    check("...and the NEXT place opens shut too, whatever the last was left at", next.shut && next.h <= small.h + 6,
-      JSON.stringify({ next: next, last: small.h }));
+    check("...and the NEXT place opens shut too", next.shut && next.h < PHONE.height * 0.3,
+      JSON.stringify(next));
     await page.click("#cpMore");
-    await page.waitForTimeout(500);
-    const reopened = await page.evaluate(() => Math.round(document.querySelector("#countryPop").getBoundingClientRect().height));
-    check("...and opening it lands on the height the reader dragged to", Math.abs(reopened - small.h) <= 8,
-      reopened + " vs " + small.h);
+    await page.waitForTimeout(600);
+    const reopened = await slack();
+    check("...and opens to what ITS own page needs", reopened.slack <= 24 && reopened.h > next.h,
+      JSON.stringify({ shut: next.h, opened: reopened }));
     await page.close();
   }
 

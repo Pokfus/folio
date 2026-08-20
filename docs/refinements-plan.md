@@ -139,3 +139,42 @@ written and its version is bumped** — the three go in one commit, per the rule
   beside it) and the Node builder's shim did not, so the two drew from pools five cards apart and
   compared two genuinely different grids. It reads as a SEEDING fault rather than as a stale shim, which
   is why it sat there; the shim carries `cardMapSpec` now.
+- **F — Reading surfaces.** `test-layout.js` 321/0, `test-library.js` 333/0, `test-sources.js` 81/0,
+  `test-atlas-places.js` 16/0, `test-a11y.js` 9/0.
+  **The Atlas sheet lost a control rather than gaining one**, which is the shape of the request: it had
+  two ways to open — a drag handle on the title bar and a chevron — and two answers to one question is
+  what made the sheet feel arbitrary. The drag, its stored height and the whole `cp-resizing` path are
+  gone; what is left is a fold with two positions, and because a `display:none` cannot be transitioned the
+  class is applied at the two ENDS of the movement (removed at once when opening, so the content is there
+  to be revealed and measured; applied after the transition when shutting). The chevron is drawn bare, the
+  boxed tile behind it having read as a second control beside the ×.
+  **A BOOK'S GLOSSARY TERM IS JOINED TO ITS BOOK BY A DECLARED TABLE, NOT BY ITS TITLE.** Matching the two
+  by name was measured first and is worse than useless: folded on both sides it finds three of forty-eight
+  books, and loosened enough to find more it offers five COUNTRIES as Plato's Republic. Three rows
+  (`GLOSS_BOOK`) say what the join is, which is the codebase's own pattern for a judgement —
+  `ENTITY_SINCE`, `SUPPLEMENT`, `RENAME`, `FORCE_POS`. The banner is the shelf's own tile in miniature and
+  reads `--bk-accent` rather than `--tile`, so it takes the day and night mixes the shelf already derives.
+  **The marker's remembered width stores the WIDTH and not the tool**, because a size click also puts the
+  pen down — restoring the tool would have the marker start drawing over a page the reader has only just
+  opened. Device-local, like the custom colour and where the marker sits.
+  **A FOOTNOTE MARKER AND A PICTURE ARE `TIP_SEL` TARGETS, NEVER `CTL_SEL` ONES**, and the picture is the
+  case that makes it plain: claimed at pointerdown a picture could not be drawn on at all, which is what a
+  marker is for. Tapped they open; drawn across they take ink.
+  **AND AN ADMIN-ONLY ROUTE IS REFUSED IN TWO PLACES, BECAUSE THERE ARE TWO DOORS.** `ADMIN_ROUTES` covers
+  `route()`; boot renders directly and needs its own line — which `#warofages` reached a visitor through
+  for an hour. The boot refusal is PROVISIONAL and deliberately leaves the address alone: at that moment
+  nobody knows whether this reader is an admin, and rewriting it then would take `#admin` away from an
+  editor whose session merely had not been restored yet. `bootAdminSettled()` is called on every path
+  where the answer IS known — an admin is sent back to the page they reloaded, everyone else has the
+  address corrected — which is the `#community` redirect's rule with the tense fixed.
+  **`test-layout.js`'s Edit-tab assertion had been reading `.tabbar .tab-admin`**, a proxy that was unique
+  until this batch gave that class a second wearer. It reads `[data-route='admin']` now, and the rule it
+  was standing in for — no admin-only tab is visible to a reader, and the typed address turns them back —
+  is asserted directly beside it.
+  **AND `test-atlas-places.js` HAD BEEN CHOOSING ITS COLLECTION BY BEING FIRST**, which stopped meaning
+  anything the day China opened for study: its section 4 studies until a card links a place term, and a
+  card of Chinese myth links none — so it walked fourteen cards and reported the map marker missing, at
+  HEAD as well as on this branch. Both failures were confirmed pre-existing before anything was touched.
+  The collection is DERIVED now, by counting how many of a collection's cards name a term the Atlas can
+  place, and the day's allowance is raised with it: at five new cards a day a fourteen-card walk only ever
+  sees five, so a fixture that names a quantity has to name the limit that lets it reach one.
