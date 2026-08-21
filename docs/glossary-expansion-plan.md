@@ -164,7 +164,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N1 | 6 | Bronze and Iron Age tripartite divisions (Early / Middle / Late, both) — **shipped**, all six pictured |
 | N2 | 11 | Minoan chronology I — Early Minoan and Middle Minoan — **shipped** |
 | N3 | 8 | Minoan chronology II — Late Minoan — **shipped**, all eight pictured |
-| N4 | 14 | Helladic chronology |
+| N4 | 14 | Helladic chronology — **shipped**, 10 of 14 pictured |
 | N5 | 11 | Troy levels |
 | N6 | 12 | Aegean prehistorians and museums |
 | N7 | 12 | Athens topography |
@@ -195,6 +195,33 @@ does not belong in a Minoan-chronology batch anyway. *LM IIIA1* and *LM IIIA2* a
 `Late_Minoan_IIIA`** rather than terms of their own — N2's rule, applied to the same evidence:
 Rutter treats LM IIIA in one section, says it is "sometimes further subdivided", and gives a
 distinct diagnostic only for IIIA2. The same call was made for MM IIA/IIB.
+
+**N4's finding is that the guard has to check the SOURCE COUNT, not only the prose.** `build.js`
+verifies sentences, words, the unmarked first sentence, marker overrun and every-source-referenced —
+and NOT the ≥2-citation bar — so it reported "all ready: 14" on a batch in which **eight of the
+fourteen carried one citation**, which `add-glossary.js` would have refused entry by entry. The
+second source was then wired into each of the eight by finding a claim the entry actually makes in
+another Rutter lesson and either marking the sentence that already carried it (six) or appending a
+short clause carrying it (three, folded in with a **semicolon** so the sentence count stays three).
+No source list was padded. **A build guard that stops short of the tool it feeds is a guard that
+reports a pass the tool will refuse**; the batch is now verified twice, once by the build and once by
+an independent check of `src>=2 && allref`.
+
+**And the alias rule bit twice in one batch, which makes it three instances in this pass.**
+`Mycenaean_Greece` held `"Late Helladic"` and `Postpalatial_Greece` held `"Late Helladic IIIC"` —
+both written before those keys existed, and the second an EXACT tie that `buildGlossIndex`'s
+longest-first sort cannot resolve. Both removed. **Sweep the corpus for a collision after adding any
+key whose surface a sibling might already be claiming**, and note that fixing the first collision is
+what made the second visible.
+
+**Ten of the fourteen are pictured and the four without say why.** `Helladic_chronology` is a dating
+framework rather than a thing, so a chart would be somebody's own reconstruction rather than a
+photograph; `Early_Helladic_I` has no free image of Eutresis-culture material at the ~900px bar;
+`Middle_Helladic` has none either — every free photograph of Minyan ware and of Aegina matt-painted
+ware found is about 500px on the long side (Minyan ware 01, the Minyan kylix at Thebes, the Minyan
+amphoriskos, the Troizen stemmed goblet, the Aegina storage jar), which is the whole diagnostic of
+the phase unavailable at the bar; and `Late_Helladic`'s emblematic objects are all spoken for by its
+own subdivisions.
 
 **The provinces are their own phase and should be worked last**, for two reasons: they are a
 quarter of the whole pass, and they are the only part of it that is a table rather than a
