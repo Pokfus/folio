@@ -4232,35 +4232,28 @@ window.COLLECTION_TREE = {
       ]
     },
     {
-      "id": "geography",
-      "title": "Geography",
+      "id": "geo-us",
+      "title": "United States",
       "total": 5,
       "placeholder": false,
       "children": [
         {
-          "id": "geo-us",
-          "title": "The United States",
+          "id": "geo-us-states",
+          "title": "The states",
           "placeholder": false,
-          "children": [
-            {
-              "id": "geo-us-states",
-              "title": "The states",
-              "placeholder": false,
-              "cardIds": [
-                "geo-001",
-                "geo-002",
-                "geo-003",
-                "geo-004"
-              ]
-            },
-            {
-              "id": "geo-us-capitals",
-              "title": "The state capitals",
-              "placeholder": false,
-              "cardIds": [
-                "geo-504"
-              ]
-            }
+          "cardIds": [
+            "geo-001",
+            "geo-002",
+            "geo-003",
+            "geo-004"
+          ]
+        },
+        {
+          "id": "geo-us-capitals",
+          "title": "The state capitals",
+          "placeholder": false,
+          "cardIds": [
+            "geo-504"
           ]
         }
       ]

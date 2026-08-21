@@ -958,8 +958,11 @@ body[data-theme="folio"] .collection-deco::after{
 .node-children.open{grid-template-rows:1fr;}
 .node-children-inner{overflow:hidden;}
 .node-children-pad{padding:4px 16px 18px 16px; display:flex; flex-direction:column; gap:9px;}
+/* align-items is FLEX-START rather than centre because every row is two lines now — a title with the
+   count and the size under it — so the number, the + and the chevron line up with the NAME rather than
+   with the middle of the block. */
 .node{
-  display:flex; align-items:center; gap:16px; padding:15px 18px; cursor:pointer;
+  display:flex; align-items:flex-start; gap:16px; padding:15px 18px; cursor:pointer;
   background:var(--paper); border:1px solid var(--rule); border-radius:11px;
   border-left:3px solid var(--indigo);
   transition:transform .16s var(--ease), background .18s, box-shadow .2s, border-color .2s;
@@ -1018,6 +1021,12 @@ body[data-theme="folio"] .collection-deco::after{
 .node-num{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); font-weight:500; flex:none; width:18px;}
 .node-main{flex:1; min-width:0;}
 .node-title-row{display:flex; align-items:center; gap:9px; flex-wrap:wrap; row-gap:4px;}
+/* THE FIGURES ARE A LINE OF THEIR OWN, on both shelves and at every width. They used to sit on the
+   title's line and wrap onto a second one when they would not fit, so whether a deck stated its size
+   under its name or beside it was a function of the window and of how long that deck happened to be
+   called — which is what made "the same way history decks do" impossible to point at. */
+.node-meta{display:flex; align-items:center; gap:9px; flex-wrap:wrap; row-gap:4px; margin-top:5px;}
+.node-meta:empty{display:none;}
 .node-title{font-family:var(--serif); font-weight:600; font-size:calc(17px * var(--fs)); line-height:1;}
 .node-span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
 /* how many cards the deck holds — the collection banner's own `.collection-count`, a size down to sit on
@@ -4160,16 +4169,15 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
    wider and must not be squeezed into it. */
 .lang-deck .collection-actions{align-items:center; flex:none;}
 .lang-add{flex:none; white-space:nowrap;}
-/* A deck row carries two quiet lines under its title where a curated one carries none, so its own
-   bottom padding is what keeps the box from reading as cramped; .udeck-sub's trailing margin does the
-   rest. The progress bar only appears on an installed deck, so the row has two heights by design. */
-.node.lang-deck{align-items:flex-start; padding-block:10px;}
+/* THE TWO SHELVES ARE ONE ROW NOW, so this sets no box of its own: a language deck and a curated deck
+   both carry a title with the count and the size on a line under it, and a row that padded itself
+   differently would be the very divergence the request is about. What is left is the alignment, which
+   both shelves share for the same reason — the number, the + and the chevron sit against the TITLE
+   rather than against the middle of a two-line block. */
 .node.lang-deck .node-main{min-width:0;}
 /* A DECK'S OWN SUBDECKS (Aug 2026, on request — "I should see the 9 decks inside it, and any subdecks
    if there are, displayed in the same way as History decks and subdecks"). They are the curated .node in
-   a .node-children fold, so almost nothing is needed here: what a subdeck row has NOT got is the two
-   quiet lines a deck row carries, so it takes .node's own single-line box back. */
-.node.lang-sub{align-items:center; padding-block:12px;}
+   a .node-children fold, so nothing is needed here but the collection's hue on the left edge. */
 .collection .node.lang-sub{border-left-color:var(--coll-bg, var(--indigo));}
 .collection .node.branch.lang-sub{border-left-color:var(--ochre);}
 /* The deck count beside a language's title is a FACT ABOUT THE COLLECTION rather than a date, so it

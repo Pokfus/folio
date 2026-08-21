@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.295", released: "2026-08-21T15:38Z" };
+window.FOLIO_VERSION = { v: "1.296", released: "2026-08-21T17:52Z" };
 
 window.CHANGELOG = [
   {
@@ -58,8 +58,13 @@ window.CHANGELOG = [
       "<b>Every deck row now says how large it is</b> \u2014 what a language deck will download, and what a history deck\u2019s cards weigh in the site you already have.",
       "<b>Adding a language deck no longer downloads it</b> \u2014 it joins your daily study with a Download button, so a deck added on one device waits for you on the others.",
       "<b>A downloaded deck is now yours alone</b>, visible only to the account that downloaded it, even where two people share a device.",
-      "<b>The Mandarin, Indonesian and Portuguese collections now list their decks directly</b>, rather than inside one folder holding them all.",
+      "<b>The Mandarin, Indonesian and Portuguese collections now list their decks directly</b> \u2014 and Mandarin\u2019s nine are nine separate downloads rather than one 20 MB file.",
       "<b>A far larger deck file can now be imported</b> \u2014 the caps were raised so one file holding every language deck on the shelf will open.",
+      "<b>The Collections page is now grouped by subject</b> \u2014 History, then Geography, then Languages, with the United States a collection of its own under Geography.",
+      "<b>A whole language can be added in one press</b>, its banner carrying the same + a history collection\u2019s does.",
+      "<b>A language deck no longer repeats its language in its title</b>, the collection above it already saying so.",
+      "<b>The languages are ordered by how many people grow up speaking them</b>, and each now has a colour of its own.",
+      "<b>Decks you add from one collection now group under it in your daily study</b>, even when you add only some of them.",
     ],
   },
   {

@@ -19,10 +19,12 @@
    reads each one's hue, icon and studied/total bar, opens one, reads a deck row's figures back against
    the catalogue, and then really adds the smallest deck there is and checks it arrives on the page.
 
-   IT ALSO ASSERTS WHAT A LANGUAGE BANNER MUST **NOT** HAVE: the collection-level `+`. A curated
-   collection's + adds its whole subtree to the daily review, and there is no study scope for "several
-   community decks" — nor should pressing one silently download 21 MB of Mandarin. A + that appeared
-   here would look like a working control and would be one of those two things. */
+   THE BANNER'S `+` IS ASSERTED IN BOTH DIRECTIONS, and this file used to assert its ABSENCE — a
+   language banner deliberately carried none while Add meant DOWNLOAD, since pressing one would have
+   fetched 21 MB of Mandarin. Add and Download are separate presses now (Aug 2026, on request), so the
+   + adds the language's deck rows' own entries and nothing is fetched; what is asserted is that it
+   reaches EVERY deck of that language, that a second press takes them all out again, and — the half a
+   half-working control would still pass — that it lights up only when every one of them is in. */
 "use strict";
 const http = require("http");
 const fs = require("fs");
@@ -51,6 +53,16 @@ function check(name, ok, extra) {
   if (ok) { pass++; console.log("ok    " + name + (extra ? "  " + extra : "")); }
   else { fail++; console.log("FAIL  " + name + (extra ? "  " + extra : "")); }
 }
+
+/* `langShortTitle` out of app.js, so the row-title expectation below is the SITE'S rule rather than a
+   copy of it. Sliced by text the way test-daily-quote.js takes `quoteRunningOrder`; the assertion that
+   the slice was found at all is what makes a rename fail loudly instead of quietly matching nothing. */
+const APP_SRC = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
+const SHORT_SRC = (APP_SRC.match(/\n  function langShortTitle\(title, lang\) \{[\s\S]*?\n  \}\n/) || [])[0] || "";
+let shortTitle = (t) => t;
+try { shortTitle = new Function(SHORT_SRC + "\nreturn langShortTitle;")(); } catch (e) { /* reported below */ }
+check("langShortTitle is still in app.js and runs", !!SHORT_SRC && shortTitle("DELE A1 \u2014 Spanish", "Spanish") === "DELE A1",
+  SHORT_SRC ? shortTitle("DELE A1 \u2014 Spanish", "Spanish") : "not found");
 
 /* ---------- 1. the catalogue, with no browser at all ---------- */
 const CAT = path.join(ROOT, "lang-decks.js");
@@ -195,8 +207,14 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     check("…each holding exactly its own decks", sec.colls.every((c) => c.rows === topRows(c.title)),
       sec.colls.map((c) => c.title + ":" + c.rows + " vs " + topRows(c.title)).join(" "));
 
-    // the one control a curated banner has that this must not — see the header
-    check("…and no collection-level + on any of them", sec.colls.every((c) => !c.plus));
+    /* AND A COLLECTION-LEVEL + ON EVERY ONE (Aug 2026, on request: "language collections should be
+       able to be added as one complete package, the same way as History collections"). This assertion
+       used to run the other way — the banner deliberately carried none, because Add meant DOWNLOAD and
+       there is no study scope for "several community decks" — and BOTH halves of that reasoning have
+       since gone: Add and Download were split, so the + costs nothing to press, and it adds the deck
+       rows' own ENTRIES rather than minting a scope of its own. Section 3b asserts the behaviour. */
+    check("…and a + on every one of them", sec.colls.every((c) => c.plus),
+      sec.colls.map((c) => c.title + ":" + (c.plus ? "+" : "—")).join(" "));
     check("…while every one can be opened", sec.colls.every((c) => c.chev));
 
     /* AND NO PARAGRAPH SAYING ADD DOWNLOADS, because it no longer does (Aug 2026, on request: "Adding a
@@ -239,6 +257,15 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
              sizeTitle: (el.querySelector(".node-size") || {}).getAttribute
                ? el.querySelector(".node-size").getAttribute("title") : "",
              num: (el.querySelector(".node-num") || {}).textContent || "",
+             /* THE FIGURES ARE ON A LINE OF THEIR OWN, UNDER THE TITLE (Aug 2026, on request: "language
+                decks should say the card number and file size below their title, the same way history
+                decks do"). They used to share the title's line and WRAP when they would not fit, so the
+                same shelf read differently at different widths and neither could be pointed at as "the
+                way the other one does it" — which is why both halves are asserted: that the figures are
+                inside `.node-meta`, AND that the title's own line carries neither of them. */
+             meta: !!el.querySelector(".node-meta"),
+             metaHasFigures: !!(el.querySelector(".node-meta .node-count") && el.querySelector(".node-meta .node-size")),
+             titleRowClean: !el.querySelector(".node-title-row .node-count") && !el.querySelector(".node-title-row .node-size"),
              /* THE DECK ROW IS THE CURATED TREE'S `.node` (Aug 2026, on request), so it is the same box
                 as a collection's decks one section up — but it is NOT a button, since there is nothing
                 to study until it has been added and downloaded, and a row click would mean a 21 MB
@@ -251,13 +278,24 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     check("…in the curated tree's own row shape", row.isNode);
     check("…and not itself pressable", !row.pressable);
     check("…numbered like a curated deck", /^\d\d$/.test(row.num.trim()), row.num);
-    check("…titled from the catalogue", row.title === plain.title, row.title);
+    /* THE TITLE IS THE CATALOGUE'S WITH THE LANGUAGE TRIMMED OFF (Aug 2026, on request: "language decks
+       do not need to name the language in their title, since its already mentioned in the collection
+       name"). The expectation is the SITE'S OWN `langShortTitle`, sliced out of app.js and run here, for
+       the reason a label is never written into a test: a literal pins the wording of the day it was
+       written rather than the rule, and this one would go stale the first time the trim is refined. Both
+       halves are asserted, since a trim that stopped firing and one that ate the whole title look
+       identical from one side. */
+    check("…titled from the catalogue, without the language", row.title === shortTitle(plain.title, plain.lang),
+      row.title + " vs " + shortTitle(plain.title, plain.lang));
+    check("…and still saying something", row.title.trim().length > 0, row.title);
     check("…and stating its card count", row.count.replace(/[^\d]/g, "") === String(plain.cards), row.count);
     /* THE FIGURE IS THE BYTES AND NOTHING ELSE, on BOTH shelves, which is the request's own "one fact in
        one place on both" — what differs between them is what the figure MEANS, and that is in the title
        where it belongs rather than appended to every row. */
     check("…and how big it is", /^[\d.,]+ (KB|MB)$/.test(row.size.trim()), row.size);
     check("…with the title saying it is a download", /download/i.test(row.sizeTitle || ""), row.sizeTitle);
+    check("…on a line of their own below the title", row.meta && row.metaHasFigures);
+    check("…and not on the title's line", row.titleRowClean);
   }
 
   /* ---------- 2b. a deck's own decks, and the size on the curated shelf ----------
@@ -393,6 +431,10 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
       texts: sized.slice(0, 4).map((r) => r.querySelector(".node-size").textContent),
       allReal: sized.every((r) => /^[\d.,]+ (KB|MB)$/.test(r.querySelector(".node-size").textContent.trim())),
       titled: sized.every((r) => /download/i.test(r.querySelector(".node-size").getAttribute("title") || "")),
+      /* The same `.node-meta` line the language shelf draws — the request is that the two shelves set
+         their figures alike, so it is asserted on BOTH or a divergence would show on one of them only. */
+      meta: counted.every((r) => r.querySelector(":scope > .node-main > .node-meta > .node-count")),
+      titleRowClean: counted.every((r) => !r.querySelector(".node-title-row .node-count") && !r.querySelector(".node-title-row .node-size")),
     };
   });
   check("the curated shelf draws deck rows at all", cur.rows > 0, String(cur.rows));
@@ -404,6 +446,8 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
   /* AND SAYS WHAT THE FIGURE IS. These cards arrive with the site, so a bare size beside a language
      deck's would say nothing about the difference between them. */
   check("…explaining that curated cards ship with the site", cur.titled);
+  check("…with the figures on their own line under the title", cur.meta);
+  check("…and the title's line carrying neither", cur.titleRowClean);
 
   /* ---------- 3. Add adds and NOTHING is downloaded ----------
      Aug 2026, on request: "Adding a deck from the collections page shouldn't download anything; it should
@@ -454,12 +498,24 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
       dl: (e.querySelector("[data-langdl]") || {}).textContent || "",
       counts: !!e.querySelector(".dk-counts"),
       review: e.hasAttribute("data-review"),
+      parent: e.dataset.parent || "",
+      ctxTitle: ((document.querySelector('.active-deck[data-drag="' + (e.dataset.parent || "\u0000") + '"] .dk-title') || {}).textContent) || "",
     }));
   });
   check("a deck that is not on this device draws a row in Daily study", pend.length === 1,
     JSON.stringify(pend));
   if (pend.length === 1) {
-    check("…named after the deck file it will fetch", pend[0].title === small.title, pend[0].title);
+    /* IT IS DRAWN UNDER ITS LANGUAGE, like every other row of that language (Aug 2026, on request:
+       "they should still automatically appear grouped together in the active decks list under their
+       respective collection"), so the two halves of its name are on two rows: the container states the
+       language and the row states the rest. Both are asserted, since a row that had fallen out of its
+       container would keep the full title and read as perfectly correct on its own. */
+    check("…drawn under its own language rather than loose in the list",
+      /^langctx:/.test(pend[0].parent) && pend[0].ctxTitle === small.lang,
+      pend[0].parent + " → " + pend[0].ctxTitle);
+    check("…named after the deck file it will fetch, less the language above it",
+      pend[0].title && small.title.indexOf(pend[0].title) >= 0 &&
+      pend[0].title.indexOf(small.lang) < 0, pend[0].title);
     check("…saying it is not here yet", /not on this device/i.test(pend[0].sup), pend[0].sup);
     /* THE SIZE IS ON THE BUTTON, which is the request's own wording ("a download button in the banner
        (with file size)"): a reader about to spend 21 MB is told so on the control that spends it. */
@@ -484,6 +540,58 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
   check("Download fetches the deck file", fetches.length === 1, fetches.join(", ") || "nothing fetched");
   check("…exactly the one the row named", fetches[0] === small.file, fetches[0] || "—");
   check("…and the pending row becomes the deck", landed.pending === 0, JSON.stringify(landed.rows));
+
+  /* ---------- 3b. the collection-level + ----------
+     Aug 2026, on request: "language collections should be able to be added as one complete package, the
+     same way as History collections."
+
+     IT REACHES EVERY DECK OF THE LANGUAGE, which is the only thing worth asserting: a + that added the
+     first row, or the file rather than its unwrapped subdecks, would light up and look exactly like one
+     that worked. The expectation is derived from the CATALOGUE (the same `flat` flag the page reads), so
+     a deck that starts or stops being unwrapped changes what is expected here without anybody
+     remembering to. A language other than the one section 3 just added is used, so the press starts from
+     a language wholly out of the review and the before/after counts mean something. */
+  await page.goto(base + "#decks", { waitUntil: "load" });
+  await page.waitForTimeout(1200);
+  const target = [...new Set(ROWS.map((r) => r.lang))].find((l) => l !== small.lang) || small.lang;
+  const wantEntries = ROWS.filter((r) => r.lang === target).reduce((a, r) => a.concat(
+    r.flat && r.tree && r.tree.length
+      ? r.tree.map((n) => "u:" + r.id + "/" + encodeURIComponent(n.n))
+      : ["u:" + r.id]), []);
+  const bannerFetches = [];
+  page.removeAllListeners("request");
+  page.on("request", (r) => { if (/\/decks\//.test(r.url())) bannerFetches.push(r.url().split("/").pop()); });
+  const press = async () => {
+    await page.evaluate((lang) => {
+      const c = [...document.querySelectorAll("#langDecks .lang-coll")]
+        .find((x) => (x.querySelector(".collection-title") || {}).textContent === lang);
+      if (c) c.querySelector(".collection-add").click();
+    }, target);
+    await page.waitForTimeout(700);
+    return page.evaluate((lang) => {
+      const c = [...document.querySelectorAll("#langDecks .lang-coll")]
+        .find((x) => (x.querySelector(".collection-title") || {}).textContent === lang);
+      return {
+        active: JSON.parse(localStorage.getItem("folio_v1") || "{}").active || [],
+        on: !!(c && c.querySelector(".collection-add.added")),
+        rowsOn: c ? [...c.querySelectorAll(".node-add.added")].length : -1,
+        rowsAll: c ? [...c.querySelectorAll(".node-add[data-id]")].length : -1,
+      };
+    }, target);
+  };
+  const on = await press();
+  check("the banner + adds every deck of its language",
+    wantEntries.every((e) => on.active.indexOf(e) >= 0),
+    target + ": " + wantEntries.filter((e) => on.active.indexOf(e) < 0).join(", "));
+  /* AND MARKS THEM. `refreshAddButtons` re-reads every + on the page after a press, so a row still
+     offering to add a deck it already holds is what a missed sweep looks like. */
+  check("…and marks every row under it", on.rowsOn === on.rowsAll, on.rowsOn + " of " + on.rowsAll);
+  check("…lighting the banner itself", on.on);
+  check("…while fetching nothing", bannerFetches.length === 0, bannerFetches.join(", ") || "no requests");
+  const off = await press();
+  check("…and a second press takes them all out again",
+    wantEntries.every((e) => off.active.indexOf(e) < 0) && !off.on,
+    off.active.filter((e) => wantEntries.indexOf(e) >= 0).join(", ") || "none left");
 
   check("no uncaught page errors", errs.length === 0, errs.join(" | "));
 

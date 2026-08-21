@@ -19,7 +19,7 @@
 
   THE LANGUAGE IS MATCHED FROM THE FILE NAME AGAINST A DECLARED LIST, AND AN UNMATCHED FILE IS AN ERROR
   rather than a file quietly left out.  The names do not follow one pattern — `DELE-A1-Spanish`,
-  `French-Phrases`, `Italian-Core-Vocabulary`, `Mandarin-Chinese` — so a rule about position would drop
+  `French-Phrases`, `Italian-Core-Vocabulary`, `Mandarin-Idioms` — so a rule about position would drop
   three of them; what every one of them does carry is the language's own name somewhere in it.  Matching
   TWO languages is an error too: a deck the catalogue could file under either is a deck nobody would
   find twice.
@@ -28,9 +28,9 @@
   as a curated collection draws its subdecks.  A node's count is CARDS rather than notes, for the reason
   the deck's own count is.
 
-  THE ORDER IS THE ORDER THE ROWS ARE DRAWN IN, and it is by language and then by the level the exam
-  itself names, because a learner reads a ladder from the bottom.  A deck that is not a level (phrases,
-  a core vocabulary) sorts last within its language, that being where a learner reaches it.
+  THE ORDER IS THE ORDER THE ROWS ARE DRAWN IN, and it is by NATIVE SPEAKERS and then by the level the
+  exam itself names, because a learner reads a ladder from the bottom.  A deck that is not a level
+  (phrases, a core vocabulary) sorts last within its language, that being where a learner reaches it.
 */
 "use strict";
 const fs = require("fs");
@@ -40,16 +40,26 @@ const DIR = path.join(ROOT, "decks");
 const OUT = path.join(ROOT, "lang-decks.js");
 
 /* The languages a deck may be filed under. The `word` is what is looked for in the file name; `name` is
-   what a reader is shown. Adding a language is one row plus its deck files. */
+   what a reader is shown. Adding a language is one row plus its deck files.
+
+   `l1` IS FIRST-LANGUAGE SPEAKERS IN MILLIONS, and it is what the languages are ORDERED by (Aug 2026,
+   on request: "Order the language decks by number of native speakers"). It is a rounded published
+   figure rather than a precise one — the sources differ by a few million and nothing here turns on the
+   difference, since all it decides is which banner is drawn above which. NATIVE speakers, deliberately:
+   counting second-language speakers would put Indonesian, which perhaps forty million people grow up
+   with and two hundred million use, above four of the languages above it, and a shelf ordered on a
+   figure nobody can check reads as no order at all. */
 const LANGS = [
-  { word: "Mandarin", name: "Mandarin Chinese" },
-  { word: "French", name: "French" },
-  { word: "German", name: "German" },
-  { word: "Indonesian", name: "Indonesian" },
-  { word: "Italian", name: "Italian" },
-  { word: "Portuguese", name: "Portuguese" },
-  { word: "Spanish", name: "Spanish" },
+  { word: "Mandarin", name: "Mandarin Chinese", l1: 941 },
+  { word: "Spanish", name: "Spanish", l1: 486 },
+  { word: "Portuguese", name: "Portuguese", l1: 236 },
+  { word: "German", name: "German", l1: 76 },
+  { word: "French", name: "French", l1: 74 },
+  { word: "Italian", name: "Italian", l1: 65 },
+  { word: "Indonesian", name: "Indonesian", l1: 43 },
 ];
+const L1 = {};
+LANGS.forEach((L) => { L1[L.name] = L.l1; });
 
 /* A level inside a language, lowest first. Anything unmatched sorts after every level — a phrase book is
    not a rung on the ladder and a learner meets it once the words are in hand. */
@@ -59,12 +69,30 @@ function levelRank(title) {
   if (m) return LEVELS.indexOf(m[1]);
   const u = /\bUKBI (\d)\b/.exec(title);          // Indonesian's own seven predicates, numbered from the bottom
   if (u) return Number(u[1]) - 1;
+  /* THE LEVEL IS TESTED BEFORE THE STANDARD, and the order is load-bearing: every Mandarin title reads
+     "HSK 3.0 Level N", so a rule that looks for the standard first ranks all seven of them on the 3 and
+     the shelf falls back to sorting them alphabetically — Level 1, Level 2, Levels 7–9, Level 3. */
+  const l = /\bLevels? (\d)\b/.exec(title);
+  if (l) return Number(l[1]) - 1;
   const h = /\bHSK (\d)\b/.exec(title);
   if (h) return Number(h[1]) - 1;
   return 90;
 }
 
-const files = fs.readdirSync(DIR).filter((f) => f.endsWith(".folio-deck.json")).sort();
+/* A GITIGNORED DECK FILE IS SKIPPED, and that is not tidiness: a combined file (`All-Languages`,
+   `French-A1-C2`, the five per-language ones) is an ARTEFACT of the decks it combines, regenerable
+   and deliberately uncommitted — so it is present on the machine that built it and absent on the
+   deployed site. Catalogued, it would be a row whose Add fetches a 404 for every reader but one,
+   and `test-lang-decks.js` asserts no catalogued deck is gitignored. The names are read out of
+   `.gitignore` rather than guessed at from a pattern, since "combined" is not a shape a file name
+   carries. */
+const IGNORED = new Set(
+  fs.readFileSync(path.join(ROOT, ".gitignore"), "utf8").split(/\r?\n/)
+    .map((l) => l.trim())
+    .filter((l) => l.indexOf("decks/") === 0 && l.endsWith(".folio-deck.json"))
+    .map((l) => l.slice("decks/".length))
+);
+const files = fs.readdirSync(DIR).filter((f) => f.endsWith(".folio-deck.json") && !IGNORED.has(f)).sort();
 if (!files.length) { console.error("no deck files in decks/"); process.exit(1); }
 
 const rows = [];
@@ -141,7 +169,10 @@ for (const f of files) {
   });
 }
 
-rows.sort((a, b) => (a.lang === b.lang ? (a.rank - b.rank || a.title.localeCompare(b.title)) : a.lang.localeCompare(b.lang)));
+/* Languages by native speakers, most first; a language's own decks by the level the exam itself
+   names, because a learner reads a ladder from the bottom. */
+rows.sort((a, b) => (a.lang === b.lang ? (a.rank - b.rank || a.title.localeCompare(b.title))
+                                       : (L1[b.lang] - L1[a.lang] || a.lang.localeCompare(b.lang))));
 
 const s = (v) => JSON.stringify(v);
 let out = "/* lang-decks.js — the catalogue of the language decks in decks/, GENERATED by\n" +

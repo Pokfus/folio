@@ -29,14 +29,19 @@ working directory and run the scripts from there.
     node mw2026.js                      # adds measure words
     node extras.js                      # adds the character breakdown and the example sentences
     node extras2.js                     # the same for HSK 2.0 (words1.json / words2.json)
-    node build-mandarin.js              # → decks/Mandarin-Chinese.folio-deck.json
+    node build-mandarin.js              # → decks/Mandarin-*.folio-deck.json  (nine decks)
     node build-hsk20.js                 # → decks/HSK1-Mandarin, HSK2-Mandarin
-    node build-extra.js                 # the phrases and the idioms, as two decks of their own
 
-`build-mandarin.js` is the one that writes what ships: it requires `build-extra.js` as a MODULE and files
-its two lists as the eighth and ninth subdecks of the one deck. Run on its own, `build-extra.js` writes
-them as two separate decks instead — the same rows either way, so it is one flag rather than two builders,
-and the standalone files are not in `decks/` today.
+`build-mandarin.js` is the one that writes what ships, and it writes NINE decks: the seven HSK 3.0 levels,
+the everyday phrases and the idioms. It requires `build-extra.js` for the last two — that file is a library
+and writes nothing of its own, since two builders emitting one deck under two ids is a silent swap for
+anyone who has installed it. The titles, ids, units, tags and descriptions are all in `hsk30-meta.js`, so
+the generator and the files on disk cannot come to disagree about what a deck is called.
+
+It was ONE file of nine subdecks until Aug 2026 ("It shouldn't download the whole collection at once, its
+cards should be divided into decks the same as the other collections"): that shape made every row on the
+Collections page read 20.6 MB and made pressing any of them fetch all nine. What the one file bought — one
+Add for the whole language — the collection banner's own + buys instead.
 
 `extras.js` is **both a script and a module**: required, it runs down to the pool and the segmenter and
 stops, which is how `build-extra.js` gets the same corpus, the same traditional-script exclusions and the

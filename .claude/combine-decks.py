@@ -87,7 +87,17 @@ PARTS = [
     ('UKBI-7-Istimewa-Indonesian.folio-deck.json', 'Indonesian', 'UKBI 7 Istimewa'),
     ('Indonesian-Phrases-and-Expressions.folio-deck.json', 'Indonesian',
      'Phrases and expressions'),
-    ('Mandarin-Chinese.folio-deck.json',  'Mandarin', 'HSK 3.0'),
+    # Mandarin is nine files since Aug 2026 -- the seven HSK 3.0 levels and the two
+    # the syllabus leaves out -- so the path is what the combined file's subdeck was.
+    ('Mandarin-HSK-3.0-Level-1.folio-deck.json', 'Mandarin', 'HSK 3.0/Level 1'),
+    ('Mandarin-HSK-3.0-Level-2.folio-deck.json', 'Mandarin', 'HSK 3.0/Level 2'),
+    ('Mandarin-HSK-3.0-Level-3.folio-deck.json', 'Mandarin', 'HSK 3.0/Level 3'),
+    ('Mandarin-HSK-3.0-Level-4.folio-deck.json', 'Mandarin', 'HSK 3.0/Level 4'),
+    ('Mandarin-HSK-3.0-Level-5.folio-deck.json', 'Mandarin', 'HSK 3.0/Level 5'),
+    ('Mandarin-HSK-3.0-Level-6.folio-deck.json', 'Mandarin', 'HSK 3.0/Level 6'),
+    ('Mandarin-HSK-3.0-Levels-7-9.folio-deck.json', 'Mandarin', 'HSK 3.0/Levels 7-9'),
+    ('Mandarin-Everyday-Phrases.folio-deck.json', 'Mandarin', 'Everyday phrases'),
+    ('Mandarin-Idioms.folio-deck.json', 'Mandarin', 'Idioms'),
     # Portuguese is the CAPLE ladder, whose own bands ARE the CEFR ones, so the
     # path is the band and nothing more.  The seventh is not a band; see
     # `.claude/caple/`, whose own combiner does not exist -- these seven have
