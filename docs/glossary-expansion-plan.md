@@ -161,9 +161,9 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 
 | batch | terms | subject |
 |---|---|---|
-| N1 | 6 | Bronze and Iron Age tripartite divisions (Early / Middle / Late, both) |
-| N2 | 12 | Minoan chronology I — Early Minoan and Middle Minoan |
-| N3 | 12 | Minoan chronology II — Late Minoan, and the Cretan sites of each phase |
+| N1 | 6 | Bronze and Iron Age tripartite divisions (Early / Middle / Late, both) — **shipped**, all six pictured |
+| N2 | 11 | Minoan chronology I — Early Minoan and Middle Minoan — **shipped** |
+| N3 | 8 | Minoan chronology II — Late Minoan — **shipped**, all eight pictured |
 | N4 | 14 | Helladic chronology |
 | N5 | 11 | Troy levels |
 | N6 | 12 | Aegean prehistorians and museums |
@@ -185,6 +185,16 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N22 | 12 | Olduvai beds, palaeoanthropology's institutions |
 | N23 | 12 | Amarna and Egypt |
 | N24–N32 | ~107 | **the Italian provinces**, by region |
+
+**N3 shipped eight terms rather than twelve, and the missing four are one deferral and one
+fold.** *Subminoan* is deferred: Rutter's Chronology Overview gives it a single sentence — "The
+following Subminoan period is the earliest phase of the Iron Age" — `chs.harvard.edu` returns no
+results for it and Crossref offers only paywalled items, so nothing reachable can carry three
+sentences at the bar; and Rutter classes it as **Iron Age**, not a Minoan Bronze Age level, so it
+does not belong in a Minoan-chronology batch anyway. *LM IIIA1* and *LM IIIA2* are **aliases of
+`Late_Minoan_IIIA`** rather than terms of their own — N2's rule, applied to the same evidence:
+Rutter treats LM IIIA in one section, says it is "sometimes further subdivided", and gives a
+distinct diagnostic only for IIIA2. The same call was made for MM IIA/IIB.
 
 **The provinces are their own phase and should be worked last**, for two reasons: they are a
 quarter of the whole pass, and they are the only part of it that is a table rather than a
