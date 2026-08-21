@@ -158,14 +158,23 @@ Sanskrit as well as Chinese, and converting them would be a different pass with 
 | `book-of-documents` | 1,460 `'` | 239 | 0 | 176 |
 | `journey-to-the-west` | 1,103 `'` | 0 | 0 | 115 |
 | `sun-tzu-art-of-war` | 648 | 646 | **6,219** | 138 |
-| `book-of-rites` | 547 `'` | 172 | 254 | 121 |
+| `book-of-rites` | 547 `'` | 172 | 254 | ~~121~~ **218** |
 | `confucius-analects` | 294 `'` | 0 | 0 | 108 |
+
+**The last column is a PROXY and it undercounts.** It was built by sweeping for the diacritics and the
+blackletter Z, so Legge's bare `Kh`/`Th`/`Ph`/`Hs` syllables — which carry neither — were invisible to it:
+measured against the finished table, the Book of Rites has 218 hyphenated names rather than 121, and 483
+names in all. Read every figure in this column as a floor.
 
 **The hanzi column is what decides the order.** The Art of War is the only book on the shelf that prints the
 characters beside its own romanisations — 118 of its 191 romanised forms are glossed with characters at least
 once (`班超 Pan Ch‘ao`, `苻堅 Fu Chien`, `田忌 T‘ien Chi`), because Giles quotes his Chinese in his notes. Every
-other book's conversion has to be verified from somewhere else: the Analects, the Book of Rites and Three
-Kingdoms each ship a parallel Chinese column, and Journey to the West and the Book of Documents do not.
+other book's conversion has to be verified from somewhere else: the Analects and Three Kingdoms each ship a
+parallel Chinese column, and Journey to the West, the Book of Documents and the Book of Rites do not.
+**That last was wrong here until B3b measured it** — the Lî Kî's Chinese was never transcribed at the
+source, so its 483 names were each read off the passage they stand in instead, which is why that batch
+came to more than twice the count this table predicted. **Check whether a book HAS the column it is
+planned around before sizing its batch.**
 
 Two further measurements about the Art of War, both of which shaped the tooling:
 
@@ -241,7 +250,7 @@ re-run and diffed byte for byte.
 | **B1** ✅ | `sun-tzu-art-of-war` | the `roman` table + `applyRoman` + `ROMAN_HITS`; the one slip (`meaniug`); the three spellings of 張預 folded to one; 110 names; both front-matter sentences |
 | **B2** ✅ | `confucius-analects` | Legge's romanisation, **194 names** (108 estimated), verified section by section against the parallel Chinese column; six slips; the twenty book titles; `writeEnglish` gains the title pass |
 | **B3** ✅ | `book-of-documents` | Legge's Sacred Books system, **430 names in 2,725 places**; the `nameMarkup` pre-pass, without which two thirds of the table is dead; two slips |
-| **B3b** | `book-of-rites` | the same system and the same pre-pass, 215 names |
+| **B3b** ✅ | `book-of-rites` | the same system and the same pre-pass, **483 names** (215 estimated) over ~2,450 occurrences, read off the passages rather than off a Chinese column; three transcription manglings; the ten chapter titles |
 | **B4** | plain-text/TEI reachability | extend `applyFixes`/`applyRoman` past the wiki loop; **prove inert byte for byte on every book already on those paths** |
 | **B5** | `journey-to-the-west` | 115 names, Richard's OCR, no characters either side but a complete Chinese column |
 | **B6–B8** | `three-kingdoms` | 803 names over 3.1 MB, verified from the parallel column; one batch per 40 chapters |
@@ -252,6 +261,58 @@ The error half of a Chinese book rides with its romanisation batch; the rest run
 ---
 
 ## 8. Batch log
+
+### B3b — the Book of Rites, shipped 2026-08-21
+
+**483 names in 2,454 places, three transcription manglings, no new machinery at all.** The same Sacred
+Books romanisation as the Book of Documents, on a book more than twice the size, and every stage the
+last batch built — `unwrapNameMarkup`, the page-marker heal, the italic-transparent splitter — read it
+unchanged. What the batch is worth carrying for is the two ways the NAME TABLE was wrong before a line
+of it ran.
+
+**THE BOOK HAS NO PARALLEL CHINESE COLUMN, AND THIS PLAN SAID IT DID.** §4 sized the batch at 215
+names on the strength of a column that was never transcribed at the source, so every reading here had
+to be settled from the passage it stands in instead — which is slower per name and is why the finished
+table is 483. **Ask whether a book HAS the column it is planned around before sizing its batch**; the
+same sentence also promised one for Three Kingdoms, and that one should be measured before B6 rather
+than after it.
+
+**AND THE TABLE'S OWN BUILD WAS BLIND TO A WHOLE CLASS OF NAME.** It keyed on the diacritics and the
+blackletter Z — which is what §4's proxy column keys on too — so Legge's bare `Kh`/`Th`/`Ph`/`Hs`
+syllables, carrying neither, were never collected: `Khung` for 孔, `Ming Thang` for 明堂, `Sze` for
+both 泗 and 司, `Khien` for 乾, `phin` for 品. Twenty-seven rows and a further 127 occurrences, found
+only by a SECOND sweep keyed on the digraphs. **A name table built by one signal is a name table with
+one blind spot**, and nothing reports it: the run said 456 of 456 and every declared row fired.
+
+**THE EDGE GUARD REFUSES A ROW THAT ENDS AGAINST A LETTER, which is why one cyclical day fired and
+its twin did not.** `(<i>K</i>iâ-)` was taken and `(<i>K</i>î-)` was dead, and the difference is
+entirely in what follows the closing bracket: `𝖟` for one, the `m` of `mâo` for the other. A row has
+to run past any letter that follows it, so the dead one is declared as `(<i>K</i>î-)mâo`. Note the
+corollary the same guard imposes: **a stem ending in a hyphen can never be a row on its own**, the
+hyphen itself being an edge character — hence `nêi-<i>kh</i>in` declared whole.
+
+**THREE NAMES WERE MANGLED BY WHOEVER TYPED THE VOLUME UP, AND NO WARNING CAN REPORT ONE.** A digit
+`3` standing in for the blackletter Z (`3in`, `3ze-khun`); a `4` for the â of `Hsiâ`, which the
+passage settles by naming it between Yu and Yin, so it is 夏; and `Зung->fcing`, letters that spell
+nothing, which the note's own gloss "all bright" and its season of the west identify as the Ming
+Tang's western apartment 總章. Each was read off its passage and written out; each would otherwise
+have shipped as a well-formed word that is not a word.
+
+**A NAME MAY ALSO BE PINYIN-SHAPED AND STILL WRONG.** `Kû-lü` was first declared as `Zhulü`, which is
+not a syllable Mandarin has — three passages ("duke Khâo of Kû-lü", "duke Ting of Kû-lü") identify the
+state as 邾婁, so it is Zhulou. **Check that a conversion's OUTPUT is a word**, not only that its input
+was matched.
+
+**THE CHAPTER TITLES NEEDED NO SPECIAL HANDLING.** They go through `applyRoman` like any other text,
+so the ten Legge headings a reader meets on the chapter bar were declared as rows rather than edited
+into `LIKI`: Tan Gong, Jiao Te Sheng, Shizi, Qu, Nei. **AND THE SUBTITLE DOES NOT** — it lives in the
+registry, not in the text, so it was still `The Lî Kî` after every name in the book had been
+converted, with the book's own front matter three lines away saying `Li Ji`. Fixed here, **and in the
+Book of Documents too**, which shipped a fortnight earlier with the same gap (`The Shû King` over
+prose reading `Shu King`). Running the check across the SIBLING is what found it.
+
+The three books that declare `roman` were re-imported forced and are byte-identical, with
+`plato-republic` as the never-declares-it control.
 
 ### B3 — the Book of Documents, shipped 2026-08-21
 

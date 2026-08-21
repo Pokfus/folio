@@ -5716,7 +5716,7 @@ const BOOKS = {
 
   "book-of-documents": {
     title: "The Book of Documents",
-    subtitle: "The Shû King",
+    subtitle: "The Shu King",
     author: "Anonymous",
     translator: "James Legge",
     edition:
@@ -6349,7 +6349,7 @@ const BOOKS = {
 
   "book-of-rites": {
     title: "The Book of Rites",
-    subtitle: "The Lî Kî",
+    subtitle: "The Li Ji",
     author: "Anonymous",
     translator: "James Legge",
     edition:
@@ -6382,7 +6382,7 @@ const BOOKS = {
     /* THE FRONT MATTER — chapter 0. Two things have to be said before a reader starts counting tabs:
        what the book is, and that ten of its forty-six treatises are here and thirty-six are not. */
     about: [
-      "<b>The Book of Rites</b> — the <i>Lî Kî</i>, also called the Classic of Rites — is not one " +
+      "<b>The Book of Rites</b> — the <i>Li Ji</i>, also called the Classic of Rites — is not one " +
         "book but a collection of forty-six treatises on ceremony and conduct, assembled under the " +
         "Han dynasty out of much older material. It is the most miscellaneous of the Five Classics " +
         "and much the most human: beside the court ritual and the sacrificial calendar there is a " +
@@ -6409,7 +6409,7 @@ const BOOKS = {
         "and the longer books cut each Section again into Parts; the paragraph numbers run from one " +
         "within each of those, which is why the small figures in the margin restart several times in " +
         "a single tab. That is exactly what the printed page does, and it is how the work is cited — " +
-        "a passage of the Lî Kî is given as its book, its section, its part and its paragraph. The " +
+        "a passage of the Li Ji is given as its book, its section, its part and its paragraph. The " +
         "headings are set in their own line so the reader can see where each count begins again. In " +
         "Book I, and only there, Legge also groups the paragraphs into numbered chapters and prints " +
         "the chapter number in front of the first paragraph of each, so its openings read \"1. 1.\", " +
@@ -6425,11 +6425,20 @@ const BOOKS = {
         "became the first Professor of Chinese at Oxford in 1876. His English is Victorian and " +
         "deliberately literal, and the round brackets scattered through it are his — words he has " +
         "supplied to make an elliptical sentence run in English, marked so that you can see him " +
-        "doing it. He also spells Chinese in a romanisation of his own that nobody uses now, so " +
-        "Confucius is <i>Khung-jze</i> and the Kâu dynasty is the one usually written Zhou. There is " +
-        "a letter in it that no ordinary alphabet has, a blackletter Z standing for a sound his " +
-        "system distinguishes; the transcription writes it four different ways and it is written one " +
-        "way here.",
+        "doing it.",
+      "<b>The Chinese names have been converted to modern pinyin, and the transcription's slips have "
+        + "been corrected.</b> Legge spelled every name in the romanisation he used for the Sacred "
+        + "Books of the East — Khung-jze for Confucius, Kâu for Zhou, Kiâo Theh Săng for Jiao Te "
+        + "Sheng — a system nobody has read for a century, which marks some of its consonants by "
+        + "italicising a single letter and which needs a blackletter Z that no ordinary alphabet has. "
+        + "Folio has rewritten all of them the way they are written today, 483 names in about 2,450 "
+        + "places, chapter titles included, so that a reader who meets Zhou, Kong Yingda or the Ming "
+        + "Tang here meets the same word they will meet anywhere else. Nothing else in the "
+        + "translation is touched: the English is Legge's, and so are the round brackets. A handful "
+        + "of names had been mangled by whoever typed the volume up rather than by whoever printed "
+        + "it — a digit 3 standing in for the blackletter Z, a 4 for the â of Hsiâ, and the name of "
+        + "the Ming Tang's western apartment turned into letters that spell nothing — and each of "
+        + "those has been read off the passage it stands in and written out in full.",
       "There is no Chinese column, and the reason is the one that keeps the Book of Documents from " +
         "having one. The Chinese text is freely available and every one of these ten treatises was " +
         "found; what is missing is a shared way of pointing into them. Legge numbers his paragraphs " +
@@ -6470,6 +6479,560 @@ const BOOKS = {
        the count and the reasoning are. Two of the four are astral-plane characters that most devices
        have no font for. */
     glyphs: [["\u{1D585}", "З"], ["\u{1D59F}", "з"], ["ℨ", "З"]],
+
+    /* ---------- LEGGE'S ROMANISATION, CONVERTED TO PINYIN ----------
+       The Book of Documents' table one volume on, and the same reasoning: this is the system Legge
+       used for the Sacred Books of the East and not the Wade-Giles of his Chinese Classics, so K is
+       g and Kh is k, T is d and Th is t, P is b and Ph is p, Hs is x, and an ITALICISED letter marks
+       a palatal — an italic K is j or zh and an italic Kh is q or ch. Hence `romanItalic` and
+       `romanApos`, for the reasons that entry gives.
+
+       WHAT THIS VOLUME ADDS IS THE BLACKLETTER Z, and it is worth writing down because no other book
+       on the shelf uses it. Legge sets a blackletter Ⅎ where the Documents sets a plain Z, and it is
+       read three ways: З is z (Зo is Zuo 左, Зze is zi 子, Зǎng is Zeng 曾) but j before i or ü (Зin
+       is Jin 晉, зio is jue 爵); Зh is c (Зhâo is Cao 曹) but q before i (Зhin is Qin 秦); and an
+       ITALIC Z, which is a different letter again, is r (<i>Z</i>ung is Rong 戎, <i>Z</i>o is Ruo 若,
+       <i>Z</i>û-shâu is Rushou 蓐收). Each of the three was settled from the passages rather than
+       assumed, and the readings that fix them are named here so nobody has to do it twice.
+
+       432 entries, every one of which fires — the importer counts them and reports any that do not.
+       They are WHOLE TOKENS rather than syllables, because a bare syllable would match inside a
+       longer name: Cyrillic З is outside `edge`, so a `ze` row would rewrite the middle of Зze.
+
+       THERE IS NO WITNESS COLUMN HERE, and that is a fact about the volume rather than an omission.
+       The Documents' table records the character beside each reading; this printing sets characters
+       only for ritual vocabulary — the 150 runs of hanzi in the book gloss 五服, 斬衰, 齊衰, 小功 and
+       the like — and never beside a name, so there is nothing to record and nothing is invented.
+
+       A TRANSCRIPTION SLIP GETS A `roman` ROW AND NOT A `fixes` ROW, which is the Documents' rule:
+       `fixes` asserts what the printed page reads and needs a printed witness, where a row here
+       asserts only what Folio prints. So Kdu-mang, Hst-ling, Hui-gze, <i>K</i>đu and the six ways
+       this transcription spells Zengzi are each given the reading their neighbours carry, which
+       repairs the output without claiming anything about the page. `Tâoism` keeps its English form,
+       which is the collection's standing convention for a non-pinyin spelling that IS the English
+       name. */
+    nameMarkup: true,
+    romanItalic: true,
+    romanApos: true,
+    roman: [
+      /* Thirteen rows below are TRANSCRIPTION SLIPS rather than romanisations, and they are here
+         rather than in `fixes` for the reason the block above gives: a fix claims the printed page
+         reads X, and none of these has a printed witness. What settles each is the passage. The
+         transcription sets a DIGIT 3 for the blackletter Z five times — 3ze-khun, 3hze, 3ze-yii,
+         3in — which no glyph row can normalise, the digit being a digit everywhere else; it writes
+         Зâng-jze beside Зǎng-jze for one name; and "the duke of Kââm", who secured the excellence of
+         king Cheng, is the duke of Zhou by the story rather than by the spelling. */
+      ["3ze-<i>kh</i>un", "Zichun"],
+      ["3ze-yii", "Ziyou"],
+      ["3hze", "Ci"],
+      ["Зhze", "Ci"],
+      ["3in", "Jin"],
+      ["Зâng-jze", "Zengzi"],
+      ["<i>K</i>ââm", "Zhou"],
+
+      /* Names and words the first pass over the text left behind, each read off its own passage:
+         the Shê altar is 社, Khwǎn-lun the Kunlun range, Mû-yêh the battlefield of Muye, and the two
+         parenthesised stems are cyclical days (甲子 and 己卯). A bare stem ending in a hyphen cannot
+         be a row at all — the hyphen is an edge character — so each is anchored on its brackets; and
+         where the closing bracket is followed by a letter the row has to run past it as well, since
+         the trailing edge guard would otherwise refuse the match. */
+      /* The ten chapter titles go through this pass like any other text, so the Legge spellings a
+         reader meets at the head of a book are declared here rather than edited into the chapter
+         table: Than Kung is 檀弓, Kiâo Theh Săng 郊特牲, Shih-jze 世子, Khü 曲 and Nêi 內. Nêi-khin
+         (內親) has to be declared whole, since a stem ending in a hyphen cannot be a row on its own. */
+      ["Than Kung", "Tan Gong", "檀弓"],
+      ["Kiâo Theh Săng", "Jiao Te Sheng", "郊特牲"],
+      ["Shih-зze", "Shizi", "世子"],
+      ["Khü", "Qu", "曲"],
+      ["Nêi", "Nei", "內"],
+      ["nêi-<i>kh</i>in", "neiqin", "內親"],
+
+      /* Names the table's own build could not see, because it keyed on the diacritics and the
+         blackletter Z and these carry neither — Legge's bare Kh/Th/Ph/Hs syllables. Each is read off
+         its own passage: Khung Yingda the Tang commentator 孔穎達, Ming Thang the Hall of Light 明堂,
+         hsiang the mourning sacrifice 祥, hsin and Khang and Khwei and Hsing cyclical days and
+         constellations, Sze the river 泗 and the office 司, sze the verb 死 and the sacrifice 祀,
+         Khien the hexagram 乾, phin the grade 品. The place the Zuo Zhuan calls 奪 is declared with
+         the character the note itself prints beside it, so neither reading is guessed at. */
+      ["Khung", "Kong", "孔"],
+      ["Khungs", "Kongs", "孔"],
+      ["Hsien", "Xian"],
+      ["Hsiang", "Xiang"],
+      ["hsiang", "xiang", "祥"],
+      ["hsin", "xin", "辛"],
+      ["Hsin", "Xin"],
+      ["Thang", "Tang", "堂"],
+      ["Sze", "Si"],
+      ["sze", "si"],
+      ["Phing", "Ping", "平"],
+      ["Thien", "Tian", "天"],
+      ["thien", "tian", "田"],
+      ["Khang", "Kang"],
+      ["Khwei", "Kui", "奎"],
+      ["Hsieh", "Xie"],
+      ["Hsing", "Xing", "星"],
+      ["Hsu", "Xu"],
+      ["hsing", "xing", "行"],
+      ["Khan", "Kan", "侃"],
+      ["Khien", "Qian", "乾"],
+      ["Phei", "Pei", "沛"],
+      ["Thao", "Tao", "韜"],
+      ["phin", "pin", "品"],
+      ["(To, read Thui", "(Duo, read Tui", "奪"],
+      ["To (奪)", "Duo (奪)", "奪"],
+      ["Thui", "Tui"],
+
+      /* The last four, each settled by the passage rather than by the spelling: the transcription
+         sets 𝖅ze-khun beside its own 3ze-khun for 子春; Hsi4 is Hsiâ with the â read as a figure, and
+         the passage names it between Yu and Yin, so it is 夏; Зung->fcing is the Ming Thang's western
+         apartment, which the note itself glosses "all bright" and puts in the season of the west —
+         總章; and the Khien-lung editors are the Qianlong commission, whose hyphen the printing
+         follows with a space. */
+      ["Зze-<i>kh</i>un", "Zichun", "子春"],
+      ["Hsi4", "Xia", "夏"],
+      ["Зung-&gt;fcing", "Zongzhang", "總章"],
+      ["<i>Kh</i>ien- lung", "Qianlong", "乾隆"],
+
+      ["Shê", "She"],
+      ["Khwǎn-lun", "Kunlun"],
+      ["Mû-yêh", "Muye"],
+      ["(<i>K</i>iâ-)", "(jia-)"],
+      ["(<i>K</i>î-)mâo", "(ji-)mao"],
+      ["yî-like", "yi-like"],
+      ["lô", "luo"],
+      ["<i>K</i>âu", "Zhou"],
+      ["Lû", "Lu"],
+      ["lî", "li"],
+      ["<i>Kh</i>ien-lung", "Qianlong"],
+      ["Зǎng-зze", "Zengzi"],
+      ["Hsiâ", "Xia"],
+      ["Lî", "Li"],
+      ["<i>K</i>î", "Ji"],
+      ["Wû", "Wu"],
+      ["Tî", "Di"],
+      ["Зze-yû", "Ziyou"],
+      ["<i>K</i>ǎng", "Zheng"],
+      ["Зǎng-jze", "Zengzi"],
+      ["Hâo", "Hao"],
+      ["Yü", "Yu"],
+      ["<i>Kh</i>î", "Qi"],
+      ["<i>Kh</i>ǎng", "Cheng"],
+      ["Î", "Yi"],
+      ["Wǎn", "Wen"],
+      ["Зin", "Jin"],
+      ["Ying-tâ", "Yingda"],
+      ["<i>Kh</i>ǎn", "Chen"],
+      ["Зze-lû", "Zilu"],
+      ["Hsüan", "Xuan"],
+      ["Shǎn", "Shen"],
+      ["Yî", "Yi"],
+      ["Зze-hsiâ", "Zixia"],
+      ["Liû", "Liu"],
+      ["Shû", "Shu"],
+      ["Thâi", "Tai"],
+      ["Yû", "You"],
+      ["Kâo", "Gao"],
+      ["hsü", "xu"],
+      ["mâu", "mu"],
+      ["<i>K</i>wan", "Zhuan"],
+      ["Зo", "Zuo"],
+      ["Зze-sze", "Zisi"],
+      ["Po-<i>kh</i>in", "Boqin"],
+      ["Shâo", "Shao"],
+      ["<i>K</i>ung", "Zhong"],
+      ["<i>k</i>â", "zha"],
+      ["Hsien-jze", "Xianzi"],
+      ["Lâo", "Lao"],
+      ["Mû", "Mu"],
+      ["Wǎn-зze", "Wenzi"],
+      ["<i>Kh</i>û", "Chu"],
+      ["<i>K</i>ing", "Jing"],
+      ["<i>K</i>wang", "Zhuang"],
+      ["<i>K</i>âo", "Zhao"],
+      ["<i>K</i>ü", "Ju"],
+      ["Hsî", "Xi"],
+      ["Khang-hsî", "Kangxi"],
+      ["Thâo", "Tao"],
+      ["<i>Kh</i>ing", "Qing"],
+      ["<i>k</i>î", "ji"],
+      ["Зze-kâo", "Zigao"],
+      ["Pî", "Bi"],
+      ["Tîs", "Dis"],
+      ["Tû", "Du"],
+      ["Wû-jze", "Wuzi"],
+      ["Wǎn-jze", "Wenzi"],
+      ["Yû-jze", "Youzi"],
+      ["Yüan", "Yuan"],
+      ["<i>K</i>iang", "Jiang"],
+      ["Зze-kung", "Zigong"],
+      ["Зze-<i>k</i>ang", "Zizhang"],
+      ["Hsü", "Xu"],
+      ["Hâu", "Hou"],
+      ["Khwâi", "Kuai"],
+      ["Tâ", "Da"],
+      ["<i>Kh</i>ien", "Qian"],
+      ["<i>Kh</i>in", "Qin"],
+      ["<i>Kh</i>iû", "Qiu"],
+      ["<i>K</i>ih", "Zhi"],
+      ["<i>K</i>û", "Zhu"],
+      ["<i>Z</i>o", "Ruo"],
+      ["Fû-hsî", "Fuxi"],
+      ["Hǎng", "Heng"],
+      ["Po-yü", "Boyu"],
+      ["Tâo", "Dao"],
+      ["<i>K</i>ung-nî", "Zhongni"],
+      ["<i>Z</i>ung", "Rong"],
+      ["Âi", "Ai"],
+      ["Зze-liû", "Ziliu"],
+      ["Hû", "Hu"],
+      ["<i>Kh</i>un", "Chun"],
+      ["<i>K</i>ing-jze", "Jingzi"],
+      ["<i>K</i>io", "Jue"],
+      ["<i>k</i>iâ", "jia"],
+      ["<i>k</i>iû", "jiu"],
+      ["Зâng-jze", "Zengzi"],
+      ["Зǎng", "Zeng"],
+      ["Nǎng", "Neng"],
+      ["Po-kâo", "Bogao"],
+      ["lû", "lu"],
+      ["wû", "wu"],
+      ["<i>Kh</i>ung-<i>r</i>", "Chong'er"],
+      ["<i>Kh</i>î-<i>k</i>î", "Qiji"],
+      ["<i>K</i>iâ", "Jia"],
+      ["<i>K</i>iâo", "Jiao"],
+      ["<i>K</i>ung-jze", "Zhongzi"],
+      ["<i>K</i>î-sun", "Jisun"],
+      ["Зing", "Jing"],
+      ["An-jze", "Anzi"],
+      ["Fû", "Fu"],
+      ["Hsüan-ming", "Xuanming"],
+      ["Khang-<i>kh</i>ǎng", "Kangcheng"],
+      ["Kung-shû", "Gongshu"],
+      ["Kâu-mang", "Goumang"],
+      ["Kû", "Gu"],
+      ["Phî", "Pi"],
+      ["Shû-зze", "Shuzi"],
+      ["Shǎn-hsiang", "Shenxiang"],
+      ["Sze-thû", "Situ"],
+      ["Thiâo", "Tiao"],
+      ["Wû-nü", "Wunü"],
+      ["Wǎn-<i>k</i>ung", "Wenzhong"],
+      ["hû", "hu"],
+      ["yî", "yi"],
+      ["<i>Kh</i>ang", "Chang"],
+      ["<i>Kh</i>ien-niû", "Qianniu"],
+      ["<i>K</i>ing-shû", "Jingshu"],
+      ["<i>K</i>wan-hsü", "Zhuanxu"],
+      ["<i>K</i>î-зze", "Jizi"],
+      ["<i>kh</i>âi", "chai"],
+      ["<i>kh</i>ǎn", "chen"],
+      ["<i>k</i>ǎng", "zheng"],
+      ["<i>z</i>ǎn", "ren"],
+      ["Зhâo", "Cao"],
+      ["Зăng-jze", "Zengzi"],
+      ["Ho-nan", "Henan"],
+      ["Hsien-зze", "Xianzi"],
+      ["Hui-jze", "Huizi"],
+      ["Hwâi", "Huai"],
+      ["Khang-зze", "Kangzi"],
+      ["Khwǎn", "Kun"],
+      ["Khâo", "Kao"],
+      ["Kwo-jze", "Guozi"],
+      ["Mǎng", "Meng"],
+      ["Nan-kung", "Nangong"],
+      ["Nî-fû", "Nifu"],
+      ["Po-jze", "Bozi"],
+      ["Pǎn", "Ben"],
+      ["Shih-liang", "Shiliang"],
+      ["Shû-<i>k</i>ung", "Shuzhong"],
+      ["Sze-mâ", "Sima"],
+      ["Thǎng", "Teng"],
+      ["Tâ-wû", "Dawu"],
+      ["Tâi", "Dai"],
+      ["Tâoism", "Taoism"],
+      ["Tâoistic", "Taoistic"],
+      ["fû", "fu"],
+      ["mâo", "mao"],
+      ["pû", "bu"],
+      ["tâ", "da"],
+      ["<i>Kh</i>ih-hsing", "Chixing"],
+      ["<i>Kh</i>âi", "Chai"],
+      ["<i>K</i>ien-hsing", "Jianxing"],
+      ["<i>K</i>û-lü", "Zhulou", "邾婁"],
+      ["<i>kh</i>in", "qin"],
+      ["<i>k</i>iâo", "jiao"],
+      ["<i>k</i>o", "zhuo"],
+      ["Âo", "Ao"],
+      ["Зang", "Zang"],
+      ["Зhâi", "Cai"],
+      ["Зhâu", "Cao"],
+      ["Зung-<i>k</i>ang", "Zongzhang"],
+      ["Зze-khang", "Zikang"],
+      ["Fû-<i>kh</i>î", "Fuqi"],
+      ["Fǎng", "Feng"],
+      ["Hsiâo", "Xiao"],
+      ["Hsiâo-kung", "Xiaogong"],
+      ["Hsiû", "Xiu"],
+      ["Hui-po", "Huibo"],
+      ["Khang-jze", "Kangzi"],
+      ["Khû", "Ku"],
+      ["Kung-shu", "Gongshu"],
+      ["Kǎng", "Geng"],
+      ["Lâo-зze", "Laozi"],
+      ["Lâu", "Lou"],
+      ["Miâo", "Miao"],
+      ["Mû-po", "Mubo"],
+      ["Phing-<i>k</i>ung", "Pingzhong"],
+      ["Pâi", "Bai"],
+      ["Pû-wei", "Buwei"],
+      ["Păn-fû", "Benfu"],
+      ["Shû-sun", "Shusun"],
+      ["Shû-yü", "Shuyu"],
+      ["Shǎns", "Shens"],
+      ["Teh-ming", "Deming"],
+      ["Tâ-kung", "Dagong"],
+      ["Tâo-jze", "Daozi"],
+      ["Tâu", "Dou"],
+      ["Wû-зze", "Wuzi"],
+      ["Wăn", "Wen"],
+      ["Wǎn-po", "Wenbo"],
+      ["Yen-ling", "Yanling"],
+      ["Yâ", "Ya"],
+      ["Yî-khâo", "Yikao"],
+      ["Yüeh", "Yue"],
+      ["fâu", "fou"],
+      ["hsiâ", "xia"],
+      ["hsiâo", "xiao"],
+      ["jû", "ru"],
+      ["lâ", "la"],
+      ["mî", "mi"],
+      ["mû", "mu"],
+      ["pǎng", "beng"],
+      ["shâu", "shou"],
+      ["shāng", "shang"],
+      ["shǎng", "sheng"],
+      ["tâu", "dou"],
+      ["wâi-yin", "waiyin"],
+      ["<i>Kh</i>ih", "Chi"],
+      ["<i>Kh</i>î-lin", "Qilin"],
+      ["<i>Kh</i>û-yung", "Zhurong"],
+      ["<i>Kh</i>ü-fü", "Qufu"],
+      ["<i>Kh</i>ăn", "Chen"],
+      ["<i>Kh</i>ǎng-jze", "Chengzi"],
+      ["<i>K</i>an-zui", "Zhancui"],
+      ["<i>K</i>wang-jze", "Zhuangzi"],
+      ["<i>K</i>â", "Zha"],
+      ["<i>K</i>âo-jze", "Zhaozi"],
+      ["<i>R</i> Ya", "Erya"],
+      ["<i>R</i> Yâ", "Erya"],
+      ["<i>Z</i>an-jze", "Ranzi"],
+      ["<i>Z</i>ang", "Rang"],
+      ["<i>Z</i>û-shâu", "Rushou"],
+      ["<i>Z</i>ǎn", "Ren"],
+      ["<i>kh</i>ih", "chi"],
+      ["<i>k</i>in", "jin"],
+      ["Зang-jze", "Zangzi"],
+      ["Зeh", "Ze"],
+      ["Зhan", "Can"],
+      ["Зhin", "Qin"],
+      ["Зhze", "Ci"],
+      ["Зung", "Zong"],
+      ["Зze", "Zi"],
+      ["Зze-fû", "Zifu"],
+      ["Зze-han", "Zihan"],
+      ["Зze-hsî", "Zixi"],
+      ["Зze-shih", "Zishi"],
+      ["Зze-zui", "Zicui"],
+      ["Зâi", "Zai"],
+      ["Зāng-зze", "Zengzi"],
+      ["зze", "zi"],
+      ["An-shih", "Anshi"],
+      ["Fû-hsiâ", "Fuxia"],
+      ["Hsien-fan-shih", "Xianfanshi"],
+      ["Hsien-wǎn-зze", "Xianwenzi"],
+      ["Hsià", "Xia"],
+      ["Hst-ling", "Xiling"],
+      ["Hsû", "Xu"],
+      ["Hsü-nü", "Xunü"],
+      ["Hu-nan", "Hunan"],
+      ["Hui-gze", "Huizi"],
+      ["Hwa-yin", "Huayin"],
+      ["Hwai-nan", "Huainan"],
+      ["Hwan-зze", "Huanzi"],
+      ["Hwâi-nan", "Huainan"],
+      ["Hâu-thû", "Houtu"],
+      ["Hû-thâi", "Hutai"],
+      ["Hǎng-shan", "Hengshan"],
+      ["Hǎng-<i>k</i>âu", "Hengzhou"],
+      ["Kan-hsî", "Ganxi"],
+      ["Kang-ming", "Gangming"],
+      ["Kang-mû", "Gangmu"],
+      ["Kdu-mang", "Goumang"],
+      ["Khang-<i>Kh</i>ǎng", "Kangcheng"],
+      ["Khî", "Qi"],
+      ["Khû-fû", "Kufu"],
+      ["Kung-hsî", "Gongxi"],
+      ["Kung-shuh", "Gongshu"],
+      ["Kung-yang", "Gongyang"],
+      ["Kung-<i>k</i>ien", "Gongjian"],
+      ["Kung-î", "Gongyi"],
+      ["Kâi", "Gai"],
+      ["Kâo-yang", "Gaoyang"],
+      ["Kû-yung", "Zhurong"],
+      ["Kü", "Ju"],
+      ["Kün", "Jun"],
+      ["Kün-зze", "Junzi"],
+      ["Ling-wei-jang", "Lingweirang"],
+      ["Mei-mâu", "Meimou"],
+      ["Mâu", "Mou"],
+      ["Mǎng-hû", "Menghu"],
+      ["Pû", "Bu"],
+      ["Shan-tung", "Shandong"],
+      ["Shen-hsî", "Shenxi"],
+      ["Shih-зang", "Shizang"],
+      ["Shu-sun", "Shusun"],
+      ["Shǎn-shǎng", "Shensheng"],
+      ["Shǎng-hsin", "Shengxin"],
+      ["Shǎng-<i>kh</i>iû", "Shengqiu"],
+      ["Sze-<i>kh</i>üan", "Siquan"],
+      ["Sze-зhǎng", "Siceng"],
+      ["Sze-зǎng", "Sizeng"],
+      ["Sû", "Su"],
+      ["Thien-<i>k</i>in", "Tianjin"],
+      ["Thung-po", "Tongbo"],
+      ["Thung-<i>k</i>âu", "Tongzhou"],
+      ["Thâi-kung", "Taigong"],
+      ["Thû", "Tu"],
+      ["Ting-kâu", "Dinggou"],
+      ["Tsǎng", "Zeng"],
+      ["Tâi-<i>k</i>ung", "Daizhong"],
+      ["Tâo-зze", "Daozi"],
+      ["Tâoist", "Taoist"],
+      ["Tî-tî", "Didi"],
+      ["Tî-tîs", "Didis"],
+      ["Wang-sun", "Wangsun"],
+      ["Wang-wû", "Wangwu"],
+      ["Wâi", "Wai"],
+      ["Wâi-yin", "Waiyin"],
+      ["Wân", "Wen"],
+      ["Wû-fû", "Wufu"],
+      ["Wû-shû", "Wushu"],
+      ["Wûn-jze", "Wenzi"],
+      ["Yen-sze", "Yansi"],
+      ["Ying-<i>kh</i>iû", "Yingqiu"],
+      ["Yo-<i>k</i>ǎng", "Yuezheng"],
+      ["Yâo", "Yao"],
+      ["Yî-shǎng", "Yisheng"],
+      ["Yüan-min", "Yuanmin"],
+      ["hsin-hâi", "xinhai"],
+      ["hsiû", "xiu"],
+      ["hsî", "xi"],
+      ["hsû", "xu"],
+      ["hwân", "huan"],
+      ["kiû", "jiu"],
+      ["kâi", "gai"],
+      ["kǎng", "geng"],
+      ["mâu-tui", "moudui"],
+      ["mǎu", "mou"],
+      ["phû", "pu"],
+      ["pî", "bi"],
+      ["san-lâo", "sanlao"],
+      ["shân", "shan"],
+      ["shû", "shu"],
+      ["shǎn", "shen"],
+      ["thî", "ti"],
+      ["wei-mâo", "weimao"],
+      ["wân", "wen"],
+      ["wû-kǎng", "wugeng"],
+      ["wǎn", "wen"],
+      ["yûan", "yuan"],
+      ["<i>Kh</i>en-lung", "Chenlong"],
+      ["<i>Kh</i>i", "Qi"],
+      ["<i>Kh</i>ien-hsing", "Qianxing"],
+      ["<i>Kh</i>ing-fû", "Qingfu"],
+      ["<i>Kh</i>iâo", "Qiao"],
+      ["<i>Kh</i>iû-shih", "Qiushi"],
+      ["<i>Kh</i>ui", "Chui"],
+      ["<i>Kh</i>ung", "Chong"],
+      ["<i>Kh</i>wan-hsü", "Zhuanxu"],
+      ["<i>Kh</i>âo", "Chao"],
+      ["<i>Kh</i>î-lins", "Qilins"],
+      ["<i>Kh</i>î-зze", "Qizi"],
+      ["<i>Kh</i>ü-fǎu", "Qufu"],
+      ["<i>Kh</i>ü-yang", "Quyang"],
+      ["<i>Kh</i>āng", "Cheng"],
+      ["<i>Kh</i>ăng", "Cheng"],
+      ["<i>K</i>ang", "Zhang"],
+      ["<i>K</i>i", "Ji"],
+      ["<i>K</i>ieh", "Jie"],
+      ["<i>K</i>ih-lî", "Zhili"],
+      ["<i>K</i>in", "Jin"],
+      ["<i>K</i>in-thien", "Jintian"],
+      ["<i>K</i>iu", "Jiu"],
+      ["<i>K</i>iâu", "Jiao"],
+      ["<i>K</i>ung-liang-jze", "Zhongliangzi"],
+      ["<i>K</i>ung-shu", "Zhongshu"],
+      ["<i>K</i>ung-sun", "Zhongsun"],
+      ["<i>K</i>ung-tû", "Zhongdu"],
+      ["<i>K</i>ung-yü", "Zhongyu"],
+      ["<i>K</i>wǎn", "Zhuan"],
+      ["<i>K</i>ân", "Zhan"],
+      ["<i>K</i>âng", "Zhang"],
+      ["<i>K</i>âo-hsî", "Zhaoxi"],
+      ["<i>K</i>î-yû", "Jiyou"],
+      ["<i>K</i>û-yung", "Zhurong"],
+      ["<i>K</i>û-зze", "Zhuzi"],
+      ["<i>K</i>üeh", "Jue"],
+      ["<i>K</i>ün", "Jun"],
+      ["<i>K</i>ün-зze", "Junzi"],
+      ["<i>K</i>đu", "Zhou"],
+      ["<i>K</i>ǎn", "Zhen"],
+      ["<i>K</i>ǎng-Зâi", "Zhengzai"],
+      ["<i>K</i>ǎu", "Zhou"],
+      ["<i>Z</i>an", "Ran"],
+      ["<i>Z</i>û-shđu", "Rushou"],
+      ["<i>Z</i>ü-<i>z</i>ǎn", "Ruren"],
+      ["<i>Z</i>ǎn-wû", "Renwu"],
+      ["<i>kh</i>i", "qi"],
+      ["<i>kh</i>ing", "qing"],
+      ["<i>kh</i>un", "chun"],
+      ["<i>kh</i>âo", "chao"],
+      ["<i>kh</i>âu", "chao"],
+      ["<i>kh</i>î", "qi"],
+      ["<i>kh</i>ü", "qu"],
+      ["<i>kh</i>ün", "qun"],
+      ["<i>kin</i>", "jin"],
+      ["<i>k</i>an", "zhan"],
+      ["<i>k</i>ang-fû", "zhangfu"],
+      ["<i>k</i>iǒ", "jue"],
+      ["<i>k</i>ung", "zhong"],
+      ["<i>k</i>ài", "zhai"],
+      ["<i>k</i>ü", "ju"],
+      ["Âî", "Ai"],
+      ["Î-po", "Yibo"],
+      ["Зhai", "Cai"],
+      ["Зhang", "Cang"],
+      ["Зhang-wû", "Cangwu"],
+      ["Зhǎi", "Cai"],
+      ["Зhǎo", "Cao"],
+      ["Зing-зze", "Jingzi"],
+      ["Зun-<i>k</i>î", "Zunji"],
+      ["Зze-hsien", "Zixian"],
+      ["Зze-phû", "Zipu"],
+      ["Зze-shang", "Zishang"],
+      ["Зze-shû", "Zishu"],
+      ["Зze-<i>k</i>ü", "Ziju"],
+      ["З<i>h</i>ang-wû", "Cangwu"],
+      ["Зâu", "Zou"],
+      ["Зû-shâu", "Zushou"],
+      ["Зăng-зze", "Zengzi"],
+      ["Зǎng-ize", "Zengzi"],
+      ["Зǎng-sze", "Zengsi"],
+      ["Зǎngjze", "Zengzi"],
+      ["зhun", "cun"],
+      ["зio", "jue"],
+      ["зăng", "zeng"],
+    ],
     page: (n) => "Sacred Books of the East/Volume 27/The Lî Kî/Book " + LIKI_BY_N[n][1],
     chapters: LIKI.map((r) => r[0]),
     chapterWord: "Book",
@@ -12154,9 +12717,23 @@ function applyFixes(h) {
    · AND EVERY ENTRY MUST FIRE, counted and reported exactly as a fix is. A name the transcription has
      since reworded around leaves the book claiming a conversion it no longer makes. */
 const ROMAN_HITS = Object.create(null);
+const ROMAN_JOIN = { moved: 0 };
 let _romanRx = null, _romanFor = null;
 function applyRoman(h) {
   if (!BOOK || !BOOK.roman || !BOOK.roman.length) return h;
+  /* A PAGE MARKER INSIDE A WORD HIDES THAT WORD FROM EVERY ROW (Aug 2026, the Book of Rites). Where
+     the printing breaks a word across a leaf, MediaWiki sets its page-boundary span between the two
+     halves — a span carrying nothing but a zero-width space — so `Зǎng<span…>​</span>jze` reaches the
+     tag strip as the single word `Зǎngjze` and reaches THIS pass as two fragments either side of an
+     opaque tag. The row for the whole name is then dead and the half that does match is rewritten on
+     its own, which is the worst of both: the shipped text read "Zengjze", a word in neither system.
+
+     The marker is MOVED to the end of the word rather than removed, so the leaf boundary the page
+     furniture marks is still where `dropUnnumberedPages` expects to find one, and not one character
+     of prose changes — only what this pass can see. Measured over the whole of the Lî Kî before it
+     was written: three markers fall inside a word and exactly one of them splits a name. */
+  h = h.replace(/([A-Za-z\u00C0-\u024F\u0417\u0437])(<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>)([A-Za-z\u00C0-\u024F\u0417\u0437]+)/g,
+    (m, before, mark, after) => { ROMAN_JOIN.moved++; return before + after + mark; });
   if (_romanFor !== BOOK) {
     const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     const from = BOOK.roman.map(([f]) => f).sort((a, b) => b.length - a.length);
@@ -19796,6 +20373,8 @@ function writeEnglish(chapters, warnings) {
     console.log("  romanised " + hit + " name occurrence(s) into pinyin across " +
       (BOOK.roman.length - dead.length) + " of " + BOOK.roman.length + " declared names");
     for (const f of dead) warnings.push("a declared romanisation matched nothing: " + JSON.stringify(f));
+    if (ROMAN_JOIN.moved)
+      console.log("  moved " + ROMAN_JOIN.moved + " page marker(s) out of the middle of a word so the rows could see it");
   }
   if (warnings.length) {
     console.log("\n  " + warnings.length + " warning(s):");
