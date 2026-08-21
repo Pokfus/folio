@@ -868,10 +868,22 @@ function scrimCheck() {
     const routed2 = await page.evaluate(() => ({ hash: location.hash, card: !!document.querySelector(".admin-live-card") }));
     check("[" + tag + "] ...and opens THAT card in the editor", routed2.hash === "#admin" && routed2.card, JSON.stringify(routed2));
 
-    // a reader must never see it — it used to be built on every study card, admin or not.
-    // reload(), not goto(#hash): a URL differing only in the fragment is a same-document navigation, so
-    // the app keeps running and `S` in memory would never see this write (see the note in CLAUDE.md).
-    await page.evaluate(() => { const s = JSON.parse(localStorage.getItem("folio_v1")); s.settings.adminMode = false; localStorage.setItem("folio_v1", JSON.stringify(s)); });
+    /* A reader must never see it — it used to be built on every study card, admin or not.
+       A READER IS SOMEBODY `adminEligible()` SAYS NO TO, and until Aug 2026 this faked one by writing
+       `settings.adminMode = false`, the Editor / Visitor chip's own flag. That chip is gone from the menu
+       bar, and `load()` now clears a stored `false` — the chip was the only thing that ever wrote it, so
+       leaving it set would strand an editor in the visitor view with no control to return with. So the
+       flag no longer makes a reader, and faking one that way would be asserting against a state the app
+       repairs on sight.
+       What makes a reader on a dev origin is a LEGACY LOCAL ACCOUNT whose role is not admin:
+       `adminEligible()` reads `currentUser().role` before it ever reaches the guest-on-dev-origin branch,
+       so this is a reader by the same test the live site applies to a signed-in non-admin.
+       reload(), not goto(#hash): a URL differing only in the fragment is a same-document navigation, so
+       the app keeps running and the module state would never see this write (see the note in CLAUDE.md). */
+    await page.evaluate(() => localStorage.setItem("folio_acct_v1", JSON.stringify({
+      users: { reader: { name: "reader", role: "user", friends: [], requests: { in: [], out: [] } } },
+      current: "reader", guest: null,
+    })));
     await page.reload({ waitUntil: "load" });
     await page.waitForTimeout(1200);
     await studyEasy(page, base, 0);
@@ -888,7 +900,7 @@ function scrimCheck() {
     await page.waitForTimeout(1200);
     const cold = await page.evaluate(() => ({ hash: location.hash, wa: !!document.querySelector(".woa-page") }));
     check("[" + tag + "] ...and a typed admin address sends a reader home", cold.hash !== "#warofages" && !cold.wa, JSON.stringify(cold));
-    await page.evaluate(() => { const s = JSON.parse(localStorage.getItem("folio_v1")); s.settings.adminMode = true; localStorage.setItem("folio_v1", JSON.stringify(s)); });
+    await page.evaluate(() => localStorage.removeItem("folio_acct_v1"));
     await page.close();
   }
 

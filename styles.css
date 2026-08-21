@@ -283,23 +283,6 @@ body[data-theme="folio"] .topbar::after{
 .tab.active .ink{transform:scaleX(1); opacity:1;}
 .tab:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 
-/* admin / first-time-visitor mode toggle in the top bar */
-.mode-switch{
-  position:relative; flex:none; display:inline-flex; align-items:center; gap:7px;
-  margin-right:4px; padding:7px 12px; border-radius:99px; cursor:pointer; appearance:none;
-  border:1px solid var(--rule); background:var(--paper-2);
-  font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.16em; text-transform:uppercase;
-  font-weight:600; color:var(--ink-soft);
-  transition:color .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
-}
-.mode-switch .ms-dot{width:7px; height:7px; border-radius:50%; flex:none; background:var(--ink-faint); transition:background .18s var(--ease);}
-.mode-switch:hover{border-color:color-mix(in srgb, var(--ink) 18%, var(--rule));}
-.mode-switch:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
-.mode-switch.on{color:var(--indigo); background:var(--indigo-wash); border-color:color-mix(in srgb, var(--indigo) 38%, var(--rule));}
-.mode-switch.on .ms-dot{background:var(--indigo);}
-.mode-switch:not(.on){color:var(--ochre);}
-.mode-switch:not(.on) .ms-dot{background:var(--ochre);}
-
 /* in first-time-visitor preview, the Admin entry point disappears */
 body.visitor-mode .tab-admin{display:none;}
 
@@ -538,6 +521,16 @@ html[dir="rtl"] .site-ver{text-align:right;}
 body.night .coll-ic{color:#E6C765;}
 .cl-row .coll-ic, .udeck .coll-ic{min-width:46px;}
 .cl-row .coll-ic svg{width:calc(28px * var(--fs)); height:calc(28px * var(--fs));}
+/* A PNG a reader has uploaded (Aug 2026). It cannot take the gold — that is currentColor on a stroke,
+   and a picture has colours of its own — so it is an <img> rather than an inline <svg>, sized to the same
+   box and CONTAINED in it, since a reader's file has whatever proportions it has and cropping one would
+   silently show them something other than what they chose. */
+.coll-ic img{width:calc(34px * var(--fs)); height:calc(34px * var(--fs)); object-fit:contain; display:block; border-radius:4px;}
+.cl-row .coll-ic img, .udeck .coll-ic img{width:calc(28px * var(--fs)); height:calc(28px * var(--fs));}
+/* …and on a review row, where the width belongs to the deck's name (see adIcon). No min-width: the mark
+   sits in the flex line rather than reserving a column, so a row without one loses nothing. */
+.active-deck .coll-ic.dk-ic{min-width:0; margin-inline-end:2px;}
+.active-deck .coll-ic.dk-ic svg, .active-deck .coll-ic.dk-ic img{width:calc(22px * var(--fs)); height:calc(22px * var(--fs));}
 /* The Daily-review banner carried a large plain golden numeral of its own — the day's whole pile — and it
    went in Aug 2026 on request, along with pileBadgeMarkup, the tick it showed on a cleared day and the
    sizing rules that dressed it. `.banner` is that one button; the Library's collection banners carry an
@@ -1087,8 +1080,29 @@ body[data-theme="folio"] .collection-deco::after{
    unearned star is the same colour at a fraction of the opacity, which reads as an outline without
    needing a second glyph. It is absolutely positioned so it costs the question no width, and it yields
    to the read-aloud mute button, which holds this corner when read-aloud is on. */
-.study-card .card-stars{position:absolute; top:14px; right:16px; z-index:2; display:inline-flex; gap:2px; align-items:center; pointer-events:none;}
-.study-card:has(.tts-mute) .card-stars{right:52px;}
+/* ---------- THE QUESTION HEADER ROW (Aug 2026, on request) ----------
+   The difficulty rating sat absolutely in the corner at top:14px while the QUESTION label began at the
+   card's own 30px padding, so the two were never level and could not be made level by an offset — the
+   label's height follows the reader's text size and the corner's does not. In one flex row they are level
+   at every size, and neither has to know where the other is. The row is what carries the label's old
+   bottom margin, so the space under it is unchanged.
+
+   The stars therefore stop being absolute HERE and stay absolute nowhere else; `.card-stars` is emitted
+   at exactly one site, so there is no other layout to keep in step. Where read-aloud is on, its mute
+   button still holds the true corner, so the row keeps clear of it. */
+.study-card .q-head{display:flex; align-items:center; gap:12px; margin:0 0 7px;}
+.study-card .q-head .label{margin:0; flex:1; min-width:0;}
+.study-card:has(.tts-mute) .q-head{padding-right:38px;}
+.study-card .card-stars{position:static; flex:none; z-index:2; display:inline-flex; gap:2px; align-items:center; pointer-events:none;}
+/* WHERE THIS CARD STANDS, in the three colours the study bar's own counts use (Aug 2026, on request) —
+   blue for a card never studied, red for one being learned, green for one up for review. It is a mark
+   rather than a control, so it takes no pointer; its name is on the element, since three colours say
+   nothing to a reader who cannot see them. */
+.study-card .q-dot{display:inline-block; width:calc(7px * var(--fs)); height:calc(7px * var(--fs));
+  border-radius:50%; margin-right:8px; vertical-align:baseline; flex:none; opacity:.85;}
+.study-card .q-dot.q-new{background:var(--indigo-bright);}
+.study-card .q-dot.q-learn{background:var(--zh);}
+.study-card .q-dot.q-review{background:var(--good);}
 .card-stars .cs-star svg{width:calc(12px * var(--fs)); height:calc(12px * var(--fs)); display:block; fill:var(--indigo); opacity:.13;}
 .card-stars .cs-star.on svg{opacity:.5;}
 /* THE WORD, beside the stars (Aug 2026, on request): five small marks in a corner say that something is
@@ -2823,6 +2837,31 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 .dm-swatch:hover{transform:scale(1.12);}
 .dm-swatch.on{border-color:var(--ink); box-shadow:0 0 0 1px var(--card) inset;}
 .dm-swatch:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* ---- the icon picker (Aug 2026, on request) ----
+   A grid rather than the colour row's wrapping flex line: 33 symbols wrap into ragged rows there, and a
+   grid of a fixed cell keeps them in columns whatever the width, which is what makes a set of marks
+   scannable. Marked the same way a swatch is (an ink border), so the two controls in one sheet agree. */
+.ip-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(46px, 1fr)); gap:6px; margin:10px 0 4px;}
+.ip-cell{
+  appearance:none; cursor:pointer; padding:0; height:46px; display:flex; align-items:center; justify-content:center;
+  background:var(--paper-2); color:var(--ink); border:2px solid transparent; border-radius:10px;
+  box-shadow:0 0 0 1px var(--rule) inset; transition:transform .14s var(--ease), border-color .14s var(--ease);
+}
+.ip-cell svg{width:26px; height:26px; display:block;}
+.ip-cell:hover{transform:scale(1.07);}
+.ip-cell.on{border-color:var(--ink);}
+.ip-cell:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* "Default" is a WORD rather than an empty cell, because clearing takes the row back to whatever it is
+   entitled to by itself — for most rows that is a mark rather than a blank, and an empty square would
+   promise otherwise. It spans two columns so the word has room at every width. */
+.ip-default{grid-column:span 2;}
+.ip-x{font:600 11px/1 var(--display); letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint);}
+.ip-cell.on .ip-x{color:var(--ink);}
+.ip-up{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:10px 0 2px;}
+.ip-cur{display:flex; align-items:center; gap:7px; font:500 12px/1.3 var(--sans); color:var(--ink-faint);}
+.ip-cur img{width:34px; height:34px; object-fit:contain; border-radius:6px; box-shadow:0 0 0 1px var(--rule);}
+.ip-msg{min-height:1.2em; font:500 12px/1.35 var(--sans); color:var(--zh); margin-top:4px;}
+
 /* "no colour of its own" — a slash across the swatch, which says *cleared* where an empty circle would just
    read as one more colour that happens to match the paper */
 .dm-swatch-off{position:relative; background:var(--paper-2); overflow:hidden;}
@@ -3957,6 +3996,8 @@ body.grading .wb-tools{bottom:108px;}
    The in-prose marker is the one loud part, and only on hover/focus.
    ============================================================ */
 .src-note{margin:22px 0 0; padding-top:12px; border-top:1px solid var(--rule);}
+/* the Atlas panel's own copy sits inside a .cp-sec, which already draws the rule and the space above it */
+.cp-srcnote{margin:0; padding-top:0; border-top:0;}
 .src-head{
   display:inline-flex; align-items:center; gap:7px; width:auto; appearance:none; background:none;
   border:0; padding:0; cursor:pointer; font:inherit; color:var(--ink-faint); text-align:left;
@@ -4099,6 +4140,25 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
 .group-chev{width:15px; height:15px; flex:none; color:var(--ink-faint); transition:transform .2s var(--ease);}
 .collection-group-soon[open] > summary .group-chev{transform:rotate(180deg);}
 @media (prefers-reduced-motion:reduce){ .group-chev{transition:none;} }
+/* The Languages section (Aug 2026, on request — "presented as official curated collections, with the
+   same type of banners … as the history collections"). It was seven <details> folds of deck rows and is
+   now seven .collection banners, so it INHERITS almost everything: .collection, .collection-row,
+   .collection-deco, .coll-ic, .collection-title-row and .deck-prog all style it exactly as they style
+   Ancient Greece, and every theme's banner treatment follows the --coll-bg set inline on the row. What
+   is left here is only what differs, and each line is a difference rather than a restatement. */
+.lang-deck .lang-size{color:var(--ink-faint); font-size:calc(11px * var(--fs));}
+/* The deck rows are the curated .node, whose right-hand cell is sized for a chevron; an Add button is
+   wider and must not be squeezed into it. */
+.lang-deck .collection-actions{align-items:center; flex:none;}
+.lang-add{flex:none; white-space:nowrap;}
+/* A deck row carries two quiet lines under its title where a curated one carries none, so its own
+   bottom padding is what keeps the box from reading as cramped; .udeck-sub's trailing margin does the
+   rest. The progress bar only appears on an installed deck, so the row has two heights by design. */
+.node.lang-deck{align-items:flex-start; padding-block:10px;}
+.node.lang-deck .node-main{min-width:0;}
+/* The deck count beside a language's title is a FACT ABOUT THE COLLECTION rather than a date, so it
+   borrows .collection-span's quiet setting and nothing else. */
+.lang-coll .collection-title-row .collection-span{font-variant-numeric:tabular-nums;}
 
 /* card count on a live collection — the one number that says "there is something here" */
 .collection-count{font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
@@ -4231,6 +4291,31 @@ button.game-tile .gt-glyph{opacity:.14;}
 .msn-faq{--msn-accent:#8257C2;}
 .msn-clog{--msn-accent:#C39A2E;}
 .msn-credits{--msn-accent:#2BA6A0;}
+/* the AI-prompt section (Aug 2026). Its accent is a terracotta: the five already placed run indigo,
+   green, purple, gold and teal, so red is the quarter left free — and the chip is decoration, so the
+   only thing it has to clear is its neighbours rather than the contrast bar. */
+.msn-ai{--msn-accent:#C25A4E;}
+.ai-intro{font-family:var(--serif); font-size:calc(15px * var(--fs)); line-height:1.68; color:var(--ink-soft); margin:0 0 6px;}
+.ai-steps{margin-bottom:18px;}
+.ai-prompts{display:flex; flex-direction:column; gap:14px;}
+.ai-prompt{border:1px solid var(--rule); border-radius:12px; overflow:hidden; background:var(--paper-2);}
+.ai-ph{display:flex; align-items:flex-start; gap:12px; padding:12px 14px;}
+.ai-pt{flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;}
+.ai-pt b{font-family:var(--display); font-size:calc(15px * var(--fs)); color:var(--ink);}
+.ai-pt span{font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-faint);}
+.ai-copy{flex:none;}
+/* The prompt itself. It is text to be COPIED, so it is set in the mono face and wrapped rather than
+   scrolled sideways — a prompt with a horizontal scrollbar is one a reader cannot read before they
+   paste it. `pre-wrap` keeps the line breaks the prompt is written with. */
+.ai-pre{margin:0; padding:12px 14px 14px; border-top:1px solid var(--rule); background:var(--card);
+  font-family:var(--mono); font-size:calc(11.5px * var(--fs)); line-height:1.6; color:var(--ink-soft);
+  white-space:pre-wrap; word-break:break-word; max-height:280px; overflow-y:auto;}
+.ai-foot{margin:16px 0 0; font-size:calc(12.5px * var(--fs)); line-height:1.6; color:var(--ink-faint);}
+/* the Studio's way in — a line above the card list, not one of its commands */
+.studio-aihint{padding:0 2px 8px; font-size:calc(12px * var(--fs)); color:var(--ink-faint);}
+.sa-link{background:none; border:0; padding:0; font:inherit; color:var(--indigo); text-decoration:underline;
+  text-underline-offset:2px; cursor:pointer;}
+.sa-link:hover{color:var(--ink);}
 .msn-head{display:flex; align-items:center; gap:12px; margin-bottom:14px;}
 .msn-head h2{margin:0;}
 .msn-chip{flex:none; width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center;
@@ -5534,7 +5619,6 @@ body[data-theme="arcade"] .brand .mark{ font-family:var(--px); font-weight:400; 
 body[data-theme="arcade"] .brand .tag{ font-family:"VT323",var(--mono); font-size:calc(13px * var(--fs)); letter-spacing:.2em; }
 body[data-theme="arcade"] .tab{ font-family:var(--px); font-size:calc(9px * var(--fs)); font-weight:400; letter-spacing:.04em; line-height:1.5; padding:12px 11px; }
 body[data-theme="arcade"] .tab .ink{ height:3px; bottom:3px; }
-body[data-theme="arcade"] .mode-switch{ border:2px solid var(--ink); }
 /* page head = level title card */
 body[data-theme="arcade"] .page-head h1{ font-family:var(--px); font-weight:400; font-size:calc(clamp(16px,2.8vw,21px) * var(--fs)); letter-spacing:.02em; line-height:1.55; text-transform:uppercase; }
 body[data-theme="arcade"] .eyebrow{ font-family:"VT323",var(--mono); font-size:calc(15px * var(--fs)); font-weight:400; letter-spacing:.18em; }
@@ -5619,7 +5703,6 @@ body[data-theme="academy"] .brand .tag{ font-family:var(--serif); font-style:ita
 body[data-theme="academy"] .tab{ font-family:var(--display); font-variant:small-caps; letter-spacing:.12em; font-size:calc(14px * var(--fs)); font-weight:600; border-radius:0; }
 body[data-theme="academy"] .tab .ink{ background:var(--zh); height:2px; border-radius:0; }
 body[data-theme="academy"] .tab.active{ color:var(--indigo); }
-body[data-theme="academy"] .mode-switch{ border-radius:2px; }
 
 /* page head: centred, double-rule, fleuron ornament */
 body[data-theme="academy"] .page-head{ text-align:center; }
@@ -5738,7 +5821,6 @@ body[data-theme="marble"] .brand .mark{ letter-spacing:.2em; }
 body[data-theme="marble"] .brand .tag{ font-family:var(--serif); font-style:italic; }
 body[data-theme="marble"] .tab{ font-family:var(--display); text-transform:uppercase; letter-spacing:.12em; font-size:calc(11.5px * var(--fs)); font-weight:600; border-radius:0; }
 body[data-theme="marble"] .tab .ink{ background:var(--indigo); }
-body[data-theme="marble"] .mode-switch{ border-radius:0; }
 /* page head: incised title, double-rule + fleuron ornament */
 body[data-theme="marble"] .page-head h1{ font-weight:700; letter-spacing:.14em; }
 body[data-theme="marble"] .eyebrow{ color:var(--indigo); letter-spacing:.24em; }
@@ -5869,7 +5951,7 @@ body[data-theme="gazette"] .faq-q, body[data-theme="gazette"] .chev, body[data-t
 body[data-theme="gazette"] .xp-fill, body[data-theme="gazette"] .prog, body[data-theme="gazette"] .prog .fill,
 body[data-theme="gazette"] .active-deck, body[data-theme="gazette"] .node, body[data-theme="gazette"] .pill,
 body[data-theme="gazette"] .daily-quote, body[data-theme="gazette"] .theme-opt,
-body[data-theme="gazette"] .mode-switch, body[data-theme="gazette"] .lang-opt{ border-radius:0; }
+body[data-theme="gazette"] .lang-opt{ border-radius:0; }
 
 /* ink frames + hard offsets */
 body[data-theme="gazette"] .banner{ border-color:var(--ink); box-shadow:var(--shadow-md); }

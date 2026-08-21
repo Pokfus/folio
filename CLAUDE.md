@@ -57,6 +57,17 @@ It is a plain static website — open `index.html` and it runs.
   127 KB → 54 KB, which every visitor pays for, this file being in the eager load path. **Aim for about 120
   characters and treat 200 as the ceiling**; a line that wants a second sentence wants to be two items, or to
   be shorter. The counts and the finding belong here; the per-card detail belongs in the batch log in `docs/`.
+  **A DAY TITLE IS AT MOST 72 CHARACTERS, and that is a rule with a checker** (Aug 2026, on request:
+  "the daily titles have grown to extensive summaries rather than compact titles"). The sentence rule above
+  did not say how LONG, so the titles drifted the way the items had: measured over the whole file, the first
+  thirty-two days run 13–72 characters and read as titles ("After the ice", "A Library of books, and World
+  History replanned") while nine recent ones had grown to 100–194 and were three- and four-item lists — a
+  contents page rather than a heading, and on a phone a wall of prose above the list it introduces. The nine
+  were rewritten into the older band and the ceiling is the longest of the ones that were always right.
+  **Enforced by rule 5 of `check-style.js`**, over `changelog.js`, REPORT-ONLY and deliberately absent from
+  `--fix`: shortening a title is a judgement about which of the day's changes LED, which is the one thing a
+  regex cannot make, and a truncated title is a sentence fragment rather than a heading. **Name the day's
+  leading change and stop**; the rest of the day is the list underneath.
   (This supersedes an earlier "anything past ~1,000 characters is a transcript", which two 12,000- and
   15,000-character citation entries had already broken once, in 2026-08-01.)
   **An item is rendered as HTML, not escaped** (through `sanitizeHTML`), so `<b>` and `<i>` work and bold
@@ -81,7 +92,7 @@ It is a plain static website — open `index.html` and it runs.
 
 **Only the study-critical files load eagerly**, in this order — it is significant:
 `data.js → truefalse.js → quotes.js → whatyear.js → changelog.js → mission.js → glossary.js →
-glossary-wikipedia.js → artefacts.js → app.js`.
+glossary-wikipedia.js → artefacts.js → lang-decks.js → app.js`.
 **That path is 5.90 MB raw / 1.65 MB gzipped** (re-measured 2026-08-10 after `whatyear.js` joined it, which
 cost 14 KB raw / 6 KB gzipped; it was 5.84 MB / 1.61 MB after the picture pass of 2026-08-09 and
 4.9 MB / 1.35 MB the day before that, and it said "~1.4 MB" for months while being five times out of
@@ -4061,7 +4072,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   eager because it is metadata only: a picture is a LINK, never an upload, exactly as a card's is, so an
   artefact costs a few hundred bytes however many are added. Every entry is a REAL object and the content
   rules are the cards' — nothing invented, five sentences, ~200 words (±10%), metric first with the
-  imperial in brackets. **The `id` is permanent**: the reader's own inventory (`S.artefacts`) is keyed by
+  imperial in brackets.
+  **A DESCRIPTION ASSUMES NO CONTEXT AND NAMES WHAT IT MEANS** (Aug 2026, on a report that the Dressel 20
+  said "the empire" without saying which). An artefact is dealt cold out of a chest, so a bare definite
+  reference — *the empire*, *the dynasty*, *the war* — is a claim the reader has no way to resolve. **What
+  makes the rule bearable is the `origin` field the plate prints directly under the name**: "The Roman
+  empire", "The Inca empire", "Qing China", so a noun the origin already names needs no re-qualifying, and
+  the rule is about the ones nothing on the plate settles. Swept over all 100 with a regex for a definite
+  article before an entity word: 23 matched, every one read, and only TWO were genuinely bare. **Sweep
+  rather than fixing the one that was reported.**
+  **The `id` is permanent**: the reader's own inventory (`S.artefacts`) is keyed by
   it, so renaming one takes the artefact out of every collection that holds it, and the Admin editor locks
   the field once an artefact exists. Written and edited in **Admin → Artefacts**, which also hands the
   whole file back as a JS literal (`serializeArtefacts`); an `ADMIN_EDITS.artefacts` overlay sits over it,
@@ -4116,6 +4136,68 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   batch table, the reachable-host survey the pass is built on, and its findings. **What keeps it true is
   the refusal, not the count** — a new artefact cannot be written below the bar — so re-run
   `.claude/test-artefacts.js` after any batch, since it reports coverage and re-checks every shipped list.
+- `lang-decks.js` (~9 KB) — `window.LANG_DECKS = [ { lang, file, id, title, sub, notes, cards, subs?, bytes } ]`,
+  the CATALOGUE of the language decks in `decks/`, which is what the Collections page's **Languages**
+  section is drawn from (Aug 2026, on request: "ensure that all our language collections are visible on
+  the Collections page in their own Languages section", and then "ensure the language collections are
+  presented as official curated collections, with the same type of banners on the Collections page as the
+  history collections … there should be one section titled Languages; it should contain one collection
+  for each language; each collection should have all decks for that language inside it").
+  Generated by `.claude/build-lang-decks.js`, **never hand-edited**. Five things about it are decisions
+  rather than plumbing.
+  · **A LANGUAGE IS A COLLECTION AND CANNOT BE A TREE NODE, which is what the catalogue is FOR.** It is
+    drawn with the curated banner — the same `.collection-row`, `.collection-deco` wash, `coll-ic` icon,
+    title row and `deckProgMarkup` bar as Ancient Greece — and its decks are the curated tree's own
+    `.node` rows inside its fold (`langCollectionsHTML` / `langCollectionHTML` / `langDeckRowHTML` /
+    `wireLangDecks` in app.js, wired through `wireExpander` so the chevron and the entrance stagger
+    cannot drift from the collections'). What it may NOT be is a real `COLLECTION_TREE` node: a tree
+    node's cards live in `data.js`, which every visitor downloads before flipping a card, and these
+    decks are 119 MB. **Its hues are in `COLL_THEME` under `lang-<slug>` keys**, measured in CIELAB like
+    every other collection hue (the worst of the seven clears 26.4 against a tightest existing pair of
+    12.9), and the id is BUILT from the language name by `langCollId` rather than written down, so a
+    language added to the catalogue needs one row in `COLL_THEME` and nothing else.
+    **THE SEVEN SHARE ONE ICON** (`COLLECTION_ICON._lang`, a speech bubble), which is the one place they
+    cannot match the history shelf: every curated icon says what its collection is ABOUT, and a language
+    cannot be drawn — a letter needs a font where these are bare paths, and a flag or a landmark would
+    be a claim about a NATION where the deck is for a language several nations speak.
+    **AND THE BANNER CARRIES NO `+`.** A curated collection's + adds its whole subtree to the daily
+    review, and there is no study scope for "several community decks" — nor should pressing one silently
+    download 21 MB of Mandarin. Each deck's own Add is what brings a deck in; once in, it has a full row
+    in "Your decks" below. **The bar is honest on a deck that is not here yet**: the total is the
+    catalogue's card count and the studied figure is summed over the decks actually installed, so an
+    untouched language reads 0 of 23,666 rather than claiming a denominator it has no cards for.
+  · **A CATALOGUE EXISTS BECAUSE THE SHELF IS 119 MB.** Nothing on the site linked to a deck in `decks/`
+    until this shipped — they are files a reader imports through the Studio — and a section that listed
+    them by FETCHING them would cost the whole shelf to draw a list. What ships is the metadata, a few
+    hundred bytes a deck; the deck file itself is fetched only when somebody presses Add. It is the
+    Library's own arrangement (`BOOKS` eager so the shelf can paint, a book's text lazy).
+  · **IT IS EAGER, ON `artefacts.js`'s PRECEDENT AND MEASUREMENT.** The documented rule is that only the
+    study-critical files load eagerly, and the documented exception is a metadata-only file: an artefact's
+    picture is a LINK, so `artefacts.js` stays eager whatever is added to it, and the same holds here —
+    9 KB raw against a 5.90 MB eager path is 0.15%. What being lazy would buy is that fraction; what it
+    would cost is a placard and a reflow on every visit to one of the site's main pages, for a file that
+    is already on disk. **Re-measure rather than assuming it stays small**: it grows by ~250 bytes a deck.
+  · **EVERY FIGURE IS READ OFF THE DECK FILE IT DESCRIBES**, which is the whole reason it is generated: a
+    row claiming 500 words over a deck that now holds 700 looks exactly like a row, and nothing on the
+    page could report it. **`cards` is CARDS and not notes** — a deck may ask a word both ways from ONE
+    note by giving its type two templates (HSK, CILS, DELF) or from TWO notes (DELE), so the count
+    multiplies each note by its type's template count, which is what makes the two shapes comparable and
+    what every other count on the site already means by "cards".
+  · **THE LANGUAGE IS MATCHED FROM THE FILE NAME AGAINST A DECLARED LIST, AND AN UNMATCHED FILE IS AN
+    ERROR.** The names follow no one pattern (`DELE-A1-Spanish`, `French-Phrases`,
+    `Italian-Core-Vocabulary`, `Mandarin-Chinese`), so a rule about position drops three of them; what
+    they all carry is the language's own name somewhere in the name. Matching TWO is an error too — a
+    deck the catalogue could file under either is one nobody would find twice. **A new language is one
+    row in `LANGS` plus its deck files**, and the build refuses rather than quietly leaving a file out.
+  Currently **38 decks across 7 languages** — French 7, German 1, Indonesian 8, Italian 8, Mandarin
+  Chinese 3, Portuguese 7, Spanish 4 — **104,504 cards over 56,245 notes**. Count them rather than
+  quoting that: `node .claude/build-lang-decks.js` prints the tally on every run.
+- `.claude/build-lang-decks.js` — the generator above: `node .claude/build-lang-decks.js`. Zero deps, reads
+  `decks/*.folio-deck.json` and writes `lang-decks.js`. It sorts by language and then by the level the exam
+  itself names (A1…C2, UKBI 1–7, HSK 1–6), with anything that is not a level — a phrase book, a core
+  vocabulary — sorting last within its language, that being where a learner reaches it. **Re-run it after
+  adding, rebuilding or removing a deck in `decks/`**, or the Languages section goes on offering the figures
+  the deck used to have. Not part of the site.
 - `changelog.js` — `window.CHANGELOG = [ { d:"YYYY-MM-DD", label?, t, items:[…] } ]`, the day-grouped release notes
   rendered as the **About** page's collapsible changelog (`PAGES.mission`, hash `#mission` — the nav tab is LABELLED
   "About" but the route/hash stay `mission`; section order: intro prose + forgetting-curve SVG → "How to use Folio"
@@ -8519,7 +8601,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     disabled button, so the hover try-on would be taken away from exactly the themes that most need
     advertising. `setTheme` is the gate (it refuses a locked id outright), and the click toasts the reason;
     the picker marks the row with a dashed border, a desaturated mock and a padlock, and its tag reads
-    "From a chest" where an owned one reads its own tagline.
+    "From a chest" where an owned one reads **the day it was unlocked** (`themeUnlockedOn` /
+    `themeUnlockedOnText`, Aug 2026, on request). Nothing new is recorded for that and no save migrates:
+    `unlockTheme` has written `Date.now()` since the day it shipped, so this is only the reading of it.
+    **ZERO IS A REAL ANSWER AND MUST NOT BE PRINTED AS ONE** — `themeGrandfather` writes 0, meaning "owned,
+    date unknown", and 0 as a timestamp is 1 January 1970, so a caller that formatted it blindly would put
+    a confident wrong date on the one theme whose history nobody recorded. There and on `folio`, which
+    nobody unlocked, the tag falls back to the tagline, which moves into the tooltip everywhere else so the
+    one line the tile has room for carries the thing that changes rather than the thing that never does.
+    **AND `t[2]` IS PRE-ESCAPED HTML** — Marble's tagline is written `Marble &amp; bronze` and every reader
+    of it emits it raw, so only the date, composed at render out of the reader's own locale, is escaped.
     **THE REVEAL OPENS AS AN "EPIC"** so the chest animation has a rarity to size its shake, its burst and
     its sound by, without borrowing the legendary flourish — and the plate shows the same `themeMockHTML`
     the Settings picker draws, so the two cannot come to disagree about what a theme looks like. Its two
@@ -9362,7 +9453,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `grade()` writes in five places at once, so the undo is a snapshot of exactly those (`S.cards[id]`, today's
   `reviewLog` row, `S.reviewDay`, `S.intro`, `S.streak`) taken in `doGrade` **before anything is written and
   before `queue.shift()`**, plus the queue itself, which is what restores a requeued learning step as faithfully
-  as a graduated card. The card comes back **revealed** (`studyRevealId`), on the grade row it was mis-answered on.
+  as a graduated card. **The card comes back AT ITS QUESTION, and at the PHRASING the reader was actually
+  shown** (Aug 2026, on request; it used to come back revealed, on the grade row it was mis-answered on).
+  The reasoning is what a reader means by undoing a grade: they want to ANSWER the card again, and a card
+  whose answer is already on screen cannot be answered — it can only be re-scored against prose they are
+  looking at. So `studyRevealId` is cleared, and `undoSnapshot` records **`qi: qIdx`** so the phrasing goes
+  back with it: a card carries up to three ways of asking the same thing and `renderCard` picks one at
+  random when `qIdx` is null, so an undo that did not record it would bring the card back asking something
+  else — which reads as the undo having fetched a different card rather than as a phrasing being re-rolled.
   Two things it deliberately does NOT take back, both additive and harmless: a badge or level-up already announced
   (`checkAchievements` only ever adds) and a Card of the day already dropped into the review list.
   **IT STEPS BACK ONE CARD, NOT TWO** (`UNDO_GUARD_MS` (90) / `undoAt`, Aug 2026, on a report). There are
@@ -9874,6 +9972,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     printing it as a figure out of a hundred would dress it up as one, which is why only the community
     rating carries `.cs-pct`. And **the rank is derived from the percentage** (`floor(pct / 20) + 1`) rather
     than stored, so the two ratings share one five-star scale and one row of markup.
+    **ONLY A READER'S FIRST THREE ANSWERS TO A CARD COUNT** (`CARD_STATS_SIGHTINGS` (3) / `c.seen` /
+    `cardStatsUndo`, Aug 2026, on request: "this way we actually rate how hard it is to LEARN the card, not
+    just how well-known it is when it first appears to them"). Every grade used to be counted, and a card is
+    graded for as long as it is studied — so a well-scheduled card converges on Easy whatever it cost to
+    learn, and the figure slowly stopped measuring difficulty at all and started measuring how long the deck
+    had been in use. Three sightings is where the learning happens.
+    **THE COUNTER IS ON THE CARD RECORD (`c.seen`), which is what makes an undo free**: it rides in the
+    synced blob with the rest of `S.cards`, needs no field of its own and no migration (an absent key reads
+    as 0, so every existing card starts its three from today), and `resetProgress` clears it with the
+    schedule it belongs to. **`schedForget` deliberately does NOT reset it** — forgetting is a statement
+    about the SCHEDULE, and a reader who has already met a card three times cannot un-meet it.
+    **AND THE UNDO READS THE SNAPSHOT, NEVER THE REVIEW LOG.** `doGrade` records `snap.g = g` and
+    `undoGrade` withdraws that vote, because `REV_GRADE_NAME` is CAPITALISED where `CARD_GRADE_KEY` is not:
+    a grade recovered from the log would not match a stats key, the withdrawal would quietly do nothing, and
+    a mis-graded card would keep a vote it never earned — with nothing on the page to say the rating is one
+    answer too heavy. Guarded by `.claude/test-spelling.js`, which reads all five lines out of `app.js`.
     **THE WORD "Difficulty" IS PRINTED BESIDE THE STARS** (same request): five small stars in a corner say
     that something is being rated and not what. Set small and thin, so it labels the row rather than
     competing with the question beside it. **AND IT IS THE FIRST TEXT IN THAT ROW, SO IT NEEDED A
@@ -10816,6 +10930,60 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · The `MutationObserver` is permanent (both modes transform, so there is no "off"), and `render()` also calls
     `unitizeTree(root)` directly, since an observer callback is a microtask and would otherwise let one frame of
     the other system through.
+- **British or American spelling, the reader's** (**Settings → Appearance → Spelling**, `S.settings.spelling` /
+  `SPELL_PAIRS` / `_spellMaps` / `spellText` / `spellTree` / `applySpelling` / `setSpelling`, Aug 2026, on
+  request: "just as users can switch between metric and imperial units, they should also be able to switch
+  between British and American English"). The units switch's shape exactly — content stays authored in en-GB
+  and a text-node pass rewrites at render — so no field is authored twice and a card written next year is
+  covered without anybody remembering. Eight things are decisions rather than plumbing.
+  · **IT IS A DECLARED TABLE AND NEVER A RULE, and every trap in it was found in the real corpus rather than
+    reasoned about.** A `-re` → `-er` rule turns `timetree` into `timetrer`; a `kerb` → `curb` rule reaches
+    into `Kerberos` and `Lockerbie`; an `-ll-` → `-l-` rule reaches into `controlled`, `paywalled` and the
+    archaeologist `Conneller`; an `axe` → `ax` rule matches `taxes` and `Saxe`. `SPELL_PAIRS` is 144 rows of
+    `[British stem, American stem, suffixes, one-way?]` and the transform can only ever do what it says.
+  · **THE SUFFIX LIST IS EXHAUSTIVE, AND THE BARE STEM IS ADMITTED ONLY BY AN EXPLICIT EMPTY ELEMENT**
+    (`"|s|ed"` → `["", "s", "ed"]`). The first cut always admitted the stem, which rendered `emphasis` as
+    `emphasiz` and `paralysis` as `paralyzis` — a stem that is itself a word with another meaning. **And a
+    suffix right for one side is not always right for the other**: `centre` + `d` gives `centerd` and
+    `catalogue` + `d` gives `catalogd`, so every divergent inflection (`centred`, `catalogued`, `storeyed`,
+    `manoeuvred`, `manoeuvring`) has a whole row of its own.
+  · **IT IS TWO-WAY, WHICH THE UNITS SWITCH IS NOT, AND THE MEASUREMENT IS WHY.** The corpus is genuinely
+    mixed in the -ise/-ize family — 82 `organized` against 54 `organised`, 68 `civilization` against 51
+    `civilisation`, 47 `colonization` against 55 `colonisation` — so a one-way transform would leave a
+    British reader reading American spellings on half the cards while the setting claimed otherwise.
+  · **EIGHTEEN ROWS ARE ONE-WAY ALL THE SAME, and the fourth column is what says so.** `storey` → `story`
+    is safe and `story` → `storey` is catastrophic; the same holds for `program`, `meter`, `practice`,
+    `license` and `catalog`, each of whose American form is a British word with another meaning — and for
+    **`medieval`**, which the reverse sweep caught: it is the standard modern British spelling, `mediaeval`
+    is archaic, and the corpus has none of it.
+  · **FIVE FAMILIES ARE DELIBERATELY ABSENT AND FIVE WORDS ARE EXCLUDED BY NAME.** American English writes
+    `archaeology` (1,923 sites), `ochre` (91), `aesthetic`, `dialogue`/`analogue` and `axe` the same way, so
+    a row for any of them rewrites correct prose into a spelling nobody asked for. `tyre` is the Phoenician
+    city in all four of its sites, `draught` includes the Corridor of the Draught Board at Knossos, `kerb`
+    is excluded because `curb` is also a verb, and `sulphur` and `gaol` are left as written.
+  · **A URL IS NOT PROSE, AND THE MASK IS IN `spellText` RATHER THAN IN `spellTree`** (`SPELL_URL_RX`).
+    Measured: 173 of the corpus's 10,108 URLs carry a mapped word (`/pub/data/paleo/`,
+    `Panionium_theatre.jpg`, `Mycenaean_armour_from_chamber_tomb_12`). Most sit in an `src` attribute, which
+    a text-node walk can never reach, and the citations are behind `.notranslate` — but `mediaCreditHTML`
+    renders a credit URL as the VISIBLE TEXT of its own link, so without the mask a reader would meet a link
+    reading `palaeo` whose href still said `paleo`. Masked at the transform, so every rendering site added
+    later is covered without anybody remembering.
+  · **THE CITATIONS AND THE LIBRARY'S BOOKS ARE SKIPPED** (`.notranslate, .bk-page`), and it matters more
+    here than it does for units: a citation names a published work, and rewriting *The Colour of Prehistory*
+    into *Color* invents a title that does not exist. A book is somebody's published translation,
+    transcribed rather than edited, so it keeps whatever its translator wrote.
+  · **AND `gradeCloze` TRANSFORMS THE ANSWER, NEVER THE GUESS.** It is the one place the switch has to reach
+    past the DOM: the cloze compares what was typed against the stored `answerText`, which is authored in
+    British, so an American reader typing exactly what is on their screen would be marked wrong.
+    Transforming the guess instead would be the same fault upside down.
+  **Its known limit, stated rather than papered over**: the card browser (`PAGES.browse`) searches stored
+  card TEXT, so an American reader typing "color" will not find a card whose stored prose says "colour".
+  The case of the word on the page is preserved in the three shapes a sentence actually produces (all
+  lower, Capitalised, ALL CAPS); anything else is left alone, a mixed-case word being a name far more often
+  than a spelling. Guarded by `.claude/test-spelling.js` (64 assertions) — **re-run after touching
+  `SPELL_PAIRS`, `spellText`, `spellTree`, `SPELL_URL_RX` or `gradeCloze`**, and note that most of it needs
+  no browser: what goes wrong with a declared table is arithmetic over the shipped corpus and reads far
+  better as a failed comparison than as a screenshot.
 - **ENGLISH ONLY — `const MULTILANG = false`** (app.js, beside `LANG_CODES`; Aug 2026, on request). The site
   ships in English while the work is on making the English as good as it can be. It is **one switch**, and it
   shuts three doors: the Language card is not rendered on the Settings page, `?lang=xx` no longer switches,
@@ -11471,7 +11639,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   chrono: "in order!") — `markGamePlayed(key, won, score, total)` stores `{s, n}` per day, `gameSub()` renders it. The
   Daily-review banner's CTA sits at the **bottom-left inside `.body`** (below the full-width xp bar), on mobile too. The **"Clean Sweep" achievement**
   (`sweep`, 🎯) unlocks when **every game on the grid is `won` on the same day** — nine of them since
-  2026-08-09, `DAILY_GAMES` being the list and `allGamesWonToday` → `progStats().dailySweep` the test. **The
+  2026-08-09, `DAILY_GAMES` being the list and `allGamesWonToday` → `progStats().dailySweep` the test.
+  **`won` IS A PERFECT SCORE, NOT A PLAY, AND THE BADGE'S OWN DESCRIPTION SAID OTHERWISE** until Aug 2026
+  (on a report): `gameWonToday` documents `won` as a perfect run and `markGamePlayed(key, won, …)` is
+  called with it, so the rule was always the stricter one — only the badge's `desc` and
+  `maybeSweepChest`'s toast said "win". Both now say a perfect score, and **no scoring changed**. Check
+  what a rule actually tests before changing it to match a description that misstates it. **The
   badge gets harder each time the grid grows, and that is deliberate**: it is the honest reading of "every
   game today", and the alternative is a sweep that means less every year. Nobody loses one they already
   hold, `checkAchievements` only ever adding. A perfect Multiple-choices run also increments `S.daily.wins`, which **revived
@@ -11796,6 +11969,55 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   had to be restyled; `.deck-prog .xp-lvl` takes the quiet ink, a caption not being a level. The same pair
   is used by the community-deck rows and by the account page's "Collection progress" section, so the three
   places a collection's standing is shown cannot come to disagree about what they are showing.
+- **…AND A READER CAN PUT THEIR OWN MARK ON ONE** (`ICON_SYMBOLS` / `ICON_PATH` / `ICON_NAME` /
+  `symbolIconMarkup` / `entryIcon` / `setEntryIcon` / `entryIconMarkup` / `iconFromFile` / `ICON_MAX_BYTES`
+  / `ICON_PX` / `openIconPicker` / `iconRowNote`; `.ip-grid` in styles.css. Aug 2026, on request: a symbol
+  from a list the site provides, or a small PNG of their own.) Five decisions are load-bearing.
+  **`COLLECTION_ICON` IS A TABLE OF KEYS NOW, NOT OF PATHS**, which is the whole feature: a picker needs
+  names and a stored choice must be a short stable thing rather than a path, so `ICON_SYMBOLS` is an
+  ordered `{k, n, d}` list — the 13 marks the collections already wore plus 20 drawn to sit beside them —
+  and `ICON_PATH` / `ICON_NAME` are derived from it on load. **Nothing that DRAWS an icon changed shape**:
+  `symbolIconMarkup` emits the same `.coll-ic` div, which is why five suites reading `.coll-ic svg` needed
+  no change at all.
+  **IT LIVES IN `S.deckGroups` BESIDE THE COLOUR, and that is what made it small.** That record is already
+  keyed by ENTRY ID, already in `PROGRESS_FIELDS` and `RESET_KEEPS`, and already where a row's presentation
+  is stored — so the icon syncs, survives a reset, and needs no new field, no migration and no schema
+  block. A record holding only a `color` or an `icon` is a presentation override; one holding a `title` is
+  a group the reader made.
+  **A PNG IS RE-ENCODED AT 64px AND CAPPED, AND IS NOT DRAWN IN THE GOLD.** An uploaded file is read, drawn
+  contained and centred into a 64×64 canvas and re-encoded, so what is stored is the site's own bytes
+  rather than a stranger's file, bounded at `ICON_MAX_BYTES` (24 KB) whatever came in — which matters
+  because this rides in the synced blob. **Every failure path resolves to `{ error: "<sentence>" }` rather
+  than rejecting**, so the picker can say what went wrong. A symbol takes `currentColor` and therefore the
+  collection gold; a PNG cannot, so it renders as an `<img>` and keeps its own colours.
+  **IT IS NOT INHERITED DOWN THE TREE**, unlike the colour beside it. A colour cascades because it is a
+  wash and reads as one family; an icon is an IDENTITY, and repeating it on nine subdeck rows would say
+  each of them is the collection. `adIconKey` returns a mark only for a ROOT collection, a whole community
+  deck, or a row the reader has given one — **asserted both ways**, since a mark on every row and a mark on
+  none look equally deliberate from one side.
+  **AND THE PICKER IS A SUB-SHEET THAT DOES NOT CLOSE ON A CHOICE.** Choosing re-marks the grid in place;
+  only `[data-act="close"]` closes and repaints. The sheet's row sits directly after `colorRow` and before
+  Remove — **`test-review-decks.js` pins BOTH sheet row lists EXACTLY**, so a row added here fails there
+  until that assertion is updated, which is the point of pinning it.
+- **THE ABOUT PAGE HANDS THE READER THE AI PROMPTS** (`AI_PROMPTS` / the `msn-ai` section / `CHIP.ai` /
+  `.ai-pre`; the Studio's `#stAiHelp` / `.studio-aihint`. Aug 2026, on request). Three prompts — a whole
+  deck as an importable `.folio-deck.json`, more cards for a deck already open, and vocabulary cards — each
+  with a Copy button, over three steps saying what to do with what comes back. Four decisions.
+  **THE PROMPTS DESCRIBE PATHS THAT WERE VERIFIED END TO END.** A prompt whose output the importer refuses
+  is worse than no prompt, the reader having no way to tell their own file from the instructions — so the
+  deck-file shape was derived from `uDeckImportText` / `uDeckSanitizeMeta` / `uCardSanitize` rather than
+  from memory, and a file written to the published shape was imported through the real picker. **A check
+  that imports one is the only thing that can see this go stale.**
+  **PROMPT 3 ASKS FOR THE VOCABULARY PRESET'S FIVE FIELD NAMES, NOT FOR TEMPLATES AND CSS.** A card type is
+  templates plus scoped CSS, and asking an AI for those is asking for markup a reader cannot check; asking
+  for `Word | Word type | Translation | Conjugations | Notes` is asking for content the preset already
+  knows how to render.
+  **THE COPY BUTTON READS THE `<pre>`'s OWN `textContent`**, never `AI_PROMPTS`, so what is on screen and
+  what lands on the clipboard cannot differ. **And the lines are wrapped at ~78 characters** because
+  `.ai-pre` at 11.5px mono holds ~95 and hard breaks any longer re-wrap into rags.
+  **THE STUDIO'S LINK IS `route("mission", { scrollTo: "aiPrompts" })`, NOT A FRAGMENT** — the About page's
+  address stays `#mission`, so a shared link cannot land a reader mid-page on reload; `PAGES.mission` takes
+  `params` and scrolls once, honouring `prefersReducedMotion()`.
 - **THE DESKTOP'S TOP BAR NAMES ITS TABS AT ALL TIMES** (`.tab .tab-label`, Aug 2026, on request). They were
   icon-only, the name unfolding beside the icon on hover / keyboard focus and staying open on the page
   currently shown — so finding out what the four icons were meant pointing at each of them in turn, and the
@@ -16217,7 +16439,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Forty-one committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Forty-two committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-scheduler.js` and `test-streak-chest.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -17131,6 +17353,29 @@ dead code (never rendered).
     one that works — and, the assertion most worth having, that re-sorting KEEPS a filter the reader has
     typed, which the obvious two-handler implementation silently throws away. **Re-run after touching
     `makePageGhost` / `.page-ghost` / `PAGES.glossary` / `GLOSS_SORTS` / `glossSeen`.**
+  · `node .claude/test-lang-decks.js` — **the Collections page's Languages section** (Aug 2026), in two
+    halves and both for silent failures. The **catalogue** half runs with no browser at all and its one
+    strong assertion is that `lang-decks.js` **reproduces byte for byte** from `decks/`: it is metadata read
+    off the deck files, so a deck rebuilt without regenerating it leaves a row claiming 500 words over a
+    deck that now holds 700 — which looks exactly like a row, and which nothing on the page could report.
+    It costs about a second (119 MB read, 9 KB written) and **restores the shipped bytes in a `finally`**,
+    since a check must not leave the repo changed. The **browser** half is about the banner (Aug 2026,
+    when a language became a COLLECTION): one per language, titled and counted from the catalogue, each
+    carrying the curated wash, the icon and a studied/total bar whose **denominator is that language's own
+    card count** — the honest figure for decks that are not on the device yet. It asserts every banner has
+    **a hue of its own and no two the same**, since a language with no `COLL_THEME` key renders with no
+    wash at all and looks deliberate; that they are **shut AND full together** (shut-and-empty looks
+    identical to shut-and-full) and that the **chevron really changes the fold's height**, which the pair
+    cannot show; that a deck row is the curated `.node` and is **not itself pressable**, a row click
+    meaning a 21 MB download off a stray tap; and — the assertion for a control that must NOT exist —
+    that **no banner carries a collection-level `+`**. Then it really Adds the smallest deck there is,
+    checking it arrives as a row in Your decks, that the Languages row says so, and that Add is **no longer
+    offered** for it, since `uDeckImportText` mints a fresh id when the deck's own is taken and a second
+    press would leave the reader two copies of one deck with two schedules. **It reads the PAGE and never
+    the store**, on the standing rule that a debug surface added for a test is one every reader downloads.
+    **Re-run after touching `langCollectionsHTML` / `langCollectionHTML` / `langDeckRowHTML` /
+    `langCollId` / `wireLangDecks` / the `lang-*` rows of `COLL_THEME` / `.claude/build-lang-decks.js`,
+    and after adding, rebuilding or removing a deck in `decks/`.**
   · `node .claude/test-reset.js` — **Settings → Danger zone → Reset progress, and who the home page thinks
     you are** (21 assertions, Aug 2026). Both halves fail silently and one of them cannot be undone. It
     seeds a long-standing reader — study history, two collections added with a per-deck limit, a place in a
@@ -17472,8 +17717,14 @@ dead code (never rendered).
   signed-in user is admin-eligible iff `profiles.role === 'admin'` (set via the dashboard Table Editor); a signed-in non-admin is
   NEVER eligible; a signed-out guest is eligible only on a **dev origin** (`isDevOrigin()`: `file://` or
   localhost/127./10./192.168.) with no legacy local accounts — so the dev machine keeps its editor, while first-time visitors and
-  non-admin accounts on the live site see no Edit tab or Editor/Visitor switch (`applyMode` shows the switch only when
-  `adminEligible()`). `isAdmin()` additionally honours the Editor/Visitor toggle (`S.settings.adminMode === false` → visitor view).
+  non-admin accounts on the live site see no Edit tab. `isAdmin()` additionally honours `S.settings.adminMode === false` →
+  visitor view — **but nothing writes that false any more**: the **Editor / Visitor chip was removed from the menu bar in Aug
+  2026, on request**, along with the **Project W tab** (both copies, top bar and phone). `.mode-switch` and `setMode` are
+  DELETED rather than left unreachable, and `load()` back-fills a stored `adminMode === false` to true, since the chip was the
+  only way to set it and its removal would otherwise strand an editor in the visitor view with no control to return with. The
+  **route survives**: `PAGES.warofages`, its `PAGE_META` row, `ADMIN_ROUTES` and the `valid` entry are untouched (the request
+  was about the menu bar and said "for now", the page is admin-gated, and `test-layout.js`'s cold-load `#warofages` guard needs
+  a route to resolve), so putting the tab back is one markup block in `index.html`.
   The old local accounts (`folio_acct_v1`) remain only as legacy code (guest stash helpers); their admin-page
   user-manager went with the Accounts tab when the reader-feedback queue replaced it.
 - **SIGNING IN WITH A USERNAME, SWITCHING ACCOUNTS, AND CHANGING YOUR EMAIL (Aug 2026, on request).**
