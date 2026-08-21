@@ -57,6 +57,17 @@ It is a plain static website — open `index.html` and it runs.
   127 KB → 54 KB, which every visitor pays for, this file being in the eager load path. **Aim for about 120
   characters and treat 200 as the ceiling**; a line that wants a second sentence wants to be two items, or to
   be shorter. The counts and the finding belong here; the per-card detail belongs in the batch log in `docs/`.
+  **A DAY TITLE IS AT MOST 72 CHARACTERS, and that is a rule with a checker** (Aug 2026, on request:
+  "the daily titles have grown to extensive summaries rather than compact titles"). The sentence rule above
+  did not say how LONG, so the titles drifted the way the items had: measured over the whole file, the first
+  thirty-two days run 13–72 characters and read as titles ("After the ice", "A Library of books, and World
+  History replanned") while nine recent ones had grown to 100–194 and were three- and four-item lists — a
+  contents page rather than a heading, and on a phone a wall of prose above the list it introduces. The nine
+  were rewritten into the older band and the ceiling is the longest of the ones that were always right.
+  **Enforced by rule 5 of `check-style.js`**, over `changelog.js`, REPORT-ONLY and deliberately absent from
+  `--fix`: shortening a title is a judgement about which of the day's changes LED, which is the one thing a
+  regex cannot make, and a truncated title is a sentence fragment rather than a heading. **Name the day's
+  leading change and stop**; the rest of the day is the list underneath.
   (This supersedes an earlier "anything past ~1,000 characters is a transcript", which two 12,000- and
   15,000-character citation entries had already broken once, in 2026-08-01.)
   **An item is rendered as HTML, not escaped** (through `sanitizeHTML`), so `<b>` and `<i>` work and bold
@@ -9961,6 +9972,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     printing it as a figure out of a hundred would dress it up as one, which is why only the community
     rating carries `.cs-pct`. And **the rank is derived from the percentage** (`floor(pct / 20) + 1`) rather
     than stored, so the two ratings share one five-star scale and one row of markup.
+    **ONLY A READER'S FIRST THREE ANSWERS TO A CARD COUNT** (`CARD_STATS_SIGHTINGS` (3) / `c.seen` /
+    `cardStatsUndo`, Aug 2026, on request: "this way we actually rate how hard it is to LEARN the card, not
+    just how well-known it is when it first appears to them"). Every grade used to be counted, and a card is
+    graded for as long as it is studied — so a well-scheduled card converges on Easy whatever it cost to
+    learn, and the figure slowly stopped measuring difficulty at all and started measuring how long the deck
+    had been in use. Three sightings is where the learning happens.
+    **THE COUNTER IS ON THE CARD RECORD (`c.seen`), which is what makes an undo free**: it rides in the
+    synced blob with the rest of `S.cards`, needs no field of its own and no migration (an absent key reads
+    as 0, so every existing card starts its three from today), and `resetProgress` clears it with the
+    schedule it belongs to. **`schedForget` deliberately does NOT reset it** — forgetting is a statement
+    about the SCHEDULE, and a reader who has already met a card three times cannot un-meet it.
+    **AND THE UNDO READS THE SNAPSHOT, NEVER THE REVIEW LOG.** `doGrade` records `snap.g = g` and
+    `undoGrade` withdraws that vote, because `REV_GRADE_NAME` is CAPITALISED where `CARD_GRADE_KEY` is not:
+    a grade recovered from the log would not match a stats key, the withdrawal would quietly do nothing, and
+    a mis-graded card would keep a vote it never earned — with nothing on the page to say the rating is one
+    answer too heavy. Guarded by `.claude/test-spelling.js`, which reads all five lines out of `app.js`.
     **THE WORD "Difficulty" IS PRINTED BESIDE THE STARS** (same request): five small stars in a corner say
     that something is being rated and not what. Set small and thin, so it labels the row rather than
     competing with the question beside it. **AND IT IS THE FIRST TEXT IN THAT ROW, SO IT NEEDED A
@@ -10903,6 +10930,60 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · The `MutationObserver` is permanent (both modes transform, so there is no "off"), and `render()` also calls
     `unitizeTree(root)` directly, since an observer callback is a microtask and would otherwise let one frame of
     the other system through.
+- **British or American spelling, the reader's** (**Settings → Appearance → Spelling**, `S.settings.spelling` /
+  `SPELL_PAIRS` / `_spellMaps` / `spellText` / `spellTree` / `applySpelling` / `setSpelling`, Aug 2026, on
+  request: "just as users can switch between metric and imperial units, they should also be able to switch
+  between British and American English"). The units switch's shape exactly — content stays authored in en-GB
+  and a text-node pass rewrites at render — so no field is authored twice and a card written next year is
+  covered without anybody remembering. Eight things are decisions rather than plumbing.
+  · **IT IS A DECLARED TABLE AND NEVER A RULE, and every trap in it was found in the real corpus rather than
+    reasoned about.** A `-re` → `-er` rule turns `timetree` into `timetrer`; a `kerb` → `curb` rule reaches
+    into `Kerberos` and `Lockerbie`; an `-ll-` → `-l-` rule reaches into `controlled`, `paywalled` and the
+    archaeologist `Conneller`; an `axe` → `ax` rule matches `taxes` and `Saxe`. `SPELL_PAIRS` is 144 rows of
+    `[British stem, American stem, suffixes, one-way?]` and the transform can only ever do what it says.
+  · **THE SUFFIX LIST IS EXHAUSTIVE, AND THE BARE STEM IS ADMITTED ONLY BY AN EXPLICIT EMPTY ELEMENT**
+    (`"|s|ed"` → `["", "s", "ed"]`). The first cut always admitted the stem, which rendered `emphasis` as
+    `emphasiz` and `paralysis` as `paralyzis` — a stem that is itself a word with another meaning. **And a
+    suffix right for one side is not always right for the other**: `centre` + `d` gives `centerd` and
+    `catalogue` + `d` gives `catalogd`, so every divergent inflection (`centred`, `catalogued`, `storeyed`,
+    `manoeuvred`, `manoeuvring`) has a whole row of its own.
+  · **IT IS TWO-WAY, WHICH THE UNITS SWITCH IS NOT, AND THE MEASUREMENT IS WHY.** The corpus is genuinely
+    mixed in the -ise/-ize family — 82 `organized` against 54 `organised`, 68 `civilization` against 51
+    `civilisation`, 47 `colonization` against 55 `colonisation` — so a one-way transform would leave a
+    British reader reading American spellings on half the cards while the setting claimed otherwise.
+  · **EIGHTEEN ROWS ARE ONE-WAY ALL THE SAME, and the fourth column is what says so.** `storey` → `story`
+    is safe and `story` → `storey` is catastrophic; the same holds for `program`, `meter`, `practice`,
+    `license` and `catalog`, each of whose American form is a British word with another meaning — and for
+    **`medieval`**, which the reverse sweep caught: it is the standard modern British spelling, `mediaeval`
+    is archaic, and the corpus has none of it.
+  · **FIVE FAMILIES ARE DELIBERATELY ABSENT AND FIVE WORDS ARE EXCLUDED BY NAME.** American English writes
+    `archaeology` (1,923 sites), `ochre` (91), `aesthetic`, `dialogue`/`analogue` and `axe` the same way, so
+    a row for any of them rewrites correct prose into a spelling nobody asked for. `tyre` is the Phoenician
+    city in all four of its sites, `draught` includes the Corridor of the Draught Board at Knossos, `kerb`
+    is excluded because `curb` is also a verb, and `sulphur` and `gaol` are left as written.
+  · **A URL IS NOT PROSE, AND THE MASK IS IN `spellText` RATHER THAN IN `spellTree`** (`SPELL_URL_RX`).
+    Measured: 173 of the corpus's 10,108 URLs carry a mapped word (`/pub/data/paleo/`,
+    `Panionium_theatre.jpg`, `Mycenaean_armour_from_chamber_tomb_12`). Most sit in an `src` attribute, which
+    a text-node walk can never reach, and the citations are behind `.notranslate` — but `mediaCreditHTML`
+    renders a credit URL as the VISIBLE TEXT of its own link, so without the mask a reader would meet a link
+    reading `palaeo` whose href still said `paleo`. Masked at the transform, so every rendering site added
+    later is covered without anybody remembering.
+  · **THE CITATIONS AND THE LIBRARY'S BOOKS ARE SKIPPED** (`.notranslate, .bk-page`), and it matters more
+    here than it does for units: a citation names a published work, and rewriting *The Colour of Prehistory*
+    into *Color* invents a title that does not exist. A book is somebody's published translation,
+    transcribed rather than edited, so it keeps whatever its translator wrote.
+  · **AND `gradeCloze` TRANSFORMS THE ANSWER, NEVER THE GUESS.** It is the one place the switch has to reach
+    past the DOM: the cloze compares what was typed against the stored `answerText`, which is authored in
+    British, so an American reader typing exactly what is on their screen would be marked wrong.
+    Transforming the guess instead would be the same fault upside down.
+  **Its known limit, stated rather than papered over**: the card browser (`PAGES.browse`) searches stored
+  card TEXT, so an American reader typing "color" will not find a card whose stored prose says "colour".
+  The case of the word on the page is preserved in the three shapes a sentence actually produces (all
+  lower, Capitalised, ALL CAPS); anything else is left alone, a mixed-case word being a name far more often
+  than a spelling. Guarded by `.claude/test-spelling.js` (64 assertions) — **re-run after touching
+  `SPELL_PAIRS`, `spellText`, `spellTree`, `SPELL_URL_RX` or `gradeCloze`**, and note that most of it needs
+  no browser: what goes wrong with a declared table is arithmetic over the shipped corpus and reads far
+  better as a failed comparison than as a screenshot.
 - **ENGLISH ONLY — `const MULTILANG = false`** (app.js, beside `LANG_CODES`; Aug 2026, on request). The site
   ships in English while the work is on making the English as good as it can be. It is **one switch**, and it
   shuts three doors: the Language card is not rendered on the Settings page, `?lang=xx` no longer switches,

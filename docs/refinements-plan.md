@@ -31,7 +31,7 @@ re-run of the same tests covers it.
 | G | Maps on cards | the geography answer grid's order; flags beside the answer; an Atlas window on a history card about a place |
 | H | Content corrections | the eighteen named cards, terms and pictures, plus the question-rule audit — and the two date lines `test-date-line.js` has been reporting since before this work began (`wh-177` states two CENTURIES and `wh-178` two MILLENNIA, neither of which `cardYears` reads, so both cards sort as timeless; write the span each unit means, per the date-line rule) |
 | I | Authoring | collection icons a reader can set; the About page's AI prompts and the link to them — **shipped** |
-| J | Cross-cutting | the two difficulty ratings; the en-GB/en-US switch; the changelog's day titles |
+| J | Cross-cutting | the two difficulty ratings; the en-GB/en-US switch; the changelog's day titles — **shipped** |
 | K | Large passes | the Atlas info-box rewrite (plan + batch 1); the book text corrections (plan + batch 1) |
 | L | Late corrections | undo stepping back to the previous card's QUESTION; the War of Ages tab renamed Project W; an unlocked theme naming the day it was unlocked |
 | M | Language decks | the language decks listed on the Collections page in a Languages section of their own |
@@ -420,3 +420,47 @@ written and its version is bumped** — the three go in one commit, per the rule
   `textContent` rather than `AI_PROMPTS`, so what is on screen and what lands on the clipboard cannot
   differ; the Studio's link uses `route("mission", { scrollTo: "aiPrompts" })` rather than a fragment, so
   the About page's address stays `#mission` and a shared link cannot land a reader mid-page on reload.
+
+- **J — Cross-cutting.** Shipped at v1.290. `test-spelling.js` 64/0 (new), `test-units.js` 37/0,
+  `test-layout.js` 321/0, `test-scheduler.js` 136/0, `test-difficulty.js` 69/0, `test-date-line.js` 13/0,
+  `test-card-plans.js` 151/0, `check-style.js` clean on all five files. Five things are worth carrying.
+  **THE SPELLING SWITCH IS A DECLARED TABLE AND NEVER A RULE, and every trap in it was found in the real
+  corpus rather than reasoned about.** A `-re` → `-er` rule turns `timetree` into `timetrer`; a `kerb` →
+  `curb` rule reaches into `Kerberos` and `Lockerbie`; an `-ll-` → `-l-` rule reaches into `controlled`,
+  `paywalled` and the archaeologist `Conneller`; an `axe` → `ax` rule matches `taxes` and `Saxe`. So
+  `SPELL_PAIRS` is 144 hand-written rows and the transform can only ever do what the table says.
+  **THE SUFFIX LIST IS EXHAUSTIVE, AND THE BARE STEM IS ADMITTED ONLY BY AN EXPLICIT EMPTY ELEMENT.** The
+  first cut always admitted the stem, which rendered `emphasis` as `emphasiz` and `paralysis` as
+  `paralyzis` — a stem that is itself a word with another meaning. Two more rows were wrong the other way:
+  `centre` + `d` gives `centerd` and `catalogue` + `d` gives `catalogd`, because the two stems end
+  differently, so every divergent inflection (`centred`, `catalogued`, `storeyed`, `manoeuvred`) has a
+  whole row of its own.
+  **IT IS TWO-WAY, WHICH THE UNITS SWITCH IS NOT, AND THE MEASUREMENT IS WHY.** The corpus is genuinely
+  mixed in the -ise/-ize family — 82 `organized` against 54 `organised`, 68 `civilization` against 51
+  `civilisation` — so a one-way transform would leave a British reader reading American spellings on half
+  the cards while the setting claimed otherwise. **Eighteen rows are one-way all the same**, and the
+  fourth column is what says so: `storey` → `story` is safe and `story` → `storey` is catastrophic, and
+  the same holds for `program`, `meter`, `practice`, `license`, `catalog` and — found by the reverse sweep
+  — `medieval`, which is the standard modern British spelling while `mediaeval` is archaic and occurs in
+  the corpus zero times.
+  **A URL IS NOT PROSE, AND THE MASK IS IN `spellText` RATHER THAN IN `spellTree`.** Measured: 173 of the
+  corpus's 10,108 URLs carry a mapped word (`/pub/data/paleo/`, `Panionium_theatre.jpg`,
+  `Mycenaean_armour_from_chamber_tomb_12`). Most sit in an `src` attribute, which a text-node walk can
+  never reach, and the citations are behind `.notranslate` — but `mediaCreditHTML` renders a credit URL as
+  the VISIBLE TEXT of its own link, so without the mask an American reader would meet a link reading
+  `palaeo` whose href still said `paleo`. Masked at the transform, so every rendering site added later is
+  covered without anybody remembering.
+  **AND `gradeCloze` TRANSFORMS THE ANSWER, NEVER THE GUESS.** It is the one place the switch has to reach
+  past the DOM: the cloze compares what was typed against the stored `answerText`, which is authored in
+  British, so an American reader typing exactly what is on their screen would be marked wrong. Transforming
+  the guess instead would be the same fault upside down.
+  **The changelog's day titles are back in the band they were always in.** Measured over the whole file:
+  the first thirty-two days run 13–72 characters and read as titles, while nine recent ones had grown to
+  100–194 and were three- and four-item lists — a contents page rather than a heading, and on a phone a
+  wall of prose above the list it introduces. The nine are rewritten and **`check-style.js` gained a fifth
+  rule** over `changelog.js`, report-only and deliberately absent from `--fix`: shortening a title is a
+  judgement about which of the day's changes led, which is the one thing a regex cannot make.
+  **`test-units.js` was failing before this batch began**, on a card added by an earlier one: `wh-166`
+  wrote `3 to 16 kilometres an hour (2 to 10 miles)`, and the engine's range pattern cannot see a bracket
+  the unit does not immediately precede. Confirmed against HEAD with the batch stashed, and fixed in the
+  card's prose (`3 to 16 kilometres (2 to 10 miles) an hour`) rather than by widening the pattern.

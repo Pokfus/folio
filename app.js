@@ -271,6 +271,27 @@
      no rows per reader, no timestamps per answer — so there is nothing in the table that could say who
      answered what. See `card_stats` and `bump_card_grades` in .claude/supabase-schema.sql. */
   const CARD_STATS_MIN = 20;            // answers before the community score takes over from the editorial one
+  /* ONLY A READER'S FIRST THREE ANSWERS TO A CARD COUNT (Aug 2026, on request: "this way we actually rate
+     how hard it is to learn the card, not just how well-known it is when it first appears to them").
+
+     Every answer used to count, and that measures the WRONG THING at two different scales. A card already
+     learned is answered Good or Easy for ever — so a card whose ten reviews a reader has sailed through is
+     scored as easy however brutal it was to learn, and the figure drifts down for as long as anybody keeps
+     studying. The learning is over by then; what the figure ends up describing is how well the schedule is
+     working, which is not a property of the card.
+
+     The first three answers are the learning: the first attempt and the two reviews that decide whether it
+     stuck. A card the reader gets right first time and keeps contributes one Good and two more; a card
+     they fail three times contributes three Agains — which is the signal, since a card needing three goes
+     IS hard to learn, and the requeue that makes those three arrive in one session is what learning it
+     actually cost.
+
+     THE COUNTER IS ON THE CARD RECORD (`c.seen`), which is what makes an undo free: the undo snapshot is
+     taken before the grade and restores the whole record, so an undone answer does not spend one of the
+     three. It is study history, so Reset progress clears it with the rest — a reader starting over really
+     is learning the cards again. `schedForget` deliberately does NOT reset it: those answers happened and
+     have already been counted. */
+  const CARD_STATS_SIGHTINGS = 3;       // how many of a reader's own answers to a card feed the pool
   let CARD_STATS = {};                  // cardId -> { a, h, g, e }; filled by cardStatsLoad, empty until then
   const CARD_GRADE_WEIGHT = { again: 1, hard: 0.5, good: 0.15, easy: 0 };
   // a card's pooled counters, or null. CARD_STATS is filled by cardStatsLoad() from the server, cached
@@ -1289,8 +1310,8 @@
          than two thirds of one, and the two are meant to be read against each other. Nothing migrates —
          the key has been in this object since the beginning, so every existing save carries its reader's
          own figure and only a first-time visitor meets this one. */
-      settings: { night: false, themeAuto: true, units: "metric", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true },
-      cards: {}, // id -> {reps,lapses,ease,interval,due,status,last}
+      settings: { night: false, themeAuto: true, units: "metric", spelling: "en-GB", theme: "folio", fontSize: "medium", dayEnd: 0, animations: true, contrast: false, newPerDay: 5, bgCollapsed: false, trCollapsed: true, srcCollapsed: false, adminMode: true, reviewRandom: false, questionVariety: true, lang: "en", sfx: true, tts: false, ttsMuted: false, ttsVoiceEn: "", ttsVoiceZh: "", ttsNarrator: "us-male", home: { name: "Netherlands", lon: 5.32, lat: 52.1 }, bookSort: "recent", bookSortRev: false, loadBalance: false, easyDays: [1, 1, 1, 1, 1, 1, 1], marker: true },
+      cards: {}, // id -> {reps,lapses,ease,interval,due,status,last,seen}
       suspended: {}, // id -> true (card set aside; never shown again)
       /* BURIED CARDS — id -> the day it was buried ("YYYY-MM-DD"), so the register expires by being read
          rather than by anything running at midnight. Burying is what makes a note's several cards bearable:
@@ -4545,7 +4566,11 @@
        front, so a length recorded before the append can be the same length after it, and truncating to it
        would leave the phantom review behind — with the reader's own history quietly one review wrong. */
     lastRevRow = logReviewEntry(id, g, preStatus, preInterval, c, t, ms);
-    cardStatsBump(id, g);   // the pooled, anonymous counters behind the community difficulty rating
+    /* the pooled, anonymous counters behind the community difficulty rating — but only while this reader
+       is still LEARNING this card. See CARD_STATS_SIGHTINGS: the counter is on the record, so the undo
+       snapshot taken above puts it back and an undone answer costs the reader none of their three. */
+    c.seen = (Number(c.seen) || 0) + 1;
+    if (c.seen <= CARD_STATS_SIGHTINGS) cardStatsBump(id, g);
 
     // count new-card introductions per day
     if (fresh) {
@@ -5917,6 +5942,25 @@
     p[k] += 1;
     if (Object.keys(_cardStatsPend).length > CARD_STATS_MAX_PEND) { cardStatsFlush(); return; }
     if (!_cardStatsT) _cardStatsT = setTimeout(() => { _cardStatsT = null; cardStatsFlush(); }, CARD_STATS_FLUSH_MS);
+  }
+  /* AN UNDONE GRADE IS TAKEN BACK OUT OF THE POOL, as far as it can be. The local counter and the pending
+     row are decremented, so an undo within the flush window — which is every ordinary undo, the flush
+     being 8 s away and the press seconds after the grade — never reaches the server at all. Once a batch
+     has gone the increment is on the server and cannot be recalled: the RPC clamps every increment to
+     0–50 and takes no negatives, deliberately, since a table anyone may call must not be writable
+     downwards. That residue is one answer in a pool of at least twenty and is stated rather than hidden.
+     It matters more than it did: with only three of a reader's answers counted, one wrongly-counted
+     answer is a third of what they contribute. */
+  function cardStatsUndo(id, g) {
+    const k = CARD_GRADE_KEY[g];
+    if (!k || _cardStatsOff || isDevOrigin()) return;
+    const r = CARD_STATS[id];
+    if (r) r[k] = Math.max(0, (r[k] || 0) - 1);
+    const p = _cardStatsPend[id];
+    if (p) {
+      p[k] = Math.max(0, (p[k] || 0) - 1);
+      if (!p.a && !p.h && !p.g && !p.e) delete _cardStatsPend[id];
+    }
   }
   async function cardStatsFlush() {
     if (_cardStatsT) { clearTimeout(_cardStatsT); _cardStatsT = null; }
@@ -12659,6 +12703,10 @@
     (PAGES[current.name] || PAGES.home)(root, current.params);
     // one system of measurement, the reader's — see the units block above
     unitizeTree(root);
+    // …and one system of spelling, likewise. Deliberately AFTER the units pass: `kilometres` becomes
+    // `kilometers` here, and doing it the other way round would hand U_METRIC a word it still lists but
+    // that the bracket test was written against in its British form.
+    spellTree(root);
     // a community card type's read-aloud spans, wherever a page painted one (the Studio's previews, a
     // shared deck's sample card). The study card's own reveal paints after this and wires its own.
     wireSpeakControls(root);
@@ -13063,6 +13111,342 @@
     save();
     render();   // the transform is one-way per render, so the other system comes back with a fresh paint
   }
+
+  /* ---------- British / American spelling: ONE system, the reader's choice (Aug 2026, on request) -------
+     "Just as users can switch between metric and imperial units, they should also be able to switch
+     between British and American English." So it is built the way the units switch is: the content is
+     never authored twice, and a text-node pass rewrites the rendered page. See `unitizeTree` above for
+     why that is a DOM walk and not a hook in glossText()/cardLocalized() — the editors read those same
+     accessors, and a card whose stored prose had already been Americanised would be saved back that way
+     on the next keystroke.
+
+     IT IS TWO-WAY, WHERE THE UNITS SWITCH IS ONE-WAY, AND THAT IS A MEASUREMENT RATHER THAN A
+     PREFERENCE. A measurement is authored metric-first with the imperial in brackets, so only one
+     direction exists. Spelling is not: swept over the whole corpus the -ise/-ize family is MIXED —
+     82 `organized` against 54 `organised`, 68 `civilization` against 51 `civilisation`, 47
+     `colonization` against 55 `colonisation` — so a one-way transform would leave a British reader
+     reading American spellings on half the cards while the setting claimed the site was in British
+     English. Each row is a PAIR and the transform picks the column the reader asked for, which fixes
+     that inconsistency for both of them as a side effect.
+
+     A DECLARED TABLE, NEVER A RULE. Every family here has traps that a rule walks straight into, and
+     the corpus carries all of them: `our` → `or` turns `four`, `hour`, `contour` and `devour` into
+     nonsense; `re` → `er` matches inside `timetree`; `ll` → `l` would flatten `controlled`,
+     `installed`, `paywalled` and the archaeologist `Conneller`; `kerb` matches `Kerberos` and
+     `Lockerbie`, and `axe` matches `taxes` and `Saxe`. So a row is a STEM plus the suffixes it may
+     take, matched at a word boundary at BOTH ends — the bare stem is always admitted, which is why
+     `travell` (not an English word, so it matches nothing on its own) can carry `travelled` and
+     `travelling` without a row each.
+
+     THREE FAMILIES ARE DELIBERATELY ABSENT AND THAT IS THE PART TO READ BEFORE ADDING TO THE TABLE.
+     **`archaeology` is NOT Americanised** — 1,923 sites in this corpus, and American English writes it
+     the same way (the Archaeological Institute of America; the *American Journal of Archaeology*);
+     `archeology` is a rare variant, so a row for it would rewrite the site's commonest technical word
+     into something most American readers would not recognise. **`ochre` likewise** (91 sites): the
+     archaeological literature writes ochre on both sides of the Atlantic. And **`aesthetic`**, where
+     `esthetic` is chiefly medical. A pair belongs here only where the American form is the ordinary
+     one, not merely where a dictionary lists it.
+     TWO WORDS ARE EXCLUDED BY NAME for a different reason: `tyre`, which in this corpus is the
+     Phoenician city in all four of its occurrences and never a wheel, and `marvell`, which is a
+     surname. A stem that is also a proper noun does not go in the table. */
+  const SPELLINGS = ["en-GB", "en-US"];
+  /* [British stem, American stem, suffixes, one-way?].
+
+     THE SUFFIX LIST IS EXHAUSTIVE, and an EMPTY element in it admits the bare stem — so `"|s|ed"`
+     splits to `["", "s", "ed"]` and means the stem itself plus those two, while `"e|es|ed|ing"` means
+     the stem is only ever seen with one of the four. That distinction is not decoration: written the
+     other way round, with the bare stem always admitted, `emphasis` and `paralysis` were matched as
+     the stems of `emphasise` and `paralyse` and rendered `emphasiz` and `paralyzis`. A stem that is
+     itself a word with another meaning is exactly the case the exhaustive list exists for.
+     THE TWO STEMS MAY NOT END ALIKE, so a suffix that is right for one is wrong for the other:
+     `centre` + `d` gave `centerd` and `catalogue` + `d` gave `catalogd`. Where the inflection diverges
+     it gets a row of its own (`centred`, `catalogued`, `storeyed`) rather than a cleverer rule.
+
+     THE FOURTH COLUMN MARKS A PAIR THAT IS SAFE IN ONE DIRECTION ONLY, and it is the finding the
+     two-way transform turns on. British → American is a narrowing: `storey` is only ever a floor of a
+     building. American → British is not — `story` is overwhelmingly a NARRATIVE, and a blind reverse
+     map would turn every story on the site into a storey. The same holds for `program` (a computer
+     program is a program in Britain too), `meter` (the device), `practice` (the noun), `license` (the
+     verb) and `catalog`. Those rows travel one way and the reverse map does not carry them, so an
+     American reader switching to British keeps the word they typed.
+
+     A DECLARED TABLE, NEVER A RULE. Every family here has traps a rule walks straight into, and the
+     corpus carries all of them: `our` → `or` turns `four`, `hour`, `contour` and `devour` into
+     nonsense; `re` → `er` matches inside `timetree`; `ll` → `l` would flatten `controlled`,
+     `installed`, `paywalled` and the archaeologist `Conneller`; `kerb` matches `Kerberos` and
+     `Lockerbie`, and `axe` matches `taxes` and `Saxe`.
+
+     FIVE FAMILIES ARE DELIBERATELY ABSENT AND THAT IS THE PART TO READ BEFORE ADDING TO THE TABLE.
+     **`archaeology` is NOT Americanised** — 1,923 sites in this corpus, and American English writes it
+     the same way (the Archaeological Institute of America; the *American Journal of Archaeology*);
+     `archeology` is a rare variant, so a row for it would rewrite the site's commonest technical word
+     into something most American readers would not recognise. **`ochre` likewise** (91 sites): the
+     archaeological literature writes ochre on both sides of the Atlantic. **`aesthetic`**, where
+     `esthetic` is chiefly medical. **`dialogue` and `analogue`**, which American academic English
+     keeps in every sense but the computing one. And **`axe`**, whose `handaxe` is a term of art
+     spelled the same way on both sides and whose plural `axes` is also the plural of `axis`. A pair
+     belongs here only where the American form is the ordinary one, not merely where a dictionary
+     lists it.
+     FIVE WORDS ARE EXCLUDED BY NAME, each measured rather than guessed at: `tyre`, which in this
+     corpus is the Phoenician city in all four of its occurrences and never a wheel; `draught`, whose
+     five sites include the Corridor of the Draught Board at Knossos, a room a transform must not
+     rename; `kerb`, because `curb` is also the ordinary verb; `sulphur`, because modern British
+     scientific writing uses `sulfur` too; and `gaol`, because modern British English writes `jail`
+     anyway. A stem that is also a proper noun does not go in the table. */
+  const SPELL_PAIRS = [
+    // -our / -or
+    ["colour", "color", "|s|ed|ing|ful|less|ation|ations"],
+    ["behaviour", "behavior", "|s|al|ally|ism|ist|ists"],
+    ["honour", "honor", "|s|ed|ing|able|ably|ary"],
+    ["favour", "favor", "|s|ed|ing|able|ably|ite|ites|itism"],
+    ["harbour", "harbor", "|s|ed|ing"],
+    ["labour", "labor", "|s|ed|ing|er|ers|ious"],
+    ["armour", "armor", "|s|ed|er|ers|y|ies"],
+    ["neighbour", "neighbor", "|s|ed|ing|hood|hoods|ly|liness"],
+    ["splendour", "splendor", "|s"],
+    ["flavour", "flavor", "|s|ed|ing|ful|less"],
+    ["rumour", "rumor", "|s|ed|ing"],
+    ["vapour", "vapor", "|s|ed|ing|ous"],
+    ["vigour", "vigor", ""],
+    ["odour", "odor", "|s|less|ous"],
+    ["humour", "humor", "|s|ed|less|ous"],
+    ["endeavour", "endeavor", "|s|ed|ing"],
+    ["parlour", "parlor", "|s"],
+    ["saviour", "savior", "|s"],
+    ["valour", "valor", ""],
+    ["arbour", "arbor", "|s"],
+    ["candour", "candor", ""],
+    ["clamour", "clamor", "|s|ed|ing|ous"],
+    ["demeanour", "demeanor", "|s"],
+    ["fervour", "fervor", ""],
+    ["rancour", "rancor", ""],
+    ["succour", "succor", "|s|ed"],
+    ["tumour", "tumor", "|s"],
+    ["rigour", "rigor", "|s"],
+    ["ardour", "ardor", ""],
+    // -re / -er. Each metric unit gets its own row rather than a prefix rule: `metre` matched inside
+    // `timetree` when this was written as a substring sweep, and five rows cost nothing.
+    ["centre", "center", "|s|piece|pieces|most"],
+    ["centred", "centered", ""],
+    ["metre", "meter", "|s", 1],
+    ["kilometre", "kilometer", "|s"],
+    ["centimetre", "centimeter", "|s"],
+    ["millimetre", "millimeter", "|s"],
+    ["nanometre", "nanometer", "|s"],
+    ["micrometre", "micrometer", "|s"],
+    ["litre", "liter", "|s"],
+    ["millilitre", "milliliter", "|s"],
+    ["theatre", "theater", "|s|goer|goers"],
+    ["fibre", "fiber", "|s|glass"],
+    ["sombre", "somber", ""],
+    ["spectre", "specter", "|s"],
+    ["calibre", "caliber", "|s"],
+    ["lustre", "luster", ""],
+    ["sceptre", "scepter", "|s"],
+    ["sabre", "saber", "|s"],
+    ["meagre", "meager", "|ly"],
+    // -ise / -ize, and only the verbs that genuinely take -ize. `comprise`, `promise`, `surprise`,
+    // `exercise`, `revise`, `advise`, `devise`, `praise`, `precise`, `incise`, `otherwise`,
+    // `likewise`, `tortoise`, `turquoise` and the country `Belize` all do not, and none is here.
+    // `analyses` is likewise absent from the `analys` row: all 17 of its sites are the plural of
+    // `analysis`, spelled the same on both sides, rather than the third person of the verb.
+    ["organis", "organiz", "e|es|ed|ing|ation|ations|ational|er|ers"],
+    ["reorganis", "reorganiz", "e|es|ed|ing|ation|ations"],
+    ["recognis", "recogniz", "e|es|ed|ing|able|ably|ance"],
+    ["civilis", "civiliz", "e|es|ed|ing|ation|ations|ational"],
+    ["colonis", "coloniz", "e|es|ed|ing|ation|ations|er|ers"],
+    ["decolonis", "decoloniz", "e|es|ed|ing|ation"],
+    ["specialis", "specializ", "e|es|ed|ing|ation|ations"],
+    ["standardis", "standardiz", "e|es|ed|ing|ation|ations"],
+    ["centralis", "centraliz", "e|es|ed|ing|ation|ations"],
+    ["decentralis", "decentraliz", "e|es|ed|ing|ation|ations"],
+    ["modernis", "moderniz", "e|es|ed|ing|ation|ations"],
+    ["industrialis", "industrializ", "e|es|ed|ing|ation"],
+    ["militaris", "militariz", "e|es|ed|ing|ation"],
+    ["demilitaris", "demilitariz", "e|es|ed|ing|ation"],
+    ["characteris", "characteriz", "e|es|ed|ing|ation|ations"],
+    ["formalis", "formaliz", "e|es|ed|ing|ation"],
+    ["stylis", "styliz", "e|es|ed|ing|ation"],
+    ["periodis", "periodiz", "e|es|ed|ing|ation|ations"],
+    ["urbanis", "urbaniz", "e|es|ed|ing|ation"],
+    ["mechanis", "mechaniz", "e|es|ed|ing|ation"],
+    ["realis", "realiz", "e|es|ed|ing|ation|ations"],
+    ["emphasis", "emphasiz", "e|es|ed|ing"],
+    ["criticis", "criticiz", "e|es|ed|ing"],
+    ["apologis", "apologiz", "e|es|ed|ing"],
+    ["minimis", "minimiz", "e|es|ed|ing|ation"],
+    ["maximis", "maximiz", "e|es|ed|ing|ation"],
+    ["summaris", "summariz", "e|es|ed|ing"],
+    ["symbolis", "symboliz", "e|es|ed|ing"],
+    ["utilis", "utiliz", "e|es|ed|ing|ation"],
+    ["sedentaris", "sedentariz", "e|es|ed|ing|ation"],
+    ["monumentalis", "monumentaliz", "e|es|ed|ing|ation"],
+    ["ritualis", "ritualiz", "e|es|ed|ing|ation"],
+    ["fossilis", "fossiliz", "e|es|ed|ing|ation"],
+    ["hybridis", "hybridiz", "e|es|ed|ing|ation"],
+    ["crystallis", "crystalliz", "e|es|ed|ing|ation"],
+    ["orientalis", "orientaliz", "e|es|ed|ing|ation"],
+    ["analys", "analyz", "e|ed|ing"],
+    ["catalys", "catalyz", "e|ed|ing"],
+    ["paralys", "paralyz", "e|ed|ing"],
+    // -ae- / -oe-. `archaeology`, `ochre` and `aesthetic` are absent on purpose; see above.
+    ["palaeo", "paleo", "|lithic|lithics|ntology|ntological|ntologist|ntologists|climate|climates|climatic|environment|environments|environmental|geography|geographic|magnetic|magnetism|anthropology|anthropological|anthropologist|anthropologists|botany|botanical|botanist|botanists|ecology|ecological|zoology|zoological|indian|indians|genetics|genetic|genomics|genomic|soil|soils|sol|sols|shoreline|shorelines|landscape|landscapes"],
+    ["encyclopaedia", "encyclopedia", "|s"],
+    ["encyclopaedic", "encyclopedic", ""],
+    ["mediaeval", "medieval", "", 1],
+    ["manoeuvre", "maneuver", "|s"],
+    ["manoeuvred", "maneuvered", ""],
+    ["manoeuvring", "maneuvering", ""],
+    ["haemoglobin", "hemoglobin", ""],
+    ["haematite", "hematite", ""],
+    ["foetal", "fetal", ""],
+    ["foetus", "fetus", "|es"],
+    ["anaemia", "anemia", ""],
+    ["anaemic", "anemic", ""],
+    ["diarrhoea", "diarrhea", ""],
+    ["oedema", "edema", ""],
+    // -ce / -se, and the -ll- family. `travell`, `modell`, `labell` and the rest are not English words
+    // on their own, so one row carries every inflection and the bare stem is simply not listed.
+    ["defence", "defense", "|s|less"],
+    ["offence", "offense", "|s"],
+    ["pretence", "pretense", "|s"],
+    ["licence", "license", "|s", 1],
+    ["practis", "practic", "e|es|ed|ing", 1],
+    ["travell", "travel", "ed|ing|er|ers"],
+    ["modell", "model", "ed|ing|er|ers"],
+    ["labell", "label", "ed|ing"],
+    ["levell", "level", "ed|ing|er|ers"],
+    ["fuell", "fuel", "ed|ing"],
+    ["unravell", "unravel", "ed|ing"],
+    ["spirall", "spiral", "ed|ing"],
+    ["bevell", "bevel", "ed|ing"],
+    ["corbell", "corbel", "ed|ing"],
+    ["cancell", "cancel", "ed|ing"],
+    ["signall", "signal", "ed|ing"],
+    ["channell", "channel", "ed|ing"],
+    ["counsell", "counsel", "ed|ing|or|ors"],
+    ["jewell", "jewel", "ed|er|ers"],
+    ["jewellery", "jewelry", ""],
+    ["woollen", "woolen", "|s"],
+    ["enrol", "enroll", "|s|ment|ments"],
+    ["fulfil", "fulfill", "|s|ment|ments"],
+    ["instalment", "installment", "|s"],
+    ["skilful", "skillful", "|ly"],
+    // singletons
+    ["grey", "gray", "|s|ed|ing|er|est|ish"],
+    ["mould", "mold", "|s|ed|ing|ings|y"],
+    ["smoulder", "smolder", "|s|ed|ing"],
+    ["plough", "plow", "|s|ed|ing|man|men|share|shares"],
+    ["storey", "story", "", 1],
+    ["storeys", "stories", "", 1],
+    ["storeyed", "storied", "", 1],
+    ["kerbstone", "curbstone", "|s"],
+    ["aluminium", "aluminum", ""],
+    ["catalogue", "catalog", "|s", 1],
+    ["catalogued", "cataloged", "", 1],
+    ["cataloguing", "cataloging", "", 1],
+    ["cataloguer", "cataloger", "|s", 1],
+    ["programme", "program", "|s", 1],
+    ["moustache", "mustache", "|s|d"],
+    ["pyjamas", "pajamas", ""],
+    ["cosy", "cozy", ""],
+  ];
+  /* THE MAPS AND THEIR REGEXES ARE BUILT ONCE, AT LOAD: an alternation of six hundred words is
+     compiled here and then run over every text node on every render, where building it per call would
+     be the whole cost of the feature. Longest-first is belt and braces — both ends are anchored to a
+     word boundary, so `neighbour` cannot match inside `neighbourhood` however they are ordered. */
+  const _spellMaps = (() => {
+    const gb = Object.create(null), us = Object.create(null);
+    SPELL_PAIRS.forEach(([g, u, sfx, oneWay]) => {
+      // NOT filtered: an empty element is what admits the bare stem — see the table's own note
+      sfx.split("|").forEach((t) => { gb[g + t] = u + t; if (!oneWay) us[u + t] = g + t; });
+    });
+    const rx = (m) => new RegExp("\\b(?:" + Object.keys(m).sort((a, b) => b.length - a.length).join("|") + ")\\b", "gi");
+    return { gb, us, rxGB: rx(gb), rxUS: rx(us) };
+  })();
+  function spellSystem() { return SPELLINGS.includes(S.settings && S.settings.spelling) ? S.settings.spelling : "en-GB"; }
+  /* The case of the word on the page is preserved, and only the three shapes a sentence actually
+     produces: all lower, Capitalised, ALL CAPS. Anything else (`McDonald`-shaped, an acronym with a
+     lowercase tail) is left exactly as written — a mixed-case word is a name far more often than it
+     is a spelling. */
+  function spellCase(src, out) {
+    if (src === src.toLowerCase()) return out;
+    if (src === src.toUpperCase()) return out.toUpperCase();
+    if (src[0] === src[0].toUpperCase() && src.slice(1) === src.slice(1).toLowerCase()) return out[0].toUpperCase() + out.slice(1);
+    return src;
+  }
+  /* A URL IS NOT PROSE AND MUST SURVIVE THE PASS UNTOUCHED — measured, not guessed at: 173 of the
+     corpus's 10,108 URLs carry a word this table maps (`/pub/data/paleo/`, `Panionium_theatre.jpg`,
+     `..._color_photo_portrait.jpg`, `Mycenaean_armour_from_chamber_tomb_12`). Most sit in an `src`
+     attribute, which a text-node walk can never reach, and the citations are behind `.notranslate` —
+     but `mediaCreditHTML` renders a credit URL as the VISIBLE TEXT of its own link, so without this
+     an American reader would see a link reading `.../paleo/` rewritten to `palaeo` while its href
+     still said `paleo`: a link whose words no longer name where it goes. Masked here rather than in
+     `spellTree`, so every rendering site added later is covered without anybody remembering. */
+  const SPELL_URL_RX = /\b(?:https?:\/\/|www\.)\S+/gi;
+  // plain text in, plain text out — never HTML: this runs on text NODES, so a tag can never be inside a match
+  function spellText(text, us) {
+    if (!text) return text;
+    const map = us ? _spellMaps.gb : _spellMaps.us;
+    const rx = us ? _spellMaps.rxGB : _spellMaps.rxUS;
+    const swap = (chunk) => {
+      rx.lastIndex = 0;
+      return chunk.replace(rx, (m) => {
+        const hit = map[m] || map[m.toLowerCase()];
+        return hit ? spellCase(m, hit) : m;
+      });
+    };
+    SPELL_URL_RX.lastIndex = 0;
+    if (!SPELL_URL_RX.test(text)) return swap(text);
+    let out = "", last = 0, u;
+    SPELL_URL_RX.lastIndex = 0;
+    while ((u = SPELL_URL_RX.exec(text))) {
+      out += swap(text.slice(last, u.index)) + u[0];
+      last = u.index + u[0].length;
+    }
+    return out + swap(text.slice(last));
+  }
+  function spellTree(root) {
+    if (!root) return;
+    const us = spellSystem() === "en-US";
+    if (root.nodeType === 3) { const v = spellText(root.nodeValue, us); if (v !== root.nodeValue) root.nodeValue = v; return; }
+    if (!root.querySelectorAll) return;
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    const nodes = []; let n;
+    while ((n = w.nextNode())) nodes.push(n);
+    nodes.forEach((node) => {
+      const src = node.nodeValue;
+      if (!src) return;
+      const p = node.parentNode;
+      if (!p || p.nodeName === "SCRIPT" || p.nodeName === "STYLE" || p.nodeName === "TEXTAREA") return;
+      /* .notranslate is what protects the CITATIONS, and here it matters more than it does for units:
+         a citation names a published work, and rewriting `The Colour of Prehistory` into `Color`
+         invents a title that does not exist. The Library's books are covered by the same rule for the
+         same reason — a translation is somebody's published prose, transcribed rather than edited. */
+      if (p.isContentEditable || (p.closest && p.closest(".notranslate, .bk-page"))) return;
+      const v = spellText(src, us);
+      if (v !== src) node.nodeValue = v;
+    });
+  }
+  // Later DOM — gloss popups, the Atlas panel, a revealed answer, a toast — arrives after render(), so
+  // the pass needs the same standing observer the units switch and the i18n engine use.
+  let _spellObserver = null;
+  function applySpelling() {
+    if (_spellObserver) { _spellObserver.disconnect(); _spellObserver = null; }
+    if (spellSystem() === "en-GB") return;   // the authored system: nothing to do, and no observer to pay for
+    spellTree(document.body);
+    _spellObserver = new MutationObserver((muts) => {
+      muts.forEach((m) => m.addedNodes && m.addedNodes.forEach((nd) => spellTree(nd)));
+    });
+    _spellObserver.observe(document.body, { childList: true, subtree: true });
+  }
+  function setSpelling(sys) {
+    if (!SPELLINGS.includes(sys) || sys === spellSystem()) return;
+    S.settings.spelling = sys;
+    save();
+    render();   // the transform is one-way per render, so the other system comes back with a fresh paint
+  }
+
   // Reflect the current admin / first-time-visitor mode in the top bar and body class.
   function applyMode() {
     const admin = isAdmin();
@@ -23826,6 +24210,10 @@
       const s = undoStack.pop();
       if (!s) return;
       undoAt = tNow;
+      /* …and take the answer back out of the community pool, where it counted. Read from the SNAPSHOT
+         rather than from the live record, which the next line is about to overwrite: the grade counted
+         iff the record it replaced was still inside the reader's three sightings. */
+      if (s.g && ((s.card && Number(s.card.seen)) || 0) < CARD_STATS_SIGHTINGS) cardStatsUndo(s.id, s.g);
       if (s.card) S.cards[s.id] = s.card; else delete S.cards[s.id];   // a card graded for the FIRST time goes back to having no record at all
       if (!S.reviewLog || typeof S.reviewLog !== "object") S.reviewLog = {};
       if (s.log) S.reviewLog[s.day] = s.log; else delete S.reviewLog[s.day];
@@ -24195,6 +24583,9 @@
         const res = grade(id, g, shownAt ? Date.now() - shownAt : 0);
         // …and the row that logged it, onto the snapshot the grade could not yet see (see undoRevRow)
         snap.revRow = lastRevRow;
+        // …and the grade itself, so undoGrade can take it back out of the community pool without reading
+        // the review row — which the log is allowed not to have (an old save, a pruned session)
+        snap.g = g;
         if (!wasSeen) studiedThisSession++;
         else studiedThisSession++; // count every review as a study event for the session tally
         // grading the Card of the day is what adds it to the reader's daily review — reading it and walking
@@ -24414,7 +24805,14 @@
   // On reveal, colour each typed character green/red by direct (case-insensitive) match to the answer.
   function gradeCloze(qEl, answer) {
     if (!qEl) return;
-    const ans = String(answer || ""), ansL = ans.toLowerCase();
+    /* THE ANSWER IS SPELLED THE WAY THE READER HAS BEEN READING IT, and this is the one place the
+       spelling transform has to reach past the DOM. Everywhere else it rewrites what is painted and the
+       store is never involved; here the comparison string comes from `answerText`, which is authored in
+       British English — so an American reader who has met `Palaeolithic` as `Paleolithic` on every card
+       types `Paleolithic` and the last four characters are marked wrong against a word they were never
+       shown. It transforms the ANSWER rather than the typed guess deliberately: transforming the guess
+       would mark a reader wrong for typing exactly what is on the screen in front of them. */
+    const ans = spellText(String(answer || ""), spellSystem() === "en-US"), ansL = ans.toLowerCase();
     qEl.querySelectorAll(".blank-input").forEach((input) => {
       const typed = input.value;
       const out = document.createElement("span");
@@ -32856,6 +33254,7 @@
     const homeName = (S.settings.home && S.settings.home.name) || "Netherlands";
     const fsNow = FONT_SIZES.indexOf(S.settings.fontSize) < 0 ? "medium" : S.settings.fontSize;
     const unitsNow = unitSystem();
+    const spellNow = spellSystem();
     // world.js is lazy (see DATA_BUNDLES) — until it lands the picker holds just the current home,
     // and fillHomeOpts() below swaps in the full country list once it arrives
     // The option VALUE stays the English name — it keys countryCenter() and is stored in S.settings.home
@@ -32920,6 +33319,17 @@
             <div class="info"><h3>Measurements</h3><p>Which system distances, heights, areas and weights are shown in. Scientific figures — cranial capacities, isotope ratios, radiocarbon ages — keep their own units in both.</p></div>
             <div class="ctl"><div class="fs-pick units-pick" id="unitPick" role="group" aria-label="Measurement units">${
               [["metric", "Metric", "km"], ["imperial", "Imperial", "mi"]].map((u) => `<button type="button" data-units="${u[0]}" class="${unitsNow === u[0] ? "on" : ""}" aria-pressed="${unitsNow === u[0]}"><span class="fs-a" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
+            }</div></div>
+          </div>
+          <div class="set-row set-row-block">
+            ${/* Spelling — one system, not both (Aug 2026, on request: "just as users can switch between
+                  metric and imperial units, they should also be able to switch between British and
+                  American English"). Modelled on Measurements directly above it, and sitting beside it
+                  for the same reason: both decide how the SAME authored prose is rendered, and neither
+                  touches what is stored. See the spelling block by applyTheme. */""}
+            <div class="info"><h3>Spelling</h3><p>Which spellings the cards, the glossary and the site's own words are shown in. Quoted sources, citations and the Library's books keep the spelling their author used.</p></div>
+            <div class="ctl"><div class="fs-pick units-pick" id="spellPick" role="group" aria-label="Spelling">${
+              [["en-GB", "British", "colour"], ["en-US", "American", "color"]].map((u) => `<button type="button" data-spelling="${u[0]}" class="${spellNow === u[0] ? "on" : ""}" aria-pressed="${spellNow === u[0]}"><span class="fs-a notranslate" aria-hidden="true">${u[2]}</span>${u[1]}</button>`).join("")
             }</div></div>
           </div>
           <div class="set-row">
@@ -33088,6 +33498,12 @@
     if (unitPick) unitPick.addEventListener("click", (e) => {
       const b = e.target.closest("[data-units]");
       if (b) setUnits(b.dataset.units);
+    });
+    // spelling — likewise
+    const spellPick = root.querySelector("#spellPick");
+    if (spellPick) spellPick.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-spelling]");
+      if (b) setSpelling(b.dataset.spelling);
     });
 
     // sound effects toggle — turning it ON plays the toggle chirp as confirmation (the delegated
@@ -36678,6 +37094,7 @@
   render();
   applyLang();   // localize the freshly rendered page + static chrome, set dir/lang, install the i18n observer
   applyUnits();  // …and put every measurement into the one system this reader has chosen, popups included
+  applySpelling();   // …and every spelling likewise; a British reader pays neither a pass nor an observer
   // A non-English reader paints in English for the moment it takes the lazy translation tables to
   // arrive, then repaints translated. English readers never fetch them, and never pay a second render.
   if ((S.settings.lang || "en") !== "en") loadLangData(() => { applyLang(); render(); });

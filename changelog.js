@@ -35,13 +35,16 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.289", released: "2026-08-21T00:43Z" };
+window.FOLIO_VERSION = { v: "1.290", released: "2026-08-21T01:58Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-21",
-    t: "You can put your own symbol or picture on a collection, and the About page now hands you the prompts for writing cards with an AI",
+    t: "British or American spelling, and your own symbol on a collection",
     items: [
+      "<b>Folio can now read in American spelling</b> \u2014 Settings \u2192 Appearance \u2192 Spelling switches every card, term and page between the two.",
+      "<b>A card\u2019s community difficulty now counts only your first three answers to it</b>, so it measures how hard the card is to learn.",
+      "<b>The changelog\u2019s day titles are titles again</b>, the recent ones having grown into contents lists.",
       "<b>A collection can wear a symbol you choose</b> — hold its row in your daily study, press Icon, and pick from three dozen marks or upload a small picture of your own.",
       "<b>The About page now carries the prompts for writing cards with an AI</b>, with a Copy button on each and instructions for bringing the result into Folio.",
       "<b>The Studio's card list links straight to them</b>, so the prompts are a press away while you are writing a deck.",
@@ -49,7 +52,7 @@ window.CHANGELOG = [
   },
   {
     d: "2026-08-20",
-    t: "The China collection opens for study, the daily review now mixes the day's new cards in among the ones due, and the home page, your account and your own decks are all tidied",
+    t: "The China collection opens, and the daily review mixes new cards in",
     items: [
       "<b>The China collection is now open to study</b>, where it sat under Coming soon, so its cards reach your daily review, the games and the card of the day.",
       "Forty-four new cards — forty in <b>China</b>, from Pangu splitting the world-egg to the table of sovereigns nobody can date, and four in <b>Ancient Greece</b> — with forty-four new glossary terms.",
@@ -107,7 +110,7 @@ window.CHANGELOG = [
   },
   {
     d: "2026-08-15",
-    t: "A new Geography collection asks you to name a state from its shape on the globe, an enlarged picture stays open while you zoom it, and your daily study times your day",
+    t: "A Geography collection: name the state from its shape",
     items: [
       "<b>A new Geography collection</b> asks you to name a state shaded in gold on a globe you can turn and zoom, or a capital marked on it with a dot, with its figures beside the answer.",
       "<b>Twenty-six new cards</b>: twenty-one in <b>Ancient Greece</b>, with twenty new glossary terms, and five in the new <b>Geography</b> collection.",
@@ -136,7 +139,7 @@ window.CHANGELOG = [
   },
   {
     d: "2026-08-14",
-    t: "You can sign in with your username, a deck asked in two directions lists each direction on its own, five books join the Library, and Ancient Greece, Ancient Rome and World History all gain cards",
+    t: "Sign in with your username, and five more books",
     items: [
       "Fifty-two new cards in the <b>Ancient Greece</b> collection, twenty-eight in World History and ten in <b>Ancient Rome</b>, with eighty-eight new glossary terms.",
       "<b>A deck asked in two directions now lists each direction as a subdeck of its own</b>, to add and study on its own, with no change to the deck file.",
@@ -184,7 +187,7 @@ window.CHANGELOG = [
   },
   {
     d: "2026-08-13",
-    t: "The walkthrough is brought back into line with the site it describes, four glossary terms are rewritten, two more books join the Library, and World History and Ancient Greece both gain cards",
+    t: "Two more books, and the walkthrough put right",
     items: [
       "<b>The walkthrough now names the buttons the page actually carries</b> — it said “Show answer” where the card says “Reveal answer”, and called an unread glossary term gold when it is teal.",
       "The walkthrough no longer describes three numbers on a banner that has none until your first deck is added.",
@@ -201,7 +204,7 @@ window.CHANGELOG = [
   },
   {
     d: "2026-08-12",
-    t: "Every date now reads BCE and CE, the Library says how many books are on the shelf, and the walkthrough is made for a phone",
+    t: "Every date now reads BCE and CE",
     items: [
       "<b>Every date on Folio now reads BCE and CE</b>, never BC or AD — in the cards, the glossary, the artefacts, the Atlas and the text under every picture.",
       "The Library's shelf now says how many books it is showing, and how many it has, as you search.",
@@ -216,7 +219,7 @@ window.CHANGELOG = [
   },
   {
     d: "2026-08-11",
-    t: "Six books join the Library, sixteen more cards join World History, a subdeck can hold subdecks of its own, and a misattributed daily quote is put back with the words its own source carries",
+    t: "Six books, and a subdeck can hold subdecks",
     items: [
       "Sixteen new cards in the World History collection, each with a glossary term to go with it.",
       "A measurement given in millilitres now follows the units you have chosen, like every other figure.",
@@ -233,7 +236,7 @@ window.CHANGELOG = [
   },
   {
     d: "2026-08-10",
-    t: "A card browser you can search, flags to mark cards with, a second scheduler you can pick deck by deck, and five books on the shelf",
+    t: "A card browser, flags, and a second scheduler",
     items: [
       "<b>On a dark theme, opening a menu or a chest no longer washes the whole page white behind it</b> — the page now darkens, as it should.",
       "<b>A big deck no longer makes the site slow to open</b> — Folio now loads only the cards a session needs, and editing one card no longer rewrites the whole deck.",
@@ -286,7 +289,7 @@ window.CHANGELOG = [
   },
   {
     d: "2026-08-09",
-    t: "Pictures on the cards and in the glossary, three new daily games, and a chest you can save for later",
+    t: "Pictures on the cards, and three new daily games",
     items: [
       "<b>Your own decks can have subdecks.</b>",
       "<b>A card in one of your own decks can fold a section away.</b>",

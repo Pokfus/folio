@@ -181,7 +181,18 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "user", j
   check("both rows are the same card", log2[0][0] === log2[1][0], log2.map((x) => x[0]).join(" / "));
   check("row A's pre-state is New (0)", log2[0][3] === 0, String(log2[0][3]));
   check("row B's pre-state is Learning (1)", log2[1][3] === 1, String(log2[1][3]));
-  check("row B graduates it to a day or more", log2[1][5] >= 1440, log2[1][5] + " min");
+  /* GRADUATION IS ABOUT A DAY, NOT 1,440 MINUTES, and reading it as minutes made this assertion fail for
+     twenty-three hours of every day. Anything the scheduler measures in DAYS lands at the START of its day
+     (`schedDayDue` / `cfg.dayAnchor`), so the delay a one-day interval actually buys is however much of
+     today is left — 1,347 minutes when this was found at 01:22 UTC, and 1,440 only for a card graded in
+     the first minute after midnight. A BAND is what can honestly be asked of it: the floor separates a
+     graduated card from the ten-minute step it left, and the ceiling from a card that has jumped to weeks.
+     "The due lands on a later date" was tried first and is ALSO wrong, because `nextMin` is whole minutes:
+     a due at exactly midnight reconstructs a fraction of a minute short of it and reads as the same day.
+     Same fault as `test-cards.js`'s due-date checks — a test that reads a clock has to read it the way the
+     code does. */
+  check("row B graduates it to about a day", log2[1][5] >= 12 * 60 && log2[1][5] <= 36 * 60,
+    log2[1][5] + " min");
   /* THE ASSERTION A COUNT CANNOT MAKE. Undo from the completion screen and the row that must survive is
      row A: an implementation that pops the LAST row passes a count check and fails this one. */
   const rowA = JSON.stringify(log2[0]);
@@ -207,7 +218,11 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "user", j
       const S = JSON.parse(localStorage.folio_v1 || "{}");
       const t = Date.now();
       S.active = [a.deck];
-      S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 1 });
+      /* NO NEW CARDS. What is measured here is the PANEL, and the review interleaves the day's new cards
+         among the due ones (`mixPiles`), so at one a day the session opens on a card this seed knows
+         nothing about roughly as often as not — the sheet then honestly reports "New — not studied yet"
+         while every assertion below asks about a mature record, and a coin toss reads as a broken panel. */
+      S.settings = Object.assign({}, S.settings, { animations: false, newPerDay: 0 });
       S.cards = {};
       S.revlog = [];
       a.ids.forEach((id) => {

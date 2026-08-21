@@ -8,6 +8,8 @@
      4. Eras are BCE and CE, never BC or AD — everywhere a reader can see one (rule 4 alone also runs over
         artefacts.js and countries.js, which are prose a reader reads and were the last two files still
         saying "1500 BC"; the other three rules stay scoped to cards + glossary, as CLAUDE.md scopes them).
+     5. A changelog DAY TITLE is at most 72 characters (report-only, changelog.js) — see the rule's own
+        note at the foot of this file for the measurement behind the number.
    Usage:
      node .claude/check-style.js          report violations
      node .claude/check-style.js --fix    apply the safe fixes in place (string-level, format-preserving)
@@ -262,4 +264,31 @@ for (const file of FILES) {
     } else console.log(name + ": clean");
   }
 }
+/* --- rule 5: a changelog DAY TITLE is a title, not a summary (report-only) ---
+   CLAUDE.md's golden rule already says one sentence per day title; what it did not say until Aug 2026 is
+   how long. Measured over the whole file when the titles were compacted: the first thirty-two days run
+   13–72 characters and read as titles ("After the ice", "A Library of books, and World History
+   replanned"), while nine recent ones had grown to 100–194 and were three- and four-item lists — a
+   contents page rather than a heading, and on a phone a wall of prose above the list it introduces.
+   Rewritten to the older band, and the ceiling is the longest of the ones that were always right.
+   REPORT-ONLY and never fixed: shortening a title is a judgement about which of the day's changes led,
+   which is the one thing a regex cannot make. It also does NOT run under `--fix`, so a long title
+   cannot be silently truncated into a sentence fragment. */
+const DAY_TITLE_MAX = 72;
+try {
+  const clog = fs.readFileSync(path.join(__dirname, "..", "changelog.js"), "utf8");
+  const g = {};
+  new Function("window", clog)(g);
+  const days = g.CHANGELOG || [];
+  const longTitles = days.filter((d) => d && typeof d.t === "string" && d.t.length > DAY_TITLE_MAX);
+  if (!days.length) console.log("\nchangelog.js: could not be read — rule 5 was skipped");
+  else if (!longTitles.length) console.log("changelog.js: clean (" + days.length + " day titles, longest " +
+    days.reduce((n, d) => Math.max(n, (d.t || "").length), 0) + " chars)");
+  else {
+    console.log("\n=== changelog.js — " + longTitles.length + " finding(s) ===");
+    longTitles.forEach((d) => console.log("[day title over " + DAY_TITLE_MAX + " chars — shorten by hand] " +
+      d.d + " (" + d.t.length + ") " + d.t));
+  }
+} catch (e) { console.log("\nchangelog.js: " + e.message + " — rule 5 was skipped"); }
+
 if (FIX) console.log("Applied " + totalFixed + " safe fixes. Re-run without --fix to see remaining (ambiguous) items.");
