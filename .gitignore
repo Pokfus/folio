@@ -51,12 +51,18 @@ __pycache__/
 # deck it writes IS committed — this is only the working cache behind it.
 .claude/ukbi-cache/
 
-# The A2 and B1 German decks are deliberately NOT in the repo (on request, Aug 2026): it is a file
+# The A2 German deck is deliberately NOT in the repo (on request, Aug 2026): it is a file
 # to hand a reader for import, not something the site should carry. It is built by
 # `python3 .claude/goethe/run.py --level a2`, which writes it here beside the A1 deck, so
 # this line is what stops a `git add -A` sweeping it in. Delete the line to ship it.
+#
+# THE B1 DECK CAME OUT OF THIS LIST IN AUG 2026, on the request to add the missing German decks,
+# and it HAD to: the Collections page's Languages section is drawn from `lang-decks.js`, which is
+# built by reading `decks/` off disk — so a deck that is here and ignored is one the catalogue
+# offers and the deployed site cannot fetch, i.e. an Add button that 404s. Anything in `decks/`
+# that a reader can be offered has to be committed; an ignored one has to be absent from disk too,
+# which is why A2 stays here and is not built by default.
 decks/Goethe-A2-German.folio-deck.json
-decks/Goethe-B1-German.folio-deck.json
 
 # the 40 MB Natural Earth admin-1 geojson .claude/build-us-states.js reads the state polygons off.
 # The us-states.js it writes IS committed — this is only the working cache behind it.

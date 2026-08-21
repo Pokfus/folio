@@ -1017,13 +1017,23 @@ body[data-theme="folio"] .collection-deco::after{
 .node-children .node-children .node-children-pad{padding-top:10px;}
 .node-num{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); font-weight:500; flex:none; width:18px;}
 .node-main{flex:1; min-width:0;}
-.node-title-row{display:flex; align-items:center; gap:9px;}
+.node-title-row{display:flex; align-items:center; gap:9px; flex-wrap:wrap; row-gap:4px;}
 .node-title{font-family:var(--serif); font-weight:600; font-size:calc(17px * var(--fs)); line-height:1;}
 .node-span{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
 /* how many cards the deck holds — the collection banner's own `.collection-count`, a size down to sit on
    a deck row rather than a banner. Same figure, same words, same place on the line, so the two levels of
    the hierarchy cannot be read as saying different things. */
 .node-count{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); white-space:nowrap;}
+/* how much of the download the deck is — the same setting as the count it sits beside, a shade quieter,
+   because it is the second figure on the line and the count is the one a reader came for. A language
+   deck's row uses the same span (it is the size of a file that WILL be fetched); one fact, one place, on
+   both shelves.
+
+   THE TITLE ROW WRAPS RATHER THAN THE FIGURES BEING DROPPED. It is a nowrap flex line, so a third item
+   on it would push the deck's NAME — the one part of the row with no shorter form — off the end at 390px;
+   and a size hidden on a phone is a size hidden from most readers, which on a 21 MB download is exactly
+   the wrong half to lose. Wrapping costs a row nothing at any width the figures fit. */
+.node-size{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint); opacity:.72; white-space:nowrap;}
 
 /* ============================================================
    STUDY / FLASHCARD  (mirrors the source collection card CSS)
@@ -4146,7 +4156,6 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
    .collection-deco, .coll-ic, .collection-title-row and .deck-prog all style it exactly as they style
    Ancient Greece, and every theme's banner treatment follows the --coll-bg set inline on the row. What
    is left here is only what differs, and each line is a difference rather than a restatement. */
-.lang-deck .lang-size{color:var(--ink-faint); font-size:calc(11px * var(--fs));}
 /* The deck rows are the curated .node, whose right-hand cell is sized for a chevron; an Add button is
    wider and must not be squeezed into it. */
 .lang-deck .collection-actions{align-items:center; flex:none;}
@@ -4156,6 +4165,13 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
    rest. The progress bar only appears on an installed deck, so the row has two heights by design. */
 .node.lang-deck{align-items:flex-start; padding-block:10px;}
 .node.lang-deck .node-main{min-width:0;}
+/* A DECK'S OWN SUBDECKS (Aug 2026, on request — "I should see the 9 decks inside it, and any subdecks
+   if there are, displayed in the same way as History decks and subdecks"). They are the curated .node in
+   a .node-children fold, so almost nothing is needed here: what a subdeck row has NOT got is the two
+   quiet lines a deck row carries, so it takes .node's own single-line box back. */
+.node.lang-sub{align-items:center; padding-block:12px;}
+.collection .node.lang-sub{border-left-color:var(--coll-bg, var(--indigo));}
+.collection .node.branch.lang-sub{border-left-color:var(--ochre);}
 /* The deck count beside a language's title is a FACT ABOUT THE COLLECTION rather than a date, so it
    borrows .collection-span's quiet setting and nothing else. */
 .lang-coll .collection-title-row .collection-span{font-variant-numeric:tabular-nums;}

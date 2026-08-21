@@ -4,7 +4,7 @@
 
     node .claude/build-lang-decks.js
 
-  WHY A CATALOGUE EXISTS AT ALL.  The decks in `decks/` are 119 MB across 38 files and nothing on the
+  WHY A CATALOGUE EXISTS AT ALL.  The decks in `decks/` are 181 MB across 44 files and nothing on the
   site linked to one until Aug 2026 ("ensure that all our language collections are visible on the
   Collections page in their own Languages section").  A section that listed them by FETCHING them would
   cost a reader the whole shelf to draw a list, so what ships is the metadata — a title, a subtitle, a
@@ -23,6 +23,10 @@
   three of them; what every one of them does carry is the language's own name somewhere in it.  Matching
   TWO languages is an error too: a deck the catalogue could file under either is a deck nobody would
   find twice.
+
+  IT CARRIES THE SUBDECK TREE and not merely a count of one, so the page can draw a deck's own decks
+  as a curated collection draws its subdecks.  A node's count is CARDS rather than notes, for the reason
+  the deck's own count is.
 
   THE ORDER IS THE ORDER THE ROWS ARE DRAWN IN, and it is by language and then by the level the exam
   itself names, because a learner reads a ladder from the bottom.  A deck that is not a level (phrases,
@@ -84,10 +88,39 @@ for (const f of files) {
   Object.keys(types).forEach((k) => { tpl[k] = Math.max(1, ((types[k] || {}).cards || []).length || 1); });
   let cards = 0;
   for (const c of (d.cards || [])) cards += (c.type && tpl[c.type]) ? tpl[c.type] : 1;
-  const subs = new Set((d.cards || []).map((c) => String(c.sub || "").split("::")[0]).filter(Boolean));
+  /* THE SUBDECK TREE, so the Collections page can draw a deck's own decks the way a curated
+     collection draws its subdecks (Aug 2026, on request: "when I open the Mandarin Chinese collection,
+     I should see the 9 decks inside it, and any subdecks if there are"). It was a COUNT, which is all a
+     one-line row needed and which a fold cannot draw anything from.
+
+     A path nests on `::`, exactly as `card.sub` does in app.js, and a node's count is the CARDS its
+     whole subtree holds rather than the notes — the figure the deck row above it has always shown, so
+     a parent and its children cannot come to disagree about what a card is. A node is created for every
+     PREFIX of a path a card names, so an intermediate level exists exactly when something sits under
+     it — the tree app.js derives at study time, taken here at build time from the same paths. */
+  const tree = [];
+  const at = (path) => {
+    const parts = path.split("::");
+    let list = tree, node = null;
+    for (let i = 0; i < parts.length; i++) {
+      const name = parts[i];
+      node = list.find((x) => x.n === name);
+      if (!node) { node = { n: name, c: 0, k: [] }; list.push(node); }
+      list = node.k;
+    }
+    return node;
+  };
+  for (const c of (d.cards || [])) {
+    const sub = String(c.sub || "");
+    if (!sub) continue;
+    const mult = (c.type && tpl[c.type]) ? tpl[c.type] : 1;
+    const parts = sub.split("::");
+    for (let i = 0; i < parts.length; i++) at(parts.slice(0, i + 1).join("::")).c += mult;
+  }
+  const prune = (list) => list.map((x) => (x.k.length ? { n: x.n, c: x.c, k: prune(x.k) } : { n: x.n, c: x.c }));
   rows.push({
     lang: hits[0].name, file: f, id: m.id, title: m.title, sub: m.subtitle || "",
-    notes: notes, cards: cards, subs: subs.size, bytes: bytes, rank: levelRank(m.title),
+    notes: notes, cards: cards, subs: tree.length, tree: prune(tree), bytes: bytes, rank: levelRank(m.title),
   });
 }
 
@@ -104,6 +137,7 @@ for (const r of rows) {
   out += "  { lang: " + s(r.lang) + ", file: " + s(r.file) + ", id: " + s(r.id) +
     ", title: " + s(r.title) + ", sub: " + s(r.sub) +
     ", notes: " + r.notes + ", cards: " + r.cards + (r.subs ? ", subs: " + r.subs : "") +
+    (r.tree.length ? ", tree: " + s(r.tree) : "") +
     ", bytes: " + r.bytes + " },\n";
 }
 out += "];\n";

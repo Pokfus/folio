@@ -569,7 +569,48 @@
      which is a ReferenceError before the first paint rather than anything subtle. */
   let _uStudyCache = new Map();
   let _availCache = null;
-  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; }
+  /* HOW MANY BYTES A DECK'S CARDS WEIGH (Aug 2026, on request: "make it so that both Language decks and
+     now also History decks mention the file size to download"). A language deck's figure is the size of
+     the file that will be fetched, read off disk by `.claude/build-lang-decks.js`; a curated deck has no
+     file of its own — its cards ship inside `data.js`, which every visitor downloads before flipping one —
+     so the honest figure is what those cards weigh in it, and the row says that rather than promising a
+     download that has already happened.
+
+     Cached per card and per node, because the Collections page draws every leaf of every collection and
+     the corpus is a few megabytes of JSON; busted with the rest, since an admin edit changes a card's
+     bytes. `TextEncoder` rather than `.length`, or every accented and CJK character is undercounted. */
+  let _cardBytes = new Map();
+  let _nodeBytes = new Map();
+  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); }
+  let _byteEnc = null;
+  function cardBytes(id) {
+    let n = _cardBytes.get(id);
+    if (n === undefined) {
+      const c = cardById(id);
+      if (!_byteEnc && typeof TextEncoder !== "undefined") _byteEnc = new TextEncoder();
+      const s = c ? JSON.stringify(c) : "";
+      n = _byteEnc ? _byteEnc.encode(s).length : s.length;
+      _cardBytes.set(id, n);
+    }
+    return n;
+  }
+  function nodeBytes(node) {
+    if (!node) return 0;
+    let n = _nodeBytes.get(node.id);
+    if (n === undefined) {
+      n = 0;
+      subtreeCardIds(node).forEach((id) => { n += cardBytes(id); });
+      _nodeBytes.set(node.id, n);
+    }
+    return n;
+  }
+  /* One formatter, so a language deck's megabytes and a curated deck's cannot come to be written two
+     different ways on one page. Under a megabyte it says kilobytes: most of the curated decks are that
+     size, and "0.1 MB" over a 90 KB deck is a figure a reader cannot act on. */
+  function fmtDeckSize(b) {
+    if (!(b > 0)) return "";
+    return b < 1048576 ? Math.max(1, Math.round(b / 1024)) + " KB" : (b / 1048576).toFixed(1) + " MB";
+  }
 
   function applyAdminEdits() {
     buildTreeStructure();
@@ -17407,7 +17448,7 @@
   function deckProgMarkup(studied, total) {
     const pct = total > 0 ? Math.min(100, (studied / total) * 100) : 0;
     return '<div class="xp deck-prog" data-pct="' + pct.toFixed(2) + '">' +
-      /* Grouped, since a language collection reaches five figures (23,666 for Mandarin) and the deck rows
+      /* Grouped, since a language collection reaches five figures (23,064 for Mandarin) and the deck rows
          directly under it have always grouped theirs — one screen saying 15296 above 1,178 reads as a
          mistake. Inert on every curated collection, none of which passes 999. */
       '<div class="xp-head"><span class="xp-lvl">Studied</span><span class="xp-count">' + studied.toLocaleString() + ' / ' + total.toLocaleString() + ' cards</span></div>' +
@@ -20491,11 +20532,19 @@
        the collection banner does — "0 cards" reads as a figure that failed to load. */
     const spanText = nodeDateOverride(node.id);
     const cardCount = subtreeCardIds(node).length;
+    /* AND HOW MUCH OF THE DOWNLOAD IT IS (Aug 2026, on request — the language decks say what they will
+       fetch and these were asked to say the same). A curated deck has no file of its own: its cards ship
+       inside `data.js`, so the figure is what they weigh there and the wording says so rather than
+       promising a fetch that happened before the reader saw the page. It sits on the title row beside the
+       count, where the language rows put theirs, so one fact is in one place on both. */
+    const bytes = nodeBytes(node);
+    const sizeText = cardCount ? fmtDeckSize(bytes) : "";
     const nodeSpanHTML =
       (spanText ? `<span class="node-span">${esc(spanText)}</span>` : "") +
       (cardCount
         ? `<span class="node-count">${cardCount} ${cardCount === 1 ? "card" : "cards"}</span>`
-        : soon ? "" : `<span class="pill soon">Empty</span>`);
+        : soon ? "" : `<span class="pill soon">Empty</span>`) +
+      (sizeText ? `<span class="node-size" title="These cards ship with the site, so they are already downloaded.">${sizeText}</span>` : "");
 
     if (nodeIsBranch(node)) {
       const group = document.createElement("div");
@@ -23586,9 +23635,40 @@
      and each deck's own Add is what brings a deck in; once in, it has a full row in "Your decks" below.
 
      THE BAR IS HONEST ON A DECK THAT IS NOT HERE YET: total is the catalogue's card count and studied is
-     summed over the decks actually installed, so an untouched language reads 0 of 23,666 rather than
+     summed over the decks actually installed, so an untouched language reads 0 of 23,064 rather than
      claiming a denominator it has no cards for. */
-  function langDeckMB(b) { return (b / 1048576).toFixed(1); }
+  /* A DECK'S OWN DECKS (Aug 2026, on request: "when I open the Mandarin Chinese collection, I should see
+     the 9 decks inside it, and any subdecks if there are, displayed in the same way as History decks and
+     subdecks"). A community deck groups its cards into subdecks on a `::` path, and the catalogue carries
+     that tree — a node per prefix, counted in CARDS — so the page can draw it without fetching 21 MB to
+     find out what is inside.
+
+     THEY ARE THE CURATED TREE'S OWN ROWS, exactly as the deck rows above them are: `.node` in a
+     `.node-children` fold under a `.node.branch`, so the box, the indent, the chevron, the entrance
+     stagger and every theme's treatment come free and cannot drift from the collections one section up.
+
+     WHAT THEY DELIBERATELY HAVE NOT GOT IS AN ADD BUTTON. A deck is one FILE, so half of one cannot be
+     fetched; the whole deck is added and its subdecks then appear in "Your decks" below with their own
+     add-to-review buttons and their own direction rows. A row here is a statement of what is inside,
+     which is what a reader deciding whether to download 21 MB actually wants to know.
+
+     A DIRECTION IS NOT DRAWN HERE. `Spanish → English` is a real `sub` on the DELE decks and so appears;
+     the direction rows a one-note-two-templates deck grows are a property of an INSTALLED deck, derived
+     from its card type at study time, and there is nothing in the catalogue that could honestly say so. */
+  function langSubRowsHTML(nodes) {
+    return nodes.map((n) => {
+      const count = '<span class="node-count">' + (n.c || 0).toLocaleString() + " cards</span>";
+      const title = '<span class="node-title">' + esc(n.n) + "</span>";
+      const main = '<div class="node-main"><div class="node-title-row">' + title + count + "</div></div>";
+      if (!n.k || !n.k.length) return '<div class="node lang-sub">' + main + "</div>";
+      return '<div class="node-group lang-group">' +
+        '<div class="node branch lang-sub" tabindex="0" role="button">' + main + chevBtn("chev-sm") + "</div>" +
+        '<div class="node-children"><div class="node-children-inner"><div class="node-children-pad">' +
+          langSubRowsHTML(n.k) +
+        "</div></div></div>" +
+      "</div>";
+    }).join("");
+  }
   /* An id of the collection's own, so it can carry a hue out of COLL_THEME exactly as a curated one does.
      Built from the language NAME rather than written down, since the catalogue is generated and a language
      added to it should not have to be added here twice. */
@@ -23606,23 +23686,36 @@
        Once a deck IS added it has a full row of its own in "Your decks" below, with its subdecks, its
        directions and its add-to-review buttons, so a second and poorer set of controls up here would be
        two answers to one question. */
-    return '<div class="node lang-deck">' +
+    const kids = Array.isArray(r.tree) ? r.tree : [];
+    const main =
       '<div class="node-main">' +
         '<div class="node-title-row">' +
           '<span class="node-title">' + esc(r.title) + '</span>' +
           (added ? '<span class="pill udeck-tag">added</span>' : "") +
           '<span class="node-count">' + r.cards.toLocaleString() + " cards</span>" +
+          /* The size sits on the title row beside the count, where a curated deck's does — the request
+             was for one fact in one place on both shelves. It is a real download here, so it says so. */
+          '<span class="node-size">' + fmtDeckSize(r.bytes) + (added ? "" : " to download") + "</span>" +
         '</div>' +
         (r.sub ? '<div class="udeck-sub">' + esc(r.sub) + "</div>" : "") +
-        '<div class="udeck-sub lang-size">' + langDeckMB(r.bytes) + " MB" +
-          (added ? " \u00b7 already in Your decks below" : " to download") + "</div>" +
+        (added ? '<div class="udeck-sub">Already in Your decks below.</div>' : "") +
         (added ? deckProgMarkup(studied, r.cards) : "") +
-      '</div>' +
-      '<div class="collection-actions">' +
-        (added ? "" : '<button class="btn tiny lang-add" type="button" data-langadd="' + esc(r.file) +
-          '" data-langtitle="' + esc(r.title) + '">Add</button>') +
-      '</div>' +
-    '</div>';
+      '</div>';
+    const act = '<div class="collection-actions">' +
+      (added ? "" : '<button class="btn tiny lang-add" type="button" data-langadd="' + esc(r.file) +
+        '" data-langtitle="' + esc(r.title) + '">Add</button>') +
+      '</div>';
+    /* A deck with nothing inside it stays the flat, unpressable row it has always been: there is nothing
+       to fold and nothing to study, so a row click could only ever mean Add — a 21 MB download off a
+       stray tap. One WITH subdecks becomes the curated branch, where a row click toggles and costs
+       nothing, exactly as a collection's own decks do. */
+    if (!kids.length) return '<div class="node lang-deck">' + main + act + "</div>";
+    return '<div class="node-group lang-group">' +
+      '<div class="node branch lang-deck" tabindex="0" role="button">' + main + act + chevBtn("chev-sm") + "</div>" +
+      '<div class="node-children"><div class="node-children-inner"><div class="node-children-pad">' +
+        langSubRowsHTML(kids) +
+      "</div></div></div>" +
+    "</div>";
   }
   function langCollectionHTML(lang, rows) {
     const id = langCollId(lang);
@@ -23669,10 +23762,22 @@
        all the collections' and cannot drift from them. No row click other than the toggle: there is
        nothing to study until a deck has been added. */
     root.querySelectorAll(".lang-coll").forEach((collEl) => {
-      const rowEl = collEl.querySelector(".collection-row");
-      const kids = collEl.querySelector(".node-children");
-      const chev = collEl.querySelector(".collection-actions > .chev");
+      /* `:scope >` throughout, since a deck with subdecks is now a fold of its own INSIDE this one and a
+         loose descendant query would reach into it. */
+      const rowEl = collEl.querySelector(":scope > .collection-row");
+      const kids = [...collEl.children].find((c) => c.classList.contains("node-children"));
+      const chev = rowEl && rowEl.querySelector(":scope > .collection-actions > .chev");
       if (rowEl && kids && chev) wireExpander(rowEl, kids, chev, collEl, null);
+    });
+    /* A deck's own subdecks, and a subdeck's, at any depth — the same `wireExpander` the collections use,
+       so the chevron, the open class, the row's Enter/Space and the children's entrance stagger are all
+       theirs. No row click other than the toggle: nothing here can be studied until the deck is on the
+       device, at which point it has a full row in Your decks below. */
+    root.querySelectorAll(".lang-group").forEach((g) => {
+      const rowEl = g.querySelector(":scope > .node.branch");
+      const kids = [...g.children].find((c) => c.classList.contains("node-children"));
+      const chev = rowEl && rowEl.querySelector(":scope > .chev");
+      if (rowEl && kids && chev) wireExpander(rowEl, kids, chev, g, null);
     });
     root.querySelectorAll("[data-langadd]").forEach((b) => b.addEventListener("click", async (e) => {
       e.stopPropagation();
