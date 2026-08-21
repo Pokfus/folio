@@ -8639,14 +8639,22 @@ const BOOKS = {
         "as one missionary's account of what he thought the book was, rather than as what the " +
         "Chinese says.",
       "The chapter titles are his, in the capitals his printer set them in, and the text has been " +
-        "read by a machine rather than a person. Two of the scanner's confusions are systematic and " +
-        "have been corrected here: it read the letter y as a j with a stray mark after it 417 times, " +
-        "and th as tli 71 times, and in each case every occurrence in the novel was enumerated " +
-        "before a correction was made. What is left is a long tail of one-off slips, and those are " +
-        "left as they stand rather than repaired by guess. The last chapter used to run on into the " +
-        "volume's index, a life of the translator and the publisher's 1913 catalogue, the scan " +
-        "having no boundary of its own at the end of the novel; they are no longer shown. Only one " +
-        "copy of this book has ever been transcribed, and this is it.",
+        "read by a machine rather than a person. Three of the scanner's confusions are systematic and " +
+        "have been corrected here: it read the letter y as a j with a stray mark after it 468 times, " +
+        "th as tli 79 times, and w as av 63 times, and in each case every occurrence in the novel " +
+        "was enumerated before a correction was made. What is left is a long tail of one-off slips, " +
+        "and those are left as they stand rather than repaired by guess. The last chapter used to " +
+        "run on into the volume's index, a life of the translator and the publisher's 1913 " +
+        "catalogue, the scan having no boundary of its own at the end of the novel; they are no " +
+        "longer shown. Only one copy of this book has ever been transcribed, and this is it.",
+      "Chinese names are printed here in modern pinyin rather than in the romanisation Richard used " +
+        "in 1913, so that Kwanyin is Guanyin, Pa Kiel is Bajie and Huen Chwang is Xuanzang. Richard " +
+        "prints no Chinese characters anywhere \u2014 not beside a name, not in a note, not in his " +
+        "index \u2014 so each of the 83 names converted was checked against the Chinese text of the " +
+        "novel on the facing page: the characters have to appear in the same chapters as the name. " +
+        "That test is decisive for a name of two or more syllables and worthless for a single one, " +
+        "which any common character would pass, so single syllables are left exactly as he set them, " +
+        "and so are the Sanskrit names, which are not Chinese.",
     ],
 
     /* THE TRANSCRIPTION IS AN OCR, AND IT IS THE ONLY ONE THERE IS. Neither Wikisource nor any other
@@ -8733,6 +8741,185 @@ const BOOKS = {
       ["Nortli", "North", "th read as tli"],
       ["Tlic", "The", "th read as tli and e as c in one word"],
       ["artli", "arth", "th read as tli"],
+
+      /* THE THIRD CONFUSION IS W READ AS AV, and it is the one that had to be enumerated word by word
+         rather than keyed on a following letter. There is no shape rule to hang a blanket on — the pair
+         AV occurs inside ordinary words as well — so every token carrying it was listed and read: 42
+         distinct forms over 69 occurrences, of which 11 are legitimate and every one of those is a word
+         the printing sets in CAPITALS (SAVED x3, SAVES x2, CAVE x2, HEAVEN x2, SAVING, SHAVES). The other
+         36 forms, 58 occurrences, are damage and are spelled out below, longest first so no row can eat a
+         longer one's letters. The legitimate eleven are excluded by NOT being named rather than by a rule,
+         which is what an enumeration buys: a rule about capitals would break the day the scan mangles a
+         capitalised word, and a list cannot. THE RECOVERIES MATTER MORE THAN THE COUNT: four of them are
+         names the pinyin table below is keyed on -- Ching KAvan is the reign Ching Kwan, Chu AVu Neng is
+         Chu Wu Neng, AVu Tang is Wu Tang and AVutai is Wutai -- so this table has to run BEFORE `roman`,
+         which correctRaw already guarantees. Written the other way round, the romanisation would convert
+         the healthy spellings and walk past the damaged ones. */
+      ["TheAVomen", "The Women", "W read as AV, and the space before it lost"],
+      ["AVaterfall", "Waterfall", "W read as AV"],
+      ["Avithout", "without", "w read as Av"],
+      ["forAvard", "forward", "w read as Av"],
+      ["Avhites", "whites", "w read as Av"],
+      ["Avanted", "wanted", "w read as Av"],
+      ["AVisdom", "Wisdom", "W read as AV"],
+      ["Avhich", "which", "w read as Av"],
+      ["AVhich", "Which", "W read as AV"],
+      ["AVizard", "Wizard", "W read as AV"],
+      ["AVutai", "Wutai", "W read as AV, in the mountain name Wutai"],
+      ["Avhere", "where", "w read as Av"],
+      ["Avorks", "works", "w read as Av"],
+      ["AVhen", "When", "W read as AV"],
+      ["AVhat", "What", "W read as AV"],
+      ["Avhite", "white", "w read as Av"],
+      ["Avere", "were", "w read as Av"],
+      ["Avent", "went", "w read as Av"],
+      ["Avill", "will", "w read as Av"],
+      ["Avith", "with", "w read as Av"],
+      ["AVest", "West", "W read as AV"],
+      ["Avife", "wife", "w read as Av"],
+      ["Avomb", "womb", "w read as Av"],
+      ["Avho", "who", "w read as Av"],
+      ["Avas", "was", "w read as Av"],
+      ["AVhy", "Why", "W read as AV"],
+      ["Avay", "way", "w read as Av"],
+      ["poAver", "power", "w read as Av"],
+      ["doAvn", "down", "w read as Av"],
+      ["dreAv", "drew", "w read as Av"],
+      ["KAvan", "Kwan", "w read as Av inside a name (Ching KAvan is Ching Kwan)"],
+      ["laAv", "law", "w read as Av"],
+      ["tAvo", "two", "w read as Av"],
+      ["AVu", "Wu", "W read as AV, in the name Wu"],
+      ["AVe", "We", "W read as AV"],
+      ["AVith", "With", "W read as AV"],
+
+      /* THREE DROPPED SPACES, and they are here rather than in the E-batch residue because each one
+         hides a NAME from the pinyin table below: a form with a letter hard against it fails that
+         pass's own word-boundary test, so the name would ship in the translator's romanisation on
+         these three occurrences and in pinyin everywhere else. Found by sweeping the whole book for
+         a table form with a letter on either side of it, which is the only way a blocked row shows
+         at all — every row still fires, and the count simply comes up short by one. */
+      ["Kwanyinand", "Kwanyin and", "the space after the name lost"],
+      ["Pa Kieiis", "Pa Kiei is", "the space after the name lost"],
+      ["Tai Chungthrough", "Tai Chung through", "the space after the name lost"],
+    ],
+    /* MODERN PINYIN OVER RICHARD'S OWN ROMANISATION, and this is the FIRST book on this shelf whose
+       conversion is verified by a facing column the plan said it did not have. See the `roman` note
+       beside `applyRoman` for what the table asserts and why it is not a `fixes`; what is worth
+       carrying here is the METHOD, because Richard prints no characters at all -- not beside a name,
+       not in a note, not in his index -- so every earlier book's evidence (the translator's own
+       gloss) is simply absent.
+
+       THE WITNESS IS `books/journey-to-the-west.zh.js`, WHICH PAIRS 1:1 WITH THE ENGLISH BY CHAPTER
+       NUMBER. So a proposed [form, characters] pair is testable: take the chapters whose English
+       carries the form, take the same-numbered Chinese chapters, and require the characters to be
+       there. It is decisive on a multi-syllable name -- Kwanyin runs x112 in the English against x113
+       for 觀音 in the Chinese -- and it is WORTHLESS on a common single character, which will be in
+       most chapters whatever the name means. That asymmetry is what draws the table's line: a bare
+       single syllable is NOT converted (Chang, Chu, Ku, Sim, Ssu, Hoh, Kiang, Teng, Kwoh, Yen, Tai
+       Shan all `verified` against characters common enough to prove nothing), and a name of two or
+       more syllables is. SIX PROPOSALS FAILED THE TEST AND WERE RE-PROBED RATHER THAN DROPPED, and
+       every one of the six was a wrong GUESS at the characters rather than a wrong name: Tung Ming is
+       通明, the Hall of Divine Mists, and not the eastern sea 東溟; Shang Liang is the almsgiver 相良
+       and not a roof beam; Pi Lan is 毘藍 (x18) and not 毗藍 (x0); Tsui Ju is 崔珏 and not 崔玨; Kwanchow
+       is the river 灌江; and `Ki Pusa` is not a name at all, the name being Ling Ki 靈吉.
+
+       THREE ROWS ARE NOT CARRIED BY THE COLUMN AND SAY SO: Sianfu, Shansi and Szechuan are the
+       translator's OWN modern glosses on Chinese places -- he writes `Chang-an (Sianfu)`, `Wu Tai
+       Shan in Shansi`, `Omei Mountain in Szechuan` -- so what settles them is the geography he
+       states rather than a character anybody prints. WHAT IS DELIBERATELY LEFT ALONE, besides the
+       single syllables: the Sanskrit (Buddha, Ananda, Kasyapa, Shakyamuni, Amitabha, Tripitaka,
+       Mahayana, Nirvana, Meru), which is not Chinese and takes no Chinese reading; `Pusa` and `Pu
+       Sa`, which are already the pinyin of 菩薩; the Japanese scholar Nanjio; and the sutra table in
+       chapter 98, whose OCR mixes Sanskrit, English and half-read characters (`Sraddliatpada`,
+       `Sliih`, `Siiin`) so thoroughly that converting the readable half would leave a list saying two
+       things at once. `romanApos` is on because this romanisation carries no turned commas, so the
+       only apostrophes near a name are quotes and possessives, and without it the five possessives
+       (Kiel's, Juki's, Chuen's, Chwang's) are dead rows. */
+    romanApos: true,
+    roman: [
+      ["Kwanyin", "Guanyin", "觀音, x112 in the English against x113 in the Chinese column"],
+      ["KWANYIN", "GUANYIN", "觀音, in a chapter heading, which the printing sets in capitals"],
+      ["Kwanjdn", "Guanyin", "觀音; the scan's reading of Kwanyin, in a chapter that also carries the healthy spelling"],
+      ["Julai", "Rulai", "如來"],
+      ["JULAI", "RULAI", "如來, in a chapter heading"],
+      ["Juki", "Rulai", "如來; the scan's reading of Julai, and it occurs only in the four chapters that also carry Julai"],
+      ["Chu Pa Kiel", "Zhu Bajie", "豬八戒"],
+      ["Pa Kiel", "Bajie", "八戒, x84"],
+      ["Pa Kiei", "Bajie", "八戒, x42; the scan's other reading of the same name"],
+      ["Sa Seng", "Sha Seng", "沙僧"],
+      ["Huen Chwang", "Xuanzang", "玄奘, x19"],
+      ["Hnen Chwang", "Xuanzang", "玄奘; the scan's reading of Huen Chwang, u read as n"],
+      ["Sun Wu Kung", "Sun Wukong", "孫悟空"],
+      ["Wu Kung", "Wukong", "悟空"],
+      ["Wu Neng", "Wuneng", "悟能"],
+      ["Wu Tsing", "Wujing", "悟淨"],
+      ["Wu Ching", "Wujing", "悟淨; the translator spells the same name both ways"],
+      ["Na-to", "Nezha", "哪吒"],
+      ["Mu-to", "Muzha", "木叉"],
+      ["To-ta", "Tuota", "托塔"],
+      ["Hui An", "Hui'an", "惠岸"],
+      ["Pu Hien", "Puxian", "普賢"],
+      ["Wen Shu", "Wenshu", "文殊"],
+      ["Mileh Fo", "Mile Fo", "彌勒"],
+      ["MILEH FO", "MILE FO", "彌勒, in a chapter heading"],
+      ["Ling Ki", "Lingji", "靈吉"],
+      ["Pi Lan", "Pilan", "毘藍, x18 against x0 for the other writing of the name"],
+      ["Yen Lo", "Yanluo", "閻羅"],
+      ["Tai Chung", "Taizong", "太宗"],
+      ["Tai Pei", "Taibai", "太白"],
+      ["Wei Wei", "Wei Zheng", "魏徵; the translator's second syllable is a slip for the minister's own name"],
+      ["Ao Kwang", "Ao Guang", "敖廣"],
+      ["Ao Yun", "Ao Run", "敖閏"],
+      ["Ao Kin", "Ao Qin", "敖欽"],
+      ["Ao Sun", "Ao Shun", "敖順"],
+      ["Ao-lai", "Aolai", "傲來"],
+      ["Chang-an", "Chang'an", "長安"],
+      ["Changan", "Chang'an", "長安; the translator sets the name both ways"],
+      ["Nan Chen Pu Chow", "Nanzhanbuzhou", "南贍部洲"],
+      ["Teu Suai", "Doushuai", "兜率"],
+      ["Pao Lin Sze", "Baolin Si", "寶林寺"],
+      ["PaoLinSze", "Baolin Si", "寶林寺; the scan loses both spaces"],
+      ["Hung Fu Sze", "Hongfu Si", "洪福寺"],
+      ["Lo Kia Shan", "Luojia Shan", "落伽山"],
+      ["Fu Ling Shan", "Fuling Shan", "福陵山"],
+      ["Wan Show Shan", "Wanshou Shan", "萬壽山"],
+      ["Ping Ting Shan", "Pingding Shan", "平頂山"],
+      ["Hien Kang Shan", "Xiankong Shan", "陷空山"],
+      ["Wu Tai Shan", "Wutai Shan", "五臺山"],
+      ["Chih Lei Shan", "Jilei Shan", "積雷山"],
+      ["Tung Ming", "Tongming", "通明, the Hall of Divine Mists and not the eastern sea"],
+      ["Tung Tien", "Tongtian", "通天"],
+      ["Ling Shao", "Lingxiao", "靈霄"],
+      ["Tsin Kwang", "Qin Guang", "秦廣"],
+      ["Tsui Ju", "Cui Jue", "崔珏, x18 against x0 for the other writing of the second character"],
+      ["Liu Chuen", "Liu Quan", "劉全"],
+      ["Liu Hung", "Liu Hong", "劉洪"],
+      ["Shang Liang", "Xiang Liang", "相良, the almsgiver, and not a roof beam"],
+      ["Kun Chow", "Junzhou", "均州"],
+      ["Kaifengfu", "Kaifeng Fu", "開封"],
+      ["Honan", "Henan", "河南"],
+      ["Kwanchow", "Guanjiang", "灌江, the river the god is named for"],
+      ["Kuo Shin", "Guo Shen", "郭申"],
+      ["Chih Kien", "Zhi Jian", "直健"],
+      ["Locha", "Luocha", "羅剎"],
+      ["Shi Liang", "Xiliang", "西梁"],
+      ["Chen Kia Chwang", "Chen Jia Zhuang", "陳家莊"],
+      ["Kao Lai", "Gao Cai", "高才"],
+      ["Yu Hwa", "Yuhua", "玉華"],
+      ["Feng Hwang", "Fenghuang", "鳳凰"],
+      ["Lohans", "Luohans", "羅漢"],
+      ["Lohan", "Luohan", "羅漢"],
+      ["Wu Tang", "Wudang", "武當"],
+      ["Ching Kwan", "Zhenguan", "貞觀; reachable only after the AV table above repairs Ching KAvan"],
+      ["Kilin", "Qilin", "麒麟"],
+      ["Chill Sai Kwoh", "Jisai Guo", "祭賽國"],
+      ["Kao Chang", "Gaochang", "高昌"],
+      ["Sianfu", "Xi'an Fu", "the translator's own modern gloss, carried by the geography he states: Chang-an (Sianfu)"],
+      ["Shansi", "Shanxi", "the translator's own modern gloss: Wu Tai Shan in Shansi"],
+      ["Szechuan", "Sichuan", "the translator's own modern gloss: Omei Mountain in Szechuan"],
+      ["Omei", "Emei", "峨嵋"],
+      ["Lochas", "Luochas", "羅剎, the plural the translator forms in English"],
+      ["Half-Kwanyin", "Half-Guanyin", "觀音, in a compound the hyphen would otherwise hide from the row above"],
     ],
     /* THE TITLES ARE READ OFF THE BODY HEADINGS AND THE CAPITALS ARE KEPT, which is a measurement
        rather than a habit. The printed page heads each chapter in capitals, so its case is not
@@ -12822,9 +13009,28 @@ function applyRoman(h) {
      Sacred Books volumes mark a palatal that way, `<i>K</i>âu` for Zhou, 747 times in the Book of
      Documents alone, and every one of those rows is dead without it. A tag carrying an attribute
      stays opaque either way, so the widening reaches nothing but `<i>` and `</i>`. */
+  /* A TAG PATTERN MAY NOT CROSS ANOTHER `<`, AND A PLAIN-TEXT BOOK IS WHERE THAT BITES (Aug 2026,
+     batch B5b). The two patterns below were written for a wiki page, where every `<` opens a tag and
+     the next `>` closes it, and `[^>]*` is then exact. Journey to the West is a machine reading of a
+     printed page with no markup at all — and ten stray `<` characters, scanner's noise, each of which
+     paired with the next `>` HUNDREDS OF THOUSANDS of characters later: measured, 213,130 of the
+     book's 574,507 characters, 37% of the novel, were handed back as one opaque "tag" and every
+     romanisation row inside them died. The table reported 428 conversions where the text held 727,
+     nine of the 83 rows matched nothing at all, and NOTHING ANYWHERE SAID SO — the book was complete,
+     every count was healthy, and the only symptom was a name still in Richard's spelling.
+
+     A real tag never contains a `<` AND NEVER SPANS A LINE, and it takes both to close the hole: the
+     first alone still let the scanner's `<` at character 157,660 pair with a `>` 83,000 characters
+     later, because no other `<` stood between them, so a third of the swallowed text stayed
+     swallowed. A `<` that opens no tag is then matched by the text branch and passed through as the
+     character it is, rather than being dropped on the floor by an alternation that can match neither
+     way. Inert on the four books already on this path BY CONSTRUCTION rather than by a re-run —
+     measured over all 1.8 MB of their cached pages, not one of their 20,206 tags contains a newline
+     and not one carries a `<` that would have been paired across another — and the byte-for-byte
+     re-run was run as well. */
   const split = BOOK.romanItalic
-    ? /(<(?!\/?i>)[^>]*>)|((?:[^<]|<\/?i>)+)/g
-    : /(<[^>]*>)|([^<]+)/g;
+    ? /(<(?!\/?i>)[^<>\r\n]*>)|((?:[^<]|<\/?i>)+|<)/g
+    : /(<[^<>\r\n]*>)|([^<]+|<)/g;
   return h.replace(split, (m, tag, text) => {
     if (tag) return tag;
     return text.replace(_romanRx, (hit) => {
@@ -19982,11 +20188,27 @@ async function fetchEnglish() {
       warn("the transcription carries " + got.chapters.length + " chapters; the entry expects " +
         BOOK.chapters.length);
     got.repairs.forEach((r) => warn("malformed chapter numeral, " + r));
+    /* AND THE CHAIN RUNS A SECOND TIME, BECAUSE THIS READER REBUILDS WORDS THE PAGE BROKE (Aug 2026,
+       batch B5b). `correctRaw` runs on the raw above, and it has to: the running-head sweep and the
+       paragraph rejoining both read the text, so a scanner's confusion left standing there changes
+       which lines are recognised as furniture. But the raw is hard-wrapped at the printed measure and
+       hyphenated across the wrap, so a NAME the wrap has broken is invisible to every row — `Tai
+       Chung-` at the end of one line and `through` at the start of the next is not the string any
+       table is written against, and extractJourney is what puts the two halves back together.
+       Eighteen names of 745 shipped in Richard's spelling for that reason alone, each with every
+       count healthy and nothing to see but a name in the old romanisation.
+
+       So the chain runs again over the rebuilt chapter, where the word is whole. It is safe to run
+       twice because it is IDEMPOTENT, which was measured rather than assumed: no `roman` row's output
+       is matched by any `roman` row, and no `fixes` row's output contains any `fixes` row's input, so
+       the second pass can only reach what the first could not see. The hit counters keep counting, so
+       the figure the run reports is the whole of what was converted. */
     got.chapters.forEach((c) => {
       if (c.n < FROM || c.n > TO) return;
       if (c.html.length < (BOOK.minChars || 200))
         throw new Error(BOOK.chapterWord + " " + c.n + " came back short (" + c.html.length + " chars)");
-      chapters.push({ n: c.n, t: titles[c.n] || c.t || chapterTitle(c.n), p: partOf(c.n), html: c.html, notes: [] });
+      chapters.push({ n: c.n, t: correctRaw(titles[c.n] || c.t || chapterTitle(c.n)), p: partOf(c.n),
+        html: correctRaw(c.html), notes: [] });
     });
     console.log("  " + chapters.length + " chapters, " + got.heads + " running heads removed, " +
       got.joins + " paragraphs rejoined across a page break, " + got.verseBlocks + " verse blocks" +

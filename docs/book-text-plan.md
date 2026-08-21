@@ -256,7 +256,7 @@ re-run and diffed byte for byte.
 | **B3b** ✅ | `book-of-rites` | the same system and the same pre-pass, **483 names** (215 estimated) over ~2,450 occurrences, read off the passages rather than off a Chinese column; three transcription manglings; the ten chapter titles |
 | **B4** ✅ | plain-text/TEI reachability | `correctRaw` wired into all 16 read sites; **24 books re-imported and byte-identical**, the 22 on the two paths plus the two wiki books that declare tables |
 | **B5** ✅ | `journey-to-the-west` | the missing back-matter boundary (19 KB of index, life and publisher's catalogue cut off the last chapter); **488 OCR repairs** in two systematic confusions |
-| **B5b** | `journey-to-the-west` | 115 names, Richard's OCR, no characters either side but a complete Chinese column |
+| **B5b** ✅ | `journey-to-the-west` | **83 names in 756 places**, verified against the Chinese column the plan said this book did not have; a third OCR confusion (w read as av, 63 places); the tag-crossing bug in `applyRoman` that was hiding 37% of the novel from every row |
 | **B6–B8** | `three-kingdoms` | 803 names over 3.1 MB, verified from the parallel column; one batch per 40 chapters |
 | **E1–En** | the error half | the slip and variant candidates, book by book, heaviest first; a book with no printed witness reachable contributes findings rather than fixes |
 
@@ -580,3 +580,78 @@ unquoted and the count went 47 → 48.
 and a changelog line is reader-facing wording about what changed for the user — here, provably, nothing:
 every book on the shelf is byte-identical to what shipped before it. What this batch buys is that B5 and
 B6–B8 can be written at all.
+
+---
+
+### B5b — Journey to the West, the romanisation, shipped 2026-08-21
+
+**83 names in 756 places, and the batch is worth reading for the bug it found rather than for the
+table.** B5 split this book in two because the names themselves were damaged — repair the
+transcription, then edit the translation — and this is the second half.
+
+**THE PLAN SAID THIS BOOK HAD NO FACING COLUMN TO VERIFY AGAINST AND THE PLAN WAS WRONG.**
+`books/journey-to-the-west.zh.js` is the received Ming novel, complete, and it pairs 1:1 with the
+English by chapter number, so a proposed `[englishForm, hanzi]` pair can be tested: the Chinese
+chapters matching the English chapters that carry the form have to carry the characters.
+`Kwanyin` occurs in 112 places in the English and 觀音 in 113 in the Chinese, which is as close as
+two independent texts of one novel come. **That test is decisive for a name of two or more syllables
+and worthless for a single one**, which any common character would pass — so the asymmetry is what
+draws the line, and the bare single syllables are left exactly as Richard set them (Chang, Chu, Ku,
+Sim, Ssu, Hoh, Kiang, Teng, Kwoh, Yen, Tai Shan). The Sanskrit names are not Chinese and are left;
+`Pusa` and `Pu Sa` are already pinyin. Six proposals were re-probed and dropped rather than shipped:
+Tung Ming is 通明 and not 東溟, Shang Liang is the man 相良 and not a roof beam, Pi Lan is 毘藍
+(×18) and not 毗藍 (×0), Tsui Ju is 崔珏 and not 崔玨, Kwanchow is 灌江, and `Ki Pusa` is not a
+name at all — the name is Ling Ki 靈吉. Three rows rest on the translator's own glosses rather than
+on the column (Sianfu, Shansi, Szechuan).
+
+**A TAG PATTERN THAT ASSUMES WELL-FORMED MARKUP HID A THIRD OF THE NOVEL FROM EVERY ROW, AND
+NOTHING ANYWHERE SAID SO.** `applyRoman` treats markup as opaque so that a row can never rewrite an
+href or a class, and it did that with `/(<[^>]*>)|([^<]+)/g` — exact on a wiki page, where every `<`
+opens a tag and the next `>` closes it. This book is a machine reading of a printed page with no
+markup at all, and ten stray `<` characters of scanner's noise: each paired with the next `>`
+hundreds of thousands of characters away, so **213,130 of the book's 574,507 characters — 37% of the
+novel — were handed back as one opaque "tag"** and every row inside them died. The table reported 428
+conversions where the text held 727 and nine of the 83 rows matched nothing, with the book complete,
+every count healthy, and the only symptom a name still in Richard's spelling.
+
+It took **two** constraints to close, and the first alone was not enough: a real tag contains no `<`
+**and never spans a line**. Bounding on `<` still let the `<` at character 157,660 pair with a `>`
+83,000 characters later, because no other `<` stood between them, so a third of the swallowed text
+stayed swallowed. A `<` that opens no tag is now matched by the text branch and passed through as the
+character it is, rather than being dropped on the floor by an alternation that can match neither way.
+**Inert on the four books already on this path by construction rather than by a re-run** — measured
+over all 1.8 MB of their cached pages, not one of their 20,206 tags contains a newline and not one
+carries a `<` that would have been paired across another — and the Analects and the Art of War were
+re-imported and came back byte-identical anyway.
+
+**AND THE CORRECTION CHAIN HAS TO RUN TWICE ON A READER THAT REBUILDS BROKEN WORDS.** `correctRaw`
+runs on the raw and must: the running-head sweep and the paragraph rejoining both read the text, so a
+confusion left standing there changes which lines are recognised as furniture. But the raw is
+hard-wrapped at the printed measure and hyphenated across the wrap, so a name the wrap has broken is
+invisible to every row — `Tai Chung-` at the end of one line and `through` at the start of the next is
+not the string any table is written against, and `extractJourney` is what puts the halves back
+together. **Eighteen names of 756 shipped in the old spelling for that reason alone**, each with every
+count healthy. The chain now runs again over the rebuilt chapter, which is safe because it is
+**idempotent, measured rather than assumed**: no `roman` row's output is matched by any `roman` row,
+and no `fixes` row's output contains any `fixes` row's input, so the second pass can only reach what
+the first could not see. It found 129 further corrections as well as the eighteen names.
+
+**A THIRD SYSTEMATIC OCR CONFUSION WENT IN WITH IT: w read as av, 63 places.** Enumerated over the
+whole book before a row was written — 42 distinct forms in 69 occurrences, of which **eleven are
+legitimate English in capitals** (SAVED ×3, SAVES ×2, CAVE ×2, HEAVEN ×2, SAVING, SHAVES) and 36 forms
+in 58 occurrences are damaged. The eleven are excluded by NOT BEING NAMED rather than by a rule, which
+is the only honest way to exclude a word that is spelled the same as the fault. The table runs before
+`roman` because four of the recoveries are names the pinyin table is keyed on (`Ching KAvan`,
+`Chu AVu Neng`, `AVu Tang`, `AVutai`). Three further rows are a lost space that hides a name
+(`Kwanyinand`, `Pa Kieiis`, `Tai Chungthrough`), found by a systematic sweep of what the boundary
+regex was refusing rather than by eye.
+
+**The Chinese column lost 644 characters and that is a correct removal, recorded rather than
+reverted.** Re-importing the original dropped 161 characters from each of four chapters (5, 6, 7, 9),
+and the removed text is in every case the wiki's own public-domain licence banner — page furniture the
+original reader is meant to drop, which those four pages happened to carry. Suppressing a correct
+removal to keep a diff tidy is the wrong call.
+
+The book now carries **617 corrections** in all — y as j 468, th as tli 79, w as av 63, p as j 4, and
+three lost spaces — and 756 romanisations across all 83 declared rows, with no old form surviving
+anywhere in the shipped text and every declared row firing.
