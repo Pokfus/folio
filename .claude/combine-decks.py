@@ -54,6 +54,12 @@ PARTS = [
     ('DALF-C2-French.folio-deck.json',    'French',   'C2'),
     ('French-Phrases.folio-deck.json',    'French',   'Expressions'),
     ('Goethe-A1-German.folio-deck.json',  'German',   'A1'),
+    ('Goethe-B1-German.folio-deck.json',  'German',   'B1'),
+    ('German-B2-Vocabulary.folio-deck.json', 'German', 'B2'),
+    ('German-C1-Vocabulary.folio-deck.json', 'German', 'C1'),
+    ('German-C2-Vocabulary.folio-deck.json', 'German', 'C2'),
+    ('German-Phrases-Expressions.folio-deck.json', 'German',
+     'Phrases and expressions'),
     ('CILS-A1-Italian.folio-deck.json',   'Italian',  'A1'),
     ('CILS-A2-Italian.folio-deck.json',   'Italian',  'A2'),
     ('CILS-B1-Italian.folio-deck.json',   'Italian',  'B1'),
@@ -81,19 +87,21 @@ PARTS = [
     ('UKBI-7-Istimewa-Indonesian.folio-deck.json', 'Indonesian', 'UKBI 7 Istimewa'),
     ('Indonesian-Phrases-and-Expressions.folio-deck.json', 'Indonesian',
      'Phrases and expressions'),
-    ('HSK1-Mandarin.folio-deck.json',     'Mandarin', 'HSK 1'),
-    ('HSK2-Mandarin.folio-deck.json',     'Mandarin', 'HSK 2'),
     ('Mandarin-Chinese.folio-deck.json',  'Mandarin', 'HSK 3.0'),
     ('DELE-A1-Spanish.folio-deck.json',   'Spanish',  'A1'),
     ('DELE-A2-Spanish.folio-deck.json',   'Spanish',  'A2'),
     ('DELE-B1-Spanish.folio-deck.json',   'Spanish',  'B1'),
     ('DELE-B2-Spanish.folio-deck.json',   'Spanish',  'B2'),
+    ('DELE-C1-Spanish.folio-deck.json',   'Spanish',  'C1'),
+    ('DELE-C2-Spanish.folio-deck.json',   'Spanish',  'C2'),
+    ('Spanish-Phrases.folio-deck.json',   'Spanish',  'Expressions'),
 ]
 # The combined files the two language pipelines write.  Skipped rather than
 # listed, and named here so the unlisted-file check above can tell "an artefact
 # we already know about" from "a deck somebody added and this table missed".
 ARTEFACTS = {'French-A1-C2.folio-deck.json', 'Italian-Complete.folio-deck.json',
              'DELE-A1-B2-Spanish.folio-deck.json',
+             'DELE-A1-C2-and-Phrases-Spanish.folio-deck.json',
              'Indonesian-UKBI-1-7-and-Expressions.folio-deck.json', OUT}
 
 
