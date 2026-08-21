@@ -7,15 +7,12 @@
    common each one is comes from two corpora, measured (see phrasepick.js for what each can and cannot see).
    Anything already carded in an HSK deck is excluded, which is the brief: these are what the lists leave out.
 
-     node build-extra.js                                                                                 */
+   IT IS A LIBRARY: `build-mandarin.js` requires it and writes the two decks. See the note on `noteOf`. */
 const fs = require("fs");
 const { TYPE, TYPE_ID, esc, charsHTML, examplesHTML, plainSensesHTML } = require("./deckcore.js");
 const { examplesFor, partsOf } = require("./extras.js");
 const { isIdiom, isPhrase, multi, HAN } = require("./phrasepick.js");
 const numToMarks = require("./pinyin.js");
-
-const STAMP = Date.parse("2026-08-10T00:00:00Z");
-const OUT = "/home/user/folio/decks/";
 
 /* ---------------------------------------------------------------- the sources */
 const CED = [];
@@ -76,10 +73,14 @@ function toZhuyin(pinyin) {
 
 /* ---------------------------------------------------------------- one entry → one note */
 let noZh = 0;
-/* These two run BOTH ways: as their own deck files, and — when required as a module by build-mandarin.js
-   — as two subdecks of the one combined Mandarin deck. The only difference is whether the note names a
-   subdeck, so it is one flag rather than two builders. */
-const SUB_AS_DECK = require.main !== module;
+/* IT IS A LIBRARY AND NO LONGER WRITES A DECK OF ITS OWN (Aug 2026, when the one combined Mandarin file
+   became nine). It used to run both ways — as `Mandarin-Phrases`/`Mandarin-Idioms` under the ids `zhphr`
+   and `zhidm`, and as two subdecks of the combined deck when required — and with the phrases and the
+   idioms now shipping as decks in their own right the two paths would write the SAME file under two
+   different ids, which for a reader who has installed one is a silent swap to another deck. So
+   `build-mandarin.js` is the one entry point, and the titles, ids and descriptions live in
+   `hsk30-meta.js` where both halves read them. A note therefore never names a subdeck: `category` says
+   which deck it belongs to and `sub` is empty. */
 function noteOf(e, deckId, i, sub) {
   const simp = e.simp, trad = e.trad === simp ? "" : e.trad;
   const pinyin = numToMarks(e.py);
@@ -98,7 +99,7 @@ function noteOf(e, deckId, i, sub) {
   const senses = e.senses;
   return {
     id: "u_" + deckId + "_" + (i + 1),
-    num: String(i + 1), category: sub, sub: SUB_AS_DECK ? sub : "",
+    num: String(i + 1), category: sub, sub: "",
     question: esc(simp) + (trad ? " / " + esc(trad) : ""),
     answer: esc(pinyin) + " — " + esc(senses.join("; ")),
     answerDate: "", answerText: senses.join("; "),
@@ -114,43 +115,6 @@ function noteOf(e, deckId, i, sub) {
   };
 }
 
-function write(file, deckId, title, subtitle, desc, tags, rows, sub) {
-  const cards = rows.map((e, i) => noteOf(e, deckId, i, sub));
-  const withEx = cards.filter((c) => c._ex).length;
-  cards.forEach((c) => delete c._ex);
-  const deck = {
-    folioDeck: 1, exportedAt: new Date(STAMP).toISOString(),
-    meta: {
-      id: deckId, title, subtitle, desc: desc(withEx),
-      author: "", language: "en", tags,
-      glossMode: "site", types: { [TYPE_ID]: TYPE },
-      version: 1, createdAt: STAMP, updatedAt: STAMP, forkedFrom: null,
-    },
-    cards, gloss: {},
-  };
-  fs.writeFileSync(OUT + file, JSON.stringify(deck, null, 1));
-  console.log(title + ": " + cards.length + " notes → " + cards.length * 2 + " cards, " +
-    (fs.statSync(OUT + file).size / 1048576).toFixed(1) + " MB, " + withEx + " with example sentences");
-  return cards.length;
-}
-
-const SHARED_TAIL =
-  "Every entry is ONE note with TWO cards — Chinese → English and English → Chinese — so each direction is " +
-  "scheduled on its own. Each card carries the simplified form, the traditional form where it differs, " +
-  "pinyin, bopomofo and CC-CEDICT's own definition, breaks the expression into its characters and shows " +
-  "the parts each one is written from, and where the corpus has them carries a fold of real example " +
-  "sentences with the expression picked out in colour and a speaker beside it. " +
-  "Unlike the HSK decks these sentences mostly carry no PRONOUN + NOUN + ADVERB formula above them, and " +
-  "that follows from what they are: the formula names each word of the sentence by its part of speech and " +
-  "marks the one being learnt, and an expression that is itself several words has no single place in it to " +
-  "mark. Where the expression is one word to a segmenter — which a four-character idiom usually is — the " +
-  "formula is drawn as usual. " +
-  "Definitions, readings and traditional forms: CC-CEDICT (CC BY-SA 4.0). How common each entry is: the " +
-  "OpenSubtitles 2018 Mandarin frequency list, via hermitdave/FrequencyWords (CC BY-SA 4.0). Character " +
-  "parts and their meanings: Make Me a Hanzi. Example sentences: Tatoeba (tatoeba.org), CC BY 2.0 FR — " +
-  "about half of that corpus is written in traditional characters, and those have been converted to " +
-  "simplified by a character map derived from CC-CEDICT's own two columns.";
-
 /* ---------------------------------------------------------------- PHRASES */
 const PHRASE_BAR = 150;
 const phrases = CED.filter((e) => !isIdiom(e) && multi(e) && !carded.has(e.simp) && isPhrase(e))
@@ -159,33 +123,6 @@ const phrases = CED.filter((e) => !isIdiom(e) && multi(e) && !carded.has(e.simp)
      sees a free phrase at all — examplesFor returning anything IS that test */ examplesFor(x.e.simp, known, { phrase: true }).length)
   .sort((a, b) => b.n - a.n || a.e.simp.localeCompare(b.e.simp));
 
-if (require.main === module) write("Mandarin-Phrases.folio-deck.json", "zhphr",
-  "Mandarin phrases and expressions",
-  phrases.length + " expressions the HSK lists leave out",
-  (withEx) =>
-    "The set expressions of everyday Mandarin — greetings, replies, exclamations and the small formulas a " +
-    "conversation is held together by — chosen from CC-CEDICT and ranked by how often they are used. " +
-    "Nothing here is in any HSK list, of either standard, at any level: the syllabus covers most of the " +
-    "common formulas already (of a probe list of thirty-six expressions a beginner meets, twenty-four are " +
-    "carded in the HSK decks), so what is left is the remainder, and it is a short deck by nature. " +
-    phrases.length + " expressions, " + phrases.length * 2 + " cards, " + withEx + " of them with example " +
-    "sentences. " +
-    "An entry is here if it appears at least " + PHRASE_BAR + " times in a corpus of film subtitles or at " +
-    "least once in the Tatoeba sentence corpus — two independent measures, and both are needed, because " +
-    "the frequency list is word-segmented and so cannot see a phrase like 对我来说 at all, while Tatoeba " +
-    "reads running text and can. They are ordered with the commonest first. " +
-    "What counts as a phrase rather than a word is decided on CC-CEDICT's own definition: an entry whose " +
-    "first sense exclaims, asks a question or has a person in it — “that's right”, “what are you doing?”, " +
-    "“as far as I'm concerned” — against one that reads “to …”, “a …” or “the …”, which is a verb or a " +
-    "noun however conversational it is. That rule is deliberately strict and it misses things: 好久不见, " +
-    "没问题 and 太好了 are all complete utterances whose definitions are two or three plain words with " +
-    "nothing in them to say so. The looser rule was tried and let in Los Angeles, LeBron James and four " +
-    "thousand ordinary nouns. " +
-    "Entries CC-CEDICT marks as archaic, literary, dialectal or regional are left out, as are the coarse " +
-    "ones a subtitle corpus is full of — a bar on what a deck should teach first, not a claim that they " +
-    "are unimportant. " + SHARED_TAIL,
-  ["chinese", "mandarin", "phrases", "expressions", "conversation"],
-  phrases.map((x) => x.e), "Mandarin phrases");
 
 /* ---------------------------------------------------------------- IDIOMS */
 const IDIOM_BAR = 60;
@@ -193,26 +130,7 @@ const idioms = CED.filter((e) => isIdiom(e) && multi(e) && !carded.has(e.simp))
   .map((e) => ({ e, n: freq(e.simp) })).filter((x) => x.n >= IDIOM_BAR)
   .sort((a, b) => b.n - a.n || a.e.simp.localeCompare(b.e.simp));
 
-if (require.main === module) write("Mandarin-Idioms.folio-deck.json", "zhidm",
-  "Chinese idioms — chengyu",
-  idioms.length + " of the most used, none of them in the HSK lists",
-  (withEx) =>
-    "成语 chéngyǔ, the four-character idioms Chinese draws on constantly, each one a compressed story or " +
-    "image that means something its four characters do not say outright. This deck holds the " + idioms.length +
-    " that CC-CEDICT marks as idioms, that appear at least " + IDIOM_BAR + " times in a corpus of film " +
-    "subtitles, and that are in no HSK list of either standard — 5,227 non-syllabus idioms are in the " +
-    "dictionary and this is the head of that list, ordered with the commonest first. " +
-    idioms.length + " idioms, " + idioms.length * 2 + " cards. " +
-    "Only " + withEx + " carry an example sentence, and that is the subject rather than a gap: an idiom is " +
-    "literary, the sentence corpus is conversational, and of all 5,227 only 361 appear in it even once. " +
-    "What stands in for the sentence is the definition and the characters. CC-CEDICT glosses a chengyu " +
-    "with both readings where they differ — the literal picture and what it is used to mean, “lit. chicken " +
-    "feathers and garlic skins” and then “trivia; trifling matters” — and the character breakdown under it " +
-    "gives each of the four characters its own meaning, which for an idiom is most of the explanation. " +
-    SHARED_TAIL,
-  ["chinese", "mandarin", "idioms", "chengyu", "成语"],
-  idioms.map((x) => x.e), "Chinese idioms");
 
-module.exports = { noteOf, phrases: phrases.map((x) => x.e), idioms: idioms.map((x) => x.e), PHRASE_BAR, IDIOM_BAR, SHARED_TAIL };
+module.exports = { noteOf, phrases: phrases.map((x) => x.e), idioms: idioms.map((x) => x.e), PHRASE_BAR, IDIOM_BAR };
 
 if (noZh) console.log("  !! entries with no bopomofo: " + noZh);
