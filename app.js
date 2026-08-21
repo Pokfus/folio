@@ -6955,11 +6955,13 @@
     if (!src) return null;
     return { src: src, title: uSP(raw.title).slice(0, 200), desc: uSP(raw.desc).slice(0, 1000), credit: uSP(raw.credit).slice(0, 300) };
   }
-  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000, then 12,000. The
-     number is not a view about how large a deck may usefully be — it is a guard against a hostile or
-     runaway file — so it is set from the largest legitimate deck anyone has brought. That was the whole of
-     HSK 3.0 in one file (10,896 rows), then all the Italian in one (16,782); it is now EVERY vocabulary
-     deck on the shelf in one, across five languages: 39,830 rows, and 44,000 leaves it the sort of headroom 12,000 left HSK.
+  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000, then 12,000, then
+     44,000. The number is not a view about how large a deck may usefully be — it is a guard against a
+     hostile or runaway file — so it is set from the largest legitimate deck anyone has brought. That was
+     the whole of HSK 3.0 in one file (10,896 rows), then all the Italian in one (16,782), then every
+     vocabulary deck on the shelf across five languages (39,830); it is now that same file with the SIXTH
+     language in it, Portuguese having been shipped as seven separate decks and never listed in the
+     combiner's own table: 76,502 rows, and 85,000 leaves it the sort of headroom 44,000 left the five.
      **IT COUNTS ROWS IN THE FILE, NOT CARDS TO STUDY**, and since reverse cards that is a real
      distinction — but it cuts BOTH ways, and the two largest single-language decks sit on opposite sides
      of it, which is worth knowing before reading anything into the figure. HSK 3.0 asks a word in both
@@ -6973,7 +6975,7 @@
      is read into a string, parsed into an object and then written one record per note inside a single
      IndexedDB transaction — see the import timings in CLAUDE.md's community-decks Persistence bullet
      before raising it again. */
-  const UDECK_MAX_CARDS = 44000, UDECK_MAX_TERMS = 400;
+  const UDECK_MAX_CARDS = 85000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -7983,7 +7985,9 @@
      away a file the card cap allows", which at 44,000 rows now means 185 MB — a byte cap that guards
      nothing, on the ground that a file of 44,000 uniformly heaviest rows might one day exist. What is set
      instead is the largest real file plus headroom, and the tension is REAL rather than papered over: a
-     hypothetical deck of 30,000 all-heavy rows is under the row cap and over this one. That is tolerable
+     hypothetical deck of 30,000 all-heavy rows is under the row cap and over this one. It was 128 MB
+     until the every-deck file gained its sixth language and came to 183.5 MB, which is the same rule
+     applied again — the largest real file plus about a tenth. That is tolerable
      only because it is not silent — uDeckImportFile names the size AND the limit and says to split it —
      which is what the 8 MB cap it replaced did not do, having quietly come within 600 KB of refusing the
      HSK 3.0 level 6 deck for no reason a reader could find.
@@ -7991,7 +7995,7 @@
      phone briefly holds several times the file in JS heap, and on a low-end device a deck near this cap
      may fail to import where two half-size ones would not. The cap is a guard against a hostile file and
      not a promise that anything under it will import on any device. */
-  const UDECK_MAX_BYTES = 128 * 1024 * 1024;
+  const UDECK_MAX_BYTES = 208 * 1024 * 1024;
   function uDeckImportFile(file, cb) {
     if (!file) return;
     if (file.size > UDECK_MAX_BYTES) {

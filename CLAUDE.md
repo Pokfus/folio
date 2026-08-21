@@ -6799,35 +6799,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   combine.py` and `delf/combine.py` each know their own pipeline — its levels, its exam name, its
   per-level figures — where this one knows a TABLE (`PARTS`) of which shipped file goes where in the
   tree, so a pipeline change reaches the language combiner and a new language reaches this one without
-  the two being kept in step. It was **39,830 rows = 79,660 cards, 94.05 MB** in five branches: French
-  7,648 (A1 446, A2 589, B1 895, B2 1,654, C1 3,231, C2 431, Expressions 402), German 785, Italian 11,578
-  (A1 961, A2 995, B1 970, B2 1,011, C1 2,809, C2 417, Core vocabulary 3,039, Phrases 1,376), Mandarin
-  11,833 (HSK 1 150, HSK 2 151, HSK 3.0 11,532), Spanish 7,986 (A1 992, A2 998, B1 1,998, B2 3,998); a
-  sixth branch, **Indonesian 9,978** (the seven UKBI predicates plus 228 phrases), is now in the table too.
-  **THAT PER-BRANCH LIST IS A MEASUREMENT AND NOT THE TABLE**: `PARTS` has grown since it was taken —
-  German is six decks rather than one, Spanish seven rather than four, and the two HSK decks it names were
-  deleted — so **44 files come to 76,502 notes**, which is the figure the warning below uses. Read `PARTS`
-  and re-measure rather than quoting it.
+  the two being kept in step. It is **76,502 rows = 153,004 cards, 183.53 MB** in seven branches: French
+  7,648, German 12,547, Italian 11,578, Indonesian 9,978, Mandarin 11,532, Portuguese 6,437, Spanish
+  16,782. **READ `PARTS` AND RE-MEASURE RATHER THAN QUOTING ANY OF THAT** — this line has been stale twice
+  already, once saying 39,830 rows over five branches while the table held six, and once naming two HSK
+  decks that had been deleted. The run prints the whole per-level breakdown on every build.
   It is **gitignored**, like the other two combined files: every byte of it is already in the repo and this
   regenerates it, reading no clock (`exportedAt` comes from the newest source), so the same inputs write
   the same bytes and a diff means something.
-  **⚠ IT DOES NOT CURRENTLY RUN, and the reason is the unlisted-file check below doing exactly its job.**
-  The seven **CAPLE Portuguese** files are in `decks/` and are not in `PARTS`, so the combiner refuses to
-  write a file that would quietly be a smaller shelf, and `.claude/decks/check-all-languages.js` fails with
-  "All-Languages.folio-deck.json is not built" — **on main, before and independently of the Indonesian
-  rows**, which were added and verified against a temporarily raised cap (the Indonesian branch builds
-  correctly at 9,978). Filling the Portuguese gap in is not enough on its own: with all six languages
-  listed the file comes to **76,502 notes against `UDECK_MAX_CARDS`' 44,000**, so this needs the Portuguese
-  rows AND a cap raise, which is the bullet directly below saying what the intended direction of causation
-  is. Both are somebody's decision rather than a merge's, so they are recorded here rather than taken.
-  Six things are decisions rather than plumbing.
-  · **IT IS WHAT RAISED BOTH CAPS, and that is the intended direction of causation.** At 2.4× the note cap
-    and 1.4× the byte cap that stood before it, this file did not fit — and `UDECK_MAX_CARDS` /
-    `UDECK_MAX_BYTES` are guards against a hostile or runaway file rather than views about how large a
-    deck may usefully be, each set from the largest legitimate deck anyone had brought. So a legitimate
-    deck this size is the thing that moves them, which is what happened twice before. **The caps are READ
-    out of app.js by `app_const`** rather than restated here, so this tool and the app can never come to
-    disagree about what will import.
+  **IT REFUSED TO RUN AT ALL FOR A FORTNIGHT, AND EVERY ONE OF THE THREE REASONS WAS A GUARD WORKING**
+  (Aug 2026, on request: "feel free to raise the cap"). The seven **CAPLE Portuguese** files were in
+  `decks/` and absent from `PARTS`, so the unlisted-file check refused to write a file that would quietly
+  be a smaller shelf; with them listed the shelf came to 76,502 notes against a 44,000 cap and then to
+  183.5 MB against a 128 MB one; and with both caps raised the type check refused the German block. All
+  three are recorded because **each is what a silent version of the same fault would have cost**: a shelf
+  short one language, a file the app declines to import, and a deck rendered by another deck's CSS. Seven
+  things are decisions rather than plumbing.
+  · **IT IS WHAT RAISED BOTH CAPS, TWICE OVER, and that is the intended direction of causation.** At 2.4×
+    the note cap and 1.4× the byte cap that stood before it, the five-language file did not fit and took
+    them to 44,000 and 128 MB; the seven-language one did not fit either and took them to 85,000 and
+    208 MB. `UDECK_MAX_CARDS` / `UDECK_MAX_BYTES` are guards against a hostile or runaway file rather than
+    views about how large a deck may usefully be, each set from the largest legitimate deck anyone has
+    brought — so a legitimate deck this size is the thing that moves them, which has now happened four
+    times. **The caps are READ out of app.js by `app_const`** rather than restated here, so this tool and
+    the app can never come to disagree about what will import.
   · **A FILE IN `decks/` THAT `PARTS` DOES NOT NAME IS AN ERROR, not a silent omission** — combining
     "every deck" and quietly leaving one out is the failure the whole file exists to avoid, and it looks
     exactly like a smaller shelf. `ARTEFACTS` names the two pipelines' own combined files so the check can
@@ -6838,26 +6833,49 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A CARD ID MUST CARRY THE DECK** (`u_alldecks_N`), the Spanish generator's own lesson: a deck FILE
     import only mints fresh ids when the DECK id already exists, so a reused `u_delfa1_1` collides with an
     installed DELF A1 in the shared `UCARDS` store and studies the wrong card.
-  · **TWO DECKS DEFINING ONE TYPE ID DIFFERENTLY IS REFUSED rather than picked between** — one language's
-    cards rendered with another's templates reads as a card merely laid out oddly, not as a fault. (The
-    23 decks use six: `cils`, `delf`, `en-to-es`, `es-to-en`, `goethe`, `hsk`.)
+  · **TWO DECKS DEFINING ONE TYPE ID DIFFERENTLY ARE KEPT APART rather than picked between, and this
+    USED TO REFUSE** (Aug 2026). Refusing was right about the danger — one deck's cards rendered with
+    another's templates and CSS reads as a card merely laid out oddly, not as a fault — and wrong about
+    the remedy, since it stopped the whole shelf combining over a difference that harms nobody once the
+    two definitions are separate objects. The second deck's type is renamed `<id>-<its deck id>`, its own
+    cards are repointed at it, and the split is **printed on every run**, so it can never happen quietly.
+    It is safe because a type is already scoped per (deck, type) at install (`cssScoped` prefixes every
+    selector with `.uc-card[data-uct="<deckId>__<typeId>"]`), so two ids inside one deck is exactly what
+    that machinery is for.
+    **THE SHELF REALLY CARRIES ELEVEN OF THEM, AND THEY ARE A RECORD OF DRIFT rather than a hypothetical.**
+    All six German decks call their type `goethe` with identical fields and identical templates, and their
+    CSS differs by one rule: Goethe A1 styles `.uc-cj-e` and the other five `.uc-infl`, two names for the
+    same marked inflection, each used by that file's own cards and by no other's — so merged either way,
+    one deck's 3,546 or the others' 77,000 marked endings would silently have lost their colour. The
+    Spanish C1, C2 and Phrases decks diverge from DELE A1–B2 on `en-to-es` / `es-to-en` the same way, and
+    the split is the same in both cases: the decks a pipeline here GENERATES agree with each other, and
+    the ones supplied ready-made carry a slightly older or newer copy of the same type. (The 44 files use
+    19 type ids after splitting, from 8 before.)
   · **THE STAMP COMES FROM `meta.updatedAt`, NOT `exportedAt`.** The two pipelines write that top-level
     field differently — French an epoch integer, Mandarin an ISO string — so comparing them raises on the
     first mixed pair, and picking either convention would silently ignore half the shelf.
   **`.claude/decks/check-all-languages.js` is its browser half**, and it MEASURES as well as asserting:
   everything `check-combined.js` covers is true here by construction (the cards are copied unchanged),
-  where what this file BUILDS is the branch per language, six card types in one file and 39,830
+  where what this file BUILDS is the branch per language, 19 card types in one file and 76,502
   renumbered ids — and, above all, whether a file this size is usable. **Measured on one machine: JSON.parse
-  690 ms in node, import visible in 30.2 s and fully written in 56.8 s, and a later boot 861 ms with the
-  deck installed** — that last being the cost every visit after the first pays, and small because boot
-  reads the note INDEX and no prose at all (see the Persistence bullet under COMMUNITY DECKS). **The
-  import is the honest cost and it is nearly a minute**: it is ONE IndexedDB transaction, so it is atomic
-  and an interrupted import leaves the old state rather than half a deck, but it is a real wait and the
-  reader is told so ("Saving…"). Those timings are the evidence for the raised caps and the thing to
-  **re-run** rather than re-read — they measure one file on one machine and go out of date the moment a
-  language is added (at 28,252 rows / 66 MB they were 514 ms, 13.7 s, 31.1 s and 636 ms). **Time the boot
-  with no settling wait after it**, or a fixed `waitForTimeout` lands in the figure and a fast boot reads
-  as a slow one (it did: 2.1 s, of which 1.5 was mine). Not part of the site.
+  1.7 s in node, import visible in 63.5 s and fully written in 145.5 s, and a later boot 4.5 s with the
+  deck installed** — that last being the cost every visit after the first pays, and small for its size
+  because boot reads the note INDEX and no prose at all (see the Persistence bullet under COMMUNITY
+  DECKS). **The import is the honest cost and it is now over two minutes**: it is ONE IndexedDB
+  transaction, so it is atomic and an interrupted import leaves the old state rather than half a deck, but
+  it is a real wait and the reader is told so ("Saving…"). Those timings are the evidence for the raised
+  caps and the thing to **re-run** rather than re-read — they measure one file on one machine and go out
+  of date the moment a language is added (at 39,830 rows / 94 MB they were 690 ms, 30.2 s, 56.8 s and
+  861 ms; at 28,252 rows / 66 MB, 514 ms, 13.7 s, 31.1 s and 636 ms). **Time the boot with no settling
+  wait after it**, or a fixed `waitForTimeout` lands in the figure and a fast boot reads as a slow one (it
+  did: 2.1 s, of which 1.5 was mine).
+  **AND ITS OWN EXPECTATIONS ARE DERIVED, NOT WRITTEN DOWN** (Aug 2026): it carried a hard-coded list of
+  five languages and a `TYPES = 6`, both of which were simply stale the day a sixth language and thirteen
+  namespaced type ids arrived — which is this file's own standing warning about a test pinning today's
+  answer rather than the rule. `LANGS` is parsed out of `combine-decks.py`'s `PARTS` table, so a language
+  added there is asserted here with nobody remembering to, and the type count became a **set check in both
+  directions**: no card names a type the file has not got, and no type travels unused. Not part of the
+  site.
 - `.claude/split-decks.js` — **the inverse of that one: an all-languages file back into a deck per
   language** (`node .claude/split-decks.js <combined.folio-deck.json> [outDir] [--drop=Lang]
   [--add=Lang/Sub=file] [--add=Lang=file]`; Aug 2026, on request). Standalone Node, zero deps, not part of
@@ -6868,7 +6886,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **ITS REASON IS NOT THE ONE IT WAS WRITTEN WITH, and the correction is the point.** It was built
     because at 94 MB and 39,830 notes the combined file was over both caps as they then stood, so the one
     file carrying everything was the one file no device could open. `combine-decks.py` then raised them to
-    44,000 and 128 MB for a combined file of its own — **so that argument is gone**, and what remains is
+    44,000 and 128 MB for a combined file of its own, and again to 85,000 and 208 MB when Portuguese joined
+    that file's table — **so that argument is gone**, and what remains is
     the reason the reader actually gave and the caps never answered: a language per deck, so the languages
     you study are the ones you add. **The SIZE argument survives it**: app.js's own note beside
     `UDECK_MAX_BYTES` says a cap is a guard against a hostile file rather than a promise that anything
@@ -13117,7 +13136,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `&` can produce no element and decode no entity, so `body.textContent` is provably the input and only
     the whitespace collapse is left. **88% of the string fields in a large deck take it**, and each was a
     DOMParser round trip. It applies everywhere, imports included — it is not gated on trust.
-  · **`UDECK_MAX_CARDS` is 44,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
+  · **`UDECK_MAX_CARDS` is 85,000 and a file over it is REFUSED, not trimmed** (Aug 2026). It was 500,
     applied by a silent `slice` in `uDeckNormalize`, and the failure shape is the one this file keeps
     recording: an over-size deck imported cleanly, toasted success, and was simply missing everything past
     the five hundredth card — which reads as a deck rather than as a failure, and is found weeks later by a
@@ -13126,10 +13145,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     defensive floor, because that function also loads IndexedDB rows and installs, where refusing would mean
     a deck that cannot be opened at all. The number itself is a guard against a hostile file rather than a
     view about how big a deck should be, and **it is set from the largest legitimate deck anyone has
-    brought — so a legitimate deck that will not fit is what MOVES it**, which has now happened three
-    times: the whole of HSK 3.0 in one file took it to 12,000, all the Italian in one to 20,000, and every
-    vocabulary deck on the shelf combined (`.claude/combine-decks.py`, **39,830 rows across five
-    languages**) to here. **A deck that size is usable and that was MEASURED rather than assumed** — see
+    brought — so a legitimate deck that will not fit is what MOVES it**, which has now happened four
+    times: the whole of HSK 3.0 in one file took it to 12,000, all the Italian in one to 20,000, every
+    vocabulary deck on the shelf combined (`.claude/combine-decks.py`) to 44,000 — and then that same file
+    once Portuguese was added to its table, **76,502 rows across seven languages**, to here. **A deck that
+    size is usable and that was MEASURED rather than assumed** — see
     the timings under that file's own bullet, and the Persistence bullet above for why a later boot is
     cheap. **IT COUNTS ROWS IN THE FILE, NOT CARDS TO STUDY**, which since reverse cards is a real
     distinction — and **it cuts BOTH ways, which is worth knowing before reading anything into the
@@ -13139,7 +13159,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     words. It is deliberately left on the thing the FILE holds, since what it guards is the cost of
     parsing somebody else's file.
   · **…AND THERE IS A SECOND CAP, ON THE BYTES, which has to be kept in step BY HAND** (`UDECK_MAX_BYTES`,
-    128 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
+    208 MB, in `uDeckImportFile`; Aug 2026). It guards the READ — a card count can only be taken once the
     whole file is a string and then an object, so something has to stop a 500 MB file before that. Four
     things about it. **It was 8 MB, unexplained, and nothing tied it to the card cap**: the two disagreed
     for a fortnight, and the HSK 3.0 level 6 deck had quietly come within 600 KB of it — an unrelated magic
@@ -13149,10 +13169,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     replaced it was overtaken within the day by the bolding of the conjugation tables — measured over all
     23 shipped decks it runs **1.08 KB a row** (Italian phrases, no paradigm) to **4.31** (DELE B1, a full
     one), the combined file averaging 2.42. **THE STRICT DERIVATION IS THEREFORE ABANDONED, AND SAYING SO
-    IS THE POINT**: "the row cap × the heaviest row must fit" now means 185 MB, a byte cap that guards
-    nothing, justified by a file of 44,000 uniformly heaviest rows that does not exist. What is set is the
-    largest real file plus headroom, and the tension is left REAL rather than papered over — a deck of
-    30,000 all-heavy rows is under the row cap and over this one. That is tolerable **only because it is
+    IS THE POINT**: "the row cap × the heaviest row must fit" now means 350 MB, a byte cap that guards
+    nothing, justified by a file of 85,000 uniformly heaviest rows that does not exist. What is set is the
+    largest real file plus about a tenth — 183.5 MB became 208 — and the tension is left REAL rather than
+    papered over: a deck of 50,000 all-heavy rows is under the row cap and over this one. That is tolerable **only because it is
     not silent**: the message names the size AND the limit and says to split it, which is exactly what the
     8 MB cap did not do.
     **THE HONEST COST OF THE RAISE, stated in app.js and not only here**: a file near this cap is read into
