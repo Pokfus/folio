@@ -1080,8 +1080,29 @@ body[data-theme="folio"] .collection-deco::after{
    unearned star is the same colour at a fraction of the opacity, which reads as an outline without
    needing a second glyph. It is absolutely positioned so it costs the question no width, and it yields
    to the read-aloud mute button, which holds this corner when read-aloud is on. */
-.study-card .card-stars{position:absolute; top:14px; right:16px; z-index:2; display:inline-flex; gap:2px; align-items:center; pointer-events:none;}
-.study-card:has(.tts-mute) .card-stars{right:52px;}
+/* ---------- THE QUESTION HEADER ROW (Aug 2026, on request) ----------
+   The difficulty rating sat absolutely in the corner at top:14px while the QUESTION label began at the
+   card's own 30px padding, so the two were never level and could not be made level by an offset — the
+   label's height follows the reader's text size and the corner's does not. In one flex row they are level
+   at every size, and neither has to know where the other is. The row is what carries the label's old
+   bottom margin, so the space under it is unchanged.
+
+   The stars therefore stop being absolute HERE and stay absolute nowhere else; `.card-stars` is emitted
+   at exactly one site, so there is no other layout to keep in step. Where read-aloud is on, its mute
+   button still holds the true corner, so the row keeps clear of it. */
+.study-card .q-head{display:flex; align-items:center; gap:12px; margin:0 0 7px;}
+.study-card .q-head .label{margin:0; flex:1; min-width:0;}
+.study-card:has(.tts-mute) .q-head{padding-right:38px;}
+.study-card .card-stars{position:static; flex:none; z-index:2; display:inline-flex; gap:2px; align-items:center; pointer-events:none;}
+/* WHERE THIS CARD STANDS, in the three colours the study bar's own counts use (Aug 2026, on request) —
+   blue for a card never studied, red for one being learned, green for one up for review. It is a mark
+   rather than a control, so it takes no pointer; its name is on the element, since three colours say
+   nothing to a reader who cannot see them. */
+.study-card .q-dot{display:inline-block; width:calc(7px * var(--fs)); height:calc(7px * var(--fs));
+  border-radius:50%; margin-right:8px; vertical-align:baseline; flex:none; opacity:.85;}
+.study-card .q-dot.q-new{background:var(--indigo-bright);}
+.study-card .q-dot.q-learn{background:var(--zh);}
+.study-card .q-dot.q-review{background:var(--good);}
 .card-stars .cs-star svg{width:calc(12px * var(--fs)); height:calc(12px * var(--fs)); display:block; fill:var(--indigo); opacity:.13;}
 .card-stars .cs-star.on svg{opacity:.5;}
 /* THE WORD, beside the stars (Aug 2026, on request): five small marks in a corner say that something is

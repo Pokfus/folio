@@ -325,6 +325,35 @@
      THE WORD "Difficulty" IS PRINTED BESIDE THEM (Aug 2026, on request): five small stars in a corner say
      that something is being rated and not what. It is set small and thin so it labels the row rather than
      competing with the question beside it. */
+  /* ---------- WHERE THIS CARD STANDS, as a dot beside the QUESTION header (Aug 2026, on request) ----
+     The study bar already counts the three piles at the top of the screen — new, learning, review — and
+     a reader looking at a card could not tell which of the three it had come out of. The dot says so, in
+     the colours those counts already use, so the card and the bar above it speak one language.
+
+     THE STATE IS DERIVED FROM THE CARD RECORD AND NOWHERE ELSE, and it mirrors `remainingCounts` line
+     for line: no record is a card never studied, `schedIsLearning` covers learning AND relearning (a
+     lapsed card is being learned again and Anki files it in the same pile), and everything else is a
+     review. Reading anything else — the queue's position, the session's own bookkeeping — would let the
+     dot and the counts disagree about one card, which is the one thing that would make it worse than
+     nothing. It is drawn for EVERY card, community decks included, where the stars beside it render as
+     nothing on a card with no rating.
+
+     It carries its own name rather than being decoration: three colours a reader has to learn are three
+     colours a screen reader cannot see at all, so the dot is a `role="img"` with the state in words. */
+  const CARD_STATE = {
+    new: ["q-new", "New card"],
+    learn: ["q-learn", "Being learned"],
+    review: ["q-review", "Up for review"],
+  };
+  function cardStateOf(id) {
+    const c = S.cards[id];
+    if (!c) return "new";
+    return schedIsLearning(c.status) ? "learn" : "review";
+  }
+  function cardStateDotHTML(id) {
+    const k = CARD_STATE[cardStateOf(id)];
+    return '<span class="q-dot ' + k[0] + '" role="img" aria-label="' + esc(k[1]) + '" title="' + esc(k[1]) + '"></span>';
+  }
   function cardStarsHTML(c) {
     const d = cardDifficultyShown(c);
     if (!d) return "";
@@ -17562,7 +17591,15 @@
   const COLLECTIBLE_THEMES = THEMES.filter((t) => t !== "folio");
   const THEME_DROP = 0.14;
   function ownedThemes() { const o = S.themes; return (o && typeof o === "object") ? o : (S.themes = {}); }
-  function themeUnlocked(id) { return id === "folio" || !!ownedThemes()[id]; }
+  /* OWNERSHIP IS THE KEY BEING PRESENT, NEVER THE VALUE BEING TRUTHY (Aug 2026, found the day the picker
+     started hiding what a reader has not won). `S.themes` is a register whose value is WHEN a theme was
+     unlocked, and `themeGrandfather` deliberately writes 0 for one there is no date for — so `!!v` reads
+     "owned, date unknown" as "not owned". The comment under `themeUnlockedOn` has warned about that zero
+     since the day it was written and fixed only the DATE reader; the two ownership readers carried the
+     same trap. It bit three ways at once, all quiet: `setTheme` REFUSED a grandfathered reader their own
+     theme, `lockedThemes` counted it as still droppable so a chest could "unlock" what they already had,
+     and once the picker began listing only what is owned it vanished from the page altogether. */
+  function themeUnlocked(id) { return id === "folio" || Object.prototype.hasOwnProperty.call(ownedThemes(), id); }
   /* WHEN a theme was unlocked, or 0 for one there is no date for (Aug 2026, on request: "unlocked themes
      in the theme selection should mention the date on which they were unlocked"). The date was already
      being stored — `unlockTheme` writes `Date.now()` — so nothing new is recorded and no save migrates;
@@ -17580,10 +17617,10 @@
     const t = themeUnlockedOn(id);
     return t ? new Date(t).toLocaleDateString(undefined, { day: "numeric", month: "short", year: "numeric" }) : "";
   }
-  function lockedThemes() { return COLLECTIBLE_THEMES.filter((t) => !ownedThemes()[t]); }
+  function lockedThemes() { return COLLECTIBLE_THEMES.filter((t) => !themeUnlocked(t)); }
   function unlockTheme(id) {
     if (id === "folio" || COLLECTIBLE_THEMES.indexOf(id) < 0) return false;
-    if (ownedThemes()[id]) return false;
+    if (themeUnlocked(id)) return false;
     ownedThemes()[id] = Date.now();
     return true;
   }
@@ -17591,7 +17628,7 @@
      a theme this reader owns. It never LOCKS anything — checkAchievements' rule, one feature over. */
   function themeGrandfather() {
     const t = S.settings && S.settings.theme;
-    if (t && t !== "folio" && COLLECTIBLE_THEMES.indexOf(t) >= 0 && !ownedThemes()[t]) ownedThemes()[t] = 0;
+    if (t && t !== "folio" && COLLECTIBLE_THEMES.indexOf(t) >= 0 && !themeUnlocked(t)) ownedThemes()[t] = 0;
     if (!S.theme || THEMES.indexOf(S.theme) < 0) S.theme = (t && THEMES.indexOf(t) >= 0) ? t : "folio";
   }
   /* THREE THINGS GRANT A CHEST, and they are deliberately in three different places: a LEVEL
@@ -24379,8 +24416,14 @@
           <div class="cardwrap swap">
             <div class="study-card">
               ${ttsEnabled() ? `<button class="tts-mute${S.settings.ttsMuted ? " muted" : ""}" id="ttsMute" type="button" aria-label="${S.settings.ttsMuted ? "Unmute read-aloud" : "Mute read-aloud"}" title="Mute / unmute read-aloud">${ttsMuteIconSVG()}</button>` : ""}
+              ${/* The header row. The stars used to be absolutely positioned in the corner and the label
+                    began at the card's own padding, so the two sat at different heights; in one flex row
+                    they are level at every text size, which is what was asked for, and neither has to
+                    know the other's offset. */""}
+              <div class="q-head">
+              <span class="label">${cardStateDotHTML(id)}Question${pool.length > 1 ? `<span class="q-cycle"><button type="button" class="qc-btn" data-qc="-1" aria-label="Previous phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="qc-n" id="qcN">${qIdx + 1} / ${pool.length}</span><button type="button" class="qc-btn" data-qc="1" aria-label="Next phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></span>` : ""}${ttsPlayHTML("question", true)}</span>
               ${cardStarsHTML(c)}
-              <span class="label">Question${pool.length > 1 ? `<span class="q-cycle"><button type="button" class="qc-btn" data-qc="-1" aria-label="Previous phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button><span class="qc-n" id="qcN">${qIdx + 1} / ${pool.length}</span><button type="button" class="qc-btn" data-qc="1" aria-label="Next phrasing of this question"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button></span>` : ""}${ttsPlayHTML("question", true)}</span>
+              </div>
               <div class="question">${cardFrontHTML(c)}</div>
               <div class="reveal" id="reveal"><div class="reveal-inner" id="revealInner"></div></div>
             </div>
@@ -33309,14 +33352,30 @@
          and every other reader of it (the chest reveal, the admin tab) emits it raw. Passing it through
          `esc` here would print the entity itself. Only the date is escaped, being the one part composed
          at render out of the reader's own locale. */
-      const has = themeUnlocked(t[0]), when = has ? esc(themeUnlockedOnText(t[0])) : "";
-      const tag = has ? (when ? "Unlocked " + when : t[2]) : "From a chest";
-      const tip = has ? (t[1] + " — " + t[2] + (when ? ". Unlocked " + when : "") + ".")
-                      : t[1] + " — locked. Themes come from chests.";
-      return `<button class="theme-opt${has ? "" : " theme-locked"}" data-theme="${t[0]}" type="button" title="${tip}">
+      const when = esc(themeUnlockedOnText(t[0]));
+      const tag = when ? "Unlocked " + when : t[2];
+      const tip = t[1] + " — " + t[2] + (when ? ". Unlocked " + when : "") + ".";
+      return `<button class="theme-opt" data-theme="${t[0]}" type="button" title="${tip}">
       ${themeMockHTML(t)}
-      <span class="theme-name">${t[1]}${has ? "" : ' <span class="theme-lock" aria-hidden="true">🔒</span>'}</span><span class="theme-tag">${tag}</span></button>`;
+      <span class="theme-name">${t[1]}</span><span class="theme-tag">${tag}</span></button>`;
     };
+    /* ---------- ONLY WHAT THE READER HAS WON IS SHOWN (Aug 2026, on request) ----------
+       The picker used to draw all six with the five collectibles greyed and padlocked, which is the
+       shape a game uses to advertise what is still to come — and this is a settings page, where every
+       other row is something the reader can actually change. A locked tile there is five sixths of the
+       control answering a press with a toast.
+
+       So the tiles are the unlocked ones, and the ROW ITSELF is not drawn until a chest has produced a
+       theme: before that the only choice is `folio`, and a picker offering one option is a picker
+       explaining a decision nobody is being asked to make. `folio` is never in the register — it is
+       the default and cannot be lost — so the gate asks whether any COLLECTIBLE is owned, which is a
+       different question from whether the list is non-empty and is the one that matters.
+
+       The click handler keeps its locked guard as a backstop rather than as a path anybody reaches: it
+       reads an id off an attribute, and a guard on a value read out of the DOM is worth keeping even
+       when nothing renders the value it refuses. */
+    const shownThemes = THEME_OPTS.filter((t) => themeUnlocked(t[0]));
+    const anyWon = COLLECTIBLE_THEMES.some((t) => themeUnlocked(t));
     const setHead = (accent, svg, title) => `<div class="set-head" style="--msn-accent:${accent}"><span class="msn-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${svg}</svg></span><h2>${title}</h2></div>`;
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Preferences</span><h1>Settings</h1>
@@ -33325,10 +33384,10 @@
         ${/* set-wide: the theme picker is a row of tiles and wants the whole width when there is one (see .settings) */""}
         <div class="set-card set-wide">
           ${setHead("var(--indigo)", '<circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="13" r="2"/><circle cx="6" cy="12" r="2.5"/><path d="M12 2a10 10 0 1 0 10 10c0-1.2-1-2-2.2-2H16a3 3 0 0 1-3-3V4.2C13 3 12.8 2 12 2z"/>', "Appearance")}
-          <div class="set-row set-row-block">
+          ${anyWon ? `<div class="set-row set-row-block">
             <div class="info"><h3>Theme</h3><p>Each theme has its own colours, typography and layout. Hover a tile to try it on; click to keep it. Night mode works within every theme.</p></div>
-            <div id="themeGrid"><div class="theme-grid">${THEME_OPTS.map(themeBtn).join("")}</div></div>
-          </div>
+            <div id="themeGrid"><div class="theme-grid">${shownThemes.map(themeBtn).join("")}</div></div>
+          </div>` : ""}
           <div class="set-row">
             ${/* Follow the operating system (Aug 2026, on request), and the default for a first-time
                   visitor. It sits ABOVE the manual switch because it decides whether that switch is the
@@ -33547,10 +33606,12 @@
     };
     if (swSfx) { swSfx.addEventListener("click", toggleSfx); swSfx.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleSfx(); } }); }
 
+    /* The grid is absent until a theme has been won (see the gate above), so every reader of it is
+       guarded — a settings page that throws on its own first paint takes every control below it with it. */
     const themeGrid = root.querySelector("#themeGrid");
-    const markTheme = () => themeGrid.querySelectorAll(".theme-opt").forEach((b) => b.classList.toggle("active", b.dataset.theme === (S.settings.theme || "folio")));
+    const markTheme = () => themeGrid && themeGrid.querySelectorAll(".theme-opt").forEach((b) => b.classList.toggle("active", b.dataset.theme === (S.settings.theme || "folio")));
     markTheme();
-    themeGrid.querySelectorAll(".theme-opt").forEach((b) => {
+    (themeGrid ? themeGrid.querySelectorAll(".theme-opt") : []).forEach((b) => {
       b.addEventListener("click", () => {
         const t = b.dataset.theme;
         if (!themeUnlocked(t)) { toast(themeName(t) + " is locked — themes come from chests."); return; }
