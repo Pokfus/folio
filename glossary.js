@@ -1125,7 +1125,8 @@ window.GLOSSARY = {
 "Mazu": "<b>Mazu</b> is a Chinese sea goddess, worshipped by sailors, fishermen and traders, whose cult began on the coast of Fujian under the Song dynasty and spread with emigration to Taiwan and Southeast Asia.<sup class=\"fn\" data-fn=\"1\"></sup> She is remembered as a woman of Meizhou Island, known in her lifetime for filial piety, for healing and for saving people from disaster at sea, and honoured after her death by successive emperors with a long series of official titles.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Her temples show her flanked by two assistants, Thousand-mile-eye and Favourable-wind-ear, and seafarers carried embers from her censer aboard ship and called on her by name in a storm.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Guandi": "<b>Guandi</b> is the Chinese god of war, the deified form of Guan Yu, a general of the 3rd century CE who was captured and beheaded in 219.<sup class=\"fn\" data-fn=\"1\"></sup> Successive dynasties raised him by decree — a duke early in the 12th century, a prince in 1128, and in 1594 a <i>di</i>, meaning 'god' — after which the state worshipped him officially in some 1,600 temples.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He is a patron of scholars as well as soldiers, on a legend that he could recite the <i>Zuo Commentary</i> from beginning to end, and Buddhists count him a guardian of monasteries.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Chinese_legendary_period": "The <b>Chinese legendary period</b> is the division of early history that tradition furnishes with named rulers and exact years of accession, set apart from the purely mythical epochs of sovereigns placed before it.<sup class=\"fn\" data-fn=\"1\"></sup> Standard tables open it with Fuxi in 2852 BCE and carry it through Shennong, the Yellow Emperor, Yao and Shun to 2255 BCE, although the compilers who drew up such schemes disagreed with one another throughout.<sup class=\"fn\" data-fn=\"1\"></sup> Sima Qian, writing in the 1st century BCE, held that the chronology of the three dynasties could not be made precise, and began his own exact years only with the Gonghe regency in 841 BCE.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Ancient_Egypt": "Ancient Egypt was the civilisation of the lower Nile and its delta, which lasted under a long succession of kings for roughly three thousand years, ending with the Roman annexation of 30 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its farming depended on the river’s summer flood, which before modern damming rose at Aswan as early as June, peaked from August to September, and receded by the end of October, when sowing began.<sup class=\"fn\" data-fn=\"2\"></sup> Historians divide the span into an Old, a Middle and a New Kingdom, each a stretch of unified rule, separated by Intermediate Periods in which central authority came apart, and then a Late Period, Persian rule and the Ptolemaic dynasty.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Ancient_Egypt": "Ancient Egypt was the civilisation of the lower Nile and its delta, which lasted under a long succession of kings for roughly three thousand years, ending with the Roman annexation of 30 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its farming depended on the river’s summer flood, which before modern damming rose at Aswan as early as June, peaked from August to September, and receded by the end of October, when sowing began.<sup class=\"fn\" data-fn=\"2\"></sup> Historians divide the span into an Old, a Middle and a New Kingdom, each a stretch of unified rule, separated by Intermediate Periods in which central authority came apart, and then a Late Period, Persian rule and the Ptolemaic dynasty.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Emmer": "Emmer is a hulled wheat, <i>Triticum turgidum</i> subspecies <i>dicoccum</i>, whose grains stay wrapped in tough glumes, so threshing yields spikelets that must be pounded apart before the grain comes free.<sup class=\"fn\" data-fn=\"2\"></sup> It is one of the founder crops of southwest Asian farming, cultivated in the Levant from about 9700 BCE, and the traits that separate it from wild emmer arose there rather than where it was later carried.<sup class=\"fn\" data-fn=\"1\"></sup> Its hulled ears made every harvest a matter of threshing, winnowing and sieving, and it was the principal bread and beer grain of ancient Egypt, sown after the Nile flood had drained and reaped between February and May.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1659,7 +1660,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Chuci": "4th – 1st century BCE, collected c. 1st century BCE",
 "Jade_Emperor": "State cult from 1012 or 1116",
 "John_Napier": "1917–1987",
-"Ancient_Egypt": "c. 3100 – 30 BCE"
+"Ancient_Egypt": "c. 3100 – 30 BCE",
+"Emmer": "from c. 9700 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2441,7 +2443,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mazu": ["Tianhou","Tian Hou","Tin Hau","Mazupo"],
 "Guandi": ["Guan Yu","Guan Gong","Kuan Ti","Kwan-ti","Lord Guan"],
 "Chinese_legendary_period": ["legendary period of Chinese history"],
-"Ancient_Egypt": ["Egyptian","Pharaonic Egypt","Dynastic Egypt"]
+"Ancient_Egypt": ["Egyptian","Pharaonic Egypt","Dynastic Egypt"],
+"Emmer": ["emmer wheat","Triticum dicoccum"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -3589,7 +3592,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mazu": ["deity","mythology","religion","china"],
 "Guandi": ["deity","mythology","religion","china"],
 "Chinese_legendary_period": ["era","history","mythology","china"],
-"Ancient_Egypt": ["culture","history","archaeology","egypt","africa"]
+"Ancient_Egypt": ["culture","history","archaeology","egypt","africa"],
+"Emmer": ["plant","agriculture","archaeology","prehistory","history","egypt"]
 });
 
 /* Optional illustration per term (slug -> { src, title, desc, credit, alt }) — shown at the foot of the term's popup. */
@@ -5658,7 +5662,8 @@ window.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, {
 "Mazu": ["Lin Dingying, Zhou Zhiming, Zhang Xiaobin and Wu Zhanhong, “Analysis of the Factors Influencing the Dissemination of Mazu Culture in Southeast Asia during the Qing Dynasty,” <i>PLOS One</i> 20, no. 6 (2025): e0325164, https://doi.org/10.1371/journal.pone.0325164. [Open access]","Justus Doolittle, <i>Social Life of the Chinese</i>, vol. 1 (New York: Harper &amp; Brothers, 1865), 262–64, https://archive.org/details/sociallifeofchin01dool. [Open access]"],
 "Guandi": ["William Frederick Mayers, <i>The Chinese Reader's Manual</i> (Shanghai: American Presbyterian Mission Press, 1874), pt. I no. 297, 92–93, https://archive.org/details/chinesereadersm00maye. [Open access]","Henry Doré, <i>Researches into Chinese Superstitions</i>, trans. M. Kennelly, second part, vol. 6 (Shanghai: T'usewei Printing Press, 1920), 80–81, https://archive.org/details/researchesintoch06doruoft. [Open access]","Henry Doré, <i>Researches into Chinese Superstitions</i>, trans. M. Kennelly, second part, vol. 7 (Shanghai: T'usewei Printing Press, 1922), 315–16, https://archive.org/details/researchesintoch07doruoft. [Open access]"],
 "Chinese_legendary_period": ["William Frederick Mayers, <i>The Chinese Reader’s Manual</i> (Shanghai: American Presbyterian Mission Press, 1874), pt. III, 365–66, https://archive.org/details/chinesereadersm00maye. [Open access]","Édouard Chavannes, <i>Les Mémoires historiques de Se-ma Ts’ien</i>, vol. 1 (Paris: Ernest Leroux, 1895), Introduction, clxxxviii–cxc, https://archive.org/details/lesmemoireshisto0001edou. [Open access]"],
-"Ancient_Egypt": ["Wolfram Grajetzki and Stephen Quirke, “Egyptian Chronology,” <i>Digital Egypt for Universities</i> (London: Petrie Museum of Egyptian Archaeology, University College London, 2000), https://www.ucl.ac.uk/museums-static/digitalegypt/chronology/index.html. [Open access]","Joseph G. Manning, Francis Ludlow, Alexander R. Stine, William R. Boos, Michael Sigl, and Jennifer R. Marlon, “Volcanic Suppression of Nile Summer Flooding Triggers Revolt and Constrains Interstate Conflict in Ancient Egypt,” <i>Nature Communications</i> 8 (2017): 900, https://doi.org/10.1038/s41467-017-00957-y. [Open access]"]
+"Ancient_Egypt": ["Wolfram Grajetzki and Stephen Quirke, “Egyptian Chronology,” <i>Digital Egypt for Universities</i> (London: Petrie Museum of Egyptian Archaeology, University College London, 2000), https://www.ucl.ac.uk/museums-static/digitalegypt/chronology/index.html. [Open access]","Joseph G. Manning, Francis Ludlow, Alexander R. Stine, William R. Boos, Michael Sigl, and Jennifer R. Marlon, “Volcanic Suppression of Nile Summer Flooding Triggers Revolt and Constrains Interstate Conflict in Ancient Egypt,” <i>Nature Communications</i> 8 (2017): 900, https://doi.org/10.1038/s41467-017-00957-y. [Open access]"],
+"Emmer": ["Margaux L. C. Scott, Michael F. Scott, Diane Lister, Jonathan Fenwick, Terence A. Brown, and Martin K. Jones, “A 3,000-Year-Old Egyptian Emmer Wheat Genome Reveals Dispersal and Domestication History,” <i>Nature Plants</i> 5, no. 11 (2019): 1120–28, https://doi.org/10.1038/s41477-019-0534-5. [Open access]","Wolfram Grajetzki and Stephen Quirke, “Cereal Production,” <i>Digital Egypt for Universities</i> (London: Petrie Museum of Egyptian Archaeology, University College London, 2000), https://www.ucl.ac.uk/museums-static/digitalegypt/foodproduction/cereal.html. [Open access]"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
