@@ -3975,6 +3975,8 @@ body.grading .wb-tools{bottom:108px;}
    The in-prose marker is the one loud part, and only on hover/focus.
    ============================================================ */
 .src-note{margin:22px 0 0; padding-top:12px; border-top:1px solid var(--rule);}
+/* the Atlas panel's own copy sits inside a .cp-sec, which already draws the rule and the space above it */
+.cp-srcnote{margin:0; padding-top:0; border-top:0;}
 .src-head{
   display:inline-flex; align-items:center; gap:7px; width:auto; appearance:none; background:none;
   border:0; padding:0; cursor:pointer; font:inherit; color:var(--ink-faint); text-align:left;

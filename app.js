@@ -24899,10 +24899,18 @@
   /* An Atlas panel cites two paragraphs at once: the state's general description (constant across years)
      and the paragraph for THIS map-year. They share one numbered list, general first, deduplicated — a
      work cited by both should be one footnote, not two. */
+  /* THE YEAR-SPECIFIC PARAGRAPH IS OFF, AND IT IS ONE SWITCH (Aug 2026, on request: "the year-specific
+     information section can be removed for now; research for it is difficult and it slows down our first
+     release build"). `country-years.js` stays on disk with all 682 of its researched paragraphs and every
+     reader of it is intact, because the request is "for now" and a switch is what makes that true —
+     deleting the file to satisfy a temporary scope decision is the one irreversible thing the Atlas pass
+     could do. Flip it and the section, its dot on the phone's pager and its half of the citation list all
+     come back with nothing else to rewire. See `docs/atlas-rewrite-plan.md`. */
+  const ATLAS_YEAR_PROSE = false;
   function placeSources(name, yr) {
     const k = (name || "").trim().toLowerCase().replace(/\s+/g, " ");
     const gen = (window.COUNTRY_SOURCES || {})[k];
-    const per = ((window.COUNTRY_YEAR_SOURCES || {})[k] || {})[String(yr)];
+    const per = ATLAS_YEAR_PROSE ? ((window.COUNTRY_YEAR_SOURCES || {})[k] || {})[String(yr)] : null;
     return normSources([].concat(gen || [], per || []));
   }
   const SRC_CHEV = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>';
@@ -28996,13 +29004,24 @@
         } else { cpCrumbEl.hidden = true; cpCrumbEl.innerHTML = ""; }
       }
       const mainDesc = stripInfoNoise(desc);
-      cpDescEl.textContent = mainDesc || ("No description for " + name + " yet.");
+      /* HTML, NOT `textContent` — which is what kept the citation apparatus out of the Atlas entirely.
+         A description carries `<sup class="fn">` markers like a card's background and `<i>` on a work's
+         title, and set as text those print as nothing and as their own tags. Through `sanitizeHTML`, as
+         every other surface that renders prose Folio did not necessarily author. The fallback stays TEXT:
+         it is composed here out of a place name, and building it as markup would be the one string on the
+         panel that could carry a name's angle bracket into the DOM. */
+      if (mainDesc) cpDescEl.innerHTML = sanitizeHTML(mainDesc);
+      else cpDescEl.textContent = "No description for " + name + " yet.";
       if (mainDesc) { autoLinkGlossary(cpDescEl, name, []); setupTooltips(cpDescEl); }   // auto-link glossary terms (skip the place's own name), like card backgrounds
       cpSection(cpDescSecEl, !!mainDesc, true);   // always a page of its own — it is the one the popup opens on
       cpYearNumEl.textContent = year < 0 ? (-year) + " BCE" : year + " CE";
-      const colDesc = forceGeneral ? "" : stripInfoNoise(yd);   // the per-year paragraph for THIS map-year (the general description above stays constant)
+      const colDesc = (forceGeneral || !ATLAS_YEAR_PROSE) ? "" : stripInfoNoise(yd);   // the per-year paragraph for THIS map-year (the general description above stays constant)
       cpYearDescEl.textContent = colDesc || "—";
       if (colDesc) { autoLinkGlossary(cpYearDescEl, name, []); setupTooltips(cpYearDescEl); }
+      /* HIDDEN rather than collapsed while the switch is off. On a phone `.cp-cols` is a pager and
+         `cpPanes()` counts whatever is not `hidden`, so a merely-collapsed section keeps a dot for a page
+         that renders nothing and a swipe lands on a blank screen. */
+      if (cpYearSecEl) cpYearSecEl.hidden = !ATLAS_YEAR_PROSE;
       cpSection(cpYearSecEl, !!colDesc);
       const st = forceGeneral ? null : (present ? countryStats(name) : countryStatsYear(name, year));   // present-day figures at the present year; per-year figures (COUNTRY_STATS_YEARS) for a historical map-year
       // Each tile shows ONLY the bare figure; any parenthetical nuance/source ("(1800 census)", "(1990 int$, Maddison)", a
@@ -29028,8 +29047,18 @@
       // panel has that part, but a "Sources" header over nothing reads as a claim to have cited something.
       // Present, it follows the reader's own choice, like the fold on a card.
       const psrc = forceGeneral ? [] : placeSources(name, year);
-      if (cpSrcEl) cpSrcEl.innerHTML = sourceListHTML(psrc);   // the list arrives with its links and chips already built
+      /* The list is wrapped in a `.src-note`, which is what makes the markers in the description above
+         resolve at all: `wireFootnotes` finds its list with `scope.querySelector(".src-note")` and
+         `noteForNode` climbs a marker's ancestors looking for the same class. Without it every marker is
+         read as over-range and REMOVED, so the apparatus does not merely look wrong — it silently ceases
+         to exist, which is how the Atlas came to be the one cited surface on the site with no way to show
+         a citation. `.cp-srcnote` cancels the rule and margin `.src-note` draws for a card, the panel's
+         own section furniture already providing both. */
+      if (cpSrcEl) cpSrcEl.innerHTML = psrc.length ? '<div class="src-note cp-srcnote">' + sourceListHTML(psrc) + "</div>" : "";
       if (cpSrcSecEl) { cpSrcSecEl.hidden = !psrc.length; cpSection(cpSrcSecEl, !(S.settings && S.settings.srcCollapsed)); }
+      // …and the join between the two, on the ancestor both halves share. Guarded like every other caller:
+      // the numbering is decoration failing loudly enough to take a panel down with it otherwise.
+      if (cpColsEl) { try { wireFootnotes(cpColsEl); } catch (err) {} }
       cpEl.hidden = false;
       // A fresh entity starts at the beginning of its own panel — the general description, in both layouts.
       // The popup element is REUSED, so without this the scroller keeps wherever the previous country left
