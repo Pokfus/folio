@@ -2769,16 +2769,30 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
    works, but selecting the figure already in the box to type over it does not, which is the whole way a
    reader edits a number. The guard is about the menu's PROSE; a box a reader types into is not prose. */
 .deck-menu input, .deck-menu textarea{-webkit-user-select:text; user-select:text;}
-.dm-box{width:min(400px,94vw); background:var(--card); border:1px solid var(--rule); border-radius:15px; box-shadow:0 24px 60px rgba(0,0,0,.34); padding:8px; display:flex; flex-direction:column;}
+/* EVERY SHEET IS CAPPED TO THE SCREEN AND SCROLLS (Aug 2026, on a bug report from a phone: "sometimes
+   on mobile not the whole long-press menu is visible"). Only the two sheets that were BORN long —
+   Scheduling and Card info — declared a height, so the OPTIONS menu, which has since grown to five
+   switches, five commands, a swatch row and an icon picker, simply outgrew a 640px screen: `.deck-menu`
+   is a centred flex container, so a box taller than it overflows equally at BOTH ends and neither end can
+   be scrolled to — the head is off the top, Remove is off the bottom, and nothing on screen says so.
+   It belongs on the shared shell rather than on that one sheet, because the next sheet to grow will grow
+   the same way; the two that already state a cap are more specific and are untouched. `dvh` is what makes
+   it right on a phone whose address bar comes and goes, with `vh` under it for anything that lacks it. */
+.dm-box{width:min(400px,94vw); background:var(--card); border:1px solid var(--rule); border-radius:15px; box-shadow:0 24px 60px rgba(0,0,0,.34); padding:8px; display:flex; flex-direction:column;
+  max-height:calc(100vh - 40px); max-height:calc(100dvh - 40px); overflow-y:auto; overscroll-behavior:contain;}
 /* THE SHEET'S OWN × (Aug 2026, on request). STICKY and first in the DOM rather than absolute: `.ds-sheet`
    scrolls its whole box, where an absolute × would scroll off the top, and first-in-DOM is what puts
    "Close" early for a screen reader (deckSheet skips it when choosing the initial focus, so the ring still
    lands on the sheet's first real control). `align-self:flex-end` puts it right; the negative bottom margin
    cancels its own height so the head below is laid out as though it were not there, and `.dm-head`'s own
    right padding is what keeps a long title and the studied count from running under it. */
+/* It is BACKED in the sheet's own paper rather than transparent, because sticky means it floats over
+   whatever row the scroll has brought to the top — since Aug 2026 that is any sheet, not just the two
+   born long — and an unbacked × sitting across a switch reads as a rendering fault and swallows the tap
+   meant for it. At rest it sits in the head's own reserved 38px, where the colour is invisible. */
 .dm-x{position:sticky; top:0; z-index:2; align-self:flex-end; margin:0 0 -30px 0; flex:none; width:30px; height:30px;
   display:flex; align-items:center; justify-content:center; padding:0; appearance:none; cursor:pointer;
-  background:none; border:0; border-radius:50%; color:var(--ink-faint); transition:background .14s var(--ease), color .14s;}
+  background:var(--card); border:0; border-radius:50%; color:var(--ink-faint); transition:background .14s var(--ease), color .14s;}
 .dm-x svg{width:15px; height:15px;}
 .dm-x:hover{background:var(--paper-2); color:var(--ink);}
 /* Title on the left, how far through the deck the reader is on the right — on the SAME line, which is what

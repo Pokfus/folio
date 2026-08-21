@@ -9253,6 +9253,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     construction since the head spans the whole box.
     **AND IT IS SKIPPED WHEN THE INITIAL FOCUS IS CHOSEN**, or every sheet would open with the ring on the
     way out. That is the one line a later tidy-up is likeliest to undo, and it is asserted.
+  · **EVERY SHEET IS CAPPED TO THE SCREEN AND SCROLLS** (`.dm-box`'s `max-height` + `overflow-y`, Aug 2026,
+    on a bug report from a phone: "sometimes on mobile not the whole long-press menu is visible"). Only the
+    two sheets that were BORN long — Scheduling (`.ds-sheet`) and Card info (`.ci-sheet`) — declared a
+    height, so the OPTIONS menu, which has since grown to five switches, five commands, a swatch row and an
+    icon picker, simply outgrew a 640px screen. **`.deck-menu` is a centred flex container, so a box taller
+    than it overflows equally at BOTH ends and neither end can be scrolled to**: the head is off the top,
+    Remove is off the bottom, and nothing on screen says so — which is why it reads as a menu that is
+    missing rows rather than as one that is too tall. It belongs on the SHARED SHELL rather than on that one
+    sheet, because the next sheet to grow will grow the same way and the two that already state a cap are
+    more specific and untouched; `dvh` is what makes it right on a phone whose address bar comes and goes,
+    with `vh` under it for anything that lacks it, and `overscroll-behavior:contain` keeps the page behind
+    from scrolling once the sheet reaches its end.
+    **AND THE STICKY × IS NOW BACKED IN THE SHEET'S OWN PAPER**, which it did not need while only two
+    sheets scrolled: sticky means it floats over whatever row the scroll brings to the top, and an unbacked
+    × sitting across a switch reads as a rendering fault and swallows the tap meant for that switch. At rest
+    it sits inside the 38px `.dm-head` already reserves for it, where the colour is invisible.
   · **The sheet is CENTRED at every width and leaves the way it arrives** (Aug 2026, on request). It was a
     bottom sheet below 560px, on the reasoning that the row held was near the thumb; what that produced was a
     dialog rising out of the tab bar at the very bottom of the screen, furthest from where the reader was
@@ -12316,6 +12332,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   each of them is the collection. `adIconKey` returns a mark only for a ROOT collection, a whole community
   deck, or a row the reader has given one — **asserted both ways**, since a mark on every row and a mark on
   none look equally deliberate from one side.
+  **…AND A DECK DRAWN INSIDE A LANGUAGE GETS NONE EITHER** (Aug 2026, on request: "decks within language
+  collections shouldn't get their own icons in the active decks section, only the collection itself
+  should"). A language deck is a COMMUNITY deck, so it took the whole-deck card stack above and a reader
+  who added seven levels of Spanish met one speech bubble over seven identical stacks — the same crowding
+  the tree rule prevents, one store over. It is the curated side's own rule restated, where a deck inside a
+  collection carries no icon; what differs is that a language's decks are its MEMBERS rather than its
+  children in a tree, so **`adIconKey` takes the row's PARENT** and the whole-deck branch stands down under
+  a `langctx:` one. A deck dragged OUT of its language sits at the top level with nothing above it to say
+  what it is and keeps its stack, and an icon the reader set themselves still wins — this is the automatic
+  mark, which `entryIconMarkup` reads as a fallback.
   **AND THE PICKER IS A SUB-SHEET THAT DOES NOT CLOSE ON A CHOICE.** Choosing re-marks the grid in place;
   only `[data-act="close"]` closes and repaints. The sheet's row sits directly after `colorRow` and before
   Remove — **`test-review-decks.js` pins BOTH sheet row lists EXACTLY**, so a row added here fails there

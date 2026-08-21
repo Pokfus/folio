@@ -19293,17 +19293,29 @@
        It is drawn SMALLER here (22px against 34) and only where there is something to draw, because at
        390px the row is three piles, a name, a bar and a chevron, and the name is the only part of it with
        a shorter form — so every pixel this takes is taken from the thing the reader is reading. */
-    const adIconKey = (entryId) => {
+    const adIconKey = (entryId, parentKey) => {
       const n = NODE_BY_ID[entryId];
       if (n) return n.parentId ? "" : (COLLECTION_ICON[entryId] || "cards");
       // a LANGUAGE container is the row that is a collection, so it wears the speech bubble its own
       // banner wears on the Collections page — the one place seven collections share a mark
       if (isLangCtxId(entryId)) return "speech";
+      /* …AND A DECK DRAWN INSIDE ONE GETS NOTHING (Aug 2026, on request: "decks within language
+         collections shouldn't get their own icons in the active decks section, only the collection
+         itself should"). A language deck is a community deck, so without this it takes the card stack
+         below — and a reader who adds seven levels of Spanish gets one speech bubble over seven
+         identical stacks, which is the forty-pagoda case the rule above exists to prevent, one store
+         over. It is the SAME rule as the curated side's, where a deck inside a collection carries no
+         icon either; what differs is only that a language's decks are its members rather than its
+         children in a tree, so the test has to be on the ROW'S PARENT rather than on the deck. A deck
+         the reader has dragged OUT of its language sits at the top level with nothing above it to say
+         what it is, and keeps its stack. An icon the reader has set themselves still wins — this is
+         the automatic mark, and `entryIconMarkup` reads it as a fallback. */
+      if (isLangCtxId(parentKey)) return "";
       const dId = uDeckIdOf(entryId);
       if (dId && UDECKS[dId] && !uSubOf(entryId)) return "cards";
       return "";
     };
-    const adIcon = (entryId) => entryIconMarkup(entryId, adIconKey(entryId), "dk-ic");
+    const adIcon = (entryId, parentKey) => entryIconMarkup(entryId, adIconKey(entryId, parentKey), "dk-ic");
     const adProg = (ids) => {
       const total = ids.length, studied = ids.filter(isSeen).length;
       /* `data-total` / `data-studied` are the two numbers the bar is DRAWN from, written down beside the
@@ -19594,7 +19606,7 @@
           if (r.group) {
             return `<div class="active-deck deck-group${shut}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Study everything in ${esc(title)}">
               ${grip}
-              ${adIcon(r.drag)}
+              ${adIcon(r.drag, r.parent)}
               ${adCounts(r.drag)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
@@ -19613,7 +19625,7 @@
           if (r.pending) {
             return `<div class="active-deck dk-pending${shut}" data-pending="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px">
               ${grip}
-              ${adIcon(r.drag)}
+              ${adIcon(r.drag, r.parent)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span><span class="dk-sup">not on this device</span></div>
               </div>
@@ -19626,7 +19638,7 @@
           if (r.flat) {
             return `<div class="active-deck${shut}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Review just ${esc(title)}">
               ${grip}
-              ${adIcon(r.drag)}
+              ${adIcon(r.drag, r.parent)}
               ${adCounts(r.drag)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
@@ -19638,7 +19650,7 @@
           if (r.active) {
             return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
               ${grip}
-              ${adIcon(r.node.id)}
+              ${adIcon(r.node.id, r.parent)}
               ${adCounts(r.node.id)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
@@ -19649,7 +19661,7 @@
           }
           return `<div class="active-deck context${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px">
             ${grip}
-            ${adIcon(r.drag)}
+            ${adIcon(r.drag, r.parent)}
             <div class="dk-body">
               <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
             </div>
