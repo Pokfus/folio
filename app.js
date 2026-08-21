@@ -20489,9 +20489,12 @@
      decks now directly inside it, rather than a third level added above them.
 
      History keeps the slot id `collection-list-all`, which five test files and the admin drag both name.
-     THE COMING-SOON FOLD IS HISTORY'S TAIL and is drawn directly after it, every collection in it being a
-     history one; a sectioned collection that ever went coming-soon would land there under that heading,
-     which is a fact to fix on the day it happens rather than a second fold to carry now. */
+     THE COMING-SOON FOLD SITS BELOW ALL THREE SUBJECT SECTIONS (Aug 2026, on request; it was History's
+     tail for a day). It holds nothing but history collections today, so the tail reading was defensible
+     and is the wrong shape all the same: a fold under one heading is a claim that what is in it belongs
+     to that subject, and the day a Geography or a Languages collection goes coming-soon it would land
+     under History without a word. Below all three it says what it is — everything still being written —
+     and needs no second fold when that day comes. */
   const COLLECTION_SECTIONS = [
     { label: "History", slot: "collection-list-all" },
     { label: "Geography", slot: "collection-list-geo" },
@@ -20541,18 +20544,19 @@
         ${/* The `.lib-cap` line stating how many decks the reader's level allowed is gone with the cap
               itself (Aug 2026, on request) — there is no limit left to state. */""}
       </div>
-      ${/* A heading per section, History first and the coming-soon fold as its tail. An EMPTY section is
-            drawn only for History, and only for an admin: that one has a drop target worth offering, where
-            a "Geography" heading over nothing would advertise a section a drag cannot put anything into —
-            the section comes from the table above, not from where a collection is dropped. */""}
+      ${/* A heading per section, History first. An EMPTY section is drawn only for History, and only for
+            an admin: that one has a drop target worth offering, where a "Geography" heading over nothing
+            would advertise a section a drag cannot put anything into — the section comes from the table
+            above, not from where a collection is dropped. */""}
       ${COLLECTION_SECTIONS.map((sec, i) => {
         const items = bySection[sec.label] || [];
         if (!items.length && !(admin && i === 0)) return "";
-        return (i === 0 ? section(sec.label, items.length, sec.slot, items.length) +
-                          (comingSoon.length || admin ? soonSection(comingSoon.length, "collection-list-soon", comingSoon.length) : "")
-                        : section(sec.label, items.length, sec.slot, items.length));
+        return section(sec.label, items.length, sec.slot, items.length);
       }).join("")}
       ${langCollectionsHTML()}
+      ${/* …and the coming-soon fold under all three of them rather than under History, so it reads as
+            "everything still being written" rather than as a claim about one subject. */""}
+      ${comingSoon.length || admin ? soonSection(comingSoon.length, "collection-list-soon", comingSoon.length) : ""}
       ${communityLibraryHTML()}
       ${sharedDecksHTML()}`;
 

@@ -12183,10 +12183,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (`geo-us-states`, `geo-us-capitals`), so no reader's schedule moves — and a reader who had added the
   `geography` node loses that one entry silently and correctly, `activeEntryIds` already filtering an id that
   no longer resolves.
-  **THE COMING-SOON FOLD IS HISTORY'S TAIL** and is drawn directly after it rather than getting a fold per
-  section: every collection in it is a history one. A sectioned collection that ever went coming-soon would
-  land there under that heading, which is a fact to fix on the day it happens rather than a second fold to
-  carry now.
+  **THE COMING-SOON FOLD SITS BELOW ALL THREE SUBJECT SECTIONS** (Aug 2026, on request; it was History's
+  tail for a day, on the reasoning that every collection in it is a history one). That reading is
+  defensible on the contents and wrong on the grammar: **a fold under one heading is a claim that what is
+  in it belongs to that subject**, so the day a Geography or a Languages collection goes coming-soon it
+  would land under History with nothing on the page to say so. Below all three it says what it actually is
+  — everything still being written — and needs no second fold when that day comes. There is deliberately
+  still ONE of it rather than a fold per section: a heading over an empty fold is the failure the
+  empty-section rule below already refuses.
   **AN EMPTY SECTION IS DRAWN ONLY FOR HISTORY, AND ONLY FOR AN ADMIN** — that one has a drop target worth
   offering, where a "Geography" heading over nothing would advertise a section a drag cannot put anything
   into, the section coming from the table and never from where a row is dropped. History keeps the slot id
@@ -17562,7 +17566,11 @@ dead code (never rendered).
     fortnight after that mark became teal** — the word naming a colour is painted in that colour now
     (`.tour-newterm` reads `--newterm`), so the step and the page cannot disagree without it being visible.
     Four About-page and Atlas claims were stale the same way and are checked in `.claude/test-layout.js`'s
-    company rather than here.
+    company rather than here. **AND THAT SUITE'S OWN FIRST-HEADING ASSERTION WAS THE SAME FAULT** (Aug 2026):
+    it read `lib.groupLabel === "Collections"` and went on passing after the heading was renamed to
+    **History** on request — a suite reporting 321/0 while pinning a name the page no longer uses. It comes
+    from `COLLECTION_SECTIONS` now, with a second check that the table was found at all. **A hard-coded
+    label in a test is not an assertion about the label, it is a copy of it that nothing keeps in step.**
     **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` / `closePageHelp` /
     `LIB_HELP_TIPS` / `BOOK_HELP_TIPS`, `PAGES.home`'s `fresh` branch, `tourOfferHTML`'s place on the home
     page, the Atlas / Library / book help cards, or `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
