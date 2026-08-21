@@ -238,7 +238,7 @@ re-run and diffed byte for byte.
 
 | # | book(s) | what it carries |
 |---|---|---|
-| **B1** | `sun-tzu-art-of-war` | the `roman` table + `applyRoman` + `ROMAN_HITS`; `book-scan.js` and `book-vary.js` committed; the one slip (`meaniug`); the four spellings of 張預 folded to one; ~138 names; both front-matter sentences |
+| **B1** ✅ | `sun-tzu-art-of-war` | the `roman` table + `applyRoman` + `ROMAN_HITS`; the one slip (`meaniug`); the three spellings of 張預 folded to one; 110 names; both front-matter sentences |
 | **B2** | `confucius-analects` | Legge's romanisation, 108 names, verified against the parallel Chinese column |
 | **B3** | `book-of-rites`, `book-of-documents` | Legge again — same system, 297 names between them |
 | **B4** | plain-text/TEI reachability | extend `applyFixes`/`applyRoman` past the wiki loop; **prove inert byte for byte on every book already on those paths** |
@@ -252,4 +252,43 @@ The error half of a Chinese book rides with its romanisation batch; the rest run
 
 ## 8. Batch log
 
-*(nothing shipped yet)*
+### B1 — the Art of War, shipped 2026-08-21
+
+**110 names, 1,338 occurrences, one slip.** Every declared row fired: `romanised 1338 name occurrence(s)
+into pinyin across 110 of 110 declared names`, and `fix applied 1x`. The Chinese column came out
+**byte-identical** to the shipped file, which is the assertion that matters — `applyRoman` runs on the raw
+page and both columns are cut from it, so an original that moved would mean the pass had reached the
+edition's own Chinese.
+
+**THE TABLE IS PER NAME AND NOT PER SYLLABLE, and that is the finding to carry into B2.** Wade-Giles →
+pinyin is mechanical at the level of the syllable — the apostrophes and the breves are nearly the whole of
+it — so a syllable table is the obvious implementation and it is wrong: which READING a character takes is
+not derivable from the romanisation, and Giles's own spellings are not internally consistent either. Every
+row here is therefore carried by the characters the edition prints beside the name, and where the edition
+prints none the name was left alone. Two forms are kept as they stand because a non-pinyin spelling IS the
+English name — **Sun Tzu** and the **Tao Te Ching** — and the breve is dropped from the first rather than
+the name being converted to Sun Zi.
+
+**ORDER IS LOAD-BEARING: `applyRoman(applyFixes(applyGlyphs(h)))`.** An uncorrected variant does not merely
+stay in Wade-Giles — it converts into a plausible DIFFERENT name, which is the quiet failure this whole
+pass exists to avoid. 張預 is printed three ways in the transcription (`Chang Yü` ×127, `Chang Yu` ×1,
+`Chang Yŭ` ×1); each is a row of its own and all three land on `Zhang Yu`. **The plan's §7 said four
+spellings and there are three** — corrected above.
+
+**EVERY ROW MUST FIRE, AND EIGHT CANDIDATES WERE DROPPED BEFORE SHIPPING BECAUSE THEY DID NOT.** Three
+matched nothing at all (`Hsiao Ho`, `Wu Ti`, `Ssŭ-ma Ch‘ien` — the book names them some other way), and
+`T‘ai P‘ing Yü Lan` matched nothing because Giles cites that encyclopedia as `Yü Lan` alone, 69 times.
+Three more were no-ops (`Sun Wu`, `Yang Han`, `Wu Huo` are already pinyin). A dead row is not harmless: it
+is a claim about the text that the text does not bear out, so `ROMAN_HITS` pushes a warning for one and the
+count in the run's own report is what says the table still describes the book.
+
+**THE CACHE IS WHY THE FIRST RUN REPORTED `0 of 110`.** `.claude/book-cache/` had been filled by the
+baseline run, and a cached chapter is `continue`d past the whole apply chain — so the import succeeded,
+rewrote both files and romanised nothing, with no error anywhere. **Re-run with `--force` after any change
+to `glyphs`, `fixes` or `roman`**; the cache holds the extracted prose rather than the fetched page.
+
+**The slip is a slip rather than a reading**: ch. 5 n. 17 reads `meaniug` where the printed page reads
+`meaning` — an n taken for a u by the scanner, in a word the same note spells correctly three lines above.
+
+The two front-matter sentences are written per PASS THAT ACTUALLY FIRED, never one per pass declared: a
+book whose `fixes` table is empty gets no sentence about slips.

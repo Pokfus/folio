@@ -1307,12 +1307,12 @@ const BOOKS = {
     about: [
       "<b>The Art of War</b> is a treatise on the conduct of war in thirteen short chapters, which " +
         "the title page of this edition calls 'the oldest military treatise in the world'. It is " +
-        "attributed to Sun Tzŭ, 'Master Sun', and it has far less to say about battle than its name " +
+        "attributed to Sun Tzu, 'Master Sun', and it has far less to say about battle than its name " +
         "suggests. Its subject is everything standing around a battle: the calculations made before a " +
         "campaign is begun, what it costs to keep an army in the field, ground, weather, morale, " +
         "deception, the management of spies, and the reading of an opponent's mind. Its most quoted " +
         "claim is that the highest skill is to break an enemy's resistance without fighting at all.",
-      "Who wrote it, and when, is not settled. The traditional account makes Sun Tzŭ a general named " +
+      "Who wrote it, and when, is not settled. The traditional account makes Sun Tzu a general named " +
         "Sun Wu who served the king of Wu at the end of the 6th century BCE, and that account is " +
         "given by the historian Sima Qian some four hundred years after the events it describes. Many " +
         "modern scholars place the text as it has come down to us considerably later, in the Warring " +
@@ -1320,9 +1320,9 @@ const BOOKS = {
         "than of one man on one occasion. The two views are not wholly exclusive, and the argument " +
         "has not ended.",
       "It has been read and annotated without a break for two thousand years. The earliest commentary " +
-        "to survive is by Ts‘ao Kung — the general and statesman Cao Cao, who died in 220 CE — and " +
-        "others accumulated around the text after him, of whom the ones quoted most often here are Tu " +
-        "Mu, Chang Yü, Li Ch‘üan and Wang Hsi. In the 11th century the book was placed at the head of " +
+        "to survive is by Cao Gong — the general and statesman Cao Cao, who died in 220 CE — and " +
+        "others accumulated around the text after him, of whom the ones quoted most often here are Du " +
+        "Mu, Zhang Yu, Li Quan and Wang Xi. In the 11th century the book was placed at the head of " +
         "the Seven Military Classics, the canon set for China's military examinations. In 1972 bamboo " +
         "slips from Han tombs at Yinqueshan, in Shandong, produced a copy far older than any then " +
         "known, along with a separate treatise by Sun Bin — which settled a long argument about " +
@@ -1336,10 +1336,16 @@ const BOOKS = {
         "a translator with opinions, and read the notes as one man's case rather than as a verdict.",
       "The chapters are numbered here as they have always been numbered, and the small raised figures " +
         "running through each one are the section numbers by which any passage is cited — so a line " +
-        "referred to elsewhere as 'Sun Tzŭ III. 18' is chapter 3, section 18. The numbered notes " +
+        "referred to elsewhere as 'Sun Tzu III. 18' is chapter 3, section 18. The numbered notes " +
         "folded under each chapter are Giles's own commentary, which the printed edition sets in " +
         "small type beneath the sentence it belongs to. The Chinese that he printed beside his " +
         "translation can be shown alongside it here, paired against the same section numbers.",
+      "Two things about the text have been altered from the transcription it was taken from. That "  +
+        "transcription carries one scanning slip, corrected here against the printed page and listed " +
+        "in the importer. And Giles romanises Chinese in the Wade-Giles system of his day: Folio " +
+        "prints the names in modern pinyin instead, so that his Ts‘ao Kung is given as Cao Gong, " +
+        "except where a non-pinyin form is the English name, as Sun Tzu is. The Chinese quoted in " +
+        "the notes is the edition's own and is untouched.",
     ],
 
     chapterWord: "Chapter",
@@ -1361,6 +1367,135 @@ const BOOKS = {
        It splits the cells and keeps the two columns apart. It lifts Giles's running commentary out of
        the English column into the book's own notes. And it reads the Chinese column's section
        numbers, which is what lets this book have an original at all — see `original` below. */
+    /* The transcription carries one scanning slip, and it is a slip rather than a reading: the
+       printed page reads "meaning" where this transcription reads "meaniug", an n taken for a u by
+       the scanner in a word the same note uses correctly three lines above. Every entry here must
+       fire, so a transcription that is later corrected at the source fails the run rather than
+       passing silently. */
+    fixes: [
+      ["meaniug", "meaning", "ch. 5 n. 17 \u2014 an OCR slip for the ordinary word, which the same note spells correctly elsewhere"],
+    ],
+
+    /* Giles romanises in the Wade-Giles of his own day. This table prints the names in modern pinyin
+       instead, one entry per NAME rather than a syllable rule: the conversion of a syllable is
+       mechanical, and which reading a character takes is not, so every row here is carried by the
+       characters the edition itself prints beside the name. Two forms are kept as they stand because
+       a non-pinyin spelling IS the English name \u2014 Sun Tzu and the Tao Te Ching. It runs AFTER
+       `fixes`, and the order is load-bearing: an uncorrected variant does not merely stay in
+       Wade-Giles, it converts into a plausible different name. */
+    roman: [
+      ["Ts‘ao Kung", "Cao Gong", "曹公 — the commentator, Cao Cao under his posthumous style"],
+      ["Ts‘ao Ts‘ao", "Cao Cao", "曹操"],
+      ["Ts‘ao Kuei", "Cao Gui", "曹劌"],
+      ["Tu Mu", "Du Mu", "杜牧"],
+      ["Tu Yu", "Du You", "杜佑 — the compiler of the Tong Dian, not to be confused with Du Mu"],
+      ["Li Ch‘üan", "Li Quan", "李筌"],
+      ["Mei Yao-ch‘ên", "Mei Yaochen", "梅堯臣"],
+      ["Mei Yao-Ch‘ên", "Mei Yaochen", "梅堯臣 — the edition capitalises the second syllable once"],
+      ["Yao-ch‘én", "Yaochen", "梅堯臣 — an acute for the circumflex, once"],
+      ["Chang Yü", "Zhang Yu", "張預"],
+      ["Chang Yu", "Zhang Yu", "張預 — the edition drops the umlaut once"],
+      ["Chang Yŭ", "Zhang Yu", "張預 — the edition sets a breve for the umlaut once"],
+      ["Chia Lin", "Jia Lin", "賈林"],
+      ["Ho Shih", "He Shi", "何氏"],
+      ["Ch‘ên Hao", "Chen Hao", "陳皞"],
+      ["Ch‘én Hao", "Chen Hao", "陳皞 — an acute for the circumflex, once"],
+      ["Mêng Shih", "Meng Shi", "孟氏"],
+      ["Wang Hsi", "Wang Xi", "王晳"],
+      ["T‘ung Tien", "Tong Dian", "通典"],
+      ["Yü Lan", "Yulan", "御覽 — Giles's short title for the Taiping Yulan"],
+      ["T‘u Shu", "Tu Shu", "圖書 — the Gujin Tushu Jicheng"],
+      ["Tso Chuan", "Zuo Zhuan", "左傳"],
+      ["Lun Yü", "Lun Yu", "論語 — the Analects"],
+      ["Shuo Wên", "Shuo Wen", "說文"],
+      ["Tao Tê Ching", "Tao Te Ching", "道德經 — the established English name, kept"],
+      ["Ch‘ien Han Shu", "Qian Han Shu", "前漢書"],
+      ["Hsin T‘ang Shu", "Xin Tang Shu", "新唐書"],
+      ["Chiu T‘ang Shu", "Jiu Tang Shu", "舊唐書"],
+      ["Pei T‘ang Shu Ch‘ao", "Bei Tang Shu Chao", "北堂書鈔"],
+      ["P‘ei Wên Yün Fu", "Peiwen Yunfu", "佩文韻府"],
+      ["K‘ang Hsi", "Kangxi", "康熙"],
+      ["Ssŭ-ma Fa", "Sima Fa", "司馬法"],
+      ["Wu Tzŭ", "Wu Zi", "吳子"],
+      ["Wei Liao Tzŭ", "Wei Liao Zi", "尉繚子"],
+      ["Shih Chi", "Shi Ji", "史記"],
+      ["Chin Shu", "Jin Shu", "晉書"],
+      ["Êrh Ya", "Er Ya", "爾雅"],
+      ["Sun Tzŭ", "Sun Tzu", "孫子 — the established English name, kept, the breve dropped"],
+      ["Ch‘i", "Qi", "齊"],
+      ["Ch‘in", "Qin", "秦"],
+      ["Ch‘u", "Chu", "楚"],
+      ["Yüeh", "Yue", "越"],
+      ["Chêng", "Zheng", "鄭"],
+      ["chêng", "zheng", "正"],
+      ["Ch‘iang", "Qiang", "羌"],
+      ["Hsia", "Xia", "夏"],
+      ["Hsiung-nu", "Xiongnu", "匈奴"],
+      ["ch‘i", "qi", "氣"],
+      ["Wu Ch‘i", "Wu Qi", "吳起"],
+      ["Ho Lü", "He Lü", "闔閭"],
+      ["Han Hsin", "Han Xin", "韓信"],
+      ["Pan Ch‘ao", "Ban Chao", "班超"],
+      ["P‘ang Chüan", "Pang Juan", "龐涓"],
+      ["Ssŭ-ma", "Sima", "司馬"],
+      ["Lü Kuang", "Lü Guang", "呂光"],
+      ["Li Hsiung", "Li Xiong", "李雄"],
+      ["Lin Hsiang-ju", "Lin Xiangru", "藺相如"],
+      ["Yao Hsiang", "Yao Xiang", "姚襄"],
+      ["T‘ien Tan", "Tian Dan", "田單"],
+      ["Kao Tsu", "Gaozu", "高祖"],
+      ["T‘ai Tsung", "Taizong", "太宗"],
+      ["T‘ai Tsu", "Taizu", "太祖"],
+      ["T‘ai Kung", "Tai Gong", "太公"],
+      ["Ma Yüan", "Ma Yuan", "馬援"],
+      ["Wu Yüan", "Wu Yuan", "伍員"],
+      ["Lien P‘o", "Lian Po", "廉頗"],
+      ["Chao Shê", "Zhao She", "趙奢"],
+      ["Lung Chü", "Long Ju", "龍且"],
+      ["Fan Chü", "Fan Ju", "范雎"],
+      ["Hsiao Hsien", "Xiao Xian", "蕭銑"],
+      ["P‘an Kêng", "Pan Geng", "盤庚"],
+      ["Huan Hsüan", "Huan Xuan", "桓玄"],
+      ["Huan Ch‘ung", "Huan Chong", "桓沖"],
+      ["Tou Chien-tê", "Dou Jiande", "竇建德"],
+      ["Têng Ch‘iang", "Deng Qiang", "鄧羌"],
+      ["Tso Tsung-t‘ang", "Zuo Zongtang", "左宗棠"],
+      ["Shih K‘uang", "Shi Kuang", "師曠"],
+      ["Li Kuang-pi", "Li Guangbi", "李光弼"],
+      ["P‘ei Hsing-chien", "Pei Xingjian", "裴行儉"],
+      ["Huang-fu Sung", "Huangfu Song", "皇甫嵩"],
+      ["Li Ching", "Li Jing", "李靖"],
+      ["Fu-k‘ang-an", "Fukang'an", "福康安"],
+      ["Ch‘ang-shê", "Changshe", "長社"],
+      ["Hsin-ch‘êng", "Xincheng", "新城"],
+      ["Hsü-chou", "Xuzhou", "徐州"],
+      ["Ssŭ-ch‘uan", "Sichuan", "四川"],
+      ["K‘uei-chou", "Kuizhou", "夔州"],
+      ["Sha-yüan", "Shayuan", "沙苑"],
+      ["Kung-tzŭ", "Gongzi", "公子"],
+      ["Tzŭ-fang", "Zifang", "子房"],
+      ["Shên-wu", "Shenwu", "神武"],
+      ["Êrh-chu", "Erzhu", "爾朱"],
+      ["Yang-p‘ing", "Yangping", "陽平"],
+      ["Kao-ch‘ang", "Gaochang", "高昌"],
+      ["Ch‘ên-ts‘ang", "Chencang", "陳倉"],
+      ["Hsiang Yü", "Xiang Yu", "項羽"],
+      ["Chu-ko Liang", "Zhuge Liang", "諸葛亮"],
+      ["Sun Pin", "Sun Bin", "孫臏"],
+      ["Yen Ti", "Yan Di", "炎帝"],
+      ["Huang Ti", "Huang Di", "黃帝"],
+      ["Shih Huang Ti", "Shi Huangdi", "始皇帝"],
+      ["Kuan Chung", "Guan Zhong", "管仲"],
+      ["Ssŭ-ma Jang-chü", "Sima Rangju", "司馬穰苴"],
+      ["Shan-shan", "Shanshan", "鄯善"],
+      ["Wu-tu", "Wudu", "武都"],
+      ["Wu-lao", "Wulao", "武牢"],
+      ["Chiang-ling", "Jiangling", "江陵"],
+      ["Pi-yang", "Biyang", "偪陽"],
+      ["Luan Yen", "Luan Yan", "欒黶"],
+      ["Ch‘êng-hung", "Chenghong", "崢嶸洲"],
+    ],
+
     layout: "parallel",
     page: (n) => "The Art of War (Sun)/Section " + toRoman(n),
     chapters: Array.from({ length: 13 }, (_, i) => i + 1),
@@ -11193,6 +11328,63 @@ function applyFixes(h) {
   return h;
 }
 
+/* MODERN PINYIN OVER THE TRANSLATOR'S OWN ROMANISATION (Aug 2026, on request: "for the Chinese texts,
+   enforce the use of modern pinyin for all Chinese transliterations, overriding the antiquated
+   transliteration systems used in these old English translations").
+
+   THIS IS A THIRD TABLE AND NOT A WIDER `fixes`, and the difference is what it ASSERTS. A fix says
+   the printed page reads X and this transcription reads Y — a claim about a book, which is why it may
+   only be made with a witness in hand. A roman entry says nothing whatever about the page: Giles
+   really did write `Ts'ao Kung`, and Folio is EDITING his translation so a modern reader meets the
+   name they will meet everywhere else. That is a different kind of act, it wants a different kind of
+   sentence in the book's own front matter, and filing it under `fixes` would put an editorial
+   decision in the table whose whole discipline is that it never makes one.
+
+   WADE-GILES → PINYIN IS DETERMINISTIC AND THE DIACRITICS ARE THE WHOLE OF IT. `ch` before i/ü is the
+   palatal series and becomes j/q; before a/e/o/u it is the retroflex and becomes zh/ch; the turned
+   comma is phonemic aspiration and never decoration, so `k'`/`t'`/`p'` are k/t/p where bare `k`/`t`/`p`
+   are g/d/b. `yü` is yu and `yu` is YOU — a different syllable, which is why 杜佑 `Tu Yu` (Du You) and
+   張預 `Chang Yü` (Zhang Yu) do not collide. WHAT IS NOT DETERMINISTIC IS WHICH READING A NAME TAKES,
+   and no rule can settle it: the same characters take different readings in different names, and the
+   same syllable is written by dozens of characters. So the table is per NAME rather than per syllable,
+   each entry carried by the characters this edition prints beside it, and a name the book glosses with
+   nothing is left exactly as the translator set it rather than converted on a guess.
+
+   FOUR PROPERTIES OF THE PASS ITSELF, each of which fails silently without it.
+   · IT RUNS ON TEXT NODES ONLY. The input is raw fetched HTML, so a bare string replace would rewrite
+     the inside of an href and break the link it sits in.
+   · IT MATCHES ON WORD BOUNDARIES OF ITS OWN. `applyFixes` is split/join, which is safe for a long
+     unique clause and hopeless here: `Wei`, `Han`, `Chin`, `Pi`, `Mo` and `Ta` are short and sit
+     inside ordinary English words. A preceding or following letter, hyphen or turned comma forbids a
+     match; a following apostrophe does not, so the possessives convert with their names.
+   · LONGEST FIRST. `Ts'ao Kung` has to convert whole before any `Ts'ao` entry can fire on its head.
+   · AND EVERY ENTRY MUST FIRE, counted and reported exactly as a fix is. A name the transcription has
+     since reworded around leaves the book claiming a conversion it no longer makes. */
+const ROMAN_HITS = Object.create(null);
+let _romanRx = null, _romanFor = null;
+function applyRoman(h) {
+  if (!BOOK || !BOOK.roman || !BOOK.roman.length) return h;
+  if (_romanFor !== BOOK) {
+    const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const from = BOOK.roman.map(([f]) => f).sort((a, b) => b.length - a.length);
+    // No letter, hyphen or turned comma either side; an apostrophe after is allowed (possessives).
+    _romanRx = new RegExp(
+      "(?<![A-Za-z\u00C0-\u024F\u2018'\u2019-])(" + from.map(esc).join("|") +
+      ")(?![A-Za-z\u00C0-\u024F\u2018-])", "g");
+    _romanFor = BOOK;
+    for (const [f] of BOOK.roman) if (!(f in ROMAN_HITS)) ROMAN_HITS[f] = 0;
+  }
+  const to = Object.create(null);
+  for (const [f, t] of BOOK.roman) to[f] = t;
+  return h.replace(/(<[^>]*>)|([^<]+)/g, (m, tag, text) => {
+    if (tag) return tag;
+    return text.replace(_romanRx, (hit) => {
+      ROMAN_HITS[hit] = (ROMAN_HITS[hit] || 0) + 1;
+      return to[hit];
+    });
+  });
+}
+
 function notesOf(h) {
   const m = h.match(/<ol class="references">([\s\S]*?)<\/ol>/);
   if (!m) return { notes: [], ids: [] };
@@ -18580,7 +18772,7 @@ async function fetchEnglish() {
        string still means exactly what it always did, so no shipped book's config is touched. */
     const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
-    let h = applyFixes(applyGlyphs(await api(pageNames[0])));
+    let h = applyRoman(applyFixes(applyGlyphs(await api(pageNames[0]))));
     let html, notes, orig = "", tFromText = "";
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
@@ -18650,7 +18842,7 @@ async function fetchEnglish() {
       for (const extra of pageNames.slice(1)) {
         await sleep(700);
         if (BOOK.pageMark) BOOK.expect = BOOK.pageMark(extra);
-        const eh = applyFixes(applyGlyphs(await api(extra)));
+        const eh = applyRoman(applyFixes(applyGlyphs(await api(extra))));
         const eg = notesOf(eh);
         const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
         let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);
@@ -18775,6 +18967,16 @@ function writeEnglish(chapters, warnings) {
       console.log("  fix " + (n ? "applied " + n + "x" : "DID NOT FIRE") + " — " + why);
       if (!n) warnings.push("a declared fix matched nothing: " + JSON.stringify(from.slice(0, 60)));
     }
+  }
+  if (BOOK.roman) {
+    let hit = 0, dead = [];
+    for (const [from] of BOOK.roman) {
+      if (ROMAN_HITS[from]) hit += ROMAN_HITS[from];
+      else dead.push(from);
+    }
+    console.log("  romanised " + hit + " name occurrence(s) into pinyin across " +
+      (BOOK.roman.length - dead.length) + " of " + BOOK.roman.length + " declared names");
+    for (const f of dead) warnings.push("a declared romanisation matched nothing: " + JSON.stringify(f));
   }
   const secs = got.chapters.map((c) => (c.html.match(/class="bk-n"/g) || []).length);
   console.log("  " + secs.reduce((a, b) => a + b, 0) + " section numbers across " + secs.length + " chapters" +
