@@ -118,9 +118,26 @@ for (const f of files) {
     for (let i = 0; i < parts.length; i++) at(parts.slice(0, i + 1).join("::")).c += mult;
   }
   const prune = (list) => list.map((x) => (x.k.length ? { n: x.n, c: x.c, k: prune(x.k) } : { n: x.n, c: x.c }));
+  /* UNWRAP: whether the Collections page draws this deck's own top-level subdecks as the LANGUAGE's decks
+     rather than drawing the deck and folding them inside it (Aug 2026, on request: "The Mandarin Chinese
+     collection should only contain its nine subdecks, not the combined folder … i.e. unwrap them", and
+     "for indonesian, unwrap 'Indonesian Phrases and Expressions'").
+
+     THE TEST IS WHETHER THE TOP LEVEL IS A DIRECTION PAIR, and it is a heuristic on the TITLES because
+     nothing else in a deck file distinguishes the two cases: a subdeck is a `sub` string either way, and
+     the arrow is the only thing that says one of them means "the same words asked the other way round"
+     rather than "a different part of the syllabus". A direction pair must stay wrapped — unwrapped, the
+     Spanish shelf would be seven identical pairs of "Spanish → English" rows with nothing to say which
+     level each belongs to.
+
+     WHAT IT CATCHES IS THREE DECKS AND NOT THE TWO THE REQUEST NAMES: Mandarin's nine levels, Indonesian's
+     three phrase groups, and — by the same rule — Portuguese's Expressions and Proverbs. That third one is
+     the rule doing exactly what it says rather than an oversight, and is recorded here so it is not later
+     read as one. */
+  const flat = tree.length > 0 && !tree.some((n) => n.n.indexOf("\u2192") >= 0);
   rows.push({
     lang: hits[0].name, file: f, id: m.id, title: m.title, sub: m.subtitle || "",
-    notes: notes, cards: cards, subs: tree.length, tree: prune(tree), bytes: bytes, rank: levelRank(m.title),
+    notes: notes, cards: cards, subs: tree.length, tree: prune(tree), flat: flat, bytes: bytes, rank: levelRank(m.title),
   });
 }
 
@@ -137,7 +154,7 @@ for (const r of rows) {
   out += "  { lang: " + s(r.lang) + ", file: " + s(r.file) + ", id: " + s(r.id) +
     ", title: " + s(r.title) + ", sub: " + s(r.sub) +
     ", notes: " + r.notes + ", cards: " + r.cards + (r.subs ? ", subs: " + r.subs : "") +
-    (r.tree.length ? ", tree: " + s(r.tree) : "") +
+    (r.tree.length ? ", tree: " + s(r.tree) : "") + (r.flat ? ", flat: true" : "") +
     ", bytes: " + r.bytes + " },\n";
 }
 out += "];\n";

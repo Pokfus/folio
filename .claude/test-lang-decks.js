@@ -139,6 +139,14 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
   });
   check("the Collections page carries a Languages section", !!sec);
   const langs = [...new Set(ROWS.map((r) => r.lang))];
+  /* HOW MANY ROWS A LANGUAGE DRAWS IS NOT HOW MANY DECK FILES IT HAS (Aug 2026, on request: "The
+     Mandarin Chinese collection should only contain its nine subdecks … i.e. unwrap them", and "for
+     indonesian, unwrap 'Indonesian Phrases and Expressions'"). A deck the catalogue marks `flat`
+     contributes its top-level subdecks as the language's own decks and draws no row for the file, so
+     the expectation is DERIVED from the same catalogue flag the page reads rather than being a count
+     of files — which is the whole point of the flag being in the catalogue. */
+  const topRows = (lang) => ROWS.filter((r) => r.lang === lang)
+    .reduce((n, r) => n + (r.flat && r.tree && r.tree.length ? r.tree.length : 1), 0);
   if (sec) {
     check("…headed Languages", sec.label === "Languages", sec.label);
     /* COUNTING LANGUAGES, not decks. The section holds one collection per language exactly as the
@@ -151,7 +159,7 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     check("…titled by the language", sec.colls.map((c) => c.title).join("|") === langs.join("|"),
       sec.colls.map((c) => c.title).join("|"));
     check("…each saying how many decks it holds", sec.colls.every((c) =>
-      c.span === ROWS.filter((r) => r.lang === c.title).length + (ROWS.filter((r) => r.lang === c.title).length === 1 ? " deck" : " decks")),
+      c.span === topRows(c.title) + (topRows(c.title) === 1 ? " deck" : " decks")),
       sec.colls.map((c) => c.title + ":" + c.span).join(" "));
 
     /* THE BANNER IS THE CURATED ONE. Each of these is a thing a history collection's banner has, and
@@ -181,18 +189,24 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     check("…all shut", sec.colls.every((c) => !c.open));
     check("…and full all the same", sec.colls.every((c) => c.rows > 0),
       sec.colls.map((c) => c.title + ":" + c.rows).join(" "));
-    check("…each holding exactly its own decks", sec.colls.every((c) =>
-      c.rows === ROWS.filter((r) => r.lang === c.title).length),
-      sec.colls.map((c) => c.title + ":" + c.rows).join(" "));
+    /* `.node.lang-deck` is the TOP-LEVEL row and `.node.lang-sub` a nested one, which is what keeps this
+       tally honest: without the distinction Spanish would count its seven levels and their fourteen
+       direction rows as twenty-one decks. */
+    check("…each holding exactly its own decks", sec.colls.every((c) => c.rows === topRows(c.title)),
+      sec.colls.map((c) => c.title + ":" + c.rows + " vs " + topRows(c.title)).join(" "));
 
     // the one control a curated banner has that this must not — see the header
     check("…and no collection-level + on any of them", sec.colls.every((c) => !c.plus));
     check("…while every one can be opened", sec.colls.every((c) => c.chev));
 
-    /* The one thing a reader needs told that no curated collection has to say: the cards are not here
-       yet, and pressing Add fetches them. */
-    check("…and the section says a deck is downloaded on Add",
-      /download/i.test(sec.intro), sec.intro.slice(0, 70));
+    /* AND NO PARAGRAPH SAYING ADD DOWNLOADS, because it no longer does (Aug 2026, on request: "Adding a
+       deck from the collections page shouldn't download anything; it should merely move the decks to the
+       active decks list, where a download button in the banner (with file size) can be clicked").  The
+       line used to promise a fetch and would now be telling the reader something untrue; the curated
+       collections carry no such paragraph either, which is the parity this shelf is held to. Section 3
+       asserts the behaviour itself. */
+    check("…and no paragraph claiming Add downloads a deck", !/download/i.test(sec.intro),
+      sec.intro.slice(0, 70) || "(no intro)");
   }
 
   /* THE CHEVRON REALLY OPENS IT, which the shut-and-full pair above cannot show: those rows are in the
@@ -209,34 +223,41 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
   check("the chevron opens a language", opened.before === 0 && openedNow > 100,
     opened.before + " → " + Math.round(openedNow));
 
-  /* A row's figures come from the catalogue rather than from anywhere else. It takes the first FLAT deck
-     rather than `ROWS[0]`, because the "not itself pressable" assertion below is only true of one: a deck
-     with subdecks is a fold and is deliberately pressable, so a fixture pinned to the first row of the
-     catalogue would invert the day a French deck gains a `sub`. */
-  const first = ROWS.find((r) => !(r.tree && r.tree.length)) || ROWS[0];
-  const row = await page.evaluate((file) => {
-    const b = document.querySelector('[data-langadd="' + file + '"]');
+  /* A row's figures come from the catalogue rather than from anywhere else. It takes the first deck that
+     is neither FLAT nor foldable, because the "not itself pressable" assertion below is only true of one:
+     a deck with subdecks is a fold and is deliberately pressable, and a flat deck draws no row of its own
+     at all. Rows are found by their + button's ENTRY id — `data-id`, the curated tree's own attribute —
+     since the shelf's rows are now the curated `.node` in every respect (Aug 2026). */
+  const plain = ROWS.find((r) => !(r.tree && r.tree.length)) || ROWS[0];
+  const row = await page.evaluate((entry) => {
+    const b = document.querySelector('#langDecks .node-add[data-id="' + entry + '"]');
     if (!b) return null;
-    const el = b.closest(".lang-deck");
+    const el = b.closest(".node");
     return { title: (el.querySelector(".node-title") || {}).textContent || "",
              count: (el.querySelector(".node-count") || {}).textContent || "",
              size: (el.querySelector(".node-size") || {}).textContent || "",
+             sizeTitle: (el.querySelector(".node-size") || {}).getAttribute
+               ? el.querySelector(".node-size").getAttribute("title") : "",
+             num: (el.querySelector(".node-num") || {}).textContent || "",
              /* THE DECK ROW IS THE CURATED TREE'S `.node` (Aug 2026, on request), so it is the same box
                 as a collection's decks one section up — but it is NOT a button, since there is nothing
-                to study until it has been added and a row click would mean a 21 MB download off a
-                stray tap. */
+                to study until it has been added and downloaded, and a row click would mean a 21 MB
+                download off a stray tap. */
              isNode: el.classList.contains("node"),
              pressable: el.getAttribute("role") === "button" || el.hasAttribute("tabindex") };
-  }, first.file);
-  check("a row is drawn for the first deck in the catalogue", !!row, first.file);
+  }, "u:" + plain.id);
+  check("a row is drawn for a plain deck in the catalogue", !!row, plain.title);
   if (row) {
     check("…in the curated tree's own row shape", row.isNode);
     check("…and not itself pressable", !row.pressable);
-    check("…titled from the catalogue", row.title === first.title, row.title);
-    check("…and stating its card count", row.count.replace(/[^\d]/g, "") === String(first.cards), row.count);
-    /* The WORDING is what is guarded rather than the unit: a deck may be 130 KB or 20.6 MB, and a
-       figure without "to download" is a size a reader cannot act on. */
-    check("…and how much it will download", /^[\d.,]+ (KB|MB) to download$/.test(row.size.trim()), row.size);
+    check("…numbered like a curated deck", /^\d\d$/.test(row.num.trim()), row.num);
+    check("…titled from the catalogue", row.title === plain.title, row.title);
+    check("…and stating its card count", row.count.replace(/[^\d]/g, "") === String(plain.cards), row.count);
+    /* THE FIGURE IS THE BYTES AND NOTHING ELSE, on BOTH shelves, which is the request's own "one fact in
+       one place on both" — what differs between them is what the figure MEANS, and that is in the title
+       where it belongs rather than appended to every row. */
+    check("…and how big it is", /^[\d.,]+ (KB|MB)$/.test(row.size.trim()), row.size);
+    check("…with the title saying it is a download", /download/i.test(row.sizeTitle || ""), row.sizeTitle);
   }
 
   /* ---------- 2b. a deck's own decks, and the size on the curated shelf ----------
@@ -247,10 +268,13 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
      Both halves fail SILENTLY. A deck whose subdecks are never drawn looks exactly like a deck that has
      none — the catalogue is the only thing that knows, and a reader deciding whether to fetch 21 MB has
      no other way to find out what is in it. A size that stops rendering looks like a deck nobody measured.
-     So the rows are asserted against the CATALOGUE rather than against a number written down here. */
-  const withSubs = ROWS.filter((r) => Array.isArray(r.tree) && r.tree.length);
-  const flat = ROWS.filter((r) => !r.tree || !r.tree.length);
-  check("the catalogue carries at least one deck with subdecks", withSubs.length > 0, String(withSubs.length));
+     So the rows are asserted against the CATALOGUE rather than against a number written down here.
+
+     A FLAT deck is excluded: its subdecks ARE the language's rows and there is no fold to look inside,
+     which section 2c asserts instead. */
+  const withSubs = ROWS.filter((r) => Array.isArray(r.tree) && r.tree.length && !r.flat);
+  const leaves = ROWS.filter((r) => !r.tree || !r.tree.length);
+  check("the catalogue carries at least one wrapped deck with subdecks", withSubs.length > 0, String(withSubs.length));
   if (withSubs.length) {
     // the deepest tree there is, so a nested subdeck is exercised wherever one exists
     const countAll = (l) => l.reduce((n, x) => n + 1 + (x.k ? countAll(x.k) : 0), 0);
@@ -258,8 +282,8 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     const want = countAll(target.tree);
     const titles = [];
     (function walk(l) { l.forEach((x) => { titles.push(x.n); if (x.k) walk(x.k); }); })(target.tree);
-    const sub = await page.evaluate((file) => {
-      const b = document.querySelector('[data-langadd="' + file + '"]');
+    const sub = await page.evaluate((entry) => {
+      const b = document.querySelector('#langDecks .node-add[data-id="' + entry + '"]');
       if (!b) return null;
       const g = b.closest(".node-group");
       if (!g) return { group: false };
@@ -272,9 +296,9 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
         titles: [...g.querySelectorAll(".node.lang-sub .node-title")].map((e) => e.textContent),
         // a subdeck row must not claim to BE a deck — the collection's own deck tally counts .lang-deck
         alsoDeck: [...g.querySelectorAll(".node.lang-sub")].some((e) => e.classList.contains("lang-deck")),
-        add: !!g.querySelector(".node.lang-sub [data-langadd]"),
+        add: !!g.querySelector(".node.lang-sub .node-add[data-id]"),
       };
-    }, target.file);
+    }, "u:" + target.id);
     check("a deck with subdecks is drawn as a fold", !!sub && sub.group && sub.branch, target.title);
     if (sub && sub.group) {
       check("…with a chevron of its own", sub.chev);
@@ -283,14 +307,16 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
       /* A subdeck row is NOT a deck row: the collection's deck tally counts `.node.lang-deck`, so a
          subdeck wearing that class would make every language claim more decks than it has. */
       check("…and a subdeck is not counted as a deck", !sub.alsoDeck);
-      /* AND CARRIES NO ADD. A deck is one file; half of one cannot be fetched, and a button that looked
-         as though it could would download the whole thing under another name. */
-      check("…nor offers to add half a deck", !sub.add);
+      /* AND IT DOES CARRY AN ADD, which is the reverse of what it was before Aug 2026 and follows from
+         Add no longer downloading: adding is now writing an entry into `S.active`, and a subdeck entry
+         is a study scope like any other — it is how a reader takes one HSK level rather than nine. The
+         file is still fetched whole, once, from the Download button in Daily study. */
+      check("…and offers Add on a subdeck too", sub.add);
     }
     /* THE FOLD REALLY OPENS, which the count above cannot show: the rows are in the DOM either way, and
        a fold whose height never changes is a deck nobody can look inside. */
-    const dfold = await page.evaluate(async (file) => {
-      const b = document.querySelector('[data-langadd="' + file + '"]');
+    const dfold = await page.evaluate(async (entry) => {
+      const b = document.querySelector('#langDecks .node-add[data-id="' + entry + '"]');
       const coll = b.closest(".lang-coll");
       if (!coll.querySelector(":scope > .node-children").classList.contains("open"))
         coll.querySelector(":scope > .collection-row > .collection-actions > .chev").click();
@@ -301,19 +327,59 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
       g.querySelector(":scope > .node.branch > .chev").click();
       await new Promise((r) => setTimeout(r, 700));
       return { before, after: kids.getBoundingClientRect().height };
-    }, target.file);
+    }, "u:" + target.id);
     check("…and its chevron opens it", dfold.before === 0 && dfold.after > 60,
       dfold.before + " → " + Math.round(dfold.after));
   }
-  if (flat.length) {
-    const none = await page.evaluate((file) => {
-      const b = document.querySelector('[data-langadd="' + file + '"]');
+  if (leaves.length) {
+    const none = await page.evaluate((entry) => {
+      const b = document.querySelector('#langDecks .node-add[data-id="' + entry + '"]');
       return b ? { group: !!b.closest(".node-group"), chev: !!b.closest(".node").querySelector(".chev") } : null;
-    }, flat[0].file);
+    }, "u:" + leaves[0].id);
     /* A deck with nothing inside it stays the flat row it has always been — a chevron over an empty fold
        is a control that answers a press by doing nothing. */
-    check("a deck with no subdecks stays a flat row", !!none && !none.group && !none.chev, flat[0].title);
+    check("a deck with no subdecks stays a flat row", !!none && !none.group && !none.chev, leaves[0].title);
   }
+
+  /* ---------- 2c. UNWRAPPING ----------
+     Aug 2026, on request. A deck the catalogue marks `flat` puts its top-level subdecks on the shelf as
+     the language's own decks and draws NO row for the file — so Mandarin lists its nine levels rather
+     than one folder called "Mandarin Chinese — HSK 3.0, phrases and idioms".
+
+     BOTH HALVES ARE ASSERTED because they fail in opposite directions and either alone looks deliberate:
+     a shelf that still wraps looks like a fold nobody opened, and one that unwraps a DIRECTION PAIR would
+     put fourteen identical "Spanish → English" rows on the Spanish shelf with nothing to say which level
+     each belongs to. */
+  const flats = ROWS.filter((r) => r.flat && r.tree && r.tree.length);
+  check("the catalogue marks at least one deck for unwrapping", flats.length > 0,
+    flats.map((r) => r.id).join(", "));
+  if (flats.length) {
+    const f = flats[0];
+    const un = await page.evaluate((o) => {
+      const coll = [...document.querySelectorAll("#langDecks .lang-coll")]
+        .find((c) => (c.querySelector(".collection-title") || {}).textContent === o.lang);
+      if (!coll) return null;
+      const tops = [...coll.querySelectorAll(".node.lang-deck")]
+        .filter((e) => e.closest(".node-children") === coll.querySelector(":scope > .node-children"));
+      return {
+        wrapper: !!coll.querySelector('.node-add[data-id="u:' + o.id + '"]'),
+        titles: [...coll.querySelectorAll(":scope > .node-children .node.lang-deck .node-title")].map((e) => e.textContent),
+        subEntries: [...coll.querySelectorAll(".node-add[data-id]")].map((e) => e.dataset.id)
+          .filter((x) => x.indexOf("u:" + o.id + "/") === 0).length,
+      };
+    }, { lang: f.lang, id: f.id });
+    check("…and the file itself draws no row", !!un && !un.wrapper, f.title);
+    check("…while every one of its subdecks does", !!un && un.subEntries === f.tree.length,
+      un ? un.subEntries + " vs " + f.tree.length : "no collection");
+    check("…titled by the subdeck rather than the file",
+      !!un && f.tree.every((n) => un.titles.indexOf(n.n) >= 0), un ? un.titles.join("|") : "");
+  }
+  /* AND A DIRECTION PAIR STAYS WRAPPED, which is what stops the rule running away with the Spanish shelf.
+     The catalogue decides it (see `.claude/build-lang-decks.js`); this asserts the outcome. */
+  const paired = ROWS.filter((r) => r.tree && r.tree.some((n) => n.n.indexOf("→") >= 0));
+  check("a deck whose subdecks are DIRECTIONS is not unwrapped",
+    paired.length > 0 && paired.every((r) => !r.flat),
+    paired.length ? paired.map((r) => r.id + (r.flat ? "!" : "")).join(" ") : "none in catalogue");
 
   /* The other half of the request: the curated shelf says it too. A curated deck has no file of its own,
      so the figure is what its cards weigh inside data.js — read off the page and required to be a real
@@ -336,37 +402,88 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     cur.sized + " sized vs " + cur.counted + " counted");
   check("…as a real figure", cur.allReal, cur.texts.join(" | "));
   /* AND SAYS WHAT THE FIGURE IS. These cards arrive with the site, so a bare size beside a language
-     deck's "to download" would promise a fetch that has already happened. */
+     deck's would say nothing about the difference between them. */
   check("…explaining that curated cards ship with the site", cur.titled);
 
-  /* ---------- 3. Add really fetches, imports and lands ---------- */
+  /* ---------- 3. Add adds and NOTHING is downloaded ----------
+     Aug 2026, on request: "Adding a deck from the collections page shouldn't download anything; it should
+     merely move the decks to the active decks list, where a download button in the banner (with file
+     size) can be clicked to download the deck's cards."
+
+     THE SPLIT IS THE WHOLE POINT AND IT IS WHY THE DECKS REACH A SECOND DEVICE AT ALL: `S.active` rides in
+     the synced progress blob and the cards live in this device's own IndexedDB, so a deck added on a phone
+     arrives on a laptop as an entry with nothing behind it — and the Download button is the one control
+     that can do anything about that. Both halves are asserted, since a press that silently fetched 21 MB
+     and a press that did nothing at all look identical on the Collections page. */
   const small = ROWS.slice().sort((a, b) => a.bytes - b.bytes)[0];
-  await page.evaluate((f) => {
-    const el = document.querySelector('#langDecks [data-langadd="' + f + '"]');
+  const smallEntry = small.flat && small.tree && small.tree.length
+    ? "u:" + small.id + "/" + encodeURIComponent(small.tree[0].n)
+    : "u:" + small.id;
+  const fetches = [];
+  page.on("request", (r) => { if (/\/decks\//.test(r.url())) fetches.push(r.url().split("/").pop()); });
+  await page.evaluate((entry) => {
+    const el = document.querySelector('#langDecks .node-add[data-id="' + entry + '"]');
     if (!el) return;
     // its collection may be a different one from the one opened above, so open that too before pressing
     const coll = el.closest(".lang-coll");
     const kids = coll.querySelector(".node-children");
     if (!kids.classList.contains("open")) coll.querySelector(".collection-actions > .chev").click();
     el.click();
-  }, small.file);
-  await page.waitForTimeout(6000);
-  /* Read off the PAGE and not out of the store, deliberately: the store is IndexedDB behind a
-     localStorage fallback, and reaching into it would mean a debug surface on `window` that every
-     reader then downloads. What the reader is promised is a row in Your decks, so that is what is
-     asserted. */
-  const after = await page.evaluate((id) => ({
-    yours: !!document.querySelector('[data-udeck="' + id + '"]'),
-    pill: [...document.querySelectorAll("#langDecks .node.lang-deck")].some((e) =>
-      /added/.test(e.textContent) && e.textContent.indexOf("Your decks") >= 0),
-  }), small.id);
-  const gone = await page.evaluate((f) => !document.querySelector('#langDecks [data-langadd="' + f + '"]'), small.file);
-  check("adding a deck puts it in Your decks", after.yours, small.title);
-  check("…and the Languages row says so", after.pill, after.pill ? "" : "no 'added' row");
-  /* …and stops offering Add. A second press would import the same file again, and `uDeckImportText`
-     mints a fresh id when the deck's own is taken — so it would succeed, leaving the reader two
-     copies of one deck with two separate schedules and nothing to say which is which. */
-  check("…and no longer offers Add for it", gone, small.file);
+  }, smallEntry);
+  await page.waitForTimeout(1500);
+  const added = await page.evaluate((entry) => ({
+    active: (JSON.parse(localStorage.getItem("folio_v1") || "{}").active || []).indexOf(entry) >= 0,
+    marked: !!document.querySelector('#langDecks .node-add.added[data-id="' + entry + '"]'),
+  }), smallEntry);
+  check("pressing + puts the deck in the daily study", added.active, smallEntry);
+  check("…and the row says so", added.marked);
+  check("…and fetches nothing at all", fetches.length === 0, fetches.join(", ") || "no requests");
+
+  /* THE HOME ROW, which is where the cards are actually asked for. A pending deck gets ONE row whichever
+     of its entries the reader happens to hold — nine "Level" rows each offering to download the same
+     21 MB file would be nine answers to one question — and it carries no counts and no bar, there being
+     nothing to study yet. */
+  await page.goto(base + "#home", { waitUntil: "load" });
+  await page.waitForTimeout(1200);
+  const pend = await page.evaluate(() => {
+    const els = [...document.querySelectorAll(".active-deck[data-pending]")];
+    return els.map((e) => ({
+      deck: e.dataset.pending,
+      title: (e.querySelector(".dk-title") || {}).textContent || "",
+      sup: (e.querySelector(".dk-sup") || {}).textContent || "",
+      dl: (e.querySelector("[data-langdl]") || {}).textContent || "",
+      counts: !!e.querySelector(".dk-counts"),
+      review: e.hasAttribute("data-review"),
+    }));
+  });
+  check("a deck that is not on this device draws a row in Daily study", pend.length === 1,
+    JSON.stringify(pend));
+  if (pend.length === 1) {
+    check("…named after the deck file it will fetch", pend[0].title === small.title, pend[0].title);
+    check("…saying it is not here yet", /not on this device/i.test(pend[0].sup), pend[0].sup);
+    /* THE SIZE IS ON THE BUTTON, which is the request's own wording ("a download button in the banner
+       (with file size)"): a reader about to spend 21 MB is told so on the control that spends it. */
+    check("…and offering Download with the file size",
+      /^Download [\d.,]+ (KB|MB)$/.test(pend[0].dl.trim()), pend[0].dl);
+    check("…with no counts and nothing to study", !pend[0].counts && !pend[0].review);
+  }
+
+  /* AND THE BUTTON REALLY FETCHES, once, and the row becomes the deck. This is the assertion the whole
+     split rests on: without it a Download button that quietly did nothing would look exactly like a deck
+     whose cards had not finished arriving. */
+  fetches.length = 0;
+  await page.evaluate(() => {
+    const b = document.querySelector("[data-langdl]");
+    if (b) b.click();
+  });
+  await page.waitForTimeout(8000);
+  const landed = await page.evaluate(() => ({
+    pending: document.querySelectorAll(".active-deck[data-pending]").length,
+    rows: [...document.querySelectorAll(".active-deck")].map((e) => (e.querySelector(".dk-title") || {}).textContent || ""),
+  }));
+  check("Download fetches the deck file", fetches.length === 1, fetches.join(", ") || "nothing fetched");
+  check("…exactly the one the row named", fetches[0] === small.file, fetches[0] || "—");
+  check("…and the pending row becomes the deck", landed.pending === 0, JSON.stringify(landed.rows));
 
   check("no uncaught page errors", errs.length === 0, errs.join(" | "));
 
