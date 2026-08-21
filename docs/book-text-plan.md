@@ -240,7 +240,8 @@ re-run and diffed byte for byte.
 |---|---|---|
 | **B1** ✅ | `sun-tzu-art-of-war` | the `roman` table + `applyRoman` + `ROMAN_HITS`; the one slip (`meaniug`); the three spellings of 張預 folded to one; 110 names; both front-matter sentences |
 | **B2** ✅ | `confucius-analects` | Legge's romanisation, **194 names** (108 estimated), verified section by section against the parallel Chinese column; six slips; the twenty book titles; `writeEnglish` gains the title pass |
-| **B3** | `book-of-rites`, `book-of-documents` | Legge again — same system, 297 names between them |
+| **B3** ✅ | `book-of-documents` | Legge's Sacred Books system, **430 names in 2,725 places**; the `nameMarkup` pre-pass, without which two thirds of the table is dead; two slips |
+| **B3b** | `book-of-rites` | the same system and the same pre-pass, 215 names |
 | **B4** | plain-text/TEI reachability | extend `applyFixes`/`applyRoman` past the wiki loop; **prove inert byte for byte on every book already on those paths** |
 | **B5** | `journey-to-the-west` | 115 names, Richard's OCR, no characters either side but a complete Chinese column |
 | **B6–B8** | `three-kingdoms` | 803 names over 3.1 MB, verified from the parallel column; one batch per 40 chapters |
@@ -251,6 +252,62 @@ The error half of a Chinese book rides with its romanisation batch; the rest run
 ---
 
 ## 8. Batch log
+
+### B3 — the Book of Documents, shipped 2026-08-21
+
+**430 names in 2,725 places, two slips, one new pre-pass.** Legge's Sacred Books romanisation, the
+same system the Analects uses, and the batch was re-cut to one book: the Book of Rites is B3b.
+
+**THE WHOLE OF THE DIFFICULTY IS THAT `applyRoman` RUNS ON THE RAW WIKI PAGE AND THE ROWS WERE
+WRITTEN AGAINST THE OUTPUT.** A name that reads `Kâu` on the finished page is four or five elements
+on the wiki, and until they are unwrapped no row can see the name at all — the table opened at 396 of
+430 and every dead row was a name the markup had cut in half. `unwrapNameMarkup` is the answer,
+gated `nameMarkup: true` and reported per run, and it has to handle four separate shapes:
+
+- **A LETTER MARKED UP AS BLACKLETTER IS STILL A LETTER.** Legge sets a few consonants in a
+  blackletter face and the wiki spells that `<span style="line-height: 50%;"><span lang="en-Latf"
+  class="blackletter">Z</span></span>`, sometimes with a `<style>` block or a dedupe `<link>` between
+  the two. 62 of them, 58 wrapped and 4 bare.
+- **A TOOLTIP MAY CARRY INLINE MARKUP, so its content class cannot be `[^<]*`.** The wiki glosses
+  almost every name with its own modern pinyin — `<span class="wst-tooltip" title="Qiāng"><i>K</i>iang
+  </span>`, 703 of them — and the first version forbade the `<i>` inside, which is precisely where the
+  italicised consonant lives. That one change took the table from 396 to 427.
+- **…AND IT MAY WRAP A SPAN, AND MAY WRAP ANOTHER TOOLTIP.** Seven wrap a letterspaced or
+  small-capital run, so the pair is closed BALANCED rather than non-greedily — the rule this file has
+  now met four times. And one glosses a day of the cycle as a whole and marks its second half `[sic]`
+  inside that same gloss, so the inner tooltip survives the outer unwrap verbatim and the name is
+  still split: the pass repeats until the page holds none, which on this book is two.
+- **AND A LINK IS THE ONE NO ANCHORING CAN WORK ROUND.** `applyRoman` treats markup as OPAQUE and
+  rewrites only the text between tags, so a row can never span a `</a>` — and this wiki hyperlinks a
+  state, a word or a character wherever one is named. `<a title="w:Rui (state)"><i>Z</i>ui</a> is
+  referred` offers a row nothing but the bare name, with every word of context on the far side of a
+  tag, and the bare name is a homophone of another the book also carries. **Three names shipped wrong
+  for that reason alone** — 芮 Rui twice as *Chui*, 窮 Qiong once as *Jiong* — and 伯冏 Bo Jiong shipped
+  with its markup intact. The anchors are unwrapped and their text kept, **except a footnote
+  marker's**, whose href is what `cleanBody` writes `data-fn` from. 1,814 links.
+
+**A `title` ATTRIBUTE IS EVIDENCE AND NOT AN ANCHOR.** The obvious fix for the three homophones is to
+key a row on the wiki's own identification (`title="w:Rui (state)"><i>Z</i>ui`), and it cannot work:
+that string is inside a tag, which `applyRoman` never rewrites. It is still the best evidence there
+is for WHICH entity a name refers to, and it is what the three disambiguations were checked against —
+read it, then anchor on the prose the unwrap has just made contiguous.
+
+**STRIPPING `<style>` BEFORE THE TOOLTIPS BREAKS `cleanBody`'s SLICE** — chapter 2 came back at 0
+characters — so the `lead` prefix that absorbs a dedupe link belongs on the blackletter rules and not
+on the tooltip one.
+
+**Deliberately unchanged:** `Kwei-kî` keeps its faithful `Gui Ji`. The wiki's own `title="[sic]"`
+marks a slip in the PRINTING (癸巳 guǐsì), and silently correcting a printed slip belongs to `fixes`,
+which needs a printed witness. Also `Lü`, `Sui`, `Shun`, `Han`, `Liang`, `Yang`, `Min`, `Nan`, and the
+period's own English (`Corea`, `Pekin`, `Cochin-China`, `Ko-ko-nor`). The English interjection `Ho!`
+is 14 of the book's 84 `Ho`s and must never change, so the 49 Chinese ones are anchored on the word
+before them and the 21 hyphenated ones on the hyphen.
+
+**The eleven documents with no section numbers are the edition's own** and are unchanged.
+
+**Proved inert byte for byte** on the Art of War, the Analects, the Book of Rites and the Republic —
+the pre-pass is per-book gated, and the Republic is the check that it cannot reach a book that never
+declares it.
 
 ### B2 — the Analects, shipped 2026-08-21
 
