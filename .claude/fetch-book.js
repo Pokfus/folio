@@ -8639,9 +8639,14 @@ const BOOKS = {
         "as one missionary's account of what he thought the book was, rather than as what the " +
         "Chinese says.",
       "The chapter titles are his, in the capitals his printer set them in, and the text has been " +
-        "read by a machine rather than a person: about one word in two hundred carries a slip of " +
-        "the sort a scanner makes, and they are left as they are rather than corrected by guess. " +
-        "Only one copy of this book has ever been transcribed, and this is it.",
+        "read by a machine rather than a person. Two of the scanner's confusions are systematic and " +
+        "have been corrected here: it read the letter y as a j with a stray mark after it 417 times, " +
+        "and th as tli 71 times, and in each case every occurrence in the novel was enumerated " +
+        "before a correction was made. What is left is a long tail of one-off slips, and those are " +
+        "left as they stand rather than repaired by guess. The last chapter used to run on into the " +
+        "volume's index, a life of the translator and the publisher's 1913 catalogue, the scan " +
+        "having no boundary of its own at the end of the novel; they are no longer shown. Only one " +
+        "copy of this book has ever been transcribed, and this is it.",
     ],
 
     /* THE TRANSCRIPTION IS AN OCR, AND IT IS THE ONLY ONE THERE IS. Neither Wikisource nor any other
@@ -8667,6 +8672,68 @@ const BOOKS = {
        only a block whose WHOLE text is those three words with at most one short token at each end,
        and no paragraph of a novel is that. */
     runningHead: /^(?:\S{1,4}\s+)?MISSION TO HEA\S{0,4}(?:\s+\S{1,4})?$/i,
+    /* THE SCAN HAS A FRONT BOUNDARY AND NO BACK ONE, so the last chapter was carrying the rest of the
+       volume: a plate of the Tai Ching monastery, the index, a life of the translator, a bibliography
+       and the publisher's 1913 catalogue — some 19 KB of matter Richard did not write, which put
+       chapter 100 at sixteen times the median chapter and roughly half again the longest one he
+       actually translated. Nothing threw and no count could see it: a hundred chapters were found, all
+       hundred were the right shape, and only the LAST one's length said anything at all. Measured
+       across the other seven books on the plain-text and HTML paths, each ends within a tenth of its
+       own median (0.8–1.1 against this book's 16.4), so the missing boundary is a fault of this
+       transcription rather than of the reader, and it is declared here rather than fixed there.
+       The index is what the cut is made at because it is the first thing after the novel that the
+       printing itself names. The plate of the Tai Ching monastery sits between the two, and its four
+       blocks — some 190 characters of scan dirt and its own caption — are still the last thing in the
+       last chapter: the only anchor above that caption is the smudge the plate's page number came out
+       as, and a boundary written on a smudge stops matching the day anybody re-scans the volume, which
+       here would put the whole index back with nothing said. Recorded rather than repaired, and the
+       book's own front matter says so. */
+    endAt: /\n\s*INDEX\s*\n/,
+    /* THE SCAN READS "y" AS "j" FOLLOWED BY A MARK, 417 TIMES, and it is the one confusion in this
+       book that can be corrected wholesale. The mark is not always the same: it is an apostrophe 287
+       times, a hyphen 69, a caret 45, a quotation mark 10 and a star, a semicolon or a percent sign
+       once or twice each — and several of the shapes stack ("thej'^" for "they"). Enumerated over the
+       whole novel, NOT ONE of the 417 is a legitimate sequence: no English word puts a mark straight
+       after a j, and the two that fall at a line break ("grewequallj-" and "mj-") are "equally" and
+       "my", so the reader's own de-hyphenation is not disturbed either. The compound forms are
+       declared FIRST because applyFixes is a plain substring pass in declaration order, so "j'"
+       would otherwise eat the head of "j'^" and strand the caret.
+       THE BARE "j" IS DELIBERATELY NOT TOUCHED, which is the same reasoning reaching the opposite
+       answer: 628 of the surviving j-tokens are Julai, journey, Judge, Majesty and the rest, so a
+       blanket rule there would be wrong far more often than right. What is left is a tail of about
+       ninety singletons ("thej", "bodj", "Kwanjdn"), each of which is a judgement of its own and none
+       of which occurs more than eight times; they wait for the error pass with the 200 stray carets.
+       AND "j)" IS "p" RATHER THAN "y" — "limj)" is limp and "j)ieces" is pieces — which is why the
+       marks are declared one at a time instead of as a class. */
+    /* THE SCAN ALSO READS "th" AS "tli", 71 TIMES, and there the blanket rule IS wrong: "outline"
+       occurs 75 times in this book of all books, because Richard's own mark for a condensed chapter
+       is [outline.], and "settling" and "outlive" are ordinary words. So the rows are written on the
+       following letter instead — "tlie", "tlii", "tlia", "itli" — which between them carry every slip
+       (the/they/their/them/then/there/these, this/things/thinking/nothing, that/than, with/without/
+       faith) and cannot reach a real word, plus four single words that can only be spelled out.
+       THE SAME REASONING GIVES OPPOSITE ANSWERS FOR THE TWO CONFUSIONS, and only enumerating every
+       occurrence says which: enumerate before writing a blanket row, not after. */
+    fixes: [
+      ["j'^", "y", "y read as j with an apostrophe and a caret after it (thej'^ → they)"],
+      ["j\"^", "y", "y read as j with a quotation mark and a caret after it (manj\"^ → many)"],
+      ["j;^", "y", "y read as j with a semicolon and a caret after it (anj;^ → any)"],
+      ["j'", "y", "y read as j with an apostrophe after it (j'ou → you), 287 times"],
+      ["j\"", "y", "y read as j with a quotation mark after it (verj\" → very)"],
+      ["j^", "y", "y read as j with a caret after it (j^ears → years)"],
+      ["j-", "y", "y read as j with a hyphen after it (thej- → they), 69 times"],
+      ["j*", "y", "y read as j with a star after it (maj* → may)"],
+      ["j%", "y", "y read as j with a percent sign after it (journej% → journey)"],
+      ["j)", "p", "p read as j with a closing bracket after it (limj) → limp, j)ieces → pieces)"],
+      ["Tlie", "The", "th read as tli — The, They, There, These"],
+      ["tlie", "the", "th read as tli — the, they, their, them, then, there, these, another, gathered, neither"],
+      ["tlii", "thi", "th read as tli — this, things, thinking, nothing"],
+      ["tlia", "tha", "th read as tli — that, than"],
+      ["itli", "ith", "th read as tli — with, without, With, Without, faith"],
+      ["moutli", "mouth", "th read as tli, spelled out because outline shares the letters"],
+      ["Nortli", "North", "th read as tli"],
+      ["Tlic", "The", "th read as tli and e as c in one word"],
+      ["artli", "arth", "th read as tli"],
+    ],
     /* THE TITLES ARE READ OFF THE BODY HEADINGS AND THE CAPITALS ARE KEPT, which is a measurement
        rather than a habit. The printed page heads each chapter in capitals, so its case is not
        recoverable there — but unlike most books set that way this one ALSO prints a contents page in
@@ -15514,6 +15581,24 @@ function extractJourney(text, book, warn) {
   if (first < 0) throw new Error("no chapter heading — the transcription has changed shape");
   src = src.slice(first);
 
+  /* THE OCR HAS NO END BOUNDARY OF ITS OWN, and the front one is only half the job. This reader
+     starts at the first chapter heading and then runs to the end of the file, so whatever the
+     printing bound in after the last page of the novel is filed as the last chapter's own prose:
+     here a plate, the index, a life of the translator, a bibliography and the publisher's 1913
+     catalogue — some 30 KB of matter Richard did not write, on a chapter that came out sixteen
+     times the median. Measured across the other seven books on the plain-text and HTML paths, every
+     one of them ends within a tenth of its median, so this is a fault of THIS transcription and not
+     of the reader; hence a boundary declared per book rather than a rule about back matter in
+     general. THE DROP IS COUNTED AND REPORTED for the standing reason: a rule that eats text must
+     not be able to do it quietly, and a pattern that has stopped matching looks exactly like a book
+     whose printing carried no back matter at all. */
+  let dropped = 0;
+  if (book.endAt) {
+    const cut = src.search(book.endAt);
+    if (cut > 0) { dropped = src.length - cut; src = src.slice(0, cut); }
+    else warn("the end boundary matched nothing — the back matter is still in the last chapter");
+  }
+
   let heads = 0;
   src = src
     .split("\n")
@@ -15659,7 +15744,7 @@ function extractJourney(text, book, warn) {
   for (let i = 1; i <= out.length; i++) if (!out.some((c) => c.n === i)) missing.push(i);
   if (missing.length) warn("chapter(s) with no heading found: " + missing.join(", "));
   return { chapters: out, repairs: repairs, heads: heads, outlines: outlines, marks: marks,
-    verseBlocks: verseBlocks, joins: joins, lateHeads: lateHeads };
+    verseBlocks: verseBlocks, joins: joins, lateHeads: lateHeads, dropped: dropped };
 }
 
 /* ============================================================================================
@@ -19906,6 +19991,7 @@ async function fetchEnglish() {
     console.log("  " + chapters.length + " chapters, " + got.heads + " running heads removed, " +
       got.joins + " paragraphs rejoined across a page break, " + got.verseBlocks + " verse blocks" +
       (got.lateHeads ? " (" + got.lateHeads + " of the heads the OCR split in two, caught as blocks)" : ""));
+    console.log("  " + got.dropped + " characters of back matter dropped at the end boundary");
     /* THE ONE FIGURE THIS BOOK IS ABOUT. Richard condenses most of the novel and marks the chapters
        he condensed himself, so this count is the single most important thing a reader can be told
        about the text — and a change in it means the mark has stopped being recognised, which is how

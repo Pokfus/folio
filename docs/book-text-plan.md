@@ -169,12 +169,15 @@ names in all. Read every figure in this column as a floor.
 **The hanzi column is what decides the order.** The Art of War is the only book on the shelf that prints the
 characters beside its own romanisations — 118 of its 191 romanised forms are glossed with characters at least
 once (`班超 Pan Ch‘ao`, `苻堅 Fu Chien`, `田忌 T‘ien Chi`), because Giles quotes his Chinese in his notes. Every
-other book's conversion has to be verified from somewhere else: the Analects and Three Kingdoms each ship a
-parallel Chinese column, and Journey to the West, the Book of Documents and the Book of Rites do not.
-**That last was wrong here until B3b measured it** — the Lî Kî's Chinese was never transcribed at the
-source, so its 483 names were each read off the passage they stand in instead, which is why that batch
-came to more than twice the count this table predicted. **Check whether a book HAS the column it is
-planned around before sizing its batch.**
+other book's conversion has to be verified from somewhere else: the Analects, Three Kingdoms and Journey to
+the West each ship a parallel Chinese column, and the Book of Documents and the Book of Rites do not.
+**That list has been wrong twice, in both directions, and each time the measurement was two commands.**
+B3b found the Lî Kî's Chinese was never transcribed at the source, so its 483 names were each read off the
+passage they stand in instead, which is why that batch came to more than twice the count this table
+predicted; B5 then found this sentence claiming Journey to the West has no column when
+`books/journey-to-the-west.zh.js` ships all hundred chapters, pairing 1:1 with the English by number.
+**Check whether a book HAS the column it is planned around before sizing its batch** — the file is on
+disk, and reading it is cheaper than either mistake.
 
 Two further measurements about the Art of War, both of which shaped the tooling:
 
@@ -252,7 +255,8 @@ re-run and diffed byte for byte.
 | **B3** ✅ | `book-of-documents` | Legge's Sacred Books system, **430 names in 2,725 places**; the `nameMarkup` pre-pass, without which two thirds of the table is dead; two slips |
 | **B3b** ✅ | `book-of-rites` | the same system and the same pre-pass, **483 names** (215 estimated) over ~2,450 occurrences, read off the passages rather than off a Chinese column; three transcription manglings; the ten chapter titles |
 | **B4** ✅ | plain-text/TEI reachability | `correctRaw` wired into all 16 read sites; **24 books re-imported and byte-identical**, the 22 on the two paths plus the two wiki books that declare tables |
-| **B5** | `journey-to-the-west` | 115 names, Richard's OCR, no characters either side but a complete Chinese column |
+| **B5** ✅ | `journey-to-the-west` | the missing back-matter boundary (19 KB of index, life and publisher's catalogue cut off the last chapter); **488 OCR repairs** in two systematic confusions |
+| **B5b** | `journey-to-the-west` | 115 names, Richard's OCR, no characters either side but a complete Chinese column |
 | **B6–B8** | `three-kingdoms` | 803 names over 3.1 MB, verified from the parallel column; one batch per 40 chapters |
 | **E1–En** | the error half | the slip and variant candidates, book by book, heaviest first; a book with no printed witness reachable contributes findings rather than fixes |
 
@@ -261,6 +265,53 @@ The error half of a Chinese book rides with its romanisation batch; the rest run
 ---
 
 ## 8. Batch log
+
+### B5 — Journey to the West, shipped 2026-08-21
+
+**A missing back boundary and 488 OCR repairs, and the batch was SPLIT because the names themselves are
+damaged.** This book was planned as a romanisation batch and could not be done as one: Richard's
+`Kwanyin` occurs 108 times and `Kwanj'in` seven more, so a `roman` table written against the shipped text
+would have converted the healthy spellings and walked past the damaged ones — leaving a book in which one
+name in fifteen is still in the old system and looks like an oversight rather than a scan fault.
+**Repair the transcription before editing the translation**; the romanisation is B5b.
+
+**THE LAST CHAPTER RAN ON INTO THE INDEX, AND THE MEASUREMENT THAT SHOWS IT IS A RATIO AGAINST THE BOOK'S
+OWN SIBLINGS.** `extractJourney` had a front boundary and no back one, so chapter 100 carried a plate, the
+volume's index, a life of the translator, a bibliography and the publisher's 1913 catalogue — 39,388
+characters against a median chapter of 2,402, a ratio of **16.4**. That figure means nothing on its own,
+this being a book whose chapters are condensed to a few hundred words apiece with eleven translated at
+length; what makes it a fault rather than a long chapter is that **the other seven plain-text and HTML
+books end within 0.8–1.1 of their own medians**. After the cut the chapter is 21,041 characters at a ratio
+of 8.3, inside the range of the eleven Richard renders in full (the longest is 26,578) and consistent with
+this file's existing note that chapter 100 carries the `[outline.]` mark and is the longest in the book.
+**19,152 characters dropped**, counted and printed on every run.
+
+**THE CUT IS AT THE FIRST THING THE PRINTING ITSELF NAMES, WHICH IS `INDEX` AND NOT THE PLATE ABOVE IT.**
+Four blocks of back matter sit between the last line of the novel and that word — some 190 characters of
+scan dirt and a plate's caption — and the only anchor above the caption is the smudge the plate's page
+number came out as (`3^^`). A boundary written on a smudge stops matching the day anybody re-scans the
+volume, and here that failure is silent and total: the whole index goes back into the chapter with nothing
+thrown. So the residue ships and the book's own front matter says so, which is this shelf's standing
+answer — **anchor a boundary on something the edition states, never on what the scanner made of it.**
+
+**THE TWO CONFUSIONS GIVE OPPOSITE ANSWERS, AND ONLY ENUMERATING EVERY OCCURRENCE SAYS WHICH.** The scan
+reads **y as a j with a stray mark after it** — `j'ou`, `verj"`, `j^ears`, `thej-`, `maj*`, `journej%` —
+417 times, and swept over the whole novel **not one of those sequences is legitimate English**, so the
+substitution is provably lossless (both line-end `j-` cases are *equally* and *my*, so de-hyphenation is
+unharmed). It reads **th as tli** 71 times, and there the blanket rule is WRONG: `outline` occurs 75 times
+because `[outline.]` is Richard's own mark for a chapter he condensed, with `settling` and `outlive`
+besides. So the `tli` rows are keyed on the letter that follows (`tlie`, `tlii`, `tlia`, `itli`) and four
+single words are spelled out. **A confusion that is safe as a blanket and one that is not look identical
+until both are counted.**
+
+**BARE `j` IS DELIBERATELY UNTOUCHED** — 628 legitimate occurrences — and a tail of some 90 one-off slips
+and 200 stray carets is left for an E-batch and named on the book's own page. `book-scan.js` over the
+shipped file returns two candidates and both are false positives (`saving`, `bearing`), which is the
+book-as-dictionary method saying, correctly, that what is left is singletons.
+
+**Nothing shared moved**: `extractJourney` serves this book alone, `endAt` and `fixes` are per-book, and
+`books/journey-to-the-west.zh.js` is byte-identical (`c331d6bb…`), so the translator's repairs cannot
+reach the facing original. `test-library.js` 333/333.
 
 ### B3b — the Book of Rites, shipped 2026-08-21
 

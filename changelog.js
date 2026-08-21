@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.296", released: "2026-08-21T16:41Z" };
+window.FOLIO_VERSION = { v: "1.297", released: "2026-08-21T17:52Z" };
 
 window.CHANGELOG = [
   {
@@ -43,7 +43,8 @@ window.CHANGELOG = [
     t: "British or American spelling, and your own symbol on a collection",
     items: [
       "<b>The Art of War, the Analects, the Book of Documents and the Book of Rites now print Chinese names in modern pinyin</b> \u2014 Legge\u2019s K\u00e2u is Zhou, 1,217 names in all.",
-      "<b>Twelve scanning slips in those four books have been corrected</b> \u2014 nine against the printed page and three read off the passage they stand in.",
+      "<b>Five hundred scanning slips in five books have been corrected</b> \u2014 twelve one by one, and 488 in Journey to the West, where the scanner read y as j and th as tli.",
+      "<b>Journey to the West\u2019s last chapter no longer runs on into the volume\u2019s index</b>, a life of the translator and the publisher\u2019s 1913 catalogue.",
       "<b>Folio can now read in American spelling</b> \u2014 Settings \u2192 Appearance \u2192 Spelling switches every card, term and page between the two.",
       "<b>A card\u2019s community difficulty now counts only your first three answers to it</b>, so it measures how hard the card is to learn.",
       "<b>The changelog\u2019s day titles are titles again</b>, the recent ones having grown into contents lists.",
