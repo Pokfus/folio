@@ -239,7 +239,7 @@ re-run and diffed byte for byte.
 | # | book(s) | what it carries |
 |---|---|---|
 | **B1** ✅ | `sun-tzu-art-of-war` | the `roman` table + `applyRoman` + `ROMAN_HITS`; the one slip (`meaniug`); the three spellings of 張預 folded to one; 110 names; both front-matter sentences |
-| **B2** | `confucius-analects` | Legge's romanisation, 108 names, verified against the parallel Chinese column |
+| **B2** ✅ | `confucius-analects` | Legge's romanisation, **194 names** (108 estimated), verified section by section against the parallel Chinese column; six slips; the twenty book titles; `writeEnglish` gains the title pass |
 | **B3** | `book-of-rites`, `book-of-documents` | Legge again — same system, 297 names between them |
 | **B4** | plain-text/TEI reachability | extend `applyFixes`/`applyRoman` past the wiki loop; **prove inert byte for byte on every book already on those paths** |
 | **B5** | `journey-to-the-west` | 115 names, Richard's OCR, no characters either side but a complete Chinese column |
@@ -251,6 +251,56 @@ The error half of a Chinese book rides with its romanisation batch; the rest run
 ---
 
 ## 8. Batch log
+
+### B2 — the Analects, shipped 2026-08-21
+
+**194 names, 671 occurrences, six slips, and the twenty book titles.** Every declared row fired
+(`194 of 194`), all six fixes applied once each, the Chinese column came out **byte-identical** to the
+shipped file and the 499 section numbers are unchanged. The plan's §7 estimated 108 names; the real figure
+is 194, because a name in this edition is very often a two-word phrase that has to be romanised whole.
+
+**A BOOK-LEVEL WITNESS CHECK GIVES FALSE PASSES, AND SECTION-LEVEL IS THE REAL VERIFICATION.** B1 checked
+each candidate row against the characters printed in the same CHAPTER; on a book of twenty chapters and
+499 numbered passages that is far too coarse, and it passed `Chang → Zhang` in books 15 and 17 on the
+strength of a 張 elsewhere in those books when the actual occurrences are 鄭 (Zheng). Both columns split
+cleanly on their own section numbers — 20 books of matching counts — so every one of the 671 hits was
+checked against the characters printed beside it **in its own section**. Five hits legitimately have no
+character behind them and are named in the importer: at 14.22, 15.2 and 18.1 Legge supplies a name the
+Chinese does not print, and at 19.14 and 19.15 the English names Tsze-hsia where the Chinese names 子游.
+
+**THE TRANSCRIPTION IS PURE ASCII, WHICH IS WHY THIS BOOK NEEDS `fixes` WHERE THE ART OF WAR NEEDED ONE.**
+Legge distinguishes his syllables with circumflexes and breves and this transcription carries none of
+them, so distinct names collapse onto one spelling — and a collapsed spelling is what a wrong reading
+hides behind. Five of the six fixes are one family: the transcription prints **Yen** for 冉 at 6.3 (twice),
+6.10, 7.14 and 11.25, where the same pages print **Zan** for the same disciple a sentence away and the
+Chinese beside them settles it. The sixth is `Ch'i K'ang` for `Chi K'ang` at 14.20, whom the book names
+correctly everywhere else. Each is justified twice over — by the page's own spelling and by the Chinese —
+which is the bar a `fixes` row has to clear.
+
+**A COLLAPSED SPELLING IS FIXED BY A CONTEXT ROW, NOT BY A WIDER WITNESS LIST.** Four spellings cover two
+characters apiece and each is separated by naming the phrase rather than the syllable: `songs of Chang` →
+Zheng (鄭) against `friend Chang` → Zhang (張); `city of Pien` → Pian (騈) against `Chwang of Pien` → Bian
+(卞); `Hsien asked` → Xian (憲); `Chi cannot` → Qi (杞) against the ordinary Ji (季). The bare rows they
+replace were deleted rather than left beside them — a row that can never fire is a claim the text does not
+bear out, and `Chwang` became exactly that the moment `Chwang of Pien` shadowed it.
+
+**A CHAPTER TITLE IS ON THE ROMANISATION'S OTHER SIDE, and it was for the first run of this batch.** The
+apply chain runs on the page body, and a title comes from the contents page or the chapter head — set at
+some eighteen `chapters.push` sites — so the twenty tabs still read Hsio R., Pa Yih and Wei Ling Kung over
+prose that had been converted throughout. It is fixed at **`writeEnglish`, the single choke point every
+branch returns through**, and gated on `BOOK.roman`, so it is structurally inert for every book with no
+table; proved inert byte for byte on `sun-tzu-art-of-war` (whose titles are English) and on
+`machiavelli-prince` (which has no table at all). Six of the twenty then convert for free from the name
+rows, those six being people; the other fourteen are declared as WHOLE title strings, because taken apart
+Le, Jin, Shu, Han, Wei and Kung are ordinary syllables that occur all over the book under other characters.
+
+**FOUR THINGS WERE FOUND AND DELIBERATELY LEFT, each recorded rather than repaired.** Book 8 prints
+**Meng Chang** for 孟敬子 where every other book prints Mang for 孟 — a variant of the edition's own,
+not a scanning slip. At 14.19 Legge romanises 僎 as **Hsien**, a reading modern dictionaries do not agree
+with, so it stays as printed. The edition prints **關睢** for 關雎, and at 20.1 it prints 履 where Legge
+supplies **T'ang** in the English. Three further collapses are harmless and are noted so a later pass does
+not read them as faults: 子游 and 子羽 are both Tsze-yu, 曾 and 臧 are both Tsang, 丘 and 求 are both
+Ch'iu.
 
 ### B1 — the Art of War, shipped 2026-08-21
 

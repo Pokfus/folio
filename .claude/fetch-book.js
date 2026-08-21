@@ -2926,8 +2926,9 @@ const BOOKS = {
         "one of the Four Books, it stood at the centre of the Chinese civil service examinations " +
         "from 1313 until they were abolished in 1905.",
       "The twenty books are not chapters in any ordinary sense, and their titles here are not " +
-        "descriptions. A book of the Analects is named after the words it opens with, so Legge's " +
-        "'Hsio R.' is simply the first two characters of the first sentence of book 1. Within a book " +
+        "descriptions. A book of the Analects is named after the words it opens with, so the tab reading " +
+        "Xue Er is simply the two characters 學而 that open the first sentence of book 1, and Legge " +
+        "prints it 'Hsio R.' Within a book " +
         "the numbered chapters are the passages themselves, and it is by those numbers — book, then " +
         "chapter — that any line of the Analects is cited in any language. They are printed here on " +
         "both sides of the page, which is what lets the Chinese sit beside the English.",
@@ -2945,6 +2946,14 @@ const BOOKS = {
         "of the translation — are not part of the transcription this comes from, so there is no " +
         "apparatus underneath these pages. What you are reading is the whole of " +
         "the work and none of the argument about it.",
+      "Two things about the text have been altered from the transcription it was taken from. That " +
+        "transcription carries six slips of the pen, corrected here where the same page spells the " +
+        "name correctly elsewhere and the Chinese beside it settles which name is meant, and listed " +
+        "in the importer. And Legge romanises Chinese in a system of his own that nobody uses now: " +
+        "Folio prints the names in modern pinyin instead, so that his Tsze-lu is given as Zilu and " +
+        "his K'ung-tsze as Kongzi, except where a non-pinyin form is the English name, as Confucius " +
+        "and Mencius are. Every name was checked against the characters the edition prints beside " +
+        "it, section by section. The Chinese column itself is untouched.",
     ],
 
     /* ---------- THE INTERLEAVED LAYOUT, a second parallel shape ----------
@@ -2966,6 +2975,243 @@ const BOOKS = {
        often sits in a single element, followed by that run's English. So the two columns are gathered
        whole and paired on the NUMBER, exactly as app.js pairs them at render time, and never on the
        order the markers happen to appear in. Pairing by position looks right on book 1 and drifts. */
+    /* THE TRANSCRIPTION'S SIX SLIPS, and every one is carried by the same page spelling the name
+       correctly a sentence or a section away, with the Chinese column naming the man beside it.
+       Five are one slip repeated: Legge writes 冉 as "Zan" throughout and this transcription reads
+       "Yen" in five places — which is not a harmless misspelling, because "Yen" is also how he
+       writes 顏, 晏 and 言, so the slip silently turns Ran You into Yan Hui's surname. The sixth
+       is "Ch'i K'ang" for "Chi K'ang" (季康子), where the aspirate makes a different name again. */
+    fixes: [
+      ["Yen requested more", "Zan requested more",
+        "冉 — the transcription reads \"Yen\" where the printed page reads \"Zan\", which it spells correctly in the same section"],
+      ["Yen gave her five ping", "Zan gave her five ping",
+        "冉 — the same slip, one sentence later"],
+      ["Yen Ch'iu said", "Zan Ch'iu said",
+        "冉求 — the same slip; the text spells this disciple \"Zan Ch'iu\" elsewhere"],
+      ["Yen Yu said, \"Is our Master", "Zan Yu said, \"Is our Master",
+        "冉有 — the same slip; \"Zan Yu\" elsewhere"],
+      ["Turning to Yen Yu", "Turning to Zan Yu",
+        "冉有 — the same slip"],
+      ["Ch'i K'ang said", "Chi K'ang said",
+        "康子 — a slip for \"Chi K'ang\", whom the text names correctly elsewhere"],
+    ],
+    /* Legge romanises in a system of his own, older than Wade-Giles and flattened further by this
+       transcription, which is pure ASCII and carries none of his circumflexes or breves — so several
+       distinct names arrive spelled alike. Every row below is therefore carried by the characters the
+       edition prints beside the name IN THAT SECTION, checked one occurrence at a time against the
+       parallel Chinese column rather than book by book: 611 occurrences of 180 names, and the handful
+       of rows that read as context ("songs of Chang", "city of Pien") are the places where one
+       spelling covers two different people or places and only the sentence can tell them apart.
+       Five hits have no character behind them and are right anyway — Legge supplies a name the
+       Chinese leaves implicit at 14.22, 15.2 and 18.1, and at 19.14 and 19.15 the English column
+       names Tsze-hsia where the Chinese names 子游, which is a fault in the translation's own text
+       rather than in its spelling and is left exactly as printed. */
+    roman: [
+      ["Tsze-kung", "Zigong", "子貢"],
+      ["Tsze-lu", "Zilu", "子路"],
+      ["Tsze-hsia", "Zixia", "子夏"],
+      ["Tsze-chang", "Zizhang", "子張"],
+      ["Tsze-yu", "Ziyou", "子游"],
+      ["Tsze-ch'ien", "Ziqian", "子騫"],
+      ["Tsze-ch'an", "Zichan", "子產"],
+      ["Tsze-ch'in", "Ziqin", "子禽"],
+      ["Tsze-hwa", "Zihua", "子華"],
+      ["Tsze-kao", "Zigao", "子羔"],
+      ["Tsze-chien", "Zijian", "子賤"],
+      ["Tsze-zan", "Ziran", "子然"],
+      ["Tsze-hsi", "Zixi", "子西"],
+      ["Tsze-wan", "Ziwen", "子文"],
+      ["Tsze-sang Po-tsze", "Zisang Bozi", "子桑伯子"],
+      ["Tsze-fu Ching-po", "Zifu Jingbo", "子服景伯"],
+      ["Yen Yuan", "Yan Yuan", "顏淵"],
+      ["Yen Hui", "Yan Hui", "顏回"],
+      ["Yen Lu", "Yan Lu", "顏路"],
+      ["Yen P'ing", "Yan Ping", "晏平"],
+      ["Chung-kung", "Zhonggong", "仲弓"],
+      ["Chung-ni", "Zhongni", "仲尼"],
+      ["Chung-yu", "Zhongyou", "仲由"],
+      ["Chi-lu", "Jilu", "季路"],
+      ["Fan Ch'ih", "Fan Chi", "樊遲"],
+      ["Fan Hsu", "Fan Xu", "樊須"],
+      ["Kwan Chung", "Guan Zhong", "管仲"],
+      ["Kung-hsi Hwa", "Gongxi Hua", "公西華"],
+      ["Kung-ye Ch'ang", "Gongye Chang", "公冶長"],
+      ["Kung-ming Chia", "Gongming Jia", "公明賈"],
+      ["Kung-shu Wan", "Gongshu Wen", "公叔文"],
+      ["Kung-po Liao", "Gongbo Liao", "公伯寮"],
+      ["Kung-shan Fu-zao", "Gongshan Furao", "公山弗擾"],
+      ["Kung-sun Ch'ao", "Gongsun Chao", "公孫朝"],
+      ["Nan-kung Kwo", "Nangong Kuo", "南宮适"],
+      ["Nan-tsze", "Nanzi", "南子"],
+      ["Nan Yung", "Nan Rong", "南容"],
+      ["Sze-ma Niu", "Sima Niu", "司馬牛"],
+      ["Wang-sun Chia", "Wangsun Jia", "王孫賈"],
+      ["Wu-ma Ch'i", "Wuma Qi", "巫馬期"],
+      ["Wei-shang Kao", "Weisheng Gao", "微生高"],
+      ["Wei-shang Mau", "Weisheng Mu", "微生畝"],
+      ["Tso Ch'iu-ming", "Zuo Qiuming", "左丘明"],
+      ["Tan-t'ai Mieh-ming", "Tantai Mieming", "澹臺滅明"],
+      ["Ch'i-tiao K'ai", "Qidiao Kai", "漆雕開"],
+      ["Chu Po-yu", "Qu Boyu", "蘧伯玉"],
+      ["Shu-sun Wu-shu", "Shusun Wushu", "叔孫武叔"],
+      ["Liu-hsia", "Liuxia", "柳下"],
+      ["Tsze-yu, the manager", "Ziyu, the manager", "子羽"],
+      ["Tsang Hsi", "Zeng Xi", "曾皙"],
+      ["Tsang Wan", "Zang Wen", "臧文/文仲"],
+      ["Tsang Wu-chung", "Zang Wuzhong", "臧武仲"],
+      ["philosopher Tsang", "philosopher Zeng", "曾子"],
+      ["Ch'iu", "Qiu", "丘/求"],
+      ["Ch'ih", "Chi", "赤"],
+      ["Chau", "Zhou", "周/紂"],
+      ["Kwan", "Guan", "管/關"],
+      ["Ch'i", "Qi", "齊"],
+      ["Ts'ze", "Ci", "賜"],
+      ["Mang Wu", "Meng Wu", "孟武"],
+      ["Mang I", "Meng Yi", "孟懿"],
+      ["Mang Chih-fan", "Meng Zhifan", "孟之反"],
+      ["Mang Kung-ch'o", "Meng Gongchuo", "孟公綽"],
+      ["Mang Chwang", "Meng Zhuang", "孟莊"],
+      ["Mang-sun", "Mengsun", "孟孫"],
+      ["Hwan", "Huan", "桓"],
+      ["Tsai Wo", "Zai Wo", "宰我"],
+      ["Tsai Yu", "Zai Yu", "宰予"],
+      ["Ch'an K'ang", "Chen Kang", "陳亢"],
+      ["Ch'an Wan", "Chen Wen", "陳文"],
+      ["Ch'an Tsze-ch'in", "Chen Ziqin", "陳子禽"],
+      ["Pi Hsi", "Bi Xi", "佛肸"],
+      ["Chi K'ang", "Ji Kang", "季康/康子"],
+      ["Chi Hwan", "Ji Huan", "季桓"],
+      ["Chi Lu", "Ji Lu", "季路"],
+      ["Chi-sun", "Jisun", "季孫"],
+      ["Po-i", "Boyi", "伯夷"],
+      ["Shu-ch'i", "Shuqi", "叔齊"],
+      ["K'ung", "Kong", "孔"],
+      ["Po-yu", "Boyu", "伯魚"],
+      ["Chwan-yu", "Zhuanyu", "顓臾"],
+      ["Hsia", "Xia", "夏"],
+      ["Tien", "Dian", "點"],
+      ["Ching", "Jing", "景/荊"],
+      ["Sheh", "She", "葉"],
+      ["T'ang", "Tang", "湯/唐/履"],
+      ["K'wang", "Kuang", "匡"],
+      ["Yu Zo", "You Ruo", "有若"],
+      ["Chieh-ni", "Jieni", "桀溺"],
+      ["T'ai-po", "Taibo", "泰伯"],
+      ["Sung", "Song", "宋"],
+      ["Ting", "Ding", "定"],
+      ["Ch'u", "Chu", "楚"],
+      ["Chieh-yu", "Jieyu", "接輿"],
+      ["Ch'ang-tsu", "Changju", "長沮"],
+      ["Yu-chung", "Yuzhong", "虞仲"],
+      ["I-yi", "Yiyi", "夷逸"],
+      ["Shao-lien", "Shaolian", "少連"],
+      ["Chi", "Ji", "季/稷/箕"],
+      ["Yen", "Yan", "顏/晏/偃/言"],
+      ["Tsang", "Zeng", "曾"],
+      ["Ch'an", "Chen", "陳"],
+      ["Zan", "Ran", "冉"],
+      ["Pi", "Bi", "費/佛"],
+      ["Ts'ai", "Cai", "蔡"],
+      ["Tsin", "Jin", "晉"],
+      ["Ch'in", "Qin", "秦"],
+      ["Tsau", "Zou", "鄹"],
+      ["Chu-chang", "Zhu Zhang", "朱張"],
+      ["Pi-kan", "Bigan", "比干"],
+      ["Kao-yao", "Gaoyao", "皋陶"],
+      ["Kung-ch'o", "Gongchuo", "公綽"],
+      ["Chung-shu Yu", "Zhongshu Yu", "仲叔圉"],
+      ["Chu-fu", "Jufu", "莒父"],
+      ["Hu-hsiang", "Huxiang", "互鄉"],
+      ["Ta-hsiang", "Daxiang", "達巷"],
+      ["Wu-ch'ang", "Wucheng", "武城"],
+      ["Chung-mau", "Zhongmou", "中牟"],
+      ["Ch'ueh", "Que", "闕"],
+      ["Fang-shu", "Fangshu", "方叔"],
+      ["Po-ta", "Boda", "伯達"],
+      ["Po-kwo", "Bokuo", "伯适"],
+      ["Chung-tu", "Zhongtu", "仲突"],
+      ["Chung-hwu", "Zhonghu", "仲忽"],
+      ["Shu-ya", "Shuye", "叔夜"],
+      ["Shu-hsia", "Shuxia", "叔夏"],
+      ["Chi-sui", "Jisui", "季隨"],
+      ["Chi-kwa", "Jigua", "季騧"],
+      ["Chau-nan", "Zhounan", "周南"],
+      ["Shao-nan", "Shaonan", "召南"],
+      ["Kwan Tsu", "Guanju", "關睢"],
+      ["Kao-tsung", "Gaozong", "高宗"],
+      ["Mien", "Mian", "冕"],
+      ["Ch'ai", "Chai", "柴"],
+      ["Yuan Sze", "Yuan Si", "原思"],
+      ["Yuan Zang", "Yuan Rang", "原壤"],
+      ["Shi-shu", "Shishu", "世叔"],
+      ["Tung-li", "Dongli", "東里"],
+      ["P'i Shan", "Bi Chen", "裨諶"],
+      ["Kung-wan", "Kong Wen", "孔文"],
+      ["Chan Ch'ang", "Chen Cheng", "陳成"],
+      ["Yang Ho", "Yang Huo", "陽貨"],
+      ["Zu Pei", "Ru Bei", "孺悲"],
+      ["Chi Tsze-zan", "Ji Ziran", "季子然"],
+      ["Yen Yu is wrong", "Yan You is wrong", "言游"],
+      ["Tang or Hsieh", "Teng or Xue", "滕/薛"],
+      ["Shan", "Shen", "參"],
+      ["Shan Ch'ang", "Shen Cheng", "申棖"],
+      ["Ch'ang", "Cheng", "棖"],
+      ["Ch'ang K'ang", "Chen Kang", "陳亢"],
+      ["Chao", "Zhao", "朝/昭/趙"],
+      ["Ch'ui", "Cui", "崔"],
+      ["Chiu", "Jiu", "糾"],
+      ["Chan", "Chen", "陳"],
+      ["Chan Hang", "Chen Heng", "陳恆"],
+      ["Shih", "Shi", "師"],
+      ["Chih", "Zhi", "摯"],
+      ["Chung Yu", "Zhong You", "仲由"],
+      ["P'ang", "Peng", "彭"],
+      ["Chun-tsze", "junzi", "君子"],
+      ["San Kwei", "San Gui", "三歸"],
+      ["Chi Tsze-ch'ang", "Ji Zicheng", "棘子成"],
+      ["Shu-ching", "Shujing", "書"],
+      ["Yung", "Yong", "雍"],
+      ["Hwan T'ui", "Huan Tui", "桓魋"],
+      ["Zan Yu", "Ran You", "冉有"],
+      ["Zan Ch'iu", "Ran Qiu", "冉求"],
+      ["Zan Po-niu", "Ran Boniu", "冉伯牛"],
+      ["Po-niu", "Boniu", "伯牛"],
+      ["T'o", "Tuo", "鮀"],
+      ["T'ai", "Tai", "泰"],
+      ["Mang", "Meng", "孟/蒙"],
+      ["elder Tsze of Wu", "elder Zi of Wu", "吳孟子"],
+      ["songs of Chang", "songs of Zheng", "鄭"],
+      ["friend Chang", "friend Zhang", "張"],
+      ["manner of Chang", "manner of Zhang", "張"],
+      ["Chwang of Pien", "Zhuang of Bian", "卞"],
+      ["city of Pien", "city of Pian", "騈"],
+      ["Hsien asked", "Xian asked", "憲"],
+      ["Chi cannot", "Qi cannot", "杞"],
+
+      /* A BOOK'S TITLE IS ITS OPENING WORDS, so the twenty tabs are romanised off the
+         Chinese column's own first characters rather than off anything in the prose.
+         Six of them convert for free from the name rows above, those six being people
+         — Kung-ye Ch'ang, T'ai-po, Yen Yuan, Tsze-lu, Yang Ho and Tsze-chang — and the
+         other fourteen are here. Each is written as the WHOLE title string rather than
+         as its syllables: taken apart, Le, Jin, Shu, Han, Wei, Kung and the rest are
+         ordinary syllables that occur all over the book under other characters, and it
+         is the opening phrase as a phrase that the Chinese carries. */
+      ["Hsio R", "Xue Er", "學而"],
+      ["Wei Chang", "Wei Zheng", "爲政"],
+      ["Pa Yih", "Ba Yi", "八佾"],
+      ["Le Jin", "Li Ren", "里仁"],
+      ["Yung Yey", "Yong Ye", "雍也"],
+      ["Shu R", "Shu Er", "述而"],
+      ["Tsze Han", "Zi Han", "子罕"],
+      ["Heang Tang", "Xiang Dang", "鄉黨"],
+      ["Hsien Tsin", "Xian Jin", "先進"],
+      ["Hsien Wan", "Xian Wen", "憲問"],
+      ["Wei Ling Kung", "Wei Ling Gong", "衞靈公"],
+      ["Ke She", "Ji Shi", "季氏"],
+      ["Wei Tsze", "Wei Zi", "微子"],
+      ["Yao Yueh", "Yao Yue", "堯曰"],
+    ],
+
     layout: "interleaved",
     page: (n) => "The Chinese Classics/Volume 1/Confucian Analects/" + toRoman(n),
     chapters: Array.from({ length: 20 }, (_, i) => i + 1),
@@ -18906,6 +19152,14 @@ async function fetchEnglish() {
    writeOriginal below. */
 function writeEnglish(chapters, warnings) {
   chapters.sort((a, b) => a.n - b.n);
+  /* A CHAPTER TITLE IS ON THE ROMANISATION'S OTHER SIDE, and it was not for the first run of B2. The
+     Analects names its twenty books after their opening words — 子路, 顏淵, 子張 — so the chapter bar
+     read "Tsze-lu" over a chapter whose every sentence had been given as Zilu. A title comes from the
+     contents page or from the chapter's own head rather than through `cleanBody`, so the apply chain
+     never reaches it, and it is set at eighteen different pushes; this is the one place they all pass
+     through. Gated on the book DECLARING a `roman` table, so it cannot reach a book without one, and
+     inert on the Art of War, whose chapter titles are English ("Laying Plans"). */
+  if (BOOK.roman) chapters.forEach((c) => { c.t = applyRoman(c.t); });
 
   const outDir = path.join(ROOT, "books");
   fs.mkdirSync(outDir, { recursive: true });
