@@ -12767,6 +12767,35 @@ function applyRoman(h) {
   });
 }
 
+/* THE CORRECTION CHAIN, IN ONE PLACE AND ON EVERY PATH (Aug 2026, batch B4). The four passes above
+   ran at exactly two sites, both inside the wiki chapter loop, so a book on the plain-text or TEI
+   path could DECLARE a `glyphs`, `fixes` or `roman` table and nothing would fire — silently, since
+   an undeclared table and a table that never runs look identical from the outside and every count
+   stays healthy. That is the trap this function closes: there is now ONE spelling of the chain and
+   every branch that has raw English text in hand calls it.
+
+   IT IS INERT BY CONSTRUCTION RATHER THAN BY A RE-RUN, which is the cheaper half of the shelf's
+   standing discipline for editing a shared extractor: all four passes return their input unchanged
+   unless THIS book declares the table they read (`BOOK.nameMarkup`, `BOOK.glyphs`, `BOOK.fixes`,
+   `BOOK.roman`), and not one of the fourteen books on those two paths declares any of them. The
+   byte-for-byte re-run is still worth running and still was; it is a confirmation here rather than
+   the argument.
+
+   IT RUNS AFTER THE CACHE IS READ AND NEVER BEFORE IT IS WRITTEN, which is the wiki loop's own
+   arrangement and is load-bearing: the cache holds the page as the source served it, so a row added
+   or corrected in this file is picked up on the very next run. Corrected on the way IN, the cache
+   would freeze whatever the table said the day it was fetched and `--force` — a network round trip
+   per chapter — would be the only way to change a spelling.
+
+   AND IT IS THE ENGLISH SIDE ONLY. `fetchOriginal` reads its own files through `fetchText` too, and
+   a table written against a translator's romanisation has no business rewriting the Chinese, Latin
+   or Greek it faces. An original that needs a slip corrected wants a table of its own on `O`; none
+   does today, and that is a gap rather than a decision. */
+function correctRaw(t) {
+  return applyRoman(applyFixes(applyGlyphs(unwrapNameMarkup(t))));
+}
+
+
 function notesOf(h) {
   const m = h.match(/<ol class="references">([\s\S]*?)<\/ol>/);
   if (!m) return { notes: [], ids: [] };
@@ -19465,6 +19494,7 @@ async function fetchEnglish() {
       let xml;
       if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
       else { xml = await fetchText(BOOK.url(n)); fs.writeFileSync(cf, xml); await sleep(500); }
+      xml = correctRaw(xml);
       /* `subtype` is threaded through here for the same reason the ORIGINAL side already threads it
          (see the note in teiSections): which word an edition uses for its numbered unit is the
          edition's business, and Suetonius says `chapter` where Burnet's and the Loeb Plato say
@@ -19491,6 +19521,7 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
+    xml = correctRaw(xml);
     /* Notes are LIFTED on the translation side, which is the only side Folio can fold them under.
        The Oedipus Rex's edition prints none, so this changes nothing there; Coleridge's Medea prints
        38 and would otherwise lose the lot in silence. See dramaNotes. */
@@ -19541,6 +19572,7 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, xml); }
+    xml = correctRaw(xml);
     const got = extractRamayan(xml, warn);
     const c = got.counts;
     console.log("  " + Object.keys(got.cantos).length + " cantos, " + c.lines + " lines of verse in " +
@@ -19582,6 +19614,7 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
+    xml = correctRaw(xml);
     const got = extractSatyricon(xml, { greek: BOOK.greek }, warn);
     const c = got.counts;
     console.log("  " + Object.keys(got.sections).length + " sections, " + c.notes + " notes, " +
@@ -19611,6 +19644,7 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
+    xml = correctRaw(xml);
     const books = teiBookChapters(xml, {}, warn);
     for (const n of BOOK.chapters) {
       if (n < FROM || n > TO) continue;
@@ -19633,6 +19667,7 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
+    xml = correctRaw(xml);
     const got = teiVerseBooks(xml, { cards: BOOK.cards, prose: BOOK.cardProse }, warn);
     const books = got.books;
     /* Said out loud, every run. This edition's apparatus is dropped rather than folded under the
@@ -19856,6 +19891,7 @@ async function fetchEnglish() {
     let raw;
     if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
     else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    raw = correctRaw(raw);
     const got = extractJourney(raw, BOOK, warn);
     if (got.chapters.length !== BOOK.chapters.length)
       warn("the transcription carries " + got.chapters.length + " chapters; the entry expects " +
@@ -19901,6 +19937,7 @@ async function fetchEnglish() {
     let raw;
     if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
     else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    raw = correctRaw(raw);
     const g = extractBoethius(raw, BOOK, warn);
     const got = g.books, c = g.counts;
     console.log("  " + got.length + " books, " + got.reduce((a, b) => a + b.secs, 0) +
@@ -19937,7 +19974,7 @@ async function fetchEnglish() {
         await sleep(500);
       }
     }
-    const g = extractPolo(vols, warn);
+    const g = extractPolo(vols.map(correctRaw), warn);
     const c = g.counts;
     console.log("  " + g.chapters.length + " chapters in " + POLO_BOOKS.length + " books, " +
       c.notes + " of Yule's Notes and " + c.textFoot + " footnote(s) on the text, " + c.marks +
@@ -19968,6 +20005,7 @@ async function fetchEnglish() {
     let raw;
     if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
     else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    raw = correctRaw(raw);
     const g = extractBede(raw, warn);
     const c = g.counts;
     console.log("  " + g.books.length + " books, " + g.books.reduce((a, b) => a + b.secs, 0) +
@@ -19991,6 +20029,7 @@ async function fetchEnglish() {
     let raw;
     if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
     else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    raw = correctRaw(raw);
     const got = extractPtahhotep(raw, BOOK, warn);
     const c = got.counts;
     console.log("  " + got.secs.length + " sections, " + c.notes + " notes, " + c.marks +
@@ -20028,6 +20067,7 @@ async function fetchEnglish() {
     let raw;
     if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
     else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    raw = correctRaw(raw);
     const got = extractQuixote(raw, BOOK, warn);
     if (got.chapters.length !== BOOK.chapters.length)
       warn("the transcription yields " + got.chapters.length + " chapters; the entry expects " +
@@ -20061,6 +20101,7 @@ async function fetchEnglish() {
     let raw;
     if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
     else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
+    raw = correctRaw(raw);
     const got = extractChaucer(raw, BOOK, warn);
     if (got.chapters.length !== BOOK.chapters.length)
       warn("the transcription yields " + got.chapters.length + " tales; the entry expects " + BOOK.chapters.length);
@@ -20096,6 +20137,7 @@ async function fetchEnglish() {
     let h;
     if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
     else { h = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, h); }
+    h = correctRaw(h);
     const got = extractTablets(h, BOOK, warn);
     let notes = 0, cols = 0, marks = 0;
     got.forEach((c) => {
@@ -20154,7 +20196,7 @@ async function fetchEnglish() {
        string still means exactly what it always did, so no shipped book's config is touched. */
     const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
-    let h = applyRoman(applyFixes(applyGlyphs(unwrapNameMarkup(await api(pageNames[0])))));
+    let h = correctRaw(await api(pageNames[0]));
     let html, notes, orig = "", tFromText = "";
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
@@ -20224,7 +20266,7 @@ async function fetchEnglish() {
       for (const extra of pageNames.slice(1)) {
         await sleep(700);
         if (BOOK.pageMark) BOOK.expect = BOOK.pageMark(extra);
-        const eh = applyRoman(applyFixes(applyGlyphs(unwrapNameMarkup(await api(extra)))));
+        const eh = correctRaw(await api(extra));
         const eg = notesOf(eh);
         const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
         let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);

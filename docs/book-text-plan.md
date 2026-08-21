@@ -251,7 +251,7 @@ re-run and diffed byte for byte.
 | **B2** ✅ | `confucius-analects` | Legge's romanisation, **194 names** (108 estimated), verified section by section against the parallel Chinese column; six slips; the twenty book titles; `writeEnglish` gains the title pass |
 | **B3** ✅ | `book-of-documents` | Legge's Sacred Books system, **430 names in 2,725 places**; the `nameMarkup` pre-pass, without which two thirds of the table is dead; two slips |
 | **B3b** ✅ | `book-of-rites` | the same system and the same pre-pass, **483 names** (215 estimated) over ~2,450 occurrences, read off the passages rather than off a Chinese column; three transcription manglings; the ten chapter titles |
-| **B4** | plain-text/TEI reachability | extend `applyFixes`/`applyRoman` past the wiki loop; **prove inert byte for byte on every book already on those paths** |
+| **B4** ✅ | plain-text/TEI reachability | `correctRaw` wired into all 16 read sites; **24 books re-imported and byte-identical**, the 22 on the two paths plus the two wiki books that declare tables |
 | **B5** | `journey-to-the-west` | 115 names, Richard's OCR, no characters either side but a complete Chinese column |
 | **B6–B8** | `three-kingdoms` | 803 names over 3.1 MB, verified from the parallel column; one batch per 40 chapters |
 | **E1–En** | the error half | the slip and variant candidates, book by book, heaviest first; a book with no printed witness reachable contributes findings rather than fixes |
@@ -460,3 +460,72 @@ to `glyphs`, `fixes` or `roman`**; the cache holds the extracted prose rather th
 
 The two front-matter sentences are written per PASS THAT ACTUALLY FIRED, never one per pass declared: a
 book whose `fixes` table is empty gets no sentence about slips.
+
+---
+
+### B4 — plain-text/TEI reachability, shipped 2026-08-21
+
+**The chain ran at two sites, and both of them were inside the wiki loop.** `applyRoman(applyFixes(
+applyGlyphs(unwrapNameMarkup(h))))` was spelled out where a wiki page comes back from the API and nowhere
+else — so a book on the **TEI** path or the **plain-text/HTML** path could declare a `roman`, `fixes`,
+`glyphs` or `nameMarkup` table, and nothing whatever would fire. No error, no warning: the tables are
+per-book and every pass early-returns on a book that has not declared one, so an undeclared table and a
+declared-but-unreachable one look identical from every direction. The next two romanisation batches are
+both on those paths — B5 is `journey-to-the-west`'s OCR (`layout: "journey"`) and B6–B8 is
+`three-kingdoms` — so the gap had to be closed before either could be written rather than found by
+writing one.
+
+**The composition is now spelled once, as `correctRaw(t)`**, and wired into **all sixteen** places a
+book's raw English is read: six on the TEI path (`perChapter`, `drama`, `kanda`, `satyricon`,
+`chaptered`, and the generic branch that carries `verse` and the Dialogues), eight on the plain-text and
+HTML path (`journey`, `boethius`, `polo`, `bede`, `ptahhotep`, `quixote`, `chaucer`, `tablets`), and the
+two wiki-loop sites, which become a call to the helper rather than the composition written out.
+
+**IT RUNS AFTER THE CACHE IS READ AND NEVER BEFORE IT IS WRITTEN.** The two paths cache differently — the
+wiki path caches the EXTRACTED prose per chapter, which is why it needs `--force` to re-run the
+extractor, while these cache the RAW file (`en-tei.xml`, `en-text.txt`, `en-page.html`, `en-vol<N>.html`)
+and re-extract on every invocation. Correcting on the way IN would bake a table's output into the cache,
+so a corrected row would need a network round trip per chapter to take effect and a withdrawn one could
+never be withdrawn at all. Correcting on the way OUT means the cache stays the source's own bytes and a
+table edit is picked up on the next run.
+
+**IT IS THE ENGLISH SIDE ONLY.** `originalChapter` is untouched, so a translator's romanisation table
+cannot rewrite the Chinese, Latin or Greek facing it — which is what would happen the moment a `roman`
+row's left-hand side occurred in the original's own script. An original that genuinely needs a table of
+its own would want one declared on `O` rather than inheriting the translation's; that is a gap rather
+than a decision, and nothing needs it today.
+
+**Marco Polo takes the helper through a `map`** (`extractPolo(vols.map(correctRaw), warn)`) rather than at
+an assignment, because its two volumes are read in a loop whose cached and fetched branches both push
+onto one array — correcting at the push sites would have meant two calls and a chance to update one of
+them later and not the other.
+
+**THE INERTNESS IS STRUCTURAL FIRST AND MEASURED SECOND, and the structural half is the stronger of the
+two.** All four passes return their argument unchanged unless the current book declares the matching
+table (`!BOOK.nameMarkup`, `!BOOK.glyphs`, `!BOOK.fixes`, `!BOOK.roman || !BOOK.roman.length`), and
+enumerated mechanically over the importer's own table, **not one of the 22 books on the two paths
+declares any of the four** — the only four books on the shelf that do are the Art of War, the Analects,
+the Book of Documents and the Book of Rites, and all four are wiki books whose two sites now call a
+helper with the same composition, in the same order, that was written out at them before.
+
+**Measured anyway, because that is the standing discipline for editing a shared extractor: 24 books
+re-imported with `--skip-original` and every one byte-identical.** All 22 on the two paths —
+`suetonius-twelve-caesars`, `sophocles-antigone`, `sophocles-oedipus-rex`, `euripides-medea`, `ramayana`,
+`satyricon`, `caesar-gallic-war`, `herodotus-histories`, `lucretius-nature-of-things`,
+`ovid-metamorphoses`, `homer-iliad`, `homer-odyssey`, `virgil-aeneid`, `plato-dialogues`,
+`journey-to-the-west`, `boethius-consolation`, `marco-polo`, `bede-history`, `ptahhotep`, `don-quixote`,
+`canterbury-tales`, `epic-of-gilgamesh` — plus `book-of-rites` and `book-of-documents` with `--force`,
+which are the two books that actually have something to lose: both came back byte-identical AND still
+report every declared name firing, 483 of 483 in 2,454 places and 430 of 430 in 2,725.
+
+**SATYRICON WAS MISSING FROM THE FIRST ENUMERATION, AND THE REASON IS WORTH KEEPING.** The books were
+listed with a regex over the importer's own table anchored on `^  "([a-z0-9-]+)": {` — every entry is
+quoted except that one, which is a bare `satyricon:`, so it was silently absent from the path list and
+would have been the one TEI branch never re-run. **A regex over a source file is an inventory of what the
+file's formatting happens to be, not of what it contains**; the second pass allowed the key to be
+unquoted and the count went 47 → 48.
+
+**It ships no changelog line and no version bump, deliberately.** The two go together by the golden rule,
+and a changelog line is reader-facing wording about what changed for the user — here, provably, nothing:
+every book on the shelf is byte-identical to what shipped before it. What this batch buys is that B5 and
+B6–B8 can be written at all.
