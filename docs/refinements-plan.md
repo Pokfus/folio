@@ -30,7 +30,7 @@ re-run of the same tests covers it.
 | F | Reading surfaces | the Atlas place sheet's chevron; a book's own glossary term linking to the shelf; the whiteboard's remembered size, its off switch, its pass-through and its renamed row; the War of Ages page and the admin colour in the bar |
 | G | Maps on cards | the geography answer grid's order; flags beside the answer; an Atlas window on a history card about a place |
 | H | Content corrections | the eighteen named cards, terms and pictures, plus the question-rule audit — and the two date lines `test-date-line.js` has been reporting since before this work began (`wh-177` states two CENTURIES and `wh-178` two MILLENNIA, neither of which `cardYears` reads, so both cards sort as timeless; write the span each unit means, per the date-line rule) |
-| I | Authoring | collection icons a reader can set; the About page's AI prompts and the link to them |
+| I | Authoring | collection icons a reader can set; the About page's AI prompts and the link to them — **shipped** |
 | J | Cross-cutting | the two difficulty ratings; the en-GB/en-US switch; the changelog's day titles |
 | K | Large passes | the Atlas info-box rewrite (plan + batch 1); the book text corrections (plan + batch 1) |
 | L | Late corrections | undo stepping back to the previous card's QUESTION; the War of Ages tab renamed Project W; an unlocked theme naming the day it was unlocked |
@@ -384,3 +384,39 @@ written and its version is bumped** — the three go in one commit, per the rule
   under it have always grouped their thousands, and one screen reading 15296 above 1,178 reads as a
   mistake. **Inert on every curated collection**, none of which passes 999 — and `test-artefacts.js`'s
   regex was WIDENED to allow a separator rather than dropped.
+
+- **I — Authoring.** Shipped at v1.289. `test-review-decks.js` 146/0 (both pinned sheet-row lists gained
+  the Icon row), `test-layout.js` 321/0, `test-lang-decks.js` 35/0, `test-artefacts.js` 77/0,
+  `test-feedback.js` 39/0, `test-map-cards.js` 301/0. Five things are worth carrying.
+  **`COLLECTION_ICON` BECAME A TABLE OF KEYS RATHER THAN OF PATHS, WHICH IS THE WHOLE FEATURE.** A reader
+  choosing a mark needs a picker, a picker needs names, and a stored choice has to be a SHORT stable thing
+  rather than a path — so `ICON_SYMBOLS` is an ordered `{k, n, d}` list (33 marks: the 13 the collections
+  already wore plus 20 drawn to sit beside them), `COLLECTION_ICON` maps a collection id to a KEY, and
+  `ICON_PATH` / `ICON_NAME` are derived from the list on load. Nothing that draws an icon changed shape:
+  `symbolIconMarkup` still emits the same `.coll-ic` div, which is why five suites reading `.coll-ic svg`
+  needed no change at all.
+  **A READER'S ICON LIVES IN `S.deckGroups` BESIDE THE COLOUR, and that is what made it small.** That
+  record is already keyed by ENTRY ID, already in `PROGRESS_FIELDS` and `RESET_KEEPS`, and already the
+  place a row's presentation is stored — so the icon syncs, survives a reset and needs no new field, no
+  migration and no schema block. A record holding only a colour or an icon is a presentation override; one
+  holding a `title` is a group the reader made.
+  **A PNG IS RE-ENCODED AT 64px AND CAPPED, AND IT IS NOT DRAWN IN THE GOLD.** An uploaded file is read,
+  drawn contained and centred into a 64×64 canvas and re-encoded — so what is stored is the site's own
+  bytes rather than a stranger's file, bounded at `ICON_MAX_BYTES` (24 KB) whatever came in, which matters
+  because this rides in the synced blob. Every failure path resolves to `{ error: "<sentence>" }` rather
+  than rejecting, so the picker can say what went wrong. A symbol takes `currentColor` and therefore the
+  collection gold; a PNG cannot, so it renders as an `<img>` and keeps its own colours.
+  **THE ICON IS NOT INHERITED DOWN THE TREE.** A colour cascades to the decks inside a collection because
+  it is a wash and reads as one family; an icon is an identity, and repeating it on nine subdeck rows
+  would say each of them is the collection. `adIconKey` therefore returns a mark only for a ROOT
+  collection, a whole community deck, or a row the reader has given one — which is asserted both ways,
+  since a mark on every row and a mark on none look equally deliberate from one side.
+  **AND THE PROMPTS DESCRIBE PATHS THAT WERE VERIFIED END TO END.** A prompt whose output the importer
+  refuses is worse than no prompt, the reader having no way to tell their file from the instructions — so
+  the deck-file shape was derived from `uDeckImportText` / `uDeckSanitizeMeta` / `uCardSanitize` rather
+  than from memory, a file was written to the published shape and imported through the real picker, and
+  the check does that too. The prompts are wrapped at ~78 characters because `.ai-pre` at 11.5px mono
+  holds ~95 and hard breaks any longer re-wrap into rags. The Copy button reads the `<pre>`'s own
+  `textContent` rather than `AI_PROMPTS`, so what is on screen and what lands on the clipboard cannot
+  differ; the Studio's link uses `route("mission", { scrollTo: "aiPrompts" })` rather than a fragment, so
+  the About page's address stays `#mission` and a shared link cannot land a reader mid-page on reload.

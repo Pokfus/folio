@@ -13459,6 +13459,11 @@
          for more than reading order: `deckSheet` focuses the sheet's first button, and with the swatches
          first the sheet would open with the caret on a colour nobody asked to change. */
       colorRow +
+      /* THE ICON ROW, beside the colour and for the same reason: both are the reader saying how they want
+         this row presented, and both live in the same S.deckGroups record. It is a command rather than a
+         control — the picker is a sub-sheet of its own — so it sits with the commands’ own wording and
+         says what the row is wearing NOW, which for most rows is the mark the site gives them. */
+      item("icon", "Icon", iconRowNote(id)) +
       (nestedIn ? item("unnest", "Move out of " + groupTitle(nestedIn), "Put it back at the top of the list") : "") +
       (isGroup ? item("ungroup", "Ungroup", "Take the group apart — the decks inside stay in your review", "dm-danger")
        : isReview ? "" : item("remove", "Remove", "Take this deck out of the daily review", "dm-danger"));
@@ -13564,6 +13569,7 @@
           toast("Following " + entryInfo(followFrom).title);
           return;
         }
+        if (act === "icon") { close(); openIconPicker(id); return; }
         if (act === "custom") { close(); openCustomStudy(id); return; }
         if (act === "limits") { close(); openDeckLimits(id); return; }
         if (act === "rename") {
@@ -14166,6 +14172,92 @@
      SM-2 or FSRS, the target retention, and a box for a reader's own parameters. It is a sheet of its own
      rather than three more rows on the options sheet because it is the only setting here that changes what
      the numbers on the grade buttons MEAN, and it deserves the room to say so. */
+  /* What the deck sheet's Icon row says under its title. It states what the row is wearing NOW rather than
+     what pressing it offers, which is the wording every switch in that sheet already uses — and for most
+     rows the honest answer is that the mark is Folio's own rather than something they chose. */
+  function iconRowNote(id) {
+    const ic = entryIcon(id);
+    if (ic && ic.png) return "Your own image";
+    if (ic && ic.sym) return ICON_NAME[ic.sym] || "A symbol you chose";
+    const n = NODE_BY_ID[id];
+    if (n && !n.parentId && COLLECTION_ICON[id]) return ICON_NAME[COLLECTION_ICON[id]] + " — Folio's own mark for this collection";
+    return "Choose a symbol, or upload a small image";
+  }
+  /* ---------- choosing a row's icon (Aug 2026, on request) ----------
+     A sub-sheet rather than a row of swatches inside the deck sheet, which is where the colour lives: 33
+     symbols at 30px is six rows of a grid, and that sheet is already long enough to scroll on a phone.
+     Three things about it.
+     THE SYMBOLS ARE `ICON_SYMBOLS` ENTIRE, which is what "including the ones we're already using" asks
+     for — every mark Folio draws anywhere is offerable, because there is one table rather than a shipped
+     set and a reader's set kept in step by hand.
+     "DEFAULT" IS FIRST AND IS NOT "NONE": clearing takes the row back to whatever it is entitled to by
+     itself (a collection's subject symbol, a deck's card stack, nothing at all for a subdeck), which is
+     what a reader who has changed their mind means. Wording it "None" would promise a blank where most
+     rows would go back to showing something.
+     AND IT REPAINTS THE PAGE BEHIND IT rather than closing: `render()` would take this sheet away, and
+     choosing an icon is a setting a reader will want to try twice — the same call the colour swatches
+     make one sheet up. What it repaints is the whole review list and the Collections page, so this one
+     goes through `render()` on CLOSE instead, once, when the reader is finished. */
+  function openIconPicker(id) {
+    const info = entryInfo(id);
+    const cur = entryIcon(id);
+    const curSym = (cur && cur.sym) || "";
+    const html =
+      '<div class="dm-head"><div class="dm-headmain"><span class="dm-title">Icon</span>' +
+        '<span class="dm-where">' + esc(info.title) + "</span></div></div>" +
+      '<p class="dm-note">The mark at the left of this row, in your review list and on the Collections page.</p>' +
+      '<div class="ip-grid" id="ipGrid">' +
+        '<button type="button" class="ip-cell ip-default' + (cur ? "" : " on") + '" data-sym="" title="Default" aria-label="Default icon"><span class="ip-x">Default</span></button>' +
+        ICON_SYMBOLS.map((sy) =>
+          '<button type="button" class="ip-cell' + (curSym === sy.k ? " on" : "") + '" data-sym="' + esc(sy.k) +
+          '" title="' + esc(sy.n) + '" aria-label="' + esc(sy.n) + '">' + iconSvg(sy.k) + "</button>").join("") +
+      "</div>" +
+      '<div class="ip-up">' +
+        '<button type="button" class="btn ghost" id="ipPick">Upload an image</button>' +
+        (cur && cur.png ? '<span class="ip-cur"><img src="' + esc(cur.png) + '" alt=""><span>Your image</span></span>' : "") +
+        '<input type="file" id="ipFile" accept="image/png,image/jpeg,image/webp" hidden>' +
+      "</div>" +
+      '<p class="dm-note">Your own picture is resized to ' + ICON_PX + '&times;' + ICON_PX + ' pixels and stored with your ' +
+        'progress, so it follows you to your other devices. It is kept whole rather than cropped.</p>' +
+      '<div class="ip-msg" id="ipMsg"></div>' +
+      '<div class="dm-actions"><button type="button" class="btn" data-act="close">Done</button></div>';
+    deckSheet("Icon", html, (ov, close) => {
+      ov.classList.add("ip-sheet");
+      const msg = ov.querySelector("#ipMsg");
+      const mark = (el) => ov.querySelectorAll(".ip-cell").forEach((o) => o.classList.toggle("on", o === el));
+      ov.querySelectorAll(".ip-cell").forEach((c) => c.addEventListener("click", () => {
+        const k = c.dataset.sym || "";
+        setEntryIcon(id, k ? { sym: k } : null);
+        mark(c);
+        const was = ov.querySelector(".ip-cur");
+        if (was) was.remove();   // a symbol replaces the uploaded picture, so the preview must not linger
+        if (msg) msg.textContent = "";
+      }));
+      const fileEl = ov.querySelector("#ipFile"), pickBtn = ov.querySelector("#ipPick");
+      if (pickBtn && fileEl) {
+        pickBtn.addEventListener("click", () => fileEl.click());
+        fileEl.addEventListener("change", async () => {
+          const f = fileEl.files && fileEl.files[0];
+          fileEl.value = "";   // or choosing the same file twice fires nothing the second time
+          if (!f) return;
+          if (msg) msg.textContent = "Resizing…";
+          const res = await iconFromFile(f);
+          if (!ov.isConnected) return;   // the reader closed the sheet while the image was decoding
+          if (res.error) { if (msg) msg.textContent = res.error; return; }
+          setEntryIcon(id, { png: res.png });
+          mark(null);
+          if (msg) msg.textContent = "";
+          const up = ov.querySelector(".ip-up");
+          let cell = ov.querySelector(".ip-cur");
+          if (!cell && up) { cell = document.createElement("span"); cell.className = "ip-cur"; cell.innerHTML = '<img alt=""><span>Your image</span>'; up.insertBefore(cell, fileEl); }
+          const img = cell && cell.querySelector("img");
+          if (img) img.src = res.png;
+        });
+      }
+      const closeBtn = ov.querySelector('[data-act="close"]');
+      if (closeBtn) closeBtn.addEventListener("click", () => { close(); render(); });
+    });
+  }
   function openDeckSched(id) {
     const info = entryInfo(id), cfg = deckSchedCfg(id);
     const fsrs = cfg.mode === "fsrs";
@@ -16697,65 +16789,204 @@
     grantChest();   // one chest per level — and the chest overlay IS the celebration, so there is no
     openChestPop({ level: levelFromXP(g).level });   // congratsPopup behind it. Dismissing it leaves the chest in S.chests.
   }
-  /* ---------- a collection's icon ----------
+  /* ---------- the symbols a collection may wear ----------
      What sits at the left of a collection banner, where the level numeral used to (Aug 2026, on request).
-     One line-drawn mark per collection, chosen for the subject rather than for the script: a pagoda for
-     China, a Doric column for Greece, a triumphal arch for Rome, a pyramid for Egypt, a torii for Japan,
-     an onion dome for Russia, a lotus for India, a star for the United States, an aeroplane for the war
-     and a globe for World History. They are decorative (`aria-hidden`) — the collection is named in words
-     directly beside them — and they take the same gold the numeral did, which is the one colour already
-     proven to read over all ten hue washes in all eight themes, light and dark.
-     A collection with no row here (a community deck, or one added later) falls through to a stack of
-     cards rather than to a second default kept in step by hand. */
-  const COLLECTION_ICON = {
-    // pagoda — two flared roofs over a body
-    china: '<path d="M3 9h18"/><path d="M4.5 9 12 4l7.5 5"/><path d="M5.5 14h13"/><path d="M6.5 14 12 10.5 17.5 14"/><path d="M9 14v6h6v-6"/><path d="M7 20h10"/>',
-    // globe
-    "col-8": '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c3 3 3 14 0 17"/><path d="M12 3.5c-3 3-3 14 0 17"/>',
-    // Doric column — capital, fluted shaft, base
-    "col-13": '<path d="M5.5 5.5h13"/><path d="M7 8h10"/><path d="M9.5 8v9"/><path d="M12 8v9"/><path d="M14.5 8v9"/><path d="M7 17h10"/><path d="M5.5 20h13"/>',
+     One line-drawn mark, in one 24x24 stroke style, so that a shelf of them reads as one set: they take
+     the same gold the numeral did, which is the one colour already proven to read over every hue wash in
+     all eight themes, light and dark, and they are decorative (`aria-hidden`) because the collection is
+     named in words directly beside them.
+
+     IT IS A TABLE OF SYMBOLS RATHER THAN A TABLE OF COLLECTIONS, and that is what the reader-set icons of
+     Aug 2026 needed. Each entry has a KEY (stable, stored), a NAME (what the picker calls it) and a PATH.
+     `COLLECTION_ICON` then maps a collection id onto a key, so the site's own marks and the ones a reader
+     may choose from are ONE list rather than two kept in step by hand — and every symbol Folio ships is
+     offerable, which is exactly what was asked for ("including the ones we're already using").
+     The ORDER is the picker's order and is deliberate: the collection marks first, in the order the shelf
+     grew, then the general ones grouped by kind. */
+  const ICON_SYMBOLS = [
+    // — the marks Folio's own collections wear —
+    { k: "pagoda", n: "Pagoda", d: '<path d="M3 9h18"/><path d="M4.5 9 12 4l7.5 5"/><path d="M5.5 14h13"/><path d="M6.5 14 12 10.5 17.5 14"/><path d="M9 14v6h6v-6"/><path d="M7 20h10"/>' },
+    { k: "globe", n: "Globe", d: '<circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c3 3 3 14 0 17"/><path d="M12 3.5c-3 3-3 14 0 17"/>' },
+    { k: "column", n: "Column", d: '<path d="M5.5 5.5h13"/><path d="M7 8h10"/><path d="M9.5 8v9"/><path d="M12 8v9"/><path d="M14.5 8v9"/><path d="M7 17h10"/><path d="M5.5 20h13"/>' },
     /* laurel wreath — two branches meeting at the bottom, open at the top, three leaves each (Aug 2026,
        on request; it was a triumphal arch). SVG y grows downward, so the bottom of the ring is at 90° and
        the gap at the top: each branch is one arc, and each leaf is a teardrop whose base sits just
        OUTSIDE that arc, leaning toward the branch's tip. Three leaves a side rather than four is what
        keeps it legible at the 28px it renders at on a deck row — a fourth pair reads as a blob there. */
-    "col-40": '<path d="M11.2 19.8A7.2 7.2 0 0 1 8.8 6.1"/><path d="M12.8 19.8A7.2 7.2 0 0 0 15.2 6.1"/>' +
+    { k: "wreath", n: "Laurel wreath", d: '<path d="M11.2 19.8A7.2 7.2 0 0 1 8.8 6.1"/><path d="M12.8 19.8A7.2 7.2 0 0 0 15.2 6.1"/>' +
       '<path d="M6.8 18.4Q5.2 17.4 3.8 18.6Q5.4 19.5 6.8 18.4Z"/><path d="M17.2 18.4Q18.6 19.5 20.2 18.6Q18.8 17.4 17.2 18.4Z"/>' +
       '<path d="M4.3 13.7Q3.7 11.9 1.9 11.9Q2.5 13.6 4.3 13.7Z"/><path d="M19.7 13.7Q21.5 13.6 22.1 11.9Q20.3 11.9 19.7 13.7Z"/>' +
-      '<path d="M5.4 8.5Q6.1 6.8 4.7 5.6Q4 7.3 5.4 8.5Z"/><path d="M18.6 8.5Q20 7.3 19.3 5.6Q17.9 6.8 18.6 8.5Z"/>',
-    // five-pointed star
-    "col-41": '<path d="M12 3.4l2.6 5.5 6 .9-4.3 4.2 1 6-5.3-2.8-5.3 2.8 1-6L3.4 9.8l6-.9z"/>',
-    // onion-domed church
-    "col-42": '<path d="M12 2.2v2.2"/><path d="M8.5 11c0-3 3.5-3.8 3.5-6.6 0 2.8 3.5 3.6 3.5 6.6 0 2-1.6 3.1-3.5 3.1S8.5 13 8.5 11z"/><path d="M9.8 14.1V16"/><path d="M14.2 14.1V16"/><path d="M7.5 16h9v5h-9z"/><path d="M6 21h12"/>',
-    // lotus on water
-    "col-43": '<path d="M12 19.5c-3.9 0-7-2.4-7-5.3 1.6-.7 3.1-.4 4.2.5-.3-3.2 1-6 2.8-7.7 1.8 1.7 3.1 4.5 2.8 7.7 1.1-.9 2.6-1.2 4.2-.5 0 2.9-3.1 5.3-7 5.3z"/><path d="M3 19.5h18"/>',
-    // pyramid
-    egypt: '<path d="M12 3.5 21.5 19.5h-19z"/><path d="M12 3.5 16 19.5"/><path d="M2 19.5h20"/>',
-    // fighter aeroplane, plan view
-    ww2: '<path d="M12 2.8c.9 0 1.5 1.4 1.5 3.4v1.3l6.5 3.9v2.1l-6.5-1.8v3.8l2.5 2v1.7L12 18.3l-4 .9v-1.7l2.5-2v-3.8L4 13.5v-2.1l6.5-3.9V6.2c0-2 .6-3.4 1.5-3.4z"/>',
-    // torii gate
-    japan: '<path d="M2.5 6h19"/><path d="M4.5 9h15"/><path d="M7.5 6v14"/><path d="M16.5 6v14"/><path d="M6 20h3"/><path d="M15 20h3"/>',
+      '<path d="M5.4 8.5Q6.1 6.8 4.7 5.6Q4 7.3 5.4 8.5Z"/><path d="M18.6 8.5Q20 7.3 19.3 5.6Q17.9 6.8 18.6 8.5Z"/>' },
+    { k: "star", n: "Star", d: '<path d="M12 3.4l2.6 5.5 6 .9-4.3 4.2 1 6-5.3-2.8-5.3 2.8 1-6L3.4 9.8l6-.9z"/>' },
+    { k: "dome", n: "Onion dome", d: '<path d="M12 2.2v2.2"/><path d="M8.5 11c0-3 3.5-3.8 3.5-6.6 0 2.8 3.5 3.6 3.5 6.6 0 2-1.6 3.1-3.5 3.1S8.5 13 8.5 11z"/><path d="M9.8 14.1V16"/><path d="M14.2 14.1V16"/><path d="M7.5 16h9v5h-9z"/><path d="M6 21h12"/>' },
+    { k: "lotus", n: "Lotus", d: '<path d="M12 19.5c-3.9 0-7-2.4-7-5.3 1.6-.7 3.1-.4 4.2.5-.3-3.2 1-6 2.8-7.7 1.8 1.7 3.1 4.5 2.8 7.7 1.1-.9 2.6-1.2 4.2-.5 0 2.9-3.1 5.3-7 5.3z"/><path d="M3 19.5h18"/>' },
+    { k: "pyramid", n: "Pyramid", d: '<path d="M12 3.5 21.5 19.5h-19z"/><path d="M12 3.5 16 19.5"/><path d="M2 19.5h20"/>' },
+    { k: "plane", n: "Aeroplane", d: '<path d="M12 2.8c.9 0 1.5 1.4 1.5 3.4v1.3l6.5 3.9v2.1l-6.5-1.8v3.8l2.5 2v1.7L12 18.3l-4 .9v-1.7l2.5-2v-3.8L4 13.5v-2.1l6.5-3.9V6.2c0-2 .6-3.4 1.5-3.4z"/>' },
+    { k: "torii", n: "Torii gate", d: '<path d="M2.5 6h19"/><path d="M4.5 9h15"/><path d="M7.5 6v14"/><path d="M16.5 6v14"/><path d="M6 20h3"/><path d="M15 20h3"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
        an icon is two collections a reader cannot tell apart on the shelf. The inner points are drawn
        right in (2.3 from the centre against the outer points' 8.6), which is what keeps four sharp
        spikes rather than a diamond at the 28px a deck row draws it. */
-    geography: '<circle cx="12" cy="12" r="8.6"/><path d="M12 3.4 13.6 10.4 20.6 12 13.6 13.6 12 20.6 10.4 13.6 3.4 12 10.4 10.4Z"/>',
+    { k: "compass", n: "Compass rose", d: '<circle cx="12" cy="12" r="8.6"/><path d="M12 3.4 13.6 10.4 20.6 12 13.6 13.6 12 20.6 10.4 13.6 3.4 12 10.4 10.4Z"/>' },
     /* speech bubble — ALL SEVEN language collections share it, which is the one place on this shelf two
        collections wear one mark, and it is a decision rather than an omission. Every icon above says what
        its collection is ABOUT, and what a language collection is about is the language, which cannot be
        drawn: a letter needs a font (these are bare paths), and a flag or a landmark would say something
-       about a NATION where the deck is for a language several nations speak. What the mark says instead
-       is "this is a language collection", which is true and useful — and the seven are told apart by
-       their titles and by seven measured hues, in a section of their own, where the history shelf's icons
-       are the only thing distinguishing subjects on one long list. */
-    _lang: '<path d="M3.5 6.5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4.5 4v-4h-.5a2 2 0 0 1-2-2z"/><path d="M7.5 8.5h9"/><path d="M7.5 11.5h5.5"/>',
-    // fallback — a stack of cards
-    _: '<path d="M12 4.5 4 8.5l8 4 8-4z"/><path d="M4 12.5l8 4 8-4"/><path d="M4 16.5l8 4 8-4"/>',
+       about a NATION where the deck is for a language several nations speak. */
+    { k: "speech", n: "Speech bubble", d: '<path d="M3.5 6.5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H10l-4.5 4v-4h-.5a2 2 0 0 1-2-2z"/><path d="M7.5 8.5h9"/><path d="M7.5 11.5h5.5"/>' },
+    { k: "cards", n: "Cards", d: '<path d="M12 4.5 4 8.5l8 4 8-4z"/><path d="M4 12.5l8 4 8-4"/><path d="M4 16.5l8 4 8-4"/>' },
+    // — reading and writing —
+    { k: "book", n: "Book", d: '<path d="M12 6.6C10.4 5.1 7.9 4.6 4 4.9v12.4c3.9-.3 6.4.2 8 1.7 1.6-1.5 4.1-2 8-1.7V4.9c-3.9-.3-6.4.2-8 1.7z"/><path d="M12 6.6v12.4"/>' },
+    { k: "scroll", n: "Scroll", d: '<path d="M5 6.6a2 2 0 0 1 4 0v10.8a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4.6H9"/><path d="M5 6.6h4"/><path d="M12 8.6h5"/><path d="M12 12.1h5"/>' },
+    { k: "quill", n: "Quill", d: '<path d="M4 20.2 8.2 16"/><path d="M8.2 16C14 15 19 10.6 20 3.8 13.2 4.8 8.8 9.8 7.8 15.6z"/><path d="M9.8 14.4c2-2 4.2-3.5 6.6-4.5"/>' },
+    { k: "letter", n: "Letter", d: '<path d="M3.5 6.5h17v11h-17z"/><path d="M3.5 7 12 13 20.5 7"/>' },
+    // — power and arms —
+    { k: "crown", n: "Crown", d: '<path d="M4 18.5h16"/><path d="M4 18.5 3 6.8l5 4 4-6 4 6 5-4-1 11.7z"/>' },
+    { k: "shield", n: "Shield", d: '<path d="M12 3 20 6v6c0 4.5-3.4 7.7-8 9-4.6-1.3-8-4.5-8-9V6z"/>' },
+    { k: "sword", n: "Sword", d: '<path d="M12 2.6 14 6.2v8.6h-4V6.2z"/><path d="M7.5 14.8h9"/><path d="M12 14.8v5"/><path d="M10 19.8h4"/>' },
+    { k: "castle", n: "Castle", d: '<path d="M4 20.5h16"/><path d="M4 20.5V8h3V5h3v3h4V5h3v3h3v12.5z"/><path d="M10.5 20.5v-5h3v5"/>' },
+    // — journeys —
+    { k: "anchor", n: "Anchor", d: '<circle cx="12" cy="4.8" r="2.1"/><path d="M12 6.9v13.4"/><path d="M7.6 10.4h8.8"/><path d="M4 13.8c0 4 3.6 6.5 8 6.5s8-2.5 8-6.5"/>' },
+    { k: "ship", n: "Ship", d: '<path d="M3.6 14.6h16.8l-2.5 5.6H6.1z"/><path d="M12 14.6V3.4"/><path d="M12 5.2 18 12h-6"/>' },
+    { k: "map", n: "Map", d: '<path d="M3.5 6.6 9 4.6l6 2 5.5-2v12.8l-5.5 2-6-2-5.5 2z"/><path d="M9 4.6v12.8"/><path d="M15 6.6v12.8"/>' },
+    { k: "mountain", n: "Mountain", d: '<path d="M2 19.6 8.5 8l4 7 2.5-4 7 8.6z"/><path d="M6.4 13.2 8.5 12l2 1.8"/>' },
+    // — the natural world —
+    { k: "tree", n: "Tree", d: '<path d="M12 20.4v-5.2"/><path d="M12 15.2c-3.9 0-6.6-2.5-6.6-5.6S8.1 4 12 4s6.6 2.5 6.6 5.6-2.7 5.6-6.6 5.6z"/><path d="M9 20.4h6"/>' },
+    { k: "leaf", n: "Leaf", d: '<path d="M4.6 19.6C3.1 12.1 8.1 4.6 19.6 4.6c0 10.5-6.5 16-13.5 14.4"/><path d="M6.6 18.1c3-5 7-9 11.5-11.5"/>' },
+    { k: "sun", n: "Sun", d: '<circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.3M12 19.1v2.3M2.6 12h2.3M19.1 12h2.3M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/>' },
+    { k: "moon", n: "Moon", d: '<path d="M20 14.6A8.5 8.5 0 0 1 9.4 4 8.5 8.5 0 1 0 20 14.6z"/>' },
+    { k: "flame", n: "Flame", d: '<path d="M12 2.8c4 4.4 6 7.5 6 10.4a6 6 0 0 1-12 0c0-2 .9-3.9 2.6-5.6.3 1.3 1 2.2 2.1 2.7 0-2.8-.2-5.3 1.3-7.5z"/>' },
+    { k: "drop", n: "Drop", d: '<path d="M12 3.2c3.4 4.2 5.2 7.2 5.2 9.4a5.2 5.2 0 0 1-10.4 0c0-2.2 1.8-5.2 5.2-9.4z"/>' },
+    // — making and knowing —
+    { k: "flask", n: "Flask", d: '<path d="M9.4 3.5h5.2"/><path d="M10.4 3.5v6.1L5.6 17.9A2 2 0 0 0 7.3 21h9.4a2 2 0 0 0 1.7-3.1l-4.8-8.3V3.5"/><path d="M7.9 14.4h8.2"/>' },
+    { k: "atom", n: "Atom", d: '<circle cx="12" cy="12" r="1.9"/><ellipse cx="12" cy="12" rx="9" ry="3.9"/><ellipse cx="12" cy="12" rx="9" ry="3.9" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.9" transform="rotate(120 12 12)"/>' },
+    { k: "clock", n: "Clock", d: '<circle cx="12" cy="12" r="8.6"/><path d="M12 6.6V12l3.6 2.4"/>' },
+    { k: "key", n: "Key", d: '<circle cx="7.6" cy="8.4" r="3.9"/><path d="M10.4 11.2 20 20.8"/><path d="M16.6 17.4l2-2"/><path d="M13.8 14.6l2-2"/>' },
+    { k: "brush", n: "Brush", d: '<path d="M17.6 3.4 20.6 6.4 11 16l-3-3z"/><path d="M8 13 5.4 15.6c-1 1-1 3.4-2 4.4 1.6.6 3.8.4 4.8-.6L11 16"/>' },
+    { k: "music", n: "Music", d: '<path d="M9 18.2V5.4l10-2v12.8"/><ellipse cx="6.6" cy="18.2" rx="2.4" ry="2"/><ellipse cx="16.6" cy="16.2" rx="2.4" ry="2"/>' },
+    { k: "coin", n: "Coin", d: '<circle cx="12" cy="12" r="8.6"/><circle cx="12" cy="12" r="4.6"/>' },
+  ];
+  const ICON_PATH = {};
+  ICON_SYMBOLS.forEach((s) => { ICON_PATH[s.k] = s.d; });
+  const ICON_NAME = {};
+  ICON_SYMBOLS.forEach((s) => { ICON_NAME[s.k] = s.n; });
+  /* Which symbol each of Folio's own collections wears, chosen for the SUBJECT rather than for the script:
+     a pagoda for China, a Doric column for Greece, a wreath for Rome, a pyramid for Egypt, a torii for
+     Japan, an onion dome for Russia, a lotus for India, a star for the United States, an aeroplane for the
+     war, a globe for World History and a compass for Geography. A collection with no row here (a community
+     deck, or one added later) falls through to the card stack rather than to a second default kept in step
+     by hand. */
+  const COLLECTION_ICON = {
+    china: "pagoda",
+    "col-8": "globe",
+    "col-13": "column",
+    "col-40": "wreath",
+    "col-41": "star",
+    "col-42": "dome",
+    "col-43": "lotus",
+    egypt: "pyramid",
+    ww2: "plane",
+    japan: "torii",
+    geography: "compass",
   };
+  const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
+  function iconSvg(key) { return ICON_SVG_OPEN + (ICON_PATH[key] || ICON_PATH.cards) + "</svg>"; }
+  // a bare symbol, for a row that is not a collection in the tree (a language collection, the picker)
+  function symbolIconMarkup(key, cls) { return '<div class="coll-ic' + (cls ? " " + cls : "") + '" aria-hidden="true">' + iconSvg(key) + "</div>"; }
+  /* ---------- an icon a READER has set (Aug 2026, on request) ----------
+     "Users should be able to add small images to their collections, which will appear on the left of their
+     banners in the Active Decks list and on the Collections page." Five things about it are decisions.
+
+     IT LIVES IN `S.deckGroups[entryId]`, BESIDE THE COLOUR, and that is what makes it work on every row
+     rather than on one kind of row. That record has been keyed by ENTRY ID since groups shipped — a record
+     with a `title` is a group the reader made, one with only a `color` is an override on something the tree
+     already names — so an icon is the same kind of thing a colour is: a fact about how the READER wants a
+     row presented. It therefore reaches a group, one of their own decks, a curated collection, a subdeck
+     and the daily-study banner with no second register, it syncs (deckGroups is in PROGRESS_FIELDS), and
+     it survives Reset progress (it is in RESET_KEEPS), which is right — an icon is not study history.
+
+     A PNG IS RE-ENCODED AT 64px AND CAPPED, and the cap is not decoration: the record rides in the one
+     progress blob `save()` PATCHes WHOLE, so an uncapped picture there is a cost every device pays on
+     every push. `iconFromFile` draws the reader's file onto a 64x64 canvas and re-encodes it, which bounds
+     it at ~16 KB of pixels before compression whatever they hand over; anything still over ICON_MAX_BYTES
+     is REFUSED with the size named rather than silently truncated.
+
+     A SYMBOL IS STORED AS ITS KEY, NEVER AS ITS PATH — the path is a rendering detail that may be redrawn
+     (the wreath has been, once), and a stored path would freeze a reader's choice at the version of the
+     drawing that happened to be current when they made it.
+
+     A PNG CANNOT TAKE THE GOLD, so it renders as an `<img>` rather than as an inline `<svg>`: the gold is
+     `currentColor` on a stroke, and a picture has colours of its own. That is why `.coll-ic img` exists.
+
+     AND IT IS NOT INHERITED DOWN. A collection's mark is drawn on the collection and not repeated on each
+     of its decks — which is exactly what the Collections page already does — so the two pages agree, and a
+     run of forty subdecks does not become forty copies of one pagoda. */
+  const ICON_MAX_BYTES = 24 * 1024;   // a 64x64 PNG is far under this; the cap is against a pathological one
+  const ICON_PX = 64;
+  function entryIcon(id) {
+    const r = groupRec(id);
+    const ic = r && r.icon;
+    if (!ic || typeof ic !== "object") return null;
+    if (ic.sym && ICON_PATH[ic.sym]) return { sym: ic.sym };
+    if (typeof ic.png === "string" && /^data:image\/png;base64,[A-Za-z0-9+/=]+$/.test(ic.png) && iconBytes(ic.png) <= ICON_MAX_BYTES) return { png: ic.png };
+    return null;
+  }
+  function setEntryIcon(id, icon) {
+    const m = deckGroupMap();
+    const r = m[id] || (m[id] = {});
+    if (icon) r.icon = icon; else delete r.icon;
+    if (!r.title && !r.color && !r.icon) delete m[id];   // an empty record is a row of noise in the synced blob
+    save();
+  }
+  /* The mark a row wears: the reader's own if they have set one, else whatever the row is entitled to by
+     itself — a curated collection's subject symbol, a community deck's card stack — and nothing at all for
+     a row that has neither, since an unasked-for icon on every subdeck is noise rather than information. */
+  function entryIconMarkup(id, fallbackKey, cls) {
+    const ic = entryIcon(id);
+    if (ic && ic.png) return '<div class="coll-ic coll-ic-png' + (cls ? " " + cls : "") + '" aria-hidden="true"><img src="' + esc(ic.png) + '" alt=""></div>';
+    const key = (ic && ic.sym) || fallbackKey || "";
+    return key ? symbolIconMarkup(key, cls) : "";
+  }
+  // roughly what a data URI's payload weighs, for the cap above — base64 is four characters per three bytes
+  function iconBytes(url) { const i = String(url).indexOf(","); return Math.round((String(url).length - i - 1) * 3 / 4); }
+  /* A reader's own file, re-encoded. It is drawn onto a 64x64 canvas and written back out as PNG, which is
+     what bounds it: whatever they hand over, what is STORED is at most 64x64 pixels, and a re-encode also
+     strips whatever metadata the original carried. CONTAINED rather than cropped, because they chose this
+     picture and showing them a cut-down of it is showing them something else.
+     Everything that can go wrong resolves to an `error` STRING rather than rejecting: each one is a
+     sentence for the reader, and a file that cannot be read is an ordinary thing rather than a fault. */
+  function iconFromFile(file) {
+    return new Promise((resolve) => {
+      if (!file) return resolve({ error: "No file chosen." });
+      if (file.size > 8 * 1024 * 1024) return resolve({ error: "That image is over 8 MB — pick a smaller one." });
+      const fr = new FileReader();
+      fr.onerror = () => resolve({ error: "That file could not be read." });
+      fr.onload = () => {
+        const im = new Image();
+        im.onerror = () => resolve({ error: "That file is not an image Folio can read." });
+        im.onload = () => {
+          const cv = document.createElement("canvas");
+          cv.width = cv.height = ICON_PX;
+          const cx = cv.getContext("2d");
+          if (!cx) return resolve({ error: "This browser cannot convert images." });
+          const sc = Math.min(ICON_PX / (im.width || 1), ICON_PX / (im.height || 1)) || 1;
+          const w = Math.max(1, Math.round(im.width * sc)), h = Math.max(1, Math.round(im.height * sc));
+          try { cx.imageSmoothingQuality = "high"; } catch (e) { /* not everywhere */ }
+          cx.drawImage(im, Math.round((ICON_PX - w) / 2), Math.round((ICON_PX - h) / 2), w, h);
+          let url;
+          try { url = cv.toDataURL("image/png"); } catch (e) { return resolve({ error: "That image could not be converted." }); }
+          if (!/^data:image\/png;base64,/.test(url)) return resolve({ error: "That image could not be converted." });
+          if (iconBytes(url) > ICON_MAX_BYTES) return resolve({ error: "That image is too detailed to store — try a simpler one." });
+          resolve({ png: url });
+        };
+        im.src = fr.result;
+      };
+      fr.readAsDataURL(file);
+    });
+  }
   function collectionIconMarkup(id) {
-    return '<div class="coll-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
-      (COLLECTION_ICON[id] || COLLECTION_ICON._) + '</svg></div>';
+    return entryIconMarkup(id, COLLECTION_ICON[id] || "cards");
   }
   /* How much of a deck or collection has been studied. It reuses the `.xp` markup rather than `.prog`
      deliberately: every theme, the collection hue and animateProgs are all already written against that
@@ -18353,6 +18584,26 @@
        "some of the way" at a glance, which is all a row of a list is for, and the exact count is a thing
        you go looking for — which is what holding the row is. It also gives the deck's name back the width
        the figure was taking on a 390px line. */
+    /* THE MARK AT THE LEFT OF A ROW (Aug 2026, on request: a reader's own images "will appear on the left
+       of their banners in the Active Decks list and on the Collections page"). The Collections page has
+       drawn one since collections lost their levels; this list never has, and adding the readers' without
+       adding the site's own would leave one screen answering the same question two ways.
+       WHAT A ROW IS ENTITLED TO BY ITSELF is deliberately narrow: a curated COLLECTION gets its subject
+       symbol and one of the reader's own DECKS gets the card stack — the two rows that are collections —
+       and everything else (a deck inside a collection, a subdeck, a group, the Card-of-the-day list) gets
+       nothing unless the reader has set one. That is the Collections page's own rule, where a .node deck
+       row carries no icon either, and it is what stops a forty-row subtree becoming forty pagodas.
+       It is drawn SMALLER here (22px against 34) and only where there is something to draw, because at
+       390px the row is three piles, a name, a bar and a chevron, and the name is the only part of it with
+       a shorter form — so every pixel this takes is taken from the thing the reader is reading. */
+    const adIconKey = (entryId) => {
+      const n = NODE_BY_ID[entryId];
+      if (n) return n.parentId ? "" : (COLLECTION_ICON[entryId] || "cards");
+      const dId = uDeckIdOf(entryId);
+      if (dId && UDECKS[dId] && !uSubOf(entryId)) return "cards";
+      return "";
+    };
+    const adIcon = (entryId) => entryIconMarkup(entryId, adIconKey(entryId), "dk-ic");
     const adProg = (ids) => {
       const total = ids.length, studied = ids.filter(isSeen).length;
       /* `data-total` / `data-studied` are the two numbers the bar is DRAWN from, written down beside the
@@ -18580,6 +18831,7 @@
           if (r.group) {
             return `<div class="active-deck deck-group${shut}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Study everything in ${esc(title)}">
               ${grip}
+              ${adIcon(r.drag)}
               ${adCounts(r.drag)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
@@ -18593,6 +18845,7 @@
           if (r.flat) {
             return `<div class="active-deck${shut}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Review just ${esc(title)}">
               ${grip}
+              ${adIcon(r.drag)}
               ${adCounts(r.drag)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
@@ -18604,6 +18857,7 @@
           if (r.active) {
             return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
               ${grip}
+              ${adIcon(r.node.id)}
               ${adCounts(r.node.id)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
@@ -18614,6 +18868,7 @@
           }
           return `<div class="active-deck context${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px">
             ${grip}
+            ${r.node ? adIcon(r.node.id) : ""}
             <div class="dk-body">
               <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
             </div>
@@ -22018,6 +22273,11 @@
       '<div class="studio-cols">' +
         '<div class="studio-cardlist">' +
           '<div class="studio-cardlist-head"><span>' + cards.length + " " + (cards.length === 1 ? "card" : "cards") + '</span><button class="btn tiny" type="button" id="stAddCard">Add a card</button></div>' +
+          /* THE WAY TO THE PROMPTS, at the top of the list a reader is about to fill. It is a line rather
+             than a button because it is a suggestion, not one of this panel's commands — and it is here
+             rather than in the card editor because the moment somebody wants ten cards is the moment they
+             are looking at an empty list. */
+          '<div class="studio-aihint">Writing a lot of these? <button class="sa-link" type="button" id="stAiHelp">Prompts for generating them with an AI</button></div>' +
           '<div class="studio-cardrows" id="stRows">' +
             (cards.length ? cards.map((c, i) =>
               '<div class="studio-cardrow' + (c.id === studioState.card ? " active" : "") + '" data-card="' + esc(c.id) + '">' +
@@ -22052,6 +22312,8 @@
       uDeckSetColor(d.id, sw.dataset.color || "");
       root.querySelectorAll("#stColors .dm-swatch").forEach((o) => o.classList.toggle("on", o === sw));
     }));
+    const aih = root.querySelector("#stAiHelp");
+    if (aih) aih.addEventListener("click", () => route("mission", { scrollTo: "aiPrompts" }));
     const addC = root.querySelector("#stAddCard");   // absent on the Glossary tab
     if (addC) addC.addEventListener("click", () => {
       const c = uCardCreate(d.id);
@@ -22952,7 +23214,7 @@
       '<div class="collection-row" tabindex="0" role="button"' +
         (theme ? ' style="--coll-bg:' + theme.bg + '"' : "") + '>' +
         '<div class="collection-deco" aria-hidden="true"></div>' +
-        collectionIconMarkup("_lang") +
+        symbolIconMarkup("speech") +
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
             '<span class="collection-title">' + esc(lang) + '</span>' +
@@ -32167,7 +32429,147 @@
       }).join("\n") + "\n];\n";
   }
 
-  PAGES.mission = function (root) {
+  /* ---------- THE AI PROMPTS (Aug 2026, on request) ----------
+     Prompts a reader can paste into any AI chat to get cards back IN FOLIO'S OWN FORMATS, plus the
+     Studio link that points at them. Four decisions are load-bearing.
+
+     THE PROMPTS DESCRIBE PATHS THAT ACTUALLY EXIST, AND EACH WAS VERIFIED END TO END. Prompt 1 asks for a
+     `.folio-deck.json` file and its shape is uDeckImportText's, not a plausible-looking one: `folioDeck`,
+     `meta`, `cards`, with every card key a name uCardSanitize keeps. A file written to it was imported
+     through the real picker before this shipped. A prompt whose output the importer refuses is worse than
+     no prompt at all, because the reader has no way to tell their file from the instructions.
+
+     PROMPT 3 ASKS FOR THE VOCABULARY PRESET'S OWN FIVE FIELD NAMES rather than for templates and CSS: a
+     type is two presses in the Studio, and an AI writing one would be writing a program.
+
+     THE CONTENT RULES ARE THE SITE'S OWN, restated in the second person. That is the whole point of
+     shipping a prompt rather than a link to one: a card written to Folio's shape sits beside the curated
+     ones without looking borrowed. The rule against inventing is in every prompt, because it is the one an
+     AI breaks by default and the one this site cannot afford.
+
+     THE LINES ARE WRAPPED AT ABOUT 78 CHARACTERS, which is a fact about the BOX rather than about the
+     prompt: `.ai-pre` is set in the mono face at 11.5px and holds ~95, so a wider wrap re-wraps on screen
+     and a reader meets a prompt whose shape argues with itself. It costs the paste nothing.
+
+     AND THEY ARE PLAIN TEXT IN A <pre>, NEVER MARKUP. A prompt is something the reader COPIES, so what is
+     on screen has to be what lands on the clipboard — hence `esc()` at render and `copySelText` on the
+     button, reading the element's own textContent rather than a second copy of the string. */
+  const AI_PROMPTS = [
+    {
+      id: "deck",
+      title: "A whole deck, ready to import",
+      note: "Ask for a finished deck file, then bring it in through the Studio. Best for starting something new.",
+      text:
+'I am writing flashcards for Folio, a spaced-repetition study site.\n' +
+'Write me a deck of 10 cards about [YOUR SUBJECT].\n' +
+'\n' +
+'Every card is one fill-in-the-blank sentence with a page of background\n' +
+'behind it. Follow these rules exactly:\n' +
+'\n' +
+'- question - ONE sentence of 20 to 34 words with the answer taken out and\n' +
+'  replaced by <span class="blank">_____</span>. Put the blank in the MIDDLE:\n' +
+'  the sentence must keep going after it, never stop on it. The rest of the\n' +
+'  sentence should be enough to work the answer out without giving it away.\n' +
+'- answer - the answer term alone, with no "the" and no "a" in front of it.\n' +
+'- answerText - the same term again, as plain text.\n' +
+'- answerDate - the dates worth remembering beside the term, as a two-column\n' +
+'  list, or "" if the term has no date. Write it exactly like this, with at\n' +
+'  most four rows and no sentences in it:\n' +
+'  <div class="dt"><span class="dt-k">Built</span>\n' +
+'  <span class="dt-v">447 - 432 BCE</span></div>\n' +
+'  The label says what the date IS: Born, Died, Built, In use, Reigned.\n' +
+'- abstract - the background the reader sees after answering. Exactly ten\n' +
+'  sentences, about 300 words, in two blocks of five separated by <br><br>.\n' +
+'  The first five give the general context; the last five give the point this\n' +
+'  particular card asks about. Open it by naming the answer term in bold,\n' +
+'  like <b>the Parthenon</b>, and bold nothing else.\n' +
+'\n' +
+'Write for a bright seventeen-year-old: precise, never academic, never\n' +
+'childish. Use BCE and CE, never BC or AD. Give measurements in metric first\n' +
+'with the imperial in brackets. Write numbers above twenty as numerals. Do\n' +
+'not use parentheses for asides.\n' +
+'\n' +
+'Do not invent anything. If you are unsure of a date, a name or a figure,\n' +
+'leave the claim out and tell me about it after the file.\n' +
+'\n' +
+'Reply with one JSON file and nothing else, in exactly this shape:\n' +
+'\n' +
+'{\n' +
+'  "folioDeck": 1,\n' +
+'  "meta": {\n' +
+'    "title": "[DECK TITLE]",\n' +
+'    "desc": "One or two sentences saying what this deck covers.",\n' +
+'    "language": "en"\n' +
+'  },\n' +
+'  "cards": [\n' +
+'    { "question": "", "answer": "", "answerText": "",\n' +
+'      "answerDate": "", "abstract": "" }\n' +
+'  ]\n' +
+'}',
+    },
+    {
+      id: "more",
+      title: "More cards for a deck you have open",
+      note: "The same rules, written out as plain blocks you can paste field by field into the card editor.",
+      text:
+'I am writing flashcards for Folio, a spaced-repetition study site. Write me\n' +
+'5 more cards for a deck about [YOUR SUBJECT]. It already covers [WHAT YOU\n' +
+'HAVE SO FAR], so do not repeat those.\n' +
+'\n' +
+'Every card is one fill-in-the-blank sentence with a page of background\n' +
+'behind it:\n' +
+'\n' +
+'- Question - ONE sentence of 20 to 34 words with the answer replaced by\n' +
+'  _____ in the MIDDLE of it, so the sentence keeps going afterwards. Enough\n' +
+'  to work the answer out; never enough to be a giveaway.\n' +
+'- Answer - the term alone, with no "the" or "a".\n' +
+'- Date line - at most four label-and-date rows (Born, Died, Built, In use,\n' +
+'  Reigned), or nothing at all if the term has no date.\n' +
+'- Background - exactly ten sentences, about 300 words, in two paragraphs of\n' +
+'  five. The first paragraph gives the general context; the second gives the\n' +
+'  point this card asks about. Name the answer term in the opening words.\n' +
+'\n' +
+'Write for a bright seventeen-year-old. Use BCE and CE, never BC or AD.\n' +
+'Metric first with the imperial in brackets. Numbers above twenty as\n' +
+'numerals.\n' +
+'\n' +
+'Do not invent anything: leave out what you are unsure of and say so at the\n' +
+'end.\n' +
+'\n' +
+'Set each card out like this, and nothing else:\n' +
+'\n' +
+'CARD 1\n' +
+'Question:\n' +
+'Answer:\n' +
+'Date line:\n' +
+'Background:',
+    },
+    {
+      id: "vocab",
+      title: "Vocabulary cards",
+      note: "For a deck using the Vocabulary card type. Make the type from the preset first, then paste the columns into its five fields.",
+      text:
+'I am learning [LANGUAGE] and writing flashcards for it. Give me 20 words\n' +
+'about [TOPIC], at about [YOUR LEVEL].\n' +
+'\n' +
+'Reply with a table of exactly these five columns and nothing else:\n' +
+'\n' +
+'Word | Word type | Translation | Conjugations | Notes\n' +
+'\n' +
+'- Word - the word as a dictionary gives it, with its article where the\n' +
+'  language has one.\n' +
+'- Word type - noun, verb, adjective, adverb, phrase.\n' +
+'- Translation - the English, in as few words as will do.\n' +
+'- Conjugations - the forms worth learning, one per line. Leave it empty\n' +
+'  where the word has none.\n' +
+'- Notes - anything a learner would trip over: a false friend, an irregular\n' +
+'  plural, a register. Leave it empty when there is nothing worth saying.\n' +
+'\n' +
+'Do not invent words, forms or meanings. Leave out anything you are unsure\n' +
+'of and say so afterwards.',
+    },
+  ];
+  PAGES.mission = function (root, params) {
     const M = missionMerged();
     // The changelog dates follow the SITE language, not the browser's: en-GB for English (so a reader with a
     // US browser still gets "28 July 2026" beside English release notes), otherwise the site language's own
@@ -32241,6 +32643,7 @@
       faq: chip('<path d="M8.7 9a3.2 3.2 0 0 1 6 1.7c0 2.1-3.2 2.7-3.2 4.4"/><line x1="11.5" y1="18.5" x2="11.5" y2="18.5"/>'),
       clog: chip('<circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.5 14"/>'),
       feedback: chip('<path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-2.9-.4L3 21l1.6-4.6A8.2 8.2 0 0 1 3.6 11.5 8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4z"/>'),
+      ai: chip('<path d="M12 3v3"/><rect x="4.5" y="6" width="15" height="12" rx="3"/><circle cx="9.2" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="14.8" cy="12" r="1.1" fill="currentColor" stroke="none"/><line x1="2" y1="11" x2="2" y2="14"/><line x1="22" y1="11" x2="22" y2="14"/>'),
       credits: chip('<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'),
     };
     root.innerHTML = `
@@ -32282,6 +32685,26 @@
             ${faq("Why only a few new cards a day?", "Every new card you learn today will come back tomorrow, and again after that. Add fifty at once and next week's reviews pile up. A steady handful a day keeps studying light — to change the number, hold the daily-study banner and open <b>Daily limits</b>.")}
             ${faq("Do I need an account?", "No. Your progress is saved on this device automatically. An account only matters if you want the same progress on several devices, or to add friends.")}
           </div>
+        </div>
+        ${/* WRITING YOUR OWN CARDS WITH AN AI (Aug 2026, on request). It sits after the questions and
+              before the feedback form because it is a specialist thing a reader goes looking for, not
+              something a first visit needs — and because the two cards above it are what they came for. */""}
+        <div class="msn-card msn-ai" id="aiPrompts">
+          <div class="msn-head">${CHIP.ai}<h2>Writing your own cards with an AI</h2></div>
+          <p class="ai-intro">You can write your own decks in the <b>Studio</b>, and an AI chat is a quick way to fill one. The prompts below ask for cards in Folio&rsquo;s own shape, so what comes back looks like the rest of the site rather than something pasted in. Copy one, put your subject where it says to, and paste it into whichever AI you use.</p>
+          <ol class="msn-steps ai-steps">
+            ${step(1, "Copy a prompt", "Press <b>Copy</b> on whichever of the three below fits what you are doing, and replace the parts in [square brackets].")}
+            ${step(2, "Read what comes back", "An AI will state a wrong date as confidently as a right one. Check the facts before you keep them — a card you cannot vouch for is a card that teaches you something untrue.")}
+            ${step(3, "Bring it into Folio", "For the first prompt, save the reply as <b>something.folio-deck.json</b> and open <b>Collections &rarr; Your decks &rarr; Import a deck file</b>. For the other two, open your deck in the Studio and paste the parts into a new card.")}
+          </ol>
+          <div class="ai-prompts">
+            ${AI_PROMPTS.map((p) => `
+              <div class="ai-prompt">
+                <div class="ai-ph"><div class="ai-pt"><b>${esc(p.title)}</b><span>${esc(p.note)}</span></div><button class="btn tiny ai-copy" type="button" data-aicopy="${esc(p.id)}">Copy</button></div>
+                <pre class="ai-pre" id="ai-${esc(p.id)}">${esc(p.text)}</pre>
+              </div>`).join("")}
+          </div>
+          <p class="ai-foot">Folio&rsquo;s own cards are researched from published scholarship and cited; a deck you write is yours and is not held to that. If you share it, say where it came from — and never publish a deck you have not read through yourself.</p>
         </div>
         <div class="msn-card msn-feedback">
           <div class="msn-head">${CHIP.feedback}<h2>Folio is in beta — tell us what you think</h2></div>
@@ -32343,6 +32766,21 @@
       const open = it.classList.toggle("open");
       b.setAttribute("aria-expanded", open ? "true" : "false");
     }));
+    /* THE PROMPT IS COPIED FROM THE ELEMENT, NEVER FROM THE CONSTANT AGAIN. What the reader can see is
+       what has to land on the clipboard, and a second read of AI_PROMPTS is a second chance for the two to
+       differ — an escaped entity on screen and a raw one in the paste, say. `textContent` off the <pre> is
+       the same characters either way. */
+    root.querySelectorAll("[data-aicopy]").forEach((b) => b.addEventListener("click", () => {
+      const pre = root.querySelector("#ai-" + b.dataset.aicopy);
+      if (pre) copySelText(pre.textContent, "Prompt copied — paste it into your AI chat");
+    }));
+    /* …and the jump the Studio's own link asks for. It is a param rather than a hash fragment because the
+       route's address is `#mission` and nothing else: adding a fragment would make every shared About link
+       a different address and would land a reader mid-page on a reload they did not ask for. */
+    if (params && params.scrollTo) {
+      const t = root.querySelector("#" + params.scrollTo);
+      if (t) setTimeout(() => t.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth", block: "start" }), 60);
+    }
     // beta feedback → straight into the editors' queue (Admin → Feedback)
     const fbForm = root.querySelector("#fbForm");
     if (fbForm) fbForm.addEventListener("submit", async (e) => {

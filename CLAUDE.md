@@ -11888,6 +11888,55 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   had to be restyled; `.deck-prog .xp-lvl` takes the quiet ink, a caption not being a level. The same pair
   is used by the community-deck rows and by the account page's "Collection progress" section, so the three
   places a collection's standing is shown cannot come to disagree about what they are showing.
+- **…AND A READER CAN PUT THEIR OWN MARK ON ONE** (`ICON_SYMBOLS` / `ICON_PATH` / `ICON_NAME` /
+  `symbolIconMarkup` / `entryIcon` / `setEntryIcon` / `entryIconMarkup` / `iconFromFile` / `ICON_MAX_BYTES`
+  / `ICON_PX` / `openIconPicker` / `iconRowNote`; `.ip-grid` in styles.css. Aug 2026, on request: a symbol
+  from a list the site provides, or a small PNG of their own.) Five decisions are load-bearing.
+  **`COLLECTION_ICON` IS A TABLE OF KEYS NOW, NOT OF PATHS**, which is the whole feature: a picker needs
+  names and a stored choice must be a short stable thing rather than a path, so `ICON_SYMBOLS` is an
+  ordered `{k, n, d}` list — the 13 marks the collections already wore plus 20 drawn to sit beside them —
+  and `ICON_PATH` / `ICON_NAME` are derived from it on load. **Nothing that DRAWS an icon changed shape**:
+  `symbolIconMarkup` emits the same `.coll-ic` div, which is why five suites reading `.coll-ic svg` needed
+  no change at all.
+  **IT LIVES IN `S.deckGroups` BESIDE THE COLOUR, and that is what made it small.** That record is already
+  keyed by ENTRY ID, already in `PROGRESS_FIELDS` and `RESET_KEEPS`, and already where a row's presentation
+  is stored — so the icon syncs, survives a reset, and needs no new field, no migration and no schema
+  block. A record holding only a `color` or an `icon` is a presentation override; one holding a `title` is
+  a group the reader made.
+  **A PNG IS RE-ENCODED AT 64px AND CAPPED, AND IS NOT DRAWN IN THE GOLD.** An uploaded file is read, drawn
+  contained and centred into a 64×64 canvas and re-encoded, so what is stored is the site's own bytes
+  rather than a stranger's file, bounded at `ICON_MAX_BYTES` (24 KB) whatever came in — which matters
+  because this rides in the synced blob. **Every failure path resolves to `{ error: "<sentence>" }` rather
+  than rejecting**, so the picker can say what went wrong. A symbol takes `currentColor` and therefore the
+  collection gold; a PNG cannot, so it renders as an `<img>` and keeps its own colours.
+  **IT IS NOT INHERITED DOWN THE TREE**, unlike the colour beside it. A colour cascades because it is a
+  wash and reads as one family; an icon is an IDENTITY, and repeating it on nine subdeck rows would say
+  each of them is the collection. `adIconKey` returns a mark only for a ROOT collection, a whole community
+  deck, or a row the reader has given one — **asserted both ways**, since a mark on every row and a mark on
+  none look equally deliberate from one side.
+  **AND THE PICKER IS A SUB-SHEET THAT DOES NOT CLOSE ON A CHOICE.** Choosing re-marks the grid in place;
+  only `[data-act="close"]` closes and repaints. The sheet's row sits directly after `colorRow` and before
+  Remove — **`test-review-decks.js` pins BOTH sheet row lists EXACTLY**, so a row added here fails there
+  until that assertion is updated, which is the point of pinning it.
+- **THE ABOUT PAGE HANDS THE READER THE AI PROMPTS** (`AI_PROMPTS` / the `msn-ai` section / `CHIP.ai` /
+  `.ai-pre`; the Studio's `#stAiHelp` / `.studio-aihint`. Aug 2026, on request). Three prompts — a whole
+  deck as an importable `.folio-deck.json`, more cards for a deck already open, and vocabulary cards — each
+  with a Copy button, over three steps saying what to do with what comes back. Four decisions.
+  **THE PROMPTS DESCRIBE PATHS THAT WERE VERIFIED END TO END.** A prompt whose output the importer refuses
+  is worse than no prompt, the reader having no way to tell their own file from the instructions — so the
+  deck-file shape was derived from `uDeckImportText` / `uDeckSanitizeMeta` / `uCardSanitize` rather than
+  from memory, and a file written to the published shape was imported through the real picker. **A check
+  that imports one is the only thing that can see this go stale.**
+  **PROMPT 3 ASKS FOR THE VOCABULARY PRESET'S FIVE FIELD NAMES, NOT FOR TEMPLATES AND CSS.** A card type is
+  templates plus scoped CSS, and asking an AI for those is asking for markup a reader cannot check; asking
+  for `Word | Word type | Translation | Conjugations | Notes` is asking for content the preset already
+  knows how to render.
+  **THE COPY BUTTON READS THE `<pre>`'s OWN `textContent`**, never `AI_PROMPTS`, so what is on screen and
+  what lands on the clipboard cannot differ. **And the lines are wrapped at ~78 characters** because
+  `.ai-pre` at 11.5px mono holds ~95 and hard breaks any longer re-wrap into rags.
+  **THE STUDIO'S LINK IS `route("mission", { scrollTo: "aiPrompts" })`, NOT A FRAGMENT** — the About page's
+  address stays `#mission`, so a shared link cannot land a reader mid-page on reload; `PAGES.mission` takes
+  `params` and scrolls once, honouring `prefersReducedMotion()`.
 - **THE DESKTOP'S TOP BAR NAMES ITS TABS AT ALL TIMES** (`.tab .tab-label`, Aug 2026, on request). They were
   icon-only, the name unfolding beside the icon on hover / keyboard focus and staying open on the page
   currently shown — so finding out what the four icons were meant pointing at each of them in turn, and the

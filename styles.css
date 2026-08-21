@@ -521,6 +521,16 @@ html[dir="rtl"] .site-ver{text-align:right;}
 body.night .coll-ic{color:#E6C765;}
 .cl-row .coll-ic, .udeck .coll-ic{min-width:46px;}
 .cl-row .coll-ic svg{width:calc(28px * var(--fs)); height:calc(28px * var(--fs));}
+/* A PNG a reader has uploaded (Aug 2026). It cannot take the gold — that is currentColor on a stroke,
+   and a picture has colours of its own — so it is an <img> rather than an inline <svg>, sized to the same
+   box and CONTAINED in it, since a reader's file has whatever proportions it has and cropping one would
+   silently show them something other than what they chose. */
+.coll-ic img{width:calc(34px * var(--fs)); height:calc(34px * var(--fs)); object-fit:contain; display:block; border-radius:4px;}
+.cl-row .coll-ic img, .udeck .coll-ic img{width:calc(28px * var(--fs)); height:calc(28px * var(--fs));}
+/* …and on a review row, where the width belongs to the deck's name (see adIcon). No min-width: the mark
+   sits in the flex line rather than reserving a column, so a row without one loses nothing. */
+.active-deck .coll-ic.dk-ic{min-width:0; margin-inline-end:2px;}
+.active-deck .coll-ic.dk-ic svg, .active-deck .coll-ic.dk-ic img{width:calc(22px * var(--fs)); height:calc(22px * var(--fs));}
 /* The Daily-review banner carried a large plain golden numeral of its own — the day's whole pile — and it
    went in Aug 2026 on request, along with pileBadgeMarkup, the tick it showed on a cleared day and the
    sizing rules that dressed it. `.banner` is that one button; the Library's collection banners carry an
@@ -2806,6 +2816,31 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 .dm-swatch:hover{transform:scale(1.12);}
 .dm-swatch.on{border-color:var(--ink); box-shadow:0 0 0 1px var(--card) inset;}
 .dm-swatch:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* ---- the icon picker (Aug 2026, on request) ----
+   A grid rather than the colour row's wrapping flex line: 33 symbols wrap into ragged rows there, and a
+   grid of a fixed cell keeps them in columns whatever the width, which is what makes a set of marks
+   scannable. Marked the same way a swatch is (an ink border), so the two controls in one sheet agree. */
+.ip-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(46px, 1fr)); gap:6px; margin:10px 0 4px;}
+.ip-cell{
+  appearance:none; cursor:pointer; padding:0; height:46px; display:flex; align-items:center; justify-content:center;
+  background:var(--paper-2); color:var(--ink); border:2px solid transparent; border-radius:10px;
+  box-shadow:0 0 0 1px var(--rule) inset; transition:transform .14s var(--ease), border-color .14s var(--ease);
+}
+.ip-cell svg{width:26px; height:26px; display:block;}
+.ip-cell:hover{transform:scale(1.07);}
+.ip-cell.on{border-color:var(--ink);}
+.ip-cell:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* "Default" is a WORD rather than an empty cell, because clearing takes the row back to whatever it is
+   entitled to by itself — for most rows that is a mark rather than a blank, and an empty square would
+   promise otherwise. It spans two columns so the word has room at every width. */
+.ip-default{grid-column:span 2;}
+.ip-x{font:600 11px/1 var(--display); letter-spacing:.04em; text-transform:uppercase; color:var(--ink-faint);}
+.ip-cell.on .ip-x{color:var(--ink);}
+.ip-up{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:10px 0 2px;}
+.ip-cur{display:flex; align-items:center; gap:7px; font:500 12px/1.3 var(--sans); color:var(--ink-faint);}
+.ip-cur img{width:34px; height:34px; object-fit:contain; border-radius:6px; box-shadow:0 0 0 1px var(--rule);}
+.ip-msg{min-height:1.2em; font:500 12px/1.35 var(--sans); color:var(--zh); margin-top:4px;}
+
 /* "no colour of its own" — a slash across the swatch, which says *cleared* where an empty circle would just
    read as one more colour that happens to match the paper */
 .dm-swatch-off{position:relative; background:var(--paper-2); overflow:hidden;}
@@ -4233,6 +4268,31 @@ button.game-tile .gt-glyph{opacity:.14;}
 .msn-faq{--msn-accent:#8257C2;}
 .msn-clog{--msn-accent:#C39A2E;}
 .msn-credits{--msn-accent:#2BA6A0;}
+/* the AI-prompt section (Aug 2026). Its accent is a terracotta: the five already placed run indigo,
+   green, purple, gold and teal, so red is the quarter left free — and the chip is decoration, so the
+   only thing it has to clear is its neighbours rather than the contrast bar. */
+.msn-ai{--msn-accent:#C25A4E;}
+.ai-intro{font-family:var(--serif); font-size:calc(15px * var(--fs)); line-height:1.68; color:var(--ink-soft); margin:0 0 6px;}
+.ai-steps{margin-bottom:18px;}
+.ai-prompts{display:flex; flex-direction:column; gap:14px;}
+.ai-prompt{border:1px solid var(--rule); border-radius:12px; overflow:hidden; background:var(--paper-2);}
+.ai-ph{display:flex; align-items:flex-start; gap:12px; padding:12px 14px;}
+.ai-pt{flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;}
+.ai-pt b{font-family:var(--display); font-size:calc(15px * var(--fs)); color:var(--ink);}
+.ai-pt span{font-size:calc(12.5px * var(--fs)); line-height:1.5; color:var(--ink-faint);}
+.ai-copy{flex:none;}
+/* The prompt itself. It is text to be COPIED, so it is set in the mono face and wrapped rather than
+   scrolled sideways — a prompt with a horizontal scrollbar is one a reader cannot read before they
+   paste it. `pre-wrap` keeps the line breaks the prompt is written with. */
+.ai-pre{margin:0; padding:12px 14px 14px; border-top:1px solid var(--rule); background:var(--card);
+  font-family:var(--mono); font-size:calc(11.5px * var(--fs)); line-height:1.6; color:var(--ink-soft);
+  white-space:pre-wrap; word-break:break-word; max-height:280px; overflow-y:auto;}
+.ai-foot{margin:16px 0 0; font-size:calc(12.5px * var(--fs)); line-height:1.6; color:var(--ink-faint);}
+/* the Studio's way in — a line above the card list, not one of its commands */
+.studio-aihint{padding:0 2px 8px; font-size:calc(12px * var(--fs)); color:var(--ink-faint);}
+.sa-link{background:none; border:0; padding:0; font:inherit; color:var(--indigo); text-decoration:underline;
+  text-underline-offset:2px; cursor:pointer;}
+.sa-link:hover{color:var(--ink);}
 .msn-head{display:flex; align-items:center; gap:12px; margin-bottom:14px;}
 .msn-head h2{margin:0;}
 .msn-chip{flex:none; width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center;

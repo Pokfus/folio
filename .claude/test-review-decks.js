@@ -184,8 +184,11 @@ const SETTINGS = {
     /* COLOUR joined it in Aug 2026, on request ("also of the daily study banner"): the banner rotates
        through a hue a day, and a colour chosen here holds it at one. It is last because it is the only row
        that changes nothing about what the session DEALS. */
+    /* ICON joined both sheets in Aug 2026, on request: a reader may put a symbol or a small picture of
+       their own on a collection, and it is stored beside the colour in the same S.deckGroups record — so
+       it sits directly after it, and before Remove, which stays last. */
     check("holding the banner offers the deck sheet's options, minus Remove",
-      rm && rm.items.join(",") === "Review order,Question variety,Browse your cards,Custom study,Daily limits,Skip today,Colour", JSON.stringify(rm));
+      rm && rm.items.join(",") === "Review order,Question variety,Browse your cards,Custom study,Daily limits,Skip today,Colour,Icon", JSON.stringify(rm));
     check("...the order is a CYCLER and the phrasing pool a switch, with no pair of rows for either",
       rm && rm.cycles.join(",") === "Review order" && rm.switches.join(",") === "Question variety" && rm.choices === 0,
       JSON.stringify(rm));
@@ -460,8 +463,11 @@ const SETTINGS = {
     /* COLOUR is on EVERY row's sheet since Aug 2026, on request ("both decks and subdecks individually,
        both curated and imported") — it used to be containers only. It sits before Remove, which stays
        last, being the one row that takes the deck off the list. */
+    /* ICON joined both sheets in Aug 2026, on request: a reader may put a symbol or a small picture of
+       their own on a collection, and it is stored beside the colour in the same S.deckGroups record — so
+       it sits directly after it, and before Remove, which stays last. */
     check("holding a deck's row opens its options",
-      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Colour", "Remove"]),
+      menu.open && JSON.stringify(menu.items) === JSON.stringify(["Review order", "Question variety", "Browse your cards", "Custom study", "Daily limits", "Scheduling", "Skip today", "Colour", "Icon", "Remove"]),
       JSON.stringify(menu.items));
 
     /* THE ORDER IS PER DECK, AND THE REVIEW'S IS THE GLOBAL. Asserted on both entries because they are
