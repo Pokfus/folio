@@ -65,11 +65,38 @@ the list.**
 | batch | scope | state |
 |---|---|---|
 | **A1** | the terms the measure flags | shipped |
-| **A2** | a directed read of the general kinds — `object`, `concept`, `practice`, `animal`, `plant`, `technology`, `industry` — whose subjects are the ones most easily replaced by a case study | open |
-| **A3** | sentences 2 and 3 across the corpus: a term that defines well and then spends its remaining two thirds on one site | open |
+| **A2** | a directed read of the general kinds — `object`, `concept`, `practice`, `animal`, `plant`, `technology`, `industry` — whose subjects are the ones most easily replaced by a case study | shipped |
+| **A3** | sentences 2 and 3 across the corpus: a term that defines well and then spends its remaining two thirds on one site | shipped |
 
 A2 and A3 cannot be automated the way A1 is. A1 asks whether a sentence has a definition in it,
 which is a shape; A2 and A3 ask whether a description is ABOUT its term, which is a judgement.
+
+**A2's finding is that the failures cluster in two kinds and nowhere else.** Reading the first
+sentence of every `object`, `concept`, `practice`, `animal`, `plant`, `technology` and `industry`
+term turned up twelve — seven materials (`Bronze`, `Chert`, `Gold`, `Iron`, `Ivory`, `Marble`,
+`Clovis_point`) and five animals (`Cattle`, `Goat`, `Horse`, `Mammoth`, `Woolly_mammoth`) — and
+`concept`, `practice`, `industry` and `plant` came back clean. The shape is always the same: the
+opening states the most interesting thing known about the subject rather than what the subject is.
+`Horse` was the worst, opening on a bone count from one French rock shelter; `Iron` opened on the
+bloomery process and never said iron is a metal; `Gold` opened on ore-deposit geochemistry.
+
+**The blocker was sourcing, and it turned out not to be one.** A definitional opening wants a
+work that says what the material IS, and neither the USGS Mineral Commodity Summaries (which
+carry a properties sentence for silver and none for gold or iron ore) nor the papers already
+cited on those terms supply one — Petrella 2022, Baron 2019 and Prochaska 2023 all open on
+provenance and deposit science. What settles it is the corpus's own convention, measured:
+**1,115 of 1,120 terms already open on an UNMARKED first sentence.** The house shape is define
+first, unmarked, then cite the substantive claims — so the rewrites needed no new citation at
+all, and every existing source kept its marker on the sentence it actually carries.
+
+**A3 discharges on measurement rather than on reading.** The question is whether an entry defines
+its term and then spends its remaining two thirds on one named case, so the test is whether EVERY
+sentence after the first is case-bound — naming a site, specimen or document and pinning it with a
+figure. Swept over the whole glossary that is **0 of 1,120**: every entry has at least one general
+sentence after its first. A looser measure (a tail that never returns to the term's own surface
+and carries two or more proper nouns) flags 647, which is not a finding but a measure with no
+precision — proper nouns are what evidence looks like. Recorded so nobody re-runs the loose one
+and reads its output as a backlog.
 
 ---
 
