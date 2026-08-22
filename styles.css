@@ -372,6 +372,13 @@ body{touch-action:pan-y pinch-zoom;}
 /* …and the same three opt-outs the page animation itself takes. The ghost must not re-run the entrance on
    its own children either, or the outgoing page flickers back in as it fades out. */
 .page:has(.atlas) > *,body.admin-mode .page > *,.page-ghost > *{animation:none;}
+/* A QUIET REPAINT (renderInPlace in app.js) is a page rebuilt UNDER the reader rather than navigated to —
+   a downloaded deck's row turning into the deck itself is the case it was written for — so nothing may
+   fade, slide or stagger: the whole point is that the reader cannot tell the list was rebuilt. It reaches
+   the page, its blocks and the deck rows' own entrance, which is a separate animation one level down.
+   Deliberately a class on the PAGE element rather than on the body, like `.page-next`, so it dies with the
+   page it belongs to and can never be left behind on the next ordinary navigation. */
+.page.page-quiet,.page-quiet > *,.page-quiet .active-deck{animation:none;}
 
 /* A swiped navigation comes in from the side the finger came from, and the outgoing page leaves the other
    way — so the gesture and the transition tell the same story (see wirePageSwipe in app.js). The class is
@@ -1110,7 +1117,16 @@ body[data-theme="folio"] .collection-deco::after{
    at exactly one site, so there is no other layout to keep in step. Where read-aloud is on, its mute
    button still holds the true corner, so the row keeps clear of it. */
 .study-card .q-head{display:flex; align-items:center; gap:12px; margin:0 0 7px;}
-.study-card .q-head .label{margin:0; flex:1; min-width:0;}
+/* ...AND THE LABEL IS A FLEX ROW OF ITS OWN (Aug 2026, on a bug report that the dot, the word, the
+   phrasing counter, the DIFFICULTY label and the stars sit at four different heights). The row above
+   centres the two BOXES; inside the label the parts were still inline, so each aligned by its own rule —
+   the dot on the BASELINE (a 7px circle sitting on it has its centre well above the text's), the counter
+   on `middle`, the play triangle on the baseline again — and the stars, being a box rather than text,
+   centred against none of them. Made a flex row with `align-items:center`, every part of the label
+   centres on one line and that line centres against the stars, at every text size and with no offset
+   anywhere. The per-part `vertical-align` rules below are inert in flex and are left as they are for
+   any other context that ever renders them. */
+.study-card .q-head .label{margin:0; flex:1; min-width:0; display:flex; align-items:center;}
 .study-card:has(.tts-mute) .q-head{padding-right:38px;}
 .study-card .card-stars{position:static; flex:none; z-index:2; display:inline-flex; gap:2px; align-items:center; pointer-events:none;}
 /* WHERE THIS CARD STANDS, in the three colours the study bar's own counts use (Aug 2026, on request) —
@@ -1118,7 +1134,7 @@ body[data-theme="folio"] .collection-deco::after{
    rather than a control, so it takes no pointer; its name is on the element, since three colours say
    nothing to a reader who cannot see them. */
 .study-card .q-dot{display:inline-block; width:calc(7px * var(--fs)); height:calc(7px * var(--fs));
-  border-radius:50%; margin-right:8px; vertical-align:baseline; flex:none; opacity:.85;}
+  border-radius:50%; margin-right:8px; vertical-align:baseline; flex:none; opacity:1;}
 .study-card .q-dot.q-new{background:var(--indigo-bright);}
 .study-card .q-dot.q-learn{background:var(--zh);}
 .study-card .q-dot.q-review{background:var(--good);}
@@ -3798,14 +3814,14 @@ body.night .active-deck{background:linear-gradient(105deg, color-mix(in srgb, va
    review list's build — only the header is darkened, which is what the request asks for and what keeps the
    decks inside legible.
    An added COLLECTION is drawn this way too: it holds no cards itself, only the decks inside it do. */
-.active-deck.deck-group{
+.active-deck.deck-group, .active-deck.dk-langhead{
   padding-top:7px; padding-bottom:7px;
   background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 38%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 12%, transparent) 78%) var(--card);
 }
 /* …and its own night pair, for the reason `.active-deck.context` needs one: `body.night .active-deck`
    (0,2,1) outranks this (0,2,0) whatever the source order, so without it a group header on every dark
    theme silently lost the darkening that makes it a header at all. */
-body.night .active-deck.deck-group{
+body.night .active-deck.deck-group, body.night .active-deck.dk-langhead{
   background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 28%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 9%, transparent) 78%) var(--card);
 }
 .active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 48%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);}

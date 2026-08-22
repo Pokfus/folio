@@ -42,7 +42,7 @@ const EVERY = +everyM[1];
    what the first run of this reported, and is a fault in the harness rather than in the code. */
 const make = new Function(
   "S", "dayKey", "DAY", "todayStr", "grantChest", "toast", "STREAK_CHEST_EVERY", "Date",
-  grab("bumpStreak") + "\n" + grab("maybeStreakChest") + "\n" + grab("streakChestProgress") +
+  grab("streakChestWeeks") + "\n" + grab("bumpStreak") + "\n" + grab("maybeStreakChest") + "\n" + grab("streakChestProgress") +
   "\nreturn { bumpStreak: bumpStreak, streakChestProgress: streakChestProgress };"
 );
 
@@ -56,7 +56,10 @@ function run(pattern) {
   const dayKey = (ts) => new Date(ts).toISOString().slice(0, 10);
   const FakeDate = Object.create(Date);
   FakeDate.now = () => now;
-  const api = make(S, dayKey, DAY, () => dayKey(now), () => chests++, () => {}, EVERY, FakeDate);
+  /* THE STUB COUNTS WHAT IT IS HANDED, not how often it is called (Aug 2026): since the weeks are worth
+     one chest, then two, then three, a stub written `() => chests++` reports every week as one and the
+     whole scaling passes on a rule that has stopped applying. */
+  const api = make(S, dayKey, DAY, () => dayKey(now), (n) => { chests += (n || 1); }, () => {}, EVERY, FakeDate);
   for (const studied of pattern) {
     if (studied) api.bumpStreak();
     now += DAY;
@@ -77,10 +80,14 @@ check("a week short of the mark earns nothing", run(days(EVERY - 1)).chests, 0);
 check("the seventh day in a row earns a chest", run(days(EVERY)).chests, 1);
 check("...and records the length it was paid at", run(days(EVERY)).paid, EVERY);
 
-console.log("\n--- and every week after ---");
-check("two weeks earns two", run(days(EVERY * 2)).chests, 2);
-check("three weeks earns three", run(days(EVERY * 3)).chests, 3);
-check("a fortnight and a day is still two", run(days(EVERY * 2 + 1)).chests, 2);
+console.log("\n--- and every week is worth one more than the last ---");
+/* Week one pays one, week two pays two, week three three (Aug 2026, on request), so what a reader HOLDS
+   after N weeks is the triangular number. Asserting the running total rather than the weekly amount is
+   deliberate: it is what a reader can actually count, and it fails whichever half of the rule breaks. */
+check("two weeks earns two more, three in all", run(days(EVERY * 2)).chests, 3);
+check("three weeks earns three more, six in all", run(days(EVERY * 3)).chests, 6);
+check("four weeks, ten in all", run(days(EVERY * 4)).chests, 10);
+check("a fortnight and a day pays nothing extra", run(days(EVERY * 2 + 1)).chests, 3);
 
 console.log("\n--- a broken streak (the regression) ---");
 const broke = run([...days(EVERY), 0, ...days(EVERY)]);
@@ -98,7 +105,7 @@ check("a length already paid at is never paid twice", (() => {
   let chests = 0, now = Date.UTC(2026, 5, 1);
   const dayKey = (ts) => new Date(ts).toISOString().slice(0, 10);
   const FakeDate = Object.create(Date); FakeDate.now = () => now;
-  const api = make(S2, dayKey, DAY, () => dayKey(now), () => chests++, () => {}, EVERY, FakeDate);
+  const api = make(S2, dayKey, DAY, () => dayKey(now), (n) => { chests += (n || 1); }, () => {}, EVERY, FakeDate);
   api.bumpStreak(); api.bumpStreak();
   return chests;
 })(), 0);
@@ -112,6 +119,13 @@ check("day one is one", run(days(1)).progress.into, 1);
 check("no streak at all is zero", run([]).progress.into, 0);
 check("...and the days left never go negative", run(days(EVERY)).progress.left, 0);
 check("mid-week says how many are left", run(days(3)).progress.left, EVERY - 3);
+/* `worth` is what the NEXT chest pays and must never restate the LAST one: on the day one is earned the
+   week just closed has already been paid, so what is coming is the week after it. */
+check("the first week promises one chest", run(days(3)).progress.worth, 1);
+check("...and on day seven the promise moves on to the second", run(days(EVERY)).progress.worth, 2);
+check("mid-second-week promises two", run(days(EVERY + 2)).progress.worth, 2);
+check("...and on day fourteen, three", run(days(EVERY * 2)).progress.worth, 3);
+check("no streak at all promises one", run([]).progress.worth, 1);
 
 console.log(fails ? "\nFAILED — " + fails + " failed" : "\nPASSED — " + "all checks passed");
 process.exit(fails ? 1 : 0);

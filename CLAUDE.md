@@ -4291,6 +4291,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is asked about rather than only during the render that made it, which is what `repaintReviewHues`
     needs, running long after. Its hue is `langCtxHue`, the same `COLL_THEME` row the banner wears, so the
     two pages cannot come to disagree about what colour a language is.
+    **AND IT NOW READS AS A HEADER RATHER THAN AS A SIGNPOST** (`r.langhead` / `.dk-langhead` /
+    `langCtxEntries`, Aug 2026, on a bug report: "the languages collection headers in the active decks
+    section looks greyed out and lacks the colored numbers on the left"). It fell through to the quiet
+    `context` template at the foot of that list, which paints `--paper-2` under a 14px `--ink-faint` title —
+    right for an ancestor signpost the reader never chose, and wrong here: a language IS one of the
+    reader's collections, drawn with the same banner as a curated one on the Collections page, so on this
+    page it should read as a header rather than as a row apologising for itself. It takes the group
+    header's wash (its `.deck-group` rules gained a `.dk-langhead` twin, **and so did the `body.night`
+    pair** — `body.night .active-deck` is (0,2,1) and outranks a (0,2,0) rule whatever the source order,
+    which is the trap `.active-deck.context` already records) plus the three coloured piles and the
+    progress bar every other row carries.
+    **WHICH IT CAN ONLY ANSWER FOR BECAUSE `entryCardIds` LEARNT TO UNION ITS MEMBERS** — a header stating
+    figures the rows beneath it contradict is the one thing a container must not do. That branch reads
+    `langCtxEntries(id)`, derived from `S.active` rather than from the map the render happens to be
+    building, so it answers long after that render is over (`repaintReviewHues`' own requirement), and it
+    carries the cycle guard every other container branch does. A pending deck contributes nothing and needs
+    no special case: its own `entryCardIds` is already empty.
+    **IT IS STILL NOT A GROUP**: no `data-review`, no `role`, no tab stop, because "study all of Spanish"
+    is a scope the reader never asked for. The LOOK is what was reported, not the behaviour.
   · **A CATALOGUE EXISTS BECAUSE THE SHELF IS 181 MB.** Nothing on the site linked to a deck in `decks/`
     until this shipped — they are files a reader imports through the Studio — and a section that listed
     them by FETCHING them would cost the whole shelf to draw a list. What ships is the metadata, a few
@@ -7050,6 +7069,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   session ran that session's `showAnswer()` against a page that no longer existed. It mutated a detached tree,
   so nothing looked wrong and nothing was reported (found when the page ghost below stopped ids resolving in
   the dead copy). A page that wants keys re-attaches when its own render runs, which is after this.
+- **A REPAINT IS NOT A NAVIGATION** (`renderInPlace` / `_renderQuiet` / `.page-quiet`, Aug 2026, on a bug
+  report: "each time a new active deck is downloaded, the page refreshes"). `render()` is written for a
+  navigation — it **scrolls to the top and plays the page's entrance animation** — and several things
+  rebuild the page the reader is standing on rather than taking them anywhere; a downloaded deck's row
+  turning from Download into the deck itself is the one that was reported, and from the reader's side those
+  two flourishes ARE the refresh. `renderInPlace()` is the same render with both off: it skips the page
+  ghost (there is no outgoing page to lift out), skips the scroll, and marks the page `.page-quiet`, which
+  is one stylesheet line killing the page's own entrance, its blocks' stagger and the deck rows' separate
+  entrance one level down. **It changes nothing else** — the fold state (`adOpen`, module level) and the
+  drag order (`S.deckOrder`, persisted) already survive a repaint, so the scroll position and the
+  animations were the whole of what a reader could see. Three things about it. It is **the CALLER'S call
+  and never a default**: the Studio's own import genuinely is a navigation-sized change to the page it
+  happens on, so `uImportDone(r, quiet)` takes the flag rather than guessing. The class goes on the PAGE
+  element rather than on the body, like `.page-next`, so it dies with the page and can never be left behind
+  on the next ordinary navigation. And `_renderQuiet` is cleared in a `finally`, or a page function that
+  throws would leave every later navigation silent.
 - **`touch-action:pan-y pinch-zoom` on `body`, `.stage`, `#view` AND `.page` is what makes EVERY horizontal
   swipe on the site possible**
   (styles.css, Aug 2026, on a report that the book's chapter swipe did nothing on a phone). Without it none
@@ -8738,7 +8773,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     grants at 7, 14, 21 … and can never grant twice for one day however often `save()` runs. A broken streak
     resets it to 0 with the streak, so the next week starts over — and a reader whose streak was already
     long when this shipped is paid at their next multiple of seven rather than seven times at once, since
-    the field back-fills at 0 and the grant loop is capped at one chest per call.
+    the field back-fills at 0.
+    **AND EACH WEEK IS WORTH MORE THAN THE LAST** (`streakChestWeeks`, Aug 2026, on request): the seventh
+    day pays one chest, the fourteenth two, the twenty-first three. A flat chest a week is a reward that
+    stops meaning anything around the second month, where the whole point of a streak is that it costs more
+    to keep the longer it runs. **The figure is DERIVED from the count rather than tallied** — the number of
+    complete weeks — so it needs no field of its own, cannot drift from the streak it is paid for, and comes
+    out right for a returning reader: they are paid the full amount at their next multiple of seven rather
+    than everything they have missed at once. `streakChestProgress` gained a **`worth`**, which is what the
+    NEXT chest pays and deliberately not what the last one did — on the day one is earned the week that
+    closed has just been paid, so what is coming is the week after it — and the account page's sentence
+    names the prize wherever it is more than one, a bare "your next chest" saying the fifth week is worth
+    what the first was.
     **THE PROGRESS IS ON THE ACCOUNT PAGE, UNDER THE STAT TILES** (`streakChestHTML` / `.streak-chest`) —
     beside the streak figure it counts from, since that tile says how long the run is and this says what the
     run is worth, which are two halves of one fact and read badly a section apart. **Seven pips rather than
@@ -9178,6 +9224,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `.dk-reordering` takes the rows out of hit-testing. A drop into a container goes through `render()`
     (depth, indent, hue and fold are all derived at build time) where a reorder does not, and the container
     is opened first or the deck reads as having been swallowed.
+    **…AND A NESTING IS SIDEWAYS WHERE A REORDER IS VERTICAL** (`NEST_DX` 28, Aug 2026, on a bug report from
+    a phone: "when I try to drag active collections to reorder them, they disappear"). The middle band alone
+    cannot tell the two apart, and on a phone it decides against the reader: a row is 46px, so the band is
+    about fifteen of them, and a thumb travelling straight down to move a collection two places lands in one
+    about a third of the time. Reproduced with real touch at 390×844 — **an 88px drag, less than two rows,
+    filed a whole collection inside its neighbour**, eleven rows down and indented under a 43-row subtree;
+    nothing was lost and nothing threw, and from the top of the list, where the reader was looking, it was
+    simply gone. The pointer must now ALSO have travelled `NEST_DX` in the writing direction from where the
+    grip was taken — the outline-editor convention (drag right to indent), which a straight-down drag can
+    never satisfy. It stays discoverable because `.dk-into` lights the row the moment the threshold is met,
+    and it costs the deliberate gesture nothing: the grip sits in the row's left padding, so a drop aimed at
+    another row's middle is a rightward move already. Guarded by `test-review-decks.js` section 8, whose new
+    assertion is that a straight-down drag leaves `deckNest` EMPTY — the one place the fault would show.
     **A DESCENDANT CANNOT BE A DROP TARGET, and it is the BLOCK that says so** rather than a tree walk:
     `blockOf` is the row plus every following row of greater depth, folded ones included, so a collection's
     whole subtree is skipped when the collection itself is being carried. `nestWouldLoop` is the belt to that
@@ -10232,6 +10291,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     than as a second kind of mark; an unearned star is the same colour at a fraction of the opacity, which
     reads as an outline without needing a second glyph. It is absolutely positioned so it costs the
     question no width, and it steps left of `.tts-mute`, which holds that corner when read-aloud is on.
+    **AND THE WHOLE HEAD LINE IS TWO FLEX ROWS, NOT ONE** (Aug 2026, on a bug report that the dot, the
+    word QUESTION, the phrasing counter, the DIFFICULTY label and the stars sat at four different heights).
+    `.q-head` centred the two BOXES and inside `.label` the parts were still INLINE, so each aligned by its
+    own rule — the dot on the BASELINE (a 7px circle sitting on it has its centre well above the text's),
+    the counter on `middle`, the play triangle on the baseline again — and the stars, being a box rather
+    than text, centred against none of them. `.q-head .label` is `display:flex; align-items:center` now, so
+    every part of the label centres on one line and that line centres against the stars, at every text size
+    and with no offset anywhere; the per-part `vertical-align` rules are inert in flex and are left as they
+    are for any other context that ever renders them. **The dot went to `opacity:1` in the same pass, also
+    on request** — it is the one mark on the card saying where this card stands, and the `.85` it wore was
+    holding the strongest of the three signals back for no reason.
   · **THERE ARE TWO RATINGS AND THE CARD SHOWS WHICHEVER IT HAS EVIDENCE FOR** (`CARD_STATS` /
     `CARD_STATS_MIN` / `CARD_GRADE_WEIGHT` / `cardStatsFor` / `cardDifficultyShown`, Aug 2026, on request).
     `card.difficulty` is an EDITORIAL judgement about how well known the answer term is, made once when the
