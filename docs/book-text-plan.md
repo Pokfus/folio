@@ -257,7 +257,7 @@ re-run and diffed byte for byte.
 | **B4** ✅ | plain-text/TEI reachability | `correctRaw` wired into all 16 read sites; **24 books re-imported and byte-identical**, the 22 on the two paths plus the two wiki books that declare tables |
 | **B5** ✅ | `journey-to-the-west` | the missing back-matter boundary (19 KB of index, life and publisher's catalogue cut off the last chapter); **488 OCR repairs** in two systematic confusions |
 | **B5b** ✅ | `journey-to-the-west` | **83 names in 756 places**, verified against the Chinese column the plan said this book did not have; a third OCR confusion (w read as av, 63 places); the tag-crossing bug in `applyRoman` that was hiding 37% of the novel from every row |
-| **B6–B8** | `three-kingdoms` | 803 names over 3.1 MB, verified from the parallel column; one batch per 40 chapters |
+| **B6** ✅ | `three-kingdoms` | **1,727 names in 23,369 places**, verified twice over against the parallel Chinese column; the batch absorbed B7–B8, a shared surname making 40-chapter batching incoherent; five names the printing spells against its own Chinese, and one it converts to a name the book has not got; 349 aspiration marks normalised; about forty spellings left as printed and said so on the book's own page |
 | **E1–En** | the error half | the slip and variant candidates, book by book, heaviest first; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
@@ -655,3 +655,138 @@ removal to keep a diff tidy is the wrong call.
 The book now carries **617 corrections** in all — y as j 468, th as tli 79, w as av 63, p as j 4, and
 three lost spaces — and 756 romanisations across all 83 declared rows, with no old form surviving
 anywhere in the shipped text and every declared row firing.
+
+
+---
+
+### B6 — Romance of the Three Kingdoms, shipped 2026-08-22
+
+**1,727 names in 23,369 places, and it absorbed B7 and B8 rather than running as three batches.** The
+plan cut this book into forty chapters at a time on the assumption that a table can be built and shipped
+per third. It cannot: **a Chinese surname is shared, so the rows are not partitioned by chapter.** Ts‘ao
+is 曹 in every chapter it appears in, and a table built over chapters 1–40 and shipped would convert Ts‘ao
+Ts‘ao and leave a dozen later Ts‘ao of the same clan spelt the old way — a book in which one name in ten
+is in the old system, which is exactly the failure B5 split Journey to the West to avoid. So the whole
+table was built at once and the batch is one.
+
+**THE PAIRING IS THE PLAN'S OWN AND IT HELD.** `books/three-kingdoms.zh.js` is the Maos' recension,
+120 chapters against 120, so every proposed `[englishForm, hanzi]` pair is testable: the Chinese chapters
+matching the English chapters carrying the form have to carry the characters. What is new here is that
+**one score is not enough**, and the reason is the whole difficulty of this book.
+
+**A WADE-GILES SPELLING MAY ALREADY BE CORRECT PINYIN FOR A DIFFERENT CHARACTER, AND CONVERTING IT
+CORRUPTS THE NAME.** `Ma Chao` is 馬超 and Chao is already the pinyin of 超; read as Wade-Giles it converts
+to Zhao, which is a different man of a different clan. The same holds for Ma Teng 騰, Shen Pei 配, Wen Chou
+醜 and the place 武昌 Wuchang. So every candidate is scored **twice** against the Chinese column — once as
+its Wade-Giles reading and once as its own letters read as pinyin — and ships only where the Wade-Giles
+reading wins outright (`wg >= 0.8 && wg > py`). Beside that sits a blunter rule: **a bare single syllable
+that is itself a legal pinyin syllable is held**, eighteen forms in all, because a single common character
+passes any frequency test — B5b's asymmetry finding, met on a book where it is a corruption risk rather
+than merely a weak signal. A held syllable is still converted inside a disambiguated two-word name, so
+`Chao Yun` ships as Zhao Yun while bare `Chao` does not.
+
+**THE BATCH'S CENTRAL FINDING IS ABOUT WHERE A RESIDUE SWEEP IS RUN.** `applyRoman` is one alternation
+over the RAW page, so **a row keyed on a string that only exists in the converted output can never fire**
+— and five rows were exactly that, because the sweep that proposed them had been run over the shipped
+English rather than over the source. `Nancheng`, `Shangkui`, `Nantun`, `Sishui Kuan` and `Chuan I` are all
+products of an earlier row, not inputs to a later one. **The fix is to retarget the PRODUCING row, never to
+add a second row after it**: `["Nanch‘êng", "Nanzheng"]` rather than `["Nancheng", "Nanzheng"]`. The
+extractor's own dead-row warning is what found them, which is the argument for that warning existing.
+
+**AND FOUR NAMES ARE SPELT IN THIS PRINTING AGAINST THE CHINESE IT IS PRINTED BESIDE.** The printing
+aspirates where the character is unaspirated — `Nanch‘êng` for 南鄭, `Shangk‘uei` and `Shangk‘ui` for 上邽,
+`Nant‘un` for 南頓 — and writes `Ch‘uan` for `Ch‘üan` 全, **which the transcriber himself flags with a
+`{{SIC}}` tooltip**. Converted as printed each would give a place or a person that occurs nowhere in the
+book. The Chinese column decides, and the book's own front matter says so rather than leaving a reader to
+find a spelling no other edition has.
+
+**THREE REGIMES OF RESIDUE DETECTION, AND ONLY THE THIRD IS SOUND.** Searching for the signature
+characters (`‘ ĕ ê ŭ ũ ū`, and `ü` outside l/n) is blind to plain-ASCII Wade-Giles; searching for
+pinyin-impossible letter runs is blind to Wade-Giles that happens to spell a legal pinyin syllable. What
+works is that **a token is residue iff it segments as Wade-Giles and its conversion differs from itself** —
+applied, per the finding above, to the source and not to the output. After the run the shipped English
+retains no Wade-Giles mark at all: the only signature tokens left are `Lü` and its inflections, which is
+呂 correctly spelt, and the English word `mêlée`.
+
+**THE ASPIRATION MARK IS SET TWO WAYS AND FIFTEEN GLYPH ROWS WERE DECLARED ON A MEASUREMENT THAT WAS
+WRONG.** A first pass reported 270 ASCII apostrophes doing the mark's work and a table was written for
+them; every one of the fifteen rows was dead, and the extractor's dead-row warning said so on the first
+run. Re-measured, the scan sets the mark as `ʻ` U+02BB and `‘` U+2018 and in no third way — one row, 349
+occurrences. **Re-measure rather than carrying a count forward**, and note that the second half of the
+finding is the same warning paying twice in one batch.
+
+**U+2018 IS ALSO THE OPENING QUOTE, so a row's leading edge cannot simply be a word boundary.** The mark
+is the same character in `Ts‘ao` and in `‘Wait!’`, so the edge is two lookbehinds and a turned comma counts
+as part of a word only where a letter precedes it. Swept afterwards, the 167 signature tokens the text
+still carries are 161 opening quotes and six real words.
+
+**MARKUP IS OPAQUE TO A ROW, AND THIS TRANSCRIPTION SPLITS NAMES THREE WAYS.** A two-word row cannot cross
+a tag; a `{{SIC}}` tooltip and a template's inline `<style>` block sit inside a name; and a
+`wst-largeinitial` drop capital splits the first letter off the word that opens a chapter — 116 of those,
+seven of them names. Hence `nameMarkup: true` (1,852 tooltip spans, 478 links and 2,334 style-dedupe links
+unwrapped), the page-marker move (11) and the drop-capital unwrap, all of them running before the rows do.
+**The same three improvements corrected three names in Journey to the West** that had been split by markup
+and were silently walking past its table — `Pa</p><p>Kiei` and `Pa <br> Kiel` now reading Bajie, and
+`Lo <br> Kia Shan` reading Luojia Shan — which is the argument for re-running every sibling on the path
+rather than only the book in hand.
+
+**A BLACKLETTER WARNING FIRED ON A BOOK THAT HAS NONE.** The unwrap counts what it did and warns when it
+did nothing, which is right for the Book of Documents and the Book of Rites and wrong for every other book
+on the path, where zero is the expected answer. Gated behind a per-book `blackletter: true` rather than
+silenced.
+
+**THE UPSTREAM CHINESE HAS DRIFTED AND THE ORIGINAL WAS REVERTED.** A run made without `--skip-original`
+regenerated `books/three-kingdoms.zh.js` and picked up two changes made at Chinese Wikisource since the
+book was imported: an editorial variant gloss `一作「景」` now sits **inside chapter 15's prose** three
+times, and chapter 81's 范彊 has become 范疆. The gloss in the prose is a regression whatever its merits,
+and the Chinese column is not this batch's subject, so the file was put back to what shipped. **Run a
+romanisation batch with `--skip-original`**; the original half is a separate path and needs no refetch to
+prove an English-side change.
+
+**Sibling inertness**: all five books already on the `roman` path — `sun-tzu-art-of-war`,
+`confucius-analects`, `book-of-documents`, `book-of-rites`, `journey-to-the-west` — were re-run with
+`--force --skip-original` and are md5-identical to what shipped, so the shared changes above are proved
+inert rather than assumed to be.
+
+**Three smaller lessons.** The book cache holds POST-extraction chapters, so there is no raw page to
+inspect after a run and the run's own report is the authority on what the source contained; to read the raw
+markup you must ask the API for `prop=text`, since `prop=wikitext` on a `Page:`-transcluding chapter returns
+only the transclusion stub. A CJK character typed from memory into a script is unreliable — 趙彥 and 段煨
+were both mistyped, the third time this has happened — so take the codepoints out of the source text
+instead. And a 429 from Wikimedia has two meanings: usually the robot policy refusing curl's default user
+agent, and occasionally genuine rate limiting, which the body distinguishes and which needs a backoff loop.
+
+**A DECLARED ROW CAN SHIP A WRONG PINYIN, AND ONLY THE OUTPUT SHOWS IT.** `["Shunyü", "Shunyu"]`
+converts 淳于, whose pinyin is **Chunyu** — so the row fired, the run reported it firing, no warning
+was raised, and eight places in the book carried a surname the language has not got. The row's
+right-hand side is the one thing nothing in the pipeline checks: the extractor counts what fired and
+the Chinese column is consulted when a row is *written*, never afterwards. What found it was a sweep
+of the **shipped English** for tokens that cannot be segmented into legal pinyin syllables — the
+right residue test for an output, where a Wade-Giles sweep returns 404 false positives because
+already-converted pinyin is full of WG-legal strings. The same sweep found that the printing spells
+the surname three ways (`Shunyü`, `Shunyu`, `Shun-yu`) and that only one of them had a row at all.
+**Sweep the output for impossibility, not the source for a system.**
+
+**ONE SPELLING CAN BE TWO DIFFERENT NAMES, DISTINGUISHED ONLY BY CHAPTER.** `Kung-ming` is 公明
+(Gongming, Xu Huang's style) in chapters 13 and 69 and 孔明 (Kongming, Zhuge Liang's) in chapters 90,
+93 and 102. A `roman` row is one branch of one global alternation, so it cannot express that at all,
+and matching it against the declared `["K‘ung-ming","Kongming"]` on stripped diacritics — which is
+what a residue adjudicator naturally reaches for — says "Kongming" and is wrong for two fifths of the
+occurrences. It is held and named in the book's own front matter rather than converted. **A residue
+token that matches a declared row is a hypothesis, not a verdict: read every context before accepting
+one.** Two others failed the same test in the same pass — `Tu-yu` is an office and not Du Yu, and
+`Jun-An` is the reign name 永安 Yong'an rather than the place Runan, which is what `["Junan","Runan"]`
+would have made of it.
+
+**THE RESIDUE IS STATED ON THE BOOK'S OWN PAGE RATHER THAN CHASED TO ZERO.** After the sweep and a
+second pass of forty-two rows the tail is about forty spellings in some fifty-five places, of
+23,369 conversions — a place named once in a translator's note that the Chinese column never names,
+a word the scan has garbled past reading (`Hsui`, in "said King Hsui, with a Hsui"), and the two-men
+style above. Each was looked at; none can be checked against anything, and a name with nothing to
+check it against is a name that would be guessed at. The front matter says so in those words.
+
+**A RAW DUMP OF THE CHAPTER BODIES IS NOT THE SOURCE.** Three tokens in the shipped book had no
+counterpart in the scratch copy of the raw chapters and read as conversion products — the corruption
+hazard this batch is built to avoid — and all three are in the translator's **notes**, which the dump
+excluded and the extractor does not. Check what a scratch artefact actually holds before reading an
+absence as evidence.
