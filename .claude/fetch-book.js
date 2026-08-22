@@ -12566,8 +12566,10 @@ const BOOKS = {
         "and the rest were typed in without the apparatus. Those typed pages are a machine reading of " +
         "the printed book, so they carry its slips — <i>Silrya</i> where the page reads Surya, " +
         "<i>herdi</i> for herds, <i>at our case</i> for at our ease. They are the transcription's and " +
-        "not Griffith's, and they are left as found: repairing them would be editing somebody else's " +
-        "text on a guess.",
+        "not Griffith's, and <b>fifty-two of them have been corrected here against the printed " +
+        "page</b> — each one read in a scan of the same 1896 edition before it was touched, and each " +
+        "listed in the importer with the words the page carries. The rest are left as found, because " +
+        "repairing a slip no witness settles would be editing somebody else's text on a guess.",
       "And <b>three passages are missing from the English</b>, for a reason that says more about 1896 " +
         "than about the Rigveda. Griffith turned the frankly sexual passages into Latin rather than " +
         "English and printed them apart from the text, and this transcription left them out: hymn " +
@@ -12618,6 +12620,128 @@ const BOOKS = {
        furniture instead of the text. Reported per hymn rather than thrown, since one short hymn is
        a fact about the Rigveda and a hundred would be a fact about the reader. */
     minChars: 90,
+
+    /* FIFTY-TWO OCR SLIPS, EACH READ AGAINST THE PRINTED PAGE BEFORE IT BECAME A ROW. The witness is
+       the Internet Archive's scan of the same second edition this transcription is of — volume I as
+       `in.ernet.dli.2015.104118` and volume II as `in.ernet.dli.2015.104119` — whose own OCR is bad in
+       different places from the wiki's, which is what makes it a witness at all. Every candidate was
+       anchored by three to five words of the shipped sentence, located in the scan, and read there; a
+       candidate the scan could not settle was DROPPED rather than guessed at, which is why 52 of the
+       ~100 the scan surfaced are here and the rest are recorded in the book's own front matter as left
+       as found. Forty-eight wiki pages were read in all.
+       TWO ROWS ARE WIDER THAN THE SLIP THEY FIX, and that is the `applyFixes` rule rather than a
+       flourish: the pass is a plain substring replace over EVERY page of the book, so `hones` would
+       eat "honest" and `bither` would eat "bitherward" — hence `car and hones` and `come bither`.
+       Declaration order matters for the same reason: `bitherward` must precede any row containing it.
+       AND FOUR ROWS TARGET THE TRANSCRIPTION'S OWN HOUSE FORM rather than the scan's rendering, where
+       the scan writes a vocalic ṛ as "ri" and this text writes it "r": those say so in their reason,
+       and quote how often the book spells the name the other way. */
+    fixes: [
+      ["Sonia", "Soma",
+        "3.5 — the printed page reads \"the Soma's skin\""],
+      ["Conie", "Come",
+        "8.35 — the printed page reads \"Come nigh, O ye Twain Gods\""],
+      ["piayer", "prayer",
+        "3.3 — the printed page reads \"prayer\""],
+      ["Maghavari", "Maghavan",
+        "10.23 — the printed page has the name; the transcription spells it \"Maghavan\" 210 times elsewhere"],
+      ["Maghayan", "Maghavan",
+        "10.104 — the same name, the same page; \"Maghavan\" elsewhere"],
+      ["slaver", "slayer",
+        "10.111 — the printed page reads \"slayer\""],
+      ["bitherward", "hitherward",
+        "9.65 — the printed page reads \"hitherward\""],
+      ["stare", "store",
+        "2.11 — the printed page reads \"with store of noble children\""],
+      ["Aryarnan", "Aryaman",
+        "8.67 — the printed page has the name; the transcription spells it \"Aryaman\" 112 times elsewhere"],
+      ["kindIed", "kindled",
+        "7.78 — the printed page reads \"kindled\"; the transcription's slip is a capital I for an l"],
+      ["Savran", "Sovran",
+        "8.25 — the printed page reads \"sat them down for sovran rule\""],
+      ["faemen", "foemen",
+        "6.68 — the printed page reads \"foemen\""],
+      ["longue", "tongue",
+        "10.87 — the printed page reads \"Seize with thy tongue\""],
+      ["hamessed", "harnessed",
+        "8.25 — the printed page reads \"harnessed\""],
+      ["swittly", "swiftly",
+        "6.22 — the printed page reads \"swiftly\""],
+      ["iustre", "lustre",
+        "6.58 — the printed page reads \"lustre\""],
+      ["Yarna", "Yama",
+        "10.60 — the printed page has the name; the transcription spells it \"Yama\" 48 times elsewhere"],
+      ["whcel", "wheel",
+        "8.5 — the printed page reads \"wheel\""],
+      ["aiong", "along",
+        "9.97 — the printed page reads \"along\""],
+      ["bidden", "hidden",
+        "8.6 — the printed page reads \"When hidden thoughts\""],
+      ["gatber", "gather",
+        "6.35 — the printed page reads \"gather\""],
+      ["nobIy", "nobly",
+        "7.62 — the printed page reads \"nobly\"; a capital I for an l"],
+      ["baste", "haste",
+        "8.4 — the printed page reads \"quickly come hither, haste, and drink\""],
+      ["bills", "hills",
+        "5.54 — the printed page reads \"overthrowers of the hills\""],
+      ["handcd", "handed",
+        "9.107 — the printed page reads \"handed\""],
+      ["Iovest", "Lovest",
+        "3.32 — the printed page reads \"Lovest\"; a capital I for an L"],
+      ["tront", "front",
+        "6.15 — the printed page reads \"front\""],
+      ["Deathiess", "Deathless",
+        "6.15 — the printed page reads \"Deathless\""],
+      ["drivcr", "driver",
+        "6.20 — the printed page reads \"driver\""],
+      ["siaughtered", "slaughtered",
+        "6.47 — the printed page reads \"when he slaughtered Vrtra\""],
+      ["bolpest", "holpest",
+        "8.12 — the printed page reads \"Wherewith thou holpest Adhrigu\""],
+      ["felIy", "felly",
+        "6.54 — the printed page reads \"felly\"; a capital I for an l"],
+      ["Medbyatithi", "Medhyatithi",
+        "8.51 — the printed page has the name; the transcription spells it \"Medhyatithi\" 8 times elsewhere"],
+      ["glancc", "glance",
+        "3.62 — the printed page reads \"glance\""],
+      ["Sobbari", "Sobhari",
+        "8.20 — the printed page has the name; the transcription spells it \"Sobhari\" 7 times elsewhere"],
+      ["Reblia", "Rebha",
+        "10.39 — the printed page reads \"brought forth Rebha when hidden in the cave\""],
+      ["caters", "eaters",
+        "10.87 — the printed page reads \"the raw-flesh eaters\""],
+      ["Vitra", "Vrtra",
+        "9.89 — the printed page has the name; the transcription spells it \"Vrtra\" 284 times elsewhere"],
+      ["Baunteous", "Bounteous",
+        "8.83 — the printed page reads \"Bounteous Ones\""],
+      ["Payamana", "Pavamana",
+        "9.37 — the printed page has the name; the transcription spells it \"Pavamana\" 140 times elsewhere"],
+      ["seive", "sieve",
+        "9.64 — the printed page reads \"the purifying sieve\", which the next verse spells correctly"],
+      ["Kanya", "Kanva",
+        "8.9 — the printed page has the name; the transcription spells it \"Kanva\" 64 times elsewhere"],
+      ["car and hones", "car and horses",
+        "4.41 — the printed page reads \"sustenance for car and horses\""],
+      ["Anirta", "Amrta",
+        "10.122 — the printed page has the word; the transcription spells it \"Amrta\" 25 times elsewhere"],
+      ["belpest", "holpest",
+        "2.13 — the printed page reads \"thou holpest thy worshipper\""],
+      ["posses-ions", "possessions",
+        "4.50 — the printed page reads \"possessions\"; the transcription keeps the line-end hyphen and drops the s"],
+      ["Sorria", "Soma",
+        "4.1 — the printed page reads \"the Soma's juice\""],
+      ["erthrawn", "erthrown",
+        "8.43 — the printed page has the word; the transcription's own spelling is \"o'erthrown\", which it uses five times elsewhere"],
+      ["Pavamamas", "Pavamanas",
+        "9.13 — the printed page has the name; the transcription spells it \"Pavamanas\" elsewhere"],
+      ["Rodasl", "Rodasi",
+        "6.66 — the printed page reads \"Rodasi stood among these furious Heroes\"; a lowercase l for an i"],
+      ["Jayeth", "Slayeth",
+        "4.41 — the printed page reads \"Slayeth the Vrtras and his foes in battles\""],
+      ["come bither", "come hither",
+        "2.39 — the printed page reads \"hither\""],
+    ],
 
     original: {
       lang: "sa",
@@ -22349,6 +22473,12 @@ async function fetchEnglish() {
         fs.writeFileSync(cf, h);
         await sleep(900);
       }
+      /* THE CORRECTION PASS RUNS AFTER THE CACHE RATHER THAN BEFORE IT, which is the opposite of the
+         ordinary wiki walk one branch down and is the better shape: what is cached is the page as
+         Wikisource serves it, so a `fixes` row can be re-verified against the cache instead of
+         needing a full refetch to prove it still fires. Every other book on this path — there is
+         none; `layout: "sukta"` is the Rigveda's alone — would be unaffected either way. */
+      h = correctRaw(h);
       const got = extractSukta(h, where, warn);
       /* A hymn may honestly be three verses long, so the short-chapter guard is a floor on the
          WHOLE book rather than a throw on one page: what it is for is catching an extraction that

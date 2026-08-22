@@ -261,13 +261,55 @@ re-run and diffed byte for byte.
 | **E1** ✅ | `journey-to-the-west` | the tail B5 deferred: **261 further rows, 319 declared in all**, every remaining junk token read against its own sentence; the widened character class that found 27 more; 91 marks left and named on the book's page |
 | **B6b** | `three-kingdoms` | two names still in Wade-Giles because a printed page turn splits them, and two whose halves need two rows each; the residue sweep's own false-positive rate measured |
 | **E2** ✅ | `marco-polo` | the error check; **no words changed, and that is the finding** — for a scholarly edition the aggregate test is weak and the independent scan is the poorer witness; the `✛` revision mark identified and explained on the About page |
-| **E3–En** | the rest of the error half | the slip and variant candidates, book by book, heaviest first — rigveda (51), canterbury-tales (18), summa-theologica (15), virgil-aeneid (14); a book with no printed witness reachable contributes findings rather than fixes |
+| **E3** ✅ | `rigveda` | **52 slips**, every one anchored in the Internet Archive's scan of the same 1896 second edition before it became a row; the `layout: "sukta"` branch wired into `correctRaw`, without which the table was inert |
+| **E4–En** | the rest of the error half | the slip and variant candidates, book by book, heaviest first — canterbury-tales (18), summa-theologica (15), virgil-aeneid (14); a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E3 — the Rigveda, shipped 2026-08-22
+
+**FIFTY-TWO SLIPS, AND THE WITNESS IS A SECOND SCAN OF THE SAME PRINTING.** `book-scan.js`'s own header
+says a candidate is evidence and never a verdict, and this is the batch that had to act on it: the
+Rigveda's transcription is 1,023 hand-typed pages, so the scanner reports slips by the dozen and most of
+them are words. What settles one is the Internet Archive's OCR of the same 1896 second edition — volume I
+as `in.ernet.dli.2015.104118`, volume II as `in.ernet.dli.2015.104119` — whose own OCR is bad in
+**different places** from the wiki's, which is the whole of what makes it a witness. Each candidate was
+anchored by three to five words of the shipped sentence, located in the scan by a normalised alnum stream
+with an offset map back to the raw, and read there. Forty-eight wiki pages in all.
+
+**A CANDIDATE THE SCAN COULD NOT SETTLE WAS DROPPED RATHER THAN GUESSED AT**, which is why 52 of the
+~100 the sweep surfaced are rows and 44 are still reported by `book-scan.js`. Three that were dismissed
+are worth naming, because each looks exactly like a slip: `marry` for many (the scan reads *marry*, and
+the line is about a suitor), `vyansa` for vyamsa (the scan reads **Vyansa** — a printed-book variant, so
+"correcting" it would have been editing Griffith), and `abject`.
+
+**FOUR ROWS TARGET THE TRANSCRIPTION'S OWN HOUSE FORM RATHER THAN THE SCAN'S RENDERING, and they say so.**
+The scan writes a vocalic ṛ as *ri* — it has "amrit" 43 times and "amrta" not once — while this text
+writes it *r* and spells `Amrta` 25 times. The row therefore fixes `Anirta` to the book's own `Amrta` and
+its reason quotes that count, rather than claiming the printed page reads a spelling it does not.
+`erthrawn` is the same judgement one notch finer: the scan reads *overthrown* with no apostrophe, so only
+the vowel is fixed and the transcription's own `o'erthrown` — which it uses five times elsewhere — stands.
+
+**TWO ROWS ARE WIDER THAN THE SLIP THEY FIX, AND THAT IS `applyFixes`' RULE RATHER THAN A FLOURISH.** The
+pass is a plain substring replace over **every page of the book**, so `hones` would eat "honest" seven
+times and `bither` would eat "bitherward" twice: the rows are `car and hones` and `come bither`, and
+declaration order puts `bitherward` first. Every one of the 52 was proved unique as a plain substring
+across the whole shipped book before it was written down, and each fires exactly once.
+
+**AND THE TABLE WOULD HAVE BEEN SILENTLY INERT**, which is the finding to carry to the next book on an
+unusual path: `layout: "sukta"` is the Rigveda's alone and its fetch branch never called `correctRaw`, so
+a `fixes` table on this book was a hundred lines of dead configuration — no error, no warning, and a run
+that reports the right number of hymns. It is wired now, and it is wired **after the cache is read**:
+the sukta branch caches the page as Wikisource served it, so a row can be re-verified against the cache
+instead of needing a refetch to prove it still fires. **Check that a book's own branch reaches the
+correction chain before writing a table for it.**
+
+Counts unchanged: 1,028 hymns, 10,503 verse numbers, 27 notes, 2,054 KB. The book's own front matter now
+says fifty-two have been corrected and that the rest are left as found.
 
 ### E2 — the Travels of Marco Polo, the error check, shipped 2026-08-22
 
