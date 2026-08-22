@@ -166,7 +166,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N3 | 8 | Minoan chronology II — Late Minoan — **shipped**, all eight pictured |
 | N4 | 14 | Helladic chronology — **shipped**, 10 of 14 pictured |
 | N5 | 11 | Troy levels — **shipped**, 8 of 11 pictured |
-| N6 | 12 | Aegean prehistorians and museums |
+| N6 | 12 | Aegean prehistorians and museums — **shipped**, 7 of 12 pictured |
 | N7 | 12 | Athens topography |
 | N8 | 12 | Mycenaean tombs and grave circles |
 | N9 | 12 | Greek architecture and its orders |
@@ -227,6 +227,33 @@ own subdivisions.
 quarter of the whole pass, and they are the only part of it that is a table rather than a
 subject — one authoritative source per term, one shape of sentence, no argument to weigh. Doing
 them first would spend the pass's best attention on its least interesting terms.
+
+### Batch log
+
+**N6 — Aegean prehistorians and museums (shipped).** The batch was planned as twelve people and
+institutions and shipped as ten, plus `thalassocracy` and `Berlin` in place of two that could not be
+written. **Florian Ruppenstein is DEFERRED with a stated reason**: G8's rule is that the literature
+pays for results rather than for living people, and no reachable page states his affiliation —
+DOAJ, Europe PMC, Gnomon, OAPEN, Propylaeumdok and Freiburg's own site are each shut, walled or
+404 from here, so the two-source bar cannot honestly be met for him. Come back to it when one of
+those opens rather than citing a publisher's contributor blurb.
+
+Three faults it turned up are worth carrying. **A DOI carried forward in working notes is a DOI
+nobody read**: the Historika citation had been noted with Girau's DOI and no author at all, and the
+right pair (Elisabetta Bianco, `10.13135/2039-4985/1908`) came out of the page's own
+`citation_*` metadata, which is far more reliable than scraping the prose. **A page that returns 200
+may still be navigation**: the Wits ESI page is 2,529 characters of menus and carries none of the
+Taung or *sediba* facts it was chosen for, so the term was rewritten around the university's own
+history page instead. And **a name must be READ rather than completed**: the museum's source gives
+its benefactor as "E. Tositsa" and the description names no first name.
+
+**Its pictures are 7 of 12.** Five have none and each has a reason rather than a gap: `Sturt
+Manning`, `Jeremy Rutter` and `John Papadopoulos` are living scholars with no freely licensed
+portrait on Commons (the searches return radiocarbon diagrams and unrelated namesakes), and
+`monograph` and `thalassocracy` are abstract, which the picture pass already records as the
+commonest honest reason for none. `Ludwig Borchardt`'s is a Max Liebermann oil portrait digitised
+at only 287 x 360, below the pass's ~900px bar and taken anyway: it is the only free image of him,
+the popup slot caps at 150px, and a stated trade beats no picture at all.
 
 ### The standing rules a new term is held to
 
