@@ -3,17 +3,27 @@
 
     python3 .claude/dele/combine.py [out.folio-deck.json]
 
-It reads `decks/DELE-*.folio-deck.json` and writes a single deck whose
-subdecks NEST, a direction inside a level:
+It reads `decks/DELE-*.folio-deck.json` and writes a single deck with a
+subdeck per level:
 
-    A1                        B1
-      Spanish → English         …
-      English → Spanish       B2
-    A2                          …
-      …
+    A1   A2   B1   B2
 
-so a reader adds a whole level or one direction of it, and the four levels
-stay separable inside one file rather than being poured together.
+so a reader adds a whole level at a time and the four stay separable inside one
+file rather than being poured together.
+
+THE TREE WAS NESTED UNTIL AUG 2026, a direction inside each level, because a
+DELE deck was then TWO NOTES per word with the direction written into each
+one's own `sub`.  `merge-directions.py` made it one note with two card
+TEMPLATES, which is the shape every other language here has — and a template is
+not a subdeck and cannot be made one, `sub` being a property of the note and the
+note being both directions.  Nothing is lost: app.js already draws a level's two
+templates as rows of their own underneath it, so the reader still gets
+
+    A1
+      Spanish → English
+      English → Spanish
+
+out of a file with one `sub` per level and no `::` in it anywhere.
 
 FIVE THINGS IT HAS TO GET RIGHT, and four of them fail silently.
 
@@ -25,15 +35,15 @@ already had once, between A1 and A2, where both decks sat on the shelf with
 their full counts and nothing threw.  `deleall` is likewise its own deck id.
 
 THE SUBDECK IS A STRING ON THE CARD and the deck's subdecks are the DISTINCT
-values in CARD ORDER, so the cards are concatenated level by level and the
-order above follows.  NESTING is `::` inside that same string — Anki's deck
-separator, which app.js adopted for this in Aug 2026 — so it needs no field of
-its own and travels wherever the card does.  A segment may not contain `::`,
-and none of these does.
+values in CARD ORDER, so the cards are concatenated level by level and the order
+above follows.  A level's own cards must arrive carrying NO sub of their own,
+which is asserted rather than assumed: one that did would put a stray nested row
+in a tree this file says is flat.
 
-THE TYPE BLOCK IS SHARED.  All four decks carry byte-identical `types`, which
-is asserted rather than assumed — a level rebuilt against a changed template
-would otherwise have its cards silently rendered by another level's.
+THE TYPE BLOCK IS SHARED.  All four decks carry byte-identical `types` — one
+card type, `dele`, with two templates in it — which is asserted rather than
+assumed, since a level rebuilt against a changed template would otherwise have
+its cards silently rendered by another level's.
 
 THE COUNTS IN THE DESCRIPTION ARE COUNTED, never carried over from the four
 descriptions and added up.  A figure restated by hand is a figure that goes
@@ -57,7 +67,6 @@ from dele_level import TARGET          # the syllabus sizes, in one place
 
 LEVELS = ['A1', 'A2', 'B1', 'B2']
 DECK_ID = 'deleall'
-SUB_SEP = '::'          # app.js's own subdeck separator; keep the two in step
 TITLE = 'DELE A1–B2 — Spanish'
 
 # app.js's own limits, restated here so this refuses to write a file that
@@ -84,7 +93,11 @@ def stats(cards):
     them at all -- it is the level's own target, and is read from `dele_level`
     rather than counted or restated.
     """
-    fwd = [c for c in cards if c['type'] == 'es-to-en']
+    # ONE NOTE PER WORD SINCE AUG 2026, so there is no forward half to pick out:
+    # `merge-directions.py` made each word one note carrying two card TEMPLATES,
+    # where this used to filter the `es-to-en` rows to count each word once. The
+    # filter is gone and the name with it — every figure below is PER NOTE.
+    fwd = cards
     verbs = sum(1 for c in fwd if c['fields'].get('Conjugation'))
     refl = sum(1 for c in fwd if c['fields'].get('Conjugation')
                and c['fields']['Word'].endswith('se'))
@@ -92,24 +105,26 @@ def stats(cards):
                 if c['fields']['Spanish'].split(' ')[0] in ('el', 'la', 'los', 'las'))
     pairs = sum(1 for c in fwd if ', ' in c['fields']['Spanish'])
     exs = sum(1 for c in fwd if c['fields'].get('Examples'))
-    return dict(cards=len(fwd), verbs=verbs, refl=refl, nouns=nouns,
+    return dict(notes=len(fwd), verbs=verbs, refl=refl, nouns=nouns,
                 pairs=pairs, exs=exs)
 
 
 def desc(s, per_level):
-    n = f"{s['cards']:,}"
+    n = f"{s['notes']:,}"
     sizes = [TARGET[lv.lower()] for lv, _ in per_level]
     return (
-        'All four DELE levels in one deck. The subdecks nest — a level, and the '
-        'two study directions inside it — so you can add a whole level or just '
-        'the direction you want, and study each on its own: for each of A1, A2, '
-        'B1 and B2, Spanish → English (see the Spanish, recall the meaning) and '
-        'English → Spanish (see an English meaning, recall the Spanish). '
+        'All four DELE levels in one deck, a subdeck apiece, so you can add a '
+        'whole level or study it on its own. Each word is one card each way — '
+        'Spanish → English (see the Spanish, recall the meaning) and English → '
+        'Spanish (see an English meaning, recall the Spanish) — and the two are '
+        'listed under their level as rows of their own, each with its own '
+        'schedule, so recognising a word and producing it are learnt '
+        'separately. '
         + 'The four levels teach '
         + ', '.join(f'{c:,}' for c in sizes[:-1]) + f' and {sizes[-1]:,} words '
         f'— {sum(sizes):,} in all, and no word is taught twice, since each '
         'level excludes every word the levels below it contain. They sit on '
-        f'{n} cards in each direction, because a masculine and a feminine '
+        f'{n} words in each direction, because a masculine and a feminine '
         'headword that are both in the word list share one card. '
         'There is no official published DELE word list, so the vocabulary is '
         "taken from the body that sets the exam: the level's own column of the "
@@ -149,11 +164,11 @@ def desc(s, per_level):
         f"{s['refl']:,} reflexive verbs are conjugated with their pronouns (me "
         'llamo, te llamas), including the written accent the imperative takes '
         'when the pronoun is attached (llámate, levántense). '
-        f"Real example sentences come with {s['exs']:,} of the {n} cards, up to "
+        f"Real example sentences come with {s['exs']:,} of the {n} words, up to "
         'three apiece, chosen where possible to show three different inflected '
         'forms rather than the same one three times, with the word picked out '
         'in colour and a speaker beside it; the sentence corpus has nothing at '
-        f"all for the remaining {s['cards'] - s['exs']:,}, which are kept "
+        f"all for the remaining {s['notes'] - s['exs']:,}, which are kept "
         'because the word list is set by the exam board and not by the corpus. '
         'Word list: Plan curricular del Instituto Cervantes (cvc.cervantes.es). '
         'Meanings, genders, plurals and conjugations: English Wiktionary, via '
@@ -180,17 +195,25 @@ def main():
 
     cards, per_level = [], []
     for lv, d in decks:
-        by_sub = {}
+        per_level.append((lv, len(d['cards'])))
         for c in d['cards']:
-            by_sub.setdefault(c['sub'], []).append(c)
-        per_level.append((lv, sum(1 for c in d['cards'] if c['type'] == 'es-to-en')))
-        for sub in by_sub:                       # insertion order = card order
-            if SUB_SEP in sub:
-                raise SystemExit(f'sub title contains {SUB_SEP!r}: {sub!r}')
-            for c in by_sub[sub]:
-                n = len(cards) + 1
-                cards.append(dict(c, id=f'u_{DECK_ID}_{n}', num=str(n),
-                                  category='DELE', sub=f'{lv}{SUB_SEP}{sub}'))
+            n = len(cards) + 1
+            # A LEVEL WITH NO SUBDECKS OF ITS OWN, asserted: every DELE note
+            # carries an empty `sub` since the directions were merged, and one
+            # that did not would nest a row in a tree this file says is flat.
+            if (c.get('sub') or ''):
+                raise SystemExit(f'{lv} card {c["id"]} already has a sub: '
+                                 f'{c["sub"]!r}')
+            # `sub`, `fields`, `id`, `type` AND NOTHING ELSE, which is what the
+            # four decks this is made of carry and what every other language's
+            # notes carry. The Basic format's own `num` and `category` were
+            # added here until Aug 2026; a TYPED card renders from its templates
+            # and never reads them, so they were bytes in a file a reader
+            # downloads — and the same fields were being stripped out of the
+            # shipped decks in the same pass (see `.claude/merge-directions.py`),
+            # so leaving them here would have the combined file carry what its
+            # own sources do not.
+            cards.append(dict(c, id=f'u_{DECK_ID}_{n}', sub=lv))
 
     if len(cards) > MAX_CARDS:
         raise SystemExit(f'{len(cards)} cards, over app.js\'s {MAX_CARDS} cap')
@@ -204,8 +227,8 @@ def main():
             'id': DECK_ID,
             'title': TITLE,
             'subtitle': f'{sum(TARGET[l.lower()] for l in LEVELS):,} words '
-                        'across all four levels · a subdeck per level, and the '
-                        'two directions inside it',
+                        'across all four levels · a subdeck per level, both '
+                        'directions as two cards per word',
             'desc': desc(s, per_level),
             'author': '',
             'language': 'en',
@@ -229,21 +252,15 @@ def main():
     with open(out, 'w', encoding='utf-8') as f:
         f.write(text)
 
-    subs, nodes = [], []
+    subs = []
     for c in cards:
         if c['sub'] not in subs:
             subs.append(c['sub'])
-            parts = c['sub'].split(SUB_SEP)
-            for i in range(1, len(parts) + 1):
-                q = SUB_SEP.join(parts[:i])
-                if q not in nodes:
-                    nodes.append(q)
     print(f'{out}')
-    print(f'  {len(cards):,} cards, {len(text.encode("utf-8"))/1048576:.1f} MB '
-          f'(caps: {MAX_CARDS:,} cards, {MAX_BYTES/1048576:.0f} MB)')
-    print(f'  {len(nodes)} subdecks ({len(subs)} of them leaves):')
-    for q in nodes:
-        print('    ' + '  ' * q.count(SUB_SEP) + q.split(SUB_SEP)[-1])
+    print(f'  {len(cards):,} notes ({len(cards) * 2:,} cards), '
+          f'{len(text.encode("utf-8"))/1048576:.1f} MB '
+          f'(caps: {MAX_CARDS:,} notes, {MAX_BYTES/1048576:.0f} MB)')
+    print(f'  {len(subs)} subdecks: ' + '  '.join(subs))
     print('  ' + '  '.join(f'{k} {v:,}' for k, v in s.items()))
 
 

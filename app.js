@@ -4936,19 +4936,34 @@
      granted at that number. It also survives two devices reconciling, since it rides in the synced blob
      beside the streak it is counted from. */
   const STREAK_CHEST_EVERY = 7;
+  /* EACH WEEK IS WORTH MORE THAN THE LAST (Aug 2026, on request): the seventh day pays one chest, the
+     fourteenth two, the twenty-first three. A flat chest a week is a reward that stops meaning anything
+     around the second month, where the whole point of a streak is that it costs more to keep the longer
+     it runs. The figure is DERIVED from the count rather than tallied — `n / STREAK_CHEST_EVERY` is the
+     number of complete weeks — so it needs no field of its own, cannot drift from the streak it is paid
+     for, and comes out right for a reader whose streak was already long when this shipped: they are paid
+     the full amount at their next multiple of seven rather than everything they have missed at once. */
+  function streakChestWeeks(n) { return Math.max(1, Math.floor(n / STREAK_CHEST_EVERY)); }
   function maybeStreakChest() {
     const n = (S.streak && S.streak.count) | 0;
     if (n <= 0 || n % STREAK_CHEST_EVERY !== 0 || S.streakChest === n) return;
     S.streakChest = n;
-    grantChest();
-    toast("🔥 " + n + "-day streak — a chest is waiting in your account.");
+    const many = streakChestWeeks(n);
+    grantChest(many);
+    toast("🔥 " + n + "-day streak — " + (many === 1 ? "a chest is" : many + " chests are") +
+      " waiting in your account.");
   }
   /* How far through the current week the reader is. Day seven reads 7 of 7 rather than 0 of 7, which is
      what a meter should say on the day the thing is earned — hence the offset rather than a bare modulo. */
   function streakChestProgress(prog) {
     const n = ((prog && prog.streak && prog.streak.count) | 0);
     const into = n <= 0 ? 0 : ((n - 1) % STREAK_CHEST_EVERY) + 1;
-    return { count: n, into: into, need: STREAK_CHEST_EVERY, left: STREAK_CHEST_EVERY - into };
+    const left = STREAK_CHEST_EVERY - into;
+    /* `worth` is what the NEXT chest pays, which is not the same as what the last one did: on the day one
+       is earned (`left === 0`) the reader has just been paid for the week that closed, so what is coming
+       is the week after it. */
+    return { count: n, into: into, need: STREAK_CHEST_EVERY, left: left,
+      worth: streakChestWeeks(n + (left === 0 ? STREAK_CHEST_EVERY : left)) };
   }
 
   /* ---------- progress accounting ---------- */
@@ -5084,6 +5099,19 @@
     // same as being an unknown id: without this it would fall through to the curated tree and be looked up
     // there, where nothing of that name exists.
     if (entryPending(id)) return [];
+    /* A LANGUAGE CONTAINER — the decks of that language the reader has added, which is exactly what the
+       row draws under it. It is synthesised at render time and is never in `S.active`, so nothing but its
+       own row ever asks; what its row asks for is the three pile counts and the progress bar, and a header
+       stating figures the rows beneath it contradict is the one thing a container must not do. Dragged-in
+       children count too, for the reason a group's do. */
+    if (isLangCtxId(id)) {
+      const g0 = _guard || new Set();
+      if (g0.has(id)) return [];
+      g0.add(id);
+      const seen = new Set();
+      langCtxEntries(id).concat(nestChildren(id)).forEach((e) => entryCardIds(e, g0).forEach((c) => seen.add(c)));
+      return [...seen];
+    }
     // one of the reader's own decks, or one subdeck of it — the cards it names, in either case
     const own = (e) => {
       const d = UDECKS[uDeckIdOf(e)];
@@ -7960,10 +7988,15 @@
   }
   /* The tail of every import: paint the deck, then tell the reader once it is really stored — and say so
      out loud if the storing is slow enough to notice, since a deck that has appeared but is still being
-     written looks exactly like one that is finished. */
-  async function uImportDone(r) {
+     written looks exactly like one that is finished.
+     `quiet` repaints IN PLACE (renderInPlace), for the caller who is already standing on the page being
+     rebuilt: pressing Download on the home page turns that row into the deck, and a full render() scrolls
+     the reader to the top and replays every entrance animation for it — which is what "the page refreshes"
+     describes. It is the CALLER'S call and not a default, because the Studio's own import genuinely is a
+     navigation-sized change to the page it happens on. */
+  async function uImportDone(r, quiet) {
     if (!r || r.error) { toast((r && r.error) || "That deck couldn't be read."); return false; }
-    render();
+    if (quiet) renderInPlace(); else render();
     if (r.saved) {
       const slow = setTimeout(() => toast("Saving “" + r.deck.title + "” to this device…"), 400);
       await r.saved;
@@ -12910,6 +12943,19 @@
   const SWIPE_ORDER = ["home", "library", "account", "settings"];
   const SWIPE_MIN = 64, SWIPE_RATIO = 1.6, SWIPE_MS = 700;
   let _navDir = "";        // which way the next render() should come in from
+  /* A REPAINT IS NOT A NAVIGATION (Aug 2026, on a bug report: "each time a new active deck is downloaded,
+     the page refreshes"). render() is written for a navigation — it scrolls to the top and plays the page's
+     entrance animation — and several things repaint the page the reader is standing on rather than taking
+     them anywhere: a downloaded deck's row turning from Download into the deck itself is the one that was
+     reported. `renderInPlace()` is the same render with those two flourishes off, so the list is rebuilt
+     under the reader's eye without moving or flashing. It changes nothing else: the fold state (`adOpen`,
+     module level) and the drag order (`S.deckOrder`, persisted) already survive a repaint, so the scroll
+     position and the animations were the whole of what a reader could see. */
+  let _renderQuiet = false;
+  function renderInPlace() {
+    _renderQuiet = true;
+    try { render(); } finally { _renderQuiet = false; }
+  }
   function swipeScrollerUnder(el) {
     for (let n = el; n && n !== document.body; n = n.parentElement) {
       if (n.nodeType !== 1) continue;
@@ -12990,10 +13036,12 @@
     // a swiped navigation arrives from the side the finger came from, and the outgoing page leaves the
     // other way — so the gesture and the transition tell the same story (see wirePageSwipe)
     const dir = _navDir; _navDir = "";
-    const ghost = makePageGhost(dir);   // the outgoing page, leaving over the incoming one
+    // a quiet repaint has no outgoing page to lift out — the reader is standing on the page being rebuilt
+    const quiet = _renderQuiet;
+    const ghost = quiet ? null : makePageGhost(dir);   // the outgoing page, leaving over the incoming one
     // …and nothing travels under reduced motion, so nothing needs clipping
-    if (dir && !prefersReducedMotion()) clipStageFor(PAGE_GHOST_MS + 80);
-    view.innerHTML = '<div class="page' + (dir ? " page-" + dir : "") + '"></div>';
+    if (dir && !quiet && !prefersReducedMotion()) clipStageFor(PAGE_GHOST_MS + 80);
+    view.innerHTML = '<div class="page' + (quiet ? " page-quiet" : "") + (dir ? " page-" + dir : "") + '"></div>';
     if (ghost) { if (dir) ghost.classList.add("ghost-" + dir); view.appendChild(ghost); }
     const root = view.firstElementChild;
     (PAGES[current.name] || PAGES.home)(root, current.params);
@@ -13006,8 +13054,9 @@
     // a community card type's read-aloud spans, wherever a page painted one (the Studio's previews, a
     // shared deck's sample card). The study card's own reveal paints after this and wires its own.
     wireSpeakControls(root);
-    // a smooth scroll is a JS scroll option, so the stylesheet's reduced-motion killswitch can't reach it
-    window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    // a smooth scroll is a JS scroll option, so the stylesheet's reduced-motion killswitch can't reach it —
+    // and a quiet repaint must not move the reader at all, which is half of what makes it quiet
+    if (!quiet) window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
     /* The walkthrough is deliberately NOT in the close list above: it NAVIGATES (the add-a-deck step routes
        to the collections and back), so a render() that dismissed it would dismiss it at exactly the moment
        it was doing its job. What it does need is re-measuring — the page it was pointing at has just been
@@ -19060,9 +19109,24 @@
        Positions are read from the LAYOUT (deckLayoutTop + offsetHeight), never the paint, for the reason the
        reorder does: a sibling part-way through its own FLIP is painted somewhere it is not. `elementFromPoint`
        is no use here either — `.dk-reordering` takes the rows out of hit-testing so none of them lights up
-       under the carried block. */
+       under the carried block.
+
+       AND A NESTING IS SIDEWAYS WHERE A REORDER IS VERTICAL (Aug 2026, on a bug report from a phone: "when
+       I try to drag active collections to reorder them, they disappear"). The middle band alone cannot tell
+       the two apart, and on a phone it decides against the reader: a row is 46px, so the band is about
+       fifteen of them, and a thumb travelling straight down to move a collection two places lands in one
+       about a third of the time. Reproduced with real touch at 390×844 — an 88px drag, less than two rows,
+       filed a whole collection inside its neighbour, eleven rows down and indented under a 43-row subtree.
+       Nothing was lost and nothing threw; from the top of the list, where the reader was looking, it was
+       simply gone. So the pointer must ALSO have travelled `NEST_DX` in the writing direction from where
+       the grip was taken, which is the outline-editor convention (drag right to indent) and which a
+       straight-down drag can never satisfy. It stays discoverable because `.dk-into` lights the row the
+       moment the threshold is met, and it costs the deliberate gesture nothing: the grip sits in the row's
+       left padding, so a drop aimed at another row's middle is a rightward move already. */
     const DROP_EDGE = 0.34;   // the top and bottom third of a row stay "reorder"; the middle is "put it inside"
+    const NEST_DX = 28;       // …and how far sideways a drag has to have gone before the middle band means anything
     function dropTargetAt(e, d) {
+      if ((e.clientX - d.grabX) * d.dir < NEST_DX) return null;
       const block = new Set(d.block);
       for (const r of rows()) {
         if (block.has(r) || !shown(r)) continue;
@@ -19112,7 +19176,9 @@
         const block = blockOf(el), vis = block.filter(shown);
         // …and a row may now be dragged even where it is the only one at its level: it has nowhere to go
         // among its siblings, but it can still be dropped INTO a group or another deck
-        drag = { el, block, vis, tops: vis.map((b) => b.getBoundingClientRect().top), grabY: e.clientY, moved: false, pid: e.pointerId, into: null };
+        drag = { el, block, vis, tops: vis.map((b) => b.getBoundingClientRect().top),
+                 grabY: e.clientY, grabX: e.clientX, dir: document.documentElement.dir === "rtl" ? -1 : 1,
+                 moved: false, pid: e.pointerId, into: null };
         // capture on the LIST, not the grip: the pointer spends the drag over other rows, and the grip is
         // being transformed out from under it
         try { listEl.setPointerCapture(e.pointerId); } catch (x) {}
@@ -19293,17 +19359,29 @@
        It is drawn SMALLER here (22px against 34) and only where there is something to draw, because at
        390px the row is three piles, a name, a bar and a chevron, and the name is the only part of it with
        a shorter form — so every pixel this takes is taken from the thing the reader is reading. */
-    const adIconKey = (entryId) => {
+    const adIconKey = (entryId, parentKey) => {
       const n = NODE_BY_ID[entryId];
       if (n) return n.parentId ? "" : (COLLECTION_ICON[entryId] || "cards");
       // a LANGUAGE container is the row that is a collection, so it wears the speech bubble its own
       // banner wears on the Collections page — the one place seven collections share a mark
       if (isLangCtxId(entryId)) return "speech";
+      /* …AND A DECK DRAWN INSIDE ONE GETS NOTHING (Aug 2026, on request: "decks within language
+         collections shouldn't get their own icons in the active decks section, only the collection
+         itself should"). A language deck is a community deck, so without this it takes the card stack
+         below — and a reader who adds seven levels of Spanish gets one speech bubble over seven
+         identical stacks, which is the forty-pagoda case the rule above exists to prevent, one store
+         over. It is the SAME rule as the curated side's, where a deck inside a collection carries no
+         icon either; what differs is only that a language's decks are its members rather than its
+         children in a tree, so the test has to be on the ROW'S PARENT rather than on the deck. A deck
+         the reader has dragged OUT of its language sits at the top level with nothing above it to say
+         what it is, and keeps its stack. An icon the reader has set themselves still wins — this is
+         the automatic mark, and `entryIconMarkup` reads it as a fallback. */
+      if (isLangCtxId(parentKey)) return "";
       const dId = uDeckIdOf(entryId);
       if (dId && UDECKS[dId] && !uSubOf(entryId)) return "cards";
       return "";
     };
-    const adIcon = (entryId) => entryIconMarkup(entryId, adIconKey(entryId), "dk-ic");
+    const adIcon = (entryId, parentKey) => entryIconMarkup(entryId, adIconKey(entryId, parentKey), "dk-ic");
     const adProg = (ids) => {
       const total = ids.length, studied = ids.filter(isSeen).length;
       /* `data-total` / `data-studied` are the two numbers the bar is DRAWN from, written down beside the
@@ -19391,7 +19469,7 @@
           const members = (langCtx.get(id) || []).filter((e) => !nestParentOf(e));
           const kids = members.concat(kidsOf(id));
           const h = groupColor(id) || langCtxHue(id) || hue;
-          rows.push({ id, title: langCtxName(id), depth, parent: parentKey, drag: id, hue: h, kids });
+          rows.push({ langhead: true, id, title: langCtxName(id), depth, parent: parentKey, drag: id, hue: h, kids });
           orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
           return;
         }
@@ -19582,6 +19660,30 @@
           const chev = hasKids.has(r.drag) ? chevBtn("dk-chev") : '<span class="dk-chev-gap" aria-hidden="true"></span>';
           const title = r.title || (r.node ? nodeTitle(r.node) : r.drag);
           const nodeAttr = r.node ? ` data-node="${esc(r.node.id)}"` : "";
+          /* A LANGUAGE HEADER (Aug 2026, on a bug report: "the languages collection headers in the active
+             decks section looks greyed out and lacks the colored numbers on the left"). It used to fall
+             through to the quiet `context` template at the foot of this list, which paints `--paper-2`
+             under a 14px `--ink-faint` title — right for an ancestor signpost the reader never chose, and
+             wrong here: a language IS one of the reader's collections, drawn with the same banner as a
+             curated one on the Collections page, so on this page it should read as a header rather than as
+             a row apologising for itself. It takes the group header's wash and the ordinary title face,
+             plus the three coloured piles and the bar every other row carries — which it can now answer for,
+             `entryCardIds` having learnt to union its members.
+             IT IS STILL NOT A GROUP: no `data-review`, no `role`, no tab stop, because "study all of
+             Spanish" is a scope the reader never asked for — the look is what was reported, not the
+             behaviour. */
+          if (r.langhead) {
+            return `<div class="active-deck dk-langhead${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px">
+              ${grip}
+              ${adIcon(r.drag, r.parent)}
+              ${adCounts(r.drag)}
+              <div class="dk-body">
+                <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
+                ${adProg(entryCardIds(r.drag))}
+              </div>
+              ${chev}
+            </div>`;
+          }
           /* A GROUP HEADER — a thinner banner over the decks it holds, in a slightly deeper wash of its own
              colour so the run below reads as belonging to it. Tapping it studies everything inside; holding
              it — or right-clicking — opens its options, which is where the colour, the name and Ungroup live.
@@ -19594,7 +19696,7 @@
           if (r.group) {
             return `<div class="active-deck deck-group${shut}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Study everything in ${esc(title)}">
               ${grip}
-              ${adIcon(r.drag)}
+              ${adIcon(r.drag, r.parent)}
               ${adCounts(r.drag)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
@@ -19613,7 +19715,7 @@
           if (r.pending) {
             return `<div class="active-deck dk-pending${shut}" data-pending="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px">
               ${grip}
-              ${adIcon(r.drag)}
+              ${adIcon(r.drag, r.parent)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span><span class="dk-sup">not on this device</span></div>
               </div>
@@ -19626,7 +19728,7 @@
           if (r.flat) {
             return `<div class="active-deck${shut}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Review just ${esc(title)}">
               ${grip}
-              ${adIcon(r.drag)}
+              ${adIcon(r.drag, r.parent)}
               ${adCounts(r.drag)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
@@ -19638,7 +19740,7 @@
           if (r.active) {
             return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
               ${grip}
-              ${adIcon(r.node.id)}
+              ${adIcon(r.node.id, r.parent)}
               ${adCounts(r.node.id)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
@@ -19649,7 +19751,7 @@
           }
           return `<div class="active-deck context${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px">
             ${grip}
-            ${adIcon(r.drag)}
+            ${adIcon(r.drag, r.parent)}
             <div class="dk-body">
               <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
             </div>
@@ -20078,9 +20180,11 @@
         b.textContent = "Downloading…";
         const r = await langDeckDownload(b.dataset.langdl);
         /* uImportDone repaints the page, so this button is gone by the time it returns — which is why the
-           failure path puts it back itself rather than leaving it to a render that never comes. */
+           failure path puts it back itself rather than leaving it to a render that never comes. The repaint
+           is QUIET: the reader is standing on this very list, so the row turns into the deck under them
+           rather than the page scrolling to the top and animating itself back in. */
         if (r.error) { b.disabled = false; b.textContent = was; }
-        await uImportDone(r);
+        await uImportDone(r, true);
       });
     });
     /* The subdeck fold. The chevron sits INSIDE a row whose own click starts a session and whose own hold
@@ -24235,6 +24339,17 @@
   }
   // the same hue the language's own banner wears on the Collections page, so the two pages agree
   function langCtxHue(id) { const th = COLL_THEME[langCollId(langCtxName(id))]; return th ? th.bg : ""; }
+  /* Which added entries belong to a language — the members its row gathers, derived from `S.active` rather
+     than from the map the render happens to be building, so `entryCardIds` can answer for a container long
+     after that render is over. A pending deck contributes nothing and needs no special case: its own
+     entryCardIds is already empty. */
+  function langCtxEntries(id) {
+    return activeEntryIds().filter((e) => {
+      const d = uDeckIdOf(e);
+      const cat = d ? langCatalogById(d) : null;
+      return !!cat && langCtxId(cat.lang) === id;
+    });
+  }
   function langCollectionHTML(lang, rows) {
     const id = langCollId(lang);
     const theme = COLL_THEME[id];
@@ -32868,11 +32983,15 @@
        signed-in view: that page is the reader's own record, so explaining what a streak buys belongs
        there. The signed-out page gates this out entirely at zero — the Reliquary's rule directly beside
        it, everything there being a courtesy over a sign-in wall. */
+    /* The prize is NAMED wherever it is more than one, since a reader who has kept a run for a month is
+       owed the reason to keep it: a bare "your next chest" says the fifth week is worth what the first
+       was, which since Aug 2026 it is not. */
+    const prize = p.worth === 1 ? "a chest" : p.worth + " chests";
     const note = p.count <= 0
-      ? "Study on any day to start a streak — seven days in a row earns a chest."
+      ? "Study on any day to start a streak — seven days in a row earns a chest, and every week after that is worth one more."
       : p.left === 0
-        ? "Seven days in a row — a chest is yours. The next one is seven days away."
-        : p.left + (p.left === 1 ? " more day" : " more days") + " in a row for your next chest.";
+        ? "Seven days in a row — paid. Seven more earns " + prize + "."
+        : p.left + (p.left === 1 ? " more day" : " more days") + " in a row for " + prize + ".";
     /* THE CHEST ITSELF, at the right of the block (Aug 2026, on request). Seven pips lighting up said what
        was being counted and not what it was FOR — the word "chest" was in the heading and in the sentence
        and the thing was nowhere on the page. It is the same `CHEST_SVG` the overlay and the home page's

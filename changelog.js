@@ -35,9 +35,20 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.296", released: "2026-08-21T18:05Z" };
+window.FOLIO_VERSION = { v: "1.298", released: "2026-08-22T00:31Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-22",
+    t: "Every week of a streak is worth another chest",
+    items: [
+      "<b>A streak now pays more the longer you keep it</b> \u2014 seven days in a row earns one chest, fourteen earns two, twenty-one earns three.",
+      "<b>Dragging a collection to reorder it no longer files it inside its neighbour</b>, a nesting now needing a sideways move as well.",
+      "<b>A language now reads as a header in your daily study</b>, in its own colour and with the three card counts and a progress bar beside it.",
+      "<b>Downloading a deck no longer scrolls you back to the top</b> \u2014 its row turns into the deck where it stands.",
+      "<b>The dot, the words and the stars above a card\u2019s question now sit on one line</b>, and the dot is drawn at full strength.",
+    ],
+  },
   {
     d: "2026-08-21",
     t: "British or American spelling, and your own symbol on a collection",
@@ -65,6 +76,8 @@ window.CHANGELOG = [
       "<b>A language deck no longer repeats its language in its title</b>, the collection above it already saying so.",
       "<b>The languages are ordered by how many people grow up speaking them</b>, and each now has a colour of its own.",
       "<b>Decks you add from one collection now group under it in your daily study</b>, even when you add only some of them.",
+      "<b>The long-press options menu now fits the screen on a phone</b>, where a long one ran off both ends with no way to reach either.",
+      "<b>A language’s own decks no longer repeat its icon in your daily study</b>, only the language itself carrying one.",
     ],
   },
   {

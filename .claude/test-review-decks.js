@@ -735,6 +735,16 @@ const SETTINGS = {
         }
         return true;
       }));
+    /* AND A STRAIGHT-DOWN DRAG NEVER NESTS (Aug 2026, on a bug report from a phone: "when I try to drag
+       active collections to reorder them, they disappear"). The middle band of a row means "put this one
+       inside it", and a thumb travelling straight down past a 46px row lands in that band about a third of
+       the time — which files a whole collection under its neighbour, indented, several rows further down;
+       nothing throws, nothing is lost, and from the top of the list where the reader was looking it is
+       simply gone. The drag above went down the grip's own column, so the only honest reading of it is a
+       reorder, and `deckNest` is where that would show. */
+    check("...and a straight-down drag reorders rather than nesting",
+      await page.evaluate(() => Object.keys(JSON.parse(localStorage.getItem("folio_v1")).deckNest || {}).length === 0),
+      await page.evaluate(() => JSON.stringify(JSON.parse(localStorage.getItem("folio_v1")).deckNest || {})));
     check("...the order is written down under that level's own key",
       await page.evaluate((p) => JSON.stringify((JSON.parse(localStorage.getItem("folio_v1")).deckOrder || {})[p]), lvl.parent) === JSON.stringify(after));
     // the rounded bottom corner belongs to whichever row is last NOW, which a drag can change
