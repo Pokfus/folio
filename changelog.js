@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.299", released: "2026-08-22T00:30Z" };
+window.FOLIO_VERSION = { v: "1.300", released: "2026-08-22T01:07Z" };
 
 window.CHANGELOG = [
   {
@@ -44,6 +44,7 @@ window.CHANGELOG = [
     items: [
       "<b>Romance of the Three Kingdoms now prints its Chinese names in modern pinyin</b> \u2014 Ts\u2018ao Ts\u2018ao is Cao Cao and Ch\u2018\u00eangtu is Chengdu, 1,727 names in all.",
       "<b>A handful of names the 1925 printing spells against its own Chinese are corrected from it</b>, and the two ways it writes the aspiration mark are now one.",
+      "<b>Journey to the West's remaining scanning errors are corrected</b> \u2014 319 in all, each read against its own sentence, with the book's own page saying what is left.",
     ],
   },
   {

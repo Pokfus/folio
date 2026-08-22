@@ -258,13 +258,58 @@ re-run and diffed byte for byte.
 | **B5** ✅ | `journey-to-the-west` | the missing back-matter boundary (19 KB of index, life and publisher's catalogue cut off the last chapter); **488 OCR repairs** in two systematic confusions |
 | **B5b** ✅ | `journey-to-the-west` | **83 names in 756 places**, verified against the Chinese column the plan said this book did not have; a third OCR confusion (w read as av, 63 places); the tag-crossing bug in `applyRoman` that was hiding 37% of the novel from every row |
 | **B6** ✅ | `three-kingdoms` | **1,727 names in 23,369 places**, verified twice over against the parallel Chinese column; the batch absorbed B7–B8, a shared surname making 40-chapter batching incoherent; five names the printing spells against its own Chinese, and one it converts to a name the book has not got; 349 aspiration marks normalised; about forty spellings left as printed and said so on the book's own page |
-| **E1–En** | the error half | the slip and variant candidates, book by book, heaviest first; a book with no printed witness reachable contributes findings rather than fixes |
+| **E1** ✅ | `journey-to-the-west` | the tail B5 deferred: **261 further rows, 319 declared in all**, every remaining junk token read against its own sentence; the widened character class that found 27 more; 91 marks left and named on the book's page |
+| **E2–En** | the rest of the error half | the slip and variant candidates, book by book, heaviest first — marco-polo (82 unique), rigveda (51), canterbury-tales (18), summa-theologica (15), virgil-aeneid (14); a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E1 — Journey to the West, the rest of the scan's damage, shipped 2026-08-22
+
+**The tail B5 deferred, corrected: 261 further rows, 319 declared in all, and 0 of them dead.** B5 took
+the three confusions that are systematic — `y` read as a `j` with a stray mark 468 times, `th` as `tli`
+79 times, `w` as `av` 63 — and left "a tail of some 90 one-off slips and 200 stray carets" for an
+E-batch. That tail is what this is. Every remaining token in the shipped text carrying a mark outside
+letters, digits and ordinary punctuation was listed with its own sentence and read: **320 distinct
+tokens over 375 occurrences**, sorted into eight confusion families (a caret standing for a deleted
+mark, for a lost letter or for a lost space; a bullet or `■` prefixing a word; a stray comma or full
+stop inside one; a digit for a letter; a backslash for `w`, `v` or `y`; `}` for `y`; and the plate
+wreckage, which is not damage to the novel at all).
+
+**A `fixes` ROW NORMALLY NEEDS A PRINTED WITNESS AND THIS BOOK HAS NONE**, which is B5's own finding and
+is what sets the bar here: the Internet Archive's scan of the Cornell copy is the only transcription of
+Richard's translation anywhere, so there is nothing to check a reading against. What stands in is that
+each key is **a sequence that cannot be legitimate English anywhere in the book**, verified by
+enumerating every occurrence of it before the row was written. Where that test cannot be met the token
+is left: `af^TTcah'` sits in "I know seventy-two magic af^TTcah' outlive all kalpas" and the printed
+word is not recoverable from it, so it stands as it is.
+
+**THE ORDER IS THE WHOLE MECHANISM.** `applyFixes` is plain `split`/`join` in declared order with no
+regex, so a short row placed first eats a longer row's key — `a.s` sits inside `thi.s` and `•do` inside
+`•down`. The table is therefore stored **longest-first** rather than sorted at run time, and the splice
+was validated before it went in: 0 duplicate keys, 0 cases of an earlier key sitting inside a later one,
+and **0 idempotence violations** across all 319 rows, which matters because `correctRaw` runs twice on
+this path — once over the whole raw before `extractJourney`, so a fix can unblock the running-head sweep
+and the hyphenation rejoin, and again per rebuilt chapter. Four rows fire on the second pass only
+(`year^`, `y^our`, `is,unsurpassed`, `Guanjiang(baptism)river.`), which is why a row that matches
+nothing on the raw is not automatically dead.
+
+**A SWEEP REPORTS WHAT ITS OWN FILTER CAN SEE.** The first pass wrote 248 rows and the importer reported
+every one firing — and a widened character class then returned **27 word-like tokens more**, because the
+class had not held `*` or `«` and a slip whose only damage was one of those was invisible while sitting
+in plain prose. Seven of the 27 are not damage at all: this printing marks its own footnotes with a
+trailing asterisk, so `Shakyamuni*`, `moon,*` and `Holy*` are the edition. Thirteen are the second wave.
+`Keligion*` is the one that had to be told apart from both — the asterisk is the printer's and stays,
+the `K` for `R` is the scanner's and goes. **Widen the class before concluding a sweep is finished.**
+
+**What is left is 91 marks over 139 places and is named on the book's own page**: the wreckage around the
+illustration plates' captions and the ornament with it, a few page numbers the scan dropped into the
+prose, and a handful of names damaged past recovery. Nothing shared moved — `fixes` is per book and
+`journey-to-the-west.zh.js` was not rebuilt — and the run reports **319 rows, 0 `DID NOT FIRE`**.
+`test-library.js` 333/333.
 
 ### B5 — Journey to the West, shipped 2026-08-21
 
@@ -305,9 +350,17 @@ single words are spelled out. **A confusion that is safe as a blanket and one th
 until both are counted.**
 
 **BARE `j` IS DELIBERATELY UNTOUCHED** — 628 legitimate occurrences — and a tail of some 90 one-off slips
-and 200 stray carets is left for an E-batch and named on the book's own page. `book-scan.js` over the
-shipped file returns two candidates and both are false positives (`saving`, `bearing`), which is the
-book-as-dictionary method saying, correctly, that what is left is singletons.
+and 200 stray carets is left for an E-batch and named on the book's own page.
+
+**A MEASUREMENT IN THIS LOG WAS WRONG AND IS CORRECTED HERE (found in E1).** It read: "`book-scan.js`
+over the shipped file returns two candidates and both are false positives (`saving`, `bearing`), which
+is the book-as-dictionary method saying, correctly, that what is left is singletons." It returns **98**
+at this batch's own commit and **93** at B5b's, and no parameter setting and no book on the shelf
+reproduces that pair — so the figure was not a measurement of anything. The conclusion it was offered
+for is right for a different reason, which E1 then measured properly: what is left is singletons
+because `book-scan.js` compares a book against the shelf's own vocabulary and cannot see a token that
+is not a word at all, which is what nearly all of this book's damage is. **A number quoted in a log is
+load-bearing for the next batch that reads it** — re-run the tool rather than recalling the figure.
 
 **Nothing shared moved**: `extractJourney` serves this book alone, `endAt` and `fixes` are per-book, and
 `books/journey-to-the-west.zh.js` is byte-identical (`c331d6bb…`), so the translator's repairs cannot
