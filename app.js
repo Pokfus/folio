@@ -20776,8 +20776,29 @@
       uSubChildren(d.id, sub).map((c) => row(c, depth + 1)).join("");
     return fold(uSubChildren(d.id, "").map((s) => row(s, 0)).join(""));
   }
+  /* A LANGUAGE DECK IS NOT ONE OF "YOUR DECKS" (Aug 2026, on a bug report: adding a Language collection
+     "also moves it down to the Your Decks section … It shouldn't, since it also doesn't do this with
+     History collections, and they are no longer community-made decks but official ones").
+
+     The seven language collections are shelved as CURATED content — their own section, their own banners,
+     their own hues — and they happen to be delivered as community decks because their cards are 181 MB
+     and cannot ride in `data.js`. That is a fact about the plumbing, not about whose deck it is: once a
+     language deck is downloaded it lands in `UDECKS` like any other, and this section listed it a second
+     time under a heading saying it is somebody's private notes and "not fact-checked by Folio", which
+     contradicts the shelf directly above it.
+
+     THE TEST IS CATALOGUE MEMBERSHIP RATHER THAN "WAS IT ADDED", and it has to be: the row is a duplicate
+     whether it arrived through Add → Download or through Import a deck file, and a reader who removes it
+     from the review has not made it their own deck. A FORK keeps its own fresh id (`uDeckImportText` mints
+     one where the id is already mounted), so a copy somebody edits is not in the catalogue and stays here,
+     which is right — that one really is theirs.
+
+     IT IS THIS SECTION ONLY. The Studio still lists every mounted deck, since a deck on the device is a
+     deck the Studio may open, and the Daily-study row, the Download button and the language's own banner
+     are all untouched. */
   function communityLibraryHTML() {
-    const decks = uDeckList();
+    const mounted = uDeckList();
+    const decks = mounted.filter((d) => !langCatalogById(d.id));
     return '<div class="collection-group community-group">' +
       '<div class="group-head"><span class="group-label">Your decks</span><span class="group-line"></span><span class="group-count">' + decks.length + '</span></div>' +
       '<p class="udeck-intro">Decks you write yourself, and decks you install from other people. They study exactly like Folio’s own, but they are <b>not fact-checked by Folio</b>.</p>' +
@@ -20785,7 +20806,9 @@
         '<button class="btn" type="button" id="udNew">New deck</button>' +
         '<button class="btn ghost" type="button" id="udBrowse">Browse shared decks</button>' +
         '<button class="btn ghost" type="button" id="udImport">Import a deck…</button>' +
-        (decks.length ? '<button class="btn ghost" type="button" id="udStudio">Open the Studio</button>' : "") +
+        /* the Studio opens whatever is MOUNTED, language decks included — hiding the way in from a reader
+           whose only deck is a downloaded language would take a route away rather than remove a duplicate */
+        (mounted.length ? '<button class="btn ghost" type="button" id="udStudio">Open the Studio</button>' : "") +
       '</div>' +
       '<div class="collection-list">' +
         (decks.length ? decks.map(udeckRowHTML).join("") : '<div class="lib-empty">No decks yet. Write one, or import a deck file someone sent you.</div>') +
