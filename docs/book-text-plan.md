@@ -259,13 +259,95 @@ re-run and diffed byte for byte.
 | **B5b** ✅ | `journey-to-the-west` | **83 names in 756 places**, verified against the Chinese column the plan said this book did not have; a third OCR confusion (w read as av, 63 places); the tag-crossing bug in `applyRoman` that was hiding 37% of the novel from every row |
 | **B6** ✅ | `three-kingdoms` | **1,727 names in 23,369 places**, verified twice over against the parallel Chinese column; the batch absorbed B7–B8, a shared surname making 40-chapter batching incoherent; five names the printing spells against its own Chinese, and one it converts to a name the book has not got; 349 aspiration marks normalised; about forty spellings left as printed and said so on the book's own page |
 | **E1** ✅ | `journey-to-the-west` | the tail B5 deferred: **261 further rows, 319 declared in all**, every remaining junk token read against its own sentence; the widened character class that found 27 more; 91 marks left and named on the book's page |
-| **E2–En** | the rest of the error half | the slip and variant candidates, book by book, heaviest first — marco-polo (82 unique), rigveda (51), canterbury-tales (18), summa-theologica (15), virgil-aeneid (14); a book with no printed witness reachable contributes findings rather than fixes |
+| **B6b** | `three-kingdoms` | two names still in Wade-Giles because a printed page turn splits them, and two whose halves need two rows each; the residue sweep's own false-positive rate measured |
+| **E2** ✅ | `marco-polo` | the error check; **no words changed, and that is the finding** — for a scholarly edition the aggregate test is weak and the independent scan is the poorer witness; the `✛` revision mark identified and explained on the About page |
+| **E3–En** | the rest of the error half | the slip and variant candidates, book by book, heaviest first — rigveda (51), canterbury-tales (18), summa-theologica (15), virgil-aeneid (14); a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E2 — the Travels of Marco Polo, the error check, shipped 2026-08-22
+
+**No words were changed, and that is the finding rather than a batch that came back empty.** The E-half
+asks whether a transcription has taken damage the printed page does not have. On this book the answer is
+no, and getting to a confident no cost more than a correction would have.
+
+**FOR A SCHOLARLY EDITION THE AGGREGATE SLIP TEST IS WEAK, AND ITS WEAKNESS IS STRUCTURAL RATHER THAN A
+MATTER OF TUNING.** `book-scan.js` finds a word that occurs once and sits one known confusion away from a
+word that occurs many times — which on a novel or a history is a good proxy for a scan slip, because the
+rare side of such a pair is usually not a word at all. Here the rare side is a word by construction:
+Yule quotes French, Italian, Latin and Persian on nearly every page, and Cordier adds more, so the
+book's own vocabulary of hapax legomena IS its subject matter. Every candidate read against the page
+turned out to be a quotation, one of Yule's own transliterations of a Persian or Mongol name, or his
+note setting two manuscript readings beside each other. **Ask what the rare side of the test is made of
+before reading its output as a list of slips.**
+
+**AND THE INDEPENDENT SCAN IS THE POORER WITNESS ON EXACTLY THE CLASS OF WORD IN QUESTION.** The
+standing rule is that a correction asserts "the printed page reads X and this transcription reads Y", so
+a second copy of the same 1903 edition is what settles it — and archive.org's scan **loses every
+diacritic**. A machine reading of it says *Kublai* and *Kerman* where the printed page and this
+transcription both say Kúbláí and Kermán. On a book whose disputed spellings are almost all accented
+names, the witness that would adjudicate them is the one that cannot see them. Walked word by word
+against it, nothing in the transcription needed correcting.
+
+**WHAT THE BATCH DID CHANGE IS THE ABOUT PAGE, and it is a mark rather than a word.** `✛` appears 21
+times and the book never explains it, because the sentence that does stands in a preface the library
+does not carry: Cordier writes that "paragraphs which have been altered are marked thus ✛", so a cross
+at the head of a note is Yule's text revised by his editor thirty years on. **Fourteen of the
+twenty-one are that; the other seven are not Cordier's at all** — two stand for *died in* beside a date,
+and five are crosses somebody dug up, in the chapter on the tomb of St. Thomas. A reader meeting the
+same character doing three jobs is owed the difference, and the entry now says so. The About page also
+records the check itself, including that the scan is the poorer copy, so a reader who has met that copy
+elsewhere knows which of the two is losing the accents.
+
+Verified the way every book entry is: rebuilt with `--skip-original` (235 chapters, 2,738 KB, 788 notes)
+and diffed byte for byte against the shipped file.
+
+---
+
+### B6b — Romance of the Three Kingdoms, the residue measured (specified, not yet shipped)
+
+**Swept over the shipped English, B6's table leaves 21 Wade-Giles-looking residues, of which 17 are not
+residues at all.** That ratio is the entry's point: **a residue sweep is evidence and never a verdict**,
+for a reason peculiar to this romanisation.
+
+**A ROW'S CORRECT OUTPUT CAN EQUAL ANOTHER ROW'S INPUT, AND THAT IS A COLLISION RATHER THAN A CHAIN.**
+Wade-Giles `P‘` is pinyin `p` and Wade-Giles `P` is pinyin `b`, so `Liu P‘i → Liu Pi` and `Liu Pi → Liu
+Bi` are BOTH correct, about two different men. The sweep sees the output of the first and reads it as an
+unconverted input to the second. Four such pairs account for the 17: `Liu P‘i`/`Liu Pi`, `Liu Yü`/`Liu
+Yu`, `Huang K‘ai`/`Huang Kai`, `Nanch‘ang`/`Nanchang`. **The obvious fix is therefore actively wrong** —
+running `applyRoman` to a fixed point, or twice, would turn a correct `Liu Pi` into `Liu Bi` and rename
+the man. `applyRoman` is single-pass by design and must stay so.
+
+**THE FOUR REAL MISSES ARE IN TWO CLASSES AND BOTH ARE ABOUT MARKUP.** `applyRoman` treats markup as
+opaque, which is what keeps a row from matching across a tag — and here the tag is a page break:
+
+- **A PRINTED PAGE TURN SPLITS A NAME (2).** Chapter 9 reads `Lü&#32;<span…pagenum…></span></span></span>Pu`
+  and chapter 48 `Chou&#32;<span…pagenum…></span></span></span>Yü`, so the shipped book says *Lü Pu* and
+  *Chou Yu* where it should say Lü Bu and Zhou Yu. The in-word rule already written for this shape
+  requires a LETTER immediately before the span, and what stands there is `&#32;` — the entity, not a
+  space character — so it cannot fire. The join has to be built from the ROWS rather than from the
+  marker, matching whatever separator the entity encodes.
+- **A NAME WHOSE TWO HALVES NEED TWO ROWS (2).** Chapter 5's raw `Chang Chʻao` converts to `Chang Chao`
+  and chapter 3's `Ch‘ang I` to `Chang I`, where the pinyin is Zhang Chao and Chang Yi. Both surnames
+  are single-syllable, and the table excludes single syllables by its own policy — a bare `Chang` is
+  three different surnames and converting it blind would rename people. They want their own two-syllable
+  rows.
+
+**Shipping it is a full rebuild rather than an edit.** `applyRoman` is shared, so a change to the join
+needs `--force` over all 120 chapters of this book plus byte-for-byte inertness on all six sibling books
+that declare a correction table — which is why it is a batch of its own rather than a hotfix to B6.
+
+**AND THE MEASUREMENT COULD ONLY BE TAKEN ON A FORCED RUN.** The wiki per-chapter cache holds
+POST-correction prose, so a table re-verified from a cached run reports its own previous output as
+already-converted: the same sweep said **229 of 242 rows dead on a cached run and 9 on `--force`**, and
+9 was the true figure. Whole-file branches (TEI, plain text, one-page HTML) cache the raw source and do
+not have this. **Re-verify a `roman` or `fixes` table only on `--force`.**
+
+---
 
 ### E1 — Journey to the West, the rest of the scan's damage, shipped 2026-08-22
 

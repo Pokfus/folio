@@ -13454,7 +13454,7 @@ const BOOKS = {
         "have it: Mario Eusebi's edition of the oldest manuscript is published by Edizioni Ca' " +
         "Foscari in Venice, freely and under a Creative Commons licence.",
 
-      "Two more of the edition's own marks are worth knowing before you start. Cordier signs his " +
+      "Three of the edition's own marks are worth knowing before you start. Cordier signs his " +
         "additions to Yule's notes <i>—H. C.</i>, and 348 of the 788 notes here carry one, so " +
         "where a note " +
         "changes its mind about something you are usually watching thirty years pass between two " +
@@ -13462,7 +13462,13 @@ const BOOKS = {
         "is only half translated: Yule thought a good many of its chapters \"the merest verbiage " +
         "and repetition of narrative formulæ\", and gave the gist of those instead, marking each " +
         "one ⚜. Seventeen chapters carry that mark. He says so himself at the head of the book, " +
-        "and names the editions where they can be read in full.",
+        "and names the editions where they can be read in full. The third mark this book never " +
+        "explains for itself, because the sentence explaining it stands in a preface the library " +
+        "does not carry: Cordier writes that \u201cparagraphs which have been altered are marked " +
+        "thus \u271b\u201d, so a cross at the head of a note is Yule\u2019s text revised by his editor " +
+        "thirty years on, and fourteen of them are here. The same character does two other jobs " +
+        "in these pages and neither of them is Cordier\u2019s: it stands for <i>died in</i> beside a " +
+        "date, and in the chapter on the tomb of St. Thomas it stands for a cross somebody dug up.",
 
       "What is not here is everything that stands around the translation. Yule's memoir, his three " +
         "prefaces, his 130-page introduction on Polo's life and the manuscripts, his bibliography, " +
@@ -13470,6 +13476,16 @@ const BOOKS = {
         "front matter is throughout this library — and with them Cordier's <i>Ser Marco Polo: " +
         "Notes and Addenda</i> of 1920, which is a separate volume published seventeen years later " +
         "and is his book rather than this one.",
+
+      "The words themselves have been left alone, and that was a decision rather than an " +
+        "omission. The transcription was checked against an independent scan of the same 1903 " +
+        "edition, word by word, and nothing in it needed correcting: every odd-looking spelling " +
+        "read against the page turns out to be Yule quoting a French, Italian or Latin source, or " +
+        "one of his own transliterations of a Persian or Mongol name, or \u2014 in one case \u2014 his " +
+        "note comparing two manuscript readings against each other. The scan is in fact the poorer " +
+        "copy of the two: it loses the accents off the names this book is built out of, so a machine " +
+        "reading of it says <i>Kublai</i> and <i>Kerman</i> where the printed page and this text both " +
+        "say K\u00fabl\u00e1i and Kerm\u00e1n.",
     ],
   },
 
