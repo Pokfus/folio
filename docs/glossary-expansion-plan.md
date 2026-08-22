@@ -165,7 +165,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N2 | 11 | Minoan chronology I — Early Minoan and Middle Minoan — **shipped** |
 | N3 | 8 | Minoan chronology II — Late Minoan — **shipped**, all eight pictured |
 | N4 | 14 | Helladic chronology — **shipped**, 10 of 14 pictured |
-| N5 | 11 | Troy levels |
+| N5 | 11 | Troy levels — **shipped**, 8 of 11 pictured |
 | N6 | 12 | Aegean prehistorians and museums |
 | N7 | 12 | Athens topography |
 | N8 | 12 | Mycenaean tombs and grave circles |
