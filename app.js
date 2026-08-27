@@ -17896,6 +17896,17 @@
     { k: "pyramid", n: "Pyramid", d: '<path d="M12 3.5 21.5 19.5h-19z"/><path d="M12 3.5 16 19.5"/><path d="M2 19.5h20"/>' },
     { k: "plane", n: "Aeroplane", d: '<path d="M12 2.8c.9 0 1.5 1.4 1.5 3.4v1.3l6.5 3.9v2.1l-6.5-1.8v3.8l2.5 2v1.7L12 18.3l-4 .9v-1.7l2.5-2v-3.8L4 13.5v-2.1l6.5-3.9V6.2c0-2 .6-3.4 1.5-3.4z"/>' },
     { k: "torii", n: "Torii gate", d: '<path d="M2.5 6h19"/><path d="M4.5 9h15"/><path d="M7.5 6v14"/><path d="M16.5 6v14"/><path d="M6 20h3"/><path d="M15 20h3"/>' },
+    /* head in profile — Psychology. The obvious mark is the Greek letter psi, which is the discipline's
+       own emblem and is trivial to draw as bare paths; it was rejected because Ancient Greece is on the
+       same shelf and a Greek letter beside a Doric column says GREECE to a reader scanning for a subject
+       rather than reading the label. The one mark this could be confused with is the account tab's bust,
+       which is a circle over a shoulder curve — this is a single outline with a brow, a nose and a chin,
+       and no facial features, which is what keeps it a MIND rather than a person at the 28px a deck row
+       draws it at. THE BASE IS CLOSED AND FLAT and the shape fills the box (x 3.1-19.9, y 3-21): the
+       first cut left margins all round and ended in two open stubs for the front and back of the neck,
+       which at 28px is a keyhole rather than a head — the sizes it is DRAWN at are what this had to be
+       checked against, not the size it is drawn IN. */
+    { k: "head", n: "Head in profile", d: '<path d="M6.6 21V17C4.3 15.4 3.1 13.1 3.1 10.7A7.7 7.7 0 0 1 10.8 3C14.6 3 17.6 5.5 18.5 8.7L19.9 13C20.1 13.7 19.7 14.2 19 14.3L17.4 14.6V17.2C17.4 19.3 16 21 13.9 21Z"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
        an icon is two collections a reader cannot tell apart on the shelf. The inner points are drawn
@@ -17961,6 +17972,7 @@
     egypt: "pyramid",
     ww2: "plane",
     japan: "torii",
+    psych: "head",
     "geo-us": "compass",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
@@ -21557,8 +21569,16 @@
   const COLLECTION_SECTIONS = [
     { label: "History", slot: "collection-list-all" },
     { label: "Geography", slot: "collection-list-geo" },
+    /* Science. It draws NOTHING today and that is deliberate rather than dead: `sectionOf` returns History
+       for anything this table does not name, so a Psychology collection that gained its first card would
+       be filed under History with nothing on the page saying so. The row is inert while `psych` is
+       coming-soon — the map below skips a section with no AVAILABLE collections, and only History gets an
+       empty slot, for its drop target — and correct the day a card ships, without anyone having to
+       remember. The heading is "Science" rather than "Psychology" for the reason Geography is a heading
+       rather than a collection: the next science collection should not need a second one. */
+    { label: "Science", slot: "collection-list-sci" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", psych: "Science" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
 
   /* ============================================================
@@ -22109,6 +22129,18 @@
     egypt:    { bg: "#1F6F5C" }, // malachite (Ancient Egypt)
     ww2:      { bg: "#4A4038" }, // dark iron (The Second World War)
     japan:    { bg: "#8A2E5C" }, // kuwazome red-purple (Japan)
+    /* muted plum (Psychology) — MEASURED, like every hue above it. Swept in CIELAB against all eighteen
+       hues on the shelf inside its own band (L 28-55, chroma 7-62), the freest region of the whole wheel
+       is the mauve/plum quadrant; the peak candidate stands 30.1 from its nearest neighbour against a
+       TIGHTEST EXISTING PAIR of 12.9 (China's vermilion against Russia's lacquer). This is one step off
+       that peak, given up for contrast: it reads 5.4:1 against white where the peak read 4.7:1, the
+       bottom of the shelf's own 3.7-10.4 range. It stands 27.1 from the United States' navy and from
+       Japan's kuwazome, still more than double that tightest pair, at L 45 and chroma 22, both mid-band.
+       The two other free regions were measured and rejected: an olive-brass scores 27.4 and would be the
+       FOURTH thing in the yellow-green-brown quarter (sepia, olive, German brown), where a number is not
+       a look; a hot magenta scores 28.3 at chroma 62, the top of the band, on a shelf that is muted
+       throughout. */
+    psych:    { bg: "#82607E" },
     /* deep olive (Geography) — MEASURED rather than picked, like every hue above it. The obvious choice is
        a teal, and the whole teal band is unusable: swept in CIELAB, every candidate lands 5–11 of Egypt's
        malachite or Greece's Aegean blue, against a tightest EXISTING pair of 12.9. The green band is

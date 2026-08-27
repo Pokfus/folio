@@ -723,6 +723,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   since it also selects `var(--han)` — a Simplified Chinese face. The next card to write is the lowest
   `jp-NNN` not yet in `data.js`; see the "JAPAN" bullet under "Generating cards & glossary entries".
   **No card has been written yet.** Not part of the site.
+- `docs/psychology-card-plan.md` — the **1000-card running order for the Psychology collection**
+  (`psych`): every card's number, topic and deck, fixed in advance across 9 decks and 38 leaf decks.
+  The twelfth of the planned collections, the fourth to **create its own collection** (node, tree,
+  `COLL_THEME` hue and a new `ICON_SYMBOLS` mark ship with the plan) and **the first that is not a
+  history collection at all**, which is why three of its sections restate house rules rather than
+  pointing at them. **Read "The one house rule this collection cannot follow as written" before writing
+  anything**: CLAUDE.md forbids a question naming a researcher and caps modern scholars at two per
+  collection, and in psychology the literature IS the subject matter — the plan restates both in the
+  form that keeps their purpose, and says how `card-focus.js`'s `EXEMPT` list is to be used here. Its
+  other load-bearing rules are that **a card on a classic finding states that finding's current
+  evidential standing** (eleven deliberate study/what-happened-to-it PAIRS are listed there), that **a
+  disorder card describes and never diagnoses**, and that a finding is described with the people it was
+  found in. The next card to write is the lowest `ps-NNN` not yet in `data.js`; the index
+  table under "THE TWELVE PLANNED COLLECTIONS" is the lookup. **No card has been written yet**, so the
+  collection sits in Coming soon on its own account — `isComingSoon` is true for a node holding no
+  cards. It also ships an inert **`Science` row in `COLLECTION_SECTIONS`**: `sectionOf` returns History
+  for anything the table does not name, so without it the first psychology card would file the
+  collection under History; the row draws nothing until that card exists. Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -777,7 +795,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   by eye. Not part of the site.
 - **📖 `docs/README.md` — READ BEFORE LOOKING FOR A DOC, ADDING ONE, OR SPLITTING ANYTHING OUT OF THIS
   FILE.** The index of `docs/`, and the rule the directory exists for. Every file
-  there, one line each, grouped into the wiring references, the eleven card plans, the FINISHED content
+  there, one line each, grouped into the wiring references, the twelve card plans, the FINISHED content
   passes and the ones with work still open — so a pass that is complete can be told from one that is not
   without opening either. The rule it states is the one this whole file is arranged around: **rules live
   in `CLAUDE.md`; reasoning lives in `docs/`**, reached by an imperative `📖 … — READ BEFORE …` pointer,
@@ -3528,7 +3546,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE ELEVEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE TWELVE PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -3547,6 +3565,7 @@ lookup.
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
+| Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | empty — and the only one that is NOT history |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
 
 The next id for any of them (substitute the prefix):
@@ -4487,7 +4506,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 150 assertions on **the join between the eleven card plans and
+  · `node .claude/test-card-plans.js` — 154 assertions on **the join between the twelve card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it

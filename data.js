@@ -4317,6 +4317,304 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "psych",
+      "title": "Psychology",
+      "total": 0,
+      "children": [
+        {
+          "id": "ps-found",
+          "title": "Foundations and History",
+          "total": 110,
+          "children": [
+            {
+              "id": "ps-what",
+              "title": "What psychology is",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ps-roots",
+              "title": "Philosophical and physiological roots",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ps-schools",
+              "title": "The founding schools",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ps-modern",
+              "title": "The cognitive revolution and modern psychology",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ps-methods",
+          "title": "Research Methods and Statistics",
+          "total": 110,
+          "children": [
+            {
+              "id": "ps-design",
+              "title": "Research designs",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ps-measure",
+              "title": "Measurement and psychometrics",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ps-stats",
+              "title": "Statistics and inference",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ps-ethics",
+              "title": "Ethics, integrity and the replication crisis",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ps-bio",
+          "title": "Biological Psychology",
+          "total": 115,
+          "children": [
+            {
+              "id": "ps-neuron",
+              "title": "Neurons and neurotransmission",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ps-brain",
+              "title": "The nervous system and the brain",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ps-neuromethods",
+              "title": "Methods in neuroscience",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ps-genes",
+              "title": "Genes, evolution and behaviour",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ps-hormones",
+              "title": "Hormones, drugs and altered states",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ps-percep",
+          "title": "Sensation and Perception",
+          "total": 90,
+          "children": [
+            {
+              "id": "ps-sensation",
+              "title": "Sensation and psychophysics",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ps-vision",
+              "title": "Vision",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ps-hearing",
+              "title": "Hearing and the other senses",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ps-perc-org",
+              "title": "Perceptual organisation and illusions",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ps-cog",
+          "title": "Learning, Memory and Cognition",
+          "total": 145,
+          "children": [
+            {
+              "id": "ps-learning",
+              "title": "Conditioning and learning",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ps-memory",
+              "title": "Memory",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "ps-attention",
+              "title": "Attention and consciousness",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ps-thinking",
+              "title": "Thinking, reasoning and decision-making",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ps-language",
+              "title": "Language",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ps-dev",
+          "title": "Development across the Lifespan",
+          "total": 100,
+          "children": [
+            {
+              "id": "ps-dev-early",
+              "title": "Infancy and early childhood",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ps-dev-cog",
+              "title": "Cognitive development",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ps-dev-social",
+              "title": "Social and moral development",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ps-dev-later",
+              "title": "Adolescence, adulthood and ageing",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ps-indiv",
+          "title": "Emotion, Motivation and Individual Differences",
+          "total": 110,
+          "children": [
+            {
+              "id": "ps-emotion",
+              "title": "Emotion",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ps-motivation",
+              "title": "Motivation",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ps-personality",
+              "title": "Personality",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ps-intelligence",
+              "title": "Intelligence and its testing",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ps-social",
+          "title": "Social Psychology",
+          "total": 110,
+          "children": [
+            {
+              "id": "ps-social-self",
+              "title": "The self and social cognition",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ps-influence",
+              "title": "Attitudes and social influence",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ps-groups",
+              "title": "Groups, prejudice and intergroup relations",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ps-relations",
+              "title": "Relationships, helping and aggression",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ps-applied",
+          "title": "Mental Health and Applied Psychology",
+          "total": 110,
+          "children": [
+            {
+              "id": "ps-disorders",
+              "title": "Psychological disorders",
+              "total": 40,
+              "cardIds": []
+            },
+            {
+              "id": "ps-therapy",
+              "title": "Assessment and treatment",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ps-health",
+              "title": "Health, stress and wellbeing",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ps-work",
+              "title": "Work, law, education and sport",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "geo-us",
       "title": "United States",
       "total": 5,
