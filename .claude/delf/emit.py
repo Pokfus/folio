@@ -21,9 +21,14 @@ TYPE_ID = 'delf'
 # `.uc-tts` is a bordered, filled control, so wrapping the word would put the
 # thing a reader is trying to recall inside a grey box -- and where the device has
 # no speech engine the site hides an empty control outright, so the word still
-# reads.  It says the WORD and not the article, `data-say` carrying the bare
-# headword: a speaker reading `le chien` teaches the article's liaison rather than
-# the noun, and on the elided ones it would say `l'` twice.
+# reads.  `data-say` carries the noun WITH its article, as the German, Italian and
+# Portuguese decks do -- see the note beside `say` in build_deck.py.  It carried the
+# BARE headword until Aug 2026, on the reasoning that a speaker reading `le chien`
+# teaches the article's liaison rather than the noun; that is a real pedagogical
+# position and it was overruled on a reader's report that the article was not being
+# read out, with the consistency of the six language decks as the second argument.
+# The recorded reasoning is kept rather than deleted: it is the case against, and
+# the next person to weigh this should have it.
 SAY = '<span class="uc-tts uc-say" data-say="{{Word}}"></span>'
 WORD = '<div class="uc-word">{{French}}' + SAY + '</div>'
 IPA = '{{#Ipa}}<div class="uc-ipa">{{Ipa}}</div>{{/Ipa}}'

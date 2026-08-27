@@ -1527,6 +1527,22 @@ for i, e in enumerate(entries, 1):
     else:
         french = esc(e['display'])
 
+    # WHAT THE SPEAKER SAYS IS WHAT IS WRITTEN ON THE CARD (Aug 2026, on a bug report: "TTS in some
+    # languages doesn't read out noun articles").  It said the bare headword, on the reasoning recorded
+    # in emit.py -- that a speaker reading `le chien` teaches the article's liaison rather than the noun.
+    # That is a real pedagogical position and it is overruled here for two reasons the reader gave: they
+    # reported the silence as a fault, and three of the four sibling languages already say the article
+    # (German `die Bitte`, Portuguese `a casa`, Italian `l'ora`), so French was the odd one out in a set
+    # whose consistency was itself one of the things asked for.
+    #
+    # It is derived from `french` rather than composed a second time, which is what makes the elision
+    # right for free: the markup closes `l'` up against the word and puts a space after `le`, so stripping
+    # the tags yields `l'été` and `le père` exactly as they are read off the screen.  A second
+    # composition here is how the two would come to disagree.
+    say = re.sub(r'<[^>]+>', '', french)
+    say = (say.replace('&#x27;', "'").replace('&#39;', "'").replace('&quot;', '"')
+              .replace('&nbsp;', ' ').replace('&lt;', '<').replace('&gt;', '>').replace('&amp;', '&'))
+
     cards.append({
         'id': f'u_{{DECK}}_{i}', 'num': str(i), 'category': 'DELF ' + e.get('lvl', ''),
         'sub': '', 'question': e['display'], 'answer': plain,
@@ -1535,7 +1551,7 @@ for i, e in enumerate(entries, 1):
         'type': '{TYPE}',
         'fields': {
             'French': french,
-            'Word': e['word'],
+            'Word': say,
             'Ipa': ipa_of(recs_all),
             'English': english,
             'Forms': forms,

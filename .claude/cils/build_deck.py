@@ -758,10 +758,30 @@ def headword_html(e, gender, pos):
 
 def say_text(e, gender, pos):
     """What the speaker button pronounces -- the noun WITH its article, since
-    that is how the word is learnt and how it is said."""
-    if pos == 'noun' and gender in ('m', 'f'):
-        return with_article(e['display'], gender)
-    return e['display']
+    that is how the word is learnt and how it is said.
+
+    A COMMON-GENDER NOUN IS THE EXCEPTION, and `gender == 'mf'` is not by itself
+    the test (Aug 2026, on a bug report about the articles not being read out).
+    The card draws `il/la complice` for one that takes either, and there is no
+    way to say that aloud: a speaker would pronounce the slash, and picking one
+    of the two would assert a gender the card is deliberately declining to -- so
+    the bare noun is the least wrong thing to say and it stays.  But where the
+    article ELIDES, both genders collapse to a single `l'` and the display shows
+    ONE article (`l'assistente`, `l'erede`), which is perfectly speakable and was
+    being dropped with the rest: 34 nouns across the six levels and the core deck.
+
+    So the test is the DISPLAY rather than the gender -- exactly one article span
+    means one article, whatever gender produced it -- which also means the spoken
+    form cannot drift from the written one, since it is derived from it.
+    """
+    if pos != 'noun' or not gender:
+        return e['display']
+    art = art_html(e['display'], gender)
+    if art.count('<span class="uc-art') != 1:
+        return e['display']
+    # unescaped: `art_html` escapes for the page and `l'` comes back as `l&#x27;`, which a speaker
+    # would read out as the entity. `display` is the raw word, so the two halves have to match.
+    return _html.unescape(re.sub(r'<[^>]+>', '', art)) + e['display']
 
 
 # ---------------------------------------------------------------- other forms
