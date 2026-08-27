@@ -25,6 +25,16 @@
  *      renumbering record, which lists 109 ids in the OLD numbering under its own `#`-level heading.
  *      Those are history, not the running order. Stop reading the list at the next `# ` heading.
  *
+ * ONE ASSERTION WAS DELIBERATELY NARROWED (Aug 2026, when CLAUDE.md's eleven per-collection
+ * write-ups were split out to the plan files). It used to demand the literal string
+ * `const id='<prefix>'+String(i).padStart(3,'0')` for EVERY collection — eleven near-identical copies
+ * of one shell line — which is the fault this repo already records twice (test-tour.js pinning a stale
+ * button label, test-layout.js a stale heading): a hard-coded copy in a test is not an assertion about
+ * the thing, it is a copy of it that nothing keeps in step. The RULE is "there is a working way to
+ * compute the next id for every collection", and that is command SHAPE plus PREFIX. The shape is now
+ * asserted once, and must be a working command; the prefix is asserted per collection against the
+ * index table. Nothing is lost and a mistyped prefix still fails.
+ *
  * Run: node .claude/test-card-plans.js
  */
 "use strict";
@@ -168,10 +178,13 @@ for (const [colId, [slug, prefix, numbering]] of Object.entries(PLANS)) {
   }
   is(!same.length, `${label}: no two cards name the same topic`, same.slice(0, 3).join("; "));
 
-  /* CLAUDE.md must carry the plan and a working "next id" command */
+  /* CLAUDE.md must carry the plan. The "next id" COMMAND is asserted once, below, as a template:
+     it used to be pinned per collection, which was eleven near-identical copies of one shell line and
+     is the "a hard-coded label in a test is not an assertion about the label" fault this repo already
+     records twice (test-tour.js, test-layout.js). The rule — "there is a working way to compute the
+     next id for every collection" — is command shape + prefix, and the prefix is asserted per
+     collection against the index table at "index table: <name> prefix is right". */
   is(CLAUDE.includes(`docs/${slug}-card-plan.md`), `${label}: CLAUDE.md names the plan file`);
-  const nextCmd = `const id='${prefix}'+String(i).padStart(3,'0')`;
-  is(CLAUDE.includes(nextCmd), `${label}: CLAUDE.md carries the "next id" command`, prefix);
 
   /* the collection has a hue. An id that is a valid JS identifier is written bare in COLL_THEME
      (china, egypt, ww2, japan — note ww2 contains a digit and is still bare); one with a hyphen
@@ -211,6 +224,19 @@ for (const [, name, id, prefix, planFile, decks, leaves] of rows) {
   is(fs.existsSync(path.join(ROOT, planFile)), `index table: ${name.trim()} plan file exists`, planFile);
   is(PLANS[id] && PLANS[id][1] === prefix, `index table: ${name.trim()} prefix is right`, prefix);
 }
+
+/* ---- the "next id" command ----
+   Asserted ONCE, as a template, and only because the prefix is checked per collection above: the
+   command is shape + prefix, so pinning eleven copies of the shape guards nothing the pair does not.
+   It must still be a WORKING command — it loads data.js, reads CARD_DATA, pads to three digits, and
+   its worked example uses a prefix some collection actually has (an example naming a prefix nothing
+   uses is a command nobody can substitute into). */
+const nextCmd = (CLAUDE.match(/^ {4}node -e "global\.window=\{\};require\('\.\/data\.js'\);.*$/m) || [""])[0];
+is(/window\.CARD_DATA/.test(nextCmd) && /padStart\(3,'0'\)/.test(nextCmd) && /!h\.has\(id\)/.test(nextCmd),
+   'CLAUDE.md carries a working "next id" command', nextCmd ? "found" : "no command block");
+const eg = (nextCmd.match(/const id='([a-z0-9-]+)'/) || [])[1];
+is(Object.values(PLANS).some(([, p]) => p === eg),
+   'the "next id" command\'s example prefix is a real one', eg || "none");
 
 /* ---- cross-plan: a card prefix must belong to exactly one plan ---- */
 const prefixes = Object.values(PLANS).map(([, p]) => p);
