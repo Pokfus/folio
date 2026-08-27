@@ -17918,6 +17918,16 @@
        a slightly larger head, and NO beak, whose third dark spot is what closed the face up. Weight
        against its neighbours is the test, not legibility on its own. */
     { k: "owl", n: "Owl", d: '<path d="M12 20.9c-4.4 0-7.8-3.4-7.8-8s3.4-8.2 7.8-8.2 7.8 3.6 7.8 8.2-3.4 8-7.8 8z"/><path d="M6.9 6.9 5.3 3.5 8.8 5"/><path d="M17.1 6.9 18.7 3.5 15.2 5"/><circle cx="9.2" cy="11.4" r="1.5"/><circle cx="14.8" cy="11.4" r="1.5"/>' },
+    /* double helix — Biology. The one mark that says the whole subject rather than a branch of it: a leaf
+       says botany and the picker has one already, and a cell is a circle inside a circle, which is `coin`.
+       TWO WRONG TURNS, both about SIZE rather than shape. A helix drawn narrow (x 8.5-15.5) with two full
+       turns is a thin vertical squiggle at 28px — legible at 64 and a scribble on a deck row — and the
+       obvious fix, widening it while PINCHING the strands together at each crossing, is worse: pinched
+       curves close into a stack of lens shapes and the icon reads as a spring. What works is the strands
+       CROSSING and continuing (they are two independent paths that overlap, never meeting), the widest
+       amplitude the box allows, and only TWO turns over the height. Three rungs at that width was still
+       busy; two is enough to say ladder. */
+    { k: "helix", n: "Double helix", d: '<path d="M5.5 3.2C5.5 9 18.5 10 18.5 15.8S5.5 18 5.5 20.8"/><path d="M18.5 3.2C18.5 9 5.5 10 5.5 15.8S18.5 18 18.5 20.8"/><path d="M6 4.2h12"/><path d="M6 15.8h12"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
        an icon is two collections a reader cannot tell apart on the shelf. The inner points are drawn
@@ -17985,6 +17995,7 @@
     japan: "torii",
     psych: "head",
     phil: "owl",
+    bio: "helix",
     "geo-us": "compass",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
@@ -21596,7 +21607,7 @@
        subject rather than a gap. The echo resolves itself the day a second collection joins it. */
     { label: "Philosophy", slot: "collection-list-phil" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", psych: "Science", phil: "Philosophy" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", psych: "Science", bio: "Science", phil: "Philosophy" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
 
   /* ============================================================
@@ -22173,6 +22184,16 @@
        Egypt's malachite or Greece's Aegean blue": that holds at MID lightness (17.2 at L 38, falling away
        above) and not at the dark end. The band is not unusable; the top half of it is. */
     phil:     { bg: "#14545A" },
+    /* dark forest green (Biology) — MEASURED, and the ONLY hue here that adds to a CROWDED family, which
+       is why it needs more than a number. Green is the shelf's most populated colour (Egypt's malachite,
+       Geography's olive, two language decks), and for the third collection running the two best-separated
+       regions on the wheel were an olive-brass (30.4) and a hot magenta (30.6), both rejected on the
+       grounds the two comments above give. What justifies a FIFTH green is that it is far darker than the
+       other four: L 28 against their 39, 42, 55 and 55. The measurement agrees — its nearest neighbour is
+       not a green at all but the Second World War's dark iron at 24.3, with Geography's olive at 24.5 —
+       and that clears the shelf's median nearest-neighbour distance of 22.7, the bar this shelf has
+       settled on. 10.0:1 against white, the highest contrast on the shelf. */
+    bio:      { bg: "#36481E" },
     /* deep olive (Geography) — MEASURED rather than picked, like every hue above it. The obvious choice is
        a teal, and the whole teal band is unusable: swept in CIELAB, every candidate lands 5–11 of Egypt's
        malachite or Greece's Aegean blue, against a tightest EXISTING pair of 12.9. The green band is

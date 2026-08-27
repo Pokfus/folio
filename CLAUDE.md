@@ -736,7 +736,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   themselves against — and that **a finding is described with the people it was found in**, which is
   the psychology form of the history plans' rule about a state's account of itself and the easiest one
   here to break by accident. The next card to write is the lowest `ps-NNN` not yet in `data.js`; the
-  index table under "THE THIRTEEN PLANNED COLLECTIONS" is the lookup. **No card has been written yet**,
+  index table under "THE FOURTEEN PLANNED COLLECTIONS" is the lookup. **No card has been written yet**,
   so the collection sits in Coming soon on its own account — `isComingSoon` is true for a node holding
   no cards. It also ships an inert **`Science` row in `COLLECTION_SECTIONS`**: `sectionOf` returns
   History for anything the table does not name, so without it the first psychology card would file the
@@ -756,9 +756,26 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   are already in Folio's Library**, eleven with their original-language column, so `card.quote` is worth
   more here than anywhere on the site; and **a work is cited by its standard divisions** (Stephanus,
   Bekker, A/B) rather than by the page of one translation. The next card to write is the lowest `ph-NNN`
-  not yet in `data.js`; the index table under "THE THIRTEEN PLANNED COLLECTIONS" is the lookup. **No card
+  not yet in `data.js`; the index table under "THE FOURTEEN PLANNED COLLECTIONS" is the lookup. **No card
   has been written yet.** It ships an inert **`Philosophy` row in `COLLECTION_SECTIONS`**, on the same
   reasoning as Psychology's `Science` row. Not part of the site.
+- `docs/biology-card-plan.md` — the **1000-card running order for the Biology collection** (`bio`):
+  every card's number, topic and deck, fixed in advance across 9 decks and **46 leaf decks, the most on
+  the shelf** — biology is the most systematically subdivided subject Folio carries and the tree mirrors
+  how it is taught. The fourteenth of the planned collections and the third that is not history; it
+  joins Psychology in the **`Science` section**, which until now held one collection. **It is NOT
+  excluded from the no-researchers rule** — unlike `psych` and `phil`, and it does not need to be, since
+  biology's content is mechanism rather than argument and a question can nearly always be clued from
+  what the thing does; only the dozen cards whose answer term IS a person or a named experiment use the
+  rule's existing exemption. **Read "Living beside the other collections" before writing anything in
+  `bio-nervous`**: this collection shares **eighteen card titles with Psychology verbatim**, twelve of
+  them in that one subdeck, the pairs are listed there with their ids, and three rules follow — write
+  the pair deliberately, write the shared glossary term ONCE (whichever collection reaches it first),
+  and know that **`bio-897` and `ps-432` are both called "Extinction" and are unrelated senses of the
+  word**, so they cannot share a glossary key. Four terms it needs already exist (`Domestication`,
+  `Boreal`, `Human_evolution`, `Genus`) and must be reused rather than re-keyed. The next card to write
+  is the lowest `bio-NNN` not yet in `data.js`; the index table under "THE FOURTEEN PLANNED
+  COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -813,7 +830,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   by eye. Not part of the site.
 - **📖 `docs/README.md` — READ BEFORE LOOKING FOR A DOC, ADDING ONE, OR SPLITTING ANYTHING OUT OF THIS
   FILE.** The index of `docs/`, and the rule the directory exists for. Every file
-  there, one line each, grouped into the wiring references, the thirteen card plans, the FINISHED content
+  there, one line each, grouped into the wiring references, the fourteen card plans, the FINISHED content
   passes and the ones with work still open — so a pass that is complete can be told from one that is not
   without opening either. The rule it states is the one this whole file is arranged around: **rules live
   in `CLAUDE.md`; reasoning lives in `docs/`**, reached by an imperative `📖 … — READ BEFORE …` pointer,
@@ -3571,7 +3588,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE THIRTEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE FOURTEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -3592,6 +3609,7 @@ lookup.
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
 | Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
+| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | empty — not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
 
 The next id for any of them (substitute the prefix):

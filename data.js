@@ -4913,6 +4913,352 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "bio",
+      "title": "Biology",
+      "total": 0,
+      "children": [
+        {
+          "id": "bio-found",
+          "title": "Foundations and the Chemistry of Life",
+          "total": 90,
+          "children": [
+            {
+              "id": "bio-what",
+              "title": "What biology is",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-chem",
+              "title": "The chemistry of life",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "bio-molecules",
+              "title": "Biological molecules",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "bio-energy",
+              "title": "Energy and enzymes",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "bio-cell",
+          "title": "The Cell",
+          "total": 110,
+          "children": [
+            {
+              "id": "bio-celltheory",
+              "title": "Cells and cell theory",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-organelles",
+              "title": "Cell structures",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "bio-membrane",
+              "title": "Membranes and transport",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-respiration",
+              "title": "Cellular respiration",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-photosynthesis",
+              "title": "Photosynthesis",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "bio-genetics",
+          "title": "Genetics and Molecular Biology",
+          "total": 130,
+          "children": [
+            {
+              "id": "bio-mendel",
+              "title": "Mendelian genetics",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "bio-chromosomes",
+              "title": "Chromosomes and cell division",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "bio-dna",
+              "title": "DNA and its replication",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "bio-protein",
+              "title": "Genes to proteins",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "bio-regulation",
+              "title": "Gene regulation and genomics",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "bio-evolution",
+          "title": "Evolution",
+          "total": 110,
+          "children": [
+            {
+              "id": "bio-selection",
+              "title": "Natural selection and its evidence",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "bio-evohistory",
+              "title": "The history of evolutionary thought",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-popgen",
+              "title": "Population genetics",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "bio-speciation",
+              "title": "Speciation and macroevolution",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-phylogeny",
+              "title": "Phylogeny and the tree of life",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "bio-diversity",
+          "title": "The Diversity of Life",
+          "total": 130,
+          "children": [
+            {
+              "id": "bio-taxonomy",
+              "title": "Classification",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-microbes",
+              "title": "Viruses, bacteria and archaea",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "bio-protists",
+              "title": "Protists and fungi",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-plantdiv",
+              "title": "The plant kingdom",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-invert",
+              "title": "Invertebrates",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-vert",
+              "title": "Vertebrates",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "bio-plants",
+          "title": "Plant Biology",
+          "total": 80,
+          "children": [
+            {
+              "id": "bio-plantform",
+              "title": "Plant structure",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-planttransport",
+              "title": "Transport and nutrition in plants",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-plantgrowth",
+              "title": "Plant growth and hormones",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-plantrepro",
+              "title": "Plant reproduction",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "bio-animal",
+          "title": "Animal Form and Function",
+          "total": 155,
+          "children": [
+            {
+              "id": "bio-tissues",
+              "title": "Tissues, organs and homeostasis",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "bio-digestion",
+              "title": "Nutrition and digestion",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-circulation",
+              "title": "Gas exchange and circulation",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "bio-excretion",
+              "title": "Excretion and osmoregulation",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "bio-movement",
+              "title": "Support and movement",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "bio-nervous",
+              "title": "Nerves, senses and hormones",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "bio-immunity",
+              "title": "Immunity and disease",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-repro",
+              "title": "Reproduction and development",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "bio-ecology",
+          "title": "Ecology and the Environment",
+          "total": 115,
+          "children": [
+            {
+              "id": "bio-populations",
+              "title": "Populations",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-communities",
+              "title": "Communities and interactions",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "bio-ecosystems",
+              "title": "Ecosystems and energy flow",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "bio-biomes",
+              "title": "Biomes and biogeography",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "bio-conservation",
+              "title": "Conservation and global change",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "bio-today",
+          "title": "Behaviour, Health and Biology Today",
+          "total": 80,
+          "children": [
+            {
+              "id": "bio-behaviour",
+              "title": "Animal behaviour",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "bio-health",
+              "title": "Human health and disease",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "bio-biotech",
+              "title": "Biotechnology and society",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "bio-practice",
+              "title": "Doing biology",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "geo-us",
       "title": "United States",
       "total": 5,
