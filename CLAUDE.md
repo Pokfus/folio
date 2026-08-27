@@ -825,6 +825,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   an ordinary cross-reference beside a primary pointer that is imperative: a true statement, wrongly
   scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
   site.
+- `.claude/app-map.js` — a navigable map of `app.js`: `node .claude/app-map.js [--big N]
+  [--functions] [--find <re>]`. 2.57 MB and 38,000 lines is hard to find your way around, so this
+  lists its 142 dashed section banners with line numbers, byte sizes and function counts, and
+  `--find` resolves a name to a line. **Read its header before proposing to split `app.js`**: the
+  file is ONE IIFE under `"use strict"` whose ~1,250 top-level functions share a single closure —
+  `S`, `CARDS`, `TREE`, `render`, `route`, `t`, `save`, `ADMIN_EDITS` are closure variables and
+  exactly **14** things are put on `window`. Splitting it across `<script>` tags means either making
+  every shared name a property of a namespace object (thousands of call sites, and no test can prove
+  closure-equivalence) or making them true globals — which leaks the whole application surface onto
+  `window`, where a community deck's sanitized HTML and any browser extension can reach it. The
+  second is a security regression sold as tidying. **So the file stays whole and this makes it
+  navigable instead.** One thing the map cannot do: a section runs from its banner to the NEXT
+  banner, so its name is the name of the block it OPENS rather than a summary of all of it. (The
+  first cut also treated any SHOUTED comment opening as a banner, which is how the house writes the
+  conclusion of a long explanation — it reported a sentence about one minigame's draw as a 266 KB
+  "section". **A map that invents sections is worse than none, because it is read as structure.**)
+  Not part of the site.
 - `.claude/check-sizes.js` — what Folio actually weighs: `node .claude/check-sizes.js [--json]`. It
   reads the eager path **out of `index.html`** rather than from a list, prints each file's raw and
   gzipped size with the totals, lists the biggest files off that path, and breaks `glossary.js` and
