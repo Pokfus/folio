@@ -27582,7 +27582,11 @@
       const cosd = Math.sin(la1) * Math.sin(la2) + Math.cos(la1) * Math.cos(la2) * Math.cos(dLon);
       return Math.acos(clampN(cosd, -1, 1)) / CMAP_DEG - b[6] <= visDeg;
     }
-    function addRing(ring) {
+    /* `close` is FALSE for a river, and it is the whole of why the rivers looked wrong: a ring is a
+       polygon and closes, where a river is a POLYLINE — closing one draws a straight line from its mouth
+       back to its source, which on a long river crosses a continent. The Atlas has always passed the same
+       flag to its own `addClipped`; this copy never had one. */
+    function addRing(ring, close) {
       let open = false, px = 0, py = 0, pz = 0, pv = 0, first = true;
       for (let i = 0; i < ring.length; i++) {
         proj(ring[i][0], ring[i][1]);
@@ -27596,7 +27600,7 @@
         } else if (open) { crossing(px, py, pz, pv, x, y, z, v); ctx.lineTo(HP.x, HP.y); open = false; }
         px = x; py = y; pz = z; pv = v; first = false;
       }
-      if (open) ctx.closePath();
+      if (open && close !== false) ctx.closePath();
     }
     function pathOf(rings) { ctx.beginPath(); for (let i = 0; i < rings.length; i++) if (visible(rings[i])) addRing(rings[i]); }
     function draw() {
@@ -27660,36 +27664,38 @@
          warmed at idle out of the `atlas` bundle, so for the first second or two of a card's life this
          section draws the siblings alone, which is exactly what is intended. */
       if (sibCard) {
-        const RIV = window.RIVERS || [];
+        /* ONLY A RIVER THAT IS ITSELF A CARD IS DRAWN AT ALL (Aug 2026, on a bug report: "Rivers look
+           very strange with long straight lines … remove all Rivers for now except the ones which appear
+           specifically as cards in the collections, e.g. Tiber"). All 1,073 used to be drawn and only the
+           carded ones NAMED. Two things were wrong with that. The straight lines were a real fault — see
+           `addRing`'s `close` flag, which this block now passes — and they are fixed rather than hidden.
+           But the rest is a judgement about what a locator is FOR: the map exists to place one thing, and
+           a thousand blue threads through it, most of them creeks nobody is studying, are texture that
+           buries the marks that mean something. So the same test that chose the labels now chooses the
+           rivers, and a river on this map is always a river the collection teaches. */
+        const RIV = sib.terms.size ? (window.RIVERS || []) : [];
         if (RIV.length) {
-          /* Thin, in the map's own water colour, and CULLED by the same visibility test the borders use —
-             1,073 rivers of 21,909 points is a fifth of what the world's own coastline already costs per
-             frame, and at a locator's zoom the cull leaves a handful. */
-          ctx.strokeStyle = ocean; ctx.lineWidth = 1.1; ctx.globalAlpha = 0.7;
+          ctx.font = "500 11px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
           for (let i = 0; i < RIV.length; i++) {
+            const nm = RIV[i].n;
+            if (!nm || !sib.terms.has(String(nm).toLowerCase())) continue;
             const lines = RIV[i].p;
+            /* Thin, in the map's own water colour, and CULLED by the same visibility test the borders use.
+               `false` keeps the path OPEN — a river is a polyline, and closing it draws its mouth back to
+               its source across half a continent. */
+            ctx.strokeStyle = ocean; ctx.lineWidth = 1.1; ctx.globalAlpha = 0.7;
             for (let j = 0; j < lines.length; j++) {
               if (!visible(lines[j])) continue;
-              ctx.beginPath(); addRing(lines[j]); ctx.stroke();
+              ctx.beginPath(); addRing(lines[j], false); ctx.stroke();
             }
-          }
-          ctx.globalAlpha = 1;
-          /* A RIVER IS NAMED ONLY WHERE IT IS ITSELF A CARD, which is what was asked for and is also the
-             only thing that keeps the map readable: naming all 1,073 would bury the place the card is
-             about under the names of every creek near it. The test is the collection's own answer terms. */
-          if (sib.terms.size) {
-            ctx.font = "500 11px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-            for (let i = 0; i < RIV.length; i++) {
-              const nm = RIV[i].n;
-              if (!nm || !sib.terms.has(String(nm).toLowerCase())) continue;
-              const line = RIV[i].p[0];
-              if (!line || !line.length || !visible(line)) continue;
-              const mid = line[Math.floor(line.length / 2)];
-              proj(mid[0], mid[1]);
-              if (PV < 0) continue;
-              ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, PX, PY);
-              ctx.fillStyle = ink; ctx.fillText(nm, PX, PY);
-            }
+            ctx.globalAlpha = 1;
+            const line = lines[0];
+            if (!line || !line.length || !visible(line)) continue;
+            const mid = line[Math.floor(line.length / 2)];
+            proj(mid[0], mid[1]);
+            if (PV < 0) continue;
+            ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, PX, PY);
+            ctx.fillStyle = ink; ctx.fillText(nm, PX, PY);
           }
         }
         const CTS = window.CITIES || [];
@@ -27721,13 +27727,49 @@
         /* THE COLLECTION'S OTHER PLACES, in a red that is nobody else's mark on this map: the card's own
            dot is the Atlas's selection gold and the cities are grey, so a reader can tell at a glance
            which marks are Folio's own subject matter. Smaller than the card's dot, as asked. */
+        /* …AND EACH ONE IS NAMED (Aug 2026, on a bug report: "the other dots don't have their labels").
+           They went up bare, which made them decoration rather than information — a reader could see that
+           the collection had been somewhere without being told where, on a map whose whole job is to say
+           where. Three things about the labels.
+           **THEY ARE DRAWN BEFORE THE REVEAL, unlike the card's own**, and give nothing away:
+           `locatorSiblings` excludes the card itself, so every name here belongs to some OTHER card.
+           **THEY ARE DE-COLLIDED FIRST-COME**, the Atlas's own rule for its city labels in the form this
+           window can afford: a collection is fifty-odd places and at the opening 50° view most of them are
+           on screen, so a name is drawn only where its box is clear of every box already placed — the
+           card's own dot and its label among them, reserved first, since a sibling's name over the answer's
+           mark is the one collision that costs something. Fewer names, each readable, beats every name in
+           a heap; zooming in frees the rest.
+           **AND THEY ARE THE RIVER LABELS' SIZE, NOT THE ANSWER'S** — 11px 500 against 13px 600 — so the
+           card's own place still reads as the subject and the rest as its neighbourhood. */
+        const placed = [];
+        if (dot) { proj(dot.c[0], dot.c[1]); if (PV >= 0) placed.push([PX - 9, PY - 10, PX + 132, PY + 10]); }
+        const sibAt = [];
         for (let i = 0; i < sib.dots.length; i++) {
           const d = sib.dots[i];
           proj(d.c[0], d.c[1]);
           if (PV < 0) continue;
+          if (PX < -20 || PY < -20 || PX > W + 20 || PY > H + 20) continue;
+          sibAt.push([PX, PY, d.n]);
           ctx.beginPath(); ctx.arc(PX, PY, 3.4, 0, Math.PI * 2);
           ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill();
           ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#ffffff", 0.75); ctx.stroke();
+        }
+        ctx.font = "500 11px " + font; ctx.textAlign = "left"; ctx.textBaseline = "middle";
+        for (let i = 0; i < sibAt.length; i++) {
+          const nm = sibAt[i][2];
+          if (!nm) continue;
+          const lx = sibAt[i][0] + 6, ly = sibAt[i][1];
+          const bx = [lx - 2, ly - 7, lx + ctx.measureText(nm).width + 2, ly + 7];
+          if (bx[0] < 2 || bx[1] < 2 || bx[2] > W - 2 || bx[3] > H - 2) continue;
+          let clash = false;
+          for (let j = 0; j < placed.length; j++) {
+            const q = placed[j];
+            if (bx[0] < q[2] && bx[2] > q[0] && bx[1] < q[3] && bx[3] > q[1]) { clash = true; break; }
+          }
+          if (clash) continue;
+          placed.push(bx);
+          ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, lx, ly);
+          ctx.fillStyle = ink; ctx.fillText(nm, lx, ly);
         }
       }
       if (dot) {
@@ -28126,7 +28168,19 @@
       const c = CARD_BY_ID[cid];
       if (!c) return;
       const t = String(c.answerText || "").trim();
-      if (t) terms.add(t.toLowerCase());
+      if (t) {
+        terms.add(t.toLowerCase());
+        /* AND THE TERM'S GLOSSARY ALIASES WITH IT, which is what lets a river card find its river
+           (Aug 2026). Natural Earth labels a river in whatever language the country speaks — the Tiber is
+           `Tevere` in `rivers.js`, the Danube is also `Donau`, the Yangtze also `Chang Jiang` — so an
+           answer term matched against `n` alone would miss the very card that asked for the river to be
+           drawn. The alias list is the right place for the other spelling rather than a synonym table of
+           this block's own: it is already what a term's OTHER names live in, and a card's paired glossary
+           entry is written in the same commit as the card. So a Tiber card whose term carries `Tevere`
+           draws and names its river, and one whose term does not, does not — visibly, on the card. */
+        const al = (window.GLOSSARY_ALIASES || {})[t.replace(/\s+/g, "_")] || (window.GLOSSARY_ALIASES || {})[t];
+        if (Array.isArray(al)) al.forEach((a) => { const v = String(a || "").trim(); if (v) terms.add(v.toLowerCase()); });
+      }
       const l = cardLocator(c);
       if (l) dots.push({ id: cid, n: l.name, c: l.at });
     });
