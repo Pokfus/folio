@@ -38,7 +38,10 @@ if (!entryFile) { console.error("usage: node .claude/add-glossary.js <entry.json
 const e = JSON.parse(fs.readFileSync(entryFile, "utf8"));
 if (!e.slug) { console.error("ERROR: entry needs `slug`"); process.exit(1); }
 
-const win = loadWindow(glossPath);
+// glossary.js is TWO files now — the citations and illustrations live in the lazy
+// glossary-extra.js — so it is loaded through the shared helper. Reading glossary.js
+// alone yields EMPTY GLOSSARY_SOURCES/GLOSSARY_IMAGES, silently.
+const win = require("./gloss-io.js").loadGlossary();
 const GLOSS = win.GLOSSARY || {}, DATES = win.GLOSSARY_DATES || {}, ALIASES = win.GLOSSARY_ALIASES || {}, CASE = win.GLOSSARY_CASESENSITIVE || {}, TAGS = win.GLOSSARY_TAGS || {}, IMAGES = win.GLOSSARY_IMAGES || {}, VIDEOS = win.GLOSSARY_VIDEOS || {}, SOURCES = win.GLOSSARY_SOURCES || {};
 // The Atlas tables, written by .claude/fetch-place-coords.js. This script rebuilds glossary.js from a FIXED
 // list of tables, so any table it does not carry is silently dropped on the next write. Carry every one.
@@ -161,21 +164,10 @@ if (Object.keys(TAGS).length) {
     "\n/* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */\n" +
     "window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, " + obj(TAGS) + ");\n";
 }
-if (Object.keys(IMAGES).length) {
-  out +=
-    "\n/* Optional illustration per term (slug -> { src, title, desc, credit, alt }) — shown at the foot of the term's popup. */\n" +
-    "window.GLOSSARY_IMAGES = Object.assign(window.GLOSSARY_IMAGES || {}, " + obj(IMAGES) + ");\n";
-}
 if (Object.keys(VIDEOS).length) {
   out +=
     "\n/* Optional video per term (slug -> { src, title, desc, credit }) — a YouTube/Vimeo or direct file link, shown in the term's popup. */\n" +
     "window.GLOSSARY_VIDEOS = Object.assign(window.GLOSSARY_VIDEOS || {}, " + obj(VIDEOS) + ");\n";
-}
-if (Object.keys(SOURCES).length) {
-  out +=
-    "\n/* Source footnotes per term (slug -> [Chicago note-form citations]) — a numbered fold at the foot of the popup.\n" +
-    "   Not translated: a citation names an edition that exists in one language. */\n" +
-    "window.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, " + obj(SOURCES) + ");\n";
 }
 if (Object.keys(PLACES).length) {
   out +=
@@ -189,8 +181,13 @@ if (Object.keys(MAPC).length) {
     "   time by the same script, because world.js is lazy and the popup must decide without it. */\n" +
     "window.GLOSSARY_MAP_COUNTRY = Object.assign(window.GLOSSARY_MAP_COUNTRY || {}, " + obj(MAPC) + ");\n";
 }
-fs.writeFileSync(glossPath, out);
-loadWindow(glossPath);   // re-parse to confirm valid JS
+/* GLOSSARY_IMAGES and GLOSSARY_SOURCES are deliberately NOT in `out`: they live in the lazy
+   glossary-extra.js, because together they were 54% of a file on the EAGER load path and
+   neither is read until a popup opens. writeGlossary writes both files and strips either block
+   from glossary.js if one ever creeps back in -- putting them back on the eager path costs every
+   visitor 1.29 MB and the only symptom is a slower site. */
+require("./gloss-io.js").writeGlossary(win, out);
+require("./gloss-io.js").loadGlossary();   // re-parse BOTH to confirm valid JS
 
 // i18n/gloss-<lang>.js — one file per language, so a reader only downloads their own (see gloss-i18n-io.js).
 // Every language is rewritten: a term can be added to or deleted from any of them.

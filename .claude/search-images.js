@@ -136,7 +136,10 @@ async function searchTerms(terms, cache, files, queryOf, wide) {
 
 function stillMissing() {
   global.window = {};
-  require(path.join(ROOT, "glossary.js"));
+  // glossary.js is TWO files now — its citations and illustrations live in the lazy
+  // glossary-extra.js — so load through the shared helper, which merges both. Requiring
+  // glossary.js alone yields EMPTY GLOSSARY_IMAGES/GLOSSARY_SOURCES, silently.
+  require("./gloss-io.js").loadGlossary(global.window);
   require(path.join(ROOT, "data.js"));
   const w = global.window;
   const batch = readJSON(path.join(CACHE_DIR, "batch.json"), { glossary: {}, cards: {} });

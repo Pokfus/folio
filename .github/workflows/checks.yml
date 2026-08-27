@@ -69,6 +69,11 @@ jobs:
       # the shipped corpus; check-docs guards the CLAUDE.md/docs split in both directions.
       - name: check-docs
         run: node .claude/check-docs.js
+      # The glossary's citations and illustrations live in the lazy glossary-extra.js. If either
+      # table ever reappears in glossary.js it goes straight back onto the eager path -- 1.29 MB
+      # for every visitor -- and the only symptom is a slower site.
+      - name: glossary split intact
+        run: node .claude/split-glossary.js --check
       - name: check-questions
         run: node .claude/check-questions.js
       - name: check-style

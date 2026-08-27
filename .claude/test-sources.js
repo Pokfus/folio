@@ -144,7 +144,15 @@ async function requireTerm(page) {
 
   /* ================= 1. the glossary popup ================= */
   await page.goto(base, { waitUntil: "load" });
+  /* Wait for the LAZY glossary bundle before seeding, not just for GLOSSARY itself.
+     GLOSSARY_SOURCES and GLOSSARY_IMAGES moved into glossary-extra.js (bundle "glossExtra"),
+     which app.js warms at idle -- so a seed written before it lands is Object.assign'd over by
+     the shipped table a moment later, and this file's ten citation assertions then measure the
+     REAL corpus instead of the fixture. It fails as "the popup lists 5 citations, expected N",
+     which reads like a rendering bug rather than a race. Seed after the file is in. */
   await page.waitForFunction(() => !!window.GLOSSARY && Object.keys(window.GLOSSARY).length > 0);
+  await page.waitForFunction(() => window.GLOSSARY_SOURCES && Object.keys(window.GLOSSARY_SOURCES).length > 0,
+    null, { timeout: 20000 });
   await page.evaluate(([src, abs]) => {
     Object.keys(window.GLOSSARY).forEach((k) => { window.GLOSSARY_SOURCES[k] = src.slice(); window.GLOSSARY[k] = abs; });
   }, [SRC, MARKED_ABSTRACT]);

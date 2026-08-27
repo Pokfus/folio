@@ -120,6 +120,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
 | `usstates` | `us-states.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing |
+| `glossExtra` | `glossary-extra.js` | **warmed at IDLE after boot**, and awaited by `openGlossWin` for a reader who beats the warm. The glossary's CITATIONS and ILLUSTRATIONS — 54% of `glossary.js`, and nothing reads either until a popup opens |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
 | ~~`glossI18n:<lang>`~~ | *(removed 2026-08-08)* | the glossary translations were deleted on request; `loadLangData` no longer asks for this bundle, and the registration in `langBundle` is inert |
 | `gamesI18n:<lang>` | `i18n/games-<lang>.js` | ditto (the True-or-False / Who-said-it pools) |
@@ -782,6 +783,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   in `CLAUDE.md`; reasoning lives in `docs/`**, reached by an imperative `📖 … — READ BEFORE …` pointer,
   because a file nobody is told to read is a file nobody reads. Eight docs were in exactly that state
   when it was written — unreferenced from here, several of them holding OPEN work.
+- `glossary-extra.js` + `.claude/split-glossary.js` + `.claude/gloss-io.js` — **the glossary is TWO
+  files.** `GLOSSARY_SOURCES` (786 KB) and `GLOSSARY_IMAGES` (523 KB) were 54% of `glossary.js`, which is
+  on the EAGER path, and **nothing reads either until a popup opens** — so they moved to
+  `glossary-extra.js`, fetched by the `glossExtra` bundle. The eager path went **8.80 → 7.51 MB raw,
+  2.45 → 2.16 MB gzipped**.
+  · **IT STAGES ONTO A QUEUE (`window.GLOSSARY_EXTRA_IN`) RATHER THAN ASSIGNING**, exactly as
+    `i18n/gloss-<lang>.js` does, and `glossExtraIngest` drains it. app.js snapshots
+    `PRISTINE_GLOSS_SOURCES` / `PRISTINE_GLOSS_IMAGES` at boot, which is BEFORE this file lands — so a
+    plain assignment would leave the editor's revert baseline EMPTY and **"Revert" would delete a
+    shipped citation list instead of restoring it**. The hook re-seeds both baselines and then
+    **re-applies `ADMIN_EDITS` on top**, the same rule the `atlas` bundle follows for `window.TIMELINE`.
+  · **IT IS WARMED AT IDLE, NOT FETCHED ON THE FIRST POPUP** — popups are common and a reader should not
+    wait for a definition; the point is only to keep it off the path that blocks first paint.
+    `openGlossWin` re-fills its picture and Sources slots (and re-runs `wireFootnotes`) if the file lands
+    after a popup is already open, so the reader who beats the warm still gets both. It re-fills the
+    SLOTS rather than re-opening the popup, which would take away a scroll position and any nested term.
+  · **EVERY HELPER GOES THROUGH `.claude/gloss-io.js`** (`loadGlossary` / `writeGlossary`). Requiring
+    `glossary.js` alone now yields EMPTY tables: a READER then reports a fully-cited glossary as
+    uncited — `gloss-source-audit.js` did, on its first run after the split — and a WRITER
+    re-serialises what it loaded and **deletes 1.29 MB without erroring**. `writeGlossary` also STRIPS
+    either block from `glossary.js` if one creeps back in.
+  · **`check-style.js` reads `glossary-extra.js` too**, and that is not housekeeping: rule 4 (BCE/CE)
+    sweeps the text a PICTURE carries, which is where most of the site's remaining "BC"s were, and the
+    whole images table moved out of its reach. Its citations mask now matches **both** block shapes —
+    `window.X = Object.assign(…)` and the new `var X = {…}` — since matching only the old one left every
+    citation exposed to `--fix`, the exact fault that mask exists for.
+  · **`node .claude/split-glossary.js --check` asserts the split is still intact, and CI runs it.** The
+    split itself was a LINE-RANGE MOVE rather than a re-serialisation, verified key-by-key before
+    anything was written, so the bytes that ship are the bytes that were reviewed.
+  · **A test that seeds `window.GLOSSARY_SOURCES` must wait for the bundle first** — `test-sources.js`
+    seeded before the warm landed and had its fixture Object.assign'd away, which fails as "the popup
+    lists 5 citations" and reads like a rendering bug rather than a race.
 - `.claude/check-docs.js` — the split's own guard: `node .claude/check-docs.js`, exit 1 on failure. It
   checks BOTH directions, each of which fails silently. **A pointer that resolves to nothing** still
   reads as authoritative, so the next session goes looking for a file that is not there; **a file nobody
