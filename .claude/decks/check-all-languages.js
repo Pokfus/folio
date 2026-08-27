@@ -28,8 +28,26 @@ const { chromium } = require("playwright");
 
 const ROOT = path.resolve(__dirname, "..", "..");
 const DECK = "All-Languages.folio-deck.json";
-const LANGS = ["French", "German", "Italian", "Mandarin", "Spanish"];
-const TYPES = 6;
+/* THE LANGUAGES ARE READ OUT OF THE COMBINER'S OWN TABLE, NEVER WRITTEN DOWN
+   HERE.  They were the literal ["French","German","Italian","Mandarin",
+   "Spanish"] and a `TYPES = 6`, which is exactly the trap CLAUDE.md keeps
+   recording about a test that hard-codes a figure: adding Portuguese made both
+   stale in the same commit, and a stale expectation does not guard the rule, it
+   pins the answer the rule used to give.  `PARTS` is where the order is decided,
+   so `PARTS` is what this compares against — and a language added there fails
+   here on the RULE (one branch per language, in the table's order) rather than
+   on a number somebody forgot to bump. */
+const LANGS = (() => {
+  const py = fs.readFileSync(path.join(ROOT, ".claude", "combine-decks.py"), "utf8");
+  const table = /^PARTS = \[$([\s\S]*?)^\]$/m.exec(py);
+  if (!table) throw new Error("PARTS is not in combine-decks.py under that name");
+  const out = [];
+  for (const m of table[1].matchAll(/'[^']+\.folio-deck\.json',\s*\n?\s*'([^']+)'/g)) {
+    if (!out.includes(m[1])) out.push(m[1]);
+  }
+  if (!out.length) throw new Error("PARTS parsed to no languages");
+  return out;
+})();
 
 let pass = 0, fail = 0;
 const ok = (c, m, extra) => {
@@ -83,11 +101,19 @@ const ms = (t) => (t >= 1000 ? (t / 1000).toFixed(1) + " s" : Math.round(t) + " 
   ok(subs.includes("Italian::Core vocabulary"),
      "and Italian keeps its core deck beside its bands");
 
+  /* THE TYPES ARE CHECKED AS A SET AGAINST THE CARDS, not against a count.  What
+     matters is that the two agree in BOTH directions, and each direction fails
+     differently: a card naming a type the file has not got renders as raw prose,
+     and a type no card names is a definition that has quietly lost its cards --
+     which is what a botched collision split would leave behind, since the cards
+     of the file that lost the name are repointed and nothing else would say so. */
   const types = Object.keys(deck.meta.types || {}).sort();
-  ok(types.length === TYPES, `all ${TYPES} card types travel`, JSON.stringify(types));
-  // A card naming a type the file does not carry renders as raw prose.
+  const used = [...new Set(deck.cards.map((c) => c.type).filter(Boolean))].sort();
   const orphan = deck.cards.find((c) => c.type && !deck.meta.types[c.type]);
-  ok(!orphan, "and no card names a type the file has not got", orphan && orphan.type);
+  ok(!orphan, "no card names a type the file has not got", orphan && orphan.type);
+  const dead = types.filter((t) => !used.includes(t));
+  ok(dead.length === 0, `and all ${types.length} card types that travel are used`,
+     JSON.stringify(dead));
 
   // ---------------------------------------------------------- in a browser
   const browser = await chromium.launch({

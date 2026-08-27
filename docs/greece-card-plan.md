@@ -193,6 +193,13 @@ way the N-batches did, rather than opening a backlog to be closed later. Greek i
 for this than prehistory: Perseus, the Met and British Museum object records, `chs.harvard.edu` and
 out-of-copyright Loebs are all open.
 
+**`Kore` IS THE SCULPTURE TYPE AND `gr-906 Persephone` MUST NOT CLAIM IT AS AN ALIAS.** The key was
+taken by `gr-333`, which is about the draped archaic statue; *Kore* is also the goddess's commonest
+cult epithet, so the term written for `gr-906` will naturally want it. It may not have it — one
+surface cannot answer for two subjects, and `buildGlossIndex` resolves a KEY before any alias, so an
+alias added there would simply lose and sit in the table doing nothing. Give Persephone `Kore` only
+if the sculpture term is renamed in the same commit, which would mean renaming `gr-333`'s answer.
+
 ---
 
 # The list
