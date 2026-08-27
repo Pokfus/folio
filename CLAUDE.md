@@ -4682,7 +4682,11 @@ dead code (never rendered).
   profile + empty progress row). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature that needs one
   degrades to a sentence rather than an error (`colorColumnMissing`, the `login_email` 404 → "use your email
   address"), so the site works on a database that has only the first block. **Keep it that way** — a block
-  the owner has not run yet is the normal case, not the broken one. Plain `fetch()` (no SDK — zero-dependency rule); the publishable key in app.js is safe to ship
+  the owner has not run yet is the normal case, not the broken one. **WHICH of the optional blocks a
+  given database already has is answered by `.claude/schema-check.sql`** — read-only, pasted into the
+  Supabase SQL editor, one true/false row per block. It is worth having because blocks 8–15 are each
+  written `if not exists` / `create or replace` / `drop … if exists`, so re-running one that is already
+  there is safe and the only real question is which are missing. Plain `fetch()` (no SDK — zero-dependency rule); the publishable key in app.js is safe to ship
   (security = RLS). **Offline-first**: localStorage stays the working copy; `save()` → `supaQueuePush()` (6s debounce, skips
   no-ops) PATCHes the whole `PROGRESS_FIELDS` blob into `progress.data`; boot (`supaBoot`) refreshes the session, pulls, and
   reconciles — server wins when its `updated_at` ≠ the device's `S._supaTs` baseline (another device wrote), else local pushes.
