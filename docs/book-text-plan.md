@@ -259,7 +259,7 @@ re-run and diffed byte for byte.
 | **B5b** ✅ | `journey-to-the-west` | **83 names in 756 places**, verified against the Chinese column the plan said this book did not have; a third OCR confusion (w read as av, 63 places); the tag-crossing bug in `applyRoman` that was hiding 37% of the novel from every row |
 | **B6** ✅ | `three-kingdoms` | **1,727 names in 23,369 places**, verified twice over against the parallel Chinese column; the batch absorbed B7–B8, a shared surname making 40-chapter batching incoherent; five names the printing spells against its own Chinese, and one it converts to a name the book has not got; 349 aspiration marks normalised; about forty spellings left as printed and said so on the book's own page |
 | **E1** ✅ | `journey-to-the-west` | the tail B5 deferred: **261 further rows, 319 declared in all**, every remaining junk token read against its own sentence; the widened character class that found 27 more; 91 marks left and named on the book's page |
-| **B6b** | `three-kingdoms` | two names still in Wade-Giles because a printed page turn splits them, and two whose halves need two rows each; the residue sweep's own false-positive rate measured |
+| **B6b** | `three-kingdoms` | two names still in Wade-Giles because a printed page turn splits them, and two whose halves need two rows each; the residue sweep's own false-positive rate measured; **and the 527 candidate rows a second independent pass turned up, held in `.claude/three-kingdoms-candidates.js`** — see the B6b note in the batch log |
 | **E2** ✅ | `marco-polo` | the error check; **no words changed, and that is the finding** — for a scholarly edition the aggregate test is weak and the independent scan is the poorer witness; the `✛` revision mark identified and explained on the About page |
 | **E3** ✅ | `rigveda` | **52 slips**, every one anchored in the Internet Archive's scan of the same 1896 second edition before it became a row; the `layout: "sukta"` branch wired into `correctRaw`, without which the table was inert |
 | **E4–En** | the rest of the error half | the slip and variant candidates, book by book, heaviest first — canterbury-tales (18), summa-theologica (15), virgil-aeneid (14); a book with no printed witness reachable contributes findings rather than fixes |
@@ -833,6 +833,41 @@ The book now carries **617 corrections** in all — y as j 468, th as tli 79, w 
 three lost spaces — and 756 romanisations across all 83 declared rows, with no old form surviving
 anywhere in the shipped text and every declared row firing.
 
+
+---
+
+### B6b — Three Kingdoms, the second pass's candidates, NOT shipped
+
+**Two independent passes were made over this book from the same starting commit, and neither table is
+a superset of the other.** B6 above shipped 1,727 names in 23,369 places; a second pass, made without
+sight of it, reached 1,952 names in 24,733 places. Keyed by their `from` strings the two overlap
+heavily and diverge in both directions: **236 keys exist only in the shipped table and 507 only in the
+second pass.** So this is not a case of one being better — each covers names the other misses, and the
+union is better than either.
+
+**The 527 rows the second pass has and the shipped table has not are kept in
+`.claude/three-kingdoms-candidates.js`** — 483 romanisations, 29 spelling fixes and 15 glyph repairs.
+Nothing reads that file; it is research held so the next pass does not repeat it.
+
+**THEY ARE NOT SHIPPED BECAUSE MERGING TWO TABLES CHANGES WHICH ROWS FIRE.** `applyRoman` sorts
+longest-first so a longer row shadows a shorter one, and this repo's standing rule is that a declared
+row which matches nothing is a defect rather than spare capacity — a claim about the page that turned
+out to be false. So the union cannot be spliced in and called done: it has to be spliced in, the book
+rebuilt with `--force`, the dead-row report read, the dead rows struck out, the book rebuilt again to
+prove the prune byte-neutral, and the residue re-measured, after which every figure quoted in the
+importer's commentary, the book's own About page, this plan and the changelog has to be corrected to
+what was actually measured. Two full build cycles at roughly fifty minutes each.
+
+**THE SECOND PASS ALSO MEASURED THE RESIDUE, AND THE MEASUREMENT IS WORTH CARRYING WHATEVER HAPPENS TO
+THE ROWS.** Over the CHAPTERS ONLY — a whole-file sweep is inflated by the About page, which
+deliberately prints Wade-Giles illustrations, and reading one is how the figures came out wrong the
+first time — **669 Wade-Giles-looking marks remain and 611 of them are CORRECT**: 602 are the pinyin
+Lü of 吕 and 略, and 9 are the French mêlée. **The other 58, across 18 forms, are the real gap.**
+They are not one class. The commonest single case is the SECOND element of a two-token personal name
+whose FIRST element a shorter row has already converted, and **24 of the 58 are one name**. A hyphen
+guard was suspected as the cause and **measured rather than asserted**: over the five commonest forms,
+43 occurrences carry 8 that sit beside a hyphen, so that is not the explanation. State a residue as a
+count of forms and a cause you have checked, never as a cause that sounds right.
 
 ---
 
