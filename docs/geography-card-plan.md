@@ -13,9 +13,9 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='geo-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island, and
-`geo-504` Providence.** Both subdecks are worked down the same list, so the next state is `geo-005` and the
-next capital `geo-501`.
+**Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
+`geo-005` Alaska, `geo-501` Sacramento and `geo-504` Providence.** Both subdecks are worked down the same
+list, so the next state is `geo-006` and the next capital `geo-502`.
 
 ---
 
@@ -258,6 +258,27 @@ Two access findings worth not rediscovering: `history.house.gov`'s statehood pag
 the weak point of the whole subject, which is why a capital card leans on the Census place file and the
 state's LoC guide rather than on the city's own site.
 
+Four more, measured while writing `geo-005` and `geo-501`:
+
+- **The LoC state guide is an INDEX, not an account** — three or four sentences of introduction over a list
+  of digitised collections. Alaska's carries the 1867 purchase and "statehood in 1959" and no more; it will
+  not date a statehood, name a rank or give a figure. Reach for it for the shape of a state's history, and
+  for something else for every number in the card.
+- **The Census Bureau's own history stories are the thing that does** — `census.gov/about/history/stories/`,
+  one a month, each with a named author and a date. "Alaska and Its People" (Gauthier, 1 January 2024)
+  states the 49th-state rank, 3 January 1959, the $7.2 million at about two cents an acre, the largest-state
+  land area and the largest city, in one openable page. **Look for a state's story before searching wider.**
+- **`loc.gov` itself is behind a Cloudflare wall here and answers 403** — the *Today in History* pages among
+  them — while `guides.loc.gov` is open. Do not read one as evidence about the other.
+- **A state's own historic-preservation office is the source the city governments are not.** California's
+  landmark record for Old Sacramento (`ohp.parks.ca.gov/ListedResources/Detail/812`) gives the founding
+  month and founder, the year the capital settled there and every terminus claim — wagon train, stagecoach,
+  riverboat, telegraph, pony express, first transcontinental railroad — in a single sourced paragraph.
+  `parks.ca.gov` carries the same weight for a state park (Sutter's Fort's page is where the Nisenan and the
+  exploited Native labour behind the fort's industries are stated outright, which no city page says), and
+  the state capitol museums publish their own building histories. **Every state has a SHPO; try it before
+  the city.**
+
 ### Conventions
 
 - **Metric first, imperial in brackets**, as everywhere: `4,001 km² (1,545 sq mi)`.
@@ -275,10 +296,16 @@ Every card ships with a cited glossary entry for its own answer term, written at
 same commit. That is a hundred entries — fifty states and fifty cities — and **three of them collide with
 terms that already exist**. Each was measured, and none should be settled quietly.
 
-- **`Alaska` already exists and is not about the state.** It was written for the prehistory deck and frames
-  Alaska as the far north-western extremity of North America across the Bering Strait from Siberia; `wh-097`
-  Beringia links it. When `geo-005` is written, **extend that entry rather than replacing it** — it has to
-  go on serving the card that links it today.
+- **`Alaska` already existed and was not about the state — SETTLED with `geo-005`.** It had been written
+  for the prehistory deck and framed Alaska as the far north-western extremity of North America across the
+  Bering Strait from Siberia; `wh-097` Beringia links it. It was **rewritten to serve both**, and the shape
+  of that rewrite is the one to copy at `geo-027` Georgia: a glossary description is exactly three sentences
+  and 90–110 words, so extending one is not adding a sentence but **re-cutting all three**. The state's
+  figures and its 1867 purchase and 1959 statehood came in; the land-bridge flooding and the terminal
+  Pleistocene genome — the two claims `wh-097` needs — stayed; and the St Paul Island mammoths went, with
+  their citation, because a claim cut from a term whose sources are one-per-claim **orphans that source and
+  `add-sources.js` refuses the batch**. That is the real cost of a shared term, and it is paid in claims
+  rather than in words.
 - **`Olympia` already exists and is the Greek sanctuary**, seat of the Olympic games. The capital of
   Washington needs a **disambiguated key** (`Olympia,_Washington`) with `Olympia` as its display title, and
   must **not** claim the bare surface: `buildGlossIndex` gives a surface to its first claimant, and Greek
