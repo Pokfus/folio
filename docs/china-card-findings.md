@@ -1073,3 +1073,47 @@ the start** at the `GLOSS_SRC_TARGET` bar — and mind that romanised Chinese na
 syllables (*Yang Yan* against *yin and yang*, *Ban Zhao* against *Han-Zhao*), so prefer the fuller head
 word.
 
+  **`cnh-041` IS WHERE THE DECK'S WHOLE SOURCE SPINE STOPS WORKING, AND THAT IS A FACT ABOUT THE
+SUBJECT RATHER THAN ABOUT THE SEARCH** (Aug 2026). Every card from `cnh-001` to `cnh-040` is carried by
+Mayers, Legge, Herbert Giles, Doré, Werner, Doolittle, Wylie, Forke and Chavannes; **not one of them
+knows that Neolithic China exists**, Yangshao having been found in 1921 and the Yangtze rice cultures
+much later still, so the shelf that answered forty questions answers none of this one's. `cnh-037` met
+the same wall on a vernacular story and reached for `pypdf`; here the replacement is **modern
+open-access science, fetched from PMC directly**. Three access findings go with it. **`pmc.ncbi.nlm.nih.gov/articles/<PMCID>/`
+serves papers Europe PMC marks `isOpenAccess: N`** — both PNAS papers behind this card's Cishan and
+Liangzhu sentences are in that class and both read in full. **`europepmc.org/article/PMC/<id>` is a
+JavaScript shell**, and the tell is that it is **29,128 bytes for every id you ask for**, which is
+`cnh-003`'s "assert that the patch landed" in another coat: identical output across different inputs is
+the signature of a page that never had the content. And `/europepmc/webservices/rest/<PMCID>/fullTextXML`
+**404s outside the OA subset**, so a fetch failing there says nothing about whether the paper is readable.
+`cambridge.org` is 403 while a Cambridge journal at its DOI is not (`doi.org/10.1017/ehs.2024.31`).
+  **THE OVERVIEW WAS FOUND BY SEARCHING FOR AN ANIMAL, AND THE ROUTE IS THE REUSABLE PART.** Europe PMC
+on `TITLE:"Neolithic China"` returns kinship genomics and commensal rats; DOAJ on `title:(neolithic AND
+china)` returns 49 records and they are almost all site reports, which is the shape of this literature —
+**the specialist papers are everywhere and the syntheses are rare**. What carried five of this card's ten
+sentences is the INTRODUCTION of Hongo, Kikuchi and Nasu's review of pig management in *Animal Frontiers*,
+which sets its subject up by stating the north/south division, the Qinling–Huai line between them, the
+crops on each side, the Yangshao subsistence pattern and the West Asian wheat, cattle, sheep and goats
+arriving in the Longshan. **Where an overview is wanted and no overview is open, read the introduction of
+a specialist REVIEW** — it is written to do exactly that job for its own readers.
+  **ITS DATE LINE'S THREE ROWS REST ON THREE DIFFERENT WORKS, ON PURPOSE**, which is `cnh-036`'s rule
+applied while writing rather than after: the Early Neolithic at c. 7000–5000 BCE is Liu et al.'s
+9000–7000 cal BP, the millet cultures at c. 5000–3000 BCE are Stevens et al.'s figure in those words, and
+Liangzhu at c. 3300–2300 BCE is Liu Bin et al.'s 5,300–4,300 cal BP. **Converting cal BP to BCE is
+arithmetic and safe; asserting a period's END is not** — nothing openable here says when the Chinese
+Neolithic closes, so the card's date line does not say, and it sorts at −7000 rather than at the 20,000-year-old
+pottery its second sentence names, which would have filed a Neolithic card in the Upper Palaeolithic.
+  **THE PICTURE BEAT A BETTER-DESCRIBED RIVAL ON ITS FRAME, AND THE PROVENANCE WAS IN THE CATEGORIES.**
+Gary Todd's CC0 photograph of eleven Yangshao vessels names the Zhengzhou City Museum and dates the group
+in its own description, and what it shows is a display case — plinths, bilingual labels, wall panels and
+reflections, `cnh-036`'s calibration bar in another form. Windmemories' basin from the Dahecun site has a
+one-line description and looked the thinner record until its **Commons CATEGORIES** were read
+(`Collections of Dahecun Site Museum`, `Yangshao pottery from Dahecun Site`, `November 2024 in Zhengzhou`),
+which carry everything a `desc` needs. **Read a file's categories before calling its record thin.** The
+glossary term's own picture states the opposite kind of limit: the millet heaped on the Peiligang quern is
+the museum's display dressing and not an excavated deposit, so the `desc` says so.
+  **AND THE AUTO-LINKS WERE SIMULATED RATHER THAN EYEBALLED.** `cnh-010`'s `afar` and `cnh-012`'s `tripod`
+were both found by looking at a rendered card, which finds a mis-link only if you happen to look at the
+right word; running the glossary's own longest-first surface list over the finished abstract lists every
+link it will make in one command, and this one makes twelve, of which `China` (in "northern China") and
+`Asia` (in "western Asia") are the two worth checking and both point at the right place.
