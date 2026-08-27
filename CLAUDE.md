@@ -860,6 +860,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **`--file=<path>` audits a LOCAL overlay JSON instead of the live row**, which is how a REPLACEMENT is checked
   before it is pasted into production rather than by pasting it and looking at the site — the file is the bare
   `data` value, not the PostgREST row wrapper. Not part of the site.
+- **📖 `docs/refinements-2026-08-27.md` — READ BEFORE PICKING UP ANY OF THE THIRTY-FIVE ITEMS FROM THAT
+  REQUEST, and before touching a language deck's pinyin, examples or glosses.** What shipped, and the four
+  faults one reported card each turned out to be at scale: **110 wrong Mandarin readings** from one
+  reported "fàng uǎn" (`.claude/decks/check-pinyin.js` cross-checks pinyin against the same card's
+  bopomofo, which is the one field that pins a syllable boundary); **1,953 cards showing the same example
+  twice**; **five glosses that were the wrong sense**, each contradicted by the card's own examples
+  (`.claude/decks/check-senses.js` measures that and ranks it); and a **glossary auto-link pointing at the
+  wrong continent's period** (`.claude/check-gloss-links.js`). It also holds the four answers to the items
+  that asked for a suggestion rather than a change, and a costed plan for the nine features not built —
+  read the plan's entry before starting one, since three of them turn on a decision that is not obvious
+  (what Save means in the deck editor, which bundle a card locator may fetch, and why merging language
+  notes cannot be done to a shipped deck).
 - `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
@@ -1071,6 +1083,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   file, and the inverse. Both read `UDECK_MAX_CARDS` / `UDECK_MAX_BYTES` out of app.js rather than
   restating them; **a legitimate deck that will not fit is what MOVES those caps**, which has happened
   four times. Their outputs are gitignored.
+- `.claude/decks/check-pinyin.js` — **the Mandarin decks' pinyin, cross-checked against their own
+  BOPOMOFO**, which is the one field that pins a syllable boundary (zhuyin writes the initial as a symbol
+  of its own, so a `g` cannot migrate). It found 29 words where a consonant had crossed the boundary —
+  饭馆 as "fàng uǎn" — plus five whose notations count different syllables, two with a bare `r`, and 68
+  set as one word where the other 11,000 separate them. **Exit 1 on a finding.** The Mandarin inputs
+  (`w26-*.json`) are NOT in the repo, so those decks cannot be regenerated and this is what keeps them
+  honest. **A repair moves the SPACES, never the letters** — re-split the ORIGINAL characters at the
+  zhuyin's boundaries, or a tone-sandhi spelling (`bú kè qi`) is silently normalised away.
+- `.claude/decks/check-senses.js` — **a gloss against the card's own example sentences**, plus (exactly)
+  a card showing the same example twice. The gloss and the examples come from different corpora by
+  different stages, so where a pipeline picked the wrong SENSE the examples say so: `estou` glossed
+  "hello (answering the telephone)" over three sentences reading "I am". **Report-only and a proxy** —
+  23% of the corpus trips it, because a correct gloss is often a synonym of what the sentence says — so
+  it is a ranked review list, never a gate.
 - **📖 `docs/lang-decks.md` — READ BEFORE TOUCHING ANY DECK OR GENERATOR.** Every pipeline's findings:
   which exam boards publish a word list and which do not, the CJK and PDF extraction traps, the
   variety filters, the clitic and conjugation rules, the sense-ranking faults, and the catalogue's
@@ -1529,6 +1555,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   see `docs/daily-study.md`.) The dot and the ancestor rows' hollow `.dk-branch` went together — the branch existed only to line the two up,
   and alone it would have pushed every parent title 21px right of the deck beneath it; the `data-depth` indent carries
   the hierarchy. The bar's label also replaced the `.dk-count` "N cards" chip, which stated the same total twice.
+  **THE BAR UNDERLINES THE ROW AT EVERY WIDTH** (Aug 2026, on request), where it was a bottom edge on a
+  phone and an inline track between the name and the figure above 640px — two rules answering one
+  question. The phone's answer is the better one and its reason holds everywhere: an underline costs the
+  line no width, where an inline track's length is paid for out of the deck's NAME, the one part of the
+  row with no shorter form. The media query is gone and the base rule is the phone's; the row is still
+  `position:relative; overflow:hidden`, which is what clips the track to the last row's rounded corners.
+  **AND THE FOLD SURVIVES A RELOAD** (`adFoldMap` / `adFoldSet`, `localStorage["folio_ad_open_v1"]`, same
+  request): only an EXPLICIT choice is stored, so a row nobody has touched still takes its seeded default,
+  exactly as a card type's disclosure works.
+  **A FINISHED COLLECTION GOES GOLD** — `deckProgMarkup` and `adProg` both write `prog-done` on the BAR
+  when studied ≥ total > 0, and the stylesheet takes the NAME from there with `:has()`, so the two halves
+  cannot come apart and every surface drawing one of those bars is covered without a rule apiece.
   **The row is ONE horizontal line** (Aug 2026, on request): piles · name · figure · bin, all centred on the same
   level, with the row's vertical padding down to 10px. It was two lines — the title on top and the bar indented
   under it — which left a band of empty card either side of a short deck name. Two things had to give for five
@@ -2905,6 +2943,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   half folded. **A helper that starts an animation must hand it back**, or every caller that can be
   re-entered is one press away from that. An empty array is still an array, so a caller can cancel
   unconditionally.
+- **THE ATLAS PLACE PANEL'S BREAKPOINT IS DECLARED ONCE, IN CSS** (`--cp-sheet` on `.country-pop`, read
+  back by `cpSheetMode()`; Aug 2026, on request that tablets get the phone's sheet). It was a
+  `matchMedia("(max-width:720px)")` in app.js beside a `@media (max-width:720px)` in the stylesheet — one
+  decision in two files, so widening it meant finding both, and getting one meant a window laid out as a
+  sheet by CSS while JS went on treating it as the desktop panel (pager unwired, fold inert, height
+  unfitted). **It is 1024px now** — the iPad's landscape width, so both orientations land on the sheet.
+  A custom property rather than a geometric read-back: `getComputedStyle().top` on a positioned element
+  hands back the USED value, so `top:auto` cannot be told from `top:16px` that way. **The panel also never
+  scrolls sideways and draws no scrollbar** — `overflow-x:clip` (never the shorthand, never `hidden`)
+  beside `min-width:0` on the grid items and `overflow-wrap:anywhere`, since a citation's visible text IS
+  a URL and contains no break opportunity.
 - **Atlas:** an orthographic **Canvas-2D** globe, full-bleed between the nav and a fixed bottom timeline
   (1000 BCE → present). Drag to rotate, wheel/pinch to zoom, plus on-screen `+`/`−` (`#gzIn`/`#gzOut`) and
   the keyboard, all through `zoomStep()`; `ZMIN 0.82 … ZMAX 10`, and zooming scales the disk radius
@@ -3705,6 +3754,15 @@ subject areas (`mythology`, `religion`, `philosophy`, `history`, `geography`, `a
 `buddhism`, `confucianism`; a non-Chinese culture like `japan`, `greece` — there is deliberately **no
 `china` tag**, China being the default context). Tags are also editable per-term on the admin glossary
 page.
+
+**A KEY WITH A DISAMBIGUATING PARENTHETICAL DOES NOT CLAIM ITS BARE NAME** (Aug 2026, on a bug report
+that a Paleo-Indians card's "Archaic period" opened the gloss for the GREEK one). `glossKeyTitle` strips a
+trailing `_(…)`, and a Wikipedia slug carries one for exactly one reason — the bare name is ambiguous — so
+registering the stripped form as an auto-link surface is the one thing that must not follow from it. A term
+that WANTS the bare name says so with an ALIAS, which is how all five parenthetical keys predating the rule
+were already written (`Georgia_(country)` carries "Georgia"). **`node .claude/check-gloss-links.js` reports
+what is left**: an auto-link whose term is bound to a different part of the world (a proxy, report-only, 34
+findings) and — exactly — two keys competing for one surface.
 
 Optional `"aliases": ["alt spelling", …]` lists extra background spellings that should open the same
 popup (lands in `window.GLOSSARY_ALIASES`); **plural forms link automatically**, so only add aliases

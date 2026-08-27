@@ -6356,7 +6356,16 @@
      early-returns on an entry already in S.active, so re-calling it for the whole-deck row does nothing.
      Adding a deck brings its subdecks (the collections page's rule, one store over), and until the file is
      here nobody knows what those subdecks are. */
-  async function langDeckDownload(deckId) {
+  /* `onProgress(received, total)` is called as the file arrives, so the row can draw a real bar rather
+     than the word "Downloading…" (Aug 2026, on request). It is BYTES here, where the lazy data bundles'
+     bar counts FILES — and the difference is not a preference: a bundle is injected as a <script>, whose
+     download nothing on the page can watch without an inline script the CSP forbids, while a deck file is
+     already fetched with `fetch()` and hands back a readable stream. So this one can be honest about how
+     far through it is, and the biggest deck here is 9.6 MB, which is exactly the wait a bar is for.
+     `total` is 0 when the server sends no Content-Length (a compressed response often does not), and the
+     bar says so by staying indeterminate rather than inventing a denominator. The reader is streamed
+     into a string either way; the fallback path is the plain `res.text()` this had before. */
+  async function langDeckDownload(deckId, onProgress) {
     const row = langCatalogById(deckId);
     if (!row) return { error: "That deck isn't in the catalogue." };
     if (UDECKS[deckId]) return { ok: true, deck: UDECKS[deckId] };
@@ -6364,7 +6373,24 @@
     try {
       const res = await fetch("decks/" + encodeURIComponent(row.file), { cache: "no-store" });
       if (!res.ok) throw new Error("HTTP " + res.status);
-      text = await res.text();
+      if (onProgress && res.body && typeof res.body.getReader === "function") {
+        // Content-Length is the COMPRESSED length where the response is compressed, and the chunks are
+        // decompressed — so the catalogue's own byte count is the better denominator when it has one
+        const total = Number(res.headers.get("content-length")) || row.bytes || 0;
+        const reader = res.body.getReader(), dec = new TextDecoder(), parts = [];
+        let got = 0;
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          got += value.byteLength;
+          parts.push(dec.decode(value, { stream: true }));
+          onProgress(got, total);
+        }
+        parts.push(dec.decode());
+        text = parts.join("");
+      } else {
+        text = await res.text();
+      }
     } catch (err) {
       /* A DECK FILE IS FETCHED, so this is the one part of the feature a `file://` copy cannot do \u2014
          Chrome refuses a fetch of a local file whatever the page. Everything else paints from
@@ -17864,9 +17890,19 @@
   /* How much of a deck or collection has been studied. It reuses the `.xp` markup rather than `.prog`
      deliberately: every theme, the collection hue and animateProgs are all already written against that
      shape, so swapping the HEAD's words is the whole change and nothing else had to be restyled. */
+  /* A COLLECTION WORKED ALL THE WAY THROUGH GOES GOLD (Aug 2026, on request: "when all the cards in a
+     collection have been studied, the collection's name and full progress bar should both be displayed
+     in gold, both in the active decks list and on the Collections page"). It is one class on the BAR, and
+     the stylesheet takes the name from there with `:has()` — so the two can never disagree about whether
+     a collection is finished, and every surface that draws a bar (a curated collection, a language, one
+     of the reader's own decks, the account page's collection progress) gets it without a line of its
+     own. The gold is #C39A2E, the site's achievement gold, the same as the earned badge and the banner's
+     own bar. `total > 0` is load-bearing: an empty collection has studied 0 of 0, which is not finished,
+     it is empty. */
   function deckProgMarkup(studied, total) {
     const pct = total > 0 ? Math.min(100, (studied / total) * 100) : 0;
-    return '<div class="xp deck-prog" data-pct="' + pct.toFixed(2) + '">' +
+    const done = total > 0 && studied >= total;
+    return '<div class="xp deck-prog' + (done ? " prog-done" : "") + '" data-pct="' + pct.toFixed(2) + '">' +
       /* Grouped, since a language collection reaches five figures (23,064 for Mandarin) and the deck rows
          directly under it have always grouped theirs — one screen saying 15296 above 1,178 reads as a
          mistake. Inert on every curated collection, none of which passes 999. */
@@ -19601,7 +19637,9 @@
          percentage. Nothing renders them — the figure itself lives in the row's options sheet — but a
          percentage alone cannot say how many cards a row is counting, and that is exactly what has to be
          readable when a deck is dragged from one container into another (see test-review-decks). */
-      return `<div class="prog dk-prog" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}" data-total="${total}" data-studied="${studied}">
+      // …and the same gold on the review list's own rows — see deckProgMarkup for why it rides on the bar
+      const done = total > 0 && studied >= total;
+      return `<div class="prog dk-prog${done ? " prog-done" : ""}" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}" data-total="${total}" data-studied="${studied}">
         <div class="track"><div class="fill"></div></div>
       </div>`;
     };
@@ -20395,13 +20433,29 @@
         if (b.disabled) return;
         b.disabled = true;
         const was = b.textContent;
-        b.textContent = "Downloading…";
-        const r = await langDeckDownload(b.dataset.langdl);
+        /* THE BUTTON BECOMES THE BAR (Aug 2026, on request). A language deck is between 0.3 and 9.6 MB
+           and the row said only "Downloading…", which on a phone is a word that sits there for half a
+           minute with nothing to say whether anything is happening. The bar is drawn INTO the button —
+           it is already the right width and the right place, and a bar somewhere else would be a second
+           thing on the row saying the same thing. It reports bytes; see langDeckDownload.
+           Indeterminate where the server sends no length: the fill is left at zero and the percentage is
+           simply not claimed, which is the honest version of not knowing. */
+        b.classList.add("dk-dl-busy");
+        b.innerHTML = '<span class="dkdl-t">Downloading…</span><i class="dkdl-fill" style="width:0%"></i>';
+        const fill = b.querySelector(".dkdl-fill"), lab = b.querySelector(".dkdl-t");
+        const r = await langDeckDownload(b.dataset.langdl, (got, total) => {
+          if (!b.isConnected) return;
+          if (total > 0) {
+            const pct = Math.min(100, (got / total) * 100);
+            fill.style.width = pct.toFixed(1) + "%";
+            lab.textContent = Math.round(pct) + "%";
+          } else lab.textContent = fmtDeckSize(got);
+        });
         /* uImportDone repaints the page, so this button is gone by the time it returns — which is why the
            failure path puts it back itself rather than leaving it to a render that never comes. The repaint
            is QUIET: the reader is standing on this very list, so the row turns into the deck under them
            rather than the page scrolling to the top and animating itself back in. */
-        if (r.error) { b.disabled = false; b.textContent = was; }
+        if (r.error) { b.disabled = false; b.classList.remove("dk-dl-busy"); b.textContent = was; }
         await uImportDone(r, true);
       });
     });
@@ -26508,10 +26562,21 @@
     if (!_ucOpen || typeof _ucOpen !== "object" || Array.isArray(_ucOpen)) _ucOpen = {};
     return _ucOpen;
   }
+  /* THE KEY DROPS THE DECK (Aug 2026, on request: "language collections should remember across
+     sessions/decks if the user has collapsed/expanded sections of the card"). `data-uct` is
+     `cardTypeScopeId(deckId, typeId)` — the deck is in it because a STYLESHEET has to be scoped to one
+     deck's copy of a type, and nothing about a reader's fold does. A reader studying HSK levels 1 to 4
+     has four decks each carrying its own copy of the same type with the same "In a sentence" panel, and
+     was closing that panel four times over; the same is true of six Goethe levels and six DELE ones.
+     What identifies the fold is the TYPE and the summary the reader pressed, so that is the key. Nothing
+     migrates: an entry written under the old key simply matches nothing and the panel takes the
+     template's own default, which is where it started. */
   function ucDetailsKey(uct, det) {
     const s = det.querySelector("summary");
     const label = (s ? s.textContent || "" : "").replace(/\s+/g, " ").trim().slice(0, 80);
-    return label ? (uct || "?") + "|" + label : "";   // no summary → nothing stable to key on; left alone
+    if (!label) return "";                            // no summary → nothing stable to key on; left alone
+    const type = String(uct || "?").split("__").slice(1).join("__") || String(uct || "?");
+    return type + "|" + label;
   }
   function ucSetOpen(key, open) {
     const m = ucOpenMap();

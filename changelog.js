@@ -35,17 +35,35 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.315", released: "2026-08-27T12:09Z" };
+window.FOLIO_VERSION = { v: "1.316", released: "2026-08-27T19:10Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-27",
-    t: "Ninety-four new glossary terms",
+    t: "Reported faults fixed, and 110 Mandarin readings put right",
     items: [
       "<b>Twenty-two glossary terms now open by saying what the thing is</b>, where they had led with an example or a single site.",
       "<b>Four glossary terms were removed</b> \u2014 wheel, burial, village and city \u2014 and two links no longer fire on the wrong word.",
-      "Ninety-four more glossary terms, covering the Bronze and Iron Age periods, the Minoan, Helladic and Trojan divisions, and the Aegean\u2019s excavators, museums and sites.",
+      "Ninety-five more glossary terms, covering the Bronze and Iron Age periods, the Minoan, Helladic and Trojan divisions, the Aegean\u2019s excavators and sites, and the Archaic period of North America.",
       "One new card in the <b>Ancient Greece</b> deck, with a new glossary term.",
+      "<b>A hundred and ten Mandarin readings were put right</b> — 饭馆 read “fàng uǎn” where it should read “fàn guǎn”, and twenty-eight more had a consonant on the wrong side of the gap.",
+      "<b>Nearly two thousand language cards showed the same example sentence twice</b> and now show it once.",
+      "<b>Five language words had the wrong meaning</b> — Portuguese <i>estou</i> said “hallo, answering the telephone” where it means “I am”.",
+      "<b>A deck’s progress bar now runs along the bottom of its row at every screen size</b>, instead of taking width from the deck’s name on a laptop.",
+      "<b>The daily study now names the deck each card came from</b>, so two languages studied together say which one you are answering in.",
+      "<b>Finishing a session offers the next deck down your list</b>, so you can work through them without going back to the home page.",
+      "<b>A deck whose count says there is work left now explains itself</b> — a card still on its ten-minute step says so, and offers to take it early.",
+      "<b>Collapsed decks stay collapsed after a reload</b>, and a card’s example panel stays as you left it across every deck of a language.",
+      "<b>A collection you have finished goes gold</b>, its name and its full bar, both in your daily study and on the Collections page.",
+      "<b>Downloading a language deck now shows how far it has got</b> instead of the word “Downloading”.",
+      "<b>Tapping outside a deck’s options menu closes it without also pressing what is underneath.</b>",
+      "<b>The whiteboard marker no longer jumps down the page</b> when you take hold of it.",
+      "<b>A country panel on the Atlas no longer scrolls sideways</b>, and a tablet now gets the phone’s panel rather than the desktop’s.",
+      "<b>Who said it? is back to five rounds</b>, and the account page’s four buttons now fit their boxes on a phone.",
+      "<b>The Credits list now counts the Library’s sources off the shelf</b> — Project Gutenberg, the Internet Archive and Global Grey were not credited at all.",
+      "<b>“Folio is in beta” now sits directly under Common questions</b> on the About page.",
+      "<b>China’s description on the Atlas is about China</b>, rather than giving three of its five closing sentences to American trade history.",
+      "<b>Two cards were corrected</b> — Middle Paleolithic gave two different end dates, and Agora spent six of its ten sentences on three particular agoras.",
     ],
   },
   {

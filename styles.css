@@ -499,6 +499,33 @@ html[dir="rtl"] .site-ver{text-align:right;}
 .xp-count{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); letter-spacing:.04em; white-space:nowrap; font-weight:500;}
 .xp-track{height:8px; border-radius:99px; background:var(--paper-2); overflow:hidden; border:1px solid var(--rule);}
 .xp-fill{height:100%; border-radius:99px; background:linear-gradient(90deg, var(--indigo), var(--indigo-bright)); width:0; transition:width .9s var(--ease);}
+/* ---------- A COLLECTION WORKED ALL THE WAY THROUGH (Aug 2026, on request) ----------
+   The name and the full bar both go GOLD — #C39A2E, the achievement gold the earned badge, the
+   collection icons and the daily-study banner's own bar already use, so a finished collection reads as
+   the same kind of thing as a badge rather than as a new colour.
+   The class sits on the BAR (deckProgMarkup / adProg both write `prog-done`), and the title is reached
+   from it with `:has()` — one flag, so the two halves of "displayed in gold" cannot come apart, and
+   every surface that draws one of these bars is covered without a rule apiece. `:has()` is used for the
+   crossword squares and the study card already.
+   The collection HUE still wins on the bar of an unfinished one: these rules are `.prog-done` only.
+   `!important` is not used anywhere here — each of these outranks the rule it replaces on CLASS COUNT
+   rather than on source order, which matters because the rules it has to beat are scattered through the
+   file and two of them come after this one: `.collection-row .xp-fill`, `.cl-row .xp-fill` and
+   `.dp-row .prog .fill` are two or three classes, so the finished state is written `.xp.prog-done
+   .xp-fill` / `.prog.prog-done .fill` — three, on the same two elements. */
+.xp.prog-done .xp-fill,
+.prog.prog-done .fill{background:linear-gradient(90deg, #C39A2E, #E6C765);}
+body.night .xp.prog-done .xp-fill,
+body.night .prog.prog-done .fill{background:linear-gradient(90deg, #D4AA3C, #F2DC96);}
+/* the count beside the bar goes with it — a deeper gold, because at 10px #C39A2E on the card is 3.6:1
+   (the same reasoning, and the same value, as `.banner .xp-lvl`) */
+.prog-done .xp-lvl,.prog-done .xp-count{color:#8A6A1E;}
+body.night .prog-done .xp-lvl,body.night .prog-done .xp-count{color:#E0C270;}
+/* …and the collection's NAME, on all three surfaces that pair a title with one of these bars */
+.collection-main:has(.deck-prog.prog-done) .collection-title,
+.dk-body:has(.dk-prog.prog-done) .dk-title{color:#8A6A1E;}
+body.night .collection-main:has(.deck-prog.prog-done) .collection-title,
+body.night .dk-body:has(.dk-prog.prog-done) .dk-title{color:#E6C765;}
 /* Library: each collection's bar fills in its own identity hue */
 .collection-row .xp-fill{background:linear-gradient(90deg, var(--coll-bg, var(--indigo)), color-mix(in srgb, var(--coll-bg, var(--indigo)) 62%, white));}
 /* A collection / deck PROGRESS bar (deckProgMarkup) borrows the .xp shape so every theme rule, hue and
@@ -6167,6 +6194,23 @@ body[data-theme="gazette"] .coll-ic{ color:var(--ink); }
    ============================================================ */
 .btn.tiny{padding:8px 13px; font-size:calc(11px * var(--fs)); letter-spacing:.07em; box-shadow:none;}
 .btn.tiny:hover{box-shadow:var(--shadow-sm);}
+/* ---------- A DECK DOWNLOADING, IN THE ROW'S OWN BUTTON (Aug 2026, on request) ----------
+   The Download button on a `.dk-pending` row fills up as the file arrives instead of saying
+   "Downloading…" for half a minute. The bar is the BUTTON — a language deck is up to 9.6 MB and the row
+   is already narrow, so a second element beside it would be two controls saying one thing.
+   The fill is a `position:absolute` child UNDER the label rather than a background gradient, so the
+   percentage stays legible over it at any width; the button keeps `overflow:hidden` so the fill takes
+   its rounded corners; and the label sits in its own `position:relative` span so it paints above.
+   `pointer-events:none` on both, because the button is disabled while this is up and neither child
+   should ever be the click target. The width TRANSITIONS, so the reduced-motion killswitch lands it on
+   its true value with no rule of its own. */
+.btn.tiny.dk-dl-busy{position:relative; overflow:hidden; cursor:default; min-width:112px;}
+.dkdl-t{position:relative; z-index:1; pointer-events:none;}
+.dkdl-fill{
+  position:absolute; inset-block:0; inset-inline-start:0; width:0; z-index:0; pointer-events:none;
+  background:color-mix(in srgb, var(--indigo) 26%, transparent);
+  transition:width .2s var(--ease);
+}
 .btn.danger{background:transparent; color:var(--zh); border-color:color-mix(in srgb,var(--zh) 45%, var(--rule));}
 .btn.danger:hover{background:var(--zh); color:#fff; border-color:var(--zh);}
 

@@ -99,6 +99,7 @@ pass of the same shape: what a source will bear, which hosts answer, which route
 | `glossary-expansion-plan.md` | Three jobs asked for together — audit, expansion, and the terms still to write. |
 | `library-gaps.md` | What the 29 shelved books are missing and what can still be added. |
 | `refinements-plan.md` | ~60 items from one request, batched. |
+| `refinements-2026-08-27.md` | Thirty-five items from one request: what shipped, the four faults the fixes uncovered at scale, the four answers to "suggest a way", and a plan for the nine not built. |
 | `i18n-gaps.md` | The translation audit. **Largely moot while `MULTILANG = false`** — read it as the plan to resume, not work in hand. |
 
 ---
