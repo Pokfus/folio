@@ -433,7 +433,30 @@ shows a map. That is the decision to make before any code — either the extra l
 those bundles happen to be loaded (the Atlas has been opened this session), or the locator becomes a
 deliberate second fetch with the load bar the Atlas already has.
 
-### G · A book quotation inside a card's background (item 24)
+### G · A book quotation inside a card's background (item 24) — BUILT
+
+**Shipped as `card.quote` = `{ book, n, text, cite }`, rendered by `cardQuoteHTML` and addressed by
+`#book/<id>/<n>`.** The plan was right about all three pieces; three things it did not foresee.
+
+**The placement needed no sentence splitter.** "Between sentences 5 and 6" is already a seam in the
+data: every abstract is two blocks of five split by ` <br><br> `, and all 666 shipped carry exactly one
+(in three whitespace spellings). `buildBack` splits on that. An abstract that ever arrives without one
+puts the quotation after the prose rather than dropping it, since a silent loss is the worse failure.
+
+**`n` is the chapter number the reader's place is already recorded in** — `S.reading[id].ch` — not a new
+unit. It is compared as a string, since a section number need not be an integer.
+
+**And the guard belongs in `add-card.js`, not only in the renderer.** The renderer refuses a stale
+reference by rendering nothing, which is right for a shelf that loses books to a licence review — but a
+blank is exactly what an author cannot see, so the book is checked against app.js's own `BOOKS` registry
+and the section against the generated `books/<id>.js` at the point of writing. All three refusals were
+tested: an unknown book, a section the book has not got, and a quote with no text.
+
+`gr-254` (Spartan austerity) carries the first one, quoting Thucydides 1.10 out of the Library's own
+Crawley translation — the same edition its citation already named. Guarded by `.claude/test-card-quote.js`.
+
+The original plan follows.
+
 
 Where a card cites one of the Library's own books, put the cited lines between sentences five and six with
 a button that opens the book at that section.
@@ -464,7 +487,32 @@ one, and every reader who has studied them loses that history. So this is a **ne
 migration that implies, or it is not done — which is the honest answer and the reason it is not attempted
 here.
 
-### I · The TTS and the noun articles (item 5)
+### I · The TTS and the noun articles (item 5) — BUILT, and it found something bigger
+
+**Shipped**, and the plan's diagnosis was right: `data-say` is written per pipeline and French carried the
+bare headword. Measured, it was 3,640 French cards across six levels plus 34 Italian ones, against zero in
+German, Portuguese and Spanish.
+
+**It was deliberate on the French side**, and the reasoning is kept in `delf/emit.py` rather than deleted:
+a speaker reading `le chien` teaches the article's liaison rather than the noun. Overruled because the
+reader reported the silence as a fault and because consistency across the six decks was itself item 32.
+
+**A common-gender noun is exempt.** Italian writes `il/la complice` as three article spans and there is no
+way to say that aloud — a speaker would pronounce the slash, and picking one gender asserts what the card
+declines to. Being in scope is therefore EXACTLY ONE article span, which is what tells the 34 elided ones
+that *are* speakable (`l'assistente`, `l'erede`) from the hundred-odd that are not.
+
+**THE FINDING IS THAT THE FRENCH DECK CANNOT BE REGENERATED.** Its word list is a third party's ordinary
+web page and that page's markup has changed: every source is still reachable, 732 MB fetched, and
+`delf/run.py` today reads **41 words** off it against the ~384 it was built from, emitting a deck of 103
+notes against the shipped 446. The byte-for-byte rule is what caught it. So the generator is fixed for a
+future rebuild and the shipped files are repaired in place — a FIELD edit, asserted to have changed 3,674
+`Word` values, **0 card ids and nothing else at all** — which is the position the Mandarin decks have been
+in since they shipped, and gets the same answer: `.claude/decks/check-say.js` is what keeps a file nobody
+can rebuild honest.
+
+The original plan follows.
+
 
 Read-aloud is disabled site-wide (`ttsEnabled()` returns `false`), so this is about the community decks'
 own `.uc-tts` control, whose `data-say` is written by each pipeline. Where a noun's article is in a

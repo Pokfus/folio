@@ -869,6 +869,7 @@
     CARD_BY_ID[id].facts = p.facts;           // and the figures box beside its answer (see cardFacts)
     CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
     CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
+    CARD_BY_ID[id].quote = p.quote;           // and the passage it quotes out of the Library (see cardQuote)
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -13184,7 +13185,14 @@
     location.hash =
       name === "home" ? ""
       : name === "deck" && current.params.slug ? "deck/" + encodeURIComponent(current.params.slug)
-      : name === "book" && current.params.id ? "book/" + encodeURIComponent(current.params.id)
+      /* #book/<id>/<n> — the SECTION fragment is written only when one was asked for (Aug 2026, with the
+         card quotations), so every link ever shared to a whole book still resolves to exactly what it
+         did. `n` is the CHAPTER number the reader's own place is already recorded in (`S.reading[id].ch`)
+         rather than a new unit: it is what the two columns of a bilingual book pair on and what the
+         contents list addresses, so there was nothing to invent. */
+      : name === "book" && current.params.id
+        ? "book/" + encodeURIComponent(current.params.id) +
+          (current.params.n != null && current.params.n !== "" ? "/" + encodeURIComponent(current.params.n) : "")
       : name;
     render();
   }
@@ -23279,8 +23287,15 @@
     }
 
     const pos = readingPos(b.id);
+    /* AN ADDRESSED SECTION BEATS THE REMEMBERED PLACE, and it beats it the way a deliberate move to
+       another chapter already does: at the TOP of that chapter, never at a saved depth (see the reading
+       bullet in CLAUDE.md). A reader arriving from a card's quotation has asked for that passage, not for
+       wherever they were in this book last week. Compared as STRINGS, since a section number need not be
+       an integer — a Bekker page is `1094a` — which is the same reason `c.n` is not a number here. */
+    const wantN = params && params.n != null && params.n !== "" ? String(params.n) : "";
+    const addressed = wantN ? chapters.find((c) => String(c.n) === wantN) : null;
     // resume on the chapter the reader left, falling back to the first if that chapter is not shipped yet
-    let cur = chapters.find((c) => pos && c.n === pos.ch) || chapters[0];
+    let cur = addressed || chapters.find((c) => pos && c.n === pos.ch) || chapters[0];
     const partOf = (n) => (b.parts || []).find((p) => p.n === n);
 
     root.innerHTML = `
@@ -23999,7 +24014,9 @@
     }
     wireBookCtxMenu(pageEl, addHighlight, removeHighlight);
 
-    paint(cur, pos && pos.ch === cur.n ? pos.y || 0 : 0);
+    // …and an ADDRESSED section starts at the top even when it happens to be the chapter the reader left,
+    // which is the "a deliberate move starts at the top; only a resume restores a depth" rule again
+    paint(cur, !addressed && pos && pos.ch === cur.n ? pos.y || 0 : 0);
   };
 
   /* ============================================================
@@ -27917,6 +27934,53 @@
 
      THE COORDINATE IS FETCHED, NEVER TYPED (see `.claude/add-locators.js`): a hand-entered pair is a dot a
      degree out, which draws perfectly and points at the wrong place, and nothing on the page could say so. */
+  /* ---------- A CARD QUOTES THE BOOK IT CITES (Aug 2026, on request) ----------
+     "Cards that cite a book in the Library should carry a quote from it between sentences 5 and 6, with a
+     button to that book section." Four decisions.
+
+     · **THE PASSAGE IS AUTHORED, NEVER EXTRACTED.** A card cites a whole letter or chapter, and choosing
+       the sentences that bear on its subject is exactly the editorial act the citation apparatus exists
+       for — a machine picking them would be quoting at random and attributing it to a translator.
+     · **`n` IS THE BOOK'S OWN SECTION NUMBER**, the unit `S.reading[id].ch` already records and the one
+       the two columns of a bilingual book pair on, so nothing new had to be addressed. It is compared as
+       a STRING: a section number need not be an integer (a Bekker page is `1094a`).
+     · **IT SITS AT THE BLOCK BREAK, WHICH IS ALREADY WHERE SENTENCE 5 ENDS.** Every abstract is two
+       blocks of five split by ` <br><br> ` — all 666 of them carry exactly one — so the quotation goes
+       where that break is rather than being placed by counting sentences at render time.
+     · **A QUOTE POINTING AT A BOOK OR SECTION THAT IS NOT THERE RENDERS NOTHING.** The shelf loses books
+       to a licence review and gains chapters in instalments, so the reference can go stale after the card
+       was written; a blockquote from a book the reader cannot open is worse than no quotation, and
+       `add-card.js` refuses one at the point of writing so this is a backstop rather than the guard. */
+  function cardQuote(c) {
+    const q = c && c.quote;
+    if (!q || typeof q !== "object") return null;
+    const book = String(q.book || "").trim();
+    const text = String(q.text || "").trim();
+    if (!book || !text) return null;
+    const n = q.n == null ? "" : String(q.n).trim();
+    return { book: book, n: n, text: text, cite: String(q.cite || "").trim() };
+  }
+  /* The blockquote itself. It carries the book's TITLE and its translator, because a quotation whose
+     attribution is a button the reader has not pressed is an unattributed quotation — and the button says
+     where it goes rather than what it is ("Read it in the Library"), the title being right above it. */
+  function cardQuoteHTML(c) {
+    const q = cardQuote(c);
+    if (!q) return "";
+    const b = BOOK_BY_ID[q.book];
+    if (!b) return "";                                   // a book that has left the shelf takes its quotation with it
+    const chs = bookChapters(b.id);
+    // the section is checked only where the text is already HERE: the book is lazy, and holding a card's
+    // prose behind a book download to validate a reference would make every such card slower to read
+    if (q.n && chs && !chs.some((ch) => String(ch.n) === q.n)) return "";
+    const who = b.translator ? "translated by " + esc(b.translator) : esc(b.edition || "");
+    return '<figure class="card-quote">' +
+      '<blockquote>' + q.text + "</blockquote>" +
+      '<figcaption><cite>' + esc(b.title) + "</cite>" + (who ? '<span class="cq-who">' + who + "</span>" : "") +
+      (q.cite ? '<span class="cq-where">' + esc(q.cite) + "</span>" : "") +
+      '<button type="button" class="cq-go" data-cqbook="' + esc(b.id) + '"' +
+        (q.n ? ' data-cqn="' + esc(q.n) + '"' : "") + '>Read it in the Library</button>' +
+      "</figcaption></figure>";
+  }
   function cardLocator(c) {
     const l = c && c.locator;
     if (!l || typeof l !== "object" || !Array.isArray(l.at)) return null;
@@ -28003,7 +28067,22 @@
          It must stay FIRST in the inner box — a float only wraps what follows it. */
       if (hasImg) html += '<div class="card-imgslot">' + cardImageHTML(c.image) + "</div>";
       else if (hasVid) html += '<div class="card-imgslot">' + cardVideoHTML(c.video) + "</div>";   // the same slot, never both
-      if (c.abstract) html += '<p class="abstract">' + c.abstract + "</p>";
+      /* THE QUOTATION GOES AT THE BLOCK BREAK, which is where sentence 5 ends (Aug 2026, on request).
+         The abstract is two blocks of five split by ` <br><br> ` — every one of the 666 shipped carries
+         exactly one, in three whitespace spellings — so the break is SPLIT ON rather than sentences
+         counted, and the two halves become two paragraphs with the passage between them. A card with no
+         quotation is byte-identical to what it was; and if an abstract ever arrives without the break,
+         the quotation follows the prose rather than being dropped, since losing it silently is the worse
+         of the two failures. */
+      if (c.abstract) {
+        const qh = cardQuoteHTML(c);
+        const parts = qh ? c.abstract.split(/\s*<br\s*\/?>\s*<br\s*\/?>\s*/) : null;
+        if (qh && parts && parts.length === 2) {
+          html += '<p class="abstract">' + parts[0] + "</p>" + qh + '<p class="abstract">' + parts[1] + "</p>";
+        } else {
+          html += '<p class="abstract">' + c.abstract + "</p>" + qh;
+        }
+      }
       html += "</div></div>";
     }
     /* Where the place is, at the foot of the card and OUTSIDE the Background fold: it is not prose, so it
@@ -36194,7 +36273,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardQuote(c)) o.quote = c.quote; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -39128,7 +39207,12 @@
   let initParams = {};
   if (initName === "deck") { try { initParams.slug = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.slug = hParts[1] || ""; } }   // a mangled %-escape must not kill boot
   // #book/<id> — a book is a shareable address, the same shape as #deck/<slug> and #map/<year>/<slug>
-  if (initName === "book") { try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; } }
+  if (initName === "book") {
+    try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; }
+    // …and the optional section it was opened at. Left ABSENT rather than defaulted, so a plain #book/<id>
+    // still resumes where the reader left off and only an explicit fragment overrides that.
+    if (hParts.length > 2 && hParts[2] !== "") { try { initParams.n = decodeURIComponent(hParts[2]); } catch (e) { initParams.n = hParts[2]; } }
+  }
   /* A reload on #study picks the session back up where it was — same card, same phrasing, and revealed if
      it was revealed. The scope lives in the record rather than the hash because a queue is not an address:
      what a reader wants back is the session they were in, not a fresh one built from the same deck. With no
@@ -39232,6 +39316,17 @@
     }
     openImageViewer({ src: fig.dataset.imgSrc, title: fig.dataset.imgTitle, desc: fig.dataset.imgDesc, credit: fig.dataset.imgCredit });
   });
+  /* A CARD'S QUOTATION OPENS ITS BOOK AT THAT PASSAGE. One delegated listener, like the card image's
+     beside it, so the button needs no wiring per render and works wherever a card back is drawn — the
+     study page, the card of the day, the browser's Card info and the editor's live preview alike. */
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest && e.target.closest(".cq-go");
+    if (!b || !b.dataset.cqbook) return;
+    e.preventDefault();
+    const p2 = { id: b.dataset.cqbook };
+    if (b.dataset.cqn) p2.n = b.dataset.cqn;
+    route("book", p2);
+  });
   // badges: one delegated listener flips a badge over to its "how to earn it" back, and back again on a
   // second click (covers both the profile and a friend's badge grid, which render the same markup)
   document.addEventListener("click", (e) => {
@@ -39285,10 +39380,16 @@
       if (!(current.name === "deck" && current.params.slug === slug)) route("deck", { slug: slug });
       return;
     }
-    if (parts[0] === "book") {   // #book/<id> pasted or followed mid-session
-      let bid = "";
+    if (parts[0] === "book") {   // #book/<id>[/<n>] pasted or followed mid-session
+      let bid = "", bn = "";
       try { bid = decodeURIComponent(parts[1] || ""); } catch (e) { bid = parts[1] || ""; }
-      if (!(current.name === "book" && current.params.id === bid)) route("book", { id: bid });
+      if (parts.length > 2 && parts[2] !== "") { try { bn = decodeURIComponent(parts[2]); } catch (e) { bn = parts[2]; } }
+      /* The SECTION is part of the address, so following the same book at a different section has to
+         re-render — otherwise a reader who pressed one quotation's button and then another's would be
+         carried to the first passage twice. */
+      const same = current.name === "book" && current.params.id === bid &&
+        String(current.params.n == null ? "" : current.params.n) === bn;
+      if (!same) route("book", bn ? { id: bid, n: bn } : { id: bid });
       return;
     }
     if (hh === "study" && current.name !== "study") {   // back/forward onto a study address — resume, or go home if the session is gone

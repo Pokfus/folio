@@ -35,13 +35,16 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.317", released: "2026-08-27T19:55Z" };
+window.FOLIO_VERSION = { v: "1.318", released: "2026-08-27T21:41Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-27",
     t: "The Reliquary gets a page, and the deck list an editor",
     items: [
+      "<b>A card can now quote the book it cites</b>, set between the two halves of its background, with a button that opens that book at the passage.",
+      "<b>The word-list decks now read the article out</b> with the noun \u2014 3,674 French and Italian cards said \u201Cf\u00E9vrier\u201D where the card showed \u201Cle f\u00E9vrier\u201D.",
+      "A link to a book can now name a section, so a shared address opens where you meant it to.",
       "<b>The Reliquary is a page of its own now</b>, sortable by name, by when you found each artefact, by how old it is and by rarity, either way round.",
       "<b>The deck list has an editor</b>: press Edit under it to reorder, rename or remove decks, with Undo and Revert to hand.",
       "You can now <b>rename any deck in your daily study</b> — the name is yours alone, and clearing it puts the deck’s own back.",

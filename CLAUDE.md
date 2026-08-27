@@ -1246,6 +1246,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is a raster canvas that cannot be saved; the canvas is **the size of the SCREEN, not the
     chapter**, and a point is a **fraction of the chapter panel**. **Highlights are CHARACTER
     RANGES** in the chapter's own prose, so they stay on their sentence at any width.
+  · **A CARD CAN QUOTE THE BOOK IT CITES** (`card.quote` = `{ book, n, text, cite }`, `cardQuote` /
+    `cardQuoteHTML` / `.card-quote` / `.cq-go`; `#book/<id>/<n>`. Aug 2026, on request). Five things.
+    **THE PASSAGE IS AUTHORED, NEVER EXTRACTED** — a card cites a whole letter or chapter and choosing the
+    sentences that bear on its subject is the editorial act the citation apparatus exists for; a machine
+    picking them would be quoting at random and attributing it to a translator. **`n` IS THE BOOK'S OWN
+    SECTION NUMBER**, the unit `S.reading[id].ch` already records and the one the two columns pair on, so
+    nothing new had to be addressed — compared as a STRING, since a section number need not be an integer.
+    **IT SITS AT THE BLOCK BREAK**, which is already where sentence 5 ends: every abstract is two blocks
+    of five split by ` <br><br> ` (all 666 carry exactly one), so `buildBack` SPLITS on that rather than
+    counting sentences, and an abstract without one puts the quotation after the prose rather than
+    dropping it. **THE SECTION FRAGMENT IS WRITTEN ONLY WHEN ASKED FOR**, so every `#book/<id>` link ever
+    shared still resolves to exactly what it did; an ADDRESSED section opens at the TOP even when it is
+    the chapter the reader left, which is the deliberate-move rule above. **AND `add-card.js` CHECKS THE
+    REFERENCE AGAINST THE ACTUAL SHELF** — the book against app.js's own `BOOKS` registry and the section
+    against the generated `books/<id>.js` — because the renderer's own guard renders NOTHING, and a silent
+    blank is exactly what an author cannot see. Guarded by `.claude/test-card-quote.js`.
   · **📖 `docs/library-feature.md` — READ BEFORE TOUCHING THE LIBRARY.** The shelf, the sort and
     search, the favourites, the chapter bar and its slide, the front matter, the bilingual reading and
     its gestures, the ink and highlights, and the per-book licence reasoning in full.
@@ -4504,6 +4520,19 @@ dead code (never rendered).
     `setDeckFsrsParams` / `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll`
     / `fsrsSequences` / `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s
     per-deck allowances, or anything named `sched*` or `fsrs*`.**
+  · `node .claude/test-card-quote.js` — **a card quoting the book it cites** (13 assertions, Aug 2026),
+    and every part of it fails silently: a quotation appended after the prose instead of standing between
+    the two blocks looks deliberate, one that wraps around the floated illustration looks deliberate, and
+    a book address that has stopped honouring its section fragment simply opens the book. **Re-run after
+    touching `cardQuote` / `cardQuoteHTML` / `buildBack`'s abstract split / the `.cq-go` listener /
+    `PAGES.book`'s `params.n` / the `#book` branches in boot and hashchange / `serializeCardData` /
+    `revertCard`, or `add-card.js`'s quote guard.**
+  · `node .claude/decks/check-say.js` — **a language card's speaker says what the card shows**: where the
+    headword displays ONE article, the spoken field must carry it. It found 3,674 cards that dropped it —
+    3,640 French and 34 Italian — and `--fix` repairs them. **A common-gender noun (`il/la complice`,
+    three article spans) is exempt and must stay so**: the slash cannot be spoken and picking one gender
+    asserts what the card declines to. Report-only, exit 1 on a finding. **Re-run after rebuilding any
+    deck, and after touching `say_text` in cils/build_deck.py or the `say` block in delf/build_deck.py.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and
     a glossary term's way onto the map (Aug 2026). **Re-run after touching `glossPlace` / `focusPlace` /
     `CITY_SEP` / `computeCityLayout` / `gsIndex` / `hmOpacity`, or after re-running
