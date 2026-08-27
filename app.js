@@ -3141,15 +3141,32 @@
     // ("u:<deckId>:<slug>"), so humanizing that would try to match the literal key in the prose. Deck terms
     // resolve through their own entry instead.
     const surfaceOf = (k) => { const u = uGlossParse(k); return u ? (u.entry.title || glossKeyTitle(u.slug)) : glossKeyTitle(k); };
+    /* A DISAMBIGUATING PARENTHETICAL MEANS THE BARE NAME IS ALREADY SOMEBODY ELSE'S (Aug 2026, on a bug
+       report: the Paleo-Indians card's "Archaic period" opened the gloss for the GREEK archaic period).
+       `glossKeyTitle` strips a trailing `_(…)` because a Wikipedia slug carries one for DISPLAY reasons —
+       and a slug carries one for exactly one reason, which is that the bare name is ambiguous. So
+       stripping it and then registering the result as an auto-link surface is the one thing that must not
+       follow from it: `Archaic_period_(North_America)` would claim "Archaic period", and which of the two
+       terms won came down to their order in `Object.keys(G)`, i.e. to where they happen to sit in
+       glossary.js. Nothing on the page would say which one a reader was about to open.
+       So a parenthetical key does not claim its bare name HERE. It can still claim it deliberately, with
+       an ALIAS — which is how all five of the parenthetical keys that predate this rule were already
+       written (`Georgia_(country)` carries "Georgia", `Hippias_(tyrant)` carries "Hippias"), so this
+       changes nothing for any of them and only stops the claim being made by accident. A term that wants
+       the bare name says so; a term that does not is reached by a hand-written `data-k`, by the search,
+       and by any narrower alias of its own. `.claude/check-gloss-links.js` reports what is left. */
+    const bareTaken = (k) => !uGlossParse(k) && /_\([^)]*\)$/.test(String(k || ""));
     // pass 1: primary term names (singular) — win any collision
-    keys.forEach((k) => add(surfaceOf(k), k));
+    keys.forEach((k) => { if (!bareTaken(k)) add(surfaceOf(k), k); });
     // pass 2: admin-defined alias spellings (singular)
     keys.forEach((k) => (A[k] || []).forEach((al) => add(al, k)));
     // pass 3: plurals — only for case-insensitive surfaces (proper names are not pluralized/linked lowercase)
     keys.forEach((k) => {
       if (CS[k]) return;
-      const t = surfaceOf(k);
-      if (!isProperCS(t)) pluralForms(t).forEach((p) => add(p, k));
+      if (!bareTaken(k)) {
+        const t = surfaceOf(k);
+        if (!isProperCS(t)) pluralForms(t).forEach((p) => add(p, k));
+      }
       (A[k] || []).forEach((al) => { if (!isProperCS(al)) pluralForms(al).forEach((p) => add(p, k)); });
     });
     names.sort((a, b) => b.length - a.length); // longest first so phrases win over their parts
@@ -5923,6 +5940,22 @@
   /* Which entry's options a STUDY SCOPE follows. A deck tapped on its own row uses that deck's; the
      pooled review, the Card-of-the-day list and a single card off the home tile use the review's, since
      that is the entry whose sheet the reader would have opened to change it. */
+  /* The inverse of `scopeEntryId`: what studying THIS row of the review list means. It was written inline
+     in the row's own click handler until Aug 2026, when the completion screen gained a "continue with the
+     next deck" button and needed the same answer — and an entry id is not something two places may each
+     have their own reading of (`u:<deck>/<path>#<tpl>` is a deck, a subdeck and a direction in one string).
+     One function, so a row tapped on the home page and the same row reached from the end of a session open
+     exactly the same session. */
+  function entryScope(id) {
+    if (id === COTD_ENTRY) return { type: "cotd" };
+    // a GROUP the reader made has no cards of its own — see buildSession's group branch. A collection
+    // drawn as a group header is still a tree node and still studies as one.
+    if (isGroupId(id)) return { type: "group", id };
+    const ud = uDeckIdOf(id);
+    // …and a subdeck of one of the reader's own decks studies just that subdeck
+    if (ud) return { type: "udeck", id: ud, sub: uSubOf(id), tpl: uTplOf(id) };
+    return { type: "deck", id };
+  }
   function scopeEntryId(scope) {
     if (!scope) return REVIEW_ENTRY;
     if (scope.type === "deck" || scope.type === "group") return scope.id;
@@ -13953,7 +13986,27 @@
     };
     function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
     document.addEventListener("keydown", onKey, true);
-    ov.addEventListener("pointerdown", (e) => { if (e.target === ov) close(); });
+    /* THE BACKDROP CLOSES ON THE CLICK, NOT ON THE PRESS (Aug 2026, on a bug report: "clicking anywhere
+       else on the page outside of the menu popup should close the menu and not actually click whatever's
+       beneath"). Closing on `pointerdown` is snappier and it is what let the press through: `close()` puts
+       `.closing` on the overlay, which is `pointer-events:none`, so by the time the pointer is LIFTED the
+       backdrop is no longer hit-testable — and the click the browser then synthesises from that same press
+       lands on whatever the overlay had been covering. On a phone that is the deck row underneath, so
+       dismissing the sheet started a study session.
+       Waiting for the click costs nothing visually and cannot leak: the overlay is still live and still
+       under the pointer when the click is dispatched, so IT is the target, and `close()` runs from a event
+       nothing beneath will ever see. Both ends of the gesture must be on the backdrop — a press that began
+       inside the box and was released outside it is a slip, not a dismissal — and a keyboard or synthetic
+       click (`e.detail === 0`) has no press to match and is let through as a dismissal on its own. */
+    let backdropDown = false;
+    ov.addEventListener("pointerdown", (e) => { backdropDown = e.target === ov; });
+    ov.addEventListener("click", (e) => {
+      if (e.target !== ov) return;
+      if (e.detail && !backdropDown) return;
+      backdropDown = false;
+      e.preventDefault(); e.stopPropagation();
+      close();
+    });
     /* A SHEET IS NOT LIVE THE INSTANT IT APPEARS (Aug 2026, on a bug report: "when the long-press menu loads,
        I sometimes accidentally immediately press a menu item"). A hold opens the sheet UNDER the finger that
        is still down, so the lift that ends the gesture lands on whichever row happens to be beneath it and
@@ -16254,17 +16307,38 @@
   const WB_FLING_STOP = 0.02;       // px/ms — coasting slower than this is finished
   let wbFlingRAF = 0;
   function wbStopFling() { if (wbFlingRAF) cancelAnimationFrame(wbFlingRAF); wbFlingRAF = 0; }
+  /* THE ORIGIN IS TAKEN WHEN THE DRAG STARTS, NOT WHEN THE PRESS LANDS (Aug 2026, on a bug report: "often
+     when I try to move the floating whiteboard marker icon, it jumps down the page before letting me move
+     it"). Two things happen between those two moments and both move the element out from under the finger:
+     · `.wb-tools` carries `transition:bottom .34s` for the grade bar's sake, and `.wb-dragging` — which is
+       what turns that off — is added only once the slop is passed. So a press landing while the marker is
+       still travelling (the answer has just been revealed, or a session has just ended, or it is mid-way
+       through sliding home) anchors to a rect that is already stale by the time the first move arrives.
+       The gap is the whole 90px between `bottom:18px` and `body.grading`'s 108 — up to 152 on a phone —
+       which is precisely a jump down the page.
+     · the slop itself. Anchoring at pointerdown means the first qualifying move applies the WHOLE delta,
+       the 5px that classified the gesture included, so even a still marker pops before it starts tracking.
+     Re-reading the rect at the moment the drag takes over fixes both, and fixes them without depending on
+     which of the two caused a given report: whatever the element has been doing up to that instant, the
+     drag begins exactly where it is and exactly under the finger. The press ALSO freezes it (`.wb-pressed`
+     kills the transition on pointerdown), so a marker grabbed mid-flight stops dead rather than sliding on
+     while the press is still being classified as a tap. */
   function wbMakeDraggable(el, handle) {
     let grab = null;
+    // where the element is right now, in the right/bottom space wbPos is stored in
+    const wbRectPos = () => {
+      const r = el.getBoundingClientRect();
+      return { r: document.documentElement.clientWidth - r.right, b: document.documentElement.clientHeight - r.bottom };
+    };
     handle.addEventListener("pointerdown", (e) => {
       if (e.button != null && e.button !== 0) return;
       wbStopFling();       // a press catches a marker still coasting, exactly as a finger catches a fling
       wbStopHome(el);      // …and a marker mid-way through sliding home, for the same reason
       wbDragged = false;   // a press that never moved must not be swallowed by a previous drag's flag
-      const r = el.getBoundingClientRect();
-      const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
+      el.classList.add("wb-pressed");   // …and it stops travelling under the finger while this is classified
+      const p = wbRectPos();
       grab = {
-        id: e.pointerId, x: e.clientX, y: e.clientY, r: vw - r.right, b: vh - r.bottom,
+        id: e.pointerId, x: e.clientX, y: e.clientY, r: p.r, b: p.b,
         // the last WB_FLING_WINDOW ms of the gesture, in the same right/bottom space the position is
         // stored in — so a finger moving RIGHT gives a falling `r`, which is what keeps the integration
         // below sign-free. Read as a window rather than per event; see the fling note above for why.
@@ -16274,9 +16348,17 @@
     });
     handle.addEventListener("pointermove", (e) => {
       if (!grab || e.pointerId !== grab.id) return;
-      const dx = e.clientX - grab.x, dy = e.clientY - grab.y;
+      let dx = e.clientX - grab.x, dy = e.clientY - grab.y;
       if (!wbDragged && Math.abs(dx) < WB_DRAG_SLOP && Math.abs(dy) < WB_DRAG_SLOP) return;
-      if (!wbDragged) { wbDragged = true; el.classList.add("wb-dragging"); }
+      if (!wbDragged) {
+        wbDragged = true;
+        el.classList.add("wb-dragging");
+        // re-anchor: the origin is where the marker IS and the pointer is where the finger IS, so this
+        // first frame moves it by nothing at all and every later one tracks the finger one for one
+        const now0 = wbRectPos();
+        grab.r = now0.r; grab.b = now0.b; grab.x = e.clientX; grab.y = e.clientY;
+        dx = 0; dy = 0;
+      }
       e.preventDefault();
       const now = e.timeStamp || performance.now();
       const next = { r: grab.r - dx, b: grab.b - dy };
@@ -16290,7 +16372,7 @@
       if (!grab || (e.pointerId != null && e.pointerId !== grab.id)) return;
       const g = grab;
       grab = null;
-      el.classList.remove("wb-dragging");
+      el.classList.remove("wb-dragging", "wb-pressed");
       if (!wbDragged) return;
       /* Was that a THROW or a set-down? Measured across the window rather than off the last event —
          see the note above `WB_FLING_FRICTION`. Three ways it comes out "no": too few samples, a window
@@ -18990,9 +19072,81 @@
 
      The open set is module-level rather than in `S` — it is a way of looking at a list, not a preference
      about Folio (the same call renderDeckStats and the glossary record's sort picker make). So it survives
-     tapping into a deck and coming back, and resets on reload, which is what "collapsed by default" means
-     for a reader arriving at the page. */
+     tapping into a deck and coming back.
+
+     …AND IT SURVIVES A RELOAD, since Aug 2026 and on a bug report ("refreshing the page shouldn't expand
+     any active collections; they should remember to stay collapsed if the user set that"). It used to
+     reset, on the argument that "collapsed by default" is what a reader arriving at the page should meet.
+     That reads the request backwards: the defaults below are already the right ones for a row nobody has
+     touched, and what a reload was throwing away was the reader's own answer to them — so a collection
+     folded shut, or a signpost row opened, came back the other way on every refresh, on the page they
+     refresh most.
+
+     Only an EXPLICIT choice is stored, exactly as a card type's disclosure is (`ucOpenMap`): the record
+     holds `id -> true|false`, and a row with no entry in it still takes the seeded default, so adding a
+     collection tomorrow gets tomorrow's default rather than an inherited one. Device-local, for the same
+     reason again — how a list is folded on this screen is a fact about this screen, not something the
+     schedule should carry between devices. The cap prunes oldest-first; a reader who has folded four
+     hundred rows has more rows than the review can usefully hold anyway. */
   const adOpen = new Set();
+  /* ---------- THE ORDER THE LIST WAS LAST DRAWN IN (Aug 2026, on request) ----------
+     "When a deck's daily study has been completed … it should also offer to continue with the next
+     deck/collection listed in the active decks section, so users who simply work down the list can easily
+     progress to the next one."
+
+     The completion screen is a different page from the one that draws the list, and the list's order is
+     not a thing that can be recomputed cheaply or reliably: it is the reader's own drag order at every
+     level, folded through groups, language containers, nested decks and the tree, and reproducing that
+     walk in a second place is a copy that would drift the first time either changed. So the list PUBLISHES
+     what it drew — the studiable rows, in the order they appear, top to bottom — and the completion screen
+     reads it.
+
+     Only rows the reader can actually tap are recorded: a group header, one of their own decks and an
+     added tree node are studiable, while an ancestor CONTEXT signpost, a language header and a deck not
+     yet on this device are not, and offering any of those would be offering something the list itself
+     refuses to open.
+
+     It is a module-level array rather than state, like `adOpen` beside it — it describes a page that was
+     drawn, not a preference — so a reader who reloads straight onto `#study` has an empty one and simply
+     gets no offer, which is honest: nothing knows what their list looks like until it has been drawn. */
+  let adRowOrder = [];
+  /* The next row with work in it, wrapping to the top of the list. Wrapping is deliberate: a reader who
+     tapped into the third deck of five would otherwise be offered nothing once they reached the bottom,
+     and the button NAMES the deck it will open, so there is nothing to be surprised by in coming back
+     round to the first. The row just finished is always skipped — it can still report work (a learning
+     card on its ten-minute step, see the Still learning placard), and offering "continue with" the deck
+     the reader has just left is the one answer that helps nobody. */
+  function nextStudyRow(afterId) {
+    if (!adRowOrder.length) return null;
+    const n = adRowOrder.length;
+    // -1 for a scope with no row of its own (the pooled review, the Card of the day reached from its
+    // tile), so the walk starts at the TOP of the list rather than nowhere
+    const at = adRowOrder.findIndex((r) => r.id === afterId);
+    for (let k = 1; k <= n; k++) {
+      const r = adRowOrder[(((at + k) % n) + n) % n];
+      if (!r || r.id === afterId) continue;
+      const p = entryPiles(r.id);
+      if (!p.skip && p.nw + p.lr + p.rv > 0) return r;
+    }
+    return null;
+  }
+  const AD_OPEN_KEY = "folio_ad_open_v1", AD_OPEN_CAP = 400;
+  let _adOpenMap = null;
+  function adFoldMap() {
+    if (_adOpenMap) return _adOpenMap;
+    try { _adOpenMap = JSON.parse(localStorage.getItem(AD_OPEN_KEY)); } catch (e) { _adOpenMap = null; }
+    if (!_adOpenMap || typeof _adOpenMap !== "object" || Array.isArray(_adOpenMap)) _adOpenMap = {};
+    return _adOpenMap;
+  }
+  function adFoldSet(id, open) {
+    if (!id) return;
+    const m = adFoldMap();
+    delete m[id];                       // re-inserted, so Object.keys runs oldest-first and the cap can prune
+    m[id] = !!open;
+    const ks = Object.keys(m);
+    if (ks.length > AD_OPEN_CAP) ks.slice(0, ks.length - AD_OPEN_CAP).forEach((k) => { delete m[k]; });
+    try { localStorage.setItem(AD_OPEN_KEY, JSON.stringify(m)); } catch (e) {}
+  }
   /* …and the ids whose default has already been decided, so that seeding one is a once-per-row event. Without
      it every re-render (a grade, a navigation back to the page) would re-seed the defaults and undo a fold the
      reader had just opened; with it, a collection added later in the same session still starts shut. */
@@ -19289,6 +19443,8 @@
         d.vis.forEach((el) => el.classList.remove("dk-dragging", "dk-settling"));
         if (setNestParent(d.el.dataset.drag, parent)) {
           adOpen.add(parent);
+          adFoldSet(parent, true);   // …and it stays open: a container that re-swallowed its new contents
+                                     // on the next reload is the same surprise one press later
           render();
           toast("Moved into " + groupTitle(parent));
         } else render();
@@ -19689,9 +19845,18 @@
          A GROUP the reader made starts OPEN: they have just built it and put things in it, and a container
          that hides its contents the moment it is filled reads as having eaten them. */
       const seedOpen = (node) => !activeSet.has(node.id) && !nodeAncestorIds(node).some((p) => activeSet.has(p));
+      const foldMem = adFoldMap();
       rows.forEach((r) => {
         if (!hasKids.has(r.drag) || adSeeded.has(r.drag)) return;
         adSeeded.add(r.drag);
+        /* A fold the reader has actually set beats every default below — that is the whole of what makes it
+           survive the reload. It is tested for a BOOLEAN rather than for truthiness, so a remembered
+           `false` is as binding as a remembered `true`; `in` would be looser and would also accept a key
+           left behind by a shape this never wrote. */
+        if (typeof foldMem[r.drag] === "boolean") {
+          if (foldMem[r.drag]) adOpen.add(r.drag); else adOpen.delete(r.drag);
+          return;
+        }
         /* An added deck of the reader's OWN opens: its subdecks are the reason it has rows at all, and a
            deck that swallows them the moment it is added is exactly what this was reported as. A curated
            collection still starts shut — those run to forty-odd rows, where a deck's subdecks are a handful. */
@@ -19704,6 +19869,12 @@
       // the container chain each row hangs from, for the fold — the same reading adSyncFold takes off the DOM
       const parentOf = new Map();
       rows.forEach((r) => parentOf.set(r.drag, r.parent || ""));
+      /* …and the studiable rows in the order they are about to be drawn, for the completion screen's
+         "continue with" offer. Recorded HERE rather than in the markup pass below so it cannot fall out of
+         step with the three branches that emit a `data-review` row — group, own deck, added node — which
+         is exactly the three tested for. See adRowOrder. */
+      adRowOrder = rows.filter((r) => r.group || r.flat || r.active)
+        .map((r) => ({ id: r.drag, title: r.title || (r.node ? nodeTitle(r.node) : r.drag) }));
       return rows
         .map((r) => {
           const pad = 22 + r.depth * 16;   // the indent that carries the hierarchy, plus the grip's own column
@@ -20206,17 +20377,7 @@
     showAdminEditBtn(null);   // the phone's way into the editor, top-right (the tab bar no longer carries Edit)
     root.querySelectorAll(".active-deck[data-review]").forEach((el) => {
       const id = el.dataset.review;
-      wireHoldMenu(el, () => openDeckMenu(id), () => {
-        const ud = uDeckIdOf(id);
-        route("study", {
-          scope: id === COTD_ENTRY ? { type: "cotd" }
-            // a GROUP the reader made has no cards of its own — see buildSession's group branch. A
-            // collection drawn as a group header is still a tree node and still studies as one.
-            : isGroupId(id) ? { type: "group", id }
-            // …and a subdeck of one of the reader's own decks studies just that subdeck
-            : ud ? { type: "udeck", id: ud, sub: uSubOf(id), tpl: uTplOf(id) } : { type: "deck", id },
-        });
-      });
+      wireHoldMenu(el, () => openDeckMenu(id), () => route("study", { scope: entryScope(id) }));
     });
     /* A row for a deck this device has not downloaded. It carries no `data-review` — there is nothing to
        study — so the walk above passes it by; what it does get is the same hold menu every other row has,
@@ -20277,6 +20438,7 @@
           e.preventDefault();
           const open = !adOpen.has(id);
           if (open) adOpen.add(id); else adOpen.delete(id);
+          adFoldSet(id, open);   // the reader's own answer, and the one thing a reload must not undo
           const before = new Set([...adList.querySelectorAll(".active-deck[data-node]:not(.dk-shut)")]);
           adSyncFold(adList);
           if (open) {
@@ -24876,6 +25038,35 @@
     });
   }
 
+  /* WHICH DECK THE CARD ON SCREEN CAME FROM (Aug 2026, on request: "when studying cards through the Daily
+     Study banner, it should still display the name of the deck that the card is from at the top, where it
+     currently says 'Review'").
+
+     The pooled review is the one scope whose session label cannot be written once: it draws from every
+     added deck at once, so `sess.where` said "Review" — true, and useless at exactly the moment it is
+     needed. Studying two language decks together deals `casa` from one and `casa` from the other and the
+     screen said nothing about which language the answer was supposed to be in.
+
+     A community card names its DECK, its subdeck and its DIRECTION, and the direction is not decoration
+     here: a both-ways deck asks the same word forwards and backwards, so "Spanish A1 · Spanish → English"
+     is the whole of what the reader needs and "Spanish A1" alone is half of it. A curated card names the
+     path to its leaf, which is what `buildSession` already labels a deck session with — so a card met in
+     the pooled review reads exactly as it would if that deck had been tapped on its own row.
+     Falls back to the session's own label whenever a card has no home to name (the Card of the day, a
+     card whose deck has been deleted out from under a queue already built). */
+  function cardWhereLabel(id) {
+    if (isCommunityCard(id)) {
+      const d = uDeckOfCard(uCardBaseId(id));
+      if (!d) return "";
+      const note = UCARDS[uCardBaseId(id)];
+      const sub = (note && note.sub) || "";
+      const tpls = uEntryTemplates(d.id, sub);
+      const tpl = tpls[uCardTplIndex(id)];
+      return [d.title, sub, tpl && tpl.name].filter(Boolean).join(" · ");
+    }
+    const leaf = cardLeaves(id)[0];
+    return leaf ? nodeWhere(leaf) : "";
+  }
   PAGES.study = function (root, params) {
     if (!params.scope) { route("home"); return; }   // #study reached with nothing to study (a pasted address, a lost session)
     const sess = buildSession(params.scope);
@@ -25157,6 +25348,55 @@
         row.querySelector("#back").addEventListener("click", () => route("decks"));
         return;
       }
+      /* THE RED PILE AND THE SESSION MUST NOT DISAGREE (Aug 2026, on a bug report: "sometimes the red
+         number in an active decks banner says I still have cards to study but when I click the deck it
+         says I'm done for the day").
+
+         Both figures were right and they were answering different questions. The row's red count is
+         LEARNING cards — everything answered wrong and not yet graduated, on its ten-minute step or not,
+         which is deliberate and stated where pileCounts is written: a count that emptied while a card sat
+         on its timer would say the day's work was finished when it plainly is not. The session, on the
+         other hand, deals what is DUE, so a deck holding nothing but a learning card three minutes from
+         coming back builds an empty queue and lands on this placard.
+
+         So the placard is what was wrong, not either count: "you've studied everything available in this
+         deck" is false while the row is showing a red 2. It now says what is actually happening, names
+         when the next step comes round, and offers to take them early — which is Anki's learn-ahead, and
+         the only thing a reader who has walked to this screen on purpose can want. Nothing about the
+         schedule is bent to do it: an early answer is graded against the real clock exactly as it would
+         be in ten minutes' time.
+
+         The set is read through the same filters the queue was built with (available, not suspended, not
+         buried), and from `activeCardIds()` for the pooled review, so this placard can never offer a card
+         the session itself would have refused. */
+      const waitIds = (params.scope.type === "review" ? activeCardIds() : entryCardIds(scopeEntryId(params.scope)))
+        .filter((id) => {
+          const c = S.cards[id];
+          return c && schedIsLearning(c.status) && !isDueNow(id) &&
+            availStudy.has(id) && !isSuspended(id) && !isBuried(id);
+        })
+        .sort((a, b) => S.cards[a].due - S.cards[b].due);
+      if (waitIds.length) {
+        const wait = Math.max(0, S.cards[waitIds[0]].due - now());
+        root.innerHTML = emptyPlacard(
+          "Still learning",
+          "◷",
+          waitIds.length + (waitIds.length === 1 ? " card is" : " cards are") +
+            " working their way out of the learning steps — that is the red figure on the row. The next one" +
+            " comes back in about " + fmtInterval(wait / 86400000) + ". You can take them early if you like.",
+          null,
+          null
+        );
+        const card = root.querySelector(".placard");
+        const row = document.createElement("div");
+        row.className = "row";
+        row.innerHTML = '<button class="btn" id="learnAhead">Study ' + waitIds.length + " now</button>" +
+          '<button class="btn ghost" id="learnDone">Done</button>';
+        card.appendChild(row);
+        row.querySelector("#learnAhead").addEventListener("click", () => { queue = waitIds.slice(); startLoop(); });
+        row.querySelector("#learnDone").addEventListener("click", () => route("home"));
+        return;
+      }
       root.innerHTML = emptyPlacard(
         "All caught up",
         "✓",
@@ -25228,7 +25468,11 @@
                   a quiet control, and the grade bar's phone row has three fixed cells. It carries the card's
                   own colour when it has one, so the bar itself says what is flagged without being opened. */""}
             <button class="backbtn flagbtn${cardFlag(id) ? " on" : ""}" id="flagBtn" type="button"${cardFlag(id) ? ' data-flag="' + cardFlag(id) + '"' : ""} title="Flag this card to find it later (Ctrl+1 to Ctrl+7)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5"/><path d="M5 5h11l-2.2 3.4L16 12H5z"/></svg> ${cardFlag(id) ? esc(FLAG_NAME(cardFlag(id))) : "Flag"}</button>
-            <span class="study-where">${esc(sess.where)}</span>
+            ${/* The pooled review names the card's OWN deck; every other scope already named itself when
+                  the session was built, and re-deriving it per card there would only be able to say the
+                  same thing less well (a card cross-listed into two leaves, a subdeck's row naming the
+                  whole deck). See cardWhereLabel. */""}
+            <span class="study-where">${esc((params.scope.type === "review" && cardWhereLabel(id)) || sess.where)}</span>
             <div class="counts">
               <span class="cnt new">${rc.nw}</span>
               <span class="cnt learn">${rc.lr}</span>
@@ -25577,6 +25821,20 @@
           ${canUndo() ? '<button class="btn ghost" id="undoLast">Undo the last card</button>' : ""}
           <button class="btn ghost" id="home">Back home</button>
         </div>`;
+      /* …AND THE NEXT DECK DOWN THE LIST (Aug 2026, on request). A reader working through their active
+         decks in order had to go back to the home page between every one of them, which for four decks is
+         four round trips through a page they have already read. The row sits BELOW the three above rather
+         than among them, as asked, and it NAMES the deck — "Continue with Spanish A1" — because a button
+         that says only "Next" is asking the reader to trust it about where they are going. It is drawn
+         only when there is somewhere to go: see nextStudyRow, which reads the order the home page last
+         drew and skips anything with no work left in it. */
+      const nextRow = nextStudyRow(scopeEntryId(params.scope));
+      if (nextRow) {
+        const nx = document.createElement("div");
+        nx.className = "row sc-next";
+        nx.innerHTML = '<button class="btn ghost" id="nextDeck">Continue with ' + esc(nextRow.title) + "</button>";
+        card.appendChild(nx);
+      }
       root.appendChild(card);
       card.querySelector("#home").addEventListener("click", () =>
         route("home")
@@ -25585,6 +25843,12 @@
       // and there is no card left to press Undo on, so the way back sits here too
       { const ul = card.querySelector("#undoLast"); if (ul) ul.addEventListener("click", undoGrade); }
       card.querySelector("#more").addEventListener("click", () => route("study", params));
+      {
+        const nb = card.querySelector("#nextDeck");
+        // the scope a row is tapped with on the home page, which is the one place that decides what a row
+        // means: a community deck, a subdeck and a direction all ride in on the same entry id
+        if (nb) nb.addEventListener("click", () => route("study", { scope: entryScope(nextRow.id) }));
+      }
     }
   };
 
@@ -27669,12 +27933,14 @@
      — so a thin cell degrades one rung at a time instead of refusing to deal. It cannot fail closed:
      `rest` is every remaining name in the pool, so the fourth rung always fills the round.
 
-     AND THE ROUND COUNT IS THREE, not the five it was (same request). The pool went from 64 quotations to
-     102 in the same batch, so this is not about running out of material: three tightly-matched rounds ask
-     more than five loose ones, and the game's tile still reads N/3 with its own gold seal at 3/3. It is
-     WY_ROUNDS' shape — a named constant read by the page and by nothing else — so the results screen, the
-     score and the tile all follow the one figure. */
-  const WS_ROUNDS = 3;
+     AND THE ROUND COUNT IS FIVE AGAIN (Aug 2026, on request), having been cut to three earlier in the
+     month on the argument that three tightly-matched rounds ask more than five loose ones. The matching
+     above is what made that argument, and it is unchanged — so the five rounds this deals are the tight
+     kind, which is the case for having them: at 102 quotations the pool was never the constraint, and a
+     daily game over in three questions is over before it has asked anything. It is a named constant read
+     by the page and by nothing else, so the results screen, the score and the tile all follow the one
+     figure. */
+  const WS_ROUNDS = 5;
   function buildWhoSaidRounds() {
     const RAW = window.QUOTEGAME || [];
     const POOL = RAW.map((x) => quoteLocalized(x));
@@ -29621,11 +29887,22 @@
       const head = sec.querySelector(".cp-sec-head");
       if (head) head.setAttribute("aria-expanded", hasContent ? "true" : "false");
     }
-    /* The phone lays the sections out side by side (see the ≤720px block in styles.css) because a bottom
-       sheet is short and scrolling four stacked sections buries the figures below the fold. The dots say
-       there is more than one page — a horizontal scroller with no marker reads as a panel that just happens
-       to be cut off — and double as the way to reach a page without swiping. */
-    const cpPagerOn = () => !!(cpColsEl && window.matchMedia && window.matchMedia("(max-width:720px)").matches);
+    /* The sheet lays the sections out side by side (see the `--cp-sheet` block in styles.css) because a
+       bottom sheet is short and scrolling four stacked sections buries the figures below the fold. The dots
+       say there is more than one page — a horizontal scroller with no marker reads as a panel that just
+       happens to be cut off — and double as the way to reach a page without swiping.
+
+       IT ASKS THE ELEMENT RATHER THAN RESTATING THE BREAKPOINT (Aug 2026, when tablets were moved onto the
+       sheet on request). This was `matchMedia("(max-width:720px)")` beside a `@media (max-width:720px)` in
+       the stylesheet: one decision written twice in two files, so widening it meant finding both, and
+       getting one of them meant a window laid out as a sheet by CSS while JS went on treating it as the
+       desktop panel — the pager unwired, the fold inert, the height unfitted. `--cp-sheet` is declared on
+       `.country-pop` in each branch and read back here, which is the same move `tourPlace` makes when it
+       asks its own overlay for its computed `align-items`. A custom property is used rather than a
+       geometric read-back because `getComputedStyle().top` on a positioned element hands back the USED
+       value, so `top:auto` cannot be told from `top:16px` that way. */
+    const cpSheetMode = () => !!(cpEl && getComputedStyle(cpEl).getPropertyValue("--cp-sheet").trim() === "1");
+    const cpPagerOn = () => !!(cpColsEl && cpSheetMode());
     const cpPanes = () => (cpColsEl ? Array.prototype.filter.call(cpColsEl.children, (s) => !s.hidden && !s.classList.contains("cp-blank")) : []);
     function cpSyncDots() {
       if (!cpDotsEl) return;

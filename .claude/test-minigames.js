@@ -737,11 +737,12 @@ function crosswordForPage(clueIds) {
     await ctx.close();
   }
 
-  /* ============ WHO SAID IT: three rounds, and decoys that share a family and a period ============
-     Two silent failures, and the second is the whole point of the change. THE ROUND COUNT went from five
-     to three in Aug 2026 (on request), and every figure the page shows — the header, the pips, the score,
-     the tile — is derived from `rounds.length`, so a stray literal would show up in exactly one of them
-     and nowhere else. AND THE DECOY RANKING is a strict ladder: a name sharing the answer's category AND
+  /* ============ WHO SAID IT: five rounds, and decoys that share a family and a period ============
+     Two silent failures, and the second is the whole point of the change. THE ROUND COUNT was cut from
+     five to three in Aug 2026 and put back to five later the same month, both on request — and every
+     figure the page shows (the header, the pips, the score, the closing line, the tile) is derived from
+     `rounds.length`, so a stray literal would show up in exactly one of them and nowhere else. That is
+     what this asserts, rather than the number itself. AND THE DECOY RANKING is a strict ladder: a name sharing the answer's category AND
      era first, then the category, then the era, then anybody. Revert it to random and the game still
      deals, still scores and still looks right — it is simply won by noticing which of the four names is
      two thousand years older than the other three, which is what the ladder exists to stop.
@@ -765,14 +766,14 @@ function crosswordForPage(clueIds) {
       pool: (window.QUOTEGAME || []).length,
       era: (window.QUOTEGAME || []).filter((x) => x.era).length,
     }));
-    check("[ws] the game deals three rounds, not five", /\/ 3\b/.test(head.h1) && head.pips === 3, JSON.stringify(head));
+    check("[ws] the game deals five rounds", /\/ 5\b/.test(head.h1) && head.pips === 5, JSON.stringify(head));
     check("[ws] …with four options on the round", head.opts === 4, String(head.opts));
     check("[ws] …and every quotation in the pool carries a period", head.pool > 90 && head.era === head.pool, JSON.stringify(head));
 
-    /* Walk all three rounds, answering each so the page moves on. The tier check is made per round from
+    /* Walk all five rounds, answering each so the page moves on. The tier check is made per round from
        the quote's own entry — the pool is keyed on the English `q`, and the site is English-only. */
     const rows = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       const row = await page.evaluate(() => {
         const q = (document.querySelector(".ws-quote") || {}).textContent.trim();
         const opts = [...document.querySelectorAll("#opts .opt")].map((b) => b.textContent.replace(/^[ABCD]/, "").trim());
@@ -811,10 +812,10 @@ function crosswordForPage(clueIds) {
       tomorrow: (document.querySelector(".tf-tomorrow") || {}).textContent || "",
       again: /play again/i.test((document.querySelector("#view") || {}).textContent),
     }));
-    check("[ws] …three rounds end on a score out of three and no second go",
-      /\/ 3\b/.test(end.h1) && !end.again, JSON.stringify(end));
-    check("[ws] …and the closing line counts the same three",
-      /^Three fresh voices/.test(end.tomorrow.trim()), end.tomorrow);
+    check("[ws] …five rounds end on a score out of five and no second go",
+      /\/ 5\b/.test(end.h1) && !end.again, JSON.stringify(end));
+    check("[ws] …and the closing line counts the same five",
+      /^Five fresh voices/.test(end.tomorrow.trim()), end.tomorrow);
     await ctx.close();
   }
 

@@ -1253,7 +1253,8 @@ window.GLOSSARY = {
 "Hyksos": "Hyksos is the Greek form of the ancient Egyptian title heqa khasut, ruler of foreign lands, and it names the fifteenth dynasty, a line of Near Eastern origin that governed northern Egypt from Avaris in the eastern Nile Delta.<sup class=\"fn\" data-fn=\"1\"></sup> Their material culture is a variant of the Levantine Middle Bronze Age, and Levantine migrants had been settling the Delta for generations before they took power.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The later Greek account of an invasion is not borne out by the burials at Avaris, whose strontium isotope ratios point to a foreign elite born and raised in Egypt.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "New_Kingdom_of_Egypt": "The New Kingdom is the period of ancient Egyptian history running from about 1550 to 1069 BCE, made up of the eighteenth, nineteenth and twentieth dynasties.<sup class=\"fn\" data-fn=\"1\"></sup> It was the age of Egypt's widest reach, with a southern frontier at the Fourth Cataract in Nubia and holdings north into what is now Syria, and the wealth that came of it paid for building across the country, above all at the temple of Amun at Karnak.<sup class=\"fn\" data-fn=\"2\"></sup> Its kings were buried in rock-cut tombs in the Valley of the Kings at Thebes, and the period closed with the country divided, the dynasty that followed ruling only the north.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Hatshepsut": "Hatshepsut was a ruler of ancient Egypt's eighteenth dynasty, reigning from about 1479 to 1458 BCE, first on behalf of her young stepson Thutmose III and then, having taken a full royal titulary and the throne name Maatkare, as a king alongside him.<sup class=\"fn\" data-fn=\"1\"></sup> She is remembered chiefly for building, above all for the terraced mortuary temple at Deir el-Bahari on the west bank at Thebes, whose reliefs record a seaborne expedition to the land of Punt and present the god Amun as her father.<sup class=\"fn\" data-fn=\"2\"></sup> After her death her name and her image were cut from many monuments and left out of the later king lists.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Thutmose_III": "Thutmose III was a king of the eighteenth dynasty of ancient Egypt who reigned from about 1479 to 1425 BCE, one of the longest reigns recorded for an Egyptian ruler.<sup class=\"fn\" data-fn=\"1\"></sup> He came to the throne as a child and his aunt Hatshepsut ruled beside him as king for 21 years, after which he governed alone for more than thirty years and led at least 17 campaigns into Syria and Palestine, reaching the Euphrates.<sup class=\"fn\" data-fn=\"1\"></sup> He built or rebuilt temples the length of the Nile valley and in Nubia, added extensively to the Amun temple at Karnak, and was buried in the Valley of the Kings.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Thutmose_III": "Thutmose III was a king of the eighteenth dynasty of ancient Egypt who reigned from about 1479 to 1425 BCE, one of the longest reigns recorded for an Egyptian ruler.<sup class=\"fn\" data-fn=\"1\"></sup> He came to the throne as a child and his aunt Hatshepsut ruled beside him as king for 21 years, after which he governed alone for more than thirty years and led at least 17 campaigns into Syria and Palestine, reaching the Euphrates.<sup class=\"fn\" data-fn=\"1\"></sup> He built or rebuilt temples the length of the Nile valley and in Nubia, added extensively to the Amun temple at Karnak, and was buried in the Valley of the Kings.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Archaic_period_(North_America)": "The Archaic period is the division of North American prehistory that follows the Paleoindian period and closes with the adoption of farming in the north and of pottery in the south, dated in New England to roughly 9,000 to 2,500 years before the present.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its people were descendants of the Paleoindians but generalists rather than specialists, drawing on a broad range of wild game and plant foods as the glaciers went and the climate warmed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Grinding tools such as manos and metates become common on their sites, and by the late Archaic the settlements are larger and more sedentary as reliance on plant foods grows.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1867,7 +1868,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hyksos": "c. 1638 – 1530 BCE",
 "New_Kingdom_of_Egypt": "c. 1550 – 1069 BCE",
 "Hatshepsut": "c. 1479 – 1458 BCE",
-"Thutmose_III": "c. 1479 – 1425 BCE"
+"Thutmose_III": "c. 1479 – 1425 BCE",
+"Archaic_period_(North_America)": "c. 9000 – 2500 BP"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4010,7 +4012,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hyksos": ["people","history","egypt","archaeology","bronze age"],
 "New_Kingdom_of_Egypt": ["era","history","egypt","archaeology","bronze age"],
 "Hatshepsut": ["ruler","history","egypt","bronze age"],
-"Thutmose_III": ["ruler","history","egypt","bronze age"]
+"Thutmose_III": ["ruler","history","egypt","bronze age"],
+"Archaic_period_(North_America)": ["era","archaeology","prehistory","north america"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
