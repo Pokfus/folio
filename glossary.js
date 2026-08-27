@@ -1255,7 +1255,8 @@ window.GLOSSARY = {
 "Hatshepsut": "Hatshepsut was a ruler of ancient Egypt's eighteenth dynasty, reigning from about 1479 to 1458 BCE, first on behalf of her young stepson Thutmose III and then, having taken a full royal titulary and the throne name Maatkare, as a king alongside him.<sup class=\"fn\" data-fn=\"1\"></sup> She is remembered chiefly for building, above all for the terraced mortuary temple at Deir el-Bahari on the west bank at Thebes, whose reliefs record a seaborne expedition to the land of Punt and present the god Amun as her father.<sup class=\"fn\" data-fn=\"2\"></sup> After her death her name and her image were cut from many monuments and left out of the later king lists.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Thutmose_III": "Thutmose III was a king of the eighteenth dynasty of ancient Egypt who reigned from about 1479 to 1425 BCE, one of the longest reigns recorded for an Egyptian ruler.<sup class=\"fn\" data-fn=\"1\"></sup> He came to the throne as a child and his aunt Hatshepsut ruled beside him as king for 21 years, after which he governed alone for more than thirty years and led at least 17 campaigns into Syria and Palestine, reaching the Euphrates.<sup class=\"fn\" data-fn=\"1\"></sup> He built or rebuilt temples the length of the Nile valley and in Nubia, added extensively to the Amun temple at Karnak, and was buried in the Valley of the Kings.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Archaic_period_(North_America)": "The Archaic period is the division of North American prehistory that follows the Paleoindian period and closes with the adoption of farming in the north and of pottery in the south, dated in New England to roughly 9,000 to 2,500 years before the present.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its people were descendants of the Paleoindians but generalists rather than specialists, drawing on a broad range of wild game and plant foods as the glaciers went and the climate warmed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Grinding tools such as manos and metates become common on their sites, and by the late Archaic the settlements are larger and more sedentary as reliance on plant foods grows.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Forum_Boarium": "Forum Boarium was the cattle market of ancient Rome, the low ground between the Palatine, Capitoline and Aventine hills running down to the Tiber, where the roads from the north and east met the river crossing.<sup class=\"fn\" data-fn=\"1\"></sup> The open space was public property and needed boundary stones to defend it from the buildings crowding in, until the name covered a whole district rather than a market.<sup class=\"fn\" data-fn=\"1\"></sup> Its cults were among the oldest in the city: it held the Ara Maxima, the earliest centre of the worship of Hercules at Rome,<sup class=\"fn\" data-fn=\"2\"></sup> and the twin temples of Fortuna and Mater Matuta that tradition credited to Servius Tullius.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Forum_Boarium": "Forum Boarium was the cattle market of ancient Rome, the low ground between the Palatine, Capitoline and Aventine hills running down to the Tiber, where the roads from the north and east met the river crossing.<sup class=\"fn\" data-fn=\"1\"></sup> The open space was public property and needed boundary stones to defend it from the buildings crowding in, until the name covered a whole district rather than a market.<sup class=\"fn\" data-fn=\"1\"></sup> Its cults were among the oldest in the city: it held the Ara Maxima, the earliest centre of the worship of Hercules at Rome,<sup class=\"fn\" data-fn=\"2\"></sup> and the twin temples of Fortuna and Mater Matuta that tradition credited to Servius Tullius.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Casa_Romuli": "Casa Romuli was a hut of straw with a thatched roof at the south-west corner of the Palatine hill in Rome, near the top of the Scalae Caci, which the Romans kept as the house of Romulus.<sup class=\"fn\" data-fn=\"1\"></sup> Dionysius of Halicarnassus records that nothing was ever added to make it grander, and that whenever storm or age damaged it those in charge repaired it back to what it had been.<sup class=\"fn\" data-fn=\"2\"></sup> It burned and was rebuilt more than once, was still on record in the 4th century CE, and a second one, probably a copy of the first, stood on the Capitoline.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2735,7 +2736,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Great_Sphinx_of_Giza": ["Great Sphinx","Sphinx of Giza"],
 "Book_of_the_Dead": ["Book of Going Forth by Day","Spells for Going Forth by Day"],
 "Middle_Kingdom_of_Egypt": ["Middle Kingdom"],
-"Forum_Boarium": ["Forum Bovarium"]
+"Forum_Boarium": ["Forum Bovarium"],
+"Casa_Romuli": ["hut of Romulus","house of Romulus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4016,7 +4018,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hatshepsut": ["ruler","history","egypt","bronze age"],
 "Thutmose_III": ["ruler","history","egypt","bronze age"],
 "Archaic_period_(North_America)": ["era","archaeology","prehistory","north america"],
-"Forum_Boarium": ["place","geography","history","italy","religion"]
+"Forum_Boarium": ["place","geography","history","italy","religion"],
+"Casa_Romuli": ["building","history","religion","italy","archaeology"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
