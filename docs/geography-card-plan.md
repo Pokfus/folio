@@ -14,8 +14,8 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='geo-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
-`geo-005` Alaska, `geo-501` Sacramento and `geo-504` Providence.** Both subdecks are worked down the same
-list, so the next state is `geo-006` and the next capital `geo-502`.
+`geo-005` Alaska, `geo-006` Hawaii, `geo-501` Sacramento, `geo-502` Austin and `geo-504` Providence.**
+Both subdecks are worked down the same list, so the next state is `geo-007` and the next capital `geo-503`.
 
 ---
 
@@ -32,7 +32,18 @@ the same ten-sentence background, the same five-source bar, the same date line, 
 
 `map` is what puts the globe on the front of the card. `layer` names a set of polygons (`CARD_MAP_LAYERS` in
 app.js; today there is one, `us-states`) and `key` is a shape inside it, by name. An optional `zoom`
-overrides the automatic fit for a place the fit frames badly — no shipped card needs one.
+overrides the automatic fit for a place the fit frames badly.
+
+**`geo-006` Hawaii IS THAT PLACE, and it is the only shipped card that overrides the fit.** The state's
+polygons run from the Island of Hawaiʻi out to Kure Atoll at 178° W — 21.9° of longitude — and the fit's
+near-rings rule keeps all fourteen, its window being 25° wide. So the automatic zoom is 3.13, at which the
+eight main islands occupy about a seventh of the frame and read as a smear beside six specks of
+uninhabited atoll. The eight main islands alone span 5.06° and fit at 13.55; `"zoom": 14` was chosen by
+LOOKING at 8, 11 and 14 side by side, and at 14 every island from Kauaʻi to the Big Island is separately
+legible. **The shape a reader is asked to recognise is the main chain**, and nothing is hidden by the
+choice — the − button and pinch both zoom out to the rest, and the answer's facts box gives the whole
+state's 28,313 km². Expect the same question at `geo-023` Washington, which has no such tail, and NOT at
+`geo-005` Alaska: the Aleutians cross the antimeridian, which the near-rings rule already handles.
 
 **A capital card adds `dot`**, and it is what makes the two subdecks two different questions:
 
@@ -264,6 +275,15 @@ Four more, measured while writing `geo-005` and `geo-501`:
   of digitised collections. Alaska's carries the 1867 purchase and "statehood in 1959" and no more; it will
   not date a statehood, name a rank or give a figure. Reach for it for the shape of a state's history, and
   for something else for every number in the card.
+- **Austin shows the second half of that rule.** The Handbook of Texas Online, published by the Texas
+  State Historical Association, is an encyclopedia — but its entries carry a named author, their own
+  bibliography and the publisher's own preferred citation, which is the per-article test the glossary pass
+  settled on (see `docs/glossary-citation-plan.md`, N9). Humphrey's Austin entry carries the founding, the
+  site commission, the Archives War, the 1846 transfer, the 1872 vote, the Capitol and the University in
+  one openable page, and Hazlewood's *Archives War* entry is a second work beside it. **Test the entry, not
+  the publisher.** And the Texas State Preservation Board's Capitol History timeline is the state-body
+  source beside it — the three million acres of Panhandle land that paid for the building, the granite, the
+  cornerstone and the zinc Goddess of Liberty, dated year by year.
 - **The Census Bureau's own history stories are the thing that does** — `census.gov/about/history/stories/`,
   one a month, each with a named author and a date. "Alaska and Its People" (Gauthier, 1 January 2024)
   states the 49th-state rank, 3 January 1959, the $7.2 million at about two cents an acre, the largest-state
