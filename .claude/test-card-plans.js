@@ -56,7 +56,10 @@ const PLANS = {
   egypt: ["egypt", "eg-", 1000],
   ww2: ["ww2", "ww2-", 1000],
   japan: ["japan", "jp-", 1000],
-  geography: ["geography", "geo-", [[1, 50], [501, 550]]],
+  /* keyed by the COLLECTION id, which for Geography is the country: Geography is a section heading on
+     the Collections page rather than a node in the tree (see `COLLECTION_SECTION` in app.js), so the
+     plan slug and the collection id differ here where they coincide everywhere else. */
+  "geo-us": ["geography", "geo-", [[1, 50], [501, 550]]],
 };
 // a numbering as a flat list of the numbers it expects, in order
 const expand = (num) => {

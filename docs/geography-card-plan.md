@@ -1,7 +1,10 @@
 # Geography — the card plan
 
-The collection is `geography`, and its first deck is **The United States** (`geo-us`), a hundred cards in
-two subdecks: **The states** (`geo-us-states`, `geo-001`–`geo-050`) and **The state capitals**
+The collection is **United States** (`geo-us`), the first of the Geography SECTION on the Collections
+page — Geography is a heading there rather than a node in the tree, so a second country would be a
+collection beside this one rather than a deck inside it (it was a wrapper node holding one deck until
+Aug 2026; see `COLLECTION_SECTION` in app.js). It is a hundred cards in two decks: **The states**
+(`geo-us-states`, `geo-001`–`geo-050`) and **The state capitals**
 (`geo-us-capitals`, `geo-501`–`geo-550`). Its cards use a format no other collection uses — a **map card**,
 which shows a shape on a globe and asks what it is — so this file has to describe the format as well as the
 running order.
@@ -202,8 +205,8 @@ hits the zoom ceiling — 0.15° across, wanting roughly twice what the polygons
 about half the window. If it is ever carded it wants a deck and a question of its own.
 
 The territories (Puerto Rico, Guam, the US Virgin Islands, American Samoa, the Northern Mariana Islands) are
-not in this layer at all. They would be a second deck and a second builder pass, and they are a better fit
-for a future `geo-us-territories` than for a deck whose two subdecks are states and state capitals.
+not in this layer at all. They would be a third deck and a second builder pass, and they are a better fit
+for a future `geo-us-territories` than for a deck whose subject is states and state capitals.
 
 ---
 

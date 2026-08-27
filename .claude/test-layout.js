@@ -1127,7 +1127,16 @@ function scrimCheck() {
         anyNumeral: !!document.querySelector(".collection-row .lb-num"),
       };
     });
-    check("the first group is called Collections", lib.groupLabel === "Collections", lib.groupLabel);
+    /* THE FIRST HEADING'S NAME IS READ OFF app.js, NEVER WRITTEN DOWN HERE. It was the literal
+       "Collections" and stayed passing for a fortnight after the heading was renamed to "History" on
+       request — a test that hard-codes a label is not guarding the label, it is pinning the stale one
+       (test-tour.js's own lesson about a control's caption). It comes from `COLLECTION_SECTIONS`, the
+       same table the page builds the heading from, with a second check that the table was found at all
+       so a rename of the constant fails loudly rather than matching nothing. */
+    const secTable = /const COLLECTION_SECTIONS = \[([\s\S]*?)\];/.exec(fs.readFileSync(path.join(ROOT, "app.js"), "utf8"));
+    const firstSection = secTable && (/label: "([^"]+)"/.exec(secTable[1]) || [])[1];
+    check("COLLECTION_SECTIONS is still where the headings come from", !!firstSection, String(firstSection));
+    check("the first group is named after the first section", lib.groupLabel === firstSection, lib.groupLabel + " vs " + firstSection);
     // a level meter towards a level in a collection that cannot be studied, over a "0 / 3 cards" figure that
     // reads as a card count when the collection holds none
     check("a coming-soon collection carries no icon", !lib.soonBadge);

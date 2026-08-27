@@ -35,9 +35,32 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.302", released: "2026-08-27T10:01Z" };
+window.FOLIO_VERSION = { v: "1.313", released: "2026-08-27T10:13Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-27",
+    t: "Ninety-four new glossary terms",
+    items: [
+      "<b>Twenty-two glossary terms now open by saying what the thing is</b>, where they had led with an example or a single site.",
+      "<b>Four glossary terms were removed</b> \u2014 wheel, burial, village and city \u2014 and two links no longer fire on the wrong word.",
+      "Ninety-four more glossary terms, covering the Bronze and Iron Age periods, the Minoan, Helladic and Trojan divisions, and the Aegean\u2019s excavators, museums and sites.",
+      "One new card in the <b>Ancient Greece</b> deck, with a new glossary term.",
+    ],
+  },
+  {
+    d: "2026-08-22",
+    t: "Every week of a streak is worth another chest",
+    items: [
+      "<b>A streak now pays more the longer you keep it</b> \u2014 seven days in a row earns one chest, fourteen earns two, twenty-one earns three.",
+      "<b>Dragging a collection to reorder it no longer files it inside its neighbour</b>, a nesting now needing a sideways move as well.",
+      "<b>A language now reads as a header in your daily study</b>, in its own colour and with the three card counts and a progress bar beside it.",
+      "<b>Downloading a deck no longer scrolls you back to the top</b> \u2014 its row turns into the deck where it stands.",
+      "<b>The dot, the words and the stars above a card\u2019s question now sit on one line</b>, and the dot is drawn at full strength.",
+      "<b>A language collection no longer appears a second time under Your decks</b> once you download it \u2014 the language shelf is the only place it is listed.",
+      "Three new cards in the <b>Ancient Greece</b> deck, with three new glossary terms.",
+    ],
+  },
   {
     d: "2026-08-21",
     t: "British or American spelling, and your own symbol on a collection",
@@ -58,11 +81,16 @@ window.CHANGELOG = [
       "<b>Every deck row now says how large it is</b> \u2014 what a language deck will download, and what a history deck\u2019s cards weigh in the site you already have.",
       "<b>Adding a language deck no longer downloads it</b> \u2014 it joins your daily study with a Download button, so a deck added on one device waits for you on the others.",
       "<b>A downloaded deck is now yours alone</b>, visible only to the account that downloaded it, even where two people share a device.",
-      "<b>The Mandarin, Indonesian and Portuguese collections now list their decks directly</b>, rather than inside one folder holding them all.",
+      "<b>The Mandarin, Indonesian and Portuguese collections now list their decks directly</b> \u2014 and Mandarin\u2019s nine are nine separate downloads rather than one 20 MB file.",
       "<b>A far larger deck file can now be imported</b> \u2014 the caps were raised so one file holding every language deck on the shelf will open.",
-      "<b>Twenty-two glossary terms now open by saying what the thing is</b>, where they had led with an example or a single site.",
-      "<b>Four glossary terms were removed</b> \u2014 wheel, burial, village and city \u2014 and two links no longer fire on the wrong word.",
-      "Ninety-four more glossary terms, covering the Bronze, Iron, Minoan, Helladic and Trojan divisions, the Aegean’s excavators, museums, sanctuaries, citadels and tombs, and Greek architecture.",
+      "<b>The Collections page is now grouped by subject</b> \u2014 History, then Geography, then Languages, with the United States a collection of its own under Geography and the coming-soon collections folded away beneath them all.",
+      "<b>A whole language can be added in one press</b>, its banner carrying the same + a history collection\u2019s does.",
+      "<b>A language deck no longer repeats its language in its title</b>, the collection above it already saying so.",
+      "<b>The languages are ordered by how many people grow up speaking them</b>, and each now has a colour of its own.",
+      "<b>Decks you add from one collection now group under it in your daily study</b>, even when you add only some of them.",
+      "<b>The long-press options menu now fits the screen on a phone</b>, where a long one ran off both ends with no way to reach either.",
+      "<b>A language’s own decks no longer repeat its icon in your daily study</b>, only the language itself carrying one.",
+      "Sixteen new cards in the <b>Ancient Greece</b> deck, with sixteen new glossary terms.",
     ],
   },
   {

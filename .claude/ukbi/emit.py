@@ -211,6 +211,35 @@ meta = {
 deck = {'folioDeck': 1, 'exportedAt': STAMP, 'meta': meta,
         'cards': cards, 'gloss': {}}
 
+# **EVERY ENGLISH SIDE UNIQUE, LAST OF ALL.** A note is asked backwards as well as forwards,
+# and that direction is only answerable if its English side names one word -- which across the
+# shelf it often did not (Indonesian among them). The labelling is a pass over the FINISHED deck for
+# `merge-directions.py`'s reason: a third of the shelf was supplied ready-made and nothing here
+# can rebuild it, so calling the same pass is what keeps a pipeline run and a shipped file the
+# same shape. See `.claude/dedupe-glosses.py`.
+import importlib.util as _dgu
+_dgp = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'dedupe-glosses.py')
+_dgs = _dgu.spec_from_file_location('dedupe_glosses', _dgp)
+_dg = _dgu.module_from_spec(_dgs)
+_dgs.loader.exec_module(_dg)
+_dgst = _dg.dedupe(deck, 'Indonesian')
+if _dgst['groups']:
+    print('  labelled %d notes in %d groups that shared an English side' % (_dgst['labelled'], _dgst['groups']))
+
+# **A GENDERED NOUN'S FORMS ARE A TABLE, LAST OF ALL.** `plural`, `feminine` and `a, an` set in
+# one horizontal run leaves the reader to work out that two of them differ in NUMBER and two in
+# GENDER; as a grid the two axes are the two axes. Another pass over the FINISHED deck, for
+# `merge-directions.py`'s reason. See `.claude/gender-tables.py`.
+import importlib.util as _gtu
+_gtp = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'gender-tables.py')
+_gts = _gtu.spec_from_file_location('gender_tables', _gtp)
+_gt = _gtu.module_from_spec(_gts)
+_gts.loader.exec_module(_gt)
+_gtst = _gt.tables(deck)
+if _gtst['nouns']:
+    print('  gridded %d of %d gendered nouns (%d left as a row)'
+          % (_gtst['gridded'], _gtst['nouns'], _gtst['skipped']))
+
 out = os.path.abspath(os.path.join('..', '..', 'decks', DECK_FILES[LEVEL]))
 with open(out, 'w', encoding='utf-8') as fh:
     json.dump(deck, fh, ensure_ascii=False)

@@ -338,10 +338,12 @@ them already recorded here and all of them learned the hard way:
 source and no second — Vitruvius II.7 is about Roman quarries and never names it, Pausanias 5.10
 renders πώρου λίθου as "native stone", and none of Sturgis's three volumes carries an entry — so
 it belongs in the materials batch where a mineralogical second source can be found for it.
-*Askos*, *kore*, *kouros*, *aniconism*, *Athena Polias* and *Artemis Eileithyia* went with it into
+*Askos*, *aniconism*, *Athena Polias* and *Artemis Eileithyia* went with it into
 a later sculpture-and-cult batch, for the same reason: they are cult and sculpture vocabulary
-rather than architecture, and the shelf this batch assembled does not cover them. The leads not
-yet tried on those six are LSJ ἀσκός on Perseus, Pausanias I.18.5 and I.26.6/I.27.1, Frazer's
+rather than architecture, and the shelf this batch assembled does not cover them. **`Kore` and
+`Kouros` were deferred with them and have since been written on main**, so four remain rather than
+six — check the shipped glossary before reopening a deferral, since another branch may have closed
+it. The leads not yet tried on those four are LSJ ἀσκός on Perseus, Pausanias I.18.5 and I.26.6/I.27.1, Frazer's
 commentary on Pausanias (`in.ernet.dli.2015.282571`) and Jane Harrison's *Mythology and Monuments
 of Ancient Athens* (1890).
 
@@ -360,6 +362,18 @@ insource:/shed/` New Zealand woolsheds, `insource:/plinth/ insource:/[Ii]onic/` 
 neoclassical libraries and state capitols, and keyword search for an Ionic column base scanned
 books. A plinth is also the hardest kind of subject to photograph *as itself* — it is the part of
 a base nobody frames alone.
+
+**A merge can supersede a batch's own work, and the collision may not be textual.** N9's *Doric
+order*, *Ionic order* and *Aeolic order* were written here and independently on main while this
+branch was open; git's union merge sees two appends and keeps both, so the literal ended with two
+`Doric_order` keys — and **a duplicate key in a JS object literal silently keeps the LAST one**,
+which meant main's had already won without a word. Mine were dropped from all four tables rather
+than reconciled: main's are the better descriptions and were already pictured. The third is the
+one no diff could have found — my *Aeolic order* and main's *Aeolic capital* are the same subject
+under two keys, and main's is the better name, the Aeolic not being properly an order at all. It
+carries "Aeolic order" as an alias so the name this branch introduced the concept under still
+resolves. **Sweep the merged literal for duplicate keys**, and read the two sides' key lists for
+synonyms as well.
 
 **A record can be true and misleading, again.** `Knossos in Crete west court.jpg` is correctly
 titled and shows west-court paving and raised causeways with no kouloura in frame; `Knossos

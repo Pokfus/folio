@@ -3529,9 +3529,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the ones to read before writing anything. The next card to write is the lowest `ww2-NNN` not yet in
   `data.js`; see the "THE SECOND WORLD WAR" bullet under "Generating cards & glossary entries". **No card
   has been written yet.** Not part of the site.
-- `docs/geography-card-plan.md` — the running order for the **Geography collection** (`geography`), and **the
-  only plan that is not a thousand cards**: its United States deck is fifty states (`geo-001`–`geo-050`) and
-  their fifty capitals (`geo-501`–`geo-550`), a capital being `geo-500+N` for state `N` so the two subdecks
+- `docs/geography-card-plan.md` — the running order for the **United States collection** (`geo-us`, under the
+  Geography SECTION), and **the
+  only plan that is not a thousand cards**: it is fifty states (`geo-001`–`geo-050`) and
+  their fifty capitals (`geo-501`–`geo-550`), a capital being `geo-500+N` for state `N` so the two decks
   pair by number. The eleventh planned collection and the only one whose cards use the **map card** format,
   so the file describes the format as well as the order: what `map` and `facts` are, why a map card carries
   no extra phrasings and a short question, why it is kept out of the minigames, and **the accessibility
@@ -3743,12 +3744,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `decks/*.folio-deck.json` — **the community decks**, files a reader imports through the Studio. Not part
   of the site and never loaded by it: a deck file is somebody else's content that happens to have been
   written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
-  The Mandarin set is **ONE** file: **Mandarin Chinese** — 11,532 notes / 23,064 cards as **nine
-  subdecks**, the seven HSK 3.0 levels of the 2026 standard plus the two the syllabus leaves out,
-  **Phrases** (159) and **Idioms** (477 chengyu), 21 MB. **The HSK1 and HSK2 decks were DELETED on
-  request in Aug 2026**: they are the 2012 standard's first two levels at 150 and 151 words, which HSK
-  3.0's own Level 1 and Level 2 subdecks cover inside this file — so on the Collections page they were
-  two more rows in the Mandarin collection saying what one of its subdecks already said. The **DELE
+  The Mandarin set is **NINE** files — 11,532 notes / 23,064 cards, 20.5 MB: the seven HSK 3.0 levels of
+  the 2026 standard plus the two the syllabus leaves out, **Everyday phrases** (159) and **Idioms**
+  (477 chengyu). **It was ONE file of nine subdecks until Aug 2026 and was split on a bug report**: "why
+  are the file sizes in the Mandarin Chinese collection all the same? It shouldn't download the whole
+  collection at once, its cards should be divided into decks the same as the other collections." Nine
+  rows each reading 20.6 MB is what a catalogue built on FILES says about a deck that is one file, and it
+  is true rather than a display fault — a reader adding Level 1 fetched the whole of HSK 7–9 with it —
+  so the fix is in the SHELF and not in the row: nine files, each fetched on its own, each row stating
+  what it actually costs (0.3–8.9 MB). The catalogue's `flat` unwrapping (below) becomes inert for this
+  language, the nine now being decks rather than subdecks of one; nothing else on the page changed,
+  because a language's decks were always drawn from the catalogue's rows. **The HSK1 and HSK2 decks were
+  DELETED on request earlier in Aug 2026**: they are the 2012 standard's first two levels at 150 and 151
+  words, which HSK 3.0's own Level 1 and Level 2 cover — so on the Collections page they were two more
+  rows in the Mandarin collection saying what two of its neighbours already said. The **DELE
   Spanish set** (seven files) sits beside it and the **German set** (six) beside that, and neither is
   wholly generated here: `.claude/dele/` makes A1–B2 and `.claude/goethe/` A1 and A2, while the Spanish
   C1, C2 and phrases decks and the German B1, B2, C1, C2 and phrases decks were supplied ready-made in
@@ -3765,11 +3774,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and Indonesian alike: it is an artefact of the levels it combines rather than another deck, so
   committing it duplicates every megabyte the repo already carries for them, and its own `combine.py`
   regenerates it byte for byte.
-  · **THE NINE ARE ONE DECK because that is what a reader asked for**, and it cost nothing: the levels, the
-    phrases and the idioms are the same card type from the same corpus, so three files was three imports
-    and three rows on the Collections page for one subject. `build-mandarin.js` requires `build-extra.js`
-    as a MODULE and files its two lists as the eighth and ninth subdecks; run on its own, `build-extra.js`
-    still writes them as two separate decks, which is one flag rather than two builders.
+  · **THE NINE WERE ONE DECK AND ARE NINE AGAIN, and both moves were the reader's** — which is worth
+    keeping as a pair rather than as a correction, because the two requests are not in conflict and the
+    thing that changed between them is what Add MEANT. Combining them ("three files was three imports and
+    three rows on the Collections page for one subject") was right while a language's decks were separate
+    rows a reader imported one at a time; once the shelf drew a language as a COLLECTION with its decks
+    folded inside it and Add stopped fetching anything, one file was no longer what made them one subject
+    — it was only what made every row quote the same 20.6 MB. **`build-mandarin.js` is the ONE entry
+    point** and writes all nine; `build-extra.js` is a **library** (`module.exports = { noteOf, phrases,
+    idioms, PHRASE_BAR, IDIOM_BAR }`) and no longer writes decks on its own, because both paths would
+    otherwise write the same words under two different deck ids — which for a reader who has installed one
+    is a silent swap to another deck. The titles, ids and descriptions live in `hsk30-meta.js`, where both
+    halves read them.
   · **A SUBDECK NAME IS A STRING AND A MANGLED ONE IS A NEW SUBDECK.** An intermediate build of the
     combined file wrote one note's `sub` as `Levels 7<U+FFFD><U+FFFD><U+FFFD>9` — three replacement characters where the
     en-dash should be — and the deck drew a phantom eighth level holding a single word. **Nothing throws,
@@ -3915,9 +3931,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `Neolithic China and the Xia`, and adding the `cn-state` / `cn-belief` / `cn-culture` thematic decks —
   taking it to 7 decks and 39 leaf decks. Its `placeholder: true` was left alone by that plan and
   **cleared on request in Aug 2026**, once forty cards had shipped into `cn-myth`.
-  **`geography` is new — the collection was created on 2026-08-15** by `docs/geography-card-plan.md`, with
-  one deck (`geo-us` The United States) and two leaf subdecks (`geo-us-states`, `geo-us-capitals`), a
-  `COLL_THEME` hue and a `COLLECTION_ICON` compass rose of its own. It is the fourth collection a plan has
+  **`geo-us` is new — the collection was created on 2026-08-15** by `docs/geography-card-plan.md`, with
+  two leaf decks (`geo-us-states`, `geo-us-capitals`), a
+  `COLL_THEME` hue and a `COLLECTION_ICON` compass rose of its own. **It shipped as a `geography` collection
+  holding one deck called The United States and was FLATTENED on request in Aug 2026** ("Put a section
+  directly below it titled Geography, and put there a collection titled United States, with the states and
+  state capitals decks inside it"): Geography is now a heading on the Collections page — `COLLECTION_SECTION`
+  in app.js, a declared table rather than a level in the tree — so the wrapper node was promoted to the
+  collection rather than a third level being added under it, and a second country would be a collection
+  beside this one. The card-bearing leaves keep their ids, so nobody's schedule moved; a reader who had
+  added the old `geography` entry simply loses it, `activeEntryIds` filtering an id the tree no longer has.
+  It is the fourth collection a plan has
   had to bring into existence, after Egypt, the Second World War and Japan — and the FIRST that ships with
   cards rather than empty: **five**, `geo-001`–`geo-004` and `geo-504`. Its cards carry two fields no other
   card has, **`map` and `facts`**, so `serializeCardData` and `revertCard` had to learn both — the
@@ -4158,20 +4182,46 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `wireLangDecks` in app.js, wired through `wireExpander` so the chevron and the entrance stagger
     cannot drift from the collections'). What it may NOT be is a real `COLLECTION_TREE` node: a tree
     node's cards live in `data.js`, which every visitor downloads before flipping a card, and these
-    decks are 181 MB. **Its hues are in `COLL_THEME` under `lang-<slug>` keys**, measured in CIELAB like
-    every other collection hue (the worst of the seven clears 26.4 against a tightest existing pair of
-    12.9), and the id is BUILT from the language name by `langCollId` rather than written down, so a
-    language added to the catalogue needs one row in `COLL_THEME` and nothing else.
+    decks are 181 MB. **Its hues are in `COLL_THEME` under `lang-<slug>` keys**, and the id is BUILT from
+    the language name by `langCollId` rather than written down, so a language added to the catalogue
+    needs one row in `COLL_THEME` and nothing else. **SIX OF THE SEVEN ARE NAMED RATHER THAN MEASURED**
+    (Aug 2026, on request: "make Mandarin red, Spanish orange, Portuguese green, German brown, Italian
+    green, Indonesian red"). They were swept in CIELAB and handed out alphabetically, on the reasoning
+    that a flag colour would be a claim — Spanish is not Spain's and French is spoken on five
+    continents — and **that reasoning was overruled**, which is the site owner's call about their own
+    shelf; French was not named and keeps the blue it was measured into. **WHAT IS STILL MEASURED IS
+    WHICH red, orange, green and brown**: each was swept inside its own hue window AND inside the
+    shelf's band (L 28–55, chroma 7–62), then taken greedily as far as possible from every hue already
+    placed. The request puts two reds where China's vermilion and Russia's lacquer already sit and two
+    greens where Egypt's malachite and Geography's olive do, so the clearances are tighter than the
+    alphabetical sweep managed — the worst is **17.4** (Indonesian against Russia) against a tightest
+    EXISTING pair of 12.9 (China against Russia), with the two reds clearing each other by 17.5 and the
+    two greens by 24.8, so every one is still further from its neighbour than the closest pair the page
+    already carries. **Nothing here is a flag**, and Mandarin's resemblance to the CHINA collection's
+    vermilion is left rather than avoided: those two genuinely are about one place, and the kinship test
+    forbids a false claim rather than a true one.
     **THE SEVEN SHARE ONE ICON** (`COLLECTION_ICON._lang`, a speech bubble), which is the one place they
     cannot match the history shelf: every curated icon says what its collection is ABOUT, and a language
     cannot be drawn — a letter needs a font where these are bare paths, and a flag or a landmark would
     be a claim about a NATION where the deck is for a language several nations speak.
-    **AND THE BANNER CARRIES NO `+`.** A curated collection's + adds its whole subtree to the daily
-    review, and there is no study scope for "several community decks". Each deck's own Add is what brings
-    a deck in; once in, it has a full row in "Your decks" below. **The bar is honest on a deck that is not
-    here yet**: the total is the catalogue's card count and the studied figure is summed over the decks
-    actually installed, so an untouched language reads 0 of 23,064 rather than claiming a denominator it
-    has no cards for.
+    **AND THE BANNER CARRIES A `+` SINCE AUG 2026** (`data-langadd`, on request: "language collections
+    should be able to be added as one complete package, the same way as History collections"). This bullet
+    said the opposite for a fortnight and the reasoning was two halves, of which one had already expired:
+    a curated collection's + adds its whole subtree, there is no study scope for "several community decks
+    at once", **and Add used to mean DOWNLOAD**, so a language's + would have fetched 181 MB off one press.
+    The split of Add from Download answered that half — pressing + writes entries into `S.active` and
+    fetches nothing, so adding seven levels costs a reader exactly what adding one does — and the second
+    half is answered by the entries themselves: what is added is not a scope over the collection but the
+    DECK ROWS the shelf is drawing, each on its own account, which is what a curated collection's + does
+    one level up. **THE ENTRY LIST IS CARRIED ON THE BUTTON** rather than re-derived when it is pressed, so
+    the control and the rows under it can never disagree about what "the whole language" is — an unwrapped
+    deck contributes its subdecks and a wrapped one contributes itself, judged once, where the shelf is
+    built (a comma is safe as the separator, `uSubEntry` percent-encoding the path it carries) — and the
+    button is **on only when EVERY deck of that language is**, so a language half added reads as not added
+    and pressing it completes the set rather than undoing the half that is there. **The bar is honest on a
+    deck that is not here yet**: the total is the catalogue's card count and the studied figure is summed
+    over the decks actually installed, so an untouched language reads 0 of 23,064 rather than claiming a
+    denominator it has no cards for.
   · **A DECK'S OWN SUBDECKS FOLD OPEN LIKE A COLLECTION'S** (`tree` / `langSubRowsHTML`, Aug 2026, on
     request: "when I open the Mandarin Chinese collection, I should see the 9 decks inside it, and any
     subdecks if there are, displayed in the same way as History decks and subdecks"). The catalogue
@@ -4203,6 +4253,63 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     device, under its row in the daily study, where `uEntryTemplates` can see them.
     `wireLangDecks` uses `:scope >` throughout for this: a deck's fold now sits INSIDE the collection's,
     so a loose descendant query would reach past its own row into the rows below it.
+  · **A DECK ROW SAYS ITS SIZE AND ITS CARD COUNT UNDER ITS TITLE** (`.node-meta`, Aug 2026, on request:
+    "language decks should say the card number and file size below their title, the same way history
+    decks do"). The two figures were on the row's own line and are a quiet second line now, which is the
+    shape a curated deck row already had — and the wording still differs from the history shelf's for the
+    reason recorded above: a language deck's figure is what pressing Download will FETCH, where a curated
+    deck's is what the reader already has.
+  · **A DECK DOES NOT REPEAT ITS LANGUAGE'S NAME** (`langShortTitle`, Aug 2026, on request: "language
+    decks do not need to name the language in their title, since its already mentioned in the collection
+    name"). Every deck file titles itself "Spanish — DELE A1", which under a banner reading **Spanish** is
+    the word said twice on every row. Three things about the trim, all of which are about not taking a
+    word that is doing work. **It removes the LANGUAGE'S OWN NAME and the separator left dangling beside
+    it**, never a word that merely looks like one. **A title that is ONLY the language is left alone** —
+    trimmed it would be a row saying nothing — and the first letter is re-capitalised only where the trim
+    took the first word off, so an acronym and a proper noun are left as the deck's author wrote them.
+    And **a title naming only the shorter half of a two-word language keeps it**: `Mandarin Chinese` is
+    stripped whole, where "Chinese" alone is a different claim. The trim is applied at DISPLAY and the
+    catalogue keeps the full title, so a deck imported by hand still names its own language.
+  · **A LANGUAGE GETS ITS OWN CONTAINER IN THE DAILY-STUDY LIST** (`langCtxId` / `isLangCtxId` /
+    `langCtxName` / `langCtxHue`, Aug 2026, on request: "When i add only several decks from a collection
+    to my active decks, they should still automatically appear grouped together in the active decks list
+    under their respective collection, the same way they would if you added the whole deck"). Four things.
+    **THE CURATED SIDE GETS THIS FREE and that is why nothing had to be built there**: a curated deck is a
+    TREE NODE, so the list walks its ancestors and draws its collection above it as a quiet signpost
+    whether or not that collection was ever added. A language is a row in a generated catalogue and has no
+    ancestors, so its decks went into the top-level run flat — seven "A1" rows in a line with nothing to
+    say which language each belonged to, which is exactly what a reader who added three levels of two
+    languages met.
+    **SO THE CONTAINER IS SYNTHESISED, AND IS DELIBERATELY NOT A GROUP HEADER.** A group is tappable,
+    counted and studiable, and offering "study all of Spanish" from a row the reader never asked for is
+    the `asGroup` rule's own objection one store over. It is the same CONTEXT row an unadded curated
+    collection gets: a name, a hue and a chevron, claiming nothing.
+    **THE ID CARRIES A COLON**, like `COTD_ENTRY` and `REVIEW_ENTRY`, so it can never collide with a node
+    id (plain slugs) or with one of the reader's own decks (`u:`).
+    **AND THE NAME IS RECOVERED FROM THE CATALOGUE rather than remembered as the id is minted** — the slug
+    is lossy, and an id read back out of the reader's own order or off the page has to resolve whenever it
+    is asked about rather than only during the render that made it, which is what `repaintReviewHues`
+    needs, running long after. Its hue is `langCtxHue`, the same `COLL_THEME` row the banner wears, so the
+    two pages cannot come to disagree about what colour a language is.
+    **AND IT NOW READS AS A HEADER RATHER THAN AS A SIGNPOST** (`r.langhead` / `.dk-langhead` /
+    `langCtxEntries`, Aug 2026, on a bug report: "the languages collection headers in the active decks
+    section looks greyed out and lacks the colored numbers on the left"). It fell through to the quiet
+    `context` template at the foot of that list, which paints `--paper-2` under a 14px `--ink-faint` title —
+    right for an ancestor signpost the reader never chose, and wrong here: a language IS one of the
+    reader's collections, drawn with the same banner as a curated one on the Collections page, so on this
+    page it should read as a header rather than as a row apologising for itself. It takes the group
+    header's wash (its `.deck-group` rules gained a `.dk-langhead` twin, **and so did the `body.night`
+    pair** — `body.night .active-deck` is (0,2,1) and outranks a (0,2,0) rule whatever the source order,
+    which is the trap `.active-deck.context` already records) plus the three coloured piles and the
+    progress bar every other row carries.
+    **WHICH IT CAN ONLY ANSWER FOR BECAUSE `entryCardIds` LEARNT TO UNION ITS MEMBERS** — a header stating
+    figures the rows beneath it contradict is the one thing a container must not do. That branch reads
+    `langCtxEntries(id)`, derived from `S.active` rather than from the map the render happens to be
+    building, so it answers long after that render is over (`repaintReviewHues`' own requirement), and it
+    carries the cycle guard every other container branch does. A pending deck contributes nothing and needs
+    no special case: its own `entryCardIds` is already empty.
+    **IT IS STILL NOT A GROUP**: no `data-review`, no `role`, no tab stop, because "study all of Spanish"
+    is a scope the reader never asked for. The LOOK is what was reported, not the behaviour.
   · **A CATALOGUE EXISTS BECAUSE THE SHELF IS 181 MB.** Nothing on the site linked to a deck in `decks/`
     until this shipped — they are files a reader imports through the Studio — and a section that listed
     them by FETCHING them would cost the whole shelf to draw a list. What ships is the metadata, a few
@@ -4225,13 +4332,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     was written for, one step further along: **a state that is empty for a REASON is not a state that has
     never been used.**
     **THE FILE KEEPS ITS OWN DECK ID** — `uDeckImportText(text, false)` — which is what makes the whole
-    thing join up: the entry written by Add on one device names `u:hsk30`, and an import that minted a
+    thing join up: the entry written by Add on one device names `u:hsk30l1`, and an import that minted a
     fresh id would leave that entry pointing at nothing for ever, on every device but the one that
     downloaded it.
-    **AND ONE PENDING ROW IS DRAWN PER FILE, NOT PER ENTRY.** A reader who adds all nine HSK levels has
-    nine pending entries and one 21 MB file; nine rows each offering the same download are nine answers to
-    one question, so `emit` collapses them (`pendingSeen`) and names the row after the deck the file holds.
-    Once it lands the nine entries draw their own rows in the ordinary way.
+    **AND ONE PENDING ROW IS DRAWN PER FILE, NOT PER ENTRY.** A file may carry several entries, which is
+    what the catalogue's `flat` unwrapping produces — Indonesian's three phrase groups and Portuguese's
+    Expressions and Proverbs are each one file drawn as several rows — so a reader who adds all of one of
+    those has several pending entries and one download. Rows each offering the same file are several
+    answers to one question, so `emit` collapses them (`pendingSeen`) and names the row after the deck the
+    file holds. Once it lands the entries draw their own rows in the ordinary way. (It bit hardest on
+    Mandarin, whose nine levels were one 20.6 MB file until Aug 2026; they are nine files now and each
+    pending row is its own, which is the same rule with nothing left to collapse.)
   · **A DECK ON THIS DEVICE IS NOT A DECK THIS READER HOLDS** (`DECK_OWN_KEY` / `deckOwnerKey` /
     `uDeckOwned` / `uDeckOwnedByAnyone` / `uDeckClaim` / `uDeckDisown` / `deckOwnBackfill` /
     `uDeckUnmountAll` / `communityRemount`; Aug 2026, on request: "Ensure that downloaded decks are only
@@ -4282,7 +4393,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     what every other count on the site already means by "cards".
   · **THE LANGUAGE IS MATCHED FROM THE FILE NAME AGAINST A DECLARED LIST, AND AN UNMATCHED FILE IS AN
     ERROR.** The names follow no one pattern (`DELE-A1-Spanish`, `French-Phrases`,
-    `Italian-Core-Vocabulary`, `Mandarin-Chinese`), so a rule about position drops three of them; what
+    `Italian-Core-Vocabulary`, `Mandarin-HSK-3.0-Level-1`), so a rule about position drops three of them; what
     they all carry is the language's own name somewhere in the name. Matching TWO is an error too — a
     deck the catalogue could file under either is one nobody would find twice. **A new language is one
     row in `LANGS` plus its deck files**, and the build refuses rather than quietly leaving a file out.
@@ -6958,6 +7069,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   session ran that session's `showAnswer()` against a page that no longer existed. It mutated a detached tree,
   so nothing looked wrong and nothing was reported (found when the page ghost below stopped ids resolving in
   the dead copy). A page that wants keys re-attaches when its own render runs, which is after this.
+- **A REPAINT IS NOT A NAVIGATION** (`renderInPlace` / `_renderQuiet` / `.page-quiet`, Aug 2026, on a bug
+  report: "each time a new active deck is downloaded, the page refreshes"). `render()` is written for a
+  navigation — it **scrolls to the top and plays the page's entrance animation** — and several things
+  rebuild the page the reader is standing on rather than taking them anywhere; a downloaded deck's row
+  turning from Download into the deck itself is the one that was reported, and from the reader's side those
+  two flourishes ARE the refresh. `renderInPlace()` is the same render with both off: it skips the page
+  ghost (there is no outgoing page to lift out), skips the scroll, and marks the page `.page-quiet`, which
+  is one stylesheet line killing the page's own entrance, its blocks' stagger and the deck rows' separate
+  entrance one level down. **It changes nothing else** — the fold state (`adOpen`, module level) and the
+  drag order (`S.deckOrder`, persisted) already survive a repaint, so the scroll position and the
+  animations were the whole of what a reader could see. Three things about it. It is **the CALLER'S call
+  and never a default**: the Studio's own import genuinely is a navigation-sized change to the page it
+  happens on, so `uImportDone(r, quiet)` takes the flag rather than guessing. The class goes on the PAGE
+  element rather than on the body, like `.page-next`, so it dies with the page and can never be left behind
+  on the next ordinary navigation. And `_renderQuiet` is cleared in a `finally`, or a page function that
+  throws would leave every later navigation silent.
 - **`touch-action:pan-y pinch-zoom` on `body`, `.stage`, `#view` AND `.page` is what makes EVERY horizontal
   swipe on the site possible**
   (styles.css, Aug 2026, on a report that the book's chapter swipe did nothing on a phone). Without it none
@@ -8646,7 +8773,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     grants at 7, 14, 21 … and can never grant twice for one day however often `save()` runs. A broken streak
     resets it to 0 with the streak, so the next week starts over — and a reader whose streak was already
     long when this shipped is paid at their next multiple of seven rather than seven times at once, since
-    the field back-fills at 0 and the grant loop is capped at one chest per call.
+    the field back-fills at 0.
+    **AND EACH WEEK IS WORTH MORE THAN THE LAST** (`streakChestWeeks`, Aug 2026, on request): the seventh
+    day pays one chest, the fourteenth two, the twenty-first three. A flat chest a week is a reward that
+    stops meaning anything around the second month, where the whole point of a streak is that it costs more
+    to keep the longer it runs. **The figure is DERIVED from the count rather than tallied** — the number of
+    complete weeks — so it needs no field of its own, cannot drift from the streak it is paid for, and comes
+    out right for a returning reader: they are paid the full amount at their next multiple of seven rather
+    than everything they have missed at once. `streakChestProgress` gained a **`worth`**, which is what the
+    NEXT chest pays and deliberately not what the last one did — on the day one is earned the week that
+    closed has just been paid, so what is coming is the week after it — and the account page's sentence
+    names the prize wherever it is more than one, a bare "your next chest" saying the fifth week is worth
+    what the first was.
     **THE PROGRESS IS ON THE ACCOUNT PAGE, UNDER THE STAT TILES** (`streakChestHTML` / `.streak-chest`) —
     beside the streak figure it counts from, since that tile says how long the run is and this says what the
     run is worth, which are two halves of one fact and read badly a section apart. **Seven pips rather than
@@ -9086,6 +9224,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `.dk-reordering` takes the rows out of hit-testing. A drop into a container goes through `render()`
     (depth, indent, hue and fold are all derived at build time) where a reorder does not, and the container
     is opened first or the deck reads as having been swallowed.
+    **…AND A NESTING IS SIDEWAYS WHERE A REORDER IS VERTICAL** (`NEST_DX` 28, Aug 2026, on a bug report from
+    a phone: "when I try to drag active collections to reorder them, they disappear"). The middle band alone
+    cannot tell the two apart, and on a phone it decides against the reader: a row is 46px, so the band is
+    about fifteen of them, and a thumb travelling straight down to move a collection two places lands in one
+    about a third of the time. Reproduced with real touch at 390×844 — **an 88px drag, less than two rows,
+    filed a whole collection inside its neighbour**, eleven rows down and indented under a 43-row subtree;
+    nothing was lost and nothing threw, and from the top of the list, where the reader was looking, it was
+    simply gone. The pointer must now ALSO have travelled `NEST_DX` in the writing direction from where the
+    grip was taken — the outline-editor convention (drag right to indent), which a straight-down drag can
+    never satisfy. It stays discoverable because `.dk-into` lights the row the moment the threshold is met,
+    and it costs the deliberate gesture nothing: the grip sits in the row's left padding, so a drop aimed at
+    another row's middle is a rightward move already. Guarded by `test-review-decks.js` section 8, whose new
+    assertion is that a straight-down drag leaves `deckNest` EMPTY — the one place the fault would show.
     **A DESCENDANT CANNOT BE A DROP TARGET, and it is the BLOCK that says so** rather than a tree walk:
     `blockOf` is the row plus every following row of greater depth, folded ones included, so a collection's
     whole subtree is skipped when the collection itself is being carried. `nestWouldLoop` is the belt to that
@@ -9161,6 +9312,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     construction since the head spans the whole box.
     **AND IT IS SKIPPED WHEN THE INITIAL FOCUS IS CHOSEN**, or every sheet would open with the ring on the
     way out. That is the one line a later tidy-up is likeliest to undo, and it is asserted.
+  · **EVERY SHEET IS CAPPED TO THE SCREEN AND SCROLLS** (`.dm-box`'s `max-height` + `overflow-y`, Aug 2026,
+    on a bug report from a phone: "sometimes on mobile not the whole long-press menu is visible"). Only the
+    two sheets that were BORN long — Scheduling (`.ds-sheet`) and Card info (`.ci-sheet`) — declared a
+    height, so the OPTIONS menu, which has since grown to five switches, five commands, a swatch row and an
+    icon picker, simply outgrew a 640px screen. **`.deck-menu` is a centred flex container, so a box taller
+    than it overflows equally at BOTH ends and neither end can be scrolled to**: the head is off the top,
+    Remove is off the bottom, and nothing on screen says so — which is why it reads as a menu that is
+    missing rows rather than as one that is too tall. It belongs on the SHARED SHELL rather than on that one
+    sheet, because the next sheet to grow will grow the same way and the two that already state a cap are
+    more specific and untouched; `dvh` is what makes it right on a phone whose address bar comes and goes,
+    with `vh` under it for anything that lacks it, and `overscroll-behavior:contain` keeps the page behind
+    from scrolling once the sheet reaches its end.
+    **AND THE STICKY × IS NOW BACKED IN THE SHEET'S OWN PAPER**, which it did not need while only two
+    sheets scrolled: sticky means it floats over whatever row the scroll brings to the top, and an unbacked
+    × sitting across a switch reads as a rendering fault and swallows the tap meant for that switch. At rest
+    it sits inside the 38px `.dm-head` already reserves for it, where the colour is invisible.
   · **The sheet is CENTRED at every width and leaves the way it arrives** (Aug 2026, on request). It was a
     bottom sheet below 560px, on the reasoning that the row held was near the thumb; what that produced was a
     dialog rising out of the tab bar at the very bottom of the screen, furthest from where the reader was
@@ -10124,6 +10291,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     than as a second kind of mark; an unearned star is the same colour at a fraction of the opacity, which
     reads as an outline without needing a second glyph. It is absolutely positioned so it costs the
     question no width, and it steps left of `.tts-mute`, which holds that corner when read-aloud is on.
+    **AND THE WHOLE HEAD LINE IS TWO FLEX ROWS, NOT ONE** (Aug 2026, on a bug report that the dot, the
+    word QUESTION, the phrasing counter, the DIFFICULTY label and the stars sat at four different heights).
+    `.q-head` centred the two BOXES and inside `.label` the parts were still INLINE, so each aligned by its
+    own rule — the dot on the BASELINE (a 7px circle sitting on it has its centre well above the text's),
+    the counter on `middle`, the play triangle on the baseline again — and the stars, being a box rather
+    than text, centred against none of them. `.q-head .label` is `display:flex; align-items:center` now, so
+    every part of the label centres on one line and that line centres against the stars, at every text size
+    and with no offset anywhere; the per-part `vertical-align` rules are inert in flex and are left as they
+    are for any other context that ever renders them. **The dot went to `opacity:1` in the same pass, also
+    on request** — it is the one mark on the card saying where this card stands, and the `.85` it wore was
+    holding the strongest of the three signals back for no reason.
   · **THERE ARE TWO RATINGS AND THE CARD SHOWS WHICHEVER IT HAS EVIDENCE FOR** (`CARD_STATS` /
     `CARD_STATS_MIN` / `CARD_GRADE_WEIGHT` / `cardStatsFor` / `cardDifficultyShown`, Aug 2026, on request).
     `card.difficulty` is an EDITORIAL judgement about how well known the answer term is, made once when the
@@ -12069,11 +12247,47 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   hairline (`--coll-bg` inherits from the `.collection` root; branches stay ochre). If a collection is ever recreated
   under a new id, update `COLL_THEME` (and `COLLECTION_ICON` — a collection with no row there falls through
   to a stack-of-cards mark, which is honest but says nothing about the subject).
-- **Collections layout (`PAGES.decks`)** — three sections down the page: **Collections**, then **Your decks**
+- **Collections layout (`PAGES.decks`)** — five sections down the page: **History**, **Geography**,
+  **Languages**, then **Your decks**
   (the reader's own, and the way into the Studio), then **Shared decks** (Aug 2026, on request — the browse
   list that used to be `PAGES.community`, a page of its own; see the Phase 2 Pages bullet for the route, the
-  redirect and the sortable table). The order is the point: your own shelf first, strangers' below it, one page.
-  "Collections" is a plain group; **"Coming soon" is a `<details>` disclosure**
+  redirect and the sortable table). The order is the point: the curated shelves first, by subject; then your
+  own; then strangers'; one page.
+  **THE SUBJECT SECTIONS ARE A DECLARED TABLE, NOT A LEVEL IN THE TREE** (`COLLECTION_SECTIONS` /
+  `COLLECTION_SECTION` / `sectionOf`, just above `PAGES.decks`; Aug 2026, on request: "rename the Collections
+  section to History. Put a section directly below it titled Geography, and put there a collection titled
+  United States … Put the Languages section directly below the Geography section"). The first heading read
+  **Collections** until then, which is what almost every collection is anyway, so anything the table does not
+  name is History. Four things.
+  **IT IS A TABLE FOR THE REASON `COLL_THEME` AND `COLLECTION_ICON` ARE**: a section is how this ONE PAGE is
+  arranged, and making it a node would put every collection a level deeper in `S.active`, in `entryCardIds`,
+  in the daily-study list and in every `#decks` link ever shared.
+  **GEOGRAPHY *WAS* SUCH A NODE, and what shipped is that node PROMOTED rather than a third level added
+  above it.** `geography` was a wrapper collection holding one deck, "The United States", holding the two
+  leaves; the request asks for a SECTION called Geography and a COLLECTION called United States, so `geo-us`
+  became the collection and its two decks now sit directly inside it. **The card-bearing ids are untouched**
+  (`geo-us-states`, `geo-us-capitals`), so no reader's schedule moves — and a reader who had added the
+  `geography` node loses that one entry silently and correctly, `activeEntryIds` already filtering an id that
+  no longer resolves.
+  **THE COMING-SOON FOLD SITS BELOW ALL THREE SUBJECT SECTIONS** (Aug 2026, on request; it was History's
+  tail for a day, on the reasoning that every collection in it is a history one). That reading is
+  defensible on the contents and wrong on the grammar: **a fold under one heading is a claim that what is
+  in it belongs to that subject**, so the day a Geography or a Languages collection goes coming-soon it
+  would land under History with nothing on the page to say so. Below all three it says what it actually is
+  — everything still being written — and needs no second fold when that day comes. There is deliberately
+  still ONE of it rather than a fold per section: a heading over an empty fold is the failure the
+  empty-section rule below already refuses.
+  **AN EMPTY SECTION IS DRAWN ONLY FOR HISTORY, AND ONLY FOR AN ADMIN** — that one has a drop target worth
+  offering, where a "Geography" heading over nothing would advertise a section a drag cannot put anything
+  into, the section coming from the table and never from where a row is dropped. History keeps the slot id
+  **`collection-list-all`**, which five test files and the admin drag both name; Geography is
+  `collection-list-geo`.
+  **AND THE ADMIN DRAG STANDS DOWN ON A SECTIONED COLLECTION** (`valid()` in `wireLibraryDnd`): a collection
+  named in `COLLECTION_SECTION` is neither dragged nor dropped onto, because that order decides a
+  collection's place WITHIN its section and nothing there decides which section it is in — so such a drag
+  could only ever appear to do nothing, the row being re-ordered in the tree and re-drawn exactly where it
+  was. Reordering History, and moving a collection to and from Coming soon, are untouched.
+  **"Coming soon" is a `<details>` disclosure**
   (`.collection-group-soon`), **collapsed for everyone, admins included** (Aug 2026, on request — it used to open
   itself for an admin so the library's drag-and-drop had its drop targets reachable, which meant the one person who
   opens this page most often always met it expanded; an admin moving a collection between the groups opens the fold
@@ -12188,6 +12402,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   each of them is the collection. `adIconKey` returns a mark only for a ROOT collection, a whole community
   deck, or a row the reader has given one — **asserted both ways**, since a mark on every row and a mark on
   none look equally deliberate from one side.
+  **…AND A DECK DRAWN INSIDE A LANGUAGE GETS NONE EITHER** (Aug 2026, on request: "decks within language
+  collections shouldn't get their own icons in the active decks section, only the collection itself
+  should"). A language deck is a COMMUNITY deck, so it took the whole-deck card stack above and a reader
+  who added seven levels of Spanish met one speech bubble over seven identical stacks — the same crowding
+  the tree rule prevents, one store over. It is the curated side's own rule restated, where a deck inside a
+  collection carries no icon; what differs is that a language's decks are its MEMBERS rather than its
+  children in a tree, so **`adIconKey` takes the row's PARENT** and the whole-deck branch stands down under
+  a `langctx:` one. A deck dragged OUT of its language sits at the top level with nothing above it to say
+  what it is and keeps its stack, and an icon the reader set themselves still wins — this is the automatic
+  mark, which `entryIconMarkup` reads as a fallback.
   **AND THE PICKER IS A SUB-SHEET THAT DOES NOT CLOSE ON A CHOICE.** Choosing re-marks the grid in place;
   only `[data-act="close"]` closes and repaints. The sheet's row sits directly after `colorRow` and before
   Remove — **`test-review-decks.js` pins BOTH sheet row lists EXACTLY**, so a row added here fails there
@@ -14430,7 +14654,7 @@ lookup.
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
-| Geography | `geography` | `geo-` | `docs/geography-card-plan.md` | 1 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
+| Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
 
 The next id for any of them (substitute the prefix):
 
@@ -15857,9 +16081,11 @@ ordinary-English-word surfaces than any other (`Resistance`, `Blitz`, `Ultra`, `
 because operation code names were chosen to be ordinary words: use `GLOSSARY_CASESENSITIVE` or the full
 form as the head word (`Operation Barbarossa`, not `Barbarossa`).
 
-**GEOGRAPHY (`geography`) is the ELEVENTH and is not like the other ten (Aug 2026, on request).** Its deck
-is `geo-us` The United States, in two subdecks — `geo-us-states` (`geo-001`–`geo-050`) and
-`geo-us-capitals` (`geo-501`–`geo-550`) — and its plan is `docs/geography-card-plan.md`, used the same
+**GEOGRAPHY (`geo-us`) is the ELEVENTH and is not like the other ten (Aug 2026, on request).** It is the
+collection **United States**, in two decks — `geo-us-states` (`geo-001`–`geo-050`) and
+`geo-us-capitals` (`geo-501`–`geo-550`) — drawn under a **Geography** heading on the Collections page that
+is a `COLLECTION_SECTION` row rather than a node in the tree, so the plan slug and the collection id differ
+here where they coincide everywhere else. Its plan is `docs/geography-card-plan.md`, used the same
 way: **"generate the next Geography card" means take the lowest `geo-NNN` not yet in `data.js`, read its
 subject from that plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 The next number is:
@@ -17436,7 +17662,11 @@ dead code (never rendered).
     fortnight after that mark became teal** — the word naming a colour is painted in that colour now
     (`.tour-newterm` reads `--newterm`), so the step and the page cannot disagree without it being visible.
     Four About-page and Atlas claims were stale the same way and are checked in `.claude/test-layout.js`'s
-    company rather than here.
+    company rather than here. **AND THAT SUITE'S OWN FIRST-HEADING ASSERTION WAS THE SAME FAULT** (Aug 2026):
+    it read `lib.groupLabel === "Collections"` and went on passing after the heading was renamed to
+    **History** on request — a suite reporting 321/0 while pinning a name the page no longer uses. It comes
+    from `COLLECTION_SECTIONS` now, with a second check that the table was found at all. **A hard-coded
+    label in a test is not an assertion about the label, it is a copy of it that nothing keeps in step.**
     **Re-run after touching the `THE GUIDED TOUR` block, `pageHelp` / `closePageHelp` /
     `LIB_HELP_TIPS` / `BOOK_HELP_TIPS`, `PAGES.home`'s `fresh` branch, `tourOfferHTML`'s place on the home
     page, the Atlas / Library / book help cards, or `render()`'s close list.** Two things it had to learn: the demo's grade cells concatenate into
