@@ -17907,6 +17907,17 @@
        which at 28px is a keyhole rather than a head — the sizes it is DRAWN at are what this had to be
        checked against, not the size it is drawn IN. */
     { k: "head", n: "Head in profile", d: '<path d="M6.6 21V17C4.3 15.4 3.1 13.1 3.1 10.7A7.7 7.7 0 0 1 10.8 3C14.6 3 17.6 5.5 18.5 8.7L19.9 13C20.1 13.7 19.7 14.2 19 14.3L17.4 14.6V17.2C17.4 19.3 16 21 13.9 21Z"/>' },
+    /* owl — Philosophy. The owl of Minerva, which is the emblem the subject has actually used since
+       antiquity, and which nothing on Folio wears (the site's own mark is a vermilion seal, so this
+       cannot read as branding). A lamp was rejected for colliding with `flame` below, and a marble bust
+       for putting a second head on the shelf beside Psychology's.
+       WHAT THIS DREW WRONG FIRST IS WORTH KEEPING: a face inside a head-sized outline is INK, and four
+       earlier cuts — eye rings at r 2.1, solid pupils, a beak, an egg-shaped body — each read as a dark
+       blob at the 24-28px a deck row and the picker draw it, twice the weight of the torii or the column
+       beside it. What fixes it is not fewer strokes but more WHITE: small rings (r 1.5) set wide, high in
+       a slightly larger head, and NO beak, whose third dark spot is what closed the face up. Weight
+       against its neighbours is the test, not legibility on its own. */
+    { k: "owl", n: "Owl", d: '<path d="M12 20.9c-4.4 0-7.8-3.4-7.8-8s3.4-8.2 7.8-8.2 7.8 3.6 7.8 8.2-3.4 8-7.8 8z"/><path d="M6.9 6.9 5.3 3.5 8.8 5"/><path d="M17.1 6.9 18.7 3.5 15.2 5"/><circle cx="9.2" cy="11.4" r="1.5"/><circle cx="14.8" cy="11.4" r="1.5"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
        an icon is two collections a reader cannot tell apart on the shelf. The inner points are drawn
@@ -17973,6 +17984,7 @@
     ww2: "plane",
     japan: "torii",
     psych: "head",
+    phil: "owl",
     "geo-us": "compass",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
@@ -21577,8 +21589,14 @@
        remember. The heading is "Science" rather than "Psychology" for the reason Geography is a heading
        rather than a collection: the next science collection should not need a second one. */
     { label: "Science", slot: "collection-list-sci" },
+    /* Philosophy — inert today for the same reason Science is, and named for the same reason Geography is
+       a heading rather than a collection. The heading and its one collection share a name, which is the
+       one place this shelf reads oddly; the alternatives were worse, since `sectionOf` files anything
+       unnamed under History and a Philosophy collection under a History heading is a claim about the
+       subject rather than a gap. The echo resolves itself the day a second collection joins it. */
+    { label: "Philosophy", slot: "collection-list-phil" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", psych: "Science" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", psych: "Science", phil: "Philosophy" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
 
   /* ============================================================
@@ -22141,6 +22159,20 @@
        a look; a hot magenta scores 28.3 at chroma 62, the top of the band, on a shelf that is muted
        throughout. */
     psych:    { bg: "#82607E" },
+    /* dark petrol (Philosophy) — MEASURED, and the sweep OVERTURNS the Geography note below. Against all
+       nineteen hues then on the shelf the two best-separated regions were an olive-brass at 27.8 and a hot
+       magenta at 29.4, and both were rejected on register for the reasons Psychology's comment above
+       gives. What was left is the one family Folio does not have at all: there is no TEAL here — Egypt's
+       malachite is a sea green at hue 173 and Greece's Aegean a blue at 247, and the whole band between
+       them is empty. This sits in it at 19.8 from BOTH of them, equidistant rather than leaning at one,
+       L 32, chroma 20, 8.6:1 against white.
+       19.8 IS BELOW THE SHELF'S MEDIAN (23.9) AND THAT IS A STATED TRADE: it is well clear of the bar the
+       house has actually used — the tightest existing pair is 12.9, China against Russia — and beats five
+       pairs already shipped, and it is the only candidate that adds a FAMILY rather than a fourth member
+       of one. It also refines Geography's claim that "the whole teal band is unusable ... 5-11 from
+       Egypt's malachite or Greece's Aegean blue": that holds at MID lightness (17.2 at L 38, falling away
+       above) and not at the dark end. The band is not unusable; the top half of it is. */
+    phil:     { bg: "#14545A" },
     /* deep olive (Geography) — MEASURED rather than picked, like every hue above it. The obvious choice is
        a teal, and the whole teal band is unusable: swept in CIELAB, every candidate lands 5–11 of Egypt's
        malachite or Greece's Aegean blue, against a tightest EXISTING pair of 12.9. The green band is

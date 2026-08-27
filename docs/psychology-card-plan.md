@@ -296,41 +296,44 @@ dishonest one names a type. A card that says a group *is* something has adopted 
 says a measured mean differed by so much, with this much overlap, in these samples, has described one.
 `ps-771` and `ps-774` are where this is hardest, and both are carded as arguments rather than answers.
 
-## The one house rule this collection cannot follow as written
+## THIS COLLECTION IS EXCLUDED FROM THE NO-RESEARCHERS RULE (on request, Aug 2026)
 
-**CLAUDE.md says a question may never name a researcher, and that modern scholars are capped at two per
-collection.** Both rules were written for the history collections, where naming the modern arguer makes
-the card about the literature instead of about the past. **In psychology the literature IS the subject
-matter**: a finding is a study, a theory carries its author's name, and the discipline is 150 years old,
-so almost everything in it is modern by the history plans' measure. Applying the rules as written would
-make most of this collection unwriteable, and applying them not at all would lose what they are for. So
-they are restated here in the form that keeps the purpose:
+**CLAUDE.md says a question may never name a researcher or scholar, and caps modern scholars at two per
+collection. Neither applies here. The site owner excluded this collection from that rule outright**, and
+the reason is the one the rule itself implies: it was written for the history collections, where naming
+the modern arguer makes the card about the literature instead of about the past. **In psychology the
+literature IS the subject matter.** A finding is a study, a theory carries its author's name, and the
+discipline is 150 years old, so almost everything in it is modern by the history plans' measure. A
+question is free to say *Pavlov*, *Skinner*, *Piaget*, *Kahneman* or *Bandura*, and a card may have any
+of them as its answer term. There is no cap, and no exemption has to be argued for.
 
-**A question may name a person only where the answer IS that person, that person's named study, or a
-theory or law that carries their name.** `ps-046` Wundt, `ps-438` the Rescorla–Wagner model, `ps-825`
-the Asch conformity experiments and `ps-705` the Yerkes–Dodson law are all fine. What is not fine is
-clueing an ordinary finding by who found it: a question about working memory is clued from what working
-memory DOES, never from who proposed it. The test is the one the history rule uses — could a reader who
-knows the modern literature and nothing about the subject answer this? — and it works unchanged here.
+**What that does not license is a card about the literature instead of about the mind.** The rule is
+lifted; the thing it was protecting is worth keeping as craft rather than as law. A question clued from
+the FINDING is almost always the better card — *what working memory does* teaches more than *who
+proposed it* — so reach for the person when the person is the point, not by default. Two places where
+naming is plainly right: a card whose answer IS the person or their named study (`ps-046` Wundt,
+`ps-825` the Asch conformity experiments), and a theory or law that carries the name (`ps-438` the
+Rescorla–Wagner model, `ps-705` the Yerkes–Dodson law).
 
-**An abstract may narrate the study that established the finding.** That is the finding's evidence, not
-historiography, and in this subject the two are the same sentences. What is still capped at three of ten
-sentences is the *dispute*: who challenged whom, in which journal, and who replied. The exception is the
-cards whose subject IS the dispute — the replication pairs listed under scope decision one, `ps-211` to
-`ps-220`, `ps-611`, `ps-640`, `ps-900`, `ps-951` — where the argument is the answer term and the cap
-does not apply.
+**The historiography cap is a separate rule and this plan keeps it, with an exception.** An abstract may
+narrate the study that established a finding — that is the finding's evidence, not historiography, and
+in this subject the two are the same sentences. What stays capped at three of ten sentences is the
+*dispute*: who challenged whom, in which journal, and who replied. The exception is the cards whose
+subject IS the dispute — the replication pairs under scope decision one, `ps-211` to `ps-220`, `ps-611`,
+`ps-640`, `ps-900`, `ps-951` — where the argument is the answer term.
 
-**`.claude/card-focus.js` will flag a large part of this collection, and that is the measure working
-rather than failing.** It takes names from the author positions of a card's own citations, so a card
-citing Kahneman and Tversky and naming either in its question trips it. The script's `EXEMPT` list is
-the mechanism for exactly this case and this collection will use it heavily; **every entry carries its
-justification**, as the history plans require, and the list is not a way of turning the measure off. Run
-it per batch with `--prefix=ps-` and read the flags rather than clearing them.
+**`.claude/card-focus.js` will flag this collection heavily and the flags are NOISE here, not findings.**
+The script takes names from the author positions of a card's own citations, so a card citing Kahneman and
+Tversky and naming either in its question trips it — correctly, by a rule that no longer binds. Do not
+clear the flags card by card through `EXEMPT`, which would be forty entries each justified by the same
+sentence; **the exclusion is collection-wide and is recorded here and in CLAUDE.md**. Running the measure
+with `--prefix=ps-` is still worth doing for its OTHER half, the majority-historiography count, which
+does still bind.
 
 **About forty of the thousand cards have a person as their answer, and three-quarters of those are in
-deck 1**, where the founders are the history of the subject. Everywhere else the card is about the
-finding and the person is named in the background. That is the discipline the two-scholar cap was
-protecting, kept without a number that cannot mean anything here.
+deck 1**, where the founders are the history of the subject. That is a fact about the plan rather than a
+budget: the number comes from what the subject needs, which is what the two-scholar cap was reaching for
+and could not express here.
 
 ## Names, terms and figures
 

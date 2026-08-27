@@ -4615,6 +4615,304 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "phil",
+      "title": "Philosophy",
+      "total": 0,
+      "children": [
+        {
+          "id": "ph-found",
+          "title": "Foundations, Method and Logic",
+          "total": 100,
+          "children": [
+            {
+              "id": "ph-what",
+              "title": "What philosophy is",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ph-argument",
+              "title": "Argument, reasoning and fallacies",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ph-logic",
+              "title": "Formal logic",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ph-philmath",
+              "title": "Philosophy of logic and mathematics",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ph-ancient",
+          "title": "Ancient Mediterranean Philosophy",
+          "total": 125,
+          "children": [
+            {
+              "id": "ph-presocratic",
+              "title": "The Presocratics",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ph-socrates",
+              "title": "Socrates and the sophists",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ph-plato",
+              "title": "Plato",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ph-aristotle",
+              "title": "Aristotle",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ph-hellenistic",
+              "title": "Hellenistic and Roman philosophy",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ph-asia",
+          "title": "Indian, Chinese and Japanese Philosophy",
+          "total": 115,
+          "children": [
+            {
+              "id": "ph-indian",
+              "title": "Classical Indian philosophy",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ph-buddhist",
+              "title": "Buddhist philosophy",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ph-chinese",
+              "title": "Chinese philosophy",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ph-japan",
+              "title": "Japanese and modern Asian philosophy",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ph-medieval",
+          "title": "Medieval, Islamic and Jewish Philosophy",
+          "total": 95,
+          "children": [
+            {
+              "id": "ph-lateantique",
+              "title": "Late antiquity and Augustine",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ph-islamic",
+              "title": "Philosophy in the Islamic world",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ph-jewish",
+              "title": "Jewish philosophy",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "ph-scholastic",
+              "title": "Scholasticism",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ph-earlymodern",
+          "title": "Early Modern Philosophy",
+          "total": 115,
+          "children": [
+            {
+              "id": "ph-renaissance",
+              "title": "Renaissance and the scientific revolution",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ph-rationalists",
+              "title": "The rationalists",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ph-empiricists",
+              "title": "The empiricists",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ph-kant",
+              "title": "Kant",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ph-continental",
+          "title": "The Nineteenth Century and Continental Philosophy",
+          "total": 110,
+          "children": [
+            {
+              "id": "ph-idealism",
+              "title": "German idealism and its critics",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ph-critics",
+              "title": "Marx, Kierkegaard and Nietzsche",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ph-phenomenology",
+              "title": "Phenomenology and existentialism",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ph-critical",
+              "title": "Critical theory, feminist and decolonial philosophy",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ph-analytic",
+          "title": "Analytic Philosophy",
+          "total": 95,
+          "children": [
+            {
+              "id": "ph-analytic-birth",
+              "title": "The birth of analytic philosophy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ph-wittgenstein",
+              "title": "Wittgenstein",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ph-positivism",
+              "title": "Logical positivism and its collapse",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ph-language",
+              "title": "Meaning, reference and language",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ph-systematic",
+          "title": "Metaphysics, Epistemology and Mind",
+          "total": 115,
+          "children": [
+            {
+              "id": "ph-metaphysics",
+              "title": "Metaphysics",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ph-epistemology",
+              "title": "Epistemology",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ph-mind",
+              "title": "Philosophy of mind",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ph-science",
+              "title": "Philosophy of science",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ph-value",
+          "title": "Ethics, Politics and Aesthetics",
+          "total": 130,
+          "children": [
+            {
+              "id": "ph-metaethics",
+              "title": "Metaethics",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ph-normative",
+              "title": "Normative ethics",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ph-applied",
+              "title": "Applied ethics",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ph-political",
+              "title": "Political philosophy",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ph-aesthetics",
+              "title": "Aesthetics and the philosophy of art",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "geo-us",
       "title": "United States",
       "total": 5,

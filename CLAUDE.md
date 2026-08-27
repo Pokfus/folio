@@ -727,20 +727,38 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   (`psych`): every card's number, topic and deck, fixed in advance across 9 decks and 38 leaf decks.
   The twelfth of the planned collections, the fourth to **create its own collection** (node, tree,
   `COLL_THEME` hue and a new `ICON_SYMBOLS` mark ship with the plan) and **the first that is not a
-  history collection at all**, which is why three of its sections restate house rules rather than
-  pointing at them. **Read "The one house rule this collection cannot follow as written" before writing
-  anything**: CLAUDE.md forbids a question naming a researcher and caps modern scholars at two per
-  collection, and in psychology the literature IS the subject matter — the plan restates both in the
-  form that keeps their purpose, and says how `card-focus.js`'s `EXEMPT` list is to be used here. Its
-  other load-bearing rules are that **a card on a classic finding states that finding's current
-  evidential standing** (eleven deliberate study/what-happened-to-it PAIRS are listed there), that **a
-  disorder card describes and never diagnoses**, and that a finding is described with the people it was
-  found in. The next card to write is the lowest `ps-NNN` not yet in `data.js`; the index
-  table under "THE TWELVE PLANNED COLLECTIONS" is the lookup. **No card has been written yet**, so the
-  collection sits in Coming soon on its own account — `isComingSoon` is true for a node holding no
-  cards. It also ships an inert **`Science` row in `COLLECTION_SECTIONS`**: `sectionOf` returns History
-  for anything the table does not name, so without it the first psychology card would file the
+  history collection at all**. **It is EXCLUDED from the no-researchers-in-a-question rule and from
+  the two-scholar cap, on request** — see that rule's own bullet under "Generating cards & glossary
+  entries", and the plan's section on what the exclusion does and does not license. Its three
+  load-bearing rules are that **a card on a classic finding states that finding's current evidential
+  standing** (eleven deliberate study/what-happened-to-it PAIRS are listed there), that **a disorder
+  card describes and never diagnoses** — both classifications named, no checklist a reader can score
+  themselves against — and that **a finding is described with the people it was found in**, which is
+  the psychology form of the history plans' rule about a state's account of itself and the easiest one
+  here to break by accident. The next card to write is the lowest `ps-NNN` not yet in `data.js`; the
+  index table under "THE THIRTEEN PLANNED COLLECTIONS" is the lookup. **No card has been written yet**,
+  so the collection sits in Coming soon on its own account — `isComingSoon` is true for a node holding
+  no cards. It also ships an inert **`Science` row in `COLLECTION_SECTIONS`**: `sectionOf` returns
+  History for anything the table does not name, so without it the first psychology card would file the
   collection under History; the row draws nothing until that card exists. Not part of the site.
+- `docs/philosophy-card-plan.md` — the **1000-card running order for the Philosophy collection**
+  (`phil`): every card's number, topic and deck, fixed in advance across 9 decks and 38 leaf decks. The
+  thirteenth of the planned collections and the second that is not history. **It is EXCLUDED from the
+  no-researchers-in-a-question rule, exactly as `psych` is** — in philosophy the thinkers ARE the subject
+  matter. **Read its five scope decisions before writing anything**, of which two govern the tree: it is
+  **not a Western philosophy collection**, so Indian, Buddhist, Chinese and Japanese philosophy take deck
+  3 and 115 cards in chronological position beside Greece rather than an appendix at the end, Islamic
+  philosophy sits inside the medieval deck because that is what it historically is, and Africana,
+  decolonial and Latin American philosophy sit with critical theory and feminism as one lineage of
+  critique; and **a card gives the ARGUMENT, not the position** — ten sentences is enough for a premise, a
+  conclusion and an objection, and a card that lists who held what teaches a reader to name views they
+  cannot evaluate. Two things it is worth knowing before writing a card: **thirteen of its primary texts
+  are already in Folio's Library**, eleven with their original-language column, so `card.quote` is worth
+  more here than anywhere on the site; and **a work is cited by its standard divisions** (Stephanus,
+  Bekker, A/B) rather than by the page of one translation. The next card to write is the lowest `ph-NNN`
+  not yet in `data.js`; the index table under "THE THIRTEEN PLANNED COLLECTIONS" is the lookup. **No card
+  has been written yet.** It ships an inert **`Philosophy` row in `COLLECTION_SECTIONS`**, on the same
+  reasoning as Psychology's `Science` row. Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -795,7 +813,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   by eye. Not part of the site.
 - **📖 `docs/README.md` — READ BEFORE LOOKING FOR A DOC, ADDING ONE, OR SPLITTING ANYTHING OUT OF THIS
   FILE.** The index of `docs/`, and the rule the directory exists for. Every file
-  there, one line each, grouped into the wiring references, the twelve card plans, the FINISHED content
+  there, one line each, grouped into the wiring references, the thirteen card plans, the FINISHED content
   passes and the ones with work still open — so a pass that is complete can be told from one that is not
   without opening either. The rule it states is the one this whole file is arranged around: **rules live
   in `CLAUDE.md`; reasoning lives in `docs/`**, reached by an imperative `📖 … — READ BEFORE …` pointer,
@@ -3464,7 +3482,14 @@ people who DUG the past up; it binds equally on the people who ARGUE about it. A
 term's history — not about the modern debate over that history — and the two go wrong in the same way, by
 teaching a reader the state of a scholarly literature instead of the past that literature is about. Two
 parts, and the first is absolute:
-- **A QUESTION MAY NEVER NAME A RESEARCHER OR SCHOLAR.** Not "Hans van Wees calls…", not "Lambert argues
+- **A QUESTION MAY NEVER NAME A RESEARCHER OR SCHOLAR — IN A HISTORY COLLECTION.** **`psych` is
+  EXCLUDED from this rule outright (on request, Aug 2026), and so is `phil`**, because in psychology and
+  philosophy the literature IS the subject matter: a finding is a study, an argument carries its author's
+  name, and both disciplines are mostly "modern" by this rule's own measure, so applying it would make
+  most of those two collections unwriteable. Their questions may name anybody, and `card-focus.js`'s
+  flags on a `ps-` or `ph-` card are noise rather than findings — do NOT clear them one at a time through
+  `EXEMPT`; the exclusion is collection-wide and is recorded here and in each plan. **The historiography
+  cap below still binds on both.** Everywhere else the rule is absolute: not "Hans van Wees calls…", not "Lambert argues
   that…", not "Evans noted in a footnote…". A clue built on who said a thing is answerable by someone who
   knows the modern literature and nothing whatever about Greece, which is the exact inversion of what a
   study card is for. **Naming the THEORY is fine and often better** — "the older view that they were
@@ -3546,7 +3571,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE TWELVE PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE THIRTEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -3565,7 +3590,8 @@ lookup.
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
-| Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | empty — and the only one that is NOT history |
+| Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | empty — not a history collection |
+| Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
 
 The next id for any of them (substitute the prefix):
