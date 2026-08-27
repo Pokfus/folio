@@ -569,7 +569,48 @@
      which is a ReferenceError before the first paint rather than anything subtle. */
   let _uStudyCache = new Map();
   let _availCache = null;
-  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; }
+  /* HOW MANY BYTES A DECK'S CARDS WEIGH (Aug 2026, on request: "make it so that both Language decks and
+     now also History decks mention the file size to download"). A language deck's figure is the size of
+     the file that will be fetched, read off disk by `.claude/build-lang-decks.js`; a curated deck has no
+     file of its own — its cards ship inside `data.js`, which every visitor downloads before flipping one —
+     so the honest figure is what those cards weigh in it, and the row says that rather than promising a
+     download that has already happened.
+
+     Cached per card and per node, because the Collections page draws every leaf of every collection and
+     the corpus is a few megabytes of JSON; busted with the rest, since an admin edit changes a card's
+     bytes. `TextEncoder` rather than `.length`, or every accented and CJK character is undercounted. */
+  let _cardBytes = new Map();
+  let _nodeBytes = new Map();
+  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); }
+  let _byteEnc = null;
+  function cardBytes(id) {
+    let n = _cardBytes.get(id);
+    if (n === undefined) {
+      const c = cardById(id);
+      if (!_byteEnc && typeof TextEncoder !== "undefined") _byteEnc = new TextEncoder();
+      const s = c ? JSON.stringify(c) : "";
+      n = _byteEnc ? _byteEnc.encode(s).length : s.length;
+      _cardBytes.set(id, n);
+    }
+    return n;
+  }
+  function nodeBytes(node) {
+    if (!node) return 0;
+    let n = _nodeBytes.get(node.id);
+    if (n === undefined) {
+      n = 0;
+      subtreeCardIds(node).forEach((id) => { n += cardBytes(id); });
+      _nodeBytes.set(node.id, n);
+    }
+    return n;
+  }
+  /* One formatter, so a language deck's megabytes and a curated deck's cannot come to be written two
+     different ways on one page. Under a megabyte it says kilobytes: most of the curated decks are that
+     size, and "0.1 MB" over a 90 KB deck is a figure a reader cannot act on. */
+  function fmtDeckSize(b) {
+    if (!(b > 0)) return "";
+    return b < 1048576 ? Math.max(1, Math.round(b / 1024)) + " KB" : (b / 1048576).toFixed(1) + " MB";
+  }
 
   function applyAdminEdits() {
     buildTreeStructure();
@@ -2318,6 +2359,10 @@
     if (SUPA_PROFILE && SUPA_PROFILE.joined) S.user.joined = new Date(SUPA_PROFILE.joined).getTime() || S.user.joined;
     save();
     applyMode();   // the server role may change admin visibility
+    /* …and swap the community decks this DEVICE shows over to the ones this account downloaded. The store
+       is shared and the register is not, so nothing is deleted: the other reader's decks simply stop being
+       mounted, and this account's own are put back. */
+    communityRemount();
     communitySyncSoon();   // …and bring over any shared decks this account added on another device
     /* …and tell the account which theme this reader wears, since a friend's list is drawn from `profiles`
        rather than from anybody's progress. A theme is a device SETTING (settings are not synced), so the
@@ -2393,6 +2438,7 @@
     if (base.owner) S._supaOwner = base.owner; else delete S._supaOwner;   // hand the restored progress back with its ownership intact
     save();
     applyMode();
+    communityRemount();   // back to whatever the guest on this device downloaded, which may be nothing at all
   }
   async function supaRecover(email) {
     const r = await supaFetch("/auth/v1/recover", { method: "POST", auth: false, body: { email } });
@@ -4890,19 +4936,34 @@
      granted at that number. It also survives two devices reconciling, since it rides in the synced blob
      beside the streak it is counted from. */
   const STREAK_CHEST_EVERY = 7;
+  /* EACH WEEK IS WORTH MORE THAN THE LAST (Aug 2026, on request): the seventh day pays one chest, the
+     fourteenth two, the twenty-first three. A flat chest a week is a reward that stops meaning anything
+     around the second month, where the whole point of a streak is that it costs more to keep the longer
+     it runs. The figure is DERIVED from the count rather than tallied — `n / STREAK_CHEST_EVERY` is the
+     number of complete weeks — so it needs no field of its own, cannot drift from the streak it is paid
+     for, and comes out right for a reader whose streak was already long when this shipped: they are paid
+     the full amount at their next multiple of seven rather than everything they have missed at once. */
+  function streakChestWeeks(n) { return Math.max(1, Math.floor(n / STREAK_CHEST_EVERY)); }
   function maybeStreakChest() {
     const n = (S.streak && S.streak.count) | 0;
     if (n <= 0 || n % STREAK_CHEST_EVERY !== 0 || S.streakChest === n) return;
     S.streakChest = n;
-    grantChest();
-    toast("🔥 " + n + "-day streak — a chest is waiting in your account.");
+    const many = streakChestWeeks(n);
+    grantChest(many);
+    toast("🔥 " + n + "-day streak — " + (many === 1 ? "a chest is" : many + " chests are") +
+      " waiting in your account.");
   }
   /* How far through the current week the reader is. Day seven reads 7 of 7 rather than 0 of 7, which is
      what a meter should say on the day the thing is earned — hence the offset rather than a bare modulo. */
   function streakChestProgress(prog) {
     const n = ((prog && prog.streak && prog.streak.count) | 0);
     const into = n <= 0 ? 0 : ((n - 1) % STREAK_CHEST_EVERY) + 1;
-    return { count: n, into: into, need: STREAK_CHEST_EVERY, left: STREAK_CHEST_EVERY - into };
+    const left = STREAK_CHEST_EVERY - into;
+    /* `worth` is what the NEXT chest pays, which is not the same as what the last one did: on the day one
+       is earned (`left === 0`) the reader has just been paid for the week that closed, so what is coming
+       is the week after it. */
+    return { count: n, into: into, need: STREAK_CHEST_EVERY, left: left,
+      worth: streakChestWeeks(n + (left === 0 ? STREAK_CHEST_EVERY : left)) };
   }
 
   /* ---------- progress accounting ---------- */
@@ -4928,11 +4989,14 @@
     addActive(COTD_ENTRY);   // saves, but only if the entry wasn't already there — hence the save below
     save();
   }
-  // An active entry is a curated node id, "u:<deckId>" for one of the user's own decks, or the Card-of-the-day
-  // pseudo-entry — which exists only while it holds cards, so emptying it retires the row on its own.
+  /* An active entry is a curated node id, "u:<deckId>" for one of the user's own decks, or the Card-of-the-day
+     pseudo-entry — which exists only while it holds cards, so emptying it retires the row on its own.
+     …or a language deck the reader has added and not yet downloaded (`entryPending`), which since Aug 2026
+     is a first-class row rather than a nonsense one: adding a deck no longer fetches it, so `S.active` names
+     it and the row it draws carries the Download button. */
   function activeEntryIds() {
     return (Array.isArray(S.active) ? S.active : [])
-      .filter((id) => NODE_BY_ID[id] || UDECKS[uDeckIdOf(id)] || (id === COTD_ENTRY && cotdIds().length));
+      .filter((id) => NODE_BY_ID[id] || UDECKS[uDeckIdOf(id)] || entryPending(id) || (id === COTD_ENTRY && cotdIds().length));
   }
   function isActive(id) {
     return activeEntryIds().indexOf(id) !== -1;
@@ -5029,6 +5093,23 @@
     if (id === REVIEW_ENTRY) {
       const seen = new Set();
       activeEntryIds().forEach((e) => entryCardIds(e).forEach((c) => seen.add(c)));
+      return [...seen];
+    }
+    // …and a deck that is in the review but not yet on this device has no cards to offer, which is not the
+    // same as being an unknown id: without this it would fall through to the curated tree and be looked up
+    // there, where nothing of that name exists.
+    if (entryPending(id)) return [];
+    /* A LANGUAGE CONTAINER — the decks of that language the reader has added, which is exactly what the
+       row draws under it. It is synthesised at render time and is never in `S.active`, so nothing but its
+       own row ever asks; what its row asks for is the three pile counts and the progress bar, and a header
+       stating figures the rows beneath it contradict is the one thing a container must not do. Dragged-in
+       children count too, for the reason a group's do. */
+    if (isLangCtxId(id)) {
+      const g0 = _guard || new Set();
+      if (g0.has(id)) return [];
+      g0.add(id);
+      const seen = new Set();
+      langCtxEntries(id).concat(nestChildren(id)).forEach((e) => entryCardIds(e, g0).forEach((c) => seen.add(c)));
       return [...seen];
     }
     // one of the reader's own decks, or one subdeck of it — the cards it names, in either case
@@ -5161,6 +5242,10 @@
        over: a deck divided into subdecks is divided for the same reason a collection is divided into decks,
        and adding it and then finding a single undivided row is the thing this was reported as. Adding one
        SUBDECK on its own still adds only that subdeck — a narrower choice is never widened. */
+    /* A deck that is not on this device yet is added ALONE — its subdecks come with the file, and until the
+       file is here there is nothing to divide. `addActive` runs again after the download and cascades them
+       then, so the reader who adds a whole deck still ends up with its levels under it. */
+    if (entryPending(id)) { S.active = a.concat([id]); save(); return true; }
     const ud = !n && !uSubOf(id) ? UDECKS[uDeckIdOf(id)] : null;
     /* …and a SUBDECK brings the subdecks under IT, now that a subdeck may have them: adding `A1` and
        finding one undivided row is the same report this bullet already records one level up. It is still
@@ -5430,6 +5515,16 @@
     if (id === REVIEW_ENTRY) return { title: REVIEW_TITLE, parent: "", count: entryCardIds(REVIEW_ENTRY).length };
     if (isGroupId(id)) return { title: groupTitle(id), parent: "Your groups", count: entryCardIds(id).length };
     if (id === COTD_ENTRY) return { title: COTD_TITLE, parent: "", count: cotdIds().length };
+    /* A PENDING deck names itself out of the catalogue, which carries the title, the card count and the
+       subdeck tree — so the sheet and the row read exactly as they will once it is downloaded, and the only
+       thing that changes on arrival is that the counts start being the reader's own. */
+    if (entryPending(id)) {
+      const row = langCatalogById(uDeckIdOf(id)), sub = uSubOf(id);
+      const node = sub ? langCatalogNode(row, sub) : null;
+      return { title: sub ? uSubName(sub) : row.title,
+               parent: sub ? (uSubName(uSubParent(sub)) || row.title) : "Your decks",
+               count: node ? (node.c || 0) : (row.cards || 0) };
+    }
     const ud = UDECKS[uDeckIdOf(id)];
     if (ud) {
       const sub = uSubOf(id);
@@ -6156,6 +6251,93 @@
     });
     return out;
   }
+  /* ---------- A DECK THAT IS IN THE REVIEW AND NOT YET ON THIS DEVICE (Aug 2026, on request) ----------
+     "Adding a deck from the collections page shouldn't download anything; it should merely move the deck to
+     the active decks list, where a download button can be clicked to download the deck's cards."
+
+     So `S.active` may now name a deck this browser does not hold. That is not a broken state to be tidied
+     away — it is the WHOLE POINT of the change, and it is what makes an account's choices travel: `S.active`
+     is in `PROGRESS_FIELDS` and the IndexedDB store is not, so a deck added on the phone arrives on the
+     laptop as a row with a Download button rather than as a 21 MB fetch nobody asked for.
+
+     What tells a PENDING entry from a nonsense one is `lang-decks.js`, the eager catalogue: it already
+     carries every deck's id, title, size, card count and subdeck tree, which is everything a row needs to
+     draw itself and everything a reader needs to decide whether to fetch it. An entry naming a deck the
+     catalogue has never heard of is still dropped, exactly as before. */
+  let _langById = null;
+  function langCatalogById(deckId) {
+    if (!deckId) return null;
+    if (!_langById) {
+      _langById = new Map();
+      (window.LANG_DECKS || []).forEach((r) => { if (r && r.id) _langById.set(r.id, r); });
+    }
+    return _langById.get(deckId) || null;
+  }
+  // the entry names a catalogue deck this device has not downloaded
+  function entryPending(id) {
+    const d = uDeckIdOf(id);
+    return !!(d && !UDECKS[d] && langCatalogById(d));
+  }
+  // a node of the catalogue's own subdeck tree, by `::` path — how a pending SUBDECK row knows its size
+  function langCatalogNode(row, sub) {
+    let list = (row && row.tree) || [], node = null;
+    uSubParts(sub || "").forEach((seg) => {
+      node = (list || []).find((n) => n && n.n === seg) || null;
+      list = node ? node.k : [];
+    });
+    return node;
+  }
+  /* ---------- DOWNLOADING A LANGUAGE DECK (Aug 2026, on request) ----------
+     "Adding a deck from the collections page shouldn't download anything; it should merely move the decks
+     to the active decks list, where a download button \u2026 can be clicked to download the deck's cards."
+
+     So Add writes an entry into S.active and stops, and THIS is what fetches the file. The split is what
+     makes a deck added on a phone reachable on a laptop: S.active is in PROGRESS_FIELDS and syncs, while
+     the cards live in IndexedDB and are device-local, so the laptop wakes up with the row already on its
+     daily-study list and a Download button on it.
+
+     IT KEEPS THE FILE'S OWN DECK ID, which is the whole reason this can work at all. uDeckImportText mints
+     a fresh id when the deck is already mounted or a copy was asked for, and neither is true here \u2014 the
+     deck is not on the device, that being the point \u2014 so `hsk30` stays `hsk30` and the entry the other
+     device wrote (`u:hsk30`, `u:hsk30/Level 1`) resolves the moment the cards land.
+
+     THE SUBDECK CASCADE IS RUN HERE RATHER THAN IN addActive, and it has to be written inline: addActive
+     early-returns on an entry already in S.active, so re-calling it for the whole-deck row does nothing.
+     Adding a deck brings its subdecks (the collections page's rule, one store over), and until the file is
+     here nobody knows what those subdecks are. */
+  async function langDeckDownload(deckId) {
+    const row = langCatalogById(deckId);
+    if (!row) return { error: "That deck isn't in the catalogue." };
+    if (UDECKS[deckId]) return { ok: true, deck: UDECKS[deckId] };
+    let text = "";
+    try {
+      const res = await fetch("decks/" + encodeURIComponent(row.file), { cache: "no-store" });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      text = await res.text();
+    } catch (err) {
+      /* A DECK FILE IS FETCHED, so this is the one part of the feature a `file://` copy cannot do \u2014
+         Chrome refuses a fetch of a local file whatever the page. Everything else paints from
+         `lang-decks.js`, which is an ordinary script, so opening index.html directly still WORKS; only the
+         download needs a server, and it says so rather than failing silently. */
+      return { error: "Couldn't fetch \u201c" + row.title + "\u201d. Deck files need the site served over http." };
+    }
+    const r = uDeckImportText(text, false);
+    if (r.error) return r;
+    // and now the subdecks, for every whole-deck (or sub-) entry of this deck the reader already has
+    const cur = Array.isArray(S.active) ? S.active.slice() : [];
+    const want = [];
+    cur.forEach((e) => {
+      if (uDeckIdOf(e) !== deckId || uTplOf(e) >= 0) return;
+      const sub = uSubOf(e);
+      uSubNodes(deckId).forEach((p) => {
+        if (p === sub || !uSubUnder(p, sub)) return;
+        const id = uSubEntry(deckId, p);
+        if (cur.indexOf(id) < 0 && want.indexOf(id) < 0) want.push(id);
+      });
+    });
+    if (want.length) { S.active = cur.concat(want); save(); }
+    return r;
+  }
   // the immediate children of a path ("" for the top level), in card order
   function uSubChildren(deckId, prefix) {
     const depth = prefix ? uSubParts(prefix).length : 0;
@@ -6801,11 +6983,13 @@
     if (!src) return null;
     return { src: src, title: uSP(raw.title).slice(0, 200), desc: uSP(raw.desc).slice(0, 1000), credit: uSP(raw.credit).slice(0, 300) };
   }
-  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000, then 12,000. The
-     number is not a view about how large a deck may usefully be — it is a guard against a hostile or
-     runaway file — so it is set from the largest legitimate deck anyone has brought. That was the whole of
-     HSK 3.0 in one file (10,896 rows), then all the Italian in one (16,782); it is now EVERY vocabulary
-     deck on the shelf in one, across five languages: 39,830 rows, and 44,000 leaves it the sort of headroom 12,000 left HSK.
+  /* 500 held until a real deck outgrew it, 2,000 until a bigger one did, then 4,000, then 12,000, then
+     44,000. The number is not a view about how large a deck may usefully be — it is a guard against a
+     hostile or runaway file — so it is set from the largest legitimate deck anyone has brought. That was
+     the whole of HSK 3.0 in one file (10,896 rows), then all the Italian in one (16,782), then every
+     vocabulary deck on the shelf across five languages (39,830); it is now that same file with the SIXTH
+     language in it, Portuguese having been shipped as seven separate decks and never listed in the
+     combiner's own table: 76,502 rows, and 85,000 leaves it the sort of headroom 44,000 left the five.
      **IT COUNTS ROWS IN THE FILE, NOT CARDS TO STUDY**, and since reverse cards that is a real
      distinction — but it cuts BOTH ways, and the two largest single-language decks sit on opposite sides
      of it, which is worth knowing before reading anything into the figure. HSK 3.0 asks a word in both
@@ -6819,7 +7003,7 @@
      is read into a string, parsed into an object and then written one record per note inside a single
      IndexedDB transaction — see the import timings in CLAUDE.md's community-decks Persistence bullet
      before raising it again. */
-  const UDECK_MAX_CARDS = 44000, UDECK_MAX_TERMS = 400;
+  const UDECK_MAX_CARDS = 85000, UDECK_MAX_TERMS = 400;
   // A deck's own glossary, cleaned. Descriptions are rich HTML and DO get rendered (in the popup), so this
   // is on the same footing as the card fields — it goes through the sanitizer, not around it. Slugs are
   // restricted because they end up inside a data-k attribute and a "u:<deckId>:<slug>" key.
@@ -6931,6 +7115,69 @@
     const index = legacy ? cards.map((c) => uNoteIndexEntry(c, meta.types)) : uIndexSanitize(rec.index, meta);
     // what the cap cost, so a caller can SAY so — a deck quietly missing its last cards looks like a deck
     return { id: meta.id, meta: meta, cards: cards, index: index, gloss: uGlossSanitize(rec.gloss), legacy: legacy, over: all.length - rawCards.length };
+  }
+  /* ---------- WHOSE DECK IS THIS? (Aug 2026, on request: "ensure that downloaded decks are only
+     visible to the user who downloaded them, even on the same device") ----------
+     A community deck's CARDS live in this browser's IndexedDB, and until now every account signing in here
+     met every deck any of them had ever downloaded. That is the shared-device fact `deckSyncRead().by`
+     already records about the install LIST, met one layer down at the level of the cards themselves.
+
+     The register is DEVICE-LOCAL and never synced, exactly as `by` and `_supaOwner` are: it says what this
+     browser holds and for whom, which is a statement about this browser rather than about the reader. What
+     DOES travel is `S.active` — so a deck added on the phone appears in the daily study on the laptop as a
+     row with a Download button rather than as cards that arrived by themselves, which is the behaviour that
+     was asked for.
+
+     `guest` is a key like any other, so a reader who downloads decks before ever making an account keeps
+     them and does not hand them to the first account that signs in here.
+
+     ABSENT, THE REGISTER IS BACK-FILLED ONCE and every deck already in the store is claimed for whoever is
+     here now. The alternative — reading an unrecorded deck as nobody's — would hide every deck a reader
+     already had behind a re-download they never asked for, which is a worse failure than the one being
+     fixed. Hence `uDeckOwned` answering TRUE while no register exists: the back-fill runs inside
+     communityBoot, before the mount, and after it the register is the only authority. */
+  const DECK_OWN_KEY = "folio_deck_own_v1";
+  function deckOwnerKey() { return supaLoggedIn() ? SUPA.user.id : "guest"; }
+  function deckOwnRead() {
+    try {
+      const r = JSON.parse(localStorage.getItem(DECK_OWN_KEY) || "null");
+      if (r && typeof r === "object" && r.own && typeof r.own === "object") return r;
+    } catch (e) {}
+    return null;
+  }
+  function deckOwnWrite(rec) { try { localStorage.setItem(DECK_OWN_KEY, JSON.stringify(rec)); } catch (e) {} }
+  function uDeckOwned(deckId) {
+    const rec = deckOwnRead();
+    if (!rec) return true;
+    const mine = rec.own[deckOwnerKey()];
+    return !!(mine && mine[deckId]);
+  }
+  // does ANYBODY on this device still hold it? — which is what decides whether deleting a deck may take the
+  // stored record with it, since two accounts downloading one deck share the one copy of its cards
+  function uDeckOwnedByAnyone(deckId) {
+    const rec = deckOwnRead();
+    if (!rec) return false;
+    return Object.keys(rec.own).some((k) => rec.own[k] && rec.own[k][deckId]);
+  }
+  function uDeckClaim(deckId) {
+    if (!deckId) return;
+    const rec = deckOwnRead() || { v: 1, own: {} };
+    const k = deckOwnerKey();
+    (rec.own[k] = rec.own[k] || {})[deckId] = Date.now();
+    deckOwnWrite(rec);
+  }
+  function uDeckDisown(deckId) {   // the CURRENT reader's claim only — another account's copy is not theirs to drop
+    const rec = deckOwnRead();
+    if (!rec || !rec.own[deckOwnerKey()]) return;
+    delete rec.own[deckOwnerKey()][deckId];
+    deckOwnWrite(rec);
+  }
+  function deckOwnBackfill(ids) {
+    if (deckOwnRead()) return;
+    const rec = { v: 1, own: {} }, k = deckOwnerKey(), now = Date.now();
+    rec.own[k] = {};
+    ids.forEach((id) => { rec.own[k][id] = now; });
+    deckOwnWrite(rec);
   }
   // install a normalized record into the live in-memory stores
   function uDeckMount(norm) {
@@ -7104,6 +7351,12 @@
     const d = { id: id, title: sanitizePlain(title) || "Untitled deck", subtitle: "", desc: "", author: "", language: uiLang() || "en", tags: [], color: "", glossMode: "site", types: {}, version: 1, createdAt: now2, updatedAt: now2, cardIds: [] };
     UDECKS[id] = d;
     UGLOSS[id] = {};
+    /* A DECK YOU WROTE IS YOURS, and it has to say so here rather than at the mount: uDeckCreate is the one
+       path into UDECKS that does NOT go through uDeckMount, so a claim added there would cover the import,
+       the install and the remount and miss the Studio's own New deck. Unclaimed, such a deck survives the
+       session it was written in and is gone on the next load — mounted from nothing, because communityBoot
+       mounts only what this reader owns — which reads as the store having lost it. */
+    uDeckClaim(id);
     uDeckSave(id);
     return d;
   }
@@ -7592,7 +7845,11 @@
     // …and every subdeck entry of it, which share the deck id before the slash
     S.active = (Array.isArray(S.active) ? S.active : []).filter((x) => uDeckIdOf(x) !== deckId);
     save();
-    cdbDel(deckId);
+    /* The STORED copy goes only when nobody else on this device still holds it. Two accounts that
+       downloaded one deck share the one record of its cards, so deleting it for both would take away a
+       deck the other reader never asked to lose — and their own claim is what says so. */
+    uDeckDisown(deckId);
+    if (!uDeckOwnedByAnyone(deckId)) cdbDel(deckId);
   }
   /* ---------- RENAMING A DECK THIS DEVICE ALREADY HOLDS (Aug 2026) ----------
      An installed deck's local id was minted at random until the install sync landed, so the same deck sat
@@ -7721,6 +7978,7 @@
     }
     const d = uDeckMount(norm);
     d.updatedAt = Date.now();
+    uDeckClaim(d.id);   // whoever is signed in here now owns this copy — see the ownership register
     /* The write is handed BACK rather than fired and forgotten, and callers wait on it before they say the
        deck is in — see uImportDone. Storing a deck is one put per note now, which for the largest deck
        anyone has brought is ~7.4 s against the 246 ms one blob took, and a page closed or navigated inside
@@ -7730,10 +7988,15 @@
   }
   /* The tail of every import: paint the deck, then tell the reader once it is really stored — and say so
      out loud if the storing is slow enough to notice, since a deck that has appeared but is still being
-     written looks exactly like one that is finished. */
-  async function uImportDone(r) {
+     written looks exactly like one that is finished.
+     `quiet` repaints IN PLACE (renderInPlace), for the caller who is already standing on the page being
+     rebuilt: pressing Download on the home page turns that row into the deck, and a full render() scrolls
+     the reader to the top and replays every entrance animation for it — which is what "the page refreshes"
+     describes. It is the CALLER'S call and not a default, because the Studio's own import genuinely is a
+     navigation-sized change to the page it happens on. */
+  async function uImportDone(r, quiet) {
     if (!r || r.error) { toast((r && r.error) || "That deck couldn't be read."); return false; }
-    render();
+    if (quiet) renderInPlace(); else render();
     if (r.saved) {
       const slow = setTimeout(() => toast("Saving “" + r.deck.title + "” to this device…"), 400);
       await r.saved;
@@ -7755,7 +8018,9 @@
      away a file the card cap allows", which at 44,000 rows now means 185 MB — a byte cap that guards
      nothing, on the ground that a file of 44,000 uniformly heaviest rows might one day exist. What is set
      instead is the largest real file plus headroom, and the tension is REAL rather than papered over: a
-     hypothetical deck of 30,000 all-heavy rows is under the row cap and over this one. That is tolerable
+     hypothetical deck of 30,000 all-heavy rows is under the row cap and over this one. It was 128 MB
+     until the every-deck file gained its sixth language and came to 183.5 MB, which is the same rule
+     applied again — the largest real file plus about a tenth. That is tolerable
      only because it is not silent — uDeckImportFile names the size AND the limit and says to split it —
      which is what the 8 MB cap it replaced did not do, having quietly come within 600 KB of refusing the
      HSK 3.0 level 6 deck for no reason a reader could find.
@@ -7763,7 +8028,7 @@
      phone briefly holds several times the file in JS heap, and on a low-end device a deck near this cap
      may fail to import where two half-size ones would not. The cap is a guard against a hostile file and
      not a promise that anything under it will import on any device. */
-  const UDECK_MAX_BYTES = 128 * 1024 * 1024;
+  const UDECK_MAX_BYTES = 208 * 1024 * 1024;
   function uDeckImportFile(file, cb) {
     if (!file) return;
     if (file.size > UDECK_MAX_BYTES) {
@@ -8147,8 +8412,10 @@
       if (!norm) return { error: "That deck couldn't be read." };
       if (existing) (existing.cardIds || []).forEach((id) => { if (norm.cards.every((c) => c.id !== id)) delete UCARDS[id]; });   // cards the update removed
       d = uDeckMount(norm);
+      uDeckClaim(d.id);
       await uDeckSaveAll(d.id);
     }
+    uDeckClaim(d.id);   // …and on the adopt path too, where nothing was mounted and the deck was already here
     const ins = await deckInstallRowWrite(row.id, row.version);
     /* …and whose install this is — signed OUT it records that nobody has announced it, which is what stops
        a re-install being read as the removal that came before it. Recorded ONLY when the row was actually
@@ -8576,8 +8843,15 @@
     try { rows = await cdbAll(); } catch (e) { rows = []; }
     let n = 0;
     const legacy = [];
+    // a store written before the ownership register existed belongs to whoever is here now — see the note
+    // above `uDeckOwned`. Runs BEFORE the mount, so the gate below is answering a register that exists.
+    deckOwnBackfill(rows.map((r) => r && r.id).filter(Boolean));
     // …`true`: this is OUR store, so a record still carrying this sanitizer's revision is taken as cleaned
     rows.forEach((r) => {
+      /* ONLY THIS READER'S DECKS ARE MOUNTED, which is what makes the whole promise hold with one line:
+         `UDECKS`/`UCARDS`/`UGLOSS` are what every count, every row, every session and every glossary scope
+         reads, so a deck that never mounts is invisible everywhere without a single caller being told. */
+      if (!uDeckOwned(r.id)) return;
       const norm = uDeckNormalize(r, true);
       if (!norm) return;
       _deckTrusted[norm.id] = r.srev === SANITIZE_REV;   // …and so are its notes, when they are warmed
@@ -8607,6 +8881,32 @@
     // …and, unconditionally, whether the ACCOUNT has installed decks this device has not: `n` is the wrong
     // gate for that one, since the case it exists for is a device holding no community decks at all.
     communitySyncSoon();
+  }
+  /* THE ACCOUNT CHANGED, so what this device shows has to change with it. The store is untouched — the
+     other reader's decks are still on the disk, and signing back in brings them back — and only what is
+     MOUNTED moves, which is the whole of the isolation. It is not `communityBoot` again: that back-fills,
+     migrates legacy records and starts the install sync, none of which a switch wants repeating. */
+  function uDeckUnmountAll() {
+    Object.keys(UDECKS).forEach((id) => invalidateGlossIndex("deck:" + id));
+    Object.keys(UCARDS).forEach((id) => { delete UCARDS[id]; });
+    Object.keys(UDECKS).forEach((id) => { delete UDECKS[id]; });
+    Object.keys(UGLOSS).forEach((id) => { delete UGLOSS[id]; });
+    Object.keys(_deckTrusted).forEach((id) => { delete _deckTrusted[id]; });
+    uCacheBust();
+  }
+  async function communityRemount() {
+    if (!_communityReady) return;
+    uDeckUnmountAll();
+    let rows = [];
+    try { rows = await cdbAll(); } catch (e) { rows = []; }
+    rows.forEach((r) => {
+      if (!uDeckOwned(r.id)) return;
+      const norm = uDeckNormalize(r, true);
+      if (!norm) return;
+      _deckTrusted[norm.id] = r.srev === SANITIZE_REV;
+      uDeckMount(norm);
+    });
+    if (current) render();
   }
   function communityReady() { return _communityReady; }
 
@@ -12643,6 +12943,19 @@
   const SWIPE_ORDER = ["home", "library", "account", "settings"];
   const SWIPE_MIN = 64, SWIPE_RATIO = 1.6, SWIPE_MS = 700;
   let _navDir = "";        // which way the next render() should come in from
+  /* A REPAINT IS NOT A NAVIGATION (Aug 2026, on a bug report: "each time a new active deck is downloaded,
+     the page refreshes"). render() is written for a navigation — it scrolls to the top and plays the page's
+     entrance animation — and several things repaint the page the reader is standing on rather than taking
+     them anywhere: a downloaded deck's row turning from Download into the deck itself is the one that was
+     reported. `renderInPlace()` is the same render with those two flourishes off, so the list is rebuilt
+     under the reader's eye without moving or flashing. It changes nothing else: the fold state (`adOpen`,
+     module level) and the drag order (`S.deckOrder`, persisted) already survive a repaint, so the scroll
+     position and the animations were the whole of what a reader could see. */
+  let _renderQuiet = false;
+  function renderInPlace() {
+    _renderQuiet = true;
+    try { render(); } finally { _renderQuiet = false; }
+  }
   function swipeScrollerUnder(el) {
     for (let n = el; n && n !== document.body; n = n.parentElement) {
       if (n.nodeType !== 1) continue;
@@ -12723,10 +13036,12 @@
     // a swiped navigation arrives from the side the finger came from, and the outgoing page leaves the
     // other way — so the gesture and the transition tell the same story (see wirePageSwipe)
     const dir = _navDir; _navDir = "";
-    const ghost = makePageGhost(dir);   // the outgoing page, leaving over the incoming one
+    // a quiet repaint has no outgoing page to lift out — the reader is standing on the page being rebuilt
+    const quiet = _renderQuiet;
+    const ghost = quiet ? null : makePageGhost(dir);   // the outgoing page, leaving over the incoming one
     // …and nothing travels under reduced motion, so nothing needs clipping
-    if (dir && !prefersReducedMotion()) clipStageFor(PAGE_GHOST_MS + 80);
-    view.innerHTML = '<div class="page' + (dir ? " page-" + dir : "") + '"></div>';
+    if (dir && !quiet && !prefersReducedMotion()) clipStageFor(PAGE_GHOST_MS + 80);
+    view.innerHTML = '<div class="page' + (quiet ? " page-quiet" : "") + (dir ? " page-" + dir : "") + '"></div>';
     if (ghost) { if (dir) ghost.classList.add("ghost-" + dir); view.appendChild(ghost); }
     const root = view.firstElementChild;
     (PAGES[current.name] || PAGES.home)(root, current.params);
@@ -12739,8 +13054,9 @@
     // a community card type's read-aloud spans, wherever a page painted one (the Studio's previews, a
     // shared deck's sample card). The study card's own reveal paints after this and wires its own.
     wireSpeakControls(root);
-    // a smooth scroll is a JS scroll option, so the stylesheet's reduced-motion killswitch can't reach it
-    window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
+    // a smooth scroll is a JS scroll option, so the stylesheet's reduced-motion killswitch can't reach it —
+    // and a quiet repaint must not move the reader at all, which is half of what makes it quiet
+    if (!quiet) window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? "auto" : "smooth" });
     /* The walkthrough is deliberately NOT in the close list above: it NAVIGATES (the add-a-deck step routes
        to the collections and back), so a render() that dismissed it would dismiss it at exactly the moment
        it was doing its job. What it does need is re-measuring — the page it was pointing at has just been
@@ -16699,11 +17015,16 @@
   function refreshAddButtons() {
     // …[data-uaddsub] with them: adding a deck now adds its subdecks, so their own buttons have to follow
     // in the same sweep, or the rows below the one just pressed go on reading "add" over something added
-    document.querySelectorAll(".node-add[data-id], .collection-add[data-id], .collection-add[data-uadd], .collection-add[data-uaddsub]").forEach((b) => {
-      const eid = b.dataset.id != null ? b.dataset.id
+    document.querySelectorAll(".node-add[data-id], .collection-add[data-id], .collection-add[data-uadd], .collection-add[data-uaddsub], .collection-add[data-langadd]").forEach((b) => {
+      /* [data-langadd] carries a LIST — a language banner's + is on only when every deck of that language
+         is, so a language half added goes on offering to complete itself rather than showing a tick over a
+         collection the reader has only part of. */
+      const many = b.dataset.langadd != null ? String(b.dataset.langadd).split(",").filter(Boolean) : null;
+      const eid = many ? null
+        : b.dataset.id != null ? b.dataset.id
         : b.dataset.uaddsub != null ? b.dataset.uaddsub
         : uDeckEntry(b.dataset.uadd);
-      const on = isActive(eid);
+      const on = many ? (many.length > 0 && many.every(isActive)) : isActive(eid);
       b.classList.toggle("added", on);
       b.innerHTML = addIcon(on);
       b.setAttribute("aria-label", on ? "Remove from review" : "Add to review");
@@ -17301,7 +17622,7 @@
     egypt: "pyramid",
     ww2: "plane",
     japan: "torii",
-    geography: "compass",
+    "geo-us": "compass",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
   function iconSvg(key) { return ICON_SVG_OPEN + (ICON_PATH[key] || ICON_PATH.cards) + "</svg>"; }
@@ -17407,7 +17728,7 @@
   function deckProgMarkup(studied, total) {
     const pct = total > 0 ? Math.min(100, (studied / total) * 100) : 0;
     return '<div class="xp deck-prog" data-pct="' + pct.toFixed(2) + '">' +
-      /* Grouped, since a language collection reaches five figures (23,666 for Mandarin) and the deck rows
+      /* Grouped, since a language collection reaches five figures (23,064 for Mandarin) and the deck rows
          directly under it have always grouped theirs — one screen saying 15296 above 1,178 reads as a
          mistake. Inert on every curated collection, none of which passes 999. */
       '<div class="xp-head"><span class="xp-lvl">Studied</span><span class="xp-count">' + studied.toLocaleString() + ' / ' + total.toLocaleString() + ' cards</span></div>' +
@@ -18665,6 +18986,10 @@
       if (p) return hueOf(p, hops + 1);
       // …and at the end of the chain, whichever default the row has: a collection's hue, or for one of the
       // reader's own decks the colour its AUTHOR shipped it in
+      // …or, at the head of a LANGUAGE's own decks, the hue that language's banner wears one page over.
+      // It has no `data-node` to be asked about, so without this a repaint would strip the container's
+      // colour AND the colour every deck under it inherits from it.
+      if (isLangCtxId(el.dataset.drag)) return langCtxHue(el.dataset.drag);
       return el.dataset.node ? collectionHue(el.dataset.node) : uDeckColorOf(el.dataset.drag);
     };
     rows.forEach((el) => {
@@ -18784,9 +19109,24 @@
        Positions are read from the LAYOUT (deckLayoutTop + offsetHeight), never the paint, for the reason the
        reorder does: a sibling part-way through its own FLIP is painted somewhere it is not. `elementFromPoint`
        is no use here either — `.dk-reordering` takes the rows out of hit-testing so none of them lights up
-       under the carried block. */
+       under the carried block.
+
+       AND A NESTING IS SIDEWAYS WHERE A REORDER IS VERTICAL (Aug 2026, on a bug report from a phone: "when
+       I try to drag active collections to reorder them, they disappear"). The middle band alone cannot tell
+       the two apart, and on a phone it decides against the reader: a row is 46px, so the band is about
+       fifteen of them, and a thumb travelling straight down to move a collection two places lands in one
+       about a third of the time. Reproduced with real touch at 390×844 — an 88px drag, less than two rows,
+       filed a whole collection inside its neighbour, eleven rows down and indented under a 43-row subtree.
+       Nothing was lost and nothing threw; from the top of the list, where the reader was looking, it was
+       simply gone. So the pointer must ALSO have travelled `NEST_DX` in the writing direction from where
+       the grip was taken, which is the outline-editor convention (drag right to indent) and which a
+       straight-down drag can never satisfy. It stays discoverable because `.dk-into` lights the row the
+       moment the threshold is met, and it costs the deliberate gesture nothing: the grip sits in the row's
+       left padding, so a drop aimed at another row's middle is a rightward move already. */
     const DROP_EDGE = 0.34;   // the top and bottom third of a row stay "reorder"; the middle is "put it inside"
+    const NEST_DX = 28;       // …and how far sideways a drag has to have gone before the middle band means anything
     function dropTargetAt(e, d) {
+      if ((e.clientX - d.grabX) * d.dir < NEST_DX) return null;
       const block = new Set(d.block);
       for (const r of rows()) {
         if (block.has(r) || !shown(r)) continue;
@@ -18836,7 +19176,9 @@
         const block = blockOf(el), vis = block.filter(shown);
         // …and a row may now be dragged even where it is the only one at its level: it has nowhere to go
         // among its siblings, but it can still be dropped INTO a group or another deck
-        drag = { el, block, vis, tops: vis.map((b) => b.getBoundingClientRect().top), grabY: e.clientY, moved: false, pid: e.pointerId, into: null };
+        drag = { el, block, vis, tops: vis.map((b) => b.getBoundingClientRect().top),
+                 grabY: e.clientY, grabX: e.clientX, dir: document.documentElement.dir === "rtl" ? -1 : 1,
+                 moved: false, pid: e.pointerId, into: null };
         // capture on the LIST, not the grip: the pointer spends the drag over other rows, and the grip is
         // being transformed out from under it
         try { listEl.setPointerCapture(e.pointerId); } catch (x) {}
@@ -19017,14 +19359,29 @@
        It is drawn SMALLER here (22px against 34) and only where there is something to draw, because at
        390px the row is three piles, a name, a bar and a chevron, and the name is the only part of it with
        a shorter form — so every pixel this takes is taken from the thing the reader is reading. */
-    const adIconKey = (entryId) => {
+    const adIconKey = (entryId, parentKey) => {
       const n = NODE_BY_ID[entryId];
       if (n) return n.parentId ? "" : (COLLECTION_ICON[entryId] || "cards");
+      // a LANGUAGE container is the row that is a collection, so it wears the speech bubble its own
+      // banner wears on the Collections page — the one place seven collections share a mark
+      if (isLangCtxId(entryId)) return "speech";
+      /* …AND A DECK DRAWN INSIDE ONE GETS NOTHING (Aug 2026, on request: "decks within language
+         collections shouldn't get their own icons in the active decks section, only the collection
+         itself should"). A language deck is a community deck, so without this it takes the card stack
+         below — and a reader who adds seven levels of Spanish gets one speech bubble over seven
+         identical stacks, which is the forty-pagoda case the rule above exists to prevent, one store
+         over. It is the SAME rule as the curated side's, where a deck inside a collection carries no
+         icon either; what differs is only that a language's decks are its members rather than its
+         children in a tree, so the test has to be on the ROW'S PARENT rather than on the deck. A deck
+         the reader has dragged OUT of its language sits at the top level with nothing above it to say
+         what it is, and keeps its stack. An icon the reader has set themselves still wins — this is
+         the automatic mark, and `entryIconMarkup` reads it as a fallback. */
+      if (isLangCtxId(parentKey)) return "";
       const dId = uDeckIdOf(entryId);
       if (dId && UDECKS[dId] && !uSubOf(entryId)) return "cards";
       return "";
     };
-    const adIcon = (entryId) => entryIconMarkup(entryId, adIconKey(entryId), "dk-ic");
+    const adIcon = (entryId, parentKey) => entryIconMarkup(entryId, adIconKey(entryId, parentKey), "dk-ic");
     const adProg = (ids) => {
       const total = ids.length, studied = ids.filter(isSeen).length;
       /* `data-total` / `data-studied` are the two numbers the bar is DRAWN from, written down beside the
@@ -19087,6 +19444,13 @@
            without members. */
       const nestUsed = Object.keys(deckNestMap()).length > 0;
       const kidsOf = (id) => (nestUsed ? nestChildren(id) : []);
+      /* Under a language's own container the language is stated one row up, so the deck's row drops it —
+         "DELE A1 — Spanish" beneath a row reading "Spanish" says the word twice and spends the row's one
+         short field on the half that is the same on every row under it. See langShortTitle: it is a
+         render-time trim and never a change to the catalogue, and it is keyed on the ROW'S PARENT rather
+         than on the deck, because a language deck standing at the top of this list — which is what a
+         deck dragged out of its container is — has nothing above it to supply the missing word. */
+      const adTitle = (t, parentKey) => (isLangCtxId(parentKey) ? langShortTitle(t, langCtxName(parentKey)) : t);
       const emit = (id, depth, parentKey, hue) => {
         if (isGroupId(id)) {
           const g = groupRec(id);
@@ -19096,9 +19460,37 @@
           orderedIds(id, kidsOf(id)).forEach((c) => emit(c, depth + 1, id, h));
           return;
         }
+        /* A LANGUAGE, gathering the decks of its own that the reader has added — see langCtxId(). It is a
+           CONTEXT row: no `active`, no `flat`, no `group`, so it falls through to the quiet template at
+           the end, which is the same one an unadded curated collection above the reader's own deck gets.
+           Its members were collected in the `tops` loop below and are drawn here in the reader's own
+           order, alongside anything they have dragged in, exactly as a collection's decks are. */
+        if (isLangCtxId(id)) {
+          const members = (langCtx.get(id) || []).filter((e) => !nestParentOf(e));
+          const kids = members.concat(kidsOf(id));
+          const h = groupColor(id) || langCtxHue(id) || hue;
+          rows.push({ langhead: true, id, title: langCtxName(id), depth, parent: parentKey, drag: id, hue: h, kids });
+          orderedIds(id, kids).forEach((c) => emit(c, depth + 1, id, h));
+          return;
+        }
         const n = NODE_BY_ID[id];
         if (n) { walk(n, depth, parentKey, hue); return; }
         const ud = UDECKS[uDeckIdOf(id)];
+        /* A DECK THIS DEVICE HAS NOT DOWNLOADED YET (Aug 2026, on request). `S.active` syncs and the cards
+           do not, so a deck added on a phone arrives here as an entry with no deck behind it — and the row
+           it draws is the one control that can do anything about that: a Download button carrying the file
+           size. It has no counts, no bar and no `data-review`, because there is nothing to study and a row
+           that answers a tap by dealing nothing is worse than one that plainly cannot be tapped.
+           EVERY ACTIVE ENTRY OF A PENDING DECK COLLAPSES INTO THIS ONE ROW — see the `tops` loop, which
+           pushes the whole-deck id once per pending deck. Nine "Level" rows each offering to download the
+           same 21 MB file would be nine answers to one question, and the levels appear the moment it lands. */
+        if (!ud && entryPending(id)) {
+          const cat = langCatalogById(uDeckIdOf(id));
+          rows.push({ pending: uDeckIdOf(id), id, depth, parent: parentKey, drag: id,
+                      title: adTitle(cat ? cat.title : uDeckIdOf(id), parentKey), bytes: cat ? cat.bytes : 0,
+                      hue: groupColor(id) || hue, kids: [] });
+          return;
+        }
         // the reader's own choice, then whatever the row above passed down, then the deck AUTHOR's default
         const h = groupColor(id) || hue || uDeckColorOf(id);
         // a SUBDECK of one of the reader's own decks is named by the subdeck, with its deck for context —
@@ -19137,7 +19529,7 @@
         const ctx = tplHere >= 0 ? (uSubName(sub) || ud.title)
           : sub ? (uSubName(uSubParent(sub)) || ud.title) : "";
         rows.push({ flat: id, id, depth, parent: parentKey, drag: id,
-                    title: ud ? (uTplName(id) || uSubName(sub) || ud.title) : COTD_TITLE,
+                    title: ud ? (uTplName(id) || uSubName(sub) || adTitle(ud.title, parentKey)) : COTD_TITLE,
                     // the context line names what CONTAINS the row, which for a nested path is the
                     // subdeck above it rather than the deck at the top of it
                     sup: (ctx && !underOwnDeck) ? ctx : "",
@@ -19174,8 +19566,32 @@
          has made join that same run; anything dragged INTO one leaves it, being drawn under its container. */
       const tops = [];
       TREE.collections.forEach((d) => { if (!isComingSoon(d) && show.has(d.id)) tops.push(d.id); });   // a coming-soon collection's decks sit the review out
+      /* A deck that is on the list and not on the device gets ONE row, whichever of its entries the reader
+         happens to have — see the pending branch of emit(). It is pushed under the WHOLE-DECK id even when
+         that entry is not itself active, since that is the row a download is asked for on. */
+      const pendingSeen = new Set();
+      /* …AND A LANGUAGE'S DECKS ARE GATHERED UNDER THE LANGUAGE rather than joining this run flat. See
+         langCtxId() for why the curated side needs nothing of the sort and this does. The container is
+         pushed once, in the place its FIRST member would have taken, so a language keeps whatever
+         position in the list the reader dragged its decks to; its members leave `tops` and are drawn by
+         emit() as its children. A member is looked up by its DECK id, so a whole deck, a subdeck and a
+         direction all land under the same language, and a deck that is not on this device — which is the
+         common case on a second machine — lands there too rather than sitting outside the fold. */
+      const langCtx = new Map();
+      const langCtxFor = (lang) => {
+        const cid = langCtxId(lang);
+        if (!langCtx.has(cid)) { langCtx.set(cid, []); tops.push(cid); }
+        return langCtx.get(cid);
+      };
       activeIds.forEach((id) => {
         const dId = uDeckIdOf(id);
+        const cat = dId ? langCatalogById(dId) : null;
+        if (dId && !UDECKS[dId] && cat) {
+          if (pendingSeen.has(dId)) return;
+          pendingSeen.add(dId);
+          langCtxFor(cat.lang).push(uDeckEntry(dId));
+          return;
+        }
         if (!dId || !UDECKS[dId]) return;
         /* …unless its own CONTAINER is on the list too, in which case emit() has just drawn it as a child.
            The container is the subdeck above it where the path has one, and the deck otherwise — testing
@@ -19187,6 +19603,7 @@
           const container = parent ? uSubEntry(dId, parent) : uDeckEntry(dId);
           if (activeIds.indexOf(container) !== -1) return;
         }
+        if (cat) { langCtxFor(cat.lang).push(id); return; }
         tops.push(id);
       });
       if (activeIds.indexOf(COTD_ENTRY) !== -1) tops.push(COTD_ENTRY);
@@ -19222,7 +19639,10 @@
            deck that swallows them the moment it is added is exactly what this was reported as. A curated
            collection still starts shut — those run to forty-odd rows, where a deck's subdecks are a handful. */
         const ownDeck = r.flat && UDECKS[uDeckIdOf(r.flat)] && !uSubOf(r.flat);
-        if (isGroupId(r.drag) || ownDeck || (r.node && seedOpen(r.node))) adOpen.add(r.drag);
+        /* A LANGUAGE container starts OPEN, which is what `seedOpen` would say of it if it had a node to
+           be asked about: it lies entirely above everything the reader added — they added the decks, not
+           the language — so folding it would hide their own choice behind a row they cannot even tap. */
+        if (isGroupId(r.drag) || isLangCtxId(r.drag) || ownDeck || (r.node && seedOpen(r.node))) adOpen.add(r.drag);
       });
       // the container chain each row hangs from, for the fold — the same reading adSyncFold takes off the DOM
       const parentOf = new Map();
@@ -19240,6 +19660,30 @@
           const chev = hasKids.has(r.drag) ? chevBtn("dk-chev") : '<span class="dk-chev-gap" aria-hidden="true"></span>';
           const title = r.title || (r.node ? nodeTitle(r.node) : r.drag);
           const nodeAttr = r.node ? ` data-node="${esc(r.node.id)}"` : "";
+          /* A LANGUAGE HEADER (Aug 2026, on a bug report: "the languages collection headers in the active
+             decks section looks greyed out and lacks the colored numbers on the left"). It used to fall
+             through to the quiet `context` template at the foot of this list, which paints `--paper-2`
+             under a 14px `--ink-faint` title — right for an ancestor signpost the reader never chose, and
+             wrong here: a language IS one of the reader's collections, drawn with the same banner as a
+             curated one on the Collections page, so on this page it should read as a header rather than as
+             a row apologising for itself. It takes the group header's wash and the ordinary title face,
+             plus the three coloured piles and the bar every other row carries — which it can now answer for,
+             `entryCardIds` having learnt to union its members.
+             IT IS STILL NOT A GROUP: no `data-review`, no `role`, no tab stop, because "study all of
+             Spanish" is a scope the reader never asked for — the look is what was reported, not the
+             behaviour. */
+          if (r.langhead) {
+            return `<div class="active-deck dk-langhead${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px">
+              ${grip}
+              ${adIcon(r.drag, r.parent)}
+              ${adCounts(r.drag)}
+              <div class="dk-body">
+                <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
+                ${adProg(entryCardIds(r.drag))}
+              </div>
+              ${chev}
+            </div>`;
+          }
           /* A GROUP HEADER — a thinner banner over the decks it holds, in a slightly deeper wash of its own
              colour so the run below reads as belonging to it. Tapping it studies everything inside; holding
              it — or right-clicking — opens its options, which is where the colour, the name and Ungroup live.
@@ -19252,7 +19696,7 @@
           if (r.group) {
             return `<div class="active-deck deck-group${shut}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Study everything in ${esc(title)}">
               ${grip}
-              ${adIcon(r.drag)}
+              ${adIcon(r.drag, r.parent)}
               ${adCounts(r.drag)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
@@ -19261,12 +19705,30 @@
               ${chev}
             </div>`;
           }
+          /* A DECK THIS DEVICE HAS NOT GOT YET. The one row on this list that cannot be studied, so it is
+             the one row that is not a button: no `data-review`, no counts and no bar, because every one of
+             those would be a figure about cards that are not here. What it carries instead is the control
+             the situation actually calls for — Download, with the size of the file on it, since a reader
+             on a phone is entitled to know what they are about to spend before they spend it.
+             It is still an ordinary row in every other respect: the grip, the indent, the hue and the hold
+             menu are the list's own, so it can be dragged into place and removed like anything else. */
+          if (r.pending) {
+            return `<div class="active-deck dk-pending${shut}" data-pending="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px">
+              ${grip}
+              ${adIcon(r.drag, r.parent)}
+              <div class="dk-body">
+                <div class="dk-line"><span class="dk-title">${esc(title)}</span><span class="dk-sup">not on this device</span></div>
+              </div>
+              <button class="btn tiny dk-dl" type="button" data-langdl="${esc(r.pending)}">Download ${esc(fmtDeckSize(r.bytes))}</button>
+              ${chev}
+            </div>`;
+          }
           // one of the reader's own decks, or the Card-of-the-day list: nothing of the tree under it, but an
           // ordinary row of the list in every other way — this one included
           if (r.flat) {
             return `<div class="active-deck${shut}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Review just ${esc(title)}">
               ${grip}
-              ${adIcon(r.drag)}
+              ${adIcon(r.drag, r.parent)}
               ${adCounts(r.drag)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span>${r.sup ? `<span class="dk-sup">${esc(r.sup)}</span>` : ""}</div>
@@ -19278,7 +19740,7 @@
           if (r.active) {
             return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
               ${grip}
-              ${adIcon(r.node.id)}
+              ${adIcon(r.node.id, r.parent)}
               ${adCounts(r.node.id)}
               <div class="dk-body">
                 <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
@@ -19289,7 +19751,7 @@
           }
           return `<div class="active-deck context${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px">
             ${grip}
-            ${r.node ? adIcon(r.node.id) : ""}
+            ${adIcon(r.drag, r.parent)}
             <div class="dk-body">
               <div class="dk-line"><span class="dk-title">${esc(title)}</span></div>
             </div>
@@ -19426,7 +19888,14 @@
        there by resetting or by adding a collection before turning a single card over. That second case is
        an improvement rather than a side effect: someone who has just pressed "+ Add decks" is better served
        by their own pile and a Start button than by being told again what Folio is for. */
-    const fresh = Object.keys(S.cards).length === 0 && activeCardIds().length === 0;
+    /* …AND A DECK THAT IS ADDED BUT NOT YET DOWNLOADED COUNTS AS "not fresh" TOO (Aug 2026, added with
+       the Add/Download split). Such an entry yields no cards — that is the whole point of it — so
+       `activeCardIds()` is legitimately empty and a reader whose only choice so far is a pending language
+       deck would meet the first-run hero, which HIDES the deck list and with it the Download button: the
+       one control that can turn that entry into cards. Being unable to reach it is the same failure the
+       clause above was written for, one step further along. */
+    const fresh = Object.keys(S.cards).length === 0 && activeCardIds().length === 0 &&
+      !(S.active || []).some((id) => entryPending(id));
     /* THE DISCOVERY ROW IS GONE — the card of the day, the gloss of the day and the Atlas teaser with it
        (Aug 2026, on request). It went from the phone first, on the grounds that a phone's home page is the
        day's work; the request a fortnight later was to bring the desktop into line with the phone rather
@@ -19690,6 +20159,32 @@
             // …and a subdeck of one of the reader's own decks studies just that subdeck
             : ud ? { type: "udeck", id: ud, sub: uSubOf(id), tpl: uTplOf(id) } : { type: "deck", id },
         });
+      });
+    });
+    /* A row for a deck this device has not downloaded. It carries no `data-review` — there is nothing to
+       study — so the walk above passes it by; what it does get is the same hold menu every other row has,
+       so it can be removed from the list, and a Download button. The button stops the press as well as the
+       click, since wireHoldMenu starts its timer on pointerdown and a reader holding Download for a moment
+       would otherwise be handed the deck's options sheet on top of the fetch. */
+    root.querySelectorAll(".active-deck[data-pending]").forEach((el) => {
+      const id = el.dataset.pending;
+      wireHoldMenu(el, () => openDeckMenu(id), () => {});
+    });
+    root.querySelectorAll("[data-langdl]").forEach((b) => {
+      b.addEventListener("pointerdown", (e) => e.stopPropagation());
+      b.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        if (b.disabled) return;
+        b.disabled = true;
+        const was = b.textContent;
+        b.textContent = "Downloading…";
+        const r = await langDeckDownload(b.dataset.langdl);
+        /* uImportDone repaints the page, so this button is gone by the time it returns — which is why the
+           failure path puts it back itself rather than leaving it to a render that never comes. The repaint
+           is QUIET: the reader is standing on this very list, so the row turns into the deck under them
+           rather than the page scrolling to the top and animating itself back in. */
+        if (r.error) { b.disabled = false; b.textContent = was; }
+        await uImportDone(r, true);
       });
     });
     /* The subdeck fold. The chevron sits INSIDE a row whose own click starts a session and whose own hold
@@ -20084,12 +20579,41 @@
     if (so) so.addEventListener("change", () => { glossSort = so.value; repaint(); });
   };
 
+  /* THE SECTION A COLLECTION IS DRAWN UNDER on the Collections page, in the order the sections appear.
+     Anything not named in `COLLECTION_SECTION` is HISTORY, which is what almost every collection is and
+     which is what that heading read as ("Collections") until Aug 2026, on request: "rename the
+     Collections section to History. Put a section directly below it titled Geography, and put there a
+     collection titled United States".
+
+     IT IS A DECLARED TABLE RATHER THAN A LEVEL IN THE TREE, for the reason `COLL_THEME` and
+     `COLLECTION_ICON` are: a section is how this ONE PAGE is arranged, and making it a node would put
+     every collection a level deeper in `S.active`, in `entryCardIds`, in the daily-study list and in
+     every `#decks` link ever shared. Geography WAS such a node — a wrapper holding one deck, "The United
+     States" — so what shipped is that node promoted to the collection the request asks for, its own two
+     decks now directly inside it, rather than a third level added above them.
+
+     History keeps the slot id `collection-list-all`, which five test files and the admin drag both name.
+     THE COMING-SOON FOLD SITS BELOW ALL THREE SUBJECT SECTIONS (Aug 2026, on request; it was History's
+     tail for a day). It holds nothing but history collections today, so the tail reading was defensible
+     and is the wrong shape all the same: a fold under one heading is a claim that what is in it belongs
+     to that subject, and the day a Geography or a Languages collection goes coming-soon it would land
+     under History without a word. Below all three it says what it is — everything still being written —
+     and needs no second fold when that day comes. */
+  const COLLECTION_SECTIONS = [
+    { label: "History", slot: "collection-list-all" },
+    { label: "Geography", slot: "collection-list-geo" },
+  ];
+  const COLLECTION_SECTION = { "geo-us": "Geography" };
+  const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
+
   /* ============================================================
      PAGE: DECKS
      ============================================================ */
   PAGES.decks = function (root) {
     const available = TREE.collections.filter((d) => !isComingSoon(d));
     const comingSoon = TREE.collections.filter((d) => isComingSoon(d));
+    const bySection = {};
+    available.forEach((d) => { (bySection[sectionOf(d.id)] = bySection[sectionOf(d.id)] || []).push(d); });
     const admin = isAdmin();
     const slot = (slotId, count) => `<div class="collection-list" id="${slotId}">${count === 0 && admin ? '<div class="lib-empty">Drag a collection here</div>' : ""}</div>`;
     const section = (label, n, slotId, count) =>
@@ -20124,17 +20648,27 @@
         ${/* The `.lib-cap` line stating how many decks the reader's level allowed is gone with the cap
               itself (Aug 2026, on request) — there is no limit left to state. */""}
       </div>
-      ${/* "Collections", not "All decks": the hierarchy is collection → deck → subdeck, and this group heads a
-            list of collections — the label contradicted both that and the page title above it. */""}
-      ${available.length || admin ? section("Collections", available.length, "collection-list-all", available.length) : ""}
-      ${comingSoon.length || admin ? soonSection(comingSoon.length, "collection-list-soon", comingSoon.length) : ""}
+      ${/* A heading per section, History first. An EMPTY section is drawn only for History, and only for
+            an admin: that one has a drop target worth offering, where a "Geography" heading over nothing
+            would advertise a section a drag cannot put anything into — the section comes from the table
+            above, not from where a collection is dropped. */""}
+      ${COLLECTION_SECTIONS.map((sec, i) => {
+        const items = bySection[sec.label] || [];
+        if (!items.length && !(admin && i === 0)) return "";
+        return section(sec.label, items.length, sec.slot, items.length);
+      }).join("")}
       ${langCollectionsHTML()}
+      ${/* …and the coming-soon fold under all three of them rather than under History, so it reads as
+            "everything still being written" rather than as a claim about one subject. */""}
+      ${comingSoon.length || admin ? soonSection(comingSoon.length, "collection-list-soon", comingSoon.length) : ""}
       ${communityLibraryHTML()}
       ${sharedDecksHTML()}`;
 
-    const allList = root.querySelector("#collection-list-all");
+    COLLECTION_SECTIONS.forEach((sec) => {
+      const list = root.querySelector("#" + sec.slot);
+      if (list) (bySection[sec.label] || []).forEach((d) => list.appendChild(buildCollection(d)));
+    });
     const soonList = root.querySelector("#collection-list-soon");
-    if (allList) available.forEach((d) => allList.appendChild(buildCollection(d)));
     if (soonList) comingSoon.forEach((d) => soonList.appendChild(buildCollection(d)));
     wireLibraryDnd(root);
     wireLangDecks(root);
@@ -20209,6 +20743,8 @@
         '<div class="node-main">' +
           '<div class="node-title-row">' +
             '<span class="node-title">' + esc(name) + '</span>' +
+          '</div>' +
+          '<div class="node-meta">' +
             '<span class="node-count">' + n + " " + (n === 1 ? "card" : "cards") + '</span>' +
           '</div>' +
           /* The curated deck row carries no progress bar and this one keeps its own: a subdeck is the
@@ -20240,8 +20776,29 @@
       uSubChildren(d.id, sub).map((c) => row(c, depth + 1)).join("");
     return fold(uSubChildren(d.id, "").map((s) => row(s, 0)).join(""));
   }
+  /* A LANGUAGE DECK IS NOT ONE OF "YOUR DECKS" (Aug 2026, on a bug report: adding a Language collection
+     "also moves it down to the Your Decks section … It shouldn't, since it also doesn't do this with
+     History collections, and they are no longer community-made decks but official ones").
+
+     The seven language collections are shelved as CURATED content — their own section, their own banners,
+     their own hues — and they happen to be delivered as community decks because their cards are 181 MB
+     and cannot ride in `data.js`. That is a fact about the plumbing, not about whose deck it is: once a
+     language deck is downloaded it lands in `UDECKS` like any other, and this section listed it a second
+     time under a heading saying it is somebody's private notes and "not fact-checked by Folio", which
+     contradicts the shelf directly above it.
+
+     THE TEST IS CATALOGUE MEMBERSHIP RATHER THAN "WAS IT ADDED", and it has to be: the row is a duplicate
+     whether it arrived through Add → Download or through Import a deck file, and a reader who removes it
+     from the review has not made it their own deck. A FORK keeps its own fresh id (`uDeckImportText` mints
+     one where the id is already mounted), so a copy somebody edits is not in the catalogue and stays here,
+     which is right — that one really is theirs.
+
+     IT IS THIS SECTION ONLY. The Studio still lists every mounted deck, since a deck on the device is a
+     deck the Studio may open, and the Daily-study row, the Download button and the language's own banner
+     are all untouched. */
   function communityLibraryHTML() {
-    const decks = uDeckList();
+    const mounted = uDeckList();
+    const decks = mounted.filter((d) => !langCatalogById(d.id));
     return '<div class="collection-group community-group">' +
       '<div class="group-head"><span class="group-label">Your decks</span><span class="group-line"></span><span class="group-count">' + decks.length + '</span></div>' +
       '<p class="udeck-intro">Decks you write yourself, and decks you install from other people. They study exactly like Folio’s own, but they are <b>not fact-checked by Folio</b>.</p>' +
@@ -20249,7 +20806,9 @@
         '<button class="btn" type="button" id="udNew">New deck</button>' +
         '<button class="btn ghost" type="button" id="udBrowse">Browse shared decks</button>' +
         '<button class="btn ghost" type="button" id="udImport">Import a deck…</button>' +
-        (decks.length ? '<button class="btn ghost" type="button" id="udStudio">Open the Studio</button>' : "") +
+        /* the Studio opens whatever is MOUNTED, language decks included — hiding the way in from a reader
+           whose only deck is a downloaded language would take a route away rather than remove a duplicate */
+        (mounted.length ? '<button class="btn ghost" type="button" id="udStudio">Open the Studio</button>' : "") +
       '</div>' +
       '<div class="collection-list">' +
         (decks.length ? decks.map(udeckRowHTML).join("") : '<div class="lib-empty">No decks yet. Write one, or import a deck file someone sent you.</div>') +
@@ -20335,6 +20894,12 @@
     root.querySelectorAll("[data-libitem]").forEach((el) => {
       const valid = () => {
         if (!dragId || el.dataset.libitem === dragId) return false;
+        /* A collection whose SECTION comes from `COLLECTION_SECTION` is neither dragged nor dropped onto.
+           This order decides a collection's place WITHIN its section and nothing here decides which
+           section it is in, so such a drag could only ever appear to do nothing — the row would be
+           re-ordered in the tree and drawn exactly where it was. Reordering History, and moving a
+           collection to and from Coming soon, are untouched. */
+        if (COLLECTION_SECTION[dragId] || COLLECTION_SECTION[el.dataset.libitem]) return false;
         if (kindOf() === "col" && el.dataset.libkind === "col") return true;
         if (kindOf() === "node" && el.dataset.libkind === "node" && el.dataset.libparent === parentOf()) return true;
         return false;
@@ -20491,11 +21056,27 @@
        the collection banner does — "0 cards" reads as a figure that failed to load. */
     const spanText = nodeDateOverride(node.id);
     const cardCount = subtreeCardIds(node).length;
-    const nodeSpanHTML =
+    /* AND HOW MUCH OF THE DOWNLOAD IT IS (Aug 2026, on request — the language decks say what they will
+       fetch and these were asked to say the same). A curated deck has no file of its own: its cards ship
+       inside `data.js`, so the figure is what they weigh there and the wording says so rather than
+       promising a fetch that happened before the reader saw the page. It sits on the title row beside the
+       count, where the language rows put theirs, so one fact is in one place on both. */
+    const bytes = nodeBytes(node);
+    const sizeText = cardCount ? fmtDeckSize(bytes) : "";
+    /* THE FIGURES SIT ON A LINE OF THEIR OWN, UNDER THE TITLE (Aug 2026, on request: "language decks
+       should say the card number and file size below their title, the same way history decks do"). They
+       used to share the title's line and WRAP onto a second one when they would not fit, which is a
+       layout that depends on the width and on how long the deck's name happens to be — so the same two
+       shelves read differently at different widths and on different rows, and neither could be pointed at
+       as "the way the other one does it". A line of its own is the same on every row at every width.
+       WHAT STAYS ON THE TITLE'S LINE IS A STATUS PILL — "Coming soon", "Empty" — because that is a fact
+       about the row rather than a figure about its contents, and it is what a reader is scanning for. */
+    const nodeMetaHTML =
       (spanText ? `<span class="node-span">${esc(spanText)}</span>` : "") +
-      (cardCount
-        ? `<span class="node-count">${cardCount} ${cardCount === 1 ? "card" : "cards"}</span>`
-        : soon ? "" : `<span class="pill soon">Empty</span>`);
+      (cardCount ? `<span class="node-count">${cardCount} ${cardCount === 1 ? "card" : "cards"}</span>` : "") +
+      (sizeText ? `<span class="node-size" title="These cards ship with the site, so they are already downloaded.">${sizeText}</span>` : "");
+    const nodeMetaRow = nodeMetaHTML ? `<div class="node-meta">${nodeMetaHTML}</div>` : "";
+    const nodeEmptyPill = (!cardCount && !soon) ? `<span class="pill soon">Empty</span>` : "";
 
     if (nodeIsBranch(node)) {
       const group = document.createElement("div");
@@ -20507,9 +21088,10 @@
           <div class="node-main">
             <div class="node-title-row">
               <span class="node-title">${esc(nodeTitle(node))}</span>
-              ${nodeSpanHTML}
+              ${nodeEmptyPill}
               ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
             </div>
+            ${nodeMetaRow}
           </div>
           ${nodeAddHTML(node)}
           ${chevBtn("chev-sm")}
@@ -20541,9 +21123,10 @@
       <div class="node-main">
         <div class="node-title-row">
           <span class="node-title">${esc(nodeTitle(node))}</span>
-          ${nodeSpanHTML}
+          ${nodeEmptyPill}
           ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
         </div>
+        ${nodeMetaRow}
       </div>
       ${nodeAddHTML(node)}`;
     const aBtn = subEl.querySelector(".node-add");
@@ -20578,24 +21161,34 @@
        chroma 50, both mid-band (the shelf runs L 28–55, chroma 7–62), so it is neither the darkest nor
        the most saturated thing on the page. The kinship worth avoiding was Egypt's malachite, the only
        other green, and it stands 46 away. */
-    geography: { bg: "#3E6610" },
-    /* THE SEVEN LANGUAGE COLLECTIONS (Aug 2026, on request). Measured exactly as the eleven above are —
-       swept in CIELAB over the shelf's own band (L 25–52, chroma 26–58) and taken greedily, each as far
-       as possible from every hue already placed and from every one taken before it. **The worst of the
-       seven clears 26.4, against a tightest EXISTING pair of 12.9**, so a language cannot be mistaken for
-       a history collection and the seven cannot be mistaken for each other.
+    "geo-us": { bg: "#3E6610" },
+    /* THE SEVEN LANGUAGE COLLECTIONS. The hues were MEASURED and unevocative when the section shipped —
+       swept in CIELAB and handed out alphabetically, on the reasoning that a flag colour would be a claim,
+       Spanish not being Spain's and French being spoken on five continents. **THAT REASONING WAS OVERRULED
+       ON REQUEST** (Aug 2026: "make Mandarin red, Spanish orange, Portuguese green, German brown, Italian
+       green, Indonesian red"), which is the site owner's call about their own shelf; French was not named
+       and keeps the blue it was measured into.
 
-       THE ASSIGNMENT IS ALPHABETICAL AND DELIBERATELY NOT EVOCATIVE. The obvious move is a flag colour,
-       and it would be a claim: these are decks for a LANGUAGE, and Spanish is not Spain's, Portuguese is
-       not Portugal's and French is spoken on five continents. So the measured hues are handed out in the
-       order the section lists the languages, which asserts nothing about any of them. */
-    "lang-french":     { bg: "#107CD0" },
-    "lang-german":     { bg: "#AC6464" },
-    "lang-indonesian": { bg: "#108E52" },
-    "lang-italian":    { bg: "#642E16" },
-    "lang-mandarin-chinese": { bg: "#887C10" },
-    "lang-portuguese": { bg: "#B252A6" },
-    "lang-spanish":    { bg: "#946A8E" },
+       WHAT IS STILL MEASURED IS WHICH red, orange, green and brown. Each was swept inside its own hue
+       window AND inside the shelf's own band (L 28–55, chroma 7–62), then taken greedily, each as far as
+       possible from every hue already placed. **The request puts TWO reds where two already sit** — China's
+       vermilion and Russia's lacquer — and two greens where Egypt's malachite and Geography's olive
+       already are, so the clearances here are tighter than the section's first sweep managed: the worst is
+       17.4 (Indonesian against Russia) against a tightest EXISTING pair of 12.9 (China against Russia), and
+       the two reds clear each other by 17.5 and the two greens by 24.8. Every one of the six is therefore
+       further from its nearest neighbour than the closest pair the page already carries, which is the bar
+       the shelf can honestly hold to now that four of its colours are red.
+
+       Nothing here is a flag: Mandarin is a muted rose-red rather than the PRC's, and the resemblance to
+       the CHINA collection's vermilion is left rather than avoided, those two genuinely being about one
+       place — the kinship test forbids a false claim, not a true one. */
+    "lang-french":     { bg: "#107CD0" }, // measured blue, not named in the request
+    "lang-german":     { bg: "#633318" }, // brown
+    "lang-indonesian": { bg: "#8D2D39" }, // red, the darker of the two
+    "lang-italian":    { bg: "#668D57" }, // green, the softer of the two
+    "lang-mandarin-chinese": { bg: "#C05A60" }, // red, the lighter of the two
+    "lang-portuguese": { bg: "#009657" }, // green
+    "lang-spanish":    { bg: "#AE5A33" }, // orange
   };
   // (the gold collection seals were removed on request — banners carry only the hue wash + level numeral)
   // (the old collectionDecoSVG motif tiles — drifting stars/laurels/meanders on the banners — were
@@ -23586,49 +24179,223 @@
      and each deck's own Add is what brings a deck in; once in, it has a full row in "Your decks" below.
 
      THE BAR IS HONEST ON A DECK THAT IS NOT HERE YET: total is the catalogue's card count and studied is
-     summed over the decks actually installed, so an untouched language reads 0 of 23,666 rather than
+     summed over the decks actually installed, so an untouched language reads 0 of 23,064 rather than
      claiming a denominator it has no cards for. */
-  function langDeckMB(b) { return (b / 1048576).toFixed(1); }
+  /* A DECK'S OWN DECKS (Aug 2026, on request: "when I open the Mandarin Chinese collection, I should see
+     the 9 decks inside it, and any subdecks if there are, displayed in the same way as History decks and
+     subdecks"). A community deck groups its cards into subdecks on a `::` path, and the catalogue carries
+     that tree — a node per prefix, counted in CARDS — so the page can draw it without fetching 21 MB to
+     find out what is inside.
+
+     THEY ARE THE CURATED TREE'S OWN ROWS, exactly as the deck rows above them are: `.node` in a
+     `.node-children` fold under a `.node.branch`, so the box, the indent, the chevron, the entrance
+     stagger and every theme's treatment come free and cannot drift from the collections one section up.
+
+     WHAT THEY DELIBERATELY HAVE NOT GOT IS AN ADD BUTTON. A deck is one FILE, so half of one cannot be
+     fetched; the whole deck is added and its subdecks then appear in "Your decks" below with their own
+     add-to-review buttons and their own direction rows. A row here is a statement of what is inside,
+     which is what a reader deciding whether to download 21 MB actually wants to know.
+
+     A DIRECTION IS NOT DRAWN HERE. `Spanish → English` is a real `sub` on the DELE decks and so appears;
+     the direction rows a one-note-two-templates deck grows are a property of an INSTALLED deck, derived
+     from its card type at study time, and there is nothing in the catalogue that could honestly say so. */
+  /* A ROW ON THIS SHELF, at any depth. One builder for a deck and for a subdeck, because since Aug 2026
+     they are the same kind of thing: Add no longer downloads anything, so a subdeck row can be added on
+     its own exactly as a deck row can, and the two differ only in which entry id they write.
+
+     THEY ARE THE CURATED TREE'S OWN ROWS: `.node` in a `.node-children` fold under a `.node.branch`, with
+     the same number, title, count, size, add button and chevron a collection's decks wear one section up,
+     so the two shelves cannot drift.
+
+     WHAT THEY NO LONGER CARRY IS A DESCRIPTION (Aug 2026, on request: "the language decks shouldn't have
+     descriptions in their banners since the history decks don't have that either"). The catalogue still
+     records one — it is a fact about the deck file — and this shelf simply does not print it.
+
+     WHAT THEY DELIBERATELY DO NOT CARRY IS THE ADMIN GRIP, and that is a gap rather than an oversight. A
+     curated row's `libGripHTML` drags a TREE NODE and writes the new order into `ADMIN_EDITS`, which is
+     the editor's overlay over `data.js`; a language row has no tree node behind it at all, and its order
+     comes from `.claude/build-lang-decks.js`, which sorts by the level the exam itself names and is
+     regenerated from `decks/` — so a dragged order would be thrown away by the next rebuild unless it were
+     given a store of its own. That is a decision about where a language deck's order lives, so it is left
+     for whoever wants it rather than half-built here. */
+  function langRowHTML(o, index, depth) {
+    depth = depth || 0;
+    const num = String(index + 1).padStart(2, "0");
+    /* THE SIZE IS THE FILE'S, and on an unwrapped deck one file serves every row — so the title says so
+       rather than leaving nine rows reading "20.6 MB" to be added up. Both shelves print the bytes and
+       nothing else, which is the request's own "one fact in one place on both": what differs between them
+       is what the figure MEANS, and that is where the difference belongs. */
+    const sizeTitle = o.shared
+      ? "These decks are in one " + fmtDeckSize(o.bytes) + " file — downloading any of them brings them all."
+      : "Downloaded from this deck's own row in Daily study, once you have added it.";
+    const main =
+      '<div class="node-main">' +
+        '<div class="node-title-row">' +
+          '<span class="node-title">' + esc(o.title) + '</span>' +
+        '</div>' +
+        /* The count and the size on a line of their own under the title, exactly as the curated shelf
+           now sets them — see `nodeMetaHTML` in buildNode for why they left the title's line. */
+        '<div class="node-meta">' +
+          '<span class="node-count">' + (o.cards || 0).toLocaleString() + " cards</span>" +
+          '<span class="node-size" title="' + esc(sizeTitle) + '">' + esc(fmtDeckSize(o.bytes)) + "</span>" +
+        '</div>' +
+      '</div>';
+    /* THE ADD BUTTON IS THE CURATED ONE, `data-id` and all, so `wireAddButton` and `refreshAddButtons`
+       cover it with no selector to widen: `data-id` on that button has always been an ENTRY id and an
+       entry of one of the reader's own decks is as good an entry as a tree node's.
+       IT DOWNLOADS NOTHING (Aug 2026, on request). Pressing it writes the entry into S.active and stops;
+       the cards are fetched from the Download button the row then grows in Daily study. That split is what
+       makes a deck added on a phone reachable on a laptop, S.active being synced where the cards are not. */
+    const on = isActive(o.entry);
+    const act = '<button class="node-add' + (on ? " added" : "") + '" data-id="' + esc(o.entry) +
+      '" aria-label="' + (on ? "Remove from review" : "Add to review") + '">' + addIcon(on) + "</button>";
+    const head = '<span class="node-num">' + num + "</span>";
+    const kids = Array.isArray(o.kids) ? o.kids : [];
+    /* `.lang-deck` MARKS A TOP-LEVEL ROW AND `.lang-sub` A NESTED ONE, and that distinction is worth
+       keeping now that the two are built by one function: `.node.lang-deck` is how the page counts a
+       language's DECKS, so a subdeck wearing it would make every language claim more than it has —
+       Spanish would read 21 for its seven levels and their fourteen directions. */
+    const kind = depth ? "lang-sub" : "lang-deck";
+    if (!kids.length) return '<div class="node ' + kind + '">' + head + main + act + "</div>";
+    return '<div class="node-group lang-group">' +
+      '<div class="node branch ' + kind + '" tabindex="0" role="button">' + head + main + act + chevBtn("chev-sm") + "</div>" +
+      '<div class="node-children"><div class="node-children-inner"><div class="node-children-pad">' +
+        kids.map((k, i) => langRowHTML(k, i, depth + 1)).join("") +
+      "</div></div></div>" +
+    "</div>";
+  }
+  /* A catalogue tree node turned into a row spec, all the way down. The entry id is the same one app.js
+     uses everywhere else for a subdeck of one of the reader's own decks, so a row added here is the row
+     that appears in Daily study and, once the file lands, the row that studies. */
+  function langNodeSpecs(deckId, bytes, shared, prefix, nodes) {
+    return (nodes || []).map((n) => {
+      const path = prefix ? prefix + SUB_SEP + n.n : n.n;
+      return { entry: uSubEntry(deckId, path), title: n.n, cards: n.c || 0, bytes: bytes, shared: shared,
+               kids: langNodeSpecs(deckId, bytes, shared, path, n.k) };
+    });
+  }
+  /* THE ROWS A LANGUAGE DRAWS, which is not always one per deck file (Aug 2026, on request: "The Mandarin
+     Chinese collection should only contain its nine subdecks, not the combined folder … i.e. unwrap them",
+     and "for indonesian, unwrap 'Indonesian Phrases and Expressions'").
+
+     A deck the catalogue marks `flat` contributes its top-level subdecks as the language's own decks and
+     draws no row for the file itself — because for those decks the file is a container and nothing more,
+     where for a DELE level the file is the level and its two subdecks are directions of it. Which is which
+     is decided in `.claude/build-lang-decks.js`, where the reasoning lives; it catches three decks and not
+     the two the request names, Portuguese's phrase deck being the same shape as Indonesian's. */
+  function langRowSpecs(rows) {
+    const out = [];
+    rows.forEach((r) => {
+      const tree = Array.isArray(r.tree) ? r.tree : [];
+      if (r.flat && tree.length) { out.push(...langNodeSpecs(r.id, r.bytes, true, "", tree)); return; }
+      out.push({ entry: uDeckEntry(r.id), title: langShortTitle(r.title, r.lang), cards: r.cards || 0,
+                 bytes: r.bytes, shared: false, kids: langNodeSpecs(r.id, r.bytes, false, "", tree) });
+    });
+    return out;
+  }
+  /* A DECK ROW DOES NOT REPEAT THE LANGUAGE ITS COLLECTION IS NAMED AFTER (Aug 2026, on request:
+     "language decks do not need to name the language in their title, since its already mentioned in the
+     collection name"). Under a banner reading "Spanish", "DELE A1 — Spanish" says the word twice and
+     spends the row's one short field on the half that is the same on every row of the shelf.
+
+     IT IS A RENDER-TIME TRIM AND NEVER A CHANGE TO THE CATALOGUE, which is what keeps it safe: the deck's
+     own `meta.title` is what a reader sees on the Daily-study download row, in the Studio, in an export
+     file and on the shared-decks shelf, where there is no collection above it to supply the missing word —
+     so the FULL title has to survive, and only the place that already states the language may drop it.
+     THE DAILY-STUDY LIST IS BOTH, which is why its own caller tests the row's PARENT: a deck drawn under
+     its language's container has the word above it and drops it, and one standing at the top of that list
+     — a deck dragged out of its container, or the Download row of a language whose container is not being
+     drawn — keeps it.
+
+     WHAT IT REMOVES IS THE LANGUAGE'S OWN NAME and the separator left dangling beside it, never a word
+     that merely looks like one: it strips the name where the name occurs, tidies the dash or the double
+     space that is left, and hands back the ORIGINAL if the trim would leave nothing — a title that is
+     only the language ("Spanish") is a row that must go on saying so. `Mandarin Chinese` is stripped
+     whole; a title naming only the shorter half of a two-word language keeps it, which is deliberate,
+     since "Chinese" alone is a different claim from "Mandarin Chinese". */
+  function langShortTitle(title, lang) {
+    const t = String(title || ""), name = String(lang || "");
+    if (!t || !name) return t;
+    const rx = new RegExp("(?:\\s*[\u2014\u2013-]\\s*)?\\b" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b(?:\\s*[\u2014\u2013-]\\s*)?", "i");
+    if (!rx.test(t)) return t;
+    let out = t.replace(rx, " ").replace(/\s+/g, " ").replace(/^[\u2014\u2013-]\s*|\s*[\u2014\u2013-]$/g, "").trim();
+    if (!out) return t;
+    /* Capitalise where the trim took the first word off — "Italian phrases and expressions" becomes a
+       sentence of its own and "phrases" is no longer mid-sentence. Only the first letter, and only where
+       it is lower case, so an acronym and a proper noun are left exactly as the deck's author wrote them. */
+    if (t.toLowerCase().indexOf(name.toLowerCase()) === 0 && /^[a-z]/.test(out)) out = out[0].toUpperCase() + out.slice(1);
+    return out;
+  }
   /* An id of the collection's own, so it can carry a hue out of COLL_THEME exactly as a curated one does.
      Built from the language NAME rather than written down, since the catalogue is generated and a language
      added to it should not have to be added here twice. */
   function langCollId(lang) { return "lang-" + String(lang).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
-  function langDeckRowHTML(r) {
-    const added = !!UDECKS[r.id];
-    const studied = added ? uDeckStudied(UDECKS[r.id]) : 0;
-    /* A DECK ROW HERE IS THE CURATED TREE'S OWN `.node`, not a second shape — the same box, title, count
-       and indent a collection's decks wear one section up, so the two cannot drift.
+  /* A LANGUAGE'S OWN CONTAINER IN THE DAILY-STUDY LIST (Aug 2026, on request: "When i add only several
+     decks from a collection to my active decks, they should still automatically appear grouped together
+     in the active decks list under their respective collection, the same way they would if you added the
+     whole deck").
 
-       IT IS NOT A BUTTON, which is the one place it departs from those rows. A curated deck row is
-       pressable because pressing it studies the deck; there is nothing here to press it INTO — the deck
-       is not on the device yet — and the only thing a row click could plausibly mean is Add, which for
-       Mandarin is a 21 MB download off a stray tap. The Add button is the control and the row is a row.
-       Once a deck IS added it has a full row of its own in "Your decks" below, with its subdecks, its
-       directions and its add-to-review buttons, so a second and poorer set of controls up here would be
-       two answers to one question. */
-    return '<div class="node lang-deck">' +
-      '<div class="node-main">' +
-        '<div class="node-title-row">' +
-          '<span class="node-title">' + esc(r.title) + '</span>' +
-          (added ? '<span class="pill udeck-tag">added</span>' : "") +
-          '<span class="node-count">' + r.cards.toLocaleString() + " cards</span>" +
-        '</div>' +
-        (r.sub ? '<div class="udeck-sub">' + esc(r.sub) + "</div>" : "") +
-        '<div class="udeck-sub lang-size">' + langDeckMB(r.bytes) + " MB" +
-          (added ? " \u00b7 already in Your decks below" : " to download") + "</div>" +
-        (added ? deckProgMarkup(studied, r.cards) : "") +
-      '</div>' +
-      '<div class="collection-actions">' +
-        (added ? "" : '<button class="btn tiny lang-add" type="button" data-langadd="' + esc(r.file) +
-          '" data-langtitle="' + esc(r.title) + '">Add</button>') +
-      '</div>' +
-    '</div>';
+     THE CURATED SIDE ALREADY DOES THIS AND GETS IT FOR FREE, which is why nothing had to be built there:
+     a curated deck is a TREE NODE, so the list walks its ancestors and draws the collection above it as a
+     quiet signpost whether or not that collection was ever added. A LANGUAGE is not a node — it is a row
+     in a generated catalogue — so its decks had no ancestors to walk and went into the top-level run
+     flat: seven "A1" rows in a line with nothing to say which language each belonged to, which is exactly
+     what a reader who added three levels of two languages would meet.
+
+     SO THE CONTAINER IS SYNTHESISED, and it is deliberately NOT a group header. A group is tappable,
+     counted and studiable, and offering "study all of Spanish" from a row the reader never asked for
+     would be the `asGroup` rule's own objection one store over. It is the same CONTEXT row an unadded
+     curated collection gets: a name, a hue and a chevron, claiming nothing.
+
+     The id carries a COLON, like `COTD_ENTRY` and `REVIEW_ENTRY`, so it can never collide with a node id
+     (plain slugs) or with one of the reader's own decks (`u:`); the slug it carries is lossy, so the name
+     is recovered from the catalogue rather than read back out of it — see langCtxName. */
+  function langCtxId(lang) { return "langctx:" + String(lang).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
+  function isLangCtxId(id) { return typeof id === "string" && id.indexOf("langctx:") === 0; }
+  /* The display name is recovered from the CATALOGUE rather than remembered as the id is minted, so an id
+     read back out of the reader's own order or off the page resolves whenever it is asked about rather
+     than only during the render that made it — which is what `repaintReviewHues` needs, running long
+     after. The slug is lossy, and the catalogue is the only authority on what a language is called. */
+  function langCtxName(id) {
+    const hit = (window.LANG_DECKS || []).find((r) => r && r.lang && langCtxId(r.lang) === id);
+    return hit ? hit.lang : "";
+  }
+  // the same hue the language's own banner wears on the Collections page, so the two pages agree
+  function langCtxHue(id) { const th = COLL_THEME[langCollId(langCtxName(id))]; return th ? th.bg : ""; }
+  /* Which added entries belong to a language — the members its row gathers, derived from `S.active` rather
+     than from the map the render happens to be building, so `entryCardIds` can answer for a container long
+     after that render is over. A pending deck contributes nothing and needs no special case: its own
+     entryCardIds is already empty. */
+  function langCtxEntries(id) {
+    return activeEntryIds().filter((e) => {
+      const d = uDeckIdOf(e);
+      const cat = d ? langCatalogById(d) : null;
+      return !!cat && langCtxId(cat.lang) === id;
+    });
   }
   function langCollectionHTML(lang, rows) {
     const id = langCollId(lang);
     const theme = COLL_THEME[id];
     const cards = rows.reduce((n, r) => n + (r.cards || 0), 0);
     const studied = rows.reduce((n, r) => n + (UDECKS[r.id] ? uDeckStudied(UDECKS[r.id]) : 0), 0);
+    const specs = langRowSpecs(rows);
+    /* THE WHOLE LANGUAGE IN ONE PRESS (Aug 2026, on request: "language collections should be able to be
+       added as one complete package, the same way as History collections"). This bullet used to say the
+       banner deliberately carried no +, because Add meant DOWNLOAD and there is no study scope for "several
+       community decks at once" — and the first half of that stopped being true when Add was split from
+       Download: pressing + now writes the entries into S.active and fetches nothing, so adding seven levels
+       costs a reader exactly what adding one does. The second half is answered by the entries themselves:
+       what is added is not a scope over the collection but the DECK ROWS the shelf is drawing, each on its
+       own account, which is what a curated collection's + does one level up.
+
+       THE ENTRIES ARE CARRIED ON THE BUTTON rather than re-derived when it is pressed, so the control and
+       the rows under it can never come to disagree about what "the whole language" is — an unwrapped deck
+       contributes its subdecks and a wrapped one contributes itself, and that judgement is made once, here.
+       A comma is safe as the separator because `uSubEntry` percent-encodes the path it carries. */
+    const entries = specs.map((o) => o.entry);
+    const allOn = entries.length > 0 && entries.every(isActive);
+    const add = '<button class="collection-add' + (allOn ? " added" : "") + '" data-langadd="' +
+      esc(entries.join(",")) + '" aria-label="' + (allOn ? "Remove " + lang + " from review" : "Add all of " + lang + " to review") + '">' + addIcon(allOn) + "</button>";
     const chev = '<button class="chev" aria-label="Expand children"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></button>';
     return '<div class="collection lang-coll" data-langcoll="' + esc(id) + '"' +
         (theme ? ' style="--coll-bg:' + theme.bg + '"' : "") + '>' +
@@ -23639,14 +24406,14 @@
         '<div class="collection-main">' +
           '<div class="collection-title-row">' +
             '<span class="collection-title">' + esc(lang) + '</span>' +
-            '<span class="collection-span">' + rows.length + (rows.length === 1 ? " deck" : " decks") + '</span>' +
+            '<span class="collection-span">' + specs.length + (specs.length === 1 ? " deck" : " decks") + '</span>' +
           '</div>' +
           deckProgMarkup(studied, cards) +
         '</div>' +
-        '<div class="collection-actions">' + chev + '</div>' +
+        '<div class="collection-actions">' + add + chev + '</div>' +
       '</div>' +
       '<div class="node-children"><div class="node-children-inner"><div class="node-children-pad">' +
-        rows.map(langDeckRowHTML).join("") +
+        specs.map((o, i) => langRowHTML(o, i)).join("") +
       '</div></div></div>' +
     '</div>';
   }
@@ -23658,48 +24425,46 @@
     return '<div class="collection-group community-group" id="langDecks">' +
       '<div class="group-head"><span class="group-label">Languages</span><span class="group-line"></span>' +
         '<span class="group-count">' + langs.length + "</span></div>" +
-      '<p class="udeck-intro">Folio\u2019s own vocabulary collections, each built from an exam board\u2019s ' +
-        'published word list. Open one to see its decks; adding a deck downloads it to this device.</p>' +
       '<div class="collection-list">' + langs.map((l) => langCollectionHTML(l, rows.filter((r) => r.lang === l))).join("") + "</div>" +
     "</div>";
   }
   function wireLangDecks(root) {
     /* The banner's own fold, wired through the curated tree's `wireExpander` rather than a listener of its
        own, so the chevron, the open class, the row's Enter/Space and the children's entrance stagger are
-       all the collections' and cannot drift from them. No row click other than the toggle: there is
-       nothing to study until a deck has been added. */
+       all the collections' and cannot drift from them. No row click other than the toggle: a row here is a
+       statement of what is inside, and the + is the control. */
     root.querySelectorAll(".lang-coll").forEach((collEl) => {
-      const rowEl = collEl.querySelector(".collection-row");
-      const kids = collEl.querySelector(".node-children");
-      const chev = collEl.querySelector(".collection-actions > .chev");
+      /* `:scope >` throughout, since a deck with subdecks is now a fold of its own INSIDE this one and a
+         loose descendant query would reach into it. */
+      const rowEl = collEl.querySelector(":scope > .collection-row");
+      const kids = [...collEl.children].find((c) => c.classList.contains("node-children"));
+      const chev = rowEl && rowEl.querySelector(":scope > .collection-actions > .chev");
       if (rowEl && kids && chev) wireExpander(rowEl, kids, chev, collEl, null);
     });
-    root.querySelectorAll("[data-langadd]").forEach((b) => b.addEventListener("click", async (e) => {
-      e.stopPropagation();
-      if (b.disabled) return;
-      b.disabled = true;
-      const was = b.textContent;
-      b.textContent = "Adding…";
-      let text = "";
-      try {
-        const res = await fetch("decks/" + encodeURIComponent(b.dataset.langadd), { cache: "no-store" });
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        text = await res.text();
-      } catch (err) {
-        /* A DECK FILE IS FETCHED, so this is the one part of the section a `file://` copy cannot do —
-           Chrome refuses a fetch of a local file whatever the page. The rest of the section paints from
-           `lang-decks.js`, which is an ordinary script, so opening index.html directly still WORKS; only
-           Add needs a server, and it says so rather than failing silently. */
-        b.disabled = false; b.textContent = was;
-        toast("Couldn't fetch “" + (b.dataset.langtitle || "that deck") + "”. Deck files need the site served over http.");
-        return;
-      }
-      /* uImportDone repaints the page, so this button is gone by the time it returns — which is why the
-         failure paths above put it back themselves rather than leaving it to a render that never comes. */
-      const r = uDeckImportText(text, false);
-      if (r.error) { b.disabled = false; b.textContent = was; }
-      await uImportDone(r);
-    }));
+    /* A deck's own subdecks, and a subdeck's, at any depth — the same `wireExpander` the collections use. */
+    root.querySelectorAll(".lang-group").forEach((g) => {
+      const rowEl = g.querySelector(":scope > .node.branch");
+      const kids = [...g.children].find((c) => c.classList.contains("node-children"));
+      const chev = rowEl && rowEl.querySelector(":scope > .chev");
+      if (rowEl && kids && chev) wireExpander(rowEl, kids, chev, g, null);
+    });
+    // …and every row's + is the curated one, wired the curated way
+    root.querySelectorAll("#langDecks .node-add[data-id]").forEach((b) => wireAddButton(b, b.dataset.id));
+    /* The banner's + adds or removes every deck of the language at once. It is NOT `wireAddButton`, which
+       takes one entry: what makes this control honest is that its two states are "all of them" and "not all
+       of them", so a language half added reads as not added and pressing it completes the set rather than
+       undoing the half that is there. */
+    root.querySelectorAll("#langDecks .collection-add[data-langadd]").forEach((b) => {
+      b.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const ids = String(b.dataset.langadd || "").split(",").filter(Boolean);
+        if (!ids.length) return;
+        const wantOn = !ids.every(isActive);
+        ids.forEach((id) => { if (wantOn) addActive(id); else removeActive(id); });
+        refreshAddButtons();
+        toast(wantOn ? "Added to daily review" : "Removed from review");
+      });
+    });
   }
   function sharedDecksHTML() {
     return '<div class="collection-group community-group" id="sharedDecks">' +
@@ -32241,11 +33006,15 @@
        signed-in view: that page is the reader's own record, so explaining what a streak buys belongs
        there. The signed-out page gates this out entirely at zero — the Reliquary's rule directly beside
        it, everything there being a courtesy over a sign-in wall. */
+    /* The prize is NAMED wherever it is more than one, since a reader who has kept a run for a month is
+       owed the reason to keep it: a bare "your next chest" says the fifth week is worth what the first
+       was, which since Aug 2026 it is not. */
+    const prize = p.worth === 1 ? "a chest" : p.worth + " chests";
     const note = p.count <= 0
-      ? "Study on any day to start a streak — seven days in a row earns a chest."
+      ? "Study on any day to start a streak — seven days in a row earns a chest, and every week after that is worth one more."
       : p.left === 0
-        ? "Seven days in a row — a chest is yours. The next one is seven days away."
-        : p.left + (p.left === 1 ? " more day" : " more days") + " in a row for your next chest.";
+        ? "Seven days in a row — paid. Seven more earns " + prize + "."
+        : p.left + (p.left === 1 ? " more day" : " more days") + " in a row for " + prize + ".";
     /* THE CHEST ITSELF, at the right of the block (Aug 2026, on request). Seven pips lighting up said what
        was being counted and not what it was FOR — the word "chest" was in the heading and in the sentence
        and the thing was nowhere on the page. It is the same `CHEST_SVG` the overlay and the home page's
