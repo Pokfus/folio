@@ -28,7 +28,11 @@ const SUPA_URL = grab(/const SUPA_URL\s*=\s*"([^"]+)"/, "SUPA_URL");
 const SUPA_KEY = grab(/const SUPA_KEY\s*=\s*"([^"]+)"/, "SUPA_KEY");
 
 function loadWindow(files) { const win = {}; for (const f of files) vm.runInNewContext(fs.readFileSync(path.join(ROOT, f), "utf8"), { window: win }); return win; }
-const W = loadWindow(["data.js", "glossary.js", "artefacts.js", "timeline.js"]);
+// glossary.js is TWO files now — the citations and illustrations live in the lazy
+// glossary-extra.js — so it is loaded through the shared helper. Reading glossary.js
+// alone yields EMPTY GLOSSARY_SOURCES/GLOSSARY_IMAGES, silently.
+const W = loadWindow(["data.js", "glossary.js", "glossary-extra.js", "artefacts.js", "timeline.js"]);
+for (const inc of W.GLOSSARY_EXTRA_IN || []) { Object.assign(W.GLOSSARY_IMAGES = W.GLOSSARY_IMAGES || {}, inc.GLOSSARY_IMAGES || {}); Object.assign(W.GLOSSARY_SOURCES = W.GLOSSARY_SOURCES || {}, inc.GLOSSARY_SOURCES || {}); }
 const CARDS = W.CARD_DATA || [], byId = Object.fromEntries(CARDS.map(c => [c.id, c]));
 const text = s => String(s == null ? "" : s).replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
 const markers = s => (String(s == null ? "" : s).match(/<sup class="fn"/g) || []).length;

@@ -1,0 +1,125 @@
+name: checks
+
+# WHY THIS EXISTS. Folio has 42 regression suites and every one of them was written
+# because the failure it guards is SILENT -- a wrong interval is still a number on a
+# button, a deck row hidden by an ad blocker still renders, a stripped rating still
+# parses. Suites like that are worth exactly as much as the discipline of running them,
+# and they were run by hand.
+#
+# Two jobs, deliberately split:
+#
+#   fast   -- the seven suites and four checkers that need no browser. Seconds, no
+#             install, no network. This is the gate: it must stay green.
+#   browser-- the Playwright suites. Slower and heavier, so it is allowed to be the
+#             second opinion rather than the gate.
+#
+# Playwright is installed HERE and never into the repo: the zero-dependency rule is
+# about what the SITE ships, and node_modules/ is gitignored. Nothing in this workflow
+# adds a dependency to Folio itself.
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fast:
+    name: no-browser suites and checkers
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Cheapest possible failure first: a syntax error in app.js breaks every page,
+      # and `node --check` finds it before a browser is even considered.
+      - name: Syntax-check the site's JS
+        run: |
+          for f in *.js; do node --check "$f" || exit 1; done
+          echo "all root .js files parse"
+
+      - name: Syntax-check the helper scripts
+        run: |
+          for f in .claude/*.js; do node --check "$f" || exit 1; done
+          echo "all .claude/*.js parse"
+
+      # The suites that need no browser. Each exits non-zero on failure.
+      - name: test-card-plans
+        run: node .claude/test-card-plans.js
+      - name: test-daily-quote
+        run: node .claude/test-daily-quote.js
+      - name: test-date-line
+        run: node .claude/test-date-line.js
+      - name: test-difficulty
+        run: node .claude/test-difficulty.js
+      - name: test-discovery
+        run: node .claude/test-discovery.js
+      - name: test-scheduler
+        run: node .claude/test-scheduler.js
+      - name: test-streak-chest
+        run: node .claude/test-streak-chest.js
+
+      # The content checkers. check-style and check-questions guard the house rules over
+      # the shipped corpus; check-docs guards the CLAUDE.md/docs split in both directions.
+      - name: check-docs
+        run: node .claude/check-docs.js
+      # The glossary's citations and illustrations live in the lazy glossary-extra.js. If either
+      # table ever reappears in glossary.js it goes straight back onto the eager path -- 1.29 MB
+      # for every visitor -- and the only symptom is a slower site.
+      - name: glossary split intact
+        run: node .claude/split-glossary.js --check
+      - name: check-questions
+        run: node .claude/check-questions.js
+      - name: check-style
+        run: node .claude/check-style.js
+
+      # Reported, never gating: sizes drift by the day and a number is not a failure.
+      # It is here so the eager path's real weight is in every run's log, which is the
+      # thing prose in CLAUDE.md could not manage to stay honest about.
+      - name: sizes (report only)
+        run: node .claude/check-sizes.js
+        continue-on-error: true
+
+  browser:
+    name: Playwright suites
+    runs-on: ubuntu-latest
+    # A slow second opinion, not the gate. If the fast job is red the answer is already
+    # known, so don't spend ten minutes confirming it.
+    needs: fast
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Installed into a scratch directory OUTSIDE the repo, and reached through
+      # NODE_PATH -- exactly as CLAUDE.md's Testing section says to do it locally, so
+      # CI and a developer's machine run the suites the same way.
+      - name: Install Playwright (outside the repo)
+        run: |
+          mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw"
+          npm init -y >/dev/null
+          npm i --no-audit --no-fund playwright@latest >/dev/null
+          npx playwright install --with-deps chromium
+
+      - name: Run the browser suites
+        env:
+          NODE_PATH: ${{ runner.temp }}/pw/node_modules
+        run: |
+          fails=0
+          for f in $(grep -l playwright .claude/test-*.js | sort); do
+            echo "::group::$(basename "$f")"
+            if node "$f"; then echo "PASS $(basename "$f")"
+            else echo "FAIL $(basename "$f")"; fails=$((fails+1)); fi
+            echo "::endgroup::"
+          done
+          echo "----"
+          if [ "$fails" -gt 0 ]; then echo "$fails browser suite(s) failed"; exit 1; fi
+          echo "all browser suites passed"

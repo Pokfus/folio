@@ -3623,6 +3623,24 @@
        the definition. It sits after the floated image slot in the flow, so it clears the picture. */
     win.querySelector(".gloss-bookslot").innerHTML = glossBookHTML(glossBook(key));
     win.querySelector(".gloss-srcslot").innerHTML = sourcesHTML(glossSources(key), { compact: true });
+    /* Those two slots are the ONLY things in this popup fed by the lazy `glossExtra` bundle
+       (glossary-extra.js: GLOSSARY_IMAGES + GLOSSARY_SOURCES, 1.29 MB kept off the eager path).
+       It is warmed at idle after boot, so in practice it is already here — but a reader who opens
+       a term within a second of first paint would otherwise get a popup with no picture and no
+       Sources fold, and NOTHING would say so or ever put them there. So: fill now with whatever is
+       loaded, and fill the two slots again if the bundle lands afterwards.
+       It re-fills the SLOTS rather than re-opening the popup, which would take away a scroll
+       position, a drag and any nested term the reader had already opened. `win.isConnected`
+       because the popup may be long closed by the time the file arrives. */
+    if (!dataReady("glossExtra")) {
+      ensureData("glossExtra").then(() => {
+        if (!win.isConnected) return;
+        renderGlossImage(win.querySelector(".gloss-imgslot"), key);
+        const sl = win.querySelector(".gloss-srcslot");
+        sl.innerHTML = sourcesHTML(glossSources(key), { compact: true });
+        wireFootnotes(win.querySelector(".gloss-body"));   // the markers point into a list that only now exists
+      });
+    }
     /* THE PICTURE AND THE WORDS ARRIVE TOGETHER (Aug 2026, on a bug report: "the text loads before the
        image, so a split second after opening we see the text jump to make space for the picture").
        The slot is FLOATED and the picture is sized by its own intrinsic dimensions, so until it loads the
@@ -8932,6 +8950,11 @@
        deck must not pay for the historical eras to be asked which state is shaded. It is lazy for the same
        reason every other bundle is: a reader who never opens such a card never fetches it. */
     usstates: { files: ["us-states.js"] },
+    /* The glossary's citations + illustrations. Warmed at IDLE after boot (see the warm below) rather
+       than fetched on the first popup, because popups are common and a reader should not wait: the
+       point is only to keep 1.29 MB off the path that blocks first paint. openGlossWin awaits it for
+       the reader who beats the warm. */
+    glossExtra: { files: ["glossary-extra.js"], after: glossExtraIngest },
     // everything else the Atlas needs: historical eras, physical layers, per-country prose + figures
     atlas: {
       files: ["uk.js", "lakes.js", "rivers.js", "water.js", "cities.js", "timeline.js", "countries.js", "country-stats.js", "country-spans.js", "country-years.js", "country-sources.js"],
@@ -8964,6 +8987,40 @@
   // writing the live table itself: the shipped text is the baseline revert/undo compares against, so it
   // has to reach PRISTINE_GLOSS_I18N *before* any admin edits are layered back on top. Draining a QUEUE
   // (not a single handoff slot) keeps that correct when two languages' scripts land before either hook.
+  /* The glossary's CITATIONS and ILLUSTRATIONS are LAZY (glossary-extra.js, bundle "glossExtra").
+     They were 54% of glossary.js -- 786 KB of citations and 523 KB of picture metadata on the EAGER
+     path -- and neither is read until a popup opens. See the bundle table in CLAUDE.md.
+
+     IT DRAINS A QUEUE AND RE-SEEDS THE BASELINES, and both halves are load-bearing. The file lands
+     AFTER boot, where PRISTINE_GLOSS_SOURCES / PRISTINE_GLOSS_IMAGES were snapshotted from empty
+     objects -- so without the re-seed the admin editor's Revert would compare a real citation list
+     against nothing and DELETE it rather than restore it, silently. Re-applying ADMIN_EDITS on top
+     is the same rule the atlas bundle's hook follows for window.TIMELINE: a lazy file overwrites
+     what applyAdminEdits() already did, so the overlay has to go back on afterwards.
+     A QUEUE rather than a slot, like the i18n files, so nothing is lost if the file lands twice. */
+  function glossExtraIngest() {
+    const q = window.GLOSSARY_EXTRA_IN || [];
+    window.GLOSSARY_EXTRA_IN = [];
+    q.forEach((inc) => {
+      Object.assign(window.GLOSSARY_IMAGES, inc.GLOSSARY_IMAGES || {});
+      Object.assign(window.GLOSSARY_SOURCES, inc.GLOSSARY_SOURCES || {});
+      Object.assign(PRISTINE_GLOSS_IMAGES, inc.GLOSSARY_IMAGES || {});
+      Object.assign(PRISTINE_GLOSS_SOURCES, inc.GLOSSARY_SOURCES || {});
+    });
+    // the overlay again, on top of what just arrived
+    Object.keys(ADMIN_EDITS.glossaryImages || {}).forEach((k) => {
+      const v = ADMIN_EDITS.glossaryImages[k];
+      if (v && v.src) window.GLOSSARY_IMAGES[k] = v; else delete window.GLOSSARY_IMAGES[k];
+    });
+    Object.keys(ADMIN_EDITS.glossarySources || {}).forEach((k) => {
+      const v = ADMIN_EDITS.glossarySources[k];
+      if (v && v.length) window.GLOSSARY_SOURCES[k] = v; else delete window.GLOSSARY_SOURCES[k];
+    });
+    // a term the overlay deleted must not come back with the file
+    Object.keys(ADMIN_EDITS.glossary || {}).forEach((k) => {
+      if (!(k in window.GLOSSARY)) { delete window.GLOSSARY_IMAGES[k]; delete window.GLOSSARY_SOURCES[k]; }
+    });
+  }
   function glossI18nIngest() {
     const q = window.GLOSSARY_I18N_IN || [];
     window.GLOSSARY_I18N_IN = [];
@@ -35056,15 +35113,50 @@
     if (Object.keys(Cs).length) s += "\nwindow.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {}, " + ob(Cs) + ");\n";   // preserve case-sensitive link flags (e.g. God/Heaven/Gun) — otherwise a Save-to-project silently strips them
     const Tg = window.GLOSSARY_TAGS || {};
     if (Object.keys(Tg).length) s += "\nwindow.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, " + ob(Tg) + ");\n";   // preserve category tags (slug -> [tags]) — they power the admin tag filter
+    /* GLOSSARY_IMAGES and GLOSSARY_SOURCES are NOT written here — they live in the lazy
+       glossary-extra.js and are written by serializeGlossaryExtra() below. Writing them into
+       glossary.js as well would put 1.29 MB straight back onto the eager path on the first
+       admin save, undoing the split silently and with no symptom but a slower site. */
+    // per-term videos, minus any slug that also has a picture, since a term shows one frame and
+    // the renderers give it to the picture
     const Im = window.GLOSSARY_IMAGES || {};
-    if (Object.keys(Im).length) s += "\nwindow.GLOSSARY_IMAGES = Object.assign(window.GLOSSARY_IMAGES || {}, " + ob(Im) + ");\n";   // preserve per-term illustrations — they live only in the overlay otherwise
-    // and per-term videos, for the same reason — minus any slug that also has a picture, since a term shows
-    // one frame and the renderers give it to the picture
     const Vd = {}; Object.keys(window.GLOSSARY_VIDEOS || {}).forEach((k) => { if (!Im[k]) Vd[k] = window.GLOSSARY_VIDEOS[k]; });
     if (Object.keys(Vd).length) s += "\nwindow.GLOSSARY_VIDEOS = Object.assign(window.GLOSSARY_VIDEOS || {}, " + ob(Vd) + ");\n";
-    const Sr = window.GLOSSARY_SOURCES || {};
-    if (Object.keys(Sr).length) s += "\nwindow.GLOSSARY_SOURCES = Object.assign(window.GLOSSARY_SOURCES || {}, " + ob(Sr) + ");\n";   // preserve the citations behind each description — they live only in the overlay otherwise
     return s;
+  }
+  /* glossary-extra.js — the glossary's citations and illustrations, which are LAZY (bundle
+     "glossExtra") because together they were 54% of glossary.js on the EAGER path and neither is
+     read until a popup opens. See glossExtraIngest for why the file stages onto a queue.
+     IT IS ONLY SAFE TO WRITE ONCE THE BUNDLE HAS LOADED: the in-memory tables are empty until then,
+     so baking would truncate the shipped file to nothing. `glossExtraFiles()` is the gate, and it is
+     the same rule editedGlossI18nLangs() applies to the per-language files, for the same reason. */
+  function serializeGlossaryExtra() {
+    const ob = (o) => "{\n" + Object.keys(o).map((k) => JSON.stringify(k) + ": " + JSON.stringify(o[k])).join(",\n") + "\n}";
+    return "/* The glossary's CITATIONS and ILLUSTRATIONS — split out of glossary.js and LAZY.\n" +
+      " *\n" +
+      " * WHY THIS FILE EXISTS. glossary.js is on the eager load path, so every visitor downloads it\n" +
+      " * before flipping a card, and these two tables were 54% of it. Neither is read until a glossary\n" +
+      " * popup OPENS. They are fetched now by the `glossExtra` data bundle: warmed at idle after boot,\n" +
+      " * and awaited by openGlossWin for the reader who opens a popup before the warm lands.\n" +
+      " *\n" +
+      " * IT STAGES ONTO A QUEUE RATHER THAN ASSIGNING, for the same reason i18n/gloss-<lang>.js does.\n" +
+      " * app.js snapshots PRISTINE_GLOSS_SOURCES / PRISTINE_GLOSS_IMAGES at boot — which is BEFORE this\n" +
+      " * file lands — so a plain assignment would leave the admin editor's revert baseline empty and\n" +
+      " * \"Revert\" would silently delete a shipped citation list instead of restoring it. The bundle's\n" +
+      " * `after` hook (glossExtraIngest) drains the queue, re-seeds those baselines and re-applies the\n" +
+      " * admin overlay on top.\n" +
+      " *\n" +
+      " * GENERATED — do not hand-edit. `node .claude/split-glossary.js --check` verifies the split. */\n" +
+      "(function () {\n" +
+      "  var GLOSSARY_IMAGES = " + ob(window.GLOSSARY_IMAGES || {}) + ";\n" +
+      "  var GLOSSARY_SOURCES = " + ob(window.GLOSSARY_SOURCES || {}) + ";\n" +
+      "  (window.GLOSSARY_EXTRA_IN = window.GLOSSARY_EXTRA_IN || []).push({ GLOSSARY_IMAGES: GLOSSARY_IMAGES, GLOSSARY_SOURCES: GLOSSARY_SOURCES });\n" +
+      "})();\n";
+  }
+  // Only bake glossary-extra.js when its bundle has actually loaded — otherwise the in-memory tables
+  // hold nothing (or just the edited slugs) and writing them would truncate the shipped file.
+  function glossExtraFiles() {
+    return dataReady("glossExtra") ? { "glossary-extra.js": serializeGlossaryExtra() } : {};
   }
   function downloadText(name, text) {
     const url = URL.createObjectURL(new Blob([text], { type: "text/javascript" }));
@@ -35111,7 +35203,7 @@
     b.classList.toggle("on", s === "on" || s === "saving" || s === "saved");
     b.classList.toggle("warn", s === "reconnect" || s === "error");
   }
-  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); if (ADMIN_EDITS.mission) f["mission.js"] = serializeMission(); if (Object.keys(ADMIN_EDITS.artefacts || {}).length) f["artefacts.js"] = serializeArtefacts(); Object.assign(f, glossI18nFiles()); return f; }
+  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); if (ADMIN_EDITS.mission) f["mission.js"] = serializeMission(); if (Object.keys(ADMIN_EDITS.artefacts || {}).length) f["artefacts.js"] = serializeArtefacts(); Object.assign(f, glossI18nFiles()); Object.assign(f, glossExtraFiles()); return f; }
   async function autoSaveNow() {
     if (!autoSaveArmed || !autoSaveDir) return;
     if (_autoWriting) { autoSaveWrite(); return; }                                  // a write is in flight → coalesce into the next tick
@@ -35164,6 +35256,7 @@
       if (ADMIN_EDITS.mission) files.push(["mission.js", serializeMission()]);
       if (hasArt) files.push(["artefacts.js", serializeArtefacts()]);
       Object.entries(glossI18nFiles()).forEach((e) => files.push(e));
+      Object.entries(glossExtraFiles()).forEach((e) => files.push(e));
       // a browser download can't carry a folder — send the basename and say where the i18n ones belong
       files.forEach(([n, t], i) => setTimeout(() => downloadText(n.split("/").pop(), t), i * 350));
       toast(msg + (files.some(([n]) => n.indexOf("/") >= 0) ? " The gloss-<lang>.js files go in the i18n/ subfolder." : ""));
@@ -35217,6 +35310,7 @@
       if (ADMIN_EDITS.mission) out["mission.js"] = serializeMission();
       if (Object.keys(ADMIN_EDITS.artefacts || {}).length) out["artefacts.js"] = serializeArtefacts();
       Object.assign(out, glossI18nFiles());
+      Object.assign(out, glossExtraFiles());
       return out;
     },
     // the overlay to keep after files are written: only the overlay-only metadata (deck dates,
@@ -37966,6 +38060,13 @@
   // …and the pooled card counters behind the community difficulty rating, at idle: nothing on the first
   // paint depends on them, and a card without them simply shows the editorial rating it always did
   whenIdle(() => { cardStatsLoad(); });
+  /* …and the glossary's citations + illustrations (glossary-extra.js, 1.29 MB), which used to sit on
+     the EAGER path inside glossary.js and be downloaded by every visitor before they could flip a card.
+     Warmed at idle rather than fetched on the first popup, because popups are COMMON — the goal is to
+     stop it blocking first paint, not to make a reader wait for a definition. A reader who beats the
+     warm still gets both: openGlossWin re-fills its picture and Sources slots when the file lands.
+     Skipped under Save-Data, like the mini globe was. */
+  whenIdle(() => { if (!(navigator.connection && navigator.connection.saveData)) ensureData("glossExtra"); });
 
   // Service worker (sw.js) — makes Folio installable and usable offline. Registered after boot so
   // it never competes with first paint, and NEVER on a dev origin: a file-watching dev server's

@@ -112,7 +112,9 @@ if (batch.cards && Object.keys(batch.cards).length) {
 /* ---------------- glossary -> glossary.js ---------------- */
 const slugs = [];
 if (batch.glossary && Object.keys(batch.glossary).length) {
-  const win = loadWindow(glossPath);
+  // glossary.js is TWO files now — the citations and illustrations live in the lazy
+  // glossary-extra.js — so load through the shared helper, or SOURCES/IMAGES come back empty.
+  const win = require("./gloss-io.js").loadGlossary();
   const GLOSS = win.GLOSSARY || {}, DATES = win.GLOSSARY_DATES || {}, ALIASES = win.GLOSSARY_ALIASES || {},
     CASE = win.GLOSSARY_CASESENSITIVE || {}, TAGS = win.GLOSSARY_TAGS || {}, IMAGES = win.GLOSSARY_IMAGES || {},
     VIDEOS = win.GLOSSARY_VIDEOS || {}, SOURCES = win.GLOSSARY_SOURCES || {},
@@ -156,20 +158,22 @@ if (batch.glossary && Object.keys(batch.glossary).length) {
   out += section(ALIASES, "Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link.", "GLOSSARY_ALIASES");
   out += section(CASE, "Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven).", "GLOSSARY_CASESENSITIVE");
   out += section(TAGS, "Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar.", "GLOSSARY_TAGS");
-  out += section(IMAGES, "Optional illustration per term (slug -> { src, title, desc, credit, alt }) — shown at the foot of the term's popup.", "GLOSSARY_IMAGES");
   out += section(VIDEOS, "Optional video per term (slug -> { src, title, desc, credit }) — a YouTube/Vimeo or direct file link, shown in the term's popup.", "GLOSSARY_VIDEOS");
-  out += section(SOURCES, "Source footnotes per term (slug -> [Chicago note-form citations]) — a numbered fold at the foot of the popup.\n   Not translated: a citation names an edition that exists in one language.", "GLOSSARY_SOURCES");
   out += section(PLACES, "Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's\n   own primary coordinates by .claude/fetch-place-coords.js. Never hand-written.", "GLOSSARY_PLACES");
   out += section(MAPC, "Glossary terms that name a country the Atlas draws: slug -> the name world.js uses. Joined at build\n   time by the same script, because world.js is lazy and the popup must decide without it.", "GLOSSARY_MAP_COUNTRY");
-  fs.writeFileSync(glossPath, out);
-  loadWindow(glossPath);   // re-parse to confirm valid JS
+  /* GLOSSARY_IMAGES and GLOSSARY_SOURCES are deliberately absent from `out`: they live in the
+     lazy glossary-extra.js, being 54% of a file on the EAGER path that nothing reads until a
+     popup opens. writeGlossary writes both files and strips either block from glossary.js if one
+     creeps back in. */
+  require("./gloss-io.js").writeGlossary(win, out);
+  require("./gloss-io.js").loadGlossary();   // re-parse BOTH to confirm valid JS
 }
 
 /* ---------------- running coverage, which is how a multi-batch pass is tracked ---------------- */
 const allCards = loadWindow(dataPath).CARD_DATA || [];
 const citedCards = allCards.filter((c) => Array.isArray(c.sources) && c.sources.length).length;
 const atBar = allCards.filter((c) => (Array.isArray(c.sources) ? c.sources.length : 0) >= SRC_TARGET).length;
-const g = loadWindow(glossPath);
+const g = require("./gloss-io.js").loadGlossary();
 const gs = g.GLOSSARY_SOURCES || {};
 const citedTerms = Object.keys(gs).length, allTerms = Object.keys(g.GLOSSARY || {}).length;
 const termsAtBar = Object.keys(gs).filter((k) => (Array.isArray(gs[k]) ? gs[k].length : 0) >= GLOSS_TARGET).length;

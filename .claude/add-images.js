@@ -68,24 +68,20 @@ function check(where, img) {
    The images table is written in the position the two serializers emit it in — after the tags
    and before the sources — so a later `add-glossary.js` run reproduces the same file order. */
 function writeGlossary(images, dry) {
-  let text = fs.readFileSync(GLOSS, "utf8");
-  /* Written in `add-glossary.js`'s exact `obj()` shape — no indent, one entry per line, keys sorted.
-     Those two scripts REBUILD glossary.js from a fixed list of tables, so whichever ran last decides
-     the file's formatting; matching them here is what keeps a content batch from re-laying-out all
-     735 rows and burying its own two-line change in a 1,400-line diff. */
-  const body = Object.keys(images).sort().map((k) => JSON.stringify(k) + ": " + JSON.stringify(images[k])).join(",\n");
-  const block =
-    "/* Optional illustration per term (slug -> { src, title, desc, credit, alt }) — shown at the foot of the term's popup. */\n" +
-    "window.GLOSSARY_IMAGES = Object.assign(window.GLOSSARY_IMAGES || {}, {\n" + body + "\n});\n\n";
-
-  const existing = /\/\*[^*]*illustration per term[\s\S]*?\n\}\);\n\n/;
-  if (existing.test(text)) text = text.replace(existing, block);
-  else {
-    const anchor = text.indexOf("/* Source footnotes per term");
-    if (anchor === -1) throw new Error("glossary.js: cannot find the sources block to insert before");
-    text = text.slice(0, anchor) + block + text.slice(anchor);
+  /* THE IMAGES TABLE LIVES IN glossary-extra.js NOW, not in glossary.js. It was split onto the lazy
+     path with the citations because together they were 54% of a file every visitor downloads before
+     flipping a card, and neither is read until a popup opens. The old body of this function did a
+     surgical text splice into glossary.js to keep a two-line change from re-laying-out 735 rows;
+     that is no longer needed, because gloss-io.js owns the whole of the extra file's format and
+     writes it the same way every time -- so a batch's diff is its own rows and nothing else.
+     It still round-trips the file to confirm it parses. */
+  const io = require("./gloss-io.js");
+  if (!dry) {
+    const win = io.loadGlossary();
+    win.GLOSSARY_IMAGES = images;
+    fs.writeFileSync(io.EXTRA, io.serializeExtra(win));
+    io.loadGlossary();   // re-parse to confirm valid JS
   }
-  if (!dry) { fs.writeFileSync(GLOSS, text); loadWindow(GLOSS); }
   return Object.keys(images).length;
 }
 
@@ -189,7 +185,9 @@ function main() {
   const arte = batch.artefacts || {};
   const problems = [];
 
-  const win = loadWindow(GLOSS);
+  // both files: GLOSSARY comes from glossary.js and GLOSSARY_IMAGES from the lazy
+  // glossary-extra.js, and the merge below needs the existing images to be real.
+  const win = require("./gloss-io.js").loadGlossary();
   for (const [slug, img] of Object.entries(gloss)) {
     if (!win.GLOSSARY[slug]) problems.push(`glossary ${slug}: no such term`);
     problems.push(...check("glossary " + slug, img));

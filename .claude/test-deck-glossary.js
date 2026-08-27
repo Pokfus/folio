@@ -160,6 +160,18 @@ async function studyLinks(page, base) {
   check("glossary tab shows the count", /Glossary\s*1/.test((await page.textContent(".studio-tabs")) || ""), (await page.textContent(".studio-tabs")).replace(/\s+/g, " "));
 
   // ---- mode "site" (the default): the deck's own term must NOT link ----
+  //
+  // THE PAIRING BELOW IS LOAD-BEARING: DO NOT DELETE A POSITIVE ASSERTION AND KEEP ITS
+  // NEGATIVE NEIGHBOUR. Each isolation check is written `!(links || []).some(...)`, which
+  // is VACUOUSLY TRUE when `links` is null -- and `studyLinks` returns null whenever the
+  // page did not render, a selector broke or the function it reads was renamed. Read alone,
+  // such an assertion PASSES on exactly the failure this file exists to catch.
+  //
+  // What makes it sound is that every negative runs against the same `links` value as a
+  // POSITIVE assertion one line above it ("default mode links the site glossary"), which
+  // fails loudly on null. The pair is the guard; neither half is one on its own. If you add
+  // a new isolation check, give it a positive partner on the same value -- or assert
+  // `links` is an array first.
   let links = await studyLinks(page, base);
   check("default mode links the site glossary", (links || []).some((k) => k === "Paleolithic"), JSON.stringify(links));
   check("default mode ignores the deck's own term", !(links || []).some((k) => /^u:/.test(k)), JSON.stringify(links));

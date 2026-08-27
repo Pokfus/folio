@@ -19,7 +19,15 @@ const fs = require("fs");
 const path = require("path");
 const FIX = process.argv.includes("--fix");
 /* Rules 1–3 run over the first two; rule 4 runs over all four (see `ERA_ONLY` below). */
-const FILES = ["data.js", "glossary.js", "artefacts.js", "countries.js"].map((f) => path.join(__dirname, "..", f));
+/* glossary-extra.js is in this list for ONE rule and it matters: rule 4 (BCE/CE) sweeps the text a
+   PICTURE carries -- image.title / desc / alt -- and that is where most of the site's remaining
+   "BC"s were, because those strings come from Wikimedia Commons saying "c. 2700 BC". The whole
+   GLOSSARY_IMAGES table moved out of glossary.js when the citations and illustrations were split
+   onto the lazy path, so without this line those captions stopped being checked and nothing said
+   so. The citations in the same file stay masked from rule 4 as they always were -- a published
+   title is the author's -- by the GLOSSARY_SOURCES mask below, which matches the block wherever
+   it lives. */
+const FILES = ["data.js", "glossary.js", "glossary-extra.js", "artefacts.js", "countries.js"].map((f) => path.join(__dirname, "..", f));
 const ERA_ONLY = new Set(["artefacts.js", "countries.js"]);
 
 /* --- rule 2: ordinal words before century/millennium --- */
@@ -140,8 +148,13 @@ for (const file of FILES) {
   // per-entry "sources":[…] field, so the card-shaped mask above never fired there. Measured before
   // fixing: `--fix` renamed six real published works across twelve citations (Lemos's "…Late Eleventh
   // and Tenth Centuries B.C." → "…Late 11th and 10th Centuries B.C."). Mask the whole block.
+  // The block moved to the lazy glossary-extra.js when the citations and illustrations were split
+  // off the eager path, and it is emitted there as `var GLOSSARY_SOURCES = {…};` inside an IIFE
+  // rather than as `window.GLOSSARY_SOURCES = Object.assign(…);`. BOTH shapes are masked: matching
+  // only the old one left every citation in the new file exposed to rule 4, which is exactly the
+  // fault this mask was written for -- `--fix` renaming real published works.
   const blockMask = [];
-  text = text.replace(/window\.GLOSSARY_SOURCES\s*=[\s\S]*?\n\}\);\n/g, (m0) => {
+  text = text.replace(/(?:window\.|var\s+)GLOSSARY_SOURCES\s*=[\s\S]*?\n\s*\}\)?;\n/g, (m0) => {
     blockMask.push(m0); return "/*BLOCKMASK" + (blockMask.length - 1) + "*/\n";
   });
   // The DECK TREE is out of scope too. CLAUDE.md scopes these rules to "all card fields + glossary

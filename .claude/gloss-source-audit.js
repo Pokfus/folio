@@ -25,7 +25,10 @@ const m = /const GLOSS_SRC_TARGET = (\d+);/.exec(appSrc);
 if (!m) { console.error("ERROR: could not find `const GLOSS_SRC_TARGET` in app.js — has the constant been renamed?"); process.exit(1); }
 const TARGET = +m[1];
 
-const win = loadWindow(path.join(root, "glossary.js"));
+// glossary.js is TWO files now -- the citations and illustrations live in the lazy
+// glossary-extra.js -- so load through the shared helper. Reading glossary.js alone
+// reports every cited term as having no citations at all, silently.
+const win = require("./gloss-io.js").loadGlossary();
 const GLOSS = win.GLOSSARY || {}, SOURCES = win.GLOSSARY_SOURCES || {}, TAGS = win.GLOSSARY_TAGS || {};
 
 // The markers, in all ten languages. A cited term must point at its sources from the prose, and every
