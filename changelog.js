@@ -35,9 +35,16 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.299", released: "2026-08-22T04:41Z" };
+window.FOLIO_VERSION = { v: "1.312", released: "2026-08-27T05:22Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-08-27",
+    t: "A new card in Ancient Greece",
+    items: [
+      "One new card in the <b>Ancient Greece</b> deck, with a new glossary term.",
+    ],
+  },
   {
     d: "2026-08-22",
     t: "Every week of a streak is worth another chest",
@@ -48,6 +55,7 @@ window.CHANGELOG = [
       "<b>Downloading a deck no longer scrolls you back to the top</b> \u2014 its row turns into the deck where it stands.",
       "<b>The dot, the words and the stars above a card\u2019s question now sit on one line</b>, and the dot is drawn at full strength.",
       "<b>A language collection no longer appears a second time under Your decks</b> once you download it \u2014 the language shelf is the only place it is listed.",
+      "Three new cards in the <b>Ancient Greece</b> deck, with three new glossary terms.",
     ],
   },
   {
@@ -79,6 +87,7 @@ window.CHANGELOG = [
       "<b>Decks you add from one collection now group under it in your daily study</b>, even when you add only some of them.",
       "<b>The long-press options menu now fits the screen on a phone</b>, where a long one ran off both ends with no way to reach either.",
       "<b>A language’s own decks no longer repeat its icon in your daily study</b>, only the language itself carrying one.",
+      "Sixteen new cards in the <b>Ancient Greece</b> deck, with sixteen new glossary terms.",
     ],
   },
   {
