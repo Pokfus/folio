@@ -1163,3 +1163,40 @@ bone spades where the English name returned one. Two candidates were rejected by
 whose record calls it 稻纹陶钵, a bowl with a rice-ear design, shows no design at all in the frame, and the
 National Museum's single sickle sits beside a case label reading "Stone Quern and Roller" that belongs to
 the next object along — cnh-040's "a record can be right and misleading" arriving twice in one search.
+  **`cnh-043` IS WHERE THE PLAN LINE WAS NOT AN ANSWER TERM, AND FINDING ONE WAS THE WHOLE PROBLEM**
+(Aug 2026). "Millet and rice in early China" is a subject, not a thing a reader can be asked to name, and
+the two obvious keys were already taken: `Millet_domestication` and `Rice_domestication` have been in the
+glossary since before this deck existed and own the shattering loss, the japonica origin, the Dadiwan
+grains and — worth knowing before drafting — **the yield comparison between the two crops**. What was left
+unclaimed is the FARMING rather than the plants, so the answer term is **`Millet_and_rice_farming`** and
+the term is written entirely about the two SYSTEMS: dry-sown grain against fields that had to be built,
+the paddies' development, the overlap zone, the two directions of spread. **Read the existing glossary
+terms nearest a new one before choosing its head word** — L10's re-registration rule met at the moment a
+term is created rather than during a length pass, which is far cheaper.
+  **AND IT IS THE THIRD CARD ON ONE SUBJECT, SO THE FIRST QUESTIONS WERE CHECKED AGAINST EACH OTHER.**
+Multiple Choice asks a card's FIRST phrasing and draws its wrong answers by tag kinship, so three cards
+sharing five of six tags would offer each other as distractors: "Neolithic China", "origins of Chinese
+agriculture" and "millet and rice farming" are close enough that a loose clue would be answerable by more
+than one. The kinds differ deliberately (`era`, `concept`, `practice`), which caps the kinship score, and
+each first question was written to fit ONE of the three — potters at sixteen sites, a transition among the
+slowest known, a northern crop on loess against a southern one in built fields. **When a run of cards
+shares a subject, read their opening questions as a set.**
+  **ITS BEST SOURCE WAS FOUND BY SEARCHING FOR THE PEOPLE RATHER THAN THE CROPS.** Europe PMC on rice and
+millet returns plant genetics and food chemistry by the page; what carried the card's closing pair of
+sentences is a **paleopathology** paper comparing Yangtze delta rice farmers with northern millet farmers
+and finding more skeletal stress markers among the rice farmers, heaviest late, as paddy cultivation grew.
+That is the one thing in this run of three cards that is about what farming did to bodies rather than to
+landscapes, and no crop-shaped query would have found it. **Ask what a subject did to people, and search
+that.**
+  **THE 429 CAME BACK AND THE CORRECTED RULE WORKED.** Two files new to the cache both refused while the
+sickle image shipped on `cnh-042` returned 200 on the same host, so the refusal is per-file as recorded
+above; both loops were started in the background and both landed within minutes while the glossary term was
+being drafted. **Probe a known-good file, start the loop, and keep writing** — the answer the previous
+card's entry was corrected to.
+  **AND A PICTURE'S FRAME DECIDED WHICH OF THE TWO WENT WHERE.** The Liangzhu stone ploughshare has the
+better record — the Liangzhu Museum's own label is legible in the shot and names the object and the
+Miaoqian site — and the frame is a display case with reflections, a strong shadow and a diorama figure
+behind the glass, in portrait. The broomcorn millet panicle is a clean landscape photograph against open
+sky, and its record is a botanist's: species, subspecies, and the Vienna roadside it grew on, which the
+`desc` states so that nobody reads it as a Chinese field. The card takes the picture that reads at card
+size and the term takes the one that survives being 150px high.
