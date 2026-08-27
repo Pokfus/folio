@@ -54,6 +54,12 @@ PARTS = [
     ('DALF-C2-French.folio-deck.json',    'French',   'C2'),
     ('French-Phrases.folio-deck.json',    'French',   'Expressions'),
     ('Goethe-A1-German.folio-deck.json',  'German',   'A1'),
+    ('Goethe-B1-German.folio-deck.json',  'German',   'B1'),
+    ('German-B2-Vocabulary.folio-deck.json', 'German', 'B2'),
+    ('German-C1-Vocabulary.folio-deck.json', 'German', 'C1'),
+    ('German-C2-Vocabulary.folio-deck.json', 'German', 'C2'),
+    ('German-Phrases-Expressions.folio-deck.json', 'German',
+     'Phrases and expressions'),
     ('CILS-A1-Italian.folio-deck.json',   'Italian',  'A1'),
     ('CILS-A2-Italian.folio-deck.json',   'Italian',  'A2'),
     ('CILS-B1-Italian.folio-deck.json',   'Italian',  'B1'),
@@ -81,19 +87,43 @@ PARTS = [
     ('UKBI-7-Istimewa-Indonesian.folio-deck.json', 'Indonesian', 'UKBI 7 Istimewa'),
     ('Indonesian-Phrases-and-Expressions.folio-deck.json', 'Indonesian',
      'Phrases and expressions'),
-    ('HSK1-Mandarin.folio-deck.json',     'Mandarin', 'HSK 1'),
-    ('HSK2-Mandarin.folio-deck.json',     'Mandarin', 'HSK 2'),
-    ('Mandarin-Chinese.folio-deck.json',  'Mandarin', 'HSK 3.0'),
+    # Mandarin is nine files since Aug 2026 -- the seven HSK 3.0 levels and the two
+    # the syllabus leaves out -- so the path is what the combined file's subdeck was.
+    ('Mandarin-HSK-3.0-Level-1.folio-deck.json', 'Mandarin', 'HSK 3.0/Level 1'),
+    ('Mandarin-HSK-3.0-Level-2.folio-deck.json', 'Mandarin', 'HSK 3.0/Level 2'),
+    ('Mandarin-HSK-3.0-Level-3.folio-deck.json', 'Mandarin', 'HSK 3.0/Level 3'),
+    ('Mandarin-HSK-3.0-Level-4.folio-deck.json', 'Mandarin', 'HSK 3.0/Level 4'),
+    ('Mandarin-HSK-3.0-Level-5.folio-deck.json', 'Mandarin', 'HSK 3.0/Level 5'),
+    ('Mandarin-HSK-3.0-Level-6.folio-deck.json', 'Mandarin', 'HSK 3.0/Level 6'),
+    ('Mandarin-HSK-3.0-Levels-7-9.folio-deck.json', 'Mandarin', 'HSK 3.0/Levels 7-9'),
+    ('Mandarin-Everyday-Phrases.folio-deck.json', 'Mandarin', 'Everyday phrases'),
+    ('Mandarin-Idioms.folio-deck.json', 'Mandarin', 'Idioms'),
+    # Portuguese is the CAPLE ladder, whose own bands ARE the CEFR ones, so the
+    # path is the band and nothing more.  The seventh is not a band; see
+    # `.claude/caple/`, whose own combiner does not exist -- these seven have
+    # only ever been shipped separately, which is why they were missing here.
+    ('CAPLE-A1-Portuguese.folio-deck.json', 'Portuguese', 'A1'),
+    ('CAPLE-A2-Portuguese.folio-deck.json', 'Portuguese', 'A2'),
+    ('CAPLE-B1-Portuguese.folio-deck.json', 'Portuguese', 'B1'),
+    ('CAPLE-B2-Portuguese.folio-deck.json', 'Portuguese', 'B2'),
+    ('CAPLE-C1-Portuguese.folio-deck.json', 'Portuguese', 'C1'),
+    ('CAPLE-C2-Portuguese.folio-deck.json', 'Portuguese', 'C2'),
+    ('Portuguese-Phrases-and-Expressions.folio-deck.json', 'Portuguese',
+     'Phrases and expressions'),
     ('DELE-A1-Spanish.folio-deck.json',   'Spanish',  'A1'),
     ('DELE-A2-Spanish.folio-deck.json',   'Spanish',  'A2'),
     ('DELE-B1-Spanish.folio-deck.json',   'Spanish',  'B1'),
     ('DELE-B2-Spanish.folio-deck.json',   'Spanish',  'B2'),
+    ('DELE-C1-Spanish.folio-deck.json',   'Spanish',  'C1'),
+    ('DELE-C2-Spanish.folio-deck.json',   'Spanish',  'C2'),
+    ('Spanish-Phrases.folio-deck.json',   'Spanish',  'Expressions'),
 ]
 # The combined files the two language pipelines write.  Skipped rather than
 # listed, and named here so the unlisted-file check above can tell "an artefact
 # we already know about" from "a deck somebody added and this table missed".
 ARTEFACTS = {'French-A1-C2.folio-deck.json', 'Italian-Complete.folio-deck.json',
              'DELE-A1-B2-Spanish.folio-deck.json',
+             'DELE-A1-C2-and-Phrases-Spanish.folio-deck.json',
              'Indonesian-UKBI-1-7-and-Expressions.folio-deck.json', OUT}
 
 
@@ -130,7 +160,7 @@ def main(out=None):
     # French an epoch integer, Mandarin an ISO string -- so comparing them raises
     # on the first mixed pair, and picking either convention would silently
     # ignore half the shelf.  `meta.updatedAt` is an integer in every deck.
-    cards, types, langs, stamp = [], {}, [], 0
+    cards, types, langs, stamp, splits = [], {}, [], 0, []
     per_part, per_lang = [], {}
     for fn, lang, path in PARTS:
         d = json.load(open(os.path.join(DECKS, fn), encoding='utf-8'))
@@ -138,15 +168,40 @@ def main(out=None):
             langs.append(lang)
             per_lang[lang] = 0
 
-        # EVERY TYPE TRAVELS, AND A COLLIDING ID IS REFUSED RATHER THAN PICKED
-        # BETWEEN.  Two decks sharing a type id with DIFFERENT templates would
-        # render one language's cards with another's -- which looks like a card
-        # merely laid out oddly, not like a fault, so it must stop the build.
+        # EVERY TYPE TRAVELS, AND A COLLIDING ID IS KEPT APART RATHER THAN PICKED
+        # BETWEEN.  Two decks sharing a type id with a DIFFERENT definition would
+        # otherwise have one deck's cards rendered by the other's templates and
+        # CSS -- which looks like a card merely laid out oddly, not like a fault.
+        # This used to REFUSE, which was right about the danger and wrong about
+        # the remedy: it stopped the whole shelf combining over a difference that
+        # harms nobody once the two definitions are separate objects.  A type is
+        # scoped per (deck, type) at install (`cssScoped` prefixes every selector
+        # with `.uc-card[data-uct="<deckId>__<typeId>"]`), so two ids inside one
+        # deck is exactly what that machinery is for, and the cards of the file
+        # that lost the name are repointed at the new one.
+        #
+        # THE SHELF REALLY DOES CARRY ONE, and it is a warning about drift rather
+        # than a hypothetical: all six German decks call their type `goethe` with
+        # identical fields and identical templates, and their CSS differs by one
+        # rule -- Goethe A1 styles `.uc-cj-e` and the other five `.uc-infl`, two
+        # names for the same marked inflection, each used by that file's own
+        # cards and by no other's.  Merged either way, one deck's 3,546 or the
+        # others' 77,000 marked endings would silently lose their colour.
+        remap = {}
         for tid, t in (d['meta'].get('types') or {}).items():
-            if tid in types and types[tid] != t:
-                raise SystemExit(f'two decks define the card type "{tid}" differently; '
-                                 f'one of them would render with the other\'s templates')
-            types[tid] = t
+            if tid not in types:
+                types[tid] = t
+                continue
+            if types[tid] == t:
+                continue
+            alt = f'{tid}-{d["meta"]["id"]}'[:32]
+            if types.get(alt, t) != t:
+                raise SystemExit(f'"{tid}" collides and so does "{alt}"; give one of '
+                                 f'the decks a type id of its own')
+            t = dict(t, id=alt)
+            types[alt] = t
+            remap[tid] = alt
+            splits.append((fn, tid, alt))
 
         for c in d['cards']:
             c = dict(c)
@@ -156,6 +211,8 @@ def main(out=None):
             # studies the wrong card -- the fault the Spanish generator had
             # between its own levels.
             c['id'] = f'u_{DECK_ID}_{len(cards) + 1}'
+            if c.get('type') in remap:
+                c['type'] = remap[c['type']]
             own = (c.get('sub') or '').strip()
             parts = [lang] + ([path] if path else []) + ([own] if own else [])
             if len(parts) > max_depth:
@@ -206,6 +263,8 @@ def main(out=None):
     print(f'  {n:,} notes = {n * 2:,} cards, {size / 1048576:.2f} MB '
           f'(caps: {max_notes:,} notes, {max_bytes / 1048576:.0f} MB)')
     print(f'  {len(types)} card types: ' + ', '.join(sorted(types)))
+    for fn, tid, alt in splits:
+        print(f'  ! {fn} defines "{tid}" differently; its cards use "{alt}"')
     for lang in langs:
         bits = ', '.join(f'{p} {c:,}' for l, p, c in per_part if l == lang)
         print(f'  {lang}: {per_lang[lang]:,} — {bits}')

@@ -351,10 +351,57 @@ _bc = _ilu.module_from_spec(_spec)
 _spec.loader.exec_module(_bc)
 print(f'  marked the conjugated part in {_bc.mark_deck(deck)} conjugation tables')
 
+# **THE TWO DIRECTIONS ARE MERGED INTO ONE NOTE HERE, NOT BUILT THAT WAY ABOVE.**
+# The Spanish decks were the last on the shelf still writing two notes per word, one
+# per direction, each with a card type of its own -- where every other language is one
+# note carrying two card TEMPLATES. Only A1-B2 come out of this pipeline; C1, C2 and the
+# phrases deck were supplied ready-made and nothing here can rebuild them, so the
+# conversion has to exist as a pass over a finished deck whatever else happens. Calling
+# it rather than building the merged shape above is what keeps the pipeline and the
+# seven shipped files provably the same code -- see `.claude/merge-directions.py`.
+_mdp = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',
+                    'merge-directions.py')
+_mspec = _ilu.spec_from_file_location('merge_directions', _mdp)
+_md = _ilu.module_from_spec(_mspec)
+_mspec.loader.exec_module(_md)
+_mst = _md.merge(deck, 'dele', 'Spanish vocabulary', 'Spanish')
+print(f"  merged the two directions into {_mst['notes']} notes"
+      f" ({_mst['dropped']} duplicate rows dropped)")
+
+# **EVERY ENGLISH SIDE UNIQUE, LAST OF ALL.** A note is asked backwards as well as forwards,
+# and that direction is only answerable if its English side names one word -- which across the
+# shelf it often did not (Spanish among them). The labelling is a pass over the FINISHED deck for
+# `merge-directions.py`'s reason: a third of the shelf was supplied ready-made and nothing here
+# can rebuild it, so calling the same pass is what keeps a pipeline run and a shipped file the
+# same shape. See `.claude/dedupe-glosses.py`.
+import importlib.util as _dgu
+_dgp = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'dedupe-glosses.py')
+_dgs = _dgu.spec_from_file_location('dedupe_glosses', _dgp)
+_dg = _dgu.module_from_spec(_dgs)
+_dgs.loader.exec_module(_dg)
+_dgst = _dg.dedupe(deck, 'Spanish')
+if _dgst['groups']:
+    print('  labelled %d notes in %d groups that shared an English side' % (_dgst['labelled'], _dgst['groups']))
+
+# **A GENDERED NOUN'S FORMS ARE A TABLE, LAST OF ALL.** `plural`, `feminine` and `a, an` set in
+# one horizontal run leaves the reader to work out that two of them differ in NUMBER and two in
+# GENDER; as a grid the two axes are the two axes. Another pass over the FINISHED deck, for
+# `merge-directions.py`'s reason. See `.claude/gender-tables.py`.
+import importlib.util as _gtu
+_gtp = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'gender-tables.py')
+_gts = _gtu.spec_from_file_location('gender_tables', _gtp)
+_gt = _gtu.module_from_spec(_gts)
+_gts.loader.exec_module(_gt)
+_gtst = _gt.tables(deck)
+if _gtst['nouns']:
+    print('  gridded %d of %d gendered nouns (%d left as a row)'
+          % (_gtst['gridded'], _gtst['nouns'], _gtst['skipped']))
+
 out = os.path.abspath(os.path.join('..', '..', 'decks', DECK_FILES[LEVEL]))
 with open(out, 'w', encoding='utf-8') as f:
     json.dump(deck, f, ensure_ascii=False)
 print('wrote', out)
-print('cards', len(cards), 'words', NWORDS, 'verbs with conjugation', nverbs, 'nouns with article', narts,
+# one note per word now, and two cards per note -- so the two figures are not the same
+print('notes', _mst['notes'], 'cards', _mst['notes'] * 2, 'words', NWORDS, 'verbs with conjugation', nverbs, 'nouns with article', narts,
       'gendered pairs', npairs)
 print('bytes', os.path.getsize(out))

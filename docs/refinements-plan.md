@@ -32,11 +32,12 @@ re-run of the same tests covers it.
 | H | Content corrections | the eighteen named cards, terms and pictures, plus the question-rule audit — and the two date lines `test-date-line.js` has been reporting since before this work began (`wh-177` states two CENTURIES and `wh-178` two MILLENNIA, neither of which `cardYears` reads, so both cards sort as timeless; write the span each unit means, per the date-line rule) |
 | I | Authoring | collection icons a reader can set; the About page's AI prompts and the link to them — **shipped** |
 | J | Cross-cutting | the two difficulty ratings; the en-GB/en-US switch; the changelog's day titles — **shipped** |
-| K | Large passes | the Atlas info-box rewrite (plan + batch 1); the book text corrections (plan + batch 1) |
-| L | Late corrections | undo stepping back to the previous card's QUESTION; the War of Ages tab renamed Project W; an unlocked theme naming the day it was unlocked |
-| M | Language decks | the language decks listed on the Collections page in a Languages section of their own |
-| N | Late corrections | the Dressel 20 picture and the artefacts' context-free descriptions; the Clean Sweep badge's wording; the Editor/Visitor chip and the Project W tab out of the menu bar |
-| O | Language collections | the language decks presented as official curated collections, one collection per language inside a single Languages section |
+| K | Large passes | the Atlas info-box rewrite (plan + batch 1 — **shipped**); the book text corrections (plan **shipped**, B1 **shipped**, B2–B8 and E1–En open) |
+| L | Late corrections | undo stepping back to the previous card's QUESTION; the War of Ages tab renamed Project W; an unlocked theme naming the day it was unlocked — **shipped** |
+| M | Language decks | the language decks listed on the Collections page in a Languages section of their own — **shipped** |
+| N | Late corrections | the Dressel 20 picture and the artefacts' context-free descriptions; the Clean Sweep badge's wording; the Editor/Visitor chip and the Project W tab out of the menu bar — **shipped** |
+| O | Language collections | the language decks presented as official curated collections, one collection per language inside a single Languages section — **shipped** |
+| P | Late corrections | a card's state as a coloured dot beside the QUESTION label; the Lefkandi picture; the no-modern-scholars rule in a question or a background, with its two stated exceptions; the theme picker showing only what has been unlocked, and not appearing at all until one has — **shipped** |
 
 **Five items arrived after the batches were drawn** (Aug 2026, with the request to proceed). Three are
 small and sit together in a new batch L; one refines an item batch J already carried, and is done there
