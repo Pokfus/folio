@@ -256,10 +256,17 @@ contract that is checked is the only kind that stays true across five pipelines 
 
 ## 4 · Planned, and since built
 
-**B, C, D and E were built after this file was first written** — the four the reader chose when asked
-which to do next — and their sections below have been left as they were written, with a note at the head
-of each saying what actually shipped and where the plan turned out to be wrong. F, G, H and I are still
-plans. A was already answered by code that had shipped, which the section below did not notice.
+**Eight of the nine were built after this file was first written** — B, C, D and E first (the four the
+reader chose when asked which to do next), then F, G and I on the follow-up — and their sections below
+have been left as they were written, with a note at the head of each saying what actually shipped and
+where the plan turned out to be wrong. A was already answered by code that had shipped, which the section
+below did not notice. **Only H is still a plan**, and its section says why that is the answer rather than
+a shortfall.
+
+Three of the notes are worth reading even if the item is not: **C** because the parser it needed is not
+the one the plan named and must not become it; **F** because the bundle question was settled by splitting
+it rather than by choosing either of the two options offered; and **I** because it found that the French
+deck cannot be regenerated at all, which is the largest thing this whole request turned up.
 
 ### A · A deck download that does not repaint the page (the second half of item 8) — ALREADY DONE
 
@@ -496,7 +503,31 @@ the book and section exist. **The quotation must be authored rather than extract
 whole letter or chapter, and picking the sentences that discuss the topic is exactly the editorial act the
 citation apparatus exists for.
 
-### H · One card per paradigm for articles and pronouns (item 36)
+### H · One card per paradigm for articles and pronouns (item 36) — NOT DONE, and now doubly so
+
+**The answer below stands and the ground under it has got firmer.** When it was written the objection was
+that merging notes changes card ids, and a card id is a reader's schedule: a deck that merges `mi`/`mis`
+into one note retires two ids and creates one, and every reader who has studied them loses that history.
+That is still the reason not to edit the shipped decks.
+
+**What item I then established is that there is no pipeline to build a new version with.** The French
+deck's word list is a third party's ordinary web page whose markup has changed: every source is still
+reachable, 732 MB fetched, and `delf/run.py` today reads 41 words off it against the ~384 it was built
+from, emitting 103 notes against the shipped 446. The Mandarin inputs were never in the repo at all. So
+"this is a new deck version with the migration that implies" is not merely a large job — for most of these
+languages it is a job that would have to begin by rebuilding the word list itself from a source that no
+longer exists in the form the deck was made from.
+
+**What could be done, and what it would buy.** The DELE and CAPLE pipelines have a `Forms` field built for
+exactly this, and their inputs are exam-board lists rather than a scraped page — so a Spanish or
+Portuguese level built from scratch could group the closed classes by lemma and emit one note per
+paradigm. That is a `select.py` change of maybe fifty lines. It would apply to a NEW level, not to the
+seven already shipped, and it would leave the two languages inconsistent with the other five until each
+of those was rebuilt too. That is the honest shape of it, and it is why this is reported rather than
+started.
+
+The original plan follows.
+
 
 Asked for: an article or a personal pronoun should be one card listing all its forms rather than a card
 per variant.
