@@ -1117,3 +1117,44 @@ were both found by looking at a rendered card, which finds a mis-link only if yo
 right word; running the glossary's own longest-first surface list over the finished abstract lists every
 link it will make in one command, and this one makes twelve, of which `China` (in "northern China") and
 `Asia` (in "western Asia") are the two worth checking and both point at the right place.
+  **`cnh-042` IS WHERE THE SECOND CARD ON ONE SUBJECT HAD TO BE PLANNED AGAINST THE FIRST, AND THE PLAN
+LINE IS WHAT SAYS HOW** (Aug 2026). `cnh-041 Neolithic China`, `cnh-042 The origins of Chinese
+agriculture` and `cnh-043 Millet and rice in early China` are three cards over one body of evidence, and
+the way to keep them from being one card written three times is to give each a different QUESTION rather
+than a different slice of the same answer: 41 is the period, 42 is the PROCESS and the ARGUMENT about it,
+43 will be the two crops. So 42 owns what 41 could not carry — how long the transition took, what
+low-level food production is, how domestication is read off shape, and the live dispute about where it
+started — and it deliberately restates none of 41's Cishan, Shangshan or Qinling–Huai sentences. **Before
+writing a card next to one already shipped, read the sibling's ten sentences and write down which
+question each card is answering**; the overlap is invisible in a word count and obvious on the page.
+  **THE OVERVIEW SOURCE WAS AGAIN A SPECIALIST PAPER'S FRAME RATHER THAN A SURVEY**, which makes it twice
+in two cards: `cnh-041` was carried by the introduction of a pig-management review, and this card's spine
+is a two-page PNAS **COMMENTARY** — Crawford's on the Cishan millet paper — which exists to say what a
+result means and therefore states the frame outright: that the timing puts Chinese agricultural origins at
+the Pleistocene–Holocene boundary as in Southwest Asia, Mexico and South America, and that pottery there
+long predates any trace of farming. **A commentary or a "News and Views" piece is a synthesis with a DOI**,
+and Europe PMC finds them by title like any other paper.
+  **THE CARD STATES A LIVE DISAGREEMENT AS A DISAGREEMENT, WHICH IS THE PLAN'S OWN RULE MET FOR THE FIRST
+TIME IN THIS DECK.** Barton et al. set out both accounts — agriculture spreading from a single Yangtze
+core in a farming diaspora, against its beginning in many places almost simultaneously — and add that
+broomcorn millet "appears early and suddenly from an as-yet-unidentified wild progenitor". A card that
+picked one and sounded neutral would be worse than one that picks openly, so the tenth sentence names both
+and settles neither.
+  **ITS DATE LINE IS BUILT BACKWARDS FROM WHAT `cardYears` WILL ASSERT.** The card's own second sentence
+dates deliberate grass-seed gathering to about 30,000 years ago, and putting that figure in the date line
+would have sorted a card about the origins of FARMING into the Upper Palaeolithic — `cnh-007`'s trap
+exactly, and the same test the `undatable` rule applies. The rows are the millet domestication window, the
+rice one and the arrival of full farming, so the card sorts at −8300, which is the onset a reader would
+give; the 30,000-year figure lives in the abstract, where it is a statement about gathering rather than
+about agriculture, and no `undatable` flag is needed.
+  **AND ONE COMMONS FILE 429'd FOR HALF AN HOUR WHILE ITS NEIGHBOURS SERVED 200, WHICH IS NOT THE
+CONGESTION `cnh-014` RECORDS.** The Hemudu bone spade at `commons/8/8f/…1974.jpg` refused every request —
+original, `Special:FilePath`, and a composed `800px-` thumb that additionally returned cnh-040's
+**400 "Use thumbnail sizes listed on…"** — while other files on the same host fetched cleanly throughout.
+An until-loop is the right answer to congestion and the wrong answer to an object-specific refusal, and the
+way to tell them apart is to **fetch a known-good file from the same host before starting the loop**. What
+replaced it was found by cnh-016's rule, searching Commons on the characters: `河姆渡 骨耜` returned five
+bone spades where the English name returned one. Two candidates were rejected by LOOKING: a Hemudu bowl
+whose record calls it 稻纹陶钵, a bowl with a rice-ear design, shows no design at all in the frame, and the
+National Museum's single sickle sits beside a case label reading "Stone Quern and Roller" that belongs to
+the next object along — cnh-040's "a record can be right and misleading" arriving twice in one search.
