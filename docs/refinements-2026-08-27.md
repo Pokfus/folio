@@ -419,7 +419,33 @@ Badges then read `progStats` exactly as the fifteen collector's badges do, and a
 they are earned. Suggested thresholds, to be confirmed: 1, 10, 50, 100 hours studied; 1, 5, 25 hours in
 one book, and 100 hours across the Library.
 
-### F · Card locator maps showing the collection's other places (item 22)
+### F · Card locator maps showing the collection's other places (item 22) — BUILT
+
+**Shipped**, and the bundle question the plan said had to be settled first was settled by splitting it:
+
+**The sibling dots cost nothing and ship unconditionally.** Every locator is in `data.js`, which every
+visitor downloads before flipping a card, so the other 54 places in Ancient Greece are on the page before
+the map is drawn. This is the half the request is really about, and the plan had not noticed it was free.
+
+**The cities and rivers are warmed at idle rather than awaited or refused.** The plan offered two options —
+draw them only if the `atlas` bundle happens to be loaded, or make the locator a deliberate second fetch
+with a load bar. Both are worse than the third: the card paints at once with its own places and the extra
+layers arrive a moment later and redraw, which is `glossExtra`'s bargain exactly, with `startMiniGlobe`'s
+`saveData` guard on top. Nothing is held back and nothing is put behind a download.
+
+**And the cities had to be thinned, which was found by looking at the map rather than by reasoning about
+it.** All 2,665 drawn at once cover Europe and North Africa in a grey rash at the locator's opening 50°
+view — the map became *less* legible for having more on it, and the red marks that are the point were
+buried. Each tier now earns its place at a zoom: 216 national capitals always, 392 million-plus cities
+once the frame is a region, 2,057 division capitals only at a country or less.
+
+**One honest gap.** No shipped card's answer is a named river, so the "name it only if the river is a
+card" rule has no live instance. Natural Earth's 10m set names the Nile, Euphrates, Tigris, Danube, Po,
+Indus, Ganges, Yangtze and Jordan — but not the Tiber, the Rubicon, the Eurotas or the Alpheus — so the
+rule will fire the day a Nile card is written and never for Rome's Tiber.
+
+The original plan follows.
+
 
 `cardMapSpec` / `startCardGlobe` draw one place today. The ask is: the other cards' places in the same
 collection as smaller red dots, plus the Atlas's capitals, its million-plus cities and its rivers, with

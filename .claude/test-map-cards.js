@@ -376,18 +376,24 @@ async function browserChecks(page) {
   sect("6. the collection");
   await page.goto("http://localhost:" + PORT + "/#decks");
   await page.waitForTimeout(900);
+  /* GEOGRAPHY IS A SECTION, NOT A COLLECTION — and this looked for a collection called "Geography" until
+     Aug 2026, when the wrapper node of that name was PROMOTED on request: the heading is Geography and the
+     collection under it is "United States" (`geo-us`), with its two decks directly inside. So the row is
+     found through the section's own slot, `#collection-list-geo`, which is where `COLLECTION_SECTIONS`
+     puts it and which cannot drift the way a text match on a title can. */
   const coll = await page.evaluate(() => {
-    const rows = [...document.querySelectorAll(".collection")];
-    const g = rows.find((r) => /Geography/.test(r.textContent));
-    if (!g) return { found: false };
+    const slot = document.querySelector("#collection-list-geo");
+    const g = slot && slot.querySelector(".collection");
+    if (!g) return { found: false, slot: !!slot };
     return {
       found: true,
+      title: (g.querySelector(".collection-title, .coll-title, h3") || {}).textContent || g.textContent.slice(0, 40),
       hue: getComputedStyle(g).getPropertyValue("--coll-bg").trim(),
       icon: !!g.querySelector(".coll-ic svg"),
       decks: [...g.querySelectorAll(".node-title, .deck-title")].map((n) => n.textContent.trim()).filter(Boolean),
     };
   });
-  ok(coll.found, "the Geography collection is on the collections page");
+  ok(coll.found, "the Geography SECTION holds a collection", JSON.stringify({ slot: coll.slot, title: coll.title }));
   ok(coll.icon, "…with an icon of its own");
   ok(/^#/.test(coll.hue || ""), "…and a hue of its own", coll.hue);
 

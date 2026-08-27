@@ -2309,6 +2309,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `TINT_SEL` /
   `serializeCardData` / `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map
   card.**
+  · **A LOCATOR SHOWS THE REST OF ITS COLLECTION, AND THE WORLD AROUND IT** (`cardCollectionRoot` /
+    `locatorSiblings` / `_locSibCache`; Aug 2026, on request). Four layers under the card's own gold dot:
+    the collection's other card places as smaller RED dots, the Atlas's capitals and million-plus cities
+    as grey ones, and its rivers. **The two halves are paid for differently and that is the whole design.**
+    The siblings are FREE — every locator is in `data.js`, which every visitor downloads before flipping a
+    card — so they ship unconditionally; the cities and rivers are the `atlas` bundle (~600 KB), so they
+    are **warmed at IDLE and never awaited**, which is `glossExtra`'s bargain, and skipped outright under
+    `saveData`, which is `startMiniGlobe`'s. A card with a locator therefore paints at once with its own
+    places and fills in a moment later. **THE CITIES THIN WITH ZOOM, and that was found by LOOKING**: all
+    2,665 drawn at once cover Europe and North Africa in a grey rash at the opening 50° view and bury the
+    red marks that are the point — so the 216 capitals show always, the 392 million-plus cities once the
+    frame is a region, and the 2,057 division capitals only at a country or less. **A river is NAMED only
+    where it is itself a card in the collection**, which is what was asked for and the only thing that
+    keeps the map readable — though **no shipped card's answer is a named river yet**, and Natural Earth's
+    set has no Tiber, Rubicon, Eurotas or Alpheus, so that rule waits for a Nile or Euphrates card.
+    `_locSibCache` is declared beside `uCacheBust` rather than beside its own function, for the temporal
+    dead zone's reason. Guarded by `.claude/test-card-locator.js`.
   **📖 `docs/map-cards.md` — READ BEFORE CHANGING ANY OF IT.** Why the globe is drawn here rather than by
   reusing the Atlas, the fit's near-rings rule and the Alaska and District of Columbia exceptions, the three
   attempts it took to prove the fill is a tint, `h2r` learning `rgb()`, where the facts box sits and why,
@@ -4520,6 +4537,13 @@ dead code (never rendered).
     `setDeckFsrsParams` / `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll`
     / `fsrsSequences` / `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s
     per-deck allowances, or anything named `sched*` or `fsrs*`.**
+  · `node .claude/test-card-locator.js` — **what a locator draws besides its own place** (7 assertions,
+    Aug 2026). The marks are on a canvas, so the honest test is a PIXEL COUNT — the collection's reds are
+    there, and the card's own gold is still the biggest mark on the map. It also asserts the PAYMENT in
+    both directions: the card paints before the `atlas` bundle arrives, and the bundle really is fetched
+    rather than folded into the eager path. **Re-run after touching `locatorSiblings` /
+    `cardCollectionRoot` / the extras block in `startCardGlobe`'s `draw()` / the idle `ensureData("atlas")`
+    beside it / `uCacheBust`.**
   · `node .claude/test-card-quote.js` — **a card quoting the book it cites** (13 assertions, Aug 2026),
     and every part of it fails silently: a quotation appended after the prose instead of standing between
     the two blocks looks deliberate, one that wraps around the floated illustration looks deliberate, and

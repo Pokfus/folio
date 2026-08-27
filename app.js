@@ -581,7 +581,13 @@
      bytes. `TextEncoder` rather than `.length`, or every accented and CJK character is undercounted. */
   let _cardBytes = new Map();
   let _nodeBytes = new Map();
-  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); }
+  /* `_locSibCache` is declared HERE rather than beside `locatorSiblings`, which is 28,000 lines down, for
+     the reason the caches above it are: `uCacheBust` runs at boot out of `applyAdminEdits`, so a `let`
+     declared later in the file is in its temporal dead zone and the whole boot throws. It goes with them
+     because a locator moved or a card retired changes what a sibling map draws, and an admin edit is
+     exactly the thing that does either. */
+  let _locSibCache = null;
+  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; }
   let _byteEnc = null;
   function cardBytes(id) {
     let n = _cardBytes.get(id);
@@ -27498,6 +27504,12 @@
        whose answer is already on screen — so holding it back there would be a mark nothing accounts for. */
     const ctx = cv.getContext("2d");
     let stopped = false, target = null, shapes = null, revealed = host.hasAttribute("data-map-named"), dot = null;
+    /* A LOCATOR SHOWS THE REST OF ITS COLLECTION, AND THE WORLD AROUND IT (Aug 2026, on request). The
+       siblings are free — they are in `data.js`, already downloaded — and go in at once; the cities and
+       rivers live in the `atlas` bundle and are WARMED at idle rather than awaited, so the card is
+       readable immediately and the map fills in. See the note above `cardCollectionRoot`. */
+    const sibCard = host.getAttribute("data-map-card") || "";
+    const sib = sibCard ? locatorSiblings(sibCard) : { dots: [], terms: new Set() };
     let rotLon = 0, rotLat = 0, zoom = 1, homeLon = 0, homeLat = 0, homeZoom = 1;
     let W = 0, H = 0, cx = 0, cy = 0, R = 0, baseR = 0, dpr = 1;
     let Cx = 0, Cy = 0, Cz = 0, Ex = 0, Ey = 0, Ez = 0, Nx = 0, Ny = 0, Nz = 0;
@@ -27641,6 +27653,83 @@
          pointed at on the Atlas are the same thing. It draws ON TOP of the shaded state, which is the
          clue: the state answers "where", the dot answers "which place". Its NAME is held back until the
          answer is shown, for the obvious reason. */
+      /* ---------- what else is on a LOCATOR's map ----------
+         Drawn UNDER the card's own dot and in this order — rivers, then cities, then the collection's
+         other places — so the thing the card is about is the last mark laid down and nothing can be
+         painted over it. Every layer is guarded on its data being present: the cities and rivers are
+         warmed at idle out of the `atlas` bundle, so for the first second or two of a card's life this
+         section draws the siblings alone, which is exactly what is intended. */
+      if (sibCard) {
+        const RIV = window.RIVERS || [];
+        if (RIV.length) {
+          /* Thin, in the map's own water colour, and CULLED by the same visibility test the borders use —
+             1,073 rivers of 21,909 points is a fifth of what the world's own coastline already costs per
+             frame, and at a locator's zoom the cull leaves a handful. */
+          ctx.strokeStyle = ocean; ctx.lineWidth = 1.1; ctx.globalAlpha = 0.7;
+          for (let i = 0; i < RIV.length; i++) {
+            const lines = RIV[i].p;
+            for (let j = 0; j < lines.length; j++) {
+              if (!visible(lines[j])) continue;
+              ctx.beginPath(); addRing(lines[j]); ctx.stroke();
+            }
+          }
+          ctx.globalAlpha = 1;
+          /* A RIVER IS NAMED ONLY WHERE IT IS ITSELF A CARD, which is what was asked for and is also the
+             only thing that keeps the map readable: naming all 1,073 would bury the place the card is
+             about under the names of every creek near it. The test is the collection's own answer terms. */
+          if (sib.terms.size) {
+            ctx.font = "500 11px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+            for (let i = 0; i < RIV.length; i++) {
+              const nm = RIV[i].n;
+              if (!nm || !sib.terms.has(String(nm).toLowerCase())) continue;
+              const line = RIV[i].p[0];
+              if (!line || !line.length || !visible(line)) continue;
+              const mid = line[Math.floor(line.length / 2)];
+              proj(mid[0], mid[1]);
+              if (PV < 0) continue;
+              ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, PX, PY);
+              ctx.fillStyle = ink; ctx.fillText(nm, PX, PY);
+            }
+          }
+        }
+        const CTS = window.CITIES || [];
+        if (CTS.length) {
+          /* Capitals, million-plus cities and division capitals — `r` 0, 1 and 2, exactly the three the
+             request names. UNLABELLED, deliberately: the request asks for names on the rivers and not on
+             these, and a locator that named every city near its subject would bury the one label that
+             matters.
+             THEY THIN WITH ZOOM, AND THAT WAS FOUND BY LOOKING RATHER THAN BY REASONING. Drawn all at
+             once they are 2,665 dots, which at a locator's opening view of about 50° covers Europe and
+             North Africa in a grey rash and buries the collection's own red marks in it — the map became
+             less legible for having more on it. So each tier earns its place at a zoom: the 216 national
+             capitals always, the 392 million-plus cities once the frame is a region rather than a
+             continent, and the 2,057 division capitals only when it is a country or less. It is the
+             Atlas's own `CITY_SEP` rule in the form this window can afford — a zoom test rather than a
+             per-label collision pass, since these carry no labels to collide. */
+          const tierZ = zoom >= CMAP_ZLOC * 4 ? 2 : zoom >= CMAP_ZLOC * 1.75 ? 1 : 0;
+          for (let i = 0; i < CTS.length; i++) {
+            const ct = CTS[i], r = ct.r | 0;
+            if (r > tierZ) continue;
+            proj(ct.c[0], ct.c[1]);
+            if (PV < 0) continue;
+            if (PX < -20 || PY < -20 || PX > W + 20 || PY > H + 20) continue;
+            const rad = r === 0 ? 2.6 : r === 1 ? 2.1 : 1.7;
+            ctx.beginPath(); ctx.arc(PX, PY, rad, 0, Math.PI * 2);
+            ctx.fillStyle = rgbaOf("#000000", r === 0 ? 0.42 : 0.3); ctx.fill();
+          }
+        }
+        /* THE COLLECTION'S OTHER PLACES, in a red that is nobody else's mark on this map: the card's own
+           dot is the Atlas's selection gold and the cities are grey, so a reader can tell at a glance
+           which marks are Folio's own subject matter. Smaller than the card's dot, as asked. */
+        for (let i = 0; i < sib.dots.length; i++) {
+          const d = sib.dots[i];
+          proj(d.c[0], d.c[1]);
+          if (PV < 0) continue;
+          ctx.beginPath(); ctx.arc(PX, PY, 3.4, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill();
+          ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#ffffff", 0.75); ctx.stroke();
+        }
+      }
       if (dot) {
         proj(dot.c[0], dot.c[1]);
         if (PV >= 0) {
@@ -27791,6 +27880,16 @@
     /* The geometry is two lazy bundles, so the window says it is loading rather than sitting blank — and
        says so in words if it cannot load, which is what a reader on a flaky connection is owed. Both are
        needed: the world for the coastline the place sits on, the layer for the place itself. */
+    /* …and a LOCATOR asks for the cities and rivers ON TOP OF THAT, at IDLE and without waiting for them
+       (Aug 2026, on request). They are the `atlas` bundle — the same ~600 KB the Atlas itself loads — so
+       awaiting them would put that behind every history card with a map, and refusing them would make the
+       map poorer for a reader already sitting on the page. Warmed instead, and redrawn when they land:
+       `glossExtra`'s bargain, and the `saveData` guard is `startMiniGlobe`'s.
+       It is fired from HERE rather than from the promise below because it depends on nothing that
+       resolves there, and a reader who never scrolls to the foot of a card should not have had it. */
+    if (sibCard && !(navigator.connection && navigator.connection.saveData)) {
+      whenIdle(() => { if (!stopped) ensureData("atlas").then(() => { if (!stopped) schedule(); }); });
+    }
     host.classList.add("mc-loading");
     Promise.all([ensureData("world"), ensureData(def.bundle)]).then((ok) => {
       if (stopped) return;
@@ -27988,13 +28087,60 @@
     if (!isFinite(lon) || !isFinite(lat) || Math.abs(lon) > 180 || Math.abs(lat) > 90) return null;
     return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0 };
   }
+  /* ---------- WHAT ELSE IS ON A LOCATOR'S MAP (Aug 2026, on request) ----------
+     "History cards with an atlas locator should also show the collection's other card locations as
+     smaller red dots, plus state capitals, million-plus cities, and rivers — names only if the river is
+     a card." Two halves, and they are paid for very differently.
+
+     · **THE SIBLING DOTS COST NOTHING AND SHIP UNCONDITIONALLY.** Every locator is already in `data.js`,
+       which every visitor downloads before flipping a card, so the other 54 places in Ancient Greece are
+       on the page before the map is drawn. This is the half the request is really about — a card's place
+       shown among the places its collection has been teaching.
+     · **THE CITIES AND RIVERS ARE IN THE `atlas` BUNDLE, AND ARE WARMED AT IDLE RATHER THAN AWAITED.**
+       Fetching them before the map paints would put ~600 KB behind every history card that carries a
+       locator, for texture; refusing to fetch them at all would make the map poorer for no reason once a
+       reader is sitting on the page. So the card draws at once with its own places, and the cities and
+       rivers arrive a moment later and redraw — which is `glossExtra`'s bargain exactly. **Skipped
+       entirely under `navigator.connection.saveData`**, like the home page's mini globe.
+
+     The collection is the ROOT of the tree the card hangs from, not its leaf deck: "the collection's
+     other card locations" is what was asked for, and a leaf would give three dots. */
+  function cardCollectionRoot(id) {
+    const leaf = cardLeaves(id)[0];
+    let n = leaf ? NODE_BY_ID[leaf.id] : null;
+    while (n && n.parentId) n = NODE_BY_ID[n.parentId];
+    return n || null;
+  }
+  /* Every other card in this card's collection that has a locator, plus the answer terms of the whole
+     collection — the second is what decides which rivers are named. Built once per collection and cached,
+     since `subtreeCardIds` walks the tree and a drag of the globe must not do that per frame; thrown away
+     whole by `uCacheBust`, which is what an admin edit goes through. */
+  function locatorSiblings(id) {
+    const root = cardCollectionRoot(id);
+    if (!root) return { dots: [], terms: new Set() };
+    if (!_locSibCache) _locSibCache = new Map();
+    const hit = _locSibCache.get(root.id);
+    if (hit) return { dots: hit.dots.filter((d) => d.id !== id), terms: hit.terms };
+    const dots = [], terms = new Set();
+    subtreeCardIds(root).forEach((cid) => {
+      const c = CARD_BY_ID[cid];
+      if (!c) return;
+      const t = String(c.answerText || "").trim();
+      if (t) terms.add(t.toLowerCase());
+      const l = cardLocator(c);
+      if (l) dots.push({ id: cid, n: l.name, c: l.at });
+    });
+    _locSibCache.set(root.id, { dots: dots, terms: terms });
+    return { dots: dots.filter((d) => d.id !== id), terms: terms };
+  }
   function cardLocatorHTML(c) {
     const l = cardLocator(c);
     if (!l) return "";
     const said = (l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
       "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and \u2212 zoom.";
     return '<div class="card-loc"><span class="label">Location</span>' +
-      '<div class="map-card map-loc" data-map-layer="world" data-map-named data-map-at="' + l.at[0] + "," + l.at[1] + '"' +
+      '<div class="map-card map-loc" data-map-layer="world" data-map-named data-map-card="' + esc(c.id || "") + '"' +
+      ' data-map-at="' + l.at[0] + "," + l.at[1] + '"' +
       (l.name ? ' data-map-atname="' + esc(l.name) + '"' : "") +
       (l.zoom ? ' data-map-zoom="' + l.zoom + '"' : "") + ">" +
       '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' +
