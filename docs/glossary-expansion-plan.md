@@ -167,8 +167,8 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N4 | 14 | Helladic chronology — **shipped**, 10 of 14 pictured |
 | N5 | 11 | Troy levels — **shipped**, 8 of 11 pictured |
 | N6 | 12 | Aegean prehistorians and museums — **shipped**, 7 of 12 pictured |
-| N7 | 12 | Athens topography |
-| N8 | 12 | Mycenaean tombs and grave circles |
+| N7 | 12 | Athens topography — **shipped**, all twelve pictured |
+| N8 | 11 | Mycenaean tombs and grave circles — **shipped**, all eleven pictured (Tomb N deferred, see below) |
 | N9 | 12 | Greek architecture and its orders |
 | N10 | 12 | Greek vessel and object vocabulary |
 | N11 | 12 | Greek regions and islands |
@@ -254,6 +254,56 @@ portrait on Commons (the searches return radiocarbon diagrams and unrelated name
 commonest honest reason for none. `Ludwig Borchardt`'s is a Max Liebermann oil portrait digitised
 at only 287 x 360, below the pass's ~900px bar and taken anyway: it is the only free image of him,
 the popup slot caps at 150px, and a stated trade beats no picture at all.
+
+**N7 — Athens, Attica and the mainland's sanctuaries (shipped, all twelve pictured).** Pompeion,
+Dipylon Gate, Pelargikon, Cape Sounion, Mount Pentelicus, Mount Hymettus, Salamis, Corinthia,
+Kalapodi, Orchomenos, Krisa, Mantineia. Four sourcing findings are worth carrying. **A remembered
+citation is not a citation**: Pausanias 8.8 returns Nestane and the Untilled Plain rather than the
+battles an earlier note recalled, and Herodotus 8.83 is Themistocles' speech and says nothing
+identifying Salamis — 8.40, the fleet putting in so Attica could be evacuated, is what the term
+cites. **Persee serves a "document does not exist" page with a 200-shaped body**, so a composed URL
+reads as a real page; the Te Riele reference was found by searching rather than by guessing. And
+**a superseded framework is not repeated for the sake of one usable fact**: Berard is cited for the
+wall, the two spellings and the late date of the stork pun, and not for his Dorian-invasion
+chronology.
+
+Its alias finding is the pass's own trap arriving on schedule. **A bare `Dipylon` alias was
+refused**: the surface occurs 38 times in the glossary for the Dipylon Master, Painter and Amphora,
+so it would have mis-linked all of them to the gate. `Salamis` is keyed as the Saronic island and
+the Cypriot city takes a disambiguated key when Cyprus is reached (N13); `Cirrha` is not an alias
+of `Krisa`, being a different place downhill.
+
+**N8 — Mycenaean tombs and grave circles (shipped, eleven of twelve, all eleven pictured).** Tomb
+of the Lions, Tomb of Aegisthus, Tomb of Clytemnestra, Grave Gamma, Shaft Grave V, dromos, stele,
+corbel, vestibule, citadel, scabbard, diadem.
+
+**`Tomb N` is DEFERRED with a stated reason.** No openable source identifies it: Rutter's lessons,
+which carry the nine Mycenae tholoi and both grave circles, contain no tomb of that name, and three
+searches turned up nothing that could be cited. Every scholarly host that might settle it is shut
+from here — all the Wace BSA articles are paywalled, `mycenae-excavations.org` and `mycenae.gr` are
+empty shells, `chs.harvard.edu`'s search is JavaScript-driven and `culture.gov.gr` is 403. Come back
+to it when one of those opens rather than guessing which tomb the request meant.
+
+Two findings about the shaft graves are worth carrying, and both are about not repeating a number.
+**Schliemann's numbering is not the modern one** — Grave IV is his no. 4 and Grave V his no. 1 — so
+the masked triple burial appears in his own book under "the first sepulchre", and a page cited from
+memory would file it under the wrong grave. And **the tomb Schuchhardt says was "excavated by Mrs.
+Schliemann" is deliberately NOT asserted to be the Tomb of Clytemnestra**: his architectural
+description corroborates Rutter's, he never uses the name, and identifying it here would be
+composing an attribution, so he is not among the citations.
+
+**Its pictures cost more than any batch so far and three findings came out of the looking.** **A
+record can describe a diadem and show none**: the Louvre's `Greek diadem Louvre Bj119`, titled and
+described as a funerary diadem, holds three detached gold fragments on a slate slab — two rosettes
+and a sprig — with no band or fillet anywhere in the frame, which is precisely what the entry
+defines. Four further searches returned only Getty hairnets and 19th-century coin-catalogue scans.
+What answered is the badge itself rather than an object: a tetradrachm of Demetrios I Poliorketes,
+whose obverse shows the plain flat band tied round the head with its end hanging behind. **Ask what
+would SHOW the definition, not what shares its name.** **The scabbard ships as a replica and says
+so** — seven searches found only book scans, medieval chapes and the Carnuntum replica of the Sword
+of Tiberius, whose original is in the British Museum — which is the documented cast-and-replica
+rule. And **the uploader's own correction outranks the file name**: the Demetrios file is titled
+Berlin and its record states Munich, so the caption follows the record.
 
 ### The standing rules a new term is held to
 
