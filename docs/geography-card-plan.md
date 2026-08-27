@@ -14,8 +14,9 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='geo-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
-`geo-005` Alaska, `geo-006` Hawaii, `geo-501` Sacramento, `geo-502` Austin and `geo-504` Providence.**
-Both subdecks are worked down the same list, so the next state is `geo-007` and the next capital `geo-503`.
+`geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-501` Sacramento, `geo-502` Austin,
+`geo-503` Tallahassee and `geo-504` Providence.** Both subdecks are worked down the same list, so the
+next state is `geo-008` and the next capital `geo-505`.
 
 ---
 
@@ -189,6 +190,22 @@ so a state sits where the Atlas would put it.
 - **The fit is read off the shape**, centred on Natural Earth's own published label point and zoomed so the
   longest side fills a little over half the window. Fifty hand-tuned numbers would be fifty things to keep
   right; one formula is one.
+- **THE LAYER IS BUILT FROM NATURAL EARTH'S `_lakes` VARIANT, AND THAT IS WHAT GIVES MICHIGAN A MITTEN**
+  (Aug 2026, found by looking at `geo-007`). Natural Earth publishes admin-1 twice:
+  `ne_10m_admin_1_states_provinces` gives a Great Lakes state its share of the LAKE along with its land,
+  and `..._lakes` clips the lakes out. The builder took the plain one — right for a choropleth, and
+  catastrophic for a card whose whole question is a SHAPE. **Michigan shipped as ONE ring of 223 vertices
+  spanning both peninsulas and the water between them**: a blob with no Straits of Mackinac, no mitten and
+  no thumb, which is precisely the outline the running order put Michigan seventh for. It is 15 rings and
+  1,197 vertices from the right file, with Isle Royale as its own speck. **Sixteen of the 51 shapes
+  changed and none of them broke**: the eight Great Lakes states substantively (Michigan, Wisconsin 1 → 8
+  rings, New York 9 → 13, Illinois, Indiana, Minnesota, Ohio, Pennsylvania), and Alabama, Iowa, Kentucky,
+  Missouri, South Dakota, Tennessee, Texas and Wyoming by one to five vertices apiece, which is a large
+  inland reservoir clipped at this tolerance. The fifty capitals came out byte-identical, and the six
+  already-shipped states were untouched but for Texas, whose only change is a single vertex on Amistad or
+  Falcon. **This is the second defect in this layer that no count could see and only looking at a card
+  found** — the first was Rhode Island's tolerance, below — and both are the same lesson: a fit that
+  frames its state and a file that parses tell you nothing about whether the picture is the right one.
 - **`us-states.js` is traced ten times finer than `world.js`** (Douglas–Peucker 0.002, 3dp against 0.02,
   2dp). This is the correction most worth not undoing: the first cut copied world.js's tolerance on the
   reasoning that two traces in one canvas should match, and world.js's tolerance was chosen for a map at
@@ -284,6 +301,12 @@ Four more, measured while writing `geo-005` and `geo-501`:
   the publisher.** And the Texas State Preservation Board's Capitol History timeline is the state-body
   source beside it — the three million acres of Panhandle land that paid for the building, the granite, the
   cornerstone and the zinc Goddess of Liberty, dated year by year.
+- **`npgallery.nps.gov/GetAsset/<uuid>` answers 404 to a HEAD and 200 to a GET.** That is where the NPS
+  serves its National Register and National Historic Landmark nominations, and they are worth reaching for:
+  the San Luis de Talimali nomination carries de Soto's winter camp of 1539, the missionisation of the
+  Apalachee province in 1633, San Luis as the western capital of Spanish Florida from 1656 to 1704 with
+  more than 1,400 residents, and its destruction in 1704 — a depth no state page has. **Check a citation
+  URL with a GET**, since the obvious `curl -sIL` sweep reports these as dead.
 - **The Census Bureau's own history stories are the thing that does** — `census.gov/about/history/stories/`,
   one a month, each with a named author and a date. "Alaska and Its People" (Gauthier, 1 January 2024)
   states the 49th-state rank, 3 January 1959, the $7.2 million at about two cents an acre, the largest-state
