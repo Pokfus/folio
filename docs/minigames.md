@@ -359,3 +359,63 @@ The five bullets below are as they stood in CLAUDE.md, verbatim.
     worth a sixth and a seventh — and the cycle lengthens with every year added to `whatyear.js`.
   · `score` is the guesses left when it landed (3/2/1, `total` 3 — Common Thread's precedent for a total
     that is not 5); `won`, and the gold tile, is first go.
+
+## A tile turns over to its record (Aug 2026, on request)
+
+> "When long-pressing a minigame tile on the home page, the tile should flip around and reveal the user's
+> general stats and site-wide average statistics for that minigame that day."
+
+**The gesture was free.** `wireHoldMenu` already classifies a hold and is used by the deck rows and the
+review banner, so a hold here is classified exactly as a hold there — and a tap still opens the game,
+because the document-level guard that swallows the click after a hold is the same one. The tiles are wired
+in ONE walk over `.game-tile[data-game]` rather than nine `querySelector` lines, so a tenth game is wired
+by putting it in the grid and nothing else.
+
+**The back is an element inside the button, not a second button.** The tile is already a `<button>`, and a
+control inside a control is exactly what forced the review banner's own "+ New group" out of it.
+
+### What the site-wide half can say, and why it needed a schema block
+
+`S.games[key]` is device-local and `progress` is RLS-scoped to its owner and their accepted friends, so
+**there is no way to average across readers from the tables the site already had** — the same wall the
+Edit page's Dashboard states in prose about site-wide study figures. Section 15 of
+`.claude/supabase-schema.sql` adds a pooled counter of exactly the shape the community card rating uses:
+
+- `game_stats` — `(day, game)` primary key, four integers, **public to select and with no write policy at
+  all**, so RLS's deny-by-default makes it read-only to every client;
+- `bump_game_score(g, score, rounds, won)` — `security definer`, which clamps the score to the round count,
+  the win to 0 or 1 and the game key to `^[a-z]{3,16}$`, and stamps the SERVER's UTC day. The worst a
+  client can do is add one honest-shaped play.
+
+**The day is the server's UTC day, not the reader's.** A reader sets their own boundary (`dayKey`), so two
+people finishing the same daily game can disagree by up to twelve hours about which day it was — and a
+counter that took the caller's date could be moved onto any day by a client that lied. The tile says
+"Everyone, today" without claiming it is the reader's own day, which is what makes it honest.
+
+**A project that has not run the block says so in a sentence.** `_gameStatsOff` latches on a 404, exactly
+as the card statistics do, and the column reads "Site-wide figures aren't collected on this site." rather
+than showing a zero, which would read as "nobody played". A fetch that merely FAILED gets a **different**
+sentence — claiming a site does not collect a figure because a connection dropped is a claim made out of a
+dropped connection.
+
+Only a FINISHED run is posted: `opts.progress` marks a game reporting itself mid-play, and counting those
+would make "plays" a count of rounds.
+
+### The flip is 2D, and that is forced rather than preferred
+
+The badges' flip is a 3D `rotateY` between `.badge-front` and `.badge-back`, and it cannot be reused here:
+`.game-tile` carries `overflow:hidden`, and **an element with a clipped overflow is flattened to
+`transform-style:flat`** — so the back would paint mirrored and unreadable. Two `scaleX` squashes about
+opposite origins (the face collapsing to its left edge, the back opening from its right) read as one card
+turning, at one duration and one easing.
+
+**The two halves swap `aria-hidden`.** The face is hidden by a transform, which a screen reader cannot see,
+so without that a flipped tile would read out its front and never the record it had just been turned over
+to show.
+
+Two smaller things. The back is filled **before** the class lands, so nothing is seen half-drawn
+mid-rotation, and the site figures are dropped in when the fetch settles — guarded on the tile still being
+flipped and still in the document, since a reader can turn it back or leave the page. And wrapping the
+front in `.gt-face` broke two theme rules that used `>` on the tile's children; both now match the wrapped
+and the unwrapped form, because `blankTile` (the grid's spare slot, unused since Common Thread took the
+sixth tile) still puts them directly on the tile.

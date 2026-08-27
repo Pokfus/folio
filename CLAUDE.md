@@ -1132,7 +1132,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 ## How the app is wired
 
 - **Routing:** `location.hash` → the `PAGES` map (home, decks/library, study, map/atlas, account,
-  settings, challenge, chrono, admin). `render()` clears `#view` and calls the current page fn.
+  settings, challenge, chrono, admin — and a dozen more; **read the `valid` list rather than this
+  parenthesis**, which has been illustrative rather than complete since the games and the reader's own
+  record pages arrived). `render()` clears `#view` and calls the current page fn.
   It also calls **`setPageMeta(current.name)`**, which sets `document.title` and the
   description / `og:` / `twitter:` meta from the **`PAGE_META`** table (route → `[title, description]`,
   run through `t()` so it localises where a translation exists, English otherwise). Add a route → add its
@@ -1654,6 +1656,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `S.published` / `S.publishedIds` / `S.theme` are in `defaultState` AND `PROGRESS_FIELDS`; **`themes`
     and `theme` are additionally in `RESET_KEEPS`** — the artefacts and chests still go, being what a LEVEL
     bought. Guarded by `.claude/test-artefacts.js`.
+  · **IT HAS A PAGE OF ITS OWN** (`PAGES.reliquary` at `#reliquary`, `RELIQ_SORTS`, `artefactYear`,
+    `_reliqRepaint`; Aug 2026, on request). Your OWN collection is a page — an address, a back button and
+    a sort a reader can leave set; a FRIEND'S is still `openCollectionWin`, because a route carries a name
+    and nothing else and there is nowhere for somebody else's progress to ride. Four things.
+    **The sort is the Library shelf's pair, not a second control**: `sortPickerHTML` chooses the field and
+    `sortDirHTML` the direction, which is what spends "and reverses" on one button rather than doubling the
+    list; the choice is a MODULE-LEVEL variable, like the glossary record's, since it is a way of looking at
+    a list and not a preference about Folio. **"Unlocked date" needed no new field** — `S.artefacts[id]` has
+    always been `Date.now()` rather than `true`. **"Artefact dating" needed a parser and it is NOT
+    `cardYears`**: 42 of the 100 are dated by century, which that function deliberately cannot read (see
+    the date-line note under "Add a card" — teaching it to would move the sort year of 52 shipped CARDS),
+    so `artefactYear` reads the century and millennium forms itself, including the range whose unit carries
+    rightwards (`1st – 3rd century CE`, where the simple pattern reads the SECOND ordinal and dates the
+    object two centuries late), and falls through to `cardStartYear` for the rest. **And the signed-out
+    account page's inline grid became an entry to it** (`reliquaryHTML(…, { entry: true })`), which is the
+    same duplication the signed-in page had removed on request a fortnight earlier.
   **📖 `docs/reliquary.md` — READ BEFORE CHANGING ANY OF IT.** The reveal's per-rarity timings and sounds,
   the shallow lid, the plate's wash and its media frame, the glossary links inside a plate and the z-index
   drop plus `escTakenAbovePlate` they forced, the showcase's empty-slot control and "See Reliquary", why a
@@ -1715,6 +1733,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **ADDING A COLLECTION ADDS EVERY DECK INSIDE IT**, removing takes the node, its subtree AND its
     ancestors, and `refreshAddButtons` re-reads every `+` on the page rather than the one pressed. **There is
     no deck cap** — the Folio level used to be one, and it was the only thing a level decided.
+  · **THE HANDLES, THE CROSSES AND THE RENAMES LIVE IN AN EDITOR MODE** (`deckEditOn` /
+    `deckEditCheckpoint` / `deckEditBarHTML` / `setEntryTitle` / `.rv-editing`; Aug 2026, on request). The
+    grips used to sit at `.32` on every row at rest, which is six handles competing with six deck names;
+    they are `visibility:hidden` until an **Edit** button at the foot of the list is pressed — hidden that
+    way rather than with `display:none`, so the column the row's padding reserves for them does not
+    collapse and re-open, and `visibility` rather than `opacity` alone because an invisible control that
+    still swallows the press meant for the row underneath is the worse failure of the two. Six things.
+    **IT IS LIVE, WITH AN UNDO STACK**, chosen by the reader when asked: every edit lands at once, exactly
+    as before the mode existed, and the stack is what makes that safe — a STAGED editor would mean
+    rendering the list from a working copy rather than from state, which is a rewrite of the list rather
+    than a mode over it. **THE SNAPSHOT IS OF FIVE FIELDS** (`DECK_EDIT_FIELDS`), taken BEFORE each edit,
+    `adminCheckpoint`'s shape and for its reason: a removal is lossy — a deck takes its subdeck rows, its
+    nesting and its place in the order with it — and none of that can be derived back out.
+    **THE THREE BUTTONS ARE Undo / Revert / Done, NOT save/exit/undo as asked**: in a live editor "save"
+    and "exit" are the same button pressed twice, so Revert is the one that puts everything back and Done
+    is the one that just closes. **A RENAME WORKS ON EVERY ROW** — `groupTitle` has always read
+    `S.deckGroups[id].title` and fallen through to the node's own title, so one override field already
+    served the whole list, and it rides in the record the colour and icon are in, so it syncs and survives
+    a reset with no schema of its own; `data-shipname` on every row is what lets `setEntryTitle` tell a
+    real rename from the reader typing the existing name back, which CLEARS the override rather than
+    storing a copy of it. **`.rv-foot` IS DRAWN WHENEVER THERE ARE DECKS** — it used to wait for the day's
+    timer to have something to say, which would have hidden the Edit button every morning — **and it
+    survives the list emptying while the mode is open**, the one state that would otherwise strand a
+    reader with no Revert to get the last deck back. **AND IT IS A MODE, NOT A SETTING**: module-level, so
+    it survives a repaint and resets on reload.
   · **Guarded by `test-review-decks.js`** (sections 1–5, 8–11, 17–20) **and `test-layout.js`.**
   **📖 `docs/daily-study.md` — READ BEFORE TOUCHING THE REVIEW OR A DECK'S OPTIONS.** Why each rule above
   exists, what every sheet row is for, the sheet's arming window and its ×, the group machinery in full, and
@@ -2000,6 +2043,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     UNDISCOVERED term is the marked one** (`data-new`, `--newterm` teal); a read term renders exactly as
     glossary links always have. First opening also shows a gold chip with a ring splash and a chime,
     suppressed inside the Find-it game. Four achievements ride on the same counts.
+  · **TIME STUDIED AND TIME READING ARE KEPT FOR EVER, NOT JUST FOR TODAY** (`S.studyTotal` /
+    `studyTotalMs` / `readTimeAdd` / `readTimeToday` / `readTimeTotal` / `startTimeTicker`; Aug 2026, on
+    request). The study page has counted the day's time on cards since it shipped; this is the same ticker
+    factored out and pointed at two more places — a lifetime total beside the daily one, and the LIBRARY,
+    where `S.reading[bookId].secs` rides on the record that already held the reader's place and already
+    synced. Both are tiles in "Beyond the cards" and both carry badges (1/10/50/100 hours studied,
+    1/5/25 hours in one book), tested at the moment they are earned like the collector's. Two faults worth
+    remembering: **`setReadingPos` REPLACED the reading record rather than merging into it**, so the new
+    clock would have been wiped on every scroll; and the lifetime back-fill, written at boot, called
+    `todayStr()` — a `const` arrow declared a thousand lines further down — and threw on the temporal dead
+    zone, which is why it is a LAZY accessor. **A back-fill that needs something the module has not
+    finished defining belongs in an accessor, not at boot.**
   **📖 `docs/study-records.md` — READ BEFORE CHANGING ANY OF IT.** The flag palette's contrast reasoning
   and the browser's column and breakpoint decisions, the row-shape arithmetic and the sheet's flex rules,
   the heatmap's `.hm-pre` blanks and its month-label collision rule, and the discovery chip's box-shadow
@@ -2584,6 +2639,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE TILE EARNS ITS COLOUR**: a whisper of its hue unplayed, filled with a green check once played, a
     shining gold ribbon on a perfect run. All nine `won` on one day is the **Clean Sweep** badge and a
     chest, and the badge gets harder each time the grid grows, deliberately.
+  · **AND IT TURNS OVER TO ITS RECORD** (`gameBackHTML` / `flipGameTile` / `gameStatsPost` /
+    `gameStatsLoad` / `.gt-face` / `.gt-back`; Aug 2026, on request). A HOLD flips it — `wireHoldMenu`'s
+    own gesture, the deck rows' and the review banner's, so a tap still opens the game and the guard that
+    swallows the click after a hold is the same one. Four things.
+    **THE SITE-WIDE HALF IS A POOLED COUNTER TABLE** (`game_stats` + `bump_game_score`, section 15 of
+    `.claude/supabase-schema.sql` — **the user must run it once**), for the reason the community card
+    rating is: `progress` is RLS-scoped to its owner and their friends, so there is no averaging across
+    readers from the tables the site already had. **A project without the block says so in a sentence**
+    rather than showing a zero, which reads as "nobody played" — and a fetch that merely FAILED says
+    something different again, since claiming a site does not collect a figure because a connection dropped
+    is a claim made out of a dropped connection. **THE DAY IS THE SERVER'S UTC DAY**, not the reader's, and
+    the tile says "today" without claiming it is theirs. **THE FLIP IS 2D AND THAT IS FORCED**:
+    `.game-tile` carries `overflow:hidden`, which flattens `transform-style` to `flat`, so a 3D rotation
+    would show the back mirrored — two `scaleX` squashes about opposite origins read as one card turning.
+    **AND THE TWO HALVES SWAP `aria-hidden`**, or a flipped tile reads out its front and never its record.
   · **A DAILY POOL IS SEEDED AND ITS ANSWER MUST BE REACHABLE** — the crossword's letters must fit its own
     squares, What year?'s answer must sit on a tick of its own rail, and Common Thread's four groups must be
     provably disjoint. Each generator retries rather than giving up, and a starved pool is the failure mode
@@ -4427,7 +4497,9 @@ dead code (never rendered).
     `setDeckOrderMode` / `sortByDifficulty` / `refillAfterSuspend` / `UNDO_GUARD_MS` / `studyHold` /
     `clearStudySession` / `clearDeckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` /
     `openDeckLimits` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` /
-    `orderedIds` / `setupDeckDrag` / `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` /
+    `orderedIds` / `setupDeckDrag` / `deckEditOn` / `deckEditCheckpoint` / `deckEditBarHTML` /
+    `setEntryTitle` / `adOwnTitle` / `rowTitle` / `.rv-editing` / `.dk-del` /
+    `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` /
     `setNestParent` / `nestChildren` / `openDeckSched` / `setDeckSched` / `setDeckRetention` /
     `setDeckFsrsParams` / `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll`
     / `fsrsSequences` / `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s
@@ -4447,7 +4519,8 @@ dead code (never rendered).
     `dailyPictureRounds` / `tagKinship`, `buildWhoSaidRounds`, `threadEasyKeys` / `dailyThreadPuzzle` /
     `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`, `DAILY_GAMES` / `GAME_NAMES` /
     `PAGE_META` / the `valid` route list, `gameCardIdSet` / `GAME_MAX_DIFFICULTY`, `whatyear.js` /
-    `truefalse.js` / `quotes.js`, or the home page's tile grid.**
+    `truefalse.js` / `quotes.js`, `gameBackHTML` / `flipGameTile` / `gameStatsPost` / `gameStatsLoad` /
+    `markGamePlayed`, or the home page's tile grid.**
   · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (69
     assertions, Aug 2026). **Re-run after touching `cardDifficulty` / `difficultyOK` / `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY` / `cardUndatable` / `chronoPool` / `cardStartYear` / `serializeCardData` /
@@ -4467,7 +4540,8 @@ dead code (never rendered).
     `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`, `rollChestItem` / `spendChest` /
     `claimTheme` / `unlockTheme` / `themeGrandfather` / `THEME_DROP` / `THEMES` / `ACHIEVEMENTS` /
     `progStats`, `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` / `addActive`,
-    `serializeArtefacts`, or the `--newterm` / `--rar-*` tokens.**
+    `serializeArtefacts`, `PAGES.reliquary` / `RELIQ_SORTS` / `artefactYear` / `reliquaryHTML`'s `entry`
+    option, or the `--newterm` / `--rar-*` tokens.**
   · `node .claude/test-deck-ux.js` — **49 assertions on six things asked for in Aug 2026, every one of
     which fails silently**: a card type's `<details>` remembering how it was left, the structure line's
     typography, a community deck's colour, the sheet's ×, **the pinyin being set in a face that has the

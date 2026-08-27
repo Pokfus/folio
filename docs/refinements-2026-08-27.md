@@ -7,6 +7,13 @@ rather than a change, and a plan for the ones not built.
 **Rules live in `CLAUDE.md`; this is the reasoning.** Where an item produced a rule, the rule is in
 `CLAUDE.md` and the argument is here.
 
+**It was written in two passes and says so rather than being tidied.** §1–§3 are the first: the fixes, the
+four faults the fixes turned up at scale, and the four items that asked for a suggestion. §4 was a plan for
+nine items left unbuilt; **four of them were then built** — the four the reader chose when asked which to
+do next — and each of those sections now opens with what actually shipped and where the plan turned out to
+be wrong, with the original plan kept underneath it. A plan quietly rewritten to match what was built
+teaches nothing; a plan with its own corrections attached is the only kind worth keeping.
+
 ---
 
 ## 1 · What shipped
@@ -247,25 +254,58 @@ contract that is checked is the only kind that stays true across five pipelines 
 
 ---
 
-## 4 · Planned, not built
+## 4 · Planned, and since built
 
-Each of these was specified clearly enough to build and is left because the session ran to its useful end
-elsewhere. They are in rough order of value per unit of work.
+**B, C, D and E were built after this file was first written** — the four the reader chose when asked
+which to do next — and their sections below have been left as they were written, with a note at the head
+of each saying what actually shipped and where the plan turned out to be wrong. F, G, H and I are still
+plans. A was already answered by code that had shipped, which the section below did not notice.
 
-### A · A deck download that does not repaint the page (the second half of item 8)
+### A · A deck download that does not repaint the page (the second half of item 8) — ALREADY DONE
 
-The bar shipped; the repaint did not. `uImportDone(r, true)` calls `renderInPlace()`, which already drops
-the scroll-to-top and the entrance animation — what is left is that the whole of `#view` is rebuilt, which
-is what a reader sees as a refresh.
+**This section was wrong when it was written.** `uImportDone(r, true)` already calls `renderInPlace()`,
+and that IS the fix: it drops the scroll-to-top and the entrance animation, which are the two things a
+reader reads as a refresh (see the repaint bullet in CLAUDE.md — "A REPAINT IS NOT A NAVIGATION"). The
+list's fold state and drag order already survive it. Rebuilding the whole of `#view` rather than just the
+list is a cost in milliseconds, not something the reader can see, so the factoring below is an
+optimisation and not a bug fix.
 
-**The fix is a factoring, not a feature**: pull the review list's build and its wiring out of `PAGES.home`
-into `renderReviewList(hostEl)`, so the download path can rebuild `.active-decks` alone. Everything the
-list needs is already derived (`adRowOrder`, `adCounts`, `adProg`, `adIcon`, `setupDeckDrag`,
-`adSyncFold`); what is not factored is the boundary between "build the page" and "build this list".
-Roughly 150 lines moved and one new call site. **It also unblocks item 12 below**, which needs to repaint
-the same list on every edit.
+What DID need the same treatment and was still doing a full navigation is the **drop-into-a-container**
+path in `setupDeckDrag`, which called `render()` — so dragging a deck into a group scrolled the reader to
+the top of the page and replayed every block's entrance animation, on the one page where they had just
+posed the list by hand. Both branches there are `renderInPlace()` now.
 
-### B · The editor mode for the active decks (item 12)
+**The factoring, if it is ever wanted for its own sake**: pull the review list's build and its wiring out
+of `PAGES.home` into `renderReviewList(hostEl)`, so a caller can rebuild `.active-decks` alone.
+Everything the list needs is already derived (`adRowOrder`, `adCounts`, `adProg`, `adIcon`,
+`setupDeckDrag`, `adSyncFold`); what is not factored is the boundary between "build the page" and "build
+this list". Roughly 150 lines moved. The editor mode below was built without it.
+
+### B · The editor mode for the active decks (item 12) — BUILT
+
+**Shipped as `deckEditOn` / `deckEditCheckpoint` / `deckEditBarHTML`, live with an undo stack** (the
+reader's own choice when asked). Three things the plan below did not foresee.
+
+**Two of the three buttons were renamed, and the reason is the model.** In a live editor "save" and
+"exit" are the same button pressed twice — there is nothing staged for one to keep and the other to throw
+away — so what shipped is **Undo** (step back one), **Revert** (put back everything since Edit was
+pressed, then close) and **Done** (close). Same three controls; no button whose name promises a decision
+it is not making.
+
+**Renaming works on every row, not only on a group.** `groupTitle(id)` has always read
+`S.deckGroups[id].title` and fallen through to the node's own title, so one override field already served
+the whole list — `setEntryTitle` writes it, an empty name or a name equal to the shipped one clears it,
+and `data-shipname` on every row is what makes that second test possible without a second copy of the
+build's title logic. The record it writes to is the one the colour and the icon already live in, so the
+rename syncs, survives a reset and needed no schema.
+
+**`.rv-foot` is now drawn whenever there are decks** — it used to appear only once the day's timer had
+something to say, which would have hidden the Edit button every morning — **and it survives the list
+emptying while the mode is open**, which is the one state that would otherwise strand a reader: removing
+the last deck takes the list away, and with it the Revert that is the only way to get the deck back.
+
+The original plan follows.
+
 
 Asked for: the drag handles go invisible and the banner contents shift left; a button appears **bottom
 left, just below the list and vertically centred against the study timer**, which opens an editor mode
@@ -286,7 +326,30 @@ currently drawn only when there IS a timer — it will need to be drawn uncondit
 
 This is asked in the follow-up questions rather than guessed at.
 
-### C · The Reliquary on its own page, sortable (item 37)
+### C · The Reliquary on its own page, sortable (item 37) — BUILT
+
+**Shipped as `PAGES.reliquary` at `#reliquary`.** Two corrections to the plan below.
+
+**"Unlocked date" needed no new field and nothing was backfilled.** `S.artefacts[id]` has always been
+`Date.now()` rather than `true` — `ownedArtefacts` already sorted on it — so every artefact ever granted
+can say when. The plan's `S.artefactAt` does not exist and is not needed.
+
+**"Artefact dating" needed a parser the plan did not anticipate.** Forty-two of the hundred artefacts are
+dated by CENTURY ("c. 7th – 5th century BCE", "Early 7th century CE"), which `cardYears` deliberately
+cannot read — teaching it to would silently move the sort year of the 52 shipped CARDS whose date lines
+carry a century beside a plain year. So `artefactYear` reads the century and millennium forms itself,
+including the range written with the unit carried rightwards ("1st – 3rd century CE", where the simple
+pattern reads the SECOND ordinal and dates the object two centuries late), and falls through to
+`cardStartYear` for everything else. All 100 now yield a year; an artefact that did not would sort last
+in both directions rather than at year zero.
+
+The sort is the Library shelf's pair — `sortPickerHTML` for the field, `sortDirHTML` for the direction —
+which is what spends the request's "and reverses" on one button instead of doubling the list. A friend's
+collection is still the overlay: a route carries a name and nothing else, so there is nowhere for
+somebody else's progress to ride.
+
+The original plan follows.
+
 
 Today it is an overlay raised from the account page (`openCollectionWin`). The page wants:
 `PAGES.reliquary` at `#reliquary`, its `PAGE_META` row, the `valid` route list, and a sort picker over
@@ -300,7 +363,22 @@ rather than a preference about Folio, which is the call `PAGES.glossary`'s own p
 `spendChest` but it cannot be backfilled, so artefacts already owned sort last (or by id) and the picker
 should say so rather than inventing an order.
 
-### D · Long-press a minigame tile to flip it (item 25)
+### D · Long-press a minigame tile to flip it (item 25) — BUILT
+
+**Shipped, with the schema block the plan said it needed** — `game_stats` and `bump_game_score`, section
+15 of `.claude/supabase-schema.sql`, **which the user must run once**; until then the tile says the
+site-wide figure is not collected rather than showing a zero.
+
+**The flip is 2D, not the badge's 3D rotation, and that is forced rather than preferred**: `.game-tile`
+carries `overflow:hidden`, and an element with a clipped overflow is flattened to `transform-style:flat`,
+so a rotation would show the back mirrored and unreadable. Two `scaleX` squashes about opposite origins
+read as one card turning.
+
+**The two halves swap `aria-hidden`.** The face is hidden by a transform, which a screen reader cannot
+see, so without that a flipped tile would read out its front and never its record.
+
+The original plan follows.
+
 
 `wireHoldMenu` already classifies a hold and is used by the deck rows and the review banner, so the
 gesture is free. The FLIP is `.badge`'s (`.badge-front` / `.badge-back` with a 3D rotation) and can be
@@ -313,7 +391,20 @@ security-definer function. Until that exists the back of the tile can honestly s
 record (played, won, current streak, best) and say that the site-wide figure is not collected, which is
 the same line the admin Dashboard takes about `progress`.
 
-### E · Reading time per book, and lifetime study time (items 27, 28)
+### E · Reading time per book, and lifetime study time (items 27, 28) — BUILT
+
+**Shipped as planned**: `S.studyTotal` beside the daily figure, the same ticker in `PAGES.book` writing
+`S.reading[bookId].secs`, two new tiles in "Beyond the cards", and seven badges (1/10/50/100 hours
+studied, 1/5/25 hours in one book). Two things worth carrying.
+
+`setReadingPos` REPLACED the reading record rather than merging into it, so the new clock would have been
+wiped on every scroll; it merges now. And the lifetime back-fill was first written at boot, where it
+called `todayStr()` — a `const` arrow declared a thousand lines further down — and threw on the temporal
+dead zone; it is a lazy accessor (`studyTotalMs()`) instead, which is the shape to reach for when a
+back-fill needs something the module has not finished defining.
+
+The original plan follows.
+
 
 Study time is **already measured**: `S.timeToday` and the ticker in `PAGES.study` (see "TIME ON CARDS
 TODAY"), which is self-stopping on `root.isConnected`, counts only while a card is painted and the tab is

@@ -968,3 +968,78 @@ alter table public.profiles add column if not exists theme text not null default
 -- the grant is REPLACED rather than added to: `grant update (col)` is per column, so naming all four in
 -- one statement is idempotent and re-runnable, which is the property every block here has.
 grant update (username, name, avatar, theme) on table public.profiles to authenticated;
+
+-- ============================================================================================
+-- 15) HOW THE REST OF THE SITE DID AT TODAY'S GAMES  (run once)
+-- ============================================================================================
+-- Aug 2026, on request: "when long-pressing a minigame tile on the home page, the tile should flip
+-- around and reveal the user's general stats and site-wide average statistics for that minigame that
+-- day."  The reader's own record is in their progress and needs nothing; the SITE-WIDE half has nowhere
+-- to live, because `progress` is readable only by its owner and their accepted friends — not even an
+-- admin can read across it, which is why the Edit page's Dashboard says outright that there is no honest
+-- site-wide "cards studied" figure.  So this is the same shape section 13 takes for card difficulty:
+-- counters, pooled, joined to nobody.
+--
+-- THREE INTEGERS PER GAME PER DAY, AND NOTHING ELSE.  `plays` is how many finished it, `wins` how many
+-- scored a perfect run, `score_sum` the total of their scores — from which an average is a division the
+-- CLIENT does.  The average is not stored, because a stored average cannot be added to.
+--
+-- IT IS KEYED BY THE DAY, and the day is the SERVER's UTC date rather than the caller's.  A reader's own
+-- day boundary is theirs to set (see dayKey), so two readers finishing the same daily game can disagree
+-- by up to twelve hours about which day it was — and a counter that accepted the caller's date could be
+-- moved onto any day at all by a client that simply lied.  One UTC day is the only boundary every caller
+-- shares, and "how did everyone do at today's game" tolerates the seam far better than the alternative.
+--
+-- THERE IS NO PER-READER ROW, so nothing here can say who played what.  Like section 13, the table is
+-- read-only to every client and the one way in is the function below, which adds one play and at most
+-- one win and can do nothing else.  A hostile caller can inflate a counter; it cannot read anything it
+-- could not already read, and it cannot attribute a play to anybody.
+--
+-- UNTIL THIS BLOCK IS RUN the site is unaffected: the fetch 404s, `gameStatsMissing` latches, and the
+-- back of a tile says the site-wide figure is not collected rather than showing a zero.
+
+create table if not exists public.game_stats (
+  day date not null default (now() at time zone 'utc')::date,
+  game text not null,
+  plays int not null default 0,
+  wins int not null default 0,
+  score_sum int not null default 0,
+  rounds int not null default 0,          -- the round count the scores are out of, so an average has a denominator
+  updated_at timestamptz not null default now(),
+  primary key (day, game)
+);
+
+alter table public.game_stats enable row level security;
+
+drop policy if exists "game stats are public" on public.game_stats;
+create policy "game stats are public" on public.game_stats for select using (true);
+-- and no write policy: RLS denies by default, so the table is read-only to every client
+
+-- One call when a game is finished.  `won` is a boolean the server clamps to 0 or 1, and `score` is
+-- clamped to `rounds`, so the worst a client can do is add one honest-shaped play.
+create or replace function public.bump_game_score(g text, score int, rounds int, won boolean)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare r int; s int;
+begin
+  -- a game key is one of the site's own, and nothing else is ours to count
+  if coalesce(g, '') !~ '^[a-z]{3,16}$' then return; end if;
+  r := least(greatest(coalesce(rounds, 0), 1), 100);
+  s := least(greatest(coalesce(score, 0), 0), r);
+  insert into public.game_stats as t (day, game, plays, wins, score_sum, rounds, updated_at)
+  values ((now() at time zone 'utc')::date, g, 1, case when won then 1 else 0 end, s, r, now())
+  on conflict (day, game) do update
+    set plays = t.plays + 1,
+        wins = t.wins + (case when won then 1 else 0 end),
+        score_sum = t.score_sum + s,
+        -- the round count is a property of the day's puzzle, not of the player; the first honest caller
+        -- sets it and the rest agree, so this keeps the largest rather than summing
+        rounds = greatest(t.rounds, r),
+        updated_at = now();
+end $$;
+
+revoke all on function public.bump_game_score(text, int, int, boolean) from public;
+grant execute on function public.bump_game_score(text, int, int, boolean) to anon, authenticated;

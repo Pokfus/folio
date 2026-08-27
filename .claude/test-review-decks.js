@@ -91,6 +91,22 @@ const SETTINGS = {
     await page.addInitScript((st) => { try { localStorage.setItem("folio_v1", JSON.stringify(st)); } catch (e) {} }, state);
     return page;
   };
+  /* THE DRAG HANDLES LIVE IN AN EDITOR MODE SINCE AUG 2026 (on request: "rather than the drag handles
+     being visible at all times, make them invisible by default … pressing it opens an editor mode where
+     the drag handles appear on the left"). They are `visibility:hidden` at rest, which takes them out of
+     hit-testing AND out of the focus order — deliberately, since an invisible control that still swallows
+     the press meant for the row underneath is the failure that rule exists to prevent. So every drag
+     below opens the mode first, exactly as a reader now does, and this returns whether it actually
+     opened: a silent no-op here would show up as "the reorder does nothing", which reads like a broken
+     drag rather than a missing press. */
+  const openDeckEditor = (pg) => pg.evaluate(async () => {
+    if (document.querySelector("#dkEditDone")) return true;   // already open
+    const b = document.querySelector("#dkEdit");
+    if (!b) return false;
+    b.click();
+    await new Promise((r) => setTimeout(r, 300));
+    return !!document.querySelector("#dkEditDone");
+  });
   // three cards already studied → past the first-run hero, and Folio level 2 (which is two decks)
   const seeded = { active: [deckA, deckB], settings: SETTINGS, cards: { a: done(), b: done(), c: done() } };
 
@@ -686,10 +702,25 @@ const SETTINGS = {
     /* Every row carries a handle wherever the LIST holds a second row. It used to be wherever a LEVEL did —
        too narrow since groups (Aug 2026), because the only row in its level can still be dropped into a
        group or onto another deck, and without a handle there is no way to take it there. */
+    check("the deck list opens an editor mode", await openDeckEditor(page));
     check("every row of the review list carries a handle",
       await page.evaluate(() => {
         const rows = [...document.querySelectorAll(".active-deck")];
         return rows.length > 1 && rows.every((r) => !!r.querySelector(".dk-grip"));
+      }));
+    // …and the handles are only reachable INSIDE it: hidden at rest, and hidden in a way that takes them
+    // out of hit-testing rather than merely out of sight (see openDeckEditor)
+    check("...visible in the mode, and gone from the page when it closes",
+      await page.evaluate(async () => {
+        const vis = () => { const g = document.querySelector(".active-deck .dk-grip");
+          return !!(g && getComputedStyle(g).visibility === "visible"); };
+        const inMode = vis();
+        const d = document.querySelector("#dkEditDone");
+        if (d) { d.click(); await new Promise((r) => setTimeout(r, 300)); }
+        const out = vis();
+        const b = document.querySelector("#dkEdit");
+        if (b) { b.click(); await new Promise((r) => setTimeout(r, 300)); }
+        return inMode && !out && vis();
       }));
     /* The level to work on is found rather than assumed: which of them holds two rows depends on what the
        seed put in the review — here two leaves of one collection, so the reorderable level is their shared
@@ -990,6 +1021,7 @@ const SETTINGS = {
        parent that stays a group header, so its own count can be read before and after. Drag the LAST child
        out of a collection and it stops being a group at all, which is correct and would make the
        before/after comparison below a comparison with nothing. */
+    check("...with the editor mode open, which is where the handles are", await openDeckEditor(page));
     const geo = await page.evaluate(() => {
       const rows = [...document.querySelectorAll(".active-deck")].filter((r) => !r.classList.contains("dk-shut"));
       const g = rows.find((r) => r.dataset.drag.slice(0, 2) === "g:");

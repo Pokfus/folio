@@ -35,13 +35,23 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.316", released: "2026-08-27T19:10Z" };
+window.FOLIO_VERSION = { v: "1.317", released: "2026-08-27T19:55Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-27",
-    t: "Reported faults fixed, and 110 Mandarin readings put right",
+    t: "The Reliquary gets a page, and the deck list an editor",
     items: [
+      "<b>The Reliquary is a page of its own now</b>, sortable by name, by when you found each artefact, by how old it is and by rarity, either way round.",
+      "<b>The deck list has an editor</b>: press Edit under it to reorder, rename or remove decks, with Undo and Revert to hand.",
+      "You can now <b>rename any deck in your daily study</b> — the name is yours alone, and clearing it puts the deck’s own back.",
+      "The drag handles no longer sit on every deck row; they appear when you open the editor.",
+      "<b>Holding a minigame tile turns it over</b> to show how you have done at that game and how everyone else did today.",
+      "<b>Folio now keeps your total time studied and your time reading</b>, both on your account page, with seven new badges for them.",
+      "Each book’s front page says how long you have spent reading it today and altogether.",
+      "The <b>Collections</b> button sits inside the daily-study card now, closing it, rather than loose beneath it.",
+      "The two daily quotations that had no date have one.",
+      "Dragging a deck into a group no longer scrolls you back to the top of the page.",
       "<b>Twenty-two glossary terms now open by saying what the thing is</b>, where they had led with an example or a single site.",
       "<b>Four glossary terms were removed</b> \u2014 wheel, burial, village and city \u2014 and two links no longer fire on the wrong word.",
       "Ninety-five more glossary terms, covering the Bronze and Iron Age periods, the Minoan, Helladic and Trojan divisions, the Aegean\u2019s excavators and sites, and the Archaic period of North America.",

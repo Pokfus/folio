@@ -242,3 +242,56 @@ interactions that a plate's own glossary links forced.
   streak and the badges, and a collectible taken away by a control that does not mention it is the failure
   that bullet exists to prevent; the artefacts and chests still go, being what a LEVEL bought. Guarded by
   `.claude/test-artefacts.js`.
+
+## The page (`#reliquary`, Aug 2026, on request)
+
+"The Reliquary should be its own page, sortable by alphabet, unlocked date, artefact dating, rarity, and
+reverses." What shipped is `PAGES.reliquary`, and five things about it are decisions rather than plumbing.
+
+**Your own collection is a page; a friend's is still an overlay.** A page buys an address, a back button
+and a sort a reader can leave set, all of which a hundred artefacts want. It can only ever be YOURS,
+though: a route carries a name and nothing else, so there is nowhere for somebody else's progress to ride,
+and `openCollectionWin` stays exactly as it was for a friend's showcase. `wireReliquary` decides which of
+the two a "See Reliquary" press opens, from the `own` flag it was already being given.
+
+**The sort is the Library shelf's pair, not a second control.** `sortPickerHTML` chooses the FIELD and
+`sortDirHTML` the DIRECTION — which is why `RELIQ_SORTS` carries four strings a row rather than two: a
+field and its direction are independent choices, and folding them together gives a select of eight rows in
+which the reader has to find the one row that is both. It is also what spends the request's "and reverses"
+on one button instead of doubling the list. The choice lives in a module-level `reliqSort` / `reliqRev`,
+not in `S`: it is a way of LOOKING at a list rather than a preference about Folio, the same call
+`PAGES.glossary`'s picker and `renderDeckStats` both make, so it survives navigating away and back and
+resets on reload.
+
+**"Unlocked date" needed no new field, and nothing had to be backfilled.** `S.artefacts[id]` has been
+`Date.now()` rather than `true` since the register existed — `ownedArtefacts` already sorted on it — so
+every artefact ever granted can say when it arrived. This was planned as a new `S.artefactAt` map with an
+apology for the artefacts that predated it; the apology was unnecessary and the map does not exist.
+
+**"Artefact dating" needed a parser, and it is deliberately NOT `cardYears`.** Forty-two of the hundred
+artefacts are dated by CENTURY — `c. 7th – 5th century BCE`, `Early 7th century CE`, `3rd millennium BCE`
+— which `cardYears` cannot read and must not learn to: 52 shipped CARDS carry a century form beside a
+plain year in their date lines, and teaching the shared parser about centuries would silently move their
+sort years. So `artefactYear` reads the century and millennium forms itself and falls through to
+`cardStartYear` for everything else. Two details in it earn their place:
+
+- **the range whose unit carries rightwards** (`1st – 3rd century CE`, `c. 6th – 4th century BCE`) is
+  matched by its own pattern FIRST, because the first ordinal has no "century" after it and the simple
+  pattern would read the SECOND one — dating the object two centuries late, plausibly and invisibly;
+- **the earliest year the unit names** is what is returned — the 3rd century BCE opens at 300 BCE and the
+  7th CE at 601 — so the ordering answers "how old is this" rather than "when did it stop".
+
+All 100 shipped artefacts yield a year. One that did not would sort LAST in both directions rather than at
+year zero, where it would sit among the Roman ones claiming a date it has not got.
+
+**And the signed-out account page's inline grid became an entry to the page.** That page has no showcase,
+so before there was a page its only route to the collection was a second full copy of the grid — which is
+exactly the duplication the signed-in page had removed on request a fortnight earlier. `reliquaryHTML(prog,
+own, { entry: true })` renders the count, the chest button and a "See Reliquary" press instead. The full
+grid is still what a friend's overlay draws.
+
+One repaint note. A chest can be opened from this page, and `refreshReliquary` must not rebuild the page
+under a reader who is looking at it through an overlay — so the page leaves its own `repaint` in
+`_reliqRepaint` and that function calls it, exactly as it repaints the account page's two blocks in place.
+`closeReliquaryPage()` is in `render()`'s close list, so the hook can never be called against a page that
+has gone.

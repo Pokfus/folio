@@ -520,6 +520,17 @@ body.night .prog.prog-done .fill{background:linear-gradient(90deg, #D4AA3C, #F2D
 /* the count beside the bar goes with it — a deeper gold, because at 10px #C39A2E on the card is 3.6:1
    (the same reasoning, and the same value, as `.banner .xp-lvl`) */
 .prog-done .xp-lvl,.prog-done .xp-count{color:#8A6A1E;}
+/* ---------- HOW LONG THIS READER HAS SPENT IN THIS BOOK (Aug 2026, on request) ----------
+   At the top of a book's front matter, above the essay: the one thing on that page that is about the
+   reader rather than about the book. It is set as a figure with a caption beside it rather than as a
+   sentence, so it reads at a glance and does not compete with the prose under it — the same shape the
+   daily-study footer's timer uses, and deliberately the same face and size, since they are the same
+   clock. Drawn only when there is something to say (see bookIntroChapter), so there is no empty state. */
+.bk-clock{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; margin:0 0 18px; padding-bottom:14px;
+  border-bottom:1px solid var(--rule);}
+.bkc-fig{font-family:var(--display); font-weight:600; font-size:calc(19px * var(--fs)); color:var(--ink); line-height:1;}
+.bkc-lbl{font-family:var(--mono); font-size:calc(10.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
+
 body.night .prog-done .xp-lvl,body.night .prog-done .xp-count{color:#E0C270;}
 /* …and the collection's NAME, on all three surfaces that pair a title with one of these bars */
 .collection-main:has(.deck-prog.prog-done) .collection-title,
@@ -643,7 +654,70 @@ body.night .banner{
    (`.rv-lip`) when the way to the collections became a button standing OUTSIDE the group — both Aug 2026,
    both on request. So the row is one item wide and is drawn only when there is a timer to hold; see the
    note in PAGES.home for why it is conditional rather than always present. */
-.rv-foot{display:flex; align-items:flex-start; gap:12px;}
+.rv-foot{display:flex; align-items:center; gap:12px; min-height:34px;}
+/* ---------- THE DECK LIST'S EDITOR MODE (Aug 2026, on request) ----------
+   "Rather than the drag handles being visible at all times, make them invisible by default … Add a button
+   in the bottom left, just below the active decks list, vertically centered to the study timer."
+   The button is the first thing in `.rv-foot` and the timer follows it, which is what puts the two on one
+   line and centres them against each other — hence `align-items:center` above, where the row used to
+   start-align its single item. Open, the one button becomes three IN THE SAME PLACE, so nothing on the
+   page moves under the press, and the timer is not rendered at all (see PAGES.home). */
+.rv-edit{
+  appearance:none; display:inline-flex; align-items:center; gap:5px; flex:none;
+  margin-inline-start:20px;            /* the inset the timer uses, so the two ends of the row line up */
+  padding:5px 10px; border:1px solid var(--rule); border-radius:999px; background:var(--card);
+  font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-faint); cursor:pointer; white-space:nowrap;
+  transition:color .15s var(--ease), border-color .15s var(--ease), background .15s var(--ease);
+}
+.rv-edit svg{width:11px; height:11px; flex:none;}
+.rv-edit:hover:not(:disabled){color:var(--ink); border-color:var(--indigo);}
+.rv-edit:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
+.rv-edit:disabled{opacity:.45; cursor:default;}
+/* the three share the one inset: it goes on the wrapper, so the row's left edge does not move when the
+   single button becomes three */
+.rv-editacts{display:flex; align-items:center; gap:6px; margin-inline-start:20px; flex-wrap:wrap;}
+.rv-editacts .rv-edit{margin-inline-start:0;}
+.rv-edit-done{border-color:var(--indigo); color:var(--indigo);}
+.rv-edit-revert:not(:disabled){color:var(--danger,#c8453c);}
+/* a button preceding the timer already carries the inset, so the timer must not add its own on top */
+.rv-foot .rv-edit + .rv-time, .rv-foot .rv-editacts + .rv-time{margin-inline-start:0; padding-top:0;}
+/* ---------- the handles, which are what the mode is FOR ----------
+   They sat at `.32` on every row at rest and the request is that they not be there at all until asked
+   for. Hidden with `opacity` rather than `display:none` so the column they occupy is still reserved —
+   the row's `padding-left` allows for it, and removing the box would shift every title 20px left on
+   entering the mode and back again on leaving. `visibility` is what takes them out of hit-testing, or an
+   invisible handle would still swallow the press that should be studying the deck. */
+/* …AND THE ROW RECLAIMS THE COLUMN THEY WERE TAKING, which is the other half of the request ("make them
+   invisible by default and shift the contents of the banners to the left"). The row's `padding-left` is
+   written as `calc(<depth>px + var(--dk-grip-w))`, so the depth arithmetic stays in app.js and the
+   handle's own width stays here, where it is declared. `.active-deck` has transitioned `padding-left`
+   since the fold shipped, so entering and leaving the mode SLIDES at no cost written here. */
+.active-decks{--dk-grip-w:8px;}
+.rv-editing .active-decks{--dk-grip-w:20px;}
+.active-deck .dk-grip{opacity:0; visibility:hidden;}
+.rv-editing .active-deck .dk-grip{opacity:.75; visibility:visible;}
+.rv-editing .active-deck .dk-grip:hover, .rv-editing .active-deck .dk-grip:focus-visible{opacity:1;}
+/* the red cross, at the row's own right edge, inside the chevron's column so the two never collide */
+.dk-del{
+  appearance:none; position:absolute; inset-inline-end:2px; top:50%; transform:translateY(-50%);
+  width:26px; height:26px; display:grid; place-items:center; padding:0;
+  border:0; border-radius:8px; background:transparent; color:var(--danger,#c8453c);
+  cursor:pointer; opacity:.8; transition:opacity .15s var(--ease), background .15s var(--ease);
+}
+.dk-del svg{width:13px; height:13px;}
+.dk-del:hover{opacity:1; background:color-mix(in srgb, var(--danger,#c8453c) 14%, transparent);}
+.dk-del:focus-visible{outline:2px solid var(--danger,#c8453c); outline-offset:-2px; opacity:1;}
+/* …and the chevron steps aside for it rather than being covered by it */
+.rv-editing .active-deck .dk-chev, .rv-editing .active-deck .dk-chev-gap{margin-inline-end:26px;}
+/* a title that can be clicked has to LOOK clickable, or the affordance is a secret */
+.rv-editing .dk-title-edit{cursor:text; border-bottom:1px dashed color-mix(in srgb, currentColor 45%, transparent);}
+.rv-editing .dk-title-edit:hover{border-bottom-color:currentColor;}
+.dk-rename{
+  font:inherit; color:inherit; min-width:0; max-width:100%; flex:1 1 auto;
+  padding:1px 4px; border:1px solid var(--indigo); border-radius:5px; background:var(--paper);
+}
+.dk-rename:focus{outline:none; box-shadow:0 0 0 2px var(--indigo-wash);}
 /* THE DAY'S TIME ON CARDS, at the left end of that same edge (Aug 2026, on request — it was a stat in the
    banner's meta row beside the three piles). Out here it is on the page's own paper rather than on the
    card, and the row it joins is one small tab high, so it is ONE line rather than the piles' figure over a
@@ -775,7 +849,25 @@ body[data-theme="gazette"] .gt-seal{filter:none;}
   transition:background .16s var(--ease), border-color .16s var(--ease);
 }
 .home-collections:hover{background:var(--indigo-bright); border-color:var(--indigo-bright);}
-.home-collections:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+.home-collections:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px; z-index:1;}
+/* ---------- …AND IT CLOSES THE DAILY-STUDY CARD (Aug 2026, on request) ----------
+   It stood free under the group and ended up between the last deck row and the Minigames heading with a
+   gap either side and nothing to belong to — which on a phone with several decks is the middle of the
+   page. Inside the group it is the last row of the stack the banner opens: full width, square at the top
+   where it meets the row above, and carrying the card's own bottom corners.
+   The row above therefore gives those corners UP — `.dk-last` and `:last-child` both round the last
+   visible deck row, and with a row beneath them they would round into it. The rule is written on the
+   GROUP (`.review-group .active-deck…`) rather than as a `:has()` on the row, since the button is
+   unconditional here and a state selector would be describing a state that never varies.
+   With NO decks (a first run) the banner keeps its own rounded foot and the button stands off it
+   instead: `#b-review + .home-collections`. */
+.review-group .home-collections{
+  align-self:stretch; width:100%; margin-top:0;
+  border-radius:0 0 14px 14px; border-top-color:color-mix(in srgb, #000 12%, var(--indigo));
+}
+.review-group .active-deck:last-child,
+.review-group .active-deck.dk-last{border-bottom-left-radius:0; border-bottom-right-radius:0;}
+.review-group > #b-review + .home-collections{margin-top:10px; border-radius:12px; border-top-color:var(--indigo);}
 /* ---------- home: the way to the About page on a phone ----------
    About left the bottom tab bar (Aug 2026, on request) and this took its place: a quiet grey line at the
    foot of the page rather than a fifth of a row four readers share. Every width, like the button above. */
@@ -3139,6 +3231,13 @@ body.night .cb-ic{color:#E6C765;}
 .ar-open{font-size:calc(13px * var(--fs)); padding:8px 16px;}
 .ar-empty{color:var(--ink-faint); font-size:calc(14px * var(--fs)); padding:4px 2px 14px;}
 .ar-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(132px,1fr)); gap:12px;}
+/* ---------- the Reliquary's own page (#reliquary, Aug 2026, on request) ----------
+   It borrows the glossary record's page furniture wholesale — `.gl-meter`, `.gl-tools`, `.gl-search`,
+   `.gl-empty` — and the Library shelf's `.sort-pick` + `.sort-dir` pair, so it needs almost nothing of
+   its own: one row for the chest button and one for the grid when what it is holding is a SENTENCE
+   rather than tiles, which `.ar-grid`'s 132px auto-fill columns would otherwise set one word wide. */
+.rq-chest{margin:0 0 14px;}
+.rq-msg{display:block;}
 /* the tile: a picture over its name, framed and washed in its own rarity. The colour is the whole of the
    signal, so it is on the border, the wash AND the label rather than on one of the three. */
 .ar-tile{position:relative; display:flex; flex-direction:column; gap:6px; padding:10px; text-align:left; cursor:pointer;
@@ -4307,6 +4406,43 @@ button.game-tile{cursor:pointer;}
 button.game-tile:hover{transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:color-mix(in srgb,var(--tile, var(--indigo)) 45%, var(--rule)); border-left-color:var(--tile, var(--indigo));}
 button.game-tile:active{transform:translateY(0) scale(.99);}
 .game-tile:focus-visible{outline:2px solid var(--tile, var(--indigo-bright)); outline-offset:3px;}
+/* ---------- A TILE TURNS OVER TO ITS RECORD (Aug 2026, on request) ----------
+   Held down, the tile shows what this reader has done at the game and what everyone else did at today's.
+
+   IT IS A 2D FLIP, NOT A 3D ONE, and that is forced rather than preferred: the tile carries
+   `overflow:hidden` (the glyph bleeds past two of its edges), and an element with a clipped overflow is
+   flattened to `transform-style:flat` — so `rotateY` on the tile with `backface-visibility` on its faces
+   would simply show both at once. A horizontal squash reads as the same gesture, works inside the clip,
+   and needs no extra wrapper to hold a 3D context.
+   `.gt-face` wraps what was already there and reproduces the tile's own column, so nothing above it
+   moved; it must stay UNPOSITIONED, or the glyph and the played/perfect mark — both absolute against the
+   tile — would resolve against it instead.
+   Both faces transition, so the global reduced-motion killswitch turns this into an instant swap with no
+   rule of its own. The back is `pointer-events:none` until it is up: the tile is one button and the tap
+   is handled on the button, but a face that could be the click TARGET while invisible is a hit test
+   waiting to go wrong. */
+.gt-face{flex:1 1 auto; min-height:0; display:flex; flex-direction:column; justify-content:flex-end;
+  transform-origin:left center; transition:transform .26s var(--ease), opacity .16s var(--ease);}
+.gt-back{
+  position:absolute; inset:0; padding:13px 15px; z-index:3;
+  display:flex; flex-direction:column; gap:7px; text-align:left;
+  background:linear-gradient(150deg, var(--card) 62%, color-mix(in srgb, var(--tile, var(--indigo)) 14%, var(--card)));
+  opacity:0; transform:scaleX(0); transform-origin:right center; pointer-events:none;
+  transition:transform .26s var(--ease), opacity .16s var(--ease);
+}
+.game-tile.gt-flipped .gt-face{opacity:0; transform:scaleX(0);}
+.game-tile.gt-flipped .gt-back{opacity:1; transform:scaleX(1);}
+/* the glyph is the FRONT's ornament and would otherwise show through the back, which is only 62% card */
+.game-tile.gt-flipped .gt-glyph{opacity:0;}
+.gtb-head{font-family:var(--display); font-weight:600; font-size:calc(13px * var(--fs)); color:var(--ink); line-height:1.15;}
+.gtb-cols{display:grid; grid-template-columns:1fr 1fr; gap:10px; flex:1; min-height:0;}
+.gtb-col{display:flex; flex-direction:column; gap:3px; min-width:0;}
+.gtb-lbl{font-family:var(--mono); font-size:calc(8.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--tile, var(--indigo));}
+.gtb-grid{display:grid; grid-template-columns:1fr auto; gap:1px 6px; align-content:start;}
+.gtb-k{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.04em; color:var(--ink-faint); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.gtb-v{font-family:var(--display); font-weight:600; font-size:calc(11.5px * var(--fs)); color:var(--ink); white-space:nowrap;}
+.gtb-none{font-family:var(--sans); font-size:calc(10px * var(--fs)); line-height:1.35; color:var(--ink-faint); margin:0;}
+.gtb-tap{font-family:var(--mono); font-size:calc(8.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
 .gt-glyph{position:absolute; right:-8px; top:-20px; font-family:var(--han); font-weight:700; font-size:calc(98px * var(--fs)); line-height:1; color:var(--tile, var(--indigo)); opacity:.12; pointer-events:none; user-select:none;}
 .gt-glyph-svg{top:-14px; right:-14px;}
 .gt-glyph-svg svg{display:block; width:112px; height:112px;}
@@ -5684,8 +5820,13 @@ body:not([data-theme="folio"]) .game-tile::before{
 }
 body:not([data-theme="folio"]) .banner > .body,
 body:not([data-theme="folio"]) .banner .cta{ position:relative; z-index:1; }
-body:not([data-theme="folio"]) .game-tile > .gt-body{ position:relative; z-index:2; }
-body:not([data-theme="folio"]) .game-tile > .gt-glyph{ z-index:1; }
+/* the `>` used to be on the tile itself; `.gt-face` came between them when the tile learned to turn
+   over, and the unwrapped `blankTile` still puts them directly on the tile — so BOTH are matched, or a
+   spare slot would silently lose its stacking order the day a seventh game leaves one empty again */
+body:not([data-theme="folio"]) .game-tile > .gt-body,
+body:not([data-theme="folio"]) .game-tile .gt-face > .gt-body{ position:relative; z-index:2; }
+body:not([data-theme="folio"]) .game-tile > .gt-glyph,
+body:not([data-theme="folio"]) .game-tile .gt-face > .gt-glyph{ z-index:1; }
 
 /* ===== SYNTH — synthwave: a neon perspective grid racing to a glowing horizon ===== */
 body[data-theme="synth"] .collection-deco{
