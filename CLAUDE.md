@@ -93,20 +93,22 @@ It is a plain static website — open `index.html` and it runs.
 **Only the study-critical files load eagerly**, in this order — it is significant:
 `data.js → truefalse.js → quotes.js → whatyear.js → changelog.js → mission.js → glossary.js →
 glossary-wikipedia.js → artefacts.js → lang-decks.js → app.js`.
-**That path is 5.90 MB raw / 1.65 MB gzipped** (re-measured 2026-08-10 after `whatyear.js` joined it, which
-cost 14 KB raw / 6 KB gzipped; it was 5.84 MB / 1.61 MB after the picture pass of 2026-08-09 and
-4.9 MB / 1.35 MB the day before that, and it said "~1.4 MB" for months while being five times out of
-date, so **re-measure it rather than quoting it**). The picture pass added ~555 KB raw / ~270 KB gzipped, and that is
-metadata only — a picture is a LINK, never an upload, exactly as an artefact's is, so 1,230 illustrations
-cost a few hundred bytes each and the files themselves are fetched only by a reader who reaches the card.
-**THE CARD TRANSLATIONS WERE REMOVED ON 2026-08-08, on request**, and that is where the drop came from: the
-path was 7.5 MB raw / 2.4 MB gzipped, and **58% of `data.js` (2.06 MB) was the `i18n` blocks of 89 cards**,
-which `MULTILANG = false` meant no reader could reach — the `quotes.js` mistake (27 KB → 312 KB for every
-visitor) at seven times the scale. `data.js` went 4.32 MB → 1.64 MB and every visitor now downloads ~1 MB
-less gzipped. `glossary.js` is 1.15 MB, of which `GLOSSARY_SOURCES` is 479 KB (42%) and is only read once a
-popup opens — the largest remaining candidate, and the weakest of them, since popups are common.
-**Nothing re-adds a translation by accident**: `add-card.js` and `add-glossary.js` now DROP a supplied
-`i18n` / `translations` block with a warning, and `test-i18n-lang.js` fails if any card carries one or any
+**HOW BIG THAT PATH IS, RUN `node .claude/check-sizes.js` — DO NOT QUOTE A FIGURE HERE.** This paragraph
+used to state one, with "re-measure it rather than quoting it" written beside it, and it drifted to being
+**four times understated** anyway (it said 5.90 MB raw / 1.65 MB gzipped against a real 8.80 / 2.45, and
+called `app.js` "~684 KB" against a real 2.58 MB). **A warning cannot measure**, and a figure that is
+quietly four times wrong is worse than no figure, because it is what a decision about whether a change is
+affordable rests on. The script reads the path OUT OF `index.html` rather than from a list, prints the
+per-file raw and gzipped sizes and the totals, and breaks `glossary.js` and `data.js` down by global — so
+the answer to "what is the largest remaining lazy-load candidate?" is a command rather than a claim.
+What is worth stating, because it is a RULE rather than a number: **a picture is a LINK, never an upload**,
+exactly as an artefact's is, so an illustration costs a few hundred bytes of metadata here and the file
+itself is fetched only by a reader who reaches the card.
+**THE CARD TRANSLATIONS WERE REMOVED ON 2026-08-08, on request** — the `i18n` blocks of 89 cards, which
+`MULTILANG = false` meant no reader could reach: the `quotes.js` mistake (27 KB → 312 KB for every visitor)
+at seven times the scale. **Nothing re-adds a translation by accident**: `add-card.js` and `add-glossary.js`
+now DROP a supplied `i18n` / `translations` block with a warning, and `test-i18n-lang.js` fails if any card
+carries one or any `i18n/gloss-<lang>.js` reappears.
 `i18n/gloss-<lang>.js` reappears.
 
 **Everything else is LAZY**, injected on demand by `DATA_BUNDLES` / `ensureData(name)` in app.js (see the
@@ -186,12 +188,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **📖 `docs/library-importer.md` — READ BEFORE ADDING A BOOK OR TOUCHING ANY EXTRACTOR.** The 22
     layouts, the five Wikisource extraction faults, the per-book options and every finding behind
     them.
-- `styles.css` (~235 KB) — editorial design system; **6 themes** via CSS custom properties (`THEMES` in
+- `styles.css` — editorial design system; **6 themes** via CSS custom properties (`THEMES` in
   app.js — folio, synth, arcade, academy, marble, gazette; this line said 8 for months, after clay and
   garden were removed with the other retired themes, so **read `THEMES` rather than quoting it**).
   **All theme color variables are hex** (e.g. `--ink:#1B1A17`) so the canvas globe can parse and
   blend them — keep them hex, not `rgb()`/`hsl()`.
-- `app.js` (~684 KB) — all logic, written as a single IIFE. Hash-based routing via the `PAGES`
+- `app.js` — all logic, written as a single IIFE (**it is the biggest file on the eager path; run
+  `node .claude/check-sizes.js` for its size rather than quoting one here**). Hash-based routing via the `PAGES`
   map. No ES modules.
 - `manifest.json` + `icon.svg` + `icon-maskable.svg` + `sw.js` — the PWA. See the "PWA" bullet below.
 - `_headers` — Cloudflare Pages response headers: the **Content-Security-Policy** (plus nosniff /
@@ -771,6 +774,32 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   blank — and is still held to the first two. It deliberately does NOT check that a question names its
   topic's most important aspect: that is a judgement no checker can make, and it is stated here and read
   by eye. Not part of the site.
+- **📖 `docs/README.md` — READ BEFORE LOOKING FOR A DOC, ADDING ONE, OR SPLITTING ANYTHING OUT OF THIS
+  FILE.** The index of `docs/`, and the rule the directory exists for. Every file
+  there, one line each, grouped into the wiring references, the eleven card plans, the FINISHED content
+  passes and the ones with work still open — so a pass that is complete can be told from one that is not
+  without opening either. The rule it states is the one this whole file is arranged around: **rules live
+  in `CLAUDE.md`; reasoning lives in `docs/`**, reached by an imperative `📖 … — READ BEFORE …` pointer,
+  because a file nobody is told to read is a file nobody reads. Eight docs were in exactly that state
+  when it was written — unreferenced from here, several of them holding OPEN work.
+- `.claude/check-docs.js` — the split's own guard: `node .claude/check-docs.js`, exit 1 on failure. It
+  checks BOTH directions, each of which fails silently. **A pointer that resolves to nothing** still
+  reads as authoritative, so the next session goes looking for a file that is not there; **a file nobody
+  points at** is worse than an undocumented one, because the repo appears to have documented the thing.
+  It also holds the index to naming only files that exist, every doc to opening on an H1, and every
+  pointed-at file to carrying at least one **imperative** pointer. **That last rule is PER FILE, not per
+  glyph** — it was written per glyph first and flagged `docs/library-books.md`, whose second mention is
+  an ordinary cross-reference beside a primary pointer that is imperative: a true statement, wrongly
+  scoped. The narrowed form was verified to still fail when a real pointer is stripped. Not part of the
+  site.
+- `.claude/check-sizes.js` — what Folio actually weighs: `node .claude/check-sizes.js [--json]`. It
+  reads the eager path **out of `index.html`** rather than from a list, prints each file's raw and
+  gzipped size with the totals, lists the biggest files off that path, and breaks `glossary.js` and
+  `data.js` down by global. **It exists because a figure quoted in prose is a figure that will be
+  wrong**: this file used to state the eager path's size with "re-measure it rather than quoting it"
+  written beside it, and every one of those numbers still drifted 2–4× out of date — `app.js` written as
+  "~684 KB" against a real 2.58 MB. A warning cannot measure. **Quote nothing it prints; run it.** Not
+  part of the site.
 - `.claude/check-overlay.js` — audits the LIVE cloud content overlay (`content_overrides`) against the shipped
   data files: `node .claude/check-overlay.js`. It reports a card delta whose prose plainly belongs to ANOTHER
   card (the renumbering fault — see the overlay bullet under "Environment"), a delta pointing at an id that no
@@ -4107,6 +4136,23 @@ dead code (never rendered).
   globe at the era's year (no console errors).
 
 ## Testing
+
+- **CI RUNS ON EVERY PUSH** (`.github/workflows/checks.yml`, Aug 2026). Two jobs, deliberately split.
+  **`fast`** is the GATE and must stay green: `node --check` over every root `.js` and every
+  `.claude/*.js`, then the seven no-browser suites (`test-card-plans`, `test-daily-quote`,
+  `test-date-line`, `test-difficulty`, `test-discovery`, `test-scheduler`, `test-streak-chest`) and the
+  three checkers (`check-docs`, `check-questions`, `check-style`). Seconds, no install, no network.
+  **`browser`** runs the Playwright suites and is a slow SECOND OPINION rather than a gate — it `needs:
+  fast`, because if the cheap job is red the answer is already known. `check-sizes` runs
+  `continue-on-error`, deliberately: a size is not a failure, and the point of it there is that the eager
+  path's real weight lands in every run's log — which is the one thing prose in this file could not
+  manage to stay honest about.
+  **Playwright is installed into `$RUNNER_TEMP` and reached through `NODE_PATH`**, never into the repo:
+  the zero-dependency rule is about what the SITE ships, and this is the same way the Testing bullets
+  below say to run them locally, so CI and a developer's machine run the suites identically.
+  **The browser job loops over `grep -l playwright .claude/test-*.js`** rather than a list, so a suite
+  added later is picked up with nobody remembering this, and it runs ALL of them before failing, so one
+  broken suite does not hide the state of the other thirty-four.
 
 - Fastest check: open `index.html` in a browser and watch the console for errors. The app uses
   `localStorage`, which works from `file://` in Chrome.
