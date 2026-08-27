@@ -169,12 +169,12 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N6 | 12 | Aegean prehistorians and museums — **shipped**, 7 of 12 pictured |
 | N7 | 12 | Athens topography — **shipped**, all twelve pictured |
 | N8 | 11 | Mycenaean tombs and grave circles — **shipped**, all eleven pictured (Tomb N deferred, see below) |
-| N9 | 12 | Greek architecture and its orders |
+| N9 | 9 | Greek architecture and its orders — **shipped**, 7 of 9 pictured (see below) |
 | N10 | 12 | Greek vessel and object vocabulary |
 | N11 | 12 | Greek regions and islands |
 | N12 | 12 | Crete: sites and landscape |
 | N13 | 12 | Cyprus and the Late Bronze Age east |
-| N14 | 12 | Materials, alloys and the sciences that source them |
+| N14 | 12 | Materials, alloys and the sciences that source them — also carries N9's deferred *Poros stone* |
 | N15 | 12 | Rome's foundation and its earliest institutions |
 | N16 | 12 | The hills of Rome and the city's topography |
 | N17 | 12 | Latium: the Latial culture and its sites |
@@ -331,3 +331,38 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N9's findings
+
+**N9 shipped nine terms rather than twelve.** *Poros stone* was moved to N14: it has one usable
+source and no second — Vitruvius II.7 is about Roman quarries and never names it, Pausanias 5.10
+renders πώρου λίθου as "native stone", and none of Sturgis's three volumes carries an entry — so
+it belongs in the materials batch where a mineralogical second source can be found for it.
+*Askos*, *kore*, *kouros*, *aniconism*, *Athena Polias* and *Artemis Eileithyia* went with it into
+a later sculpture-and-cult batch, for the same reason: they are cult and sculpture vocabulary
+rather than architecture, and the shelf this batch assembled does not cover them. The leads not
+yet tried on those six are LSJ ἀσκός on Perseus, Pausanias I.18.5 and I.26.6/I.27.1, Frazer's
+commentary on Pausanias (`in.ernet.dli.2015.282571`) and Jane Harrison's *Mythology and Monuments
+of Ancient Athens* (1890).
+
+**`insource:` regex search, on the PLURAL, is what finds a picture whose subject is a technical
+term.** Keyword search for the Knossos *kouloures* failed on every phrasing tried — "Knossos
+kouloura", "Knossos circular pit", "Knossos granary pit", "Knossos silo" — because uploaders do
+not describe a pit that way, and the singular `insource:/[Kk]ouloura/` returns Greek bread,
+koulourakia biscuits and Corfu beaches. `insource:/[Kk]ouloures/` returned the pits at once. It is
+"search the vocabulary, not the subject" met on Commons rather than in a book.
+
+**Two terms ship with no picture and it is not for want of looking.** *Shipshed* and *plinth* each
+defeated six distinct strategies: `insource:/[Ss]hip.?shed/` returns airship and Zeppelin sheds,
+`insource:/neosoikoi|neoria|νεώσοικ/` a Piraeus plan and a Venetian arsenal at Chania, category
+searches for Zea and Mounichia only `Category:Mikrolimano harbour`, `insource:/[Zz]ea/
+insource:/shed/` New Zealand woolsheds, `insource:/plinth/ insource:/[Ii]onic/` American
+neoclassical libraries and state capitols, and keyword search for an Ionic column base scanned
+books. A plinth is also the hardest kind of subject to photograph *as itself* — it is the part of
+a base nobody frames alone.
+
+**A record can be true and misleading, again.** `Knossos in Crete west court.jpg` is correctly
+titled and shows west-court paving and raised causeways with no kouloura in frame; `Knossos
+Westfassade 01.jpg` is a tree and the west façade; `West court and theatral area in Phaistos.jpg`
+is the theatral-area steps. All three were rejected by LOOKING at them, which no metadata field
+would have prompted.
