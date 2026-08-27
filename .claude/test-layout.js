@@ -1617,15 +1617,17 @@ function scrimCheck() {
              same from one side: the group must END rounded, and the last deck row must be square
              whenever something follows it inside the card. */
           lastRounded: last ? parseFloat(getComputedStyle(last).borderBottomLeftRadius) : 0,
+          /* …and the corner belongs to the COLLECTIONS ROW, which is the card's last row — not to
+             whatever is last in `.review-group`, since `.rv-foot` (the day's timer and the Edit button)
+             sits BELOW the card on the page's own paper and carries no radius of its own. With no button
+             there at all the last deck row keeps the corner, which is the pre-Aug-2026 arrangement and is
+             still what a first run draws. */
           cardRounded: (() => {
-            const g = document.querySelector(".review-group");
-            const tail = g && g.lastElementChild;
+            const btn = document.querySelector(".review-group .home-collections");
+            const tail = btn || last;
             return tail ? parseFloat(getComputedStyle(tail).borderBottomLeftRadius) : 0;
           })(),
-          rowIsTail: (() => {
-            const g = document.querySelector(".review-group");
-            return !!(g && last && g.lastElementChild && g.lastElementChild.contains(last));
-          })(),
+          rowIsTail: !document.querySelector(".review-group .home-collections"),
           hash: location.hash,
         };
       }, seeded.id);
@@ -1726,7 +1728,15 @@ function scrimCheck() {
         mgHead: head ? head.textContent.trim() : "",
         lip: lip ? lip.textContent.trim() : "",
         // …a SIBLING of the review group drawn directly after it — see the phone block above for why
-        lipLast: !!(lip && grp && lip.parentElement === grp.parentElement && lip.previousElementSibling === grp),
+        // it went INSIDE the review group in Aug 2026, on request, as the card's own bottom row — so what
+        // is asserted is that it is a descendant sitting under the deck list, not a sibling after the card
+        lipInCard: !!(lip && grp && grp.contains(lip)),
+        lipBelowDecks: (() => {
+          const l = document.querySelector(".active-decks");
+          if (!lip) return false;
+          if (!l) return true;
+          return Math.round(lip.getBoundingClientRect().top) >= Math.round(l.getBoundingClientRect().bottom) - 1;
+        })(),
         about: !!document.querySelector(".home-about"),
         // Collections left the top bar with the tile row; that button is the only way to it now
         decksTab: !!document.querySelector('.topbar [data-route="decks"]'),
@@ -1740,7 +1750,9 @@ function scrimCheck() {
       !asked.some((u) => /\/world\.js/.test(u)), asked.filter((u) => /\/world\.js/.test(u)).join(","));
     check("[desktop] ...the games three to a row, and no taglines on them", d.cols === 3 && d.subs === 0, JSON.stringify({ cols: d.cols, subs: d.subs }));
     check("[desktop] ...under a Minigames heading, under the review", /minigames/i.test(d.mgHead) && d.order[0] < d.order[1] && d.order[1] < d.order[2], JSON.stringify(d.order));
-    check("[desktop] ...with the Collections button under the review group", /^collections$/i.test(d.lip) && d.lipLast, JSON.stringify({ label: d.lip, after: d.lipLast }));
+    check("[desktop] ...with the Collections button closing the review card, under the deck list",
+      /^collections$/i.test(d.lip) && d.lipInCard && d.lipBelowDecks,
+      JSON.stringify({ label: d.lip, inCard: d.lipInCard, belowDecks: d.lipBelowDecks }));
     check("[desktop] ...and Collections gone from the top bar, that button being the way to it", !d.decksTab);
     /* About left the DESKTOP's top bar too (Aug 2026, on request), a fortnight after Collections did and
        for the same reason: the two bars now name the same destinations, and the home page's own line is
