@@ -34142,6 +34142,40 @@
 'of and say so afterwards.',
     },
   ];
+  /* ---------- where the Library's texts came from, counted off the shelf ----------
+     One row per archive `BOOKS` actually names, biggest first, with the licence the archive's own texts
+     are shelved under. It is derived rather than written down for the reason the credits comment gives:
+     a hand-written list of five books outlived the five and said nothing about the forty-three that
+     followed. `BOOKS` is EAGER metadata (see the Library bullet), so this costs no fetch.
+     An archive with no licence row still lists — the count and the link are the useful part, and a source
+     silently dropped for want of a table entry is exactly the omission this replaced. */
+  const BOOK_SOURCE_LIC = {
+    "Wikisource": ["https://en.wikisource.org", "public domain"],
+    "Perseus Digital Library": ["https://scaife.perseus.org/library/", "CC BY-SA 4.0"],
+    "Project Gutenberg": ["https://www.gutenberg.org", "public domain"],
+    "Internet Archive": ["https://archive.org", "public domain"],
+    "Global Grey": ["https://www.globalgreyebooks.com", "public domain"],
+  };
+  function bookSourceCredits() {
+    const by = new Map();
+    BOOKS.forEach((b) => {
+      const n = (b.sourceName || "").trim();
+      if (!n) return;
+      by.set(n, (by.get(n) || 0) + 1);
+    });
+    const rows = [...by.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    if (!rows.length) return "";
+    return rows.map(([name, n]) => {
+      const info = BOOK_SOURCE_LIC[name] || [];
+      const link = info[0]
+        ? '<a href="' + esc(info[0]) + '" target="_blank" rel="noopener">' + esc(name) + "</a>"
+        : esc(name);
+      const lic = info[1] ? ' <span class="cr-lic">' + esc(info[1]) + "</span>" : "";
+      return "<li>" + link + lic + " — " + n + (n === 1 ? " book" : " books") +
+        " in the Library. Each book's own page names its edition, its translator and the grounds its" +
+        " copyright has expired on.</li>";
+    }).join("\n            ");
+  }
   PAGES.mission = function (root, params) {
     const M = missionMerged();
     // The changelog dates follow the SITE language, not the browser's: en-GB for English (so a reader with a
@@ -34259,26 +34293,6 @@
             ${faq("Do I need an account?", "No. Your progress is saved on this device automatically. An account only matters if you want the same progress on several devices, or to add friends.")}
           </div>
         </div>
-        ${/* WRITING YOUR OWN CARDS WITH AN AI (Aug 2026, on request). It sits after the questions and
-              before the feedback form because it is a specialist thing a reader goes looking for, not
-              something a first visit needs — and because the two cards above it are what they came for. */""}
-        <div class="msn-card msn-ai" id="aiPrompts">
-          <div class="msn-head">${CHIP.ai}<h2>Writing your own cards with an AI</h2></div>
-          <p class="ai-intro">You can write your own decks in the <b>Studio</b>, and an AI chat is a quick way to fill one. The prompts below ask for cards in Folio&rsquo;s own shape, so what comes back looks like the rest of the site rather than something pasted in. Copy one, put your subject where it says to, and paste it into whichever AI you use.</p>
-          <ol class="msn-steps ai-steps">
-            ${step(1, "Copy a prompt", "Press <b>Copy</b> on whichever of the three below fits what you are doing, and replace the parts in [square brackets].")}
-            ${step(2, "Read what comes back", "An AI will state a wrong date as confidently as a right one. Check the facts before you keep them — a card you cannot vouch for is a card that teaches you something untrue.")}
-            ${step(3, "Bring it into Folio", "For the first prompt, save the reply as <b>something.folio-deck.json</b> and open <b>Collections &rarr; Your decks &rarr; Import a deck file</b>. For the other two, open your deck in the Studio and paste the parts into a new card.")}
-          </ol>
-          <div class="ai-prompts">
-            ${AI_PROMPTS.map((p) => `
-              <div class="ai-prompt">
-                <div class="ai-ph"><div class="ai-pt"><b>${esc(p.title)}</b><span>${esc(p.note)}</span></div><button class="btn tiny ai-copy" type="button" data-aicopy="${esc(p.id)}">Copy</button></div>
-                <pre class="ai-pre" id="ai-${esc(p.id)}">${esc(p.text)}</pre>
-              </div>`).join("")}
-          </div>
-          <p class="ai-foot">Folio&rsquo;s own cards are researched from published scholarship and cited; a deck you write is yours and is not held to that. If you share it, say where it came from — and never publish a deck you have not read through yourself.</p>
-        </div>
         <div class="msn-card msn-feedback">
           <div class="msn-head">${CHIP.feedback}<h2>Folio is in beta — tell us what you think</h2></div>
           <p class="fb-intro">Spotted a wrong date, hit something broken, or thought of something Folio ought to do? Write it here and it goes straight to the people who edit the site. You don't need an account, and every message is read.</p>
@@ -34300,6 +34314,27 @@
             <div class="fb-status" id="fbStatus" role="status"></div>
           </form>
         </div>
+        ${/* WRITING YOUR OWN CARDS WITH AN AI (Aug 2026, on request). It is a specialist thing a reader
+              goes looking for rather than something a first visit needs, so it sits below the three cards
+              that ARE what they came for — what Folio is, how to study it, and the questions. It moved
+              one place down in Aug 2026 when the beta card was asked for directly under the questions. */""}
+        <div class="msn-card msn-ai" id="aiPrompts">
+          <div class="msn-head">${CHIP.ai}<h2>Writing your own cards with an AI</h2></div>
+          <p class="ai-intro">You can write your own decks in the <b>Studio</b>, and an AI chat is a quick way to fill one. The prompts below ask for cards in Folio&rsquo;s own shape, so what comes back looks like the rest of the site rather than something pasted in. Copy one, put your subject where it says to, and paste it into whichever AI you use.</p>
+          <ol class="msn-steps ai-steps">
+            ${step(1, "Copy a prompt", "Press <b>Copy</b> on whichever of the three below fits what you are doing, and replace the parts in [square brackets].")}
+            ${step(2, "Read what comes back", "An AI will state a wrong date as confidently as a right one. Check the facts before you keep them — a card you cannot vouch for is a card that teaches you something untrue.")}
+            ${step(3, "Bring it into Folio", "For the first prompt, save the reply as <b>something.folio-deck.json</b> and open <b>Collections &rarr; Your decks &rarr; Import a deck file</b>. For the other two, open your deck in the Studio and paste the parts into a new card.")}
+          </ol>
+          <div class="ai-prompts">
+            ${AI_PROMPTS.map((p) => `
+              <div class="ai-prompt">
+                <div class="ai-ph"><div class="ai-pt"><b>${esc(p.title)}</b><span>${esc(p.note)}</span></div><button class="btn tiny ai-copy" type="button" data-aicopy="${esc(p.id)}">Copy</button></div>
+                <pre class="ai-pre" id="ai-${esc(p.id)}">${esc(p.text)}</pre>
+              </div>`).join("")}
+          </div>
+          <p class="ai-foot">Folio&rsquo;s own cards are researched from published scholarship and cited; a deck you write is yours and is not held to that. If you share it, say where it came from — and never publish a deck you have not read through yourself.</p>
+        </div>
         <div class="msn-card msn-clog">
           <div class="msn-head">${CHIP.clog}<h2>Changelog</h2></div>
           <div class="clog">${logHTML}</div>
@@ -34311,20 +34346,31 @@
             <li><a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> <span class="cr-lic">CC0</span> — country statistics (population, area, GDP).</li>
             <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
-            <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu, Jowett's Plato and Ross's Aristotle, with Seneca's Latin and Sun Tzu's Chinese.</li>
-            <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i> (Jan Hendrik Leopold's edition of 1908), of the <i>Symposium</i> (John Burnet) and of the <i>Nicomachean Ethics</i> (Ingram Bywater); and both halves of the <i>Metamorphoses</i> (Brookes More's translation of 1922, with Hugo Magnus's Latin), <i>The Twelve Caesars</i> (Alexander Thomson's translation, with Maximilian Ihm's Latin of 1908), <i>On the Nature of Things</i> (William Ellery Leonard's verse of 1916), <i>Oedipus Rex</i> (Richard Jebb's translation of 1887) and <i>Antigone</i> (Jebb's of 1891), both with Francis Storr's Greek of 1912 and both Englished from Jebb by way of Perseus's 1988 modernization to remove archaisms — Alex Sens on the <i>Oedipus Rex</i> and Pierre Habel on the <i>Antigone</i>, each reviewed by John Gibert; and <i>The Histories</i> (A. D. Godley's translation of 1920–1925 with his facing Greek — the English likewise modernized, a revision by Steven Ott reviewed by John Marincola).</li>
+            ${/* THE LIBRARY'S SOURCES ARE COUNTED OFF THE SHELF, NOT LISTED BY HAND (Aug 2026, on request
+                  to audit this list). Two <li>s used to name five books and their translators — written
+                  when the Library held five — and by the time they were checked the shelf held forty-eight
+                  from five different sources, of which Project Gutenberg, the Internet Archive and Global
+                  Grey were credited nowhere at all. A list of titles in prose is a list that goes stale
+                  the next time a book is imported, and this one had.
+                  So the sources are derived from `BOOKS`, which is the registry the shelf itself is drawn
+                  from: the count cannot drift and a new source appears here the moment its first book
+                  does. The per-EDITION attribution — the translator, the editor, the reviser, the year and
+                  the ground the copyright has expired on — is printed by each book's own page, which is
+                  where a reader meets the text and where CC BY-SA attribution belongs; this says which
+                  archives the texts came from and under what licence. A source with no row in
+                  BOOK_SOURCE_LIC still lists, uncredited for licence rather than omitted. */""}
+            ${bookSourceCredits()}
             ${/* THE SCHEDULERS ARE CREDITED HERE AND NOWHERE ELSE (Aug 2026, on request). The deck and
                   Scheduling sheets used to name Anki in passing — "the classic Anki schedule", "Anki's
                   default" — which tells a reader choosing how their own deck is scheduled something about
                   another program rather than about their deck. The debt is real, so it is stated once,
                   properly, on the page that states Folio's debts. FSRS is separately credited because the
                   optimiser's arithmetic is held to its reference implementation. */""}
-            <li><a href="https://apps.ankiweb.net" target="_blank" rel="noopener">Anki</a> <span class="cr-lic">AGPL-3.0</span> — Folio's study schedule follows Anki's: the SM-2 intervals, the learning steps, the daily limits, the four grades and the way sibling cards are buried are all modelled on it. Folio shares no code with Anki and is not connected with the project.</li>
+            <li><a href="https://apps.ankiweb.net" target="_blank" rel="noopener">Anki</a> — Folio's study schedule follows Anki's: the SM-2 intervals, the learning steps, the daily limits, the four grades and the way sibling cards are buried are all modelled on it. Folio shares no code with Anki and is not connected with the project.</li>
             <li><a href="https://github.com/open-spaced-repetition/py-fsrs" target="_blank" rel="noopener">FSRS</a> <span class="cr-lic">MIT</span> — the second scheduler and its optimiser, implemented from the open-spaced-repetition reference and checked against it.</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
             <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
             <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>
-            <li>Accounts &amp; sync run on <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a>; hosting by <a href="https://pages.cloudflare.com" target="_blank" rel="noopener">Cloudflare Pages</a>.</li>
             <li class="cr-note">Folio itself is built by hand in plain HTML, CSS and JavaScript — no frameworks, no build step.</li>
           </ul>
         </div>
