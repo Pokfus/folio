@@ -26271,6 +26271,16 @@
         // writing only the words would wipe the very clue being asked about. (No map card carries a pool
         // today, so this is insurance rather than a fix — and it is one line either way.)
         qEl.innerHTML = cardFrontHTML(c);
+        /* …in the reader's own measurements and spelling, which `render()` applies to the whole page and
+           which anything injected AFTERWARDS has to apply for itself (Aug 2026, on a failing assertion in
+           test-review-decks). The units pass is covered by a standing MutationObserver, but the SPELLING
+           one is not: `applySpelling` installs no observer at en-GB — "the authored system: nothing to do,
+           and no observer to pay for" — while `render()` calls `spellTree` unconditionally. So a phrasing
+           stepped to with the chevrons kept whatever spelling the store happened to hold, and `wh-003`
+           showed "Paleolithic" where the same phrasing rendered "Palaeolithic". Units BEFORE spelling, for
+           the reason given at render()'s own call. */
+        unitizeTree(qEl);
+        spellTree(qEl);
         setupCloze(qEl);
         mountCardMaps(qEl);
         if (revealed) gradeCloze(qEl, c.answer);   // the blank stays filled in — reveal is not undone by this
@@ -26363,6 +26373,10 @@
         cardMapReveal(cardRoot);   // the map may now name what it was shading — the shape and its name together
         const inner = root.querySelector("#revealInner");
         inner.innerHTML = buildBack(c);
+        // the same two passes, for the same reason as the chevron above: the whole of a card's answer and
+        // background is injected after render(), so it has to be measured and spelled for itself
+        unitizeTree(inner);
+        spellTree(inner);
         openLinks(inner);
         processAbstract(inner, c);
         setupTooltips(inner);

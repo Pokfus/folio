@@ -2439,6 +2439,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `pointer-events:none`; and **the migration is the part not to remove** — `defaultState()` carries
   `themeAuto: true` but the back-fill pins an OLDER save to `false`, an existing reader having chosen their
   `night` by hand.
+- **ANYTHING INJECTED AFTER `render()` MEASURES AND SPELLS ITSELF** (Aug 2026, on a failing assertion in
+  `test-review-decks`). `render()` ends with `unitizeTree(root)` then `spellTree(root)`, in that order, over
+  the whole page — so a page is in the reader's own system by the time they see it. **DOM added later is
+  not**, and the two passes are covered unequally: `applyUnits` installs a standing `MutationObserver`, so
+  measurements are caught wherever they appear, while **`applySpelling` installs NONE at `en-GB`** ("the
+  authored system: nothing to do, and no observer to pay for") — true of the STORE, false of the PAGE, since
+  `render()` spells unconditionally anyway. So for a reader on the default, later DOM kept whatever spelling
+  the store happened to hold. It bit in two places, both injecting a card: **the phrasing chevrons**
+  (`wh-003` showed "Paleolithic" stepped to and "Palaeolithic" rendered) and **`showAnswer`**, which is the
+  whole of every card's answer AND background — much the larger of the two, and the half nobody had
+  reported. Both call the pair themselves now. **A new surface that injects prose after render must do the
+  same**, units first; the alternative — making `applySpelling` observe at `en-GB` too — buys every reader
+  on the default an observer to fix content that is supposed to be authored British in the first place.
 - **Measurements: ONE system, the reader's** (`S.settings.units` / `unitizeText` / `unitizeTree` /
   `applyUnits`). Content stays authored **metric-first with the imperial in brackets** — the only form that
   carries both figures for a batch script, a citation pass or a translator — and what changes is what a
