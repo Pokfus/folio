@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.313", released: "2026-08-27T10:13Z" };
+window.FOLIO_VERSION = { v: "1.314", released: "2026-08-27T11:14Z" };
 
 window.CHANGELOG = [
   {
@@ -58,6 +58,10 @@ window.CHANGELOG = [
       "<b>Downloading a deck no longer scrolls you back to the top</b> \u2014 its row turns into the deck where it stands.",
       "<b>The dot, the words and the stars above a card\u2019s question now sit on one line</b>, and the dot is drawn at full strength.",
       "<b>A language collection no longer appears a second time under Your decks</b> once you download it \u2014 the language shelf is the only place it is listed.",
+      "<b>Romance of the Three Kingdoms now prints its Chinese names in modern pinyin</b> \u2014 Ts\u2018ao Ts\u2018ao is Cao Cao and Ch\u2018\u00eangtu is Chengdu, 1,727 names in all.",
+      "<b>A handful of names the 1925 printing spells against its own Chinese are corrected from it</b>, and the two ways it writes the aspiration mark are now one.",
+      "<b>371 scanning errors in two books are corrected</b> \u2014 319 in Journey to the West and 52 in the Rigveda, each read against the printed page, with each book's own page saying what is left.",
+      "<b>The Travels of Marco Polo now explains the \u271b its editor prints beside a note</b> \u2014 a paragraph he revised \u2014 and records that its text was checked against the printed page and needed no correcting.",
       "Three new cards in the <b>Ancient Greece</b> deck, with three new glossary terms.",
     ],
   },
@@ -65,6 +69,9 @@ window.CHANGELOG = [
     d: "2026-08-21",
     t: "British or American spelling, and your own symbol on a collection",
     items: [
+      "<b>Five books now print Chinese names in modern pinyin</b> \u2014 Legge\u2019s K\u00e2u is Zhou and Journey to the West\u2019s Kwanyin is Guanyin, 1,300 names in all.",
+      "<b>Six hundred scanning slips in five books have been corrected</b> \u2014 twelve one by one, and 617 in Journey to the West, where the scanner read y as j, th as tli and w as av.",
+      "<b>Journey to the West\u2019s last chapter no longer runs on into the volume\u2019s index</b>, a life of the translator and the publisher\u2019s 1913 catalogue.",
       "<b>Folio can now read in American spelling</b> \u2014 Settings \u2192 Appearance \u2192 Spelling switches every card, term and page between the two.",
       "<b>A card\u2019s community difficulty now counts only your first three answers to it</b>, so it measures how hard the card is to learn.",
       "<b>The changelog\u2019s day titles are titles again</b>, the recent ones having grown into contents lists.",

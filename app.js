@@ -11253,7 +11253,7 @@
     {
       id: "book-of-documents",
       title: "The Book of Documents",
-      subtitle: "The Shû King",
+      subtitle: "The Shu King",
       author: "Anonymous",
       /* The documents are speeches and charges set down by scribes whose names are not recorded, and
          the tradition that Confucius compiled them is a tradition rather than a fact. `written` gives
@@ -11308,7 +11308,7 @@
     {
       id: "book-of-rites",
       title: "The Book of Rites",
-      subtitle: "The Lî Kî",
+      subtitle: "The Li Ji",
       author: "Anonymous",
       /* Forty-six treatises by many hands, gathered under the Han out of Warring States material and
          edited into this collection in the first century BCE. The tradition names Tâi Shăng as the
