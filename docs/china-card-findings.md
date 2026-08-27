@@ -1147,12 +1147,17 @@ exactly, and the same test the `undatable` rule applies. The rows are the millet
 rice one and the arrival of full farming, so the card sorts at −8300, which is the onset a reader would
 give; the 30,000-year figure lives in the abstract, where it is a statement about gathering rather than
 about agriculture, and no `undatable` flag is needed.
-  **AND ONE COMMONS FILE 429'd FOR HALF AN HOUR WHILE ITS NEIGHBOURS SERVED 200, WHICH IS NOT THE
-CONGESTION `cnh-014` RECORDS.** The Hemudu bone spade at `commons/8/8f/…1974.jpg` refused every request —
+  **AND A COMMONS 429 CAN BE SCOPED TO ONE FILE RATHER THAN TO THE HOST, WHICH `cnh-014`'s CONGESTION
+FINDING DOES NOT COVER.** The Hemudu bone spade at `commons/8/8f/…1974.jpg` refused every request —
 original, `Special:FilePath`, and a composed `800px-` thumb that additionally returned cnh-040's
-**400 "Use thumbnail sizes listed on…"** — while other files on the same host fetched cleanly throughout.
-An until-loop is the right answer to congestion and the wrong answer to an object-specific refusal, and the
-way to tell them apart is to **fetch a known-good file from the same host before starting the loop**. What
+**400 "Use thumbnail sizes listed on…"** — for the better part of an hour, while other files on the same
+host, including the one eventually shipped, fetched cleanly throughout. **The until-loop was still the
+right answer and it did land the file** — after about fifty minutes rather than cnh-014's fifteen — and a
+probe an hour later 429s again on that object while its neighbour returns 200, so the refusal is
+**per-file and intermittent** rather than permanent. What the neighbour probe is FOR, then, is not deciding
+whether to loop but knowing what the loop is up against: **fetch a known-good file from the same host, and
+where it answers, keep the loop running in the background and go and find another picture in parallel**,
+which is what got this card its illustration inside the hour. What
 replaced it was found by cnh-016's rule, searching Commons on the characters: `河姆渡 骨耜` returned five
 bone spades where the English name returned one. Two candidates were rejected by LOOKING: a Hemudu bowl
 whose record calls it 稻纹陶钵, a bowl with a rice-ear design, shows no design at all in the frame, and the
