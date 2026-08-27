@@ -1257,7 +1257,8 @@ window.GLOSSARY = {
 "Archaic_period_(North_America)": "The Archaic period is the division of North American prehistory that follows the Paleoindian period and closes with the adoption of farming in the north and of pottery in the south, dated in New England to roughly 9,000 to 2,500 years before the present.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its people were descendants of the Paleoindians but generalists rather than specialists, drawing on a broad range of wild game and plant foods as the glaciers went and the climate warmed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Grinding tools such as manos and metates become common on their sites, and by the late Archaic the settlements are larger and more sedentary as reliance on plant foods grows.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Akhenaten": "Akhenaten was a king of ancient Egypt's eighteenth dynasty who came to the throne as Amenhotep IV, took his new name in his sixth year, and is attested down to a seventeenth regnal year.<sup class=\"fn\" data-fn=\"1\"></sup> He worshipped the sun as the visible disc, the Aten, shown with rays that end in hands offering life, and founded a new royal city, Akhetaten, in Middle Egypt, while the names and images of Amun and his consort Mut were erased on accessible monuments in Egypt and Nubia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> That city held perhaps 30,000 people and lasted about 15 years before the court returned to Memphis and its temples and palaces were demolished.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Tutankhamun": "Tutankhamun was a king of ancient Egypt's eighteenth dynasty who came to the throne as a boy, reigned roughly a decade from about 1336 to 1327 BCE, and died still in his teens of a cause that is not known.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His importance for Egyptian history is the reinstallation of the gods after the Amarna period, recorded on restoration stelae at Karnak, and the return of the court from Akhetaten to Memphis, where the Aten's cult was abandoned.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He was buried in tomb 62 in the Valley of the Kings, a small and sparsely decorated chamber into which some 5,000 objects were packed.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Ramesses_II": "Ramesses II was a king of ancient Egypt's nineteenth dynasty, the son of Sety I, who reigned from about 1279 to 1213 BCE and was buried in tomb 7 in the Valley of the Kings.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His war against the Hittites produced the battle of Qadesh, recorded at a length unmatched among Egyptian sources, and in his twenty-first year a treaty with the Hittite king Hattusili III, of which both sides' versions survive.<sup class=\"fn\" data-fn=\"1\"></sup> By the number and scale of his monuments, among them the Great Temple at Abu Simbel and much of the Great Hypostyle Hall at Karnak, he left a larger mark on Egypt than any other king.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Ramesses_II": "Ramesses II was a king of ancient Egypt's nineteenth dynasty, the son of Sety I, who reigned from about 1279 to 1213 BCE and was buried in tomb 7 in the Valley of the Kings.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His war against the Hittites produced the battle of Qadesh, recorded at a length unmatched among Egyptian sources, and in his twenty-first year a treaty with the Hittite king Hattusili III, of which both sides' versions survive.<sup class=\"fn\" data-fn=\"1\"></sup> By the number and scale of his monuments, among them the Great Temple at Abu Simbel and much of the Great Hypostyle Hall at Karnak, he left a larger mark on Egypt than any other king.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Kadesh": "The Battle of Kadesh was fought in 1274 BCE, the fifth year of Ramesses II, between an Egyptian army and the Hittites under Muwatalli II at the city of Kadesh on the Orontes.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Egyptians marched in four divisions named for the gods Amun, Ra, Ptah and Seth, and when the Hittite chariotry struck those divisions were strung out over 55 kilometres (34 miles), so that the king came close to defeat without being beaten.<sup class=\"fn\" data-fn=\"2\"></sup> It is the best documented battle of the late Bronze Age from the Egyptian side, recorded in reliefs and texts on temple walls, and both sides afterwards claimed the victory.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1875,7 +1876,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Archaic_period_(North_America)": "c. 9000 – 2500 BP",
 "Akhenaten": "c. 1351 – 1334 BCE",
 "Tutankhamun": "c. 1336 – 1327 BCE",
-"Ramesses_II": "c. 1279 – 1213 BCE"
+"Ramesses_II": "c. 1279 – 1213 BCE",
+"Battle_of_Kadesh": "1274 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2742,7 +2744,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Middle_Kingdom_of_Egypt": ["Middle Kingdom"],
 "Akhenaten": ["Amenhotep IV","Akhenaton"],
 "Tutankhamun": ["Tutankhamen"],
-"Ramesses_II": ["Ramses II","Ramesses the Great"]
+"Ramesses_II": ["Ramses II","Ramesses the Great"],
+"Battle_of_Kadesh": ["Battle of Qadesh"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4025,7 +4028,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Archaic_period_(North_America)": ["era","archaeology","prehistory","north america"],
 "Akhenaten": ["ruler","history","egypt","religion","bronze age"],
 "Tutankhamun": ["ruler","history","egypt","religion","bronze age"],
-"Ramesses_II": ["ruler","history","egypt","warfare","building","bronze age"]
+"Ramesses_II": ["ruler","history","egypt","warfare","building","bronze age"],
+"Battle_of_Kadesh": ["battle","history","egypt","warfare","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
