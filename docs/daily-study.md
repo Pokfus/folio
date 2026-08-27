@@ -538,3 +538,105 @@ The four bullets below are as they stood in CLAUDE.md, verbatim.
     showing what they meant a moment ago, which reads as the tick landing on the wrong row. It is a sweep
     of the buttons rather than a `render()` because the collections page is a tree the reader has expanded
     by hand, and rebuilding it would fold that back up.
+
+## The editor mode (Aug 2026, on request)
+
+> "Rather than the drag handles being visible at all times, make them invisible by default and shift the
+> contents of the banners to the left. Add a button in the bottom left, just below the active decks list,
+> vertically centered to the study timer. Pressing it opens an editor mode where the drag handles appear on
+> the left, red crosses on the right, and titles can be renamed by clicking on them. The button becomes
+> three buttons (save, exit, undo), and the study timer disappears until the editing mode is closed."
+
+### Live, with an undo stack — and why the alternative was a rewrite
+
+The reader was asked how Save and Undo should behave and chose **live with an undo stack**: every edit
+lands at once, Undo pops one, and closing keeps everything. That is the small design, and the reason it is
+small is that the two edits it has to cover — the drag and the removal — already wrote through `save()`
+before this mode existed. The staged alternative (nothing touches `S.active` until Save, Exit discards)
+would have meant rendering the whole list from a working copy rather than from state, which is a rewrite
+of the list rather than a mode over it.
+
+`deckEditCheckpoint()` takes a snapshot of five fields — `active`, `cotd`, `deckOrder`, `deckGroups`,
+`deckNest` — BEFORE each edit, which is `adminCheckpoint`'s shape and for its reason: **a removal is
+lossy.** A deck removed takes its subdeck rows, its nesting and its place in the saved order with it, and
+none of that can be derived back out of what is left. Five small objects as JSON is a few hundred bytes,
+and the stack is capped at 60. It is a **no-op when the mode is shut**, so an ordinary drag outside the
+editor costs nothing and cannot leave a stack behind for the next opening to pop.
+
+### Three buttons, and two of them are not called what was asked for
+
+**In a live editor "save" and "exit" are the same button pressed twice.** There is nothing staged for one
+to keep and the other to throw away, so a control named Save would be promising a decision it is not
+making, and one named Exit would leave a reader guessing whether leaving keeps their work. What shipped is:
+
+| button | what it does | when it is live |
+|---|---|---|
+| **Undo** | steps back one edit | disabled until something has been changed |
+| **Revert** | restores the BOTTOM of the stack — the list as it stood when Edit was pressed — and closes | ditto |
+| **Done** | closes, keeping everything | always |
+
+Revert restores the bottom of the stack in one go rather than popping repeatedly, which would do the same
+thing N times and fire N saves. Undo and Revert are **disabled rather than hidden** while there is nothing
+to undo: a control that comes and goes as the reader works is a control they have to look for, and a
+greyed one says what the mode can do before it has anything to do it to.
+
+### The handles
+
+They sat at `opacity:.32` on every row at rest, which is six handles competing with six deck names. They
+are `visibility:hidden` now until the mode opens, and both halves of that are deliberate:
+
+- **not `display:none`**, because the row's `padding-left` reserves a column for the handle, and removing
+  the box would shift every title 20px left on entering the mode and back again on leaving;
+- **not `opacity:0` alone**, because an invisible control that still swallows the press meant for the row
+  underneath is the worse of the two failures — the row is a tap (study this deck) and a hold (its options
+  sheet), and a dead 20px strip down its left edge would break both silently.
+
+`test-review-decks.js` therefore opens the mode before every drag, exactly as a reader now does, and
+asserts the handle's `visibility` in both states: a mode that stopped hiding them and a mode that stopped
+showing them look the same from one side.
+
+### The crosses are injected, not written into the six row templates
+
+There are six row shapes (a language header, a group, a pending download, one of the reader's own decks, an
+added node, and the quiet context row), and a control that is absent from the page almost all the time
+would have had to be added to each of them and kept in step. The wiring appends one `.dk-del` per row
+instead. A **context row gets none** — it is an unadded ancestor drawn only to show where a deck hangs, so
+it is not in `S.active` and there is nothing there to remove. The cross stops `pointerdown` as well as
+`click`, because `wireHoldMenu` arms its hold timer on the former.
+
+### Renaming works on every row, and needed no new field
+
+`groupTitle(id)` has always read `S.deckGroups[id].title` and fallen through to the node's own title, so
+one override field already served the whole list; `setEntryTitle` is the writer. It goes in the record the
+colour and the icon are already in, which is what makes it **sync, survive Reset progress, and need no
+schema block of its own** — the same reasoning as the per-row icon.
+
+Two rules keep the synced blob clean: an **emptied name** clears the override (which is how a reader puts a
+deck's own title back), and a name **equal to the shipped one** clears it too rather than storing a copy.
+That second test is what `data-shipname` exists for — it rides on the shared attribute string every row
+template already interpolates, so all six carry it from one edit, and the alternative would have been a
+second copy of the build's own title logic, which is the thing that drifts. A GROUP is the exception: its
+record IS its name, so there is nothing to fall back to and an empty one is refused.
+
+The field replaces the title **in place** rather than raising a prompt: the reader is looking at the list
+they are arranging, and a modal over it would take the thing being renamed off the screen. Enter and blur
+commit, Escape abandons, and the row's own click is stopped throughout — otherwise naming a deck would deal
+its first card.
+
+### The foot row, and the one state that would strand a reader
+
+`.rv-foot` used to be drawn only when the day's timer had something to say, on the reasoning that a row
+holding one item that is often empty spends the card's bottom padding on nothing. The Edit button lives
+there, so it is drawn whenever there are decks — a control that only appears once you have studied a card
+is a control most mornings do not have.
+
+It also **survives the list emptying while the mode is open.** Remove the last deck and the list goes, and
+with it the three buttons — including the Revert that is the only way to get that deck back. The condition
+is `!fresh && (activeIds.length || deckEditOn)`.
+
+### And one repaint that was still a navigation
+
+Dragging a deck INTO a group called `render()`, which scrolls to the top of the page and replays every
+block's entrance animation — on the one page where the reader has just posed the list by hand. Both
+branches of that path are `renderInPlace()` now, which is the rule CLAUDE.md states as "a repaint is not a
+navigation" and which the editor mode's own repaints use throughout.

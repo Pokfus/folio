@@ -581,7 +581,13 @@
      bytes. `TextEncoder` rather than `.length`, or every accented and CJK character is undercounted. */
   let _cardBytes = new Map();
   let _nodeBytes = new Map();
-  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); }
+  /* `_locSibCache` is declared HERE rather than beside `locatorSiblings`, which is 28,000 lines down, for
+     the reason the caches above it are: `uCacheBust` runs at boot out of `applyAdminEdits`, so a `let`
+     declared later in the file is in its temporal dead zone and the whole boot throws. It goes with them
+     because a locator moved or a card retired changes what a sibling map draws, and an admin edit is
+     exactly the thing that does either. */
+  let _locSibCache = null;
+  function uCacheBust() { _uStudyCache = new Map(); _availCache = null; _cardBytes = new Map(); _nodeBytes = new Map(); _locSibCache = null; }
   let _byteEnc = null;
   function cardBytes(id) {
     let n = _cardBytes.get(id);
@@ -869,6 +875,7 @@
     CARD_BY_ID[id].facts = p.facts;           // and the figures box beside its answer (see cardFacts)
     CARD_BY_ID[id].answerFlag = p.answerFlag; // and the flag drawn beside that answer (see answerFlag)
     CARD_BY_ID[id].locator = p.locator;       // and the globe at the foot marking where the place is
+    CARD_BY_ID[id].quote = p.quote;           // and the passage it quotes out of the Library (see cardQuote)
     if (isCreatedCard(id)) { ADMIN_EDITS.created[id] = {}; CARD_FIELDS.forEach((f) => { ADMIN_EDITS.created[id][f] = CARD_BY_ID[id][f]; }); }
     else delete ADMIN_EDITS.cards[id];
     if (ADMIN_EDITS.meta[id]) delete ADMIN_EDITS.meta[id].modified;
@@ -1438,6 +1445,8 @@
          from revlog: that records a duration only for a card that was GRADED, capped at 60s, so a card
          read for three minutes and one abandoned mid-session both count wrongly there. */
       studyTime: { d: "", ms: 0 },
+      // …and the lifetime figure the day-stamped record above cannot be summed into after the fact
+      studyTotal: 0,
       streak: { count: 0, last: "" },
       // cards picked up one at a time from the home page's Card of the day (studied from the tile and then
       // graded). They join the daily review under the COTD_ENTRY pseudo-entry, so a card can be added
@@ -1782,7 +1791,53 @@
       g.n = total;
     }
     S.games[key] = g;
+    /* …and into the pooled counters, so the back of the tile can say how everyone else did. Only a
+       FINISHED run counts — `opts.progress` marks a game reporting itself mid-play, and counting those
+       would make "plays" a count of rounds. See gameStatsPost. */
+    if (!running && typeof score === "number" && typeof total === "number") gameStatsPost(key, score, total, !!won);
     maybeSweepChest();   // every daily game won today → a chest, once per day (see THE RELIQUARY)
+  }
+  /* ---------- HOW THE REST OF THE SITE DID AT TODAY'S GAME (Aug 2026, on request) ----------
+     The back of a flipped tile shows the reader's own record and, beside it, the site's. The reader's
+     half needs nothing — `S.games` holds today and `S.gameLog` the lifetime tally. The site's half has
+     nowhere to live in the ordinary way: `progress` is RLS-scoped to its owner and their accepted
+     friends, so nobody — an admin included — can read across it, which is the same wall the Edit page's
+     Dashboard states in prose rather than working round. So it is a POOLED COUNTER table, exactly as the
+     community card difficulty is: three integers per game per day, joined to nobody, read by everyone
+     and written only through a security-definer function that can add one play and nothing else. See
+     section 15 of .claude/supabase-schema.sql.
+
+     THE DAY IS THE SERVER'S UTC DAY, not the reader's. A reader sets their own boundary (see dayKey), so
+     two people finishing the same daily game can disagree by up to twelve hours about which day it was —
+     and a counter that took the caller's date could be moved onto any day by a client that lied. The
+     seam is stated on the tile ("everyone who has finished it today"), which is what makes it honest.
+
+     IT IS OFF ON A DEV ORIGIN and it LATCHES OFF on a 404, exactly as the card statistics do: a project
+     that has not run the block is the normal case, not a broken one, and the tile says the figure is not
+     collected rather than showing a zero that reads as "nobody played". */
+  let _gameStatsOff = false, _gameStats = null, _gameStatsAt = 0;
+  const GAME_STATS_TTL = 300000;   // five minutes: the figure moves slowly and a flip must not wait on a fetch
+  function gameStatsPost(key, score, total, won) {
+    if (_gameStatsOff || isDevOrigin()) return;
+    supaFetch("/rest/v1/rpc/bump_game_score", {
+      method: "POST",
+      body: { g: key, score: score | 0, rounds: total | 0, won: !!won },
+    }).then((r) => { if (r && r.status === 404) _gameStatsOff = true; });
+  }
+  /* Today's row for every game in one request — the tiles are all on one page, so fetching per tile
+     would be nine requests for a panel most readers never open. `null` means "not asked yet or not
+     available"; an empty object means "asked, and nobody has played anything today", which is a real
+     answer and a different one. */
+  async function gameStatsLoad() {
+    if (_gameStatsOff || isDevOrigin()) return null;
+    if (_gameStats && Date.now() - _gameStatsAt < GAME_STATS_TTL) return _gameStats;
+    const day = new Date().toISOString().slice(0, 10);   // the server's UTC day, which is what the table keys on
+    const r = await supaFetch("/rest/v1/game_stats?select=game,plays,wins,score_sum,rounds&day=eq." + day);
+    if (!r || !r.ok) { if (r && r.status === 404) _gameStatsOff = true; return null; }
+    const out = Object.create(null);
+    (Array.isArray(r.data) ? r.data : []).forEach((row) => { if (row && row.game) out[row.game] = row; });
+    _gameStats = out; _gameStatsAt = Date.now();
+    return out;
   }
   function gamePlayedToday(key) { const g = S.games && S.games[key]; return !!(g && g.date === todayStr() && g.played); }
   function gameWonToday(key) { const g = S.games && S.games[key]; return !!(g && g.date === todayStr() && g.won); }   // won = a perfect run today (gold tile)
@@ -1795,7 +1850,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -3141,15 +3196,32 @@
     // ("u:<deckId>:<slug>"), so humanizing that would try to match the literal key in the prose. Deck terms
     // resolve through their own entry instead.
     const surfaceOf = (k) => { const u = uGlossParse(k); return u ? (u.entry.title || glossKeyTitle(u.slug)) : glossKeyTitle(k); };
+    /* A DISAMBIGUATING PARENTHETICAL MEANS THE BARE NAME IS ALREADY SOMEBODY ELSE'S (Aug 2026, on a bug
+       report: the Paleo-Indians card's "Archaic period" opened the gloss for the GREEK archaic period).
+       `glossKeyTitle` strips a trailing `_(…)` because a Wikipedia slug carries one for DISPLAY reasons —
+       and a slug carries one for exactly one reason, which is that the bare name is ambiguous. So
+       stripping it and then registering the result as an auto-link surface is the one thing that must not
+       follow from it: `Archaic_period_(North_America)` would claim "Archaic period", and which of the two
+       terms won came down to their order in `Object.keys(G)`, i.e. to where they happen to sit in
+       glossary.js. Nothing on the page would say which one a reader was about to open.
+       So a parenthetical key does not claim its bare name HERE. It can still claim it deliberately, with
+       an ALIAS — which is how all five of the parenthetical keys that predate this rule were already
+       written (`Georgia_(country)` carries "Georgia", `Hippias_(tyrant)` carries "Hippias"), so this
+       changes nothing for any of them and only stops the claim being made by accident. A term that wants
+       the bare name says so; a term that does not is reached by a hand-written `data-k`, by the search,
+       and by any narrower alias of its own. `.claude/check-gloss-links.js` reports what is left. */
+    const bareTaken = (k) => !uGlossParse(k) && /_\([^)]*\)$/.test(String(k || ""));
     // pass 1: primary term names (singular) — win any collision
-    keys.forEach((k) => add(surfaceOf(k), k));
+    keys.forEach((k) => { if (!bareTaken(k)) add(surfaceOf(k), k); });
     // pass 2: admin-defined alias spellings (singular)
     keys.forEach((k) => (A[k] || []).forEach((al) => add(al, k)));
     // pass 3: plurals — only for case-insensitive surfaces (proper names are not pluralized/linked lowercase)
     keys.forEach((k) => {
       if (CS[k]) return;
-      const t = surfaceOf(k);
-      if (!isProperCS(t)) pluralForms(t).forEach((p) => add(p, k));
+      if (!bareTaken(k)) {
+        const t = surfaceOf(k);
+        if (!isProperCS(t)) pluralForms(t).forEach((p) => add(p, k));
+      }
       (A[k] || []).forEach((al) => { if (!isProperCS(al)) pluralForms(al).forEach((p) => add(p, k)); });
     });
     names.sort((a, b) => b.length - a.length); // longest first so phrases win over their parts
@@ -4866,11 +4938,92 @@
      hours in one go. */
   const STUDY_TICK_MS = 5000, STUDY_IDLE_MS = 180000;
   function studyTimeToday() { const r = S.studyTime; return r && r.d === todayStr() ? (r.ms | 0) : 0; }
+  /* THE LIFETIME TOTAL BACK-FILLS TO TODAY'S FIGURE, LAZILY. It cannot be reconstructed — the daily record
+     keeps today and nothing else, so every day before this release is simply gone, and the honest thing is
+     to say so rather than to guess. Seeding it with what IS known means an existing reader's counter opens
+     at their real time studied today rather than at zero on an afternoon they have plainly been working.
+     It is done HERE rather than in the back-fill run beside `load()` because that runs before `todayStr`
+     is declared, and a `const` arrow is not hoisted — the line threw on boot. Doing it in the accessor
+     also covers `applyProgress`, which installs a blob that may predate the field. `== null` rather than
+     falsy, so a genuine 0 written by this release is not re-seeded on every read. */
+  function studyTotalMs() {
+    if (S.studyTotal == null) S.studyTotal = (S.studyTime && S.studyTime.d === todayStr() ? (S.studyTime.ms | 0) : 0);
+    return S.studyTotal | 0;
+  }
   function studyTimeAdd(ms) {
     if (!(ms > 0)) return;
     const d = todayStr();
     if (!S.studyTime || S.studyTime.d !== d) S.studyTime = { d: d, ms: 0 };
-    S.studyTime.ms += Math.min(ms, STUDY_TICK_MS * 2);
+    const add = Math.min(ms, STUDY_TICK_MS * 2);
+    S.studyTime.ms += add;
+    studyTotalMs();          // seed the lifetime figure before adding to it, or a tick would zero the back-fill
+    /* …AND THE LIFETIME TOTAL (Aug 2026, on request: "a small counter somewhere saying how much time a
+       user has spent studying cards overall"). It is a SECOND field rather than a sum of the daily one,
+       because the daily record keeps today and nothing else — the day before is gone the moment the date
+       rolls, so a lifetime figure could never be derived after the fact. It is written from the same
+       clamped tick as the day's, so the two can never disagree about a session, and it back-fills to
+       today's figure for an existing reader (see load()) rather than starting at zero and telling them
+       they have never studied. */
+    S.studyTotal = (S.studyTotal | 0) + add;
+  }
+  /* ---------- THE SAME CLOCK, FOR A BOOK (Aug 2026, on request) ----------
+     "On the about page of a library book it should say how much time a user has spent reading that book
+     that day and in total." It is the study ticker's rules exactly — the same interval, the same idle
+     window, the same clamp — so the two figures mean the same thing and a reader can compare them.
+     The record already exists and already syncs: `S.reading[bookId]` holds the place, so the time joins it
+     rather than opening a register of its own, and `PROGRESS_FIELDS` already carries `reading`.
+     `d` / `dms` are the day-stamped pair (reset in place, like studyTime and deckDay) and `ms` the total. */
+  function readTimeAdd(bookId, ms) {
+    if (!bookId || !(ms > 0)) return;
+    if (!S.reading || typeof S.reading !== "object") S.reading = {};
+    const r = S.reading[bookId] || (S.reading[bookId] = {});
+    const d = todayStr();
+    if (r.d !== d) { r.d = d; r.dms = 0; }
+    const add = Math.min(ms, STUDY_TICK_MS * 2);
+    r.dms = (r.dms | 0) + add;
+    r.ms = (r.ms | 0) + add;
+  }
+  function readTimeToday(bookId) { const r = S.reading && S.reading[bookId]; return r && r.d === todayStr() ? (r.dms | 0) : 0; }
+  function readTimeTotal(bookId) { const r = S.reading && S.reading[bookId]; return (r && (r.ms | 0)) || 0; }
+  function readTimeAll(prog) {
+    const R = (prog || S).reading;
+    if (!R || typeof R !== "object") return 0;
+    return Object.keys(R).reduce((n, k) => n + ((R[k] && R[k].ms) | 0), 0);
+  }
+  /* ONE TICKER, USED BY THE STUDY PAGE AND THE BOOK READER. It was written inline in `PAGES.study` and is
+     lifted here because the Library needed the same thing, and two copies of a clock is two clocks that
+     drift. Everything about it is a decision the study page made first and the reasoning holds for both:
+     · SELF-STOPPING on `root.isConnected`, the shape `startMiniGlobe` uses — `render()` replaces #view
+       without telling anyone and there is no teardown hook to hang this on;
+     · it counts only while the page is VISIBLE and something has happened in the last STUDY_IDLE_MS, so a
+       card or a chapter left open on a table is not studying;
+     · each tick is CLAMPED to a little over its own interval, so a laptop waking from sleep cannot hand
+       the day eight hours in one go;
+     · and it reaches `save()` once a minute rather than every five seconds, because save() queues a synced
+       push and a push that often for a clock would be a great deal of traffic.
+     `alive()` is what the caller uses to say "the thing being timed is actually on screen" — a study card,
+     a chapter — and returning false simply skips the tick. */
+  function startTimeTicker(root, alive, addMs) {
+    let lastAct = Date.now(), lastTick = Date.now(), unsaved = 0;
+    const noteAct = () => { lastAct = Date.now(); };
+    const ACT_EVENTS = ["pointerdown", "pointermove", "keydown", "wheel", "scroll", "touchstart"];
+    ACT_EVENTS.forEach((n) => document.addEventListener(n, noteAct, { capture: true, passive: true }));
+    const t = setInterval(() => {
+      const now = Date.now(), gap = now - lastTick;
+      lastTick = now;
+      if (!root.isConnected) {                 // the page has gone; take the listeners with it
+        clearInterval(t);
+        ACT_EVENTS.forEach((n) => document.removeEventListener(n, noteAct, true));
+        if (unsaved) save();
+        return;
+      }
+      if (document.hidden || !alive()) return;
+      if (now - lastAct > STUDY_IDLE_MS) return;
+      addMs(gap);
+      unsaved += gap;
+      if (unsaved >= 60000) { unsaved = 0; save(); }
+    }, STUDY_TICK_MS);
+    return t;
   }
   // "45s" / "12m" / "1h 05m" — seconds below a minute, because rounding the first card of the day up to
   // "1m" is a small lie and "<1m" is not a figure
@@ -5467,6 +5620,32 @@
     r.title = t2;
     save();
   }
+  /* A RENAME ON ANY ROW OF THE DAILY LIST (Aug 2026, with the editor mode). It writes to the same record
+     the colour and the icon already live in, which is what makes it sync, survive a reset and need no
+     schema of its own — and `groupTitle` has always fallen through to the node's title, so nothing had to
+     learn a second place to look. Two things it does that `setGroupTitle` does not, and both are about
+     not filling the synced blob with rows that say nothing: a name equal to the one the row already has
+     CLEARS the override rather than storing a copy of it, and an emptied name clears it too, which is how
+     a reader puts a deck's own title back. A GROUP is the exception — its record IS its name, so there is
+     nothing to fall back to and an empty one is refused. */
+  function setEntryTitle(id, title, shipped) {
+    if (!id) return;
+    const m = deckGroupMap();
+    const t2 = String(title || "").trim().slice(0, 80);
+    if (isGroupId(id)) { if (t2) setGroupTitle(id, t2); return; }
+    const r = m[id];
+    if (!t2 || t2 === String(shipped || "").trim()) {
+      if (!r || !r.title) return;
+      delete r.title;
+      if (!r.color && !r.icon) delete m[id];   // an empty record is a row of noise in the synced blob
+      save();
+      return;
+    }
+    const rec = r || (m[id] = {});
+    if (rec.title === t2) return;
+    rec.title = t2;
+    save();
+  }
   function groupCreate(title) {
     const m = deckGroupMap();
     let id;
@@ -5923,6 +6102,22 @@
   /* Which entry's options a STUDY SCOPE follows. A deck tapped on its own row uses that deck's; the
      pooled review, the Card-of-the-day list and a single card off the home tile use the review's, since
      that is the entry whose sheet the reader would have opened to change it. */
+  /* The inverse of `scopeEntryId`: what studying THIS row of the review list means. It was written inline
+     in the row's own click handler until Aug 2026, when the completion screen gained a "continue with the
+     next deck" button and needed the same answer — and an entry id is not something two places may each
+     have their own reading of (`u:<deck>/<path>#<tpl>` is a deck, a subdeck and a direction in one string).
+     One function, so a row tapped on the home page and the same row reached from the end of a session open
+     exactly the same session. */
+  function entryScope(id) {
+    if (id === COTD_ENTRY) return { type: "cotd" };
+    // a GROUP the reader made has no cards of its own — see buildSession's group branch. A collection
+    // drawn as a group header is still a tree node and still studies as one.
+    if (isGroupId(id)) return { type: "group", id };
+    const ud = uDeckIdOf(id);
+    // …and a subdeck of one of the reader's own decks studies just that subdeck
+    if (ud) return { type: "udeck", id: ud, sub: uSubOf(id), tpl: uTplOf(id) };
+    return { type: "deck", id };
+  }
   function scopeEntryId(scope) {
     if (!scope) return REVIEW_ENTRY;
     if (scope.type === "deck" || scope.type === "group") return scope.id;
@@ -6323,7 +6518,16 @@
      early-returns on an entry already in S.active, so re-calling it for the whole-deck row does nothing.
      Adding a deck brings its subdecks (the collections page's rule, one store over), and until the file is
      here nobody knows what those subdecks are. */
-  async function langDeckDownload(deckId) {
+  /* `onProgress(received, total)` is called as the file arrives, so the row can draw a real bar rather
+     than the word "Downloading…" (Aug 2026, on request). It is BYTES here, where the lazy data bundles'
+     bar counts FILES — and the difference is not a preference: a bundle is injected as a <script>, whose
+     download nothing on the page can watch without an inline script the CSP forbids, while a deck file is
+     already fetched with `fetch()` and hands back a readable stream. So this one can be honest about how
+     far through it is, and the biggest deck here is 9.6 MB, which is exactly the wait a bar is for.
+     `total` is 0 when the server sends no Content-Length (a compressed response often does not), and the
+     bar says so by staying indeterminate rather than inventing a denominator. The reader is streamed
+     into a string either way; the fallback path is the plain `res.text()` this had before. */
+  async function langDeckDownload(deckId, onProgress) {
     const row = langCatalogById(deckId);
     if (!row) return { error: "That deck isn't in the catalogue." };
     if (UDECKS[deckId]) return { ok: true, deck: UDECKS[deckId] };
@@ -6331,7 +6535,24 @@
     try {
       const res = await fetch("decks/" + encodeURIComponent(row.file), { cache: "no-store" });
       if (!res.ok) throw new Error("HTTP " + res.status);
-      text = await res.text();
+      if (onProgress && res.body && typeof res.body.getReader === "function") {
+        // Content-Length is the COMPRESSED length where the response is compressed, and the chunks are
+        // decompressed — so the catalogue's own byte count is the better denominator when it has one
+        const total = Number(res.headers.get("content-length")) || row.bytes || 0;
+        const reader = res.body.getReader(), dec = new TextDecoder(), parts = [];
+        let got = 0;
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          got += value.byteLength;
+          parts.push(dec.decode(value, { stream: true }));
+          onProgress(got, total);
+        }
+        parts.push(dec.decode());
+        text = parts.join("");
+      } else {
+        text = await res.text();
+      }
     } catch (err) {
       /* A DECK FILE IS FETCHED, so this is the one part of the feature a `file://` copy cannot do \u2014
          Chrome refuses a fetch of a local file whatever the page. Everything else paints from
@@ -12890,7 +13111,8 @@
     // stays lit there rather than the bar going blank under a page that is plainly part of "your record"
     // A route with no tab of its own lights the tab it plainly belongs under: the discovered-terms list
     // is part of "your record", and one book is part of the Library it was opened from.
-    const lit = name === "glossary" || name === "browse" ? "account" : name === "book" ? "library" : name;
+    const lit = name === "glossary" || name === "browse" || name === "reliquary" ? "account"
+      : name === "book" ? "library" : name;
     document.querySelectorAll(".tab").forEach((t) => {
       t.classList.toggle("active", t.dataset.route === lit);
     });
@@ -12916,6 +13138,7 @@
     mission:   ["About — Folio", "What Folio is, how to use it, and what has changed lately."],
     account:   ["Account — Folio", "Your study progress, statistics and badges."],
     glossary:  ["Glossary discovered — Folio", "Every glossary term you have opened while studying."],
+    reliquary: ["Reliquary — Folio", "Every artefact you have recovered from a chest, and the ones still to find."],
     browse:    ["Card browser — Folio", "Search every card you could study by state, flag, deck, tag or how often you have forgotten it."],
     warofages: ["Project W — Folio", "A game in the making. Not yet open to readers."],
     settings:  ["Settings — Folio", "Themes, study options, language and your Atlas home location."],
@@ -12968,7 +13191,14 @@
     location.hash =
       name === "home" ? ""
       : name === "deck" && current.params.slug ? "deck/" + encodeURIComponent(current.params.slug)
-      : name === "book" && current.params.id ? "book/" + encodeURIComponent(current.params.id)
+      /* #book/<id>/<n> — the SECTION fragment is written only when one was asked for (Aug 2026, with the
+         card quotations), so every link ever shared to a whole book still resolves to exactly what it
+         did. `n` is the CHAPTER number the reader's own place is already recorded in (`S.reading[id].ch`)
+         rather than a new unit: it is what the two columns of a bilingual book pair on and what the
+         contents list addresses, so there was nothing to invent. */
+      : name === "book" && current.params.id
+        ? "book/" + encodeURIComponent(current.params.id) +
+          (current.params.n != null && current.params.n !== "" ? "/" + encodeURIComponent(current.params.n) : "")
       : name;
     render();
   }
@@ -13076,6 +13306,7 @@
     closeChestPop();      // …nor an artefact chest, which IS the level-up celebration and lives on the body too
     closeArtefactWin();   // …nor an artefact's own window
     closeCollectionWin(); // …nor the collection the showcase's "See all" raises over it
+    closeReliquaryPage(); // …and the Reliquary page's repaint hook goes with the page it belonged to
     closeDeckMenu();      // …nor an added deck's options sheet, which also lives on document.body
     closePageHelp();      // …nor a page's first-visit card, which is on the body for the same reason (pageHelp)
     closeColorMenu();   // the colour menu lives on document.body — make sure it can't outlive its page on hashchange/back nav
@@ -13953,7 +14184,27 @@
     };
     function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
     document.addEventListener("keydown", onKey, true);
-    ov.addEventListener("pointerdown", (e) => { if (e.target === ov) close(); });
+    /* THE BACKDROP CLOSES ON THE CLICK, NOT ON THE PRESS (Aug 2026, on a bug report: "clicking anywhere
+       else on the page outside of the menu popup should close the menu and not actually click whatever's
+       beneath"). Closing on `pointerdown` is snappier and it is what let the press through: `close()` puts
+       `.closing` on the overlay, which is `pointer-events:none`, so by the time the pointer is LIFTED the
+       backdrop is no longer hit-testable — and the click the browser then synthesises from that same press
+       lands on whatever the overlay had been covering. On a phone that is the deck row underneath, so
+       dismissing the sheet started a study session.
+       Waiting for the click costs nothing visually and cannot leak: the overlay is still live and still
+       under the pointer when the click is dispatched, so IT is the target, and `close()` runs from a event
+       nothing beneath will ever see. Both ends of the gesture must be on the backdrop — a press that began
+       inside the box and was released outside it is a slip, not a dismissal — and a keyboard or synthetic
+       click (`e.detail === 0`) has no press to match and is let through as a dismissal on its own. */
+    let backdropDown = false;
+    ov.addEventListener("pointerdown", (e) => { backdropDown = e.target === ov; });
+    ov.addEventListener("click", (e) => {
+      if (e.target !== ov) return;
+      if (e.detail && !backdropDown) return;
+      backdropDown = false;
+      e.preventDefault(); e.stopPropagation();
+      close();
+    });
     /* A SHEET IS NOT LIVE THE INSTANT IT APPEARS (Aug 2026, on a bug report: "when the long-press menu loads,
        I sometimes accidentally immediately press a menu item"). A hold opens the sheet UNDER the finger that
        is still down, so the lift that ends the gesture lands on whichever row happens to be beneath it and
@@ -16254,17 +16505,45 @@
   const WB_FLING_STOP = 0.02;       // px/ms — coasting slower than this is finished
   let wbFlingRAF = 0;
   function wbStopFling() { if (wbFlingRAF) cancelAnimationFrame(wbFlingRAF); wbFlingRAF = 0; }
+  /* THE ORIGIN IS TAKEN WHEN THE DRAG STARTS, NOT WHEN THE PRESS LANDS (Aug 2026, on a bug report: "often
+     when I try to move the floating whiteboard marker icon, it jumps down the page before letting me move
+     it"). Two things happen between those two moments and both move the element out from under the finger:
+     · `.wb-tools` carries `transition:bottom .34s` for the grade bar's sake, and `.wb-dragging` — which is
+       what turns that off — is added only once the slop is passed. So a press landing while the marker is
+       still travelling (the answer has just been revealed, or a session has just ended, or it is mid-way
+       through sliding home) anchors to a rect that is already stale by the time the first move arrives.
+       The gap is the whole 90px between `bottom:18px` and `body.grading`'s 108 — up to 152 on a phone —
+       which is precisely a jump down the page.
+     · the slop itself. Anchoring at pointerdown means the first qualifying move applies the WHOLE delta,
+       the 5px that classified the gesture included, so even a still marker pops before it starts tracking.
+     Re-reading the rect at the moment the drag takes over fixes both, and fixes them without depending on
+     which of the two caused a given report: whatever the element has been doing up to that instant, the
+     drag begins exactly where it is and exactly under the finger. The press ALSO freezes it (`.wb-pressed`
+     kills the transition on pointerdown), so a marker grabbed mid-flight stops dead rather than sliding on
+     while the press is still being classified as a tap. */
   function wbMakeDraggable(el, handle) {
     let grab = null;
+    // where the element is right now, in the right/bottom space wbPos is stored in
+    const wbRectPos = () => {
+      const r = el.getBoundingClientRect();
+      return { r: document.documentElement.clientWidth - r.right, b: document.documentElement.clientHeight - r.bottom };
+    };
     handle.addEventListener("pointerdown", (e) => {
       if (e.button != null && e.button !== 0) return;
       wbStopFling();       // a press catches a marker still coasting, exactly as a finger catches a fling
       wbStopHome(el);      // …and a marker mid-way through sliding home, for the same reason
       wbDragged = false;   // a press that never moved must not be swallowed by a previous drag's flag
-      const r = el.getBoundingClientRect();
-      const vw = document.documentElement.clientWidth, vh = document.documentElement.clientHeight;
+      el.classList.add("wb-pressed");   // …and it stops travelling under the finger while this is classified
+      /* THE ANCHOR IS MEASURED, NEVER READ OUT OF `wbPos` (Aug 2026, on a bug report that the marker
+         "jumps down the page before it can be moved"). `wbPos` is only where the marker was last PUT;
+         at rest it sits wherever the stylesheet's own corner is, and that corner MOVES — 18px normally,
+         108 while grading, 25 on the Atlas — so on a page whose corner differs from the last saved
+         position the first applied frame teleported it there. Measuring the rect makes the first frame
+         a no-op wherever the marker happens to be resting. The pointer origin stays `pointerdown`'s, so
+         the point the finger grabbed stays under the finger. */
+      const p = wbRectPos();
       grab = {
-        id: e.pointerId, x: e.clientX, y: e.clientY, r: vw - r.right, b: vh - r.bottom,
+        id: e.pointerId, x: e.clientX, y: e.clientY, r: p.r, b: p.b,
         // the last WB_FLING_WINDOW ms of the gesture, in the same right/bottom space the position is
         // stored in — so a finger moving RIGHT gives a falling `r`, which is what keeps the integration
         // below sign-free. Read as a window rather than per event; see the fling note above for why.
@@ -16274,9 +16553,12 @@
     });
     handle.addEventListener("pointermove", (e) => {
       if (!grab || e.pointerId !== grab.id) return;
-      const dx = e.clientX - grab.x, dy = e.clientY - grab.y;
+      let dx = e.clientX - grab.x, dy = e.clientY - grab.y;
       if (!wbDragged && Math.abs(dx) < WB_DRAG_SLOP && Math.abs(dy) < WB_DRAG_SLOP) return;
-      if (!wbDragged) { wbDragged = true; el.classList.add("wb-dragging"); }
+      if (!wbDragged) {
+        wbDragged = true;
+        el.classList.add("wb-dragging");
+      }
       e.preventDefault();
       const now = e.timeStamp || performance.now();
       const next = { r: grab.r - dx, b: grab.b - dy };
@@ -16290,7 +16572,7 @@
       if (!grab || (e.pointerId != null && e.pointerId !== grab.id)) return;
       const g = grab;
       grab = null;
-      el.classList.remove("wb-dragging");
+      el.classList.remove("wb-dragging", "wb-pressed");
       if (!wbDragged) return;
       /* Was that a THROW or a set-down? Measured across the window rather than off the last event —
          see the note above `WB_FLING_FRICTION`. Three ways it comes out "no": too few samples, a window
@@ -17782,9 +18064,19 @@
   /* How much of a deck or collection has been studied. It reuses the `.xp` markup rather than `.prog`
      deliberately: every theme, the collection hue and animateProgs are all already written against that
      shape, so swapping the HEAD's words is the whole change and nothing else had to be restyled. */
+  /* A COLLECTION WORKED ALL THE WAY THROUGH GOES GOLD (Aug 2026, on request: "when all the cards in a
+     collection have been studied, the collection's name and full progress bar should both be displayed
+     in gold, both in the active decks list and on the Collections page"). It is one class on the BAR, and
+     the stylesheet takes the name from there with `:has()` — so the two can never disagree about whether
+     a collection is finished, and every surface that draws a bar (a curated collection, a language, one
+     of the reader's own decks, the account page's collection progress) gets it without a line of its
+     own. The gold is #C39A2E, the site's achievement gold, the same as the earned badge and the banner's
+     own bar. `total > 0` is load-bearing: an empty collection has studied 0 of 0, which is not finished,
+     it is empty. */
   function deckProgMarkup(studied, total) {
     const pct = total > 0 ? Math.min(100, (studied / total) * 100) : 0;
-    return '<div class="xp deck-prog" data-pct="' + pct.toFixed(2) + '">' +
+    const done = total > 0 && studied >= total;
+    return '<div class="xp deck-prog' + (done ? " prog-done" : "") + '" data-pct="' + pct.toFixed(2) + '">' +
       /* Grouped, since a language collection reaches five figures (23,064 for Mandarin) and the deck rows
          directly under it have always grouped theirs — one screen saying 15296 above 1,178 reads as a
          mistake. Inert on every curated collection, none of which passes 999. */
@@ -18195,8 +18487,12 @@
       "<small>Every Folio level opens one, and so does winning every daily game in a day.</small></div>" +
       '<button type="button" class="btn cb-open" id="cbOpen">Open ' + (n === 1 ? "it" : "one") + "</button></div>";
   }
-  // the account page's inventory
-  function reliquaryHTML(prog, own) {
+  /* The inventory. `opts.entry` renders the head and a way through to the Reliquary page INSTEAD of the
+     grid — which is what the signed-out account page asks for since that page arrived (Aug 2026): it has
+     no showcase, so before there was a page its only route to the collection was a second full copy of
+     this grid, and the signed-in page had already had exactly that duplication removed on request. The
+     full grid is still what a friend's collection overlay draws, since a route cannot carry their name. */
+  function reliquaryHTML(prog, own, opts) {
     const list = ownedArtefacts(prog);
     const total = ARTEFACTS.length;
     const chests = own ? chestCount() : 0;
@@ -18208,6 +18504,11 @@
       return head + '<div class="ar-empty">' + (own
         ? "No artefacts yet. Every Folio level opens a chest, and so does winning every daily game in one day."
         : "This scholar has not opened a chest yet.") + '</div>';
+    }
+    if (opts && opts.entry) {
+      return head + '<div class="ar-schead"><button type="button" class="ghost-btn ar-all" data-arall="1" title="' +
+        esc("Everything you have collected — " + list.length + " artefact" + (list.length === 1 ? "" : "s")) +
+        '">See Reliquary</button></div>';
     }
     return head + '<div class="ar-grid">' + list.map((a) => artefactTileHTML(a, { pinned: own && inShowcase(a.id) })).join("") + '</div>' +
       (own && list.length < total ? '<p class="ar-note">' + (total - list.length) + ' still to find.</p>' : "");
@@ -18368,9 +18669,14 @@
     if (!current) return;
     const slot = document.querySelector("#chestSlot");
     if (slot) { slot.innerHTML = chestBannerHTML(); wireChestBanner(slot); }
+    /* …and the Reliquary's own page, which a chest can now be opened from. It is repainted through the
+       hook the page leaves here rather than through `render()`, for the reason the two blocks below are
+       repainted in place: a rebuild would take away the reader's filter, their scroll, and — since a
+       chest is opened over the page — redraw the very thing they are looking at an overlay through. */
+    if (current.name === "reliquary") { if (_reliqRepaint) _reliqRepaint(); return; }
     if (current.name !== "account") return;
     const host = document.querySelector("#reliquary"), sc = document.querySelector("#showcase");
-    if (host) { host.innerHTML = reliquaryHTML(S, true); wireReliquary(host, S, true); }
+    if (host) { host.innerHTML = reliquaryHTML(S, true, { entry: true }); wireReliquary(host, S, true); }
     if (sc) { sc.innerHTML = showcaseHTML(S, true); wireReliquary(sc, S, true); }
   }
   function wireChestBanner(host) {
@@ -18387,13 +18693,173 @@
     host.querySelectorAll("[data-artefact]").forEach((b) => b.addEventListener("click", () => openArtefactWin(b.dataset.artefact)));
     const open = host.querySelector("#arOpen");
     if (open) open.addEventListener("click", () => openChestPop());
-    host.querySelectorAll("[data-arall]").forEach((b) => b.addEventListener("click", () => openCollectionWin(p, mine)));
+    /* YOUR OWN COLLECTION IS A PAGE; A FRIEND'S IS STILL AN OVERLAY (Aug 2026, on request: "the
+       Reliquary should be its own page"). A page is an address, a back button and a sort a reader can
+       leave set — all of which a collection this size wants and an overlay cannot give. It can only be
+       YOURS, though: a route carries a name and nothing else, so there is nowhere for somebody else's
+       progress to ride, and `openCollectionWin` stays exactly as it was for a friend's showcase. */
+    const openAll = () => { if (mine) route("reliquary"); else openCollectionWin(p, false); };
+    host.querySelectorAll("[data-arall]").forEach((b) => b.addEventListener("click", openAll));
     // an empty showcase slot opens the collection to pin from — see showcaseHTML
     host.querySelectorAll("[data-arslot]").forEach((b) => b.addEventListener("click", () => {
       if (!ownedArtefacts(p).length) { toast("Open a chest first — then pin an artefact from your collection."); return; }
-      openCollectionWin(p, mine);
+      openAll();
     }));
   }
+
+  /* ---------- THE RELIQUARY'S OWN PAGE (#reliquary, Aug 2026, on request) ----------
+     "The Reliquary should be its own page, sortable by alphabet, unlocked date, artefact dating, rarity,
+     and reverses." Four decisions, three of which the site had already made somewhere else.
+
+     · **THE SORT IS THE LIBRARY SHELF'S CONTROL, NOT A SECOND ONE.** `sortPickerHTML` chooses the FIELD
+       and `sortDirHTML` the DIRECTION, which is why the rows below carry four strings rather than two:
+       a field and its direction are independent choices, and folding them together gives a select of
+       eight rows in which the reader has to find the one row that is both. It also spends the request's
+       "and reverses" on one button instead of doubling the list.
+     · **THE CHOICE IS A MODULE-LEVEL VARIABLE, NOT A SETTING.** The same call the glossary record's
+       picker and `renderDeckStats` both make: this is a way of LOOKING at a list rather than a
+       preference about Folio, so it survives navigating away and back and resets on reload.
+     · **"UNLOCKED DATE" NEEDED NO NEW FIELD.** `S.artefacts[id]` has always been `Date.now()` rather
+       than `true` — `ownedArtefacts` already sorts on it — so every artefact ever granted can say when,
+       and nothing had to be backfilled or apologised for.
+     · **"ARTEFACT DATING" NEEDED A PARSER, AND IT IS NOT `cardYears`.** Forty-two of the hundred are
+       dated by CENTURY ("c. 7th – 5th century BCE", "Early 7th century CE"), which `cardYears`
+       deliberately cannot read — teaching it to would silently move the sort year of the 52 shipped
+       CARDS whose date lines carry a century beside a plain year (see the date-line note in CLAUDE.md).
+       So `artefactYear` reads the century forms itself and falls through to `cardStartYear` for
+       everything else, which keeps one parser for the site's own date lines and adds one for a field
+       that is written differently. An artefact it cannot date sorts LAST in both directions rather than
+       at year zero, where it would sit in the middle of the Roman ones claiming a date it has not got. */
+  const RELIQ_SORTS = [
+    ["found",  "Found",  "Newest first", "Oldest first"],
+    ["name",   "Name",   "A \u2013 Z", "Z \u2013 A"],
+    ["age",    "Age",    "Oldest first", "Newest first"],
+    ["rarity", "Rarity", "Rarest first", "Commonest first"],
+  ];
+  let reliqSort = "found", reliqRev = false;
+  /* The mounted page's own repainter, so `refreshReliquary` can bring a newly-opened chest's artefact
+     into the grid without rebuilding the page under the reader. Cleared on the next render of anything
+     else — see `closeReliquaryPage` in render()'s close list — so it can never be called against a page
+     that has gone, and so the closure it holds is not kept alive after it. */
+  let _reliqRepaint = null;
+  function closeReliquaryPage() { if (current && current.name !== "reliquary") _reliqRepaint = null; }
+  // "3rd century BCE", "3rd millennium BCE", "Early 7th century CE"
+  const RELIQ_CENT = /(\d{1,2})(?:st|nd|rd|th)\s+(century|millennium)\b\s*(BCE|BC|CE|AD)?/i;
+  /* …and the RANGE written with the unit carried rightwards — "1st \u2013 3rd century CE", "c. 6th \u2013 4th
+     century BCE" — where the first ordinal has no "century" after it at all and the simple pattern above
+     would silently read the SECOND one and date the object two centuries late. */
+  const RELIQ_CENT_RANGE = /(\d{1,2})(?:st|nd|rd|th)\s*[-\u2010-\u2015\u2212]\s*\d{1,2}(?:st|nd|rd|th)\s+(century|millennium)\b\s*(BCE|BC|CE|AD)?/i;
+  function artefactYear(a) {
+    const raw = a && a.date ? String(a.date) : "";
+    if (!raw) return null;
+    const m = RELIQ_CENT_RANGE.exec(raw) || RELIQ_CENT.exec(raw);
+    if (m) {
+      const n = parseInt(m[1], 10);
+      if (!n) return null;
+      const span = /millennium/i.test(m[2]) ? 1000 : 100;
+      // an era left unwritten is CE, which is what every undated-era artefact on the shelf means by it
+      const bce = /^(BCE|BC)$/i.test(m[3] || "");
+      // the EARLIEST year the unit names: the 3rd century BCE opens at 300 BCE, the 7th CE at 601
+      return bce ? -(n * span) : (n - 1) * span + 1;
+    }
+    return cardStartYear({ answerDate: raw }) || null;
+  }
+  const RARITY_RANK = {};
+  RARITIES.forEach((r, i) => { RARITY_RANK[r.id] = i; });   // common 0 … legendary 3
+  PAGES.reliquary = function (root) {
+    const owned = ownedArtefacts(S);            // already newest-found first
+    const at = S.artefacts || {};
+    const total = ARTEFACTS.length;
+    const chests = chestCount();
+    const pct = total ? Math.min(100, Math.round((owned.length / total) * 100)) : 0;
+    const byName = (x, y) => String(x.name || "").localeCompare(String(y.name || ""), undefined, { sensitivity: "base" });
+    /* An artefact with no readable date is pushed to the end of the list in BOTH directions rather than
+       being given a year: reversing the order must not promote "we don't know" to the front. */
+    const undatedLast = (x, y, dir) => {
+      const a = artefactYear(x), b = artefactYear(y);
+      if (a == null && b == null) return byName(x, y);
+      if (a == null) return 1;
+      if (b == null) return -1;
+      return (a - b) * dir || byName(x, y);
+    };
+    const sortList = (arr) => {
+      const l = arr.slice();
+      const d = reliqRev ? -1 : 1;
+      if (reliqSort === "name") return l.sort((x, y) => byName(x, y) * d);
+      if (reliqSort === "age") return l.sort((x, y) => undatedLast(x, y, d));
+      if (reliqSort === "rarity") return l.sort((x, y) => (RARITY_RANK[rarityId(y)] - RARITY_RANK[rarityId(x)]) * d || byName(x, y));
+      return l.sort((x, y) => ((at[y.id] || 0) - (at[x.id] || 0)) * d || byName(x, y));
+    };
+    const empty =
+      '<div class="gl-empty"><h3>Nothing recovered yet</h3>' +
+      "<p>Every Folio level opens a chest, and so does winning every daily game in one day, or keeping a streak for a week.</p>" +
+      '<button class="btn" type="button" id="rqStudy">Start studying</button></div>';
+    root.innerHTML =
+      '<div class="page-head"><span class="eyebrow">Your record</span><h1>Reliquary</h1>' +
+      "<p>The objects your chests have held. Open one to read what it is and where it came from.</p></div>" +
+      '<div class="gl-meter"><div class="gl-meter-head"><b>' + owned.length + "</b> of " + total +
+      " artefact" + (total === 1 ? "" : "s") + " recovered \u00b7 " + pct + "%</div>" +
+      '<div class="ds-bar"><i style="width:' + pct + '%"></i></div></div>' +
+      (chests ? '<div class="rq-chest"><button type="button" class="btn" id="arOpen">Open ' +
+        (chests === 1 ? "your chest" : chests + " chests") + "</button></div>" : "") +
+      '<div class="gl-tools"' + (owned.length ? "" : " hidden") + ">" +
+        '<div class="gl-search"><input type="search" id="rqFilter" placeholder="Filter these artefacts\u2026" autocomplete="off" aria-label="Filter your artefacts"></div>' +
+        sortPickerHTML("rqSort", RELIQ_SORTS.map((o) => [o[0], o[1]]), reliqSort) +
+        sortDirHTML("rqDir", RELIQ_SORTS, reliqSort, reliqRev) +
+      "</div>" +
+      /* the grid drops its `ar-grid` class whenever what it holds is a MESSAGE rather than tiles — a
+         sentence laid into a 132px auto-fill column is a sentence one word wide */
+      '<div class="' + (owned.length ? "ar-grid" : "rq-msg") + '" id="rqGrid">' + (owned.length ? "" : empty) + "</div>" +
+      (owned.length && owned.length < total ? '<p class="ar-note">' + (total - owned.length) + " still to find.</p>" : "");
+
+    const grid = root.querySelector("#rqGrid");
+    const f = root.querySelector("#rqFilter");
+    /* The direction button's FACE names the order it is currently in, so it has to be rebuilt when the
+       field or the direction changes — and only then. Rebuilding it on every repaint would destroy and
+       recreate a focusable control on every keystroke in the filter box, which a screen reader hears. */
+    let dirKey = reliqSort + "|" + reliqRev;
+    /* ONE painter for all three controls, for the reason the glossary record has one: the filter
+       narrows, the picker orders and the button reverses, and three handlers each rebuilding from
+       `owned` would quietly throw away whatever the reader had typed. */
+    const repaint = () => {
+      const q = f ? f.value.trim().toLowerCase() : "";
+      const shown = sortList(q
+        ? owned.filter((a) => (a.name || "").toLowerCase().includes(q) ||
+            (a.origin || "").toLowerCase().includes(q) || (a.date || "").toLowerCase().includes(q) ||
+            rarityLabel(rarityId(a)).toLowerCase().includes(q))
+        : owned);
+      if (!owned.length) return;
+      grid.className = shown.length ? "ar-grid" : "rq-msg";
+      grid.innerHTML = shown.length
+        ? shown.map((a) => artefactTileHTML(a, { pinned: inShowcase(a.id) })).join("")
+        : '<div class="gl-empty"><p>No artefact here matches that.</p></div>';
+      const k = reliqSort + "|" + reliqRev;
+      if (k !== dirKey) {
+        dirKey = k;
+        const d = root.querySelector("#rqDir");
+        if (d) { d.outerHTML = sortDirHTML("rqDir", RELIQ_SORTS, reliqSort, reliqRev); wireDir(); }
+      }
+    };
+    function wireDir() {
+      const d = root.querySelector("#rqDir");
+      if (d) d.addEventListener("click", () => { reliqRev = !reliqRev; repaint(); });
+    }
+    // one delegated listener on the grid, so re-sorting and filtering never have to rewire the tiles
+    grid.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-artefact]");
+      if (b) openArtefactWin(b.dataset.artefact);
+    });
+    const st = root.querySelector("#rqStudy");
+    if (st) st.addEventListener("click", () => route("home"));
+    const op = root.querySelector("#arOpen");
+    if (op) op.addEventListener("click", () => openChestPop());
+    if (f) f.addEventListener("input", repaint);
+    const so = root.querySelector("#rqSort");
+    if (so) so.addEventListener("change", () => { reliqSort = so.value; repaint(); });
+    wireDir();
+    repaint();
+    _reliqRepaint = repaint;
+  };
 
   /* ---------- the chest ----------
      Phase 1 is a closed chest waiting to be tapped; phase 2 is the opening, whose length and furniture
@@ -18558,6 +19024,14 @@
   // tag), revealed by clicking the quote. A quote carries one ONLY where the wording is documented:
   // Bacon wrote his essay in English, and where the exact original could not be verified there is no `o`
   // rather than a plausible-looking reconstruction — the same rule the cards and glossary run on.
+  /* THREE OF THESE CARRY NO `o` BLOCK, AND TWO OF THEM NEVER WILL (Aug 2026, on request that a quote
+     with no translation either gain one or go). Bacon and Vivekananda WROTE IN ENGLISH — the line on the
+     page IS the original — so there is nothing to flip to and the control correctly does not appear;
+     both were kept on that ground, and what was missing was the DATE, which both now have (Vivekananda's
+     is the letter to "Kidi" of 3 March 1894, which is where the sentence is). Ashoka's edict does have a
+     Prakrit original and it is NOT here: nothing openable from this sandbox carries a transliteration
+     clean enough to set down, and a reconstructed one would be exactly the invention this file must
+     never contain. See docs/refinements-2026-08-27.md. */
   const SHIPPED_QUOTES = [
     { t: "To learn, and at due times to repeat what one has learnt — is that not after all a pleasure?", a: "Confucius", s: "Analects I.1",
       o: { lang: "lzh", t: "學而時習之，不亦說乎？", a: "孔子", s: "《論語·學而》" } },
@@ -18630,13 +19104,13 @@
     // place where a plausible reconstruction is a fabrication, so none is written; en.wikipedia's Major
     // Rock Edicts carries Hultzsch's ENGLISH only, and no Unicode edition was found on Wikisource,
     // GRETIL or SARIT. Ship it the day a keyed text turns up — the sentence wanted is Girnar XII (H).
-    { t: "Whoever honours his own sect and disparages another's, thinking to do honour to his own sect, injures his own sect the more gravely.", a: "Ashoka", s: "Major Rock Edict XII" },
+    { t: "Whoever honours his own sect and disparages another's, thinking to do honour to his own sect, injures his own sect the more gravely.", a: "Ashoka", s: "Major Rock Edict XII, c. 257 BCE" },
     { t: "Where the mind is without fear and the head is held high — into that heaven of freedom, let my country awake.", a: "Rabindranath Tagore", s: "Gitanjali 35, 1912",
       // Tagore's own English of his Bengali poem, so the "original" is Naibedya 72 (1901) rather than
       // anything in Gitanjali. Both ends of the sentence, as the English quotes them, with the same middle
       // elided. Text from the scanned Naibedya on Bengali Wikisource.
       o: { lang: "bn", t: "চিত্ত যেথা ভয়শূন্য, উচ্চ যেথা শির — ভারতেরে সেই স্বর্গে করো জাগরিত।", a: "রবীন্দ্রনাথ ঠাকুর", s: "নৈবেদ্য ৭২, ১৯০১" } },
-    { t: "Education is the manifestation of the perfection already in man.", a: "Swami Vivekananda", s: "Complete Works, vol. IV" },
+    { t: "Education is the manifestation of the perfection already in man.", a: "Swami Vivekananda", s: "Complete Works, vol. IV; letter of 3 March 1894" },
     // Read off the Arabic text of the risāla on Arabic Wikisource rather than set down from memory, which is
     // the same rule the Marcus Aurelius Greek follows (that one is read out of the project's own Library).
     // It sits in the خطبة, the dedication to al-Mu'tasim that opens the work. The Arabic is cut to the
@@ -18990,9 +19464,165 @@
 
      The open set is module-level rather than in `S` — it is a way of looking at a list, not a preference
      about Folio (the same call renderDeckStats and the glossary record's sort picker make). So it survives
-     tapping into a deck and coming back, and resets on reload, which is what "collapsed by default" means
-     for a reader arriving at the page. */
+     tapping into a deck and coming back.
+
+     …AND IT SURVIVES A RELOAD, since Aug 2026 and on a bug report ("refreshing the page shouldn't expand
+     any active collections; they should remember to stay collapsed if the user set that"). It used to
+     reset, on the argument that "collapsed by default" is what a reader arriving at the page should meet.
+     That reads the request backwards: the defaults below are already the right ones for a row nobody has
+     touched, and what a reload was throwing away was the reader's own answer to them — so a collection
+     folded shut, or a signpost row opened, came back the other way on every refresh, on the page they
+     refresh most.
+
+     Only an EXPLICIT choice is stored, exactly as a card type's disclosure is (`ucOpenMap`): the record
+     holds `id -> true|false`, and a row with no entry in it still takes the seeded default, so adding a
+     collection tomorrow gets tomorrow's default rather than an inherited one. Device-local, for the same
+     reason again — how a list is folded on this screen is a fact about this screen, not something the
+     schedule should carry between devices. The cap prunes oldest-first; a reader who has folded four
+     hundred rows has more rows than the review can usefully hold anyway. */
   const adOpen = new Set();
+  /* ---------- THE ORDER THE LIST WAS LAST DRAWN IN (Aug 2026, on request) ----------
+     "When a deck's daily study has been completed … it should also offer to continue with the next
+     deck/collection listed in the active decks section, so users who simply work down the list can easily
+     progress to the next one."
+
+     The completion screen is a different page from the one that draws the list, and the list's order is
+     not a thing that can be recomputed cheaply or reliably: it is the reader's own drag order at every
+     level, folded through groups, language containers, nested decks and the tree, and reproducing that
+     walk in a second place is a copy that would drift the first time either changed. So the list PUBLISHES
+     what it drew — the studiable rows, in the order they appear, top to bottom — and the completion screen
+     reads it.
+
+     Only rows the reader can actually tap are recorded: a group header, one of their own decks and an
+     added tree node are studiable, while an ancestor CONTEXT signpost, a language header and a deck not
+     yet on this device are not, and offering any of those would be offering something the list itself
+     refuses to open.
+
+     It is a module-level array rather than state, like `adOpen` beside it — it describes a page that was
+     drawn, not a preference — so a reader who reloads straight onto `#study` has an empty one and simply
+     gets no offer, which is honest: nothing knows what their list looks like until it has been drawn. */
+  let adRowOrder = [];
+  /* The next row with work in it, wrapping to the top of the list. Wrapping is deliberate: a reader who
+     tapped into the third deck of five would otherwise be offered nothing once they reached the bottom,
+     and the button NAMES the deck it will open, so there is nothing to be surprised by in coming back
+     round to the first. The row just finished is always skipped — it can still report work (a learning
+     card on its ten-minute step, see the Still learning placard), and offering "continue with" the deck
+     the reader has just left is the one answer that helps nobody. */
+  function nextStudyRow(afterId) {
+    if (!adRowOrder.length) return null;
+    const n = adRowOrder.length;
+    // -1 for a scope with no row of its own (the pooled review, the Card of the day reached from its
+    // tile), so the walk starts at the TOP of the list rather than nowhere
+    const at = adRowOrder.findIndex((r) => r.id === afterId);
+    for (let k = 1; k <= n; k++) {
+      const r = adRowOrder[(((at + k) % n) + n) % n];
+      if (!r || r.id === afterId) continue;
+      const p = entryPiles(r.id);
+      if (!p.skip && p.nw + p.lr + p.rv > 0) return r;
+    }
+    return null;
+  }
+  /* ---------- THE DECK LIST'S EDITOR MODE (Aug 2026, on request) ----------
+     "Rather than the drag handles being visible at all times, make them invisible by default and shift
+     the contents of the banners to the left. Add a button in the bottom left, just below the active decks
+     list, vertically centered to the study timer. Pressing it opens an editor mode where the drag handles
+     appear on the left, red crosses on the right, and titles can be renamed by clicking on them. The
+     button becomes three buttons (save, exit, undo), and the study timer disappears until the editing
+     mode is closed."
+
+     · **THE MODE IS LIVE, WITH AN UNDO STACK** — the reader's own choice when asked. Every edit lands at
+       once, exactly as it did before this mode existed, and the stack is what makes that safe: the drag
+       and the remove already write through `save()`, so a STAGED editor would have meant rendering the
+       whole list from a working copy rather than from state, which is a rewrite of the list rather than a
+       mode over it.
+     · **THREE BUTTONS, AND ONE OF THEM IS NOT CALLED WHAT WAS ASKED FOR.** In a live editor "save" and
+       "exit" are the same button pressed twice — there is nothing staged for one to keep and the other to
+       throw away — so the pair is **Done** (close) and **Revert** (put back everything this session of the
+       mode changed, then close), with **Undo** stepping back one. Same three controls, but no button whose
+       name promises a decision it is not making.
+     · **THE STACK IS A SNAPSHOT OF THE FIVE FIELDS THE LIST CAN WRITE**, taken BEFORE each edit, which is
+       `adminCheckpoint`'s shape and for its reason: a reorder and a removal are both lossy — a removed
+       deck takes its subdeck rows, its nesting and its place in the order with it, and none of that can be
+       derived back out of what is left. JSON of five small objects is a few hundred bytes.
+     · **IT IS A MODE, NOT A SETTING**: module-level, so it survives a repaint of the page and resets on
+       reload. A reader who leaves the mode open, closes the tab and comes back should meet the ordinary
+       list, not an editor they have forgotten they opened.
+     · **AND IT IS WHY THE GRIPS WENT QUIET.** They used to sit at `.32` on every row at rest; the request
+       is that they not be there at all until asked for, which is also what lets the row's contents move
+       left into the column they were reserving. */
+  const DECK_EDIT_FIELDS = ["active", "cotd", "deckOrder", "deckGroups", "deckNest"];
+  let deckEditOn = false, deckEditUndo = [];
+  const DECK_EDIT_CAP = 60;
+  function deckEditSnapshot() {
+    const o = {};
+    DECK_EDIT_FIELDS.forEach((k) => { o[k] = JSON.stringify(S[k] === undefined ? null : S[k]); });
+    return o;
+  }
+  /* Taken BEFORE the edit, by every path that can change the list while the mode is open — and by NOTHING
+     when it is shut, so an ordinary drag outside the mode costs nothing and cannot leave a stack behind for
+     the next opening to pop. */
+  function deckEditCheckpoint() {
+    if (!deckEditOn) return;
+    deckEditUndo.push(deckEditSnapshot());
+    if (deckEditUndo.length > DECK_EDIT_CAP) deckEditUndo.shift();
+  }
+  function deckEditRestore(snap) {
+    if (!snap) return;
+    DECK_EDIT_FIELDS.forEach((k) => {
+      let v = null;
+      try { v = JSON.parse(snap[k]); } catch (e) { v = null; }
+      // a field that was absent goes back to absent rather than to null, which `defaultState`'s own
+      // back-fills would then have to answer for on the next load
+      if (v === null) delete S[k]; else S[k] = v;
+    });
+    save();
+  }
+  // a rename the reader has made, on ANY row. `groupTitle` already reads it for a group and falls through
+  // to the node's own title; this is the same read for the rows that are not groups, so one override field
+  // serves the whole list and nothing has to learn a second place to look.
+  function adOwnTitle(id) { const r = groupRec(id); return (r && r.title) || ""; }
+  const DECK_EDIT_PENCIL =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
+  const DECK_EDIT_UNDO_SVG =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7v6h6"/><path d="M3.5 13a9 9 0 1 0 2.1-5.7L3 10"/></svg>';
+  /* The row of controls at the foot of the deck list. Shut, it is one quiet button; open, it is three —
+     and the three sit where the one was, so nothing on the page moves under the press that opens them.
+     Undo and Revert are DISABLED rather than hidden while there is nothing to undo: a control that comes
+     and goes as the reader works is a control they have to look for, and a greyed one says "this is what
+     this mode can do" before it has anything to do it to. */
+  function deckEditBarHTML() {
+    if (!deckEditOn) {
+      return '<button type="button" class="rv-edit" id="dkEdit" title="Reorder, rename or remove the decks below">' +
+        DECK_EDIT_PENCIL + "<span>Edit</span></button>";
+    }
+    const n = deckEditUndo.length;
+    const dis = n ? "" : " disabled";
+    return '<div class="rv-editacts">' +
+      '<button type="button" class="rv-edit rv-edit-undo" id="dkEditUndo"' + dis +
+        ' title="' + (n ? "Step back one change" : "Nothing to undo yet") + '">' + DECK_EDIT_UNDO_SVG + "<span>Undo</span></button>" +
+      '<button type="button" class="rv-edit rv-edit-revert" id="dkEditRevert"' + dis +
+        ' title="' + (n ? "Put back everything changed since Edit was pressed, and close" : "Nothing has been changed") + '">' +
+        "<span>Revert</span></button>" +
+      '<button type="button" class="rv-edit rv-edit-done" id="dkEditDone" title="Close the editor and keep the changes">' +
+        "<span>Done</span></button></div>";
+  }
+  const AD_OPEN_KEY = "folio_ad_open_v1", AD_OPEN_CAP = 400;
+  let _adOpenMap = null;
+  function adFoldMap() {
+    if (_adOpenMap) return _adOpenMap;
+    try { _adOpenMap = JSON.parse(localStorage.getItem(AD_OPEN_KEY)); } catch (e) { _adOpenMap = null; }
+    if (!_adOpenMap || typeof _adOpenMap !== "object" || Array.isArray(_adOpenMap)) _adOpenMap = {};
+    return _adOpenMap;
+  }
+  function adFoldSet(id, open) {
+    if (!id) return;
+    const m = adFoldMap();
+    delete m[id];                       // re-inserted, so Object.keys runs oldest-first and the cap can prune
+    m[id] = !!open;
+    const ks = Object.keys(m);
+    if (ks.length > AD_OPEN_CAP) ks.slice(0, ks.length - AD_OPEN_CAP).forEach((k) => { delete m[k]; });
+    try { localStorage.setItem(AD_OPEN_KEY, JSON.stringify(m)); } catch (e) {}
+  }
   /* …and the ids whose default has already been decided, so that seeding one is a once-per-row event. Without
      it every re-render (a grade, a navigation back to the page) would re-seed the defaults and undo a fold the
      reader had just opened; with it, a collection added later in the same session still starts shut. */
@@ -19152,6 +19782,9 @@
       return true;
     }
     function commit(el) {
+      // one snapshot per gesture, taken before `S` is touched — the DOM has already moved, but the DOM is
+      // not the state, and this is the line that writes it. A no-op unless the editor mode is open.
+      deckEditCheckpoint();
       setDeckOrder(el.dataset.parent || "", siblingsOf(el).map((r) => r.dataset.drag));
       adSyncFold(listEl);   // the rounded bottom corner belongs to whichever row is last NOW
       if (onDrop) onDrop();
@@ -19287,11 +19920,18 @@
       if (d.moved && target) {
         const parent = target.dataset.drag;
         d.vis.forEach((el) => el.classList.remove("dk-dragging", "dk-settling"));
+        deckEditCheckpoint();   // as in `commit` — before the write, and a no-op outside the editor mode
         if (setNestParent(d.el.dataset.drag, parent)) {
           adOpen.add(parent);
-          render();
+          adFoldSet(parent, true);   // …and it stays open: a container that re-swallowed its new contents
+                                     // on the next reload is the same surprise one press later
+          /* …and it is a REPAINT rather than a navigation (Aug 2026): the reader is standing on the list
+             they have just rearranged, so scrolling them to the top of the page and replaying every
+             block's entrance animation is exactly what a reader reads as the page refreshing under them.
+             `renderInPlace` rebuilds the same tree without either — see the repaint bullet in CLAUDE.md. */
+          renderInPlace();
           toast("Moved into " + groupTitle(parent));
-        } else render();
+        } else renderInPlace();
         return;
       }
       // let go and it settles into its slot rather than snapping to it
@@ -19339,6 +19979,81 @@
     whatyear:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="18" x2="21" y2="18"/><line x1="7" y1="15.2" x2="7" y2="20.8"/><line x1="12" y1="15.2" x2="12" y2="20.8"/><line x1="17" y1="15.2" x2="17" y2="20.8"/><path d="M9.3 5.9a2.9 2.9 0 0 1 5.4 1.5c0 2-2.7 2.4-2.7 4"/><line x1="12" y1="13.2" x2="12" y2="13.2"/></svg>',
   };
+  /* ---------- THE BACK OF A GAME TILE (Aug 2026, on request) ----------
+     Two columns: what this reader has done at the game, and what everyone else did at today's. The
+     reader's half is instant — it is all in `S.games` and `S.gameLog` — and the site's arrives when it
+     arrives, so the back paints at once and fills in rather than holding the flip behind a request.
+
+     WHAT THE SITE-WIDE HALF CAN AND CANNOT SAY is a fact about the schema rather than a design choice.
+     `progress` is readable only by its owner and their accepted friends, so there is no way to average
+     across readers from the tables the site already had; section 15 adds pooled counters for exactly this
+     (see gameStatsLoad). Where that block has not been run the column says so in a sentence — the same
+     answer the Edit page's Dashboard gives about site-wide study figures — rather than showing a zero,
+     which would read as "nobody played".
+
+     The day is the SERVER'S UTC day, and the wording says "today" without claiming it is the reader's own
+     day: their boundary is theirs to set, and the two can differ by up to twelve hours. */
+  function gameBackHTML(key, site) {
+    const g = (S.games && S.games[key]) || null;
+    const today = g && g.date === todayStr() ? g : null;
+    const lg = (S.gameLog && S.gameLog[key]) || { plays: 0, wins: 0 };
+    const mine = today && typeof today.s === "number" && typeof today.n === "number"
+      ? today.s + "/" + today.n
+      : today && today.played ? "played" : "—";
+    const row = (k, v) => '<span class="gtb-k">' + esc(k) + '</span><span class="gtb-v">' + esc(String(v)) + "</span>";
+    let right;
+    if (site === "off") right = '<p class="gtb-none">Site-wide figures aren\u2019t collected on this site.</p>';
+    // a fetch that failed is a DIFFERENT fact from a table that was never created, and saying the second
+    // when the first happened is a claim about the site made out of a dropped connection
+    else if (site === "err") right = '<p class="gtb-none">Couldn\u2019t reach the site figures.</p>';
+    else if (!site) right = '<p class="gtb-none">Loading\u2026</p>';
+    else {
+      const r = site[key];
+      if (!r || !r.plays) right = '<p class="gtb-none">Nobody has finished it yet today.</p>';
+      else {
+        const avg = r.rounds ? (r.score_sum / r.plays).toFixed(1) + "/" + r.rounds : (r.score_sum / r.plays).toFixed(1);
+        right = '<div class="gtb-grid">' + row("Finished", r.plays) + row("Average", avg) +
+          row("Perfect", Math.round((r.wins / r.plays) * 100) + "%") + "</div>";
+      }
+    }
+    // GAME_NAMES is [name, icon] — the icon is the tile's own and the back needs only the name
+    return '<span class="gtb-head">' + esc((GAME_NAMES[key] && GAME_NAMES[key][0]) || key) + "</span>" +
+      '<div class="gtb-cols">' +
+        '<div class="gtb-col"><span class="gtb-lbl">You</span><div class="gtb-grid">' +
+          row("Today", mine) + row("Played", lg.plays) + row("Perfect", lg.wins) +
+        "</div></div>" +
+        '<div class="gtb-col"><span class="gtb-lbl">Everyone, today</span>' + right + "</div>" +
+      "</div>" +
+      '<span class="gtb-tap">Tap to play</span>';
+  }
+  /* Turn one tile over. The back is filled BEFORE the class lands, so nothing is ever seen half-drawn
+     mid-rotation, and the site figures are dropped in when the fetch settles — guarded on the tile still
+     being flipped and still in the document, since a reader can turn it back or leave the page. */
+  function flipGameTile(el, key) {
+    const back = el.querySelector(".gt-back");
+    if (!back) return;
+    const face = el.querySelector(".gt-face");
+    /* THE FLIP MOVES THE ACCESSIBILITY TREE WITH THE PIXELS. The face is hidden by a transform, which a
+       screen reader cannot see, so without this a flipped tile reads out its front and never its record
+       — the two halves swap `aria-hidden` rather than one of them owning it for good. */
+    const on = !el.classList.contains("gt-flipped");
+    if (!on) {
+      el.classList.remove("gt-flipped");
+      back.setAttribute("aria-hidden", "true");
+      if (face) face.removeAttribute("aria-hidden");
+      return;
+    }
+    back.innerHTML = gameBackHTML(key, _gameStatsOff || isDevOrigin() ? "off" : _gameStats);
+    el.classList.add("gt-flipped");
+    back.removeAttribute("aria-hidden");
+    if (face) face.setAttribute("aria-hidden", "true");
+    if (!_gameStatsOff && !isDevOrigin()) {
+      gameStatsLoad().then((site) => {
+        if (!el.isConnected || !el.classList.contains("gt-flipped")) return;
+        back.innerHTML = gameBackHTML(key, _gameStatsOff ? "off" : (site || "err"));
+      });
+    }
+  }
   let _homeResize = null;   // the one resize listener the home page installs (see the foot of PAGES.home)
   PAGES.home = function (root) {
     /* THE PHONE AND THE DESKTOP NOW BUILD THE SAME PAGE, and that is the end of a long retreat: the two
@@ -19445,7 +20160,9 @@
          percentage. Nothing renders them — the figure itself lives in the row's options sheet — but a
          percentage alone cannot say how many cards a row is counting, and that is exactly what has to be
          readable when a deck is dragged from one container into another (see test-review-decks). */
-      return `<div class="prog dk-prog" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}" data-total="${total}" data-studied="${studied}">
+      // …and the same gold on the review list's own rows — see deckProgMarkup for why it rides on the bar
+      const done = total > 0 && studied >= total;
+      return `<div class="prog dk-prog${done ? " prog-done" : ""}" data-pct="${total ? ((studied / total) * 100).toFixed(2) : 0}" data-total="${total}" data-studied="${studied}">
         <div class="track"><div class="fill"></div></div>
       </div>`;
     };
@@ -19689,9 +20406,18 @@
          A GROUP the reader made starts OPEN: they have just built it and put things in it, and a container
          that hides its contents the moment it is filled reads as having eaten them. */
       const seedOpen = (node) => !activeSet.has(node.id) && !nodeAncestorIds(node).some((p) => activeSet.has(p));
+      const foldMem = adFoldMap();
       rows.forEach((r) => {
         if (!hasKids.has(r.drag) || adSeeded.has(r.drag)) return;
         adSeeded.add(r.drag);
+        /* A fold the reader has actually set beats every default below — that is the whole of what makes it
+           survive the reload. It is tested for a BOOLEAN rather than for truthiness, so a remembered
+           `false` is as binding as a remembered `true`; `in` would be looser and would also accept a key
+           left behind by a shape this never wrote. */
+        if (typeof foldMem[r.drag] === "boolean") {
+          if (foldMem[r.drag]) adOpen.add(r.drag); else adOpen.delete(r.drag);
+          return;
+        }
         /* An added deck of the reader's OWN opens: its subdecks are the reason it has rows at all, and a
            deck that swallows them the moment it is added is exactly what this was reported as. A curated
            collection still starts shut — those run to forty-odd rows, where a deck's subdecks are a handful. */
@@ -19704,18 +20430,43 @@
       // the container chain each row hangs from, for the fold — the same reading adSyncFold takes off the DOM
       const parentOf = new Map();
       rows.forEach((r) => parentOf.set(r.drag, r.parent || ""));
+      /* ONE reading of a row's name, for the three places that had grown their own copy of the same
+         expression — the drag handle's label, the row's own title, and `adRowOrder`'s record for the
+         completion screen. A reader's rename beats everything (see `adOwnTitle`), then whatever the build
+         put on the row, then the node's title; a group's `r.title` is already `groupTitle(id)`, which
+         reads the same override, so the two agree by construction rather than by coincidence. */
+      const rowTitle = (r) => adOwnTitle(r.drag) || r.title || (r.node ? nodeTitle(r.node) : r.drag);
+      /* …and the studiable rows in the order they are about to be drawn, for the completion screen's
+         "continue with" offer. Recorded HERE rather than in the markup pass below so it cannot fall out of
+         step with the three branches that emit a `data-review` row — group, own deck, added node — which
+         is exactly the three tested for. See adRowOrder. */
+      adRowOrder = rows.filter((r) => r.group || r.flat || r.active)
+        .map((r) => ({ id: r.drag, title: rowTitle(r) }));
       return rows
         .map((r) => {
-          const pad = 22 + r.depth * 16;   // the indent that carries the hierarchy, plus the grip's own column
-          const grip = canDrag ? gripHTML(r.title || (r.node ? nodeTitle(r.node) : r.drag)) : "";
-          const drag = ` data-drag="${esc(r.drag)}" data-parent="${esc(r.parent)}"`;
+          /* The indent that carries the hierarchy, plus whatever column the drag handle is currently
+             taking. That second part is a CSS VARIABLE rather than a number, because it changes with the
+             editor mode: the request is that the handles go away by default AND that "the contents of the
+             banners shift to the left", so the row reclaims the 20px it was reserving for a control that
+             is not there. `.active-deck` already transitions `padding-left`, so entering and leaving the
+             mode slides rather than jumping, at no cost written here. The depth arithmetic stays in JS and
+             the handle's column stays in the stylesheet, which is where its width is declared. */
+          const pad = 2 + r.depth * 16;
+          const grip = canDrag ? gripHTML(rowTitle(r)) : "";
+          /* `data-shipname` is the row's OWN name — the collection's, the deck author's, the group's —
+             before any rename the reader has made over it, and it rides on the shared attribute string so
+             all six row templates carry it from one edit. The editor mode needs it to tell a real rename
+             from a reader typing the existing name back, which clears the override rather than storing a
+             copy of it (see setEntryTitle); without it the only way to recover the shipped name would be a
+             second copy of the build's own title logic, which is the thing that drifts. */
+          const drag = ` data-drag="${esc(r.drag)}" data-parent="${esc(r.parent)}" data-shipname="${esc(r.title || (r.node ? nodeTitle(r.node) : r.drag))}"`;
           // rendered shut rather than shut afterwards by adSyncFold, or the whole tree would paint and then
           // collapse in the reader's face on every visit to the page
           const shut = adChainVisible(r.parent, parentOf, drawn) ? "" : " dk-shut";
           // a row with nothing to fold still reserves the chevron's width, or the progress bars either side
           // of a leaf deck would stop at two different places and the list's right edge would go ragged
           const chev = hasKids.has(r.drag) ? chevBtn("dk-chev") : '<span class="dk-chev-gap" aria-hidden="true"></span>';
-          const title = r.title || (r.node ? nodeTitle(r.node) : r.drag);
+          const title = rowTitle(r);
           const nodeAttr = r.node ? ` data-node="${esc(r.node.id)}"` : "";
           /* A LANGUAGE HEADER (Aug 2026, on a bug report: "the languages collection headers in the active
              decks section looks greyed out and lacks the colored numbers on the left"). It used to fall
@@ -19730,7 +20481,7 @@
              Spanish" is a scope the reader never asked for — the look is what was reported, not the
              behaviour. */
           if (r.langhead) {
-            return `<div class="active-deck dk-langhead${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px">
+            return `<div class="active-deck dk-langhead${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
               ${grip}
               ${adIcon(r.drag, r.parent)}
               ${adCounts(r.drag)}
@@ -19751,7 +20502,7 @@
              answer the same question two different ways. What still marks it as a header is the wash and the
              deeper indent of the rows beneath it. */
           if (r.group) {
-            return `<div class="active-deck deck-group${shut}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Study everything in ${esc(title)}">
+            return `<div class="active-deck deck-group${shut}" data-review="${esc(r.drag)}"${nodeAttr} data-group="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Study everything in ${esc(title)}">
               ${grip}
               ${adIcon(r.drag, r.parent)}
               ${adCounts(r.drag)}
@@ -19770,7 +20521,7 @@
              It is still an ordinary row in every other respect: the grip, the indent, the hue and the hold
              menu are the list's own, so it can be dragged into place and removed like anything else. */
           if (r.pending) {
-            return `<div class="active-deck dk-pending${shut}" data-pending="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px">
+            return `<div class="active-deck dk-pending${shut}" data-pending="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
               ${grip}
               ${adIcon(r.drag, r.parent)}
               <div class="dk-body">
@@ -19783,7 +20534,7 @@
           // one of the reader's own decks, or the Card-of-the-day list: nothing of the tree under it, but an
           // ordinary row of the list in every other way — this one included
           if (r.flat) {
-            return `<div class="active-deck${shut}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Review just ${esc(title)}">
+            return `<div class="active-deck${shut}" data-review="${esc(r.drag)}" role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(title)}">
               ${grip}
               ${adIcon(r.drag, r.parent)}
               ${adCounts(r.drag)}
@@ -19795,7 +20546,7 @@
             </div>`;
           }
           if (r.active) {
-            return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px" title="Review just ${esc(r.node.title)}">
+            return `<div class="active-deck${shut}" data-review="${esc(r.node.id)}"${nodeAttr} role="button" tabindex="0" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))" title="Review just ${esc(r.node.title)}">
               ${grip}
               ${adIcon(r.node.id, r.parent)}
               ${adCounts(r.node.id)}
@@ -19806,7 +20557,7 @@
               ${chev}
             </div>`;
           }
-          return `<div class="active-deck context${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:${pad}px">
+          return `<div class="active-deck context${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
             ${grip}
             ${adIcon(r.drag, r.parent)}
             <div class="dk-body">
@@ -19858,8 +20609,20 @@
         : done
           ? '<span class="gt-check" role="img" aria-label="Played today">' + GT_CHECK_SVG + "</span>"
           : "";
+    /* A TILE FLIPS TO ITS RECORD (Aug 2026, on request: "when long-pressing a minigame tile on the home
+       page, the tile should flip around and reveal the user's general stats and site-wide average
+       statistics for that minigame that day").
+       The gesture is `wireHoldMenu`'s, which the deck rows and the review banner already use, so a hold
+       here is classified exactly as a hold there — and a tap still opens the game, since the guard that
+       swallows the click after a hold is the same one.
+       The BACK is an element inside the button rather than a second button: the tile is already a
+       `<button>`, and a control inside a control is what forced the review banner's own "+ New group" out
+       of it. The front is wrapped in `.gt-face` for the flip — nothing else needs it, and the two theme
+       rules that use `>` on the tile's children were rewritten to match. `data-game` carries the key, so
+       the back can be filled without a closure per tile. */
     const tile = (o) =>
-      `<button class="game-tile ${o.cls || ""}${o.done ? " done" : ""}${o.won ? " won" : ""}" id="${o.id}" style="--tile:${o.color}">
+      `<button class="game-tile ${o.cls || ""}${o.done ? " done" : ""}${o.won ? " won" : ""}" id="${o.id}" data-game="${esc(o.key || "")}" style="--tile:${o.color}">
+        <span class="gt-face">
         ${doneMarkHTML(o.done, o.won)}
         <span class="gt-glyph${/^\s*<svg/.test(o.glyph) ? " gt-glyph-svg" : ""}">${o.glyph}</span>
         <div class="gt-body">
@@ -19867,6 +20630,8 @@
           <span class="gt-title">${o.title}</span>
           ${o.sub ? `<span class="gt-sub">${o.sub}</span>` : ""}
         </div>
+        </span>
+        <span class="gt-back" aria-hidden="true"></span>
       </button>`;
     // The grid's spare slot. Unused since Common Thread took the sixth tile in Aug 2026 — kept because the
     // grid is 3 × 2 and a seventh game would leave five filled and one empty again. It used to read
@@ -19885,12 +20650,12 @@
       return g.s + "/" + g.n;
     };
     const gameGrid = `<div class="game-grid">
-      ${tile({ id: "g-challenge", cls: "g-challenge", color: "#D9544C", glyph: ICON.choices, title: "Multiple Choice", sub: gameSub("challenge"), done: playedChallengeToday, won: wonToday.challenge })}
-      ${tile({ id: "g-chrono", cls: "g-chrono", color: "#4F74C2", glyph: ICON.timeline, title: "Timeline", sub: gameSub("chrono"), done: playedChronoToday, won: wonToday.chrono })}
-      ${tile({ id: "g-truefalse", cls: "g-truefalse", color: "#4F9D67", glyph: ICON.truefalse, title: "True or False", sub: gameSub("truefalse"), done: playedTrueFalseToday, won: wonToday.truefalse })}
-      ${tile({ id: "g-whosaid", cls: "g-whosaid", color: "#8257C2", glyph: ICON.whosaid, title: "Who said it?", sub: gameSub("whosaid"), done: playedWhoSaidToday, won: wonToday.whosaid })}
-      ${tile({ id: "g-findit", cls: "g-findit", color: "#2BA6A0", glyph: ICON.findit, title: "Find it", sub: gameSub("findit"), done: playedFindItToday, won: wonToday.findit })}
-      ${tile({ id: "g-thread", cls: "g-thread", color: "#DB8B3A", glyph: ICON.thread, title: "Common Thread", sub: gameSub("thread"), done: playedThreadToday, won: wonToday.thread })}
+      ${tile({ id: "g-challenge", key: "challenge", cls: "g-challenge", color: "#D9544C", glyph: ICON.choices, title: "Multiple Choice", sub: gameSub("challenge"), done: playedChallengeToday, won: wonToday.challenge })}
+      ${tile({ id: "g-chrono", key: "chrono", cls: "g-chrono", color: "#4F74C2", glyph: ICON.timeline, title: "Timeline", sub: gameSub("chrono"), done: playedChronoToday, won: wonToday.chrono })}
+      ${tile({ id: "g-truefalse", key: "truefalse", cls: "g-truefalse", color: "#4F9D67", glyph: ICON.truefalse, title: "True or False", sub: gameSub("truefalse"), done: playedTrueFalseToday, won: wonToday.truefalse })}
+      ${tile({ id: "g-whosaid", key: "whosaid", cls: "g-whosaid", color: "#8257C2", glyph: ICON.whosaid, title: "Who said it?", sub: gameSub("whosaid"), done: playedWhoSaidToday, won: wonToday.whosaid })}
+      ${tile({ id: "g-findit", key: "findit", cls: "g-findit", color: "#2BA6A0", glyph: ICON.findit, title: "Find it", sub: gameSub("findit"), done: playedFindItToday, won: wonToday.findit })}
+      ${tile({ id: "g-thread", key: "thread", cls: "g-thread", color: "#DB8B3A", glyph: ICON.thread, title: "Common Thread", sub: gameSub("thread"), done: playedThreadToday, won: wonToday.thread })}
       ${/* THE THREE ADDED IN AUG 2026 FILL THE GRID'S THIRD ROW, and their colours are MEASURED rather
             than picked: swept over the RGB cube inside the six shipped tiles' own lightness and chroma band
             (L 48–63, C 36–58) and held to no worse a white-on-fill contrast than the weakest of them, each
@@ -19927,9 +20692,9 @@
             plainly apart from Crossword's cyan and Picture round's pink, which is the whole test.
             THE RULE FOR THE NEXT TILE: sweep for the shortlist, then RENDER it beside its neighbours in
             the unplayed state before believing the winner. */""}
-      ${tile({ id: "g-crossword", cls: "g-crossword", color: "#00A4D6", glyph: ICON.crossword, title: "Crossword", sub: gameSub("crossword"), done: playedCrosswordToday, won: wonToday.crossword })}
-      ${tile({ id: "g-picture", cls: "g-picture", color: "#CE80A8", glyph: ICON.picture, title: "Picture round", sub: gameSub("picture"), done: playedPictureToday, won: wonToday.picture })}
-      ${tile({ id: "g-whatyear", cls: "g-whatyear", color: "#5E8802", glyph: ICON.whatyear, title: "What year?", sub: gameSub("whatyear"), done: playedWhatYearToday, won: wonToday.whatyear })}
+      ${tile({ id: "g-crossword", key: "crossword", cls: "g-crossword", color: "#00A4D6", glyph: ICON.crossword, title: "Crossword", sub: gameSub("crossword"), done: playedCrosswordToday, won: wonToday.crossword })}
+      ${tile({ id: "g-picture", key: "picture", cls: "g-picture", color: "#CE80A8", glyph: ICON.picture, title: "Picture round", sub: gameSub("picture"), done: playedPictureToday, won: wonToday.picture })}
+      ${tile({ id: "g-whatyear", key: "whatyear", cls: "g-whatyear", color: "#5E8802", glyph: ICON.whatyear, title: "What year?", sub: gameSub("whatyear"), done: playedWhatYearToday, won: wonToday.whatyear })}
     </div>`;
 
     /* A FIRST-TIME VISITOR IS ONE WITH NO HISTORY *AND* NOTHING TO STUDY (Aug 2026, on a bug report: a
@@ -20087,6 +20852,15 @@
        Collections tab has left the desktop's top bar too: this is the ONLY route to the collections
        anywhere on the site, so it must not be gated on having decks or on a breakpoint. */
     const collectionsBtn = `<button class="home-collections" id="b-addDecks" type="button">Collections</button>`;
+    /* …AND IT IS THE CARD'S BOTTOM EDGE AGAIN (Aug 2026, on request: "I don't like the positioning of the
+       home page Collections button below the active decks list on tablet and mobile"). Standing free under
+       the group, it ended up between the last deck row and the Minigames heading with a gap on either side
+       and nothing to belong to — and on a phone with several decks that is the middle of the page. It is a
+       full-width row inside the group now, closing the stack the banner opens.
+       That is NOT a return to the `.rv-lip` this replaced. The lip was a small tab hanging off the corner
+       reading "+ Add decks", and the objection to it was what it SAID: an action performed on the group it
+       was stuck to, where pressing it goes to a page. This is the width of the card, and it says
+       Collections. */
     /* THE WAY TO THE ABOUT PAGE — a quiet grey line at the foot of the home page. It was PHONE-ONLY for a
        fortnight, on the reasoning that a desktop still had an About tab in its top bar to reach the page
        with; that tab has now left the desktop too (Aug 2026, on request, bringing the two into line with
@@ -20106,11 +20880,25 @@
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
                   long-press sheet (openReviewMenu) — see the comment there. */""}
             ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
-            ${/* The footer row under the deck list: the day's time studied, against the left end of the
-                  group's own bottom EDGE. "+ New group" held that end until Aug 2026 and the timer took
-                  it; the lip to the collections held the right until it became a button standing outside
-                  the group, which is why the row is now conditional rather than always drawn. */""}
-            ${timeFoot ? `<div class="rv-foot">${timeFoot}</div>` : ""}
+            ${collectionsBtn}
+            ${/* The footer row BELOW the card — the day's time studied, on the page's own paper rather
+                  than on the card, against the left end of the group's own bottom edge. Drawn only when
+                  there is a timer to hold: `timeFoot` is empty until the first card of the day is
+                  studied, so an unconditional row would spend the group's bottom padding on nothing every
+                  morning. */""}
+            ${/* THE FOOT IS NOW DRAWN WHENEVER THERE ARE DECKS, not only when there is a timer (Aug 2026,
+                  with the editor mode): the request puts the edit button here, "in the bottom left, just
+                  below the active decks list, vertically centered to the study timer", and a control that
+                  only appears once the reader has studied a card is a control most mornings do not have.
+                  The TIMER is still conditional inside it — "0s" before the first card is a clock
+                  reporting that nothing has happened — and it is hidden outright while the mode is open,
+                  which is what the request asks for and what leaves the three buttons the row's own
+                  width. */""}
+            ${/* …and it SURVIVES the list emptying while the mode is open, which is the one state that
+                  would otherwise strand the reader: removing the last deck takes the list away, and with
+                  it the three buttons — including the Revert that is the only way to get the deck back.
+                  With the mode shut and no decks there is nothing to edit and the row is not drawn. */""}
+            ${fresh || (!activeIds.length && !deckEditOn) ? "" : `<div class="rv-foot">${deckEditBarHTML()}${deckEditOn ? "" : timeFoot}</div>`}
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
@@ -20139,9 +20927,6 @@
               can fill and empty it in place, without rebuilding the page under a reader. */""}
         <div id="chestSlot">${chestBannerHTML()}</div>
         ${reviewGroup}
-        ${/* The way to the collections, standing on its own under the review group rather than stuck to
-              its bottom edge — see `collectionsBtn` above for why it was detached and renamed. */""}
-        ${collectionsBtn}
         ${/* The heading over the games ships at every width now (Aug 2026, on request), like the lip above
               it: with the discovery row gone the grid is the last thing on the page, and a block of six
               coloured squares under nothing at all does not say what it is. */""}
@@ -20152,15 +20937,20 @@
         ${aboutLink}
       </div>`;
 
-    root.querySelector("#g-challenge").addEventListener("click", () => route("challenge"));
-    root.querySelector("#g-chrono").addEventListener("click", () => route("chrono"));
-    root.querySelector("#g-truefalse").addEventListener("click", () => route("truefalse"));
-    root.querySelector("#g-whosaid").addEventListener("click", () => route("whosaid"));
-    { const gf = root.querySelector("#g-findit"); if (gf) gf.addEventListener("click", () => route("findit")); }
-    { const gt = root.querySelector("#g-thread"); if (gt) gt.addEventListener("click", () => route("thread")); }
-    { const gx = root.querySelector("#g-crossword"); if (gx) gx.addEventListener("click", () => route("crossword")); }
-    { const gp = root.querySelector("#g-picture"); if (gp) gp.addEventListener("click", () => route("picture")); }
-    { const gy = root.querySelector("#g-whatyear"); if (gy) gy.addEventListener("click", () => route("whatyear")); }
+    /* ONE WALK OVER THE TILES, rather than nine `querySelector` lines that a tenth game would have to be
+       added to twice (Aug 2026, when the tiles gained a hold gesture). The key is on the element, so the
+       tap and the hold both read it from there and a game added to `gameGrid` is wired by that alone.
+       `wireHoldMenu` is the deck rows' own gesture: a tap opens the game, a hold flips the tile, and the
+       document-level guard that swallows the click after a hold is the same one, so a hold cannot also
+       start a game. */
+    root.querySelectorAll(".game-tile[data-game]").forEach((el) => {
+      const key = el.dataset.game;
+      if (!key) return;
+      wireHoldMenu(el, () => flipGameTile(el, key), () => {
+        if (el.classList.contains("gt-flipped")) { flipGameTile(el, key); return; }   // a tap on the BACK turns it over again
+        route(key);
+      });
+    });
     root.querySelector("#b-review").addEventListener("click", (e) => {
       /* The chest chip and the "+ New group" span both used to be targets INSIDE this button and were
          deferred to here. Both have left it (Aug 2026, on request) — the chest to `#chestSlot` above the
@@ -20206,17 +20996,7 @@
     showAdminEditBtn(null);   // the phone's way into the editor, top-right (the tab bar no longer carries Edit)
     root.querySelectorAll(".active-deck[data-review]").forEach((el) => {
       const id = el.dataset.review;
-      wireHoldMenu(el, () => openDeckMenu(id), () => {
-        const ud = uDeckIdOf(id);
-        route("study", {
-          scope: id === COTD_ENTRY ? { type: "cotd" }
-            // a GROUP the reader made has no cards of its own — see buildSession's group branch. A
-            // collection drawn as a group header is still a tree node and still studies as one.
-            : isGroupId(id) ? { type: "group", id }
-            // …and a subdeck of one of the reader's own decks studies just that subdeck
-            : ud ? { type: "udeck", id: ud, sub: uSubOf(id), tpl: uTplOf(id) } : { type: "deck", id },
-        });
-      });
+      wireHoldMenu(el, () => openDeckMenu(id), () => route("study", { scope: entryScope(id) }));
     });
     /* A row for a deck this device has not downloaded. It carries no `data-review` — there is nothing to
        study — so the walk above passes it by; what it does get is the same hold menu every other row has,
@@ -20234,13 +21014,29 @@
         if (b.disabled) return;
         b.disabled = true;
         const was = b.textContent;
-        b.textContent = "Downloading…";
-        const r = await langDeckDownload(b.dataset.langdl);
+        /* THE BUTTON BECOMES THE BAR (Aug 2026, on request). A language deck is between 0.3 and 9.6 MB
+           and the row said only "Downloading…", which on a phone is a word that sits there for half a
+           minute with nothing to say whether anything is happening. The bar is drawn INTO the button —
+           it is already the right width and the right place, and a bar somewhere else would be a second
+           thing on the row saying the same thing. It reports bytes; see langDeckDownload.
+           Indeterminate where the server sends no length: the fill is left at zero and the percentage is
+           simply not claimed, which is the honest version of not knowing. */
+        b.classList.add("dk-dl-busy");
+        b.innerHTML = '<span class="dkdl-t">Downloading…</span><i class="dkdl-fill" style="width:0%"></i>';
+        const fill = b.querySelector(".dkdl-fill"), lab = b.querySelector(".dkdl-t");
+        const r = await langDeckDownload(b.dataset.langdl, (got, total) => {
+          if (!b.isConnected) return;
+          if (total > 0) {
+            const pct = Math.min(100, (got / total) * 100);
+            fill.style.width = pct.toFixed(1) + "%";
+            lab.textContent = Math.round(pct) + "%";
+          } else lab.textContent = fmtDeckSize(got);
+        });
         /* uImportDone repaints the page, so this button is gone by the time it returns — which is why the
            failure path puts it back itself rather than leaving it to a render that never comes. The repaint
            is QUIET: the reader is standing on this very list, so the row turns into the deck under them
            rather than the page scrolling to the top and animating itself back in. */
-        if (r.error) { b.disabled = false; b.textContent = was; }
+        if (r.error) { b.disabled = false; b.classList.remove("dk-dl-busy"); b.textContent = was; }
         await uImportDone(r, true);
       });
     });
@@ -20277,6 +21073,7 @@
           e.preventDefault();
           const open = !adOpen.has(id);
           if (open) adOpen.add(id); else adOpen.delete(id);
+          adFoldSet(id, open);   // the reader's own answer, and the one thing a reload must not undo
           const before = new Set([...adList.querySelectorAll(".active-deck[data-node]:not(.dk-shut)")]);
           adSyncFold(adList);
           if (open) {
@@ -20286,6 +21083,107 @@
             });
           }
         });
+      });
+    }
+    /* ---------- the editor mode's own wiring ----------
+       A repaint here is `renderInPlace()`: the mode changes what almost every row carries, so there is no
+       smaller surface to redraw than the page — and that call already drops the scroll-to-top and the
+       entrance animation, which are the two things a reader reads as a refresh (see `renderInPlace`).
+       The fold state and the drag order both survive it, having survived a repaint since they existed. */
+    root.classList.toggle("rv-editing", deckEditOn);
+    { const eb = root.querySelector("#dkEdit"); if (eb) eb.addEventListener("click", () => { deckEditOn = true; deckEditUndo = []; renderInPlace(); }); }
+    { const ub = root.querySelector("#dkEditUndo"); if (ub) ub.addEventListener("click", () => {
+        const snap = deckEditUndo.pop();
+        if (!snap) return;
+        deckEditRestore(snap);
+        renderInPlace();
+      }); }
+    { const rb2 = root.querySelector("#dkEditRevert"); if (rb2) rb2.addEventListener("click", () => {
+        // the BOTTOM of the stack is the list as it stood when Edit was pressed, so one restore undoes the
+        // whole session of the mode — popping repeatedly would do the same thing N times over
+        const first = deckEditUndo[0];
+        deckEditUndo = [];
+        deckEditOn = false;
+        if (first) deckEditRestore(first);
+        toast(first ? "Put back the way it was." : "Nothing had been changed.");
+        renderInPlace();
+      }); }
+    { const db = root.querySelector("#dkEditDone"); if (db) db.addEventListener("click", () => { deckEditOn = false; deckEditUndo = []; renderInPlace(); }); }
+    if (deckEditOn && adList) {
+      /* THE CROSS IS INJECTED RATHER THAN WRITTEN INTO THE SIX ROW TEMPLATES. It exists only in this
+         mode, so putting it in the markup would mean six branches each carrying a control that is absent
+         from the page 99% of the time — and every one of them would have to be kept in step. A CONTEXT
+         row (an unadded ancestor drawn only to show where a deck hangs) gets none: it is not in
+         `S.active`, so there is nothing there to remove. */
+      adList.querySelectorAll(".active-deck[data-drag]").forEach((row) => {
+        const id = row.dataset.drag;
+        if (!id || row.classList.contains("context") || row.classList.contains("dk-langhead")) return;
+        const x = document.createElement("button");
+        x.type = "button";
+        x.className = "dk-del";
+        x.title = "Remove " + (row.querySelector(".dk-title") ? row.querySelector(".dk-title").textContent : "this") + " from the daily study";
+        x.setAttribute("aria-label", x.title);
+        x.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
+        // capture, and both events: the row itself is a button that starts a study session, and
+        // `wireHoldMenu` arms its own timer on pointerdown
+        x.addEventListener("pointerdown", (e) => e.stopPropagation());
+        x.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") e.stopPropagation(); });
+        x.addEventListener("click", (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          deckEditCheckpoint();
+          if (isGroupId(id)) groupDelete(id); else removeActive(id);
+          renderInPlace();
+        });
+        row.appendChild(x);
+      });
+      /* CLICK A TITLE TO RENAME IT. The field replaces the title in place rather than raising a prompt —
+         the reader is looking at the list they are arranging, and a modal over it would take the thing
+         being renamed off the screen. Enter and blur commit, Escape abandons; the row's own click is
+         stopped throughout, or naming a deck would deal its first card. */
+      adList.querySelectorAll(".active-deck[data-drag] .dk-title").forEach((el) => {
+        const row = el.closest(".active-deck");
+        const id = row && row.dataset.drag;
+        if (!id) return;
+        el.classList.add("dk-title-edit");
+        el.setAttribute("tabindex", "0");
+        el.setAttribute("role", "button");
+        el.setAttribute("title", "Click to rename");
+        el.addEventListener("pointerdown", (e) => e.stopPropagation());
+        const start = (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          if (row.querySelector(".dk-rename")) return;
+          const shipped = row.dataset.shipname || "";
+          const inp = document.createElement("input");
+          inp.type = "text";
+          inp.className = "dk-rename";
+          inp.value = el.textContent;
+          inp.maxLength = 80;
+          inp.setAttribute("aria-label", "Rename this deck");
+          el.replaceWith(inp);
+          inp.focus();
+          inp.select();
+          let done = false;
+          const finish = (keep) => {
+            if (done) return;
+            done = true;
+            if (keep) {
+              const want = inp.value.trim();
+              if (want !== el.textContent.trim()) { deckEditCheckpoint(); setEntryTitle(id, want, shipped); }
+            }
+            renderInPlace();
+          };
+          inp.addEventListener("keydown", (ev) => {
+            ev.stopPropagation();
+            if (ev.key === "Enter") { ev.preventDefault(); finish(true); }
+            else if (ev.key === "Escape") { ev.preventDefault(); finish(false); }
+          });
+          inp.addEventListener("pointerdown", (ev) => ev.stopPropagation());
+          inp.addEventListener("blur", () => finish(true));
+        };
+        el.addEventListener("click", start);
+        el.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.stopPropagation(); start(e); } });
       });
     }
     // …and the banner above them holds open the review's OWN options (the Ordered/Random pair that used to
@@ -21658,7 +22556,11 @@
     const y = Math.max(0, Math.min(1, frac || 0));
     // don't churn the synced blob on every scroll frame — a move of less than a screen-ish is not a place
     if (prev && prev.ch === ch && Math.abs((prev.y || 0) - y) < 0.02) return;
-    S.reading[id] = { ch: ch, y: y, at: Date.now() };
+    /* MERGED, NOT REPLACED. This record used to be rebuilt from scratch on every move, which was harmless
+       while it held three fields the caller supplied — and stopped being harmless the moment the reading
+       CLOCK joined it (Aug 2026): a fresh object here would have wiped `ms`, `dms` and `d` on the reader's
+       next scroll, so the timer would have counted only the seconds since they last moved. */
+    S.reading[id] = Object.assign({}, prev, { ch: ch, y: y, at: Date.now() });
     save();
     /* The Library's badges count books STARTED, so the only moment worth testing is the one where a book
        gains a record it did not have — never on the scrolls after it, which is why this is gated on
@@ -22339,7 +23241,20 @@
           '<p class="bk-rights-src">Text from <a href="' + esc(o.sourceUrl) + '" target="_blank" rel="noopener noreferrer">' + esc(o.sourceName) + "</a>.</p>" +
         "</section>"
       : "";
-    return { n: 0, p: 0, t: "About this book", intro: true, html: essay + rights + orig, notes: [] };
+    /* HOW LONG THIS READER HAS SPENT IN THIS BOOK (Aug 2026, on request), at the TOP of the About page —
+       above the essay, because it is the one thing on the page that is about the reader rather than about
+       the book, and a figure buried under the licence boxes is a figure nobody finds.
+       Drawn only once there is something to say. A book opened and not yet read says nothing, which is
+       better than "0m" — the same call `fmtStudyTime` makes in returning "45s" rather than rounding the
+       first minute of the day up to "1m". The two figures are separated only where they differ: on the
+       day a book is started, "12m today" and "12m in all" is one fact said twice. */
+    const rMs = readTimeTotal(b.id), rToday = readTimeToday(b.id);
+    const clock = rMs
+      ? '<div class="bk-clock"><span class="bkc-fig">' + esc(fmtStudyTime(rMs)) + "</span>" +
+        "<span class=\"bkc-lbl\">spent reading this book" +
+        (rToday && rToday < rMs ? ", " + esc(fmtStudyTime(rToday)) + " of it today" : "") + "</span></div>"
+      : "";
+    return { n: 0, p: 0, t: "About this book", intro: true, html: clock + essay + rights + orig, notes: [] };
   }
 
   PAGES.book = function (root, params) {
@@ -22378,8 +23293,15 @@
     }
 
     const pos = readingPos(b.id);
+    /* AN ADDRESSED SECTION BEATS THE REMEMBERED PLACE, and it beats it the way a deliberate move to
+       another chapter already does: at the TOP of that chapter, never at a saved depth (see the reading
+       bullet in CLAUDE.md). A reader arriving from a card's quotation has asked for that passage, not for
+       wherever they were in this book last week. Compared as STRINGS, since a section number need not be
+       an integer — a Bekker page is `1094a` — which is the same reason `c.n` is not a number here. */
+    const wantN = params && params.n != null && params.n !== "" ? String(params.n) : "";
+    const addressed = wantN ? chapters.find((c) => String(c.n) === wantN) : null;
     // resume on the chapter the reader left, falling back to the first if that chapter is not shipped yet
-    let cur = chapters.find((c) => pos && c.n === pos.ch) || chapters[0];
+    let cur = addressed || chapters.find((c) => pos && c.n === pos.ch) || chapters[0];
     const partOf = (n) => (b.parts || []).find((p) => p.n === n);
 
     root.innerHTML = `
@@ -22448,6 +23370,15 @@
     const pageEl = root.querySelector("#bkPage");
     const tabsEl = root.querySelector("#bkTabs");
     const tocEl = root.querySelector("#bkTocPanel");
+
+    /* THE READING CLOCK (Aug 2026, on request). The study page's own ticker, shared — see
+       `startTimeTicker` for every rule it keeps, all of which were settled for the cards and hold here:
+       it counts only while the page is visible and something has happened in the last three minutes,
+       each tick is clamped, and it saves once a minute rather than every five seconds.
+       "Alive" is the chapter panel actually holding prose: the book's loading placard and a chapter that
+       failed to paint are not reading. The front matter counts — it is the book's own words about itself,
+       and the reader chose to be there. */
+    startTimeTicker(root, () => !!(pageEl.isConnected && pageEl.childNodes.length), (ms) => readTimeAdd(b.id, ms));
 
     /* Paint one chapter. The prose is the book file's own markup — the glossary is auto-linked over it
        exactly as a card's background is, and the translator's notes become the numbered fold the rest of
@@ -23089,7 +24020,9 @@
     }
     wireBookCtxMenu(pageEl, addHighlight, removeHighlight);
 
-    paint(cur, pos && pos.ch === cur.n ? pos.y || 0 : 0);
+    // …and an ADDRESSED section starts at the top even when it happens to be the chapter the reader left,
+    // which is the "a deliberate move starts at the top; only a resume restores a depth" rule again
+    paint(cur, !addressed && pos && pos.ch === cur.n ? pos.y || 0 : 0);
   };
 
   /* ============================================================
@@ -24876,6 +25809,35 @@
     });
   }
 
+  /* WHICH DECK THE CARD ON SCREEN CAME FROM (Aug 2026, on request: "when studying cards through the Daily
+     Study banner, it should still display the name of the deck that the card is from at the top, where it
+     currently says 'Review'").
+
+     The pooled review is the one scope whose session label cannot be written once: it draws from every
+     added deck at once, so `sess.where` said "Review" — true, and useless at exactly the moment it is
+     needed. Studying two language decks together deals `casa` from one and `casa` from the other and the
+     screen said nothing about which language the answer was supposed to be in.
+
+     A community card names its DECK, its subdeck and its DIRECTION, and the direction is not decoration
+     here: a both-ways deck asks the same word forwards and backwards, so "Spanish A1 · Spanish → English"
+     is the whole of what the reader needs and "Spanish A1" alone is half of it. A curated card names the
+     path to its leaf, which is what `buildSession` already labels a deck session with — so a card met in
+     the pooled review reads exactly as it would if that deck had been tapped on its own row.
+     Falls back to the session's own label whenever a card has no home to name (the Card of the day, a
+     card whose deck has been deleted out from under a queue already built). */
+  function cardWhereLabel(id) {
+    if (isCommunityCard(id)) {
+      const d = uDeckOfCard(uCardBaseId(id));
+      if (!d) return "";
+      const note = UCARDS[uCardBaseId(id)];
+      const sub = (note && note.sub) || "";
+      const tpls = uEntryTemplates(d.id, sub);
+      const tpl = tpls[uCardTplIndex(id)];
+      return [d.title, sub, tpl && tpl.name].filter(Boolean).join(" · ");
+    }
+    const leaf = cardLeaves(id)[0];
+    return leaf ? nodeWhere(leaf) : "";
+  }
   PAGES.study = function (root, params) {
     if (!params.scope) { route("home"); return; }   // #study reached with nothing to study (a pasted address, a lost session)
     const sess = buildSession(params.scope);
@@ -24978,25 +25940,10 @@
        It reaches `save()` once a minute rather than on every tick: `save()` queues a synced push, and a push
        every five seconds for a figure nothing else reads would be a great deal of traffic for a clock. The
        grade path saves anyway, so in ordinary use the day's time is written down card by card. */
-    let lastAct = Date.now(), lastTick = Date.now(), unsaved = 0;
-    const noteAct = () => { lastAct = Date.now(); };
-    const ACT_EVENTS = ["pointerdown", "pointermove", "keydown", "wheel", "scroll", "touchstart"];
-    ACT_EVENTS.forEach((n) => document.addEventListener(n, noteAct, { capture: true, passive: true }));
-    const studyTicker = setInterval(() => {
-      const now = Date.now(), gap = now - lastTick;
-      lastTick = now;
-      if (!root.isConnected) {   // the page has gone; take the listeners with it
-        clearInterval(studyTicker);
-        ACT_EVENTS.forEach((n) => document.removeEventListener(n, noteAct, true));
-        if (unsaved) save();
-        return;
-      }
-      if (document.hidden || !root.querySelector(".study-card")) return;
-      if (now - lastAct > STUDY_IDLE_MS) return;
-      studyTimeAdd(gap);
-      unsaved += gap;
-      if (unsaved >= 60000) { unsaved = 0; save(); }
-    }, STUDY_TICK_MS);
+    // …and the ticker itself is `startTimeTicker`, shared with the Library's reading clock — see there for
+    // every rule it keeps. "Alive" here is a card actually painted: the completion screen and the
+    // caught-up placard are not studying.
+    startTimeTicker(root, () => !!root.querySelector(".study-card"), studyTimeAdd);
 
     /* ---------- undoing the last grade ----------
        A misclick on Again or Easy is otherwise unfixable from inside a session: the card has left the queue
@@ -25157,6 +26104,55 @@
         row.querySelector("#back").addEventListener("click", () => route("decks"));
         return;
       }
+      /* THE RED PILE AND THE SESSION MUST NOT DISAGREE (Aug 2026, on a bug report: "sometimes the red
+         number in an active decks banner says I still have cards to study but when I click the deck it
+         says I'm done for the day").
+
+         Both figures were right and they were answering different questions. The row's red count is
+         LEARNING cards — everything answered wrong and not yet graduated, on its ten-minute step or not,
+         which is deliberate and stated where pileCounts is written: a count that emptied while a card sat
+         on its timer would say the day's work was finished when it plainly is not. The session, on the
+         other hand, deals what is DUE, so a deck holding nothing but a learning card three minutes from
+         coming back builds an empty queue and lands on this placard.
+
+         So the placard is what was wrong, not either count: "you've studied everything available in this
+         deck" is false while the row is showing a red 2. It now says what is actually happening, names
+         when the next step comes round, and offers to take them early — which is Anki's learn-ahead, and
+         the only thing a reader who has walked to this screen on purpose can want. Nothing about the
+         schedule is bent to do it: an early answer is graded against the real clock exactly as it would
+         be in ten minutes' time.
+
+         The set is read through the same filters the queue was built with (available, not suspended, not
+         buried), and from `activeCardIds()` for the pooled review, so this placard can never offer a card
+         the session itself would have refused. */
+      const waitIds = (params.scope.type === "review" ? activeCardIds() : entryCardIds(scopeEntryId(params.scope)))
+        .filter((id) => {
+          const c = S.cards[id];
+          return c && schedIsLearning(c.status) && !isDueNow(id) &&
+            availStudy.has(id) && !isSuspended(id) && !isBuried(id);
+        })
+        .sort((a, b) => S.cards[a].due - S.cards[b].due);
+      if (waitIds.length) {
+        const wait = Math.max(0, S.cards[waitIds[0]].due - now());
+        root.innerHTML = emptyPlacard(
+          "Still learning",
+          "◷",
+          waitIds.length + (waitIds.length === 1 ? " card is" : " cards are") +
+            " working their way out of the learning steps — that is the red figure on the row. The next one" +
+            " comes back in about " + fmtInterval(wait / 86400000) + ". You can take them early if you like.",
+          null,
+          null
+        );
+        const card = root.querySelector(".placard");
+        const row = document.createElement("div");
+        row.className = "row";
+        row.innerHTML = '<button class="btn" id="learnAhead">Study ' + waitIds.length + " now</button>" +
+          '<button class="btn ghost" id="learnDone">Done</button>';
+        card.appendChild(row);
+        row.querySelector("#learnAhead").addEventListener("click", () => { queue = waitIds.slice(); startLoop(); });
+        row.querySelector("#learnDone").addEventListener("click", () => route("home"));
+        return;
+      }
       root.innerHTML = emptyPlacard(
         "All caught up",
         "✓",
@@ -25228,7 +26224,11 @@
                   a quiet control, and the grade bar's phone row has three fixed cells. It carries the card's
                   own colour when it has one, so the bar itself says what is flagged without being opened. */""}
             <button class="backbtn flagbtn${cardFlag(id) ? " on" : ""}" id="flagBtn" type="button"${cardFlag(id) ? ' data-flag="' + cardFlag(id) + '"' : ""} title="Flag this card to find it later (Ctrl+1 to Ctrl+7)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5"/><path d="M5 5h11l-2.2 3.4L16 12H5z"/></svg> ${cardFlag(id) ? esc(FLAG_NAME(cardFlag(id))) : "Flag"}</button>
-            <span class="study-where">${esc(sess.where)}</span>
+            ${/* The pooled review names the card's OWN deck; every other scope already named itself when
+                  the session was built, and re-deriving it per card there would only be able to say the
+                  same thing less well (a card cross-listed into two leaves, a subdeck's row naming the
+                  whole deck). See cardWhereLabel. */""}
+            <span class="study-where">${esc((params.scope.type === "review" && cardWhereLabel(id)) || sess.where)}</span>
             <div class="counts">
               <span class="cnt new">${rc.nw}</span>
               <span class="cnt learn">${rc.lr}</span>
@@ -25577,6 +26577,20 @@
           ${canUndo() ? '<button class="btn ghost" id="undoLast">Undo the last card</button>' : ""}
           <button class="btn ghost" id="home">Back home</button>
         </div>`;
+      /* …AND THE NEXT DECK DOWN THE LIST (Aug 2026, on request). A reader working through their active
+         decks in order had to go back to the home page between every one of them, which for four decks is
+         four round trips through a page they have already read. The row sits BELOW the three above rather
+         than among them, as asked, and it NAMES the deck — "Continue with Spanish A1" — because a button
+         that says only "Next" is asking the reader to trust it about where they are going. It is drawn
+         only when there is somewhere to go: see nextStudyRow, which reads the order the home page last
+         drew and skips anything with no work left in it. */
+      const nextRow = nextStudyRow(scopeEntryId(params.scope));
+      if (nextRow) {
+        const nx = document.createElement("div");
+        nx.className = "row sc-next";
+        nx.innerHTML = '<button class="btn ghost" id="nextDeck">Continue with ' + esc(nextRow.title) + "</button>";
+        card.appendChild(nx);
+      }
       root.appendChild(card);
       card.querySelector("#home").addEventListener("click", () =>
         route("home")
@@ -25585,6 +26599,12 @@
       // and there is no card left to press Undo on, so the way back sits here too
       { const ul = card.querySelector("#undoLast"); if (ul) ul.addEventListener("click", undoGrade); }
       card.querySelector("#more").addEventListener("click", () => route("study", params));
+      {
+        const nb = card.querySelector("#nextDeck");
+        // the scope a row is tapped with on the home page, which is the one place that decides what a row
+        // means: a community deck, a subdeck and a direction all ride in on the same entry id
+        if (nb) nb.addEventListener("click", () => route("study", { scope: entryScope(nextRow.id) }));
+      }
     }
   };
 
@@ -26244,10 +27264,21 @@
     if (!_ucOpen || typeof _ucOpen !== "object" || Array.isArray(_ucOpen)) _ucOpen = {};
     return _ucOpen;
   }
+  /* THE KEY DROPS THE DECK (Aug 2026, on request: "language collections should remember across
+     sessions/decks if the user has collapsed/expanded sections of the card"). `data-uct` is
+     `cardTypeScopeId(deckId, typeId)` — the deck is in it because a STYLESHEET has to be scoped to one
+     deck's copy of a type, and nothing about a reader's fold does. A reader studying HSK levels 1 to 4
+     has four decks each carrying its own copy of the same type with the same "In a sentence" panel, and
+     was closing that panel four times over; the same is true of six Goethe levels and six DELE ones.
+     What identifies the fold is the TYPE and the summary the reader pressed, so that is the key. Nothing
+     migrates: an entry written under the old key simply matches nothing and the panel takes the
+     template's own default, which is where it started. */
   function ucDetailsKey(uct, det) {
     const s = det.querySelector("summary");
     const label = (s ? s.textContent || "" : "").replace(/\s+/g, " ").trim().slice(0, 80);
-    return label ? (uct || "?") + "|" + label : "";   // no summary → nothing stable to key on; left alone
+    if (!label) return "";                            // no summary → nothing stable to key on; left alone
+    const type = String(uct || "?").split("__").slice(1).join("__") || String(uct || "?");
+    return type + "|" + label;
   }
   function ucSetOpen(key, open) {
     const m = ucOpenMap();
@@ -26473,6 +27504,12 @@
        whose answer is already on screen — so holding it back there would be a mark nothing accounts for. */
     const ctx = cv.getContext("2d");
     let stopped = false, target = null, shapes = null, revealed = host.hasAttribute("data-map-named"), dot = null;
+    /* A LOCATOR SHOWS THE REST OF ITS COLLECTION, AND THE WORLD AROUND IT (Aug 2026, on request). The
+       siblings are free — they are in `data.js`, already downloaded — and go in at once; the cities and
+       rivers live in the `atlas` bundle and are WARMED at idle rather than awaited, so the card is
+       readable immediately and the map fills in. See the note above `cardCollectionRoot`. */
+    const sibCard = host.getAttribute("data-map-card") || "";
+    const sib = sibCard ? locatorSiblings(sibCard) : { dots: [], terms: new Set() };
     let rotLon = 0, rotLat = 0, zoom = 1, homeLon = 0, homeLat = 0, homeZoom = 1;
     let W = 0, H = 0, cx = 0, cy = 0, R = 0, baseR = 0, dpr = 1;
     let Cx = 0, Cy = 0, Cz = 0, Ex = 0, Ey = 0, Ez = 0, Nx = 0, Ny = 0, Nz = 0;
@@ -26616,6 +27653,83 @@
          pointed at on the Atlas are the same thing. It draws ON TOP of the shaded state, which is the
          clue: the state answers "where", the dot answers "which place". Its NAME is held back until the
          answer is shown, for the obvious reason. */
+      /* ---------- what else is on a LOCATOR's map ----------
+         Drawn UNDER the card's own dot and in this order — rivers, then cities, then the collection's
+         other places — so the thing the card is about is the last mark laid down and nothing can be
+         painted over it. Every layer is guarded on its data being present: the cities and rivers are
+         warmed at idle out of the `atlas` bundle, so for the first second or two of a card's life this
+         section draws the siblings alone, which is exactly what is intended. */
+      if (sibCard) {
+        const RIV = window.RIVERS || [];
+        if (RIV.length) {
+          /* Thin, in the map's own water colour, and CULLED by the same visibility test the borders use —
+             1,073 rivers of 21,909 points is a fifth of what the world's own coastline already costs per
+             frame, and at a locator's zoom the cull leaves a handful. */
+          ctx.strokeStyle = ocean; ctx.lineWidth = 1.1; ctx.globalAlpha = 0.7;
+          for (let i = 0; i < RIV.length; i++) {
+            const lines = RIV[i].p;
+            for (let j = 0; j < lines.length; j++) {
+              if (!visible(lines[j])) continue;
+              ctx.beginPath(); addRing(lines[j]); ctx.stroke();
+            }
+          }
+          ctx.globalAlpha = 1;
+          /* A RIVER IS NAMED ONLY WHERE IT IS ITSELF A CARD, which is what was asked for and is also the
+             only thing that keeps the map readable: naming all 1,073 would bury the place the card is
+             about under the names of every creek near it. The test is the collection's own answer terms. */
+          if (sib.terms.size) {
+            ctx.font = "500 11px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+            for (let i = 0; i < RIV.length; i++) {
+              const nm = RIV[i].n;
+              if (!nm || !sib.terms.has(String(nm).toLowerCase())) continue;
+              const line = RIV[i].p[0];
+              if (!line || !line.length || !visible(line)) continue;
+              const mid = line[Math.floor(line.length / 2)];
+              proj(mid[0], mid[1]);
+              if (PV < 0) continue;
+              ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, PX, PY);
+              ctx.fillStyle = ink; ctx.fillText(nm, PX, PY);
+            }
+          }
+        }
+        const CTS = window.CITIES || [];
+        if (CTS.length) {
+          /* Capitals, million-plus cities and division capitals — `r` 0, 1 and 2, exactly the three the
+             request names. UNLABELLED, deliberately: the request asks for names on the rivers and not on
+             these, and a locator that named every city near its subject would bury the one label that
+             matters.
+             THEY THIN WITH ZOOM, AND THAT WAS FOUND BY LOOKING RATHER THAN BY REASONING. Drawn all at
+             once they are 2,665 dots, which at a locator's opening view of about 50° covers Europe and
+             North Africa in a grey rash and buries the collection's own red marks in it — the map became
+             less legible for having more on it. So each tier earns its place at a zoom: the 216 national
+             capitals always, the 392 million-plus cities once the frame is a region rather than a
+             continent, and the 2,057 division capitals only when it is a country or less. It is the
+             Atlas's own `CITY_SEP` rule in the form this window can afford — a zoom test rather than a
+             per-label collision pass, since these carry no labels to collide. */
+          const tierZ = zoom >= CMAP_ZLOC * 4 ? 2 : zoom >= CMAP_ZLOC * 1.75 ? 1 : 0;
+          for (let i = 0; i < CTS.length; i++) {
+            const ct = CTS[i], r = ct.r | 0;
+            if (r > tierZ) continue;
+            proj(ct.c[0], ct.c[1]);
+            if (PV < 0) continue;
+            if (PX < -20 || PY < -20 || PX > W + 20 || PY > H + 20) continue;
+            const rad = r === 0 ? 2.6 : r === 1 ? 2.1 : 1.7;
+            ctx.beginPath(); ctx.arc(PX, PY, rad, 0, Math.PI * 2);
+            ctx.fillStyle = rgbaOf("#000000", r === 0 ? 0.42 : 0.3); ctx.fill();
+          }
+        }
+        /* THE COLLECTION'S OTHER PLACES, in a red that is nobody else's mark on this map: the card's own
+           dot is the Atlas's selection gold and the cities are grey, so a reader can tell at a glance
+           which marks are Folio's own subject matter. Smaller than the card's dot, as asked. */
+        for (let i = 0; i < sib.dots.length; i++) {
+          const d = sib.dots[i];
+          proj(d.c[0], d.c[1]);
+          if (PV < 0) continue;
+          ctx.beginPath(); ctx.arc(PX, PY, 3.4, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill();
+          ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#ffffff", 0.75); ctx.stroke();
+        }
+      }
       if (dot) {
         proj(dot.c[0], dot.c[1]);
         if (PV >= 0) {
@@ -26766,6 +27880,16 @@
     /* The geometry is two lazy bundles, so the window says it is loading rather than sitting blank — and
        says so in words if it cannot load, which is what a reader on a flaky connection is owed. Both are
        needed: the world for the coastline the place sits on, the layer for the place itself. */
+    /* …and a LOCATOR asks for the cities and rivers ON TOP OF THAT, at IDLE and without waiting for them
+       (Aug 2026, on request). They are the `atlas` bundle — the same ~600 KB the Atlas itself loads — so
+       awaiting them would put that behind every history card with a map, and refusing them would make the
+       map poorer for a reader already sitting on the page. Warmed instead, and redrawn when they land:
+       `glossExtra`'s bargain, and the `saveData` guard is `startMiniGlobe`'s.
+       It is fired from HERE rather than from the promise below because it depends on nothing that
+       resolves there, and a reader who never scrolls to the foot of a card should not have had it. */
+    if (sibCard && !(navigator.connection && navigator.connection.saveData)) {
+      whenIdle(() => { if (!stopped) ensureData("atlas").then(() => { if (!stopped) schedule(); }); });
+    }
     host.classList.add("mc-loading");
     Promise.all([ensureData("world"), ensureData(def.bundle)]).then((ok) => {
       if (stopped) return;
@@ -26909,6 +28033,53 @@
 
      THE COORDINATE IS FETCHED, NEVER TYPED (see `.claude/add-locators.js`): a hand-entered pair is a dot a
      degree out, which draws perfectly and points at the wrong place, and nothing on the page could say so. */
+  /* ---------- A CARD QUOTES THE BOOK IT CITES (Aug 2026, on request) ----------
+     "Cards that cite a book in the Library should carry a quote from it between sentences 5 and 6, with a
+     button to that book section." Four decisions.
+
+     · **THE PASSAGE IS AUTHORED, NEVER EXTRACTED.** A card cites a whole letter or chapter, and choosing
+       the sentences that bear on its subject is exactly the editorial act the citation apparatus exists
+       for — a machine picking them would be quoting at random and attributing it to a translator.
+     · **`n` IS THE BOOK'S OWN SECTION NUMBER**, the unit `S.reading[id].ch` already records and the one
+       the two columns of a bilingual book pair on, so nothing new had to be addressed. It is compared as
+       a STRING: a section number need not be an integer (a Bekker page is `1094a`).
+     · **IT SITS AT THE BLOCK BREAK, WHICH IS ALREADY WHERE SENTENCE 5 ENDS.** Every abstract is two
+       blocks of five split by ` <br><br> ` — all 666 of them carry exactly one — so the quotation goes
+       where that break is rather than being placed by counting sentences at render time.
+     · **A QUOTE POINTING AT A BOOK OR SECTION THAT IS NOT THERE RENDERS NOTHING.** The shelf loses books
+       to a licence review and gains chapters in instalments, so the reference can go stale after the card
+       was written; a blockquote from a book the reader cannot open is worse than no quotation, and
+       `add-card.js` refuses one at the point of writing so this is a backstop rather than the guard. */
+  function cardQuote(c) {
+    const q = c && c.quote;
+    if (!q || typeof q !== "object") return null;
+    const book = String(q.book || "").trim();
+    const text = String(q.text || "").trim();
+    if (!book || !text) return null;
+    const n = q.n == null ? "" : String(q.n).trim();
+    return { book: book, n: n, text: text, cite: String(q.cite || "").trim() };
+  }
+  /* The blockquote itself. It carries the book's TITLE and its translator, because a quotation whose
+     attribution is a button the reader has not pressed is an unattributed quotation — and the button says
+     where it goes rather than what it is ("Read it in the Library"), the title being right above it. */
+  function cardQuoteHTML(c) {
+    const q = cardQuote(c);
+    if (!q) return "";
+    const b = BOOK_BY_ID[q.book];
+    if (!b) return "";                                   // a book that has left the shelf takes its quotation with it
+    const chs = bookChapters(b.id);
+    // the section is checked only where the text is already HERE: the book is lazy, and holding a card's
+    // prose behind a book download to validate a reference would make every such card slower to read
+    if (q.n && chs && !chs.some((ch) => String(ch.n) === q.n)) return "";
+    const who = b.translator ? "translated by " + esc(b.translator) : esc(b.edition || "");
+    return '<figure class="card-quote">' +
+      '<blockquote>' + q.text + "</blockquote>" +
+      '<figcaption><cite>' + esc(b.title) + "</cite>" + (who ? '<span class="cq-who">' + who + "</span>" : "") +
+      (q.cite ? '<span class="cq-where">' + esc(q.cite) + "</span>" : "") +
+      '<button type="button" class="cq-go" data-cqbook="' + esc(b.id) + '"' +
+        (q.n ? ' data-cqn="' + esc(q.n) + '"' : "") + '>Read it in the Library</button>' +
+      "</figcaption></figure>";
+  }
   function cardLocator(c) {
     const l = c && c.locator;
     if (!l || typeof l !== "object" || !Array.isArray(l.at)) return null;
@@ -26916,13 +28087,60 @@
     if (!isFinite(lon) || !isFinite(lat) || Math.abs(lon) > 180 || Math.abs(lat) > 90) return null;
     return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0 };
   }
+  /* ---------- WHAT ELSE IS ON A LOCATOR'S MAP (Aug 2026, on request) ----------
+     "History cards with an atlas locator should also show the collection's other card locations as
+     smaller red dots, plus state capitals, million-plus cities, and rivers — names only if the river is
+     a card." Two halves, and they are paid for very differently.
+
+     · **THE SIBLING DOTS COST NOTHING AND SHIP UNCONDITIONALLY.** Every locator is already in `data.js`,
+       which every visitor downloads before flipping a card, so the other 54 places in Ancient Greece are
+       on the page before the map is drawn. This is the half the request is really about — a card's place
+       shown among the places its collection has been teaching.
+     · **THE CITIES AND RIVERS ARE IN THE `atlas` BUNDLE, AND ARE WARMED AT IDLE RATHER THAN AWAITED.**
+       Fetching them before the map paints would put ~600 KB behind every history card that carries a
+       locator, for texture; refusing to fetch them at all would make the map poorer for no reason once a
+       reader is sitting on the page. So the card draws at once with its own places, and the cities and
+       rivers arrive a moment later and redraw — which is `glossExtra`'s bargain exactly. **Skipped
+       entirely under `navigator.connection.saveData`**, like the home page's mini globe.
+
+     The collection is the ROOT of the tree the card hangs from, not its leaf deck: "the collection's
+     other card locations" is what was asked for, and a leaf would give three dots. */
+  function cardCollectionRoot(id) {
+    const leaf = cardLeaves(id)[0];
+    let n = leaf ? NODE_BY_ID[leaf.id] : null;
+    while (n && n.parentId) n = NODE_BY_ID[n.parentId];
+    return n || null;
+  }
+  /* Every other card in this card's collection that has a locator, plus the answer terms of the whole
+     collection — the second is what decides which rivers are named. Built once per collection and cached,
+     since `subtreeCardIds` walks the tree and a drag of the globe must not do that per frame; thrown away
+     whole by `uCacheBust`, which is what an admin edit goes through. */
+  function locatorSiblings(id) {
+    const root = cardCollectionRoot(id);
+    if (!root) return { dots: [], terms: new Set() };
+    if (!_locSibCache) _locSibCache = new Map();
+    const hit = _locSibCache.get(root.id);
+    if (hit) return { dots: hit.dots.filter((d) => d.id !== id), terms: hit.terms };
+    const dots = [], terms = new Set();
+    subtreeCardIds(root).forEach((cid) => {
+      const c = CARD_BY_ID[cid];
+      if (!c) return;
+      const t = String(c.answerText || "").trim();
+      if (t) terms.add(t.toLowerCase());
+      const l = cardLocator(c);
+      if (l) dots.push({ id: cid, n: l.name, c: l.at });
+    });
+    _locSibCache.set(root.id, { dots: dots, terms: terms });
+    return { dots: dots.filter((d) => d.id !== id), terms: terms };
+  }
   function cardLocatorHTML(c) {
     const l = cardLocator(c);
     if (!l) return "";
     const said = (l.name ? l.name + " marked on an interactive globe. " : "The place marked on an interactive globe. ") +
       "Drag to turn it, or use the zoom buttons; the arrow keys turn it and + and \u2212 zoom.";
     return '<div class="card-loc"><span class="label">Location</span>' +
-      '<div class="map-card map-loc" data-map-layer="world" data-map-named data-map-at="' + l.at[0] + "," + l.at[1] + '"' +
+      '<div class="map-card map-loc" data-map-layer="world" data-map-named data-map-card="' + esc(c.id || "") + '"' +
+      ' data-map-at="' + l.at[0] + "," + l.at[1] + '"' +
       (l.name ? ' data-map-atname="' + esc(l.name) + '"' : "") +
       (l.zoom ? ' data-map-zoom="' + l.zoom + '"' : "") + ">" +
       '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' +
@@ -26995,7 +28213,22 @@
          It must stay FIRST in the inner box — a float only wraps what follows it. */
       if (hasImg) html += '<div class="card-imgslot">' + cardImageHTML(c.image) + "</div>";
       else if (hasVid) html += '<div class="card-imgslot">' + cardVideoHTML(c.video) + "</div>";   // the same slot, never both
-      if (c.abstract) html += '<p class="abstract">' + c.abstract + "</p>";
+      /* THE QUOTATION GOES AT THE BLOCK BREAK, which is where sentence 5 ends (Aug 2026, on request).
+         The abstract is two blocks of five split by ` <br><br> ` — every one of the 666 shipped carries
+         exactly one, in three whitespace spellings — so the break is SPLIT ON rather than sentences
+         counted, and the two halves become two paragraphs with the passage between them. A card with no
+         quotation is byte-identical to what it was; and if an abstract ever arrives without the break,
+         the quotation follows the prose rather than being dropped, since losing it silently is the worse
+         of the two failures. */
+      if (c.abstract) {
+        const qh = cardQuoteHTML(c);
+        const parts = qh ? c.abstract.split(/\s*<br\s*\/?>\s*<br\s*\/?>\s*/) : null;
+        if (qh && parts && parts.length === 2) {
+          html += '<p class="abstract">' + parts[0] + "</p>" + qh + '<p class="abstract">' + parts[1] + "</p>";
+        } else {
+          html += '<p class="abstract">' + c.abstract + "</p>" + qh;
+        }
+      }
       html += "</div></div>";
     }
     /* Where the place is, at the foot of the card and OUTSIDE the Background fold: it is not prose, so it
@@ -27669,12 +28902,14 @@
      — so a thin cell degrades one rung at a time instead of refusing to deal. It cannot fail closed:
      `rest` is every remaining name in the pool, so the fourth rung always fills the round.
 
-     AND THE ROUND COUNT IS THREE, not the five it was (same request). The pool went from 64 quotations to
-     102 in the same batch, so this is not about running out of material: three tightly-matched rounds ask
-     more than five loose ones, and the game's tile still reads N/3 with its own gold seal at 3/3. It is
-     WY_ROUNDS' shape — a named constant read by the page and by nothing else — so the results screen, the
-     score and the tile all follow the one figure. */
-  const WS_ROUNDS = 3;
+     AND THE ROUND COUNT IS FIVE AGAIN (Aug 2026, on request), having been cut to three earlier in the
+     month on the argument that three tightly-matched rounds ask more than five loose ones. The matching
+     above is what made that argument, and it is unchanged — so the five rounds this deals are the tight
+     kind, which is the case for having them: at 102 quotations the pool was never the constraint, and a
+     daily game over in three questions is over before it has asked anything. It is a named constant read
+     by the page and by nothing else, so the results screen, the score and the tile all follow the one
+     figure. */
+  const WS_ROUNDS = 5;
   function buildWhoSaidRounds() {
     const RAW = window.QUOTEGAME || [];
     const POOL = RAW.map((x) => quoteLocalized(x));
@@ -29621,11 +30856,22 @@
       const head = sec.querySelector(".cp-sec-head");
       if (head) head.setAttribute("aria-expanded", hasContent ? "true" : "false");
     }
-    /* The phone lays the sections out side by side (see the ≤720px block in styles.css) because a bottom
-       sheet is short and scrolling four stacked sections buries the figures below the fold. The dots say
-       there is more than one page — a horizontal scroller with no marker reads as a panel that just happens
-       to be cut off — and double as the way to reach a page without swiping. */
-    const cpPagerOn = () => !!(cpColsEl && window.matchMedia && window.matchMedia("(max-width:720px)").matches);
+    /* The sheet lays the sections out side by side (see the `--cp-sheet` block in styles.css) because a
+       bottom sheet is short and scrolling four stacked sections buries the figures below the fold. The dots
+       say there is more than one page — a horizontal scroller with no marker reads as a panel that just
+       happens to be cut off — and double as the way to reach a page without swiping.
+
+       IT ASKS THE ELEMENT RATHER THAN RESTATING THE BREAKPOINT (Aug 2026, when tablets were moved onto the
+       sheet on request). This was `matchMedia("(max-width:720px)")` beside a `@media (max-width:720px)` in
+       the stylesheet: one decision written twice in two files, so widening it meant finding both, and
+       getting one of them meant a window laid out as a sheet by CSS while JS went on treating it as the
+       desktop panel — the pager unwired, the fold inert, the height unfitted. `--cp-sheet` is declared on
+       `.country-pop` in each branch and read back here, which is the same move `tourPlace` makes when it
+       asks its own overlay for its computed `align-items`. A custom property is used rather than a
+       geometric read-back because `getComputedStyle().top` on a positioned element hands back the USED
+       value, so `top:auto` cannot be told from `top:16px` that way. */
+    const cpSheetMode = () => !!(cpEl && getComputedStyle(cpEl).getPropertyValue("--cp-sheet").trim() === "1");
+    const cpPagerOn = () => !!(cpColsEl && cpSheetMode());
     const cpPanes = () => (cpColsEl ? Array.prototype.filter.call(cpColsEl.children, (s) => !s.hidden && !s.classList.contains("cp-blank")) : []);
     function cpSyncDots() {
       if (!cpDotsEl) return;
@@ -32857,6 +34103,10 @@
     const plays = Object.keys(gl).reduce((a, k) => a + ((gl[k] || {}).plays || 0), 0);
     const wins = Object.keys(gl).reduce((a, k) => a + ((gl[k] || {}).wins || 0), 0);
     const cotd = ((prog && prog.cotd) || []).length;
+    // the reader's own lifetime figure is back-filled on read (studyTotalMs); a friend's is whatever their
+    // blob carries, and 0 where it predates the field
+    const lifeMs = prog === S ? studyTotalMs() : ((prog && prog.studyTotal) | 0);
+    const readMs = readTimeAll(prog);
     /* `go` makes the whole card a link. Only the glossary meter takes one: the terms a reader has opened
        are a LIST they can be shown (see PAGES.glossary), where "countries opened on the Atlas" already has
        a place of its own — the globe — and a list of country names would be a worse version of it. */
@@ -32886,6 +34136,16 @@
           : "Open the Atlas once and the total appears here — the map data loads on demand.") +
       "</div>" +
       '<div class="ds-tiles ex-tiles">' +
+        /* TIME, TWO WAYS (Aug 2026, on request: "a small counter somewhere saying how much time a user has
+           spent studying cards overall"). It sits with the other all-time tiles rather than in the review
+           statistics above, because those are about the SCHEDULE — reviews, retention, the forecast — and
+           this is about the reader. The Library's figure joins it: the two clocks are the same clock (see
+           startTimeTicker), so showing one without the other would leave the reader guessing whether an
+           evening with a book had been counted somewhere.
+           The reading tile is drawn only once there is reading to report, exactly as the book's own clock
+           is: a reader who has never opened a book does not need a 0 to tell them so. */
+        tile(fmtStudyTime(lifeMs), "Time studied", "Every minute a card has been on your screen since this counter began — the minigames are not counted") +
+        (readMs ? tile(fmtStudyTime(readMs), "Time reading", "Every minute spent in a book in the Library") : "") +
         (geoLoaded ? tile(histPlaces, "Historical territories", "Territories from the Atlas's historical maps, and the UK's home nations — places you have opened that are not present-day countries") : "") +
         tile(tot.reviews, "Reviews, all time", "Every grade you have given, from the day-by-day log") +
         tile(tot.days, "Days studied", "Days with at least one review") +
@@ -32991,6 +34251,24 @@
     { id: "hour1", icon: "⏳", name: "An Hour's Work", desc: "Study for an hour in one day", test: (s) => s.studyMs >= 3600e3, prog: (s) => [Math.round(s.studyMs / 60000), 60] },
     { id: "hour3", icon: "🕰️", name: "Long Session", desc: "Study for three hours in one day", test: (s) => s.studyMs >= 3 * 3600e3, prog: (s) => [Math.round(s.studyMs / 60000), 180] },
     { id: "hour8", icon: "🌙", name: "All Day at the Desk", desc: "Study for eight hours in one day", test: (s) => s.studyMs >= 8 * 3600e3, prog: (s) => [Math.round(s.studyMs / 60000), 480] },
+    /* HOURS IN ALL, off the running total rather than the day-stamped record (Aug 2026, on request).
+       The three above are about one day and are unchanged; these are about the whole of it, and they are
+       a different question — a reader who studies twenty minutes every morning will never earn "an hour
+       in one day" and will pass a hundred hours in a year. The thresholds are hours, in the same 1 / 10 /
+       50 / 100 shape the other counting badges use.
+       The lifetime figure starts on the day this shipped (see studyTotalMs) — every day before it is
+       simply gone, and the alternative was to invent one. So an old reader's first of these arrives later
+       than it should have, once, and never wrongly. */
+    { id: "life1", icon: "📖", name: "An Hour In All", desc: "Study for an hour in total", test: (s) => s.studyTotalMs >= 3600e3, prog: (s) => [Math.round(s.studyTotalMs / 60000), 60] },
+    { id: "life10", icon: "📚", name: "Ten Hours In", desc: "Study for ten hours in total", test: (s) => s.studyTotalMs >= 10 * 3600e3, prog: (s) => [Math.round(s.studyTotalMs / 3600e3), 10] },
+    { id: "life50", icon: "🏛️", name: "Fifty Hours In", desc: "Study for fifty hours in total", test: (s) => s.studyTotalMs >= 50 * 3600e3, prog: (s) => [Math.round(s.studyTotalMs / 3600e3), 50] },
+    { id: "life100", icon: "🎓", name: "A Hundred Hours", desc: "Study for a hundred hours in total", test: (s) => s.studyTotalMs >= 100 * 3600e3, prog: (s) => [Math.round(s.studyTotalMs / 3600e3), 100] },
+    /* TIME IN THE LIBRARY, which the three "started a book" badges above deliberately do not measure —
+       `S.reading` records a PLACE, so it says a book was opened and nothing about whether it was read.
+       The clock does. One badge for a long sitting with a single book and two for the shelf as a whole. */
+    { id: "read1", icon: "🕮", name: "An Hour in a Book", desc: "Spend an hour reading one book", test: (s) => s.readBookMs >= 3600e3, prog: (s) => [Math.round(s.readBookMs / 60000), 60] },
+    { id: "read5", icon: "🪶", name: "Five Hours in One Book", desc: "Spend five hours reading one book", test: (s) => s.readBookMs >= 5 * 3600e3, prog: (s) => [Math.round(s.readBookMs / 3600e3), 5] },
+    { id: "read25", icon: "🗝️", name: "Twenty-five Hours in the Library", desc: "Spend twenty-five hours reading, across every book", test: (s) => s.readMs >= 25 * 3600e3, prog: (s) => [Math.round(s.readMs / 3600e3), 25] },
   ];
   function progStats(prog, friendsCount) {
     const cards = prog.cards || {};
@@ -33014,7 +34292,20 @@
       chestsOpened: (prog.chestsOpened | 0), artefacts: arts.length, legendaries,
       published: (prog.published | 0),
       books: (prog.reading && typeof prog.reading === "object") ? Object.keys(prog.reading).length : 0,
-      studyMs: (st && st.d === dayKey() ? (st.ms | 0) : 0) };
+      studyMs: (st && st.d === dayKey() ? (st.ms | 0) : 0),
+      /* THE LIFETIME FIGURES (Aug 2026, on request). `studyTotalMs` is a running total the day-stamped
+         record above cannot be summed into after the fact; `readMs` is the sum of the per-book clocks and
+         `readBookMs` the longest single book, so "an evening in one book" and "a hundred hours across the
+         Library" are two different badges rather than one figure asked twice. On a FRIEND's progress
+         these read their totals, and 0 where the field predates the release — which is honest and is what
+         the back-fill beside `studyTotalMs` says about it. */
+      studyTotalMs: (prog === S ? studyTotalMs() : (prog.studyTotal | 0)),
+      readMs: readTimeAll(prog),
+      readBookMs: (function () {
+        const R = prog.reading;
+        if (!R || typeof R !== "object") return 0;
+        return Object.keys(R).reduce((n, k) => Math.max(n, (R[k] && R[k].ms) | 0), 0);
+      })() };
   }
   // unlock any newly-earned achievements for the active (S) profile; toast each unless silent
   /* A BADGE EARNS A CHEST — one per badge, so unlocking three at once grants three (Aug 2026, on
@@ -33230,7 +34521,7 @@
         <span class="ex-go" aria-hidden="true">&rarr;</span>
       </button>` : ""}`;
     root.querySelectorAll("[data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
-    { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true); wireReliquary(rel); } }
+    { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true, { entry: true }); wireReliquary(rel); } }
     wireAcctSwitch(root);
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
     tabs.forEach((t) => t.addEventListener("click", () => {
@@ -33865,6 +35156,40 @@
 'of and say so afterwards.',
     },
   ];
+  /* ---------- where the Library's texts came from, counted off the shelf ----------
+     One row per archive `BOOKS` actually names, biggest first, with the licence the archive's own texts
+     are shelved under. It is derived rather than written down for the reason the credits comment gives:
+     a hand-written list of five books outlived the five and said nothing about the forty-three that
+     followed. `BOOKS` is EAGER metadata (see the Library bullet), so this costs no fetch.
+     An archive with no licence row still lists — the count and the link are the useful part, and a source
+     silently dropped for want of a table entry is exactly the omission this replaced. */
+  const BOOK_SOURCE_LIC = {
+    "Wikisource": ["https://en.wikisource.org", "public domain"],
+    "Perseus Digital Library": ["https://scaife.perseus.org/library/", "CC BY-SA 4.0"],
+    "Project Gutenberg": ["https://www.gutenberg.org", "public domain"],
+    "Internet Archive": ["https://archive.org", "public domain"],
+    "Global Grey": ["https://www.globalgreyebooks.com", "public domain"],
+  };
+  function bookSourceCredits() {
+    const by = new Map();
+    BOOKS.forEach((b) => {
+      const n = (b.sourceName || "").trim();
+      if (!n) return;
+      by.set(n, (by.get(n) || 0) + 1);
+    });
+    const rows = [...by.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    if (!rows.length) return "";
+    return rows.map(([name, n]) => {
+      const info = BOOK_SOURCE_LIC[name] || [];
+      const link = info[0]
+        ? '<a href="' + esc(info[0]) + '" target="_blank" rel="noopener">' + esc(name) + "</a>"
+        : esc(name);
+      const lic = info[1] ? ' <span class="cr-lic">' + esc(info[1]) + "</span>" : "";
+      return "<li>" + link + lic + " — " + n + (n === 1 ? " book" : " books") +
+        " in the Library. Each book's own page names its edition, its translator and the grounds its" +
+        " copyright has expired on.</li>";
+    }).join("\n            ");
+  }
   PAGES.mission = function (root, params) {
     const M = missionMerged();
     // The changelog dates follow the SITE language, not the browser's: en-GB for English (so a reader with a
@@ -33982,26 +35307,6 @@
             ${faq("Do I need an account?", "No. Your progress is saved on this device automatically. An account only matters if you want the same progress on several devices, or to add friends.")}
           </div>
         </div>
-        ${/* WRITING YOUR OWN CARDS WITH AN AI (Aug 2026, on request). It sits after the questions and
-              before the feedback form because it is a specialist thing a reader goes looking for, not
-              something a first visit needs — and because the two cards above it are what they came for. */""}
-        <div class="msn-card msn-ai" id="aiPrompts">
-          <div class="msn-head">${CHIP.ai}<h2>Writing your own cards with an AI</h2></div>
-          <p class="ai-intro">You can write your own decks in the <b>Studio</b>, and an AI chat is a quick way to fill one. The prompts below ask for cards in Folio&rsquo;s own shape, so what comes back looks like the rest of the site rather than something pasted in. Copy one, put your subject where it says to, and paste it into whichever AI you use.</p>
-          <ol class="msn-steps ai-steps">
-            ${step(1, "Copy a prompt", "Press <b>Copy</b> on whichever of the three below fits what you are doing, and replace the parts in [square brackets].")}
-            ${step(2, "Read what comes back", "An AI will state a wrong date as confidently as a right one. Check the facts before you keep them — a card you cannot vouch for is a card that teaches you something untrue.")}
-            ${step(3, "Bring it into Folio", "For the first prompt, save the reply as <b>something.folio-deck.json</b> and open <b>Collections &rarr; Your decks &rarr; Import a deck file</b>. For the other two, open your deck in the Studio and paste the parts into a new card.")}
-          </ol>
-          <div class="ai-prompts">
-            ${AI_PROMPTS.map((p) => `
-              <div class="ai-prompt">
-                <div class="ai-ph"><div class="ai-pt"><b>${esc(p.title)}</b><span>${esc(p.note)}</span></div><button class="btn tiny ai-copy" type="button" data-aicopy="${esc(p.id)}">Copy</button></div>
-                <pre class="ai-pre" id="ai-${esc(p.id)}">${esc(p.text)}</pre>
-              </div>`).join("")}
-          </div>
-          <p class="ai-foot">Folio&rsquo;s own cards are researched from published scholarship and cited; a deck you write is yours and is not held to that. If you share it, say where it came from — and never publish a deck you have not read through yourself.</p>
-        </div>
         <div class="msn-card msn-feedback">
           <div class="msn-head">${CHIP.feedback}<h2>Folio is in beta — tell us what you think</h2></div>
           <p class="fb-intro">Spotted a wrong date, hit something broken, or thought of something Folio ought to do? Write it here and it goes straight to the people who edit the site. You don't need an account, and every message is read.</p>
@@ -34023,6 +35328,27 @@
             <div class="fb-status" id="fbStatus" role="status"></div>
           </form>
         </div>
+        ${/* WRITING YOUR OWN CARDS WITH AN AI (Aug 2026, on request). It is a specialist thing a reader
+              goes looking for rather than something a first visit needs, so it sits below the three cards
+              that ARE what they came for — what Folio is, how to study it, and the questions. It moved
+              one place down in Aug 2026 when the beta card was asked for directly under the questions. */""}
+        <div class="msn-card msn-ai" id="aiPrompts">
+          <div class="msn-head">${CHIP.ai}<h2>Writing your own cards with an AI</h2></div>
+          <p class="ai-intro">You can write your own decks in the <b>Studio</b>, and an AI chat is a quick way to fill one. The prompts below ask for cards in Folio&rsquo;s own shape, so what comes back looks like the rest of the site rather than something pasted in. Copy one, put your subject where it says to, and paste it into whichever AI you use.</p>
+          <ol class="msn-steps ai-steps">
+            ${step(1, "Copy a prompt", "Press <b>Copy</b> on whichever of the three below fits what you are doing, and replace the parts in [square brackets].")}
+            ${step(2, "Read what comes back", "An AI will state a wrong date as confidently as a right one. Check the facts before you keep them — a card you cannot vouch for is a card that teaches you something untrue.")}
+            ${step(3, "Bring it into Folio", "For the first prompt, save the reply as <b>something.folio-deck.json</b> and open <b>Collections &rarr; Your decks &rarr; Import a deck file</b>. For the other two, open your deck in the Studio and paste the parts into a new card.")}
+          </ol>
+          <div class="ai-prompts">
+            ${AI_PROMPTS.map((p) => `
+              <div class="ai-prompt">
+                <div class="ai-ph"><div class="ai-pt"><b>${esc(p.title)}</b><span>${esc(p.note)}</span></div><button class="btn tiny ai-copy" type="button" data-aicopy="${esc(p.id)}">Copy</button></div>
+                <pre class="ai-pre" id="ai-${esc(p.id)}">${esc(p.text)}</pre>
+              </div>`).join("")}
+          </div>
+          <p class="ai-foot">Folio&rsquo;s own cards are researched from published scholarship and cited; a deck you write is yours and is not held to that. If you share it, say where it came from — and never publish a deck you have not read through yourself.</p>
+        </div>
         <div class="msn-card msn-clog">
           <div class="msn-head">${CHIP.clog}<h2>Changelog</h2></div>
           <div class="clog">${logHTML}</div>
@@ -34034,20 +35360,31 @@
             <li><a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> <span class="cr-lic">CC0</span> — country statistics (population, area, GDP).</li>
             <li><a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> <span class="cr-lic">public domain</span> — coastlines, borders, lakes, rivers and cities on the globe.</li>
             <li><a href="https://github.com/aourednik/historical-basemaps" target="_blank" rel="noopener">historical-basemaps</a> <span class="cr-lic">CC BY-SA 4.0</span> — the historical border eras on the Atlas timeline.</li>
-            <li><a href="https://en.wikisource.org" target="_blank" rel="noopener">Wikisource</a> <span class="cr-lic">public domain</span> — the Library's texts: Gummere's Seneca, Haines's Marcus Aurelius, Giles's Sun Tzu, Jowett's Plato and Ross's Aristotle, with Seneca's Latin and Sun Tzu's Chinese.</li>
-            <li><a href="https://scaife.perseus.org/library/" target="_blank" rel="noopener">Perseus Digital Library</a> <span class="cr-lic">CC BY-SA 4.0</span> — the Greek of the <i>Meditations</i> (Jan Hendrik Leopold's edition of 1908), of the <i>Symposium</i> (John Burnet) and of the <i>Nicomachean Ethics</i> (Ingram Bywater); and both halves of the <i>Metamorphoses</i> (Brookes More's translation of 1922, with Hugo Magnus's Latin), <i>The Twelve Caesars</i> (Alexander Thomson's translation, with Maximilian Ihm's Latin of 1908), <i>On the Nature of Things</i> (William Ellery Leonard's verse of 1916), <i>Oedipus Rex</i> (Richard Jebb's translation of 1887) and <i>Antigone</i> (Jebb's of 1891), both with Francis Storr's Greek of 1912 and both Englished from Jebb by way of Perseus's 1988 modernization to remove archaisms — Alex Sens on the <i>Oedipus Rex</i> and Pierre Habel on the <i>Antigone</i>, each reviewed by John Gibert; and <i>The Histories</i> (A. D. Godley's translation of 1920–1925 with his facing Greek — the English likewise modernized, a revision by Steven Ott reviewed by John Marincola).</li>
+            ${/* THE LIBRARY'S SOURCES ARE COUNTED OFF THE SHELF, NOT LISTED BY HAND (Aug 2026, on request
+                  to audit this list). Two <li>s used to name five books and their translators — written
+                  when the Library held five — and by the time they were checked the shelf held forty-eight
+                  from five different sources, of which Project Gutenberg, the Internet Archive and Global
+                  Grey were credited nowhere at all. A list of titles in prose is a list that goes stale
+                  the next time a book is imported, and this one had.
+                  So the sources are derived from `BOOKS`, which is the registry the shelf itself is drawn
+                  from: the count cannot drift and a new source appears here the moment its first book
+                  does. The per-EDITION attribution — the translator, the editor, the reviser, the year and
+                  the ground the copyright has expired on — is printed by each book's own page, which is
+                  where a reader meets the text and where CC BY-SA attribution belongs; this says which
+                  archives the texts came from and under what licence. A source with no row in
+                  BOOK_SOURCE_LIC still lists, uncredited for licence rather than omitted. */""}
+            ${bookSourceCredits()}
             ${/* THE SCHEDULERS ARE CREDITED HERE AND NOWHERE ELSE (Aug 2026, on request). The deck and
                   Scheduling sheets used to name Anki in passing — "the classic Anki schedule", "Anki's
                   default" — which tells a reader choosing how their own deck is scheduled something about
                   another program rather than about their deck. The debt is real, so it is stated once,
                   properly, on the page that states Folio's debts. FSRS is separately credited because the
                   optimiser's arithmetic is held to its reference implementation. */""}
-            <li><a href="https://apps.ankiweb.net" target="_blank" rel="noopener">Anki</a> <span class="cr-lic">AGPL-3.0</span> — Folio's study schedule follows Anki's: the SM-2 intervals, the learning steps, the daily limits, the four grades and the way sibling cards are buried are all modelled on it. Folio shares no code with Anki and is not connected with the project.</li>
+            <li><a href="https://apps.ankiweb.net" target="_blank" rel="noopener">Anki</a> — Folio's study schedule follows Anki's: the SM-2 intervals, the learning steps, the daily limits, the four grades and the way sibling cards are buried are all modelled on it. Folio shares no code with Anki and is not connected with the project.</li>
             <li><a href="https://github.com/open-spaced-repetition/py-fsrs" target="_blank" rel="noopener">FSRS</a> <span class="cr-lic">MIT</span> — the second scheduler and its optimiser, implemented from the open-spaced-repetition reference and checked against it.</li>
             <li><a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Terrain Tiles on AWS</a> — terrain relief, from open elevation data by NASA (SRTM), USGS (GMTED2010), NOAA (ETOPO1) and the EU (EU-DEM), among others.</li>
             <li><a href="https://github.com/rhasspy/piper" target="_blank" rel="noopener">Piper</a> <span class="cr-lic">MIT</span> — the card narration voices, trained on <a href="https://www.openslr.org/141/" target="_blank" rel="noopener">LibriTTS-R</a> <span class="cr-lic">CC BY 4.0</span> and <a href="https://datashare.ed.ac.uk/handle/10283/3443" target="_blank" rel="noopener">VCTK</a> <span class="cr-lic">CC BY 4.0</span>.</li>
             <li><a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a> <span class="cr-lic">OFL / Apache</span> — Fraunces, Newsreader, Inter, IBM Plex Mono, Noto Sans SC and the theme faces.</li>
-            <li>Accounts &amp; sync run on <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a>; hosting by <a href="https://pages.cloudflare.com" target="_blank" rel="noopener">Cloudflare Pages</a>.</li>
             <li class="cr-note">Folio itself is built by hand in plain HTML, CSS and JavaScript — no frameworks, no build step.</li>
           </ul>
         </div>
@@ -35082,7 +36419,7 @@
   function adminSetListCount(n, noun) { const el = document.getElementById("adminListCount"); if (el) el.textContent = n + " " + noun + (n === 1 ? "" : "s"); }
   // serialize the live (delta-applied) in-memory data back into data.js / glossary.js source text
   function serializeCardData() {
-    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
+    const cards = CARDS.map((c) => { const o = { id: c.id }; CARD_FIELDS.forEach((f) => { o[f] = c[f] == null ? "" : c[f]; }); if (Array.isArray(c.questions) && c.questions.length) o.questions = c.questions; if (Array.isArray(c.tags) && c.tags.length) o.tags = c.tags; if (Array.isArray(c.sources) && c.sources.length) o.sources = c.sources; if (cardDifficulty(c)) o.difficulty = cardDifficulty(c); if (cardUndatable(c)) o.undatable = true; if (typeof c.sourcesBlocked === "string" && c.sourcesBlocked.trim()) o.sourcesBlocked = c.sourcesBlocked; if (cardMapSpec(c)) o.map = c.map; if (cardFacts(c).length) o.facts = c.facts; if (answerFlag(c)) o.answerFlag = c.answerFlag; if (cardLocator(c)) o.locator = c.locator; if (cardQuote(c)) o.quote = c.quote; if (c.i18n) o.i18n = c.i18n; if (c.image && c.image.src) o.image = c.image; else if (c.video && c.video.src) o.video = c.video; return o; });   // extra question phrasings, categorising tags, source footnotes + i18n translations ride along untouched; the card's ONE frame is its image or its video
     const countIds = (node) => { const s = new Set(); (function w(n) { (n.cardIds || []).forEach((i) => s.add(i)); (n.children || []).forEach(w); })(node); return s.size; };
     function ser(node, isTop) {
       const o = { id: node.id, title: node.title };
@@ -37999,7 +39336,7 @@
   /* `community` is deliberately NOT here any more (Aug 2026): the shared-deck list is a section of the
      Collections page, so that address is retired — and a retired address is REDIRECTED rather than dropped,
      since links to it have been shared. Both readers of the hash map it to `decks` below. */
-  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book"];
+  const valid = ["home", "decks", "study", "map", "account", "settings", "challenge", "chrono", "truefalse", "whosaid", "findit", "thread", "crossword", "picture", "whatyear", "admin", "warofages", "mission", "studio", "deck", "glossary", "browse", "library", "book", "reliquary"];
   const h = (location.hash || "").replace("#", "");
   const hParts = h.split("/");
   let initName = hParts[0] === "community" ? "decks" : valid.includes(hParts[0]) ? hParts[0] : "home";
@@ -38016,7 +39353,12 @@
   let initParams = {};
   if (initName === "deck") { try { initParams.slug = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.slug = hParts[1] || ""; } }   // a mangled %-escape must not kill boot
   // #book/<id> — a book is a shareable address, the same shape as #deck/<slug> and #map/<year>/<slug>
-  if (initName === "book") { try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; } }
+  if (initName === "book") {
+    try { initParams.id = decodeURIComponent(hParts[1] || ""); } catch (e) { initParams.id = hParts[1] || ""; }
+    // …and the optional section it was opened at. Left ABSENT rather than defaulted, so a plain #book/<id>
+    // still resumes where the reader left off and only an explicit fragment overrides that.
+    if (hParts.length > 2 && hParts[2] !== "") { try { initParams.n = decodeURIComponent(hParts[2]); } catch (e) { initParams.n = hParts[2]; } }
+  }
   /* A reload on #study picks the session back up where it was — same card, same phrasing, and revealed if
      it was revealed. The scope lives in the record rather than the hash because a queue is not an address:
      what a reader wants back is the session they were in, not a fresh one built from the same deck. With no
@@ -38120,6 +39462,17 @@
     }
     openImageViewer({ src: fig.dataset.imgSrc, title: fig.dataset.imgTitle, desc: fig.dataset.imgDesc, credit: fig.dataset.imgCredit });
   });
+  /* A CARD'S QUOTATION OPENS ITS BOOK AT THAT PASSAGE. One delegated listener, like the card image's
+     beside it, so the button needs no wiring per render and works wherever a card back is drawn — the
+     study page, the card of the day, the browser's Card info and the editor's live preview alike. */
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest && e.target.closest(".cq-go");
+    if (!b || !b.dataset.cqbook) return;
+    e.preventDefault();
+    const p2 = { id: b.dataset.cqbook };
+    if (b.dataset.cqn) p2.n = b.dataset.cqn;
+    route("book", p2);
+  });
   // badges: one delegated listener flips a badge over to its "how to earn it" back, and back again on a
   // second click (covers both the profile and a friend's badge grid, which render the same markup)
   document.addEventListener("click", (e) => {
@@ -38173,10 +39526,16 @@
       if (!(current.name === "deck" && current.params.slug === slug)) route("deck", { slug: slug });
       return;
     }
-    if (parts[0] === "book") {   // #book/<id> pasted or followed mid-session
-      let bid = "";
+    if (parts[0] === "book") {   // #book/<id>[/<n>] pasted or followed mid-session
+      let bid = "", bn = "";
       try { bid = decodeURIComponent(parts[1] || ""); } catch (e) { bid = parts[1] || ""; }
-      if (!(current.name === "book" && current.params.id === bid)) route("book", { id: bid });
+      if (parts.length > 2 && parts[2] !== "") { try { bn = decodeURIComponent(parts[2]); } catch (e) { bn = parts[2]; } }
+      /* The SECTION is part of the address, so following the same book at a different section has to
+         re-render — otherwise a reader who pressed one quotation's button and then another's would be
+         carried to the first passage twice. */
+      const same = current.name === "book" && current.params.id === bid &&
+        String(current.params.n == null ? "" : current.params.n) === bn;
+      if (!same) route("book", bn ? { id: bid, n: bn } : { id: bid });
       return;
     }
     if (hh === "study" && current.name !== "study") {   // back/forward onto a study address — resume, or go home if the session is gone

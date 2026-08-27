@@ -860,6 +860,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **`--file=<path>` audits a LOCAL overlay JSON instead of the live row**, which is how a REPLACEMENT is checked
   before it is pasted into production rather than by pasting it and looking at the site — the file is the bare
   `data` value, not the PostgREST row wrapper. Not part of the site.
+- **📖 `docs/refinements-2026-08-27.md` — READ BEFORE PICKING UP ANY OF THE THIRTY-FIVE ITEMS FROM THAT
+  REQUEST, and before touching a language deck's pinyin, examples or glosses.** What shipped, and the four
+  faults one reported card each turned out to be at scale: **110 wrong Mandarin readings** from one
+  reported "fàng uǎn" (`.claude/decks/check-pinyin.js` cross-checks pinyin against the same card's
+  bopomofo, which is the one field that pins a syllable boundary); **1,953 cards showing the same example
+  twice**; **five glosses that were the wrong sense**, each contradicted by the card's own examples
+  (`.claude/decks/check-senses.js` measures that and ranks it); and a **glossary auto-link pointing at the
+  wrong continent's period** (`.claude/check-gloss-links.js`). It also holds the four answers to the items
+  that asked for a suggestion rather than a change, and a costed plan for the nine features not built —
+  read the plan's entry before starting one, since three of them turn on a decision that is not obvious
+  (what Save means in the deck editor, which bundle a card locator may fetch, and why merging language
+  notes cannot be done to a shipped deck).
 - `docs/card-glossary-pairing.md` — the rule that **a new card ships with a glossary entry for its own answer term**,
   and the backfill plan for the 77 of 119 shipped cards that have none. Its P9/P10 (the ten Ancient Greece terms) come
   first. Not part of the site.
@@ -1071,6 +1083,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   file, and the inverse. Both read `UDECK_MAX_CARDS` / `UDECK_MAX_BYTES` out of app.js rather than
   restating them; **a legitimate deck that will not fit is what MOVES those caps**, which has happened
   four times. Their outputs are gitignored.
+- `.claude/decks/check-pinyin.js` — **the Mandarin decks' pinyin, cross-checked against their own
+  BOPOMOFO**, which is the one field that pins a syllable boundary (zhuyin writes the initial as a symbol
+  of its own, so a `g` cannot migrate). It found 29 words where a consonant had crossed the boundary —
+  饭馆 as "fàng uǎn" — plus five whose notations count different syllables, two with a bare `r`, and 68
+  set as one word where the other 11,000 separate them. **Exit 1 on a finding.** The Mandarin inputs
+  (`w26-*.json`) are NOT in the repo, so those decks cannot be regenerated and this is what keeps them
+  honest. **A repair moves the SPACES, never the letters** — re-split the ORIGINAL characters at the
+  zhuyin's boundaries, or a tone-sandhi spelling (`bú kè qi`) is silently normalised away.
+- `.claude/decks/check-senses.js` — **a gloss against the card's own example sentences**, plus (exactly)
+  a card showing the same example twice. The gloss and the examples come from different corpora by
+  different stages, so where a pipeline picked the wrong SENSE the examples say so: `estou` glossed
+  "hello (answering the telephone)" over three sentences reading "I am". **Report-only and a proxy** —
+  23% of the corpus trips it, because a correct gloss is often a synonym of what the sentence says — so
+  it is a ranked review list, never a gate.
 - **📖 `docs/lang-decks.md` — READ BEFORE TOUCHING ANY DECK OR GENERATOR.** Every pipeline's findings:
   which exam boards publish a word list and which do not, the CJK and PDF extraction traps, the
   variety filters, the clitic and conjugation rules, the sense-ranking faults, and the catalogue's
@@ -1106,7 +1132,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 ## How the app is wired
 
 - **Routing:** `location.hash` → the `PAGES` map (home, decks/library, study, map/atlas, account,
-  settings, challenge, chrono, admin). `render()` clears `#view` and calls the current page fn.
+  settings, challenge, chrono, admin — and a dozen more; **read the `valid` list rather than this
+  parenthesis**, which has been illustrative rather than complete since the games and the reader's own
+  record pages arrived). `render()` clears `#view` and calls the current page fn.
   It also calls **`setPageMeta(current.name)`**, which sets `document.title` and the
   description / `og:` / `twitter:` meta from the **`PAGE_META`** table (route → `[title, description]`,
   run through `t()` so it localises where a translation exists, English otherwise). Add a route → add its
@@ -1218,6 +1246,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     is a raster canvas that cannot be saved; the canvas is **the size of the SCREEN, not the
     chapter**, and a point is a **fraction of the chapter panel**. **Highlights are CHARACTER
     RANGES** in the chapter's own prose, so they stay on their sentence at any width.
+  · **A CARD CAN QUOTE THE BOOK IT CITES** (`card.quote` = `{ book, n, text, cite }`, `cardQuote` /
+    `cardQuoteHTML` / `.card-quote` / `.cq-go`; `#book/<id>/<n>`. Aug 2026, on request). Five things.
+    **THE PASSAGE IS AUTHORED, NEVER EXTRACTED** — a card cites a whole letter or chapter and choosing the
+    sentences that bear on its subject is the editorial act the citation apparatus exists for; a machine
+    picking them would be quoting at random and attributing it to a translator. **`n` IS THE BOOK'S OWN
+    SECTION NUMBER**, the unit `S.reading[id].ch` already records and the one the two columns pair on, so
+    nothing new had to be addressed — compared as a STRING, since a section number need not be an integer.
+    **IT SITS AT THE BLOCK BREAK**, which is already where sentence 5 ends: every abstract is two blocks
+    of five split by ` <br><br> ` (all 666 carry exactly one), so `buildBack` SPLITS on that rather than
+    counting sentences, and an abstract without one puts the quotation after the prose rather than
+    dropping it. **THE SECTION FRAGMENT IS WRITTEN ONLY WHEN ASKED FOR**, so every `#book/<id>` link ever
+    shared still resolves to exactly what it did; an ADDRESSED section opens at the TOP even when it is
+    the chapter the reader left, which is the deliberate-move rule above. **AND `add-card.js` CHECKS THE
+    REFERENCE AGAINST THE ACTUAL SHELF** — the book against app.js's own `BOOKS` registry and the section
+    against the generated `books/<id>.js` — because the renderer's own guard renders NOTHING, and a silent
+    blank is exactly what an author cannot see. Guarded by `.claude/test-card-quote.js`.
   · **📖 `docs/library-feature.md` — READ BEFORE TOUCHING THE LIBRARY.** The shelf, the sort and
     search, the favourites, the chapter bar and its slide, the front matter, the bilingual reading and
     its gestures, the ink and highlights, and the per-book licence reasoning in full.
@@ -1529,6 +1573,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   see `docs/daily-study.md`.) The dot and the ancestor rows' hollow `.dk-branch` went together — the branch existed only to line the two up,
   and alone it would have pushed every parent title 21px right of the deck beneath it; the `data-depth` indent carries
   the hierarchy. The bar's label also replaced the `.dk-count` "N cards" chip, which stated the same total twice.
+  **THE BAR UNDERLINES THE ROW AT EVERY WIDTH** (Aug 2026, on request), where it was a bottom edge on a
+  phone and an inline track between the name and the figure above 640px — two rules answering one
+  question. The phone's answer is the better one and its reason holds everywhere: an underline costs the
+  line no width, where an inline track's length is paid for out of the deck's NAME, the one part of the
+  row with no shorter form. The media query is gone and the base rule is the phone's; the row is still
+  `position:relative; overflow:hidden`, which is what clips the track to the last row's rounded corners.
+  **AND THE FOLD SURVIVES A RELOAD** (`adFoldMap` / `adFoldSet`, `localStorage["folio_ad_open_v1"]`, same
+  request): only an EXPLICIT choice is stored, so a row nobody has touched still takes its seeded default,
+  exactly as a card type's disclosure works.
+  **A FINISHED COLLECTION GOES GOLD** — `deckProgMarkup` and `adProg` both write `prog-done` on the BAR
+  when studied ≥ total > 0, and the stylesheet takes the NAME from there with `:has()`, so the two halves
+  cannot come apart and every surface drawing one of those bars is covered without a rule apiece.
   **The row is ONE horizontal line** (Aug 2026, on request): piles · name · figure · bin, all centred on the same
   level, with the row's vertical padding down to 10px. It was two lines — the title on top and the bar indented
   under it — which left a band of empty card either side of a short deck name. Two things had to give for five
@@ -1616,6 +1672,22 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `S.published` / `S.publishedIds` / `S.theme` are in `defaultState` AND `PROGRESS_FIELDS`; **`themes`
     and `theme` are additionally in `RESET_KEEPS`** — the artefacts and chests still go, being what a LEVEL
     bought. Guarded by `.claude/test-artefacts.js`.
+  · **IT HAS A PAGE OF ITS OWN** (`PAGES.reliquary` at `#reliquary`, `RELIQ_SORTS`, `artefactYear`,
+    `_reliqRepaint`; Aug 2026, on request). Your OWN collection is a page — an address, a back button and
+    a sort a reader can leave set; a FRIEND'S is still `openCollectionWin`, because a route carries a name
+    and nothing else and there is nowhere for somebody else's progress to ride. Four things.
+    **The sort is the Library shelf's pair, not a second control**: `sortPickerHTML` chooses the field and
+    `sortDirHTML` the direction, which is what spends "and reverses" on one button rather than doubling the
+    list; the choice is a MODULE-LEVEL variable, like the glossary record's, since it is a way of looking at
+    a list and not a preference about Folio. **"Unlocked date" needed no new field** — `S.artefacts[id]` has
+    always been `Date.now()` rather than `true`. **"Artefact dating" needed a parser and it is NOT
+    `cardYears`**: 42 of the 100 are dated by century, which that function deliberately cannot read (see
+    the date-line note under "Add a card" — teaching it to would move the sort year of 52 shipped CARDS),
+    so `artefactYear` reads the century and millennium forms itself, including the range whose unit carries
+    rightwards (`1st – 3rd century CE`, where the simple pattern reads the SECOND ordinal and dates the
+    object two centuries late), and falls through to `cardStartYear` for the rest. **And the signed-out
+    account page's inline grid became an entry to it** (`reliquaryHTML(…, { entry: true })`), which is the
+    same duplication the signed-in page had removed on request a fortnight earlier.
   **📖 `docs/reliquary.md` — READ BEFORE CHANGING ANY OF IT.** The reveal's per-rarity timings and sounds,
   the shallow lid, the plate's wash and its media frame, the glossary links inside a plate and the z-index
   drop plus `escTakenAbovePlate` they forced, the showcase's empty-slot control and "See Reliquary", why a
@@ -1677,6 +1749,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **ADDING A COLLECTION ADDS EVERY DECK INSIDE IT**, removing takes the node, its subtree AND its
     ancestors, and `refreshAddButtons` re-reads every `+` on the page rather than the one pressed. **There is
     no deck cap** — the Folio level used to be one, and it was the only thing a level decided.
+  · **THE HANDLES, THE CROSSES AND THE RENAMES LIVE IN AN EDITOR MODE** (`deckEditOn` /
+    `deckEditCheckpoint` / `deckEditBarHTML` / `setEntryTitle` / `.rv-editing`; Aug 2026, on request). The
+    grips used to sit at `.32` on every row at rest, which is six handles competing with six deck names;
+    they are `visibility:hidden` until an **Edit** button at the foot of the list is pressed — hidden that
+    way rather than with `display:none`, so the column the row's padding reserves for them does not
+    collapse and re-open, and `visibility` rather than `opacity` alone because an invisible control that
+    still swallows the press meant for the row underneath is the worse failure of the two. Six things.
+    **IT IS LIVE, WITH AN UNDO STACK**, chosen by the reader when asked: every edit lands at once, exactly
+    as before the mode existed, and the stack is what makes that safe — a STAGED editor would mean
+    rendering the list from a working copy rather than from state, which is a rewrite of the list rather
+    than a mode over it. **THE SNAPSHOT IS OF FIVE FIELDS** (`DECK_EDIT_FIELDS`), taken BEFORE each edit,
+    `adminCheckpoint`'s shape and for its reason: a removal is lossy — a deck takes its subdeck rows, its
+    nesting and its place in the order with it — and none of that can be derived back out.
+    **THE THREE BUTTONS ARE Undo / Revert / Done, NOT save/exit/undo as asked**: in a live editor "save"
+    and "exit" are the same button pressed twice, so Revert is the one that puts everything back and Done
+    is the one that just closes. **A RENAME WORKS ON EVERY ROW** — `groupTitle` has always read
+    `S.deckGroups[id].title` and fallen through to the node's own title, so one override field already
+    served the whole list, and it rides in the record the colour and icon are in, so it syncs and survives
+    a reset with no schema of its own; `data-shipname` on every row is what lets `setEntryTitle` tell a
+    real rename from the reader typing the existing name back, which CLEARS the override rather than
+    storing a copy of it. **`.rv-foot` IS DRAWN WHENEVER THERE ARE DECKS** — it used to wait for the day's
+    timer to have something to say, which would have hidden the Edit button every morning — **and it
+    survives the list emptying while the mode is open**, the one state that would otherwise strand a
+    reader with no Revert to get the last deck back. **AND IT IS A MODE, NOT A SETTING**: module-level, so
+    it survives a repaint and resets on reload.
   · **Guarded by `test-review-decks.js`** (sections 1–5, 8–11, 17–20) **and `test-layout.js`.**
   **📖 `docs/daily-study.md` — READ BEFORE TOUCHING THE REVIEW OR A DECK'S OPTIONS.** Why each rule above
   exists, what every sheet row is for, the sheet's arming window and its ×, the group machinery in full, and
@@ -1962,6 +2059,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     UNDISCOVERED term is the marked one** (`data-new`, `--newterm` teal); a read term renders exactly as
     glossary links always have. First opening also shows a gold chip with a ring splash and a chime,
     suppressed inside the Find-it game. Four achievements ride on the same counts.
+  · **TIME STUDIED AND TIME READING ARE KEPT FOR EVER, NOT JUST FOR TODAY** (`S.studyTotal` /
+    `studyTotalMs` / `readTimeAdd` / `readTimeToday` / `readTimeTotal` / `startTimeTicker`; Aug 2026, on
+    request). The study page has counted the day's time on cards since it shipped; this is the same ticker
+    factored out and pointed at two more places — a lifetime total beside the daily one, and the LIBRARY,
+    where `S.reading[bookId].secs` rides on the record that already held the reader's place and already
+    synced. Both are tiles in "Beyond the cards" and both carry badges (1/10/50/100 hours studied,
+    1/5/25 hours in one book), tested at the moment they are earned like the collector's. Two faults worth
+    remembering: **`setReadingPos` REPLACED the reading record rather than merging into it**, so the new
+    clock would have been wiped on every scroll; and the lifetime back-fill, written at boot, called
+    `todayStr()` — a `const` arrow declared a thousand lines further down — and threw on the temporal dead
+    zone, which is why it is a LAZY accessor. **A back-fill that needs something the module has not
+    finished defining belongs in an accessor, not at boot.**
   **📖 `docs/study-records.md` — READ BEFORE CHANGING ANY OF IT.** The flag palette's contrast reasoning
   and the browser's column and breakpoint decisions, the row-shape arithmetic and the sheet's flex rules,
   the heatmap's `.hm-pre` blanks and its month-label collision rule, and the discovery chip's box-shadow
@@ -2200,6 +2309,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `TINT_SEL` /
   `serializeCardData` / `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map
   card.**
+  · **A LOCATOR SHOWS THE REST OF ITS COLLECTION, AND THE WORLD AROUND IT** (`cardCollectionRoot` /
+    `locatorSiblings` / `_locSibCache`; Aug 2026, on request). Four layers under the card's own gold dot:
+    the collection's other card places as smaller RED dots, the Atlas's capitals and million-plus cities
+    as grey ones, and its rivers. **The two halves are paid for differently and that is the whole design.**
+    The siblings are FREE — every locator is in `data.js`, which every visitor downloads before flipping a
+    card — so they ship unconditionally; the cities and rivers are the `atlas` bundle (~600 KB), so they
+    are **warmed at IDLE and never awaited**, which is `glossExtra`'s bargain, and skipped outright under
+    `saveData`, which is `startMiniGlobe`'s. A card with a locator therefore paints at once with its own
+    places and fills in a moment later. **THE CITIES THIN WITH ZOOM, and that was found by LOOKING**: all
+    2,665 drawn at once cover Europe and North Africa in a grey rash at the opening 50° view and bury the
+    red marks that are the point — so the 216 capitals show always, the 392 million-plus cities once the
+    frame is a region, and the 2,057 division capitals only at a country or less. **A river is NAMED only
+    where it is itself a card in the collection**, which is what was asked for and the only thing that
+    keeps the map readable — though **no shipped card's answer is a named river yet**, and Natural Earth's
+    set has no Tiber, Rubicon, Eurotas or Alpheus, so that rule waits for a Nile or Euphrates card.
+    `_locSibCache` is declared beside `uCacheBust` rather than beside its own function, for the temporal
+    dead zone's reason. Guarded by `.claude/test-card-locator.js`.
   **📖 `docs/map-cards.md` — READ BEFORE CHANGING ANY OF IT.** Why the globe is drawn here rather than by
   reusing the Atlas, the fit's near-rings rule and the Alaska and District of Columbia exceptions, the three
   attempts it took to prove the fill is a tint, `h2r` learning `rgb()`, where the facts box sits and why,
@@ -2546,6 +2672,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE TILE EARNS ITS COLOUR**: a whisper of its hue unplayed, filled with a green check once played, a
     shining gold ribbon on a perfect run. All nine `won` on one day is the **Clean Sweep** badge and a
     chest, and the badge gets harder each time the grid grows, deliberately.
+  · **AND IT TURNS OVER TO ITS RECORD** (`gameBackHTML` / `flipGameTile` / `gameStatsPost` /
+    `gameStatsLoad` / `.gt-face` / `.gt-back`; Aug 2026, on request). A HOLD flips it — `wireHoldMenu`'s
+    own gesture, the deck rows' and the review banner's, so a tap still opens the game and the guard that
+    swallows the click after a hold is the same one. Four things.
+    **THE SITE-WIDE HALF IS A POOLED COUNTER TABLE** (`game_stats` + `bump_game_score`, section 15 of
+    `.claude/supabase-schema.sql` — **the user must run it once**), for the reason the community card
+    rating is: `progress` is RLS-scoped to its owner and their friends, so there is no averaging across
+    readers from the tables the site already had. **A project without the block says so in a sentence**
+    rather than showing a zero, which reads as "nobody played" — and a fetch that merely FAILED says
+    something different again, since claiming a site does not collect a figure because a connection dropped
+    is a claim made out of a dropped connection. **THE DAY IS THE SERVER'S UTC DAY**, not the reader's, and
+    the tile says "today" without claiming it is theirs. **THE FLIP IS 2D AND THAT IS FORCED**:
+    `.game-tile` carries `overflow:hidden`, which flattens `transform-style` to `flat`, so a 3D rotation
+    would show the back mirrored — two `scaleX` squashes about opposite origins read as one card turning.
+    **AND THE TWO HALVES SWAP `aria-hidden`**, or a flipped tile reads out its front and never its record.
   · **A DAILY POOL IS SEEDED AND ITS ANSWER MUST BE REACHABLE** — the crossword's letters must fit its own
     squares, What year?'s answer must sit on a tick of its own rail, and Common Thread's four groups must be
     provably disjoint. Each generator retries rather than giving up, and a starved pool is the failure mode
@@ -2905,6 +3046,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   half folded. **A helper that starts an animation must hand it back**, or every caller that can be
   re-entered is one press away from that. An empty array is still an array, so a caller can cancel
   unconditionally.
+- **THE ATLAS PLACE PANEL'S BREAKPOINT IS DECLARED ONCE, IN CSS** (`--cp-sheet` on `.country-pop`, read
+  back by `cpSheetMode()`; Aug 2026, on request that tablets get the phone's sheet). It was a
+  `matchMedia("(max-width:720px)")` in app.js beside a `@media (max-width:720px)` in the stylesheet — one
+  decision in two files, so widening it meant finding both, and getting one meant a window laid out as a
+  sheet by CSS while JS went on treating it as the desktop panel (pager unwired, fold inert, height
+  unfitted). **It is 1024px now** — the iPad's landscape width, so both orientations land on the sheet.
+  A custom property rather than a geometric read-back: `getComputedStyle().top` on a positioned element
+  hands back the USED value, so `top:auto` cannot be told from `top:16px` that way. **The panel also never
+  scrolls sideways and draws no scrollbar** — `overflow-x:clip` (never the shorthand, never `hidden`)
+  beside `min-width:0` on the grid items and `overflow-wrap:anywhere`, since a citation's visible text IS
+  a URL and contains no break opportunity.
 - **Atlas:** an orthographic **Canvas-2D** globe, full-bleed between the nav and a fixed bottom timeline
   (1000 BCE → present). Drag to rotate, wheel/pinch to zoom, plus on-screen `+`/`−` (`#gzIn`/`#gzOut`) and
   the keyboard, all through `zoomStep()`; `ZMIN 0.82 … ZMAX 10`, and zooming scales the disk radius
@@ -3706,6 +3858,15 @@ subject areas (`mythology`, `religion`, `philosophy`, `history`, `geography`, `a
 `china` tag**, China being the default context). Tags are also editable per-term on the admin glossary
 page.
 
+**A KEY WITH A DISAMBIGUATING PARENTHETICAL DOES NOT CLAIM ITS BARE NAME** (Aug 2026, on a bug report
+that a Paleo-Indians card's "Archaic period" opened the gloss for the GREEK one). `glossKeyTitle` strips a
+trailing `_(…)`, and a Wikipedia slug carries one for exactly one reason — the bare name is ambiguous — so
+registering the stripped form as an auto-link surface is the one thing that must not follow from it. A term
+that WANTS the bare name says so with an ALIAS, which is how all five parenthetical keys predating the rule
+were already written (`Georgia_(country)` carries "Georgia"). **`node .claude/check-gloss-links.js` reports
+what is left**: an auto-link whose term is bound to a different part of the world (a proxy, report-only, 34
+findings) and — exactly — two keys competing for one surface.
+
 Optional `"aliases": ["alt spelling", …]` lists extra background spellings that should open the same
 popup (lands in `window.GLOSSARY_ALIASES`); **plural forms link automatically**, so only add aliases
 for forms the auto-pluralizer misses. Aliases are also editable per-term on the admin glossary page.
@@ -4369,11 +4530,33 @@ dead code (never rendered).
     `setDeckOrderMode` / `sortByDifficulty` / `refillAfterSuspend` / `UNDO_GUARD_MS` / `studyHold` /
     `clearStudySession` / `clearDeckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` /
     `openDeckLimits` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` /
-    `orderedIds` / `setupDeckDrag` / `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` /
+    `orderedIds` / `setupDeckDrag` / `deckEditOn` / `deckEditCheckpoint` / `deckEditBarHTML` /
+    `setEntryTitle` / `adOwnTitle` / `rowTitle` / `.rv-editing` / `.dk-del` /
+    `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` /
     `setNestParent` / `nestChildren` / `openDeckSched` / `setDeckSched` / `setDeckRetention` /
     `setDeckFsrsParams` / `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll`
     / `fsrsSequences` / `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s
     per-deck allowances, or anything named `sched*` or `fsrs*`.**
+  · `node .claude/test-card-locator.js` — **what a locator draws besides its own place** (7 assertions,
+    Aug 2026). The marks are on a canvas, so the honest test is a PIXEL COUNT — the collection's reds are
+    there, and the card's own gold is still the biggest mark on the map. It also asserts the PAYMENT in
+    both directions: the card paints before the `atlas` bundle arrives, and the bundle really is fetched
+    rather than folded into the eager path. **Re-run after touching `locatorSiblings` /
+    `cardCollectionRoot` / the extras block in `startCardGlobe`'s `draw()` / the idle `ensureData("atlas")`
+    beside it / `uCacheBust`.**
+  · `node .claude/test-card-quote.js` — **a card quoting the book it cites** (13 assertions, Aug 2026),
+    and every part of it fails silently: a quotation appended after the prose instead of standing between
+    the two blocks looks deliberate, one that wraps around the floated illustration looks deliberate, and
+    a book address that has stopped honouring its section fragment simply opens the book. **Re-run after
+    touching `cardQuote` / `cardQuoteHTML` / `buildBack`'s abstract split / the `.cq-go` listener /
+    `PAGES.book`'s `params.n` / the `#book` branches in boot and hashchange / `serializeCardData` /
+    `revertCard`, or `add-card.js`'s quote guard.**
+  · `node .claude/decks/check-say.js` — **a language card's speaker says what the card shows**: where the
+    headword displays ONE article, the spoken field must carry it. It found 3,674 cards that dropped it —
+    3,640 French and 34 Italian — and `--fix` repairs them. **A common-gender noun (`il/la complice`,
+    three article spans) is exempt and must stay so**: the slash cannot be spoken and picking one gender
+    asserts what the card declines to. Report-only, exit 1 on a finding. **Re-run after rebuilding any
+    deck, and after touching `say_text` in cils/build_deck.py or the `say` block in delf/build_deck.py.**
   · `node .claude/test-atlas-places.js` — the Atlas's label crowding, its heightmap strength slider, and
     a glossary term's way onto the map (Aug 2026). **Re-run after touching `glossPlace` / `focusPlace` /
     `CITY_SEP` / `computeCityLayout` / `gsIndex` / `hmOpacity`, or after re-running
@@ -4389,7 +4572,8 @@ dead code (never rendered).
     `dailyPictureRounds` / `tagKinship`, `buildWhoSaidRounds`, `threadEasyKeys` / `dailyThreadPuzzle` /
     `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`, `DAILY_GAMES` / `GAME_NAMES` /
     `PAGE_META` / the `valid` route list, `gameCardIdSet` / `GAME_MAX_DIFFICULTY`, `whatyear.js` /
-    `truefalse.js` / `quotes.js`, or the home page's tile grid.**
+    `truefalse.js` / `quotes.js`, `gameBackHTML` / `flipGameTile` / `gameStatsPost` / `gameStatsLoad` /
+    `markGamePlayed`, or the home page's tile grid.**
   · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (69
     assertions, Aug 2026). **Re-run after touching `cardDifficulty` / `difficultyOK` / `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY` / `cardUndatable` / `chronoPool` / `cardStartYear` / `serializeCardData` /
@@ -4409,7 +4593,8 @@ dead code (never rendered).
     `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`, `rollChestItem` / `spendChest` /
     `claimTheme` / `unlockTheme` / `themeGrandfather` / `THEME_DROP` / `THEMES` / `ACHIEVEMENTS` /
     `progStats`, `artefacts.js`, `COLLECTION_ICON` / `deckProgMarkup` / `addActive`,
-    `serializeArtefacts`, or the `--newterm` / `--rar-*` tokens.**
+    `serializeArtefacts`, `PAGES.reliquary` / `RELIQ_SORTS` / `artefactYear` / `reliquaryHTML`'s `entry`
+    option, or the `--newterm` / `--rar-*` tokens.**
   · `node .claude/test-deck-ux.js` — **49 assertions on six things asked for in Aug 2026, every one of
     which fails silently**: a card type's `<details>` remembering how it was left, the structure line's
     typography, a community deck's colour, the sheet's ×, **the pinyin being set in a face that has the
@@ -4497,7 +4682,11 @@ dead code (never rendered).
   profile + empty progress row). **A LATER BLOCK IS NEVER A PREREQUISITE**: every feature that needs one
   degrades to a sentence rather than an error (`colorColumnMissing`, the `login_email` 404 → "use your email
   address"), so the site works on a database that has only the first block. **Keep it that way** — a block
-  the owner has not run yet is the normal case, not the broken one. Plain `fetch()` (no SDK — zero-dependency rule); the publishable key in app.js is safe to ship
+  the owner has not run yet is the normal case, not the broken one. **WHICH of the optional blocks a
+  given database already has is answered by `.claude/schema-check.sql`** — read-only, pasted into the
+  Supabase SQL editor, one true/false row per block. It is worth having because blocks 8–15 are each
+  written `if not exists` / `create or replace` / `drop … if exists`, so re-running one that is already
+  there is safe and the only real question is which are missing. Plain `fetch()` (no SDK — zero-dependency rule); the publishable key in app.js is safe to ship
   (security = RLS). **Offline-first**: localStorage stays the working copy; `save()` → `supaQueuePush()` (6s debounce, skips
   no-ops) PATCHes the whole `PROGRESS_FIELDS` blob into `progress.data`; boot (`supaBoot`) refreshes the session, pulls, and
   reconciles — server wins when its `updated_at` ≠ the device's `S._supaTs` baseline (another device wrote), else local pushes.

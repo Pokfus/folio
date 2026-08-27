@@ -288,6 +288,18 @@ def main():
     for w in words:
         family = fams.get(w, [w])
         rows = []
+        # THE SAME SENTENCE MUST NOT ARRIVE TWICE FROM TWO DIFFERENT SOURCES.
+        # `candidates` and `pick` both dedupe by INDEX, and an index means
+        # nothing outside the source it came from — so a line carried by both
+        # Tatoeba and Wiktionary, or repeated in Global Voices, was picked once
+        # per source and the card showed it twice, with the same English under
+        # it both times.  Three words did (agen, liputan, perwujudan), and
+        # nothing downstream could see it: the card is well formed, the
+        # sentence is real and the translation is right.  Keyed on the
+        # Indonesian text itself, which is the only thing the three sources
+        # share.  A word that then falls short of three keeps two rather than
+        # showing one line twice, which is the honest outcome.
+        taken = set()
         for name, pairs, idx in built:
             if len(rows) >= WANT:
                 break
@@ -295,9 +307,14 @@ def main():
             # it is a check that the two sides are about the same thing, and the
             # hand-written sources do not need one.
             prefer = stems(rough_glosses(family, byword)) if name == GV else None
-            for form, i in pick(candidates(family, pairs, idx), pairs,
-                                WANT - len(rows), prefer):
+            cands = [(form, i) for form, i in candidates(family, pairs, idx)
+                     if ' '.join(pairs[i][0].split()) not in taken]
+            for form, i in pick(cands, pairs, WANT - len(rows), prefer):
                 ind, eng = pairs[i]
+                key = ' '.join(ind.split())
+                if key in taken:          # `pick` tops up with repeats when a source is thin
+                    continue
+                taken.add(key)
                 rows.append({'id': ind, 'en': eng, 'form': form, 'src': name})
                 stats[name] += 1
         out[w] = rows

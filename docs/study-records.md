@@ -316,3 +316,37 @@ Four bullets, in the order they appeared in CLAUDE.md:
       `progStats`'s `terms` / `countries` / `countryTotal`), and `checkAchievements()` is called from both
       first-sight branches. `countries` is 0 until `world.js` loads, which only ever DELAYS a badge —
       `checkAchievements` adds and never revokes.
+
+## Time studied, and time reading (Aug 2026, on request)
+
+Two requests, one mechanism: "the account page needs a lifetime study-time counter and badges", and "a
+book's about page should show reading time today and in total; award badges".
+
+**The study page has counted the day's time on cards since it shipped.** What was missing was a lifetime
+total and the same clock pointed at the Library. `startTimeTicker(root, alive, addMs)` is that clock
+factored out of `PAGES.study`: it counts only while the tab is visible and the thing being timed is still
+painted (`alive()` is a predicate the caller supplies — a study card, or a book page with content in it),
+and it saves about once a minute rather than on every tick.
+
+- **`S.studyTotal`** holds the lifetime figure, added to beside the daily one. It is in `PROGRESS_FIELDS`,
+  so it syncs, and it back-fills from the daily record on first read.
+- **`S.reading[bookId].secs`** holds a book's own. That record already existed — it is where the reader's
+  place is kept — and it already synced, so this is one more field on it rather than a new store.
+
+Both are tiles in "Beyond the cards", and both carry badges: 1, 10, 50 and 100 hours studied; 1, 5 and 25
+hours in one book. They read `progStats` and are tested at the moment they are earned, exactly as the
+fifteen collector's badges are. A book's own front matter prints its clock — today's and the total — above
+the introduction.
+
+### Two faults worth remembering
+
+**`setReadingPos` replaced the reading record rather than merging into it.** It wrote
+`S.reading[id] = { ch, y, at }`, which is correct for a record holding only a place and silently fatal for
+one holding a clock as well: the new `secs` would have been wiped on every scroll. It merges now
+(`Object.assign({}, prev, …)`), and the general rule is that **a record that gains a field gains a merge**.
+
+**The lifetime back-fill was first written at boot and threw on the temporal dead zone.** It called
+`todayStr()` — a `const` arrow declared about a thousand lines further down the file — which is a
+`ReferenceError` at boot and not at parse, so `node --check` says nothing about it. It is a lazy accessor
+(`studyTotalMs()`) instead, which is the shape to reach for whenever a back-fill needs something the module
+has not finished defining.

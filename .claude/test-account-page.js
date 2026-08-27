@@ -132,15 +132,23 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "admin", 
   check("…and a collection of two carries one", /\b2 artefacts\b/.test(all.title || ""), JSON.stringify(all) + " (" + owned.join(", ") + ")");
   await page.evaluate(() => document.querySelector("#showcase [data-arall]").click());
   await page.waitForTimeout(400);
-  const coll = await page.evaluate(() => {
-    const w = document.querySelector(".collection-pop .ar-collwin");
-    return { open: !!w, tiles: w ? w.querySelectorAll(".ar-tile").length : -1, head: w ? w.querySelector(".ar-collhead").textContent : "" };
-  });
-  check("…which opens the collection", coll.open && coll.tiles === 2, JSON.stringify(coll));
-  check("…headed as the reader's own", /your/i.test(coll.head), coll.head);
-  await page.keyboard.press("Escape");
-  await page.waitForTimeout(250);
-  check("…and Escape closes it", await page.evaluate(() => !document.querySelector(".ar-collwin")));
+  /* IT ROUTES NOW RATHER THAN RAISING AN OVERLAY (Aug 2026, on request: "the Reliquary should be its own
+     page"). Your own collection is a page — an address, a back button and a sort you can leave set; a
+     FRIEND'S is still `openCollectionWin`, because a route carries a name and nothing else and there is
+     nowhere for somebody else's progress to ride. So what this asserts is that pressing the button LEAVES
+     this page for that one, and that no overlay is raised over it on the way — an overlay left behind
+     would sit over the page and look exactly like the page having failed to draw. */
+  const coll = await page.evaluate(() => ({
+    hash: location.hash,
+    tiles: document.querySelectorAll("#rqGrid .ar-tile").length,
+    head: (document.querySelector(".page-head h1") || {}).textContent || "",
+    overlay: !!document.querySelector(".collection-pop"),
+  }));
+  check("…which goes to the Reliquary's own page", coll.hash === "#reliquary" && coll.tiles === 2, JSON.stringify(coll));
+  check("…headed as such, with no overlay left over it", /reliquary/i.test(coll.head) && !coll.overlay, JSON.stringify(coll));
+  await page.evaluate(() => { location.hash = "account"; });
+  await page.waitForTimeout(600);
+  check("…and going back leaves nothing behind", await page.evaluate(() => !document.querySelector(".ar-collwin") && !!document.querySelector("#showcase")));
 
   // the Edit page's dashboard reaches the account database through the same mock
   await page.evaluate(() => { location.hash = "admin"; });

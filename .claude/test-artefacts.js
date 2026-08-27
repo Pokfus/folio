@@ -321,11 +321,26 @@ function syntheticPool() {
     check("dismissing a chest keeps it", before === after && before > 0, before + " → " + after);
     check("…and Escape really closed it", await page.locator(".chest-pop").count() === 0);
 
-    check("the inventory lists everything owned", await page.locator("#reliquary .ar-tile").count() === 32);
+    /* THE INVENTORY LEFT THIS PAGE FOR ONE OF ITS OWN (Aug 2026, on request: "the Reliquary should be
+       its own page"). The signed-out account page carried the whole grid because it has no showcase and
+       there was nowhere else to see the collection; now it carries the count and a way through, which is
+       the same shape the signed-in page's showcase has had since its own duplicate grid was removed. So
+       what is asserted here is the JOIN — the entry says how many there are, and pressing it lands on a
+       page that draws them — rather than the grid being in two places. */
+    check("the account page no longer carries a second copy of the grid",
+      await page.locator("#reliquary .ar-tile").count() === 0);
+    check("...it states the count and offers a way through",
+      /32 of \d+/.test(await page.locator("#reliquary .ar-count").textContent()) &&
+      await page.locator("#reliquary [data-arall]").count() === 1,
+      await page.locator("#reliquary .ar-count").textContent());
+    await page.locator("#reliquary [data-arall]").click();
+    await page.waitForTimeout(600);
+    check("...to the Reliquary's own page", (await page.evaluate(() => location.hash)) === "#reliquary");
+    check("the inventory lists everything owned", await page.locator("#rqGrid .ar-tile").count() === 32);
     // the showcase: four, and the fifth is refused out loud
     const pinned = [];
     for (let i = 0; i < 5; i++) {
-      await page.locator("#reliquary .ar-tile").nth(i).click();
+      await page.locator("#rqGrid .ar-tile").nth(i).click();
       await page.waitForTimeout(200);
       const label = await page.locator("#arPin").textContent();
       await page.locator("#arPin").click();
@@ -343,7 +358,7 @@ function syntheticPool() {
        shows the number of the entry it opens, and the entry it opens exists. An unwired plate looks the
        same at a glance — empty superscripts over an unnumbered list — which is exactly how an unwired
        surface has failed here before. */
-    await page.locator("#reliquary .ar-tile").first().click();
+    await page.locator("#rqGrid .ar-tile").first().click();
     await page.waitForTimeout(250);
     const ap = await page.evaluate(() => {
       const w = document.querySelector(".ar-win");
@@ -364,8 +379,16 @@ function syntheticPool() {
        showcase is four artefacts chosen to be SEEN and there is nobody to see a guest's. It is guarded in
        .claude/test-account-page.js, which has the session this needs. What is asserted here is the other
        half — that a guest is not shown a control that belongs to a section they have not got. */
-    check("a guest gets the inventory and no showcase", await page.locator("#reliquary").count() === 1 && await page.locator("#showcase").count() === 0);
-    check("…and so no orphan way in to it", await page.locator("[data-arall]").count() === 0);
+    await page.evaluate(() => { location.hash = "account"; });
+    await page.waitForTimeout(500);
+    /* A guest gets the Reliquary section and no showcase — a showcase is four artefacts chosen to be SEEN
+       and there is nobody to see a guest's. The section is the ENTRY now rather than the grid (see above),
+       so the "See Reliquary" button IS the expected control here; what would be an orphan is a showcase
+       slot, and there is none. */
+    check("a guest gets the Reliquary section and no showcase",
+      await page.locator("#reliquary").count() === 1 && await page.locator("#showcase").count() === 0);
+    check("…with exactly one way through to it, and no showcase slot to pin from",
+      await page.locator("#reliquary [data-arall]").count() === 1 && await page.locator("[data-arslot]").count() === 0);
   }
 
   /* ================= 4b. the plate: its picture, its rarity, its prose =================
@@ -374,9 +397,9 @@ function syntheticPool() {
      back above the title still renders; and a glossary popup opened from a plate whose stacking is wrong
      is really there, behind the plate, so the reader sees a click that did nothing. */
   {
-    await page.evaluate(() => { location.hash = "account"; });
-    await page.waitForTimeout(500);
-    await page.locator('#reliquary [data-artefact="t-legendary-1"]').click();
+    await page.evaluate(() => { location.hash = "reliquary"; });
+    await page.waitForTimeout(600);
+    await page.locator('#rqGrid [data-artefact="t-legendary-1"]').click();
     await page.waitForTimeout(300);
     const plate = await page.evaluate(() => {
       const w = document.querySelector(".ar-win");

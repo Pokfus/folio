@@ -340,6 +340,47 @@ if (card.locator) {
     process.exit(1);
   }
 }
+/* A QUOTATION IS CHECKED AGAINST THE ACTUAL SHELF (Aug 2026, with the card quotations). The card names
+   a book and a section, and both are read out of `app.js`'s own eager `BOOKS` registry and the generated
+   `books/<id>.js` — so a typo, a book that has left the shelf and a section the importer never brought in
+   are all refused HERE, at the point of writing, rather than rendering as nothing on the page. The renderer
+   keeps its own guard, but a silent blank is exactly what an author cannot see. */
+if (card.quote) {
+  const q = card.quote;
+  const bid = String(q.book || "").trim();
+  if (!bid || !String(q.text || "").trim()) {
+    console.error("ERROR: card.quote needs both a `book` and the `text` of the passage.");
+    process.exit(1);
+  }
+  const appjs = fs.readFileSync(path.join(__dirname, "..", "app.js"), "utf8");
+  // the registry is one object literal per book; matching the id is enough to know it is on the shelf
+  const onShelf = new RegExp('\\bid:\\s*"' + bid.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + '"').test(appjs);
+  if (!onShelf) {
+    console.error('ERROR: card.quote.book "' + bid + '" is not a book in the Library — check the id against the BOOKS registry in app.js.');
+    process.exit(1);
+  }
+  const n = q.n == null ? "" : String(q.n).trim();
+  if (n) {
+    const bookFile = path.join(__dirname, "..", "books", bid + ".js");
+    if (!fs.existsSync(bookFile)) {
+      console.error('ERROR: books/' + bid + '.js does not exist, so its sections cannot be checked.');
+      process.exit(1);
+    }
+    const g = {}; g.window = { FOLIO_BOOKS_IN: [] };
+    try { require("vm").runInNewContext(fs.readFileSync(bookFile, "utf8"), g); } catch (e) {
+      console.error("ERROR: books/" + bid + ".js could not be read: " + e.message);
+      process.exit(1);
+    }
+    const book = (g.window.FOLIO_BOOKS_IN || [])[0] || {};
+    const has = (book.chapters || []).some((ch) => String(ch.n) === n);
+    if (!has) {
+      console.error('ERROR: "' + bid + '" has no section ' + n + " — the book holds " +
+        (book.chapters || []).length + " sections" +
+        ((book.chapters || []).length ? " (" + (book.chapters || []).slice(0, 6).map((ch) => ch.n).join(", ") + "…)" : "") + ".");
+      process.exit(1);
+    }
+  }
+}
 if (card.answerFlag && String(card.answerFlag.src || "").trim() && !String(card.answerFlag.alt || "").trim()) {
   console.error("ERROR: card.answerFlag has a src but no `alt` — the flag is drawn with no title and no caption, so `alt` is all a reader who cannot see it gets.");
   process.exit(1);
