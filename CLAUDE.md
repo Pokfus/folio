@@ -2320,10 +2320,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     places and fills in a moment later. **THE CITIES THIN WITH ZOOM, and that was found by LOOKING**: all
     2,665 drawn at once cover Europe and North Africa in a grey rash at the opening 50° view and bury the
     red marks that are the point — so the 216 capitals show always, the 392 million-plus cities once the
-    frame is a region, and the 2,057 division capitals only at a country or less. **A river is NAMED only
-    where it is itself a card in the collection**, which is what was asked for and the only thing that
-    keeps the map readable — though **no shipped card's answer is a named river yet**, and Natural Earth's
-    set has no Tiber, Rubicon, Eurotas or Alpheus, so that rule waits for a Nile or Euphrates card.
+    frame is a region, and the 2,057 division capitals only at a country or less. **A RIVER IS DRAWN AT ALL
+    ONLY WHERE IT IS ITSELF A CARD IN THE COLLECTION** (Aug 2026, on a bug report: "Rivers look very
+    strange with long straight lines … remove all Rivers for now except the ones which appear specifically
+    as cards, e.g. Tiber"). It used to draw all 1,073 and NAME only the carded ones, and two different
+    things were wrong with that. The straight lines were a real fault and are fixed rather than hidden:
+    **`addRing` closed every path**, and a river is a POLYLINE, so closing one drew its mouth back to its
+    source across a continent — it now takes a `close` flag, `false` for a river, which is the flag the
+    Atlas has always passed its own `addClipped`. The rest is a judgement about what a locator is FOR: the
+    map exists to place ONE thing, and a thousand blue threads through it are texture that buries the marks
+    that mean something. **So `sib.terms` now chooses the rivers as well as their labels, and today that
+    means NO river is drawn anywhere** — no shipped card's answer is one. **Natural Earth labels a river in
+    the language of the country it runs through**, which is why the match also reads the term's GLOSSARY
+    ALIASES: the Tiber is in `rivers.js` as `Tevere` (the Danube also as `Donau`, the Yangtze as `Chang
+    Jiang`), so a Tiber card puts its river on the map by carrying `Tevere` as an alias on the paired
+    glossary term — and one that does not, visibly does not.
+    **AND THE SIBLING DOTS ARE NAMED** (Aug 2026, on the same report: "the other dots don't have their
+    labels"). They went up bare, which made them decoration rather than information on a map whose whole
+    job is to say where. A sibling's name gives nothing away — `locatorSiblings` excludes the card itself —
+    so unlike the card's own label it is drawn BEFORE the reveal. They are **de-collided first-come**, the
+    Atlas's city rule in the form this window can afford, with the card's own dot and label reserved first,
+    and set at the river labels' 11px/500 rather than the answer's 13px/600, so the card's own place still
+    reads as the subject: at the opening 50° view about seven of Ancient Greece's 55 are named and zooming
+    in frees the rest. **Fewer names, each readable, beats every name in a heap.**
     `_locSibCache` is declared beside `uCacheBust` rather than beside its own function, for the temporal
     dead zone's reason. Guarded by `.claude/test-card-locator.js`.
   **📖 `docs/map-cards.md` — READ BEFORE CHANGING ANY OF IT.** Why the globe is drawn here rather than by
