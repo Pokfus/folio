@@ -16,11 +16,12 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-021`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-024`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
-the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom) **and capitals `gw-503`
-Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo and
-`gw-514` Manila.** The next country is `gw-022` Tanzania and the next capital is `gw-515` Kinshasa.
+the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa)
+**and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa,
+`gw-513` Cairo, `gw-514` Manila and `gw-515` Kinshasa.** The next country is `gw-025` Italy and the
+next capital is `gw-516` Hanoi.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -428,6 +429,38 @@ rejected and the reasons are the usual ones — ESA's own Manila image is proper
 on the long side, under the pipeline's ~900px bar, and the Landsat image of the bay is categorised PD
 NASA with **no machine-readable author or source**. `suggest-image.js` offered five photographs of a
 2024 diplomatic conference in Manila, which is the name-match trap its own header warns about.
+
+**A UNdata FOOTNOTE IS A CITABLE FACT, AND IT SOLVED THE THREE-CAPITAL PROBLEM.** The profile's
+`Capital city` row for South Africa reads `Pretoria` with a footnote marker, and the footnote itself
+says: *Pretoria is the administrative capital, Cape Town is the legislative capital and Bloemfontein is
+the judiciary capital.* So `gw-024`'s facts box can say `Capital · Pretoria (administrative)` on Source
+A's own authority rather than picking one seat silently or contradicting the glossary term, which names
+all three. **Read the footnotes at the bottom of a UNdata profile before deciding a field is bare** —
+they carry the qualifications the table has no room for.
+
+**THE COMMONWEALTH'S JOINING LINE ANSWERS A SECOND QUESTION IT WAS NOT ASKED: WHEN A MEMBER LEFT.**
+C4 and C6 measured that line as an independence date; South Africa's reads *"Joined the Commonwealth
+1931, on independence from Britain. South Africa left the Commonwealth in 1961 then re-joined in
+1994"*, which dates the declaration of the republic and the first democratic election from a body with
+no stake in either reading. `gw-024` cites it twice for exactly that. Tanzania's page carries the
+capital ambiguity in the same field — *"Dar es Salaam (acting), Dodoma (official)"* — which is a cited
+sentence about a capital move no other reachable source states.
+
+**THE UN DIGITAL LIBRARY EARNS ITS PLACE ON THREE CARDS IN A ROW, AND ITS TITLES ARE THE POINT.** A
+resolution's own heading is a primary fact about what a state was called and what was done to it:
+`A/RES/1667(XVI)` is *Admission of **Tanganyika** to membership in the United Nations*, and
+`S/RES/143(1960)` is filed as *calling upon Belgium to withdraw its troops from **the Congo (capital
+Leopoldville)*** — the UN naming the country by a capital under a name it no longer uses, which is the
+whole subject of `gw-515`. **Search the library by the CLAIM and read the record's title**, which is
+where the usable sentence usually is; the record page also gives the meeting number and date (the
+986th meeting for Tanganyika, the 873rd for the Congo) where the resolution text itself is a PDF.
+
+**A THIN COUNTRY PAGE IS NOT A THIN CARD.** The recognition guide's Tanzania page is four sentences and
+one date, which would have left `gw-022` two short of the bar; the Commonwealth, the WTO, the UN
+resolution and the decolonization milestone made six sources between them without a single stretched
+marker. **When the guide is thin, the country is usually a Commonwealth member, a WTO member and a UN
+admission of its own** — three institutional records that exist for almost every state and that nobody
+has to search for.
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is

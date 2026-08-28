@@ -3728,7 +3728,7 @@ lookup.
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
-| The world | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 27 cards — 470 rather than 1000, and sorted by POPULATION, see below |
+| The world | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 31 cards — 470 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
 
