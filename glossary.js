@@ -1278,7 +1278,8 @@ window.GLOSSARY = {
 "Erlitou_site": "Erlitou site is a Bronze Age settlement in the Yiluo basin of western Henan, occupied from about 1750 to 1530 BCE and the largest of its time in the Central Plain.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It grew from over 100 hectares to about 400 at its height, acquiring a planned core in its second phase: a palace and temple district of 10.8 hectares ringed by four intersecting roads, with a walled bronze and turquoise workshop beside it.<sup class=\"fn\" data-fn=\"1\"></sup> It never had an outer wall, its public building came to a fraction of the older centre at Taosi, and its burials fall into four or five grades, the richest holding bronze found at no other site.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Erlitou_bronze": "<b>Erlitou bronze</b> is the metalwork produced at the Erlitou site in Henan, China, and it includes the earliest cast bronze ritual vessels known in the country, appearing from about 1700 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Metal had been worked in China for centuries beforehand as ornaments, small tools and weapons, but the multipiece mould-casting used at Erlitou allowed shapes and surfaces that a single stone mould could not give.<sup class=\"fn\" data-fn=\"1\"></sup> The foundry occupied about a hectare in the south of the site, enclosed in rammed earth with a turquoise workshop, and yielded slag, crucibles and clay moulds for vessels up to 36 centimetres (14 inches) across the rim.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Xia–Shang–Zhou_Chronology_Project": "<b>Xia–Shang–Zhou Chronology Project</b> is a Chinese state research programme that ran from 1996 to 2000, bringing some 200 specialists in history, astronomy, archaeology and radiocarbon dating together to fix absolute dates for the three dynasties preceding the imperial age.<sup class=\"fn\" data-fn=\"1\"></sup> Firm Chinese chronology had begun only in 841 BCE, and at least 44 dates had been proposed for the Zhou conquest of the Shang, from 1130 to 1018.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The table it published in November 2000 dated that conquest to 1046 BCE and set the Xia within a framework of 2070 to 1600 BCE, a result debated for its government backing and for how much precision the evidence will bear.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Shang_dynasty": "<b>Shang dynasty</b> is the second of the three dynasties that ruled China before the imperial age, holding the Central Plain from about 1600 to 1046 BCE and leaving the earliest Chinese records written at the time of the events they describe.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Archaeology divides it into early, middle and late phases, the last centred on Anyang, where horse-drawn chariots, the royal hunt and writing appear together for the first time.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> How far its authority reached is unclear, since sites sharing its pottery and elite goods need not have belonged to one state, and four in five excavated burials of the period hold only a coffin and a few pots.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Shang_dynasty": "<b>Shang dynasty</b> is the second of the three dynasties that ruled China before the imperial age, holding the Central Plain from about 1600 to 1046 BCE and leaving the earliest Chinese records written at the time of the events they describe.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Archaeology divides it into early, middle and late phases, the last centred on Anyang, where horse-drawn chariots, the royal hunt and writing appear together for the first time.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> How far its authority reached is unclear, since sites sharing its pottery and elite goods need not have belonged to one state, and four in five excavated burials of the period hold only a coffin and a few pots.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Basic_Annals_of_Yin": "<b>Basic Annals of Yin</b> is the third chapter of the <i>Shiji</i>, the history Sima Qian completed in about 100 BCE, and the fullest connected account of the Shang dynasty any transmitted Chinese text gives.<sup class=\"fn\" data-fn=\"1\"></sup> It runs from the ancestor Xie to the last king, and it carries the dynasty’s two names, Shang from the land granted to Xie and Yin from the place Pan Geng moved his people to.<sup class=\"fn\" data-fn=\"1\"></sup> Its historian names his own sources at the close, the sacrificial odes for Xie and the Documents and the Odes thereafter, and his frame is moral, the mandate of Heaven passing to Tang and away from the 31st king.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1909,7 +1910,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Erlitou_site": "c. 1750 – 1530 BCE",
 "Erlitou_bronze": "c. 1800 – 1600 BCE",
 "Xia–Shang–Zhou_Chronology_Project": "1996 – 2000",
-"Shang_dynasty": "c. 1600 – 1046 BCE"
+"Shang_dynasty": "c. 1600 – 1046 BCE",
+"Basic_Annals_of_Yin": "c. 100 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2783,7 +2785,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tribute_of_Yu": ["Yugong","Yu gong"],
 "Bamboo_Annals": ["Annals of the Bamboo Books"],
 "Doubting_Antiquity_School": ["yigupai"],
-"Xia–Shang–Zhou_Chronology_Project": ["Xia-Shang-Zhou Chronology Project"]
+"Xia–Shang–Zhou_Chronology_Project": ["Xia-Shang-Zhou Chronology Project"],
+"Basic_Annals_of_Yin": ["Yin benji","Annals of Yin"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4087,7 +4090,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Erlitou_site": ["place","archaeology","history","china","bronze age"],
 "Erlitou_bronze": ["object","technology","archaeology","bronze age"],
 "Xia–Shang–Zhou_Chronology_Project": ["institution","history","archaeology","science","china"],
-"Shang_dynasty": ["dynasty","history","archaeology","china","bronze age"]
+"Shang_dynasty": ["dynasty","history","archaeology","china","bronze age"],
+"Basic_Annals_of_Yin": ["text","history","literature","china","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

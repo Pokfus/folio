@@ -422,7 +422,7 @@ already shipped before adding it.
 ### Shang — `col-3`
 
     cnh-066  Shang dynasty
-    cnh-067  The Shang in the transmitted record
+    cnh-067  Basic Annals of Yin
     cnh-068  Tang of Shang
     cnh-069  Yinxu
     cnh-070  The discovery of the oracle bones

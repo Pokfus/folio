@@ -1945,3 +1945,34 @@ is the Xia deck; with the card in `col-3` the walk ran to its 40-reveal cap and 
 a new deck needs the harness's selector changed as well as its answer string** — the failure is a timeout
 rather than an error, so it reads as the browser hanging rather than as a fixture pointed at the wrong
 list.
+
+  **`cnh-067` IS THE FOURTH PLAN LINE THAT NAMED A TOPIC RATHER THAN AN ANSWER TERM**, after `cnh-055`,
+`cnh-056` and `cnh-059`. "The Shang in the transmitted record" is a subject, not a word a reader can be
+asked to recall, and the plan already spends the obvious neighbours elsewhere — `cnh-105` takes the Zhou
+account, `cnh-106` later memory, `cnh-107` the oracle-bone archives as a source. What is left, and what
+the transmitted record actually IS, is **the Shiji's third chapter**: the connected narrative of which
+the Documents' Shang books and the Shang Hymns are the raw material. Renamed to `Basic Annals of Yin`.
+  **THE CARD'S BEST FACT IS THE HISTORIAN CITING HIMSELF.** Chavannes translates Sima Qian's closing
+note to the chapter — *it is with the sacrificial odes that I put in order the events concerning Xie;
+from Tang the Victorious onward I compiled the Shu and the Shi* — which is a Han historian naming his
+sources in the same register the card's own apparatus uses. **When a card is about a source, look for
+the place where the source describes its own sources**; it is usually the last paragraph.
+  **CHAVANNES CARRIES FOUR SEPARATE THINGS AND IS CITED THREE TIMES AT THREE PAGE RANGES.** The
+Introduction (cxxxix–cxl) has the bookkeeping — 29 chapters in the received Documents of which only nine
+treat anything before the Zhou, five odes touching the Yin, and the generation arithmetic that will not
+reconcile (17 for the Xia, 30 for the Yin, 15 for the Zhou ancestors across the same span); pages 173–75
+have Xie's birth and the reason the dynasty has two names, Shang from his fief and Yin from where Pan
+Geng moved; 207–8 have the closing note and the viscount of Wei set over Song. **A single work cited at
+three places is not padding when each place carries a different claim** — but note his 1895 judgement
+that only three or four Shang princes seem really to have lived was written four years before the oracle
+bones were recognised, and is deliberately NOT in the card.
+  **NO OPEN SOURCE HERE STATES THAT THE ORACLE BONES CONFIRM THE KING LIST**, which is the single most
+famous fact about this chapter. ScholarSpace and Europe PMC were both searched (`oracle bone` with
+`Sima Qian`, `king list`, `royal genealogy`, `Wang Guowei`) and nothing openable says it. **The claim was
+dropped rather than attached to a source that does not carry it**; `cnh-107` is where it belongs anyway,
+and it may be reachable by then.
+  **AND `Shiji` IS FLAGGED BY `check-style` IN EVERY ESCAPED FIELD.** Rule 1 reads it as an ambiguous
+person-or-book name, which is right, and the fix is italics — but a date-line value and an image `title`
+and `desc` are rendered escaped, so no tag can reach them. The date row became `Chapter · 3, of 130` and
+the caption "Sima Qian's history" instead. **In an escaped field, name the work by description rather
+than by title.**
