@@ -1277,7 +1277,8 @@ window.GLOSSARY = {
 "Empiricism": "Empiricism is the thesis that, for a given subject, we have no source of knowledge, and no source of the concepts used in it, other than experience.<sup class=\"fn\" data-fn=\"1\"></sup> The experience meant is of two kinds, sense experience through the outward senses, which yields knowledge of external objects, and reflective experience, the conscious awareness of one's own mental operations; the thesis is always relative to a subject area, so it may be held about the physical world and withheld about mathematics.<sup class=\"fn\" data-fn=\"1\"></sup> In the sciences the related adjective has a narrower, methodological life, marking knowledge grounded in objective and tangible evidence that can be observed repeatedly, whoever is doing the observing.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Rationalism": "Rationalism is the view that, in some subject area, reason supplies knowledge or concepts that sense experience could not have provided.<sup class=\"fn\" data-fn=\"1\"></sup> Three theses are essential to it: that some propositions are knowable by intuition alone and others by deduction from them; that we know certain truths as part of our own nature, experience merely triggering awareness of them; and that some of the concepts we use belong to that same nature, so experience neither supplies them nor settles what they contain.<sup class=\"fn\" data-fn=\"1\"></sup> Plato's doctrine of recollection is an early version, answering the paradox that one can inquire neither into what is already known nor into what is not.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Associationism": "Associationism connects learning to thought through an organism's causal history: pairs of thoughts become associated by past experience, so that bringing one to mind brings the other.<sup class=\"fn\" data-fn=\"1\"></sup> It is not a single theory but a constellation of separable theses, serving as accounts of learning, of thinking, of mental structure and of how thought is implemented, tied together by a commitment to a certain arationality, since states are associated because of the history that caused them rather than any rational relation between what they mean.<sup class=\"fn\" data-fn=\"1\"></sup> Its classical statement counts three principles of connection among ideas: resemblance, contiguity in time or place, and cause or effect.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Tabula_rasa": "Tabula rasa, the blank slate, is the doctrine that the mind brings no ideas or principles into the world with it and is furnished entirely by experience.<sup class=\"fn\" data-fn=\"1\"></sup> Its best-known statement supposes the mind to be white paper, void of all characters and without any ideas, filled from two fountains, sensation and the mind's reflection on its own operations, and argues that agreement among people would prove nothing innate even were it universal.<sup class=\"fn\" data-fn=\"2\"></sup> The slate is blank of ideas rather than of powers, since that same account equips the mind with faculties for working on whatever experience supplies.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Tabula_rasa": "Tabula rasa, the blank slate, is the doctrine that the mind brings no ideas or principles into the world with it and is furnished entirely by experience.<sup class=\"fn\" data-fn=\"1\"></sup> Its best-known statement supposes the mind to be white paper, void of all characters and without any ideas, filled from two fountains, sensation and the mind's reflection on its own operations, and argues that agreement among people would prove nothing innate even were it universal.<sup class=\"fn\" data-fn=\"2\"></sup> The slate is blank of ideas rather than of powers, since that same account equips the mind with faculties for working on whatever experience supplies.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Mind-body_dualism": "Mind-body dualism, in its substance form, is the view that minds and bodies are fundamentally distinct kinds of substance, the mind characterised by thought and the body by extension.<sup class=\"fn\" data-fn=\"1\"></sup> A substance here stands in need of nothing beyond itself in order to exist, so such a mind could continue to be all that it is even if its body were not, and is known through one principal attribute.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its standing objection is interaction, pressed from the beginning by Elisabeth of Bohemia: accounts of causation tie causal power to extension, and two radically different kinds of thing seem to lack what they need in common to act on one another.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2767,7 +2768,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Empiricism": ["empiricist"],
 "Rationalism": ["rationalist"],
 "Associationism": ["associationist"],
-"Tabula_rasa": ["blank slate"]
+"Tabula_rasa": ["blank slate"],
+"Mind-body_dualism": ["substance dualism","mind–body dualism","Cartesian dualism"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4070,7 +4072,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Empiricism": ["concept","philosophy","science","psychology"],
 "Rationalism": ["concept","philosophy","science","psychology"],
 "Associationism": ["concept","psychology","philosophy","science"],
-"Tabula_rasa": ["concept","philosophy","psychology","science"]
+"Tabula_rasa": ["concept","philosophy","psychology","science"],
+"Mind-body_dualism": ["concept","philosophy","psychology","science"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

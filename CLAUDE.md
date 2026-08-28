@@ -3683,7 +3683,7 @@ lookup.
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
-| Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 24 cards — not a history collection |
+| Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 25 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | empty — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
@@ -3860,7 +3860,19 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   archive.org identifier or a DOI written from MEMORY ships as a 404 and nothing anywhere reports it
   (`cnh-006` shipped one for an hour: `sacredbooksofchi27conf` for `sacredbooksofchi0027unse`). Curl
   every citation URL of a new card before committing it; a 302 is a DOI resolving and is fine, a 404
-  is a source the reader cannot check. **Every source must be referenced by at least one marker** — a citation
+  is a source the reader cannot check. **A CURL IS NOT A CITATION CHECK, EITHER — IT CHECKS THE URL AND
+  NOTHING ELSE.** Four SEP citations shipped in Aug 2026 with a wrong edition, a wrong title and a
+  missing co-author, on four cards and four glossary terms, every URL returning 200 the whole time: the
+  edition had been composed from the "substantive revision" date on the page instead of read, and
+  `plato.stanford.edu/entries/<slug>/` shows a browse label rather than the entry's real title. **The
+  Stanford Encyclopedia states its own preferred citation** at
+  `plato.stanford.edu/cgi-bin/encyclopedia/archinfo.cgi?entry=<slug>` — authors, exact title, archive
+  edition, editors and the stable `archives/<ed>/entries/<slug>/` URL to cite instead of the live one —
+  and the four guesses were wrong four different ways ("Fall 2021" against Spring 2023, "Spring 2019"
+  against Summer 2024, "Innateness: Historical Controversies" against "The Historical Controversies
+  Surrounding Innateness", Mandelbaum alone against Mandelbaum and Millière). **Read a source's own
+  metadata page before citing it**; this is N4's fabricated-author finding in a second coat, and the
+  archive URL is also what pins the wording a marker points at. **Every source must be referenced by at least one marker** — a citation
   nothing points at is a reading list, not a footnote — and `add-card.js` refuses a card that breaks
   either rule. Cite the scholarship the claim actually rests on: a monograph, a survey, a journal
   article, a museum or excavation report. **A Wikipedia article is not a source here** — it is where the
