@@ -2293,3 +2293,42 @@ orphans a work and the refusal arrives after the prose is finished.
 argument — the whole second half rests on a contested reading. Writing "the likeliest answer is" and "read
 not as impoverishment but as" keeps the claim in the past tense of the Shang rather than in the present
 tense of the seminar room.
+
+  **`cnh-079` IS THE FIRST CHINA CARD WHOSE ANSWER TERM IS A GENERAL PRACTICE, AND THAT DECIDED HOW IT
+WAS SOURCED.** A glossary term must be deck-agnostic — it may not use one culture as its framing or
+example — so an entry for `Human_sacrifice` could not be written from the Shang literature at all.
+The way through was **Ceruti's open study of Inca mountaintop sacrifice**, whose introduction states the
+general case outright: the practice is known cross-culturally, and its occasions are a royal funeral, a
+disaster, an atonement, the consecration of a building, or fertility and health, with victims also killed
+to serve a high-ranking person as retainers. **A card scoped to one culture can still need a source
+from another**, and the shape to look for is a regional study whose opening paragraph generalises.
+  **THE CARD'S OWN NEW SOURCE IS A 2025 NATURE PAPER ON SHIMAO**, found by searching Europe PMC rather
+than the Asian Perspectives shelf: 144 ancient genomes from a walled city half a millennium before
+Anyang, with more than 80 human skulls buried under its East Gate, two forms of sacrifice (mass pits at
+the gates and the palace, and victims entombed with a high-status owner), and a correction worth the
+card on its own — **9 of the 10 East Gate victims were men, three of them previously identified as women
+from the bones**. That is the general term's third sentence too, since it is a claim about METHOD rather
+than about China: where preservation or ancient DNA allows, victims can be sexed and traced, and
+identifications made morphologically have been overturned.
+  **IT IS FLAGGED `undatable`, AND THE TEST IS THE ANSWER TERM RATHER THAN THE CARD.** The card is
+entirely about the Shang and sorts at 1250 BCE, but *human sacrifice* is not a term anyone dates — the
+`Hunter-gatherer` and `Ochre` shape exactly. **Ask what the ANSWER would have to be placed at in the
+Timeline game**, not what the card is about.
+  **`cnh-080` TOOK `Xibeigang` RATHER THAN "the Shang royal tombs"**, which gives the collection a
+place name to link and keeps the card distinct from `cnh-100` on burial practice. Its spine is
+Childs-Johnson on the tombs themselves — the royal count identifying **nine kings** at Yinxu, the
+cruciform M1004 with two monumental four-legged ding still at the very bottom under the looting, and
+M260 with its single long southern ramp, out of which came the tallest and heaviest bronze the Shang
+ever cast at 133 cm — with MacIver for the **four ramps running to the cardinal directions**, a layout
+belonging to the ritual rather than to the digging, and for the **waist pit** under the body that often
+holds a dog.
+  **PAGE MARKERS IN THE MacIVER THESIS ARE FOOTERS, WHERE THE `ming` VOLUME'S ARE HEADERS.** Both were
+worked out from first principles rather than assumed, and they disagree: a thesis in this format carries
+a bottom-centred folio, so the text between markers 39 and 40 is page 40, while a typeset book carries a
+running head, so the text after "74" is page 74. **Establish the direction per document**; a first
+draft here cited page 62 for a passage on page 40.
+  **THE PICTURE FOR A ROYAL CEMETERY IS PARK PLANTING, AND THAT IS THE HONEST CHOICE.** The tombs are
+filled in, so what Commons has is M1400's plan **marked out in clipped hedges** above the shaft at the
+Yinxu park — which happens to show exactly what the card's third sentence claims, a rectangular shaft
+with a ramp running away from it. Park furniture has turned up three times in this run as a wrong
+answer; here it is the right one, because the thing being illustrated is a SHAPE.
