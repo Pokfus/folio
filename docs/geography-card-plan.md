@@ -14,9 +14,9 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='geo-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
-`geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-501` Sacramento, `geo-502` Austin,
-`geo-503` Tallahassee and `geo-504` Providence.** Both subdecks are worked down the same list, so the
-next state is `geo-008` and the next capital `geo-505`.
+`geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-501` Sacramento,
+`geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence and `geo-505` Juneau.** Both subdecks are
+worked down the same list, so the next state is `geo-009` and the next capital `geo-506`.
 
 ---
 
@@ -301,6 +301,13 @@ Four more, measured while writing `geo-005` and `geo-501`:
   the publisher.** And the Texas State Preservation Board's Capitol History timeline is the state-body
   source beside it — the three million acres of Panhandle land that paid for the building, the granite, the
   cornerstone and the zinc Goddess of Liberty, dated year by year.
+- **A NOMINATION IS ONE HISTORIAN'S READING, SO READ TWO.** Juneau's two — the Alaskan Hotel's and the
+  Valentine Building's — disagree about when the capital arrived: one says "In 1900 the Territorial
+  capital was moved from Sitka" and the other "Since 1906 Juneau has been the Capital of Alaska". Neither
+  is wrong, and the first explains the second in its next sentence: "The capital' move from Sitka was
+  slow, and occupied almost the first decade." That is C9's Madagascar rule in an American coat — two
+  different acts, a decision and an arrival — and the card says both rather than picking one. **On a
+  capital card, ask which act the date names.**
 - **`npgallery.nps.gov/GetAsset/<uuid>` answers 404 to a HEAD and 200 to a GET.** That is where the NPS
   serves its National Register and National Historic Landmark nominations, and they are worth reaching for:
   the San Luis de Talimali nomination carries de Soto's winter camp of 1539, the missionisation of the
