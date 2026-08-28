@@ -2449,3 +2449,29 @@ that the sample is an artefact of where archaeologists have chosen to look.
 hafting hole and an excavation number inked beside it. `add-card.js` offered a Jade Emperor painting and
 a plaque catalogued "Neolithic or Shang period, 2500–1500 BC"; **an object whose own museum will not
 date it to the Shang cannot illustrate a card about Shang jade.**
+
+  **`cnh-086` IS THE FIRST CARD IN THIS RUN THAT `check-questions` CAUGHT**, and the rule it broke is one
+`add-card.js` does not test: the main phrasing ended "…the elite are found riding the ___." — **the blank
+at the end of the sentence**, which is exactly the shape the house rules forbid, since a question that
+stops on the blank stops being a clue and becomes a fill-in. It was rewritten to put the blank in the
+middle and re-checked. **`add-card.js` is not a superset of `check-questions.js`; run both.**
+  **ITS BEST SENTENCE IS THE REVIEWER'S CAUTION ABOUT ITS OWN FIRST SENTENCE.** The chariot is new at
+Anyang **on present evidence** — and the earlier centres are barely dug, since systematic excavation at
+Zhengzhou is out of the question with nearly ten million people living on top of it. A card that says a
+thing appears at Anyang and stops has told the reader an artefact of excavation history as though it
+were a fact about the past.
+  **THE ZHOU EVIDENCE IS BETTER THAN THE SHANG EVIDENCE AND THE CARD SAYS SO RATHER THAN BORROWING IT
+SILENTLY.** The concrete numbers reachable here are all Western Zhou — two pits beside one marquis with
+over 56 horses and 19 chariots, another in the north-west with at least 29 horses and three wooden
+vehicles, the animals young adults of which 21 of 22 sexed were male. They occupy two sentences of ten,
+marked as Zhou; the other eight are Shang. **When the better evidence is a period late, date it in the
+prose instead of letting the card imply it is the subject's own.**
+  **AND THE CAPTION CARRIES THE PHOTOGRAPHER'S OWN DISCLOSURE.** The Commons description of the chariot
+pit reads "Skeletons are copies; chariots are genuine", so the caption says the vehicle is the excavated
+one and the skeletons are replacements. **Fourth replica warning in this run**, and the first where the
+uploader supplied it unprompted.
+  **A source for a card already shipped turned up while searching**: ScholarSpace has "The Qiang and the
+Question of Human Sacrifice in the Late Shang Period", which is squarely `cnh-079`'s subject and was not
+found when that card was written. It is not a fault — `cnh-079` is at the bar on five open works — but it
+is the obvious spine for **`cnh-095`, the Shang and their neighbours**, and is recorded here so the next
+session does not have to find it twice.
