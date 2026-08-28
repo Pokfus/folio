@@ -97,6 +97,11 @@ const SRC_URL = /https?:\/\/[^\s<>"']+/;
      says "this map could not be loaded" to a reader who has no idea what they were meant to see. */
 const MAP_LAYERS = {
   "us-states": { file: "us-states.js", global: "US_STATES", what: "state", points: "US_CAPITALS", dotWhat: "state capital" },
+  /* The world's own borders, with the capitals in a file of their OWN — `pointsFile` rather than a second
+     global inside `file`, because app.js fetches the two as separate bundles for the same reason: a
+     locator card reads the shapes and never the table. Keep this table in step with CARD_MAP_LAYERS in
+     app.js; the two are checked against each other by nothing but this comment. */
+  world: { file: "world.js", global: "WORLD_GEO", what: "country", points: "WORLD_CAPITALS", pointsFile: "world-capitals.js", dotWhat: "capital city" },
 };
 const MAPQ_MIN = 5, MAPQ_MAX = 20;
 const MAP_FACTS_MIN = 3, MAP_FACTS_MAX = 8;
@@ -135,11 +140,13 @@ if (isMap) {
     const d = card.map.dot;
     if (!layer.points) { console.error("ERROR: the " + m.layer + " layer carries no point table, so a card on it cannot ask for a dot."); process.exit(1); }
     if (typeof d !== "string" || !d.trim()) { console.error("ERROR: card.map.dot is empty — it names the " + layer.dotWhat + " to mark."); process.exit(1); }
-    const pts = loadWindow(lp)[layer.points] || {};
+    const pp = path.join(__dirname, "..", layer.pointsFile || layer.file);
+    if (!fs.existsSync(pp)) { console.error("ERROR: the " + m.layer + " layer's point table is missing: " + (layer.pointsFile || layer.file) + " — build it first (see .claude/build-world-capitals.js)."); process.exit(1); }
+    const pts = loadWindow(pp)[layer.points] || {};
     const hit = pts[d];
     if (!hit) {
       const near = Object.keys(pts).filter((n) => n.toLowerCase().startsWith(String(d).slice(0, 3).toLowerCase()));
-      console.error("ERROR: " + JSON.stringify(d) + " is not a " + layer.dotWhat + " in " + layer.file + "." + (near.length ? " Did you mean: " + near.join(", ") + "?" : ""));
+      console.error("ERROR: " + JSON.stringify(d) + " is not a " + layer.dotWhat + " in " + (layer.pointsFile || layer.file) + "." + (near.length ? " Did you mean: " + near.join(", ") + "?" : ""));
       process.exit(1);
     }
     if (hit.s !== m.key) {
