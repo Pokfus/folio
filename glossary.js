@@ -1290,7 +1290,8 @@ window.GLOSSARY = {
 "Hermann_von_Helmholtz": "Hermann von Helmholtz was a German physician who became professor of physiology at Königsberg and Heidelberg and professor of physics at Berlin, and who applied the methods of physics to the senses.<sup class=\"fn\" data-fn=\"1\"></sup> He stated the conservation of force in an 1847 pamphlet, invented the ophthalmoscope in 1851 and the ophthalmometer in 1855, and set out the physics, physiology and psychology of vision in his <i>Handbuch der physiologischen Optik</i> of 1867.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He held that sensations are signs rather than pictures and that perception is an unconscious judgement about what would ordinarily have produced them, a view that placed him among the empiricists on whether spatial vision is learned or given.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Nerve_conduction_velocity": "Nerve conduction velocity is the speed at which an impulse travels along a nerve fibre, and it varies widely from one fibre to another rather than taking a single value.<sup class=\"fn\" data-fn=\"1\"></sup> In the fastest human nerves, the large sheathed fibres that carry the sense of where the limbs are, it runs at something like 80 to 120 metres a second, while thin unsheathed fibres are far slower.<sup class=\"fn\" data-fn=\"2\"></sup> The chief determinant is myelin, which insulates the axon so that the impulse leaps between the gaps called nodes of Ranvier rather than creeping along the membrane, and the diameter of the axon and the spacing of those nodes enter as well.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Ernst_Heinrich_Weber": "Ernst Heinrich Weber was a German anatomist and physiologist at Leipzig who was the first to put the senses of the skin to methodical and measuring investigation.<sup class=\"fn\" data-fn=\"1\"></sup> Working with a compass whose ends were ground flat so as to press rather than prick, he mapped across the body the separation at which two touches begin to be felt as one, and by comparing lifted weights he found that the smallest difference noticed stands in a ratio to the standard rather than being fixed.<sup class=\"fn\" data-fn=\"1\"></sup> With his brother Eduard he also showed that stimulating the vagus nerve slows the heart, the first clear case of a nerve whose action is to inhibit.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Gustav_Fechner": "Gustav Theodor Fechner was a German professor at Leipzig who founded psychophysics, defining it as an exact doctrine of the relations of dependence between the physical and the psychical world.<sup class=\"fn\" data-fn=\"1\"></sup> He held the two to be modes of appearance of a single underlying being, and the search for a functional relation between them arose while he was writing a book on that view, issuing in the formula that a sensation goes with the logarithm of the stimulus.<sup class=\"fn\" data-fn=\"2\"></sup> He also wrote satires as Dr Mises, argued that plants have a soul-life of their own, and founded an aesthetics that settled questions of taste by asking people rather than deducing from principles.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Gustav_Fechner": "Gustav Theodor Fechner was a German professor at Leipzig who founded psychophysics, defining it as an exact doctrine of the relations of dependence between the physical and the psychical world.<sup class=\"fn\" data-fn=\"1\"></sup> He held the two to be modes of appearance of a single underlying being, and the search for a functional relation between them arose while he was writing a book on that view, issuing in the formula that a sensation goes with the logarithm of the stimulus.<sup class=\"fn\" data-fn=\"2\"></sup> He also wrote satires as Dr Mises, argued that plants have a soul-life of their own, and founded an aesthetics that settled questions of taste by asking people rather than deducing from principles.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Charles_Darwin": "Charles Darwin was an English naturalist who sailed aboard HMS Beagle and whose <i>On the Origin of Species</i> of 1859 argued that species change over time, the chief agent of that change being natural selection.<sup class=\"fn\" data-fn=\"1\"></sup> He foresaw at the close of that book that psychology would rest on a new foundation, the acquirement of each mental power by gradation.<sup class=\"fn\" data-fn=\"1\"></sup> Two later books carried the argument to human beings: the <i>Descent of Man</i> of 1871, which holds the difference in mind between man and the higher animals to be one of degree and not of kind, and <i>The Expression of the Emotions in Man and Animals</i> of 1872.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1908,7 +1909,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Archaic_period_(North_America)": "c. 9000 – 2500 BP",
 "Immanuel_Kant": "1724–1804",
 "Hermann_von_Helmholtz": "1821–1894",
-"Gustav_Fechner": "1801–1887"
+"Gustav_Fechner": "1801–1887",
+"Charles_Darwin": "1809–1882"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2793,7 +2795,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hermann_von_Helmholtz": ["Helmholtz"],
 "Nerve_conduction_velocity": ["conduction velocity"],
 "Ernst_Heinrich_Weber": ["Ernst Weber"],
-"Gustav_Fechner": ["Gustav Theodor Fechner","Fechner"]
+"Gustav_Fechner": ["Gustav Theodor Fechner","Fechner"],
+"Charles_Darwin": ["Darwin"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4109,7 +4112,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hermann_von_Helmholtz": ["person","psychology","science","biology","germany"],
 "Nerve_conduction_velocity": ["concept","science","biology","psychology"],
 "Ernst_Heinrich_Weber": ["person","psychology","science","biology","germany"],
-"Gustav_Fechner": ["person","psychology","science","philosophy","germany"]
+"Gustav_Fechner": ["person","psychology","science","philosophy","germany"],
+"Charles_Darwin": ["person","science","biology","evolution","psychology"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
