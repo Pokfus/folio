@@ -2332,3 +2332,26 @@ filled in, so what Commons has is M1400's plan **marked out in clipped hedges** 
 Yinxu park — which happens to show exactly what the card's third sentence claims, a rectangular shaft
 with a ramp running away from it. Park furniture has turned up three times in this run as a wrong
 answer; here it is the right one, because the thing being illustrated is a SHAPE.
+
+  **`cnh-081` IS THE CARD BOXED IN ON FOUR SIDES, AND THE WAY OUT WAS TO WRITE ABOUT THE CATEGORY
+RATHER THAN THE OBJECTS.** `cnh-082` takes piece-mould casting, `cnh-083` the ding, `cnh-084` the
+decoration and `cnh-096` the ore, while `cnh-064`, `cnh-074`, `cnh-076`, `cnh-078` and `cnh-080` had
+already spent Erlitou's first vessels, the owl zun, the emblems, the alloys, the meat tripods and the
+two monumental ding at the bottom of M1004. What is left, and what nothing else will take, is the
+**TYPOLOGY AND ITS ARITHMETIC**: each shape's name and job, the graded set, and the Zhou sumptuary rule
+that fixes nine ding for a king, seven for the second rank, five for the third and three or one for the
+fourth, with grain vessels, liquor and water containers and bells specified by number to match.
+  **ITS SHARPEST CLAIM IS AN EPISTEMIC ONE.** The functions those vessel names carry come **from the
+received textual tradition rather than from residue or use-wear analysis** — so the yan is called a
+steamer because later texts say so, and grain is the likely thing steamed in it, but human skulls have
+been found in yan in three Yinxu burials. A card that lists what each vessel was for without saying
+where that knowledge comes from is teaching a convention as though it were a finding.
+  **THE PICTURE IS THE FIRST IN THIS RUN THAT SHOWS A RULE RATHER THAN AN OBJECT.** `add-card.js`
+offered a third single vessel, after the fangyi on `cnh-076` and the jue on `cnh-078`; searching by hand
+for a SET found five ding descending in size above four gui from the Guo state tombs, with the rank
+diagram on the wall behind them. **When a card is about a system, photograph the system** — the ranked
+allowance is legible in that case in a way no single bronze could show.
+  **AND THE SMALLEST SET IS THE OTHER END OF THE SAME SCALE**, taken from the Wang review's summary of
+Cao's argument: two pieces, a gu beaker and a jue pitcher, and a grave holding even that was not a
+commoner's. Childs-Johnson gives the top of the scale and the review gives the bottom; **a card about
+a graded system needs both ends or it is only about the rich.**
