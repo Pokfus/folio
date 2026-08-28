@@ -15,9 +15,10 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
-`geo-010` Oklahoma, `geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504`
-Providence, `geo-505` Juneau, `geo-506` Honolulu and `geo-507` Lansing.** Both subdecks are worked
-down the same list, so the next state is `geo-011` and the next capital `geo-508`.
+`geo-010` Oklahoma, `geo-011` New York, `geo-501` Sacramento, `geo-502` Austin, `geo-503`
+Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing and
+`geo-508` Baton Rouge.** Both subdecks are worked down the same list, so the next state is `geo-012`
+and the next capital `geo-509`.
 
 ---
 
@@ -341,7 +342,20 @@ Four more, measured while writing `geo-005` and `geo-501`:
   states the 49th-state rank, 3 January 1959, the $7.2 million at about two cents an acre, the largest-state
   land area and the largest city, in one openable page. **Look for a state's story before searching wider.**
 - **`loc.gov` itself is behind a Cloudflare wall here and answers 403** — the *Today in History* pages among
-  them — while `guides.loc.gov` is open. Do not read one as evidence about the other.
+  them — while `guides.loc.gov` is open. Do not read one as evidence about the other.  The *Today in History*
+  tab **inside** a state guide (`guides.loc.gov/<state>-state-guide/today-in-history`) is a different page
+  from those, is open, and is dated prose rather than a link list — it is where `geo-011` got the Dutch West
+  India Company's New Amsterdam, which the guide's own Introduction does not mention. Not every state guide
+  has the tab; Louisiana's 404s.
+- **WHEN A NOMINATION HAS NO NPS SUMMARY PAGE, GET ITS REFERENCE NUMBER OUT OF NARA.** The NHL summary pages
+  at `nps.gov/subjects/nationalhistoriclandmarks/<slug>.htm` cover only some landmarks, and both of Baton
+  Rouge's capitols 404 there. The list-of-NHLs-by-state page links each one to `catalog.archives.gov/id/<n>`
+  instead — and **that page is a JavaScript shell that serves 200 with none of the record in it**, a sixth
+  variety of 200-status non-page after `cia.gov`, `senate.gov`, `state.gov` and the two UN ones. Its own API
+  is open and answers by that number: `catalog.archives.gov/proxy/records/search?q=<naId>&limit=1` returns a
+  `scopeAndContentNote` ending "The National Historic Places Register Reference Number is 78001421_NHL",
+  which is exactly what `npgallery.nps.gov/NRHP/GetAsset/NHLS/<refnum>_text` wants. **A text query to that
+  API returns the shell instead of JSON**, so look up the number, never the name.
 - **A state's own historic-preservation office is the source the city governments are not.** California's
   landmark record for Old Sacramento (`ohp.parks.ca.gov/ListedResources/Detail/812`) gives the founding
   month and founder, the year the capital settled there and every terminus claim — wagon train, stagecoach,
@@ -389,6 +403,17 @@ terms that already exist**. Each was measured, and none should be settled quietl
   the sibling arrives*. When `geo-027` is written, decide it explicitly: either retire that alias and let
   both terms carry disambiguated keys, or keep it and give the state one. Do not add a second claimant to
   the same surface and leave the two to race.
+
+- **`New_York_(state)` IS THE FIRST OF THESE ACTUALLY WRITTEN, and it settles how to decide one.** The
+  rule above says a disambiguated key must not claim its bare surface; the question it leaves open is
+  whether to give the state the bare "New York" as an alias anyway, since the card's own answer is that
+  word. The way to answer it is to MEASURE, not to reason: grep the shipped card and glossary prose for
+  the surface and read what it means there. "New York" appears sixteen times, and it is genuinely split —
+  a vase "of about 550 BCE in New York" is the Metropolitan Museum, "20th-century buildings in New York"
+  is the city, while "Stony Brook University in New York" is the state. **A surface whose existing uses
+  divide gets no alias from either claimant**, so the term is keyed `New_York_(state)`, prints as "New
+  York" in its popup, and the bare word auto-links to nothing — which is the honest result when the word
+  means two things. The card is unaffected, a card never auto-linking its own answer.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
