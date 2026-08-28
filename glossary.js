@@ -1308,7 +1308,8 @@ window.GLOSSARY = {
 "Shang_calendar": "The <b>Shang calendar</b> is the reckoning of time behind the oracle-bone inscriptions of Bronze Age China, and it counts days rather than years, those inscriptions carrying day notations and nothing else.<sup class=\"fn\" data-fn=\"1\"></sup> A day is named by pairing ten signs called the heavenly stems with twelve called the earthly branches, each taken in turn, so the pairs run out at sixty and begin again; the ten stems also give a week of ten days, the xun.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> There is no era count in the system, which was not applied to numbering years until the Han dynasty, so a date on a bone has to be recovered from astronomy instead.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Shang_writing": "<b>Shang writing</b> is the earliest Chinese writing, surviving as oracle-bone inscriptions incised into shell and bone and as inscriptions on cast bronze, the latter often written into the soft clay of the mould itself.<sup class=\"fn\" data-fn=\"1\"></sup> It is the ancestor of the characters written today, Chinese being the world’s only primary script still in continuous use, and the stages between are conventionally counted as five: oracle bone, bronze, seal, clerical and regular.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The script spread beyond China as well, and wooden tablets from the Korean kingdom of Paekche carry both practice at individual characters and attempts at composition in Sinitic.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Shang_neighbours": "The <b>Shang neighbours</b> are the peoples and polities surrounding the Shang state in Bronze Age China, known chiefly from materials that moved rather than from written description.<sup class=\"fn\" data-fn=\"1\"></sup> A rare, highly radiogenic lead supplied over half the lead used from the Yellow River to the Yangtze, appearing at nearly the same moment in the Central Plain and at sites in Sichuan, Hubei and Jiangxi before vanishing under the Zhou, and its source is still argued over.<sup class=\"fn\" data-fn=\"2\"></sup> Carnelian buried in Sichuan came from more than 1,000 kilometres (600 miles) north, placing several regions in one exchange sphere between 1500 and 1000 BCE.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Shang_bronze": "<b>Shang bronze</b> is an alloy of copper with tin and lead, cast in enormous quantity by the late Shang state, whose capital at Anyang was among the largest consumers of metal anywhere in Eurasia in the 2nd millennium BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its chemistry follows rank: the ritual vessels of the highest elite were alloyed from very pure copper with tin in controlled amounts, while metal further down the order was remelted and mixed, and lead was added deliberately at around 2 to 5 per cent to lower the melting point.<sup class=\"fn\" data-fn=\"1\"></sup> Much of that lead is unusually radiogenic and appears suddenly around 1400 BCE, its source still disputed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Shang_bronze": "<b>Shang bronze</b> is an alloy of copper with tin and lead, cast in enormous quantity by the late Shang state, whose capital at Anyang was among the largest consumers of metal anywhere in Eurasia in the 2nd millennium BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its chemistry follows rank: the ritual vessels of the highest elite were alloyed from very pure copper with tin in controlled amounts, while metal further down the order was remelted and mixed, and lead was added deliberately at around 2 to 5 per cent to lower the melting point.<sup class=\"fn\" data-fn=\"1\"></sup> Much of that lead is unusually radiogenic and appears suddenly around 1400 BCE, its source still disputed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Cowrie_shell": "A <b>cowrie shell</b> is the smooth oval shell of a marine snail of the family Cypraeidae, an animal that can draw its mantle over the outside of the shell and that belongs to the tropical Indo-Pacific, ranging from the east coast of Africa to Polynesia.<sup class=\"fn\" data-fn=\"1\"></sup> Coastal peoples have harvested the animals for food and used the shells in handicraft and as currency.<sup class=\"fn\" data-fn=\"1\"></sup> Seashells recovered from inland graves are non-local material and are read as evidence of long-distance trade, and in studies that cost grave goods by the labour they represent a marine shell is rated well above a freshwater one.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2849,7 +2850,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Shang_jade": ["Shang jades"],
 "Shang_chariot": ["Shang chariots"],
 "Shang_warfare": ["Shang war"],
-"Shang_capitals": ["Shang capital"]
+"Shang_capitals": ["Shang capital"],
+"Cowrie_shell": ["cowry shell","cowrie","cowry"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4184,7 +4186,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Shang_calendar": ["concept","history","science","china","bronze age"],
 "Shang_writing": ["concept","writing","history","china","bronze age"],
 "Shang_neighbours": ["concept","archaeology","history","china","bronze age"],
-"Shang_bronze": ["object","technology","archaeology","china","bronze age"]
+"Shang_bronze": ["object","technology","archaeology","china","bronze age"],
+"Cowrie_shell": ["object","archaeology","nature","geography","animal"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

@@ -452,7 +452,7 @@ already shipped before adding it.
     cnh-094  Shang writing and its descendants
     cnh-095  Shang neighbours
     cnh-096  Shang bronze
-    cnh-097  Cowrie shells and Shang exchange
+    cnh-097  Cowrie shells
     cnh-098  Shang music and instruments
     cnh-099  Shang craft workshops
     cnh-100  Shang burial practice

@@ -2751,3 +2751,31 @@ should name the disagreement rather than pick a winner.**
 DOIs served 300–430 KB of real article HTML with the right titles, one card after `link.springer.com`
 handed back a 3,038-byte challenge page for both the article and the PDF. **Reachability is per host and
 per day: measure it, do not carry a refusal forward from the previous card.**
+
+  **`cnh-097` CAUGHT ITS OWN DUPLICATION BEFORE DRAFTING, WHICH IS THE `cnh-091` LESSON WORKING.** The
+obvious opening for a cowrie card is Campbell's figure — over 80% of Yinxu burials are a coffin, a few
+pots, perhaps a cowry shell — and a grep found it ALREADY ON TWO CARDS, `cnh-066` and `cnh-086`, both
+phrased as "more than four in five". A third would have been the same sentence three times in one deck.
+**Grep the sentence you mean to write, not just the source you mean to cite**; here the source had been
+read three times and the same clause taken from it each time.
+  **THE CARD IS THEREFORE BUILT ON WHAT WAS LEFT, AND IT IS BETTER FOR IT.** MacIver's costing of Anyang
+grave goods rates a MARINE shell at 250 against a freshwater one at 100 — a judgement about distance
+rather than beauty, and the only place in the corpus where the two kinds of shell are told apart. Li Liu
+supplies the traffic in the other direction, turtle shell coming north from where it was plentiful; Shelach
+has seashells in north-western graves far from any sea. **The natural-history sentence needed a marine
+biology paper**: no archaeological source reachable here states the family's range, and a *Royal Society
+Open Science* article on rearing cowrie larvae gives it exactly — tropical Indo-Pacific, East Africa to
+Polynesia — which is what makes the distance argument work at all.
+  **AND LACOUPERIE 1892 IS CITED FOR HIS TEXTS AND NEVER FOR HIS THEORIES**, which is `cnh-093`'s rule a
+card later. The British Museum catalogue's introduction reports the *Book of Documents* passage in which
+Pan Geng rebukes his ministers for hoarding cowries and gems, dates Chu's supply of tortoise shells and
+cowries "for currency" to 852 BCE with both grown scarce, and records the later bronze pieces nicknamed
+metallic cowries. It also carries his views on writing arriving from Western Asia and bronze reaching
+China through Meshed — none of which is on the card. **The chronology of his OWN sources is usable; his
+diffusionism is not.**
+  **TWO SMALL RULES CONFIRMED.** `set-date-line.js` refuses a semicolon in a value ("semicolons chain
+clauses — give each date its own row"), which caught `rated 250; freshwater 100` on the first attempt. And
+the GLOSSARY TERM had to be rewritten deck-agnostically after a first draft framed a cowrie by Bronze Age
+China: the card may be about the Shang, the term may not be, so its three sentences are the animal, the
+uses coastal peoples have made of it, and the reading of inland seashells as evidence of trade — with
+China named nowhere.
