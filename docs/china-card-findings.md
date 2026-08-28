@@ -2405,3 +2405,24 @@ to over-read it.**
 largest surviving Shang bronze, four-legged where the commoner form is three-legged. Two of the Commons
 candidates are labelled **"Copy"**; the museum-replica trap again, and the third time in this run it has
 been avoided only by reading the file name.
+
+  **`cnh-084` NEARLY TOOK AN ANSWER TERM THE COLLECTION ALREADY HAD.** The sources for Shang bronze
+decoration are largely about the **taotie**, which is the obvious blankable word — and `cnh-027` in the
+mythology deck already IS that card, with a `Taotie` glossary term beside it, telling the transmitted
+story of the Glutton banished by Shun. **Grep the plan AND `data.js` for a candidate answer term before
+renaming a plan line to it**; the check costs one command and this one would have shipped a duplicate.
+The card keeps the plan's own wording and now auto-links `taotie` to the myth card's term, which is the
+join the two decks should have.
+  **ITS BEST SENTENCE IS A REFUTATION THAT RESTS ON A LIST.** The long-standing reading of the zoomorphs
+as pictures of the animals given in sacrifice fails on the inventory: buffalo, tigers, horned owls,
+elephants, deer and big-horned sheep were almost never offered, and what they share instead is wildness.
+Jaffe and Campbell make the point sharpest on one vessel — a split buffalo, identified by its
+backward-sweeping horns AND by the graph for buffalo cast inside, whose gaping fanged mouth therefore
+belongs to no buffalo at all. **An argument a reader can check against a list is worth more on a card
+than one they must take on authority.**
+  **AND THE PICTURE PROBLEM THIS RUN KEEPS MEETING IS A THUMBNAIL PROBLEM.** Two good taotie images were
+unreachable — a labelled Hungarian diagram at 800px fails the ~900px bar, and a 960px Norwegian motif
+photograph has NO thumbnails at all, so the only path is the original file, which was 429 throughout.
+**A file barely over the bar is the worst case**: too small for MediaWiki to thumbnail, too rate-limited
+to fetch whole. The late Shang jia that shipped is 3620 × 5436, thumbnailed instantly, and its flanges
+divide each mask down the middle, which is the split composition the card describes.
