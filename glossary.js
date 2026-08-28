@@ -1307,7 +1307,8 @@ window.GLOSSARY = {
 "Shang_countryside": "The <b>Shang countryside</b> is the settled landscape outside the Shang capitals in Bronze Age China — villages, hamlets and lesser regional centres — of which very little has been excavated.<sup class=\"fn\" data-fn=\"1\"></sup> The early Shang pattern includes medium-sized centres placed at the main water-transport nodes near metal sources, while for the late Shang the evidence rests largely on one nearly complete village, Guandimiao in Henan, whose 22 houses and 23 kilns produced pottery far beyond local need.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The polity such settlements composed is read less as a bounded territory than as a network of lineages with the king at the head of the senior one.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Shang_calendar": "The <b>Shang calendar</b> is the reckoning of time behind the oracle-bone inscriptions of Bronze Age China, and it counts days rather than years, those inscriptions carrying day notations and nothing else.<sup class=\"fn\" data-fn=\"1\"></sup> A day is named by pairing ten signs called the heavenly stems with twelve called the earthly branches, each taken in turn, so the pairs run out at sixty and begin again; the ten stems also give a week of ten days, the xun.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> There is no era count in the system, which was not applied to numbering years until the Han dynasty, so a date on a bone has to be recovered from astronomy instead.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Shang_writing": "<b>Shang writing</b> is the earliest Chinese writing, surviving as oracle-bone inscriptions incised into shell and bone and as inscriptions on cast bronze, the latter often written into the soft clay of the mould itself.<sup class=\"fn\" data-fn=\"1\"></sup> It is the ancestor of the characters written today, Chinese being the world’s only primary script still in continuous use, and the stages between are conventionally counted as five: oracle bone, bronze, seal, clerical and regular.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The script spread beyond China as well, and wooden tablets from the Korean kingdom of Paekche carry both practice at individual characters and attempts at composition in Sinitic.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Shang_neighbours": "The <b>Shang neighbours</b> are the peoples and polities surrounding the Shang state in Bronze Age China, known chiefly from materials that moved rather than from written description.<sup class=\"fn\" data-fn=\"1\"></sup> A rare, highly radiogenic lead supplied over half the lead used from the Yellow River to the Yangtze, appearing at nearly the same moment in the Central Plain and at sites in Sichuan, Hubei and Jiangxi before vanishing under the Zhou, and its source is still argued over.<sup class=\"fn\" data-fn=\"2\"></sup> Carnelian buried in Sichuan came from more than 1,000 kilometres (600 miles) north, placing several regions in one exchange sphere between 1500 and 1000 BCE.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Shang_neighbours": "The <b>Shang neighbours</b> are the peoples and polities surrounding the Shang state in Bronze Age China, known chiefly from materials that moved rather than from written description.<sup class=\"fn\" data-fn=\"1\"></sup> A rare, highly radiogenic lead supplied over half the lead used from the Yellow River to the Yangtze, appearing at nearly the same moment in the Central Plain and at sites in Sichuan, Hubei and Jiangxi before vanishing under the Zhou, and its source is still argued over.<sup class=\"fn\" data-fn=\"2\"></sup> Carnelian buried in Sichuan came from more than 1,000 kilometres (600 miles) north, placing several regions in one exchange sphere between 1500 and 1000 BCE.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Shang_bronze": "<b>Shang bronze</b> is an alloy of copper with tin and lead, cast in enormous quantity by the late Shang state, whose capital at Anyang was among the largest consumers of metal anywhere in Eurasia in the 2nd millennium BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its chemistry follows rank: the ritual vessels of the highest elite were alloyed from very pure copper with tin in controlled amounts, while metal further down the order was remelted and mixed, and lead was added deliberately at around 2 to 5 per cent to lower the melting point.<sup class=\"fn\" data-fn=\"1\"></sup> Much of that lead is unusually radiogenic and appears suddenly around 1400 BCE, its source still disputed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1953,7 +1954,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Shang_countryside": "c. 1600 – 1046 BCE",
 "Shang_calendar": "c. 1250 – 1046 BCE",
 "Shang_writing": "c. 1250 – 1046 BCE",
-"Shang_neighbours": "c. 1500 – 1000 BCE"
+"Shang_neighbours": "c. 1500 – 1000 BCE",
+"Shang_bronze": "c. 1600 – 1046 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4181,7 +4183,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Shang_countryside": ["concept","archaeology","history","china","bronze age"],
 "Shang_calendar": ["concept","history","science","china","bronze age"],
 "Shang_writing": ["concept","writing","history","china","bronze age"],
-"Shang_neighbours": ["concept","archaeology","history","china","bronze age"]
+"Shang_neighbours": ["concept","archaeology","history","china","bronze age"],
+"Shang_bronze": ["object","technology","archaeology","china","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

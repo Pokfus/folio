@@ -451,7 +451,7 @@ already shipped before adding it.
     cnh-093  The Shang calendar
     cnh-094  Shang writing and its descendants
     cnh-095  Shang neighbours
-    cnh-096  Shang bronze technology and its sources
+    cnh-096  Shang bronze
     cnh-097  Cowrie shells and Shang exchange
     cnh-098  Shang music and instruments
     cnh-099  Shang craft workshops

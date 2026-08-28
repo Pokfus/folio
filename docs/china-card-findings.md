@@ -2726,3 +2726,28 @@ and all four of the *Yangzi* were cards written in this run (`cnh-088`, `cnh-090
 itself, which used both spellings in one abstract). All are normalised to the majority form, in the cards
 and in the `Panlongcheng` glossary term. **Grep a proper noun's variants across `data.js` before adopting
 one** — a minority spelling introduced four cards running becomes a house style nobody chose.
+
+  **`cnh-096` IS THE FIFTH CARD IN A ROW ON BRONZE AND IT HAD TO BE FOUND, NOT WRITTEN.** `cnh-064` has
+Erlitou's metal, `cnh-081` the vessel typology, `cnh-082` the piece-mould method, `cnh-084` the ornament,
+`cnh-089`–`cnh-090` the foundries and the outposts, `cnh-095` the lead's geography. What was left is the
+ALLOY and the SUPPLY, and Liu, Pollard and Cao's recycling study answers both at once: the ritual vessels
+of the highest elite were made by **primary alloying** — very pure copper with tin in controlled amounts,
+a practice found nowhere else in Bronze Age central China — while everything lower down was **secondary**,
+mixed and remelted with the impurities that carries. **The chemistry of the metal follows rank**, which is
+a claim no other card in the run could have made.
+  **ITS SHARPEST FIGURE IS ONE THE FU HAO CARD DID NOT TAKE**: 1.6 tonnes of metal from her tomb alone,
+and she was one of a king's consorts and not the most important person buried at Anyang, so the grave is
+the tip of the supply rather than a measure of it. `cnh-075` counted her BRONZES (468 by one study, 210 by
+another) and never weighed them. **A card written on the same tomb can still leave a number on the table**
+— check what the sibling counted, not just what it covered.
+  **THE LEAD QUESTION IS NARROWED HERE RATHER THAN REPEATED.** `cnh-095` has the geography of the
+radiogenic lead and the thirty years of argument; this card takes only what that one left — that it
+appears on the Yellow River plain **suddenly, around 1400 BCE**, and that Tongkuangyu, the obvious
+candidate deposit in central China, has been excluded as its sole supplier. Sun Wei-dong et al. propose
+African cratons and say outright that how such metal reached China "remains mysterious"; Liu, Rawson and
+Pollard answer with multiple sources. **Two open papers disagreeing is worth a clause, and the clause
+should name the disagreement rather than pick a winner.**
+  **AND NATURE'S DOIs ARE ANSWERING TODAY, WHERE SPRINGER'S ARE NOT.** All three *Scientific Reports*
+DOIs served 300–430 KB of real article HTML with the right titles, one card after `link.springer.com`
+handed back a 3,038-byte challenge page for both the article and the PDF. **Reachability is per host and
+per day: measure it, do not carry a refusal forward from the previous card.**
