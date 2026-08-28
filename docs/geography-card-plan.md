@@ -21,16 +21,16 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
-`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont,
+`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson and `geo-539` Dover.**
-Both subdecks are worked down the same list, so the next state is `geo-043` and the next capital
-`geo-540`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover and `geo-540` Hartford.**
+Both subdecks are worked down the same list, so the next state is `geo-044` and the next capital
+`geo-541`.
 
 ---
 
@@ -1307,6 +1307,44 @@ terms that already exist**. Each was measured, and none should be settled quietl
   citation is the document actually read, so **Morrill was dropped from the card rather than cited from a
   catalogue record standing in for a PDF nobody could open**. Two clean documents plus the Constitution
   House were enough.
+
+- **THE PRE-DRAFT SURFACE CHECK WAS CASE-SENSITIVE, AND THAT IS WHY IT KEEPS MISSING THE ONE TRAP THAT
+  MATTERS.** The scratch script that greps a draft against every glossary surface built its regexes without
+  the `i` flag, so a key stored capitalised — `Settlement`, `Cemetery`, `Gold`, `Silver`, `Copper`, `Tin`
+  — could never match the lowercase common noun in the prose. **The real linker is case-insensitive
+  except for the eighteen `GLOSSARY_CASESENSITIVE` entries**, so the check was silently blind to exactly
+  the class of surface that produces a wrong link: an everyday word with a specialist entry behind it.
+  It let `Settlement` through in round 38 and would have let `Settlement` AND `Cemetery` through here.
+  Fixed, and the rendered check caught both anyway — which is the argument for running BOTH: the grep
+  plans the draft, the browser is the authority.
+- **`Cemetery` IS `Settlement`'S TWIN, AND THE PAIR IS NOW A NAMED CLASS.** Both are archaeological
+  entries — one about dwelling places against camps and cemeteries, one about graves grouped rather than
+  scattered and the Early Iron Age burials under the Athenian Agora — and both were being reached from an
+  ordinary modern sentence: an Italian *settlement* at Meaderville in the 1890s, the only *cemetery* in
+  Hartford until 1803. Both were fixed by changing the WORD rather than the link (neighbourhoods at
+  Meaderville; "took every burial in Hartford"). **Before using a plain English noun for a place, a
+  burial ground, a period or a material, ask whether Folio has a specialist entry on it.**
+- **A DEMONYM LINKING TO ITS COUNTRY IS FINE; FOUR OF THEM IN ONE SENTENCE IS NOT.** Butte's immigrant
+  list drew `Irish`→`Ireland`, `Italian`→`Italy`, `Finnish`→`Finland` and `Croatian`→`Croatia` while
+  Chinese, Jewish and Slav linked to nothing, so a list of seven wore four links and three bare words
+  for no reason a reader could see. Rewriting it round the DISTRICTS the source actually names —
+  Centerville and Walkerville, Meaderville, East Broadway — cut it to two and is better history besides.
+  The links themselves were never wrong: this is a legibility rule, unlike the `Settlement` class above.
+- **THE METALS ARE THE OPPOSITE CASE AND SHOULD BE LEFT ALONE.** `gold`, `silver` and `copper` on a Butte
+  card link to Folio's own metallurgy entries, which is exactly where a reader following the Anaconda
+  story should be able to go; and `tin`, on "the failing tin workings at home", lands on a term about
+  Cornish tin and Bronze Age sourcing, which is the same metal and the same county. **A common-noun link
+  is not a fault by itself** — the test is whether the entry behind it is about the thing the sentence
+  means.
+- **MONTANA'S NHL LAYER RETURNS ZERO, WHICH IS THE SHORT-LIST RULE AT ITS LIMIT.** Rounds 35–38 met
+  layers giving one or two; here `Is_NHL='Y'` gives none at all for a state holding Little Bighorn and
+  the Butte district. The way in was **the LoC HABS/HAER collection's own JSON search**
+  (`/collections/historic-american-buildings-landscapes-and-engineering-records/?q=…&fo=json`), which
+  returns the survey number as the last path segment of each result's `id` — so `mt0040`, `mt0041`,
+  `mt0075` resolve straight to `tile.loc.gov` data PDFs. **Search the collection, not the layer**, when a
+  state's landmark list comes back empty. Two of the four Virginia City documents fetched this way are
+  photographs only and extract to a single line; the survey number tells you nothing about that in
+  advance, so fetch and look.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
