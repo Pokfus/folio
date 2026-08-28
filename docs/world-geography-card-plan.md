@@ -16,14 +16,14 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-039`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-042`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
-Afghanistan, Canada, Yemen, Morocco) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad,
-`gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516`
-Hanoi, `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin and `gw-520` Bangkok.** The next country is
-`gw-040` Angola and the next capital is `gw-521` London.
+Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland) **and capitals `gw-503` Washington, D.C.,
+`gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515`
+Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520` Bangkok and
+`gw-521` London.** The next country is `gw-043` Uzbekistan and the next capital is `gw-522` Dodoma.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -619,6 +619,33 @@ answered "You are making too many requests to the API" for the whole of the batc
 already shipped on other terms, so the rate limit is the host's view of this sandbox rather than anything
 about the file wanted. **Say which of the two it is**: a term with no reachable picture is worth
 revisiting on the next run, where a term with no picture in existence is not.
+
+**Batch 13 (Angola, Ukraine, Poland, London) found the primary source that proves a claim about the
+United Nations seats of the Soviet republics, and it is a routine conference paper.** C3 recorded that
+`Belarus` and `Ukraine` both show a UN membership date of 24 October 1945 and warned that a marker there
+dates the USSR's founding seat rather than the 1991 independence. The thing that was missing was a
+document showing the republic sitting in its own right, and **A/CONF.104/18** is one: a note handed to
+the president of the UN Conference on the Least Developed Countries at Paris in September 1981, whose
+signatories list the Ukrainian Soviet Socialist Republic and the Union of Soviet Socialist Republics as
+two separate delegations, one after the other. **Where a claim about how a state was represented needs
+proving, look for a credentials paper rather than a history**: the delegation list IS the evidence, it is
+dated, and the UN Digital Library serves it.
+
+**Ukraine's population is the pass's first correction to a FRAMING rather than to a figure.** The term
+said "about 41 million people recorded before 2022 and far fewer since"; the World Bank series gives
+44.3 million for 2021 and 41.0 million for 2022, so 41 million is what was recorded IN the invasion
+year, not before it. C8's test asks whether the series passes through the term's figure, and it does —
+which is exactly why the error survived: a stale figure and a figure attached to the wrong period look
+identical to that test. **Read what the sentence CLAIMS about the figure's date, not only whether the
+figure is on the curve.** The term now gives roughly 44 million before the 2022 invasion and 39 million
+now, and the card states the fall in full: 45.8 million in 2015 down to 38.98 million in 2025, about one
+recorded person in seven in a decade.
+
+**And Poland is where three sources disagree by more than the term does, so nothing was corrected.**
+UNdata gives 38,141 thousand people and the World Bank 36,435,861, a 4.5% spread, with the term's
+"roughly 37 million" sitting between them; the areas are 312,679 at UNdata, 312,720 at the World Bank
+and 312,696 in the term, again inside. C9's rule holds in both directions and the batch is a reminder
+that it usually means doing nothing.
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
