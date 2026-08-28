@@ -5259,6 +5259,334 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "dino",
+      "title": "Dinosaurs",
+      "total": 0,
+      "children": [
+        {
+          "id": "dino-are",
+          "title": "What Dinosaurs Are",
+          "total": 85,
+          "children": [
+            {
+              "id": "dino-def",
+              "title": "What a dinosaur is",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "dino-anatomy",
+              "title": "Dinosaur anatomy",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "dino-classify",
+              "title": "Classifying dinosaurs",
+              "total": 30,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "dino-world",
+          "title": "The Mesozoic World",
+          "total": 100,
+          "children": [
+            {
+              "id": "dino-deeptime",
+              "title": "Deep time and the Mesozoic",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "dino-continents",
+              "title": "Continents and climate",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "dino-plants",
+              "title": "Mesozoic plants and landscapes",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "dino-seasky",
+              "title": "The other reptiles: sea and sky",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-neighbours",
+              "title": "Life beside the dinosaurs",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "dino-origins",
+          "title": "Origins and the Triassic",
+          "total": 90,
+          "children": [
+            {
+              "id": "dino-permian",
+              "title": "The Permian extinction and its aftermath",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "dino-archosaurs",
+              "title": "Archosaurs before dinosaurs",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "dino-first",
+              "title": "The first dinosaurs",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-triassic",
+              "title": "The Triassic world and the end-Triassic extinction",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "dino-sauropodomorpha",
+          "title": "Sauropodomorphs",
+          "total": 110,
+          "children": [
+            {
+              "id": "dino-earlysauro",
+              "title": "Early sauropodomorphs",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "dino-sauropods",
+              "title": "Sauropods",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "dino-sauropodgroups",
+              "title": "The great sauropod groups",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "dino-gigantism",
+              "title": "Gigantism",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "dino-theropoda",
+          "title": "Theropods",
+          "total": 140,
+          "children": [
+            {
+              "id": "dino-earlytheropod",
+              "title": "Early theropods",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "dino-bigpredators",
+              "title": "Large predators",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "dino-coelurosaurs",
+              "title": "Coelurosaurs",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-tyrannosaurs",
+              "title": "Tyrannosaurs",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-maniraptor",
+              "title": "Maniraptorans",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "dino-birdorigin",
+              "title": "The origin of birds",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "dino-ornithischia",
+          "title": "Ornithischians",
+          "total": 130,
+          "children": [
+            {
+              "id": "dino-earlyornith",
+              "title": "Early ornithischians",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "dino-thyreophora",
+              "title": "Thyreophorans: stegosaurs and ankylosaurs",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "dino-ornithopods",
+              "title": "Ornithopods",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-hadrosaurs",
+              "title": "Hadrosaurs",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-ceratopsians",
+              "title": "Ceratopsians",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-pachy",
+              "title": "Pachycephalosaurs",
+              "total": 10,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "dino-biology",
+          "title": "Dinosaur Biology",
+          "total": 140,
+          "children": [
+            {
+              "id": "dino-growth",
+              "title": "Growth and life history",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-physiology",
+              "title": "Physiology and metabolism",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-locomotion",
+              "title": "Locomotion",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-feeding",
+              "title": "Feeding and diet",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-repro",
+              "title": "Reproduction and nests",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "dino-behaviour",
+              "title": "Behaviour and society",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "dino-extinction",
+          "title": "Extinction and Legacy",
+          "total": 90,
+          "children": [
+            {
+              "id": "dino-endcret",
+              "title": "The end of the Cretaceous",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "dino-recovery",
+              "title": "Recovery and the Cenozoic",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "dino-livingbirds",
+              "title": "Birds as living dinosaurs",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-legacy",
+              "title": "Dinosaurs and the shape of life",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "dino-science",
+          "title": "Finding and Knowing",
+          "total": 115,
+          "children": [
+            {
+              "id": "dino-taphonomy",
+              "title": "Fossilisation and taphonomy",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-excavation",
+              "title": "Finding and excavating",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "dino-study",
+              "title": "Studying a fossil",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-history",
+              "title": "The history of palaeontology",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "dino-public",
+              "title": "Dinosaurs in public",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "geo-us",
       "title": "United States",
       "total": 5,

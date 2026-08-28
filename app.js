@@ -17928,6 +17928,14 @@
        amplitude the box allows, and only TWO turns over the height. Three rungs at that width was still
        busy; two is enough to say ladder. */
     { k: "helix", n: "Double helix", d: '<path d="M5.5 3.2C5.5 9 18.5 10 18.5 15.8S5.5 18 5.5 20.8"/><path d="M18.5 3.2C18.5 9 5.5 10 5.5 15.8S18.5 18 18.5 20.8"/><path d="M6 4.2h12"/><path d="M6 15.8h12"/>' },
+    /* sauropod in profile — Dinosaurs. Eight drafts, and THE ONE THAT DECIDED IT IS THE OWL two rows up.
+       A three-toed footprint is the obvious museum-signage mark and at 24px is a bulb with three prongs,
+       which reads as a sprouting plant; a femur reads as a slanted pill. What makes the sauropod work is
+       the NECK: a long neck that curls BACK over the body is a swan, and a swan on a shelf that already
+       carries an owl is the one thing this must not be. So the neck rises and the head tips FORWARD, and
+       what no bird has — a horizontal body on two straight legs with a long sweeping tail — is what
+       carries the reading at 24px. */
+    { k: "sauropod", n: "Sauropod", d: '<path d="M5.6 15.4c0-2.3 2.4-4.2 5.4-4.2s5.4 1.9 5.4 4.2-2.4 4.2-5.4 4.2-5.4-1.9-5.4-4.2z"/><path d="M15.6 12.8c2.2-2 3.6-4.5 3.9-6.9.1-.9.8-1.4 1.6-1.3.9.2 1.4 1 1.1 1.8"/><path d="M5.8 13.6C4 12.2 2.6 11.6 1.2 11.6"/><path d="M8.2 19.2v2.2"/><path d="M13.4 19.2v2.2"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
        an icon is two collections a reader cannot tell apart on the shelf. The inner points are drawn
@@ -17996,6 +18004,7 @@
     psych: "head",
     phil: "owl",
     bio: "helix",
+    dino: "sauropod",
     "geo-us": "compass",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
@@ -21607,7 +21616,7 @@
        subject rather than a gap. The echo resolves itself the day a second collection joins it. */
     { label: "Philosophy", slot: "collection-list-phil" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", psych: "Science", bio: "Science", phil: "Philosophy" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
 
   /* ============================================================
@@ -22194,6 +22203,18 @@
        and that clears the shelf's median nearest-neighbour distance of 22.7, the bar this shelf has
        settled on. 10.0:1 against white, the highest contrast on the shelf. */
     bio:      { bg: "#36481E" },
+    /* ochre (Dinosaurs) — MEASURED: 26.9 from its nearest neighbour, India's saffron, and 29.2 from World
+       History's sepia, against a tightest existing pair of 12.9 and a median nearest-neighbour distance
+       of 22.7. Comfortably the best-separated candidate that is not the magenta, and apt besides — amber,
+       Morrison sandstone, a prepared bone. 4.1:1 against white, low but inside the shelf's own 3.7-10.4.
+       A STANDING NOTE SO NOBODY RE-RUNS THIS SWEEP: the magenta around #c057b1 scores 30.6 and is the
+       best-scoring region of the whole wheel; it has been measured and rejected FOUR times now
+       (Psychology, Philosophy, Biology, Dinosaurs), always because at chroma 61 it is the loudest thing
+       that could go on a shelf whose register is muted throughout. It is not going to be chosen. The
+       olive-brass beside it has been rejected three times as a fourth or fifth member of the
+       yellow-green-brown quarter. What remains genuinely open is narrow, and the next collection may have
+       to accept a distance nearer the median than the maximum, as Philosophy's petrol did at 19.8. */
+    dino:     { bg: "#967B00" },
     /* deep olive (Geography) — MEASURED rather than picked, like every hue above it. The obvious choice is
        a teal, and the whole teal band is unusable: swept in CIELAB, every candidate lands 5–11 of Egypt's
        malachite or Greece's Aegean blue, against a tightest EXISTING pair of 12.9. The green band is
