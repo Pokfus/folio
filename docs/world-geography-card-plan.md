@@ -16,17 +16,17 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-053`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-056`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
 Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia,
-Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela) **and capitals `gw-503`
-Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514`
-Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520`
-Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524` Pretoria, `gw-525` Rome, `gw-751`
-Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-054` Australia and
-the next capital is `gw-526` Nairobi.
+Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela, Australia, Niger, North
+Korea) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
+Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
+Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753`
+Bloemfontein.** The next country is `gw-057` Syria and the next capital is `gw-527` Naypyidaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -763,6 +763,33 @@ consulate in the city had been open since 1797 and closed only in 1965; the emba
 1941 when Italy declared war and reopened on 8 January 1945. **A capital card's best spine is often the
 list of where a foreign mission sat**, because a mission moves when the seat of government does and the
 recognition guide dates every move.
+
+**Batch 18 (Australia, Niger, North Korea, Nairobi) met the first country with NO page in the
+recognition guide, and the reason is the fact itself.** `history.state.gov/countries/korea-north` and
+`/north-korea` are both 404 because the United States has never recognised the state — the Korea plan
+recorded this in advance and it is now met in practice. **A missing page is not a gap to route around
+but a fact to route THROUGH**, and the card is carried instead by the Korean War milestone, which
+narrates the division and the war, plus two Security Council resolutions: **702 (1991)**, recommending
+both Koreas for membership in a single resolution at the 3001st meeting, and **1718 (2006)** on the
+nuclear tests. **What a state has no bilateral record for, the Council usually has a multilateral one
+for.**
+
+**A first draft of that card asserted the missing page IN the prose and marked it to the milestone,
+which does not say it.** The probe that established the 404 is this session's work, not a published
+source, so the sentence was cut. **A negative established by probing is a research finding, not a
+citable claim** — it belongs in this file, where it now is, and not in a card.
+
+**Australia is the widest SOURCE disagreement of the pass so far and neither figure is wrong.** UNdata
+gives 26,974 thousand people and 7,692,024 km²; the World Bank gives 27,614,411 and 7,741,220 — a 2.4%
+spread on population and about 49,000 km² on area, which is larger than several whole countries in this
+collection. The term's "about 7.7 million km²" and "roughly 27 million" sit inside both, so nothing was
+corrected and the card states the spread, which is now the settled treatment after Saudi Arabia and
+Venezuela.
+
+**Niger is the opposite and worth recording for contrast: both sources give its area as exactly
+1,267,000 km² and agree on the population**, and it has the fastest population growth of any country
+carded — two fifths in a decade, 19.9 to 27.9 million. The spread between two official sources is a fact
+about the country; Australia and Niger are the two ends of it.
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
