@@ -1262,7 +1262,8 @@ window.GLOSSARY = {
 "Capitoline_Wolf": "Capitoline Wolf is the bronze she-wolf about 75 centimetres (30 inches) high in the Palazzo dei Conservatori in Rome, the twins beneath her added in the Renaissance and traditionally given to Antonio del Pollaiolo.<sup class=\"fn\" data-fn=\"1\"></sup> The traditional attribution placed the bronze in an Etruscan workshop of the 5th century BCE, but its restoration showed it cast in a single piece, a technique typical of the Middle Ages, and radiocarbon analysis gave a medieval date.<sup class=\"fn\" data-fn=\"1\"></sup> A medieval date severs the statue from the she-wolves that ancient writers describe,<sup class=\"fn\" data-fn=\"2\"></sup> though it had never been unanimously accepted as an early or middle Republican work and dating proposals are still being made.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Aeneas": "Aeneas is the Trojan whom Roman tradition made the ancestor of the Romans: spared at the sack of Troy, carried after long wandering to the Laurentian coast, married to the daughter of King Latinus, and buried by the Numicius as Jupiter Indiges.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The legend bridged the four centuries between the fall of Troy and the founding of Rome, his son Ascanius leaving Lavinium to build Alba Longa, whose kings run down to the grandfather of Romulus.<sup class=\"fn\" data-fn=\"3\"></sup> It was also a usable claim: the Julian house took its name from Ascanius as Iulus, and Julius Caesar told a funeral crowd that his family went back to Venus.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Alba_Longa": "Alba Longa is the city Roman tradition placed on the Alban Hills as the mother of Rome, built by Ascanius thirty years after Lavinium, named for the long ridge it stood along, and ruled by kings named Silvius.<sup class=\"fn\" data-fn=\"1\"></sup> It was destroyed in a war with Rome that Livy calls a war between parent and child, both peoples being of Trojan descent; the buildings were levelled, the temples spared and the people moved to Rome.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The absorption doubled the Roman citizen body and put Alban nobles into the senate, which is how the tradition accounts for patrician houses at Rome that were not Roman in origin.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Ab_urbe_condita": "Ab urbe condita is Latin for 'from the founding of the city' and names the practice of counting years from the beginning of Rome itself, with an epoch of 753 BCE on the reckoning that became standard.<sup class=\"fn\" data-fn=\"1\"></sup> It was not how Romans ordinarily dated anything, since a year was identified by naming its two consuls, and an era running from the founding belonged to scholars and historians rather than to everyday record.<sup class=\"fn\" data-fn=\"2\"></sup> It surfaced in public when a round number fell due, as when Claudius kept the eight hundredth year with Secular Games in 47 CE<sup class=\"fn\" data-fn=\"3\"></sup> and Philip the thousandth in April 248.<sup class=\"fn\" data-fn=\"4\"></sup>"
+"Ab_urbe_condita": "Ab urbe condita is Latin for 'from the founding of the city' and names the practice of counting years from the beginning of Rome itself, with an epoch of 753 BCE on the reckoning that became standard.<sup class=\"fn\" data-fn=\"1\"></sup> It was not how Romans ordinarily dated anything, since a year was identified by naming its two consuls, and an era running from the founding belonged to scholars and historians rather than to everyday record.<sup class=\"fn\" data-fn=\"2\"></sup> It surfaced in public when a round number fell due, as when Claudius kept the eight hundredth year with Secular Games in 47 CE<sup class=\"fn\" data-fn=\"3\"></sup> and Philip the thousandth in April 248.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"The_Rape_of_the_Sabine_Women": "The Rape of the Sabine Women is an episode of Roman foundation legend in which Romulus's followers carried off women from neighbouring peoples during games held in honour of Consus.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient writers explained it by the new city's want of women and its neighbours' refusal of intermarriage,<sup class=\"fn\" data-fn=\"1\"></sup> but disagreed over the year, over the number seized — Dionysius of Halicarnassus counted 683 — and over whether the aim was marriage or war.<sup class=\"fn\" data-fn=\"2\"></sup> The fighting that followed was said to have been stopped by the women coming between the armies, and to have ended in the union of the two peoples under a shared kingship.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2745,7 +2746,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Forum_Boarium": ["Forum Bovarium"],
 "Casa_Romuli": ["hut of Romulus","house of Romulus"],
 "Founding_of_Rome": ["foundation of Rome"],
-"Capitoline_Wolf": ["Lupa Capitolina"]
+"Capitoline_Wolf": ["Lupa Capitolina"],
+"The_Rape_of_the_Sabine_Women": ["rape of the Sabine women","Sabine women"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4033,7 +4035,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Capitoline_Wolf": ["object","art","history","italy","archaeology"],
 "Aeneas": ["person","history","religion","italy","bronze age"],
 "Alba_Longa": ["place","city","history","italy","iron age"],
-"Ab_urbe_condita": ["concept","history","italy","chronology"]
+"Ab_urbe_condita": ["concept","history","italy","chronology"],
+"The_Rape_of_the_Sabine_Women": ["event","history","mythology","italy","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
