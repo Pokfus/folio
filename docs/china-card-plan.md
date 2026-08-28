@@ -212,10 +212,10 @@ site-wide rewrite pass is `docs/history-focus-plan.md`. Do not restate either he
 The archaeology pull is concentrated in `col-2` and `col-3`, where everything before the oracle bones
 is material evidence, and it comes with this collection's hardest question:
 
-**`cnh-048 The question of the Xia's historicity` is China's Aryan-migration debate** — the counterpart
+**`cnh-061 Doubting Antiquity School` is China's Aryan-migration debate** — the counterpart
 of `in-033` and `ru-031`. Whether the Xia existed as the texts describe, and whether Erlitou is it, is
 argued between Chinese and Western scholarship along lines that are not purely evidential; the
-Xia–Shang–Zhou Chronology Project (`cnh-053`) is itself part of the story. The cards are about the
+Xia–Shang–Zhou Chronology Project (`cnh-065`) is itself part of the story. The cards are about the
 evidence and about the argument. They do not settle it, and a card that quietly picks a side while
 sounding neutral is worse than one that picks openly.
 
@@ -407,13 +407,13 @@ already shipped before adding it.
     cnh-052  The Central Plain and the origins of Chinese civilisation
     cnh-053  Sanxingdui
     cnh-054  Xia dynasty
-    cnh-055  The traditional account of the Xia
-    cnh-056  Yu the Great as founder
+    cnh-055  Shaokang and the restoration of the Xia
+    cnh-056  Tribute of Yu
     cnh-057  Qi of Xia
     cnh-058  Jie of Xia
-    cnh-059  The Xia in the transmitted texts
+    cnh-059  Songs of the Five Sons
     cnh-060  Bamboo Annals
-    cnh-061  The question of the Xia's historicity
+    cnh-061  Doubting Antiquity School
     cnh-062  Erlitou culture
     cnh-063  The Erlitou site
     cnh-064  Erlitou bronze
@@ -422,7 +422,7 @@ already shipped before adding it.
 ### Shang — `col-3`
 
     cnh-066  Shang dynasty
-    cnh-067  The Shang in the transmitted record
+    cnh-067  Basic Annals of Yin
     cnh-068  Tang of Shang
     cnh-069  Yinxu
     cnh-070  The discovery of the oracle bones
@@ -447,13 +447,13 @@ already shipped before adding it.
     cnh-089  Zhengzhou Shang City
     cnh-090  Panlongcheng
     cnh-091  Shang agriculture
-    cnh-092  Shang settlement and the countryside
+    cnh-092  The Shang countryside
     cnh-093  The Shang calendar
     cnh-094  Shang writing and its descendants
-    cnh-095  The Shang and their neighbours
-    cnh-096  Shang bronze technology and its sources
-    cnh-097  Cowrie shells and Shang exchange
-    cnh-098  Shang music and instruments
+    cnh-095  Shang neighbours
+    cnh-096  Shang bronze
+    cnh-097  Cowrie shells
+    cnh-098  Shang music
     cnh-099  Shang craft workshops
     cnh-100  Shang burial practice
     cnh-101  Shang queens and royal women

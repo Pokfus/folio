@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.378", released: "2026-08-28T22:55Z" };
+window.FOLIO_VERSION = { v: "1.379", released: "2026-08-28T23:18Z" };
 
 window.CHANGELOG = [
   {
@@ -44,8 +44,8 @@ window.CHANGELOG = [
     items: [
       "<b>A new collection maps every country and territory in the world</b>, and their capitals, with the biggest by population first.",
       "Its first hundred and thirty-six cards are in, from India and China to Rome, Kyiv and all three South African capitals \u2014 each one a shape on a globe you can turn.",
-      "Twenty-three new cards in <b>World History</b>, each with a new glossary term, finishing the <b>Ancient Egypt</b> deck at thirty cards and opening <b>The Indus and early China</b>.",
-      "Ninety card, glossary and artefact citations named an author, a year or a title wrongly, and all are corrected.",
+      "Seventy-two new cards \u2014 forty-nine in <b>China</b> and twenty-three in <b>World History</b>, finishing the <b>Ancient Egypt</b> deck at thirty \u2014 each with a new glossary term.",
+      "Ninety-six card, glossary and artefact citations named an author, a year or a title wrongly, and all are corrected.",
       "<b>Dinosaurs and Korea have joined the collections</b>, each planned at a thousand cards across nine decks and still to be written.",
       "<b>The \u201cComing soon\u201d section is now called Planned</b>, on the Collections page and on the label each of its rows carries.",
       "<b>A language in your daily study now opens its own options</b> when you hold it \u2014 its colour, its icon, its name, its daily limits and how its decks are scheduled.",
@@ -74,7 +74,8 @@ window.CHANGELOG = [
       "<b>Twenty-two glossary terms now open by saying what the thing is</b>, where they had led with an example or a single site.",
       "<b>Four glossary terms were removed</b> \u2014 wheel, burial, village and city \u2014 and four links no longer fire on the wrong word.",
       "Ninety-five more glossary terms, covering the Bronze and Iron Age periods, the Minoan, Helladic and Trojan divisions, the Aegean\u2019s excavators and sites, and the Archaic period of North America.",
-      "Fifty-eight new cards, in the <b>Ancient Greece</b>, <b>Ancient Rome</b> and <b>World History</b> decks, each with a new glossary term.",
+      "Seventy new cards, in the <b>Ancient Greece</b>, <b>Ancient Rome</b>, <b>World History</b> and <b>China</b> decks, with sixty-eight new glossary terms.",
+      "<b>Nine citation links now point at a copy you can actually open</b>, where the publisher’s own page turns readers away.",
       "<b>Psychology, Philosophy and Biology have joined the collections</b>, each planned out at a thousand cards across nine decks and still to be written.",
       "<b>A hundred and ten Mandarin readings were put right</b> — 饭馆 read “fàng uǎn” where it should read “fàn guǎn”, and twenty-eight more had a consonant on the wrong side of the gap.",
       "<b>Nearly two thousand language cards showed the same example sentence twice</b> and now show it once.",
