@@ -2779,3 +2779,30 @@ the GLOSSARY TERM had to be rewritten deck-agnostically after a first draft fram
 China: the card may be about the Shang, the term may not be, so its three sentences are the animal, the
 uses coastal peoples have made of it, and the reading of inland seashells as evidence of trade — with
 China named nowhere.
+
+  **`cnh-098` HAD NO SOURCE OF ITS OWN AND WAS BUILT OUT OF FOUR ARTICLES ABOUT SOMETHING ELSE.** Nothing
+reachable here is a study of Shang music: Europe PMC returns visualisation papers and dance therapy,
+ScholarSpace returns Han ballads and the Japanese yamatogoto. What answered was a **grep of the sources
+already fetched for other cards** — and three of them carry the whole card. Childs-Johnson's tomb
+inventories, compiled to argue about *ding*, list "3 nao (set)" twice in one Anyang burial and once in
+another, so **the bells came in threes and were counted among the ritual vessels rather than apart from
+them**; her Zhou five-rank table then shows chime bells specified by number exactly as the vessels were.
+MacIver's burial statistics, compiled to argue about ritual and status, carry *Instruments % of Bronzes*
+as one of eighteen variables and give it by period at Dasikong: **0 in Period I, then 6.8, 4.6 and 6.1
+per cent**. Lopes, writing about power animals, notes bells among Fu Hao's bronzes in passing.
+**When a subject has no literature, grep the corpus you already hold for its VARIABLES** — a table
+assembled for another argument answers questions its author never asked.
+  **THE TWO FIGURES AGREE, WHICH IS WHY BOTH ARE IN.** Six bells inside a total of 85 vessels is about
+7 per cent, and MacIver's independent count of instruments among bronzes at another Anyang cemetery runs
+5 to 7. Two sources compiled for different purposes arriving at the same proportion is worth a sentence
+each; it is also the closest this card gets to a measurement rather than an anecdote.
+  **VAN AALST 1884 IS THE THIRD 19TH-CENTURY REFERENCE THIS RUN HAS USED AND THE RULE HELD AGAIN.** His
+*Chinese Music* gives the classical eight-materials scheme — metal, stone, silk, bamboo, gourd, clay,
+skin and wood, drawn from the eight trigrams — which is a fact about Chinese theory and is labelled as
+such on the card, "later still". What is NOT on the card is his framing of that theory as the expression
+of harmony between heaven, earth and man. **The scheme is citable; the cosmology around it is the
+author's period, not the Shang's.**
+  **AND THE PICTURE SEARCH PRODUCED A KIRIBATI EX-PRESIDENT, A TIBETAN CYMBAL AND A BADMINTON PAIR** —
+"Shang" matching a surname, a Tibetan instrument and a given name. Searching Commons for **nao** found
+dozens of the right object in one query, including a photograph of two of a set on their stands, which
+shows the thing the card turns on: a nao stands mouth upward on a hollow shank and has no clapper.
