@@ -1462,3 +1462,33 @@ available.
 originally listed "Hubei, Inner Mongolia and Sichuan"; the abstract came in 26 words over and Inner
 Mongolia went out in the trim, which happens to remove the mis-link that bit `cnh-045` and `cnh-047`.
 **That is luck, not process** — the collection still wants an `Inner_Mongolia` term.
+
+  **`cnh-051` IS THE THIRD CARD IN A ROW WHOSE SUBJECT WAS ALREADY PARTLY SPENT, AND THE ANSWER WAS TO
+NARROW TO THE ONE THING NOBODY ELSE COVERS: HOW A POT WAS ACTUALLY MADE.** `wh-128` answers *pottery* for
+the whole world and already carries China's claim to the oldest pots; `cnh-041` carries the sixteen sites
+and the 20,000-year date; `wh-148` carries the Longshan black ware and `cnh-045` the Yangshao painted
+ware. What was left, and what no card had, is the **craft** — the temper, the wall thickness, the forming
+methods, the firing temperatures, the kilns and the clay sources — and Tracey Lu's *Early Pottery in South
+China* supplies almost all of it in figures a card can use (walls 2.9–3.6 cm, unsieved crushed calcite or
+quartz, pinched by hand, 600–700 °C, Zengpiyan below 250 °C, slab building then coiling, and the marks on
+the earliest surfaces being a hand smoothing clay rather than decoration). **When three siblings have
+taken a subject's history, take its technique.**
+  **A PAINTED-WARE CLAUSE WAS DROPPED BECAUSE NO SOURCE IN HAND CARRIED IT.** The first plan had a date
+line row for `Painted wares c. 5000 – 3000 BCE` and a sentence pairing Yangshao red-painted with Longshan
+black. Neither of the five sources describes Yangshao painting; the figure would have come from
+`cnh-045`'s date line, which is a Folio card and not a source. Both went, and the card is about making
+rather than about styles. **A date-line row needs a source as much as a sentence does.**
+  **THE PICTURE SEARCH RETURNED GERMANY.** `File:Neolithic Pottery (28724096376).jpg`, CC0 and 5184 px,
+came back top of a `Neolithic China pottery` search because its photographer is based in Xinzheng, Henan
+— the vessels are **Corded Ware in the Neues Museum, Berlin**, and the file's own categories say so. That
+is the deck's fourth variety of picture trap, after the wrong person of the same name, the unlabelled
+plaster cast and the visitor park. **Read the CATEGORIES, not the title and not the photographer**; the
+Yuchanyan pot and the Peiligang tripod that shipped were both confirmed that way.
+  **A NEW GLOSSARY KEY CAN SWALLOW AN OLDER ONE'S ALIAS, AND THE SIMULATION SAYS SO WHERE THE PAGE DOES
+NOT.** `Neolithic_China` carries the alias "Chinese Neolithic", which sits inside the new answer term
+"Chinese Neolithic pottery"; the offline longest-first simulation reported the shorter alias winning
+inside the term's own opening words. **It was wrong** — `buildGlossIndex` sorts the 25-character surface
+above the 17-character alias, and the renderer additionally excludes a card's own answer term — and both
+the card and the popup were checked in a browser to confirm it. Worth writing down in both directions:
+the simulation over-reports where a new key is a superset of an old alias, and **a browser check is what
+settles it**.
