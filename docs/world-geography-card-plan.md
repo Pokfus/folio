@@ -23,12 +23,12 @@ Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Ira
 Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia,
 Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela, Australia, Niger, North
 Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan, Chad, Chile, Romania,
-Somalia, Senegal, Guatemala, Ecuador) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
-Khartoum, `gw-531` Kampala, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next
-country is `gw-072` Netherlands and the next capital is `gw-532` Madrid.
+Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753`
+Bloemfontein.** The next country is `gw-075` Guinea and the next capital is `gw-533` Algiers.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -909,6 +909,53 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 24 (Netherlands, Cambodia, Zimbabwe, Madrid) corrected an area by C9's rule, and the case is the
+cleanest example of it in the pass.** The `Netherlands` term said 41,850 km²; UNdata gives **41,543** and
+the World Bank's `AG.SRF.TOTL.K2` gives **41,540**, so the two independent counts agree to three square
+kilometres and the term sat 307 outside them — outside the spread, therefore a correction, made to 41,543
+(16,040 sq mi). What makes it instructive is the THIRD figure: the EU country page gives **37,391 km²**,
+which C2 already read correctly as land against total area, and which would have produced a much larger
+and quite wrong correction had it been treated as a rival total. **Three institutional figures is not
+three votes** — sort them by what they measure before comparing them, and 41,543 − 37,391 is exactly the
+tenth of the country that is water.
+
+**And the EU country page needs `?etrans=en` now, or it hands back a 394-character language picker with a
+200 status.** C1 and C2 used the plain `_en` path and it worked; today that path serves the JavaScript
+shell and the query parameter serves the Key Facts block (Capital, Geographical size, Population, *EU
+Member State: since …*). Both `Netherlands` and `Spain` citations were rewritten to the working form.
+This is the sixth variety of 200-status non-document the pass has met, and the first whose cure is a
+query string rather than a different host.
+
+**Spain is a standing three-way population disagreement and is deliberately left alone.** UNdata gives
+47,890 thousand for 2025; Eurostat, on the EU page, gives 49,077,984; the World Bank gives 49,355,143 —
+and the term says "roughly 48 million", which is where the World Bank series stood in 2023–24. By C8 the
+figure is stale; by C5 the sources disagree by 3% and correcting would be picking a side. **It stays, and
+the disagreement is recorded here rather than resolved**, because the World Bank's Spanish figure is the
+national statistical office's (D1's finding) and UNdata's is the UN's, so this is two institutions
+counting differently rather than one being out of date.
+
+**Its research finding is that a REFUSAL to recognise is as citable as a recognition, and the Zimbabwe
+page states one outright.** The guide carries a note — "The United States never recognized the
+independence of Rhodesia, the name of the state proclaimed by the colony's minority white government in
+its unilateral declaration of independence (UDI) in 1965" — and the Security Council's **resolution 216
+(1965)**, adopted at its 1258th meeting on 12 November 1965, calls on all states not to recognise the
+minority régime. A card about a country whose independence date is 1980 is therefore also a card about
+the fifteen years before it, with both halves sourced. **When a country's guide page carries a Note, read
+it: the notes are where the guide records what did NOT happen.**
+
+**Two smaller routes worth keeping.** A country admitted in one of the UN's package resolutions is dated
+by a resolution whose title is plural and whose text is a SCANNED IMAGE — `A/RES/995(X)` of 14 December
+1955 has no text layer, so the number of states it admitted cannot be read from it here; both Spain and
+Cambodia carry that date and the card says "several states at once" rather than a count. And a country's
+place in the trading system can be **older than the country**: Zimbabwe's GATT membership runs from 11
+July 1948, when the territory was Southern Rhodesia, while the state joined the WTO in 1995.
+
+**The raster throttle of batch 23 held for the whole of batch 24**, so `Madrid` ships without a picture
+as `Kampala` did — every JPEG and PNG tried returned 429 while three flag SVGs returned 200 in the same
+minutes. That is now two batches on the same measurement, and it is a property of this sandbox rather
+than of any file: **do not spend a batch's time re-testing rasters; test one, and if it 429s, ship the
+term and record the candidates.**
 
 **Batch 23 (Senegal, Guatemala, Ecuador, Kampala) is the first batch of this pass to correct NOTHING**,
 and the reason is worth stating rather than being taken for luck. All four subjects were already
