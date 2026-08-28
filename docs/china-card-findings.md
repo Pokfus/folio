@@ -2475,3 +2475,25 @@ Question of Human Sacrifice in the Late Shang Period", which is squarely `cnh-07
 found when that card was written. It is not a fault — `cnh-079` is at the bar on five open works — but it
 is the obvious spine for **`cnh-095`, the Shang and their neighbours**, and is recorded here so the next
 session does not have to find it twice.
+
+  **`cnh-087` USED THE SOURCE `cnh-086` HAD JUST RECORDED FOR LATER, ONE CARD LATER.** Shelach's "The
+Qiang and the Question of Human Sacrifice in the Late Shang Period" was noted at the end of the chariot
+card as the spine for `cnh-095`; it turned out to be the spine for warfare instead, because the article
+is as much about **campaigning** as about sacrifice. **A source recorded for a future card is worth
+re-reading against the next one**, not filed and forgotten.
+  **ITS DEFINITION IS THE FINDING.** `fang` is not an ethnic name but a RELATIONAL one: a group is called
+fang while it is an enemy and loses the word once it becomes an ally, and the inscriptions say nothing
+about those polities' social or political organisation, though scholars sometimes call them states. A
+card that treated the fang as peoples would be inventing a map the record does not contain.
+  **AND THE ARITHMETIC IS WHAT MAKES THE QIANG DIFFERENT.** Against most fang the Shang put 3,000 to
+5,000 men in the field; against the Qiang, whose country lay close by, one campaign deployed **13,000**.
+Set beside the 941 weapons from a single kingly tomb, that is a card about scale which needs no
+adjectives. Its closing irony is properly sourced rather than assumed: the Zhou alliance that ended the
+dynasty **included the Qiang**.
+  **TWO CITATIONS IN THIS CARD CARRY NO PAGE RANGE, DELIBERATELY.** The Shelach article's OCR shows
+verso folios to 24 with references and an abstract after, and the Jaffe Liulihe article shows only odd
+rectos — neither end could be established. **A citation with the volume, issue, year and a resolving
+handle is complete enough; an invented page range is not.** Both handles were curled and both return 200.
+  **The picture is a case of `ge` dagger-axes from the Yin Ruins.** `add-card.js` offered Shang helmet
+fittings and a guide to the nature treasures of New York City; the alternative helmet on Commons is
+titled "Replica" — **fifth replica caught by reading a file name in this run.**

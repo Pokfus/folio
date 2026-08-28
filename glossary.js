@@ -1298,7 +1298,8 @@ window.GLOSSARY = {
 "Ding_(vessel)": "<b>ding</b> is the Chinese ritual cauldron, standing on three legs or four, and among Shang bronzes the one vessel used specifically to prepare and offer meat to the dead.<sup class=\"fn\" data-fn=\"1\"></sup> In the oracle-bone inscriptions its graph works as a verb of sacrifice, taking the king as subject, a dead king or queen as indirect object and the offering itself as direct object, and burnt animal bone has been found inside examples taken from burials.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Four-legged ding were far rarer than three-legged ones and belonged to the ruling class and its heirs, and out of that scarcity grew the myth that made the vessel the token of a dynasty's right to rule.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Shang_bronze_decoration": "<b>Shang bronze decoration</b> is the dense animal ornament cast into the surface of ritual vessels, its commonest motif a face of beasts with open fanged mouths whose horns mark them as plant-eaters.<sup class=\"fn\" data-fn=\"1\"></sup> Much of it is set as a split image, a face seen from the front resolving into an animal in profile on either side, and it was cut into the mould rather than worked on the finished metal.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> What the creatures mean is disputed: the reading that they show the animals given in sacrifice fails on the list, since buffalo, tigers, owls and elephants were almost never offered, and what they share instead is wildness.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Shang_jade": "<b>Shang jade</b> is the worked stone of the Shang, made into weapons and sceptres far more than into vessels, the commonest forms being blades called zhang, taken to be sceptres, along with ge and yue axes, some of them inscribed with clan insignia.<sup class=\"fn\" data-fn=\"1\"></sup> Nothing shows the weapons were ever used, and what marks them as ceremonial is their decoration, birds and animal masks cut in fine incisions.<sup class=\"fn\" data-fn=\"1\"></sup> More than 2,000 pieces are known from Yinxu, where two houses in the palace precinct held over 600 unfinished objects and 260 grinding stones, though the stone itself had to be carried in from far away.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Shang_chariot": "<b>Shang chariot</b> is the light horse-drawn vehicle that appears at Anyang and at no earlier Chinese centre on present evidence, a western origin having long been proposed for it.<sup class=\"fn\" data-fn=\"1\"></sup> The elite are found riding in the hunt, a large-scale event closely paralleling warfare and run with dogs, nets, fire and beaters, and the bones from the palace area match the wild game the oracle bones record the king killing.<sup class=\"fn\" data-fn=\"2\"></sup> The vehicle went into the ground with its owner, the large tombs at Anyang being frequently accompanied by chariot pits, where more than four in five graves at the site are small pits with a coffin and a few pots.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Shang_chariot": "<b>Shang chariot</b> is the light horse-drawn vehicle that appears at Anyang and at no earlier Chinese centre on present evidence, a western origin having long been proposed for it.<sup class=\"fn\" data-fn=\"1\"></sup> The elite are found riding in the hunt, a large-scale event closely paralleling warfare and run with dogs, nets, fire and beaters, and the bones from the palace area match the wild game the oracle bones record the king killing.<sup class=\"fn\" data-fn=\"2\"></sup> The vehicle went into the ground with its owner, the large tombs at Anyang being frequently accompanied by chariot pits, where more than four in five graves at the site are small pits with a coffin and a few pots.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Shang_warfare": "<b>Shang warfare</b> is the campaigning of the Shang king and his allies against the polities the oracle bones call fang, a relational label rather than an ethnic one, since a group counted as fang while it was an enemy and lost the word once it became an ally.<sup class=\"fn\" data-fn=\"1\"></sup> Force was raised rather than kept, noblemen being sent to levy troops from friendly cities, and the scale varied with the enemy: 3,000 to 5,000 men against most fang, but 13,000 in one campaign against the Qiang.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The wars were fought for hegemony and for resources, and they ended with the Zhou, whose alliance included the Qiang.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2829,7 +2830,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Ding_(vessel)": ["ding"],
 "Shang_bronze_decoration": ["Shang bronze ornament"],
 "Shang_jade": ["Shang jades"],
-"Shang_chariot": ["Shang chariots"]
+"Shang_chariot": ["Shang chariots"],
+"Shang_warfare": ["Shang war"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4154,7 +4156,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Ding_(vessel)": ["object","art","archaeology","china","bronze age"],
 "Shang_bronze_decoration": ["art","object","archaeology","china","bronze age"],
 "Shang_jade": ["object","art","archaeology","china","bronze age"],
-"Shang_chariot": ["object","technology","archaeology","china","bronze age"]
+"Shang_chariot": ["object","technology","archaeology","china","bronze age"],
+"Shang_warfare": ["practice","warfare","history","china","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
