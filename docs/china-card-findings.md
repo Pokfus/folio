@@ -1233,3 +1233,28 @@ strings — and what works is **`ABSTRACT:"Jiahu"`**, ten hits, among them the P
 fibroin in three 8,500-year-old graves. Its introduction then does the work an overview would: it lists,
 with references, the four things the site is famous for, so one open paper supplies both the silk and the
 frame. **Search the abstract field when a site name collides with a personal name.**
+  **`cnh-045` IS THE FIRST CARD IN THIS DECK WHOSE GLOSSARY TERM ALREADY EXISTED, AND THAT CHANGES WHAT
+THE CARD IS FOR** (Aug 2026). `Yangshao_culture` has been in the glossary since before the collection was
+opened — cited, at the bar, with its own picture — so the pairing rule was already satisfied and no term
+was written. What the rule then asks instead is that the CARD not be the term at greater length: the term
+owns the definition, the three provinces, the 3,000 Henan sites, the manured loess and the demic reading,
+so the card takes the things three sentences had no room for — the seven regions the culture reached, the
+broomcorn-to-foxtail changeover, the pigs fed by hand at Xipo, the gene flow between the two river basins,
+and the migration west that carried a way of brewing with it. **Read the existing term first and write
+what it could not hold**; the alternative is a card that teaches nothing to a reader who has met the
+popup.
+  **ITS ONE REAL FAULT WAS A MIS-LINK, CAUGHT BY THE SIMULATION AND NOT BY EYE.** The abstract listed the
+regions Yangshao influence reached, and "Inner **Mongolia**" auto-linked to `Mongolia`, the modern country
+— an autonomous region of China pointed at a different state, which is `cnh-010`'s `afar` and `cnh-012`'s
+`tripod` a third time. Neither `GLOSSARY_CASESENSITIVE` nor a longer key can separate them, since the
+surface really is the country's name; the fix that would scale is an `Inner_Mongolia` term, which the
+collection will want eventually, and the fix taken here was to **reword** — the sentence now says how many
+regions and names five that carry no such trap. **Run the longest-first surface simulation over every new
+abstract**: it costs one command, and it found this where reading did not.
+  **AND A DOI IN THE SHIPPED GLOSSARY POINTS AT A HOST THIS SANDBOX CANNOT OPEN.** `Yangshao_culture` cites
+Liu et al. 2022 as `doi.org/10.1073/pnas.2212006119`, which resolves to `pnas.org` and is **403 here**, as
+`cnh-001` recorded for that host. The DOI is a perfectly good link for an ordinary reader and the citation
+is not wrong, but this deck's own convention is to cite a PNAS paper at its **PMC** address — every one of
+`cnh-041` to `cnh-044` does — so the card cites the same work at `pmc.ncbi.nlm.nih.gov/articles/PMC9907151/`
+and the two forms now differ across surfaces. **Prefer the URL you have actually opened**, and expect a
+glossary citation written during an earlier pass to have been checked against a different set of hosts.
