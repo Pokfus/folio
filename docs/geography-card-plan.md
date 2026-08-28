@@ -16,11 +16,12 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
 `geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
-Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-501` Sacramento, `geo-502`
-Austin, `geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu,
-`geo-507` Lansing, `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City, `geo-511`
-Albany, `geo-512` Boise, `geo-513` Charleston and `geo-514` Annapolis.** Both subdecks are worked
-down the same list, so the next state is `geo-018` and the next capital `geo-515`.
+Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New Jersey, `geo-501`
+Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau,
+`geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510`
+Oklahoma City, `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis and
+`geo-515` Carson City.** Both subdecks are worked down the same list, so the next state is
+`geo-019` and the next capital `geo-516`.
 
 ---
 
@@ -437,6 +438,23 @@ Four more, measured while writing `geo-005` and `geo-501`:
   exploited Native labour behind the fort's industries are stated outright, which no city page says), and
   the state capitol museums publish their own building histories. **Every state has a SHPO; try it before
   the city.**
+- **A NON-NHL NRHP NOMINATION IS AT A DIFFERENT ASSET PATH, and it opens most of a small capital.**
+  Everything cited before `geo-515` came through `npgallery.nps.gov/NRHP/GetAsset/**NHLS**/<refnum>_text`,
+  which only serves National Historic *Landmarks* — of which Nevada has eight, none of them in Carson
+  City. The ordinary National Register nominations are at
+  `npgallery.nps.gov/NRHP/GetAsset/**NRHP**/<refnum>_text`, and Carson City has 44 of them: the U.S.
+  Mint, the Nevada State Capitol, the Abraham Curry House and the Stewart Indian School carried four of
+  that card's seven sources between them. **Reach for the NRHP path whenever a capital is too small to
+  hold a Landmark**, and get the reference numbers from the Wikipedia *National Register of Historic
+  Places listings in ‹place›* table, which is per city rather than per state.
+- **A LANDMARK WITH TWO REFERENCE NUMBERS IS INVISIBLE TO A DIGITS-ONLY PATTERN, and the regex then
+  silently hands you the NEXT row's.** Paterson's Great Falls/S.U.M. district is listed as
+  `"refnum":{"wt":"70000391, 86001507"}`; a `"refnum":\{"wt":"(\d+)"\}` scan skips the comma-separated
+  pair, runs on, and returns `94001648` — which fetches a perfectly valid nomination for the
+  *Hadrosaurus foulkii* site in Haddonfield instead. This is round 10's wrong-reference-number finding
+  in a second disguise, and the same rule catches it: **read the fetched document's own name back
+  before citing it.** (The accident was useful — the Hadrosaurus site went into the card on its own
+  merits — but it would have shipped a citation pointing at the wrong landmark.)
 - **The NPS *List of NHLs by State* page is not parameterised by state, whatever the URL suggests.**
   `nps.gov/subjects/nationalhistoriclandmarks/list-of-nhls-by-state.htm?state=MN` returns 200 and serves
   the DEFAULT page — one landmark, in Maine — so a query written that way looks like a state with a single
@@ -543,6 +561,29 @@ terms that already exist**. Each was measured, and none should be settled quietl
   the mine, and "iron" now links while "Mountain Iron Mine" is plain. **Watch for this wherever a card
   names a mine, a fort, a river or a town after a material or a common noun** — Iron, Gold, Silver, Salt,
   Springfield's kin — and read the rendered abstract, not the source.
+
+- **`New_Jersey` AND `Carson_City` ARE BOTH BARE, AND THE ROUND'S REAL FINDING IS A BACKLOG.** Both
+  measured cleanly ("New Jersey" once, the state; "Carson City" twice, the Nevada capital) and both new
+  cards render only correct links. But the render check was then run over the WHOLE collection rather
+  than the two new cards — 36 pages, a few minutes — and it found **nine live wrong links on eight
+  cards already shipped**, every one the round-13 shape, a common noun inside a proper name:
+  `geo-010` "forced from **Georgia**, Alabama and Tennessee" → `Georgia_(country)`;
+  `geo-011` "the West **India** Company" → `India`, and "**Syracuse**, Rochester and Buffalo" → the
+  Sicilian city; `geo-509` "**Latin** America" → `Latin`, the language; `geo-510` "Harrison's **Horse**
+  Race" → `Horse`; `geo-015` "**Gold** Hill" → `Gold` and "the **Panama** Canal" → `Panama`;
+  `geo-512` "the **Salmon** River" → `Salmon`; `geo-513` "the Kanawha and **Michigan**" — a railroad —
+  → `Michigan`. **`geo-010`'s is the `Georgia` alias fault this file already predicted for `geo-027`,
+  arriving early and live.**
+  Three things to carry. **The per-card rendered link list is the only real measure**: a phrase scan
+  over the source text (does an auto-linkable single word sit inside a capitalised multi-word name?)
+  returns 372 candidates over the corpus and cannot tell which surface actually won, whether the link
+  fired at all under first-occurrence-wins, or whether it is wrong — `geo-017`, already fixed, is still
+  in its output. **A lowercase common noun inside the phrase is usually right and must not be swept**
+  ("the **temple** on Temple Square", "cast and sheet **iron**", "**tar** paper" are all correct); the
+  fault is a CAPITALISED word that belongs to the name. And **this is a pass of its own, not a
+  by-product of adding cards** — it is nine prose edits across eight shipped cards, each needing the
+  round-13 reordering or a reword, and it is recorded here rather than folded into the commit that
+  found it.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
