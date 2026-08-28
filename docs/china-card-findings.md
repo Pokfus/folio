@@ -1776,3 +1776,38 @@ wooden slips` returned zero members and three other category names returned unpa
 requests; a plain keyword search two minutes later found the file at once. **Space the Commons calls and
 prefer a search when a category guess returns empty** — an empty category listing looks identical to a
 category that does not exist.
+
+  **`cnh-061` IS THE FIRST CARD IN THIS DECK TO USE THE HISTORIOGRAPHY EXEMPTION, AND THE RENAME IS WHAT
+EARNED IT.** "The question of the Xia's historicity" is a debate, not a term, and the historiography rule
+would have refused the card outright — an abstract may not be mostly about the modern argument. The
+exemption is for a card whose ANSWER TERM *is* a modern theory, debate, method or scholar, so naming the
+term `Doubting Antiquity School` both gives the reader something to recall and puts the card inside the one
+gate that lets it be written at all. **`"cnh-061"` is added to `EXEMPT` in `card-focus.js` with its
+justification**, as that list requires; the measure now reports `historio: 0`, `modern: 3`, `qNamed: []`.
+  **THE PLAN ASKED FOR A CARD THAT PICKS OPENLY RATHER THAN ONE THAT SOUNDS NEUTRAL, AND THE SHAPE THAT
+DELIVERS IT IS TO GIVE EACH SIDE ITS BEST ARGUMENT AND NAME WHAT IS STILL OPEN.** The sceptical case is the
+backward-growing legendary age — the Western Zhou knew only Yu, Confucius knew Yao and Shun before him, the
+Warring States knew Huangdi and Shennong — and the answering case is Erlitou, found in 1959 by a survey that
+went looking where the texts said. The card then states the two things neither side disputes: **the Erlitou
+identification rests on place and date rather than on writing**, and a programme that sets archaeology to
+find the capitals named in texts lets written history decide what archaeology looks for. Lee 2002's own
+sentence carries both, which is why it is source 1.
+  **THE 1990 SEMINAR IS THE SINGLE MOST USEFUL FACT AND IT IS ONE SENTENCE IN THE SOURCE**: at the
+International Seminar of Xia Culture at UCLA "the Western scholars were about equally split on the question
+of whether the Xia Dynasty actually existed, while the Chinese participants were in unanimous agreement
+that it did". **A measured disagreement beats any amount of even-handed phrasing** — it tells the reader
+the shape of the argument without the card taking a position in it.
+  **THE DOUBT IS OLDER THAN THE SCHOOL, AND TWO 19th-CENTURY SOURCES ALREADY IN THE DECK PROVE IT.** Legge
+quotes an 18th-century Chinese scholar calling the Bamboo Annals a fabrication "imposed on the world"
+(Prolegomena 176–77, used on `cnh-060` the card before), and Chavannes writes in 1895 that the five emperors
+and the Xia "belong to prehistory rather than to history", reconstructed by a method like palaeontology and
+with "more art than science" (Introduction clxv–clxvi). **A card about a modern debate is stronger for
+showing when the debate actually started**, and both citations were already paid for.
+  **NO THUMBNAIL WIDTH ANSWERS FOR A SMALL COMMONS FILE, AND THE ORIGINAL DOES.** `Gu_Jiegang_1920s.png` is
+688 px wide; 512, 640 and 688 all returned the 2,010-byte 400 page, and the plain original served 410 KB
+first time. That qualifies `cnh-055`'s finding: **the 429 on originals is rate limiting under rapid repeats,
+not a bar** — where no listed width exists, the original is the address, and a reader fetching one image
+will not be throttled.
+  **AND `set-date-line.js` REFUSED A 24-CHARACTER LABEL**, which is the guard doing its job: a row's label
+names WHAT the date is in a word or two, so "Debating Ancient History" became `Published` with the title in
+the value. Worth knowing before drafting a date line for a card about a book.

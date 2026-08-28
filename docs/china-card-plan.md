@@ -212,7 +212,7 @@ site-wide rewrite pass is `docs/history-focus-plan.md`. Do not restate either he
 The archaeology pull is concentrated in `col-2` and `col-3`, where everything before the oracle bones
 is material evidence, and it comes with this collection's hardest question:
 
-**`cnh-061 The question of the Xia's historicity` is China's Aryan-migration debate** — the counterpart
+**`cnh-061 Doubting Antiquity School` is China's Aryan-migration debate** — the counterpart
 of `in-033` and `ru-031`. Whether the Xia existed as the texts describe, and whether Erlitou is it, is
 argued between Chinese and Western scholarship along lines that are not purely evidential; the
 Xia–Shang–Zhou Chronology Project (`cnh-065`) is itself part of the story. The cards are about the
@@ -413,7 +413,7 @@ already shipped before adding it.
     cnh-058  Jie of Xia
     cnh-059  Songs of the Five Sons
     cnh-060  Bamboo Annals
-    cnh-061  The question of the Xia's historicity
+    cnh-061  Doubting Antiquity School
     cnh-062  Erlitou culture
     cnh-063  The Erlitou site
     cnh-064  Erlitou bronze
