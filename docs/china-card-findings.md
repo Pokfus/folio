@@ -1811,3 +1811,30 @@ will not be throttled.
   **AND `set-date-line.js` REFUSED A 24-CHARACTER LABEL**, which is the guard doing its job: a row's label
 names WHAT the date is in a word or two, so "Debating Ancient History" became `Published` with the title in
 the value. Worth knowing before drafting a date line for a card about a book.
+
+  **`cnh-062` IS THE FIRST OF THREE ERLITOU CARDS AND THE SPLIT HAD TO BE MADE BEFORE THE RESEARCH.**
+`cnh-063` takes the SITE and `cnh-064` the BRONZE, so this one is the CULTURE — the chronology, the phases,
+the ceramic signature and the distribution — and the site's 400 hectares appear here only as the one fact
+that makes the distribution intelligible. **Where a plan gives three cards to one subject, write down which
+facts belong to which before opening a source**; every paper on Erlitou carries all three and the temptation
+is to spend them on the first card written.
+  **THE CARD'S BEST FACT IS A CHRONOLOGICAL ONE AND IT COMPLICATES THE WHOLE DEBATE `cnh-061` DESCRIBES.**
+Shelach 1994 records that the rammed-earth foundations and the bronze vessels — the things that make
+Erlitou look like a state — appear only in phases three and four, so they date to the 18th and 17th
+centuries BCE. **Most of what makes the culture look like a dynasty is late in it.** That is worth having
+directly after the historicity card, and neither side of that argument disputes it.
+  **LIU LI 2003 IS THE SOURCE FOR WHAT AN ARCHAEOLOGICAL CULTURE ACTUALLY *IS* HERE.** Its ritual pottery —
+white and fine grey vessels on three legs, the form derived from Dawenkou *gui* in Shandong — is made in the
+Yiluo basin and grows scarcer with distance; the same vessels appear in western Henan and southern Shanxi in
+phase III, so alike in shape that they were probably carried rather than copied, which reads as prestige
+goods passed down to peripheral elites and a shared ritual rather than a shared population. **A culture card
+needs one class of object followed all the way out to the edge of the distribution**, and this is it.
+  **AND SHI 2021 ANSWERS WHY THE EXPANSION WENT WHERE IT DID**: Dongxiafeng, 25 hectares and one of the
+largest sites of the period in the Jinnan basin, sits five kilometres from the copper and salt of the
+Zhongtiao mountains. Liu Li's phrase is "organized population movement to resource-rich regions"; Shi names
+the resources. **Two ScholarSpace papers seventeen years apart, one saying where and one saying why.**
+  **THE `imageinfo` THUMB PATH MUST BE TAKEN VERBATIM — THE HASH PREFIX IS NOT GUESSABLE.** A composed
+`/thumb/9/9c/…` path for the Erlitou pottery returned the 1,930-byte error page; the API's own `thumburl`
+gives `/thumb/4/47/…`. That is a different failure from the width problem recorded on `cnh-055`: the two
+hex characters are an MD5 fragment of the filename, so **copy the whole path out of `imageinfo` and change
+nothing but the width**.
