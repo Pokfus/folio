@@ -1520,3 +1520,37 @@ the Xia historicity question under `cnh-048` and the Chronology Project under `c
 order gives `cnh-061` and `cnh-065` — and by now those two numbers name *Liangzhu culture* and
 *Sanxingdui*, two cards that exist. **A number in a plan's prose is not checked by anything**; the running
 order is, so read the prose against it when passing.
+
+  **`cnh-053` BREAKS THE RUN OF FOUR CARDS WRITTEN AROUND THEIR SIBLINGS: NOTHING IN THE DECK OR THE
+GLOSSARY HAD TOUCHED SANXINGDUI AT ALL.** `cnh-047` to `cnh-052` were each shaped by what was already
+said elsewhere; this one had a clear field, and the shape it wanted was the ordinary one — what the place
+is, how big, when, and what came out of it. The abstract gives the city first (500 ha walled, some 1,200
+with its neighbourhoods, inner walls dividing palace from workshop quarters) and the pits second, which
+puts the famous objects where they belong: as the deposit of a capital, rather than as curiosities.
+  **THE SANDBOX'S ANSWER TO CHINESE ARCHAEOLOGY IS NOW TWO SOURCES DEEP, AND THEY DIVIDE BY KIND.**
+ScholarSpace carried the settlement archaeology — Flad et al. 2013 (*Asian Perspectives* 52(1)) for the
+Chengdu Plain sequence, the Baodun walled towns that preceded it and the possibly violent transition to
+Jinsha; Lin 2019 (58(2)) for the enclosure's size, its quarters and the fact that every contemporary
+site near it is small. Europe PMC carried the SCIENCE — the *National Science Review* 2021 news feature
+(PMC8310767) for the 1929 and 1986 discoveries, the object measurements and the eight pits; *Scientific
+Reports* 2024 (PMC11589763) for silk in the ash; and *PNAS* 2026 (PMC12913004) for the pits at
+1200–1000 BCE and for carnelian carried from far to the north. **Ask ScholarSpace what a site WAS and
+Europe PMC what was IN it.**
+  **THE BROWSER HARNESS CANNOT LOAD AN EXTERNAL PICTURE AT ALL, AND ITS `naturalWidth` MUST NOT BE READ
+AS A VERDICT ON THE FILE.** Every card image has rendered `0x0 complete=false` in the render harness;
+diagnosed here rather than assumed — headless Chromium's request to `upload.wikimedia.org` is refused by
+the agent proxy with `ERR_CONNECTION_RESET`, on a direct `goto` as well as inside a page, with
+`--ignore-certificate-errors`, `ignoreHTTPSErrors` and an explicit `--proxy-server` all set. The same URL
+serves 430 KB to `curl`. **Verify a card image by fetching it and LOOKING at it**; the harness can only
+tell you the figure was built and that no `.media-dead` fired.
+  **A COMPOSED THUMBNAIL WIDTH FAILED AGAIN, AND IT COST NOTHING BECAUSE THE SIZE WAS TESTED.** A
+`1200px-` path for the standing figure returned 2,010 bytes with a 200 status; the width Commons actually
+offers is the `1920px-` one in `imageinfo`'s own `thumburl`. That is `cnh-046`'s finding recurring, and
+the retry-until-the-file-is-big-enough loop is what turned it into a five-second correction rather than a
+silently truncated picture.
+  **THE GLOSSARY IMAGE IS THE OBJECT THE ABSTRACT MEASURES.** The card's picture is a bronze mask and the
+term's is the 2.62 m standing figure from Pit 2 — the two most-named objects in the card, one each, so a
+reader who opens the popup from the card sees something new rather than the same photograph twice. Two
+files were rejected on the way: `Sanxingdui Bronze Standing Figure (9950550395).jpg` is a detail of the
+robe with no head in frame, and the "largest mask" file is an oblique three-quarter rear view. **Look at
+the frame, not only at the subject.**
