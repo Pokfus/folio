@@ -69,6 +69,14 @@ function pieces(block) {
   // Ste. Croix, cited across the Greek cards — so a card naming him split at the stop with the two halves
   // both reading as sentences. Same family as the honorifics beside it, and no sentence ends on any of them.
   hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Ste|Mt)\.\s?/g);    // "Roberts Jr. used the name in 1940"
+  // The LEGAL "v." of a case name — "Shelley v. Kraemer", "Brown v. Board of Education". Every rule above
+  // it wants either a capital before the stop or a lowercase word after it, and a case citation is the one
+  // shape with a LOWERCASE abbreviation between two CAPITALISED names; it split the Missouri card after
+  // "Shelley v." and would split any card naming a Supreme Court decision. Narrow on purpose: the
+  // abbreviation must sit between a capitalised word and a capitalised word, which no sentence boundary
+  // in this project does — nothing here ends a sentence on a bare "v.". The digit-led German era
+  // abbreviation ("1000 v. Chr.") is untouched, its "v." following a NUMBER rather than a name.
+  hold(/(?<=\p{Lu}\p{L}+\s)vs?\.\s(?=\p{Lu})/gu);
   hold(new RegExp("\\d{1,2}\\.\\s(?=(?:" + MONTHS + "))", "g"));   // "25. August"
   hold(/\d{1,2}\.\s(?=Jahrhundert|Jh\.)/g);                 // "im frühen 19. Jahrhundert"
   // A German ordinal before any capitalised noun — "ab 1900 der 1. Baron Avebury", which split the

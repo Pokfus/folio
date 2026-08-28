@@ -20,16 +20,16 @@ Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New J
 Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023` Washington,
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
-`geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee,
+`geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg and `geo-531` Madison.**
-Both subdecks are worked down the same list, so the next state is `geo-035` and the next capital
-`geo-532`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison and `geo-532` Indianapolis.**
+Both subdecks are worked down the same list, so the next state is `geo-036` and the next capital
+`geo-533`.
 
 ---
 
@@ -1031,6 +1031,35 @@ terms that already exist**. Each was measured, and none should be settled quietl
   Landmark sources are four different kinds of thing** — a government, a school, a laboratory, a
   recording room — than when they are four houses of four politicians. The NHL list is short enough per
   state (Tennessee has twelve) to choose for that spread rather than take the first four that answer.
+
+- **`Missouri_(state)` IS THE MOST DIVIDED SURFACE THE PASS HAS MET: NINE OF ITS TWELVE USES ARE NOT THE
+  STATE.** Three are the **Missouri Compromise** (`geo-009`, `James_Monroe`, `Maine`), four the
+  **Missouri Valley** or the **Missouri River** (`geo-016`, `geo-516`, `geo-524`, `Salt_Lake_City`,
+  `Salem`), one `North_America`'s "the basin of the Mississippi and Missouri". Only `geo-010`,
+  `geo-024` and `Harry_S._Truman` mean the state. It is round 29's Ohio River problem at four times the
+  scale and settles the same way: **the key is parenthetical, so all twelve stay plain**, verified by
+  sweeping every text that names the word. **A `Missouri_River` term would be the real fix**, exactly as
+  an `Ohio_River` term would — surfaces sort longest-first, so the river would take "Missouri River"
+  and "Missouri Valley" and leave the bare word to the state. Two rivers now want the same term.
+  `Indianapolis` goes in bare: two uses, both the city.
+
+- **THE SPLITTER COULD NOT SEE A CASE CITATION, AND NOW CAN.** `split-abstract.js` broke `geo-035` after
+  "Shelley v." — a **lowercase abbreviation between two capitalised names**, which is the one shape none
+  of its existing guards covers: the initial rules want a capital before the stop, the genus and rank
+  rules want a lowercase word after it. Fixed with the narrowest test that works —
+  `(?<=\p{Lu}\p{L}+\s)vs?\.\s(?=\p{Lu})` — and **verified over all 2,043 shipped texts: exactly two
+  splits change, and both are the ones it was written for.** The German era abbreviation is untouched,
+  its "v." following a NUMBER rather than a name. Every future card naming a Supreme Court decision
+  would have hit this.
+
+- **THE "LOUISIANA PURCHASE" LINK IS THE COMPONENT-WORD TRAP WITH A FREE FIX, AND THE FIX HAS TO BE
+  MADE TWICE.** "Louisiana Purchase" links its first word to the STATE, and `geo-010` has carried that
+  link since it shipped. On `geo-035` the Library of Congress's own sentence supplies the cure — "after
+  Louisiana, was the second state of the Louisiana Purchase to be admitted" puts the state first, so it
+  takes the link and the Purchase is left plain. **The glossary term needed the same fix separately**:
+  its first draft opened on "the second state of the Louisiana Purchase … after Louisiana itself" and
+  the popup duly linked the Purchase, caught by rendering it. **A card and its term are two texts and
+  the earlier-mention fix does not travel between them** — check both.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
