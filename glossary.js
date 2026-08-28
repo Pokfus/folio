@@ -1264,7 +1264,8 @@ window.GLOSSARY = {
 "Nubia": "Nubia is the stretch of the Nile valley upstream of Egypt, its lower part running from the First to the Second Cataract and its upper part beyond, in modern southern Egypt and Sudan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Egypt was drawn to it by gold and copper and by the hard wood and ivory traded through it, conquering Lower Nubia in the Middle Kingdom and holding a fortified border at Semna, then pushing as far as the Fourth Cataract under Thutmose I.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Upstream lay the Kerma culture, which had formed a state centred on Kerma before that conquest destroyed it, after which the province was governed by a 'viceroy of Kush'.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Third_Intermediate_Period": "The Third Intermediate Period is the phase of ancient Egyptian history between the New Kingdom and the Late Period, running from about 1069 to 664 BCE, when the country was for much of that time divided.<sup class=\"fn\" data-fn=\"2\"></sup> Kings ruled from Tanis in the Delta while Upper Egypt governed itself under the high priest of Amun at Thebes, and from about 945 BCE dynasties of Libyan origin held power from Bubastis and later from Sais.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> From about 725 BCE the Kushite kings of Napata invaded and ruled Egypt as its twenty-fifth dynasty, until the Neo-Assyrians conquered the country and installed the kings of Sais in their place.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Indus_Valley_Civilisation": "The Indus Valley Civilisation, or Harappan civilisation, was the Bronze Age urban society of the north-western Indian subcontinent, its remains spread across what is now Pakistan and north-western India over a range exceeding those of contemporary Mesopotamia and Egypt.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Archaeologists divide it into Early, Mature and Late phases, of which the mature or urban phase, from about 2600 to 1900 BCE, produced the first cities in South Asia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Those cities are known for gridded streets and drainage, shared standards of measurement and recording, and long-distance exchange, and for the absence of palaces, exclusionary temples, rich tombs and monuments to individuals.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Harappa": "Harappa is an archaeological site in the Sahiwal district of Punjab, Pakistan, standing on the left bank of a former channel of the Ravi River, and one of five major urban centres of the Indus Valley Civilisation.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was occupied from about 3700 to 1300 BCE, through a Ravi phase, a Kot Dijian phase and an urban phase of about 2600 to 1900 BCE, its quarters shifting so that the remains form a group of mounds.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Excavation has found massive gated walls around each neighbourhood and cemeteries of both the urban and the post-urban phases, although colonial brick-mining removed much of the architecture.<sup class=\"fn\" data-fn=\"4\"></sup>"
+"Harappa": "Harappa is an archaeological site in the Sahiwal district of Punjab, Pakistan, standing on the left bank of a former channel of the Ravi River, and one of five major urban centres of the Indus Valley Civilisation.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was occupied from about 3700 to 1300 BCE, through a Ravi phase, a Kot Dijian phase and an urban phase of about 2600 to 1900 BCE, its quarters shifting so that the remains form a group of mounds.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Excavation has found massive gated walls around each neighbourhood and cemeteries of both the urban and the post-urban phases, although colonial brick-mining removed much of the architecture.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Mohenjo-daro": "Mohenjo-daro is an archaeological site near the Indus River on Pakistan's Larkana Plain, and one of the largest cities of the Indus Valley Civilisation, built up during the urban phase of about 2600 to 1900 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its neighbourhoods stood on massive platforms and were served by wells, pipes, gutters and soak pits draining bathing platforms inside individual houses, while its largest structures, among them the Great Bath, stand on the western mound.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> No palace, exclusionary temple, lavish burial or individual-glorifying art has been found there, and the spread of its house sizes narrowed over the life of the city.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1888,7 +1889,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Karnak": "c. 2112 BCE – 306 CE",
 "Third_Intermediate_Period": "c. 1069 – 664 BCE",
 "Indus_Valley_Civilisation": "c. 2600 – 1900 BCE",
-"Harappa": "c. 3700 – 1300 BCE"
+"Harappa": "c. 3700 – 1300 BCE",
+"Mohenjo-daro": "c. 2600 – 1900 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2757,7 +2759,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tutankhamun": ["Tutankhamen"],
 "Ramesses_II": ["Ramses II","Ramesses the Great"],
 "Battle_of_Kadesh": ["Battle of Qadesh"],
-"Indus_Valley_Civilisation": ["Harappan civilisation","Harappan civilization","Indus civilisation","Indus civilization","Indus Valley Civilization"]
+"Indus_Valley_Civilisation": ["Harappan civilisation","Harappan civilization","Indus civilisation","Indus civilization","Indus Valley Civilization"],
+"Mohenjo-daro": ["Mohenjo Daro","Mohenjodaro","Moenjodaro"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4047,7 +4050,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Nubia": ["place","history","egypt","geography","bronze age"],
 "Third_Intermediate_Period": ["era","history","egypt","monarchy","iron age"],
 "Indus_Valley_Civilisation": ["culture","history","archaeology","bronze age","india","pakistan"],
-"Harappa": ["place","history","archaeology","bronze age","pakistan"]
+"Harappa": ["place","history","archaeology","bronze age","pakistan"],
+"Mohenjo-daro": ["place","history","archaeology","bronze age","pakistan"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
