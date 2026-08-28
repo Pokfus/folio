@@ -1141,7 +1141,7 @@ function scrimCheck() {
     // reads as a card count when the collection holds none
     check("a coming-soon collection carries no icon", !lib.soonBadge);
     check("...and no progress bar", !lib.soonXp);
-    check("...just the Coming soon pill", lib.soonPill);
+    check("...just the Planned pill", lib.soonPill);
     check("...with its title centred in the banner", lib.soonTitleOffset !== null && Math.abs(lib.soonTitleOffset) <= 1.5, lib.soonTitleOffset);
     // Aug 2026, on request: collections lost their level. The banner carries a SUBJECT ICON where the
     // per-script numeral was and a studied/total bar where the XP bar was — see test-artefacts.js, which

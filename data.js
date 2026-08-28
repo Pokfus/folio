@@ -5587,6 +5587,334 @@ window.COLLECTION_TREE = {
       ]
     },
     {
+      "id": "korea",
+      "title": "Korea",
+      "total": 0,
+      "children": [
+        {
+          "id": "ko-early",
+          "title": "Early Korea",
+          "total": 90,
+          "children": [
+            {
+              "id": "ko-land",
+              "title": "The land and its people",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-prehistory",
+              "title": "Prehistoric Korea",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-gojoseon",
+              "title": "Gojoseon",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-commanderies",
+              "title": "The commanderies and the proto-Three Kingdoms",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-threekingdoms",
+          "title": "The Three Kingdoms",
+          "total": 125,
+          "children": [
+            {
+              "id": "ko-tk",
+              "title": "The Three Kingdoms period",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "ko-goguryeo",
+              "title": "Goguryeo",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ko-baekje",
+              "title": "Baekje",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-silla",
+              "title": "Silla",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-gaya",
+              "title": "Gaya",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "ko-tk-culture",
+              "title": "Religion, art and society",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-unified",
+          "title": "Unified Silla and Balhae",
+          "total": 75,
+          "children": [
+            {
+              "id": "ko-unification",
+              "title": "The unification wars",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-unifiedsilla",
+              "title": "Unified Silla",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ko-balhae",
+              "title": "Balhae",
+              "total": 15,
+              "cardIds": []
+            },
+            {
+              "id": "ko-latertk",
+              "title": "The fall of Silla and the Later Three Kingdoms",
+              "total": 10,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-goryeo",
+          "title": "Goryeo",
+          "total": 110,
+          "children": [
+            {
+              "id": "ko-goryeo-found",
+              "title": "The founding of Goryeo",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-goryeo-state",
+              "title": "Goryeo government and society",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-goryeo-culture",
+              "title": "Goryeo Buddhism and culture",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ko-goryeo-mongol",
+              "title": "The military regimes and the Mongol invasions",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-goryeo-late",
+              "title": "Late Goryeo",
+              "total": 15,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-joseon-early",
+          "title": "Early Joseon",
+          "total": 120,
+          "children": [
+            {
+              "id": "ko-joseon-found",
+              "title": "The founding of Joseon",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-sejong",
+              "title": "Sejong and the fifteenth century",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ko-confucian",
+              "title": "The Confucian state",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-joseon-science",
+              "title": "Science, technology and learning",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-imjin",
+              "title": "The Imjin War",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-joseon-late",
+          "title": "Later Joseon",
+          "total": 110,
+          "children": [
+            {
+              "id": "ko-manchu",
+              "title": "Recovery and the Manchu invasions",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-factions",
+              "title": "Factional politics and the late Joseon court",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-silhak",
+              "title": "Silhak and new learning",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-lateeconomy",
+              "title": "Society and economy in later Joseon",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-opening",
+              "title": "Crisis and opening",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-colonial",
+          "title": "Empire, Colony and Division",
+          "total": 120,
+          "children": [
+            {
+              "id": "ko-empire",
+              "title": "The Korean Empire and annexation",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-colonialrule",
+              "title": "Colonial rule",
+              "total": 30,
+              "cardIds": []
+            },
+            {
+              "id": "ko-resistance",
+              "title": "Resistance and the independence movement",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-colonialsociety",
+              "title": "Colonial society and its legacies",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-division",
+              "title": "Liberation and division",
+              "total": 20,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-modern",
+          "title": "The Korean War and the Two Koreas",
+          "total": 130,
+          "children": [
+            {
+              "id": "ko-war",
+              "title": "The Korean War",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ko-dprk",
+              "title": "North Korea",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ko-rok",
+              "title": "South Korea",
+              "total": 35,
+              "cardIds": []
+            },
+            {
+              "id": "ko-reunification",
+              "title": "Division, diplomacy and reunification",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        },
+        {
+          "id": "ko-culture",
+          "title": "Korean Culture and Society",
+          "total": 120,
+          "children": [
+            {
+              "id": "ko-language",
+              "title": "The Korean language and Hangul",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-religion",
+              "title": "Religion and belief",
+              "total": 20,
+              "cardIds": []
+            },
+            {
+              "id": "ko-art",
+              "title": "Art, architecture and craft",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-literature",
+              "title": "Literature, music and performance",
+              "total": 25,
+              "cardIds": []
+            },
+            {
+              "id": "ko-daily",
+              "title": "Food, family and daily life",
+              "total": 25,
+              "cardIds": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "geo-us",
       "title": "United States",
       "total": 5,

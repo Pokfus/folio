@@ -17936,6 +17936,16 @@
        what no bird has — a horizontal body on two straight legs with a long sweeping tail — is what
        carries the reading at 24px. */
     { k: "sauropod", n: "Sauropod", d: '<path d="M5.6 15.4c0-2.3 2.4-4.2 5.4-4.2s5.4 1.9 5.4 4.2-2.4 4.2-5.4 4.2-5.4-1.9-5.4-4.2z"/><path d="M15.6 12.8c2.2-2 3.6-4.5 3.9-6.9.1-.9.8-1.4 1.6-1.3.9.2 1.4 1 1.1 1.8"/><path d="M5.8 13.6C4 12.2 2.6 11.6 1.2 11.6"/><path d="M8.2 19.2v2.2"/><path d="M13.4 19.2v2.2"/>' },
+    /* taegeuk — Korea. The device at the centre of the Korean flag, and TWO things make it Korean rather
+       than generally East Asian. It carries NO DOTS, which belong to the Taoist taijitu; and its dividing
+       S runs on an axis tilted 33 degrees off the horizontal, which is roughly how the device sits on the
+       flag. Four orientations were rendered at 24, 28, 34 and 64px beside the pagoda, the globe, the
+       torii, the coin and the compass: the VERTICAL-axis version reads most crisply at 24px and is the
+       Chinese arrangement, which on a shelf carrying a pagoda is the one reading to avoid, so the tilt is
+       bought at a small cost in legibility. A hanok roof was rejected for being China's pagoda at 28px
+       and a moon jar for being a circle. The two arcs are exact semicircles (r 4.3 across a chord of 8.6)
+       with opposite sweep flags, which is what makes the S symmetrical about the centre. */
+    { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
        an icon is two collections a reader cannot tell apart on the shelf. The inner points are drawn
@@ -18005,6 +18015,7 @@
     phil: "owl",
     bio: "helix",
     dino: "sauropod",
+    korea: "taegeuk",
     "geo-us": "compass",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
@@ -21640,10 +21651,19 @@
     // drop targets reachable — but that meant the one person who opens this page most often always met it
     // expanded. An admin moving a collection between the two groups opens the fold first; the drop targets
     // are reachable the moment it is open, so nothing about that workflow is lost.
+    /* THE HEADING AND THE PILL BOTH READ "PLANNED" (Aug 2026, on request: rename the Coming soon section
+       to Planned). The internal names are deliberately UNCHANGED — `isComingSoon`, `setNodeSoon`, the
+       `soon` flag, `.collection-group-soon` and `.pill.soon` — for the reason the Library-to-Collections
+       rename kept its route: a label is what a reader sees and a class is what five test files and the
+       admin drag name, and moving both at once turns a two-word change into a search across the repo.
+       THE PILL WAS RENAMED WITH THE HEADING because the pill IS the section's marker on each row: a
+       "Coming soon" pill under a "Planned" heading is two names for one status. The phrase survives
+       elsewhere on purpose — the minigame placards and the home page's More games tile are a different
+       statement about a different thing. */
     const soonSection = (n, slotId, count) =>
       `<details class="collection-group collection-group-soon">
         <summary class="group-head group-head-toggle">
-          <span class="group-label">Coming soon</span><span class="group-line"></span><span class="group-count">${n}</span>
+          <span class="group-label">Planned</span><span class="group-line"></span><span class="group-count">${n}</span>
           <svg class="group-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </summary>
         ${slot(slotId, count)}
@@ -22082,7 +22102,7 @@
        layout that depends on the width and on how long the deck's name happens to be — so the same two
        shelves read differently at different widths and on different rows, and neither could be pointed at
        as "the way the other one does it". A line of its own is the same on every row at every width.
-       WHAT STAYS ON THE TITLE'S LINE IS A STATUS PILL — "Coming soon", "Empty" — because that is a fact
+       WHAT STAYS ON THE TITLE'S LINE IS A STATUS PILL — "Planned", "Empty" — because that is a fact
        about the row rather than a figure about its contents, and it is what a reader is scanning for. */
     const nodeMetaHTML =
       (spanText ? `<span class="node-span">${esc(spanText)}</span>` : "") +
@@ -22102,7 +22122,7 @@
             <div class="node-title-row">
               <span class="node-title">${esc(nodeTitle(node))}</span>
               ${nodeEmptyPill}
-              ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
+              ${soon ? '<span class="pill soon">Planned</span>' : ""}
             </div>
             ${nodeMetaRow}
           </div>
@@ -22137,7 +22157,7 @@
         <div class="node-title-row">
           <span class="node-title">${esc(nodeTitle(node))}</span>
           ${nodeEmptyPill}
-          ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
+          ${soon ? '<span class="pill soon">Planned</span>' : ""}
         </div>
         ${nodeMetaRow}
       </div>
@@ -22215,6 +22235,21 @@
        yellow-green-brown quarter. What remains genuinely open is narrow, and the next collection may have
        to accept a distance nearer the median than the maximum, as Philosophy's petrol did at 19.8. */
     dino:     { bg: "#967B00" },
+    /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
+       agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
+       from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median
+       nearest-neighbour distance of 22.7 and nearly double the tightest existing pair of 12.9. It is one
+       step off its own family's optimum (#a87872, 23.9) which sits at the very top of the lightness band;
+       the step is given up for contrast, as Psychology's is.
+       IT IS THE MUTED END OF THE TAEGEUK'S OWN RED, and sweeping that whole hue band (15-40 degrees)
+       returns this candidate as its best. The two families that would have been MORE apt were measured
+       and refused: Goryeo CELADON's best in-band candidate at a real chroma of 18-30 scores 19.4, and its
+       nearest neighbour is Biology's dark forest green rather than Egypt's malachite; indigo JJOK's best
+       muted candidate scores 22.4 against a French language deck. Both are below the median, and the
+       versions of them that DO score (a grey-green at chroma 7, a periwinkle at chroma 62) are not the
+       colour they are named after. The whole-wheel optimum is the magenta again at 32.4, rejected for the
+       fifth time on the standing note above. */
+    korea:    { bg: "#A2726C" },
     /* deep olive (Geography) — MEASURED rather than picked, like every hue above it. The obvious choice is
        a teal, and the whole teal band is unusable: swept in CIELAB, every candidate lands 5–11 of Egypt's
        malachite or Greece's Aegean blue, against a tightest EXISTING pair of 12.9. The green band is
@@ -22279,7 +22314,7 @@
                     says, so the row carried "412 cards" beside "0 / 412 cards" — and the DECK rows inside
                     keep theirs precisely because they have no bar. A coming-soon collection has no bar, so
                     its pill stays: that is the one thing its row has to say. */""}
-              ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
+              ${soon ? '<span class="pill soon">Planned</span>' : ""}
             </div>
             ${
               /* A coming-soon collection shows the pill and nothing else. It used to carry a Level 1 badge over

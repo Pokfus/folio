@@ -4387,8 +4387,10 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
 .group-line{flex:1; height:1px; background:var(--rule);}
 .group-count{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); flex:none;}
 
-/* "Coming soon" is a <details> disclosure — the collections still being written outnumber the
-   finished ones, and listing them flat made the Library read as empty. */
+/* The "Planned" section is a <details> disclosure — the collections still being written outnumber the
+   finished ones, and listing them flat made the Library read as empty. It was labelled "Coming soon"
+   until Aug 2026 and the CLASS NAMES were deliberately left alone: `soon` is in five test files and in
+   `isComingSoon`, and renaming a selector to match a label is how a stylesheet and a suite drift. */
 .collection-group-soon{margin-top:32px;}
 .collection-group-soon > summary{cursor:pointer; list-style:none; border-radius:8px; transition:opacity .18s var(--ease);}
 .collection-group-soon > summary::-webkit-details-marker{display:none;}

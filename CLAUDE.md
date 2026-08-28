@@ -703,7 +703,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   shipped** (Aug 2026)
   and the rest of the collection is open ground. **The `placeholder: true` that had held it back was
   CLEARED on request in Aug 2026**, so the forty cards now reach the daily review, the games, the card of
-  the day and study deep links, and the collection sits under Collections rather than Coming soon. Its
+  the day and study deep links, and the collection sits under Collections rather than Planned. Its
   thirty-eight EMPTY decks are still coming-soon, automatically — `isComingSoon` is `!!node.placeholder ||
   subtreeCardIds(node).length === 0`, so a deck earns its place by holding a card and nothing has to be
   un-flagged deck by deck. Not part of the site.
@@ -736,8 +736,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   themselves against — and that **a finding is described with the people it was found in**, which is
   the psychology form of the history plans' rule about a state's account of itself and the easiest one
   here to break by accident. The next card to write is the lowest `ps-NNN` not yet in `data.js`; the
-  index table under "THE FIFTEEN PLANNED COLLECTIONS" is the lookup. **No card has been written yet**,
-  so the collection sits in Coming soon on its own account — `isComingSoon` is true for a node holding
+  index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **No card has been written yet**,
+  so the collection sits in Planned on its own account — `isComingSoon` is true for a node holding
   no cards. It also ships an inert **`Science` row in `COLLECTION_SECTIONS`**: `sectionOf` returns
   History for anything the table does not name, so without it the first psychology card would file the
   collection under History; the row draws nothing until that card exists. Not part of the site.
@@ -756,7 +756,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   are already in Folio's Library**, eleven with their original-language column, so `card.quote` is worth
   more here than anywhere on the site; and **a work is cited by its standard divisions** (Stephanus,
   Bekker, A/B) rather than by the page of one translation. The next card to write is the lowest `ph-NNN`
-  not yet in `data.js`; the index table under "THE FIFTEEN PLANNED COLLECTIONS" is the lookup. **No card
+  not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **No card
   has been written yet.** It ships an inert **`Philosophy` row in `COLLECTION_SECTIONS`**, on the same
   reasoning as Psychology's `Science` row. Not part of the site.
 - `docs/biology-card-plan.md` — the **1000-card running order for the Biology collection** (`bio`):
@@ -774,7 +774,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   and know that **`bio-897` and `ps-432` are both called "Extinction" and are unrelated senses of the
   word**, so they cannot share a glossary key. Four terms it needs already exist (`Domestication`,
   `Boreal`, `Human_evolution`, `Genus`) and must be reused rather than re-keyed. The next card to write
-  is the lowest `bio-NNN` not yet in `data.js`; the index table under "THE FOURTEEN PLANNED
+  is the lowest `bio-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED
   COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
 - `docs/dinosaurs-card-plan.md` — the **1000-card running order for the Dinosaurs collection**
   (`dino`): every card's number, topic and deck, fixed in advance across 9 decks and 43 leaf decks. The
@@ -792,8 +792,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **speculation is labelled**. It follows the no-researchers rule, with `dino-history` exempt by the
   rule's own terms. Its `COLL_THEME` comment carries a **standing note about the magenta band** — the
   wheel's best-scoring region, now measured and rejected four times; do not re-run that sweep. The next
-  card to write is the lowest `dino-NNN` not yet in `data.js`; the index table under "THE FIFTEEN
+  card to write is the lowest `dino-NNN` not yet in `data.js`; the index table under "THE SIXTEEN
   PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- `docs/korea-card-plan.md` — the **1000-card running order for the Korea collection** (`korea`): every
+  card's number, topic and deck, fixed in advance across 9 decks and 43 leaf decks. The sixteenth of the
+  planned collections, the eleventh history one, and the fifth to **create its own collection** — node,
+  tree, `COLL_THEME` hue and a new `ICON_SYMBOLS` mark (`taegeuk`) ship with the plan. **Read its five
+  scope decisions before writing anything**, of which three carry the most weight: **North Korea gets
+  thirty-five cards and is not a curiosity** (the same size as South Korea, with `ko-813`–`ko-815` and
+  `ko-819`–`ko-820` carding the evidence problem and how to read a DPRK source, so a reader meets the
+  epistemics before the claims); **four states are making accounts of their own actions here** — the
+  DPRK's official history, the ROK's older anti-communist historiography, the Japanese colonial
+  scholarship that shaped how Korean history was written for a generation, and the Chinese Northeast
+  Project — and all four are carded as accounts; and **the hardest colonial subjects are carded
+  directly**, forced labour and the comfort women system with the documented record and the range of
+  estimates, without settling the present-day dispute. Its **Sourcing section is measured rather than
+  assumed** and carries two more 200-status error documents (`jstor.org` serves a 3 KB "Client
+  Challenge"; `muse.jhu.edu` serves "Verification required!"), the finding that the recognition guide
+  has **no page for North Korea** because the United States has never recognised it, and the loss that
+  matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Not one of its
+  thousand topics matches an existing glossary key** and there is no `Korea` term, so expect the
+  glossary to grow faster here than anywhere since Greece. The next card to write is the lowest `ko-NNN`
+  not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **No card
+  has been written yet.** Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -848,7 +869,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   by eye. Not part of the site.
 - **📖 `docs/README.md` — READ BEFORE LOOKING FOR A DOC, ADDING ONE, OR SPLITTING ANYTHING OUT OF THIS
   FILE.** The index of `docs/`, and the rule the directory exists for. Every file
-  there, one line each, grouped into the wiring references, the fifteen card plans, the FINISHED content
+  there, one line each, grouped into the wiring references, the sixteen card plans, the FINISHED content
   passes and the ones with work still open — so a pass that is complete can be told from one that is not
   without opening either. The rule it states is the one this whole file is arranged around: **rules live
   in `CLAUDE.md`; reasoning lives in `docs/`**, reached by an imperative `📖 … — READ BEFORE …` pointer,
@@ -2825,8 +2846,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   named in `COLLECTION_SECTION` is neither dragged nor dropped onto, because that order decides a
   collection's place WITHIN its section and nothing there decides which section it is in — so such a drag
   could only ever appear to do nothing, the row being re-ordered in the tree and re-drawn exactly where it
-  was. Reordering History, and moving a collection to and from Coming soon, are untouched.
-  **"Coming soon" is a `<details>` disclosure**
+  was. Reordering History, and moving a collection to and from Planned, are untouched.
+  **THE SECTION IS CALLED "PLANNED"** (Aug 2026, on request; it was "Coming soon"), and so is the status
+  pill on every row in it — the pill IS the section's marker on a row, so leaving it saying "Coming soon"
+  under a "Planned" heading would be two names for one status. **The INTERNAL names are deliberately
+  unchanged** — `isComingSoon`, `setNodeSoon`, the `soon` flag, `.collection-group-soon`, `.pill.soon`
+  and `ADMIN_EDITS.tree.soon` — for the reason the Library-to-Collections rename kept its route: a label
+  is what a reader sees and a class is what five test files and the admin drag name. So **"coming-soon"
+  survives in this file and in the code as the name of the STATE**, and "Planned" is what is on screen.
+  The phrase also survives elsewhere on purpose: the minigames' empty placards and the home page's
+  "More games" tile say "Coming soon" about a different thing.
+  **It is a `<details>` disclosure**
   (`.collection-group-soon`), **collapsed for everyone, admins included** (Aug 2026, on request — it used to open
   itself for an admin so the library's drag-and-drop had its drop targets reachable, which meant the one person who
   opens this page most often always met it expanded; an admin moving a collection between the groups opens the fold
@@ -2836,7 +2866,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **THE DRAG HANDLE IS VISIBLE AT REST** (`.lib-grip`, Aug 2026, on a report that admin reordering had
   stopped working there). It had NOT: every row rendered its grip and carried `draggable="true"` the whole
   time — the grip sat at `opacity:0` until the row was hovered, so on a live collection there was nothing
-  to reach for, while a **Coming soon** row showed its own at rest as a side effect of the overrides that
+  to reach for, while a **Planned** row showed its own at rest as a side effect of the overrides that
   compensate for that group's `filter:opacity(.5)`. So the one place it looked like a feature was the one
   place it was an accident. It is `.32` at rest and `.6` on hover now. **A discoverability fault reads
   exactly like a broken feature** — check whether the affordance is on the page before looking for the
@@ -3606,7 +3636,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE FIFTEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE SIXTEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -3629,6 +3659,7 @@ lookup.
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | empty — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
+| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
 
 The next id for any of them (substitute the prefix):
