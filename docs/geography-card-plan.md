@@ -21,16 +21,16 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
-`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana,
+`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana, `geo-044` Wyoming,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover and `geo-540` Hartford.**
-Both subdecks are worked down the same list, so the next state is `geo-044` and the next capital
-`geo-541`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford and `geo-541` Concord.**
+Both subdecks are worked down the same list, so the next state is `geo-045` and the next capital
+`geo-542`.
 
 ---
 
@@ -1345,6 +1345,51 @@ terms that already exist**. Each was measured, and none should be settled quietl
   state's landmark list comes back empty. Two of the four Virginia City documents fetched this way are
   photographs only and extract to a single line; the survey number tells you nothing about that in
   advance, so fetch and look.
+
+- **📌 THE LOWERCASE COMMON NOUN WITH A PREHISTORIC ENTRY BEHIND IT IS THIS PASS'S STANDING HAZARD, AND
+  IT HAS NOW FIRED FIVE TIMES IN THREE ROUNDS** — `Settlement` twice, `Cemetery` twice and `Horse` once.
+  Each is an ordinary English word in a modern sentence (an Italian settlement at Meaderville in the
+  1890s; the only cemetery in Hartford until 1803; the old North Cemetery where a president was buried;
+  horse-drawn wagons in 1813) whose Folio entry is about archaeological survey, Early Iron Age graves
+  under the Athenian Agora, or the Botai lineage of 3500 BCE. **The fix is always the WORD, never the
+  link** — neighbourhoods, "took every burial", "his wagon-building trade" — because the entry is right
+  about its own subject and it is the sentence that has wandered into it.
+  **There are about eighty such keys and they can be listed rather than remembered:**
+
+      node -e "const {loadGlossary}=require('./.claude/gloss-io.js');const g=loadGlossary();
+        console.log(Object.keys(g.GLOSSARY).filter(k=>/^[A-Z][a-z]+$/.test(k)).join(' '))"
+
+  Read that list once before drafting a batch and the traps become obvious: Settlement, Sanctuary,
+  Inscription, Cemetery, Tomb, Temple, Clay, Copper, Silver, Gold, Ivory, Marble, Tin, Amber, Horse,
+  Cattle, Sheep, Goat, Pig, Plough, Irrigation, Pottery, Metallurgy, Coinage, Citadel, Fresco, Stucco,
+  Diadem, Scabbard, Stele, Salmon, Tar, Ochre, Bronze, Iron, Flint, Musket, Mammoth, Elephant, Emery,
+  Pumice, Papyrus, Chronology, Geology, Stratum, Prehistory, Archaeology, Domestication, Anatomy, Genus,
+  Genome, Monograph. **The metals are the exception that proves the rule** — `gold` on a gold-leafed
+  capitol dome, `tin` on the failing Cornish tin workings, `copper` on Butte — because those entries ARE
+  about the substance the sentence means.
+- **`Concord` SHIPS AS A BARE KEY, AND THE REASONING IS THE LONGEST-FIRST MECHANIC RATHER THAN THE
+  MEASUREMENT.** The corpus is 2 of 2 for the New Hampshire capital, but Concord, Massachusetts is
+  coming: `us-231 Battles of Lexington and Concord` is in `docs/us-card-plan.md`. It is safe anyway,
+  because that card's ANSWER TERM is the whole phrase, so its glossary key will be keyed on the phrase
+  and will claim the text before the bare surface can — the same rule that fixed "New Connecticut" in
+  round 38. **What is NOT covered is the town mentioned on its own** (Thoreau, Emerson, the militia), so
+  Concord, Massachusetts joins Dover in England and Hartford's namesake on the recorded-collision list,
+  to be settled when a sibling term actually arrives rather than guessed at now.
+- **WYOMING'S NHL LAYER RETURNS ZERO TOO, THE SECOND STATE RUNNING** — and the way in this time was not
+  the HABS collection but a single ORDINARY nomination. The **Wyoming State Capitol** form carries the
+  entire suffrage story in its statement of significance: the 1869 bill passing the territorial council
+  6–2 and the lower house 6–4, Esther Morris having heard Susan B. Anthony lecture in Illinois, the 1870
+  elections answering the warnings, the 1889 fight in Washington, Joseph M. Carey's telegram, the
+  legislature's reply — *"We will remain out of the Union a hundred years rather than come in without
+  the women"* — the House vote of 139 to 127, and the 480 initiatives in 33 states that followed between
+  1870 and 1910. **Round 37's rule at full strength: a nomination for one building often carries the
+  context of a whole state**, and a capitol's form is where a state argues for its own significance.
+- **THE LoC STATE GUIDE IS A SUMMARY AND THE NOMINATION IS THE RECORD.** The Wyoming guide says the state
+  was "the first state to grant voting rights to women", which flattens the distinction the capitol
+  nomination draws carefully: the first VICTORY was in the TERRITORY in 1869, and Wyoming became the
+  first STATE to enfranchise women on admission in 1890. Both were used, each for the claim it actually
+  makes. The guide also prints "Ester" for Esther and "the first women designated a justice of the
+  peace"; **take dates and the statehood line from the guide, and take the argument from the nomination.**
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
