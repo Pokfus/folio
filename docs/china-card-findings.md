@@ -2117,3 +2117,23 @@ contract that would satisfy a given ancestor and lift a curse" is his, quoted in
 `.claude/` does not exist: seven suites and `check-docs` reported `MODULE_NOT_FOUND` at once. Eight
 simultaneous failures with identical stacks is a cwd problem, never a content one — **re-run from the
 repo root before reading a stack trace.**
+
+  **`cnh-073` IS THE FIRST CHINA CARD WHOSE TWO HALVES COME FROM DIFFERENT MILLENNIA AND AGREE ON
+NOTHING**, which is what makes it worth writing. The archaeological Wu Ding is a boundary: the 22nd king,
+the first at Anyang whose reign the inscriptions reach, with five lunar eclipses recorded by his own
+diviners calculated to 1201–1181 BCE — a fixed point in a chronology that has almost none. The
+transmitted Wu Ding is a moral exemplum: three years' silence, a dream, a sage found among convicts, a
+pheasant on a sacrificial tripod. **Give each half its own block and let the reader see the join**; the
+card does not reconcile them and should not.
+  **THE PICTURE WAS IDENTIFIED BY READING IT, NOT BY ITS FILENAME.** `add-card.js` offered a leaf from
+`歷代帝王道統圖` with no description at all, two etchings of Trier, and — the trap — **Gaozong of Song**,
+because Gaozong is also Wu Ding's temple name. The leaf's own heading reads **殷高宗夢賚良弼**, "Gaozong of
+Yin dreams that he is granted a good helper", which is precisely the card's central story. **A Chinese
+album leaf carries its subject in the title strip; open it before accepting or rejecting one.** The two
+actual portraits found by hand (`武丁.jpg`, `商高宗.jpg`) are 773 and 600 pixels on the long side and fail
+the ~900px bar, so the picture that works is a scene rather than a face.
+  **AND THE CONTAINER RESTARTED MID-COMMAND.** The chained audit run died with exit 137 after
+`add-glossary.js` had already written; the term was in place and the audits had printed clean before the
+kill. **After a restart, check `git status` and re-read the artefact before re-running anything** — a
+half-applied glossary write would have been silent, and re-running the add on the same file is idempotent
+where re-running a batch tool need not be.
