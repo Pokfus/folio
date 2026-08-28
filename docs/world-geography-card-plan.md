@@ -16,22 +16,27 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far: `gw-001` India, `gw-002` China, `gw-003` United States, `gw-004` Indonesia,
-`gw-005` Pakistan and `gw-006` Nigeria; `gw-503` Washington, D.C.** The next country is `gw-007` Brazil.
+**Shipped so far — countries `gw-001`–`gw-009`** (India, China, United States, Indonesia, Pakistan,
+Nigeria, Brazil, Bangladesh, Russia) **and capitals `gw-503` Washington, D.C. and `gw-505` Islamabad.**
+The next country is `gw-010` Ethiopia.
 
-**`gw-501` New Delhi and `gw-502` Beijing are DEFERRED, and the reason is worth reading before trying
-them again.** Both cities are reachable in the sources here only through the foreign legations that sat
-in them: the recognition guide dates the American mission at New Delhi to 1946 and traces the United
-States legation from Beijing to Nanjing to Chongqing to Taipei, which is a history of American
-diplomacy rather than a history of either city. **A card built on that would be about the wrong
-subject** — the same fault `docs/history-focus-plan.md` records as writing archaeology instead of
-history. What was tried and does not answer: `loc.gov`, `hansard.parliament.uk`, `rct.uk`,
-`parliament.uk`, `whc.unesco.org`, `harappa.com` and `asiasociety.org` are all **403**;
-`en.dpm.org.cn` (the Palace Museum) and `nationalmuseum.gov.cn` return **502**; `beijing.gov.cn`
-resets the connection; `en.chinaculture.org` serves navigation chrome; the Archaeological Survey of
-India and the National Archives of India publish pages of a few thousand characters with no narrative.
-**Both want a source class this sandbox has not yet found** — a museum, a city archive or an open
-scholarly history — rather than more searching along the same paths.
+**Three capitals are DEFERRED, and the pattern in them is the useful part.** `gw-501` New Delhi and
+`gw-502` Beijing are reachable here only through the foreign legations that sat in them — the recognition
+guide dates the American mission at New Delhi to 1946 and traces the United States legation from Beijing
+to Nanjing to Chongqing to Taipei, which is a history of American diplomacy rather than of either city,
+and a card built on it would be about the wrong subject. `gw-504` Jakarta joins them: `jakarta.go.id` is
+403 and `indonesia.go.id` returns 502. `gw-506` Abuja is the sharpest case — the Federal Capital
+Territory Administration has a page headed *A Brief History of our City* whose text is **unreplaced
+template boilerplate** ("Millions of people around the world use Obira to connect…"), so a fetch that
+returns 200 and 220 KB carries no history at all. **Check that a page says something before counting it
+as a source.**
+
+What was tried and does not answer, so that nobody spends the afternoon again: `loc.gov`,
+`hansard.parliament.uk`, `rct.uk`, `parliament.uk`, `whc.unesco.org`, `harappa.com` and
+`asiasociety.org` are **403**; `en.dpm.org.cn` and `nationalmuseum.gov.cn` return **502**;
+`beijing.gov.cn` and `nass.gov.ng` reset the connection; `en.chinaculture.org` serves navigation chrome;
+the Archaeological Survey of India and the National Archives of India publish pages of a few thousand
+characters with no narrative.
 
 ---
 
@@ -281,6 +286,12 @@ and `congress.gov` are all **403**; `senate.gov` serves its 404 page **with a 20
 history through JavaScript and hand back navigation chrome; and `beijing.gov.cn` resets the connection.
 **Find the city spine before writing the batch, not during it** — three country cards were written in
 the time it took to establish that the obvious capital sources do not answer.
+
+**THE TEST HELD ON ITS SECOND OUTING, WHICH IS WHY IT IS WORTH TRUSTING.** `gw-505` Islamabad was
+written from the **Capital Development Authority** — the body created in 1960 to build the city, which
+publishes both a page about Islamabad and a page about itself — and from the **National Assembly of
+Pakistan's** own history of the Constituent Assembly at Karachi. Two institutions that sit in or made
+the capital, both publishing their own record. Jakarta and Abuja failed the same test on the same day.
 
 **Where a city HAS an institutional history of its own, the card is easy and good, which is what
 `gw-503` shows.** Washington is carried by the **Architect of the Capitol** (the Residence Act, the site
