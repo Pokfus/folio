@@ -16,10 +16,11 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
 `geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
-Maryland, `geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence,
-`geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton Rouge, `geo-509` Augusta,
-`geo-510` Oklahoma City and `geo-511` Albany.** Both subdecks are worked down the same list, so
-the next state is `geo-015` and the next capital `geo-512`.
+Maryland, `geo-015` Nevada, `geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee,
+`geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton
+Rouge, `geo-509` Augusta, `geo-510` Oklahoma City, `geo-511` Albany and `geo-512` Boise.** Both
+subdecks are worked down the same list, so the next state is `geo-016` and the next capital
+`geo-513`.
 
 ---
 
@@ -368,6 +369,11 @@ Four more, measured while writing `geo-005` and `geo-501`:
   have cited two entirely unrelated properties. Match the anchor's own text exactly. And **read the
   reference number back before fetching**: `66000386` returns a perfectly valid PDF for something that is
   not the Maryland State House, whose number is `66000385`.
+- **`history.idaho.gov` IS OPEN**, the Idaho State Historical Society's own site, and its `/capitol/`
+  page carried `geo-512`'s statehouse completion in 1920 and the 1915 Lincoln with its Table Rock
+  sandstone base. It is not an encyclopedia with per-article bibliographies like Oklahoma's — it is a
+  state agency's own pages, so it qualifies the way a preservation office does, and it is thin: expect
+  one or two claims from a page, not a spine.
 - **A STATE HISTORICAL SOCIETY'S ENCYCLOPEDIA CAN PASS THE PER-ARTICLE TEST, AND OKLAHOMA'S DOES.**
   The glossary plan bars encyclopedias except where the ARTICLE cites its own sources, tested one
   article at a time. The Oklahoma Historical Society's *Encyclopedia of Oklahoma History and Culture*
@@ -464,6 +470,15 @@ terms that already exist**. Each was measured, and none should be settled quietl
   York" in its popup, and the bare word auto-links to nothing — which is the honest result when the word
   means two things. The card is unaffected, a card never auto-linking its own answer.
 
+- **`Nevada_(state)` IS THE SECOND, AND IT MEASURED 2 OF 2 AGAINST.** Both existing uses of "Nevada"
+  in shipped prose are inside **Sierra Nevada** — the range, in `geo-001` and the `California` term —
+  so a bare key would have linked the mountains to the state twice over and there was no majority to
+  weigh at all. Keyed parenthetically before shipping this time, and the render check confirmed "Sierra
+  Nevada" stays plain text while "Boise", which measured 2 of 2 FOR the Idaho capital, links correctly
+  in `geo-012`. **A state name that is also half of a longer place name is the shape to watch** — the
+  same question waits at `geo-032` (Washington), `geo-041` (Kansas, for Kansas City) and anywhere a
+  range, river or city carries the state's word. Note the forward exit: if a `Sierra_Nevada` term is
+  ever written, the longest-first sort would protect the state and it could be rekeyed bare.
 - **`Albany_(New_York)` IS THE FIRST CAPITAL TO NEED THE PARENTHETICAL, AND IT SHOWS THE MEASURE IS
   NOT ENOUGH ON ITS OWN.** Nine capitals before it are keyed bare and none collides; "Albany" measured
   2–1 for the New York capital, the third use being "the Albany Museum" in `wh-059`, a museum in the
