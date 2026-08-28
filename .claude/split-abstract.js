@@ -92,7 +92,23 @@ function pieces(block) {
   // the CJK terminator takes an OPTIONAL following space: it carries none in well-set Chinese, but a
   // dozen zh abstracts (and four ja) were written with one, and without the `\s?` the splitter returns
   // the whole block as a single sentence — silently, which is the failure mode markers must not meet
-  const parts = t.split(new RegExp('(?<=[.!?؟]' + FN + '\\s|[。！？]' + FN + '\\s?)(?!\\s|<sup class="fn")'));
+  // A quotation that closes MID-SENTENCE, which is what the clause below would otherwise break on:
+  // «…to ask 'Then who was king?' twice over, and answering with…» carries a terminator inside the
+  // quotation and the sentence runs on past it. The test is the one the genus and regnal rules use —
+  // what follows a real sentence boundary is always a capital — so a closing quote followed by a
+  // LOWERCASE word is a quotation inside a sentence. Held before the terminator clause widens, or
+  // `wh-185` splits into six.
+  hold(/[.!?؟][’”»›'"]\s(?=\p{Ll})/gu);
+  // A sentence may CLOSE ON A QUOTATION — «…we are of this land.’ By the mid-1800s…» — and the
+  // terminator then has a closing quote between it and the space, which the lookbehind above could not
+  // see, so the quoted sentence merged with the one after it and the block came back 4+5. The house
+  // style quotes a word-as-a-word in single curly quotes and a passage in doubles, and the other
+  // languages close with » or 」, so the class holds all of them. It is safe because it is additive:
+  // the pattern occurs ZERO times in the shipped corpus, so no existing split can change, and a
+  // closing quote sitting immediately after a full stop is a quotation ending a sentence in any of the
+  // ten languages — nothing here writes a mid-sentence quotation that closes on its own full stop.
+  const QC = '[’”»›」』\'"]?';
+  const parts = t.split(new RegExp('(?<=[.!?؟]' + QC + FN + '\\s|[。！？]' + QC + FN + '\\s?)(?!\\s|<sup class="fn")'));
   const restore = (s) => s.replace(new RegExp(OPEN + "(\\d+)" + CLOSE, "g"), (_, i) => held[+i]);
   return parts.filter((s) => s.length).map(restore);
 }

@@ -15,10 +15,10 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
-`geo-010` Oklahoma, `geo-011` New York, `geo-501` Sacramento, `geo-502` Austin, `geo-503`
-Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing and
-`geo-508` Baton Rouge.** Both subdecks are worked down the same list, so the next state is `geo-012`
-and the next capital `geo-509`.
+`geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-501` Sacramento, `geo-502` Austin,
+`geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507`
+Lansing, `geo-508` Baton Rouge and `geo-509` Augusta.** Both subdecks are worked down the same
+list, so the next state is `geo-013` and the next capital `geo-510`.
 
 ---
 
@@ -121,7 +121,12 @@ ago. Drawn beside the answer with no date on it, a retired flag reads as the cit
 card asserts something false in the one place a reader cannot check it. **Search for the retirement
 date, not just for the file** — the same trap waits at any city that has redesigned — and where the
 current design is not on Commons under a licence Folio can use, leave `answerFlag` off. The answer box
-is complete without it.
+is complete without it.  **`geo-509` Augusta is the second such card and fails a
+DIFFERENT way**: Lansing has a flag and Commons carries only the retired one, where Augusta has no
+flag file on Commons at all — a title search returns photographs of the city and the two obvious
+filenames are both missing. Both end in no `answerFlag`, but they are worth telling apart, because
+the Lansing case can be fixed the day somebody uploads the current design and the Augusta case
+cannot be fixed by looking harder.
 
 ## The locator — a globe on a HISTORY card
 
@@ -347,6 +352,17 @@ Four more, measured while writing `geo-005` and `geo-501`:
   from those, is open, and is dated prose rather than a link list — it is where `geo-011` got the Dutch West
   India Company's New Amsterdam, which the guide's own Introduction does not mention. Not every state guide
   has the tab; Louisiana's 404s.
+- **READ THE WHOLE NOMINATION, NOT THE ONE THAT IS ABOUT YOUR SUBJECT.** `geo-509` needed the year
+  Augusta became Maine's capital, and it is in none of the obvious places — not the LoC state guide,
+  not the Fort Western nomination, not the Blaine House one, and `nps.gov/places/maine-state-house.htm`
+  and `maine.gov/legis/general/history.html` are both 404. It is in the **Kennebec Arsenal**
+  nomination, three pages into a history of the Northeast Boundary Controversy: Congress voted the
+  arsenal on 16 January 1827 for the town's central position on the Kennebec, and "Augusta was also
+  chosen as the location for the state capital a month later, also due to its central location." That
+  is P2's rule in an American coat — the sentence you need is often in the document about something
+  else, so **grep every nomination you have fetched before concluding a fact is unreachable**. Note
+  what it dates, too: the CHOICE, not the arrival, so the date line says "chosen 1827" (C9's
+  Madagascar rule, and Juneau's).
 - **WHEN A NOMINATION HAS NO NPS SUMMARY PAGE, GET ITS REFERENCE NUMBER OUT OF NARA.** The NHL summary pages
   at `nps.gov/subjects/nationalhistoriclandmarks/<slug>.htm` cover only some landmarks, and both of Baton
   Rouge's capitols 404 there. The list-of-NHLs-by-state page links each one to `catalog.archives.gov/id/<n>`

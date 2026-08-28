@@ -4175,6 +4175,19 @@ month name, a bare ordinal
 before `Jahrhundert`, the CJK full stop, and **markers already placed by an earlier batch** (the marker sits
 between the full stop and the following space, and in zh/ja with no space at all — without that guard a
 top-up batch sees one enormous sentence, or splits every marker off as its own).
+**A SENTENCE MAY CLOSE ON A QUOTATION, and until Aug 2026 the splitter could not see it** — the
+terminator sits inside the quotation marks, so a closing quote stands between the full stop and the
+space the lookbehind was anchored to, and the quoted sentence merged with the one after it. Found while
+writing `geo-012`, whose fourth sentence ends on the Nez Perce tribal executive committee's own words,
+and the block came back 4+5. Two clauses fix it and the SECOND is the one that matters: widening the
+terminator to allow a closing quote also broke `wh-185`, where "…to ask 'Then who was king?' twice
+over…" is a quotation INSIDE a sentence, so a `hold` refuses the split when the quote is followed by a
+LOWERCASE word — the same test the abbreviated-genus and regnal-numeral rules already use, since what
+follows a real boundary is always a capital. **Verified over all 2,627 shipped texts, where it changes
+exactly one split and that one is a CORRECTION**: `gr-336` block 2 had been splitting 4 where it is 5,
+because its first sentence ends on the Kroisos epitaph. That card was written with its markers already
+in the prose so nothing shipped wrong, but a top-up batch marking it by sentence index would have put
+every marker one claim early.
 
 **Backfilling a site language** — `add-card.js` / `add-glossary.js` only handle a whole NEW entry in every
 language at once. To add a language to content that already exists (a new site language, or topping up a
