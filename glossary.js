@@ -1286,7 +1286,8 @@ window.GLOSSARY = {
 "Oracle_bone_script": "<b>Oracle bone script</b> is the writing of the late Shang, cut into turtle plastrons and cattle shoulder blades between about 1250 and 1046 BCE, and the earliest Chinese writing that survives.<sup class=\"fn\" data-fn=\"2\"></sup> It represents the language fully and leans heavily on pictures, with roughly 170 basic shapes standing for what they draw, for something beside it, or for a word that merely sounds the same.<sup class=\"fn\" data-fn=\"2\"></sup> Almost every other sign is built from those by modification or combination; the corpus runs to some 4,000 distinct signs, at least half of them still unread, and one character may be written in markedly different ways.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Shang_divination": "<b>Shang divination</b> is the practice by which the late Shang court put questions to its ancestors and to the powers, by burning bone until it cracked and reading the crack.<sup class=\"fn\" data-fn=\"1\"></sup> Cattle shoulder blades and turtle plastrons were hollowed on the back so that heat applied there split the face in a controlled way, and beside the crack was cut the day, the diviner who tested it, and the proposition put.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Diviners worked in named groups, and the kings divined continually to settle that offerings to the dead were right in kind, number, colour and combination.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Wu_Ding": "<b>Wu Ding</b> is the Shang king with whom the dynasty’s own written record begins, the 22nd of its line, reigning by the standard chronology from about 1250 to 1192 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> No inscription found at Anyang names any of his three predecessors there, so the site’s writing and his reign start together, and five lunar eclipses recorded by his diviners have been calculated to a window between 1201 and 1181 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The transmitted account makes him the king who revived the dynasty, keeping silence for three years until a dream showed him the sage he then found among convicts and made his counsellor.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Fu_Hao": "<b>Fu Hao</b> is a consort of the Shang king Wu Ding, known first from the oracle bones of about 1200 BCE and afterwards from her own grave at Anyang in China.<sup class=\"fn\" data-fn=\"1\"></sup> That order is unusual, an individual named in a record of the 2nd millennium BCE and then met in the ground being rare; the inscriptions show women of her rank overseeing territorial domains and leading troops.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Her grave is the only intact top royal burial yet excavated at the site, holding something like 1.6 tonnes of metal, though she was one of several royal consorts and not the most important person buried there.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Fu_Hao": "<b>Fu Hao</b> is a consort of the Shang king Wu Ding, known first from the oracle bones of about 1200 BCE and afterwards from her own grave at Anyang in China.<sup class=\"fn\" data-fn=\"1\"></sup> That order is unusual, an individual named in a record of the 2nd millennium BCE and then met in the ground being rare; the inscriptions show women of her rank overseeing territorial domains and leading troops.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Her grave is the only intact top royal burial yet excavated at the site, holding something like 1.6 tonnes of metal, though she was one of several royal consorts and not the most important person buried there.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Tomb_of_Fu_Hao": "<b>tomb of Fu Hao</b> is burial M5 at Xiaotun in Anyang, China, the grave of a consort of the Shang king Wu Ding, lying away from the royal cemetery at Xibeigang and small beside its graves.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It held about 1,500 objects, among them weapons, bells, blades, mirrors, bronze tigers and a great quantity of jade, some of it made by Neolithic cultures and already ancient when it was buried.<sup class=\"fn\" data-fn=\"1\"></sup> Neither the count nor the name is settled, since one study gives 468 bronzes and another 210, the two almost certainly counting different things, and several scholars read the owner’s graph as Zi rather than Hao.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2805,7 +2806,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Yinxu": ["Yin Ruins"],
 "Oracle_bone_script": ["jiaguwen","oracle bone inscriptions"],
 "Wu_Ding": ["Gaozong of Shang"],
-"Fu_Hao": ["Fuhao"]
+"Fu_Hao": ["Fuhao"],
+"Tomb_of_Fu_Hao": ["Fu Hao's tomb","burial M5","Anyang M5"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4117,7 +4119,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Oracle_bone_script": ["concept","language","history","china","bronze age"],
 "Shang_divination": ["practice","religion","history","china","bronze age"],
 "Wu_Ding": ["ruler","history","archaeology","china","bronze age"],
-"Fu_Hao": ["person","history","archaeology","china","bronze age"]
+"Fu_Hao": ["person","history","archaeology","china","bronze age"],
+"Tomb_of_Fu_Hao": ["place","archaeology","history","china","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

@@ -2162,3 +2162,37 @@ hyphenated attributive (its lookahead is `\s*`), so it passed in both the card a
 rewritten to "a record of the 2nd millennium BCE" by hand. That is the third time in this run — see the
 `cnh-069` entry. **When a card compares periods, grep your own draft for `\b(first|second|third)-`
 before adding it.**
+
+  **`cnh-075` IS A CARD WHOSE TWO BEST FACTS ARE DISAGREEMENTS**, and both were kept rather than
+resolved. Lopes 2014 and Childs-Johnson 2012 give the tomb **468 bronzes and 210** — almost certainly
+counting different things, one the whole assemblage and the other the ritual vessels — and
+Childs-Johnson records that several scholars read the owner's graph as **Zi rather than Hao**, so the
+woman everyone calls Fu Hao may be Fu Zi. Neither is a fault in a source; both are what the record
+actually supports, and a card that picked one number and one reading would be quieter and less true.
+The date line carries the count as `468 or 210, by count` for exactly that reason.
+  **THE TOMB CARD HAD TO GIVE `cnh-074` BACK ITS OWN MATERIAL.** The person card was written first and
+spent the metal weight (1.6 tonnes), the intact-burial status and the Xibeigang size comparison; so this
+one takes the CONTENTS and the PROBLEMS — the roughly 1,500 objects, the Neolithic jades already
+centuries old when buried, the jade attendants in ceremonial dress, the two ding at 128 and 117.5
+kilograms — and states the intactness once, as a count of comparable burials rather than as a claim of
+uniqueness. **Where two cards share a subject, the second one's job is what the first could not spend.**
+  **THE PICTURE IS A RECONSTRUCTION AND THE CAPTION SAYS SO.** Commons offers exactly two usable images
+of M5: a 640 × 480 photograph, under the ~900px bar, and Gary Todd's CC0 4752 × 3168 shot of the
+**full-size reconstruction at the Yinxu site museum**, whose own Commons description states that the
+originals are in Beijing and Zhengzhou. It shows the pit, the bronzes, the bells and the sacrificed
+attendants in the ledges — everything the card describes — so it was taken with a `desc` that says
+outright that the objects are replicas. **The museum-reconstruction trap is only a trap when the caption
+hides it**; named as what it is, a reconstruction is the clearest thing a reader can be shown of a grave
+whose contents now sit in two museums.
+  **AND THE SANDBOX BROWSER CANNOT LOAD ANY WIKIMEDIA IMAGE, WHICH READS AS A BROKEN LINK.** The render
+harness reported `0x0 complete=false` for the new picture; probing an ALREADY-SHIPPED card's image
+(`cnh-074`'s owl zun) returned the same error, and `curl` fetches both with a 200 and the right byte
+count. Chromium here has no outbound proxy where `curl` does. **Before treating a render's `0x0` as a bad
+URL, probe a picture known to work** — otherwise a good file is thrown away on the strength of a sandbox
+limit.
+  **THE GLOSSARY POPUP COULD NOT BE OPENED BY INJECTING A `.ttip`.** `setupTooltips` wires each element
+individually at render, so a span appended afterwards has no listener and clicking it does nothing; the
+`sessionStorage` restore path was consumed and still produced no window. What works is the **admin
+glossary preview**, which renders the real `.gloss-win` markup — it showed the three sentences, the five
+markers numbered 1,2,1,1,2, both source items and the image slot. **A term with no card yet linking it
+has no reader-side surface to click**, so the editor's preview is the honest place to look at it.
