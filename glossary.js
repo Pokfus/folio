@@ -1269,7 +1269,8 @@ window.GLOSSARY = {
 "Indus_script": "The Indus script is the undeciphered sign system of the Indus Valley Civilisation, surviving mainly on small stone stamp seals and on objects of pottery, terracotta and copper.<sup class=\"fn\" data-fn=\"1\"></sup> Counts of its texts run from about 3,000 to about 3,800, a single line carries no more than 14 signs, and around 400 distinct signs have been identified, though one tally reaches 676.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> No bilingual text has been found and the underlying language is unknown, so readings still range from an Indo-Aryan language through a Dravidian one to a purely numerical system, and it has even been argued that the signs are not writing at all.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Indus_urban_planning": "Indus urban planning is the set of shared building conventions behind the cities of the Indus Valley Civilisation, comprising well-organised streets, sanitation and water management, and a standardised system of measurement.<sup class=\"fn\" data-fn=\"1\"></sup> Wide streets ran north to south and narrower lanes east to west, neighbourhoods stood on massive platforms, and households ran a pipe from an indoor bathing platform to drains laid beneath the lanes.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Bricks were made to a fixed proportion of two widths to the length, and stone weights from about 1 gram to well over 10 kilograms (0.04 to 22 pounds) were standardised closely enough to work as one system.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Dholavira": "Dholavira is an archaeological site in the island belt of the Rann of Kachchh, in Gujarat in western India, and one of the five major urban centres so far identified in the Indus Valley Civilisation.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its excavated plans show city walls and gateways, an extensive open clearing enclosed within the walls, and a series of reservoirs cut deep into the bedrock around the town and joined to one another.<sup class=\"fn\" data-fn=\"3\"></sup> The settlement stood for about 1,500 years, from roughly 4,950 to 3,450 years ago, and an earthquake damaged it between about 4,450 and 4,150 years ago.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Lothal": "Lothal is an archaeological site of the Indus Valley Civilisation on the Gujarat coast of western India, one of the smaller settlements rather than one of its five cities, and among those that have produced human remains and burials.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Its excavator called it a harbour town at the head of the Gulf of Cambay, and a circular steatite seal found there, neither wholly Indian nor Sumerian, resembles the seals of the Persian Gulf islands.<sup class=\"fn\" data-fn=\"1\"></sup> The town grew over a tidal salt marsh and was left high and dry as the sea level fell, and kilns with vitrified inner surfaces and high-grade copper ingots dug there point to skilled smelting.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>"
+"Lothal": "Lothal is an archaeological site of the Indus Valley Civilisation on the Gujarat coast of western India, one of the smaller settlements rather than one of its five cities, and among those that have produced human remains and burials.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Its excavator called it a harbour town at the head of the Gulf of Cambay, and a circular steatite seal found there, neither wholly Indian nor Sumerian, resembles the seals of the Persian Gulf islands.<sup class=\"fn\" data-fn=\"1\"></sup> The town grew over a tidal salt marsh and was left high and dry as the sea level fell, and kilns with vitrified inner surfaces and high-grade copper ingots dug there point to skilled smelting.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Decline_of_the_Indus_civilisation": "The decline of the Indus civilisation is the contraction of its cities and its exchange network after about 1900 BCE, through the Late Harappan phase to about 1300 BCE, when the interaction sphere retracted, urban centres lost population and agrarian village life took over.<sup class=\"fn\" data-fn=\"2\"></sup> Settlement moved from many small sites around a few large centres to a de-nucleated pattern, and in parts of north-western India the density of sites may have risen.<sup class=\"fn\" data-fn=\"3\"></sup> No single cause is agreed, though an increase in drought episodes from about 4,200 years ago is the explanation most often made.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1898,7 +1899,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Indus_script": "c. 2600 – 1900 BCE",
 "Indus_urban_planning": "c. 2600 – 1900 BCE",
 "Dholavira": "c. 4950 – 3450 BP",
-"Lothal": "c. 2600 – 1900 BCE"
+"Lothal": "c. 2600 – 1900 BCE",
+"Decline_of_the_Indus_civilisation": "c. 1900 – 1300 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2770,7 +2772,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Indus_Valley_Civilisation": ["Harappan civilisation","Harappan civilization","Indus civilisation","Indus civilization","Indus Valley Civilization"],
 "Mohenjo-daro": ["Mohenjo Daro","Mohenjodaro","Moenjodaro"],
 "Indus_script": ["Harappan script"],
-"Indus_urban_planning": ["Indus town planning","Harappan urban planning","Harappan town planning"]
+"Indus_urban_planning": ["Indus town planning","Harappan urban planning","Harappan town planning"],
+"Decline_of_the_Indus_civilisation": ["decline of the Indus civilisation","decline of the Indus Valley Civilisation","Indus decline"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4065,7 +4068,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Indus_script": ["concept","history","archaeology","writing","language","bronze age"],
 "Indus_urban_planning": ["concept","history","archaeology","bronze age","technology"],
 "Dholavira": ["place","history","archaeology","bronze age","india"],
-"Lothal": ["place","history","archaeology","bronze age","india"]
+"Lothal": ["place","history","archaeology","bronze age","india"],
+"Decline_of_the_Indus_civilisation": ["event","history","archaeology","bronze age","climate"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
