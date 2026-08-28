@@ -24,13 +24,14 @@ Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malays
 Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela, Australia, Niger, North
 Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan, Chad, Chile, Romania,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
-Bolivia, Tunisia, South Sudan, Belgium, Haiti) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates) **and
+capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-084`
-Jordan and the next capital is `gw-536` Kabul.
+`gw-536` Kabul, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country
+is `gw-087` Cuba and the next capital is `gw-537` Ottawa.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -911,6 +912,43 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 28 (Jordan, Dominican Republic, United Arab Emirates, Kabul) is where the population sort's own
+logic shows itself.** Its three countries are counted at **11,520,684**, **11,520,487** and **11,513,149**
+— Jordan, the Dominican Republic and the United Arab Emirates within about 7,500 people of each other, on
+three continents and by three quite different histories. **That closeness is a fact about the ordering
+rather than about the countries**, and it is the reason the plan fixes the order at planning time: a
+re-sort on next year's estimates would shuffle these three among themselves and move every card id.
+
+**It confirms C11's Dominican Republic finding against the current data, and the shape of the error is
+worth knowing.** `AG.SRF.TOTL.K2` gives **48,670 km² for every year to 2018 and 146,839.463 for every
+year from 2019** — a threefold jump with nothing behind it and no revision anywhere near it. So the
+card states its area on **UNdata alone and says why**, which is the honest form of C5's single-source
+position: name the missing source rather than quietly dropping it. **Fetch a date RANGE, not one year,
+before trusting that series** — a single-year request returns the wrong number with no sign that it is
+wrong.
+
+**`United_Arab_Emirates` resolves C5's oldest deferral by standing still.** C5 refused to correct its
+83,600 km² against UNdata's 71,024 — "the widest gap in Phase 3" — for want of a second source; D2 found
+the World Bank's **98,648**, which puts the term between the two; and this card is the first to state all
+three, 27,624 km² apart, with the term inside. **A figure that looks wrong against one source can be
+right against two**, and the pass has now met this shape often enough that the reflex should be to fetch
+the second series before drafting a correction.
+
+**Jordan is the pass's first use of UNdata's REFUGEE field, and it is the right way to carry a claim the
+term already makes.** The `Jordan` term ends "has since taken in large numbers of refugees"; the country
+profile carries *Refugees and others of concern to UNHCR* at about **699,000**, so the card states the
+figure rather than inferring anything from the population curve. **A UNdata profile has fields beyond the
+five the recipe uses** — density, capital-city population, refugees, exchange rate — and reaching for the
+one a term's own last clause needs is cheaper than finding a new source.
+
+**And `Kabul` is the fullest mission history in the guide.** Recognition in 1921, relations only in 1935
+and through a minister resident at Tehran, a legation in the city in 1942 — 21 years after the
+recognition — an embassy in 1948, the ambassador **assassinated at post in February 1979**, the embassy
+closed in January 1989 as Soviet forces left, a liaison office in December 2001, an embassy again in
+January 2002, and operations **suspended and transferred to Doha in August 2021**. The card carries no
+flag and neither does `gw-036`, for the reason recorded above: Commons resolves `Flag_of_Afghanistan.svg`
+to a file named for one of the parties to that history.
 
 **Batch 27 (South Sudan, Belgium, Haiti, Buenos Aires) met the pass's fastest state and its slowest
 recognition in one sitting, and both are dated by the same two sources.** `South Sudan` declared
