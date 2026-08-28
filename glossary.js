@@ -1281,7 +1281,8 @@ window.GLOSSARY = {
 "Oracle_bone_script": "Oracle bone script, jiaguwen, is the earliest form of systematic Chinese writing, carved on turtle plastrons and the shoulder blades of cattle in the late Shang, from about 1250 to 1045 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> The bones were drilled with pits and cracked with heat for divination, and what is written on them are the divination records of royalty and nobility, most of the pieces coming from Anyang.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> More than 160,000 inscribed pieces are known, carrying some four thousand distinct signs of which only about a thousand have been deciphered, their meanings and modern Chinese equivalents confirmed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Yinxu": "Yinxu, the ruins of Yin, is the site of the last capital of the Shang dynasty, at Anyang in northern Henan, occupied from about 1250 to 1045 BCE and divided by archaeologists into four phases.<sup class=\"fn\" data-fn=\"1\"></sup> All the kingly tombs lie in one cemetery at Xibeigang, thousands of lesser graves fill a western cemetery of lineage members, and rank shows in the metal, the sacrifices and the size of each chamber.<sup class=\"fn\" data-fn=\"1\"></sup> It was among the largest metal consumers in Eurasia in the 2nd millennium BCE, drawing metal from more than 500 km (300 miles) away; Chinese excavation began there in 1928.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Chinese_ritual_bronzes": "Chinese ritual bronzes are the vessels cast in great numbers under the Shang and Zhou dynasties, between about 1600 and 221 BCE, for banqueting and for offering food and drink in ancestor worship.<sup class=\"fn\" data-fn=\"1\"></sup> The preference for putting bronze into vessels rather than into weapons and tools sets China apart from the rest of Bronze Age Eurasia, and making them was the most prominent handicraft industry of the age.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They were cast in ceramic moulds and cores and buried with the elite dead, and about 21,000 of them carry inscriptions, from short clan emblems to Western Zhou texts of up to 500 characters.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Fu_Hao": "Fu Hao was a queen of the Shang and one of the royal consorts of King Wu Ding, identified from inscriptions cast into bronze ritual vessels and matched against the records on the oracle bones.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Her tomb at Yinxu in Anyang is the only intact top royal burial so far excavated there, and some 1.6 tonnes (1.8 tons) of metal came out of it, alloyed from very pure copper.<sup class=\"fn\" data-fn=\"1\"></sup> She was not the greatest of the Shang dead, the looted kingly tombs at Xibeigang running to seven times the size of hers, and a jade parrot from her grave gives the first scientific evidence that the Shang burnt jade in sacrifice.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Fu_Hao": "Fu Hao was a queen of the Shang and one of the royal consorts of King Wu Ding, identified from inscriptions cast into bronze ritual vessels and matched against the records on the oracle bones.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Her tomb at Yinxu in Anyang is the only intact top royal burial so far excavated there, and some 1.6 tonnes (1.8 tons) of metal came out of it, alloyed from very pure copper.<sup class=\"fn\" data-fn=\"1\"></sup> She was not the greatest of the Shang dead, the looted kingly tombs at Xibeigang running to seven times the size of hers, and a jade parrot from her grave gives the first scientific evidence that the Shang burnt jade in sacrifice.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Sanxingdui": "Sanxingdui is a Bronze Age site at Guanghan in Sichuan, on the south bank of the Yazi river, and the leading representative of the ancient Shu culture, which runs from the late Neolithic to the early Western Zhou.<sup class=\"fn\" data-fn=\"1\"></sup> Its sacrificial pits, of about 1200 to 1000 BCE, held ivory, seashells, bronze, pottery, jade, stone, gold, bone and horn, the ivory laid over everything else and layers of ash above that.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Over half the bronzes found there carry the same highly radiogenic lead as the ritual vessels of the Central Plains, and its carnelian beads were cut from stone quarried more than 1,000 km (600 miles) north.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1922,7 +1923,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Oracle_bone_script": "c. 1250 – 1045 BCE",
 "Yinxu": "c. 1250 – 1045 BCE",
 "Chinese_ritual_bronzes": "c. 1600 – 221 BCE",
-"Fu_Hao": "Reign of King Wu Ding, late Shang"
+"Fu_Hao": "Reign of King Wu Ding, late Shang",
+"Sanxingdui": "c. 1200 – 1000 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2805,7 +2807,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Oracle_bone_script": ["oracle bone inscription","oracle bone inscriptions","jiaguwen"],
 "Yinxu": ["Yin Ruins","ruins of Yin"],
 "Chinese_ritual_bronzes": ["ritual bronze","ritual bronzes","bronze ritual vessel","bronze ritual vessels"],
-"Fu_Hao": ["Fuhao"]
+"Fu_Hao": ["Fuhao"],
+"Sanxingdui": ["Sanxingdui site"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4112,7 +4115,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Oracle_bone_script": ["concept","history","archaeology","writing","language","china"],
 "Yinxu": ["place","history","archaeology","bronze age","china"],
 "Chinese_ritual_bronzes": ["object","history","archaeology","bronze age","china"],
-"Fu_Hao": ["person","history","archaeology","bronze age","china"]
+"Fu_Hao": ["person","history","archaeology","bronze age","china"],
+"Sanxingdui": ["place","history","archaeology","bronze age","china"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
