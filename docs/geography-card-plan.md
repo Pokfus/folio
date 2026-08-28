@@ -18,13 +18,13 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 `geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
 Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New Jersey, `geo-019`
 Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023` Washington,
-`geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506`
-Honolulu, `geo-507` Lansing, `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
+`geo-024` Oregon, `geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504`
+Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
-City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston and
-`geo-520` Columbus.**
-Both subdecks are worked down the same list, so the next state is `geo-024` and the next capital
-`geo-521`.
+City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
+`geo-520` Columbus and `geo-521` Springfield.**
+Both subdecks are worked down the same list, so the next state is `geo-025` and the next capital
+`geo-522`.
 
 ---
 
@@ -350,6 +350,25 @@ Four more, measured while writing `geo-005` and `geo-501`:
   Apalachee province in 1633, San Luis as the western capital of Spanish Florida from 1656 to 1704 with
   more than 1,400 residents, and its destruction in 1704 — a depth no state page has. **Check a citation
   URL with a GET**, since the obvious `curl -sIL` sweep reports these as dead.
+- **A NOMINATION THAT WAS NEVER SCANNED IS EXACTLY 22,151 BYTES, ON BOTH PATHS.** `GetAsset/NHLS/` and
+  `GetAsset/NRHP/` both answer 200 and hand back the same placeholder, which extracts as a page of
+  punctuation — measured on the B Reactor (`92000245`), Fort Rock Cave (`66000641`) and Sunken Village
+  (`89002455`), all three the same size to the byte. **Check the size before reading**: the stub is not
+  an error, it is a landmark whose paperwork is not online, and no amount of re-fetching will change it.
+  A file that IS there runs to hundreds of kilobytes, and the two paths then differ in size — try both,
+  since either can be the readable one (`73001575` extracts from NHLS and is binary from NRHP).
+- **NOT EVERY STATE HAS A LIBRARY OF CONGRESS GUIDE, and Oregon is the first that has not.**
+  `guides.loc.gov/oregon-state-guide` is a 404 while every state written before it resolved, and the
+  guides' own search page is JavaScript-driven, so the index cannot be listed from here to check.
+  **Try the slug and be ready for it to fail**, rather than treating that source as a given; `geo-024`
+  is carried by the NPS trail pages instead, which are better history anyway.
+- **THE STATUTES AT LARGE ARE IMAGE SCANS THAT DO NOT EXTRACT, AND GOVINFO'S METADATA IS THE WAY IN.**
+  `govinfo.gov/metadata/pkg/STATUTE-<vol>/mods.xml` lists every act in a volume with its title, its
+  session and its page, so `An Act for the Admission of Oregon into the Union` at 11 Stat. 383 can be
+  cited by name from the record even though the PDF behind it is a photograph. Two cautions: the
+  volume-level `dateIssued` is the volume's, **not the act's** — it gave 3 March 1859 for a February act,
+  so cite the year and not the day — and govinfo answers **503 "Please Retry later in 15 Seconds"** under
+  rapid requests, which is a rate limit rather than a dead page.
 - **The Census Bureau's own history stories are the thing that does** — `census.gov/about/history/stories/`,
   one a month, each with a named author and a date. "Alaska and Its People" (Gauthier, 1 January 2024)
   states the 49th-state rank, 3 January 1959, the $7.2 million at about two cents an acre, the largest-state
@@ -710,6 +729,17 @@ terms that already exist**. Each was measured, and none should be settled quietl
   the Pacific" — so the correct link fires and the region name is skipped. That is better than cutting
   the phrase: the card gains a link it should have had.
 
+- **`Oregon` GOES IN BARE AND `Springfield_(Illinois)` DOES NOT, ON THE SAME MEASURE.** "Oregon"
+  measures four uses and none of them is a stranger: one is the state outright (the Paisley Caves on
+  `wh-098`), two are the *Oregon Trail* (`geo-012`, the `Idaho` term) and one the *Oregon boundary* of
+  1846 (`James_K._Polk`). The trail and the boundary name the region rather than the state, which is
+  the shape round 15 tests — and here they pass it, the way `geo-022`'s "the French in the **Ohio**
+  valley" did: the region is what the state was made from, and a reader following either link lands on
+  the right corner of the continent. **A surface divides when its uses mean different THINGS, not when
+  they mean the same place at different dates.** "Springfield" measures four and splits evenly between
+  the Illinois capital (`geo-021`, the `Illinois` term) and the federal armoury at Springfield,
+  Massachusetts (`geo-019`, the `Massachusetts` term), so it takes the parenthetical.
+
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
 check before each batch** — the glossary is 1,061 terms and growing, and a collision is silent.
@@ -787,7 +817,7 @@ check before each batch** — the glossary is 1,061 terms and growing, and a col
   geo-514 Annapolis
   geo-515 Carson City
   geo-516 Salt Lake City
-  geo-517 Saint Paul
+  geo-517 St. Paul
   geo-518 Trenton
   geo-519 Boston
   geo-520 Columbus
