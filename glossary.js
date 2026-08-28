@@ -1281,7 +1281,8 @@ window.GLOSSARY = {
 "Roman_census": "The Roman census is the registration at which every citizen declared on oath his name, his age, his household and the value of his property, so that his obligations of military service and tax could be fixed by what he owned.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Roman writers ascribe it to Servius Tullius and record that a man who evaded assessment was threatened with imprisonment and death, and under the Republic might be sold by the state as a slave.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It closed with a purification of the whole people drawn up in arms, the lustrum, which was meant to fall in every fifth year and gave its name to that span.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Tarquinius_Superbus": "Tarquinius Superbus is the seventh and last king of Rome in Roman tradition, said to have seized the throne by force after the murder of his father-in-law Servius Tullius and to have reigned without election by the people or confirmation by the senate.<sup class=\"fn\" data-fn=\"1\"></sup> Livy and Dionysius both describe a rule held by fear: a standing bodyguard of armed men, capital trials conducted without assessors, and a senate allowed to dwindle because he filled no vacancy in it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He was driven out after 25 years, and Roman writers date the end of the monarchy from his expulsion.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Temple_of_Jupiter_Optimus_Maximus": "The Temple of Jupiter Optimus Maximus was the chief temple of Rome, standing on the Capitoline hill and holding three shrines side by side under one pediment, Jupiter in the middle with Juno and Minerva on either hand.<sup class=\"fn\" data-fn=\"1\"></sup> Roman tradition has it vowed by Tarquinius Priscus and built by Tarquinius Superbus, who cleared the older shrines from the site and paid for the work out of the spoils of Suessa Pometia.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A human head turned up in the foundations, read as a sign that the place would be the head of all the world, and the king was driven out before the work was finished.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Sibylline_Books": "The Sibylline Books were a collection of oracles kept by the Roman state and opened only at the senate's command, when a prodigy or a disaster called for the gods to be appeased.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Roman writers tell how a stranger brought nine of them to a Tarquin, burned three when he refused her price and three more when he laughed at her, and got that price for the last three before vanishing.<sup class=\"fn\" data-fn=\"2\"></sup> They were kept in a stone chest under the Capitoline temple, in the charge of two men at first and afterwards of ten and then fifteen, and nobody else might look at them.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Sibylline_Books": "The Sibylline Books were a collection of oracles kept by the Roman state and opened only at the senate's command, when a prodigy or a disaster called for the gods to be appeased.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Roman writers tell how a stranger brought nine of them to a Tarquin, burned three when he refused her price and three more when he laughed at her, and got that price for the last three before vanishing.<sup class=\"fn\" data-fn=\"2\"></sup> They were kept in a stone chest under the Capitoline temple, in the charge of two men at first and afterwards of ten and then fifteen, and nobody else might look at them.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Lucretia": "Lucretia is the Roman noblewoman whose rape by Sextus Tarquinius, the king's son, and death by her own hand are given in Roman tradition as the immediate cause of the fall of the monarchy.<sup class=\"fn\" data-fn=\"1\"></sup> Livy has her send for her father and her husband, tell them plainly what had been done and by whom, and answer their assurance that the mind sins and not the body by saying that she acquitted herself of the fault but not of the penalty.<sup class=\"fn\" data-fn=\"1\"></sup> Dionysius instead has her drive to Rome and die in her father's house before the leading men of the city.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2780,7 +2781,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Servian_Wall": ["Murus Servii Tullii"],
 "Tarquinius_Superbus": ["Lucius Tarquinius Superbus","Tarquin the Proud"],
 "Temple_of_Jupiter_Optimus_Maximus": ["Capitoline temple","temple of Jupiter Capitolinus"],
-"Sibylline_Books": ["Sibylline oracles","Libri Sibyllini"]
+"Sibylline_Books": ["Sibylline oracles","Libri Sibyllini"],
+"Lucretia": ["Lucrece"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4087,7 +4089,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Roman_census": ["institution","history","italy","iron age","practice"],
 "Tarquinius_Superbus": ["ruler","history","italy","iron age","warfare"],
 "Temple_of_Jupiter_Optimus_Maximus": ["building","history","religion","italy","iron age"],
-"Sibylline_Books": ["object","history","religion","italy","iron age"]
+"Sibylline_Books": ["object","history","religion","italy","iron age"],
+"Lucretia": ["person","history","italy","iron age","event"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
