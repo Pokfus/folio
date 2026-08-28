@@ -640,3 +640,61 @@ Dragging a deck INTO a group called `render()`, which scrolls to the top of the 
 block's entrance animation — on the one page where the reader has just posed the list by hand. Both
 branches of that path are `renderInPlace()` now, which is the rule CLAUDE.md states as "a repaint is not a
 navigation" and which the editor mode's own repaints use throughout.
+
+## A language's own header, and its options (Aug 2026, on a bug report)
+
+> "when I long-press an active language collection, I don't see the popup menu to see/change its settings"
+
+A language is not a tree node — it is a row in a generated catalogue — so its decks have no ancestors for
+the list to walk, and the container they are gathered under is **synthesised at render time** under a
+`langctx:` id (see `langCtxId` in app.js). It was built deliberately claiming nothing: no `data-review`,
+because "study all of Spanish" is a scope nobody asked for and that row deals no cards.
+
+The home page's hold-menu wiring is two walks, one keyed on `data-review` and one on `data-pending`. The
+language header carries neither, so it fell between them and **answered a hold with nothing at all** —
+one row in a list where every other row opens a sheet.
+
+**A row that does nothing when held looks exactly like a row that was never meant to**, which is why this
+sat unreported for as long as it did and why the fix is asserted rather than left to the eye
+(`test-lang-decks.js`, section 4).
+
+### Its one action is the sheet, so the tap opens it too
+
+Every other row here is tap-to-study and hold-for-options. This one has no session to open, so folding the
+two together is not a slip: a press that does nothing is what was reported, and a container with no cards
+has nothing else a press could mean. It also buys the **keyboard** route — the row is a real
+`role="button"` with a tab stop now, and `wireHoldMenu` binds Enter and Space to the tap handler, where a
+hold is something that cannot be typed. What it did *not* gain is `data-review`: it is pressable, not
+studiable, and the suite asserts both halves, since a container that had quietly become a study scope
+would look identical from the row.
+
+### It takes the GROUP's shape of the sheet, not a deck's
+
+A language holds no cards itself, so like a group it is offered the session settings that cascade to its
+members, a name, a colour and an icon — and **not** Custom study, Daily limits, Scheduling or Skip today,
+which belong to something the review actually iterates. A number the reader set on a container the review
+never looks at would apply to nothing. Its last row is Remove rather than Ungroup: a language cannot be
+taken apart, being derived from `S.active` rather than stored.
+
+### Four helpers had to learn about it, and each was silent in its own way
+
+- **`entryChain`** now pushes the language above a language deck. It is neither a nest parent nor a tree
+  node, so neither existing branch could find it — and without it every switch on the header would have
+  been stored under an id nothing reads: a sheet of controls that change nothing. It reads the
+  **catalogue** rather than `UDECKS`, so a deck not yet downloaded inherits the same settings the moment
+  it lands.
+- **`entryInfo`** names it, from the reader's own rename first and the catalogue second — the order the
+  row itself resolves a title in, so the sheet and the row it was opened from cannot disagree. Without it
+  the sheet was headed `langctx:spanish`.
+- **`removeActive`** removes the decks gathered under it, the container not being in `S.active` at all —
+  the ordinary path filtered out an id that was never there, so Remove would have plainly done nothing.
+  Anything **dragged** into the language is freed to the level above instead of removed with it, which is
+  `groupDelete`'s rule one container over: that deck belongs to somebody else's collection.
+- **`entryExists`** answers for it, which fixed a second fault found on the way: a deck dropped onto a
+  language header had no parent as far as `nestParentOf` was concerned, so it was drawn **twice** — once
+  under the language and once loose at the top of the list — with no way back out, the sheet's
+  "Move out of…" row being offered on the same answer.
+
+`containerHasChildren` learned it too, so the Colour row says "Every deck inside takes this colour" rather
+than "This row takes this colour" — which on a language is simply true, the hue being passed down the
+list's own build.

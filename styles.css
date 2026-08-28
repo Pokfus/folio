@@ -4029,6 +4029,13 @@ body.night .active-deck.deck-group, body.night .active-deck.dk-langhead{
   background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 28%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 9%, transparent) 78%) var(--card);
 }
 .active-deck.deck-group[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 48%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);}
+/* …and a LANGUAGE header hovers the same way, its press opening its options rather than a session (Aug
+   2026). It must NOT be folded into `.active-deck[data-review]:hover` further down: that one deepens the
+   DECK's resting wash, which is weaker than a header's, so hovering a header would LIGHTEN it. The
+   attribute is carried only to make this four selectors deep — `body.night .active-deck.dk-langhead` is
+   (0,3,1) and would otherwise outrank a plain `.active-deck.dk-langhead:hover` on every dark theme, which
+   is the trap the night pair above this already records. */
+.active-deck.dk-langhead[data-langhead]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 48%, transparent), color-mix(in srgb, var(--coll-bg, var(--tile, #5AA9DC)) 16%, transparent) 78%) var(--card);}
 /* THE HEADER IS SET IN THE ROWS' OWN FACE (Aug 2026, on request). It used to take `--display` two sizes
    down, bolder, letterspaced and in capitals — which read as a different KIND of thing from the decks under
    it rather than as the heading of them — so the rule that did all that is gone and `.active-deck .dk-title`
@@ -4047,15 +4054,16 @@ body.night .active-deck.deck-group, body.night .active-deck.dk-langhead{
    carries three counts, a name, a figure and a bar, and the three commands beside it had nowhere to go.
    Holding a row must not select its text on the way to the sheet, and on iOS must not raise the platform's
    own callout. */
-.active-deck[data-review], #b-review{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
+.active-deck[data-review], .active-deck[data-langhead], #b-review{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none;}
 /* hierarchy: ancestor context rows + indentation */
 .active-deck{transition:padding-left .2s var(--ease), background .16s var(--ease);}
-/* a deck added to the review is clickable → reviews just that deck */
-.active-deck[data-review]{cursor:pointer;}
+/* a deck added to the review is clickable → reviews just that deck. A language HEADER is pressable too,
+   though what it opens is its options rather than a session — it has no cards of its own to deal. */
+.active-deck[data-review], .active-deck[data-langhead]{cursor:pointer;}
 /* hover deepens the same wash rather than introducing a colour of its own — it must stay ABOVE the resting
    mix in both layers, or hovering a row would lighten it */
 .active-deck[data-review]:hover{background:linear-gradient(105deg, color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 38%, transparent), transparent 64%) color-mix(in srgb, var(--coll-bg, var(--tile, #9A6634)) 10%, var(--card));}
-.active-deck[data-review]:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
+.active-deck[data-review]:focus-visible, .active-deck[data-langhead]:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:-2px;}
 /* An ancestor SIGNPOST row (not itself added) carries the same collection wash at the same strength — what
    marks it as context is the paper under it and the quieter title, not a different colour, since it names
    the very collection its children are washed in. */

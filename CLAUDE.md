@@ -1838,6 +1838,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     UNDER it**, so a collection that has lost two decks to a group stops claiming their cards. **⚠ No new
     group can be MADE** — the control was removed on request; everything a reader who already has one needs
     still works.
+  · **A LANGUAGE'S HEADER IS A SYNTHESISED CONTAINER, AND ITS ONE ACTION IS ITS OPTIONS** (`langCtxId`,
+    `.dk-langhead`, `data-langhead`; Aug 2026, on a bug report that holding one opened nothing). It carries
+    no `data-review` — it deals no cards — so neither of the home page's two hold-menu walks reached it, and
+    a row that answers a hold with nothing looks exactly like a row that was never meant to. It is a real
+    `role="button"` with a tab stop now and the TAP opens the sheet as well as the hold, this being the one
+    row with no session to open instead; that is also its keyboard route, a hold not being something that
+    can be typed. **It takes the GROUP's shape of the sheet** — the cascading session settings, a name, a
+    colour and an icon, never the daily allowances, which belong to something the review iterates — and its
+    last row is Remove, a language not being something that can be taken apart. **Four helpers know about
+    it and each was silent in its own way**: `entryChain` (or a switch is stored where nothing reads it),
+    `entryInfo` (or the sheet is headed `langctx:spanish`), `removeActive` (the container is not in
+    `S.active`, so the ordinary path removes nothing) and `entryExists` (without which a deck dropped on the
+    header is drawn twice, once under it and once loose). Guarded by `test-lang-decks.js` section 4.
   · **ADDING A COLLECTION ADDS EVERY DECK INSIDE IT**, removing takes the node, its subtree AND its
     ancestors, and `refreshAddButtons` re-reads every `+` on the page rather than the one pressed. **There is
     no deck cap** — the Folio level used to be one, and it was the only thing a level decided.
@@ -4743,7 +4756,10 @@ dead code (never rendered).
     `wireLangDecks` / `entryPending` / `langDeckDownload` / `langCatalogById` / `langCatalogNode` / the
     `.dk-pending` row in `PAGES.home` / `cardBytes` / `nodeBytes` / `fmtDeckSize` / `.node-size` /
     `buildNode`'s `nodeSpanHTML` / the `lang-*` rows of `COLL_THEME` / `.claude/build-lang-decks.js`, and
-    after adding, rebuilding or removing a deck in `decks/`.**
+    after adding, rebuilding or removing a deck in `decks/`. Section 4 covers the LANGUAGE HEADER's own
+    options sheet, so re-run it after touching `langCtxId` / `langCtxName` / `langCtxEntries` / the
+    `.dk-langhead` row and its `data-langhead` wiring / `entryExists` / `entryInfo` / `entryChain` /
+    `entryHasSpeech` / `containerHasChildren` / `removeActive` / `openDeckMenu`'s container branch.**
   · `node .claude/test-reset.js` — **Settings → Danger zone → Reset progress, and who the home page
     thinks you are** (21 assertions, Aug 2026). **Re-run after touching `resetProgress` / `RESET_KEEPS` /
     `PROGRESS_FIELDS` / `emptyProgress`, the home page's `fresh`, or the Settings reset row.**
