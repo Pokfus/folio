@@ -215,6 +215,16 @@ const CROSSREF_WRONG = [
   ["10.9750/psas.057.41.45", "A. P. Laurie", "Principal Laurie"],
   // Crossref carries the shorter of a two-part surname: Aubin Nzeukou Nzeugang.
   ["10.1016/j.heliyon.2021.e07608", "Aubin Nzeukou Nzeugang", "A.N. Nzeukou"],
+  // Crossref stores the nickname in brackets, as the journal registered it; the
+  // psychologist publishes as Jinjing Jenny Wang.
+  ["10.1162/opmi_a_00028", "Jinjing Jenny Wang", "Jinjing (Jenny) Wang"],
+  // MOJIBAKE IN THE RECORD ITSELF, not in this script: the API's own UTF-8 decodes
+  // to "JosÃ© M.", so Frontiers registered the name double-encoded. Checked at the
+  // byte level before this row was written — the raw response holds neither the
+  // proper "José" bytes nor a second layer of mangling.
+  // A row is per (DOI, name), so a record mangled throughout needs one per author.
+  ["10.3389/fnhum.2015.00256", "José M. Medina", "JosÃ© M. Medina"],
+  ["10.3389/fnhum.2015.00256", "José A. Díaz", "JosÃ© A. DÃ­az"],
 ];
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */
