@@ -1304,7 +1304,8 @@ window.GLOSSARY = {
 "Collegiality": "Collegiality was the principle of Roman republican government by which an office was held by two or more men at once, each of them invested with the same rights as the others.<sup class=\"fn\" data-fn=\"1\"></sup> Because their powers were equal the holders could do nothing unless they agreed, one might hear an appeal against another's sentence or veto his proceedings, and the consuls in practice took the office in alternate months.<sup class=\"fn\" data-fn=\"1\"></sup> Latin called each consul the other's collega and their joint tenure a collegium, though the word properly described an association of at least three men, and the same shape appears in the colleges of tribunes of the plebs and of quaestors.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Horatius_Cocles": "Horatius Cocles was a Roman of the early Republic remembered for holding the wooden bridge over the Tiber against an Etruscan army until his countrymen had cut it down behind him.<sup class=\"fn\" data-fn=\"1\"></sup> Dionysius of Halicarnassus calls him Publius Horatius, derives the surname from an eye struck out in an earlier battle, and sets two companions beside him, Spurius Larcius and Titus Herminius, who withdrew before the last of the bridge fell.<sup class=\"fn\" data-fn=\"2\"></sup> The accounts part over his end, Livy having him leap into the river in armour and swim across to a statue and a grant of public land, while Polybius has him give up his life there deliberately.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Lars_Porsena": "Lars Porsena was an Etruscan king of Clusium who made war on Rome at the end of the 6th century BCE, in the tradition on behalf of the Tarquins the Romans had just expelled.<sup class=\"fn\" data-fn=\"1\"></sup> Livy has the siege broken by Roman nerve rather than Roman arms, and gives terms under which Rome surrendered hostages and returned territory to Veii before the king came down from the Janiculum.<sup class=\"fn\" data-fn=\"2\"></sup> Two later writers describe something harsher: Tacitus refers in passing to a city that was surrendered to him, and Pliny quotes a treaty he granted the Roman people confining iron to the tilling of fields.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Battle_of_Lake_Regillus": "The battle of Lake Regillus was fought in Tusculan territory between Rome and a Latin army in which the exiled Tarquins were serving, and Roman tradition dates it to 499 BCE or, in other authors, 496.<sup class=\"fn\" data-fn=\"1\"></sup> Livy gives it to the dictator Aulus Postumius, describes it as a run of duels in which almost every leader on both sides was wounded, and has the dictator vow a temple to Castor while it was being fought.<sup class=\"fn\" data-fn=\"2\"></sup> Dionysius records that two horsemen of more than human size were seen fighting for Rome and again that afternoon in the Forum, and the temple was built beside the spring where they watered their horses.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Battle_of_Lake_Regillus": "The battle of Lake Regillus was fought in Tusculan territory between Rome and a Latin army in which the exiled Tarquins were serving, and Roman tradition dates it to 499 BCE or, in other authors, 496.<sup class=\"fn\" data-fn=\"1\"></sup> Livy gives it to the dictator Aulus Postumius, describes it as a run of duels in which almost every leader on both sides was wounded, and has the dictator vow a temple to Castor while it was being fought.<sup class=\"fn\" data-fn=\"2\"></sup> Dionysius records that two horsemen of more than human size were seen fighting for Rome and again that afternoon in the Forum, and the temple was built beside the spring where they watered their horses.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Foedus_Cassianum": "The Foedus Cassianum was the treaty of alliance between Rome and the cities of Latium, named after Spurius Cassius, one of the consuls of the year in which it was sworn, which Roman reckoning places in 493 BCE.<sup class=\"fn\" data-fn=\"2\"></sup> Dionysius of Halicarnassus preserves its terms: perpetual peace, no war or passage granted to an enemy of either party, help with all forces against an attack, an equal share of the spoils of common wars, and private suits settled within ten days where the contract was made.<sup class=\"fn\" data-fn=\"1\"></sup> Cicero recalled the text cut on a bronze column behind the Rostra, standing until shortly before his own day.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1925,7 +1926,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Roman_Republic": "traditionally 509 – 27 BCE",
 "Horatius_Cocles": "fl. 508 BCE",
 "Lars_Porsena": "fl. c. 508 BCE",
-"Battle_of_Lake_Regillus": "499 or 496 BCE"
+"Battle_of_Lake_Regillus": "499 or 496 BCE",
+"Foedus_Cassianum": "493 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2830,7 +2832,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Collegiality": ["collegial"],
 "Horatius_Cocles": ["Cocles"],
 "Lars_Porsena": ["Porsena","Porsenna","Lars Porsenna"],
-"Battle_of_Lake_Regillus": ["Lake Regillus"]
+"Battle_of_Lake_Regillus": ["Lake Regillus"],
+"Foedus_Cassianum": ["Cassian treaty"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4160,7 +4163,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Collegiality": ["concept","history","italy","iron age","institution"],
 "Horatius_Cocles": ["person","history","warfare","italy","iron age"],
 "Lars_Porsena": ["ruler","history","warfare","italy","iron age"],
-"Battle_of_Lake_Regillus": ["event","history","warfare","italy","iron age"]
+"Battle_of_Lake_Regillus": ["event","history","warfare","italy","iron age"],
+"Foedus_Cassianum": ["event","history","politics","italy","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
