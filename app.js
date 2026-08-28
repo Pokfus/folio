@@ -5454,6 +5454,18 @@
   }
   function removeActive(id) {
     if (id === COTD_ENTRY) S.cotd = [];   // the row stands for the whole list, so removing it empties the list
+    /* A LANGUAGE is not in `S.active` — it is synthesised from the decks gathered under it — so removing
+       it means removing those, which is what its row plainly stands for. Anything the reader has DRAGGED
+       into the language is FREED to the level above rather than taken out with it: that deck belongs to
+       somebody else's collection and was only being kept there, which is `groupDelete`'s own rule one
+       container over. */
+    if (isLangCtxId(id)) {
+      const members = langCtxEntries(id);
+      nestForget([id]);
+      members.forEach((e) => removeActive(e));
+      save();   // …and the re-homing above, which removing nothing would otherwise leave unsaved
+      return;
+    }
     const n = NODE_BY_ID[id];
     if (!n) {
       /* The mirror of the add above, and it goes BOTH ways for the collection rule's own reason: a deck
@@ -5580,6 +5592,12 @@
   // or a retired node is ignored rather than cleaned up on read — a read must not write.
   function entryExists(id) {
     if (isGroupId(id)) return !!groupRec(id);
+    /* A LANGUAGE'S OWN CONTAINER is synthesised from the catalogue rather than stored (see langCtxId), so
+       what makes it real is that the catalogue still names the language. Without this a deck dropped onto
+       a language header had no parent as far as `nestParentOf` was concerned and was drawn TWICE — once
+       under the language it was dropped on and once loose at the top of the list — with no way back out,
+       since the sheet's "Move out of…" row is offered on the same answer. */
+    if (isLangCtxId(id)) return !!langCtxName(id);
     return !!(NODE_BY_ID[id] || UDECKS[uDeckIdOf(id)] || (id === COTD_ENTRY && cotdIds().length));
   }
   function nestParentOf(id) {
@@ -5712,6 +5730,13 @@
     if (id === REVIEW_ENTRY) return { title: REVIEW_TITLE, parent: "", count: entryCardIds(REVIEW_ENTRY).length };
     if (isGroupId(id)) return { title: groupTitle(id), parent: "Your groups", count: entryCardIds(id).length };
     if (id === COTD_ENTRY) return { title: COTD_TITLE, parent: "", count: cotdIds().length };
+    /* A LANGUAGE — the container its decks are gathered under on the home page (see langCtxId). The name
+       comes from the reader's own rename first and from the CATALOGUE second, which is the order the row
+       itself resolves it in (`adOwnTitle` then the build's title), so the sheet and the row it was opened
+       from can never disagree about what this thing is called. */
+    if (isLangCtxId(id)) {
+      return { title: adOwnTitle(id) || langCtxName(id) || id, parent: "Languages", count: entryCardIds(id).length };
+    }
     /* A PENDING deck names itself out of the catalogue, which carries the title, the card count and the
        subdeck tree — so the sheet and the row read exactly as they will once it is downloaded, and the only
        thing that changes on arrival is that the counts start being the reader's own. */
@@ -5806,8 +5831,40 @@
     if (Number.isFinite(patch.maxReviews)) S.settings.maxReviewsPerDay = Math.max(0, patch.maxReviews);
     save();
   }
+  /* ---------- AND A LANGUAGE'S OWN, WHICH ARE A CAP AND NOT A CASCADE (Aug 2026, on request) ----------
+     A language holds no cards; the decks gathered under it do, each with an allowance of its own. So a
+     figure set on the language cannot be HANDED DOWN — "a LIMIT handed down to nine levels becomes nine
+     times itself" is the exact bug the per-deck limits were built to fix — it has to CAP what those decks
+     hand up, which is what the pooled review does one level further on. `reviewQueue` applies it.
+
+     ITS DEFAULT IS THE SUM OF ITS MEMBERS', and that figure is chosen so the cap is arithmetically
+     incapable of changing anything until the reader sets one: a container that has never been asked slices
+     at exactly the number its decks supplied. (The review's default is the WIDEST rather than the sum,
+     because the review is MEANT to cap a reader's whole day; a language is not.) It is also the honest
+     answer to what the sheet asks — how many new cards a day this language currently offers.
+     Set a figure and it wins outright, exactly as a deck's does over the global default. */
+  function langCtxLimits(id) {
+    const o = (S.deckOpts && S.deckOpts[id]) || {};
+    let nw = 0, rv = 0;
+    /* A PENDING DECK COUNTS TOWARDS THE SUM, and it was excluded for an hour on the reasoning that a deck
+       not on this device supplies no cards. That is true and it is about the wrong thing: these figures
+       are an ALLOWANCE — a policy the reader sets and reads back — not a forecast of today. Excluded, a
+       language whose decks have not been downloaded yet reads "0 new/day", which looks exactly like a cap
+       somebody set to zero, and the number would then change on its own the moment a file landed, so the
+       figure a reader saw yesterday would differ from today's for nothing they did. Counting them costs
+       nothing anywhere else: a cap only ever removes, and a cap looser than the supply is a no-op. What
+       says a language can deal nothing today is its ROW, whose piles read 0, and the "not on this device"
+       line on each deck under it. */
+    langCtxEntries(id).forEach((e) => { const L = deckLimits(e); nw += L.newPerDay; rv += L.maxReviews; });
+    return {
+      newPerDay: Number.isFinite(o.newPerDay) ? Math.max(0, o.newPerDay) : nw,
+      maxReviews: Number.isFinite(o.maxReviews) ? Math.max(0, o.maxReviews) : rv,
+      newIgnoresReview: o.newIgnoresReview !== false,
+    };
+  }
   function deckLimits(id) {
     if (id === REVIEW_ENTRY) return reviewLimits();
+    if (isLangCtxId(id)) return langCtxLimits(id);
     const o = (S.deckOpts && S.deckOpts[id]) || {}, G = globalLimits();
     return {
       // the global setting is the DEFAULT rather than a competing limit — a deck the reader has never
@@ -5870,6 +5927,13 @@
       let n = NODE_BY_ID[id];
       for (let i = 0; n && n.parentId && i < 64; i++) { n = NODE_BY_ID[n.parentId]; if (n) push(n.id); }
     }
+    /* …and the LANGUAGE the deck belongs to, which is the container its row is drawn under. It is not a
+       nest parent and not a tree node, so neither branch above can find it — and without it a switch
+       thrown on a language's own header would be stored under an id nothing reads, which is a sheet full
+       of controls that change nothing. Read off the catalogue rather than off `UDECKS`, so a deck this
+       device has not downloaded yet inherits the same settings the moment it lands. */
+    const langCtx = langCtxOf(id);
+    if (langCtx) push(langCtx);
     // …and whatever the row, or anything above it, has been dragged into. The array grows as it is walked,
     // so a group inside a group is reached; `seen` is what makes that terminate.
     for (let i = 0; i < out.length && i < 64; i++) { const g = nestParentOf(out[i]); if (g) push(g); }
@@ -6096,6 +6160,8 @@
   function entryHasSpeech(id) {
     if (!ttsSupported()) return false;
     if (id === REVIEW_ENTRY) return activeEntryIds().some((e) => e !== REVIEW_ENTRY && entryHasSpeech(e));
+    // …and a language answers for the decks gathered under it, as the review does for the whole list
+    if (isLangCtxId(id)) return langCtxEntries(id).some((e) => entryHasSpeech(e));
     const d = UDECKS[uDeckIdOf(id) || ""];
     return !!(d && d.types && Object.keys(d.types).some((k) => typeSpeaks(d.types[k])));
   }
@@ -6142,8 +6208,42 @@
     return r;
   }
   function deckSkippedToday(id) { return !!deckDay(id).skip; }
+  /* …and a deck sits the day out when its LANGUAGE does. This one may cascade where a limit may not, and
+     the difference is the whole of the rule: skipping is a POLICY with two states, so handing it down
+     nine levels still means the same thing at the bottom, where a quantity handed down becomes nine times
+     itself. Every reader of "is this sitting today out" goes through this rather than `deckSkippedToday`,
+     or the queue and the row would disagree about a deck the reader has plainly switched off. */
+  function entrySkippedToday(id) {
+    if (deckSkippedToday(id)) return true;
+    const k = langCtxOf(id);
+    return !!(k && deckSkippedToday(k));
+  }
   function setDeckSkip(id, on) { deckDay(id).skip = !!on; save(); }
   function bumpDeckExtra(id, n) {
+    /* A LANGUAGE CAPS ITS DECKS, so raising its own figure alone would raise a ceiling nothing can reach:
+       the decks under it are already holding their own allowances, and a cap only ever removes. Asking for
+       more therefore has to raise the SUPPLY as well — the same two-sided move this function already makes
+       for a deck, which bumps the deck and the pooled review above it.
+
+       IT IS SPREAD ACROSS THE MEMBERS, NOT GIVEN TO EACH OF THEM. Both deliver the number asked for, since
+       the container's own bump is what fixes the total either way — but handing every deck the whole N
+       leaves three rows each promising five more cards where five more will be dealt between them, and a
+       row that overstates what it holds is the one thing this list is written to avoid. Spreading it costs
+       only the case where one deck has run out of unseen cards, and there the shortfall is true.
+       Asking for FEWER moves the cap alone: the members have nothing to give back, and taking the amount
+       off each of them would remove it several times over. */
+    if (isLangCtxId(id) && n > 0) {
+      const members = langCtxEntries(id);
+      if (members.length) {
+        const each = Math.floor(n / members.length), rem = n % members.length;
+        members.forEach((e, i) => {
+          const share = each + (i < rem ? 1 : 0);
+          if (!share) return;
+          const m = deckDay(e);
+          m.extra = Math.max(-(deckLimits(e).newPerDay), (m.extra || 0) + share);
+        });
+      }
+    }
     const r = deckDay(id);
     // never below what the deck has already introduced today — "fewer" cannot un-study a card
     r.extra = Math.max(-(deckLimits(id).newPerDay), (r.extra || 0) + n);
@@ -6182,7 +6282,11 @@
      finished review is whatever share of its own new-card allowance the pooled draw did not take — the
      "2 new" and "3 new" a reader sees under a cleared banner. */
   function entryPiles(id) {
-    if (deckSkippedToday(id)) return { nw: 0, lr: 0, rv: 0, skip: true };
+    /* …and a deck inside a language that is sitting today out reads as skipped too, which is the row
+       telling the truth: the queue will deal it nothing. A language's LIMIT is deliberately not reflected
+       on its decks' rows in the same way — a cap belongs to the container and cannot be attributed to any
+       one row beneath it, and a deck's row has always stated what that DECK still holds for today. */
+    if (entrySkippedToday(id)) return { nw: 0, lr: 0, rv: 0, skip: true };
     const avail = availableCardIdSet();
     // buried too: a card put off until tomorrow is not part of what this deck offers today
     const ids = entryCardIds(id).filter((c) => avail.has(c) && !isSuspended(c) && !isBuried(c));
@@ -6216,18 +6320,45 @@
     const due = [], pool = [], seen = new Set();
     // the review can sit itself out too — the banner's own sheet carries the same "Skip today" its rows do
     if (deckSkippedToday(REVIEW_ENTRY)) return { due, fresh: [], all: [] };
+    /* THE DRAW IS THREE LEVELS DEEP SINCE Aug 2026, on request: the deck, then its LANGUAGE, then the
+       pooled review. A language is a container the reader can now give limits to (see langCtxLimits), and
+       a container can only ever CAP what its members hand up — a limit cascaded down to nine decks would
+       be nine times itself, which is the bug the per-deck allowances exist to fix. So each entry fills its
+       own language's bucket at its own allowance, the language slices that bucket, and the review slices
+       what all of them pooled. A deck belonging to no language buckets under "" and is never sliced there,
+       which is every curated deck and every deck of the reader's own.
+       `seen` stays GLOBAL across the buckets, so a card claimed by one deck cannot be dealt twice — a card
+       a language's cap then drops is out of this session, which it would be anyway, the only decks it can
+       sit in also being that language's. */
+    const buckets = new Map();
+    const bucketFor = (k) => { let b = buckets.get(k); if (!b) buckets.set(k, b = { due: [], fresh: [] }); return b; };
     activeEntryIds().forEach((e) => {
-      if (deckSkippedToday(e)) return;   // "Skip today" sits the deck out without removing it
+      // "Skip today" sits the deck out without removing it — its LANGUAGE can sit it out too
+      if (entrySkippedToday(e)) return;
+      const b = bucketFor(langCtxOf(e));
       const ids = studyOrder(e, entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id) && !isBuried(id)));
       let rv = deckReviewRemaining(e);
       ids.filter((id) => isDueNow(id))
-        .sort((a, b) => S.cards[a].due - S.cards[b].due)
-        .forEach((id) => { if (rv <= 0 || seen.has(id)) return; seen.add(id); due.push(id); rv--; });
+        .sort((a, b2) => S.cards[a].due - S.cards[b2].due)
+        .forEach((id) => { if (rv <= 0 || seen.has(id)) return; seen.add(id); b.due.push(id); rv--; });
       let nw = deckNewRemaining(e);
       // Anki's third switch: off, a deck that has used up its review allowance introduces nothing new either
       if (!deckLimits(e).newIgnoresReview) nw = Math.min(nw, rv);
       // dedupe BEFORE the slice, or a card an earlier deck already claimed eats one of this deck's places
-      ids.filter((id) => !isSeen(id) && !seen.has(id)).slice(0, nw).forEach((id) => { seen.add(id); pool.push(id); });
+      ids.filter((id) => !isSeen(id) && !seen.has(id)).slice(0, nw).forEach((id) => { seen.add(id); b.fresh.push(id); });
+    });
+    buckets.forEach((b, k) => {
+      if (k) {
+        // the most overdue first, so a language's cap keeps the cards that have waited longest rather than
+        // whichever of its decks the list happens to draw first
+        b.due.sort((a, b2) => S.cards[a].due - S.cards[b2].due);
+        b.due = b.due.slice(0, deckReviewRemaining(k));
+        let n = deckNewRemaining(k);
+        if (!deckLimits(k).newIgnoresReview) n = Math.min(n, Math.max(0, deckReviewRemaining(k) - b.due.length));
+        b.fresh = b.fresh.slice(0, n);
+      }
+      b.due.forEach((id) => due.push(id));
+      b.fresh.forEach((id) => pool.push(id));
     });
     due.sort((a, b) => S.cards[a].due - S.cards[b].due);
     // …and then the review's own two caps, which are the parent deck's in Anki
@@ -14341,6 +14472,9 @@
   // "every deck inside" is a promise a leaf deck cannot keep.
   function containerHasChildren(id) {
     if (nestChildren(id).length) return true;
+    // a language's members are gathered from `S.active` rather than dragged into it, so they are the
+    // answer here — and its hue really is passed down to every one of them (see the `emit` walk)
+    if (isLangCtxId(id)) return langCtxEntries(id).length > 0;
     if (isGroupId(id)) return false;
     const n = NODE_BY_ID[id];
     if (n) return nodeChildren(n).length > 0;
@@ -14357,12 +14491,28 @@
      or take it apart with their decks kept — where deleting the code would have left a container on their
      home page that nothing could open. There is no dead UI in it: a group row exists only where a group
      does, and no reader can make a new one. */
+  /* WHAT TO CALL THE THING A SHEET WAS OPENED ON. Four sheets say it — the options menu, Custom study,
+     Daily limits and Scheduling — and they used to spell it out apiece from `id === REVIEW_ENTRY`, which
+     is two answers where there are now three: a language is neither a deck nor the review, and calling it
+     a deck in the one sheet that caps it would be describing the wrong thing. */
+  function entryNoun(id) {
+    return id === REVIEW_ENTRY ? "review" : isLangCtxId(id) ? "language" : "deck";
+  }
   function openDeckMenu(id) {
     const isReview = id === REVIEW_ENTRY;
     const isGroup = isGroupId(id);
+    /* A LANGUAGE'S HEADER IS A CONTAINER, AND TAKES THE GROUP'S SHAPE OF THIS SHEET (Aug 2026, on a bug
+       report: holding one opened nothing at all). It holds no cards of its own — the decks gathered under
+       it do, each with its own row and its own allowance — so like a group it is offered the session
+       settings, a name, a colour and an icon, and NOT the daily-allowance rows, which belong to something
+       the review actually iterates. What it is not is a group: it cannot be taken apart, being derived
+       from `S.active` rather than stored, so its last row is Remove and reads as what removing a language
+       means. See langCtxId. */
+    const isLang = isLangCtxId(id);
+    const isContainer = isGroup || isLang;
     const info = entryInfo(id);
     const L = deckLimits(id), skipped = deckSkippedToday(id), left = deckNewRemaining(id);
-    const thing = isReview ? "review" : "deck";
+    const thing = entryNoun(id);
     const item = (act, label, note, cls) =>
       '<button type="button" class="dm-item' + (cls ? " " + cls : "") + '" data-act="' + act + '">' +
       "<b>" + esc(label) + "</b><small>" + esc(note) + "</small></button>";
@@ -14475,13 +14625,27 @@
          It goes on every entry, the pooled review included: the browser searches the whole collection
          rather than the thing the sheet was opened on, which is why the row says "your cards". */
       item("browse", "Browse your cards", "Search everything by state, flag, deck or how often you forget it") +
-      (isGroup ? item("rename", "Rename", "Call this group something else") : "") +
+      (isContainer ? item("rename", "Rename",
+        isGroup ? "Call this group something else" : "Call this language something else") : "") +
+      /* THE ALLOWANCE ROWS ARE OFF A GROUP AND ON A LANGUAGE (Aug 2026, on request: "custom study,
+         scheduling, daily limits, and skip should also be options on the language collections"). The two
+         containers are not alike here, and the difference is what each one is made of: a group is an
+         arrangement the reader dragged together, holding decks from anywhere, so a figure on it would have
+         to cap several collections at once from a row that names none of them; a LANGUAGE is a real body
+         of work with its own decks, its own progress bar and its own place on the Collections page, and
+         "five new Spanish cards a day" is a sentence about it. What makes these honest rather than
+         decorative is that a container CAPS rather than cascades — see langCtxLimits and reviewQueue. */
       (isGroup ? "" :
         item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
         item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
-        /* Which scheduler, on a DECK only. The pooled review schedules nothing of its own — it deals what
-           its decks hand it, each on its own deck's schedule — and a GROUP is a container rather than a
-           deck, so offering the choice on either would be offering a setting that governs nothing. */
+        /* WHICH SCHEDULER — on a deck, and on a LANGUAGE since Aug 2026. Unlike the two rows above it
+           this one is a POLICY and genuinely cascades: `sched`, `retention` and `fsrsParams` are
+           `DECK_OPT_INHERIT` keys and `entryChain` reaches a deck's language, so choosing FSRS here puts
+           every deck of that language on it and nothing had to be built for it.
+           THE POOLED REVIEW IS STILL THE EXCEPTION, and for its own reason rather than a container's: it
+           schedules nothing of its own, dealing what its decks hand it, each on its deck's schedule — so
+           the choice would govern nothing there. (A GROUP never reaches this line at all, the whole block
+           being off a group's sheet; its own reason is under the allowance rows above.) */
         (isReview ? "" : item("sched", "Scheduling",
           schedModeOf(id) === "fsrs"
             ? "FSRS · aiming to remember " + Math.round(deckSchedCfg(id).retention * 100) + "%"
@@ -14491,7 +14655,8 @@
             : "SM-2, the classic interval schedule")) +
         item("skip", skipped ? "Study today after all" : "Skip today",
           skipped ? "This " + thing + " is sitting today out"
-                  : (isReview ? "Leave today's review out altogether" : "Leave this deck out of today's review"))) +
+                  : (isReview ? "Leave today's review out altogether"
+                              : "Leave this " + thing + " out of today's review"))) +
       /* The colour row sits AFTER the commands rather than among them, and that placement is load-bearing
          for more than reading order: `deckSheet` focuses the sheet's first button, and with the swatches
          first the sheet would open with the caret on a colour nobody asked to change. */
@@ -14503,7 +14668,9 @@
       item("icon", "Icon", iconRowNote(id)) +
       (nestedIn ? item("unnest", "Move out of " + groupTitle(nestedIn), "Put it back at the top of the list") : "") +
       (isGroup ? item("ungroup", "Ungroup", "Take the group apart — the decks inside stay in your review", "dm-danger")
-       : isReview ? "" : item("remove", "Remove", "Take this deck out of the daily review", "dm-danger"));
+       : isReview ? "" : item("remove", "Remove",
+           isLang ? "Take every deck of this language out of the daily study"
+                  : "Take this deck out of the daily review", "dm-danger"));
     return deckSheet("Options for " + info.title, html, (ov, close) => {
       /* A SWITCH ROW STAYS PUT WHEN THROWN. Every other row here is a command and closes the sheet
          behind it; a switch is a setting, and taking the sheet away is what makes a reader wonder
@@ -14611,12 +14778,19 @@
         if (act === "limits") { close(); openDeckLimits(id); return; }
         if (act === "rename") {
           close();
-          inlinePrompt("What should this group be called?", groupTitle(id), (val) => {
-            const t2 = String(val || "").trim();
-            if (!t2) { toast("Name unchanged"); return; }
-            setGroupTitle(id, t2);
-            render();
-          });
+          /* `info.title` rather than `groupTitle(id)`, and `setEntryTitle` rather than `setGroupTitle`:
+             a group's record IS its name, but a language's is an OVERRIDE over the catalogue's, and
+             `groupTitle` has nothing to fall back to there — it would offer the reader the raw id to
+             edit and then store a copy of the catalogue's own name. `setEntryTitle` writes the one and
+             clears the other when the shipped name is typed back or the field is emptied, which is how a
+             rename is undone; on a group it refuses an empty name, so the guard below is the group's. */
+          inlinePrompt(isGroup ? "What should this group be called?" : "What should this language be called?",
+            info.title, (val) => {
+              const t2 = String(val || "").trim();
+              if (!t2 && isGroup) { toast("Name unchanged"); return; }
+              setEntryTitle(id, t2, isGroup ? "" : langCtxName(id));
+              render();
+            });
           return;
         }
         if (act === "unnest") { close(); setNestParent(id, null); render(); toast("Moved out"); return; }
@@ -14639,7 +14813,7 @@
         close();
         removeActive(id);
         render();
-        toast("Removed from review");
+        toast(isLang ? "Removed from the daily study" : "Removed from review");
       }));
     });
   }
@@ -14655,7 +14829,7 @@
       '<div class="dm-head"><span class="dm-title">Custom study</span><span class="dm-where">' + esc(info.title) + "</span></div>" +
       '<label class="dm-field"><span>New cards to add today</span>' +
       '<input class="dm-num" id="csN" type="number" min="1" max="999" step="1" value="5" inputmode="numeric"></label>' +
-      '<p class="dm-note">Today only. Tomorrow ' + (id === REVIEW_ENTRY ? "the review goes" : "the deck goes") + ' back to its daily limit.</p>' +
+      '<p class="dm-note">Today only. Tomorrow the ' + entryNoun(id) + ' goes back to its daily limit.</p>' +
       '<div class="dm-actions"><button type="button" class="btn ghost" data-act="fewer">Study fewer</button>' +
       '<button type="button" class="btn" data-act="more">Study more</button></div>';
     deckSheet("Custom study", html, (ov, close) => {
@@ -15345,7 +15519,7 @@
         const mode = b.dataset.sched;
         if (mode === cfg.mode) return;
         setDeckSched(id, mode);
-        toast(mode === "fsrs" ? "This deck is on FSRS" : "This deck is on SM-2");
+        toast("This " + entryNoun(id) + " is on " + (mode === "fsrs" ? "FSRS" : "SM-2"));
         close();
         openDeckSched(id);
       }));
@@ -15433,6 +15607,7 @@
      and is offered only where there is something to clear. */
   function openDeckLimits(id) {
     const info = entryInfo(id), L = deckLimits(id);
+    const noun = entryNoun(id), isLang = isLangCtxId(id);
     const own = (S.deckOpts && S.deckOpts[id]) || {};
     const hasOwn = Number.isFinite(own.newPerDay) || Number.isFinite(own.maxReviews) || own.newIgnoresReview === false;
     const G = globalLimits();
@@ -15445,18 +15620,26 @@
     const html =
       '<div class="dm-head"><span class="dm-title">Daily limits</span><span class="dm-where">' + esc(info.title) + "</span></div>" +
       '<div class="dm-tabs" role="tablist">' +
-        '<button type="button" class="dm-tab active" role="tab" aria-selected="true" data-pane="deck">This ' + (id === REVIEW_ENTRY ? "review" : "deck") + '</button>' +
+        '<button type="button" class="dm-tab active" role="tab" aria-selected="true" data-pane="deck">This ' + noun + '</button>' +
         '<button type="button" class="dm-tab" role="tab" aria-selected="false" data-pane="all">All decks</button>' +
       '</div>' +
       '<div class="dm-pane" data-pane="deck">' +
         numRow("dNew", "New cards/day", L.newPerDay, 999) +
         numRow("dRev", "Maximum reviews/day", L.maxReviews, 9999) +
         swRow2("dIgn", L.newIgnoresReview) +
+        /* A LANGUAGE IS NOT FOLLOWING THE GLOBAL DEFAULT WHEN IT HAS NO FIGURES OF ITS OWN — it is
+           showing what its decks already offer between them, which is the sum of their allowances (see
+           langCtxLimits). Saying "following the default for all decks" there would name a number that has
+           nothing to do with the one in the box. And what a figure set here DOES is cap, not cascade, so
+           the note says so: the decks keep their own allowances underneath. */
         '<p class="dm-note">' + (hasOwn
-          ? "Set for this " + (id === REVIEW_ENTRY ? "review" : "deck") + " alone."
-          : "Following the default for all decks. Change a figure here and only this " + (id === REVIEW_ENTRY ? "review" : "deck") + " follows it.") + '</p>' +
+          ? (isLang ? "This language deals at most this much a day, whatever its decks allow between them."
+                    : "Set for this " + noun + " alone.")
+          : (isLang ? "What the decks of this language currently offer between them. Set a figure here and it caps the whole language."
+                    : "Following the default for all decks. Change a figure here and only this " + noun + " follows it.")) + '</p>' +
         (hasOwn ? '<button type="button" class="dm-item dm-clear" data-act="clear"><b>Clear back to the default</b>' +
-          '<small>Follow whatever “All decks” says, now and later</small></button>' : "") +
+          '<small>' + (isLang ? "Stop capping this language — its decks keep their own allowances"
+                              : "Follow whatever “All decks” says, now and later") + '</small></button>' : "") +
       '</div>' +
       '<div class="dm-pane" data-pane="all" hidden>' +
         numRow("gNew", "New cards/day", G.newPerDay, 999) +
@@ -15482,7 +15665,7 @@
       if (clear) clear.addEventListener("click", () => {
         clearDeckLimits(id);
         close(); render();
-        toast("Following the default for all decks");
+        toast(isLang ? "No longer capping " + info.title : "Following the default for all decks");
       });
       ov.querySelector('[data-act="cancel"]').addEventListener("click", close);
       ov.querySelector('[data-act="save"]').addEventListener("click", () => {
@@ -17896,6 +18079,56 @@
     { k: "pyramid", n: "Pyramid", d: '<path d="M12 3.5 21.5 19.5h-19z"/><path d="M12 3.5 16 19.5"/><path d="M2 19.5h20"/>' },
     { k: "plane", n: "Aeroplane", d: '<path d="M12 2.8c.9 0 1.5 1.4 1.5 3.4v1.3l6.5 3.9v2.1l-6.5-1.8v3.8l2.5 2v1.7L12 18.3l-4 .9v-1.7l2.5-2v-3.8L4 13.5v-2.1l6.5-3.9V6.2c0-2 .6-3.4 1.5-3.4z"/>' },
     { k: "torii", n: "Torii gate", d: '<path d="M2.5 6h19"/><path d="M4.5 9h15"/><path d="M7.5 6v14"/><path d="M16.5 6v14"/><path d="M6 20h3"/><path d="M15 20h3"/>' },
+    /* head in profile — Psychology. The obvious mark is the Greek letter psi, which is the discipline's
+       own emblem and is trivial to draw as bare paths; it was rejected because Ancient Greece is on the
+       same shelf and a Greek letter beside a Doric column says GREECE to a reader scanning for a subject
+       rather than reading the label. The one mark this could be confused with is the account tab's bust,
+       which is a circle over a shoulder curve — this is a single outline with a brow, a nose and a chin,
+       and no facial features, which is what keeps it a MIND rather than a person at the 28px a deck row
+       draws it at. THE BASE IS CLOSED AND FLAT and the shape fills the box (x 3.1-19.9, y 3-21): the
+       first cut left margins all round and ended in two open stubs for the front and back of the neck,
+       which at 28px is a keyhole rather than a head — the sizes it is DRAWN at are what this had to be
+       checked against, not the size it is drawn IN. */
+    { k: "head", n: "Head in profile", d: '<path d="M6.6 21V17C4.3 15.4 3.1 13.1 3.1 10.7A7.7 7.7 0 0 1 10.8 3C14.6 3 17.6 5.5 18.5 8.7L19.9 13C20.1 13.7 19.7 14.2 19 14.3L17.4 14.6V17.2C17.4 19.3 16 21 13.9 21Z"/>' },
+    /* owl — Philosophy. The owl of Minerva, which is the emblem the subject has actually used since
+       antiquity, and which nothing on Folio wears (the site's own mark is a vermilion seal, so this
+       cannot read as branding). A lamp was rejected for colliding with `flame` below, and a marble bust
+       for putting a second head on the shelf beside Psychology's.
+       WHAT THIS DREW WRONG FIRST IS WORTH KEEPING: a face inside a head-sized outline is INK, and four
+       earlier cuts — eye rings at r 2.1, solid pupils, a beak, an egg-shaped body — each read as a dark
+       blob at the 24-28px a deck row and the picker draw it, twice the weight of the torii or the column
+       beside it. What fixes it is not fewer strokes but more WHITE: small rings (r 1.5) set wide, high in
+       a slightly larger head, and NO beak, whose third dark spot is what closed the face up. Weight
+       against its neighbours is the test, not legibility on its own. */
+    { k: "owl", n: "Owl", d: '<path d="M12 20.9c-4.4 0-7.8-3.4-7.8-8s3.4-8.2 7.8-8.2 7.8 3.6 7.8 8.2-3.4 8-7.8 8z"/><path d="M6.9 6.9 5.3 3.5 8.8 5"/><path d="M17.1 6.9 18.7 3.5 15.2 5"/><circle cx="9.2" cy="11.4" r="1.5"/><circle cx="14.8" cy="11.4" r="1.5"/>' },
+    /* double helix — Biology. The one mark that says the whole subject rather than a branch of it: a leaf
+       says botany and the picker has one already, and a cell is a circle inside a circle, which is `coin`.
+       TWO WRONG TURNS, both about SIZE rather than shape. A helix drawn narrow (x 8.5-15.5) with two full
+       turns is a thin vertical squiggle at 28px — legible at 64 and a scribble on a deck row — and the
+       obvious fix, widening it while PINCHING the strands together at each crossing, is worse: pinched
+       curves close into a stack of lens shapes and the icon reads as a spring. What works is the strands
+       CROSSING and continuing (they are two independent paths that overlap, never meeting), the widest
+       amplitude the box allows, and only TWO turns over the height. Three rungs at that width was still
+       busy; two is enough to say ladder. */
+    { k: "helix", n: "Double helix", d: '<path d="M5.5 3.2C5.5 9 18.5 10 18.5 15.8S5.5 18 5.5 20.8"/><path d="M18.5 3.2C18.5 9 5.5 10 5.5 15.8S18.5 18 18.5 20.8"/><path d="M6 4.2h12"/><path d="M6 15.8h12"/>' },
+    /* sauropod in profile — Dinosaurs. Eight drafts, and THE ONE THAT DECIDED IT IS THE OWL two rows up.
+       A three-toed footprint is the obvious museum-signage mark and at 24px is a bulb with three prongs,
+       which reads as a sprouting plant; a femur reads as a slanted pill. What makes the sauropod work is
+       the NECK: a long neck that curls BACK over the body is a swan, and a swan on a shelf that already
+       carries an owl is the one thing this must not be. So the neck rises and the head tips FORWARD, and
+       what no bird has — a horizontal body on two straight legs with a long sweeping tail — is what
+       carries the reading at 24px. */
+    { k: "sauropod", n: "Sauropod", d: '<path d="M5.6 15.4c0-2.3 2.4-4.2 5.4-4.2s5.4 1.9 5.4 4.2-2.4 4.2-5.4 4.2-5.4-1.9-5.4-4.2z"/><path d="M15.6 12.8c2.2-2 3.6-4.5 3.9-6.9.1-.9.8-1.4 1.6-1.3.9.2 1.4 1 1.1 1.8"/><path d="M5.8 13.6C4 12.2 2.6 11.6 1.2 11.6"/><path d="M8.2 19.2v2.2"/><path d="M13.4 19.2v2.2"/>' },
+    /* taegeuk — Korea. The device at the centre of the Korean flag, and TWO things make it Korean rather
+       than generally East Asian. It carries NO DOTS, which belong to the Taoist taijitu; and its dividing
+       S runs on an axis tilted 33 degrees off the horizontal, which is roughly how the device sits on the
+       flag. Four orientations were rendered at 24, 28, 34 and 64px beside the pagoda, the globe, the
+       torii, the coin and the compass: the VERTICAL-axis version reads most crisply at 24px and is the
+       Chinese arrangement, which on a shelf carrying a pagoda is the one reading to avoid, so the tilt is
+       bought at a small cost in legibility. A hanok roof was rejected for being China's pagoda at 28px
+       and a moon jar for being a circle. The two arcs are exact semicircles (r 4.3 across a chord of 8.6)
+       with opposite sweep flags, which is what makes the S symmetrical about the centre. */
+    { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
        an icon is two collections a reader cannot tell apart on the shelf. The inner points are drawn
@@ -17961,6 +18194,11 @@
     egypt: "pyramid",
     ww2: "plane",
     japan: "torii",
+    psych: "head",
+    phil: "owl",
+    bio: "helix",
+    dino: "sauropod",
+    korea: "taegeuk",
     "geo-us": "compass",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
@@ -20477,11 +20715,20 @@
              a row apologising for itself. It takes the group header's wash and the ordinary title face,
              plus the three coloured piles and the bar every other row carries — which it can now answer for,
              `entryCardIds` having learnt to union its members.
-             IT IS STILL NOT A GROUP: no `data-review`, no `role`, no tab stop, because "study all of
-             Spanish" is a scope the reader never asked for — the look is what was reported, not the
-             behaviour. */
+             IT IS STILL NOT A GROUP: no `data-review`, because "study all of Spanish" is a scope the
+             reader never asked for and this row deals no cards.
+             WHAT IT DOES HAVE IS ITS OPTIONS (Aug 2026, on a bug report: "when I long-press an active
+             language collection, I don't see the popup menu to see/change its settings"). It carried no
+             `data-review`, so neither of the home page's two hold-menu walks reached it and holding it
+             did nothing — one row in a list where every other row answers a hold, which from the reader's
+             side is the feature having broken rather than a row deliberately doing less.
+             So it is a real `role="button"` with a tab stop after all, and its ONE action is the sheet:
+             the tap opens it as well as the hold, unlike every other row here. That is not a slip — a
+             container with no session of its own has nothing else a press could mean, a press that does
+             nothing is what was reported, and it is what gives the row a KEYBOARD route, a hold being
+             something that cannot be typed. */
           if (r.langhead) {
-            return `<div class="active-deck dk-langhead${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
+            return `<div class="active-deck dk-langhead${shut}"${nodeAttr} role="button" tabindex="0" aria-haspopup="dialog" title="Options for ${esc(title)}" data-langhead="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
               ${grip}
               ${adIcon(r.drag, r.parent)}
               ${adCounts(r.drag)}
@@ -21006,6 +21253,15 @@
     root.querySelectorAll(".active-deck[data-pending]").forEach((el) => {
       const id = el.dataset.pending;
       wireHoldMenu(el, () => openDeckMenu(id), () => {});
+    });
+    /* …and a LANGUAGE'S OWN HEADER, whose only action is its options — so unlike the two walks above it
+       passes the SAME handler as the tap. See the row template for why. `wireHoldMenu` binds Enter and
+       Space to the tap handler, so the tab stop the row now carries is a complete keyboard route on its
+       own, and the trailing click after a hold is swallowed by the document-level guard exactly as it is
+       for a deck row. */
+    root.querySelectorAll(".active-deck[data-langhead]").forEach((el) => {
+      const id = el.dataset.langhead;
+      wireHoldMenu(el, () => openDeckMenu(id), () => openDeckMenu(id));
     });
     root.querySelectorAll("[data-langdl]").forEach((b) => {
       b.addEventListener("pointerdown", (e) => e.stopPropagation());
@@ -21557,8 +21813,24 @@
   const COLLECTION_SECTIONS = [
     { label: "History", slot: "collection-list-all" },
     { label: "Geography", slot: "collection-list-geo" },
+    /* Science. It was written INERT and is now live: `sectionOf` returns History for anything this table
+       does not name, so a Psychology collection that gained its first card would have been filed under
+       History with nothing on the page saying so, and the row was added ahead of that card rather than
+       after it. It drew nothing while every science collection was coming-soon — the map below skips a
+       section with no AVAILABLE collections, and only History gets an empty slot, for its drop target —
+       and it began drawing the day `ps-001` shipped, with nobody having to remember. `bio` and `dino` are
+       still coming-soon and join it the same way. The heading is "Science" rather than "Psychology" for
+       the reason Geography is a heading rather than a collection: the next science collection should not
+       need a second one. */
+    { label: "Science", slot: "collection-list-sci" },
+    /* Philosophy — inert today for the same reason Science is, and named for the same reason Geography is
+       a heading rather than a collection. The heading and its one collection share a name, which is the
+       one place this shelf reads oddly; the alternatives were worse, since `sectionOf` files anything
+       unnamed under History and a Philosophy collection under a History heading is a claim about the
+       subject rather than a gap. The echo resolves itself the day a second collection joins it. */
+    { label: "Philosophy", slot: "collection-list-phil" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
 
   /* ============================================================
@@ -21582,10 +21854,19 @@
     // drop targets reachable — but that meant the one person who opens this page most often always met it
     // expanded. An admin moving a collection between the two groups opens the fold first; the drop targets
     // are reachable the moment it is open, so nothing about that workflow is lost.
+    /* THE HEADING AND THE PILL BOTH READ "PLANNED" (Aug 2026, on request: rename the Coming soon section
+       to Planned). The internal names are deliberately UNCHANGED — `isComingSoon`, `setNodeSoon`, the
+       `soon` flag, `.collection-group-soon` and `.pill.soon` — for the reason the Library-to-Collections
+       rename kept its route: a label is what a reader sees and a class is what five test files and the
+       admin drag name, and moving both at once turns a two-word change into a search across the repo.
+       THE PILL WAS RENAMED WITH THE HEADING because the pill IS the section's marker on each row: a
+       "Coming soon" pill under a "Planned" heading is two names for one status. The phrase survives
+       elsewhere on purpose — the minigame placards and the home page's More games tile are a different
+       statement about a different thing. */
     const soonSection = (n, slotId, count) =>
       `<details class="collection-group collection-group-soon">
         <summary class="group-head group-head-toggle">
-          <span class="group-label">Coming soon</span><span class="group-line"></span><span class="group-count">${n}</span>
+          <span class="group-label">Planned</span><span class="group-line"></span><span class="group-count">${n}</span>
           <svg class="group-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </summary>
         ${slot(slotId, count)}
@@ -22024,7 +22305,7 @@
        layout that depends on the width and on how long the deck's name happens to be — so the same two
        shelves read differently at different widths and on different rows, and neither could be pointed at
        as "the way the other one does it". A line of its own is the same on every row at every width.
-       WHAT STAYS ON THE TITLE'S LINE IS A STATUS PILL — "Coming soon", "Empty" — because that is a fact
+       WHAT STAYS ON THE TITLE'S LINE IS A STATUS PILL — "Planned", "Empty" — because that is a fact
        about the row rather than a figure about its contents, and it is what a reader is scanning for. */
     const nodeMetaHTML =
       (spanText ? `<span class="node-span">${esc(spanText)}</span>` : "") +
@@ -22044,7 +22325,7 @@
             <div class="node-title-row">
               <span class="node-title">${esc(nodeTitle(node))}</span>
               ${nodeEmptyPill}
-              ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
+              ${soon ? '<span class="pill soon">Planned</span>' : ""}
             </div>
             ${nodeMetaRow}
           </div>
@@ -22079,7 +22360,7 @@
         <div class="node-title-row">
           <span class="node-title">${esc(nodeTitle(node))}</span>
           ${nodeEmptyPill}
-          ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
+          ${soon ? '<span class="pill soon">Planned</span>' : ""}
         </div>
         ${nodeMetaRow}
       </div>
@@ -22109,6 +22390,69 @@
     egypt:    { bg: "#1F6F5C" }, // malachite (Ancient Egypt)
     ww2:      { bg: "#4A4038" }, // dark iron (The Second World War)
     japan:    { bg: "#8A2E5C" }, // kuwazome red-purple (Japan)
+    /* muted plum (Psychology) — MEASURED, like every hue above it. Swept in CIELAB against all eighteen
+       hues on the shelf inside its own band (L 28-55, chroma 7-62), the freest region of the whole wheel
+       is the mauve/plum quadrant; the peak candidate stands 30.1 from its nearest neighbour against a
+       TIGHTEST EXISTING PAIR of 12.9 (China's vermilion against Russia's lacquer). This is one step off
+       that peak, given up for contrast: it reads 5.4:1 against white where the peak read 4.7:1, the
+       bottom of the shelf's own 3.7-10.4 range. It stands 27.1 from the United States' navy and from
+       Japan's kuwazome, still more than double that tightest pair, at L 45 and chroma 22, both mid-band.
+       The two other free regions were measured and rejected: an olive-brass scores 27.4 and would be the
+       FOURTH thing in the yellow-green-brown quarter (sepia, olive, German brown), where a number is not
+       a look; a hot magenta scores 28.3 at chroma 62, the top of the band, on a shelf that is muted
+       throughout. */
+    psych:    { bg: "#82607E" },
+    /* dark petrol (Philosophy) — MEASURED, and the sweep OVERTURNS the Geography note below. Against all
+       nineteen hues then on the shelf the two best-separated regions were an olive-brass at 27.8 and a hot
+       magenta at 29.4, and both were rejected on register for the reasons Psychology's comment above
+       gives. What was left is the one family Folio does not have at all: there is no TEAL here — Egypt's
+       malachite is a sea green at hue 173 and Greece's Aegean a blue at 247, and the whole band between
+       them is empty. This sits in it at 19.8 from BOTH of them, equidistant rather than leaning at one,
+       L 32, chroma 20, 8.6:1 against white.
+       19.8 IS BELOW THE SHELF'S MEDIAN (23.9) AND THAT IS A STATED TRADE: it is well clear of the bar the
+       house has actually used — the tightest existing pair is 12.9, China against Russia — and beats five
+       pairs already shipped, and it is the only candidate that adds a FAMILY rather than a fourth member
+       of one. It also refines Geography's claim that "the whole teal band is unusable ... 5-11 from
+       Egypt's malachite or Greece's Aegean blue": that holds at MID lightness (17.2 at L 38, falling away
+       above) and not at the dark end. The band is not unusable; the top half of it is. */
+    phil:     { bg: "#14545A" },
+    /* dark forest green (Biology) — MEASURED, and the ONLY hue here that adds to a CROWDED family, which
+       is why it needs more than a number. Green is the shelf's most populated colour (Egypt's malachite,
+       Geography's olive, two language decks), and for the third collection running the two best-separated
+       regions on the wheel were an olive-brass (30.4) and a hot magenta (30.6), both rejected on the
+       grounds the two comments above give. What justifies a FIFTH green is that it is far darker than the
+       other four: L 28 against their 39, 42, 55 and 55. The measurement agrees — its nearest neighbour is
+       not a green at all but the Second World War's dark iron at 24.3, with Geography's olive at 24.5 —
+       and that clears the shelf's median nearest-neighbour distance of 22.7, the bar this shelf has
+       settled on. 10.0:1 against white, the highest contrast on the shelf. */
+    bio:      { bg: "#36481E" },
+    /* ochre (Dinosaurs) — MEASURED: 26.9 from its nearest neighbour, India's saffron, and 29.2 from World
+       History's sepia, against a tightest existing pair of 12.9 and a median nearest-neighbour distance
+       of 22.7. Comfortably the best-separated candidate that is not the magenta, and apt besides — amber,
+       Morrison sandstone, a prepared bone. 4.1:1 against white, low but inside the shelf's own 3.7-10.4.
+       A STANDING NOTE SO NOBODY RE-RUNS THIS SWEEP: the magenta around #c057b1 scores 30.6 and is the
+       best-scoring region of the whole wheel; it has been measured and rejected FOUR times now
+       (Psychology, Philosophy, Biology, Dinosaurs), always because at chroma 61 it is the loudest thing
+       that could go on a shelf whose register is muted throughout. It is not going to be chosen. The
+       olive-brass beside it has been rejected three times as a fourth or fifth member of the
+       yellow-green-brown quarter. What remains genuinely open is narrow, and the next collection may have
+       to accept a distance nearer the median than the maximum, as Philosophy's petrol did at 19.8. */
+    dino:     { bg: "#967B00" },
+    /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
+       agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
+       from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median
+       nearest-neighbour distance of 22.7 and nearly double the tightest existing pair of 12.9. It is one
+       step off its own family's optimum (#a87872, 23.9) which sits at the very top of the lightness band;
+       the step is given up for contrast, as Psychology's is.
+       IT IS THE MUTED END OF THE TAEGEUK'S OWN RED, and sweeping that whole hue band (15-40 degrees)
+       returns this candidate as its best. The two families that would have been MORE apt were measured
+       and refused: Goryeo CELADON's best in-band candidate at a real chroma of 18-30 scores 19.4, and its
+       nearest neighbour is Biology's dark forest green rather than Egypt's malachite; indigo JJOK's best
+       muted candidate scores 22.4 against a French language deck. Both are below the median, and the
+       versions of them that DO score (a grey-green at chroma 7, a periwinkle at chroma 62) are not the
+       colour they are named after. The whole-wheel optimum is the magenta again at 32.4, rejected for the
+       fifth time on the standing note above. */
+    korea:    { bg: "#A2726C" },
     /* deep olive (Geography) — MEASURED rather than picked, like every hue above it. The obvious choice is
        a teal, and the whole teal band is unusable: swept in CIELAB, every candidate lands 5–11 of Egypt's
        malachite or Greece's Aegean blue, against a tightest EXISTING pair of 12.9. The green band is
@@ -22173,7 +22517,7 @@
                     says, so the row carried "412 cards" beside "0 / 412 cards" — and the DECK rows inside
                     keep theirs precisely because they have no bar. A coming-soon collection has no bar, so
                     its pill stays: that is the one thing its row has to say. */""}
-              ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
+              ${soon ? '<span class="pill soon">Planned</span>' : ""}
             </div>
             ${
               /* A coming-soon collection shows the pill and nothing else. It used to carry a Level 1 badge over
@@ -25356,6 +25700,15 @@
      than from the map the render happens to be building, so `entryCardIds` can answer for a container long
      after that render is over. A pending deck contributes nothing and needs no special case: its own
      entryCardIds is already empty. */
+  /* WHICH LANGUAGE an entry belongs to, or "" — the inverse of `langCtxEntries`, and the one lookup the
+     queue, the piles and `entryChain` all go through so none of them can come to disagree about what a
+     deck is inside. It is read off the CATALOGUE rather than off `UDECKS`, so a deck this device has not
+     downloaded yet is still inside its language. */
+  function langCtxOf(entryId) {
+    const d = uDeckIdOf(entryId);
+    const cat = d ? langCatalogById(d) : null;
+    return cat ? langCtxId(cat.lang) : "";
+  }
   function langCtxEntries(id) {
     return activeEntryIds().filter((e) => {
       const d = uDeckIdOf(e);
@@ -27582,7 +27935,11 @@
       const cosd = Math.sin(la1) * Math.sin(la2) + Math.cos(la1) * Math.cos(la2) * Math.cos(dLon);
       return Math.acos(clampN(cosd, -1, 1)) / CMAP_DEG - b[6] <= visDeg;
     }
-    function addRing(ring) {
+    /* `close` is FALSE for a river, and it is the whole of why the rivers looked wrong: a ring is a
+       polygon and closes, where a river is a POLYLINE — closing one draws a straight line from its mouth
+       back to its source, which on a long river crosses a continent. The Atlas has always passed the same
+       flag to its own `addClipped`; this copy never had one. */
+    function addRing(ring, close) {
       let open = false, px = 0, py = 0, pz = 0, pv = 0, first = true;
       for (let i = 0; i < ring.length; i++) {
         proj(ring[i][0], ring[i][1]);
@@ -27596,7 +27953,7 @@
         } else if (open) { crossing(px, py, pz, pv, x, y, z, v); ctx.lineTo(HP.x, HP.y); open = false; }
         px = x; py = y; pz = z; pv = v; first = false;
       }
-      if (open) ctx.closePath();
+      if (open && close !== false) ctx.closePath();
     }
     function pathOf(rings) { ctx.beginPath(); for (let i = 0; i < rings.length; i++) if (visible(rings[i])) addRing(rings[i]); }
     function draw() {
@@ -27660,36 +28017,38 @@
          warmed at idle out of the `atlas` bundle, so for the first second or two of a card's life this
          section draws the siblings alone, which is exactly what is intended. */
       if (sibCard) {
-        const RIV = window.RIVERS || [];
+        /* ONLY A RIVER THAT IS ITSELF A CARD IS DRAWN AT ALL (Aug 2026, on a bug report: "Rivers look
+           very strange with long straight lines … remove all Rivers for now except the ones which appear
+           specifically as cards in the collections, e.g. Tiber"). All 1,073 used to be drawn and only the
+           carded ones NAMED. Two things were wrong with that. The straight lines were a real fault — see
+           `addRing`'s `close` flag, which this block now passes — and they are fixed rather than hidden.
+           But the rest is a judgement about what a locator is FOR: the map exists to place one thing, and
+           a thousand blue threads through it, most of them creeks nobody is studying, are texture that
+           buries the marks that mean something. So the same test that chose the labels now chooses the
+           rivers, and a river on this map is always a river the collection teaches. */
+        const RIV = sib.terms.size ? (window.RIVERS || []) : [];
         if (RIV.length) {
-          /* Thin, in the map's own water colour, and CULLED by the same visibility test the borders use —
-             1,073 rivers of 21,909 points is a fifth of what the world's own coastline already costs per
-             frame, and at a locator's zoom the cull leaves a handful. */
-          ctx.strokeStyle = ocean; ctx.lineWidth = 1.1; ctx.globalAlpha = 0.7;
+          ctx.font = "500 11px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
           for (let i = 0; i < RIV.length; i++) {
+            const nm = RIV[i].n;
+            if (!nm || !sib.terms.has(String(nm).toLowerCase())) continue;
             const lines = RIV[i].p;
+            /* Thin, in the map's own water colour, and CULLED by the same visibility test the borders use.
+               `false` keeps the path OPEN — a river is a polyline, and closing it draws its mouth back to
+               its source across half a continent. */
+            ctx.strokeStyle = ocean; ctx.lineWidth = 1.1; ctx.globalAlpha = 0.7;
             for (let j = 0; j < lines.length; j++) {
               if (!visible(lines[j])) continue;
-              ctx.beginPath(); addRing(lines[j]); ctx.stroke();
+              ctx.beginPath(); addRing(lines[j], false); ctx.stroke();
             }
-          }
-          ctx.globalAlpha = 1;
-          /* A RIVER IS NAMED ONLY WHERE IT IS ITSELF A CARD, which is what was asked for and is also the
-             only thing that keeps the map readable: naming all 1,073 would bury the place the card is
-             about under the names of every creek near it. The test is the collection's own answer terms. */
-          if (sib.terms.size) {
-            ctx.font = "500 11px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-            for (let i = 0; i < RIV.length; i++) {
-              const nm = RIV[i].n;
-              if (!nm || !sib.terms.has(String(nm).toLowerCase())) continue;
-              const line = RIV[i].p[0];
-              if (!line || !line.length || !visible(line)) continue;
-              const mid = line[Math.floor(line.length / 2)];
-              proj(mid[0], mid[1]);
-              if (PV < 0) continue;
-              ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, PX, PY);
-              ctx.fillStyle = ink; ctx.fillText(nm, PX, PY);
-            }
+            ctx.globalAlpha = 1;
+            const line = lines[0];
+            if (!line || !line.length || !visible(line)) continue;
+            const mid = line[Math.floor(line.length / 2)];
+            proj(mid[0], mid[1]);
+            if (PV < 0) continue;
+            ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, PX, PY);
+            ctx.fillStyle = ink; ctx.fillText(nm, PX, PY);
           }
         }
         const CTS = window.CITIES || [];
@@ -27721,13 +28080,49 @@
         /* THE COLLECTION'S OTHER PLACES, in a red that is nobody else's mark on this map: the card's own
            dot is the Atlas's selection gold and the cities are grey, so a reader can tell at a glance
            which marks are Folio's own subject matter. Smaller than the card's dot, as asked. */
+        /* …AND EACH ONE IS NAMED (Aug 2026, on a bug report: "the other dots don't have their labels").
+           They went up bare, which made them decoration rather than information — a reader could see that
+           the collection had been somewhere without being told where, on a map whose whole job is to say
+           where. Three things about the labels.
+           **THEY ARE DRAWN BEFORE THE REVEAL, unlike the card's own**, and give nothing away:
+           `locatorSiblings` excludes the card itself, so every name here belongs to some OTHER card.
+           **THEY ARE DE-COLLIDED FIRST-COME**, the Atlas's own rule for its city labels in the form this
+           window can afford: a collection is fifty-odd places and at the opening 50° view most of them are
+           on screen, so a name is drawn only where its box is clear of every box already placed — the
+           card's own dot and its label among them, reserved first, since a sibling's name over the answer's
+           mark is the one collision that costs something. Fewer names, each readable, beats every name in
+           a heap; zooming in frees the rest.
+           **AND THEY ARE THE RIVER LABELS' SIZE, NOT THE ANSWER'S** — 11px 500 against 13px 600 — so the
+           card's own place still reads as the subject and the rest as its neighbourhood. */
+        const placed = [];
+        if (dot) { proj(dot.c[0], dot.c[1]); if (PV >= 0) placed.push([PX - 9, PY - 10, PX + 132, PY + 10]); }
+        const sibAt = [];
         for (let i = 0; i < sib.dots.length; i++) {
           const d = sib.dots[i];
           proj(d.c[0], d.c[1]);
           if (PV < 0) continue;
+          if (PX < -20 || PY < -20 || PX > W + 20 || PY > H + 20) continue;
+          sibAt.push([PX, PY, d.n]);
           ctx.beginPath(); ctx.arc(PX, PY, 3.4, 0, Math.PI * 2);
           ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill();
           ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#ffffff", 0.75); ctx.stroke();
+        }
+        ctx.font = "500 11px " + font; ctx.textAlign = "left"; ctx.textBaseline = "middle";
+        for (let i = 0; i < sibAt.length; i++) {
+          const nm = sibAt[i][2];
+          if (!nm) continue;
+          const lx = sibAt[i][0] + 6, ly = sibAt[i][1];
+          const bx = [lx - 2, ly - 7, lx + ctx.measureText(nm).width + 2, ly + 7];
+          if (bx[0] < 2 || bx[1] < 2 || bx[2] > W - 2 || bx[3] > H - 2) continue;
+          let clash = false;
+          for (let j = 0; j < placed.length; j++) {
+            const q = placed[j];
+            if (bx[0] < q[2] && bx[2] > q[0] && bx[1] < q[3] && bx[3] > q[1]) { clash = true; break; }
+          }
+          if (clash) continue;
+          placed.push(bx);
+          ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, lx, ly);
+          ctx.fillStyle = ink; ctx.fillText(nm, lx, ly);
         }
       }
       if (dot) {
@@ -28126,7 +28521,19 @@
       const c = CARD_BY_ID[cid];
       if (!c) return;
       const t = String(c.answerText || "").trim();
-      if (t) terms.add(t.toLowerCase());
+      if (t) {
+        terms.add(t.toLowerCase());
+        /* AND THE TERM'S GLOSSARY ALIASES WITH IT, which is what lets a river card find its river
+           (Aug 2026). Natural Earth labels a river in whatever language the country speaks — the Tiber is
+           `Tevere` in `rivers.js`, the Danube is also `Donau`, the Yangtze also `Chang Jiang` — so an
+           answer term matched against `n` alone would miss the very card that asked for the river to be
+           drawn. The alias list is the right place for the other spelling rather than a synonym table of
+           this block's own: it is already what a term's OTHER names live in, and a card's paired glossary
+           entry is written in the same commit as the card. So a Tiber card whose term carries `Tevere`
+           draws and names its river, and one whose term does not, does not — visibly, on the card. */
+        const al = (window.GLOSSARY_ALIASES || {})[t.replace(/\s+/g, "_")] || (window.GLOSSARY_ALIASES || {})[t];
+        if (Array.isArray(al)) al.forEach((a) => { const v = String(a || "").trim(); if (v) terms.add(v.toLowerCase()); });
+      }
       const l = cardLocator(c);
       if (l) dots.push({ id: cid, n: l.name, c: l.at });
     });

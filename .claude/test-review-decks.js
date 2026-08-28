@@ -120,7 +120,7 @@ const SETTINGS = {
       cap: !!document.querySelector(".lib-cap"),
     }));
     // it used to open itself for an admin, who is exactly the person on this page most often
-    check("the Coming soon fold starts closed, admin or not", lib.soonOpen === false, JSON.stringify(lib.soonOpen));
+    check("the Planned fold starts closed, admin or not", lib.soonOpen === false, JSON.stringify(lib.soonOpen));
     // the Folio level used to cap how many decks the review would hold, and this line stated the standing.
     // The cap was removed on request (Aug 2026) — a level buys an artefact chest now — so the line must be
     // gone with it: a limit stated in the page head but not enforced reads as still in force.
