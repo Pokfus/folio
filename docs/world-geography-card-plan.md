@@ -16,16 +16,16 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-048`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-050`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
 Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia,
-Mozambique, Ghana, Peru) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília,
-`gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517`
-Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523`
-Paris and `gw-751` Dar es Salaam.** The next country is `gw-049` Madagascar and the next capital is
-`gw-524` Pretoria.
+Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire) **and capitals `gw-503` Washington, D.C., `gw-505`
+Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa,
+`gw-516` Hanoi, `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London,
+`gw-522` Dodoma, `gw-523` Paris, `gw-524` Pretoria, `gw-751` Dar es Salaam, `gw-752` Cape Town and
+`gw-753` Bloemfontein.** The next country is `gw-051` Nepal and the next capital is `gw-525` Rome.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -707,6 +707,33 @@ endpoint answered "You are making too many requests to the API" throughout, thou
 written in earlier batches all verify at 200 when the throttle lifts — Bangkok's, left out of batch 12
 for exactly this, was fetched and attached in batch 13. **The gap is a sandbox limit, not a search that
 failed, and it is worth one retry per batch until it lands.**
+
+**Batch 16 (Madagascar, Côte d'Ivoire and all three South African seats) found the source that makes a
+divided capital teachable rather than merely listed.** The Commonwealth Secretariat's South Africa entry
+does not give three names in a row; it gives the INSTITUTION that earns each its title — *"The Parliament
+is in Cape Town, making it the legislative capital. The President and Cabinet meet in Pretoria, making it
+the administrative capital. The Supreme Court of Appeal is in Bloemfontein, making it the judicial
+capital."* That sentence is the spine of all three cards, and it is the difference between a reader
+memorising three names and a reader understanding what a country does when it splits its government up.
+**Read the Commonwealth's Capital field before assuming a divided seat needs hunting for.**
+
+**Batch 14's rule about UNdata footnotes paid twice more.** South Africa's profile footnotes its capital
+field with the same three-way split, and **Côte d'Ivoire's** with *"Yamoussoukro is the capital and
+Abidjan is the administrative capital"* — which is the source `gw-550` and `gw-755` will need, and which
+uses "administrative capital" where this file's table says "the seat of government and largest city".
+Expect to correct that row when the pair is written, as the Tanzanian row was corrected in batch 14.
+
+**Two admissions at one sitting, and the resolution numbers prove it.** Madagascar and Côte d'Ivoire were
+both admitted at the **864th plenary meeting** of the fifteenth session on 20 September 1960 — resolutions
+**1478 (XV)** and **1484 (XV)**, six apart, pages 64 and 65 of the same volume. Where a card wants to say
+a state joined "along with others", the Digital Library's own meeting number and resolution numbering are
+the evidence, and they are exact; **do not assert a COUNT of that day's admissions from memory**, which
+is what a first draft of the Madagascar card did.
+
+**And the WTO's country path has no slug for Côte d'Ivoire that could be found.** Every guessed form
+302s to the error page served with a 200 (batch 14's finding), and the country IS a member — so the
+card was carried by five other sources rather than by more guessing. **When a WTO slug will not resolve,
+stop guessing and spend the source elsewhere.**
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
