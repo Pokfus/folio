@@ -25,13 +25,15 @@ Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela,
 Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan, Chad, Chile, Romania,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
-Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan) **and capitals
+`gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-751` Dar es Salaam, `gw-752` Cape Town and
-`gw-753` Bloemfontein.** The next country is `gw-093` Sweden and the next capital is `gw-539` Rabat.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-751` Dar es Salaam, `gw-752` Cape
+Town and `gw-753` Bloemfontein.** The next country is `gw-096` Israel and the next capital is `gw-540`
+Luanda.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -912,6 +914,44 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 31 (Sweden, Greece, Azerbaijan, Rabat) made two corrections and one of them CLOSES THE GREECE
+SHAPE, four batches after D1 half-closed it.** D1 rewrote `Greece` to state an area and a capital but
+**deliberately left it with no population**, on a 4.8% gap it called arbitrary to resolve: UNdata's 9,939
+thousand against the World Bank's 10,413,962. The third source settles it — **Eurostat gives 10,409,547**,
+so two independent counts agree at 10.41 million and UNdata is the outlier, which is D1's own finding
+about `Albania` and `Moldova` in the other direction. The term now says "roughly 10.4 million". **A
+figure deferred for want of a tiebreak is worth re-testing when the batch brings a third source anyway**;
+this one cost nothing, because the EU page was already being fetched for the accession date.
+
+**`Sweden` is batch 29's marker test again, and the fourth World Bank area error.** The term said 450,295
+km²; its two citations are UNdata (**438,574**) and the EU page (**447,424**), and **neither carries
+450,295** — the batch-29 rule, that a citation contradicting the sentence it marks ends the argument.
+Corrected to 447,424, which is the figure Eurostat gives *and* the figure the World Bank itself gave
+until 2012. That series then **jumps from 447,420 to about 528,500 in 2013 and stays there**, an 18%
+step with nothing behind it, joining Canada, the Dominican Republic and Monaco. **Fetch the RANGE**: a
+single-year request returns 528,660 and nothing tells you it is wrong.
+
+**Three sittings from earlier batches turn out to be the same sittings.** `Azerbaijan` was admitted by
+resolution **46/230** at the **82nd meeting** on 2 March 1992 — the meeting at which batch 30's
+`Tajikistan` was admitted by 46/228; `Morocco` by **1111 (XI)** at the **574th plenary meeting** on 12
+November 1956, the resolution immediately before batch 26's `Tunisia` at 1112 (XI); and `Sweden` was
+admitted on the recommendation of **Security Council resolution 8 (1946)**, already cited on batch 28's
+`Kabul` card, which covered Afghanistan, Iceland and Sweden together. **The UN admissions cluster, and a
+resolution already fetched for one card will often serve another** — check the register before searching.
+
+**Two source notes.** Azerbaijan's absence from the WTO is a citable fact rather than a gap: the trade
+body's own **accession status page** records that its working party was established on **16 July 1997**
+and the process is still open, which is a better sentence than "it has no member page". And when the
+**Commons API is throttled**, a file's URL can be derived without it — Wikimedia's path is
+`/commons/<h[0]>/<h[:2]>/<filename>` where `h` is the **MD5 of the filename** — and the licence read off
+the file page on `commons.wikimedia.org`, which is a different host from the API and was answering while
+the API returned 429 three times running. All three flags this batch were resolved that way.
+
+**One picture note.** `Rabat`'s best-matching candidate was a 5561×1073 panorama, and the gloss image
+slot caps height at 150px with `object-fit: contain`, so a 5:1 image renders as a strip about 30 pixels
+tall. **Check the aspect ratio, not just the pixel count**: the slot rewards something near 3:2, which
+is why the term carries a 1926 autochrome of the kasbah above the Bou Regreg instead.
 
 **Batch 30 (Portugal, Tajikistan, Papua New Guinea, Sana'a) spent its first work UNDOING a finding of
 its own pass, and that is the entry to read.** Batch 24's `?etrans=en` rule is **wrong** and is struck
