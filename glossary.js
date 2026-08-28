@@ -1293,7 +1293,8 @@ window.GLOSSARY = {
 "Shang_ancestor_worship": "<b>Shang ancestor worship</b> is the cult the Shang paid to their own dead, held to have belonged to people of every rank, its work being to make the dead into proper ancestors who would then guide the nature powers and the high god.<sup class=\"fn\" data-fn=\"1\"></sup> It took several forms at once, among them burials, sacrificial pits, architecture, writing and feasting, and the rites ran on a calendar addressed to high ancestors, dead rulers and consort queens alike.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Cattle were its chief offering, and since far fewer lie in the pits than the inscriptions record being given, the living seem to have eaten them at the feast.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Human_sacrifice": "<b>human sacrifice</b> is the killing of a person as an offering, known across many societies and undertaken to mark a royal funeral, to answer a disaster, to atone for a wrong, to consecrate a building, or to secure fertility and health.<sup class=\"fn\" data-fn=\"1\"></sup> Victims were also killed to serve a high-ranking person as retainers in the next world, so one offering may be commemorative, expiatory, propitiatory and dedicatory at the same time.<sup class=\"fn\" data-fn=\"1\"></sup> The bodies are what the practice is now studied from, and where preservation or ancient DNA allows, victims can be aged, sexed and traced to a population, which has overturned identifications made from the bones alone.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Xibeigang": "<b>Xibeigang</b> is the royal cemetery of the late Shang, the group of largest burials at Anyang, lying north-west of the settlement and set apart from it, and their number identifies nine kings as having ruled at Yinxu.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The tombs are shaft graves cut with four ramps running out to the cardinal directions, a layout belonging to the ritual rather than to the convenience of digging.<sup class=\"fn\" data-fn=\"2\"></sup> Many were looted in antiquity and the royal ones emptied over and over, though M1004 still held two monumental four-legged ding at the very bottom and M260 gave up the tallest and heaviest bronze the Shang ever cast.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Chinese_ritual_bronzes": "<b>Chinese ritual bronzes</b> are cast vessels made for the offerings owed to the dead, used in banqueting, in presenting food and drink to the ancestors and in signalling the standing of their owner, each shape carrying a name of its own.<sup class=\"fn\" data-fn=\"1\"></sup> The functions those names carry come from the received textual tradition rather than from residue or wear analysis, so a steamer known for grain has also been found holding human skulls.<sup class=\"fn\" data-fn=\"2\"></sup> A grave's set is readable as rank, from two pieces at the bottom to the nine ding a Zhou king was entitled to, with grain and liquor vessels and bells specified by number to match.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Chinese_ritual_bronzes": "<b>Chinese ritual bronzes</b> are cast vessels made for the offerings owed to the dead, used in banqueting, in presenting food and drink to the ancestors and in signalling the standing of their owner, each shape carrying a name of its own.<sup class=\"fn\" data-fn=\"1\"></sup> The functions those names carry come from the received textual tradition rather than from residue or wear analysis, so a steamer known for grain has also been found holding human skulls.<sup class=\"fn\" data-fn=\"2\"></sup> A grave's set is readable as rank, from two pieces at the bottom to the nine ding a Zhou king was entitled to, with grain and liquor vessels and bells specified by number to match.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Piece-mould_casting": "<b>Piece-mould casting</b> is a founding method in which a clay model is enclosed in an outer mould built of several fitted sections, and molten metal is poured into the space between the two.<sup class=\"fn\" data-fn=\"1\"></sup> Metal spacers hold the model and the mould apart while the metal goes in, and a large vessel may be built up in several pours, its parts cast separately and then cast onto one another.<sup class=\"fn\" data-fn=\"1\"></sup> Mould sections carrying ornament have been found, so the decoration was made in the mould rather than worked onto the finished metal, and the method set what shapes were possible.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2819,7 +2820,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Shang_ancestor_worship": ["Shang ancestor cult"],
 "Human_sacrifice": ["human offering"],
 "Xibeigang": ["Xibeigang cemetery"],
-"Chinese_ritual_bronzes": ["ritual bronze","ritual bronzes"]
+"Chinese_ritual_bronzes": ["ritual bronze","ritual bronzes"],
+"Piece-mould_casting": ["piece-mould","section-mould casting"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4138,7 +4140,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Shang_ancestor_worship": ["practice","religion","history","china","bronze age"],
 "Human_sacrifice": ["practice","religion","archaeology"],
 "Xibeigang": ["place","archaeology","history","china","bronze age"],
-"Chinese_ritual_bronzes": ["object","art","archaeology","history","china"]
+"Chinese_ritual_bronzes": ["object","art","archaeology","history","china"],
+"Piece-mould_casting": ["practice","technology","archaeology"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

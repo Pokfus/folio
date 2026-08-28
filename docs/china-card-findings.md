@@ -2355,3 +2355,29 @@ allowance is legible in that case in a way no single bronze could show.
 Cao's argument: two pieces, a gu beaker and a jue pitcher, and a grave holding even that was not a
 commoner's. Childs-Johnson gives the top of the scale and the review gives the bottom; **a card about
 a graded system needs both ends or it is only about the rich.**
+
+  **`cnh-082` CAUGHT A COMPOSED HANDLE BEFORE IT SHIPPED, AND THE FIX IS A HABIT RATHER THAN A CHECK.**
+The Li Liu prestige-goods article was written into the source list as `10125/17175`; the corpus already
+cites it four times as `10125/17179`. Nothing would have caught it — `add-card.js` checks that a
+citation ENDS in a URL, never that the URL opens — and the wrong handle resolves to some other item, so
+even a curl returns 200. **When a work is already in the corpus, copy its citation string out of
+`data.js` rather than typing one**, which is now how every reused source in this run is written.
+  **IT ALSO FOUND THREE VARIANTS OF ONE CITATION AND NORMALISED THEM.** The Tao Shi copper article
+appeared on `cnh-050` with no page range, on `cnh-062` and `cnh-063` with a TRUNCATED title ("Yangzi
+River Valley", missing "in Early China"), and on `cnh-064` correctly. All three now carry `cnh-064`'s
+form, verified against the article's own title page and its 384–416 running heads. **A citation that
+drifts between cards reads to a checker as several works and to a reader as carelessness**; grep a
+reused source's author name across `data.js` before adding the sixth card that cites it.
+  **ITS BEST SENTENCE IS A DISAGREEMENT BETWEEN TWO OPEN SOURCES, LEFT STANDING.** Lopes has decorated
+mould sections "used repeatedly in molding many different types of vessels"; Childs-Johnson has Shang
+vessels "individually cast in separate molds (never the same mold)", which is why no two are exactly
+alike in size or weight. A reconciliation is available — the pattern blocks that impress ornament are
+not the assembled mould for one vessel — but it is an inference, so the card states both readings and
+attributes the never-alike consequence to the second. **G7's rule applied to a technique rather than
+to a date.**
+  **AND FOUR OF ITS TEN SENTENCES HAD TO BE THROWN AWAY BEFORE IT WAS WRITTEN**, because `cnh-064` had
+already spent the hammered forerunners, the simple stone moulds, the multipiece change at Erlitou, the
+one-hectare foundry, the slag and crucibles and the 36 cm rim moulds. What survived is the ARITHMETIC —
+19 mould pieces and 5 cores for one Erligang ding, six pours in three stages, metal spacers holding
+model and mould apart — plus the potter's ancestor: hollow-legged pots shaped over inner moulds, the
+three legs joined or the clay coiled round three leg moulds at once.
