@@ -16,11 +16,11 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-018`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-021`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
-the Congo, Vietnam, Iran, Turkey) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad,
-`gw-507` Brasília, `gw-510` Addis Ababa and `gw-513` Cairo.** The next country is `gw-019` Germany and
-the next capital is `gw-514` Manila.
+the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom) **and capitals `gw-503`
+Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo and
+`gw-514` Manila.** The next country is `gw-022` Tanzania and the next capital is `gw-515` Kinshasa.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -297,8 +297,11 @@ the time it took to establish that the obvious capital sources do not answer.
 
 **THE TEST HAS NOW DECIDED THIRTEEN CAPITALS AND HAS NOT BEEN WRONG ONCE.** Washington, Islamabad,
 Brasília, Addis Ababa and Cairo passed it and are written; New Delhi, Beijing, Jakarta, Abuja, Dhaka,
-Moscow, Mexico City and Tokyo failed it and are deferred, and Manila and Kinshasa failed it without being
-deferred, the milestone series carrying both (see the paragraphs below). **Addis Ababa widens what counts as the institution.**
+Moscow, Mexico City and Tokyo failed it and are deferred. **Manila failed it and was written anyway**,
+from the Spanish-American War and Philippine-American War milestones, which is the precedent to follow:
+where a capital's own institutions are unreachable, the event literature about the city can still carry
+a card, and only the facts box suffers (see its three-row entry below). Kinshasa is the same shape and
+comes next. **Addis Ababa widens what counts as the institution.**
 Ethiopia's own government publishes nothing reachable, but the city is the seat of the AFRICAN UNION,
 which publishes both its founding story — 32 heads of independent African states meeting there in May
 1963 to sign the OAU charter — and the fact that its Commission sits there. An international body
@@ -379,6 +382,52 @@ recording: UNdata gives 87,685 thousand for 2025 against the World Bank's 85,878
 real methodological disagreement rather than a stale figure, and the card uses UNdata's because every
 sibling card's four facts come from UNdata and one basis across the deck is worth more than a closer
 figure on one card.
+
+**THREE MORE SOURCES JOINED THE SPINE IN THIS BATCH, AND EACH ANSWERS A DIFFERENT KIND OF GAP.** The
+Office of the Historian has only three pages that mention Thailand at all — the country page and,
+through SEATO, one milestone — so a card at the five-source bar needed two works nobody had used here
+before. **The WTO's member pages** (`wto.org/english/thewto_e/countries_e/<slug>_e.htm`) state a
+member's WTO and GATT accession dates in one sentence, which is a datable claim for any country in the
+trading system; the Egypt card had already used one. **The UN Digital Library**
+(`digitallibrary.un.org`) is reachable and searchable, and it holds the General Assembly resolution
+admitting each member — which is not merely a second citation for a date UNdata already gives, but a
+better fact: resolution 101 (I) is headed *Admission of **Siam** to Membership in the United Nations*,
+so the record shows the country entering under a name it no longer uses. **Search it by the claim
+rather than the country**, and note that its record page gives the resolution's adoption date (15
+December 1946) where UNdata gives the membership date (16 December 1946) — two different events a day
+apart, so cite one or the other and do not mix them in a sentence. Third, **the World Bank's
+surface-area series can carry a marker of its own**: `gw-021`'s facts box uses 243,610 km², the figure
+batch D1 put on the `United_Kingdom` glossary term, against UNdata's 242,495 — so the card cites the
+World Bank as well, and earns that citation on a sentence that says what the figure is *of* ("six
+counties of northeast Ulster chose to remain part of the kingdom … and it is that territory whose area
+the World Bank measures today"). **Where a card must diverge from Source A to agree with its own
+glossary term, cite the source it is agreeing with and give it a real sentence.**
+
+**A NEIGHBOUR'S COUNTRY PAGE IS OFTEN THE BEST SOURCE FOR A COUNTRY'S OWN BORDERS.** The United
+Kingdom's page in the recognition guide is long on consulates and says nothing about the union changing
+shape; **Ireland's** page opens with the whole of it — the Anglo-Irish Treaty of 6 December 1921, the
+26 counties constituted as the Irish Free State, the six counties of northeast Ulster that chose to
+remain — and the American recognition of the Free State in 1924. D3 found the same shape when El
+Salvador's page carried Nicaragua's independence date. **Read the page of the state that left.**
+
+**`gw-514` MANILA IS THE FIRST CAPITAL CARD WITH A THREE-ROW FACTS BOX, AND THAT IS A REFUSAL RATHER
+THAN AN OVERSIGHT.** The natural fourth row is `Replaced · Quezon City` — the capital moved there in
+1948 and came back in 1976 — and **no reachable source states it**: every Philippine government domain
+tried is 403 (`officialgazette.gov.ph`, including its page for Presidential Decree 940, plus
+`gov.ph`, `senate.gov.ph`, `nhcp.gov.ph`, `dfa.gov.ph`, `manila.gov.ph`, `ncca.gov.ph`), the Wayback
+Machine has no snapshot of the decree, and UN-Habitat's Philippines page names Quezon City only as a
+major city. **A facts box row is a claim like any other**; three cited rows are better than four with
+one resting on nothing.
+
+**THE PICTURE ON A CAPITAL'S GLOSSARY TERM IS A COMMONS THUMBNAIL, NOT THE ORIGINAL.** 571 of the
+glossary's illustrations and 363 of the cards' already point at
+`upload.wikimedia.org/wikipedia/commons/thumb/…/1280px-….jpg`, and the reason showed up here: Metro
+Manila's Sentinel-2 image is **108 MB** at full size, which no reader should be asked to fetch for a
+popup. The Cairo image was moved to its 1280px thumbnail in the same pass. Two Manila candidates were
+rejected and the reasons are the usual ones — ESA's own Manila image is properly attributed but 605px
+on the long side, under the pipeline's ~900px bar, and the Landsat image of the bay is categorised PD
+NASA with **no machine-readable author or source**. `suggest-image.js` offered five photographs of a
+2024 diplomatic conference in Manila, which is the name-match trap its own header warns about.
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
