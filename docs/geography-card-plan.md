@@ -19,15 +19,16 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New Jersey, `geo-019`
 Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023` Washington,
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
-`geo-028` South Carolina, `geo-029` North Carolina, `geo-501` Sacramento, `geo-502` Austin, `geo-503`
+`geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
+`geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix and `geo-526` Santa Fe.**
-Both subdecks are worked down the same list, so the next state is `geo-030` and the next capital
-`geo-527`.
+`geo-525` Phoenix, `geo-526` Santa Fe and `geo-527` Atlanta.**
+Both subdecks are worked down the same list, so the next state is `geo-031` and the next capital
+`geo-528`.
 
 ---
 
@@ -367,6 +368,11 @@ Four more, measured while writing `geo-005` and `geo-501`:
   it is the archive saying the property has no landmark file. **On a capital card, expect to cite the
   NRHP path**: a state's landmarks are spread over the state, and its capital's own buildings are
   often listed rather than designated.
+- **AND IT HAPPENED AGAIN THE NEXT ROUND, ON A DIFFERENT FILE.** `First_Oil_Well.jpg` answered 429 on
+  both the original and the thumbnail while every other Commons file in the same batch answered 200, so
+  the Pennsylvania term is illustrated with Valley Forge instead. **Do not spend a round retrying a
+  throttled file: pick another picture** — the choice of illustration is editorial, and a card is not
+  improved by waiting.
 - **`upload.wikimedia.org` CAN 429 ONE FILE WHILE SERVING ITS NEIGHBOURS.** `geo-525`'s city flag
   answered **429 on the SVG for over four minutes**, in both the encoded and the literal spelling of
   the comma in its name, while the 1280px PNG rendering of the same file and every other flag SVG
@@ -848,6 +854,21 @@ terms that already exist**. Each was measured, and none should be settled quietl
   National Historic Landmarks instead (Reed Gold Mine, the North Carolina Mutual Life building), which
   is editorial freedom rather than a dodge; **the trigger is recorded so the next writer knows that the
   first Winston-Salem subject forces `Salem_(Oregon)`.**
+
+- **`Pennsylvania` AND `Atlanta` BOTH GO IN BARE, AND THE ROUND'S FAULT WAS A FRATERNAL ORDER'S NAME.**
+  "Pennsylvania" has four existing uses: three are the state and the fourth is `Jeremy_Rutter`'s
+  **University of Pennsylvania**, which is the `Ohio valley` case — an institution named for the state
+  it stands in — so the key goes in bare. "Atlanta" has two, both the Georgia capital. The draft fault
+  was `geo-527`'s **Yaarab Temple Building Company**, whose "Temple" resolved to the ancient-buildings
+  term; a shriners' lodge is not that kind of temple, and with no true temple anywhere in the card to
+  take the link first the company's name was dropped for what it was — "a mosque for some 5,000 members
+  of a shriners' order". **A fraternal order, a company or a club whose name contains an ordinary
+  common noun is the same trap as a proper place name**, and there is no earlier-mention fix when the
+  card has no honest use for the word.
+  One link worth recording as CORRECT: `geo-030`'s "pre-Clovis times" resolves to `Clovis_culture`,
+  which is exactly what the prefix negates, and `Meadowcroft Rockshelter` links to the term the
+  prehistory deck already holds — the first time a geography card has met a glossary term written for
+  another collection and simply fitted it.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
