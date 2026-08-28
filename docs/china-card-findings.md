@@ -2234,3 +2234,34 @@ subject cannot be photographed, illustrate the evidence it turns on.**
 returned a 400 with a 2,010-byte error page (the width allow-list), and 1280px then returned a 429 with a
 2,190-byte one. **Two tiny responses, two different causes**: the first needs a different width and the
 second needs waiting. A retry loop got it on the third attempt.
+
+  **`cnh-077` FOUND THE FIFTH SOURCE IN A BOOK ABOUT SOMETHING ELSE.** Four works already in the corpus
+carry Di between them — Lopes for what he is (the name means 'High Sovereign', the earliest references
+are the oracle bones, he is sovereign over the natural world and over the ancestral spirits, he grants
+the rain and holds a river's flood short of devastation), MacIver for the distance (he was so far from
+the living that there was no direct way to reach him, so a request went to the ancestors to be carried
+up), Childs-Johnson for the king (who alone could <i>bin</i>, 'receive the spirits', of Di and the royal
+dead, and ruled the four quarters as his surrogate), Jaffe and Campbell for the doubt. The fifth is Lisa
+Raphals' chapter in an edited volume on <i>ming</i> — a book about FATE, not about the Shang — which
+records that the inscriptions carry the phrase <i>Di ming</i>, 'the decree of Di', and that Di has the
+pre-eminent power to issue commands. **Search the subject the term is an INSTANCE of**, not only the
+term.
+  **PAGE MARKERS IN AN OCR DUMP HAVE A DIRECTION, AND IT IS WORTH ESTABLISHING BEFORE CITING ONE.** The
+volume's markers turned out to be running HEADS — the chapter title on a recto, the author's name on a
+verso, each beside its number — except on the chapter's opening page, which carries a drop folio at the
+foot. Reading them as footers would have put the Raphals passage on page 75 and MacIver's on page 15;
+both are one page later. **Find the chapter's own opening page and count from it** rather than assuming.
+  **THE PICTURE SEARCH RETURNED FIVE TENNYSON ILLUSTRATIONS**, all by W. E. F. Britten, for a Shang high
+god — the widest miss the fuzzy matcher has produced in this run, and a reminder that its five candidates
+are a name match and nothing more. What fits is a plate of **sixteen variant forms of the graph 帝 cut
+from oracle-bone rubbings**, which is the card's own first and last sentences: the name is known first
+from inscriptions of this kind, and how the graph should be read is what the argument is about.
+  **AND THE THUMBNAIL ALLOW-LIST IS NOT THE ROUND NUMBERS.** 800, 1024 and 1120 all returned a 400
+("Use thumbnail sizes listed on…") while the original file returned 429 for twenty minutes, so the image
+looked unreachable by either route. **Ask the API to generate one**: `iiurlwidth=900` came back as a
+**960px** URL, which downloaded first time. The API snaps a requested width to the nearest allowed one,
+so it is the way to discover the list rather than guess at it — and a file with no thumbnails at all
+(the API returns the original when the width asked for exceeds it) leaves only the rate-limited path.
+  **`Di` WAS DROPPED AS AN ALIAS BEFORE IT SHIPPED.** A two-letter surface matches on word boundaries, so
+it would have auto-linked the `Di` of Di Xin and Di Ku — the one-word-term trap the house rules name,
+caught in draft this time rather than by a reader.
