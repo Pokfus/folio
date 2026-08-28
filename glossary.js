@@ -1266,7 +1266,8 @@ window.GLOSSARY = {
 "The_Rape_of_the_Sabine_Women": "The Rape of the Sabine Women is an episode of Roman foundation legend in which Romulus's followers carried off women from neighbouring peoples during games held in honour of Consus.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient writers explained it by the new city's want of women and its neighbours' refusal of intermarriage,<sup class=\"fn\" data-fn=\"1\"></sup> but disagreed over the year, over the number seized — Dionysius of Halicarnassus counted 683 — and over whether the aim was marriage or war.<sup class=\"fn\" data-fn=\"2\"></sup> The fighting that followed was said to have been stopped by the women coming between the armies, and to have ended in the union of the two peoples under a shared kingship.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Titus_Tatius": "Titus Tatius is the Sabine king whom Roman tradition places on the throne of Rome beside Romulus, after the war that followed the seizure of the Sabine women ended in a treaty joining the two peoples.<sup class=\"fn\" data-fn=\"1\"></sup> In the accounts he takes the Roman citadel by bribery, gives his name to the Titienses among the early centuries of knights, and gives the citizens theirs, Quirites, after his town of Cures.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> After five years of shared rule he was killed at an altar at Lavinium by friends of envoys whom his kinsmen had murdered and whom he had shielded, leaving Romulus to rule alone.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Romulus": "Romulus is the founder and first king of Rome in Roman tradition, a figure the Romans credited with the shape of their earliest institutions rather than with the city alone.<sup class=\"fn\" data-fn=\"1\"></sup> The accounts give him twelve lictors, a refuge below the Capitol that filled the new city, a hundred senators called Patres from whom the patricians took their name, and a bodyguard of three hundred Celeres.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> After a reign of 37 years he vanished in a storm and was worshipped as the god Quirinus, though ancient writers also record the charge that senators had killed him and hidden the body.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Numa_Pompilius": "Numa Pompilius is the second king of Rome in Roman tradition, a Sabine from Cures said to have been chosen for his justice and piety after the death of Romulus.<sup class=\"fn\" data-fn=\"1\"></sup> The accounts credit him with the city's religious order — the flamens of Jupiter, Mars and Quirinus, the Vestal virgins, the twelve Salii and the office of Pontifex Maximus<sup class=\"fn\" data-fn=\"3\"></sup> — and with a calendar of twelve lunar months.<sup class=\"fn\" data-fn=\"2\"></sup> His reign of 43 years was remembered as one of unbroken peace, in which the temple of Janus stood shut, and he was said to have taken his counsel from the nymph Egeria.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Numa_Pompilius": "Numa Pompilius is the second king of Rome in Roman tradition, a Sabine from Cures said to have been chosen for his justice and piety after the death of Romulus.<sup class=\"fn\" data-fn=\"1\"></sup> The accounts credit him with the city's religious order — the flamens of Jupiter, Mars and Quirinus, the Vestal virgins, the twelve Salii and the office of Pontifex Maximus<sup class=\"fn\" data-fn=\"3\"></sup> — and with a calendar of twelve lunar months.<sup class=\"fn\" data-fn=\"2\"></sup> His reign of 43 years was remembered as one of unbroken peace, in which the temple of Janus stood shut, and he was said to have taken his counsel from the nymph Egeria.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Roman_calendar": "The Roman calendar is the reckoning of months and days used at Rome before Caesar's reform, a year of twelve months and 355 days that ran out of step with the sun.<sup class=\"fn\" data-fn=\"3\"></sup> Roman writers traced it to Numa, the second king, said to have replaced an older ten-month year beginning in March by adding January and February, though their accounts of that older year disagree.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An intercalary month of 22 or 23 days went into February every other year to hold it to the seasons, and the pontiffs who came to control it used the power so loosely that the civil year drifted from the natural one.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2752,7 +2753,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Capitoline_Wolf": ["Lupa Capitolina"],
 "The_Rape_of_the_Sabine_Women": ["rape of the Sabine women","Sabine women"],
 "Titus_Tatius": ["Tatius"],
-"Numa_Pompilius": ["Numa"]
+"Numa_Pompilius": ["Numa"],
+"Roman_calendar": ["calendar of Numa"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4044,7 +4046,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "The_Rape_of_the_Sabine_Women": ["event","history","mythology","italy","iron age"],
 "Titus_Tatius": ["ruler","history","mythology","italy","iron age"],
 "Romulus": ["ruler","history","mythology","italy","iron age"],
-"Numa_Pompilius": ["ruler","history","religion","italy","iron age"]
+"Numa_Pompilius": ["ruler","history","religion","italy","iron age"],
+"Roman_calendar": ["concept","history","religion","italy","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
