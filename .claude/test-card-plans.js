@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Card plans ↔ data.js — the check that keeps "generate the next <collection> card" working.
  *
- * Ten collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
+ * Sixteen collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
  * lowest id not yet in data.js, and its deck comes from the plan. That workflow rests on agreements
  * nothing else verifies, and every one of them fails SILENTLY:
  *
@@ -66,6 +66,11 @@ const PLANS = {
   egypt: ["egypt", "eg-", 1000],
   ww2: ["ww2", "ww2-", 1000],
   japan: ["japan", "jp-", 1000],
+  psych: ["psychology", "ps-", 1000],
+  phil: ["philosophy", "ph-", 1000],
+  bio: ["biology", "bio-", 1000],
+  dino: ["dinosaurs", "dino-", 1000],
+  korea: ["korea", "ko-", 1000],
   /* keyed by the COLLECTION id, which for Geography is the country: Geography is a section heading on
      the Collections page rather than a node in the tree (see `COLLECTION_SECTION` in app.js), so the
      plan slug and the collection id differ here where they coincide everywhere else. */

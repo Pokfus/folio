@@ -703,7 +703,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   shipped** (Aug 2026)
   and the rest of the collection is open ground. **The `placeholder: true` that had held it back was
   CLEARED on request in Aug 2026**, so the forty cards now reach the daily review, the games, the card of
-  the day and study deep links, and the collection sits under Collections rather than Coming soon. Its
+  the day and study deep links, and the collection sits under Collections rather than Planned. Its
   thirty-eight EMPTY decks are still coming-soon, automatically — `isComingSoon` is `!!node.placeholder ||
   subtreeCardIds(node).length === 0`, so a deck earns its place by holding a card and nothing has to be
   un-flagged deck by deck. Not part of the site.
@@ -723,6 +723,98 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   since it also selects `var(--han)` — a Simplified Chinese face. The next card to write is the lowest
   `jp-NNN` not yet in `data.js`; see the "JAPAN" bullet under "Generating cards & glossary entries".
   **No card has been written yet.** Not part of the site.
+- `docs/psychology-card-plan.md` — the **1000-card running order for the Psychology collection**
+  (`psych`): every card's number, topic and deck, fixed in advance across 9 decks and 38 leaf decks.
+  The twelfth of the planned collections, the fourth to **create its own collection** (node, tree,
+  `COLL_THEME` hue and a new `ICON_SYMBOLS` mark ship with the plan) and **the first that is not a
+  history collection at all**. **It is EXCLUDED from the no-researchers-in-a-question rule and from
+  the two-scholar cap, on request** — see that rule's own bullet under "Generating cards & glossary
+  entries", and the plan's section on what the exclusion does and does not license. Its three
+  load-bearing rules are that **a card on a classic finding states that finding's current evidential
+  standing** (eleven deliberate study/what-happened-to-it PAIRS are listed there), that **a disorder
+  card describes and never diagnoses** — both classifications named, no checklist a reader can score
+  themselves against — and that **a finding is described with the people it was found in**, which is
+  the psychology form of the history plans' rule about a state's account of itself and the easiest one
+  here to break by accident. The next card to write is the lowest `ps-NNN` not yet in `data.js`; the
+  index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **No card has been written yet**,
+  so the collection sits in Planned on its own account — `isComingSoon` is true for a node holding
+  no cards. It also ships an inert **`Science` row in `COLLECTION_SECTIONS`**: `sectionOf` returns
+  History for anything the table does not name, so without it the first psychology card would file the
+  collection under History; the row draws nothing until that card exists. Not part of the site.
+- `docs/philosophy-card-plan.md` — the **1000-card running order for the Philosophy collection**
+  (`phil`): every card's number, topic and deck, fixed in advance across 9 decks and 38 leaf decks. The
+  thirteenth of the planned collections and the second that is not history. **It is EXCLUDED from the
+  no-researchers-in-a-question rule, exactly as `psych` is** — in philosophy the thinkers ARE the subject
+  matter. **Read its five scope decisions before writing anything**, of which two govern the tree: it is
+  **not a Western philosophy collection**, so Indian, Buddhist, Chinese and Japanese philosophy take deck
+  3 and 115 cards in chronological position beside Greece rather than an appendix at the end, Islamic
+  philosophy sits inside the medieval deck because that is what it historically is, and Africana,
+  decolonial and Latin American philosophy sit with critical theory and feminism as one lineage of
+  critique; and **a card gives the ARGUMENT, not the position** — ten sentences is enough for a premise, a
+  conclusion and an objection, and a card that lists who held what teaches a reader to name views they
+  cannot evaluate. Two things it is worth knowing before writing a card: **thirteen of its primary texts
+  are already in Folio's Library**, eleven with their original-language column, so `card.quote` is worth
+  more here than anywhere on the site; and **a work is cited by its standard divisions** (Stephanus,
+  Bekker, A/B) rather than by the page of one translation. The next card to write is the lowest `ph-NNN`
+  not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **No card
+  has been written yet.** It ships an inert **`Philosophy` row in `COLLECTION_SECTIONS`**, on the same
+  reasoning as Psychology's `Science` row. Not part of the site.
+- `docs/biology-card-plan.md` — the **1000-card running order for the Biology collection** (`bio`):
+  every card's number, topic and deck, fixed in advance across 9 decks and **46 leaf decks, the most on
+  the shelf** — biology is the most systematically subdivided subject Folio carries and the tree mirrors
+  how it is taught. The fourteenth of the planned collections and the third that is not history; it
+  joins Psychology in the **`Science` section**, which until now held one collection. **It is NOT
+  excluded from the no-researchers rule** — unlike `psych` and `phil`, and it does not need to be, since
+  biology's content is mechanism rather than argument and a question can nearly always be clued from
+  what the thing does; only the dozen cards whose answer term IS a person or a named experiment use the
+  rule's existing exemption. **Read "Living beside the other collections" before writing anything in
+  `bio-nervous`**: this collection shares **eighteen card titles with Psychology verbatim**, twelve of
+  them in that one subdeck, the pairs are listed there with their ids, and three rules follow — write
+  the pair deliberately, write the shared glossary term ONCE (whichever collection reaches it first),
+  and know that **`bio-897` and `ps-432` are both called "Extinction" and are unrelated senses of the
+  word**, so they cannot share a glossary key. Four terms it needs already exist (`Domestication`,
+  `Boreal`, `Human_evolution`, `Genus`) and must be reused rather than re-keyed. The next card to write
+  is the lowest `bio-NNN` not yet in `data.js`; the index table under "THE SIXTEEN PLANNED
+  COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- `docs/dinosaurs-card-plan.md` — the **1000-card running order for the Dinosaurs collection**
+  (`dino`): every card's number, topic and deck, fixed in advance across 9 decks and 43 leaf decks. The
+  fifteenth of the planned collections and the fourth that is not history; it joins Psychology and
+  Biology in the **`Science` section**. **Read "Is there a thousand cards in this?" before writing
+  anything** — it is the narrowest subject on the shelf and a thousand cards is defensible only because
+  the collection is the MESOZOIC AND PALAEONTOLOGY rather than a genus list: roughly a quarter of the
+  cards name a taxon and the other three-quarters are biology, environment, method and history, with
+  100 cards (deck 2) on a Mesozoic world containing no dinosaurs at all. **The padding risk is named
+  there too** — a genus earns its slot by teaching something the group card does not. Its other
+  load-bearing rules: **the corrections are the spine** (nine deliberate what-changed cards, the
+  Psychology plan's replication pairs in another subject), **feathers are carded with their limits**
+  (`dino-460` is "Which dinosaurs had feathers", because "all of them" is as wrong as the scaly
+  monsters it replaced), **a genus card states its taxonomic standing and that it may change**, and
+  **speculation is labelled**. It follows the no-researchers rule, with `dino-history` exempt by the
+  rule's own terms. Its `COLL_THEME` comment carries a **standing note about the magenta band** — the
+  wheel's best-scoring region, now measured and rejected four times; do not re-run that sweep. The next
+  card to write is the lowest `dino-NNN` not yet in `data.js`; the index table under "THE SIXTEEN
+  PLANNED COLLECTIONS" is the lookup. **No card has been written yet.** Not part of the site.
+- `docs/korea-card-plan.md` — the **1000-card running order for the Korea collection** (`korea`): every
+  card's number, topic and deck, fixed in advance across 9 decks and 43 leaf decks. The sixteenth of the
+  planned collections, the eleventh history one, and the fifth to **create its own collection** — node,
+  tree, `COLL_THEME` hue and a new `ICON_SYMBOLS` mark (`taegeuk`) ship with the plan. **Read its five
+  scope decisions before writing anything**, of which three carry the most weight: **North Korea gets
+  thirty-five cards and is not a curiosity** (the same size as South Korea, with `ko-813`–`ko-815` and
+  `ko-819`–`ko-820` carding the evidence problem and how to read a DPRK source, so a reader meets the
+  epistemics before the claims); **four states are making accounts of their own actions here** — the
+  DPRK's official history, the ROK's older anti-communist historiography, the Japanese colonial
+  scholarship that shaped how Korean history was written for a generation, and the Chinese Northeast
+  Project — and all four are carded as accounts; and **the hardest colonial subjects are carded
+  directly**, forced labour and the comfort women system with the documented record and the range of
+  estimates, without settling the present-day dispute. Its **Sourcing section is measured rather than
+  assumed** and carries two more 200-status error documents (`jstor.org` serves a 3 KB "Client
+  Challenge"; `muse.jhu.edu` serves "Verification required!"), the finding that the recognition guide
+  has **no page for North Korea** because the United States has never recognised it, and the loss that
+  matters most — `digitalarchive.wilsoncenter.org` refuses the connection here. **Not one of its
+  thousand topics matches an existing glossary key** and there is no `Korea` term, so expect the
+  glossary to grow faster here than anywhere since Greece. The next card to write is the lowest `ko-NNN`
+  not yet in `data.js`; the index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **No card
+  has been written yet.** Not part of the site.
 - `docs/us-card-plan.md` — the **1000-card running order for the United States collection** (`col-41`):
   every card's number, topic and deck, fixed in advance across 9 decks and 33 leaf decks. The ninth of the
   planned collections, and the one that starts furthest ahead — **all 45 presidents are already cited
@@ -798,7 +890,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Not part of the site.
 - **📖 `docs/README.md` — READ BEFORE LOOKING FOR A DOC, ADDING ONE, OR SPLITTING ANYTHING OUT OF THIS
   FILE.** The index of `docs/`, and the rule the directory exists for. Every file
-  there, one line each, grouped into the wiring references, the eleven card plans, the FINISHED content
+  there, one line each, grouped into the wiring references, the sixteen card plans, the FINISHED content
   passes and the ones with work still open — so a pass that is complete can be told from one that is not
   without opening either. The rule it states is the one this whole file is arranged around: **rules live
   in `CLAUDE.md`; reasoning lives in `docs/`**, reached by an imperative `📖 … — READ BEFORE …` pointer,
@@ -1767,6 +1859,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     UNDER it**, so a collection that has lost two decks to a group stops claiming their cards. **⚠ No new
     group can be MADE** — the control was removed on request; everything a reader who already has one needs
     still works.
+  · **A LANGUAGE CAPS ITS DECKS; IT DOES NOT CASCADE TO THEM** (`langCtxLimits` / `langCtxOf` /
+    `entrySkippedToday` / the buckets in `reviewQueue`; Aug 2026, on request: "custom study, scheduling,
+    daily limits, and skip should also be options on the language collections"). **THE DRAW IS THREE
+    LEVELS DEEP NOW** — the deck, then its language, then the pooled review — because a QUANTITY handed
+    down to nine decks is nine times itself, which is the exact bug the per-deck allowances were built to
+    fix, so a container can only ever slice what its members hand up. **Its default is the SUM of its
+    members'** (the review's is the WIDEST, because the review is meant to cap a whole day and a language
+    is not), which makes an untouched container arithmetically incapable of changing what is dealt. **A
+    PENDING deck counts towards that sum** — these are an ALLOWANCE the reader sets and reads back, not a
+    forecast of today, and excluding one made a language whose decks are not downloaded read "0 new/day"
+    and then change on its own when a file landed. **Custom study is the cap run backwards and
+    needs the supply raised too** — spread across the members rather than given to each, or three rows
+    each promise five more where five will come. **SKIP AND SCHEDULING ARE POLICIES AND DO CASCADE**: two
+    states mean the same thing nine levels down, so `entrySkippedToday` is what every reader of "is this
+    sitting today out" goes through, and `sched`/`retention`/`fsrsParams` were already reaching a deck's
+    language through `entryChain`. **A GROUP still gets none of the four**, deliberately: it is an
+    arrangement holding decks from anywhere, so a figure on it would cap several collections at once from
+    a row that names none of them.
+  · **A LANGUAGE'S HEADER IS A SYNTHESISED CONTAINER, AND ITS ONE ACTION IS ITS OPTIONS** (`langCtxId`,
+    `.dk-langhead`, `data-langhead`; Aug 2026, on a bug report that holding one opened nothing). It carries
+    no `data-review` — it deals no cards — so neither of the home page's two hold-menu walks reached it, and
+    a row that answers a hold with nothing looks exactly like a row that was never meant to. It is a real
+    `role="button"` with a tab stop now and the TAP opens the sheet as well as the hold, this being the one
+    row with no session to open instead; that is also its keyboard route, a hold not being something that
+    can be typed. **It takes the GROUP's shape of the sheet** — the cascading session settings, a name, a
+    colour and an icon, never the daily allowances, which belong to something the review iterates — and its
+    last row is Remove, a language not being something that can be taken apart. **Four helpers know about
+    it and each was silent in its own way**: `entryChain` (or a switch is stored where nothing reads it),
+    `entryInfo` (or the sheet is headed `langctx:spanish`), `removeActive` (the container is not in
+    `S.active`, so the ordinary path removes nothing) and `entryExists` (without which a deck dropped on the
+    header is drawn twice, once under it and once loose). Guarded by `test-lang-decks.js` section 4.
   · **ADDING A COLLECTION ADDS EVERY DECK INSIDE IT**, removing takes the node, its subtree AND its
     ancestors, and `refreshAddButtons` re-reads every `+` on the page rather than the one pressed. **There is
     no deck cap** — the Folio level used to be one, and it was the only thing a level decided.
@@ -2341,10 +2464,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     places and fills in a moment later. **THE CITIES THIN WITH ZOOM, and that was found by LOOKING**: all
     2,665 drawn at once cover Europe and North Africa in a grey rash at the opening 50° view and bury the
     red marks that are the point — so the 216 capitals show always, the 392 million-plus cities once the
-    frame is a region, and the 2,057 division capitals only at a country or less. **A river is NAMED only
-    where it is itself a card in the collection**, which is what was asked for and the only thing that
-    keeps the map readable — though **no shipped card's answer is a named river yet**, and Natural Earth's
-    set has no Tiber, Rubicon, Eurotas or Alpheus, so that rule waits for a Nile or Euphrates card.
+    frame is a region, and the 2,057 division capitals only at a country or less. **A RIVER IS DRAWN AT ALL
+    ONLY WHERE IT IS ITSELF A CARD IN THE COLLECTION** (Aug 2026, on a bug report: "Rivers look very
+    strange with long straight lines … remove all Rivers for now except the ones which appear specifically
+    as cards, e.g. Tiber"). It used to draw all 1,073 and NAME only the carded ones, and two different
+    things were wrong with that. The straight lines were a real fault and are fixed rather than hidden:
+    **`addRing` closed every path**, and a river is a POLYLINE, so closing one drew its mouth back to its
+    source across a continent — it now takes a `close` flag, `false` for a river, which is the flag the
+    Atlas has always passed its own `addClipped`. The rest is a judgement about what a locator is FOR: the
+    map exists to place ONE thing, and a thousand blue threads through it are texture that buries the marks
+    that mean something. **So `sib.terms` now chooses the rivers as well as their labels, and today that
+    means NO river is drawn anywhere** — no shipped card's answer is one. **Natural Earth labels a river in
+    the language of the country it runs through**, which is why the match also reads the term's GLOSSARY
+    ALIASES: the Tiber is in `rivers.js` as `Tevere` (the Danube also as `Donau`, the Yangtze as `Chang
+    Jiang`), so a Tiber card puts its river on the map by carrying `Tevere` as an alias on the paired
+    glossary term — and one that does not, visibly does not.
+    **AND THE SIBLING DOTS ARE NAMED** (Aug 2026, on the same report: "the other dots don't have their
+    labels"). They went up bare, which made them decoration rather than information on a map whose whole
+    job is to say where. A sibling's name gives nothing away — `locatorSiblings` excludes the card itself —
+    so unlike the card's own label it is drawn BEFORE the reveal. They are **de-collided first-come**, the
+    Atlas's city rule in the form this window can afford, with the card's own dot and label reserved first,
+    and set at the river labels' 11px/500 rather than the answer's 13px/600, so the card's own place still
+    reads as the subject: at the opening 50° view about seven of Ancient Greece's 55 are named and zooming
+    in frees the rest. **Fewer names, each readable, beats every name in a heap.**
     `_locSibCache` is declared beside `uCacheBust` rather than beside its own function, for the temporal
     dead zone's reason. Guarded by `.claude/test-card-locator.js`.
   **📖 `docs/map-cards.md` — READ BEFORE CHANGING ANY OF IT.** Why the globe is drawn here rather than by
@@ -2775,8 +2917,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   named in `COLLECTION_SECTION` is neither dragged nor dropped onto, because that order decides a
   collection's place WITHIN its section and nothing there decides which section it is in — so such a drag
   could only ever appear to do nothing, the row being re-ordered in the tree and re-drawn exactly where it
-  was. Reordering History, and moving a collection to and from Coming soon, are untouched.
-  **"Coming soon" is a `<details>` disclosure**
+  was. Reordering History, and moving a collection to and from Planned, are untouched.
+  **THE SECTION IS CALLED "PLANNED"** (Aug 2026, on request; it was "Coming soon"), and so is the status
+  pill on every row in it — the pill IS the section's marker on a row, so leaving it saying "Coming soon"
+  under a "Planned" heading would be two names for one status. **The INTERNAL names are deliberately
+  unchanged** — `isComingSoon`, `setNodeSoon`, the `soon` flag, `.collection-group-soon`, `.pill.soon`
+  and `ADMIN_EDITS.tree.soon` — for the reason the Library-to-Collections rename kept its route: a label
+  is what a reader sees and a class is what five test files and the admin drag name. So **"coming-soon"
+  survives in this file and in the code as the name of the STATE**, and "Planned" is what is on screen.
+  The phrase also survives elsewhere on purpose: the minigames' empty placards and the home page's
+  "More games" tile say "Coming soon" about a different thing.
+  **It is a `<details>` disclosure**
   (`.collection-group-soon`), **collapsed for everyone, admins included** (Aug 2026, on request — it used to open
   itself for an admin so the library's drag-and-drop had its drop targets reachable, which meant the one person who
   opens this page most often always met it expanded; an admin moving a collection between the groups opens the fold
@@ -2786,7 +2937,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **THE DRAG HANDLE IS VISIBLE AT REST** (`.lib-grip`, Aug 2026, on a report that admin reordering had
   stopped working there). It had NOT: every row rendered its grip and carried `draggable="true"` the whole
   time — the grip sat at `opacity:0` until the row was hovered, so on a live collection there was nothing
-  to reach for, while a **Coming soon** row showed its own at rest as a side effect of the overrides that
+  to reach for, while a **Planned** row showed its own at rest as a side effect of the overrides that
   compensate for that group's `filter:opacity(.5)`. So the one place it looked like a feature was the one
   place it was an accident. It is `.32` at rest and `.6` on hover now. **A discoverability fault reads
   exactly like a broken feature** — check whether the affordance is on the page before looking for the
@@ -3467,7 +3618,14 @@ people who DUG the past up; it binds equally on the people who ARGUE about it. A
 term's history — not about the modern debate over that history — and the two go wrong in the same way, by
 teaching a reader the state of a scholarly literature instead of the past that literature is about. Two
 parts, and the first is absolute:
-- **A QUESTION MAY NEVER NAME A RESEARCHER OR SCHOLAR.** Not "Hans van Wees calls…", not "Lambert argues
+- **A QUESTION MAY NEVER NAME A RESEARCHER OR SCHOLAR — IN A HISTORY COLLECTION.** **`psych` is
+  EXCLUDED from this rule outright (on request, Aug 2026), and so is `phil`**, because in psychology and
+  philosophy the literature IS the subject matter: a finding is a study, an argument carries its author's
+  name, and both disciplines are mostly "modern" by this rule's own measure, so applying it would make
+  most of those two collections unwriteable. Their questions may name anybody, and `card-focus.js`'s
+  flags on a `ps-` or `ph-` card are noise rather than findings — do NOT clear them one at a time through
+  `EXEMPT`; the exclusion is collection-wide and is recorded here and in each plan. **The historiography
+  cap below still binds on both.** Everywhere else the rule is absolute: not "Hans van Wees calls…", not "Lambert argues
   that…", not "Evans noted in a footnote…". A clue built on who said a thing is answerable by someone who
   knows the modern literature and nothing whatever about Greece, which is the exact inversion of what a
   study card is for. **Naming the THEORY is fine and often better** — "the older view that they were
@@ -3549,7 +3707,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE ELEVEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE SIXTEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -3568,6 +3726,11 @@ lookup.
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
+| Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | empty — not a history collection |
+| Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
+| Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | empty — not a history collection |
+| Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
+| Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
 
 The next id for any of them (substitute the prefix):
@@ -4508,7 +4671,7 @@ dead code (never rendered).
   · `node .claude/test-a11y.js` — the accessibility floor (Aug 2026), and every one of its three passes
     covers something that fails SILENTLY. **Re-run after touching a control's markup, `body.hc`, or any
     theme's colour tokens.**
-  · `node .claude/test-card-plans.js` — 150 assertions on **the join between the eleven card plans and
+  · `node .claude/test-card-plans.js` — 202 assertions on **the join between the sixteen card plans and
     `data.js`**, which is what makes "generate the next `<collection>` card" work. **Re-run after editing
     a plan, after changing a tree in `data.js`, and after adding a collection.**
   · `node .claude/test-daily-quote.js` — 7 assertions on the home page's daily-quote running order: it
@@ -4632,7 +4795,13 @@ dead code (never rendered).
     `wireLangDecks` / `entryPending` / `langDeckDownload` / `langCatalogById` / `langCatalogNode` / the
     `.dk-pending` row in `PAGES.home` / `cardBytes` / `nodeBytes` / `fmtDeckSize` / `.node-size` /
     `buildNode`'s `nodeSpanHTML` / the `lang-*` rows of `COLL_THEME` / `.claude/build-lang-decks.js`, and
-    after adding, rebuilding or removing a deck in `decks/`.**
+    after adding, rebuilding or removing a deck in `decks/`. Section 4 covers the LANGUAGE HEADER's own
+    options sheet, so re-run it after touching `langCtxId` / `langCtxName` / `langCtxEntries` / the
+    `.dk-langhead` row and its `data-langhead` wiring / `entryExists` / `entryInfo` / `entryChain` /
+    `entryHasSpeech` / `containerHasChildren` / `removeActive` / `openDeckMenu`'s container branch, and
+    section 4b the ALLOWANCE rows — re-run it after touching `langCtxLimits` / `langCtxOf` /
+    `entrySkippedToday` / `bumpDeckExtra` / `deckLimits` / `entryPiles` / `entryNoun` / the buckets in
+    `reviewQueue` / `openDeckLimits` / `openCustomStudy` / `openDeckSched`.**
   · `node .claude/test-reset.js` — **Settings → Danger zone → Reset progress, and who the home page
     thinks you are** (21 assertions, Aug 2026). **Re-run after touching `resetProgress` / `RESET_KEEPS` /
     `PROGRESS_FIELDS` / `emptyProgress`, the home page's `fresh`, or the Settings reset row.**

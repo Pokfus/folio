@@ -35,22 +35,26 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.348", released: "2026-08-28T10:45Z" };
+window.FOLIO_VERSION = { v: "1.348", released: "2026-08-28T10:52Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-28",
-    t: "The Ancient Egypt deck is finished, at thirty cards",
+    t: "Two more collections, and Coming soon becomes Planned",
     items: [
-      "Eight citations in the <b>World History</b> collection named an author wrongly; all are corrected.",
       "Twenty-three new cards in <b>World History</b>, each with a new glossary term, finishing the <b>Ancient Egypt</b> deck at thirty cards and opening <b>The Indus and early China</b>.",
+      "Eight citations in the <b>World History</b> collection named an author wrongly; all are corrected.",
+      "<b>Dinosaurs and Korea have joined the collections</b>, each planned at a thousand cards across nine decks and still to be written.",
+      "<b>The \u201cComing soon\u201d section is now called Planned</b>, on the Collections page and on the label each of its rows carries.",
+      "<b>A language in your daily study now opens its own options</b> when you hold it \u2014 its colour, its icon, its name, its daily limits and how its decks are scheduled.",
+      "<b>A whole language can now be capped, given extra cards or sat out for the day</b>, and the cap holds however many of its decks you have added.",
     ],
   },
   {
     d: "2026-08-27",
     t: "The Reliquary gets a page, and the deck list an editor",
     items: [
-      "<b>A card\u2019s locator map now shows the rest of its collection</b> as red dots, with the world\u2019s capitals, big cities and rivers around them.",
+      "<b>A card\u2019s locator map now shows the rest of its collection</b> as named red dots, with the world\u2019s capitals and big cities around them.",
       "<b>A card can now quote the book it cites</b>, set between the two halves of its background, with a button that opens that book at the passage.",
       "<b>The word-list decks now read the article out</b> with the noun \u2014 3,674 French and Italian cards said \u201Cf\u00E9vrier\u201D where the card showed \u201Cle f\u00E9vrier\u201D.",
       "A link to a book can now name a section, so a shared address opens where you meant it to.",
@@ -68,6 +72,7 @@ window.CHANGELOG = [
       "<b>Four glossary terms were removed</b> \u2014 wheel, burial, village and city \u2014 and two links no longer fire on the wrong word.",
       "Ninety-five more glossary terms, covering the Bronze and Iron Age periods, the Minoan, Helladic and Trojan divisions, the Aegean\u2019s excavators and sites, and the Archaic period of North America.",
       "Six new cards, one in the <b>Ancient Greece</b> deck and five in <b>World History</b>, each with a new glossary term.",
+      "<b>Psychology, Philosophy and Biology have joined the collections</b>, each planned out at a thousand cards across nine decks and still to be written.",
       "<b>A hundred and ten Mandarin readings were put right</b> — 饭馆 read “fàng uǎn” where it should read “fàn guǎn”, and twenty-eight more had a consonant on the wrong side of the gap.",
       "<b>Nearly two thousand language cards showed the same example sentence twice</b> and now show it once.",
       "<b>Five language words had the wrong meaning</b> — Portuguese <i>estou</i> said “hallo, answering the telephone” where it means “I am”.",
