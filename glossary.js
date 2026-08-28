@@ -1273,7 +1273,8 @@ window.GLOSSARY = {
 "Decline_of_the_Indus_civilisation": "The decline of the Indus civilisation is the contraction of its cities and its exchange network after about 1900 BCE, through the Late Harappan phase to about 1300 BCE, when the interaction sphere retracted, urban centres lost population and agrarian village life took over.<sup class=\"fn\" data-fn=\"2\"></sup> Settlement moved from many small sites around a few large centres to a de-nucleated pattern, and in parts of north-western India the density of sites may have risen.<sup class=\"fn\" data-fn=\"3\"></sup> No single cause is agreed, though an increase in drought episodes from about 4,200 years ago is the explanation most often made.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Indo-Aryan_migrations": "The Indo-Aryan migrations are the movements that carried Indo-European speech into the Indian subcontinent, a late event of the middle to late Bronze Age.<sup class=\"fn\" data-fn=\"3\"></sup> Ancient DNA from 523 individuals finds no steppe pastoralist ancestry at the Bactria-Margiana sites of Central Asia before 2100 BCE, and places that ancestry in the Swat valley further south in the first half of the 2nd millennium BCE, where it now makes up as much as 30 per cent of the ancestry of some groups.<sup class=\"fn\" data-fn=\"1\"></sup> An individual of the Indus civilisation carries little if any of it, the influx was strongly male-driven, and how much immigration took place remains contested.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Vedic_period": "The Vedic period is the age of the Sanskrit texts called the Vedas, which follows the Indus civilisation in northern South Asia and is named for a body of literature rather than for any state.<sup class=\"fn\" data-fn=\"1\"></sup> Three literary strata are distinguished within it: the four Vedas, collections of hymns and prayers made chiefly to accompany the pressing of soma and the offering of melted butter, then the Brahmanas, then the Sutras.<sup class=\"fn\" data-fn=\"1\"></sup> Its earlier half centred on the Punjab and its later half on the valley of the Ganges, and its language, Vedic Sanskrit, is the oldest recorded stage of Indo-Aryan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Rigveda": "The Rigveda is the oldest of the four Vedas and the oldest surviving book of the Indian subcontinent, a collection of hymns in Vedic Sanskrit.<sup class=\"fn\" data-fn=\"1\"></sup> The surviving Shakala recension holds 1,017 hymns, or 1,028 counting the eleven Valakhilya hymns inserted in the eighth book, grouped in ten books called mandalas; books 2 to 7 are family books, each handed down within the family of seers that made it, while every hymn of the ninth is addressed to Soma.<sup class=\"fn\" data-fn=\"1\"></sup> About 250 hymns celebrate Indra and at least 200 Agni, the fire of the sacrifice.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Rigveda": "The Rigveda is the oldest of the four Vedas and the oldest surviving book of the Indian subcontinent, a collection of hymns in Vedic Sanskrit.<sup class=\"fn\" data-fn=\"1\"></sup> The surviving Shakala recension holds 1,017 hymns, or 1,028 counting the eleven Valakhilya hymns inserted in the eighth book, grouped in ten books called mandalas; books 2 to 7 are family books, each handed down within the family of seers that made it, while every hymn of the ninth is addressed to Soma.<sup class=\"fn\" data-fn=\"1\"></sup> About 250 hymns celebrate Indra and at least 200 Agni, the fire of the sacrifice.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Sanskrit": "Sanskrit is the classical language of the Indian subcontinent, its name, samskrita, meaning literally 'put together', so 'refined', and set against the Prakrits, the popular dialects.<sup class=\"fn\" data-fn=\"1\"></sup> Vedic Sanskrit is the oldest recorded stage of Indo-Aryan, from which Middle Indo-Aryan and then the modern languages of northern South Asia descend, and its alphabet, worked out on phonetic principles, has not been altered since it was settled.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Panini's grammar, of about the 4th century BCE, casts it into some four thousand rules written like algebraic formulae in which brevity alone is sought, and it superseded every predecessor and shaped the whole later literature.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1906,7 +1907,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Decline_of_the_Indus_civilisation": "c. 1900 – 1300 BCE",
 "Indo-Aryan_migrations": "c. 2000 – 1500 BCE",
 "Vedic_period": "c. 1500 – 500 BCE",
-"Rigveda": "c. 1500 – 1000 BCE"
+"Rigveda": "c. 1500 – 1000 BCE",
+"Sanskrit": "from c. 1500 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4081,7 +4083,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Decline_of_the_Indus_civilisation": ["event","history","archaeology","bronze age","climate"],
 "Indo-Aryan_migrations": ["event","history","genetics","migration","bronze age"],
 "Vedic_period": ["era","history","literature","language","religion"],
-"Rigveda": ["text","history","literature","language","religion"]
+"Rigveda": ["text","history","literature","language","religion"],
+"Sanskrit": ["concept","history","language","literature","india"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
