@@ -17,13 +17,14 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
 `geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
 Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New Jersey, `geo-019`
-Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-501` Sacramento,
-`geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506`
+Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023` Washington,
+`geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506`
 Honolulu, `geo-507` Lansing, `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
-City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton and `geo-519` Boston.**
-Both subdecks are worked down the same list, so the next state is `geo-023` and the next capital
-`geo-520`.
+City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston and
+`geo-520` Columbus.**
+Both subdecks are worked down the same list, so the next state is `geo-024` and the next capital
+`geo-521`.
 
 ---
 
@@ -50,8 +51,10 @@ uninhabited atoll. The eight main islands alone span 5.06° and fit at 13.55; `"
 LOOKING at 8, 11 and 14 side by side, and at 14 every island from Kauaʻi to the Big Island is separately
 legible. **The shape a reader is asked to recognise is the main chain**, and nothing is hidden by the
 choice — the − button and pinch both zoom out to the rest, and the answer's facts box gives the whole
-state's 28,313 km². Expect the same question at `geo-023` Washington, which has no such tail, and NOT at
-`geo-005` Alaska: the Aleutians cross the antimeridian, which the near-rings rule already handles.
+state's 28,313 km². The same question was expected at `geo-023` Washington and did not arise — its San
+Juan islands sit inside the mainland's own frame, so the automatic fit needed no override — and it does
+not arise at `geo-005` Alaska either: the Aleutians cross the antimeridian, which the near-rings rule
+already handles.
 
 **A CAPITAL CARD INHERITS ITS STATE'S `zoom`.** `geo-506` Honolulu carries `"zoom": 14` for the reason
 `geo-006` Hawaii does — without it the dot sits on an archipelago drawn a seventh of its useful size —
@@ -518,6 +521,18 @@ terms that already exist**. Each was measured, and none should be settled quietl
   must **not** claim the bare surface: `buildGlossIndex` gives a surface to its first claimant, and Greek
   prose saying "Olympia" means the sanctuary. The card itself is unaffected — a card never auto-links its
   own answer term.
+  **IT BIT AT `geo-023`, WHICH IS THE STATE CARD AND NOT THE CAPITAL ONE.** Every state card and every
+  state glossary term names its capital in its first sentence, so "its capital at Olympia" linked to a
+  sanctuary in the Peloponnese. Measured, the surface runs **31 uses and 29 are the sanctuary** (twenty
+  Greece cards and nine glossary terms), so the key stays where it is and neither the divided-surface
+  rule nor a rekey applies — the two Washington uses are the strangers. **The fix is that a Washington
+  text does not name its capital in PROSE**: `autoLinkGlossary` runs on the abstract alone, so the card
+  keeps `["Capital","Olympia"]` in its facts box, unlinked and in plain sight, and the glossary term
+  simply omits it, being the one state term on the shelf that cannot say where its government sits.
+  Two things follow for `geo-547`. The capital card is safe, its own answer term seeding the `linked`
+  set. And `ADMIN_EDITS.glossOff` — the per-card list of keys to leave un-linked — **is not a way out**:
+  it is an admin-overlay delta rather than a card field, so nothing in the content pipeline can write it
+  and the overlay-hygiene rule says content must not live there.
 - **`Georgia` is an ALIAS of `Georgia_(country)`.** So the bare word resolves to the country everywhere,
   including in a card about the state. This is the fault CLAUDE.md already records from batch N7 — *an alias
   list written before the sibling term existed will contain the sibling's name, and will be wrong the day
@@ -680,6 +695,20 @@ terms that already exist**. Each was measured, and none should be settled quietl
   One link was considered and kept: `geo-022`'s "the French in the **Ohio** valley" of 1753 resolves to
   `Ohio`, and the state did not exist until 1803 — but the valley is the river country the state is
   named for, which is the round-15 test, and it is the `Massachusetts Bay colony` case again.
+
+- **`Washington_(state)` AND `Columbus_(Ohio)` ARE THE FIFTH AND SIXTH PARENTHETICALS, and the second
+  of them is the first key disambiguated against a PERSON.** "Washington" measures 24 uses and only two
+  are the state (`wh-102` and `Clovis_point`, both writing "Washington state"); the rest are George
+  Washington, the federal city, the government and two universities. "Columbus" measures four and
+  divides evenly — two the Ohio city (`geo-020`, the `Ohio` term) and two Christopher Columbus (the
+  `Cuba` and `The_Bahamas` terms) — which is the divided-surface rule at its smallest sample and still
+  the right answer, since a reader meeting "Columbus" in a sentence about the Caribbean must not be
+  handed a city in Ohio. Neither key claims its bare name.
+  **The round also shows the earlier-mention technique working on a REGION name**: "the Pacific
+  Northwest" linked "Pacific" to `Pacific_Ocean`, which is the `Gold Hill` shape a sentence later, and
+  the fix was to give the ocean its own true mention first — Heceta in 1775 "was swept back out into
+  the Pacific" — so the correct link fires and the region name is skipped. That is better than cutting
+  the phrase: the card gains a link it should have had.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
