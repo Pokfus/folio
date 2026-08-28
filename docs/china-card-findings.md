@@ -2265,3 +2265,31 @@ so it is the way to discover the list rather than guess at it — and a file wit
   **`Di` WAS DROPPED AS AN ALIAS BEFORE IT SHIPPED.** A two-letter surface matches on word boundaries, so
 it would have auto-linked the `Di` of Di Xin and Di Ku — the one-word-term trap the house rules name,
 caught in draft this time rather than by a reader.
+
+  **`cnh-078` HAD THE MOST SPENT GROUND OF ANY CARD IN THIS RUN, AND THE WAY THROUGH WAS THE PAPER THAT
+DISAGREES WITH THE FIELD.** Ancestors had already been described from five sides — `cnh-072` took the
+divination mechanics, the day-name rule, the five-rite cycle and the dead keeping power over the living;
+`cnh-074` the consorts' place in the ritual round; `cnh-076` the king's monopoly of approach; `cnh-077`
+the ancestors as intermediaries and their grading by age. What was left is Jaffe and Campbell's own
+argument rather than the literature they survey: **far fewer cattle lie in the sacrificial pits than the
+inscriptions record being offered, and the likeliest answer is that the living ate them**, at feasts that
+went with the sacrifice. One head of cattle yields over 200 kg of meat; cattle had passed pigs in dietary
+importance even in ordinary quarters at Anyang by the late phases, and had overtaken human captives in
+royal sacrificial importance by the end of the period. **When a subject has been carded from every angle,
+look for the paper arguing the field has the subject wrong.**
+  **THE PICTURE FORCED A SENTENCE BACK INTO THE CARD, WHICH IS THE RIGHT DIRECTION.** A draft traded the
+"fermented drink in beakers of its own" clause for a Lopes claim about vessels and jades, and the picture
+that then fitted best — a Cleveland Museum <i>jue</i>, a three-legged libation cup — would have
+illustrated something the card no longer said. The clause went back with `fix-field.js` and both claims
+now stand. **A caption that describes what the prose does not is a quiet mismatch**; the fix is usually
+to restore the prose, not to reword the caption.
+  **A CITATION HAD TO BE FOUND FOR A SOURCE, NOT THE OTHER WAY ROUND.** Restructuring the abstract left
+Lopes unreferenced and `add-card.js` refused the card — the guard doing exactly its job. The claim that
+answered it is real and useful (under the Shang the bronze vessels and jades were tied to communicating
+with the ancestral spirits and to little else, which is the Zhou-side observation read backwards), but
+the order of work is worth noting: **draft the markers before the sentences settle**, or a late edit
+orphans a work and the refusal arrives after the prose is finished.
+  **ITS `historio` IS 0 OF 10**, the first card in this run to score nothing at all, and not by avoiding
+argument — the whole second half rests on a contested reading. Writing "the likeliest answer is" and "read
+not as impoverishment but as" keeps the claim in the past tense of the Shang rather than in the present
+tense of the seminar room.

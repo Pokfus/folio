@@ -1289,7 +1289,8 @@ window.GLOSSARY = {
 "Fu_Hao": "<b>Fu Hao</b> is a consort of the Shang king Wu Ding, known first from the oracle bones of about 1200 BCE and afterwards from her own grave at Anyang in China.<sup class=\"fn\" data-fn=\"1\"></sup> That order is unusual, an individual named in a record of the 2nd millennium BCE and then met in the ground being rare; the inscriptions show women of her rank overseeing territorial domains and leading troops.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Her grave is the only intact top royal burial yet excavated at the site, holding something like 1.6 tonnes of metal, though she was one of several royal consorts and not the most important person buried there.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Tomb_of_Fu_Hao": "<b>tomb of Fu Hao</b> is burial M5 at Xiaotun in Anyang, China, the grave of a consort of the Shang king Wu Ding, lying away from the royal cemetery at Xibeigang and small beside its graves.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It held about 1,500 objects, among them weapons, bells, blades, mirrors, bronze tigers and a great quantity of jade, some of it made by Neolithic cultures and already ancient when it was buried.<sup class=\"fn\" data-fn=\"1\"></sup> Neither the count nor the name is settled, since one study gives 468 bronzes and another 210, the two almost certainly counting different things, and several scholars read the owner’s graph as Zi rather than Hao.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Shang_kingship": "<b>Shang kingship</b> is the authority the Shang king held over the ruling house, its armies and the rites owed to the royal dead, power passing from a king to his brothers or his sons.<sup class=\"fn\" data-fn=\"1\"></sup> The king stood at the head of a society ordered by kinship, leading its apex lineage rather than holding an office over subjects, and what raised him above every other head of a family was his monopoly of approach to the royal ancestors.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His delegates were mostly princes graded by military or official rank, and the emblems on their bronzes have lately been re-read as the names of some 70 government offices.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Shangdi": "<b>Shangdi</b> is the high god of the Shang, a name meaning 'High Sovereign', known first from the oracle-bone inscriptions, where he is sovereign over the natural world and over the ancestral spirits.<sup class=\"fn\" data-fn=\"1\"></sup> He granted the rain a crop needed and held a river's flood short of ruin, but stood so far from the living that no one could approach him directly, a request being laid before the ancestors to carry up.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The king alone could receive his spirit and rule as his surrogate, though whether Di was a single god is unsettled, the graph being used of heads of lineages in the plural.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Shangdi": "<b>Shangdi</b> is the high god of the Shang, a name meaning 'High Sovereign', known first from the oracle-bone inscriptions, where he is sovereign over the natural world and over the ancestral spirits.<sup class=\"fn\" data-fn=\"1\"></sup> He granted the rain a crop needed and held a river's flood short of ruin, but stood so far from the living that no one could approach him directly, a request being laid before the ancestors to carry up.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The king alone could receive his spirit and rule as his surrogate, though whether Di was a single god is unsettled, the graph being used of heads of lineages in the plural.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Shang_ancestor_worship": "<b>Shang ancestor worship</b> is the cult the Shang paid to their own dead, held to have belonged to people of every rank, its work being to make the dead into proper ancestors who would then guide the nature powers and the high god.<sup class=\"fn\" data-fn=\"1\"></sup> It took several forms at once, among them burials, sacrificial pits, architecture, writing and feasting, and the rites ran on a calendar addressed to high ancestors, dead rulers and consort queens alike.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Cattle were its chief offering, and since far fewer lie in the pits than the inscriptions record being given, the living seem to have eaten them at the feast.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2811,7 +2812,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Fu_Hao": ["Fuhao"],
 "Tomb_of_Fu_Hao": ["Fu Hao's tomb","burial M5","Anyang M5"],
 "Shang_kingship": ["Shang king","kingship of the Shang"],
-"Shangdi": ["Shang Di"]
+"Shangdi": ["Shang Di"],
+"Shang_ancestor_worship": ["Shang ancestor cult"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4126,7 +4128,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Fu_Hao": ["person","history","archaeology","china","bronze age"],
 "Tomb_of_Fu_Hao": ["place","archaeology","history","china","bronze age"],
 "Shang_kingship": ["institution","history","china","bronze age","politics"],
-"Shangdi": ["deity","religion","history","china","bronze age"]
+"Shangdi": ["deity","religion","history","china","bronze age"],
+"Shang_ancestor_worship": ["practice","religion","history","china","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
