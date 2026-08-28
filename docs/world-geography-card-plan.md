@@ -26,15 +26,15 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria) **and capitals
+Austria, Belarus, Switzerland) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-751` Dar es
-Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-099` Belarus and the
-next capital is `gw-541` Kyiv.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-101` Sierra
+Leone and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -915,6 +915,41 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 33 (Belarus, Switzerland, Kyiv) closes the first hundred countries, and its finding is that the
+UN MEMBERSHIP DATE is the single most misread field in the whole recipe.** C3 recorded the first form of
+this — the Soviet founding republics show 24 October 1945, so the field dates the USSR's seat rather than
+the 1991 independence — and C9 recorded the second, the Cold War admission deadlocks that put Mauritania
+at 1961 against independence in 1960 and Libya at 1955 against 1951. **Switzerland is the third and
+opposite form: a state that was independent for centuries and simply did not apply until 2002.** Its field
+reads 10 September 2002, and the letter of application, from the president and chancellor of the Swiss
+Confederation on behalf of the Federal Council, is dated 20 June 2002 (**A/56/1009–S/2002/801**, record
+469401, circulated 24 July); the admission is **A/RES/57/1**, record 473420. So the field can sit **either
+side** of an independence by half a century, and the rule is simply: **the UN membership date dates a
+seat, never a state.** Belarus is the same page read the other way — a member from 24 October 1945 while
+its government answered to Moscow, and recognised by the United States only on 25 December 1991, so its
+seat precedes its recognition by 46 years.
+
+Two source notes. **The WTO's `countries_e/<slug>_e.htm` page does not exist for a state that is still
+acceding**, so Belarus's status is at `acc_e/a1_belarus_e.htm` instead, which gives the date its working
+party was established (27 October 1993) and nothing else — a citable fact about a process that has now
+been open for more than thirty years. And **`EN.URB.LCTY` earns its second use immediately**: for
+Switzerland it gives about 1.46 million against the roughly 426,000 UNdata records for Bern, because the
+largest city is not the capital. That is the indicator's real value here — not corroboration but a check
+on whether the capital IS the largest city, which the collection has silently assumed everywhere.
+
+One correction: **`Switzerland` 8.9 → 9 million.** UNdata gives 8,967 thousand and the World Bank
+9,092,436, so the term sat below both, and the World Bank series shows 8.89 million in 2023 — C8's stale
+figure, not a contested one. The term now cites the World Bank alongside UNdata.
+
+And one gap recorded rather than papered over. **The `Kyiv` term ships WITHOUT a picture**, and the reason
+is access rather than absence: the right file exists and was identified — *Perchersk Lavra, Kyiv
+Panorama.jpg*, an 1889 photograph from the National Gallery of Art library, public domain, 1000×688, well
+proportioned for the popup's 150px slot — but `upload.wikimedia.org` returned **429 to every raster
+request** throughout the batch, including the Luanda file verified 200 an hour earlier, while both flag
+SVGs went through. That is batch 23's finding still holding: **SVG passes and raster does not, whatever
+the path.** Nothing is installed that has not been seen to return 200, so the term waits; when the
+throttle lifts it is one `add-images.js` batch.
 
 **Batch 32 (Israel, Hungary, Austria, Luanda) corrected NOTHING — all four sets of figures were already
 inside the spread of their two sources — and its finding is that the DOCUMENTARY TRAIL of a UN admission
