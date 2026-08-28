@@ -1976,3 +1976,33 @@ person-or-book name, which is right, and the fix is italics — but a date-line 
 and `desc` are rendered escaped, so no tag can reach them. The date row became `Chapter · 3, of 130` and
 the caption "Sima Qian's history" instead. **In an escaped field, name the work by description rather
 than by title.**
+
+  **`cnh-068` HAD TO BE WRITTEN AROUND `cnh-058`, WHICH HAD ALREADY SPENT THE CONQUEST.** Jie of Xia
+took the Terrace of Xia imprisonment, the Speech of Tang and its argument with Tang's own reluctant
+people, the sun curse and the flight to Mingtiao — which is most of what a founder's card would
+naturally open with. What was left, and is better, is **Tang through his sayings and his minister**: the
+net drawn on all four sides of a plain and three sides taken away, the line about looking into water to
+see a face and at the people to know a government, and Yi Yin in two incompatible versions. **When the
+neighbouring card has already told the battle, tell the man.**
+  **THE CARD'S BEST PAIR IS A SOURCE CONTRADICTING ITSELF AND AN ANCIENT READER SAYING SO.** Sima Qian
+gives Yi Yin reaching Tang by taking service in a bride's household and talking his way from savoury
+flavours to government, and then immediately gives a second version in which Tang sent for him five
+times — and Mencius, in Legge's translation, denies the first outright: *I have heard that Yi Yin sought
+an introduction to Tang by the doctrines of Yao and Shun. I have not heard that he did so by his
+knowledge of cookery.* **Where a source prints two versions of one story, the card can print both and
+say who rejected which**, which is more honest than choosing and costs two sentences.
+  **`check-style` NOW REPORTS TWO FINDINGS ON `data.js` AND BOTH ARE CORRECT AS THEY STAND.** Rule 1
+reads `Mencius` as an ambiguous person-or-book name; here it is the philosopher, and the house rule says
+such a name is italicised only when it is clearly the text. The check is report-only and exits 0 — it
+says "fix by hand", and the hand's answer is no. **Do not italicise these two; that would render the man
+as a book.**
+  **THE PICTURE SUGGESTIONS WERE ALL THE WRONG TANG.** Every one of `add-card.js`'s five candidates was
+the Tang DYNASTY of the 7th–10th centuries CE — a funerary figurine, a camel, a 19th-century painter, a
+calligraphy copy — which is the "right name, wrong subject" trap at its purest, and a search on the
+answer string alone can never avoid it. Searching `King Tang of Shang` by hand found two real portraits:
+Ma Lin's Song hanging scroll (National Palace Museum) at 9759 × 21459, which `object-fit:contain` would
+letterbox into a thin vertical strip inside the card's 16:9 frame, and the Philadelphia Museum's album
+leaf at 2616 × 3876, which fits. **Check the aspect ratio as well as the subject** — the frame is
+16:9 and contains rather than crops, so a scroll is technically fine and visually useless. The caption
+says what the museum's own record says, that the leaf is of the 19th or early 20th century, which puts
+three and a half thousand years between the portrait and the reign.
