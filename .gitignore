@@ -99,3 +99,6 @@ decks/German-All-Levels.folio-deck.json
 decks/Italian-All-Levels.folio-deck.json
 decks/Mandarin-All-Levels.folio-deck.json
 decks/Spanish-All-Levels.folio-deck.json
+
+# .claude/check-citations.js Crossref answers (regenerated on demand)
+.claude/.crossref-cache.json

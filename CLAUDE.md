@@ -867,6 +867,27 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   blank — and is still held to the first two. It deliberately does NOT check that a question names its
   topic's most important aspect: that is a judgement no checker can make, and it is stated here and read
   by eye. Not part of the site.
+- `.claude/check-citations.js` — **every citation's AUTHOR NAMES and YEAR, against Crossref**:
+  `node .claude/check-citations.js [--prefix=wh-] [--card=] [--term=] [--artefacts] [--verbose]`, exit 1
+  on a mismatch. **RUN IT BEFORE WRITING A CARD'S JSON, NOT AFTER** — as an audit afterwards it let eight
+  bad citations ship across four cards in one week. It exists because **Europe PMC returns author lists as
+  INITIALS** ("Liu C, Sainsbury V", "Ding K, Li S, Lu H") and a Chicago note wants full given names:
+  expanding them by hand produces names that read perfectly and are wrong — Chunlin Liu for **Cheng Liu**,
+  Vanessa Sainsbury for **Victoria Sainsbury**, Shuo Li for **Siyang Li**, Huayu Lu for **Houyuan Lu**. A
+  DOI composed from the shape of a publisher's identifier fails the same way and is caught too, Crossref
+  simply having no record. **Nothing else in the pipeline can see this**: `add-card.js` checks a citation
+  ENDS IN A URL, `source-audit.js` counts them, `add-sources.js` checks the markers — all of them pass a
+  citation whose author never wrote it, and so does a reader, the name being plausible and the DOI real.
+  · **It reports in TWO TIERS and the second is the point.** A **mismatch** is a differing SURNAME, or a
+    full given name differing from a full given name — an error, exit 1. **"To check by eye"** is a
+    citation spelling out a name Crossref only abbreviates: that cannot be verified from here at all, and
+    it is exactly where a fabricated given name hides. Diacritics, spacing and the periods after initials
+    are folded away, so `Éric Boëda` and `Eric Boëda` are one name and only real differences are reported.
+  · **A citation with no DOI and no PMC id is UNCHECKED, never "ok"** — an out-of-copyright book on
+    archive.org has no record to check against, and saying it passed would be the checker lying.
+  Needs the network; with none it says so and exits 0 rather than failing a build for a fact it could not
+  check. Answers are cached in `.claude/.crossref-cache.json` (gitignored); `--refresh` throws it away.
+  Not part of the site.
 - **📖 `docs/README.md` — READ BEFORE LOOKING FOR A DOC, ADDING ONE, OR SPLITTING ANYTHING OUT OF THIS
   FILE.** The index of `docs/`, and the rule the directory exists for. Every file
   there, one line each, grouped into the wiring references, the sixteen card plans, the FINISHED content
