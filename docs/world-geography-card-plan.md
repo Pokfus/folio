@@ -16,13 +16,13 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-030`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-033`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
-Italy, Kenya, Myanmar, Colombia, South Korea, Sudan) **and capitals `gw-503` Washington, D.C., `gw-505`
-Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa,
-`gw-516` Hanoi and `gw-517` Tehran.** The next country is `gw-031` Uganda and the next capital is
-`gw-518` Ankara.
+Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria) **and capitals `gw-503`
+Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514`
+Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran and `gw-518` Ankara.** The next country is
+`gw-034` Iraq and the next capital is `gw-519` Berlin.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -532,6 +532,36 @@ below UNdata's 100,401 *and* the World Bank's 100,440 — outside the spread, so
 diagnostic it is **stale rather than contested** and was moved to 53 million. Three of the last seven
 countries have needed the term corrected before the card could be written; **the comparison is now the
 first step of a card, not a check at the end of one.**
+
+**THE CHIEFS OF MISSION DATABASE IS A CAPITAL SOURCE, AND IT IS THE BEST ONE FOUND SO FAR FOR A SEAT
+THAT MOVED.** `history.state.gov/departmenthistory/people/chiefsofmission/<country>` lists every
+American head of mission with the exact dates of each commission, and read as a series it shows things
+no narrative page states: for Turkey, **Abram Elkus ends on 20 April 1917 and nobody succeeds him until
+Joseph Clark Grew presents credentials on 12 October 1927** — the ten-year break, and the moment the
+mission starts being accredited to a republic instead of an empire. That, with the recognition guide's
+"exchange of notes in Angora", is what carries `gw-518`, and the same list will carry any capital whose
+mission was interrupted or moved. **Note the database is frozen** — a banner says updates were
+suspended in January 2024 — which is a limit on recent entries and no limit at all on historical ones.
+
+**A COUNTRY THAT IS NOT IN THE WTO STILL HAS FIVE SOURCES.** `wto.org/.../algeria_e.htm` is a 302
+(Algeria is an observer, not a member), which removes the routine fourth source used on eight cards
+now. What replaced it is **the Barbary Wars milestone**, and the fit is exact rather than lucky: the
+Algeria guide's own recognition entry is a peace treaty of 1795 with the Dey of Algiers, and the
+milestone supplies the war that treaty ended and the squadron sent in 1815. **When the WTO page
+redirects, look for the milestone that covers the country's oldest dealing with the United States** —
+the guide will usually have named the event already.
+
+**TWO MORE TERM FIGURES CORRECTED, ONE OF EACH KIND, WHICH IS NOW THE EXPECTED RATE.** `Uganda`'s
+241,038 km² sits below UNdata's 241,550 and the World Bank's 241,550 — identical to each other, so the
+term was simply outside — and its "roughly 48 million" is the 2023 value on the World Bank series, so
+by C8's diagnostic it is stale and moves to 51 million. `Spain`'s 505,990 km² was INSIDE the spread
+(UNdata 506,008, the EU 505,983, the World Bank 505,978) and so was not a correction by C9's rule, but
+the card and the term may not print different digits, so both now carry UNdata's figure. **Inside the
+spread is a reason not to CORRECT a term, never a reason to let two surfaces disagree.**
+
+**Spain is also C2's warning intact after two years**: the EU country page gives its population as
+49,077,984 against UNdata's 47,890 thousand, and the card and term both take UNdata's 48 million. The
+EU page is the right source for the accession date and the wrong one for the population.
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
