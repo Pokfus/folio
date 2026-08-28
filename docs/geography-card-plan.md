@@ -20,15 +20,16 @@ Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New J
 Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023` Washington,
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
+`geo-031` Wisconsin,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe and `geo-527` Atlanta.**
-Both subdecks are worked down the same list, so the next state is `geo-031` and the next capital
-`geo-528`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta and `geo-528` Columbia.**
+Both subdecks are worked down the same list, so the next state is `geo-032` and the next capital
+`geo-529`.
 
 ---
 
@@ -869,6 +870,47 @@ terms that already exist**. Each was measured, and none should be settled quietl
   which is exactly what the prefix negates, and `Meadowcroft Rockshelter` links to the term the
   prehistory deck already holds — the first time a geography card has met a glossary term written for
   another collection and simply fitted it.
+
+- **`Wisconsin_(state)` IS THE FIRST KEY WHOSE BARE NAME IS WRONG IN *EVERY* EXISTING USE.** The
+  measure found two occurrences of "Wisconsin" and neither is the state: `wh-052`'s "the Wisconsin in
+  North America" and the `Wisconsin_glaciation` term itself, the glaciation being named for the state
+  but not being it. Every earlier parenthetical on this pass was a divided surface — some uses right,
+  some wrong; this one is unanimous the other way, which makes the decision easier rather than harder
+  and is worth naming so the next 0-for-N case is not mistaken for a reason to hesitate. `Columbia`
+  went the same way for the ordinary reason: eight uses split between the Columbia River, British
+  Columbia three times, Columbia University and the South Carolina capital, so the capital takes
+  **`Columbia_(South_Carolina)`**. Both keys therefore claim no auto-link surface at all, which is the
+  settled practice for a parenthetical key here — the term is reachable from its own card and from the
+  glossary list, and the ambiguous word links to nothing.
+  The round's one link worth recording as CORRECT is `geo-031`'s **"Unemployed tin miners"** resolving
+  to `Tin`. It looks at first like the component-word-inside-a-proper-name family, and it is the
+  opposite: Cornish tin miners really did mine tin, so the metal is what the reader should get.
+  **Check what the component word MEANS in the sentence before treating a surprising link as a fault.**
+
+- **THE NPS ASSET PATH HAS TWO SPELLINGS AND ONLY ONE OF THEM IS RIGHT PER PROPERTY.**
+  `npgallery.nps.gov/NRHP/GetAsset/NHLS/<refnum>_text` serves a document only where the property is a
+  National Historic Landmark; for an ordinary National Register listing it returns the **1,623-byte
+  stub**, and the nomination is at `.../GetAsset/NRHP/<refnum>_text` instead. Both 200, so a citation
+  written to the wrong one is a live URL pointing at nothing. **Check the response SIZE, not the
+  status.** Of this round's eight nominations only two — the Dairy Barn and the First Baptist Church —
+  are NHLs and take the NHLS path.
+  The way to FIND a refnum is the NPS ArcGIS layer, `mapservices.nps.gov/arcgis/rest/services/`
+  `cultural_resources/nrhp_locations/MapServer/0/query`, filtered on `State='WISCONSIN'` — spelled
+  out and upper case, not the postal code — with `RESNAME LIKE '%…%'`. NPGallery's own search page
+  renders its results in JavaScript and hands a fetch nothing but page furniture.
+
+- **A CAPITAL'S FOUNDING DATE IS NOT ALWAYS REACHABLE, AND THE STATE HOUSE'S IS.** Columbia was laid
+  out in 1786 and no openable source here says so: `schpr.sc.gov` (the South Carolina Historic
+  Property Record) is behind a bot wall, `nationalregister.sc.gov` refuses the connection, and none of
+  the eight Columbia nominations read for this card states the year. What the legislature's own
+  **Student Connection** site does carry is a dated State House sequence — Charleston 1753, Columbia
+  1790, the fire of 1865, the third building finished in 1903 — which dates the move as well as the
+  founding would have and is published by the body that made it. **Where a city's founding is
+  unsourceable, the arrival of the thing that made it a capital usually is.**
+  Read that page against the National Register nomination before using it, though: it says flatly that
+  "the State House was destroyed by fire … by General William T. Sherman on February 17", and the
+  nomination is careful that what burned was the OLD state house while the unfinished new one was
+  shelled and spared. Both are true of different buildings; the card follows the nomination.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
