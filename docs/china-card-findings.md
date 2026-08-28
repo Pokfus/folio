@@ -2833,3 +2833,48 @@ everybody used was made locally, so specialisation and local production are diff
 grain market and Citizen Kane. **The fix is the standing one: search Commons for the PRODUCT, not the
 process.** "Shang bone hairpin" found the commonest thing those workshops made, five of them in a row
 under a museum label, CC0.
+
+## cnh-100 Shang burial practice
+
+**THE DECK HAD ALREADY SPENT EVERY OBVIOUS SENTENCE ON THIS SUBJECT, and the card that was left is
+the GRAMMAR of a grave rather than any grave.** Forty-seven cards touch burial: `cnh-075` owns Fu
+Hao's contents, `cnh-079` human sacrifice, `cnh-080` Xibeigang with its four ramps and its waist
+pits, `cnh-078` the cult and the falling spend, `cnh-066` the four-in-five commoner grave. What
+nothing carried was the FORMULA — supine and extended in a north–south shaft, a timber chamber
+holding one or two coffins, a ledge round it, the shaft rammed layer by layer, and a fixed place for
+each kind of thing. **Grep the deck before drafting a card whose subject the deck has been circling
+for fifty numbers**; the leftover is usually structural rather than topical.
+  **THE SOURCE THAT OPENED IT IS FOUR MONTHS OLD** — Zhengyuan Wang's *Ritual re-representation and
+the making of sociality* (Archaeology International 28, no. 1, published 31 December 2025), CC-BY at
+UCL Press. It carries the seven-step construction sequence and the six spatial divisions, and its
+one-line thesis is the card's first sentence: **higher-ranked burials follow a standardised ideal
+and lower-ranked ones are simplified versions of it**, so there is no elite–commoner dichotomy to
+draw. It also gives the corpus honestly — more than 20,000 graves dug, about 4,600 published, only
+about 200 unlooted with bronzes.
+  **THE SANDBOX HAS NO PDF TOOL, SO ONE WAS WRITTEN** (`.claude/../scratchpad/pdftxt.py`, not
+committed): inflate every FlateDecode stream, pull the `Tj`/`TJ` operands, and apply whichever
+ToUnicode CMap yields the most ASCII letters. It reads this article well enough to quote. **Watch
+for a second font encoded with a +1 shift** — whole clauses come out as `BOZNFEJVNQSPWJEFE`, which
+is `anymediumprovided`; de-shifting recovers the words but NOT the digits, so **read every FIGURE
+off a span that came out clean.**
+  **TWO STALE ACCESS FINDINGS, ONE IN EACH DIRECTION.** `discovery.ucl.ac.uk` was recorded 403 in
+the glossary pass's N1 batch; its **PDF path serves 1.9 MB today** while its landing page still
+403s, so a repository can be half open. And Springer is worse than recorded: the article HTML came
+back at 530 KB once and then, minutes later, the **3,038-byte Client Challenge on every path
+including `/content/pdf/`** — so the earlier reading was a lucky window rather than a working host.
+The citation therefore points at the **Oxford ORA deposit**, found through the OpenAlex locations
+list (`api.openalex.org/works/doi:…`), which answers reliably. **When a hybrid-OA article's
+publisher is walled, ask OpenAlex which repository also holds it.**
+  **AND CROSSREF IS THE CHEAP FIX FOR A BIBLIOGRAPHIC FIELD YOU CANNOT SEE.** The Archaeology
+International PDF garbles its own volume and DOI in the how-to-cite block;
+`api.crossref.org/works?query.bibliographic=…` returned volume 28, issue 1 and DOI 10.14324/ai.28.1.08
+in one call, and confirmed Rawson's four authors, volume, issue and page range exactly as drafted.
+That is N4's fabricated-author rule turned into a habit: **look the metadata up rather than reading
+it off the page you extracted.**
+  **THE PICTURE SEARCH FAILED FOR THE SEVENTH CARD RUNNING AND WAS SETTLED BY LOOKING.** Commons has
+essentially three Shang grave subjects — Fu Hao, the Xibeigang hedges and the chariot pits — and the
+first and third were already spent. What worked was **downloading undescribed candidates and reading
+them as images**: five of the `Yinxu - 殷墟` set turned out to be water pipes, an oracle bone and a
+display case, and a Gary Todd photograph filed under Fu Hao's tomb turned out to show **bodies lying
+on the second-tier ledge with the rammed layers of the refill banded below** — the card's own
+subject, which no caption said. **The description is untrustworthy and the file is not**; open it.
