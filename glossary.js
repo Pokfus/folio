@@ -1301,7 +1301,8 @@ window.GLOSSARY = {
 "Moral_treatment": "Moral treatment was a regime for the care of the insane, adopted at the end of the 18th century, that replaced chains, purges and terror with routine, occupation, recreation and a kindly authority.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It rested on the view that most patients keep a considerable degree of self-command, which can be strengthened by treating them as far as possible as rational beings and by appealing to their desire of esteem rather than to fear.<sup class=\"fn\" data-fn=\"1\"></sup> It was the founding principle of the public asylums built across Europe and America in the first half of the 19th century, institutions that grew overcrowded and turned to custody as the promise of cure went unmet.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Wilhelm_Wundt": "Wilhelm Wundt was a German physiologist and philosopher whose <i>Grundzüge der physiologischen Psychologie</i> of 1873 and 1874 announced a borderline science between physiology and psychology, and is usually taken to mark the birth of experimental psychology.<sup class=\"fn\" data-fn=\"1\"></sup> Rooms for his laboratory were set apart at Leipzig in 1879, and the institute that grew from it drew students from around the world and made the new science a discipline with a workforce.<sup class=\"fn\" data-fn=\"2\"></sup> He held the experimental method to reach the sensory side of mental life and to fail beyond it, assigning the higher processes to <i>Völkerpsychologie</i>, the study of language, myth and custom.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Mental_chronometry": "Mental chronometry is the measurement of the time course of mental operations, chiefly by recording and comparing how long people take to respond in simple cognitive tasks.<sup class=\"fn\" data-fn=\"1\"></sup> Its founding technique is subtraction, set out by Donders in 1868, who took the time to answer a single unvarying stimulus from the time to answer one of two and called the difference the time required to discriminate.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The assumption that inserting a stage leaves the others unchanged has been disputed since Donders raised it himself, but the method endures, with thousands of papers a year still turning on simple and choice reaction times.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Structuralism_(psychology)": "Structuralism was a school of experimental psychology, named by Edward Titchener, that set itself to analyse consciousness into its elements on the model of morphology in biology.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It asked what is present in a conscious state and in what quantity rather than what it is for, admitted sensation and affection as the only elements, and treated an element as nothing apart from attributes such as quality, intensity and duration.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its method was introspection by trained observers, and the school did not outlive Titchener, since the training never produced agreement about what observers found.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Structuralism_(psychology)": "Structuralism was a school of experimental psychology, named by Edward Titchener, that set itself to analyse consciousness into its elements on the model of morphology in biology.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It asked what is present in a conscious state and in what quantity rather than what it is for, admitted sensation and affection as the only elements, and treated an element as nothing apart from attributes such as quality, intensity and duration.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its method was introspection by trained observers, and the school did not outlive Titchener, since the training never produced agreement about what observers found.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Edward_B._Titchener": "Edward Titchener was an English psychologist who studied under Wilhelm Wundt at Leipzig and then directed the psychological laboratory at Cornell, where he led the American school of structuralism.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He held that the method of every science is observation, that the sciences differ in the point of view they take on human experience rather than in their subject matter, and that psychology's business is to analyse a conscious state into its elements rather than ask what those elements are for.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He built a teaching laboratory, wrote manuals of laboratory practice, trained observers in introspection and defended the method against behaviourism, and the school did not outlast him.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1922,7 +1923,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Gustav_Fechner": "1801–1887",
 "Charles_Darwin": "1809–1882",
 "Wilhelm_Griesinger": "1817–1868",
-"Wilhelm_Wundt": "1832–1920"
+"Wilhelm_Wundt": "1832–1920",
+"Edward_B._Titchener": "1867–1927"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2816,7 +2818,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Animal_magnetism": ["mesmerism"],
 "Moral_treatment": ["moral therapy"],
 "Wilhelm_Wundt": ["Wundt"],
-"Structuralism_(psychology)": ["structuralism","structural psychology"]
+"Structuralism_(psychology)": ["structuralism","structural psychology"],
+"Edward_B._Titchener": ["Titchener","Edward Titchener","Edward Bradford Titchener"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4143,7 +4146,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Moral_treatment": ["practice","psychology","science","history"],
 "Wilhelm_Wundt": ["person","psychology","science","history","germany"],
 "Mental_chronometry": ["concept","psychology","science","research methods"],
-"Structuralism_(psychology)": ["theory","psychology","science","history"]
+"Structuralism_(psychology)": ["theory","psychology","science","history"],
+"Edward_B._Titchener": ["person","psychology","science","history"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
