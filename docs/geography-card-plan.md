@@ -15,9 +15,9 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
-`geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau
-and `geo-506` Honolulu.** Both subdecks are worked down the same list, so the next state is `geo-010`
-and the next capital `geo-507`.
+`geo-010` Oklahoma, `geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504`
+Providence, `geo-505` Juneau, `geo-506` Honolulu and `geo-507` Lansing.** Both subdecks are worked
+down the same list, so the next state is `geo-011` and the next capital `geo-508`.
 
 ---
 
@@ -112,6 +112,15 @@ which is unusual**: a flag has no title, no caption and no fullscreen view, so a
 has nothing else at all — describe what the flag SHOWS rather than saying that it is a flag. Take the file
 from Commons and **look at it before using it**: a state flag is public domain, a city's often is too, and
 the file page states which.
+
+**A CARD WITH NO CURRENT FLAG SHIPS WITH NONE, AND `geo-507` LANSING IS THE FIRST.** The field is
+optional, and the temptation when a search comes back with something is to use it: Commons holds
+`Flag of Lansing, Michigan (1969-1994)` and nothing else, which is a flag the city RETIRED thirty years
+ago. Drawn beside the answer with no date on it, a retired flag reads as the city's present one, so the
+card asserts something false in the one place a reader cannot check it. **Search for the retirement
+date, not just for the file** — the same trap waits at any city that has redesigned — and where the
+current design is not on Commons under a licence Folio can use, leave `answerFlag` off. The answer box
+is complete without it.
 
 ## The locator — a globe on a HISTORY card
 
