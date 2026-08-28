@@ -19,15 +19,15 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New Jersey, `geo-019`
 Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023` Washington,
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
-`geo-501` Sacramento, `geo-502` Austin, `geo-503`
+`geo-028` South Carolina, `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
-`geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia and
-`geo-524` Salem.**
-Both subdecks are worked down the same list, so the next state is `geo-028` and the next capital
-`geo-525`.
+`geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem
+and `geo-525` Phoenix.**
+Both subdecks are worked down the same list, so the next state is `geo-029` and the next capital
+`geo-526`.
 
 ---
 
@@ -367,6 +367,12 @@ Four more, measured while writing `geo-005` and `geo-501`:
   it is the archive saying the property has no landmark file. **On a capital card, expect to cite the
   NRHP path**: a state's landmarks are spread over the state, and its capital's own buildings are
   often listed rather than designated.
+- **`upload.wikimedia.org` CAN 429 ONE FILE WHILE SERVING ITS NEIGHBOURS.** `geo-525`'s city flag
+  answered **429 on the SVG for over four minutes**, in both the encoded and the literal spelling of
+  the comma in its name, while the 1280px PNG rendering of the same file and every other flag SVG
+  answered 200. It is a per-file throttle rather than a rate limit on the session, and it is not a
+  dead link — but a URL that cannot be opened cannot be verified, so **ship the rendering you actually
+  fetched**: that card's flag is the PNG.
 - **NOT EVERY STATE HAS A LIBRARY OF CONGRESS GUIDE, and Oregon is the first that has not.**
   `guides.loc.gov/oregon-state-guide` is a 404 while every state written before it resolved, and the
   guides' own search page is JavaScript-driven, so the index cannot be listed from here to check.
@@ -811,6 +817,26 @@ terms that already exist**. Each was measured, and none should be settled quietl
   already wins where the full phrase appears, so the fix is local: the card says "the American
   north-west", and the sentence that keeps its link says "the **Pacific** coast", where the word does
   mean the ocean.
+
+- **`Charleston` WAS A BARE KEY AND `geo-028` BROKE IT WITHIN FIVE ROUNDS.** It was written for
+  `geo-513`, the capital of West Virginia, on a measure that was true at the time; South Carolina's
+  largest city is also Charleston, so the moment that state's card shipped the term was linking two
+  texts to the wrong city. Measured, the surface divides evenly among the texts that actually link —
+  `geo-013` and `West_Virginia` for the capital, `geo-028` and `South_Carolina` for the port — so the
+  key was retired for **`Charleston_(West_Virginia)`** and the word now links nowhere. **A bare key is
+  a bet that no later card will use the name for something else, and in a collection working through
+  fifty states that bet comes due fast.** The lesson is not to parenthesise everything: it is that
+  **the round which introduces a name should re-measure the names it already holds**, which is how
+  this was caught in the same session rather than by a reader.
+  Rekeying is add-then-delete: rebuild the entry from `loadGlossary` under the new slug, then run
+  `add-glossary.js` on `{"slug": "<old>", "delete": true}`. The description needs no rewrite, since a
+  bare name nobody claims cannot self-link — the Olympia fault only bites when another term owns it.
+- **`Phoenix_(Arizona)` IS THE SEVENTH PARENTHETICAL, AND THE COLLIDING TEXT IS ONE THIS PASS WROTE
+  YESTERDAY.** "Phoenix" measures three uses: the Arizona city on `geo-025` and its term, and the
+  **Cherokee Phoenix**, the newspaper named in `geo-027`, written the round before. On that card the
+  newspaper is the first occurrence, so a bare key would have mislinked a card one day old.
+  `South_Carolina` goes in bare — one existing use, the state — and takes no "Carolina" alias, which
+  would have caught the Spanish-colonial raids on `geo-503` and a forename in `gr-151`.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
