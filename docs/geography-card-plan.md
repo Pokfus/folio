@@ -21,16 +21,16 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
-`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana, `geo-044` Wyoming, `geo-045` Colorado, `geo-046` Kansas,
+`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana, `geo-044` Wyoming, `geo-045` Colorado, `geo-046` Kansas, `geo-047` Nebraska,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford, `geo-541` Concord, `geo-542` Montpelier and `geo-543` Helena.**
-Both subdecks are worked down the same list, so the next state is `geo-047` and the next capital
-`geo-544`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford, `geo-541` Concord, `geo-542` Montpelier, `geo-543` Helena and `geo-544` Cheyenne.**
+Both subdecks are worked down the same list, so the next state is `geo-048` and the next capital
+`geo-545`.
 
 ---
 
@@ -1473,6 +1473,43 @@ terms that already exist**. Each was measured, and none should be settled quietl
   (`%Constitution Hall%`, `%Monroe%`) found Lecompton Constitution Hall and the Sumner/Monroe schools —
   Bleeding Kansas and Brown v. Board, a century apart on the same question, from two NHL nominations.
   **When a state's landmark list is empty, name the events first and query for their buildings.**
+
+- **📌 WHEN A SHORT ALIAS IS RIGHT NEARLY EVERYWHERE AND WRONG IN ONE COMPOUND, ADD THE COMPOUND AS A KEY
+  — NEVER STRIP THE ALIAS.** `Pacific_Ocean` carries the bare alias "Pacific", and the Cheyenne card put
+  "Union Pacific" in front of it twice, sending a reader from a railway company to an ocean. The reflex is
+  to drop the alias; the measurement forbids it — **54 uses of "Pacific" in the corpus and about 52 are
+  the ocean** ("the Pacific coast", "into the Pacific", "the South Pacific"), so removing it would break
+  forty correct links to fix two wrong ones. The fix is the `Pig_iron` mechanic: a **`Union_Pacific_Railroad`
+  term whose alias is "Union Pacific"**, which longest-first claims ahead of the bare word. **Measure the
+  alias before touching it** — a short alias that looks reckless is usually carrying most of its own weight.
+- **THAT MADE THIS THE FIRST ROUND TO SHIP A THIRD TERM.** The pairing rule asks for a term per answer
+  term; this pair needed one more, because the fix for an auto-link fault was a glossary entry rather than
+  a rewording. It is cited at the bar from the Cheyenne depot's own NHL nomination — incorporation at
+  Boston in July 1862, Oliver Ames and his brother Oakes at Credit Mobilier, the land grants and the
+  $16,000-to-$48,000-a-mile loans, nearly $27 million drawn by 1869, and Dodge routing the line across
+  southern Wyoming for coal rather than down to Denver. **A source fetched for a card usually has a second
+  term in it.**
+- **`Nebraska` IS THE PURE CASE OF THE ZERO-TOLERANCE RULE: NOT ONE OF ITS THREE USES IS THE STATE.** All
+  three are inside "Kansas-Nebraska Act", on `geo-046`, `Kansas_(state)` and `Franklin_Pierce`. So
+  `Nebraska_(state)`, and the same note as Kansas: **a future `Kansas–Nebraska_Act` term would free BOTH
+  bare keys at once**, which is the strongest argument yet for writing it when the United States
+  collection reaches the 1850s.
+- **`Cheyenne` IS 2 OF 3 AND THE THIRD IS A PEOPLE, WHICH IS THE MORE IMPORTANT TERM.** `geo-010` speaks of
+  "the Cheyenne village of the peace chief Black Kettle", so a bare key would have sent a reader from the
+  Washita to a Wyoming railway town. `Cheyenne_(Wyoming)`, and **a `Cheyenne` term for the people is owed**
+  — when it is written it takes the bare name and this key needs no change, the parenthetical having
+  claimed nothing.
+- **READ A DIRECTION BACK AGAINST THE SOURCE'S POINT OF VIEW.** The capitol nomination says the capitol
+  "is complementary to the Union Pacific Depot located ten blocks south on Capitol Avenue" — that is the
+  capitol's view of the depot, and the draft repeated it from the depot's, putting the capitol ten blocks
+  south of a building it stands north of. Caught by reading the sentence back against the source rather
+  than by any checker. **A bearing, like a date, belongs to whoever is standing where the source stands.**
+- **NEBRASKA'S NHL LAYER RETURNS ZERO, THE FIFTH STATE RUNNING**, and the HABS collection has nothing for
+  Lincoln either. What carried the card was the ordinary NRHP list for the capital city: the **Kennard
+  House**, whose nomination holds the whole founding — the legislature at Omaha naming three of its own
+  officers, the commission picking the site of Lincoln on 29 July 1867, the doubt through the 1870s
+  depression, and Winchell's three houses of 1869 built to end it — plus **Fairview** for Bryan and the
+  **Willa Cather House** for Cather. **List the capital city and read what its houses were for.**
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
