@@ -21,16 +21,16 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
-`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut,
+`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock and `geo-537` Montgomery.**
-Both subdecks are worked down the same list, so the next state is `geo-041` and the next capital
-`geo-538`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery and `geo-538` Jackson.**
+Both subdecks are worked down the same list, so the next state is `geo-042` and the next capital
+`geo-539`.
 
 ---
 
@@ -1245,6 +1245,38 @@ terms that already exist**. Each was measured, and none should be settled quietl
   Connecticut card, one of them a near miss worth recording: **`Hannibal` is not a glossary key**, so
   "identified with Hannibal and the Midwest" links nothing; the day Ancient Rome writes the Carthaginian,
   that sentence acquires a trap and this card will need re-checking.
+
+- **`Salmon` IS A GLOSSARY KEY AND SALMON PORTLAND CHASE WALKED STRAIGHT INTO IT.** The surface scan on
+  the New Hampshire draft returned `Salmon -> Salmon`, the fish, on the Chief Justice's given name — the
+  `Pig`/"pig iron" shape with a person in it. **Case sensitivity is the wrong tool here and it is worth
+  knowing why**: the eighteen entries in `GLOSSARY_CASESENSITIVE` (`Turkey`, `Guinea`, `Poland`,
+  `Providence`, `Boreal`) are terms whose CAPITALISED form is the one meant, so the flag suppresses the
+  lowercase everyday word. Chase's name is the capitalised form, so the flag would protect exactly the
+  wrong occurrence. The fix is round 33's: a longer term. **`Salmon_P._Chase` with the alias "Salmon
+  Portland Chase"**, cited to the NHL birthplace nomination and the Federal Judicial Center's
+  Biographical Directory — and rendering the card confirms the fish never fires. **No bare "Chase"
+  alias**, which would link the verb.
+
+- **`Jackson` IS THE MOST DILUTED SURFACE THE PASS HAS MET: nine uses and seven of them are not the
+  city.** Patrick Tracy Jackson, Jackson Creek in Oregon, Eighth and Jackson streets in Springfield,
+  Alexander Jackson Davis twice, against the Mississippi capital twice. **`Jackson_(Mississippi)`**, and
+  the cost is accepted openly: `geo-038`'s own "at Jackson" now links to nothing. A parenthetical key
+  buys correctness for seven texts by giving up a link on two.
+
+- **`New_Hampshire` REPAIRED `Franklin_Pierce` ON ARRIVAL** — the sixth round running that a new term
+  corrected a shipped text. It is worth stating as an expectation rather than a happy accident: **the
+  glossary is now dense enough that a state or capital term almost always has somewhere to land**, so the
+  surface measurement at the head of a round is as much a forecast of what will be fixed as a check on
+  what might break.
+
+- **THE NEW HAMPSHIRE NHL LIST IS TWO ENTRIES LONG AND THE ANSWER WAS NOT HABS THIS TIME.** Round 35's
+  rule held — the layer is wrong, not the state — but the HABS route that saved Delaware and Jefferson
+  City failed here: the Amoskeag records are **measured drawings with no written data**, which extract to
+  a page of font junk. What carried the card instead was an ORDINARY NRHP nomination for a private house:
+  the **William Parker Straw House**, whose Historic Context section gives the Amoskeag Manufacturing
+  Company entire — the world's largest textile plant, 17,000 workers, thirty mills, run from a Boston
+  office through a local agent. **A nomination for a small building often carries the context of the big
+  one**; read the agent's house when the mill has no file.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
