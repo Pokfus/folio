@@ -23,12 +23,13 @@ Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Ira
 Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia,
 Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela, Australia, Niger, North
 Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan, Chad, Chile, Romania,
-Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda) **and
+capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
-Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753`
-Bloemfontein.** The next country is `gw-075` Guinea and the next capital is `gw-533` Algiers.
+Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-751` Dar es Salaam, `gw-752` Cape Town
+and `gw-753` Bloemfontein.** The next country is `gw-078` Burundi and the next capital is `gw-534` Baghdad.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -909,6 +910,44 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 25 (Guinea, Benin, Rwanda, Algiers) found the guide's oldest entry, and it is a capital's rather
+than a country's.** `Algiers` recognised the United States in 1795 — **167 years before the United States
+recognised Algeria** — because at American independence the city was a nominal Ottoman vassal that
+conducted its own foreign relations, and the country page says so outright. Three sources carry it
+together and none of them alone would: the country page for the diplomacy, the retired **Barbary Wars
+milestone** for why there was a war to end (Britain told the Barbary states in 1785 that American ships
+no longer had its navy's protection; the Confederation government could raise neither fleet nor tribute;
+the 1795 treaty freed 83 captives), and the **Avalon Project's text of the treaty itself**, whose header
+records that the original was **in Turkish** and that the Senate consented in March 1796. **A capital that
+predates its country's independence may have a diplomatic history of its own** — check the country page's
+Consular Presence section, which is where Algiers keeps 166 years the Recognition section does not
+mention.
+
+**Its second finding is that a country's guide entry can be SHORT because nothing went wrong.** `Rwanda`'s
+records a recognition, an embassy on the day of independence, and then nothing at all — no closure, no
+severance, no evacuation in 63 years — which after Cambodia's five reversals and Uganda's six-year gap is
+worth saying in the card rather than treating as a thin page. **Read an empty entry as a fact about the
+relationship, not as a gap in the source.**
+
+**Guinea and Benin each turn on a date the OTHER sources supply.** Guinea's page gives recognition (1
+November 1958) and the embassy (13 February 1959) and nothing between; the UN records fill it — Security
+Council resolution 131 (1958) at the 842nd meeting on 9 December, then **A/RES/1325(XIII) at the 789th
+plenary meeting three days later** — so the seat was taken two months before relations were established.
+Benin's page is the reverse: it is the only source that says the American mission went to **Cotonou**, not
+to the official capital, which is the fact a reader of a two-seat country most needs. Its recognition is
+also filed under the country's **former name** — the United States recognised the Republic of **Dahomey**
+on 1 August 1960 and the page records the 1975 renaming — so **search the guide by the name in use at the
+time.**
+
+**One correction, and it is a rounding rather than a source disagreement.** `Rwanda`'s term said "roughly
+14 million" against UNdata's and the World Bank's identical 14,569,341, which rounds to 15 and is what
+every sibling card's facts box would have given it; corrected to 15 million. This is batch 17's
+midpoint rule applied at 0.069 above the line rather than Venezuela's 0.017, and the deck's own
+convention — whole millions, rounded — decides it. Its area figure is the pass's only exact three-way
+agreement so far, 26,338 at both counts, and the reason is visible in the data: **the World Bank rounds
+larger countries to the nearest ten** (Benin 114,760, Guinea 245,860, Algeria 2,381,740), so a figure that
+does not end in zero is a country small enough to be reported whole.
 
 **Batch 24 (Netherlands, Cambodia, Zimbabwe, Madrid) corrected an area by C9's rule, and the case is the
 cleanest example of it in the pass.** The `Netherlands` term said 41,850 km²; UNdata gives **41,543** and
