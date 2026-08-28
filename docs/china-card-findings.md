@@ -2878,3 +2878,29 @@ them as images**: five of the `Yinxu - 殷墟` set turned out to be water pipes,
 display case, and a Gary Todd photograph filed under Fu Hao's tomb turned out to show **bodies lying
 on the second-tier ledge with the rammed layers of the refill banded below** — the card's own
 subject, which no caption said. **The description is untrustworthy and the file is not**; open it.
+
+## The Crossref sweep over all 100 China cards (Aug 2026)
+
+**MAIN'S NEW `check-citations.js` FOUND SIX WRONG AUTHOR NAMES IN THIS BRANCH'S CARDS, AND EVERY ONE
+OF THEM PASSED EVERY OTHER CHECK.** The URLs resolved, the papers are real, the markers pointed at
+sources that existed, `source-audit.js` reported 855 of 855 at the bar. What was wrong was the name
+in front — the fault N4 of the glossary plan records, one level down, and the reason to run this
+sweep after every batch rather than at the end of a pass:
+  · `cnh-041` **Chi Zhang → Zhang Chi**, a Chinese name inverted where *Internet Archaeology* prints
+    it surname-first, which is also how this deck cites Lu Peng and Li Zhipeng.
+  · `cnh-048` **Yang Liu → Yifei Liu**; `cnh-086` **Chi Zhang → Chengrui Zhang**, with Ruiling
+    Cheng, Fuhao Hou and Yong Wu also wrong for Ruoxin Cheng, Furen Hou and Yi Wu.
+  · `cnh-053` **Wei Zhang → Weijie Zhao** — and the same citation gave the article as **nwab095**,
+    which is a real *National Science Review* paper about 2D materials and antiviral coatings.
+    **A composed article number lands on somebody else's paper**, exactly as a composed DOI does.
+  · `cnh-053`'s silk paper and `cnh-079`'s Shimao aDNA paper carried author lists that agree with the
+    record on the first name and diverge after it. Both are now **"first author et al."**, which is
+    Chicago's own form for four or more authors and the form the rest of those cards already use —
+    **a long list written out by hand is a long list of chances to be wrong, and et al. removes all
+    of them at once.**
+  **THE TWO "CHECK BY EYE" ROWS WERE BOTH RIGHT AND ARE WORTH KNOWING.** `cnh-043`'s Christian Leipe
+sits against a record holding "C. Leipe" — an abbreviation, not a disagreement. And **`cnh-020` is a
+case of CROSSREF being wrong about a TITLE**: it registers the Slovene *Podoba in vloga Matere
+Zahodnega kraljestva* for an article the publisher's own page titles *Image and Role of the Queen
+Mother of the West in Han Grave Art*. The journal registered its translated title; the citation
+stands. **Read the record against the publisher before correcting anything.**
