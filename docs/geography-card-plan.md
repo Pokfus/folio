@@ -20,16 +20,16 @@ Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New J
 Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023` Washington,
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
-`geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri,
+`geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison and `geo-532` Indianapolis.**
-Both subdecks are worked down the same list, so the next state is `geo-036` and the next capital
-`geo-533`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis and `geo-533` Frankfort.**
+Both subdecks are worked down the same list, so the next state is `geo-037` and the next capital
+`geo-534`.
 
 ---
 
@@ -1060,6 +1060,37 @@ terms that already exist**. Each was measured, and none should be settled quietl
   its first draft opened on "the second state of the Louisiana Purchase … after Louisiana itself" and
   the popup duly linked the Purchase, caught by rendering it. **A card and its term are two texts and
   the earlier-mention fix does not travel between them** — check both.
+
+- **THE LONGEST-FIRST FIX IS THE PASS'S MOST REUSABLE TOOL, AND IT REPAIRS SHIPPED TEXTS FOR FREE.**
+  Rounds 29 and 31 each recorded that a wrong component-word link wants a LONGER term rather than a
+  reworded sentence, and named `Ohio_River` and `Missouri_River`. `geo-036` could not dodge its own case
+  — the Louisiana Purchase Survey Marker is one of the four things worth saying about Arkansas — so
+  **`Louisiana_Purchase` was written this round**, cited to the National Archives milestone document,
+  the Office of the Historian and the marker's own nomination. Measured afterwards: "Louisiana Purchase"
+  now resolves to the event **in `geo-010` and `Missouri_(state)` as well**, where it had been pointing
+  at the state of Louisiana since `geo-010` shipped. **One term, three texts corrected, and no prose
+  touched.** Two surfaces still want the same treatment (`Ohio_River`, `Missouri_River`) and a third is
+  arguable — `Greek Revival` currently resolves to the modern country, which is looser than it should be
+  but no looser than `wh-207`'s "in Greek", already shipped; a `Greek_Revival` term would sharpen it.
+  **Writing the longer term is in scope for a round whose own card needs it**, and is the cheapest
+  correction this pass has.
+  Three links checked and judged CORRECT rather than fixed: `settlement` and `cemetery` resolve to the
+  archaeological concepts, and both sentences mean exactly those concepts — including "Greenhill
+  Cemetery", which really is a cemetery, where "Mammoth Cave" is not a mammoth. **The round-27 test —
+  what does the component word MEAN in this sentence — settles all three in two minutes.**
+
+- **`Arkansas` AND `Frankfort` BOTH GO IN BARE**, three clean uses and two. Worth recording for the
+  capitals still to come: **`Little Rock` already appears in `Dwight_D._Eisenhower`**, correctly, so
+  `geo-536` will find its surface clean; and the Arkansas card's `Arkansas Post` is the `Ohio valley`
+  case, a place named for the river and state it stands on.
+
+- **THE MAP-CARD SUITE HAS AN INTERMITTENT SINGLE-ASSERTION FAILURE THAT DOES NOT REPRODUCE.** It
+  reported 716 passed / 1 failed once this round and 717 / 0 on the next three runs with nothing
+  changed, which is the same shape recorded in an earlier round at 573 / 1. The likely cause is now
+  visible: the sandbox's outbound proxy drops connections **during** the run — Supabase, Google Fonts
+  and the autofill endpoint all reported closed tunnels — so a browser assertion that waits on a page
+  which is itself waiting on a dropped fetch will occasionally miss. **Re-run before believing it, and
+  do not report a clean first pass that did not happen.**
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
