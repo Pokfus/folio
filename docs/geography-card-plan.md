@@ -21,16 +21,16 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
-`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana, `geo-044` Wyoming,
+`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana, `geo-044` Wyoming, `geo-045` Colorado,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford and `geo-541` Concord.**
-Both subdecks are worked down the same list, so the next state is `geo-045` and the next capital
-`geo-542`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford, `geo-541` Concord and `geo-542` Montpelier.**
+Both subdecks are worked down the same list, so the next state is `geo-046` and the next capital
+`geo-543`.
 
 ---
 
@@ -1390,6 +1390,52 @@ terms that already exist**. Each was measured, and none should be settled quietl
   first STATE to enfranchise women on admission in 1890. Both were used, each for the claim it actually
   makes. The guide also prints "Ester" for Esther and "the first women designated a justice of the
   peace"; **take dates and the statehood line from the guide, and take the argument from the nomination.**
+
+- **📌 THE `Settlement` TRAP WAS ALREADY IN THE SHIPPED CORPUS, TWELVE TIMES OVER, AND IS NOW SWEPT.**
+  Round 40 named the class; running the RENDERED check over the ten geography cards that use the word
+  found it was not a drafting hazard at all but a defect already live — nine cards and six glossary terms
+  sending readers from Roger Williams, Sutter's Fort, Stephen F. Austin, the Erie Canal, the Oklahoma land
+  run, Hull-House and Jamestown to a term about archaeological survey. All twelve are fixed by changing
+  the WORD (settlers, town, foothold, outpost, of its kind), every card still 5+5 and inside 270–330, and
+  the rendered check over all ten now returns nothing. **When a new trap is identified, grep the SHIPPED
+  corpus for it before writing the plan entry** — the class had been accumulating for forty rounds.
+- **AND THE TEST FOR WHICH COMMON-NOUN LINKS ARE ACTUALLY WRONG IS THE TERM'S FIRST CLAUSE.** The sweep
+  turned up far more candidates than faults, so the line is: **is the entry's opening clause a general
+  definition, or is it already inside the specialism?** `Settlement` fails — it defines the word by
+  contrasting it with cemeteries and camps *as an archaeological classification* — and so does `Cemetery`,
+  whose sentence runs on to archaeologists mapping a landscape. `Temple` ("a building raised for a god"),
+  `Tomb` ("a burial place built or cut as a chamber"), `Irrigation` ("the supply of water to crops by
+  human effort"), `Cattle` and `Pig` all open on definitions that fit an ordinary modern sentence, and
+  were LEFT: Temple Square, Lincoln's tomb, Hohokam canals, Texan cattle and pig iron all link honestly.
+  **A proper noun is left alone too** (Greenhill Cemetery, Harrison's Horse Race, the Bay of Pigs), since
+  a reader clicking a name and getting the definition of the common noun has lost nothing.
+- **`Colorado` IS THE MOST DILUTED SURFACE THE PASS HAS MEASURED — 1 OF 6 — SO THE KEY IS
+  `Colorado_(state)`.** Of six uses, one is the state, two are the Texas Colorado River, two the western
+  Colorado River, and one is the Colorado Museum of Natural History. That is worse than `Jackson` (7 of 9
+  wrong) as a proportion, and the answer is the settled one: a parenthetical key claiming nothing bare,
+  beside `Delaware_(state)`, `Mississippi_(state)` and `Nevada_(state)`.
+- **AND NO `Colorado_River` TERM WAS ADDED, DELIBERATELY — TWO RIVERS SHARE THE NAME AND AUTO-LINKING
+  CANNOT TELL THEM APART.** Round 34 shipped `Mississippi_River` beside `Mississippi_(state)` and it
+  repaired three texts for free. That move is unavailable here: the surface "Colorado River" is the great
+  western river on `geo-015` and `Nevada_(state)`, and a *different* river on `geo-502` and `Austin`, and
+  longest-first cannot separate two identical surfaces. **Adding the term would have created two wrong
+  links to fix none**, since the western mentions say "the Colorado" rather than "the Colorado River"
+  anyway. Where two rivers share a name, neither can be auto-linked.
+- **`Montpelier` SHIPS BARE**, 2 of 2 for the Vermont capital; Montpellier in France is spelled with two
+  Ls and cannot collide, and James Madison's Montpelier in Virginia joins the recorded-collision list with
+  Dover in England and Concord in Massachusetts.
+- **THE VERMONT STATE HOUSE WAS HELD BACK IN ROUND 38 AND PAID FOR IT HERE.** Its NHL nomination carries
+  the whole building — the 1831 resolution, the committee sent to look at three neighbouring capitols,
+  Ammi B. Young at 32 taking the exterior from the Theseion at Athens, the 1857 fire, Silloway's added
+  bays and taller dome, the Barre granite from the Wheaton Quarry — which is four of Montpelier's ten
+  sentences. **When a state card and its capital card both want a building, the capital gets it**; the
+  state card has a whole state to cover and the capital card has one town.
+- **COLORADO'S NHL LAYER RETURNS ZERO, THE THIRD STATE RUNNING** (after Montana and Wyoming), so the
+  HABS/HAER JSON search carried it again. Two notes from that: **Cliff Palace is photographs only**
+  (`co0300` extracts to a single line) while **Balcony House (`co0380`) has the written data** — the
+  survey number tells you nothing about which, so fetch and look — and the El Paso Lode HAER for Cripple
+  Creek gives Womack's fifteen years of prospecting, his 15-metre shaft, the 1890 strike and the 1893
+  rush in one paragraph.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
