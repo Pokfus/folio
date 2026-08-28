@@ -21,15 +21,16 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
+`geo-037` Alabama,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis and `geo-533` Frankfort.**
-Both subdecks are worked down the same list, so the next state is `geo-037` and the next capital
-`geo-534`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort and `geo-534` Nashville.**
+Both subdecks are worked down the same list, so the next state is `geo-038` and the next capital
+`geo-535`.
 
 ---
 
@@ -1091,6 +1092,54 @@ terms that already exist**. Each was measured, and none should be settled quietl
   and the autofill endpoint all reported closed tunnels — so a browser assertion that waits on a page
   which is itself waiting on a dropped fetch will occasionally miss. **Re-run before believing it, and
   do not report a clean first pass that did not happen.**
+
+- **ROUND 32'S "ARGUABLE" THIRD SURFACE WAS WRITTEN, AND IT REPAIRED A SHIPPED CARD THE SAME WAY.**
+  That round named `Ohio_River`, `Missouri_River` and — as the arguable one — `Greek_Revival`, whose
+  surface was resolving to the modern country of Greece. `geo-534` could not dodge it: William
+  Strickland's capitol is the reason Nashville looks the way it does, and the phrase is the one the
+  sources use. **`Greek_Revival_architecture` was written this round with the alias `Greek Revival`** —
+  the key is the Wikipedia slug and the alias is the surface the prose actually carries — cited to the
+  Tennessee Capitol and Kentucky Old State House nominations. Measured afterwards: "Greek Revival" now
+  resolves to the style **in `geo-533` as well**, where it had been pointing at Greece since that card
+  shipped. Second round running that one new term corrected a card nobody was editing.
+
+- **A NEW TERM CAN CARRY ITS OWN COMPONENT-WORD TRAP, AND ONLY RENDERING IT SHOWS THIS.** `Pig_iron`
+  was written for the same longest-first reason — "pig iron" was resolving its first word to `Pig`, the
+  domesticated animal, on the Alabama card — and the fix worked on the card and then failed inside the
+  new term's own popup, where "the bars that set in the moulds the pigs" linked to the animal. The cure
+  was not a longer term but **an honest sentence**: the first sentence now says the arrangement's
+  "fancied likeness to a sow suckling her pigs gave the metal its name", where the word does mean the
+  animal, so the link is correct rather than suppressed. **Render the new term as well as the new card**
+  — round 32 recorded that the earlier-mention fix does not travel between them, and this is the same
+  lesson from the other side.
+
+- **A PARENTHETICAL KEY REALLY DOES STAND DOWN, AND IT SAVED A TERM THIS ROUND.** A surface scan run by
+  hand — stripping `_(…)` the way `glossKeyTitle` does — predicted that "Booker T. Washington" would
+  link its surname to `Washington_(state)`, which would have been the worst mis-link the pass has made.
+  Rendering `geo-037` shows it does not fire at all: `glossKeyTitle` strips the parenthetical for the
+  TITLE and the stripped form is never registered as a surface. **Build the scan from the app's own
+  index, not from a hand-stripped key list**, or it invents traps and hides real ones.
+
+- **`Alabama` AND `Nashville` BOTH GO IN BARE**, one clean use and two, all of them the state and the
+  city. Three surfaces recorded for the rounds to come: **`Montgomery` is already in the corpus** as
+  "Montgomery's Tavern" on `geo-036`, so a bare `Montgomery` key for `geo-537` would link a tavern in
+  Arkansas to the capital of Alabama; **`Memphis`** is free today and will not be once Egypt is written;
+  and **`Parthenon`** is free today, which is why the Nashville replica links to nothing — a future
+  Ancient Greece term would claim it, and Nashville's is a concrete copy of 1931, not the building on
+  the Acropolis.
+
+- **THE `African`→`Africa` LINK IN "African Americans" IS THE PASS'S OLDEST UNFIXED TRAP.** It fires on
+  `geo-533` and will fire on every United States card that uses the phrase. It fails the round-27 test
+  outright — the word names an American people, not the continent — and the fix is the same
+  longest-first one: an `African_Americans` term. It is bigger than a geography round should carry on
+  its own, so it is written down here beside `Ohio_River` and `Missouri_River` as work the collection
+  owes.
+
+- **`test-gloss-image.js` FAILS IN THIS SANDBOX AND DID SO BEFORE THIS ROUND.** It times out clicking
+  the `Sima_Qian` popup's picture, which never becomes visible because `GLOSS_IMG_WAIT` holds the body
+  until the image's size is known and the remote file cannot be fetched through the proxy. **Verified by
+  stashing the round's three data files and re-running: identical failure.** Check a failing browser
+  suite against the unmodified tree before treating it as yours.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
