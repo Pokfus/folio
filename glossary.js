@@ -1272,7 +1272,8 @@ window.GLOSSARY = {
 "Lothal": "Lothal is an archaeological site of the Indus Valley Civilisation on the Gujarat coast of western India, one of the smaller settlements rather than one of its five cities, and among those that have produced human remains and burials.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Its excavator called it a harbour town at the head of the Gulf of Cambay, and a circular steatite seal found there, neither wholly Indian nor Sumerian, resembles the seals of the Persian Gulf islands.<sup class=\"fn\" data-fn=\"1\"></sup> The town grew over a tidal salt marsh and was left high and dry as the sea level fell, and kilns with vitrified inner surfaces and high-grade copper ingots dug there point to skilled smelting.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
 "Decline_of_the_Indus_civilisation": "The decline of the Indus civilisation is the contraction of its cities and its exchange network after about 1900 BCE, through the Late Harappan phase to about 1300 BCE, when the interaction sphere retracted, urban centres lost population and agrarian village life took over.<sup class=\"fn\" data-fn=\"2\"></sup> Settlement moved from many small sites around a few large centres to a de-nucleated pattern, and in parts of north-western India the density of sites may have risen.<sup class=\"fn\" data-fn=\"3\"></sup> No single cause is agreed, though an increase in drought episodes from about 4,200 years ago is the explanation most often made.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Indo-Aryan_migrations": "The Indo-Aryan migrations are the movements that carried Indo-European speech into the Indian subcontinent, a late event of the middle to late Bronze Age.<sup class=\"fn\" data-fn=\"3\"></sup> Ancient DNA from 523 individuals finds no steppe pastoralist ancestry at the Bactria-Margiana sites of Central Asia before 2100 BCE, and places that ancestry in the Swat valley further south in the first half of the 2nd millennium BCE, where it now makes up as much as 30 per cent of the ancestry of some groups.<sup class=\"fn\" data-fn=\"1\"></sup> An individual of the Indus civilisation carries little if any of it, the influx was strongly male-driven, and how much immigration took place remains contested.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Vedic_period": "The Vedic period is the age of the Sanskrit texts called the Vedas, which follows the Indus civilisation in northern South Asia and is named for a body of literature rather than for any state.<sup class=\"fn\" data-fn=\"1\"></sup> Three literary strata are distinguished within it: the four Vedas, collections of hymns and prayers made chiefly to accompany the pressing of soma and the offering of melted butter, then the Brahmanas, then the Sutras.<sup class=\"fn\" data-fn=\"1\"></sup> Its earlier half centred on the Punjab and its later half on the valley of the Ganges, and its language, Vedic Sanskrit, is the oldest recorded stage of Indo-Aryan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Vedic_period": "The Vedic period is the age of the Sanskrit texts called the Vedas, which follows the Indus civilisation in northern South Asia and is named for a body of literature rather than for any state.<sup class=\"fn\" data-fn=\"1\"></sup> Three literary strata are distinguished within it: the four Vedas, collections of hymns and prayers made chiefly to accompany the pressing of soma and the offering of melted butter, then the Brahmanas, then the Sutras.<sup class=\"fn\" data-fn=\"1\"></sup> Its earlier half centred on the Punjab and its later half on the valley of the Ganges, and its language, Vedic Sanskrit, is the oldest recorded stage of Indo-Aryan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Rigveda": "The Rigveda is the oldest of the four Vedas and the oldest surviving book of the Indian subcontinent, a collection of hymns in Vedic Sanskrit.<sup class=\"fn\" data-fn=\"1\"></sup> The surviving Shakala recension holds 1,017 hymns, or 1,028 counting the eleven Valakhilya hymns inserted in the eighth book, grouped in ten books called mandalas; books 2 to 7 are family books, each handed down within the family of seers that made it, while every hymn of the ninth is addressed to Soma.<sup class=\"fn\" data-fn=\"1\"></sup> About 250 hymns celebrate Indra and at least 200 Agni, the fire of the sacrifice.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1904,7 +1905,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lothal": "c. 2600 – 1900 BCE",
 "Decline_of_the_Indus_civilisation": "c. 1900 – 1300 BCE",
 "Indo-Aryan_migrations": "c. 2000 – 1500 BCE",
-"Vedic_period": "c. 1500 – 500 BCE"
+"Vedic_period": "c. 1500 – 500 BCE",
+"Rigveda": "c. 1500 – 1000 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2779,7 +2781,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Indus_urban_planning": ["Indus town planning","Harappan urban planning","Harappan town planning"],
 "Decline_of_the_Indus_civilisation": ["decline of the Indus civilisation","decline of the Indus Valley Civilisation","Indus decline"],
 "Indo-Aryan_migrations": ["Indo-Aryan migration"],
-"Vedic_period": ["Vedic age"]
+"Vedic_period": ["Vedic age"],
+"Rigveda": ["Rig Veda","Rig-Veda"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4077,7 +4080,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lothal": ["place","history","archaeology","bronze age","india"],
 "Decline_of_the_Indus_civilisation": ["event","history","archaeology","bronze age","climate"],
 "Indo-Aryan_migrations": ["event","history","genetics","migration","bronze age"],
-"Vedic_period": ["era","history","literature","language","religion"]
+"Vedic_period": ["era","history","literature","language","religion"],
+"Rigveda": ["text","history","literature","language","religion"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
