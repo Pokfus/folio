@@ -16,14 +16,14 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-036`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-039`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
-Afghanistan) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510`
-Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran,
-`gw-518` Ankara and `gw-519` Berlin.** The next country is `gw-037` Canada and the next capital is
-`gw-520` Bangkok.
+Afghanistan, Canada, Yemen, Morocco) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad,
+`gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516`
+Hanoi, `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin and `gw-520` Bangkok.** The next country is
+`gw-040` Angola and the next capital is `gw-521` London.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -596,6 +596,29 @@ same value every year from 2002 to 2022, which is itself the sentence the marker
 **Two more term figures reconciled**: `Iraq`'s "roughly 46 million" is the 2023 value on the World Bank
 series and moves to 47 million; `Afghanistan`'s 652,867 km² sits three above UNdata's 652,864 and four
 above the World Bank's 652,860, which is outside the spread by C9's rule and moves to UNdata's.
+
+**Batch 12 (Canada, Yemen, Morocco, Bangkok) is where one country needed its two figures taken from two
+DIFFERENT sources, and the reason is an error rather than a disagreement.** `Canada`'s area is UNdata's
+9,984,670 km² and its population the World Bank's, because the World Bank's area series gives Canada
+**15,634,410 km²** — half as much land again as the country has, and the third outright error in that
+series after C11's Dominican Republic and D1's Monaco. C9's rule is that an area is corrected only where
+the term falls outside the spread of two sources; the rule underneath it is that a source has to be
+PLAUSIBLE before it is allowed into the spread at all, and a figure exceeding Russia's is not. The card
+says so in its own prose rather than quietly preferring one number, since a reader checking the World
+Bank would otherwise find the site's figure contradicted by a source the site itself cites elsewhere.
+
+**Yemen is the batch's reminder that a fifth source is sometimes a RESOLUTION rather than a paper.** Four
+works carried it to the bar less one, and the fifth is Security Council resolution **2216 (2015)**, whose
+own title names the arms embargo and the demand that the Houthis withdraw — an act of state, dated, and
+served by `digitallibrary.un.org` where `un.org/securitycouncil/*` returns CloudFront's 200-status
+"Request blocked" page. **Reach for the Digital Library, never the topic section.**
+
+**And Bangkok ships without a picture, which is a sandbox limit and not a search that failed.** Every
+Wikimedia endpoint — the Commons `api.php`, `api.wikimedia.org` and `upload.wikimedia.org` alike —
+answered "You are making too many requests to the API" for the whole of the batch, including for files
+already shipped on other terms, so the rate limit is the host's view of this sandbox rather than anything
+about the file wanted. **Say which of the two it is**: a term with no reachable picture is worth
+revisiting on the next run, where a term with no picture in existence is not.
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
