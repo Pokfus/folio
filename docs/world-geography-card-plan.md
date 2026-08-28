@@ -25,15 +25,16 @@ Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela,
 Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan, Chad, Chile, Romania,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
-Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan) **and capitals
+Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
+Austria) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-751` Dar es Salaam, `gw-752` Cape
-Town and `gw-753` Bloemfontein.** The next country is `gw-096` Israel and the next capital is `gw-540`
-Luanda.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-751` Dar es
+Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-099` Belarus and the
+next capital is `gw-541` Kyiv.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -914,6 +915,52 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 32 (Israel, Hungary, Austria, Luanda) corrected NOTHING — all four sets of figures were already
+inside the spread of their two sources — and its finding is that the DOCUMENTARY TRAIL of a UN admission
+is openable in full, not just its resolution.** Every earlier batch has cited the General Assembly
+resolution and stopped there. Angola's admission has four records in the UN Digital Library and each is a
+different document: the Secretary-General's note circulating the president's application letter of 22
+April 1976 (**A/31/85–S/12064**, record 671486); the Committee on the Admission of New Members' report of
+**23 June 1976** (**S/12109**, record 225044); its second report of **22 November** (**S/12234**, record
+225171); and the resolution itself (**A/RES/31/44**, record 199650). The two committee reports are the
+valuable half, because they carry the ARGUMENT: the June one records that the American representative
+urged deferral and that the United Kingdom, France, Italy and Japan supported it while stating they fully
+supported the application and that "none of them wished to see the admission of Angola to the United
+Nations delayed even by a single day". **Where a country's admission was contested, search the library for
+the COMMITTEE reports rather than only the resolution** — `p=<country>+admission+membership` returns them
+beside it. Two cautions from reading them. **The OCR of a 1976 mimeograph is not to be quoted**: S/12234's
+requesting delegations come out as "Berlin, the Libyan Arab Republic and the United Republic of Tanzania",
+where the sponsor list a paragraph later reads cleanly and includes Benin — so the card says "three
+members of the Council" and names nothing the scan cannot bear. And **a PDF's text is extractable only in
+patches**: the June report's first page comes out clean and its second degenerates into font-subset noise,
+so read what extracts and do not infer the rest.
+
+Its other finding is a source for a CAPITAL that the collection has not used before: the World Bank's
+**`EN.URB.LCTY`, "Population in largest city"**, which for Angola gives 9,651,032 for 2024 against
+UNdata's 8,044.7 thousand for Luanda in 2025. That is not a contradiction and must not be written as one
+— the two are drawn on different boundaries, a city proper against a wider agglomeration — but it is a
+SECOND institutional count of a capital's population, which the capital cards have otherwise had only
+from UNdata. **Reach for it when a capital's figure needs corroborating**, and state the divergence as a
+matter of boundary rather than picking a winner.
+
+Israel is the batch's one card where the FACTS BOX had to say something different from its 232 siblings.
+The plan defers `gw-596`, the capital card, because its answer is the dispute; the country card is
+written normally, and the row reads **"Seat of government | Jerusalem"** rather than "Capital". That is
+not an editorial hedge invented here — it is what the cited source says. **UNdata's own footnote c on the
+Israel profile reads: "Designation and data provided by Israel. The position of the UN on Jerusalem is
+stated in A/RES/181 (II) and subsequent General Assembly and Security Council resolutions."** A second
+footnote records that the capital-city population figure includes East Jerusalem. So the dispute is
+carried in the tables the whole collection is built on, and the honest card quotes the table rather than
+resolving what the table declines to resolve. **When a statistical profile footnotes a designation,
+the footnote is the citation** — it says the thing outright and needs no other source.
+
+Two smaller things. Hungary and Austria were admitted in the same resolution as Spain, Cambodia, Jordan
+and Portugal — **A/RES/995 (X) of 14 December 1955 now carries eight cards in this collection**, and its
+record (209584) is worth keeping to hand. And the American recognition guide's entry for **Israel is two
+sentences long** where Hungary's and Austria's run to two thousand words apiece: the guide's length is a
+fact about the relationship's complication, not about its importance, and a short entry means the card
+must be carried by the UN records instead.
 
 **Batch 31 (Sweden, Greece, Azerbaijan, Rabat) made two corrections and one of them CLOSES THE GREECE
 SHAPE, four batches after D1 half-closed it.** D1 rewrote `Greece` to state an area and a capital but
