@@ -1300,7 +1300,8 @@ window.GLOSSARY = {
 "Consul": "A consul was the highest magistrate of the Roman Republic, one of two who held the office together for a single year, elected in the assembly of centuries and preceded in public by twelve lictors bearing the fasces.<sup class=\"fn\" data-fn=\"1\"></sup> On the fall of the monarchy the consuls took over every power the king had held except the priestly one, which was given to the rex sacrorum instead.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They brought embassies before the senate, summoned and presided over the assemblies of the people and carried out what was decreed, and if one died in office a successor was elected with powers no less than his.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Fasti_Consulares": "The <i>Fasti Consulares</i> were the official Roman register of the consuls of each year, kept among the public records and providing the framework by which the Republic's years were dated.<sup class=\"fn\" data-fn=\"1\"></sup> The word <i>fasti</i> first meant the days on which legal business could lawfully be done, and then the books that marked them, before widening to cover the registers of consuls, dictators, censors and other magistrates.<sup class=\"fn\" data-fn=\"1\"></sup> The largest surviving copy was cut into the walls of the Regia in the Roman Forum, ran from the expulsion of the kings to the death of Augustus, and is known as the Fasti Capitolini from the Capitol, where its fragments were set up.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Imperium": "<i>Imperium</i> was the power the Roman state conferred on a man to command its armies, defined by Cicero as that without which military affairs cannot be administered, an army held together or a war waged.<sup class=\"fn\" data-fn=\"1\"></sup> It was distinct from <i>potestas</i>, which a tribune of the plebs held and which carried no such command, and it was granted not by the election itself but by a law passed in the assembly of curies.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Under the Republic it could not be exercised inside the city except on the day of a triumph, it belonged to no office of itself, and the man who received it was styled <i>imperator</i>.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Fasces": "The <i>fasces</i> were a bundle of rods bound together with an axe set in the middle, its blade projecting, carried by lictors walking in single file before the higher magistrates of Rome as the outward sign of their authority.<sup class=\"fn\" data-fn=\"1\"></sup> Rome took both the bundle and the office of lictor from the Etruscans, and twelve went before each king and afterwards before each consul.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Inside the city the axes were removed once the people held the right of appeal, and the bundles were lowered to a superior magistrate or to the assembled people, whence the phrase for yielding to another.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Fasces": "The <i>fasces</i> were a bundle of rods bound together with an axe set in the middle, its blade projecting, carried by lictors walking in single file before the higher magistrates of Rome as the outward sign of their authority.<sup class=\"fn\" data-fn=\"1\"></sup> Rome took both the bundle and the office of lictor from the Etruscans, and twelve went before each king and afterwards before each consul.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Inside the city the axes were removed once the people held the right of appeal, and the bundles were lowered to a superior magistrate or to the assembled people, whence the phrase for yielding to another.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Collegiality": "Collegiality was the principle of Roman republican government by which an office was held by two or more men at once, each of them invested with the same rights as the others.<sup class=\"fn\" data-fn=\"1\"></sup> Because their powers were equal the holders could do nothing unless they agreed, one might hear an appeal against another's sentence or veto his proceedings, and the consuls in practice took the office in alternate months.<sup class=\"fn\" data-fn=\"1\"></sup> Latin called each consul the other's collega and their joint tenure a collegium, though the word properly described an association of at least three men, and the same shape appears in the colleges of tribunes of the plebs and of quaestors.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2819,7 +2820,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Consul": ["consuls","consulship"],
 "Fasti_Consulares": ["consular fasti","Fasti Capitolini"],
 "Imperium": ["imperium militare"],
-"Fasces": ["fasces and axes"]
+"Fasces": ["fasces and axes"],
+"Collegiality": ["collegial"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4145,7 +4147,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Consul": ["title","history","italy","iron age","institution"],
 "Fasti_Consulares": ["text","history","italy","iron age","institution"],
 "Imperium": ["concept","history","italy","iron age","institution"],
-"Fasces": ["object","history","italy","iron age","institution"]
+"Fasces": ["object","history","italy","iron age","institution"],
+"Collegiality": ["concept","history","italy","iron age","institution"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
