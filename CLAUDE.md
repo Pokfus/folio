@@ -621,7 +621,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   its **impeachment** pages are real, its party-history and vice-president paths are the shell, and **the
   shell is a constant 37,523 bytes**, so a size check tells them apart instantly. Three access findings from it govern the rest of Phase 2 and Phase 3:
   **a URL containing a closing parenthesis cannot be cited** (`SRC_URL_RX` stops at `)`, which rules out
-  every congressional bioguide address), **`senate.gov` serves its 404 page with a 200 status**, and
+  every congressional bioguide address — **and the same is true of an APOSTROPHE**, the class being
+  `[^\s<>"')\]]`, which bit twice in Aug 2026 while illustrating psychology cards: the obvious Commons
+  page for Kant carries parentheses and the obvious one for Broca's area carries an apostrophe, so both
+  credit lines would have shipped truncated. **Check a Commons page URL for `'` and `()` before choosing
+  the file**, since a picture is usually replaceable and the credit line is not optional), **`senate.gov` serves its 404 page with a 200 status**, and
   **`monticello.org` and `founders.archives.gov` are closed here** — so Founders Online, named as a
   second-source spine in the plan, is not usable and the NARA milestone documents replace it. G9's finding held into G10 and G11 and is now a law of the pass:
   the register pays for taxa and periods and **not** for peoples, places or objects, so 24 of G9's 26 and
@@ -736,11 +740,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   themselves against — and that **a finding is described with the people it was found in**, which is
   the psychology form of the history plans' rule about a state's account of itself and the easiest one
   here to break by accident. The next card to write is the lowest `ps-NNN` not yet in `data.js`; the
-  index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **No card has been written yet**,
-  so the collection sits in Planned on its own account — `isComingSoon` is true for a node holding
-  no cards. It also ships an inert **`Science` row in `COLLECTION_SECTIONS`**: `sectionOf` returns
-  History for anything the table does not name, so without it the first psychology card would file the
-  collection under History; the row draws nothing until that card exists. Not part of the site.
+  index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup, and carries the count. **Its first
+  cards have shipped**, so the collection is live — `isComingSoon` is false for a node holding a card — and its 37 empty decks are
+  coming-soon automatically, on the same rule. That first card is also what **woke the `Science` row in
+  `COLLECTION_SECTIONS`**, which shipped inert with the plan: `sectionOf` returns History for anything
+  the table does not name, so without the row the first psychology card would have filed the collection
+  under History, and `PAGES.decks` skips a section holding no available collection until one does.
+  Not part of the site.
 - `docs/philosophy-card-plan.md` — the **1000-card running order for the Philosophy collection**
   (`phil`): every card's number, topic and deck, fixed in advance across 9 decks and 38 leaf decks. The
   thirteenth of the planned collections and the second that is not history. **It is EXCLUDED from the
@@ -855,7 +861,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `.claude/card-focus.js` — the measure behind that second half: `node .claude/card-focus.js [--prefix=] [--all]
   [--card=<id>]`. It reads each card's own citations, takes names only from AUTHOR POSITIONS (reviewer before
   "review of"; authors after "by" / "ed."), throws the titles away first so an ancient author named in one never
-  counts, and reports both rules with an `EXEMPT` list for cards whose answer term IS modern. Not part of the site.
+  counts, and reports both rules with an `EXEMPT` list for cards whose answer term IS modern. **It also knows
+  the two COLLECTION-WIDE exclusions from rule 1** (`RULE1_EXCLUDED`: `ps-` and `ph-`, since in psychology
+  and philosophy the literature is the subject matter): those cards are listed under their own heading and
+  are not counted as needing revision, because the alternative is a measure that reports a permanent, growing
+  false finding on two collections — and `EXEMPT` is deliberately the wrong instrument, being per card. Rule 2
+  still binds on them. Not part of the site.
 - `.claude/check-questions.js` — the card QUESTION house rules, measured over the shipped `data.js`:
   `node .claude/check-questions.js [--verbose]`, exit 1 on any violation, so it guards a batch the way
   `check-style.js` does. Four rules — **one sentence**; **understandable on its own** (a question may not
@@ -3652,7 +3663,9 @@ parts, and the first is absolute:
   name, and both disciplines are mostly "modern" by this rule's own measure, so applying it would make
   most of those two collections unwriteable. Their questions may name anybody, and `card-focus.js`'s
   flags on a `ps-` or `ph-` card are noise rather than findings — do NOT clear them one at a time through
-  `EXEMPT`; the exclusion is collection-wide and is recorded here and in each plan. **The historiography
+  `EXEMPT`; the exclusion is collection-wide, is recorded here and in each plan, and **since `ps-002` the
+  script itself carries it** (`RULE1_EXCLUDED`), listing such cards under their own heading rather than as
+  work to do. **The historiography
   cap below still binds on both.** Everywhere else the rule is absolute: not "Hans van Wees calls…", not "Lambert argues
   that…", not "Evans noted in a footnote…". A clue built on who said a thing is answerable by someone who
   knows the modern literature and nothing whatever about Greece, which is the exact inversion of what a
@@ -3754,7 +3767,7 @@ lookup.
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
-| Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | empty — not a history collection |
+| Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 50 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | empty — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
@@ -3927,11 +3940,35 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   must carry a link** and all four helper scripts refuse one that does not, which by design restricts the
   citable literature to what is **publicly reachable**: a DOI, an open-access paper, a museum or agency
   permalink. That restriction is the point — a page number nobody can open is a page number nobody
-  checked. **AND THE TOOLS CHECK THAT A CITATION ENDS IN A URL, NEVER THAT THE URL OPENS** — so an
+  checked. **AND A URL THAT OPENS SAYS NOTHING ABOUT THE NAME IN FRONT OF IT.** N4 recorded the
+  whole-citation form of this fault; the commoner form is one level down and is easy to commit without
+  noticing — a search result prints `Wani PD`, a Chicago note wants a given name, and the expansion that
+  FEELS right gets written. It was Pinaki, not Pooja. **`node .claude/check-cite-authors.js [--prefix=]
+  [--all]`** checks every PMC-backed citation's author names against the Europe PMC record and reports
+  only a mismatch where BOTH sides carry a full given name — an initial, or a record holding only
+  initials, is not a finding, since Europe PMC often stores `B Cavalazzi` for a byline printing Barbara.
+  Run over the whole corpus in Aug 2026 it found **24 wrong given names across 18 works, every one on a
+  citation whose URL resolved perfectly**: Hayden Schill written as Hannah, Samantha Gray as Steven, Wren
+  Gould as William, Ceri Shipton as Chris, Amy Way as Andrew, Piotr Fedurek as Pawel, Jessica Bates as
+  Jennifer. **Verify a finding on the PMC page before rewriting** — the record can be wrong too — and note
+  it tries every author sharing a surname, since a paper with two Hamiltons on it is not a finding.
+  **AND THE TOOLS CHECK THAT A CITATION ENDS IN A URL, NEVER THAT THE URL OPENS** — so an
   archive.org identifier or a DOI written from MEMORY ships as a 404 and nothing anywhere reports it
   (`cnh-006` shipped one for an hour: `sacredbooksofchi27conf` for `sacredbooksofchi0027unse`). Curl
   every citation URL of a new card before committing it; a 302 is a DOI resolving and is fine, a 404
-  is a source the reader cannot check. **Every source must be referenced by at least one marker** — a citation
+  is a source the reader cannot check. **A CURL IS NOT A CITATION CHECK, EITHER — IT CHECKS THE URL AND
+  NOTHING ELSE.** Four SEP citations shipped in Aug 2026 with a wrong edition, a wrong title and a
+  missing co-author, on four cards and four glossary terms, every URL returning 200 the whole time: the
+  edition had been composed from the "substantive revision" date on the page instead of read, and
+  `plato.stanford.edu/entries/<slug>/` shows a browse label rather than the entry's real title. **The
+  Stanford Encyclopedia states its own preferred citation** at
+  `plato.stanford.edu/cgi-bin/encyclopedia/archinfo.cgi?entry=<slug>` — authors, exact title, archive
+  edition, editors and the stable `archives/<ed>/entries/<slug>/` URL to cite instead of the live one —
+  and the four guesses were wrong four different ways ("Fall 2021" against Spring 2023, "Spring 2019"
+  against Summer 2024, "Innateness: Historical Controversies" against "The Historical Controversies
+  Surrounding Innateness", Mandelbaum alone against Mandelbaum and Millière). **Read a source's own
+  metadata page before citing it**; this is N4's fabricated-author finding in a second coat, and the
+  archive URL is also what pins the wording a marker points at. **Every source must be referenced by at least one marker** — a citation
   nothing points at is a reading list, not a footnote — and `add-card.js` refuses a card that breaks
   either rule. Cite the scholarship the claim actually rests on: a monograph, a survey, a journal
   article, a museum or excavation report. **A Wikipedia article is not a source here** — it is where the

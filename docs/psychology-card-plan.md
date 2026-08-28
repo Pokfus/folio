@@ -330,6 +330,18 @@ sentence; **the exclusion is collection-wide and is recorded here and in CLAUDE.
 with `--prefix=ps-` is still worth doing for its OTHER half, the majority-historiography count, which
 does still bind.
 
+**And rule 2 bites in `ps-roots` for a reason worth knowing before writing there, found on `ps-024`.**
+The measure counts a sentence as historiography when it names one of the card's OWN citation authors, and
+the roots deck cites its subjects directly — Locke, Hume, Leibniz, Descartes, James — so a card about
+Locke's argument, cited to Locke, reads to the script as a card about a modern arguer. `ps-024` scored
+5 of 10 with no modern year anywhere in it. The script's `ANCIENT` set exists for exactly this
+distinction, sources FOR the subject against arguers ABOUT it, and it stops at antiquity. **Do not widen
+it and do not reach for `EXEMPT`**: the flag is usually telling the truth about the PROSE even when it is
+wrong about the rule, since a card naming its philosopher in five of ten sentences is a roll-call.
+`ps-024` was fixed by replacing two of the five names with "that account" and "the Essay itself", which
+took it to 3 of 10 and reads better. Write with pronouns and the work's own title, and the measure and
+the prose agree.
+
 **About forty of the thousand cards have a person as their answer, and three-quarters of those are in
 deck 1**, where the founders are the history of the subject. That is a fact about the plan rather than a
 budget: the number comes from what the subject needs, which is what the two-scholar cap was reaching for
@@ -423,6 +435,15 @@ something else on this site's prehistory cards, *association* means something el
 and *depression* is already both a landform (the Danakil and Upemba Depressions) and an economic
 slump in the presidential terms.
 
+**The first collision arrived at `ps-027` and was resolved by NARROWING THE KEY, not by aliasing.** The
+psychology sense of *nativism* is `Psychological_nativism` on Wikipedia; the bare word is the political
+one, and the United States collection already plans `us-732 Nativism in the Gilded Age`. So the term is
+keyed `Psychological_nativism`, whose only auto-link surface is the two-word phrase, and **neither
+"nativism" nor "nativist" is aliased**, which leaves the card's own answer term unlinked and is the right
+trade: an alias would have pointed every Gilded Age sentence at a card about innate concepts. Expect the
+same shape wherever a psychology word has a political or everyday twin — check Wikipedia's canonical slug
+before choosing a key, and count the corpus before adding an alias.
+
 **The card ships with its glossary term, cited at the bar** — the standing rule in
 `docs/card-glossary-pairing.md`. This collection starts its vocabulary from nothing, so that rule does
 more work here than in any collection since Greece.
@@ -474,18 +495,18 @@ more work here than in any collection since Greece.
     ps-036  Ernst Weber
     ps-037  Gustav Fechner and psychophysics
     ps-038  Charles Darwin and the descent of mind
-    ps-039  Evolutionary thinking and psychology
+    ps-039  Herbert Spencer and evolutionary thinking in psychology
     ps-040  Francis Galton
     ps-041  The first mental tests
     ps-042  Eugenics and early psychology
-    ps-043  The somatic view of madness
+    ps-043  Wilhelm Griesinger and the somatic view of madness
     ps-044  Mesmerism and animal magnetism
-    ps-045  The nineteenth-century asylum
+    ps-045  Moral treatment and the nineteenth-century asylum
 
 ### The founding schools — `ps-schools`
 
     ps-046  Wilhelm Wundt
-    ps-047  The Leipzig laboratory
+    ps-047  The Leipzig laboratory and mental chronometry
     ps-048  Structuralism
     ps-049  Edward Titchener
     ps-050  The imageless thought controversy

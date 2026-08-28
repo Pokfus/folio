@@ -50,6 +50,26 @@ const EXEMPT = {
   "wh-106": "Blytt–Sernander scheme — a 19th-century scheme",
 };
 
+/* TWO COLLECTIONS ARE EXCLUDED FROM RULE 1 OUTRIGHT (Aug 2026, on request), and this is a COLLECTION-WIDE
+   exclusion rather than a list of cards. In psychology and philosophy the literature IS the subject
+   matter: a finding is a study, an argument carries its author's name, and both disciplines are mostly
+   "modern" by this script's own measure — so holding their questions to rule 1 would make most of those
+   two collections unwriteable. `EXEMPT` above is the wrong instrument for it: CLAUDE.md says explicitly
+   NOT to clear these one card at a time, because the exclusion is a fact about the collection and a
+   per-card list would have to be extended on every card that names anybody.
+
+   RULE 2 STILL BINDS ON THEM. The cap on historiography is about a card being ABOUT the modern argument
+   rather than about its subject, which is as much a fault in a philosophy card as anywhere else.
+
+   They are reported under their own heading rather than silently dropped: a psychology question naming a
+   researcher is still worth SEEING, since the choice should be deliberate, and the count belongs
+   somewhere a reader of this output can find it. It is simply not a finding to be fixed. */
+const RULE1_EXCLUDED = {
+  "ps-": "Psychology — the literature is the subject matter",
+  "ph-": "Philosophy — the thinkers are the subject matter",
+};
+const rule1Excluded = (id) => { const k = Object.keys(RULE1_EXCLUDED).find((p) => id.startsWith(p)); return k ? RULE1_EXCLUDED[k] : null; };
+
 /* MEASURED, not chosen: over the 269 shipped cards the historiography count is 0 or 1 for 206 of them,
    2 for 37 and 3 for 12, then breaks to a tail of twelve cards at 4 and above. So 3 is where the corpus
    itself puts "briefly touched on" and 4 is where a card starts to be ABOUT the modern argument. */
@@ -135,7 +155,8 @@ function measure(card) {
   const modern = sents.filter((s) => /\b(1[89]\d{2}|20[0-2]\d)\b/.test(s));
 
   return { id: card.id, answer: card.answerText, n: sents.length, historio: historio.length,
-           modern: modern.length, qNamed, names, exempt: EXEMPT[card.id] || null };
+           modern: modern.length, qNamed, names, exempt: EXEMPT[card.id] || null,
+           q1off: rule1Excluded(card.id) };
 }
 
 const win = loadWindow(dataPath);
@@ -147,15 +168,22 @@ const rows = win.CARD_DATA.filter((c) => c.id.startsWith(prefix) && (!one || c.i
 
 if (one) { console.log(JSON.stringify(rows[0], null, 1)); process.exit(0); }
 
-const qFails = rows.filter((r) => r.qNamed.length && !r.exempt);
+const qFails = rows.filter((r) => r.qNamed.length && !r.exempt && !r.q1off);
+const qOff = rows.filter((r) => r.qNamed.length && !r.exempt && r.q1off);
 const aFails = rows.filter((r) => r.historio > HISTORIO_MAX && !r.exempt);
-const both = rows.filter((r) => r.qNamed.length && r.historio > HISTORIO_MAX && !r.exempt);
-const needsWork = rows.filter((r) => (r.qNamed.length || r.historio > HISTORIO_MAX) && !r.exempt);
+const both = rows.filter((r) => r.qNamed.length && !r.q1off && r.historio > HISTORIO_MAX && !r.exempt);
+const needsWork = rows.filter((r) => ((r.qNamed.length && !r.q1off) || r.historio > HISTORIO_MAX) && !r.exempt);
 
 console.log(`cards measured: ${rows.length}${prefix ? " (prefix " + prefix + ")" : ""}\n`);
 console.log(`RULE 1 — question names a researcher: ${qFails.length} card(s)`);
 for (const r of qFails.sort((a, b) => b.qNamed.length - a.qNamed.length || a.id.localeCompare(b.id))) {
   console.log(`  ${r.id}  ${String(r.answer).slice(0, 24).padEnd(25)} ${r.qNamed.map((q) => "Q" + q.i + " " + q.name).join(", ")}`);
+}
+if (qOff.length) {
+  console.log(`\nnaming a researcher where rule 1 does NOT apply: ${qOff.length} card(s)`);
+  for (const r of qOff.sort((a, b) => a.id.localeCompare(b.id))) {
+    console.log(`  ${r.id}  ${String(r.answer).slice(0, 24).padEnd(25)} ${r.qNamed.map((q) => "Q" + q.i + " " + q.name).join(", ")}   [${r.q1off}]`);
+  }
 }
 console.log(`\nRULE 2 — historiography over ${HISTORIO_MAX}/10 sentences: ${aFails.length} card(s)`);
 for (const r of aFails.sort((a, b) => b.historio - a.historio || a.id.localeCompare(b.id))) {

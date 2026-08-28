@@ -21813,13 +21813,15 @@
   const COLLECTION_SECTIONS = [
     { label: "History", slot: "collection-list-all" },
     { label: "Geography", slot: "collection-list-geo" },
-    /* Science. It draws NOTHING today and that is deliberate rather than dead: `sectionOf` returns History
-       for anything this table does not name, so a Psychology collection that gained its first card would
-       be filed under History with nothing on the page saying so. The row is inert while `psych` is
-       coming-soon — the map below skips a section with no AVAILABLE collections, and only History gets an
-       empty slot, for its drop target — and correct the day a card ships, without anyone having to
-       remember. The heading is "Science" rather than "Psychology" for the reason Geography is a heading
-       rather than a collection: the next science collection should not need a second one. */
+    /* Science. It was written INERT and is now live: `sectionOf` returns History for anything this table
+       does not name, so a Psychology collection that gained its first card would have been filed under
+       History with nothing on the page saying so, and the row was added ahead of that card rather than
+       after it. It drew nothing while every science collection was coming-soon — the map below skips a
+       section with no AVAILABLE collections, and only History gets an empty slot, for its drop target —
+       and it began drawing the day `ps-001` shipped, with nobody having to remember. `bio` and `dino` are
+       still coming-soon and join it the same way. The heading is "Science" rather than "Psychology" for
+       the reason Geography is a heading rather than a collection: the next science collection should not
+       need a second one. */
     { label: "Science", slot: "collection-list-sci" },
     /* Philosophy — inert today for the same reason Science is, and named for the same reason Geography is
        a heading rather than a collection. The heading and its one collection share a name, which is the
