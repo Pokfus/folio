@@ -21,16 +21,16 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
-`geo-037` Alabama, `geo-038` Mississippi,
+`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville and `geo-535` Jefferson City.**
-Both subdecks are worked down the same list, so the next state is `geo-039` and the next capital
-`geo-536`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City and `geo-536` Little Rock.**
+Both subdecks are worked down the same list, so the next state is `geo-040` and the next capital
+`geo-537`.
 
 ---
 
@@ -1182,6 +1182,40 @@ terms that already exist**. Each was measured, and none should be settled quietl
   a text nobody was editing. Two surfaces recorded for later: **`Cairo`** will be claimed by Ancient Egypt
   and would then take Cairo, Illinois, so the river term says "its lower course" instead; and
   **`Montgomery`** and **`Memphis`** are still free but will not stay so.
+
+- **`Delaware` IS DIVIDED THREE WAYS AND NOT ONE OF THEM DOMINATES.** Its five uses are the RIVER twice
+  (`geo-518` and the `Trenton` term, both "on the Delaware"), a STREET NAME twice (`geo-532` and the
+  `Indianapolis` term, "North Delaware Street") and the STATE once, in `Joe_Biden`. Round 31's
+  `Wisconsin_(state)` was every-use-the-other-sense and round 34's `Mississippi_(state)` was fourteen
+  uses all one way; this is the third shape, a surface with no majority at all, and it reaches the same
+  key: **`Delaware_(state)`**, parenthetical, claiming nothing bare. Rendering `geo-518` confirms the
+  river reference is left alone.
+
+- **`Little_Rock` REPAIRED THREE SHIPPED TEXTS ON ARRIVAL** — `geo-036`, the `Arkansas` term and
+  `Dwight_D._Eisenhower`, all of which named the city and linked nothing. That is the fourth round
+  running in which a new term corrected texts nobody was editing, and it is now predictable enough to
+  plan for: **measure the surface, and if every use is the answer term's own sense, the term pays for
+  itself the moment it ships.**
+
+- **THE ARKANSAS CAPITAL CARD HAD TO GO ROUND ITS OWN STATE CARD.** `geo-036` had already spent the
+  Little Rock school crisis in detail — the Daisy Bates house, the executive order, the 101st Airborne,
+  Central High — so `geo-536` is built on what the state card did not touch: the limestone outcrop that
+  named the place, Gideon Shryock's state house, the arsenal, and the capitol of 1899. **Read the
+  matching state card before writing a capital**, or the two repeat each other and the second says
+  nothing new.
+
+- **SHRYOCK NOW APPEARS ON THREE CARDS AND THE THREAD IS WORTH KEEPING.** He drew Frankfort's old state
+  house (`geo-533`), he is the American exemplar in the `Greek_Revival_architecture` term written last
+  round, and Little Rock's Old State House is his too — its plans cut down by his assistant George
+  Weigart when the state would not pay. A collection of fifty capitals will keep meeting the same few
+  architects; **name them, and the deck acquires a spine the individual cards cannot.**
+
+- **DELAWARE HAS ALMOST NOTHING IN THE NPS LAYER AND EVERYTHING IN HABS.** The ArcGIS NRHP layer returns
+  519 Delaware rows and **one** flagged NHL, with no Fort Christina, no Old Swedes, no Dickinson
+  mansion and no du Pont mills — a name search for each returns nothing at all. The whole card therefore
+  rests on HABS written data through the loc.gov JSON API, cited at `tile.loc.gov`, which is now the
+  third round to use that route. **When a state's NHL list comes back implausibly short, the layer is
+  wrong, not the state**; go to HABS.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
