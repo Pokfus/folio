@@ -2426,3 +2426,26 @@ photograph has NO thumbnails at all, so the only path is the original file, whic
 **A file barely over the bar is the worst case**: too small for MediaWiki to thumbnail, too rate-limited
 to fetch whole. The late Shang jia that shipped is 3620 × 5436, thumbnailed instantly, and its flanges
 divide each mask down the middle, which is the split composition the card describes.
+
+  **`cnh-085` IS A CARD ABOUT A MATERIAL LOSING ITS PLACE, AND THAT IS ITS LAST SENTENCE RATHER THAN
+ITS FIRST.** Li Liu's survey ends on the finding the card needed: jade production became a
+**transregional** operation in the late Shang, drawing raw material from the periphery, while the elite
+turned to bronze and white pottery — so the material that had carried ritual power since the Neolithic
+stopped being the foremost prestige stuff in the record. **A card about an object class is more
+interesting when it says where in the sequence the class sits.**
+  **ITS SHARPEST PAIR IS TWO CLAIMS ABOUT WHO DID THE CUTTING.** The older view makes the Shang jade
+workers slaves; against it, the workshop at Yinxu sits **inside the palace and temple complex**, which
+suggests elite hands at the finishing, and Li Liu notes that artisans in other ancient civilisations
+often held rank of their own. The card states both and settles neither.
+  **AND THE COUNTERWEIGHT IS AN ABSENCE.** Against 2,000 jades from Yinxu, MacIver's tables show the
+proportion of jade in ordinary Anyang burials is **extremely low** — differential access, plainly stated.
+**A card that only counts what the palace had is a card about the palace**; the second number is what
+makes the first one mean something.
+  **THE CAUTION IT CARRIES IS THE REVIEWER'S, NOT THE SURVEY'S.** The Thorp review corrects the
+impression that Shang houses and workshops barely survive: there are plenty, but they are dug and
+published far less often than elite burials. A card resting on ONE identified jade workshop should say
+that the sample is an artefact of where archaeologists have chosen to look.
+  **The picture is a jade `ge` from the Yin Ruins** — the commonest Shang jade form, with its drilled
+hafting hole and an excavation number inked beside it. `add-card.js` offered a Jade Emperor painting and
+a plaque catalogued "Neolithic or Shang period, 2500–1500 BC"; **an object whose own museum will not
+date it to the Shang cannot illustrate a card about Shang jade.**

@@ -1296,7 +1296,8 @@ window.GLOSSARY = {
 "Chinese_ritual_bronzes": "<b>Chinese ritual bronzes</b> are cast vessels made for the offerings owed to the dead, used in banqueting, in presenting food and drink to the ancestors and in signalling the standing of their owner, each shape carrying a name of its own.<sup class=\"fn\" data-fn=\"1\"></sup> The functions those names carry come from the received textual tradition rather than from residue or wear analysis, so a steamer known for grain has also been found holding human skulls.<sup class=\"fn\" data-fn=\"2\"></sup> A grave's set is readable as rank, from two pieces at the bottom to the nine ding a Zhou king was entitled to, with grain and liquor vessels and bells specified by number to match.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Piece-mould_casting": "<b>Piece-mould casting</b> is a founding method in which a clay model is enclosed in an outer mould built of several fitted sections, and molten metal is poured into the space between the two.<sup class=\"fn\" data-fn=\"1\"></sup> Metal spacers hold the model and the mould apart while the metal goes in, and a large vessel may be built up in several pours, its parts cast separately and then cast onto one another.<sup class=\"fn\" data-fn=\"1\"></sup> Mould sections carrying ornament have been found, so the decoration was made in the mould rather than worked onto the finished metal, and the method set what shapes were possible.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Ding_(vessel)": "<b>ding</b> is the Chinese ritual cauldron, standing on three legs or four, and among Shang bronzes the one vessel used specifically to prepare and offer meat to the dead.<sup class=\"fn\" data-fn=\"1\"></sup> In the oracle-bone inscriptions its graph works as a verb of sacrifice, taking the king as subject, a dead king or queen as indirect object and the offering itself as direct object, and burnt animal bone has been found inside examples taken from burials.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Four-legged ding were far rarer than three-legged ones and belonged to the ruling class and its heirs, and out of that scarcity grew the myth that made the vessel the token of a dynasty's right to rule.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Shang_bronze_decoration": "<b>Shang bronze decoration</b> is the dense animal ornament cast into the surface of ritual vessels, its commonest motif a face of beasts with open fanged mouths whose horns mark them as plant-eaters.<sup class=\"fn\" data-fn=\"1\"></sup> Much of it is set as a split image, a face seen from the front resolving into an animal in profile on either side, and it was cut into the mould rather than worked on the finished metal.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> What the creatures mean is disputed: the reading that they show the animals given in sacrifice fails on the list, since buffalo, tigers, owls and elephants were almost never offered, and what they share instead is wildness.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Shang_bronze_decoration": "<b>Shang bronze decoration</b> is the dense animal ornament cast into the surface of ritual vessels, its commonest motif a face of beasts with open fanged mouths whose horns mark them as plant-eaters.<sup class=\"fn\" data-fn=\"1\"></sup> Much of it is set as a split image, a face seen from the front resolving into an animal in profile on either side, and it was cut into the mould rather than worked on the finished metal.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> What the creatures mean is disputed: the reading that they show the animals given in sacrifice fails on the list, since buffalo, tigers, owls and elephants were almost never offered, and what they share instead is wildness.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Shang_jade": "<b>Shang jade</b> is the worked stone of the Shang, made into weapons and sceptres far more than into vessels, the commonest forms being blades called zhang, taken to be sceptres, along with ge and yue axes, some of them inscribed with clan insignia.<sup class=\"fn\" data-fn=\"1\"></sup> Nothing shows the weapons were ever used, and what marks them as ceremonial is their decoration, birds and animal masks cut in fine incisions.<sup class=\"fn\" data-fn=\"1\"></sup> More than 2,000 pieces are known from Yinxu, where two houses in the palace precinct held over 600 unfinished objects and 260 grinding stones, though the stone itself had to be carried in from far away.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2825,7 +2826,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Chinese_ritual_bronzes": ["ritual bronze","ritual bronzes"],
 "Piece-mould_casting": ["piece-mould","section-mould casting"],
 "Ding_(vessel)": ["ding"],
-"Shang_bronze_decoration": ["Shang bronze ornament"]
+"Shang_bronze_decoration": ["Shang bronze ornament"],
+"Shang_jade": ["Shang jades"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4148,7 +4150,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chinese_ritual_bronzes": ["object","art","archaeology","history","china"],
 "Piece-mould_casting": ["practice","technology","archaeology"],
 "Ding_(vessel)": ["object","art","archaeology","china","bronze age"],
-"Shang_bronze_decoration": ["art","object","archaeology","china","bronze age"]
+"Shang_bronze_decoration": ["art","object","archaeology","china","bronze age"],
+"Shang_jade": ["object","art","archaeology","china","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
