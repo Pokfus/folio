@@ -1200,3 +1200,36 @@ behind the glass, in portrait. The broomcorn millet panicle is a clean landscape
 sky, and its record is a botanist's: species, subspecies, and the Vienna roadside it grew on, which the
 `desc` states so that nobody reads it as a Chinese field. The card takes the picture that reads at card
 size and the term takes the one that survives being 150px high.
+  **`cnh-044` IS THE DECK'S FIRST CARD CARRIED BY A CHINESE MUSEUM'S OWN COLLECTION RECORD, AND THAT IS
+THE ROUTE TO REACH FOR WHEN THE JOURNALS GO QUIET** (Aug 2026). Jiahu's flutes are famous and the paper
+that reported them is in *Nature*, which is shut here; `metmuseum.org` answers **429 behind a JavaScript
+challenge**; `cambridge.org` is 403, so the *Antiquity* paper on the site's signs is unreachable and its
+old `antiquity.ac.uk` article paths are **404** since the journal moved. What answered is **`chnmus.net`,
+the Henan Museum**, whose 镇院之宝 (museum treasures) pages carry a full record for 贾湖骨笛 — the crane
+ulna it is cut from, the joints sawn off the hollow bone, the hole counts across the thirty-odd flutes
+(two, five, six, seven or eight, most of them seven), the equal-division marks showing the spacing was set
+out before drilling, and the tomb and year for the one on show. **`kaogu.cssn.cn`, the CASS Institute of
+Archaeology, also answers 200**, and `chnmuseum.cn` and `en.chnmuseum.cn` with it, so the Chinese
+institutional shelf is open even where the Anglophone journals are not — batch 18's "look for the body
+responsible" rule, pointed at a provincial museum. The page is reached through a redirect
+(`/content/redirect?id=…` → `/ch/collection/treasure/details.html?id=…`) and the **detail URL is what to
+cite**, since it is the one a reader can open.
+  **AND THAT SAME PAGE STATES ITS OBJECT'S LENGTH TWICE AND DISAGREES WITH ITSELF** — 长23.6厘米 in the
+specification block against 全长23.1厘米 in the prose — which is `cnh-017`'s Mayers fault on a modern web
+page rather than in an OCR'd scan. Neither figure is cited and the card gives no length. **Where one
+source states a figure twice, either reconcile it from a third or leave the figure out**; a card does not
+need every number a record carries.
+  **THE CARD SAYS LESS THAN IT COULD BECAUSE THE MEDIUM OF THE SIGNS IS NOT IN ANY SOURCE IT CITES.** Two
+open papers describe Jiahu as having yielded "possibly the earliest Chinese pictographic writing" and
+neither says what the signs are cut on; the tortoise shells are common knowledge and common knowledge is
+not a citation. So the abstract says "marks" and not "tortoise shells", and the claim is given as the
+hedge its own reporters give it. The GLOSSARY TERM's picture is a shell all the same — the Henan Museum's
+Hebu 314, whose Commons record names the museum, the site, the county and a date — because **a `desc`
+reporting a museum's record is not the prose asserting a fact**, and the two are allowed to know different
+things. **Watch for the pull of a fact you know but cannot cite**; it is strongest on a famous site.
+  **ITS SPINE IS A SILK PAPER, WHICH IS THE `cnh-043` LESSON AGAIN AT ONE REMOVE.** A bare `Jiahu` search
+in Europe PMC returns robotics and orthopaedics — the syllable is a common Chinese surname pair in author
+strings — and what works is **`ABSTRACT:"Jiahu"`**, ten hits, among them the PLOS ONE paper reporting silk
+fibroin in three 8,500-year-old graves. Its introduction then does the work an overview would: it lists,
+with references, the four things the site is famous for, so one open paper supplies both the silk and the
+frame. **Search the abstract field when a site name collides with a personal name.**

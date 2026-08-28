@@ -1257,7 +1257,8 @@ window.GLOSSARY = {
 "Archaic_period_(North_America)": "The Archaic period is the division of North American prehistory that follows the Paleoindian period and closes with the adoption of farming in the north and of pottery in the south, dated in New England to roughly 9,000 to 2,500 years before the present.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its people were descendants of the Paleoindians but generalists rather than specialists, drawing on a broad range of wild game and plant foods as the glaciers went and the climate warmed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Grinding tools such as manos and metates become common on their sites, and by the late Archaic the settlements are larger and more sedentary as reliance on plant foods grows.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Neolithic_China": "Neolithic China is the phase of the East Asian past in which cultivated crops, domestic animals and settled villages took hold, and stone tools were finished by grinding rather than flaking alone.<sup class=\"fn\" data-fn=\"1\"></sup> Its cultures fall into two groups: those of the Yellow River valley in the north, where the millets were the staple, and those of the Yangtze valley in the south, where rice was, divided by the Qinling mountains and the Huai River.<sup class=\"fn\" data-fn=\"2\"></sup> Pottery there is older than farming, about sixteen sites having yielded vessels made between roughly 20,000 and 10,000 years ago, while the Early Neolithic proper is dated from about 7000 BCE by the first domesticated grain.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Origins_of_Chinese_agriculture": "The origins of Chinese agriculture are the transition from foraging to farming on the East Asian mainland, which produced its own domesticates: rice, the two millets, pigs, dogs and chickens.<sup class=\"fn\" data-fn=\"1\"></sup> It began at the Pleistocene–Holocene boundary<sup class=\"fn\" data-fn=\"3\"></sup> and was among the slowest such changes known, the millets being domesticated between about 8300 and 4300 BCE<sup class=\"fn\" data-fn=\"4\"></sup> and wild plants losing their dominant place in the diet only about 6,000 to 5,000 years ago.<sup class=\"fn\" data-fn=\"2\"></sup> Whether farming started once, in the Yangtze, and spread, or in many places at almost the same time is argued, and broomcorn millet’s wild ancestor is unidentified.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Millet_and_rice_farming": "Millet and rice farming are the two crop systems of early China: millet sown on the dry loess of the north from about 5800 BCE,<sup class=\"fn\" data-fn=\"4\"></sup> and rice grown in standing water in the south.<sup class=\"fn\" data-fn=\"1\"></sup> The rice fields had to be made — the oldest, about 6,000 years old, were pits in freshwater wetland with simple water controls, and over the next two thousand years they became bunded rectangular paddies laid out for irrigation and drainage.<sup class=\"fn\" data-fn=\"2\"></sup> The two overlapped rather than dividing the country: both crops were grown together on the Middle Yellow River by about 7,800 years ago, and rice later travelled south along the coast and the rivers.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Millet_and_rice_farming": "Millet and rice farming are the two crop systems of early China: millet sown on the dry loess of the north from about 5800 BCE,<sup class=\"fn\" data-fn=\"4\"></sup> and rice grown in standing water in the south.<sup class=\"fn\" data-fn=\"1\"></sup> The rice fields had to be made — the oldest, about 6,000 years old, were pits in freshwater wetland with simple water controls, and over the next two thousand years they became bunded rectangular paddies laid out for irrigation and drainage.<sup class=\"fn\" data-fn=\"2\"></sup> The two overlapped rather than dividing the country: both crops were grown together on the Middle Yellow River by about 7,800 years ago, and rice later travelled south along the coast and the rivers.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Jiahu": "Jiahu is an early Neolithic village site in central Henan, on the upper reaches of the Huai, lived in from about 9,000 to 7,500 years ago.<sup class=\"fn\" data-fn=\"1\"></sup> It has yielded the earliest domesticated rice known in northern China, residues of a fermented drink of rice, honey and fruit from the 7th millennium BCE, silk protein in graves 8,500 years old, and marks that have been read, questioningly, as the earliest Chinese pictographic writing.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Some thirty flutes cut from the ulnae of red-crowned cranes were found there, most of them drilled with seven finger holes, and the best preserved still plays.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1875,7 +1876,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Archaic_period_(North_America)": "c. 9000 – 2500 BP",
 "Neolithic_China": "from c. 7000 BCE",
 "Origins_of_Chinese_agriculture": "c. 8300 – 3000 BCE",
-"Millet_and_rice_farming": "from c. 5800 BCE"
+"Millet_and_rice_farming": "from c. 5800 BCE",
+"Jiahu": "c. 7000 – 5500 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2742,7 +2744,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Middle_Kingdom_of_Egypt": ["Middle Kingdom"],
 "Neolithic_China": ["Chinese Neolithic"],
 "Origins_of_Chinese_agriculture": ["Chinese agricultural origins","origins of agriculture in China"],
-"Millet_and_rice_farming": ["millet and rice agriculture","rice and millet farming"]
+"Millet_and_rice_farming": ["millet and rice agriculture","rice and millet farming"],
+"Jiahu": ["Jiahu site"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4025,7 +4028,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Archaic_period_(North_America)": ["era","archaeology","prehistory","north america"],
 "Neolithic_China": ["era","prehistory","archaeology","history","agriculture","china"],
 "Origins_of_Chinese_agriculture": ["concept","prehistory","archaeology","agriculture","history","china"],
-"Millet_and_rice_farming": ["practice","agriculture","prehistory","archaeology","history","china"]
+"Millet_and_rice_farming": ["practice","agriculture","prehistory","archaeology","history","china"],
+"Jiahu": ["place","prehistory","archaeology","history","china","music"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
