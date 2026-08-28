@@ -2497,3 +2497,24 @@ handle is complete enough; an invented page range is not.** Both handles were cu
   **The picture is a case of `ge` dagger-axes from the Yin Ruins.** `add-card.js` offered Shang helmet
 fittings and a guide to the nature treasures of New York City; the alternative helmet on Commons is
 titled "Replica" — **fifth replica caught by reading a file name in this run.**
+
+  **`cnh-088` CAUGHT THE SECOND COMPOSED HANDLE OF THIS RUN, AND THE SAME HABIT CAUGHT IT.** The Xie
+relocation article was written into the source list as `10125/70206`; the corpus already cites it six
+times as **`10125/104160`**. As with the Li Liu handle on `cnh-082`, nothing downstream could see it —
+a wrong handle resolves to some other item and returns 200. **Copy a reused source's string out of
+`data.js`.** Twice now that has been the difference between a working citation and a plausible one.
+  **AND IT FOUND A MISSPELLED AUTHOR ON FIVE CARDS.** The majority variant read "**Liya** Xie" against
+the article's own title page, "Liye XIE", while a sixth card carried "Liye Xie et al." with no page
+range. All six now carry one verified form. **Grep a reused source's author name across `data.js` before
+adding the seventh card that cites it** — the same rule the Tao Shi normalisation produced, and it has
+now paid twice.
+  **THE PICTURE IS THE CARD'S ARGUMENT AS A TABLE.** A panel at the Yin Ruins museum sets three early
+records side by side against six kings, and they disagree: Zu Yi's seat is *pi*, *geng* or *xing*
+depending which you read, and Pan Geng's is *yin* in two and *bo* in the third. **The card says the
+identifications are unsettled; the panel shows the disagreement starting in the texts themselves**,
+before anyone tries to attach a name to a site.
+  **ITS CAPTION HAD TO LOSE THREE BOOK TITLES**, which is `cnh-075`'s finding a second time:
+`check-style` flagged `title-plain` on the image `desc` and `alt`, and those fields are ESCAPED, so
+`<i>` would print the tags rather than italicise. Naming the three records was the natural caption and
+it is not available; the panel's own heading, quoted in the alt text, carries no titles and stays.
+**A caption cannot name a book.**

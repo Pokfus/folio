@@ -1299,7 +1299,8 @@ window.GLOSSARY = {
 "Shang_bronze_decoration": "<b>Shang bronze decoration</b> is the dense animal ornament cast into the surface of ritual vessels, its commonest motif a face of beasts with open fanged mouths whose horns mark them as plant-eaters.<sup class=\"fn\" data-fn=\"1\"></sup> Much of it is set as a split image, a face seen from the front resolving into an animal in profile on either side, and it was cut into the mould rather than worked on the finished metal.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> What the creatures mean is disputed: the reading that they show the animals given in sacrifice fails on the list, since buffalo, tigers, owls and elephants were almost never offered, and what they share instead is wildness.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Shang_jade": "<b>Shang jade</b> is the worked stone of the Shang, made into weapons and sceptres far more than into vessels, the commonest forms being blades called zhang, taken to be sceptres, along with ge and yue axes, some of them inscribed with clan insignia.<sup class=\"fn\" data-fn=\"1\"></sup> Nothing shows the weapons were ever used, and what marks them as ceremonial is their decoration, birds and animal masks cut in fine incisions.<sup class=\"fn\" data-fn=\"1\"></sup> More than 2,000 pieces are known from Yinxu, where two houses in the palace precinct held over 600 unfinished objects and 260 grinding stones, though the stone itself had to be carried in from far away.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Shang_chariot": "<b>Shang chariot</b> is the light horse-drawn vehicle that appears at Anyang and at no earlier Chinese centre on present evidence, a western origin having long been proposed for it.<sup class=\"fn\" data-fn=\"1\"></sup> The elite are found riding in the hunt, a large-scale event closely paralleling warfare and run with dogs, nets, fire and beaters, and the bones from the palace area match the wild game the oracle bones record the king killing.<sup class=\"fn\" data-fn=\"2\"></sup> The vehicle went into the ground with its owner, the large tombs at Anyang being frequently accompanied by chariot pits, where more than four in five graves at the site are small pits with a coffin and a few pots.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Shang_warfare": "<b>Shang warfare</b> is the campaigning of the Shang king and his allies against the polities the oracle bones call fang, a relational label rather than an ethnic one, since a group counted as fang while it was an enemy and lost the word once it became an ally.<sup class=\"fn\" data-fn=\"1\"></sup> Force was raised rather than kept, noblemen being sent to levy troops from friendly cities, and the scale varied with the enemy: 3,000 to 5,000 men against most fang, but 13,000 in one campaign against the Qiang.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The wars were fought for hegemony and for resources, and they ended with the Zhou, whose alliance included the Qiang.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Shang_warfare": "<b>Shang warfare</b> is the campaigning of the Shang king and his allies against the polities the oracle bones call fang, a relational label rather than an ethnic one, since a group counted as fang while it was an enemy and lost the word once it became an ally.<sup class=\"fn\" data-fn=\"1\"></sup> Force was raised rather than kept, noblemen being sent to levy troops from friendly cities, and the scale varied with the enemy: 3,000 to 5,000 men against most fang, but 13,000 in one campaign against the Qiang.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The wars were fought for hegemony and for resources, and they ended with the Zhou, whose alliance included the Qiang.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Shang_capitals": "<b>Shang capitals</b> are the successive seats of the Shang court, semipermanent cities serving as centres of political, military and religious power, among them Yanshi and Zhengzhou early, a walled town at Huanbei in the middle period, and Yinxu at the end.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Which excavated site answers to which name in the transmitted record is unsettled, Zhengzhou having been argued to be both the first Shang capital and the second.<sup class=\"fn\" data-fn=\"1\"></sup> Why the court moved is argued too, between chasing sources of metal, planting fortified outposts in the periphery, and using relocation itself as an instrument of policy.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2831,7 +2832,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Shang_bronze_decoration": ["Shang bronze ornament"],
 "Shang_jade": ["Shang jades"],
 "Shang_chariot": ["Shang chariots"],
-"Shang_warfare": ["Shang war"]
+"Shang_warfare": ["Shang war"],
+"Shang_capitals": ["Shang capital"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4157,7 +4159,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Shang_bronze_decoration": ["art","object","archaeology","china","bronze age"],
 "Shang_jade": ["object","art","archaeology","china","bronze age"],
 "Shang_chariot": ["object","technology","archaeology","china","bronze age"],
-"Shang_warfare": ["practice","warfare","history","china","bronze age"]
+"Shang_warfare": ["practice","warfare","history","china","bronze age"],
+"Shang_capitals": ["place","archaeology","history","china","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
