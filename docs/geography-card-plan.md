@@ -15,10 +15,11 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
-`geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-501` Sacramento, `geo-502` Austin,
-`geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507`
-Lansing, `geo-508` Baton Rouge and `geo-509` Augusta.** Both subdecks are worked down the same
-list, so the next state is `geo-013` and the next capital `geo-510`.
+`geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-501`
+Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau,
+`geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton Rouge, `geo-509` Augusta and `geo-510`
+Oklahoma City.** Both subdecks are worked down the same list, so the next state is `geo-014` and
+the next capital `geo-511`.
 
 ---
 
@@ -352,6 +353,23 @@ Four more, measured while writing `geo-005` and `geo-501`:
   from those, is open, and is dated prose rather than a link list — it is where `geo-011` got the Dutch West
   India Company's New Amsterdam, which the guide's own Introduction does not mention. Not every state guide
   has the tab; Louisiana's 404s.
+- **A STATE HISTORICAL SOCIETY'S ENCYCLOPEDIA CAN PASS THE PER-ARTICLE TEST, AND OKLAHOMA'S DOES.**
+  The glossary plan bars encyclopedias except where the ARTICLE cites its own sources, tested one
+  article at a time. The Oklahoma Historical Society's *Encyclopedia of Oklahoma History and Culture*
+  (`okhistory.org/publications/enc/entry?entry=<code>`) passes: each entry carries a named author, a
+  "Learn More" bibliography of full citations, and a preferred-citation block in Chicago form. It is
+  what carried `geo-510`'s oil — the discovery well of 4 December 1928, 409 million barrels by 1935,
+  and the well drilled by directional drilling on the Capitol's own south plaza in 1941 — none of
+  which is in any federal source reachable here. **Check the bibliography before citing an entry**,
+  since the test is per article and not per publisher, and expect other states' societies to divide
+  the same way Britannica and Store norske leksikon did.
+- **A CAPITAL CARD'S BEST SOURCE MAY BE THE NOMINATION FOR THE CITY THAT LOST.** Oklahoma City has no
+  National Historic Landmark at all, and the whole of its founding and its capital fight is in the
+  **Guthrie Historic District** nomination — the land run of 22 April 1889, Guthrie as territorial
+  then state capital, the two towns' populations between 1900 and 1910, Governor Haskell's statewide
+  vote of 11 June 1910, the state seal carried to the Lee-Huckins Hotel and the proclamation written
+  on its stationery, and the Supreme Court upholding the transfer in 1911. **When a city has no
+  landmark of its own, look for the nomination of its rival, its predecessor or its neighbour.**
 - **READ THE WHOLE NOMINATION, NOT THE ONE THAT IS ABOUT YOUR SUBJECT.** `geo-509` needed the year
   Augusta became Maine's capital, and it is in none of the obvious places — not the LoC state guide,
   not the Fort Western nomination, not the Blaine House one, and `nps.gov/places/maine-state-house.htm`
