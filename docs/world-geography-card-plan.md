@@ -16,11 +16,12 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-012`** (India, China, United States, Indonesia, Pakistan,
-Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan) **and capitals `gw-503` Washington, D.C.,
-`gw-505` Islamabad and `gw-507` Brasília.** The next country is `gw-013` Egypt.
+**Shipped so far — countries `gw-001`–`gw-015`** (India, China, United States, Indonesia, Pakistan,
+Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
+the Congo) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília and
+`gw-510` Addis Ababa.** The next country is `gw-016` Vietnam.
 
-**Five capitals are DEFERRED, and between them they name every way a capital source can fail.**
+**Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
 them — the recognition guide dates the American mission at New Delhi to 1946 and traces the United States
 legation from Beijing to Nanjing to Chongqing to Taipei, which is a history of American diplomacy rather
@@ -28,12 +29,14 @@ than of either city. `gw-504` Jakarta: `jakarta.go.id` is 403 and `indonesia.go.
 `gw-506` Abuja: the Federal Capital Territory Administration has a page headed *A Brief History of our
 City* whose text is **unreplaced template boilerplate** ("Millions of people around the world use Obira to
 connect…"), so a fetch returning 200 and 220 KB carries no history at all — **check that a page says
-something before counting it as a source.** `gw-508` Dhaka is the newest kind of failure and the one
-worth naming: **every Bangladeshi government domain tried presents an incomplete certificate chain**
-(`parliament.gov.bd`, `dncc.gov.bd`, `bbs.gov.bd`, `mofa.gov.bd`, `cabinet.gov.bd`), which is a fault in
-the source rather than a policy of this sandbox, and is not to be worked around by disabling
-verification. `gw-509` Moscow: `mos.ru`'s own history page renders through JavaScript and hands back
-twenty-nine characters of text, and the Kremlin Museums site is a shell.
+something before counting it as a source.** `gw-508` Dhaka: **every Bangladeshi government domain tried
+presents an incomplete certificate chain** (`parliament.gov.bd`, `dncc.gov.bd`, `bbs.gov.bd`,
+`mofa.gov.bd`, `cabinet.gov.bd`), which is a fault in the source rather than a policy of this sandbox and
+is not to be worked around by disabling verification. `gw-509` Moscow: `mos.ru`'s own history page renders
+through JavaScript and hands back twenty-nine characters of text. `gw-511` Mexico City: the Chamber of
+Deputies' site returns **one character** of text, and `inah.gob.mx` — the obvious source for the city
+before it was Mexican — is 403. `gw-512` Tokyo: the Metropolitan Government's English site is a news
+index, the Imperial Household Agency's About page is a menu, and `sangiin.go.jp` reset the connection.
 
 What was tried and does not answer, so that nobody spends the afternoon again: `loc.gov`,
 `hansard.parliament.uk`, `rct.uk`, `parliament.uk`, `whc.unesco.org`, `harappa.com` and
@@ -291,9 +294,16 @@ history through JavaScript and hand back navigation chrome; and `beijing.gov.cn`
 **Find the city spine before writing the batch, not during it** — three country cards were written in
 the time it took to establish that the obvious capital sources do not answer.
 
-**THE TEST HAS NOW DECIDED EIGHT CAPITALS AND HAS NOT BEEN WRONG ONCE.** Washington, Islamabad and
-Brasília passed it and are written; New Delhi, Beijing, Jakarta, Abuja, Dhaka and Moscow failed it and are
-deferred. **Brasília is the most instructive pass**, because the institution that answered was not the
+**THE TEST HAS NOW DECIDED ELEVEN CAPITALS AND HAS NOT BEEN WRONG ONCE.** Washington, Islamabad,
+Brasília and Addis Ababa passed it and are written; New Delhi, Beijing, Jakarta, Abuja, Dhaka, Moscow,
+Mexico City and Tokyo failed it and are deferred. **Addis Ababa widens what counts as the institution.**
+Ethiopia's own government publishes nothing reachable, but the city is the seat of the AFRICAN UNION,
+which publishes both its founding story — 32 heads of independent African states meeting there in May
+1963 to sign the OAU charter — and the fact that its Commission sits there. An international body
+headquartered in a capital keeps a record of that capital, and it is a record nobody thinks to look for.
+The recognition guide then supplied the rest: a legation opened in Addis Ababa in 1909, closed when
+Italian forces occupied the city, and reopened in 1943 — **the comings and goings of a foreign mission
+date an occupation as precisely as a history book would.** **Brasília is the most instructive pass**, because the institution that answered was not the
 city's builder but its OCCUPANT: the Câmara dos Deputados publishes the list of every seat the chamber has
 held — Cadeia Velha, Palácio Monroe, Biblioteca Nacional, Palácio Tiradentes, and then *Palácio do
 Congresso Nacional, Brasília (1960 até hoje)* — which dates the move of the government to the new capital
