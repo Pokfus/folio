@@ -495,7 +495,7 @@ more work here than in any collection since Greece.
     ps-036  Ernst Weber
     ps-037  Gustav Fechner and psychophysics
     ps-038  Charles Darwin and the descent of mind
-    ps-039  Evolutionary thinking and psychology
+    ps-039  Herbert Spencer and evolutionary thinking in psychology
     ps-040  Francis Galton
     ps-041  The first mental tests
     ps-042  Eugenics and early psychology
