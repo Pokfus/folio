@@ -16,17 +16,18 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-056`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-059`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
 Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia,
 Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela, Australia, Niger, North
-Korea) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
-Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
-Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
-Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753`
-Bloemfontein.** The next country is `gw-057` Syria and the next capital is `gw-527` Naypyidaw.
+Korea, Syria, Mali, Burkina Faso) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507`
+Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi,
+`gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma,
+`gw-523` Paris, `gw-524` Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-751` Dar es
+Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-060` Taiwan and the next
+capital is `gw-528` Bogotá.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -790,6 +791,39 @@ Venezuela.
 1,267,000 km² and agree on the population**, and it has the fastest population growth of any country
 carded — two fifths in a decade, 19.9 to 27.9 million. The spread between two official sources is a fact
 about the country; Australia and Niger are the two ends of it.
+
+**Batch 19 (Syria, Mali, Burkina Faso, Naypyidaw) found that the recognition guide records the same
+country being recognised TWICE, under two different states, and both entries matter.** `Mali` was
+recognised on 20 June 1960 as the **Federation of Mali** — Senegal and the Soudanese Republic together —
+with the embassy at DAKAR; Senegal withdrew on 20 August; the Soudanese National Assembly legislated on
+22 September that it would become the Republic of Mali; and the United States recognised THAT republic on
+24 September, raising the consulate at Bamako while reaccrediting the Dakar embassy to Senegal and so
+ending relations with the federation. `Syria` is the same shape at a larger scale: recognised in 1944,
+extinguished into the United Arab Republic in 1958 with its embassy demoted to a consulate general,
+re-recognised on secession in 1961, severed by Syria in 1967, and restored through an interests section
+in the Italian embassy in 1974. **A country's entry in the guide is a sequence, not a date — read all of
+it before writing the card's first sentence.**
+
+**Two neighbours were opened by the same man in three days, and both guides say so.** Donald R. Norland
+presented credentials as chargé d'affaires to **Niger** on 2 August 1960 to take effect on the 3rd, and
+to **Upper Volta** on 4 August to take effect on the 5th. The device — credentials presented the day
+before independence, effective on the day itself — appears in both entries, and the two admission
+resolutions are numbered **1482** and **1483**, adopted at the same 864th plenary meeting. **Where a run
+of colonies became states in one season, the guide's separate entries interlock; cite the sibling's page
+when a card's best fact is the pairing.**
+
+**A capital's own spelling can be a finding.** UNdata writes Myanmar's capital **Nay Pyi Taw**, in three
+words, where the plan, the glossary and `world-capitals.js` write **Naypyidaw**; the term now carries the
+UN's form as an alias and the card says which is which. **Check the profile's spelling of a capital
+before writing the card**, and give the divergent form an alias rather than silently choosing one.
+
+**And the Syrian flag is the Afghanistan case with the opposite answer.** `Flag_of_Syria.svg` redirects
+on Commons to `Flag_of_Syria_(2025-).svg`, exactly as Afghanistan's redirects to the Taliban flag — but
+that file's own description says it is the *"de facto flag of Syria beginning December 2024, official
+beginning March 2025"*, which is a statement about the STATE rather than about one faction, so it ships.
+Afghanistan's was withheld because the target page describes the Islamic Emirate's own flag and either
+choice would assert who legitimately governs. **Read the file page before treating a flag redirect as
+either safe or unsafe**; the redirect alone settles nothing.
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
