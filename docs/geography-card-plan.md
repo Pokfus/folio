@@ -17,12 +17,12 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
 `geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
 Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New Jersey, `geo-019`
-Massachusetts, `geo-020` Ohio, `geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee,
-`geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton
-Rouge, `geo-509` Augusta, `geo-510` Oklahoma City, `geo-511` Albany, `geo-512` Boise, `geo-513`
-Charleston, `geo-514` Annapolis, `geo-515` Carson City, `geo-516` Salt Lake City and `geo-517`
-St. Paul.** Both subdecks are worked down the same list, so the next state is `geo-021` and the
-next capital `geo-518`.
+Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-501` Sacramento, `geo-502` Austin,
+`geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507`
+Lansing, `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City, `geo-511` Albany,
+`geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson City, `geo-516` Salt
+Lake City, `geo-517` St. Paul and `geo-518` Trenton.** Both subdecks are worked down the same
+list, so the next state is `geo-022` and the next capital `geo-519`.
 
 ---
 
@@ -630,6 +630,23 @@ terms that already exist**. Each was measured, and none should be settled quietl
   point at, so it was **cut**. **Where the technique has nothing to work with, cutting the clause is
   the honest fix** — a reworded region name that says something slightly different is worse than one
   fact fewer.
+
+- **`Illinois` AND `Trenton` ARE BOTH BARE, AND THE ROUND FOUND A THIRD VARIETY OF WRONG LINK: A
+  GIVEN NAME THAT IS SOMEBODY ELSE'S WHOLE NAME.** Both surfaces measured clean (two uses apiece, all
+  the state and all the New Jersey capital) and both new cards rendered correctly — except that
+  `geo-021` wrote "designed by the architect **Solon** S. Beman", and `Solon` linked to the Athenian
+  lawgiver. This is not the round-13 shape: nothing here is a common noun inside a proper name, and the
+  round-15 test does not catch it either, because the target does not refer to a *related* thing — it
+  refers to a different person entirely, two and a half thousand years away. **A forename is a surface
+  like any other**, and the glossary is full of classical single names — Solon, Draco, Homer, Pericles,
+  Cicero, Augustus — every one of which is also somebody's American given name. **So check a person's
+  FORENAME as well as the phrase around it**, and where the collision is real and there is no correct
+  earlier occurrence to take the link, the fix is to drop the name: Pullman's designers are now "an
+  architect and a landscape engineer working to one scheme", which costs the card two names it did not
+  need and removes the fault entirely.
+  One link was considered and **kept**: `geo-518`'s "the thousand-man **German** garrison" resolves to
+  `Germany`, and there was no German state in 1776 — but the adjective means what the term is about,
+  which is round 15's test, and it is the same shape as the "British" links already all over the deck.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
