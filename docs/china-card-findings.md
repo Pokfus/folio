@@ -1862,3 +1862,25 @@ walk was capped at 22 reveals, so the first run reported `found: false` with no 
 exactly like a card that failed to render. **Raise the loop as the deck grows**; the cap is a fixture
 limit, not a finding, and the only thing that distinguishes them is knowing where in the deck's
 chronological order the new card sorts.
+
+  **`cnh-064` CLOSES THE ERLITOU TRIO, AND `add-card.js` CAUGHT THE ONE SOURCE THAT DID NOT BELONG.** The
+draft carried five citations and the fifth, Zhang 2021 on Sanxingdui, was never marked — the refusal
+("source 5 is never referenced from the abstract") is the guard doing exactly what it exists for, since a
+source list padded to the bar with a work about another site reads as scholarship and is not. **A source
+carried over from an earlier card in the same run is the one to check**: it was in the file because
+`cnh-053` had used it, not because anything in this card rested on it. Searching ScholarSpace for
+`Erlitou bronze` turned up Qin 2016 on turquoise inlay, which carries two claims nothing else did — the
+bronze workshop lying south of the turquoise one and close to the palaces, and the turquoise-inlaid bronze
+plaques — and that second one **changed the shape of the card**: the abstract had been vessels from end to
+end, and *Erlitou bronze* is not only vessels. **When a fifth source has to be found, look for one that
+covers a part of the term the draft has left out** rather than one that seconds a claim already made.
+  **THE HANDLE WAS INVENTED AND HAD TO BE LOOKED UP.** The Qin citation first went in as
+`hdl.handle.net/10125/45090`, composed from nothing; the item's own `dc.identifier.uri` gives **59199**.
+ScholarSpace handles are not derivable from the search result, the item UUID or the volume — **read
+`dc.identifier.uri` off `/server/api/core/items/<uuid>` and the page range off the OCR's running heads**
+(208–39 here, from `qin . turquoise ornaments … 209` through `… 239`).
+  **AND LIU 2003 DATES THE VESSELS AND THE FOUNDRY DIFFERENTLY.** The bronze foundry is Phase II
+(c. 1800–1700 BCE) and the first bronze *vessels* are Phase III (c. 1700–1600 BCE) — the draft had said
+"from about the 18th century BCE" for the vessels, which is the foundry's date, not theirs. The date line
+carries both rows for that reason. **Where a workshop and its most famous product have different dates,
+say both**; one row would have been wrong whichever was chosen.
