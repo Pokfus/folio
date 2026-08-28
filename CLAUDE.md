@@ -3860,7 +3860,19 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   must carry a link** and all four helper scripts refuse one that does not, which by design restricts the
   citable literature to what is **publicly reachable**: a DOI, an open-access paper, a museum or agency
   permalink. That restriction is the point — a page number nobody can open is a page number nobody
-  checked. **AND THE TOOLS CHECK THAT A CITATION ENDS IN A URL, NEVER THAT THE URL OPENS** — so an
+  checked. **AND A URL THAT OPENS SAYS NOTHING ABOUT THE NAME IN FRONT OF IT.** N4 recorded the
+  whole-citation form of this fault; the commoner form is one level down and is easy to commit without
+  noticing — a search result prints `Wani PD`, a Chicago note wants a given name, and the expansion that
+  FEELS right gets written. It was Pinaki, not Pooja. **`node .claude/check-cite-authors.js [--prefix=]
+  [--all]`** checks every PMC-backed citation's author names against the Europe PMC record and reports
+  only a mismatch where BOTH sides carry a full given name — an initial, or a record holding only
+  initials, is not a finding, since Europe PMC often stores `B Cavalazzi` for a byline printing Barbara.
+  Run over the whole corpus in Aug 2026 it found **24 wrong given names across 18 works, every one on a
+  citation whose URL resolved perfectly**: Hayden Schill written as Hannah, Samantha Gray as Steven, Wren
+  Gould as William, Ceri Shipton as Chris, Amy Way as Andrew, Piotr Fedurek as Pawel, Jessica Bates as
+  Jennifer. **Verify a finding on the PMC page before rewriting** — the record can be wrong too — and note
+  it tries every author sharing a surname, since a paper with two Hamiltons on it is not a finding.
+  **AND THE TOOLS CHECK THAT A CITATION ENDS IN A URL, NEVER THAT THE URL OPENS** — so an
   archive.org identifier or a DOI written from MEMORY ships as a 404 and nothing anywhere reports it
   (`cnh-006` shipped one for an hour: `sacredbooksofchi27conf` for `sacredbooksofchi0027unse`). Curl
   every citation URL of a new card before committing it; a 302 is a DOI resolving and is fine, a 404
