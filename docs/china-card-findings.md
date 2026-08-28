@@ -2381,3 +2381,27 @@ one-hectare foundry, the slag and crucibles and the 36 cm rim moulds. What survi
 19 mould pieces and 5 cores for one Erligang ding, six pours in three stages, metal spacers holding
 model and mould apart — plus the potter's ancestor: hollow-legged pots shaped over inner moulds, the
 three legs joined or the clay coiled round three leg moulds at once.
+
+  **`cnh-083` IS THE FIRST CHINA TERM TO NEED `caseSensitive`, AND THE COMBINATION THAT WORKS IS WORTH
+WRITING DOWN.** The answer is `ding`, a three-letter surface that is also the second half of Wu Ding, Fu
+Ding, Father Ding and Kang Ding, all over this deck. The key is **`Ding_(vessel)`**, whose parenthetical
+means it does NOT claim the bare name "Ding"; the alias is the lowercase **`ding`**; and
+`"caseSensitive": true` then holds that alias to lower case. Verified in the browser on `cnh-075`, whose
+prose contains both: `Wu Ding` resolves to `Wu_Ding` and `its bronze ding` to `Ding_(vessel)`. **A
+parenthetical key plus a lower-case alias plus the case flag is the recipe for a term whose name is a
+syllable in somebody's name.**
+  **THE CARD'S SPINE IS A GRAMMATICAL FACT NOBODY HAD SPENT**: in the oracle bones the graph 鼎 works as
+a **verb of sacrifice**, with the king usually its subject, a dead king or queen its indirect object and
+the offering itself its direct one. Six earlier cards had taken the ding's size, its place in a set, its
+moulds and its contents, and none had said what the word does in a sentence.
+  **IT ALSO ANSWERS `cnh-081`'S OWN EPISTEMIC POINT.** That card says vessel functions come from later
+texts rather than from residue analysis; the ding is where the two meet, since **burnt animal bone has
+been found inside ding taken from burials**. But the card does not let that settle it: MacIver
+photographs bones in a bronze ding and then **declines** to read the food and drink vessels of two
+Anyang cemeteries as evidence of funerary feasting without more work, since they may be provisions left
+for the dead. **A card that produces the confirming evidence should also carry the specialist's refusal
+to over-read it.**
+  **AND THE PICTURE IS THE OBJECT THE CARD'S UPPER BOUND POINTS AT** — the Hou Mu Wu ding, 133 cm, the
+largest surviving Shang bronze, four-legged where the commoner form is three-legged. Two of the Commons
+candidates are labelled **"Copy"**; the museum-replica trap again, and the third time in this run it has
+been avoided only by reading the file name.
