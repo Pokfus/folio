@@ -1346,3 +1346,38 @@ article**: the BMC and Elsevier stubs are 3,038 and 3,007 bytes. **Measure a cit
 and look at the SIZE**, and remember the rule the deck already followed without writing down: cite at the
 address that opens from here, which is the DOI where it resolves to a reachable page and the PMC record
 otherwise.
+
+  **`cnh-048` IS THE FIRST CARD IN THIS DECK WHERE THE PICTURE WAS THE HARD PART, AND THE REASON IS
+WORTH KNOWING BEFORE ANY CARD ABOUT A SITE WITH A VISITOR PARK.** Liangzhu's sources were easy — the
+whole card rests on five open works and the anchor, Bin Liu et al. 2017 in PNAS, carries seven of its
+ten sentences with figures nobody has to hedge (a city of 300 ha at roughly 1.9 × 1.7 km, Tangshan
+levees of 5 km at 2–7 m, 30 km of canals through eight water gates, 3,000 people for eight years moving
+2.88 million m³). What was hard was finding a photograph of the ANCIENT thing. Commons' large
+`Archaeological Ruins of Liangzhu City` set — fourteen files, all CC BY 2.0 and well shot — is entirely
+the modern interpretive park: **wire-mesh sculptures of Neolithic villagers paddling a wire canoe, and a
+reconstructed well beside a bilingual signboard.** They are honest photographs of a real place and they
+teach a reader nothing about the Liangzhu culture, which is the third variety of the picture trap this
+deck has met, after the wrong person of the same name and the unlabelled plaster cast. **A World
+Heritage site with a park will have far more pictures of its park than of itself**; search for the
+excavation (`Liangzhu site excavation OR Liangzhu wall OR Mojiaoshan`) rather than for the ruins, and
+LOOK at every candidate. Two files answered — the south wall cut open under a shelter, showing the layer
+of loose rock the earth rampart stands on, and the same stone footing on the west wall — and one that
+sounded perfect did not: `Mojiaoshan Relic Site of Liangzhu Culture` is a boardwalk and a handrail on a
+winter mound.
+  **THE CARD LEAVES ITS MOST FAMOUS SUBJECT ALONE ON PURPOSE.** Liangzhu is best known for its jade, and
+the plan gives jade its own card at `cnh-049`, so this one spends a single clause on it and puts the
+words into the city, the dams and the collapse instead. **When two consecutive plan lines split a
+subject, decide the split before drafting either** — the alternative is a culture card that is mostly
+about jade and a jade card with nothing left to say.
+  **ITS SEVENTH SENTENCE IS HISTORIOGRAPHY WRITTEN SO THE MEASURE CANNOT SEE IT, AND THAT IS THE RIGHT
+OUTCOME RATHER THAN A LOOPHOLE.** The Liangzhu waterworks are the standard modern test case for
+Wittfogel's hydraulic hypothesis, and Liu et al. spend four paragraphs on it, so a card that ignored the
+argument would be hiding something its own source thinks central. `card-focus.js` reports `historio: 0`
+because the sentence names **the theory and not the theorist** — "the old argument that water control is
+what builds despotic states" — which is exactly the fix `docs/history-focus-plan.md` prescribes: keep the
+claim, drop the name, and the sentence gets shorter as well as better.
+  **AND A `cd` INSIDE A COMPOUND COMMAND MADE SEVEN PASSING SUITES REPORT `MODULE_NOT_FOUND`.** The
+scratchpad `cd` used to open a browser harness persisted across the `;` into the checker loop, so every
+no-browser suite failed to resolve `../data.js` and printed a stack trace that looks exactly like a
+broken test. **Run the checkers from `/home/user/folio` in a command of their own**; a suite that fails
+on its `require` line has not run at all, and the distinction is invisible in a tail of the output.
