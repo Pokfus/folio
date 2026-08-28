@@ -435,6 +435,15 @@ something else on this site's prehistory cards, *association* means something el
 and *depression* is already both a landform (the Danakil and Upemba Depressions) and an economic
 slump in the presidential terms.
 
+**The first collision arrived at `ps-027` and was resolved by NARROWING THE KEY, not by aliasing.** The
+psychology sense of *nativism* is `Psychological_nativism` on Wikipedia; the bare word is the political
+one, and the United States collection already plans `us-732 Nativism in the Gilded Age`. So the term is
+keyed `Psychological_nativism`, whose only auto-link surface is the two-word phrase, and **neither
+"nativism" nor "nativist" is aliased**, which leaves the card's own answer term unlinked and is the right
+trade: an alias would have pointed every Gilded Age sentence at a card about innate concepts. Expect the
+same shape wherever a psychology word has a political or everyday twin — check Wikipedia's canonical slug
+before choosing a key, and count the corpus before adding an alias.
+
 **The card ships with its glossary term, cited at the bar** — the standing rule in
 `docs/card-glossary-pairing.md`. This collection starts its vocabulary from nothing, so that rule does
 more work here than in any collection since Greece.
