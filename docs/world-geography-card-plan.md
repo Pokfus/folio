@@ -16,16 +16,17 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-050`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-053`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
 Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia,
-Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire) **and capitals `gw-503` Washington, D.C., `gw-505`
-Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa,
-`gw-516` Hanoi, `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London,
-`gw-522` Dodoma, `gw-523` Paris, `gw-524` Pretoria, `gw-751` Dar es Salaam, `gw-752` Cape Town and
-`gw-753` Bloemfontein.** The next country is `gw-051` Nepal and the next capital is `gw-525` Rome.
+Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela) **and capitals `gw-503`
+Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514`
+Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520`
+Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524` Pretoria, `gw-525` Rome, `gw-751`
+Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-054` Australia and
+the next capital is `gw-526` Nairobi.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -734,6 +735,34 @@ is what a first draft of the Madagascar card did.
 302s to the error page served with a 200 (batch 14's finding), and the country IS a member — so the
 card was carried by five other sources rather than by more guessing. **When a WTO slug will not resolve,
 stop guessing and spend the source elsewhere.**
+
+**Batch 17 (Nepal, Cameroon, Venezuela, Rome) is where a country's admission is best cited from the
+resolution that FAILED.** Nepal and Italy were both admitted on 14 December 1955 under a single General
+Assembly resolution, **995 (X)**, at the 555th plenary meeting — and four days earlier a Security Council
+draft, **S/3502**, naming eighteen applicants including Nepal, *"was not adopted having failed to obtain
+the required number of votes"*, in the Digital Library's own note. That pair of records carries the whole
+Cold War deadlock over new members without a word of interpretation. **Where a card wants to say an
+admission mattered, look for the draft that came before it**; the Library records failures as carefully
+as successes, and the failure is usually the more instructive document.
+
+**It also settles how to write the rounding midpoint, which had been decided ad hoc.** Peru's 34.577
+million became "about 35 million" and Saudi Arabia's 34.566 became "roughly 35"; Cameroon's **29.879**
+plainly becomes 30 and was corrected. But **Venezuela's 28.517 sits at the midpoint**, where "28" is 1.8%
+low and "29" is 1.7% high, and the term already said 28 — so it was LEFT. **A figure at the rounding
+midpoint is not wrong, and flipping it is an arbitrary edit dressed as a correction**; C9's rule about the
+spread covers this too, since the term is inside it either way.
+
+**Venezuela is also the widest area disagreement since Saudi Arabia**: UNdata gives 929,690 km² and the
+World Bank 912,050, a spread of 17,640 km² or nearly 2%, with the term's 916,445 inside it. Neither source
+treats the country as disputed, so the card states the spread rather than choosing an end, which is now
+the established treatment.
+
+**And Rome's card is carried by a mission that FOLLOWED a capital.** The American legation moved Turin →
+Florence in 1865 → Rome in 1871, which dates the capital's own arrival by dating the embassy's; the
+consulate in the city had been open since 1797 and closed only in 1965; the embassy shut on 11 December
+1941 when Italy declared war and reopened on 8 January 1945. **A capital card's best spine is often the
+list of where a foreign mission sat**, because a mission moves when the seat of government does and the
+recognition guide dates every move.
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
