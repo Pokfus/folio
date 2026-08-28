@@ -1381,3 +1381,41 @@ scratchpad `cd` used to open a browser harness persisted across the `;` into the
 no-browser suite failed to resolve `../data.js` and printed a stack trace that looks exactly like a
 broken test. **Run the checkers from `/home/user/folio` in a command of their own**; a suite that fails
 on its `require` line has not run at all, and the distinction is invisible in a tail of the output.
+
+  **`cnh-049` FOUND A WHOLE SHELF THIS DECK DID NOT KNOW IT HAD: `ASIAN PERSPECTIVES`, OPEN, FULL TEXT,
+BACK TO THE 1960s.** Liangzhu jade is an art-historical and archaeometric subject, so Europe PMC is
+nearly blind to it — `"Liangzhu" AND "jade"` returns 28 hits of which four are relevant, `"cong" AND
+"Liangzhu"` returns 51 dominated by Chinese author surnames, and the jade-specific results that do
+surface are **preprints** on `preprints.org` and `researchsquare`, which the citation rules do not
+accept. What answered was **ScholarSpace, the University of Hawai'i repository**
+(`scholarspace.manoa.hawaii.edu`), which publishes *Asian Perspectives* — the standard English journal
+for the archaeology of this region — in full and free. Its web search is a JavaScript shell and returns
+nothing, but its **DSpace REST API is open**: `/server/api/discover/search/objects?query=Liangzhu` gives
+titles, authors, citations and handles, and each item's `TEXT` bundle holds the OCR'd article, reached
+through `/server/api/core/items/<uuid>/bundles` → `/core/bundles/<uuid>/bitstreams` →
+`/bitstreams/<uuid>/download`. Three of its articles carry this card: Li Liu on prestige-goods
+production, Green on the *bi*, and Lopes on jade-working technique. **Reach for ScholarSpace before
+concluding a Chinese or Pacific archaeology subject has no open literature.**
+  **THE MUSEUM APIs ARE THE OTHER HALF, AND THEY ARE NOT EQUAL.** Three were probed. **The Cleveland
+Museum of Art is the best source of the three and its public page opens** (`openaccess-api.clevelandart.org`
+for the record, `clevelandart.org/art/<accession>` for the citation): its Liangzhu *bi* record carries a
+written curatorial paragraph — that the culture "excelled in jade working", that large discs "usually
+occupied pride of place on the chest of the buried", and that *bi* and *cong* "form an essential ritual
+pair" — which is a citable claim rather than a catalogue line. **The Art Institute of Chicago's API is
+open and its object pages are 403**, so a citation there would point at a page the reader cannot open;
+its records are also bare (`description: null`). The **British Museum (403)**, the **Met** (bot-walled,
+recorded earlier), **`asia.si.edu` (403)**, **`dpm.org.cn`** (connection reset) and
+**`zhejiangmuseum.com`** (TLS failure) are all shut. **Check that a museum's PUBLIC page opens before
+citing its API.**
+  **THE ANSWER TERM WAS ARGUED OVER AND THE PLAN WON.** `cnh-048` answers *Liangzhu culture* and this one
+answers *Liangzhu jade*, which are similar surfaces one card apart; the alternative was to answer *cong*,
+the object the card actually turns on. The plan was kept because it puts this card in a deliberate family
+with `cnh-085 Shang jade` and `cnh-954 Chinese jade`, and because the collision is harmless where it
+would matter: the two cards' first tags differ (`culture` against `object`), so `cardKinship` caps their
+score, and both are difficulty 4, above `GAME_MAX_DIFFICULTY`, so neither reaches a minigame at all.
+**Check the tag kinds and the difficulty before worrying about two similar answers.**
+  **AND A COMMONS THUMBNAIL 429 CLEARED ON THE SECOND TRY, NOT THE FIFTIETH.** `cnh-042`'s finding was
+that a rate-limited file can take an hour of looping; the V&A *bi* here returned the 2,190-byte error
+page once and the real 809 KB file ten seconds later. **A short retry loop with a size test is the right
+first move** — `[ "$s" -gt 50000 ] && break` — and only a file that fails several of those is worth
+backgrounding.
