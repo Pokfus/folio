@@ -17896,6 +17896,56 @@
     { k: "pyramid", n: "Pyramid", d: '<path d="M12 3.5 21.5 19.5h-19z"/><path d="M12 3.5 16 19.5"/><path d="M2 19.5h20"/>' },
     { k: "plane", n: "Aeroplane", d: '<path d="M12 2.8c.9 0 1.5 1.4 1.5 3.4v1.3l6.5 3.9v2.1l-6.5-1.8v3.8l2.5 2v1.7L12 18.3l-4 .9v-1.7l2.5-2v-3.8L4 13.5v-2.1l6.5-3.9V6.2c0-2 .6-3.4 1.5-3.4z"/>' },
     { k: "torii", n: "Torii gate", d: '<path d="M2.5 6h19"/><path d="M4.5 9h15"/><path d="M7.5 6v14"/><path d="M16.5 6v14"/><path d="M6 20h3"/><path d="M15 20h3"/>' },
+    /* head in profile — Psychology. The obvious mark is the Greek letter psi, which is the discipline's
+       own emblem and is trivial to draw as bare paths; it was rejected because Ancient Greece is on the
+       same shelf and a Greek letter beside a Doric column says GREECE to a reader scanning for a subject
+       rather than reading the label. The one mark this could be confused with is the account tab's bust,
+       which is a circle over a shoulder curve — this is a single outline with a brow, a nose and a chin,
+       and no facial features, which is what keeps it a MIND rather than a person at the 28px a deck row
+       draws it at. THE BASE IS CLOSED AND FLAT and the shape fills the box (x 3.1-19.9, y 3-21): the
+       first cut left margins all round and ended in two open stubs for the front and back of the neck,
+       which at 28px is a keyhole rather than a head — the sizes it is DRAWN at are what this had to be
+       checked against, not the size it is drawn IN. */
+    { k: "head", n: "Head in profile", d: '<path d="M6.6 21V17C4.3 15.4 3.1 13.1 3.1 10.7A7.7 7.7 0 0 1 10.8 3C14.6 3 17.6 5.5 18.5 8.7L19.9 13C20.1 13.7 19.7 14.2 19 14.3L17.4 14.6V17.2C17.4 19.3 16 21 13.9 21Z"/>' },
+    /* owl — Philosophy. The owl of Minerva, which is the emblem the subject has actually used since
+       antiquity, and which nothing on Folio wears (the site's own mark is a vermilion seal, so this
+       cannot read as branding). A lamp was rejected for colliding with `flame` below, and a marble bust
+       for putting a second head on the shelf beside Psychology's.
+       WHAT THIS DREW WRONG FIRST IS WORTH KEEPING: a face inside a head-sized outline is INK, and four
+       earlier cuts — eye rings at r 2.1, solid pupils, a beak, an egg-shaped body — each read as a dark
+       blob at the 24-28px a deck row and the picker draw it, twice the weight of the torii or the column
+       beside it. What fixes it is not fewer strokes but more WHITE: small rings (r 1.5) set wide, high in
+       a slightly larger head, and NO beak, whose third dark spot is what closed the face up. Weight
+       against its neighbours is the test, not legibility on its own. */
+    { k: "owl", n: "Owl", d: '<path d="M12 20.9c-4.4 0-7.8-3.4-7.8-8s3.4-8.2 7.8-8.2 7.8 3.6 7.8 8.2-3.4 8-7.8 8z"/><path d="M6.9 6.9 5.3 3.5 8.8 5"/><path d="M17.1 6.9 18.7 3.5 15.2 5"/><circle cx="9.2" cy="11.4" r="1.5"/><circle cx="14.8" cy="11.4" r="1.5"/>' },
+    /* double helix — Biology. The one mark that says the whole subject rather than a branch of it: a leaf
+       says botany and the picker has one already, and a cell is a circle inside a circle, which is `coin`.
+       TWO WRONG TURNS, both about SIZE rather than shape. A helix drawn narrow (x 8.5-15.5) with two full
+       turns is a thin vertical squiggle at 28px — legible at 64 and a scribble on a deck row — and the
+       obvious fix, widening it while PINCHING the strands together at each crossing, is worse: pinched
+       curves close into a stack of lens shapes and the icon reads as a spring. What works is the strands
+       CROSSING and continuing (they are two independent paths that overlap, never meeting), the widest
+       amplitude the box allows, and only TWO turns over the height. Three rungs at that width was still
+       busy; two is enough to say ladder. */
+    { k: "helix", n: "Double helix", d: '<path d="M5.5 3.2C5.5 9 18.5 10 18.5 15.8S5.5 18 5.5 20.8"/><path d="M18.5 3.2C18.5 9 5.5 10 5.5 15.8S18.5 18 18.5 20.8"/><path d="M6 4.2h12"/><path d="M6 15.8h12"/>' },
+    /* sauropod in profile — Dinosaurs. Eight drafts, and THE ONE THAT DECIDED IT IS THE OWL two rows up.
+       A three-toed footprint is the obvious museum-signage mark and at 24px is a bulb with three prongs,
+       which reads as a sprouting plant; a femur reads as a slanted pill. What makes the sauropod work is
+       the NECK: a long neck that curls BACK over the body is a swan, and a swan on a shelf that already
+       carries an owl is the one thing this must not be. So the neck rises and the head tips FORWARD, and
+       what no bird has — a horizontal body on two straight legs with a long sweeping tail — is what
+       carries the reading at 24px. */
+    { k: "sauropod", n: "Sauropod", d: '<path d="M5.6 15.4c0-2.3 2.4-4.2 5.4-4.2s5.4 1.9 5.4 4.2-2.4 4.2-5.4 4.2-5.4-1.9-5.4-4.2z"/><path d="M15.6 12.8c2.2-2 3.6-4.5 3.9-6.9.1-.9.8-1.4 1.6-1.3.9.2 1.4 1 1.1 1.8"/><path d="M5.8 13.6C4 12.2 2.6 11.6 1.2 11.6"/><path d="M8.2 19.2v2.2"/><path d="M13.4 19.2v2.2"/>' },
+    /* taegeuk — Korea. The device at the centre of the Korean flag, and TWO things make it Korean rather
+       than generally East Asian. It carries NO DOTS, which belong to the Taoist taijitu; and its dividing
+       S runs on an axis tilted 33 degrees off the horizontal, which is roughly how the device sits on the
+       flag. Four orientations were rendered at 24, 28, 34 and 64px beside the pagoda, the globe, the
+       torii, the coin and the compass: the VERTICAL-axis version reads most crisply at 24px and is the
+       Chinese arrangement, which on a shelf carrying a pagoda is the one reading to avoid, so the tilt is
+       bought at a small cost in legibility. A hanok roof was rejected for being China's pagoda at 28px
+       and a moon jar for being a circle. The two arcs are exact semicircles (r 4.3 across a chord of 8.6)
+       with opposite sweep flags, which is what makes the S symmetrical about the centre. */
+    { k: "taegeuk", n: "Taegeuk", d: '<circle cx="12" cy="12" r="8.6"/><path d="M3.4 12A4.3 4.3 0 0 1 12 12A4.3 4.3 0 0 0 20.6 12" transform="rotate(-33 12 12)"/>' },
     /* compass rose — a four-point star in a ring. The obvious mark for Geography is a globe and World
        History already wears it, which is the whole reason to look for a second: two collections sharing
        an icon is two collections a reader cannot tell apart on the shelf. The inner points are drawn
@@ -17961,6 +18011,11 @@
     egypt: "pyramid",
     ww2: "plane",
     japan: "torii",
+    psych: "head",
+    phil: "owl",
+    bio: "helix",
+    dino: "sauropod",
+    korea: "taegeuk",
     "geo-us": "compass",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
@@ -21557,8 +21612,22 @@
   const COLLECTION_SECTIONS = [
     { label: "History", slot: "collection-list-all" },
     { label: "Geography", slot: "collection-list-geo" },
+    /* Science. It draws NOTHING today and that is deliberate rather than dead: `sectionOf` returns History
+       for anything this table does not name, so a Psychology collection that gained its first card would
+       be filed under History with nothing on the page saying so. The row is inert while `psych` is
+       coming-soon — the map below skips a section with no AVAILABLE collections, and only History gets an
+       empty slot, for its drop target — and correct the day a card ships, without anyone having to
+       remember. The heading is "Science" rather than "Psychology" for the reason Geography is a heading
+       rather than a collection: the next science collection should not need a second one. */
+    { label: "Science", slot: "collection-list-sci" },
+    /* Philosophy — inert today for the same reason Science is, and named for the same reason Geography is
+       a heading rather than a collection. The heading and its one collection share a name, which is the
+       one place this shelf reads oddly; the alternatives were worse, since `sectionOf` files anything
+       unnamed under History and a Philosophy collection under a History heading is a claim about the
+       subject rather than a gap. The echo resolves itself the day a second collection joins it. */
+    { label: "Philosophy", slot: "collection-list-phil" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
 
   /* ============================================================
@@ -21582,10 +21651,19 @@
     // drop targets reachable — but that meant the one person who opens this page most often always met it
     // expanded. An admin moving a collection between the two groups opens the fold first; the drop targets
     // are reachable the moment it is open, so nothing about that workflow is lost.
+    /* THE HEADING AND THE PILL BOTH READ "PLANNED" (Aug 2026, on request: rename the Coming soon section
+       to Planned). The internal names are deliberately UNCHANGED — `isComingSoon`, `setNodeSoon`, the
+       `soon` flag, `.collection-group-soon` and `.pill.soon` — for the reason the Library-to-Collections
+       rename kept its route: a label is what a reader sees and a class is what five test files and the
+       admin drag name, and moving both at once turns a two-word change into a search across the repo.
+       THE PILL WAS RENAMED WITH THE HEADING because the pill IS the section's marker on each row: a
+       "Coming soon" pill under a "Planned" heading is two names for one status. The phrase survives
+       elsewhere on purpose — the minigame placards and the home page's More games tile are a different
+       statement about a different thing. */
     const soonSection = (n, slotId, count) =>
       `<details class="collection-group collection-group-soon">
         <summary class="group-head group-head-toggle">
-          <span class="group-label">Coming soon</span><span class="group-line"></span><span class="group-count">${n}</span>
+          <span class="group-label">Planned</span><span class="group-line"></span><span class="group-count">${n}</span>
           <svg class="group-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </summary>
         ${slot(slotId, count)}
@@ -22024,7 +22102,7 @@
        layout that depends on the width and on how long the deck's name happens to be — so the same two
        shelves read differently at different widths and on different rows, and neither could be pointed at
        as "the way the other one does it". A line of its own is the same on every row at every width.
-       WHAT STAYS ON THE TITLE'S LINE IS A STATUS PILL — "Coming soon", "Empty" — because that is a fact
+       WHAT STAYS ON THE TITLE'S LINE IS A STATUS PILL — "Planned", "Empty" — because that is a fact
        about the row rather than a figure about its contents, and it is what a reader is scanning for. */
     const nodeMetaHTML =
       (spanText ? `<span class="node-span">${esc(spanText)}</span>` : "") +
@@ -22044,7 +22122,7 @@
             <div class="node-title-row">
               <span class="node-title">${esc(nodeTitle(node))}</span>
               ${nodeEmptyPill}
-              ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
+              ${soon ? '<span class="pill soon">Planned</span>' : ""}
             </div>
             ${nodeMetaRow}
           </div>
@@ -22079,7 +22157,7 @@
         <div class="node-title-row">
           <span class="node-title">${esc(nodeTitle(node))}</span>
           ${nodeEmptyPill}
-          ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
+          ${soon ? '<span class="pill soon">Planned</span>' : ""}
         </div>
         ${nodeMetaRow}
       </div>
@@ -22109,6 +22187,69 @@
     egypt:    { bg: "#1F6F5C" }, // malachite (Ancient Egypt)
     ww2:      { bg: "#4A4038" }, // dark iron (The Second World War)
     japan:    { bg: "#8A2E5C" }, // kuwazome red-purple (Japan)
+    /* muted plum (Psychology) — MEASURED, like every hue above it. Swept in CIELAB against all eighteen
+       hues on the shelf inside its own band (L 28-55, chroma 7-62), the freest region of the whole wheel
+       is the mauve/plum quadrant; the peak candidate stands 30.1 from its nearest neighbour against a
+       TIGHTEST EXISTING PAIR of 12.9 (China's vermilion against Russia's lacquer). This is one step off
+       that peak, given up for contrast: it reads 5.4:1 against white where the peak read 4.7:1, the
+       bottom of the shelf's own 3.7-10.4 range. It stands 27.1 from the United States' navy and from
+       Japan's kuwazome, still more than double that tightest pair, at L 45 and chroma 22, both mid-band.
+       The two other free regions were measured and rejected: an olive-brass scores 27.4 and would be the
+       FOURTH thing in the yellow-green-brown quarter (sepia, olive, German brown), where a number is not
+       a look; a hot magenta scores 28.3 at chroma 62, the top of the band, on a shelf that is muted
+       throughout. */
+    psych:    { bg: "#82607E" },
+    /* dark petrol (Philosophy) — MEASURED, and the sweep OVERTURNS the Geography note below. Against all
+       nineteen hues then on the shelf the two best-separated regions were an olive-brass at 27.8 and a hot
+       magenta at 29.4, and both were rejected on register for the reasons Psychology's comment above
+       gives. What was left is the one family Folio does not have at all: there is no TEAL here — Egypt's
+       malachite is a sea green at hue 173 and Greece's Aegean a blue at 247, and the whole band between
+       them is empty. This sits in it at 19.8 from BOTH of them, equidistant rather than leaning at one,
+       L 32, chroma 20, 8.6:1 against white.
+       19.8 IS BELOW THE SHELF'S MEDIAN (23.9) AND THAT IS A STATED TRADE: it is well clear of the bar the
+       house has actually used — the tightest existing pair is 12.9, China against Russia — and beats five
+       pairs already shipped, and it is the only candidate that adds a FAMILY rather than a fourth member
+       of one. It also refines Geography's claim that "the whole teal band is unusable ... 5-11 from
+       Egypt's malachite or Greece's Aegean blue": that holds at MID lightness (17.2 at L 38, falling away
+       above) and not at the dark end. The band is not unusable; the top half of it is. */
+    phil:     { bg: "#14545A" },
+    /* dark forest green (Biology) — MEASURED, and the ONLY hue here that adds to a CROWDED family, which
+       is why it needs more than a number. Green is the shelf's most populated colour (Egypt's malachite,
+       Geography's olive, two language decks), and for the third collection running the two best-separated
+       regions on the wheel were an olive-brass (30.4) and a hot magenta (30.6), both rejected on the
+       grounds the two comments above give. What justifies a FIFTH green is that it is far darker than the
+       other four: L 28 against their 39, 42, 55 and 55. The measurement agrees — its nearest neighbour is
+       not a green at all but the Second World War's dark iron at 24.3, with Geography's olive at 24.5 —
+       and that clears the shelf's median nearest-neighbour distance of 22.7, the bar this shelf has
+       settled on. 10.0:1 against white, the highest contrast on the shelf. */
+    bio:      { bg: "#36481E" },
+    /* ochre (Dinosaurs) — MEASURED: 26.9 from its nearest neighbour, India's saffron, and 29.2 from World
+       History's sepia, against a tightest existing pair of 12.9 and a median nearest-neighbour distance
+       of 22.7. Comfortably the best-separated candidate that is not the magenta, and apt besides — amber,
+       Morrison sandstone, a prepared bone. 4.1:1 against white, low but inside the shelf's own 3.7-10.4.
+       A STANDING NOTE SO NOBODY RE-RUNS THIS SWEEP: the magenta around #c057b1 scores 30.6 and is the
+       best-scoring region of the whole wheel; it has been measured and rejected FOUR times now
+       (Psychology, Philosophy, Biology, Dinosaurs), always because at chroma 61 it is the loudest thing
+       that could go on a shelf whose register is muted throughout. It is not going to be chosen. The
+       olive-brass beside it has been rejected three times as a fourth or fifth member of the
+       yellow-green-brown quarter. What remains genuinely open is narrow, and the next collection may have
+       to accept a distance nearer the median than the maximum, as Philosophy's petrol did at 19.8. */
+    dino:     { bg: "#967B00" },
+    /* muted clay (Korea) — MEASURED, and the first hue on this shelf where the sweep and the aptness
+       agree instead of trading off. 23.3 from World History's sepia, 23.6 from Psychology's plum and 24.0
+       from the Mandarin decks' red, at L 53 and chroma 21, 4.1:1 against white — clear of the median
+       nearest-neighbour distance of 22.7 and nearly double the tightest existing pair of 12.9. It is one
+       step off its own family's optimum (#a87872, 23.9) which sits at the very top of the lightness band;
+       the step is given up for contrast, as Psychology's is.
+       IT IS THE MUTED END OF THE TAEGEUK'S OWN RED, and sweeping that whole hue band (15-40 degrees)
+       returns this candidate as its best. The two families that would have been MORE apt were measured
+       and refused: Goryeo CELADON's best in-band candidate at a real chroma of 18-30 scores 19.4, and its
+       nearest neighbour is Biology's dark forest green rather than Egypt's malachite; indigo JJOK's best
+       muted candidate scores 22.4 against a French language deck. Both are below the median, and the
+       versions of them that DO score (a grey-green at chroma 7, a periwinkle at chroma 62) are not the
+       colour they are named after. The whole-wheel optimum is the magenta again at 32.4, rejected for the
+       fifth time on the standing note above. */
+    korea:    { bg: "#A2726C" },
     /* deep olive (Geography) — MEASURED rather than picked, like every hue above it. The obvious choice is
        a teal, and the whole teal band is unusable: swept in CIELAB, every candidate lands 5–11 of Egypt's
        malachite or Greece's Aegean blue, against a tightest EXISTING pair of 12.9. The green band is
@@ -22173,7 +22314,7 @@
                     says, so the row carried "412 cards" beside "0 / 412 cards" — and the DECK rows inside
                     keep theirs precisely because they have no bar. A coming-soon collection has no bar, so
                     its pill stays: that is the one thing its row has to say. */""}
-              ${soon ? '<span class="pill soon">Coming soon</span>' : ""}
+              ${soon ? '<span class="pill soon">Planned</span>' : ""}
             </div>
             ${
               /* A coming-soon collection shows the pill and nothing else. It used to carry a Level 1 badge over
