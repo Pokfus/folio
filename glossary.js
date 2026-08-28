@@ -1269,7 +1269,8 @@ window.GLOSSARY = {
 "Numa_Pompilius": "Numa Pompilius is the second king of Rome in Roman tradition, a Sabine from Cures said to have been chosen for his justice and piety after the death of Romulus.<sup class=\"fn\" data-fn=\"1\"></sup> The accounts credit him with the city's religious order — the flamens of Jupiter, Mars and Quirinus, the Vestal virgins, the twelve Salii and the office of Pontifex Maximus<sup class=\"fn\" data-fn=\"3\"></sup> — and with a calendar of twelve lunar months.<sup class=\"fn\" data-fn=\"2\"></sup> His reign of 43 years was remembered as one of unbroken peace, in which the temple of Janus stood shut, and he was said to have taken his counsel from the nymph Egeria.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Roman_calendar": "The Roman calendar is the reckoning of months and days used at Rome before Caesar's reform, a year of twelve months and 355 days that ran out of step with the sun.<sup class=\"fn\" data-fn=\"3\"></sup> Roman writers traced it to Numa, the second king, said to have replaced an older ten-month year beginning in March by adding January and February, though their accounts of that older year disagree.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An intercalary month of 22 or 23 days went into February every other year to hold it to the seasons, and the pontiffs who came to control it used the power so loosely that the civil year drifted from the natural one.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Tullus_Hostilius": "Tullus Hostilius is the third king of Rome in Roman tradition, remembered as a warlike ruler who is said to have gone looking for a pretext to fight rather than avoiding one.<sup class=\"fn\" data-fn=\"1\"></sup> His reign turned on the destruction of Alba Longa: its people were moved to Rome, doubling the number of citizens, its nobles were enrolled among the senators, and the Caelian hill was taken into the city.<sup class=\"fn\" data-fn=\"2\"></sup> Ancient accounts give him 32 years and a death by fire that consumed his whole household, ascribed by some to a thunderbolt sent for sacred rites performed wrongly and by others to arson by the man who succeeded him.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Horatii": "The Horatii are the Roman triplets who, with the Alban Curiatii, were set to decide the war between Rome and Alba Longa by a combat of three against three in place of a battle between the armies.<sup class=\"fn\" data-fn=\"1\"></sup> Two of the Romans were killed at once, and the survivor separated his three wounded opponents by running from them and killed each in turn, so that the sovereignty passed to Rome.<sup class=\"fn\" data-fn=\"2\"></sup> Returning with the spoils he killed his own sister for mourning her betrothed among the Curiatii, was condemned for treason by appointed judges and then acquitted on appeal to the people, which is the earliest such appeal Livy records.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Horatii": "The Horatii are the Roman triplets who, with the Alban Curiatii, were set to decide the war between Rome and Alba Longa by a combat of three against three in place of a battle between the armies.<sup class=\"fn\" data-fn=\"1\"></sup> Two of the Romans were killed at once, and the survivor separated his three wounded opponents by running from them and killed each in turn, so that the sovereignty passed to Rome.<sup class=\"fn\" data-fn=\"2\"></sup> Returning with the spoils he killed his own sister for mourning her betrothed among the Curiatii, was condemned for treason by appointed judges and then acquitted on appeal to the people, which is the earliest such appeal Livy records.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Ancus_Marcius": "Ancus Marcius is the fourth king of Rome in Roman tradition, a grandson of Numa through his daughter, credited with having Numa's religious commentaries copied out and set up in public.<sup class=\"fn\" data-fn=\"1\"></sup> He is said to have written down the fetial procedure by which Rome declared war, and to have fought the Latins, carrying the populations of several captured towns to Rome and settling them on the Aventine.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The works ascribed to him took the city to the sea and across the river: the port of Ostia at the Tiber mouth, salt pits on both banks, a walled Janiculum, and the Pons Sublicius, the first bridge over the Tiber.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2757,7 +2758,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Titus_Tatius": ["Tatius"],
 "Numa_Pompilius": ["Numa"],
 "Roman_calendar": ["calendar of Numa"],
-"Horatii": ["Horatii and Curiatii","Curiatii"]
+"Horatii": ["Horatii and Curiatii","Curiatii"],
+"Ancus_Marcius": ["Ancus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4052,7 +4054,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Numa_Pompilius": ["ruler","history","religion","italy","iron age"],
 "Roman_calendar": ["concept","history","religion","italy","iron age"],
 "Tullus_Hostilius": ["ruler","history","warfare","italy","iron age"],
-"Horatii": ["people","history","warfare","italy","iron age"]
+"Horatii": ["people","history","warfare","italy","iron age"],
+"Ancus_Marcius": ["ruler","history","italy","iron age","religion"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
