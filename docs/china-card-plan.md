@@ -450,7 +450,7 @@ already shipped before adding it.
     cnh-092  The Shang countryside
     cnh-093  The Shang calendar
     cnh-094  Shang writing and its descendants
-    cnh-095  The Shang and their neighbours
+    cnh-095  Shang neighbours
     cnh-096  Shang bronze technology and its sources
     cnh-097  Cowrie shells and Shang exchange
     cnh-098  Shang music and instruments

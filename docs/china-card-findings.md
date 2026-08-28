@@ -2697,3 +2697,32 @@ like a successful download and the file is HTML. **Check the head of a fetched t
 the single character for *horse*, from Shang bronze and oracle-bone forms in which the mane and legs are
 still drawn, down to the modern printed shapes — with six Warring States branches crossed out as dead ends,
 so the reader can see that the descent is a surviving line and not the only one.
+
+  **`cnh-095` FOUND A FABRICATED AUTHOR IN THE SHIPPED CORPUS, AND IT WAS ONE OF THIS RUN'S OWN.**
+`cnh-053` Sanxingdui and its glossary term both cited the PNAS carnelian paper to **"Zhengyao Jin et
+al."** The article's author list is Yan Meiting, Liu Jiancheng, Qin Chunlei … Tang Zihua, and contains
+**no Jin at all**; Jin Zhengyao is a real archaeometallurgist who appears in the bibliographies of
+neighbouring sources, which is presumably how the name arrived. This is N4's finding a second time, and
+the second time is the important one: **N4 caught its fabrication in draft, and this one shipped.** The
+volume, issue, article number and link were all correct, the URL resolves, and every checker passed — a
+wrong author name is invisible to all of them. Corrected on the card and in `glossary-extra.js`.
+**Read the byline off the fetched text before writing the citation, and re-read it when a later card
+reuses the source.**
+  **SPRINGER SERVES A 3,038-BYTE "CLIENT CHALLENGE" PAGE WITH A 200, ON BOTH THE ARTICLE AND THE PDF
+PATH.** The obvious source for this card is Rawson et al., *Chariotry and Prone Burials: Reassessing Late
+Shang China's Relationship with Its Northern Neighbours* (2020) — the DOI returns 200 and the body is a
+JavaScript wall. That is the sixth variety of 200-status error document this project has recorded, and it
+is why the paper is not cited here even though a figure from it is on Commons. **A 200 from a DOI is not
+a readable paper; check the byte count and the head of the body.**
+  **THE CARD IS BUILT ON WHAT IS NOT KNOWN, DELIBERATELY.** Campbell's review of Thorp is unusually
+useful here because it lists the long-distance claims that have nothing behind them: Anyang's copper from
+the Yangtze is "unsubstantiated and unreferenced", the Xinjiang origin of Anyang and Xin'gan jade has no
+sourcing study, and only the southern origin of northern proto-porcelain has provenance work — which is
+contested, and Li Haichao's later study names a different part of the south (the Qiantangjiang valley in
+Zhejiang) from the one Campbell reports (Wucheng in Jiangxi). **Where two provenance studies disagree
+about which region, say so rather than picking one**; that disagreement is the state of the question.
+  **AND THE RUN'S OWN SPELLING HAD DRIFTED.** The corpus writes *Yangtze* twenty times and *Yangzi* four,
+and all four of the *Yangzi* were cards written in this run (`cnh-088`, `cnh-090`, and two in `cnh-095`
+itself, which used both spellings in one abstract). All are normalised to the majority form, in the cards
+and in the `Panlongcheng` glossary term. **Grep a proper noun's variants across `data.js` before adopting
+one** — a minority spelling introduced four cards running becomes a house style nobody chose.
