@@ -1745,3 +1745,34 @@ it is summarising him, so the rule applies. Repaired with `fix-field.js` on `abs
 has no plate for the Songs; it has `仲康肇位圖`, Zhongkang taking the throne his elder brother lost, which
 is the chapter immediately after. **A neighbouring plate, labelled as one, beats an unrelated object** —
 and listing the Commons category (15 files) settled in one call what a title search could not.
+
+  **`cnh-060` NEEDED NO RENAME — THE FIRST IN THREE — AND THE REASON IS THAT ITS SUBJECT IS AN OBJECT.**
+"Bamboo Annals" names a thing with a discovery, a date, a text and a controversy, where "the traditional
+account of the Xia" and "the Xia in the transmitted texts" named topics. **A plan line survives contact
+with research in proportion to how much of a THING it names.**
+  **THE WHOLE CARD IS IN LEGGE'S PROLEGOMENA, AT TWO WIDELY SEPARATED PLACES.** Pages 105–7 carry the
+discovery — robbers opening King Xiang of Wei's grave in 279 CE, tablets in small seal script with more
+than 100,000 words, fifteen works made out, two of them worth keeping, two years of transcription, and Du
+Yu's independent testimony from the year after; pages 176–77 carry the criticism — Wang Mingsheng's verdict
+that the whole thing was "imposed on the world" by one of its transcribers, Legge's refusal of it, the
+tablets lost and disordered, the eleven books of *Fragmentary Sayings* whose matter drifted in, and the
+showers of gold and changes of sex he compares to the marvels in Livy. Page 117 has the Xia section itself,
+opening Yu's first year at **1989 BCE** — Chavannes' "second system" seen from the other side. **When a
+19th-century translator gives a text a Prolegomena, the card is usually in it twice: once as narrative and
+once as judgement.**
+  **THE CARD ALSO CLOSES A THREAD THAT `cnh-059` OPENED, AND LEGGE MAKES THE JOKE HIMSELF.** Having just
+written a card about a chapter recovered from a wall, this one is about a chronicle recovered from a tomb —
+and Legge writes that his reader "has read so much of the recovery of portions of the Shoo from the walls
+of houses that he must be tired of this mode of finding lost treasures, and smiles when he is now called on
+to believe that an old tomb opened". **Two neighbouring cards can share a theme without repeating**, and
+here the sources noticed it first.
+  **THE PICTURE IS THE MEDIUM, NOT THE TEXT, AND THE CAPTION SAYS SO IN ITS FIRST FOUR WORDS.** No tablet of
+the Bamboo Annals survives; what does survive from the same period and material is a case of Eastern Zhou
+slips from a Chu grave in the Henan Provincial Museum, each sealed in a tube of preservative with a bronze
+blade beside them. **"Not the annals, which survive only as a text" is the honest opening for any card whose
+subject has no surviving object.**
+  **COMMONS CATEGORY LISTING FAILED THREE TIMES ON A 429 AND ONE MALFORMED TITLE.** `Category:Bamboo and
+wooden slips` returned zero members and three other category names returned unparseable bodies under rapid
+requests; a plain keyword search two minutes later found the file at once. **Space the Commons calls and
+prefer a search when a category guess returns empty** — an empty category listing looks identical to a
+category that does not exist.
