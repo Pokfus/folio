@@ -1273,7 +1273,8 @@ window.GLOSSARY = {
 "Ancus_Marcius": "Ancus Marcius is the fourth king of Rome in Roman tradition, a grandson of Numa through his daughter, credited with having Numa's religious commentaries copied out and set up in public.<sup class=\"fn\" data-fn=\"1\"></sup> He is said to have written down the fetial procedure by which Rome declared war, and to have fought the Latins, carrying the populations of several captured towns to Rome and settling them on the Aventine.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The works ascribed to him took the city to the sea and across the river: the port of Ostia at the Tiber mouth, salt pits on both banks, a walled Janiculum, and the Pons Sublicius, the first bridge over the Tiber.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Tarquinius_Priscus": "Tarquinius Priscus is the fifth king of Rome in Roman tradition and the first from outside Latium, a wealthy man of the Etruscan city of Tarquinii who moved to Rome and took a Roman name.<sup class=\"fn\" data-fn=\"1\"></sup> The accounts credit him with a hundred new senators, games in the space that became the Circus Maximus, shops around the Forum, a stone wall, the draining of the low ground and a levelled platform on the Capitol for the temple of Jupiter.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He was killed after 38 years by two shepherds who staged a quarrel at the palace, hired by the sons of the king he had succeeded and whose guardian he had been.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Cloaca_Maxima": "The Cloaca Maxima is the main drain of ancient Rome, carrying water off the Forum and the valleys between the hills into the Tiber.<sup class=\"fn\" data-fn=\"3\"></sup> Roman writers ascribed it to the Tarquins, Livy setting the plebs to it under the last king and Dionysius crediting the earlier Tarquin with beginning the sewers, and both counted it among the city's greatest works.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its winding line from the Argiletum through the Forum and the Velabrum follows a stream in a marshy valley, and little if any of the first channel survives in the vaulted stone conduit that stands today.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Circus_Maximus": "The Circus Maximus is the oldest and largest of the Roman racecourses, laid out in the valley between the Palatine and the Aventine, about 600 m (660 yards) long and 150 m (160 yards) wide.<sup class=\"fn\" data-fn=\"4\"></sup> Roman tradition ascribed its beginnings to the Tarquins, who were said to have marked out the ground and allotted places where spectators could raise wooden stands,<sup class=\"fn\" data-fn=\"1\"></sup> though the first permanent starting gates are dated only to 329 BCE.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> By the 1st century BCE it was a building of three storeys with a canal round the track, vaulted stalls all opened by a single rope and, on one ancient count, room for 150,000 people.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Circus_Maximus": "The Circus Maximus is the oldest and largest of the Roman racecourses, laid out in the valley between the Palatine and the Aventine, about 600 m (660 yards) long and 150 m (160 yards) wide.<sup class=\"fn\" data-fn=\"4\"></sup> Roman tradition ascribed its beginnings to the Tarquins, who were said to have marked out the ground and allotted places where spectators could raise wooden stands,<sup class=\"fn\" data-fn=\"1\"></sup> though the first permanent starting gates are dated only to 329 BCE.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> By the 1st century BCE it was a building of three storeys with a canal round the track, vaulted stalls all opened by a single rope and, on one ancient count, room for 150,000 people.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Servius_Tullius": "Servius Tullius is the sixth king of Rome in Roman tradition, said to have been marked out in childhood when flames played about his head as he slept in the palace, and raised there as a son of the house.<sup class=\"fn\" data-fn=\"1\"></sup> He came to the throne through the queen Tanaquil, who concealed her husband's murder and had the crowd told to obey him, so that he held the power before it was granted him.<sup class=\"fn\" data-fn=\"2\"></sup> The tradition credits him with the temple of Diana on the Aventine, built jointly with the Latin cities, and with a reign of 44 years ended when his daughter's husband seized the throne and had him killed.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2763,7 +2764,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Roman_calendar": ["calendar of Numa"],
 "Horatii": ["Horatii and Curiatii","Curiatii"],
 "Ancus_Marcius": ["Ancus"],
-"Tarquinius_Priscus": ["Lucius Tarquinius Priscus","Tarquin the Elder"]
+"Tarquinius_Priscus": ["Lucius Tarquinius Priscus","Tarquin the Elder"],
+"Servius_Tullius": ["Servius"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4062,7 +4064,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Ancus_Marcius": ["ruler","history","italy","iron age","religion"],
 "Tarquinius_Priscus": ["ruler","history","italy","iron age","etruscan"],
 "Cloaca_Maxima": ["building","history","technology","italy","iron age"],
-"Circus_Maximus": ["building","history","italy","iron age","sport"]
+"Circus_Maximus": ["building","history","italy","iron age","sport"],
+"Servius_Tullius": ["ruler","history","italy","iron age","religion"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
