@@ -2668,3 +2668,32 @@ motel in Kane, Pennsylvania. Searching Commons for the OBJECT found it at once: 
 scapula in the Yinxu Museum carrying the complete table of sixty in oracle-bone script**, CC0. That is the
 third card running where the offered candidates were useless and a hand search for the thing itself
 answered in one query.
+
+  **`cnh-094` WAS DESIGNED AROUND WHAT ITS OWN COLLECTION HAS ALREADY BOOKED, WHICH IS THE RULE TO CARRY.**
+The obvious card for "Shang writing and its descendants" is a history of the Chinese script, and the first
+draft was one: the Qin standardisation, the clerical script, the traditional/simplified split, the 40% of
+characters the 1950s reform touched, the merging of 麵 and 面 into one graph. **Every one of those is a
+LATER CARD in this plan** — `cnh-199` the standardisation, `cnh-905` the development of the script,
+`cnh-906`–`cnh-908` seal, clerical and regular, `cnh-915`–`cnh-916` the reform and the simplified
+characters. The card was rebuilt to be about the Shang script AS AN ANCESTOR: the two Shang scripts, how
+the descent was demonstrated, the five stages named but not described, and the one finding that belongs
+to the whole three thousand years rather than to any stage of it. **Grep the plan for a card's neighbouring
+SUBJECTS, not just its id** — the deck economy that matters here is with cards nine hundred numbers away.
+  **THE FINDING THAT SURVIVED THE CUT IS WORTH THE CARD ON ITS OWN.** Han, Kelly, Winters and Kemp measured
+half a million character images over more than 3,000 years and found no consistent simplification:
+complexity climbs to the seal script and falls after it, and modern characters are still MORE complex than
+their oracle-bone ancestors. They then checked it against the obvious objection — that their measure was
+an artefact — with a preregistered experiment in which 400 people who read no Chinese rated the pairs and
+agreed. **A popular claim about a 3,000-year trend is exactly the kind that has never been measured**, and
+their paper is also where the flat statement lives that Chinese is the world's only primary script still
+in continuous use.
+  **A 403 ON A PUBLISHER DOI IS NOT A CLOSED PAPER.** `doi.org/10.1162/opmi_a_00064` returns 403 here (MIT
+Press), and the article is fully open at its PMC copy, which is what the citation points at. **Curl the DOI
+before shipping and reach for PMC when it refuses** — the same route N1 recorded for Springer and Nature.
+  **AND A SCHOLARSPACE ITEM CAN BE LOGIN-WALLED WITHOUT LOOKING LIKE IT.** `ap.sh` fetched 390 KB for a 2012
+thesis on Chinese character reform and every byte of it was the ScholarSpace **login page**; the size looks
+like a successful download and the file is HTML. **Check the head of a fetched text, not its length.**
+  **The picture is the one the card needed and no search phrase would have described it**: a family tree of
+the single character for *horse*, from Shang bronze and oracle-bone forms in which the mane and legs are
+still drawn, down to the modern printed shapes — with six Warring States branches crossed out as dead ends,
+so the reader can see that the descent is a surviving line and not the only one.
