@@ -20,16 +20,16 @@ Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New J
 Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023` Washington,
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
-`geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky,
+`geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh and `geo-530` Harrisburg.**
-Both subdecks are worked down the same list, so the next state is `geo-034` and the next capital
-`geo-531`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg and `geo-531` Madison.**
+Both subdecks are worked down the same list, so the next state is `geo-035` and the next capital
+`geo-532`.
 
 ---
 
@@ -1004,6 +1004,33 @@ terms that already exist**. Each was measured, and none should be settled quietl
   find the source for the nearness**, and cite it separately from the source for the event. The card
   also keeps the NRC's own qualifier — small releases, no detectable health effects on workers or the
   public — attributed to the commission rather than asserted flat.
+
+- **`Tennessee` AND `Madison` GO IN BARE, AND `Madison` SETTLES A WORRY THIS PASS HAS BEEN CARRYING.**
+  "Tennessee" has four uses and all four are the state. "Madison" has three: two are the Wisconsin
+  capital and the third is the opening words of `James_Madison`'s own description. That third looked
+  like a reason to go parenthetical — inside the president's popup his own key is off the link list, so
+  a shorter `Madison` surface appeared free to grab half his name, which is round 22's Olympia
+  self-link fault wearing a new coat. **Measured, it does not happen**: the term was added bare, the
+  `James_Madison` popup rendered, and "Madison" there is plain while `Wisconsin_(state)` links its
+  "Madison" correctly. **A shorter surface does not slip inside a longer registered one even when the
+  longer one is the popup's own key** — so the plan's older note that the presidents are keyed by full
+  name and leave `Jackson`, `Lincoln` and `Madison` free is right for the reason it gives *and* safe
+  in the one case that looked like an exception. Test it again if `buildGlossIndex` is ever touched.
+
+- **A NOMINATION'S OWN WORDING CAN CARRY A LINK TRAP INTO A CARD.** Blount Mansion's nomination calls
+  William Blount "Governor of the Territory South of the Ohio River (commonly known as the 'Southwest
+  Territory')", and quoting the formal name would have fired last round's "Ohio River" fault on the
+  first geography card outside Ohio's own. `geo-034` writes **the Southwest Territory** and nothing is
+  lost — the nomination itself offers the short form. **When a source's phrasing contains a bare state
+  name, check the alternative the source already gives you before rewriting around it.**
+
+- **TENNESSEE IS THE FIRST STATE WHOSE FOUR LANDMARKS SPAN FOUR CENTURIES AND FOUR SUBJECTS**, which is
+  worth naming as a shape to aim at rather than a fact about Tennessee: Blount's mansion for the 1796
+  convention, Jubilee Hall for the Fisk Jubilee Singers who paid for it, the X-10 reactor at Oak Ridge
+  for 1943, and Sam Phillips's Memphis studio for 1950. **A state card reads better when its four
+  Landmark sources are four different kinds of thing** — a government, a school, a laboratory, a
+  recording room — than when they are four houses of four politicians. The NHL list is short enough per
+  state (Tennessee has twelve) to choose for that spread rather than take the first four that answer.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
