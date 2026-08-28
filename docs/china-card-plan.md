@@ -411,7 +411,7 @@ already shipped before adding it.
     cnh-056  Tribute of Yu
     cnh-057  Qi of Xia
     cnh-058  Jie of Xia
-    cnh-059  The Xia in the transmitted texts
+    cnh-059  Songs of the Five Sons
     cnh-060  Bamboo Annals
     cnh-061  The question of the Xia's historicity
     cnh-062  Erlitou culture

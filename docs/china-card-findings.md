@@ -1715,3 +1715,33 @@ Commissioned Illustrated Explanations of the Book of Documents*, 1905 — has a 
 Jie, with the rider labelled 夏桀 and the walled gate 南巢. **A Qing illustrated edition of a classic is the
 place to look when a card is about a passage rather than an object**; the same series will serve the Shang
 cards.
+
+  **`cnh-059` IS THE THIRD RENAME IN FIVE CARDS, AND THE HARDEST, BECAUSE THE OBVIOUS ANSWERS WERE ALL
+ALLOCATED ELSEWHERE.** "The Xia in the transmitted texts" names no term, and the two texts a reader would
+reach for are already booked — `cnh-126 Book of Documents` and `cnh-241 Records of the Grand Historian` —
+so the card had to be a text that is BOTH about the Xia and not one of those. Four candidates were worked
+and dropped, and each refusal is worth the line: the ***Xia Xiaozheng*** (the almanac Confucius is said to
+have found in Qi) — Legge carries the story and calls the identification "very uncertain", but **nothing
+reachable here describes the almanac's contents**, so ten sentences could not be written; the **state of Qi
+杞**, whose name collides with 齊 exactly as `cnh-057`'s did; the **Bin Gong xu**, the Western Zhou vessel
+carrying the oldest known mention of Yu, which ScholarSpace and Europe PMC between them do not cover; and
+the **Xia annals of the *Shiji***, which `cnh-054`–`056` have already emptied. The line is now
+`cnh-059 Songs of the Five Sons`.
+  **AND THE CHAPTER THAT ANSWERED IS THE ONE WHOSE TRANSMISSION IS THE STORY.** It carries the most quoted
+line in the collection — *the people are the root of a country* — and it sits in the DISPUTED half of the
+*Documents*: not among the 29 that a scholar hid in a wall before the burning of the books and recovered
+under the Han, but among the further ones deciphered from tablets found in another wall and presented in
+97 BCE, which critics from the Song onwards have called a later fabrication. **A card about "how the Xia
+reaches us" is better written about ONE text with a route than about the corpus**, and the route is in
+Legge's Introduction at pp. 7–11.
+  **THE ABSTRACT CAME IN 49 WORDS OVER — THE WORST OF THE RUN — AND PATCHING IT TWICE MOVED IT BY NOTHING.**
+Two rounds of clause-level substitutions netted 0 words, because each cut was paid back by the rewording
+around it. What worked was rewriting the ten sentences from scratch at the target length and then trimming
+three specific phrases. **When a first draft is more than about 20 words over, redraft rather than patch.**
+  **`check-style` CAUGHT `twenty-nine` AS A NUMBER-WORD.** Non-round numbers above 20 are numerals, and the
+temptation here is that the source's own prose says "twenty-nine" — but the abstract is not quoting Legge,
+it is summarising him, so the rule applies. Repaired with `fix-field.js` on `abstract`.
+  **THE PICTURE IS THE NEXT PLATE IN THE SERIES, AND THE CAPTION SAYS SO.** The 1905 illustrated *Shujing*
+has no plate for the Songs; it has `仲康肇位圖`, Zhongkang taking the throne his elder brother lost, which
+is the chapter immediately after. **A neighbouring plate, labelled as one, beats an unrelated object** —
+and listing the Commons category (15 files) settled in one call what a title search could not.
