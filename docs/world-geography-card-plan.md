@@ -23,12 +23,12 @@ Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Ira
 Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia,
 Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela, Australia, Niger, North
 Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan, Chad, Chile, Romania,
-Somalia) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+Somalia, Senegal, Guatemala, Ecuador) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
-Khartoum, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is
-`gw-069` Senegal and the next capital is `gw-531` Kampala.
+Khartoum, `gw-531` Kampala, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next
+country is `gw-072` Netherlands and the next capital is `gw-532` Madrid.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -909,6 +909,55 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 23 (Senegal, Guatemala, Ecuador, Kampala) is the first batch of this pass to correct NOTHING**,
+and the reason is worth stating rather than being taken for luck. All four subjects were already
+reconciled: Senegal 196,712 against the World Bank's 196,710, Guatemala 108,889 against 108,890, Ecuador
+257,217 against 256,370, Uganda 241,550 against 241,550, and every population within a rounding of the
+term's own figure. **A batch that finds nothing wrong is the expected outcome once a term has been
+through the glossary length pass and a figure batch**; treat a run of corrections as the sign of an
+unreconciled region, not as the normal yield.
+
+**Its research finding is that the recognition guide sometimes recognises TWO STATES ON ONE DAY, and the
+two country pages have to be read together.** Senegal's page dates recognition to 24 September 1960 "when
+the American Embassy at Dakar (formerly accredited to the Federation of Mali) so informed the Foreign
+Minister" — and Mali's page, on the same date, has the Bamako consulate general raised to embassy rank
+while "the American Embassy at Dakar was reaccredited to the independent Republic of Senegal, thereby
+formally ending diplomatic relations with the Federation of Mali". Neither page carries the whole story.
+The pair also settles the UN side: both were admitted at the **876th plenary meeting on 28 September
+1960**, in consecutive resolutions, Senegal as 1490 (XV) and Mali as 1491 (XV). **When a country left a
+federation, open the sibling's page before writing the card.**
+
+**Guatemala shows what to do when a state has documented its own covert action, and the honest source is
+the state's account of that account.** The country page says outright that in June 1954 the Central
+Intelligence Agency "assisted in the overthrow" of President Arbenz — but the load-bearing citation is
+the PREFACE to *Foreign Relations of the United States, 1952–1954, Guatemala* (2003), which records that
+the 1983 volume left the covert operation out because references to it "were denied in the declassification
+process", that the Office of the Historian published it anyway without a disclaimer, and that the
+supplement of 287 documents appeared only after historians gained fuller access to the agency's files.
+That is the plan's own rule — no state's account of its own actions repeated as established fact — met by
+citing the state's admission of how incomplete its earlier account was. **Reach for a FRUS volume's
+preface whenever a country page states a covert episode flatly.**
+
+**Ecuador is recognised in a letter that never uses the word, which is why its date looks wrong.** The
+guide gives 4 June 1832, the date Secretary of State Edward Livingston replied to President Juan José
+Flores's letter announcing he was "at the head of the Government of the State of the Equator" — an
+acknowledgement, not a declaration, and the guide itself calls it an *effective* recognition. C11 warned
+that a recognition date is not an independence date; this is the adjacent case, **a recognition with no
+recognising sentence in it**, and the card has to say so rather than presenting 1832 as a proclamation.
+Its WTO page also carries no GATT line at all: Ecuador acceded straight to the World Trade Organization on
+21 January 1996, so **a missing GATT date on a WTO member page can be the fact rather than a gap.**
+
+**And the Wikimedia throttle is by FILE TYPE, which revises batch 22's finding.** Batch 22 concluded the
+429 falls on originals and not on thumbnails, and that held while it was measured. Here `/thumb/` was
+429 too: across forty minutes every raster tried returned 429 — the astronaut photograph of Kampala and a
+2006 view from Namirembe Hill, original and 1280px thumb alike, and a 944-pixel PNG with them — while
+three flag **SVGs** returned 200 in the same seconds, one of them interleaved between two 429s as a
+control. So the rule is **SVG passes and raster does not, whatever the path or the size**, which is why
+every flag in this deck has verified and several photographs have not. `Kampala` therefore ships without
+a picture, deliberately and recorded here rather than left looking like an oversight; the two candidates
+are `File:Kampala,_Uganda.JPG` (NASA, public domain) and `File:Centrum_kampala.jpg` (CC BY-SA 3.0, taken
+from one of the city's own hills), both checked for subject and licence and both waiting only on access.
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
