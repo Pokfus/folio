@@ -1298,7 +1298,8 @@ window.GLOSSARY = {
 "Eugenics": "Eugenics is the attempt to improve a population by controlling who has children, a word coined in 1883 for the science of improving stock and defined to take in every influence tending to favour what its author called the more suitable strains.<sup class=\"fn\" data-fn=\"1\"></sup> As an organised movement it drew on family studies of inherited defect and later on psychological testing, and it reached legislation: Indiana passed the first compulsory sterilisation law in 1907 and California followed in 1909.<sup class=\"fn\" data-fn=\"2\"></sup> Over the 20th century the health authorities of California alone recommended sterilisation for more than 20,000 people held in state institutions, and comparable programmes ran in other countries.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Wilhelm_Griesinger": "Wilhelm Griesinger was a German physician and psychiatrist whose textbook <i>Die Pathologie und Therapie der psychischen Krankheiten</i>, published in 1845 and revised in 1861, is generally taken to open the scientific phase of German psychiatry.<sup class=\"fn\" data-fn=\"1\"></sup> He was among the leading somaticists, who held that mental disorder arises from bodily conditions and is open to ordinary medical study, and his opening section argues that the organ diseased in madness can only be the brain.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He was not a strict materialist, treating anger, fright and sorrow as frequent immediate causes of insanity, and his conviction that the insane were sick people made him an advocate of humane asylum care.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Animal_magnetism": "Animal magnetism was the doctrine that a subtle invisible fluid fills the universe and passes between bodies, that illness arises when its flow through a person is blocked, and that an operator can redirect it and restore health.<sup class=\"fn\" data-fn=\"1\"></sup> Advanced from the 1770s by the physician Franz Anton Mesmer, it was applied by passes of the hands, which brought on a crisis of convulsions, laughter or sleep taken for the cure, and it drew a large fashionable following in Paris.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A French royal commission reported in 1784 that imagination without magnetism produces convulsions while magnetism without imagination produces nothing, and that the existence of the fluid was destitute of proof.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Moral_treatment": "Moral treatment was a regime for the care of the insane, adopted at the end of the 18th century, that replaced chains, purges and terror with routine, occupation, recreation and a kindly authority.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It rested on the view that most patients keep a considerable degree of self-command, which can be strengthened by treating them as far as possible as rational beings and by appealing to their desire of esteem rather than to fear.<sup class=\"fn\" data-fn=\"1\"></sup> It was the founding principle of the public asylums built across Europe and America in the first half of the 19th century, institutions that grew overcrowded and turned to custody as the promise of cure went unmet.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Moral_treatment": "Moral treatment was a regime for the care of the insane, adopted at the end of the 18th century, that replaced chains, purges and terror with routine, occupation, recreation and a kindly authority.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It rested on the view that most patients keep a considerable degree of self-command, which can be strengthened by treating them as far as possible as rational beings and by appealing to their desire of esteem rather than to fear.<sup class=\"fn\" data-fn=\"1\"></sup> It was the founding principle of the public asylums built across Europe and America in the first half of the 19th century, institutions that grew overcrowded and turned to custody as the promise of cure went unmet.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Wilhelm_Wundt": "Wilhelm Wundt was a German physiologist and philosopher whose <i>Grundzüge der physiologischen Psychologie</i> of 1873 and 1874 announced a borderline science between physiology and psychology, and is usually taken to mark the birth of experimental psychology.<sup class=\"fn\" data-fn=\"1\"></sup> Rooms for his laboratory were set apart at Leipzig in 1879, and the institute that grew from it drew students from around the world and made the new science a discipline with a workforce.<sup class=\"fn\" data-fn=\"2\"></sup> He held the experimental method to reach the sensory side of mental life and to fail beyond it, assigning the higher processes to <i>Völkerpsychologie</i>, the study of language, myth and custom.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1918,7 +1919,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hermann_von_Helmholtz": "1821–1894",
 "Gustav_Fechner": "1801–1887",
 "Charles_Darwin": "1809–1882",
-"Wilhelm_Griesinger": "1817–1868"
+"Wilhelm_Griesinger": "1817–1868",
+"Wilhelm_Wundt": "1832–1920"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2810,7 +2812,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Eugenics": ["eugenic"],
 "Wilhelm_Griesinger": ["Griesinger"],
 "Animal_magnetism": ["mesmerism"],
-"Moral_treatment": ["moral therapy"]
+"Moral_treatment": ["moral therapy"],
+"Wilhelm_Wundt": ["Wundt"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4134,7 +4137,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Eugenics": ["concept","science","history","psychology"],
 "Wilhelm_Griesinger": ["person","psychology","science","biology","germany"],
 "Animal_magnetism": ["concept","psychology","science","history"],
-"Moral_treatment": ["practice","psychology","science","history"]
+"Moral_treatment": ["practice","psychology","science","history"],
+"Wilhelm_Wundt": ["person","psychology","science","history","germany"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
