@@ -21,16 +21,16 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
-`geo-037` Alabama,
+`geo-037` Alabama, `geo-038` Mississippi,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort and `geo-534` Nashville.**
-Both subdecks are worked down the same list, so the next state is `geo-038` and the next capital
-`geo-535`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville and `geo-535` Jefferson City.**
+Both subdecks are worked down the same list, so the next state is `geo-039` and the next capital
+`geo-536`.
 
 ---
 
@@ -1140,6 +1140,48 @@ terms that already exist**. Each was measured, and none should be settled quietl
   until the image's size is known and the remote file cannot be fetched through the proxy. **Verified by
   stashing the round's three data files and re-running: identical failure.** Check a failing browser
   suite against the unmodified tree before treating it as yours.
+
+- **THE RIVER TERMS ARE SAFE AFTER ALL, AND THE REASON IS IN `autoLinkGlossary`.** Rounds 29, 31 and 32
+  recorded `Ohio_River` and `Missouri_River` as owed work, and this round nearly deferred
+  `Mississippi_River` on a fear that turned out to be unfounded: that giving a river term the bare state
+  name as an alias would make the STATE's own card link its answer term to the river. It would not.
+  `autoLinkGlossary` resolves the card's `answerText` against **every** surface and adds the KEY it finds
+  to the suppressed set, so on a Mississippi card the surface "Mississippi" would resolve to the river
+  term and suppress it outright. **The obstacle is elsewhere, and it is real**: a LATER card that is not
+  about the state — `geo-538` Jackson will say "the capital of Mississippi" — gets no such suppression,
+  and a bare alias would point that at the river. So `Mississippi_River` ships with **no bare alias**, its
+  only surface the full name, which links correctly on `geo-038` and leaves the fourteen existing bare
+  "the Mississippi" uses exactly as they were. **Measure the bare surface before aliasing a river**, and
+  expect the same answer for the Ohio and the Missouri.
+
+- **`Mississippi` IS THE MOST ONE-SIDED SURFACE THE PASS HAS MEASURED: 14 uses and not one of them the
+  state.** Every one is the river, its valley, its floodplain or its basin — `wh-159`, `geo-008`,
+  `geo-035`, `geo-036`, `geo-508`, `geo-517` and eight glossary terms. Round 31's `Wisconsin_(state)` was
+  the first case where every existing use was the other sense; this is that at four times the scale, and
+  it settles the key shape without argument: **`Mississippi_(state)`**, parenthetical, claiming nothing
+  bare.
+
+- **THE CORINTHIAN TRAP IS THE `Greek Revival` ONE AGAIN, ONE ORDER OVER.** `Corinth` carries the alias
+  "Corinthian", so "134 Corinthian columns" on the Jefferson City card resolved its adjective to the Greek
+  city. Folio already had `Doric_order` and `Ionic_order` and not the third, so the fix was the missing
+  sibling: **`Corinthian_order`**, cited to Vitruvius 4.1 at Perseus and Marquand's *Greek Architecture*
+  (1909) — the same two works the other two orders cite — and the card now reads "134 columns of the
+  Corinthian order", which the longer surface claims. **A bare "Corinthian" still resolves to Corinth and
+  that is correct**, since the adjective does mean the city elsewhere; what changed is that the
+  architectural sense now has a surface of its own.
+
+- **`www.loc.gov/item/…` IS 403 HERE AND `tile.loc.gov` IS NOT**, which decided every citation on
+  `geo-535`. Cole County has **no NPS nomination documents at all** — all five npgallery fetches returned
+  the 22,151-byte "no nomination held" stub — so the whole card rests on HABS written data, reached
+  through the loc.gov JSON API (`?fo=json` answers where the item page does not) and cited at the
+  `tile.loc.gov` PDF, which is round 30's Harrisburg route used again. The data PDFs also **429 under
+  rapid fetches**; retry with backoff rather than recording them as unreachable.
+
+- **`Jefferson_City` AND `Mississippi_River` EACH REPAIRED A SHIPPED CARD ON ARRIVAL** — `geo-035` now
+  links its capital, and `geo-038` its river — which is the third round running that a new term corrected
+  a text nobody was editing. Two surfaces recorded for later: **`Cairo`** will be claimed by Ancient Egypt
+  and would then take Cairo, Illinois, so the river term says "its lower course" instead; and
+  **`Montgomery`** and **`Memphis`** are still free but will not stay so.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
