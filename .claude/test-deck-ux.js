@@ -209,9 +209,15 @@ const deck = {
   ok(afterClose.two === false, "closing a shipped-OPEN panel is remembered too", afterClose);
   ok(afterClose.one === true, "…and does not disturb the one already opened", afterClose);
 
+  /* THE KEY DROPS THE DECK, and this assertion asked for it back for a fortnight. It was
+     `<deckId>__<type>|<summary>` until Aug 2026, when it was changed on request -- a reader studying HSK
+     1 to 4 has four decks each carrying its own copy of the same type with the same "In a sentence"
+     panel, and was closing it four times over. What identifies a fold is the TYPE and the summary the
+     reader pressed, so the deck is deliberately not in it; asserting the deck back in asserts the bug. */
   const stored = await pg.evaluate(() => localStorage.getItem("folio_uc_open_v1"));
-  ok(!!stored && stored.indexOf(DECK + "__vt|In a sentence") >= 0 && stored.indexOf(DECK + "__vt|Notes") >= 0,
-    "each panel is recorded under its own summary text, scoped to the card type", stored);
+  ok(!!stored && stored.indexOf("vt|In a sentence") >= 0 && stored.indexOf("vt|Notes") >= 0
+    && stored.indexOf(DECK + "__vt|") < 0,
+    "each panel is recorded under its own summary text, scoped to the card type and not to the deck", stored);
 
   console.log("\n=== 3. …and it survives a reload, which is the localStorage half");
   await study();

@@ -124,6 +124,14 @@ async function openGlossEditor(page, base, key) {
   /* ---------- 1. the popup renders a term's image, last ---------- */
   await page.goto(base, { waitUntil: "load" });
   await page.waitForFunction(() => !!window.GLOSSARY && Object.keys(window.GLOSSARY).length > 0);
+  /* WAIT FOR glossary-extra.js FIRST, or the fixture is Object.assign'd away. GLOSSARY_IMAGES lives in
+     the lazy `glossExtra` bundle, warmed at idle after boot, and its hook assigns OVER whatever is in the
+     table -- so seeding before it lands leaves every term showing its own SHIPPED picture, and the
+     assertions below then measure a remote file instead of the inline PNG. That reads as `object-fit`
+     having stopped working rather than as a race, and it depends on the network besides. `test-sources.js`
+     met exactly this and its note is in CLAUDE.md; this is the same trap one table over. */
+  await page.waitForFunction(() => window.GLOSSARY_IMAGES && Object.keys(window.GLOSSARY_IMAGES).length > 0,
+    null, { timeout: 30000 });
   await page.evaluate((src) => {
     Object.keys(window.GLOSSARY).forEach((k) => {
       window.GLOSSARY_IMAGES[k] = { src: src, title: "A test plate", desc: "Something depicted.", credit: "https://example.org/plate" };
@@ -137,6 +145,15 @@ async function openGlossEditor(page, base, key) {
   const order = await page.evaluate(() => [...document.querySelector(".gloss-win .gloss-body").children].map((e) => e.className));
   // it floats to the top-right, so it must come FIRST in the body for the prose to wrap down its left
   check("the image is first in the popup body", String(order[0]).includes("gloss-imgslot"), order.join(" | "));
+  /* WAIT FOR THE FILE TO BE DECODED BEFORE MEASURING IT. Every assertion below is about the picture's
+     PROPORTIONS, and an <img> that has not decoded yet reports naturalWidth 0 and a zero-sized box -- so
+     the suite reads a race as `object-fit` having stopped working. The data URI above means there is no
+     network to wait for, only the decode, which is why this is a handful of milliseconds and not a
+     timeout. */
+  await page.waitForFunction(() => {
+    const im = document.querySelector(".gloss-win .gloss-imgslot img");
+    return !!im && im.complete && im.naturalWidth > 0;
+  }, null, { timeout: 10000 }).catch(() => {});
   const box = await page.evaluate(() => {
     const slot = document.querySelector(".gloss-win .gloss-imgslot");
     const body = document.querySelector(".gloss-win .gloss-body");
