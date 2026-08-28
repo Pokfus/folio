@@ -1838,3 +1838,27 @@ the resources. **Two ScholarSpace papers seventeen years apart, one saying where
 gives `/thumb/4/47/…`. That is a different failure from the width problem recorded on `cnh-055`: the two
 hex characters are an MD5 fragment of the filename, so **copy the whole path out of `imageinfo` and change
 nothing but the width**.
+
+  **`cnh-063` IS CARRIED BY ONE PAPER AND THE CARD IS BETTER FOR IT.** Xie et al. 2020 is a study of
+settlement relocation and urban construction, so it describes Erlitou phase by phase in the terms a site
+card needs: over 100 hectares in Phase I with no house or public building yet found; more than 300 in
+Phase II with a palace and temple district of **10.8 hectares** on the highest ground **ringed by four
+intersecting roads**; a workshop walled in rammed earth south of it for bronze and turquoise; burials in
+four or five grades from late Phase II, the richest with bronze and found at no other site; corpse dumps
+including people buried alive; artisans buried near where they worked. **When one paper's subject IS the
+question the card asks, four sources round it out and the fifth is padding** — the other four here each
+carry a single clause.
+  **TWO FACTS IN IT ARE THE CARD, AND BOTH ARE ABSENCES.** Erlitou has **no outer wall**, where the older
+centre at Taosi had one, and its total volume of public construction was **seven times smaller**. A capital
+that controlled the making of power's symbols before it walled its own palace is a different kind of place
+from the one the texts describe, and saying so needs no editorialising — the two measurements do it.
+  **THE SITE PHOTOGRAPHS ON COMMONS ARE PARK FURNITURE, AGAIN.** All six files named `20240815 Erlitou Site
+0N.jpg` are the entrance sign and the protected-monument stele — the same trap this deck recorded when
+`cnh-052` was written. What answered was an OBJECT that is infrastructure rather than art: a cord-marked
+**ceramic drain pipe** from the site. **For a card about a place that was laid out rather than grown, a
+drain is a better picture than a ruin** — and better than a sign in any case.
+  **THE RENDER HARNESS RAN OUT OF QUEUE BEFORE REACHING THE CARD.** `col-2` now holds 23 cards and the
+walk was capped at 22 reveals, so the first run reported `found: false` with no errors — which looks
+exactly like a card that failed to render. **Raise the loop as the deck grows**; the cap is a fixture
+limit, not a finding, and the only thing that distinguishes them is knowing where in the deck's
+chronological order the new card sorts.
