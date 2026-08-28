@@ -1298,7 +1298,8 @@ window.GLOSSARY = {
 "Annales_maximi": "The <i>annales maximi</i> were the record of each year's events kept by the pontifex maximus at Rome, running from the beginning of the state until the pontificate of Publius Mucius Scaevola in 133 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> They were the nearest thing to a contemporary account of Rome's earliest centuries, at a time when written records were, in Livy's words, few and scanty.<sup class=\"fn\" data-fn=\"2\"></sup> What survived of them lay in the pontifical commentaries, which perished almost entirely when the city was burned, so that the earliest Roman historians, writing five centuries after the kings, had little to build on.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Roman_Republic": "The Roman Republic was the government of Rome between the expulsion of its last king and the rule of the emperors, in which annually appointed magistrates took the place of the king, who had until then been the sole magistrate and held all the power.<sup class=\"fn\" data-fn=\"3\"></sup> Two consuls were elected each year in the assembly of centuries, and Livy refers the beginning of liberty to that annual limit rather than to any weakening of the powers the kings had held.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Polybius held that no one could say with certainty whether the system was monarchical, aristocratic or democratic, since the consuls, the senate and the citizens each seemed to hold it.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Consul": "A consul was the highest magistrate of the Roman Republic, one of two who held the office together for a single year, elected in the assembly of centuries and preceded in public by twelve lictors bearing the fasces.<sup class=\"fn\" data-fn=\"1\"></sup> On the fall of the monarchy the consuls took over every power the king had held except the priestly one, which was given to the rex sacrorum instead.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They brought embassies before the senate, summoned and presided over the assemblies of the people and carried out what was decreed, and if one died in office a successor was elected with powers no less than his.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Fasti_Consulares": "The <i>Fasti Consulares</i> were the official Roman register of the consuls of each year, kept among the public records and providing the framework by which the Republic's years were dated.<sup class=\"fn\" data-fn=\"1\"></sup> The word <i>fasti</i> first meant the days on which legal business could lawfully be done, and then the books that marked them, before widening to cover the registers of consuls, dictators, censors and other magistrates.<sup class=\"fn\" data-fn=\"1\"></sup> The largest surviving copy was cut into the walls of the Regia in the Roman Forum, ran from the expulsion of the kings to the death of Augustus, and is known as the Fasti Capitolini from the Capitol, where its fragments were set up.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Fasti_Consulares": "The <i>Fasti Consulares</i> were the official Roman register of the consuls of each year, kept among the public records and providing the framework by which the Republic's years were dated.<sup class=\"fn\" data-fn=\"1\"></sup> The word <i>fasti</i> first meant the days on which legal business could lawfully be done, and then the books that marked them, before widening to cover the registers of consuls, dictators, censors and other magistrates.<sup class=\"fn\" data-fn=\"1\"></sup> The largest surviving copy was cut into the walls of the Regia in the Roman Forum, ran from the expulsion of the kings to the death of Augustus, and is known as the Fasti Capitolini from the Capitol, where its fragments were set up.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Imperium": "<i>Imperium</i> was the power the Roman state conferred on a man to command its armies, defined by Cicero as that without which military affairs cannot be administered, an army held together or a war waged.<sup class=\"fn\" data-fn=\"1\"></sup> It was distinct from <i>potestas</i>, which a tribune of the plebs held and which carried no such command, and it was granted not by the election itself but by a law passed in the assembly of curies.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Under the Republic it could not be exercised inside the city except on the day of a triumph, it belonged to no office of itself, and the man who received it was styled <i>imperator</i>.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2815,7 +2816,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Annales_maximi": ["annales pontificum"],
 "Roman_Republic": ["Republic of Rome"],
 "Consul": ["consuls","consulship"],
-"Fasti_Consulares": ["consular fasti","Fasti Capitolini"]
+"Fasti_Consulares": ["consular fasti","Fasti Capitolini"],
+"Imperium": ["imperium militare"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4139,7 +4141,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Annales_maximi": ["text","history","italy","iron age","concept"],
 "Roman_Republic": ["era","history","italy","iron age","institution"],
 "Consul": ["title","history","italy","iron age","institution"],
-"Fasti_Consulares": ["text","history","italy","iron age","institution"]
+"Fasti_Consulares": ["text","history","italy","iron age","institution"],
+"Imperium": ["concept","history","italy","iron age","institution"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
