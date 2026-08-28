@@ -18,13 +18,14 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 `geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
 Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New Jersey, `geo-019`
 Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023` Washington,
-`geo-024` Oregon, `geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504`
-Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
+`geo-024` Oregon, `geo-025` Arizona, `geo-501` Sacramento, `geo-502` Austin, `geo-503`
+Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
+`geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
-`geo-520` Columbus and `geo-521` Springfield.**
-Both subdecks are worked down the same list, so the next state is `geo-025` and the next capital
-`geo-522`.
+`geo-520` Columbus, `geo-521` Springfield and `geo-522` Richmond.**
+Both subdecks are worked down the same list, so the next state is `geo-026` and the next capital
+`geo-523`.
 
 ---
 
@@ -739,6 +740,23 @@ terms that already exist**. Each was measured, and none should be settled quietl
   they mean the same place at different dates.** "Springfield" measures four and splits evenly between
   the Illinois capital (`geo-021`, the `Illinois` term) and the federal armoury at Springfield,
   Massachusetts (`geo-019`, the `Massachusetts` term), so it takes the parenthetical.
+
+- **`Arizona_(state)` IS THE FIRST KEY DISAMBIGUATED AGAINST A SHIP, and it shows the measure is not a
+  head-count.** "Arizona" has three existing uses and TWO of them are the state — the Paisley Caves are
+  described as being in Oregon and the Hoover Dam as on "the Arizona line" — so a majority test would
+  have given it the bare word. The third is `geo-506`'s **USS Arizona**, and that decides it: the first
+  occurrence in a card is the only one that links, and on the Honolulu card the first is the battleship,
+  so a bare key would have put a wrong link on a card already shipped. **Count what the FIRST occurrence
+  on each card means, not what the corpus means on balance** — and a warship named for a state is a
+  different thing from the state, where the Oregon Trail was not. `Richmond` measures two uses, both the
+  Virginia capital, and goes in bare.
+  Two auto-link faults were found in the round's own drafts and both are the component-word shape this
+  file keeps recording: "the furthest northern reach of **New Spain**" linked to `Spain` (rewritten to
+  "Spain's empire in America", where the link is right), and "the Tredegar **Iron** Works" linked to
+  `Iron` — fixed by letting the metal take the link first, "what made it worth holding was as much
+  **iron** as politics". A third was "short of **pig** iron", which resolved to `Pig`, the animal.
+  **A compound technical term is as dangerous as a proper name**, and the cheapest fix for both is a
+  true earlier mention of the ordinary word.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
