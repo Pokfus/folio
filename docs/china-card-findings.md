@@ -1912,3 +1912,36 @@ cannot make about itself** — a project's own reviewer cannot say what came aft
   **Two access notes.** ScholarSpace's `dc.identifier.uri` is the only place a handle can be read (see
 `cnh-064`), and the Elsevier DOI for the project's own radiocarbon paper is uncitable twice over: it
 serves a 2,691-byte shell, and `SRC_URL_RX` stops at the `)` in `S0168-583X(00)00368-2`.
+
+  **`cnh-066` OPENS THE SHANG DECK, AND THE HONEST OVERVIEW IS BUILT OUT OF TWO BOOK REVIEWS.**
+`col-3` was empty; this is its first card, and an overview of a dynasty is the hardest kind to source,
+because the general claims are exactly the ones every open paper assumes rather than states. What
+answered was the review literature: Roderick Campbell on Thorp's *China in the Early Bronze Age* and
+Wang Haicheng on Campbell's own *Violence, Kinship and the Early Chinese State*. **A review of a synthesis
+is a synthesis with its errors marked** — Campbell's carries the tripartite chronology that replaced
+Thorp's scheme (early c. 1600–1400, middle c. 1400–1250, late c. 1250–1050 BCE), the correction that at
+least 10,000 late Shang burials have been dug outside the royal cemetery rather than 3,000, and the
+finding that over four in five of them are a single coffin with a few pots. **The rule to carry: where a
+subject has no open synthesis, look for an open REVIEW of the closed one.**
+  **ITS CENTRAL CLAIM IS A NEGATIVE, AND THAT IS WHAT THE PLAN ASKS FOR.** Both reviews say plainly that
+the extent of the Shang state is far from clear-cut: sites sharing Erligang pottery and elite goods share
+a horizon, not a polity, and the Erligang culture is defined mostly by ceramics. Two more negatives went
+with it — neither Erlitou nor Anyang was walled, and the oracle-bone inscriptions know *yi*-settlements
+rather than capitals. **An overview card that states a dynasty's borders from a textbook map would be
+asserting what the evidence does not carry**; the candidate image list offered exactly that trap, a
+public-domain atlas plate captioned "the supposed extent of Chinese civilization", and it was refused.
+  **THE CLOSING SENTENCE IS THE COUNTRYSIDE, NOT THE COURT.** Hou et al. 2018 on Guandimiao — the only
+village of its date in China nearly completely excavated — shows a settlement 200 km from Anyang making
+pottery for a region and using bone tools from the capital's own workshops. **A dynasty overview written
+entirely from the palace is the same fault as a card written from the dig**, and one open paper about a
+village is the cheapest correction to it.
+  **PAGE RANGES CAME OFF THE RUNNING HEADS AND THE ENDPOINTS ARE ATTESTED, NOT INFERRED.** None of these
+four ScholarSpace items carries a `dc.identifier.citation`, so the span had to be read out of the OCR:
+`book reviews 313 … 321`, `226 ASIAN PERSPECTIVES … 232`, `282 … 310`, `183 … 203`. **Where the metadata
+gives no pages, cite the pages the text itself prints and no others** — a span extrapolated one page
+either way is a number nobody checked.
+  **AND THE RENDER HARNESS HAD TO BE POINTED AT A NEW DECK.** It clicks `[data-review="col-2"]`, which
+is the Xia deck; with the card in `col-3` the walk ran to its 40-reveal cap and hung. **The first card of
+a new deck needs the harness's selector changed as well as its answer string** — the failure is a timeout
+rather than an error, so it reads as the browser hanging rather than as a fixture pointed at the wrong
+list.
