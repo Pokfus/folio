@@ -74,8 +74,9 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `dinosaurs-card-plan.md` | Dinosaurs (`dino`) | `dino-` |
 | `korea-card-plan.md` | Korea (`korea`) | `ko-` |
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
+| `world-geography-card-plan.md` | The world (`geo-world`) — 459 cards, sorted by population | `gw-` |
 
-`china-card-findings.md` is China's per-card research log; the other fifteen keep theirs in their own plan
+`china-card-findings.md` is China's per-card research log; the other sixteen keep theirs in their own plan
 or in the citation plans. `node .claude/test-card-plans.js` checks every plan against `data.js`.
 
 ## Content passes — the finished ones
