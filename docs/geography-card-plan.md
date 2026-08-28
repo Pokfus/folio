@@ -15,11 +15,11 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
-`geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-501`
-Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau,
-`geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton Rouge, `geo-509` Augusta and `geo-510`
-Oklahoma City.** Both subdecks are worked down the same list, so the next state is `geo-014` and
-the next capital `geo-511`.
+`geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
+Maryland, `geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence,
+`geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton Rouge, `geo-509` Augusta,
+`geo-510` Oklahoma City and `geo-511` Albany.** Both subdecks are worked down the same list, so
+the next state is `geo-015` and the next capital `geo-512`.
 
 ---
 
@@ -353,6 +353,21 @@ Four more, measured while writing `geo-005` and `geo-501`:
   from those, is open, and is dated prose rather than a link list — it is where `geo-011` got the Dutch West
   India Company's New Amsterdam, which the guide's own Introduction does not mention. Not every state guide
   has the tab; Louisiana's 404s.
+- **`parks.ny.gov` IS OPEN, AND ITS HISTORIC-SITE PAGES ARE REAL PROSE.** New York's equivalent of the
+  state-preservation-office rule above: `parks.ny.gov/historic-sites/<n>/details.aspx`, numbered rather
+  than named, so probe ids to find one. Two carried `geo-511`: **Schuyler Mansion** (site 33) for
+  Burgoyne held prisoner after Saratoga, the Schuyler–Hamilton wedding of 1780 and the kidnap attempt of
+  July 1781 — and it is unusually candid, naming both the enslaved labour the household rested on and
+  Schuyler's part in the 1779 campaigns against the Haudenosaunee — and **Crailo** (site 30) for the
+  patroonship of Rensselaerswyck and the Fort Orange excavations, which is the only openable source here
+  for Dutch Albany. **A "(restricted)" archaeological NHL has no published nomination at all**: the
+  by-state list gives Fort Orange and St Mary's City no link, so do not go looking for one.
+- **CHECK THE NHL LIST'S ANCHOR TEXT, NOT A SUBSTRING.** Pulling a NARA id by searching the page for a
+  label and then taking the nearest preceding `<a `, which is the obvious way, returns the PREVIOUS
+  entry's id whenever the label carries a suffix like "(restricted)". It did that twice here and would
+  have cited two entirely unrelated properties. Match the anchor's own text exactly. And **read the
+  reference number back before fetching**: `66000386` returns a perfectly valid PDF for something that is
+  not the Maryland State House, whose number is `66000385`.
 - **A STATE HISTORICAL SOCIETY'S ENCYCLOPEDIA CAN PASS THE PER-ARTICLE TEST, AND OKLAHOMA'S DOES.**
   The glossary plan bars encyclopedias except where the ARTICLE cites its own sources, tested one
   article at a time. The Oklahoma Historical Society's *Encyclopedia of Oklahoma History and Culture*
@@ -448,6 +463,21 @@ terms that already exist**. Each was measured, and none should be settled quietl
   divide gets no alias from either claimant**, so the term is keyed `New_York_(state)`, prints as "New
   York" in its popup, and the bare word auto-links to nothing — which is the honest result when the word
   means two things. The card is unaffected, a card never auto-linking its own answer.
+
+- **`Albany_(New_York)` IS THE FIRST CAPITAL TO NEED THE PARENTHETICAL, AND IT SHOWS THE MEASURE IS
+  NOT ENOUGH ON ITS OWN.** Nine capitals before it are keyed bare and none collides; "Albany" measured
+  2–1 for the New York capital, the third use being "the Albany Museum" in `wh-059`, a museum in the
+  Eastern Cape named for a South African region. Two–one looked like a majority worth taking, so the
+  term shipped bare — **and rendering the card showed the link firing**, `Albany Museum` opening the
+  gloss for a city four thousand miles away. Rekeyed `Albany_(New_York)`, which `bareTaken` in
+  `buildGlossIndex` refuses to register as a surface while `glossKeyTitle` still prints the popup title
+  as "Albany". Three things follow. **The Wikipedia slug is `Albany,_New_York` and the parenthetical
+  form is deliberately NOT it**: a comma key avoids the claim only by accident, its humanised surface
+  ("Albany, New York") simply never occurring in prose, where the parenthetical is the mechanism built
+  for this and says so. **`check-gloss-links.js` did not report it** — it flagged `wh-059` for a
+  different link entirely — so the checker is a proxy for this class and not a gate. **The reliable test
+  is to render a card that uses the surface and read the HTML**, which takes one Playwright run and is
+  the only thing that actually saw it.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
