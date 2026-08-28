@@ -2037,3 +2037,32 @@ modern sculptural stelae carved with enlarged oracle-bone graphs. What answered 
 `Yinxu Palace Foundation` — a rammed-earth hall platform with its postholes marked by modern red posts,
 which shows what a Shang palace actually leaves behind. **For a site card, look for the excavated FEATURE
 rather than the site's name**; the name finds the visitor centre.
+
+  **`cnh-070` IS ONE OF THE TWO CARDS IN THE THOUSAND WHERE THE PLAN SPENDS A MODERN SCHOLAR, AND THE
+MODEL FOR IT ALREADY EXISTS IN GREECE.** `gr-075` was renamed from *Michael Ventris* to **the
+decipherment of Linear B** — the event nominalised — and its question describes the men without naming
+them ("a young British architect", "a Cambridge philologist"). This card copies that exactly: the answer
+term is `discovery of the oracle bones`, the question says "a noted antiquarian dosing himself with
+ground bone", and `card-focus.js` gets an EXEMPT row naming gr-075 as the precedent. **When a plan line
+names an event that turns on a person, check whether another collection has already solved the same
+problem** — the plan itself points at gr-075, and following the pointer settled the answer term, the
+question's register and the exemption in one go.
+  **THE SOURCE THAT TELLS THE STORY TELLS IT WITHOUT THE NAME, WHICH IS WHY IT FITS.** Lee 2002 gives the
+whole discovery in a sentence — "first discovered in 1899 by a noted antiquarian who was ingesting
+ground bones as part of a prescription to treat his ailing health" — and nothing else openable from here
+covers 1899 at all. The scale came from a 2024 *Scientific Data* paper on an AI decipherment dataset:
+**about 160,000 inscribed pieces, more than 4,600 distinct characters, only about a thousand read.**
+**A machine-learning dataset paper is a good source for the size and state of a corpus**, because
+stating them is how it justifies existing.
+  **THE GLOSSARY OPENING NEEDED THE ARTICLE THAT THE CARD'S ANSWER MUST NOT CARRY.** The description
+opened "discovery of the oracle bones is the recognition…", which reads as a typo; `Decipherment_of_Linear_B`
+opens "The decipherment of Linear B is…" and `gr-075`'s abstract opens "The <b>decipherment of Linear
+B</b> was…". **An event-shaped answer term takes a leading "The" OUTSIDE the bold in both the abstract
+and the description** — the no-article rule governs the stored `answer`, which the card's own
+`::first-letter` capitalises, and not the prose around it.
+  **COMMONS RATE-LIMITED HARD DURING THIS CARD** — 429 on the API and on `upload.wikimedia.org` alike,
+for several minutes, after a run of image work across five cards. A retrying wrapper (`search.sh`, the
+shape `info.sh` already had: try, sleep 20, repeat) got through where a bare fetch could not. Two things
+to carry: **the thumbnail width allow-list applies to PNGs too** (1024 and 1164 both returned 400 with
+the 2,010-byte "use listed sizes" page, 1280 worked), and **the API's JSON can carry raw control
+characters**, so parse it with `json.loads(..., strict=False)`.
