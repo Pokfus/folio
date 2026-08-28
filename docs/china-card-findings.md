@@ -2573,3 +2573,35 @@ out for visitors: the low banks follow the wall trenches and the timber stumps s
 did, so the caption says the earth platform beneath them is the ancient part. **Where a site has been
 presented to visitors, the caption must divide the ancient fabric from the modern marking**, or the card
 shows a reconstruction and calls it a ruin.
+
+  **`cnh-091` NEARLY SHIPPED A SENTENCE ANOTHER CARD ALREADY HAD, WORD FOR WORD.** Its sixth sentence
+quoted Heji 301 — "a hundred jars of millet ale, a hundred Qiang captives and three hundred specially
+reared sheep" — and `cnh-079`, on human sacrifice, has carried that exact list since it shipped, from the
+same Jaffe and Campbell paper. The fix was not to reword the quotation but to ask what the AGRICULTURE
+card wants from it, which is that the grain was brewed and the ale went to the ancestors by the hundred
+jars: **the crop fed the dead as well as the living**, no list required. The second question phrasing
+quoted it too and was replaced with the Anyang isotopes. **When a card reuses a source an earlier card
+cited, grep that source's most quotable passage across `data.js` before drafting** — a shared source is
+where the duplication comes from, and it survives every checker, since nothing measures whether two cards
+say the same thing.
+  **THE PICTURE SEARCH RETURNED ONE CANDIDATE AND IT WAS A MARKET IN NIGERIA.** `add-card.js` offered
+"Man threshing some grains sale at the Monday Market in Kakuri, Kaduna" for "Shang agriculture" — the
+name match at its most confident and least useful. Searching Commons by hand for the OBJECT rather than
+the topic found what the card's ninth sentence describes: `20240817 Stone Sickles, Zhengzhou Shang City
+Site, Shang.jpg`, eight blades on a museum wall with a ninth on a clear rod showing the hafting. **When
+the topic is a PRACTICE, search for its tool.** The caption says the handle is the museum's, which is the
+`cnh-090` rule one card later.
+  **ITS SOURCES ARE FOUR-FIFTHS OUTSIDE ASIAN PERSPECTIVES, WHICH IS NEW FOR THIS RUN.** Two PLOS ONE
+papers, one *Vegetation History and Archaeobotany*, and two ScholarSpace items — because the question
+"what did the Shang grow and eat" is answered by archaeobotany and stable isotopes, which are indexed at
+Europe PMC. The pairing that carries the card is Liu and Reid's isotope meta-analysis (2,448 individuals,
+128 sites) against Deng et al.'s direct AMS dates on wheat: **wheat is present at Shang sites in quantity
+for the first time and still feeds almost nobody until the Zhou**, and the proposed reason is the kitchen
+rather than the field — grinding and baking against steaming and boiling.
+  **AND THE REPOSITORY METADATA HAD THE AUTHORS' NAMES REVERSED.** ScholarSpace gives the cattle paper's
+authors as "Peng, Lu", "Jing, Yuan", "Zhipeng, Li" — surname and given name swapped for all three — where
+the article's own byline reads "Lu Peng, Katherine Brunson, Yuan Jing, and Li Zhipeng". **The PDF's title
+page beats the catalogue record**, which is N4's fabricated-author finding from the other direction: there
+the metadata was missing, here it is present and wrong. Its page range is omitted deliberately — the
+running heads establish page 92 as the first and the references run past 120 with no visible end — under
+the rule this run set on `cnh-087`.
