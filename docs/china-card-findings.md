@@ -1687,3 +1687,31 @@ and settles in seconds whether the subject is there.
 carried a colon dropped the colon with it, and the sentence read "…the one with whom the dynasty properly
 begins, he took his father Yu's place…" — invisible to every checker, since punctuation is not what any of
 them measure. **Read the trimmed block back as prose**, not just its word count.
+
+  **`cnh-058`'s BEST SENTENCE IS THE ONE THAT SAYS THE STORY IS A TEMPLATE.** Chavannes' note records that
+the tyrant imprisoning the founder who will replace him is told of the LAST SHANG KING too, so one account
+is evidently modelled on the other; and that the personal name Sima Qian gives Jie ends in a cyclical
+character, which is a Shang habit and no other Xia king's, so an early commentator assigns that name to
+Tang instead. **The bad last king is a type before he is a person**, and the deck should expect the Shang's
+own last king to arrive with the same furniture.
+  **THE SPEECH OF TANG IS BETTER THAN THE ANNALS BECAUSE TANG HAS TO ARGUE HIS OWN PEOPLE INTO THE WAR.**
+They ask what the crimes of the Xia are to them and why they are being called away from their fields; he
+answers with Heaven's charge and closes by threatening to kill their children with them. That is the second
+Documents speech in two cards (`cnh-057` was the Speech at Kan) to end on exactly that threat, which is
+worth knowing before drafting: **the formula is the genre's, not the speaker's.**
+  **A QUOTATION WITH AN INTERNAL QUESTION MARK BREAKS `split-abstract.js`, AND A `.”` DOES NOT BREAK IT
+AT ALL.** Drafted with Legge's "When wilt thou, O sun, expire? We will all perish with thee." the block
+split 4 instead of 5 — the splitter cut at the question mark and ran straight through the closing quote.
+**Run `split-abstract.js` over a block that carries a direct quotation before adding the card**; the fix
+here was to render the curse as indirect speech, which costs the ring of it and keeps the count honest.
+  **AN IMAGE `desc` IS ESCAPED, SO A WORK TITLE IN IT CANNOT BE ITALICISED — REWORD INSTEAD.**
+`cardImageHTML` writes `esc(img.desc)`, so an `<i>` there would print the tag on the page; and rule 1 of
+`check-style` flags the bare title all the same, which is how "the Book of Documents" in this plate's
+caption was caught in `glossary-extra.js`. The caption now names the Shujing. Note the repair path:
+`fix-field.js` cannot reach an object field, so the CARD's copy goes through `update-cards.js` with the
+whole `image` object, and the TERM's through `add-glossary.js`.
+  **THE PICTURE IS THE EPISODE, FROM THE VERY BOOK THE CARD CITES.** `欽定書經圖說` — the *Imperially
+Commissioned Illustrated Explanations of the Book of Documents*, 1905 — has a plate for the banishment of
+Jie, with the rider labelled 夏桀 and the walled gate 南巢. **A Qing illustrated edition of a classic is the
+place to look when a card is about a passage rather than an object**; the same series will serve the Shang
+cards.
