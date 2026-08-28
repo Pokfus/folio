@@ -24,13 +24,13 @@ Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malays
 Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela, Australia, Niger, North
 Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan, Chad, Chile, Romania,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
-Bolivia, Tunisia) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+Bolivia, Tunisia, South Sudan, Belgium, Haiti) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
-Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-751` Dar es Salaam,
-`gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-081` South Sudan and the next
-capital is `gw-535` Buenos Aires.
+Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-084`
+Jordan and the next capital is `gw-536` Kabul.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -911,6 +911,42 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 27 (South Sudan, Belgium, Haiti, Buenos Aires) met the pass's fastest state and its slowest
+recognition in one sitting, and both are dated by the same two sources.** `South Sudan` declared
+independence on **9 July 2011**, was recognised by the United States the same day, had the Security
+Council recommend admission at its **6582nd meeting on 13 July** and took its seat on the **14th** — five
+days, against `Guinea`'s 71 and `Bolivia`'s 23 years. `Haiti` is the other end: independence in **1804**,
+American recognition in **1862**, and the guide states both in one sentence and offers no reason at all
+for the 58 years. **Where the guide declines to explain a gap, the card says that it declines** rather
+than supplying a reason the source does not carry.
+
+**Its figure finding is that UNdata's missing surface-area field is a PAIR, not a one-off.** C9 recorded
+that `Sudan`'s profile alone in Phase 3 omitted the field; `South Sudan`'s omits it too, so **both halves
+of the old state are alike in the gap** and the area on either card rests on the World Bank alone. That is
+C5's single-source position, and the honest response is to state the figure with its one source named
+rather than to defer a card that is otherwise fully sourced.
+
+**Belgium is the pass's clearest three-way area spread and none of the three is wrong.** UNdata gives
+30,528 km², Eurostat 30,667 and the World Bank 30,689 — half a per cent between the smallest and the
+largest, with the term at the top of the range and therefore inside it. **Argentina is the same shape at
+scale**: UNdata 2,796,427 against the World Bank's 2,780,400, which the term matches exactly, so the
+16,027 km² gap is again a spread the term sits inside. Both are C12's rule — **Source A is a source, not
+an authority** — and neither is a correction.
+
+**Buenos Aires is the third capital in three batches whose entry is headed by the CITY**, after `Algiers`
+and, in a different way, `Madrid`. The guide's Argentina page is headed *United States Recognition of
+Buenos Ayres, 1823*: what was recognised was the government of the city, "predecessor of Argentina", and
+the mission physically **left the city for Paraná in 1857 and came back in 1862**, when the Argentine
+Confederation collapsed. **Read the country page for a capital card before assuming the country is its
+subject** — three times now the American record has been organised around the seat rather than the state.
+
+**One tooling note, recorded because it wasted a check.** Two flag credits contain a Commons page URL with
+**parentheses** in it (`File:Flag_of_Belgium_(civil).svg`, `File:Flag_of_the_United_Kingdom_(3-5).svg`), and
+a URL-extraction regex written `[^\s)]+` truncates them and reports a 404 that is not there. The site is
+unaffected — `mediaCreditHTML` linkifies only a credit that is ENTIRELY a URL, and these begin with prose,
+so they render as escaped text — but **a verification script must not use `)` as a URL terminator**, which
+is the opposite of the rule `SRC_URL_RX` follows for citations.
 
 **Batch 26 (Burundi, Bolivia, Tunisia, Baghdad) closed the raster throttle and the four terms it had
 held back.** After three batches in which every JPEG and PNG on `upload.wikimedia.org` returned 429 while
