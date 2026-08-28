@@ -736,8 +736,8 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   themselves against — and that **a finding is described with the people it was found in**, which is
   the psychology form of the history plans' rule about a state's account of itself and the easiest one
   here to break by accident. The next card to write is the lowest `ps-NNN` not yet in `data.js`; the
-  index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **`ps-001` has shipped**, so the
-  collection is live — `isComingSoon` is false for a node holding a card — and its 37 empty decks are
+  index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup, and carries the count. **Its first
+  cards have shipped**, so the collection is live — `isComingSoon` is false for a node holding a card — and its 37 empty decks are
   coming-soon automatically, on the same rule. That first card is also what **woke the `Science` row in
   `COLLECTION_SECTIONS`**, which shipped inert with the plan: `sectionOf` returns History for anything
   the table does not name, so without the row the first psychology card would have filed the collection
@@ -857,7 +857,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
 - `.claude/card-focus.js` — the measure behind that second half: `node .claude/card-focus.js [--prefix=] [--all]
   [--card=<id>]`. It reads each card's own citations, takes names only from AUTHOR POSITIONS (reviewer before
   "review of"; authors after "by" / "ed."), throws the titles away first so an ancient author named in one never
-  counts, and reports both rules with an `EXEMPT` list for cards whose answer term IS modern. Not part of the site.
+  counts, and reports both rules with an `EXEMPT` list for cards whose answer term IS modern. **It also knows
+  the two COLLECTION-WIDE exclusions from rule 1** (`RULE1_EXCLUDED`: `ps-` and `ph-`, since in psychology
+  and philosophy the literature is the subject matter): those cards are listed under their own heading and
+  are not counted as needing revision, because the alternative is a measure that reports a permanent, growing
+  false finding on two collections — and `EXEMPT` is deliberately the wrong instrument, being per card. Rule 2
+  still binds on them. Not part of the site.
 - `.claude/check-questions.js` — the card QUESTION house rules, measured over the shipped `data.js`:
   `node .claude/check-questions.js [--verbose]`, exit 1 on any violation, so it guards a batch the way
   `check-style.js` does. Four rules — **one sentence**; **understandable on its own** (a question may not
@@ -3574,7 +3579,9 @@ parts, and the first is absolute:
   name, and both disciplines are mostly "modern" by this rule's own measure, so applying it would make
   most of those two collections unwriteable. Their questions may name anybody, and `card-focus.js`'s
   flags on a `ps-` or `ph-` card are noise rather than findings — do NOT clear them one at a time through
-  `EXEMPT`; the exclusion is collection-wide and is recorded here and in each plan. **The historiography
+  `EXEMPT`; the exclusion is collection-wide, is recorded here and in each plan, and **since `ps-002` the
+  script itself carries it** (`RULE1_EXCLUDED`), listing such cards under their own heading rather than as
+  work to do. **The historiography
   cap below still binds on both.** Everywhere else the rule is absolute: not "Hans van Wees calls…", not "Lambert argues
   that…", not "Evans noted in a footnote…". A clue built on who said a thing is answerable by someone who
   knows the modern literature and nothing whatever about Greece, which is the exact inversion of what a
@@ -3676,7 +3683,7 @@ lookup.
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
-| Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 1 card — not a history collection |
+| Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 2 cards — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | empty — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
