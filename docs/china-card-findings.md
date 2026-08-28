@@ -1884,3 +1884,31 @@ ScholarSpace handles are not derivable from the search result, the item UUID or 
 "from about the 18th century BCE" for the vessels, which is the foundry's date, not theirs. The date line
 carries both rows for that reason. **Where a workshop and its most famous product have different dates,
 say both**; one row would have been wrong whichever was chosen.
+
+  **`cnh-065` IS THE DECK'S SECOND MODERN CARD, AND ITS SPINE IS ONE PAPER WRITTEN TWO YEARS AFTER THE
+  EVENT.** Yun Kuen Lee's *Building the Chronology of Early Chinese History* (Asian Perspectives 41, 2002)
+is on ScholarSpace, is open, and does exactly what the plan asks of this card: it states the nationalist
+motive from the proposer's own booklet — an embarrassment on a 1995 visit to Egypt, whose chronology
+reaches back to 2750 BCE — and then argues that the motive does not settle the result, since nothing in
+the table pushes the dates back. **A card that has to weigh a state's account is easiest when one open
+source has already weighed it in print**; the alternative is the card doing the weighing itself, which is
+the failure the plan names. It also supplied the card's best passage: radiocarbon at Fengxi cut the
+conquest from 112 years to 30, and the calendar notations in the <i>Hanshu</i> with the <i>Guoyu</i>'s
+Jupiter observation then left one date in that span.
+  **THE DATE LINE HAD TO GIVE UP THE CARD'S OWN BEST FIGURES, BECAUSE `cardYears` SORTS ON THE MINIMUM.**
+The first version carried `Zhou conquest 20 January 1046 BCE` and `Xia framework 2070 – 1600 BCE` beside
+the 1996 and 2000 rows — and `cardStartYear` is `Math.min(...)`, so a card about a programme of the 1990s
+sorted at **2070 BCE**, at the head of the Xia deck. The rows are now `Commissioned` / `Reported` /
+`Specialists`, and the results stay in the prose where they already were. **A card whose subject is modern
+but whose RESULTS are ancient will sort by its results unless the date line withholds them** — the same
+trap in reverse to the one that sorted Atapuerca at 1978 CE, and `cnh-061` escaped it only by accident,
+its "1920s" being invisible to the year regex.
+  **AND THE FIFTH SOURCE CHANGED THE CARD AGAIN.** Lee alone could carry every claim, so the other four
+were chosen for what they add rather than for the count: Chavannes for the Grand Historian's own reason
+for stopping at 841 BCE, Shelach 1994 for what the received Xia span was BEFORE the project (the 21st to
+the 17th century, which is what makes "nothing pushes the dates back" checkable), Chen 2023 and Qiu et al.
+2025 for the legacy. **Where one paper could carry the whole card, spend the other four on the claims it
+cannot make about itself** — a project's own reviewer cannot say what came after it.
+  **Two access notes.** ScholarSpace's `dc.identifier.uri` is the only place a handle can be read (see
+`cnh-064`), and the Elsevier DOI for the project's own radiocarbon paper is uncitable twice over: it
+serves a 2,691-byte shell, and `SRC_URL_RX` stops at the `)` in `S0168-583X(00)00368-2`.

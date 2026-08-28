@@ -1276,7 +1276,8 @@ window.GLOSSARY = {
 "Doubting_Antiquity_School": "Doubting Antiquity School was a movement in Chinese historical scholarship of the 1920s that examined the early dynasties as evidence and questioned whether the first of them existed.<sup class=\"fn\" data-fn=\"1\"></sup> Its founder observed that the later a source is, the longer the legendary age it describes — the Western Zhou knew only Yu, Confucius two sage rulers before him, the Warring States older kings still — and concluded that the record had grown at the front.<sup class=\"fn\" data-fn=\"1\"></sup> It published seven volumes of <i>Debating Ancient History</i>, weeding out entries it judged unauthentic; later Chinese scholarship has moved the other way, and the argument over the first dynasty is not settled.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Erlitou_culture": "Erlitou culture is the archaeological culture of the central Yellow River in the 20th to 17th centuries BCE, lying between the Longshan cultures and the Shang.<sup class=\"fn\" data-fn=\"1\"></sup> Its four phases run about a century each; its strata overlie the local Longshan and give way without a gap to the Shang’s Erligang phase, and the rammed-earth foundations and bronze vessels that make it look like a state belong only to the last two.<sup class=\"fn\" data-fn=\"1\"></sup> Its signature is a ritual pottery of white and fine grey vessels on three legs, made in the Yiluo basin, carried out to western Henan and southern Shanxi at its height, and given up under the Erligang for bronze.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Erlitou_site": "Erlitou site is a Bronze Age settlement in the Yiluo basin of western Henan, occupied from about 1750 to 1530 BCE and the largest of its time in the Central Plain.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It grew from over 100 hectares to about 400 at its height, acquiring a planned core in its second phase: a palace and temple district of 10.8 hectares ringed by four intersecting roads, with a walled bronze and turquoise workshop beside it.<sup class=\"fn\" data-fn=\"1\"></sup> It never had an outer wall, its public building came to a fraction of the older centre at Taosi, and its burials fall into four or five grades, the richest holding bronze found at no other site.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Erlitou_bronze": "<b>Erlitou bronze</b> is the metalwork produced at the Erlitou site in Henan, China, and it includes the earliest cast bronze ritual vessels known in the country, appearing from about 1700 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Metal had been worked in China for centuries beforehand as ornaments, small tools and weapons, but the multipiece mould-casting used at Erlitou allowed shapes and surfaces that a single stone mould could not give.<sup class=\"fn\" data-fn=\"1\"></sup> The foundry occupied about a hectare in the south of the site, enclosed in rammed earth with a turquoise workshop, and yielded slag, crucibles and clay moulds for vessels up to 36 centimetres (14 inches) across the rim.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Erlitou_bronze": "<b>Erlitou bronze</b> is the metalwork produced at the Erlitou site in Henan, China, and it includes the earliest cast bronze ritual vessels known in the country, appearing from about 1700 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Metal had been worked in China for centuries beforehand as ornaments, small tools and weapons, but the multipiece mould-casting used at Erlitou allowed shapes and surfaces that a single stone mould could not give.<sup class=\"fn\" data-fn=\"1\"></sup> The foundry occupied about a hectare in the south of the site, enclosed in rammed earth with a turquoise workshop, and yielded slag, crucibles and clay moulds for vessels up to 36 centimetres (14 inches) across the rim.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Xia–Shang–Zhou_Chronology_Project": "<b>Xia–Shang–Zhou Chronology Project</b> is a Chinese state research programme that ran from 1996 to 2000, bringing some 200 specialists in history, astronomy, archaeology and radiocarbon dating together to fix absolute dates for the three dynasties preceding the imperial age.<sup class=\"fn\" data-fn=\"1\"></sup> Firm Chinese chronology had begun only in 841 BCE, and at least 44 dates had been proposed for the Zhou conquest of the Shang, from 1130 to 1018.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The table it published in November 2000 dated that conquest to 1046 BCE and set the Xia within a framework of 2070 to 1600 BCE, a result debated for its government backing and for how much precision the evidence will bear.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1905,7 +1906,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Xia_dynasty": "c. 2070 – 1600 BCE",
 "Erlitou_culture": "c. 2000 – 1600 BCE",
 "Erlitou_site": "c. 1750 – 1530 BCE",
-"Erlitou_bronze": "c. 1800 – 1600 BCE"
+"Erlitou_bronze": "c. 1800 – 1600 BCE",
+"Xia–Shang–Zhou_Chronology_Project": "1996 – 2000"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2778,7 +2780,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Shaokang": ["Shao Kang"],
 "Tribute_of_Yu": ["Yugong","Yu gong"],
 "Bamboo_Annals": ["Annals of the Bamboo Books"],
-"Doubting_Antiquity_School": ["yigupai"]
+"Doubting_Antiquity_School": ["yigupai"],
+"Xia–Shang–Zhou_Chronology_Project": ["Xia-Shang-Zhou Chronology Project"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4080,7 +4083,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Doubting_Antiquity_School": ["school of thought","history","archaeology","china","literature"],
 "Erlitou_culture": ["culture","archaeology","history","china","bronze age"],
 "Erlitou_site": ["place","archaeology","history","china","bronze age"],
-"Erlitou_bronze": ["object","technology","archaeology","bronze age"]
+"Erlitou_bronze": ["object","technology","archaeology","bronze age"],
+"Xia–Shang–Zhou_Chronology_Project": ["institution","history","archaeology","science","china"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

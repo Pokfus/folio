@@ -49,6 +49,7 @@ const EXEMPT = {
   "wh-064": "Toba catastrophe theory — a named modern theory",
   "wh-106": "Blytt–Sernander scheme — a 19th-century scheme",
   "cnh-061": "Doubting Antiquity School — a named modern school of historical criticism",
+  "cnh-065": "Xia–Shang–Zhou Chronology Project — a named modern research programme",
 };
 
 /* MEASURED, not chosen: over the 269 shipped cards the historiography count is 0 or 1 for 206 of them,
