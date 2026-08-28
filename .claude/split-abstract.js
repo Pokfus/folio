@@ -68,7 +68,12 @@ function pieces(block) {
   // "Ste" is the French feminine of "St" and is the shape a scholar's surname is written in — G. E. M. de
   // Ste. Croix, cited across the Greek cards — so a card naming him split at the stop with the two halves
   // both reading as sentences. Same family as the honorifics beside it, and no sentence ends on any of them.
-  hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Ste|Mt)\.\s?/g);    // "Roberts Jr. used the name in 1940"
+  hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Ste|Mt)\.\s?/g);
+  // "Helena City Lodge No. 10" — an abbreviation whose test is what FOLLOWS rather than what precedes it:
+  // a sentence boundary in this corpus is never followed by a bare numeral, and no sentence ends on the
+  // word "No". It split the Helena card's first block into six. The digit in the lookahead is what makes
+  // it safe, so keep it: "…said no. The next…" still breaks correctly.
+  hold(/\bNos?\.\s(?=\d)/g);    // "Roberts Jr. used the name in 1940"
   // The LEGAL "v." of a case name — "Shelley v. Kraemer", "Brown v. Board of Education". Every rule above
   // it wants either a capital before the stop or a lowercase word after it, and a case citation is the one
   // shape with a LOWERCASE abbreviation between two CAPITALISED names; it split the Missouri card after

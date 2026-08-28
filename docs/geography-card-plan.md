@@ -21,16 +21,16 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
-`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana, `geo-044` Wyoming, `geo-045` Colorado,
+`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana, `geo-044` Wyoming, `geo-045` Colorado, `geo-046` Kansas,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford, `geo-541` Concord and `geo-542` Montpelier.**
-Both subdecks are worked down the same list, so the next state is `geo-046` and the next capital
-`geo-543`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford, `geo-541` Concord, `geo-542` Montpelier and `geo-543` Helena.**
+Both subdecks are worked down the same list, so the next state is `geo-047` and the next capital
+`geo-544`.
 
 ---
 
@@ -1436,6 +1436,43 @@ terms that already exist**. Each was measured, and none should be settled quietl
   survey number tells you nothing about which, so fetch and look — and the El Paso Lode HAER for Cripple
   Creek gives Womack's fifteen years of prospecting, his 15-metre shaft, the 1890 strike and the 1893
   rush in one paragraph.
+
+- **📌 THE BARE-KEY RULE, WHICH SIX ROUNDS HAVE BEEN APPLYING WITHOUT WRITING DOWN: A BARE KEY SHIPS ONLY
+  WHEN EVERY EXISTING USE IS THE RIGHT SENSE.** Not a majority — every one. Dover, Hartford, Montpelier,
+  Concord, Vermont and Montana all measured 100% correct and went bare; Colorado (1 of 6), Jackson (2 of
+  9), Delaware (1 of 5), Mississippi (0 of 14), Montgomery (2 of 4) and now Kansas and Helena all had at
+  least one wrong use and went parenthetical. The reason the threshold is zero rather than a majority is
+  that **the wrong uses cannot be fixed by longest-first unless a longer surface exists to claim them**,
+  and usually none does.
+- **`Kansas` IS THE FIRST SURFACE WHOSE WRONG USES ALL CONTAIN THE RIGHT WORD.** Four of its six uses are
+  "Kansas City", which is in MISSOURI, so a bare `Kansas` key would have underlined half the name of a
+  city in another state and sent the reader to the wrong one. That is worse than `Colorado`'s rivers,
+  because the link looks plausible. `Kansas_(state)`, and the note worth carrying: **a future
+  `Kansas_City` term would let the bare key be reinstated**, longest-first claiming the compound — the
+  `Pig_iron` mechanic, which already protects "pig iron" from `Pig`.
+- **`Helena` IS 2 OF 3 AND STILL PARENTHETICAL**, because the third is "St Helena Island" on `geo-028`,
+  named for the saint, and nothing longer exists to claim it. The parenthetical costs nothing: there is
+  no Helena key today either way, so the two correct mentions lose a link they never had.
+- **`split-abstract.js` COULD NOT SEE "No." BEFORE A NUMBER, AND NOW CAN.** "Helena City Lodge No. 10"
+  split the card's first block into six. The new rule is the abbreviated-genus rule's shape — the test is
+  what FOLLOWS: a sentence boundary in this corpus is never followed by a bare numeral, and no sentence
+  ends on the word "No". **Proved inert over all 2,837 shipped texts before it was kept**, which is the
+  standing requirement for a change to a shared extractor and is worth the two minutes every time.
+- **TWO MORE `Geometric`-CLASS TRAPS, BOTH CAUGHT IN DRAFT.** The Helena card first read "It is Geometric
+  Gothic … a near replica of the Votive Church in Vienna", which linked `Geometric` to the GREEK
+  **Geometric period** and `Votive` to **votive dedication**. Both were fixed by writing "Gothic Revival"
+  and "the Votivkirche" — the building's own name. **The Greek collection has salted the glossary with
+  ordinary-looking adjectives**, so the risk list is not only nouns.
+- **`Temple` ON "MASONIC TEMPLE" IS WHERE ROUND 41'S TEST SITS LEAST COMFORTABLY, AND IT IS LEFT.** The
+  test says a term whose opening clause is a general definition may be reached from an ordinary sentence,
+  and `Temple` opens "a building raised for a god" — which a Masonic temple is not. It is left because it
+  is a proper name and because changing the ruling round to round is worse than a marginal link; recorded
+  here so the next reader knows it was decided rather than missed.
+- **KANSAS'S NHL LAYER RETURNS ZERO, THE FOURTH STATE RUNNING**, and this time the way in was neither the
+  HABS collection nor a capitol: a **`RESNAME LIKE`** query on names guessed from the state's history
+  (`%Constitution Hall%`, `%Monroe%`) found Lecompton Constitution Hall and the Sumner/Monroe schools —
+  Bleeding Kansas and Brown v. Board, a century apart on the same question, from two NHL nominations.
+  **When a state's landmark list is empty, name the events first and query for their buildings.**
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
