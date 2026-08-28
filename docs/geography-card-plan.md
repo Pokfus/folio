@@ -21,16 +21,16 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
-`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware,
+`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City and `geo-536` Little Rock.**
-Both subdecks are worked down the same list, so the next state is `geo-040` and the next capital
-`geo-537`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock and `geo-537` Montgomery.**
+Both subdecks are worked down the same list, so the next state is `geo-041` and the next capital
+`geo-538`.
 
 ---
 
@@ -1216,6 +1216,35 @@ terms that already exist**. Each was measured, and none should be settled quietl
   rests on HABS written data through the loc.gov JSON API, cited at `tile.loc.gov`, which is now the
   third round to use that route. **When a state's NHL list comes back implausibly short, the layer is
   wrong, not the state**; go to HABS.
+
+- **`Montgomery` IS A FOURTH SHAPE OF DIVIDED SURFACE: THE CITY IS THE MAJORITY AND STILL LOSES THE BARE
+  NAME.** Its four uses are the capital twice (`geo-037` and the `Alabama` term), a tavern in ARKANSAS once
+  (`geo-036`'s "Montgomery's Tavern") and a PERSON once (`geo-038`'s Isaiah Thornton Montgomery). Two of
+  four is a majority, and it makes no difference: a bare key would mis-link the other two, and the pass's
+  rule is never to create a mis-link to gain one. **`Montgomery_(Alabama)`**, on the `Columbia_(South_Carolina)`
+  precedent. The alternative — an `Isaiah_Thornton_Montgomery` term to win the surface back by
+  longest-first — is two extra terms to enable one bare key, and is not worth it.
+
+- **THE ALABAMA CARD LEFT MORE FOR ITS CAPITAL THAN IT LOOKED.** `geo-037` had spent the moving capitals
+  and the provisional Confederate constitution, so the obvious material was gone; what it had NOT used is
+  in the same nomination — the capitol finished on 26 October 1847, burnt out on 14 December 1849 with the
+  legislature sitting, rebuilt on Button's plans by 1851, and **Jefferson Davis sworn in on the west
+  portico on 18 February 1861 with the permanent constitution adopted there on 11 March**. Round 35's rule
+  was to read the state card first; the refinement is that **re-reading the SOURCE is what finds the way
+  round it**, since a card takes four or five claims from a document that holds twenty.
+
+- **THE FEDERAL COURTHOUSE IS THE SOURCE THE CIVIL-RIGHTS CARDS KEEP NEEDING.** Montgomery's US Post
+  Office and Courthouse is listed as the **Frank M. Johnson, Jr. Federal Building**, and its nomination
+  carries what the church nomination cannot: that Johnson's 1956 decision struck down segregated seating
+  on the city's buses and carried *Brown v. Board of Education* out of the schools, and that his 1961
+  order "freezing" voter-registration standards went into the Voting Rights Act of 1965. **Look for the
+  courthouse** when a city's civil-rights story needs its legal half.
+
+- **`Connecticut` GOES IN BARE** — two uses, both the state — **and repaired `geo-004` on arrival**, the
+  fifth round running that a new term corrected a shipped text. Three surfaces checked and clear on the
+  Connecticut card, one of them a near miss worth recording: **`Hannibal` is not a glossary key**, so
+  "identified with Hannibal and the Midwest" links nothing; the day Ancient Rome writes the Carthaginian,
+  that sentence acquires a trap and this card will need re-checking.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
