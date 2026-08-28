@@ -2066,3 +2066,31 @@ shape `info.sh` already had: try, sleep 20, repeat) got through where a bare fet
 to carry: **the thumbnail width allow-list applies to PNGs too** (1024 and 1164 both returned 400 with
 the 2,010-byte "use listed sizes" page, 1280 worked), and **the API's JSON can carry raw control
 characters**, so parse it with `json.loads(..., strict=False)`.
+
+  **`cnh-071` IS THE STRUCTURAL HALF OF A SUBJECT THE PLAN SPLITS FOUR WAYS**, with `cnh-072` taking
+divination, `cnh-094` the descent to later Chinese and `cnh-107` the corpus as evidence. What is left for
+the SCRIPT is how it works, and the source that carries that is not a sinological one at all:
+**Ottaviano et al. 2024 in *Topics in Cognitive Science* compares the oracle bone inscriptions with
+proto-cuneiform and Egyptian hieroglyphs** and so has to state, in figures, what kind of script each is —
+about 60% of the Chinese shapes iconic against 70% and 95%; only about 5% of its signs basic against 48%
+and 90%; roughly 170 basic shapes; some 4,000 distinct signs with at least half undeciphered. **A
+comparative paper states the things a specialist paper assumes**, which is the same finding as `cnh-069`'s
+about science-paper introductions, one discipline over.
+  **THE TWO AI DATASET PAPERS CARRY THE READING PROBLEMS.** OBIMD (2026) exists because a character's
+identity cannot be recovered from its local appearance alone: a fragment may hold several separate
+inscriptions, the reading order within a sentence is not simply down a column, and the same character has
+variant forms that "differ markedly in component configuration or stroke realization" — which its own
+benchmark quantifies, recognition falling from mAP@50 0.67 on main characters to 0.43 on variants.
+**A machine's failure is a measurement of a human difficulty**, and it is citable where the human
+difficulty on its own is not.
+  **`check-gloss-links.js` GAINED A FINDING AND IT IS CORRECT AS IT STANDS** — 34 to 35. The new one is
+`cnh-071` linking "Egyptian" to `Ancient_Egypt` from a China card, which is exactly what the checker
+looks for and exactly what this card means: the comparison with Egyptian hieroglyphs is the point of the
+sentence. **Do not "fix" this link**; the checker is a proxy for a term about somewhere else, and here
+the somewhere else is deliberate.
+  **AND THE PICTURE IS TALL ON PURPOSE, WHICH `cnh-068`'S RULE HAD TO BE RE-READ TO ALLOW.** The ink
+rubbing is 2052 × 3582, a shape that would be useless in a 16:9 hero frame — but a card's illustration
+renders in the FLOATED `.card-imgslot`, capped at 280px high and 44% wide with `object-fit:contain`, so a
+1:1.75 image comes out about 160 × 280 and whole. **The aspect-ratio caution applies to the ratio, not to
+tallness**: the Ma Lin scroll failed at 1:2.2 because it would have been 127px wide, and there is a real
+band between the two.
