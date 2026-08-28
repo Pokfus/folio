@@ -1285,7 +1285,8 @@ window.GLOSSARY = {
 "Lucretia": "Lucretia is the Roman noblewoman whose rape by Sextus Tarquinius, the king's son, and death by her own hand are given in Roman tradition as the immediate cause of the fall of the monarchy.<sup class=\"fn\" data-fn=\"1\"></sup> Livy has her send for her father and her husband, tell them plainly what had been done and by whom, and answer their assurance that the mind sins and not the body by saying that she acquitted herself of the fault but not of the penalty.<sup class=\"fn\" data-fn=\"1\"></sup> Dionysius instead has her drive to Rome and die in her father's house before the leading men of the city.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Expulsion_of_the_kings": "The expulsion of the kings is the rising that Roman tradition places at the end of Tarquinius Superbus's reign, and from which Romans dated the beginning of their Republic.<sup class=\"fn\" data-fn=\"1\"></sup> Livy has it start with an oath sworn over Lucretia's body and go on through a march on Rome, a speech in the forum and a vote to strip the king of his sovereignty and banish him with his wife and children.<sup class=\"fn\" data-fn=\"2\"></sup> Dionysius gives the constitutional sequel: an interrex appointed, and two annual magistrates named to exercise the power the kings had held, in an office called <i>consules</i>.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Lucius_Junius_Brutus": "Lucius Junius Brutus is the man Roman tradition credits with leading the rising against Tarquinius Superbus and with holding, alongside Collatinus, one of the first two annual magistracies that replaced the kings.<sup class=\"fn\" data-fn=\"1\"></sup> Livy has him take refuge in the appearance of an idiot after his brother was killed on the king's orders, and Dionysius derives the surname itself from that pretence, which he kept up until he judged the time had come to throw it off.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He was killed early in the war against the exiled king, when he and Arruns Tarquinius drove their spears through each other's shields in a cavalry charge.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Rex_Sacrorum": "The rex sacrorum was the Roman priest who performed the public sacrifices that had been the king's to make in person, an office created when the monarchy ended so that the rites should not lapse with it.<sup class=\"fn\" data-fn=\"1\"></sup> Livy says it was put under the pontifex maximus so that its holder should not be king in anything more than name, and Dionysius has Brutus propose that the man hold the honour for life, exempt from military and civil duty, and do nothing else.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He was inaugurated rather than elected, in the assembly of the curiae that the pontiffs called for the purpose.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Rex_Sacrorum": "The rex sacrorum was the Roman priest who performed the public sacrifices that had been the king's to make in person, an office created when the monarchy ended so that the rites should not lapse with it.<sup class=\"fn\" data-fn=\"1\"></sup> Livy says it was put under the pontifex maximus so that its holder should not be king in anything more than name, and Dionysius has Brutus propose that the man hold the honour for life, exempt from military and civil duty, and do nothing else.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He was inaugurated rather than elected, in the assembly of the curiae that the pontiffs called for the purpose.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Comitia_Curiata": "The comitia curiata was the oldest Roman assembly, in which citizens voted in the thirty curiae the people were divided into, each curia carrying one collective vote that a majority of its own members settled.<sup class=\"fn\" data-fn=\"1\"></sup> Roman tradition ascribes the division to Romulus, and the old jurists defined the assembly by it: where the vote is taken by kinds of men, the assembly is curiate.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its chief business passed to the assembly of centuries under Servius Tullius, and by the Punic Wars it was a form, thirty lictors performing the ceremony in place of the curiae themselves.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2788,7 +2789,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Lucretia": ["Lucrece"],
 "Expulsion_of_the_kings": ["overthrow of the Roman monarchy"],
 "Lucius_Junius_Brutus": ["L. Junius Brutus"],
-"Rex_Sacrorum": ["rex sacrificulus","king of sacred rites"]
+"Rex_Sacrorum": ["rex sacrificulus","king of sacred rites"],
+"Comitia_Curiata": ["Curiate assembly","assembly of curiae"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4099,7 +4101,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lucretia": ["person","history","italy","iron age","event"],
 "Expulsion_of_the_kings": ["event","history","italy","iron age","institution"],
 "Lucius_Junius_Brutus": ["person","history","italy","iron age","institution"],
-"Rex_Sacrorum": ["title","history","religion","italy","iron age"]
+"Rex_Sacrorum": ["title","history","religion","italy","iron age"],
+"Comitia_Curiata": ["institution","history","italy","iron age","concept"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
