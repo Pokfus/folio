@@ -16,14 +16,15 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-042`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-045`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
-Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland) **and capitals `gw-503` Washington, D.C.,
-`gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515`
-Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520` Bangkok and
-`gw-521` London.** The next country is `gw-043` Uzbekistan and the next capital is `gw-522` Dodoma.
+Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia)
+**and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa,
+`gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518` Ankara,
+`gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma and `gw-751` Dar es Salaam.** The
+next country is `gw-046` Mozambique and the next capital is `gw-523` Paris.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -151,7 +152,7 @@ it splits its government up.
 | country | card | its question asks for |
 |---|---|---|
 | Tanzania | `gw-522` Dodoma | the capital |
-| | `gw-751` Dar es Salaam | the former capital and largest city |
+| | `gw-751` Dar es Salaam | the acting capital |
 | South Africa | `gw-524` Pretoria | the executive capital |
 | | `gw-752` Cape Town | the legislative capital |
 | | `gw-753` Bloemfontein | the judicial capital |
@@ -646,6 +647,36 @@ UNdata gives 38,141 thousand people and the World Bank 36,435,861, a 4.5% spread
 "roughly 37 million" sitting between them; the areas are 312,679 at UNdata, 312,720 at the World Bank
 and 312,696 in the term, again inside. C9's rule holds in both directions and the batch is a reminder
 that it usually means doing nothing.
+
+**Batch 14 (Uzbekistan, Malaysia, Saudi Arabia, Dodoma, Dar es Salaam) settled a divided capital from a
+source the plan had already spotted and not yet used, and it changed one of the plan's own rows.** The
+Commonwealth Secretariat's Tanzania page gives *"Capital: Dar es Salaam (acting), Dodoma (official)"* — so
+the second seat is not, as this file's table said, "the former capital and largest city" but the ACTING
+capital, a live arrangement rather than a historical one. The row is corrected and both questions now ask
+for a status the source states in the word it uses. **A seat's description is researched with the card, not
+taken from the plan**: the running order fixes which cities get cards and what each is called is a finding.
+
+**Saudi Arabia is the first country where the two sources disagree about BOTH headline figures, and neither
+was corrected.** UNdata gives 34.6 million people and 2,206,714 km²; the World Bank gives 37.0 million and
+2,149,690 km² — a 7% gap on the population and 2.6% on the area, with the term's own figures inside both
+spreads. C9 forbids correcting a figure inside the spread, so the population moved only from "roughly 34"
+to "roughly 35 million" because 34 sat BELOW both sources, and the area was left exactly as written. The
+card says so in its own last sentence rather than presenting one source's number as the answer. **Where two
+sources bracket a figure widely, say that the figure sits in a spread; do not pick an end and go quiet.**
+
+**Two access findings, both about a page that exists.** The recognition guide does not use one heading:
+most country pages open on **Summary** and Uzbekistan's opens on **Historical Overview**, so a script
+keying on "Summary" reports a live page as empty — which is how Uzbekistan looked unsourceable for a
+minute. And the WTO's `countries_e/<slug>_e.htm` path exists only for MEMBERS: Uzbekistan, an acceding
+observer, **302s to an error page served with a 200**, the sixth variety of 200-status error document this
+pass has met. Uzbekistan was carried instead by two General Assembly resolutions — its admission,
+46/226 of 2 March 1992, and 75/266 of 2021 on cooperation with the International Fund for Saving the Aral
+Sea, which is the way to cite the Aral Sea from here at all.
+
+**And UNdata's own footnotes carry the dual-capital facts for the countries still to come.** Malaysia's
+profile footnotes its capital field with *"Kuala Lumpur is the capital and Putrajaya is the administrative
+capital"* — the same shape as the Commonwealth's Tanzania line, and the source `gw-544` and `gw-754` will
+need. **Read the footnote letters on a UNdata profile before looking elsewhere for a divided seat.**
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
