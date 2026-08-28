@@ -626,6 +626,109 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     wantEntries.every((e) => off.active.indexOf(e) < 0) && !off.on,
     off.active.filter((e) => wantEntries.indexOf(e) >= 0).join(", ") || "none left");
 
+  /* ---------- 4. the language header's own options ----------
+     Aug 2026, on a bug report: "when I long-press an active language collection, I don't see the popup
+     menu to see/change its settings."
+
+     THE FAILURE WAS SILENT AND IS SILENT AGAIN IF IT RETURNS. The header carries no `data-review` — there
+     is no "study all of Spanish" — and the home page's two hold-menu walks are keyed on `data-review` and
+     `data-pending`, so it fell between them and answered nothing at all. A row that does nothing when held
+     looks exactly like a row that was never meant to, which is why nobody could tell whether this was a
+     design or a bug, and why it is asserted rather than left to the eye.
+
+     ALL THREE ROUTES ARE ASSERTED because they are three different mechanisms: `contextmenu` is the
+     mouse's, the click is the tap's — this is the one row on the list whose tap opens its options rather
+     than a session, having no session to open — and Enter is the keyboard's, which only works because the
+     row is a real `role="button"` with a tab stop. A hold cannot be typed, so without that last one the
+     sheet would be unreachable without a pointer.
+
+     AND WHAT IS IN THE SHEET, in both directions. The rows a CONTAINER gets are the group's (a name, a
+     colour, an icon and the session settings) and the ones it must not get are the daily allowances, which
+     belong to something the review actually iterates — a language holds no cards itself. A sheet listing
+     "Daily limits" over a container would take a number the reader set and apply it to nothing. */
+  await page.goto(base + "#home", { waitUntil: "load" });
+  await page.waitForTimeout(1200);
+  const headSel = ".active-deck[data-langhead]";
+  const head = await page.evaluate((sel) => {
+    const e = document.querySelector(sel);
+    if (!e) return null;
+    return { id: e.dataset.langhead, title: (e.querySelector(".dk-title") || {}).textContent || "",
+             role: e.getAttribute("role"), tab: e.getAttribute("tabindex"),
+             cursor: getComputedStyle(e).cursor, review: e.hasAttribute("data-review") };
+  }, headSel);
+  check("the language a deck was downloaded into draws a header", !!head && head.title === small.lang,
+    JSON.stringify(head));
+  if (head) {
+    check("…which is a real button with a tab stop", head.role === "button" && head.tab === "0" && head.cursor === "pointer",
+      JSON.stringify(head));
+    /* …and STILL not a review row. The fix gave it a role and a press; what it must not have gained is a
+       study scope, which is the thing the container was deliberately kept out of in the first place. */
+    check("…and still deals no cards of its own", !head.review);
+
+    const sheetRows = async (open) => {
+      await open();
+      await page.waitForTimeout(400);
+      const r = await page.evaluate(() => {
+        const ov = document.querySelector(".deck-menu");
+        return ov ? [...ov.querySelectorAll(".dm-item")].map((x) => (x.querySelector("b") || x).textContent.trim()) : null;
+      });
+      await page.keyboard.press("Escape");
+      await page.waitForTimeout(300);
+      return r;
+    };
+    const byHold = await sheetRows(() => page.evaluate((sel) =>
+      document.querySelector(sel).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })), headSel));
+    check("holding a language header opens its options", !!byHold && byHold.length > 0,
+      JSON.stringify(byHold));
+    const byTap = await sheetRows(() => page.evaluate((sel) => document.querySelector(sel).click(), headSel));
+    check("…and so does a plain tap, this row having no session to open instead",
+      !!byTap && byTap.join("|") === (byHold || []).join("|"), JSON.stringify(byTap));
+    const byKey = await sheetRows(() => page.evaluate((sel) => {
+      const e = document.querySelector(sel);
+      e.focus();
+      e.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", bubbles: true, cancelable: true }));
+    }, headSel));
+    check("…and Enter from the keyboard, a hold being something that cannot be typed",
+      !!byKey && byKey.join("|") === (byHold || []).join("|"), JSON.stringify(byKey));
+
+    const rows = byHold || [];
+    check("…offering the container's own rows", ["Rename", "Colour", "Icon", "Remove"].every((k) => rows.indexOf(k) >= 0),
+      JSON.stringify(rows));
+    check("…and not the daily allowances, which a language does not have",
+      rows.indexOf("Daily limits") < 0 && rows.indexOf("Custom study") < 0 && rows.indexOf("Skip today") < 0,
+      JSON.stringify(rows));
+
+    /* THE COLOUR REACHES EVERY DECK OF THE LANGUAGE, which is what makes the row a container rather than a
+       label: the hue is passed DOWN the list's build, so a header that took a colour and kept it to itself
+       would look like a working control from the one row that changed. */
+    await page.evaluate((sel) =>
+      document.querySelector(sel).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })), headSel);
+    await page.waitForTimeout(400);
+    await page.evaluate(() => { const sw = document.querySelectorAll(".dm-swatch"); if (sw[3]) sw[3].click(); });
+    await page.waitForTimeout(400);
+    const hue = await page.evaluate((sel) => {
+      const v = (el) => (el ? el.style.getPropertyValue("--coll-bg").trim() : "");
+      const h = document.querySelector(sel);
+      const kid = [...document.querySelectorAll(".active-deck[data-parent]")].find((e) => e.dataset.parent === h.dataset.langhead);
+      return { head: v(h), kid: v(kid) };
+    }, headSel);
+    check("a colour set on a language reaches the decks under it", !!hue.head && hue.head === hue.kid,
+      JSON.stringify(hue));
+
+    /* AND REMOVE TAKES THE LANGUAGE OUT, which needs its own branch in `removeActive`: the container is
+       not in `S.active` at all, so the ordinary path filters out an id that was never there and the row
+       comes straight back on the next render — a Remove that plainly did nothing. */
+    await page.evaluate(() => [...document.querySelectorAll(".dm-item")].find((x) => x.dataset.act === "remove").click());
+    await page.waitForTimeout(800);
+    const gone = await page.evaluate((sel) => ({
+      header: !!document.querySelector(sel),
+      active: (JSON.parse(localStorage.getItem("folio_v1") || "{}").active || []),
+    }), headSel);
+    check("Remove takes every deck of the language out of the daily study",
+      !gone.header && !gone.active.some((e) => e.indexOf("u:" + small.id) === 0),
+      JSON.stringify(gone.active));
+  }
+
   check("no uncaught page errors", errs.length === 0, errs.join(" | "));
 
   console.log("");

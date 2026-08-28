@@ -5454,6 +5454,18 @@
   }
   function removeActive(id) {
     if (id === COTD_ENTRY) S.cotd = [];   // the row stands for the whole list, so removing it empties the list
+    /* A LANGUAGE is not in `S.active` — it is synthesised from the decks gathered under it — so removing
+       it means removing those, which is what its row plainly stands for. Anything the reader has DRAGGED
+       into the language is FREED to the level above rather than taken out with it: that deck belongs to
+       somebody else's collection and was only being kept there, which is `groupDelete`'s own rule one
+       container over. */
+    if (isLangCtxId(id)) {
+      const members = langCtxEntries(id);
+      nestForget([id]);
+      members.forEach((e) => removeActive(e));
+      save();   // …and the re-homing above, which removing nothing would otherwise leave unsaved
+      return;
+    }
     const n = NODE_BY_ID[id];
     if (!n) {
       /* The mirror of the add above, and it goes BOTH ways for the collection rule's own reason: a deck
@@ -5580,6 +5592,12 @@
   // or a retired node is ignored rather than cleaned up on read — a read must not write.
   function entryExists(id) {
     if (isGroupId(id)) return !!groupRec(id);
+    /* A LANGUAGE'S OWN CONTAINER is synthesised from the catalogue rather than stored (see langCtxId), so
+       what makes it real is that the catalogue still names the language. Without this a deck dropped onto
+       a language header had no parent as far as `nestParentOf` was concerned and was drawn TWICE — once
+       under the language it was dropped on and once loose at the top of the list — with no way back out,
+       since the sheet's "Move out of…" row is offered on the same answer. */
+    if (isLangCtxId(id)) return !!langCtxName(id);
     return !!(NODE_BY_ID[id] || UDECKS[uDeckIdOf(id)] || (id === COTD_ENTRY && cotdIds().length));
   }
   function nestParentOf(id) {
@@ -5712,6 +5730,13 @@
     if (id === REVIEW_ENTRY) return { title: REVIEW_TITLE, parent: "", count: entryCardIds(REVIEW_ENTRY).length };
     if (isGroupId(id)) return { title: groupTitle(id), parent: "Your groups", count: entryCardIds(id).length };
     if (id === COTD_ENTRY) return { title: COTD_TITLE, parent: "", count: cotdIds().length };
+    /* A LANGUAGE — the container its decks are gathered under on the home page (see langCtxId). The name
+       comes from the reader's own rename first and from the CATALOGUE second, which is the order the row
+       itself resolves it in (`adOwnTitle` then the build's title), so the sheet and the row it was opened
+       from can never disagree about what this thing is called. */
+    if (isLangCtxId(id)) {
+      return { title: adOwnTitle(id) || langCtxName(id) || id, parent: "Languages", count: entryCardIds(id).length };
+    }
     /* A PENDING deck names itself out of the catalogue, which carries the title, the card count and the
        subdeck tree — so the sheet and the row read exactly as they will once it is downloaded, and the only
        thing that changes on arrival is that the counts start being the reader's own. */
@@ -5870,6 +5895,13 @@
       let n = NODE_BY_ID[id];
       for (let i = 0; n && n.parentId && i < 64; i++) { n = NODE_BY_ID[n.parentId]; if (n) push(n.id); }
     }
+    /* …and the LANGUAGE the deck belongs to, which is the container its row is drawn under. It is not a
+       nest parent and not a tree node, so neither branch above can find it — and without it a switch
+       thrown on a language's own header would be stored under an id nothing reads, which is a sheet full
+       of controls that change nothing. Read off the catalogue rather than off `UDECKS`, so a deck this
+       device has not downloaded yet inherits the same settings the moment it lands. */
+    const langCat = deckId ? langCatalogById(deckId) : null;
+    if (langCat) push(langCtxId(langCat.lang));
     // …and whatever the row, or anything above it, has been dragged into. The array grows as it is walked,
     // so a group inside a group is reached; `seen` is what makes that terminate.
     for (let i = 0; i < out.length && i < 64; i++) { const g = nestParentOf(out[i]); if (g) push(g); }
@@ -6096,6 +6128,8 @@
   function entryHasSpeech(id) {
     if (!ttsSupported()) return false;
     if (id === REVIEW_ENTRY) return activeEntryIds().some((e) => e !== REVIEW_ENTRY && entryHasSpeech(e));
+    // …and a language answers for the decks gathered under it, as the review does for the whole list
+    if (isLangCtxId(id)) return langCtxEntries(id).some((e) => entryHasSpeech(e));
     const d = UDECKS[uDeckIdOf(id) || ""];
     return !!(d && d.types && Object.keys(d.types).some((k) => typeSpeaks(d.types[k])));
   }
@@ -14341,6 +14375,9 @@
   // "every deck inside" is a promise a leaf deck cannot keep.
   function containerHasChildren(id) {
     if (nestChildren(id).length) return true;
+    // a language's members are gathered from `S.active` rather than dragged into it, so they are the
+    // answer here — and its hue really is passed down to every one of them (see the `emit` walk)
+    if (isLangCtxId(id)) return langCtxEntries(id).length > 0;
     if (isGroupId(id)) return false;
     const n = NODE_BY_ID[id];
     if (n) return nodeChildren(n).length > 0;
@@ -14360,6 +14397,15 @@
   function openDeckMenu(id) {
     const isReview = id === REVIEW_ENTRY;
     const isGroup = isGroupId(id);
+    /* A LANGUAGE'S HEADER IS A CONTAINER, AND TAKES THE GROUP'S SHAPE OF THIS SHEET (Aug 2026, on a bug
+       report: holding one opened nothing at all). It holds no cards of its own — the decks gathered under
+       it do, each with its own row and its own allowance — so like a group it is offered the session
+       settings, a name, a colour and an icon, and NOT the daily-allowance rows, which belong to something
+       the review actually iterates. What it is not is a group: it cannot be taken apart, being derived
+       from `S.active` rather than stored, so its last row is Remove and reads as what removing a language
+       means. See langCtxId. */
+    const isLang = isLangCtxId(id);
+    const isContainer = isGroup || isLang;
     const info = entryInfo(id);
     const L = deckLimits(id), skipped = deckSkippedToday(id), left = deckNewRemaining(id);
     const thing = isReview ? "review" : "deck";
@@ -14475,8 +14521,9 @@
          It goes on every entry, the pooled review included: the browser searches the whole collection
          rather than the thing the sheet was opened on, which is why the row says "your cards". */
       item("browse", "Browse your cards", "Search everything by state, flag, deck or how often you forget it") +
-      (isGroup ? item("rename", "Rename", "Call this group something else") : "") +
-      (isGroup ? "" :
+      (isContainer ? item("rename", "Rename",
+        isGroup ? "Call this group something else" : "Call this language something else") : "") +
+      (isContainer ? "" :
         item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
         item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
         /* Which scheduler, on a DECK only. The pooled review schedules nothing of its own — it deals what
@@ -14503,7 +14550,9 @@
       item("icon", "Icon", iconRowNote(id)) +
       (nestedIn ? item("unnest", "Move out of " + groupTitle(nestedIn), "Put it back at the top of the list") : "") +
       (isGroup ? item("ungroup", "Ungroup", "Take the group apart — the decks inside stay in your review", "dm-danger")
-       : isReview ? "" : item("remove", "Remove", "Take this deck out of the daily review", "dm-danger"));
+       : isReview ? "" : item("remove", "Remove",
+           isLang ? "Take every deck of this language out of the daily study"
+                  : "Take this deck out of the daily review", "dm-danger"));
     return deckSheet("Options for " + info.title, html, (ov, close) => {
       /* A SWITCH ROW STAYS PUT WHEN THROWN. Every other row here is a command and closes the sheet
          behind it; a switch is a setting, and taking the sheet away is what makes a reader wonder
@@ -14611,12 +14660,19 @@
         if (act === "limits") { close(); openDeckLimits(id); return; }
         if (act === "rename") {
           close();
-          inlinePrompt("What should this group be called?", groupTitle(id), (val) => {
-            const t2 = String(val || "").trim();
-            if (!t2) { toast("Name unchanged"); return; }
-            setGroupTitle(id, t2);
-            render();
-          });
+          /* `info.title` rather than `groupTitle(id)`, and `setEntryTitle` rather than `setGroupTitle`:
+             a group's record IS its name, but a language's is an OVERRIDE over the catalogue's, and
+             `groupTitle` has nothing to fall back to there — it would offer the reader the raw id to
+             edit and then store a copy of the catalogue's own name. `setEntryTitle` writes the one and
+             clears the other when the shipped name is typed back or the field is emptied, which is how a
+             rename is undone; on a group it refuses an empty name, so the guard below is the group's. */
+          inlinePrompt(isGroup ? "What should this group be called?" : "What should this language be called?",
+            info.title, (val) => {
+              const t2 = String(val || "").trim();
+              if (!t2 && isGroup) { toast("Name unchanged"); return; }
+              setEntryTitle(id, t2, isGroup ? "" : langCtxName(id));
+              render();
+            });
           return;
         }
         if (act === "unnest") { close(); setNestParent(id, null); render(); toast("Moved out"); return; }
@@ -14639,7 +14695,7 @@
         close();
         removeActive(id);
         render();
-        toast("Removed from review");
+        toast(isLang ? "Removed from the daily study" : "Removed from review");
       }));
     });
   }
@@ -20532,11 +20588,20 @@
              a row apologising for itself. It takes the group header's wash and the ordinary title face,
              plus the three coloured piles and the bar every other row carries — which it can now answer for,
              `entryCardIds` having learnt to union its members.
-             IT IS STILL NOT A GROUP: no `data-review`, no `role`, no tab stop, because "study all of
-             Spanish" is a scope the reader never asked for — the look is what was reported, not the
-             behaviour. */
+             IT IS STILL NOT A GROUP: no `data-review`, because "study all of Spanish" is a scope the
+             reader never asked for and this row deals no cards.
+             WHAT IT DOES HAVE IS ITS OPTIONS (Aug 2026, on a bug report: "when I long-press an active
+             language collection, I don't see the popup menu to see/change its settings"). It carried no
+             `data-review`, so neither of the home page's two hold-menu walks reached it and holding it
+             did nothing — one row in a list where every other row answers a hold, which from the reader's
+             side is the feature having broken rather than a row deliberately doing less.
+             So it is a real `role="button"` with a tab stop after all, and its ONE action is the sheet:
+             the tap opens it as well as the hold, unlike every other row here. That is not a slip — a
+             container with no session of its own has nothing else a press could mean, a press that does
+             nothing is what was reported, and it is what gives the row a KEYBOARD route, a hold being
+             something that cannot be typed. */
           if (r.langhead) {
-            return `<div class="active-deck dk-langhead${shut}"${nodeAttr} data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
+            return `<div class="active-deck dk-langhead${shut}"${nodeAttr} role="button" tabindex="0" aria-haspopup="dialog" title="Options for ${esc(title)}" data-langhead="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
               ${grip}
               ${adIcon(r.drag, r.parent)}
               ${adCounts(r.drag)}
@@ -21061,6 +21126,15 @@
     root.querySelectorAll(".active-deck[data-pending]").forEach((el) => {
       const id = el.dataset.pending;
       wireHoldMenu(el, () => openDeckMenu(id), () => {});
+    });
+    /* …and a LANGUAGE'S OWN HEADER, whose only action is its options — so unlike the two walks above it
+       passes the SAME handler as the tap. See the row template for why. `wireHoldMenu` binds Enter and
+       Space to the tap handler, so the tab stop the row now carries is a complete keyboard route on its
+       own, and the trailing click after a hold is swallowed by the document-level guard exactly as it is
+       for a deck row. */
+    root.querySelectorAll(".active-deck[data-langhead]").forEach((el) => {
+      const id = el.dataset.langhead;
+      wireHoldMenu(el, () => openDeckMenu(id), () => openDeckMenu(id));
     });
     root.querySelectorAll("[data-langdl]").forEach((b) => {
       b.addEventListener("pointerdown", (e) => e.stopPropagation());
