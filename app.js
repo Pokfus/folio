@@ -5831,8 +5831,40 @@
     if (Number.isFinite(patch.maxReviews)) S.settings.maxReviewsPerDay = Math.max(0, patch.maxReviews);
     save();
   }
+  /* ---------- AND A LANGUAGE'S OWN, WHICH ARE A CAP AND NOT A CASCADE (Aug 2026, on request) ----------
+     A language holds no cards; the decks gathered under it do, each with an allowance of its own. So a
+     figure set on the language cannot be HANDED DOWN — "a LIMIT handed down to nine levels becomes nine
+     times itself" is the exact bug the per-deck limits were built to fix — it has to CAP what those decks
+     hand up, which is what the pooled review does one level further on. `reviewQueue` applies it.
+
+     ITS DEFAULT IS THE SUM OF ITS MEMBERS', and that figure is chosen so the cap is arithmetically
+     incapable of changing anything until the reader sets one: a container that has never been asked slices
+     at exactly the number its decks supplied. (The review's default is the WIDEST rather than the sum,
+     because the review is MEANT to cap a reader's whole day; a language is not.) It is also the honest
+     answer to what the sheet asks — how many new cards a day this language currently offers.
+     Set a figure and it wins outright, exactly as a deck's does over the global default. */
+  function langCtxLimits(id) {
+    const o = (S.deckOpts && S.deckOpts[id]) || {};
+    let nw = 0, rv = 0;
+    /* A PENDING DECK COUNTS TOWARDS THE SUM, and it was excluded for an hour on the reasoning that a deck
+       not on this device supplies no cards. That is true and it is about the wrong thing: these figures
+       are an ALLOWANCE — a policy the reader sets and reads back — not a forecast of today. Excluded, a
+       language whose decks have not been downloaded yet reads "0 new/day", which looks exactly like a cap
+       somebody set to zero, and the number would then change on its own the moment a file landed, so the
+       figure a reader saw yesterday would differ from today's for nothing they did. Counting them costs
+       nothing anywhere else: a cap only ever removes, and a cap looser than the supply is a no-op. What
+       says a language can deal nothing today is its ROW, whose piles read 0, and the "not on this device"
+       line on each deck under it. */
+    langCtxEntries(id).forEach((e) => { const L = deckLimits(e); nw += L.newPerDay; rv += L.maxReviews; });
+    return {
+      newPerDay: Number.isFinite(o.newPerDay) ? Math.max(0, o.newPerDay) : nw,
+      maxReviews: Number.isFinite(o.maxReviews) ? Math.max(0, o.maxReviews) : rv,
+      newIgnoresReview: o.newIgnoresReview !== false,
+    };
+  }
   function deckLimits(id) {
     if (id === REVIEW_ENTRY) return reviewLimits();
+    if (isLangCtxId(id)) return langCtxLimits(id);
     const o = (S.deckOpts && S.deckOpts[id]) || {}, G = globalLimits();
     return {
       // the global setting is the DEFAULT rather than a competing limit — a deck the reader has never
@@ -5900,8 +5932,8 @@
        thrown on a language's own header would be stored under an id nothing reads, which is a sheet full
        of controls that change nothing. Read off the catalogue rather than off `UDECKS`, so a deck this
        device has not downloaded yet inherits the same settings the moment it lands. */
-    const langCat = deckId ? langCatalogById(deckId) : null;
-    if (langCat) push(langCtxId(langCat.lang));
+    const langCtx = langCtxOf(id);
+    if (langCtx) push(langCtx);
     // …and whatever the row, or anything above it, has been dragged into. The array grows as it is walked,
     // so a group inside a group is reached; `seen` is what makes that terminate.
     for (let i = 0; i < out.length && i < 64; i++) { const g = nestParentOf(out[i]); if (g) push(g); }
@@ -6176,8 +6208,42 @@
     return r;
   }
   function deckSkippedToday(id) { return !!deckDay(id).skip; }
+  /* …and a deck sits the day out when its LANGUAGE does. This one may cascade where a limit may not, and
+     the difference is the whole of the rule: skipping is a POLICY with two states, so handing it down
+     nine levels still means the same thing at the bottom, where a quantity handed down becomes nine times
+     itself. Every reader of "is this sitting today out" goes through this rather than `deckSkippedToday`,
+     or the queue and the row would disagree about a deck the reader has plainly switched off. */
+  function entrySkippedToday(id) {
+    if (deckSkippedToday(id)) return true;
+    const k = langCtxOf(id);
+    return !!(k && deckSkippedToday(k));
+  }
   function setDeckSkip(id, on) { deckDay(id).skip = !!on; save(); }
   function bumpDeckExtra(id, n) {
+    /* A LANGUAGE CAPS ITS DECKS, so raising its own figure alone would raise a ceiling nothing can reach:
+       the decks under it are already holding their own allowances, and a cap only ever removes. Asking for
+       more therefore has to raise the SUPPLY as well — the same two-sided move this function already makes
+       for a deck, which bumps the deck and the pooled review above it.
+
+       IT IS SPREAD ACROSS THE MEMBERS, NOT GIVEN TO EACH OF THEM. Both deliver the number asked for, since
+       the container's own bump is what fixes the total either way — but handing every deck the whole N
+       leaves three rows each promising five more cards where five more will be dealt between them, and a
+       row that overstates what it holds is the one thing this list is written to avoid. Spreading it costs
+       only the case where one deck has run out of unseen cards, and there the shortfall is true.
+       Asking for FEWER moves the cap alone: the members have nothing to give back, and taking the amount
+       off each of them would remove it several times over. */
+    if (isLangCtxId(id) && n > 0) {
+      const members = langCtxEntries(id);
+      if (members.length) {
+        const each = Math.floor(n / members.length), rem = n % members.length;
+        members.forEach((e, i) => {
+          const share = each + (i < rem ? 1 : 0);
+          if (!share) return;
+          const m = deckDay(e);
+          m.extra = Math.max(-(deckLimits(e).newPerDay), (m.extra || 0) + share);
+        });
+      }
+    }
     const r = deckDay(id);
     // never below what the deck has already introduced today — "fewer" cannot un-study a card
     r.extra = Math.max(-(deckLimits(id).newPerDay), (r.extra || 0) + n);
@@ -6216,7 +6282,11 @@
      finished review is whatever share of its own new-card allowance the pooled draw did not take — the
      "2 new" and "3 new" a reader sees under a cleared banner. */
   function entryPiles(id) {
-    if (deckSkippedToday(id)) return { nw: 0, lr: 0, rv: 0, skip: true };
+    /* …and a deck inside a language that is sitting today out reads as skipped too, which is the row
+       telling the truth: the queue will deal it nothing. A language's LIMIT is deliberately not reflected
+       on its decks' rows in the same way — a cap belongs to the container and cannot be attributed to any
+       one row beneath it, and a deck's row has always stated what that DECK still holds for today. */
+    if (entrySkippedToday(id)) return { nw: 0, lr: 0, rv: 0, skip: true };
     const avail = availableCardIdSet();
     // buried too: a card put off until tomorrow is not part of what this deck offers today
     const ids = entryCardIds(id).filter((c) => avail.has(c) && !isSuspended(c) && !isBuried(c));
@@ -6250,18 +6320,45 @@
     const due = [], pool = [], seen = new Set();
     // the review can sit itself out too — the banner's own sheet carries the same "Skip today" its rows do
     if (deckSkippedToday(REVIEW_ENTRY)) return { due, fresh: [], all: [] };
+    /* THE DRAW IS THREE LEVELS DEEP SINCE Aug 2026, on request: the deck, then its LANGUAGE, then the
+       pooled review. A language is a container the reader can now give limits to (see langCtxLimits), and
+       a container can only ever CAP what its members hand up — a limit cascaded down to nine decks would
+       be nine times itself, which is the bug the per-deck allowances exist to fix. So each entry fills its
+       own language's bucket at its own allowance, the language slices that bucket, and the review slices
+       what all of them pooled. A deck belonging to no language buckets under "" and is never sliced there,
+       which is every curated deck and every deck of the reader's own.
+       `seen` stays GLOBAL across the buckets, so a card claimed by one deck cannot be dealt twice — a card
+       a language's cap then drops is out of this session, which it would be anyway, the only decks it can
+       sit in also being that language's. */
+    const buckets = new Map();
+    const bucketFor = (k) => { let b = buckets.get(k); if (!b) buckets.set(k, b = { due: [], fresh: [] }); return b; };
     activeEntryIds().forEach((e) => {
-      if (deckSkippedToday(e)) return;   // "Skip today" sits the deck out without removing it
+      // "Skip today" sits the deck out without removing it — its LANGUAGE can sit it out too
+      if (entrySkippedToday(e)) return;
+      const b = bucketFor(langCtxOf(e));
       const ids = studyOrder(e, entryCardIds(e).filter((id) => avail.has(id) && !isSuspended(id) && !isBuried(id)));
       let rv = deckReviewRemaining(e);
       ids.filter((id) => isDueNow(id))
-        .sort((a, b) => S.cards[a].due - S.cards[b].due)
-        .forEach((id) => { if (rv <= 0 || seen.has(id)) return; seen.add(id); due.push(id); rv--; });
+        .sort((a, b2) => S.cards[a].due - S.cards[b2].due)
+        .forEach((id) => { if (rv <= 0 || seen.has(id)) return; seen.add(id); b.due.push(id); rv--; });
       let nw = deckNewRemaining(e);
       // Anki's third switch: off, a deck that has used up its review allowance introduces nothing new either
       if (!deckLimits(e).newIgnoresReview) nw = Math.min(nw, rv);
       // dedupe BEFORE the slice, or a card an earlier deck already claimed eats one of this deck's places
-      ids.filter((id) => !isSeen(id) && !seen.has(id)).slice(0, nw).forEach((id) => { seen.add(id); pool.push(id); });
+      ids.filter((id) => !isSeen(id) && !seen.has(id)).slice(0, nw).forEach((id) => { seen.add(id); b.fresh.push(id); });
+    });
+    buckets.forEach((b, k) => {
+      if (k) {
+        // the most overdue first, so a language's cap keeps the cards that have waited longest rather than
+        // whichever of its decks the list happens to draw first
+        b.due.sort((a, b2) => S.cards[a].due - S.cards[b2].due);
+        b.due = b.due.slice(0, deckReviewRemaining(k));
+        let n = deckNewRemaining(k);
+        if (!deckLimits(k).newIgnoresReview) n = Math.min(n, Math.max(0, deckReviewRemaining(k) - b.due.length));
+        b.fresh = b.fresh.slice(0, n);
+      }
+      b.due.forEach((id) => due.push(id));
+      b.fresh.forEach((id) => pool.push(id));
     });
     due.sort((a, b) => S.cards[a].due - S.cards[b].due);
     // …and then the review's own two caps, which are the parent deck's in Anki
@@ -14400,6 +14497,13 @@
      or take it apart with their decks kept — where deleting the code would have left a container on their
      home page that nothing could open. There is no dead UI in it: a group row exists only where a group
      does, and no reader can make a new one. */
+  /* WHAT TO CALL THE THING A SHEET WAS OPENED ON. Four sheets say it — the options menu, Custom study,
+     Daily limits and Scheduling — and they used to spell it out apiece from `id === REVIEW_ENTRY`, which
+     is two answers where there are now three: a language is neither a deck nor the review, and calling it
+     a deck in the one sheet that caps it would be describing the wrong thing. */
+  function entryNoun(id) {
+    return id === REVIEW_ENTRY ? "review" : isLangCtxId(id) ? "language" : "deck";
+  }
   function openDeckMenu(id) {
     const isReview = id === REVIEW_ENTRY;
     const isGroup = isGroupId(id);
@@ -14414,7 +14518,7 @@
     const isContainer = isGroup || isLang;
     const info = entryInfo(id);
     const L = deckLimits(id), skipped = deckSkippedToday(id), left = deckNewRemaining(id);
-    const thing = isReview ? "review" : "deck";
+    const thing = entryNoun(id);
     const item = (act, label, note, cls) =>
       '<button type="button" class="dm-item' + (cls ? " " + cls : "") + '" data-act="' + act + '">' +
       "<b>" + esc(label) + "</b><small>" + esc(note) + "</small></button>";
@@ -14529,12 +14633,25 @@
       item("browse", "Browse your cards", "Search everything by state, flag, deck or how often you forget it") +
       (isContainer ? item("rename", "Rename",
         isGroup ? "Call this group something else" : "Call this language something else") : "") +
-      (isContainer ? "" :
+      /* THE ALLOWANCE ROWS ARE OFF A GROUP AND ON A LANGUAGE (Aug 2026, on request: "custom study,
+         scheduling, daily limits, and skip should also be options on the language collections"). The two
+         containers are not alike here, and the difference is what each one is made of: a group is an
+         arrangement the reader dragged together, holding decks from anywhere, so a figure on it would have
+         to cap several collections at once from a row that names none of them; a LANGUAGE is a real body
+         of work with its own decks, its own progress bar and its own place on the Collections page, and
+         "five new Spanish cards a day" is a sentence about it. What makes these honest rather than
+         decorative is that a container CAPS rather than cascades — see langCtxLimits and reviewQueue. */
+      (isGroup ? "" :
         item("custom", "Custom study", "Study more or fewer new cards today — " + left + " left of " + (L.newPerDay + (deckDay(id).extra || 0))) +
         item("limits", "Daily limits", L.newPerDay + " new/day · " + L.maxReviews + " reviews/day") +
-        /* Which scheduler, on a DECK only. The pooled review schedules nothing of its own — it deals what
-           its decks hand it, each on its own deck's schedule — and a GROUP is a container rather than a
-           deck, so offering the choice on either would be offering a setting that governs nothing. */
+        /* WHICH SCHEDULER — on a deck, and on a LANGUAGE since Aug 2026. Unlike the two rows above it
+           this one is a POLICY and genuinely cascades: `sched`, `retention` and `fsrsParams` are
+           `DECK_OPT_INHERIT` keys and `entryChain` reaches a deck's language, so choosing FSRS here puts
+           every deck of that language on it and nothing had to be built for it.
+           THE POOLED REVIEW IS STILL THE EXCEPTION, and for its own reason rather than a container's: it
+           schedules nothing of its own, dealing what its decks hand it, each on its deck's schedule — so
+           the choice would govern nothing there. (A GROUP never reaches this line at all, the whole block
+           being off a group's sheet; its own reason is under the allowance rows above.) */
         (isReview ? "" : item("sched", "Scheduling",
           schedModeOf(id) === "fsrs"
             ? "FSRS · aiming to remember " + Math.round(deckSchedCfg(id).retention * 100) + "%"
@@ -14544,7 +14661,8 @@
             : "SM-2, the classic interval schedule")) +
         item("skip", skipped ? "Study today after all" : "Skip today",
           skipped ? "This " + thing + " is sitting today out"
-                  : (isReview ? "Leave today's review out altogether" : "Leave this deck out of today's review"))) +
+                  : (isReview ? "Leave today's review out altogether"
+                              : "Leave this " + thing + " out of today's review"))) +
       /* The colour row sits AFTER the commands rather than among them, and that placement is load-bearing
          for more than reading order: `deckSheet` focuses the sheet's first button, and with the swatches
          first the sheet would open with the caret on a colour nobody asked to change. */
@@ -14717,7 +14835,7 @@
       '<div class="dm-head"><span class="dm-title">Custom study</span><span class="dm-where">' + esc(info.title) + "</span></div>" +
       '<label class="dm-field"><span>New cards to add today</span>' +
       '<input class="dm-num" id="csN" type="number" min="1" max="999" step="1" value="5" inputmode="numeric"></label>' +
-      '<p class="dm-note">Today only. Tomorrow ' + (id === REVIEW_ENTRY ? "the review goes" : "the deck goes") + ' back to its daily limit.</p>' +
+      '<p class="dm-note">Today only. Tomorrow the ' + entryNoun(id) + ' goes back to its daily limit.</p>' +
       '<div class="dm-actions"><button type="button" class="btn ghost" data-act="fewer">Study fewer</button>' +
       '<button type="button" class="btn" data-act="more">Study more</button></div>';
     deckSheet("Custom study", html, (ov, close) => {
@@ -15407,7 +15525,7 @@
         const mode = b.dataset.sched;
         if (mode === cfg.mode) return;
         setDeckSched(id, mode);
-        toast(mode === "fsrs" ? "This deck is on FSRS" : "This deck is on SM-2");
+        toast("This " + entryNoun(id) + " is on " + (mode === "fsrs" ? "FSRS" : "SM-2"));
         close();
         openDeckSched(id);
       }));
@@ -15495,6 +15613,7 @@
      and is offered only where there is something to clear. */
   function openDeckLimits(id) {
     const info = entryInfo(id), L = deckLimits(id);
+    const noun = entryNoun(id), isLang = isLangCtxId(id);
     const own = (S.deckOpts && S.deckOpts[id]) || {};
     const hasOwn = Number.isFinite(own.newPerDay) || Number.isFinite(own.maxReviews) || own.newIgnoresReview === false;
     const G = globalLimits();
@@ -15507,18 +15626,26 @@
     const html =
       '<div class="dm-head"><span class="dm-title">Daily limits</span><span class="dm-where">' + esc(info.title) + "</span></div>" +
       '<div class="dm-tabs" role="tablist">' +
-        '<button type="button" class="dm-tab active" role="tab" aria-selected="true" data-pane="deck">This ' + (id === REVIEW_ENTRY ? "review" : "deck") + '</button>' +
+        '<button type="button" class="dm-tab active" role="tab" aria-selected="true" data-pane="deck">This ' + noun + '</button>' +
         '<button type="button" class="dm-tab" role="tab" aria-selected="false" data-pane="all">All decks</button>' +
       '</div>' +
       '<div class="dm-pane" data-pane="deck">' +
         numRow("dNew", "New cards/day", L.newPerDay, 999) +
         numRow("dRev", "Maximum reviews/day", L.maxReviews, 9999) +
         swRow2("dIgn", L.newIgnoresReview) +
+        /* A LANGUAGE IS NOT FOLLOWING THE GLOBAL DEFAULT WHEN IT HAS NO FIGURES OF ITS OWN — it is
+           showing what its decks already offer between them, which is the sum of their allowances (see
+           langCtxLimits). Saying "following the default for all decks" there would name a number that has
+           nothing to do with the one in the box. And what a figure set here DOES is cap, not cascade, so
+           the note says so: the decks keep their own allowances underneath. */
         '<p class="dm-note">' + (hasOwn
-          ? "Set for this " + (id === REVIEW_ENTRY ? "review" : "deck") + " alone."
-          : "Following the default for all decks. Change a figure here and only this " + (id === REVIEW_ENTRY ? "review" : "deck") + " follows it.") + '</p>' +
+          ? (isLang ? "This language deals at most this much a day, whatever its decks allow between them."
+                    : "Set for this " + noun + " alone.")
+          : (isLang ? "What the decks of this language currently offer between them. Set a figure here and it caps the whole language."
+                    : "Following the default for all decks. Change a figure here and only this " + noun + " follows it.")) + '</p>' +
         (hasOwn ? '<button type="button" class="dm-item dm-clear" data-act="clear"><b>Clear back to the default</b>' +
-          '<small>Follow whatever “All decks” says, now and later</small></button>' : "") +
+          '<small>' + (isLang ? "Stop capping this language — its decks keep their own allowances"
+                              : "Follow whatever “All decks” says, now and later") + '</small></button>' : "") +
       '</div>' +
       '<div class="dm-pane" data-pane="all" hidden>' +
         numRow("gNew", "New cards/day", G.newPerDay, 999) +
@@ -15544,7 +15671,7 @@
       if (clear) clear.addEventListener("click", () => {
         clearDeckLimits(id);
         close(); render();
-        toast("Following the default for all decks");
+        toast(isLang ? "No longer capping " + info.title : "Following the default for all decks");
       });
       ov.querySelector('[data-act="cancel"]').addEventListener("click", close);
       ov.querySelector('[data-act="save"]').addEventListener("click", () => {
@@ -21693,13 +21820,15 @@
   const COLLECTION_SECTIONS = [
     { label: "History", slot: "collection-list-all" },
     { label: "Geography", slot: "collection-list-geo" },
-    /* Science. It draws NOTHING today and that is deliberate rather than dead: `sectionOf` returns History
-       for anything this table does not name, so a Psychology collection that gained its first card would
-       be filed under History with nothing on the page saying so. The row is inert while `psych` is
-       coming-soon — the map below skips a section with no AVAILABLE collections, and only History gets an
-       empty slot, for its drop target — and correct the day a card ships, without anyone having to
-       remember. The heading is "Science" rather than "Psychology" for the reason Geography is a heading
-       rather than a collection: the next science collection should not need a second one. */
+    /* Science. It was written INERT and is now live: `sectionOf` returns History for anything this table
+       does not name, so a Psychology collection that gained its first card would have been filed under
+       History with nothing on the page saying so, and the row was added ahead of that card rather than
+       after it. It drew nothing while every science collection was coming-soon — the map below skips a
+       section with no AVAILABLE collections, and only History gets an empty slot, for its drop target —
+       and it began drawing the day `ps-001` shipped, with nobody having to remember. `bio` and `dino` are
+       still coming-soon and join it the same way. The heading is "Science" rather than "Psychology" for
+       the reason Geography is a heading rather than a collection: the next science collection should not
+       need a second one. */
     { label: "Science", slot: "collection-list-sci" },
     /* Philosophy — inert today for the same reason Science is, and named for the same reason Geography is
        a heading rather than a collection. The heading and its one collection share a name, which is the
@@ -25588,6 +25717,15 @@
      than from the map the render happens to be building, so `entryCardIds` can answer for a container long
      after that render is over. A pending deck contributes nothing and needs no special case: its own
      entryCardIds is already empty. */
+  /* WHICH LANGUAGE an entry belongs to, or "" — the inverse of `langCtxEntries`, and the one lookup the
+     queue, the piles and `entryChain` all go through so none of them can come to disagree about what a
+     deck is inside. It is read off the CATALOGUE rather than off `UDECKS`, so a deck this device has not
+     downloaded yet is still inside its language. */
+  function langCtxOf(entryId) {
+    const d = uDeckIdOf(entryId);
+    const cat = d ? langCatalogById(d) : null;
+    return cat ? langCtxId(cat.lang) : "";
+  }
   function langCtxEntries(id) {
     return activeEntryIds().filter((e) => {
       const d = uDeckIdOf(e);

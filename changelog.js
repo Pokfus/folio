@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.360", released: "2026-08-28T22:53Z" };
+window.FOLIO_VERSION = { v: "1.378", released: "2026-08-28T22:55Z" };
 
 window.CHANGELOG = [
   {
@@ -44,9 +44,13 @@ window.CHANGELOG = [
     items: [
       "<b>A new collection maps every country and territory in the world</b>, and their capitals, with the biggest by population first.",
       "Its first hundred and thirty-six cards are in, from India and China to Rome, Kyiv and all three South African capitals \u2014 each one a shape on a globe you can turn.",
+      "Twenty-three new cards in <b>World History</b>, each with a new glossary term, finishing the <b>Ancient Egypt</b> deck at thirty cards and opening <b>The Indus and early China</b>.",
+      "Ninety card, glossary and artefact citations named an author, a year or a title wrongly, and all are corrected.",
       "<b>Dinosaurs and Korea have joined the collections</b>, each planned at a thousand cards across nine decks and still to be written.",
       "<b>The \u201cComing soon\u201d section is now called Planned</b>, on the Collections page and on the label each of its rows carries.",
-      "<b>A language in your daily study now opens its own options</b> when you hold it \u2014 its colour, its icon, its name and the settings its decks follow.",
+      "<b>A language in your daily study now opens its own options</b> when you hold it \u2014 its colour, its icon, its name, its daily limits and how its decks are scheduled.",
+      "<b>A whole language can now be capped, given extra cards or sat out for the day</b>, and the cap holds however many of its decks you have added.",
+      "<b>Psychology has opened</b>, under a new Science heading on the Collections page, with its first fifty cards and forty-nine new glossary terms.",
     ],
   },
   {
@@ -68,9 +72,9 @@ window.CHANGELOG = [
       "The two daily quotations that had no date have one.",
       "Dragging a deck into a group no longer scrolls you back to the top of the page.",
       "<b>Twenty-two glossary terms now open by saying what the thing is</b>, where they had led with an example or a single site.",
-      "<b>Four glossary terms were removed</b> \u2014 wheel, burial, village and city \u2014 and two links no longer fire on the wrong word.",
+      "<b>Four glossary terms were removed</b> \u2014 wheel, burial, village and city \u2014 and four links no longer fire on the wrong word.",
       "Ninety-five more glossary terms, covering the Bronze and Iron Age periods, the Minoan, Helladic and Trojan divisions, the Aegean\u2019s excavators and sites, and the Archaic period of North America.",
-      "One new card in the <b>Ancient Greece</b> deck, with a new glossary term.",
+      "Fifty-eight new cards, in the <b>Ancient Greece</b>, <b>Ancient Rome</b> and <b>World History</b> decks, each with a new glossary term.",
       "<b>Psychology, Philosophy and Biology have joined the collections</b>, each planned out at a thousand cards across nine decks and still to be written.",
       "<b>A hundred and ten Mandarin readings were put right</b> — 饭馆 read “fàng uǎn” where it should read “fàn guǎn”, and twenty-eight more had a consonant on the wrong side of the gap.",
       "<b>Nearly two thousand language cards showed the same example sentence twice</b> and now show it once.",
@@ -89,7 +93,7 @@ window.CHANGELOG = [
       "<b>The Credits list now counts the Library’s sources off the shelf</b> — Project Gutenberg, the Internet Archive and Global Grey were not credited at all.",
       "<b>“Folio is in beta” now sits directly under Common questions</b> on the About page.",
       "<b>China’s description on the Atlas is about China</b>, rather than giving three of its five closing sentences to American trade history.",
-      "<b>Two cards were corrected</b> — Middle Paleolithic gave two different end dates, and Agora spent six of its ten sentences on three particular agoras.",
+      "<b>Three cards were corrected</b> — Middle Paleolithic gave two different end dates, Agora spent six of its ten sentences on three particular agoras, and a card in the Ancient Egypt deck sat nineteen years out of place.",
     ],
   },
   {
