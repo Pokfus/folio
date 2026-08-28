@@ -16,12 +16,12 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-024`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-027`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
-the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa)
-**and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa,
-`gw-513` Cairo, `gw-514` Manila and `gw-515` Kinshasa.** The next country is `gw-025` Italy and the
-next capital is `gw-516` Hanoi.
+the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
+Italy, Kenya, Myanmar) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília,
+`gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa and `gw-516` Hanoi.** The next
+country is `gw-028` Colombia and the next capital is `gw-517` Tehran.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -461,6 +461,43 @@ resolution and the decolonization milestone made six sources between them withou
 marker. **When the guide is thin, the country is usually a Commonwealth member, a WTO member and a UN
 admission of its own** — three institutional records that exist for almost every state and that nobody
 has to search for.
+
+**THE CHECK AGAINST THE GLOSSARY TERM FOUND ITS FIRST REAL ERROR, AND IT WAS IN THE TERM.** The
+`Italy` term gave the country's area as 301,340 km², and **neither of its own two citations says so**:
+UNdata gives 302,068 and the EU country page gives 302,073, with the World Bank at 302,070. The figure
+sat 730 km² below a cluster of three sources, which is outside their spread, so by C9's rule it is a
+correction rather than a divergence — the term now reads 302,068 km² (116,629 sq mi) and `gw-025` uses
+the same. `Myanmar` was corrected by one square kilometre in the same pass (676,578 → 676,577, its own
+UNdata figure) purely so the card and the term print the same number. **Do the comparison before
+writing the card, not after**: the term is where a wrong figure has been sitting longest, and this is
+the first of the twenty-seven where the card was right and the term was not.
+
+**A CAPITAL CAN HAVE TWO SPELLINGS AND THE CARD SHOULD SAY SO RATHER THAN PICK ONE SILENTLY.** UNdata
+writes Myanmar's capital **Nay Pyi Taw**; `world-capitals.js` (from Natural Earth), the `Myanmar`
+glossary term and this plan's running order all write **Naypyidaw**, which is also what `gw-527` will
+have to answer. So `gw-027`'s facts box carries Naypyidaw — three surfaces against one — and its last
+sentence names the UN's spelling, cited to UNdata, which is the same move `gw-018` makes for Türkiye
+against Turkey. **Where the deck and Source A spell a place differently, the deck wins the facts box
+and the sentence explains why.**
+
+**THE UN ADMISSION RESOLUTION IS NOW A ROUTINE FIFTH SOURCE, AND ITS RECORD PAGE GIVES THE MEETING.**
+Three more were used in this batch — `A/RES/1976(XVIII)` for Kenya at the 1281st plenary meeting,
+`A/RES/188(S-2)` for **the Union of Burma** at the 131st plenary meeting of the second special session,
+and `A/RES/1667(XVI)` for Tanganyika before them — and each names the state as it was then called.
+Search `digitallibrary.un.org` for *Admission of &lt;name&gt; to membership in the United Nations*; the
+useful sentence is in the record's title and its *Adopted at the …* line, and the resolution symbol is
+in the page's own metadata.
+
+**COMMONS HAS NO OVERHEAD PICTURE OF HANOI, WHICH BREAKS A PATTERN WORTH KNOWING ABOUT.** Every capital
+term so far carries a view from above — the Mall from the air, Islamabad from the ISS, the Plano
+Piloto, ASTER over Addis Ababa and Cairo, Sentinel-2 over Metro Manila, the ISS over Kinshasa and
+Brazzaville — and searches for a satellite or aerial Hanoi return nothing at all (the
+`Satellite pictures of Hanoi` category is empty). What was used instead is a **pre-1945 aerial of West
+Lake and Trúc Bạch Lake from the Gouvernement général de l'Indochine**, public domain and squarely of
+the period the term describes, at **675×504 — under the pipeline's ~900px bar**, which is a deliberate
+exception: the popup's picture box is smaller than the file, and the alternative was a modern
+ground-level photograph that would have been the first of its kind on a capital term. **Record an
+exception like this rather than quietly lowering the bar.**
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
