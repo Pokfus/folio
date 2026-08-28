@@ -2518,3 +2518,27 @@ before anyone tries to attach a name to a site.
 `<i>` would print the tags rather than italicise. Naming the three records was the natural caption and
 it is not available; the panel's own heading, quoted in the alt text, carries no titles and stays.
 **A caption cannot name a book.**
+
+  **`cnh-089` IS THE FIRST CARD OF THIS RUN WHOSE SUBJECT IS A PLACE THE MODERN CITY IS BUILT ON, AND
+THAT IS ITS LAST SENTENCE RATHER THAN AN ASIDE.** Childs-Johnson closes on it — the caches of monumental
+*ding* are what happens to have been found, and how much more lies below is not knowable, because nearly
+ten million people live on top of the site. **A card about an excavated capital can say what has NOT been
+dug**, and here the reason is arithmetical rather than archaeological.
+  **THE DECK ECONOMY IS TIGHT HERE AND WAS SOLVED BY GOING TO THE FOUNDRIES.** `cnh-088` has just spent
+the capital relocations, `cnh-082` the piece-mould method and `cnh-083` the *ding*, so the ground left to
+this card is the SITE: the two rammed-earth circuits and their 24 square kilometres, the palace
+foundations by area, and above all Li Liu's foundry evidence — Nanguanwai's 0.8 hectares of crucibles,
+slag, moulds, ore and furnaces, and the fact that its moulds were cut for vessels as well as tools while
+the periphery cast only weapons and tools in stone moulds. **That last clause is the card's real claim**:
+casting was held at the centre and mining was not, which is Tao Shi's "resource absorption" seen from the
+capital end rather than from the mines.
+  **THE PICTURE IS THE WALL WITH THE CITY BEHIND IT**, and it took four downloads to get there. The two
+files `add-card.js` offered are both by Windmemories and both titled "Zhengzhou Shang City Site": **01 is
+the protection stele alone** and 02 is the stele in front of a surviving stretch of the inner circuit,
+with tower blocks a few hundred metres beyond — which is the card's first sentence and its last one in
+one frame. The Gary Todd "Shang Dynasty City Wall, Zhengzhou" series is CC0 and reachable, but the one
+sampled (13) is a tourist snapshot with a person filling the foreground. **Look at the file before
+choosing between two that carry the same title.**
+  **THE 2256-BYTE DOWNLOAD IS A RATE-LIMIT PAGE, NOT AN IMAGE**, and four candidates fetched in one loop
+all came back that size. The fix is the retrying downloader (`dl.sh`, 20s apart) and fetching a
+`960px-` thumbnail rather than the original — the same allow-list finding as earlier in the run.
