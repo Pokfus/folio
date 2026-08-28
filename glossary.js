@@ -1293,7 +1293,8 @@ window.GLOSSARY = {
 "Gens": "A gens was a Roman clan, a group of households sharing one name, one set of rites and a claim on the property of any member who died without nearer heirs.<sup class=\"fn\" data-fn=\"1\"></sup> The pontiff Scaevola defined its members as those bearing the same name who were born free, had no slave among their forebears and had suffered no loss of civil standing.<sup class=\"fn\" data-fn=\"1\"></sup> Its rites bound every member, and a man lost both them and his clan by adoption, adrogation or emancipation, the adrogated renouncing his gens before the curiate assembly; Roman tradition counted three hundred such clans, a hundred to each of the three original tribes.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Cognomen": "A cognomen was the third name a Roman bore, marking the household to which he belonged inside his clan, after his own given name and the clan name ending in <i>-ius</i>.<sup class=\"fn\" data-fn=\"1\"></sup> Such names were drawn from a peculiarity of body or mind or from a deed of the man reckoned the household's founder, Naso, Caecus, Capito, Cato and Scipio among them, and most passed from father to son.<sup class=\"fn\" data-fn=\"1\"></sup> A fourth name could be added as an honour for something done, voted by the people or taken by the man himself, and to bear a clan or household name not one's own was a forgery at law.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Pomerium": "The pomerium was the sacred boundary of a Roman city, a line marked by stones set at intervals within which the auspices of the city could be taken, and the strip beside it could be neither built on nor ploughed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It was laid out at a town's founding by yoking a bull and a cow to a plough and drawing a furrow around the site with the clods falling inward, the plough being lifted where the gates were to stand.<sup class=\"fn\" data-fn=\"4\"></sup> Only a man who had taken territory from an enemy might move the line outward, and at Rome the Aventine was left beyond it for centuries.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Forum_Romanum": "The Forum Romanum was the market place and civic centre of ancient Rome, occupying the low ground between the Palatine and the Capitoline hills, a levelled oblong of about seven <i>iugera</i> ringed by shops, temples, basilicas and porticoes.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The valley was originally a marsh crossed by a stream, with a burial ground on its edge whose latest graves belong to the end of the 7th century or the middle of the 6th century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Games, funerals, courts and public assemblies were all held there, and the ground around it was divided into building plots under Tarquinius Priscus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Forum_Romanum": "The Forum Romanum was the market place and civic centre of ancient Rome, occupying the low ground between the Palatine and the Capitoline hills, a levelled oblong of about seven <i>iugera</i> ringed by shops, temples, basilicas and porticoes.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The valley was originally a marsh crossed by a stream, with a burial ground on its edge whose latest graves belong to the end of the 7th century or the middle of the 6th century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Games, funerals, courts and public assemblies were all held there, and the ground around it was divided into building plots under Tarquinius Priscus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Lapis_Niger": "The Lapis Niger is a paving of black marble in the Comitium at Rome, the open inaugurated ground before the senate house,<sup class=\"fn\" data-fn=\"3\"></sup> which ancient writers explained as marking a place of ill omen, said to be the grave of Romulus, of Faustulus who reared him, or of Tullus Hostilius's grandfather.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Beneath the pavement stands a group of far older monuments: an inscribed four-sided pillar with its top broken away, a conical tufa column and a small shrine.<sup class=\"fn\" data-fn=\"1\"></sup> The inscription is the oldest Latin writing known from Rome, placed at about 500 BCE, and what survives of it appears to concern rites to be performed by the king.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2804,7 +2805,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Gens": ["gentes"],
 "Cognomen": ["cognomina"],
 "Pomerium": ["pomoerium"],
-"Forum_Romanum": ["Roman Forum"]
+"Forum_Romanum": ["Roman Forum"],
+"Lapis_Niger": ["black stone in the Comitium"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4123,7 +4125,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Gens": ["institution","history","italy","iron age","concept"],
 "Cognomen": ["practice","history","italy","iron age","concept"],
 "Pomerium": ["place","history","religion","italy","iron age"],
-"Forum_Romanum": ["place","history","italy","iron age","building"]
+"Forum_Romanum": ["place","history","italy","iron age","building"],
+"Lapis_Niger": ["object","history","italy","iron age","building"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
