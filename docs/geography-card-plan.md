@@ -17,12 +17,13 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
 `geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
 Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New Jersey, `geo-019`
-Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-501` Sacramento, `geo-502` Austin,
-`geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507`
-Lansing, `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City, `geo-511` Albany,
-`geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson City, `geo-516` Salt
-Lake City, `geo-517` St. Paul and `geo-518` Trenton.** Both subdecks are worked down the same
-list, so the next state is `geo-022` and the next capital `geo-519`.
+Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-501` Sacramento,
+`geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506`
+Honolulu, `geo-507` Lansing, `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
+`geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
+City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton and `geo-519` Boston.**
+Both subdecks are worked down the same list, so the next state is `geo-023` and the next capital
+`geo-520`.
 
 ---
 
@@ -448,6 +449,19 @@ Four more, measured while writing `geo-005` and `geo-501`:
   that card's seven sources between them. **Reach for the NRHP path whenever a capital is too small to
   hold a Landmark**, and get the reference numbers from the Wikipedia *National Register of Historic
   Places listings in ‹place›* table, which is per city rather than per state.
+- **A MID-CENTURY NOMINATION WILL NOT MENTION SLAVERY, AND ON A VIRGINIA CARD THAT IS A HOLE THE
+  SOURCE CANNOT FILL.** The Monticello, Mount Vernon and Williamsburg forms are 1960s and 1970s work:
+  they describe Jefferson as a "universal man" and Washington's farming as his "major occupation", and
+  the word *enslaved* appears in none of them. A card built from those alone is a portrait rather than a
+  history. The **NPS park pages are modern and do carry it** — Historic Jamestowne's *History & Culture*
+  states the 1607 founding, the Virginia Company and the "20 and odd" Africans put ashore in 1619 in one
+  paragraph — so **pair an old nomination with the park's own current page** whenever the subject is
+  colonial. And a caution about reuse: the shipped `Thomas_Jefferson` term said he "enslaved more than
+  600 people", and **none of its five sources carries that figure** — the Miller Center's *Life in Brief*
+  says he argued for prohibiting slavery in new territories and never freed his own slaves, which is what
+  the term now says. That is the P-topup class of fault (a sentence resting on a page that does not state
+  it), found because a card tried to borrow the claim. **Read the source before reusing a figure from a
+  neighbouring term.**
 - **AND WHEN THE NHLS PATH HANDS BACK A ~1.6 KB FILE, RE-ASK IT ON THE NRHP PATH.** The Brigham Young
   Complex is a Landmark and `.../NHLS/70000626_text` still returns a 1,623-byte stub with a 200 — no
   error, no message, just a PDF with nothing in it. `.../NRHP/70000626_text` returns the real 659 KB
@@ -647,6 +661,25 @@ terms that already exist**. Each was measured, and none should be settled quietl
   One link was considered and **kept**: `geo-518`'s "the thousand-man **German** garrison" resolves to
   `Germany`, and there was no German state in 1776 — but the adjective means what the term is about,
   which is round 15's test, and it is the same shape as the "British" links already all over the deck.
+
+- **`Virginia_(state)` IS THE FOURTH PARENTHETICAL, AND THE ROUND ALSO RETIRED AN ALIAS ON A TERM
+  NOBODY WAS EDITING.** "Virginia" measured six uses and they divide: three are the state, and three are
+  **Virginia City** on the Comstock (`geo-015`, `geo-515`, the `Nevada_(state)` term) — a Nevada mining
+  town, which is the `Gold Hill` shape. So the key takes the parenthetical, exactly as `New_York_(state)`
+  and `Nevada_(state)` did, and the bare word links to nothing. `Boston` measured seven uses, all the
+  city, and went in bare.
+  **The alias retirement is the more useful half.** `geo-519` calls the Old State House "the oldest
+  **Georgian** public building left in the country", and it linked to `Georgia_(country)`, which carried
+  "Georgian" in its alias list. Measured across the corpus, that surface divides 2–2: the Dmanisi
+  fossils on `wh-020` and `Homo_ergaster` are Georgian in the demonym's sense, and the two
+  architectural uses are not. **A divided surface gets no alias from either claimant**, so "Georgian"
+  is gone from that list and the country keeps "Georgia" alone; the Dmanisi mentions now link to
+  nothing, which is the honest result. **Check a DEMONYM as well as a place name** — an adjective that
+  is also a style, a period or a dynasty (Georgian, Victorian, Roman, Elizabethan) will collide sooner
+  or later, and this is the alias list the file already flagged as needing settling at `geo-027`.
+  One link was considered and kept: `geo-022`'s "the French in the **Ohio** valley" of 1753 resolves to
+  `Ohio`, and the state did not exist until 1803 — but the valley is the river country the state is
+  named for, which is the round-15 test, and it is the `Massachusetts Bay colony` case again.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
