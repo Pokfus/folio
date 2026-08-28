@@ -407,7 +407,7 @@ already shipped before adding it.
     cnh-052  The Central Plain and the origins of Chinese civilisation
     cnh-053  Sanxingdui
     cnh-054  Xia dynasty
-    cnh-055  The traditional account of the Xia
+    cnh-055  Shaokang and the restoration of the Xia
     cnh-056  Yu the Great as founder
     cnh-057  Qi of Xia
     cnh-058  Jie of Xia

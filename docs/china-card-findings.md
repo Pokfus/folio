@@ -1593,3 +1593,35 @@ of the Three Dynasties" reads as a headline rather than a sentence. It is invisi
 blank hides it, and obvious the moment the card is revealed. **Read the REVEALED question, not the
 authored one**; the fix is `fix-field.js` for `question` and `add-questions.js` for the two extras, since
 `fix-field.js` refuses an array.
+
+  **`cnh-055` IS THE FIRST PLAN LINE THIS DECK HAS HAD TO RENAME, AND THE REASON IS THAT IT NAMED NO
+ANSWER TERM.** "The traditional account of the Xia" is a subject, not a word a reader can be asked to
+recall, and the four cards after it already take Yu, Qi, Jie and the transmitted texts. What was left —
+and what no card had — is the middle of the received story: the dynasty LOST to usurpers for a generation
+and won back. The line is now `cnh-055 Shaokang and the restoration of the Xia`, changed in the same
+commit as the card. **A plan line that is a topic rather than a term has to be resolved into one before
+it can be researched**, and the resolution is a judgement about what the neighbouring cards leave.
+  **THE CARD'S BEST FACT IS AN ABSENCE: THE SHIJI SKIPS THE WHOLE EPISODE.** Chavannes' text runs
+"L'empereur T'ai-k'ang perdit son royaume… Tchong-k'ang… Siang… Son fils, l'empereur Chao-k'ang, prit
+le pouvoir", with nothing between Xiang's death and Shaokang's accession; it is the COMMENTATORS, in a
+footnote, who supply thirty to forty years and two usurpers from the Zuo Commentary. **Read the
+commentary apparatus, not only the text** — the note at p. 167 carries more of the traditional account
+than the annals it hangs under.
+  **AND THE ZUO COMMENTARY TELLS IT TWICE, AS ARGUMENT RATHER THAN AS RECORD.** Duke Hsiang year 4
+(Legge V.ii.424–25) is a minister dissuading his marquis from a war against the Rong; Duke Ai year 1
+(794) is Wu Zixu urging his king not to spare a beaten Yue — *the ruler of Yue is greater than
+Shaokang*, and Shaokang began with ten li square and five hundred men. The second is the fuller telling
+and carries the queen's escape through a hole in the wall, the shepherd's post, the cook's post, the two
+daughters and the town of Lun. **Where a legendary episode survives, look for the SPEECH it was told
+in**; the point being argued is what preserved the story.
+  **COMMONS NOW REFUSES BOTH THE ORIGINAL FILE AND MOST COMPOSED THUMBNAIL WIDTHS, AND THAT EXPLAINS AN
+EARLIER FINDING PROPERLY.** Fetching the original returns **429, "Too many requests… instead use
+thumbnails"**, and a composed width returns **400, "Use thumbnail sizes listed on
+https://w.wiki/GHai"** — the 2,010-byte error page this deck has now met three times. Probed on one
+file: **320, 640, 800, 1024, 1200, 1400 and 2560 all 400; 1280 and 1920 answer.** So the rule is not
+"any width" and it is not "the original": **build the `/thumb/…/1920px-…` path and test the byte count**,
+and never ship the original URL in a card, since a reader would meet the same 429.
+  **THE STYLE CHECKER CAUGHT `Shiji` AS AN AMBIGUOUS PERSON-OR-BOOK NAME**, in the glossary description
+and, by inspection, in a question too — both now `<i>Shiji</i>`. It is a rule worth remembering before
+drafting rather than after: this deck will write that word on every card about the transmitted record,
+and `fix-field.js` cannot reach a `questions` array, so the repair goes through `add-questions.js`.
