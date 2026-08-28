@@ -301,7 +301,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-048  The Seven Hills of Rome
     rm-049  Palatine Hill
     rm-050  Capitoline Hill
-    rm-051  The Iron Age huts on the Palatine
+    rm-051  The casa Romuli and the Iron Age huts
     rm-052  The foundation of Rome
     rm-053  Romulus and Remus
     rm-054  Capitoline Wolf

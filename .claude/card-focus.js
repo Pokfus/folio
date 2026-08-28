@@ -72,7 +72,8 @@ const ANCIENT = new Set(`Homer Hesiod Herodotus Thucydides Xenophon Plato Aristo
 Diodorus Polybius Arrian Apollodorus Aeschylus Sophocles Euripides Aristophanes Pindar Sappho Solon Theognis
 Tyrtaeus Archilochus Hippocrates Theophrastus Demosthenes Isocrates Lysias Aeschines Livy Ovid Lucretius
 Suetonius Caesar Seneca Cicero Tacitus Virgil Horace Vitruvius Pliny Josephus Athenaeus Vyasa Confucius
-Mencius Laozi Zhuangzi Sima Ptolemy Euclid Archimedes Galen Aelian Hyginus Ovidius Quintilian`.split(/\s+/));
+Mencius Laozi Zhuangzi Sima Ptolemy Euclid Archimedes Galen Aelian Hyginus Ovidius Quintilian
+Gellius Aulus Dionysius Halicarnassus Varro Festus Censorinus`.split(/\s+/));
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
