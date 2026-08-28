@@ -1270,7 +1270,8 @@ window.GLOSSARY = {
 "Indus_urban_planning": "Indus urban planning is the set of shared building conventions behind the cities of the Indus Valley Civilisation, comprising well-organised streets, sanitation and water management, and a standardised system of measurement.<sup class=\"fn\" data-fn=\"1\"></sup> Wide streets ran north to south and narrower lanes east to west, neighbourhoods stood on massive platforms, and households ran a pipe from an indoor bathing platform to drains laid beneath the lanes.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Bricks were made to a fixed proportion of two widths to the length, and stone weights from about 1 gram to well over 10 kilograms (0.04 to 22 pounds) were standardised closely enough to work as one system.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Dholavira": "Dholavira is an archaeological site in the island belt of the Rann of Kachchh, in Gujarat in western India, and one of the five major urban centres so far identified in the Indus Valley Civilisation.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its excavated plans show city walls and gateways, an extensive open clearing enclosed within the walls, and a series of reservoirs cut deep into the bedrock around the town and joined to one another.<sup class=\"fn\" data-fn=\"3\"></sup> The settlement stood for about 1,500 years, from roughly 4,950 to 3,450 years ago, and an earthquake damaged it between about 4,450 and 4,150 years ago.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Lothal": "Lothal is an archaeological site of the Indus Valley Civilisation on the Gujarat coast of western India, one of the smaller settlements rather than one of its five cities, and among those that have produced human remains and burials.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Its excavator called it a harbour town at the head of the Gulf of Cambay, and a circular steatite seal found there, neither wholly Indian nor Sumerian, resembles the seals of the Persian Gulf islands.<sup class=\"fn\" data-fn=\"1\"></sup> The town grew over a tidal salt marsh and was left high and dry as the sea level fell, and kilns with vitrified inner surfaces and high-grade copper ingots dug there point to skilled smelting.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
-"Decline_of_the_Indus_civilisation": "The decline of the Indus civilisation is the contraction of its cities and its exchange network after about 1900 BCE, through the Late Harappan phase to about 1300 BCE, when the interaction sphere retracted, urban centres lost population and agrarian village life took over.<sup class=\"fn\" data-fn=\"2\"></sup> Settlement moved from many small sites around a few large centres to a de-nucleated pattern, and in parts of north-western India the density of sites may have risen.<sup class=\"fn\" data-fn=\"3\"></sup> No single cause is agreed, though an increase in drought episodes from about 4,200 years ago is the explanation most often made.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Decline_of_the_Indus_civilisation": "The decline of the Indus civilisation is the contraction of its cities and its exchange network after about 1900 BCE, through the Late Harappan phase to about 1300 BCE, when the interaction sphere retracted, urban centres lost population and agrarian village life took over.<sup class=\"fn\" data-fn=\"2\"></sup> Settlement moved from many small sites around a few large centres to a de-nucleated pattern, and in parts of north-western India the density of sites may have risen.<sup class=\"fn\" data-fn=\"3\"></sup> No single cause is agreed, though an increase in drought episodes from about 4,200 years ago is the explanation most often made.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Indo-Aryan_migrations": "The Indo-Aryan migrations are the movements that carried Indo-European speech into the Indian subcontinent, a late event of the middle to late Bronze Age.<sup class=\"fn\" data-fn=\"3\"></sup> Ancient DNA from 523 individuals finds no steppe pastoralist ancestry at the Bactria-Margiana sites of Central Asia before 2100 BCE, and places that ancestry in the Swat valley further south in the first half of the 2nd millennium BCE, where it now makes up as much as 30 per cent of the ancestry of some groups.<sup class=\"fn\" data-fn=\"1\"></sup> An individual of the Indus civilisation carries little if any of it, the influx was strongly male-driven, and how much immigration took place remains contested.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1900,7 +1901,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Indus_urban_planning": "c. 2600 – 1900 BCE",
 "Dholavira": "c. 4950 – 3450 BP",
 "Lothal": "c. 2600 – 1900 BCE",
-"Decline_of_the_Indus_civilisation": "c. 1900 – 1300 BCE"
+"Decline_of_the_Indus_civilisation": "c. 1900 – 1300 BCE",
+"Indo-Aryan_migrations": "c. 2000 – 1500 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2773,7 +2775,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mohenjo-daro": ["Mohenjo Daro","Mohenjodaro","Moenjodaro"],
 "Indus_script": ["Harappan script"],
 "Indus_urban_planning": ["Indus town planning","Harappan urban planning","Harappan town planning"],
-"Decline_of_the_Indus_civilisation": ["decline of the Indus civilisation","decline of the Indus Valley Civilisation","Indus decline"]
+"Decline_of_the_Indus_civilisation": ["decline of the Indus civilisation","decline of the Indus Valley Civilisation","Indus decline"],
+"Indo-Aryan_migrations": ["Indo-Aryan migration"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4069,7 +4072,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Indus_urban_planning": ["concept","history","archaeology","bronze age","technology"],
 "Dholavira": ["place","history","archaeology","bronze age","india"],
 "Lothal": ["place","history","archaeology","bronze age","india"],
-"Decline_of_the_Indus_civilisation": ["event","history","archaeology","bronze age","climate"]
+"Decline_of_the_Indus_civilisation": ["event","history","archaeology","bronze age","climate"],
+"Indo-Aryan_migrations": ["event","history","genetics","migration","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
