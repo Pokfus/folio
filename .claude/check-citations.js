@@ -49,6 +49,13 @@
   own records disagree with the published article often enough there that a checker
   would cry wolf.  Read those off the article.
 
+  CROSSREF IS A RECORD, NOT AN AUTHORITY.  Three of its records are wrong about a
+  name Folio has right — a dropped letter, a title-cased Dutch tussenvoegsel, a
+  Catalan double surname parsed as a given name — so those three are DECLARED in
+  CROSSREF_WRONG with their reasoning rather than re-derived on every run.  A row
+  matches only when the DOI, the cited name AND Crossref's name all agree, so it
+  can never quietly excuse a different fault on the same paper.
+
   A citation with no DOI and no PMC id is REPORTED AS UNCHECKED, never as passing —
   an out-of-copyright book on archive.org has no record to check against, and
   saying "ok" about it would be the checker lying.  Run with --verbose to list them.
@@ -148,9 +155,77 @@ function citedAuthors(plain) {
    name, is an error.  A citation that spells out a name Crossref abbreviates
    cannot be verified from here at all: that is reported for the eye, because it
    is the one place a fabricated given name can hide. */
-const fold = (s) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[.\u2019']/g, "").replace(/\s+/g, " ").trim().toLowerCase();
-const parts = (s) => { const w = fold(s).split(" "); return { given: w.slice(0, -1), family: w[w.length - 1] || "" }; };
+const ENT = { amp:"&", lt:"<", gt:">", quot:'"', apos:"'", nbsp:" ", eacute:"é", Eacute:"É", egrave:"è",
+  agrave:"à", aacute:"á", Aacute:"Á", uacute:"ú", iacute:"í", oacute:"ó", ntilde:"ñ", ccedil:"ç",
+  uuml:"ü", ouml:"ö", auml:"ä", euml:"ë", iuml:"ï", ocirc:"ô", ecirc:"ê", acirc:"â", ucirc:"û", icirc:"î",
+  aring:"å", oslash:"ø", szlig:"ß", scaron:"š", ccaron:"č", zcaron:"ž", rsquo:"\u2019", lsquo:"\u2018" };
+const unent = (s) => s.replace(/&(#x?[0-9a-f]+|[a-zA-Z]+);/gi, (m, k) =>
+  k[0] === "#" ? String.fromCodePoint(parseInt(k[1] === "x" || k[1] === "X" ? k.slice(2) : k.slice(1), k[1] === "x" || k[1] === "X" ? 16 : 10)) : (ENT[k] !== undefined ? ENT[k] : m));
+
+/* Crossref writes a hyphenated surname with U+2010 (Marie‐Helene Moncel) where the
+   citation has an ASCII hyphen, and both spellings are the same name.  Fold the
+   dash family together, or three good citations are reported as three wrong ones. */
+const fold = (s) => unent(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+  .replace(/[\u2010\u2011\u2012\u2013\u2014\u2212]/g, "-")
+  .replace(/[.\u2019'\u2018]/g, "").replace(/\s+/g, " ").trim().toLowerCase();
+
+/* SUFFIXES are a Crossref field of their own, so a citation carrying "Jr" is not
+   disagreeing with a record that omits it. */
+const SUFFIX = /^(jr|sr|ii|iii|iv)$/;
+/* "G.M. MacDonald", "I.S.O. Matero" and "J.C Long" are Crossref writing several
+   initials as one token; split them so they compare against a spelled-out name
+   letter by letter.  THE TEST IS PER TOKEN, ON THE RAW TEXT — decided from the
+   whole string (does this NAME contain an initials cluster anywhere?) it splits
+   every short surname into letters as soon as an initial appears beside one, so
+   "Jeffrey C. Long" and "J.C Long" compared as different people and Long, Wang,
+   Chen and Ma were all reported wrong. */
+const CLUSTER = /^(?:[A-Za-z]\.){1,4}[A-Za-z]?\.?$/;
+function words(s) {
+  return unent(s).split(/\s+/).flatMap((raw) => {
+    const w = fold(raw);
+    return CLUSTER.test(raw.trim()) ? w.split("") : [w];
+  }).filter((w) => w && !SUFFIX.test(w));
+}
+const parts = (s) => { const w = words(s); return { given: w.slice(0, -1), family: w[w.length - 1] || "" }; };
 const isInitial = (w) => w.length === 1;
+/* CROSSREF IS A RECORD, NOT AN AUTHORITY, and three of its records are wrong about
+   a name Folio has right.  A checker that cries wolf on them is a checker nobody
+   runs, so they are DECLARED, with the reason and the evidence, rather than left to
+   be re-derived every time.  A row is (DOI, what the citation says, what Crossref
+   says): all three must match, so it can never quietly excuse a different fault on
+   the same paper.  Add one only after reading the article's own byline. */
+const CROSSREF_WRONG = [
+  // The article's own title page spells it Jacques; Crossref has dropped the c.
+  ["10.14430/arctic1218", "Jacques Cinq-Mars", "Jaques Cinq-Mars"],
+  // Radiocarbon's own page gives van der Plicht, a Dutch tussenvoegsel Crossref has
+  // both title-cased and misspelt.
+  ["10.1017/S0033822200030666", "Johannes van der Plicht", "Johannes Van Der Plight"],
+  // Crossref has parsed the Catalan double surname as a given name, giving
+  // "Autuori Josep Cervello"; the article is by Josep Cervello-Autuori.
+  ["10.3406/arnil.2005.896", "Josep Cervelló-Autuori", "Autuori Josep Cervelló"],
+  // Family name first and the Polish diacritics stripped: the byline is Sławomir Karaś.
+  ["10.12691/ajcea-5-6-3", "Sławomir Karaś", "Karas Slawomir"],
+  // Crossref has dropped the c: the sinologist is Léon Vandermeersch.
+  ["10.3406/oroc.1986.927", "Léon Vandermeersch", "Léon Vandermeersh"],
+  // Crossref has split the hyphenated surname and abbreviated the given names.
+  ["10.1038/srep45027", "Juan Antonio Ballesteros-Cánovas", "J. A. Ballesteros Cánovas"],
+  // A transliteration variant of one archaeologist: Elena Efimovna Kuz'mina.
+  ["10.3406/arasi.1983.1162", "Elena E. Kuz'mina", "Elen Efimovna Kuz'mina"],
+  // Crossref has captured the honorific where the given name belongs; the paper is A. P. Laurie's.
+  ["10.9750/psas.057.41.45", "A. P. Laurie", "Principal Laurie"],
+  // Crossref carries the shorter of a two-part surname: Aubin Nzeukou Nzeugang.
+  ["10.1016/j.heliyon.2021.e07608", "Aubin Nzeukou Nzeugang", "A.N. Nzeukou"],
+];
+/* The same, for a YEAR Crossref states in a published-print record and gets wrong.
+   A row is (DOI, the year the citation gives, the year Crossref gives). */
+const CROSSREF_YEAR_WRONG = [
+  // Tyche: Beiträge zur Alten Geschichte, Band 7 is 1992; Crossref prints 1993.
+  ["10.15661/tyche.1992.007.20", 1992, 1993],
+];
+const yearAllowed = (doi, plain, years) => CROSSREF_YEAR_WRONG.some(
+  (r) => r[0].toLowerCase() === String(doi).toLowerCase() && plain.includes(String(r[1])) && years.includes(r[2]));
+const allowed = (doi, cited, real) => CROSSREF_WRONG.some(
+  (r) => r[0].toLowerCase() === String(doi).toLowerCase() && fold(r[1]) === fold(cited) && fold(r[2]) === fold(real));
 function compareName(cited, real) {
   const a = parts(cited), b = parts(real);
   if (a.family !== b.family) return "wrong";
@@ -160,13 +235,11 @@ function compareName(cited, real) {
     const x = a.given[i], y = b.given[i];
     if (x === y) continue;
     if (isInitial(y) && x[0] === y) { expanded = true; continue; }   // citation spells out what Crossref abbreviates
-    if (isInitial(x) && y[0] === x) continue;                        // the other way round is safe
+    if (isInitial(x) && y[0] === x) continue;                        // and the other way round is safe
     return "wrong";
   }
   return expanded ? "expanded" : "ok";
 }
-const norm = (s) => s.replace(/\s+/g, " ").replace(/\.$/, "").trim().toLowerCase();
-
 /* ---------- network, with a cache ---------- */
 let cache = {};
 const CACHE_REV = 2; // bump when the shape of a cached record changes
@@ -187,6 +260,21 @@ function get(url) {
   });
 }
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/* does doi.org lead anywhere? cached like the rest */
+async function resolves(doi) {
+  const k = "live:" + doi.toLowerCase();
+  if (cache[k] !== undefined) return cache[k];
+  const r = await new Promise((res) => {
+    const req = https.request("https://doi.org/" + encodeURI(doi), { method: "HEAD", headers: { "User-Agent": UA } }, (x) => res(x.statusCode));
+    req.on("error", () => res(0));
+    req.setTimeout(20000, () => { req.destroy(); res(0); });
+    req.end();
+  });
+  const ok = r >= 200 && r < 400;
+  cache[k] = ok;
+  return ok;
+}
 
 async function pmcToDoi(pmc) {
   const k = "pmc:" + pmc;
@@ -219,7 +307,9 @@ async function crossref(doi) {
       const yr = (k) => (m[k] && m[k]["date-parts"] && m[k]["date-parts"][0] || [])[0] || null;
       const rec = {
         authors: (m.author || []).map((a) => ((a.given || "") + " " + (a.family || "")).trim()).filter(Boolean),
+        title: (m.title || [])[0] || "",
         years: [...new Set(["issued", "published-print", "published-online"].map(yr).filter(Boolean))],
+        print: !!yr("published-print"),
       };
       cache[k] = rec;
       return rec;
@@ -233,6 +323,7 @@ async function crossref(doi) {
 (async () => {
   const bad = [];
   const eyes = [];
+  let declared = 0;
   const unchecked = [];
   let checked = 0;
 
@@ -243,7 +334,16 @@ async function crossref(doi) {
     if (!doi) { unchecked.push({ key, w, why: "PMC id did not resolve to a DOI" }); continue; }
     const rec = await crossref(doi);
     if (!rec) { unchecked.push({ key, w, why: "Crossref unreachable" }); continue; }
-    if (rec.missing) { bad.push({ w, doi, problem: "Crossref has no record of this DOI" }); continue; }
+    if (rec.missing) {
+      /* Crossref is not the only registration agency. A DOI it has never heard of may
+         still resolve — DataCite registers PaleoAnthropology and the Journal of
+         Anthropological Sciences among others — so ask doi.org before calling it an
+         error. A DOI that resolves is simply unCHECKABLE here; one that does not is. */
+      const live = await resolves(doi);
+      if (live) unchecked.push({ key, w, why: "the DOI resolves, but Crossref holds no metadata for it" });
+      else bad.push({ w, doi, problem: "this DOI resolves nowhere and Crossref has no record of it" });
+      continue;
+    }
     checked++;
 
     const plain = w.cite.replace(/<[^>]*>/g, "");
@@ -251,9 +351,48 @@ async function crossref(doi) {
     if (!rec.authors.length) { unchecked.push({ key, w, why: "Crossref lists no authors" }); continue; }
     if (!listed.length) { unchecked.push({ key, w, why: "no author names could be read from the citation" }); continue; }
 
+    /* A DOI pointing at a DIFFERENT PAPER shows up as a wrong first author, which
+       sends the repair the wrong way — the names are not the thing to fix. Compare
+       the titles first so the two are told apart. */
+    if (rec.title) {
+      /* A title can carry quotation marks of its own — “The “I” in egalitarianism: …” —
+         and a matcher that stops at the first closing quote captures four characters and
+         then reports a perfectly good DOI as a DIFFERENT PAPER.  Chicago ends an article
+         title with a comma or full stop INSIDE the closing quote, so look for that; fall
+         back to the simple form for a citation punctuated some other way. */
+      const q = plain.match(/[\u201c"]([\s\S]{12,}?)[,.][\u201d"]/) ||
+                plain.match(/[\u201c"]([^\u201d"]{12,})[\u201d"]/);
+      if (q) {
+        /* Crossref titles carry markup and are often TRUNCATED at the first tag —
+           "Diet of", "When did", "Metopic suture of Taung (" — so a head-to-head
+           comparison would call half the corpus a wrong DOI. Strip the markup, accept
+           either title being a prefix of the other, and otherwise measure how many of
+           the shorter title's words the longer one carries. */
+        const flat = (s) => fold(s.replace(/<[^>]*>/g, " ")).replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+        const a = flat(q[1]), b = flat(rec.title);
+        let same = a.startsWith(b) || b.startsWith(a);
+        if (!same) {
+          const A = a.split(" "), B = b.split(" ");
+          const [short, long] = A.length <= B.length ? [A, new Set(B)] : [B, new Set(A)];
+          same = short.filter((x) => long.has(x)).length / short.length >= 0.5;
+        }
+        /* A journal that publishes bilingually registers ONE of its two titles, so a
+           Croatian chapter title against its English original, or a Slovenian one
+           against the English, looks like a wrong DOI and is not.  Where the FIRST
+           AUTHOR still matches, the DOI is almost certainly right and the titles are
+           two names for one paper — that is a judgement, so it goes to the eye rather
+           than being called an error or waved through. */
+        if (!same && rec.authors.length && listed.length &&
+            compareName(listed[0], rec.authors[0]) !== "wrong") {
+          eyes.push({ w, doi, names: [`title: Crossref registers this as "${rec.title}"; the author matches, so read the two against each other`] });
+        } else if (!same) { bad.push({ w, doi, problem: "this DOI is a DIFFERENT PAPER", real: rec.title }); continue; }
+      }
+    }
+
     let clash = null, expanded = [];
     for (let i = 0; i < Math.min(listed.length, rec.authors.length); i++) {
       const verdict = compareName(listed[i], rec.authors[i]);
+      if (verdict === "wrong" && allowed(doi, listed[i], rec.authors[i])) { declared++; continue; }
       if (verdict === "wrong") { clash = `author ${i + 1} is "${listed[i]}"; Crossref has "${rec.authors[i]}"`; break; }
       if (verdict === "expanded") expanded.push(`${listed[i]} (Crossref: ${rec.authors[i]})`);
     }
@@ -261,9 +400,22 @@ async function crossref(doi) {
       bad.push({ w, doi, problem: clash, real: rec.authors.slice(0, Math.max(3, listed.length) + 1).join(", ") });
       continue;
     }
+    /* A YEAR CROSSREF CANNOT ADJUDICATE IS NOT AN ERROR, and where a record has no
+       published-print date it cannot adjudicate at all: all it holds is when the
+       record went online, which is a DEPOSIT date and may fall either side of the
+       issue.  It runs late — Nature Human Behaviour 7, no. 2 is Feb 2023 for a paper
+       Crossref dates 2022 — and it runs years early, because a society digitising its
+       back catalogue deposits a 1995 volume in 1996 and a 2010 one in 2017.  Chicago
+       cites the ISSUE.  So a record with no print date is reported FOR THE EYE and
+       never as a mismatch; only a print year the citation does not carry is an error,
+       and the three good citations that produced (PSAS 125, PSAS 145, BGSG 43) were
+       every one of them a back-catalogue deposit. */
     if (rec.years.length && !rec.years.some((y) => plain.includes(String(y)))) {
-      bad.push({ w, doi, problem: `Crossref gives the year as ${rec.years.join(" or ")}, which the citation does not carry` });
-      continue;
+      if (rec.print && !yearAllowed(doi, plain, rec.years)) {
+        bad.push({ w, doi, problem: `Crossref gives the year as ${rec.years.join(" or ")}, which the citation does not carry` });
+        continue;
+      }
+      eyes.push({ w, doi, names: [`year: Crossref has ${rec.years.join("/")} and the citation cites another issue year`] });
     }
     if (expanded.length) eyes.push({ w, doi, names: expanded });
   }
@@ -275,6 +427,7 @@ async function crossref(doi) {
   console.log(`  checked       ${checked}`);
   console.log(`  unchecked     ${unchecked.length}`);
   console.log(`  mismatched    ${bad.length}`);
+  if (declared) console.log(`  declared      ${declared}   (rows of CROSSREF_WRONG — Crossref is the one that is wrong)`);
   console.log(`  to check by eye ${eyes.length}   (a given name Crossref only abbreviates)\n`);
 
   if (has("verbose") && unchecked.length) {

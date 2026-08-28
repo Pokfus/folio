@@ -882,9 +882,37 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     full given name differing from a full given name — an error, exit 1. **"To check by eye"** is a
     citation spelling out a name Crossref only abbreviates: that cannot be verified from here at all, and
     it is exactly where a fabricated given name hides. Diacritics, spacing and the periods after initials
-    are folded away, so `Éric Boëda` and `Eric Boëda` are one name and only real differences are reported.
+    are folded away — **and so is the DASH FAMILY**, Crossref writing a hyphenated surname with U+2010
+    (`Marie‐Helene Moncel`) where the citation has an ASCII hyphen — so `Éric Boëda` and `Eric Boëda` are
+    one name and only real differences are reported.
   · **A citation with no DOI and no PMC id is UNCHECKED, never "ok"** — an out-of-copyright book on
     archive.org has no record to check against, and saying it passed would be the checker lying.
+  · **CROSSREF IS A RECORD, NOT AN AUTHORITY, and three of its records are wrong about a name Folio has
+    right** — a dropped letter (*Jaques* Cinq-Mars), a title-cased and misspelt Dutch tussenvoegsel (*Van
+    Der Plight* for van der Plicht), and a Catalan double surname parsed as a given name (*Autuori* Josep
+    Cervelló). They are **declared in `CROSSREF_WRONG` with the reason beside each**, not left to be
+    re-derived every run: a checker that cries wolf on three good citations is one nobody runs. A row
+    matches only when the DOI, the cited name AND Crossref's name all agree, so it can never quietly
+    excuse a different fault on the same paper; add one only after reading the article's own byline.
+  · **A YEAR CROSSREF CANNOT ADJUDICATE IS NOT AN ERROR, and where a record has no published-print date
+    it cannot adjudicate at all** — all it holds is when the record went ONLINE, which is a deposit date
+    and falls on either side of the issue: late for an advance-access paper (*Nature Human Behaviour* 7,
+    no. 2 is Feb 2023 for a paper Crossref dates 2022) and **years early for a society digitising its back
+    catalogue** (PSAS 125 (1995) deposited 1996, BGSG 43 (2010) deposited 2017). Chicago cites the ISSUE,
+    so a record with no print date goes to the eye and never to the mismatch list. A print year the
+    citation does not carry is still an error, with one declared exception (`CROSSREF_YEAR_WRONG`).
+  · **A TITLE THAT DIFFERS WHILE THE FIRST AUTHOR MATCHES IS A BILINGUAL RECORD, not a wrong DOI** — a
+    journal publishing in two languages registers one of its two titles, so the Croatian *Liber Linteus i
+    Zagrebačka mumija* and the Slovenian *Podoba in vloga Matere Zahodnega kraljestva* were each reported
+    as a different paper from their own English original. That is a judgement, so it goes to the eye. The
+    title is also read to the comma INSIDE the closing quote, since a title may carry quotation marks of
+    its own and a matcher stopping at the first one captures four characters.
+  · **THE INITIALS SPLIT IS DECIDED PER TOKEN, ON THE RAW TEXT.** Crossref writes several initials as one
+    token (`G.M. MacDonald`, `J.C Long`), which have to be split to compare against a spelled-out name —
+    but asking whether the NAME contains a cluster anywhere splits every short surname into letters as
+    soon as an initial appears beside one, so `Jeffrey C. Long` and `J.C Long` compared as different
+    people and **Long, Wang, Chen and Ma were all reported wrong**. Written that way the checker reported
+    21 mismatches of which several were its own; per token it reports what is really there.
   Needs the network; with none it says so and exits 0 rather than failing a build for a fact it could not
   check. Answers are cached in `.claude/.crossref-cache.json` (gitignored); `--refresh` throws it away.
   Not part of the site.
