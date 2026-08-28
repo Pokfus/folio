@@ -506,7 +506,7 @@ more work here than in any collection since Greece.
 ### The founding schools — `ps-schools`
 
     ps-046  Wilhelm Wundt
-    ps-047  The Leipzig laboratory
+    ps-047  The Leipzig laboratory and mental chronometry
     ps-048  Structuralism
     ps-049  Edward Titchener
     ps-050  The imageless thought controversy
