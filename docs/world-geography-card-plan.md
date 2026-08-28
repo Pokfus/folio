@@ -16,13 +16,14 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-033`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-036`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
-Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria) **and capitals `gw-503`
-Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514`
-Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran and `gw-518` Ankara.** The next country is
-`gw-034` Iraq and the next capital is `gw-519` Berlin.
+Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
+Afghanistan) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510`
+Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran,
+`gw-518` Ankara and `gw-519` Berlin.** The next country is `gw-037` Canada and the next capital is
+`gw-520` Bangkok.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -562,6 +563,39 @@ spread is a reason not to CORRECT a term, never a reason to let two surfaces dis
 **Spain is also C2's warning intact after two years**: the EU country page gives its population as
 49,077,984 against UNdata's 47,890 thousand, and the card and term both take UNdata's 48 million. The
 EU page is the right source for the accession date and the wrong one for the population.
+
+**`gw-036` AFGHANISTAN SHIPS WITHOUT A FLAG, AND THAT IS A DECISION RATHER THAN AN OVERSIGHT.**
+Commons redirects `Flag_of_Afghanistan.svg` to **`Flag_of_the_Taliban.svg`**, whose own file page
+describes it as *"Flag of the Islamic Emirate of Afghanistan (Taliban), introduced in 1997"*. Drawn
+unlabelled beside the answer term, that shape asserts who legitimately governs; drawn instead, the
+2004–2021 republic's flag asserts the opposite. `answerFlag` is optional in `add-card.js`, so the card
+carries none, and its prose says — cited to the recognition guide — that a coalition campaign began in
+2001 and that the mission has been headed by a chargé d'affaires since 1979. **The convention for the
+rest of the deck is unchanged**: where Commons resolves `Flag_of_<Country>.svg` to a file that is
+simply the country's flag, the card carries it. Where the redirect lands on a file named for a
+faction, stop and put the question to the reader rather than answering it in a picture. **If this
+should be revisited, the two candidates are named above and either is one line of JSON.**
+
+**A CAPITAL WITH A GLOSSARY TERM ALREADY WRITTEN IS THE EASY CASE, AND IT DICTATES THE FACTS BOX.**
+`Berlin` was cited in an earlier pass to the **Basic Law** (article 22(1) names the city as the
+capital) and to the **Amt für Statistik Berlin-Brandenburg**, and it gives the city's population as
+3,913,644 at the end of 2025 — against UNdata's 3,556.8 thousand, which is the figure Source A carries
+for the capital. The card takes the statistics office's, because the term already does and the two may
+not disagree, and adds that office as a **sixth source** with its own marker. **Where a capital's own
+statistical service is reachable, it beats UNdata's capital-city row** — that row is an agglomeration
+estimate and the office is counting residents.
+
+**IRAQ AND ARGENTINA ARE BOTH CARDS WHOSE FIFTH SOURCE IS A UN OR WORLD BANK RECORD RATHER THAN A
+MILESTONE.** Iraq is not a WTO member (`iraq_e.htm` is a 302, as Algeria's is), so the fifth source is
+**`S/RES/660(1990)`**, adopted at the Security Council's 2932nd meeting on 2 August 1990 — the day of
+the invasion, which is what makes it worth a sentence. Argentina's is the **World Bank surface-area
+series**, cited because UNdata is the outlier there (2,796,427 km² against 2,780,400 at both the World
+Bank and the glossary term, C12's South American pattern again) and because the series has carried the
+same value every year from 2002 to 2022, which is itself the sentence the marker sits on.
+
+**Two more term figures reconciled**: `Iraq`'s "roughly 46 million" is the 2023 value on the World Bank
+series and moves to 47 million; `Afghanistan`'s 652,867 km² sits three above UNdata's 652,864 and four
+above the World Bank's 652,860, which is outside the spread by C9's rule and moves to UNdata's.
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
