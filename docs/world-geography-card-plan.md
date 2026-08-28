@@ -16,18 +16,18 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-059`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-062`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
 Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia,
 Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela, Australia, Niger, North
-Korea, Syria, Mali, Burkina Faso) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507`
-Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi,
-`gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma,
-`gw-523` Paris, `gw-524` Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-751` Dar es
-Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-060` Taiwan and the next
-capital is `gw-528` Bogotá.
+Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi) **and capitals `gw-503` Washington, D.C.,
+`gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515`
+Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521`
+London, `gw-522` Dodoma, `gw-523` Paris, `gw-524` Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527`
+Naypyidaw, `gw-528` Bogotá, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The
+next country is `gw-063` Zambia and the next capital is `gw-529` Seoul.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -824,6 +824,38 @@ beginning March 2025"*, which is a statement about the STATE rather than about o
 Afghanistan's was withheld because the target page describes the Islamic Emirate's own flag and either
 choice would assert who legitimately governs. **Read the file page before treating a flag redirect as
 either safe or unsafe**; the redirect alone settles nothing.
+
+**Batch 20 (Taiwan, Sri Lanka, Malawi, Bogotá) SOLVED Taiwan, and the answer is an organisation that
+admits customs territories rather than states.** D2 deferred it because all three of Phase 3's sources —
+UNdata, the recognition guide and the World Bank series — are organised around UN membership, and D3
+cited its glossary term on the guide's Milestones alone. The missing institution is the **World Trade
+Organization**, which has a full member page for the *"Separate Customs Territory of Taiwan, Penghu,
+Kinmen and Matsu (Chinese Taipei)"*, a member since 1 January 2002. That is a body treating the island in
+its own right, and the card says why it can: the WTO admits customs territories, so a place with no
+United Nations seat can hold a seat in it. **When a place is invisible to the UN-organised sources, ask
+which international bodies admit something other than states.**
+
+**The rest of Taiwan's card comes from the CHINA entry in the recognition guide**, which turns out to
+carry the island's diplomatic history in full: American consular posts at Danshui from 1898 and Taipei
+from 1914 under Japanese rule, the embassy following the Republic of China's government to Taipei on 19
+December 1949, recognition transferred to the People's Republic on 1 January 1979, and the Taipei embassy
+closed on 28 February. With GA resolution **2758 (XXVI)** of 25 October 1971 on the seat itself, that is
+five openable sources without a single figure among them — **the figures stay unmarked, exactly as D3
+left the term**, and the facts box states Folio's own.
+
+**Two more capital spellings diverge from UNdata, and both belong in the record before their cards are
+written.** UNdata writes Sri Lanka's legislative seat **Sri Jayewardenepura Kotte** where this plan and
+the glossary write *Jayawardenepura*, and it writes Colombia's capital **Bogota** without the accent
+where `world-capitals.js` writes **Bogotá** — which is not cosmetic, since `add-card.js` validates
+`map.dot` against that file and refused the unaccented form outright. **Check the dot name against
+`world-capitals.js` and the prose name against UNdata; they are two different questions.**
+
+**And Malawi is the first country where THREE published areas disagree.** UNdata gives 117,726 km², the
+World Bank 118,480 and the Commonwealth Secretariat a round 118,500 — a spread of 0.7% — with the term's
+118,484 just outside the top of it, so it was corrected to the World Bank's figure. Sri Lanka is the
+mirror image: the two sources agree on its area to the square kilometre and differ by nearly 7% on its
+population, the World Bank showing a FALL since 2020 where almost every other country carded shows
+growth. **Agreement on one figure says nothing about the other.**
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
