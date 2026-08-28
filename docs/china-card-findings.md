@@ -2605,3 +2605,32 @@ page beats the catalogue record**, which is N4's fabricated-author finding from 
 the metadata was missing, here it is present and wrong. Its page range is omitted deliberately — the
 running heads establish page 92 as the first and the references run past 120 with no visible end — under
 the rule this run set on `cnh-087`.
+
+  **`cnh-092` SETTLES THE PAGE-RANGE QUESTION THIS RUN HAS DEFERRED THREE TIMES, BY MEASURING.** Where an
+Asian Perspectives OCR gives running heads but no colophon, the last page can be established
+arithmetically: take the byte distance between two headers two pages apart, halve it for a page, and
+compare that with the text remaining after the LAST header. The Guandimiao article has 7,367 characters
+between its page-308 and page-310 heads and only 2,215 after 310, well under a page, so it ends on 310 and
+is **281–310**. The same test run on `cnh-091`'s cattle article — 7,533 between 118 and 120, 1,936 after —
+gives **92–120**, and that citation was corrected in this commit. **Measure the tail against the page
+before recording a citation without pages**; two of the three deferrals were avoidable.
+  **AND THE REPOSITORY METADATA WAS WRONG AGAIN, TWICE IN ONE RECORD.** ScholarSpace gives the ceramic
+paper's authors as "Stoltzman, James B." and "Rapp, George (Ripp)" where the article's own byline reads
+**James B. Stoltman** and **George (Rip) Rapp** — a spurious z and a spurious p. With `cnh-091`'s three
+reversed Chinese names that is two records in two cards. **Read the byline off the PDF, always.**
+  **ITS SUBJECT IS THE ABSENCE OF EVIDENCE, AND ONE SITE CARRIES IT.** Guandimiao in Xingyang is "the only
+nearly completely excavated village in China of its time" — 22 semi-subterranean houses, 269 tombs, 23
+updraft kilns and a population that probably never passed a hundred, found in 2006 only because the
+south-to-north water diversion was being cut through it. Its pottery was made far beyond local need and
+did NOT go to Anyang; what did travel was bone, its finest hairpins and arrowheads being identical to the
+mass-produced work of the Tiesanlu workshop 200 km away. **The plan line was renamed** from "Shang
+settlement and the countryside" to "The Shang countryside", the sources having settled where the card's
+weight actually falls.
+  **THE PICTURE SEARCH FAILED IN A NEW WAY: ALL FIVE CANDIDATES WERE THE CULTURAL REVOLUTION.** "Shang
+countryside" matched the *down to the countryside* movement — certificates, a 1964 photograph of sent-down
+youth, two museum halls — which is the name-match trap at three thousand years' distance. Searching for
+the SITE found the answer, and it is an unusual one: a **KH-9 HEXAGON reconnaissance photograph of
+Xingyang from November 1973**, declassified and public domain, showing field strips, gullies and clustered
+village houses with nothing Shang visible from the air. **A satellite frame is a legitimate illustration
+for a card about a landscape**, and the caption says outright that the village was found only because a
+canal was cut through it, which is the card's own point.

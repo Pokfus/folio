@@ -447,7 +447,7 @@ already shipped before adding it.
     cnh-089  Zhengzhou Shang City
     cnh-090  Panlongcheng
     cnh-091  Shang agriculture
-    cnh-092  Shang settlement and the countryside
+    cnh-092  The Shang countryside
     cnh-093  The Shang calendar
     cnh-094  Shang writing and its descendants
     cnh-095  The Shang and their neighbours
