@@ -20,16 +20,16 @@ Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New J
 Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023` Washington,
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
-`geo-031` Wisconsin,
+`geo-031` Wisconsin, `geo-032` Indiana,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta and `geo-528` Columbia.**
-Both subdecks are worked down the same list, so the next state is `geo-032` and the next capital
-`geo-529`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia and `geo-529` Raleigh.**
+Both subdecks are worked down the same list, so the next state is `geo-033` and the next capital
+`geo-530`.
 
 ---
 
@@ -911,6 +911,49 @@ terms that already exist**. Each was measured, and none should be settled quietl
   "the State House was destroyed by fire … by General William T. Sherman on February 17", and the
   nomination is careful that what burned was the OLD state house while the unfinished new one was
   shelled and spared. Both are true of different buildings; the card follows the nomination.
+
+- **`Indiana` AND `Raleigh` BOTH GO IN BARE, AND THE ROUND PAID FOR ITSELF ON THE SOURCE RULE INSTEAD.**
+  "Indiana" has three existing uses and every one is the state or something named for it — `geo-020`'s
+  list of canal states, `Benjamin_Harrison`'s "An Indiana senator", and `William_Henry_Harrison`'s
+  "governor of Indiana Territory", which is the `Ohio valley` case. "Raleigh" has two and both are the
+  capital; **Sir Walter Raleigh is the foreseeable trigger** and is recorded here the way Winston-Salem
+  was for `Salem`, since the first card or term that names the man divides the surface and forces
+  `Raleigh_(North_Carolina)`. Note that `geo-529` itself names him and does NOT divide it: the link goes
+  on the first occurrence, which is the city in sentence one, so the man's name in sentence five is left
+  plain — **a card may safely name the ambiguous person as long as the term's own sense comes first.**
+
+- **NCPEDIA PASSES THE ENCYCLOPEDIA TEST AND BRITANNICA DID NOT, AND THE DIFFERENCE IS WHAT IS BEHIND
+  THE LINK.** The glossary pass allows an encyclopedia only where that encyclopedia cites its own
+  sources, tested per article (finding N9). `ncpedia.org` is published by the **Government & Heritage
+  Library of the State Library of North Carolina**, its Raleigh article carries three named authors and
+  a revision date, and its "References and additional resources" link resolves to a real bibliography —
+  a dozen monographs and local histories, Powell's *Encyclopedia of North Carolina* and *North Carolina
+  Gazetteer* among them. That is a source list; Britannica's "External Websites" box, which N9 rejected,
+  is a list of other websites. **Follow the link before deciding**: on this article it took one fetch.
+  It was worth the trouble because the founding of Raleigh is otherwise unreachable from here —
+  `schpr.sc.gov`'s North Carolina equivalents, `nationalregister.sc.gov`, and every Raleigh nomination
+  but three are shut or stubs — and NCpedia carries the 1787 ten-mile rule, the 1792 purchase of Joel
+  Lane's plantation for £1,378, William Christmas's plan around Union Square and Governor Alexander
+  Martin's choice of name, all in one page.
+
+- **THE 22,151-BYTE STUB IS THE OTHER NPS ANSWER, AND IT IS MUCH COMMONER THAN THE 1,623-BYTE ONE.**
+  Round 27 recorded that `GetAsset/NHLS/<refnum>_text` returns 1,623 bytes where the property is not a
+  National Historic Landmark. This round found the matching case on the other path: `GetAsset/NRHP/` —
+  returns **22,151 bytes** where NPGallery holds no nomination at all. Six Raleigh listings that would
+  have carried the city's story came back at exactly that size (the Joel Lane House, Estey Hall at Shaw
+  University, Dorton Arena, the Executive Mansion, Mordecai House, the Oakwood and Maiden Lane
+  districts), which is why the card rests on the Capitol, Christ Church and the Daniels house — the
+  three Raleigh properties that are Landmarks. **Both stubs return 200. Size is the only test.**
+
+- **A 1976 NOMINATION'S PROSE IS NOT REUSABLE EVEN WHERE ITS FACTS ARE.** Grouseland's nomination
+  describes Harrison as "foremost defender of white settlement against the Indian tribes who attempted
+  to block the White tide of westward expansion" and calls Tecumseh "the great Red leader". The dates,
+  the confederation, the warning at Vincennes and the outcome at Tippecanoe are all sound and all cited;
+  the framing is the nomination's own period voice and was rewritten. The same discipline runs the other
+  way on `geo-529`: the Josephus Daniels nomination is the source for both halves of that man — his
+  biographer's "leading voice of reform in North Carolina and the upper South" **and** "one of the major
+  spokesmen for Negro disfranchisement in a 1898 white supremacy campaign" — and a card that took the
+  first without the second would be a whitewash written out of a source that refuses to be one.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
