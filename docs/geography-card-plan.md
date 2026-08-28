@@ -14,9 +14,10 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='geo-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
-`geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-501` Sacramento,
-`geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence and `geo-505` Juneau.** Both subdecks are
-worked down the same list, so the next state is `geo-009` and the next capital `geo-506`.
+`geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
+`geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau
+and `geo-506` Honolulu.** Both subdecks are worked down the same list, so the next state is `geo-010`
+and the next capital `geo-507`.
 
 ---
 
@@ -45,6 +46,18 @@ legible. **The shape a reader is asked to recognise is the main chain**, and not
 choice — the − button and pinch both zoom out to the rest, and the answer's facts box gives the whole
 state's 28,313 km². Expect the same question at `geo-023` Washington, which has no such tail, and NOT at
 `geo-005` Alaska: the Aleutians cross the antimeridian, which the near-rings rule already handles.
+
+**A CAPITAL CARD INHERITS ITS STATE'S `zoom`.** `geo-506` Honolulu carries `"zoom": 14` for the reason
+`geo-006` Hawaii does — without it the dot sits on an archipelago drawn a seventh of its useful size —
+and any state that needs an override will need the same one on its capital. **Set them together.**
+
+**AND A CAPITAL'S POPULATION IS SOMETIMES TWO FIGURES.** Honolulu is the case: the Census counts an
+*Urban Honolulu CDP* of 344,967, while the city and county — which is legally the whole island of
+Oʻahu — holds 998,747. Both are true and they answer different questions, so the card's facts box
+carries both, labelled, rather than picking the flattering one; the county figure comes from
+`co-est2024-alldata.csv` rather than from the places file, which is titled for incorporated places and
+would be the wrong work to cite it to. **Watch for the same shape at `geo-528` Columbia and anywhere a
+city and its county are one government.**
 
 **A capital card adds `dot`**, and it is what makes the two subdecks two different questions:
 
