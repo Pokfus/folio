@@ -1286,7 +1286,8 @@ window.GLOSSARY = {
 "Functional_specialization_(brain)": "Functional specialization, or localisation of function, is the claim that a particular mental function depends on a particular part of the brain rather than on the organ as a whole.<sup class=\"fn\" data-fn=\"1\"></sup> The classical case against it came from ablation, where a fairly extensive portion of the cerebral hemispheres could be removed without abolishing intelligence, which instead weakened as more was taken, a result later named equipotentiality and bounded by a law of mass action under which performance falls with the extent of injury.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Modern work keeps the specialisation without the seats, mapping specialised functions onto large-scale distributed networks.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Broca's_area": "Broca's area is the posterior part of the third frontal convolution of the left hemisphere, identified in the 1860s as the seat of articulate language.<sup class=\"fn\" data-fn=\"1\"></sup> The evidence was a symptom its describer called aphémie, the loss of articulate speech in a patient with no paralysis of the muscles of articulation, who understands what is said and can write, having lost only the coordinating faculty; at autopsy such cases showed a lesion in that convolution, about nineteen times in twenty on the left.<sup class=\"fn\" data-fn=\"2\"></sup> Imaging of the first such patient's preserved brain later showed damage extending well beyond it, and language circuitry is now described as a distributed and dynamically interconnected system.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Wernicke's_area": "Wernicke's area lies in the posterior superior temporal gyrus of the left hemisphere and is associated with understanding language rather than producing it, damage to it leaving speech fluent but empty of sense.<sup class=\"fn\" data-fn=\"1\"></sup> Its 1874 description was a model rather than a second centre: the sensory and motor images of speech sit apart and are joined by fibres, from which a third aphasia followed as a prediction, produced by cutting the arcuate bundle rather than either centre.<sup class=\"fn\" data-fn=\"2\"></sup> The tract has held up, its integrity bearing on speech, word retrieval, repetition and comprehension after stroke, while the classical map has been complemented and often challenged by four decades of neuroimaging.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Law_of_specific_nerve_energies": "The law of specific nerve energies holds that a sensory nerve carries not the quality of what stimulates it but a quality of its own, so what is sensed is the state of the nerve rather than of the world outside.<sup class=\"fn\" data-fn=\"1\"></sup> The argument is that one stimulus applied to different organs of sense yields a different sensation in each — light in one nerve, sound in another, pain in a third — so a nerve is no passive conductor but has powers the exciting cause merely renders manifest.<sup class=\"fn\" data-fn=\"1\"></sup> It survives as labelled-line coding, argued modality by modality, and has given ground where cortical areas handle content whatever sense delivers it.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Law_of_specific_nerve_energies": "The law of specific nerve energies holds that a sensory nerve carries not the quality of what stimulates it but a quality of its own, so what is sensed is the state of the nerve rather than of the world outside.<sup class=\"fn\" data-fn=\"1\"></sup> The argument is that one stimulus applied to different organs of sense yields a different sensation in each — light in one nerve, sound in another, pain in a third — so a nerve is no passive conductor but has powers the exciting cause merely renders manifest.<sup class=\"fn\" data-fn=\"1\"></sup> It survives as labelled-line coding, argued modality by modality, and has given ground where cortical areas handle content whatever sense delivers it.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Hermann_von_Helmholtz": "Hermann von Helmholtz was a German physician who became professor of physiology at Königsberg and Heidelberg and professor of physics at Berlin, and who applied the methods of physics to the senses.<sup class=\"fn\" data-fn=\"1\"></sup> He stated the conservation of force in an 1847 pamphlet, invented the ophthalmoscope in 1851 and the ophthalmometer in 1855, and set out the physics, physiology and psychology of vision in his <i>Handbuch der physiologischen Optik</i> of 1867.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He held that sensations are signs rather than pictures and that perception is an unconscious judgement about what would ordinarily have produced them, a view that placed him among the empiricists on whether spatial vision is learned or given.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1902,7 +1903,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hatshepsut": "c. 1479 – 1458 BCE",
 "Thutmose_III": "c. 1479 – 1425 BCE",
 "Archaic_period_(North_America)": "c. 9000 – 2500 BP",
-"Immanuel_Kant": "1724–1804"
+"Immanuel_Kant": "1724–1804",
+"Hermann_von_Helmholtz": "1821–1894"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2783,7 +2785,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Immanuel_Kant": ["Kant"],
 "Phrenology": ["phrenological"],
 "Functional_specialization_(brain)": ["localisation of function","localization of function"],
-"Law_of_specific_nerve_energies": ["specific nerve energies"]
+"Law_of_specific_nerve_energies": ["specific nerve energies"],
+"Hermann_von_Helmholtz": ["Helmholtz"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4095,7 +4098,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Functional_specialization_(brain)": ["concept","psychology","science","biology"],
 "Broca's_area": ["place","psychology","science","biology"],
 "Wernicke's_area": ["place","psychology","science","biology"],
-"Law_of_specific_nerve_energies": ["theory","psychology","science","biology"]
+"Law_of_specific_nerve_energies": ["theory","psychology","science","biology"],
+"Hermann_von_Helmholtz": ["person","psychology","science","biology","germany"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
