@@ -1258,3 +1258,50 @@ is not wrong, but this deck's own convention is to cite a PNAS paper at its **PM
 `cnh-041` to `cnh-044` does — so the card cites the same work at `pmc.ncbi.nlm.nih.gov/articles/PMC9907151/`
 and the two forms now differ across surfaces. **Prefer the URL you have actually opened**, and expect a
 glossary citation written during an earlier pass to have been checked against a different set of hosts.
+
+  **`cnh-046` IS THE FIRST CARD IN THIS DECK WHOSE SUBJECT IS FAMOUS AND WHOSE SOURCES ARE NOT, AND THE
+GAP BETWEEN THOSE TWO THINGS IS THE FINDING.** Banpo is in every survey of Chinese prehistory and on every
+Xi'an itinerary, and it is the source-poorest card written for `col-2` so far: `TITLE:"Banpo"` returns **0
+hits** in Europe PMC, `"Banpo site"` returns ten of which four are usable, `bpmuseum.com` answers **418**,
+`kaogu.cssn.cn` does not resolve and `kaogu.net.cn` is **503**, DOAJ's `Banpo` query is swamped by the
+Seoul district of the same name, and every result a plain web search returns — Baidu Baike, China Daily,
+travel operators, a study-notes site — is barred by the citation rules. The figures those pages agree on
+(a 50,000 m² site, 45 or 46 houses, 200 storage pits, 250 tombs, a defensive ditch 5–6 m deep and 6–8 m
+wide) are **not on the card**, because not one of them could be tied to a work that opens here. **A
+well-known site is not a well-sourced one**, and the honest card is the narrower one.
+  **WHAT CARRIED IT WAS SIX PAPERS THAT ARE ABOUT SOMETHING ELSE.** None of the nine citations is a study
+of Banpo; each is a study of diet, of pigs, of millet, of genomes or of heated floors that passes through
+Banpo on its way. The dates came from a **table row** in a meta-analysis of isotope data (Liu and Reid
+2020: `Banpo | Shaanxi | Yangshao | 4800–4300`), the pens from a pig-husbandry paper's discussion, the
+burnt-earth floors from a paper about the **Amur** river basin, the phase and its pottery from an
+archaeobotany paper about Gansu. **Grep the cache before searching the web**: five of the nine were
+already on disk from `cnh-041`–`cnh-045` and had never been read for this subject. The corollary is a
+limit worth stating — a claim reached this way is a claim about whatever the host paper measured, so the
+card can say what Banpo's people ate and how their floors were made, and cannot say how big the village
+was.
+  **AND TWO OF ITS BEST-KNOWN FACTS BELONG TO ITS NEIGHBOUR, NOT TO IT.** The ring ditch enclosing the
+houses with the cemetery and the kilns outside it is attested for the **Banpo phase** (at Gedachuan, and
+at Jiangzhai, which the sources compare it to) and not, in anything openable here, for Banpo itself; the
+2-metre ditch that a 2025 PNAS paper illustrates is **Jiangzhai's**. The card therefore says "villages of
+that phase were laid out to a pattern" rather than "Banpo had a moat", which is the difference between
+what the sources carry and what the reader expects. `cnh-045` already spends the Jiangzhai settlement
+model as its picture, so leaning further on that site would also have doubled it. **When a site's
+diagnostic feature is published under the PHASE rather than the site, say phase.**
+  **ONE FIGURE WAS DELIBERATELY LEFT OUT.** A 2025 review of turnip-rape genetics relays that "a large
+number of carbonized mustard and cabbage seeds were excavated" at Banpo. It is openable and it is a real
+citation, but it relays a 1950s identification of charred seeds that has been argued over since, and a
+review in a plant-breeding journal is not where that argument is settled. **A claim can be citable and
+still not be safe to assert**; the seeds are recorded here instead.
+  **PICTURE: THE EXCAVATION HALL, NOT A POT — AND THE TWO SURFACES SPLIT THE JOB.** The card takes the
+exposed village floor under its museum roof (house outlines, storage pits, vessels standing where they
+were found), because the card is about a settlement; the glossary term takes the **pointed-bottom
+cord-marked bottle** in the Musée Guimet, the form the sources name as diagnostic of the phase. Its
+Commons categories were checked before use (`Banpo Site`, `Yangshao pottery Ping`, `Collections of the
+Musée Guimet`) — the file has no description at all, so the categories are the only evidence that the
+name on it is true.
+  **TOOLING: A `1400px` THUMBNAIL DOES NOT EXIST AND AN `until` LOOP WILL RETRY THAT FOREVER.** Commons
+serves only the widths its API offers, so a composed `.../1400px-<file>` returns a **2 KB HTML error page
+with a 200 status** — which `getimg.sh`'s loop treats as a transient failure and re-fetches, and which,
+left running in the background, **overwrote a good 890 KB download from a later command with the error
+page**. Take `thumburl` from `imageinfo` verbatim (here `1920px`), and stop a background fetch before
+re-fetching the same path.
