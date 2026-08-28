@@ -16,12 +16,13 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
 `geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
-Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New Jersey, `geo-501`
-Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau,
-`geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510`
-Oklahoma City, `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis and
-`geo-515` Carson City.** Both subdecks are worked down the same list, so the next state is
-`geo-019` and the next capital `geo-516`.
+Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New Jersey, `geo-019`
+Massachusetts, `geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504`
+Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton Rouge,
+`geo-509` Augusta, `geo-510` Oklahoma City, `geo-511` Albany, `geo-512` Boise, `geo-513`
+Charleston, `geo-514` Annapolis, `geo-515` Carson City and `geo-516` Salt Lake City.** Both
+subdecks are worked down the same list, so the next state is `geo-020` and the next capital
+`geo-517`.
 
 ---
 
@@ -447,6 +448,12 @@ Four more, measured while writing `geo-005` and `geo-501`:
   that card's seven sources between them. **Reach for the NRHP path whenever a capital is too small to
   hold a Landmark**, and get the reference numbers from the Wikipedia *National Register of Historic
   Places listings in ‹place›* table, which is per city rather than per state.
+- **AND WHEN THE NHLS PATH HANDS BACK A ~1.6 KB FILE, RE-ASK IT ON THE NRHP PATH.** The Brigham Young
+  Complex is a Landmark and `.../NHLS/70000626_text` still returns a 1,623-byte stub with a 200 — no
+  error, no message, just a PDF with nothing in it. `.../NRHP/70000626_text` returns the real 659 KB
+  nomination. So the NHLS/NRHP split is not simply *landmarks here, everything else there*: **the size
+  of the response is the signal**, and anything under a few kilobytes is a stub to retry rather than a
+  nomination to give up on.
 - **A LANDMARK WITH TWO REFERENCE NUMBERS IS INVISIBLE TO A DIGITS-ONLY PATTERN, and the regex then
   silently hands you the NEXT row's.** Paterson's Great Falls/S.U.M. district is listed as
   `"refnum":{"wt":"70000391, 86001507"}`; a `"refnum":\{"wt":"(\d+)"\}` scan skips the comma-separated
@@ -584,6 +591,21 @@ terms that already exist**. Each was measured, and none should be settled quietl
   by-product of adding cards** — it is nine prose edits across eight shipped cards, each needing the
   round-13 reordering or a reword, and it is recorded here rather than folded into the commit that
   found it.
+
+- **`Massachusetts` AND `Salt_Lake_City` ARE BOTH BARE, AND THE ROUND REFINES THE PROPER-NAME RULE
+  INTO A TEST THAT SEPARATES REAL FAULTS FROM HARMLESS ONES.** "Massachusetts" measured 6 uses, all the
+  state or its colony; "Salt Lake City" 2, both the Utah capital. The render check then showed the new
+  key firing twice: correctly on `geo-004`'s "between Connecticut and Massachusetts", and inside a
+  proper name on `geo-504`'s "banished from the **Massachusetts** Bay colony". That second one is the
+  round-13 shape and it is **left as it is**, because the test is not *does the link sit inside a longer
+  name* but **does the link's target refer to the same thing the name does.** The Massachusetts Bay
+  colony and the Commonwealth are the same place, one the direct predecessor of the other, so a reader
+  who taps it learns something true about what they were reading; `geo-516`'s "the **California**
+  Volunteers" passes the same way, the unit having been raised there. Contrast the nine faults listed
+  above: **Gold** Hill is a town, not a mineral; the **Panama** Canal is not the country; **Latin**
+  America is not the language; the Kanawha and **Michigan** is a railroad. **Apply this test before
+  reaching for a fix** — it halves the work and stops a reword being made for a link that is doing its
+  job.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
