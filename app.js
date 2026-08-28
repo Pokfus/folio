@@ -9205,6 +9205,12 @@
        deck must not pay for the historical eras to be asked which state is shaded. It is lazy for the same
        reason every other bundle is: a reader who never opens such a card never fetches it. */
     usstates: { files: ["us-states.js"] },
+    /* The capital of every country and territory as a POINTS TABLE, for the gold dot on a world capital
+       card (see CARD_MAP_LAYERS). Its own bundle rather than a file inside `world`, and fetched only by a
+       card that actually asks for a dot: `world` is what every map window loads for the coastline under
+       it — the Atlas, the Settings home picker and every history card carrying a locator — and none of
+       them has any use for a table of capitals. 13 KB, paid by the capitals deck alone. */
+    worldcaps: { files: ["world-capitals.js"] },
     /* The glossary's citations + illustrations. Warmed at IDLE after boot (see the warm below) rather
        than fetched on the first popup, because popups are common and a reader should not wait: the
        point is only to keep 1.29 MB off the path that blocks first paint. openGlossWin awaits it for
@@ -18073,6 +18079,7 @@
     dino: "sauropod",
     korea: "taegeuk",
     "geo-us": "compass",
+    "geo-world": "map",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
   function iconSvg(key) { return ICON_SVG_OPEN + (ICON_PATH[key] || ICON_PATH.cards) + "</svg>"; }
@@ -21701,7 +21708,7 @@
        subject rather than a gap. The echo resolves itself the day a second collection joins it. */
     { label: "Philosophy", slot: "collection-list-phil" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
 
   /* ============================================================
@@ -22332,6 +22339,16 @@
        the most saturated thing on the page. The kinship worth avoiding was Egypt's malachite, the only
        other green, and it stands 46 away. */
     "geo-us": { bg: "#3E6610" },
+    /* deep green (The world) — MEASURED like every hue above it, and the measurement REFUSED the obvious
+       choice. A world-map collection wants an ocean blue, and the whole blue-teal band is taken: swept in
+       CIELAB inside the shelf's own band (L 28–55, chroma 25–62, 4.5:1 against white), every candidate
+       there lands 8–12 of Philosophy's slate or Greece's Aegean blue, against a tightest CURATED pair of
+       12.9 (China's vermilion against Russia's lacquer). This is the best candidate outside the magenta
+       quadrant, which is the wheel's free region and has been measured and rejected five times on the
+       standing note below. It stands 20.0 from its nearest neighbour and 20.1 from Geography's own olive
+       — a family resemblance with its sibling collection rather than a confusion with it, at L 38 and
+       chroma 44, both mid-band. */
+    "geo-world": { bg: "#106834" },
     /* THE SEVEN LANGUAGE COLLECTIONS. The hues were MEASURED and unevocative when the section shipped —
        swept in CIELAB and handed out alphabetically, on the reasoning that a flag colour would be a claim,
        Spanish not being Spain's and French being spoken on five continents. **THAT REASONING WAS OVERRULED
@@ -27640,9 +27657,12 @@
     // a layer names the bundle that carries its polygons, the global that bundle assigns, and — where the
     // layer has one — the global holding the POINTS a card may put a dot on (see `map.dot`)
     "us-states": { bundle: "usstates", global: "US_STATES", what: "state", points: "US_CAPITALS", dotWhat: "city" },
-    /* The world's own borders, which every map window already loads for the coastline under it. It carries
-       no `points`, so nothing may put a table dot on it — a locator gives its coordinates outright. */
-    world: { bundle: "world", global: "WORLD_GEO", what: "country" },
+    /* The world's own borders, which every map window already loads for the coastline under it. Its POINT
+       TABLE is the capitals, and it is in a bundle of its OWN (`pointsBundle`) rather than in `world`
+       beside the shapes: a locator gives its coordinates outright and never reads the table, so a history
+       card would otherwise fetch 13 KB of capitals to point at a valley. The loader below asks for it
+       only where the card carries a `dot`. */
+    world: { bundle: "world", global: "WORLD_GEO", what: "country", points: "WORLD_CAPITALS", pointsBundle: "worldcaps", dotWhat: "capital city" },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z
@@ -28148,10 +28168,14 @@
       whenIdle(() => { if (!stopped) ensureData("atlas").then(() => { if (!stopped) schedule(); }); });
     }
     host.classList.add("mc-loading");
-    Promise.all([ensureData("world"), ensureData(def.bundle)]).then((ok) => {
+    /* The points table is a THIRD bundle, and only where this card asks for a dot — see `pointsBundle`
+       in the layer table. `true` stands in for a fetch not made, so the guard below reads the same in
+       both cases rather than having to know which of the three it is looking at. */
+    const wantsDot = !!host.getAttribute("data-map-dot");
+    Promise.all([ensureData("world"), ensureData(def.bundle), wantsDot && def.pointsBundle ? ensureData(def.pointsBundle) : true]).then((ok) => {
       if (stopped) return;
       host.classList.remove("mc-loading");
-      if (!ok[0] || !ok[1] || !Array.isArray(window[def.global])) { host.classList.add("mc-failed"); return; }
+      if (!ok[0] || !ok[1] || !ok[2] || !Array.isArray(window[def.global])) { host.classList.add("mc-failed"); return; }
       shapes = window[def.global];
       /* A MAP CARD names a shape and a LOCATOR does not, which is the one branch between them: a locator
          points at a coordinate, so there is nothing to shade and nothing to look up. */

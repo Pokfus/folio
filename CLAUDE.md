@@ -120,6 +120,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
 | `usstates` | `us-states.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing |
+| `worldcaps` | `world-capitals.js` | a map card asks for a DOT on the `world` layer (a capital card in the world collection). Its own bundle, and fetched only when a card carries `map.dot`: the shapes are `world`'s, which every map window already loads for the coastline under it, and a locator card reads those shapes and never this table |
 | `glossExtra` | `glossary-extra.js` | **warmed at IDLE after boot**, and awaited by `openGlossWin` for a reader who beats the warm. The glossary's CITATIONS and ILLUSTRATIONS — 54% of `glossary.js`, and nothing reads either until a popup opens |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
 | ~~`glossI18n:<lang>`~~ | *(removed 2026-08-08)* | the glossary translations were deleted on request; `loadLangData` no longer asks for this bundle, and the registration in `langBundle` is inert |
@@ -845,6 +846,39 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   guides, National Park Service), and the finding that `history.house.gov` serves a 200-status error
   document. The next card is the lowest `geo-NNN` not yet in `data.js`; see the "GEOGRAPHY" bullet under
   "Generating cards & glossary entries". Not part of the site.
+- `docs/world-geography-card-plan.md` — the running order for **The world** (`geo-world`, the second
+  collection of the Geography SECTION), and the second plan that is not a thousand cards: it is **459
+  cards** — 233 countries and territories (`gw-001`–`gw-233`) and 226 capitals (`gw-501`–`gw-733`, seven
+  numbers deliberately unused) — using the same **map card** format the United States collection uses, so
+  it points at `docs/geography-card-plan.md` for the format rather than restating it. **It is SORTED BY
+  POPULATION, largest first, and the order is FIXED at planning time and never re-sorted**: a card id is
+  a permanent address, so re-sorting would move cards between ids and silently repoint every reader's
+  schedule and every shared link. The snapshot behind the order is stated in the plan (World Bank
+  `SP.POP.TOTL` 2024, with `country-stats.js` for the 21 small territories that series omits), and a
+  card's own population figure is researched and cited when the card is written — **the two will drift
+  apart, and that is expected rather than a fault**. Three things in it are decisions rather than lists.
+  **Which entities are in the deck is THREE CHECKABLE RULES rather than a judgement per country** — an
+  ISO 3166-1 code of its own, a shape in `world.js`, and a settled population with an administrative
+  seat — which is what keeps Folio out of every sovereignty argument it would otherwise be making 233
+  times; the deck is called *The countries and territories* and every question asks for "the country or
+  territory shaded on the map", which is true of all of them. **Twelve countries have more than one
+  seat** and the plan says which each card asks for, with the working seat named in the facts box.
+  **Israel and Palestine are deferred**, numbered but not written, because a card that shades a shape and
+  asks for one word cannot hold a capital question whose answer is the dispute. Not part of the site.
+- `world-capitals.js` + `.claude/build-world-capitals.js` — the capital of every country and territory as
+  a POINTS TABLE for a map card's gold dot (`window.WORLD_CAPITALS`, 246 cities across 233 entities,
+  13.5 KB), the `world` layer's companion exactly as `US_CAPITALS` is `us-states.js`'s. **Lazy** (bundle
+  `worldcaps`), **generated — never hand-edited**. `s` names the world.js country the city stands in, so
+  `add-card.js` can CHECK that a card's dot falls inside the country its `key` shades rather than trusting
+  it. **📖 Read the script's header before touching it**: the coordinates come from Natural Earth's own
+  capital classes, a point NE files as a former capital or as an autonomous region's seat is dropped with
+  its reason stated (Kyoto, Lagos, Yangon, Edinburgh, Funchal), and the seventeen micro-territories NE has
+  no point for are fetched from the named **Wikipedia article's own published primary coordinate** — so
+  what the script declares is an ARTICLE TITLE, which is checkable, and never a number, which is not.
+  Two measured limits it prints on every run: **fifteen capitals fall just outside `world.js`'s own
+  simplified coastline** (the dot is 4dp and the coast 2dp — sub-pixel on a country, visible on an atoll,
+  and deliberately NOT snapped, since snapping would move the city to flatter the map), and 26 `world.js`
+  entries have no capital at all, which is exactly the uninhabited and disputed set the plan excludes.
 - `docs/history-focus-plan.md` — the rule that **Folio is a history site, not an archaeology site**, the measure that
   finds cards written the other way round (24 of 119 flagged, measured before the 2026-08-04 renumbering — the
   flags travel with the cards, the ids in its table do not), and the six rewrite batches. Opened Aug 2026 on request
@@ -3668,7 +3702,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE SIXTEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE SEVENTEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -3693,6 +3727,7 @@ lookup.
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
+| The world | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 3 cards — 459 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
 

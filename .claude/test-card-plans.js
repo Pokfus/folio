@@ -75,6 +75,13 @@ const PLANS = {
      the Collections page rather than a node in the tree (see `COLLECTION_SECTION` in app.js), so the
      plan slug and the collection id differ here where they coincide everywhere else. */
   "geo-us": ["geography", "geo-", [[1, 50], [501, 550]]],
+  /* The world: 233 countries and territories, and 226 capitals rather than 233. The seven missing
+     numbers are not gaps to be filled — each is a capital card that would ask nothing, and each is
+     argued in the plan: 604 Hong Kong, 614 Singapore, 667 Macau, 713 Gibraltar, 714 Monaco and
+     732 Vatican City are city-states whose capital IS the whole territory, and 671 is Western Sahara,
+     whose two claimed capitals are each one side's answer to the disputed question. Written out as
+     ranges so that a number quietly going missing still fails here. */
+  "geo-world": ["world-geography", "gw-", [[1, 233], [501, 603], [605, 613], [615, 666], [668, 670], [672, 712], [715, 731], [733, 733]]],
 };
 // a numbering as a flat list of the numbers it expects, in order
 const expand = (num) => {
