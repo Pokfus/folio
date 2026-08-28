@@ -17,12 +17,12 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
 `geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
 Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New Jersey, `geo-019`
-Massachusetts, `geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee, `geo-504`
-Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton Rouge,
-`geo-509` Augusta, `geo-510` Oklahoma City, `geo-511` Albany, `geo-512` Boise, `geo-513`
-Charleston, `geo-514` Annapolis, `geo-515` Carson City and `geo-516` Salt Lake City.** Both
-subdecks are worked down the same list, so the next state is `geo-020` and the next capital
-`geo-517`.
+Massachusetts, `geo-020` Ohio, `geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee,
+`geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton
+Rouge, `geo-509` Augusta, `geo-510` Oklahoma City, `geo-511` Albany, `geo-512` Boise, `geo-513`
+Charleston, `geo-514` Annapolis, `geo-515` Carson City, `geo-516` Salt Lake City and `geo-517`
+St. Paul.** Both subdecks are worked down the same list, so the next state is `geo-021` and the
+next capital `geo-518`.
 
 ---
 
@@ -606,6 +606,30 @@ terms that already exist**. Each was measured, and none should be settled quietl
   America is not the language; the Kanawha and **Michigan** is a railroad. **Apply this test before
   reaching for a fix** — it halves the work and stops a reword being made for a link that is doing its
   job.
+
+- **`Ohio` AND `St._Paul` — AND THE CAPITAL'S SPELLING IS DECIDED BY THE MAP DATA, NOT BY THE
+  EDITOR.** `Ohio` measured six uses, all the state, and went in bare. The capital was drafted as
+  `Saint Paul` — the city's own name, the Library of Congress's, and what `geo-017` and the `Minnesota`
+  term already said — and **`test-map-cards.js` failed it**: section 1 asserts `answerText === map.dot`,
+  and the dot key comes from `us-states.js`, which `build-us-states.js` takes from Natural Earth, which
+  writes **St. Paul**. `add-card.js` warns about the mismatch and the suite refuses it, which is the
+  right division of labour and is why this was caught in the same session rather than by a reader.
+  **So the deck is aligned on the data's spelling**: the card answers `St. Paul`, `geo-017` and the
+  `Minnesota` term were edited to match, and the glossary term is keyed `St._Paul` with **`Saint Paul`
+  as an alias**, so prose in either spelling still opens it. Only the CITATIONS keep "Saint Paul",
+  because a citation names a work as its publisher titles it and is never rewritten. **Expect this
+  again**: the generated capitals table follows Natural Earth, so check the key before writing an
+  answer — `node -e` over `window.US_CAPITALS` takes a second and settles the spelling.
+- **The round also broke the proper-name rule twice on its own new card, and both were caught by the
+  render check rather than by any checker.** `geo-517` wrote "bought the St. Paul and **Pacific**
+  Railroad", which linked to `Pacific_Ocean`, and "toward **Latin** America", which linked to `Latin`,
+  the language — the `geo-509` fault reproduced exactly. The railroad was fixed by the round-13
+  technique, **putting a correct earlier occurrence in the same sentence** ("drove his lines to the
+  Pacific: he bought the St. Paul and Pacific Railroad…"), which is a phrase the source supports and
+  which takes the link; the Latin America clause had no correct earlier occurrence and no right key to
+  point at, so it was **cut**. **Where the technique has nothing to work with, cutting the clause is
+  the honest fix** — a reworded region name that says something slightly different is worse than one
+  fact fewer.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
