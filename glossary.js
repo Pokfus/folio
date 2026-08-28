@@ -1301,7 +1301,8 @@ window.GLOSSARY = {
 "Shang_chariot": "<b>Shang chariot</b> is the light horse-drawn vehicle that appears at Anyang and at no earlier Chinese centre on present evidence, a western origin having long been proposed for it.<sup class=\"fn\" data-fn=\"1\"></sup> The elite are found riding in the hunt, a large-scale event closely paralleling warfare and run with dogs, nets, fire and beaters, and the bones from the palace area match the wild game the oracle bones record the king killing.<sup class=\"fn\" data-fn=\"2\"></sup> The vehicle went into the ground with its owner, the large tombs at Anyang being frequently accompanied by chariot pits, where more than four in five graves at the site are small pits with a coffin and a few pots.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Shang_warfare": "<b>Shang warfare</b> is the campaigning of the Shang king and his allies against the polities the oracle bones call fang, a relational label rather than an ethnic one, since a group counted as fang while it was an enemy and lost the word once it became an ally.<sup class=\"fn\" data-fn=\"1\"></sup> Force was raised rather than kept, noblemen being sent to levy troops from friendly cities, and the scale varied with the enemy: 3,000 to 5,000 men against most fang, but 13,000 in one campaign against the Qiang.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The wars were fought for hegemony and for resources, and they ended with the Zhou, whose alliance included the Qiang.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Shang_capitals": "<b>Shang capitals</b> are the successive seats of the Shang court, semipermanent cities serving as centres of political, military and religious power, among them Yanshi and Zhengzhou early, a walled town at Huanbei in the middle period, and Yinxu at the end.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Which excavated site answers to which name in the transmitted record is unsettled, Zhengzhou having been argued to be both the first Shang capital and the second.<sup class=\"fn\" data-fn=\"1\"></sup> Why the court moved is argued too, between chasing sources of metal, planting fortified outposts in the periphery, and using relocation itself as an instrument of policy.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Zhengzhou_Shang_City": "<b>Zhengzhou Shang City</b> is a walled Bronze Age settlement in central Henan, China, covering about 24 square kilometres (9 square miles) inside two circuits of rammed earth, the inner one enclosing a few dozen foundations of 100 to 2,000 square metres taken for palaces and temples.<sup class=\"fn\" data-fn=\"1\"></sup> Two bronze foundries lie in the outer city, one of them at Nanguanwai, and across some 0.8 hectares have yielded crucibles, slag, clay moulds, copper ore and the remains of smelting furnaces.<sup class=\"fn\" data-fn=\"1\"></sup> Three caches of monumental four-legged ding were buried there in adapted wells and pits, and the site is identified with one of the early Shang capitals the later texts name.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Zhengzhou_Shang_City": "<b>Zhengzhou Shang City</b> is a walled Bronze Age settlement in central Henan, China, covering about 24 square kilometres (9 square miles) inside two circuits of rammed earth, the inner one enclosing a few dozen foundations of 100 to 2,000 square metres taken for palaces and temples.<sup class=\"fn\" data-fn=\"1\"></sup> Two bronze foundries lie in the outer city, one of them at Nanguanwai, and across some 0.8 hectares have yielded crucibles, slag, clay moulds, copper ore and the remains of smelting furnaces.<sup class=\"fn\" data-fn=\"1\"></sup> Three caches of monumental four-legged ding were buried there in adapted wells and pits, and the site is identified with one of the early Shang capitals the later texts name.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Panlongcheng": "<b>Panlongcheng</b> is a Bronze Age settlement in Hubei, in the middle Yangzi valley of China, whose wall encloses 7.5 hectares (19 acres) within a much larger site variously measured at 64 and 110 hectares.<sup class=\"fn\" data-fn=\"2\"></sup> It stands close to abundant copper deposits and has produced evidence of bronze making, though only of weapons and tools cast in stone moulds, while the bronze vessels in its elite burials resemble those of the Central Plain.<sup class=\"fn\" data-fn=\"1\"></sup> It is usually read as an outpost planted near metal sources, secured for the networks along which copper moved rather than to control the mining itself.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1941,7 +1942,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Shang_divination": "c. 1250 – 1046 BCE",
 "Wu_Ding": "c. 1250 – 1192 BCE",
 "Fu_Hao": "c. 1200 BCE",
-"Zhengzhou_Shang_City": "c. 1600 – 1400 BCE"
+"Zhengzhou_Shang_City": "c. 1600 – 1400 BCE",
+"Panlongcheng": "c. 1500 – 1300 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4163,7 +4165,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Shang_chariot": ["object","technology","archaeology","china","bronze age"],
 "Shang_warfare": ["practice","warfare","history","china","bronze age"],
 "Shang_capitals": ["place","archaeology","history","china","bronze age"],
-"Zhengzhou_Shang_City": ["place","archaeology","history","china","bronze age"]
+"Zhengzhou_Shang_City": ["place","archaeology","history","china","bronze age"],
+"Panlongcheng": ["place","archaeology","history","china","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

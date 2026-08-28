@@ -2542,3 +2542,34 @@ choosing between two that carry the same title.**
   **THE 2256-BYTE DOWNLOAD IS A RATE-LIMIT PAGE, NOT AN IMAGE**, and four candidates fetched in one loop
 all came back that size. The fix is the retrying downloader (`dl.sh`, 20s apart) and fetching a
 `960px-` thumbnail rather than the original — the same allow-list finding as earlier in the run.
+
+  **`cnh-090` IS THE CARD `cnh-089` POINTED AT, AND THE PAIR SHOULD BE READ TOGETHER.** Zhengzhou's card
+ends by saying casting was held at the centre and mining was not, with "outposts planted near the ore";
+Panlongcheng is one of those outposts, seen from the other end. Tao Shi's term for it is **resource
+absorption** — securing the networks along which metal moved rather than controlling the extraction — and
+the card gives it the name, which `cnh-089` deliberately did not.
+  **ITS SHARPEST FACT IS A DISAGREEMENT ABOUT HOW BIG THE SITE IS.** Campbell's review of Thorp records
+that the WALLED area is only 7.5 hectares while the whole site is many times that, and that the
+excavation report's figure of 110 hectares comes from a near-square of 1,000 by 1,100 metres **which
+takes in ravine and lake**; 64 hectares is the better figure. **A footnote in a book review carried the
+whole of the card's third sentence** — the same route that has paid twice before in this run, where the
+reviewer states plainly what the book being reviewed only implies.
+  **THE FIFTH SOURCE CAME FROM EUROPE PMC RATHER THAN FROM ASIAN PERSPECTIVES.** Four of the five are
+ScholarSpace items already in the corpus; the lead-isotope claim needed something else, and a Europe PMC
+search for the site name returned Liu, Rawson and Pollard's *Scientific Reports* paper on highly
+radiogenic lead — which names Panlongcheng, Xin'gan and Sanxingdui as showing the signature at virtually
+the same time, and argues for several sources rather than one. **Search the SITE NAME at Europe PMC even
+for a Bronze Age card**: the archaeological-science literature is indexed there and the humanities
+literature is not.
+  **AND THAT SEARCH IS NOISY IN A WAY WORTH KNOWING.** Eleven hits for "Panlongcheng" included three
+papers on sulfonyl fluoride chemistry (an author's given name), a mumps study and a GIS paper on tourism
+efficiency in Wuhan's urban fringe — the last genuinely about the site and useless for a card about the
+Bronze Age. **A hit on the right name is not a source about the right subject.**
+  **THE PICTURE IS A PALACE FOUNDATION AND ITS CAPTION HAS TO SAY WHAT IS ANCIENT.** The offered
+candidates were a METRO STATION NAME BOARD (`Panlongcheng Station Sign.jpg` — the sixth signage trap of
+this run) and a park signboard for the Lijiazui site, which is the name the card uses twice and would
+have been the obvious pick without looking. The chosen photograph shows the excavated foundation laid
+out for visitors: the low banks follow the wall trenches and the timber stumps stand where the posts
+did, so the caption says the earth platform beneath them is the ancient part. **Where a site has been
+presented to visitors, the caption must divide the ancient fabric from the modern marking**, or the card
+shows a reconstruction and calls it a ruin.
