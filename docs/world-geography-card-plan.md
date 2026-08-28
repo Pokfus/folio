@@ -23,13 +23,14 @@ Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Ira
 Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia,
 Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela, Australia, Niger, North
 Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan, Chad, Chile, Romania,
-Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda) **and
-capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
+Bolivia, Tunisia) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
-Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-751` Dar es Salaam, `gw-752` Cape Town
-and `gw-753` Bloemfontein.** The next country is `gw-078` Burundi and the next capital is `gw-534` Baghdad.
+Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-751` Dar es Salaam,
+`gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-081` South Sudan and the next
+capital is `gw-535` Buenos Aires.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -910,6 +911,52 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 26 (Burundi, Bolivia, Tunisia, Baghdad) closed the raster throttle and the four terms it had
+held back.** After three batches in which every JPEG and PNG on `upload.wikimedia.org` returned 429 while
+SVGs returned 200, a single test at the head of this batch came back **200** — so `Kampala`, `Madrid`,
+`Algiers` and `Baghdad` were illustrated in one pass, each candidate re-checked for subject and licence
+before use. **The one-test rule paid exactly as intended**: three batches spent one request each rather
+than an hour, and the batch that found the door open spent one request finding it. Keep testing once and
+shipping regardless.
+
+**Its structural finding is that the trusteeship pairs behave like the federations do.** Batch 23 found
+Senegal and Mali recognised on one day and admitted in consecutive resolutions (1490 and 1491) at one
+plenary meeting; **Rwanda and Burundi are the same shape one continent over** — one Belgian trusteeship
+over Ruanda-Urundi ended on 1 July 1962, both recognised that day, both seated at the **1122nd plenary
+meeting on 18 September 1962** as resolutions **1748 and 1749**. So the rule from batch 23 generalises:
+**when a country came out of a shared administration, open the sibling's page and look for the adjacent
+resolution number** — the two records together say what neither says alone. `Burundi` also carries the
+pass's only DEMOTION: its mission was an embassy from 1 July 1962, a **legation** from 15 December 1962,
+and an embassy again only from 16 September 1963, with no reason given.
+
+**`Bolivia` is the longest recognition gap the pass has met, and the guide is explicit about why.**
+Independence was declared on 6 August 1825; the United States first recognised the country only
+*indirectly*, as part of the **Peru-Bolivian Confederation**, when James B. Thornton — commissioned to
+Peru and received by the confederation — was appointed on 16 March 1837; the confederation dissolved in
+1839; and the republic was recognised in its own right only on **30 May 1848**, 23 years after the
+declaration. **A recognition of a UNION is not a recognition of its members**, and the guide dates the
+relationship from the later act. C11's Spanish-America warning and C12's read-the-summary-paragraph rule
+both hold here, with a third case added: the intervening state.
+
+**`Tunisia` is `Algiers` again with a different ending, and its recognition CANNOT BE DATED — which the
+guide says outright.** Tunisian recognition of the United States "occurred at some time in mid-1795",
+when the authorities accepted an American consular representative; the man holding consular authority
+over all the Barbary states stayed at Algiers, so a French merchant at Tunis, Joseph Étienne Famin, was
+**deputised to act for the United States** and went on to negotiate the 1797 Treaty of Peace and
+Friendship. **Write the vagueness the source writes**: "mid-1795" is the date line's entry, because a day
+invented for tidiness is a day nobody can check. Its French protectorate is dated by two treaties rather
+than one — Bardo (12 May 1881) established control and **La Marsa (8 June 1883) is the one that says
+"protectorate"** and ends the country's power to conduct diplomacy.
+
+**And `Baghdad` shows the guide at its most complete.** Its entry runs from an Ottoman-era consul
+appointed in 1888, through recognition by the **Anglo-American-Iraqi Convention of 9 January 1930** —
+whose preamble is quoted — to the Arab Union of 1958 that was **recognised without relations being
+established with it**, two severances (1967, 1991), an interests section in the Belgian embassy from
+1972, an embassy restored in 1984 and closed in 1991, and the 2003 invasion, the Coalition Provisional
+Authority and the transfer of sovereignty on 28 June 2004. **A capital card does not need a second
+history source when the guide's own entry is this dense** — the two Security Council resolutions here
+(660 of 1990, 1546 of 2004) corroborate rather than carry.
 
 **Batch 25 (Guinea, Benin, Rwanda, Algiers) found the guide's oldest entry, and it is a capital's rather
 than a country's.** `Algiers` recognised the United States in 1795 — **167 years before the United States
