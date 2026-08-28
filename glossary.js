@@ -1295,7 +1295,8 @@ window.GLOSSARY = {
 "Herbert_Spencer": "Herbert Spencer was an English philosopher whose <i>Principles of Psychology</i> of 1855 set out an account of mind as a product of evolution four years before the <i>Origin of Species</i> appeared.<sup class=\"fn\" data-fn=\"1\"></sup> It defines life as the continuous adjustment of internal relations to external relations and treats mind as the highest reach of that adjustment, handling instinct as compound reflex action and explaining innate structure as experience accumulated across a race.<sup class=\"fn\" data-fn=\"1\"></sup> He coined the phrase 'survival of the fittest', which Darwin adopted in the later editions of the <i>Origin</i> as more accurate than his own term, crediting him there with laying the foundation on which psychology would rest.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Francis_Galton": "Francis Galton was an English polymath and early researcher into human heredity, who argued in <i>Hereditary Genius</i> of 1869 that natural ability is inherited and a gifted race could be bred by judicious marriages.<sup class=\"fn\" data-fn=\"1\"></sup> He coined the word eugenics in 1883 for the science of improving stock, and the movement that grew from it reached the statute book in a British act of 1913 and an American Supreme Court ruling of 1927 upholding enforced sterilisation.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The same work produced lasting statistical tools: setting parents against children gave him regression, the finding that offspring stand nearer the general average than their parents do, and correlation grew out of it.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Psychological_testing": "Psychological testing is the practice of putting people through standardised tasks and scoring the results, so that one person's performance can be set beside another's or against a norm.<sup class=\"fn\" data-fn=\"1\"></sup> The earliest such series, proposed in 1890 under the name mental tests, measured sensory and motor capacities such as grip strength, the two-point threshold, reaction time for sound and the number of letters repeated after one hearing, on the assumption that simple functions would reveal general ability.<sup class=\"fn\" data-fn=\"1\"></sup> They did not, and a study of 1901 found that these tests correlated little with one another and not with students' marks in their college classes.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Eugenics": "Eugenics is the attempt to improve a population by controlling who has children, a word coined in 1883 for the science of improving stock and defined to take in every influence tending to favour what its author called the more suitable strains.<sup class=\"fn\" data-fn=\"1\"></sup> As an organised movement it drew on family studies of inherited defect and later on psychological testing, and it reached legislation: Indiana passed the first compulsory sterilisation law in 1907 and California followed in 1909.<sup class=\"fn\" data-fn=\"2\"></sup> Over the 20th century the health authorities of California alone recommended sterilisation for more than 20,000 people held in state institutions, and comparable programmes ran in other countries.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Eugenics": "Eugenics is the attempt to improve a population by controlling who has children, a word coined in 1883 for the science of improving stock and defined to take in every influence tending to favour what its author called the more suitable strains.<sup class=\"fn\" data-fn=\"1\"></sup> As an organised movement it drew on family studies of inherited defect and later on psychological testing, and it reached legislation: Indiana passed the first compulsory sterilisation law in 1907 and California followed in 1909.<sup class=\"fn\" data-fn=\"2\"></sup> Over the 20th century the health authorities of California alone recommended sterilisation for more than 20,000 people held in state institutions, and comparable programmes ran in other countries.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Wilhelm_Griesinger": "Wilhelm Griesinger was a German physician and psychiatrist whose textbook <i>Die Pathologie und Therapie der psychischen Krankheiten</i>, published in 1845 and revised in 1861, is generally taken to open the scientific phase of German psychiatry.<sup class=\"fn\" data-fn=\"1\"></sup> He was among the leading somaticists, who held that mental disorder arises from bodily conditions and is open to ordinary medical study, and his opening section argues that the organ diseased in madness can only be the brain.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He was not a strict materialist, treating anger, fright and sorrow as frequent immediate causes of insanity, and his conviction that the insane were sick people made him an advocate of humane asylum care.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1914,7 +1915,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Immanuel_Kant": "1724–1804",
 "Hermann_von_Helmholtz": "1821–1894",
 "Gustav_Fechner": "1801–1887",
-"Charles_Darwin": "1809–1882"
+"Charles_Darwin": "1809–1882",
+"Wilhelm_Griesinger": "1817–1868"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2803,7 +2805,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Charles_Darwin": ["Darwin"],
 "Francis_Galton": ["Galton"],
 "Psychological_testing": ["mental test"],
-"Eugenics": ["eugenic"]
+"Eugenics": ["eugenic"],
+"Wilhelm_Griesinger": ["Griesinger"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4124,7 +4127,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Herbert_Spencer": ["person","philosophy","psychology","science","evolution"],
 "Francis_Galton": ["person","psychology","science","research methods","evolution"],
 "Psychological_testing": ["concept","psychology","science","research methods"],
-"Eugenics": ["concept","science","history","psychology"]
+"Eugenics": ["concept","science","history","psychology"],
+"Wilhelm_Griesinger": ["person","psychology","science","biology","germany"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

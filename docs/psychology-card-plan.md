@@ -499,7 +499,7 @@ more work here than in any collection since Greece.
     ps-040  Francis Galton
     ps-041  The first mental tests
     ps-042  Eugenics and early psychology
-    ps-043  The somatic view of madness
+    ps-043  Wilhelm Griesinger and the somatic view of madness
     ps-044  Mesmerism and animal magnetism
     ps-045  The nineteenth-century asylum
 
