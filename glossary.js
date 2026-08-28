@@ -1310,7 +1310,8 @@ window.GLOSSARY = {
 "Shang_neighbours": "The <b>Shang neighbours</b> are the peoples and polities surrounding the Shang state in Bronze Age China, known chiefly from materials that moved rather than from written description.<sup class=\"fn\" data-fn=\"1\"></sup> A rare, highly radiogenic lead supplied over half the lead used from the Yellow River to the Yangtze, appearing at nearly the same moment in the Central Plain and at sites in Sichuan, Hubei and Jiangxi before vanishing under the Zhou, and its source is still argued over.<sup class=\"fn\" data-fn=\"2\"></sup> Carnelian buried in Sichuan came from more than 1,000 kilometres (600 miles) north, placing several regions in one exchange sphere between 1500 and 1000 BCE.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Shang_bronze": "<b>Shang bronze</b> is an alloy of copper with tin and lead, cast in enormous quantity by the late Shang state, whose capital at Anyang was among the largest consumers of metal anywhere in Eurasia in the 2nd millennium BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its chemistry follows rank: the ritual vessels of the highest elite were alloyed from very pure copper with tin in controlled amounts, while metal further down the order was remelted and mixed, and lead was added deliberately at around 2 to 5 per cent to lower the melting point.<sup class=\"fn\" data-fn=\"1\"></sup> Much of that lead is unusually radiogenic and appears suddenly around 1400 BCE, its source still disputed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Cowrie_shell": "A <b>cowrie shell</b> is the smooth oval shell of a marine snail of the family Cypraeidae, an animal that can draw its mantle over the outside of the shell and that belongs to the tropical Indo-Pacific, ranging from the east coast of Africa to Polynesia.<sup class=\"fn\" data-fn=\"1\"></sup> Coastal peoples have harvested the animals for food and used the shells in handicraft and as currency.<sup class=\"fn\" data-fn=\"1\"></sup> Seashells recovered from inland graves are non-local material and are read as evidence of long-distance trade, and in studies that cost grave goods by the labour they represent a marine shell is rated well above a freshwater one.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Shang_music": "<b>Shang music</b> is known from the instruments buried with the dead in Bronze Age China, chief among them the bronze bell called nao, which came in graded sets of three.<sup class=\"fn\" data-fn=\"1\"></sup> Instruments are a small part of what a Shang grave holds: at one Anyang cemetery they are absent from the bronzes of the earliest period and then run between about 5 and 7 per cent of them, a share that stays low throughout.<sup class=\"fn\" data-fn=\"2\"></sup> Under the following Zhou dynasty the number of bells a person might own, like the number of vessels, was fixed by rank.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Shang_music": "<b>Shang music</b> is known from the instruments buried with the dead in Bronze Age China, chief among them the bronze bell called nao, which came in graded sets of three.<sup class=\"fn\" data-fn=\"1\"></sup> Instruments are a small part of what a Shang grave holds: at one Anyang cemetery they are absent from the bronzes of the earliest period and then run between about 5 and 7 per cent of them, a share that stays low throughout.<sup class=\"fn\" data-fn=\"2\"></sup> Under the following Zhou dynasty the number of bells a person might own, like the number of vessels, was fixed by rank.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Shang_craft_workshops": "<b>Shang craft workshops</b> are the production quarters of the late Shang capital in Bronze Age China, which grew as social stratification intensified and the division of labour increased.<sup class=\"fn\" data-fn=\"2\"></sup> Their commoners appear to have been sorted into occupational groups living in neighbourhoods segregated by trade, identified from the workshops beside them and, at one site, from the casting tools buried with the dead.<sup class=\"fn\" data-fn=\"1\"></sup> Skill within them ran as a continuum rather than a divide, from expedient tools anybody could make, through the careful work of a local specialist, to objects mass-produced from cattle bone and distributed far beyond the city where they were cut.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1958,7 +1959,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Shang_writing": "c. 1250 – 1046 BCE",
 "Shang_neighbours": "c. 1500 – 1000 BCE",
 "Shang_bronze": "c. 1600 – 1046 BCE",
-"Shang_music": "c. 1600 – 1046 BCE"
+"Shang_music": "c. 1600 – 1046 BCE",
+"Shang_craft_workshops": "c. 1250 – 1046 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4190,7 +4192,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Shang_neighbours": ["concept","archaeology","history","china","bronze age"],
 "Shang_bronze": ["object","technology","archaeology","china","bronze age"],
 "Cowrie_shell": ["object","archaeology","nature","geography","animal"],
-"Shang_music": ["practice","music","archaeology","china","bronze age"]
+"Shang_music": ["practice","music","archaeology","china","bronze age"],
+"Shang_craft_workshops": ["practice","archaeology","history","china","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

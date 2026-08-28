@@ -2806,3 +2806,30 @@ author's period, not the Shang's.**
 "Shang" matching a surname, a Tibetan instrument and a given name. Searching Commons for **nao** found
 dozens of the right object in one query, including a photograph of two of a set on their stands, which
 shows the thing the card turns on: a nao stands mouth upward on a hollow shank and has no clapper.
+
+## cnh-099 Shang craft workshops
+
+**THE CARD READS CRAFT SPECIALISATION OFF SKELETONS, NOT OFF WORKSHOP FLOORS, AND THAT IS WHAT MADE IT
+WRITABLE.** The obvious card — kilns, moulds, bone-cutting debris, where each quarter stood — is spent
+across cnh-089, cnh-090, cnh-096 and cnh-097, so what was left is the evidence about the PEOPLE. Zhang
+et al. 2017 examined 167 Yinxu skeletons for osteoarthritis at eight joints and three spinal
+indicators, and the pattern is the argument: men worse than women in the upper body, and **Xiaomintun
+worse than Xin'anzhuang in both sexes** — the foundry neighbourhood against the one whose graves carry
+no trade marker. **The Xiaomintun women's figures are the finding worth carrying**, since they are what
+raises the family-business reading and so the mechanism by which an occupational neighbourhood could
+come about at all; the paper puts it as a possibility and the card keeps the hedge.
+  **A SITE IS IDENTIFIED AS A WORKSHOP QUARTER BY WHAT IS IN THE GRAVES, NOT BY WHAT IS IN THE GROUND.**
+Both Xiaomintun and Xin'anzhuang have foundries beside the houses; what separates them is that
+Xiaomintun's burials hold casting tools and Xin'anzhuang's hold nothing that names a trade. That is the
+card's question, and it is the sort of clue a reader can carry to any site.
+  **SKILL IS A CONTINUUM AND THE FOUR-GROUP FINDING IS HOW TO SAY SO.** Guandimiao's worked bone sorts
+into four groups running from expedient tools anybody could make, through a local specialist's oracle
+bones, to pieces identical to the mass-produced output of Anyang's largest bone workshop — one village
+holding the whole range, which is a better answer to "were they specialists?" than any single site's
+yes or no. Stoltman's 61 thin sections run the other way and are kept for the contrast: the grey ware
+everybody used was made locally, so specialisation and local production are different questions.
+  **A SIXTH CONSECUTIVE USELESS PICTURE SEARCH** — `add-card.js` returned "no usable picture found for
+'Shang craft workshops'" outright, which is at least honest where the earlier five offered a Nigerian
+grain market and Citizen Kane. **The fix is the standing one: search Commons for the PRODUCT, not the
+process.** "Shang bone hairpin" found the commonest thing those workshops made, five of them in a row
+under a museum label, CC0.
