@@ -16,10 +16,11 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-015`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-018`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
-the Congo) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília and
-`gw-510` Addis Ababa.** The next country is `gw-016` Vietnam.
+the Congo, Vietnam, Iran, Turkey) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad,
+`gw-507` Brasília, `gw-510` Addis Ababa and `gw-513` Cairo.** The next country is `gw-019` Germany and
+the next capital is `gw-514` Manila.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -294,9 +295,10 @@ history through JavaScript and hand back navigation chrome; and `beijing.gov.cn`
 **Find the city spine before writing the batch, not during it** — three country cards were written in
 the time it took to establish that the obvious capital sources do not answer.
 
-**THE TEST HAS NOW DECIDED ELEVEN CAPITALS AND HAS NOT BEEN WRONG ONCE.** Washington, Islamabad,
-Brasília and Addis Ababa passed it and are written; New Delhi, Beijing, Jakarta, Abuja, Dhaka, Moscow,
-Mexico City and Tokyo failed it and are deferred. **Addis Ababa widens what counts as the institution.**
+**THE TEST HAS NOW DECIDED THIRTEEN CAPITALS AND HAS NOT BEEN WRONG ONCE.** Washington, Islamabad,
+Brasília, Addis Ababa and Cairo passed it and are written; New Delhi, Beijing, Jakarta, Abuja, Dhaka,
+Moscow, Mexico City and Tokyo failed it and are deferred, and Manila and Kinshasa failed it without being
+deferred, the milestone series carrying both (see the paragraphs below). **Addis Ababa widens what counts as the institution.**
 Ethiopia's own government publishes nothing reachable, but the city is the seat of the AFRICAN UNION,
 which publishes both its founding story — 32 heads of independent African states meeting there in May
 1963 to sign the OAU charter — and the fact that its Commission sits there. An international body
@@ -327,6 +329,56 @@ history** (Hoban's design, the Adamses moving into an unfinished house, Monroe's
 to ask of any capital is whether the bodies that sit in it publish their own history** — a parliament, a
 national archive, a city government, a presidential residence. That is the search to run first, and it
 is what New Delhi and Beijing failed.
+
+**THE FRUS PREFACES ARE A NARRATIVE SOURCE, AND THEY ARE ON A HOST THAT ANSWERS.** *Foreign Relations
+of the United States* is a documentary series rather than a history, so it is easy to pass over — but
+each volume opens with a signed editorial **preface** at
+`history.state.gov/historicaldocuments/<volume>/preface`, and a preface says in prose what the volume is
+about. The 2017 retrospective Iran volume's says outright that the 1989 volume "did not provide any
+documentation on the role of the Central Intelligence Agency … or documentation on the covert action
+that led to the overthrow of Iranian Prime Minister Dr. Mohammad Mosadeq on August 19, 1953", and that
+the criticism this drew produced the 1991 statute obliging the Department to publish a thorough record.
+That is a cited sentence for an event the milestones do not cover at all: **there is no Mossadegh
+milestone, no hostage-crisis milestone and no Iranian-revolution milestone** (`/milestones/1953-1960/mossadeq`
+and `/milestones/1977-1980/hostage-crisis` are both 404), so without the prefaces `gw-017` would have
+had a two-source spine. Reach for a volume preface whenever the milestone series is silent on a country's
+central 20th-century event. The volume id is worth checking rather than guessing: the retrospective Iran
+volume is **`frus1951-54Iran`**, while `frus1952-54Iran` — which is how the volume titles itself — is a
+404.
+
+**MANILA AND KINSHASA WERE TESTED IN THIS BATCH AND BOTH FAIL THE INSTITUTIONAL ROUTE.** Every Philippine
+government domain tried answers **403** from this sandbox — `officialgazette.gov.ph` (including the page
+for Presidential Decree 940, which returned the capital to Manila in 1976), `senate.gov.ph`,
+`legacy.senate.gov.ph`, `nhcp.gov.ph`, `dfa.gov.ph` and `manila.gov.ph` — and the recognition guide's
+Philippines page is the thinnest in the guide, four sentences that name no city. The Democratic Republic
+of the Congo's presidency site (`presidence.cd`) is a JavaScript shell and `gouvernement.cd` and
+`assemblee-nationale.cd` do not resolve. **Neither city is deferred, because the milestone series carries
+both**: Manila by *The Spanish-American War, 1898* (Dewey in Manila Bay on 1 May, troops landing on 10
+June) and *The Philippine-American War, 1899–1902* (Luzon, the Philippine Republic, the civil government
+under Taft in 1900, the first elected assembly in 1907); Kinshasa by *The Congo, Decolonization, and the
+Cold War, 1960–1965*, which names Leopoldville and Kinshasa together, and by the country page, which
+dates the American embassy there to the day of independence. **The institutional test is the first search
+to run, not the only one** — where a capital's own bodies are unreachable, the event literature about the
+city can still carry a card.
+
+**Two other bodies were tried for Cairo and neither answers**: the League of Arab States, which is
+headquartered there and would have been the Addis Ababa route exactly, serves a **"Request Rejected"
+page** from its WAF, and `parliament.gov.eg`, `sis.gov.eg` and `egypt.gov.eg` do not resolve at all. What
+carried `gw-513` instead is the **recognition guide's Egypt page, which is unusually city-specific** —
+the Agent and Consul General at Cairo from 1849, Harding's recognition letter delivered there, the
+legation established in June 1922, the UAR's capital established at Cairo in 1958, the interests section
+opened inside the **Spanish embassy** in the city the day after relations were cut in 1967, and the
+embassy reopened in 1974. **A guide page that names the capital in every entry is itself a city source.**
+
+**TÜRKIYE AND TURKEY, AND WHICH NAME A CARD USES.** `world.js` keys the shape `Turkey`, the running order
+below says Turkey, and the recognition guide's page is titled Turkey — so the card's `answer` is
+**Turkey**, which is also the name a reader would type. UNdata lists the country as **Türkiye**, and
+`gw-018` says so in its last sentence, marked to UNdata: the two names are a fact about the sources, and
+stating it is better than choosing one silently. Its population is the batch's one figure worth
+recording: UNdata gives 87,685 thousand for 2025 against the World Bank's 85,878,556, a 2% gap that is a
+real methodological disagreement rather than a stale figure, and the card uses UNdata's because every
+sibling card's four facts come from UNdata and one basis across the deck is worth more than a closer
+figure on one card.
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
