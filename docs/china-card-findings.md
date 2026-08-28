@@ -1305,3 +1305,44 @@ with a 200 status** — which `getimg.sh`'s loop treats as a transient failure a
 left running in the background, **overwrote a good 890 KB download from a later command with the error
 page**. Take `thumburl` from `imageinfo` verbatim (here `1920px`), and stop a background fetch before
 re-fetching the same path.
+
+  **`cnh-047` IS THE DECK'S FIRST NEOLITHIC CARD WITH A GENUINE ANCHOR PAPER, AND THE CONTRAST WITH
+`cnh-046` IS THE FINDING.** Banpo, a household name in China, is studied by nobody reachable; Hongshan,
+which is not, has **Peterson, Lu, Drennan and Zhu 2010 in PNAS** — a settlement-survey paper whose
+introduction alone carries the culture's dates, its core zone, the tiered platforms and their pottery
+cylinders, the jade-only burials, the Goddess Temple, the house plans, the subsistence list and the
+Chifeng district survey. Seven of this card's ten sentences rest on it. **Before assembling a card out of
+six papers that pass through the subject, spend one search looking for the paper that is ABOUT it** —
+`"Niuheliang"` returned sixteen hits where `TITLE:"Banpo"` returned none, and the difference is which
+name the archaeological literature happens to use in its titles.
+  **A BARE CULTURE NAME IS A BAD EUROPE PMC QUERY AND ITS TYPE SITE IS A GOOD ONE.** `"Hongshan"` alone
+returns **7,466 hits**, nearly all of them Korean and Chinese author surnames and place names in
+biomedical papers, exactly as `"Banpo"` was swamped by the Seoul district; `"Niuheliang"` returns 16 and
+`"Hongshan culture"` 36, and between them they contain every source used here. **Query the site, not the
+culture.**
+  **THE CARD'S LAST SENTENCE CORRECTS THE STORY MOST READERS WILL HAVE MET.** Hongshan is routinely said
+to have collapsed suddenly under a worsening climate; Xu et al. 2019 shows that ritual at the great
+centres peaked around 5800–5300 cal BP and stopped, but that this "does not imply a total collapse … it
+marked the disappearance of elite power with associated material symbols", with small settlements
+continuing for centuries. **A card about a culture that ended is a card about what exactly ended**, and
+here it is the elite and their jades rather than the people.
+  **AND THE MONGOLIA MIS-LINK CAME BACK, IN THE SAME PLACE, ONE CARD LATER.** `cnh-045` was reworded
+because "Inner **Mongolia**" auto-linked to `Mongolia`, the modern country; this card's second sentence
+was drafted "from Inner Mongolia into Liaoning" and did it again. Both drafts were written from a source
+that names the autonomous region, so the phrase will keep arriving as long as the sources use it. The
+reword also had to be done TWICE — the first attempt gave "of what is now northeastern China", which put
+that phrase in two consecutive sentences, caught by reading the rendered page rather than by any checker.
+**Two strikes: the collection should have an `Inner_Mongolia` term before a third card needs one.**
+  **A CITATION SWEEP THAT THIS CARD FORCED, AND THE TWO METHOD ERRORS IN IT.** Choosing between a DOI and
+a PMC address for these sources led to testing every citation URL in `cnh-041`–`cnh-047` and their seven
+glossary terms — 40 links — and **nine pointed at a page this sandbox cannot open**: `academic.oup.com`
+403, `mdpi.com` 403, `pnas.org` 403, and BMC Biology and Elsevier's `linkinghub` each serving a **~3 KB
+stub with a 200 status**. All nine were repointed to `pmc.ncbi.nlm.nih.gov`, on five cards
+(`cnh-045`, `cnh-046`, `wh-130`, `wh-147`, and this one's drafts) and two terms. Two things went wrong on
+the way and both are worth remembering. **`curl -I`, and `curl` without `-L`, report the REDIRECT and not
+the destination**: `nature.com` answered 303 and looked shut, so two Nature Communications citations were
+repointed that never needed it — followed properly they serve 472 KB and 540 KB. And **a 200 is not an
+article**: the BMC and Elsevier stubs are 3,038 and 3,007 bytes. **Measure a citation with `curl -sSL`
+and look at the SIZE**, and remember the rule the deck already followed without writing down: cite at the
+address that opens from here, which is the DOI where it resolves to a reachable page and the PMC record
+otherwise.
