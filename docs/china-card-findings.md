@@ -2196,3 +2196,41 @@ individually at render, so a span appended afterwards has no listener and clicki
 glossary preview**, which renders the real `.gloss-win` markup — it showed the three sentences, the five
 markers numbered 1,2,1,1,2, both source items and the image slot. **A term with no card yet linking it
 has no reader-side surface to click**, so the editor's preview is the honest place to look at it.
+
+  **`cnh-076` IS THE CARD THE PLAN WARNED WOULD NEED ITS ANSWER TERM CHOOSING**, and what decided it
+was the neighbours rather than the sources. Shangdi, ancestor worship, human sacrifice, the royal tombs,
+warfare and the queens are all separate cards, so what is left that is distinctly KINGSHIP is the
+succession rule, the king's place in a kin-ordered society, his ritual monopoly and the offices under
+him — an institution rather than a word, so the answer term is the plan's own phrase.
+  **ITS SPINE IS THE FIFTH CARD BUILT ON THE SAME OPEN BOOK REVIEW, AND THIS TIME ON THE REVIEWER'S OWN
+DISSENT.** Wang Haicheng's review of Campbell summarises the book's argument that the lineage was the
+fundamental unit and the king its apex leader — and then sets against it Cao Dazhi's finding that in no
+Anyang cemetery cluster did more than three tombs, the three richest, share a clan sign, from which Cao
+argues the graphs are mostly the names of GOVERNMENT OFFICES: about 70 of them, covering the military,
+finance, construction, communication and the running of the royal palace, staffed with chiefs and
+deputies and passing to the senior man of a lineage and then to a descendant. **A review's dissent is
+often the freshest thing in it**, and here it is what turns a card about a family into a card about an
+argument between kinship and bureaucracy, with evidence on both sides.
+  **NAMING NOBODY WAS EASY AND WORTH DOING.** The historiography rule caps the modern argument at three
+of ten sentences and forbids a researcher's name in a question; writing the offices claim as "have
+lately been re-read" and letting the citation carry the names left `card-focus` reporting **historio 1
+of 10** with an empty `qNamed`. **The theory is the interesting half; the arguer belongs in the source
+list.**
+  **FOUR OF ITS FIVE SOURCES WERE ALREADY IN THE CORPUS AND CARRIED FRESH CLAIMS ANYWAY.** Childs-Johnson
+gave the succession rule and, from a passage on royal messengers nobody had opened, that the king's
+delegates were mostly `zi` princes graded by whether they held military rank (`ya`) or official rank
+(`bo`), with the heir styled `Xiao Wang`; Jaffe and Campbell gave the ritual monopoly; Lee's chronology
+table gave 31 kings and the 1600–1046 span; Liu et al. gave rank made physical, the high elite receiving
+carefully controlled primary alloys of very pure copper while those below had secondary alloys with more
+impurities. **A source spent on one card is not spent** — five earlier China cards cite the Wang review
+and none had touched chapter 5.
+  **THE PICTURE IS THE CARD'S LAST SENTENCE RATHER THAN ITS SUBJECT.** `add-card.js` found nothing for an
+abstract institution, and the ceremonial axe and the Yinxu palace platform were already taken by
+`cnh-066` and `cnh-069`. What fits is a V&A fangyi whose vessel and lid carry an inscription of two
+pictographs — exactly the kind of sign the card says has been re-read as an office name — captioned to
+say the vessel carries them rather than pretending they are legible at this angle. **When a card's
+subject cannot be photographed, illustrate the evidence it turns on.**
+  **THE UPLOAD HOST RATE-LIMITED THE DOWNLOAD, AND A 400 IS NOT A 429.** Asking for a 1024px thumbnail
+returned a 400 with a 2,010-byte error page (the width allow-list), and 1280px then returned a 429 with a
+2,190-byte one. **Two tiny responses, two different causes**: the first needs a different width and the
+second needs waiting. A retry loop got it on the third attempt.
