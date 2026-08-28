@@ -18,14 +18,14 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 `geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
 Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New Jersey, `geo-019`
 Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023` Washington,
-`geo-024` Oregon, `geo-025` Arizona, `geo-501` Sacramento, `geo-502` Austin, `geo-503`
+`geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
-`geo-520` Columbus, `geo-521` Springfield and `geo-522` Richmond.**
-Both subdecks are worked down the same list, so the next state is `geo-026` and the next capital
-`geo-523`.
+`geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond and `geo-523` Olympia.**
+Both subdecks are worked down the same list, so the next state is `geo-027` and the next capital
+`geo-524`.
 
 ---
 
@@ -358,6 +358,13 @@ Four more, measured while writing `geo-005` and `geo-501`:
   an error, it is a landmark whose paperwork is not online, and no amount of re-fetching will change it.
   A file that IS there runs to hundreds of kilobytes, and the two paths then differ in size — try both,
   since either can be the readable one (`73001575` extracts from NHLS and is binary from NRHP).
+- **AND THE 1,623-BYTE STUB HAS A SECOND MEANING: the property is on the Register but is not a
+  LANDMARK.** Olympia's three sources — the Old Capitol, the Capitol Historic District and the Bigelow
+  House — are all NRHP listings and none is an NHL, so `GetAsset/NHLS/` hands back the small stub for
+  every one of them while `GetAsset/NRHP/` serves the real document. That is not a gap in the archive,
+  it is the archive saying the property has no landmark file. **On a capital card, expect to cite the
+  NRHP path**: a state's landmarks are spread over the state, and its capital's own buildings are
+  often listed rather than designated.
 - **NOT EVERY STATE HAS A LIBRARY OF CONGRESS GUIDE, and Oregon is the first that has not.**
   `guides.loc.gov/oregon-state-guide` is a 404 while every state written before it resolved, and the
   guides' own search page is JavaScript-driven, so the index cannot be listed from here to check.
@@ -523,7 +530,9 @@ Four more, measured while writing `geo-005` and `geo-501`:
 ## The glossary
 
 Every card ships with a cited glossary entry for its own answer term, written at the two-source bar, in the
-same commit. That is a hundred entries — fifty states and fifty cities — and **three of them collide with
+same commit. **RE-RUN `gloss-length.js` AFTER THE LINK FIXES, not just after drafting** — those come last, they
+change the word count, and `Richmond` shipped at 111 words in the round before this one because four
+words were added to dodge a wrong link after the bar had been checked. That is a hundred entries — fifty states and fifty cities — and **three of them collide with
 terms that already exist**. Each was measured, and none should be settled quietly.
 
 - **`Alaska` already existed and was not about the state — SETTLED with `geo-005`.** It had been written
@@ -549,10 +558,20 @@ terms that already exist**. Each was measured, and none should be settled quietl
   text does not name its capital in PROSE**: `autoLinkGlossary` runs on the abstract alone, so the card
   keeps `["Capital","Olympia"]` in its facts box, unlinked and in plain sight, and the glossary term
   simply omits it, being the one state term on the shelf that cannot say where its government sits.
-  Two things follow for `geo-547`. The capital card is safe, its own answer term seeding the `linked`
-  set. And `ADMIN_EDITS.glossOff` — the per-card list of keys to leave un-linked — **is not a way out**:
-  it is an admin-overlay delta rather than a card field, so nothing in the content pipeline can write it
-  and the overlay-hygiene rule says content must not live there.
+  Two things follow for the capital card. It is safe, its own answer term seeding the `linked` set —
+  confirmed at `geo-523`, whose abstract names Olympia twice and links neither. And
+  `ADMIN_EDITS.glossOff` — the per-card list of keys to leave un-linked — **is not a way out**: it is
+  an admin-overlay delta rather than a card field, so nothing in the content pipeline can write it and
+  the overlay-hygiene rule says content must not live there.
+  **AND THE TERM ITSELF IS THE THIRD PLACE IT BITES, which nothing had predicted.** A glossary popup
+  auto-links its description with only its OWN KEY in the off list, so `Olympia_(Washington)` — whose
+  displayed title is "Olympia", the Greek term's key — linked its own subject's name, in its own
+  popup, to a sanctuary in the Peloponnese. **A parenthetical key whose bare name is ANOTHER TERM'S
+  KEY must not use that bare name anywhere in its description**; the popup's heading already carries
+  it, so the prose opens "The capital of Washington is a city of about 56,000 people" and calls it
+  "the town" thereafter. The other five parentheticals are unaffected because no other term claims
+  their bare names — but **`geo-027` Georgia is the next one to check**, since `Georgia` is an alias
+  of `Georgia_(country)` and the same fault would follow.
 - **`Georgia` is an ALIAS of `Georgia_(country)`.** So the bare word resolves to the country everywhere,
   including in a card about the state. This is the fault CLAUDE.md already records from batch N7 — *an alias
   list written before the sibling term existed will contain the sibling's name, and will be wrong the day
@@ -757,6 +776,18 @@ terms that already exist**. Each was measured, and none should be settled quietl
   **iron** as politics". A third was "short of **pig** iron", which resolved to `Pig`, the animal.
   **A compound technical term is as dangerous as a proper name**, and the cheapest fix for both is a
   true earlier mention of the ordinary word.
+
+- **`New_Mexico` WENT IN BARE AND REPAIRED TWO SHIPPED CARDS ON THE WAY IN.** All six existing uses
+  are the state — the Clovis and Folsom type sites, and the Santa Fe Trail on `geo-010` — but until
+  this round the surface "New Mexico" was being eaten by `Mexico`, whose own key matched inside it:
+  `wh-100` and `geo-010` both linked the words "New Mexico" to the country, as did the `Clovis_culture`
+  and `Folsom_tradition` terms. Adding the longer key fixed all four at once, because `buildGlossIndex`
+  sorts surfaces longest-first. **Adding a term can REPAIR an auto-link as well as break one**, and the
+  place to look for that is any key that is a substring of a place the deck will reach later.
+  One draft fault went the other way and is the component-word shape again: `geo-523`'s first
+  territorial legislature met above the **Gold** Bar Restaurant, which linked to `Gold`. There is no
+  gold anywhere in Olympia's story to take the link first, so the restaurant's name was dropped — "a
+  hired room above a restaurant" — which is what that sentence was for anyway.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
