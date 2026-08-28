@@ -16,18 +16,19 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-062`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-065`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
 Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia,
 Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela, Australia, Niger, North
-Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi) **and capitals `gw-503` Washington, D.C.,
-`gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515`
-Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521`
-London, `gw-522` Dodoma, `gw-523` Paris, `gw-524` Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527`
-Naypyidaw, `gw-528` Bogotá, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The
-next country is `gw-063` Zambia and the next capital is `gw-529` Seoul.
+Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan, Chad) **and capitals
+`gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo,
+`gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin,
+`gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524` Pretoria, `gw-525` Rome,
+`gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-751` Dar es Salaam, `gw-752`
+Cape Town and `gw-753` Bloemfontein.** The next country is `gw-066` Chile and the next capital is
+`gw-530` Khartoum.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -856,6 +857,34 @@ World Bank 118,480 and the Commonwealth Secretariat a round 118,500 — a spread
 mirror image: the two sources agree on its area to the square kilometre and differ by nearly 7% on its
 population, the World Bank showing a FALL since 2020 where almost every other country carded shows
 growth. **Agreement on one figure says nothing about the other.**
+
+**Batch 21 (Zambia, Kazakhstan, Chad, Seoul) is where the pass's own habit of naming a sitting's other
+admissions had to be reined in.** Three cards in this batch wanted to say "at the sitting that also
+admitted X and Y", and on a first draft each marked that claim to **UNdata**, which gives only the
+country's own membership date and nothing about the meeting. The fix is cheap and should now be the
+default: the Digital Library record for EACH state's admission resolution carries its meeting number, so
+naming two neighbours costs two citations. Chad's card cites Cameroon's 1476 and Niger's 1482 for exactly
+that. **Never mark a claim about OTHER states to a country's own profile** — it is the commonest way a
+marker in this pass has pointed at a source that does not carry the sentence.
+
+**Two capitals in one batch are recorded in the American archive under names their countries no longer
+use.** The first American embassy in Kazakhstan opened at **Alma-Ata**, the city now called Almaty, which
+was then the capital and is not now; the first in Chad opened at **Fort Lamy**, now N'Djamena, which is
+still the capital under a different name. Two different kinds of change — a seat that moved and a name
+that changed — and both leave the recognition guide naming a place a reader will not find on the map.
+**Check whether a guide's city is the same place under a new name or a different place altogether before
+writing the sentence.**
+
+**Seoul is named IN the recognition itself, which is rare enough to be worth reaching for.** The White
+House statement of 1 January 1949 recognised *"the Republic of Korea, with its capital at Seoul"* — so
+the capital card's opening sentence is a quotation from the founding document of the relationship rather
+than an inference from a statistical profile. **When a capital card is thin, grep the country's
+recognition text for the city's name**; where it appears, that sentence is the card's best first line.
+
+**And the WTO has no findable slug for the Republic of Korea.** Every plausible form was probed and none
+resolves, which with Côte d'Ivoire in batch 16 makes two members whose pages could not be reached by
+guessing. It cost nothing here — Seoul had five sources without it — but the pattern is now established:
+**budget one WTO citation per batch as optional, not assumed.**
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
