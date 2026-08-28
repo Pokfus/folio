@@ -475,7 +475,7 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
     wh-226  Battle of Kadesh
     wh-227  Valley of the Kings
     wh-228  Karnak
-    wh-229  Egypt and Nubia
+    wh-229  Nubia
     wh-230  Third Intermediate Period
 
 ### The Indus and early China — `wh-indus-china`
