@@ -16,20 +16,24 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-009`** (India, China, United States, Indonesia, Pakistan,
-Nigeria, Brazil, Bangladesh, Russia) **and capitals `gw-503` Washington, D.C. and `gw-505` Islamabad.**
-The next country is `gw-010` Ethiopia.
+**Shipped so far — countries `gw-001`–`gw-012`** (India, China, United States, Indonesia, Pakistan,
+Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan) **and capitals `gw-503` Washington, D.C.,
+`gw-505` Islamabad and `gw-507` Brasília.** The next country is `gw-013` Egypt.
 
-**Three capitals are DEFERRED, and the pattern in them is the useful part.** `gw-501` New Delhi and
-`gw-502` Beijing are reachable here only through the foreign legations that sat in them — the recognition
-guide dates the American mission at New Delhi to 1946 and traces the United States legation from Beijing
-to Nanjing to Chongqing to Taipei, which is a history of American diplomacy rather than of either city,
-and a card built on it would be about the wrong subject. `gw-504` Jakarta joins them: `jakarta.go.id` is
-403 and `indonesia.go.id` returns 502. `gw-506` Abuja is the sharpest case — the Federal Capital
-Territory Administration has a page headed *A Brief History of our City* whose text is **unreplaced
-template boilerplate** ("Millions of people around the world use Obira to connect…"), so a fetch that
-returns 200 and 220 KB carries no history at all. **Check that a page says something before counting it
-as a source.**
+**Five capitals are DEFERRED, and between them they name every way a capital source can fail.**
+`gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
+them — the recognition guide dates the American mission at New Delhi to 1946 and traces the United States
+legation from Beijing to Nanjing to Chongqing to Taipei, which is a history of American diplomacy rather
+than of either city. `gw-504` Jakarta: `jakarta.go.id` is 403 and `indonesia.go.id` returns 502.
+`gw-506` Abuja: the Federal Capital Territory Administration has a page headed *A Brief History of our
+City* whose text is **unreplaced template boilerplate** ("Millions of people around the world use Obira to
+connect…"), so a fetch returning 200 and 220 KB carries no history at all — **check that a page says
+something before counting it as a source.** `gw-508` Dhaka is the newest kind of failure and the one
+worth naming: **every Bangladeshi government domain tried presents an incomplete certificate chain**
+(`parliament.gov.bd`, `dncc.gov.bd`, `bbs.gov.bd`, `mofa.gov.bd`, `cabinet.gov.bd`), which is a fault in
+the source rather than a policy of this sandbox, and is not to be worked around by disabling
+verification. `gw-509` Moscow: `mos.ru`'s own history page renders through JavaScript and hands back
+twenty-nine characters of text, and the Kremlin Museums site is a shell.
 
 What was tried and does not answer, so that nobody spends the afternoon again: `loc.gov`,
 `hansard.parliament.uk`, `rct.uk`, `parliament.uk`, `whc.unesco.org`, `harappa.com` and
@@ -286,6 +290,16 @@ and `congress.gov` are all **403**; `senate.gov` serves its 404 page **with a 20
 history through JavaScript and hand back navigation chrome; and `beijing.gov.cn` resets the connection.
 **Find the city spine before writing the batch, not during it** — three country cards were written in
 the time it took to establish that the obvious capital sources do not answer.
+
+**THE TEST HAS NOW DECIDED EIGHT CAPITALS AND HAS NOT BEEN WRONG ONCE.** Washington, Islamabad and
+Brasília passed it and are written; New Delhi, Beijing, Jakarta, Abuja, Dhaka and Moscow failed it and are
+deferred. **Brasília is the most instructive pass**, because the institution that answered was not the
+city's builder but its OCCUPANT: the Câmara dos Deputados publishes the list of every seat the chamber has
+held — Cadeia Velha, Palácio Monroe, Biblioteca Nacional, Palácio Tiradentes, and then *Palácio do
+Congresso Nacional, Brasília (1960 até hoje)* — which dates the move of the government to the new capital
+from the record of the body that made it. **A legislature's own account of where it has sat is a capital's
+history told sideways, and it is often the only version published.** The page is in Portuguese; a source in
+any language qualifies.
 
 **THE TEST HELD ON ITS SECOND OUTING, WHICH IS WHY IT IS WORTH TRUSTING.** `gw-505` Islamabad was
 written from the **Capital Development Authority** — the body created in 1960 to build the city, which
