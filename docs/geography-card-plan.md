@@ -1,9 +1,14 @@
 # Geography — the card plan
 
 The collection is **United States** (`geo-us`), the first of the Geography SECTION on the Collections
-page — Geography is a heading there rather than a node in the tree, so a second country would be a
-collection beside this one rather than a deck inside it (it was a wrapper node holding one deck until
-Aug 2026; see `COLLECTION_SECTION` in app.js). It is a hundred cards in two decks: **The states**
+page — Geography is a heading there rather than a node in the tree, so a second country is a collection
+beside this one rather than a deck inside it (it was a wrapper node holding one deck until Aug 2026; see
+`COLLECTION_SECTION` in app.js). **That second collection now exists: `geo-world`, The world**, 233
+countries and territories and their capitals, sorted by population — see
+`docs/world-geography-card-plan.md`. It uses this file's map-card format unchanged, so a change to the
+format here reaches both, and the three glossary collisions listed below are shared with it.
+
+This collection is a hundred cards in two decks: **The states**
 (`geo-us-states`, `geo-001`–`geo-050`) and **The state capitals**
 (`geo-us-capitals`, `geo-501`–`geo-550`). Its cards use a format no other collection uses — a **map card**,
 which shows a shape on a globe and asks what it is — so this file has to describe the format as well as the
@@ -31,7 +36,8 @@ the same ten-sentence background, the same five-source bar, the same date line, 
 ```
 
 `map` is what puts the globe on the front of the card. `layer` names a set of polygons (`CARD_MAP_LAYERS` in
-app.js; today there is one, `us-states`) and `key` is a shape inside it, by name. An optional `zoom`
+app.js: `us-states`, `world` for the world collection, and the `world` layer again for a locator) and `key`
+is a shape inside it, by name. An optional `zoom`
 overrides the automatic fit for a place the fit frames badly — no shipped card needs one.
 
 **A capital card adds `dot`**, and it is what makes the two subdecks two different questions:
@@ -58,6 +64,15 @@ the ~9.9 MB `atlas` bundle, and it drops sub-100k capitals, so Juneau is simply 
 `isDateList` caps the date line at four rows and demands a number in every labelled row, so `Capital ·
 Sacramento` cannot go there. The date line carries the dates and the facts box carries everything else, and
 a card may have both. At most eight rows (`CARD_FACTS_MAX`), plain text, `[label, value]`.
+
+**AND WHAT IS IN THE BOXES IS NOT IN THE BACKGROUND** (Aug 2026, on request, for the world collection and
+stated here because the format is shared). A card carries three things that say what the place IS — the
+map, the facts box and the date line — so a background that recites the same capital, population, area and
+dates says everything twice. The background's job is the place's HISTORY; the boxes carry the figures.
+**The five `geo-` cards shipped before that rule and do not follow it** — `geo-004`'s background gives
+Rhode Island's area, population and capital, all of which are in its own facts box — so they want a rewrite
+of their first block when somebody is next in this collection. **No checker can see this**: the duplicated
+sentences are well formed, correctly cited and count the right number of words.
 
 **THE ORDER OF THE ROWS IS THE ORDER OF THE COLUMNS, so it is a decision rather than a list** (Aug 2026, on
 request). The box is a two-column grid filled row by row, so rows 1 and 3 stand above one another on the

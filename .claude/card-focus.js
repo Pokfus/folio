@@ -48,6 +48,9 @@ const EXEMPT = {
   "wh-002": "the three-age system — a 19th-century idea",
   "wh-064": "Toba catastrophe theory — a named modern theory",
   "wh-106": "Blytt–Sernander scheme — a 19th-century scheme",
+  "cnh-061": "Doubting Antiquity School — a named modern school of historical criticism",
+  "cnh-065": "Xia–Shang–Zhou Chronology Project — a named modern research programme",
+  "cnh-070": "the discovery of the oracle bones — a modern act, gr-075's counterpart",
 };
 
 /* TWO COLLECTIONS ARE EXCLUDED FROM RULE 1 OUTRIGHT (Aug 2026, on request), and this is a COLLECTION-WIDE
