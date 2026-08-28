@@ -14,6 +14,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -148,7 +149,7 @@ async function newPage(browser, db, seed) {
   const page = await ctx.newPage();
   const errs = [];
   page.on("pageerror", (e) => errs.push("pageerror: " + String(e).slice(0, 200)));
-  page.on("console", (m) => { if (m.type() === "error" && !/Failed to load resource|ERR_/.test(m.text())) errs.push("console: " + m.text().slice(0, 200)); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
   return { ctx, page, errs };
 }
 

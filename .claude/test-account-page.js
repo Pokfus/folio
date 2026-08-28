@@ -26,6 +26,7 @@
    Env:  FOLIO_CHROMIUM=<path to chrome> if Chromium lives outside the playwright package. */
 const path = require("path"), http = require("http"), fs = require("fs");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 const ROOT = path.join(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml" };
@@ -49,7 +50,7 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "admin", 
   const browser = await chromium.launch(LAUNCH);
   const page = await browser.newPage({ viewport: { width: 1440, height: 950 } });
   const errs = [];
-  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !/net::ERR_/.test(t)) errs.push(t); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   page.on("pageerror", (e) => errs.push(String(e)));
 
   await page.route(/supabase\.co/, async (route) => {

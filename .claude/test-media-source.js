@@ -16,6 +16,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -88,7 +89,7 @@ const cardDelta = (page, id, key) => page.evaluate((a) => {
   const page = await browser.newPage();
   const errs = [];
   page.on("pageerror", (e) => errs.push("pageerror: " + e));
-  page.on("console", (m) => { if (m.type() === "error" && !/ERR_|net::|Failed to load/.test(m.text())) errs.push("console: " + m.text()); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
 
   /* ---------- 1. the curated card editor, on a card that ships no picture ---------- */
   await page.goto(base + "#admin", { waitUntil: "load" });

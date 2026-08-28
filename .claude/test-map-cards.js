@@ -24,6 +24,7 @@
  */
 const path = require("path"), fs = require("fs"), http = require("http");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 const ROOT = path.join(__dirname, "..");
 const PORT = 8123;
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png" };
@@ -161,7 +162,7 @@ function staticChecks() {
 /* ---- the browser half ---- */
 async function browserChecks(page) {
   const errs = [];
-  page.on("console", (m) => { if (m.type() === "error" && !/fonts\.googleapis|ERR_CONNECTION_RESET/.test(m.text())) errs.push(m.text()); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   page.on("pageerror", (e) => errs.push("PAGEERROR " + e.message));
 
   /* Land on one card, by seeding the study session record the way a reload restores one. `n` is a cache

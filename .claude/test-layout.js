@@ -24,6 +24,7 @@ const path = require("path");
 const http = require("http");
 const fs = require("fs");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.join(__dirname, "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png" };
@@ -145,7 +146,7 @@ function scrimCheck() {
      section 6 asserts the home page as a first-time reader actually meets it. */
   const watch = (p) => {
     p.on("pageerror", (e) => errs.push("pageerror: " + e));
-    p.on("console", (m) => { if (m.type() === "error" && !/ERR_|net::|Failed to load|favicon/.test(m.text())) errs.push("console: " + m.text()); });
+    p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
     return p.addInitScript(() => { try { localStorage.setItem("folio_library_tour_v1", "1"); } catch (e) {} });
   };
 

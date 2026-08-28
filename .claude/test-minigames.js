@@ -50,6 +50,7 @@ const path = require("path");
 const http = require("http");
 const fs = require("fs");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.join(__dirname, "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png" };
@@ -193,7 +194,7 @@ function crosswordForPage(clueIds) {
        the webfont host and Supabase are simply unreachable, and says nothing about the site. Everything
        that matters still fails this: a JS error arrives on `pageerror`, and a same-origin file that is
        missing reports "the server responded with a status of 404", which carries no `net::` at all. */
-    p.on("console", (m) => { if (m.type() === "error" && !/net::ERR_/.test(m.text())) errs.push(tag + " console: " + m.text()); });
+    p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   };
   // a fresh browser context each time, so "played today" from one section cannot gate the next
   const fresh = async (viewport) => { const c = await browser.newContext({ viewport: viewport || PHONE }); const p = await c.newPage(); return [c, p]; };

@@ -11,6 +11,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -118,7 +119,7 @@ async function openGlossEditor(page, base, key) {
   const page = await browser.newPage();
   const errs = [];
   page.on("pageerror", (e) => errs.push("pageerror: " + e));
-  page.on("console", (m) => { if (m.type() === "error") errs.push("console: " + m.text()); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
 
   /* ---------- 1. the popup renders a term's image, last ---------- */
   await page.goto(base, { waitUntil: "load" });

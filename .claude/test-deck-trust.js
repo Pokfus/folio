@@ -21,6 +21,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -105,7 +106,7 @@ const plant = (page, rec) => page.evaluate((r) => new Promise((res) => {
   /* The fixture's own `<img src=x>` is REQUESTED by the browser before the sanitizer ever sees the string,
      so it 404s on every run by design. Resource failures are therefore not counted here; what is counted is
      script errors, which is what this file is actually about. */
-  page.on("console", (m) => { if (m.type() === "error" && !/Failed to load resource/.test(m.text())) errs.push(m.text()); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
 
   /* ---------- 1. a record with no srev is re-sanitized ---------- */
   await page.goto(base + "/#studio");

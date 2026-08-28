@@ -24,6 +24,7 @@
 // Playwright is a dev dependency and must NOT be installed into the repo. Install it in a scratch
 // folder and run with NODE_PATH=<that>/node_modules; set FOLIO_CHROMIUM if Chromium lives elsewhere.
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 const http = require("http"), fs = require("fs"), path = require("path");
 
 const ROOT = path.join(__dirname, "..");
@@ -97,7 +98,7 @@ function serve(patch) {
   const errs = [];
   const watch = (pg) => {
     pg.on("pageerror", (e) => errs.push("pageerror: " + e.message));
-    pg.on("console", (m) => { if (m.type() === "error" && !/ERR_|net::/.test(m.text())) errs.push("console: " + m.text()); });
+    pg.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
   };
   const url = (q) => "http://localhost:" + PORT + "/" + (q || "");
 

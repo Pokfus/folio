@@ -92,6 +92,14 @@ jobs:
     # A slow second opinion, not the gate. If the fast job is red the answer is already
     # known, so don't spend ten minutes confirming it.
     needs: fast
+    # AND THE JOB IS WRITTEN THE WAY THE PARAGRAPH ABOVE DESCRIBES IT (Aug 2026, on request).
+    # It said "not the gate" and then exited 1, which fails the RUN -- so every push mailed a
+    # failure, and with three content branches pushing every ten minutes that is a mailbox
+    # rather than a signal. The job still runs and a red suite is still red in the run's job
+    # list; what changes is that it no longer speaks for the whole run, which is what `fast`
+    # is for. Do NOT put this on the steps: `continue-on-error` there makes the JOB green too,
+    # which hides the failure instead of declassifying it.
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 

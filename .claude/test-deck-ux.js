@@ -22,6 +22,7 @@
      skips it when choosing what to focus; without the assertion a later tidy-up puts it back and every
      sheet opens with the ring on the way out. */
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 const path = require("path"), http = require("http"), fs = require("fs");
 
 const ROOT = path.resolve(__dirname, "..");
@@ -91,7 +92,7 @@ const deck = {
   await pg.setViewportSize({ width: 1280, height: 900 });
   const errs = [];
   pg.on("pageerror", (e) => errs.push(String(e)));
-  pg.on("console", (m) => { if (m.type() === "error" && !/ERR_CONNECTION/.test(m.text())) errs.push(m.text()); });
+  pg.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
 
   const tmp = "/tmp/ux-probe.folio-deck.json";
   fs.writeFileSync(tmp, JSON.stringify(deck));

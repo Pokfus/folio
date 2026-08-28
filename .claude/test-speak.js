@@ -15,6 +15,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -106,7 +107,7 @@ const holdRow = (page, match) => page.evaluate((m) => {
   const page = await ctx.newPage();
   const errs = [];
   page.on("pageerror", (e) => errs.push(String(e)));
-  page.on("console", (m) => { if (m.type() === "error") errs.push(m.text()); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
 
   check("the browser has a speech engine to gate on",
     await page.evaluate(() => !!(window.speechSynthesis && window.SpeechSynthesisUtterance)));
@@ -200,8 +201,13 @@ const holdRow = (page, match) => page.evaluate((m) => {
   }
 
   /* The restore path must stay SILENT. showAnswer() runs again from renderCard's own tail whenever an
-     already-revealed card is re-opened — after a reload, a language switch, or an undo. Undo is the
-     reachable one, and it is the same branch. */
+     already-revealed card is re-opened — after a reload, a language switch, or an undo. A RELOAD is the
+     one to drive it with: undo stopped re-opening a revealed card in Aug 2026, when it was changed on
+     request to bring the card back AT ITS QUESTION (a card whose answer is on screen cannot be answered
+     again, only re-scored), and this suite went on asserting the old behaviour for a fortnight. `rev` is
+     part of what `STUDY_KEY` records, so a reload restores the revealed card down the same branch — and
+     `addInitScript` re-arms the speech spy on the new document, so an empty `__spoke` after it is the
+     assertion. */
   await page.keyboard.press("3");
   await page.waitForTimeout(900);
   if (await page.$(".chest-pop")) { await page.keyboard.press("Escape"); await page.waitForTimeout(500); }
@@ -210,9 +216,18 @@ const holdRow = (page, match) => page.evaluate((m) => {
   const before = (await page.evaluate(() => window.__spoke)).length;
   await page.keyboard.press("Control+z");
   await page.waitForTimeout(1000);
-  const undone = await page.evaluate(() => ({ back: !!document.querySelector(".uc-card.uc-back"), n: window.__spoke.length }));
-  check("undo brings the card back revealed", undone.back);
-  check("…and it does NOT speak again — only a reader's own reveal speaks", undone.n === before, before + " -> " + undone.n);
+  const undone = await page.evaluate(() => ({ back: !!document.querySelector(".uc-card.uc-back"), card: !!document.querySelector(".uc-card"), n: window.__spoke.length }));
+  check("undo brings the card back at its question", undone.card && !undone.back);
+  check("…and it does NOT speak, an unrevealed card having nothing to say", undone.n === before, before + " -> " + undone.n);
+
+  const rev1 = await page.$("#reveal-btn");
+  if (rev1) { await rev1.click(); await page.waitForTimeout(900); }
+  check("revealing it again speaks", (await page.evaluate(() => window.__spoke)).length > before);
+  await page.reload({ waitUntil: "load" });
+  await page.waitForTimeout(1400);
+  const restored = await page.evaluate(() => ({ back: !!document.querySelector(".uc-card.uc-back"), n: window.__spoke.length }));
+  check("a reload brings the revealed card back revealed", restored.back);
+  check("…and the restore path says nothing — only a reader's own reveal speaks", restored.n === 0, String(restored.n));
 
   /* ---------- and the quiet deck stays quiet ---------- */
   await page.goto(base + "/#decks");

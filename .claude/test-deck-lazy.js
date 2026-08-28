@@ -19,6 +19,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -105,7 +106,7 @@ async function importDeck(page, base, file) {
   const page = await browser.newPage({ viewport: { width: 1280, height: 1000 } });
   const errs = [];
   page.on("pageerror", (e) => errs.push(String(e)));
-  page.on("console", (m) => { if (m.type() === "error" && !/Failed to load resource|ERR_/.test(m.text())) errs.push(m.text()); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
 
   const tmp = path.join(os.tmpdir(), "folio-lazy.folio-deck.json");
   fs.writeFileSync(tmp, JSON.stringify(deckFile("lazydeck", "Lazy deck")));
