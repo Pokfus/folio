@@ -1838,6 +1838,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     UNDER it**, so a collection that has lost two decks to a group stops claiming their cards. **⚠ No new
     group can be MADE** — the control was removed on request; everything a reader who already has one needs
     still works.
+  · **A LANGUAGE CAPS ITS DECKS; IT DOES NOT CASCADE TO THEM** (`langCtxLimits` / `langCtxOf` /
+    `entrySkippedToday` / the buckets in `reviewQueue`; Aug 2026, on request: "custom study, scheduling,
+    daily limits, and skip should also be options on the language collections"). **THE DRAW IS THREE
+    LEVELS DEEP NOW** — the deck, then its language, then the pooled review — because a QUANTITY handed
+    down to nine decks is nine times itself, which is the exact bug the per-deck allowances were built to
+    fix, so a container can only ever slice what its members hand up. **Its default is the SUM of its
+    members'** (the review's is the WIDEST, because the review is meant to cap a whole day and a language
+    is not), which makes an untouched container arithmetically incapable of changing what is dealt. **A
+    PENDING deck counts towards that sum** — these are an ALLOWANCE the reader sets and reads back, not a
+    forecast of today, and excluding one made a language whose decks are not downloaded read "0 new/day"
+    and then change on its own when a file landed. **Custom study is the cap run backwards and
+    needs the supply raised too** — spread across the members rather than given to each, or three rows
+    each promise five more where five will come. **SKIP AND SCHEDULING ARE POLICIES AND DO CASCADE**: two
+    states mean the same thing nine levels down, so `entrySkippedToday` is what every reader of "is this
+    sitting today out" goes through, and `sched`/`retention`/`fsrsParams` were already reaching a deck's
+    language through `entryChain`. **A GROUP still gets none of the four**, deliberately: it is an
+    arrangement holding decks from anywhere, so a figure on it would cap several collections at once from
+    a row that names none of them.
   · **A LANGUAGE'S HEADER IS A SYNTHESISED CONTAINER, AND ITS ONE ACTION IS ITS OPTIONS** (`langCtxId`,
     `.dk-langhead`, `data-langhead`; Aug 2026, on a bug report that holding one opened nothing). It carries
     no `data-review` — it deals no cards — so neither of the home page's two hold-menu walks reached it, and
@@ -4759,7 +4777,10 @@ dead code (never rendered).
     after adding, rebuilding or removing a deck in `decks/`. Section 4 covers the LANGUAGE HEADER's own
     options sheet, so re-run it after touching `langCtxId` / `langCtxName` / `langCtxEntries` / the
     `.dk-langhead` row and its `data-langhead` wiring / `entryExists` / `entryInfo` / `entryChain` /
-    `entryHasSpeech` / `containerHasChildren` / `removeActive` / `openDeckMenu`'s container branch.**
+    `entryHasSpeech` / `containerHasChildren` / `removeActive` / `openDeckMenu`'s container branch, and
+    section 4b the ALLOWANCE rows — re-run it after touching `langCtxLimits` / `langCtxOf` /
+    `entrySkippedToday` / `bumpDeckExtra` / `deckLimits` / `entryPiles` / `entryNoun` / the buckets in
+    `reviewQueue` / `openDeckLimits` / `openCustomStudy` / `openDeckSched`.**
   · `node .claude/test-reset.js` — **Settings → Danger zone → Reset progress, and who the home page
     thinks you are** (21 assertions, Aug 2026). **Re-run after touching `resetProgress` / `RESET_KEEPS` /
     `PROGRESS_FIELDS` / `emptyProgress`, the home page's `fresh`, or the Settings reset row.**

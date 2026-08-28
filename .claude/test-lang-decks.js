@@ -694,8 +694,12 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     const rows = byHold || [];
     check("…offering the container's own rows", ["Rename", "Colour", "Icon", "Remove"].every((k) => rows.indexOf(k) >= 0),
       JSON.stringify(rows));
-    check("…and not the daily allowances, which a language does not have",
-      rows.indexOf("Daily limits") < 0 && rows.indexOf("Custom study") < 0 && rows.indexOf("Skip today") < 0,
+    /* AND THE ALLOWANCE ROWS, which a language has and a GROUP still does not — the two containers are
+       not alike, and `test-review-decks.js` asserts the other half. This check was the other way round for
+       a day: a language was given the group's shape of the sheet, and then asked for these on request, at
+       which point they had to be made to MEAN something (4b below) rather than merely appear. */
+    check("…and the four allowance rows, which a language does have",
+      ["Custom study", "Daily limits", "Scheduling", "Skip today"].every((k) => rows.indexOf(k) >= 0),
       JSON.stringify(rows));
 
     /* THE COLOUR REACHES EVERY DECK OF THE LANGUAGE, which is what makes the row a container rather than a
@@ -715,9 +719,180 @@ check("it holds rows", ROWS.length > 0, String(ROWS.length) + " decks");
     check("a colour set on a language reaches the decks under it", !!hue.head && hue.head === hue.kid,
       JSON.stringify(hue));
 
+    /* ---------- 4b. the four allowance rows, and the cap behind them ----------
+       Aug 2026, on request: "custom study, scheduling, daily limits, and skip should also be options on
+       the language collections."
+
+       THE ROWS ARE THE EASY HALF AND ARE NOT THE POINT. A container holds no cards, so a figure set on it
+       cannot be handed DOWN to its decks — a limit cascaded to nine decks is nine times itself, which is
+       the bug the per-deck allowances were built to fix — it has to CAP what those decks hand up, which is
+       a third level in `reviewQueue` between the deck and the pooled review. Every assertion below is
+       about that arithmetic; a sheet that merely LISTED the four rows would look identical.
+
+       A SECOND DECK OF THE SAME LANGUAGE IS DOWNLOADED FIRST, because with one member the sum of the
+       members is the member and the whole question goes untested. */
+    const sib = ROWS.filter((r) => r.lang === small.lang && r.id !== small.id)
+      .sort((a, b) => a.bytes - b.bytes)[0];
+    if (sib) {
+      const sibEntry = sib.flat && sib.tree && sib.tree.length
+        ? "u:" + sib.id + "/" + encodeURIComponent(sib.tree[0].n) : "u:" + sib.id;
+      await page.evaluate((e) => {
+        const S = JSON.parse(localStorage.getItem("folio_v1") || "{}");
+        S.active = (S.active || []).concat([e]);
+        localStorage.setItem("folio_v1", JSON.stringify(S));
+      }, sibEntry);
+      /* A hash-only goto is a SAME-DOCUMENT navigation and the app keeps the state it already has, so the
+         entry written above would not be read back — see the harness note in CLAUDE.md's Testing bullet. */
+      await page.reload({ waitUntil: "load" });
+      await page.waitForTimeout(1200);
+      await page.evaluate(() => { const b = document.querySelector("[data-langdl]"); if (b) b.click(); });
+      await page.waitForTimeout(9000);
+      await page.reload({ waitUntil: "load" });
+      await page.waitForTimeout(1600);
+    }
+
+    const readRows = () => page.evaluate((sel) => {
+      const h = document.querySelector(sel);
+      const num = (e, c) => { const n = e.querySelector(c); return n ? +n.textContent.trim() : null; };
+      const kids = [...document.querySelectorAll(".active-deck[data-parent]")]
+        .filter((e) => h && e.dataset.parent === h.dataset.langhead);
+      const b = document.querySelector(".banner .stat.st-new b");
+      return {
+        head: h ? num(h, ".dkc-new") : null,
+        kids: kids.map((e) => num(e, ".dkc-new")),
+        banner: b ? +b.textContent.trim() : null,
+      };
+    }, headSel);
+
+    const p0 = await readRows();
+    /* THE DEFAULT CAP IS ARITHMETICALLY INCAPABLE OF CHANGING ANYTHING, which is the one property that
+       makes this safe to ship: a language nobody has opened the sheet on slices at exactly the number its
+       decks handed up. Asserted as the language's own new pile against the sum of its decks' — where a
+       cascade would have shown the language claiming one deck's allowance and the decks claiming it each,
+       and a wrong default would show the two disagreeing. */
+    check("a language's daily allowance is the sum of its decks'",
+      p0.head !== null && p0.kids.length > 0 && p0.head === p0.kids.reduce((a, b) => a + b, 0),
+      JSON.stringify(p0));
+
+    const openLimits = async () => {
+      await page.evaluate((sel) =>
+        document.querySelector(sel).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })), headSel);
+      await page.waitForTimeout(400);
+      await page.evaluate(() => document.querySelector('.dm-item[data-act="limits"]').click());
+      await page.waitForTimeout(450);
+    };
+    await openLimits();
+    const lim = await page.evaluate(() => ({
+      tab: (document.querySelector(".dm-tab") || {}).textContent,
+      n: +document.querySelector('[data-lim="dNew"]').value,
+      note: (document.querySelector('.dm-pane[data-pane="deck"] .dm-note') || {}).textContent || "",
+    }));
+    check("…and the Daily limits sheet says so rather than naming the global default",
+      lim.n === p0.head && /language/i.test(lim.tab) && /offer between them/i.test(lim.note),
+      JSON.stringify(lim));
+
+    /* NOW CAP IT AT ONE AND WATCH THE DRAW. The banner's three figures come straight out of `reviewQueue`,
+       so this is the queue itself being measured rather than a label: without the container level the
+       decks would go on handing up their own allowances and the banner would not move. */
+    await page.evaluate(() => {
+      document.querySelector('[data-lim="dNew"]').value = "1";
+      document.querySelector('.dm-actions [data-act="save"]').click();
+    });
+    await page.waitForTimeout(900);
+    const p1 = await readRows();
+    check("a cap set on a language really caps what the day deals",
+      p0.banner > 1 && p1.banner === 1, JSON.stringify({ before: p0.banner, after: p1.banner }));
+    /* …and it is stored under the LANGUAGE's own id, not written into its decks — which is what makes it a
+       cap rather than a cascade, and what lets clearing it hand every deck back its own figure untouched. */
+    const stored = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).deckOpts || {});
+    check("…stored on the language alone, its decks untouched",
+      Object.keys(stored).some((k) => k.indexOf("langctx:") === 0 && stored[k].newPerDay === 1) &&
+      !Object.keys(stored).some((k) => k.indexOf("u:") === 0), JSON.stringify(stored));
+
+    await openLimits();
+    await page.evaluate(() => document.querySelector('[data-act="clear"]').click());
+    await page.waitForTimeout(900);
+    const p2 = await readRows();
+    check("…and clearing it gives the day back", p2.banner === p0.banner,
+      JSON.stringify({ before: p0.banner, cleared: p2.banner }));
+
+    /* CUSTOM STUDY IS THE CAP RUN BACKWARDS, and the reason it needs its own branch: a cap can only ever
+       remove, so raising the language's own figure alone would raise a ceiling nothing can reach. The
+       bump is SPREAD across the decks rather than given to each of them, so the rows still add up to what
+       the language will deal — three rows each promising five more where five more will come is exactly
+       the overstatement this list is written to avoid. */
+    await page.evaluate((sel) =>
+      document.querySelector(sel).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })), headSel);
+    await page.waitForTimeout(400);
+    await page.evaluate(() => document.querySelector('.dm-item[data-act="custom"]').click());
+    await page.waitForTimeout(450);
+    await page.evaluate(() => {
+      document.querySelector("#csN").value = "4";
+      document.querySelector('[data-act="more"]').click();
+    });
+    await page.waitForTimeout(900);
+    const p3 = await readRows();
+    check("Custom study adds what was asked for, once",
+      p3.head === p0.head + 4, JSON.stringify({ was: p0.head, now: p3.head }));
+    check("…spread across the decks rather than given to each of them",
+      p3.kids.reduce((a, b) => a + b, 0) === p3.head, JSON.stringify(p3));
+
+    /* SKIP TODAY IS A POLICY, so unlike the two above it may cascade: two states mean the same thing nine
+       levels down, where a quantity would multiply. The rows say so too — a deck the queue will deal
+       nothing must not go on showing a pile. */
+    await page.evaluate((sel) =>
+      document.querySelector(sel).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })), headSel);
+    await page.waitForTimeout(400);
+    await page.evaluate(() => [...document.querySelectorAll(".deck-menu .dm-item")].find((x) => x.dataset.act === "skip").click());
+    await page.waitForTimeout(900);
+    const p4 = await readRows();
+    check("skipping a language sits every deck under it out",
+      p4.head === 0 && p4.kids.every((n) => n === 0) && p4.banner === 0, JSON.stringify(p4));
+    await page.evaluate((sel) =>
+      document.querySelector(sel).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })), headSel);
+    await page.waitForTimeout(400);
+    const backRows = await page.evaluate(() =>
+      [...document.querySelectorAll(".deck-menu .dm-item")].map((x) => (x.querySelector("b") || x).textContent.trim()));
+    check("…and offers the way back rather than the same row again",
+      backRows.indexOf("Study today after all") >= 0, JSON.stringify(backRows));
+    await page.evaluate(() => [...document.querySelectorAll(".deck-menu .dm-item")].find((x) => x.dataset.act === "skip").click());
+    await page.waitForTimeout(900);
+
+    /* SCHEDULING NEEDED NO PLUMBING AT ALL and is asserted for that reason: `sched` is a DECK_OPT_INHERIT
+       key and `entryChain` reaches a deck's language, so choosing FSRS on the language really does put
+       every deck of it on FSRS. A row that merely opened a sheet would look the same. */
+    await page.evaluate((sel) =>
+      document.querySelector(sel).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })), headSel);
+    await page.waitForTimeout(400);
+    await page.evaluate(() => document.querySelector('.dm-item[data-act="sched"]').click());
+    await page.waitForTimeout(450);
+    await page.evaluate(() => document.querySelector('[data-sched="fsrs"]').click());
+    await page.waitForTimeout(700);
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(300);
+    const deckSheetNote = await page.evaluate((sel) => {
+      const h = document.querySelector(sel);
+      const kid = [...document.querySelectorAll(".active-deck[data-parent]")].find((e) => e.dataset.parent === h.dataset.langhead);
+      kid.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true }));
+      return true;
+    }, headSel);
+    await page.waitForTimeout(450);
+    const kidSched = await page.evaluate(() => {
+      const r = [...document.querySelectorAll(".deck-menu .dm-item")].find((x) => x.dataset.act === "sched");
+      return r ? (r.querySelector("small") || {}).textContent : null;
+    });
+    check("a scheduler chosen on a language reaches the decks inside it",
+      deckSheetNote && /FSRS/.test(kidSched || ""), String(kidSched));
+    await page.keyboard.press("Escape");
+    await page.waitForTimeout(400);
+
     /* AND REMOVE TAKES THE LANGUAGE OUT, which needs its own branch in `removeActive`: the container is
        not in `S.active` at all, so the ordinary path filters out an id that was never there and the row
        comes straight back on the next render — a Remove that plainly did nothing. */
+    // …re-opened, since 4b above closes every sheet it uses and the colour step no longer leaves one up
+    await page.evaluate((sel) =>
+      document.querySelector(sel).dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })), headSel);
+    await page.waitForTimeout(450);
     await page.evaluate(() => [...document.querySelectorAll(".dm-item")].find((x) => x.dataset.act === "remove").click());
     await page.waitForTimeout(800);
     const gone = await page.evaluate((sel) => ({
