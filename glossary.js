@@ -1277,7 +1277,8 @@ window.GLOSSARY = {
 "Servius_Tullius": "Servius Tullius is the sixth king of Rome in Roman tradition, said to have been marked out in childhood when flames played about his head as he slept in the palace, and raised there as a son of the house.<sup class=\"fn\" data-fn=\"1\"></sup> He came to the throne through the queen Tanaquil, who concealed her husband's murder and had the crowd told to obey him, so that he held the power before it was granted him.<sup class=\"fn\" data-fn=\"2\"></sup> The tradition credits him with the temple of Diana on the Aventine, built jointly with the Latin cities, and with a reign of 44 years ended when his daughter's husband seized the throne and had him killed.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Servian_constitution": "The Servian constitution is the arrangement that Roman tradition ascribes to the king Servius Tullius, under which a citizen's military service and war tax were fixed by the rating of his property instead of falling equally on all.<sup class=\"fn\" data-fn=\"1\"></sup> The rating sorted the people into classes and each class into centuries of younger men, who campaigned, and older men, who guarded the city, the wealthiest bearing the fullest armour and those below the last rating forming one century excused both service and tax.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Dionysius of Halicarnassus counts 193 centuries in all, of which 98 stood in the first class.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Comitia_centuriata": "The comitia centuriata is the assembly in which Roman citizens voted in the centuries their property rating had placed them in, one vote to a century rather than one to a man.<sup class=\"fn\" data-fn=\"1\"></sup> The centuries were summoned in order of wealth, the knights and the 80 centuries of the first class before any other, so that a question could be settled before the poorer classes were reached at all.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It met on the Campus Martius, an army not being lawfully commanded within the city boundary, and it chose the senior magistrates, voted on war and heard a citizen's appeal against a capital sentence.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Servian_Wall": "The Servian Wall is the circuit of wall, rampart and ditch around Rome that tradition ascribes to Servius Tullius, who is said to have surrounded the city with a mound, moats and a wall, and by doing so to have extended the pomerium.<sup class=\"fn\" data-fn=\"1\"></sup> It took in the Quirinal, Viminal and Esquiline, and Dionysius calls the king it is named after the last to enlarge the circuit of the city.<sup class=\"fn\" data-fn=\"2\"></sup> Its oldest surviving stretches are of grey cappellaccio tufa, usually assigned to the 6th century BCE, while most of what stands is a later reinforcement in Grotta Oscura tufa from the territory of Veii.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Servian_Wall": "The Servian Wall is the circuit of wall, rampart and ditch around Rome that tradition ascribes to Servius Tullius, who is said to have surrounded the city with a mound, moats and a wall, and by doing so to have extended the pomerium.<sup class=\"fn\" data-fn=\"1\"></sup> It took in the Quirinal, Viminal and Esquiline, and Dionysius calls the king it is named after the last to enlarge the circuit of the city.<sup class=\"fn\" data-fn=\"2\"></sup> Its oldest surviving stretches are of grey cappellaccio tufa, usually assigned to the 6th century BCE, while most of what stands is a later reinforcement in Grotta Oscura tufa from the territory of Veii.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Roman_census": "The Roman census is the registration at which every citizen declared on oath his name, his age, his household and the value of his property, so that his obligations of military service and tax could be fixed by what he owned.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Roman writers ascribe it to Servius Tullius and record that a man who evaded assessment was threatened with imprisonment and death, and under the Republic might be sold by the state as a slave.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It closed with a purification of the whole people drawn up in arms, the lustrum, which was meant to fall in every fifth year and gave its name to that span.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1893,7 +1894,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hatshepsut": "c. 1479 – 1458 BCE",
 "Thutmose_III": "c. 1479 – 1425 BCE",
 "Archaic_period_(North_America)": "c. 9000 – 2500 BP",
-"Servian_Wall": "traditionally 6th century BCE, rebuilt in the 4th"
+"Servian_Wall": "traditionally 6th century BCE, rebuilt in the 4th",
+"Roman_census": "traditionally instituted in the 6th century BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4075,7 +4077,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Servius_Tullius": ["ruler","history","italy","iron age","religion"],
 "Servian_constitution": ["institution","history","warfare","italy","iron age"],
 "Comitia_centuriata": ["institution","history","italy","iron age","warfare"],
-"Servian_Wall": ["building","history","italy","iron age","warfare"]
+"Servian_Wall": ["building","history","italy","iron age","warfare"],
+"Roman_census": ["institution","history","italy","iron age","practice"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
