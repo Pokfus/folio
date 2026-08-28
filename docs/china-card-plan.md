@@ -212,10 +212,10 @@ site-wide rewrite pass is `docs/history-focus-plan.md`. Do not restate either he
 The archaeology pull is concentrated in `col-2` and `col-3`, where everything before the oracle bones
 is material evidence, and it comes with this collection's hardest question:
 
-**`cnh-048 The question of the Xia's historicity` is China's Aryan-migration debate** — the counterpart
+**`cnh-061 The question of the Xia's historicity` is China's Aryan-migration debate** — the counterpart
 of `in-033` and `ru-031`. Whether the Xia existed as the texts describe, and whether Erlitou is it, is
 argued between Chinese and Western scholarship along lines that are not purely evidential; the
-Xia–Shang–Zhou Chronology Project (`cnh-053`) is itself part of the story. The cards are about the
+Xia–Shang–Zhou Chronology Project (`cnh-065`) is itself part of the story. The cards are about the
 evidence and about the argument. They do not settle it, and a card that quietly picks a side while
 sounding neutral is worse than one that picks openly.
 

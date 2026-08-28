@@ -1492,3 +1492,31 @@ above the 17-character alias, and the renderer additionally excludes a card's ow
 the card and the popup were checked in a browser to confirm it. Worth writing down in both directions:
 the simulation over-reports where a new key is a superset of an old alias, and **a browser check is what
 settles it**.
+
+  **`cnh-052` IS THE FOURTH IN A ROW WHOSE SUBJECT WAS ALREADY PARTLY SPENT, AND THE ANSWER WAS TO MAKE
+THE CARD ABOUT THE ARGUMENT RATHER THAN ABOUT THE PLACE.** `cnh-047` to `cnh-051` had already carried
+Hongshan, Liangzhu, Longshan and the pottery, so a *Central Plain* card written as a description of the
+middle Yellow River would have been five sixths of it a list of what the reader has just read. What no
+card had is the **claim** those five cards bear on: that complexity spread outward from the Zhongyuan by
+conquest and imitation. The card states the traditional model, gives Erlitou as the one thing genuinely
+peculiar to the region — an unbroken Neolithic-to-Shang sequence — and then sets the walled towns of
+Shandong, Hubei and Sichuan and the dammed city on the Yangtze delta against it. **Where the siblings
+have taken a region's contents, take the region's claim.**
+  **THE SANDBOX'S ANSWER TO CHINESE ARCHAEOLOGY IS STILL SCHOLARSPACE, AND IT CARRIED THREE OF FIVE.**
+Shelach 1994 (*Asian Perspectives* 33(2)) is the challenge to the Zhongyuan model with the Yuxi/Chifeng
+comparison behind it; Lee 2002 (41(1)) has Erlitou's 400 hectares, its four phases, and the stratigraphy
+between Miaodigou II and Erligang; Dematté 1999 has the walled towns in their regional clusters. The
+other two are PMC — Peterson et al. 2010 for the Hongshan chiefdoms, Bin Liu et al. 2017 for Liangzhu's
+dams. **Every handle was read off `/server/api/core/items/<uuid>` and opened before it was cited**, which
+is the rule this deck learned the hard way on `cnh-050`, where five invented handle numbers were composed
+from the pattern of two real ones and not one of them was right.
+  **THE PICTURE IS A MAP, AND IT IS THE CARD'S ARGUMENT IN ONE IMAGE.** `File:Late Neolithic cultures in
+China.jpg` numbers fifteen late-Neolithic culture areas across the country, so a reader sees at a glance
+that the Central Plain is one region among many — which is exactly what the abstract spends five
+sentences saying. Its base-map place names are German while the fifteen keyed areas are English, and the
+description says so rather than leaving a reader to discover it.
+  **A STALE CROSS-REFERENCE IN THE PLAN WAS FIXED IN THE SAME COMMIT.** `docs/china-card-plan.md` argued
+the Xia historicity question under `cnh-048` and the Chronology Project under `cnh-053`, where the running
+order gives `cnh-061` and `cnh-065` — and by now those two numbers name *Liangzhu culture* and
+*Sanxingdui*, two cards that exist. **A number in a plan's prose is not checked by anything**; the running
+order is, so read the prose against it when passing.
