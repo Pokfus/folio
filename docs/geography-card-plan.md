@@ -16,11 +16,11 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
 `geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
-Maryland, `geo-015` Nevada, `geo-501` Sacramento, `geo-502` Austin, `geo-503` Tallahassee,
-`geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing, `geo-508` Baton
-Rouge, `geo-509` Augusta, `geo-510` Oklahoma City, `geo-511` Albany and `geo-512` Boise.** Both
-subdecks are worked down the same list, so the next state is `geo-016` and the next capital
-`geo-513`.
+Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-501` Sacramento, `geo-502` Austin, `geo-503`
+Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
+`geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City, `geo-511` Albany, `geo-512`
+Boise and `geo-513` Charleston.** Both subdecks are worked down the same list, so the next state
+is `geo-017` and the next capital `geo-514`.
 
 ---
 
@@ -369,6 +369,24 @@ Four more, measured while writing `geo-005` and `geo-501`:
   have cited two entirely unrelated properties. Match the anchor's own text exactly. And **read the
   reference number back before fetching**: `66000386` returns a perfectly valid PDF for something that is
   not the Maryland State House, whose number is `66000385`.
+- **A STATE SHPO MAY HOST THE NOMINATION PDFs ITSELF, WHICH SKIPS NARA ENTIRELY.** West Virginia's does:
+  `wvculture.org/agencies/state-historic-preservation-office-shpo/register-of-historical-places/national-register-of-historic-places-nominations/<county>-county/`
+  lists every National Register nomination in the county with a direct PDF link, so no reference number is
+  needed and NRHP listings appear beside NHLs. That is how `geo-513` was written: Charleston has **no
+  National Historic Landmark at all** (Kanawha County's only one had its designation withdrawn), and the
+  Downtown Charleston Historic District nomination and its 2024 additional documentation carry the whole
+  city — Clendenin's settlement of 1788, Fort Clendenin renamed Fort Lee in 1792, the capital arriving in
+  1870, the referendum of 1877, the capitol of 1885, the railways of 1884 and 1890, and the fire of 1921.
+  **Most of the older scans do not extract**: of five tried, only the two Downtown Charleston forms gave
+  text, the rest being image-only PDFs with a text layer this sandbox cannot reach. Try the newest form
+  first — a born-digital one extracts even when its letters come out spaced.
+- **e-WV PASSES THE PER-ARTICLE ENCYCLOPEDIA TEST ON ONE ARTICLE AND FAILS IT ON ANOTHER**, which is the
+  sharpest demonstration yet of why that test is per article. `wvencyclopedia.org` gives its Whiskey
+  Rebellion entry a named author, a Sources bibliography of three works and a Chicago citation block —
+  and its **Charleston** entry, by a named author and equally detailed, carries **no Sources section at
+  all**. The Charleston article was therefore not cited, and everything it would have supplied was found
+  in the SHPO nominations instead. **Check the article you are actually citing, every time**; a publisher
+  that passed last week proves nothing about the page in front of you.
 - **`history.idaho.gov` IS OPEN**, the Idaho State Historical Society's own site, and its `/capitol/`
   page carried `geo-512`'s statehouse completion in 1920 and the 1915 Lincoln with its Table Rock
   sandstone base. It is not an encyclopedia with per-article bibliographies like Oklahoma's — it is a
@@ -470,6 +488,14 @@ terms that already exist**. Each was measured, and none should be settled quietl
   York" in its popup, and the bare word auto-links to nothing — which is the honest result when the word
   means two things. The card is unaffected, a card never auto-linking its own answer.
 
+- **`Charleston` IS KEYED BARE AND `geo-028` SOUTH CAROLINA MUST REVISIT IT.** All four uses in the
+  corpus today are the West Virginia capital, so the measure says bare, and the render check confirms
+  `geo-013` links correctly while "Charles Town" — the other West Virginia place, where John Brown was
+  tried — is untouched. But South Carolina's card will almost certainly name Charleston for Fort Sumter,
+  and on that day the surface divides and the term must be rekeyed `Charleston_(West_Virginia)`. **This
+  is the Georgia case with a date on it**: the measure is a snapshot, and a collection written down a
+  fixed running order can often see the collision coming. Where you can, name the card that will force
+  the decision rather than leaving it to be discovered.
 - **`Nevada_(state)` IS THE SECOND, AND IT MEASURED 2 OF 2 AGAINST.** Both existing uses of "Nevada"
   in shipped prose are inside **Sierra Nevada** — the range, in `geo-001` and the `California` term —
   so a bare key would have linked the mountains to the state twice over and there was no majority to
