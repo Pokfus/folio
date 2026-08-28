@@ -16,19 +16,19 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-065`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-068`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
 Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia,
 Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela, Australia, Niger, North
-Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan, Chad) **and capitals
-`gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo,
-`gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518` Ankara, `gw-519` Berlin,
-`gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524` Pretoria, `gw-525` Rome,
-`gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-751` Dar es Salaam, `gw-752`
-Cape Town and `gw-753` Bloemfontein.** The next country is `gw-066` Chile and the next capital is
-`gw-530` Khartoum.
+Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan, Chad, Chile, Romania,
+Somalia) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
+Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
+Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
+Khartoum, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is
+`gw-069` Senegal and the next capital is `gw-531` Kampala.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -885,6 +885,30 @@ recognition text for the city's name**; where it appears, that sentence is the c
 resolves, which with Côte d'Ivoire in batch 16 makes two members whose pages could not be reached by
 guessing. It cost nothing here — Seoul had five sources without it — but the pattern is now established:
 **budget one WTO citation per batch as optional, not assumed.**
+
+**Batch 22 (Chile, Romania, Somalia, Khartoum) closed C7's Somalia deferral by C8's method, which is
+the pattern to reach for on every figure this pass once withheld.** C7 refused to correct Somalia's
+"roughly 18 million" because UNdata alone gave 19.655 and C5's rule forbids correcting on one source. The
+resolution is not a second source but the SERIES: the World Bank's run shows 13.8 million in 2015 and
+19.7 in 2025, so 18 million is a point that curve passed through about 2022 — stale, not contested — and
+C8's test settles it without needing corroboration UNdata's relay could not give. **Re-run the stale test
+over every figure a batch DEFERRED for want of a second source**; several of them are not disagreements
+at all. Chile went the same way, 19.5 million being the series' 2021 value.
+
+**And a Wikimedia finding worth more than any of the pictures it produced: the throttle falls on
+ORIGINALS, not on thumbnails.** Khartoum's astronaut photograph returned 429 on
+`/wikipedia/commons/<a>/<ab>/<file>` at every attempt across half an hour while the control file fetched
+beside it returned 200 — and the same file on `/wikipedia/commons/thumb/<a>/<ab>/<file>/1280px-<file>`
+returned 200 first time. That is why every image shipped through the `/thumb/` path since batch 13 has
+verified while several originals have not. **Always write the `/thumb/…/1280px-…` form**: it is smaller
+for the reader, and it is the path that answers here.
+
+**One picture was refused on content rather than on access, and the reason is worth stating.** The
+Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own description says the scene
+"lies just south of the capital" — farmland, not the city, and not in true colour. A picture whose
+caption has to explain that it is not of the thing it is filed under is not an illustration of that
+thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
+ship and the description decides whether it SHOULD.
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
