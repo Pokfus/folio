@@ -1656,3 +1656,34 @@ image in a 16:9 `contain` frame the smaller one loses nothing a reader can see.
   **`check-style` CAUGHT AN UN-ITALICISED `Book of Documents`** in the abstract, and the same rule will
 fire on every card in this deck that names a classic. `fix-field.js` repairs it inside `abstract` in one
 call; the glossary description was written italic from the start because the card had already been caught.
+
+  **`cnh-057` KEPT ITS PLAN LINE, WHICH AFTER TWO RENAMES IS WORTH SAYING.** `Qi of Xia` names a real
+answer term and `cnh-012` had spent only the accession dispute — one sentence of it — so the card had a
+whole reign to itself. **The test is not "has the subject been mentioned" but "has the CARD that could be
+written about it been written"**; on `cnh-056` the answer was yes, here it was no, and the check is the
+same grep either way.
+  **THE CENTRE OF THE CARD IS THE SPEECH AT KAN, AND THE CALENDAR IS WHAT MAKES IT HISTORY.** The charge
+against the lord of Hu — wasting the five elements, abandoning the three commencements of the year — reads
+as ritual nonsense until Legge's note explains it: each dynasty fixed the month its year began in, so to
+begin the year on another month was to refuse the new house's authority. **A charge that sounds like
+superstition is usually a charge about submission**; the same will be true of most of the accusations this
+deck meets in the Documents.
+  **AND CHAVANNES' NOTE TURNS THE CLOSING THREAT INTO A DESCRIPTION OF HOW AUTHORITY WORKED.** "Rewarded
+before my ancestors, put to death before the altar of the land" is not rhetoric: a king on campaign carried
+both sets of tablets with him, the ancestral one in a chariot of its own, so that his rewards came from the
+tutelary spirit and his punishments from the god of the earth. That is the third card running whose best
+sentence is in an apparatus rather than a text.
+  **THE ANSWER TERM IS `Qi of Xia` AND THE GLOSSARY KEY IS `Qi_of_Xia`, WITH NO BARE `Qi` ALIAS — AND THAT
+IS NOT A CLOSE CALL.** The plan carries the state of Qi (`cnh-152`), Duke Huan of Qi, Wu Qi, Bai Qi,
+Southern Qi, Northern Qi, and *li* and *qi* as a pair of philosophical terms (`cnh-861`). This is `cnh-054`'s
+Western Xia rule at seven times the scale: **grep the plan for a one-word alias before adding it**, and on
+this deck expect the answer to be no.
+  **NO WOODBLOCK PORTRAIT OF QI EXISTS IN THE SERIES `cnh-055` USED.** The `夏商合傳` category holds
+nineteen files — Yu, Shaokang, Kong Jia, Tang, Yi Yin, Daji, King Wu, King Zhou and the rest — and no Qi.
+What answered instead was `File:启 清人绘.jpg`, a Qing painting on silk in the Commons category *King Qi of
+Xia*. **List the CATEGORY rather than searching the series title**: one API call returns every file in it
+and settles in seconds whether the subject is there.
+  **THE ABSTRACT CAME IN 23 WORDS OVER AND THE TRIM INTRODUCED A COMMA SPLICE.** Replacing a clause that
+carried a colon dropped the colon with it, and the sentence read "…the one with whom the dynasty properly
+begins, he took his father Yu's place…" — invisible to every checker, since punctuation is not what any of
+them measure. **Read the trimmed block back as prose**, not just its word count.
