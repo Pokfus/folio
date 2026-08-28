@@ -1304,7 +1304,8 @@ window.GLOSSARY = {
 "Zhengzhou_Shang_City": "<b>Zhengzhou Shang City</b> is a walled Bronze Age settlement in central Henan, China, covering about 24 square kilometres (9 square miles) inside two circuits of rammed earth, the inner one enclosing a few dozen foundations of 100 to 2,000 square metres taken for palaces and temples.<sup class=\"fn\" data-fn=\"1\"></sup> Two bronze foundries lie in the outer city, one of them at Nanguanwai, and across some 0.8 hectares have yielded crucibles, slag, clay moulds, copper ore and the remains of smelting furnaces.<sup class=\"fn\" data-fn=\"1\"></sup> Three caches of monumental four-legged ding were buried there in adapted wells and pits, and the site is identified with one of the early Shang capitals the later texts name.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Panlongcheng": "<b>Panlongcheng</b> is a Bronze Age settlement in Hubei, in the middle Yangzi valley of China, whose wall encloses 7.5 hectares (19 acres) within a much larger site variously measured at 64 and 110 hectares.<sup class=\"fn\" data-fn=\"2\"></sup> It stands close to abundant copper deposits and has produced evidence of bronze making, though only of weapons and tools cast in stone moulds, while the bronze vessels in its elite burials resemble those of the Central Plain.<sup class=\"fn\" data-fn=\"1\"></sup> It is usually read as an outpost planted near metal sources, secured for the networks along which copper moved rather than to control the mining itself.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Shang_agriculture": "<b>Shang agriculture</b> was the dry farming of the two millets on the loess plains of northern China, the crops that region had grown since the Neolithic and the base on which the Shang state rested.<sup class=\"fn\" data-fn=\"2\"></sup> Wheat and barley, brought from south-west Asia after 2000 BCE, appear at Shang sites in quantity for the first time in central China, but their part in what people actually ate stayed minimal until the Zhou.<sup class=\"fn\" data-fn=\"3\"></sup> Late in the dynasty a cooler, drier climate was met with deforestation and multicropping, marked by a sharp rise in the number of stone knives and sickles.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Shang_countryside": "The <b>Shang countryside</b> is the settled landscape outside the Shang capitals in Bronze Age China — villages, hamlets and lesser regional centres — of which very little has been excavated.<sup class=\"fn\" data-fn=\"1\"></sup> The early Shang pattern includes medium-sized centres placed at the main water-transport nodes near metal sources, while for the late Shang the evidence rests largely on one nearly complete village, Guandimiao in Henan, whose 22 houses and 23 kilns produced pottery far beyond local need.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The polity such settlements composed is read less as a bounded territory than as a network of lineages with the king at the head of the senior one.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Shang_countryside": "The <b>Shang countryside</b> is the settled landscape outside the Shang capitals in Bronze Age China — villages, hamlets and lesser regional centres — of which very little has been excavated.<sup class=\"fn\" data-fn=\"1\"></sup> The early Shang pattern includes medium-sized centres placed at the main water-transport nodes near metal sources, while for the late Shang the evidence rests largely on one nearly complete village, Guandimiao in Henan, whose 22 houses and 23 kilns produced pottery far beyond local need.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The polity such settlements composed is read less as a bounded territory than as a network of lineages with the king at the head of the senior one.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Shang_calendar": "The <b>Shang calendar</b> is the reckoning of time behind the oracle-bone inscriptions of Bronze Age China, and it counts days rather than years, those inscriptions carrying day notations and nothing else.<sup class=\"fn\" data-fn=\"1\"></sup> A day is named by pairing ten signs called the heavenly stems with twelve called the earthly branches, each taken in turn, so the pairs run out at sixty and begin again; the ten stems also give a week of ten days, the xun.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> There is no era count in the system, which was not applied to numbering years until the Han dynasty, so a date on a bone has to be recovered from astronomy instead.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1947,7 +1948,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Zhengzhou_Shang_City": "c. 1600 – 1400 BCE",
 "Panlongcheng": "c. 1500 – 1300 BCE",
 "Shang_agriculture": "c. 1600 – 1046 BCE",
-"Shang_countryside": "c. 1600 – 1046 BCE"
+"Shang_countryside": "c. 1600 – 1046 BCE",
+"Shang_calendar": "c. 1250 – 1046 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4172,7 +4174,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Zhengzhou_Shang_City": ["place","archaeology","history","china","bronze age"],
 "Panlongcheng": ["place","archaeology","history","china","bronze age"],
 "Shang_agriculture": ["practice","agriculture","history","china","bronze age"],
-"Shang_countryside": ["concept","archaeology","history","china","bronze age"]
+"Shang_countryside": ["concept","archaeology","history","china","bronze age"],
+"Shang_calendar": ["concept","history","science","china","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

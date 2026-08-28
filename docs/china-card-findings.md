@@ -2634,3 +2634,37 @@ Xingyang from November 1973**, declassified and public domain, showing field str
 village houses with nothing Shang visible from the air. **A satellite frame is a legitimate illustration
 for a card about a landscape**, and the caption says outright that the village was found only because a
 canal was cut through it, which is the card's own point.
+
+  **`cnh-093` IS THE FIRST CARD OF THIS RUN WHOSE SOURCE LIST IS MOSTLY 19TH-CENTURY, AND THAT IS THE
+FINDING.** No open modern work reachable from here describes the sexagenary day-count itself — the
+scholarship on it sits in Springer encyclopedias and untranslated Chinese journals — but the structure was
+described plainly in the reference literature of the 1870s and 1900s, which is out of copyright and on
+archive.org. **Mayers's *Chinese Reader's Manual* (1874)** gives the combination method, the name *jiazi*,
+and the flat statement that the cycle "was not until the period of the Han dynasty" applied to numbering
+years; **Chalfant's *Early Chinese Writing* (1906)** adds the inference from the bones themselves, that the
+combinations on them exceed the sixty a year-cycle allows and so must be days. This is batch 25's rule in
+its purest form: **for a definitional fact about an old subject, the standard old reference work is often
+both the origin of the observation and the only open source that states it.**
+  **WHAT THOSE TWO MUST NOT BE CITED FOR IS EVERYTHING AROUND THE FACT.** Mayers attributes the invention
+to Ta Nao in the 27th century BCE out of the *Record of Rites*, and Chalfant passes on Edkins's opinion
+that the twenty-two signs were "imported from Babylonia", admitting he cannot state the proofs. Neither is
+in the card. **A century-old reference work is cited for its structural description and never for its
+chronology or its origins**, and the two are usually on the same page.
+  **THE MODERN SOURCE CARRIES THE PART THAT NEEDED MEASUREMENT.** Lee 2002 supplies what only current work
+can: that the oracle inscriptions carry day notations and nothing else; that the five-rite round the late
+kings ran through the ten-day weeks took about a Julian year, which is the nearest thing the Shang had to
+one; and that of eleven possible eclipse entries, five lunar ones from the Bin diviner group are agreed
+genuine and can only fall between 1201 and 1181 BCE. **`cnh-072` had already spent the five-rite cycle as
+a fact about divination; the calendrical fact — how long one circuit takes — was untouched**, which is the
+way to reuse a source an earlier card has already read.
+  **AND THE CLOSING SENTENCE IS A 2018 CLIMATE DATABASE.** REACHES digitises Qing chronicles of 1644–1795,
+whose days are still dated by stems and branches and have to be run through a lunar-to-Gregorian
+converter — so the Shang day-count is still doing work three thousand years later, and the citation for
+that is a *Scientific Data* paper about rainfall. **Look for the afterlife of a system in the literature
+that has to cope with it**, not in the literature about it.
+  **THE PICTURE SEARCH PRODUCED CITIZEN KANE.** `add-card.js`'s five candidates for "Shang calendar" were
+two promotional stills from the 1941 film, a V-22 Osprey refuelling over Iraq, and two photographs of a
+motel in Kane, Pennsylvania. Searching Commons for the OBJECT found it at once: **`Heji 37986`, an ox
+scapula in the Yinxu Museum carrying the complete table of sixty in oracle-bone script**, CC0. That is the
+third card running where the offered candidates were useless and a hand search for the thing itself
+answered in one query.
