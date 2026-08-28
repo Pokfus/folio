@@ -16,15 +16,16 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-045`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-048`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
-Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia)
-**and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa,
-`gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518` Ankara,
-`gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma and `gw-751` Dar es Salaam.** The
-next country is `gw-046` Mozambique and the next capital is `gw-523` Paris.
+Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malaysia, Saudi Arabia,
+Mozambique, Ghana, Peru) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília,
+`gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517`
+Tehran, `gw-518` Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523`
+Paris and `gw-751` Dar es Salaam.** The next country is `gw-049` Madagascar and the next capital is
+`gw-524` Pretoria.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -677,6 +678,35 @@ Sea, which is the way to cite the Aral Sea from here at all.
 profile footnotes its capital field with *"Kuala Lumpur is the capital and Putrajaya is the administrative
 capital"* — the same shape as the Commonwealth's Tanzania line, and the source `gw-544` and `gw-754` will
 need. **Read the footnote letters on a UNdata profile before looking elsewhere for a divided seat.**
+
+**Batch 15 (Mozambique, Ghana, Peru, Paris) caught the recognition guide contradicting UNdata, and
+UNdata is right.** The guide's Peru summary states that *"Peru has been a member of the United Nations
+since 1949"*; UNdata gives **31 October 1945**, which makes Peru an original member. The card cites
+UNdata for the date and says in its own prose that the guide is wrong about it, rather than quietly
+preferring one and leaving a reader to find the clash. This is P2's finding — a spine source is not
+infallible, read the whole page rather than the sentence that matches — arriving inside Phase 3's own
+spine. **Check a membership date against UNdata even when the guide states one.**
+
+**Ghana and Peru are the other end of the Saudi Arabia case, and worth recording for the same reason.**
+Saudi Arabia's two sources differ by 7% on population and 2.6% on area; Ghana's differ by **6 km²** and
+agree on the population to the thousand, and Peru's differ by **four tenths of a square kilometre**
+(1,285,216 against 1,285,215.6) and agree on the population exactly. The spread between two official
+sources is not a constant — it is a fact about the country, and reading it tells you how much weight a
+single figure will bear.
+
+**Mozambique's fifth source is a Security Council resolution about what the country DID.** Its diplomatic
+record is four months long — recognition in June 1975, admission in September, an embassy in November —
+and what carries the rest of the card is **S/RES/386 (1976)**, adopted unanimously on 17 March 1976 on
+Mozambique's own decision to impose sanctions on Southern Rhodesia, with economic assistance to
+Mozambique among its subjects. **A newly independent state's first datable act is often its own
+sanctions decision or border closure, and the Council minutes it** — so where a country's recognition
+guide is thin, search the Digital Library for what the state did rather than for what was done to it.
+
+**And Paris ships without a picture, for the second batch running and the same reason.** Every Wikimedia
+endpoint answered "You are making too many requests to the API" throughout, though the picture URLs
+written in earlier batches all verify at 200 when the throttle lifts — Bangkok's, left out of batch 12
+for exactly this, was fetched and attached in batch 13. **The gap is a sandbox limit, not a search that
+failed, and it is worth one retry per batch until it lands.**
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
