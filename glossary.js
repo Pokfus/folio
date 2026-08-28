@@ -1280,7 +1280,8 @@ window.GLOSSARY = {
 "Xia–Shang–Zhou_Chronology_Project": "<b>Xia–Shang–Zhou Chronology Project</b> is a Chinese state research programme that ran from 1996 to 2000, bringing some 200 specialists in history, astronomy, archaeology and radiocarbon dating together to fix absolute dates for the three dynasties preceding the imperial age.<sup class=\"fn\" data-fn=\"1\"></sup> Firm Chinese chronology had begun only in 841 BCE, and at least 44 dates had been proposed for the Zhou conquest of the Shang, from 1130 to 1018.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The table it published in November 2000 dated that conquest to 1046 BCE and set the Xia within a framework of 2070 to 1600 BCE, a result debated for its government backing and for how much precision the evidence will bear.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Shang_dynasty": "<b>Shang dynasty</b> is the second of the three dynasties that ruled China before the imperial age, holding the Central Plain from about 1600 to 1046 BCE and leaving the earliest Chinese records written at the time of the events they describe.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Archaeology divides it into early, middle and late phases, the last centred on Anyang, where horse-drawn chariots, the royal hunt and writing appear together for the first time.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> How far its authority reached is unclear, since sites sharing its pottery and elite goods need not have belonged to one state, and four in five excavated burials of the period hold only a coffin and a few pots.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Basic_Annals_of_Yin": "<b>Basic Annals of Yin</b> is the third chapter of the <i>Shiji</i>, the history Sima Qian completed in about 100 BCE, and the fullest connected account of the Shang dynasty any transmitted Chinese text gives.<sup class=\"fn\" data-fn=\"1\"></sup> It runs from the ancestor Xie to the last king, and it carries the dynasty’s two names, Shang from the land granted to Xie and Yin from the place Pan Geng moved his people to.<sup class=\"fn\" data-fn=\"1\"></sup> Its historian names his own sources at the close, the sacrificial odes for Xie and the Documents and the Odes thereafter, and his frame is moral, the mandate of Heaven passing to Tang and away from the 31st king.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Tang_of_Shang": "<b>Tang of Shang</b> is the founder of the Shang dynasty in the traditional Chinese account, the lord of Bo who overthrew the last Xia king and took the mandate of Heaven from him.<sup class=\"fn\" data-fn=\"3\"></sup> Tang is a posthumous title glossed as the one who puts away cruelty and suppresses the tyrant; the annals give his own name as Tian Yi and make him the fourteenth in descent from the ancestor Xie.<sup class=\"fn\" data-fn=\"1\"></sup> The stories told of him turn on restraint: coming upon a hunter’s nets drawn across all four sides of a plain, he took three of them away, and the lords said his virtue reached the birds and the beasts.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Tang_of_Shang": "<b>Tang of Shang</b> is the founder of the Shang dynasty in the traditional Chinese account, the lord of Bo who overthrew the last Xia king and took the mandate of Heaven from him.<sup class=\"fn\" data-fn=\"3\"></sup> Tang is a posthumous title glossed as the one who puts away cruelty and suppresses the tyrant; the annals give his own name as Tian Yi and make him the fourteenth in descent from the ancestor Xie.<sup class=\"fn\" data-fn=\"1\"></sup> The stories told of him turn on restraint: coming upon a hunter’s nets drawn across all four sides of a plain, he took three of them away, and the lords said his virtue reached the birds and the beasts.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Yinxu": "<b>Yinxu</b> is the last capital of the Shang dynasty, a spread of ruins on both banks of the Huan river north-west of modern Anyang in Henan, China, listed as a World Heritage site in 2006.<sup class=\"fn\" data-fn=\"1\"></sup> It was occupied for rather more than two centuries, from about 1250 to 1046 BCE, and the oracle-bone inscriptions found there call the place Great Settlement Shang, literally a big urban centre.<sup class=\"fn\" data-fn=\"1\"></sup> Its people were ordered by lineage and grouped by trade, and their appetite for metal made the settlement one of the largest consumers of it anywhere in Eurasia in the 2nd millennium BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1913,7 +1914,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Xia–Shang–Zhou_Chronology_Project": "1996 – 2000",
 "Shang_dynasty": "c. 1600 – 1046 BCE",
 "Basic_Annals_of_Yin": "c. 100 BCE",
-"Tang_of_Shang": "c. 1600 BCE"
+"Tang_of_Shang": "c. 1600 BCE",
+"Yinxu": "c. 1250 – 1046 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2789,7 +2791,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Doubting_Antiquity_School": ["yigupai"],
 "Xia–Shang–Zhou_Chronology_Project": ["Xia-Shang-Zhou Chronology Project"],
 "Basic_Annals_of_Yin": ["Yin benji","Annals of Yin"],
-"Tang_of_Shang": ["Cheng Tang","Tang the Victorious"]
+"Tang_of_Shang": ["Cheng Tang","Tang the Victorious"],
+"Yinxu": ["Yin Ruins"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4095,7 +4098,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Xia–Shang–Zhou_Chronology_Project": ["institution","history","archaeology","science","china"],
 "Shang_dynasty": ["dynasty","history","archaeology","china","bronze age"],
 "Basic_Annals_of_Yin": ["text","history","literature","china","bronze age"],
-"Tang_of_Shang": ["ruler","history","literature","china","bronze age"]
+"Tang_of_Shang": ["ruler","history","literature","china","bronze age"],
+"Yinxu": ["place","archaeology","history","china","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

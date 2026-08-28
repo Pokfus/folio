@@ -2006,3 +2006,34 @@ leaf at 2616 × 3876, which fits. **Check the aspect ratio as well as the subjec
 16:9 and contains rather than crops, so a scroll is technically fine and visually useless. The caption
 says what the museum's own record says, that the leaf is of the 19th or early 20th century, which puts
 three and a half thousand years between the portrait and the reign.
+
+  **`cnh-069` IS THE FIRST CHINA CARD BUILT ON PMC RATHER THAN ScholarSpace, AND THE SCIENCE PAPERS
+CARRY THE SITE DESCRIPTION FOR FREE.** A PLOS ONE paper on osteoarthritis at Yinxu and a Scientific
+Reports paper on metal recycling at Anyang both open with several paragraphs of archaeological context —
+the Huan river position, the 2006 World Heritage listing, the *Great Settlement Shang* name from the
+inscriptions, the alluvial plain and the mountains west of it, the Holocene climatic optimum ending as
+the settlement grew, the widening crop list, the lineage ordering of society, and the claim that Anyang
+became one of the largest metal consumers anywhere in Eurasia. **When a site has no open synthesis, read
+the INTRODUCTIONS of the science papers about it**: a bioarchaeology or archaeometry paper has to set its
+scene, and it does so from the current literature with citations attached.
+  **THE 1250 DATE HAS A REASON AND THE REASON IS THE CARD'S BEST FACT.** Tradition puts the move to
+Anyang under Pan Geng about 1300 BCE, but no oracle-bone inscription names him or the two kings after
+him, so the site's own written record opens with Wu Ding, ninth from the end of the dynasty. It is stated
+openly in MacIver's 2017 Hawai'i MA thesis (attributing it to Keightley 1999, which is not openable
+here). **A university-deposited thesis is thin but real scholarship, and it is the honest place to cite
+when it is where the claim is openly stated** — better than citing a closed handbook nobody in this
+sandbox has read.
+  **`card-focus.js` FIRED A FALSE POSITIVE ON THE WORD `Huan`.** The question said "on both banks of the
+Huan river", and one of the metal-recycling paper's eleven authors is Huan Limin, so the surname entered
+the card's own name list and the measure read the river as a researcher. **This is the proxy behaving
+exactly as its header warns**; the fix was to rewrite the question round it (the abstract keeps the
+river, the rule being about questions only), which is cheaper than an EXEMPT row that would also silence
+the historiography half of the check. **A card citing a paper with a long Chinese author list will
+collide with ordinary Chinese place and dynasty names** — expect this again.
+  **AND THE PARK-FURNITURE TRAP FIRED FOR THE THIRD TIME.** `add-card.js`'s five candidates for "Yinxu"
+were all Genoese and Sienese (it had fuzzy-matched to *Banchi*), and hand-searching Commons found the
+usual entrance gate, reconstructed thatched hall and "Cradle of Chinese Writing" stele, plus a garden of
+modern sculptural stelae carved with enlarged oracle-bone graphs. What answered was
+`Yinxu Palace Foundation` — a rammed-earth hall platform with its postholes marked by modern red posts,
+which shows what a Shang palace actually leaves behind. **For a site card, look for the excavated FEATURE
+rather than the site's name**; the name finds the visitor centre.
