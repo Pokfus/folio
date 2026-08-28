@@ -18,14 +18,16 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 `geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
 Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New Jersey, `geo-019`
 Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023` Washington,
-`geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-501` Sacramento, `geo-502` Austin, `geo-503`
+`geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
+`geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
-`geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond and `geo-523` Olympia.**
-Both subdecks are worked down the same list, so the next state is `geo-027` and the next capital
-`geo-524`.
+`geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia and
+`geo-524` Salem.**
+Both subdecks are worked down the same list, so the next state is `geo-028` and the next capital
+`geo-525`.
 
 ---
 
@@ -572,12 +574,20 @@ terms that already exist**. Each was measured, and none should be settled quietl
   "the town" thereafter. The other five parentheticals are unaffected because no other term claims
   their bare names — but **`geo-027` Georgia is the next one to check**, since `Georgia` is an alias
   of `Georgia_(country)` and the same fault would follow.
-- **`Georgia` is an ALIAS of `Georgia_(country)`.** So the bare word resolves to the country everywhere,
-  including in a card about the state. This is the fault CLAUDE.md already records from batch N7 — *an alias
-  list written before the sibling term existed will contain the sibling's name, and will be wrong the day
-  the sibling arrives*. When `geo-027` is written, decide it explicitly: either retire that alias and let
-  both terms carry disambiguated keys, or keep it and give the state one. Do not add a second claimant to
-  the same surface and leave the two to race.
+- **`Georgia` WAS an alias of `Georgia_(country)`, and `geo-027` RETIRED IT.** The measure: twelve texts
+  carry the bare word, and they divide **eight for the country** (the Dmanisi cards and terms, `Armenia`,
+  `Eurasia`, `Out_of_Africa_I`) against **three for the state** (`geo-009`'s Appalachian Trail,
+  `geo-010`'s Cherokee removal, `Jimmy_Carter`'s governorship). The divided-surface rule applies and the
+  alias is gone, so the word now links nowhere and both terms carry disambiguated keys —
+  `Georgia_(country)` and `Georgia_(state)`.
+  **THIS IS THE FIRST TIME THE RULE HAS DESTROYED CORRECT LINKS, and it was applied knowing that**: eight
+  right links were given up to remove three wrong ones. The reasoning is the one this file has followed
+  since the Archaic-period report — a link that tells a reader the Cherokee were driven out of a country
+  in the Caucasus is worse than a word left in plain text, which a reader can still look up — and the
+  arithmetic will only move further that way as the collection adds fifty more states and capitals.
+  **Read the count as texts-where-the-FIRST-use-is-wrong, not as a majority.**
+  Retiring an alias needs the whole term rebuilt from `loadGlossary` and re-added with `"aliases": []`,
+  since `add-glossary.js` leaves an alias list alone when the key is absent.
 
 - **`New_York_(state)` IS THE FIRST OF THESE ACTUALLY WRITTEN, and it settles how to decide one.** The
   rule above says a disambiguated key must not claim its bare surface; the question it leaves open is
@@ -788,6 +798,19 @@ terms that already exist**. Each was measured, and none should be settled quietl
   territorial legislature met above the **Gold** Bar Restaurant, which linked to `Gold`. There is no
   gold anywhere in Olympia's story to take the link first, so the restaurant's name was dropped — "a
   hired room above a restaurant" — which is what that sentence was for anyway.
+
+- **`Salem` GOES IN BARE, AND THE RISK IS NAMED RATHER THAN HEDGED.** Two texts carry the word today
+  and both are the Oregon capital, so the measure says bare — but Salem, Massachusetts is famous, and a
+  `us-` card about the witch trials would land on this key. That is the same bet `Richmond` took, and the
+  answer if it ever comes due is the one used here for Georgia: measure again, and if the surface has
+  divided, retire the bare key for two parentheticals. **Do not pre-emptively parenthesise against a
+  card nobody has written.**
+  One more Pacific fault, in the round's own drafts: "the first mission anywhere in the **Pacific**
+  Northwest" resolved to `Pacific_Ocean` again. Measured across the corpus the alias is right — 54 texts
+  carry the word and the great majority mean the ocean — and `Pacific_Northwest_Coast` is a key that
+  already wins where the full phrase appears, so the fix is local: the card says "the American
+  north-west", and the sentence that keeps its link says "the **Pacific** coast", where the word does
+  mean the ocean.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
