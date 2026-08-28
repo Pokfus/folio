@@ -1291,7 +1291,8 @@ window.GLOSSARY = {
 "Patrician": "A patrician was a member of Rome's hereditary aristocracy, the families descended from the <i>patres</i>, who alone could take the auspices by which the state consulted the gods.<sup class=\"fn\" data-fn=\"4\"></sup> Ancient writers traced the name to <i>pater</i>, explaining it by fatherhood, by age, or by the protection these men gave the state; their clans made up the three early tribes, the Ramnes, the Tities and the Luceres.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The order held the priesthoods, the magistracies and the courts, and birth alone conferred it, so that with outsiders admitted only by a rare curiate law fewer than fifty such families survived the Republic, after which Caesar and Augustus made more.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Plebeian": "A plebeian was a member of the Roman commons, a citizen who lacked the full rights of the state and stood outside the curiae, the older clans, the Senate and every civil and priestly office.<sup class=\"fn\" data-fn=\"1\"></sup> The name carries the root of <i>impleo</i>, to fill, and the order grew from the Latin populations Rome conquered and moved into the city, settled on the Caelian after the fall of Alba Longa and on the Aventine under Ancus Marcius.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its members served in the army, kept their own rites and their own clans, and were organised by Servius Tullius into thirty local tribes, each under a tribune, with their own assemblies.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Gens": "A gens was a Roman clan, a group of households sharing one name, one set of rites and a claim on the property of any member who died without nearer heirs.<sup class=\"fn\" data-fn=\"1\"></sup> The pontiff Scaevola defined its members as those bearing the same name who were born free, had no slave among their forebears and had suffered no loss of civil standing.<sup class=\"fn\" data-fn=\"1\"></sup> Its rites bound every member, and a man lost both them and his clan by adoption, adrogation or emancipation, the adrogated renouncing his gens before the curiate assembly; Roman tradition counted three hundred such clans, a hundred to each of the three original tribes.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Cognomen": "A cognomen was the third name a Roman bore, marking the household to which he belonged inside his clan, after his own given name and the clan name ending in <i>-ius</i>.<sup class=\"fn\" data-fn=\"1\"></sup> Such names were drawn from a peculiarity of body or mind or from a deed of the man reckoned the household's founder, Naso, Caecus, Capito, Cato and Scipio among them, and most passed from father to son.<sup class=\"fn\" data-fn=\"1\"></sup> A fourth name could be added as an honour for something done, voted by the people or taken by the man himself, and to bear a clan or household name not one's own was a forgery at law.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Cognomen": "A cognomen was the third name a Roman bore, marking the household to which he belonged inside his clan, after his own given name and the clan name ending in <i>-ius</i>.<sup class=\"fn\" data-fn=\"1\"></sup> Such names were drawn from a peculiarity of body or mind or from a deed of the man reckoned the household's founder, Naso, Caecus, Capito, Cato and Scipio among them, and most passed from father to son.<sup class=\"fn\" data-fn=\"1\"></sup> A fourth name could be added as an honour for something done, voted by the people or taken by the man himself, and to bear a clan or household name not one's own was a forgery at law.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Pomerium": "The pomerium was the sacred boundary of a Roman city, a line marked by stones set at intervals within which the auspices of the city could be taken, and the strip beside it could be neither built on nor ploughed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It was laid out at a town's founding by yoking a bull and a cow to a plough and drawing a furrow around the site with the clods falling inward, the plough being lifted where the gates were to stand.<sup class=\"fn\" data-fn=\"4\"></sup> Only a man who had taken territory from an enemy might move the line outward, and at Rome the Aventine was left beyond it for centuries.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2800,7 +2801,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Patrician": ["patricians","patricii","patrician order"],
 "Plebeian": ["plebeians","plebs","the commons of Rome"],
 "Gens": ["gentes"],
-"Cognomen": ["cognomina"]
+"Cognomen": ["cognomina"],
+"Pomerium": ["pomoerium"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4117,7 +4119,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Patrician": ["people","institution","history","italy","iron age"],
 "Plebeian": ["people","institution","history","italy","iron age"],
 "Gens": ["institution","history","italy","iron age","concept"],
-"Cognomen": ["practice","history","italy","iron age","concept"]
+"Cognomen": ["practice","history","italy","iron age","concept"],
+"Pomerium": ["place","history","religion","italy","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
