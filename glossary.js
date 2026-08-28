@@ -1279,7 +1279,8 @@ window.GLOSSARY = {
 "Xia_dynasty": "The Xia dynasty is the first of the dynasties in the transmitted Chinese records, placed before the Shang and dated in Chinese scholarship to the 21st to 16th centuries BCE.<sup class=\"fn\" data-fn=\"3\"></sup> It takes its name from a small principality in Henan, its rulers are said to have held the throne for 439 years, and the last of them, Jie, was dethroned and banished by Tang the Successful, who founded the Shang.<sup class=\"fn\" data-fn=\"1\"></sup> Whether it can be found in the ground is unsettled: Chinese scholarship has generally identified it with the Bronze Age remains at Erlitou in Henan, and whether those are Xia or early Shang has been argued for decades.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Shang_dynasty": "The Shang dynasty ruled the central plains of northern China along the Yellow River from about 1600 to 1046 BCE, and it is the earliest dynasty of Chinese history that archaeological evidence supports.<sup class=\"fn\" data-fn=\"1\"></sup> Its capitals included Zhengzhou, where a walled city of about 1509 to 1315 BCE has been excavated, and Anyang, the seat of the late dynasty, from which tens of thousands of inscribed oracle bones survive.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Its burials are sharply graded, its copper objects carry highly radiogenic lead whose source is unresolved, and by the transmitted account it was overthrown by King Wu of Zhou in about 1046 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Oracle_bone_script": "Oracle bone script, jiaguwen, is the earliest form of systematic Chinese writing, carved on turtle plastrons and the shoulder blades of cattle in the late Shang, from about 1250 to 1045 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> The bones were drilled with pits and cracked with heat for divination, and what is written on them are the divination records of royalty and nobility, most of the pieces coming from Anyang.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> More than 160,000 inscribed pieces are known, carrying some four thousand distinct signs of which only about a thousand have been deciphered, their meanings and modern Chinese equivalents confirmed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Yinxu": "Yinxu, the ruins of Yin, is the site of the last capital of the Shang dynasty, at Anyang in northern Henan, occupied from about 1250 to 1045 BCE and divided by archaeologists into four phases.<sup class=\"fn\" data-fn=\"1\"></sup> All the kingly tombs lie in one cemetery at Xibeigang, thousands of lesser graves fill a western cemetery of lineage members, and rank shows in the metal, the sacrifices and the size of each chamber.<sup class=\"fn\" data-fn=\"1\"></sup> It was among the largest metal consumers in Eurasia in the 2nd millennium BCE, drawing metal from more than 500 km (300 miles) away; Chinese excavation began there in 1928.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Yinxu": "Yinxu, the ruins of Yin, is the site of the last capital of the Shang dynasty, at Anyang in northern Henan, occupied from about 1250 to 1045 BCE and divided by archaeologists into four phases.<sup class=\"fn\" data-fn=\"1\"></sup> All the kingly tombs lie in one cemetery at Xibeigang, thousands of lesser graves fill a western cemetery of lineage members, and rank shows in the metal, the sacrifices and the size of each chamber.<sup class=\"fn\" data-fn=\"1\"></sup> It was among the largest metal consumers in Eurasia in the 2nd millennium BCE, drawing metal from more than 500 km (300 miles) away; Chinese excavation began there in 1928.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Chinese_ritual_bronzes": "Chinese ritual bronzes are the vessels cast in great numbers under the Shang and Zhou dynasties, between about 1600 and 221 BCE, for banqueting and for offering food and drink in ancestor worship.<sup class=\"fn\" data-fn=\"1\"></sup> The preference for putting bronze into vessels rather than into weapons and tools sets China apart from the rest of Bronze Age Eurasia, and making them was the most prominent handicraft industry of the age.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They were cast in ceramic moulds and cores and buried with the elite dead, and about 21,000 of them carry inscriptions, from short clan emblems to Western Zhou texts of up to 500 characters.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1918,7 +1919,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Xia_dynasty": "Traditionally c. 2205 – 1767 BCE",
 "Shang_dynasty": "c. 1600 – 1046 BCE",
 "Oracle_bone_script": "c. 1250 – 1045 BCE",
-"Yinxu": "c. 1250 – 1045 BCE"
+"Yinxu": "c. 1250 – 1045 BCE",
+"Chinese_ritual_bronzes": "c. 1600 – 221 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2799,7 +2801,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Xia_dynasty": ["Xia"],
 "Shang_dynasty": ["Shang"],
 "Oracle_bone_script": ["oracle bone inscription","oracle bone inscriptions","jiaguwen"],
-"Yinxu": ["Yin Ruins","ruins of Yin"]
+"Yinxu": ["Yin Ruins","ruins of Yin"],
+"Chinese_ritual_bronzes": ["ritual bronze","ritual bronzes","bronze ritual vessel","bronze ritual vessels"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4104,7 +4107,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Xia_dynasty": ["dynasty","history","archaeology","bronze age","china"],
 "Shang_dynasty": ["dynasty","history","archaeology","bronze age","china"],
 "Oracle_bone_script": ["concept","history","archaeology","writing","language","china"],
-"Yinxu": ["place","history","archaeology","bronze age","china"]
+"Yinxu": ["place","history","archaeology","bronze age","china"],
+"Chinese_ritual_bronzes": ["object","history","archaeology","bronze age","china"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
