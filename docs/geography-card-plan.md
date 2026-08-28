@@ -16,11 +16,11 @@ The next card to write is the lowest `geo-NNN` not yet in `data.js`:
 **Shipped so far: `geo-001` California, `geo-002` Texas, `geo-003` Florida, `geo-004` Rhode Island,
 `geo-005` Alaska, `geo-006` Hawaii, `geo-007` Michigan, `geo-008` Louisiana, `geo-009` Maine,
 `geo-010` Oklahoma, `geo-011` New York, `geo-012` Idaho, `geo-013` West Virginia, `geo-014`
-Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-501` Sacramento, `geo-502` Austin, `geo-503`
-Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
-`geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City, `geo-511` Albany, `geo-512`
-Boise and `geo-513` Charleston.** Both subdecks are worked down the same list, so the next state
-is `geo-017` and the next capital `geo-514`.
+Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-501` Sacramento, `geo-502`
+Austin, `geo-503` Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu,
+`geo-507` Lansing, `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City, `geo-511`
+Albany, `geo-512` Boise, `geo-513` Charleston and `geo-514` Annapolis.** Both subdecks are worked
+down the same list, so the next state is `geo-018` and the next capital `geo-515`.
 
 ---
 
@@ -437,6 +437,15 @@ Four more, measured while writing `geo-005` and `geo-501`:
   exploited Native labour behind the fort's industries are stated outright, which no city page says), and
   the state capitol museums publish their own building histories. **Every state has a SHPO; try it before
   the city.**
+- **The NPS *List of NHLs by State* page is not parameterised by state, whatever the URL suggests.**
+  `nps.gov/subjects/nationalhistoriclandmarks/list-of-nhls-by-state.htm?state=MN` returns 200 and serves
+  the DEFAULT page — one landmark, in Maine — so a query written that way looks like a state with a single
+  NHL rather than like a URL that was ignored. The reliable index is the Wikipedia *List of National
+  Historic Landmarks in ‹state›* table, whose designation-date cell carries the reference number as
+  `(#NNNNNNNN)`; grep the table rows for it and go straight to
+  `npgallery.nps.gov/NRHP/GetAsset/NHLS/<refnum>_text`. Twenty-five Minnesota landmarks came out of it in
+  one parse. **Read the number back against the landmark's own name before fetching**, per round 10's
+  finding — a wrong reference number returns a perfectly valid nomination for something else.
 
 ### Conventions
 
@@ -519,6 +528,21 @@ terms that already exist**. Each was measured, and none should be settled quietl
   different link entirely — so the checker is a proxy for this class and not a gate. **The reliable test
   is to render a card that uses the surface and read the HTML**, which takes one Playwright run and is
   the only thing that actually saw it.
+
+- **`Minnesota` AND `Annapolis` ARE BOTH BARE, AND THE COLLISION THIS ROUND WAS NOT A KEY AT ALL.**
+  "Minnesota" occurred nowhere in shipped prose and "Annapolis" twice, both the Maryland capital, so both
+  measured cleanly bare and the render check confirmed `geo-014`'s "Annapolis" and `geo-514`'s "Maryland"
+  resolving to the right terms. What the render check DID catch is a different class: **a proper name that
+  contains a common noun another term owns.** `geo-017` wrote "found the Mountain Iron Mine", and the
+  auto-linker split the mine's name to link `Iron`, the material — a link that is not wrong about the word
+  and is wrong about the sentence. **`check-gloss-links.js` did not report this either**, which with the
+  `Albany` case makes it twice; the rendered HTML is the only thing that sees either. The fix is neither an
+  alias nor a hand link: `autoLinkGlossary` keeps a `linked` Set and skips every occurrence after the
+  first, so **moving the term's CORRECT occurrence earlier in the abstract takes the link and leaves the
+  proper name whole**. The sentence was recut to name "the largest iron ore deposit in the world" before
+  the mine, and "iron" now links while "Mountain Iron Mine" is plain. **Watch for this wherever a card
+  names a mine, a fort, a river or a town after a material or a common noun** — Iron, Gold, Silver, Salt,
+  Springfield's kin — and read the rendered abstract, not the source.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
