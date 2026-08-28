@@ -16,12 +16,13 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-027`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-030`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
-Italy, Kenya, Myanmar) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília,
-`gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa and `gw-516` Hanoi.** The next
-country is `gw-028` Colombia and the next capital is `gw-517` Tehran.
+Italy, Kenya, Myanmar, Colombia, South Korea, Sudan) **and capitals `gw-503` Washington, D.C., `gw-505`
+Islamabad, `gw-507` Brasília, `gw-510` Addis Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa,
+`gw-516` Hanoi and `gw-517` Tehran.** The next country is `gw-031` Uganda and the next capital is
+`gw-518` Ankara.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -498,6 +499,39 @@ the period the term describes, at **675×504 — under the pipeline's ~900px bar
 exception: the popup's picture box is smaller than the file, and the alternative was a modern
 ground-level photograph that would have been the first of its kind on a capital term. **Record an
 exception like this rather than quietly lowering the bar.**
+
+**C9's STANDING SUDAN GAP IS CLOSED, AND THE WAY IT CLOSED IS THE POINT.** C9 recorded that
+`Sudan`'s UNdata profile *has no Surface area row at all* — the only one in Phase 3 — so the term's
+1,861,484 km² "rests on nothing openable here", and it stayed that way. The World Bank's
+`AG.SRF.TOTL.K2` answers, and the series is self-evidencing: **2,505,810 km² for every year to 2011
+and 1,878,000 for every year from 2012**, which is South Sudan's secession visible as arithmetic. The
+term is corrected to 1,878,000 km² (725,100 sq mi) with the World Bank added as its third source, and
+`gw-030` carries the same figure and says in its own last sentence that the UN profile has no
+surface-area row. **A series with a step in it dates the step**, which no single-year figure can.
+
+**THE ICJ IS A COUNTRY SOURCE, NOT JUST A REACHABLE HOST.** C7 recorded `icj-cij.org/case/<n>` as
+200; this batch is the first to use one. The case page for *Territorial and Maritime Dispute (Nicaragua
+v. Colombia)* (case 124) carries, in prose, the 1928 treaty in which Colombia recognised Nicaragua's
+sovereignty over the Mosquito Coast and the Corn Islands while Nicaragua recognised Colombia's over
+San Andrés, Providencia and Santa Catalina, the 2012 judgment awarding Colombia the seven disputed
+cays, and the reasoning that moved the maritime boundary eastwards. **Where a country's borders have
+been to the Court, the case page is a five-source card's fifth source**, and the summaries are long,
+dated and quotable.
+
+**THE SOUTH KOREA GUIDE SLUG IS `korea-south`.** `south-korea` is a 404, `korea` is a different page,
+and the guide titles it *The Republic of Korea (South Korea)*. Add it beside D2's `burma` for Myanmar,
+C8's `congo-democratic-republic` and `congo-republic`, and C9's `cote-divoire`: **the guide's slug is
+worth a probe rather than a guess**, and the index at `history.state.gov/countries` resolves the rest.
+Its own page is two sentences long, so the card is carried by the Korean War and two-Koreas milestones
+— the second of which states outright that *"In 1991 both Koreas were simultaneously admitted into the
+U.N."*, which is the fact a resolution search would otherwise have been needed for.
+
+**TWO MORE TERM FIGURES WERE OUT, AND BOTH FAILED A DIFFERENT TEST.** `South_Korea`'s 100,363 km² sits
+below UNdata's 100,401 *and* the World Bank's 100,440 — outside the spread, so C9's rule corrects it.
+`Colombia`'s "about 52 million" is a point on the World Bank series (the 2022–23 value), so by C8's
+diagnostic it is **stale rather than contested** and was moved to 53 million. Three of the last seven
+countries have needed the term corrected before the card could be written; **the comparison is now the
+first step of a card, not a check at the end of one.**
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
