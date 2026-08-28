@@ -1419,3 +1419,46 @@ that a rate-limited file can take an hour of looping; the V&A *bi* here returned
 page once and the real 809 KB file ten seconds later. **A short retry loop with a size test is the right
 first move** — `[ "$s" -gt 50000 ] && break` — and only a file that fails several of those is worth
 backgrounding.
+
+  **`cnh-050` IS THE FIRST CARD IN THIS DECK WHOSE ANSWER ALREADY HAD BOTH A GLOSSARY TERM AND A FULL
+CARD, AND THE RULE IT FORCED IS SHARPER THAN `cnh-045`'s.** `Yangshao_culture` existed as a three-sentence
+popup and the card had to say what three sentences could not hold; here `wh-148` is a whole ten-sentence
+World History card on the same answer term, so the question is not what a popup left out but what a CARD
+left out. Reading it first showed `wh-148` spends itself on the black pottery, the Songshan site counts,
+the arrival of cattle and scapulimancy, the diet change at 4.2 ka and Shimao. **So this card was written
+around the one thing `wh-148` mentions once and drops: the walls.** Its whole spine — Longshan as a set of
+REGIONAL cultures rather than one, the type site at Chengziyai, the ten or so walled towns in clusters,
+what was buried in the wall bases, and the Taosi ditch — appears nowhere in the sibling. **Read the
+sibling card before drafting, and make the list of what it spent** ; the alternative is two cards that
+teach the same five facts under one answer.
+  **NO NEW GLOSSARY TERM WAS WRITTEN, AND THAT IS THE RIGHT ANSWER RATHER THAN A SKIPPED STEP.**
+`Longshan_culture` is already at the two-source bar and inside the length band, and its three sentences
+are accurate; adding a second term or rewriting a sound one to match a new card is churn. The pairing rule
+asks that a card's answer HAVE an entry, not that every card create one.
+  **`ASIAN PERSPECTIVES` CARRIED THIS CARD ENTIRELY — FIVE SOURCES, ALL FROM THE ONE JOURNAL** — which is
+`cnh-049`'s find paying immediately and is worth stating as an expectation rather than a surprise: the
+archaeology of Neolithic and Bronze Age China is largely published in Anglophone journals that
+Europe PMC does not index, and ScholarSpace's DSpace API reaches it. Dematté 1999 on Longshan urbanism,
+Yang 2019 on wall-construction ritual, Underhill 1994 on settlement variation, Shi 2021 on copper and Xie
+et al. 2020 on settlement relocation were all found by one query and fetched with the same three-call
+bundle walk.
+  **AND THE NEAR-MISS OF THE SESSION WAS FIVE INVENTED HANDLES.** The first draft's citations carried
+`hdl.handle.net/10125/17103`, `/68297`, `/17045`, `/79240` and `/70118` — plausible-looking numbers
+composed from the pattern of the two handles actually seen, exactly N4's fabricated-author fault in a new
+coat. **A DSpace item's handle is in its own metadata** (`/server/api/core/items/<uuid>` → `handle`), and
+the real ones are `/17124`, `/76786`, `/17047`, `/108232` and `/104160` — not one of the five guesses was
+right. Two things go with it: the same record carries `dc.identifier.citation` with the **page range** for
+older volumes and NOTHING for the recent ones, so three of these five are cited **without pages** rather
+than with a range inferred from the printed page numbers in the OCR; and **all five handles were opened
+before the card was added**. **Never compose an identifier from a pattern.**
+  **ONE FIGURE WAS DELIBERATELY NOT USED BECAUSE THE OCR COULD NOT BE READ SAFELY.** Dematté's site table
+is two-column and the OCR interleaves the columns, so a "metal fragment (bronze alloy of lead, tin, and
+copper)" sits between the entries for **Wangchenggang** and **Dinggong** with no way to tell which it
+belongs to. The claim was dropped and the metallurgy sentence rests on Shi 2021 instead, which names
+Zhoujiazhuang outright. **A two-column table in an OCR'd PDF is a place where a fact can be attached to
+the wrong site without anything looking wrong**; if the column cannot be resolved, the fact is not
+available.
+  **A THIRD `Inner Mongolia` DRAFT WAS CAUGHT, THIS TIME BY THE WORD BUDGET.** The fourth sentence
+originally listed "Hubei, Inner Mongolia and Sichuan"; the abstract came in 26 words over and Inner
+Mongolia went out in the trim, which happens to remove the mis-link that bit `cnh-045` and `cnh-047`.
+**That is luck, not process** — the collection still wants an `Inner_Mongolia` term.
