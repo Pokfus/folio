@@ -20,16 +20,16 @@ Maryland, `geo-015` Nevada, `geo-016` Utah, `geo-017` Minnesota, `geo-018` New J
 Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023` Washington,
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
-`geo-031` Wisconsin, `geo-032` Indiana,
+`geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia and `geo-529` Raleigh.**
-Both subdecks are worked down the same list, so the next state is `geo-033` and the next capital
-`geo-530`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh and `geo-530` Harrisburg.**
+Both subdecks are worked down the same list, so the next state is `geo-034` and the next capital
+`geo-531`.
 
 ---
 
@@ -954,6 +954,56 @@ terms that already exist**. Each was measured, and none should be settled quietl
   biographer's "leading voice of reform in North Carolina and the upper South" **and** "one of the major
   spokesmen for Negro disfranchisement in a 1898 white supremacy campaign" — and a card that took the
   first without the second would be a whitewash written out of a source that refuses to be one.
+
+- **`Kentucky` AND `Harrisburg` GO IN BARE, AND THE ROUND'S REAL WORK WAS TWO COMPONENT-WORD TRAPS FOUND
+  BEFORE DRAFTING.** Both surfaces are clean — "Kentucky" has three uses, all the state (including
+  `Abraham_Lincoln`'s "a Kentucky log cabin"), and "Harrisburg" has two, both the capital. What the
+  round-24 re-measure caught was in the *intended content*: **`Mammoth` claims the bare surface**, so
+  "Mammoth Cave" would have linked the cave to the Pleistocene proboscidean, and the cave is named for
+  its size. The fix is the documented one and it worked: **Big Bone Lick, where mammoths and mastodons
+  were trapped in the bog, is sentence four and Mammoth Cave is sentence six**, so the animal takes the
+  link and the cave is left plain — verified by rendering both the card and the popup, not assumed.
+  That fix is only available because the earlier mention is HONEST; had Kentucky no mammoth of its own,
+  the cave would have had to go.
+  · **`Louisville` IS ALREADY A DIVIDED SURFACE and nobody has noticed, because no term claims it.**
+    Its one use in the corpus is `geo-527`'s **Louisville, Georgia**, the 18th-century Georgia capital,
+    not the Kentucky city — so a future `Louisville` term must be parenthetical from the day it is
+    written. Recorded here the way Sir Walter Raleigh and Winston-Salem are.
+
+- **"OHIO RIVER" WOULD LINK TO THE STATE, AND THE CORPUS HAS NEVER TESTED IT.** `Ohio` claims the bare
+  surface, and both existing occurrences of "Ohio River" sit inside the Ohio card and the Ohio term,
+  where that key is its own and off the list — so the fault has been invisible. Kentucky's northern
+  border is the Ohio, and `geo-033` would have been the first text to expose it. **The card avoids the
+  phrase** (Big Bone Lick is placed "south-west of Cincinnati"), which costs nothing here, but four more
+  states border that river and the dodge will not keep working. The honest fix is an **`Ohio_River`
+  glossary term**: surfaces sort longest-first, so "Ohio River" would then take the river and a bare
+  "Ohio" the state. That is a term to write, not a rule to remember.
+
+- **`tile.loc.gov` ANSWERS WHERE `www.loc.gov` IS 403, AND SO DOES THE LOC JSON API.** This is the
+  round's biggest access find and it opens a large corpus for the capital cards. Every `www.loc.gov`
+  HTML page is 403 from here, with or without a browser User-Agent — but **`https://www.loc.gov/search/
+  ?q=…&fo=json` returns 200**, and the files themselves are served from **`tile.loc.gov`**, which is
+  not blocked. So the **Historic American Buildings Survey data books** — the written histories that
+  accompany the measured drawings — are readable at
+  `tile.loc.gov/storage-services/master/pnp/habshaer/<st>/<st>NN00/<st>NNNN/data/<st>NNNNdata.pdf`.
+  HABS PA-394, *The First Capitol Buildings, Harrisburg*, carries the whole of `geo-530`: the Act of
+  February 1810, the ground given by John Harris and William Maclay, the architects' competition with
+  its $400 premium, Stephen Hills from Ashford in Kent, Governor Findlay's cornerstone of 1819, the
+  costs, the fire of 2 February 1897 and the dedication of 4 October 1906. **Find the id with the JSON
+  search, then fetch the PDF from tile.** The citation points at the PDF rather than the item page,
+  because the PDF is the document that was read and the one that opens.
+  It was needed because **NPGallery has almost nothing for Dauphin County**: the Pennsylvania State
+  Capitol's own NHL record (77001162) is the 22,151-byte stub on both paths, as are the Broad Street
+  Market, Camp Curtin, the John Harris Mansion and every Harrisburg bridge.
+
+- **THE NRC'S FACILITY LOCATOR IS WHAT LICENSES A NEARBY SUBJECT.** Three Mile Island belongs on a
+  Harrisburg card only if a source says where it is relative to Harrisburg, and the accident
+  backgrounder does not — it places the reactor "near Middletown, Pa." and mentions the city once, for a
+  committee meeting. The NRC's **Operating Nuclear Power Reactors** page states it outright:
+  "Middletown, PA (10 miles SE of Harrisburg, PA)". **Before putting a nearby subject on a city's card,
+  find the source for the nearness**, and cite it separately from the source for the event. The card
+  also keeps the NRC's own qualifier — small releases, no detectable health effects on workers or the
+  public — attributed to the commission rather than asserted flat.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
