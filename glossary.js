@@ -1275,7 +1275,8 @@ window.GLOSSARY = {
 "Vedic_period": "The Vedic period is the age of the Sanskrit texts called the Vedas, which follows the Indus civilisation in northern South Asia and is named for a body of literature rather than for any state.<sup class=\"fn\" data-fn=\"1\"></sup> Three literary strata are distinguished within it: the four Vedas, collections of hymns and prayers made chiefly to accompany the pressing of soma and the offering of melted butter, then the Brahmanas, then the Sutras.<sup class=\"fn\" data-fn=\"1\"></sup> Its earlier half centred on the Punjab and its later half on the valley of the Ganges, and its language, Vedic Sanskrit, is the oldest recorded stage of Indo-Aryan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Rigveda": "The Rigveda is the oldest of the four Vedas and the oldest surviving book of the Indian subcontinent, a collection of hymns in Vedic Sanskrit.<sup class=\"fn\" data-fn=\"1\"></sup> The surviving Shakala recension holds 1,017 hymns, or 1,028 counting the eleven Valakhilya hymns inserted in the eighth book, grouped in ten books called mandalas; books 2 to 7 are family books, each handed down within the family of seers that made it, while every hymn of the ninth is addressed to Soma.<sup class=\"fn\" data-fn=\"1\"></sup> About 250 hymns celebrate Indra and at least 200 Agni, the fire of the sacrifice.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Sanskrit": "Sanskrit is the classical language of the Indian subcontinent, its name, samskrita, meaning literally 'put together', so 'refined', and set against the Prakrits, the popular dialects.<sup class=\"fn\" data-fn=\"1\"></sup> Vedic Sanskrit is the oldest recorded stage of Indo-Aryan, from which Middle Indo-Aryan and then the modern languages of northern South Asia descend, and its alphabet, worked out on phonetic principles, has not been altered since it was settled.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Panini's grammar, of about the 4th century BCE, casts it into some four thousand rules written like algebraic formulae in which brevity alone is sought, and it superseded every predecessor and shaped the whole later literature.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Erlitou_culture": "The Erlitou culture is the Bronze Age culture of the central plains of northern China, dated to about 1900 to 1500 BCE and named after its type site at Yanshi in Henan province.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its heartland was the Yiluo river basin, where a four-level settlement hierarchy placed the great site itself above 10 small centres, 43 supravillages and 148 large villages, holding a population estimated at between about 28,000 and 82,000.<sup class=\"fn\" data-fn=\"2\"></sup> It is the earliest bronze-casting culture of central China, and whether its remains belong to the Xia or to the Shang of the transmitted records has been argued since the site was found in 1959.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Erlitou_culture": "The Erlitou culture is the Bronze Age culture of the central plains of northern China, dated to about 1900 to 1500 BCE and named after its type site at Yanshi in Henan province.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its heartland was the Yiluo river basin, where a four-level settlement hierarchy placed the great site itself above 10 small centres, 43 supravillages and 148 large villages, holding a population estimated at between about 28,000 and 82,000.<sup class=\"fn\" data-fn=\"2\"></sup> It is the earliest bronze-casting culture of central China, and whether its remains belong to the Xia or to the Shang of the transmitted records has been argued since the site was found in 1959.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Xia_dynasty": "The Xia dynasty is the first of the dynasties in the transmitted Chinese records, placed before the Shang and dated in Chinese scholarship to the 21st to 16th centuries BCE.<sup class=\"fn\" data-fn=\"3\"></sup> It takes its name from a small principality in Henan, its rulers are said to have held the throne for 439 years, and the last of them, Jie, was dethroned and banished by Tang the Successful, who founded the Shang.<sup class=\"fn\" data-fn=\"1\"></sup> Whether it can be found in the ground is unsettled: Chinese scholarship has generally identified it with the Bronze Age remains at Erlitou in Henan, and whether those are Xia or early Shang has been argued for decades.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1910,7 +1911,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Vedic_period": "c. 1500 – 500 BCE",
 "Rigveda": "c. 1500 – 1000 BCE",
 "Sanskrit": "from c. 1500 BCE",
-"Erlitou_culture": "c. 1900 – 1500 BCE"
+"Erlitou_culture": "c. 1900 – 1500 BCE",
+"Xia_dynasty": "Traditionally c. 2205 – 1767 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2787,7 +2789,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Indo-Aryan_migrations": ["Indo-Aryan migration"],
 "Vedic_period": ["Vedic age"],
 "Rigveda": ["Rig Veda","Rig-Veda"],
-"Erlitou_culture": ["Erlitou"]
+"Erlitou_culture": ["Erlitou"],
+"Xia_dynasty": ["Xia"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4088,7 +4091,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Vedic_period": ["era","history","literature","language","religion"],
 "Rigveda": ["text","history","literature","language","religion"],
 "Sanskrit": ["concept","history","language","literature","india"],
-"Erlitou_culture": ["culture","archaeology","history","bronze age","china"]
+"Erlitou_culture": ["culture","archaeology","history","bronze age","china"],
+"Xia_dynasty": ["dynasty","history","archaeology","bronze age","china"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
