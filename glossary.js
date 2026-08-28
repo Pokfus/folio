@@ -1303,7 +1303,8 @@ window.GLOSSARY = {
 "Fasces": "The <i>fasces</i> were a bundle of rods bound together with an axe set in the middle, its blade projecting, carried by lictors walking in single file before the higher magistrates of Rome as the outward sign of their authority.<sup class=\"fn\" data-fn=\"1\"></sup> Rome took both the bundle and the office of lictor from the Etruscans, and twelve went before each king and afterwards before each consul.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Inside the city the axes were removed once the people held the right of appeal, and the bundles were lowered to a superior magistrate or to the assembled people, whence the phrase for yielding to another.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Collegiality": "Collegiality was the principle of Roman republican government by which an office was held by two or more men at once, each of them invested with the same rights as the others.<sup class=\"fn\" data-fn=\"1\"></sup> Because their powers were equal the holders could do nothing unless they agreed, one might hear an appeal against another's sentence or veto his proceedings, and the consuls in practice took the office in alternate months.<sup class=\"fn\" data-fn=\"1\"></sup> Latin called each consul the other's collega and their joint tenure a collegium, though the word properly described an association of at least three men, and the same shape appears in the colleges of tribunes of the plebs and of quaestors.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Horatius_Cocles": "Horatius Cocles was a Roman of the early Republic remembered for holding the wooden bridge over the Tiber against an Etruscan army until his countrymen had cut it down behind him.<sup class=\"fn\" data-fn=\"1\"></sup> Dionysius of Halicarnassus calls him Publius Horatius, derives the surname from an eye struck out in an earlier battle, and sets two companions beside him, Spurius Larcius and Titus Herminius, who withdrew before the last of the bridge fell.<sup class=\"fn\" data-fn=\"2\"></sup> The accounts part over his end, Livy having him leap into the river in armour and swim across to a statue and a grant of public land, while Polybius has him give up his life there deliberately.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Lars_Porsena": "Lars Porsena was an Etruscan king of Clusium who made war on Rome at the end of the 6th century BCE, in the tradition on behalf of the Tarquins the Romans had just expelled.<sup class=\"fn\" data-fn=\"1\"></sup> Livy has the siege broken by Roman nerve rather than Roman arms, and gives terms under which Rome surrendered hostages and returned territory to Veii before the king came down from the Janiculum.<sup class=\"fn\" data-fn=\"2\"></sup> Two later writers describe something harsher: Tacitus refers in passing to a city that was surrendered to him, and Pliny quotes a treaty he granted the Roman people confining iron to the tilling of fields.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Lars_Porsena": "Lars Porsena was an Etruscan king of Clusium who made war on Rome at the end of the 6th century BCE, in the tradition on behalf of the Tarquins the Romans had just expelled.<sup class=\"fn\" data-fn=\"1\"></sup> Livy has the siege broken by Roman nerve rather than Roman arms, and gives terms under which Rome surrendered hostages and returned territory to Veii before the king came down from the Janiculum.<sup class=\"fn\" data-fn=\"2\"></sup> Two later writers describe something harsher: Tacitus refers in passing to a city that was surrendered to him, and Pliny quotes a treaty he granted the Roman people confining iron to the tilling of fields.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Battle_of_Lake_Regillus": "The battle of Lake Regillus was fought in Tusculan territory between Rome and a Latin army in which the exiled Tarquins were serving, and Roman tradition dates it to 499 BCE or, in other authors, 496.<sup class=\"fn\" data-fn=\"1\"></sup> Livy gives it to the dictator Aulus Postumius, describes it as a run of duels in which almost every leader on both sides was wounded, and has the dictator vow a temple to Castor while it was being fought.<sup class=\"fn\" data-fn=\"2\"></sup> Dionysius records that two horsemen of more than human size were seen fighting for Rome and again that afternoon in the Forum, and the temple was built beside the spring where they watered their horses.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1923,7 +1924,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Roman_census": "traditionally instituted in the 6th century BCE",
 "Roman_Republic": "traditionally 509 – 27 BCE",
 "Horatius_Cocles": "fl. 508 BCE",
-"Lars_Porsena": "fl. c. 508 BCE"
+"Lars_Porsena": "fl. c. 508 BCE",
+"Battle_of_Lake_Regillus": "499 or 496 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2827,7 +2829,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Fasces": ["fasces and axes"],
 "Collegiality": ["collegial"],
 "Horatius_Cocles": ["Cocles"],
-"Lars_Porsena": ["Porsena","Porsenna","Lars Porsenna"]
+"Lars_Porsena": ["Porsena","Porsenna","Lars Porsenna"],
+"Battle_of_Lake_Regillus": ["Lake Regillus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4156,7 +4159,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Fasces": ["object","history","italy","iron age","institution"],
 "Collegiality": ["concept","history","italy","iron age","institution"],
 "Horatius_Cocles": ["person","history","warfare","italy","iron age"],
-"Lars_Porsena": ["ruler","history","warfare","italy","iron age"]
+"Lars_Porsena": ["ruler","history","warfare","italy","iron age"],
+"Battle_of_Lake_Regillus": ["event","history","warfare","italy","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
