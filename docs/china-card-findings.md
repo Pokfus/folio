@@ -1554,3 +1554,42 @@ reader who opens the popup from the card sees something new rather than the same
 files were rejected on the way: `Sanxingdui Bronze Standing Figure (9950550395).jpg` is a detail of the
 robe with no head in frame, and the "largest mask" file is an oblique three-quarter rear view. **Look at
 the frame, not only at the subject.**
+
+  **`cnh-054` IS THE FIRST CARD IN THE DECK WHOSE SUBJECT MAY NOT HAVE EXISTED, AND THE SHAPE THAT WORKS
+IS TO WRITE ABOUT THE CLAIM RATHER THAN AROUND IT.** Six later cards take the traditional account
+(`cnh-055`), Yu as founder (`cnh-056`), the transmitted texts (`cnh-059`), the historicity question
+(`cnh-061`) and Erlitou (`cnh-062`–`064`), so the overview card had to say what the Xia IS in the Chinese
+historical scheme without spending any of them: first of the Three Dynasties, seventeen kings, the first
+turn of the dynastic cycle, and a name that archaeology has been trying to attach to a site for seventy
+years. **The received chronology's own disagreement is what gives the card its teeth** — Chavannes sets
+out two systems side by side, one opening the dynasty in 2205 BCE for 439 years and one in 1989 for 432,
+and the 2000 state chronology's 2070–1600 is a third answer; three figures for one dynasty says more
+about the evidence than any sentence of commentary could.
+  **THE TEXTUAL HALF CAME OFF ARCHIVE.ORG AND THE ARCHAEOLOGICAL HALF OFF SCHOLARSPACE, AND BOTH WERE
+ALREADY IN THE DECK.** Chavannes' *Mémoires historiques* vol. 1 (`lesmemoireshisto0001edou`) carries the
+rival chronologies at cxc–cxciii of its introduction and the fall of Jie at pp. 167–71 — cited twice, at
+different pages, as `cnh-040` already does. Shelach 1994 states the traditional claim outright ("the
+earliest Chinese state was the Xia dynasty… located in the Zhongyuan"), Lee 2002 carries the Three
+Dynasties, the Mandate, the Zhou construction and the backward growth of the legendary period, and Xie et
+al. 2020 carries Taosi and Erlitou as the two sites matched to Xia capitals. **Read the page furniture for
+the citation**: the running heads in the OCR (`CXC INTRODUCTION`, `170 LES HIA`) are what turn a located
+passage into a page number, and they are the only thing that does.
+  **NAME THE THEORY, NOT THE THEORIST — TWICE, AND IT COST NOTHING.** Lee attributes the Zhou-construction
+argument to one scholar and the backward-growth argument to another; the card states both claims and names
+neither, exactly as the historiography rule prescribes, and `card-focus` returns `historio: 0` with an
+empty `qNamed`. The sentences are shorter for it.
+  **A BARE `Xia` ALIAS WAS DRAFTED AND DROPPED BEFORE IT SHIPPED, ON N7's RULE.** The plan has a whole
+Western Xia collection at `cnh-465`–`472`, and "Western Xia" contains "Xia" as a whole word — so the alias
+would have linked every mention of an 11th-century Tangut state to a Bronze Age one, which is the `Inner
+Mongolia` → `Mongolia` fault in a new coat. **Before adding a one-word alias, grep the PLAN, not just the
+shipped corpus**: the sibling term that will break it may not exist yet.
+  **A NEW KIND TAG WAS OPENED: `dynasty`.** Nothing in 680 cards or 1,266 glossary terms used it — periods
+have been `era` — but it is in the documented vocabulary, this collection has about forty dynasty cards
+coming, and filing the Xia under `era` would have made the tag mean two different things. It groups
+nothing today and will group forty by the end.
+  **THE ARTICLE WAS MISSING FROM ALL THREE PHRASINGS AND ONLY THE BROWSER SHOWED IT.** The answer term
+carries no article, so the question must supply one — and "Chinese tradition makes Xia dynasty the first
+of the Three Dynasties" reads as a headline rather than a sentence. It is invisible in the JSON, where the
+blank hides it, and obvious the moment the card is revealed. **Read the REVEALED question, not the
+authored one**; the fix is `fix-field.js` for `question` and `add-questions.js` for the two extras, since
+`fix-field.js` refuses an array.
