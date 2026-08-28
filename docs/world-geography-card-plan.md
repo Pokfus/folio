@@ -24,14 +24,14 @@ Afghanistan, Canada, Yemen, Morocco, Angola, Ukraine, Poland, Uzbekistan, Malays
 Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela, Australia, Niger, North
 Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan, Chad, Chile, Romania,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
-Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates) **and
-capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
+Czechia, Honduras) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country
-is `gw-087` Cuba and the next capital is `gw-537` Ottawa.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.**
+The next country is `gw-090` Portugal and the next capital is `gw-538` Sana'a.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -912,6 +912,41 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 29 (Cuba, Czechia, Honduras, Ottawa) OVERTURNED C11's Cuba withholding, and the thing that
+settled it was the term's own marker.** C11 left `Cuba` at "about 9.4 million" against UNdata's 10,937
+thousand, reading the gap as contested rather than stale because the World Bank series never passes
+through 9.4. That reading assumed the figure came from somewhere — the national count — and this batch
+went looking: **`onei.gob.cu` returns 503 over http and refuses the connection over https, CEPALSTAT's
+dashboard is a 4.5 KB JavaScript shell and its API 500s**, and no reachable source publishes 9.4 million
+for Cuba. What decided it is smaller and harder to argue with: **the term's first sentence was marked to
+UNdata, and UNdata says 10,937** — a citation contradicting the sentence it carries, which is the fault
+G6 and L7 exist to catch. Corrected to 10.9 million. **When a withheld figure's own citation refutes it,
+the withholding is over**; and the searching is recorded here so that a later session with a reachable
+ONEI can reverse it again on evidence rather than on instinct.
+
+**`Czechia` is D1's finding at its cleanest, and this time there are three sources.** UNdata gives 10,609
+thousand; **Eurostat gives 10,909,500 and the World Bank 10,886,878**, and the term's "roughly 10.9
+million" follows the two that agree. This is what D1 meant by *the World Bank's population is not always
+the UN's*: where a country runs its own statistical service the bank reports that service, and UNdata is
+then the outlier rather than the authority. On area all three give **78,871 km²** exactly, which is the
+control that shows the population divergence is real rather than an artefact.
+
+**Ottawa carries C11's Canada area error rather than avoiding it.** `AG.SRF.TOTL.K2` gives Canada
+**15,634,410 km²** against the United Nations' 9,984,670 — more than half as much again — so the card
+states the country's area from UNdata and **names the series it cannot use**, the same treatment
+`gw-085` gives the Dominican Republic. Two cards in two batches now do this, and it is the better form of
+C5's single-source position: **a source you have ruled out is worth a sentence, because the next reader
+will otherwise go and fetch it themselves.**
+
+**Three smaller notes.** The guide's Czechia page lives at `/countries/czech-republic` but calls the
+country **Czechia** throughout, so search the guide by slug and quote it by its own usage. Commons
+redirects `Flag_of_Honduras.svg` to **`Flag_of_Honduras_(1949–2022, 2026–present).svg`**, whose own
+description reads simply "The flag of Honduras" — a date-range filename recording a design that changed
+and changed back, which the batch-19 convention admits because the file is the country's flag and is not
+named for a party to anything. And the **Commons API itself began returning 429** part-way through this
+batch, where earlier batches only saw it on `upload.wikimedia.org`: the metadata endpoint is rate-limited
+too, so **look a candidate up once and keep the result** rather than re-querying to confirm.
 
 **Batch 28 (Jordan, Dominican Republic, United Arab Emirates, Kabul) is where the population sort's own
 logic shows itself.** Its three countries are counted at **11,520,684**, **11,520,487** and **11,513,149**
