@@ -1625,3 +1625,34 @@ and never ship the original URL in a card, since a reader would meet the same 42
 and, by inspection, in a question too — both now `<i>Shiji</i>`. It is a rule worth remembering before
 drafting rather than after: this deck will write that word on every card about the transmitted record,
 and `fix-field.js` cannot reach a `questions` array, so the repair goes through `add-questions.js`.
+
+  **`cnh-056` IS THE SECOND PLAN LINE RENAMED IN TWO CARDS, AND FOR THE OPPOSITE REASON TO THE FIRST.**
+`cnh-055` had to be renamed because its line named no answer term; `cnh-056 Yu the Great as founder` named
+one, and it was **already spent** — `cnh-012` in the myth deck, written before the plan existed, carries
+the flood, the four conveyances, the nine provinces, the Tribute of Yu, the nine cauldrons, Yi withdrawing
+and the princes going to Qi, Mencius's defence and the received chronologies, in ten sentences. There was
+no card left to write about Yu as founder. What there was, and what nothing in the deck or the 1,267-term
+glossary had, is **the survey itself**: `cnh-056` is now `Tribute of Yu`. **Before researching a plan line,
+grep the shipped corpus for its subject** — a collection written onto a tree that already had cards will
+keep meeting this, and the check costs one command.
+  **THE CARD'S BEST FACT IS AGAIN A COUNT, AND IT COMES OUT OF A FOOTNOTE.** Chavannes' note at pp. 102–3
+records that the chapter **names Yu exactly twice, in its first sentence and its last**, so that removing
+two sentences leaves the record of a settlement spreading over drained ground; and that the works described
+are far beyond one man, tradition having credited him alone with the labour of several generations. That is
+the second card running whose sharpest sentence is in Chavannes' apparatus rather than in his text — the
+first being `cnh-055`'s interregnum. **Read the notes.**
+  **THE SOURCES ARE FOUR PRIMARY AND ONE MODERN, AND THAT IS THE RIGHT RATIO FOR A CARD ABOUT A TEXT.**
+Legge's *Shû King* carries the chapter (64–76) and, separately, his own account of how it came to be
+written (Introduction, 16–19); Chavannes carries Sima Qian's reproduction of it (100–102) and the critical
+note (102–3); Lee 2002 supplies the one thing the primary sources cannot — that the Three Dynasties era
+held dozens of polities at once, so the nine provinces are a scheme rather than a survey. **Two page ranges
+from one volume count as two citations** and `add-card.js` accepts them, which is what makes a
+text-centred card reachable at the five-source bar.
+  **THE IMAGE IS THE CARD'S SUBJECT AS A MAP.** The *Yuji tu*, carved in stone in 1136 and now in the Stele
+Forest at Xi'an, is drawn on a ruled grid and its title panel names the mountains and rivers of the Tribute
+of Yu — a Song attempt to draw the chapter this card is about. The Library of Congress rubbing is on
+Commons at 9,849 px; the **1280px** thumb is 1.16 MB where the 1920px is 2.28 MB, and for a near-square
+image in a 16:9 `contain` frame the smaller one loses nothing a reader can see.
+  **`check-style` CAUGHT AN UN-ITALICISED `Book of Documents`** in the abstract, and the same rule will
+fire on every card in this deck that names a classic. `fix-field.js` repairs it inside `abstract` in one
+call; the glossary description was written italic from the start because the card had already been caught.

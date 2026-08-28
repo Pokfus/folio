@@ -408,7 +408,7 @@ already shipped before adding it.
     cnh-053  Sanxingdui
     cnh-054  Xia dynasty
     cnh-055  Shaokang and the restoration of the Xia
-    cnh-056  Yu the Great as founder
+    cnh-056  Tribute of Yu
     cnh-057  Qi of Xia
     cnh-058  Jie of Xia
     cnh-059  The Xia in the transmitted texts
