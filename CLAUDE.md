@@ -736,11 +736,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   themselves against — and that **a finding is described with the people it was found in**, which is
   the psychology form of the history plans' rule about a state's account of itself and the easiest one
   here to break by accident. The next card to write is the lowest `ps-NNN` not yet in `data.js`; the
-  index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **No card has been written yet**,
-  so the collection sits in Planned on its own account — `isComingSoon` is true for a node holding
-  no cards. It also ships an inert **`Science` row in `COLLECTION_SECTIONS`**: `sectionOf` returns
-  History for anything the table does not name, so without it the first psychology card would file the
-  collection under History; the row draws nothing until that card exists. Not part of the site.
+  index table under "THE SIXTEEN PLANNED COLLECTIONS" is the lookup. **`ps-001` has shipped**, so the
+  collection is live — `isComingSoon` is false for a node holding a card — and its 37 empty decks are
+  coming-soon automatically, on the same rule. That first card is also what **woke the `Science` row in
+  `COLLECTION_SECTIONS`**, which shipped inert with the plan: `sectionOf` returns History for anything
+  the table does not name, so without the row the first psychology card would have filed the collection
+  under History, and `PAGES.decks` skips a section holding no available collection until one does.
+  Not part of the site.
 - `docs/philosophy-card-plan.md` — the **1000-card running order for the Philosophy collection**
   (`phil`): every card's number, topic and deck, fixed in advance across 9 decks and 38 leaf decks. The
   thirteenth of the planned collections and the second that is not history. **It is EXCLUDED from the
@@ -3674,7 +3676,7 @@ lookup.
 | Ancient Egypt | `egypt` | `eg-` | `docs/egypt-card-plan.md` | 9 / 26 | empty |
 | The Second World War | `ww2` | `ww2-` | `docs/ww2-card-plan.md` | 8 / 30 | empty |
 | Japan | `japan` | `jp-` | `docs/japan-card-plan.md` | 9 / 34 | empty |
-| Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | empty — not a history collection |
+| Psychology | `psych` | `ps-` | `docs/psychology-card-plan.md` | 9 / 38 | 1 card — not a history collection |
 | Philosophy | `phil` | `ph-` | `docs/philosophy-card-plan.md` | 9 / 38 | empty — not a history collection |
 | Biology | `bio` | `bio-` | `docs/biology-card-plan.md` | 9 / 46 | empty — not a history collection |
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
