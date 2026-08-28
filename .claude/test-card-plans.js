@@ -80,8 +80,10 @@ const PLANS = {
      argued in the plan: 604 Hong Kong, 614 Singapore, 667 Macau, 713 Gibraltar, 714 Monaco and
      732 Vatican City are city-states whose capital IS the whole territory, and 671 is Western Sahara,
      whose two claimed capitals are each one side's answer to the disputed question. Written out as
-     ranges so that a number quietly going missing still fails here. */
-  "geo-world": ["world-geography", "gw-", [[1, 233], [501, 603], [605, 613], [615, 666], [668, 670], [672, 712], [715, 731], [733, 733]]],
+     ranges so that a number quietly going missing still fails here. 751-761 is the supplementary band:
+     ten countries have more than one seat and each seat is its own card, so the first keeps the paired
+     number (country + 500) and the extras take the next free band rather than renumbering the deck. */
+  "geo-world": ["world-geography", "gw-", [[1, 233], [501, 603], [605, 613], [615, 666], [668, 670], [672, 712], [715, 731], [733, 733], [751, 761]]],
 };
 // a numbering as a flat list of the numbers it expects, in order
 const expand = (num) => {

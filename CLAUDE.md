@@ -847,9 +847,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   document. The next card is the lowest `geo-NNN` not yet in `data.js`; see the "GEOGRAPHY" bullet under
   "Generating cards & glossary entries". Not part of the site.
 - `docs/world-geography-card-plan.md` — the running order for **The world** (`geo-world`, the second
-  collection of the Geography SECTION), and the second plan that is not a thousand cards: it is **459
-  cards** — 233 countries and territories (`gw-001`–`gw-233`) and 226 capitals (`gw-501`–`gw-733`, seven
-  numbers deliberately unused) — using the same **map card** format the United States collection uses, so
+  collection of the Geography SECTION), and the second plan that is not a thousand cards: it is **470
+  cards** — 233 countries and territories (`gw-001`–`gw-233`) and 237 capitals (`gw-501`–`gw-733` with
+  seven numbers deliberately unused, plus `gw-751`–`gw-761` for the extra seats of the ten countries that
+  have more than one) — using the same **map card** format the United States collection uses, so
   it points at `docs/geography-card-plan.md` for the format rather than restating it. **It is SORTED BY
   POPULATION, largest first, and the order is FIXED at planning time and never re-sorted**: a card id is
   a permanent address, so re-sorting would move cards between ids and silently repoint every reader's
@@ -3727,7 +3728,7 @@ lookup.
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
-| The world | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 3 cards — 459 rather than 1000, and sorted by POPULATION, see below |
+| The world | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 9 cards — 470 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
 

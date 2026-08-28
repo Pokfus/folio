@@ -1,9 +1,10 @@
 # The world — the card plan
 
 The collection is **The world** (`geo-world`), the second of the Geography SECTION on the Collections
-page, beside **United States** (`geo-us`). It is **459 cards in two decks**: **The countries and
+page, beside **United States** (`geo-us`). It is **470 cards in two decks**: **The countries and
 territories** (`geo-world-countries`, `gw-001`–`gw-233`) and **The capitals**
-(`geo-world-capitals`, `gw-501`–`gw-733`, with seven numbers deliberately unused). Its cards use the
+(`geo-world-capitals`, `gw-501`–`gw-733` with seven numbers deliberately unused, plus `gw-751`–`gw-761`
+for the second and third seats of the ten countries that have more than one). Its cards use the
 **map card** format — a shape on a globe, and the question is what it is.
 
 📖 **`docs/geography-card-plan.md` describes the map card itself** — `map`, `facts`, `answerFlag`, the
@@ -15,9 +16,22 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far: `gw-001` India, `gw-002` China and `gw-003` United States.** The capitals deck has no
-cards yet, and the reason is a sourcing one rather than an ordering one — see below. Both decks are
-worked down the same list, so the next country is `gw-004` and the first capital `gw-501`.
+**Shipped so far: `gw-001` India, `gw-002` China, `gw-003` United States, `gw-004` Indonesia,
+`gw-005` Pakistan and `gw-006` Nigeria; `gw-503` Washington, D.C.** The next country is `gw-007` Brazil.
+
+**`gw-501` New Delhi and `gw-502` Beijing are DEFERRED, and the reason is worth reading before trying
+them again.** Both cities are reachable in the sources here only through the foreign legations that sat
+in them: the recognition guide dates the American mission at New Delhi to 1946 and traces the United
+States legation from Beijing to Nanjing to Chongqing to Taipei, which is a history of American
+diplomacy rather than a history of either city. **A card built on that would be about the wrong
+subject** — the same fault `docs/history-focus-plan.md` records as writing archaeology instead of
+history. What was tried and does not answer: `loc.gov`, `hansard.parliament.uk`, `rct.uk`,
+`parliament.uk`, `whc.unesco.org`, `harappa.com` and `asiasociety.org` are all **403**;
+`en.dpm.org.cn` (the Palace Museum) and `nationalmuseum.gov.cn` return **502**; `beijing.gov.cn`
+resets the connection; `en.chinaculture.org` serves navigation chrome; the Archaeological Survey of
+India and the National Archives of India publish pages of a few thousand characters with no narrative.
+**Both want a source class this sandbox has not yet found** — a museum, a city archive or an open
+scholarly history — rather than more searching along the same paths.
 
 ---
 
@@ -104,35 +118,57 @@ card uses as the sentence that brings its history to the present. That is the sh
 box is sourced by [1], and [1] earns its marker on the one sentence that is about the country's place in
 the modern order rather than about its size.*
 
-## The capital a card asks for
+## Countries with more than one capital get a card each
 
-Twelve countries have more than one seat, and `world-capitals.js` carries every one of them so that the
-**card** chooses rather than the file. Each choice below is the constitutional or officially designated
-capital, which is the answer to "what is the capital of X"; where a different city is the working seat of
-government, the card's facts box names it and the background explains the split — that division is one of
-the more interesting things a capital card can teach.
+**Ten countries have more than one seat, and each seat is its own card** (Aug 2026, on request: "for
+countries with multiple capitals, give each their own card where the question makes it clear what sort of
+capital it is"). The alternative — one card per country, asking for whichever seat the plan picked —
+teaches the reader that Bolivia's capital is Sucre and quietly makes La Paz a wrong answer, which is the
+one thing a country with two capitals is interesting for.
 
-| country | the card asks for | also in the table |
+**So the QUESTION carries the qualifier, and it is the qualifier that makes the card answerable.** A bare
+"the capital of the country shaded on the map is ____" has three right answers over South Africa and no way
+for a reader to know which is wanted; "the judicial capital" has one. The qualifier is also the teaching:
+a reader who meets Pretoria, Cape Town and Bloemfontein over the same shape learns what a country does when
+it splits its government up.
+
+| country | card | its question asks for |
 |---|---|---|
-| Bolivia | Sucre — constitutional capital | La Paz, seat of government |
-| Benin | Porto-Novo — official capital | Cotonou, seat of government |
-| Chile | Santiago | Valparaíso, seat of the National Congress |
-| Côte d'Ivoire | Yamoussoukro — official since 1983 | Abidjan, seat of government |
-| Eswatini | Mbabane — administrative capital | Lobamba, royal and legislative |
-| Malaysia | Kuala Lumpur — constitutional capital | Putrajaya, administrative centre |
-| Netherlands | Amsterdam — constitutional capital | The Hague, seat of government |
-| South Africa | Pretoria — executive | Cape Town (legislative), Bloemfontein (judicial) |
-| Sri Lanka | Sri Jayawardenepura Kotte | Colombo, commercial and executive |
-| Tanzania | Dodoma — official since 1974 | Dar es Salaam, the former seat |
-| Israel | **deferred — see below** | Jerusalem, Tel Aviv |
-| Palestine | **deferred — see below** | Ramallah, Gaza City |
+| Tanzania | `gw-522` Dodoma | the capital |
+| | `gw-751` Dar es Salaam | the former capital and largest city |
+| South Africa | `gw-524` Pretoria | the executive capital |
+| | `gw-752` Cape Town | the legislative capital |
+| | `gw-753` Bloemfontein | the judicial capital |
+| Malaysia | `gw-544` Kuala Lumpur | the national capital |
+| | `gw-754` Putrajaya | the administrative capital |
+| Côte d'Ivoire | `gw-550` Yamoussoukro | the official capital |
+| | `gw-755` Abidjan | the seat of government and largest city |
+| Sri Lanka | `gw-561` Sri Jayawardenepura Kotte | the legislative capital |
+| | `gw-756` Colombo | the commercial capital and largest city |
+| Chile | `gw-566` Santiago | the capital |
+| | `gw-757` Valparaíso | the city where the national congress sits |
+| Netherlands | `gw-572` Amsterdam | the constitutional capital |
+| | `gw-758` The Hague | the seat of government |
+| Benin | `gw-576` Porto-Novo | the official capital |
+| | `gw-759` Cotonou | the seat of government and largest city |
+| Bolivia | `gw-579` Sucre | the constitutional capital |
+| | `gw-760` La Paz | the seat of government |
+| Eswatini | `gw-660` Mbabane | the administrative capital |
+| | `gw-761` Lobamba | the legislative and royal capital |
 
-**Israel and Palestine are deferred, deliberately and not indefinitely.** Both have a capital question
-whose answer is the dispute, and a card that shades a shape and asks for one word cannot hold that. They
-are numbered in the running order like everything else and will be written when they are reached, with the
-positions described and no state's account of its own claim given as established fact. Shipping either as
-a bare four-word question would be making a political claim by accident, which is the one thing this
-collection must not do.
+**THE SECOND AND THIRD SEATS ARE NUMBERED IN A BAND OF THEIR OWN, `gw-751`–`gw-761`, and that is not
+tidiness.** The pairing rule is that a country's capital is its own number plus 500, which is what lets a
+reader meet a country and then its capital a day later; renumbering the capitals deck to make room would
+move cards between ids, and a card id is a permanent address — the same reason the running order is never
+re-sorted. So the first seat keeps the paired number and the extras take the next free band, in the running
+order of the country they belong to. **The band is a fact about the deck, not about the seats**: Cape Town
+is not a lesser capital than Pretoria for having a higher number.
+
+**Israel and Palestine are still deferred**, and this rule is why the deferral is not a way of dodging them:
+both have a capital question whose answer is the dispute rather than a division of labour between cities, so
+neither a bare question nor a qualified one settles it. They are numbered in the running order like
+everything else and will be written when they are reached, with the positions described and no state's
+account of its own claim given as established fact.
 
 **Seven numbers in the capitals deck are deliberately never used**, and each is the same kind of case —
 a question with no content:
@@ -145,6 +181,25 @@ a question with no content:
   are the same place, so shading it and asking for its capital asks nothing. That is the District of
   Columbia's position in the United States plan — an entry the layer carries and the deck cannot ask a
   question about.
+
+## The two questions
+
+**A country card asks:** *"The country or territory shaded on the map is ____."*
+
+**A capital card asks:** *"The dot on the map marks ____, the capital of the country shaded around it."*
+— with `country or territory` where the entity is a territory, and with the qualifier in place of *the
+capital* on the twenty-one cards of the ten countries that have more than one seat: *"…marks ____, the
+judicial capital of the country shaded around it."*
+
+**The capital question puts its blank in the MIDDLE, and that is not a stylistic preference.** The
+obvious shape — *"The capital of the country shaded on the map is ____."* — is what the United States
+collection uses, and it ends on the blank, which a map card is allowed to do. On `gw-503` the reveal
+writes the answer into that blank and the line reads **"…is Washington, D.C.."**, with two full stops,
+in the one line of the card a reader looks at twice. Dropping the card's own stop is not the fix:
+`check-questions.js` rule 1 requires a closing stop, and it is right to. Moving the blank into the
+middle of the sentence solves it for every capital at once, satisfies the house rule that a blank sits
+mid-sentence rather than relying on the map card's exemption from it, and reads better — the dot is
+what the reader is being asked about, so the sentence may as well start there.
 
 ## The names
 
@@ -205,6 +260,13 @@ before starting, because most of the traps are already recorded there.
 - **The Commonwealth Secretariat** for its 56 members, and the **EU's own country pages** for its 27:
   each carries a Key Facts / accession block that dates the one datable claim in most third sentences.
 
+**A MAP CARD CARRIES ITS PLACE'S FLAG AND NO OTHER PICTURE, WHICH IS THE STANDING ANSWER TO THE
+PICTURE RULE.** A new card ships with an illustration or a stated reason why not; the reason here is
+that the card's own frame is already a picture — the globe window is the question — and a second one
+inside the background would compete with it. A country card carries `answerFlag` instead, and the
+GLOSSARY term paired with it is where an illustration goes. `gw-503`'s term carries an aerial
+photograph of the Mall for exactly that reason.
+
 **THE CAPITALS NEED A SPINE OF THEIR OWN, AND IT IS NOT THE ONE ABOVE.** Every source in the list above
 is organised by COUNTRY, and a capital card needs a city's history: when the seat moved there, who laid
 it out, what was there before. Measured from this sandbox on the day the collection shipped, that is the
@@ -219,6 +281,17 @@ and `congress.gov` are all **403**; `senate.gov` serves its 404 page **with a 20
 history through JavaScript and hand back navigation chrome; and `beijing.gov.cn` resets the connection.
 **Find the city spine before writing the batch, not during it** — three country cards were written in
 the time it took to establish that the obvious capital sources do not answer.
+
+**Where a city HAS an institutional history of its own, the card is easy and good, which is what
+`gw-503` shows.** Washington is carried by the **Architect of the Capitol** (the Residence Act, the site
+chosen from land ceded by Maryland, L'Enfant's plan and his dismissal, Jefferson's competition,
+Thornton's late entry, the government moving into a half-built Capitol, the burning of 24 August 1814),
+the **Office of the Historian's *Buildings of the Department of State*** (which dates the government's
+arrival by tracking one department through four addresses in sixteen months) and **whitehouse.gov's own
+history** (Hoban's design, the Adamses moving into an unfinished house, Monroe's return). **The question
+to ask of any capital is whether the bodies that sit in it publish their own history** — a parliament, a
+national archive, a city government, a presidential residence. That is the search to run first, and it
+is what New Delhi and Beijing failed.
 
 **Four findings from the glossary pass govern the figures here and are not to be rediscovered.** *Read
 both sources before concluding a figure is wrong* — the disagreement between two official sources is
@@ -527,9 +600,9 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
   gw-519  Berlin  [Germany]
   gw-520  Bangkok  [Thailand]
   gw-521  London  [United Kingdom]
-  gw-522  Dodoma  [Tanzania; the table also carries Dar es Salaam]
+  gw-522  Dodoma  [Tanzania — the capital]
   gw-523  Paris  [France]
-  gw-524  Pretoria  [South Africa; the table also carries Bloemfontein, Cape Town]
+  gw-524  Pretoria  [South Africa — the executive capital]
   gw-525  Rome  [Italy]
   gw-526  Nairobi  [Kenya]
   gw-527  Naypyidaw  [Myanmar]
@@ -549,13 +622,13 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
   gw-541  Kyiv  [Ukraine]
   gw-542  Warsaw  [Poland]
   gw-543  Tashkent  [Uzbekistan]
-  gw-544  Kuala Lumpur  [Malaysia; the table also carries Putrajaya]
+  gw-544  Kuala Lumpur  [Malaysia — the national capital]
   gw-545  Riyadh  [Saudi Arabia]
   gw-546  Maputo  [Mozambique]
   gw-547  Accra  [Ghana]
   gw-548  Lima  [Peru]
   gw-549  Antananarivo  [Madagascar]
-  gw-550  Yamoussoukro  [Côte d'Ivoire; the table also carries Abidjan]
+  gw-550  Yamoussoukro  [Côte d'Ivoire — the official capital]
   gw-551  Kathmandu  [Nepal]
   gw-552  Yaoundé  [Cameroon]
   gw-553  Caracas  [Venezuela]
@@ -566,25 +639,25 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
   gw-558  Bamako  [Mali]
   gw-559  Ouagadougou  [Burkina Faso]
   gw-560  Taipei  [Taiwan]
-  gw-561  Sri Jayawardenepura Kotte  [Sri Lanka; the table also carries Colombo]
+  gw-561  Sri Jayawardenepura Kotte  [Sri Lanka — the legislative capital]
   gw-562  Lilongwe  [Malawi]
   gw-563  Lusaka  [Zambia]
   gw-564  Astana  [Kazakhstan]
   gw-565  N'Djamena  [Chad]
-  gw-566  Santiago  [Chile; the table also carries Valparaíso]
+  gw-566  Santiago  [Chile — the capital]
   gw-567  Bucharest  [Romania]
   gw-568  Mogadishu  [Somalia]
   gw-569  Dakar  [Senegal]
   gw-570  Guatemala City  [Guatemala]
   gw-571  Quito  [Ecuador]
-  gw-572  Amsterdam  [Netherlands; the table also carries The Hague]
+  gw-572  Amsterdam  [Netherlands — the constitutional capital]
   gw-573  Phnom Penh  [Cambodia]
   gw-574  Harare  [Zimbabwe]
   gw-575  Conakry  [Guinea]
-  gw-576  Porto-Novo  [Benin; the table also carries Cotonou]
+  gw-576  Porto-Novo  [Benin — the official capital]
   gw-577  Kigali  [Rwanda]
   gw-578  Bujumbura  [Burundi]
-  gw-579  Sucre  [Bolivia; the table also carries La Paz]
+  gw-579  Sucre  [Bolivia — the constitutional capital]
   gw-580  Tunis  [Tunisia]
   gw-581  Juba  [South Sudan]
   gw-582  Brussels  [Belgium]
@@ -663,7 +736,7 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
   gw-657  Port-of-Spain  [Trinidad and Tobago]
   gw-658  Nicosia  [Cyprus]
   gw-659  Port Louis  [Mauritius]
-  gw-660  Mbabane  [Eswatini; the table also carries Lobamba]
+  gw-660  Mbabane  [Eswatini — the administrative capital]
   gw-661  Djibouti  [Djibouti]
   gw-662  Suva  [Fiji]
   gw-663  Moroni  [Comoros]
@@ -732,3 +805,17 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
   gw-730  Kingston (Norfolk Island)  [Norfolk Island]
   gw-731  Alofi  [Niue]
   gw-733  Adamstown  [Pitcairn Islands]
+
+**The second and third seats**, in the running order of the country they belong to:
+
+  gw-751  Dar es Salaam  [Tanzania — the former capital and largest city]
+  gw-752  Cape Town  [South Africa — the legislative capital]
+  gw-753  Bloemfontein  [South Africa — the judicial capital]
+  gw-754  Putrajaya  [Malaysia — the administrative capital]
+  gw-755  Abidjan  [Côte d'Ivoire — the seat of government and largest city]
+  gw-756  Colombo  [Sri Lanka — the commercial capital and largest city]
+  gw-757  Valparaíso  [Chile — the city where the national congress sits]
+  gw-758  The Hague  [Netherlands — the seat of government]
+  gw-759  Cotonou  [Benin — the seat of government and largest city]
+  gw-760  La Paz  [Bolivia — the seat of government]
+  gw-761  Lobamba  [Eswatini — the legislative and royal capital]
