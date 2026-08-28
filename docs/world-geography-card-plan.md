@@ -25,13 +25,13 @@ Mozambique, Ghana, Peru, Madagascar, Côte d'Ivoire, Nepal, Cameroon, Venezuela,
 Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan, Chad, Chile, Romania,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
-Czechia, Honduras) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
+Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea) **and capitals `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.**
-The next country is `gw-090` Portugal and the next capital is `gw-538` Sana'a.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-751` Dar es Salaam, `gw-752` Cape Town and
+`gw-753` Bloemfontein.** The next country is `gw-093` Sweden and the next capital is `gw-539` Rabat.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -913,6 +913,43 @@ caption has to explain that it is not of the thing it is filed under is not an i
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
 
+**Batch 30 (Portugal, Tajikistan, Papua New Guinea, Sana'a) spent its first work UNDOING a finding of
+its own pass, and that is the entry to read.** Batch 24's `?etrans=en` rule is **wrong** and is struck
+through above: the plain EU country-page path returns the full 104 KB page with Geographical size and
+Population, five fetches in a row, with and without a user agent. The 394-character language picker batch
+24 met was intermittent. **A short response is evidence about one moment, not about a host**, and turning
+one into a rule takes a re-test on another day — which costs one command and would have prevented a false
+rule sitting in this file for six batches, plus a 25-term "fix" that was drafted here before the re-test
+showed there was nothing to fix.
+
+**Portugal is the batch's figure decision and the answer was to leave it alone.** Its population is
+counted three ways for 2025 — UNdata 10.41 million, Eurostat 10.75, the World Bank 10.80 — and the term's
+"roughly 10.5 million" sits inside that spread and between the term's own two citations, neither of which
+refutes it. That is the difference from `Cuba` in batch 29, where the cited source contradicted the
+sentence outright. **The test is not whether a term follows the majority but whether anything it cites
+refutes it**; on that test Portugal stands and Cuba did not.
+
+**Its research finding is a capital that moved and took the embassy with it.** `Sana'a` did not receive
+the American mission to North Yemen: that was at **Taiz**, the old capital, from 1959, was raised to
+embassy rank there in 1963, and **moved to Sana'a in 1966 when Sana'a became the new capital of the Yemen
+Arab Republic**. The guide also carries the whole two-Yemens apparatus — a separate embassy at Aden from
+December 1967, severed and closed by the south in October 1969 and **never reopened even after the union
+of May 1990** — and Yemen's United Nations seat is **30 September 1947**, the northern state's admission
+carried through the merger. **When a country's capital has moved, the guide records the mission's move as
+a separate dated act**, which is exactly what a capital card wants and what a country card would bury.
+
+**Two smaller things.** `Tajikistan` joined the United Nations on 2 March 1992 and the World Trade
+Organization on **2 March 2013**, 21 years to the day, both dates from their own sources and neither
+remarked on by either. And its recognition has no ceremony at all: President Bush recognised it **in an
+address to the American nation** on the dissolution of the Soviet Union, and established relations two
+months later **by press statement** — so a card here has no credentials, no exequatur and no letter to
+hang on, which is what the post-Soviet entries look like throughout.
+
+**And the Commons throttle is now on the API and the file host both, intermittently.** A category listing
+returned 429 twice and 200 on the third try; a metadata lookup for two named files 429ed while **the
+listing already fetched carried the same metadata**. Batch 29's rule paid immediately: **look a candidate
+up once and read the answer out of what you already have** rather than re-querying to confirm.
+
 **Batch 29 (Cuba, Czechia, Honduras, Ottawa) OVERTURNED C11's Cuba withholding, and the thing that
 settled it was the term's own marker.** C11 left `Cuba` at "about 9.4 million" against UNdata's 10,937
 thousand, reading the gap as contested rather than stale because the World Bank series never passes
@@ -1115,12 +1152,17 @@ and quite wrong correction had it been treated as a rival total. **Three institu
 three votes** — sort them by what they measure before comparing them, and 41,543 − 37,391 is exactly the
 tenth of the country that is water.
 
-**And the EU country page needs `?etrans=en` now, or it hands back a 394-character language picker with a
-200 status.** C1 and C2 used the plain `_en` path and it worked; today that path serves the JavaScript
-shell and the query parameter serves the Key Facts block (Capital, Geographical size, Population, *EU
-Member State: since …*). Both `Netherlands` and `Spain` citations were rewritten to the working form.
-This is the sixth variety of 200-status non-document the pass has met, and the first whose cure is a
-query string rather than a different host.
+**~~And the EU country page needs `?etrans=en` now~~ — CORRECTED IN BATCH 30, and the correction is the
+more useful finding.** Batch 24 met a **394-character language picker** at the plain
+`.../eu-countries/<country>_en` path, several times in a row, and got the Key Facts block by adding
+`?etrans=en`; it recorded that as a permanent change and rewrote the `Netherlands` and `Spain` citations.
+Batch 30 re-tested: **both forms return the full 104 KB page, five plain fetches in a row, with and
+without a user agent**, and the plain path carries Geographical size and Population exactly as C1 and C2
+found it. So the interstitial is **intermittent, not permanent**, and the 25 glossary terms citing the
+plain form need no sweep. The rewritten citations are left alone because both forms work. **The rule this
+leaves is about method rather than about the EU: a short response is evidence of a short response, and
+turning one into a permanent rule about a host takes a re-test on another day** — which is cheap, and
+which batch 24 did not do.
 
 **Spain is a standing three-way population disagreement and is deliberately left alone.** UNdata gives
 47,890 thousand for 2025; Eurostat, on the EU page, gives 49,077,984; the World Bank gives 49,355,143 —
