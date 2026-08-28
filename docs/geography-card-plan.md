@@ -21,16 +21,16 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
-`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire,
+`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery and `geo-538` Jackson.**
-Both subdecks are worked down the same list, so the next state is `geo-042` and the next capital
-`geo-539`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson and `geo-539` Dover.**
+Both subdecks are worked down the same list, so the next state is `geo-043` and the next capital
+`geo-540`.
 
 ---
 
@@ -1277,6 +1277,36 @@ terms that already exist**. Each was measured, and none should be settled quietl
   Company entire — the world's largest textile plant, 17,000 workers, thirty mills, run from a Boston
   office through a local agent. **A nomination for a small building often carries the context of the big
   one**; read the agent's house when the mill has no file.
+
+- **A FORMER NAME IS AN ALIAS, AND THAT IS THE WHOLE FIX FOR A COMPONENT-WORD TRAP.** Vermont's founding
+  delegates came from a territory calling itself **New Connecticut**, and the surface `Connecticut` inside
+  that phrase auto-linked to the modern state — a reader sent from Vermont's own founding to the wrong
+  state entirely. Registering **"New Connecticut" as an alias of `Vermont`** settles it in one line:
+  surfaces sort longest-first, so the two-word name claims the phrase before `Connecticut` can, and on
+  `geo-042` itself the alias resolves to the card's own answer term and is therefore suppressed like any
+  other. **The alias was also simply true**, which is the test — Thomas Young's letter to the convention
+  recommended "Vermont" in place of "New Connecticut" — so this is not a workaround but the missing row.
+- **`Settlement` IS AN ARCHAEOLOGICAL TERM AND MUST NOT BE REACHED FROM A MODERN POPULATION FIGURE.** The
+  Dover term first read "its second largest **settlement** after Wilmington", which linked a 2024 Census
+  figure to a term about dwelling places, pottery scatters and rank-size analysis. The word was changed
+  to **city** — which the Census itself uses — and nothing else moved. **A common noun with a specialist
+  glossary entry is the quietest trap there is**: the sentence is correct, the link resolves, and only
+  reading the popup shows the reader has been sent somewhere else. Run the rendered popup check on a NEW
+  term as well as on the cards.
+- **VERMONT AND NEW HAMPSHIRE HAVE TWO NHLs EACH AND BOTH LAYER COUNTS ARE WRONG.** Round 37's rule now
+  has a third instance, and Vermont's way round it was neither HABS's written data nor the mill agent's
+  house but the **NRHP search on a name** — `RESNAME LIKE '%Constitution%'` found the Old Constitution
+  House at Windsor, whose nomination carries the state's whole founding: 72 delegates, Thomas Young's
+  letter, Elijah West's tavern, the first constitution in the country to prohibit slavery and establish
+  universal manhood suffrage, and the republic that ran from 1778 to 1791. **When the NHL layer is short,
+  guess the building's name and query for it** — the property you want usually has an obvious one.
+- **A `tile.loc.gov` DATA PDF CAN BE A 200 AND STILL BE UNREADABLE.** The Justin Smith Morrill Homestead
+  (HALS VT-6) downloads at 12.5 MB and extracts to font junk — a subset font with no ToUnicode map, the
+  same failure round 37 met on the Amoskeag drawings. Its whole significance statement is in the loc.gov
+  **JSON API** record (`?fo=json`), which answers where `www.loc.gov/item/` is 403 here; but the honest
+  citation is the document actually read, so **Morrill was dropped from the card rather than cited from a
+  catalogue record standing in for a PDF nobody could open**. Two clean documents plus the Constitution
+  House were enough.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
