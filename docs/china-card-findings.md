@@ -2094,3 +2094,26 @@ renders in the FLOATED `.card-imgslot`, capped at 280px high and 44% wide with `
 1:1.75 image comes out about 160 × 280 and whole. **The aspect-ratio caution applies to the ratio, not to
 tallness**: the Ma Lin scroll failed at 1:2.2 because it would have been 127px wide, and there is a real
 band between the two.
+
+  **`cnh-072` FINDS ITS BEST MATERIAL IN A REVIEWER'S FOOTNOTES.** Campbell's 2012 review of Thorp —
+already used for `cnh-066` and `cnh-069` — carries in its endnotes an actual divination text with its
+Chinese (*Gui Mao day cracked, Ke tested, next Jia Chen day [we should] offer to Shang Jia ten bovines*),
+the reason the day in it is not arbitrary (an ancestor received his offering on the day whose name he
+carried, which is `cnh-068`'s cyclical-character finding seen from the other end), the observation that
+diviners other than the king grew dramatically fewer in the later periods, and the caveat that
+**inscribed oracle bones were a minority of the scapulas and plastrons actually used**. **A review's
+endnotes are where a specialist corrects a synthesis with the evidence**, so read them rather than
+skimming to the verdict — three of this card's ten sentences come from notes 11 and 12.
+  **THE OBIMD FIGURES MAKE THE CARD'S HONEST LAST SENTENCE.** Its annotated corpus holds 21,941
+inscription sentences, 3,785 sequences recording the order of divination and **407 records of an
+outcome**. Set beside the minority-of-bones caveat, that says plainly what the corpus is: a sample of a
+practice, kept by whoever judged a crack worth writing beside. **Where a dataset paper counts its own
+categories, the ratio between them is often the historical finding.**
+  **KEIGHTLEY'S CHARACTERISATION IS USED AND HIS NAME IS NOT**, per the history-focus rule that the fix
+is to keep the claim and drop the name: "they acted as though divination could find the particular
+contract that would satisfy a given ancestor and lift a curse" is his, quoted inside Jaffe and Campbell
+2021, and it is the single best sentence anyone has written about what the practice was FOR.
+  **AND A COMPOUND COMMAND THAT OPENS WITH `cd` RAN THE WHOLE TEST SUITE FROM THE SCRATCHPAD**, where
+`.claude/` does not exist: seven suites and `check-docs` reported `MODULE_NOT_FOUND` at once. Eight
+simultaneous failures with identical stacks is a cwd problem, never a content one — **re-run from the
+repo root before reading a stack trace.**

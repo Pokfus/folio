@@ -1283,7 +1283,8 @@ window.GLOSSARY = {
 "Tang_of_Shang": "<b>Tang of Shang</b> is the founder of the Shang dynasty in the traditional Chinese account, the lord of Bo who overthrew the last Xia king and took the mandate of Heaven from him.<sup class=\"fn\" data-fn=\"3\"></sup> Tang is a posthumous title glossed as the one who puts away cruelty and suppresses the tyrant; the annals give his own name as Tian Yi and make him the fourteenth in descent from the ancestor Xie.<sup class=\"fn\" data-fn=\"1\"></sup> The stories told of him turn on restraint: coming upon a hunter’s nets drawn across all four sides of a plain, he took three of them away, and the lords said his virtue reached the birds and the beasts.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Yinxu": "<b>Yinxu</b> is the last capital of the Shang dynasty, a spread of ruins on both banks of the Huan river north-west of modern Anyang in Henan, China, listed as a World Heritage site in 2006.<sup class=\"fn\" data-fn=\"1\"></sup> It was occupied for rather more than two centuries, from about 1250 to 1046 BCE, and the oracle-bone inscriptions found there call the place Great Settlement Shang, literally a big urban centre.<sup class=\"fn\" data-fn=\"1\"></sup> Its people were ordered by lineage and grouped by trade, and their appetite for metal made the settlement one of the largest consumers of it anywhere in Eurasia in the 2nd millennium BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Discovery_of_the_oracle_bones": "The <b>discovery of the oracle bones</b> is the recognition, in 1899, that bones sold and ground up as medicine in China carried writing, and that the writing was the Shang dynasty’s own.<sup class=\"fn\" data-fn=\"1\"></sup> Before it the Shang was a literary tradition, known from texts composed a thousand years and more after the events, with no Chinese writing surviving from any earlier time.<sup class=\"fn\" data-fn=\"3\"></sup> The pieces were traced to Anyang, where excavation began in 1928; about 160,000 inscribed fragments have since been recovered, carrying more than 4,600 distinct characters of which only about a thousand have been deciphered.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Oracle_bone_script": "<b>Oracle bone script</b> is the writing of the late Shang, cut into turtle plastrons and cattle shoulder blades between about 1250 and 1046 BCE, and the earliest Chinese writing that survives.<sup class=\"fn\" data-fn=\"2\"></sup> It represents the language fully and leans heavily on pictures, with roughly 170 basic shapes standing for what they draw, for something beside it, or for a word that merely sounds the same.<sup class=\"fn\" data-fn=\"2\"></sup> Almost every other sign is built from those by modification or combination; the corpus runs to some 4,000 distinct signs, at least half of them still unread, and one character may be written in markedly different ways.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Oracle_bone_script": "<b>Oracle bone script</b> is the writing of the late Shang, cut into turtle plastrons and cattle shoulder blades between about 1250 and 1046 BCE, and the earliest Chinese writing that survives.<sup class=\"fn\" data-fn=\"2\"></sup> It represents the language fully and leans heavily on pictures, with roughly 170 basic shapes standing for what they draw, for something beside it, or for a word that merely sounds the same.<sup class=\"fn\" data-fn=\"2\"></sup> Almost every other sign is built from those by modification or combination; the corpus runs to some 4,000 distinct signs, at least half of them still unread, and one character may be written in markedly different ways.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Shang_divination": "<b>Shang divination</b> is the practice by which the late Shang court put questions to its ancestors and to the powers, by burning bone until it cracked and reading the crack.<sup class=\"fn\" data-fn=\"1\"></sup> Cattle shoulder blades and turtle plastrons were hollowed on the back so that heat applied there split the face in a controlled way, and beside the crack was cut the day, the diviner who tested it, and the proposition put.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Diviners worked in named groups, and the kings divined continually to settle that offerings to the dead were right in kind, number, colour and combination.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1919,7 +1920,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Tang_of_Shang": "c. 1600 BCE",
 "Yinxu": "c. 1250 – 1046 BCE",
 "Discovery_of_the_oracle_bones": "1899",
-"Oracle_bone_script": "c. 1250 – 1046 BCE"
+"Oracle_bone_script": "c. 1250 – 1046 BCE",
+"Shang_divination": "c. 1250 – 1046 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4106,7 +4108,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Tang_of_Shang": ["ruler","history","literature","china","bronze age"],
 "Yinxu": ["place","archaeology","history","china","bronze age"],
 "Discovery_of_the_oracle_bones": ["event","history","archaeology","china","bronze age"],
-"Oracle_bone_script": ["concept","language","history","china","bronze age"]
+"Oracle_bone_script": ["concept","language","history","china","bronze age"],
+"Shang_divination": ["practice","religion","history","china","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
