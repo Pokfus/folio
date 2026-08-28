@@ -1280,7 +1280,8 @@ window.GLOSSARY = {
 "Tabula_rasa": "Tabula rasa, the blank slate, is the doctrine that the mind brings no ideas or principles into the world with it and is furnished entirely by experience.<sup class=\"fn\" data-fn=\"1\"></sup> Its best-known statement supposes the mind to be white paper, void of all characters and without any ideas, filled from two fountains, sensation and the mind's reflection on its own operations, and argues that agreement among people would prove nothing innate even were it universal.<sup class=\"fn\" data-fn=\"2\"></sup> The slate is blank of ideas rather than of powers, since that same account equips the mind with faculties for working on whatever experience supplies.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Mind-body_dualism": "Mind-body dualism, in its substance form, is the view that minds and bodies are fundamentally distinct kinds of substance, the mind characterised by thought and the body by extension.<sup class=\"fn\" data-fn=\"1\"></sup> A substance here stands in need of nothing beyond itself in order to exist, so such a mind could continue to be all that it is even if its body were not, and is known through one principal attribute.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its standing objection is interaction, pressed from the beginning by Elisabeth of Bohemia: accounts of causation tie causal power to extension, and two radically different kinds of thing seem to lack what they need in common to act on one another.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Materialism": "Materialism is the thesis that everything is physical, offered as a claim about the nature of the world rather than about how it should be described.<sup class=\"fn\" data-fn=\"1\"></sup> It does not deny that the world holds items seeming otherwise, whether biological, psychological, moral or mathematical, but insists these are in the end physical or bear an important relation to the physical; the near-synonym physicalism was coined only in the 1930s, where materialism entered English late in the 17th century.<sup class=\"fn\" data-fn=\"1\"></sup> Applied to mind it yields the identity theory, on which experiences just are brain processes rather than merely correlated with them.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Psychological_nativism": "Psychological nativism holds that some body of concepts or knowledge belongs to an individual's initial state, or develops from that state without needing input from the environment.<sup class=\"fn\" data-fn=\"1\"></sup> Its key word is unusually slippery: innate has been used to mean present at birth, caused by a genetic difference, adapted over evolutionary time, unchanging through development, shared by every member of a species, and simply not learned, with instinct serving as an older name for the same cluster.<sup class=\"fn\" data-fn=\"2\"></sup> The complaint against it is less that ambiguity than the equivocation it invites, and there is near-universal agreement that the everyday notion of innateness is out of step with recent biology and psychology.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Psychological_nativism": "Psychological nativism holds that some body of concepts or knowledge belongs to an individual's initial state, or develops from that state without needing input from the environment.<sup class=\"fn\" data-fn=\"1\"></sup> Its key word is unusually slippery: innate has been used to mean present at birth, caused by a genetic difference, adapted over evolutionary time, unchanging through development, shared by every member of a species, and simply not learned, with instinct serving as an older name for the same cluster.<sup class=\"fn\" data-fn=\"2\"></sup> The complaint against it is less that ambiguity than the equivocation it invites, and there is near-universal agreement that the everyday notion of innateness is out of step with recent biology and psychology.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Immanuel_Kant": "Immanuel Kant was a Prussian philosopher, born and resident in Königsberg, who is generally taken to be the central figure of modern philosophy and who synthesised early modern rationalism and empiricism.<sup class=\"fn\" data-fn=\"1\"></sup> The fundamental idea of his critical philosophy, set out in three Critiques, is human autonomy: the understanding is itself the source of the general laws of nature that structure all experience, and reason gives itself the moral law.<sup class=\"fn\" data-fn=\"1\"></sup> He also held a demanding view of what a science is, on which only cognition of apodictic certainty qualifies, and on that measure he denied the title to chemistry and, more firmly still, to empirical psychology.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1895,7 +1896,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "New_Kingdom_of_Egypt": "c. 1550 – 1069 BCE",
 "Hatshepsut": "c. 1479 – 1458 BCE",
 "Thutmose_III": "c. 1479 – 1425 BCE",
-"Archaic_period_(North_America)": "c. 9000 – 2500 BP"
+"Archaic_period_(North_America)": "c. 9000 – 2500 BP",
+"Immanuel_Kant": "1724–1804"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2772,7 +2774,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Associationism": ["associationist"],
 "Tabula_rasa": ["blank slate"],
 "Mind-body_dualism": ["substance dualism","mind–body dualism","Cartesian dualism"],
-"Materialism": ["materialist"]
+"Materialism": ["materialist"],
+"Immanuel_Kant": ["Kant"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4078,7 +4081,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Tabula_rasa": ["concept","philosophy","psychology","science"],
 "Mind-body_dualism": ["concept","philosophy","psychology","science"],
 "Materialism": ["concept","philosophy","psychology","science"],
-"Psychological_nativism": ["concept","psychology","philosophy","science"]
+"Psychological_nativism": ["concept","psychology","philosophy","science"],
+"Immanuel_Kant": ["person","philosophy","psychology","science"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
