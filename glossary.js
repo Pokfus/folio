@@ -1285,7 +1285,8 @@ window.GLOSSARY = {
 "Discovery_of_the_oracle_bones": "The <b>discovery of the oracle bones</b> is the recognition, in 1899, that bones sold and ground up as medicine in China carried writing, and that the writing was the Shang dynasty’s own.<sup class=\"fn\" data-fn=\"1\"></sup> Before it the Shang was a literary tradition, known from texts composed a thousand years and more after the events, with no Chinese writing surviving from any earlier time.<sup class=\"fn\" data-fn=\"3\"></sup> The pieces were traced to Anyang, where excavation began in 1928; about 160,000 inscribed fragments have since been recovered, carrying more than 4,600 distinct characters of which only about a thousand have been deciphered.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Oracle_bone_script": "<b>Oracle bone script</b> is the writing of the late Shang, cut into turtle plastrons and cattle shoulder blades between about 1250 and 1046 BCE, and the earliest Chinese writing that survives.<sup class=\"fn\" data-fn=\"2\"></sup> It represents the language fully and leans heavily on pictures, with roughly 170 basic shapes standing for what they draw, for something beside it, or for a word that merely sounds the same.<sup class=\"fn\" data-fn=\"2\"></sup> Almost every other sign is built from those by modification or combination; the corpus runs to some 4,000 distinct signs, at least half of them still unread, and one character may be written in markedly different ways.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Shang_divination": "<b>Shang divination</b> is the practice by which the late Shang court put questions to its ancestors and to the powers, by burning bone until it cracked and reading the crack.<sup class=\"fn\" data-fn=\"1\"></sup> Cattle shoulder blades and turtle plastrons were hollowed on the back so that heat applied there split the face in a controlled way, and beside the crack was cut the day, the diviner who tested it, and the proposition put.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Diviners worked in named groups, and the kings divined continually to settle that offerings to the dead were right in kind, number, colour and combination.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Wu_Ding": "<b>Wu Ding</b> is the Shang king with whom the dynasty’s own written record begins, the 22nd of its line, reigning by the standard chronology from about 1250 to 1192 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> No inscription found at Anyang names any of his three predecessors there, so the site’s writing and his reign start together, and five lunar eclipses recorded by his diviners have been calculated to a window between 1201 and 1181 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The transmitted account makes him the king who revived the dynasty, keeping silence for three years until a dream showed him the sage he then found among convicts and made his counsellor.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Wu_Ding": "<b>Wu Ding</b> is the Shang king with whom the dynasty’s own written record begins, the 22nd of its line, reigning by the standard chronology from about 1250 to 1192 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> No inscription found at Anyang names any of his three predecessors there, so the site’s writing and his reign start together, and five lunar eclipses recorded by his diviners have been calculated to a window between 1201 and 1181 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The transmitted account makes him the king who revived the dynasty, keeping silence for three years until a dream showed him the sage he then found among convicts and made his counsellor.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Fu_Hao": "<b>Fu Hao</b> is a consort of the Shang king Wu Ding, known first from the oracle bones of about 1200 BCE and afterwards from her own grave at Anyang in China.<sup class=\"fn\" data-fn=\"1\"></sup> That order is unusual, an individual named in a record of the 2nd millennium BCE and then met in the ground being rare; the inscriptions show women of her rank overseeing territorial domains and leading troops.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Her grave is the only intact top royal burial yet excavated at the site, holding something like 1.6 tonnes of metal, though she was one of several royal consorts and not the most important person buried there.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -1923,7 +1924,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Discovery_of_the_oracle_bones": "1899",
 "Oracle_bone_script": "c. 1250 – 1046 BCE",
 "Shang_divination": "c. 1250 – 1046 BCE",
-"Wu_Ding": "c. 1250 – 1192 BCE"
+"Wu_Ding": "c. 1250 – 1192 BCE",
+"Fu_Hao": "c. 1200 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -2802,7 +2804,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tang_of_Shang": ["Cheng Tang","Tang the Victorious"],
 "Yinxu": ["Yin Ruins"],
 "Oracle_bone_script": ["jiaguwen","oracle bone inscriptions"],
-"Wu_Ding": ["Gaozong of Shang"]
+"Wu_Ding": ["Gaozong of Shang"],
+"Fu_Hao": ["Fuhao"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4113,7 +4116,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Discovery_of_the_oracle_bones": ["event","history","archaeology","china","bronze age"],
 "Oracle_bone_script": ["concept","language","history","china","bronze age"],
 "Shang_divination": ["practice","religion","history","china","bronze age"],
-"Wu_Ding": ["ruler","history","archaeology","china","bronze age"]
+"Wu_Ding": ["ruler","history","archaeology","china","bronze age"],
+"Fu_Hao": ["person","history","archaeology","china","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

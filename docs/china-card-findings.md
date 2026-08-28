@@ -2137,3 +2137,28 @@ the ~900px bar, so the picture that works is a scene rather than a face.
 kill. **After a restart, check `git status` and re-read the artefact before re-running anything** — a
 half-applied glossary write would have been silent, and re-running the add on the same file is idempotent
 where re-running a batch tool need not be.
+
+  **`cnh-074` HAD TO BE WRITTEN AGAINST TWO NEIGHBOURS AT ONCE** — `cnh-075` takes her tomb and `cnh-101`
+Shang queens and royal women — which leaves the PERSON, and the person is knowable only because of the
+tomb. The card's own hinge resolves that: **she is known first from the oracle bones and afterwards from
+the ground**, which the chronology paper calls an atypical case, archaeology rarely reaching the
+resolution history takes for granted. So the tomb appears here as the REASON she is known and nothing
+more; its plan and its 1,928 objects wait for `cnh-075`.
+  **THE SOURCE FOR WHAT SHE DID IS A REVIEW OF A BOOK ABOUT WOMEN**, not a paper about her: Lullo's 2019
+review of Hinsch's *Women in Ancient China* summarises the terms the inscriptions use for women, notes
+that a strictly patrimonial system gave royal consorts privileges that were theirs alone, and names Fu
+Jing beside Fu Hao as the two high-ranking consorts of Wu Ding who oversaw territorial domains, presented
+tribute, led troops and hunted. It also supplies the card's closing contrast — **Shang sources are
+descriptive where Zhou inscriptions and poems put forward moral archetypes**, which says why she can be
+known as a person at all. **Fourth card in this run built on a book review**; on a subject whose synthesis
+is a closed monograph, the open review is the source.
+  **THE METAL FIGURES ARE THE PROOF OF RANK AND ALSO ITS LIMIT.** Liu et al. 2020 gives 1.6 tonnes of
+metal in her tomb, that it is the only intact top royal burial at Anyang, that the kingly tombs at
+Xibeigang were up to seven times its size, and — the sentence the card needed — that **she was only one
+of Wu Ding's royal consorts and by no means the most important figure buried there.** A card about a
+famous woman that did not say this would be reporting survival as if it were status.
+  **AND `second-millennium BCE` SLIPPED THROUGH AGAIN.** `check-style`'s ordinal rule cannot see the
+hyphenated attributive (its lookahead is `\s*`), so it passed in both the card and the term; both were
+rewritten to "a record of the 2nd millennium BCE" by hand. That is the third time in this run — see the
+`cnh-069` entry. **When a card compares periods, grep your own draft for `\b(first|second|third)-`
+before adding it.**
