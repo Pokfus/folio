@@ -1586,7 +1586,8 @@ window.GLOSSARY = {
 "Aesop": "Aesop is the name under which the Greek beast fable was collected, and the ancient record points to a legendary figure supplied to account for the stories rather than to an author whose writings survive.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus, the earliest witness, describes him as a story-writer and a slave of Iadmon of Samos whom the Delphians killed, and ancient chronographers placed that death in 564 BCE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A fictional biography composed between the 1st century BCE and the 2nd century CE made him a grotesquely ugly slave granted speech by a goddess, while the fables themselves are anonymous popular matter, about a hundred of them touching on religion.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Presocratic_philosophy": "Presocratic philosophy is the modern name for the natural inquiry pursued in the Greek cities during the 6th and 5th centuries BCE by thinkers whom antiquity took to be the first philosophers of its tradition.<sup class=\"fn\" data-fn=\"1\"></sup> Where Hesiod had generated the world by births and unions among gods, they looked for principles inherent in the world itself, and Aristotle reports that most of the earliest recognised only material ones.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> No complete work survives, so the subject rests on quoted fragments and on later reports, and the label is an 18th-century coinage that fails as chronology, the last of these thinkers being contemporaries of Socrates.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Thales": "Thales of Miletus was an Ionian thinker of the early 6th century BCE whom Aristotle named as the first to inquire into nature in the manner that became Greek natural philosophy.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle reports his doctrine that the permanent entity is water and that the earth floats upon it, but supplies the supporting reasons himself, since Thales is said to have written no book.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Herodotus credits him with foretelling the loss of daylight that stopped a battle between Lydians and Medes, a prediction the tradition dates to 585 BCE and which he can hardly have made.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Anaximander": "Anaximander of Miletus was an Ionian thinker remembered as the successor of Thales, and the first Greek of whom a sentence survives in something close to his own words.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> That sentence, quoted by Simplicius, makes the first principle neither water nor any other familiar element but the indefinite, from which the heavens and the worlds in them arise and into which they pass away, giving one another penalty and recompense for their injustice.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle reports his answer to what holds the earth up, that it has no reason to move, and antiquity credited him with the sundial gnomon, a globe and the first map of land and sea.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Anaximander": "Anaximander of Miletus was an Ionian thinker remembered as the successor of Thales, and the first Greek of whom a sentence survives in something close to his own words.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> That sentence, quoted by Simplicius, makes the first principle neither water nor any other familiar element but the indefinite, from which the heavens and the worlds in them arise and into which they pass away, giving one another penalty and recompense for their injustice.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle reports his answer to what holds the earth up, that it has no reason to move, and antiquity credited him with the sundial gnomon, a globe and the first map of land and sea.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Anaximenes": "Anaximenes of Miletus, son of Eurystratus, was the third and last of the Milesian thinkers, remembered as the pupil of Anaximander and placed by Apollodorus at the time of the fall of Sardis.<sup class=\"fn\" data-fn=\"3\"></sup> He made air the first principle, and Aristotle set him beside Diogenes of Apollonia as holding air to be prior to water and most truly first among the bodily elements.<sup class=\"fn\" data-fn=\"2\"></sup> His distinctive contribution is a stated mechanism of change, condensation and rarefaction, by which air rarefied becomes fire and air condensed becomes in turn wind, cloud, water, earth and finally stone, with the rest coming to be from these.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2300,7 +2301,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Aesop": "c. 572 – 564 BCE",
 "Presocratic_philosophy": "c. 600 – 400 BCE",
 "Thales": "active c. 600 – 580 BCE",
-"Anaximander": "active c. 570 – 545 BCE"
+"Anaximander": "active c. 570 – 545 BCE",
+"Anaximenes": "active c. 546 – 526 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3313,7 +3315,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Aesop": ["Aisopos"],
 "Presocratic_philosophy": ["Presocratics","Presocratic","pre-Socratic philosophy"],
 "Thales": ["Thales of Miletus"],
-"Anaximander": ["Anaximander of Miletus"]
+"Anaximander": ["Anaximander of Miletus"],
+"Anaximenes": ["Anaximenes of Miletus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4926,7 +4929,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Aesop": ["person","literature","greece","archaic greece","storytelling"],
 "Presocratic_philosophy": ["concept","philosophy","greece","archaic greece","science"],
 "Thales": ["person","philosophy","greece","archaic greece","science","astronomy"],
-"Anaximander": ["person","philosophy","greece","archaic greece","science","astronomy"]
+"Anaximander": ["person","philosophy","greece","archaic greece","science","astronomy"],
+"Anaximenes": ["person","philosophy","greece","archaic greece","science"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
