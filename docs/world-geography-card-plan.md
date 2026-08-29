@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-165` the Solomon Islands
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-168` Luxembourg
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,66 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 62 (Solomon Islands, Bhutan, Macau) found the source that answers for an entity OUTSIDE every other
+source, and it is a general route rather than a lucky page.** Macau has no recognition-guide entry (the guide
+covers states the United States has recognised) and no bloc profile, and UNdata's SAR page is thin. What
+carries the card is **`HRI/CORE/CHN-MAC/2019`, the COMMON CORE DOCUMENT** that Macao, China filed with the
+United Nations human-rights treaty bodies and the Secretariat issued on 5 August 2020: it gives the land area
+and how it has grown, the maritime jurisdiction, the by-census breakdown by ethnicity, language and place of
+birth, and the constitutional machinery — **a government's own description of itself, filed under a treaty
+obligation.** Every state party to a human-rights treaty files one, so **search `digitallibrary.un.org` for
+`HRI/CORE/<code>` whenever a territory falls outside the usual three.** One handling note: the PDF extracts
+with **broken word spacing** — letters separated inside words — so despace a copy, grep that, and read the
+window back; searching the raw extraction finds nothing at all.
+
+**Macau's land area GROWS, and here the source says why.** The core document records it rising from about
+29.5 km² in 2010 to **32.9 km² at the end of 2018**, with jurisdiction over 85 km² of sea since 2015, and the
+World Bank's own series records the same movement (32.9 through 2020, 33 from 2021). Batch 57 found Bahrain's
+area moving and batch 59 Mauritius's, and neither source explained itself; **this is the first where one
+does**, and it settles the earlier note: a moving area series is sometimes reclamation and sometimes
+revision, and only a source that says so can tell you which.
+
+**Macau is also the deck's first entity whose CONSTITUTIONAL HISTORY has no openable source here, and the
+asymmetry with Hong Kong is exact.** Hong Kong's card could cite the United Kingdom's Hong Kong Act 1985 on
+`legislation.gov.uk` and the HKSAR government's own Basic Law page; Macau's equivalents are all shut —
+`bo.io.gov.mo` refuses the connection, `io.gov.mo` refuses, `gov.mo`'s English pages 404 except a news feed,
+`macaotourism.gov.mo` 404s. So the card and the new term state modern, sourced facts and **do not date the
+handover at all**. It is D2's Taiwan position in a new form: the entity is perfectly reachable, its history
+is not.
+
+**Bhutan is the deck's only country that is not a WTO member, and the WTO dates that too.** Its working party
+on accession was **established on 6 October 1999** and the accession has not been completed — twenty-six
+years. Set beside Comoros (21 August 2024) and Timor-Leste (30 August 2024), the WTO's own pages now date
+both ends of the deck's range, from a member that joined last year to one that has been acceding since the
+century before. Note the accession page lives under `acc_e/`, not `countries_e/`, and its slug is the FRENCH
+spelling: `a1_bhoutan_e.htm`.
+
+**And Bhutan has the longest gap in the deck between a Security Council recommendation and a General Assembly
+admission.** Recommended unanimously at the Council's 1566th meeting on **10 February 1971** and admitted at
+the Assembly's 1934th plenary on **21 September 1971** — more than seven months, against six days for Gabon
+and Equatorial Guinea and three for Timor-Leste. The Assembly's ordinary session opens in September, which is
+the mundane explanation and is stated by no source, so the card gives the interval and not the reason.
+
+**A thirty-year embassy closure that ENDED, and the deck's first woman ambassador.** The American embassy at
+Honiara closed on 30 July 1993 and **reopened on 27 January 2023**, where Guinea-Bissau's (batch 55) and
+Comoros's (batch 61) never did — so a closure is not necessarily permanent, and the guide records the
+reopening as its own dated event. And relations were established on 9 October 1978 when **Mary S. Olmsted**
+presented her credentials as ambassador, accredited to Papua New Guinea as well and resident at Port Moresby:
+the first woman named as an ambassador in any entry this deck has cited.
+
+**Recognition delivered by a senator.** Solomon Islands was recognised on 7 July 1978 when **Senator John H.
+Glenn**, as the President's personal representative, delivered a letter from President Carter to Prime
+Minister Peter Kenilorea. It is the Gambia's recognition-by-attending (batch 53) with a sitting legislator
+carrying it, and it brings the count of distinct modes the guide records to eight.
+
+**Batch 45's rule is in its ninth consecutive batch, and one of its removals is the kind to watch for.**
+Bhutan's "a proportion the constitution requires never to fall below three-fifths" is a claim about a legal
+instrument, which is exactly the class that must be sourced or dropped; it gave way to UNdata's 71.2 per
+cent. Solomon Islands lost "about 990 islands" and "logging, fishing and palm oil are its main exports" for
+the Commonwealth's own "two parallel chains of volcanic islands and coral atolls" and its named neighbours.
+**A new glossary term shipped with the batch — `Macau`, with `Macao` as an alias** — the deck's first new
+country term since Puerto Rico.
 
 **Batch 61 (Fiji, Comoros, Guyana) turns up the guide's oldest date and a recognition made from a chair at
 the Security Council.** Fiji's entry records a CONSULATE 26 years before the colony and 126 before
