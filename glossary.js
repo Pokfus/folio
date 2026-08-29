@@ -1588,7 +1588,8 @@ window.GLOSSARY = {
 "Thales": "Thales of Miletus was an Ionian thinker of the early 6th century BCE whom Aristotle named as the first to inquire into nature in the manner that became Greek natural philosophy.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle reports his doctrine that the permanent entity is water and that the earth floats upon it, but supplies the supporting reasons himself, since Thales is said to have written no book.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Herodotus credits him with foretelling the loss of daylight that stopped a battle between Lydians and Medes, a prediction the tradition dates to 585 BCE and which he can hardly have made.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Anaximander": "Anaximander of Miletus was an Ionian thinker remembered as the successor of Thales, and the first Greek of whom a sentence survives in something close to his own words.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> That sentence, quoted by Simplicius, makes the first principle neither water nor any other familiar element but the indefinite, from which the heavens and the worlds in them arise and into which they pass away, giving one another penalty and recompense for their injustice.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle reports his answer to what holds the earth up, that it has no reason to move, and antiquity credited him with the sundial gnomon, a globe and the first map of land and sea.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Anaximenes": "Anaximenes of Miletus, son of Eurystratus, was the third and last of the Milesian thinkers, remembered as the pupil of Anaximander and placed by Apollodorus at the time of the fall of Sardis.<sup class=\"fn\" data-fn=\"3\"></sup> He made air the first principle, and Aristotle set him beside Diogenes of Apollonia as holding air to be prior to water and most truly first among the bodily elements.<sup class=\"fn\" data-fn=\"2\"></sup> His distinctive contribution is a stated mechanism of change, condensation and rarefaction, by which air rarefied becomes fire and air condensed becomes in turn wind, cloud, water, earth and finally stone, with the rest coming to be from these.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Milesian_school": "The Milesian school is the name given to three thinkers of the Ionian city of Miletus, Thales, Anaximander and Anaximenes, active across the 6th century BCE and conventionally counted the first Greek philosophers.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient doxographers arranged them as a master-and-pupil succession, which may not be true, though their views resemble one another closely enough to justify treating the three together.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Each named an originating stuff and explained the world from it without appeal to anything outside nature, and each pursued measurement and observation alongside the questions about causes that Aristotle later read as a concern with material principles.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Milesian_school": "The Milesian school is the name given to three thinkers of the Ionian city of Miletus, Thales, Anaximander and Anaximenes, active across the 6th century BCE and conventionally counted the first Greek philosophers.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient doxographers arranged them as a master-and-pupil succession, which may not be true, though their views resemble one another closely enough to justify treating the three together.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Each named an originating stuff and explained the world from it without appeal to anything outside nature, and each pursued measurement and observation alongside the questions about causes that Aristotle later read as a concern with material principles.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Pythagoras": "Pythagoras was a Greek thinker who grew up on Samos and moved at about forty to Croton in southern Italy, where most of his activity took place.<sup class=\"fn\" data-fn=\"1\"></sup> He wrote nothing and no contemporary described his thought in detail, so almost everything later ascribed to him comes from a tradition that had already turned him into a semi-divine originator of all Greek philosophy.<sup class=\"fn\" data-fn=\"1\"></sup> The earliest evidence makes his fame rest instead on the fate of the soul after death, which his contemporary Xenophanes already has him teaching, on religious ritual, on wonder-working, and on a strict way of life that Plato says his followers were still keeping generations later.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2304,7 +2305,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Thales": "active c. 600 – 580 BCE",
 "Anaximander": "active c. 570 – 545 BCE",
 "Anaximenes": "active c. 546 – 526 BCE",
-"Milesian_school": "c. 600 – 526 BCE"
+"Milesian_school": "c. 600 – 526 BCE",
+"Pythagoras": "c. 570 – 490 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3319,7 +3321,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Thales": ["Thales of Miletus"],
 "Anaximander": ["Anaximander of Miletus"],
 "Anaximenes": ["Anaximenes of Miletus"],
-"Milesian_school": ["Milesians","school of Miletus"]
+"Milesian_school": ["Milesians","school of Miletus"],
+"Pythagoras": ["Pythagoras of Samos"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4934,7 +4937,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Thales": ["person","philosophy","greece","archaic greece","science","astronomy"],
 "Anaximander": ["person","philosophy","greece","archaic greece","science","astronomy"],
 "Anaximenes": ["person","philosophy","greece","archaic greece","science"],
-"Milesian_school": ["concept","philosophy","greece","archaic greece","science"]
+"Milesian_school": ["concept","philosophy","greece","archaic greece","science"],
+"Pythagoras": ["person","philosophy","greece","archaic greece","religion"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
