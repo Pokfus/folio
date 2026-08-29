@@ -1578,7 +1578,9 @@ window.GLOSSARY = {
 "Mimnermus": "<b>Mimnermus</b> was a Greek elegist of the later 7th century BCE, whom the ancient notices place at Colophon or at Smyrna, the city Colophon had settled, and who turned elegy from war towards pleasure and its shortness.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His best-known work was the <i>Nanno</i>, named after a woman who played the reed pipe, and he was remembered as a singer rather than a reciter, his elegy performed to that pipe.<sup class=\"fn\" data-fn=\"2\"></sup> The theme that runs through the surviving fragments is that youth is brief and old age hateful, and the plan of his book of elegies gathered under a beloved's name shaped Alexandrian and Roman elegy after him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Theognis": "<b>Theognis</b> of Megara is the name under which about 1,400 lines of archaic Greek elegy have come down, by far the largest such body and by far the best preserved of any Greek elegist.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The collection was assembled as a schoolbook of maxims and shows the interpolation a schoolbook attracts, so editors use the name for what the manuscripts attribute rather than as a claim about a single author.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Most of the poems address a younger man, Cyrnus, whose name is called a seal set on the verses, and their politics are those of a beaten aristocrat who calls the men now in charge base.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Anacreon": "<b>Anacreon</b> was a Greek lyric poet of Teos in Ionia, one of the nine of the Alexandrian canon, who sang of wine, desire and the drinking party and spent his working life at the courts of tyrants.<sup class=\"fn\" data-fn=\"1\"></sup> He left Teos with his fellow citizens when the Persians came in 545 BCE, helped found Abdera in Thrace, and appears afterwards at the court of Polycrates on Samos and then at Athens with Hipparchus.<sup class=\"fn\" data-fn=\"1\"></sup> Alexandria divided him into five books, and a later body of imitations known as the <i>Anacreontea</i>, first printed in 1554, so shaped European taste that its genial old toper has largely displaced the poet himself.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Ibycus": "<b>Ibycus</b> was a Greek lyric poet of the 6th century BCE, born at Rhegion in southern Italy and counted among the nine of the Alexandrian canon of melic verse.<sup class=\"fn\" data-fn=\"1\"></sup> He wandered like the rhapsodes before settling on Samos at the court of Polycrates, where Anacreon was with him, the two being the first poets known to have put their art at a tyrant's disposal, and it is from that association that his ancient dates were reckoned.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His early work followed Stesichorus into heroic legend and the later fragments are full of roses, spring and desire, but he is best remembered for a late story that cranes avenged his murder.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Ibycus": "<b>Ibycus</b> was a Greek lyric poet of the 6th century BCE, born at Rhegion in southern Italy and counted among the nine of the Alexandrian canon of melic verse.<sup class=\"fn\" data-fn=\"1\"></sup> He wandered like the rhapsodes before settling on Samos at the court of Polycrates, where Anacreon was with him, the two being the first poets known to have put their art at a tyrant's disposal, and it is from that association that his ancient dates were reckoned.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His early work followed Stesichorus into heroic legend and the later fragments are full of roses, spring and desire, but he is best remembered for a late story that cranes avenged his murder.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Stesichorus": "Stesichorus was a Greek choral poet of the 6th century BCE, connected in ancient accounts with Matauros in southern Italy and with Himera in Sicily, and known by a name meaning chorus-setter that may be a title rather than a birth name.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He composed long narrative poems on heroic legend, among them a <i>Geryoneis</i>, an <i>Oresteia</i> and treatments of the Theban story, in stanzas built from lengths of the epic hexameter, which is why antiquity called him a lyric Homer.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Little survives except through quotation and papyrus finds, and his dates rest on the calculations of ancient chronographers rather than on any record of his life.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Simonides": "Simonides of Ceos was a Greek lyric and elegiac poet, born at Iulis on the Aegean island of Ceos, whose long career took him from the court of Hipparchus at Athens to the princes of Thessaly and finally to Syracuse.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He worked in almost every choral and elegiac kind, is credited with giving the victory ode its artistic form, and was charged with avarice for writing at a fixed price rather than for unspecified patronage.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He is best remembered for commemorative verse on the Persian Wars, including the epitaph for the Spartan dead at Thermopylae and an elegy on Plataea recovered from papyrus.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2286,7 +2288,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Mimnermus": "fl. c. 630 BCE",
 "Theognis": "fl. c. 540 BCE",
 "Anacreon": "c. 572 – 487 BCE",
-"Ibycus": "fl. c. 544 BCE"
+"Ibycus": "fl. c. 544 BCE",
+"Stesichorus": "c. 600 – 550 BCE",
+"Simonides": "c. 556 – 468 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3291,7 +3295,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mimnermus": ["Mimnermos","Mimnermus of Colophon"],
 "Theognis": ["Theognidea","Theognis of Megara"],
 "Anacreon": ["Anakreon","Anacreon of Teos"],
-"Ibycus": ["Ibykos","Ibycus of Rhegium"]
+"Ibycus": ["Ibykos","Ibycus of Rhegium"],
+"Stesichorus": ["Stesichoros"],
+"Simonides": ["Simonides of Ceos","Simonides of Keos"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4896,7 +4902,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mimnermus": ["person","literature","poetry","greece","archaic greece"],
 "Theognis": ["person","literature","poetry","greece","archaic greece"],
 "Anacreon": ["person","literature","poetry","greece","archaic greece"],
-"Ibycus": ["person","literature","poetry","greece","archaic greece"]
+"Ibycus": ["person","literature","poetry","greece","archaic greece"],
+"Stesichorus": ["person","literature","poetry","greece","archaic greece"],
+"Simonides": ["person","literature","poetry","greece","archaic greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
