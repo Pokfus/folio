@@ -1568,7 +1568,8 @@ window.GLOSSARY = {
 "Pierre_(South_Dakota)": "Pierre is the capital of South Dakota<sup class=\"fn\" data-fn=\"3\"></sup> and, with 13,788 residents, the second smallest state capital in the country after Montpelier.<sup class=\"fn\" data-fn=\"1\"></sup> On a hill across the Missouri at Fort Pierre, the La Vérendrye brothers buried a lead plate on 30 March 1743 bearing the names of Louis XV and their own, to found a French claim to the upper Missouri; children turned it up in 1913.<sup class=\"fn\" data-fn=\"2\"></sup> The town itself was pressed on the state by Charles L. Hyde, who traded land and raised nine business blocks after 1887, opening the St. Charles Hotel in 1911, the year he was indicted for advertising fraud and pardoned by President William Howard Taft.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Bismarck_(North_Dakota)": "Bismarck is the capital of North Dakota<sup class=\"fn\" data-fn=\"4\"></sup> and, with 77,772 residents, the second largest city in the state after Fargo.<sup class=\"fn\" data-fn=\"1\"></sup> It grew where the Northern Pacific Railway crossed the Missouri: the army set up Camp Hancock on the line on 16 April 1872, whose supply building of that year still stands and appears to be the oldest in the town.<sup class=\"fn\" data-fn=\"2\"></sup> Colonel Clement A. Lounsberry brought out the first Bismarck Tribune on 11 July 1873, and on 5 July 1876 he telegraphed the New York Herald the first news of the Little Bighorn, brought down the Yellowstone by the steamer Far West.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Des_Moines": "Des Moines is the capital of Iowa<sup class=\"fn\" data-fn=\"2\"></sup> and its largest city, with 213,096 residents.<sup class=\"fn\" data-fn=\"1\"></sup> The legislature moved there from the Old Capitol at Iowa City in 1857,<sup class=\"fn\" data-fn=\"3\"></sup> and its capitol complex stands above the meeting of the Des Moines and Raccoon rivers, with the Beaux-Arts State Historical Building of 1898 to 1910 across Grand Avenue from the capitol itself.<sup class=\"fn\" data-fn=\"4\"></sup> Henry Wallace edited Wallaces' Farmer there from 1895 until his death in 1916, argued for scientific farming and agricultural extension, and sat on Theodore Roosevelt's Country Life Commission of 1908 beside Gifford Pinchot.<sup class=\"fn\" data-fn=\"5\"></sup>",
-"Northern_Pacific_Railway": "The Northern Pacific Railway reached Bismarck from the east in 1873 and, on its completion a decade later, linked North Dakota to the west coast.<sup class=\"fn\" data-fn=\"1\"></sup> The army set up Camp Hancock on its line at Bismarck on 16 April 1872 to guard the gangs building it, and kept the post garrisoned until 1877, after which it supplied the forts further west.<sup class=\"fn\" data-fn=\"2\"></sup> Its Bismarck depot, raised after the fire of 8 August 1898 had levelled much of the town centre, was designed by Charles Reed and Allen Stem of St. Paul in a Spanish mission manner uncommon on the northern plains, replacing a hotel that had served as passenger depot too.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Northern_Pacific_Railway": "The Northern Pacific Railway reached Bismarck from the east in 1873 and, on its completion a decade later, linked North Dakota to the west coast.<sup class=\"fn\" data-fn=\"1\"></sup> The army set up Camp Hancock on its line at Bismarck on 16 April 1872 to guard the gangs building it, and kept the post garrisoned until 1877, after which it supplied the forts further west.<sup class=\"fn\" data-fn=\"2\"></sup> Its Bismarck depot, raised after the fire of 8 August 1898 had levelled much of the town centre, was designed by Charles Reed and Allen Stem of St. Paul in a Spanish mission manner uncommon on the northern plains, replacing a hotel that had served as passenger depot too.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Elegy": "An <b>elegy</b> in modern usage is a poem of lament, but in Greek and Latin verse the name belonged to a metre rather than a mood: any poem in couplets pairing a dactylic hexameter with a shorter pentameter.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Greek <i>elegos</i> named a song of mourning close to the dirge, while <i>elegeion</i> was the metrical term for the couplet, which enters literature early in the 7th century BCE and was carried by the pipe, not the lyre.<sup class=\"fn\" data-fn=\"1\"></sup> Poems in the form ran from calls to arms and political argument to love, drinking and the epitaph, so the sorrowful tone the word now carries did not mark the ancient genre out.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3264,7 +3265,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Salmon_P._Chase": ["Salmon Portland Chase"],
 "Vermont": ["New Connecticut"],
 "Union_Pacific_Railroad": ["Union Pacific"],
-"Northern_Pacific_Railway": ["Northern Pacific"]
+"Northern_Pacific_Railway": ["Northern Pacific"],
+"Elegy": ["elegiac","elegiac poetry","elegiac verse","elegeion"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4859,7 +4861,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Pierre_(South_Dakota)": ["place","geography","united states","city","capital"],
 "Bismarck_(North_Dakota)": ["place","geography","united states","city","capital"],
 "Des_Moines": ["place","geography","united states","city","capital"],
-"Northern_Pacific_Railway": ["institution","history","technology","united states","industry"]
+"Northern_Pacific_Railway": ["institution","history","technology","united states","industry"],
+"Elegy": ["concept","literature","poetry","greece","music"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
