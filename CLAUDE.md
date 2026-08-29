@@ -991,6 +991,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     uncited — `gloss-source-audit.js` did, on its first run after the split — and a WRITER
     re-serialises what it loaded and **deletes 1.29 MB without erroring**. `writeGlossary` also STRIPS
     either block from `glossary.js` if one creeps back in.
+    **AND THE QUEUE'S KEYS ARE THE GLOBALS' OWN NAMES.** A one-off inspection that reaches past
+    `gloss-io.js` has to read `window.GLOSSARY_EXTRA_IN[0].GLOSSARY_IMAGES` — not `.images`, and not
+    `window.GLOSSARY_IMAGES`, which the file never assigns. Both wrong forms return `undefined`, which
+    reads as *this term has no picture*: on that answer an existing illustration was overwritten in
+    Aug 2026 and had to be reverted. **A check that cannot tell an absent table from an absent entry is
+    worse than no check**, so confirm a table's SIZE before trusting what it says about one key.
   · **`check-style.js` reads `glossary-extra.js` too**, and that is not housekeeping: rule 4 (BCE/CE)
     sweeps the text a PICTURE carries, which is where most of the site's remaining "BC"s were, and the
     whole images table moved out of its reach. Its citations mask now matches **both** block shapes —
