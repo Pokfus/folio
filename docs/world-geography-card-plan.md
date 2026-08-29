@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-132`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-135`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-133` Mongolia
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-136` Bosnia and Herzegovina
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,53 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 50 (Mongolia, Uruguay, Puerto Rico) is batch 48's Kuwait finding turned over: here the guide
+states what does NOT constitute recognition.** The United States had not blocked Mongolia's admission to
+the United Nations in 1961 — it abstained — and had signed several multilateral treaties to which Mongolia
+was also a party, and the entry says in terms that **"these acts had not constituted recognition"**, which
+waited until **27 January 1987**, twenty-six years later, the Kennedy, Johnson, Nixon and Carter
+administrations having each entertained it without success. Kuwait's recognition was a practice before it
+was an act; Mongolia's practice explicitly fell short of one. **Two consecutive batches, opposite
+directions, and the guide says which it is on the page both times.**
+
+**The admission resolutions are consecutive and printed on the same page, which is how the card links
+Mongolia to Mauritania without asserting a bargain.** `A/RES/1630(XVI)` and `A/RES/1631(XVI)` were both
+adopted at the **1043rd plenary meeting on 27 October 1961** and both sit at p. 64 of `A/5100`. C9 recorded
+that Mauritania's UN membership date does not corroborate its independence year because of a Cold War
+admission deadlock; the deck now holds both halves of the package that broke it, each cited to its own
+record. **Where two states were admitted together, cite both records** — batch 21's rule about not marking
+a claim on another state to this one's source, applied to a resolution rather than a profile.
+
+**Uruguay's recognition is the deck's oddest instrument: an EXEQUATUR ISSUED IN NEW YORK.** On 25 January
+1836 the United States recognised the Oriental Republic by issuing an exequatur to John Darby as its
+consul general at New York — recognition performed by accepting the other state's consul on American
+soil, rather than by sending anyone. Diplomatic relations waited another 31 years, and for three of those
+the American minister accredited to Uruguay lived at Buenos Aires.
+
+**Puerto Rico is the deck's second territory card, and it needed a spine no country card uses.** The
+recognition guide has no page for it — the guide is written from the United States outward, as C11 found
+for the United States itself — so the card rests on **`A/RES/748 (VIII)`** of 27 November 1953,
+*Cessation of the transmission of information under Article 73e of the Charter in respect of Puerto Rico*,
+on the Office of the Historian's **Spanish-American War milestone** for the 1898 cession, and on the
+profile's own footnote that the data for the United States **do not include this area** — New Zealand's
+Cook Islands note (batch 46) seen from the other side. Its facts box takes Hong Kong's and Palestine's
+`Status` row, and its UNdata profile carries no membership date, which the card states as Palestine's does.
+
+**That resolution's PDF is an image scan with no text layer, and the catalogue entry is the citation.**
+Like `A/RES/995(X)`, `T/1269` and `A/RES/2908(XXVII)` before it, `A_RES_748(VIII)-EN.pdf` extracts to
+nothing — but the record carries the symbol, the full title, the 459th plenary meeting and the date, and
+**the title alone states what the Assembly did**. Cite the record, quote the title, claim nothing from the
+body.
+
+**Its population is the steepest fall the pass has measured**: 3,535,167 in 2015 to 3,184,835 in 2025, a
+tenth in ten years, against Bulgaria's 8%, Serbia's 7.7% and Croatia's 6.6%. Uruguay's, by contrast, is
+the flattest — up half a per cent in the same decade.
+
+**And the style checker earned its keep for the third batch running.** "thirty-one years" on the Uruguay
+card broke rule 1 (non-round numbers above 20 are numerals) and was caught by reading the `=== data.js`
+block, which is batch 40's rule; the tail of that report is about `changelog.js` and would have shown
+nothing.
 
 **Batch 49 (Croatia, Georgia, Eritrea) is three post-1991 states whose guide entries run to three facts
 each, and it settles how such a card is built: the UN's own ADMISSION RESOLUTION and, where there is one,
