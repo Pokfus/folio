@@ -28,6 +28,7 @@ const path = require("path");
 const http = require("http");
 const fs = require("fs");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.join(__dirname, "..");
 // the shipped source, so an expectation about a CONTROL'S LABEL can be read from the thing that renders it
@@ -84,7 +85,7 @@ const CARD = () => {
   const errs = [];
   const watch = (p) => {
     p.on("pageerror", (e) => errs.push("pageerror: " + e));
-    p.on("console", (m) => { if (m.type() === "error" && !/ERR_|net::|Failed to load|favicon/.test(m.text())) errs.push("console: " + m.text()); });
+    p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
   };
 
   /* ================= 1. the offer ================= */

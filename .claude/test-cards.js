@@ -19,6 +19,7 @@
 */
 const http = require("http"), fs = require("fs"), path = require("path");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.join(__dirname, "..");
 const MIME = { ".js": "text/javascript", ".css": "text/css", ".html": "text/html", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png" };
@@ -215,7 +216,7 @@ const SETTINGS = {
   const newPage = async (state, vp) => {
     const page = await browser.newPage({ viewport: vp || { width: 1280, height: 950 } });
     page.on("pageerror", (e) => errs.push(e.message));
-    page.on("console", (m) => { if (m.type() === "error" && !/favicon|ERR_CONNECTION/.test(m.text())) errs.push(m.text()); });
+    page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
     await page.addInitScript((st) => { try { localStorage.setItem("folio_v1", JSON.stringify(st)); } catch (e) {} }, state);
     await page.addInitScript(() => {
       ["folio_tour_v1", "folio_library_tour_v1", "folio_book_tour_v1", "folio_atlas_tour_v1"].forEach((k) => {

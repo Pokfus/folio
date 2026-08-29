@@ -9,6 +9,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -57,7 +58,7 @@ async function typeField(page, field, text) {
   page.on("console", (m) => {
     const t = m.text();
     if (m.type() !== "error") return;
-    if (/ERR_(TUNNEL|CONNECTION)/.test(t) || /Failed to load resource/.test(t)) return;
+    if (isNoise(t)) return;
     errs.push("console: " + t.slice(0, 240));
   });
   page.on("response", (r) => {

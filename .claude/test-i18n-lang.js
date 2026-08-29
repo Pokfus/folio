@@ -24,6 +24,7 @@
 // Playwright is a dev dependency and must NOT be installed into the repo. Install it in a scratch
 // folder and run with NODE_PATH=<that>/node_modules; set FOLIO_CHROMIUM if Chromium lives elsewhere.
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 const http = require("http"), fs = require("fs"), path = require("path");
 
 const ROOT = path.join(__dirname, "..");
@@ -97,7 +98,7 @@ function serve(patch) {
   const errs = [];
   const watch = (pg) => {
     pg.on("pageerror", (e) => errs.push("pageerror: " + e.message));
-    pg.on("console", (m) => { if (m.type() === "error" && !/ERR_|net::/.test(m.text())) errs.push("console: " + m.text()); });
+    pg.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
   };
   const url = (q) => "http://localhost:" + PORT + "/" + (q || "");
 
@@ -165,8 +166,25 @@ function serve(patch) {
     document.querySelectorAll('script[src*="games-ru.js"]').length === 1));
   await pg.evaluate(() => { location.hash = "whosaid"; });
   await pg.waitForTimeout(1800);
-  const wsRu = await pg.evaluate(() => (document.querySelector(".ws-quote") || {}).textContent || "");
-  ok("a quote renders in the reading language", /[Ѐ-ӿ]/.test(wsRu), wsRu.slice(0, 60));
+  /* THE RULE, NOT THE DAY'S DRAW. Who-said-it deals a date-seeded quote and only 64 of the pool's 102
+     carry a Russian translation, so demanding Cyrillic outright is an assertion that fails on about a
+     third of all days -- it passed in CI on the 28th and failed here on the 29th, on a pool nobody had
+     touched. What the engine promises is that a translation is used WHERE THERE IS ONE and the English
+     stands where there is not, so that is what is checked: the day's quote is looked up in the table the
+     lazy bundle actually delivered, and each half is asserted against the rendering. */
+  const shownQ = (await pg.evaluate(() => (document.querySelector(".ws-quote") || {}).textContent || "")).trim();
+  /* The tables are read HERE rather than off the page: the lazy bundle stages onto `GAMES_I18N_IN` and the
+     hook drains it into a variable inside app.js's IIFE, so there is nothing on `window` to ask. */
+  const qEnv = {}; { const w = global.window; global.window = qEnv; require("../quotes.js"); require("../i18n/games-ru.js"); global.window = w; }
+  const ruQuotes = ((qEnv.GAMES_I18N_IN || [])[0] || {}).quotes || {};
+  const enPool = qEnv.QUOTEGAME || [];
+  const asRu = enPool.find((x) => ruQuotes[x.q] && String(ruQuotes[x.q].q).trim() === shownQ);
+  const asEn = enPool.find((x) => String(x.q).trim() === shownQ);
+  ok("the rendered quote is one of the pool's, in one language or the other", !!(asRu || asEn), shownQ.slice(0, 60));
+  ok(asRu ? "a translated quote renders in the reading language"
+          : "an untranslated quote falls back to its English, rather than to nothing",
+    asRu ? /[Ѐ-ӿ]/.test(shownQ) : !!asEn && !ruQuotes[(asEn || {}).q],
+    (asRu ? "translated: " : "no ru translation: ") + shownQ.slice(0, 60));
 
   // a card's prose is English now whatever the reading language — cardLocalized falls back
   await pg.evaluate(() => { location.hash = "home"; });

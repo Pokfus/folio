@@ -19,6 +19,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -105,7 +106,7 @@ async function importDeck(page, base, file) {
   const page = await browser.newPage({ viewport: { width: 1280, height: 1000 } });
   const errs = [];
   page.on("pageerror", (e) => errs.push(String(e)));
-  page.on("console", (m) => { if (m.type() === "error" && !/Failed to load resource|ERR_/.test(m.text())) errs.push(m.text()); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
 
   const tmp = path.join(os.tmpdir(), "folio-lazy.folio-deck.json");
   fs.writeFileSync(tmp, JSON.stringify(deckFile("lazydeck", "Lazy deck")));
@@ -222,8 +223,23 @@ async function importDeck(page, base, file) {
      The one path that can lose somebody's deck. A record in the OLD shape — cards inline, no `fmt` — is
      planted directly in the store, and what is asserted is that after a boot it both MIGRATES and still
      studies. The cards are given prose no other deck has, so a migration that silently dropped them would
-     show as a deck of blank cards rather than as a passing count. */
+     show as a deck of blank cards rather than as a passing count.
+
+     IT IS CLAIMED IN THE OWNERSHIP REGISTER TOO, and leaving that out is what made this section fail for
+     a fortnight after the register shipped (Aug 2026, "downloaded decks are only visible to the user who
+     downloaded them"). `communityBoot` mounts only THIS reader's decks, so an unclaimed record never
+     mounts, never reports itself legacy and is never migrated -- and "the deck survived the boot" still
+     passes, because that reads the store rather than the mount. No real path plants a record without
+     claiming it: an import, an install and a duplicate all call `uDeckClaim`, and a store older than the
+     register is claimed wholesale by `deckOwnBackfill`, which stands down here only because the decks
+     imported further up this suite have already created one. */
   await page.evaluate((cards) => new Promise((res) => {
+    try {
+      const rec = JSON.parse(localStorage.getItem("folio_deck_own_v1") || "null") || { v: 1, own: {} };
+      const k = "guest";   // no account is signed in in this suite
+      (rec.own[k] = rec.own[k] || {})["oldshape"] = Date.now();
+      localStorage.setItem("folio_deck_own_v1", JSON.stringify(rec));
+    } catch (e) {}
     const rq = indexedDB.open("folio-community");
     rq.onsuccess = () => {
       const db = rq.result;

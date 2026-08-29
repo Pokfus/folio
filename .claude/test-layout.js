@@ -24,6 +24,7 @@ const path = require("path");
 const http = require("http");
 const fs = require("fs");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.join(__dirname, "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png" };
@@ -145,7 +146,7 @@ function scrimCheck() {
      section 6 asserts the home page as a first-time reader actually meets it. */
   const watch = (p) => {
     p.on("pageerror", (e) => errs.push("pageerror: " + e));
-    p.on("console", (m) => { if (m.type() === "error" && !/ERR_|net::|Failed to load|favicon/.test(m.text())) errs.push("console: " + m.text()); });
+    p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
     return p.addInitScript(() => { try { localStorage.setItem("folio_library_tour_v1", "1"); } catch (e) {} });
   };
 
@@ -1679,6 +1680,14 @@ function scrimCheck() {
         const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
         s.active = [best.id];
         localStorage.setItem("folio_v1", JSON.stringify(s));
+        /* …FROM A CLEAN FOLD STATE, because what is asserted below is the DEFAULT. Only an explicit choice
+           is stored (`folio_ad_open_v1`), and the sub-section directly above ends by clicking a
+           collection's chevron SHUT -- so that collection is legitimately folded, and any deck this probe
+           picks underneath it is legitimately hidden. It went unnoticed while the deepest leaf with cards
+           sat one level down; the day a second leaf of an earlier collection gained its first cards the
+           probe moved two levels down, inside the very collection the fold test had just shut, and the
+           app was blamed for honouring a choice the suite had made itself two assertions earlier. */
+        localStorage.removeItem("folio_ad_open_v1");
         return best;
       });
       if (deep) {

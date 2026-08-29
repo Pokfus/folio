@@ -2417,6 +2417,9 @@
     /* …and swap the community decks this DEVICE shows over to the ones this account downloaded. The store
        is shared and the register is not, so nothing is deleted: the other reader's decks simply stop being
        mounted, and this account's own are put back. */
+    /* …adopting anything downloaded before there was an account to download it to, FIRST: the remount
+       reads the register, and the sync below walks the decks the remount mounted. */
+    deckOwnAdoptGuest(SUPA.user.id);
     communityRemount();
     communitySyncSoon();   // …and bring over any shared decks this account added on another device
     /* …and tell the account which theme this reader wears, since a friend's list is drawn from `profiles`
@@ -2621,6 +2624,14 @@
     // back-fill ownership for sessions signed in before _supaOwner existed: the progress on this device is
     // this account's. Without it, an older save's progress reads as unclaimed and the NEXT account would inherit it.
     if (S._supaOwner !== SUPA.user.id) { supaClaimLocal(); try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
+    /* …and the same back-fill for the DECKS downloaded before this account existed -- see
+       `deckOwnAdoptGuest`. It belongs here as well as in `supaAfterSignIn` because a session can arrive
+       without that function ever running: a token restored from storage on a later load, or a refresh.
+       Adoption is idempotent (`adopted` records who took the guest's shelf), so running it on every boot
+       costs nothing and cannot hand the decks to a second account. The remount is what puts them back on
+       screen when `communityBoot` has already mounted for the wrong owner; it stands down of its own
+       accord when the store has not landed yet, and that boot then mounts from the adopted register. */
+    if (deckOwnAdoptGuest(SUPA.user.id).length) communityRemount();
     await supaLoadProfile();
     // …and record this session in the switcher. It runs on every boot rather than at sign-in alone so an
     // account signed in before switching existed still appears in its own list, and so the username, name
@@ -7529,6 +7540,30 @@
     if (!rec) return false;
     return Object.keys(rec.own).some((k) => rec.own[k] && rec.own[k][deckId]);
   }
+  /* A DECK DOWNLOADED WHILE SIGNED OUT FOLLOWS THE READER INTO THEIR ACCOUNT (Aug 2026, on request).
+     The register keys by `deckOwnerKey()`, which is "guest" with no session -- so without this a reader who
+     downloaded a deck and THEN made an account signed in to find it gone, and the sync had nothing to
+     announce, since `communitySyncInstalls` walks the MOUNTED decks and an unowned deck never mounts.
+     Downloading before signing up is an ordinary order to do things in, and it is the same person either
+     way, which is exactly the judgement `supaAfterSignIn` already makes about guest PROGRESS: unclaimed
+     study history migrates up on a first sign-in and is then marked claimed, so a second account cannot
+     inherit it. This is that rule for decks, and it keeps both halves. The guest's claims are COPIED
+     rather than moved -- signing out restores the guest's own shelf, exactly as it restores their stashed
+     progress -- and `adopted` records which account took them, so a SECOND account signing in on the same
+     device adopts nothing and the isolation the register exists for still holds. */
+  function deckOwnAdoptGuest(userId) {
+    if (!userId) return [];
+    const rec = deckOwnRead();
+    if (!rec || !rec.own || !rec.own.guest) return [];
+    if (rec.adopted && rec.adopted !== userId) return [];   // another account already took the guest's shelf
+    const ids = Object.keys(rec.own.guest);
+    if (!ids.length) return [];
+    const mine = rec.own[userId] = rec.own[userId] || {};
+    ids.forEach((id) => { if (!mine[id]) mine[id] = rec.own.guest[id]; });
+    rec.adopted = userId;
+    deckOwnWrite(rec);
+    return ids;
+  }
   function uDeckClaim(deckId) {
     if (!deckId) return;
     const rec = deckOwnRead() || { v: 1, own: {} };
@@ -9230,9 +9265,18 @@
       if (norm.legacy) legacy.push(norm.id);
     });
     _communityReady = true;
-    // Re-render even when nothing was found: the Studio holds a "loading" placard until this lands, so
-    // skipping the repaint on an empty store would leave a first-time visitor staring at it forever.
-    if (current && (current.name === "decks" || current.name === "studio" || current.name === "home")) render();
+    /* Re-render even when nothing was found: the Studio holds a "loading" placard until this lands, so
+       skipping the repaint on an empty store would leave a first-time visitor staring at it forever.
+       STUDY IS IN THIS LIST TOO (Aug 2026), and it is the one that was reaching readers. This function is
+       async and `PAGES.study` is not: a session resumed at boot -- which is what a reload mid-session is,
+       since STUDY_KEY restores the queue -- calls `buildSession` before any deck has mounted, and for a
+       community deck that returns nothing and paints "Deck not found. We couldn't find that deck." The
+       record was intact the whole time and the deck was on the disk; without a repaint here the placard
+       simply stayed, so reloading while studying any of the 44 language decks lost the session and told
+       the reader their own deck did not exist. Re-rendering rebuilds from the same STUDY_KEY record, which
+       is written on every card and every reveal, so nothing about where they were is lost. */
+    if (current && (current.name === "decks" || current.name === "studio" || current.name === "home"
+      || current.name === "study")) render();
     /* A record written before the store was split still carries its cards inline. It mounted correctly
        above — they are simply all resident, exactly as they used to be — and is rewritten into the new
        shape once, at idle, so the reader never waits for it. cdbPutDeck writes the index and the notes in

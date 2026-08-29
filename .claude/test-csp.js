@@ -4,6 +4,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 // Repo root, resolved from this script so the test runs from anywhere.
 const ROOT = path.resolve(__dirname, "..");
@@ -62,7 +63,7 @@ const ROUTES = ["", "decks", "map", "account", "settings", "challenge", "chrono"
       window.__cspHit({ directive: e.violatedDirective, blocked: String(e.blockedURI).slice(0, 160), line: e.lineNumber });
     });
   });
-  page.on("console", (m) => { if (m.type() === "error") errors.push("console: " + m.text().slice(0, 300)); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errors.push("console: " + t.slice(0, 300)); });
   page.on("pageerror", (e) => errors.push("pageerror: " + String(e).slice(0, 300)));
 
   for (const r of ROUTES) {

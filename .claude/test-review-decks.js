@@ -79,11 +79,24 @@ const SETTINGS = {
     })(c));
     const roots = Object.keys(byRoot);
     const shared = roots.find((r) => byRoot[r].length > 1);
-    return shared ? byRoot[shared].slice(0, 2) : roots.flatMap((r) => byRoot[r]).slice(0, 2);
+    const picked = shared ? byRoot[shared].slice(0, 2) : roots.flatMap((r) => byRoot[r]).slice(0, 2);
+    /* …AND THE FIRST CARD OF THE FIRST OF THEM, because the FSRS sections below seed a mature record and
+       then look for it in the session. They named a card outright until Aug 2026, and that card was in a
+       collection this probe had stopped choosing: the deck is picked by TREE ORDER, so the day a second
+       leaf of an earlier collection gained its first cards, the pair moved and the seeded card was in no
+       active deck at all. The session was then empty and seven assertions failed at once, on a content
+       change that had nothing to do with the scheduler. Whatever deck this probe picks, this is a card
+       inside it. */
+    let first = "";
+    (window.COLLECTION_TREE.collections || []).forEach((c) => (function walk(n) {
+      if (n.id === picked[0] && (n.cardIds || []).length) first = first || n.cardIds[0];
+      (n.children || []).forEach(walk);
+    })(c));
+    return picked.concat([first]);
   });
   await probe.close();
-  if (leaves.length < 2) { console.log("FAIL  the tree needs two leaf decks with cards to test a pooled review"); process.exit(1); }
-  const [deckA, deckB] = leaves;
+  if (leaves.length < 3 || !leaves[2]) { console.log("FAIL  the tree needs two leaf decks with cards to test a pooled review"); process.exit(1); }
+  const [deckA, deckB, MATURE_ID] = leaves;
 
   const newPage = async (state) => {
     const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
@@ -1296,7 +1309,7 @@ const SETTINGS = {
          two piles (Aug 2026) a fresh card can legitimately come first, and this section is about SEEDING
          rather than about order — so the pile is narrowed instead of the head being guessed at. */
       deckOpts: { [deckA]: { sched: "fsrs", retention: 0.9, newPerDay: 0 } },
-      cards: { a: done(), b: done(), c: done(), "wh-001": mature },
+      cards: { a: done(), b: done(), c: done(), [MATURE_ID]: mature },
     });
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
@@ -1305,7 +1318,7 @@ const SETTINGS = {
     await page.waitForTimeout(900);
     // find the mature card in the queue and answer it
     const cur = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || [])[0]);
-    if (cur === "wh-001") {
+    if (cur === MATURE_ID) {
       await page.evaluate(() => {
         const b = [...document.querySelectorAll(".actions button, .study-card button")]
           .find((x) => /reveal|show answer/i.test(x.textContent + x.id + x.className));
@@ -1316,7 +1329,7 @@ const SETTINGS = {
       check("an SM-2 card's grade buttons still show intervals under FSRS", shown.length === 4 && shown.every((x) => /\d/.test(x)), shown.join(" · "));
       await page.evaluate(() => document.querySelector('.grade[data-g="good"]')?.click());
       await page.waitForTimeout(500);
-      const rec = await page.evaluate(() => (JSON.parse(localStorage.folio_v1 || "{}").cards || {})["wh-001"]);
+      const rec = await page.evaluate((id) => (JSON.parse(localStorage.folio_v1 || "{}").cards || {})[id], MATURE_ID);
       /* The interval BECAME the stability, so a card with 34 days behind it does not restart: it is answered
          from a stability of at least what SM-2 had reached. This is the assertion that would catch the seeding
          being dropped — the card would come out with a stability of about 2 days and read as reset. */
@@ -1347,13 +1360,13 @@ const SETTINGS = {
       // newPerDay 0 for section 14's reason: since `mixPiles` interleaves the due and new piles (Aug 2026)
       // the seeded card is no longer guaranteed to be the queue's head, and this section is about the PANEL.
       deckOpts: { [deckA]: { sched: "fsrs", retention: 0.85, newPerDay: 0 } },
-      cards: { a: done(), b: done(), c: done(), "wh-001": {
+      cards: { a: done(), b: done(), c: done(), [MATURE_ID]: {
         status: "review", step: 0, reps: 6, lapses: 1, interval: 34, ease: 2.6,
         stability: 34.2, difficulty: 6.4, due: t - 36e5, last: t - 34 * 864e5, first: "2026-05-01",
       } },
       // one row in the documented shape: [id, t, grade, state-before, prevMin, nextMin, ease100, tenths].
       // ease100 carries the FSRS DIFFICULTY ×100 here, which is what review_log.ease100 documents.
-      revlog: [["wh-001", t - 34 * 864e5, 3, 3, 21 * 1440, 34 * 1440, 640, 62]],
+      revlog: [[MATURE_ID, t - 34 * 864e5, 3, 3, 21 * 1440, 34 * 1440, 640, 62]],
     });
     await page.goto(base + "#home", { waitUntil: "load" });
     await page.reload({ waitUntil: "load" });
@@ -1361,7 +1374,7 @@ const SETTINGS = {
     await page.evaluate(() => document.querySelector("#b-review")?.click());
     await page.waitForTimeout(900);
     const head = await page.evaluate(() => (JSON.parse(sessionStorage.folio_study_v1 || "{}").queue || [])[0]);
-    check("the seeded FSRS card is the one on screen", head === "wh-001", String(head));
+    check("the seeded FSRS card is the one on screen", head === MATURE_ID, String(head));
     await page.evaluate(() => document.querySelector("#cardInfo")?.click());
     await page.waitForTimeout(600);
     const ci = await page.evaluate(() => {

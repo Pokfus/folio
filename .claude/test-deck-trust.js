@@ -21,6 +21,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -76,10 +77,22 @@ const readStore = (page) => page.evaluate(() => new Promise((res) => {
 
 // …and plant one, into WHICHEVER store this browser is using: cdbAll falls back to localStorage wherever
 // IndexedDB is unusable, and a fixture written only to the store the app is not reading proves nothing.
+/* PLANTING A RECORD MEANS CLAIMING IT TOO. `communityBoot` mounts only the decks this reader owns
+   (Aug 2026, "downloaded decks are only visible to the user who downloaded them"), and the register is
+   back-filled wholesale exactly once, for a store older than the register itself -- which the FIRST boot
+   of this suite already did, over an empty store, leaving an empty register behind. So a record planted
+   afterwards is nobody's, never mounts, and the suite reads that as the sanitizer having failed to clean
+   a deck it never saw. Every real path claims: an import, an install and a duplicate all call
+   `uDeckClaim`. */
 const plant = (page, rec) => page.evaluate((r) => new Promise((res) => {
   try {
     const rows = JSON.parse(localStorage.getItem("folio_community_v1") || "[]");
     localStorage.setItem("folio_community_v1", JSON.stringify(rows.filter((x) => x.id !== r.id).concat([r])));
+  } catch (e) {}
+  try {
+    const own = JSON.parse(localStorage.getItem("folio_deck_own_v1") || "null") || { v: 1, own: {} };
+    (own.own.guest = own.own.guest || {})[r.id] = Date.now();   // no account is signed in in this suite
+    localStorage.setItem("folio_deck_own_v1", JSON.stringify(own));
   } catch (e) {}
   let req;
   try { req = indexedDB.open("folio-community"); } catch (e) { res(); return; }
@@ -105,7 +118,7 @@ const plant = (page, rec) => page.evaluate((r) => new Promise((res) => {
   /* The fixture's own `<img src=x>` is REQUESTED by the browser before the sanitizer ever sees the string,
      so it 404s on every run by design. Resource failures are therefore not counted here; what is counted is
      script errors, which is what this file is actually about. */
-  page.on("console", (m) => { if (m.type() === "error" && !/Failed to load resource/.test(m.text())) errs.push(m.text()); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
 
   /* ---------- 1. a record with no srev is re-sanitized ---------- */
   await page.goto(base + "/#studio");
