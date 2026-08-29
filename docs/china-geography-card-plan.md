@@ -17,10 +17,11 @@ The next card to write is the lowest `gc-NNN` not yet in `data.js`:
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gc-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
 **Shipped so far — `gc-001` Guangdong, `gc-002` Shandong, `gc-003` Henan, `gc-004` Jiangsu,
-`gc-005` Sichuan and `gc-006` Hebei, with `gc-501` Guangzhou, `gc-502` Jinan and `gc-503` Zhengzhou.**
+`gc-005` Sichuan, `gc-006` Hebei and `gc-007` Hunan, with `gc-501` Guangzhou, `gc-502` Jinan,
+`gc-503` Zhengzhou and `gc-504` Nanjing.**
 The first province card and the first capital card were written together, so that the new map layer, its
 point table, the fit and the gold dot were all proved on a real card rather than on a test. The next
-province is `gc-007` Hunan and the next capital is `gc-504` Nanjing.
+province is `gc-008` Zhejiang and the next capital is `gc-505` Chengdu.
 
 ---
 
@@ -177,6 +178,18 @@ re-read. And **a reused paper's loose phrasing must not be inherited**: the vill
 Anyang's time as its seat, so `gc-003` says what Anyang preserves and takes its dates from the paper that
 excavated them. `gc-002` Shandong still says nothing about Confucius; it was written before this was
 known, and its own antiquity is a gap to fill rather than a limit of the sources.
+
+**AN `Asian Perspectives` HANDLE SERVES ONLY THE ABSTRACT — THE PDF IS ONE PATH AWAY.** The route above
+named `hdl.handle.net/10125/…` as open, and it is, but the page it resolves to on ScholarSpace shows the
+record and the abstract and no text, which reads exactly like a paywall and cost `gc-007` Hunan a
+deferral for a round. The full text is fetchable at the legacy DSpace bitstream path
+`https://scholarspace.manoa.hawaii.edu/bitstream/10125/<id>/1/<FILENAME>.pdf`, where FILENAME is printed
+on the handle page itself and encodes the volume, issue and pages — `AP-v47n2-299-329.pdf` for Zhang and
+Hung's survey of the southern Chinese Neolithic, which carried four of Hunan's ten sentences. **The
+citation still points at the handle**, which is the stable address a reader should be given; the
+bitstream path is how to READ the thing before citing it. That one journal covers the archaeology of
+southern China, the Yangtze and the southeast coast, which is most of the ground the remaining province
+cards stand on.
 
 **`chinadaily.com.cn` answers and is a state newspaper.** It may be cited for what it is — an account the
 state gives of itself — and never as an independent one, and a card resting a contested claim on it has
