@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-158` Cyprus
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-161` Djibouti
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,64 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 59 (Cyprus, Mauritius, Eswatini) is where batch 57's renamed-country rule becomes a table.** Eswatini
+was renamed in 2018 and its four institutional sources split two against two: the recognition guide keeps
+**`swaziland`**, the WTO keeps **`swaziland_e.htm`** (with `eswatini_e.htm` serving the 9,709-byte error
+document at a 200), while the Commonwealth and SADC both use the new FORMAL name, **`kingdom-eswatini`** —
+which extends C7's Commonwealth rule to SADC. Batch 57 established that a renamed country does not rename
+anyone else's records; this shows the split runs straight through one batch of sources, so **try both names
+rather than reasoning about which is likelier**. The byte-size test settles the WTO half in one fetch either
+way.
+
+**A PROFILE CAN COUNT A DIFFERENT TERRITORY FOR TWO OF ITS OWN FIELDS, AND ONLY ITS FOOTNOTES SAY SO.**
+UNdata gives Mauritius a surface area of 1,979 km² footnoted *"Excluding the islands of Saint Brandon and
+Agalega"* and a population of 1,268,000 footnoted *"Including Agalega, Rodrigues and Saint Brandon"* — the
+area and the population on one page describe different countries. The Commonwealth explains the gap by
+publishing the parts (Mauritius 1,864 km², Rodrigues 104, "total including other islands" 2,050) and SADC
+gives 2,040, the term's figure exactly. **This is a step beyond Moldova and Cyprus, where a footnote explained
+a divergence BETWEEN sources; here it explains one WITHIN a source**, which no comparison of sources could
+ever have found.
+
+**Cyprus is the pass's cleanest statement of the divided state, and every source is explicit.** UNdata's
+population carries the footnote *"Refers to the whole country"* (1,371,000), the World Bank agrees at
+1,370,754, and Eurostat gives **979,865**, the area the government controls — so it is the EU that counts
+differently here, not UNdata, and C1's Cyprus finding is confirmed with the footnote that explains it. The
+guide states the politics plainly: a Turkish-controlled area in the north declared independence in 1983 and
+**"Turkey has been the only country in the world to recognize the TRNC"**, while the United States never has
+and has maintained relations with Cyprus without interruption since 1960.
+
+**`world.js` CARRIES THREE CYPRUS SHAPES AND THE CARD SHADES ONE.** `Cyprus`, `N. Cyprus` and `Cyprus U.N.
+Buffer Zone` are separate polygons and `map.key` takes a single name, so the card shades the republic's own
+area and leaves the north and the buffer zone in the layer's grey. **That is the right answer rather than a
+compromise**: the card's second sentence is about precisely that division, and the map now illustrates it. It
+is the first card in the deck whose shaded shape is deliberately not the whole island the reader can see, and
+the question — "the country or territory shaded on the map" — is still exactly true of it.
+
+**The guide's fourth error variety, and this one is a slip of the pen**: Mauritius's entry reads "Chargé
+d'Affaires **at** interim" where every other page has *ad interim*. Trivial beside batch 55's misspelt head of
+state, batch 57's surname spelt two ways and batch 58's heading contradicting its own paragraph — but it is
+the fourth kind in five batches, and worth saying plainly: **these are typing errors in a good source, not
+evidence the source is unreliable.** Every date and event the guide has stated has held.
+
+**UNdata's own footnote confirms a two-capital claim for the first time.** Eswatini's capital field carries
+*"Mbabane is the administrative capital and Lobamba is the legislative capital"* — a claim the deck has
+previously taken from the Commonwealth or from this plan's own list of multi-seat countries. SADC adds that
+Lobamba is the royal seat as well, and its area, 17,364 km², matches the term to the kilometre.
+
+**A second area series that moves.** The World Bank gives Mauritius 2,007 km² for 2020 and 2021 and 2,010 for
+2022 and 2023. Bahrain's moved by 15 km² as land was reclaimed (batch 57); this moves by 3, which is a
+revision rather than a coastline. **An area is not always a constant, and the number does not say which kind
+of change it is** — so a series that moves is a reason to read the other sources, not to prefer the newest
+value.
+
+**Batch 45's rule is in its seventh consecutive batch, and both replacements say more than what they
+replaced.** Mauritius's "one of the world's longest continuous coral reefs" gave way to SADC's measured 67 km
+by 46 km and its submarine volcanic origin; Eswatini's "one of the last absolute monarchies" became SADC's own
+"the only absolute monarchy in southern Africa" — narrower, sourced, and a sharper fact. Two populations were
+restated with them: Eswatini 1.2 → 1.3 million, and **Cyprus's single "roughly 1.3 million" became 1.4 million
+for the island as a whole with Eurostat's 980,000 beside it**, since a term should not give one figure for a
+country its own sources count two ways.
 
 **Batch 58 (Timor-Leste, Estonia, Trinidad and Tobago) found the guide contradicting itself INSIDE one
 entry — a heading against its own text.** Estonia's page carries the heading "American Legation established at
