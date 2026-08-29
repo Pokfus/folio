@@ -1597,7 +1597,8 @@ window.GLOSSARY = {
 "Zeno_of_Elea": "Zeno of Elea was a Greek philosopher of Elea in southern Italy, born about 490 BCE, whom Diogenes Laertius calls the pupil and adopted son of Parmenides and reports that Aristotle named the inventor of dialectic.<sup class=\"fn\" data-fn=\"1\"></sup> He wrote a book of arguments, all directed against the common assumption that things are many and cast as antinomies: if existences are many, they must be both like and unlike, which is impossible.<sup class=\"fn\" data-fn=\"2\"></sup> Four arguments against motion survive in Aristotle's summary, among them the quickest runner who never overtakes the slowest and the flying arrow that is motionless, and these are what are now called his paradoxes.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Eleatics": "The Eleatics are a group of Greek thinkers linked to Elea, a colony in southern Italy, and credited in antiquity with the thesis that what there is, is one.<sup class=\"fn\" data-fn=\"1\"></sup> Plato is the earliest writer to treat them as a group, calling them a sect of his own region and tracing them back to Xenophanes and even earlier, and the membership later fixed on is Parmenides, Zeno and Melissus.<sup class=\"fn\" data-fn=\"1\"></sup> The name is a matter of doctrine rather than geography, since Xenophanes came from Colophon in Ionia and Melissus was a Samian, and Aristotle already separates their positions, making Parmenides' unity finite and Melissus' unlimited.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Empedocles": "Empedocles was a Greek philosopher and poet of Acragas in Sicily, active in the middle of the 5th century BCE, who wrote in the hexameters of epic and was remembered as a doctor and an orator as well.<sup class=\"fn\" data-fn=\"1\"></sup> His system makes everything out of four roots, which he names as gods rather than as fire, earth, air and water, mixed and parted by two forces called Love and Strife in a cycle without end.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle credits him with being the first to make the material elements four and the first to give motion two contrary causes instead of one, while objecting that he uses neither consistently.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Hecataeus_of_Miletus": "Hecataeus of Miletus was a Greek prose writer of the late 6th and early 5th centuries BCE who appears in Herodotus both as the adviser who alone opposed the Ionian revolt and as an authority to be contradicted.<sup class=\"fn\" data-fn=\"1\"></sup> Antiquity knew a prose history under his name and a description of the earth, and nothing of either survives except in later quotation; Strabo, following Eratosthenes, pairs him with Anaximander as the two who came after Homer in geography.<sup class=\"fn\" data-fn=\"3\"></sup> Demetrius preserves his opening: I write these things as they seem to me to be true, for the tales told by the Greeks are, as it appears to me, many and absurd.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Hecataeus_of_Miletus": "Hecataeus of Miletus was a Greek prose writer of the late 6th and early 5th centuries BCE who appears in Herodotus both as the adviser who alone opposed the Ionian revolt and as an authority to be contradicted.<sup class=\"fn\" data-fn=\"1\"></sup> Antiquity knew a prose history under his name and a description of the earth, and nothing of either survives except in later quotation; Strabo, following Eratosthenes, pairs him with Anaximander as the two who came after Homer in geography.<sup class=\"fn\" data-fn=\"3\"></sup> Demetrius preserves his opening: I write these things as they seem to me to be true, for the tales told by the Greeks are, as it appears to me, many and absurd.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Alcmaeon_of_Croton": "Alcmaeon of Croton was a Greek writer of the early 5th century BCE from a city in southern Italy, described by Diogenes Laertius as writing chiefly on medicine, though whether he practised it is disputed.<sup class=\"fn\" data-fn=\"1\"></sup> He is the earliest figure on record to place understanding in the brain and to distinguish understanding from perception, holding that the sense organs are joined to the brain by channels.<sup class=\"fn\" data-fn=\"2\"></sup> He defined health in the language of politics, as the equality of the powers in the body — wet and dry, hot and cold, bitter and sweet — with the sole rule of any one of them producing disease.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2322,7 +2323,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Zeno_of_Elea": "born c. 490 BCE",
 "Eleatics": "c. 540 – 440 BCE",
 "Empedocles": "c. 484 – 424 BCE",
-"Hecataeus_of_Miletus": "active c. 500 BCE"
+"Hecataeus_of_Miletus": "active c. 500 BCE",
+"Alcmaeon_of_Croton": "active c. 500 – 450 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3346,7 +3348,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Zeno_of_Elea": ["Eleatic Palamedes","Zeno's paradoxes"],
 "Eleatics": ["Eleatic school","Eleatic","Eleatics"],
 "Empedocles": ["Empedocles of Acragas","Empedoclean"],
-"Hecataeus_of_Miletus": ["Hecataeus","Hekataios"]
+"Hecataeus_of_Miletus": ["Hecataeus","Hekataios"],
+"Alcmaeon_of_Croton": ["Alcmaeon","Alkmaion"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4970,7 +4973,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Zeno_of_Elea": ["person","philosophy","greece","archaic greece"],
 "Eleatics": ["concept","philosophy","greece","archaic greece"],
 "Empedocles": ["person","philosophy","greece","science"],
-"Hecataeus_of_Miletus": ["person","history","geography","greece","archaic greece"]
+"Hecataeus_of_Miletus": ["person","history","geography","greece","archaic greece"],
+"Alcmaeon_of_Croton": ["person","science","philosophy","greece","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
