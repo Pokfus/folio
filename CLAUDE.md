@@ -3953,6 +3953,11 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   may then say "7th century" in words. **The fix is in the DATE LINE, not in `cardYears`**: 52 of the
   447 shipped date lines carry a century form beside a plain year, so teaching that function to read
   centuries would silently move their sort years too.
+  **AND AN ERA MARKER ONLY REACHES THE YEAR IT FOLLOWS**, so a row naming two alternative years —
+  `1188 or 1177 BCE` — is read as 1188 **CE** beside 1177 BCE (Aug 2026, on `wh-268`). Write the era
+  on both: `1188 BCE or 1177 BCE`. The sort year is usually unaffected, which is why nothing reports
+  it: `cardStartYear` takes the MINIMUM, so the stray positive hides there and surfaces only in
+  `cardSpanYears`, where it runs a Bronze Age deck's coverage to the 12th century CE.
 - `abstract` (the background) — **exactly 10 sentences and about 300 words** (keep within 270–330, which
   `add-card.js` has ENFORCED since 2026-08-06 — it never measured the abstract before, which is how seven
   cards reached 331–342 unremarked; they are recorded in the changelog and left as they are), as two
