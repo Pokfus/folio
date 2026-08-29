@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-135`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-136`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-136` Bosnia and Herzegovina
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-137` Armenia
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,40 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 51 (Bosnia and Herzegovina) turns up the deck's strangest embassy and a constitution that is an
+ANNEX.** Victor Jackovich presented his credentials as American ambassador on **23 June 1993** and had
+nowhere to work: an American embassy to Bosnia and Herzegovina was established on **10 November 1993 on
+the premises of the American embassy in Vienna**, and an embassy in Sarajevo itself only on 4 July 1994.
+Norway's wartime legation (batch 42) sat in London beside a government-in-exile; this one was accredited
+to a government at home and sited in a third country because the capital was under siege. **A guide entry
+that names two establishment dates for one embassy is telling you where the war was.**
+
+**And the constitution is Annex 4.** The OSCE's own page on the General Framework Agreement for Peace —
+reached at Wright-Patterson Air Force Base near Dayton in November 1995, formally signed at Paris on 14
+December — states that "the current Constitution of Bosnia and Herzegovina is the Annex 4 of the DPA".
+The `Bosnia_and_Herzegovina` term had said instead that the agreement "reorganised" the country "into two
+entities", which that page does not say; it now says what the page says, which is both citable and more
+striking. **When a term's only source for a sentence is one institutional page, read what the page
+actually claims before keeping the sentence's shape.**
+
+**Its admission resolution shares a meeting with Croatia's, one batch after Mongolia's shared one with
+Mauritania's.** `A/RES/46/237` and `A/RES/46/238` were both adopted without a vote at the **86th plenary
+meeting on 22 May 1992**. That is now twice in two batches that a card's admission has turned out to sit
+beside a card already written; **the register of sittings is worth grepping before every admission
+search**, which is batch 40's rule paying for the sixth and seventh time.
+
+**The ICJ case is reported in the Court's own words, including what it declined to find.** On 26 February
+2007 the Court found that Serbia had violated its obligation to PREVENT the genocide at Srebrenica; that
+other acts before it were not accompanied by the specific intent that defines genocide; and that financial
+compensation was not the appropriate reparation, since it had not been shown the genocide would in fact
+have been averted. **On a case this contested the negative findings are half the holding**, and a card that
+gives only the violation misreports the judgment.
+
+**Its population fall is the steepest the pass has measured, and it displaces last batch's record.**
+3,518,541 in 2015 to 3,140,095 in 2025 — about a ninth — against Puerto Rico's tenth, Bulgaria's 8%,
+Serbia's 7.7% and Croatia's 6.6%. Five of the six steepest declines carded are in the western Balkans or
+the Caribbean. Its term's "roughly 3.2 million" went to **3.1**, both sources agreeing at 3,140,000.
 
 **Batch 50 (Mongolia, Uruguay, Puerto Rico) is batch 48's Kuwait finding turned over: here the guide
 states what does NOT constitute recognition.** The United States had not blocked Mongolia's admission to
