@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Card plans ↔ data.js — the check that keeps "generate the next <collection> card" working.
  *
- * Sixteen collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
+ * Eighteen collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
  * lowest id not yet in data.js, and its deck comes from the plan. That workflow rests on agreements
  * nothing else verifies, and every one of them fails SILENTLY:
  *
@@ -84,6 +84,11 @@ const PLANS = {
      ten countries have more than one seat and each seat is its own card, so the first keeps the paired
      number (country + 500) and the extras take the next free band rather than renumbering the deck. */
   "geo-world": ["world-geography", "gw-", [[1, 233], [501, 603], [605, 613], [615, 666], [668, 670], [672, 712], [715, 731], [733, 733], [751, 761]]],
+  /* China: 31 provincial-level divisions and 27 capitals rather than 31. The four missing numbers are
+     not gaps to be filled — 519 Chongqing, 523 Shanghai, 526 Beijing and 527 Tianjin are municipalities,
+     cities that are themselves divisions, so a capital card there would shade its own answer. Written
+     out as ranges so that a number quietly going missing still fails here. */
+  "geo-china": ["china-geography", "gc-", [[1, 31], [501, 518], [520, 522], [524, 525], [528, 531]]],
 };
 // a numbering as a flat list of the numbers it expects, in order
 const expand = (num) => {

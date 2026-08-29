@@ -9354,6 +9354,14 @@
        cost to get the same file. It is listed in `atlas` too and that is fine: lakes.js ASSIGNS
        window.LAKES rather than pushing onto a queue, so arriving twice is idempotent. */
     usstates: { files: ["us-states.js", "lakes.js"] },
+    /* The 31 provincial-level divisions of mainland China and their 27 capitals, for the Geography
+       section's China collection. Its own bundle rather than a file inside `usstates` for the reason
+       `usstates` is not part of `atlas`: a reader studying the states must not fetch the provinces to be
+       asked which state is shaded, and the reverse. `lakes.js` rides along here too, and the reason is
+       the one recorded above — it is about world.js rather than about the province shapes, which are
+       NOT clipped (measured; see .claude/build-china-provinces.js). Without it Qinghai Lake and Poyang
+       are grey fields under a province. Arriving twice is free: lakes.js ASSIGNS window.LAKES. */
+    chinaprov: { files: ["china-provinces.js", "lakes.js"] },
     /* The capital of every country and territory as a POINTS TABLE, for the gold dot on a world capital
        card (see CARD_MAP_LAYERS). Its own bundle rather than a file inside `world`, and fetched only by a
        card that actually asks for a dot: `world` is what every map window loads for the coastline under
@@ -18235,6 +18243,16 @@
        an icon is two collections a reader cannot tell apart on the shelf. The inner points are drawn
        right in (2.3 from the centre against the outer points' 8.6), which is what keeps four sharp
        spikes rather than a diamond at the 28px a deck row draws it. */
+    /* the Great Wall — the Geography section's China collection. The obvious mark is a pagoda and the
+       HISTORY collection already wears it, which is exactly the reason to draw a second: two collections
+       sharing a mark is two collections a reader cannot tell apart on the shelf, and these two are both
+       called China. A wall is also the right register for the collection it belongs to — it is a thing
+       on the map rather than a building. Drawn as a tower between two wall runs at different heights,
+       with the merlons as short ticks above a rail: at the 28px a deck row draws it the silhouette does
+       the work, and battlements cut as notches out of the top line close up into a grey bar. */
+    { k: "wall", n: "Great Wall", d: '<path d="M2 20.4h20"/><path d="M2 20.4v-6.2h7"/><path d="M22 20.4v-4.6h-7"/>' +
+      '<path d="M9 20.4v-9.6h6v9.6"/><path d="M8.6 10.8h6.8"/><path d="M10.1 10.8V8.9M12 10.8V8.9M13.9 10.8V8.9"/>' +
+      '<path d="M3.9 14.2v-1.7M6.4 14.2v-1.7M17.6 15.8v-1.7M20.1 15.8v-1.7"/>' },
     { k: "compass", n: "Compass rose", d: '<circle cx="12" cy="12" r="8.6"/><path d="M12 3.4 13.6 10.4 20.6 12 13.6 13.6 12 20.6 10.4 13.6 3.4 12 10.4 10.4Z"/>' },
     /* speech bubble — ALL SEVEN language collections share it, which is the one place on this shelf two
        collections wear one mark, and it is a decision rather than an omission. Every icon above says what
@@ -18302,6 +18320,7 @@
     korea: "taegeuk",
     "geo-us": "compass",
     "geo-world": "map",
+    "geo-china": "wall",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
   function iconSvg(key) { return ICON_SVG_OPEN + (ICON_PATH[key] || ICON_PATH.cards) + "</svg>"; }
@@ -21946,7 +21965,7 @@
        subject rather than a gap. The echo resolves itself the day a second collection joins it. */
     { label: "Philosophy", slot: "collection-list-phil" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
 
   /* ============================================================
@@ -22587,6 +22606,21 @@
        — a family resemblance with its sibling collection rather than a confusion with it, at L 38 and
        chroma 44, both mid-band. */
     "geo-world": { bg: "#106834" },
+    /* cobalt (China, in the Geography section) — MEASURED like every hue above it, and the measurement
+       had to be re-run rather than read off the note beside `geo-world`: that sweep compared against the
+       CURATED collections alone, and the language collections are drawn on the same page. Including them
+       moves the answer, and it moves it twice. The wheel's best-scoring free region is a rose-crimson at
+       ΔE 24.6, which is the magenta quadrant wearing a different name and is the standing rejection below.
+       Outside it the best band is this one. #1A4FA8 stands 18.2 from Rome's violet and 20.8 from French's
+       azure, against a tightest EXISTING pair of 12.9 (China's vermilion against Russia's lacquer), at
+       L 35 and chroma 55 — L mid-band, chroma high, which is the one figure traded away and it is traded
+       deliberately: the band's best candidate (#0654b7, ΔE 21.5) is louder still at chroma 61, and beside
+       two greens what this row needs is separation rather than volume.
+       The two China collections are DELIBERATELY not a family: the history collection's vermilion is 54
+       away, which is what stops "China" under History and "China" under Geography reading as one row
+       split in two. Blue-and-white porcelain is the colour's own argument for the subject, and it is a
+       China register the vermilion had not taken. 7.7:1 against white. */
+    "geo-china": { bg: "#1A4FA8" },
     /* THE SEVEN LANGUAGE COLLECTIONS. The hues were MEASURED and unevocative when the section shipped —
        swept in CIELAB and handed out alphabetically, on the reasoning that a flag colour would be a claim,
        Spanish not being Spain's and French being spoken on five continents. **THAT REASONING WAS OVERRULED
@@ -27910,6 +27944,13 @@
        card would otherwise fetch 13 KB of capitals to point at a valley. The loader below asks for it
        only where the card carries a `dot`. */
     world: { bundle: "world", global: "WORLD_GEO", what: "country", points: "WORLD_CAPITALS", pointsBundle: "worldcaps", dotWhat: "capital city" },
+    /* China's own provincial-level divisions, and the 27 provincial capitals beside them in the SAME
+       bundle rather than in one of their own. That differs from `world` above and the difference is the
+       whole reason each is written the way it is: the world's shapes are loaded by every map window on
+       the site for the coastline under it, so a history card's locator would fetch a table of capitals
+       to point at a valley — where this layer is loaded by nothing but a China map card, and every
+       reader of it is studying one of the two decks. One fetch, 13 KB of capitals inside it. */
+    "china-provinces": { bundle: "chinaprov", global: "CHINA_PROVINCES", what: "province", points: "CHINA_CAPITALS", dotWhat: "city" },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z
