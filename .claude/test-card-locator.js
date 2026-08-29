@@ -104,11 +104,16 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
 
   /* A RIVER IS DRAWN ONLY WHERE IT IS ITSELF A CARD (Aug 2026, on a bug report: "Rivers look very strange
      with long straight lines … remove all Rivers for now except the ones which appear specifically as
-     cards"). No shipped card's answer is a named river, so the honest assertion today is that all 1,073
-     arrive and NONE of them is painted — measured as the water-coloured pixel count being IDENTICAL side
-     by side with `waterBefore`, taken before the bundle landed. A river is stroked in the map's own ocean
-     colour, so a single one drawn across a continent moves this count by hundreds. */
-  check("...and none of them is drawn, no card's answer being a river",
+     cards"). The card under test is `gr-002`, and ANCIENT GREECE teaches no river — so all 1,073 arrive
+     and none of them is painted here, measured as the water-coloured pixel count being IDENTICAL side by
+     side with `waterBefore`, taken before the bundle landed. A river is stroked in the map's own ocean
+     colour, so a single one drawn across a continent moves this count by hundreds.
+     **THE COLLECTION IS THE POINT OF THIS ASSERTION, NOT THE CORPUS.** It read "no shipped card's answer
+     is a named river" until Aug 2026, when `rm-003` Tiber was given `kind: "river"` and its glossary term
+     the `Tevere` alias that finds it — so a Rome card now draws one and this check would have gone on
+     claiming otherwise. Section 2 below is where a drawn river is asserted; here the claim is that a
+     collection with no river card gets no river. */
+  check("...and none of them is drawn, this collection teaching no river",
     water === waterBefore, water + " vs " + waterBefore);
 
   // the sibling dots: count the red pixels the collection's other 54 places put on the globe
@@ -152,6 +157,76 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   check("...and named, not left as bare dots", inked > 250, "ink px " + inked);
 
   check("no console or page errors", errs.length === 0, errs.join(" | ").slice(0, 300));
+
+  /* ============================================================
+     2. A PLACE WITH EXTENT IS DRAWN WITH ITS EXTENT (Aug 2026, on request)
+     ============================================================
+     "For river cards like 'Tiber' ensure it is displayed on the map as an actual river and not just a
+     dot. Same goes for mountain ranges like the Apennines … Also regions … Battle locations should be
+     identified by a crossed swords icon instead of the red dot."
+
+     Every one of these fails SILENTLY: a river card that has quietly gone back to a dot draws a perfectly
+     good map, and so does a range whose triangles have stopped. The marks are on a canvas, so what is
+     measured is the SHAPE OF THE INK — a dot is a blob about 11px across and a river, a spine and a
+     region are none of them that. The two cards are opened in one browser page each, which is the same
+     cost as section 1 and the only way to reach a card's back. */
+  const markOf = async (pg, sel) => pg.evaluate((s) => {
+    const cv = document.querySelector(".map-card.map-loc .mc-canvas");
+    const ctx = cv.getContext("2d");
+    const d = ctx.getImageData(0, 0, cv.width, cv.height).data;
+    let gold = 0, gx0 = 1e9, gx1 = -1e9, gy0 = 1e9, gy1 = -1e9, dark = 0, dx0 = 1e9, dx1 = -1e9;
+    for (let i = 0; i < d.length; i += 4) {
+      const p = i / 4, x = p % cv.width, y = (p / cv.width) | 0;
+      const r = d[i], g = d[i + 1], b = d[i + 2];
+      if (r > 210 && g > 140 && g < 215 && b < 110) { gold++; if (x < gx0) gx0 = x; if (x > gx1) gx1 = x; if (y < gy0) gy0 = y; if (y > gy1) gy1 = y; }
+      if (r < 90 && g < 90 && b < 90 && d[i + 3] > 200) { dark++; if (x < dx0) dx0 = x; if (x > dx1) dx1 = x; }
+    }
+    return { gold: gold, gw: gx1 - gx0, gh: gy1 - gy0, dark: dark, dw: dx1 - dx0, dpr: cv.width / cv.getBoundingClientRect().width };
+  }, sel);
+
+  const openCard = async (cid) => {
+    const pg = await browser.newPage({ viewport: { width: 1200, height: 1000 } });
+    pg.on("pageerror", (e) => errs.push(cid + ": " + e.message));
+    pg.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(cid + ": " + t); });
+    await pg.addInitScript((id) => {
+      localStorage.setItem("folio_v1", JSON.stringify({ active: ["cotd:added"], cotd: [id], cards: {}, settings: { marker: false } }));
+    }, cid);
+    await pg.goto(base + "#home", { waitUntil: "load" });
+    await pg.reload({ waitUntil: "load" });
+    await pg.waitForTimeout(1600);
+    await pg.evaluate(() => { const r = document.querySelector('[data-review="cotd:added"]'); if (r) r.click(); });
+    await pg.waitForTimeout(1200);
+    await pg.evaluate(() => { const r = document.querySelector("#reveal-btn"); if (r) r.click(); });
+    await pg.waitForTimeout(9000);   // the atlas warm has to land: the river IS the atlas bundle
+    return pg;
+  };
+
+  // ---- a river card: the Tiber, drawn as a river ----
+  const riv = await openCard("rm-003");
+  const rm = await markOf(riv, "");
+  /* The card's own river takes the answer's gold, so the gold ink is a LINE — and "a line" is two facts,
+     both needed. It is LONG: the mark's longer side runs many times the 11px dot it replaced. And it is
+     THIN: a line leaves most of its own bounding box empty, where a dot fills about four fifths of one,
+     so the fill ratio is what tells them apart and a length test alone would pass a dot beside a label.
+     Measured on the Tiber, which runs north-south: 126 gold pixels in a 20×89 box, a fill of 0.07. */
+  const rmLong = Math.max(rm.gw, rm.gh), rmFill = rm.gold / Math.max(1, rm.gw * rm.gh);
+  check("a river card draws its river, not a dot", rm.gold > 80 && rmLong > 40 * rm.dpr && rmFill < 0.35,
+    JSON.stringify({ gold: rm.gold, box: rm.gw + "×" + rm.gh, fill: +rmFill.toFixed(3), dpr: rm.dpr }));
+  await riv.close();
+
+  // ---- a range card: the Apennines, drawn as a chain of mountains ----
+  const rng = await openCard("rm-002");
+  const am = await markOf(rng, "");
+  /* The triangles are dark ink walked down 1,200 km of Italy, so the dark ink spans most of the window's
+     width — where a dot card's dark ink is one short label. And a range draws NO gold at all: no dot, and
+     its name is set in the map's own ink like every other label. */
+  check("a range card draws mountains along its spine", am.dark > 300 && am.dw > 120 * am.dpr,
+    JSON.stringify({ dark: am.dark, spread: am.dw, dpr: am.dpr }));
+  check("...and no gold dot with them", am.gold < 60, "gold px " + am.gold);
+  await rng.close();
+
+  check("no console or page errors on the extent cards", errs.length === 0, errs.join(" | ").slice(0, 300));
+
   await browser.close();
   console.log("\n" + pass + " passed, " + fail + " failed");
   process.exit(fail ? 1 : 0);

@@ -2553,8 +2553,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `saveData`, which is `startMiniGlobe`'s. A card with a locator therefore paints at once with its own
     places and fills in a moment later. **THE CITIES THIN WITH ZOOM, and that was found by LOOKING**: all
     2,665 drawn at once cover Europe and North Africa in a grey rash at the opening 50° view and bury the
-    red marks that are the point — so the 216 capitals show always, the 392 million-plus cities once the
-    frame is a region, and the 2,057 division capitals only at a country or less. **A RIVER IS DRAWN AT ALL
+    red marks that are the point — so the 216 capitals show always and the 392 million-plus cities once
+    the frame is a region. **THE 2,057 DIVISION CAPITALS ARE GONE ALTOGETHER, and the rest are quieter**
+    (Aug 2026, on request: "make all the black dots smaller and less conspicuous, and only put them for
+    foreign capitals and cities with over 1M population") — that tier was five sixths of the layer and
+    every one of them a place no card is about, and what is left is drawn at about two thirds of its old
+    radius and two thirds of its old ink. They are there to give the card's own mark a world to sit in,
+    and the moment they compete with it they have stopped doing their job. **A RIVER IS DRAWN AT ALL
     ONLY WHERE IT IS ITSELF A CARD IN THE COLLECTION** (Aug 2026, on a bug report: "Rivers look very
     strange with long straight lines … remove all Rivers for now except the ones which appear specifically
     as cards, e.g. Tiber"). It used to draw all 1,073 and NAME only the carded ones, and two different
@@ -2563,12 +2568,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     source across a continent — it now takes a `close` flag, `false` for a river, which is the flag the
     Atlas has always passed its own `addClipped`. The rest is a judgement about what a locator is FOR: the
     map exists to place ONE thing, and a thousand blue threads through it are texture that buries the marks
-    that mean something. **So `sib.terms` now chooses the rivers as well as their labels, and today that
-    means NO river is drawn anywhere** — no shipped card's answer is one. **Natural Earth labels a river in
-    the language of the country it runs through**, which is why the match also reads the term's GLOSSARY
-    ALIASES: the Tiber is in `rivers.js` as `Tevere` (the Danube also as `Donau`, the Yangtze as `Chang
-    Jiang`), so a Tiber card puts its river on the map by carrying `Tevere` as an alias on the paired
-    glossary term — and one that does not, visibly does not.
+    that mean something. **So `sib.terms` chooses the rivers as well as their labels**, and a river on this
+    map is always one the collection teaches. **Natural Earth labels a river in the language of the country
+    it runs through**, which is why the match also reads the term's GLOSSARY ALIASES: the Tiber is in
+    `rivers.js` as `Tevere` (the Danube also as `Donau`, the Yangtze as `Chang Jiang`), so a Tiber card
+    puts its river on the map by carrying `Tevere` as an alias on the paired glossary term — and one that
+    does not, visibly does not. **That alias was added in Aug 2026 and the mechanism now has a live
+    instance**: `rm-003` is the first card whose answer is a river. **AND WHAT IS DRAWN IS LABELLED WITH
+    FOLIO'S OWN NAME FOR IT, not Natural Earth's** — a map that draws the Tiber and prints "Tevere" beside
+    it has answered a question nobody asked — so `locatorSiblings` hands back a `termName` map from every
+    matchable surface to the term the collection teaches.
     **AND THE SIBLING DOTS ARE NAMED** (Aug 2026, on the same report: "the other dots don't have their
     labels"). They went up bare, which made them decoration rather than information on a map whose whole
     job is to say where. A sibling's name gives nothing away — `locatorSiblings` excludes the card itself —
@@ -2578,7 +2587,54 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     reads as the subject: at the opening 50° view about seven of Ancient Greece's 55 are named and zooming
     in frees the rest. **Fewer names, each readable, beats every name in a heap.**
     `_locSibCache` is declared beside `uCacheBust` rather than beside its own function, for the temporal
-    dead zone's reason. Guarded by `.claude/test-card-locator.js`.
+    dead zone's reason.
+  · **…AND A PLACE WITH EXTENT IS DRAWN WITH ITS EXTENT** (`LOC_KINDS` / `locPts` / `locOwnTerms` /
+    `drawSwords`; Aug 2026, on request: "For river cards like 'Tiber' ensure it is displayed on the map as
+    an actual river and not just a dot. Same goes for mountain ranges like the Apennines … Also regions …
+    Battle locations should be identified by a crossed swords icon instead of the red dot"). A locator was
+    one thing — a coordinate with a gold dot on it — which is the right mark for a cave, a palace or a city
+    and the WRONG one for anything with extent: the Apennines run 1,200 km and got a dot in the middle of
+    Italy, the Tiber 400 km of river and got a dot at Rome. A dot there does not merely under-describe the
+    place, it makes a false claim about it. So the locator declares a **`kind`** and the kind decides the
+    mark — `point` (the dot, unchanged), `battle` (crossed swords, because a battle HAPPENED at a place
+    rather than being one), `river` (traced out of `rivers.js` by the term-and-aliases match above and
+    drawn in the answer's gold), `range` (black triangles walked along an authored `spine`) and `region`
+    (an authored `area`, washed in the answer's gold under a **DASHED** edge). Five things.
+    **`area` AND `spine` ARE APPROXIMATE AND THE DRAWING SAYS SO**: a region has no border to be right
+    about — Ionia is a stretch of coast, the Fertile Crescent a schematic — so the dash reads as *about
+    here* where a crisp gold line would assert a frontier Folio had surveyed. They are the one part of a
+    locator that is AUTHORED rather than fetched, which is exactly why `add-card.js` validates them: a
+    coordinate can be looked up and an extent cannot, so a transposed pair draws a region in the wrong
+    ocean and nothing throws.
+    **NONE OF THE FOUR DRAWS A DOT AS WELL** — "not just as dots" was the request, and a gold dot inside a
+    shaded region says "and specifically HERE", which is the false precision the shape exists to be rid of.
+    The one exception is a river the `atlas` bundle has not landed yet: the dot stands until the river is
+    actually traced, since a globe with nothing on it for two seconds is worse than a dot.
+    **THE VIEW FRAMES THE SHAPE AND THE NAME STAYS AT `at`** — except on a region, where the name goes to
+    the shape's middle too. Centring the view on `at` was tried and Doggerland showed why not: the point an
+    author picks is somewhere INSIDE a region rather than at its middle, so the zoom that fitted the shape
+    framed it half off the top of the window. A RANGE keeps `at` for its name, a spine's bbox centre being
+    out in the Tyrrhenian Sea.
+    **A REGION AND A RANGE ARE LEFT OFF EVERY OTHER CARD'S MAP** (the request says so), and **so is a
+    river** — the only thing a sibling entry could carry is one red dot at the middle of them, which is
+    exactly the claim their own cards stopped making, and a river is already drawn on every map in its
+    collection as the thin blue thread above.
+    **AND EVERY NAME ON THE MAP OPENS ON A CAPITAL** (same request), done at DRAW time through
+    `gameCapFirst` rather than in the data — so it covers the sibling names, Natural Earth's river names
+    and anything added later without a pass over `data.js` that would then have to be kept up.
+    Guarded by `.claude/test-card-locator.js`, whose second section measures the SHAPE of the ink: a river
+    is long and thin where a dot is a blob that fills four fifths of its own box.
+  · **A LOCATOR'S NAME IS A PLACE, NOT THE CARD'S ANSWER** (Aug 2026, on the same request: "A card like
+    'founding of Rome' should simply have Rome as its atlas window location, and not a dot titled 'founding
+    of Rome' which is obviously not a real location"). Thirty of the Rome collection's locators were named
+    after the card's answer term — `imperium`, `patricians`, `collegiality`, `Fasti Consulares` — so the
+    map put a labelled dot on a place called "collegiality". They are named for the place the coordinate
+    actually marks, read off each card's own prose and its coordinate: the Forum cluster is **Roman
+    Forum**, the Campus Martius pair the **Campus Martius**, the Palatine and Capitoline abstractions
+    simply **Rome**, and the handful whose subject pins a place get it (`Pons Sublicius`, `Collatia`,
+    `Gabii`, `Clusium`, `Aventine Hill`, `Lake Regillus`). **The rule is that the label names somewhere a
+    reader could stand**; where the card's subject has no place of its own, the city is the honest answer
+    and the hill is false precision.
   **📖 `docs/map-cards.md` — READ BEFORE CHANGING ANY OF IT.** Why the globe is drawn here rather than by
   reusing the Atlas, the fit's near-rings rule and the Alaska and District of Columbia exceptions, the three
   attempts it took to prove the fill is a tint, `h2r` learning `rgb()`, where the facts box sits and why,
@@ -2929,6 +2985,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `gameStatsLoad` / `.gt-face` / `.gt-back`; Aug 2026, on request). A HOLD flips it — `wireHoldMenu`'s
     own gesture, the deck rows' and the review banner's, so a tap still opens the game and the guard that
     swallows the click after a hold is the same one. Four things.
+    **THAT GUARD'S WINDOW IS MEASURED FROM THE RELEASE, NOT FROM THE FIRE** (Aug 2026, on a bug report:
+    "the minigame tiles … when flipping them they immediately flip back"). `wireHoldMenu` fired at
+    `HOLD_MS` and armed the swallow for 700ms from THERE — but the click it has to swallow is dispatched
+    when the finger comes UP, so a reader holding a tile for a second and a half to see what happens
+    released past a window that had already shut. The click then reached `onTap`, which on a flipped tile
+    means "turn it back": the record appeared and vanished in the same gesture, and **the longer you held
+    the more reliably it did**. The release re-arms it. Measured through CDP touch input — a 600ms hold
+    flipped and a 1,400ms hold flipped and instantly unflipped — and **a synthetic `el.click()` cannot see
+    this at all**, never following a real pointer sequence, which is why nothing caught it.
+    **AND THE BACK IS A DIFFERENT LAYOUT ON A PHONE** (same report: the stats "don't display correctly on
+    mobile"). Three tiles to a 390px row is about 110px each, and the back was two columns of three rows
+    plus a heading and a footer — measured, 167px of content in a 110px box, clipped by the tile's own
+    `overflow:hidden` into two 34px columns of overlapping half-words. So the columns STACK, the type comes
+    down a step, "Tap to play" goes (a phone reader knows a tile is tapped) and the SITE half falls back to
+    a one-line form, `.gtb-brief`, **emitted beside the full one and chosen by the stylesheet** rather than
+    by a breakpoint read in JS. Every state keeps its own short form — "Not collected", "Unavailable",
+    "None yet" say three different things, and collapsing them to a dash would tell a reader nobody had
+    played when the truth is that this site does not count.
     **THE SITE-WIDE HALF IS A POOLED COUNTER TABLE** (`game_stats` + `bump_game_score`, section 15 of
     `.claude/supabase-schema.sql` — **the user must run it once**), for the reason the community card
     rating is: `progress` is RLS-scoped to its owner and their friends, so there is no averaging across
@@ -2940,6 +3014,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `.game-tile` carries `overflow:hidden`, which flattens `transform-style` to `flat`, so a 3D rotation
     would show the back mirrored — two `scaleX` squashes about opposite origins read as one card turning.
     **AND THE TWO HALVES SWAP `aria-hidden`**, or a flipped tile reads out its front and never its record.
+  · **A MAP LABEL IS NOT A QUESTION** (`FINDIT_NAMES` / `finditName`, Aug 2026, on a bug report: "when the
+    Find it minigame says what state to find, it should differentiate between the two Congos"). A Find it
+    round's name comes straight out of `world.js`, whose labels are written to FIT ON A MAP: they are
+    abbreviated ("Dem. Rep. Congo", "Central African Rep.") and, in one case, genuinely ambiguous —
+    **`Congo` is the everyday name of the Republic of the Congo AND of its neighbour**, so "Find Congo"
+    asked a question with two right answers and marked one of them wrong. A declared table gives the ROUND
+    TEXT a reader-facing name and nothing else: the answer is still matched on the map's own label, so
+    this cannot change what counts as correct. Every key is a label `world.js` actually carries, and the
+    four abbreviations it does not cover are the four that no `countryDesc` lets into the pool.
+  · **WHAT YEAR? LISTS ITS FIVE IN ORDER, AND ITS YEAR IS STEPPED AS WELL AS DRAGGED** (`wyOrder` /
+    `.wy-readrow` / `.wy-step`, Aug 2026, on request). All five clues share ONE year, so the only order
+    they can be listed in is the order they HAPPENED — which needs a month and a day, and `whatyear.js`
+    recorded none: a 1066 puzzle opened on Edward's death in January, jumped to Halley's comet in April,
+    then put the fleet sailing from the Somme after the battle it sailed to. **`d` is a `"MM-DD"` sort key
+    and is never shown**, which is what keeps it inside the pool's own rule that an entry may not name a
+    date. **91 of the 98 entries carry one and seven deliberately do not** — the sack of Zhongdu (May or
+    June, depending on the source), four of 1517's Ottoman entries, the finding of the Dead Sea Scrolls and
+    1960's seventeen independences, which is a whole year rather than a day — and those sort last: a
+    made-up day reads exactly like a researched one, and an unordered entry costs the reader nothing.
+    The chevrons step the marker one tick and repaint through the SAME `paint()` the slider does, since
+    a second writer would be a second answer to "where is the marker"; their disabled state is recomputed
+    on every paint, because a wrong guess narrows the rail under them.
   · **A DAILY POOL IS SEEDED AND ITS ANSWER MUST BE REACHABLE** — the crossword's letters must fit its own
     squares, What year?'s answer must sit on a tick of its own rail, and Common Thread's four groups must be
     provably disjoint. Each generator retries rather than giving up, and a starved pool is the failure mode
@@ -3268,6 +3364,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     both animate with a fill mode, so nothing inside them can paint above a sibling of the stage.
     `CTL_SEL` is real controls only; a **glossary term** (`TIP_SEL`, plus a community deck's `.uc-tts`) is
     a third kind of target decided at POINTERUP — a tap opens it, a drag through it draws.
+  · **AND A CARD'S MAP WINDOW IS A FOURTH KIND: A SURFACE THAT OWNS ITS OWN DRAG** (`mapUnder`; Aug 2026,
+    on a bug report: "on mobile, dragging to move that atlas window doesn't work, it only scrolls the whole
+    page"). With the pen down the ink canvas covers the whole visible page and IS the pointer target, so a
+    finger over a card's globe never reached that globe's own listeners — and in STYLUS MODE, where a
+    finger is declared not to be a drawing tool, the whole gesture went to the hand-rolled page scroll
+    instead. Reproduced through CDP touch input: the globe did not move a degree and the page went down
+    130px. It cannot join `CTL_SEL`, which claims a press at pointerdown and activates it as a CLICK — a
+    click is not a drag, and a drag is the whole of what that window is for — so the ink canvas keeps the
+    pointer (it must, or the moves stop arriving) and forwards the DELTA through a small `pan` the map
+    exposes for it. **It is scoped to a FINGER IN STYLUS MODE and nothing else, deliberately**: everywhere
+    else the finger IS the pen, and taking drawing away from it would be a regression nobody asked for.
   · **A STYLUS TAKES THE PEN and fingers go back to scrolling** once one has been seen on this device
     (`WB.stylusSeen` / `WB.penOnly`, device-local). The scroll is **performed, not permitted** —
     `touch-action` is a property of the ELEMENT and cannot tell a pen from a finger, so the canvas keeps
@@ -3308,6 +3415,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   half folded. **A helper that starts an animation must hand it back**, or every caller that can be
   re-entered is one press away from that. An empty array is still an array, so a caller can cancel
   unconditionally.
+- **THE ATLAS SHEET'S × SITS ON THE TITLE'S OWN LINE** (Aug 2026, on a bug report: "the cross to close
+  them in the top right should be on the same horizontal line as the chevron and state title"). It was a
+  sibling of `.cp-head`, absolutely positioned at the sheet's corner, which put it nine pixels above the
+  name it belongs to and beyond the reveal chevron — three controls along one edge and none of them lined
+  up. It is written INSIDE `.cp-titlerow` now and **stays `position:absolute` on the desktop**, where the
+  panel runs the height of the stage and the corner is the right place for it: a positioned element is out
+  of flow, so being in that row changes nothing there. The sheet sets it `position:static` and it becomes
+  the row's last flex item, matching the chevron's 30px box rather than keeping its own 24px one — two
+  controls of different sizes side by side read as two different kinds of thing. The row's 20px right
+  margin goes with the absolute positioning, that margin having existed only to clear the corner button.
 - **THE ATLAS PLACE PANEL'S BREAKPOINT IS DECLARED ONCE, IN CSS** (`--cp-sheet` on `.country-pop`, read
   back by `cpSheetMode()`; Aug 2026, on request that tablets get the phone's sheet). It was a
   `matchMedia("(max-width:720px)")` in app.js beside a `@media (max-width:720px)` in the stylesheet — one
@@ -4687,7 +4804,8 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Forty-two committed regression tests** (in `.claude/`, not loaded by the site): most drive a real browser with
+- **Forty-five committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+  `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-scheduler.js` and `test-streak-chest.js` are plain Node with
   no dependencies at all (`test-card-types.js` is half and half — its XP, CSS-scoper and template-engine assertions need
@@ -4851,13 +4969,18 @@ dead code (never rendered).
     `setDeckFsrsParams` / `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll`
     / `fsrsSequences` / `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s
     per-deck allowances, or anything named `sched*` or `fsrs*`.**
-  · `node .claude/test-card-locator.js` — **what a locator draws besides its own place** (7 assertions,
-    Aug 2026). The marks are on a canvas, so the honest test is a PIXEL COUNT — the collection's reds are
-    there, and the card's own gold is still the biggest mark on the map. It also asserts the PAYMENT in
-    both directions: the card paints before the `atlas` bundle arrives, and the bundle really is fetched
-    rather than folded into the eager path. **Re-run after touching `locatorSiblings` /
-    `cardCollectionRoot` / the extras block in `startCardGlobe`'s `draw()` / the idle `ensureData("atlas")`
-    beside it / `uCacheBust`.**
+  · `node .claude/test-card-locator.js` — **what a locator draws, and what SHAPE it draws it in** (13
+    assertions, Aug 2026). The marks are on a canvas, so the honest test is a PIXEL COUNT — the
+    collection's reds are there, and the card's own gold is still the biggest mark on the map. It also
+    asserts the PAYMENT in both directions: the card paints before the `atlas` bundle arrives, and the
+    bundle really is fetched rather than folded into the eager path. **Its second section is about the
+    locator KINDS and measures the shape of the ink rather than its amount**, since a river card that has
+    quietly gone back to a dot draws a perfectly good map: a river is LONG (its longer side many times an
+    11px dot) and THIN (it leaves most of its own bounding box empty, where a dot fills four fifths of
+    one), and a range spreads dark ink across most of the window with no gold anywhere. **Re-run after
+    touching `locatorSiblings` / `cardCollectionRoot` / `locOwnTerms` / `LOC_KINDS` / `locPts` /
+    `drawSwords` / the extras block in `startCardGlobe`'s `draw()` / `fitTarget`'s extent branch / the idle
+    `ensureData("atlas")` beside it / `uCacheBust`, and after giving a card a locator `kind`.**
   · `node .claude/test-card-quote.js` — **a card quoting the book it cites** (13 assertions, Aug 2026),
     and every part of it fails silently: a quotation appended after the prose instead of standing between
     the two blocks looks deliberate, one that wraps around the floated illustration looks deliberate, and
