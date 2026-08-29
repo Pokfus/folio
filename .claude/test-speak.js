@@ -224,7 +224,12 @@ const holdRow = (page, match) => page.evaluate((m) => {
   if (rev1) { await rev1.click(); await page.waitForTimeout(900); }
   check("revealing it again speaks", (await page.evaluate(() => window.__spoke)).length > before);
   await page.reload({ waitUntil: "load" });
-  await page.waitForTimeout(1400);
+  /* WAIT FOR THE CARD, NOT FOR A CLOCK. A community deck's cards live in the notes store and are warmed
+     after boot, so `PAGES.study` renders its loading placard first and the resumed queue resolves only
+     once they land -- a fixed 1,400ms found an empty page and read it as the reveal not having been
+     restored. */
+  await page.waitForFunction(() => !!document.querySelector(".uc-card"), null, { timeout: 20000 }).catch(() => {});
+  await page.waitForTimeout(600);
   const restored = await page.evaluate(() => ({ back: !!document.querySelector(".uc-card.uc-back"), n: window.__spoke.length }));
   check("a reload brings the revealed card back revealed", restored.back);
   check("…and the restore path says nothing — only a reader's own reveal speaks", restored.n === 0, String(restored.n));
