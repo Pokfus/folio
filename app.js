@@ -9230,9 +9230,18 @@
       if (norm.legacy) legacy.push(norm.id);
     });
     _communityReady = true;
-    // Re-render even when nothing was found: the Studio holds a "loading" placard until this lands, so
-    // skipping the repaint on an empty store would leave a first-time visitor staring at it forever.
-    if (current && (current.name === "decks" || current.name === "studio" || current.name === "home")) render();
+    /* Re-render even when nothing was found: the Studio holds a "loading" placard until this lands, so
+       skipping the repaint on an empty store would leave a first-time visitor staring at it forever.
+       STUDY IS IN THIS LIST TOO (Aug 2026), and it is the one that was reaching readers. This function is
+       async and `PAGES.study` is not: a session resumed at boot -- which is what a reload mid-session is,
+       since STUDY_KEY restores the queue -- calls `buildSession` before any deck has mounted, and for a
+       community deck that returns nothing and paints "Deck not found. We couldn't find that deck." The
+       record was intact the whole time and the deck was on the disk; without a repaint here the placard
+       simply stayed, so reloading while studying any of the 44 language decks lost the session and told
+       the reader their own deck did not exist. Re-rendering rebuilds from the same STUDY_KEY record, which
+       is written on every card and every reveal, so nothing about where they were is lost. */
+    if (current && (current.name === "decks" || current.name === "studio" || current.name === "home"
+      || current.name === "study")) render();
     /* A record written before the store was split still carries its cards inline. It mounted correctly
        above — they are simply all resident, exactly as they used to be — and is rewritten into the new
        shape once, at idle, so the reader never waits for it. cdbPutDeck writes the index and the notes in
