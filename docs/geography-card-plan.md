@@ -159,6 +159,42 @@ filenames are both missing. Both end in no `answerFlag`, but they are worth tell
 the Lansing case can be fixed the day somebody uploads the current design and the Augusta case
 cannot be fixed by looking harder.
 
+**THE FLAG PASS IS FINISHED AT 93 OF 100, AND THE SEVEN MISSING ARE THREE DIFFERENT FAILURES.** All
+fifty states carry a flag and 43 of the fifty capitals do. Lansing's and Augusta's cases above are two
+of the three; the third is new and is the one to watch for, because a file EXISTS and is still wrong.
+
+· **NOTHING ON COMMONS AT ALL** — `geo-509` Augusta, `geo-523` Olympia, `geo-539` Dover, `geo-543`
+  Helena. Confirmed by listing each state's own `Category:Flags of municipalities in <state>` rather
+  than by guessing filenames, which is the check worth copying: a title search for "Olympia" returns
+  twenty photographs of protest flags and a cruiser, and for "Dover" the flag of Dover, MASSACHUSETTS
+  — the right name in the wrong state, twice over.
+· **ONLY A RETIRED DESIGN** — `geo-507` Lansing (1969–1994, as above) and `geo-537` **Montgomery**,
+  where Commons holds one design in two files and the SVG is titled **`(1952–2026)`**: the city
+  replaced it this year and the new flag is not up. The PNG carries no date and is the same design, so
+  **a file with no date range beside a dated sibling is not evidence that it is current** — read the
+  siblings before trusting the undated one.
+· **ONLY A PHOTOGRAPH** — `geo-541` Concord, whose sole file is a good 3000×2000 shot of the flag
+  flying against trees. It was rejected on SIZE rather than on licence: this field renders at **26px
+  tall and 56px wide at most**, where a flat flag still reads and a photograph is a smudge of green
+  and blue. **The bar for a flag is not the ~900px illustration bar** — the mark is never opened
+  fullscreen — so a 384px raster is ample (`geo-534` Nashville and `geo-548` Pierre are exactly that)
+  and a photograph is not, whatever its resolution.
+
+**THE ALT TEXT WAS WRITTEN FROM THE PICTURE, NOT FROM THE FILENAME.** All 22 were downloaded and looked
+at before a word was written — an SVG through Commons' thumbnailer at 960 or 1280px, the widths that
+actually serve. It is the one field here a checker cannot verify, so the only thing that makes it true
+is having looked; three of the 22 turned out to differ from what their name suggests.
+
+**AND A 429 IS NOT A 404.** Verifying the 22 URLs, ten came back `429 text/html` in one pass and all
+ten returned `200 image/svg+xml` when re-run at a slower rate — every one of them a file already
+downloaded successfully minutes earlier. An all-or-nothing negative is a statement about the
+instrument. Space the requests and retry before recording a single absence.
+
+**WIKIMEDIA IS BLOCKED FROM THE HEADLESS BROWSER IN THIS SANDBOX, AND THE CONTROL IS THE POINT.** A
+rendered card reports `naturalWidth: 0` for every flag — but so do the 71 flags already shipped and
+merged, which is what says the fault is the sandbox and not the new data. **Test a shipped one beside
+the new ones** before concluding anything from a page that will not load pictures.
+
 ## The locator — a globe on a HISTORY card
 
 `locator` is the map card's sibling and is a **different field on purpose**, because it answers a different
@@ -1711,8 +1747,10 @@ terms that already exist**. Each was measured, and none should be settled quietl
   against 14 blanks, which reads as a missing file rather than as a feature added late. All fourteen are in
   now, each looked at, each with its own alt text. **A field introduced mid-collection is a field the cards
   before it and after it disagree about** — check the whole run when adding one, not just the card in hand.
-  **Twenty-nine of the fifty CAPITALS still have none** and that is left open: a city flag is not the
-  uniform, always-free, always-existing object a state flag is, so it wants a pass of its own.
+  **The fifty CAPITALS were then done as a pass of their own** — a city flag is not the uniform,
+  always-free, always-existing object a state flag is, which is why it needed one — and **43 of the 50
+  carry one now**; the seven that do not, and the three different reasons, are under "A card about a
+  place with a flag of its own" above.
 - **THE PLACE TO VERIFY A COUNT IS THE PROBE, NOT THE DATA.** A check written to confirm every capital's dot
   sits inside its own state reported **50 failures out of 50** — because it read `US_CAPITALS`' entries as
   `[lon, lat]` when they are `{ s, c }`. Round 46's lesson one shape over: an all-or-nothing result is a
