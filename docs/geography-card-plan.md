@@ -206,8 +206,16 @@ reason — a locator has a dot and no target, so testing `target` alone reports 
   (`gameCardIdSet` tests `cardMapSpec`), so it needs no flag on the card.
 - **`undatable` is not set and should not be.** It is read only by Timeline, and Timeline cannot reach a map
   card at all — the games filter runs first. Setting it would be a flag on an unreachable path.
-- **The deck order is the order in this file, not chronological.** Cards are dealt in a deck's own `cardIds`
-  order, so the running order below is what a reader meets.
+- **THE DECK ORDER IS BY POPULATION, LARGEST FIRST** (Aug 2026, on request), and it is NOT the numbering.
+  Cards are dealt in a deck's own `cardIds` order, which was the order they were written in and is now
+  sorted: California, Texas, Florida, New York … down to Vermont and Wyoming, and Phoenix, Honolulu,
+  Austin … down to Pierre and Montpelier. **The ids were deliberately NOT renumbered** — an id is the
+  address a shared link, a glossary cross-reference and this file's running order all use, and renaming
+  fifty of them to express a sort would break every one of those to change something `cardIds` already
+  says. So the numbering below is a record of what was written WHEN, and the deck order is a separate
+  fact held in the tree. **The figure sorted on is the one the card itself gives as the place's size**,
+  which for forty-nine capitals is `Population` and for `Honolulu` is its city-and-county count, that
+  being the population of the city as a legal entity — the same rule the difficulty banding uses.
 
 ### The accessibility limitation, stated rather than papered over
 

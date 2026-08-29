@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.368", released: "2026-08-29T09:08Z" };
+window.FOLIO_VERSION = { v: "1.369", released: "2026-08-29T09:14Z" };
 
 window.CHANGELOG = [
   {
@@ -61,6 +61,7 @@ window.CHANGELOG = [
       "Ninety-five more glossary terms, covering the Bronze and Iron Age periods, the Minoan, Helladic and Trojan divisions, the Aegean\u2019s excavators and sites, and the Archaic period of North America.",
       "Ninety-six new cards \u2014 one in the <b>Ancient Greece</b> deck and ninety-five in the <b>United States</b> geography collection \u2014 with new or extended glossary terms to match.",
       "<b>The United States geography collection is finished</b> \u2014 all fifty states and all fifty capitals, a hundred cards with maps to place them on.",
+      "<b>The geography cards are dealt largest first now</b> \u2014 the states by population and the capitals by their own, rather than in the order they were written.",
       "<b>The Great Lakes are water on the geography maps</b>, with a dark shoreline like any other coast, where they had been drawn as grey land.",
       "<b>The northern border of the United States is one line again</b> \u2014 it was drawn twice, straight in one layer and curved in the other, with a strip of land between.",
       "Every state capital now gives its rank in numerals \u2014 2nd, 6th, 11th \u2014 where some said “second” and some said “6th largest city”.",
