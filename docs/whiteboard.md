@@ -160,6 +160,41 @@ here verbatim rather than being dropped in the move.
     · both fields need **`touch-action:none`**, or a finger drag is claimed as a page scroll before
       `pointermove` ever fires, and the knobs are `pointer-events:none` so a press lands on the field.
     Guarded by `test-layout.js`, which asserts there is no `input[type=color]` left anywhere in the panel.
+  · **ONE POINTER OWNS THE GESTURE, AND THE REST ARE NOT THIS STROKE** (`gid` / `gpen` / `dropGesture` in
+    `setupWhiteboard`, Aug 2026, on a bug report: "sometimes I find myself unable to draw lines for a few
+    seconds … other times lines that should be straight end up crooked"). Every other pointer surface on
+    the site records the id it started on and ignores the rest — the marker's own drag handle, the page
+    swipe, the colour picker, the gloss window. **The drawing surface, the one place a second pointer is
+    not merely possible but expected, did not**: a stylus rests a palm on the screen and a phone has two
+    thumbs, and the four handlers share a single `WB.drawing`, `WB.last` and `passScroll` between them, so
+    a second contact never began a second gesture — it walked into the first one. **Both reported symptoms
+    are that walk seen from two sides**, which is why they arrived as one report and read as two bugs.
+    · **CROOKED LINES** are the second contact's coordinates landing in the first's stroke. With no id
+      test the move handler drew `WB.last → p` for whichever pointer moved last, so a straight line was
+      sewn back and forth between two contacts on alternate samples. It is the plain two-thumb case on a
+      phone, and it is also every stylus reader who has turned stylus mode off.
+    · **NOT DRAWING FOR A FEW SECONDS** is the same collision at the other end. `pointerup` and
+      `pointercancel` ran `end()` for ANY pointer, and `end()` sets `WB.drawing = false` — so a palm
+      settling and lifting killed the stroke the pen was in the middle of, and the pen went on moving over
+      a canvas that had stopped listening until it was lifted and pressed again. **A browser rejecting a
+      palm for us made it worse rather than better**, `pointercancel` being the commonest thing a palm
+      produces. And in stylus mode a palm landing mid-stroke sets `passScroll`, whose test is the FIRST
+      line of the move handler — so the pen's own moves were handed to the hand-rolled page scroll, and
+      the pen scrolled the card it was meant to be marking.
+    · **THE ONE PREEMPTION IS A PEN OVER A FINGER**, and it is what makes this a preemption rather than a
+      plain first-wins rule: **the palm usually lands first**, so a marker that simply ignored the newcomer
+      would leave a stylus reader unable to draw at all — the same report from the other end. Nothing
+      preempts a pen, and a finger never preempts a finger; the reader lifts and presses again, which is
+      what they were already doing to get out of it.
+    · `dropGesture` releases the old pointer's capture and **calls `end()` on the way out**, so a finger
+      that was drawing (non-stylus mode) has its stroke committed rather than lost when the pen arrives.
+      It is declared before `end` and only ever CALLED from pointerdown, long after setup has finished, so
+      the temporal dead zone never bites.
+    · **Capture alone cannot do this job.** The canvas covers the whole visible page, so it is the hit
+      target for every contact whether or not it holds a capture — the filtering has to be explicit.
+    Guarded by `test-whiteboard.js`, which measures **pixels in a row band** rather than state: a straight
+    line across the middle marks its own row and nothing else, and a line sewn to a second contact marks
+    rows up where that contact is. State can be right while the canvas is wrong.
   · **Controls under the ink stay usable** (the `CTL_SEL` / `controlUnder` / `passCtl` block in
     `setupWhiteboard`, Aug 2026, on request). The canvas covers the whole visible page, so with the pen down
     it also covered Reveal answer and everything else on the card. **A z-index cannot fix this**: `.page` and
