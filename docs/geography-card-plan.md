@@ -193,7 +193,21 @@ instrument. Space the requests and retry before recording a single absence.
 **WIKIMEDIA IS BLOCKED FROM THE HEADLESS BROWSER IN THIS SANDBOX, AND THE CONTROL IS THE POINT.** A
 rendered card reports `naturalWidth: 0` for every flag — but so do the 71 flags already shipped and
 merged, which is what says the fault is the sandbox and not the new data. **Test a shipped one beside
-the new ones** before concluding anything from a page that will not load pictures.
+the new ones** before concluding anything from a page that will not load pictures. The block is in the
+relay rather than in the browser's configuration: pointing Chromium at the agent proxy gives
+`ERR_CONNECTION_RESET` and the proxy's own status reports `ws_closed_mid_exchange` for browser-
+originated tunnels, while Node's requests to the same hosts succeed. Nothing about the page is
+fixable from here, so **do not spend a session on it** — and never reach for `--ignore-certificate-errors`,
+which trades a real check for a fake one.
+
+**WHAT CAN BE CONFIRMED VISUALLY, AND SHOULD BE, IS THE RENDER AT 26px.** The live URL cannot be
+loaded here; the FILE can, and that is where the interesting failure lives. Serve the downloaded
+copies to a local page that carries `.av-flag`'s own rule — 26px tall, 56px wide at most,
+`object-fit:contain` — put each flag's alt text beside it, and screenshot the lot as one sheet. It
+takes two minutes and it answers three questions nothing else does: whether each file really is the
+flag its name claims, whether the alt text describes the picture rather than the filename, and
+**whether the design survives being 26px wide**, which is what ruled Concord's photograph out and what
+would rule out any future candidate that is a photograph, a scan or a seal on a busy ground.
 
 ## The locator — a globe on a HISTORY card
 
