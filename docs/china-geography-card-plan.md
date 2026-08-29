@@ -19,14 +19,15 @@ The next card to write is the lowest `gc-NNN` not yet in `data.js`:
 **Shipped so far — `gc-001` Guangdong, `gc-002` Shandong, `gc-003` Henan, `gc-004` Jiangsu,
 `gc-005` Sichuan, `gc-006` Hebei, `gc-007` Hunan, `gc-008` Zhejiang, `gc-009` Anhui, `gc-010` Hubei,
 `gc-011` Guangxi, `gc-012` Yunnan, `gc-013` Jiangxi, `gc-014` Liaoning, `gc-015` Fujian,
-`gc-016` Shaanxi, `gc-017` Guizhou, `gc-018` Shanxi, `gc-019` Chongqing, `gc-020` Heilongjiang
-and `gc-021` Xinjiang, with `gc-501` Guangzhou, `gc-502` Jinan, `gc-503` Zhengzhou,
+`gc-016` Shaanxi, `gc-017` Guizhou, `gc-018` Shanxi, `gc-019` Chongqing, `gc-020` Heilongjiang,
+`gc-021` Xinjiang and `gc-022` Gansu, with `gc-501` Guangzhou, `gc-502` Jinan, `gc-503` Zhengzhou,
 `gc-504` Nanjing, `gc-505` Chengdu, `gc-506` Shijiazhuang, `gc-507` Changsha, `gc-508` Hangzhou,
 `gc-509` Hefei, `gc-510` Wuhan, `gc-511` Nanning, `gc-512` Kunming, `gc-513` Nanchang,
-`gc-514` Shenyang, `gc-515` Fuzhou, `gc-516` Xi'an, `gc-517` Guiyang and `gc-518` Taiyuan.**
+`gc-514` Shenyang, `gc-515` Fuzhou, `gc-516` Xi'an, `gc-517` Guiyang, `gc-518` Taiyuan
+and `gc-520` Harbin.**
 The first province card and the first capital card were written together, so that the new map layer, its
 point table, the fit and the gold dot were all proved on a real card rather than on a test. The next
-province is `gc-022` Gansu and the next capital is `gc-520` Harbin.
+province is `gc-023` Shanghai and the next capital is `gc-521` Ürümqi.
 
 ---
 
