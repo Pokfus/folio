@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-122`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-123`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-123` New Zealand
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-124` Palestine
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,50 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 46 (New Zealand) is C10's Australia case at full strength: THREE institutions give three dates
+for one transition, and the card prints all three.** The colony was raised to a self-governing Dominion on
+**26 September 1907**, sovereign at home while the United Kingdom kept its external relations; the Balfour
+Declaration of 1926 called the Dominions equal in status and in no way subordinate; the Statute of
+Westminster of December 1931 put that in law but only for a Dominion that adopted it; **the United States
+recognised autonomous control of foreign relations on 16 February 1942**; and New Zealand's own Statute of
+Westminster Adoption Act became law on **25 November 1947** — five years AFTER the recognition it would
+have justified. The Commonwealth Secretariat, meanwhile, dates its membership to "1931, under the Statute
+of Westminster". **Where a dominion becomes a state by degrees, no single date is the answer and the card's
+job is to lay the sequence out.**
+
+**The footnote rule pays a third time in two batches, and this profile puts the note on the POPULATION.**
+UNdata's New Zealand population is footnoted "the data for New Zealand do not include Cook Islands, Niue,
+and Tokelau" while its surface area carries only a year — the same asymmetry as Finland's Åland note and
+Norway's Svalbard note, with the coverage declared on the other figure. Three profiles now: **assume
+nothing about what a figure covers until its letters are read.**
+
+**New Zealand's entire national documentary web is shut to this sandbox, and the national MUSEUM is what
+answered.** `nzhistory.govt.nz` and `teara.govt.nz` are **403**; `archives.govt.nz` serves an Incapsula
+bot-wall stub **with a 200** — a sixth variety of 200-status error document; and `legislation.govt.nz`
+returns **202 with an empty body**, a shape this pass has not met before. The Treaty of Waitangi is carried
+instead by **Te Papa**, the Museum of New Zealand, and the settlement date by a PNAS paper found through
+Europe PMC. **When a country's own history and legislation sites are closed, try its national museum
+before giving the claim up.**
+
+**A GUESSED Europe PMC article id returns 200, so a status check cannot catch a fabricated one.** The URL
+`europepmc.org/article/MED/18461082` was constructed from a half-remembered PMID and answered 200; the real
+one is **18523023**. That is N4's fabricated-citation trap in a new host, and the way round it is the same:
+**resolve the identifier through the REST API** (`search?query=PMCID:PMC…` returns the title, the PMID and
+the author string) and read the title back before citing it.
+
+**And cite the DOI rather than the Europe PMC page, because only the DOI keeps the byline machine-checked.**
+`check-citations.js` reads a DOI only when it is the TRAILING url of the citation, so a citation ending at
+`europepmc.org` is reported "unchecked"; ending at `doi.org` it verified all four of Wilmshurst, Anderson,
+Higham and Worthy against Crossref, given names and all. A **403 from `pnas.org` is a bot wall and not a
+paywall**, so the open-access label stands — the artefact plan's rule, applied to an access decision rather
+than to a refusal.
+
+**The term's fault is the same one for the sixth batch running, with a correction attached.** Its area of
+268,021 km² is published by none of its sources — UNdata gives 268,107, the Commonwealth 268,000 and the
+World Bank 267,710 — so, inside the spread or not, it becomes the figure Source A prints; and "Polynesian
+settlers arrived around 1300" becomes **around 1280**, which is what the radiocarbon dating of the Pacific
+rat's bones and gnawed seeds gives, a millennium later than the chronologies that paper set out to correct.
 
 **Batch 45 (Central African Republic) is the first card in the deck carried by FRENCH scholarship, and
 Persée is why it could be written at all.** The guide's entry is five facts long and says nothing about
