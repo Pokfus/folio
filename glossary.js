@@ -1574,7 +1574,9 @@ window.GLOSSARY = {
 "Archilochus": "<b>Archilochus</b> of Paros was a Greek poet of the middle of the 7th century BCE, the first who speaks in his own voice about his own life, and antiquity ranked him beside Homer and Hesiod.<sup class=\"fn\" data-fn=\"1\"></sup> He worked chiefly in iambic and elegiac verse, which appears in his hands already finished and exact, and his most quoted lines shrug at a shield he left behind in flight, since he had saved himself and could get another no worse.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Paros later worshipped him as a hero in an open-air precinct called the Archilocheion, whose inscription preserves oracles and an account of his life.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Sappho": "<b>Sappho</b> was a Greek poet of Lesbos, born at Eresos and living at Mytilene around 600 BCE, who was reckoned in antiquity the greatest love poet of the Greek world and called simply the Poetess.<sup class=\"fn\" data-fn=\"1\"></sup> She wrote in the Aeolic dialect actually spoken on the island, in a great variety of metres, one of them the four-line stanza that carries her name.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Alexandria edited her into nine books, of which almost nothing survives whole: she is read in quotations by later critics and in torn papyri, with one complete poem, a hymn to Aphrodite.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Alcaeus": "<b>Alcaeus</b> was a Greek poet of Mytilene on Lesbos, active around 600 BCE, and the one direct witness to the faction fighting that convulsed his island, in which he took part on the side of the aristocrats.<sup class=\"fn\" data-fn=\"1\"></sup> His songs were sung at the drinking parties of the political clubs, and the best known of them are the <i>stasiotika</i>, verses of faction attacking one ruler after another.<sup class=\"fn\" data-fn=\"1\"></sup> He worked in the Aeolic tradition of the island beside Sappho and in the same dialect, wrote hymns, drinking songs and love songs as well, and gave his name to a four-line stanza Horace made famous.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Lesbos": "<b>Lesbos</b> is a large Greek island in the north-eastern Aegean, lying close to the coast of Asia Minor, whose Aeolian population was divided in antiquity between five cities, a sixth having been enslaved by its neighbours at Methymna.<sup class=\"fn\" data-fn=\"1\"></sup> The Greeks reckoned it the most musical ground they knew, and it produced Terpander of Antissa, Arion of Methymna, Sappho of Eresos and Alcaeus of Mytilene within about a century of one another.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The metres its poets used are still classified as Aeolic, among them the hendecasyllabic line Sappho and Alcaeus shared and the four-line stanzas that carry their two names.<sup class=\"fn\" data-fn=\"4\"></sup>"
+"Lesbos": "<b>Lesbos</b> is a large Greek island in the north-eastern Aegean, lying close to the coast of Asia Minor, whose Aeolian population was divided in antiquity between five cities, a sixth having been enslaved by its neighbours at Methymna.<sup class=\"fn\" data-fn=\"1\"></sup> The Greeks reckoned it the most musical ground they knew, and it produced Terpander of Antissa, Arion of Methymna, Sappho of Eresos and Alcaeus of Mytilene within about a century of one another.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The metres its poets used are still classified as Aeolic, among them the hendecasyllabic line Sappho and Alcaeus shared and the four-line stanzas that carry their two names.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Mimnermus": "<b>Mimnermus</b> was a Greek elegist of the later 7th century BCE, whom the ancient notices place at Colophon or at Smyrna, the city Colophon had settled, and who turned elegy from war towards pleasure and its shortness.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> His best-known work was the <i>Nanno</i>, named after a woman who played the reed pipe, and he was remembered as a singer rather than a reciter, his elegy performed to that pipe.<sup class=\"fn\" data-fn=\"2\"></sup> The theme that runs through the surviving fragments is that youth is brief and old age hateful, and the plan of his book of elegies gathered under a beloved's name shaped Alexandrian and Roman elegy after him.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Theognis": "<b>Theognis</b> of Megara is the name under which about 1,400 lines of archaic Greek elegy have come down, by far the largest such body and by far the best preserved of any Greek elegist.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The collection was assembled as a schoolbook of maxims and shows the interpolation a schoolbook attracts, so editors use the name for what the manuscripts attribute rather than as a claim about a single author.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Most of the poems address a younger man, Cyrnus, whose name is called a seal set on the verses, and their politics are those of a beaten aristocrat who calls the men now in charge base.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2278,7 +2280,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Louisiana_Purchase": "1803",
 "Archilochus": "fl. c. 650 BCE",
 "Sappho": "fl. c. 600 BCE",
-"Alcaeus": "fl. c. 600 BCE"
+"Alcaeus": "fl. c. 600 BCE",
+"Mimnermus": "fl. c. 630 BCE",
+"Theognis": "fl. c. 540 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3279,7 +3283,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Archilochus": ["Archilochos","Archilochus of Paros"],
 "Sappho": ["Psappho","Sappho of Lesbos"],
 "Alcaeus": ["Alkaios","Alcaeus of Mytilene"],
-"Lesbos": ["Lesvos"]
+"Lesbos": ["Lesvos"],
+"Mimnermus": ["Mimnermos","Mimnermus of Colophon"],
+"Theognis": ["Theognidea","Theognis of Megara"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4880,7 +4886,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Archilochus": ["person","literature","poetry","greece","archaic greece"],
 "Sappho": ["person","literature","poetry","greece","archaic greece"],
 "Alcaeus": ["person","literature","poetry","greece","archaic greece"],
-"Lesbos": ["place","geography","greece","literature","island"]
+"Lesbos": ["place","geography","greece","literature","island"],
+"Mimnermus": ["person","literature","poetry","greece","archaic greece"],
+"Theognis": ["person","literature","poetry","greece","archaic greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
