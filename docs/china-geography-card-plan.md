@@ -156,18 +156,26 @@ and is recorded as such. `whc.unesco.org` is **403**, so a World Heritage claim 
 `tandfonline.com`, `science.org` and `mdpi.com` are 403, and `doi.org` resolving to one of them is a 403
 too — **Europe PMC is the way in** where a PMCID exists.
 
-**THE REACHABLE SET IS STRONG ON THE TREATY CENTURY AND SILENT ON ANTIQUITY, and that shapes the early
-cards rather than being a nuisance to work around.** Between the Office of the Historian, the Avalon
-Project's treaty texts and the open remote-sensing literature, a province's 1840–1949 history and its
-present geography can both be carried to the bar without difficulty — `gc-002` Shandong is nine tenths
-that. What none of them touches is the Chinese past before the treaty ports. Qufu, Mount Tai and the
-states of Qi and Lu were all looked for and none could be cited: `whc.unesco.org` is 403, Persée's search
-renders through JavaScript, and Legge's *Chinese Classics* is on archive.org with its Chinese characters
-so mangled by OCR that the volume cannot be quoted. So `gc-002` says nothing about Confucius, which is a
-real gap in a card about Shandong and is left open rather than papered over with a citation that did not
-source the sentence. **It will bite hardest on Shaanxi, Henan, Hebei and Shanxi**, whose interest is
-mostly older than 1840; a route into open sinology is the most valuable thing anybody could add to this
-list.
+**FOR ANTIQUITY, READ FOLIO'S OWN CORPUS BEFORE SEARCHING THE WEB.** This was written after `gc-002`
+as a warning that the reachable set is strong on the treaty century and silent on the Chinese past —
+Qufu, Mount Tai and the states of Qi and Lu were all looked for and none could be cited, `whc.unesco.org`
+being 403, Persée's search rendering through JavaScript, and Legge's *Chinese Classics* sitting on
+archive.org with its Chinese characters so mangled by OCR that the volume cannot be quoted. **`gc-003`
+Henan disproved it in an hour, and the route is worth more than the warning was.** The World History
+collection's cards on Erlitou, the Xia, the Shang and Longshan already carry cited, open sources on
+exactly this ground, and the glossary's `Zhengzhou_Shang_City` carries three more. Reading those source
+lists out supplied three of Henan's five: a PLOS ONE study of the province's traditional villages, the
+*Genes* paper on the human skull ditch at Zhengzhou Shang City, and Zhang Zhongpei in the *Comptes rendus
+de l'Académie des Inscriptions* for Yinxu in 1928 and Erlitou in 1960. **`Asian Perspectives` on
+`hdl.handle.net/10125/…` and the French sinology on Persée are both open and both reachable**, which is
+the standing answer to "there is no open sinology here".
+  Two cautions come with the route. **A source reused from another card is reused for the claim that card
+RECORDS; a new claim needs a re-read** — the glossary pass's G6 finding, and every one of Henan's was
+re-read. And **a reused paper's loose phrasing must not be inherited**: the villages paper calls Anyang
+"the capital of the Shang Dynasty (1600–1046 BCE)", which is the span of the whole dynasty rather than of
+Anyang's time as its seat, so `gc-003` says what Anyang preserves and takes its dates from the paper that
+excavated them. `gc-002` Shandong still says nothing about Confucius; it was written before this was
+known, and its own antiquity is a gap to fill rather than a limit of the sources.
 
 **`chinadaily.com.cn` answers and is a state newspaper.** It may be cited for what it is — an account the
 state gives of itself — and never as an independent one, and a card resting a contested claim on it has
