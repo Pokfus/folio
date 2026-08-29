@@ -27665,16 +27665,20 @@
         ctx.fillStyle = land; ctx.strokeStyle = sub; ctx.lineWidth = 0.6;
         for (let i = 0; i < shapes.length; i++) { pathOf(shapes[i].p); ctx.fill("evenodd"); if (shapes[i] !== target) ctx.stroke(); }
       }
-      /* MAJOR INLAND SEAS AND LAKES AS WATER ON TOP OF THE LAND — the Atlas's own pass, in the Atlas's own
-         order and colour, and with no stroke: a lake is a hole in the land rather than a thing with an
-         edge drawn round it. It goes AFTER both land layers and BEFORE the shaded place, so a lake reads
-         as water and the answer's tint still lies over everything. `window.LAKES` is guarded rather than
-         required — a locator gets it from the `atlas` warm and a map card from `usstates`, and for the
-         first moment of either it is simply absent. */
+      /* MAJOR INLAND SEAS AND LAKES AS WATER ON TOP OF THE LAND, IN THE MAP'S OWN COAST INK. It goes AFTER
+         both land layers and BEFORE the shaded place, so a lake reads as water and the answer's tint still
+         lies over everything. `window.LAKES` is guarded rather than required — a locator gets it from the
+         `atlas` warm and a map card from `usstates`, and for the first moment of either it is simply absent.
+         **THE STROKE IS WHERE THIS PARTS FROM THE ATLAS, WHICH FILLS A LAKE AND DRAWS NO EDGE** (Aug 2026,
+         on request: "the coastlines around the great lakes should still have a dark outline, the same way
+         the oceanic coastlines do"). On a world globe a lake is a small blue mark and needs no line; on a
+         card zoomed to one state a Great Lake is half the window, and an unstroked shore beside a stroked
+         ocean coast reads as two different kinds of edge on one map. It takes `border` at 0.7 — the world
+         layer's own coast values, quoted rather than approximated, so the two cannot drift apart. */
       const LK = window.LAKES || [];
       if (LK.length) {
-        ctx.fillStyle = ocean;
-        for (let i = 0; i < LK.length; i++) pathOf(LK[i]), ctx.fill("evenodd");
+        ctx.fillStyle = ocean; ctx.strokeStyle = border; ctx.lineWidth = 0.7;
+        for (let i = 0; i < LK.length; i++) { pathOf(LK[i]); ctx.fill("evenodd"); ctx.stroke(); }
       }
       /* THE SHADED PLACE IS PAINTED THE WAY THE ATLAS PAINTS A CLICKED COUNTRY, and that is the request
          rather than an inference from it: a translucent warm tint that lets the map read through, a crisp
