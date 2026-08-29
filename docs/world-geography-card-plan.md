@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-121`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-122`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-122` the Central African Republic
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-123` New Zealand
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,40 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 45 (Central African Republic) is the first card in the deck carried by FRENCH scholarship, and
+Persée is why it could be written at all.** The guide's entry is five facts long and says nothing about
+the colony, so the colonial half comes from two open articles: a review that records the administration
+granting possession of the Ubangi to **more than forty concession companies** which divided it between
+them, and Pierre Mollion's study of **porterage in Oubangui-Chari, 1890–1930**, on the carrying of loads
+and of people to link the Ubangi basin with Lake Chad's. **`persee.fr` is open on `/doc/<id>` and 403 on
+`/docAsPDF/<id>.pdf`**, and the doc page carries the article's opening pages, its full bibliographic
+reference and its DOI — enough to cite and to quote from, and the DOI is in Crossref, so
+`check-citations.js` verifies the byline. CLAUDE.md already permits a foreign-language source where it
+carries detail no English one does; **for French colonial Africa that is the ordinary case rather than
+the exception**, and this is the deck's first use of it.
+
+**Its UN admission is the 864th plenary meeting for the FIFTH time.** Togo, Dahomey and the Republic of
+the Congo were already carded from that sitting of 20 September 1960; the Central African Republic's own
+resolution is **1488 (XV)**, adopted without a vote there. Batch 40's rule — check the register for the
+sitting before searching for a resolution — now has five cards behind it, and the search that finds a new
+one is a UN Digital Library title search, which returns the record id even when the resolution's own PDF
+is a scan.
+
+**Its figures are a relay, and the card says the arithmetic rather than the provenance.** UNdata gives
+5,513 thousand and the World Bank 5,513,282 — the same estimate, per C8, so the card states that the two
+agree to the person and claims no corroboration from it. What the pair does support is growth: 4,629,320
+in 2015 to 5,513,282 in 2025, up nearly a fifth. The areas agree within 4 km² and the term needed no
+figure changed.
+
+**The term's fault this batch is a SUPERLATIVE and an atrocity claim, and both were replaced by a
+figure.** `Central_African_Republic` said concession companies "imposed forced labour on a brutal scale"
+and that conflict had left the country "among the poorest in the world despite deposits of diamonds, gold
+and uranium" — none of it in either work it cited. The concession clause becomes what the review actually
+records, the conflict clause becomes the stabilisation mission the Security Council established in 2014,
+and the poverty superlative becomes **UNdata's own income per head of 366 US dollars**, which is on the
+profile the term already cited. **A figure a source prints beats a superlative no source states**, and it
+is usually shorter.
 
 **Batch 44 (Ireland) is the deck's clearest case of a recognition passing THROUGH the former
 sovereign, and the guide preserves both halves of the exchange.** Independence dates from the
