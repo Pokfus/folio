@@ -1591,7 +1591,9 @@ window.GLOSSARY = {
 "Milesian_school": "The Milesian school is the name given to three thinkers of the Ionian city of Miletus, Thales, Anaximander and Anaximenes, active across the 6th century BCE and conventionally counted the first Greek philosophers.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient doxographers arranged them as a master-and-pupil succession, which may not be true, though their views resemble one another closely enough to justify treating the three together.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Each named an originating stuff and explained the world from it without appeal to anything outside nature, and each pursued measurement and observation alongside the questions about causes that Aristotle later read as a concern with material principles.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Pythagoras": "Pythagoras was a Greek thinker who grew up on Samos and moved at about forty to Croton in southern Italy, where most of his activity took place.<sup class=\"fn\" data-fn=\"1\"></sup> He wrote nothing and no contemporary described his thought in detail, so almost everything later ascribed to him comes from a tradition that had already turned him into a semi-divine originator of all Greek philosophy.<sup class=\"fn\" data-fn=\"1\"></sup> The earliest evidence makes his fame rest instead on the fate of the soul after death, which his contemporary Xenophanes already has him teaching, on religious ritual, on wonder-working, and on a strict way of life that Plato says his followers were still keeping generations later.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Pythagoreanism": "Pythagoreanism names several things at once: the way of life and doctrine of the soul taught by Pythagoras, the philosophy of a group active in the 5th and 4th centuries BCE whom Aristotle calls the so-called Pythagoreans, and a later habit of ascribing almost any early idea to Pythagoras.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle reports the group as holding that the principles of mathematics are the principles of everything, that numbers are the ultimate things in the universe, and that ten pairs of opposites underlie it.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its communities split between those who kept the inherited rules of life and those who pursued mathematics, and died out about the middle of the 4th century BCE.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Xenophanes": "Xenophanes of Colophon was a Greek poet of the late 6th and early 5th centuries BCE who travelled the Greek world reciting his own verse and criticising what the poets said about the gods.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He is best known for attacking the habit of imagining gods in human form, observing that Ethiopians make theirs snub-nosed and black and Thracians theirs red-haired, and that horses able to draw would produce horse-shaped gods.<sup class=\"fn\" data-fn=\"1\"></sup> Against that he set one god greatest among gods and men, unlike mortals in body or thought, and he held that no mortal will ever know anything about such matters with certainty.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Xenophanes": "Xenophanes of Colophon was a Greek poet of the late 6th and early 5th centuries BCE who travelled the Greek world reciting his own verse and criticising what the poets said about the gods.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He is best known for attacking the habit of imagining gods in human form, observing that Ethiopians make theirs snub-nosed and black and Thracians theirs red-haired, and that horses able to draw would produce horse-shaped gods.<sup class=\"fn\" data-fn=\"1\"></sup> Against that he set one god greatest among gods and men, unlike mortals in body or thought, and he held that no mortal will ever know anything about such matters with certainty.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Heraclitus": "Heraclitus was a Greek philosopher of Ephesus in Ionia who flourished around 500 BCE, was nobody's pupil and said he had inquired of himself.<sup class=\"fn\" data-fn=\"1\"></sup> He wrote one book, deposited in the temple of Artemis and divided into three discourses, on the universe, politics and theology, which he was said to have made deliberately obscure so that none but adepts should approach it.<sup class=\"fn\" data-fn=\"1\"></sup> Nothing of it survives whole, but over a hundred quotations do, turning on the unity of opposites, on a world-order no god or man made but which is everliving fire kindled and quenched in measures, and on a <i>logos</i> common to all that most fail to grasp.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Parmenides": "Parmenides was a Greek philosopher of Elea in southern Italy, born about 515 BCE, whom Diogenes Laertius calls the son of Pyres and a pupil of Xenophanes who followed him in nothing.<sup class=\"fn\" data-fn=\"1\"></sup> He wrote a single poem in epic hexameters, perhaps 800 verses long and surviving in about 160, in which a goddess sets out the unshaken heart of well-rounded reality and, separately, the notions of mortals, in which there is no genuine trustworthiness.<sup class=\"fn\" data-fn=\"2\"></sup> Its central argument is that What Is is ungenerated and deathless, whole and uniform, still and perfect, and that the road of not-being can be neither thought nor spoken.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2310,7 +2312,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Milesian_school": "c. 600 – 526 BCE",
 "Pythagoras": "c. 570 – 490 BCE",
 "Pythagoreanism": "c. 500 – 350 BCE",
-"Xenophanes": "floruit 540 – 537 BCE"
+"Xenophanes": "floruit 540 – 537 BCE",
+"Heraclitus": "floruit c. 500 BCE",
+"Parmenides": "born c. 515 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3328,7 +3332,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Milesian_school": ["Milesians","school of Miletus"],
 "Pythagoras": ["Pythagoras of Samos"],
 "Pythagoreanism": ["Pythagorean","Pythagoreans"],
-"Xenophanes": ["Xenophanes of Colophon"]
+"Xenophanes": ["Xenophanes of Colophon"],
+"Heraclitus": ["Heraclitus of Ephesus","Heraclitean"],
+"Parmenides": ["Parmenides of Elea","Parmenidean"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4946,7 +4952,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Milesian_school": ["concept","philosophy","greece","archaic greece","science"],
 "Pythagoras": ["person","philosophy","greece","archaic greece","religion"],
 "Pythagoreanism": ["school of thought","philosophy","greece","archaic greece","science"],
-"Xenophanes": ["person","philosophy","greece","archaic greece","poetry","religion"]
+"Xenophanes": ["person","philosophy","greece","archaic greece","poetry","religion"],
+"Heraclitus": ["person","philosophy","greece","archaic greece"],
+"Parmenides": ["person","philosophy","greece","archaic greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
