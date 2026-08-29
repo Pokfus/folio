@@ -137,7 +137,14 @@ function staticChecks() {
   ok(/!cardMapSpec\(/.test(gset), "gameCardIdSet excludes map cards");
   // and the bundle really is lazy — a 600 KB file in the eager path would slow the site for every visitor
   ok(!/<script[^>]+us-states\.js/.test(fs.readFileSync(path.join(ROOT, "index.html"), "utf8")), "us-states.js is NOT in index.html's eager path");
-  ok(/usstates:\s*\{\s*files:\s*\["us-states\.js"\]/.test(app), "us-states.js is registered as a lazy bundle");
+  const usb = /usstates:\s*\{\s*files:\s*\[([^\]]*)\]/.exec(app);
+  ok(usb && /"us-states\.js"/.test(usb[1]), "us-states.js is registered as a lazy bundle");
+  /* `lakes.js` rides with it because world.js has NO LAKE HOLES: the Great Lakes sit inside the USA
+     polygon, so without this the card map draws five inland seas as grey fields with an outline round
+     each (reported Aug 2026). Pinned here because the symptom is a map that renders perfectly and is
+     wrong, and because the obvious tidy — trimming this bundle back to the one file its name suggests —
+     would put it straight back. */
+  ok(usb && /"lakes\.js"/.test(usb[1]), "...and lakes.js rides with it, so the Great Lakes are water");
 
   /* THE LOCATOR'S DATA (Aug 2026, on request). A globe at the FOOT of a card whose answer is a place. It
      rides in the same whitelist and is lost the same way — a field the serializer does not name is

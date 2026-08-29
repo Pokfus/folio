@@ -1659,6 +1659,42 @@ terms that already exist**. Each was measured, and none should be settled quietl
   **Check the file type after every fetch, and retry a 429 with backoff** rather than concluding the URL
   is wrong.
 
+- **📌 A CLEAN-UP PASS OVER THE FINISHED COLLECTION (Aug 2026, on request) — and the fact box had drifted
+  in five separate ways.** Fifty capital cards had **twenty-four distinct spellings** of one figure:
+  `second largest`, `2nd largest`, `5th largest city`, `Largest city`, `fifth`, `eleventh`. The rule now is
+  one line: **`largest` for rank one, `Nth largest` in numerals for the rest**, because `1st largest` is not
+  English and everything else is. Four more drifts went with it — three capitals had put `Founded by` or
+  `Named for` where the other forty-six have `Largest city` (all three facts survive in the prose, so the box
+  lost nothing); `Montpelier` labelled the row `Rank` and filled it with a fact about capitals rather than
+  about Vermont; twenty capitals carried the same five tags in a different order; and the first four state
+  cards written gave their populations as `39.4 million` where the other forty-six give the Census count.
+- **THE FORMAT AUDIT FOUND A FACTUAL ERROR, WHICH IS THE ARGUMENT FOR DOING THEM.** Checking every stated
+  rank against the Census place file to normalise its spelling showed that **`Helena` is Montana's SIXTH
+  city and the card said fifth** — in the fact box, in the abstract and in the glossary term. The missed
+  place is **Butte-Silver Bow**, a consolidated city-county, which is exactly the row a hand count skips.
+  `Providence`'s population was `195,000` against a Census 194,706, the only rounded figure among fifty.
+  **Re-derive a ranking from the table rather than counting the names you can remember.**
+- **DIFFICULTY HAD NO RULE AT ALL, AND NOW HAS ONE ANYBODY CAN RE-DERIVE.** Sorted by population the column
+  was noise: `Pierre` (13,788) was rated 1 while `Lansing` (114,336) was 3, and `Frankfort` (28,610) was 1
+  while `Augusta` (19,168) was 3 — the ratings drifted session by session with nothing to anchor them. All
+  fifty capitals are now banded on the figure their own card states: **1 at 400,000 and above, 2 from 75,000,
+  3 below**, with `Honolulu` taking its city-and-county figure because that is the population its card gives
+  for the city as a legal entity. It is a judgement, but it is a **stated** one, which is the difference
+  between a scale and a habit. The states stay at 1 throughout: every one of them is a household name.
+  Nothing functional turns on it — a map card is out of every minigame by construction — but the stars are
+  on screen and were claiming a consistency the collection did not have.
+- **FOURTEEN STATE CARDS HAD NO FLAG, AND THEY WERE THE LAST FOURTEEN WRITTEN.** `answerFlag` arrived
+  part-way through the run, so `geo-001`–`geo-036` carry one and `geo-037` Alabama onwards did not: 36 flags
+  against 14 blanks, which reads as a missing file rather than as a feature added late. All fourteen are in
+  now, each looked at, each with its own alt text. **A field introduced mid-collection is a field the cards
+  before it and after it disagree about** — check the whole run when adding one, not just the card in hand.
+  **Twenty-nine of the fifty CAPITALS still have none** and that is left open: a city flag is not the
+  uniform, always-free, always-existing object a state flag is, so it wants a pass of its own.
+- **THE PLACE TO VERIFY A COUNT IS THE PROBE, NOT THE DATA.** A check written to confirm every capital's dot
+  sits inside its own state reported **50 failures out of 50** — because it read `US_CAPITALS`' entries as
+  `[lon, lat]` when they are `{ s, c }`. Round 46's lesson one shape over: an all-or-nothing result is a
+  statement about the instrument. Asked properly, all fifty are correct.
+
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
 check before each batch** — the glossary is 1,061 terms and growing, and a collision is silent.

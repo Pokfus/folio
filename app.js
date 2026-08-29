@@ -9170,7 +9170,15 @@
        needs the state shapes and the world's coastline and nothing else — a reader studying the geography
        deck must not pay for the historical eras to be asked which state is shaded. It is lazy for the same
        reason every other bundle is: a reader who never opens such a card never fetches it. */
-    usstates: { files: ["us-states.js"] },
+    /* `lakes.js` rides with the states because world.js has NO LAKE HOLES — the Great Lakes are inside
+       the USA polygon, so a card map drew them as land with a grey outline round each: five inland seas
+       shown as fields (reported Aug 2026). The states file was already cut clear of them (that is the
+       "Michigan gets its mitten" fix), so the hole was only ever in the world layer, and the honest fix
+       is to paint the water rather than to carve the land. 172 KB on top of 645 KB, both lazy and both
+       fetched only by a reader who opens a map card — nothing like the ~4 MB the `atlas` bundle would
+       cost to get the same file. It is listed in `atlas` too and that is fine: lakes.js ASSIGNS
+       window.LAKES rather than pushing onto a queue, so arriving twice is idempotent. */
+    usstates: { files: ["us-states.js", "lakes.js"] },
     /* The glossary's citations + illustrations. Warmed at IDLE after boot (see the warm below) rather
        than fetched on the first popup, because popups are common and a reader should not wait: the
        point is only to keep 1.29 MB off the path that blocks first paint. openGlossWin awaits it for
@@ -27441,6 +27449,19 @@
      the Aegean with the Greek mainland, Anatolia and Crete's own coast all in the frame. A card may still
      say `zoom` where that frames its own subject badly — a river wants less and an island more. */
   const CMAP_ZLOC = 4;
+  /* A LONG STRAIGHT SEGMENT IS A LIE ON A SPHERE, and at a card's zoom it is a VISIBLE one. `world.js`
+     draws the whole US-Canada border west of the Great Lakes as ONE chord 27 degrees of longitude long,
+     while `us-states.js` draws the same parallel as five shorter ones — so the two sag by different
+     amounts, 0.0138 R against 0.0026 R, which on a state card is forty pixels of open land between two
+     grey lines. It reads as a DOUBLED border and is really one border drawn straight and one drawn nearly
+     true. The same fault is in every ruler-drawn state edge: Colorado is six vertices, and its northern
+     side is a 7-degree chord. So `addRing` walks a long segment in steps instead of jumping it, which
+     both files then trace identically. 0.5 degrees leaves the residual sag under a pixel even at
+     CMAP_ZMAX, and costs 5,330 extra points across the whole of world.js — nearly all of them culled on
+     any given frame. **A segment wider than 180 degrees is NOT subdivided**: the only one in the data is
+     Antarctica's base, from (180,-90) to (-180,-90), and interpolating it walks 720 steps the wrong way
+     round the planet. */
+  const CMAP_SEG = 0.5;
   const CMAP_DEG = Math.PI / 180;
   /* The card's map, or null. Validated rather than trusted: `map` is a hand-authored field in data.js and a
      layer name with a typo in it would otherwise reach the renderer and paint an empty window. */
@@ -27582,21 +27603,36 @@
       const cosd = Math.sin(la1) * Math.sin(la2) + Math.cos(la1) * Math.cos(la2) * Math.cos(dLon);
       return Math.acos(clampN(cosd, -1, 1)) / CMAP_DEG - b[6] <= visDeg;
     }
+    /* addRing's walk state, hoisted out of it so `ringStep` can be defined ONCE rather than allocated per
+       ring — this is the hot loop, called for every visible ring of every layer on every frame. */
+    let ringOpen = false, ringPx = 0, ringPy = 0, ringPz = 0, ringPv = 0, ringFirst = true;
+    function ringStep(lon, lat) {
+      proj(lon, lat);
+      const x = P3x, y = P3y, z = P3z, v = PV, sx = PX, sy = PY;
+      if (v >= 0) {
+        if (!ringOpen) {
+          if (!ringFirst && ringPv < 0) { crossing(ringPx, ringPy, ringPz, ringPv, x, y, z, v); ctx.moveTo(HP.x, HP.y); ctx.lineTo(sx, sy); }
+          else ctx.moveTo(sx, sy);
+          ringOpen = true;
+        } else ctx.lineTo(sx, sy);
+      } else if (ringOpen) { crossing(ringPx, ringPy, ringPz, ringPv, x, y, z, v); ctx.lineTo(HP.x, HP.y); ringOpen = false; }
+      ringPx = x; ringPy = y; ringPz = z; ringPv = v; ringFirst = false;
+    }
     function addRing(ring) {
-      let open = false, px = 0, py = 0, pz = 0, pv = 0, first = true;
+      ringOpen = false; ringPx = 0; ringPy = 0; ringPz = 0; ringPv = 0; ringFirst = true;
       for (let i = 0; i < ring.length; i++) {
-        proj(ring[i][0], ring[i][1]);
-        const x = P3x, y = P3y, z = P3z, v = PV, sx = PX, sy = PY;
-        if (v >= 0) {
-          if (!open) {
-            if (!first && pv < 0) { crossing(px, py, pz, pv, x, y, z, v); ctx.moveTo(HP.x, HP.y); ctx.lineTo(sx, sy); }
-            else ctx.moveTo(sx, sy);
-            open = true;
-          } else ctx.lineTo(sx, sy);
-        } else if (open) { crossing(px, py, pz, pv, x, y, z, v); ctx.lineTo(HP.x, HP.y); open = false; }
-        px = x; py = y; pz = z; pv = v; first = false;
+        const p = ring[i];
+        if (i) {
+          // see CMAP_SEG: a chord this long cuts visibly inside the curve it is meant to be
+          const q = ring[i - 1], dl = p[0] - q[0], db = p[1] - q[1], ad = Math.abs(dl);
+          if (ad <= 180) {
+            const n = Math.ceil((ad > Math.abs(db) ? ad : Math.abs(db)) / CMAP_SEG);
+            if (n > 1) for (let k = 1; k < n; k++) ringStep(q[0] + dl * k / n, q[1] + db * k / n);
+          }
+        }
+        ringStep(p[0], p[1]);
       }
-      if (open) ctx.closePath();
+      if (ringOpen) ctx.closePath();
     }
     function pathOf(rings) { ctx.beginPath(); for (let i = 0; i < rings.length; i++) if (visible(rings[i])) addRing(rings[i]); }
     function draw() {
@@ -27628,6 +27664,17 @@
       if (shapes && shapes !== GEO) {
         ctx.fillStyle = land; ctx.strokeStyle = sub; ctx.lineWidth = 0.6;
         for (let i = 0; i < shapes.length; i++) { pathOf(shapes[i].p); ctx.fill("evenodd"); if (shapes[i] !== target) ctx.stroke(); }
+      }
+      /* MAJOR INLAND SEAS AND LAKES AS WATER ON TOP OF THE LAND — the Atlas's own pass, in the Atlas's own
+         order and colour, and with no stroke: a lake is a hole in the land rather than a thing with an
+         edge drawn round it. It goes AFTER both land layers and BEFORE the shaded place, so a lake reads
+         as water and the answer's tint still lies over everything. `window.LAKES` is guarded rather than
+         required — a locator gets it from the `atlas` warm and a map card from `usstates`, and for the
+         first moment of either it is simply absent. */
+      const LK = window.LAKES || [];
+      if (LK.length) {
+        ctx.fillStyle = ocean;
+        for (let i = 0; i < LK.length; i++) pathOf(LK[i]), ctx.fill("evenodd");
       }
       /* THE SHADED PLACE IS PAINTED THE WAY THE ATLAS PAINTS A CLICKED COUNTRY, and that is the request
          rather than an inference from it: a translucent warm tint that lets the map read through, a crisp
