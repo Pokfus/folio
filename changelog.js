@@ -35,13 +35,21 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.382", released: "2026-08-29T09:22Z" };
+window.FOLIO_VERSION = { v: "1.383", released: "2026-08-29T11:38Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-29",
-    t: "Your downloaded decks stay yours",
+    t: "A card's map learns rivers, mountains and regions",
     items: [
+      "<b>A card's map now draws a river as a river, a mountain range as mountains and a region as a region</b>, rather than a dot for each.",
+      "<b>A battle on a card's map is marked with crossed swords</b>, and every place on the map is named with a capital letter.",
+      "<b>The grey city dots on a card's map are quieter</b>, and are now only capital cities and cities of over a million.",
+      "<b>Dragging a card's map with a finger turns the globe again</b> when the marker is down and a stylus has been used.",
+      "<b>Find it now names both Congos in full</b>, and spells out every other map label it used to abbreviate.",
+      "<b>What year? lists its five events in the order they happened</b>, and chevrons either side of the year step it a notch.",
+      "<b>Holding a minigame tile no longer flips it straight back</b>, and its record now fits on a phone screen.",
+      "<b>The \u00d7 that closes an Atlas place sits on the same line as its name</b> on a phone or a tablet.",
       "<b>A deck you download before making an account now follows you into it</b> when you sign in, instead of being left behind.",
       "<b>Reloading the page while studying a downloaded deck no longer loses the session</b>, where it used to say the deck could not be found.",
     ],
