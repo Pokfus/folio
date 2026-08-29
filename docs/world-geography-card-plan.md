@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-119`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-120`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-120` Slovakia
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-121` Ireland
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,42 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 43 (Slovakia) is the deck's first card whose history is mostly in ANOTHER COUNTRY'S guide
+entry.** Its own page runs to three events, all in 1993, because the guide is organised by the state that
+exists rather than by the ground it stands on — so the card is carried by the **Czechoslovakia** entry,
+which is where the Dual Monarchy, the 1918 recognition and the consulate at Bratislava are. **When a
+guide entry is a page long, look for the predecessor state**: the index keeps former states, and a
+successor's first fifty years are filed under the name that has gone.
+
+**The predecessor's entry also carries the one recognition fact that is Slovakia's alone.** When German
+forces occupied Prague in March 1939 the United States refused to recognise **either** the protectorate
+over Bohemia and Moravia **or** the establishment of a Slovak state — a refusal recorded on the page for
+the country that was being dismembered rather than on the page for either thing it refused. And the
+consulate general opened at Bratislava in 1947 was shut in 1950 after the communist government alleged
+that American diplomatic personnel were engaged in espionage.
+
+**It is also the fastest recognition in the collection, and it lands one batch after the slowest.**
+Liberia waited fifteen years from its own declaration to American recognition; Slovakia was recognised
+on **1 January 1993**, the day it came into being, with the guide's summary and its recognition section
+both giving that date. The pair is worth keeping in mind when a card has to say whether a recognition
+date is remarkable: this deck now holds both ends of the range.
+
+**Its figures are the batch-42 case in reverse: the two European sources agree on the AREA exactly and
+differ on the POPULATION.** The United Nations and Eurostat both give **49,035 km²** to the square
+kilometre, where the previous batch's Nordic pair could not be made to agree at all; but UNdata's
+population of 5,475 thousand is a **projection, footnoted as such**, against Eurostat's 5,419,451 and the
+World Bank's 5,413,813, which agree within 0.1%. D1's rule decides the facts box — where a country runs
+its own statistical service and the EU republishes it, UNdata is the outlier — so the card and the term
+both say 5.4 million. **A footnote that says "projected est." is a reason to prefer the other two, not a
+reason to average.**
+
+**And the glossary fault of the last two batches appears again, in the same place.** `Slovakia`'s third
+sentence asserted a thousand years of Hungarian rule, the 1918 union and the 1993 division while citing
+only UNdata and the EU country page, neither of which says any of it. The thousand years is dropped —
+the guide dates the Hungarian half of the Dual Monarchy and no reachable source here measures the whole
+span — and the two guide entries are added and marked. **Four batches running, the fault has been a
+first or third sentence carrying history that no work in the term's own list states.**
 
 **Batch 42 (Finland, Liberia, Norway) is batch 14's read-the-footnotes rule paying twice on one page,
 in both Nordic profiles.** UNdata footnotes Finland's population as **including the Åland Islands** and
