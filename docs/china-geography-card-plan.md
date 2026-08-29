@@ -17,11 +17,11 @@ The next card to write is the lowest `gc-NNN` not yet in `data.js`:
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gc-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
 **Shipped so far — `gc-001` Guangdong, `gc-002` Shandong, `gc-003` Henan, `gc-004` Jiangsu,
-`gc-005` Sichuan, `gc-006` Hebei and `gc-007` Hunan, with `gc-501` Guangzhou, `gc-502` Jinan,
-`gc-503` Zhengzhou and `gc-504` Nanjing.**
+`gc-005` Sichuan, `gc-006` Hebei, `gc-007` Hunan and `gc-008` Zhejiang, with `gc-501` Guangzhou,
+`gc-502` Jinan, `gc-503` Zhengzhou, `gc-504` Nanjing and `gc-505` Chengdu.**
 The first province card and the first capital card were written together, so that the new map layer, its
 point table, the fit and the gold dot were all proved on a real card rather than on a test. The next
-province is `gc-008` Zhejiang and the next capital is `gc-505` Chengdu.
+province is `gc-009` Anhui and the next capital is `gc-506` Shijiazhuang.
 
 ---
 
@@ -190,6 +190,23 @@ citation still points at the handle**, which is the stable address a reader shou
 bitstream path is how to READ the thing before citing it. That one journal covers the archaeology of
 southern China, the Yangtze and the southeast coast, which is most of the ground the remaining province
 cards stand on.
+
+**AND AN `Asian Perspectives` PDF MAY STILL DEFEAT EXTRACTION — TEST THE FILE, NOT THE HOST.** The two
+papers on the Chengdu Plain sit on the same shelf and behave differently: Lin's 2019 study of the Jinsha
+site cluster extracts cleanly and carried five of `gc-505`'s ten sentences, while Flad et al.'s 2013
+Songjiaheba report is set in subset fonts with no ToUnicode map and comes out as raw byte codes. That is
+the glossary pass's N10 finding in a new place, and it is a property of the FILE rather than of the
+journal, so a paper that will not open is not evidence that its neighbour will not.
+
+**A CONSULAR SURVEY IS A PERIOD WITNESS, AND SOMETIMES THE ONLY OPEN ONE.** Nothing openable here
+describes the Dujiangyan waterworks: the World Heritage Centre is 403, the modern hydraulic literature is
+Elsevier and Springer, and the ICID heritage pages 404. What answered was Alexander Hosie's *Szechwan: Its
+Products, Industries and Resources* (Shanghai, 1922) on archive.org — a British consular survey that
+states plainly why the Chengdu Plain's water never fails, the Min being divided into a network of streams
+and cross-channels where it leaves the mountains at Guanxian. **Cite it for what it describes and not for
+what it does not**: Hosie gives no date for the works and none was asserted, so `gc-505` says how they
+function and leaves their antiquity to a later card that can source it. This is the ancient-China route
+in another coat — where the modern synthesis is closed, the standard older survey is often open.
 
 **`chinadaily.com.cn` answers and is a state newspaper.** It may be cited for what it is — an account the
 state gives of itself — and never as an independent one, and a card resting a contested claim on it has
