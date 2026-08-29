@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-146` Albania
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-149` Slovenia
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,80 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 55 (Albania, Lesotho, Guinea-Bissau) turns up a MODE the recognition guide has not shown before:
+a relationship that stopped and started again.** Albania's entry is the longest in the deck so far, and it
+records four acts rather than one — de jure recognition on 28 July 1922, relations established on 4 December
+1922, relations ENDED on 5 June 1939 when the Albanian foreign minister told the American minister that Italy
+had taken control of Albania's foreign affairs (the legation closed on 16 September), and relations RESUMED on
+15 March 1991 with a memorandum of understanding signed in Washington. **A gap of nearly 52 years**, with an
+informal American mission sent in 1945 and withdrawn in November 1946 inside it, and with UN membership
+(14 December 1955) falling inside it too. The date line carries those four and no independence row, which is
+the right four: the interruption is the fact.
+
+**And Albania's page shows that the guide can be OUT OF DATE IN THE PRESENT TENSE.** Its summary ends
+"Albania received an invitation to join NATO in April 2008 and is expected to become a full member in 2009" —
+written before the event and never revised. **A source predicting a thing is not a source for the thing having
+happened**, so the accession is cited to NATO's own enlargement page, which gives the accession protocol of
+July 2008 and membership on 1 April 2009. Batch 54's EU candidate profile paid at once beside it: Thessaloniki
+June 2003, application 2009, candidate status June 2014, negotiations opened March 2020, first
+intergovernmental conference July 2022, and the last of all 33 chapters opened in December 2025.
+
+**Lesotho gives the pass the MIRROR of C12's Venezuela case, and it is the more dangerous direction.** C12 kept
+a term saying independence was achieved "by 1821" against a source saying "by 1819", because *by 1819* entails
+*by 1821*. Here the term said Lesotho is "the only country whose whole territory lies above 1,400 m" and the
+Southern African Development Community says **more than 1,000 metres** — and *all above 1,400* entails *all
+above 1,000*, not the other way about, so the source cannot carry the term's figure at all. It reads as a
+near-match and is a claim beyond every open source. **Ask which way the entailment runs before treating a
+near-match as corroboration**; where it runs from the claim to the source, the source is not evidence.
+
+**The Lesotho Highlands Water Project was nearly dropped as unsourceable and is documented by the authority
+that runs it.** SADC lists "Water" among Lesotho's natural resources and says nothing about selling any;
+`orasecom.org` refuses the connection and the Commonwealth page is silent — so the term's water-export clause
+had no source. `lhda.org.ls` carries the whole of it on its front page: a multi-phased project established by
+the 1986 treaty between Lesotho and South Africa, harnessing the Senqu/Orange in the highlands to supply water
+to Gauteng and hydro-electricity to Lesotho. Note the shape of the fetch — `/lhda/about-lhwp` 404s and the
+site ROOT is where the description lives. **When a fact belongs to a NAMED PROJECT, look for that project's
+own authority before giving the fact up.**
+
+**SADC's Lesotho page also says what its Botswana page left out**, which is the first time two pages of one
+bloc profile have been read against each other here: SADCC was formed at Lusaka in **April** 1980 and
+"transformed into" SADC in **1992**, where Botswana's page gives the year alone and no transformation date.
+**Read a second page of a new bloc profile before deciding what it carries.** Its opposite number failed the
+same test: **ECOWAS is NOT a bloc profile.** `ecowas.int/member-states/<slug>` answers 200 for Guinea-Bissau
+with a page whose entire body is the word "guinea-bissau" and a date stamp — no capital, no area, no prose.
+That is C7's "a page but not a profile" (Gabon at the Commonwealth) in its strongest form, since here every
+member has such a page and not one of them carries anything. `cplp.org` 404s, so lusophone Africa has no bloc
+profile either.
+
+**Guinea-Bissau is the deck's sharpest illustration that ADMISSION AND RECOGNITION ARE DIFFERENT ACTS, and
+the order surprises.** The Security Council recommended it for membership **unanimously**, at its 1791st
+meeting, on **12 August 1974**; the United States recognised the republic on **10 September**, when President
+Ford wrote to the President of the Council of State; the General Assembly admitted it on **17 September**.
+Nearly a month separates the Council's unanimous recommendation from the formal recognition of one of the
+Council's own permanent members. Both UN acts are openable at `digitallibrary.un.org/record/<id>` — 93484 for
+S/RES/356 (1974) and 189827 for A/RES/3205 (XXIX) — and the record pages carry the meeting numbers and the
+vote summary that the resolution symbols, with their parentheses, cannot be cited for.
+
+**The guide misspells a head of state, and the card does not repeat it.** Guinea-Bissau's entry gives the
+President of the Council of State as "Luis de Akmeida Cabral"; the name is **Luís de Almeida Cabral**. The
+card prints the correct spelling with the citation pointing at the page that does not. **A citation's job is
+to be checkable, not to be transcribed** — propagate the fact, never the typo — and this is the third kind of
+error found ON a page that opens perfectly, after N4's missing metadata and P2's essay contradicting itself.
+
+**One finding runs the other way for once: a term claiming LESS than its own source.** Albania's said it spent
+1944 to 1991 "under one of the most isolated communist governments in Europe"; the guide it already cited says
+Albania under **Enver Hoxha** "was one of the most diplomatically isolated nations in the world". Taking the
+source's own scope made the sentence stronger AND sourced, and named the man. The pass keeps finding prose
+that reaches past its citations; it is worth remembering that prose can fall short of them too, and that both
+are fixed by reading the source rather than the sentence.
+
+**Three populations re-rounded to the figure their own source gives**: Lesotho 2.3 → 2.4 million (2,363,325),
+Guinea-Bissau 2.3 → 2.2 million (2,249,515), and **Albania deliberately left at 2.4** — the World Bank's
+2,349,580 sits within a thousand of the midpoint, so either rounding is defensible and changing it would buy
+a reader nothing. Albania's own gap between sources stays the widest in Europe (UNdata projects 2,772,000
+against that 2,349,580, and the World Bank series has fallen in every one of the last ten years), which D1
+established and this batch states on the card rather than hiding.
 
 **Batch 54 (Gabon, Botswana, Moldova) found the bloc profile for SOUTHERN AFRICA and the one for an EU
 CANDIDATE, which between them cover most of what is left in Europe and Africa.** `sadc.int/member-states/<slug>`
