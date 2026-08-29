@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-152` North Macedonia
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-155` Timor-Leste
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,74 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 57 (North Macedonia, Kosovo, Bahrain) spent batch 56's byte-size test on its first outing and it
+paid twice in one batch.** `history.state.gov/countries/north-macedonia` is a plain 404 and
+`wto.org/…/north_macedonia_e.htm` is the 9,709-byte error document served with a 200 — and the reason is the
+same for both: **each institution kept the pre-2019 slug.** The guide's page is `macedonia` and the WTO's is
+`macedonia_e.htm`. A country that changes its name does not rename anyone else's records. **When a country
+has been renamed, try the old name**, and note that the guide publishes an index at `history.state.gov/countries`
+which resolves any slug in doubt in one fetch.
+
+**The guide misspells one man's surname on one page of three, and this one settles INSIDE the guide.**
+Bahrain's entry gives the ambassador first accredited to it as "William A. **Soltzfus**, Jr."; Qatar's and
+Oman's both give **Stoltzfus**, and batch 53 recorded that link between those two. Bahrain is his third post
+and the odd spelling. Where batch 55's "Akmeida" for Almeida had to be settled from outside, **a recurring
+person is a spelling check the guide performs on itself** — so the card names Joseph W. Twinam, whose
+spelling is stable, and describes the earlier ambassador without naming him.
+
+**Kosovo has a SECOND PAGE SHAPE in the guide, and it is the richest page the deck has used.** Every other
+entry runs Summary / Recognition / Diplomatic Relations in a few hundred words; Kosovo's is a **Historical
+Overview** running from the Ottomans to 2008 at six times the length, with the recognition section at the
+end — the 1974 Yugoslav constitution's socialist autonomous province with nearly the rights of a republic,
+the 1981 riots, the ending of autonomy in 1989, the KLA in 1997, the 78-day air campaign, resolution 1244,
+the declaration of 17 February 2008 and American recognition the next day. **Do not assume the guide's
+template**: a state whose status is unusual gets an unusual page, and reading only for the usual headings
+finds nothing at all.
+
+**Kosovo is D2's Taiwan case one step less severe, and the step is worth naming.** D2 found a state outside
+the UN system invisible to all three of Phase 3's sources. Kosovo has no UNdata profile — `xk` still 500s, as
+C0 recorded — and **no World Bank surface-area series**, but it does have a World Bank POPULATION series
+under `XKX`. **The one tool that reaches outside UN membership reaches only half way.** Nothing openable here
+gives Kosovo's area or names Pristina as its capital (NATO's page places KFOR's headquarters at Camp Film
+City, Pristina, which is not the same claim), so its facts box is the first in the deck with **no Area row
+and no Capital row**, carrying population, region, EU membership status and the date of American recognition
+instead. The term keeps its 10,887 km² and its Pristina, unmarked, on C9's principle that an uncontested
+figure no source carries is recorded rather than deleted.
+
+**The EU enlargement page's timeline prints the DATE ABOVE the item it dates.** Read the other way it shifts
+every entry by one, and it reads perfectly naturally either way. Verified on three independently checkable
+dates before any of it was used — the stabilisation and association agreement in force on 1 April 2016,
+EULEX established on 4 February 2008, supervised independence declared at an end on 10 September 2012.
+
+**A vote that is not unanimous, for the first time in the pass.** Every admission resolution cited so far was
+adopted unanimously; **resolution 1244 (1999) was adopted 14-0-1** at the Security Council's 4011th meeting
+on 10 June 1999, and the digital library's record page prints the vote summary beside the meeting number.
+That record page is the only citable form: the resolution symbol carries parentheses, which `SRC_URL_RX`
+stops at.
+
+**Bahrain's area both disagrees between sources AND MOVES.** UNdata gives 778 km²; the World Bank series
+gives 785 in 2020, 790 in 2021 and 2022, and 800 by 2023 — **the only area series in the whole pass that
+changes**, in a country that is reclaiming land. The two disagree by 22 km² for the same year, 2023, which is
+not a rounding and not reclamation timing. The term's 786 was in no source at all and goes to **778**, the
+one precise published figure, by batch 45's rule; the divergence itself is stated on the card rather than
+resolved, which is what C9 and C12 between them say to do when two sources part company.
+
+**North Macedonia is the deck's clearest case of recognition under a NAME rather than of a state.**
+Independence came in 1991 with the peaceful breakup of Yugoslavia, but recognition was delayed by Greece's
+objection: the United States recognised "the former Yugoslav Republic of Macedonia" on 9 February 1994 under
+the provisional designation, opened a liaison office at Skopje before that on 3 December 1993, confirmed
+relations on 13 September 1995 in a Clinton announcement quoting his own correspondence with President Kiro
+Gligorov, and began using the constitutional name in 2004. The Prespa Accord of June 2018 settled the
+dispute, the country became the Republic of North Macedonia in February 2019, and NATO membership followed
+on 27 March 2020. **It joined the United Nations under the provisional designation on 8 April 1993 and the
+WTO under it on 4 April 2003** — three names, one state, and the sources still index it under the middle one.
+
+**Batch 45's rule is now in its fifth consecutive batch.** Three unsourced claims went this time: Bahrain's
+causeway to Saudi Arabia "since 1986" and its "some 50" islands, and North Macedonia's Lake Ohrid being
+"among the oldest and deepest in Europe". Two sourced figures replaced them — Bahrain's density of some 2,100
+people to the square kilometre and North Macedonia's two-fifths forest cover — and one clause was simply
+dropped, since not every removal has a replacement waiting.
 
 **Batch 56 (Slovenia, Equatorial Guinea, Latvia) puts Latvia beside Albania, and the two are opposites.**
 Batch 55 found a relationship that stopped and restarted; **Latvia's never stopped.** The legation at Riga
