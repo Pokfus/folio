@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-068`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-101`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,15 +26,15 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-101` Sierra
-Leone and the next capital is `gw-542` Warsaw.
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-102` Togo
+and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -915,6 +915,41 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 34 (Sierra Leone) found the source that carries a country whose recognition-guide page says
+nothing before 1961, and it is a national TRUTH COMMISSION.** The guide's Sierra Leone entry is four
+sentences long — recognition on independence, the consulate general at the capital raised to an embassy
+the same day — and names no event earlier; the Commonwealth's line gives the joining year and no more.
+What carried nine tenths of the card is the **Sierra Leone Truth and Reconciliation Commission's
+*Witness to Truth* (2004), volume 3A chapter 1, "Historical Antecedents to the Conflict"**, which runs
+from the 1787 purchase of the peninsula from the Temne ruler King Nimbana, through the Sierra Leone
+Company and the abolitionists behind it, the Crown Colony of 1808 against the protectorate of 1896, the
+Hut Tax War of 1898 and the One Party Act of 1978, to the first shots at Bomaru on 23 March 1991.
+**Where a country has had a truth commission, the historical chapter of its report is a statutory body's
+own dated narrative of that country's whole past, published in full** — reach for it whenever the
+recognition guide is thin, which for a state decolonised in one act it usually is.
+
+Three notes on using it. **The report is not infallible, and P2's rule applies to it as to any spine
+source**: it calls the 1947 constitution the "Stevens Constitution" after "its chief drafter Siaka
+Stevens", where the document is the Stevenson constitution named for the governor, Sir Hubert Stevenson —
+so the card takes the amalgamation the chapter states repeatedly and leaves the attribution alone.
+**The download URLs cannot be cited**: the site is a Joomla install whose file links carry `args[0]=`,
+and a closing square bracket ends `SRC_URL_RX`, so the citation points at the chapter's **item page**
+(`…/item/witness-to-the-truth-volume-three-a-chapter-1?category_id=13`) while the PDF is fetched with the
+bracket percent-encoded as `args%5B0%5D=`. And **`www.sierraleonetrc.org` resets the connection about half
+the time** — every fetch here needed one to three retries and then answered 200, which is a flaky host
+rather than a closed one; the item ids are not in display order, so check a downloaded file's first page
+before trusting which chapter it is.
+
+**Its area is the third country with three published figures, and the first where the card follows the
+Commonwealth AGAINST Source A.** UNdata gives 72,300 km² and the World Bank's `AG.SRF.TOTL.K2` gives
+72,300 for every year on record, while the Commonwealth Secretariat gives 71,740 — which is the figure
+the `Sierra_Leone` term already carried and cited. C9's rule leaves a term inside the spread alone, so
+nothing was corrected, and `gw-021`'s rule then settles the card: where a card must diverge from Source A
+to agree with its own glossary term, cite the source it is agreeing with and give it a real sentence. The
+card's last sentence states the 560 km² gap and says which of the two is the larger. Its population is an
+ordinary C8 correction — "roughly 8.6 million" is the 2024 value on the World Bank series against 8.82
+million at both sources for 2025 — so the term moves to 8.8 million and the card prints the same.
 
 **Batch 33 (Belarus, Switzerland, Kyiv) closes the first hundred countries, and its finding is that the
 UN MEMBERSHIP DATE is the single most misread field in the whole recipe.** C3 recorded the first form of
