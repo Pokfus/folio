@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.365", released: "2026-08-29T07:34Z" };
+window.FOLIO_VERSION = { v: "1.366", released: "2026-08-29T07:56Z" };
 
 window.CHANGELOG = [
   {
@@ -59,8 +59,8 @@ window.CHANGELOG = [
       "<b>Twenty-two glossary terms now open by saying what the thing is</b>, where they had led with an example or a single site.",
       "<b>Four glossary terms were removed</b> \u2014 wheel, burial, village and city \u2014 and two links no longer fire on the wrong word.",
       "Ninety-five more glossary terms, covering the Bronze and Iron Age periods, the Minoan, Helladic and Trojan divisions, the Aegean\u2019s excavators and sites, and the Archaic period of North America.",
-      "Ninety-three new cards \u2014 one in the <b>Ancient Greece</b> deck and ninety-two in the <b>United States</b> geography collection \u2014 with new or extended glossary terms to match.",
-      "<b>All fifty states are now in the United States geography collection</b>, which leaves only three capitals to write.",
+      "Ninety-six new cards \u2014 one in the <b>Ancient Greece</b> deck and ninety-five in the <b>United States</b> geography collection \u2014 with new or extended glossary terms to match.",
+      "<b>The United States geography collection is finished</b> \u2014 all fifty states and all fifty capitals, a hundred cards with maps to place them on.",
       "Glossary links in the <b>United States</b> geography cards now open the right term where an everyday word \u2014 settlement, cemetery \u2014 had been opening an archaeology one.",
       "<b>Michigan now has its mitten</b> \u2014 the state outlines behind the map cards had been counting each Great Lakes state\u2019s share of the lake as land, which left Michigan a blob.",
       "<b>A hundred and ten Mandarin readings were put right</b> — 饭馆 read “fàng uǎn” where it should read “fàn guǎn”, and twenty-eight more had a consonant on the wrong side of the gap.",

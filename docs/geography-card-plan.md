@@ -28,10 +28,11 @@ Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-50
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford, `geo-541` Concord, `geo-542` Montpelier, `geo-543` Helena, `geo-544` Cheyenne, `geo-545` Denver, `geo-546` Topeka and `geo-547` Lincoln.**
-**ALL FIFTY STATES ARE WRITTEN** — `geo-050` Iowa was the last of them — so the states subdeck is
-complete and the only cards left in the collection are the last three capitals: the next is `geo-548`,
-then `geo-549` and `geo-550`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford, `geo-541` Concord, `geo-542` Montpelier, `geo-543` Helena, `geo-544` Cheyenne, `geo-545` Denver, `geo-546` Topeka, `geo-547` Lincoln, `geo-548` Pierre, `geo-549` Bismarck and
+`geo-550` Des Moines.**
+**THE COLLECTION IS COMPLETE.** All fifty states (`geo-001`–`geo-050`) and all fifty capitals
+(`geo-501`–`geo-550`) are written, cited at the bar, paired with glossary terms and illustrated. The
+running order below is a record of what was written, not a queue; there is no next card.
 
 ---
 
@@ -1613,6 +1614,50 @@ terms that already exist**. Each was measured, and none should be settled quietl
   is precise — Amana in 1855, then Middle, High, West, South and East Amana over seven years, and the town
   of Homestead **purchased** to reach a railway — and the round number in the head is what a draft reaches
   for. **Count the list in the source before writing its total.**
+
+- **📌 THE COLLECTION IS COMPLETE: fifty states and fifty capitals, a hundred map cards.** `geo-548`
+  Pierre, `geo-549` Bismarck and `geo-550` Des Moines were written in one round because nothing was left
+  to pace; the running order in this file is now a record rather than a queue. Every card is at the
+  five-source bar, every answer term has a glossary entry at its own bar, and every one of the hundred
+  carries an illustration or a stated reason for having none.
+- **`Pierre` AND `Bismarck` ARE BOTH PARENTHETICAL, AND NEITHER IS ABOUT THE OBVIOUS COLLISION.** The
+  corpus uses "Pierre" five times and **three are French forenames** — Pierre Dugua on `geo-009` and in
+  the `Maine` term, Pierre Charles L'Enfant on `geo-018` — so a bare key would send a reader from a
+  Frenchman to a town in South Dakota. "Bismarck" is four uses and **two are the Bismarck Archipelago**,
+  in `wh-157` and `Lapita_culture`, half a world away. Neither collision is the one a first guess names
+  (Otto von Bismarck is not in the glossary at all); **the measure finds the collisions that are actually
+  there, which are rarely the famous ones.** `Des_Moines` is bare: two uses, both the city.
+- **THE `Union Pacific` FAULT RECURRED WITH A DIFFERENT RAILWAY, AND THE RULE FIXED IT UNCHANGED.**
+  "Northern Pacific Railway" put `Pacific_Ocean`'s bare alias in front of a reader twice on the Bismarck
+  card. Round 45's rule says add the compound and never strip the alias — the alias is right in "no
+  passage to the Pacific" on the Pierre card in the same round — so a **`Northern_Pacific_Railway` term
+  with the alias "Northern Pacific"** was written, cited from the depot and Camp Hancock nominations, and
+  the rendered check now shows the whole phrase claimed. **A rule that fixes its second instance without
+  amendment is a rule worth keeping**; expect a third railway.
+- **`Fort Abraham Lincoln` LINKS TO `Abraham_Lincoln` AND THAT IS LEFT, WHICH IS THE PRINCIPLED HALF OF
+  THE SAME CASE.** It looks identical to the Pacific fault — a short surface matching inside a longer
+  proper name — and it is the opposite: "Pacific" in "Union Pacific" does not mean the ocean, where
+  "Abraham Lincoln" in "Fort Abraham Lincoln" means exactly the man the fort is named for. **Ask whether
+  the compound's short surface still refers to what the term describes**; if it does, the link is a fact
+  about the compound rather than an error.
+- **A CAPITAL'S OWN BEST STORY IS OFTEN ALREADY SPENT ON ITS STATE CARD, AND THAT IS WHAT MAKES THE
+  CAPITALS INTERESTING.** Pierre could not use Wounded Knee or the Ingalls family, Bismarck could not use
+  Knife River or the Nonpartisan League mill, and Des Moines could not use the Old Capitol or Amana — so
+  the three went instead to the La Vérendrye plate of 1743, the Bismarck Tribune telegraphing the Little
+  Bighorn to the New York Herald on 5 July 1876, and Henry Wallace on Roosevelt's Country Life
+  Commission. **Read the state card first and treat what it spent as unavailable**; the second-best
+  subject for a city is usually the one nobody else was going to write about.
+- **THE SMALLEST-CAPITAL CLAIM IS ARITHMETIC OVER A CITED TABLE, AND IT WAS CHECKED FOR HOLES.** Pierre is
+  the second smallest state capital after Montpelier, which `geo-542` already calls the smallest — but the
+  name-matching pass over the Census place file resolved only 46 of 50 capitals, missing Juneau, Honolulu,
+  Boise and Nashville, each of which is filed under a different place type. All four are far larger than
+  13,788, so the claim holds. **When a ranking comes from matching names against a table, count the
+  matches and check what fell out before asserting the rank.**
+- **A COMMONS THUMBNAIL CAN RETURN 429, WHICH IS NOT A DEAD IMAGE.** Three of this round's downloads came
+  back `429 Too Many Requests` with a 2 KB body — indistinguishable, if saved blindly, from the 400-with-
+  HTML that round 45 recorded for oversized PNG thumbnails. Both write a file; neither writes an image.
+  **Check the file type after every fetch, and retry a 429 with backoff** rather than concluding the URL
+  is wrong.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
