@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-155` Timor-Leste
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-158` Cyprus
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,69 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 58 (Timor-Leste, Estonia, Trinidad and Tobago) found the guide contradicting itself INSIDE one
+entry — a heading against its own text.** Estonia's page carries the heading "American Legation established at
+Tallinn, **1922**" over a paragraph that begins "The American Legation at Tallinn was established on **30 June
+1930**", and the paragraph is right: it goes on to explain that until then the American representative resided
+at Riga and was accredited to all three Baltic states. **Read the paragraph, not the heading.** The guide's
+headings are a year appended to a section title and can be wrong where the prose is not. That is the third
+variety of guide error in four batches — batch 55's misspelt head of state, batch 57's surname spelt two ways
+across three pages, and now a date wrong against its own sentence — and the only one visible without leaving
+the entry.
+
+**Estonia and Latvia are one act, and Estonia's page states what batch 56 had to infer across two.** Both were
+recognised on 28 July 1922 by Evan Young, the Commissioner at Riga, on Hughes's telegram of 25 July; Estonia's
+entry adds that Young "would continue as the American representative to the three Baltic States, with the new
+rank of Minister". So the four-states-on-one-day connection can be cited **on Estonia's own card**, from
+Estonia's own page, without touching batch 21's rule about marking another state's claim to this country's
+source. The doctrine is Latvia's word for word — never recognised the incorporation, representatives of the
+last independent government kept their diplomatic status, relations held to have continued — and the 1991
+dates differ by a day: restoration recognised 2 September for both, relations resumed 4 September for Estonia
+and 5 September for Latvia, embassies opened on the same 2 October.
+
+**Batch 56's square-kilometre test is now properly bounded, and Estonia is what bounds it.** For Slovenia and
+Latvia, UNdata and Eurostat agreed EXACTLY and both terms were a few kilometres wrong. **Estonia's two do not
+agree at all** — 45,261 at UNdata against 45,336 at Eurostat, 75 km² apart, with the World Bank's rounded
+45,340 beside them — so the term's 45,339 sits inside the spread and stands. The rule was never that the two
+sources agree: it is that **when they agree exactly the term becomes testable to the kilometre, and when they
+do not, C9's spread rule governs as usual.**
+
+**Timor-Leste, by contrast, is exactly the case C9 was written for**: UNdata gives 14,919 km², the World Bank
+14,870 (an interval of 14,865–14,875 at its rounding), and the term said 14,954 — above both. Corrected to
+14,919, with the divergence stated on the card.
+
+**A THIRD FORMULA IN THE DIGITAL LIBRARY'S VOTE SUMMARIES, AND THE THREE ARE NOT SYNONYMS.** Earlier batches
+met "Adopted unanimously" (Gabon, Guinea-Bissau, Equatorial Guinea, and resolution 1272 here), batch 57 met
+"14-0-1" on resolution 1244, and Timor-Leste's admission is **"Adopted without vote"** — in the Council at its
+4542nd meeting on 23 May 2002 and in the Assembly at its 20th plenary meeting on 27 September. A unanimous
+vote is a vote taken; adoption without a vote is a vote not taken, and the record distinguishes them. **Quote
+the record's own formula** rather than writing "unanimously" over all three.
+
+**Batch 56's byte-size test paid a third and fourth time, both at the WTO, and the rule behind them is
+small and permanent: the WTO drops "and" from a compound country slug.**
+`countries_e/trinidad_and_tobago_e.htm` is the 9,709-byte error document served with a 200 and
+`trinidad_tobago_e.htm` is the real page; `timor_leste_e.htm` likewise. The size check finds either answer in
+one fetch. And the membership line is a LIVE fact, not a historical one: **Timor-Leste joined the WTO on 30
+August 2024**, the most recent accession any card in this deck records.
+
+**Trinidad and Tobago's date line is four events in eight weeks** — independence and American recognition on
+31 August 1962, United Nations membership on 18 September, accession to the General Agreement on Tariffs and
+Trade on 23 October. Only the Gambia's GATT accession four days after independence (batch 53) is tighter, and
+that one had no UN admission in between.
+
+**C11's Trinidad finding is confirmed from a third source, and the card states all three figures rather than
+choosing.** C11 recorded UNdata as the outlier at 1,511 thousand against 1.37–1.4 million elsewhere; the World
+Bank now gives 1,367,764 for 2025, flat within 20,000 for a decade, and the Commonwealth 1.4 million for 2022.
+**And the Commonwealth counts a two-island state's islands SEPARATELY** — about 4,800 km² for Trinidad and 300
+for Tobago — where every other source gives one total. That is a different unit of account rather than a
+divergence, but a script summing a Commonwealth "Area" field would read 5,100 for a country whose other
+sources give 5,127 and 5,130.
+
+**Batch 45's rule is in its sixth consecutive batch.** Pitch Lake as "the world's largest natural asphalt
+deposit" and Trinidad and Tobago as "one of the wealthier states in the region" both went; the second is
+replaced by the guide's own "one of the most industrialised countries in the English-speaking Caribbean" and
+the first by the Commonwealth's account of the two islands' relief, which says more and is citable.
 
 **Batch 57 (North Macedonia, Kosovo, Bahrain) spent batch 56's byte-size test on its first outing and it
 paid twice in one batch.** `history.state.gov/countries/north-macedonia` is a plain 404 and
