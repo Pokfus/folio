@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-102`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-105`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-103` Laos
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-106` Libya
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,72 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 36 (Laos, Hong Kong, Turkmenistan) is the first to write a TERRITORY, and a territory needs a
+different fourth facts row.** UNdata's `Capital city` for Hong Kong is Hong Kong, so the row the whole
+deck is built on has no content there — the District of Columbia's position in the United States plan,
+met for the first time here. The row is **`Status · Special Administrative Region of China`**, cited to
+the Basic Law, which is `gw-060`'s `Seat of government` move taken one step further: **where the capital
+row would say nothing, say what the place IS, and cite the instrument that says so.**
+
+**And a territory has no recognition-guide page, but its SOVEREIGN's page names it.** `/countries/hong-kong`
+is a 404, as North Korea's is and for a related reason; the guide's **China** page carries "The United
+States established a consular post in the British colony of Hong Kong in 1843", which is the card's whole
+first sentence. Batch 20 found Taiwan's diplomatic history inside the same China entry. **Read the
+sovereign's page before concluding a territory is unsourced.**
+
+**What actually carries Hong Kong is two statutes, one British and one Chinese, and both are open.**
+`legislation.gov.uk` serves the **Hong Kong Act 1985, section 1 as enacted**, which provides that from
+1 July 1997 the Crown should no longer have sovereignty or jurisdiction over any part of Hong Kong, and
+which dates the Joint Declaration precisely — "signed in Peking on 19th December 1984" — and makes the
+section's commencement wait on the exchange of instruments of ratification. `basiclaw.gov.hk` serves
+**chapter I of the Basic Law**, whose articles 1, 2 and 5 give the inalienable-part declaration, the high
+degree of autonomy including final adjudication, and the fifty years unchanged. Both hosts are new to
+this pass's spine. **When a place's status was settled by law rather than by recognition, cite the law**
+— and attribute what a legal instrument DECLARES rather than asserting it, which is what keeps a card out
+of the sovereignty argument its own question already avoids.
+
+**Its WTO slug is `hong_kong_china_e.htm`**, and `hongkong`, `hong_kong`, `hongkongchina` and `macao` all
+return batch 14's 200-status error page at a constant 9,709 bytes — **a size check tells them apart
+instantly**, as it does for `senate.gov`. The member is "Hong Kong, China", a **GATT member from 23 April
+1986**, eleven years before the transfer and while still a British dependency, which is the fact the card
+turns on. Add the slug beside D2's `burma`, C9's `cote-divoire` and C8's two Congos.
+
+**THE POLYGON CEILING BITES AT `gw-104`, NOT IN THE LAST THIRTY, AND THAT PREDICTION IN THIS FILE IS
+WRONG.** It says a micro-territory reading as a speck is bearable because the population order puts every
+card it affects in the last thirty of 233. Hong Kong is **104th by population and 1,107 km²**: `world.js`
+is stored at 2dp, about 1.1 km, so at this card's zoom its coastline is a visible stair-step. The card is
+still answerable — Kowloon, the island and Lantau are distinguishable and the Guangdong coast is drawn
+round them — and it was looked at rather than assumed. But **the population order does not protect a
+dense city-territory**, and Singapore, Macau, Gibraltar and Bahrain are all the same shape and all far
+above the bottom of the list. Recorded rather than fixed: the fix is a higher-resolution `world.js`, which
+every visitor pays for on the eager path.
+
+**Hong Kong's own census beats both international counts, by the Berlin rule.** The Census and Statistics
+Department gives **7,413,070 for 2021** against 7,336,585 five years earlier; UNdata gives 7,396 thousand
+for 2025 and the World Bank 7,498,900, about 103,000 apart. The World Bank's series for it **falls in each
+of the last two years**, which no other card in this collection has shown, so the usual C8 stale test —
+which assumes a rising curve — says nothing here. C10's `Marshall_Islands` warned that "out of date" is
+not the same as "too low"; this is the same warning for a place nobody thinks of as shrinking.
+
+**Turkmenistan's area is a STEP in the series and the cause is a hypothesis that is deliberately not
+cited.** `AG.SRF.TOTL.K2` gives **488,100 km² for every year to 2018 and 491,209 from 2019 onwards**;
+UNdata still carries the earlier figure and the glossary term the later. C9's rule leaves the term alone —
+491,210 against 491,209 is the `Ivory_Coast` case, a one-unit gap that counts as inside — so the card
+prints the term's figure and its own prose says the two official sources differ and why. The step falls in
+the year after the Convention on the Legal Status of the Caspian Sea was signed, which apportioned Caspian
+waters among the five littoral states; that is a plausible cause and **nothing openable here states it**,
+so it is recorded as a hypothesis exactly as C12 recorded Ecuador's border settlement, and no citation
+rests on it. **A series with a step in it dates the step; it does not explain it.**
+
+**And `A/RES/995(X)` is an image scan, so its "sixteen states" cannot be checked from here.** Two cards
+already in this collection assert that count and mark it to that resolution; the record's catalogue entry
+gives only the title, *Admission of New Members to the United Nations*, and the vote — 56 in favour, one
+abstention, of 76 members — so `gw-103` states the vote instead. **A claim inherited from an earlier batch
+is not verified by having been used before**, and the eight cards that resolution carries are worth a
+top-up pass. One `Laos` correction went with the batch: "roughly 7.7 million" is the 2023–24 value on the
+World Bank series, so C8's test makes it stale and it moves to 7.9 million, which both sources give to
+within fifty people.
 
 **Batch 35 (Togo) found the spine for a FORMER TRUST TERRITORY, and it is the trusteeship record
 itself.** The recognition guide's Togo page is as thin as Sierra Leone's — recognition and an embassy on
