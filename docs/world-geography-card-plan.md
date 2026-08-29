@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-149` Slovenia
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-152` North Macedonia
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,71 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 56 (Slovenia, Equatorial Guinea, Latvia) puts Latvia beside Albania, and the two are opposites.**
+Batch 55 found a relationship that stopped and restarted; **Latvia's never stopped.** The legation at Riga
+closed on 5 September 1940 after the Soviet occupation and annexation, and the guide then says what no other
+entry in the deck says: the United States "never recognized the state's forcible incorporation into the
+Soviet Union", permitted Latvian representatives accredited by the last independent government to remain with
+diplomatic status, and held that "diplomatic relations continued uninterrupted". So 1991 is recorded as the
+recognition of the **restoration** of independence, on 2 September, and the present government as "a legal
+continuation of the interwar republic". **A closed legation is not ended relations**, and only the guide's own
+prose tells the two apart — the dates alone read identically to Albania's.
+
+**And one telegram date runs through both batches.** Albania was recognised on 28 July 1922 on Secretary of
+State Charles Evans Hughes's telegram of 25 July to the Commissioner in Albania; Latvia was recognised on
+28 July 1922 on Hughes's telegram of 25 July to the Commissioner at Riga, instructing him to advise the
+foreign offices of **Estonia, Latvia and Lithuania** of the decision "on the 28th". Four states recognised on
+one day on instructions of one date. It is recorded here and on neither card, because batch 21's rule forbids
+marking a claim about another state to this country's source.
+
+**`wto.org` SERVES ITS OWN 404 WITH A 200 STATUS — the seventh variety of 200-status error document, and the
+easiest to detect.** Equatorial Guinea is not a WTO member, and
+`countries_e/equatorial_guinea_e.htm` answers 200 with a 9,709-byte page reading "HTTP 404 – File not
+found". A real WTO country page is about 34,500 bytes. **Check the size before reading one** — the same
+test P3 found for `senate.gov`, whose shell is a constant 37,523 bytes.
+
+**When UNdata and Eurostat agree to the square kilometre, a European term is testable to the square
+kilometre — and two of two were wrong.** Slovenia's gave 20,271 km² against both sources' **20,273**;
+Latvia's gave 64,589 against both sources' **64,594**. Batch 54 established that the World Bank's rounding to
+the nearest 10 km² is the floor under C9's area rule, and both terms sat inside that interval, which is
+exactly what had been hiding them: **the floor applies only where the second source rounds**, and the EU
+country page does not. Both corrected, with Latvia's imperial conversion moving 24,938 → 24,940 with it.
+
+**A fourth outright World Bank area error, and it is in Europe this time.** `AG.SRF.TOTL.K2` gives Slovenia
+**20,480 km²** against 20,273 at UNdata and at Eurostat — about one per cent, where that series' European
+figures otherwise agree to a rounding. After C11's Canada (15,634,410 for 9,984,670) and Dominican Republic
+and D1's Monaco, the pattern is settled: **the World Bank's area series is a source to check against a
+second, never one to adjudicate with**, which is what C12 concluded of UNdata and what makes the two of them
+a pair rather than an authority.
+
+**A NEAR-MISS WORTH RECORDING, BECAUSE IT IS NOT THE FAILURE THIS PASS KEEPS WATCHING FOR.** The Equatorial
+Guinea draft carried "income per head was 6,159 US dollars in 2023" — a number in no source, written in the
+shape the other cards use rather than read off the page that was already fetched and open. The real figure is
+**6,558, down from 9,069 in 2015**, which is a better fact than the invented one. N4's finding was a
+fabricated author on a citation whose URL resolved; this is a fabricated FIGURE on a page that was sitting in
+the scratch directory. **Check every number against the fetched file before the card is added**, and treat a
+figure that arrived without a fetch exactly as the plan already treats a padding clause: the fix is another
+look, never another sentence.
+
+**Equatorial Guinea is the deck's third interruption in two batches and the fullest, because the guide gives
+the REASON.** Relations were suspended by the United States on 14 March 1976, after its ambassador and consul
+were declared *personae non gratae* in what the State Department called an "unwarranted affront"; resumed on
+19 December 1979; the embassy at Malabo closed on 31 October 1995 with its work moved to Yaoundé; and it
+reopened in 2006, the first resident ambassador in more than ten years presenting credentials on 23 November.
+**Three breaks, three causes**: Albania's made by a third power, Guinea-Bissau's by a civil war, and this one
+by the two governments themselves.
+
+**Its UN pair also reverses Guinea-Bissau's order**: independence on 12 October 1968, the Security Council
+recommending admission unanimously at its 1458th meeting on 6 November, the General Assembly admitting it at
+its 1714th plenary meeting on 12 November — a month from independence to membership, where Guinea-Bissau's
+Council recommendation came four weeks BEFORE the recognising powers moved.
+
+**One thing deliberately not changed: the Region row and the term's prose may disagree.** UNdata's M49
+scheme files Slovenia under *Southern Europe* where its term says central Europe, and Latvia under *Northern
+Europe* where its term describes the eastern Baltic shore. G11 established that M49 is a statistical
+grouping rather than a geographical claim — it is the scheme that puts all of Russia in Europe — so the card
+states the source's own field and the term keeps its prose, and neither is wrong.
 
 **Batch 55 (Albania, Lesotho, Guinea-Bissau) turns up a MODE the recognition guide has not shown before:
 a relationship that stopped and started again.** Albania's entry is the longest in the deck so far, and it
