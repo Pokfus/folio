@@ -1569,7 +1569,8 @@ window.GLOSSARY = {
 "Bismarck_(North_Dakota)": "Bismarck is the capital of North Dakota<sup class=\"fn\" data-fn=\"4\"></sup> and, with 77,772 residents, the second largest city in the state after Fargo.<sup class=\"fn\" data-fn=\"1\"></sup> It grew where the Northern Pacific Railway crossed the Missouri: the army set up Camp Hancock on the line on 16 April 1872, whose supply building of that year still stands and appears to be the oldest in the town.<sup class=\"fn\" data-fn=\"2\"></sup> Colonel Clement A. Lounsberry brought out the first Bismarck Tribune on 11 July 1873, and on 5 July 1876 he telegraphed the New York Herald the first news of the Little Bighorn, brought down the Yellowstone by the steamer Far West.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Des_Moines": "Des Moines is the capital of Iowa<sup class=\"fn\" data-fn=\"2\"></sup> and its largest city, with 213,096 residents.<sup class=\"fn\" data-fn=\"1\"></sup> The legislature moved there from the Old Capitol at Iowa City in 1857,<sup class=\"fn\" data-fn=\"3\"></sup> and its capitol complex stands above the meeting of the Des Moines and Raccoon rivers, with the Beaux-Arts State Historical Building of 1898 to 1910 across Grand Avenue from the capitol itself.<sup class=\"fn\" data-fn=\"4\"></sup> Henry Wallace edited Wallaces' Farmer there from 1895 until his death in 1916, argued for scientific farming and agricultural extension, and sat on Theodore Roosevelt's Country Life Commission of 1908 beside Gifford Pinchot.<sup class=\"fn\" data-fn=\"5\"></sup>",
 "Northern_Pacific_Railway": "The Northern Pacific Railway reached Bismarck from the east in 1873 and, on its completion a decade later, linked North Dakota to the west coast.<sup class=\"fn\" data-fn=\"1\"></sup> The army set up Camp Hancock on its line at Bismarck on 16 April 1872 to guard the gangs building it, and kept the post garrisoned until 1877, after which it supplied the forts further west.<sup class=\"fn\" data-fn=\"2\"></sup> Its Bismarck depot, raised after the fire of 8 August 1898 had levelled much of the town centre, was designed by Charles Reed and Allen Stem of St. Paul in a Spanish mission manner uncommon on the northern plains, replacing a hotel that had served as passenger depot too.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Western_Zhou": "Western Zhou is the first phase of the Zhou dynasty in China, commonly dated from 1045 to 771 BCE and followed by the Eastern Zhou from 770 to 221 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its royal domain lay in the Guanzhong basin of present-day central Shaanxi, where a capital called Fengyi stood on the west bank of the Feng river and has yielded rammed-earth palace foundations, cemeteries, buried bronzes and craft workshops.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The court granted land to members of the royal Ji clan and to allied lineages, whose regional states served as political alliances and military outposts, and bronze inscriptions distinguish rulers of the royal lineage from the heads of merely affiliated states.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Western_Zhou": "Western Zhou is the first phase of the Zhou dynasty in China, commonly dated from 1045 to 771 BCE and followed by the Eastern Zhou from 770 to 221 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its royal domain lay in the Guanzhong basin of present-day central Shaanxi, where a capital called Fengyi stood on the west bank of the Feng river and has yielded rammed-earth palace foundations, cemeteries, buried bronzes and craft workshops.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The court granted land to members of the royal Ji clan and to allied lineages, whose regional states served as political alliances and military outposts, and bronze inscriptions distinguish rulers of the royal lineage from the heads of merely affiliated states.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Mandate_of_Heaven": "Mandate of Heaven, tianming, is the Chinese doctrine that Heaven grants a house the right to rule and takes it back from one that governs badly, so power is held on terms, not by right.<sup class=\"fn\" data-fn=\"1\"></sup> The Zhou proclaimed it to justify their conquest of the Shang, arguing from an earlier transfer from the Xia, and the <i>Book of Documents</i> states that the Supreme Ruler is not invariable in his decree.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Mencius turned it into a theory of history in which only a moral man receives it, Xunzi rejected it outright, and it went on shaping how disasters were answered into the Han period and long after.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2271,7 +2272,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Oklahoma": "Statehood 1907",
 "Lansing": "Capital since 1847",
 "Louisiana_Purchase": "1803",
-"Western_Zhou": "c. 1045 – 771 BCE"
+"Western_Zhou": "c. 1045 – 771 BCE",
+"Mandate_of_Heaven": "from c. 1046 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3267,7 +3269,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Vermont": ["New Connecticut"],
 "Union_Pacific_Railroad": ["Union Pacific"],
 "Northern_Pacific_Railway": ["Northern Pacific"],
-"Western_Zhou": ["Western Zhou dynasty","Western Zhou period"]
+"Western_Zhou": ["Western Zhou dynasty","Western Zhou period"],
+"Mandate_of_Heaven": ["tianming","Heaven's Mandate","heavenly mandate"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4863,7 +4866,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Bismarck_(North_Dakota)": ["place","geography","united states","city","capital"],
 "Des_Moines": ["place","geography","united states","city","capital"],
 "Northern_Pacific_Railway": ["institution","history","technology","united states","industry"],
-"Western_Zhou": ["dynasty","history","archaeology","bronze age","china"]
+"Western_Zhou": ["dynasty","history","archaeology","bronze age","china"],
+"Mandate_of_Heaven": ["concept","history","religion","philosophy","china"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
