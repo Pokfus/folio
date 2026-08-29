@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-123`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-126`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-124` Palestine
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-127` Costa Rica
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,57 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 47 (Palestine, Oman, Mauritania) writes the term this plan has deferred since it was drafted,
+and the sources do the attributing rather than the card.** `gw-124` was written to the rule set out above —
+the positions described, no state's account of its own claim given as established fact — and what made it
+writeable is that the two UN works say who is speaking. **UNdata prints East Jerusalem as the capital
+city and footnotes the entry**: "Designation and data provided by the State of Palestine. The position of
+the UN on Jerusalem is stated in A/RES/181 (II) and subsequent General Assembly and Security Council
+resolutions." **A/RES/67/19 supplies the rest in the Assembly's own words** — non-member observer State
+status accorded **138 to 9 with 41 abstentions** on 29 November 2012, exactly 65 years after the partition
+vote of 29 November 1947; the 1988 proclamation by the Palestine National Council acknowledged; "Palestinian
+territory occupied since 1967"; the annexation of East Jerusalem "not recognized by the international
+community"; and the status of Jerusalem "as the capital of two States" left to negotiation. The two ICJ
+advisory opinions, of 9 July 2004 and 19 July 2024, are reported as what the Court held and dated to their
+own case pages. **The facts box takes Hong Kong's `Status` row rather than a `Capital` row**, so the card
+asks nothing the capital deck defers; **`gw-624` stays deferred.**
+
+**An ABSENT row is itself a fact, and this is the first card to use one.** Palestine's UNdata profile
+carries no UN membership date where every other profile in the deck has one — an observer State is not a
+member — and the card says so rather than passing over the gap.
+
+**Oman is the deck's longest wait between recognition and relations: 139 years.** Mutual recognition came
+by the treaty of amity and commerce signed at Muscat on **21 September 1833** by the special agent Edmund
+Roberts and Seyyid Said bin Sultan, among the earliest American dealings with the Middle East; diplomatic
+relations waited until **17 April 1972**, and the first minister was accredited to Bahrain, Kuwait, Qatar
+and the United Arab Emirates as well and resident in Kuwait. Against Liberia's fifteen years (batch 41) and
+Singapore's 129-year gap between a consulate and its state, this is the widest yet.
+
+**Persée pays a second time, one batch after the first.** Pradines's study of Omani forts in East Africa
+carries the Zanzibar clause the `Oman` term had been asserting with the recognition guide as its only
+marker — the guide says nothing about frankincense, the Indian Ocean or Zanzibar. **A French congress
+volume on Persée is as citable as a journal**, and the doc page gives the full bibliographic reference.
+
+**A UN Special Rapporteur's report is a first-rate source, and its PDF extracts.** `A/HRC/54/30/Add.2`
+(Obokata, visit of May 2022) records that Mauritania **first explicitly outlawed slavery in 1981, by Order
+No. 081-234** — a law vague in its definition, without measures for implementation, concerned to compensate
+enslavers rather than to make reparation to victims, and not criminalising slavery at all, which waited for
+the Act of **2007**, with the constitution classing it a crime against humanity in **2012**. That replaces
+the term's unsourced superlative, "the last country to abolish slavery in law". `ohchr.org` is **403** here,
+so the Digital Library's own copy is the way in — and **its text layer positions every glyph separately**,
+so "1981" extracts as "1 9 8 1" and a plain grep finds nothing: **collapse all whitespace before searching
+an extracted UN PDF.**
+
+**Mauritania is also the deck's only severance BY the other party** — relations cut by Mauritania on 7 June
+1967 in the wake of the June war and resumed by joint communiqué on 22 December 1969 — where every other
+break carded has been American or an occupation. And **both these countries' populations are the fastest
+growing yet carded**, Oman up about 31% and Mauritania about a third in ten years.
+
+**One tooling finding, and it is the reason to re-count by hand: `add-sources.js` does NOT measure abstract
+length, where `add-card.js` refuses anything outside 270–330.** A rewritten Palestine abstract went through
+at **331 words** with nothing said. **After revising an abstract through `add-sources.js`, count the words
+again** — the gate that would have caught it is on the other tool.
 
 **Batch 46 (New Zealand) is C10's Australia case at full strength: THREE institutions give three dates
 for one transition, and the card prints all three.** The colony was raised to a self-governing Dominion on
