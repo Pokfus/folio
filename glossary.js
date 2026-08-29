@@ -1573,7 +1573,9 @@ window.GLOSSARY = {
 "Mandate_of_Heaven": "Mandate of Heaven, tianming, is the Chinese doctrine that Heaven grants a house the right to rule and takes it back from one that governs badly, so power is held on terms, not by right.<sup class=\"fn\" data-fn=\"1\"></sup> The Zhou proclaimed it to justify their conquest of the Shang, arguing from an earlier transfer from the Xia, and the <i>Book of Documents</i> states that the Supreme Ruler is not invariable in his decree.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Mencius turned it into a theory of history in which only a moral man receives it, Xunzi rejected it outright, and it went on shaping how disasters were answered into the Han period and long after.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Chinese_characters": "Chinese characters are the graphic units of the writing system used for Chinese, the oldest script still in daily use and one of only three known to have been invented independently rather than adapted from a neighbour.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The earliest large body of them survives on oracle bones and bronzes of the late Shang and Western Zhou, where the shapes work by visual metaphor and metonymy rather than by recording the sounds of speech.<sup class=\"fn\" data-fn=\"1\"></sup> Five stages are conventionally distinguished, from oracle bone through bronze, seal and official forms to the regular script written today, and a measurement over half a million images finds no consistent simplification across that span.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Silk": "Silk is a protein fibre spun by moth caterpillars into a cocoon, most of the thread being the protein fibroin, and it has been a luxury commodity throughout recorded history.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The oldest direct evidence for it is biomolecular rather than textile, peptides of silk fibroin recovered by mass spectrometry from soil in three 8,500-year-old tombs at the Neolithic site of Jiahu in central China.<sup class=\"fn\" data-fn=\"1\"></sup> Where and when the rearing of silkworms began is still an open question, since before the mulberry silkworm was domesticated silk was taken from a range of wild moth species with regional specificity.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Jade": "Jade is a hard ornamental stone, in East Asia chiefly nephrite, which is made of the two amphibole minerals tremolite and actinolite, told apart by their ratio of magnesium to iron.<sup class=\"fn\" data-fn=\"3\"></sup> It was worked across the Chinese Neolithic from about 6200 BCE, first in the Liao River region and later most elaborately in the Hongshan and Liangzhu cultures, whose prestige forms include the cong tube and the bi disc.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Early pieces are largely personal ornaments, but from the middle of the 4th millennium BCE ritual items dominate the assemblages and accompany the first elite groups, and no text before the Eastern Zhou records what the abstract shapes meant.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Jade": "Jade is a hard ornamental stone, in East Asia chiefly nephrite, which is made of the two amphibole minerals tremolite and actinolite, told apart by their ratio of magnesium to iron.<sup class=\"fn\" data-fn=\"3\"></sup> It was worked across the Chinese Neolithic from about 6200 BCE, first in the Liao River region and later most elaborately in the Hongshan and Liangzhu cultures, whose prestige forms include the cong tube and the bi disc.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Early pieces are largely personal ornaments, but from the middle of the 4th millennium BCE ritual items dominate the assemblages and accompany the first elite groups, and no text before the Eastern Zhou records what the abstract shapes meant.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Yamnaya_culture": "Yamnaya culture is the archaeological complex that appeared across the steppes north of the Black and Caspian seas about 3300 BCE and by 3000 BCE ran from Hungary in the west to Kazakhstan in the east.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient DNA from 435 individuals traces its ancestry to three genetic clines among the preceding Eneolithic peoples rather than to any single earlier population, with about four-fifths coming from a Caucasus-lower Volga cline.<sup class=\"fn\" data-fn=\"1\"></sup> It is known chiefly from the burial mounds that dominate the region, whose bones carry isotopic evidence of a herding economy of sheep, goat and cattle, and its people rode horses of the line from which modern domestic stock descends.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Horse_domestication": "Domestication of the horse is the process that turned a hunted grassland animal into a means of transport, and modern domestic stock descends from a population of the western Eurasian steppes, above all the lower Volga-Don.<sup class=\"fn\" data-fn=\"1\"></sup> The horses bridled, milked and corralled at Botai in Central Asia about 3500 BCE left no descendants among that stock, which spread rapidly across Eurasia and replaced almost every local lineage.<sup class=\"fn\" data-fn=\"1\"></sup> Reproductive control of the modern lineage is dated to about 2200 BCE by close-kin mating and shortened generation times, though it is disputed whether a genetic shift alone marks domestication, since horses were managed and ridden long before.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2279,7 +2281,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Mandate_of_Heaven": "from c. 1046 BCE",
 "Chinese_characters": "from c. 1250 BCE",
 "Silk": "earliest evidence c. 8500 BP",
-"Jade": "worked from c. 6200 BCE"
+"Jade": "worked from c. 6200 BCE",
+"Yamnaya_culture": "c. 3300 – 2600 BCE",
+"Horse_domestication": "c. 3500 – 2200 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3277,7 +3281,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Northern_Pacific_Railway": ["Northern Pacific"],
 "Western_Zhou": ["Western Zhou dynasty","Western Zhou period"],
 "Mandate_of_Heaven": ["tianming","Heaven's Mandate","heavenly mandate"],
-"Chinese_characters": ["hanzi","Chinese character","Chinese script"]
+"Chinese_characters": ["hanzi","Chinese character","Chinese script"],
+"Yamnaya_culture": ["Yamnaya","Yamna culture"],
+"Horse_domestication": ["domestication of the horse"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4877,7 +4883,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mandate_of_Heaven": ["concept","history","religion","philosophy","china"],
 "Chinese_characters": ["concept","history","language","writing","china"],
 "Silk": ["object","history","archaeology","technology","agriculture"],
-"Jade": ["object","history","archaeology","art","geology"]
+"Jade": ["object","history","archaeology","art","geology"],
+"Yamnaya_culture": ["culture","history","archaeology","genetics","bronze age"],
+"Horse_domestication": ["concept","history","archaeology","genetics","nature"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
