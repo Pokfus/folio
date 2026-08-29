@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-120`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-121`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-121` Ireland
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-122` the Central African Republic
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,42 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 44 (Ireland) is the deck's clearest case of a recognition passing THROUGH the former
+sovereign, and the guide preserves both halves of the exchange.** Independence dates from the
+Anglo-Irish Treaty of **6 December 1921**, which gave 26 counties the Irish Free State while six
+counties of northeast Ulster remained in the United Kingdom — and American recognition waited until
+**28 June 1924**, when Secretary of State Charles E. Hughes replied to a letter the BRITISH ambassador
+had sent four days earlier asking American approval of his own government's plan to let an Irish
+minister handle matters relating exclusively to the Free State. **Where a state leaves an empire by
+agreement rather than by war, the recognition correspondence may be addressed to the empire**, and the
+guide files it under the new state all the same.
+
+**Its UN admission is the second card in three batches to land on the 555th plenary meeting.** Finland
+(`gw-117`) and Ireland were both admitted on 14 December 1955, and the meeting record's own subject list
+names them among the sixteen — so the record cited by batch 37 has now carried three cards, and
+**checking the register for the sitting before searching for a resolution** has paid a third time. The
+card cites `A/PV.555` rather than `A/RES/995(X)`, which is the re-pointing this plan has had standing
+since batch 37; the eight older cards still on the resolution are unaffected and stay correct.
+
+**Three sources give this country three different populations to one decimal place, and the reason is
+growth rather than error.** UNdata projects 5,308 thousand, Eurostat counts 5,439,898 and the World Bank
+gives 5,484,367 — 5.3, 5.4 and 5.5 million — and the World Bank series explains it: 4,701,957 in 2015 to
+5,484,367 in 2025, up **16.6%** in ten years, the fastest of any European country carded. **On a
+fast-growing population the vintage of a figure matters more than its source**, which is C8's stale-figure
+finding read forwards rather than backwards.
+
+**Its areas are C9's rule left alone.** They spread 455 km² — 69,825 at the United Nations, 69,947 at
+Eurostat, 70,280 at the World Bank — and the glossary term's 70,273 falls INSIDE that spread, so it is
+untouched; the facts box takes Source A and the card's last sentence prints all three, which is the deck's
+practice whenever a spread is too wide to hide.
+
+**The term's fifth-batch-running fault is a near-match rather than an absence, and it is C6's Cameroon
+rule.** `Ireland` said independence came "in 1922" and the only work that could carry the claim, the
+guide, says 6 December **1921** — the treaty against the state it created a year later, both defensible
+and only one of them citable here. The clause is now "won independence for 26 of its counties in 1921",
+which is what the marked source says. **Where a term and its new citation differ by a year, change the
+term to the source or leave the clause unmarked; never mark the source and keep the other year.**
 
 **Batch 43 (Slovakia) is the deck's first card whose history is mostly in ANOTHER COUNTRY'S guide
 entry.** Its own page runs to three events, all in 1993, because the guide is organised by the state that
