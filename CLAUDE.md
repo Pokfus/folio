@@ -3379,6 +3379,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     (`WB.stylusSeen` / `WB.penOnly`, device-local). The scroll is **performed, not permitted** —
     `touch-action` is a property of the ELEMENT and cannot tell a pen from a finger, so the canvas keeps
     `touch-action:none` in every state and a finger's scroll is done by hand with momentum.
+  · **ONE POINTER OWNS THE GESTURE, AND THE REST ARE NOT THIS STROKE** (`gid` / `gpen` / `dropGesture`,
+    Aug 2026, on a bug report: "sometimes I find myself unable to draw lines for a few seconds … other
+    times lines that should be straight end up crooked"). Every other pointer surface on the site records
+    the id it started on — the marker's own drag handle, the page swipe, the colour picker, the gloss
+    window — and **the drawing surface, where a second pointer is not merely possible but expected, did
+    not**: a stylus rests a palm and a phone has two thumbs, and the four handlers share one `WB.drawing`,
+    `WB.last` and `passScroll`, so a second contact walked into the first one's gesture. **Both reported
+    symptoms are that walk seen from two sides.** A crooked line is the palm's coordinates sewn into the
+    pen's stroke on alternate samples; not drawing is any other pointer's `pointerup` or `pointercancel`
+    running `end()` and taking `WB.drawing` down mid-stroke — or, in stylus mode, a palm setting
+    `passScroll`, whose test is the FIRST line of the move handler, so the pen scrolled the card it was
+    marking. **The one preemption is a PEN over a finger**, because the palm usually lands first and a
+    plain first-wins rule would leave a stylus reader unable to draw at all; nothing preempts a pen.
+    **Capture cannot do this** — the canvas covers the visible page, so it is the hit target for every
+    contact regardless. Guarded by `.claude/test-whiteboard.js`.
   **📖 `docs/whiteboard.md` — READ BEFORE CHANGING ANY OF IT.** The fling's sample-window arithmetic (a
   per-event velocity is wrong in both directions, and a synthetic drag is what exposes it), the snap-home
   probe and the transition that must be turned off to take it, the inline colour picker and why an
@@ -4804,7 +4819,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Forty-five committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **Forty-six committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-scheduler.js` and `test-streak-chest.js` are plain Node with
@@ -5025,6 +5040,15 @@ dead code (never rendered).
   · `node .claude/test-units.js` — the two Settings that REWRITE what is already on the page (Aug 2026):
     measurements, and light/dark from the device. **Re-run after touching `unitizeText` / `unitizeTree` /
     `applyUnits` / `applyTheme` / `setNight` / `setThemeAuto`, and after any units batch.**
+  · `node .claude/test-whiteboard.js` — **the marker's gesture ownership** (9 assertions, Aug 2026), and
+    every one of them is silent on the page: the marker is on, the canvas is there, the pen is moving, and
+    what the reader gets is either a line that wanders or no line at all. It drives TWO contacts as raw
+    PointerEvents with independent ids — a palm resting beside the pen, a palm lifting, a palm the browser
+    cancels, a pen arriving after a finger, and two thumbs on a phone that has never seen a stylus — and
+    measures **pixels in a row band** rather than state, since a straight line marks its own row and a line
+    sewn to a second contact marks rows where that contact is. **Re-run after touching `setupWhiteboard`'s
+    pointer handlers, `gid` / `gpen` / `dropGesture` / `beginStroke` / `end` / `passScroll` / `passCtl` /
+    `pendTip` / `passMap` / `CTL_SEL` / `TIP_SEL` / `wbPenOnly` / `wbNoteStylus`, or `wbResize`.**
   · `node .claude/test-artefacts.js` — **THE RELIQUARY, the collection banners, and the two colour swaps
     that went with them** (Aug 2026). **Re-run after touching the `THE RELIQUARY` block,
     `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`, `rollChestItem` / `spendChest` /

@@ -17463,6 +17463,37 @@
       panRAF = requestAnimationFrame(step);
     };
     let passCtl = null, passScroll = false, sx = 0, sy = 0, strokePts = null, pendTip = null;
+    /* ---- ONE POINTER OWNS THE GESTURE (Aug 2026, on a bug report: "sometimes I find myself unable to
+       draw lines for a few seconds … other times lines that should be straight end up crooked") ----
+       Every other pointer surface on the site records the id it started on and ignores the rest — the
+       marker's own drag handle, the page swipe, the colour picker, the gloss window. The DRAWING surface,
+       which is the one place a second pointer is not merely possible but expected, did not: a stylus rests
+       a palm on the screen, and a phone has two thumbs. The handlers below keep a single `WB.drawing`,
+       `WB.last` and `passScroll` between them, so a second pointer did not begin a second gesture — it
+       walked into the first one, and both reported symptoms are that walk seen from two sides.
+       CROOKED LINES are the palm's coordinates landing in the pen's stroke. With no id test the move
+       handler drew `WB.last → p` for whichever pointer moved last, so a straight pen stroke was sewn
+       through the palm's position and back on every alternate sample. It is the plain multi-touch case
+       too: two fingers on a card draw one line zigzagging between them.
+       NOT DRAWING FOR A FEW SECONDS is the same collision at the other end. Any other pointer lifting ran
+       `end()`, which sets `WB.drawing = false` — so a palm settling and re-settling killed the stroke the
+       pen was in the middle of, and the pen went on moving over a canvas that had stopped listening until
+       it was lifted and put down again. Worse in stylus mode: a palm landing while the pen draws sets
+       `passScroll`, and the move handler's first line hands EVERY later move to the page scroll, so the
+       pen scrolls the card instead of marking it.
+       So a gesture has an owner and only the owner is heard. The one preemption is a PEN over a finger,
+       and it is the case that made this reportable rather than theoretical: the palm usually lands first,
+       so ignoring the newcomer would leave a stylus reader unable to draw at all. Nothing preempts a pen,
+       and a finger never preempts a finger — the reader lifts and presses again, which is what they were
+       already doing to get out of it. */
+    let gid = null, gpen = false;
+    const dropGesture = () => {
+      if (gid !== null) { try { canvas.releasePointerCapture(gid); } catch (x) {} }
+      gid = null; gpen = false;
+      panStop(); panEl = null;
+      passCtl = null; passScroll = false; pendTip = null; passMap = null;
+      end();   // commits a finger's stroke rather than losing it; a no-op when nothing was drawn
+    };
     /* The stroke's own opening, lifted out of pointerdown because a press over a glossary term defers it
        until the pointer has moved — and it must then begin where the PRESS was, not where the pointer had
        got to by the time we decided. `at` is that original point. */
@@ -17479,6 +17510,12 @@
     canvas.addEventListener("pointerdown", (e) => {
       if (!WB.enabled) return;
       if (e.pointerType === "pen") wbNoteStylus();    // the first stroke of a stylus is what usually teaches us
+      if (gid !== null && e.pointerId !== gid) {
+        // a pen takes the surface off a finger (the palm lands first); nothing else takes it off anybody
+        if (e.pointerType !== "pen" || gpen) { e.preventDefault(); return; }
+        dropGesture();
+      }
+      gid = e.pointerId; gpen = e.pointerType === "pen";
       sx = e.clientX; sy = e.clientY;
       /* A FINGER IN STYLUS MODE IS NOT A STROKE — it is a scroll, and possibly a tap on a control. Both are
          done by hand: the scroll above, and the control underneath through the same pass-through the ink
@@ -17506,6 +17543,7 @@
       e.preventDefault();
     });
     canvas.addEventListener("pointermove", (e) => {
+      if (gid === null || e.pointerId !== gid) return;   // a palm, or a second thumb: not this gesture
       if (passScroll) {   // stylus mode, finger down: this gesture is the page's, not the ink's
         if (passMap) {   // …unless it began on a map window, which turns instead (see mapUnder)
           passMap.pan(e.clientX - panX, e.clientY - panLast);
@@ -17570,6 +17608,10 @@
       else wbSnapCard();
     };
     canvas.addEventListener("pointerup", (e) => {
+      /* …and this is the half that stopped the pen dead: without the test, ANY pointer lifting ran the
+         `end()` at the bottom and took `WB.drawing` down with it, mid-stroke. */
+      if (gid === null || e.pointerId !== gid) return;
+      gid = null; gpen = false;
       const ctl = passCtl, scrolled = passScroll, tip = pendTip, onMap = passMap;
       passCtl = null; passScroll = false; pendTip = null; passMap = null;
       /* A map window's own gesture ends with the finger: there is nothing to fling, and `panFling` would
@@ -17599,7 +17641,13 @@
       }
       end();
     });
-    canvas.addEventListener("pointercancel", () => { passCtl = null; passScroll = false; pendTip = null; passMap = null; panEl = null; panStop(); end(); });
+    canvas.addEventListener("pointercancel", (e) => {
+      /* A cancel for a pointer that owns nothing is a palm the browser has rejected for us — which is the
+         good case, and it must not be allowed to cancel the stroke the pen is in the middle of. */
+      if (gid === null || e.pointerId !== gid) return;
+      gid = null; gpen = false;
+      passCtl = null; passScroll = false; pendTip = null; passMap = null; panEl = null; panStop(); end();
+    });
     if (WB._onResize) window.removeEventListener("resize", WB._onResize);
     WB._onResize = () => wbResize(true);
     window.addEventListener("resize", WB._onResize);
