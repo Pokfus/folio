@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-113`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-116`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-114` Singapore
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-117` Finland
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,47 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 41 (Singapore, Denmark, Lebanon) opens with a TOOLING finding that no check in the pipeline can
+see.** `gw-115` was refused by `add-card.js` at 261 words, `gw-116` was written while it was being fixed,
+and the repaired card was then added AFTER its successor — so `data.js` carried `gw-116` before `gw-115`
+in `CARD_DATA` **and** in the leaf's `cardIds`. **`add-card.js` appends; it does not insert.** Nothing
+reports this: the file parses, both cards render, every suite passes, and the deck's own study order is
+chronological rather than by id, so the only surface it shows on is the id column of the card browser.
+**When a card is refused, add it before its successor or repair the order in the same pass** — the fix
+is a splice of two lines and it gets harder the longer it waits.
+
+**Lebanon OVERTURNS D2's withholding, and what settles it is the term's own citation.** D2 declined to
+correct "5.5 million" because the World Bank series never passes through that figure — 6.47 million in
+2015 down to 5.70 in 2020 and rising every year since — so by C8's test the number looked contested
+rather than stale. But the term already cited UNdata, which gives **5,849 thousand**, and the World Bank
+now agrees with it to within five hundred people: the sentence was refuted by a work in its own source
+list. **Batch 29's rule decides this outright** — a citation that contradicts the sentence it marks ends
+the argument — and it is worth carrying that **C8's stale-or-contested test is about the SERIES and says
+nothing about whether the present figure is right.** A number that was never true at any point in the
+series is not thereby a defensible number. `cas.gov.lb` is a JavaScript shell here, as the national
+statistical offices of Taiwan and Mexico were, so the two international sources are what there is.
+
+**Denmark is the Greece shape, three batches after D1 retired it.** Its term stated no area and no
+population at all — the same fault D1 fixed on `Greece` and `Georgia` by rewriting their opening
+sentences — so the shape is not extinct and **is worth grepping for rather than assuming closed**: a
+country term with no figures is invisible to every recipe in this pass, because there is nothing for two
+sources to disagree about. It gains 42,938 km² and 6 million here. Its figures also **expressly exclude
+the Faroe Islands and Greenland**, which UNdata profiles separately, which is C1's Cyprus case and C8's
+Comoros case a third time: **read what a profile counts before reading what it says.**
+
+**Singapore's consulate predates the state it stands in by 129 years, the widest such gap in the deck.**
+Joseph Balestier was appointed consul on 4 July 1836 to a British port on the China trade route;
+recognition of the state came on 11 August 1965, a fortnight after it left the Federation of Malaysia.
+**A consular post is a fact about a PLACE and recognition a fact about a STATE**, and the guide's own
+entry keeps them in one list, which is how a card can state both without implying either.
+
+**It is also the first card whose AREA IS GROWING, and that qualifies C9's rule.** The World Bank's
+`AG.SRF.TOTL.K2` gives 719 km² for 2015 and **728 for 2023** — land reclaimed from the sea, showing up as
+arithmetic — with UNdata agreeing at 728 and the Commonwealth still on 720. The term's 735 falls outside
+the two that agree and was corrected to 728. **On a reclaiming country an area needs a DATE as well as a
+spread**: two sources differing by nine square kilometres may be measuring the same coast eight years
+apart rather than disagreeing about it.
 
 **Batch 40 (Bulgaria, El Salvador, Republic of the Congo) begins with a correction to batch 39's own
 verification, which is the entry to read.** Two `check-style` findings on `gw-108` shipped in that batch
