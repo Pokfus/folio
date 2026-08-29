@@ -1571,7 +1571,9 @@ window.GLOSSARY = {
 "Northern_Pacific_Railway": "The Northern Pacific Railway reached Bismarck from the east in 1873 and, on its completion a decade later, linked North Dakota to the west coast.<sup class=\"fn\" data-fn=\"1\"></sup> The army set up Camp Hancock on its line at Bismarck on 16 April 1872 to guard the gangs building it, and kept the post garrisoned until 1877, after which it supplied the forts further west.<sup class=\"fn\" data-fn=\"2\"></sup> Its Bismarck depot, raised after the fire of 8 August 1898 had levelled much of the town centre, was designed by Charles Reed and Allen Stem of St. Paul in a Spanish mission manner uncommon on the northern plains, replacing a hotel that had served as passenger depot too.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Elegy": "An <b>elegy</b> in modern usage is a poem of lament, but in Greek and Latin verse the name belonged to a metre rather than a mood: any poem in couplets pairing a dactylic hexameter with a shorter pentameter.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Greek <i>elegos</i> named a song of mourning close to the dirge, while <i>elegeion</i> was the metrical term for the couplet, which enters literature early in the 7th century BCE and was carried by the pipe, not the lyre.<sup class=\"fn\" data-fn=\"1\"></sup> Poems in the form ran from calls to arms and political argument to love, drinking and the epitaph, so the sorrowful tone the word now carries did not mark the ancient genre out.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Iambus": "<b>Iambus</b> is the archaic Greek genre of blame poetry, defined by what it does rather than by how it scans: its poets proclaim <i>psogos</i> against people who break the rules a community lives by, naming them outright.<sup class=\"fn\" data-fn=\"1\"></sup> It appears suddenly in the middle of the 7th century BCE with Archilochus of Paros, is Ionian, and had a place in the popular festivals of Demeter and Dionysus that also lie behind Attic comedy.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Its staple line is the iambic trimeter, which Aristotle called the most conversational of metres and which tragedy and comedy took over for dialogue.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Archilochus": "<b>Archilochus</b> of Paros was a Greek poet of the middle of the 7th century BCE, the first who speaks in his own voice about his own life, and antiquity ranked him beside Homer and Hesiod.<sup class=\"fn\" data-fn=\"1\"></sup> He worked chiefly in iambic and elegiac verse, which appears in his hands already finished and exact, and his most quoted lines shrug at a shield he left behind in flight, since he had saved himself and could get another no worse.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Paros later worshipped him as a hero in an open-air precinct called the Archilocheion, whose inscription preserves oracles and an account of his life.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Archilochus": "<b>Archilochus</b> of Paros was a Greek poet of the middle of the 7th century BCE, the first who speaks in his own voice about his own life, and antiquity ranked him beside Homer and Hesiod.<sup class=\"fn\" data-fn=\"1\"></sup> He worked chiefly in iambic and elegiac verse, which appears in his hands already finished and exact, and his most quoted lines shrug at a shield he left behind in flight, since he had saved himself and could get another no worse.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Paros later worshipped him as a hero in an open-air precinct called the Archilocheion, whose inscription preserves oracles and an account of his life.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Sappho": "<b>Sappho</b> was a Greek poet of Lesbos, born at Eresos and living at Mytilene around 600 BCE, who was reckoned in antiquity the greatest love poet of the Greek world and called simply the Poetess.<sup class=\"fn\" data-fn=\"1\"></sup> She wrote in the Aeolic dialect actually spoken on the island, in a great variety of metres, one of them the four-line stanza that carries her name.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Alexandria edited her into nine books, of which almost nothing survives whole: she is read in quotations by later critics and in torn papyri, with one complete poem, a hymn to Aphrodite.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Alcaeus": "<b>Alcaeus</b> was a Greek poet of Mytilene on Lesbos, active around 600 BCE, and the one direct witness to the faction fighting that convulsed his island, in which he took part on the side of the aristocrats.<sup class=\"fn\" data-fn=\"1\"></sup> His songs were sung at the drinking parties of the political clubs, and the best known of them are the <i>stasiotika</i>, verses of faction attacking one ruler after another.<sup class=\"fn\" data-fn=\"1\"></sup> He worked in the Aeolic tradition of the island beside Sappho and in the same dialect, wrote hymns, drinking songs and love songs as well, and gave his name to a four-line stanza Horace made famous.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2273,7 +2275,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Oklahoma": "Statehood 1907",
 "Lansing": "Capital since 1847",
 "Louisiana_Purchase": "1803",
-"Archilochus": "fl. c. 650 BCE"
+"Archilochus": "fl. c. 650 BCE",
+"Sappho": "fl. c. 600 BCE",
+"Alcaeus": "fl. c. 600 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3271,7 +3275,9 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Northern_Pacific_Railway": ["Northern Pacific"],
 "Elegy": ["elegiac","elegiac poetry","elegiac verse","elegeion"],
 "Iambus": ["iambos","iambic poetry","blame poetry"],
-"Archilochus": ["Archilochos","Archilochus of Paros"]
+"Archilochus": ["Archilochos","Archilochus of Paros"],
+"Sappho": ["Psappho","Sappho of Lesbos"],
+"Alcaeus": ["Alkaios","Alcaeus of Mytilene"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4869,7 +4875,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Northern_Pacific_Railway": ["institution","history","technology","united states","industry"],
 "Elegy": ["concept","literature","poetry","greece","music"],
 "Iambus": ["concept","literature","poetry","greece","archaic greece"],
-"Archilochus": ["person","literature","poetry","greece","archaic greece"]
+"Archilochus": ["person","literature","poetry","greece","archaic greece"],
+"Sappho": ["person","literature","poetry","greece","archaic greece"],
+"Alcaeus": ["person","literature","poetry","greece","archaic greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
