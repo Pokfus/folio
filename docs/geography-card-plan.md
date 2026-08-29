@@ -21,16 +21,17 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
-`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana, `geo-044` Wyoming, `geo-045` Colorado, `geo-046` Kansas, `geo-047` Nebraska, `geo-048` South Dakota, `geo-049` North Dakota,
+`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana, `geo-044` Wyoming, `geo-045` Colorado, `geo-046` Kansas, `geo-047` Nebraska, `geo-048` South Dakota, `geo-049` North Dakota, `geo-050` Iowa,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford, `geo-541` Concord, `geo-542` Montpelier, `geo-543` Helena, `geo-544` Cheyenne, `geo-545` Denver and `geo-546` Topeka.**
-Both subdecks are worked down the same list, so the next state is `geo-050` and the next capital
-`geo-547`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford, `geo-541` Concord, `geo-542` Montpelier, `geo-543` Helena, `geo-544` Cheyenne, `geo-545` Denver, `geo-546` Topeka and `geo-547` Lincoln.**
+**ALL FIFTY STATES ARE WRITTEN** — `geo-050` Iowa was the last of them — so the states subdeck is
+complete and the only cards left in the collection are the last three capitals: the next is `geo-548`,
+then `geo-549` and `geo-550`.
 
 ---
 
@@ -1576,6 +1577,42 @@ terms that already exist**. Each was measured, and none should be settled quietl
   1854, Constitution Hall, the Topeka Constitution passed 1,731 to 46, Colonel Sumner's dragoons on 4 July
   1856, and Charles Curtis. **When a city's famous event belongs to the state card, read the city's own
   register list rather than looking for a second angle on the same event.**
+
+- **📌 `Lincoln` IS THE HARDEST BARE-KEY CASE THE PASS HAS MET, AND IT IS 14 AGAINST 2.** The corpus uses
+  the word sixteen times: fourteen are **Abraham Lincoln** or named for him — he signed the West Virginia
+  proclamation and the Montana act, sat in the Illinois legislature, stands in bronze outside the Idaho
+  capitol, is the Land of Lincoln, was mourned at Concord — and exactly two are the Nebraska capital, on
+  `geo-047` and its glossary term. So `Lincoln_(Nebraska)`, and the rendered check confirms the word now
+  links nowhere on either card, which is right: **a parenthetical key claims nothing bare**, and
+  `Abraham_Lincoln` is reached by the full name. **Nothing was wrong before this round** — no alias
+  claimed the bare word — but a bare key here would have been the worst single link the pass could ship.
+- **THE COUNT IS THE ARGUMENT, NOT THE INTUITION.** "Lincoln is obviously the president" is a hunch;
+  fourteen against two is a measurement, and it is the same instrument that said `Denver`, `Concord` and
+  `Montpelier` were safe bare. **Run the measure even when the answer feels certain** — it is the only
+  thing that tells the certain cases from the ones that merely feel certain.
+- **A PROPERTY MISSING FROM THE POINT LAYER MAY STILL HAVE ITS NOMINATION ON `npgallery`.** The **Nebraska
+  State Capitol** is in no row of the layer — state-owned properties are patchily represented — and its
+  form is at `NHLS/70000372_text` all the same. The layer is an index of locations, not of documents, so
+  **a subject the layer does not list is not a subject without a nomination**; the refnum is the key, and
+  the two empty-document sizes (1,623 and 22,151 bytes) tell a real form from a miss in one fetch.
+- **A GOVERNMENT BODY'S OWN HISTORY PAGE IS A SOURCE WHERE NO NOMINATION CARRIES THE FACT.** No reachable
+  nomination mentions Nebraska's single-chamber legislature — not the capitol's, and not the **George
+  Norris** NHL form, which is entirely about his federal career and never names the thing he is most
+  remembered for at home. `nebraskalegislature.gov`'s own history page carries the whole of it: the 1934
+  vote of 286,086 to 193,152, the nonpartisan ballot, the fall from 133 members to 43 and from 61
+  committees to 18 in 1937, and the two sessions costed against each other. **When the landmark record is
+  about a building and the fact is about an institution, ask the institution.**
+- **A LINK CAN BE RIGHT IN SENSE AND PAROCHIAL IN BODY, WHICH IS A THIRD CATEGORY.** `inscriptions` on the
+  Nebraska capitol resolves to `Inscription`, whose opening clause — "a text cut into a durable surface,
+  stone above all" — is exactly the sense meant, so it passes round 41's first-clause test and is left.
+  But its second and third sentences are entirely Greek: proxeny decrees, manumission records, the 8th
+  century BCE. This is N8's `Smilodon` shape one collection over — a term that is the only one for its
+  subject and has been made to carry the whole of it — and **the fix is a broadened `Inscription`, with
+  its own sources, not a rewording of a Nebraska card.** Recorded as owed.
+- **AMANA IS SIX VILLAGES FOUNDED AND A SEVENTH BOUGHT, AND THE DRAFT SAID SEVEN FOUNDED.** The nomination
+  is precise — Amana in 1855, then Middle, High, West, South and East Amana over seven years, and the town
+  of Homestead **purchased** to reach a railway — and the round number in the head is what a draft reaches
+  for. **Count the list in the source before writing its total.**
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
