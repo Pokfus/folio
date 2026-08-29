@@ -2624,6 +2624,14 @@
     // back-fill ownership for sessions signed in before _supaOwner existed: the progress on this device is
     // this account's. Without it, an older save's progress reads as unclaimed and the NEXT account would inherit it.
     if (S._supaOwner !== SUPA.user.id) { supaClaimLocal(); try { localStorage.setItem(STORE_KEY, JSON.stringify(S)); } catch (e) {} }
+    /* …and the same back-fill for the DECKS downloaded before this account existed -- see
+       `deckOwnAdoptGuest`. It belongs here as well as in `supaAfterSignIn` because a session can arrive
+       without that function ever running: a token restored from storage on a later load, or a refresh.
+       Adoption is idempotent (`adopted` records who took the guest's shelf), so running it on every boot
+       costs nothing and cannot hand the decks to a second account. The remount is what puts them back on
+       screen when `communityBoot` has already mounted for the wrong owner; it stands down of its own
+       accord when the store has not landed yet, and that boot then mounts from the adopted register. */
+    if (deckOwnAdoptGuest(SUPA.user.id).length) communityRemount();
     await supaLoadProfile();
     // …and record this session in the switcher. It runs on every boot rather than at sign-in alone so an
     // account signed in before switching existed still appears in its own list, and so the username, name

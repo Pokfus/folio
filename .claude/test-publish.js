@@ -1236,6 +1236,18 @@ async function typeField(page, field, text) {
       access_token: "mock-token", refresh_token: "mock-refresh",
       expires_at: Date.now() + 3600e3, user: { id: args.user.id, email: args.user.email },
     }));
+    /* …AND THE PLANTED RECORD IS CLAIMED FOR THAT ACCOUNT, which is what an install does for itself.
+       `communityBoot` mounts only the decks this reader owns (Aug 2026, "downloaded decks are only visible
+       to the user who downloaded them"), so an unclaimed plant never mounts and is never renamed onto the
+       shared id -- and the failure does not look like that: the account's own install row then arrives as
+       a FRESH copy under the shared id, so "renamed onto the shared id" passes while the review entry, the
+       daily limits, the colour and the planted card's own prose are all left behind on the old id. The
+       rename is the thing this section is about, and without the claim it never runs at all. */
+    try {
+      const own = JSON.parse(localStorage.getItem("folio_deck_own_v1") || "null") || { v: 1, own: {} };
+      (own.own[args.user.id] = own.own[args.user.id] || {})["zz9random"] = Date.now();
+      localStorage.setItem("folio_deck_own_v1", JSON.stringify(own));
+    } catch (e) {}
     const rq = indexedDB.open("folio-community");
     rq.onsuccess = () => {
       const idb = rq.result;
@@ -1367,14 +1379,20 @@ async function typeField(page, field, text) {
   await deviceSignsInAs(BOB);
   await oneDevice.page.goto(base + "#deck/" + sharedRow.slug, { waitUntil: "load" });
   await oneDevice.page.waitForTimeout(1600);
-  /* THE FIX'S OWN ASSERTION: the second account is offered a way in over a deck it can already see.
-     Both halves matter — the button must be there, and Study/Remove must NOT have been taken away, since
-     the deck really is on this device and removing the way to study it would be a second bug. */
+  /* WHAT THE SECOND ACCOUNT IS OFFERED, and this section was written before the answer changed. It used
+     to be an adopt: the device held a copy, so BOB was shown "Add to my account" over Alice's deck, with
+     her Study and Remove left in place and a `.ddetail-adopt` note explaining the state. The ownership
+     register (Aug 2026, on request: "downloaded decks are only visible to the user who downloaded them,
+     even on the same device") makes that the wrong offer -- Alice's deck is not Bob's to see, let alone to
+     study or to remove -- so what he gets is the ordinary install, and installing gives him his own copy
+     beside hers rather than adopting hers. Asserted in the negative as well as the positive, since a
+     Study button appearing here would be the isolation quietly failing. */
   const acts = await oneDevice.page.textContent(".ddetail-actions");
-  check("the second account is offered the deck even though the device holds it", /Add to my account/.test(acts), acts);
-  check("...without losing the actions for the copy that is already here", /Study/.test(acts) && /Remove from this device/.test(acts), acts);
-  check("...and is told why a deck it can see is not on its account",
-    await oneDevice.page.evaluate(() => !!document.querySelector(".ddetail-adopt")));
+  check("the second account is offered a plain install, not somebody else's copy", /Add to my decks/.test(acts), acts);
+  check("...and neither Study nor Remove over a deck that is not its own",
+    !/Study/.test(acts) && !/Remove from this device/.test(acts), acts);
+  check("...nor the adopt note, there being nothing here it can see",
+    await oneDevice.page.evaluate(() => !document.querySelector(".ddetail-adopt")));
   await oneDevice.page.click("#ddInstall");
   await oneDevice.page.waitForTimeout(2200);
   check("adding it records the install on the second account",
@@ -1390,8 +1408,14 @@ async function typeField(page, field, text) {
         const d2 = rq.result;
         const q = d2.transaction("decks", "readonly").objectStore("decks").getAll();
         q.onsuccess = () => {
-          const hit = q.result.find((x) => (x.meta || {}).title === t);
-          d2.close(); res(hit ? { origin: hit.meta.origin, remoteId: !!hit.meta.remoteId } : null);
+          /* THE AUTHOR'S record, not merely the first with this title. Since the register, Bob's install
+             is a SECOND record beside Alice's rather than a rewrite of it, so a find-by-title picks
+             whichever the store hands back first -- which reported her authorship as lost while it was
+             sitting intact in the next row. Hers is the one that is not an install. */
+          const hits = q.result.filter((x) => (x.meta || {}).title === t);
+          const hit = hits.find((x) => (x.meta || {}).origin !== "installed") || hits[0];
+          d2.close(); res(hit ? { origin: hit.meta.origin, remoteId: !!hit.meta.remoteId,
+            copies: hits.length } : null);
         };
         q.onerror = () => { d2.close(); res(null); };
       };
@@ -1400,6 +1424,8 @@ async function typeField(page, field, text) {
   }, "Shared On One Device");
   check("...leaving the author's own record intact, so they can still publish updates from this device",
     !!stillMine && stillMine.origin !== "installed" && stillMine.remoteId, JSON.stringify(stillMine));
+  check("...as a copy of its own beside hers, rather than over the top of it",
+    !!stillMine && stillMine.copies === 2, JSON.stringify(stillMine));
 
   // the reader's actual complaint: it is the DAILY STUDY the deck has to reach on the other device
   await oneDevice.page.goto(base + "#decks", { waitUntil: "load" });
