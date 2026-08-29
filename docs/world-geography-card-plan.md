@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-126`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-129`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-127` Costa Rica
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-130` Croatia
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,48 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 48 (Costa Rica, Kuwait, Panama) opens a source this deck had not used: a country's own
+CONSTITUTION.** `constituteproject.org` is open here and serves consolidated constitutional text with the
+articles numbered — Costa Rica's **Article 12** reads "The Army as a permanent institution is proscribed",
+provides instead for the police forces needed to keep public order, and allows military forces only by
+continental agreement or for national defence. The `Costa_Rica` term had been asserting that the army was
+abolished in 1948 with the recognition guide as its only marker, and the guide says nothing about it.
+**Where a claim is what a state's own law provides, the law itself is usually the shortest way to it**, and
+this one is reusable: the site carries every country's text under the same URL shape.
+
+**Costa Rica is also the deck's clearest case of a recognition that produced nothing.** The guide records
+that Ephraim G. Squier, the chargé in Guatemala, was given full powers on 24 April 1849 to negotiate with
+Costa Rica and that this "constituted recognition by the United States" — and then that he **never
+transmitted his letter of credence, never visited the country and reached no agreement by correspondence**.
+Relations waited until the Costa Rican minister presented credentials in Washington on 24 March 1851, and
+the first American minister accredited to the country, in 1853, was appointed to four states at once and
+presented his credentials only in Nicaragua. D3's prose reconciliation rides into the card unchanged: the
+1821 independence from Spain is cited to the guide's **El Salvador** page and the 1848 declaration to Costa
+Rica's own.
+
+**Kuwait inverts batch 44's Ireland case: here recognition came BEFORE independence, and the guide says how
+it was evidenced.** Kuwait became fully independent on 19 June 1961 when an exchange of notes terminated
+the Anglo-Kuwaiti Treaty of 1899 — but the Department of State noted a month later that the United States
+had "for some time recognized Kuwait as a sovereign state", **as evidenced by its consular officers
+receiving exequaturs from the Ruler** and by a visa agreement concluded directly with Kuwait in December
+1960, while the protectorate still stood. **Recognition can be a PRACTICE before it is an act**, and a
+guide entry that lists the evidence is the place that says so.
+
+**Kuwait is also the batch's one figure disagreement, and the term now says so rather than picking a side.**
+UNdata gives 5,026 thousand against the World Bank's 4,865,298 — 161,000 apart, or 3% — where its area
+figures differ by two square kilometres. The term said "roughly 4.9 million", which is the World Bank's
+number while citing UNdata; it now reads "4.9 to 5 million people by the two international counts" and
+cites both. **When two sources differ by more than a rounding, say the range and cite them both** — the
+alternative is a term whose own citation contradicts its only figure.
+
+**Panama has more recorded breaks in relations than any country carded: four in 37 years.** 1931 and 1949
+after changes of government, 1968 after a coup, and **1964 by Panama itself** — President Chiari severing
+relations on 10 January after clashes in the Canal Zone that followed a flag-raising incident between
+Panamanian and American students, and the two states restoring them by a joint declaration of 3 April
+agreeing to seek "the prompt elimination of the causes of conflict … without limitations or preconditions
+of any kind". Every break was mended within weeks or months. Its consular relations, at 1823, predate the
+country by eighty years, in what was then Colombia — the Singapore and Oman pattern for a third time.
 
 **Batch 47 (Palestine, Oman, Mauritania) writes the term this plan has deferred since it was drafted,
 and the sources do the attributing rather than the card.** `gw-124` was written to the rule set out above —
