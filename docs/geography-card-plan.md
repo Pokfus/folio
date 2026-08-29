@@ -169,10 +169,12 @@ of the three; the third is new and is the one to watch for, because a file EXIST
   twenty photographs of protest flags and a cruiser, and for "Dover" the flag of Dover, MASSACHUSETTS
   — the right name in the wrong state, twice over.
 · **ONLY A RETIRED DESIGN** — `geo-507` Lansing (1969–1994, as above) and `geo-537` **Montgomery**,
-  where Commons holds one design in two files and the SVG is titled **`(1952–2026)`**: the city
-  replaced it this year and the new flag is not up. The PNG carries no date and is the same design, so
-  **a file with no date range beside a dated sibling is not evidence that it is current** — read the
-  siblings before trusting the undated one.
+  where Commons holds **one design in three files** — an SVG titled **`(1952–2026)`**, an undated PNG,
+  and a third under a French name — and the city replaced that flag this year, so the design every one
+  of them carries is retired and the new one is not up. Two of the three carry no date at all, so **a
+  file with no date range beside a dated sibling is not evidence that it is current**: read every
+  sibling before trusting an undated one, and check the whole `Category:Flags of municipalities in
+  <state>` rather than the two obvious filenames, which is what turned up the third.
 · **ONLY A PHOTOGRAPH** — `geo-541` Concord, whose sole file is a good 3000×2000 shot of the flag
   flying against trees. It was rejected on SIZE rather than on licence: this field renders at **26px
   tall and 56px wide at most**, where a flat flag still reads and a photograph is a smudge of green
