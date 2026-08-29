@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-116`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-119`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-117` Finland
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-120` Slovakia
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,65 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 42 (Finland, Liberia, Norway) is batch 14's read-the-footnotes rule paying twice on one page,
+in both Nordic profiles.** UNdata footnotes Finland's population as **including the Åland Islands** and
+its surface area as **excluding** them, so the two headline figures printed six rows apart are for
+different territories; Norway's footnotes its population as **including Svalbard and Jan Mayen** against
+a surface area that matches nothing counting them. Finland's case is corroborated arithmetically: the
+World Bank gives 338,480 km² and Eurostat 338,363 against UNdata's 336,884, and the ~1,550 km² between
+them is about the area of Åland. **Read the letters beside a figure before comparing it with anything** —
+a profile that looks like one country's numbers can be two territories' numbers.
+
+**Norway is the widest area disagreement of the whole pass: 323,772 km² against the World Bank's
+624,500, nearly a factor of two.** It is recorded here as a probable **fourth outright World Bank area
+error**, after C11's Canada and Dominican Republic and D1's Monaco — no standard published figure for
+Norway is near 624,500, and mainland plus Svalbard and Jan Mayen comes to about 385,000 — but that is a
+HYPOTHESIS and **is not cited**: the card states both figures and the population footnote and lets the
+reader see the gap, which is C12's Ecuador practice. **And `world.js` shades Svalbard**, so the map's
+shape is larger than the territory the facts box measures — batch 39's Serbia case with the sign
+reversed, and likewise recorded rather than corrected.
+
+**A third footnote reading, and it is the one a reader is most likely to trip over: UNdata's population
+DENSITY is computed on land area, not on the surface area printed two rows above it.** Finland's
+5,623 thousand over 336,884 km² is 16.7 against the 18.6 printed; Norway's is 17.4 against 18.5. Dividing
+one published figure by the other gives a third number that is on the page nowhere.
+
+**The two countries are also given the same population to the thousand — 5,623 — where the World Bank
+separates them by 35,566** (5,646,436 against 5,610,870). A coincidence rather than a fault, and a
+standing reason not to read a UN estimate as a measurement.
+
+**Liberia is the deck's longest wait between a state's founding and American recognition, and the reason
+for the date is in a president's annual message rather than in the guide.** The American Colonization
+Society founded the settlement in 1822, it constituted itself a republic in 1847 and was recognised by
+several European states, and the United States recognised it only on 23 September 1862 — with Lincoln
+telling Congress in December 1861 that "if any good reason exists why we should persevere longer in
+withholding our recognition of the independence and sovereignty of Hayti and Liberia, I am unable to
+discern it", and asking it to fund a chargé d'affaires near each. **The guide gives a date and rarely a
+reason; the American Presidency Project carries every annual message and is where the reason is.**
+
+**A country's own statute is a source, and Liberia's is the model.** `trcofliberia.org` serves the Act of
+12 May 2005 establishing the Truth and Reconciliation Commission, which dates the Comprehensive Peace
+Agreement to Accra on **18 August 2003**, calls it the formal end of "the civil strife and wars which
+have bedeviled the nation", and gives the commission **January 1979 to 14 October 2003** to investigate —
+the war period the glossary term had been asserting out of nothing. It is cited for what the statute
+says rather than as a settled account, per the plans' rule about a state's account of its own actions.
+`peacekeeping.un.org` is **403** here, and the UN Digital Library's RECORD page carries enough of a
+resolution to cite without opening the PDF at all.
+
+**The NATO member-countries page has MOVED**: `nato.int/cps/en/natohq/topics_52044.htm`, cited on the
+glossary since C1, now 301s to `nato.int/en/about-us/organization/nato-member-countries`. Old citations
+still resolve through the redirect and new ones take the new address. That one page carries both of this
+batch's European cards, and the pairing is exact: Finland deposited its instrument of accession on **4
+April 2023**, the anniversary of the treaty **Norway** signed as a founding member on 4 April 1949.
+
+**Three glossary faults, all the same shape — a figure or a clause that none of the term's own citations
+states.** Finland's 338,455 km² is in none of its three works and becomes Eurostat's **338,363**;
+Norway's "oil and gas were found offshore in 1969" rests on NBIM, which says only that the fund was
+established "after Norway discovered oil in the North Sea", so `norskpetroleum.no` is added, dating the
+Ekofisk discovery to just before Christmas **1969**; and Liberia's "is the oldest in Africa" is
+**dropped** as an unsourced superlative, the class this pass keeps finding wrong. Norway's population
+goes 5.5 → **5.6 million**, its own UNdata citation giving 5,623 thousand.
 
 **Batch 41 (Singapore, Denmark, Lebanon) opens with a TOOLING finding that no check in the pipeline can
 see.** `gw-115` was refused by `add-card.js` at 261 words, `gw-116` was written while it was being fixed,
