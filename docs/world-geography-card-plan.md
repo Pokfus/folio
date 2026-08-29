@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-107`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-110`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-108` Paraguay
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-111` Bulgaria
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,63 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 39 (Paraguay, Nicaragua, Serbia) met the deck's first case where the MAP and the FACTS BOX are
+not describing the same territory, and the card says so rather than choosing.** `world.js` draws Serbia
+**without** Kosovo, because Kosovo has an entry of its own in this deck under rule 1, so the shaded
+shape is Serbia proper. UNdata's profile footnotes its POPULATION "Excluding Kosovo" and attaches no
+such note to its **surface area of 88,444 km²**, which is close to the total that includes it; the World
+Bank's area series drops from 88,360 to 84,990 between 2019 and 2020, a third answer again. There is no
+figure that is both cited and unambiguous, so the facts box takes Source A's and the card's last
+sentence states the asymmetry outright — *the United Nations counts its people expressly without Kosovo
+but marks its area with no such note*. **Batch 32's Israel rule is the precedent and it generalises: when
+a statistical profile footnotes a designation, the footnote is the citation, and where it footnotes one
+field and not its neighbour, saying so is the honest card.**
+
+**The ICJ's Kosovo case page is the neutral source this subject needs, and it is the best one found for
+any disputed status so far.** `icj-cij.org/case/141` gives, in prose, the General Assembly's question of
+8 October 2008, the Court's Advisory Opinion of 22 July 2010 that "the declaration of independence of
+Kosovo adopted on 17 February 2008 did not violate international law", and the Court's own
+characterisation of **Security Council resolution 1244 of 10 June 1999** as "a temporary, exceptional
+legal régime which . . . superseded the Serbian legal order . . . on an interim basis". It also lists
+every filing, so **Serbia's own participation is checkable without any state's account of itself being
+repeated** — a written statement, written comments and replies to the judges' questions. C7 recorded
+`icj-cij.org/case/<n>` as merely reachable; this is the second card to use one and the first to build a
+paragraph on it.
+
+**The `Serbia` term carried two area figures that neither of its citations states.** It gave 77,589 km²
+and 88,499 km² "counting Kosovo", both marked to UNdata, which publishes 88,444 and neither of those —
+the `Togo` fault for the third time in five batches, and the reason the first sentence of a country term
+is now the first thing read. It is rewritten to the cited figure with the footnote's own qualification,
+and the ICJ page is added as a third source so the Kosovo clause is carried by something; the term goes
+109 → 108 words and keeps its three sentences.
+
+**A rule the last three batches have been deciding case by case is now settled: how wide a spread has to
+be before a figure BETWEEN two sources is honest.** Where two published figures differ by a rounding
+width — `Kyrgyzstan` at 199,949 and 199,950, `Nicaragua` at 130,370 and 130,374 — a term sitting one or
+two units outside them is stating a number nobody publishes, and both card and term take Source A's.
+Where the spread is material — Serbia's population at 6.549 and 6.689 million, 2.1% apart, or Australia's
+and Saudi Arabia's before it — a figure between them is the honest answer and the prose states the
+spread. **The test is whether any single source could be called the answer**; under a rounding width one
+can, and above it none can.
+
+**Two guide findings, and the second is now a pattern.** Paraguay's page is C12's South American shape
+exactly — the summary paragraph carries the independence date, 15 May 1811, where the recognition entry
+gives 1852, forty-one years later — and the gap between the two is the card. And the guide's **section
+HEADINGS carry years that disagree with their own text**, for the second batch running: Nicaragua's
+*Legation Raised to Embassy, **1942*** describes a promotion on 27 March **1943**, as Kyrgyzstan's
+*Establishment of the American Embassy in Bishkek, **2004*** described one of 1 February 1992. **Read
+the text and treat the heading as a label, not a date.**
+
+**Nicaragua's guide is the richest recognition sequence in the collection so far** — the Federation of
+Central American States recognised in 1824 rather than its members, withdrawal from it on 5 November
+1838, recognition of Nicaragua itself in 1849, relations severed in 1909 over the execution of two
+American citizens, Marines at Bluefields and then in the country until 1932, recognition withheld from
+Chamorro in 1926 and from Somoza García in 1947. **A country whose recognition was granted, severed and
+withheld repeatedly needs no other source**: the entry alone carries eight of the card's ten sentences.
+And Paraguay is the collection's most concentrated population, the United Nations putting 3.28 million
+of just over seven million in Greater Asunción — which its own footnote defines as the capital's
+district plus nineteen districts of Central Department, batch 14's read-the-footnotes rule paying again.
 
 **Batch 38 (Kyrgyzstan) swept every metric-to-imperial conversion in the corpus and found NOTHING
 wrong, which is worth recording because the sweep nearly reported nineteen faults that are not faults.**
