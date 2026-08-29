@@ -21,16 +21,16 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
-`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana, `geo-044` Wyoming, `geo-045` Colorado, `geo-046` Kansas, `geo-047` Nebraska, `geo-048` South Dakota,
+`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana, `geo-044` Wyoming, `geo-045` Colorado, `geo-046` Kansas, `geo-047` Nebraska, `geo-048` South Dakota, `geo-049` North Dakota,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford, `geo-541` Concord, `geo-542` Montpelier, `geo-543` Helena, `geo-544` Cheyenne and `geo-545` Denver.**
-Both subdecks are worked down the same list, so the next state is `geo-049` and the next capital
-`geo-546`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford, `geo-541` Concord, `geo-542` Montpelier, `geo-543` Helena, `geo-544` Cheyenne, `geo-545` Denver and `geo-546` Topeka.**
+Both subdecks are worked down the same list, so the next state is `geo-050` and the next capital
+`geo-547`.
 
 ---
 
@@ -1336,7 +1336,7 @@ terms that already exist**. Each was measured, and none should be settled quietl
   Cornish tin and Bronze Age sourcing, which is the same metal and the same county. **A common-noun link
   is not a fault by itself** — the test is whether the entry behind it is about the thing the sentence
   means.
-- **MONTANA'S NHL LAYER RETURNS ZERO, WHICH IS THE SHORT-LIST RULE AT ITS LIMIT.** Rounds 35–38 met
+- **MONTANA'S NHL LAYER RETURNS ZERO, WHICH IS THE SHORT-LIST RULE AT ITS LIMIT.** ⚠ **The zero was a bug in the QUERY, not a gap in the data — the flag's value is `X`, not `Y`; see "THE NHL FLAG IS `X`" below.** Rounds 35–38 met
   layers giving one or two; here `Is_NHL='Y'` gives none at all for a state holding Little Bighorn and
   the Butte district. The way in was **the LoC HABS/HAER collection's own JSON search**
   (`/collections/historic-american-buildings-landscapes-and-engineering-records/?q=…&fo=json`), which
@@ -1375,7 +1375,7 @@ terms that already exist**. Each was measured, and none should be settled quietl
   round 38. **What is NOT covered is the town mentioned on its own** (Thoreau, Emerson, the militia), so
   Concord, Massachusetts joins Dover in England and Hartford's namesake on the recorded-collision list,
   to be settled when a sibling term actually arrives rather than guessed at now.
-- **WYOMING'S NHL LAYER RETURNS ZERO TOO, THE SECOND STATE RUNNING** — and the way in this time was not
+- **WYOMING'S NHL LAYER RETURNS ZERO TOO, THE SECOND STATE RUNNING** ⚠ **The zero was a bug in the QUERY, not a gap in the data — the flag's value is `X`, not `Y`; see "THE NHL FLAG IS `X`" below.** — and the way in this time was not
   the HABS collection but a single ORDINARY nomination. The **Wyoming State Capitol** form carries the
   entire suffrage story in its statement of significance: the 1869 bill passing the territorial council
   6–2 and the lower house 6–4, Esther Morris having heard Susan B. Anthony lecture in Illinois, the 1870
@@ -1430,7 +1430,7 @@ terms that already exist**. Each was measured, and none should be settled quietl
   bays and taller dome, the Barre granite from the Wheaton Quarry — which is four of Montpelier's ten
   sentences. **When a state card and its capital card both want a building, the capital gets it**; the
   state card has a whole state to cover and the capital card has one town.
-- **COLORADO'S NHL LAYER RETURNS ZERO, THE THIRD STATE RUNNING** (after Montana and Wyoming), so the
+- **COLORADO'S NHL LAYER RETURNS ZERO, THE THIRD STATE RUNNING** ⚠ **The zero was a bug in the QUERY, not a gap in the data — the flag's value is `X`, not `Y`; see "THE NHL FLAG IS `X`" below.** (after Montana and Wyoming), so the
   HABS/HAER JSON search carried it again. Two notes from that: **Cliff Palace is photographs only**
   (`co0300` extracts to a single line) while **Balcony House (`co0380`) has the written data** — the
   survey number tells you nothing about which, so fetch and look — and the El Paso Lode HAER for Cripple
@@ -1468,7 +1468,7 @@ terms that already exist**. Each was measured, and none should be settled quietl
   and `Temple` opens "a building raised for a god" — which a Masonic temple is not. It is left because it
   is a proper name and because changing the ruling round to round is worse than a marginal link; recorded
   here so the next reader knows it was decided rather than missed.
-- **KANSAS'S NHL LAYER RETURNS ZERO, THE FOURTH STATE RUNNING**, and this time the way in was neither the
+- **KANSAS'S NHL LAYER RETURNS ZERO, THE FOURTH STATE RUNNING** ⚠ **The zero was a bug in the QUERY, not a gap in the data — the flag's value is `X`, not `Y`; see "THE NHL FLAG IS `X`" below.**, and this time the way in was neither the
   HABS collection nor a capitol: a **`RESNAME LIKE`** query on names guessed from the state's history
   (`%Constitution Hall%`, `%Monroe%`) found Lecompton Constitution Hall and the Sumner/Monroe schools —
   Bleeding Kansas and Brown v. Board, a century apart on the same question, from two NHL nominations.
@@ -1504,7 +1504,7 @@ terms that already exist**. Each was measured, and none should be settled quietl
   capitol's view of the depot, and the draft repeated it from the depot's, putting the capitol ten blocks
   south of a building it stands north of. Caught by reading the sentence back against the source rather
   than by any checker. **A bearing, like a date, belongs to whoever is standing where the source stands.**
-- **NEBRASKA'S NHL LAYER RETURNS ZERO, THE FIFTH STATE RUNNING**, and the HABS collection has nothing for
+- **NEBRASKA'S NHL LAYER RETURNS ZERO, THE FIFTH STATE RUNNING** ⚠ **The zero was a bug in the QUERY, not a gap in the data — the flag's value is `X`, not `Y`; see "THE NHL FLAG IS `X`" below.**, and the HABS collection has nothing for
   Lincoln either. What carried the card was the ordinary NRHP list for the capital city: the **Kennard
   House**, whose nomination holds the whole founding — the legislature at Omaha naming three of its own
   officers, the commission picking the site of Lincoln on 29 July 1867, the doubt through the 1870s
@@ -1529,7 +1529,7 @@ terms that already exist**. Each was measured, and none should be settled quietl
   specialism, so both are the sense a reader would expect, and **the only mechanism for suppressing a link
   is `ADMIN_EDITS.glossOff`, an overlay field a card cannot carry** — so the choice is the link or a
   rewording, and neither is worth rewording for.
-- **SOUTH DAKOTA'S NHL LAYER RETURNS ZERO, THE SIXTH STATE RUNNING**, which retires the layer as a first
+- **SOUTH DAKOTA'S NHL LAYER RETURNS ZERO, THE SIXTH STATE RUNNING** ⚠ **The zero was a bug in the QUERY, not a gap in the data — the flag's value is `X`, not `Y`; see "THE NHL FLAG IS `X`" below.**, which retires the layer as a first
   stop for the plains states altogether: Montana, Wyoming, Colorado, Kansas, Nebraska and now South Dakota
   have all come back empty on `Is_NHL='Y'`. Both of this card's landmark nominations were reached by
   `RESNAME LIKE` on names taken from the state's own history — `%Wounded Knee%` and `%Ingalls%`.
@@ -1539,6 +1539,43 @@ terms that already exist**. Each was measured, and none should be settled quietl
   rather than choosing one name and asserting it. **Where the source names the disagreement, cite the
   disagreement**; it is shorter than a hedge composed by hand and it is somebody's published judgement
   rather than ours.
+
+- **📌 THE NHL FLAG IS `X`, NOT `Y`, AND THE FIELD IS `NRIS_Refnum`, NOT `Ref_Num` — SIX RECORDED FINDINGS
+  WERE MY OWN QUERY BUG.** Rounds 39–44 each wrote down that a plains state's landmark layer "returns
+  zero" — Montana, Wyoming, Colorado, Kansas, Nebraska, South Dakota — and built a workaround on it. It
+  returns zero because `Is_NHL='Y'` matches nothing anywhere: the column holds `X`. Asked properly, North
+  Dakota has 1, South Dakota 2, Nebraska 7 and Kansas 9. The second half of the bug is worse, because it
+  is silent in a different way: the reference-number field is **`NRIS_Refnum`**, and naming a field that
+  does not exist in `outFields` makes the service answer **`{"error":{"code":400}}`** or an empty feature
+  list — **which reads exactly like a state with no landmarks.** The six entries above are marked; their
+  routes all still work and are worth keeping, but none of them was necessary.
+- **THE LESSON IS ABOUT THE SHAPE OF THE EVIDENCE, NOT ABOUT ARCGIS.** A query that returns zero rows is
+  not a measurement — it is the *absence* of one, and it looks identical whether the data is missing or
+  the question is malformed. Six states in a row coming back empty should have been the signal, and it
+  was read instead as a pattern about the plains. **Before recording an emptiness as a finding, prove the
+  query can return something**: ask for a count with no filter, or ask the layer for its own field list
+  (`?f=json` on the layer root gives every field name and would have shown both faults in one call).
+- **KANSAS'S OWN 1971 NOMINATION IS CONTRADICTED BY TOPEKA'S 2008 ONE, AND `geo-046` IS CORRECTED.** The
+  Lecompton NHL form calls that hall "the only remaining building of the several where opposing drafts of
+  the first Kansas Constitution were approved", and the card repeated it faithfully. Constitution
+  Hall–Topeka is standing too — listed in its own right, and the source for this round's capital card.
+  The sentence now says what the Lecompton form's own description supports and claims nothing about what
+  else survives. **A nomination is a snapshot of what its writer knew in its year**, and a 1971 negative
+  about the rest of the world is the kind of claim a later document quietly overturns; the check is to
+  read a superlative back against the sources of the neighbouring cards, which is what writing the pair
+  forced.
+- **A LARGE PNG ON COMMONS SERVES ONLY THE THUMBNAIL WIDTHS ALREADY CACHED.** For the Big Hidatsa survey
+  plan, 960px and 1280px return the image and **480, 512, 640, 720, 900 and 1024 all return a 400 with an
+  HTML error document** — which, saved to a `.png` file, is a broken picture that looks like a working
+  URL. JPEGs re-render at any width; PNGs above a size threshold do not. **Fetch the exact `src` you are
+  about to ship and check it is really an image**, since the site's dead-media handling shows a reader
+  nothing at all.
+- **TOPEKA IS A CAPITAL WHOSE CARD COULD NOT USE ITS OWN BEST-KNOWN STORY.** Brown v. Board of Education
+  of Topeka is on `geo-046` already, where it fills the whole second block, so the capital card had to be
+  built from what was left — and what was left was better than expected: the town settled in December
+  1854, Constitution Hall, the Topeka Constitution passed 1,731 to 46, Colonel Sumner's dragoons on 4 July
+  1856, and Charles Curtis. **When a city's famous event belongs to the state card, read the city's own
+  register list rather than looking for a second angle on the same event.**
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
