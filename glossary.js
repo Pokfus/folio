@@ -1583,7 +1583,8 @@ window.GLOSSARY = {
 "Bell_Beaker_culture": "<b>Bell Beaker culture</b> is an assemblage of grave goods that spread across western and central Europe in the 3rd millennium BCE, defined by an inverted-bell drinking vessel buried with copper daggers, flint arrowheads, stone wristguards and V-perforated buttons.<sup class=\"fn\" data-fn=\"1\"></sup> Its oldest radiocarbon dates come from Atlantic Iberia; by 2500 BCE it reached from northwest Africa to central Europe, and Britain and Ireland a century later.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient DNA shows it spread differently in different regions: affinity between Iberia and central Europe is slight and Iberia changed little from the Neolithic to the Bronze Age, while in Britain its arrival brought steppe-related ancestry and replaced about 90 per cent of the gene pool.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Únětice_culture": "<b>Únětice culture</b> is the Early Bronze Age culture of central Europe, current from about 2200 to 1550 BCE across Bohemia, Moravia, central Germany and western Poland, and named after a village near Prague.<sup class=\"fn\" data-fn=\"1\"></sup> Most of its dead were buried in flat inhumation graves, but a few lay under large mounds with gold and bronze, among them the tomb at Leubingen whose timber chamber has been tree-ring dated to 1942 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient DNA from its cemeteries shows communities organised patrilineally, with men remaining where they were born and women marrying in from elsewhere, so that sons inherited the farmstead and daughters married out.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Nebra_sky_disc": "<b>Nebra sky disc</b> is a bronze disc about 32 centimetres (13 inches) across, inlaid with gold showing a sun or full moon, a crescent and a scatter of stars, among which a cluster of seven is widely read as the Pleiades.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was buried on the Mittelberg hill in Saxony-Anhalt with two swords, two axes, two spiral arm-rings and a chisel, and is held to be the oldest concrete depiction of cosmic phenomena known anywhere.<sup class=\"fn\" data-fn=\"3\"></sup> Its copper came from the Mitterberg mine in the Austrian Alps and its gold from the Carnon River in Cornwall, and the image was altered in stages long after it was first hammered out.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Oxus_civilization": "<b>Oxus civilisation</b>, also called the Bactria-Margiana Archaeological Complex, is the Bronze Age culture of southern Central Asia, whose walled mud-brick centres stood in the irrigated oases of what are now Turkmenistan, Uzbekistan and northern Afghanistan.<sup class=\"fn\" data-fn=\"1\"></sup> It belonged to a wide network of exchange reaching the Indus civilisation, Mesopotamia and the Syro-Anatolian world, and its bronze was made from Iranian copper and from the copper-tin mine at Mushiston in Tajikistan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Genetically its people descend from the local Chalcolithic population rather than from incomers, and the Indo-Iranian speakers of Central Asia today draw their ancestry from them.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Oxus_civilization": "<b>Oxus civilisation</b>, also called the Bactria-Margiana Archaeological Complex, is the Bronze Age culture of southern Central Asia, whose walled mud-brick centres stood in the irrigated oases of what are now Turkmenistan, Uzbekistan and northern Afghanistan.<sup class=\"fn\" data-fn=\"1\"></sup> It belonged to a wide network of exchange reaching the Indus civilisation, Mesopotamia and the Syro-Anatolian world, and its bronze was made from Iranian copper and from the copper-tin mine at Mushiston in Tajikistan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Genetically its people descend from the local Chalcolithic population rather than from incomers, and the Indo-Iranian speakers of Central Asia today draw their ancestry from them.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Neo-Assyrian_Empire": "The <b>Neo-Assyrian Empire</b> was the Mesopotamian state on the Tigris, in what is now northern Iraq, that dominated the Near East from about 912 to 609 BCE and at its height ran from central Anatolia to Egypt and eastward to western Iran.<sup class=\"fn\" data-fn=\"1\"></sup> Beaten kingdoms were usually held as tribute-paying clients and then annexed as provinces under governors, a post an indigenous ruler was sometimes given, and deportees were resettled in capitals larger than any earlier Mesopotamian city.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Its royal inscriptions, written for the palace and given to inflating their figures between editions, are the main narrative source, and they stop at a collapse that took Nineveh in 612 BCE.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2299,7 +2300,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Bell_Beaker_culture": "c. 2750 – 1800 BCE",
 "Únětice_culture": "c. 2200 – 1550 BCE",
 "Nebra_sky_disc": "c. 1600 BCE",
-"Oxus_civilization": "c. 2300 – 1500 BCE"
+"Oxus_civilization": "c. 2300 – 1500 BCE",
+"Neo-Assyrian_Empire": "c. 912 – 609 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3306,7 +3308,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Bell_Beaker_culture": ["Bell Beaker","Bell Beaker complex","Beaker complex","Beaker culture","Bell Beaker phenomenon"],
 "Únětice_culture": ["Únětice","Unetice culture","Unetice","Aunjetitz culture","Aunjetitz"],
 "Nebra_sky_disc": ["Nebra disc","sky disc of Nebra","Nebra Sky Disc"],
-"Oxus_civilization": ["Oxus civilisation","Bactria-Margiana Archaeological Complex","BMAC","Bactria–Margiana Archaeological Complex"]
+"Oxus_civilization": ["Oxus civilisation","Bactria-Margiana Archaeological Complex","BMAC","Bactria–Margiana Archaeological Complex"],
+"Neo-Assyrian_Empire": ["Assyrian Empire","Neo-Assyrian empire"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4916,7 +4919,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Bell_Beaker_culture": ["culture","archaeology","prehistory","europe","genetics"],
 "Únětice_culture": ["culture","archaeology","bronze age","europe","genetics"],
 "Nebra_sky_disc": ["object","archaeology","astronomy","bronze age","europe"],
-"Oxus_civilization": ["culture","archaeology","bronze age","asia"]
+"Oxus_civilization": ["culture","archaeology","bronze age","asia"],
+"Neo-Assyrian_Empire": ["state","history","archaeology","iron age","iraq"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
