@@ -1583,7 +1583,8 @@ window.GLOSSARY = {
 "Simonides": "Simonides of Ceos was a Greek lyric and elegiac poet, born at Iulis on the Aegean island of Ceos, whose long career took him from the court of Hipparchus at Athens to the princes of Thessaly and finally to Syracuse.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He worked in almost every choral and elegiac kind, is credited with giving the victory ode its artistic form, and was charged with avarice for writing at a fixed price rather than for unspecified patronage.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He is best remembered for commemorative verse on the Persian Wars, including the epitaph for the Spartan dead at Thermopylae and an elegy on Plataea recovered from papyrus.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Symposium": "A symposium was the drinking party that followed dinner in an ancient Greek house, at which the guests reclined on couches rather than sitting, an eastern fashion the Greeks adopted in the second half of the 7th century BCE.<sup class=\"fn\" data-fn=\"1\"></sup> The company was as small as the number of couches, the evening opened with libations and a sung hymn, and wine was drunk mixed with water in proportions that were argued over.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Much Athenian fine pottery takes its shapes from this room, and the songs and talk that filled it are the setting of works by Plato and Xenophon and the occasion of much archaic lyric.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Skolion": "A skolion was a song sung over the wine at an ancient Greek drinking party, the name meaning 'crooked' for a reason the ancients themselves disputed, explaining it variously by the zigzag order of the singing or by the winding of the melody.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient accounts separate the paean the whole company sang after the libations from the songs each guest took up in turn, a myrtle branch passing from hand to hand in place of a lyre, and from the harder songs left to skilled singers.<sup class=\"fn\" data-fn=\"1\"></sup> A collection of Attic examples preserved by Athenaeus, made in Athens shortly before 450 BCE, includes the celebrated song on Harmodius and Aristogeiton.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Aesop": "Aesop is the name under which the Greek beast fable was collected, and the ancient record points to a legendary figure supplied to account for the stories rather than to an author whose writings survive.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus, the earliest witness, describes him as a story-writer and a slave of Iadmon of Samos whom the Delphians killed, and ancient chronographers placed that death in 564 BCE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A fictional biography composed between the 1st century BCE and the 2nd century CE made him a grotesquely ugly slave granted speech by a goddess, while the fables themselves are anonymous popular matter, about a hundred of them touching on religion.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Aesop": "Aesop is the name under which the Greek beast fable was collected, and the ancient record points to a legendary figure supplied to account for the stories rather than to an author whose writings survive.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus, the earliest witness, describes him as a story-writer and a slave of Iadmon of Samos whom the Delphians killed, and ancient chronographers placed that death in 564 BCE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> A fictional biography composed between the 1st century BCE and the 2nd century CE made him a grotesquely ugly slave granted speech by a goddess, while the fables themselves are anonymous popular matter, about a hundred of them touching on religion.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Presocratic_philosophy": "Presocratic philosophy is the modern name for the natural inquiry pursued in the Greek cities during the 6th and 5th centuries BCE by thinkers whom antiquity took to be the first philosophers of its tradition.<sup class=\"fn\" data-fn=\"1\"></sup> Where Hesiod had generated the world by births and unions among gods, they looked for principles inherent in the world itself, and Aristotle reports that most of the earliest recognised only material ones.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> No complete work survives, so the subject rests on quoted fragments and on later reports, and the label is an 18th-century coinage that fails as chronology, the last of these thinkers being contemporaries of Socrates.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2294,7 +2295,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ibycus": "fl. c. 544 BCE",
 "Stesichorus": "c. 600 – 550 BCE",
 "Simonides": "c. 556 – 468 BCE",
-"Aesop": "c. 572 – 564 BCE"
+"Aesop": "c. 572 – 564 BCE",
+"Presocratic_philosophy": "c. 600 – 400 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3304,7 +3306,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Simonides": ["Simonides of Ceos","Simonides of Keos"],
 "Symposium": ["symposion"],
 "Skolion": ["skolia"],
-"Aesop": ["Aisopos"]
+"Aesop": ["Aisopos"],
+"Presocratic_philosophy": ["Presocratics","Presocratic","pre-Socratic philosophy"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4914,7 +4917,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Simonides": ["person","literature","poetry","greece","archaic greece"],
 "Symposium": ["practice","history","greece","archaic greece","food"],
 "Skolion": ["concept","literature","greece","archaic greece","poetry","music"],
-"Aesop": ["person","literature","greece","archaic greece","storytelling"]
+"Aesop": ["person","literature","greece","archaic greece","storytelling"],
+"Presocratic_philosophy": ["concept","philosophy","greece","archaic greece","science"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
