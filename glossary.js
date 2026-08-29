@@ -1581,7 +1581,8 @@ window.GLOSSARY = {
 "Proto-Sinaitic_script": "The Proto-Sinaitic script is the earliest known alphabetic writing, linear pictographic signs cut on statuettes, stone panels and rock faces at Serabit el-Khadem, an Egyptian mining site in the Sinai, with a closely similar script at Wadi el-Hol in Upper Egypt.<sup class=\"fn\" data-fn=\"1\"></sup> Its signs take their shapes from Egyptian hieroglyphs without being used as Egyptian used them, and each is generally held to stand for the first sound of the Semitic word its picture names, a principle some dispute.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Neither group of inscriptions has a stratified context, so proposed dates run from the opening of the 2nd millennium BCE to the 14th century.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Amarna_letters": "The Amarna letters are the diplomatic correspondence of the Egyptian court in the 14th century BCE, 382 clay tablets from the city Akhenaten built as his capital, covering a window of only fifteen to thirty years.<sup class=\"fn\" data-fn=\"1\"></sup> They are written mostly in Akkadian, the language diplomacy used across the region whatever the sender spoke at home, and some forty are to or from the rulers Egypt treated as great kings.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Between those kings the language is brotherhood and the business is goods and royal marriages, while the mayors of the Syrian and Palestinian towns write instead about raids and rivals and ask for troops.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Bell_Beaker_culture": "<b>Bell Beaker culture</b> is an assemblage of grave goods that spread across western and central Europe in the 3rd millennium BCE, defined by an inverted-bell drinking vessel buried with copper daggers, flint arrowheads, stone wristguards and V-perforated buttons.<sup class=\"fn\" data-fn=\"1\"></sup> Its oldest radiocarbon dates come from Atlantic Iberia; by 2500 BCE it reached from northwest Africa to central Europe, and Britain and Ireland a century later.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient DNA shows it spread differently in different regions: affinity between Iberia and central Europe is slight and Iberia changed little from the Neolithic to the Bronze Age, while in Britain its arrival brought steppe-related ancestry and replaced about 90 per cent of the gene pool.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Únětice_culture": "<b>Únětice culture</b> is the Early Bronze Age culture of central Europe, current from about 2200 to 1550 BCE across Bohemia, Moravia, central Germany and western Poland, and named after a village near Prague.<sup class=\"fn\" data-fn=\"1\"></sup> Most of its dead were buried in flat inhumation graves, but a few lay under large mounds with gold and bronze, among them the tomb at Leubingen whose timber chamber has been tree-ring dated to 1942 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient DNA from its cemeteries shows communities organised patrilineally, with men remaining where they were born and women marrying in from elsewhere, so that sons inherited the farmstead and daughters married out.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Únětice_culture": "<b>Únětice culture</b> is the Early Bronze Age culture of central Europe, current from about 2200 to 1550 BCE across Bohemia, Moravia, central Germany and western Poland, and named after a village near Prague.<sup class=\"fn\" data-fn=\"1\"></sup> Most of its dead were buried in flat inhumation graves, but a few lay under large mounds with gold and bronze, among them the tomb at Leubingen whose timber chamber has been tree-ring dated to 1942 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient DNA from its cemeteries shows communities organised patrilineally, with men remaining where they were born and women marrying in from elsewhere, so that sons inherited the farmstead and daughters married out.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Nebra_sky_disc": "<b>Nebra sky disc</b> is a bronze disc about 32 centimetres (13 inches) across, inlaid with gold showing a sun or full moon, a crescent and a scatter of stars, among which a cluster of seven is widely read as the Pleiades.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was buried on the Mittelberg hill in Saxony-Anhalt with two swords, two axes, two spiral arm-rings and a chisel, and is held to be the oldest concrete depiction of cosmic phenomena known anywhere.<sup class=\"fn\" data-fn=\"3\"></sup> Its copper came from the Mitterberg mine in the Austrian Alps and its gold from the Carnon River in Cornwall, and the image was altered in stages long after it was first hammered out.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2295,7 +2296,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Proto-Sinaitic_script": "early 2nd millennium BCE",
 "Amarna_letters": "c. 1365 – 1330 BCE",
 "Bell_Beaker_culture": "c. 2750 – 1800 BCE",
-"Únětice_culture": "c. 2200 – 1550 BCE"
+"Únětice_culture": "c. 2200 – 1550 BCE",
+"Nebra_sky_disc": "c. 1600 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3300,7 +3302,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Proto-Sinaitic_script": ["Proto-Sinaitic"],
 "Amarna_letters": ["Amarna correspondence"],
 "Bell_Beaker_culture": ["Bell Beaker","Bell Beaker complex","Beaker complex","Beaker culture","Bell Beaker phenomenon"],
-"Únětice_culture": ["Únětice","Unetice culture","Unetice","Aunjetitz culture","Aunjetitz"]
+"Únětice_culture": ["Únětice","Unetice culture","Unetice","Aunjetitz culture","Aunjetitz"],
+"Nebra_sky_disc": ["Nebra disc","sky disc of Nebra","Nebra Sky Disc"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4908,7 +4911,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Proto-Sinaitic_script": ["concept","technology","archaeology","writing","language","bronze age"],
 "Amarna_letters": ["text","history","archaeology","writing","bronze age"],
 "Bell_Beaker_culture": ["culture","archaeology","prehistory","europe","genetics"],
-"Únětice_culture": ["culture","archaeology","bronze age","europe","genetics"]
+"Únětice_culture": ["culture","archaeology","bronze age","europe","genetics"],
+"Nebra_sky_disc": ["object","archaeology","astronomy","bronze age","europe"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
