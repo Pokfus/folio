@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-101`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-102`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-102` Togo
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-103` Laos
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,61 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 35 (Togo) found the spine for a FORMER TRUST TERRITORY, and it is the trusteeship record
+itself.** The recognition guide's Togo page is as thin as Sierra Leone's — recognition and an embassy on
+one day in 1960 and nothing earlier — and what carried the card instead is the paper trail the United
+Nations kept while it supervised the territory. **`T/Agreement/7`, the Trusteeship Agreement for
+Togoland under French Administration**, states in its own preamble that the territory lies east of "the
+line agreed upon in the Declaration, signed on 10 July 1919" and was administered under the mandate
+"defined under the terms of the instrument of 20 July 1922", which let France run it "as an integral
+part of its territory" — three dated facts about a partition that no country page anywhere states.
+**`A/RES/1044(XI)`** then carries the other half: resolution 944 (X) had ordered a plebiscite under a
+United Nations Plebiscite Commissioner to ask whether Togoland under British administration wished to
+join an independent Gold Coast, the Assembly notes that a majority voted for union, and it ends the
+trusteeship on the day the Gold Coast became independent. And **`A/RES/1416(XIV)`** records that France
+and Togoland had agreed on 27 April 1960 and recommends admission to the United Nations upon it.
+**Eleven trust territories became states; before writing any of them, search the Digital Library for
+"the future of &lt;territory&gt; under &lt;power&gt; administration"** — the `T/Agreement/<n>` and
+`T/RES/…` collections had not been used by this pass at all.
+
+**Two things about reading those documents.** A General Assembly resolutions PDF of the 1950s **extracts
+cleanly and brings its neighbours with it**, because the scan is of the whole printed page: 1416 (XIV)
+arrives with 1415 and 1417 attached, which is where the sentence naming "the Cameroons under French
+administration, Togoland under French administration and Somaliland under Italian administration during
+1960" came from. A **working document of the same decade does not extract at all** — `T/1269`, the
+Plebiscite Administrator's own 24-page report, is an image scan with no text layer — so the resolutions
+volumes were typeset and re-digitised where the working papers were photographed. **Cite an image-only
+record for what its catalogue entry states** (its title, the administrator's name, the date it was
+circulated) and never for a figure inside it.
+
+**The German period needed a source outside the UN and American spines entirely, and a MUSEUM answered.**
+Nothing in either reaches behind 1919. The **Deutsches Historisches Museum's LeMO** gives the whole first
+phase of German colonial policy in a paragraph and dates Togo and Cameroon to **July 1884**, one month
+finer than the glossary term's bare 1884. `bundesarchiv.de`, `deutsche-digitale-bibliothek.de` and
+`bpb.de` all answer here too. **When a country's history predates every institution the pass is built on,
+ask which national museum published on it.**
+
+**The `Togo` term is batch 29's fault in its commonest and least visible form.** Cuba's citation
+*refuted* the sentence it carried; this one was simply silent on it — three claims (the 1884 German
+claim, the wartime division, and "one family held the presidency from 1967 into the present century")
+were all marked to the recognition guide and UNdata, and neither source mentions any of them. **No audit
+can see this**: `gloss-source-audit.js` counts citations, the marker rules check that each points inside
+the list, and both pass. It is caught only by reading each marked clause against the work it points at,
+which is now this batch's first step on any term whose card is being written. Rewritten to what the
+sources bear, with three sources added; the family claim survives as the one thing the record proves —
+**`A/59/700` is Faure Gnassingbé's own address to the nation as President, transmitted to the
+Secretary-General, on the death of Gnassingbé Eyadéma**. That document also contains the state's account
+of itself, a eulogy listing the late president's achievements, and none of it is used. The rewrite also
+cost the term its "about 550 km (340 miles) inland" — an L3-class distance locator for which no cited
+source gives a figure.
+
+**Its figures needed nothing, and its capital figure is a warning about batch 32's find.** UNdata gives
+8,592 thousand people against the World Bank's 8,591,626, and 56,785 km² against 56,790 — agreement to
+within a thousandth on both. But UNdata's capital-city row for Togo is **1,785.3 thousand and the World
+Bank's `EN.URB.LCTY` is 1,785,310 for 2019**, the same number to the person, so the "second institutional
+count of a capital" batch 32 found for Angola is a **relay** here rather than corroboration. **Check the
+two against each other before citing both**, exactly as C8 established for `SP.POP.TOTL`.
 
 **Batch 34 (Sierra Leone) found the source that carries a country whose recognition-guide page says
 nothing before 1961, and it is a national TRUTH COMMISSION.** The guide's Sierra Leone entry is four
