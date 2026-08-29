@@ -1576,7 +1576,8 @@ window.GLOSSARY = {
 "Jade": "Jade is a hard ornamental stone, in East Asia chiefly nephrite, which is made of the two amphibole minerals tremolite and actinolite, told apart by their ratio of magnesium to iron.<sup class=\"fn\" data-fn=\"3\"></sup> It was worked across the Chinese Neolithic from about 6200 BCE, first in the Liao River region and later most elaborately in the Hongshan and Liangzhu cultures, whose prestige forms include the cong tube and the bi disc.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Early pieces are largely personal ornaments, but from the middle of the 4th millennium BCE ritual items dominate the assemblages and accompany the first elite groups, and no text before the Eastern Zhou records what the abstract shapes meant.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Yamnaya_culture": "Yamnaya culture is the archaeological complex that appeared across the steppes north of the Black and Caspian seas about 3300 BCE and by 3000 BCE ran from Hungary in the west to Kazakhstan in the east.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient DNA from 435 individuals traces its ancestry to three genetic clines among the preceding Eneolithic peoples rather than to any single earlier population, with about four-fifths coming from a Caucasus-lower Volga cline.<sup class=\"fn\" data-fn=\"1\"></sup> It is known chiefly from the burial mounds that dominate the region, whose bones carry isotopic evidence of a herding economy of sheep, goat and cattle, and its people rode horses of the line from which modern domestic stock descends.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Horse_domestication": "Domestication of the horse is the process that turned a hunted grassland animal into a means of transport, and modern domestic stock descends from a population of the western Eurasian steppes, above all the lower Volga-Don.<sup class=\"fn\" data-fn=\"1\"></sup> The horses bridled, milked and corralled at Botai in Central Asia about 3500 BCE left no descendants among that stock, which spread rapidly across Eurasia and replaced almost every local lineage.<sup class=\"fn\" data-fn=\"1\"></sup> Reproductive control of the modern lineage is dated to about 2200 BCE by close-kin mating and shortened generation times, though it is disputed whether a genetic shift alone marks domestication, since horses were managed and ridden long before.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Chariot": "A chariot is a light two-wheeled vehicle drawn by a team of horses, and the spoke-wheeled form built by the Sintashta culture of the Eurasian steppes around 2000 BCE is the earliest of the kind.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It spread rapidly across Eurasia alongside the modern domestic horse line and the rest of the equestrian material culture, and by the close of the 2nd millennium BCE harnessed warriors were common across most ancient civilisations.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Teams were driven in war and in racing, from the funeral games of Homer’s <i>Iliad</i> to the Roman circuses, and keeping them demanded a training regime that Hittite tablets set down day by day.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Chariot": "A chariot is a light two-wheeled vehicle drawn by a team of horses, and the spoke-wheeled form built by the Sintashta culture of the Eurasian steppes around 2000 BCE is the earliest of the kind.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It spread rapidly across Eurasia alongside the modern domestic horse line and the rest of the equestrian material culture, and by the close of the 2nd millennium BCE harnessed warriors were common across most ancient civilisations.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Teams were driven in war and in racing, from the funeral games of Homer’s <i>Iliad</i> to the Roman circuses, and keeping them demanded a training regime that Hittite tablets set down day by day.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Hattusa": "Hattusa was the capital of the Hittite kingdom and empire in central Anatolia, the political and religious centre of one of the major powers of the ancient Near East between about 1650 and 1200 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its walled site is on the World Heritage list for its urban organisation and for its surviving temples, royal residences and fortifications, together with the carved Lions', Sphinxes' and Royal Gates, and the rock sanctuary of Yazılıkaya lies about 3 kilometres (2 miles) to the north.<sup class=\"fn\" data-fn=\"2\"></sup> Archaeological work now indicates that the city was emptied by the royal administration and burnt only afterwards, and the reasons for its abandonment remain unclear.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2285,7 +2286,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Jade": "worked from c. 6200 BCE",
 "Yamnaya_culture": "c. 3300 – 2600 BCE",
 "Horse_domestication": "c. 3500 – 2200 BCE",
-"Chariot": "from c. 2000 BCE"
+"Chariot": "from c. 2000 BCE",
+"Hattusa": "c. 1650 – 1200 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3285,7 +3287,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mandate_of_Heaven": ["tianming","Heaven's Mandate","heavenly mandate"],
 "Chinese_characters": ["hanzi","Chinese character","Chinese script"],
 "Yamnaya_culture": ["Yamnaya","Yamna culture"],
-"Horse_domestication": ["domestication of the horse"]
+"Horse_domestication": ["domestication of the horse"],
+"Hattusa": ["Hattuša","Hattusas","Boğazköy"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4888,7 +4891,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Jade": ["object","history","archaeology","art","geology"],
 "Yamnaya_culture": ["culture","history","archaeology","genetics","bronze age"],
 "Horse_domestication": ["concept","history","archaeology","genetics","nature"],
-"Chariot": ["object","technology","warfare","archaeology","bronze age"]
+"Chariot": ["object","technology","warfare","archaeology","bronze age"],
+"Hattusa": ["place","city","history","archaeology","bronze age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
