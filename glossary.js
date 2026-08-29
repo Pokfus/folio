@@ -1570,7 +1570,10 @@ window.GLOSSARY = {
 "Des_Moines": "Des Moines is the capital of Iowa<sup class=\"fn\" data-fn=\"2\"></sup> and its largest city, with 213,096 residents.<sup class=\"fn\" data-fn=\"1\"></sup> The legislature moved there from the Old Capitol at Iowa City in 1857,<sup class=\"fn\" data-fn=\"3\"></sup> and its capitol complex stands above the meeting of the Des Moines and Raccoon rivers, with the Beaux-Arts State Historical Building of 1898 to 1910 across Grand Avenue from the capitol itself.<sup class=\"fn\" data-fn=\"4\"></sup> Henry Wallace edited Wallaces' Farmer there from 1895 until his death in 1916, argued for scientific farming and agricultural extension, and sat on Theodore Roosevelt's Country Life Commission of 1908 beside Gifford Pinchot.<sup class=\"fn\" data-fn=\"5\"></sup>",
 "Northern_Pacific_Railway": "The Northern Pacific Railway reached Bismarck from the east in 1873 and, on its completion a decade later, linked North Dakota to the west coast.<sup class=\"fn\" data-fn=\"1\"></sup> The army set up Camp Hancock on its line at Bismarck on 16 April 1872 to guard the gangs building it, and kept the post garrisoned until 1877, after which it supplied the forts further west.<sup class=\"fn\" data-fn=\"2\"></sup> Its Bismarck depot, raised after the fire of 8 August 1898 had levelled much of the town centre, was designed by Charles Reed and Allen Stem of St. Paul in a Spanish mission manner uncommon on the northern plains, replacing a hotel that had served as passenger depot too.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Western_Zhou": "Western Zhou is the first phase of the Zhou dynasty in China, commonly dated from 1045 to 771 BCE and followed by the Eastern Zhou from 770 to 221 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its royal domain lay in the Guanzhong basin of present-day central Shaanxi, where a capital called Fengyi stood on the west bank of the Feng river and has yielded rammed-earth palace foundations, cemeteries, buried bronzes and craft workshops.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The court granted land to members of the royal Ji clan and to allied lineages, whose regional states served as political alliances and military outposts, and bronze inscriptions distinguish rulers of the royal lineage from the heads of merely affiliated states.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Mandate_of_Heaven": "Mandate of Heaven, tianming, is the Chinese doctrine that Heaven grants a house the right to rule and takes it back from one that governs badly, so power is held on terms, not by right.<sup class=\"fn\" data-fn=\"1\"></sup> The Zhou proclaimed it to justify their conquest of the Shang, arguing from an earlier transfer from the Xia, and the <i>Book of Documents</i> states that the Supreme Ruler is not invariable in his decree.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Mencius turned it into a theory of history in which only a moral man receives it, Xunzi rejected it outright, and it went on shaping how disasters were answered into the Han period and long after.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Mandate_of_Heaven": "Mandate of Heaven, tianming, is the Chinese doctrine that Heaven grants a house the right to rule and takes it back from one that governs badly, so power is held on terms, not by right.<sup class=\"fn\" data-fn=\"1\"></sup> The Zhou proclaimed it to justify their conquest of the Shang, arguing from an earlier transfer from the Xia, and the <i>Book of Documents</i> states that the Supreme Ruler is not invariable in his decree.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Mencius turned it into a theory of history in which only a moral man receives it, Xunzi rejected it outright, and it went on shaping how disasters were answered into the Han period and long after.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Chinese_characters": "Chinese characters are the graphic units of the writing system used for Chinese, the oldest script still in daily use and one of only three known to have been invented independently rather than adapted from a neighbour.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The earliest large body of them survives on oracle bones and bronzes of the late Shang and Western Zhou, where the shapes work by visual metaphor and metonymy rather than by recording the sounds of speech.<sup class=\"fn\" data-fn=\"1\"></sup> Five stages are conventionally distinguished, from oracle bone through bronze, seal and official forms to the regular script written today, and a measurement over half a million images finds no consistent simplification across that span.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Silk": "Silk is a protein fibre spun by moth caterpillars into a cocoon, most of the thread being the protein fibroin, and it has been a luxury commodity throughout recorded history.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The oldest direct evidence for it is biomolecular rather than textile, peptides of silk fibroin recovered by mass spectrometry from soil in three 8,500-year-old tombs at the Neolithic site of Jiahu in central China.<sup class=\"fn\" data-fn=\"1\"></sup> Where and when the rearing of silkworms began is still an open question, since before the mulberry silkworm was domesticated silk was taken from a range of wild moth species with regional specificity.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Jade": "Jade is a hard ornamental stone, in East Asia chiefly nephrite, which is made of the two amphibole minerals tremolite and actinolite, told apart by their ratio of magnesium to iron.<sup class=\"fn\" data-fn=\"3\"></sup> It was worked across the Chinese Neolithic from about 6200 BCE, first in the Liao River region and later most elaborately in the Hongshan and Liangzhu cultures, whose prestige forms include the cong tube and the bi disc.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Early pieces are largely personal ornaments, but from the middle of the 4th millennium BCE ritual items dominate the assemblages and accompany the first elite groups, and no text before the Eastern Zhou records what the abstract shapes meant.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2273,7 +2276,10 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lansing": "Capital since 1847",
 "Louisiana_Purchase": "1803",
 "Western_Zhou": "c. 1045 – 771 BCE",
-"Mandate_of_Heaven": "from c. 1046 BCE"
+"Mandate_of_Heaven": "from c. 1046 BCE",
+"Chinese_characters": "from c. 1250 BCE",
+"Silk": "earliest evidence c. 8500 BP",
+"Jade": "worked from c. 6200 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3270,7 +3276,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Union_Pacific_Railroad": ["Union Pacific"],
 "Northern_Pacific_Railway": ["Northern Pacific"],
 "Western_Zhou": ["Western Zhou dynasty","Western Zhou period"],
-"Mandate_of_Heaven": ["tianming","Heaven's Mandate","heavenly mandate"]
+"Mandate_of_Heaven": ["tianming","Heaven's Mandate","heavenly mandate"],
+"Chinese_characters": ["hanzi","Chinese character","Chinese script"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4867,7 +4874,10 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Des_Moines": ["place","geography","united states","city","capital"],
 "Northern_Pacific_Railway": ["institution","history","technology","united states","industry"],
 "Western_Zhou": ["dynasty","history","archaeology","bronze age","china"],
-"Mandate_of_Heaven": ["concept","history","religion","philosophy","china"]
+"Mandate_of_Heaven": ["concept","history","religion","philosophy","china"],
+"Chinese_characters": ["concept","history","language","writing","china"],
+"Silk": ["object","history","archaeology","technology","agriculture"],
+"Jade": ["object","history","archaeology","art","geology"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
