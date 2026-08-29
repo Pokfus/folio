@@ -17,12 +17,12 @@ The next card to write is the lowest `gc-NNN` not yet in `data.js`:
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gc-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
 **Shipped so far — `gc-001` Guangdong, `gc-002` Shandong, `gc-003` Henan, `gc-004` Jiangsu,
-`gc-005` Sichuan, `gc-006` Hebei, `gc-007` Hunan, `gc-008` Zhejiang, `gc-009` Anhui and
-`gc-010` Hubei, with `gc-501` Guangzhou, `gc-502` Jinan, `gc-503` Zhengzhou, `gc-504` Nanjing,
-`gc-505` Chengdu, `gc-506` Shijiazhuang and `gc-507` Changsha.**
+`gc-005` Sichuan, `gc-006` Hebei, `gc-007` Hunan, `gc-008` Zhejiang, `gc-009` Anhui, `gc-010` Hubei
+and `gc-011` Guangxi, with `gc-501` Guangzhou, `gc-502` Jinan, `gc-503` Zhengzhou, `gc-504` Nanjing,
+`gc-505` Chengdu, `gc-506` Shijiazhuang, `gc-507` Changsha and `gc-508` Hangzhou.**
 The first province card and the first capital card were written together, so that the new map layer, its
 point table, the fit and the gold dot were all proved on a real card rather than on a test. The next
-province is `gc-011` Guangxi and the next capital is `gc-508` Hangzhou.
+province is `gc-012` Yunnan and the next capital is `gc-509` Hefei.
 
 ---
 
