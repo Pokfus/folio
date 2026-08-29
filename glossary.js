@@ -1579,7 +1579,8 @@ window.GLOSSARY = {
 "Chariot": "A chariot is a light two-wheeled vehicle drawn by a team of horses, and the spoke-wheeled form built by the Sintashta culture of the Eurasian steppes around 2000 BCE is the earliest of the kind.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It spread rapidly across Eurasia alongside the modern domestic horse line and the rest of the equestrian material culture, and by the close of the 2nd millennium BCE harnessed warriors were common across most ancient civilisations.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Teams were driven in war and in racing, from the funeral games of Homer’s <i>Iliad</i> to the Roman circuses, and keeping them demanded a training regime that Hittite tablets set down day by day.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Hattusa": "Hattusa was the capital of the Hittite kingdom and empire in central Anatolia, the political and religious centre of one of the major powers of the ancient Near East between about 1650 and 1200 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its walled site is on the World Heritage list for its urban organisation and for its surviving temples, royal residences and fortifications, together with the carved Lions', Sphinxes' and Royal Gates, and the rock sanctuary of Yazılıkaya lies about 3 kilometres (2 miles) to the north.<sup class=\"fn\" data-fn=\"2\"></sup> Archaeological work now indicates that the city was emptied by the royal administration and burnt only afterwards, and the reasons for its abandonment remain unclear.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Proto-Sinaitic_script": "The Proto-Sinaitic script is the earliest known alphabetic writing, linear pictographic signs cut on statuettes, stone panels and rock faces at Serabit el-Khadem, an Egyptian mining site in the Sinai, with a closely similar script at Wadi el-Hol in Upper Egypt.<sup class=\"fn\" data-fn=\"1\"></sup> Its signs take their shapes from Egyptian hieroglyphs without being used as Egyptian used them, and each is generally held to stand for the first sound of the Semitic word its picture names, a principle some dispute.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Neither group of inscriptions has a stratified context, so proposed dates run from the opening of the 2nd millennium BCE to the 14th century.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Amarna_letters": "The Amarna letters are the diplomatic correspondence of the Egyptian court in the 14th century BCE, 382 clay tablets from the city Akhenaten built as his capital, covering a window of only fifteen to thirty years.<sup class=\"fn\" data-fn=\"1\"></sup> They are written mostly in Akkadian, the language diplomacy used across the region whatever the sender spoke at home, and some forty are to or from the rulers Egypt treated as great kings.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Between those kings the language is brotherhood and the business is goods and royal marriages, while the mayors of the Syrian and Palestinian towns write instead about raids and rivals and ask for troops.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Amarna_letters": "The Amarna letters are the diplomatic correspondence of the Egyptian court in the 14th century BCE, 382 clay tablets from the city Akhenaten built as his capital, covering a window of only fifteen to thirty years.<sup class=\"fn\" data-fn=\"1\"></sup> They are written mostly in Akkadian, the language diplomacy used across the region whatever the sender spoke at home, and some forty are to or from the rulers Egypt treated as great kings.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Between those kings the language is brotherhood and the business is goods and royal marriages, while the mayors of the Syrian and Palestinian towns write instead about raids and rivals and ask for troops.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Bell_Beaker_culture": "<b>Bell Beaker culture</b> is an assemblage of grave goods that spread across western and central Europe in the 3rd millennium BCE, defined by an inverted-bell drinking vessel buried with copper daggers, flint arrowheads, stone wristguards and V-perforated buttons.<sup class=\"fn\" data-fn=\"1\"></sup> Its oldest radiocarbon dates come from Atlantic Iberia; by 2500 BCE it reached from northwest Africa to central Europe, and Britain and Ireland a century later.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient DNA shows it spread differently in different regions: affinity between Iberia and central Europe is slight and Iberia changed little from the Neolithic to the Bronze Age, while in Britain its arrival brought steppe-related ancestry and replaced about 90 per cent of the gene pool.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2291,7 +2292,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Chariot": "from c. 2000 BCE",
 "Hattusa": "c. 1650 – 1200 BCE",
 "Proto-Sinaitic_script": "early 2nd millennium BCE",
-"Amarna_letters": "c. 1365 – 1330 BCE"
+"Amarna_letters": "c. 1365 – 1330 BCE",
+"Bell_Beaker_culture": "c. 2750 – 1800 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3294,7 +3296,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Horse_domestication": ["domestication of the horse"],
 "Hattusa": ["Hattuša","Hattusas","Boğazköy"],
 "Proto-Sinaitic_script": ["Proto-Sinaitic"],
-"Amarna_letters": ["Amarna correspondence"]
+"Amarna_letters": ["Amarna correspondence"],
+"Bell_Beaker_culture": ["Bell Beaker","Bell Beaker complex","Beaker complex","Beaker culture","Bell Beaker phenomenon"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4900,7 +4903,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Chariot": ["object","technology","warfare","archaeology","bronze age"],
 "Hattusa": ["place","city","history","archaeology","bronze age"],
 "Proto-Sinaitic_script": ["concept","technology","archaeology","writing","language","bronze age"],
-"Amarna_letters": ["text","history","archaeology","writing","bronze age"]
+"Amarna_letters": ["text","history","archaeology","writing","bronze age"],
+"Bell_Beaker_culture": ["culture","archaeology","prehistory","europe","genetics"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
