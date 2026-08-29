@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-143` Gabon
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-146` Albania
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,86 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 54 (Gabon, Botswana, Moldova) found the bloc profile for SOUTHERN AFRICA and the one for an EU
+CANDIDATE, which between them cover most of what is left in Europe and Africa.** `sadc.int/member-states/<slug>`
+gives Capital, Area, Currency, Independence Day and a paragraph of prose for each of the sixteen Southern
+African Development Community states — C4's Commonwealth shape, verified on Botswana and on Namibia, and
+reaching Angola, Mozambique, DR Congo, Madagascar and Tanzania where the Commonwealth reaches some of them
+and none of the first. And **`enlargement.ec.europa.eu/<country>_en` is the EU country page's equivalent for
+a state that is not a member**: C1's second source covers members only, so every candidate has been sourceless
+since, and Moldova's page states "Membership status: candidate country" outright with the whole chronology
+under it — applied on 3 March 2022, European perspective on 23 June 2022 by unanimous agreement of all 27
+leaders, accession negotiations opened by the European Council on 14 December 2023. **Quote the page's own
+wording**: it says *European perspective* where the common account says *candidate status*. The path matters —
+`/enlargement-policy/moldova_en` and the `neighbourhood-enlargement` host both 404, and only the short
+`/<country>_en` form answers. It is the source for Albania, North Macedonia, Kosovo, Serbia, Montenegro,
+Georgia, Ukraine and Turkey, eight of which are still to come.
+
+**Batch 54's second finding retires D1's Moldova outlier by READING THE FOOTNOTE.** D1 recorded that UNdata's
+2,996,000 disagrees with the World Bank's 2,360,527 and that the World Bank matches the term, and left it as a
+divergence. It is not a divergence: UNdata's figure carries footnote **b, "Including the Transnistria region"**,
+where the World Bank follows the national statistical service, so the two are counting different countries.
+That is C1's Cyprus case exactly — the EU counting only the government-controlled area of a divided state —
+and it is the third time batch 14's rule has paid. **A gap that looks like a dispute is often a definition, and
+the definition is usually printed under the table.**
+
+**And it settles where C9's area rule stops.** Moldova's term gives 33,846 km² against UNdata's 33,847 and the
+World Bank's 33,850, which is strictly outside the spread, and C9 says correct an area that falls outside it.
+It was left alone, because C10 qualified that rule without saying it was doing so: **the World Bank rounds a
+small area to the nearest 10 km², so 33,850 is the interval 33,845–33,855 and it CONTAINS the term's figure.**
+That is the test C10 ran on Fiji, where 18,274 was outside 18,270 ± 5 as well and so was corrected. **C9's rule
+has no floor of its own; C10's rounding interval is the floor.** Below it a "correction" is a change inside a
+source's own precision, which buys a reader nothing and costs the term a true sentence.
+
+**Gabon resolves C7's deferral by C8's method, and its forest figure is a third kind of finding.** C7 read
+UNdata's 2,593 thousand against the term's 2.4 million as one-source-only and deferred; the World Bank series
+passes through 2,430,747 in 2022, so the figure was stale rather than contested and went to 2.6 million. The
+forest clause is different: the term said tropical rainforest covered "about 85 per cent" of the country, and
+**UNdata — the term's own source 1 — prints Forested area 91.2 per cent of land area.** It is logged as a
+REWRITE and not a correction, deliberately, because *rainforest* and *forest* are not the same class and the
+two figures do not strictly contradict; what was wrong is that 85 was in no source the term cites. **The World
+Bank's `AG.LND.FRST.ZS` gives 91.228 for the same year and is NOT a second source** — it relays the same FAO
+number, which is C8's `SP.POP.TOTL` caution one series over. Two unsourced superlatives went with it, "one of
+the highest proportions anywhere" and "one of the higher average incomes in sub-Saharan Africa", the second
+replaced by the 8,071 US dollars UNdata prints: batch 45's rule for the fourth batch running.
+
+**Botswana's population was wrong in the direction C8's diagnostic does not have a name for.** The term said
+2.7 million; the World Bank series never reaches it in eleven years, its maximum being the 2025 value of
+2,562,122, and UNdata gives 2,562 thousand with the Commonwealth at 2.352 million for 2022. So it is neither
+stale (no year on the series was ever 2.7) nor contested (nobody publishes 2.7) — it is simply above every
+published estimate, and a figure above all of them is corrected on the same footing as one behind them.
+Its third sentence lost "from 1885" and "one of the poorest countries in the world", neither in any cited
+work, and gained the recognition guide's own "under British sovereignty as Bechuanaland" and SADC's list of
+natural resources.
+
+**A 200 THAT SERVES ANOTHER COUNTRY'S PAGE — the sixth variety of 200-status error document, and the worst.**
+`worldbank.org/en/country/botswana/overview` returned the complete Bosnia and Herzegovina country page:
+headline, thirty-years-of-partnership brief, road-project story, energy press release, data links, all of it
+coherent and none of it about Botswana. The five varieties recorded before this one announce themselves —
+a JavaScript shell, a CloudFront block, a client challenge, a "Technical Difficulties" page, a 404 document —
+and this one does not, because the page is real. **Grep a fetched country page for its own country's name
+before reading a word of it.**
+
+**Moldova ships with NO independence row, and the near-miss is the reason to say so.** The recognition guide
+dates U.S. recognition to 25 December 1991 and says only that Moldova "previously had been a constituent
+republic of the USSR"; the constitution's preamble refers to "the proclamation of independence" without a
+date; and the declaration of 27 August 1991 is in nothing openable here. What the constitution does state is
+that it **came into force on 27 August 1994**, repealing the constitution of 15 April 1978 — the third
+anniversary of the declaration, which is exactly the coincidence a card must not quietly turn into a citation.
+The date line carries recognition, relations, UN membership and the constitution instead, and the Constitute
+Project is a good fifth source for any post-Soviet state whose founding act cannot be reached.
+
+**Access, measured this batch.** `opec.org` 403, so Gabon's oil has no source from its own cartel;
+`ceeac-eccas.org/en/member-states/` 404, so **ECCAS is not a bloc profile for central Africa** and Gabon's
+region has none; `imf.org/en/Countries/<ISO3>` 403; `kimberleyprocess.com` 404, so Botswana's diamonds are
+carried by SADC's resource list and nothing stronger; `eia.gov/international/analysis/country/<ISO3>` is a
+JavaScript shell with no country content; `consilium.europa.eu` 403. Working and worth keeping:
+`moldova.osce.org` (the OSCE Mission to Moldova, established 4 February 1993, with the 57 participating
+states' settlement formula stated on the front page), `constituteproject.org/constitution/<Country>_<year>`,
+and `digitallibrary.un.org/record/<id>` for a Security Council admission resolution — Gabon's is
+**S/RES/153 (1960) of 23 August 1960**, six days after independence, and the record URL carries no
+parenthesis where the symbol does.
 
 **Batch 53 (Qatar, Jamaica, the Gambia) collects three more MODES of recognition, and the Gambia's is
 new to the deck: recognition BY ATTENDING.** On 18 February 1965 the Assistant Secretary for African
