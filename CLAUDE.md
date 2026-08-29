@@ -2537,6 +2537,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     vertices** — and costs 5,330 extra points across all of world.js, nearly all culled per frame. **A
     segment wider than 180° is left alone**: the only one is Antarctica's base, (180,-90) to (-180,-90),
     which interpolates 720 steps the wrong way round the planet.
+    **IT SHARES `addRing` WITH THE LOCATOR'S RIVERS, whose own change landed the same week** — a river is
+    a POLYLINE and passes `close: false` — so the two arrive as ONE merge conflict on adjacent lines and
+    must be resolved together: the walk is hoisted into `ringStep` and the `close` flag is read at the end
+    of it. Taking either side whole silently loses the other, and **both losses render perfectly**: one
+    doubles the northern border again, the other draws every river's mouth back to its source across a
+    continent.
   · **A LOCATOR SHOWS THE REST OF ITS COLLECTION, AND THE WORLD AROUND IT** (`cardCollectionRoot` /
     `locatorSiblings` / `_locSibCache`; Aug 2026, on request). Four layers under the card's own gold dot:
     the collection's other card places as smaller RED dots, the Atlas's capitals and million-plus cities
