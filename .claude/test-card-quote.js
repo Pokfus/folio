@@ -30,7 +30,11 @@
    delegated listener / `PAGES.book`'s `params.n` / the `#book` branches in boot and hashchange /
    `serializeCardData` / `revertCard`, or `add-card.js`'s quote guard. Not part of the site. */
 const { chromium } = require("playwright");
-const base = "file:///home/user/folio/index.html";
+const { isNoise } = require("./test-noise.js");
+// The repo's own index.html, resolved from THIS file rather than written out: a hardcoded
+// absolute path is right on exactly one machine, and in CI it loaded nothing at all, which
+// fails as a crash before the first assertion rather than as a wrong answer.
+const base = require("url").pathToFileURL(require("path").join(__dirname, "..", "index.html")).href;
 let pass = 0, fail = 0;
 const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? "  " + x : "")); } else { fail++; console.log("FAIL  " + n + "  " + (x || "")); } };
 (async () => {
@@ -38,7 +42,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   const errs = [];
   const page = await browser.newPage({ viewport: { width: 1200, height: 900 } });
   page.on("pageerror", (e) => errs.push(e.message));
-  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !/CORS policy|net::ERR_|Failed to load resource/.test(t)) errs.push(t); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   await page.addInitScript(() => {
     localStorage.setItem("folio_v1", JSON.stringify({
       active: ["cotd:added"],

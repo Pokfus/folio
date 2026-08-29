@@ -40,6 +40,7 @@
    Env:  FOLIO_CHROMIUM=<path to chrome> if Chromium lives outside the playwright package. */
 const path = require("path"), http = require("http"), fs = require("fs");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 const ROOT = path.join(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml" };
@@ -86,7 +87,7 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "user", j
   const browser = await chromium.launch(LAUNCH);
   const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
   const errs = [];
-  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !/net::ERR_/.test(t)) errs.push(t); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   page.on("pageerror", (e) => errs.push(String(e)));
 
   // Supabase is never reached for the study half; the account half needs it (see the header).
@@ -191,8 +192,19 @@ const PROFILE = { id: UID, username: "scholar", name: "Scholar", role: "user", j
      a due at exactly midnight reconstructs a fraction of a minute short of it and reads as the same day.
      Same fault as `test-cards.js`'s due-date checks — a test that reads a clock has to read it the way the
      code does. */
-  check("row B graduates it to about a day", log2[1][5] >= 12 * 60 && log2[1][5] <= 36 * 60,
-    log2[1][5] + " min");
+  const graduated = await page.evaluate((id) => (JSON.parse(localStorage.folio_v1 || "{}").cards || {})[id]?.status, log2[1][0]);
+  check("row B graduates the card out of learning", graduated === "review", String(graduated));
+  /* AND THE BAND IS READ OFF THE CLOCK, NOT WRITTEN DOWN. A fixed 12–36 hour floor was the second wrong
+     form of this assertion and failed for the whole AFTERNOON of every UTC day: the delay a one-day
+     interval buys is however much of today is left, so it is 1,347 minutes at 01:22 and 78 at 22:42 —
+     the CI run that found it read 91. What is constant is not the SIZE of the gap but where it LANDS,
+     which is the next day boundary; the minute of tolerance is `logReviewEntry` rounding the span to
+     whole minutes, which can reconstruct a due at exactly midnight a fraction short of it. */
+  const boundary = await page.evaluate(() => { const d = new Date(); d.setHours(24, 0, 0, 0); return d.getTime(); });
+  const due = log2[1][1] + log2[1][5] * 60000;
+  check("…and the next sight of it is a later day, not a ten-minute step",
+    due + 60000 >= boundary && log2[1][5] <= 36 * 60,
+    log2[1][5] + " min, due " + new Date(due).toISOString());
   /* THE ASSERTION A COUNT CANNOT MAKE. Undo from the completion screen and the row that must survive is
      row A: an implementation that pops the LAST row passes a count check and fails this one. */
   const rowA = JSON.stringify(log2[0]);

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Card plans ↔ data.js — the check that keeps "generate the next <collection> card" working.
  *
- * Ten collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
+ * Sixteen collections are grown from a running order in docs/<name>-card-plan.md: the next card is the
  * lowest id not yet in data.js, and its deck comes from the plan. That workflow rests on agreements
  * nothing else verifies, and every one of them fails SILENTLY:
  *
@@ -66,10 +66,24 @@ const PLANS = {
   egypt: ["egypt", "eg-", 1000],
   ww2: ["ww2", "ww2-", 1000],
   japan: ["japan", "jp-", 1000],
+  psych: ["psychology", "ps-", 1000],
+  phil: ["philosophy", "ph-", 1000],
+  bio: ["biology", "bio-", 1000],
+  dino: ["dinosaurs", "dino-", 1000],
+  korea: ["korea", "ko-", 1000],
   /* keyed by the COLLECTION id, which for Geography is the country: Geography is a section heading on
      the Collections page rather than a node in the tree (see `COLLECTION_SECTION` in app.js), so the
      plan slug and the collection id differ here where they coincide everywhere else. */
   "geo-us": ["geography", "geo-", [[1, 50], [501, 550]]],
+  /* The world: 233 countries and territories, and 226 capitals rather than 233. The seven missing
+     numbers are not gaps to be filled — each is a capital card that would ask nothing, and each is
+     argued in the plan: 604 Hong Kong, 614 Singapore, 667 Macau, 713 Gibraltar, 714 Monaco and
+     732 Vatican City are city-states whose capital IS the whole territory, and 671 is Western Sahara,
+     whose two claimed capitals are each one side's answer to the disputed question. Written out as
+     ranges so that a number quietly going missing still fails here. 751-761 is the supplementary band:
+     ten countries have more than one seat and each seat is its own card, so the first keeps the paired
+     number (country + 500) and the extras take the next free band rather than renumbering the deck. */
+  "geo-world": ["world-geography", "gw-", [[1, 233], [501, 603], [605, 613], [615, 666], [668, 670], [672, 712], [715, 731], [733, 733], [751, 761]]],
 };
 // a numbering as a flat list of the numbers it expects, in order
 const expand = (num) => {

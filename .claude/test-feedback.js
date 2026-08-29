@@ -14,6 +14,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -46,7 +47,7 @@ function check(name, ok, extra) {
   ctx.on("page", (p) => {
     // ERR_TUNNEL/ERR_CONNECTION is the styles.css @import of Google Fonts failing behind a sandbox proxy —
     // an environment artifact, filtered here exactly as the other browser tests filter it
-    p.on("console", (m) => { if (m.type() === "error" && !/ERR_(TUNNEL|CONNECTION)|favicon/.test(m.text())) errs.push(m.text()); });
+    p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
     p.on("pageerror", (e) => errs.push("pageerror: " + e.message));
   });
 

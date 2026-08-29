@@ -24,6 +24,7 @@
  */
 const path = require("path"), fs = require("fs"), http = require("http");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 const ROOT = path.join(__dirname, "..");
 const PORT = 8123;
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png" };
@@ -89,15 +90,39 @@ function staticChecks() {
   });
   ok(outside.length === 0, "every capital sits inside its own state", outside.join(", "));
 
+  /* THE WORLD LAYER, which the second geography collection shades. It is checked more lightly than
+     us-states above because world.js is the ATLAS's file and has its own suite; what matters here is
+     that its capitals table joins to it, which is the claim a capital card makes. */
+  const wwin = {};
+  new Function("window", fs.readFileSync(path.join(ROOT, "world.js"), "utf8"))(wwin);
+  new Function("window", fs.readFileSync(path.join(ROOT, "world-capitals.js"), "utf8"))(wwin);
+  const WG = wwin.WORLD_GEO || [], WCAP = wwin.WORLD_CAPITALS || {};
+  const wgNames = new Set(WG.map((c) => c.n));
+  ok(WG.length > 200, "world.js carries the world's countries and territories", WG.length);
+  ok(Object.keys(WCAP).length > 200, "world-capitals.js carries a capital for most of them", Object.keys(WCAP).length);
+  ok(Object.keys(WCAP).every((n) => WCAP[n] && Array.isArray(WCAP[n].c) && WCAP[n].c.length === 2 && isFinite(WCAP[n].c[0]) && isFinite(WCAP[n].c[1])), "every world capital has a finite coordinate");
+  const wOrphan = Object.keys(WCAP).filter((n) => !wgNames.has(WCAP[n].s));
+  ok(!wOrphan.length, "every world capital names a country the layer actually has", wOrphan.slice(0, 5).join(", "));
+
+  /* THE LAYERS, KEYED AS app.js KEYS THEM. This used to be hard-coded to "us-states", which was a true
+     statement about the only layer there was and became a false one the day a second collection shipped —
+     the repo's own "a hard-coded label in a test is not an assertion about the label" fault. Each card is
+     now checked against ITS OWN layer's shapes and points. */
+  const LAYERS = {
+    "us-states": { shapes: new Set(ST.map((s) => s.n)), points: CAP, what: "state" },
+    world: { shapes: wgNames, points: WCAP, what: "country" },
+  };
+
   const dwin = {};
   new Function("window", fs.readFileSync(path.join(ROOT, "data.js"), "utf8"))(dwin);
   const cards = dwin.CARD_DATA || [];
   const maps = cards.filter((c) => c.map);
   ok(maps.length > 0, "data.js carries map cards", maps.length);
-  const names = new Set(ST.map((s) => s.n));
   maps.forEach((c) => {
-    ok(c.map.layer === "us-states", c.id + ": names a known layer", c.map.layer);
-    ok(names.has(c.map.key), c.id + ": its key is a state the layer actually has", c.map.key);
+    const L = LAYERS[c.map.layer];
+    ok(!!L, c.id + ": names a known layer", c.map.layer);
+    if (!L) return;
+    ok(L.shapes.has(c.map.key), c.id + ": its key is a " + L.what + " the layer actually has", c.map.key);
     /* A map card carries NO extra phrasings. The other two would have to describe the same shape in two
        more ways, which is either the same sentence or a different question about a different thing. */
     ok(!c.questions || !c.questions.length, c.id + ": carries no extra phrasings");
@@ -106,8 +131,9 @@ function staticChecks() {
        one. The third assertion is the one nothing else can make: the ANSWER has to be the dot, or the card
        lights up a city and asks about the state around it. */
     if (c.map.dot) {
-      ok(!!CAP[c.map.dot], c.id + ": its dot is a capital the layer actually has", c.map.dot);
-      ok(CAP[c.map.dot] && CAP[c.map.dot].s === c.map.key, c.id + ": …in the state the card shades", CAP[c.map.dot] && CAP[c.map.dot].s);
+      const P = L.points[c.map.dot];
+      ok(!!P, c.id + ": its dot is a capital the layer actually has", c.map.dot);
+      ok(P && P.s === c.map.key, c.id + ": …in the " + L.what + " the card shades", P && P.s);
       ok((c.answerText || "").trim() === c.map.dot, c.id + ": …and the answer is that city", c.answerText);
     }
   });
@@ -168,13 +194,24 @@ function staticChecks() {
 /* ---- the browser half ---- */
 async function browserChecks(page) {
   const errs = [];
-  page.on("console", (m) => { if (m.type() === "error" && !/fonts\.googleapis|ERR_CONNECTION_RESET/.test(m.text())) errs.push(m.text()); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   page.on("pageerror", (e) => errs.push("PAGEERROR " + e.message));
 
   /* Land on one card, by seeding the study session record the way a reload restores one. `n` is a cache
      buster in the QUERY and it is load-bearing: a goto differing only in the #fragment is a same-document
      navigation, so boot never runs, the seeded record is never read and the second call in this file
      silently studies the first call's card. The app ignores unknown query parameters. */
+  /* WAIT FOR THE PAGE GHOST TO GO before reading anything off the card. Boot renders home and then
+     routes to study, which is a same-document render, so `makePageGhost` lays a CLONE of the outgoing
+     page over the stage for PAGE_GHOST_MS + 60 and every `.mc-canvas` query below can see two of them.
+     Both ways it fails are silent-looking and neither is a fault in the site: a strict-mode locator
+     throws "resolved to 2 elements", and a `querySelector` may pick the ghost's canvas — which is a
+     clone, so it carries NO PIXELS and `toDataURL()` reads back an empty map. A plain 250ms sleep was
+     racing the 260ms fade and started losing the moment `usstates` gained a second file to fetch. */
+  const settle = async () => {
+    await page.waitForFunction(() => !document.querySelector(".page-ghost"), null, { timeout: 5000 });
+    await page.waitForTimeout(250);
+  };
   let visit = 0;
   const study = async (id) => {
     await page.addInitScript((cid) => {
@@ -185,7 +222,7 @@ async function browserChecks(page) {
     }, id);
     await page.goto("http://localhost:" + PORT + "/?c=" + (++visit) + "#study");
     await page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h._folioMap && h._folioMap.ready(); }, null, { timeout: 20000 });
-    await page.waitForTimeout(250);
+    await settle();
   };
   /* A LOCATOR CARD HAS NO WINDOW ON ITS FRONT, so `study` above — which waits for a mounted `.map-card` —
      times out on one. This lands on the card, reveals it, and waits for the window the ANSWER carries. */
@@ -200,7 +237,7 @@ async function browserChecks(page) {
     await page.waitForSelector("#reveal-btn", { timeout: 20000 });
     await page.evaluate(() => document.querySelector("#reveal-btn").click());
     await page.waitForFunction(() => { const h = document.querySelector(".card-loc .map-card"); return h && h._folioMap && h._folioMap.ready(); }, null, { timeout: 20000 });
-    await page.waitForTimeout(250);
+    await settle();
   };
 
   sect("3. the fit: every state frames itself");

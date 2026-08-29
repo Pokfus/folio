@@ -1073,3 +1073,1834 @@ the start** at the `GLOSS_SRC_TARGET` bar — and mind that romanised Chinese na
 syllables (*Yang Yan* against *yin and yang*, *Ban Zhao* against *Han-Zhao*), so prefer the fuller head
 word.
 
+  **`cnh-041` IS WHERE THE DECK'S WHOLE SOURCE SPINE STOPS WORKING, AND THAT IS A FACT ABOUT THE
+SUBJECT RATHER THAN ABOUT THE SEARCH** (Aug 2026). Every card from `cnh-001` to `cnh-040` is carried by
+Mayers, Legge, Herbert Giles, Doré, Werner, Doolittle, Wylie, Forke and Chavannes; **not one of them
+knows that Neolithic China exists**, Yangshao having been found in 1921 and the Yangtze rice cultures
+much later still, so the shelf that answered forty questions answers none of this one's. `cnh-037` met
+the same wall on a vernacular story and reached for `pypdf`; here the replacement is **modern
+open-access science, fetched from PMC directly**. Three access findings go with it. **`pmc.ncbi.nlm.nih.gov/articles/<PMCID>/`
+serves papers Europe PMC marks `isOpenAccess: N`** — both PNAS papers behind this card's Cishan and
+Liangzhu sentences are in that class and both read in full. **`europepmc.org/article/PMC/<id>` is a
+JavaScript shell**, and the tell is that it is **29,128 bytes for every id you ask for**, which is
+`cnh-003`'s "assert that the patch landed" in another coat: identical output across different inputs is
+the signature of a page that never had the content. And `/europepmc/webservices/rest/<PMCID>/fullTextXML`
+**404s outside the OA subset**, so a fetch failing there says nothing about whether the paper is readable.
+`cambridge.org` is 403 while a Cambridge journal at its DOI is not (`doi.org/10.1017/ehs.2024.31`).
+  **THE OVERVIEW WAS FOUND BY SEARCHING FOR AN ANIMAL, AND THE ROUTE IS THE REUSABLE PART.** Europe PMC
+on `TITLE:"Neolithic China"` returns kinship genomics and commensal rats; DOAJ on `title:(neolithic AND
+china)` returns 49 records and they are almost all site reports, which is the shape of this literature —
+**the specialist papers are everywhere and the syntheses are rare**. What carried five of this card's ten
+sentences is the INTRODUCTION of Hongo, Kikuchi and Nasu's review of pig management in *Animal Frontiers*,
+which sets its subject up by stating the north/south division, the Qinling–Huai line between them, the
+crops on each side, the Yangshao subsistence pattern and the West Asian wheat, cattle, sheep and goats
+arriving in the Longshan. **Where an overview is wanted and no overview is open, read the introduction of
+a specialist REVIEW** — it is written to do exactly that job for its own readers.
+  **ITS DATE LINE'S THREE ROWS REST ON THREE DIFFERENT WORKS, ON PURPOSE**, which is `cnh-036`'s rule
+applied while writing rather than after: the Early Neolithic at c. 7000–5000 BCE is Liu et al.'s
+9000–7000 cal BP, the millet cultures at c. 5000–3000 BCE are Stevens et al.'s figure in those words, and
+Liangzhu at c. 3300–2300 BCE is Liu Bin et al.'s 5,300–4,300 cal BP. **Converting cal BP to BCE is
+arithmetic and safe; asserting a period's END is not** — nothing openable here says when the Chinese
+Neolithic closes, so the card's date line does not say, and it sorts at −7000 rather than at the 20,000-year-old
+pottery its second sentence names, which would have filed a Neolithic card in the Upper Palaeolithic.
+  **THE PICTURE BEAT A BETTER-DESCRIBED RIVAL ON ITS FRAME, AND THE PROVENANCE WAS IN THE CATEGORIES.**
+Gary Todd's CC0 photograph of eleven Yangshao vessels names the Zhengzhou City Museum and dates the group
+in its own description, and what it shows is a display case — plinths, bilingual labels, wall panels and
+reflections, `cnh-036`'s calibration bar in another form. Windmemories' basin from the Dahecun site has a
+one-line description and looked the thinner record until its **Commons CATEGORIES** were read
+(`Collections of Dahecun Site Museum`, `Yangshao pottery from Dahecun Site`, `November 2024 in Zhengzhou`),
+which carry everything a `desc` needs. **Read a file's categories before calling its record thin.** The
+glossary term's own picture states the opposite kind of limit: the millet heaped on the Peiligang quern is
+the museum's display dressing and not an excavated deposit, so the `desc` says so.
+  **AND THE AUTO-LINKS WERE SIMULATED RATHER THAN EYEBALLED.** `cnh-010`'s `afar` and `cnh-012`'s `tripod`
+were both found by looking at a rendered card, which finds a mis-link only if you happen to look at the
+right word; running the glossary's own longest-first surface list over the finished abstract lists every
+link it will make in one command, and this one makes twelve, of which `China` (in "northern China") and
+`Asia` (in "western Asia") are the two worth checking and both point at the right place.
+  **`cnh-042` IS WHERE THE SECOND CARD ON ONE SUBJECT HAD TO BE PLANNED AGAINST THE FIRST, AND THE PLAN
+LINE IS WHAT SAYS HOW** (Aug 2026). `cnh-041 Neolithic China`, `cnh-042 The origins of Chinese
+agriculture` and `cnh-043 Millet and rice in early China` are three cards over one body of evidence, and
+the way to keep them from being one card written three times is to give each a different QUESTION rather
+than a different slice of the same answer: 41 is the period, 42 is the PROCESS and the ARGUMENT about it,
+43 will be the two crops. So 42 owns what 41 could not carry — how long the transition took, what
+low-level food production is, how domestication is read off shape, and the live dispute about where it
+started — and it deliberately restates none of 41's Cishan, Shangshan or Qinling–Huai sentences. **Before
+writing a card next to one already shipped, read the sibling's ten sentences and write down which
+question each card is answering**; the overlap is invisible in a word count and obvious on the page.
+  **THE OVERVIEW SOURCE WAS AGAIN A SPECIALIST PAPER'S FRAME RATHER THAN A SURVEY**, which makes it twice
+in two cards: `cnh-041` was carried by the introduction of a pig-management review, and this card's spine
+is a two-page PNAS **COMMENTARY** — Crawford's on the Cishan millet paper — which exists to say what a
+result means and therefore states the frame outright: that the timing puts Chinese agricultural origins at
+the Pleistocene–Holocene boundary as in Southwest Asia, Mexico and South America, and that pottery there
+long predates any trace of farming. **A commentary or a "News and Views" piece is a synthesis with a DOI**,
+and Europe PMC finds them by title like any other paper.
+  **THE CARD STATES A LIVE DISAGREEMENT AS A DISAGREEMENT, WHICH IS THE PLAN'S OWN RULE MET FOR THE FIRST
+TIME IN THIS DECK.** Barton et al. set out both accounts — agriculture spreading from a single Yangtze
+core in a farming diaspora, against its beginning in many places almost simultaneously — and add that
+broomcorn millet "appears early and suddenly from an as-yet-unidentified wild progenitor". A card that
+picked one and sounded neutral would be worse than one that picks openly, so the tenth sentence names both
+and settles neither.
+  **ITS DATE LINE IS BUILT BACKWARDS FROM WHAT `cardYears` WILL ASSERT.** The card's own second sentence
+dates deliberate grass-seed gathering to about 30,000 years ago, and putting that figure in the date line
+would have sorted a card about the origins of FARMING into the Upper Palaeolithic — `cnh-007`'s trap
+exactly, and the same test the `undatable` rule applies. The rows are the millet domestication window, the
+rice one and the arrival of full farming, so the card sorts at −8300, which is the onset a reader would
+give; the 30,000-year figure lives in the abstract, where it is a statement about gathering rather than
+about agriculture, and no `undatable` flag is needed.
+  **AND A COMMONS 429 CAN BE SCOPED TO ONE FILE RATHER THAN TO THE HOST, WHICH `cnh-014`'s CONGESTION
+FINDING DOES NOT COVER.** The Hemudu bone spade at `commons/8/8f/…1974.jpg` refused every request —
+original, `Special:FilePath`, and a composed `800px-` thumb that additionally returned cnh-040's
+**400 "Use thumbnail sizes listed on…"** — for the better part of an hour, while other files on the same
+host, including the one eventually shipped, fetched cleanly throughout. **The until-loop was still the
+right answer and it did land the file** — after about fifty minutes rather than cnh-014's fifteen — and a
+probe an hour later 429s again on that object while its neighbour returns 200, so the refusal is
+**per-file and intermittent** rather than permanent. What the neighbour probe is FOR, then, is not deciding
+whether to loop but knowing what the loop is up against: **fetch a known-good file from the same host, and
+where it answers, keep the loop running in the background and go and find another picture in parallel**,
+which is what got this card its illustration inside the hour. What
+replaced it was found by cnh-016's rule, searching Commons on the characters: `河姆渡 骨耜` returned five
+bone spades where the English name returned one. Two candidates were rejected by LOOKING: a Hemudu bowl
+whose record calls it 稻纹陶钵, a bowl with a rice-ear design, shows no design at all in the frame, and the
+National Museum's single sickle sits beside a case label reading "Stone Quern and Roller" that belongs to
+the next object along — cnh-040's "a record can be right and misleading" arriving twice in one search.
+  **`cnh-043` IS WHERE THE PLAN LINE WAS NOT AN ANSWER TERM, AND FINDING ONE WAS THE WHOLE PROBLEM**
+(Aug 2026). "Millet and rice in early China" is a subject, not a thing a reader can be asked to name, and
+the two obvious keys were already taken: `Millet_domestication` and `Rice_domestication` have been in the
+glossary since before this deck existed and own the shattering loss, the japonica origin, the Dadiwan
+grains and — worth knowing before drafting — **the yield comparison between the two crops**. What was left
+unclaimed is the FARMING rather than the plants, so the answer term is **`Millet_and_rice_farming`** and
+the term is written entirely about the two SYSTEMS: dry-sown grain against fields that had to be built,
+the paddies' development, the overlap zone, the two directions of spread. **Read the existing glossary
+terms nearest a new one before choosing its head word** — L10's re-registration rule met at the moment a
+term is created rather than during a length pass, which is far cheaper.
+  **AND IT IS THE THIRD CARD ON ONE SUBJECT, SO THE FIRST QUESTIONS WERE CHECKED AGAINST EACH OTHER.**
+Multiple Choice asks a card's FIRST phrasing and draws its wrong answers by tag kinship, so three cards
+sharing five of six tags would offer each other as distractors: "Neolithic China", "origins of Chinese
+agriculture" and "millet and rice farming" are close enough that a loose clue would be answerable by more
+than one. The kinds differ deliberately (`era`, `concept`, `practice`), which caps the kinship score, and
+each first question was written to fit ONE of the three — potters at sixteen sites, a transition among the
+slowest known, a northern crop on loess against a southern one in built fields. **When a run of cards
+shares a subject, read their opening questions as a set.**
+  **ITS BEST SOURCE WAS FOUND BY SEARCHING FOR THE PEOPLE RATHER THAN THE CROPS.** Europe PMC on rice and
+millet returns plant genetics and food chemistry by the page; what carried the card's closing pair of
+sentences is a **paleopathology** paper comparing Yangtze delta rice farmers with northern millet farmers
+and finding more skeletal stress markers among the rice farmers, heaviest late, as paddy cultivation grew.
+That is the one thing in this run of three cards that is about what farming did to bodies rather than to
+landscapes, and no crop-shaped query would have found it. **Ask what a subject did to people, and search
+that.**
+  **THE 429 CAME BACK AND THE CORRECTED RULE WORKED.** Two files new to the cache both refused while the
+sickle image shipped on `cnh-042` returned 200 on the same host, so the refusal is per-file as recorded
+above; both loops were started in the background and both landed within minutes while the glossary term was
+being drafted. **Probe a known-good file, start the loop, and keep writing** — the answer the previous
+card's entry was corrected to.
+  **AND A PICTURE'S FRAME DECIDED WHICH OF THE TWO WENT WHERE.** The Liangzhu stone ploughshare has the
+better record — the Liangzhu Museum's own label is legible in the shot and names the object and the
+Miaoqian site — and the frame is a display case with reflections, a strong shadow and a diorama figure
+behind the glass, in portrait. The broomcorn millet panicle is a clean landscape photograph against open
+sky, and its record is a botanist's: species, subspecies, and the Vienna roadside it grew on, which the
+`desc` states so that nobody reads it as a Chinese field. The card takes the picture that reads at card
+size and the term takes the one that survives being 150px high.
+  **`cnh-044` IS THE DECK'S FIRST CARD CARRIED BY A CHINESE MUSEUM'S OWN COLLECTION RECORD, AND THAT IS
+THE ROUTE TO REACH FOR WHEN THE JOURNALS GO QUIET** (Aug 2026). Jiahu's flutes are famous and the paper
+that reported them is in *Nature*, which is shut here; `metmuseum.org` answers **429 behind a JavaScript
+challenge**; `cambridge.org` is 403, so the *Antiquity* paper on the site's signs is unreachable and its
+old `antiquity.ac.uk` article paths are **404** since the journal moved. What answered is **`chnmus.net`,
+the Henan Museum**, whose 镇院之宝 (museum treasures) pages carry a full record for 贾湖骨笛 — the crane
+ulna it is cut from, the joints sawn off the hollow bone, the hole counts across the thirty-odd flutes
+(two, five, six, seven or eight, most of them seven), the equal-division marks showing the spacing was set
+out before drilling, and the tomb and year for the one on show. **`kaogu.cssn.cn`, the CASS Institute of
+Archaeology, also answers 200**, and `chnmuseum.cn` and `en.chnmuseum.cn` with it, so the Chinese
+institutional shelf is open even where the Anglophone journals are not — batch 18's "look for the body
+responsible" rule, pointed at a provincial museum. The page is reached through a redirect
+(`/content/redirect?id=…` → `/ch/collection/treasure/details.html?id=…`) and the **detail URL is what to
+cite**, since it is the one a reader can open.
+  **AND THAT SAME PAGE STATES ITS OBJECT'S LENGTH TWICE AND DISAGREES WITH ITSELF** — 长23.6厘米 in the
+specification block against 全长23.1厘米 in the prose — which is `cnh-017`'s Mayers fault on a modern web
+page rather than in an OCR'd scan. Neither figure is cited and the card gives no length. **Where one
+source states a figure twice, either reconcile it from a third or leave the figure out**; a card does not
+need every number a record carries.
+  **THE CARD SAYS LESS THAN IT COULD BECAUSE THE MEDIUM OF THE SIGNS IS NOT IN ANY SOURCE IT CITES.** Two
+open papers describe Jiahu as having yielded "possibly the earliest Chinese pictographic writing" and
+neither says what the signs are cut on; the tortoise shells are common knowledge and common knowledge is
+not a citation. So the abstract says "marks" and not "tortoise shells", and the claim is given as the
+hedge its own reporters give it. The GLOSSARY TERM's picture is a shell all the same — the Henan Museum's
+Hebu 314, whose Commons record names the museum, the site, the county and a date — because **a `desc`
+reporting a museum's record is not the prose asserting a fact**, and the two are allowed to know different
+things. **Watch for the pull of a fact you know but cannot cite**; it is strongest on a famous site.
+  **ITS SPINE IS A SILK PAPER, WHICH IS THE `cnh-043` LESSON AGAIN AT ONE REMOVE.** A bare `Jiahu` search
+in Europe PMC returns robotics and orthopaedics — the syllable is a common Chinese surname pair in author
+strings — and what works is **`ABSTRACT:"Jiahu"`**, ten hits, among them the PLOS ONE paper reporting silk
+fibroin in three 8,500-year-old graves. Its introduction then does the work an overview would: it lists,
+with references, the four things the site is famous for, so one open paper supplies both the silk and the
+frame. **Search the abstract field when a site name collides with a personal name.**
+  **`cnh-045` IS THE FIRST CARD IN THIS DECK WHOSE GLOSSARY TERM ALREADY EXISTED, AND THAT CHANGES WHAT
+THE CARD IS FOR** (Aug 2026). `Yangshao_culture` has been in the glossary since before the collection was
+opened — cited, at the bar, with its own picture — so the pairing rule was already satisfied and no term
+was written. What the rule then asks instead is that the CARD not be the term at greater length: the term
+owns the definition, the three provinces, the 3,000 Henan sites, the manured loess and the demic reading,
+so the card takes the things three sentences had no room for — the seven regions the culture reached, the
+broomcorn-to-foxtail changeover, the pigs fed by hand at Xipo, the gene flow between the two river basins,
+and the migration west that carried a way of brewing with it. **Read the existing term first and write
+what it could not hold**; the alternative is a card that teaches nothing to a reader who has met the
+popup.
+  **ITS ONE REAL FAULT WAS A MIS-LINK, CAUGHT BY THE SIMULATION AND NOT BY EYE.** The abstract listed the
+regions Yangshao influence reached, and "Inner **Mongolia**" auto-linked to `Mongolia`, the modern country
+— an autonomous region of China pointed at a different state, which is `cnh-010`'s `afar` and `cnh-012`'s
+`tripod` a third time. Neither `GLOSSARY_CASESENSITIVE` nor a longer key can separate them, since the
+surface really is the country's name; the fix that would scale is an `Inner_Mongolia` term, which the
+collection will want eventually, and the fix taken here was to **reword** — the sentence now says how many
+regions and names five that carry no such trap. **Run the longest-first surface simulation over every new
+abstract**: it costs one command, and it found this where reading did not.
+  **AND A DOI IN THE SHIPPED GLOSSARY POINTS AT A HOST THIS SANDBOX CANNOT OPEN.** `Yangshao_culture` cites
+Liu et al. 2022 as `doi.org/10.1073/pnas.2212006119`, which resolves to `pnas.org` and is **403 here**, as
+`cnh-001` recorded for that host. The DOI is a perfectly good link for an ordinary reader and the citation
+is not wrong, but this deck's own convention is to cite a PNAS paper at its **PMC** address — every one of
+`cnh-041` to `cnh-044` does — so the card cites the same work at `pmc.ncbi.nlm.nih.gov/articles/PMC9907151/`
+and the two forms now differ across surfaces. **Prefer the URL you have actually opened**, and expect a
+glossary citation written during an earlier pass to have been checked against a different set of hosts.
+
+  **`cnh-046` IS THE FIRST CARD IN THIS DECK WHOSE SUBJECT IS FAMOUS AND WHOSE SOURCES ARE NOT, AND THE
+GAP BETWEEN THOSE TWO THINGS IS THE FINDING.** Banpo is in every survey of Chinese prehistory and on every
+Xi'an itinerary, and it is the source-poorest card written for `col-2` so far: `TITLE:"Banpo"` returns **0
+hits** in Europe PMC, `"Banpo site"` returns ten of which four are usable, `bpmuseum.com` answers **418**,
+`kaogu.cssn.cn` does not resolve and `kaogu.net.cn` is **503**, DOAJ's `Banpo` query is swamped by the
+Seoul district of the same name, and every result a plain web search returns — Baidu Baike, China Daily,
+travel operators, a study-notes site — is barred by the citation rules. The figures those pages agree on
+(a 50,000 m² site, 45 or 46 houses, 200 storage pits, 250 tombs, a defensive ditch 5–6 m deep and 6–8 m
+wide) are **not on the card**, because not one of them could be tied to a work that opens here. **A
+well-known site is not a well-sourced one**, and the honest card is the narrower one.
+  **WHAT CARRIED IT WAS SIX PAPERS THAT ARE ABOUT SOMETHING ELSE.** None of the nine citations is a study
+of Banpo; each is a study of diet, of pigs, of millet, of genomes or of heated floors that passes through
+Banpo on its way. The dates came from a **table row** in a meta-analysis of isotope data (Liu and Reid
+2020: `Banpo | Shaanxi | Yangshao | 4800–4300`), the pens from a pig-husbandry paper's discussion, the
+burnt-earth floors from a paper about the **Amur** river basin, the phase and its pottery from an
+archaeobotany paper about Gansu. **Grep the cache before searching the web**: five of the nine were
+already on disk from `cnh-041`–`cnh-045` and had never been read for this subject. The corollary is a
+limit worth stating — a claim reached this way is a claim about whatever the host paper measured, so the
+card can say what Banpo's people ate and how their floors were made, and cannot say how big the village
+was.
+  **AND TWO OF ITS BEST-KNOWN FACTS BELONG TO ITS NEIGHBOUR, NOT TO IT.** The ring ditch enclosing the
+houses with the cemetery and the kilns outside it is attested for the **Banpo phase** (at Gedachuan, and
+at Jiangzhai, which the sources compare it to) and not, in anything openable here, for Banpo itself; the
+2-metre ditch that a 2025 PNAS paper illustrates is **Jiangzhai's**. The card therefore says "villages of
+that phase were laid out to a pattern" rather than "Banpo had a moat", which is the difference between
+what the sources carry and what the reader expects. `cnh-045` already spends the Jiangzhai settlement
+model as its picture, so leaning further on that site would also have doubled it. **When a site's
+diagnostic feature is published under the PHASE rather than the site, say phase.**
+  **ONE FIGURE WAS DELIBERATELY LEFT OUT.** A 2025 review of turnip-rape genetics relays that "a large
+number of carbonized mustard and cabbage seeds were excavated" at Banpo. It is openable and it is a real
+citation, but it relays a 1950s identification of charred seeds that has been argued over since, and a
+review in a plant-breeding journal is not where that argument is settled. **A claim can be citable and
+still not be safe to assert**; the seeds are recorded here instead.
+  **PICTURE: THE EXCAVATION HALL, NOT A POT — AND THE TWO SURFACES SPLIT THE JOB.** The card takes the
+exposed village floor under its museum roof (house outlines, storage pits, vessels standing where they
+were found), because the card is about a settlement; the glossary term takes the **pointed-bottom
+cord-marked bottle** in the Musée Guimet, the form the sources name as diagnostic of the phase. Its
+Commons categories were checked before use (`Banpo Site`, `Yangshao pottery Ping`, `Collections of the
+Musée Guimet`) — the file has no description at all, so the categories are the only evidence that the
+name on it is true.
+  **TOOLING: A `1400px` THUMBNAIL DOES NOT EXIST AND AN `until` LOOP WILL RETRY THAT FOREVER.** Commons
+serves only the widths its API offers, so a composed `.../1400px-<file>` returns a **2 KB HTML error page
+with a 200 status** — which `getimg.sh`'s loop treats as a transient failure and re-fetches, and which,
+left running in the background, **overwrote a good 890 KB download from a later command with the error
+page**. Take `thumburl` from `imageinfo` verbatim (here `1920px`), and stop a background fetch before
+re-fetching the same path.
+
+  **`cnh-047` IS THE DECK'S FIRST NEOLITHIC CARD WITH A GENUINE ANCHOR PAPER, AND THE CONTRAST WITH
+`cnh-046` IS THE FINDING.** Banpo, a household name in China, is studied by nobody reachable; Hongshan,
+which is not, has **Peterson, Lu, Drennan and Zhu 2010 in PNAS** — a settlement-survey paper whose
+introduction alone carries the culture's dates, its core zone, the tiered platforms and their pottery
+cylinders, the jade-only burials, the Goddess Temple, the house plans, the subsistence list and the
+Chifeng district survey. Seven of this card's ten sentences rest on it. **Before assembling a card out of
+six papers that pass through the subject, spend one search looking for the paper that is ABOUT it** —
+`"Niuheliang"` returned sixteen hits where `TITLE:"Banpo"` returned none, and the difference is which
+name the archaeological literature happens to use in its titles.
+  **A BARE CULTURE NAME IS A BAD EUROPE PMC QUERY AND ITS TYPE SITE IS A GOOD ONE.** `"Hongshan"` alone
+returns **7,466 hits**, nearly all of them Korean and Chinese author surnames and place names in
+biomedical papers, exactly as `"Banpo"` was swamped by the Seoul district; `"Niuheliang"` returns 16 and
+`"Hongshan culture"` 36, and between them they contain every source used here. **Query the site, not the
+culture.**
+  **THE CARD'S LAST SENTENCE CORRECTS THE STORY MOST READERS WILL HAVE MET.** Hongshan is routinely said
+to have collapsed suddenly under a worsening climate; Xu et al. 2019 shows that ritual at the great
+centres peaked around 5800–5300 cal BP and stopped, but that this "does not imply a total collapse … it
+marked the disappearance of elite power with associated material symbols", with small settlements
+continuing for centuries. **A card about a culture that ended is a card about what exactly ended**, and
+here it is the elite and their jades rather than the people.
+  **AND THE MONGOLIA MIS-LINK CAME BACK, IN THE SAME PLACE, ONE CARD LATER.** `cnh-045` was reworded
+because "Inner **Mongolia**" auto-linked to `Mongolia`, the modern country; this card's second sentence
+was drafted "from Inner Mongolia into Liaoning" and did it again. Both drafts were written from a source
+that names the autonomous region, so the phrase will keep arriving as long as the sources use it. The
+reword also had to be done TWICE — the first attempt gave "of what is now northeastern China", which put
+that phrase in two consecutive sentences, caught by reading the rendered page rather than by any checker.
+**Two strikes: the collection should have an `Inner_Mongolia` term before a third card needs one.**
+  **A CITATION SWEEP THAT THIS CARD FORCED, AND THE TWO METHOD ERRORS IN IT.** Choosing between a DOI and
+a PMC address for these sources led to testing every citation URL in `cnh-041`–`cnh-047` and their seven
+glossary terms — 40 links — and **nine pointed at a page this sandbox cannot open**: `academic.oup.com`
+403, `mdpi.com` 403, `pnas.org` 403, and BMC Biology and Elsevier's `linkinghub` each serving a **~3 KB
+stub with a 200 status**. All nine were repointed to `pmc.ncbi.nlm.nih.gov`, on five cards
+(`cnh-045`, `cnh-046`, `wh-130`, `wh-147`, and this one's drafts) and two terms. Two things went wrong on
+the way and both are worth remembering. **`curl -I`, and `curl` without `-L`, report the REDIRECT and not
+the destination**: `nature.com` answered 303 and looked shut, so two Nature Communications citations were
+repointed that never needed it — followed properly they serve 472 KB and 540 KB. And **a 200 is not an
+article**: the BMC and Elsevier stubs are 3,038 and 3,007 bytes. **Measure a citation with `curl -sSL`
+and look at the SIZE**, and remember the rule the deck already followed without writing down: cite at the
+address that opens from here, which is the DOI where it resolves to a reachable page and the PMC record
+otherwise.
+
+  **`cnh-048` IS THE FIRST CARD IN THIS DECK WHERE THE PICTURE WAS THE HARD PART, AND THE REASON IS
+WORTH KNOWING BEFORE ANY CARD ABOUT A SITE WITH A VISITOR PARK.** Liangzhu's sources were easy — the
+whole card rests on five open works and the anchor, Bin Liu et al. 2017 in PNAS, carries seven of its
+ten sentences with figures nobody has to hedge (a city of 300 ha at roughly 1.9 × 1.7 km, Tangshan
+levees of 5 km at 2–7 m, 30 km of canals through eight water gates, 3,000 people for eight years moving
+2.88 million m³). What was hard was finding a photograph of the ANCIENT thing. Commons' large
+`Archaeological Ruins of Liangzhu City` set — fourteen files, all CC BY 2.0 and well shot — is entirely
+the modern interpretive park: **wire-mesh sculptures of Neolithic villagers paddling a wire canoe, and a
+reconstructed well beside a bilingual signboard.** They are honest photographs of a real place and they
+teach a reader nothing about the Liangzhu culture, which is the third variety of the picture trap this
+deck has met, after the wrong person of the same name and the unlabelled plaster cast. **A World
+Heritage site with a park will have far more pictures of its park than of itself**; search for the
+excavation (`Liangzhu site excavation OR Liangzhu wall OR Mojiaoshan`) rather than for the ruins, and
+LOOK at every candidate. Two files answered — the south wall cut open under a shelter, showing the layer
+of loose rock the earth rampart stands on, and the same stone footing on the west wall — and one that
+sounded perfect did not: `Mojiaoshan Relic Site of Liangzhu Culture` is a boardwalk and a handrail on a
+winter mound.
+  **THE CARD LEAVES ITS MOST FAMOUS SUBJECT ALONE ON PURPOSE.** Liangzhu is best known for its jade, and
+the plan gives jade its own card at `cnh-049`, so this one spends a single clause on it and puts the
+words into the city, the dams and the collapse instead. **When two consecutive plan lines split a
+subject, decide the split before drafting either** — the alternative is a culture card that is mostly
+about jade and a jade card with nothing left to say.
+  **ITS SEVENTH SENTENCE IS HISTORIOGRAPHY WRITTEN SO THE MEASURE CANNOT SEE IT, AND THAT IS THE RIGHT
+OUTCOME RATHER THAN A LOOPHOLE.** The Liangzhu waterworks are the standard modern test case for
+Wittfogel's hydraulic hypothesis, and Liu et al. spend four paragraphs on it, so a card that ignored the
+argument would be hiding something its own source thinks central. `card-focus.js` reports `historio: 0`
+because the sentence names **the theory and not the theorist** — "the old argument that water control is
+what builds despotic states" — which is exactly the fix `docs/history-focus-plan.md` prescribes: keep the
+claim, drop the name, and the sentence gets shorter as well as better.
+  **AND A `cd` INSIDE A COMPOUND COMMAND MADE SEVEN PASSING SUITES REPORT `MODULE_NOT_FOUND`.** The
+scratchpad `cd` used to open a browser harness persisted across the `;` into the checker loop, so every
+no-browser suite failed to resolve `../data.js` and printed a stack trace that looks exactly like a
+broken test. **Run the checkers from `/home/user/folio` in a command of their own**; a suite that fails
+on its `require` line has not run at all, and the distinction is invisible in a tail of the output.
+
+  **`cnh-049` FOUND A WHOLE SHELF THIS DECK DID NOT KNOW IT HAD: `ASIAN PERSPECTIVES`, OPEN, FULL TEXT,
+BACK TO THE 1960s.** Liangzhu jade is an art-historical and archaeometric subject, so Europe PMC is
+nearly blind to it — `"Liangzhu" AND "jade"` returns 28 hits of which four are relevant, `"cong" AND
+"Liangzhu"` returns 51 dominated by Chinese author surnames, and the jade-specific results that do
+surface are **preprints** on `preprints.org` and `researchsquare`, which the citation rules do not
+accept. What answered was **ScholarSpace, the University of Hawai'i repository**
+(`scholarspace.manoa.hawaii.edu`), which publishes *Asian Perspectives* — the standard English journal
+for the archaeology of this region — in full and free. Its web search is a JavaScript shell and returns
+nothing, but its **DSpace REST API is open**: `/server/api/discover/search/objects?query=Liangzhu` gives
+titles, authors, citations and handles, and each item's `TEXT` bundle holds the OCR'd article, reached
+through `/server/api/core/items/<uuid>/bundles` → `/core/bundles/<uuid>/bitstreams` →
+`/bitstreams/<uuid>/download`. Three of its articles carry this card: Li Liu on prestige-goods
+production, Green on the *bi*, and Lopes on jade-working technique. **Reach for ScholarSpace before
+concluding a Chinese or Pacific archaeology subject has no open literature.**
+  **THE MUSEUM APIs ARE THE OTHER HALF, AND THEY ARE NOT EQUAL.** Three were probed. **The Cleveland
+Museum of Art is the best source of the three and its public page opens** (`openaccess-api.clevelandart.org`
+for the record, `clevelandart.org/art/<accession>` for the citation): its Liangzhu *bi* record carries a
+written curatorial paragraph — that the culture "excelled in jade working", that large discs "usually
+occupied pride of place on the chest of the buried", and that *bi* and *cong* "form an essential ritual
+pair" — which is a citable claim rather than a catalogue line. **The Art Institute of Chicago's API is
+open and its object pages are 403**, so a citation there would point at a page the reader cannot open;
+its records are also bare (`description: null`). The **British Museum (403)**, the **Met** (bot-walled,
+recorded earlier), **`asia.si.edu` (403)**, **`dpm.org.cn`** (connection reset) and
+**`zhejiangmuseum.com`** (TLS failure) are all shut. **Check that a museum's PUBLIC page opens before
+citing its API.**
+  **THE ANSWER TERM WAS ARGUED OVER AND THE PLAN WON.** `cnh-048` answers *Liangzhu culture* and this one
+answers *Liangzhu jade*, which are similar surfaces one card apart; the alternative was to answer *cong*,
+the object the card actually turns on. The plan was kept because it puts this card in a deliberate family
+with `cnh-085 Shang jade` and `cnh-954 Chinese jade`, and because the collision is harmless where it
+would matter: the two cards' first tags differ (`culture` against `object`), so `cardKinship` caps their
+score, and both are difficulty 4, above `GAME_MAX_DIFFICULTY`, so neither reaches a minigame at all.
+**Check the tag kinds and the difficulty before worrying about two similar answers.**
+  **AND A COMMONS THUMBNAIL 429 CLEARED ON THE SECOND TRY, NOT THE FIFTIETH.** `cnh-042`'s finding was
+that a rate-limited file can take an hour of looping; the V&A *bi* here returned the 2,190-byte error
+page once and the real 809 KB file ten seconds later. **A short retry loop with a size test is the right
+first move** — `[ "$s" -gt 50000 ] && break` — and only a file that fails several of those is worth
+backgrounding.
+
+  **`cnh-050` IS THE FIRST CARD IN THIS DECK WHOSE ANSWER ALREADY HAD BOTH A GLOSSARY TERM AND A FULL
+CARD, AND THE RULE IT FORCED IS SHARPER THAN `cnh-045`'s.** `Yangshao_culture` existed as a three-sentence
+popup and the card had to say what three sentences could not hold; here `wh-148` is a whole ten-sentence
+World History card on the same answer term, so the question is not what a popup left out but what a CARD
+left out. Reading it first showed `wh-148` spends itself on the black pottery, the Songshan site counts,
+the arrival of cattle and scapulimancy, the diet change at 4.2 ka and Shimao. **So this card was written
+around the one thing `wh-148` mentions once and drops: the walls.** Its whole spine — Longshan as a set of
+REGIONAL cultures rather than one, the type site at Chengziyai, the ten or so walled towns in clusters,
+what was buried in the wall bases, and the Taosi ditch — appears nowhere in the sibling. **Read the
+sibling card before drafting, and make the list of what it spent** ; the alternative is two cards that
+teach the same five facts under one answer.
+  **NO NEW GLOSSARY TERM WAS WRITTEN, AND THAT IS THE RIGHT ANSWER RATHER THAN A SKIPPED STEP.**
+`Longshan_culture` is already at the two-source bar and inside the length band, and its three sentences
+are accurate; adding a second term or rewriting a sound one to match a new card is churn. The pairing rule
+asks that a card's answer HAVE an entry, not that every card create one.
+  **`ASIAN PERSPECTIVES` CARRIED THIS CARD ENTIRELY — FIVE SOURCES, ALL FROM THE ONE JOURNAL** — which is
+`cnh-049`'s find paying immediately and is worth stating as an expectation rather than a surprise: the
+archaeology of Neolithic and Bronze Age China is largely published in Anglophone journals that
+Europe PMC does not index, and ScholarSpace's DSpace API reaches it. Dematté 1999 on Longshan urbanism,
+Yang 2019 on wall-construction ritual, Underhill 1994 on settlement variation, Shi 2021 on copper and Xie
+et al. 2020 on settlement relocation were all found by one query and fetched with the same three-call
+bundle walk.
+  **AND THE NEAR-MISS OF THE SESSION WAS FIVE INVENTED HANDLES.** The first draft's citations carried
+`hdl.handle.net/10125/17103`, `/68297`, `/17045`, `/79240` and `/70118` — plausible-looking numbers
+composed from the pattern of the two handles actually seen, exactly N4's fabricated-author fault in a new
+coat. **A DSpace item's handle is in its own metadata** (`/server/api/core/items/<uuid>` → `handle`), and
+the real ones are `/17124`, `/76786`, `/17047`, `/108232` and `/104160` — not one of the five guesses was
+right. Two things go with it: the same record carries `dc.identifier.citation` with the **page range** for
+older volumes and NOTHING for the recent ones, so three of these five are cited **without pages** rather
+than with a range inferred from the printed page numbers in the OCR; and **all five handles were opened
+before the card was added**. **Never compose an identifier from a pattern.**
+  **ONE FIGURE WAS DELIBERATELY NOT USED BECAUSE THE OCR COULD NOT BE READ SAFELY.** Dematté's site table
+is two-column and the OCR interleaves the columns, so a "metal fragment (bronze alloy of lead, tin, and
+copper)" sits between the entries for **Wangchenggang** and **Dinggong** with no way to tell which it
+belongs to. The claim was dropped and the metallurgy sentence rests on Shi 2021 instead, which names
+Zhoujiazhuang outright. **A two-column table in an OCR'd PDF is a place where a fact can be attached to
+the wrong site without anything looking wrong**; if the column cannot be resolved, the fact is not
+available.
+  **A THIRD `Inner Mongolia` DRAFT WAS CAUGHT, THIS TIME BY THE WORD BUDGET.** The fourth sentence
+originally listed "Hubei, Inner Mongolia and Sichuan"; the abstract came in 26 words over and Inner
+Mongolia went out in the trim, which happens to remove the mis-link that bit `cnh-045` and `cnh-047`.
+**That is luck, not process** — the collection still wants an `Inner_Mongolia` term.
+
+  **`cnh-051` IS THE THIRD CARD IN A ROW WHOSE SUBJECT WAS ALREADY PARTLY SPENT, AND THE ANSWER WAS TO
+NARROW TO THE ONE THING NOBODY ELSE COVERS: HOW A POT WAS ACTUALLY MADE.** `wh-128` answers *pottery* for
+the whole world and already carries China's claim to the oldest pots; `cnh-041` carries the sixteen sites
+and the 20,000-year date; `wh-148` carries the Longshan black ware and `cnh-045` the Yangshao painted
+ware. What was left, and what no card had, is the **craft** — the temper, the wall thickness, the forming
+methods, the firing temperatures, the kilns and the clay sources — and Tracey Lu's *Early Pottery in South
+China* supplies almost all of it in figures a card can use (walls 2.9–3.6 cm, unsieved crushed calcite or
+quartz, pinched by hand, 600–700 °C, Zengpiyan below 250 °C, slab building then coiling, and the marks on
+the earliest surfaces being a hand smoothing clay rather than decoration). **When three siblings have
+taken a subject's history, take its technique.**
+  **A PAINTED-WARE CLAUSE WAS DROPPED BECAUSE NO SOURCE IN HAND CARRIED IT.** The first plan had a date
+line row for `Painted wares c. 5000 – 3000 BCE` and a sentence pairing Yangshao red-painted with Longshan
+black. Neither of the five sources describes Yangshao painting; the figure would have come from
+`cnh-045`'s date line, which is a Folio card and not a source. Both went, and the card is about making
+rather than about styles. **A date-line row needs a source as much as a sentence does.**
+  **THE PICTURE SEARCH RETURNED GERMANY.** `File:Neolithic Pottery (28724096376).jpg`, CC0 and 5184 px,
+came back top of a `Neolithic China pottery` search because its photographer is based in Xinzheng, Henan
+— the vessels are **Corded Ware in the Neues Museum, Berlin**, and the file's own categories say so. That
+is the deck's fourth variety of picture trap, after the wrong person of the same name, the unlabelled
+plaster cast and the visitor park. **Read the CATEGORIES, not the title and not the photographer**; the
+Yuchanyan pot and the Peiligang tripod that shipped were both confirmed that way.
+  **A NEW GLOSSARY KEY CAN SWALLOW AN OLDER ONE'S ALIAS, AND THE SIMULATION SAYS SO WHERE THE PAGE DOES
+NOT.** `Neolithic_China` carries the alias "Chinese Neolithic", which sits inside the new answer term
+"Chinese Neolithic pottery"; the offline longest-first simulation reported the shorter alias winning
+inside the term's own opening words. **It was wrong** — `buildGlossIndex` sorts the 25-character surface
+above the 17-character alias, and the renderer additionally excludes a card's own answer term — and both
+the card and the popup were checked in a browser to confirm it. Worth writing down in both directions:
+the simulation over-reports where a new key is a superset of an old alias, and **a browser check is what
+settles it**.
+
+  **`cnh-052` IS THE FOURTH IN A ROW WHOSE SUBJECT WAS ALREADY PARTLY SPENT, AND THE ANSWER WAS TO MAKE
+THE CARD ABOUT THE ARGUMENT RATHER THAN ABOUT THE PLACE.** `cnh-047` to `cnh-051` had already carried
+Hongshan, Liangzhu, Longshan and the pottery, so a *Central Plain* card written as a description of the
+middle Yellow River would have been five sixths of it a list of what the reader has just read. What no
+card had is the **claim** those five cards bear on: that complexity spread outward from the Zhongyuan by
+conquest and imitation. The card states the traditional model, gives Erlitou as the one thing genuinely
+peculiar to the region — an unbroken Neolithic-to-Shang sequence — and then sets the walled towns of
+Shandong, Hubei and Sichuan and the dammed city on the Yangtze delta against it. **Where the siblings
+have taken a region's contents, take the region's claim.**
+  **THE SANDBOX'S ANSWER TO CHINESE ARCHAEOLOGY IS STILL SCHOLARSPACE, AND IT CARRIED THREE OF FIVE.**
+Shelach 1994 (*Asian Perspectives* 33(2)) is the challenge to the Zhongyuan model with the Yuxi/Chifeng
+comparison behind it; Lee 2002 (41(1)) has Erlitou's 400 hectares, its four phases, and the stratigraphy
+between Miaodigou II and Erligang; Dematté 1999 has the walled towns in their regional clusters. The
+other two are PMC — Peterson et al. 2010 for the Hongshan chiefdoms, Bin Liu et al. 2017 for Liangzhu's
+dams. **Every handle was read off `/server/api/core/items/<uuid>` and opened before it was cited**, which
+is the rule this deck learned the hard way on `cnh-050`, where five invented handle numbers were composed
+from the pattern of two real ones and not one of them was right.
+  **THE PICTURE IS A MAP, AND IT IS THE CARD'S ARGUMENT IN ONE IMAGE.** `File:Late Neolithic cultures in
+China.jpg` numbers fifteen late-Neolithic culture areas across the country, so a reader sees at a glance
+that the Central Plain is one region among many — which is exactly what the abstract spends five
+sentences saying. Its base-map place names are German while the fifteen keyed areas are English, and the
+description says so rather than leaving a reader to discover it.
+  **A STALE CROSS-REFERENCE IN THE PLAN WAS FIXED IN THE SAME COMMIT.** `docs/china-card-plan.md` argued
+the Xia historicity question under `cnh-048` and the Chronology Project under `cnh-053`, where the running
+order gives `cnh-061` and `cnh-065` — and by now those two numbers name *Liangzhu culture* and
+*Sanxingdui*, two cards that exist. **A number in a plan's prose is not checked by anything**; the running
+order is, so read the prose against it when passing.
+
+  **`cnh-053` BREAKS THE RUN OF FOUR CARDS WRITTEN AROUND THEIR SIBLINGS: NOTHING IN THE DECK OR THE
+GLOSSARY HAD TOUCHED SANXINGDUI AT ALL.** `cnh-047` to `cnh-052` were each shaped by what was already
+said elsewhere; this one had a clear field, and the shape it wanted was the ordinary one — what the place
+is, how big, when, and what came out of it. The abstract gives the city first (500 ha walled, some 1,200
+with its neighbourhoods, inner walls dividing palace from workshop quarters) and the pits second, which
+puts the famous objects where they belong: as the deposit of a capital, rather than as curiosities.
+  **THE SANDBOX'S ANSWER TO CHINESE ARCHAEOLOGY IS NOW TWO SOURCES DEEP, AND THEY DIVIDE BY KIND.**
+ScholarSpace carried the settlement archaeology — Flad et al. 2013 (*Asian Perspectives* 52(1)) for the
+Chengdu Plain sequence, the Baodun walled towns that preceded it and the possibly violent transition to
+Jinsha; Lin 2019 (58(2)) for the enclosure's size, its quarters and the fact that every contemporary
+site near it is small. Europe PMC carried the SCIENCE — the *National Science Review* 2021 news feature
+(PMC8310767) for the 1929 and 1986 discoveries, the object measurements and the eight pits; *Scientific
+Reports* 2024 (PMC11589763) for silk in the ash; and *PNAS* 2026 (PMC12913004) for the pits at
+1200–1000 BCE and for carnelian carried from far to the north. **Ask ScholarSpace what a site WAS and
+Europe PMC what was IN it.**
+  **THE BROWSER HARNESS CANNOT LOAD AN EXTERNAL PICTURE AT ALL, AND ITS `naturalWidth` MUST NOT BE READ
+AS A VERDICT ON THE FILE.** Every card image has rendered `0x0 complete=false` in the render harness;
+diagnosed here rather than assumed — headless Chromium's request to `upload.wikimedia.org` is refused by
+the agent proxy with `ERR_CONNECTION_RESET`, on a direct `goto` as well as inside a page, with
+`--ignore-certificate-errors`, `ignoreHTTPSErrors` and an explicit `--proxy-server` all set. The same URL
+serves 430 KB to `curl`. **Verify a card image by fetching it and LOOKING at it**; the harness can only
+tell you the figure was built and that no `.media-dead` fired.
+  **A COMPOSED THUMBNAIL WIDTH FAILED AGAIN, AND IT COST NOTHING BECAUSE THE SIZE WAS TESTED.** A
+`1200px-` path for the standing figure returned 2,010 bytes with a 200 status; the width Commons actually
+offers is the `1920px-` one in `imageinfo`'s own `thumburl`. That is `cnh-046`'s finding recurring, and
+the retry-until-the-file-is-big-enough loop is what turned it into a five-second correction rather than a
+silently truncated picture.
+  **THE GLOSSARY IMAGE IS THE OBJECT THE ABSTRACT MEASURES.** The card's picture is a bronze mask and the
+term's is the 2.62 m standing figure from Pit 2 — the two most-named objects in the card, one each, so a
+reader who opens the popup from the card sees something new rather than the same photograph twice. Two
+files were rejected on the way: `Sanxingdui Bronze Standing Figure (9950550395).jpg` is a detail of the
+robe with no head in frame, and the "largest mask" file is an oblique three-quarter rear view. **Look at
+the frame, not only at the subject.**
+
+  **`cnh-054` IS THE FIRST CARD IN THE DECK WHOSE SUBJECT MAY NOT HAVE EXISTED, AND THE SHAPE THAT WORKS
+IS TO WRITE ABOUT THE CLAIM RATHER THAN AROUND IT.** Six later cards take the traditional account
+(`cnh-055`), Yu as founder (`cnh-056`), the transmitted texts (`cnh-059`), the historicity question
+(`cnh-061`) and Erlitou (`cnh-062`–`064`), so the overview card had to say what the Xia IS in the Chinese
+historical scheme without spending any of them: first of the Three Dynasties, seventeen kings, the first
+turn of the dynastic cycle, and a name that archaeology has been trying to attach to a site for seventy
+years. **The received chronology's own disagreement is what gives the card its teeth** — Chavannes sets
+out two systems side by side, one opening the dynasty in 2205 BCE for 439 years and one in 1989 for 432,
+and the 2000 state chronology's 2070–1600 is a third answer; three figures for one dynasty says more
+about the evidence than any sentence of commentary could.
+  **THE TEXTUAL HALF CAME OFF ARCHIVE.ORG AND THE ARCHAEOLOGICAL HALF OFF SCHOLARSPACE, AND BOTH WERE
+ALREADY IN THE DECK.** Chavannes' *Mémoires historiques* vol. 1 (`lesmemoireshisto0001edou`) carries the
+rival chronologies at cxc–cxciii of its introduction and the fall of Jie at pp. 167–71 — cited twice, at
+different pages, as `cnh-040` already does. Shelach 1994 states the traditional claim outright ("the
+earliest Chinese state was the Xia dynasty… located in the Zhongyuan"), Lee 2002 carries the Three
+Dynasties, the Mandate, the Zhou construction and the backward growth of the legendary period, and Xie et
+al. 2020 carries Taosi and Erlitou as the two sites matched to Xia capitals. **Read the page furniture for
+the citation**: the running heads in the OCR (`CXC INTRODUCTION`, `170 LES HIA`) are what turn a located
+passage into a page number, and they are the only thing that does.
+  **NAME THE THEORY, NOT THE THEORIST — TWICE, AND IT COST NOTHING.** Lee attributes the Zhou-construction
+argument to one scholar and the backward-growth argument to another; the card states both claims and names
+neither, exactly as the historiography rule prescribes, and `card-focus` returns `historio: 0` with an
+empty `qNamed`. The sentences are shorter for it.
+  **A BARE `Xia` ALIAS WAS DRAFTED AND DROPPED BEFORE IT SHIPPED, ON N7's RULE.** The plan has a whole
+Western Xia collection at `cnh-465`–`472`, and "Western Xia" contains "Xia" as a whole word — so the alias
+would have linked every mention of an 11th-century Tangut state to a Bronze Age one, which is the `Inner
+Mongolia` → `Mongolia` fault in a new coat. **Before adding a one-word alias, grep the PLAN, not just the
+shipped corpus**: the sibling term that will break it may not exist yet.
+  **A NEW KIND TAG WAS OPENED: `dynasty`.** Nothing in 680 cards or 1,266 glossary terms used it — periods
+have been `era` — but it is in the documented vocabulary, this collection has about forty dynasty cards
+coming, and filing the Xia under `era` would have made the tag mean two different things. It groups
+nothing today and will group forty by the end.
+  **THE ARTICLE WAS MISSING FROM ALL THREE PHRASINGS AND ONLY THE BROWSER SHOWED IT.** The answer term
+carries no article, so the question must supply one — and "Chinese tradition makes Xia dynasty the first
+of the Three Dynasties" reads as a headline rather than a sentence. It is invisible in the JSON, where the
+blank hides it, and obvious the moment the card is revealed. **Read the REVEALED question, not the
+authored one**; the fix is `fix-field.js` for `question` and `add-questions.js` for the two extras, since
+`fix-field.js` refuses an array.
+
+  **`cnh-055` IS THE FIRST PLAN LINE THIS DECK HAS HAD TO RENAME, AND THE REASON IS THAT IT NAMED NO
+ANSWER TERM.** "The traditional account of the Xia" is a subject, not a word a reader can be asked to
+recall, and the four cards after it already take Yu, Qi, Jie and the transmitted texts. What was left —
+and what no card had — is the middle of the received story: the dynasty LOST to usurpers for a generation
+and won back. The line is now `cnh-055 Shaokang and the restoration of the Xia`, changed in the same
+commit as the card. **A plan line that is a topic rather than a term has to be resolved into one before
+it can be researched**, and the resolution is a judgement about what the neighbouring cards leave.
+  **THE CARD'S BEST FACT IS AN ABSENCE: THE SHIJI SKIPS THE WHOLE EPISODE.** Chavannes' text runs
+"L'empereur T'ai-k'ang perdit son royaume… Tchong-k'ang… Siang… Son fils, l'empereur Chao-k'ang, prit
+le pouvoir", with nothing between Xiang's death and Shaokang's accession; it is the COMMENTATORS, in a
+footnote, who supply thirty to forty years and two usurpers from the Zuo Commentary. **Read the
+commentary apparatus, not only the text** — the note at p. 167 carries more of the traditional account
+than the annals it hangs under.
+  **AND THE ZUO COMMENTARY TELLS IT TWICE, AS ARGUMENT RATHER THAN AS RECORD.** Duke Hsiang year 4
+(Legge V.ii.424–25) is a minister dissuading his marquis from a war against the Rong; Duke Ai year 1
+(794) is Wu Zixu urging his king not to spare a beaten Yue — *the ruler of Yue is greater than
+Shaokang*, and Shaokang began with ten li square and five hundred men. The second is the fuller telling
+and carries the queen's escape through a hole in the wall, the shepherd's post, the cook's post, the two
+daughters and the town of Lun. **Where a legendary episode survives, look for the SPEECH it was told
+in**; the point being argued is what preserved the story.
+  **COMMONS NOW REFUSES BOTH THE ORIGINAL FILE AND MOST COMPOSED THUMBNAIL WIDTHS, AND THAT EXPLAINS AN
+EARLIER FINDING PROPERLY.** Fetching the original returns **429, "Too many requests… instead use
+thumbnails"**, and a composed width returns **400, "Use thumbnail sizes listed on
+https://w.wiki/GHai"** — the 2,010-byte error page this deck has now met three times. Probed on one
+file: **320, 640, 800, 1024, 1200, 1400 and 2560 all 400; 1280 and 1920 answer.** So the rule is not
+"any width" and it is not "the original": **build the `/thumb/…/1920px-…` path and test the byte count**,
+and never ship the original URL in a card, since a reader would meet the same 429.
+  **THE STYLE CHECKER CAUGHT `Shiji` AS AN AMBIGUOUS PERSON-OR-BOOK NAME**, in the glossary description
+and, by inspection, in a question too — both now `<i>Shiji</i>`. It is a rule worth remembering before
+drafting rather than after: this deck will write that word on every card about the transmitted record,
+and `fix-field.js` cannot reach a `questions` array, so the repair goes through `add-questions.js`.
+
+  **`cnh-056` IS THE SECOND PLAN LINE RENAMED IN TWO CARDS, AND FOR THE OPPOSITE REASON TO THE FIRST.**
+`cnh-055` had to be renamed because its line named no answer term; `cnh-056 Yu the Great as founder` named
+one, and it was **already spent** — `cnh-012` in the myth deck, written before the plan existed, carries
+the flood, the four conveyances, the nine provinces, the Tribute of Yu, the nine cauldrons, Yi withdrawing
+and the princes going to Qi, Mencius's defence and the received chronologies, in ten sentences. There was
+no card left to write about Yu as founder. What there was, and what nothing in the deck or the 1,267-term
+glossary had, is **the survey itself**: `cnh-056` is now `Tribute of Yu`. **Before researching a plan line,
+grep the shipped corpus for its subject** — a collection written onto a tree that already had cards will
+keep meeting this, and the check costs one command.
+  **THE CARD'S BEST FACT IS AGAIN A COUNT, AND IT COMES OUT OF A FOOTNOTE.** Chavannes' note at pp. 102–3
+records that the chapter **names Yu exactly twice, in its first sentence and its last**, so that removing
+two sentences leaves the record of a settlement spreading over drained ground; and that the works described
+are far beyond one man, tradition having credited him alone with the labour of several generations. That is
+the second card running whose sharpest sentence is in Chavannes' apparatus rather than in his text — the
+first being `cnh-055`'s interregnum. **Read the notes.**
+  **THE SOURCES ARE FOUR PRIMARY AND ONE MODERN, AND THAT IS THE RIGHT RATIO FOR A CARD ABOUT A TEXT.**
+Legge's *Shû King* carries the chapter (64–76) and, separately, his own account of how it came to be
+written (Introduction, 16–19); Chavannes carries Sima Qian's reproduction of it (100–102) and the critical
+note (102–3); Lee 2002 supplies the one thing the primary sources cannot — that the Three Dynasties era
+held dozens of polities at once, so the nine provinces are a scheme rather than a survey. **Two page ranges
+from one volume count as two citations** and `add-card.js` accepts them, which is what makes a
+text-centred card reachable at the five-source bar.
+  **THE IMAGE IS THE CARD'S SUBJECT AS A MAP.** The *Yuji tu*, carved in stone in 1136 and now in the Stele
+Forest at Xi'an, is drawn on a ruled grid and its title panel names the mountains and rivers of the Tribute
+of Yu — a Song attempt to draw the chapter this card is about. The Library of Congress rubbing is on
+Commons at 9,849 px; the **1280px** thumb is 1.16 MB where the 1920px is 2.28 MB, and for a near-square
+image in a 16:9 `contain` frame the smaller one loses nothing a reader can see.
+  **`check-style` CAUGHT AN UN-ITALICISED `Book of Documents`** in the abstract, and the same rule will
+fire on every card in this deck that names a classic. `fix-field.js` repairs it inside `abstract` in one
+call; the glossary description was written italic from the start because the card had already been caught.
+
+  **`cnh-057` KEPT ITS PLAN LINE, WHICH AFTER TWO RENAMES IS WORTH SAYING.** `Qi of Xia` names a real
+answer term and `cnh-012` had spent only the accession dispute — one sentence of it — so the card had a
+whole reign to itself. **The test is not "has the subject been mentioned" but "has the CARD that could be
+written about it been written"**; on `cnh-056` the answer was yes, here it was no, and the check is the
+same grep either way.
+  **THE CENTRE OF THE CARD IS THE SPEECH AT KAN, AND THE CALENDAR IS WHAT MAKES IT HISTORY.** The charge
+against the lord of Hu — wasting the five elements, abandoning the three commencements of the year — reads
+as ritual nonsense until Legge's note explains it: each dynasty fixed the month its year began in, so to
+begin the year on another month was to refuse the new house's authority. **A charge that sounds like
+superstition is usually a charge about submission**; the same will be true of most of the accusations this
+deck meets in the Documents.
+  **AND CHAVANNES' NOTE TURNS THE CLOSING THREAT INTO A DESCRIPTION OF HOW AUTHORITY WORKED.** "Rewarded
+before my ancestors, put to death before the altar of the land" is not rhetoric: a king on campaign carried
+both sets of tablets with him, the ancestral one in a chariot of its own, so that his rewards came from the
+tutelary spirit and his punishments from the god of the earth. That is the third card running whose best
+sentence is in an apparatus rather than a text.
+  **THE ANSWER TERM IS `Qi of Xia` AND THE GLOSSARY KEY IS `Qi_of_Xia`, WITH NO BARE `Qi` ALIAS — AND THAT
+IS NOT A CLOSE CALL.** The plan carries the state of Qi (`cnh-152`), Duke Huan of Qi, Wu Qi, Bai Qi,
+Southern Qi, Northern Qi, and *li* and *qi* as a pair of philosophical terms (`cnh-861`). This is `cnh-054`'s
+Western Xia rule at seven times the scale: **grep the plan for a one-word alias before adding it**, and on
+this deck expect the answer to be no.
+  **NO WOODBLOCK PORTRAIT OF QI EXISTS IN THE SERIES `cnh-055` USED.** The `夏商合傳` category holds
+nineteen files — Yu, Shaokang, Kong Jia, Tang, Yi Yin, Daji, King Wu, King Zhou and the rest — and no Qi.
+What answered instead was `File:启 清人绘.jpg`, a Qing painting on silk in the Commons category *King Qi of
+Xia*. **List the CATEGORY rather than searching the series title**: one API call returns every file in it
+and settles in seconds whether the subject is there.
+  **THE ABSTRACT CAME IN 23 WORDS OVER AND THE TRIM INTRODUCED A COMMA SPLICE.** Replacing a clause that
+carried a colon dropped the colon with it, and the sentence read "…the one with whom the dynasty properly
+begins, he took his father Yu's place…" — invisible to every checker, since punctuation is not what any of
+them measure. **Read the trimmed block back as prose**, not just its word count.
+
+  **`cnh-058`'s BEST SENTENCE IS THE ONE THAT SAYS THE STORY IS A TEMPLATE.** Chavannes' note records that
+the tyrant imprisoning the founder who will replace him is told of the LAST SHANG KING too, so one account
+is evidently modelled on the other; and that the personal name Sima Qian gives Jie ends in a cyclical
+character, which is a Shang habit and no other Xia king's, so an early commentator assigns that name to
+Tang instead. **The bad last king is a type before he is a person**, and the deck should expect the Shang's
+own last king to arrive with the same furniture.
+  **THE SPEECH OF TANG IS BETTER THAN THE ANNALS BECAUSE TANG HAS TO ARGUE HIS OWN PEOPLE INTO THE WAR.**
+They ask what the crimes of the Xia are to them and why they are being called away from their fields; he
+answers with Heaven's charge and closes by threatening to kill their children with them. That is the second
+Documents speech in two cards (`cnh-057` was the Speech at Kan) to end on exactly that threat, which is
+worth knowing before drafting: **the formula is the genre's, not the speaker's.**
+  **A QUOTATION WITH AN INTERNAL QUESTION MARK BREAKS `split-abstract.js`, AND A `.”` DOES NOT BREAK IT
+AT ALL.** Drafted with Legge's "When wilt thou, O sun, expire? We will all perish with thee." the block
+split 4 instead of 5 — the splitter cut at the question mark and ran straight through the closing quote.
+**Run `split-abstract.js` over a block that carries a direct quotation before adding the card**; the fix
+here was to render the curse as indirect speech, which costs the ring of it and keeps the count honest.
+  **AN IMAGE `desc` IS ESCAPED, SO A WORK TITLE IN IT CANNOT BE ITALICISED — REWORD INSTEAD.**
+`cardImageHTML` writes `esc(img.desc)`, so an `<i>` there would print the tag on the page; and rule 1 of
+`check-style` flags the bare title all the same, which is how "the Book of Documents" in this plate's
+caption was caught in `glossary-extra.js`. The caption now names the Shujing. Note the repair path:
+`fix-field.js` cannot reach an object field, so the CARD's copy goes through `update-cards.js` with the
+whole `image` object, and the TERM's through `add-glossary.js`.
+  **THE PICTURE IS THE EPISODE, FROM THE VERY BOOK THE CARD CITES.** `欽定書經圖說` — the *Imperially
+Commissioned Illustrated Explanations of the Book of Documents*, 1905 — has a plate for the banishment of
+Jie, with the rider labelled 夏桀 and the walled gate 南巢. **A Qing illustrated edition of a classic is the
+place to look when a card is about a passage rather than an object**; the same series will serve the Shang
+cards.
+
+  **`cnh-059` IS THE THIRD RENAME IN FIVE CARDS, AND THE HARDEST, BECAUSE THE OBVIOUS ANSWERS WERE ALL
+ALLOCATED ELSEWHERE.** "The Xia in the transmitted texts" names no term, and the two texts a reader would
+reach for are already booked — `cnh-126 Book of Documents` and `cnh-241 Records of the Grand Historian` —
+so the card had to be a text that is BOTH about the Xia and not one of those. Four candidates were worked
+and dropped, and each refusal is worth the line: the ***Xia Xiaozheng*** (the almanac Confucius is said to
+have found in Qi) — Legge carries the story and calls the identification "very uncertain", but **nothing
+reachable here describes the almanac's contents**, so ten sentences could not be written; the **state of Qi
+杞**, whose name collides with 齊 exactly as `cnh-057`'s did; the **Bin Gong xu**, the Western Zhou vessel
+carrying the oldest known mention of Yu, which ScholarSpace and Europe PMC between them do not cover; and
+the **Xia annals of the *Shiji***, which `cnh-054`–`056` have already emptied. The line is now
+`cnh-059 Songs of the Five Sons`.
+  **AND THE CHAPTER THAT ANSWERED IS THE ONE WHOSE TRANSMISSION IS THE STORY.** It carries the most quoted
+line in the collection — *the people are the root of a country* — and it sits in the DISPUTED half of the
+*Documents*: not among the 29 that a scholar hid in a wall before the burning of the books and recovered
+under the Han, but among the further ones deciphered from tablets found in another wall and presented in
+97 BCE, which critics from the Song onwards have called a later fabrication. **A card about "how the Xia
+reaches us" is better written about ONE text with a route than about the corpus**, and the route is in
+Legge's Introduction at pp. 7–11.
+  **THE ABSTRACT CAME IN 49 WORDS OVER — THE WORST OF THE RUN — AND PATCHING IT TWICE MOVED IT BY NOTHING.**
+Two rounds of clause-level substitutions netted 0 words, because each cut was paid back by the rewording
+around it. What worked was rewriting the ten sentences from scratch at the target length and then trimming
+three specific phrases. **When a first draft is more than about 20 words over, redraft rather than patch.**
+  **`check-style` CAUGHT `twenty-nine` AS A NUMBER-WORD.** Non-round numbers above 20 are numerals, and the
+temptation here is that the source's own prose says "twenty-nine" — but the abstract is not quoting Legge,
+it is summarising him, so the rule applies. Repaired with `fix-field.js` on `abstract`.
+  **THE PICTURE IS THE NEXT PLATE IN THE SERIES, AND THE CAPTION SAYS SO.** The 1905 illustrated *Shujing*
+has no plate for the Songs; it has `仲康肇位圖`, Zhongkang taking the throne his elder brother lost, which
+is the chapter immediately after. **A neighbouring plate, labelled as one, beats an unrelated object** —
+and listing the Commons category (15 files) settled in one call what a title search could not.
+
+  **`cnh-060` NEEDED NO RENAME — THE FIRST IN THREE — AND THE REASON IS THAT ITS SUBJECT IS AN OBJECT.**
+"Bamboo Annals" names a thing with a discovery, a date, a text and a controversy, where "the traditional
+account of the Xia" and "the Xia in the transmitted texts" named topics. **A plan line survives contact
+with research in proportion to how much of a THING it names.**
+  **THE WHOLE CARD IS IN LEGGE'S PROLEGOMENA, AT TWO WIDELY SEPARATED PLACES.** Pages 105–7 carry the
+discovery — robbers opening King Xiang of Wei's grave in 279 CE, tablets in small seal script with more
+than 100,000 words, fifteen works made out, two of them worth keeping, two years of transcription, and Du
+Yu's independent testimony from the year after; pages 176–77 carry the criticism — Wang Mingsheng's verdict
+that the whole thing was "imposed on the world" by one of its transcribers, Legge's refusal of it, the
+tablets lost and disordered, the eleven books of *Fragmentary Sayings* whose matter drifted in, and the
+showers of gold and changes of sex he compares to the marvels in Livy. Page 117 has the Xia section itself,
+opening Yu's first year at **1989 BCE** — Chavannes' "second system" seen from the other side. **When a
+19th-century translator gives a text a Prolegomena, the card is usually in it twice: once as narrative and
+once as judgement.**
+  **THE CARD ALSO CLOSES A THREAD THAT `cnh-059` OPENED, AND LEGGE MAKES THE JOKE HIMSELF.** Having just
+written a card about a chapter recovered from a wall, this one is about a chronicle recovered from a tomb —
+and Legge writes that his reader "has read so much of the recovery of portions of the Shoo from the walls
+of houses that he must be tired of this mode of finding lost treasures, and smiles when he is now called on
+to believe that an old tomb opened". **Two neighbouring cards can share a theme without repeating**, and
+here the sources noticed it first.
+  **THE PICTURE IS THE MEDIUM, NOT THE TEXT, AND THE CAPTION SAYS SO IN ITS FIRST FOUR WORDS.** No tablet of
+the Bamboo Annals survives; what does survive from the same period and material is a case of Eastern Zhou
+slips from a Chu grave in the Henan Provincial Museum, each sealed in a tube of preservative with a bronze
+blade beside them. **"Not the annals, which survive only as a text" is the honest opening for any card whose
+subject has no surviving object.**
+  **COMMONS CATEGORY LISTING FAILED THREE TIMES ON A 429 AND ONE MALFORMED TITLE.** `Category:Bamboo and
+wooden slips` returned zero members and three other category names returned unparseable bodies under rapid
+requests; a plain keyword search two minutes later found the file at once. **Space the Commons calls and
+prefer a search when a category guess returns empty** — an empty category listing looks identical to a
+category that does not exist.
+
+  **`cnh-061` IS THE FIRST CARD IN THIS DECK TO USE THE HISTORIOGRAPHY EXEMPTION, AND THE RENAME IS WHAT
+EARNED IT.** "The question of the Xia's historicity" is a debate, not a term, and the historiography rule
+would have refused the card outright — an abstract may not be mostly about the modern argument. The
+exemption is for a card whose ANSWER TERM *is* a modern theory, debate, method or scholar, so naming the
+term `Doubting Antiquity School` both gives the reader something to recall and puts the card inside the one
+gate that lets it be written at all. **`"cnh-061"` is added to `EXEMPT` in `card-focus.js` with its
+justification**, as that list requires; the measure now reports `historio: 0`, `modern: 3`, `qNamed: []`.
+  **THE PLAN ASKED FOR A CARD THAT PICKS OPENLY RATHER THAN ONE THAT SOUNDS NEUTRAL, AND THE SHAPE THAT
+DELIVERS IT IS TO GIVE EACH SIDE ITS BEST ARGUMENT AND NAME WHAT IS STILL OPEN.** The sceptical case is the
+backward-growing legendary age — the Western Zhou knew only Yu, Confucius knew Yao and Shun before him, the
+Warring States knew Huangdi and Shennong — and the answering case is Erlitou, found in 1959 by a survey that
+went looking where the texts said. The card then states the two things neither side disputes: **the Erlitou
+identification rests on place and date rather than on writing**, and a programme that sets archaeology to
+find the capitals named in texts lets written history decide what archaeology looks for. Lee 2002's own
+sentence carries both, which is why it is source 1.
+  **THE 1990 SEMINAR IS THE SINGLE MOST USEFUL FACT AND IT IS ONE SENTENCE IN THE SOURCE**: at the
+International Seminar of Xia Culture at UCLA "the Western scholars were about equally split on the question
+of whether the Xia Dynasty actually existed, while the Chinese participants were in unanimous agreement
+that it did". **A measured disagreement beats any amount of even-handed phrasing** — it tells the reader
+the shape of the argument without the card taking a position in it.
+  **THE DOUBT IS OLDER THAN THE SCHOOL, AND TWO 19th-CENTURY SOURCES ALREADY IN THE DECK PROVE IT.** Legge
+quotes an 18th-century Chinese scholar calling the Bamboo Annals a fabrication "imposed on the world"
+(Prolegomena 176–77, used on `cnh-060` the card before), and Chavannes writes in 1895 that the five emperors
+and the Xia "belong to prehistory rather than to history", reconstructed by a method like palaeontology and
+with "more art than science" (Introduction clxv–clxvi). **A card about a modern debate is stronger for
+showing when the debate actually started**, and both citations were already paid for.
+  **NO THUMBNAIL WIDTH ANSWERS FOR A SMALL COMMONS FILE, AND THE ORIGINAL DOES.** `Gu_Jiegang_1920s.png` is
+688 px wide; 512, 640 and 688 all returned the 2,010-byte 400 page, and the plain original served 410 KB
+first time. That qualifies `cnh-055`'s finding: **the 429 on originals is rate limiting under rapid repeats,
+not a bar** — where no listed width exists, the original is the address, and a reader fetching one image
+will not be throttled.
+  **AND `set-date-line.js` REFUSED A 24-CHARACTER LABEL**, which is the guard doing its job: a row's label
+names WHAT the date is in a word or two, so "Debating Ancient History" became `Published` with the title in
+the value. Worth knowing before drafting a date line for a card about a book.
+
+  **`cnh-062` IS THE FIRST OF THREE ERLITOU CARDS AND THE SPLIT HAD TO BE MADE BEFORE THE RESEARCH.**
+`cnh-063` takes the SITE and `cnh-064` the BRONZE, so this one is the CULTURE — the chronology, the phases,
+the ceramic signature and the distribution — and the site's 400 hectares appear here only as the one fact
+that makes the distribution intelligible. **Where a plan gives three cards to one subject, write down which
+facts belong to which before opening a source**; every paper on Erlitou carries all three and the temptation
+is to spend them on the first card written.
+  **THE CARD'S BEST FACT IS A CHRONOLOGICAL ONE AND IT COMPLICATES THE WHOLE DEBATE `cnh-061` DESCRIBES.**
+Shelach 1994 records that the rammed-earth foundations and the bronze vessels — the things that make
+Erlitou look like a state — appear only in phases three and four, so they date to the 18th and 17th
+centuries BCE. **Most of what makes the culture look like a dynasty is late in it.** That is worth having
+directly after the historicity card, and neither side of that argument disputes it.
+  **LIU LI 2003 IS THE SOURCE FOR WHAT AN ARCHAEOLOGICAL CULTURE ACTUALLY *IS* HERE.** Its ritual pottery —
+white and fine grey vessels on three legs, the form derived from Dawenkou *gui* in Shandong — is made in the
+Yiluo basin and grows scarcer with distance; the same vessels appear in western Henan and southern Shanxi in
+phase III, so alike in shape that they were probably carried rather than copied, which reads as prestige
+goods passed down to peripheral elites and a shared ritual rather than a shared population. **A culture card
+needs one class of object followed all the way out to the edge of the distribution**, and this is it.
+  **AND SHI 2021 ANSWERS WHY THE EXPANSION WENT WHERE IT DID**: Dongxiafeng, 25 hectares and one of the
+largest sites of the period in the Jinnan basin, sits five kilometres from the copper and salt of the
+Zhongtiao mountains. Liu Li's phrase is "organized population movement to resource-rich regions"; Shi names
+the resources. **Two ScholarSpace papers seventeen years apart, one saying where and one saying why.**
+  **THE `imageinfo` THUMB PATH MUST BE TAKEN VERBATIM — THE HASH PREFIX IS NOT GUESSABLE.** A composed
+`/thumb/9/9c/…` path for the Erlitou pottery returned the 1,930-byte error page; the API's own `thumburl`
+gives `/thumb/4/47/…`. That is a different failure from the width problem recorded on `cnh-055`: the two
+hex characters are an MD5 fragment of the filename, so **copy the whole path out of `imageinfo` and change
+nothing but the width**.
+
+  **`cnh-063` IS CARRIED BY ONE PAPER AND THE CARD IS BETTER FOR IT.** Xie et al. 2020 is a study of
+settlement relocation and urban construction, so it describes Erlitou phase by phase in the terms a site
+card needs: over 100 hectares in Phase I with no house or public building yet found; more than 300 in
+Phase II with a palace and temple district of **10.8 hectares** on the highest ground **ringed by four
+intersecting roads**; a workshop walled in rammed earth south of it for bronze and turquoise; burials in
+four or five grades from late Phase II, the richest with bronze and found at no other site; corpse dumps
+including people buried alive; artisans buried near where they worked. **When one paper's subject IS the
+question the card asks, four sources round it out and the fifth is padding** — the other four here each
+carry a single clause.
+  **TWO FACTS IN IT ARE THE CARD, AND BOTH ARE ABSENCES.** Erlitou has **no outer wall**, where the older
+centre at Taosi had one, and its total volume of public construction was **seven times smaller**. A capital
+that controlled the making of power's symbols before it walled its own palace is a different kind of place
+from the one the texts describe, and saying so needs no editorialising — the two measurements do it.
+  **THE SITE PHOTOGRAPHS ON COMMONS ARE PARK FURNITURE, AGAIN.** All six files named `20240815 Erlitou Site
+0N.jpg` are the entrance sign and the protected-monument stele — the same trap this deck recorded when
+`cnh-052` was written. What answered was an OBJECT that is infrastructure rather than art: a cord-marked
+**ceramic drain pipe** from the site. **For a card about a place that was laid out rather than grown, a
+drain is a better picture than a ruin** — and better than a sign in any case.
+  **THE RENDER HARNESS RAN OUT OF QUEUE BEFORE REACHING THE CARD.** `col-2` now holds 23 cards and the
+walk was capped at 22 reveals, so the first run reported `found: false` with no errors — which looks
+exactly like a card that failed to render. **Raise the loop as the deck grows**; the cap is a fixture
+limit, not a finding, and the only thing that distinguishes them is knowing where in the deck's
+chronological order the new card sorts.
+
+  **`cnh-064` CLOSES THE ERLITOU TRIO, AND `add-card.js` CAUGHT THE ONE SOURCE THAT DID NOT BELONG.** The
+draft carried five citations and the fifth, Zhang 2021 on Sanxingdui, was never marked — the refusal
+("source 5 is never referenced from the abstract") is the guard doing exactly what it exists for, since a
+source list padded to the bar with a work about another site reads as scholarship and is not. **A source
+carried over from an earlier card in the same run is the one to check**: it was in the file because
+`cnh-053` had used it, not because anything in this card rested on it. Searching ScholarSpace for
+`Erlitou bronze` turned up Qin 2016 on turquoise inlay, which carries two claims nothing else did — the
+bronze workshop lying south of the turquoise one and close to the palaces, and the turquoise-inlaid bronze
+plaques — and that second one **changed the shape of the card**: the abstract had been vessels from end to
+end, and *Erlitou bronze* is not only vessels. **When a fifth source has to be found, look for one that
+covers a part of the term the draft has left out** rather than one that seconds a claim already made.
+  **THE HANDLE WAS INVENTED AND HAD TO BE LOOKED UP.** The Qin citation first went in as
+`hdl.handle.net/10125/45090`, composed from nothing; the item's own `dc.identifier.uri` gives **59199**.
+ScholarSpace handles are not derivable from the search result, the item UUID or the volume — **read
+`dc.identifier.uri` off `/server/api/core/items/<uuid>` and the page range off the OCR's running heads**
+(208–39 here, from `qin . turquoise ornaments … 209` through `… 239`).
+  **AND LIU 2003 DATES THE VESSELS AND THE FOUNDRY DIFFERENTLY.** The bronze foundry is Phase II
+(c. 1800–1700 BCE) and the first bronze *vessels* are Phase III (c. 1700–1600 BCE) — the draft had said
+"from about the 18th century BCE" for the vessels, which is the foundry's date, not theirs. The date line
+carries both rows for that reason. **Where a workshop and its most famous product have different dates,
+say both**; one row would have been wrong whichever was chosen.
+
+  **`cnh-065` IS THE DECK'S SECOND MODERN CARD, AND ITS SPINE IS ONE PAPER WRITTEN TWO YEARS AFTER THE
+  EVENT.** Yun Kuen Lee's *Building the Chronology of Early Chinese History* (Asian Perspectives 41, 2002)
+is on ScholarSpace, is open, and does exactly what the plan asks of this card: it states the nationalist
+motive from the proposer's own booklet — an embarrassment on a 1995 visit to Egypt, whose chronology
+reaches back to 2750 BCE — and then argues that the motive does not settle the result, since nothing in
+the table pushes the dates back. **A card that has to weigh a state's account is easiest when one open
+source has already weighed it in print**; the alternative is the card doing the weighing itself, which is
+the failure the plan names. It also supplied the card's best passage: radiocarbon at Fengxi cut the
+conquest from 112 years to 30, and the calendar notations in the <i>Hanshu</i> with the <i>Guoyu</i>'s
+Jupiter observation then left one date in that span.
+  **THE DATE LINE HAD TO GIVE UP THE CARD'S OWN BEST FIGURES, BECAUSE `cardYears` SORTS ON THE MINIMUM.**
+The first version carried `Zhou conquest 20 January 1046 BCE` and `Xia framework 2070 – 1600 BCE` beside
+the 1996 and 2000 rows — and `cardStartYear` is `Math.min(...)`, so a card about a programme of the 1990s
+sorted at **2070 BCE**, at the head of the Xia deck. The rows are now `Commissioned` / `Reported` /
+`Specialists`, and the results stay in the prose where they already were. **A card whose subject is modern
+but whose RESULTS are ancient will sort by its results unless the date line withholds them** — the same
+trap in reverse to the one that sorted Atapuerca at 1978 CE, and `cnh-061` escaped it only by accident,
+its "1920s" being invisible to the year regex.
+  **AND THE FIFTH SOURCE CHANGED THE CARD AGAIN.** Lee alone could carry every claim, so the other four
+were chosen for what they add rather than for the count: Chavannes for the Grand Historian's own reason
+for stopping at 841 BCE, Shelach 1994 for what the received Xia span was BEFORE the project (the 21st to
+the 17th century, which is what makes "nothing pushes the dates back" checkable), Chen 2023 and Qiu et al.
+2025 for the legacy. **Where one paper could carry the whole card, spend the other four on the claims it
+cannot make about itself** — a project's own reviewer cannot say what came after it.
+  **Two access notes.** ScholarSpace's `dc.identifier.uri` is the only place a handle can be read (see
+`cnh-064`), and the Elsevier DOI for the project's own radiocarbon paper is uncitable twice over: it
+serves a 2,691-byte shell, and `SRC_URL_RX` stops at the `)` in `S0168-583X(00)00368-2`.
+
+  **`cnh-066` OPENS THE SHANG DECK, AND THE HONEST OVERVIEW IS BUILT OUT OF TWO BOOK REVIEWS.**
+`col-3` was empty; this is its first card, and an overview of a dynasty is the hardest kind to source,
+because the general claims are exactly the ones every open paper assumes rather than states. What
+answered was the review literature: Roderick Campbell on Thorp's *China in the Early Bronze Age* and
+Wang Haicheng on Campbell's own *Violence, Kinship and the Early Chinese State*. **A review of a synthesis
+is a synthesis with its errors marked** — Campbell's carries the tripartite chronology that replaced
+Thorp's scheme (early c. 1600–1400, middle c. 1400–1250, late c. 1250–1050 BCE), the correction that at
+least 10,000 late Shang burials have been dug outside the royal cemetery rather than 3,000, and the
+finding that over four in five of them are a single coffin with a few pots. **The rule to carry: where a
+subject has no open synthesis, look for an open REVIEW of the closed one.**
+  **ITS CENTRAL CLAIM IS A NEGATIVE, AND THAT IS WHAT THE PLAN ASKS FOR.** Both reviews say plainly that
+the extent of the Shang state is far from clear-cut: sites sharing Erligang pottery and elite goods share
+a horizon, not a polity, and the Erligang culture is defined mostly by ceramics. Two more negatives went
+with it — neither Erlitou nor Anyang was walled, and the oracle-bone inscriptions know *yi*-settlements
+rather than capitals. **An overview card that states a dynasty's borders from a textbook map would be
+asserting what the evidence does not carry**; the candidate image list offered exactly that trap, a
+public-domain atlas plate captioned "the supposed extent of Chinese civilization", and it was refused.
+  **THE CLOSING SENTENCE IS THE COUNTRYSIDE, NOT THE COURT.** Hou et al. 2018 on Guandimiao — the only
+village of its date in China nearly completely excavated — shows a settlement 200 km from Anyang making
+pottery for a region and using bone tools from the capital's own workshops. **A dynasty overview written
+entirely from the palace is the same fault as a card written from the dig**, and one open paper about a
+village is the cheapest correction to it.
+  **PAGE RANGES CAME OFF THE RUNNING HEADS AND THE ENDPOINTS ARE ATTESTED, NOT INFERRED.** None of these
+four ScholarSpace items carries a `dc.identifier.citation`, so the span had to be read out of the OCR:
+`book reviews 313 … 321`, `226 ASIAN PERSPECTIVES … 232`, `282 … 310`, `183 … 203`. **Where the metadata
+gives no pages, cite the pages the text itself prints and no others** — a span extrapolated one page
+either way is a number nobody checked.
+  **AND THE RENDER HARNESS HAD TO BE POINTED AT A NEW DECK.** It clicks `[data-review="col-2"]`, which
+is the Xia deck; with the card in `col-3` the walk ran to its 40-reveal cap and hung. **The first card of
+a new deck needs the harness's selector changed as well as its answer string** — the failure is a timeout
+rather than an error, so it reads as the browser hanging rather than as a fixture pointed at the wrong
+list.
+
+  **`cnh-067` IS THE FOURTH PLAN LINE THAT NAMED A TOPIC RATHER THAN AN ANSWER TERM**, after `cnh-055`,
+`cnh-056` and `cnh-059`. "The Shang in the transmitted record" is a subject, not a word a reader can be
+asked to recall, and the plan already spends the obvious neighbours elsewhere — `cnh-105` takes the Zhou
+account, `cnh-106` later memory, `cnh-107` the oracle-bone archives as a source. What is left, and what
+the transmitted record actually IS, is **the Shiji's third chapter**: the connected narrative of which
+the Documents' Shang books and the Shang Hymns are the raw material. Renamed to `Basic Annals of Yin`.
+  **THE CARD'S BEST FACT IS THE HISTORIAN CITING HIMSELF.** Chavannes translates Sima Qian's closing
+note to the chapter — *it is with the sacrificial odes that I put in order the events concerning Xie;
+from Tang the Victorious onward I compiled the Shu and the Shi* — which is a Han historian naming his
+sources in the same register the card's own apparatus uses. **When a card is about a source, look for
+the place where the source describes its own sources**; it is usually the last paragraph.
+  **CHAVANNES CARRIES FOUR SEPARATE THINGS AND IS CITED THREE TIMES AT THREE PAGE RANGES.** The
+Introduction (cxxxix–cxl) has the bookkeeping — 29 chapters in the received Documents of which only nine
+treat anything before the Zhou, five odes touching the Yin, and the generation arithmetic that will not
+reconcile (17 for the Xia, 30 for the Yin, 15 for the Zhou ancestors across the same span); pages 173–75
+have Xie's birth and the reason the dynasty has two names, Shang from his fief and Yin from where Pan
+Geng moved; 207–8 have the closing note and the viscount of Wei set over Song. **A single work cited at
+three places is not padding when each place carries a different claim** — but note his 1895 judgement
+that only three or four Shang princes seem really to have lived was written four years before the oracle
+bones were recognised, and is deliberately NOT in the card.
+  **NO OPEN SOURCE HERE STATES THAT THE ORACLE BONES CONFIRM THE KING LIST**, which is the single most
+famous fact about this chapter. ScholarSpace and Europe PMC were both searched (`oracle bone` with
+`Sima Qian`, `king list`, `royal genealogy`, `Wang Guowei`) and nothing openable says it. **The claim was
+dropped rather than attached to a source that does not carry it**; `cnh-107` is where it belongs anyway,
+and it may be reachable by then.
+  **AND `Shiji` IS FLAGGED BY `check-style` IN EVERY ESCAPED FIELD.** Rule 1 reads it as an ambiguous
+person-or-book name, which is right, and the fix is italics — but a date-line value and an image `title`
+and `desc` are rendered escaped, so no tag can reach them. The date row became `Chapter · 3, of 130` and
+the caption "Sima Qian's history" instead. **In an escaped field, name the work by description rather
+than by title.**
+
+  **`cnh-068` HAD TO BE WRITTEN AROUND `cnh-058`, WHICH HAD ALREADY SPENT THE CONQUEST.** Jie of Xia
+took the Terrace of Xia imprisonment, the Speech of Tang and its argument with Tang's own reluctant
+people, the sun curse and the flight to Mingtiao — which is most of what a founder's card would
+naturally open with. What was left, and is better, is **Tang through his sayings and his minister**: the
+net drawn on all four sides of a plain and three sides taken away, the line about looking into water to
+see a face and at the people to know a government, and Yi Yin in two incompatible versions. **When the
+neighbouring card has already told the battle, tell the man.**
+  **THE CARD'S BEST PAIR IS A SOURCE CONTRADICTING ITSELF AND AN ANCIENT READER SAYING SO.** Sima Qian
+gives Yi Yin reaching Tang by taking service in a bride's household and talking his way from savoury
+flavours to government, and then immediately gives a second version in which Tang sent for him five
+times — and Mencius, in Legge's translation, denies the first outright: *I have heard that Yi Yin sought
+an introduction to Tang by the doctrines of Yao and Shun. I have not heard that he did so by his
+knowledge of cookery.* **Where a source prints two versions of one story, the card can print both and
+say who rejected which**, which is more honest than choosing and costs two sentences.
+  **`check-style` NOW REPORTS TWO FINDINGS ON `data.js` AND BOTH ARE CORRECT AS THEY STAND.** Rule 1
+reads `Mencius` as an ambiguous person-or-book name; here it is the philosopher, and the house rule says
+such a name is italicised only when it is clearly the text. The check is report-only and exits 0 — it
+says "fix by hand", and the hand's answer is no. **Do not italicise these two; that would render the man
+as a book.**
+  **THE PICTURE SUGGESTIONS WERE ALL THE WRONG TANG.** Every one of `add-card.js`'s five candidates was
+the Tang DYNASTY of the 7th–10th centuries CE — a funerary figurine, a camel, a 19th-century painter, a
+calligraphy copy — which is the "right name, wrong subject" trap at its purest, and a search on the
+answer string alone can never avoid it. Searching `King Tang of Shang` by hand found two real portraits:
+Ma Lin's Song hanging scroll (National Palace Museum) at 9759 × 21459, which `object-fit:contain` would
+letterbox into a thin vertical strip inside the card's 16:9 frame, and the Philadelphia Museum's album
+leaf at 2616 × 3876, which fits. **Check the aspect ratio as well as the subject** — the frame is
+16:9 and contains rather than crops, so a scroll is technically fine and visually useless. The caption
+says what the museum's own record says, that the leaf is of the 19th or early 20th century, which puts
+three and a half thousand years between the portrait and the reign.
+
+  **`cnh-069` IS THE FIRST CHINA CARD BUILT ON PMC RATHER THAN ScholarSpace, AND THE SCIENCE PAPERS
+CARRY THE SITE DESCRIPTION FOR FREE.** A PLOS ONE paper on osteoarthritis at Yinxu and a Scientific
+Reports paper on metal recycling at Anyang both open with several paragraphs of archaeological context —
+the Huan river position, the 2006 World Heritage listing, the *Great Settlement Shang* name from the
+inscriptions, the alluvial plain and the mountains west of it, the Holocene climatic optimum ending as
+the settlement grew, the widening crop list, the lineage ordering of society, and the claim that Anyang
+became one of the largest metal consumers anywhere in Eurasia. **When a site has no open synthesis, read
+the INTRODUCTIONS of the science papers about it**: a bioarchaeology or archaeometry paper has to set its
+scene, and it does so from the current literature with citations attached.
+  **THE 1250 DATE HAS A REASON AND THE REASON IS THE CARD'S BEST FACT.** Tradition puts the move to
+Anyang under Pan Geng about 1300 BCE, but no oracle-bone inscription names him or the two kings after
+him, so the site's own written record opens with Wu Ding, ninth from the end of the dynasty. It is stated
+openly in MacIver's 2017 Hawai'i MA thesis (attributing it to Keightley 1999, which is not openable
+here). **A university-deposited thesis is thin but real scholarship, and it is the honest place to cite
+when it is where the claim is openly stated** — better than citing a closed handbook nobody in this
+sandbox has read.
+  **`card-focus.js` FIRED A FALSE POSITIVE ON THE WORD `Huan`.** The question said "on both banks of the
+Huan river", and one of the metal-recycling paper's eleven authors is Huan Limin, so the surname entered
+the card's own name list and the measure read the river as a researcher. **This is the proxy behaving
+exactly as its header warns**; the fix was to rewrite the question round it (the abstract keeps the
+river, the rule being about questions only), which is cheaper than an EXEMPT row that would also silence
+the historiography half of the check. **A card citing a paper with a long Chinese author list will
+collide with ordinary Chinese place and dynasty names** — expect this again.
+  **AND THE PARK-FURNITURE TRAP FIRED FOR THE THIRD TIME.** `add-card.js`'s five candidates for "Yinxu"
+were all Genoese and Sienese (it had fuzzy-matched to *Banchi*), and hand-searching Commons found the
+usual entrance gate, reconstructed thatched hall and "Cradle of Chinese Writing" stele, plus a garden of
+modern sculptural stelae carved with enlarged oracle-bone graphs. What answered was
+`Yinxu Palace Foundation` — a rammed-earth hall platform with its postholes marked by modern red posts,
+which shows what a Shang palace actually leaves behind. **For a site card, look for the excavated FEATURE
+rather than the site's name**; the name finds the visitor centre.
+
+  **`cnh-070` IS ONE OF THE TWO CARDS IN THE THOUSAND WHERE THE PLAN SPENDS A MODERN SCHOLAR, AND THE
+MODEL FOR IT ALREADY EXISTS IN GREECE.** `gr-075` was renamed from *Michael Ventris* to **the
+decipherment of Linear B** — the event nominalised — and its question describes the men without naming
+them ("a young British architect", "a Cambridge philologist"). This card copies that exactly: the answer
+term is `discovery of the oracle bones`, the question says "a noted antiquarian dosing himself with
+ground bone", and `card-focus.js` gets an EXEMPT row naming gr-075 as the precedent. **When a plan line
+names an event that turns on a person, check whether another collection has already solved the same
+problem** — the plan itself points at gr-075, and following the pointer settled the answer term, the
+question's register and the exemption in one go.
+  **THE SOURCE THAT TELLS THE STORY TELLS IT WITHOUT THE NAME, WHICH IS WHY IT FITS.** Lee 2002 gives the
+whole discovery in a sentence — "first discovered in 1899 by a noted antiquarian who was ingesting
+ground bones as part of a prescription to treat his ailing health" — and nothing else openable from here
+covers 1899 at all. The scale came from a 2024 *Scientific Data* paper on an AI decipherment dataset:
+**about 160,000 inscribed pieces, more than 4,600 distinct characters, only about a thousand read.**
+**A machine-learning dataset paper is a good source for the size and state of a corpus**, because
+stating them is how it justifies existing.
+  **THE GLOSSARY OPENING NEEDED THE ARTICLE THAT THE CARD'S ANSWER MUST NOT CARRY.** The description
+opened "discovery of the oracle bones is the recognition…", which reads as a typo; `Decipherment_of_Linear_B`
+opens "The decipherment of Linear B is…" and `gr-075`'s abstract opens "The <b>decipherment of Linear
+B</b> was…". **An event-shaped answer term takes a leading "The" OUTSIDE the bold in both the abstract
+and the description** — the no-article rule governs the stored `answer`, which the card's own
+`::first-letter` capitalises, and not the prose around it.
+  **COMMONS RATE-LIMITED HARD DURING THIS CARD** — 429 on the API and on `upload.wikimedia.org` alike,
+for several minutes, after a run of image work across five cards. A retrying wrapper (`search.sh`, the
+shape `info.sh` already had: try, sleep 20, repeat) got through where a bare fetch could not. Two things
+to carry: **the thumbnail width allow-list applies to PNGs too** (1024 and 1164 both returned 400 with
+the 2,010-byte "use listed sizes" page, 1280 worked), and **the API's JSON can carry raw control
+characters**, so parse it with `json.loads(..., strict=False)`.
+
+  **`cnh-071` IS THE STRUCTURAL HALF OF A SUBJECT THE PLAN SPLITS FOUR WAYS**, with `cnh-072` taking
+divination, `cnh-094` the descent to later Chinese and `cnh-107` the corpus as evidence. What is left for
+the SCRIPT is how it works, and the source that carries that is not a sinological one at all:
+**Ottaviano et al. 2024 in *Topics in Cognitive Science* compares the oracle bone inscriptions with
+proto-cuneiform and Egyptian hieroglyphs** and so has to state, in figures, what kind of script each is —
+about 60% of the Chinese shapes iconic against 70% and 95%; only about 5% of its signs basic against 48%
+and 90%; roughly 170 basic shapes; some 4,000 distinct signs with at least half undeciphered. **A
+comparative paper states the things a specialist paper assumes**, which is the same finding as `cnh-069`'s
+about science-paper introductions, one discipline over.
+  **THE TWO AI DATASET PAPERS CARRY THE READING PROBLEMS.** OBIMD (2026) exists because a character's
+identity cannot be recovered from its local appearance alone: a fragment may hold several separate
+inscriptions, the reading order within a sentence is not simply down a column, and the same character has
+variant forms that "differ markedly in component configuration or stroke realization" — which its own
+benchmark quantifies, recognition falling from mAP@50 0.67 on main characters to 0.43 on variants.
+**A machine's failure is a measurement of a human difficulty**, and it is citable where the human
+difficulty on its own is not.
+  **`check-gloss-links.js` GAINED A FINDING AND IT IS CORRECT AS IT STANDS** — 34 to 35. The new one is
+`cnh-071` linking "Egyptian" to `Ancient_Egypt` from a China card, which is exactly what the checker
+looks for and exactly what this card means: the comparison with Egyptian hieroglyphs is the point of the
+sentence. **Do not "fix" this link**; the checker is a proxy for a term about somewhere else, and here
+the somewhere else is deliberate.
+  **AND THE PICTURE IS TALL ON PURPOSE, WHICH `cnh-068`'S RULE HAD TO BE RE-READ TO ALLOW.** The ink
+rubbing is 2052 × 3582, a shape that would be useless in a 16:9 hero frame — but a card's illustration
+renders in the FLOATED `.card-imgslot`, capped at 280px high and 44% wide with `object-fit:contain`, so a
+1:1.75 image comes out about 160 × 280 and whole. **The aspect-ratio caution applies to the ratio, not to
+tallness**: the Ma Lin scroll failed at 1:2.2 because it would have been 127px wide, and there is a real
+band between the two.
+
+  **`cnh-072` FINDS ITS BEST MATERIAL IN A REVIEWER'S FOOTNOTES.** Campbell's 2012 review of Thorp —
+already used for `cnh-066` and `cnh-069` — carries in its endnotes an actual divination text with its
+Chinese (*Gui Mao day cracked, Ke tested, next Jia Chen day [we should] offer to Shang Jia ten bovines*),
+the reason the day in it is not arbitrary (an ancestor received his offering on the day whose name he
+carried, which is `cnh-068`'s cyclical-character finding seen from the other end), the observation that
+diviners other than the king grew dramatically fewer in the later periods, and the caveat that
+**inscribed oracle bones were a minority of the scapulas and plastrons actually used**. **A review's
+endnotes are where a specialist corrects a synthesis with the evidence**, so read them rather than
+skimming to the verdict — three of this card's ten sentences come from notes 11 and 12.
+  **THE OBIMD FIGURES MAKE THE CARD'S HONEST LAST SENTENCE.** Its annotated corpus holds 21,941
+inscription sentences, 3,785 sequences recording the order of divination and **407 records of an
+outcome**. Set beside the minority-of-bones caveat, that says plainly what the corpus is: a sample of a
+practice, kept by whoever judged a crack worth writing beside. **Where a dataset paper counts its own
+categories, the ratio between them is often the historical finding.**
+  **KEIGHTLEY'S CHARACTERISATION IS USED AND HIS NAME IS NOT**, per the history-focus rule that the fix
+is to keep the claim and drop the name: "they acted as though divination could find the particular
+contract that would satisfy a given ancestor and lift a curse" is his, quoted inside Jaffe and Campbell
+2021, and it is the single best sentence anyone has written about what the practice was FOR.
+  **AND A COMPOUND COMMAND THAT OPENS WITH `cd` RAN THE WHOLE TEST SUITE FROM THE SCRATCHPAD**, where
+`.claude/` does not exist: seven suites and `check-docs` reported `MODULE_NOT_FOUND` at once. Eight
+simultaneous failures with identical stacks is a cwd problem, never a content one — **re-run from the
+repo root before reading a stack trace.**
+
+  **`cnh-073` IS THE FIRST CHINA CARD WHOSE TWO HALVES COME FROM DIFFERENT MILLENNIA AND AGREE ON
+NOTHING**, which is what makes it worth writing. The archaeological Wu Ding is a boundary: the 22nd king,
+the first at Anyang whose reign the inscriptions reach, with five lunar eclipses recorded by his own
+diviners calculated to 1201–1181 BCE — a fixed point in a chronology that has almost none. The
+transmitted Wu Ding is a moral exemplum: three years' silence, a dream, a sage found among convicts, a
+pheasant on a sacrificial tripod. **Give each half its own block and let the reader see the join**; the
+card does not reconcile them and should not.
+  **THE PICTURE WAS IDENTIFIED BY READING IT, NOT BY ITS FILENAME.** `add-card.js` offered a leaf from
+`歷代帝王道統圖` with no description at all, two etchings of Trier, and — the trap — **Gaozong of Song**,
+because Gaozong is also Wu Ding's temple name. The leaf's own heading reads **殷高宗夢賚良弼**, "Gaozong of
+Yin dreams that he is granted a good helper", which is precisely the card's central story. **A Chinese
+album leaf carries its subject in the title strip; open it before accepting or rejecting one.** The two
+actual portraits found by hand (`武丁.jpg`, `商高宗.jpg`) are 773 and 600 pixels on the long side and fail
+the ~900px bar, so the picture that works is a scene rather than a face.
+  **AND THE CONTAINER RESTARTED MID-COMMAND.** The chained audit run died with exit 137 after
+`add-glossary.js` had already written; the term was in place and the audits had printed clean before the
+kill. **After a restart, check `git status` and re-read the artefact before re-running anything** — a
+half-applied glossary write would have been silent, and re-running the add on the same file is idempotent
+where re-running a batch tool need not be.
+
+  **`cnh-074` HAD TO BE WRITTEN AGAINST TWO NEIGHBOURS AT ONCE** — `cnh-075` takes her tomb and `cnh-101`
+Shang queens and royal women — which leaves the PERSON, and the person is knowable only because of the
+tomb. The card's own hinge resolves that: **she is known first from the oracle bones and afterwards from
+the ground**, which the chronology paper calls an atypical case, archaeology rarely reaching the
+resolution history takes for granted. So the tomb appears here as the REASON she is known and nothing
+more; its plan and its 1,928 objects wait for `cnh-075`.
+  **THE SOURCE FOR WHAT SHE DID IS A REVIEW OF A BOOK ABOUT WOMEN**, not a paper about her: Lullo's 2019
+review of Hinsch's *Women in Ancient China* summarises the terms the inscriptions use for women, notes
+that a strictly patrimonial system gave royal consorts privileges that were theirs alone, and names Fu
+Jing beside Fu Hao as the two high-ranking consorts of Wu Ding who oversaw territorial domains, presented
+tribute, led troops and hunted. It also supplies the card's closing contrast — **Shang sources are
+descriptive where Zhou inscriptions and poems put forward moral archetypes**, which says why she can be
+known as a person at all. **Fourth card in this run built on a book review**; on a subject whose synthesis
+is a closed monograph, the open review is the source.
+  **THE METAL FIGURES ARE THE PROOF OF RANK AND ALSO ITS LIMIT.** Liu et al. 2020 gives 1.6 tonnes of
+metal in her tomb, that it is the only intact top royal burial at Anyang, that the kingly tombs at
+Xibeigang were up to seven times its size, and — the sentence the card needed — that **she was only one
+of Wu Ding's royal consorts and by no means the most important figure buried there.** A card about a
+famous woman that did not say this would be reporting survival as if it were status.
+  **AND `second-millennium BCE` SLIPPED THROUGH AGAIN.** `check-style`'s ordinal rule cannot see the
+hyphenated attributive (its lookahead is `\s*`), so it passed in both the card and the term; both were
+rewritten to "a record of the 2nd millennium BCE" by hand. That is the third time in this run — see the
+`cnh-069` entry. **When a card compares periods, grep your own draft for `\b(first|second|third)-`
+before adding it.**
+
+  **`cnh-075` IS A CARD WHOSE TWO BEST FACTS ARE DISAGREEMENTS**, and both were kept rather than
+resolved. Lopes 2014 and Childs-Johnson 2012 give the tomb **468 bronzes and 210** — almost certainly
+counting different things, one the whole assemblage and the other the ritual vessels — and
+Childs-Johnson records that several scholars read the owner's graph as **Zi rather than Hao**, so the
+woman everyone calls Fu Hao may be Fu Zi. Neither is a fault in a source; both are what the record
+actually supports, and a card that picked one number and one reading would be quieter and less true.
+The date line carries the count as `468 or 210, by count` for exactly that reason.
+  **THE TOMB CARD HAD TO GIVE `cnh-074` BACK ITS OWN MATERIAL.** The person card was written first and
+spent the metal weight (1.6 tonnes), the intact-burial status and the Xibeigang size comparison; so this
+one takes the CONTENTS and the PROBLEMS — the roughly 1,500 objects, the Neolithic jades already
+centuries old when buried, the jade attendants in ceremonial dress, the two ding at 128 and 117.5
+kilograms — and states the intactness once, as a count of comparable burials rather than as a claim of
+uniqueness. **Where two cards share a subject, the second one's job is what the first could not spend.**
+  **THE PICTURE IS A RECONSTRUCTION AND THE CAPTION SAYS SO.** Commons offers exactly two usable images
+of M5: a 640 × 480 photograph, under the ~900px bar, and Gary Todd's CC0 4752 × 3168 shot of the
+**full-size reconstruction at the Yinxu site museum**, whose own Commons description states that the
+originals are in Beijing and Zhengzhou. It shows the pit, the bronzes, the bells and the sacrificed
+attendants in the ledges — everything the card describes — so it was taken with a `desc` that says
+outright that the objects are replicas. **The museum-reconstruction trap is only a trap when the caption
+hides it**; named as what it is, a reconstruction is the clearest thing a reader can be shown of a grave
+whose contents now sit in two museums.
+  **AND THE SANDBOX BROWSER CANNOT LOAD ANY WIKIMEDIA IMAGE, WHICH READS AS A BROKEN LINK.** The render
+harness reported `0x0 complete=false` for the new picture; probing an ALREADY-SHIPPED card's image
+(`cnh-074`'s owl zun) returned the same error, and `curl` fetches both with a 200 and the right byte
+count. Chromium here has no outbound proxy where `curl` does. **Before treating a render's `0x0` as a bad
+URL, probe a picture known to work** — otherwise a good file is thrown away on the strength of a sandbox
+limit.
+  **THE GLOSSARY POPUP COULD NOT BE OPENED BY INJECTING A `.ttip`.** `setupTooltips` wires each element
+individually at render, so a span appended afterwards has no listener and clicking it does nothing; the
+`sessionStorage` restore path was consumed and still produced no window. What works is the **admin
+glossary preview**, which renders the real `.gloss-win` markup — it showed the three sentences, the five
+markers numbered 1,2,1,1,2, both source items and the image slot. **A term with no card yet linking it
+has no reader-side surface to click**, so the editor's preview is the honest place to look at it.
+
+  **`cnh-076` IS THE CARD THE PLAN WARNED WOULD NEED ITS ANSWER TERM CHOOSING**, and what decided it
+was the neighbours rather than the sources. Shangdi, ancestor worship, human sacrifice, the royal tombs,
+warfare and the queens are all separate cards, so what is left that is distinctly KINGSHIP is the
+succession rule, the king's place in a kin-ordered society, his ritual monopoly and the offices under
+him — an institution rather than a word, so the answer term is the plan's own phrase.
+  **ITS SPINE IS THE FIFTH CARD BUILT ON THE SAME OPEN BOOK REVIEW, AND THIS TIME ON THE REVIEWER'S OWN
+DISSENT.** Wang Haicheng's review of Campbell summarises the book's argument that the lineage was the
+fundamental unit and the king its apex leader — and then sets against it Cao Dazhi's finding that in no
+Anyang cemetery cluster did more than three tombs, the three richest, share a clan sign, from which Cao
+argues the graphs are mostly the names of GOVERNMENT OFFICES: about 70 of them, covering the military,
+finance, construction, communication and the running of the royal palace, staffed with chiefs and
+deputies and passing to the senior man of a lineage and then to a descendant. **A review's dissent is
+often the freshest thing in it**, and here it is what turns a card about a family into a card about an
+argument between kinship and bureaucracy, with evidence on both sides.
+  **NAMING NOBODY WAS EASY AND WORTH DOING.** The historiography rule caps the modern argument at three
+of ten sentences and forbids a researcher's name in a question; writing the offices claim as "have
+lately been re-read" and letting the citation carry the names left `card-focus` reporting **historio 1
+of 10** with an empty `qNamed`. **The theory is the interesting half; the arguer belongs in the source
+list.**
+  **FOUR OF ITS FIVE SOURCES WERE ALREADY IN THE CORPUS AND CARRIED FRESH CLAIMS ANYWAY.** Childs-Johnson
+gave the succession rule and, from a passage on royal messengers nobody had opened, that the king's
+delegates were mostly `zi` princes graded by whether they held military rank (`ya`) or official rank
+(`bo`), with the heir styled `Xiao Wang`; Jaffe and Campbell gave the ritual monopoly; Lee's chronology
+table gave 31 kings and the 1600–1046 span; Liu et al. gave rank made physical, the high elite receiving
+carefully controlled primary alloys of very pure copper while those below had secondary alloys with more
+impurities. **A source spent on one card is not spent** — five earlier China cards cite the Wang review
+and none had touched chapter 5.
+  **THE PICTURE IS THE CARD'S LAST SENTENCE RATHER THAN ITS SUBJECT.** `add-card.js` found nothing for an
+abstract institution, and the ceremonial axe and the Yinxu palace platform were already taken by
+`cnh-066` and `cnh-069`. What fits is a V&A fangyi whose vessel and lid carry an inscription of two
+pictographs — exactly the kind of sign the card says has been re-read as an office name — captioned to
+say the vessel carries them rather than pretending they are legible at this angle. **When a card's
+subject cannot be photographed, illustrate the evidence it turns on.**
+  **THE UPLOAD HOST RATE-LIMITED THE DOWNLOAD, AND A 400 IS NOT A 429.** Asking for a 1024px thumbnail
+returned a 400 with a 2,010-byte error page (the width allow-list), and 1280px then returned a 429 with a
+2,190-byte one. **Two tiny responses, two different causes**: the first needs a different width and the
+second needs waiting. A retry loop got it on the third attempt.
+
+  **`cnh-077` FOUND THE FIFTH SOURCE IN A BOOK ABOUT SOMETHING ELSE.** Four works already in the corpus
+carry Di between them — Lopes for what he is (the name means 'High Sovereign', the earliest references
+are the oracle bones, he is sovereign over the natural world and over the ancestral spirits, he grants
+the rain and holds a river's flood short of devastation), MacIver for the distance (he was so far from
+the living that there was no direct way to reach him, so a request went to the ancestors to be carried
+up), Childs-Johnson for the king (who alone could <i>bin</i>, 'receive the spirits', of Di and the royal
+dead, and ruled the four quarters as his surrogate), Jaffe and Campbell for the doubt. The fifth is Lisa
+Raphals' chapter in an edited volume on <i>ming</i> — a book about FATE, not about the Shang — which
+records that the inscriptions carry the phrase <i>Di ming</i>, 'the decree of Di', and that Di has the
+pre-eminent power to issue commands. **Search the subject the term is an INSTANCE of**, not only the
+term.
+  **PAGE MARKERS IN AN OCR DUMP HAVE A DIRECTION, AND IT IS WORTH ESTABLISHING BEFORE CITING ONE.** The
+volume's markers turned out to be running HEADS — the chapter title on a recto, the author's name on a
+verso, each beside its number — except on the chapter's opening page, which carries a drop folio at the
+foot. Reading them as footers would have put the Raphals passage on page 75 and MacIver's on page 15;
+both are one page later. **Find the chapter's own opening page and count from it** rather than assuming.
+  **THE PICTURE SEARCH RETURNED FIVE TENNYSON ILLUSTRATIONS**, all by W. E. F. Britten, for a Shang high
+god — the widest miss the fuzzy matcher has produced in this run, and a reminder that its five candidates
+are a name match and nothing more. What fits is a plate of **sixteen variant forms of the graph 帝 cut
+from oracle-bone rubbings**, which is the card's own first and last sentences: the name is known first
+from inscriptions of this kind, and how the graph should be read is what the argument is about.
+  **AND THE THUMBNAIL ALLOW-LIST IS NOT THE ROUND NUMBERS.** 800, 1024 and 1120 all returned a 400
+("Use thumbnail sizes listed on…") while the original file returned 429 for twenty minutes, so the image
+looked unreachable by either route. **Ask the API to generate one**: `iiurlwidth=900` came back as a
+**960px** URL, which downloaded first time. The API snaps a requested width to the nearest allowed one,
+so it is the way to discover the list rather than guess at it — and a file with no thumbnails at all
+(the API returns the original when the width asked for exceeds it) leaves only the rate-limited path.
+  **`Di` WAS DROPPED AS AN ALIAS BEFORE IT SHIPPED.** A two-letter surface matches on word boundaries, so
+it would have auto-linked the `Di` of Di Xin and Di Ku — the one-word-term trap the house rules name,
+caught in draft this time rather than by a reader.
+
+  **`cnh-078` HAD THE MOST SPENT GROUND OF ANY CARD IN THIS RUN, AND THE WAY THROUGH WAS THE PAPER THAT
+DISAGREES WITH THE FIELD.** Ancestors had already been described from five sides — `cnh-072` took the
+divination mechanics, the day-name rule, the five-rite cycle and the dead keeping power over the living;
+`cnh-074` the consorts' place in the ritual round; `cnh-076` the king's monopoly of approach; `cnh-077`
+the ancestors as intermediaries and their grading by age. What was left is Jaffe and Campbell's own
+argument rather than the literature they survey: **far fewer cattle lie in the sacrificial pits than the
+inscriptions record being offered, and the likeliest answer is that the living ate them**, at feasts that
+went with the sacrifice. One head of cattle yields over 200 kg of meat; cattle had passed pigs in dietary
+importance even in ordinary quarters at Anyang by the late phases, and had overtaken human captives in
+royal sacrificial importance by the end of the period. **When a subject has been carded from every angle,
+look for the paper arguing the field has the subject wrong.**
+  **THE PICTURE FORCED A SENTENCE BACK INTO THE CARD, WHICH IS THE RIGHT DIRECTION.** A draft traded the
+"fermented drink in beakers of its own" clause for a Lopes claim about vessels and jades, and the picture
+that then fitted best — a Cleveland Museum <i>jue</i>, a three-legged libation cup — would have
+illustrated something the card no longer said. The clause went back with `fix-field.js` and both claims
+now stand. **A caption that describes what the prose does not is a quiet mismatch**; the fix is usually
+to restore the prose, not to reword the caption.
+  **A CITATION HAD TO BE FOUND FOR A SOURCE, NOT THE OTHER WAY ROUND.** Restructuring the abstract left
+Lopes unreferenced and `add-card.js` refused the card — the guard doing exactly its job. The claim that
+answered it is real and useful (under the Shang the bronze vessels and jades were tied to communicating
+with the ancestral spirits and to little else, which is the Zhou-side observation read backwards), but
+the order of work is worth noting: **draft the markers before the sentences settle**, or a late edit
+orphans a work and the refusal arrives after the prose is finished.
+  **ITS `historio` IS 0 OF 10**, the first card in this run to score nothing at all, and not by avoiding
+argument — the whole second half rests on a contested reading. Writing "the likeliest answer is" and "read
+not as impoverishment but as" keeps the claim in the past tense of the Shang rather than in the present
+tense of the seminar room.
+
+  **`cnh-079` IS THE FIRST CHINA CARD WHOSE ANSWER TERM IS A GENERAL PRACTICE, AND THAT DECIDED HOW IT
+WAS SOURCED.** A glossary term must be deck-agnostic — it may not use one culture as its framing or
+example — so an entry for `Human_sacrifice` could not be written from the Shang literature at all.
+The way through was **Ceruti's open study of Inca mountaintop sacrifice**, whose introduction states the
+general case outright: the practice is known cross-culturally, and its occasions are a royal funeral, a
+disaster, an atonement, the consecration of a building, or fertility and health, with victims also killed
+to serve a high-ranking person as retainers. **A card scoped to one culture can still need a source
+from another**, and the shape to look for is a regional study whose opening paragraph generalises.
+  **THE CARD'S OWN NEW SOURCE IS A 2025 NATURE PAPER ON SHIMAO**, found by searching Europe PMC rather
+than the Asian Perspectives shelf: 144 ancient genomes from a walled city half a millennium before
+Anyang, with more than 80 human skulls buried under its East Gate, two forms of sacrifice (mass pits at
+the gates and the palace, and victims entombed with a high-status owner), and a correction worth the
+card on its own — **9 of the 10 East Gate victims were men, three of them previously identified as women
+from the bones**. That is the general term's third sentence too, since it is a claim about METHOD rather
+than about China: where preservation or ancient DNA allows, victims can be sexed and traced, and
+identifications made morphologically have been overturned.
+  **IT IS FLAGGED `undatable`, AND THE TEST IS THE ANSWER TERM RATHER THAN THE CARD.** The card is
+entirely about the Shang and sorts at 1250 BCE, but *human sacrifice* is not a term anyone dates — the
+`Hunter-gatherer` and `Ochre` shape exactly. **Ask what the ANSWER would have to be placed at in the
+Timeline game**, not what the card is about.
+  **`cnh-080` TOOK `Xibeigang` RATHER THAN "the Shang royal tombs"**, which gives the collection a
+place name to link and keeps the card distinct from `cnh-100` on burial practice. Its spine is
+Childs-Johnson on the tombs themselves — the royal count identifying **nine kings** at Yinxu, the
+cruciform M1004 with two monumental four-legged ding still at the very bottom under the looting, and
+M260 with its single long southern ramp, out of which came the tallest and heaviest bronze the Shang
+ever cast at 133 cm — with MacIver for the **four ramps running to the cardinal directions**, a layout
+belonging to the ritual rather than to the digging, and for the **waist pit** under the body that often
+holds a dog.
+  **PAGE MARKERS IN THE MacIVER THESIS ARE FOOTERS, WHERE THE `ming` VOLUME'S ARE HEADERS.** Both were
+worked out from first principles rather than assumed, and they disagree: a thesis in this format carries
+a bottom-centred folio, so the text between markers 39 and 40 is page 40, while a typeset book carries a
+running head, so the text after "74" is page 74. **Establish the direction per document**; a first
+draft here cited page 62 for a passage on page 40.
+  **THE PICTURE FOR A ROYAL CEMETERY IS PARK PLANTING, AND THAT IS THE HONEST CHOICE.** The tombs are
+filled in, so what Commons has is M1400's plan **marked out in clipped hedges** above the shaft at the
+Yinxu park — which happens to show exactly what the card's third sentence claims, a rectangular shaft
+with a ramp running away from it. Park furniture has turned up three times in this run as a wrong
+answer; here it is the right one, because the thing being illustrated is a SHAPE.
+
+  **`cnh-081` IS THE CARD BOXED IN ON FOUR SIDES, AND THE WAY OUT WAS TO WRITE ABOUT THE CATEGORY
+RATHER THAN THE OBJECTS.** `cnh-082` takes piece-mould casting, `cnh-083` the ding, `cnh-084` the
+decoration and `cnh-096` the ore, while `cnh-064`, `cnh-074`, `cnh-076`, `cnh-078` and `cnh-080` had
+already spent Erlitou's first vessels, the owl zun, the emblems, the alloys, the meat tripods and the
+two monumental ding at the bottom of M1004. What is left, and what nothing else will take, is the
+**TYPOLOGY AND ITS ARITHMETIC**: each shape's name and job, the graded set, and the Zhou sumptuary rule
+that fixes nine ding for a king, seven for the second rank, five for the third and three or one for the
+fourth, with grain vessels, liquor and water containers and bells specified by number to match.
+  **ITS SHARPEST CLAIM IS AN EPISTEMIC ONE.** The functions those vessel names carry come **from the
+received textual tradition rather than from residue or use-wear analysis** — so the yan is called a
+steamer because later texts say so, and grain is the likely thing steamed in it, but human skulls have
+been found in yan in three Yinxu burials. A card that lists what each vessel was for without saying
+where that knowledge comes from is teaching a convention as though it were a finding.
+  **THE PICTURE IS THE FIRST IN THIS RUN THAT SHOWS A RULE RATHER THAN AN OBJECT.** `add-card.js`
+offered a third single vessel, after the fangyi on `cnh-076` and the jue on `cnh-078`; searching by hand
+for a SET found five ding descending in size above four gui from the Guo state tombs, with the rank
+diagram on the wall behind them. **When a card is about a system, photograph the system** — the ranked
+allowance is legible in that case in a way no single bronze could show.
+  **AND THE SMALLEST SET IS THE OTHER END OF THE SAME SCALE**, taken from the Wang review's summary of
+Cao's argument: two pieces, a gu beaker and a jue pitcher, and a grave holding even that was not a
+commoner's. Childs-Johnson gives the top of the scale and the review gives the bottom; **a card about
+a graded system needs both ends or it is only about the rich.**
+
+  **`cnh-082` CAUGHT A COMPOSED HANDLE BEFORE IT SHIPPED, AND THE FIX IS A HABIT RATHER THAN A CHECK.**
+The Li Liu prestige-goods article was written into the source list as `10125/17175`; the corpus already
+cites it four times as `10125/17179`. Nothing would have caught it — `add-card.js` checks that a
+citation ENDS in a URL, never that the URL opens — and the wrong handle resolves to some other item, so
+even a curl returns 200. **When a work is already in the corpus, copy its citation string out of
+`data.js` rather than typing one**, which is now how every reused source in this run is written.
+  **IT ALSO FOUND THREE VARIANTS OF ONE CITATION AND NORMALISED THEM.** The Tao Shi copper article
+appeared on `cnh-050` with no page range, on `cnh-062` and `cnh-063` with a TRUNCATED title ("Yangzi
+River Valley", missing "in Early China"), and on `cnh-064` correctly. All three now carry `cnh-064`'s
+form, verified against the article's own title page and its 384–416 running heads. **A citation that
+drifts between cards reads to a checker as several works and to a reader as carelessness**; grep a
+reused source's author name across `data.js` before adding the sixth card that cites it.
+  **ITS BEST SENTENCE IS A DISAGREEMENT BETWEEN TWO OPEN SOURCES, LEFT STANDING.** Lopes has decorated
+mould sections "used repeatedly in molding many different types of vessels"; Childs-Johnson has Shang
+vessels "individually cast in separate molds (never the same mold)", which is why no two are exactly
+alike in size or weight. A reconciliation is available — the pattern blocks that impress ornament are
+not the assembled mould for one vessel — but it is an inference, so the card states both readings and
+attributes the never-alike consequence to the second. **G7's rule applied to a technique rather than
+to a date.**
+  **AND FOUR OF ITS TEN SENTENCES HAD TO BE THROWN AWAY BEFORE IT WAS WRITTEN**, because `cnh-064` had
+already spent the hammered forerunners, the simple stone moulds, the multipiece change at Erlitou, the
+one-hectare foundry, the slag and crucibles and the 36 cm rim moulds. What survived is the ARITHMETIC —
+19 mould pieces and 5 cores for one Erligang ding, six pours in three stages, metal spacers holding
+model and mould apart — plus the potter's ancestor: hollow-legged pots shaped over inner moulds, the
+three legs joined or the clay coiled round three leg moulds at once.
+
+  **`cnh-083` IS THE FIRST CHINA TERM TO NEED `caseSensitive`, AND THE COMBINATION THAT WORKS IS WORTH
+WRITING DOWN.** The answer is `ding`, a three-letter surface that is also the second half of Wu Ding, Fu
+Ding, Father Ding and Kang Ding, all over this deck. The key is **`Ding_(vessel)`**, whose parenthetical
+means it does NOT claim the bare name "Ding"; the alias is the lowercase **`ding`**; and
+`"caseSensitive": true` then holds that alias to lower case. Verified in the browser on `cnh-075`, whose
+prose contains both: `Wu Ding` resolves to `Wu_Ding` and `its bronze ding` to `Ding_(vessel)`. **A
+parenthetical key plus a lower-case alias plus the case flag is the recipe for a term whose name is a
+syllable in somebody's name.**
+  **THE CARD'S SPINE IS A GRAMMATICAL FACT NOBODY HAD SPENT**: in the oracle bones the graph 鼎 works as
+a **verb of sacrifice**, with the king usually its subject, a dead king or queen its indirect object and
+the offering itself its direct one. Six earlier cards had taken the ding's size, its place in a set, its
+moulds and its contents, and none had said what the word does in a sentence.
+  **IT ALSO ANSWERS `cnh-081`'S OWN EPISTEMIC POINT.** That card says vessel functions come from later
+texts rather than from residue analysis; the ding is where the two meet, since **burnt animal bone has
+been found inside ding taken from burials**. But the card does not let that settle it: MacIver
+photographs bones in a bronze ding and then **declines** to read the food and drink vessels of two
+Anyang cemeteries as evidence of funerary feasting without more work, since they may be provisions left
+for the dead. **A card that produces the confirming evidence should also carry the specialist's refusal
+to over-read it.**
+  **AND THE PICTURE IS THE OBJECT THE CARD'S UPPER BOUND POINTS AT** — the Hou Mu Wu ding, 133 cm, the
+largest surviving Shang bronze, four-legged where the commoner form is three-legged. Two of the Commons
+candidates are labelled **"Copy"**; the museum-replica trap again, and the third time in this run it has
+been avoided only by reading the file name.
+
+  **`cnh-084` NEARLY TOOK AN ANSWER TERM THE COLLECTION ALREADY HAD.** The sources for Shang bronze
+decoration are largely about the **taotie**, which is the obvious blankable word — and `cnh-027` in the
+mythology deck already IS that card, with a `Taotie` glossary term beside it, telling the transmitted
+story of the Glutton banished by Shun. **Grep the plan AND `data.js` for a candidate answer term before
+renaming a plan line to it**; the check costs one command and this one would have shipped a duplicate.
+The card keeps the plan's own wording and now auto-links `taotie` to the myth card's term, which is the
+join the two decks should have.
+  **ITS BEST SENTENCE IS A REFUTATION THAT RESTS ON A LIST.** The long-standing reading of the zoomorphs
+as pictures of the animals given in sacrifice fails on the inventory: buffalo, tigers, horned owls,
+elephants, deer and big-horned sheep were almost never offered, and what they share instead is wildness.
+Jaffe and Campbell make the point sharpest on one vessel — a split buffalo, identified by its
+backward-sweeping horns AND by the graph for buffalo cast inside, whose gaping fanged mouth therefore
+belongs to no buffalo at all. **An argument a reader can check against a list is worth more on a card
+than one they must take on authority.**
+  **AND THE PICTURE PROBLEM THIS RUN KEEPS MEETING IS A THUMBNAIL PROBLEM.** Two good taotie images were
+unreachable — a labelled Hungarian diagram at 800px fails the ~900px bar, and a 960px Norwegian motif
+photograph has NO thumbnails at all, so the only path is the original file, which was 429 throughout.
+**A file barely over the bar is the worst case**: too small for MediaWiki to thumbnail, too rate-limited
+to fetch whole. The late Shang jia that shipped is 3620 × 5436, thumbnailed instantly, and its flanges
+divide each mask down the middle, which is the split composition the card describes.
+
+  **`cnh-085` IS A CARD ABOUT A MATERIAL LOSING ITS PLACE, AND THAT IS ITS LAST SENTENCE RATHER THAN
+ITS FIRST.** Li Liu's survey ends on the finding the card needed: jade production became a
+**transregional** operation in the late Shang, drawing raw material from the periphery, while the elite
+turned to bronze and white pottery — so the material that had carried ritual power since the Neolithic
+stopped being the foremost prestige stuff in the record. **A card about an object class is more
+interesting when it says where in the sequence the class sits.**
+  **ITS SHARPEST PAIR IS TWO CLAIMS ABOUT WHO DID THE CUTTING.** The older view makes the Shang jade
+workers slaves; against it, the workshop at Yinxu sits **inside the palace and temple complex**, which
+suggests elite hands at the finishing, and Li Liu notes that artisans in other ancient civilisations
+often held rank of their own. The card states both and settles neither.
+  **AND THE COUNTERWEIGHT IS AN ABSENCE.** Against 2,000 jades from Yinxu, MacIver's tables show the
+proportion of jade in ordinary Anyang burials is **extremely low** — differential access, plainly stated.
+**A card that only counts what the palace had is a card about the palace**; the second number is what
+makes the first one mean something.
+  **THE CAUTION IT CARRIES IS THE REVIEWER'S, NOT THE SURVEY'S.** The Thorp review corrects the
+impression that Shang houses and workshops barely survive: there are plenty, but they are dug and
+published far less often than elite burials. A card resting on ONE identified jade workshop should say
+that the sample is an artefact of where archaeologists have chosen to look.
+  **The picture is a jade `ge` from the Yin Ruins** — the commonest Shang jade form, with its drilled
+hafting hole and an excavation number inked beside it. `add-card.js` offered a Jade Emperor painting and
+a plaque catalogued "Neolithic or Shang period, 2500–1500 BC"; **an object whose own museum will not
+date it to the Shang cannot illustrate a card about Shang jade.**
+
+  **`cnh-086` IS THE FIRST CARD IN THIS RUN THAT `check-questions` CAUGHT**, and the rule it broke is one
+`add-card.js` does not test: the main phrasing ended "…the elite are found riding the ___." — **the blank
+at the end of the sentence**, which is exactly the shape the house rules forbid, since a question that
+stops on the blank stops being a clue and becomes a fill-in. It was rewritten to put the blank in the
+middle and re-checked. **`add-card.js` is not a superset of `check-questions.js`; run both.**
+  **ITS BEST SENTENCE IS THE REVIEWER'S CAUTION ABOUT ITS OWN FIRST SENTENCE.** The chariot is new at
+Anyang **on present evidence** — and the earlier centres are barely dug, since systematic excavation at
+Zhengzhou is out of the question with nearly ten million people living on top of it. A card that says a
+thing appears at Anyang and stops has told the reader an artefact of excavation history as though it
+were a fact about the past.
+  **THE ZHOU EVIDENCE IS BETTER THAN THE SHANG EVIDENCE AND THE CARD SAYS SO RATHER THAN BORROWING IT
+SILENTLY.** The concrete numbers reachable here are all Western Zhou — two pits beside one marquis with
+over 56 horses and 19 chariots, another in the north-west with at least 29 horses and three wooden
+vehicles, the animals young adults of which 21 of 22 sexed were male. They occupy two sentences of ten,
+marked as Zhou; the other eight are Shang. **When the better evidence is a period late, date it in the
+prose instead of letting the card imply it is the subject's own.**
+  **AND THE CAPTION CARRIES THE PHOTOGRAPHER'S OWN DISCLOSURE.** The Commons description of the chariot
+pit reads "Skeletons are copies; chariots are genuine", so the caption says the vehicle is the excavated
+one and the skeletons are replacements. **Fourth replica warning in this run**, and the first where the
+uploader supplied it unprompted.
+  **A source for a card already shipped turned up while searching**: ScholarSpace has "The Qiang and the
+Question of Human Sacrifice in the Late Shang Period", which is squarely `cnh-079`'s subject and was not
+found when that card was written. It is not a fault — `cnh-079` is at the bar on five open works — but it
+is the obvious spine for **`cnh-095`, the Shang and their neighbours**, and is recorded here so the next
+session does not have to find it twice.
+
+  **`cnh-087` USED THE SOURCE `cnh-086` HAD JUST RECORDED FOR LATER, ONE CARD LATER.** Shelach's "The
+Qiang and the Question of Human Sacrifice in the Late Shang Period" was noted at the end of the chariot
+card as the spine for `cnh-095`; it turned out to be the spine for warfare instead, because the article
+is as much about **campaigning** as about sacrifice. **A source recorded for a future card is worth
+re-reading against the next one**, not filed and forgotten.
+  **ITS DEFINITION IS THE FINDING.** `fang` is not an ethnic name but a RELATIONAL one: a group is called
+fang while it is an enemy and loses the word once it becomes an ally, and the inscriptions say nothing
+about those polities' social or political organisation, though scholars sometimes call them states. A
+card that treated the fang as peoples would be inventing a map the record does not contain.
+  **AND THE ARITHMETIC IS WHAT MAKES THE QIANG DIFFERENT.** Against most fang the Shang put 3,000 to
+5,000 men in the field; against the Qiang, whose country lay close by, one campaign deployed **13,000**.
+Set beside the 941 weapons from a single kingly tomb, that is a card about scale which needs no
+adjectives. Its closing irony is properly sourced rather than assumed: the Zhou alliance that ended the
+dynasty **included the Qiang**.
+  **TWO CITATIONS IN THIS CARD CARRY NO PAGE RANGE, DELIBERATELY.** The Shelach article's OCR shows
+verso folios to 24 with references and an abstract after, and the Jaffe Liulihe article shows only odd
+rectos — neither end could be established. **A citation with the volume, issue, year and a resolving
+handle is complete enough; an invented page range is not.** Both handles were curled and both return 200.
+  **The picture is a case of `ge` dagger-axes from the Yin Ruins.** `add-card.js` offered Shang helmet
+fittings and a guide to the nature treasures of New York City; the alternative helmet on Commons is
+titled "Replica" — **fifth replica caught by reading a file name in this run.**
+
+  **`cnh-088` CAUGHT THE SECOND COMPOSED HANDLE OF THIS RUN, AND THE SAME HABIT CAUGHT IT.** The Xie
+relocation article was written into the source list as `10125/70206`; the corpus already cites it six
+times as **`10125/104160`**. As with the Li Liu handle on `cnh-082`, nothing downstream could see it —
+a wrong handle resolves to some other item and returns 200. **Copy a reused source's string out of
+`data.js`.** Twice now that has been the difference between a working citation and a plausible one.
+  **AND IT FOUND A MISSPELLED AUTHOR ON FIVE CARDS.** The majority variant read "**Liya** Xie" against
+the article's own title page, "Liye XIE", while a sixth card carried "Liye Xie et al." with no page
+range. All six now carry one verified form. **Grep a reused source's author name across `data.js` before
+adding the seventh card that cites it** — the same rule the Tao Shi normalisation produced, and it has
+now paid twice.
+  **THE PICTURE IS THE CARD'S ARGUMENT AS A TABLE.** A panel at the Yin Ruins museum sets three early
+records side by side against six kings, and they disagree: Zu Yi's seat is *pi*, *geng* or *xing*
+depending which you read, and Pan Geng's is *yin* in two and *bo* in the third. **The card says the
+identifications are unsettled; the panel shows the disagreement starting in the texts themselves**,
+before anyone tries to attach a name to a site.
+  **ITS CAPTION HAD TO LOSE THREE BOOK TITLES**, which is `cnh-075`'s finding a second time:
+`check-style` flagged `title-plain` on the image `desc` and `alt`, and those fields are ESCAPED, so
+`<i>` would print the tags rather than italicise. Naming the three records was the natural caption and
+it is not available; the panel's own heading, quoted in the alt text, carries no titles and stays.
+**A caption cannot name a book.**
+
+  **`cnh-089` IS THE FIRST CARD OF THIS RUN WHOSE SUBJECT IS A PLACE THE MODERN CITY IS BUILT ON, AND
+THAT IS ITS LAST SENTENCE RATHER THAN AN ASIDE.** Childs-Johnson closes on it — the caches of monumental
+*ding* are what happens to have been found, and how much more lies below is not knowable, because nearly
+ten million people live on top of the site. **A card about an excavated capital can say what has NOT been
+dug**, and here the reason is arithmetical rather than archaeological.
+  **THE DECK ECONOMY IS TIGHT HERE AND WAS SOLVED BY GOING TO THE FOUNDRIES.** `cnh-088` has just spent
+the capital relocations, `cnh-082` the piece-mould method and `cnh-083` the *ding*, so the ground left to
+this card is the SITE: the two rammed-earth circuits and their 24 square kilometres, the palace
+foundations by area, and above all Li Liu's foundry evidence — Nanguanwai's 0.8 hectares of crucibles,
+slag, moulds, ore and furnaces, and the fact that its moulds were cut for vessels as well as tools while
+the periphery cast only weapons and tools in stone moulds. **That last clause is the card's real claim**:
+casting was held at the centre and mining was not, which is Tao Shi's "resource absorption" seen from the
+capital end rather than from the mines.
+  **THE PICTURE IS THE WALL WITH THE CITY BEHIND IT**, and it took four downloads to get there. The two
+files `add-card.js` offered are both by Windmemories and both titled "Zhengzhou Shang City Site": **01 is
+the protection stele alone** and 02 is the stele in front of a surviving stretch of the inner circuit,
+with tower blocks a few hundred metres beyond — which is the card's first sentence and its last one in
+one frame. The Gary Todd "Shang Dynasty City Wall, Zhengzhou" series is CC0 and reachable, but the one
+sampled (13) is a tourist snapshot with a person filling the foreground. **Look at the file before
+choosing between two that carry the same title.**
+  **THE 2256-BYTE DOWNLOAD IS A RATE-LIMIT PAGE, NOT AN IMAGE**, and four candidates fetched in one loop
+all came back that size. The fix is the retrying downloader (`dl.sh`, 20s apart) and fetching a
+`960px-` thumbnail rather than the original — the same allow-list finding as earlier in the run.
+
+  **`cnh-090` IS THE CARD `cnh-089` POINTED AT, AND THE PAIR SHOULD BE READ TOGETHER.** Zhengzhou's card
+ends by saying casting was held at the centre and mining was not, with "outposts planted near the ore";
+Panlongcheng is one of those outposts, seen from the other end. Tao Shi's term for it is **resource
+absorption** — securing the networks along which metal moved rather than controlling the extraction — and
+the card gives it the name, which `cnh-089` deliberately did not.
+  **ITS SHARPEST FACT IS A DISAGREEMENT ABOUT HOW BIG THE SITE IS.** Campbell's review of Thorp records
+that the WALLED area is only 7.5 hectares while the whole site is many times that, and that the
+excavation report's figure of 110 hectares comes from a near-square of 1,000 by 1,100 metres **which
+takes in ravine and lake**; 64 hectares is the better figure. **A footnote in a book review carried the
+whole of the card's third sentence** — the same route that has paid twice before in this run, where the
+reviewer states plainly what the book being reviewed only implies.
+  **THE FIFTH SOURCE CAME FROM EUROPE PMC RATHER THAN FROM ASIAN PERSPECTIVES.** Four of the five are
+ScholarSpace items already in the corpus; the lead-isotope claim needed something else, and a Europe PMC
+search for the site name returned Liu, Rawson and Pollard's *Scientific Reports* paper on highly
+radiogenic lead — which names Panlongcheng, Xin'gan and Sanxingdui as showing the signature at virtually
+the same time, and argues for several sources rather than one. **Search the SITE NAME at Europe PMC even
+for a Bronze Age card**: the archaeological-science literature is indexed there and the humanities
+literature is not.
+  **AND THAT SEARCH IS NOISY IN A WAY WORTH KNOWING.** Eleven hits for "Panlongcheng" included three
+papers on sulfonyl fluoride chemistry (an author's given name), a mumps study and a GIS paper on tourism
+efficiency in Wuhan's urban fringe — the last genuinely about the site and useless for a card about the
+Bronze Age. **A hit on the right name is not a source about the right subject.**
+  **THE PICTURE IS A PALACE FOUNDATION AND ITS CAPTION HAS TO SAY WHAT IS ANCIENT.** The offered
+candidates were a METRO STATION NAME BOARD (`Panlongcheng Station Sign.jpg` — the sixth signage trap of
+this run) and a park signboard for the Lijiazui site, which is the name the card uses twice and would
+have been the obvious pick without looking. The chosen photograph shows the excavated foundation laid
+out for visitors: the low banks follow the wall trenches and the timber stumps stand where the posts
+did, so the caption says the earth platform beneath them is the ancient part. **Where a site has been
+presented to visitors, the caption must divide the ancient fabric from the modern marking**, or the card
+shows a reconstruction and calls it a ruin.
+
+  **`cnh-091` NEARLY SHIPPED A SENTENCE ANOTHER CARD ALREADY HAD, WORD FOR WORD.** Its sixth sentence
+quoted Heji 301 — "a hundred jars of millet ale, a hundred Qiang captives and three hundred specially
+reared sheep" — and `cnh-079`, on human sacrifice, has carried that exact list since it shipped, from the
+same Jaffe and Campbell paper. The fix was not to reword the quotation but to ask what the AGRICULTURE
+card wants from it, which is that the grain was brewed and the ale went to the ancestors by the hundred
+jars: **the crop fed the dead as well as the living**, no list required. The second question phrasing
+quoted it too and was replaced with the Anyang isotopes. **When a card reuses a source an earlier card
+cited, grep that source's most quotable passage across `data.js` before drafting** — a shared source is
+where the duplication comes from, and it survives every checker, since nothing measures whether two cards
+say the same thing.
+  **THE PICTURE SEARCH RETURNED ONE CANDIDATE AND IT WAS A MARKET IN NIGERIA.** `add-card.js` offered
+"Man threshing some grains sale at the Monday Market in Kakuri, Kaduna" for "Shang agriculture" — the
+name match at its most confident and least useful. Searching Commons by hand for the OBJECT rather than
+the topic found what the card's ninth sentence describes: `20240817 Stone Sickles, Zhengzhou Shang City
+Site, Shang.jpg`, eight blades on a museum wall with a ninth on a clear rod showing the hafting. **When
+the topic is a PRACTICE, search for its tool.** The caption says the handle is the museum's, which is the
+`cnh-090` rule one card later.
+  **ITS SOURCES ARE FOUR-FIFTHS OUTSIDE ASIAN PERSPECTIVES, WHICH IS NEW FOR THIS RUN.** Two PLOS ONE
+papers, one *Vegetation History and Archaeobotany*, and two ScholarSpace items — because the question
+"what did the Shang grow and eat" is answered by archaeobotany and stable isotopes, which are indexed at
+Europe PMC. The pairing that carries the card is Liu and Reid's isotope meta-analysis (2,448 individuals,
+128 sites) against Deng et al.'s direct AMS dates on wheat: **wheat is present at Shang sites in quantity
+for the first time and still feeds almost nobody until the Zhou**, and the proposed reason is the kitchen
+rather than the field — grinding and baking against steaming and boiling.
+  **AND THE REPOSITORY METADATA HAD THE AUTHORS' NAMES REVERSED.** ScholarSpace gives the cattle paper's
+authors as "Peng, Lu", "Jing, Yuan", "Zhipeng, Li" — surname and given name swapped for all three — where
+the article's own byline reads "Lu Peng, Katherine Brunson, Yuan Jing, and Li Zhipeng". **The PDF's title
+page beats the catalogue record**, which is N4's fabricated-author finding from the other direction: there
+the metadata was missing, here it is present and wrong. Its page range is omitted deliberately — the
+running heads establish page 92 as the first and the references run past 120 with no visible end — under
+the rule this run set on `cnh-087`.
+
+  **`cnh-092` SETTLES THE PAGE-RANGE QUESTION THIS RUN HAS DEFERRED THREE TIMES, BY MEASURING.** Where an
+Asian Perspectives OCR gives running heads but no colophon, the last page can be established
+arithmetically: take the byte distance between two headers two pages apart, halve it for a page, and
+compare that with the text remaining after the LAST header. The Guandimiao article has 7,367 characters
+between its page-308 and page-310 heads and only 2,215 after 310, well under a page, so it ends on 310 and
+is **281–310**. The same test run on `cnh-091`'s cattle article — 7,533 between 118 and 120, 1,936 after —
+gives **92–120**, and that citation was corrected in this commit. **Measure the tail against the page
+before recording a citation without pages**; two of the three deferrals were avoidable.
+  **AND THE REPOSITORY METADATA WAS WRONG AGAIN, TWICE IN ONE RECORD.** ScholarSpace gives the ceramic
+paper's authors as "Stoltzman, James B." and "Rapp, George (Ripp)" where the article's own byline reads
+**James B. Stoltman** and **George (Rip) Rapp** — a spurious z and a spurious p. With `cnh-091`'s three
+reversed Chinese names that is two records in two cards. **Read the byline off the PDF, always.**
+  **ITS SUBJECT IS THE ABSENCE OF EVIDENCE, AND ONE SITE CARRIES IT.** Guandimiao in Xingyang is "the only
+nearly completely excavated village in China of its time" — 22 semi-subterranean houses, 269 tombs, 23
+updraft kilns and a population that probably never passed a hundred, found in 2006 only because the
+south-to-north water diversion was being cut through it. Its pottery was made far beyond local need and
+did NOT go to Anyang; what did travel was bone, its finest hairpins and arrowheads being identical to the
+mass-produced work of the Tiesanlu workshop 200 km away. **The plan line was renamed** from "Shang
+settlement and the countryside" to "The Shang countryside", the sources having settled where the card's
+weight actually falls.
+  **THE PICTURE SEARCH FAILED IN A NEW WAY: ALL FIVE CANDIDATES WERE THE CULTURAL REVOLUTION.** "Shang
+countryside" matched the *down to the countryside* movement — certificates, a 1964 photograph of sent-down
+youth, two museum halls — which is the name-match trap at three thousand years' distance. Searching for
+the SITE found the answer, and it is an unusual one: a **KH-9 HEXAGON reconnaissance photograph of
+Xingyang from November 1973**, declassified and public domain, showing field strips, gullies and clustered
+village houses with nothing Shang visible from the air. **A satellite frame is a legitimate illustration
+for a card about a landscape**, and the caption says outright that the village was found only because a
+canal was cut through it, which is the card's own point.
+
+  **`cnh-093` IS THE FIRST CARD OF THIS RUN WHOSE SOURCE LIST IS MOSTLY 19TH-CENTURY, AND THAT IS THE
+FINDING.** No open modern work reachable from here describes the sexagenary day-count itself — the
+scholarship on it sits in Springer encyclopedias and untranslated Chinese journals — but the structure was
+described plainly in the reference literature of the 1870s and 1900s, which is out of copyright and on
+archive.org. **Mayers's *Chinese Reader's Manual* (1874)** gives the combination method, the name *jiazi*,
+and the flat statement that the cycle "was not until the period of the Han dynasty" applied to numbering
+years; **Chalfant's *Early Chinese Writing* (1906)** adds the inference from the bones themselves, that the
+combinations on them exceed the sixty a year-cycle allows and so must be days. This is batch 25's rule in
+its purest form: **for a definitional fact about an old subject, the standard old reference work is often
+both the origin of the observation and the only open source that states it.**
+  **WHAT THOSE TWO MUST NOT BE CITED FOR IS EVERYTHING AROUND THE FACT.** Mayers attributes the invention
+to Ta Nao in the 27th century BCE out of the *Record of Rites*, and Chalfant passes on Edkins's opinion
+that the twenty-two signs were "imported from Babylonia", admitting he cannot state the proofs. Neither is
+in the card. **A century-old reference work is cited for its structural description and never for its
+chronology or its origins**, and the two are usually on the same page.
+  **THE MODERN SOURCE CARRIES THE PART THAT NEEDED MEASUREMENT.** Lee 2002 supplies what only current work
+can: that the oracle inscriptions carry day notations and nothing else; that the five-rite round the late
+kings ran through the ten-day weeks took about a Julian year, which is the nearest thing the Shang had to
+one; and that of eleven possible eclipse entries, five lunar ones from the Bin diviner group are agreed
+genuine and can only fall between 1201 and 1181 BCE. **`cnh-072` had already spent the five-rite cycle as
+a fact about divination; the calendrical fact — how long one circuit takes — was untouched**, which is the
+way to reuse a source an earlier card has already read.
+  **AND THE CLOSING SENTENCE IS A 2018 CLIMATE DATABASE.** REACHES digitises Qing chronicles of 1644–1795,
+whose days are still dated by stems and branches and have to be run through a lunar-to-Gregorian
+converter — so the Shang day-count is still doing work three thousand years later, and the citation for
+that is a *Scientific Data* paper about rainfall. **Look for the afterlife of a system in the literature
+that has to cope with it**, not in the literature about it.
+  **THE PICTURE SEARCH PRODUCED CITIZEN KANE.** `add-card.js`'s five candidates for "Shang calendar" were
+two promotional stills from the 1941 film, a V-22 Osprey refuelling over Iraq, and two photographs of a
+motel in Kane, Pennsylvania. Searching Commons for the OBJECT found it at once: **`Heji 37986`, an ox
+scapula in the Yinxu Museum carrying the complete table of sixty in oracle-bone script**, CC0. That is the
+third card running where the offered candidates were useless and a hand search for the thing itself
+answered in one query.
+
+  **`cnh-094` WAS DESIGNED AROUND WHAT ITS OWN COLLECTION HAS ALREADY BOOKED, WHICH IS THE RULE TO CARRY.**
+The obvious card for "Shang writing and its descendants" is a history of the Chinese script, and the first
+draft was one: the Qin standardisation, the clerical script, the traditional/simplified split, the 40% of
+characters the 1950s reform touched, the merging of 麵 and 面 into one graph. **Every one of those is a
+LATER CARD in this plan** — `cnh-199` the standardisation, `cnh-905` the development of the script,
+`cnh-906`–`cnh-908` seal, clerical and regular, `cnh-915`–`cnh-916` the reform and the simplified
+characters. The card was rebuilt to be about the Shang script AS AN ANCESTOR: the two Shang scripts, how
+the descent was demonstrated, the five stages named but not described, and the one finding that belongs
+to the whole three thousand years rather than to any stage of it. **Grep the plan for a card's neighbouring
+SUBJECTS, not just its id** — the deck economy that matters here is with cards nine hundred numbers away.
+  **THE FINDING THAT SURVIVED THE CUT IS WORTH THE CARD ON ITS OWN.** Han, Kelly, Winters and Kemp measured
+half a million character images over more than 3,000 years and found no consistent simplification:
+complexity climbs to the seal script and falls after it, and modern characters are still MORE complex than
+their oracle-bone ancestors. They then checked it against the obvious objection — that their measure was
+an artefact — with a preregistered experiment in which 400 people who read no Chinese rated the pairs and
+agreed. **A popular claim about a 3,000-year trend is exactly the kind that has never been measured**, and
+their paper is also where the flat statement lives that Chinese is the world's only primary script still
+in continuous use.
+  **A 403 ON A PUBLISHER DOI IS NOT A CLOSED PAPER.** `doi.org/10.1162/opmi_a_00064` returns 403 here (MIT
+Press), and the article is fully open at its PMC copy, which is what the citation points at. **Curl the DOI
+before shipping and reach for PMC when it refuses** — the same route N1 recorded for Springer and Nature.
+  **AND A SCHOLARSPACE ITEM CAN BE LOGIN-WALLED WITHOUT LOOKING LIKE IT.** `ap.sh` fetched 390 KB for a 2012
+thesis on Chinese character reform and every byte of it was the ScholarSpace **login page**; the size looks
+like a successful download and the file is HTML. **Check the head of a fetched text, not its length.**
+  **The picture is the one the card needed and no search phrase would have described it**: a family tree of
+the single character for *horse*, from Shang bronze and oracle-bone forms in which the mane and legs are
+still drawn, down to the modern printed shapes — with six Warring States branches crossed out as dead ends,
+so the reader can see that the descent is a surviving line and not the only one.
+
+  **`cnh-095` FOUND A FABRICATED AUTHOR IN THE SHIPPED CORPUS, AND IT WAS ONE OF THIS RUN'S OWN.**
+`cnh-053` Sanxingdui and its glossary term both cited the PNAS carnelian paper to **"Zhengyao Jin et
+al."** The article's author list is Yan Meiting, Liu Jiancheng, Qin Chunlei … Tang Zihua, and contains
+**no Jin at all**; Jin Zhengyao is a real archaeometallurgist who appears in the bibliographies of
+neighbouring sources, which is presumably how the name arrived. This is N4's finding a second time, and
+the second time is the important one: **N4 caught its fabrication in draft, and this one shipped.** The
+volume, issue, article number and link were all correct, the URL resolves, and every checker passed — a
+wrong author name is invisible to all of them. Corrected on the card and in `glossary-extra.js`.
+**Read the byline off the fetched text before writing the citation, and re-read it when a later card
+reuses the source.**
+  **SPRINGER SERVES A 3,038-BYTE "CLIENT CHALLENGE" PAGE WITH A 200, ON BOTH THE ARTICLE AND THE PDF
+PATH.** The obvious source for this card is Rawson et al., *Chariotry and Prone Burials: Reassessing Late
+Shang China's Relationship with Its Northern Neighbours* (2020) — the DOI returns 200 and the body is a
+JavaScript wall. That is the sixth variety of 200-status error document this project has recorded, and it
+is why the paper is not cited here even though a figure from it is on Commons. **A 200 from a DOI is not
+a readable paper; check the byte count and the head of the body.**
+  **THE CARD IS BUILT ON WHAT IS NOT KNOWN, DELIBERATELY.** Campbell's review of Thorp is unusually
+useful here because it lists the long-distance claims that have nothing behind them: Anyang's copper from
+the Yangtze is "unsubstantiated and unreferenced", the Xinjiang origin of Anyang and Xin'gan jade has no
+sourcing study, and only the southern origin of northern proto-porcelain has provenance work — which is
+contested, and Li Haichao's later study names a different part of the south (the Qiantangjiang valley in
+Zhejiang) from the one Campbell reports (Wucheng in Jiangxi). **Where two provenance studies disagree
+about which region, say so rather than picking one**; that disagreement is the state of the question.
+  **AND THE RUN'S OWN SPELLING HAD DRIFTED.** The corpus writes *Yangtze* twenty times and *Yangzi* four,
+and all four of the *Yangzi* were cards written in this run (`cnh-088`, `cnh-090`, and two in `cnh-095`
+itself, which used both spellings in one abstract). All are normalised to the majority form, in the cards
+and in the `Panlongcheng` glossary term. **Grep a proper noun's variants across `data.js` before adopting
+one** — a minority spelling introduced four cards running becomes a house style nobody chose.
+
+  **`cnh-096` IS THE FIFTH CARD IN A ROW ON BRONZE AND IT HAD TO BE FOUND, NOT WRITTEN.** `cnh-064` has
+Erlitou's metal, `cnh-081` the vessel typology, `cnh-082` the piece-mould method, `cnh-084` the ornament,
+`cnh-089`–`cnh-090` the foundries and the outposts, `cnh-095` the lead's geography. What was left is the
+ALLOY and the SUPPLY, and Liu, Pollard and Cao's recycling study answers both at once: the ritual vessels
+of the highest elite were made by **primary alloying** — very pure copper with tin in controlled amounts,
+a practice found nowhere else in Bronze Age central China — while everything lower down was **secondary**,
+mixed and remelted with the impurities that carries. **The chemistry of the metal follows rank**, which is
+a claim no other card in the run could have made.
+  **ITS SHARPEST FIGURE IS ONE THE FU HAO CARD DID NOT TAKE**: 1.6 tonnes of metal from her tomb alone,
+and she was one of a king's consorts and not the most important person buried at Anyang, so the grave is
+the tip of the supply rather than a measure of it. `cnh-075` counted her BRONZES (468 by one study, 210 by
+another) and never weighed them. **A card written on the same tomb can still leave a number on the table**
+— check what the sibling counted, not just what it covered.
+  **THE LEAD QUESTION IS NARROWED HERE RATHER THAN REPEATED.** `cnh-095` has the geography of the
+radiogenic lead and the thirty years of argument; this card takes only what that one left — that it
+appears on the Yellow River plain **suddenly, around 1400 BCE**, and that Tongkuangyu, the obvious
+candidate deposit in central China, has been excluded as its sole supplier. Sun Wei-dong et al. propose
+African cratons and say outright that how such metal reached China "remains mysterious"; Liu, Rawson and
+Pollard answer with multiple sources. **Two open papers disagreeing is worth a clause, and the clause
+should name the disagreement rather than pick a winner.**
+  **AND NATURE'S DOIs ARE ANSWERING TODAY, WHERE SPRINGER'S ARE NOT.** All three *Scientific Reports*
+DOIs served 300–430 KB of real article HTML with the right titles, one card after `link.springer.com`
+handed back a 3,038-byte challenge page for both the article and the PDF. **Reachability is per host and
+per day: measure it, do not carry a refusal forward from the previous card.**
+
+  **`cnh-097` CAUGHT ITS OWN DUPLICATION BEFORE DRAFTING, WHICH IS THE `cnh-091` LESSON WORKING.** The
+obvious opening for a cowrie card is Campbell's figure — over 80% of Yinxu burials are a coffin, a few
+pots, perhaps a cowry shell — and a grep found it ALREADY ON TWO CARDS, `cnh-066` and `cnh-086`, both
+phrased as "more than four in five". A third would have been the same sentence three times in one deck.
+**Grep the sentence you mean to write, not just the source you mean to cite**; here the source had been
+read three times and the same clause taken from it each time.
+  **THE CARD IS THEREFORE BUILT ON WHAT WAS LEFT, AND IT IS BETTER FOR IT.** MacIver's costing of Anyang
+grave goods rates a MARINE shell at 250 against a freshwater one at 100 — a judgement about distance
+rather than beauty, and the only place in the corpus where the two kinds of shell are told apart. Li Liu
+supplies the traffic in the other direction, turtle shell coming north from where it was plentiful; Shelach
+has seashells in north-western graves far from any sea. **The natural-history sentence needed a marine
+biology paper**: no archaeological source reachable here states the family's range, and a *Royal Society
+Open Science* article on rearing cowrie larvae gives it exactly — tropical Indo-Pacific, East Africa to
+Polynesia — which is what makes the distance argument work at all.
+  **AND LACOUPERIE 1892 IS CITED FOR HIS TEXTS AND NEVER FOR HIS THEORIES**, which is `cnh-093`'s rule a
+card later. The British Museum catalogue's introduction reports the *Book of Documents* passage in which
+Pan Geng rebukes his ministers for hoarding cowries and gems, dates Chu's supply of tortoise shells and
+cowries "for currency" to 852 BCE with both grown scarce, and records the later bronze pieces nicknamed
+metallic cowries. It also carries his views on writing arriving from Western Asia and bronze reaching
+China through Meshed — none of which is on the card. **The chronology of his OWN sources is usable; his
+diffusionism is not.**
+  **TWO SMALL RULES CONFIRMED.** `set-date-line.js` refuses a semicolon in a value ("semicolons chain
+clauses — give each date its own row"), which caught `rated 250; freshwater 100` on the first attempt. And
+the GLOSSARY TERM had to be rewritten deck-agnostically after a first draft framed a cowrie by Bronze Age
+China: the card may be about the Shang, the term may not be, so its three sentences are the animal, the
+uses coastal peoples have made of it, and the reading of inland seashells as evidence of trade — with
+China named nowhere.
+
+  **`cnh-098` HAD NO SOURCE OF ITS OWN AND WAS BUILT OUT OF FOUR ARTICLES ABOUT SOMETHING ELSE.** Nothing
+reachable here is a study of Shang music: Europe PMC returns visualisation papers and dance therapy,
+ScholarSpace returns Han ballads and the Japanese yamatogoto. What answered was a **grep of the sources
+already fetched for other cards** — and three of them carry the whole card. Childs-Johnson's tomb
+inventories, compiled to argue about *ding*, list "3 nao (set)" twice in one Anyang burial and once in
+another, so **the bells came in threes and were counted among the ritual vessels rather than apart from
+them**; her Zhou five-rank table then shows chime bells specified by number exactly as the vessels were.
+MacIver's burial statistics, compiled to argue about ritual and status, carry *Instruments % of Bronzes*
+as one of eighteen variables and give it by period at Dasikong: **0 in Period I, then 6.8, 4.6 and 6.1
+per cent**. Lopes, writing about power animals, notes bells among Fu Hao's bronzes in passing.
+**When a subject has no literature, grep the corpus you already hold for its VARIABLES** — a table
+assembled for another argument answers questions its author never asked.
+  **THE TWO FIGURES AGREE, WHICH IS WHY BOTH ARE IN.** Six bells inside a total of 85 vessels is about
+7 per cent, and MacIver's independent count of instruments among bronzes at another Anyang cemetery runs
+5 to 7. Two sources compiled for different purposes arriving at the same proportion is worth a sentence
+each; it is also the closest this card gets to a measurement rather than an anecdote.
+  **VAN AALST 1884 IS THE THIRD 19TH-CENTURY REFERENCE THIS RUN HAS USED AND THE RULE HELD AGAIN.** His
+*Chinese Music* gives the classical eight-materials scheme — metal, stone, silk, bamboo, gourd, clay,
+skin and wood, drawn from the eight trigrams — which is a fact about Chinese theory and is labelled as
+such on the card, "later still". What is NOT on the card is his framing of that theory as the expression
+of harmony between heaven, earth and man. **The scheme is citable; the cosmology around it is the
+author's period, not the Shang's.**
+  **AND THE PICTURE SEARCH PRODUCED A KIRIBATI EX-PRESIDENT, A TIBETAN CYMBAL AND A BADMINTON PAIR** —
+"Shang" matching a surname, a Tibetan instrument and a given name. Searching Commons for **nao** found
+dozens of the right object in one query, including a photograph of two of a set on their stands, which
+shows the thing the card turns on: a nao stands mouth upward on a hollow shank and has no clapper.
+
+## cnh-099 Shang craft workshops
+
+**THE CARD READS CRAFT SPECIALISATION OFF SKELETONS, NOT OFF WORKSHOP FLOORS, AND THAT IS WHAT MADE IT
+WRITABLE.** The obvious card — kilns, moulds, bone-cutting debris, where each quarter stood — is spent
+across cnh-089, cnh-090, cnh-096 and cnh-097, so what was left is the evidence about the PEOPLE. Zhang
+et al. 2017 examined 167 Yinxu skeletons for osteoarthritis at eight joints and three spinal
+indicators, and the pattern is the argument: men worse than women in the upper body, and **Xiaomintun
+worse than Xin'anzhuang in both sexes** — the foundry neighbourhood against the one whose graves carry
+no trade marker. **The Xiaomintun women's figures are the finding worth carrying**, since they are what
+raises the family-business reading and so the mechanism by which an occupational neighbourhood could
+come about at all; the paper puts it as a possibility and the card keeps the hedge.
+  **A SITE IS IDENTIFIED AS A WORKSHOP QUARTER BY WHAT IS IN THE GRAVES, NOT BY WHAT IS IN THE GROUND.**
+Both Xiaomintun and Xin'anzhuang have foundries beside the houses; what separates them is that
+Xiaomintun's burials hold casting tools and Xin'anzhuang's hold nothing that names a trade. That is the
+card's question, and it is the sort of clue a reader can carry to any site.
+  **SKILL IS A CONTINUUM AND THE FOUR-GROUP FINDING IS HOW TO SAY SO.** Guandimiao's worked bone sorts
+into four groups running from expedient tools anybody could make, through a local specialist's oracle
+bones, to pieces identical to the mass-produced output of Anyang's largest bone workshop — one village
+holding the whole range, which is a better answer to "were they specialists?" than any single site's
+yes or no. Stoltman's 61 thin sections run the other way and are kept for the contrast: the grey ware
+everybody used was made locally, so specialisation and local production are different questions.
+  **A SIXTH CONSECUTIVE USELESS PICTURE SEARCH** — `add-card.js` returned "no usable picture found for
+'Shang craft workshops'" outright, which is at least honest where the earlier five offered a Nigerian
+grain market and Citizen Kane. **The fix is the standing one: search Commons for the PRODUCT, not the
+process.** "Shang bone hairpin" found the commonest thing those workshops made, five of them in a row
+under a museum label, CC0.
+
+## cnh-100 Shang burial practice
+
+**THE DECK HAD ALREADY SPENT EVERY OBVIOUS SENTENCE ON THIS SUBJECT, and the card that was left is
+the GRAMMAR of a grave rather than any grave.** Forty-seven cards touch burial: `cnh-075` owns Fu
+Hao's contents, `cnh-079` human sacrifice, `cnh-080` Xibeigang with its four ramps and its waist
+pits, `cnh-078` the cult and the falling spend, `cnh-066` the four-in-five commoner grave. What
+nothing carried was the FORMULA — supine and extended in a north–south shaft, a timber chamber
+holding one or two coffins, a ledge round it, the shaft rammed layer by layer, and a fixed place for
+each kind of thing. **Grep the deck before drafting a card whose subject the deck has been circling
+for fifty numbers**; the leftover is usually structural rather than topical.
+  **THE SOURCE THAT OPENED IT IS FOUR MONTHS OLD** — Zhengyuan Wang's *Ritual re-representation and
+the making of sociality* (Archaeology International 28, no. 1, published 31 December 2025), CC-BY at
+UCL Press. It carries the seven-step construction sequence and the six spatial divisions, and its
+one-line thesis is the card's first sentence: **higher-ranked burials follow a standardised ideal
+and lower-ranked ones are simplified versions of it**, so there is no elite–commoner dichotomy to
+draw. It also gives the corpus honestly — more than 20,000 graves dug, about 4,600 published, only
+about 200 unlooted with bronzes.
+  **THE SANDBOX HAS NO PDF TOOL, SO ONE WAS WRITTEN** (`.claude/../scratchpad/pdftxt.py`, not
+committed): inflate every FlateDecode stream, pull the `Tj`/`TJ` operands, and apply whichever
+ToUnicode CMap yields the most ASCII letters. It reads this article well enough to quote. **Watch
+for a second font encoded with a +1 shift** — whole clauses come out as `BOZNFEJVNQSPWJEFE`, which
+is `anymediumprovided`; de-shifting recovers the words but NOT the digits, so **read every FIGURE
+off a span that came out clean.**
+  **TWO STALE ACCESS FINDINGS, ONE IN EACH DIRECTION.** `discovery.ucl.ac.uk` was recorded 403 in
+the glossary pass's N1 batch; its **PDF path serves 1.9 MB today** while its landing page still
+403s, so a repository can be half open. And Springer is worse than recorded: the article HTML came
+back at 530 KB once and then, minutes later, the **3,038-byte Client Challenge on every path
+including `/content/pdf/`** — so the earlier reading was a lucky window rather than a working host.
+The citation therefore points at the **Oxford ORA deposit**, found through the OpenAlex locations
+list (`api.openalex.org/works/doi:…`), which answers reliably. **When a hybrid-OA article's
+publisher is walled, ask OpenAlex which repository also holds it.**
+  **AND CROSSREF IS THE CHEAP FIX FOR A BIBLIOGRAPHIC FIELD YOU CANNOT SEE.** The Archaeology
+International PDF garbles its own volume and DOI in the how-to-cite block;
+`api.crossref.org/works?query.bibliographic=…` returned volume 28, issue 1 and DOI 10.14324/ai.28.1.08
+in one call, and confirmed Rawson's four authors, volume, issue and page range exactly as drafted.
+That is N4's fabricated-author rule turned into a habit: **look the metadata up rather than reading
+it off the page you extracted.**
+  **THE PICTURE SEARCH FAILED FOR THE SEVENTH CARD RUNNING AND WAS SETTLED BY LOOKING.** Commons has
+essentially three Shang grave subjects — Fu Hao, the Xibeigang hedges and the chariot pits — and the
+first and third were already spent. What worked was **downloading undescribed candidates and reading
+them as images**: five of the `Yinxu - 殷墟` set turned out to be water pipes, an oracle bone and a
+display case, and a Gary Todd photograph filed under Fu Hao's tomb turned out to show **bodies lying
+on the second-tier ledge with the rammed layers of the refill banded below** — the card's own
+subject, which no caption said. **The description is untrustworthy and the file is not**; open it.
+
+## The Crossref sweep over all 100 China cards (Aug 2026)
+
+**MAIN'S NEW `check-citations.js` FOUND SIX WRONG AUTHOR NAMES IN THIS BRANCH'S CARDS, AND EVERY ONE
+OF THEM PASSED EVERY OTHER CHECK.** The URLs resolved, the papers are real, the markers pointed at
+sources that existed, `source-audit.js` reported 855 of 855 at the bar. What was wrong was the name
+in front — the fault N4 of the glossary plan records, one level down, and the reason to run this
+sweep after every batch rather than at the end of a pass:
+  · `cnh-041` **Chi Zhang → Zhang Chi**, a Chinese name inverted where *Internet Archaeology* prints
+    it surname-first, which is also how this deck cites Lu Peng and Li Zhipeng.
+  · `cnh-048` **Yang Liu → Yifei Liu**; `cnh-086` **Chi Zhang → Chengrui Zhang**, with Ruiling
+    Cheng, Fuhao Hou and Yong Wu also wrong for Ruoxin Cheng, Furen Hou and Yi Wu.
+  · `cnh-053` **Wei Zhang → Weijie Zhao** — and the same citation gave the article as **nwab095**,
+    which is a real *National Science Review* paper about 2D materials and antiviral coatings.
+    **A composed article number lands on somebody else's paper**, exactly as a composed DOI does.
+  · `cnh-053`'s silk paper and `cnh-079`'s Shimao aDNA paper carried author lists that agree with the
+    record on the first name and diverge after it. Both are now **"first author et al."**, which is
+    Chicago's own form for four or more authors and the form the rest of those cards already use —
+    **a long list written out by hand is a long list of chances to be wrong, and et al. removes all
+    of them at once.**
+  **THE TWO "CHECK BY EYE" ROWS WERE BOTH RIGHT AND ARE WORTH KNOWING.** `cnh-043`'s Christian Leipe
+sits against a record holding "C. Leipe" — an abbreviation, not a disagreement. And **`cnh-020` is a
+case of CROSSREF being wrong about a TITLE**: it registers the Slovene *Podoba in vloga Matere
+Zahodnega kraljestva* for an article the publisher's own page titles *Image and Role of the Queen
+Mother of the West in Han Grave Art*. The journal registered its translated title; the citation
+stands. **Read the record against the publisher before correcting anything.**

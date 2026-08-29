@@ -68,9 +68,15 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `egypt-card-plan.md` | Ancient Egypt (`egypt`) | `eg-` |
 | `ww2-card-plan.md` | The Second World War (`ww2`) | `ww2-` |
 | `japan-card-plan.md` | Japan (`japan`) | `jp-` |
+| `psychology-card-plan.md` | Psychology (`psych`) — the first that is not history | `ps-` |
+| `philosophy-card-plan.md` | Philosophy (`phil`) | `ph-` |
+| `biology-card-plan.md` | Biology (`bio`) | `bio-` |
+| `dinosaurs-card-plan.md` | Dinosaurs (`dino`) | `dino-` |
+| `korea-card-plan.md` | Korea (`korea`) | `ko-` |
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
+| `world-geography-card-plan.md` | The world (`geo-world`) — 459 cards, sorted by population | `gw-` |
 
-`china-card-findings.md` is China's per-card research log; the other ten keep theirs in their own plan
+`china-card-findings.md` is China's per-card research log; the other sixteen keep theirs in their own plan
 or in the citation plans. `node .claude/test-card-plans.js` checks every plan against `data.js`.
 
 ## Content passes — the finished ones

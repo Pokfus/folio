@@ -24,6 +24,7 @@ const path = require("path");
 const http = require("http");
 const fs = require("fs");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.join(__dirname, "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png" };
@@ -145,7 +146,7 @@ function scrimCheck() {
      section 6 asserts the home page as a first-time reader actually meets it. */
   const watch = (p) => {
     p.on("pageerror", (e) => errs.push("pageerror: " + e));
-    p.on("console", (m) => { if (m.type() === "error" && !/ERR_|net::|Failed to load|favicon/.test(m.text())) errs.push("console: " + m.text()); });
+    p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
     return p.addInitScript(() => { try { localStorage.setItem("folio_library_tour_v1", "1"); } catch (e) {} });
   };
 
@@ -1141,7 +1142,7 @@ function scrimCheck() {
     // reads as a card count when the collection holds none
     check("a coming-soon collection carries no icon", !lib.soonBadge);
     check("...and no progress bar", !lib.soonXp);
-    check("...just the Coming soon pill", lib.soonPill);
+    check("...just the Planned pill", lib.soonPill);
     check("...with its title centred in the banner", lib.soonTitleOffset !== null && Math.abs(lib.soonTitleOffset) <= 1.5, lib.soonTitleOffset);
     // Aug 2026, on request: collections lost their level. The banner carries a SUBJECT ICON where the
     // per-script numeral was and a studied/total bar where the XP bar was — see test-artefacts.js, which
@@ -1679,6 +1680,14 @@ function scrimCheck() {
         const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
         s.active = [best.id];
         localStorage.setItem("folio_v1", JSON.stringify(s));
+        /* …FROM A CLEAN FOLD STATE, because what is asserted below is the DEFAULT. Only an explicit choice
+           is stored (`folio_ad_open_v1`), and the sub-section directly above ends by clicking a
+           collection's chevron SHUT -- so that collection is legitimately folded, and any deck this probe
+           picks underneath it is legitimately hidden. It went unnoticed while the deepest leaf with cards
+           sat one level down; the day a second leaf of an earlier collection gained its first cards the
+           probe moved two levels down, inside the very collection the fold test had just shut, and the
+           app was blamed for honouring a choice the suite had made itself two assertions earlier. */
+        localStorage.removeItem("folio_ad_open_v1");
         return best;
       });
       if (deep) {

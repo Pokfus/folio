@@ -2,7 +2,7 @@
 // Studio (liveCardEditorHTML / wireLiveCardEditor), so this is what proves the extraction did not
 // change how the curated-content editor behaves.
 //   NODE_PATH=<scratch>/node_modules node .claude/test-admin-editor.js
-const http=require("http"),fs=require("fs"),path=require("path");const {chromium}=require("playwright");
+const http=require("http"),fs=require("fs"),path=require("path");const {chromium}=require("playwright");const {isNoise}=require("./test-noise.js");
 const ROOT=require("path").resolve(__dirname,"..");const root=ROOT;const T={".html":"text/html",".js":"text/javascript",".css":"text/css",".json":"application/json",".svg":"image/svg+xml"};
 const s=http.createServer((q,r)=>{let p=decodeURIComponent(q.url.split("?")[0]);if(p==="/")p="/index.html";const f=path.join(root,p);
 fs.readFile(f,(e,d)=>{if(e){r.writeHead(404);r.end();return;}r.writeHead(200,{"Content-Type":T[path.extname(f)]||"application/octet-stream"});r.end(d);});});
@@ -10,7 +10,7 @@ fs.readFile(f,(e,d)=>{if(e){r.writeHead(404);r.end();return;}r.writeHead(200,{"C
 const b=await chromium.launch({...(process.env.FOLIO_CHROMIUM?{executablePath:process.env.FOLIO_CHROMIUM}:{})});
 const p=await b.newPage();const errs=[];
 p.on("pageerror",e=>errs.push("pageerror: "+String(e).slice(0,200)));
-p.on("console",m=>{if(m.type()==="error"&&!/ERR_(TUNNEL|CONNECTION)/.test(m.text()))errs.push("console: "+m.text().slice(0,200));});
+p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
 let fail=0;
 const check=(name,ok,extra)=>{console.log((ok?"ok    ":"FAIL  ")+name+(extra?"  "+extra:""));if(!ok)fail++;};
 

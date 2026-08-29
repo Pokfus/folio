@@ -13,6 +13,7 @@ const fs = require("fs");
 const os = require("os");
 const path = require("path");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.resolve(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -116,7 +117,7 @@ async function openGlossEditor(page, base) {
   const page = await browser.newPage();
   const errs = [];
   page.on("pageerror", (e) => errs.push("pageerror: " + e));
-  page.on("console", (m) => { if (m.type() === "error" && !/ERR_|net::|Failed to load/.test(m.text())) errs.push("console: " + m.text()); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push("console: " + t.slice(0, 300)); });
 
   /* ---------- 1. link parsing, through the curated glossary editor's own read-out ---------- */
   await openGlossEditor(page, base);
@@ -421,15 +422,25 @@ async function openGlossEditor(page, base) {
   await page.reload({ waitUntil: "load" });
   await page.waitForTimeout(1200);
   const survived = await page.evaluate(() => {
-    // read it back the way the app does: the Library row's deck study path re-mounts from IndexedDB
+    /* Read it back the way the app does: the Library row's deck study path re-mounts from IndexedDB.
+       A DECK RECORD NO LONGER CARRIES ITS CARDS -- since the store was split they live one per note in
+       the `notes` store, and the record holds an index. Reading `d.cards` therefore found nothing, and
+       three assertions about what the writers persisted reported the media as absent when it was
+       written correctly one store over: a change of shape read as a change of behaviour. */
     return new Promise((res) => {
       const req = indexedDB.open("folio-community");
       req.onsuccess = () => {
         const db = req.result;
-        const all = db.transaction("decks").objectStore("decks").getAll();
-        all.onsuccess = () => {
+        const tx = db.transaction(["decks", "notes"], "readonly");
+        const all = tx.objectStore("decks").getAll();
+        const notes = tx.objectStore("notes").getAll();
+        tx.oncomplete = () => {
           const d = all.result.find((x) => x.id === "viddeck1") || {};
-          const cs = d.cards || [];
+          // the index fixes the order the assertions below count on; a note's `c` is the card itself
+          const byId = {};
+          (notes.result || []).forEach((n) => { if (n.deckId === "viddeck1" && n.c) byId[n.c.id] = n.c; });
+          const cs = Array.isArray(d.cards) && d.cards.length ? d.cards
+            : (d.index || []).map((e) => byId[e.id]).filter(Boolean);
           res({
             src: ((cs[1] || {}).image || {}).src,             // the video card, now swapped to a picture
             vid: !!(cs[1] || {}).video,
@@ -438,6 +449,7 @@ async function openGlossEditor(page, base) {
             gloss: !!((d.gloss || {}).Flint || {}).video, evil: !!((d.gloss || {}).Evil || {}).video,
           });
         };
+        tx.onerror = () => res(null);
       };
       req.onerror = () => res(null);
     });

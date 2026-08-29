@@ -25,6 +25,7 @@
    ============================================================ */
 
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 const http = require("http");
 const fs = require("fs");
 const path = require("path");
@@ -986,7 +987,7 @@ function aeneidChecks() {
      await at every call site. The cards themselves are `.claude/test-tour.js`'s section 5 — this file is
      about the shelf and the book under them. */
   const watch = async (p) => {
-    p.on("console", (m) => { if (m.type() === "error") errs.push(m.text()); });
+    p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
     p.on("pageerror", (e) => errs.push(String(e)));
     await p.addInitScript(() => {
       try {

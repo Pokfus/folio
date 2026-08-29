@@ -17,10 +17,13 @@
    things a reader would notice going wrong.
 
    ONE THING THIS CANNOT ASSERT, and it is recorded rather than papered over: **no shipped card's answer
-   is a named river**, so the "name it only if the river is a card" rule has no live instance. Natural
-   Earth's 10m set names the Nile, Euphrates, Tigris, Danube, Po, Indus, Ganges, Yangtze and Jordan — but
-   not the Tiber, the Rubicon, the Eurotas or the Alpheus — so the rule will fire the day a Nile card is
-   written and never for Rome's Tiber.
+   is a named river**, so the "only where the river is a card" rule has no live instance and what is
+   asserted is its OTHER half — that with no carded river, no river is drawn at all. Natural Earth's 10m
+   set names the Nile, Euphrates, Tigris, Danube, Po, Indus, Ganges, Yangtze and Jordan, and **it labels a
+   river in the language of the country it runs through**: the Tiber is in there as `Tevere`, the Danube
+   also as `Donau`, the Yangtze also as `Chang Jiang`. That is why `locatorSiblings` matches a card's
+   answer term AND its glossary aliases — the day a Tiber card is written, `Tevere` on the paired glossary
+   term is what puts the river on the map.
 
        node .claude/test-card-locator.js
 
@@ -28,7 +31,11 @@
    `startCardGlobe`'s `draw()` / the idle `ensureData("atlas")` beside it / `uCacheBust`. Not part of the
    site. */
 const { chromium } = require("playwright");
-const base = "file:///home/user/folio/index.html";
+const { isNoise } = require("./test-noise.js");
+// The repo's own index.html, resolved from THIS file rather than written out: a hardcoded
+// absolute path is right on exactly one machine, and in CI it loaded nothing at all, which
+// fails as a crash before the first assertion rather than as a wrong answer.
+const base = require("url").pathToFileURL(require("path").join(__dirname, "..", "index.html")).href;
 let pass = 0, fail = 0;
 const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? "  " + x : "")); } else { fail++; console.log("FAIL  " + n + "  " + (x || "")); } };
 (async () => {
@@ -36,7 +43,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   const errs = [], asked = [];
   const page = await browser.newPage({ viewport: { width: 1200, height: 1000 } });
   page.on("pageerror", (e) => errs.push(e.message));
-  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !/CORS policy|net::ERR_|Failed to load resource/.test(t)) errs.push(t); });
+  page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   page.on("request", (r) => asked.push(r.url()));
   await page.addInitScript(() => {
     localStorage.setItem("folio_v1", JSON.stringify({
@@ -67,10 +74,15 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     if (!cv) return null;
     const ctx = cv.getContext("2d");
     const d = ctx.getImageData(0, 0, cv.width, cv.height).data;
-    let ink = 0; for (let i = 3; i < d.length; i += 4000) if (d[i] > 0) ink++;
-    return { painted: ink > 10, w: cv.width };
+    let ink = 0, water = 0;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] > 0) ink++;
+      if (d[i + 2] > 200 && d[i + 2] - d[i] > 40 && d[i + 1] > 180) water++;   // the map's own ocean colour
+    }
+    return { painted: ink > 10, w: cv.width, water: water };
   });
-  check("...which paints without waiting for the atlas", !!drew && drew.painted, JSON.stringify(drew));
+  check("...which paints without waiting for the atlas", !!drew && drew.painted, JSON.stringify({ painted: drew && drew.painted, w: drew && drew.w }));
+  const waterBefore = drew ? drew.water : -1;
 
   // wait for the idle warm to land, then look for the extra layers
   await page.waitForTimeout(9000);
@@ -78,9 +90,26 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     cities: (window.CITIES || []).length,
     rivers: (window.RIVERS || []).length,
   }));
+  const water = await page.evaluate(() => {
+    const cv = document.querySelector(".map-card.map-loc .mc-canvas");
+    const ctx = cv.getContext("2d");
+    const d = ctx.getImageData(0, 0, cv.width, cv.height).data;
+    let n = 0;
+    for (let i = 0; i < d.length; i += 4) if (d[i + 2] > 200 && d[i + 2] - d[i] > 40 && d[i + 1] > 180) n++;
+    return n;
+  });
   check("the cities and rivers arrive at idle", after.cities > 1000 && after.rivers > 500, JSON.stringify(after));
   check("...fetched, not bundled into the eager path",
     asked.some((u) => /cities\.js/.test(u)) && asked.some((u) => /rivers\.js/.test(u)));
+
+  /* A RIVER IS DRAWN ONLY WHERE IT IS ITSELF A CARD (Aug 2026, on a bug report: "Rivers look very strange
+     with long straight lines … remove all Rivers for now except the ones which appear specifically as
+     cards"). No shipped card's answer is a named river, so the honest assertion today is that all 1,073
+     arrive and NONE of them is painted — measured as the water-coloured pixel count being IDENTICAL side
+     by side with `waterBefore`, taken before the bundle landed. A river is stroked in the map's own ocean
+     colour, so a single one drawn across a continent moves this count by hundreds. */
+  check("...and none of them is drawn, no card's answer being a river",
+    water === waterBefore, water + " vs " + waterBefore);
 
   // the sibling dots: count the red pixels the collection's other 54 places put on the globe
   const red = await page.evaluate(() => {
@@ -106,6 +135,21 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     return n;
   });
   check("...with the card's own place still the biggest mark on it", gold > 0, "gold px " + gold);
+
+  /* THE SIBLING DOTS ARE NAMED (Aug 2026, on a bug report: "the other dots don't have their labels").
+     A pixel proxy, and deliberately a loose one: the labels are canvas text, so there is no element to
+     query, and what a regression would look like is the map keeping its dots and losing its words. The
+     card's own label — one line of 13px — cannot reach this on its own; a run with the siblings named
+     measures about 400 dark pixels against roughly a third of that for the answer alone. */
+  const inked = await page.evaluate(() => {
+    const cv = document.querySelector(".map-card.map-loc .mc-canvas");
+    const ctx = cv.getContext("2d");
+    const d = ctx.getImageData(0, 0, cv.width, cv.height).data;
+    let n = 0;
+    for (let i = 0; i < d.length; i += 4) if (d[i] < 90 && d[i + 1] < 90 && d[i + 2] < 90 && d[i + 3] > 200) n++;
+    return n;
+  });
+  check("...and named, not left as bare dots", inked > 250, "ink px " + inked);
 
   check("no console or page errors", errs.length === 0, errs.join(" | ").slice(0, 300));
   await browser.close();

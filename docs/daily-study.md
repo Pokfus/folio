@@ -640,3 +640,141 @@ Dragging a deck INTO a group called `render()`, which scrolls to the top of the 
 block's entrance animation — on the one page where the reader has just posed the list by hand. Both
 branches of that path are `renderInPlace()` now, which is the rule CLAUDE.md states as "a repaint is not a
 navigation" and which the editor mode's own repaints use throughout.
+
+## A language's own header, and its options (Aug 2026, on a bug report)
+
+> "when I long-press an active language collection, I don't see the popup menu to see/change its settings"
+
+A language is not a tree node — it is a row in a generated catalogue — so its decks have no ancestors for
+the list to walk, and the container they are gathered under is **synthesised at render time** under a
+`langctx:` id (see `langCtxId` in app.js). It was built deliberately claiming nothing: no `data-review`,
+because "study all of Spanish" is a scope nobody asked for and that row deals no cards.
+
+The home page's hold-menu wiring is two walks, one keyed on `data-review` and one on `data-pending`. The
+language header carries neither, so it fell between them and **answered a hold with nothing at all** —
+one row in a list where every other row opens a sheet.
+
+**A row that does nothing when held looks exactly like a row that was never meant to**, which is why this
+sat unreported for as long as it did and why the fix is asserted rather than left to the eye
+(`test-lang-decks.js`, section 4).
+
+### Its one action is the sheet, so the tap opens it too
+
+Every other row here is tap-to-study and hold-for-options. This one has no session to open, so folding the
+two together is not a slip: a press that does nothing is what was reported, and a container with no cards
+has nothing else a press could mean. It also buys the **keyboard** route — the row is a real
+`role="button"` with a tab stop now, and `wireHoldMenu` binds Enter and Space to the tap handler, where a
+hold is something that cannot be typed. What it did *not* gain is `data-review`: it is pressable, not
+studiable, and the suite asserts both halves, since a container that had quietly become a study scope
+would look identical from the row.
+
+### It takes the GROUP's shape of the sheet, not a deck's
+
+A language holds no cards itself, so like a group it is offered the session settings that cascade to its
+members, a name, a colour and an icon — and **not** Custom study, Daily limits, Scheduling or Skip today,
+which belong to something the review actually iterates. A number the reader set on a container the review
+never looks at would apply to nothing. Its last row is Remove rather than Ungroup: a language cannot be
+taken apart, being derived from `S.active` rather than stored.
+
+### Four helpers had to learn about it, and each was silent in its own way
+
+- **`entryChain`** now pushes the language above a language deck. It is neither a nest parent nor a tree
+  node, so neither existing branch could find it — and without it every switch on the header would have
+  been stored under an id nothing reads: a sheet of controls that change nothing. It reads the
+  **catalogue** rather than `UDECKS`, so a deck not yet downloaded inherits the same settings the moment
+  it lands.
+- **`entryInfo`** names it, from the reader's own rename first and the catalogue second — the order the
+  row itself resolves a title in, so the sheet and the row it was opened from cannot disagree. Without it
+  the sheet was headed `langctx:spanish`.
+- **`removeActive`** removes the decks gathered under it, the container not being in `S.active` at all —
+  the ordinary path filtered out an id that was never there, so Remove would have plainly done nothing.
+  Anything **dragged** into the language is freed to the level above instead of removed with it, which is
+  `groupDelete`'s rule one container over: that deck belongs to somebody else's collection.
+- **`entryExists`** answers for it, which fixed a second fault found on the way: a deck dropped onto a
+  language header had no parent as far as `nestParentOf` was concerned, so it was drawn **twice** — once
+  under the language and once loose at the top of the list — with no way back out, the sheet's
+  "Move out of…" row being offered on the same answer.
+
+`containerHasChildren` learned it too, so the Colour row says "Every deck inside takes this colour" rather
+than "This row takes this colour" — which on a language is simply true, the hue being passed down the
+list's own build.
+
+## The four allowance rows on a language, and the third level of the draw (Aug 2026, on request)
+
+> "custom study, scheduling, daily limits, and skip should also be options on the language collections"
+
+Putting the rows on the sheet was the small half. Making them **mean** something split the four in two,
+along a line CLAUDE.md already draws: **an option cascades and a quantity does not.**
+
+### Skip and Scheduling cascade, because they are policies
+
+Two states mean the same thing nine levels down. `entrySkippedToday(id)` is now what every reader of "is
+this sitting today out" goes through — the queue and the row alike, or a deck the queue will deal nothing
+would go on showing a pile. Scheduling needed no plumbing at all: `sched`, `retention` and `fsrsParams`
+are `DECK_OPT_INHERIT` keys and `entryChain` already reaches a deck's language, so choosing FSRS on the
+language really does put every deck of it on FSRS.
+
+### Daily limits and Custom study CAP, because a quantity cascaded multiplies
+
+"A LIMIT handed down to nine levels becomes nine times itself" is the exact bug the per-deck allowances
+were built to fix, so a container cannot hand a figure down — it can only slice what its members hand up.
+That is what the pooled review already does one level further on, so **the draw is three levels deep**:
+each entry fills its language's bucket at its own allowance, the language slices that bucket, and the
+review slices what all the buckets pooled. A deck belonging to no language buckets under `""` and is never
+sliced there, which is every curated deck and every deck of the reader's own.
+
+`seen` stays global across the buckets, so a card claimed by one deck cannot be dealt twice. A card a
+language's cap then drops is out of the session — which it would be anyway, the only decks it can sit in
+also being that language's.
+
+### The default is the SUM of its members, and that is the load-bearing choice
+
+The review's default is the **widest** allowance any added deck offers, on the reasoning that a pooled
+view should impose no figure none of the things it pools agreed to. A language's is the **sum** — chosen
+so the cap is arithmetically incapable of changing anything until the reader sets one: an untouched
+container slices at exactly the number its decks supplied. It is also the honest answer to the question
+the sheet asks, which is how many new cards a day this language currently offers. The suite asserts it as
+the language row's own pile against the sum of its decks' piles (10 against 5 + 5), because a wrong
+default and a cascade would each show those two disagreeing.
+
+A **pending** deck counts towards the sum, and it was excluded for an hour on the reasoning that a deck
+not on this device supplies no cards. That is true, and it is about the wrong thing: these figures are an
+**allowance** — a policy the reader sets and reads back — not a forecast of today. Excluded, a language
+whose decks have not been downloaded yet reads "0 new/day", which looks exactly like a cap somebody set to
+zero; and the figure would then change on its own the moment a file landed, so what a reader saw yesterday
+would differ from today's for nothing they did. Counting them costs nothing: a cap only ever removes, and
+a cap looser than the supply is a no-op. What says a language can deal nothing today is its **row**, whose
+piles read 0, and the "not on this device" line on each deck under it.
+
+It was caught by looking at the sheet rather than by any assertion, which is the case for the golden rule
+about verifying visual work on the page: every suite was green with the exclusion in, because no fixture
+had a language whose decks were all pending.
+
+### Custom study is the cap run backwards, and it is spread rather than repeated
+
+A cap only ever removes, so raising the language's own figure alone raises a ceiling nothing can reach:
+the decks are already holding their own allowances. The bump therefore has to reach the supply as well —
+the same two-sided move `bumpDeckExtra` already makes for a deck, which bumps the deck and the pooled
+review above it.
+
+It is **spread across the members, not given to each of them.** Both deliver the number asked for, since
+the container's own bump fixes the total either way — but handing every deck the whole N leaves three rows
+each promising five more cards where five more will be dealt between them, and a row that overstates what
+it holds is the thing this list is written to avoid. Spreading costs only the case where one deck has run
+out of unseen cards, and there the shortfall is true. Asking for **fewer** moves the cap alone: the
+members have nothing to give back, and taking the amount off each of them would remove it several times
+over.
+
+### A group gets none of the four, and that is not an oversight
+
+The two containers are not alike. A group is an arrangement the reader dragged together, holding decks
+from anywhere, so a figure on it would cap several collections at once from a row that names none of them.
+A language is a real body of work with its own decks, its own progress bar and its own place on the
+Collections page, and "five new Spanish cards a day" is a sentence about it.
+
+### What a language's limit deliberately does NOT do to its decks' rows
+
+Nothing. A cap belongs to the container and cannot be attributed to any one row beneath it, and a deck's
+row has always stated what that DECK still holds for today — the same rule that already lets the rows
+under a cleared banner show "2 new" and "3 new". **Skip is the exception**, and consistently so: it is a
+policy, it cascades, and a row it reaches will genuinely be dealt nothing.

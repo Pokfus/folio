@@ -19,6 +19,7 @@ const path = require("path");
 const http = require("http");
 const fs = require("fs");
 const { chromium } = require("playwright");
+const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.join(__dirname, "..");
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
@@ -47,7 +48,7 @@ function serve() {
   const browser = await chromium.launch(LAUNCH);
   const errs = [];
   const watch = (p) => {
-    p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !/net::ERR_|favicon|manifest/.test(t)) errs.push(t); });
+    p.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
     p.on("pageerror", (e) => errs.push(String(e)));
   };
 
