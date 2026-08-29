@@ -2500,6 +2500,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   shaded on a globe the reader can turn and zoom but not click, and asks what it is; the back names it and
   adds a box of figures. Two fields carry it — **`map`** (`{ layer, key, zoom? }`) and **`facts`**
   (`[[label, value], …]`) — and everything else about such a card is an ordinary curated card.
+  · **`key` MAY BE A LIST, AND CYPRUS IS WHY** (Aug 2026, on request: "ensure the country Cyprus encompasses
+    the whole island"). `world.js` files a partitioned island as separate polygons — `Cyprus`, `N. Cyprus`
+    and `Cyprus U.N. Buffer Zone` are three — so a card naming one shaded two-thirds of what the reader can
+    see and asked them to name it. `"key": ["Cyprus", "N. Cyprus", "Cyprus U.N. Buffer Zone"]` shades them
+    as ONE place: the names are joined with a **pipe** for the markup's single attribute (no place name in
+    either layer contains one, and `add-card.js` refuses one that does), every name must resolve or the
+    window fails rather than shading a shape that is not the country, and the fill and outline are laid
+    down as **one path over all of them** — stroking each would draw the internal lines that dividing them
+    is exactly what naming them together is meant to hide. With several shapes the opening view centres on
+    the UNION's bounding box; with one it still centres on that shape's own published label point, **so no
+    existing card's opening view moves by a pixel**.
   · **IT IS A BUILT-IN FORMAT AND NOT A COMMUNITY CARD TYPE**, settled before anything was written: a card
     type is templates plus scoped CSS and **cannot run code**, deliberately, since a type is a stranger's
     content — and a globe needs a canvas, an animation frame and pointer handlers. The request said "a new

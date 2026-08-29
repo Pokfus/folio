@@ -27887,9 +27887,17 @@
     if (!m || typeof m !== "object") return null;
     const layer = CARD_MAP_LAYERS[m.layer];
     if (!layer || !m.key) return null;
+    /* `key` MAY BE A LIST, and Cyprus is why (Aug 2026, on request: "ensure the country Cyprus encompasses
+       the whole island"). `world.js` files a partitioned island as separate polygons — Cyprus, N. Cyprus
+       and the buffer zone are three — so a card naming one shades two-thirds of what the reader can see
+       and asks them to name it. A list shades them as one place. The markup carries a single attribute, so
+       the names are joined with a PIPE, which no place name in either layer contains; `add-card.js`
+       refuses one that does, so the join can never become lossy. */
+    const keys = (Array.isArray(m.key) ? m.key : [m.key]).map((k) => String(k)).filter(Boolean);
+    if (!keys.length) return null;
     // `dot` names a point in the layer's own table — a city, on a card whose answer is one
     const dot = m.dot && layer.points ? String(m.dot) : "";
-    return { layer: m.layer, key: String(m.key), dot: dot, zoom: Number(m.zoom) || 0, def: layer };
+    return { layer: m.layer, key: keys.join("|"), keys: keys, dot: dot, zoom: Number(m.zoom) || 0, def: layer };
   }
   /* The window's markup. It is built here and WIRED separately (mountCardMaps), the way `.card-img` is
      built here and opened by a delegated listener: a canvas cannot be started from a string. */
@@ -27942,6 +27950,8 @@
        whose answer is already on screen — so holding it back there would be a mark nothing accounts for. */
     const ctx = cv.getContext("2d");
     let stopped = false, target = null, shapes = null, revealed = host.hasAttribute("data-map-named"), dot = null;
+    // every shape the card shades; `target` is the first of them and carries the label point and the name
+    const targets = [];
     /* A LOCATOR SHOWS THE REST OF ITS COLLECTION, AND THE WORLD AROUND IT (Aug 2026, on request). The
        siblings are free — they are in `data.js`, already downloaded — and go in at once; the cities and
        rivers live in the `atlas` bundle and are WARMED at idle rather than awaited, so the card is
@@ -28084,7 +28094,7 @@
          redraw all 117,000 vertices a second time for nothing — every frame, on every drag. */
       if (shapes && shapes !== GEO) {
         ctx.fillStyle = land; ctx.strokeStyle = sub; ctx.lineWidth = 0.6;
-        for (let i = 0; i < shapes.length; i++) { pathOf(shapes[i].p); ctx.fill("evenodd"); if (shapes[i] !== target) ctx.stroke(); }
+        for (let i = 0; i < shapes.length; i++) { pathOf(shapes[i].p); ctx.fill("evenodd"); if (targets.indexOf(shapes[i]) < 0) ctx.stroke(); }
       }
       /* MAJOR INLAND SEAS AND LAKES AS WATER ON TOP OF THE LAND, IN THE MAP'S OWN COAST INK. It goes AFTER
          both land layers and BEFORE the shaded place, so a lake reads as water and the answer's tint still
@@ -28111,8 +28121,13 @@
          The three numbers are `paintFillGroups`' own, deliberately written out here rather than derived
          from `TINT_SEL.rgb`: its outline is a LIGHTER amber than its fill and its glow lighter still, and
          deriving them from one triple is exactly what would quietly flatten that. */
-      if (target) {
-        pathOf(target.p);
+      /* ONE PATH OVER EVERY SHADED SHAPE, not a fill-and-stroke per shape: where a card names several
+         polygons that touch — the two halves of Cyprus and the buffer zone between them — stroking each
+         would draw the internal lines that divide them, which is the opposite of what naming them together
+         is for. Collected into a single path, the outline follows the outside of the union alone. */
+      if (targets.length) {
+        ctx.beginPath();
+        for (const t of targets) for (const ring of t.p) if (visible(ring)) addRing(ring);
         ctx.fillStyle = "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")"; ctx.fill("evenodd");
         ctx.save();
         ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9;
@@ -28296,6 +28311,10 @@
       if (target) {
         let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
         for (const ring of fitRings) { const b = bbox(ring); if (b[0] < x0) x0 = b[0]; if (b[1] < y0) y0 = b[1]; if (b[2] > x1) x1 = b[2]; if (b[3] > y1) y1 = b[3]; }
+        /* WITH SEVERAL SHAPES THE CENTRE IS THE UNION'S, not the first one's published label point — that
+           point sits inside its own polygon and would open the window off to one side of the place. With
+           ONE shape the label point still wins, so no existing card's opening view moves by a pixel. */
+        if (targets.length > 1) { homeLon = (x0 + x1) / 2; homeLat = (y0 + y1) / 2; }
         // longitude degrees shrink with latitude; without the cosine Alaska opens far too close
         const span = Math.max(y1 - y0, (x1 - x0) * Math.cos(homeLat * CMAP_DEG), 0.2);
         z = 0.55 / (0.46 * CMAP_DEG * span);
@@ -28413,8 +28432,15 @@
       /* A MAP CARD names a shape and a LOCATOR does not, which is the one branch between them: a locator
          points at a coordinate, so there is nothing to shade and nothing to look up. */
       if (key) {
-        target = shapes.find((s) => s.n === key) || shapes.find((s) => s.a === key) || null;
-        if (!target) { host.classList.add("mc-failed"); return; }
+        /* Every name the card gave, in order. A name the layer has not got is a FAILURE rather than a
+           quietly thinner shape: a card shading two of three Cyprus polygons draws perfectly and asks a
+           question about a shape that is not the country. */
+        for (const k of key.split("|")) {
+          const t = shapes.find((s) => s.n === k) || shapes.find((s) => s.a === k) || null;
+          if (!t) { host.classList.add("mc-failed"); return; }
+          targets.push(t);
+        }
+        target = targets[0];
       }
       /* A LOCATOR CARRIES ITS OWN COORDINATE, and it is a coordinate rather than a name in a table because
          there is no table: the places a history card is about — a palace, a river, a valley, a group of
@@ -28440,7 +28466,7 @@
         }
       }
       if (!target && !dot) { host.classList.add("mc-failed"); return; }
-      fitTarget(target ? nearRings(target) : null);
+      fitTarget(targets.length ? [].concat.apply([], targets.map(nearRings)) : null);
       resize();
     });
   }

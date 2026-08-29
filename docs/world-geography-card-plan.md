@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-161` Djibouti
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-162` Fiji
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,51 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 60 (Djibouti) is a one-card batch because the other half of it was a CHANGE TO THE MAP FORMAT.**
+On request — "ensure the country Cyprus encompasses the whole island" — `map.key` now takes a LIST as well as
+a name. `world.js` files a partitioned island as separate polygons, and Cyprus is three of them (`Cyprus`,
+`N. Cyprus`, `Cyprus U.N. Buffer Zone`), so batch 59's card shaded two-thirds of what the reader could see
+and asked them to name it. Four things about the implementation are decisions rather than plumbing. The names
+are joined with a **pipe** for the markup's single attribute — no place name in either layer contains one and
+`add-card.js` refuses one that does, so the join can never become lossy. **Every name must resolve or the
+window fails**: a card shading two of three draws perfectly and asks about a shape that is not the country,
+which is the worst failure this format has. The fill and the outline are laid down as **ONE PATH over all of
+them**, because stroking each would draw exactly the internal lines that naming them together is meant to
+hide. And the opening view centres on the union's bounding box only when there are several shapes — with one
+it still centres on that shape's own published label point, **so not one of the 280 existing map cards moves
+by a pixel**.
+
+**Djibouti's American post was PROMOTED rather than opened, and that is now a pattern rather than a
+curiosity.** On 27 June 1977 the American consulate general to the former French Territory of the Afars and
+the Issas *became* the embassy at Djibouti; batch 59's Cyprus is the same shape, where "the American
+Consulate General was elevated to an embassy" on the day of recognition in 1960. Two instances in two
+batches, alongside the modes already recorded — opening an embassy, attending the ceremonies (the Gambia),
+accrediting a neighbouring ambassador (Equatorial Guinea, Bahrain) — makes **the elevated consulate a fifth
+way the guide records a relationship beginning**, and the one that leaves the same building and the same
+staff on the same street.
+
+**Djibouti's capital figure is for the CERCLE, and its own footnote says so.** UNdata gives 568,800 for the
+capital in 2019 and footnotes it *"Refers to the population of the 'cercle'"* — a French administrative
+district — so "close to half the country lives in the capital" is a statement about the district and not
+about the city. That is the fourth footnote finding in three batches (Moldova's Transnistria, Cyprus's whole
+country, Mauritius's two island sets, and now this), and the one that most changes what a number means
+without changing the number.
+
+**AN EXACT AGREEMENT IS NOT ALWAYS EVIDENCE.** UNdata and the World Bank both give Djibouti 23,200 km² — but
+the World Bank rounds an area of this size to the nearest 10 and 23,200 is already a multiple of ten, so the
+agreement costs nothing and proves nothing. Batch 56 made an exact agreement between UNdata and Eurostat the
+test that makes a term checkable to the kilometre; **that works because neither of those two rounds**, and it
+does not transfer to the World Bank. Ask whether the rounding could have produced the agreement before
+treating it as corroboration.
+
+**Batch 45's rule is in its eighth consecutive batch, and this is its clearest win yet.** The Djibouti term
+lost three unsourced claims — "one of the hottest and driest countries on Earth", Lake Assal "at 155 m below
+sea level the lowest point in Africa", and "the port handles most of landlocked Ethiopia's trade and several
+countries keep military bases there" — and gained four figures UNdata prints: forest over 0.2 per cent of the
+land, nearly four in five people in towns, **services employing 92.9 per cent of the workforce**, and exports
+rising from 251 million dollars in 2015 to **4,466 million by 2020**. The last two say what the port does to
+the country far better than the sentence that claimed it, and they can be checked.
 
 **Batch 59 (Cyprus, Mauritius, Eswatini) is where batch 57's renamed-country rule becomes a table.** Eswatini
 was renamed in 2018 and its four institutional sources split two against two: the recognition guide keeps
