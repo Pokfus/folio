@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-129`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-132`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-130` Croatia
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-133` Mongolia
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,45 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 49 (Croatia, Georgia, Eritrea) is three post-1991 states whose guide entries run to three facts
+each, and it settles how such a card is built: the UN's own ADMISSION RESOLUTION and, where there is one,
+the country's case at the INTERNATIONAL COURT OF JUSTICE.** Croatia was admitted without a vote at the 86th
+plenary meeting on 22 May 1992 (`A/RES/46/238`), Georgia **unanimously** at the 88th on 31 July 1992
+(`A/RES/46/241`), Eritrea without a vote at the 104th on 28 May 1993 (`A/RES/47/230`) — each record carrying
+the vote line, the meeting number and the date. **A short guide entry is not a thin card; it is a card that
+has to be built from the UN side.**
+
+**The World Bank's surface-area series is measuring something other than land, and Croatia is the case that
+shows it.** UNdata and Eurostat both give **56,594 km²** to the square kilometre where the World Bank gives
+**88,070** — half as much again, on a country whose territorial waters are about that difference. Batch 42
+recorded Norway's 323,772 against 624,500 as a probable fourth outright World Bank error; **two of the
+pass's three widest area gaps are now maritime states**, which is a better explanation than error and is
+recorded here as a HYPOTHESIS, uncited, in C12's Ecuador manner. **Where the World Bank's area is wildly
+high, look at the coastline before calling it wrong.**
+
+**Georgia's profile carries a footnote that reads against expectation, and the card states it without
+explaining it.** Its UN population is footnoted "Including Abkhazia and South Ossetia" and stands at
+**3,807,000**, where the World Bank — whose figures come from a service that excludes them — counts
+**3,935,766**: the count that says it takes the two territories in is the SMALLER of the two. **Print both
+and the footnote; the reconciliation is not in either source.**
+
+**Eritrea is the deck's first same-day recognition, and the referendum behind it is citable.** It declared
+independence on 27 April 1993 and the United States recognised it that day, the consulate at Asmara
+informing Eritrean authorities — and the vote was verified by a United Nations observer mission named for
+that one task, reported on by the Secretary-General that August. **A referendum a UN mission observed leaves
+a paper trail in the Digital Library even when no country page carries it.**
+
+**Its term also carried the batch's only figure corrections, and both were outside the spread.** `Eritrea`
+gave 117,600 km² where UNdata gives 121,144 and the World Bank 121,766 — 3% below both, so C9 corrects it —
+and "roughly 3.7 million" where the two agree **to the person** at 3,607,003. **When the two sources agree
+exactly and the term does not, there is nothing to weigh.**
+
+**And a drafting note worth keeping, because it nearly shipped.** A sentence padding the Georgia card to
+length claimed the WTO accession came "three years before the World Bank's series shows its population
+beginning to recover" — a detail from no fetched series, written to fill a word count. It was caught and
+replaced with the 2015–2025 figures actually in hand. **A card that is short is short because the research
+is short; the fix is another fetch, never another clause.**
 
 **Batch 48 (Costa Rica, Kuwait, Panama) opens a source this deck had not used: a country's own
 CONSTITUTION.** `constituteproject.org` is open here and serves consolidated constitutional text with the
