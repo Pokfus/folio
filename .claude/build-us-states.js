@@ -29,10 +29,18 @@
 // The 40 MB source is cached under .claude/ne-cache/ (gitignored) so a re-run costs no refetch; pass
 // --refetch to replace it.
 const fs = require("fs"), path = require("path");
-const URL = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson";
+/* THE _lakes VARIANT, AND THAT IS THE WHOLE OF WHY MICHIGAN HAS A MITTEN (Aug 2026, found by looking at
+   `geo-007`). Natural Earth publishes this layer twice: `ne_10m_admin_1_states_provinces` gives a Great
+   Lakes state its share of the LAKE as well as its land, and `..._lakes` clips the lakes out. The first
+   cut of this file took the plain one, which is right for a choropleth and catastrophic for a card whose
+   whole question is a SHAPE — Michigan came out as ONE ring spanning both peninsulas and the water
+   between them, a blob with no Straits of Mackinac and no mitten, and Wisconsin, Minnesota, Illinois,
+   Indiana, Ohio, Pennsylvania and New York all carried a lake lobe they do not have on land. Nothing
+   threw, every fit framed its state, and no count could see it. */
+const URL = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces_lakes.geojson";
 const PLACES_URL = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_populated_places.geojson";
 const CACHE_DIR = path.join(__dirname, "ne-cache");
-const CACHE = path.join(CACHE_DIR, "ne_10m_admin_1.geojson");
+const CACHE = path.join(CACHE_DIR, "ne_10m_admin_1_lakes.geojson");
 const PLACES_CACHE = path.join(CACHE_DIR, "ne_10m_populated_places.geojson");
 /* THE TOLERANCE IS DERIVED FROM THE CARD'S OWN ZOOM CEILING, NOT COPIED FROM world.js — and the first cut
    of this file did copy it (tol 0.02, 2dp), on the reasoning that the two are drawn into one canvas and a

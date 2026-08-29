@@ -119,7 +119,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 |---|---|---|
 | `world` | `world.js` | the Atlas mounts; the home page's mini globe (at idle); the Settings home picker |
 | `atlas` | `uk` `lakes` `rivers` `water` `cities` `timeline` `countries` `country-stats` `country-spans` `country-years` `country-sources` | the Atlas mounts |
-| `usstates` | `us-states.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing |
+| `usstates` | `us-states.js` `lakes.js` | a MAP CARD is rendered (the Geography collection). Deliberately its own bundle rather than part of `atlas`: the Atlas never draws states, and a geography card never needs the timeline, the era maps or the city index — folding them together would make each pay the other's ~9.9 MB / 600 KB for nothing. **`lakes.js` rides here because `world.js` has NO LAKE HOLES** — the Great Lakes sit inside the USA polygon, so a card map drew five inland seas as grey fields with an outline round each; it is listed in `atlas` too, which is harmless because `lakes.js` ASSIGNS `window.LAKES` rather than pushing onto a queue. **The card map STROKES a lake shore where the Atlas does not**, in the world layer's own coast ink: on a world globe a lake is a small blue mark, on a card zoomed to one state a Great Lake is half the window, and an unstroked shore beside a stroked ocean coast reads as two kinds of edge on one map |
 | `worldcaps` | `world-capitals.js` | a map card asks for a DOT on the `world` layer (a capital card in the world collection). Its own bundle, and fetched only when a card carries `map.dot`: the shapes are `world`'s, which every map window already loads for the coastline under it, and a locator card reads those shapes and never this table |
 | `glossExtra` | `glossary-extra.js` | **warmed at IDLE after boot**, and awaited by `openGlossWin` for a reader who beats the warm. The glossary's CITATIONS and ILLUSTRATIONS — 54% of `glossary.js`, and nothing reads either until a popup opens |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
@@ -2527,6 +2527,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `TINT_SEL` /
   `serializeCardData` / `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map
   card.**
+  · **A LONG STRAIGHT SEGMENT IS A LIE ON A SPHERE, AND `addRing` NOW WALKS ONE IN STEPS** (`CMAP_SEG`,
+    0.5°; Aug 2026, on a report that the northern border of the US looked doubled). It was: `world.js`
+    draws the whole US–Canada border west of the Great Lakes as ONE chord 27° of longitude long, and
+    `us-states.js` draws the same parallel as five shorter ones, so in orthographic projection the two sag
+    by different amounts — **0.0138 R against 0.0026 R**, which at a state card's zoom is forty pixels of
+    open land between two grey lines. Neither file was wrong; a straight line between two points on a
+    sphere simply is not the border. Subdividing fixes every ruler-drawn edge at once — **Colorado is six
+    vertices** — and costs 5,330 extra points across all of world.js, nearly all culled per frame. **A
+    segment wider than 180° is left alone**: the only one is Antarctica's base, (180,-90) to (-180,-90),
+    which interpolates 720 steps the wrong way round the planet.
   · **A LOCATOR SHOWS THE REST OF ITS COLLECTION, AND THE WORLD AROUND IT** (`cardCollectionRoot` /
     `locatorSiblings` / `_locSibCache`; Aug 2026, on request). Four layers under the card's own gold dot:
     the collection's other card places as smaller RED dots, the Atlas's capitals and million-plus cities
@@ -4460,6 +4470,19 @@ month name, a bare ordinal
 before `Jahrhundert`, the CJK full stop, and **markers already placed by an earlier batch** (the marker sits
 between the full stop and the following space, and in zh/ja with no space at all — without that guard a
 top-up batch sees one enormous sentence, or splits every marker off as its own).
+**A SENTENCE MAY CLOSE ON A QUOTATION, and until Aug 2026 the splitter could not see it** — the
+terminator sits inside the quotation marks, so a closing quote stands between the full stop and the
+space the lookbehind was anchored to, and the quoted sentence merged with the one after it. Found while
+writing `geo-012`, whose fourth sentence ends on the Nez Perce tribal executive committee's own words,
+and the block came back 4+5. Two clauses fix it and the SECOND is the one that matters: widening the
+terminator to allow a closing quote also broke `wh-185`, where "…to ask 'Then who was king?' twice
+over…" is a quotation INSIDE a sentence, so a `hold` refuses the split when the quote is followed by a
+LOWERCASE word — the same test the abbreviated-genus and regnal-numeral rules already use, since what
+follows a real boundary is always a capital. **Verified over all 2,627 shipped texts, where it changes
+exactly one split and that one is a CORRECTION**: `gr-336` block 2 had been splitting 4 where it is 5,
+because its first sentence ends on the Kroisos epitaph. That card was written with its markers already
+in the prose so nothing shipped wrong, but a top-up batch marking it by sentence index would have put
+every marker one claim early.
 
 **Backfilling a site language** — `add-card.js` / `add-glossary.js` only handle a whole NEW entry in every
 language at once. To add a language to content that already exists (a new site language, or topping up a

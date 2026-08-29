@@ -163,7 +163,14 @@ function staticChecks() {
   ok(/!cardMapSpec\(/.test(gset), "gameCardIdSet excludes map cards");
   // and the bundle really is lazy — a 600 KB file in the eager path would slow the site for every visitor
   ok(!/<script[^>]+us-states\.js/.test(fs.readFileSync(path.join(ROOT, "index.html"), "utf8")), "us-states.js is NOT in index.html's eager path");
-  ok(/usstates:\s*\{\s*files:\s*\["us-states\.js"\]/.test(app), "us-states.js is registered as a lazy bundle");
+  const usb = /usstates:\s*\{\s*files:\s*\[([^\]]*)\]/.exec(app);
+  ok(usb && /"us-states\.js"/.test(usb[1]), "us-states.js is registered as a lazy bundle");
+  /* `lakes.js` rides with it because world.js has NO LAKE HOLES: the Great Lakes sit inside the USA
+     polygon, so without this the card map draws five inland seas as grey fields with an outline round
+     each (reported Aug 2026). Pinned here because the symptom is a map that renders perfectly and is
+     wrong, and because the obvious tidy — trimming this bundle back to the one file its name suggests —
+     would put it straight back. */
+  ok(usb && /"lakes\.js"/.test(usb[1]), "...and lakes.js rides with it, so the Great Lakes are water");
 
   /* THE LOCATOR'S DATA (Aug 2026, on request). A globe at the FOOT of a card whose answer is a place. It
      rides in the same whitelist and is lost the same way — a field the serializer does not name is
@@ -194,6 +201,17 @@ async function browserChecks(page) {
      buster in the QUERY and it is load-bearing: a goto differing only in the #fragment is a same-document
      navigation, so boot never runs, the seeded record is never read and the second call in this file
      silently studies the first call's card. The app ignores unknown query parameters. */
+  /* WAIT FOR THE PAGE GHOST TO GO before reading anything off the card. Boot renders home and then
+     routes to study, which is a same-document render, so `makePageGhost` lays a CLONE of the outgoing
+     page over the stage for PAGE_GHOST_MS + 60 and every `.mc-canvas` query below can see two of them.
+     Both ways it fails are silent-looking and neither is a fault in the site: a strict-mode locator
+     throws "resolved to 2 elements", and a `querySelector` may pick the ghost's canvas — which is a
+     clone, so it carries NO PIXELS and `toDataURL()` reads back an empty map. A plain 250ms sleep was
+     racing the 260ms fade and started losing the moment `usstates` gained a second file to fetch. */
+  const settle = async () => {
+    await page.waitForFunction(() => !document.querySelector(".page-ghost"), null, { timeout: 5000 });
+    await page.waitForTimeout(250);
+  };
   let visit = 0;
   const study = async (id) => {
     await page.addInitScript((cid) => {
@@ -204,7 +222,7 @@ async function browserChecks(page) {
     }, id);
     await page.goto("http://localhost:" + PORT + "/?c=" + (++visit) + "#study");
     await page.waitForFunction(() => { const h = document.querySelector(".map-card"); return h && h._folioMap && h._folioMap.ready(); }, null, { timeout: 20000 });
-    await page.waitForTimeout(250);
+    await settle();
   };
   /* A LOCATOR CARD HAS NO WINDOW ON ITS FRONT, so `study` above — which waits for a mounted `.map-card` —
      times out on one. This lands on the card, reveals it, and waits for the window the ANSWER carries. */
@@ -219,7 +237,7 @@ async function browserChecks(page) {
     await page.waitForSelector("#reveal-btn", { timeout: 20000 });
     await page.evaluate(() => document.querySelector("#reveal-btn").click());
     await page.waitForFunction(() => { const h = document.querySelector(".card-loc .map-card"); return h && h._folioMap && h._folioMap.ready(); }, null, { timeout: 20000 });
-    await page.waitForTimeout(250);
+    await settle();
   };
 
   sect("3. the fit: every state frames itself");

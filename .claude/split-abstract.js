@@ -68,7 +68,20 @@ function pieces(block) {
   // "Ste" is the French feminine of "St" and is the shape a scholar's surname is written in — G. E. M. de
   // Ste. Croix, cited across the Greek cards — so a card naming him split at the stop with the two halves
   // both reading as sentences. Same family as the honorifics beside it, and no sentence ends on any of them.
-  hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Ste|Mt)\.\s?/g);    // "Roberts Jr. used the name in 1940"
+  hold(/\b(?:Jr|Sr|Dr|Prof|Mr|Mrs|Ms|St|Ste|Mt)\.\s?/g);
+  // "Helena City Lodge No. 10" — an abbreviation whose test is what FOLLOWS rather than what precedes it:
+  // a sentence boundary in this corpus is never followed by a bare numeral, and no sentence ends on the
+  // word "No". It split the Helena card's first block into six. The digit in the lookahead is what makes
+  // it safe, so keep it: "…said no. The next…" still breaks correctly.
+  hold(/\bNos?\.\s(?=\d)/g);    // "Roberts Jr. used the name in 1940"
+  // The LEGAL "v." of a case name — "Shelley v. Kraemer", "Brown v. Board of Education". Every rule above
+  // it wants either a capital before the stop or a lowercase word after it, and a case citation is the one
+  // shape with a LOWERCASE abbreviation between two CAPITALISED names; it split the Missouri card after
+  // "Shelley v." and would split any card naming a Supreme Court decision. Narrow on purpose: the
+  // abbreviation must sit between a capitalised word and a capitalised word, which no sentence boundary
+  // in this project does — nothing here ends a sentence on a bare "v.". The digit-led German era
+  // abbreviation ("1000 v. Chr.") is untouched, its "v." following a NUMBER rather than a name.
+  hold(/(?<=\p{Lu}\p{L}+\s)vs?\.\s(?=\p{Lu})/gu);
   hold(new RegExp("\\d{1,2}\\.\\s(?=(?:" + MONTHS + "))", "g"));   // "25. August"
   hold(/\d{1,2}\.\s(?=Jahrhundert|Jh\.)/g);                 // "im frühen 19. Jahrhundert"
   // A German ordinal before any capitalised noun — "ab 1900 der 1. Baron Avebury", which split the
@@ -92,7 +105,23 @@ function pieces(block) {
   // the CJK terminator takes an OPTIONAL following space: it carries none in well-set Chinese, but a
   // dozen zh abstracts (and four ja) were written with one, and without the `\s?` the splitter returns
   // the whole block as a single sentence — silently, which is the failure mode markers must not meet
-  const parts = t.split(new RegExp('(?<=[.!?؟]' + FN + '\\s|[。！？]' + FN + '\\s?)(?!\\s|<sup class="fn")'));
+  // A quotation that closes MID-SENTENCE, which is what the clause below would otherwise break on:
+  // «…to ask 'Then who was king?' twice over, and answering with…» carries a terminator inside the
+  // quotation and the sentence runs on past it. The test is the one the genus and regnal rules use —
+  // what follows a real sentence boundary is always a capital — so a closing quote followed by a
+  // LOWERCASE word is a quotation inside a sentence. Held before the terminator clause widens, or
+  // `wh-185` splits into six.
+  hold(/[.!?؟][’”»›'"]\s(?=\p{Ll})/gu);
+  // A sentence may CLOSE ON A QUOTATION — «…we are of this land.’ By the mid-1800s…» — and the
+  // terminator then has a closing quote between it and the space, which the lookbehind above could not
+  // see, so the quoted sentence merged with the one after it and the block came back 4+5. The house
+  // style quotes a word-as-a-word in single curly quotes and a passage in doubles, and the other
+  // languages close with » or 」, so the class holds all of them. It is safe because it is additive:
+  // the pattern occurs ZERO times in the shipped corpus, so no existing split can change, and a
+  // closing quote sitting immediately after a full stop is a quotation ending a sentence in any of the
+  // ten languages — nothing here writes a mid-sentence quotation that closes on its own full stop.
+  const QC = '[’”»›」』\'"]?';
+  const parts = t.split(new RegExp('(?<=[.!?؟]' + QC + FN + '\\s|[。！？]' + QC + FN + '\\s?)(?!\\s|<sup class="fn")'));
   const restore = (s) => s.replace(new RegExp(OPEN + "(\\d+)" + CLOSE, "g"), (_, i) => held[+i]);
   return parts.filter((s) => s.length).map(restore);
 }

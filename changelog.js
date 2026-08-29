@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.381", released: "2026-08-29T06:55Z" };
+window.FOLIO_VERSION = { v: "1.382", released: "2026-08-29T09:22Z" };
 
 window.CHANGELOG = [
   {
@@ -83,7 +83,17 @@ window.CHANGELOG = [
       "<b>Twenty-two glossary terms now open by saying what the thing is</b>, where they had led with an example or a single site.",
       "<b>Four glossary terms were removed</b> \u2014 wheel, burial, village and city \u2014 and four links no longer fire on the wrong word.",
       "Ninety-five more glossary terms, covering the Bronze and Iron Age periods, the Minoan, Helladic and Trojan divisions, the Aegean\u2019s excavators and sites, and the Archaic period of North America.",
-      "Seventy new cards, in the <b>Ancient Greece</b>, <b>Ancient Rome</b>, <b>World History</b> and <b>China</b> decks, with sixty-eight new glossary terms.",
+      "A hundred and sixty-six new cards \u2014 ninety-five in <b>United States</b> geography, seventy-one across <b>Greece</b>, <b>Rome</b>, <b>World History</b> and <b>China</b> \u2014 with glossary terms to match.",
+      "<b>The United States geography collection is finished</b> \u2014 all fifty states and all fifty capitals, a hundred cards with maps to place them on.",
+      "<b>The geography cards are dealt largest first now</b> \u2014 the states by population and the capitals by their own, rather than in the order they were written.",
+      "<b>The Great Lakes are water on the geography maps</b>, with a dark shoreline like any other coast, where they had been drawn as grey land.",
+      "<b>The northern border of the United States is one line again</b> \u2014 it was drawn twice, straight in one layer and curved in the other, with a strip of land between.",
+      "Every state capital now gives its rank in numerals \u2014 2nd, 6th, 11th \u2014 where some said “second” and some said “6th largest city”.",
+      "<b>Helena is Montana\u2019s sixth city, not its fifth</b>, and Providence\u2019s population is the exact count rather than a rounded one.",
+      "<b>The last fourteen states have their flags</b>, from Alabama to Iowa, which had been left without one.",
+      "The difficulty stars on the capitals follow one rule now, so Pierre is no longer rated easier than Lansing.",
+      "Glossary links in the <b>United States</b> geography cards now open the right term where an everyday word \u2014 settlement, cemetery \u2014 had been opening an archaeology one.",
+      "<b>Michigan now has its mitten</b> \u2014 the state outlines behind the map cards had been counting each Great Lakes state\u2019s share of the lake as land, which left Michigan a blob.",
       "<b>Nine citation links now point at a copy you can actually open</b>, where the publisher’s own page turns readers away.",
       "<b>Psychology, Philosophy and Biology have joined the collections</b>, each planned out at a thousand cards across nine decks and still to be written.",
       "<b>A hundred and ten Mandarin readings were put right</b> — 饭馆 read “fàng uǎn” where it should read “fàn guǎn”, and twenty-eight more had a consonant on the wrong side of the gap.",
@@ -103,7 +113,7 @@ window.CHANGELOG = [
       "<b>The Credits list now counts the Library’s sources off the shelf</b> — Project Gutenberg, the Internet Archive and Global Grey were not credited at all.",
       "<b>“Folio is in beta” now sits directly under Common questions</b> on the About page.",
       "<b>China’s description on the Atlas is about China</b>, rather than giving three of its five closing sentences to American trade history.",
-      "<b>Three cards were corrected</b> — Middle Paleolithic gave two different end dates, Agora spent six of its ten sentences on three particular agoras, and a card in the Ancient Egypt deck sat nineteen years out of place.",
+      "<b>Four cards were corrected</b> — two end dates for the Middle Paleolithic, an Agora card mostly about three particular agoras, a Kansas hall said to be gone, and an Egypt card nineteen years out of place.",
     ],
   },
   {
