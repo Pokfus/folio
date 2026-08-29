@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-110`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-113`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-111` Bulgaria
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-114` Singapore
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,60 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 40 (Bulgaria, El Salvador, Republic of the Congo) begins with a correction to batch 39's own
+verification, which is the entry to read.** Two `check-style` findings on `gw-108` shipped in that batch
+— *forty-one years* and *forty-seven in every hundred*, both breaking rule 1, non-round numbers above 20
+are numerals — because the check was run and only its `title-AMBIGUOUS` count and its last line were
+looked at. **`check-style.js` reports a TOTAL and then the findings; reading the tail tells you about
+`changelog.js` and nothing about `data.js`.** Both are fixed here. **Read the `=== data.js` block, not the
+count and not the tail** — the two long-standing `Mencius` findings make a bare count useless as a signal,
+which is exactly how these hid.
+
+**Bulgaria is the collection's clearest case of relations PRECEDING recognition, and the guide states
+both dates.** John B. Jackson, minister to Greece, Romania and Serbia, presented credentials at Sofia on
+**19 September 1903** and that date establishes relations; recognition waited on independence, declared
+**5 October 1908**, and came on **3 May 1909** with Knox instructing a chargé to convey Taft's
+congratulations on the country's "admission to the community of sovereign and independent States". Six
+years of relations with a state not yet recognised. **When a guide entry's Diplomatic Relations date
+precedes its Recognition date, that inversion is the card.**
+
+**It is also the pass's widest POPULATION disagreement so far, and the outlier is Source A.** UNdata
+gives 6,715 thousand where **Eurostat gives 6,437,360 and the World Bank 6,433,302** — those two agree to
+within 4,000 and UNdata sits about 280,000 above both, a 4.4% gap. D1's finding (`Albania`, `Moldova`)
+and C2's (`Czechia`) again: where a country runs its own statistical service and the EU republishes it,
+UNdata is the one to drop. The term's "roughly 6.4 million" already followed the two that agree and was
+left. Its **area** went the other way and was corrected: the EU page gives 110,996 km² and the World Bank
+110,996.758, so the term's 110,994 is two below a figure two sources publish — a rounding width, so by
+batch 39's rule both surfaces take the agreed figure.
+
+**Bulgaria's population is also the steepest fall in the collection**: the World Bank's series is down
+about 550,000 in ten years, close to 8%. Serbia's decline in batch 39 was 7.7% over the same period, so
+two consecutive batches have produced the two fastest-shrinking countries carded, and both are in the
+same corner of Europe.
+
+**Two more admissions land on sittings this pass has already sourced, which is now worth planning for.**
+Bulgaria is one of the sixteen named in **`A/PV.555`**, so batch 37's meeting record carries a third card
+and can name this one in its own list; the Republic of the Congo was admitted at the **864th plenary
+meeting** on 20 September 1960, the sitting that already carries Togo, Madagascar and Côte d'Ivoire.
+**Check the register for the sitting before searching for a resolution** — an admission date shared with
+a card already written means the record is already fetched and read.
+
+**And the UN's own resolution title solves the two-Congos problem for free.** `A/RES/1486(XV)` is headed
+*Admission of the **Republic of the Congo (Brazzaville)** to membership in the United Nations* — the
+Organization distinguishing the two states by their capitals, exactly as batch 22 found `S/RES/143(1960)`
+filed as "the Congo (capital Leopoldville)". A card that has to tell a reader which Congo it is should
+reach for the resolution heading rather than explaining.
+
+**El Salvador's recognition passes through TWO federations, which no other card has.** The United States
+recognised the Federation of Central American States in 1824 rather than its members, recognised Salvador
+separately on 1 May 1849 after the union broke up, and then in 1896 adjusted its relations again when
+Honduras, Nicaragua and Salvador formed the **Greater Republic of Central America** to exercise their
+external sovereignty — receiving its minister on 24 December 1896 while Cleveland noted the individual
+republics' responsibilities remained "wholly unaffected", and reverting when the union dissolved on 29
+November 1898. Its population moves "about 6 million" → **6.4 million**: not a C8 stale figure but a
+rounding to one significant figure that had drifted 5.7% low, which is the other way a term's number goes
+wrong.
 
 **Batch 39 (Paraguay, Nicaragua, Serbia) met the deck's first case where the MAP and the FACTS BOX are
 not describing the same territory, and the card says so rather than choosing.** `world.js` draws Serbia
