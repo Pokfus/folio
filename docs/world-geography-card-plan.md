@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-136`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-139`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-137` Armenia
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-140` Qatar
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,40 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 52 (Armenia, Namibia, Lithuania) is three ways a state can be recognised and then not exist, and
+the guide keeps all three straight.** **Armenia** was recognised on **23 April 1920** in a note whose
+wording is the card's point — the recognition "in no way predetermines the territorial frontiers, which …
+are matters for later delimitation" — after which Wilson, at the request of the Paris Peace Conference's
+Supreme Council, ARBITRATED the boundary with Turkey and submitted his determinations on 22 November 1920,
+by which time the Red Army had already put local communists in power. **A recognition can be granted
+before the frontiers exist and outlive the state it recognised by seventy years.**
+
+**Lithuania is the opposite case: a recognition that never lapsed.** Recognised on 28 July 1922, the
+legation at Kaunas closed on 5 September 1940 after the Soviet annexation — and the United States **never
+recognised the forcible incorporation**, let the representatives accredited by the last independent
+government stay on with diplomatic status, and held that relations continued uninterrupted, so 1991 brought
+the RESTORATION of independence (2 September) and the RESUMPTION of normal relations (6 September) rather
+than either afresh. The guide adds that the present government is viewed as a legal continuation of the
+interwar republic. **Read the verbs in a guide entry: "resumed" and "restoration" are load-bearing words,
+and they are what distinguish this card from every other post-Soviet one in the deck.**
+
+**Namibia is the deck's most compressed act: recognition, relations and an embassy in one.** On **21 March
+1990** the American liaison office at Windhoek was elevated to embassy status, and the guide files that
+single act under all three headings. Its terms had been set twelve years earlier by **Security Council
+resolution 435 (1978)**, adopted 12–0–2, which established the UN Transition Assistance Group; and the
+General Assembly admitted it on 23 April 1990 at the **first meeting of its eighteenth SPECIAL session** —
+the only admission in the deck so far not taken at a regular one.
+
+**Two term figures were outside the spread and both were corrected.** `Namibia` gave 825,615 km², above
+all three published figures (825,229 at the UN, 824,290 at the World Bank, 824,000 at the Commonwealth),
+and `Lithuania` gave 65,300 against a spread of 65,284–65,290. `Namibia` also lost "among the most thinly
+populated in the world" for **3.8 people to the square kilometre**, which is batch 45's rule — a figure a
+source prints beats a superlative no source states — for the third time in eight batches.
+
+**And Armenia's own populations disagree by 4.6%**, UNdata giving 2,952,000 against the World Bank's
+3,086,700, so the card prints both and the term's "roughly 3 million" covers them. Its sex ratio, 87 men
+to 100 women, is the second in three batches from the Caucasus at that level.
 
 **Batch 51 (Bosnia and Herzegovina) turns up the deck's strangest embassy and a constitution that is an
 ANNEX.** Victor Jackovich presented his credentials as American ambassador on **23 June 1993** and had
