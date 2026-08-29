@@ -16,10 +16,10 @@ The next card to write is the lowest `gc-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gc-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — `gc-001` Guangdong and `gc-501` Guangzhou**, one card of each deck, written
-together so that the new map layer, its point table, the fit and the gold dot were all proved on a real
-card rather than on a test. The next province is `gc-002` Shandong and the next capital is `gc-502`
-Jinan.
+**Shipped so far — `gc-001` Guangdong, `gc-002` Shandong and `gc-501` Guangzhou.** The first two of
+those were written together, one card of each deck, so that the new map layer, its point table, the fit
+and the gold dot were all proved on a real card rather than on a test. The next province is `gc-003`
+Henan and the next capital is `gc-502` Jinan.
 
 ---
 
@@ -155,6 +155,19 @@ and is recorded as such. `whc.unesco.org` is **403**, so a World Heritage claim 
 `britannica.com` is 403 and is barred by the glossary plan's rule anyway; `sciencedirect.com`,
 `tandfonline.com`, `science.org` and `mdpi.com` are 403, and `doi.org` resolving to one of them is a 403
 too — **Europe PMC is the way in** where a PMCID exists.
+
+**THE REACHABLE SET IS STRONG ON THE TREATY CENTURY AND SILENT ON ANTIQUITY, and that shapes the early
+cards rather than being a nuisance to work around.** Between the Office of the Historian, the Avalon
+Project's treaty texts and the open remote-sensing literature, a province's 1840–1949 history and its
+present geography can both be carried to the bar without difficulty — `gc-002` Shandong is nine tenths
+that. What none of them touches is the Chinese past before the treaty ports. Qufu, Mount Tai and the
+states of Qi and Lu were all looked for and none could be cited: `whc.unesco.org` is 403, Persée's search
+renders through JavaScript, and Legge's *Chinese Classics* is on archive.org with its Chinese characters
+so mangled by OCR that the volume cannot be quoted. So `gc-002` says nothing about Confucius, which is a
+real gap in a card about Shandong and is left open rather than papered over with a citation that did not
+source the sentence. **It will bite hardest on Shaanxi, Henan, Hebei and Shanxi**, whose interest is
+mostly older than 1840; a route into open sinology is the most valuable thing anybody could add to this
+list.
 
 **`chinadaily.com.cn` answers and is a state newspaper.** It may be cited for what it is — an account the
 state gives of itself — and never as an independent one, and a card resting a contested claim on it has
