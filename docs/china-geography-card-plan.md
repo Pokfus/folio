@@ -17,11 +17,12 @@ The next card to write is the lowest `gc-NNN` not yet in `data.js`:
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gc-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
 **Shipped so far — `gc-001` Guangdong, `gc-002` Shandong, `gc-003` Henan, `gc-004` Jiangsu,
-`gc-005` Sichuan, `gc-006` Hebei, `gc-007` Hunan and `gc-008` Zhejiang, with `gc-501` Guangzhou,
-`gc-502` Jinan, `gc-503` Zhengzhou, `gc-504` Nanjing and `gc-505` Chengdu.**
+`gc-005` Sichuan, `gc-006` Hebei, `gc-007` Hunan, `gc-008` Zhejiang and `gc-009` Anhui, with
+`gc-501` Guangzhou, `gc-502` Jinan, `gc-503` Zhengzhou, `gc-504` Nanjing, `gc-505` Chengdu and
+`gc-506` Shijiazhuang.**
 The first province card and the first capital card were written together, so that the new map layer, its
 point table, the fit and the gold dot were all proved on a real card rather than on a test. The next
-province is `gc-009` Anhui and the next capital is `gc-506` Shijiazhuang.
+province is `gc-010` Hubei and the next capital is `gc-507` Changsha.
 
 ---
 
@@ -207,6 +208,31 @@ and cross-channels where it leaves the mountains at Guanxian. **Cite it for what
 what it does not**: Hosie gives no date for the works and none was asserted, so `gc-505` says how they
 function and leaves their antiquity to a later card that can source it. This is the ancient-China route
 in another coat — where the modern synthesis is closed, the standard older survey is often open.
+
+**AMERICAN DIPLOMATIC HISTORY IS NOT CHINESE HISTORY, AND IT IS OUT OF THIS COLLECTION** (Aug 2026,
+on request: "none of the Background sections should contain references to American consulate or
+relations, they are not relevant to a collection about China"). Eight shipped cards had leaned on the
+Office of the Historian's *Guide to the United States' History of Recognition, Diplomatic, and Consular
+Relations* — it is open, it is reachable when almost nothing else is, and it dates a great many things
+— and the result was a collection whose backgrounds kept drifting into consulates, legations and
+embassies. **That work is now cited by no card in the collection**, and the passages went with it.
+**The two Milestones pages stay** where they carry a China-side fact (the Opium Wars, the Washington
+Conference), but nothing sourced to them may now mention the United States. The replacement material
+came one open-access paper per card, and the lesson for the rest of the deck is the one the sourcing
+survey should have drawn earlier: **the easiest open source for a Chinese place is often a source about
+somebody else's dealings with it, and that is exactly what this collection must not be made of.** Look
+for the modern Chinese-geography literature first; it is thin in places but it is about the place.
+
+**AND SOME PLACES SIMPLY HAVE NO OPEN LITERATURE HERE — SAY SO RATHER THAN STRETCHING.** `gc-506`
+Shijiazhuang is the first capital where that bit. Its own history is barely represented in anything
+openable: the Zhaozhou Bridge, the Sui-dynasty open-spandrel arch in Zhao County, is described in one
+reachable abstract (SciOpen, `10.26599/HTRD.2026.9480097`) that gives the span, the builder and the
+date and **never states where the bridge is**, so the card leaves it out rather than asserting the
+county. The railway that made the city is the same shape: Kent's 1907 *Railway Enterprise in China* on
+archive.org has the Taiyuanfu line joining the Peking-Hankow line at Chengtingfu, which is the reason
+the city is where it is, and **no openable source says that Chengtingfu is now part of Shijiazhuang**,
+so the card says the two lines meet on that plain and stops. A card that says less and is right beats
+one that closes the gap itself.
 
 **`chinadaily.com.cn` answers and is a state newspaper.** It may be cited for what it is — an account the
 state gives of itself — and never as an independent one, and a card resting a contested claim on it has
