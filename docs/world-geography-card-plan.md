@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-106`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-107`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-107` Kyrgyzstan
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-108` Paraguay
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,48 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 38 (Kyrgyzstan) swept every metric-to-imperial conversion in the corpus and found NOTHING
+wrong, which is worth recording because the sweep nearly reported nineteen faults that are not faults.**
+A term's area was suspected of a transposed conversion, so all 1,569 glossary descriptions and all 1,093
+cards' abstracts, date lines and facts boxes were scanned for the `N km² (M sq mi)` form and each pair
+recomputed. **A naive tolerance — a fixed percentage — reports 19 findings and every one is correct**,
+because the house rule rounds a conversion to the SOURCE figure's own precision: "86,600 km² (33,400 sq
+mi)" is 33,436 rounded to three significant figures and is exactly right. **The tolerance has to be read
+off the WRITTEN imperial figure's own trailing zeros** — a value written to the hundred may be 50 out, a
+value written to the unit may not be one out. On that test the whole corpus produces a single flag,
+`gw-009`'s Russia at 1.7 sq mi, which is the conversion factor's own precision on an eight-digit figure
+and the standard published number. **The suspicion was arithmetic done in the head and it was wrong**;
+199,951 km² really is 77,201 sq mi. The check is not committed as a tool — it found nothing — but the
+precision rule is what makes it worth re-running after a units batch, and it is recorded here so nobody
+re-derives it.
+
+**Its area is harmonised rather than corrected, and this settles the rule for the rest of the deck.**
+UNdata gives 199,949 km², the World Bank 199,950 and the term 199,951 — one above the top of the spread,
+which is C9's `Ivory_Coast` case and therefore not a correction. But **no source publishes 199,951**, and
+a facts box sourced by [1] may not print a figure [1] does not carry, so both surfaces take UNdata's
+199,949; the imperial conversion is unchanged at 77,201 sq mi either way. That is Spain's rule stated the
+other way round: **inside the spread is a reason not to correct a term, and a figure no cited source
+states is a reason to move it anyway.** Its population is an ordinary C8 correction, "roughly 7 million"
+being the 2023 value on a series rising by more than 120,000 a year, so it moves to 7.3 million, which
+both sources give.
+
+**The recognition guide contradicts itself on this page, and a second page on the same site settles
+it.** The section is headed *Establishment of the American Embassy in Bishkek, **2004*** and its text
+says the embassy "was established on February 1, 1992, with Edmund McWilliams as Chargé d'Affaires ad
+interim". The **Chiefs of Mission database** lists McWilliams from 1 February 1992, so the text is right
+and the heading is a slip. P2's rule — a spine source is not infallible, read the whole page — with the
+useful addition that **the chiefs-of-mission list is the cheapest way to check a date the guide gives**,
+since the two are maintained separately and agree or do not.
+
+**Two smaller things.** The country **took its United Nations seat under a different name from the one it
+trades under**: resolution 46/225 is headed *Admission of the **Republic of Kyrgyzstan***, and the WTO
+lists the member as the **Kyrgyz Republic** — the Türkiye and Naypyidaw device, but here the two names
+belong to two institutions rather than to a source and a deck, which is a fact about the state rather
+than about the sources. And its founding has **no ceremony at all to cite**: recognition and diplomatic
+relations were both announced in Bush's broadcast of 25 December 1991, so there are no credentials, no
+exchange of notes and no letter — batch 30 recorded the same of Tajikistan, and it is what the whole
+post-Soviet run looks like.
 
 **Batch 37 (Libya) CLOSES batch 36's owed top-up, and the answer is that the claim was right and the
 citation was the wrong document.** Batch 36 recorded that `A/RES/995(X)` is an image scan, so the
