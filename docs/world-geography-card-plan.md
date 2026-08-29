@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-139`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-142`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-140` Qatar
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-143` Gabon
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,36 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 53 (Qatar, Jamaica, the Gambia) collects three more MODES of recognition, and the Gambia's is
+new to the deck: recognition BY ATTENDING.** On 18 February 1965 the Assistant Secretary for African
+Affairs represented President Johnson as his personal representative, **with the rank of special
+ambassador**, at the independence ceremonies at Bathurst — and the guide files that presence as the
+recognition itself. Jamaica's came "with the establishment of the American Embassy at Kingston" on 16
+August 1962, one act serving as recognition, relations and embassy alike, which is Namibia's shape from
+last batch. Qatar's was a Department of State announcement two days after independence. **The guide's
+Recognition heading is not a single kind of event, and the card's job is to say which kind this was.**
+
+**One envoy links two cards, and both guide entries say so.** William A. Stoltzfus Jr. presented his
+credentials in Qatar on 19 March 1972 and in Oman (`gw-125`) on 17 April, accredited to a number of Gulf
+states at once and resident in Kuwait. The Qatar card cites BOTH guide pages for that sentence, which is
+batch 21's rule again: a claim about another country is marked to that country's own source.
+
+**The Gambia acceded to the GATT four days after independence** — 22 February 1965 against 18 February —
+and it is the deck's second country to leave the Commonwealth and rejoin, after South Africa: the
+Secretariat's line reads "1965, following independence from Britain; left 2013, rejoined 2018". **Read the
+whole joining line; it is not always one date.**
+
+**Qatar's sex ratio is 246 men to every 100 women, the widest figure this pass has met** — against Oman's
+166 (batch 47) and Kuwait's 157 (batch 48) — and its two published populations differ by 144,000, UNdata
+giving 3,116,000 against the World Bank's 2,972,215. **Three Gulf cards in seven batches, three ratios far
+outside anything else in the deck**, and the card states the figure without explaining it.
+
+**Two more superlatives went out for figures.** `Qatar`'s "one of the highest-income countries in the
+world" became **66,600 US dollars a head**, from the profile it already cited; and `The_Gambia`'s "the
+smallest state on the African mainland" became "the smallest country in West Africa", which is what the
+Commonwealth page actually says — the term had widened its own source's claim. Its population moved 2.7 →
+**2.8 million**, both sources agreeing at 2,822,000.
 
 **Batch 52 (Armenia, Namibia, Lithuania) is three ways a state can be recognised and then not exist, and
 the guide keeps all three straight.** **Armenia** was recognised on **23 April 1920** in a note whose
