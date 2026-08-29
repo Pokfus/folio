@@ -21,16 +21,16 @@ Massachusetts, `geo-020` Ohio, `geo-021` Illinois, `geo-022` Virginia, `geo-023`
 `geo-024` Oregon, `geo-025` Arizona, `geo-026` New Mexico, `geo-027` Georgia,
 `geo-028` South Carolina, `geo-029` North Carolina, `geo-030` Pennsylvania,
 `geo-031` Wisconsin, `geo-032` Indiana, `geo-033` Kentucky, `geo-034` Tennessee, `geo-035` Missouri, `geo-036` Arkansas,
-`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana, `geo-044` Wyoming, `geo-045` Colorado, `geo-046` Kansas, `geo-047` Nebraska,
+`geo-037` Alabama, `geo-038` Mississippi, `geo-039` Delaware, `geo-040` Connecticut, `geo-041` New Hampshire, `geo-042` Vermont, `geo-043` Montana, `geo-044` Wyoming, `geo-045` Colorado, `geo-046` Kansas, `geo-047` Nebraska, `geo-048` South Dakota,
 `geo-501` Sacramento, `geo-502` Austin, `geo-503`
 Tallahassee, `geo-504` Providence, `geo-505` Juneau, `geo-506` Honolulu, `geo-507` Lansing,
 `geo-508` Baton Rouge, `geo-509` Augusta, `geo-510` Oklahoma City,
 `geo-511` Albany, `geo-512` Boise, `geo-513` Charleston, `geo-514` Annapolis, `geo-515` Carson
 City, `geo-516` Salt Lake City, `geo-517` St. Paul, `geo-518` Trenton, `geo-519` Boston,
 `geo-520` Columbus, `geo-521` Springfield, `geo-522` Richmond, `geo-523` Olympia, `geo-524` Salem,
-`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford, `geo-541` Concord, `geo-542` Montpelier, `geo-543` Helena and `geo-544` Cheyenne.**
-Both subdecks are worked down the same list, so the next state is `geo-048` and the next capital
-`geo-545`.
+`geo-525` Phoenix, `geo-526` Santa Fe, `geo-527` Atlanta, `geo-528` Columbia, `geo-529` Raleigh, `geo-530` Harrisburg, `geo-531` Madison, `geo-532` Indianapolis, `geo-533` Frankfort, `geo-534` Nashville, `geo-535` Jefferson City, `geo-536` Little Rock, `geo-537` Montgomery, `geo-538` Jackson, `geo-539` Dover, `geo-540` Hartford, `geo-541` Concord, `geo-542` Montpelier, `geo-543` Helena, `geo-544` Cheyenne and `geo-545` Denver.**
+Both subdecks are worked down the same list, so the next state is `geo-049` and the next capital
+`geo-546`.
 
 ---
 
@@ -1510,6 +1510,35 @@ terms that already exist**. Each was measured, and none should be settled quietl
   officers, the commission picking the site of Lincoln on 29 July 1867, the doubt through the 1870s
   depression, and Winchell's three houses of 1869 built to end it — plus **Fairview** for Bryan and the
   **Willa Cather House** for Cather. **List the capital city and read what its houses were for.**
+
+- **📌 THE LINKER MUST NEVER SKIP `<i>`, AND THE MEASUREMENT SETTLES IT.** The Denver draft raised the
+  question again — a book title in italics carrying a linkable word — so it was measured rather than
+  argued: **362 auto-link matches across the corpus fall inside an italic span, and the great majority are
+  wanted**, because `<i>` marks a foreign term as often as it marks a title and a foreign term is exactly
+  what a glossary is for. Teaching `autoLinkGlossary` to reject `I` the way it rejects `A` and `.ttip`
+  would take four hundred good links away to remove a handful of awkward ones.
+- **THAT MEASUREMENT EXPOSED TWO PRE-EXISTING FAULTS IN THE GREECE DECK, RECORDED HERE AND NOT FIXED.**
+  `<i>hippos</i>` links to **Hippopotamus** on `gr-075` and `gr-096`, and `<i>laos</i>` to **Laos** on
+  `gr-079` — a Greek word for horse sending a reader to an African animal, and one for the people to a
+  country in south-east Asia. Both are the `Settlement` class one language over: a short common word whose
+  key was written for another collection. They are outside this collection and are left for whoever next
+  works on Greece; the fix in each case is a narrower key or a `caseSensitive` flag, not a rewording.
+- **`Silver` AND `Coinage` WERE PUT TO THE FIRST-CLAUSE TEST AND BOTH PASS.** `Silver` links from "By the
+  Shores of Silver Lake" — inside a book title, and inside a proper name within it — and `Coinage` from
+  "the coinage of gold", which is the mint's own statutory phrase. Neither term's opening clause sits in a
+  specialism, so both are the sense a reader would expect, and **the only mechanism for suppressing a link
+  is `ADMIN_EDITS.glossOff`, an overlay field a card cannot carry** — so the choice is the link or a
+  rewording, and neither is worth rewording for.
+- **SOUTH DAKOTA'S NHL LAYER RETURNS ZERO, THE SIXTH STATE RUNNING**, which retires the layer as a first
+  stop for the plains states altogether: Montana, Wyoming, Colorado, Kansas, Nebraska and now South Dakota
+  have all come back empty on `Is_NHL='Y'`. Both of this card's landmark nominations were reached by
+  `RESNAME LIKE` on names taken from the state's own history — `%Wounded Knee%` and `%Ingalls%`.
+- **A NOMINATION MAY HEDGE ITS OWN SUBJECT'S NAME, AND THAT HEDGE IS THE CITABLE FACT.** The Wounded Knee
+  nomination says the event "is called the Wounded Knee Massacre or the Battle of Wounded Knee, depending
+  on the historical perspective of the writer" — so the card and the term say exactly that, attributed,
+  rather than choosing one name and asserting it. **Where the source names the disagreement, cite the
+  disagreement**; it is shorter than a hedge composed by hand and it is somebody's published judgement
+  rather than ours.
 
 Checked and clear: no capital's name is a key or an alias today, and the presidents are keyed by full name
 with no bare-surname aliases, so `Jackson`, `Lincoln`, `Madison` and `Jefferson City` are free. **Re-run that
