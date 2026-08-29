@@ -18,12 +18,12 @@ The next card to write is the lowest `gc-NNN` not yet in `data.js`:
 
 **Shipped so far — `gc-001` Guangdong, `gc-002` Shandong, `gc-003` Henan, `gc-004` Jiangsu,
 `gc-005` Sichuan, `gc-006` Hebei, `gc-007` Hunan, `gc-008` Zhejiang, `gc-009` Anhui, `gc-010` Hubei,
-`gc-011` Guangxi, `gc-012` Yunnan and `gc-013` Jiangxi, with `gc-501` Guangzhou, `gc-502` Jinan,
-`gc-503` Zhengzhou, `gc-504` Nanjing, `gc-505` Chengdu, `gc-506` Shijiazhuang, `gc-507` Changsha,
-`gc-508` Hangzhou, `gc-509` Hefei and `gc-510` Wuhan.**
+`gc-011` Guangxi, `gc-012` Yunnan, `gc-013` Jiangxi and `gc-014` Liaoning, with `gc-501` Guangzhou,
+`gc-502` Jinan, `gc-503` Zhengzhou, `gc-504` Nanjing, `gc-505` Chengdu, `gc-506` Shijiazhuang,
+`gc-507` Changsha, `gc-508` Hangzhou, `gc-509` Hefei, `gc-510` Wuhan and `gc-511` Nanning.**
 The first province card and the first capital card were written together, so that the new map layer, its
 point table, the fit and the gold dot were all proved on a real card rather than on a test. The next
-province is `gc-014` Liaoning and the next capital is `gc-511` Nanning.
+province is `gc-015` Fujian and the next capital is `gc-512` Kunming.
 
 ---
 
