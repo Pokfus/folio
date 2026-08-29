@@ -2417,6 +2417,9 @@
     /* …and swap the community decks this DEVICE shows over to the ones this account downloaded. The store
        is shared and the register is not, so nothing is deleted: the other reader's decks simply stop being
        mounted, and this account's own are put back. */
+    /* …adopting anything downloaded before there was an account to download it to, FIRST: the remount
+       reads the register, and the sync below walks the decks the remount mounted. */
+    deckOwnAdoptGuest(SUPA.user.id);
     communityRemount();
     communitySyncSoon();   // …and bring over any shared decks this account added on another device
     /* …and tell the account which theme this reader wears, since a friend's list is drawn from `profiles`
@@ -7528,6 +7531,30 @@
     const rec = deckOwnRead();
     if (!rec) return false;
     return Object.keys(rec.own).some((k) => rec.own[k] && rec.own[k][deckId]);
+  }
+  /* A DECK DOWNLOADED WHILE SIGNED OUT FOLLOWS THE READER INTO THEIR ACCOUNT (Aug 2026, on request).
+     The register keys by `deckOwnerKey()`, which is "guest" with no session -- so without this a reader who
+     downloaded a deck and THEN made an account signed in to find it gone, and the sync had nothing to
+     announce, since `communitySyncInstalls` walks the MOUNTED decks and an unowned deck never mounts.
+     Downloading before signing up is an ordinary order to do things in, and it is the same person either
+     way, which is exactly the judgement `supaAfterSignIn` already makes about guest PROGRESS: unclaimed
+     study history migrates up on a first sign-in and is then marked claimed, so a second account cannot
+     inherit it. This is that rule for decks, and it keeps both halves. The guest's claims are COPIED
+     rather than moved -- signing out restores the guest's own shelf, exactly as it restores their stashed
+     progress -- and `adopted` records which account took them, so a SECOND account signing in on the same
+     device adopts nothing and the isolation the register exists for still holds. */
+  function deckOwnAdoptGuest(userId) {
+    if (!userId) return [];
+    const rec = deckOwnRead();
+    if (!rec || !rec.own || !rec.own.guest) return [];
+    if (rec.adopted && rec.adopted !== userId) return [];   // another account already took the guest's shelf
+    const ids = Object.keys(rec.own.guest);
+    if (!ids.length) return [];
+    const mine = rec.own[userId] = rec.own[userId] || {};
+    ids.forEach((id) => { if (!mine[id]) mine[id] = rec.own.guest[id]; });
+    rec.adopted = userId;
+    deckOwnWrite(rec);
+    return ids;
   }
   function uDeckClaim(deckId) {
     if (!deckId) return;
