@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-105`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-106`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-106` Libya
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-107` Kyrgyzstan
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,58 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 37 (Libya) CLOSES batch 36's owed top-up, and the answer is that the claim was right and the
+citation was the wrong document.** Batch 36 recorded that `A/RES/995(X)` is an image scan, so the
+"sixteen states" two cards already assert could not be checked from here. The **VERBATIM MEETING RECORD
+of the same day extracts cleanly** — `A/PV.555`, record 646501, 58 KB of text — and it settles the
+question outright: the President opens by naming the draft resolution of forty-one countries providing
+for the admission of "Albania, Jordan, Ireland, Portugal, Hungary, Italy, Austria, Romania, Bulgaria,
+Finland, Ceylon, Nepal, Libya, Cambodia, Laos and Spain", and closes by recording that "the General
+Assembly has accepted each of the sixteen countries recommended by the Security Council". So the count
+is verified and no card is wrong; what is owed is a better POINTER, since the resolution record carries
+only the title and the vote. **Where a resolution's own PDF is a scan, fetch the plenary meeting record
+instead** — `A/PV.<n>` is a different digitisation, and it carries the debate, the separate votes and
+the president's rulings as well as the text. The eight earlier cards resolution 995 (X) carries may be
+re-pointed at leisure; nothing about them is false.
+
+The record repays reading beyond the count. Cuba asked, on a point of order, that each country be voted
+on separately in accordance with an advisory opinion of the International Court of Justice, and had its
+own abstention on the resolution as a whole entered in the record; Australia's representative says the
+Assembly had "voted for the group of eighteen States which was previously before the Council", which is
+the Cold War deadlock C9 named — **eighteen proposed, sixteen admitted** — visible in one sentence of
+debate. `gw-103` and `gw-106` both sit on that sitting.
+
+**Libya is also where the recognition guide reaches furthest back of any page used in this pass.** It
+carries the Ottoman semi-independent province of 1711–1835, the 1796 peace treaty by which Tripoli
+recognised the United States — signed also by the Dey of Algiers on a claim to authority the pasha
+denied — the Treaty of Ouchy of 18 October 1912, the joint British and French occupation from 1943, and
+Truman's message to King Idris I on 24 December 1951. **A guide page's length is a fact about the
+relationship's age as well as its complication**: Israel's runs to two sentences and Libya's to a
+consular chronology beginning in 1799.
+
+**Two corrections to the `Libya` term, one of each kind this pass now expects.** Its "an Italian colony
+from **1911**" is contradicted by the very source it marks, which gives 1912 for the cession and
+1912–1947 for the colony — batch 29's Cuba rule, and 1911 is the invasion rather than the transfer, so
+the citation decides. And it carried "a Mediterranean coast of more than 1,700 km (1,100 miles)", which
+**no source in its list publishes**: the same L3-class distance locator dropped from `Togo` in batch 35,
+and the second time in three batches that a country term's first sentence has been found carrying a
+figure nothing behind it states. **Grep a country term's first sentence for a length or a distance
+before writing its card** — neither UNdata, the World Bank nor the recognition guide measures coastline,
+so any such clause is unsupported by construction. The term goes 110 → 101 words.
+
+**Its area is C9's Libya finding still standing, and the card states it rather than hiding it**: UNdata
+gives 1,676,198 km² where `AG.SRF.TOTL.K2` gives 1,759,540 for every year on record, a gap of 83,342 km²
+or about five per cent — the widest area disagreement in the collection. The term takes the World Bank's
+and so does the card, with a sentence saying which is the larger. Its population needed nothing: UNdata's
+7,459 thousand and the World Bank's 7,458,555 are the same number.
+
+**Two small access notes.** `wto.org/.../libya_e.htm` returns the 9,709-byte error page batch 36
+measured, Libya being an observer rather than a member — **the size check now identifies that page
+without reading it**. And the World Bank API returned **400 Request Error to `per_page=100`** on a
+single-country call that worked at `per_page=50` and with the parameter omitted; C8's "empty body under
+rapid repeats" is not the only way that API declines, so **read the body before assuming a retry is
+what is needed**.
 
 **Batch 36 (Laos, Hong Kong, Turkmenistan) is the first to write a TERRITORY, and a territory needs a
 different fourth facts row.** UNdata's `Capital city` for Hong Kong is Hong Kong, so the row the whole
