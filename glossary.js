@@ -1596,7 +1596,8 @@ window.GLOSSARY = {
 "Parmenides": "Parmenides was a Greek philosopher of Elea in southern Italy, born about 515 BCE, whom Diogenes Laertius calls the son of Pyres and a pupil of Xenophanes who followed him in nothing.<sup class=\"fn\" data-fn=\"1\"></sup> He wrote a single poem in epic hexameters, perhaps 800 verses long and surviving in about 160, in which a goddess sets out the unshaken heart of well-rounded reality and, separately, the notions of mortals, in which there is no genuine trustworthiness.<sup class=\"fn\" data-fn=\"2\"></sup> Its central argument is that What Is is ungenerated and deathless, whole and uniform, still and perfect, and that the road of not-being can be neither thought nor spoken.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Zeno_of_Elea": "Zeno of Elea was a Greek philosopher of Elea in southern Italy, born about 490 BCE, whom Diogenes Laertius calls the pupil and adopted son of Parmenides and reports that Aristotle named the inventor of dialectic.<sup class=\"fn\" data-fn=\"1\"></sup> He wrote a book of arguments, all directed against the common assumption that things are many and cast as antinomies: if existences are many, they must be both like and unlike, which is impossible.<sup class=\"fn\" data-fn=\"2\"></sup> Four arguments against motion survive in Aristotle's summary, among them the quickest runner who never overtakes the slowest and the flying arrow that is motionless, and these are what are now called his paradoxes.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Eleatics": "The Eleatics are a group of Greek thinkers linked to Elea, a colony in southern Italy, and credited in antiquity with the thesis that what there is, is one.<sup class=\"fn\" data-fn=\"1\"></sup> Plato is the earliest writer to treat them as a group, calling them a sect of his own region and tracing them back to Xenophanes and even earlier, and the membership later fixed on is Parmenides, Zeno and Melissus.<sup class=\"fn\" data-fn=\"1\"></sup> The name is a matter of doctrine rather than geography, since Xenophanes came from Colophon in Ionia and Melissus was a Samian, and Aristotle already separates their positions, making Parmenides' unity finite and Melissus' unlimited.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Empedocles": "Empedocles was a Greek philosopher and poet of Acragas in Sicily, active in the middle of the 5th century BCE, who wrote in the hexameters of epic and was remembered as a doctor and an orator as well.<sup class=\"fn\" data-fn=\"1\"></sup> His system makes everything out of four roots, which he names as gods rather than as fire, earth, air and water, mixed and parted by two forces called Love and Strife in a cycle without end.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle credits him with being the first to make the material elements four and the first to give motion two contrary causes instead of one, while objecting that he uses neither consistently.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Empedocles": "Empedocles was a Greek philosopher and poet of Acragas in Sicily, active in the middle of the 5th century BCE, who wrote in the hexameters of epic and was remembered as a doctor and an orator as well.<sup class=\"fn\" data-fn=\"1\"></sup> His system makes everything out of four roots, which he names as gods rather than as fire, earth, air and water, mixed and parted by two forces called Love and Strife in a cycle without end.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle credits him with being the first to make the material elements four and the first to give motion two contrary causes instead of one, while objecting that he uses neither consistently.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Hecataeus_of_Miletus": "Hecataeus of Miletus was a Greek prose writer of the late 6th and early 5th centuries BCE who appears in Herodotus both as the adviser who alone opposed the Ionian revolt and as an authority to be contradicted.<sup class=\"fn\" data-fn=\"1\"></sup> Antiquity knew a prose history under his name and a description of the earth, and nothing of either survives except in later quotation; Strabo, following Eratosthenes, pairs him with Anaximander as the two who came after Homer in geography.<sup class=\"fn\" data-fn=\"3\"></sup> Demetrius preserves his opening: I write these things as they seem to me to be true, for the tales told by the Greeks are, as it appears to me, many and absurd.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2320,7 +2321,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Parmenides": "born c. 515 BCE",
 "Zeno_of_Elea": "born c. 490 BCE",
 "Eleatics": "c. 540 – 440 BCE",
-"Empedocles": "c. 484 – 424 BCE"
+"Empedocles": "c. 484 – 424 BCE",
+"Hecataeus_of_Miletus": "active c. 500 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3343,7 +3345,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Parmenides": ["Parmenides of Elea","Parmenidean"],
 "Zeno_of_Elea": ["Eleatic Palamedes","Zeno's paradoxes"],
 "Eleatics": ["Eleatic school","Eleatic","Eleatics"],
-"Empedocles": ["Empedocles of Acragas","Empedoclean"]
+"Empedocles": ["Empedocles of Acragas","Empedoclean"],
+"Hecataeus_of_Miletus": ["Hecataeus","Hekataios"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4966,7 +4969,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Parmenides": ["person","philosophy","greece","archaic greece"],
 "Zeno_of_Elea": ["person","philosophy","greece","archaic greece"],
 "Eleatics": ["concept","philosophy","greece","archaic greece"],
-"Empedocles": ["person","philosophy","greece","science"]
+"Empedocles": ["person","philosophy","greece","science"],
+"Hecataeus_of_Miletus": ["person","history","geography","greece","archaic greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
