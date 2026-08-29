@@ -1573,7 +1573,8 @@ window.GLOSSARY = {
 "Iambus": "<b>Iambus</b> is the archaic Greek genre of blame poetry, defined by what it does rather than by how it scans: its poets proclaim <i>psogos</i> against people who break the rules a community lives by, naming them outright.<sup class=\"fn\" data-fn=\"1\"></sup> It appears suddenly in the middle of the 7th century BCE with Archilochus of Paros, is Ionian, and had a place in the popular festivals of Demeter and Dionysus that also lie behind Attic comedy.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Its staple line is the iambic trimeter, which Aristotle called the most conversational of metres and which tragedy and comedy took over for dialogue.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Archilochus": "<b>Archilochus</b> of Paros was a Greek poet of the middle of the 7th century BCE, the first who speaks in his own voice about his own life, and antiquity ranked him beside Homer and Hesiod.<sup class=\"fn\" data-fn=\"1\"></sup> He worked chiefly in iambic and elegiac verse, which appears in his hands already finished and exact, and his most quoted lines shrug at a shield he left behind in flight, since he had saved himself and could get another no worse.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Paros later worshipped him as a hero in an open-air precinct called the Archilocheion, whose inscription preserves oracles and an account of his life.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Sappho": "<b>Sappho</b> was a Greek poet of Lesbos, born at Eresos and living at Mytilene around 600 BCE, who was reckoned in antiquity the greatest love poet of the Greek world and called simply the Poetess.<sup class=\"fn\" data-fn=\"1\"></sup> She wrote in the Aeolic dialect actually spoken on the island, in a great variety of metres, one of them the four-line stanza that carries her name.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Alexandria edited her into nine books, of which almost nothing survives whole: she is read in quotations by later critics and in torn papyri, with one complete poem, a hymn to Aphrodite.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Alcaeus": "<b>Alcaeus</b> was a Greek poet of Mytilene on Lesbos, active around 600 BCE, and the one direct witness to the faction fighting that convulsed his island, in which he took part on the side of the aristocrats.<sup class=\"fn\" data-fn=\"1\"></sup> His songs were sung at the drinking parties of the political clubs, and the best known of them are the <i>stasiotika</i>, verses of faction attacking one ruler after another.<sup class=\"fn\" data-fn=\"1\"></sup> He worked in the Aeolic tradition of the island beside Sappho and in the same dialect, wrote hymns, drinking songs and love songs as well, and gave his name to a four-line stanza Horace made famous.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Alcaeus": "<b>Alcaeus</b> was a Greek poet of Mytilene on Lesbos, active around 600 BCE, and the one direct witness to the faction fighting that convulsed his island, in which he took part on the side of the aristocrats.<sup class=\"fn\" data-fn=\"1\"></sup> His songs were sung at the drinking parties of the political clubs, and the best known of them are the <i>stasiotika</i>, verses of faction attacking one ruler after another.<sup class=\"fn\" data-fn=\"1\"></sup> He worked in the Aeolic tradition of the island beside Sappho and in the same dialect, wrote hymns, drinking songs and love songs as well, and gave his name to a four-line stanza Horace made famous.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Lesbos": "<b>Lesbos</b> is a large Greek island in the north-eastern Aegean, lying close to the coast of Asia Minor, whose Aeolian population was divided in antiquity between five cities, a sixth having been enslaved by its neighbours at Methymna.<sup class=\"fn\" data-fn=\"1\"></sup> The Greeks reckoned it the most musical ground they knew, and it produced Terpander of Antissa, Arion of Methymna, Sappho of Eresos and Alcaeus of Mytilene within about a century of one another.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The metres its poets used are still classified as Aeolic, among them the hendecasyllabic line Sappho and Alcaeus shared and the four-line stanzas that carry their two names.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3277,7 +3278,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Iambus": ["iambos","iambic poetry","blame poetry"],
 "Archilochus": ["Archilochos","Archilochus of Paros"],
 "Sappho": ["Psappho","Sappho of Lesbos"],
-"Alcaeus": ["Alkaios","Alcaeus of Mytilene"]
+"Alcaeus": ["Alkaios","Alcaeus of Mytilene"],
+"Lesbos": ["Lesvos"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4877,7 +4879,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Iambus": ["concept","literature","poetry","greece","archaic greece"],
 "Archilochus": ["person","literature","poetry","greece","archaic greece"],
 "Sappho": ["person","literature","poetry","greece","archaic greece"],
-"Alcaeus": ["person","literature","poetry","greece","archaic greece"]
+"Alcaeus": ["person","literature","poetry","greece","archaic greece"],
+"Lesbos": ["place","geography","greece","literature","island"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
