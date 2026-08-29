@@ -1594,7 +1594,8 @@ window.GLOSSARY = {
 "Xenophanes": "Xenophanes of Colophon was a Greek poet of the late 6th and early 5th centuries BCE who travelled the Greek world reciting his own verse and criticising what the poets said about the gods.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He is best known for attacking the habit of imagining gods in human form, observing that Ethiopians make theirs snub-nosed and black and Thracians theirs red-haired, and that horses able to draw would produce horse-shaped gods.<sup class=\"fn\" data-fn=\"1\"></sup> Against that he set one god greatest among gods and men, unlike mortals in body or thought, and he held that no mortal will ever know anything about such matters with certainty.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Heraclitus": "Heraclitus was a Greek philosopher of Ephesus in Ionia who flourished around 500 BCE, was nobody's pupil and said he had inquired of himself.<sup class=\"fn\" data-fn=\"1\"></sup> He wrote one book, deposited in the temple of Artemis and divided into three discourses, on the universe, politics and theology, which he was said to have made deliberately obscure so that none but adepts should approach it.<sup class=\"fn\" data-fn=\"1\"></sup> Nothing of it survives whole, but over a hundred quotations do, turning on the unity of opposites, on a world-order no god or man made but which is everliving fire kindled and quenched in measures, and on a <i>logos</i> common to all that most fail to grasp.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Parmenides": "Parmenides was a Greek philosopher of Elea in southern Italy, born about 515 BCE, whom Diogenes Laertius calls the son of Pyres and a pupil of Xenophanes who followed him in nothing.<sup class=\"fn\" data-fn=\"1\"></sup> He wrote a single poem in epic hexameters, perhaps 800 verses long and surviving in about 160, in which a goddess sets out the unshaken heart of well-rounded reality and, separately, the notions of mortals, in which there is no genuine trustworthiness.<sup class=\"fn\" data-fn=\"2\"></sup> Its central argument is that What Is is ungenerated and deathless, whole and uniform, still and perfect, and that the road of not-being can be neither thought nor spoken.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Zeno_of_Elea": "Zeno of Elea was a Greek philosopher of Elea in southern Italy, born about 490 BCE, whom Diogenes Laertius calls the pupil and adopted son of Parmenides and reports that Aristotle named the inventor of dialectic.<sup class=\"fn\" data-fn=\"1\"></sup> He wrote a book of arguments, all directed against the common assumption that things are many and cast as antinomies: if existences are many, they must be both like and unlike, which is impossible.<sup class=\"fn\" data-fn=\"2\"></sup> Four arguments against motion survive in Aristotle's summary, among them the quickest runner who never overtakes the slowest and the flying arrow that is motionless, and these are what are now called his paradoxes.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Zeno_of_Elea": "Zeno of Elea was a Greek philosopher of Elea in southern Italy, born about 490 BCE, whom Diogenes Laertius calls the pupil and adopted son of Parmenides and reports that Aristotle named the inventor of dialectic.<sup class=\"fn\" data-fn=\"1\"></sup> He wrote a book of arguments, all directed against the common assumption that things are many and cast as antinomies: if existences are many, they must be both like and unlike, which is impossible.<sup class=\"fn\" data-fn=\"2\"></sup> Four arguments against motion survive in Aristotle's summary, among them the quickest runner who never overtakes the slowest and the flying arrow that is motionless, and these are what are now called his paradoxes.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Eleatics": "The Eleatics are a group of Greek thinkers linked to Elea, a colony in southern Italy, and credited in antiquity with the thesis that what there is, is one.<sup class=\"fn\" data-fn=\"1\"></sup> Plato is the earliest writer to treat them as a group, calling them a sect of his own region and tracing them back to Xenophanes and even earlier, and the membership later fixed on is Parmenides, Zeno and Melissus.<sup class=\"fn\" data-fn=\"1\"></sup> The name is a matter of doctrine rather than geography, since Xenophanes came from Colophon in Ionia and Melissus was a Samian, and Aristotle already separates their positions, making Parmenides' unity finite and Melissus' unlimited.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2316,7 +2317,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Xenophanes": "floruit 540 – 537 BCE",
 "Heraclitus": "floruit c. 500 BCE",
 "Parmenides": "born c. 515 BCE",
-"Zeno_of_Elea": "born c. 490 BCE"
+"Zeno_of_Elea": "born c. 490 BCE",
+"Eleatics": "c. 540 – 440 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3337,7 +3339,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Xenophanes": ["Xenophanes of Colophon"],
 "Heraclitus": ["Heraclitus of Ephesus","Heraclitean"],
 "Parmenides": ["Parmenides of Elea","Parmenidean"],
-"Zeno_of_Elea": ["Eleatic Palamedes","Zeno's paradoxes"]
+"Zeno_of_Elea": ["Eleatic Palamedes","Zeno's paradoxes"],
+"Eleatics": ["Eleatic school","Eleatic","Eleatics"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4958,7 +4961,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Xenophanes": ["person","philosophy","greece","archaic greece","poetry","religion"],
 "Heraclitus": ["person","philosophy","greece","archaic greece"],
 "Parmenides": ["person","philosophy","greece","archaic greece"],
-"Zeno_of_Elea": ["person","philosophy","greece","archaic greece"]
+"Zeno_of_Elea": ["person","philosophy","greece","archaic greece"],
+"Eleatics": ["concept","philosophy","greece","archaic greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
