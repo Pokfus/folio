@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-162` Fiji
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-165` the Solomon Islands
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,56 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 61 (Fiji, Comoros, Guyana) turns up the guide's oldest date and a recognition made from a chair at
+the Security Council.** Fiji's entry records a CONSULATE 26 years before the colony and 126 before
+independence: Commercial Agent John B. Williams was appointed the first consul to the Fiji Islands on
+**19 August 1844**, resident at Auckland, and the islands became a British Crown colony only in 1874. It is
+the earliest act any card in this deck cites. And the recognition itself has a shape the deck has not seen:
+independence came on 10 October 1970 and the United States recognised it **in a statement by Charles W. Yost,
+its representative in the United Nations Security Council** — not a press release, a message, an embassy or a
+delegation, but a speech in the chamber. **The reverse credential ceremony goes with it**: relations were
+established when FIJI's ambassador presented HIS credentials to President Nixon on 22 July 1971, where every
+other entry in the deck dates relations from an American presenting credentials abroad.
+
+**COMOROS IS RECOGNITION AND RELATIONS IN ONE ACT, ANNOUNCED BY BOTH GOVERNMENTS TOGETHER.** On 15 August
+1977 the two states issued a **joint communiqué** announcing the establishment of diplomatic relations, and
+the guide files that single document under both headings. Every other mode the deck records is unilateral —
+a press release, a congratulatory message, an appointment, an attendance — and this one is not. Its embassy
+history is the deck's most travelled: a chargé resident at Antananarivo from 1977, an embassy at Moroni from
+26 August 1985, that embassy CLOSED on 30 September 1993, ambassadors accredited from Port Louis in Mauritius
+after it, and on 6 March 2006 the responsibility moved back to Antananarivo — **three capitals, ending where
+it began.**
+
+**C8's Comoros deferral is now cited rather than reasoned.** C8 read UNdata's 2,235 km² against the term's
+1,861 and explained the gap as Mayotte, which was right and was an inference. The General Assembly's
+**resolution 31/4 of 21 October 1976** is titled *Question of the Comorian Island of Mayotte*, and the item
+was still on the Assembly's agenda in September 2025 as A/DEC/79/576 — **49 years of the same agenda item**,
+which is what makes the two area figures a political fact rather than a measurement difference, and it is now
+carried by two openable records instead of by this plan's own prose.
+
+**Guyana's income per head TRIPLED in three years and UNdata prints all three figures**: 5,640 US dollars in
+2015, 6,779 in 2020 and **20,189 in 2023**. It is the largest movement in any economic series the pass has
+met — larger than Djibouti's exports and in the opposite direction from Equatorial Guinea's fall — and it is
+worth noting that the term said "offshore oil since 2015 has transformed the economy" and could not say by
+how much. **The figures were in its own cited source the whole time.**
+
+**And a live case at the International Court of Justice is citable like any other act of state.**
+`icj-cij.org/case/171` is *Arbitral Award of 3 October 1899 (Guyana v. Venezuela)*, and the case page carries
+its own procedural history — public hearings on the merits at the Peace Palace from 4 to 11 May 2026. The
+deck has cited the Court's finished opinions before (Kosovo, batch 57); this is the first UNFINISHED case,
+and the page states where it has got to, which is the only claim a card should make about one.
+
+**Fiji is the Commonwealth's most-suspended member in the deck.** Its Key Facts line records membership
+suspended **three times** — October 1987 to October 1997, June 2000 to December 2001, and December 2006 to
+September 2014 — against the Gambia's single leave-and-rejoin (batch 53) and South Africa's (C6). The
+Commonwealth's own prose also supplied the island count the term had been asserting without a source: "about
+300 islands, only about 100 of which are inhabited", where the term said about 330 and some 110.
+
+**Two of the WTO's newest members are in this deck and both joined in 2024** — Comoros on 21 August and
+Timor-Leste on 30 August (batch 58), nine days apart. It is recorded here rather than on either card, since
+neither card's sources carry the other's date; but it is worth knowing that a country page's membership line
+is the most perishable fact the pass cites, and that two of them moved within a fortnight of each other.
 
 **Batch 60 (Djibouti) is a one-card batch because the other half of it was a CHANGE TO THE MAP FORMAT.**
 On request — "ensure the country Cyprus encompasses the whole island" — `map.key` now takes a LIST as well as
