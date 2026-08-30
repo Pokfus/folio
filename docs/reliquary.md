@@ -197,11 +197,26 @@ interactions that a plate's own glossary links forced.
     once, and the function only ever unlocks. Without it the change would have quietly stripped five of the
     six themes from every existing reader, which is the one way a collectible can be worse than no
     collectible at all.
-    **A LOCKED THEME'S BUTTON IS PRESSABLE, NOT `disabled`** — Chrome fires no mouse events at all on a
-    disabled button, so the hover try-on would be taken away from exactly the themes that most need
-    advertising. `setTheme` is the gate (it refuses a locked id outright), and the click toasts the reason;
-    the picker marks the row with a dashed border, a desaturated mock and a padlock, and its tag reads
-    "From a chest" where an owned one reads **the day it was unlocked** (`themeUnlockedOn` /
+    **A LOCKED THEME'S BUTTON WAS PRESSABLE, NOT `disabled`** — Chrome fires no mouse events at all on a
+    disabled button, so the hover try-on would have been taken away from exactly the themes that most
+    needed advertising. `setTheme` is still the gate (it refuses a locked id outright) and the click still
+    toasts the reason, but **the picker no longer draws a locked tile at all** (Aug 2026, on request): the
+    dashed border, the desaturated mock and the padlock are gone with them, and this settings row lists
+    only what the reader can actually choose. The guard stays as a backstop rather than a path anybody
+    reaches — it reads an id off an attribute, and a guard on a value read out of the DOM is worth keeping
+    even when nothing renders the value it refuses.
+    **BUT THE ROW ITSELF IS ALWAYS DRAWN, AND HIDING IT WAS THE OVER-REACH** (Aug 2026, on a bug report:
+    "I don't see anywhere to change my theme on the settings page and switch between my collected ones").
+    Listing only what is owned was the request; hiding the whole section until a chest had produced
+    something was a second decision taken alongside it, on the reasoning that a picker offering one option
+    explains a decision nobody is being asked to make. What it did in practice was take the feature off the
+    page — a reader looking for where their themes live found a Settings page with no mention of themes at
+    all, and no way to tell an empty collection from a control that had moved or broken. **The state lives
+    in the COPY instead**: the row's own prose names how many are still to find and where they come from,
+    and says nothing once the set is complete. A sentence can be right in every state; a hidden row is right
+    in exactly one. The lone `folio` tile is also the only place a reader can see the default beside the
+    ones they win.
+    An owned tile's tag reads **the day it was unlocked** (`themeUnlockedOn` /
     `themeUnlockedOnText`, Aug 2026, on request). Nothing new is recorded for that and no save migrates:
     `unlockTheme` has written `Date.now()` since the day it shipped, so this is only the reading of it.
     **ZERO IS A REAL ANSWER AND MUST NOT BE PRINTED AS ONE** — `themeGrandfather` writes 0, meaning "owned,

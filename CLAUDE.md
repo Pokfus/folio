@@ -1851,9 +1851,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A CHEST MAY ALSO HOLD A THEME** (Aug 2026, on request): the five non-`folio` themes are locked until
     one drops, at `THEME_DROP` (14%) while any are still locked. **`themeGrandfather` is the part not to
     remove** — a theme already worn is written into the register, once, or the change would silently strip
-    five of the six from every existing reader. A locked theme's button is **pressable, not `disabled`**
-    (Chrome fires no events on a disabled button, which would take the hover try-on away from exactly the
-    themes that need advertising); `setTheme` is the gate.
+    five of the six from every existing reader. `setTheme` is the gate, and it stays one as a backstop:
+    the Settings picker lists **only what the reader owns** and draws no locked tile at all (Aug 2026, on
+    request), so nothing renders the id that guard refuses.
+    **BUT THE THEME ROW ITSELF IS ALWAYS DRAWN, AND HIDING IT UNTIL A CHEST HAD DROPPED ONE WAS THE
+    OVER-REACH** (Aug 2026, on a bug report: "I don't see anywhere to change my theme on the settings
+    page"). Listing only what is owned was the request; hiding the whole section was a second decision
+    taken beside it, and it took the feature off the page — a reader found a Settings page with no
+    mention of themes and no way to tell an empty collection from a control that had moved or broken.
+    **The state belongs in the COPY, not in whether the row exists**: the row names how many are still to
+    find and where they come from, and says nothing once the set is complete. A sentence can be right in
+    every state; a hidden row is right in one.
   · **THE PLATE IS ONE BUILDER** (`artefactPlateHTML` + `wireArtefactPlate`), used by the reader's overlay
     and by the admin preview alike — a preview written from a second copy of the markup drifts silently.
     **THE SHOWCASE IS FOUR** (`SHOWCASE_MAX`), filtered on the way OUT so a retired artefact leaves no slot
@@ -5094,7 +5102,8 @@ dead code (never rendered).
     `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`, `DAILY_GAMES` / `GAME_NAMES` /
     `PAGE_META` / the `valid` route list, `gameCardIdSet` / `GAME_MAX_DIFFICULTY`, `whatyear.js` /
     `truefalse.js` / `quotes.js`, `gameBackHTML` / `flipGameTile` / `gameStatsPost` / `gameStatsLoad` /
-    `markGamePlayed`, or the home page's tile grid.**
+    `markGamePlayed`, `gameAnswerNote` / `gameGlossKey`, `gameTap` / `gameCommit` / `gameClearPick` /
+    `gameFound` / `TINT_PICK` / the `.mg-acts` buttons, or the home page's tile grid.**
   · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (69
     assertions, Aug 2026). **Re-run after touching `cardDifficulty` / `difficultyOK` / `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY` / `cardUndatable` / `chronoPool` / `cardStartYear` / `serializeCardData` /

@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.434", released: "2026-08-30T14:32Z" };
+window.FOLIO_VERSION = { v: "1.435", released: "2026-08-30T15:05Z" };
 
 window.CHANGELOG = [
   {
@@ -43,6 +43,10 @@ window.CHANGELOG = [
     t: "Every country and territory in The world is now mapped",
     items: [
       "<b>Every daily minigame now deals the same questions to everyone</b>, so your score can be compared with a friend's.",
+      "<b>In Find it, tapping a place now selects it and a button confirms the guess</b>, so a stray tap no longer costs you a try.",
+      "<b>Find it counts a place you got right on the second try</b>, where it used to score only first-try finds.",
+      "<b>Multiple Choice and the Picture round now explain the answer</b> once you have guessed, instead of only naming it.",
+      "<b>The Theme picker is back on the Settings page whether or not you have won one</b>, and says where the rest are found.",
       "<b>The True or False statement about the 'Mozart effect' now states the claim plainly</b> instead of denying it.",
       "<b>Sixty new cards in The world</b>, completing the countries and territories deck at 227 of 233, with twenty-six new glossary terms and thirty-two others corrected against their own sources.",
       "<b>Seventeen new cards in the Ancient Greece deck</b>, with seventeen new glossary terms to go with them.",

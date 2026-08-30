@@ -2013,6 +2013,9 @@ body.grading .stage{padding-bottom:150px;}
 .pic-frame.pic-dead::after{content:"This picture didn’t load"; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); padding:40px 16px;}
 .pic-frame.pic-dead .pic-img{display:none;}
 .pic-cap{font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs)); line-height:1.35; margin:0 0 6px;}
+/* what THIS picture shows, under what the subject IS (Aug 2026, on request) — the third line of the
+   reveal, so quieter than the title above it; a caption set as loud as the title reads as a second one. */
+.pic-shows{font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint); margin:0 0 6px;}
 .pic-credit{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); margin:0 0 16px; overflow-wrap:anywhere;}
 .pic-credit a{color:inherit;}
 
@@ -3524,8 +3527,14 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .mg-q b{color:var(--indigo);}
 .mg-feedback{font-size:calc(12.5px * var(--fs)); color:var(--ink-soft);}
 .mg-feedback[hidden]{display:none;}
-.mg-next{align-self:flex-start;}
-.mg-next[hidden]{display:none;}
+/* A TAP SELECTS AND THE BUTTON COMMITS (Aug 2026, on request) — so the card carries a row of actions
+   rather than one Next button. `.mg-acts` collapses when every button in it is hidden: as a bare flex
+   row it would still spend the card's 7px gap on nothing, which on a panel this small reads as the
+   feedback line having drifted away from the question. */
+.mg-acts{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+.mg-acts:not(:has(> button:not([hidden]))){display:none;}
+.mg-confirm[hidden], .mg-clear[hidden], .mg-next[hidden]{display:none;}
+.mg-clear{padding-inline:12px;}
 /* first-visit coach marks */
 .atlas-help{position:absolute; inset:0; z-index:9; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb, var(--paper) 42%, transparent); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);}
 .atlas-help[hidden]{display:none;}

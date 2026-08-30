@@ -750,6 +750,18 @@ the whole reason the suites exist and the reason their narratives are worth keep
     two keys on one day do not shuffle in step, which is the fault the per-draw key suffixes prevent and
     which would otherwise put the right answer in the same position in every round of the day.
     **Re-run after touching `dayPick` or any game's draw**, and never let a game's draw go back to `pick`.
+    **ITS FIND IT SECTION IS THE FIRST COVERAGE THAT GAME HAS EVER HAD** (Aug 2026), which is how a score
+    that disagreed with the reader's own arithmetic went unremarked. It asserts that a tap SELECTS rather
+    than answering (no verdict, no change to the score, and a button naming the tapped place), that Clear
+    withdraws it and the action row collapses, that only Confirm spends a try, and — the reported bug —
+    that a correct SECOND guess counts. **The target is HUNTED, not computed, and that is forced**: the
+    rounds are built inside the Atlas closure and turning a lon/lat into a screen point needs the globe's
+    rotation and zoom, neither reachable from outside, so the board is swept and the CONFIRM BUTTON read,
+    it being exactly the readout the feature added. ~850 clicks sweep a hemisphere in eleven seconds, and
+    the globe is spun a quarter turn and swept again when the day's target is on the far side — the draw
+    is seeded by the date, not by what happens to be facing the reader. **It FAILS when the target is
+    never found rather than skipping the assertion**: a hunt that quietly gives up is a test that passes
+    on the day the feature breaks.
     **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
     `xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` / `xwMarkGaveUp`, `picturePool` /
     `dailyPictureRounds` / `tagKinship`, `dayPick` / `buildChallengeQuestions` / `buildWhoSaidRounds` /

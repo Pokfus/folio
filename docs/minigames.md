@@ -414,6 +414,99 @@ The failure is silent from every angle — each reader's game works perfectly, d
 and scores them correctly — so nothing but two people talking to each other could have found it, and
 nothing but a check that the same date twice yields the same set can keep it fixed.
 
+## Find it: a tap selects, a button commits (Aug 2026, on request)
+
+> "In the Find It minigame, clicking a country shouldn't immediately guess, but only selected before the
+> user should click a confirmation button. At the end of that minigame it says x/5 questions correct, but
+> it only counts answers that were correct first-try — second and third guesses should still count if they
+> were correct."
+
+Two faults in one report, and they compound: a guess could be spent by accident, and the score then
+punished you for it.
+
+**The tap was the answer, and a tap on a globe is not a confident gesture.** The reader has spent the
+whole round dragging and pinching that same surface; the target may be four pixels wide at the zoom they
+happen to be at; and there was no way to look closely at a place, because the tap that brought you to it
+was your guess. `gameTap` now only ever PICKS — it lights the place in a blue that is none of the game's
+three verdict colours, names it on the button ("Guess Chad"), and waits. `gameCommit` is the old function
+from the judging line down.
+
+Four things about the split:
+
+- **A pick is replaceable and withdrawable.** Tapping elsewhere moves it; **Clear** takes it off. A mis-tap
+  therefore costs nothing at all, which is the entire point.
+- **It is a `gameMarks` entry, not a fourth highlight mechanism.** The pending mark is painted, replaced and
+  cleared by the same list that already carries the wrong guesses and the revealed answer, so nothing had to
+  learn a new kind of mark and a pick can never outlive its round. `gameClearPick` is the one function that
+  knows what clearing means — the polygon mark, the point pin and both buttons.
+- **A capital round needs a pin rather than a tint**, since a point guess has no polygon to fill. Drawn
+  hollow in the pick blue: a crosshair, not a mark.
+- **From the keyboard, Enter picks and Enter again confirms.** Aiming with the arrows and then having to Tab
+  out of the globe to reach a button would make the accessible route the slow one; two presses of one key is
+  what the mouse does with two clicks.
+
+**And `gameFound` is the score now, where `gameFirstTry` was.** "4 / 5 found on the first try" is a true
+sentence about a figure nobody could see being computed that way while they played — the running counter
+beside the round number just said "points", so a reader who found four places and was told they scored two
+read it as the game losing an answer. The headline is what was FOUND, at whichever attempt; the first-try
+tally survives as a second line on the results, said only when it differs from the score, since "5 found,
+5 of them first try" is the same sentence twice. A perfect run is now five found rather than five found
+cold, which is a real loosening and the one the request asks for.
+
+**Note the round still allows two tries, not three.** The report says "second and third guesses", which
+describes what it counts rather than how many there are; nothing was asked about the number of attempts and
+it is unchanged. With a mis-tap no longer able to spend one, two is a more forgiving allowance than it was.
+
+**Its test section is the first coverage this game has ever had**, which is how a score that disagreed with
+the reader's own arithmetic went unremarked. The target has to be HUNTED rather than computed — the rounds
+are built inside the Atlas closure and turning a lon/lat into a screen point needs the globe's rotation and
+zoom, neither reachable from outside — so the board is swept and the confirm button read, it being exactly
+the readout this change added. About 850 clicks sweep a hemisphere in eleven seconds, and the globe is spun
+a quarter turn and swept again when the day's target is on the far side. It fails rather than skipping when
+the target is never found: a hunt that quietly gives up is a test that passes on the day the feature breaks.
+
+## A round ends on something learned (Aug 2026, on request)
+
+> "The games Picture Round and Multiple Choice don't offer any explanation for why that answer is correct
+> or about the answer, so the user doesn't learn from it."
+
+True of both, and it is the one complaint a quiz game cannot shrug off. True or False has printed a `why`
+since it shipped, Find it opens the place's own Atlas panel, Timeline reveals every date, the crossword's
+clues are the cards' own questions — those two named the answer and moved on.
+
+**The explanation is the answer term's glossary entry**, and reaching for that rather than authoring a new
+field is the whole of the design. It is three sentences, impartial, self-contained and written to be read
+away from any particular card — which is exactly the brief here — it is already cited at the bar, it is what
+a reader meets by tapping the term anywhere else on the site, and the card→glossary pairing rule guarantees a
+card ships with one for its own answer. Nothing to author, nothing to keep in step: a term corrected in the
+glossary is corrected here.
+
+**A card's own abstract was the obvious alternative and is the wrong one.** Ten sentences and about 300 words
+is a wall of prose between a guess and the next round, so it would have to be cut to its first sentence — and
+splitting a sentence off English prose is what `split-abstract.js` exists for and needed a dozen guards to get
+right (initials, `c. 2600 BCE`, abbreviated binomials, a sentence closing on a quotation). A three-sentence
+field that needs no splitting beats a 300-word one that does.
+
+**Where there is no term, nothing is shown** — never a manufactured sentence. `fallbackSentence` would
+happily produce *"X is a person, place, or concept referenced in this card's background"*, which teaches less
+than silence while reading as though the site had something to say. Measured over the shipped corpus: 223 of
+the 231 cards the games can deal carry a term, so the silent case is about 3% and shrinks as the pairing rule
+is applied.
+
+**The Picture round had a description all along and it describes the PICTURE, not the subject** — which is
+why the complaint is right about a game that already printed a paragraph. `desc` is the image's own caption
+("Delineations on pieces of antler. Public domain, via Wikimedia Commons."): it says what is in the
+photograph and nothing whatever about what the thing is. The reveal now reads *what it is called* → *what it
+IS* → *what this picture shows*, the third line quieter than the first, since a caption set as loud as the
+title reads as a second title. An **artefact** resolves to no glossary term and gets its own plate
+description instead, that being three to five sentences about the object already.
+
+`gameAnswerNote` lives beside `dayPick` in the daily-game plumbing and resolves through `byAnySurface`, the
+map built for the question "which term is this card's answer?" — the same door Common Thread and the picture
+pool already use, so a deck's own term is excluded here as it is there. It emits HTML through `sanitizeHTML`
+rather than escaping (a description carries `<i>` on a work's title) and strips footnote markers, a
+superscript number with no list under it pointing nowhere.
+
 ## A tile turns over to its record (Aug 2026, on request)
 
 > "When long-pressing a minigame tile on the home page, the tile should flip around and reveal the user's

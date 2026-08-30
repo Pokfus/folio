@@ -29672,6 +29672,45 @@
     const a = seededShuffle(arr, mulberry32(hashStr(key + "-" + todayStr())));
     return n == null ? a : a.slice(0, n);
   }
+  /* ---------- A ROUND ENDS ON SOMETHING LEARNED (Aug 2026, on request) ----------
+     "The games Picture Round and Multiple Choice don't offer any explanation for why that answer is
+     correct or about the answer, so the user doesn't learn from it." True of both, and it is the one
+     complaint a quiz game cannot shrug off: True or False has said `why` since it shipped, Find it opens
+     the place's own panel, Timeline reveals every date — those two named the answer and moved on.
+
+     THE EXPLANATION IS THE ANSWER TERM'S GLOSSARY ENTRY, and reaching for that rather than writing a new
+     field is the whole of the design. It is three sentences, impartial, self-contained and written to be
+     read on its own away from any card — which is exactly the brief here — it is already cited at the
+     bar, it is what a reader would meet by tapping the term anywhere else on the site, and, because of
+     the card→glossary pairing rule, a card ships with one for its own answer. So there is nothing to
+     author and nothing to keep in step: a term corrected in the glossary is corrected here.
+     A CARD'S OWN ABSTRACT WAS THE OBVIOUS ALTERNATIVE AND IS THE WRONG ONE. It is ten sentences and
+     roughly 300 words — a wall of prose between a guess and the next round — so it would have to be cut
+     to its first sentence, and splitting a sentence off English prose is the thing `split-abstract.js`
+     exists for and needed a dozen guards to get right (initials, `c. 2600 BCE`, abbreviated binomials, a
+     sentence closing on a quotation). A three-sentence field that needs no splitting beats a 300-word one
+     that does.
+     WHERE THERE IS NO TERM, NOTHING IS SHOWN — never a manufactured sentence. `fallbackSentence` would
+     happily produce "X is a person, place, or concept referenced in this card's background", which
+     teaches less than silence and reads as the site having something to say when it has not. Measured
+     over the shipped corpus: 223 of the 231 cards the games can deal carry a term, so the silent case is
+     about 3% and shrinks with the pairing rule.
+     A DECK'S OWN TERM IS EXCLUDED (`isDeckGlossKey`) exactly as it is in the other three games that
+     resolve a key this way: community content never reaches a curated game. */
+  function gameGlossKey(answer) {
+    const idx = glossIndexFor(GLOSS_SCOPE_SITE);
+    const k = idx && idx.byAnySurface ? idx.byAnySurface[String(answer || "").trim().toLowerCase()] : null;
+    return k && !isDeckGlossKey(k) ? k : "";
+  }
+  function gameAnswerNote(answer) {
+    const k = gameGlossKey(answer);
+    if (!k) return "";
+    /* Emitted as HTML, not escaped: a description carries `<i>` on a work's title and `<b>` on its own
+       head word, and printing those tags is the fault the changelog met in Aug 2026. Through
+       `sanitizeHTML` all the same — this is a new surface, and the admin overlay can rewrite a
+       description live. Markers are stripped: a footnote number with no list under it points nowhere. */
+    return sanitizeHTML(String(glossText(k) || "").replace(/<sup class="fn"[^>]*><\/sup>/g, ""));
+  }
 
   PAGES.challenge = function (root) {
     detachKeys();
@@ -29721,8 +29760,13 @@
         else if (idx === i) b.classList.add("wrong");
       });
       const rev = root.querySelector("#reveal"); rev.hidden = false;
+      /* The answer's own glossary entry — see gameAnswerNote. `.tf-why` is True or False's explanation
+         class, reused rather than copied: the two say the same kind of thing in the same place under the
+         same verdict line, and a second class for it is how they come to look like different features. */
+      const note = gameAnswerNote(item.correct);
       rev.innerHTML =
         '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it’s <b>" + esc(gameCapFirst(item.correct)) + "</b></div>" +
+        (note ? '<p class="tf-why">' + note + "</p>" : "") +
         '<button class="btn" id="mc-next">' + (qi + 1 < Q.length ? "Next question" : "See results") + "</button>";
       rev.querySelector("#mc-next").addEventListener("click", next);
     }
@@ -29751,7 +29795,7 @@
           <div class="tf-summary">${Q.map((it, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">${it.card.question}</p><p class="tf-sum-a"><b>${esc(gameCapFirst(it.correct))}</b></p></div>
+              <div><p class="tf-sum-q">${it.card.question}</p><p class="tf-sum-a"><b>${esc(gameCapFirst(it.correct))}</b>${(() => { const n = gameAnswerNote(it.correct); return n ? " — " + n : ""; })()}</p></div>
             </div>`).join("")}</div>
           <p class="tf-tomorrow">A fresh set arrives tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="mc-home">Home</button></div>
@@ -31113,15 +31157,23 @@
   );
   function picturePool() {
     const out = [], seen = new Set();
-    const add = (img, label, kind, gloss, tags) => {
+    const add = (img, label, kind, gloss, tags, note) => {
       if (!img || !img.src || !label) return;
       const l = String(label).trim();
       if (!l || seen.has(l.toLowerCase())) return;   // one entry per subject, or a round could offer the answer twice
       const t = Array.isArray(tags) && tags.length ? tags : [kind];
       if (PIC_ABSTRACT_KINDS.has(String(t[0] || "").toLowerCase())) return;
       seen.add(l.toLowerCase());
+      /* `desc` DESCRIBES THE PICTURE AND `note` DESCRIBES THE SUBJECT, and conflating the two is what
+         made this game unteachable (Aug 2026, on request). Every entry already carried a `desc` and it
+         is the image's own caption — "Delineations on pieces of antler. Public domain, via Wikimedia
+         Commons." — which says what is in the photograph and nothing whatever about what the thing IS.
+         `note` is the subject's glossary entry (see gameAnswerNote), resolved from the LABEL, which is
+         the answer term for a card and the head word for a glossary subject. An ARTEFACT resolves to
+         nothing, having no glossary entry, and gets its own description instead — an artefact plate is
+         already three to five sentences about the object, which is exactly this. */
       out.push({ src: img.src, label: l, title: img.title || "", desc: img.desc || "", credit: img.credit || "", alt: img.alt || "",
-                 kind: kind, gloss: gloss || "", tags: t });
+                 kind: kind, gloss: gloss || "", note: note || "", tags: t });
     };
     /* EVERY SUBJECT DRAWN FROM THE CORPUS IS NOW UNDER THE DIFFICULTY BAR (Aug 2026, on request: "ensure
        the Picture Round minigame uses only cards with level 1 or 2 difficulty rating"). The CARD half
@@ -31152,9 +31204,9 @@
       const k = idx && idx.byAnySurface ? idx.byAnySurface[String(c.answerText || "").trim().toLowerCase()] : null;
       return k && !isDeckGlossKey(k) ? glossTags(k) : null;
     };
-    CARDS.forEach((c) => { if (avail.has(c.id)) add(c.image, cardLocalized(c).answerText, "card", "", kindTags(c)); });
-    easyGloss.forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k, glossTags(k)); });
-    artefactsMerged().forEach((a) => add(a.image, a.name, "artefact"));
+    CARDS.forEach((c) => { if (avail.has(c.id)) { const lc = cardLocalized(c); add(c.image, lc.answerText, "card", "", kindTags(c), gameAnswerNote(lc.answerText)); } });
+    easyGloss.forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k, glossTags(k), gameAnswerNote(glossTitle(k))); });
+    artefactsMerged().forEach((a) => add(a.image, a.name, "artefact", "", null, sanitizeHTML(String(a.desc || "").replace(/<sup class="fn"[^>]*><\/sup>/g, ""))));
     return out;
   }
   function dailyPictureRounds() {
@@ -31237,8 +31289,13 @@
       const rev = root.querySelector("#picReveal"); rev.hidden = false;
       rev.innerHTML =
         '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it’s <b>" + esc(gameCapFirst(it.label)) + "</b></div>" +
+        /* Order: what it is called, what it IS, then what this particular picture shows. `note` is the
+           subject's own entry and `desc` the photograph's caption — see the note field in picturePool.
+           `.pic-shows` is quieter than `.pic-cap` because it is now the third line rather than the
+           second, and a caption set as loud as the title reads as a second title. */
         (it.title ? '<p class="pic-cap">' + esc(it.title) + "</p>" : "") +
-        (it.desc ? '<p class="tf-why">' + esc(it.desc) + "</p>" : "") +
+        (it.note ? '<p class="tf-why">' + it.note + "</p>" : "") +
+        (it.desc ? '<p class="pic-shows">' + esc(it.desc) + "</p>" : "") +
         (it.credit ? '<p class="pic-credit">' + mediaCreditHTML(it.credit) + "</p>" : "") +
         '<button class="btn" id="pic-next">' + (r + 1 < ROUNDS ? "Next round" : "See results") + "</button>";
       rev.querySelector("#pic-next").addEventListener("click", () => { r++; (r < ROUNDS) ? renderRound() : renderEnd(); });
@@ -31253,7 +31310,7 @@
           <div class="tf-summary">${rounds.map((rd, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">${esc(gameCapFirst(rd.it.label))}</p><p class="tf-sum-a">${esc(rd.it.title || "")}</p></div>
+              <div><p class="tf-sum-q">${esc(gameCapFirst(rd.it.label))}</p><p class="tf-sum-a">${rd.it.note || esc(rd.it.title || "")}</p></div>
             </div>`).join("")}</div>
           <p class="tf-tomorrow">Five fresh pictures arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="pic-home">Home</button></div>
@@ -31609,7 +31666,12 @@
               <div class="mg-head"><span class="mg-round" id="mgRound"></span><span class="mg-score" id="mgScore"></span></div>
               <div class="mg-q" id="mgQ"></div>
               <div class="mg-feedback" id="mgFeedback" hidden></div>
-              <button class="btn mg-next" id="mgNext" type="button" hidden></button>
+              <div class="mg-acts">
+                ${/* A TAP SELECTS; THIS COMMITS (Aug 2026, on request). See gamePick by gameTap. */""}
+                <button class="btn mg-confirm" id="mgConfirm" type="button" hidden></button>
+                <button class="btn ghost mg-clear" id="mgClear" type="button" hidden>Clear</button>
+                <button class="btn mg-next" id="mgNext" type="button" hidden></button>
+              </div>
             </div>
           </div>
           <div class="atlas-help" id="atlasHelp" hidden>
@@ -33421,9 +33483,16 @@
        members alone, so two marks wanting different colours would blit whichever was drawn first. */
     let gameMarks = [];    // [{ idxs, tint }] — a wrong guess, or the revealed answer
     let gamePin = null;    // { lon, lat, name, tint } — a revealed capital, which a ring that fades cannot show
+    let gamePickPin = null;   // [lon, lat] — a capital round's PENDING pick; a point guess has no polygon to tint
     const TINT_MISS = tintOf("224,68,56", 0.34);    // where you went — the game red
     const TINT_FOUND = tintOf("46,164,90", 0.34);   // you found it — the game green
     const TINT_ANSWER = tintOf("255,178,46", 0.38); // where it was — the map's own gold, laid on harder
+    /* …and where you are POINTING, before you commit to it (Aug 2026, on request). It is deliberately
+       none of the three above and deliberately not the Atlas's own selection gold either: gold on this
+       board already means "the answer was here", and a pending guess wearing it would announce the
+       reveal a beat before the reveal. Blue is unused by the game and reads as a cursor rather than as
+       a verdict — which is exactly what a pick that has not been submitted is. */
+    const TINT_PICK = tintOf("59,110,214", 0.30);   // where you are pointing — not yet an answer
     /* A place the reader arrived at from a glossary popup's map marker, or picked out of the search box
        (Aug 2026, on request). A POINT focus is drawn as a gold dot with its name beside it — and ONLY while
        it is focused: most of these places (a cave, a gorge, a dig site) are not cities and have no business
@@ -33698,6 +33767,20 @@
           const nm = placeName(focusPoint.name);
           ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, x + 10, y);
           ctx.fillStyle = LBL_TEXT; ctx.fillText(nm, x + 10, y);
+          ctx.restore();
+        }
+      }
+      /* A capital round's PENDING pick. A point guess has no polygon to tint, so without this the reader
+         has selected a spot on an ocean and the only thing on screen saying where is the button's own
+         "Guess this spot" — which names nothing. Hollow rather than filled, and in the pick blue: it is
+         a crosshair, not a mark. */
+      if (gamePickPin) {
+        proj(gamePickPin[0], gamePickPin[1]);
+        if (PV >= 0) {
+          ctx.save();
+          ctx.beginPath(); ctx.arc(PX, PY, 6.5, 0, TAU);
+          ctx.lineWidth = 2.4; ctx.strokeStyle = TINT_PICK.line; ctx.stroke();
+          ctx.beginPath(); ctx.arc(PX, PY, 1.8, 0, TAU); ctx.fillStyle = TINT_PICK.line; ctx.fill();
           ctx.restore();
         }
       }
@@ -34041,7 +34124,10 @@
         scheduleDraw(); endMotion(160);
       } else if (k === "Enter") {
         e.preventDefault();
-        if (GAME) { gameTap(W / 2, H / 2); return; }
+        /* Enter PICKS what is at the centre, and Enter again CONFIRMS it — the keyboard's version of the
+           mouse's two clicks. Without the second branch a keyboard reader would have to leave the globe
+           for the button after every aim, which makes the accessible route the slow one. */
+        if (GAME) { if (gamePick) gameCommit(); else gameTap(W / 2, H / 2); return; }
         const idx = countryAt(W / 2, H / 2);
         if (idx >= 0) {
           const pll = screenToLonLat(W / 2, H / 2); popPointLL = pll ? [pll[0], pll[1]] : null;
@@ -34575,8 +34661,19 @@
     }
     /* ---------- "Find it" — the daily geography game, played on the real globe ---------- */
     const mgEl = root.querySelector("#mapGame"), mgRoundEl = root.querySelector("#mgRound"), mgScoreEl = root.querySelector("#mgScore"),
-      mgQEl = root.querySelector("#mgQ"), mgFeedbackEl = root.querySelector("#mgFeedback"), mgNextEl = root.querySelector("#mgNext");
-    let gameRounds = [], gameRi = 0, gameTries = 0, gameFirstTry = 0, gameLock = false, gameOver = false;
+      mgQEl = root.querySelector("#mgQ"), mgFeedbackEl = root.querySelector("#mgFeedback"), mgNextEl = root.querySelector("#mgNext"),
+      mgConfirmEl = root.querySelector("#mgConfirm"), mgClearEl = root.querySelector("#mgClear");
+    /* `gameFound` IS THE SCORE AND `gameFirstTry` IS NO LONGER IT (Aug 2026, on request: "at the end of
+       that minigame it says x/5 questions correct, but it only counts answers that were correct
+       first-try — second and third guesses should still count if they were correct"). The screen said
+       "4 / 5 found on the first try", which is a true sentence about a figure nobody could see was
+       being computed that way while they played: the running counter beside the round number said
+       "points", and a reader who found four places and was told they had scored two read it as the game
+       losing an answer. So the headline is now what was FOUND, at whichever attempt, and the first-try
+       tally survives as a second line on the results — it is a real distinction and worth keeping, it
+       just is not what "x / 5 correct" means to anybody reading it. */
+    let gameRounds = [], gameRi = 0, gameTries = 0, gameFound = 0, gameFirstTry = 0, gameLock = false, gameOver = false;
+    let gamePick = null;   // { idx, lon, lat, name } — the tapped place, awaiting Confirm; see gameTap
     const GAME_GREEN = "rgba(46,164,90,1)", GAME_RED = "rgba(224,68,56,1)";   // right / wrong flash colours (fixed, theme-independent like the gold highlight)
     const havKm = (lon1, lat1, lon2, lat2) => {   // great-circle distance, km
       const dLa = (lat2 - lat1) * DEG, dLo = (lon2 - lon1) * DEG;
@@ -34679,15 +34776,17 @@
       hideCountryPopup();   // the previous round's learn-panel closes with the round
       setYear(r.year);
       mgRoundEl.textContent = "Round " + (gameRi + 1) + " / " + gameRounds.length;
-      mgScoreEl.textContent = gameFirstTry + (gameFirstTry === 1 ? " point" : " points");
+      mgScoreEl.textContent = gameFound + " found";
       mgQEl.innerHTML = (r.kind === "capital" ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(finditName(r.n)) + "</b>") + (r.year >= MAXY ? " on today's map" : " — in " + fmtYearG(r.year));
       mgFeedbackEl.hidden = true; mgNextEl.hidden = true;
       selSet.clear(); subSelGeo = -1; subSelUK = []; pulseSet = null;
       gameMarks = []; gamePin = null;   // last round's wrong guesses and its answer come off the board with it
+      gameClearPick();
       scheduleDraw();
     }
     function gameReveal(r, ok) {
       gameLock = true;
+      gameClearPick();
       const tgt = gameTargetLL(r);
       const tint = ok ? TINT_FOUND : TINT_ANSWER;
       pulseCol = ok ? GAME_GREEN : "rgba(255,178,46,1)";   // green = you found it; gold = "here's the one you missed"
@@ -34709,16 +34808,61 @@
       if (tgt) flyTo(tgt[0], tgt[1], Math.max(zoom, r.kind === "capital" ? 2.8 : 1.5), null);
       mgFeedbackEl.textContent = ok ? (gameTries === 0 ? "Found it — first try!" : "Found it!") : "It was here.";
       mgFeedbackEl.hidden = false;
-      mgScoreEl.textContent = gameFirstTry + (gameFirstTry === 1 ? " point" : " points");
+      mgScoreEl.textContent = gameFound + " found";
       mgNextEl.textContent = gameRi + 1 >= gameRounds.length ? "See your score" : "Next round";
       mgNextEl.hidden = false;
       scheduleDraw();
+    }
+    /* ---------- A TAP SELECTS; CONFIRMING IS A SECOND PRESS (Aug 2026, on request) ----------
+       "Clicking a country shouldn't immediately guess, but only selected before the user should click a
+       confirmation button." A tap on a globe is not a confident gesture: the reader has been dragging
+       and pinching the same surface for the whole round, the target may be four pixels wide at the
+       zoom they are at, and a stray finger spent a guess with no way back. Worse, the map is the only
+       control here, so there was no way to look closely at a place — the tap that brought you to it was
+       the answer.
+       So `gameTap` now only ever PICKS: it lights the place blue, names it on the button, and waits.
+       `gameCommit` is the old function from the judging line down. Three things follow.
+       A PICK IS REPLACEABLE AND WITHDRAWABLE — tapping elsewhere moves it and Clear takes it off — so a
+       mis-tap costs nothing at all, which is the whole point.
+       IT IS A `gameMarks` ENTRY RATHER THAN A FOURTH MECHANISM: the pending mark is painted, replaced
+       and cleared by the same list that already carries the wrong guesses and the answer, so nothing
+       had to learn a new kind of highlight and a pick can never outlive the round.
+       AND FROM THE KEYBOARD, ENTER PICKS AND ENTER AGAIN CONFIRMS. Aiming with the arrow keys and then
+       having to Tab out of the globe to a button would make the keyboard route the slow one; two
+       presses of the same key is what the mouse does with two clicks. */
+    function gameClearPick() {
+      gamePick = null; gamePickPin = null;
+      gameMarks = gameMarks.filter((m) => !m.pick);
+      if (mgConfirmEl) mgConfirmEl.hidden = true;
+      if (mgClearEl) mgClearEl.hidden = true;
     }
     function gameTap(px, py) {
       if (!GAME || gameOver || gameLock || gameRi >= gameRounds.length) return;
       const r = gameRounds[gameRi];
       const ll = screenToLonLat(px, py); if (!ll) return;   // clicked the sky
-      const clickedIdx = countryAt(px, py);   // whatever entity the guess landed on (feeds the red flash + its learn-panel)
+      const clickedIdx = countryAt(px, py);
+      /* A capital round is answered with a POINT, so a tap in the open sea is a legitimate guess there
+         and an entity round's is not — tapping the ocean when asked for a country is a miss of the
+         globe rather than a wrong answer, and spending a guess on it would be the mis-tap this change
+         exists to stop. */
+      if (r.kind !== "capital" && clickedIdx < 0) return;
+      gameMarks = gameMarks.filter((m) => !m.pick);
+      const name = r.kind === "capital" ? "" : finditName(entityName(clickedIdx) || "");
+      gamePick = { idx: clickedIdx, lon: ll[0], lat: ll[1], name: name };
+      if (clickedIdx >= 0) gameMarks.push({ idxs: [clickedIdx], tint: TINT_PICK, pick: true });
+      gamePickPin = r.kind === "capital" ? [ll[0], ll[1]] : null;
+      if (mgConfirmEl) { mgConfirmEl.textContent = name ? "Guess " + name : "Guess this spot"; mgConfirmEl.hidden = false; }
+      if (mgClearEl) mgClearEl.hidden = false;
+      sfx("click");
+      scheduleDraw();
+    }
+    function gameCommit() {
+      if (!GAME || gameOver || gameLock || !gamePick || gameRi >= gameRounds.length) return;
+      const r = gameRounds[gameRi];
+      const ll = [gamePick.lon, gamePick.lat];
+      const clickedIdx = gamePick.idx;   // whatever entity the guess landed on (feeds the red flash + its learn-panel)
+      { const pll = ll; popPointLL = [pll[0], pll[1]]; }   // the guess's own point — feeds the panel's crumb and "Through the ages"
+      gameClearPick();
       let correct = false, distKm = null;
       if (r.kind === "capital") {
         distKm = havKm(ll[0], ll[1], r.lon, r.lat);
@@ -34728,6 +34872,7 @@
         if (!correct) { const tgt = gameTargetLL(r); if (tgt) distKm = havKm(ll[0], ll[1], tgt[0], tgt[1]); }
       }
       if (correct) {
+        gameFound++;                          // ANY attempt counts — see gameFound
         if (gameTries === 0) gameFirstTry++;
         sfx("good");
         gameReveal(r, true);
@@ -34754,12 +34899,17 @@
     }
     function gameEnd() {
       gameOver = true;
-      const n = gameRounds.length, perfect = n >= 5 && gameFirstTry >= n;   // a short game (thin pools) can never count as a perfect run
-      markGamePlayed("findit", perfect, gameFirstTry, n); save(); checkAchievements();   // achievements: the Clean Sweep now includes this game
+      const n = gameRounds.length, perfect = n >= 5 && gameFound >= n;   // a short game (thin pools) can never count as a perfect run
+      markGamePlayed("findit", perfect, gameFound, n); save(); checkAchievements();   // achievements: the Clean Sweep now includes this game
       mgRoundEl.textContent = "Done!";
       mgScoreEl.textContent = "";
-      mgQEl.innerHTML = "<b>" + gameFirstTry + " / " + n + "</b> found on the first try" + (perfect ? " — perfect!" : ".");
-      mgFeedbackEl.textContent = "Come back tomorrow for five new places.";
+      mgQEl.innerHTML = "<b>" + gameFound + " / " + n + "</b> found" + (perfect ? " — perfect!" : ".");
+      /* The first-try tally is kept and is now a SECOND line rather than the headline: it is a real
+         distinction and the one a reader who wants to compare a flawless run with a scraped one needs,
+         it simply is not what "x / 5" means to anybody reading it. Said only when it differs from the
+         score, since "5 found, 5 of them first try" is the same sentence twice. */
+      mgFeedbackEl.textContent = (gameFirstTry < gameFound ? gameFirstTry + " of them on the first try. " : "") +
+        "Come back tomorrow for five new places.";
       mgFeedbackEl.hidden = false;
       mgNextEl.textContent = "Back to Home"; mgNextEl.hidden = false;
     }
@@ -34773,6 +34923,8 @@
         gameRi++;
         if (gameRi >= gameRounds.length) gameEnd(); else gameShowRound();
       });
+      if (mgConfirmEl) mgConfirmEl.addEventListener("click", gameCommit);
+      if (mgClearEl) mgClearEl.addEventListener("click", () => { gameClearPick(); scheduleDraw(); });
       gameRounds = buildGameRounds();
       if (gameRounds.length) { mgEl.hidden = false; gameShowRound(); }
       else route("map");   // no data to play with (should never happen) — fall back to the plain Atlas
@@ -36587,23 +36739,36 @@
       ${themeMockHTML(t)}
       <span class="theme-name">${t[1]}</span><span class="theme-tag">${tag}</span></button>`;
     };
-    /* ---------- ONLY WHAT THE READER HAS WON IS SHOWN (Aug 2026, on request) ----------
+    /* ---------- ONLY WHAT THE READER HAS WON IS SHOWN — BUT THE ROW IS ALWAYS THERE ----------
        The picker used to draw all six with the five collectibles greyed and padlocked, which is the
        shape a game uses to advertise what is still to come — and this is a settings page, where every
        other row is something the reader can actually change. A locked tile there is five sixths of the
-       control answering a press with a toast.
+       control answering a press with a toast. So the TILES are the unlocked ones (Aug 2026, on request).
 
-       So the tiles are the unlocked ones, and the ROW ITSELF is not drawn until a chest has produced a
-       theme: before that the only choice is `folio`, and a picker offering one option is a picker
-       explaining a decision nobody is being asked to make. `folio` is never in the register — it is
-       the default and cannot be lost — so the gate asks whether any COLLECTIBLE is owned, which is a
-       different question from whether the list is non-empty and is the one that matters.
+       THE ROW ITSELF USED TO BE HIDDEN UNTIL A CHEST HAD PRODUCED A THEME, AND THAT WENT TOO FAR
+       (Aug 2026, on a bug report: "I don't see anywhere to change my theme on the settings page and
+       switch between my collected ones"). The earlier request is about which TILES are listed; hiding
+       the whole row was a second decision taken alongside it, on the reasoning that a picker offering
+       one option explains a decision nobody is being asked to make. What it actually did was take the
+       feature off the page — a reader looking for where their themes live found a Settings page with no
+       mention of themes at all, and no way to tell an empty collection from a control that had moved or
+       broken. A row saying "this is where your themes are, and here is how you get more" is not a
+       decision nobody is being asked to make; it is the answer to the question they arrived with. The
+       lone `folio` tile is also the only place a reader can see the default beside the ones they win.
+
+       So the row is unconditional and the COPY carries the state instead: it names how many are still to
+       find and where they come from, and says nothing at all once the set is complete. That is the
+       honest place for it — a sentence can be right in every state, where a hidden row is right in one.
 
        The click handler keeps its locked guard as a backstop rather than as a path anybody reaches: it
        reads an id off an attribute, and a guard on a value read out of the DOM is worth keeping even
        when nothing renders the value it refuses. */
     const shownThemes = THEME_OPTS.filter((t) => themeUnlocked(t[0]));
-    const anyWon = COLLECTIBLE_THEMES.some((t) => themeUnlocked(t));
+    const stillLocked = lockedThemes().length;
+    const themeHint = !stillLocked ? ""
+      : shownThemes.length > 1
+        ? stillLocked + (stillLocked === 1 ? " more theme is" : " more themes are") + " still to find in artefact chests."
+        : "The other " + stillLocked + " are found in artefact chests, which a level, a clean sweep of the daily games or a week's streak will earn you.";
     const setHead = (accent, svg, title) => `<div class="set-head" style="--msn-accent:${accent}"><span class="msn-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${svg}</svg></span><h2>${title}</h2></div>`;
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Preferences</span><h1>Settings</h1>
@@ -36612,10 +36777,10 @@
         ${/* set-wide: the theme picker is a row of tiles and wants the whole width when there is one (see .settings) */""}
         <div class="set-card set-wide">
           ${setHead("var(--indigo)", '<circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="13" r="2"/><circle cx="6" cy="12" r="2.5"/><path d="M12 2a10 10 0 1 0 10 10c0-1.2-1-2-2.2-2H16a3 3 0 0 1-3-3V4.2C13 3 12.8 2 12 2z"/>', "Appearance")}
-          ${anyWon ? `<div class="set-row set-row-block">
-            <div class="info"><h3>Theme</h3><p>Each theme has its own colours, typography and layout. Hover a tile to try it on; click to keep it. Night mode works within every theme.</p></div>
+          <div class="set-row set-row-block">
+            <div class="info"><h3>Theme</h3><p>Each theme has its own colours, typography and layout. Hover a tile to try it on; click to keep it. Night mode works within every theme.${themeHint ? " " + themeHint : ""}</p></div>
             <div id="themeGrid"><div class="theme-grid">${shownThemes.map(themeBtn).join("")}</div></div>
-          </div>` : ""}
+          </div>
           <div class="set-row">
             ${/* Follow the operating system (Aug 2026, on request), and the default for a first-time
                   visitor. It sits ABOVE the manual switch because it decides whether that switch is the

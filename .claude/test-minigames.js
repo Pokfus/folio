@@ -916,6 +916,106 @@ function crosswordForPage(clueIds) {
       [set(day, "truefalse"), set(day, "truefalse-o")].join(" / "));
   }
 
+  /* ---- FIND IT: A TAP SELECTS, A BUTTON COMMITS, AND A LATE ANSWER STILL COUNTS ----
+     Two reported faults, Aug 2026: "clicking a country shouldn't immediately guess, but only selected
+     before the user should click a confirmation button", and "at the end of that minigame it says x/5
+     questions correct, but it only counts answers that were correct first-try — second and third guesses
+     should still count if they were correct." Nothing in the suite covered this game at all, which is
+     how a score that disagreed with the reader's own arithmetic went unremarked.
+
+     THE TARGET IS HUNTED RATHER THAN COMPUTED, and that is forced: the rounds are built inside the Atlas
+     closure from the era geometry, and turning a lon/lat into a screen point needs the globe's own
+     rotation and zoom, neither of which is reachable from outside. So the board is swept and the CONFIRM
+     BUTTON is read — it names the place under the last tap, which is exactly the readout the feature
+     added. ~850 clicks sweep a hemisphere in about eleven seconds; the globe is spun a quarter turn and
+     swept again when the day's target is on the far side, since the opening view is centred on the
+     reader's home and the draw is seeded by the date rather than by what happens to be facing us.
+     It FAILS if the target is never found rather than skipping the assertion — a hunt that quietly gives
+     up is a test that passes on the day the feature breaks. */
+  {
+    const [ctx, page] = await fresh({ width: 1280, height: 900 });
+    watch(page);
+    await page.goto(base + "#findit", { waitUntil: "load" });
+    await page.waitForTimeout(2200);
+    const read = () => page.evaluate(() => {
+      const t = (s) => { const e = document.querySelector(s); return e ? (e.textContent || "").trim() : ""; };
+      const h = (s) => { const e = document.querySelector(s); return !e || e.hidden; };
+      const acts = document.querySelector(".mg-acts");
+      return { q: t("#mgQ"), score: t("#mgScore"), fb: t("#mgFeedback"),
+               confirm: t("#mgConfirm"), confirmHidden: h("#mgConfirm"), clearHidden: h("#mgClear"),
+               nextHidden: h("#mgNext"), acts: acts ? getComputedStyle(acts).display : "" };
+    });
+    const box = await page.locator("canvas").first().boundingBox();
+    const tap = (fx, fy) => page.mouse.click(box.x + box.width * fx, box.y + box.height * fy);
+
+    const opened = await read();
+    const target = ((opened.q.match(/Find (?:the city of )?(.+?)(?: on today| — in |$)/) || [])[1] || "").trim();
+    check("[fi] the game opens on a round with a place to find", !!target && opened.acts === "none",
+      JSON.stringify(opened));
+
+    /* 1. A TAP SELECTS AND DOES NOT ANSWER. The whole of the first report: the score must not move, no
+       verdict may appear, and the button must name what was tapped. */
+    await tap(0.5, 0.5);
+    const picked = await read();
+    check("[fi] a tap selects rather than guessing",
+      !picked.confirmHidden && /^Guess /.test(picked.confirm) && picked.fb === "" && picked.score === opened.score,
+      JSON.stringify(picked));
+    check("[fi] …and offers a way to withdraw it", !picked.clearHidden && picked.acts !== "none",
+      JSON.stringify(picked));
+
+    /* 2. CLEAR PUTS IT BACK. A pick that cannot be withdrawn is a click that has still been spent. */
+    await page.click("#mgClear");
+    await page.waitForTimeout(200);
+    const cleared = await read();
+    check("[fi] Clear withdraws the pick, and the row collapses with it",
+      cleared.confirmHidden && cleared.clearHidden && cleared.acts === "none" && cleared.fb === "",
+      JSON.stringify(cleared));
+
+    /* 3. A DELIBERATE MISS, COMMITTED. It must take a Confirm to score anything at all. */
+    let missed = null;
+    for (const [fx, fy] of [[0.5, 0.5], [0.46, 0.52], [0.54, 0.48], [0.5, 0.44]]) {
+      await tap(fx, fy);
+      const st = await read();
+      if (!st.confirmHidden && st.confirm !== "Guess " + target) { missed = st; break; }
+    }
+    check("[fi] a wrong place can be picked without being answered", !!missed, JSON.stringify(missed));
+    if (missed) {
+      await page.click("#mgConfirm");
+      await page.waitForTimeout(700);
+      const after = await read();
+      check("[fi] …and confirming it is what spends the try",
+        /try/i.test(after.fb) && after.confirmHidden, JSON.stringify(after));
+    }
+
+    /* 4. THE SECOND TRY, RIGHT. The reported scoring bug: this used to leave the score at 0. */
+    let hit = null;
+    for (let turn = 0; turn < 4 && !hit; turn++) {
+      if (turn) {   // spin a quarter turn — the day's target may be on the far side of the globe
+        await page.locator("canvas").first().click({ position: { x: 5, y: 5 } }).catch(() => {});
+        for (let i = 0; i < 18; i++) await page.keyboard.press("ArrowRight");
+        await page.waitForTimeout(400);
+      }
+      for (let gy = 0.2; gy <= 0.84 && !hit; gy += 0.02) {
+        for (let gx = 0.2; gx <= 0.84; gx += 0.02) {
+          await tap(gx, gy);
+          const lbl = await page.evaluate(() => { const b = document.querySelector("#mgConfirm"); return b && !b.hidden ? b.textContent : ""; });
+          if (lbl === "Guess " + target) { hit = [gx, gy]; break; }
+        }
+      }
+    }
+    check("[fi] the day's target can be found on the globe", !!hit, "swept four quarter-turns for " + target);
+    if (hit) {
+      await page.click("#mgConfirm");
+      await page.waitForTimeout(900);
+      const won = await read();
+      check("[fi] a correct SECOND guess counts towards the score",
+        /^1 found/.test(won.score) && /Found it/.test(won.fb), JSON.stringify(won));
+      check("[fi] …and the round is over rather than offering a third try",
+        !won.nextHidden, JSON.stringify(won));
+    }
+    await ctx.close();
+  }
+
   check("[all] no page errors anywhere", errs.length === 0, errs.slice(0, 4).join(" | "));
 
   await browser.close();
