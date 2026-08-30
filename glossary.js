@@ -1591,7 +1591,8 @@ window.GLOSSARY = {
 "Neo-Babylonian_Empire": "The <b>Neo-Babylonian Empire</b>, also called the Chaldaean monarchy, was the state ruled from Babylon between the fall of Assyria and the Persian conquest, founded by Nabopolassar, whose war against Assyria took Nineveh in 612 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings styled themselves providers of the great temples rather than conquerors, Nebuchadnezzar II, who ruled from 604 to 562 BCE, calling himself king of Babylon, provider of Esagila and Ezida, first-born son of Nabopolassar.<sup class=\"fn\" data-fn=\"2\"></sup> Its most visible remains are walls of glazed brick, where lions, dragons and bulls in white and ochre stand against a blue ground; it ended in 539 BCE when Cyrus II took Babylonia.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Nebuchadnezzar_II": "<b>Nebuchadnezzar II</b> was king of Babylon from 605 to 562 BCE, the longest reign of the Neo-Babylonian dynasty, and he came to the throne in the year he defeated Necho II of Egypt at Carchemish.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He is known chiefly from building inscriptions rather than from annals of campaigns, and his foundation bricks call him king of Babylon, provider of Esagila and Ezida, first-born son of Nabopolassar.<sup class=\"fn\" data-fn=\"3\"></sup> The Ishtar Gate at Babylon carries his name on the bricks of its earliest phase, and the magnetism recorded in that fired clay puts the building of the whole complex at about 569 BCE, within his reign.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Hanging_Gardens_of_Babylon": "The <b>Hanging Gardens of Babylon</b> are a terraced garden described by Greek and Roman writers as one of the seven wonders of the world, planted on vaults and watered by engines that raised water from the river below.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> No Babylonian text locates or describes them and nothing found at Babylon has settled the question, so they are known only from accounts written long after the city they are placed in.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> One argument moves them to Nineveh, where Sennacherib describes a great park beside his palace and had cut canals that could water it, later writers having confused the two cities often enough for the swap to be possible.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
-"Babylonian_captivity": "The <b>Babylonian captivity</b> was the deportation of Judaeans to Babylonia in a series of removals between 597 and 582 BCE, after the kingdom of Judah rebelled, and is conventionally reckoned to end when Persia took Babylon in 539 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Those taken were largely an elite of the royal house, officials, priests and skilled workers, so the land was not emptied: peasants remained and some fled to Egypt.<sup class=\"fn\" data-fn=\"1\"></sup> The deported can be read about directly in tablets from Al-Yahudu, a country town probably between Nippur and Uruk, where Judaean families farmed, took on Babylonian names and customs, and went on giving children names built round the name of their god.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Babylonian_captivity": "The <b>Babylonian captivity</b> was the deportation of Judaeans to Babylonia in a series of removals between 597 and 582 BCE, after the kingdom of Judah rebelled, and is conventionally reckoned to end when Persia took Babylon in 539 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Those taken were largely an elite of the royal house, officials, priests and skilled workers, so the land was not emptied: peasants remained and some fled to Egypt.<sup class=\"fn\" data-fn=\"1\"></sup> The deported can be read about directly in tablets from Al-Yahudu, a country town probably between Nippur and Uruk, where Judaean families farmed, took on Babylonian names and customs, and went on giving children names built round the name of their god.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Ancient_Israel_and_Judah": "<b>Ancient Israel and Judah</b> were two neighbouring kingdoms in the southern Levant during the Iron Age II, roughly 950 to 586 BCE, the northern one ruled from Samaria and the southern from Jerusalem.<sup class=\"fn\" data-fn=\"1\"></sup> The northern kingdom had the wider territory and sat across the trade routes, and the personal names recorded in it are more varied than those of the south, which has been read as a more cosmopolitan society.<sup class=\"fn\" data-fn=\"1\"></sup> Assyria conquered the north in the 8th century BCE and Babylon destroyed Jerusalem in 586 BCE, ending the southern kingdom, and both campaigns left burnt layers datable from the magnetic direction locked into their bricks.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2312,7 +2313,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Nineveh": "capital c. 704 – 612 BCE",
 "Ashurbanipal": "668 – c. 631 BCE",
 "Nebuchadnezzar_II": "605 – 562 BCE",
-"Babylonian_captivity": "597 – 539 BCE"
+"Babylonian_captivity": "597 – 539 BCE",
+"Ancient_Israel_and_Judah": "c. 950 – 586 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3326,7 +3328,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Neo-Babylonian_Empire": ["Chaldaean monarchy","Neo-Babylonian empire"],
 "Nebuchadnezzar_II": ["Nebuchadrezzar II"],
 "Hanging_Gardens_of_Babylon": ["Hanging Garden of Babylon","Hanging Gardens"],
-"Babylonian_captivity": ["Babylonian exile"]
+"Babylonian_captivity": ["Babylonian exile"],
+"Ancient_Israel_and_Judah": ["Israel and Judah"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4944,7 +4947,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Neo-Babylonian_Empire": ["state","history","archaeology","iron age","iraq"],
 "Nebuchadnezzar_II": ["ruler","person","history","archaeology","iron age","iraq"],
 "Hanging_Gardens_of_Babylon": ["building","place","history","archaeology","iron age","iraq"],
-"Babylonian_captivity": ["event","history","migration","iron age","iraq"]
+"Babylonian_captivity": ["event","history","migration","iron age","iraq"],
+"Ancient_Israel_and_Judah": ["state","history","archaeology","iron age","israel"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
