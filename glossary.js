@@ -1604,7 +1604,8 @@ window.GLOSSARY = {
 "Lydia": "Lydia was a kingdom of western Anatolia with its capital at Sardis, remembered above all for its wealth and for Croesus, the last of its kings.<sup class=\"fn\" data-fn=\"1\"></sup> It fell to Cyrus after a siege of 14 days, Croesus having ruled 14 years and having marched, on Herodotus' account, on the strength of an oracle telling him that if he sent an army against the Persians he would destroy a great empire.<sup class=\"fn\" data-fn=\"1\"></sup> Cyrus is said to have disarmed the Lydians afterwards and set their sons to lyre-playing and shop-keeping, and Aeschylus lists them among the peoples he won to his rule.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Phocaea": "Phocaea was an Ionian city of the Asia Minor coast whose people, Herodotus says, were the earliest Greeks to make long sea voyages, finding the Adriatic, Tyrrhenia, Iberia and Tartessus in fifty-oared ships rather than round freighters.<sup class=\"fn\" data-fn=\"1\"></sup> Thucydides has them defeating a Carthaginian fleet while they were founding Marseilles, in whose citadel Strabo describes temples of Ephesian Artemis and Delphian Apollo.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Besieged by the Persian general Harpagus, its people asked for a day to deliberate and used it to load their families, goods and temple statues aboard and sail; survivors of that flight later founded the Italian town called Hyele.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Cambyses_II": "Cambyses II was the second king of the Achaemenid Persian empire, the son and successor of Cyrus the Great, reigning seven years and five months.<sup class=\"fn\" data-fn=\"1\"></sup> His reign is remembered above all for the conquest of Egypt in 525 BCE, which ended the country’s history under native dynasties.<sup class=\"fn\" data-fn=\"3\"></sup> Greek writers, and Herodotus in particular, present him as violent and unbalanced, telling how he stabbed the sacred Apis bull at Memphis and killed his own brother, while the one Persian record of his reign, the inscription Darius cut at Behistûn, confirms only that he had a brother Smerdis and slew him in secret.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Darius_I": "Darius I was the Achaemenid king of Persia who took the throne on the death of Cambyses and held it for 36 years.<sup class=\"fn\" data-fn=\"2\"></sup> On a cliff at Behistun he had his own account of that accession carved in three languages, declaring that a Magian called Gaumata had lied by taking the name of Cyrus' son Smerdis, and that nine further rebel kings lied in the same way.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus instead makes him one of seven conspirators who killed the Magian and won the throne by a groom's trick, while Plato remembers a man who was no king's son who divided the empire and fixed its tribute by law.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Darius_I": "Darius I was the Achaemenid king of Persia who took the throne on the death of Cambyses and held it for 36 years.<sup class=\"fn\" data-fn=\"2\"></sup> On a cliff at Behistun he had his own account of that accession carved in three languages, declaring that a Magian called Gaumata had lied by taking the name of Cyrus' son Smerdis, and that nine further rebel kings lied in the same way.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus instead makes him one of seven conspirators who killed the Magian and won the throne by a groom's trick, while Plato remembers a man who was no king's son who divided the empire and fixed its tribute by law.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Satrapy": "A satrapy was a province of the Achaemenid Persian empire, governed by a satrap whom the king appointed, a title Darius uses at Behistun of the men he set over Bactria and Arachosia.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says Darius divided his dominions into 20 such provinces and fixed each one's yearly tribute, while Xenophon describes a governor answering at a yearly review for the cultivation of his land as well as its garrisons.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Because one man held both the revenue and the troops of a whole region, the office could rival the throne, and Herodotus tells how Darius had Oroetes of Sardis killed by his own guards with a sealed letter.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2336,7 +2337,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lydia": "kingdom to c. 546 BCE",
 "Phocaea": "Ionian city, from c. 600 BCE",
 "Cambyses_II": "reigned c. 530 – 522 BCE",
-"Darius_I": "reigned c. 522 – 486 BCE"
+"Darius_I": "reigned c. 522 – 486 BCE",
+"Satrapy": "c. 550 – 330 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3367,7 +3369,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Lydia": ["Lydian","Lydians","Persian conquest of Lydia"],
 "Phocaea": ["Phocaeans","Phocaean","Phokaia"],
 "Cambyses_II": ["Cambyses"],
-"Darius_I": ["Darius the Great"]
+"Darius_I": ["Darius the Great"],
+"Satrapy": ["satrap","satraps","satrapal"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4998,7 +5001,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lydia": ["state","history","geography","warfare"],
 "Phocaea": ["city","history","geography","greece"],
 "Cambyses_II": ["ruler","history","warfare","iran","egypt"],
-"Darius_I": ["ruler","history","warfare","iran"]
+"Darius_I": ["ruler","history","warfare","iran"],
+"Satrapy": ["institution","history","geography","iran"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
