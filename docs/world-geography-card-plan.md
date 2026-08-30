@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-177` Bahamas
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-180` New Caledonia
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,38 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 66 (Bahamas, Iceland, Vanuatu) found the deck's only case of DIPLOMATIC RELATIONS ESTABLISHED
+BEFORE THERE WAS A COUNTRY TO HAVE THEM WITH**, and two more modes of recognition with it. Iceland took over
+its own foreign relations on 10 April 1940, the day after Germany occupied Denmark, without declaring itself
+independent of the Danish crown; Icelandic officials asked the United States in July and December 1940 to
+place the island under its protection **under the Monroe Doctrine**; the United States, "initially
+unenthusiastic", concluded that occupying Iceland was a matter of its own national defence and did so on 7
+July 1941; and **diplomatic relations and an American legation at Reykjavík followed on 30 September 1941 —
+three years before the republic existed**, the guide noting in as many words that "Iceland had taken over
+full control of its foreign relations … although the country had not yet declared itself independent from
+Denmark". Recognition then came on 17 June 1944, the day of the republic's founding, **in public statements
+of congratulation by Roosevelt and Cordell Hull** — a tenth mode, and the only one that is not a document at
+all. The Bahamas gives an eleventh: **the act of recognition WAS the opening of an embassy**, relations and
+the embassy at Nassau both dated 10 July 1973 with nothing else recorded. And **Vanuatu's relations were
+established by an agreement signed by both states** on 30 September 1986, six years after recognition, with
+ambassadorial relations following in 1987 through the ambassador to Papua New Guinea and **the embassy at
+Port Vila opening only on 19 July 2024, 44 years after the recognition** — the widest gap between
+recognition and a resident mission anywhere in the deck. Vanuatu is also **the deck's only condominium**,
+held under the joint sovereignty of Britain and France, which shows up in the Commonwealth's joining line as
+well: where C4 found that line usually dates an independence, Vanuatu's gives "following ending of
+administration Anglo-French condominium", naming the arrangement rather than the departing power. Two
+measurement notes. **The Bahamas is the pass's widest three-way area disagreement among sources that all
+look right** — UNdata 13,940 km², the Commonwealth 14,000 and the World Bank 13,880, a spread of 120 km² or
+0.9 per cent — and the term's 13,878 sat inside the World Bank's rounding interval and outside the other
+two, so C9's rule left it standing; **it was moved to UNdata's figure anyway, for the sibling-consistency
+reason rather than the correction reason**, a card and its own glossary term being two Folio surfaces that
+must not print different areas for one country. And **this is the second batch running with no population
+correction**: all three terms sat between two of their three sources. Batch 45's rule fired for the
+thirteenth consecutive batch and took the most this time — Iceland's "one of the most volcanically active
+places on Earth", Vanuatu's "the country most exposed to natural hazards" and "one of the world's most
+accessible lava lakes", and the Bahamas' "more than 2,000 cays", none of them in anything reachable, against
+the Commonwealth's plain "nearly 700 coral islands. Around 30 of the islands are inhabited."
 
 **Batch 65 (Cabo Verde, Brunei, Belize) is where the recognition guide, the spine of Phase 3's history,
 CONTRADICTS ITSELF AND MISSPELLS A NAME IT PRINTS TWICE** — P2's rule that a spine source is not infallible,
