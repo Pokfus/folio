@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-205`, less the deferred `gw-195` and `gw-201`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-208`, less the deferred `gw-195` and `gw-201`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-206` Saint Kitts and Nevis, `gw-195` Jersey and `gw-201` Guernsey being deferred
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-209` the Northern Mariana Islands, `gw-195` Jersey and `gw-201` Guernsey being deferred
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,64 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 75 (Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands) REFINES batch 74's warning
+about the World Bank's area series into something usable.** Batch 74 found `AG.SRF.TOTL.K2` wrong by
+eighty times for Bermuda, nine for the Faroe Islands and five for Greenland, and the reasonable inference
+was that it fails on very small and very large entities. It does not: here it gives Saint Kitts and Nevis
+**260 km²** against UNdata's 261, American Samoa **200** against UNdata's 199 and the working paper's 200,
+and the Turks and Caicos Islands **950** against UNdata's 948 and the working paper's 948.2 — every one
+right, at the series' own rounding of 10 km². **The series is not systematically wrong at any size; it
+holds bad values for particular entities**, so the guard is a plausibility check per entity rather than a
+rule about size, and it is cited on two of this batch's three cards.
+
+**A C-24 working paper may take its population STRAIGHT FROM THE WORLD BANK, in which case the two are
+not corroboration.** American Samoa's working paper prints "Population: 46,765 (2024 World Bank)" — naming
+its source in the field itself — so citing both would be C8's `SP.POP.TOTL`-relay problem one level up.
+Where the paper does NOT name a source it is an independent estimate and the divergences are real: the
+Turks and Caicos paper's 50,828 for 2024 sits 8 per cent above UNdata's 47,000 and the World Bank's
+46,855, so batch 71's rule applies and the two that agree take the facts box. **Read the population field
+for a parenthesis before treating a working paper as a second source.**
+
+**`legislation.gov.uk` answers, and a British overseas territory's constitution is a statutory instrument
+on it.** The Turks and Caicos Islands Constitution Order 2011 is SI 2011/1681, served in full, and it
+carries what no summary does: section 37 lists the Governor's special responsibilities as defence,
+external affairs, **the regulation of international financial services**, internal security including the
+Police Force, and public-service appointments; section 43 composes the House of Assembly as a Speaker,
+fifteen elected members, four appointed members and the Attorney General, who may not vote. That is
+batch 72's finding one shelf higher — **reach for the metropole's operational guidance, and then for its
+statute book** — and it should serve every other British overseas territory in this deck.
+
+**Two UNdata capital-city figures in one batch are unusable, and each fails differently.** American
+Samoa's gives Pago Pago 48,500 for 2018, which is LARGER than the whole territory's 46,000, the field
+being an urban agglomeration where the territory is shrinking; the Turks and Caicos figure is **0.1
+thousand — a hundred people — and dated 2001**, a quarter of a century old. Batch 70 made reading that
+footnote a standing step and this is why: neither figure is printed on either card, and both capitals are
+named without one.
+
+**A subset font can map a single letter wrongly, and the extraction reads perfectly while a name is
+silently misspelt.** Both 2026 working papers decode capital D as `6`: `6epartment of the Interior`,
+`6utch`, `6emocratic Party`, `6ominican Republic`, and the Turks and Caicos Governor as
+`6ileeni 6aniel-Selvaratnam`. The substitution is consistent, so it is legible once seen — and that is
+the danger, since a proper noun met only once has nothing to be checked against. **Read an extraction for
+a letter that never appears**; here the absence of every capital D is the tell, and Bermuda's paper in
+batch 74 had no such fault, so it is per file rather than per publisher.
+
+The three cards themselves are the deck's three modes side by side. **Saint Kitts and Nevis closes the
+Bridgetown thread with the guide saying it outright** — "All U.S. ambassadors have been resident at
+Bridgetown, Barbados" — after eight cards of inferring it from where each ambassador presented
+credentials; Frank V. Ortiz Jr. appears for the fifth time (Special Representative from 1 September 1977
+to five states at once) and Milan D. Bish for the fourth, heading the American delegation at the
+independence ceremonies on 19 September 1983, the day of both independence and recognition. Its
+population is a three-way split decided by C10: UNdata's 47,000 and the World Bank's 46,922 against the
+**Commonwealth's 53,000 for 2022, a figure the World Bank's series never passes through** at any year
+from 2015 to 2025, so by C8's test it is contested rather than stale and the two that agree take the
+box. **American Samoa is carded on the status rather than the statistics**, because the working paper
+states something no profile does: a person born there neither of whose parents is a United States citizen
+is a United States **national and not a citizen**, free to live and work anywhere in the country and
+unable to vote in its federal elections. And its population is falling hard — 52,878 in 2015 to 46,029 in
+2025, an eighth gone in a decade — which with C10's Marshall Islands makes the second Pacific territory
+in this deck emptying under free movement to the metropole.
 
 **Batch 74 (Bermuda, Greenland, Faroe Islands) DISPROVED A FINDING THIS FILE HAD ALREADY PUBLISHED
 TWICE, and that is its most useful output.** Batches 72 and 73 explained why `data.un.org/en/iso/je.html`
