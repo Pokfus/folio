@@ -1613,7 +1613,8 @@ window.GLOSSARY = {
 "Aristagoras": "Aristagoras was deputy tyrant of Miletus, a city Strabo gives four harbours and colonies throughout the Black Sea, and he raised the Ionian cities against Darius I after a failed Persian expedition against Naxos that he had proposed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Herodotus has him carry to mainland Greece a bronze tablet engraved with a map of all the earth, which Cleomenes of Sparta refused on learning the king's seat lay three months inland, and which persuaded Athens to vote twenty ships.<sup class=\"fn\" data-fn=\"1\"></sup> He abandoned the revolt he had begun, left Miletus in another man's charge and sailed to Thrace, where he was killed besieging a town, and Herodotus judges he had shown little courage.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Histiaeus": "Histiaeus was tyrant of Miletus under Darius I, rewarded for keeping the Persian bridge over the Danube and then held at Susa as the king's counsellor.<sup class=\"fn\" data-fn=\"1\"></sup> With the roads watched, he sent word to Aristagoras that Ionia should revolt by shaving a trusted slave's head, marking it, waiting for the hair to grow, and telling him only to have it shaved again on arrival.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Sent down to settle the revolt he had begun, he was met at Sardis by Artaphernes, who told him he had stitched the shoe Aristagoras put on; he fled, was captured and impaled, and his head was sent embalmed to the king.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Ionian_Revolt": "The Ionian Revolt was the rising of the Greek cities of Asia Minor against Persian rule, beginning in 499 BCE when Aristagoras of Miletus gave up his own tyranny and put down the tyrants the king had installed elsewhere.<sup class=\"fn\" data-fn=\"1\"></sup> Athens sent twenty ships and Eretria five, Sardis was burnt, and the rising spread to Cyprus, the Hellespont and Caria before the Persians took the cities back one by one and netted the islands.<sup class=\"fn\" data-fn=\"1\"></sup> Artaphernes then fixed each city's tribute and made the Ionians settle disputes by law, Mardonius replaced their tyrants with democracies, and Nepos gives the burning of Sardis as the reason Darius alleged for invading Greece.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Sardis": "Sardis was a city in western Anatolia, on the northern slope of Mount Tmolus above the plain of the Hermus, capital in turn of the Lydian kingdom and seat of Persian government in the region.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Strabo describes it as a large city with a strong citadel, and says the Pactolus once carried down from the mountain above the gold dust behind the proverbial wealth of Croesus.<sup class=\"fn\" data-fn=\"2\"></sup> It was burned in 498 BCE by Ionian, Athenian and Eretrian troops who took the lower town but not the citadel, and the fire, which destroyed a temple of the goddess Cybebe, was afterwards given as a Persian reason for burning Greek temples.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Sardis": "Sardis was a city in western Anatolia, on the northern slope of Mount Tmolus above the plain of the Hermus, capital in turn of the Lydian kingdom and seat of Persian government in the region.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Strabo describes it as a large city with a strong citadel, and says the Pactolus once carried down from the mountain above the gold dust behind the proverbial wealth of Croesus.<sup class=\"fn\" data-fn=\"2\"></sup> It was burned in 498 BCE by Ionian, Athenian and Eretrian troops who took the lower town but not the citadel, and the fire, which destroyed a temple of the goddess Cybebe, was afterwards given as a Persian reason for burning Greek temples.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Battle_of_Lade": "The Battle of Lade was the sea fight of 494 BCE, off the small island of that name near Miletus, in which a Persian fleet destroyed the combined navy of the Greek cities of Asia and ended their revolt.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Herodotus counts 353 Ionian triremes against 600 on the Persian side, and describes an alliance that broke before the fighting: the crews refused their commander's drill, the Samians withdrew on terms arranged beforehand, and the Lesbians and most of the rest went with them.<sup class=\"fn\" data-fn=\"1\"></sup> The Chians fought on and lost most of their ships, and Herodotus declines to say who behaved well, since the cities afterwards blamed one another.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2353,7 +2354,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Scythian_campaign_of_Darius_I": "c. 513 BCE",
 "Aristagoras": "died c. 497 BCE",
 "Histiaeus": "died c. 493 BCE",
-"Ionian_Revolt": "499 – 493 BCE"
+"Ionian_Revolt": "499 – 493 BCE",
+"Battle_of_Lade": "494 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3393,7 +3395,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Aristagoras": ["Aristagoras of Miletus"],
 "Histiaeus": ["Histiaeus of Miletus"],
 "Ionian_Revolt": ["Ionian revolt"],
-"Sardis": ["burning of Sardis","Sardes"]
+"Sardis": ["burning of Sardis","Sardes"],
+"Battle_of_Lade": ["Lade"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -3417,7 +3420,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Pyramid_of_Djoser": true,
 "Great_Pyramid_of_Giza": true,
 "Ding_(vessel)": true,
-"Immortals": true
+"Immortals": true,
+"Battle_of_Lade": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -5034,7 +5038,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Aristagoras": ["person","history","warfare","greece"],
 "Histiaeus": ["person","history","warfare","greece"],
 "Ionian_Revolt": ["event","history","warfare","greece","iran"],
-"Sardis": ["city","place","geography","history","anatolia"]
+"Sardis": ["city","place","geography","history","anatolia"],
+"Battle_of_Lade": ["battle","event","history","warfare","greece","iran"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
