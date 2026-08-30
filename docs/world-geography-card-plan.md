@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-068`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-233`, the WHOLE running order less the deferred `gw-195`, `gw-201`, `gw-218`, `gw-223`, `gw-224` and `gw-230`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,15 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland, Anguilla, Palau, Cook Islands, Nauru, Tuvalu, Saint Pierre and Miquelon, Saint Helena, Montserrat, Falkland Islands, Niue, Vatican City, Pitcairn Islands) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-101` Sierra
-Leone and the next capital is `gw-542` Warsaw.
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -915,6 +914,2312 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 82 (Niue, Vatican City, Pitcairn Islands) reaches the END of the countries deck's numbering —
+`gw-233` is the last id in the running order — and it does so with `gw-230` Norfolk Island DEFERRED.**
+Norfolk Island is the deck's fourth entity invisible to both quantitative sources (`nf` returns 500,
+`NFK` is not a valid World Bank code) and, unlike Åland, its metropole does not fill the gap: the
+Australian department that administers the territory refuses the connection outright at
+`infrastructure.gov.au` and `regional.gov.au`, the island's own `norfolkisland.gov.nf` closes the tunnel
+mid-exchange, and `legislation.gov.au`'s search is JavaScript-driven and returns tax statutes for a query
+about the Norfolk Island Act. **The Australian Bureau of Statistics DOES answer** — its 2021 Census
+QuickStats for area 901041004 gives 2,188 people, a median age of 50 and 1,220 private dwellings — but
+nothing openable gives the island's area or names Kingston, so the facts box cannot be filled. That is
+`gw-218` Saint Martin's shape with a different flag, and it is worth recording that **Australia joins
+France in the "publishes, but not to a reader"** column while the United Kingdom, the Netherlands,
+Denmark, New Zealand and the United States all answer plainly.
+
+**The Vatican is the first entity in this deck whose OWN GOVERNMENT is the whole source list.** The
+Governorate of Vatican City State publishes three short pages that between them carry everything a card
+needs and nothing a summary would: the territory at **0.44 km² (44 hectares)**, walled in part, taking in
+Saint Peter's Square "up to the marble strip that joins the ground to the outer parts of the Colonnade";
+five entrances guarded by the Swiss Guard and the Gendarmerie; and, updated to 31 December 2024, **673
+citizens, 458 of them inside the walls including 120 Swiss Guards, and 882 residents in all**, with about
+30 per cent of citizens living abroad because their work is diplomatic. It also dates the state exactly —
+the Lateran Treaty signed 11 February 1929 and ratified 7 June — and states its own constitutional
+position: a personality under international law "separate from the Holy See", with structures "reduced to
+the bare minimum required to carry out its functions". **UNdata files the entity as the Holy See and
+gives NO surface area at all**, only a density, so the Governorate is not a supplement here but the
+source. The term was reconciled with it and lost "the smallest sovereign state in the world" — a
+superlative no cited source states, where the 0.44 km² beside it says the same thing and can be checked.
+
+**Pitcairn is the smallest population the deck will ever card, and its two sources disagree about it.**
+The Secretariat's working paper says 35 (2023); the territory's own government says "a population of only
+around fifty". Both are printed. The paper is otherwise the richest short entry in the C-24 series —
+four islands of which one is inhabited, 35.5 km² in all against 4.35 for Pitcairn itself, an exclusive
+economic zone of 842,000 km² that is now a marine protected area, no political parties, official
+languages English and **Pitkern**, "a mixture of eighteenth-century English and Tahitian", and the
+Governor's office held concurrently by the United Kingdom's High Commissioner to New Zealand. A small
+divergence worth knowing: **the paper writes HMS *Bounty* and the islanders' own government writes
+HMAV** — His Majesty's Armed Vessel, which is what she was.
+
+**And UNdata contradicts itself across two profiles, which the Niue card has to say out loud.** Its Cook
+Islands profile footnotes the area as excluding "Niue, shown separately, which is part of Cook Islands,
+but because of remoteness is administered separately" — batch 79 recorded that and attributed it. Its
+Niue profile, meanwhile, files Niue under Polynesia in its own right and excludes it from the data for
+New Zealand, and New Zealand's own foreign ministry calls it "a self-governing state in 'free
+association' with New Zealand" under the Niue Constitution Act 1974. **Where one publisher's two pages
+disagree, cite both and let the reader see it**; the card names the Cook Islands footnote as the
+statistics division's filing convention rather than as a fact about Niue.
+
+**Batch 81 (Saint Helena, Montserrat, Falkland Islands) is the batch where the C-24 working papers and
+`legislation.gov.uk` finally run as ONE recipe**, and it is the cheapest three cards the pass has
+produced since the EU country pages: a working paper each (A/AC.109/2026/13, /10 and /6), a UNdata
+profile each, and the territory's own constitution as a British statutory instrument each — the St
+Helena, Ascension and Tristan da Cunha Constitution Order 2009 (SI 2009/1751), the Montserrat
+Constitution Order 2010 (SI 2010/2474) and the Falkland Islands Constitution Order 2008 (SI 2008/2846),
+all served in full. Batch 77 found the route and batch 79 showed it reaches back to 1982; **it now covers
+every British overseas territory this deck has met**, and it should be reached for before any other
+constitutional source.
+
+**The Falkland Islands are the second entity whose NAME is contested, and the working paper states both
+positions in its own voice.** The territory has been on the United Nations list since 1946, and at the
+Fourth Committee's twenty-fifth meeting on 6 December that year "the delegation of Argentina expressed a
+reservation to the effect that the Government of Argentina did not recognize British sovereignty in the
+Falkland Islands (Malvinas)" while "the delegation of the United Kingdom expressed a parallel reservation
+that it did not recognize Argentine sovereignty in those islands". UNdata's own footnote says the same in
+one sentence, and the M49 register goes further than either: it lists the entity as **Falkland Islands
+(Malvinas)** in English and French and as **Islas Malvinas (Falkland)** in Spanish, the order reversed.
+That is Gibraltar's case again — **where the sources attribute both positions themselves, the card can
+carry the dispute without adjudicating it** — and the naming detail is checkable in a way no summary of
+the argument would be.
+
+**Montserrat's capital was ABANDONED, which is the seventh distinct shape the capital field has taken.**
+The working paper says it plainly: "Plymouth, abandoned in 1997 following the volcanic eruption. Most of
+the offices of the Government of Montserrat are based in Brades." UNdata gives "Brades Estate". The facts
+box reads **"Brades; Plymouth abandoned 1997"** — the second Capital row in two batches that is a
+sentence rather than a place name, after Nauru's "None; offices at Yaren", and both are right rather than
+tidy. The paper also gives the figure that makes the island legible: of 103 km², **only 40.1 are
+habitable**.
+
+**Saint Helena is one island and three capitals, and the card has to say so.** The territory is Saint
+Helena, Ascension and Tristan da Cunha; UNdata's 309 km² and 5,000 people are footnoted "Including
+Ascension and Tristan da Cunha", and the working paper breaks the population into 4,122 on Saint Helena
+(June 2025), about 800 on Ascension and 221 on Tristan da Cunha, with Jamestown, Georgetown and Edinburgh
+of the Seven Seas as their seats. **A card whose answer is one island but whose figures are a territory's
+must name both**, which is C1's Cyprus problem in a different ocean. The 2009 constitution is what made
+the difference: it renamed the territory from "Saint Helena and its Dependencies" and gave the three
+groups equal standing.
+
+**And batch 77's digit-in-a-word test was confirmed three times over in one batch.** The Saint Helena
+paper decodes D as `6` (`6ata`, `6ecember`), Montserrat's decodes A as `3` (`3ntigua`, `3lliouagana`,
+`3pril`), and the Falkland Islands' decodes four letters at once — C as `5`, G as `9`, B as `4`, D
+unaffected (`5onstitutional`, `9eneral Assembly`, `4ritain`). Five files, five different substitution
+sets. **One warning to add: do NOT fix it with a global replace.** Running `.replace('6','D')` over the
+Saint Helena text turned the genuine years 1633 and 1659 into "1D33" and "1D59" — the repair corrupted
+the digits it was meant to leave alone. Read the affected tokens by eye; there are never many.
+
+**Batch 80 (Nauru, Tuvalu, Saint Pierre and Miquelon) names the pass's blind spot: THE FRENCH OVERSEAS
+COLLECTIVITIES.** Batch 79 deferred `gw-218` Saint Martin because nothing openable names Marigot. This
+batch met the same wall twice more and both are deferred — **`gw-223` Wallis and Futuna** and **`gw-224`
+Saint Barthélemy** — so three of the four French Caribbean and Pacific collectivities this deck reaches
+are now blocked, and always in the same place. The cause is measured rather than guessed: the
+collectivities' own sites are JavaScript single-page applications (`comstbarth.fr` serves a 760-byte shell
+with one empty `<div id="app">`), `insee.fr`'s dossiers, comparateur and search are all JS-driven,
+`legifrance.gouv.fr`, `outre-mer.gouv.fr` and `vie-publique.fr` are 403 or serve 281-byte stubs, and the
+prefectures publish news rather than facts. **France's own institutional web is the least readable of any
+metropole in this deck** — the United Kingdom hands over whole constitutions on `legislation.gov.uk`, the
+Netherlands writes plain topic pages on `government.nl`, Denmark's territories publish their own
+statistics, and the United States has both C-24 papers and the Office of Insular Affairs.
+
+**Wallis and Futuna is deferred over a SPELLING, which is a first.** Everything else is there: UNdata's
+11,000 for 2025, 142 km² and CFP franc; the Overseas Countries and Territories Association's census
+figure of about 11,620 for 2023, its 72.5/27.5 split between Wallis and Futuna, and the three customary
+kingdoms (Uvea on Wallis, Alo and Sigave on Futuna) alongside a prefect and a 20-member Territorial
+Assembly. **But UNdata is the only reachable source that names the capital, and it writes "Matu-Utu"** —
+verified in the raw HTML, not an artefact of extraction — where the name is Mata-Utu, which `gw-723`
+already plans. Printing the source's spelling teaches a reader an error; printing the right one asserts
+what no cited source says. **A source's typo can block a card as effectively as a missing figure**, and
+the honest answer is the same: defer, and say why.
+
+**OCTA — the Overseas Countries and Territories Association — is the route that will unblock them, and it
+is the batch's real find.** Co-funded by its members and the European Union, it publishes a profile per
+OCT with the figures a facts box needs: Saint-Pierre-and-Miquelon at 242 km² and 6,008 people (2016), the
+Morne de la Grande Montagne at 240 m, the organic law of 21 February 2007, the 19-member Territorial
+Council, taxation and customs as territorial competences, and French law applying directly. It carried
+Saint-Barthélemy's 21 km² (25 including islets) and 9,793 (2018) too. **What it does not carry anywhere
+is a capital**, which is exactly the field the French collectivities fail on — so it rescues the prose and
+not the box. Saint Pierre and Miquelon ships only because **UNdata has a `pm` profile and names
+Saint-Pierre correctly**.
+
+**The Commonwealth's Key Facts is the source that answers the capital question HONESTLY**, and after five
+batches of UNdata failures that is worth stating as a preference. For Nauru it says outright **"No
+official capital, government offices in the district of Yaren"**; for Tuvalu, **"Vaiaku (government
+offices), Fongafale islet, Funafuti atoll"** — a seat, an islet and an atoll, where UNdata gives
+"Funafuti" flat. UNdata's Nauru entry meanwhile is the sixth capital-field failure and again confesses in
+its own footnote: the 11,300 it gives for Yaren "Refers to Nauru", i.e. the whole country. **Nauru's facts
+box therefore reads "None; offices at Yaren"** — the first card in the deck whose Capital row is not a
+place name, and the right answer rather than a tidy one.
+
+Two smaller notes. **The World Bank now files Nauru under its Nauruan name, Naoero**, which is worth
+knowing before a series lookup fails on the English one. And **Tuvalu's own term was reconciled**: it said
+"roughly 11,000 people" where UNdata gives 10,000 and the World Bank 9,492 for 2025, and both it and
+Nauru's lost a rank superlative no source states ("the fourth smallest state in the world", "the third
+smallest state by area") — the figures they already print say the same thing and can be checked.
+
+**Batch 79 (Anguilla, Palau, Cook Islands) MEASURED the shape batch 74 corrected, and the two lists'
+holes turn out to be independent.** Batch 74 established that UNdata's profile set is narrower than M49
+and must be tested per entity; this batch met four entities in one sitting and every combination
+appeared. **Saint Martin: World Bank yes, UNdata no** (`mf` returns 500, `MAF` has both population and
+area series). **Anguilla: UNdata yes, World Bank no** (`AIA` returns an empty result set — no error, a
+`total` of 0, which is the quieter failure of the two). **Cook Islands: UNdata yes, World Bank no**
+(`COK` is not a valid country code at all). **Åland, last batch: neither.** So the two are not one list
+with one set of gaps — they are independent registers, and **the only reliable procedure is to try both
+for every entity**, which costs two requests and settles it.
+
+**`gw-218` Saint Martin is DEFERRED, and on the narrowest possible ground: nothing openable names its
+seat of government.** Everything else is there — the World Bank's population series (24,941 for 2025,
+down from 37,369 in 2015, a third gone since hurricane Irma), its area series at 50 km², the European
+Commission naming Saint-Martin one of the EU's nine **outermost regions** where "EU law and all the
+rights and duties associated with EU membership apply", Article 355(1) TFEU listing it among the regions
+the Treaties apply to under Article 349, the M49 entry (663, MAF), and Anguilla's own working paper
+locating the island 8 km to its south. What is missing is Marigot: `insee.fr`'s dossier and comparateur
+are JavaScript shells, `legifrance.gouv.fr` and `outre-mer.gouv.fr` are 403, the collectivity's own site
+mentions Marigot only in a meeting-room address, and the prefecture's does not mention it at all. **The
+facts box could have taken a Status row instead and the card would have shipped**; it is deferred because
+the plan already numbers `gw-718` Marigot, and a countries card that quietly drops the Capital row every
+other card carries is a worse answer than a gap the plan explains.
+
+**A stranded marker was found in the Palau term, and it is the kind only reading the source catches.**
+The term said "its capital is Ngerulmud" with the marker pointing at UNdata — **which names Melekeok**.
+Nothing was broken: the fold listed a real source, the claim is defensible, and `gloss-source-audit.js`
+counts citations rather than checking them. It now says what its source says. The card carries the whole
+picture instead, because UNdata's own footnote confesses it: the capital-city figure of 11,400 for 2018
+"Refers to Koror", and the recognition guide puts the American embassy at Koror too. **`gw-720` Ngerulmud
+needs a source or a re-plan** — nothing reachable here names it (`palaugov.pw` serves a 202 challenge,
+`un.int` and `pacificdata.org` are 403, the Pacific Islands Forum's page says nothing).
+
+**The capital field has now failed in five distinct ways across four batches, and in three of them
+UNdata says so itself.** Batch 75: Pago Pago's 48,500 is an agglomeration larger than American Samoa's
+whole population; Cockburn Town's is a hundred people dated 2001. Batch 76: Garapan named where the
+government sits at Capital Hill. This batch: Palau's figure "Refers to Koror", and the Cook Islands'
+13,100 for Avarua "Refers to the island of Rarotonga" — which is the entire country. **The footnote is
+the field's own erratum slip; read it before copying the value.**
+
+Two more things worth keeping. **UNdata's Cook Islands area footnote makes a constitutional-sounding
+claim that is a filing convention**: 236 km² "Excluding Niue, shown separately, which is part of Cook
+Islands, but because of remoteness is administered separately". Niue is a self-governing state in free
+association with New Zealand in its own right and has its own card coming; the note is repeated on the
+card **attributed to the statistics division**, never asserted. And **`legislation.gov.uk` served a
+second overseas-territory constitution**, the Anguilla Constitution Order 1982 (SI 1982/334), forty years
+older than batch 77's Turks and Caicos order and equally complete — so the route is not a recent-instruments
+one, and it should carry Montserrat, the Falklands, Saint Helena and the rest of the deck's British
+territories.
+
+**Batch 78 (Marshall Islands, San Marino, Åland) met the deck's THIRD entity invisible to both
+quantitative sources and did NOT defer it, which is what the batch is for.** `data.un.org/en/iso/ax.html`
+returns 500 and `ALA` is not a valid World Bank country code — the Jersey and Guernsey shape exactly, and
+the third instance of the pattern batch 74 narrowed to "the profile sets are their own lists, test per
+entity". Jersey and Guernsey were deferred because nothing else could fill a facts box. Åland can be
+filled twice over, from **its own government and its own statistical office**: `aland.ax/en/facts-about-aland`
+and `asub.ax/en/facts-about-aland`. **A territory outside the UN's statistical system may still publish
+everything about itself** — the deferral test is whether an OPENABLE source states the figures, never
+whether UNdata carries a profile.
+
+**The Government of Åland's page is the richest single source this pass has met**, and it is worth saying
+what it contains, because a card can be written from it end to end: the definition ("an autonomous,
+demilitarised, Swedish-speaking region of Finland"); the main island holding 70 per cent of the land and
+90 per cent of the people; Mariehamn founded in 1861 and Sottunga "the smallest municipality in Åland,
+and all of Finland"; the Lagting's 30 members and four-year terms; the Finnish President's veto limited
+to two named cases; the lump sum at 0.45 per cent of Finnish government income; right of domicile as a
+regional citizenship; and the whole demilitarisation history — Bomarsund taken by British and French
+troops in the Crimean War, demilitarisation by a **one-sided Russian commitment** at Paris in 1856,
+the League of Nations settling the affiliation in 1921 with a convention signed by ten states that added
+neutralisation, **Russia not a party to it**, and the Moscow Treaty of 1940 and Paris Peace Treaty of
+1947 carrying demilitarisation but not neutralisation. That last distinction is the sort of thing only a
+source with an interest in the question states precisely, and it is stated by the party with the
+interest — which is why the card attributes it rather than asserting it.
+
+**The area came from a fourth kind of source: a Nordic Statistics PXWeb API query.** Batch 76 found that
+a PxWeb page embeds its whole series as a `pxDatas` block; here the same software answers a POST to
+`pxweb.nordicstatistics.org/api/v1/en/.../AREA02.px` with JSON, giving Åland **1,586 km²** for 2024
+alongside Finland's 338,485 and a comment noting that Finland's figure "Includes Åland". **When a PxWeb
+site is the only holder of a figure, query its API rather than scraping its page** — it is two lines and
+the answer carries its own metadata.
+
+**The M49 change log paid a second time and on a second trusteeship entity.** Batch 76 found it dating the
+Northern Mariana Islands to 1991; here it dates the **Marshall Islands to 1991 in the same words**
+("Formerly part of Pacific Islands (Trust Territory)") and **Åland to 2003** ("Issued a numerical code in
+2003"), which is nine years after Åland's EU accession and has nothing to do with any constitutional
+change — so the log dates a STATISTICAL decision, which sometimes coincides with a political one and
+sometimes does not. **Read the reason column, not just the year.**
+
+Two smaller notes. **C10's Marshall Islands finding now has its own card**: the population has fallen in
+every year the World Bank records, 48,800 in 2015 to 36,282 in 2025, a quarter of it gone in a decade
+under the Compact's free movement, and this is the deck's steepest decline so far — stated as the series
+rather than as a superlative. And **the recognition guide's San Marino entry is the third of its
+inversions**, after Andorra in batch 73 and Monaco in batch 77: recognition there is a letter, Lincoln's
+of 7 May 1861 accepting an offer of honorary citizenship, which the guide quotes — "although your
+dominion is small, your State is nevertheless one of the most honored, in all history" — and no
+ambassador was accredited for another 145 years.
+
+**Batch 77 (British Virgin Islands, Gibraltar, Monaco) settles the World Bank area question and finds
+the first entity in this deck whose AREA IS ITSELF DISPUTED.** Batch 74 read `AG.SRF.TOTL.K2`'s failures
+as a problem at the extremes of size; batch 75 measured three successes and concluded it fails per entity
+rather than by size. This batch is the confirmation, because it holds two failures and one success at
+sizes that overlap: **Monaco 74.9 km² against the statistics division's 2** (37 times over) and
+**Gibraltar 10 against 6**, where the **British Virgin Islands' 150 against 151** is right — and batch 75's
+Sint Maarten, at 34 km², is smaller than Gibraltar and correct. **There is no size rule; the guard is a
+plausibility check per entity**, and Monaco's failure is the one D1 recorded during the glossary pass and
+is now measured on the card side too.
+
+**Gibraltar's area is contested and the working paper prints both claims in one sentence** — 5.8 km²
+"according to the administering Power" and 4.8 "according to Spain, which claims sovereignty over the
+Territory" — with the statistics division's 6 and the World Bank's 10 beside them. That is four figures
+for one place, and the honest card states the disagreement rather than choosing: the facts box takes
+UNdata's neutral 6 and the abstract names all four. **The paper does the same for the substance**: the
+United Kingdom holds that Gibraltar's territorial waters flow from its sovereignty over the land, and
+Spain that article 10 of the Treaty of Utrecht ceded only the city, castle, port and fortifications. It
+is the plans' rule about a state's account of its own actions in the easiest possible form — **the source
+attributes both positions itself**, so the card can carry the dispute without adjudicating it. Two dates
+anchor the rest: General Assembly **resolution 2070 (XX) of 16 December 1965**, the first appeal for
+talks, and **decision 80/517 of 2025**, still urging a definitive solution in the spirit of the Brussels
+Declaration of 27 November 1984 — sixty years of the same request, which is the fact worth a reader's
+memory.
+
+**Batch 75's letter-substitution finding needs a sharper test, and this batch supplies it.** That entry
+said a subset font may map a capital wrongly and suggested looking for a letter that never appears; run
+over all five working papers, no capital is ever wholly absent, because a document mixes fonts and the
+letter survives in headers and tables. The real tell is **a digit inside a word**: this batch's British
+Virgin Islands paper decodes both D and F (`6utch`, `Jost Van 6yke`, `8inancial services`) and the
+Gibraltar paper decodes C and B (`5onstitution`, `4ritish`, `4russels Declaration`), where batch 74's
+Bermuda paper had no substitution at all. **Grep an extraction for `[0-9][a-z]`** before trusting a proper
+noun in it; the set differs per file and per font within a file.
+
+**`history.state.gov` has an entry that begins before the United States did.** Monaco's summary opens
+"When the United States announced its independence from Great Britain in 1776, the Principality of Monaco
+was a sovereign, independent country under the military protection of the King of France, Louis XVI" —
+the guide's second inversion of its own frame after Andorra's in batch 73, and between them they mark the
+two European microstates older than the state whose recognition the guide records. It then gives what no
+statistical profile can: annexation to the First French Republic in 1793, independence regained in 1814
+and reaffirmed by the Treaty of Vienna, the protectorship of Piedmont-Sardinia from 1815 to 1861 and the
+military safeguard of France since, and the **2005 renegotiation of the 1918 Franco-Monégasque treaty**,
+after which Monaco began receiving foreign ambassadors at all. Monaco's own term was reconciled against
+it and lost two superlatives no source states — "the second-smallest country in the world after the
+Vatican" and "the most densely populated state on Earth" — for the figure UNdata prints, 25,732.2 people
+to the square kilometre, which says the same thing and can be checked.
+
+The British Virgin Islands, finally, give the C-24 papers' least expected use: **a working paper reporting
+a finding AGAINST the territorial government it describes.** The Commission of Inquiry established in
+January 2021 reported publicly on 29 April 2022 with 49 recommendations, and found that belonger status by
+tenure was being measured against a 20-year residence requirement the Cabinet had applied since 2004
+"contrary to the statutory criteria in section 16(3) of the 1977 Immigration and Passport Act" — unlawful,
+in the Commission's word, with a review published in September 2023 making fifteen more recommendations.
+**The papers are not a territory's self-description**; where a governance failure is on the record they
+carry it, which is what makes them usable as a spine at all.
+
+**Batch 76 (Northern Mariana Islands, Sint Maarten, Liechtenstein) found that the M49 list is not only a
+register of codes but a DATED RECORD OF WHEN AN ENTITY CAME INTO BEING.** Its change log carries
+`580 | Northern Mariana Islands | 1991 | Formerly part of Pacific Islands (Trust Territory) (numerical
+code 582)` and `534 | Sint Maarten (Dutch part) | 2010 | Formerly part of the Netherlands Antilles
+(numerical code 530)` — the statistical trace of two constitutional changes, one the year after the
+Security Council ended the Trusteeship Agreement and the other the year the Netherlands Antilles was
+dissolved. Batch 74 reached for this list to settle a question about Jersey and Guernsey and found it
+carried a change log at all; **it is worth grepping for any territory whose status changed in living
+memory**, since it dates the change in the UN's own books and needs no second source to interpret.
+
+**A UN digital-library RECORD PAGE may carry the whole substance of a resolution in its Summary field,
+which matters because so many of the older PDFs are image scans.** Batch 74 could cite A/RES/849(IX) only
+for its title. Here the record for **S/RES/683 (1990)** prints a full abstract: that the peoples of the
+Federated States of Micronesia, the Marshall Islands and the Northern Mariana Islands had approved their
+new status agreements in plebiscites observed by visiting missions of the Trusteeship Council, and that
+the Council determined the Trusteeship Agreement's applicability terminated with respect to them. The
+record also gives the meeting (2972nd), the date (22 December 1990) and the **vote (14–1)** in fields of
+their own. **Read the record before opening the PDF**: it is faster, it survives a scanned file, and its
+Summary is written by the Library rather than extracted.
+
+**`doi.gov` answers, and the Office of Insular Affairs is to the American territories what the C-24
+working papers are to the listed ones.** The Northern Marianas have no working paper — they left the
+United Nations' books in 1990 — so the equivalent institutional account is the administering power's own,
+and OIA's page gives the whole constitutional sequence in five sentences: the Trust Territory administered
+for the United Nations from 1947, the Covenant passed into federal law in 1975, the constitution adopted
+in 1977, the first constitutional government in 1978, federal minimum wage rules in 2007, federal
+immigration law in 2008, and Homeland Security taking over immigration and border controls in June 2009.
+**Reach for it for Guam, American Samoa and the US Virgin Islands too**, beside their working papers.
+
+**A third capital-field divergence in two batches, and this one is a seat-of-government case rather than a
+stale figure.** UNdata names **Garapan** as the capital of the Northern Marianas; the Office of Insular
+Affairs addresses the Governor at **Capital Hill, Saipan**. That is C10's Palau case exactly — Ngerulmud
+against Melekeok — and it is recorded rather than corrected: the facts box takes UNdata's field and the
+abstract says where the government actually sits. With batch 75's Pago Pago agglomeration and Cockburn
+Town's hundred people dated 2001, **the capital field has now failed three ways in two batches** and
+should be read as a claim to check rather than a value to copy.
+
+**`government.nl` carried a whole card on its own, four pages of it.** Batch 69 found the route and batch
+71 extended it; Sint Maarten is where it pays in full, because four separate topic pages each answer a
+different question — the constitutional change of 10 October 2010, the division of powers under the
+Charter for the Kingdom, the Governor's role and the Ministers Plenipotentiary, and the reconstruction
+after hurricane Irma. The last is the most useful and the least expected: a government explaining what it
+spent and on what condition. **Sint Maarten has no Minister Plenipotentiary in Washington where Aruba and
+Curaçao do**, which the governance page states outright and which no statistical profile would ever
+contain.
+
+Liechtenstein, finally, is the batch's quiet correction. Its glossary term said the country shares with
+Switzerland "a currency, a customs union and its diplomatic representation abroad" — present tense — where
+the recognition guide says it *yielded* control of its foreign affairs to Switzerland "for much of the
+twentieth century" and then "began pursuing independent membership in international organizations at the
+end of the twentieth century", joining the United Nations in 1990 and receiving its first accredited
+American ambassador in 1997. **A present-tense clause about an arrangement a source describes in the past
+is the same error as a superlative no source states**, and it is easier to miss, since nothing in the
+sentence looks like a claim.
+
+**Batch 75 (Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands) REFINES batch 74's warning
+about the World Bank's area series into something usable.** Batch 74 found `AG.SRF.TOTL.K2` wrong by
+eighty times for Bermuda, nine for the Faroe Islands and five for Greenland, and the reasonable inference
+was that it fails on very small and very large entities. It does not: here it gives Saint Kitts and Nevis
+**260 km²** against UNdata's 261, American Samoa **200** against UNdata's 199 and the working paper's 200,
+and the Turks and Caicos Islands **950** against UNdata's 948 and the working paper's 948.2 — every one
+right, at the series' own rounding of 10 km². **The series is not systematically wrong at any size; it
+holds bad values for particular entities**, so the guard is a plausibility check per entity rather than a
+rule about size, and it is cited on two of this batch's three cards.
+
+**A C-24 working paper may take its population STRAIGHT FROM THE WORLD BANK, in which case the two are
+not corroboration.** American Samoa's working paper prints "Population: 46,765 (2024 World Bank)" — naming
+its source in the field itself — so citing both would be C8's `SP.POP.TOTL`-relay problem one level up.
+Where the paper does NOT name a source it is an independent estimate and the divergences are real: the
+Turks and Caicos paper's 50,828 for 2024 sits 8 per cent above UNdata's 47,000 and the World Bank's
+46,855, so batch 71's rule applies and the two that agree take the facts box. **Read the population field
+for a parenthesis before treating a working paper as a second source.**
+
+**`legislation.gov.uk` answers, and a British overseas territory's constitution is a statutory instrument
+on it.** The Turks and Caicos Islands Constitution Order 2011 is SI 2011/1681, served in full, and it
+carries what no summary does: section 37 lists the Governor's special responsibilities as defence,
+external affairs, **the regulation of international financial services**, internal security including the
+Police Force, and public-service appointments; section 43 composes the House of Assembly as a Speaker,
+fifteen elected members, four appointed members and the Attorney General, who may not vote. That is
+batch 72's finding one shelf higher — **reach for the metropole's operational guidance, and then for its
+statute book** — and it should serve every other British overseas territory in this deck.
+
+**Two UNdata capital-city figures in one batch are unusable, and each fails differently.** American
+Samoa's gives Pago Pago 48,500 for 2018, which is LARGER than the whole territory's 46,000, the field
+being an urban agglomeration where the territory is shrinking; the Turks and Caicos figure is **0.1
+thousand — a hundred people — and dated 2001**, a quarter of a century old. Batch 70 made reading that
+footnote a standing step and this is why: neither figure is printed on either card, and both capitals are
+named without one.
+
+**A subset font can map a single letter wrongly, and the extraction reads perfectly while a name is
+silently misspelt.** Both 2026 working papers decode capital D as `6`: `6epartment of the Interior`,
+`6utch`, `6emocratic Party`, `6ominican Republic`, and the Turks and Caicos Governor as
+`6ileeni 6aniel-Selvaratnam`. The substitution is consistent, so it is legible once seen — and that is
+the danger, since a proper noun met only once has nothing to be checked against. **Read an extraction for
+a letter that never appears**; here the absence of every capital D is the tell, and Bermuda's paper in
+batch 74 had no such fault, so it is per file rather than per publisher.
+
+The three cards themselves are the deck's three modes side by side. **Saint Kitts and Nevis closes the
+Bridgetown thread with the guide saying it outright** — "All U.S. ambassadors have been resident at
+Bridgetown, Barbados" — after eight cards of inferring it from where each ambassador presented
+credentials; Frank V. Ortiz Jr. appears for the fifth time (Special Representative from 1 September 1977
+to five states at once) and Milan D. Bish for the fourth, heading the American delegation at the
+independence ceremonies on 19 September 1983, the day of both independence and recognition. Its
+population is a three-way split decided by C10: UNdata's 47,000 and the World Bank's 46,922 against the
+**Commonwealth's 53,000 for 2022, a figure the World Bank's series never passes through** at any year
+from 2015 to 2025, so by C8's test it is contested rather than stale and the two that agree take the
+box. **American Samoa is carded on the status rather than the statistics**, because the working paper
+states something no profile does: a person born there neither of whose parents is a United States citizen
+is a United States **national and not a citizen**, free to live and work anywhere in the country and
+unable to vote in its federal elections. And its population is falling hard — 52,878 in 2015 to 46,029 in
+2025, an eighth gone in a decade — which with C10's Marshall Islands makes the second Pacific territory
+in this deck emptying under free movement to the metropole.
+
+**Batch 74 (Bermuda, Greenland, Faroe Islands) DISPROVED A FINDING THIS FILE HAD ALREADY PUBLISHED
+TWICE, and that is its most useful output.** Batches 72 and 73 explained why `data.un.org/en/iso/je.html`
+and `.../gg.html` return 500 by saying that UNdata follows the UN's own list of countries and areas, on
+which the Channel Islands are one area rather than two. Reading the **UNSD's M49 list** for this batch's
+three codes settles it the other way: `Jersey | 832 | JEY` and `Guernsey | 831 | GGY` each hold entries of
+their own, the change log records that Guernsey was "issued a separate numerical code in 2005", and a
+footnote states outright that "Channel Islands (numerical code 830) **has been removed** from the list of
+geographic regions". So the list carries the two bailiwicks and it is UNdata's PROFILE SET that does not
+— a narrower list of its own, with no published rule behind it. **An explanation that fits two
+observations is not thereby a rule**; both entries are corrected in place, and the standing instruction
+is now to TEST a profile URL per entity rather than to predict it. Nothing shipped wrong on the back of
+it — Jersey and Guernsey were deferred for want of a facts box either way — but the next reader would
+have believed it.
+
+**The World Bank's area series was unusable on all three, which extends C11's warning from "contains
+errors" to "is wrong by orders of magnitude at both ends of the size range".** `AG.SRF.TOTL.K2` gives
+Bermuda **4,290 km²** against the working paper's 53.35, the Faroe Islands **12,960** against 1,393, and
+Greenland **410,450** against 2,166,086 — too large by eighty times, nine times and five times too small
+in turn. C11 caught Canada at 15,634,410 and the Dominican Republic at 146,839; three more in one batch
+makes the series a source to check against another before quoting, never one to adjudicate with. It is
+cited on none of these three cards, where the population series `SP.POP.TOTL` is cited on all three and
+agrees with everything.
+
+**UNdata rounds a population to whole thousands, and on entities this small the ROUNDING is itself a
+divergence.** Its Greenland profile gives 56,000 for 2025 where the World Bank gives 56,831 and
+*Greenland in Figures 2024* says "just about 57,000"; its Faroe Islands profile gives 56,000 where the
+World Bank gives 54,900 and Statistics Faroe Islands counted 55,070 in August 2025. C10's rule — two
+sources agreeing against UNdata take the facts box — applies unchanged, and both cards print 57,000 and
+55,000 respectively while the abstract names the rounding. Bermuda is the control: UNdata's 65,000, the
+World Bank's 64,555 and the working paper's 63,905 all sit within a percent of each other.
+
+**A statistics office that looks like a JavaScript statbank may be serving every number in its own
+HTML.** `hagstova.fo` renders as a navigation shell and `hagstova.fo/en/faroe-islands-figures` 404s, so
+the obvious conclusion is that Statistics Faroe Islands is unreadable from here — and it is wrong. Every
+table on a Hagstova page is embedded as a `pxDatas.push({…})` block carrying the whole series in a
+`"data"` array beside its PX metadata: the stub and heading variables, the month or year list, the source
+line, the footnotes. Parsing one gives the monthly population since 1985, the eighteen islands with their
+areas and altitudes, the highest mountains, the largest lakes and the per-island density, all without
+running a line of the page's script. **Grep a statistics page for `pxDatas` before writing the office
+off**; this is the standard PxWeb front end and the same trick should serve any Nordic office.
+
+**The Faroe Islands are the deck's SECOND empty date line after the Isle of Man, and the card describes
+the territory's status entirely through what institutions DO about it.** `government.fo` and
+`norden.org` are 403 here, `retsinformation.dk` is a JavaScript application, and `logting.fo`, `um.dk`
+and `denmark.dk` 404 on every path tried, so nothing openable states the constitutional arrangement or
+dates it. What IS citable is the practice: the Danish krone is the currency, the United Nations excludes
+the islands from its figures for Denmark and files them separately under Northern Europe with the code
+234, its foreign-born share counts people born in Denmark and Greenland as foreign-born, and **Article
+355 of the Treaty on the Functioning of the European Union provides that the Treaties "shall not apply to
+the Faeroe Islands"**. **Where no source states a status, describe the practice** — what an institution
+does about an entity is citable where what the entity IS, is not. Two smaller notes from the same card:
+the treaty spells it **Faeroe**, which is also `world.js`'s map key, where every statistical source
+writes Faroe; and the FAO's fishery country profile at `fao.org/fishery/en/facp/fro` serves a
+five-language "Page not found" **with a 200 status**, a sixth variety of 200-status error document after
+`senate.gov`, `state.gov`, the Security Council's CloudFront block, the UN press "Client Challenge" and
+`history.house.gov`.
+
+**Greenland's own term was corrected on one word.** It said Denmark "reasserted control in 1721" where
+*Greenland in Figures 2024* says Greenland "became a Danish colony" that year — *reasserted* smuggles in a
+prior Danish control the source does not assert, and the fix costs the term nothing, both phrases running
+to five words. Its card is carried by that publication's own page 4, which states the 81 per cent ice
+cover, the world's lowest population density at 0.3 people per square kilometre of ice-free ground, Nuuk
+at 19,880 on 1 January 2024, the 44,087 km of coastline, and the sequence colony 1721 → Danish county
+1953 → home rule 1979 → self-government 21 June 2009 → out of the European Economic Community in 1985
+after a referendum in 1982. **A/RES/849(IX) is an image scan with no extractable text**, so it is cited
+for what its catalogue record states — and the title IS the fact: "Cessation of the transmission of
+information under Article 73e of the Charter in respect of Greenland", adopted at the 499th plenary
+meeting on 22 November 1954. Bermuda takes the mirror of it, A/RES/66(I) of 14 December 1946, whose text
+does extract and does name Bermuda among the territories the United Kingdom reported on — the two
+resolutions bracketing the same list, one entering and one leaving. Both entities, incidentally, are
+filed by the United Nations under **Northern America**, which is a fact about M49's regions rather than
+about either place.
+
+**Batch 73 (Andorra, Cayman Islands, Dominica) found the one entry in the recognition guide with NO
+RECOGNITION IN IT, and it is Andorra.** Every other page in the guide answers the question *when did the
+United States recognise this state*; Andorra's answers that the question does not arise. "Andorra has
+considered itself independent since medieval times, and therefore was already independent when the United
+States declared independence from the British Empire in 1776. Unlike many other independent states in the
+late eighteenth century, Andorra never signed a bilateral treaty with the United States, which would have
+legally constituted recognition of the new republic." **The guide inverts its own frame** — the older state
+is the one that did not need recognising — and its diplomatic history therefore begins in 1995, with an
+exchange of letters, 202 years after the constitutional history of most of its neighbours. That left the
+card without a recognition date to anchor it, and what fills the gap is **the General Assembly's own
+admission resolution**, A/RES/47/232 of 28 July 1993, adopted without a vote at the 108th meeting: where a
+state has no recognition act, **its admission to the United Nations is the datable equivalent and the
+digital library holds one for every member**. **`gw-201` Guernsey is deferred with `gw-195` Jersey, which
+settles batch 72's finding as a pair rather than a one-off**: `data.un.org/en/iso/gg.html` returns 500 and
+`GGY` is not a valid World Bank country code at all — the API answers "The provided parameter value is not
+valid" — so both Channel Island bailiwicks are invisible to both quantitative sources while the Isle of
+Man, Gibraltar and the Faroes each have a profile. **Two entities failing the same way in successive
+batches is a rule, not an accident**, and the rule is only that the profile sets of UNdata and of the
+World Bank each have holes in them, which have to be measured per entity (the stronger explanation
+offered here and in batch 72 — that both follow a UN list carrying the Channel Islands as one entry —
+is corrected in batch 74). The Cayman Islands are the fourth
+territory carried by a C-24 working paper and the first whose history is mostly ADMINISTRATIVE rather than
+diplomatic: settled by the British between 1661 and 1671, self-government growing from 1734, an Assembly of
+Justices and Vestry in 1831, slavery abolished in 1834, and **a dependency of Jamaica from 1863 which stayed
+under the Crown when Jamaica became independent 99 years later** — the working paper counts those 99 years
+itself, which is the sort of sentence no statistical profile ever contains. Its population is batch 71's
+Virgin Islands case inverted once more and decided the same way: the working paper's 84,738 for 2023 sits
+above UNdata's 76,000 and the World Bank's 74,457, so **the two that agree take the facts box and the
+abstract prints all three**. Dominica, finally, closes the Bridgetown thread at eight cards and puts the
+same three names on their third card each: **Frank V. Ortiz Jr. attended its independence celebrations as
+President Carter's personal representative**, which is the recognition; **Sally Angela Shelton**, Saint
+Lucia's first ambassador, was Dominica's too and presented her credentials at Bridgetown; and **Milan D.
+Bish** covered Saint Vincent, Antigua and Barbuda and four more from the same desk. **Where a deck's
+entities are small and adjacent, the same handful of officials recurs, and naming them is what makes the
+pattern visible** rather than eight separate cards each mentioning Barbados in passing.
+
+**Batch 72 (Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man) produced the pass's
+FIRST DEFERRAL IN THE 190s, and the reason narrows batch 69's rule.** `gw-195` **Jersey is deferred**:
+`data.un.org/en/iso/je.html` returns 500 and the World Bank has no `JEY` series at all, so it is the first
+entity in this deck invisible to BOTH of the pass's quantitative sources. Batch 69 concluded from Western
+Sahara that "the test is the ISO code, not statehood"; Jersey has ISO `JE` and no profile, so the rule needs
+its second half: **UNdata's country profiles do not cover every entity holding an ISO code** — measured
+here, `im` (Isle of Man), `gi` (Gibraltar) and `fo` (Faroe Islands) all answer 200 while `je` and `gg`
+both 500. *(Corrected in batch 74. This entry first explained the gap by saying UNdata follows the UN's
+own list of countries and areas, on which the Channel Islands are one area rather than two. That is
+wrong: the UNSD's M49 list gives* **Jersey 832/JEY and Guernsey 831/GGY entries of their own**, *and its
+own footnote records that "Channel Islands (numerical code 830) has been removed from the list of
+geographic regions". The profile set is its own list, narrower than M49, and has to be tested per entity
+rather than predicted from one.)* Its own government
+answers where the international bodies do not — **`opendata.gov.je`, a CKAN portal, serves the States of
+Jersey's population series as CSV** (104,540 at the end of 2024, growing only by migration: 730 births
+against 880 deaths and net migration of 670) — but `www.gov.je` itself is 500 on every path tried, the
+portal has no land-area or capital dataset, and the World Bank's only relevant series is a **Channel
+Islands** aggregate that would serve Jersey and `gw-201` Guernsey identically. **A card whose facts box
+cannot be filled from sources is deferred, not padded**; Jersey waits for a land area and a seat of
+government from something openable. The Isle of Man took its place and is the contrast that proves the
+point: a full UNdata profile, a World Bank series agreeing with it to 160 people, and **two United Kingdom
+sources that turn out to be far better than expected** — His Majesty's Passport Office's *Knowledge Base
+profile* and the Home Office's *Common Travel Area* guidance, which between them state the constitutional
+position in terms a card can quote ("not part of the UK but self-governing dependencies of the Crown …
+their own directly elected legislative assemblies, administrative, financial and legal systems and their own
+courts of law"), name the statutes that call them "the islands", and set out the Common Travel Area as an
+arrangement between the United Kingdom, Ireland and the three dependencies. **Reach for a metropole's
+OPERATIONAL guidance, not its ceremonial pages**: a passport office's staff manual is written to be relied
+on and says what a constitutional summary will not. The Isle of Man is also **the deck's first card with an
+EMPTY date line**, deliberately: nothing openable dates anything about it, and CLAUDE.md's rule is that an
+empty date line is the honest answer rather than a sentence apologising for the absence. The two Caribbean
+cards, meanwhile, finish the Bridgetown thread that has run through five batches. Saint Vincent's
+recognition is the deck's **longest gap between independence and recognition** — independent on 27 October
+1979, recognised only on 23 November 1981 with the appointment of Milan D. Bish, more than two years — and
+the relations sentence names the hub outright: Bish presented his credentials **at Bridgetown**, being
+concurrently ambassador to Antigua and Barbuda, Barbados, Dominica and Saint Lucia and special
+representative to Saint Christopher and Nevis, **one man accredited to six places at once**. Antigua and
+Barbuda gives the "recognition IS the embassy" mode its third instance after the Bahamas and Barbados, and
+then **the second closed embassy in the deck**: Saint John's closed on 30 June 1994 and, unlike Seychelles',
+never reopened. One measurement note: the Commonwealth publishes Antigua's area **island by island** — 280,
+161 and 1.6 km² — which is the only entry in the pass to break its own total down, and adds to 442.6 against
+UNdata's 442.
+
+**Batch 71 (Aruba, United States Virgin Islands, Tonga) is where an alias rule was applied BEFORE it
+could bite, for the first time in the pass.** N7 found that "an alias list written before the sibling term
+existed will contain the sibling's name, and will be wrong the day the sibling arrives" — `United_Kingdom`
+carrying "Britain" and "Northern Ireland" was the case that produced it. The draft term for the United
+States Virgin Islands carried the bare alias **"Virgin Islands"**, which reads perfectly today and would be
+wrong at `gw-212`, the British Virgin Islands, already in this plan's running order. **Grep the running
+order for the sibling before writing an alias**; it costs one command and it is the only point at which
+this fault is cheap to fix. The alias was cut to the two unambiguous forms. Tonga is the batch's history,
+and it is **the deck's second country recognised twice, by a different mechanism from Montenegro's**. The
+United States and the King of Tonga signed a Treaty of Amity, Commerce and Navigation at Nuku'alofa on 2
+October 1886, which is the act the guide records as recognition; when Tonga became a British protectorate in
+1900 the Foreign Office took over all its external affairs, the United States stopped appointing
+consuls-general, and **on 28 July 1920 the Foreign Office terminated the 1886 treaty on the King's behalf** —
+so where Montenegro's recognition was withdrawn by the recognising state, Tonga's lapsed because the
+protecting power cancelled the instrument that carried it. It was recognised again on 4 October 1972, 86
+years after the first, **by the appointment of Kenneth Franzheim II** — the same ambassador who had presented
+credentials at Apia for Samoa the year before, in batch 68. Tonga also gives the Commonwealth's **fourth
+variety of joining line**: "1970, on withdrawing from British protectorate", after the ordinary independence
+line, Vanuatu's condominium and Samoa's end of New Zealand administration. **The USVI is the reverse of
+Curaçao's divergence and is decided the other way.** Where Curaçao's UNdata figure was a fifth ABOVE the
+World Bank's with no corroboration either way, here UNdata's 84,000 for 2025 sits a fifth BELOW two sources
+that agree closely — the Secretariat's own working paper at 104,917 for 2023 and the World Bank at 104,377
+for 2024 — so C10's Kiribati precedent applies and **the facts box drops UNdata for the two that agree**,
+while the abstract prints all three. **Two sources agreeing beat one disagreeing; one against one is
+printed and not adjudicated.** Aruba, meanwhile, extends batch 69's `government.nl` route into real
+constitutional detail — the Governor appointed by the King for six years and reappointable once, holding no
+ministerial responsibility, appointing a five-member Advisory Council; the Minister Plenipotentiary in The
+Hague who sits with the Dutch ministers as the Council of Ministers for the Kingdom; and the single Dutch
+Representation headquartered at Willemstad with an office at Oranjestad. What it does NOT carry is **the
+date of Aruba's separate status within the Kingdom**, which is in none of its English pages and returns no
+match in the digital library, so the card says nothing about it — the Barbados-republic case a second time,
+and the second reminder that a state's own site answers the questions it happens to have written a page
+about.
+
+**Batch 70 (Seychelles, Grenada, Micronesia) turns the UNdata capital-city footnote into a STANDING
+RULE, because it has now been wrong three times in seven batches and in three different ways.** Malta's
+212,800 for "Valletta" is the Northern and Southern Harbour districts; Curaçao's 144,000 for "Willemstad" is
+the island's own total excluding some neighbourhoods; and Grenada's 39,300 for "Saint George's" is footnoted
+*"Refers to Saint George Parish"*. **Never print UNdata's capital-city population without reading its
+footnote** — the field is not a city's population often enough that the safe assumption is the opposite.
+Grenada's card states the figure and what it actually counts, which is the honest form. The batch's three
+recognitions are all instruments the deck had not met. **Seychelles was recognised by a SATELLITE TRACKING
+AGREEMENT**: on 29 June 1976, its independence day, representatives of the two states signed at Victoria an
+agreement "relating to the establishment, operation, and maintenance of a tracking and telemetry facility on
+the island of Mahe", and that signature is what the guide records as the act of recognition — a technical
+annexe standing in for a note verbale. **Micronesia was recognised by a PRESIDENTIAL PROCLAMATION**, Reagan
+noting in Proclamation 5564 of 3 November 1986 that the United States had fulfilled its trusteeship
+obligations, so that the Compact of Free Association entered into force the same day. And **Grenada's
+ambassador presented HER credentials in Washington** on 29 November 1974, three months before the American
+ambassador presented his at Saint George's — the recognition running from the smaller state outward.
+Micronesia also gives the deck its clearest gap between an American act and a United Nations one: the
+trusteeship ended for Washington in 1986, but **the Security Council did not determine that the Trusteeship
+Agreement had terminated until 22 December 1990**, by 14 votes to 1, on the ground that the peoples of
+Micronesia, the Marshall Islands and the Northern Mariana Islands had approved their new status in
+plebiscites observed by Trusteeship Council visiting missions — four years, and the UN membership another
+nine months after that. Two more notes. **Bridgetown claims a fourth card**: Grenada's ambassador is
+resident in Barbados and its embassy is run by a chargé reporting to him, after Saint Lucia's, the Windward
+Islands' special representative and the guide's own statement that Bridgetown is the American base for the
+region. And **Seychelles is the pass's first population SERIES BREAK**: the World Bank's figures run 93,419
+in 2015 to 99,258 in 2021 and then jump to 119,878 in 2022, a 21 per cent step in one year that is a
+rebasing rather than growth — so **C8's stale-versus-contested test assumes a smooth series and cannot be
+applied across a break**; read the series before trusting either end of it. The Commonwealth's "98,462
+(2022)" is the World Bank's 2020 value, which is the same break seen from the other side. Its embassy is
+also the deck's only one to close and reopen — shut on 30 August 1996, relations run through Mauritius for
+27 years, reopened on 1 July 2023.
+
+**Batch 69 (Guam, Curaçao, Kiribati) RESOLVED C10's Kiribati deferral, and the answer was in UNdata's own
+footnote the whole time.** C10 recorded Kiribati's area as a three-way disagreement — UNdata 726 km² against
+811 at the Commonwealth and 810 at the World Bank — and **dropped UNdata from that term outright**, the only
+time Phase 3's Source A has been discarded. Its footnote b reads: *"Land area only. Excluding 84 square km
+of uninhabited islands."* **726 and 84 make 810.** It was never an outlier; it was a different measure,
+stated in its own apparatus, and nobody had read down that far. So the rule to carry is stronger than batch
+14's: **a UNdata figure that looks wrong usually carries its own explanation, and the footnote is the first
+place to look, not the last** — this pass has now read four of them into cards in six batches and every one
+changed what the card could honestly say. Guam and Curaçao between them fill the last two gaps in the
+territory recipe. **Guam's C-24 working paper is the American mirror of the French ones** — Navy
+administration from 1899 to 1950, the Organic Act of Guam, an unincorporated territory to which not all of
+the Constitution applies, residents who cannot vote for a President they become able to elect on moving to a
+state, a delegate to Congress, Apra Harbor, the 2020 census ethnic breakdown — though its "Brief history" is
+two sentences where New Caledonia's runs to a dozen, so **the block's length varies enormously by
+territory**. **Curaçao is the batch's genuinely new route, because it is on NO list at all**: not a
+non-self-governing territory, not a Commonwealth member, with no recognition-guide page and no bloc profile,
+since the Netherlands Antilles left the United Nations' colonial reporting in 1955. What answers is
+**`government.nl`**, the Dutch state's own topic pages, which state outright that "On 10 October 2010
+Curaçao and St Maarten became autonomous countries", that the four countries of the Kingdom run their own
+governance, education and courts, and that the Kingdom answers for foreign relations, defence and
+nationality law. **Reach for the metropole's own government site when a territory belongs to no
+organisation.** Its UN half is a resolution record rather than a text: A/RES/945 of 15 December 1955 is a
+SCAN with no extractable text, so the card cites only what the catalogue states — the title, the 557th
+plenary meeting, and the recorded vote of **21 to 10 with 33 abstentions**, which is itself the most
+eloquent fact available about how contested that removal was. **Where a document is an image, cite the
+record and not the reading.** Two figure notes. **Curaçao is the pass's widest unexplained population
+divergence** — UNdata 186,000 for 2025 against the World Bank's 155,967 for 2024, about a fifth apart, with
+no third source and no footnote — so the card gives both and adjudicates nothing, on C5's rule. And UNdata's
+capital-city figure for Curaçao is footnoted "Total population of Curaçao excluding some neighborhoods",
+making it Malta's harbour districts one island over and **the second time in six batches that UNdata's
+"capital city population" is not a city's**.
+
+**Batch 68 (São Tomé and Príncipe, Samoa, Saint Lucia) caught the recognition guide contradicting
+ITSELF A SECOND TIME, three batches after Brunei, and this one is in a HEADING.** The Saint Lucia page's
+section is headed "Diplomatic Relations Established, **1983**" and the sentence under it says relations were
+established on **11 June 1979**, when Ambassador Sally Angela Shelton presented her credentials — dates four
+years apart, one of them plainly the other's typo. **Read the guide's prose, never its headings**, which is
+now a rule with two instances behind it rather than one anecdote. Saint Lucia is also the deck's clearest
+case of **recognition by an APPOINTMENT**: it became independent on 22 February 1979, and the United States,
+which had "informally recognized" it as an associated state of the Commonwealth, did not formally recognise
+the independence until it appointed an ambassador on 17 May, three months later. Samoa supplies another mode
+again — **a congratulatory message from the President hand-delivered by a SENATOR**, Oren Long, to the two
+heads of state on 1 January 1962 — and the deck's most persistent absence: relations began on 14 July 1971
+and **every American ambassador since has been resident at Wellington**, an embassy was opened at Apia on 15
+November 1988, and it has been run by a chargé d'affaires ever since because the ambassador never moved
+there. Beside Saint Lucia, whose ambassadors have all been resident in Barbados, and batch 67's note that
+Bridgetown serves as the American base for the region, that makes **three cards in two batches whose
+diplomatic history is really the history of somebody else's capital**. São Tomé and Príncipe is the
+opposite: its whole guide entry is four sentences, relations were established on 10 October 1975 **by an
+exchange of diplomatic notes** and nothing has been recorded since — no consulate, no embassy, no
+ambassador. It is also **the second country in three batches that is not in the World Trade Organization**,
+its working party dating from 26 May 2005 against the Bahamas' 18 July 2001, which is worth carrying: the
+deck's remaining small states are where the WTO's accession backlog actually lives. Two content notes.
+**Samoa's Commonwealth joining line is a third variety** after C4's independence line and batch 66's
+condominium — "1970, following administration by New Zealand", eight years after the independence of 1962 —
+and the same page records that Samoa hosted the heads of government meeting in 2024. And **the guide's date
+for the start of British rule in Saint Lucia is 1815, where the term said 1814**, so the term was corrected;
+its area went 617 → **616 km²**, which UNdata and the Commonwealth give identically, and its "changed hands
+fourteen times" went with batch 45's rule, along with São Tomé's "second smallest state in Africa" and "first
+plantation colony in the tropics" and Samoa's "first Pacific island country to gain independence" — three
+superlatives in one batch, all of them the kind a reader would repeat and none of them in a reachable source.
+
+**Batch 67 (New Caledonia, Barbados, French Polynesia) turned batch 64's Western Sahara route into a
+REPEATABLE RECIPE for a non-self-governing territory, and it is better than the one for a small state.**
+Neither French territory has a recognition-guide page or a bloc profile, but the Secretariat's annual
+**working paper for the Special Committee on decolonization** opens with a "Territory at a glance" block —
+land area, exclusive economic zone, population, life expectancy, ethnic composition, languages, capital,
+head of government, GDP per head — followed by a **"Brief history" paragraph that runs from first contact to
+the present in a dozen sentences**. It is the single richest per-territory source the pass has found: New
+Caledonia's gives Cook naming Grande Terre in 1774, the French annexation of 24 September 1853, the overseas
+territory of 1946, the *événements* in which about 80 people died between 1984 and 1988, the Matignon
+Agreements of 26 June 1988, the Nouméa Accord of 5 May 1998 and all three referendums with the exact
+question put to the voters. **Reach for `A/AC.109/<year>/<n>` before anything else on a listed territory**;
+the index is a search of the digital library for the territory's name plus "working paper". Two things
+follow. **The territory's own re-inscription is a citable General Assembly resolution**, which dates the
+status the card asserts: A/RES/41/41 A of 2 December 1986 declares that France is obliged to transmit
+information on New Caledonia under Chapter XI and affirms its people's inalienable right to
+self-determination, and A/RES/67/265 of 17 May 2013, **adopted without a vote on a draft moved by Nauru,
+Solomon Islands and Tuvalu**, put French Polynesia back on the list — three of the smallest states in the
+world moving a resolution about a neighbour. And **UNdata and the working paper disagree about area on both
+territories, without either being wrong**: 19,100 km² against 18,575 for New Caledonia and 3,687 against
+"about 3,500" for French Polynesia, because one is a surface area and the other a land area, so the cards
+give both and say which is which. Batch 14's footnote rule pays a third time in four batches: **UNdata's
+first footnote on each of them reads "For statistical purposes, the data for France do not include this
+area"**, which is the statistical form of the constitutional fact the whole card is about. Barbados adds a
+recognition mode the Bahamas gave a batch ago and confirms it is a Caribbean pattern rather than a one-off:
+**the act of recognition was the opening of the embassy**, on 30 November 1966, the same day independence
+took effect, with the American consular presence on the island dating back to **11 June 1823** — the oldest
+date on any card in this deck. Two negative findings worth recording. **`caricom.org` is 403 on every
+path**, so the Caribbean has no bloc profile and its states are carried by the Commonwealth, the guide and
+UNdata. And **nothing openable from here records that Barbados became a republic in 2021** — not the
+Commonwealth's own member page, not the recognition guide, and the digital library returns no match for
+"Republic of Barbados" — so the clause stands in the term unmarked, on the C0 practice of keeping an
+uncontested claim and recording that it rests on nothing citable, rather than deleting a constitutional
+change because this sandbox cannot reach a page about it.
+
+**Batch 66 (Bahamas, Iceland, Vanuatu) found the deck's only case of DIPLOMATIC RELATIONS ESTABLISHED
+BEFORE THERE WAS A COUNTRY TO HAVE THEM WITH**, and two more modes of recognition with it. Iceland took over
+its own foreign relations on 10 April 1940, the day after Germany occupied Denmark, without declaring itself
+independent of the Danish crown; Icelandic officials asked the United States in July and December 1940 to
+place the island under its protection **under the Monroe Doctrine**; the United States, "initially
+unenthusiastic", concluded that occupying Iceland was a matter of its own national defence and did so on 7
+July 1941; and **diplomatic relations and an American legation at Reykjavík followed on 30 September 1941 —
+three years before the republic existed**, the guide noting in as many words that "Iceland had taken over
+full control of its foreign relations … although the country had not yet declared itself independent from
+Denmark". Recognition then came on 17 June 1944, the day of the republic's founding, **in public statements
+of congratulation by Roosevelt and Cordell Hull** — a tenth mode, and the only one that is not a document at
+all. The Bahamas gives an eleventh: **the act of recognition WAS the opening of an embassy**, relations and
+the embassy at Nassau both dated 10 July 1973 with nothing else recorded. And **Vanuatu's relations were
+established by an agreement signed by both states** on 30 September 1986, six years after recognition, with
+ambassadorial relations following in 1987 through the ambassador to Papua New Guinea and **the embassy at
+Port Vila opening only on 19 July 2024, 44 years after the recognition** — the widest gap between
+recognition and a resident mission anywhere in the deck. Vanuatu is also **the deck's only condominium**,
+held under the joint sovereignty of Britain and France, which shows up in the Commonwealth's joining line as
+well: where C4 found that line usually dates an independence, Vanuatu's gives "following ending of
+administration Anglo-French condominium", naming the arrangement rather than the departing power. Two
+measurement notes. **The Bahamas is the pass's widest three-way area disagreement among sources that all
+look right** — UNdata 13,940 km², the Commonwealth 14,000 and the World Bank 13,880, a spread of 120 km² or
+0.9 per cent — and the term's 13,878 sat inside the World Bank's rounding interval and outside the other
+two, so C9's rule left it standing; **it was moved to UNdata's figure anyway, for the sibling-consistency
+reason rather than the correction reason**, a card and its own glossary term being two Folio surfaces that
+must not print different areas for one country. And **this is the second batch running with no population
+correction**: all three terms sat between two of their three sources. Batch 45's rule fired for the
+thirteenth consecutive batch and took the most this time — Iceland's "one of the most volcanically active
+places on Earth", Vanuatu's "the country most exposed to natural hazards" and "one of the world's most
+accessible lava lakes", and the Bahamas' "more than 2,000 cays", none of them in anything reachable, against
+the Commonwealth's plain "nearly 700 coral islands. Around 30 of the islands are inhabited."
+
+**Batch 65 (Cabo Verde, Brunei, Belize) is where the recognition guide, the spine of Phase 3's history,
+CONTRADICTS ITSELF AND MISSPELLS A NAME IT PRINTS TWICE** — P2's rule that a spine source is not infallible,
+in a third coat. The Brunei page says the United States recognised full independence on 1 January 1984 and
+"opened the American Embassy in Bandar Seri Begawan on that same date", and then, four paragraphs down, that
+"diplomatic relations and the American Embassy in Brunei were established on May 28, 1984". Both cannot be
+the embassy's opening. The card states the recognition and the credentials and **leaves the embassy date
+unstated** rather than picking one. The Cape Verde page prints the president's surname as *Pereria* in both
+of the places it appears, which is a form no other reachable source uses; **the name was dropped from the
+card rather than corrected on a hunch**, since nothing openable here gives the spelling. And the Belize page
+dates the Guatemala dispute to "an 1859 treaty between Imperial Spain and Great Britain", which the card
+does not repeat: it says only *a treaty of 1859*. **Where a source is the only one you have and it is
+visibly wrong about something, state the part it can carry and say nothing about the rest** — the alternative
+is to publish somebody else's slip with Folio's name on it. Three finds go the other way. **Brunei carries
+the deck's oldest treaty still in force**: the Treaty of Peace, Friendship, Commerce and Navigation signed
+on 23 June 1850, in force from 11 July 1853, which the guide says "is still in effect today" — older than
+most of the states in this deck. **Belize's recognition came FIVE WEEKS AFTER its independence**, on 29
+October 1981 against 21 September, by raising a consulate general to an embassy, where the deck's usual
+pattern is the same day or a few days. And **the ICJ carried a second card in two batches**:
+`icj-cij.org/case/177` dates the Guatemala/Belize special agreement to 8 December 2008, its protocol to 25
+May 2015 and the seising of the Court to 12 June 2019, which no statistical profile holds. **The guide also
+settles D1's naming problem with a citation rather than an inference** — "In 2013, the country was re-named
+Cabo Verde" — so the card can say outright that the United Nations and the WTO use Cabo Verde while the
+guide still files it under Cape Verde, which is why the glossary key is `Cape_Verde` and the alias is the
+other way round. Two smaller notes. **This is the first batch since C10 with no population correction at
+all**, and the reason is arithmetic rather than better editing: Cabo Verde's whole decade runs 512,394 to
+524,877, so a term written at any point in it is still right. And **Belize is the pass's fifth moving World
+Bank area series and the first that moves the RIGHT way** — 22,970 for 2019–22 and 22,966 for 2023, a
+de-rounding toward UNdata's 22,965, where Canada, the Dominican Republic, Monaco and Montenegro all moved
+without explanation and one was outright error. Access: `ine.cv`, Cabo Verde's own statistics institute,
+serves 10 KB containing the single word "INE", another JavaScript shell; `un.org/development/desa`,
+`unctad.org` and `au.int/en/countryprofiles` are all shut, so a small African state outside the Commonwealth
+has no bloc profile and is carried by UNdata, the guide, the WTO and the two World Bank series between them.
+Batch 45's rule fired for the twelfth consecutive batch and took four superlatives: Brunei's forest as "one
+of the highest proportions left in the region" became 72.1 per cent, and Belize's "longest reef system in
+the northern hemisphere", its "only Central American state whose official language is English" and Cape
+Verde's "more Cape Verdeans now live abroad than at home" all went, none being in anything reachable.
+
+**Batch 64 (Western Sahara, Malta, Maldives) wrote the deck's first NON-SELF-GOVERNING TERRITORY, and
+the route is the United Nations' own decolonization machinery rather than any of Phase 3's three sources.**
+`history.state.gov` has no page for Western Sahara and the World Bank has no series, but **UNdata does have
+a profile** — `data.un.org/en/iso/eh.html` — which refines C0's finding that a state without an ISO code
+gets nothing: **the test is the ISO code, not statehood**, and `EH` has one where Kosovo's `xk` 500s. The
+history is carried by three UN works instead: the **International Court of Justice's advisory opinion of 16
+October 1975** (`icj-cij.org/case/61`, which states the questions the General Assembly asked in December
+1974 and the answers — not *terra nullius*, ties of allegiance to the Sultan of Morocco and land rights of
+the Mauritanian entity, but no tie of territorial sovereignty with either), **Security Council resolution
+690 of 29 April 1991** establishing MINURSO, and **the Secretariat's annual working paper for the Special
+Committee on decolonization** (A/AC.109/2025/17). That last one is what makes the card writable at all under
+the rule that no state's account of its own actions is repeated as established fact: **it states each
+party's position in that party's own words**, so Morocco's autonomy initiative and territorial integrity and
+the Frente POLISARIO's "last colony in Africa" both appear as claims, attributed, with the Court's opinion
+and the unheld referendum as the facts around them. Two access findings go with it. **`un.org`'s
+decolonization section answers 202 with an EMPTY BODY** — an eighth variety of non-error refusal and a worse
+one than the 200-status error documents, since there is no document at all to inspect — while
+`peacekeeping.un.org` and `minurso.unmissions.org` are 403; `digitallibrary.un.org` and `icj-cij.org` carry
+everything. And **a UN document PDF needs a CMap-aware extractor**: the working paper's fonts are subset
+with hex-encoded strings, so a literal-string extractor returns image noise and not one readable word, where
+reading the ToUnicode CMaps out of the file recovers the whole text. **Batch 14's footnote rule paid twice
+and the second is the one to carry.** UNdata's area footnote for Western Sahara names the two former Spanish
+territories outright — the Northern Region, formerly Saguia el Hamra, and the Southern Region, formerly Rio
+de Oro — which is the colonial geography for free. And **Malta's capital-city population footnote says it
+"refers to the localities of the Northern Harbour and Southern Harbour"**, so UNdata's 212,800 for
+"Valletta" is two harbour districts rather than the city, which holds a few thousand people: a capital card
+written from that field would print a figure that is not its city's. Elsewhere, **Malta's autumn of 1964 is
+four acts on four sources within eleven weeks** — recognised on 18 September, the embassy at Valletta opened
+on 21 September, GATT on 17 November, the United Nations on 1 December — and **the Maldives is the deck's
+second state to leave the Commonwealth and rejoin**, withdrawing on 13 October 2016 and returning on 1
+February 2020, after South Africa. Both populations were stale by C8's test and both were raised, Malta's to
+570,000 and the Maldives' to 530,000; **UNdata is the outlier on Malta** at 545,000 against the World Bank's
+568,847 and Eurostat's 574,250. Batch 45's rule fired for the eleventh consecutive batch, and hardest here:
+the Maldives term's "lowest-lying country in the world, averaging about 1.5 m" and its "1,190 coral islands
+in a double chain of atolls spread over 90,000 km² of sea" are in nothing reachable, and were replaced by
+the Commonwealth's around 1,200 islands and sandbanks with about 200 inhabited and UNESCO's measured reefs —
+seventh largest in the world, about 5 per cent of the world's reef area.
+
+**Batch 63 (Luxembourg, Suriname, Montenegro) found the deck's ninth distinct mode of recognition and,
+in Montenegro, the ONLY recognition the United States has ever WITHDRAWN and later granted again.**
+Luxembourg was recognised on 31 May 1878 when President Hayes issued an **exequatur** to François Berger as
+consul general ad interim at New York — not a note, not a treaty, not a ceremony attended, but the routine
+document admitting another state's consul to do business, which is an act of recognition because only a state
+has consuls to admit. **Look for an exequatur where a small European state's recognition seems to be
+missing**: the guide records no earlier note for Luxembourg at all. Montenegro's entry then runs the whole
+arc twice. It was recognised on 3 March 1905, when Roosevelt approved the Diplomatic and Consular Act
+assigning the mission in Greece responsibility for Montenegro as well; Wilson decided to withdraw that
+recognition on 30 December 1920, and on 21 January 1921 Acting Secretary Norman H. Davis told the honorary
+consul-general that "in view of the present status of Montenegro, this Government no longer considers it
+necessary to accord recognition to her diplomatic and consular officers"; independence was declared again on
+3 June 2006 and recognised on 13 June, with relations established on 15 August — **85 years between the
+withdrawal and the second recognition**, and the only place in the deck where a country's guide page has to
+be read as two separate histories of the same name. Suriname is the Gambia's shape one continent over:
+the independence ceremony at Paramaribo on 25 November 1975 was attended by the **Secretary of the Navy** as
+the President's representative, with Ford's letter of recognition sent the same day, so the attendance and
+the letter are one act rather than two. Three figure findings go with the batch. **Luxembourg's three
+sources give three areas** — 2,586 km² at UNdata, 2,590 at the World Bank and 2,595 at Eurostat — which is
+inside C9's spread and was left alone, while its population was corrected from "roughly 670,000" to 680,000,
+the term having sat below all three. **Montenegro is the pass's FOURTH moving area series**: the World Bank
+gives 13,810 km² for 2020–22 and 13,888 for 2023 with no explanation, after Canada, the Dominican Republic
+and Monaco, so a World Bank area that changes mid-series is a fact about the series rather than about the
+country. And **Suriname's income per head has FALLEN** — 8,814 US dollars in 2015, 6,792 in 2020, 5,976 in
+2023 — which with Equatorial Guinea's earlier fall makes two, so a per-head figure needs its year stated as
+firmly as a population does. Batch 45's rule fired for the tenth consecutive batch: Luxembourg's grand duchy
+described as "the only one left" is in no reachable source and was cut to what the sources print.
+
+**Batch 62 (Solomon Islands, Bhutan, Macau) found the source that answers for an entity OUTSIDE every other
+source, and it is a general route rather than a lucky page.** Macau has no recognition-guide entry (the guide
+covers states the United States has recognised) and no bloc profile, and UNdata's SAR page is thin. What
+carries the card is **`HRI/CORE/CHN-MAC/2019`, the COMMON CORE DOCUMENT** that Macao, China filed with the
+United Nations human-rights treaty bodies and the Secretariat issued on 5 August 2020: it gives the land area
+and how it has grown, the maritime jurisdiction, the by-census breakdown by ethnicity, language and place of
+birth, and the constitutional machinery — **a government's own description of itself, filed under a treaty
+obligation.** Every state party to a human-rights treaty files one, so **search `digitallibrary.un.org` for
+`HRI/CORE/<code>` whenever a territory falls outside the usual three.** One handling note: the PDF extracts
+with **broken word spacing** — letters separated inside words — so despace a copy, grep that, and read the
+window back; searching the raw extraction finds nothing at all.
+
+**Macau's land area GROWS, and here the source says why.** The core document records it rising from about
+29.5 km² in 2010 to **32.9 km² at the end of 2018**, with jurisdiction over 85 km² of sea since 2015, and the
+World Bank's own series records the same movement (32.9 through 2020, 33 from 2021). Batch 57 found Bahrain's
+area moving and batch 59 Mauritius's, and neither source explained itself; **this is the first where one
+does**, and it settles the earlier note: a moving area series is sometimes reclamation and sometimes
+revision, and only a source that says so can tell you which.
+
+**Macau is also the deck's first entity whose CONSTITUTIONAL HISTORY has no openable source here, and the
+asymmetry with Hong Kong is exact.** Hong Kong's card could cite the United Kingdom's Hong Kong Act 1985 on
+`legislation.gov.uk` and the HKSAR government's own Basic Law page; Macau's equivalents are all shut —
+`bo.io.gov.mo` refuses the connection, `io.gov.mo` refuses, `gov.mo`'s English pages 404 except a news feed,
+`macaotourism.gov.mo` 404s. So the card and the new term state modern, sourced facts and **do not date the
+handover at all**. It is D2's Taiwan position in a new form: the entity is perfectly reachable, its history
+is not.
+
+**Bhutan is the deck's only country that is not a WTO member, and the WTO dates that too.** Its working party
+on accession was **established on 6 October 1999** and the accession has not been completed — twenty-six
+years. Set beside Comoros (21 August 2024) and Timor-Leste (30 August 2024), the WTO's own pages now date
+both ends of the deck's range, from a member that joined last year to one that has been acceding since the
+century before. Note the accession page lives under `acc_e/`, not `countries_e/`, and its slug is the FRENCH
+spelling: `a1_bhoutan_e.htm`.
+
+**And Bhutan has the longest gap in the deck between a Security Council recommendation and a General Assembly
+admission.** Recommended unanimously at the Council's 1566th meeting on **10 February 1971** and admitted at
+the Assembly's 1934th plenary on **21 September 1971** — more than seven months, against six days for Gabon
+and Equatorial Guinea and three for Timor-Leste. The Assembly's ordinary session opens in September, which is
+the mundane explanation and is stated by no source, so the card gives the interval and not the reason.
+
+**A thirty-year embassy closure that ENDED, and the deck's first woman ambassador.** The American embassy at
+Honiara closed on 30 July 1993 and **reopened on 27 January 2023**, where Guinea-Bissau's (batch 55) and
+Comoros's (batch 61) never did — so a closure is not necessarily permanent, and the guide records the
+reopening as its own dated event. And relations were established on 9 October 1978 when **Mary S. Olmsted**
+presented her credentials as ambassador, accredited to Papua New Guinea as well and resident at Port Moresby:
+the first woman named as an ambassador in any entry this deck has cited.
+
+**Recognition delivered by a senator.** Solomon Islands was recognised on 7 July 1978 when **Senator John H.
+Glenn**, as the President's personal representative, delivered a letter from President Carter to Prime
+Minister Peter Kenilorea. It is the Gambia's recognition-by-attending (batch 53) with a sitting legislator
+carrying it, and it brings the count of distinct modes the guide records to eight.
+
+**Batch 45's rule is in its ninth consecutive batch, and one of its removals is the kind to watch for.**
+Bhutan's "a proportion the constitution requires never to fall below three-fifths" is a claim about a legal
+instrument, which is exactly the class that must be sourced or dropped; it gave way to UNdata's 71.2 per
+cent. Solomon Islands lost "about 990 islands" and "logging, fishing and palm oil are its main exports" for
+the Commonwealth's own "two parallel chains of volcanic islands and coral atolls" and its named neighbours.
+**A new glossary term shipped with the batch — `Macau`, with `Macao` as an alias** — the deck's first new
+country term since Puerto Rico.
+
+**Batch 61 (Fiji, Comoros, Guyana) turns up the guide's oldest date and a recognition made from a chair at
+the Security Council.** Fiji's entry records a CONSULATE 26 years before the colony and 126 before
+independence: Commercial Agent John B. Williams was appointed the first consul to the Fiji Islands on
+**19 August 1844**, resident at Auckland, and the islands became a British Crown colony only in 1874. It is
+the earliest act any card in this deck cites. And the recognition itself has a shape the deck has not seen:
+independence came on 10 October 1970 and the United States recognised it **in a statement by Charles W. Yost,
+its representative in the United Nations Security Council** — not a press release, a message, an embassy or a
+delegation, but a speech in the chamber. **The reverse credential ceremony goes with it**: relations were
+established when FIJI's ambassador presented HIS credentials to President Nixon on 22 July 1971, where every
+other entry in the deck dates relations from an American presenting credentials abroad.
+
+**COMOROS IS RECOGNITION AND RELATIONS IN ONE ACT, ANNOUNCED BY BOTH GOVERNMENTS TOGETHER.** On 15 August
+1977 the two states issued a **joint communiqué** announcing the establishment of diplomatic relations, and
+the guide files that single document under both headings. Every other mode the deck records is unilateral —
+a press release, a congratulatory message, an appointment, an attendance — and this one is not. Its embassy
+history is the deck's most travelled: a chargé resident at Antananarivo from 1977, an embassy at Moroni from
+26 August 1985, that embassy CLOSED on 30 September 1993, ambassadors accredited from Port Louis in Mauritius
+after it, and on 6 March 2006 the responsibility moved back to Antananarivo — **three capitals, ending where
+it began.**
+
+**C8's Comoros deferral is now cited rather than reasoned.** C8 read UNdata's 2,235 km² against the term's
+1,861 and explained the gap as Mayotte, which was right and was an inference. The General Assembly's
+**resolution 31/4 of 21 October 1976** is titled *Question of the Comorian Island of Mayotte*, and the item
+was still on the Assembly's agenda in September 2025 as A/DEC/79/576 — **49 years of the same agenda item**,
+which is what makes the two area figures a political fact rather than a measurement difference, and it is now
+carried by two openable records instead of by this plan's own prose.
+
+**Guyana's income per head TRIPLED in three years and UNdata prints all three figures**: 5,640 US dollars in
+2015, 6,779 in 2020 and **20,189 in 2023**. It is the largest movement in any economic series the pass has
+met — larger than Djibouti's exports and in the opposite direction from Equatorial Guinea's fall — and it is
+worth noting that the term said "offshore oil since 2015 has transformed the economy" and could not say by
+how much. **The figures were in its own cited source the whole time.**
+
+**And a live case at the International Court of Justice is citable like any other act of state.**
+`icj-cij.org/case/171` is *Arbitral Award of 3 October 1899 (Guyana v. Venezuela)*, and the case page carries
+its own procedural history — public hearings on the merits at the Peace Palace from 4 to 11 May 2026. The
+deck has cited the Court's finished opinions before (Kosovo, batch 57); this is the first UNFINISHED case,
+and the page states where it has got to, which is the only claim a card should make about one.
+
+**Fiji is the Commonwealth's most-suspended member in the deck.** Its Key Facts line records membership
+suspended **three times** — October 1987 to October 1997, June 2000 to December 2001, and December 2006 to
+September 2014 — against the Gambia's single leave-and-rejoin (batch 53) and South Africa's (C6). The
+Commonwealth's own prose also supplied the island count the term had been asserting without a source: "about
+300 islands, only about 100 of which are inhabited", where the term said about 330 and some 110.
+
+**Two of the WTO's newest members are in this deck and both joined in 2024** — Comoros on 21 August and
+Timor-Leste on 30 August (batch 58), nine days apart. It is recorded here rather than on either card, since
+neither card's sources carry the other's date; but it is worth knowing that a country page's membership line
+is the most perishable fact the pass cites, and that two of them moved within a fortnight of each other.
+
+**Batch 60 (Djibouti) is a one-card batch because the other half of it was a CHANGE TO THE MAP FORMAT.**
+On request — "ensure the country Cyprus encompasses the whole island" — `map.key` now takes a LIST as well as
+a name. `world.js` files a partitioned island as separate polygons, and Cyprus is three of them (`Cyprus`,
+`N. Cyprus`, `Cyprus U.N. Buffer Zone`), so batch 59's card shaded two-thirds of what the reader could see
+and asked them to name it. Four things about the implementation are decisions rather than plumbing. The names
+are joined with a **pipe** for the markup's single attribute — no place name in either layer contains one and
+`add-card.js` refuses one that does, so the join can never become lossy. **Every name must resolve or the
+window fails**: a card shading two of three draws perfectly and asks about a shape that is not the country,
+which is the worst failure this format has. The fill and the outline are laid down as **ONE PATH over all of
+them**, because stroking each would draw exactly the internal lines that naming them together is meant to
+hide. And the opening view centres on the union's bounding box only when there are several shapes — with one
+it still centres on that shape's own published label point, **so not one of the 280 existing map cards moves
+by a pixel**.
+
+**Djibouti's American post was PROMOTED rather than opened, and that is now a pattern rather than a
+curiosity.** On 27 June 1977 the American consulate general to the former French Territory of the Afars and
+the Issas *became* the embassy at Djibouti; batch 59's Cyprus is the same shape, where "the American
+Consulate General was elevated to an embassy" on the day of recognition in 1960. Two instances in two
+batches, alongside the modes already recorded — opening an embassy, attending the ceremonies (the Gambia),
+accrediting a neighbouring ambassador (Equatorial Guinea, Bahrain) — makes **the elevated consulate a fifth
+way the guide records a relationship beginning**, and the one that leaves the same building and the same
+staff on the same street.
+
+**Djibouti's capital figure is for the CERCLE, and its own footnote says so.** UNdata gives 568,800 for the
+capital in 2019 and footnotes it *"Refers to the population of the 'cercle'"* — a French administrative
+district — so "close to half the country lives in the capital" is a statement about the district and not
+about the city. That is the fourth footnote finding in three batches (Moldova's Transnistria, Cyprus's whole
+country, Mauritius's two island sets, and now this), and the one that most changes what a number means
+without changing the number.
+
+**AN EXACT AGREEMENT IS NOT ALWAYS EVIDENCE.** UNdata and the World Bank both give Djibouti 23,200 km² — but
+the World Bank rounds an area of this size to the nearest 10 and 23,200 is already a multiple of ten, so the
+agreement costs nothing and proves nothing. Batch 56 made an exact agreement between UNdata and Eurostat the
+test that makes a term checkable to the kilometre; **that works because neither of those two rounds**, and it
+does not transfer to the World Bank. Ask whether the rounding could have produced the agreement before
+treating it as corroboration.
+
+**Batch 45's rule is in its eighth consecutive batch, and this is its clearest win yet.** The Djibouti term
+lost three unsourced claims — "one of the hottest and driest countries on Earth", Lake Assal "at 155 m below
+sea level the lowest point in Africa", and "the port handles most of landlocked Ethiopia's trade and several
+countries keep military bases there" — and gained four figures UNdata prints: forest over 0.2 per cent of the
+land, nearly four in five people in towns, **services employing 92.9 per cent of the workforce**, and exports
+rising from 251 million dollars in 2015 to **4,466 million by 2020**. The last two say what the port does to
+the country far better than the sentence that claimed it, and they can be checked.
+
+**Batch 59 (Cyprus, Mauritius, Eswatini) is where batch 57's renamed-country rule becomes a table.** Eswatini
+was renamed in 2018 and its four institutional sources split two against two: the recognition guide keeps
+**`swaziland`**, the WTO keeps **`swaziland_e.htm`** (with `eswatini_e.htm` serving the 9,709-byte error
+document at a 200), while the Commonwealth and SADC both use the new FORMAL name, **`kingdom-eswatini`** —
+which extends C7's Commonwealth rule to SADC. Batch 57 established that a renamed country does not rename
+anyone else's records; this shows the split runs straight through one batch of sources, so **try both names
+rather than reasoning about which is likelier**. The byte-size test settles the WTO half in one fetch either
+way.
+
+**A PROFILE CAN COUNT A DIFFERENT TERRITORY FOR TWO OF ITS OWN FIELDS, AND ONLY ITS FOOTNOTES SAY SO.**
+UNdata gives Mauritius a surface area of 1,979 km² footnoted *"Excluding the islands of Saint Brandon and
+Agalega"* and a population of 1,268,000 footnoted *"Including Agalega, Rodrigues and Saint Brandon"* — the
+area and the population on one page describe different countries. The Commonwealth explains the gap by
+publishing the parts (Mauritius 1,864 km², Rodrigues 104, "total including other islands" 2,050) and SADC
+gives 2,040, the term's figure exactly. **This is a step beyond Moldova and Cyprus, where a footnote explained
+a divergence BETWEEN sources; here it explains one WITHIN a source**, which no comparison of sources could
+ever have found.
+
+**Cyprus is the pass's cleanest statement of the divided state, and every source is explicit.** UNdata's
+population carries the footnote *"Refers to the whole country"* (1,371,000), the World Bank agrees at
+1,370,754, and Eurostat gives **979,865**, the area the government controls — so it is the EU that counts
+differently here, not UNdata, and C1's Cyprus finding is confirmed with the footnote that explains it. The
+guide states the politics plainly: a Turkish-controlled area in the north declared independence in 1983 and
+**"Turkey has been the only country in the world to recognize the TRNC"**, while the United States never has
+and has maintained relations with Cyprus without interruption since 1960.
+
+**`world.js` CARRIES THREE CYPRUS SHAPES AND THE CARD SHADES ONE.** `Cyprus`, `N. Cyprus` and `Cyprus U.N.
+Buffer Zone` are separate polygons and `map.key` takes a single name, so the card shades the republic's own
+area and leaves the north and the buffer zone in the layer's grey. **That is the right answer rather than a
+compromise**: the card's second sentence is about precisely that division, and the map now illustrates it. It
+is the first card in the deck whose shaded shape is deliberately not the whole island the reader can see, and
+the question — "the country or territory shaded on the map" — is still exactly true of it.
+
+**The guide's fourth error variety, and this one is a slip of the pen**: Mauritius's entry reads "Chargé
+d'Affaires **at** interim" where every other page has *ad interim*. Trivial beside batch 55's misspelt head of
+state, batch 57's surname spelt two ways and batch 58's heading contradicting its own paragraph — but it is
+the fourth kind in five batches, and worth saying plainly: **these are typing errors in a good source, not
+evidence the source is unreliable.** Every date and event the guide has stated has held.
+
+**UNdata's own footnote confirms a two-capital claim for the first time.** Eswatini's capital field carries
+*"Mbabane is the administrative capital and Lobamba is the legislative capital"* — a claim the deck has
+previously taken from the Commonwealth or from this plan's own list of multi-seat countries. SADC adds that
+Lobamba is the royal seat as well, and its area, 17,364 km², matches the term to the kilometre.
+
+**A second area series that moves.** The World Bank gives Mauritius 2,007 km² for 2020 and 2021 and 2,010 for
+2022 and 2023. Bahrain's moved by 15 km² as land was reclaimed (batch 57); this moves by 3, which is a
+revision rather than a coastline. **An area is not always a constant, and the number does not say which kind
+of change it is** — so a series that moves is a reason to read the other sources, not to prefer the newest
+value.
+
+**Batch 45's rule is in its seventh consecutive batch, and both replacements say more than what they
+replaced.** Mauritius's "one of the world's longest continuous coral reefs" gave way to SADC's measured 67 km
+by 46 km and its submarine volcanic origin; Eswatini's "one of the last absolute monarchies" became SADC's own
+"the only absolute monarchy in southern Africa" — narrower, sourced, and a sharper fact. Two populations were
+restated with them: Eswatini 1.2 → 1.3 million, and **Cyprus's single "roughly 1.3 million" became 1.4 million
+for the island as a whole with Eurostat's 980,000 beside it**, since a term should not give one figure for a
+country its own sources count two ways.
+
+**Batch 58 (Timor-Leste, Estonia, Trinidad and Tobago) found the guide contradicting itself INSIDE one
+entry — a heading against its own text.** Estonia's page carries the heading "American Legation established at
+Tallinn, **1922**" over a paragraph that begins "The American Legation at Tallinn was established on **30 June
+1930**", and the paragraph is right: it goes on to explain that until then the American representative resided
+at Riga and was accredited to all three Baltic states. **Read the paragraph, not the heading.** The guide's
+headings are a year appended to a section title and can be wrong where the prose is not. That is the third
+variety of guide error in four batches — batch 55's misspelt head of state, batch 57's surname spelt two ways
+across three pages, and now a date wrong against its own sentence — and the only one visible without leaving
+the entry.
+
+**Estonia and Latvia are one act, and Estonia's page states what batch 56 had to infer across two.** Both were
+recognised on 28 July 1922 by Evan Young, the Commissioner at Riga, on Hughes's telegram of 25 July; Estonia's
+entry adds that Young "would continue as the American representative to the three Baltic States, with the new
+rank of Minister". So the four-states-on-one-day connection can be cited **on Estonia's own card**, from
+Estonia's own page, without touching batch 21's rule about marking another state's claim to this country's
+source. The doctrine is Latvia's word for word — never recognised the incorporation, representatives of the
+last independent government kept their diplomatic status, relations held to have continued — and the 1991
+dates differ by a day: restoration recognised 2 September for both, relations resumed 4 September for Estonia
+and 5 September for Latvia, embassies opened on the same 2 October.
+
+**Batch 56's square-kilometre test is now properly bounded, and Estonia is what bounds it.** For Slovenia and
+Latvia, UNdata and Eurostat agreed EXACTLY and both terms were a few kilometres wrong. **Estonia's two do not
+agree at all** — 45,261 at UNdata against 45,336 at Eurostat, 75 km² apart, with the World Bank's rounded
+45,340 beside them — so the term's 45,339 sits inside the spread and stands. The rule was never that the two
+sources agree: it is that **when they agree exactly the term becomes testable to the kilometre, and when they
+do not, C9's spread rule governs as usual.**
+
+**Timor-Leste, by contrast, is exactly the case C9 was written for**: UNdata gives 14,919 km², the World Bank
+14,870 (an interval of 14,865–14,875 at its rounding), and the term said 14,954 — above both. Corrected to
+14,919, with the divergence stated on the card.
+
+**A THIRD FORMULA IN THE DIGITAL LIBRARY'S VOTE SUMMARIES, AND THE THREE ARE NOT SYNONYMS.** Earlier batches
+met "Adopted unanimously" (Gabon, Guinea-Bissau, Equatorial Guinea, and resolution 1272 here), batch 57 met
+"14-0-1" on resolution 1244, and Timor-Leste's admission is **"Adopted without vote"** — in the Council at its
+4542nd meeting on 23 May 2002 and in the Assembly at its 20th plenary meeting on 27 September. A unanimous
+vote is a vote taken; adoption without a vote is a vote not taken, and the record distinguishes them. **Quote
+the record's own formula** rather than writing "unanimously" over all three.
+
+**Batch 56's byte-size test paid a third and fourth time, both at the WTO, and the rule behind them is
+small and permanent: the WTO drops "and" from a compound country slug.**
+`countries_e/trinidad_and_tobago_e.htm` is the 9,709-byte error document served with a 200 and
+`trinidad_tobago_e.htm` is the real page; `timor_leste_e.htm` likewise. The size check finds either answer in
+one fetch. And the membership line is a LIVE fact, not a historical one: **Timor-Leste joined the WTO on 30
+August 2024**, the most recent accession any card in this deck records.
+
+**Trinidad and Tobago's date line is four events in eight weeks** — independence and American recognition on
+31 August 1962, United Nations membership on 18 September, accession to the General Agreement on Tariffs and
+Trade on 23 October. Only the Gambia's GATT accession four days after independence (batch 53) is tighter, and
+that one had no UN admission in between.
+
+**C11's Trinidad finding is confirmed from a third source, and the card states all three figures rather than
+choosing.** C11 recorded UNdata as the outlier at 1,511 thousand against 1.37–1.4 million elsewhere; the World
+Bank now gives 1,367,764 for 2025, flat within 20,000 for a decade, and the Commonwealth 1.4 million for 2022.
+**And the Commonwealth counts a two-island state's islands SEPARATELY** — about 4,800 km² for Trinidad and 300
+for Tobago — where every other source gives one total. That is a different unit of account rather than a
+divergence, but a script summing a Commonwealth "Area" field would read 5,100 for a country whose other
+sources give 5,127 and 5,130.
+
+**Batch 45's rule is in its sixth consecutive batch.** Pitch Lake as "the world's largest natural asphalt
+deposit" and Trinidad and Tobago as "one of the wealthier states in the region" both went; the second is
+replaced by the guide's own "one of the most industrialised countries in the English-speaking Caribbean" and
+the first by the Commonwealth's account of the two islands' relief, which says more and is citable.
+
+**Batch 57 (North Macedonia, Kosovo, Bahrain) spent batch 56's byte-size test on its first outing and it
+paid twice in one batch.** `history.state.gov/countries/north-macedonia` is a plain 404 and
+`wto.org/…/north_macedonia_e.htm` is the 9,709-byte error document served with a 200 — and the reason is the
+same for both: **each institution kept the pre-2019 slug.** The guide's page is `macedonia` and the WTO's is
+`macedonia_e.htm`. A country that changes its name does not rename anyone else's records. **When a country
+has been renamed, try the old name**, and note that the guide publishes an index at `history.state.gov/countries`
+which resolves any slug in doubt in one fetch.
+
+**The guide misspells one man's surname on one page of three, and this one settles INSIDE the guide.**
+Bahrain's entry gives the ambassador first accredited to it as "William A. **Soltzfus**, Jr."; Qatar's and
+Oman's both give **Stoltzfus**, and batch 53 recorded that link between those two. Bahrain is his third post
+and the odd spelling. Where batch 55's "Akmeida" for Almeida had to be settled from outside, **a recurring
+person is a spelling check the guide performs on itself** — so the card names Joseph W. Twinam, whose
+spelling is stable, and describes the earlier ambassador without naming him.
+
+**Kosovo has a SECOND PAGE SHAPE in the guide, and it is the richest page the deck has used.** Every other
+entry runs Summary / Recognition / Diplomatic Relations in a few hundred words; Kosovo's is a **Historical
+Overview** running from the Ottomans to 2008 at six times the length, with the recognition section at the
+end — the 1974 Yugoslav constitution's socialist autonomous province with nearly the rights of a republic,
+the 1981 riots, the ending of autonomy in 1989, the KLA in 1997, the 78-day air campaign, resolution 1244,
+the declaration of 17 February 2008 and American recognition the next day. **Do not assume the guide's
+template**: a state whose status is unusual gets an unusual page, and reading only for the usual headings
+finds nothing at all.
+
+**Kosovo is D2's Taiwan case one step less severe, and the step is worth naming.** D2 found a state outside
+the UN system invisible to all three of Phase 3's sources. Kosovo has no UNdata profile — `xk` still 500s, as
+C0 recorded — and **no World Bank surface-area series**, but it does have a World Bank POPULATION series
+under `XKX`. **The one tool that reaches outside UN membership reaches only half way.** Nothing openable here
+gives Kosovo's area or names Pristina as its capital (NATO's page places KFOR's headquarters at Camp Film
+City, Pristina, which is not the same claim), so its facts box is the first in the deck with **no Area row
+and no Capital row**, carrying population, region, EU membership status and the date of American recognition
+instead. The term keeps its 10,887 km² and its Pristina, unmarked, on C9's principle that an uncontested
+figure no source carries is recorded rather than deleted.
+
+**The EU enlargement page's timeline prints the DATE ABOVE the item it dates.** Read the other way it shifts
+every entry by one, and it reads perfectly naturally either way. Verified on three independently checkable
+dates before any of it was used — the stabilisation and association agreement in force on 1 April 2016,
+EULEX established on 4 February 2008, supervised independence declared at an end on 10 September 2012.
+
+**A vote that is not unanimous, for the first time in the pass.** Every admission resolution cited so far was
+adopted unanimously; **resolution 1244 (1999) was adopted 14-0-1** at the Security Council's 4011th meeting
+on 10 June 1999, and the digital library's record page prints the vote summary beside the meeting number.
+That record page is the only citable form: the resolution symbol carries parentheses, which `SRC_URL_RX`
+stops at.
+
+**Bahrain's area both disagrees between sources AND MOVES.** UNdata gives 778 km²; the World Bank series
+gives 785 in 2020, 790 in 2021 and 2022, and 800 by 2023 — **the only area series in the whole pass that
+changes**, in a country that is reclaiming land. The two disagree by 22 km² for the same year, 2023, which is
+not a rounding and not reclamation timing. The term's 786 was in no source at all and goes to **778**, the
+one precise published figure, by batch 45's rule; the divergence itself is stated on the card rather than
+resolved, which is what C9 and C12 between them say to do when two sources part company.
+
+**North Macedonia is the deck's clearest case of recognition under a NAME rather than of a state.**
+Independence came in 1991 with the peaceful breakup of Yugoslavia, but recognition was delayed by Greece's
+objection: the United States recognised "the former Yugoslav Republic of Macedonia" on 9 February 1994 under
+the provisional designation, opened a liaison office at Skopje before that on 3 December 1993, confirmed
+relations on 13 September 1995 in a Clinton announcement quoting his own correspondence with President Kiro
+Gligorov, and began using the constitutional name in 2004. The Prespa Accord of June 2018 settled the
+dispute, the country became the Republic of North Macedonia in February 2019, and NATO membership followed
+on 27 March 2020. **It joined the United Nations under the provisional designation on 8 April 1993 and the
+WTO under it on 4 April 2003** — three names, one state, and the sources still index it under the middle one.
+
+**Batch 45's rule is now in its fifth consecutive batch.** Three unsourced claims went this time: Bahrain's
+causeway to Saudi Arabia "since 1986" and its "some 50" islands, and North Macedonia's Lake Ohrid being
+"among the oldest and deepest in Europe". Two sourced figures replaced them — Bahrain's density of some 2,100
+people to the square kilometre and North Macedonia's two-fifths forest cover — and one clause was simply
+dropped, since not every removal has a replacement waiting.
+
+**Batch 56 (Slovenia, Equatorial Guinea, Latvia) puts Latvia beside Albania, and the two are opposites.**
+Batch 55 found a relationship that stopped and restarted; **Latvia's never stopped.** The legation at Riga
+closed on 5 September 1940 after the Soviet occupation and annexation, and the guide then says what no other
+entry in the deck says: the United States "never recognized the state's forcible incorporation into the
+Soviet Union", permitted Latvian representatives accredited by the last independent government to remain with
+diplomatic status, and held that "diplomatic relations continued uninterrupted". So 1991 is recorded as the
+recognition of the **restoration** of independence, on 2 September, and the present government as "a legal
+continuation of the interwar republic". **A closed legation is not ended relations**, and only the guide's own
+prose tells the two apart — the dates alone read identically to Albania's.
+
+**And one telegram date runs through both batches.** Albania was recognised on 28 July 1922 on Secretary of
+State Charles Evans Hughes's telegram of 25 July to the Commissioner in Albania; Latvia was recognised on
+28 July 1922 on Hughes's telegram of 25 July to the Commissioner at Riga, instructing him to advise the
+foreign offices of **Estonia, Latvia and Lithuania** of the decision "on the 28th". Four states recognised on
+one day on instructions of one date. It is recorded here and on neither card, because batch 21's rule forbids
+marking a claim about another state to this country's source.
+
+**`wto.org` SERVES ITS OWN 404 WITH A 200 STATUS — the seventh variety of 200-status error document, and the
+easiest to detect.** Equatorial Guinea is not a WTO member, and
+`countries_e/equatorial_guinea_e.htm` answers 200 with a 9,709-byte page reading "HTTP 404 – File not
+found". A real WTO country page is about 34,500 bytes. **Check the size before reading one** — the same
+test P3 found for `senate.gov`, whose shell is a constant 37,523 bytes.
+
+**When UNdata and Eurostat agree to the square kilometre, a European term is testable to the square
+kilometre — and two of two were wrong.** Slovenia's gave 20,271 km² against both sources' **20,273**;
+Latvia's gave 64,589 against both sources' **64,594**. Batch 54 established that the World Bank's rounding to
+the nearest 10 km² is the floor under C9's area rule, and both terms sat inside that interval, which is
+exactly what had been hiding them: **the floor applies only where the second source rounds**, and the EU
+country page does not. Both corrected, with Latvia's imperial conversion moving 24,938 → 24,940 with it.
+
+**A fourth outright World Bank area error, and it is in Europe this time.** `AG.SRF.TOTL.K2` gives Slovenia
+**20,480 km²** against 20,273 at UNdata and at Eurostat — about one per cent, where that series' European
+figures otherwise agree to a rounding. After C11's Canada (15,634,410 for 9,984,670) and Dominican Republic
+and D1's Monaco, the pattern is settled: **the World Bank's area series is a source to check against a
+second, never one to adjudicate with**, which is what C12 concluded of UNdata and what makes the two of them
+a pair rather than an authority.
+
+**A NEAR-MISS WORTH RECORDING, BECAUSE IT IS NOT THE FAILURE THIS PASS KEEPS WATCHING FOR.** The Equatorial
+Guinea draft carried "income per head was 6,159 US dollars in 2023" — a number in no source, written in the
+shape the other cards use rather than read off the page that was already fetched and open. The real figure is
+**6,558, down from 9,069 in 2015**, which is a better fact than the invented one. N4's finding was a
+fabricated author on a citation whose URL resolved; this is a fabricated FIGURE on a page that was sitting in
+the scratch directory. **Check every number against the fetched file before the card is added**, and treat a
+figure that arrived without a fetch exactly as the plan already treats a padding clause: the fix is another
+look, never another sentence.
+
+**Equatorial Guinea is the deck's third interruption in two batches and the fullest, because the guide gives
+the REASON.** Relations were suspended by the United States on 14 March 1976, after its ambassador and consul
+were declared *personae non gratae* in what the State Department called an "unwarranted affront"; resumed on
+19 December 1979; the embassy at Malabo closed on 31 October 1995 with its work moved to Yaoundé; and it
+reopened in 2006, the first resident ambassador in more than ten years presenting credentials on 23 November.
+**Three breaks, three causes**: Albania's made by a third power, Guinea-Bissau's by a civil war, and this one
+by the two governments themselves.
+
+**Its UN pair also reverses Guinea-Bissau's order**: independence on 12 October 1968, the Security Council
+recommending admission unanimously at its 1458th meeting on 6 November, the General Assembly admitting it at
+its 1714th plenary meeting on 12 November — a month from independence to membership, where Guinea-Bissau's
+Council recommendation came four weeks BEFORE the recognising powers moved.
+
+**One thing deliberately not changed: the Region row and the term's prose may disagree.** UNdata's M49
+scheme files Slovenia under *Southern Europe* where its term says central Europe, and Latvia under *Northern
+Europe* where its term describes the eastern Baltic shore. G11 established that M49 is a statistical
+grouping rather than a geographical claim — it is the scheme that puts all of Russia in Europe — so the card
+states the source's own field and the term keeps its prose, and neither is wrong.
+
+**Batch 55 (Albania, Lesotho, Guinea-Bissau) turns up a MODE the recognition guide has not shown before:
+a relationship that stopped and started again.** Albania's entry is the longest in the deck so far, and it
+records four acts rather than one — de jure recognition on 28 July 1922, relations established on 4 December
+1922, relations ENDED on 5 June 1939 when the Albanian foreign minister told the American minister that Italy
+had taken control of Albania's foreign affairs (the legation closed on 16 September), and relations RESUMED on
+15 March 1991 with a memorandum of understanding signed in Washington. **A gap of nearly 52 years**, with an
+informal American mission sent in 1945 and withdrawn in November 1946 inside it, and with UN membership
+(14 December 1955) falling inside it too. The date line carries those four and no independence row, which is
+the right four: the interruption is the fact.
+
+**And Albania's page shows that the guide can be OUT OF DATE IN THE PRESENT TENSE.** Its summary ends
+"Albania received an invitation to join NATO in April 2008 and is expected to become a full member in 2009" —
+written before the event and never revised. **A source predicting a thing is not a source for the thing having
+happened**, so the accession is cited to NATO's own enlargement page, which gives the accession protocol of
+July 2008 and membership on 1 April 2009. Batch 54's EU candidate profile paid at once beside it: Thessaloniki
+June 2003, application 2009, candidate status June 2014, negotiations opened March 2020, first
+intergovernmental conference July 2022, and the last of all 33 chapters opened in December 2025.
+
+**Lesotho gives the pass the MIRROR of C12's Venezuela case, and it is the more dangerous direction.** C12 kept
+a term saying independence was achieved "by 1821" against a source saying "by 1819", because *by 1819* entails
+*by 1821*. Here the term said Lesotho is "the only country whose whole territory lies above 1,400 m" and the
+Southern African Development Community says **more than 1,000 metres** — and *all above 1,400* entails *all
+above 1,000*, not the other way about, so the source cannot carry the term's figure at all. It reads as a
+near-match and is a claim beyond every open source. **Ask which way the entailment runs before treating a
+near-match as corroboration**; where it runs from the claim to the source, the source is not evidence.
+
+**The Lesotho Highlands Water Project was nearly dropped as unsourceable and is documented by the authority
+that runs it.** SADC lists "Water" among Lesotho's natural resources and says nothing about selling any;
+`orasecom.org` refuses the connection and the Commonwealth page is silent — so the term's water-export clause
+had no source. `lhda.org.ls` carries the whole of it on its front page: a multi-phased project established by
+the 1986 treaty between Lesotho and South Africa, harnessing the Senqu/Orange in the highlands to supply water
+to Gauteng and hydro-electricity to Lesotho. Note the shape of the fetch — `/lhda/about-lhwp` 404s and the
+site ROOT is where the description lives. **When a fact belongs to a NAMED PROJECT, look for that project's
+own authority before giving the fact up.**
+
+**SADC's Lesotho page also says what its Botswana page left out**, which is the first time two pages of one
+bloc profile have been read against each other here: SADCC was formed at Lusaka in **April** 1980 and
+"transformed into" SADC in **1992**, where Botswana's page gives the year alone and no transformation date.
+**Read a second page of a new bloc profile before deciding what it carries.** Its opposite number failed the
+same test: **ECOWAS is NOT a bloc profile.** `ecowas.int/member-states/<slug>` answers 200 for Guinea-Bissau
+with a page whose entire body is the word "guinea-bissau" and a date stamp — no capital, no area, no prose.
+That is C7's "a page but not a profile" (Gabon at the Commonwealth) in its strongest form, since here every
+member has such a page and not one of them carries anything. `cplp.org` 404s, so lusophone Africa has no bloc
+profile either.
+
+**Guinea-Bissau is the deck's sharpest illustration that ADMISSION AND RECOGNITION ARE DIFFERENT ACTS, and
+the order surprises.** The Security Council recommended it for membership **unanimously**, at its 1791st
+meeting, on **12 August 1974**; the United States recognised the republic on **10 September**, when President
+Ford wrote to the President of the Council of State; the General Assembly admitted it on **17 September**.
+Nearly a month separates the Council's unanimous recommendation from the formal recognition of one of the
+Council's own permanent members. Both UN acts are openable at `digitallibrary.un.org/record/<id>` — 93484 for
+S/RES/356 (1974) and 189827 for A/RES/3205 (XXIX) — and the record pages carry the meeting numbers and the
+vote summary that the resolution symbols, with their parentheses, cannot be cited for.
+
+**The guide misspells a head of state, and the card does not repeat it.** Guinea-Bissau's entry gives the
+President of the Council of State as "Luis de Akmeida Cabral"; the name is **Luís de Almeida Cabral**. The
+card prints the correct spelling with the citation pointing at the page that does not. **A citation's job is
+to be checkable, not to be transcribed** — propagate the fact, never the typo — and this is the third kind of
+error found ON a page that opens perfectly, after N4's missing metadata and P2's essay contradicting itself.
+
+**One finding runs the other way for once: a term claiming LESS than its own source.** Albania's said it spent
+1944 to 1991 "under one of the most isolated communist governments in Europe"; the guide it already cited says
+Albania under **Enver Hoxha** "was one of the most diplomatically isolated nations in the world". Taking the
+source's own scope made the sentence stronger AND sourced, and named the man. The pass keeps finding prose
+that reaches past its citations; it is worth remembering that prose can fall short of them too, and that both
+are fixed by reading the source rather than the sentence.
+
+**Three populations re-rounded to the figure their own source gives**: Lesotho 2.3 → 2.4 million (2,363,325),
+Guinea-Bissau 2.3 → 2.2 million (2,249,515), and **Albania deliberately left at 2.4** — the World Bank's
+2,349,580 sits within a thousand of the midpoint, so either rounding is defensible and changing it would buy
+a reader nothing. Albania's own gap between sources stays the widest in Europe (UNdata projects 2,772,000
+against that 2,349,580, and the World Bank series has fallen in every one of the last ten years), which D1
+established and this batch states on the card rather than hiding.
+
+**Batch 54 (Gabon, Botswana, Moldova) found the bloc profile for SOUTHERN AFRICA and the one for an EU
+CANDIDATE, which between them cover most of what is left in Europe and Africa.** `sadc.int/member-states/<slug>`
+gives Capital, Area, Currency, Independence Day and a paragraph of prose for each of the sixteen Southern
+African Development Community states — C4's Commonwealth shape, verified on Botswana and on Namibia, and
+reaching Angola, Mozambique, DR Congo, Madagascar and Tanzania where the Commonwealth reaches some of them
+and none of the first. And **`enlargement.ec.europa.eu/<country>_en` is the EU country page's equivalent for
+a state that is not a member**: C1's second source covers members only, so every candidate has been sourceless
+since, and Moldova's page states "Membership status: candidate country" outright with the whole chronology
+under it — applied on 3 March 2022, European perspective on 23 June 2022 by unanimous agreement of all 27
+leaders, accession negotiations opened by the European Council on 14 December 2023. **Quote the page's own
+wording**: it says *European perspective* where the common account says *candidate status*. The path matters —
+`/enlargement-policy/moldova_en` and the `neighbourhood-enlargement` host both 404, and only the short
+`/<country>_en` form answers. It is the source for Albania, North Macedonia, Kosovo, Serbia, Montenegro,
+Georgia, Ukraine and Turkey, eight of which are still to come.
+
+**Batch 54's second finding retires D1's Moldova outlier by READING THE FOOTNOTE.** D1 recorded that UNdata's
+2,996,000 disagrees with the World Bank's 2,360,527 and that the World Bank matches the term, and left it as a
+divergence. It is not a divergence: UNdata's figure carries footnote **b, "Including the Transnistria region"**,
+where the World Bank follows the national statistical service, so the two are counting different countries.
+That is C1's Cyprus case exactly — the EU counting only the government-controlled area of a divided state —
+and it is the third time batch 14's rule has paid. **A gap that looks like a dispute is often a definition, and
+the definition is usually printed under the table.**
+
+**And it settles where C9's area rule stops.** Moldova's term gives 33,846 km² against UNdata's 33,847 and the
+World Bank's 33,850, which is strictly outside the spread, and C9 says correct an area that falls outside it.
+It was left alone, because C10 qualified that rule without saying it was doing so: **the World Bank rounds a
+small area to the nearest 10 km², so 33,850 is the interval 33,845–33,855 and it CONTAINS the term's figure.**
+That is the test C10 ran on Fiji, where 18,274 was outside 18,270 ± 5 as well and so was corrected. **C9's rule
+has no floor of its own; C10's rounding interval is the floor.** Below it a "correction" is a change inside a
+source's own precision, which buys a reader nothing and costs the term a true sentence.
+
+**Gabon resolves C7's deferral by C8's method, and its forest figure is a third kind of finding.** C7 read
+UNdata's 2,593 thousand against the term's 2.4 million as one-source-only and deferred; the World Bank series
+passes through 2,430,747 in 2022, so the figure was stale rather than contested and went to 2.6 million. The
+forest clause is different: the term said tropical rainforest covered "about 85 per cent" of the country, and
+**UNdata — the term's own source 1 — prints Forested area 91.2 per cent of land area.** It is logged as a
+REWRITE and not a correction, deliberately, because *rainforest* and *forest* are not the same class and the
+two figures do not strictly contradict; what was wrong is that 85 was in no source the term cites. **The World
+Bank's `AG.LND.FRST.ZS` gives 91.228 for the same year and is NOT a second source** — it relays the same FAO
+number, which is C8's `SP.POP.TOTL` caution one series over. Two unsourced superlatives went with it, "one of
+the highest proportions anywhere" and "one of the higher average incomes in sub-Saharan Africa", the second
+replaced by the 8,071 US dollars UNdata prints: batch 45's rule for the fourth batch running.
+
+**Botswana's population was wrong in the direction C8's diagnostic does not have a name for.** The term said
+2.7 million; the World Bank series never reaches it in eleven years, its maximum being the 2025 value of
+2,562,122, and UNdata gives 2,562 thousand with the Commonwealth at 2.352 million for 2022. So it is neither
+stale (no year on the series was ever 2.7) nor contested (nobody publishes 2.7) — it is simply above every
+published estimate, and a figure above all of them is corrected on the same footing as one behind them.
+Its third sentence lost "from 1885" and "one of the poorest countries in the world", neither in any cited
+work, and gained the recognition guide's own "under British sovereignty as Bechuanaland" and SADC's list of
+natural resources.
+
+**A 200 THAT SERVES ANOTHER COUNTRY'S PAGE — the sixth variety of 200-status error document, and the worst.**
+`worldbank.org/en/country/botswana/overview` returned the complete Bosnia and Herzegovina country page:
+headline, thirty-years-of-partnership brief, road-project story, energy press release, data links, all of it
+coherent and none of it about Botswana. The five varieties recorded before this one announce themselves —
+a JavaScript shell, a CloudFront block, a client challenge, a "Technical Difficulties" page, a 404 document —
+and this one does not, because the page is real. **Grep a fetched country page for its own country's name
+before reading a word of it.**
+
+**Moldova ships with NO independence row, and the near-miss is the reason to say so.** The recognition guide
+dates U.S. recognition to 25 December 1991 and says only that Moldova "previously had been a constituent
+republic of the USSR"; the constitution's preamble refers to "the proclamation of independence" without a
+date; and the declaration of 27 August 1991 is in nothing openable here. What the constitution does state is
+that it **came into force on 27 August 1994**, repealing the constitution of 15 April 1978 — the third
+anniversary of the declaration, which is exactly the coincidence a card must not quietly turn into a citation.
+The date line carries recognition, relations, UN membership and the constitution instead, and the Constitute
+Project is a good fifth source for any post-Soviet state whose founding act cannot be reached.
+
+**Access, measured this batch.** `opec.org` 403, so Gabon's oil has no source from its own cartel;
+`ceeac-eccas.org/en/member-states/` 404, so **ECCAS is not a bloc profile for central Africa** and Gabon's
+region has none; `imf.org/en/Countries/<ISO3>` 403; `kimberleyprocess.com` 404, so Botswana's diamonds are
+carried by SADC's resource list and nothing stronger; `eia.gov/international/analysis/country/<ISO3>` is a
+JavaScript shell with no country content; `consilium.europa.eu` 403. Working and worth keeping:
+`moldova.osce.org` (the OSCE Mission to Moldova, established 4 February 1993, with the 57 participating
+states' settlement formula stated on the front page), `constituteproject.org/constitution/<Country>_<year>`,
+and `digitallibrary.un.org/record/<id>` for a Security Council admission resolution — Gabon's is
+**S/RES/153 (1960) of 23 August 1960**, six days after independence, and the record URL carries no
+parenthesis where the symbol does.
+
+**Batch 53 (Qatar, Jamaica, the Gambia) collects three more MODES of recognition, and the Gambia's is
+new to the deck: recognition BY ATTENDING.** On 18 February 1965 the Assistant Secretary for African
+Affairs represented President Johnson as his personal representative, **with the rank of special
+ambassador**, at the independence ceremonies at Bathurst — and the guide files that presence as the
+recognition itself. Jamaica's came "with the establishment of the American Embassy at Kingston" on 16
+August 1962, one act serving as recognition, relations and embassy alike, which is Namibia's shape from
+last batch. Qatar's was a Department of State announcement two days after independence. **The guide's
+Recognition heading is not a single kind of event, and the card's job is to say which kind this was.**
+
+**One envoy links two cards, and both guide entries say so.** William A. Stoltzfus Jr. presented his
+credentials in Qatar on 19 March 1972 and in Oman (`gw-125`) on 17 April, accredited to a number of Gulf
+states at once and resident in Kuwait. The Qatar card cites BOTH guide pages for that sentence, which is
+batch 21's rule again: a claim about another country is marked to that country's own source.
+
+**The Gambia acceded to the GATT four days after independence** — 22 February 1965 against 18 February —
+and it is the deck's second country to leave the Commonwealth and rejoin, after South Africa: the
+Secretariat's line reads "1965, following independence from Britain; left 2013, rejoined 2018". **Read the
+whole joining line; it is not always one date.**
+
+**Qatar's sex ratio is 246 men to every 100 women, the widest figure this pass has met** — against Oman's
+166 (batch 47) and Kuwait's 157 (batch 48) — and its two published populations differ by 144,000, UNdata
+giving 3,116,000 against the World Bank's 2,972,215. **Three Gulf cards in seven batches, three ratios far
+outside anything else in the deck**, and the card states the figure without explaining it.
+
+**Two more superlatives went out for figures.** `Qatar`'s "one of the highest-income countries in the
+world" became **66,600 US dollars a head**, from the profile it already cited; and `The_Gambia`'s "the
+smallest state on the African mainland" became "the smallest country in West Africa", which is what the
+Commonwealth page actually says — the term had widened its own source's claim. Its population moved 2.7 →
+**2.8 million**, both sources agreeing at 2,822,000.
+
+**Batch 52 (Armenia, Namibia, Lithuania) is three ways a state can be recognised and then not exist, and
+the guide keeps all three straight.** **Armenia** was recognised on **23 April 1920** in a note whose
+wording is the card's point — the recognition "in no way predetermines the territorial frontiers, which …
+are matters for later delimitation" — after which Wilson, at the request of the Paris Peace Conference's
+Supreme Council, ARBITRATED the boundary with Turkey and submitted his determinations on 22 November 1920,
+by which time the Red Army had already put local communists in power. **A recognition can be granted
+before the frontiers exist and outlive the state it recognised by seventy years.**
+
+**Lithuania is the opposite case: a recognition that never lapsed.** Recognised on 28 July 1922, the
+legation at Kaunas closed on 5 September 1940 after the Soviet annexation — and the United States **never
+recognised the forcible incorporation**, let the representatives accredited by the last independent
+government stay on with diplomatic status, and held that relations continued uninterrupted, so 1991 brought
+the RESTORATION of independence (2 September) and the RESUMPTION of normal relations (6 September) rather
+than either afresh. The guide adds that the present government is viewed as a legal continuation of the
+interwar republic. **Read the verbs in a guide entry: "resumed" and "restoration" are load-bearing words,
+and they are what distinguish this card from every other post-Soviet one in the deck.**
+
+**Namibia is the deck's most compressed act: recognition, relations and an embassy in one.** On **21 March
+1990** the American liaison office at Windhoek was elevated to embassy status, and the guide files that
+single act under all three headings. Its terms had been set twelve years earlier by **Security Council
+resolution 435 (1978)**, adopted 12–0–2, which established the UN Transition Assistance Group; and the
+General Assembly admitted it on 23 April 1990 at the **first meeting of its eighteenth SPECIAL session** —
+the only admission in the deck so far not taken at a regular one.
+
+**Two term figures were outside the spread and both were corrected.** `Namibia` gave 825,615 km², above
+all three published figures (825,229 at the UN, 824,290 at the World Bank, 824,000 at the Commonwealth),
+and `Lithuania` gave 65,300 against a spread of 65,284–65,290. `Namibia` also lost "among the most thinly
+populated in the world" for **3.8 people to the square kilometre**, which is batch 45's rule — a figure a
+source prints beats a superlative no source states — for the third time in eight batches.
+
+**And Armenia's own populations disagree by 4.6%**, UNdata giving 2,952,000 against the World Bank's
+3,086,700, so the card prints both and the term's "roughly 3 million" covers them. Its sex ratio, 87 men
+to 100 women, is the second in three batches from the Caucasus at that level.
+
+**Batch 51 (Bosnia and Herzegovina) turns up the deck's strangest embassy and a constitution that is an
+ANNEX.** Victor Jackovich presented his credentials as American ambassador on **23 June 1993** and had
+nowhere to work: an American embassy to Bosnia and Herzegovina was established on **10 November 1993 on
+the premises of the American embassy in Vienna**, and an embassy in Sarajevo itself only on 4 July 1994.
+Norway's wartime legation (batch 42) sat in London beside a government-in-exile; this one was accredited
+to a government at home and sited in a third country because the capital was under siege. **A guide entry
+that names two establishment dates for one embassy is telling you where the war was.**
+
+**And the constitution is Annex 4.** The OSCE's own page on the General Framework Agreement for Peace —
+reached at Wright-Patterson Air Force Base near Dayton in November 1995, formally signed at Paris on 14
+December — states that "the current Constitution of Bosnia and Herzegovina is the Annex 4 of the DPA".
+The `Bosnia_and_Herzegovina` term had said instead that the agreement "reorganised" the country "into two
+entities", which that page does not say; it now says what the page says, which is both citable and more
+striking. **When a term's only source for a sentence is one institutional page, read what the page
+actually claims before keeping the sentence's shape.**
+
+**Its admission resolution shares a meeting with Croatia's, one batch after Mongolia's shared one with
+Mauritania's.** `A/RES/46/237` and `A/RES/46/238` were both adopted without a vote at the **86th plenary
+meeting on 22 May 1992**. That is now twice in two batches that a card's admission has turned out to sit
+beside a card already written; **the register of sittings is worth grepping before every admission
+search**, which is batch 40's rule paying for the sixth and seventh time.
+
+**The ICJ case is reported in the Court's own words, including what it declined to find.** On 26 February
+2007 the Court found that Serbia had violated its obligation to PREVENT the genocide at Srebrenica; that
+other acts before it were not accompanied by the specific intent that defines genocide; and that financial
+compensation was not the appropriate reparation, since it had not been shown the genocide would in fact
+have been averted. **On a case this contested the negative findings are half the holding**, and a card that
+gives only the violation misreports the judgment.
+
+**Its population fall is the steepest the pass has measured, and it displaces last batch's record.**
+3,518,541 in 2015 to 3,140,095 in 2025 — about a ninth — against Puerto Rico's tenth, Bulgaria's 8%,
+Serbia's 7.7% and Croatia's 6.6%. Five of the six steepest declines carded are in the western Balkans or
+the Caribbean. Its term's "roughly 3.2 million" went to **3.1**, both sources agreeing at 3,140,000.
+
+**Batch 50 (Mongolia, Uruguay, Puerto Rico) is batch 48's Kuwait finding turned over: here the guide
+states what does NOT constitute recognition.** The United States had not blocked Mongolia's admission to
+the United Nations in 1961 — it abstained — and had signed several multilateral treaties to which Mongolia
+was also a party, and the entry says in terms that **"these acts had not constituted recognition"**, which
+waited until **27 January 1987**, twenty-six years later, the Kennedy, Johnson, Nixon and Carter
+administrations having each entertained it without success. Kuwait's recognition was a practice before it
+was an act; Mongolia's practice explicitly fell short of one. **Two consecutive batches, opposite
+directions, and the guide says which it is on the page both times.**
+
+**The admission resolutions are consecutive and printed on the same page, which is how the card links
+Mongolia to Mauritania without asserting a bargain.** `A/RES/1630(XVI)` and `A/RES/1631(XVI)` were both
+adopted at the **1043rd plenary meeting on 27 October 1961** and both sit at p. 64 of `A/5100`. C9 recorded
+that Mauritania's UN membership date does not corroborate its independence year because of a Cold War
+admission deadlock; the deck now holds both halves of the package that broke it, each cited to its own
+record. **Where two states were admitted together, cite both records** — batch 21's rule about not marking
+a claim on another state to this one's source, applied to a resolution rather than a profile.
+
+**Uruguay's recognition is the deck's oddest instrument: an EXEQUATUR ISSUED IN NEW YORK.** On 25 January
+1836 the United States recognised the Oriental Republic by issuing an exequatur to John Darby as its
+consul general at New York — recognition performed by accepting the other state's consul on American
+soil, rather than by sending anyone. Diplomatic relations waited another 31 years, and for three of those
+the American minister accredited to Uruguay lived at Buenos Aires.
+
+**Puerto Rico is the deck's second territory card, and it needed a spine no country card uses.** The
+recognition guide has no page for it — the guide is written from the United States outward, as C11 found
+for the United States itself — so the card rests on **`A/RES/748 (VIII)`** of 27 November 1953,
+*Cessation of the transmission of information under Article 73e of the Charter in respect of Puerto Rico*,
+on the Office of the Historian's **Spanish-American War milestone** for the 1898 cession, and on the
+profile's own footnote that the data for the United States **do not include this area** — New Zealand's
+Cook Islands note (batch 46) seen from the other side. Its facts box takes Hong Kong's and Palestine's
+`Status` row, and its UNdata profile carries no membership date, which the card states as Palestine's does.
+
+**That resolution's PDF is an image scan with no text layer, and the catalogue entry is the citation.**
+Like `A/RES/995(X)`, `T/1269` and `A/RES/2908(XXVII)` before it, `A_RES_748(VIII)-EN.pdf` extracts to
+nothing — but the record carries the symbol, the full title, the 459th plenary meeting and the date, and
+**the title alone states what the Assembly did**. Cite the record, quote the title, claim nothing from the
+body.
+
+**Its population is the steepest fall the pass has measured**: 3,535,167 in 2015 to 3,184,835 in 2025, a
+tenth in ten years, against Bulgaria's 8%, Serbia's 7.7% and Croatia's 6.6%. Uruguay's, by contrast, is
+the flattest — up half a per cent in the same decade.
+
+**And the style checker earned its keep for the third batch running.** "thirty-one years" on the Uruguay
+card broke rule 1 (non-round numbers above 20 are numerals) and was caught by reading the `=== data.js`
+block, which is batch 40's rule; the tail of that report is about `changelog.js` and would have shown
+nothing.
+
+**Batch 49 (Croatia, Georgia, Eritrea) is three post-1991 states whose guide entries run to three facts
+each, and it settles how such a card is built: the UN's own ADMISSION RESOLUTION and, where there is one,
+the country's case at the INTERNATIONAL COURT OF JUSTICE.** Croatia was admitted without a vote at the 86th
+plenary meeting on 22 May 1992 (`A/RES/46/238`), Georgia **unanimously** at the 88th on 31 July 1992
+(`A/RES/46/241`), Eritrea without a vote at the 104th on 28 May 1993 (`A/RES/47/230`) — each record carrying
+the vote line, the meeting number and the date. **A short guide entry is not a thin card; it is a card that
+has to be built from the UN side.**
+
+**The World Bank's surface-area series is measuring something other than land, and Croatia is the case that
+shows it.** UNdata and Eurostat both give **56,594 km²** to the square kilometre where the World Bank gives
+**88,070** — half as much again, on a country whose territorial waters are about that difference. Batch 42
+recorded Norway's 323,772 against 624,500 as a probable fourth outright World Bank error; **two of the
+pass's three widest area gaps are now maritime states**, which is a better explanation than error and is
+recorded here as a HYPOTHESIS, uncited, in C12's Ecuador manner. **Where the World Bank's area is wildly
+high, look at the coastline before calling it wrong.**
+
+**Georgia's profile carries a footnote that reads against expectation, and the card states it without
+explaining it.** Its UN population is footnoted "Including Abkhazia and South Ossetia" and stands at
+**3,807,000**, where the World Bank — whose figures come from a service that excludes them — counts
+**3,935,766**: the count that says it takes the two territories in is the SMALLER of the two. **Print both
+and the footnote; the reconciliation is not in either source.**
+
+**Eritrea is the deck's first same-day recognition, and the referendum behind it is citable.** It declared
+independence on 27 April 1993 and the United States recognised it that day, the consulate at Asmara
+informing Eritrean authorities — and the vote was verified by a United Nations observer mission named for
+that one task, reported on by the Secretary-General that August. **A referendum a UN mission observed leaves
+a paper trail in the Digital Library even when no country page carries it.**
+
+**Its term also carried the batch's only figure corrections, and both were outside the spread.** `Eritrea`
+gave 117,600 km² where UNdata gives 121,144 and the World Bank 121,766 — 3% below both, so C9 corrects it —
+and "roughly 3.7 million" where the two agree **to the person** at 3,607,003. **When the two sources agree
+exactly and the term does not, there is nothing to weigh.**
+
+**And a drafting note worth keeping, because it nearly shipped.** A sentence padding the Georgia card to
+length claimed the WTO accession came "three years before the World Bank's series shows its population
+beginning to recover" — a detail from no fetched series, written to fill a word count. It was caught and
+replaced with the 2015–2025 figures actually in hand. **A card that is short is short because the research
+is short; the fix is another fetch, never another clause.**
+
+**Batch 48 (Costa Rica, Kuwait, Panama) opens a source this deck had not used: a country's own
+CONSTITUTION.** `constituteproject.org` is open here and serves consolidated constitutional text with the
+articles numbered — Costa Rica's **Article 12** reads "The Army as a permanent institution is proscribed",
+provides instead for the police forces needed to keep public order, and allows military forces only by
+continental agreement or for national defence. The `Costa_Rica` term had been asserting that the army was
+abolished in 1948 with the recognition guide as its only marker, and the guide says nothing about it.
+**Where a claim is what a state's own law provides, the law itself is usually the shortest way to it**, and
+this one is reusable: the site carries every country's text under the same URL shape.
+
+**Costa Rica is also the deck's clearest case of a recognition that produced nothing.** The guide records
+that Ephraim G. Squier, the chargé in Guatemala, was given full powers on 24 April 1849 to negotiate with
+Costa Rica and that this "constituted recognition by the United States" — and then that he **never
+transmitted his letter of credence, never visited the country and reached no agreement by correspondence**.
+Relations waited until the Costa Rican minister presented credentials in Washington on 24 March 1851, and
+the first American minister accredited to the country, in 1853, was appointed to four states at once and
+presented his credentials only in Nicaragua. D3's prose reconciliation rides into the card unchanged: the
+1821 independence from Spain is cited to the guide's **El Salvador** page and the 1848 declaration to Costa
+Rica's own.
+
+**Kuwait inverts batch 44's Ireland case: here recognition came BEFORE independence, and the guide says how
+it was evidenced.** Kuwait became fully independent on 19 June 1961 when an exchange of notes terminated
+the Anglo-Kuwaiti Treaty of 1899 — but the Department of State noted a month later that the United States
+had "for some time recognized Kuwait as a sovereign state", **as evidenced by its consular officers
+receiving exequaturs from the Ruler** and by a visa agreement concluded directly with Kuwait in December
+1960, while the protectorate still stood. **Recognition can be a PRACTICE before it is an act**, and a
+guide entry that lists the evidence is the place that says so.
+
+**Kuwait is also the batch's one figure disagreement, and the term now says so rather than picking a side.**
+UNdata gives 5,026 thousand against the World Bank's 4,865,298 — 161,000 apart, or 3% — where its area
+figures differ by two square kilometres. The term said "roughly 4.9 million", which is the World Bank's
+number while citing UNdata; it now reads "4.9 to 5 million people by the two international counts" and
+cites both. **When two sources differ by more than a rounding, say the range and cite them both** — the
+alternative is a term whose own citation contradicts its only figure.
+
+**Panama has more recorded breaks in relations than any country carded: four in 37 years.** 1931 and 1949
+after changes of government, 1968 after a coup, and **1964 by Panama itself** — President Chiari severing
+relations on 10 January after clashes in the Canal Zone that followed a flag-raising incident between
+Panamanian and American students, and the two states restoring them by a joint declaration of 3 April
+agreeing to seek "the prompt elimination of the causes of conflict … without limitations or preconditions
+of any kind". Every break was mended within weeks or months. Its consular relations, at 1823, predate the
+country by eighty years, in what was then Colombia — the Singapore and Oman pattern for a third time.
+
+**Batch 47 (Palestine, Oman, Mauritania) writes the term this plan has deferred since it was drafted,
+and the sources do the attributing rather than the card.** `gw-124` was written to the rule set out above —
+the positions described, no state's account of its own claim given as established fact — and what made it
+writeable is that the two UN works say who is speaking. **UNdata prints East Jerusalem as the capital
+city and footnotes the entry**: "Designation and data provided by the State of Palestine. The position of
+the UN on Jerusalem is stated in A/RES/181 (II) and subsequent General Assembly and Security Council
+resolutions." **A/RES/67/19 supplies the rest in the Assembly's own words** — non-member observer State
+status accorded **138 to 9 with 41 abstentions** on 29 November 2012, exactly 65 years after the partition
+vote of 29 November 1947; the 1988 proclamation by the Palestine National Council acknowledged; "Palestinian
+territory occupied since 1967"; the annexation of East Jerusalem "not recognized by the international
+community"; and the status of Jerusalem "as the capital of two States" left to negotiation. The two ICJ
+advisory opinions, of 9 July 2004 and 19 July 2024, are reported as what the Court held and dated to their
+own case pages. **The facts box takes Hong Kong's `Status` row rather than a `Capital` row**, so the card
+asks nothing the capital deck defers; **`gw-624` stays deferred.**
+
+**An ABSENT row is itself a fact, and this is the first card to use one.** Palestine's UNdata profile
+carries no UN membership date where every other profile in the deck has one — an observer State is not a
+member — and the card says so rather than passing over the gap.
+
+**Oman is the deck's longest wait between recognition and relations: 139 years.** Mutual recognition came
+by the treaty of amity and commerce signed at Muscat on **21 September 1833** by the special agent Edmund
+Roberts and Seyyid Said bin Sultan, among the earliest American dealings with the Middle East; diplomatic
+relations waited until **17 April 1972**, and the first minister was accredited to Bahrain, Kuwait, Qatar
+and the United Arab Emirates as well and resident in Kuwait. Against Liberia's fifteen years (batch 41) and
+Singapore's 129-year gap between a consulate and its state, this is the widest yet.
+
+**Persée pays a second time, one batch after the first.** Pradines's study of Omani forts in East Africa
+carries the Zanzibar clause the `Oman` term had been asserting with the recognition guide as its only
+marker — the guide says nothing about frankincense, the Indian Ocean or Zanzibar. **A French congress
+volume on Persée is as citable as a journal**, and the doc page gives the full bibliographic reference.
+
+**A UN Special Rapporteur's report is a first-rate source, and its PDF extracts.** `A/HRC/54/30/Add.2`
+(Obokata, visit of May 2022) records that Mauritania **first explicitly outlawed slavery in 1981, by Order
+No. 081-234** — a law vague in its definition, without measures for implementation, concerned to compensate
+enslavers rather than to make reparation to victims, and not criminalising slavery at all, which waited for
+the Act of **2007**, with the constitution classing it a crime against humanity in **2012**. That replaces
+the term's unsourced superlative, "the last country to abolish slavery in law". `ohchr.org` is **403** here,
+so the Digital Library's own copy is the way in — and **its text layer positions every glyph separately**,
+so "1981" extracts as "1 9 8 1" and a plain grep finds nothing: **collapse all whitespace before searching
+an extracted UN PDF.**
+
+**Mauritania is also the deck's only severance BY the other party** — relations cut by Mauritania on 7 June
+1967 in the wake of the June war and resumed by joint communiqué on 22 December 1969 — where every other
+break carded has been American or an occupation. And **both these countries' populations are the fastest
+growing yet carded**, Oman up about 31% and Mauritania about a third in ten years.
+
+**One tooling finding, and it is the reason to re-count by hand: `add-sources.js` does NOT measure abstract
+length, where `add-card.js` refuses anything outside 270–330.** A rewritten Palestine abstract went through
+at **331 words** with nothing said. **After revising an abstract through `add-sources.js`, count the words
+again** — the gate that would have caught it is on the other tool.
+
+**Batch 46 (New Zealand) is C10's Australia case at full strength: THREE institutions give three dates
+for one transition, and the card prints all three.** The colony was raised to a self-governing Dominion on
+**26 September 1907**, sovereign at home while the United Kingdom kept its external relations; the Balfour
+Declaration of 1926 called the Dominions equal in status and in no way subordinate; the Statute of
+Westminster of December 1931 put that in law but only for a Dominion that adopted it; **the United States
+recognised autonomous control of foreign relations on 16 February 1942**; and New Zealand's own Statute of
+Westminster Adoption Act became law on **25 November 1947** — five years AFTER the recognition it would
+have justified. The Commonwealth Secretariat, meanwhile, dates its membership to "1931, under the Statute
+of Westminster". **Where a dominion becomes a state by degrees, no single date is the answer and the card's
+job is to lay the sequence out.**
+
+**The footnote rule pays a third time in two batches, and this profile puts the note on the POPULATION.**
+UNdata's New Zealand population is footnoted "the data for New Zealand do not include Cook Islands, Niue,
+and Tokelau" while its surface area carries only a year — the same asymmetry as Finland's Åland note and
+Norway's Svalbard note, with the coverage declared on the other figure. Three profiles now: **assume
+nothing about what a figure covers until its letters are read.**
+
+**New Zealand's entire national documentary web is shut to this sandbox, and the national MUSEUM is what
+answered.** `nzhistory.govt.nz` and `teara.govt.nz` are **403**; `archives.govt.nz` serves an Incapsula
+bot-wall stub **with a 200** — a sixth variety of 200-status error document; and `legislation.govt.nz`
+returns **202 with an empty body**, a shape this pass has not met before. The Treaty of Waitangi is carried
+instead by **Te Papa**, the Museum of New Zealand, and the settlement date by a PNAS paper found through
+Europe PMC. **When a country's own history and legislation sites are closed, try its national museum
+before giving the claim up.**
+
+**A GUESSED Europe PMC article id returns 200, so a status check cannot catch a fabricated one.** The URL
+`europepmc.org/article/MED/18461082` was constructed from a half-remembered PMID and answered 200; the real
+one is **18523023**. That is N4's fabricated-citation trap in a new host, and the way round it is the same:
+**resolve the identifier through the REST API** (`search?query=PMCID:PMC…` returns the title, the PMID and
+the author string) and read the title back before citing it.
+
+**And cite the DOI rather than the Europe PMC page, because only the DOI keeps the byline machine-checked.**
+`check-citations.js` reads a DOI only when it is the TRAILING url of the citation, so a citation ending at
+`europepmc.org` is reported "unchecked"; ending at `doi.org` it verified all four of Wilmshurst, Anderson,
+Higham and Worthy against Crossref, given names and all. A **403 from `pnas.org` is a bot wall and not a
+paywall**, so the open-access label stands — the artefact plan's rule, applied to an access decision rather
+than to a refusal.
+
+**The term's fault is the same one for the sixth batch running, with a correction attached.** Its area of
+268,021 km² is published by none of its sources — UNdata gives 268,107, the Commonwealth 268,000 and the
+World Bank 267,710 — so, inside the spread or not, it becomes the figure Source A prints; and "Polynesian
+settlers arrived around 1300" becomes **around 1280**, which is what the radiocarbon dating of the Pacific
+rat's bones and gnawed seeds gives, a millennium later than the chronologies that paper set out to correct.
+
+**Batch 45 (Central African Republic) is the first card in the deck carried by FRENCH scholarship, and
+Persée is why it could be written at all.** The guide's entry is five facts long and says nothing about
+the colony, so the colonial half comes from two open articles: a review that records the administration
+granting possession of the Ubangi to **more than forty concession companies** which divided it between
+them, and Pierre Mollion's study of **porterage in Oubangui-Chari, 1890–1930**, on the carrying of loads
+and of people to link the Ubangi basin with Lake Chad's. **`persee.fr` is open on `/doc/<id>` and 403 on
+`/docAsPDF/<id>.pdf`**, and the doc page carries the article's opening pages, its full bibliographic
+reference and its DOI — enough to cite and to quote from, and the DOI is in Crossref, so
+`check-citations.js` verifies the byline. CLAUDE.md already permits a foreign-language source where it
+carries detail no English one does; **for French colonial Africa that is the ordinary case rather than
+the exception**, and this is the deck's first use of it.
+
+**Its UN admission is the 864th plenary meeting for the FIFTH time.** Togo, Dahomey and the Republic of
+the Congo were already carded from that sitting of 20 September 1960; the Central African Republic's own
+resolution is **1488 (XV)**, adopted without a vote there. Batch 40's rule — check the register for the
+sitting before searching for a resolution — now has five cards behind it, and the search that finds a new
+one is a UN Digital Library title search, which returns the record id even when the resolution's own PDF
+is a scan.
+
+**Its figures are a relay, and the card says the arithmetic rather than the provenance.** UNdata gives
+5,513 thousand and the World Bank 5,513,282 — the same estimate, per C8, so the card states that the two
+agree to the person and claims no corroboration from it. What the pair does support is growth: 4,629,320
+in 2015 to 5,513,282 in 2025, up nearly a fifth. The areas agree within 4 km² and the term needed no
+figure changed.
+
+**The term's fault this batch is a SUPERLATIVE and an atrocity claim, and both were replaced by a
+figure.** `Central_African_Republic` said concession companies "imposed forced labour on a brutal scale"
+and that conflict had left the country "among the poorest in the world despite deposits of diamonds, gold
+and uranium" — none of it in either work it cited. The concession clause becomes what the review actually
+records, the conflict clause becomes the stabilisation mission the Security Council established in 2014,
+and the poverty superlative becomes **UNdata's own income per head of 366 US dollars**, which is on the
+profile the term already cited. **A figure a source prints beats a superlative no source states**, and it
+is usually shorter.
+
+**Batch 44 (Ireland) is the deck's clearest case of a recognition passing THROUGH the former
+sovereign, and the guide preserves both halves of the exchange.** Independence dates from the
+Anglo-Irish Treaty of **6 December 1921**, which gave 26 counties the Irish Free State while six
+counties of northeast Ulster remained in the United Kingdom — and American recognition waited until
+**28 June 1924**, when Secretary of State Charles E. Hughes replied to a letter the BRITISH ambassador
+had sent four days earlier asking American approval of his own government's plan to let an Irish
+minister handle matters relating exclusively to the Free State. **Where a state leaves an empire by
+agreement rather than by war, the recognition correspondence may be addressed to the empire**, and the
+guide files it under the new state all the same.
+
+**Its UN admission is the second card in three batches to land on the 555th plenary meeting.** Finland
+(`gw-117`) and Ireland were both admitted on 14 December 1955, and the meeting record's own subject list
+names them among the sixteen — so the record cited by batch 37 has now carried three cards, and
+**checking the register for the sitting before searching for a resolution** has paid a third time. The
+card cites `A/PV.555` rather than `A/RES/995(X)`, which is the re-pointing this plan has had standing
+since batch 37; the eight older cards still on the resolution are unaffected and stay correct.
+
+**Three sources give this country three different populations to one decimal place, and the reason is
+growth rather than error.** UNdata projects 5,308 thousand, Eurostat counts 5,439,898 and the World Bank
+gives 5,484,367 — 5.3, 5.4 and 5.5 million — and the World Bank series explains it: 4,701,957 in 2015 to
+5,484,367 in 2025, up **16.6%** in ten years, the fastest of any European country carded. **On a
+fast-growing population the vintage of a figure matters more than its source**, which is C8's stale-figure
+finding read forwards rather than backwards.
+
+**Its areas are C9's rule left alone.** They spread 455 km² — 69,825 at the United Nations, 69,947 at
+Eurostat, 70,280 at the World Bank — and the glossary term's 70,273 falls INSIDE that spread, so it is
+untouched; the facts box takes Source A and the card's last sentence prints all three, which is the deck's
+practice whenever a spread is too wide to hide.
+
+**The term's fifth-batch-running fault is a near-match rather than an absence, and it is C6's Cameroon
+rule.** `Ireland` said independence came "in 1922" and the only work that could carry the claim, the
+guide, says 6 December **1921** — the treaty against the state it created a year later, both defensible
+and only one of them citable here. The clause is now "won independence for 26 of its counties in 1921",
+which is what the marked source says. **Where a term and its new citation differ by a year, change the
+term to the source or leave the clause unmarked; never mark the source and keep the other year.**
+
+**Batch 43 (Slovakia) is the deck's first card whose history is mostly in ANOTHER COUNTRY'S guide
+entry.** Its own page runs to three events, all in 1993, because the guide is organised by the state that
+exists rather than by the ground it stands on — so the card is carried by the **Czechoslovakia** entry,
+which is where the Dual Monarchy, the 1918 recognition and the consulate at Bratislava are. **When a
+guide entry is a page long, look for the predecessor state**: the index keeps former states, and a
+successor's first fifty years are filed under the name that has gone.
+
+**The predecessor's entry also carries the one recognition fact that is Slovakia's alone.** When German
+forces occupied Prague in March 1939 the United States refused to recognise **either** the protectorate
+over Bohemia and Moravia **or** the establishment of a Slovak state — a refusal recorded on the page for
+the country that was being dismembered rather than on the page for either thing it refused. And the
+consulate general opened at Bratislava in 1947 was shut in 1950 after the communist government alleged
+that American diplomatic personnel were engaged in espionage.
+
+**It is also the fastest recognition in the collection, and it lands one batch after the slowest.**
+Liberia waited fifteen years from its own declaration to American recognition; Slovakia was recognised
+on **1 January 1993**, the day it came into being, with the guide's summary and its recognition section
+both giving that date. The pair is worth keeping in mind when a card has to say whether a recognition
+date is remarkable: this deck now holds both ends of the range.
+
+**Its figures are the batch-42 case in reverse: the two European sources agree on the AREA exactly and
+differ on the POPULATION.** The United Nations and Eurostat both give **49,035 km²** to the square
+kilometre, where the previous batch's Nordic pair could not be made to agree at all; but UNdata's
+population of 5,475 thousand is a **projection, footnoted as such**, against Eurostat's 5,419,451 and the
+World Bank's 5,413,813, which agree within 0.1%. D1's rule decides the facts box — where a country runs
+its own statistical service and the EU republishes it, UNdata is the outlier — so the card and the term
+both say 5.4 million. **A footnote that says "projected est." is a reason to prefer the other two, not a
+reason to average.**
+
+**And the glossary fault of the last two batches appears again, in the same place.** `Slovakia`'s third
+sentence asserted a thousand years of Hungarian rule, the 1918 union and the 1993 division while citing
+only UNdata and the EU country page, neither of which says any of it. The thousand years is dropped —
+the guide dates the Hungarian half of the Dual Monarchy and no reachable source here measures the whole
+span — and the two guide entries are added and marked. **Four batches running, the fault has been a
+first or third sentence carrying history that no work in the term's own list states.**
+
+**Batch 42 (Finland, Liberia, Norway) is batch 14's read-the-footnotes rule paying twice on one page,
+in both Nordic profiles.** UNdata footnotes Finland's population as **including the Åland Islands** and
+its surface area as **excluding** them, so the two headline figures printed six rows apart are for
+different territories; Norway's footnotes its population as **including Svalbard and Jan Mayen** against
+a surface area that matches nothing counting them. Finland's case is corroborated arithmetically: the
+World Bank gives 338,480 km² and Eurostat 338,363 against UNdata's 336,884, and the ~1,550 km² between
+them is about the area of Åland. **Read the letters beside a figure before comparing it with anything** —
+a profile that looks like one country's numbers can be two territories' numbers.
+
+**Norway is the widest area disagreement of the whole pass: 323,772 km² against the World Bank's
+624,500, nearly a factor of two.** It is recorded here as a probable **fourth outright World Bank area
+error**, after C11's Canada and Dominican Republic and D1's Monaco — no standard published figure for
+Norway is near 624,500, and mainland plus Svalbard and Jan Mayen comes to about 385,000 — but that is a
+HYPOTHESIS and **is not cited**: the card states both figures and the population footnote and lets the
+reader see the gap, which is C12's Ecuador practice. **And `world.js` shades Svalbard**, so the map's
+shape is larger than the territory the facts box measures — batch 39's Serbia case with the sign
+reversed, and likewise recorded rather than corrected.
+
+**A third footnote reading, and it is the one a reader is most likely to trip over: UNdata's population
+DENSITY is computed on land area, not on the surface area printed two rows above it.** Finland's
+5,623 thousand over 336,884 km² is 16.7 against the 18.6 printed; Norway's is 17.4 against 18.5. Dividing
+one published figure by the other gives a third number that is on the page nowhere.
+
+**The two countries are also given the same population to the thousand — 5,623 — where the World Bank
+separates them by 35,566** (5,646,436 against 5,610,870). A coincidence rather than a fault, and a
+standing reason not to read a UN estimate as a measurement.
+
+**Liberia is the deck's longest wait between a state's founding and American recognition, and the reason
+for the date is in a president's annual message rather than in the guide.** The American Colonization
+Society founded the settlement in 1822, it constituted itself a republic in 1847 and was recognised by
+several European states, and the United States recognised it only on 23 September 1862 — with Lincoln
+telling Congress in December 1861 that "if any good reason exists why we should persevere longer in
+withholding our recognition of the independence and sovereignty of Hayti and Liberia, I am unable to
+discern it", and asking it to fund a chargé d'affaires near each. **The guide gives a date and rarely a
+reason; the American Presidency Project carries every annual message and is where the reason is.**
+
+**A country's own statute is a source, and Liberia's is the model.** `trcofliberia.org` serves the Act of
+12 May 2005 establishing the Truth and Reconciliation Commission, which dates the Comprehensive Peace
+Agreement to Accra on **18 August 2003**, calls it the formal end of "the civil strife and wars which
+have bedeviled the nation", and gives the commission **January 1979 to 14 October 2003** to investigate —
+the war period the glossary term had been asserting out of nothing. It is cited for what the statute
+says rather than as a settled account, per the plans' rule about a state's account of its own actions.
+`peacekeeping.un.org` is **403** here, and the UN Digital Library's RECORD page carries enough of a
+resolution to cite without opening the PDF at all.
+
+**The NATO member-countries page has MOVED**: `nato.int/cps/en/natohq/topics_52044.htm`, cited on the
+glossary since C1, now 301s to `nato.int/en/about-us/organization/nato-member-countries`. Old citations
+still resolve through the redirect and new ones take the new address. That one page carries both of this
+batch's European cards, and the pairing is exact: Finland deposited its instrument of accession on **4
+April 2023**, the anniversary of the treaty **Norway** signed as a founding member on 4 April 1949.
+
+**Three glossary faults, all the same shape — a figure or a clause that none of the term's own citations
+states.** Finland's 338,455 km² is in none of its three works and becomes Eurostat's **338,363**;
+Norway's "oil and gas were found offshore in 1969" rests on NBIM, which says only that the fund was
+established "after Norway discovered oil in the North Sea", so `norskpetroleum.no` is added, dating the
+Ekofisk discovery to just before Christmas **1969**; and Liberia's "is the oldest in Africa" is
+**dropped** as an unsourced superlative, the class this pass keeps finding wrong. Norway's population
+goes 5.5 → **5.6 million**, its own UNdata citation giving 5,623 thousand.
+
+**Batch 41 (Singapore, Denmark, Lebanon) opens with a TOOLING finding that no check in the pipeline can
+see.** `gw-115` was refused by `add-card.js` at 261 words, `gw-116` was written while it was being fixed,
+and the repaired card was then added AFTER its successor — so `data.js` carried `gw-116` before `gw-115`
+in `CARD_DATA` **and** in the leaf's `cardIds`. **`add-card.js` appends; it does not insert.** Nothing
+reports this: the file parses, both cards render, every suite passes, and the deck's own study order is
+chronological rather than by id, so the only surface it shows on is the id column of the card browser.
+**When a card is refused, add it before its successor or repair the order in the same pass** — the fix
+is a splice of two lines and it gets harder the longer it waits.
+
+**Lebanon OVERTURNS D2's withholding, and what settles it is the term's own citation.** D2 declined to
+correct "5.5 million" because the World Bank series never passes through that figure — 6.47 million in
+2015 down to 5.70 in 2020 and rising every year since — so by C8's test the number looked contested
+rather than stale. But the term already cited UNdata, which gives **5,849 thousand**, and the World Bank
+now agrees with it to within five hundred people: the sentence was refuted by a work in its own source
+list. **Batch 29's rule decides this outright** — a citation that contradicts the sentence it marks ends
+the argument — and it is worth carrying that **C8's stale-or-contested test is about the SERIES and says
+nothing about whether the present figure is right.** A number that was never true at any point in the
+series is not thereby a defensible number. `cas.gov.lb` is a JavaScript shell here, as the national
+statistical offices of Taiwan and Mexico were, so the two international sources are what there is.
+
+**Denmark is the Greece shape, three batches after D1 retired it.** Its term stated no area and no
+population at all — the same fault D1 fixed on `Greece` and `Georgia` by rewriting their opening
+sentences — so the shape is not extinct and **is worth grepping for rather than assuming closed**: a
+country term with no figures is invisible to every recipe in this pass, because there is nothing for two
+sources to disagree about. It gains 42,938 km² and 6 million here. Its figures also **expressly exclude
+the Faroe Islands and Greenland**, which UNdata profiles separately, which is C1's Cyprus case and C8's
+Comoros case a third time: **read what a profile counts before reading what it says.**
+
+**Singapore's consulate predates the state it stands in by 129 years, the widest such gap in the deck.**
+Joseph Balestier was appointed consul on 4 July 1836 to a British port on the China trade route;
+recognition of the state came on 11 August 1965, a fortnight after it left the Federation of Malaysia.
+**A consular post is a fact about a PLACE and recognition a fact about a STATE**, and the guide's own
+entry keeps them in one list, which is how a card can state both without implying either.
+
+**It is also the first card whose AREA IS GROWING, and that qualifies C9's rule.** The World Bank's
+`AG.SRF.TOTL.K2` gives 719 km² for 2015 and **728 for 2023** — land reclaimed from the sea, showing up as
+arithmetic — with UNdata agreeing at 728 and the Commonwealth still on 720. The term's 735 falls outside
+the two that agree and was corrected to 728. **On a reclaiming country an area needs a DATE as well as a
+spread**: two sources differing by nine square kilometres may be measuring the same coast eight years
+apart rather than disagreeing about it.
+
+**Batch 40 (Bulgaria, El Salvador, Republic of the Congo) begins with a correction to batch 39's own
+verification, which is the entry to read.** Two `check-style` findings on `gw-108` shipped in that batch
+— *forty-one years* and *forty-seven in every hundred*, both breaking rule 1, non-round numbers above 20
+are numerals — because the check was run and only its `title-AMBIGUOUS` count and its last line were
+looked at. **`check-style.js` reports a TOTAL and then the findings; reading the tail tells you about
+`changelog.js` and nothing about `data.js`.** Both are fixed here. **Read the `=== data.js` block, not the
+count and not the tail** — the two long-standing `Mencius` findings make a bare count useless as a signal,
+which is exactly how these hid.
+
+**Bulgaria is the collection's clearest case of relations PRECEDING recognition, and the guide states
+both dates.** John B. Jackson, minister to Greece, Romania and Serbia, presented credentials at Sofia on
+**19 September 1903** and that date establishes relations; recognition waited on independence, declared
+**5 October 1908**, and came on **3 May 1909** with Knox instructing a chargé to convey Taft's
+congratulations on the country's "admission to the community of sovereign and independent States". Six
+years of relations with a state not yet recognised. **When a guide entry's Diplomatic Relations date
+precedes its Recognition date, that inversion is the card.**
+
+**It is also the pass's widest POPULATION disagreement so far, and the outlier is Source A.** UNdata
+gives 6,715 thousand where **Eurostat gives 6,437,360 and the World Bank 6,433,302** — those two agree to
+within 4,000 and UNdata sits about 280,000 above both, a 4.4% gap. D1's finding (`Albania`, `Moldova`)
+and C2's (`Czechia`) again: where a country runs its own statistical service and the EU republishes it,
+UNdata is the one to drop. The term's "roughly 6.4 million" already followed the two that agree and was
+left. Its **area** went the other way and was corrected: the EU page gives 110,996 km² and the World Bank
+110,996.758, so the term's 110,994 is two below a figure two sources publish — a rounding width, so by
+batch 39's rule both surfaces take the agreed figure.
+
+**Bulgaria's population is also the steepest fall in the collection**: the World Bank's series is down
+about 550,000 in ten years, close to 8%. Serbia's decline in batch 39 was 7.7% over the same period, so
+two consecutive batches have produced the two fastest-shrinking countries carded, and both are in the
+same corner of Europe.
+
+**Two more admissions land on sittings this pass has already sourced, which is now worth planning for.**
+Bulgaria is one of the sixteen named in **`A/PV.555`**, so batch 37's meeting record carries a third card
+and can name this one in its own list; the Republic of the Congo was admitted at the **864th plenary
+meeting** on 20 September 1960, the sitting that already carries Togo, Madagascar and Côte d'Ivoire.
+**Check the register for the sitting before searching for a resolution** — an admission date shared with
+a card already written means the record is already fetched and read.
+
+**And the UN's own resolution title solves the two-Congos problem for free.** `A/RES/1486(XV)` is headed
+*Admission of the **Republic of the Congo (Brazzaville)** to membership in the United Nations* — the
+Organization distinguishing the two states by their capitals, exactly as batch 22 found `S/RES/143(1960)`
+filed as "the Congo (capital Leopoldville)". A card that has to tell a reader which Congo it is should
+reach for the resolution heading rather than explaining.
+
+**El Salvador's recognition passes through TWO federations, which no other card has.** The United States
+recognised the Federation of Central American States in 1824 rather than its members, recognised Salvador
+separately on 1 May 1849 after the union broke up, and then in 1896 adjusted its relations again when
+Honduras, Nicaragua and Salvador formed the **Greater Republic of Central America** to exercise their
+external sovereignty — receiving its minister on 24 December 1896 while Cleveland noted the individual
+republics' responsibilities remained "wholly unaffected", and reverting when the union dissolved on 29
+November 1898. Its population moves "about 6 million" → **6.4 million**: not a C8 stale figure but a
+rounding to one significant figure that had drifted 5.7% low, which is the other way a term's number goes
+wrong.
+
+**Batch 39 (Paraguay, Nicaragua, Serbia) met the deck's first case where the MAP and the FACTS BOX are
+not describing the same territory, and the card says so rather than choosing.** `world.js` draws Serbia
+**without** Kosovo, because Kosovo has an entry of its own in this deck under rule 1, so the shaded
+shape is Serbia proper. UNdata's profile footnotes its POPULATION "Excluding Kosovo" and attaches no
+such note to its **surface area of 88,444 km²**, which is close to the total that includes it; the World
+Bank's area series drops from 88,360 to 84,990 between 2019 and 2020, a third answer again. There is no
+figure that is both cited and unambiguous, so the facts box takes Source A's and the card's last
+sentence states the asymmetry outright — *the United Nations counts its people expressly without Kosovo
+but marks its area with no such note*. **Batch 32's Israel rule is the precedent and it generalises: when
+a statistical profile footnotes a designation, the footnote is the citation, and where it footnotes one
+field and not its neighbour, saying so is the honest card.**
+
+**The ICJ's Kosovo case page is the neutral source this subject needs, and it is the best one found for
+any disputed status so far.** `icj-cij.org/case/141` gives, in prose, the General Assembly's question of
+8 October 2008, the Court's Advisory Opinion of 22 July 2010 that "the declaration of independence of
+Kosovo adopted on 17 February 2008 did not violate international law", and the Court's own
+characterisation of **Security Council resolution 1244 of 10 June 1999** as "a temporary, exceptional
+legal régime which . . . superseded the Serbian legal order . . . on an interim basis". It also lists
+every filing, so **Serbia's own participation is checkable without any state's account of itself being
+repeated** — a written statement, written comments and replies to the judges' questions. C7 recorded
+`icj-cij.org/case/<n>` as merely reachable; this is the second card to use one and the first to build a
+paragraph on it.
+
+**The `Serbia` term carried two area figures that neither of its citations states.** It gave 77,589 km²
+and 88,499 km² "counting Kosovo", both marked to UNdata, which publishes 88,444 and neither of those —
+the `Togo` fault for the third time in five batches, and the reason the first sentence of a country term
+is now the first thing read. It is rewritten to the cited figure with the footnote's own qualification,
+and the ICJ page is added as a third source so the Kosovo clause is carried by something; the term goes
+109 → 108 words and keeps its three sentences.
+
+**A rule the last three batches have been deciding case by case is now settled: how wide a spread has to
+be before a figure BETWEEN two sources is honest.** Where two published figures differ by a rounding
+width — `Kyrgyzstan` at 199,949 and 199,950, `Nicaragua` at 130,370 and 130,374 — a term sitting one or
+two units outside them is stating a number nobody publishes, and both card and term take Source A's.
+Where the spread is material — Serbia's population at 6.549 and 6.689 million, 2.1% apart, or Australia's
+and Saudi Arabia's before it — a figure between them is the honest answer and the prose states the
+spread. **The test is whether any single source could be called the answer**; under a rounding width one
+can, and above it none can.
+
+**Two guide findings, and the second is now a pattern.** Paraguay's page is C12's South American shape
+exactly — the summary paragraph carries the independence date, 15 May 1811, where the recognition entry
+gives 1852, forty-one years later — and the gap between the two is the card. And the guide's **section
+HEADINGS carry years that disagree with their own text**, for the second batch running: Nicaragua's
+*Legation Raised to Embassy, **1942*** describes a promotion on 27 March **1943**, as Kyrgyzstan's
+*Establishment of the American Embassy in Bishkek, **2004*** described one of 1 February 1992. **Read
+the text and treat the heading as a label, not a date.**
+
+**Nicaragua's guide is the richest recognition sequence in the collection so far** — the Federation of
+Central American States recognised in 1824 rather than its members, withdrawal from it on 5 November
+1838, recognition of Nicaragua itself in 1849, relations severed in 1909 over the execution of two
+American citizens, Marines at Bluefields and then in the country until 1932, recognition withheld from
+Chamorro in 1926 and from Somoza García in 1947. **A country whose recognition was granted, severed and
+withheld repeatedly needs no other source**: the entry alone carries eight of the card's ten sentences.
+And Paraguay is the collection's most concentrated population, the United Nations putting 3.28 million
+of just over seven million in Greater Asunción — which its own footnote defines as the capital's
+district plus nineteen districts of Central Department, batch 14's read-the-footnotes rule paying again.
+
+**Batch 38 (Kyrgyzstan) swept every metric-to-imperial conversion in the corpus and found NOTHING
+wrong, which is worth recording because the sweep nearly reported nineteen faults that are not faults.**
+A term's area was suspected of a transposed conversion, so all 1,569 glossary descriptions and all 1,093
+cards' abstracts, date lines and facts boxes were scanned for the `N km² (M sq mi)` form and each pair
+recomputed. **A naive tolerance — a fixed percentage — reports 19 findings and every one is correct**,
+because the house rule rounds a conversion to the SOURCE figure's own precision: "86,600 km² (33,400 sq
+mi)" is 33,436 rounded to three significant figures and is exactly right. **The tolerance has to be read
+off the WRITTEN imperial figure's own trailing zeros** — a value written to the hundred may be 50 out, a
+value written to the unit may not be one out. On that test the whole corpus produces a single flag,
+`gw-009`'s Russia at 1.7 sq mi, which is the conversion factor's own precision on an eight-digit figure
+and the standard published number. **The suspicion was arithmetic done in the head and it was wrong**;
+199,951 km² really is 77,201 sq mi. The check is not committed as a tool — it found nothing — but the
+precision rule is what makes it worth re-running after a units batch, and it is recorded here so nobody
+re-derives it.
+
+**Its area is harmonised rather than corrected, and this settles the rule for the rest of the deck.**
+UNdata gives 199,949 km², the World Bank 199,950 and the term 199,951 — one above the top of the spread,
+which is C9's `Ivory_Coast` case and therefore not a correction. But **no source publishes 199,951**, and
+a facts box sourced by [1] may not print a figure [1] does not carry, so both surfaces take UNdata's
+199,949; the imperial conversion is unchanged at 77,201 sq mi either way. That is Spain's rule stated the
+other way round: **inside the spread is a reason not to correct a term, and a figure no cited source
+states is a reason to move it anyway.** Its population is an ordinary C8 correction, "roughly 7 million"
+being the 2023 value on a series rising by more than 120,000 a year, so it moves to 7.3 million, which
+both sources give.
+
+**The recognition guide contradicts itself on this page, and a second page on the same site settles
+it.** The section is headed *Establishment of the American Embassy in Bishkek, **2004*** and its text
+says the embassy "was established on February 1, 1992, with Edmund McWilliams as Chargé d'Affaires ad
+interim". The **Chiefs of Mission database** lists McWilliams from 1 February 1992, so the text is right
+and the heading is a slip. P2's rule — a spine source is not infallible, read the whole page — with the
+useful addition that **the chiefs-of-mission list is the cheapest way to check a date the guide gives**,
+since the two are maintained separately and agree or do not.
+
+**Two smaller things.** The country **took its United Nations seat under a different name from the one it
+trades under**: resolution 46/225 is headed *Admission of the **Republic of Kyrgyzstan***, and the WTO
+lists the member as the **Kyrgyz Republic** — the Türkiye and Naypyidaw device, but here the two names
+belong to two institutions rather than to a source and a deck, which is a fact about the state rather
+than about the sources. And its founding has **no ceremony at all to cite**: recognition and diplomatic
+relations were both announced in Bush's broadcast of 25 December 1991, so there are no credentials, no
+exchange of notes and no letter — batch 30 recorded the same of Tajikistan, and it is what the whole
+post-Soviet run looks like.
+
+**Batch 37 (Libya) CLOSES batch 36's owed top-up, and the answer is that the claim was right and the
+citation was the wrong document.** Batch 36 recorded that `A/RES/995(X)` is an image scan, so the
+"sixteen states" two cards already assert could not be checked from here. The **VERBATIM MEETING RECORD
+of the same day extracts cleanly** — `A/PV.555`, record 646501, 58 KB of text — and it settles the
+question outright: the President opens by naming the draft resolution of forty-one countries providing
+for the admission of "Albania, Jordan, Ireland, Portugal, Hungary, Italy, Austria, Romania, Bulgaria,
+Finland, Ceylon, Nepal, Libya, Cambodia, Laos and Spain", and closes by recording that "the General
+Assembly has accepted each of the sixteen countries recommended by the Security Council". So the count
+is verified and no card is wrong; what is owed is a better POINTER, since the resolution record carries
+only the title and the vote. **Where a resolution's own PDF is a scan, fetch the plenary meeting record
+instead** — `A/PV.<n>` is a different digitisation, and it carries the debate, the separate votes and
+the president's rulings as well as the text. The eight earlier cards resolution 995 (X) carries may be
+re-pointed at leisure; nothing about them is false.
+
+The record repays reading beyond the count. Cuba asked, on a point of order, that each country be voted
+on separately in accordance with an advisory opinion of the International Court of Justice, and had its
+own abstention on the resolution as a whole entered in the record; Australia's representative says the
+Assembly had "voted for the group of eighteen States which was previously before the Council", which is
+the Cold War deadlock C9 named — **eighteen proposed, sixteen admitted** — visible in one sentence of
+debate. `gw-103` and `gw-106` both sit on that sitting.
+
+**Libya is also where the recognition guide reaches furthest back of any page used in this pass.** It
+carries the Ottoman semi-independent province of 1711–1835, the 1796 peace treaty by which Tripoli
+recognised the United States — signed also by the Dey of Algiers on a claim to authority the pasha
+denied — the Treaty of Ouchy of 18 October 1912, the joint British and French occupation from 1943, and
+Truman's message to King Idris I on 24 December 1951. **A guide page's length is a fact about the
+relationship's age as well as its complication**: Israel's runs to two sentences and Libya's to a
+consular chronology beginning in 1799.
+
+**Two corrections to the `Libya` term, one of each kind this pass now expects.** Its "an Italian colony
+from **1911**" is contradicted by the very source it marks, which gives 1912 for the cession and
+1912–1947 for the colony — batch 29's Cuba rule, and 1911 is the invasion rather than the transfer, so
+the citation decides. And it carried "a Mediterranean coast of more than 1,700 km (1,100 miles)", which
+**no source in its list publishes**: the same L3-class distance locator dropped from `Togo` in batch 35,
+and the second time in three batches that a country term's first sentence has been found carrying a
+figure nothing behind it states. **Grep a country term's first sentence for a length or a distance
+before writing its card** — neither UNdata, the World Bank nor the recognition guide measures coastline,
+so any such clause is unsupported by construction. The term goes 110 → 101 words.
+
+**Its area is C9's Libya finding still standing, and the card states it rather than hiding it**: UNdata
+gives 1,676,198 km² where `AG.SRF.TOTL.K2` gives 1,759,540 for every year on record, a gap of 83,342 km²
+or about five per cent — the widest area disagreement in the collection. The term takes the World Bank's
+and so does the card, with a sentence saying which is the larger. Its population needed nothing: UNdata's
+7,459 thousand and the World Bank's 7,458,555 are the same number.
+
+**Two small access notes.** `wto.org/.../libya_e.htm` returns the 9,709-byte error page batch 36
+measured, Libya being an observer rather than a member — **the size check now identifies that page
+without reading it**. And the World Bank API returned **400 Request Error to `per_page=100`** on a
+single-country call that worked at `per_page=50` and with the parameter omitted; C8's "empty body under
+rapid repeats" is not the only way that API declines, so **read the body before assuming a retry is
+what is needed**.
+
+**Batch 36 (Laos, Hong Kong, Turkmenistan) is the first to write a TERRITORY, and a territory needs a
+different fourth facts row.** UNdata's `Capital city` for Hong Kong is Hong Kong, so the row the whole
+deck is built on has no content there — the District of Columbia's position in the United States plan,
+met for the first time here. The row is **`Status · Special Administrative Region of China`**, cited to
+the Basic Law, which is `gw-060`'s `Seat of government` move taken one step further: **where the capital
+row would say nothing, say what the place IS, and cite the instrument that says so.**
+
+**And a territory has no recognition-guide page, but its SOVEREIGN's page names it.** `/countries/hong-kong`
+is a 404, as North Korea's is and for a related reason; the guide's **China** page carries "The United
+States established a consular post in the British colony of Hong Kong in 1843", which is the card's whole
+first sentence. Batch 20 found Taiwan's diplomatic history inside the same China entry. **Read the
+sovereign's page before concluding a territory is unsourced.**
+
+**What actually carries Hong Kong is two statutes, one British and one Chinese, and both are open.**
+`legislation.gov.uk` serves the **Hong Kong Act 1985, section 1 as enacted**, which provides that from
+1 July 1997 the Crown should no longer have sovereignty or jurisdiction over any part of Hong Kong, and
+which dates the Joint Declaration precisely — "signed in Peking on 19th December 1984" — and makes the
+section's commencement wait on the exchange of instruments of ratification. `basiclaw.gov.hk` serves
+**chapter I of the Basic Law**, whose articles 1, 2 and 5 give the inalienable-part declaration, the high
+degree of autonomy including final adjudication, and the fifty years unchanged. Both hosts are new to
+this pass's spine. **When a place's status was settled by law rather than by recognition, cite the law**
+— and attribute what a legal instrument DECLARES rather than asserting it, which is what keeps a card out
+of the sovereignty argument its own question already avoids.
+
+**Its WTO slug is `hong_kong_china_e.htm`**, and `hongkong`, `hong_kong`, `hongkongchina` and `macao` all
+return batch 14's 200-status error page at a constant 9,709 bytes — **a size check tells them apart
+instantly**, as it does for `senate.gov`. The member is "Hong Kong, China", a **GATT member from 23 April
+1986**, eleven years before the transfer and while still a British dependency, which is the fact the card
+turns on. Add the slug beside D2's `burma`, C9's `cote-divoire` and C8's two Congos.
+
+**THE POLYGON CEILING BITES AT `gw-104`, NOT IN THE LAST THIRTY, AND THAT PREDICTION IN THIS FILE IS
+WRONG.** It says a micro-territory reading as a speck is bearable because the population order puts every
+card it affects in the last thirty of 233. Hong Kong is **104th by population and 1,107 km²**: `world.js`
+is stored at 2dp, about 1.1 km, so at this card's zoom its coastline is a visible stair-step. The card is
+still answerable — Kowloon, the island and Lantau are distinguishable and the Guangdong coast is drawn
+round them — and it was looked at rather than assumed. But **the population order does not protect a
+dense city-territory**, and Singapore, Macau, Gibraltar and Bahrain are all the same shape and all far
+above the bottom of the list. Recorded rather than fixed: the fix is a higher-resolution `world.js`, which
+every visitor pays for on the eager path.
+
+**Hong Kong's own census beats both international counts, by the Berlin rule.** The Census and Statistics
+Department gives **7,413,070 for 2021** against 7,336,585 five years earlier; UNdata gives 7,396 thousand
+for 2025 and the World Bank 7,498,900, about 103,000 apart. The World Bank's series for it **falls in each
+of the last two years**, which no other card in this collection has shown, so the usual C8 stale test —
+which assumes a rising curve — says nothing here. C10's `Marshall_Islands` warned that "out of date" is
+not the same as "too low"; this is the same warning for a place nobody thinks of as shrinking.
+
+**Turkmenistan's area is a STEP in the series and the cause is a hypothesis that is deliberately not
+cited.** `AG.SRF.TOTL.K2` gives **488,100 km² for every year to 2018 and 491,209 from 2019 onwards**;
+UNdata still carries the earlier figure and the glossary term the later. C9's rule leaves the term alone —
+491,210 against 491,209 is the `Ivory_Coast` case, a one-unit gap that counts as inside — so the card
+prints the term's figure and its own prose says the two official sources differ and why. The step falls in
+the year after the Convention on the Legal Status of the Caspian Sea was signed, which apportioned Caspian
+waters among the five littoral states; that is a plausible cause and **nothing openable here states it**,
+so it is recorded as a hypothesis exactly as C12 recorded Ecuador's border settlement, and no citation
+rests on it. **A series with a step in it dates the step; it does not explain it.**
+
+**And `A/RES/995(X)` is an image scan, so its "sixteen states" cannot be checked from here.** Two cards
+already in this collection assert that count and mark it to that resolution; the record's catalogue entry
+gives only the title, *Admission of New Members to the United Nations*, and the vote — 56 in favour, one
+abstention, of 76 members — so `gw-103` states the vote instead. **A claim inherited from an earlier batch
+is not verified by having been used before**, and the eight cards that resolution carries are worth a
+top-up pass. One `Laos` correction went with the batch: "roughly 7.7 million" is the 2023–24 value on the
+World Bank series, so C8's test makes it stale and it moves to 7.9 million, which both sources give to
+within fifty people.
+
+**Batch 35 (Togo) found the spine for a FORMER TRUST TERRITORY, and it is the trusteeship record
+itself.** The recognition guide's Togo page is as thin as Sierra Leone's — recognition and an embassy on
+one day in 1960 and nothing earlier — and what carried the card instead is the paper trail the United
+Nations kept while it supervised the territory. **`T/Agreement/7`, the Trusteeship Agreement for
+Togoland under French Administration**, states in its own preamble that the territory lies east of "the
+line agreed upon in the Declaration, signed on 10 July 1919" and was administered under the mandate
+"defined under the terms of the instrument of 20 July 1922", which let France run it "as an integral
+part of its territory" — three dated facts about a partition that no country page anywhere states.
+**`A/RES/1044(XI)`** then carries the other half: resolution 944 (X) had ordered a plebiscite under a
+United Nations Plebiscite Commissioner to ask whether Togoland under British administration wished to
+join an independent Gold Coast, the Assembly notes that a majority voted for union, and it ends the
+trusteeship on the day the Gold Coast became independent. And **`A/RES/1416(XIV)`** records that France
+and Togoland had agreed on 27 April 1960 and recommends admission to the United Nations upon it.
+**Eleven trust territories became states; before writing any of them, search the Digital Library for
+"the future of &lt;territory&gt; under &lt;power&gt; administration"** — the `T/Agreement/<n>` and
+`T/RES/…` collections had not been used by this pass at all.
+
+**Two things about reading those documents.** A General Assembly resolutions PDF of the 1950s **extracts
+cleanly and brings its neighbours with it**, because the scan is of the whole printed page: 1416 (XIV)
+arrives with 1415 and 1417 attached, which is where the sentence naming "the Cameroons under French
+administration, Togoland under French administration and Somaliland under Italian administration during
+1960" came from. A **working document of the same decade does not extract at all** — `T/1269`, the
+Plebiscite Administrator's own 24-page report, is an image scan with no text layer — so the resolutions
+volumes were typeset and re-digitised where the working papers were photographed. **Cite an image-only
+record for what its catalogue entry states** (its title, the administrator's name, the date it was
+circulated) and never for a figure inside it.
+
+**The German period needed a source outside the UN and American spines entirely, and a MUSEUM answered.**
+Nothing in either reaches behind 1919. The **Deutsches Historisches Museum's LeMO** gives the whole first
+phase of German colonial policy in a paragraph and dates Togo and Cameroon to **July 1884**, one month
+finer than the glossary term's bare 1884. `bundesarchiv.de`, `deutsche-digitale-bibliothek.de` and
+`bpb.de` all answer here too. **When a country's history predates every institution the pass is built on,
+ask which national museum published on it.**
+
+**The `Togo` term is batch 29's fault in its commonest and least visible form.** Cuba's citation
+*refuted* the sentence it carried; this one was simply silent on it — three claims (the 1884 German
+claim, the wartime division, and "one family held the presidency from 1967 into the present century")
+were all marked to the recognition guide and UNdata, and neither source mentions any of them. **No audit
+can see this**: `gloss-source-audit.js` counts citations, the marker rules check that each points inside
+the list, and both pass. It is caught only by reading each marked clause against the work it points at,
+which is now this batch's first step on any term whose card is being written. Rewritten to what the
+sources bear, with three sources added; the family claim survives as the one thing the record proves —
+**`A/59/700` is Faure Gnassingbé's own address to the nation as President, transmitted to the
+Secretary-General, on the death of Gnassingbé Eyadéma**. That document also contains the state's account
+of itself, a eulogy listing the late president's achievements, and none of it is used. The rewrite also
+cost the term its "about 550 km (340 miles) inland" — an L3-class distance locator for which no cited
+source gives a figure.
+
+**Its figures needed nothing, and its capital figure is a warning about batch 32's find.** UNdata gives
+8,592 thousand people against the World Bank's 8,591,626, and 56,785 km² against 56,790 — agreement to
+within a thousandth on both. But UNdata's capital-city row for Togo is **1,785.3 thousand and the World
+Bank's `EN.URB.LCTY` is 1,785,310 for 2019**, the same number to the person, so the "second institutional
+count of a capital" batch 32 found for Angola is a **relay** here rather than corroboration. **Check the
+two against each other before citing both**, exactly as C8 established for `SP.POP.TOTL`.
+
+**Batch 34 (Sierra Leone) found the source that carries a country whose recognition-guide page says
+nothing before 1961, and it is a national TRUTH COMMISSION.** The guide's Sierra Leone entry is four
+sentences long — recognition on independence, the consulate general at the capital raised to an embassy
+the same day — and names no event earlier; the Commonwealth's line gives the joining year and no more.
+What carried nine tenths of the card is the **Sierra Leone Truth and Reconciliation Commission's
+*Witness to Truth* (2004), volume 3A chapter 1, "Historical Antecedents to the Conflict"**, which runs
+from the 1787 purchase of the peninsula from the Temne ruler King Nimbana, through the Sierra Leone
+Company and the abolitionists behind it, the Crown Colony of 1808 against the protectorate of 1896, the
+Hut Tax War of 1898 and the One Party Act of 1978, to the first shots at Bomaru on 23 March 1991.
+**Where a country has had a truth commission, the historical chapter of its report is a statutory body's
+own dated narrative of that country's whole past, published in full** — reach for it whenever the
+recognition guide is thin, which for a state decolonised in one act it usually is.
+
+Three notes on using it. **The report is not infallible, and P2's rule applies to it as to any spine
+source**: it calls the 1947 constitution the "Stevens Constitution" after "its chief drafter Siaka
+Stevens", where the document is the Stevenson constitution named for the governor, Sir Hubert Stevenson —
+so the card takes the amalgamation the chapter states repeatedly and leaves the attribution alone.
+**The download URLs cannot be cited**: the site is a Joomla install whose file links carry `args[0]=`,
+and a closing square bracket ends `SRC_URL_RX`, so the citation points at the chapter's **item page**
+(`…/item/witness-to-the-truth-volume-three-a-chapter-1?category_id=13`) while the PDF is fetched with the
+bracket percent-encoded as `args%5B0%5D=`. And **`www.sierraleonetrc.org` resets the connection about half
+the time** — every fetch here needed one to three retries and then answered 200, which is a flaky host
+rather than a closed one; the item ids are not in display order, so check a downloaded file's first page
+before trusting which chapter it is.
+
+**Its area is the third country with three published figures, and the first where the card follows the
+Commonwealth AGAINST Source A.** UNdata gives 72,300 km² and the World Bank's `AG.SRF.TOTL.K2` gives
+72,300 for every year on record, while the Commonwealth Secretariat gives 71,740 — which is the figure
+the `Sierra_Leone` term already carried and cited. C9's rule leaves a term inside the spread alone, so
+nothing was corrected, and `gw-021`'s rule then settles the card: where a card must diverge from Source A
+to agree with its own glossary term, cite the source it is agreeing with and give it a real sentence. The
+card's last sentence states the 560 km² gap and says which of the two is the larger. Its population is an
+ordinary C8 correction — "roughly 8.6 million" is the 2024 value on the World Bank series against 8.82
+million at both sources for 2025 — so the term moves to 8.8 million and the card prints the same.
 
 **Batch 33 (Belarus, Switzerland, Kyiv) closes the first hundred countries, and its finding is that the
 UN MEMBERSHIP DATE is the single most misread field in the whole recipe.** C3 recorded the first form of

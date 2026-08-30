@@ -1031,6 +1031,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     uncited — `gloss-source-audit.js` did, on its first run after the split — and a WRITER
     re-serialises what it loaded and **deletes 1.29 MB without erroring**. `writeGlossary` also STRIPS
     either block from `glossary.js` if one creeps back in.
+    **AND THE QUEUE'S KEYS ARE THE GLOBALS' OWN NAMES.** A one-off inspection that reaches past
+    `gloss-io.js` has to read `window.GLOSSARY_EXTRA_IN[0].GLOSSARY_IMAGES` — not `.images`, and not
+    `window.GLOSSARY_IMAGES`, which the file never assigns. Both wrong forms return `undefined`, which
+    reads as *this term has no picture*: on that answer an existing illustration was overwritten in
+    Aug 2026 and had to be reverted. **A check that cannot tell an absent table from an absent entry is
+    worse than no check**, so confirm a table's SIZE before trusting what it says about one key.
   · **`check-style.js` reads `glossary-extra.js` too**, and that is not housekeeping: rule 4 (BCE/CE)
     sweeps the text a PICTURE carries, which is where most of the site's remaining "BC"s were, and the
     whole images table moved out of its reach. Its citations mask now matches **both** block shapes —
@@ -2546,6 +2552,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   shaded on a globe the reader can turn and zoom but not click, and asks what it is; the back names it and
   adds a box of figures. Two fields carry it — **`map`** (`{ layer, key, zoom? }`) and **`facts`**
   (`[[label, value], …]`) — and everything else about such a card is an ordinary curated card.
+  · **`key` MAY BE A LIST, AND CYPRUS IS WHY** (Aug 2026, on request: "ensure the country Cyprus encompasses
+    the whole island"). `world.js` files a partitioned island as separate polygons — `Cyprus`, `N. Cyprus`
+    and `Cyprus U.N. Buffer Zone` are three — so a card naming one shaded two-thirds of what the reader can
+    see and asked them to name it. `"key": ["Cyprus", "N. Cyprus", "Cyprus U.N. Buffer Zone"]` shades them
+    as ONE place: the names are joined with a **pipe** for the markup's single attribute (no place name in
+    either layer contains one, and `add-card.js` refuses one that does), every name must resolve or the
+    window fails rather than shading a shape that is not the country, and the fill and outline are laid
+    down as **one path over all of them** — stroking each would draw the internal lines that dividing them
+    is exactly what naming them together is meant to hide. With several shapes the opening view centres on
+    the UNION's bounding box; with one it still centres on that shape's own published label point, **so no
+    existing card's opening view moves by a pixel**.
   · **IT IS A BUILT-IN FORMAT AND NOT A COMMUNITY CARD TYPE**, settled before anything was written: a card
     type is templates plus scoped CSS and **cannot run code**, deliberately, since a type is a stranger's
     content — and a globe needs a canvas, an animation frame and pointer handlers. The request said "a new
@@ -3425,6 +3442,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     (`WB.stylusSeen` / `WB.penOnly`, device-local). The scroll is **performed, not permitted** —
     `touch-action` is a property of the ELEMENT and cannot tell a pen from a finger, so the canvas keeps
     `touch-action:none` in every state and a finger's scroll is done by hand with momentum.
+  · **ONE POINTER OWNS THE GESTURE, AND THE REST ARE NOT THIS STROKE** (`gid` / `gpen` / `dropGesture`,
+    Aug 2026, on a bug report: "sometimes I find myself unable to draw lines for a few seconds … other
+    times lines that should be straight end up crooked"). Every other pointer surface on the site records
+    the id it started on — the marker's own drag handle, the page swipe, the colour picker, the gloss
+    window — and **the drawing surface, where a second pointer is not merely possible but expected, did
+    not**: a stylus rests a palm and a phone has two thumbs, and the four handlers share one `WB.drawing`,
+    `WB.last` and `passScroll`, so a second contact walked into the first one's gesture. **Both reported
+    symptoms are that walk seen from two sides.** A crooked line is the palm's coordinates sewn into the
+    pen's stroke on alternate samples; not drawing is any other pointer's `pointerup` or `pointercancel`
+    running `end()` and taking `WB.drawing` down mid-stroke — or, in stylus mode, a palm setting
+    `passScroll`, whose test is the FIRST line of the move handler, so the pen scrolled the card it was
+    marking. **The one preemption is a PEN over a finger**, because the palm usually lands first and a
+    plain first-wins rule would leave a stylus reader unable to draw at all; nothing preempts a pen.
+    **Capture cannot do this** — the canvas covers the visible page, so it is the hit target for every
+    contact regardless. Guarded by `.claude/test-whiteboard.js`.
   **📖 `docs/whiteboard.md` — READ BEFORE CHANGING ANY OF IT.** The fling's sample-window arithmetic (a
   per-event velocity is wrong in both directions, and a synthetic drag is what exposes it), the snap-home
   probe and the transition that must be turned off to take it, the inline colour picker and why an
@@ -3928,6 +3960,16 @@ the end of a successful add and print the candidates, their licences, their size
   glossary terms and one artefact today, most of them abstract concepts and living scholars — say so in the
   commit message rather than leaving the gap looking like an oversight. `--no-image` skips the lookup for a
   batch run with no network.
+· **AND WHEN `upload.wikimedia.org` RATE-LIMITS, `Special:FilePath` STILL SERVES THE FILE** (Aug 2026).
+  A long session that has looked at a dozen pictures starts getting a 2,255-byte **429** from
+  `upload.wikimedia.org` on every request, and it does not clear with backoff — fifteen minutes of waiting
+  bought nothing. `https://commons.wikimedia.org/wiki/Special:FilePath/<FILE>?width=900` answers 200 with
+  the image, and so does `commons.wikimedia.org/w/thumb.php?f=<FILE>&width=900`; the ordinary file
+  DESCRIPTION page keeps working throughout too, which is where the licence and author have to be read
+  from when the `api.php` endpoint is also limited. **Use those to LOOK at a candidate**; the `src` written
+  into the card stays the normal `/thumb/…/1920px-…` URL, since the limit is this container's and not a
+  reader's. The rule this protects is the one that matters: **look at the picture before using it**, and a
+  host that will not serve it is a reason to keep trying or to ship without one, never to install unseen.
 · It writes the same fields the pass writes: a card and a term take `{ src, title, desc, credit, alt }`, an
   artefact `{ src, credit, alt }`, and **`credit` is required in all three** — a picture on Folio is always
   somebody else's file, and `add-card.js`, `add-glossary.js`, `add-artefacts.js`, `add-images.js` and the
@@ -3948,6 +3990,17 @@ alias (`Clovis_point` as a key, `Clovis` as an alias of `Clovis_culture`), since
 surfaces longest-first; and **ask whether a one-word term is also an everyday word** before adding it —
 `Boreal` needed `caseSensitive: true` or four country and region terms saying "boreal forest" would have
 linked to a Holocene chronozone.
+**AND CHECK WHETHER THE TERM ALREADY EXISTS BEFORE RUNNING `add-glossary.js`, WHICH OVERWRITES IN
+SILENCE** (Aug 2026, on `wh-294`). The collections share a vocabulary: `Phoenician_alphabet` had been
+written for Ancient Greece long before World History reached it, and the helper answered a fresh entry
+with **`updated glossary term`** rather than `added` — one word, in a line nobody reads twice — having
+replaced a four-source description, its tags and its whole citation list with a two-source one. Nothing
+failed: the audits still reported 1,595 terms all at the bar, because a REPLACED term is still cited.
+What was lost was the part the older entry had and the newer did not, namely that whether a script with
+no vowel signs should be called an alphabet at all is disputed. **The pairing rule is satisfied by a term
+that already exists**, so the check is one command before the work rather than a repair after it, and the
+repair is `git checkout` on `glossary.js` and `glossary-extra.js` — which is only clean because nothing
+else in the batch had touched them.
 
 The deck and glossary are being regrown one entry at a time, each researched from **Wikipedia and
 academic sources** — accuracy is non-negotiable, never invent dates, names, or definitions. The kept
@@ -4123,6 +4176,19 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   may then say "7th century" in words. **The fix is in the DATE LINE, not in `cardYears`**: 52 of the
   447 shipped date lines carry a century form beside a plain year, so teaching that function to read
   centuries would silently move their sort years too.
+  **AND AN ERA MARKER ONLY REACHES THE YEAR IT FOLLOWS**, so a row naming two alternative years —
+  `1188 or 1177 BCE` — is read as 1188 **CE** beside 1177 BCE (Aug 2026, on `wh-268`). Write the era
+  on both: `1188 BCE or 1177 BCE`. The sort year is usually unaffected, which is why nothing reports
+  it: `cardStartYear` takes the MINIMUM, so the stray positive hides there and surfaces only in
+  `cardSpanYears`, where it runs a Bronze Age deck's coverage to the 12th century CE.
+  **AND A `c.` INSIDE A RANGE BREAKS THE ERA'S LEFTWARD CARRY** (Aug 2026, on `wh-284`). A range writes
+  the era once and lets it carry back to the first number — `668 – 631 BCE` yields −668 and −631 — but
+  `668 – c. 631 BCE` yields only **−631**, the approximation mark standing between the two. The failure
+  is the opposite way round from the one above and LOUDER, since the lost year is usually the EARLIER
+  one and `cardStartYear` takes the minimum: the card silently sorts by whatever else its date line
+  happens to name. Write the era twice (`668 BCE – c. 631 BCE`) or move the `c.` to the front
+  (`c. 668 – 631 BCE`) — both parse. **Read the sort year back after writing a date line**, which is
+  two lines of Node against `cardYears` and is the only thing that can see this.
 - `abstract` (the background) — **exactly 10 sentences and about 300 words** (keep within 270–330, which
   `add-card.js` has ENFORCED since 2026-08-06 — it never measured the abstract before, which is how seven
   cards reached 331–342 unremarked; they are recorded in the changelog and left as they are), as two
@@ -4851,7 +4917,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Forty-five committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **Forty-six committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-scheduler.js` and `test-streak-chest.js` are plain Node with
@@ -5072,6 +5138,15 @@ dead code (never rendered).
   · `node .claude/test-units.js` — the two Settings that REWRITE what is already on the page (Aug 2026):
     measurements, and light/dark from the device. **Re-run after touching `unitizeText` / `unitizeTree` /
     `applyUnits` / `applyTheme` / `setNight` / `setThemeAuto`, and after any units batch.**
+  · `node .claude/test-whiteboard.js` — **the marker's gesture ownership** (9 assertions, Aug 2026), and
+    every one of them is silent on the page: the marker is on, the canvas is there, the pen is moving, and
+    what the reader gets is either a line that wanders or no line at all. It drives TWO contacts as raw
+    PointerEvents with independent ids — a palm resting beside the pen, a palm lifting, a palm the browser
+    cancels, a pen arriving after a finger, and two thumbs on a phone that has never seen a stylus — and
+    measures **pixels in a row band** rather than state, since a straight line marks its own row and a line
+    sewn to a second contact marks rows where that contact is. **Re-run after touching `setupWhiteboard`'s
+    pointer handlers, `gid` / `gpen` / `dropGesture` / `beginStroke` / `end` / `passScroll` / `passCtl` /
+    `pendTip` / `passMap` / `CTL_SEL` / `TIP_SEL` / `wbPenOnly` / `wbNoteStylus`, or `wbResize`.**
   · `node .claude/test-artefacts.js` — **THE RELIQUARY, the collection banners, and the two colour swaps
     that went with them** (Aug 2026). **Re-run after touching the `THE RELIQUARY` block,
     `artefactPlateHTML` / `openCollectionWin` / `wireReliquary`, `rollChestItem` / `spendChest` /

@@ -35,13 +35,16 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.430", released: "2026-08-30T13:47Z" };
+window.FOLIO_VERSION = { v: "1.434", released: "2026-08-30T14:05Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-30",
-    t: "China geography finished",
+    t: "Two geography decks finished: The world and China",
     items: [
+      "<b>Sixty new cards in The world</b>, completing the countries and territories deck at 227 of 233, with twenty-six new glossary terms and thirty-two others corrected against their own sources.",
+      "<b>Seventeen new cards in the Ancient Greece deck</b>, with seventeen new glossary terms to go with them.",
+      "<b>Eighteen new cards in the World History collection</b>, in its Iron Age Near East deck, with sixteen new glossary terms.",
       "<b>The China geography collection is finished</b>, all 31 provinces and regions and all 27 provincial capitals, each with a glossary term and a picture of its own.",
       "The figures beside a geography card's answer are now <b>centred against it</b> rather than pinned to its top line.",
       "<b>All 58 China geography cards rewritten</b> around each place's own history, culture and society, with a consistent box of figures beside the answer.",
@@ -53,11 +56,8 @@ window.CHANGELOG = [
   },
   {
     d: "2026-08-29",
-    t: "China joins Geography, sorted by population",
+    t: "A card's map learns rivers, mountains and regions",
     items: [
-      "<b>A new China collection joins Geography</b>, with a deck of its 31 provinces, regions and municipalities and one of their 27 capitals, ordered by population.",
-      "<b>The China geography cards have dropped their passages on American consulates and diplomacy</b>, and eight backgrounds were rewritten around Chinese material instead.",
-      "<b>Forty-one new cards in the China geography decks</b>, twenty-two provinces and nineteen capitals, each with a glossary term of its own.",
       "<b>A card's map now draws a river as a river, a mountain range as mountains and a region as a region</b>, rather than a dot for each.",
       "<b>A battle on a card's map is marked with crossed swords</b>, and every place on the map is named with a capital letter.",
       "<b>The grey city dots on a card's map are quieter</b>, and are now only capital cities and cities of over a million.",
@@ -69,6 +69,14 @@ window.CHANGELOG = [
       "<b>A deck you download before making an account now follows you into it</b> when you sign in, instead of being left behind.",
       "<b>Reloading the page while studying a downloaded deck no longer loses the session</b>, where it used to say the deck could not be found.",
       "<b>Twenty-two more state capitals now show their city flag</b> beside the answer, taking the geography collection to 93 of its 100 cards.",
+      "<b>The whiteboard marker no longer stops drawing when a palm rests on the screen</b>, and a second finger can no longer bend a straight line into a zigzag.",
+      "<b>Thirty-three new cards in the Ancient Greece deck</b>, with thirty-three new glossary terms to go with them.",
+      "<b>Sixty-seven new cards in The world</b>, in the countries and territories deck, with three new glossary terms and fifty-five others corrected against their own sources.",
+      "<b>Thirty-two new cards in the World History collection</b>, finishing its Bronze Age world deck and opening its Iron Age Near East one, with sixteen new glossary terms.",
+      "<b>A geography card can now shade a divided island whole</b>, so the Cyprus card lights up all of it rather than the southern part alone.",
+      "<b>A new China collection joins Geography</b>, with a deck of its 31 provinces, regions and municipalities and one of their 27 capitals, ordered by population.",
+      "<b>The China geography cards have dropped their passages on American consulates and diplomacy</b>, and eight backgrounds were rewritten around Chinese material instead.",
+      "<b>Forty-one new cards in the China geography decks</b>, twenty-two provinces and nineteen capitals, each with a glossary term of its own.",
     ],
   },
   {

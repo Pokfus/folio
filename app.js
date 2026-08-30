@@ -17471,6 +17471,37 @@
       panRAF = requestAnimationFrame(step);
     };
     let passCtl = null, passScroll = false, sx = 0, sy = 0, strokePts = null, pendTip = null;
+    /* ---- ONE POINTER OWNS THE GESTURE (Aug 2026, on a bug report: "sometimes I find myself unable to
+       draw lines for a few seconds … other times lines that should be straight end up crooked") ----
+       Every other pointer surface on the site records the id it started on and ignores the rest — the
+       marker's own drag handle, the page swipe, the colour picker, the gloss window. The DRAWING surface,
+       which is the one place a second pointer is not merely possible but expected, did not: a stylus rests
+       a palm on the screen, and a phone has two thumbs. The handlers below keep a single `WB.drawing`,
+       `WB.last` and `passScroll` between them, so a second pointer did not begin a second gesture — it
+       walked into the first one, and both reported symptoms are that walk seen from two sides.
+       CROOKED LINES are the palm's coordinates landing in the pen's stroke. With no id test the move
+       handler drew `WB.last → p` for whichever pointer moved last, so a straight pen stroke was sewn
+       through the palm's position and back on every alternate sample. It is the plain multi-touch case
+       too: two fingers on a card draw one line zigzagging between them.
+       NOT DRAWING FOR A FEW SECONDS is the same collision at the other end. Any other pointer lifting ran
+       `end()`, which sets `WB.drawing = false` — so a palm settling and re-settling killed the stroke the
+       pen was in the middle of, and the pen went on moving over a canvas that had stopped listening until
+       it was lifted and put down again. Worse in stylus mode: a palm landing while the pen draws sets
+       `passScroll`, and the move handler's first line hands EVERY later move to the page scroll, so the
+       pen scrolls the card instead of marking it.
+       So a gesture has an owner and only the owner is heard. The one preemption is a PEN over a finger,
+       and it is the case that made this reportable rather than theoretical: the palm usually lands first,
+       so ignoring the newcomer would leave a stylus reader unable to draw at all. Nothing preempts a pen,
+       and a finger never preempts a finger — the reader lifts and presses again, which is what they were
+       already doing to get out of it. */
+    let gid = null, gpen = false;
+    const dropGesture = () => {
+      if (gid !== null) { try { canvas.releasePointerCapture(gid); } catch (x) {} }
+      gid = null; gpen = false;
+      panStop(); panEl = null;
+      passCtl = null; passScroll = false; pendTip = null; passMap = null;
+      end();   // commits a finger's stroke rather than losing it; a no-op when nothing was drawn
+    };
     /* The stroke's own opening, lifted out of pointerdown because a press over a glossary term defers it
        until the pointer has moved — and it must then begin where the PRESS was, not where the pointer had
        got to by the time we decided. `at` is that original point. */
@@ -17487,6 +17518,12 @@
     canvas.addEventListener("pointerdown", (e) => {
       if (!WB.enabled) return;
       if (e.pointerType === "pen") wbNoteStylus();    // the first stroke of a stylus is what usually teaches us
+      if (gid !== null && e.pointerId !== gid) {
+        // a pen takes the surface off a finger (the palm lands first); nothing else takes it off anybody
+        if (e.pointerType !== "pen" || gpen) { e.preventDefault(); return; }
+        dropGesture();
+      }
+      gid = e.pointerId; gpen = e.pointerType === "pen";
       sx = e.clientX; sy = e.clientY;
       /* A FINGER IN STYLUS MODE IS NOT A STROKE — it is a scroll, and possibly a tap on a control. Both are
          done by hand: the scroll above, and the control underneath through the same pass-through the ink
@@ -17514,6 +17551,7 @@
       e.preventDefault();
     });
     canvas.addEventListener("pointermove", (e) => {
+      if (gid === null || e.pointerId !== gid) return;   // a palm, or a second thumb: not this gesture
       if (passScroll) {   // stylus mode, finger down: this gesture is the page's, not the ink's
         if (passMap) {   // …unless it began on a map window, which turns instead (see mapUnder)
           passMap.pan(e.clientX - panX, e.clientY - panLast);
@@ -17578,6 +17616,10 @@
       else wbSnapCard();
     };
     canvas.addEventListener("pointerup", (e) => {
+      /* …and this is the half that stopped the pen dead: without the test, ANY pointer lifting ran the
+         `end()` at the bottom and took `WB.drawing` down with it, mid-stroke. */
+      if (gid === null || e.pointerId !== gid) return;
+      gid = null; gpen = false;
       const ctl = passCtl, scrolled = passScroll, tip = pendTip, onMap = passMap;
       passCtl = null; passScroll = false; pendTip = null; passMap = null;
       /* A map window's own gesture ends with the finger: there is nothing to fling, and `panFling` would
@@ -17607,7 +17649,13 @@
       }
       end();
     });
-    canvas.addEventListener("pointercancel", () => { passCtl = null; passScroll = false; pendTip = null; passMap = null; panEl = null; panStop(); end(); });
+    canvas.addEventListener("pointercancel", (e) => {
+      /* A cancel for a pointer that owns nothing is a palm the browser has rejected for us — which is the
+         good case, and it must not be allowed to cancel the stroke the pen is in the middle of. */
+      if (gid === null || e.pointerId !== gid) return;
+      gid = null; gpen = false;
+      passCtl = null; passScroll = false; pendTip = null; passMap = null; panEl = null; panStop(); end();
+    });
     if (WB._onResize) window.removeEventListener("resize", WB._onResize);
     WB._onResize = () => wbResize(true);
     window.addEventListener("resize", WB._onResize);
@@ -27985,9 +28033,17 @@
     if (!m || typeof m !== "object") return null;
     const layer = CARD_MAP_LAYERS[m.layer];
     if (!layer || !m.key) return null;
+    /* `key` MAY BE A LIST, and Cyprus is why (Aug 2026, on request: "ensure the country Cyprus encompasses
+       the whole island"). `world.js` files a partitioned island as separate polygons — Cyprus, N. Cyprus
+       and the buffer zone are three — so a card naming one shades two-thirds of what the reader can see
+       and asks them to name it. A list shades them as one place. The markup carries a single attribute, so
+       the names are joined with a PIPE, which no place name in either layer contains; `add-card.js`
+       refuses one that does, so the join can never become lossy. */
+    const keys = (Array.isArray(m.key) ? m.key : [m.key]).map((k) => String(k)).filter(Boolean);
+    if (!keys.length) return null;
     // `dot` names a point in the layer's own table — a city, on a card whose answer is one
     const dot = m.dot && layer.points ? String(m.dot) : "";
-    return { layer: m.layer, key: String(m.key), dot: dot, zoom: Number(m.zoom) || 0, def: layer };
+    return { layer: m.layer, key: keys.join("|"), keys: keys, dot: dot, zoom: Number(m.zoom) || 0, def: layer };
   }
   /* The window's markup. It is built here and WIRED separately (mountCardMaps), the way `.card-img` is
      built here and opened by a delegated listener: a canvas cannot be started from a string. */
@@ -28040,6 +28096,8 @@
        whose answer is already on screen — so holding it back there would be a mark nothing accounts for. */
     const ctx = cv.getContext("2d");
     let stopped = false, target = null, shapes = null, revealed = host.hasAttribute("data-map-named"), dot = null;
+    // every shape the card shades; `target` is the first of them and carries the label point and the name
+    const targets = [];
     /* A LOCATOR SHOWS THE REST OF ITS COLLECTION, AND THE WORLD AROUND IT (Aug 2026, on request). The
        siblings are free — they are in `data.js`, already downloaded — and go in at once; the cities and
        rivers live in the `atlas` bundle and are WARMED at idle rather than awaited, so the card is
@@ -28232,7 +28290,7 @@
          redraw all 117,000 vertices a second time for nothing — every frame, on every drag. */
       if (shapes && shapes !== GEO) {
         ctx.fillStyle = land; ctx.strokeStyle = sub; ctx.lineWidth = 0.6;
-        for (let i = 0; i < shapes.length; i++) { pathOf(shapes[i].p); ctx.fill("evenodd"); if (shapes[i] !== target) ctx.stroke(); }
+        for (let i = 0; i < shapes.length; i++) { pathOf(shapes[i].p); ctx.fill("evenodd"); if (targets.indexOf(shapes[i]) < 0) ctx.stroke(); }
       }
       /* MAJOR INLAND SEAS AND LAKES AS WATER ON TOP OF THE LAND, IN THE MAP'S OWN COAST INK. It goes AFTER
          both land layers and BEFORE the shaded place, so a lake reads as water and the answer's tint still
@@ -28259,8 +28317,13 @@
          The three numbers are `paintFillGroups`' own, deliberately written out here rather than derived
          from `TINT_SEL.rgb`: its outline is a LIGHTER amber than its fill and its glow lighter still, and
          deriving them from one triple is exactly what would quietly flatten that. */
-      if (target) {
-        pathOf(target.p);
+      /* ONE PATH OVER EVERY SHADED SHAPE, not a fill-and-stroke per shape: where a card names several
+         polygons that touch — the two halves of Cyprus and the buffer zone between them — stroking each
+         would draw the internal lines that divide them, which is the opposite of what naming them together
+         is for. Collected into a single path, the outline follows the outside of the union alone. */
+      if (targets.length) {
+        ctx.beginPath();
+        for (const t of targets) for (const ring of t.p) if (visible(ring)) addRing(ring);
         ctx.fillStyle = "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")"; ctx.fill("evenodd");
         ctx.save();
         ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9;
@@ -28580,6 +28643,10 @@
       if (target) {
         let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
         for (const ring of fitRings) { const b = bbox(ring); if (b[0] < x0) x0 = b[0]; if (b[1] < y0) y0 = b[1]; if (b[2] > x1) x1 = b[2]; if (b[3] > y1) y1 = b[3]; }
+        /* WITH SEVERAL SHAPES THE CENTRE IS THE UNION'S, not the first one's published label point — that
+           point sits inside its own polygon and would open the window off to one side of the place. With
+           ONE shape the label point still wins, so no existing card's opening view moves by a pixel. */
+        if (targets.length > 1) { homeLon = (x0 + x1) / 2; homeLat = (y0 + y1) / 2; }
         // longitude degrees shrink with latitude; without the cosine Alaska opens far too close
         const span = Math.max(y1 - y0, (x1 - x0) * Math.cos(homeLat * CMAP_DEG), 0.2);
         z = 0.55 / (0.46 * CMAP_DEG * span);
@@ -28706,8 +28773,15 @@
       /* A MAP CARD names a shape and a LOCATOR does not, which is the one branch between them: a locator
          points at a coordinate, so there is nothing to shade and nothing to look up. */
       if (key) {
-        target = shapes.find((s) => s.n === key) || shapes.find((s) => s.a === key) || null;
-        if (!target) { host.classList.add("mc-failed"); return; }
+        /* Every name the card gave, in order. A name the layer has not got is a FAILURE rather than a
+           quietly thinner shape: a card shading two of three Cyprus polygons draws perfectly and asks a
+           question about a shape that is not the country. */
+        for (const k of key.split("|")) {
+          const t = shapes.find((s) => s.n === k) || shapes.find((s) => s.a === k) || null;
+          if (!t) { host.classList.add("mc-failed"); return; }
+          targets.push(t);
+        }
+        target = targets[0];
       }
       /* A LOCATOR CARRIES ITS OWN COORDINATE, and it is a coordinate rather than a name in a table because
          there is no table: the places a history card is about — a palace, a river, a valley, a group of
@@ -28733,7 +28807,7 @@
         }
       }
       if (!target && !dot) { host.classList.add("mc-failed"); return; }
-      fitTarget(target ? nearRings(target) : null);
+      fitTarget(targets.length ? [].concat.apply([], targets.map(nearRings)) : null);
       resize();
     });
   }

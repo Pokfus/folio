@@ -131,14 +131,21 @@ if (isMap) {
   if (typeof m !== "object" || Array.isArray(m)) { console.error("ERROR: card.map must be an object: { \"layer\": \"us-states\", \"key\": \"California\" }"); process.exit(1); }
   const layer = MAP_LAYERS[m.layer];
   if (!layer) { console.error("ERROR: unknown map layer " + JSON.stringify(m.layer) + " — known layers: " + Object.keys(MAP_LAYERS).join(", ") + " (add one to CARD_MAP_LAYERS in app.js and to MAP_LAYERS here, in the same commit)."); process.exit(1); }
-  if (typeof m.key !== "string" || !m.key.trim()) { console.error("ERROR: card.map.key is empty — it names the place to shade."); process.exit(1); }
+  /* `key` is a name, or a LIST of names where the layer files one place as several polygons — Cyprus is
+     three (Cyprus, N. Cyprus and the buffer zone), and a card naming one shades two-thirds of the island
+     and asks the reader to name it. The renderer joins the list with a PIPE for the markup's single
+     attribute, so a name containing one is refused here rather than silently split in the browser. */
+  const mapKeys = Array.isArray(m.key) ? m.key : [m.key];
+  if (!mapKeys.length || mapKeys.some((k) => typeof k !== "string" || !k.trim())) { console.error("ERROR: card.map.key is empty — it names the place, or the places, to shade."); process.exit(1); }
+  if (mapKeys.some((k) => k.indexOf("|") >= 0)) { console.error("ERROR: card.map.key may not contain a pipe — the renderer joins a list of keys with one."); process.exit(1); }
   if ("zoom" in m && !(Number.isFinite(m.zoom) && m.zoom > 0)) { console.error("ERROR: card.map.zoom must be a positive number, or absent (the window fits the place automatically)."); process.exit(1); }
   const lp = path.join(__dirname, "..", layer.file);
   if (!fs.existsSync(lp)) { console.error("ERROR: the " + m.layer + " layer's data file is missing: " + layer.file + " — build it first (see .claude/build-us-states.js)."); process.exit(1); }
   const shapes = loadWindow(lp)[layer.global] || [];
-  if (!shapes.some((s) => s.n === m.key || s.a === m.key)) {
-    const near = shapes.map((s) => s.n).filter((n) => n.toLowerCase().startsWith(String(m.key).slice(0, 3).toLowerCase()));
-    console.error("ERROR: " + JSON.stringify(m.key) + " is not a " + layer.what + " in " + layer.file + "." +
+  for (const k of mapKeys) {
+    if (shapes.some((s) => s.n === k || s.a === k)) continue;
+    const near = shapes.map((s) => s.n).filter((n) => n.toLowerCase().startsWith(String(k).slice(0, 3).toLowerCase()));
+    console.error("ERROR: " + JSON.stringify(k) + " is not a " + layer.what + " in " + layer.file + "." +
       (near.length ? " Did you mean: " + near.join(", ") + "?" : "") +
       "\n       A key the layer does not carry ships a card whose window says it could not be loaded — which is\n" +
       "       a reader meeting a broken card, not an error anybody would see first.");
@@ -162,8 +169,8 @@ if (isMap) {
       console.error("ERROR: " + JSON.stringify(d) + " is not a " + layer.dotWhat + " in " + (layer.pointsFile || layer.file) + "." + (near.length ? " Did you mean: " + near.join(", ") + "?" : ""));
       process.exit(1);
     }
-    if (hit.s !== m.key) {
-      console.error("ERROR: " + JSON.stringify(d) + " is in " + JSON.stringify(hit.s) + ", but the card shades " + JSON.stringify(m.key) + " — the dot would fall outside the shape.");
+    if (mapKeys.indexOf(hit.s) < 0) {
+      console.error("ERROR: " + JSON.stringify(d) + " is in " + JSON.stringify(hit.s) + ", but the card shades " + JSON.stringify(mapKeys.join(", ")) + " — the dot would fall outside the shape.");
       process.exit(1);
     }
     /* The card's ANSWER should be the thing the dot marks, since the dot is what the question points at.
