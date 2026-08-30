@@ -1594,7 +1594,8 @@ window.GLOSSARY = {
 "Babylonian_captivity": "The <b>Babylonian captivity</b> was the deportation of Judaeans to Babylonia in a series of removals between 597 and 582 BCE, after the kingdom of Judah rebelled, and is conventionally reckoned to end when Persia took Babylon in 539 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Those taken were largely an elite of the royal house, officials, priests and skilled workers, so the land was not emptied: peasants remained and some fled to Egypt.<sup class=\"fn\" data-fn=\"1\"></sup> The deported can be read about directly in tablets from Al-Yahudu, a country town probably between Nippur and Uruk, where Judaean families farmed, took on Babylonian names and customs, and went on giving children names built round the name of their god.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Ancient_Israel_and_Judah": "<b>Ancient Israel and Judah</b> were two neighbouring kingdoms in the southern Levant during the Iron Age II, roughly 950 to 586 BCE, the northern one ruled from Samaria and the southern from Jerusalem.<sup class=\"fn\" data-fn=\"1\"></sup> The northern kingdom had the wider territory and sat across the trade routes, and the personal names recorded in it are more varied than those of the south, which has been read as a more cosmopolitan society.<sup class=\"fn\" data-fn=\"1\"></sup> Assyria conquered the north in the 8th century BCE and Babylon destroyed Jerusalem in 586 BCE, ending the southern kingdom, and both campaigns left burnt layers datable from the magnetic direction locked into their bricks.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Hebrew_Bible": "The <b>Hebrew Bible</b> is the collection of Jewish scriptures, written mostly in Hebrew with a few passages in Aramaic and arranged in three parts that were already being spoken of together by the 2nd century BCE as the Law, the Prophets and the remaining books.<sup class=\"fn\" data-fn=\"1\"></sup> It was built up over centuries from texts composed, copied and revised by many hands, and analysis of word frequencies can separate distinct bodies of scribal writing within its first nine books.<sup class=\"fn\" data-fn=\"2\"></sup> Its wording was still somewhat fluid in antiquity and had settled by late Roman times into the consonantal text that medieval scribes transmitted and that most printed editions follow.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Judaism": "<b>Judaism</b> is the religion of the Jewish people, centred on the worship of one God and on the Torah, the body of law and narrative that its communities read, interpret and apply.<sup class=\"fn\" data-fn=\"1\"></sup> It took much of its lasting shape in the Second Temple period, when a written law became the framework of communal life while remaining open to interpretation, revision and outright dispute.<sup class=\"fn\" data-fn=\"1\"></sup> After the temple in Jerusalem was destroyed in 70 CE its practice moved to the reading and application of that law in local assemblies, the pattern by which it has been carried on since.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Judaism": "<b>Judaism</b> is the religion of the Jewish people, centred on the worship of one God and on the Torah, the body of law and narrative that its communities read, interpret and apply.<sup class=\"fn\" data-fn=\"1\"></sup> It took much of its lasting shape in the Second Temple period, when a written law became the framework of communal life while remaining open to interpretation, revision and outright dispute.<sup class=\"fn\" data-fn=\"1\"></sup> After the temple in Jerusalem was destroyed in 70 CE its practice moved to the reading and application of that law in local assemblies, the pattern by which it has been carried on since.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Phoenicia": "<b>Phoenicia</b> is the name given to the Iron Age culture of the Levantine coast, a line of independent city-states that lived by sea trade and had no single capital, their own inhabitants disputing whether Tyre or Sidon held the first place.<sup class=\"fn\" data-fn=\"1\"></sup> Its best-known product was a purple dye extracted from marine molluscs, although direct archaeological evidence for making it is scarce and only one excavated site anywhere shows sustained large-scale production.<sup class=\"fn\" data-fn=\"2\"></sup> Settlements carrying Phoenician language, script and religion spread across the central and western Mediterranean, yet ancient DNA from them holds almost no Levantine ancestry, so what travelled was a culture rather than a population.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3332,7 +3333,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hanging_Gardens_of_Babylon": ["Hanging Garden of Babylon","Hanging Gardens"],
 "Babylonian_captivity": ["Babylonian exile"],
 "Ancient_Israel_and_Judah": ["Israel and Judah"],
-"Hebrew_Bible": ["Tanakh"]
+"Hebrew_Bible": ["Tanakh"],
+"Phoenicia": ["Phoenician"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4953,7 +4955,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Babylonian_captivity": ["event","history","migration","iron age","iraq"],
 "Ancient_Israel_and_Judah": ["state","history","archaeology","iron age","israel"],
 "Hebrew_Bible": ["text","history","religion","literature","israel"],
-"Judaism": ["religion","practice","history","israel"]
+"Judaism": ["religion","practice","history","israel"],
+"Phoenicia": ["place","state","history","archaeology","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
