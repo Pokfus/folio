@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-192` Aruba
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-195` Jersey
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,40 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 71 (Aruba, United States Virgin Islands, Tonga) is where an alias rule was applied BEFORE it
+could bite, for the first time in the pass.** N7 found that "an alias list written before the sibling term
+existed will contain the sibling's name, and will be wrong the day the sibling arrives" — `United_Kingdom`
+carrying "Britain" and "Northern Ireland" was the case that produced it. The draft term for the United
+States Virgin Islands carried the bare alias **"Virgin Islands"**, which reads perfectly today and would be
+wrong at `gw-212`, the British Virgin Islands, already in this plan's running order. **Grep the running
+order for the sibling before writing an alias**; it costs one command and it is the only point at which
+this fault is cheap to fix. The alias was cut to the two unambiguous forms. Tonga is the batch's history,
+and it is **the deck's second country recognised twice, by a different mechanism from Montenegro's**. The
+United States and the King of Tonga signed a Treaty of Amity, Commerce and Navigation at Nuku'alofa on 2
+October 1886, which is the act the guide records as recognition; when Tonga became a British protectorate in
+1900 the Foreign Office took over all its external affairs, the United States stopped appointing
+consuls-general, and **on 28 July 1920 the Foreign Office terminated the 1886 treaty on the King's behalf** —
+so where Montenegro's recognition was withdrawn by the recognising state, Tonga's lapsed because the
+protecting power cancelled the instrument that carried it. It was recognised again on 4 October 1972, 86
+years after the first, **by the appointment of Kenneth Franzheim II** — the same ambassador who had presented
+credentials at Apia for Samoa the year before, in batch 68. Tonga also gives the Commonwealth's **fourth
+variety of joining line**: "1970, on withdrawing from British protectorate", after the ordinary independence
+line, Vanuatu's condominium and Samoa's end of New Zealand administration. **The USVI is the reverse of
+Curaçao's divergence and is decided the other way.** Where Curaçao's UNdata figure was a fifth ABOVE the
+World Bank's with no corroboration either way, here UNdata's 84,000 for 2025 sits a fifth BELOW two sources
+that agree closely — the Secretariat's own working paper at 104,917 for 2023 and the World Bank at 104,377
+for 2024 — so C10's Kiribati precedent applies and **the facts box drops UNdata for the two that agree**,
+while the abstract prints all three. **Two sources agreeing beat one disagreeing; one against one is
+printed and not adjudicated.** Aruba, meanwhile, extends batch 69's `government.nl` route into real
+constitutional detail — the Governor appointed by the King for six years and reappointable once, holding no
+ministerial responsibility, appointing a five-member Advisory Council; the Minister Plenipotentiary in The
+Hague who sits with the Dutch ministers as the Council of Ministers for the Kingdom; and the single Dutch
+Representation headquartered at Willemstad with an office at Oranjestad. What it does NOT carry is **the
+date of Aruba's separate status within the Kingdom**, which is in none of its English pages and returns no
+match in the digital library, so the card says nothing about it — the Barbados-republic case a second time,
+and the second reminder that a state's own site answers the questions it happens to have written a page
+about.
 
 **Batch 70 (Seychelles, Grenada, Micronesia) turns the UNdata capital-city footnote into a STANDING
 RULE, because it has now been wrong three times in seven batches and in three different ways.** Malta's
