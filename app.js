@@ -1504,6 +1504,13 @@
       published: 0,      // how many of the reader's own decks have been published to the shared decks
       publishedIds: {},  // remote deck id -> when it first went up, so an UPDATE is not counted a second time
       theme: "folio",    // the theme this reader wears — synced, because a friend's banner is drawn in it
+      /* How many ACCEPTED friends this reader has, recorded rather than looked up (Aug 2026, on a bug
+         report). The `friends` table is RLS-scoped to rows involving its owner, so nothing can count a
+         friend's friends and nothing can count your own without a request — and a badge is tested in the
+         middle of a study session, which must never go to the network. `setFriendCount` writes it when the
+         friends list is drawn; a reader who has never opened that page has 0, which is what they had
+         before the field existed. See progStats. */
+      friendCount: 0,
     };
   }
   let S = load();
@@ -1785,6 +1792,17 @@
     if (won && (!running || freshWin)) gl.wins += 1;
     S.gameLog[key] = gl;
     if (freshWin) sfx("win");   // a perfect run earns the gold tile — and a little fanfare, once per day
+    /* A WIN IS A WIN IN ANY OF THE NINE, AND FOR MONTHS ONLY ONE OF THEM COUNTED (Aug 2026, on a bug
+       report that the Victor and Champion badges "do not work"). `S.daily.wins` was incremented inside
+       Multiple Choice's own results screen — written back when that game WAS the daily challenge and
+       there was nothing else to win — so a reader who swept the other eight every day for a month
+       unlocked neither badge, and nothing on the page explained why. It is counted here instead, at the
+       one door every game already goes through, so a tenth game is covered without anybody remembering
+       this. `freshWin` is what gates it: the game's FIRST win today, which the one-play-a-day rule makes
+       its only one, so nothing is farmable and the old `S.daily.winDate` guard is retired with the
+       branch that needed it. Winning three games today is three wins — "win 10 minigames" means ten
+       perfect runs, which is what the badge now says it means. */
+    if (freshWin) { S.daily.wins = (S.daily.wins || 0) + 1; S.daily.winDate = todayStr(); }
     if (won) g.won = true;
     if (typeof score === "number" && typeof total === "number") {   // remember today's BEST score (games can be replayed) — shown on the home tile
       if (!(typeof g.s === "number" && g.s >= score)) g.s = score;
@@ -1850,7 +1868,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2177,21 +2195,164 @@
       ? '<span class="monogram ' + (cls || "") + ' has-img"><img src="' + esc(avatar) + '" alt=""></span>'
       : '<span class="monogram ' + (cls || "") + '">' + initialOf(name) + "</span>";
   }
-  function avatarFromFile(file, cb) {   // centre-crop to a 128px square JPEG data-URI
+  const AVATAR_PX = 128;   // the stored square, and the reason the enlarge is what it is — see openAvatarViewer
+  /* ---------- CHOOSING THE CROP, RATHER THAN BEING GIVEN ONE (Aug 2026, on request) ----------
+     "When uploading a profile picture, it should be possible to move/crop it."
+     It centre-cropped to a square and that was the whole of it, which is the wrong default often enough
+     to be worth a control: a portrait taken in portrait orientation loses the top of the head and the
+     chin at once, and a photograph of two people keeps whichever half happens to be in the middle. There
+     was no appeal — the only remedy was to crop the file in something else and upload it again.
+
+     `openAvatarCropper` puts the image behind a round window the reader drags and zooms, and hands back
+     the same 128px JPEG data-URI `avatarFromFile` did, so nothing downstream changed: `supaSetAvatar`,
+     the profiles row and every monogram on the site are untouched. Four things.
+
+     THE WINDOW IS ROUND BECAUSE THE AVATAR IS. `.monogram` is a circle everywhere it appears, so a
+     square preview would show the reader corners that no surface will ever draw — and framing a face
+     inside a square that is about to become a circle is exactly the mistake this control exists to stop.
+     The CANVAS is square (the stored image is), and the round mask is drawn over it.
+
+     THE IMAGE CAN NEVER BE SMALLER THAN THE WINDOW. `minScale` is what makes the shorter side fill it,
+     and both the zoom and the pan are clamped against it, so there is no gesture that puts a wedge of
+     empty canvas in the crop. That is a hard guarantee rather than a nicety: a transparent corner
+     becomes BLACK the moment the canvas is encoded as a JPEG.
+
+     ONE POINTER OWNS THE PAN AND TWO MEAN PINCH — the whiteboard's rule, and here for the smaller
+     version of the whiteboard's reason: a second finger landing mid-drag would otherwise walk into the
+     first one's gesture and the picture would jump.
+
+     AND THE OUTPUT IS RE-RENDERED, NOT SCALED FROM THE PREVIEW. The preview is sized to the screen and
+     backed by `devicePixelRatio`; the saved square is drawn from the ORIGINAL image with the same
+     transform expressed in its own pixels, so what is stored is as sharp as the source allows rather
+     than as sharp as this phone's preview happened to be. */
+  function openAvatarCropper(file, cb) {
     if (!file || !/^image\//.test(file.type)) { toast("Choose an image file"); return; }
     if (file.size > 8 * 1024 * 1024) { toast("That image is too large — pick one under 8 MB"); return; }
     const img = new Image();
-    img.onload = () => {
-      const SIZE = 128, c = document.createElement("canvas");
-      c.width = SIZE; c.height = SIZE;
-      const ctx = c.getContext("2d");
-      const s = Math.min(img.naturalWidth, img.naturalHeight);
-      ctx.drawImage(img, (img.naturalWidth - s) / 2, (img.naturalHeight - s) / 2, s, s, 0, 0, SIZE, SIZE);
-      URL.revokeObjectURL(img.src);
-      cb(c.toDataURL("image/jpeg", 0.85));
-    };
     img.onerror = () => { URL.revokeObjectURL(img.src); toast("Couldn't read that image"); };
+    img.onload = () => { URL.revokeObjectURL(img.src); mount(img, cb); };
     img.src = URL.createObjectURL(file);
+
+    function mount(im, done) {
+      const ex = document.querySelector(".av-crop"); if (ex) ex.remove();
+      const ov = document.createElement("div");
+      ov.className = "av-crop";
+      ov.innerHTML =
+        '<div class="avc-box" role="dialog" aria-modal="true" aria-label="Position your photo">' +
+          '<div class="avc-title">Position your photo</div>' +
+          '<div class="avc-stage"><canvas class="avc-canvas"></canvas><div class="avc-ring" aria-hidden="true"></div></div>' +
+          '<label class="avc-zoom"><span class="avc-zlabel">Zoom</span>' +
+            '<input class="avc-range" type="range" min="1" max="4" step="0.01" value="1" aria-label="Zoom"></label>' +
+          '<p class="avc-hint">Drag the photo to move it. Pinch, scroll or use the slider to zoom.</p>' +
+          '<div class="avc-acts"><button type="button" class="avc-cancel">Cancel</button>' +
+            '<button type="button" class="avc-ok">Use photo</button></div>' +
+        "</div>";
+      document.body.appendChild(ov);
+
+      const cv = ov.querySelector(".avc-canvas");
+      const range = ov.querySelector(".avc-range");
+      const box = cv.getBoundingClientRect();
+      const VIEW = Math.max(1, Math.round(box.width)) || 260;          // CSS px of the square window
+      const dpr = Math.min(3, window.devicePixelRatio || 1);
+      cv.width = Math.round(VIEW * dpr); cv.height = Math.round(VIEW * dpr);
+      const ctx = cv.getContext("2d");
+
+      const iw = im.naturalWidth, ih = im.naturalHeight;
+      const minScale = VIEW / Math.min(iw, ih);   // the shorter side exactly fills the window
+      let scale = minScale, ox = 0, oy = 0;       // ox/oy: the image's top-left, in window CSS px
+      const centre = () => { ox = (VIEW - iw * scale) / 2; oy = (VIEW - ih * scale) / 2; };
+      centre();
+
+      // no gesture may bring an edge inside the window — a gap here is a black wedge in the saved JPEG
+      const clamp = () => {
+        const w = iw * scale, h = ih * scale;
+        ox = Math.min(0, Math.max(VIEW - w, ox));
+        oy = Math.min(0, Math.max(VIEW - h, oy));
+      };
+      const draw = () => {
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, VIEW, VIEW);
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(im, ox, oy, iw * scale, ih * scale);
+      };
+      // zoom about a FIXED POINT of the window, so the slider grows the middle and a pinch grows what is
+      // between the fingers — zooming about the origin walks the picture off the corner instead
+      const zoomTo = (next, px, py) => {
+        const s2 = Math.max(minScale, Math.min(minScale * 4, next));
+        if (s2 === scale) return;
+        const cx = px == null ? VIEW / 2 : px, cy = py == null ? VIEW / 2 : py;
+        ox = cx - (cx - ox) * (s2 / scale);
+        oy = cy - (cy - oy) * (s2 / scale);
+        scale = s2; clamp(); draw();
+      };
+      draw();
+
+      /* ONE POINTER PANS, TWO PINCH. The ids are tracked rather than counted, for the whiteboard's
+         reason: a palm or a second thumb landing mid-drag walks into the first gesture, and the picture
+         jumps to wherever the two disagree. */
+      const pts = new Map();
+      let panId = null, lastX = 0, lastY = 0, pinch0 = 0, scale0 = 1;
+      const local = (e) => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+      cv.addEventListener("pointerdown", (e) => {
+        cv.setPointerCapture(e.pointerId);
+        const p = local(e); pts.set(e.pointerId, p);
+        if (pts.size === 1) { panId = e.pointerId; lastX = p[0]; lastY = p[1]; }
+        else if (pts.size === 2) {
+          panId = null;
+          const [a, b] = [...pts.values()];
+          pinch0 = Math.hypot(a[0] - b[0], a[1] - b[1]) || 1; scale0 = scale;
+        }
+      });
+      cv.addEventListener("pointermove", (e) => {
+        if (!pts.has(e.pointerId)) return;
+        const p = local(e); pts.set(e.pointerId, p);
+        if (pts.size >= 2) {
+          const [a, b] = [...pts.values()];
+          const d = Math.hypot(a[0] - b[0], a[1] - b[1]) || 1;
+          zoomTo(scale0 * (d / pinch0), (a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
+          range.value = String(scale / minScale);
+        } else if (e.pointerId === panId) {
+          ox += p[0] - lastX; oy += p[1] - lastY; lastX = p[0]; lastY = p[1];
+          clamp(); draw();
+        }
+      });
+      const drop = (e) => {
+        pts.delete(e.pointerId);
+        if (e.pointerId === panId) panId = null;
+        if (pts.size === 1) { const [id] = [...pts.keys()]; panId = id; const p = pts.get(id); lastX = p[0]; lastY = p[1]; }
+      };
+      cv.addEventListener("pointerup", drop);
+      cv.addEventListener("pointercancel", drop);
+      cv.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        const p = local(e);
+        zoomTo(scale * (e.deltaY < 0 ? 1.12 : 1 / 1.12), p[0], p[1]);
+        range.value = String(scale / minScale);
+      }, { passive: false });
+      range.addEventListener("input", () => zoomTo(minScale * parseFloat(range.value)));
+
+      const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); };
+      function onKey(e) {
+        if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); }
+        else if (e.key === "Enter") { e.preventDefault(); e.stopPropagation(); save(); }
+      }
+      function save() {
+        // re-rendered from the ORIGINAL at the stored size, never scaled up out of the preview
+        const out = document.createElement("canvas");
+        out.width = AVATAR_PX; out.height = AVATAR_PX;
+        const k = AVATAR_PX / VIEW;   // window px -> stored px
+        const o = out.getContext("2d");
+        o.imageSmoothingQuality = "high";
+        o.drawImage(im, ox * k, oy * k, iw * scale * k, ih * scale * k);
+        close();
+        done(out.toDataURL("image/jpeg", 0.85));
+      }
+      ov.querySelector(".avc-ok").addEventListener("click", save);
+      ov.querySelector(".avc-cancel").addEventListener("click", close);
+      ov.addEventListener("mousedown", (e) => { if (e.target === ov) close(); });
+      document.addEventListener("keydown", onKey, true);
+      setTimeout(() => { const b = ov.querySelector(".avc-ok"); if (b) b.focus(); }, 0);
+    }
   }
   async function supaSetAvatar(dataUri) {   // null removes the photo
     if (!supaLoggedIn()) return { error: "Sign in first" };
@@ -4712,6 +4873,47 @@
     const c = S.cards[id];
     return c && (c.status === "review" || schedIsLearning(c.status)) && c.due <= now();
   }
+  /* ---------- LEARNING AHEAD, WHEN THERE IS NOTHING ELSE LEFT (Aug 2026, on a bug report) ----------
+     "Getting a card wrong pushes it forward some minutes before showing it again. This creates a bug
+     where exiting out of the deck study causes the active deck banner to report X cards still to be
+     reviewed in the red number, but clicking the deck says the study has already been completed for the
+     day, since those minutes haven't passed yet."
+
+     Two true statements about the same card, from two functions that disagreed by design. `entryPiles`
+     and the banner's `pileCounts` count a LEARNING card from the moment it is answered wrong until it
+     graduates, whether or not its step has come round — which is right, and the comment beside
+     `pileCounts` says why: a count that emptied while a card sat on its timer would tell the reader the
+     work was done. Every queue-builder, meanwhile, filtered on `isDueNow`, which that card is not for
+     another nine minutes. So the row said "1" and the session it opened said "you have finished".
+
+     THE FIX IS NOT TO DROP THE TIMER, and the request's own suggestion — put a failed card at the back of
+     the queue and forget the clock — is what already happens WITHIN a session (`res.requeue`). Across
+     sessions the delay is the whole of what a learning step is: `SCHED.learnSteps` is `1m 10m`, ported
+     from Anki, and a card re-asked four seconds after it was failed is a card whose answer is still on
+     the reader's screen. Removing it would make the first step meaningless and the second unreachable,
+     and `test-scheduler.js` walks both as arithmetic.
+
+     So the two are made to AGREE instead, which is Anki's own answer to this: its `collapseTime` deals
+     learning cards ahead of their step when there is nothing else left to do. Here that is
+     `learnAheadIds` — the learning cards whose step has NOT come round, earliest first — appended by
+     every queue-builder ONLY when the queue would otherwise be empty. While there is other work the
+     spacing is untouched, which is the point of it; when there is not, the reader is handed the cards the
+     red number is counting rather than a completion screen contradicting it.
+     THERE IS DELIBERATELY NO WINDOW on how far ahead it reaches, and `SCHED_AHEAD_MS` is the thing to
+     read it against: that constant (Anki's twenty minutes) bounds the IN-SESSION requeue, where a live
+     queue will come back to the card of its own accord and the bound only decides how long the reader is
+     asked to wait. Here the session is being BUILT and would otherwise be empty and dismissed, so a bound
+     buys nothing and costs the guarantee: the moment a step ran longer than it, the row would show a red
+     count again and the session would again say the day was done. The count is of cards still being
+     learned, so the queue has to be able to reach every one of them. Today the two are the same in
+     practice — `learnSteps` is `1m 10m` and `relearnSteps` `10m`, all inside the window — which is
+     exactly why the difference has to be written down rather than discovered later. */
+  function learnAheadIds(ids) {
+    const t = now();
+    return ids
+      .filter((id) => { const c = S.cards[id]; return c && schedIsLearning(c.status) && c.due > t && !isSuspended(id) && !isBuried(id); })
+      .sort((a, b) => S.cards[a].due - S.cards[b].due);
+  }
   // preview next intervals (in days) for a grade, given current card
   function preview(id) {
     return schedPreview(S.cards[id], id, null, schedCfgFor(id));
@@ -6379,7 +6581,14 @@
     let take = newRemainingToday();
     if (!RL.newIgnoresReview) take = Math.min(take, Math.max(0, rvLeft - dueCapped.length));
     const fresh = seededShuffle(pool, mulberry32(hashStr("review-" + todayStr()))).slice(0, take);
-    return { due: dueCapped, fresh, all: [...dueCapped, ...fresh] };
+    /* Nothing due and nothing new left, but cards still on a learning step — deal them rather than
+       telling the reader the day is done while the banner's red pile says otherwise. See learnAheadIds.
+       They join `due` because that is what they are: work the schedule has already committed to today,
+       as against `fresh`, which is spent out of an allowance. The banner counts them under Learning
+       either way, `pileCounts` testing the status before it ever looks at this set. */
+    let dueOut = dueCapped;
+    if (!dueOut.length && !fresh.length) dueOut = learnAheadIds(activeCardIds());
+    return { due: dueOut, fresh, all: [...dueOut, ...fresh] };
   }
   /* ============================================================
      CARD STATS — the pooled counters behind the community difficulty rating
@@ -22955,7 +23164,31 @@
       queue._sd = sd;
       queue._unseen = unseen;
     }
+    /* THE LEARN-AHEAD IS ONE TAIL STEP RATHER THAN SIX BRANCHES (see learnAheadIds). Every branch above
+       selects on `isDueNow`, so a card whose learning step has not come round is in none of them — and a
+       fix written into each would be five copies of one rule, with the sixth added later left out and
+       nothing on the page to say so. Here it can only ever fire on an EMPTY queue, which is exactly the
+       state the bug report describes: a row showing a red count that opens on a completion screen.
+       The review scope needs no help — `reviewQueue` has already done it, so `queue` is not empty there —
+       but going through the same step costs nothing and means there is one rule rather than two.
+       `_sd` / `_ud` / `_unseen` are left alone: those are the "push on with extra cards" affordance, and
+       a learning card is not an extra. */
+    if (!queue.length) {
+      const ahead = learnAheadIds(scopeAllIds(scope));
+      if (ahead.length) { queue = ahead; total = ahead.length; }
+    }
     return { queue, where, scope };
+  }
+  /* Every card a scope can reach, before any allowance or due-date filter — the one thing `buildSession`'s
+     six branches do not have in common, each having narrowed its own list on the way past. Used only by
+     the learn-ahead above, which needs the whole reachable set rather than what today's caps let through. */
+  function scopeAllIds(scope) {
+    if (!scope) return activeCardIds();
+    if (scope.type === "review") return activeCardIds();
+    if (scope.type === "card") return [scope.id];
+    if (scope.type === "cotd") return cotdIds();
+    const avail = availableCardIdSet();
+    return entryCardIds(scopeEntryId(scope)).filter((id) => avail.has(id));
   }
 
   /* ============================================================
@@ -29487,6 +29720,24 @@
     if (s) openMediaViewer(vid, s);
   }
   function openImageViewer(img) { openMediaViewer(img, null); }
+  /* A PROFILE PHOTO, ENLARGED (Aug 2026, on request: "when visiting someone else's profile, I should be
+     able to click their profile picture to enlarge it"). It goes through the site's own image viewer
+     rather than a second overlay — the pinch, the pan, the Escape and the × are all written already —
+     with two differences declared on the element instead of in the caller.
+     IT IS DRAWN ROUND, because that is the shape the photo was composed in: the cropper frames it inside
+     a circle and every monogram on the site is one, so revealing the square's corners here would show
+     the owner a version of their own picture they never chose.
+     AND IT IS CAPPED, WHICH IS AN HONEST LIMIT RATHER THAN A CHOICE. A stored avatar is `AVATAR_PX`
+     square — small on purpose, since the friends list fetches one per friend — so the viewer's default
+     (an `<img>` at its natural size under a `max-width`) would show it at 128px, barely larger than the
+     row it was tapped in. `.iv-avatar` takes it to about 320, which is soft and is plainly a photograph;
+     the reader can still pinch further if they want to. Raising the stored size is the only thing that
+     would make it sharper, and it would cost every friends list a few hundred kilobytes to serve a
+     gesture made now and then. */
+  function openAvatarViewer(avatar, name) {
+    if (!avatar) return;
+    openImageViewer({ src: avatar, alt: (name || "This reader") + "'s profile photo", viewClass: "iv-avatar" });
+  }
   function openMediaViewer(img, vsrc) {
     closeImageViewer();
     const ov = document.createElement("div");
@@ -29496,7 +29747,7 @@
     ov.innerHTML =
       (vsrc
         ? '<div class="iv-stage iv-vidstage">' + videoPlayerHTML(vsrc, img.title, "iv-vid", true) + "</div>"
-        : '<div class="iv-stage"><img class="iv-img" src="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || "") + '" draggable="false"></div>') +
+        : '<div class="iv-stage"><img class="iv-img' + (img.viewClass ? " " + esc(img.viewClass) : "") + '" src="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || "") + '" draggable="false"></div>') +
       '<button class="iv-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       ((img.title || img.desc || credit)
         ? '<div class="iv-meta">' +
@@ -29676,19 +29927,23 @@
   function buildChallengeQuestions() {
     const avail = gameCardIdSet();   // well-known terms only — a round is answered cold, with no background to read
     const poolIds = ALL_CARD_IDS.filter((id) => avail.has(id));
-    const chosen = pick(poolIds, Math.min(5, poolIds.length)).map((id) => CARD_BY_ID[id]);
+    // seeded on the day, not on Math.random, so every reader is asked the same five — see dayPick
+    const chosen = dayPick("challenge", poolIds, Math.min(5, poolIds.length)).map((id) => CARD_BY_ID[id]);
     return chosen.map((card) => {
       const correct = card.answerText;
       /* The three wrong answers are the cards most AKIN to this one (see cardKinship) — same kind first,
          then as many shared subjects as possible. Candidates are shuffled before sorting, so a card with
          several equally-close siblings does not offer the same three every day; the sort is stable, which
-         is what makes that shuffle survive it. */
-      const cands = pick(CARDS.filter((c) => avail.has(c.id) && c.answerText && c.answerText !== correct))
+         is what makes that shuffle survive it. That day-to-day variety is kept by seeding the shuffle on
+         the day — what it loses is the READER-to-reader variety, which was never wanted. The key carries
+         the card's own id rather than its place in the round, so a round's options do not move when an
+         earlier card drops out of the pool. */
+      const cands = dayPick("challenge-d-" + card.id, CARDS.filter((c) => avail.has(c.id) && c.answerText && c.answerText !== correct))
         .map((c) => ({ a: c.answerText, k: cardKinship(card, c) }))
         .sort((x, y) => y.k - x.k);
       const uniq = [];
       for (const d of cands) { if (uniq.length >= 3) break; if (!uniq.includes(d.a)) uniq.push(d.a); }
-      const options = pick([correct, ...uniq]);
+      const options = dayPick("challenge-o-" + card.id, [correct, ...uniq]);
       return { card, options, correct };
     }).map((q) => {   // display in the site language when translations exist (typing/distractor matching stays English)
       /* THE FIRST PHRASING, ALWAYS (Aug 2026, on request). A card carries three ways of asking the same
@@ -29768,6 +30023,70 @@
     );
     return true;
   }
+  /* ---------- THE DAY'S DRAW IS THE SAME DRAW FOR EVERYONE (Aug 2026, on a bug report: two readers
+     comparing True or False scores found they had been answering different statements) ----------
+     A daily game is played once, its score is written to the tile as TODAY'S and read off a friend's
+     account beside your own — so the set has to be a function of the DAY and of nothing else. Six of the
+     nine already were, seeded off `todayStr()` through `mulberry32`; Multiple Choice, True or False and
+     Who said it? drew through `pick`, which is `Math.random`, so every reader got a private quiz and a
+     shared score compared two different tests.
+
+     `dayPick` is `pick`'s seeded twin — same signature, same Fisher-Yates, with the day standing in for
+     the entropy — so the fix at each call site is the name of the function and a key.
+     THE KEY NAMES THE DRAW, NOT THE GAME, and it has to: a round draws its statements and then its
+     options, and two draws sharing a seed shuffle in step, which on a four-option round means the answer
+     lands in the same position every time. So a per-round draw carries something stable about that round
+     — the card's id, the pool index — rather than the round NUMBER, since a key built on position would
+     move every later round's options when an earlier one is filtered out.
+     IT IS SEEDED ON THE READER'S OWN DAY (`todayStr` → `dayKey`), not on UTC, which is the same boundary
+     the one-play-a-day lock, the streak and every other per-day record use: a reader whose day rolls at
+     3am gets yesterday's set until then, and gets it consistently with their own lock rather than being
+     shut out of a set they never saw. Two readers on opposite sides of the date line are therefore a day
+     apart, as they are on every other daily thing on the site — the fix is that everyone sharing a date
+     shares a quiz, not that the planet turns over at once. */
+  function dayPick(key, arr, n) {
+    const a = seededShuffle(arr, mulberry32(hashStr(key + "-" + todayStr())));
+    return n == null ? a : a.slice(0, n);
+  }
+  /* ---------- A ROUND ENDS ON SOMETHING LEARNED (Aug 2026, on request) ----------
+     "The games Picture Round and Multiple Choice don't offer any explanation for why that answer is
+     correct or about the answer, so the user doesn't learn from it." True of both, and it is the one
+     complaint a quiz game cannot shrug off: True or False has said `why` since it shipped, Find it opens
+     the place's own panel, Timeline reveals every date — those two named the answer and moved on.
+
+     THE EXPLANATION IS THE ANSWER TERM'S GLOSSARY ENTRY, and reaching for that rather than writing a new
+     field is the whole of the design. It is three sentences, impartial, self-contained and written to be
+     read on its own away from any card — which is exactly the brief here — it is already cited at the
+     bar, it is what a reader would meet by tapping the term anywhere else on the site, and, because of
+     the card→glossary pairing rule, a card ships with one for its own answer. So there is nothing to
+     author and nothing to keep in step: a term corrected in the glossary is corrected here.
+     A CARD'S OWN ABSTRACT WAS THE OBVIOUS ALTERNATIVE AND IS THE WRONG ONE. It is ten sentences and
+     roughly 300 words — a wall of prose between a guess and the next round — so it would have to be cut
+     to its first sentence, and splitting a sentence off English prose is the thing `split-abstract.js`
+     exists for and needed a dozen guards to get right (initials, `c. 2600 BCE`, abbreviated binomials, a
+     sentence closing on a quotation). A three-sentence field that needs no splitting beats a 300-word one
+     that does.
+     WHERE THERE IS NO TERM, NOTHING IS SHOWN — never a manufactured sentence. `fallbackSentence` would
+     happily produce "X is a person, place, or concept referenced in this card's background", which
+     teaches less than silence and reads as the site having something to say when it has not. Measured
+     over the shipped corpus: 223 of the 231 cards the games can deal carry a term, so the silent case is
+     about 3% and shrinks with the pairing rule.
+     A DECK'S OWN TERM IS EXCLUDED (`isDeckGlossKey`) exactly as it is in the other three games that
+     resolve a key this way: community content never reaches a curated game. */
+  function gameGlossKey(answer) {
+    const idx = glossIndexFor(GLOSS_SCOPE_SITE);
+    const k = idx && idx.byAnySurface ? idx.byAnySurface[String(answer || "").trim().toLowerCase()] : null;
+    return k && !isDeckGlossKey(k) ? k : "";
+  }
+  function gameAnswerNote(answer) {
+    const k = gameGlossKey(answer);
+    if (!k) return "";
+    /* Emitted as HTML, not escaped: a description carries `<i>` on a work's title and `<b>` on its own
+       head word, and printing those tags is the fault the changelog met in Aug 2026. Through
+       `sanitizeHTML` all the same — this is a new surface, and the admin overlay can rewrite a
+       description live. Markers are stripped: a footnote number with no list under it points nowhere. */
+    return sanitizeHTML(String(glossText(k) || "").replace(/<sup class="fn"[^>]*><\/sup>/g, ""));
+  }
 
   PAGES.challenge = function (root) {
     detachKeys();
@@ -29817,8 +30136,13 @@
         else if (idx === i) b.classList.add("wrong");
       });
       const rev = root.querySelector("#reveal"); rev.hidden = false;
+      /* The answer's own glossary entry — see gameAnswerNote. `.tf-why` is True or False's explanation
+         class, reused rather than copied: the two say the same kind of thing in the same place under the
+         same verdict line, and a second class for it is how they come to look like different features. */
+      const note = gameAnswerNote(item.correct);
       rev.innerHTML =
         '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it’s <b>" + esc(gameCapFirst(item.correct)) + "</b></div>" +
+        (note ? '<p class="tf-why">' + note + "</p>" : "") +
         '<button class="btn" id="mc-next">' + (qi + 1 < Q.length ? "Next question" : "See results") + "</button>";
       rev.querySelector("#mc-next").addEventListener("click", next);
     }
@@ -29834,7 +30158,8 @@
       S.daily.games++;
       S.daily.best = Math.max(S.daily.best || 0, score);
       S.daily.lastPlayed = now();
-      if (won && S.daily.winDate !== todayStr()) { S.daily.wins = (S.daily.wins || 0) + 1; S.daily.winDate = todayStr(); }   // count at most one win per day (revives Victor/Champion; "win 10 daily challenges" = 10 distinct days, not farmable by replaying)
+      // `S.daily.wins` is NOT incremented here any more — every game's perfect run counts, and it is
+      // counted once in `markGamePlayed`. See the note there.
       markGamePlayed("challenge", won, score, Q.length);
       save();
       checkAchievements();
@@ -29847,7 +30172,7 @@
           <div class="tf-summary">${Q.map((it, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">${it.card.question}</p><p class="tf-sum-a"><b>${esc(gameCapFirst(it.correct))}</b></p></div>
+              <div><p class="tf-sum-q">${it.card.question}</p><p class="tf-sum-a"><b>${esc(gameCapFirst(it.correct))}</b>${(() => { const n = gameAnswerNote(it.correct); return n ? " — " + n : ""; })()}</p></div>
             </div>`).join("")}</div>
           <p class="tf-tomorrow">A fresh set arrives tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="mc-home">Home</button></div>
@@ -29880,10 +30205,8 @@
     const POOL = (window.TRUEFALSE || []).map((x) => tfLocalized(x));
     const ROUNDS = 5;
     if (POOL.length < ROUNDS) { root.innerHTML = emptyPlacard("Coming soon", "真", "Not enough statements to play yet.", () => route("home"), "Back home"); return; }
-    // pick ROUNDS distinct statements at random
-    const idx = POOL.map((_, i) => i);
-    for (let i = idx.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = idx[i]; idx[i] = idx[j]; idx[j] = t; }
-    const picks = idx.slice(0, ROUNDS).map((i) => POOL[i]);
+    // the day's five, distinct and the same for every reader — see dayPick
+    const picks = dayPick("truefalse", POOL.map((_, i) => i), ROUNDS).map((i) => POOL[i]);
     let r = 0, score = 0; const results = [];
 
     renderRound();
@@ -29979,11 +30302,16 @@
       catOf.set(x.who, (RAW[i] && RAW[i].cat) || "");
       eraOf.set(x.who, (RAW[i] && RAW[i].era) || "");
     });
-    const picks = pick(POOL, Math.min(WS_ROUNDS, POOL.length));
+    /* Seeded on the day, not on Math.random — see dayPick. The rounds are drawn as POOL INDICES so each
+       one has a language-independent name to key its own two draws on: `it.who` is the LOCALISED
+       speaker, so keying on it would deal a Spanish reader different decoys from an English one. */
+    const order = dayPick("whosaid", POOL.map((_, i) => i), Math.min(WS_ROUNDS, POOL.length));
+    const picks = order.map((i) => POOL[i]);
     const allWho = [...new Set(POOL.map((x) => x.who))];
-    return picks.map((it) => {
+    return picks.map((it, k) => {
+      const seed = "whosaid-" + order[k];
       const myCat = catOf.get(it.who) || "", myEra = eraOf.get(it.who) || "";
-      const others = pick(allWho.filter((w) => w !== it.who));
+      const others = dayPick(seed + "-d", allWho.filter((w) => w !== it.who));
       const sameCat = (w) => myCat && catOf.get(w) === myCat;
       const sameEra = (w) => myEra && eraOf.get(w) === myEra;
       const both = others.filter((w) => sameCat(w) && sameEra(w));
@@ -29991,7 +30319,7 @@
       const era  = others.filter((w) => !sameCat(w) && sameEra(w));
       const rest = others.filter((w) => !sameCat(w) && !sameEra(w));
       const distractors = both.concat(cat, era, rest).slice(0, 3);
-      return { it, options: pick([it.who, ...distractors]) };
+      return { it, options: dayPick(seed + "-o", [it.who, ...distractors]) };
     });
   }
   PAGES.whosaid = function (root) {
@@ -31206,15 +31534,23 @@
   );
   function picturePool() {
     const out = [], seen = new Set();
-    const add = (img, label, kind, gloss, tags) => {
+    const add = (img, label, kind, gloss, tags, note) => {
       if (!img || !img.src || !label) return;
       const l = String(label).trim();
       if (!l || seen.has(l.toLowerCase())) return;   // one entry per subject, or a round could offer the answer twice
       const t = Array.isArray(tags) && tags.length ? tags : [kind];
       if (PIC_ABSTRACT_KINDS.has(String(t[0] || "").toLowerCase())) return;
       seen.add(l.toLowerCase());
+      /* `desc` DESCRIBES THE PICTURE AND `note` DESCRIBES THE SUBJECT, and conflating the two is what
+         made this game unteachable (Aug 2026, on request). Every entry already carried a `desc` and it
+         is the image's own caption — "Delineations on pieces of antler. Public domain, via Wikimedia
+         Commons." — which says what is in the photograph and nothing whatever about what the thing IS.
+         `note` is the subject's glossary entry (see gameAnswerNote), resolved from the LABEL, which is
+         the answer term for a card and the head word for a glossary subject. An ARTEFACT resolves to
+         nothing, having no glossary entry, and gets its own description instead — an artefact plate is
+         already three to five sentences about the object, which is exactly this. */
       out.push({ src: img.src, label: l, title: img.title || "", desc: img.desc || "", credit: img.credit || "", alt: img.alt || "",
-                 kind: kind, gloss: gloss || "", tags: t });
+                 kind: kind, gloss: gloss || "", note: note || "", tags: t });
     };
     /* EVERY SUBJECT DRAWN FROM THE CORPUS IS NOW UNDER THE DIFFICULTY BAR (Aug 2026, on request: "ensure
        the Picture Round minigame uses only cards with level 1 or 2 difficulty rating"). The CARD half
@@ -31245,9 +31581,9 @@
       const k = idx && idx.byAnySurface ? idx.byAnySurface[String(c.answerText || "").trim().toLowerCase()] : null;
       return k && !isDeckGlossKey(k) ? glossTags(k) : null;
     };
-    CARDS.forEach((c) => { if (avail.has(c.id)) add(c.image, cardLocalized(c).answerText, "card", "", kindTags(c)); });
-    easyGloss.forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k, glossTags(k)); });
-    artefactsMerged().forEach((a) => add(a.image, a.name, "artefact"));
+    CARDS.forEach((c) => { if (avail.has(c.id)) { const lc = cardLocalized(c); add(c.image, lc.answerText, "card", "", kindTags(c), gameAnswerNote(lc.answerText)); } });
+    easyGloss.forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k, glossTags(k), gameAnswerNote(glossTitle(k))); });
+    artefactsMerged().forEach((a) => add(a.image, a.name, "artefact", "", null, sanitizeHTML(String(a.desc || "").replace(/<sup class="fn"[^>]*><\/sup>/g, ""))));
     return out;
   }
   function dailyPictureRounds() {
@@ -31330,8 +31666,13 @@
       const rev = root.querySelector("#picReveal"); rev.hidden = false;
       rev.innerHTML =
         '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it’s <b>" + esc(gameCapFirst(it.label)) + "</b></div>" +
+        /* Order: what it is called, what it IS, then what this particular picture shows. `note` is the
+           subject's own entry and `desc` the photograph's caption — see the note field in picturePool.
+           `.pic-shows` is quieter than `.pic-cap` because it is now the third line rather than the
+           second, and a caption set as loud as the title reads as a second title. */
         (it.title ? '<p class="pic-cap">' + esc(it.title) + "</p>" : "") +
-        (it.desc ? '<p class="tf-why">' + esc(it.desc) + "</p>" : "") +
+        (it.note ? '<p class="tf-why">' + it.note + "</p>" : "") +
+        (it.desc ? '<p class="pic-shows">' + esc(it.desc) + "</p>" : "") +
         (it.credit ? '<p class="pic-credit">' + mediaCreditHTML(it.credit) + "</p>" : "") +
         '<button class="btn" id="pic-next">' + (r + 1 < ROUNDS ? "Next round" : "See results") + "</button>";
       rev.querySelector("#pic-next").addEventListener("click", () => { r++; (r < ROUNDS) ? renderRound() : renderEnd(); });
@@ -31346,7 +31687,7 @@
           <div class="tf-summary">${rounds.map((rd, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">${esc(gameCapFirst(rd.it.label))}</p><p class="tf-sum-a">${esc(rd.it.title || "")}</p></div>
+              <div><p class="tf-sum-q">${esc(gameCapFirst(rd.it.label))}</p><p class="tf-sum-a">${rd.it.note || esc(rd.it.title || "")}</p></div>
             </div>`).join("")}</div>
           <p class="tf-tomorrow">Five fresh pictures arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="pic-home">Home</button></div>
@@ -31702,7 +32043,12 @@
               <div class="mg-head"><span class="mg-round" id="mgRound"></span><span class="mg-score" id="mgScore"></span></div>
               <div class="mg-q" id="mgQ"></div>
               <div class="mg-feedback" id="mgFeedback" hidden></div>
-              <button class="btn mg-next" id="mgNext" type="button" hidden></button>
+              <div class="mg-acts">
+                ${/* A TAP SELECTS; THIS COMMITS (Aug 2026, on request). See gamePick by gameTap. */""}
+                <button class="btn mg-confirm" id="mgConfirm" type="button" hidden></button>
+                <button class="btn ghost mg-clear" id="mgClear" type="button" hidden>Clear</button>
+                <button class="btn mg-next" id="mgNext" type="button" hidden></button>
+              </div>
             </div>
           </div>
           <div class="atlas-help" id="atlasHelp" hidden>
@@ -33514,9 +33860,16 @@
        members alone, so two marks wanting different colours would blit whichever was drawn first. */
     let gameMarks = [];    // [{ idxs, tint }] — a wrong guess, or the revealed answer
     let gamePin = null;    // { lon, lat, name, tint } — a revealed capital, which a ring that fades cannot show
+    let gamePickPin = null;   // [lon, lat] — a capital round's PENDING pick; a point guess has no polygon to tint
     const TINT_MISS = tintOf("224,68,56", 0.34);    // where you went — the game red
     const TINT_FOUND = tintOf("46,164,90", 0.34);   // you found it — the game green
     const TINT_ANSWER = tintOf("255,178,46", 0.38); // where it was — the map's own gold, laid on harder
+    /* …and where you are POINTING, before you commit to it (Aug 2026, on request). It is deliberately
+       none of the three above and deliberately not the Atlas's own selection gold either: gold on this
+       board already means "the answer was here", and a pending guess wearing it would announce the
+       reveal a beat before the reveal. Blue is unused by the game and reads as a cursor rather than as
+       a verdict — which is exactly what a pick that has not been submitted is. */
+    const TINT_PICK = tintOf("59,110,214", 0.30);   // where you are pointing — not yet an answer
     /* A place the reader arrived at from a glossary popup's map marker, or picked out of the search box
        (Aug 2026, on request). A POINT focus is drawn as a gold dot with its name beside it — and ONLY while
        it is focused: most of these places (a cave, a gorge, a dig site) are not cities and have no business
@@ -33791,6 +34144,20 @@
           const nm = placeName(focusPoint.name);
           ctx.lineWidth = 3.5; ctx.strokeStyle = LBL_HALO; ctx.strokeText(nm, x + 10, y);
           ctx.fillStyle = LBL_TEXT; ctx.fillText(nm, x + 10, y);
+          ctx.restore();
+        }
+      }
+      /* A capital round's PENDING pick. A point guess has no polygon to tint, so without this the reader
+         has selected a spot on an ocean and the only thing on screen saying where is the button's own
+         "Guess this spot" — which names nothing. Hollow rather than filled, and in the pick blue: it is
+         a crosshair, not a mark. */
+      if (gamePickPin) {
+        proj(gamePickPin[0], gamePickPin[1]);
+        if (PV >= 0) {
+          ctx.save();
+          ctx.beginPath(); ctx.arc(PX, PY, 6.5, 0, TAU);
+          ctx.lineWidth = 2.4; ctx.strokeStyle = TINT_PICK.line; ctx.stroke();
+          ctx.beginPath(); ctx.arc(PX, PY, 1.8, 0, TAU); ctx.fillStyle = TINT_PICK.line; ctx.fill();
           ctx.restore();
         }
       }
@@ -34134,7 +34501,10 @@
         scheduleDraw(); endMotion(160);
       } else if (k === "Enter") {
         e.preventDefault();
-        if (GAME) { gameTap(W / 2, H / 2); return; }
+        /* Enter PICKS what is at the centre, and Enter again CONFIRMS it — the keyboard's version of the
+           mouse's two clicks. Without the second branch a keyboard reader would have to leave the globe
+           for the button after every aim, which makes the accessible route the slow one. */
+        if (GAME) { if (gamePick) gameCommit(); else gameTap(W / 2, H / 2); return; }
         const idx = countryAt(W / 2, H / 2);
         if (idx >= 0) {
           const pll = screenToLonLat(W / 2, H / 2); popPointLL = pll ? [pll[0], pll[1]] : null;
@@ -34668,8 +35038,19 @@
     }
     /* ---------- "Find it" — the daily geography game, played on the real globe ---------- */
     const mgEl = root.querySelector("#mapGame"), mgRoundEl = root.querySelector("#mgRound"), mgScoreEl = root.querySelector("#mgScore"),
-      mgQEl = root.querySelector("#mgQ"), mgFeedbackEl = root.querySelector("#mgFeedback"), mgNextEl = root.querySelector("#mgNext");
-    let gameRounds = [], gameRi = 0, gameTries = 0, gameFirstTry = 0, gameLock = false, gameOver = false;
+      mgQEl = root.querySelector("#mgQ"), mgFeedbackEl = root.querySelector("#mgFeedback"), mgNextEl = root.querySelector("#mgNext"),
+      mgConfirmEl = root.querySelector("#mgConfirm"), mgClearEl = root.querySelector("#mgClear");
+    /* `gameFound` IS THE SCORE AND `gameFirstTry` IS NO LONGER IT (Aug 2026, on request: "at the end of
+       that minigame it says x/5 questions correct, but it only counts answers that were correct
+       first-try — second and third guesses should still count if they were correct"). The screen said
+       "4 / 5 found on the first try", which is a true sentence about a figure nobody could see was
+       being computed that way while they played: the running counter beside the round number said
+       "points", and a reader who found four places and was told they had scored two read it as the game
+       losing an answer. So the headline is now what was FOUND, at whichever attempt, and the first-try
+       tally survives as a second line on the results — it is a real distinction and worth keeping, it
+       just is not what "x / 5 correct" means to anybody reading it. */
+    let gameRounds = [], gameRi = 0, gameTries = 0, gameFound = 0, gameFirstTry = 0, gameLock = false, gameOver = false;
+    let gamePick = null;   // { idx, lon, lat, name } — the tapped place, awaiting Confirm; see gameTap
     const GAME_GREEN = "rgba(46,164,90,1)", GAME_RED = "rgba(224,68,56,1)";   // right / wrong flash colours (fixed, theme-independent like the gold highlight)
     const havKm = (lon1, lat1, lon2, lat2) => {   // great-circle distance, km
       const dLa = (lat2 - lat1) * DEG, dLo = (lon2 - lon1) * DEG;
@@ -34772,15 +35153,17 @@
       hideCountryPopup();   // the previous round's learn-panel closes with the round
       setYear(r.year);
       mgRoundEl.textContent = "Round " + (gameRi + 1) + " / " + gameRounds.length;
-      mgScoreEl.textContent = gameFirstTry + (gameFirstTry === 1 ? " point" : " points");
+      mgScoreEl.textContent = gameFound + " found";
       mgQEl.innerHTML = (r.kind === "capital" ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(finditName(r.n)) + "</b>") + (r.year >= MAXY ? " on today's map" : " — in " + fmtYearG(r.year));
       mgFeedbackEl.hidden = true; mgNextEl.hidden = true;
       selSet.clear(); subSelGeo = -1; subSelUK = []; pulseSet = null;
       gameMarks = []; gamePin = null;   // last round's wrong guesses and its answer come off the board with it
+      gameClearPick();
       scheduleDraw();
     }
     function gameReveal(r, ok) {
       gameLock = true;
+      gameClearPick();
       const tgt = gameTargetLL(r);
       const tint = ok ? TINT_FOUND : TINT_ANSWER;
       pulseCol = ok ? GAME_GREEN : "rgba(255,178,46,1)";   // green = you found it; gold = "here's the one you missed"
@@ -34802,16 +35185,61 @@
       if (tgt) flyTo(tgt[0], tgt[1], Math.max(zoom, r.kind === "capital" ? 2.8 : 1.5), null);
       mgFeedbackEl.textContent = ok ? (gameTries === 0 ? "Found it — first try!" : "Found it!") : "It was here.";
       mgFeedbackEl.hidden = false;
-      mgScoreEl.textContent = gameFirstTry + (gameFirstTry === 1 ? " point" : " points");
+      mgScoreEl.textContent = gameFound + " found";
       mgNextEl.textContent = gameRi + 1 >= gameRounds.length ? "See your score" : "Next round";
       mgNextEl.hidden = false;
       scheduleDraw();
+    }
+    /* ---------- A TAP SELECTS; CONFIRMING IS A SECOND PRESS (Aug 2026, on request) ----------
+       "Clicking a country shouldn't immediately guess, but only selected before the user should click a
+       confirmation button." A tap on a globe is not a confident gesture: the reader has been dragging
+       and pinching the same surface for the whole round, the target may be four pixels wide at the
+       zoom they are at, and a stray finger spent a guess with no way back. Worse, the map is the only
+       control here, so there was no way to look closely at a place — the tap that brought you to it was
+       the answer.
+       So `gameTap` now only ever PICKS: it lights the place blue, names it on the button, and waits.
+       `gameCommit` is the old function from the judging line down. Three things follow.
+       A PICK IS REPLACEABLE AND WITHDRAWABLE — tapping elsewhere moves it and Clear takes it off — so a
+       mis-tap costs nothing at all, which is the whole point.
+       IT IS A `gameMarks` ENTRY RATHER THAN A FOURTH MECHANISM: the pending mark is painted, replaced
+       and cleared by the same list that already carries the wrong guesses and the answer, so nothing
+       had to learn a new kind of highlight and a pick can never outlive the round.
+       AND FROM THE KEYBOARD, ENTER PICKS AND ENTER AGAIN CONFIRMS. Aiming with the arrow keys and then
+       having to Tab out of the globe to a button would make the keyboard route the slow one; two
+       presses of the same key is what the mouse does with two clicks. */
+    function gameClearPick() {
+      gamePick = null; gamePickPin = null;
+      gameMarks = gameMarks.filter((m) => !m.pick);
+      if (mgConfirmEl) mgConfirmEl.hidden = true;
+      if (mgClearEl) mgClearEl.hidden = true;
     }
     function gameTap(px, py) {
       if (!GAME || gameOver || gameLock || gameRi >= gameRounds.length) return;
       const r = gameRounds[gameRi];
       const ll = screenToLonLat(px, py); if (!ll) return;   // clicked the sky
-      const clickedIdx = countryAt(px, py);   // whatever entity the guess landed on (feeds the red flash + its learn-panel)
+      const clickedIdx = countryAt(px, py);
+      /* A capital round is answered with a POINT, so a tap in the open sea is a legitimate guess there
+         and an entity round's is not — tapping the ocean when asked for a country is a miss of the
+         globe rather than a wrong answer, and spending a guess on it would be the mis-tap this change
+         exists to stop. */
+      if (r.kind !== "capital" && clickedIdx < 0) return;
+      gameMarks = gameMarks.filter((m) => !m.pick);
+      const name = r.kind === "capital" ? "" : finditName(entityName(clickedIdx) || "");
+      gamePick = { idx: clickedIdx, lon: ll[0], lat: ll[1], name: name };
+      if (clickedIdx >= 0) gameMarks.push({ idxs: [clickedIdx], tint: TINT_PICK, pick: true });
+      gamePickPin = r.kind === "capital" ? [ll[0], ll[1]] : null;
+      if (mgConfirmEl) { mgConfirmEl.textContent = name ? "Guess " + name : "Guess this spot"; mgConfirmEl.hidden = false; }
+      if (mgClearEl) mgClearEl.hidden = false;
+      sfx("click");
+      scheduleDraw();
+    }
+    function gameCommit() {
+      if (!GAME || gameOver || gameLock || !gamePick || gameRi >= gameRounds.length) return;
+      const r = gameRounds[gameRi];
+      const ll = [gamePick.lon, gamePick.lat];
+      const clickedIdx = gamePick.idx;   // whatever entity the guess landed on (feeds the red flash + its learn-panel)
+      { const pll = ll; popPointLL = [pll[0], pll[1]]; }   // the guess's own point — feeds the panel's crumb and "Through the ages"
+      gameClearPick();
       let correct = false, distKm = null;
       if (r.kind === "capital") {
         distKm = havKm(ll[0], ll[1], r.lon, r.lat);
@@ -34821,6 +35249,7 @@
         if (!correct) { const tgt = gameTargetLL(r); if (tgt) distKm = havKm(ll[0], ll[1], tgt[0], tgt[1]); }
       }
       if (correct) {
+        gameFound++;                          // ANY attempt counts — see gameFound
         if (gameTries === 0) gameFirstTry++;
         sfx("good");
         gameReveal(r, true);
@@ -34847,12 +35276,17 @@
     }
     function gameEnd() {
       gameOver = true;
-      const n = gameRounds.length, perfect = n >= 5 && gameFirstTry >= n;   // a short game (thin pools) can never count as a perfect run
-      markGamePlayed("findit", perfect, gameFirstTry, n); save(); checkAchievements();   // achievements: the Clean Sweep now includes this game
+      const n = gameRounds.length, perfect = n >= 5 && gameFound >= n;   // a short game (thin pools) can never count as a perfect run
+      markGamePlayed("findit", perfect, gameFound, n); save(); checkAchievements();   // achievements: the Clean Sweep now includes this game
       mgRoundEl.textContent = "Done!";
       mgScoreEl.textContent = "";
-      mgQEl.innerHTML = "<b>" + gameFirstTry + " / " + n + "</b> found on the first try" + (perfect ? " — perfect!" : ".");
-      mgFeedbackEl.textContent = "Come back tomorrow for five new places.";
+      mgQEl.innerHTML = "<b>" + gameFound + " / " + n + "</b> found" + (perfect ? " — perfect!" : ".");
+      /* The first-try tally is kept and is now a SECOND line rather than the headline: it is a real
+         distinction and the one a reader who wants to compare a flawless run with a scraped one needs,
+         it simply is not what "x / 5" means to anybody reading it. Said only when it differs from the
+         score, since "5 found, 5 of them first try" is the same sentence twice. */
+      mgFeedbackEl.textContent = (gameFirstTry < gameFound ? gameFirstTry + " of them on the first try. " : "") +
+        "Come back tomorrow for five new places.";
       mgFeedbackEl.hidden = false;
       mgNextEl.textContent = "Back to Home"; mgNextEl.hidden = false;
     }
@@ -34866,6 +35300,8 @@
         gameRi++;
         if (gameRi >= gameRounds.length) gameEnd(); else gameShowRound();
       });
+      if (mgConfirmEl) mgConfirmEl.addEventListener("click", gameCommit);
+      if (mgClearEl) mgClearEl.addEventListener("click", () => { gameClearPick(); scheduleDraw(); });
       gameRounds = buildGameRounds();
       if (gameRounds.length) { mgEl.hidden = false; gameShowRound(); }
       else route("map");   // no data to play with (should never happen) — fall back to the plain Atlas
@@ -34956,7 +35392,7 @@
       '<div class="statcard"><b>' + seen + '</b><span>Cards seen</span></div>' +
       '<div class="statcard zh"><b>' + streak + '</b><span>Day streak</span></div>' + due +
       '<div class="statcard"><b>' + mature + '</b><span>Mature (21d+)</span></div>' +
-      '<div class="statcard"><b>' + wins + '</b><span>Challenge wins</span></div>' +
+      '<div class="statcard"><b>' + wins + '</b><span>Minigame wins</span></div>' +
       '<div class="statcard"><b>' + best + '</b><span>Best score</span></div></div>';
   }
   /* ---------- review statistics: heatmap, forecast, retention ----------
@@ -35373,8 +35809,12 @@
     { id: "deck3", icon: "🗂️", name: "Polymath", desc: "Make progress in 3 decks", test: (s) => s.decksStarted >= 3, prog: (s) => [s.decksStarted, 3] },
     { id: "friend1", icon: "🤝", name: "First Friend", desc: "Add your first friend", test: (s) => s.friends >= 1 },
     { id: "friend5", icon: "🌐", name: "Well Connected", desc: "Have 5 friends", test: (s) => s.friends >= 5, prog: (s) => [s.friends, 5] },
-    { id: "win1", icon: "🏅", name: "Victor", desc: "Win a daily challenge", test: (s) => s.wins >= 1 },
-    { id: "win10", icon: "👑", name: "Champion", desc: "Win 10 daily challenges", test: (s) => s.wins >= 10, prog: (s) => [s.wins, 10] },
+    /* "daily challenge" was this game's name when it was the only one; there are nine now and the word
+       for one of them is MINIGAME (Aug 2026, on request). The IDS are untouched, as the Library's route
+       was when it became Collections: a label is what a reader sees and an id is what a save is keyed
+       by, and renaming one would take the badge off everybody already holding it. */
+    { id: "win1", icon: "🏅", name: "Victor", desc: "Win a minigame", test: (s) => s.wins >= 1 },
+    { id: "win10", icon: "👑", name: "Champion", desc: "Win 10 minigames", test: (s) => s.wins >= 10, prog: (s) => [s.wins, 10] },
     { id: "sweep", icon: "🎯", name: "Clean Sweep", desc: "Score perfectly in every daily game in one day", test: (s) => s.dailySweep },
     // the reading done AROUND the cards — the glossary and the Atlas, which until now earned nothing
     { id: "terms25", icon: "🔖", name: "Margin Notes", desc: "Open 25 glossary terms", test: (s) => s.terms >= 25, prog: (s) => [s.terms, 25] },
@@ -35428,6 +35868,17 @@
     { id: "read5", icon: "🪶", name: "Five Hours in One Book", desc: "Spend five hours reading one book", test: (s) => s.readBookMs >= 5 * 3600e3, prog: (s) => [Math.round(s.readBookMs / 3600e3), 5] },
     { id: "read25", icon: "🗝️", name: "Twenty-five Hours in the Library", desc: "Spend twenty-five hours reading, across every book", test: (s) => s.readMs >= 25 * 3600e3, prog: (s) => [Math.round(s.readMs / 3600e3), 25] },
   ];
+  /* `friendsCount` IS AN OVERRIDE, AND THE FALLBACK IS THE FIELD (Aug 2026, on a bug report that the
+     First Friend and Well Connected badges "do not work"). They never could: `checkAchievements` passed
+     `currentUser().friends.length`, and `currentUser()` reads `ACCT` — the LEGACY device-local accounts,
+     retired when accounts moved to Supabase and empty for every reader since. So the count handed in was
+     always 0 and the two badges were unreachable for anyone whose friends are real.
+     Friends now live in a Supabase table that RLS scopes to rows involving ME, which is why the count has
+     to be RECORDED rather than looked up on demand: a badge is tested at grade time, in the middle of a
+     study session, and cannot go to the network — and a FRIEND's progress, which this same function reads
+     for their badge grid, is a blob that cannot be joined against a table only they may read. So
+     `setFriendCount` writes it into the progress blob whenever the friends list is drawn, and every
+     reader's own count travels with their own progress. */
   function progStats(prog, friendsCount) {
     const cards = prog.cards || {};
     const seen = Object.keys(cards).length;
@@ -35445,7 +35896,7 @@
     const arts = (prog.artefacts && typeof prog.artefacts === "object") ? Object.keys(prog.artefacts) : [];
     const legendaries = arts.filter((id) => ARTEFACT_BY_ID[id] && rarityId(ARTEFACT_BY_ID[id]) === "legendary").length;
     const st = prog.studyTime;
-    return { seen, mature, streak: (prog.streak && prog.streak.count) || 0, wins: (prog.daily && prog.daily.wins) || 0, dailySweep: allGamesWonToday(prog), decksStarted, decksDone, friends: friendsCount || 0,
+    return { seen, mature, streak: (prog.streak && prog.streak.count) || 0, wins: (prog.daily && prog.daily.wins) || 0, dailySweep: allGamesWonToday(prog), decksStarted, decksDone, friends: (friendsCount != null ? friendsCount : (prog.friendCount | 0)),
       terms: glossSeenCount(prog), countries: countrySeenCount(prog), countryTotal: (window.WORLD_GEO && window.WORLD_GEO.length) || 0,
       chestsOpened: (prog.chestsOpened | 0), artefacts: arts.length, legendaries,
       published: (prog.published | 0),
@@ -35482,9 +35933,19 @@
        backfill runs once per reader (a badge already in `S.achievements` is never "newly" again), so
        this cannot pay out twice for the same badge.
      `grantChest` saves, which is what the bare `save()` here used to do. */
+  /* Record how many accepted friends this reader has, and test the badges that read it. Saves only on a
+     CHANGE — this runs on every draw of the friends list — and always checks, since a badge may be owed
+     from a count recorded before the field existed. */
+  function setFriendCount(n) {
+    const v = Math.max(0, n | 0);
+    if (S.friendCount !== v) { S.friendCount = v; save(); }
+    checkAchievements();
+  }
   function checkAchievements(silent) {
     if (!S.achievements) S.achievements = {};
-    const s = progStats(S, currentUser() ? (currentUser().friends || []).length : 0);
+    // no friend count is passed: `progStats` reads `S.friendCount`, which `setFriendCount` keeps. The
+    // old argument came from the retired local-accounts store and was always 0 — see progStats.
+    const s = progStats(S);
     const newly = [];
     ACHIEVEMENTS.forEach((a) => { if (!S.achievements[a.id] && a.test(s)) { S.achievements[a.id] = Date.now(); newly.push(a); } });
     if (newly.length) {
@@ -35858,12 +36319,14 @@
     avatarInput.addEventListener("change", () => {
       const f = avatarInput.files && avatarInput.files[0];
       if (!f) return;
-      avatarFromFile(f, async (uri) => {
+      openAvatarCropper(f, async (uri) => {
         const r = await supaSetAvatar(uri);
         if (r.error) return toast(r.error);
         toast("Profile photo updated");
         render();
       });
+      // …or the same file will not fire `change` again if it is picked a second time after a cancel
+      avatarInput.value = "";
     });
     const avatarRemove = root.querySelector("#avatarRemove");
     if (avatarRemove) avatarRemove.addEventListener("click", async () => {
@@ -35971,6 +36434,12 @@
       const incoming = rows.filter((r) => r.status === "pending" && r.friend_id === me).map((r) => r.user_id).filter((k) => profs[k]);
       const outgoing = rows.filter((r) => r.status === "pending" && r.user_id === me).map((r) => r.friend_id).filter((k) => profs[k]);
       const accepted = rows.filter((r) => r.status === "accepted").map((r) => (r.user_id === me ? r.friend_id : r.user_id)).filter((k) => profs[k]);
+      /* THE ONE PLACE THE COUNT IS WRITTEN, and it is written here rather than in the three handlers
+         below because this list is redrawn after every one of them — an accept, a decline, a removal and
+         a request answered from the other side all end at `refresh()`, which is this function. The
+         handlers used to call `checkAchievements()` themselves, BEFORE anything had recorded the new
+         count, which is a second reason the friend badges never fired. */
+      setFriendCount(accepted.length);
       let html = '<div class="friend-add"><input class="auth-in" id="friendAdd" placeholder="Add a friend by username" autocomplete="off"><button class="auth-btn sm" id="friendAddBtn" type="button">Add</button></div><div class="friend-msg" id="friendMsg"></div>';
       if (incoming.length) html += '<div class="friend-sub">Requests</div>' + incoming.map((k) => userRow(k, profs, '<span class="friend-acts"><button class="mini-btn ok" data-accept="' + esc(k) + '">Accept</button><button class="mini-btn" data-decline="' + esc(k) + '">Decline</button></span>', false)).join("");
       if (outgoing.length) html += '<div class="friend-sub">Pending</div>' + outgoing.map((k) => userRow(k, profs, '<span class="friend-acts"><button class="mini-btn" data-cancel="' + esc(k) + '">Cancel</button></span>', false)).join("");
@@ -35991,7 +36460,7 @@
         if (incoming.includes(t.id)) {   // they already asked you → accept instead
           const a = await supaFetch("/rest/v1/friends?user_id=eq." + t.id + "&friend_id=eq." + me, { method: "PATCH", body: { status: "accepted" } });
           if (!a.ok) return fmsg(supaErrMsg(a, "Could not accept the request."));
-          checkAchievements(); fmsg("You're now friends!", true); return refresh();
+          fmsg("You're now friends!", true); return refresh();   // refresh() records the count and checks the badges
         }
         const r = await supaFetch("/rest/v1/friends", { method: "POST", body: { user_id: me, friend_id: t.id } });
         if (!r.ok) return fmsg(supaErrMsg(r, "Could not send the request."));
@@ -35999,7 +36468,7 @@
         fmsg("Request sent.", true); refresh();
       });
       box.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => route("account", { viewUser: b.dataset.view })));
-      box.querySelectorAll("[data-accept]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + b.dataset.accept + "&friend_id=eq." + me, { method: "PATCH", body: { status: "accepted" } }); checkAchievements(); refresh(); }));
+      box.querySelectorAll("[data-accept]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + b.dataset.accept + "&friend_id=eq." + me, { method: "PATCH", body: { status: "accepted" } }); refresh(); }));
       box.querySelectorAll("[data-decline]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + b.dataset.decline + "&friend_id=eq." + me, { method: "DELETE" }); refresh(); }));
       box.querySelectorAll("[data-cancel]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + me + "&friend_id=eq." + b.dataset.cancel, { method: "DELETE" }); refresh(); }));
       box.querySelectorAll("[data-remove]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?or=(and(user_id.eq." + me + ",friend_id.eq." + b.dataset.remove + "),and(user_id.eq." + b.dataset.remove + ",friend_id.eq." + me + "))", { method: "DELETE" }); refresh(); }));
@@ -36029,7 +36498,12 @@
       root.innerHTML = `
         <button class="back-link" id="backBtn" type="button">← Back to your account</button>
         <div class="profile friend-profile"${fskin}>
-          ${monogramHTML(u.avatar, u.name)}
+          ${/* Their photo enlarges; a MONOGRAM does not, being a letter the page is already showing at
+                the size a letter is worth. So the button exists only where there is a photograph, rather
+                than always existing and doing nothing five sixths of the time. */""}
+          ${u.avatar
+            ? `<button class="mono-view" type="button" id="fAvatar" aria-label="View ${esc(u.name)}'s profile photo">${monogramHTML(u.avatar, u.name)}</button>`
+            : monogramHTML(u.avatar, u.name)}
           <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + '</span>' : ""}</div></div>
           <button class="ghost-btn" id="rmFriend" type="button">Remove friend</button>
         </div>
@@ -36058,11 +36532,15 @@
       root.querySelector("#fReviewStats").innerHTML = reviewStatsHTML(prog, u.joined);   // their reviewLog rides along in the synced progress blob
       renderDeckStats(root.querySelector("#fDeckStats"), prog, false);   // their community decks live on their device, not in the blob
       root.querySelector("#fExploreStats").innerHTML = exploreStatsHTML(prog);
-      root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog, 0));
+      // no friend count is forced any more: their own blob carries `friendCount`, so their First Friend
+      // and Well Connected badges read their friends rather than a hard 0. See progStats.
+      root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog));
       renderCollectionLevels(root.querySelector("#fLevels"), prog.cards || {}, S.cards);   // their progress, with a "You: …" chip beside each
       root.querySelector("#fShowcase").innerHTML = showcaseHTML(prog, false);
       wireReliquary(root.querySelector("#fShowcase"), prog, false);   // …so "See Reliquary" opens THEIR collection, not yours
       renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
+      const fAv = root.querySelector("#fAvatar");
+      if (fAv) fAv.addEventListener("click", () => openAvatarViewer(u.avatar, u.name));
       root.querySelector("#backBtn").addEventListener("click", () => route("account"));
       root.querySelector("#rmFriend").addEventListener("click", async () => {
         await supaFetch("/rest/v1/friends?or=(and(user_id.eq." + me + ",friend_id.eq." + key + "),and(user_id.eq." + key + ",friend_id.eq." + me + "))", { method: "DELETE" });
@@ -36680,23 +37158,36 @@
       ${themeMockHTML(t)}
       <span class="theme-name">${t[1]}</span><span class="theme-tag">${tag}</span></button>`;
     };
-    /* ---------- ONLY WHAT THE READER HAS WON IS SHOWN (Aug 2026, on request) ----------
+    /* ---------- ONLY WHAT THE READER HAS WON IS SHOWN — BUT THE ROW IS ALWAYS THERE ----------
        The picker used to draw all six with the five collectibles greyed and padlocked, which is the
        shape a game uses to advertise what is still to come — and this is a settings page, where every
        other row is something the reader can actually change. A locked tile there is five sixths of the
-       control answering a press with a toast.
+       control answering a press with a toast. So the TILES are the unlocked ones (Aug 2026, on request).
 
-       So the tiles are the unlocked ones, and the ROW ITSELF is not drawn until a chest has produced a
-       theme: before that the only choice is `folio`, and a picker offering one option is a picker
-       explaining a decision nobody is being asked to make. `folio` is never in the register — it is
-       the default and cannot be lost — so the gate asks whether any COLLECTIBLE is owned, which is a
-       different question from whether the list is non-empty and is the one that matters.
+       THE ROW ITSELF USED TO BE HIDDEN UNTIL A CHEST HAD PRODUCED A THEME, AND THAT WENT TOO FAR
+       (Aug 2026, on a bug report: "I don't see anywhere to change my theme on the settings page and
+       switch between my collected ones"). The earlier request is about which TILES are listed; hiding
+       the whole row was a second decision taken alongside it, on the reasoning that a picker offering
+       one option explains a decision nobody is being asked to make. What it actually did was take the
+       feature off the page — a reader looking for where their themes live found a Settings page with no
+       mention of themes at all, and no way to tell an empty collection from a control that had moved or
+       broken. A row saying "this is where your themes are, and here is how you get more" is not a
+       decision nobody is being asked to make; it is the answer to the question they arrived with. The
+       lone `folio` tile is also the only place a reader can see the default beside the ones they win.
+
+       So the row is unconditional and the COPY carries the state instead: it names how many are still to
+       find and where they come from, and says nothing at all once the set is complete. That is the
+       honest place for it — a sentence can be right in every state, where a hidden row is right in one.
 
        The click handler keeps its locked guard as a backstop rather than as a path anybody reaches: it
        reads an id off an attribute, and a guard on a value read out of the DOM is worth keeping even
        when nothing renders the value it refuses. */
     const shownThemes = THEME_OPTS.filter((t) => themeUnlocked(t[0]));
-    const anyWon = COLLECTIBLE_THEMES.some((t) => themeUnlocked(t));
+    const stillLocked = lockedThemes().length;
+    const themeHint = !stillLocked ? ""
+      : shownThemes.length > 1
+        ? stillLocked + (stillLocked === 1 ? " more theme is" : " more themes are") + " still to find in artefact chests."
+        : "The other " + stillLocked + " are found in artefact chests, which a level, a clean sweep of the daily games or a week's streak will earn you.";
     const setHead = (accent, svg, title) => `<div class="set-head" style="--msn-accent:${accent}"><span class="msn-chip" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${svg}</svg></span><h2>${title}</h2></div>`;
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Preferences</span><h1>Settings</h1>
@@ -36705,10 +37196,10 @@
         ${/* set-wide: the theme picker is a row of tiles and wants the whole width when there is one (see .settings) */""}
         <div class="set-card set-wide">
           ${setHead("var(--indigo)", '<circle cx="13.5" cy="6.5" r="2.5"/><circle cx="19" cy="13" r="2"/><circle cx="6" cy="12" r="2.5"/><path d="M12 2a10 10 0 1 0 10 10c0-1.2-1-2-2.2-2H16a3 3 0 0 1-3-3V4.2C13 3 12.8 2 12 2z"/>', "Appearance")}
-          ${anyWon ? `<div class="set-row set-row-block">
-            <div class="info"><h3>Theme</h3><p>Each theme has its own colours, typography and layout. Hover a tile to try it on; click to keep it. Night mode works within every theme.</p></div>
+          <div class="set-row set-row-block">
+            <div class="info"><h3>Theme</h3><p>Each theme has its own colours, typography and layout. Hover a tile to try it on; click to keep it. Night mode works within every theme.${themeHint ? " " + themeHint : ""}</p></div>
             <div id="themeGrid"><div class="theme-grid">${shownThemes.map(themeBtn).join("")}</div></div>
-          </div>` : ""}
+          </div>
           <div class="set-row">
             ${/* Follow the operating system (Aug 2026, on request), and the default for a first-time
                   visitor. It sits ABOVE the manual switch because it decides whether that switch is the

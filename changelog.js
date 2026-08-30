@@ -35,13 +35,24 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.435", released: "2026-08-30T14:34Z" };
+window.FOLIO_VERSION = { v: "1.436", released: "2026-08-30T16:38Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-30",
     t: "Two geography decks finished: The world and China",
     items: [
+      "<b>A card you got wrong is offered again when nothing else is left</b>, instead of a deck saying it was done while still showing cards to review.",
+      "<b>The Victor and Champion badges now count a perfect run in any minigame</b>, where only Multiple Choice used to count.",
+      "<b>The First Friend and Well Connected badges now unlock</b>, having been counting from a place the site stopped using when accounts moved online.",
+      "<b>A profile photo can now be moved and zoomed before you save it</b>, rather than being cropped to the middle for you.",
+      "<b>A friend's profile photo enlarges when you tap it</b>.",
+      "<b>Every daily minigame now deals the same questions to everyone</b>, so your score can be compared with a friend's.",
+      "<b>In Find it, tapping a place now selects it and a button confirms the guess</b>, so a stray tap no longer costs you a try.",
+      "<b>Find it counts a place you got right on the second try</b>, where it used to score only first-try finds.",
+      "<b>Multiple Choice and the Picture round now explain the answer</b> once you have guessed, instead of only naming it.",
+      "<b>The Theme picker is back on the Settings page whether or not you have won one</b>, and says where the rest are found.",
+      "<b>The True or False statement about the 'Mozart effect' now states the claim plainly</b> instead of denying it.",
       "<b>Sixty new cards in The world</b>, completing the countries and territories deck at 227 of 233, with twenty-six new glossary terms and thirty-two others corrected against their own sources.",
       "<b>Seventeen new cards in the Ancient Greece deck</b>, with seventeen new glossary terms to go with them.",
       "<b>Eighteen new cards in the World History collection</b>, in its Iron Age Near East deck, with sixteen new glossary terms.",

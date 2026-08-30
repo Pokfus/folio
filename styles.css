@@ -1624,6 +1624,10 @@ body.night .gloss-book{background:linear-gradient(105deg, color-mix(in srgb, var
 .iv-stage.zoomed:active{cursor:grabbing;}
 .iv-img{max-width:94%; max-height:94%; object-fit:contain; transition:transform .18s var(--ease); user-select:none;}
 .iv-stage.iv-live .iv-img{transition:none;}   /* a pinch or a drag moves the picture per frame; the ease would lag behind the fingers */
+/* a profile photo in the viewer — round, because that is the shape it was cropped in, and capped rather
+   than shown at its stored 128px, which would be barely larger than the row it was tapped in. See
+   openAvatarViewer for why raising the stored size is not the answer. */
+.iv-avatar{width:min(320px,74vw); height:auto; border-radius:50%;}
 /* the same overlay for a video: no zoom/pan, just the biggest 16:9 the viewport allows */
 .iv-vidstage{cursor:default;}
 .iv-vid{width:min(94%, calc((94vh - 120px) * 16 / 9)); aspect-ratio:16/9; max-height:94%; border:0; display:block; background:#000; border-radius:8px;}
@@ -2026,6 +2030,9 @@ body.grading .stage{padding-bottom:150px;}
 .pic-frame.pic-dead::after{content:"This picture didn’t load"; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); padding:40px 16px;}
 .pic-frame.pic-dead .pic-img{display:none;}
 .pic-cap{font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs)); line-height:1.35; margin:0 0 6px;}
+/* what THIS picture shows, under what the subject IS (Aug 2026, on request) — the third line of the
+   reveal, so quieter than the title above it; a caption set as loud as the title reads as a second one. */
+.pic-shows{font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint); margin:0 0 6px;}
 .pic-credit{font-family:var(--mono); font-size:calc(11px * var(--fs)); color:var(--ink-faint); margin:0 0 16px; overflow-wrap:anywhere;}
 .pic-credit a{color:inherit;}
 
@@ -2950,6 +2957,33 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 .ip-actions .ip-ok{background:var(--indigo); border-color:var(--indigo); color:#fff;}
 .ip-actions .ip-ok:hover{filter:brightness(1.08);}
 
+/* ---------- positioning a profile photo before it is saved (Aug 2026, on request) ----------
+   The dialog borrows `.inline-prompt`'s box, its z-index band and its buttons; what it adds is the round
+   window. `.avc-ring` is an OVERLAY rather than a `border-radius` on the canvas, and that is the point of
+   it: the canvas has to stay square, because the square is what gets saved, so the circle is drawn on top
+   as a huge inset shadow that dims everything outside it and a hairline that marks the edge. It is
+   `pointer-events:none`, or it would swallow the drag it exists to describe. */
+.av-crop{position:fixed; inset:0; z-index:400; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb,#000 46%,transparent); padding:20px; animation:overlayIn .18s var(--ease) both;}
+.avc-box{width:min(360px,92vw); background:var(--card); border:1px solid var(--rule); border-radius:14px; box-shadow:0 24px 60px rgba(0,0,0,.34); padding:18px 20px 16px; animation:dialogIn .26s var(--ease) both;}
+.avc-title{font-family:var(--display); font-weight:600; font-size:calc(15.5px * var(--fs)); color:var(--ink); margin-bottom:12px;}
+.avc-stage{position:relative; width:100%; aspect-ratio:1; border-radius:12px; overflow:hidden; background:var(--paper-2);}
+.avc-canvas{display:block; width:100%; height:100%; touch-action:none; cursor:grab;}
+.avc-canvas:active{cursor:grabbing;}
+.avc-ring{position:absolute; inset:0; pointer-events:none; border-radius:50%;
+  box-shadow:0 0 0 9999px color-mix(in srgb,var(--paper) 62%,transparent), inset 0 0 0 1.5px color-mix(in srgb,#fff 70%,transparent);}
+.avc-zoom{display:flex; align-items:center; gap:10px; margin-top:14px;}
+.avc-zlabel{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);}
+.avc-range{flex:1; accent-color:var(--indigo);}
+.avc-hint{font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint); margin:8px 0 0;}
+.avc-acts{display:flex; justify-content:flex-end; gap:8px; margin-top:14px;}
+.avc-acts button{appearance:none; border:1px solid var(--rule); background:var(--paper); color:var(--ink); border-radius:8px; padding:8px 16px; font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:600; cursor:pointer;}
+.avc-acts .avc-cancel:hover{border-color:var(--ink-faint);}
+.avc-acts .avc-ok{background:var(--indigo); border-color:var(--indigo); color:#fff;}
+.avc-acts .avc-ok:hover{filter:brightness(1.08);}
+/* a photo on someone else's profile is a button — see openAvatarViewer */
+.mono-view{appearance:none; background:none; border:0; padding:0; cursor:zoom-in; border-radius:50%; display:inline-flex;}
+.mono-view:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
+
 /* the Library's line about how many decks the reader's level allows in the daily review */
 
 /* ---------- the options sheet (held down on a deck's row, or on the review banner above them) ----------
@@ -3537,8 +3571,14 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .mg-q b{color:var(--indigo);}
 .mg-feedback{font-size:calc(12.5px * var(--fs)); color:var(--ink-soft);}
 .mg-feedback[hidden]{display:none;}
-.mg-next{align-self:flex-start;}
-.mg-next[hidden]{display:none;}
+/* A TAP SELECTS AND THE BUTTON COMMITS (Aug 2026, on request) — so the card carries a row of actions
+   rather than one Next button. `.mg-acts` collapses when every button in it is hidden: as a bare flex
+   row it would still spend the card's 7px gap on nothing, which on a panel this small reads as the
+   feedback line having drifted away from the question. */
+.mg-acts{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+.mg-acts:not(:has(> button:not([hidden]))){display:none;}
+.mg-confirm[hidden], .mg-clear[hidden], .mg-next[hidden]{display:none;}
+.mg-clear{padding-inline:12px;}
 /* first-visit coach marks */
 .atlas-help{position:absolute; inset:0; z-index:9; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb, var(--paper) 42%, transparent); backdrop-filter:blur(2px); -webkit-backdrop-filter:blur(2px);}
 .atlas-help[hidden]{display:none;}
