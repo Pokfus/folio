@@ -1385,11 +1385,14 @@ body[data-theme="folio"] .collection-deco::after{
    automatic minimum is its content's, and without it a long value pushes the column past its share and
    squeezes the answer beside it.
 
-   `align-content:start` keeps the tiles at the TOP of the box rather than spread down it — the answer
-   term is the tall thing here and the figures annotate it, so they line up with its first line. */
+   `align-self:center` CENTRES the box against the answer beside it (Aug 2026, on request; it was
+   `align-content:start`, which lined the tiles up with the answer term's first line). The two properties
+   answer different questions and only the second one can do this: `align-content` distributes the grid's
+   own tracks inside the grid's own height, which is its content's, so it moves nothing — the box is a flex
+   item of `.answer`, whose `align-items:flex-start` is what was holding it to the top. */
 .card-facts{
   display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:6px;
-  align-content:start; flex:0 1 auto; min-width:0; max-width:min(58%, 340px);
+  align-content:start; align-self:center; flex:0 1 auto; min-width:0; max-width:min(58%, 340px);
 }
 .cf-tile{
   display:flex; flex-direction:column; gap:1px; min-width:0; padding:5px 10px 6px;
