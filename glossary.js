@@ -1617,7 +1617,8 @@ window.GLOSSARY = {
 "Battle_of_Lade": "The Battle of Lade was the sea fight of 494 BCE, off the small island of that name near Miletus, in which a Persian fleet destroyed the combined navy of the Greek cities of Asia and ended their revolt.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Herodotus counts 353 Ionian triremes against 600 on the Persian side, and describes an alliance that broke before the fighting: the crews refused their commander's drill, the Samians withdrew on terms arranged beforehand, and the Lesbians and most of the rest went with them.<sup class=\"fn\" data-fn=\"1\"></sup> The Chians fought on and lost most of their ships, and Herodotus declines to say who behaved well, since the cities afterwards blamed one another.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Didyma": "Didyma, also called Branchidae after the priestly family that served it, was the oracle and sanctuary of Apollo near Miletus, joined to the city by a Sacred Way and holding one of the largest temples of the archaic age.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Strabo records that the Branchidae gave up the god's treasures to the Persian king and went away with him to escape punishment for the sacrilege, and that the temple was burnt on the order of Xerxes.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus instead puts the plundering and burning with the fall of Miletus in 494 BCE, and Pausanias says Xerxes carried off its bronze Apollo, which Seleucus afterwards sent home.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Phrynichus_(tragic_poet)": "Phrynichus was an Athenian tragic poet of the early 5th century BCE whose plays are lost, and whose best-known work was a tragedy on the fall of Miletus to the Persians.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus records that the audience wept at it, that the city fined him a thousand drachmas for recalling a calamity it felt as its own, and that the play was forbidden for ever; Strabo, citing Callisthenes, reports the same fine and gives the title differently.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He nonetheless won the tragic prize in 476 BCE with Themistocles as his choregos, and Athenian audiences were still singing his songs when Aristophanes wrote.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Mardonius": "Mardonius was a Persian commander of the early 5th century BCE, son of Gobryas and married to a daughter of Darius, who led the expedition of 492 BCE that carried a Persian army into Europe against Athens and Eretria.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says he deposed the tyrants of Ionia and set up democracies on his way, and that his fleet was wrecked rounding Athos and his camp attacked in Macedonia, so that he turned back without reaching Greece.<sup class=\"fn\" data-fn=\"1\"></sup> He commanded again in the invasion of 480 BCE and was left in Greece with the army when Xerxes withdrew, and the campaign ended in his defeat in Boeotia the following year.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Mardonius": "Mardonius was a Persian commander of the early 5th century BCE, son of Gobryas and married to a daughter of Darius, who led the expedition of 492 BCE that carried a Persian army into Europe against Athens and Eretria.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says he deposed the tyrants of Ionia and set up democracies on his way, and that his fleet was wrecked rounding Athos and his camp attacked in Macedonia, so that he turned back without reaching Greece.<sup class=\"fn\" data-fn=\"1\"></sup> He commanded again in the invasion of 480 BCE and was left in Greece with the army when Xerxes withdrew, and the campaign ended in his defeat in Boeotia the following year.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Earth_and_water": "Earth and water were the tokens a Persian king's heralds demanded as a sign of submission, sent to peoples as far apart as the Scythians on the steppe, the king of Macedonia and the cities of Greece.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says Darius used the demand to learn whether the Greeks would fight or submit, that many on the mainland and every island approached gave the tokens, and that Athens and Sparta instead killed the heralds who brought the request.<sup class=\"fn\" data-fn=\"1\"></sup> The phrase is a Greek one, and Darius' own inscription at Behistun states submission differently, listing the lands that became subject to him and brought him tribute.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3402,7 +3403,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_Lade": ["Lade"],
 "Didyma": ["Branchidae","Didymeus"],
 "Phrynichus_(tragic_poet)": ["Phrynichus"],
-"Mardonius": ["Mardonius' campaign"]
+"Mardonius": ["Mardonius' campaign"],
+"Earth_and_water": ["earth and water"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5048,7 +5050,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Lade": ["battle","event","history","warfare","greece","iran"],
 "Didyma": ["building","place","religion","history","greece","anatolia"],
 "Phrynichus_(tragic_poet)": ["person","people","literature","history","greece","athens"],
-"Mardonius": ["person","people","warfare","history","greece","iran"]
+"Mardonius": ["person","people","warfare","history","greece","iran"],
+"Earth_and_water": ["practice","concept","history","warfare","greece","iran"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
