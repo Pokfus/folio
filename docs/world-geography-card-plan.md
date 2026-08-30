@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-183` São Tomé and Principe
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-186` Guam
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,36 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 68 (São Tomé and Príncipe, Samoa, Saint Lucia) caught the recognition guide contradicting
+ITSELF A SECOND TIME, three batches after Brunei, and this one is in a HEADING.** The Saint Lucia page's
+section is headed "Diplomatic Relations Established, **1983**" and the sentence under it says relations were
+established on **11 June 1979**, when Ambassador Sally Angela Shelton presented her credentials — dates four
+years apart, one of them plainly the other's typo. **Read the guide's prose, never its headings**, which is
+now a rule with two instances behind it rather than one anecdote. Saint Lucia is also the deck's clearest
+case of **recognition by an APPOINTMENT**: it became independent on 22 February 1979, and the United States,
+which had "informally recognized" it as an associated state of the Commonwealth, did not formally recognise
+the independence until it appointed an ambassador on 17 May, three months later. Samoa supplies another mode
+again — **a congratulatory message from the President hand-delivered by a SENATOR**, Oren Long, to the two
+heads of state on 1 January 1962 — and the deck's most persistent absence: relations began on 14 July 1971
+and **every American ambassador since has been resident at Wellington**, an embassy was opened at Apia on 15
+November 1988, and it has been run by a chargé d'affaires ever since because the ambassador never moved
+there. Beside Saint Lucia, whose ambassadors have all been resident in Barbados, and batch 67's note that
+Bridgetown serves as the American base for the region, that makes **three cards in two batches whose
+diplomatic history is really the history of somebody else's capital**. São Tomé and Príncipe is the
+opposite: its whole guide entry is four sentences, relations were established on 10 October 1975 **by an
+exchange of diplomatic notes** and nothing has been recorded since — no consulate, no embassy, no
+ambassador. It is also **the second country in three batches that is not in the World Trade Organization**,
+its working party dating from 26 May 2005 against the Bahamas' 18 July 2001, which is worth carrying: the
+deck's remaining small states are where the WTO's accession backlog actually lives. Two content notes.
+**Samoa's Commonwealth joining line is a third variety** after C4's independence line and batch 66's
+condominium — "1970, following administration by New Zealand", eight years after the independence of 1962 —
+and the same page records that Samoa hosted the heads of government meeting in 2024. And **the guide's date
+for the start of British rule in Saint Lucia is 1815, where the term said 1814**, so the term was corrected;
+its area went 617 → **616 km²**, which UNdata and the Commonwealth give identically, and its "changed hands
+fourteen times" went with batch 45's rule, along with São Tomé's "second smallest state in Africa" and "first
+plantation colony in the tropics" and Samoa's "first Pacific island country to gain independence" — three
+superlatives in one batch, all of them the kind a reader would repeat and none of them in a reachable source.
 
 **Batch 67 (New Caledonia, Barbados, French Polynesia) turned batch 64's Western Sahara route into a
 REPEATABLE RECIPE for a non-self-governing territory, and it is better than the one for a small state.**
