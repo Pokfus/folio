@@ -3795,6 +3795,17 @@ alias (`Clovis_point` as a key, `Clovis` as an alias of `Clovis_culture`), since
 surfaces longest-first; and **ask whether a one-word term is also an everyday word** before adding it —
 `Boreal` needed `caseSensitive: true` or four country and region terms saying "boreal forest" would have
 linked to a Holocene chronozone.
+**AND CHECK WHETHER THE TERM ALREADY EXISTS BEFORE RUNNING `add-glossary.js`, WHICH OVERWRITES IN
+SILENCE** (Aug 2026, on `wh-294`). The collections share a vocabulary: `Phoenician_alphabet` had been
+written for Ancient Greece long before World History reached it, and the helper answered a fresh entry
+with **`updated glossary term`** rather than `added` — one word, in a line nobody reads twice — having
+replaced a four-source description, its tags and its whole citation list with a two-source one. Nothing
+failed: the audits still reported 1,595 terms all at the bar, because a REPLACED term is still cited.
+What was lost was the part the older entry had and the newer did not, namely that whether a script with
+no vowel signs should be called an alphabet at all is disputed. **The pairing rule is satisfied by a term
+that already exists**, so the check is one command before the work rather than a repair after it, and the
+repair is `git checkout` on `glossary.js` and `glossary-extra.js` — which is only clean because nothing
+else in the batch had touched them.
 
 The deck and glossary are being regrown one entry at a time, each researched from **Wikipedia and
 academic sources** — accuracy is non-negotiable, never invent dates, names, or definitions. The kept
