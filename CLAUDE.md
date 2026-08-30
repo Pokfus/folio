@@ -872,6 +872,46 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   seat** and the plan says which each card asks for, with the working seat named in the facts box.
   **Israel and Palestine are deferred**, numbered but not written, because a card that shades a shape and
   asks for one word cannot hold a capital question whose answer is the dispute. Not part of the site.
+- `docs/china-geography-card-plan.md` — the running order for **China** (`geo-china`, the third
+  collection of the Geography SECTION), and the third plan that is not a thousand cards: it is **58
+  cards** — the 31 provincial-level divisions of mainland China (`gc-001`–`gc-031`) and the 27
+  provincial capitals (`gc-501`–`gc-531`, four numbers deliberately unused) — on the same **map card**
+  format, so it points at `docs/geography-card-plan.md` rather than restating it. **IT IS COMPLETE**:
+  all 58 shipped in Aug 2026, each with a paired glossary term at the citation bar and a picture, so the
+  plan is now a record of what was decided rather than a queue of work. **Sorted by
+  population, largest first, and fixed at planning time**, on the same reasoning *The world* gives.
+  Four things in it are decisions rather than lists. **WHICH DIVISIONS ARE IN IT COMES OUT OF ONE
+  DOCUMENT** — the National Bureau of Statistics' Seventh National Population Census, Communiqué No. 3,
+  which reports "31 provinces, autonomous regions and municipalities directly under the central
+  government of the Chinese mainland" — and that is also the work the order is sorted by and the work
+  the NAMES follow, so the list, the order and the spelling are one source rather than three judgements.
+  **HONG KONG, MACAU AND TAIWAN ARE NOT IN IT, and that is a fact about Folio rather than a claim about
+  any of them**: each has an ISO 3166-1 code, each is drawn by `world.js`, and each is already a card in
+  *The world* (`gw-104`, `gw-167`, `gw-060`), so carding one here would ask a shape twice on one site.
+  **FOUR CAPITAL NUMBERS ARE NEVER WRITTEN** — Beijing, Shanghai, Tianjin and Chongqing are cities that
+  are themselves divisions, so the shape being shaded IS the answer — and the decision is enforced by
+  `window.CHINA_CAPITALS` holding 27 rows rather than by the plan saying so, which is what makes
+  `add-card.js` refuse such a card. And its **sourcing survey is the one to read before writing**: every
+  Chinese government host outside `stats.gov.cn` refuses the connection here, `whc.unesco.org` and
+  `britannica.com` are 403, and `chinadaily.com.cn` answers and is a state newspaper, citable for what
+  it is and never as an independent source. Not part of the site.
+- `china-provinces.js` + `.claude/build-china-provinces.js` — the 31 provincial-level divisions of
+  mainland China and the 27 provincial capitals (`window.CHINA_PROVINCES` / `window.CHINA_CAPITALS`),
+  the third shape layer a map card can be drawn on. **Lazy** (bundle `chinaprov`, with `lakes.js` beside
+  it for the reason `usstates` carries it), **generated — never hand-edited**. Its shape is
+  `us-states.js`'s exactly, down to the tolerance, plus a `t` for the division's KIND — Province,
+  Autonomous Region or Municipality, which every card in the deck states and which the question is
+  careful not to assume — so one renderer draws a province and a state alike.
+  **📖 Read the script's header before touching it**, for one finding above all: **Natural Earth's
+  `Admin-1 capital` class is unusable for China**, where for the United States it was the whole answer.
+  It returns 32 points for 31 divisions and is wrong five ways at once — Zhaotong filed as a capital of
+  Yunnan and Fushun of Liaoning, Xining filed under Gansu, Beijing absent because it carries the
+  Admin-0 class instead, and two names misspelt. So the capital is DECLARED city by city and the
+  COORDINATE is still never typed: the point comes from Natural Earth's own record of the named city,
+  and **every point is then tested for falling inside its own province's polygon before it is written**,
+  which is the check Natural Earth's own attribution fails. It also records, measured rather than
+  assumed, that the `_lakes` variant changes NOTHING for China — all 32 features are vertex-identical
+  in the two variants, because the clipping is applied to lakes lying BETWEEN divisions.
 - `world-capitals.js` + `.claude/build-world-capitals.js` — the capital of every country and territory as
   a POINTS TABLE for a map card's gold dot (`window.WORLD_CAPITALS`, 246 cities across 233 entities,
   13.5 KB), the `world` layer's companion exactly as `US_CAPITALS` is `us-states.js`'s. **Lazy** (bundle
@@ -1306,7 +1346,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   which dropped the comment standing above the tree on every run — both headers are written out in full
   now. **Diff `data.js` after any tool run**: a whole-file rewrite normalises every card's KEY ORDER, which
   is semantically identical and turns a one-card change into 400 lines of review noise (the fix above
-  prevents it, and the cure is to splice the changed line into the old text).
+  prevents it, and the cure is to splice the changed line into the old text). **`add-card.js` has a
+  second, smaller footprint of the same kind, worth knowing before reviewing its diff**: it re-serialises
+  the array through `JSON.stringify`, which writes a whole-number float without its fractional part — so a
+  LOCATOR's authored `area` or `spine` comes back with `57.0` as `57` and `1.0` as `1`, on cards nobody
+  touched. Five did when the first China geography card was added. `57.0 === 57`, so nothing renders
+  differently and nothing is lost; it is review noise, and the cure is the same — restore those lines from
+  `git show HEAD:data.js` before committing.
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
   ANSWER TERM is, in batches: `node .claude/add-card-difficulty.js <batch.json>` over
@@ -2831,7 +2877,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Verified over the whole corpus: 341 fields transform and no other bracket is touched. **Re-run that
     check after a units batch.**
 - **British or American spelling, the reader's** (`S.settings.spelling` / `SPELL_PAIRS` / `spellText` /
-  `spellTree` / `applySpelling`). The units switch's shape exactly, so no field is authored twice. Eight
+  `spellTree` / `applySpelling`). The units switch's shape exactly, so no field is authored twice. Ten
   things are decisions rather than plumbing.
   · **IT IS A DECLARED TABLE AND NEVER A RULE, and every trap in it was found in the real corpus** — a
     `-re`→`-er` rule turns `timetree` into `timetrer`, a `kerb`→`curb` rule reaches into `Kerberos`, an
@@ -2854,9 +2900,45 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Colour of Prehistory* invents a title that does not exist, and a book is somebody's translation.
   · **`gradeCloze` TRANSFORMS THE ANSWER, NEVER THE GUESS** — the stored `answerText` is British, so an
     American reader typing what is on their screen would be marked wrong.
+  · **A TEXT NODE UNDER A NON-ENGLISH `lang` IS NOT ENGLISH AND IS LEFT ALONE** (`spellSkip` /
+    `SPELL_LANG_EN` / `SPELL_FOREIGN_SEL`; Aug 2026, on a bug report that the Spanish `por favor` was shown
+    as `por favour`). This is a switch between two spellings OF ENGLISH and it was being run over every text
+    node on the page, a **language deck's own Spanish, French, German, Italian and Portuguese included** —
+    where the table's American forms are ordinary foreign words. Measured over the 52 shipped decks: **5,568
+    rewrites of somebody else's language**, of which the worst is that the Spanish verb `saber` was shown as
+    `sabre` **on the FRONT of DELE A1's card 108**, so the word a learner was being taught to produce was
+    the misspelling. German `Labor` became `labour`, Portuguese `valor` `valour`, Spanish `color` `colour`.
+    **THE FIX NEEDED NO NEW MACHINERY, WHICH IS THE POINT**: `cardTypeSideHTML` has always written the card
+    type's `speechLang` onto the `.uc-card` wrapper, so the Spanish card was sitting inside `lang="es-ES"`
+    the whole time and the pass simply was not asking; the daily quote's original-language block carries its
+    own `lang` for the same reason, and `<html lang="en">` is the declaring ancestor for everything else, so
+    Folio's own prose is untouched. It is asked **once per pass, not per text node** — measured on `#decks`
+    (8,848 text nodes), a `closest("[lang]")` per node costs 2.74ms against 0.15ms for the flag, so a reader
+    with no foreign text on screen pays for none of it. An **empty** `lang` declares nothing and is not a
+    reason to skip. **KNOWN GAP, STATED RATHER THAN PAPERED OVER**: the rule can only see a language that is
+    DECLARED, so foreign text carrying no `lang` is still swept — a card type with no `speechLang` (all 52
+    shipped decks declare one on every type, so the shipped corpus is covered; a stranger's imported deck
+    need not), and a deck's own GLOSSARY, whose popup is drawn outside the card wrapper and inherits no
+    language (`UGLOSS` is empty across all 52, so there is nothing to fix yet; a deck that ever carries one
+    would want `lang` on `.gloss-win`).
+  · **THE WORD BOUNDARY IS UNICODE-AWARE, AND `\b` CANNOT BE** (same report). JS's `\b` is defined over
+    ASCII `\w`, so an **accented letter is a non-word character and stands as a boundary of its own** — a
+    `\b`-anchored pattern therefore matches INSIDE an accented word: `Moldávia` became `Mouldávia`,
+    `literário` `litreário`, `élaborer` `élabourer`, `honoré` `honouré`, `réorganiser` `réorganizer`. The
+    fix is the lookarounds `buildGlossIndex` already uses for the mirror of this reason (`Æsir` and `Vé`
+    could never MATCH): `(?<![\p{L}\p{N}_]) … (?![\p{L}\p{N}_])` with the `u` flag. **Folio's own corpus
+    was measured clean of it** — the fault only ever reached accented content, which is the decks — and it
+    is what keeps the known gap above from mangling the inside of words.
+  · **AND `spellSkip` IS ONE TEST FOR BOTH BRANCHES.** `spellTree`'s bare-text-node branch — the one the
+    MutationObserver feeds — had **no skip test at all**, so a citation or a book's prose updated in place
+    was rewritten while the same text reached through the walker was protected.
   **Known limit, stated rather than papered over**: the card browser searches stored card TEXT, so
-  "color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (64
-  assertions), most of which needs no browser.
+  "color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (83
+  assertions), most of which needs no browser — and its section 4 must stay in **en-GB**, since `favor` is
+  an American form and the American-to-British direction is the one that corrupts it; written against
+  en-US it passes on the unfixed code. It carries a **liveness check** beside it for the same reason: a
+  change that stopped the en-GB pass running would otherwise make every assertion there pass while testing
+  nothing.
 - **ENGLISH ONLY — `const MULTILANG = false`** (app.js, beside `LANG_CODES`; Aug 2026, on request). The site
   ships in English while the work is on making the English as good as it can be. It is **one switch** and it
   shuts three doors: no Language card on Settings, `?lang=xx` no longer switches, and `setLang` refuses
@@ -4037,7 +4119,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE SEVENTEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE EIGHTEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -4063,6 +4145,7 @@ lookup.
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
 | The world | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 136 cards — 470 rather than 1000, and sorted by POPULATION, see below |
+| China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
 

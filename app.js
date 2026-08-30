@@ -9563,6 +9563,14 @@
        cost to get the same file. It is listed in `atlas` too and that is fine: lakes.js ASSIGNS
        window.LAKES rather than pushing onto a queue, so arriving twice is idempotent. */
     usstates: { files: ["us-states.js", "lakes.js"] },
+    /* The 31 provincial-level divisions of mainland China and their 27 capitals, for the Geography
+       section's China collection. Its own bundle rather than a file inside `usstates` for the reason
+       `usstates` is not part of `atlas`: a reader studying the states must not fetch the provinces to be
+       asked which state is shaded, and the reverse. `lakes.js` rides along here too, and the reason is
+       the one recorded above — it is about world.js rather than about the province shapes, which are
+       NOT clipped (measured; see .claude/build-china-provinces.js). Without it Qinghai Lake and Poyang
+       are grey fields under a province. Arriving twice is free: lakes.js ASSIGNS window.LAKES. */
+    chinaprov: { files: ["china-provinces.js", "lakes.js"] },
     /* The capital of every country and territory as a POINTS TABLE, for the gold dot on a world capital
        card (see CARD_MAP_LAYERS). Its own bundle rather than a file inside `world`, and fetched only by a
        card that actually asks for a dot: `world` is what every map window loads for the coastline under
@@ -14392,7 +14400,14 @@
       // NOT filtered: an empty element is what admits the bare stem — see the table's own note
       sfx.split("|").forEach((t) => { gb[g + t] = u + t; if (!oneWay) us[u + t] = g + t; });
     });
-    const rx = (m) => new RegExp("\\b(?:" + Object.keys(m).sort((a, b) => b.length - a.length).join("|") + ")\\b", "gi");
+    /* THE BOUNDARY IS UNICODE-AWARE, AND `\b` CANNOT BE (Aug 2026, on a bug report). JS's `\b` is
+       defined over ASCII `\w`, so an accented letter counts as a NON-word character and stands as a
+       boundary of its own — which means a pattern anchored with `\b` matches INSIDE an accented word:
+       `Moldávia` became `Mouldávia`, `literário` became `litreário`, `élaborer` became `élabourer` and
+       `honoré` became `honouré`, because `Mold`, `liter`, `labor` and `honor` each end at an `á` or an
+       `é`. Bound on letters, numbers and underscore by Unicode instead — `buildGlossIndex` above already
+       does exactly this, and for the mirror of this reason (`Æsir` and `Vé` could never MATCH). */
+    const rx = (m) => new RegExp("(?<![\\p{L}\\p{N}_])(?:" + Object.keys(m).sort((a, b) => b.length - a.length).join("|") + ")(?![\\p{L}\\p{N}_])", "giu");
     return { gb, us, rxGB: rx(gb), rxUS: rx(us) };
   })();
   function spellSystem() { return SPELLINGS.includes(S.settings && S.settings.spelling) ? S.settings.spelling : "en-GB"; }
@@ -14437,10 +14452,68 @@
     }
     return out + swap(text.slice(last));
   }
+  /* THE PAGE ALREADY SAYS WHAT LANGUAGE ITS TEXT IS IN, AND THIS PASS WAS NOT ASKING (Aug 2026, on a
+     bug report: the Spanish `por favor` shown as `por favour`). A British/American switch is a choice
+     between two spellings OF ENGLISH, and it was being run over every text node on the page — including
+     a language deck's own Spanish, French, German, Italian and Portuguese, where the table's American
+     forms are ordinary foreign words. `por favor` became `por favour`, the Spanish verb `saber` became
+     `sabre` ON THE FRONT OF THE CARD (so the word a learner is being taught was the misspelling), German
+     `Labor` became `labour` and Portuguese `valor` became `valour`. Measured over the 52 shipped decks:
+     5,568 rewrites of somebody else's language.
+
+     THE FIX NEEDED NO NEW MACHINERY, WHICH IS THE POINT. `cardTypeSideHTML` has always written the card
+     type's `speechLang` onto the `.uc-card` wrapper, so the Spanish card that was being rewritten was
+     sitting inside `lang="es-ES"` the whole time; the daily quote's original-language block carries its
+     own `lang` for the same reason. So the rule is the standard one: a text node whose nearest declaring
+     ancestor is not English is not English, and is left exactly as its author wrote it. `<html lang="en">`
+     is that ancestor for everything else on the site, so Folio's own prose is untouched.
+
+     KNOWN GAP, STATED RATHER THAN PAPERED OVER: the rule can only see a language that is DECLARED, and
+     foreign text carrying no `lang` is still swept. Two ways that happens, both measured: a card type
+     with no `speechLang` (all 52 shipped decks declare one on every type, so the shipped corpus is
+     covered, but a stranger's imported deck need not), and a deck's own GLOSSARY, whose popup is drawn
+     outside the card wrapper and so inherits no language at all (no shipped deck carries one today —
+     `UGLOSS` is empty across all 52 — so there is nothing to fix yet, and a deck that ever does would
+     want `lang` on `.gloss-win`). The Unicode boundary above is what keeps those cases from mangling
+     the INSIDE of accented words; an exact ASCII collision in such a deck remains possible. */
+  const SPELL_LANG_EN = /^en(?:[-_]|$)/i;
+  /* `[lang|="en"]` is the attribute selector's own language test — it matches `en` and `en-GB` and
+     nothing else — so this finds an element declaring a language that is not English. It is asked ONCE
+     per pass rather than per text node, and on every page of Folio's own site the answer is no: measured
+     on `#decks` (8,848 text nodes, the heaviest list on the site), a `closest("[lang]")` per node costs
+     2.74ms and this costs 0.15ms. A reader who has no foreign text on screen pays for none of it. */
+  const SPELL_FOREIGN_SEL = '[lang]:not([lang|="en" i])';
+  // one skip test for both branches: the walker's nodes AND a bare text node handed to spellTree by the
+  // observer, which had no test of its own at all — so a citation updated in place was being rewritten
+  function spellSkip(p, foreign) {
+    if (!p || p.nodeName === "SCRIPT" || p.nodeName === "STYLE" || p.nodeName === "TEXTAREA") return true;
+    /* .notranslate is what protects the CITATIONS, and here it matters more than it does for units:
+       a citation names a published work, and rewriting `The Colour of Prehistory` into `Color`
+       invents a title that does not exist. The Library's books are covered by the same rule for the
+       same reason — a translation is somebody's published prose, transcribed rather than edited. */
+    if (p.isContentEditable) return true;
+    if (!p.closest) return false;
+    if (p.closest(".notranslate, .bk-page")) return true;
+    if (!foreign) return false;
+    const decl = p.closest("[lang]");
+    if (!decl) return false;
+    // an EMPTY lang declares nothing (HTML's "unknown"), so it is not a reason to skip — only a stated
+    // language that is not English is
+    const tag = (decl.getAttribute("lang") || "").trim();
+    return !!tag && !SPELL_LANG_EN.test(tag);
+  }
   function spellTree(root) {
     if (!root) return;
     const us = spellSystem() === "en-US";
-    if (root.nodeType === 3) { const v = spellText(root.nodeValue, us); if (v !== root.nodeValue) root.nodeValue = v; return; }
+    /* The document is asked as well as the root, and in that order: `render()` hands us a page that is
+       already in the document, but the observer can hand us a subtree, and a root that is somehow
+       detached would answer for itself. */
+    const foreign = !!(document.querySelector(SPELL_FOREIGN_SEL) ||
+      (root.nodeType === 1 && root.matches && (root.matches(SPELL_FOREIGN_SEL) || root.querySelector(SPELL_FOREIGN_SEL))));
+    if (root.nodeType === 3) {
+      if (spellSkip(root.parentNode, foreign)) return;
+      const v = spellText(root.nodeValue, us); if (v !== root.nodeValue) root.nodeValue = v; return;
+    }
     if (!root.querySelectorAll) return;
     const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
     const nodes = []; let n;
@@ -14448,13 +14521,7 @@
     nodes.forEach((node) => {
       const src = node.nodeValue;
       if (!src) return;
-      const p = node.parentNode;
-      if (!p || p.nodeName === "SCRIPT" || p.nodeName === "STYLE" || p.nodeName === "TEXTAREA") return;
-      /* .notranslate is what protects the CITATIONS, and here it matters more than it does for units:
-         a citation names a published work, and rewriting `The Colour of Prehistory` into `Color`
-         invents a title that does not exist. The Library's books are covered by the same rule for the
-         same reason — a translation is somebody's published prose, transcribed rather than edited. */
-      if (p.isContentEditable || (p.closest && p.closest(".notranslate, .bk-page"))) return;
+      if (spellSkip(node.parentNode, foreign)) return;
       const v = spellText(src, us);
       if (v !== src) node.nodeValue = v;
     });
@@ -18492,6 +18559,16 @@
        an icon is two collections a reader cannot tell apart on the shelf. The inner points are drawn
        right in (2.3 from the centre against the outer points' 8.6), which is what keeps four sharp
        spikes rather than a diamond at the 28px a deck row draws it. */
+    /* the Great Wall — the Geography section's China collection. The obvious mark is a pagoda and the
+       HISTORY collection already wears it, which is exactly the reason to draw a second: two collections
+       sharing a mark is two collections a reader cannot tell apart on the shelf, and these two are both
+       called China. A wall is also the right register for the collection it belongs to — it is a thing
+       on the map rather than a building. Drawn as a tower between two wall runs at different heights,
+       with the merlons as short ticks above a rail: at the 28px a deck row draws it the silhouette does
+       the work, and battlements cut as notches out of the top line close up into a grey bar. */
+    { k: "wall", n: "Great Wall", d: '<path d="M2 20.4h20"/><path d="M2 20.4v-6.2h7"/><path d="M22 20.4v-4.6h-7"/>' +
+      '<path d="M9 20.4v-9.6h6v9.6"/><path d="M8.6 10.8h6.8"/><path d="M10.1 10.8V8.9M12 10.8V8.9M13.9 10.8V8.9"/>' +
+      '<path d="M3.9 14.2v-1.7M6.4 14.2v-1.7M17.6 15.8v-1.7M20.1 15.8v-1.7"/>' },
     { k: "compass", n: "Compass rose", d: '<circle cx="12" cy="12" r="8.6"/><path d="M12 3.4 13.6 10.4 20.6 12 13.6 13.6 12 20.6 10.4 13.6 3.4 12 10.4 10.4Z"/>' },
     /* speech bubble — ALL SEVEN language collections share it, which is the one place on this shelf two
        collections wear one mark, and it is a decision rather than an omission. Every icon above says what
@@ -18559,6 +18636,7 @@
     korea: "taegeuk",
     "geo-us": "compass",
     "geo-world": "map",
+    "geo-china": "wall",
   };
   const ICON_SVG_OPEN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">';
   function iconSvg(key) { return ICON_SVG_OPEN + (ICON_PATH[key] || ICON_PATH.cards) + "</svg>"; }
@@ -22203,7 +22281,7 @@
        subject rather than a gap. The echo resolves itself the day a second collection joins it. */
     { label: "Philosophy", slot: "collection-list-phil" },
   ];
-  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy" };
+  const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
 
   /* ============================================================
@@ -22844,6 +22922,21 @@
        — a family resemblance with its sibling collection rather than a confusion with it, at L 38 and
        chroma 44, both mid-band. */
     "geo-world": { bg: "#106834" },
+    /* cobalt (China, in the Geography section) — MEASURED like every hue above it, and the measurement
+       had to be re-run rather than read off the note beside `geo-world`: that sweep compared against the
+       CURATED collections alone, and the language collections are drawn on the same page. Including them
+       moves the answer, and it moves it twice. The wheel's best-scoring free region is a rose-crimson at
+       ΔE 24.6, which is the magenta quadrant wearing a different name and is the standing rejection below.
+       Outside it the best band is this one. #1A4FA8 stands 18.2 from Rome's violet and 20.8 from French's
+       azure, against a tightest EXISTING pair of 12.9 (China's vermilion against Russia's lacquer), at
+       L 35 and chroma 55 — L mid-band, chroma high, which is the one figure traded away and it is traded
+       deliberately: the band's best candidate (#0654b7, ΔE 21.5) is louder still at chroma 61, and beside
+       two greens what this row needs is separation rather than volume.
+       The two China collections are DELIBERATELY not a family: the history collection's vermilion is 54
+       away, which is what stops "China" under History and "China" under Geography reading as one row
+       split in two. Blue-and-white porcelain is the colour's own argument for the subject, and it is a
+       China register the vermilion had not taken. 7.7:1 against white. */
+    "geo-china": { bg: "#1A4FA8" },
     /* THE SEVEN LANGUAGE COLLECTIONS. The hues were MEASURED and unevocative when the section shipped —
        swept in CIELAB and handed out alphabetically, on the reasoning that a flag colour would be a claim,
        Spanish not being Spain's and French being spoken on five continents. **THAT REASONING WAS OVERRULED
@@ -28191,6 +28284,13 @@
        card would otherwise fetch 13 KB of capitals to point at a valley. The loader below asks for it
        only where the card carries a `dot`. */
     world: { bundle: "world", global: "WORLD_GEO", what: "country", points: "WORLD_CAPITALS", pointsBundle: "worldcaps", dotWhat: "capital city" },
+    /* China's own provincial-level divisions, and the 27 provincial capitals beside them in the SAME
+       bundle rather than in one of their own. That differs from `world` above and the difference is the
+       whole reason each is written the way it is: the world's shapes are loaded by every map window on
+       the site for the coastline under it, so a history card's locator would fetch a table of capitals
+       to point at a valley — where this layer is loaded by nothing but a China map card, and every
+       reader of it is studying one of the two decks. One fetch, 13 KB of capitals inside it. */
+    "china-provinces": { bundle: "chinaprov", global: "CHINA_PROVINCES", what: "province", points: "CHINA_CAPITALS", dotWhat: "city" },
   };
   /* THE CEILING IS WHAT THE POLYGONS SUPPORT, and it is worth stating because the temptation is to set it
      by what a state needs. us-states.js is stored at 3dp, so every vertex sits on a 0.001° grid; at zoom Z
@@ -29041,6 +29141,30 @@
       '<div class="cf-tile"><span class="cf-k">' + esc(r[0]) + '</span><span class="cf-v">' + esc(r[1]) + "</span></div>").join("") + "</div>";
   }
 
+  /* ---------- the name in Chinese, under a map card's answer term (Aug 2026, on request) ----------
+     ONE LINE: simplified, then traditional at half strength where it DIFFERS, then the pinyin, all
+     baseline-independent and centred against each other by flex. The characters take the site's own
+     Chinese ink (`--zh`); the pinyin is small and takes the quiet ink, so the eye reads the glyphs first
+     and the romanisation only when it wants it.
+
+     IT REPLACES `.answer-tr` ON A MAP CARD RATHER THAN JOINING IT. That block is a collapsible column in
+     the answer box's RIGHT-HAND slot — which on a map card is already the figures grid — and it is built
+     for a card whose SUBJECT is Chinese, where this is a place's name and belongs under the name it
+     translates. Everything else keeps the old column untouched.
+
+     The traditional form is emitted only when it is not the simplified one, which is the request and is
+     also the only way the line reads: 河南 河南 would say the two scripts differ when they do not. */
+  function answerNameHTML(c) {
+    const hz = String((c && c.hanzi) || "").trim();
+    if (!hz) return "";
+    const tr = String((c && c.traditional) || "").trim();
+    const py = String((c && c.pinyin) || "").trim();
+    return '<div class="ans-cn">' +
+      '<span class="ac-s">' + esc(hz) + "</span>" +
+      (tr && tr !== hz ? '<span class="ac-t">' + esc(tr) + "</span>" : "") +
+      (py ? '<span class="ac-p">' + esc(py) + "</span>" : "") + "</div>";
+  }
+
   /* ---------- the flag beside the answer (Aug 2026, on request) ----------
      `answerFlag: { src, credit, alt }` — a state's or a city's own flag, drawn inside the coloured answer
      box to the right of the term and centred on it.
@@ -29325,7 +29449,7 @@
     if (typed != null) return typed + sourcesHTML(cardSources(c));
     let html = "";
     if (c.answer) {
-      const hasTr = !!c.hanzi;
+      const hasTr = !!c.hanzi && !cardMapSpec(c);
       html += '<div class="answer"><div class="answer-main"><span class="label">Answer' + ttsPlayHTML("answer", true) + "</span>";
       /* The flag, where the card has one, sits BESIDE the term inside `.answer-av` — so the wrapper is
          emitted only when there is one, and every card without a flag keeps byte-identical markup. */
@@ -29333,6 +29457,7 @@
       html += '<div class="answer-av">' +
         (flagHTML ? '<div class="av-term"><span class="val">' + c.answer + "</span>" + flagHTML + "</div>"
                   : '<span class="val">' + c.answer + "</span>");
+      if (cardMapSpec(c)) html += answerNameHTML(c);
       html += '<div class="av-row">' + (c.answerDate || "") + "</div></div></div>";
       /* The figures sit BESIDE the answer, not under it (Aug 2026, on request) — a sibling of .answer-main
          inside the coloured box, which is the slot `.answer-tr` already occupies on a Chinese card. That is

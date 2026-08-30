@@ -195,6 +195,12 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // Crossref has parsed three Chinese bylines given surname-first, so the family
+  // names land in the given-name field: the article's own byline is Yuxin Feng,
+  // Yunxia Tian and Xiaoyu Lv.
+  ["10.1371/journal.pone.0299286", "Yuxin Feng", "Feng Yuxin"],
+  ["10.1371/journal.pone.0299286", "Yunxia Tian", "Tian Yunxia"],
+  ["10.1371/journal.pone.0299286", "Xiaoyu Lv", "Lv Xiaoyu"],
   // The article's own title page spells it Jacques; Crossref has dropped the c.
   ["10.14430/arctic1218", "Jacques Cinq-Mars", "Jaques Cinq-Mars"],
   // Radiocarbon's own page gives van der Plicht, a Dutch tussenvoegsel Crossref has
@@ -306,7 +312,12 @@ async function crossref(doi) {
       const m = JSON.parse(r.body).message;
       const yr = (k) => (m[k] && m[k]["date-parts"] && m[k]["date-parts"][0] || [])[0] || null;
       const rec = {
-        authors: (m.author || []).map((a) => ((a.given || "") + " " + (a.family || "")).trim()).filter(Boolean),
+        /* A MONONYM is a person's whole name — Mongolian and Indonesian bylines carry
+           them — and citedAuthors() drops any token with no space in it, so a record
+           keeping one would push every later author one place out of step and report
+           three good names as wrong.  Drop them from BOTH sides, not from one. */
+        authors: (m.author || []).map((a) => ((a.given || "") + " " + (a.family || "")).trim())
+          .filter((n) => n && /\s/.test(n)),
         title: (m.title || [])[0] || "",
         years: [...new Set(["issued", "published-print", "published-online"].map(yr).filter(Boolean))],
         print: !!yr("published-print"),
