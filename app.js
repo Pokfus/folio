@@ -28775,6 +28775,30 @@
       '<div class="cf-tile"><span class="cf-k">' + esc(r[0]) + '</span><span class="cf-v">' + esc(r[1]) + "</span></div>").join("") + "</div>";
   }
 
+  /* ---------- the name in Chinese, under a map card's answer term (Aug 2026, on request) ----------
+     ONE LINE: simplified, then traditional at half strength where it DIFFERS, then the pinyin, all
+     baseline-independent and centred against each other by flex. The characters take the site's own
+     Chinese ink (`--zh`); the pinyin is small and takes the quiet ink, so the eye reads the glyphs first
+     and the romanisation only when it wants it.
+
+     IT REPLACES `.answer-tr` ON A MAP CARD RATHER THAN JOINING IT. That block is a collapsible column in
+     the answer box's RIGHT-HAND slot — which on a map card is already the figures grid — and it is built
+     for a card whose SUBJECT is Chinese, where this is a place's name and belongs under the name it
+     translates. Everything else keeps the old column untouched.
+
+     The traditional form is emitted only when it is not the simplified one, which is the request and is
+     also the only way the line reads: 河南 河南 would say the two scripts differ when they do not. */
+  function answerNameHTML(c) {
+    const hz = String((c && c.hanzi) || "").trim();
+    if (!hz) return "";
+    const tr = String((c && c.traditional) || "").trim();
+    const py = String((c && c.pinyin) || "").trim();
+    return '<div class="ans-cn">' +
+      '<span class="ac-s">' + esc(hz) + "</span>" +
+      (tr && tr !== hz ? '<span class="ac-t">' + esc(tr) + "</span>" : "") +
+      (py ? '<span class="ac-p">' + esc(py) + "</span>" : "") + "</div>";
+  }
+
   /* ---------- the flag beside the answer (Aug 2026, on request) ----------
      `answerFlag: { src, credit, alt }` — a state's or a city's own flag, drawn inside the coloured answer
      box to the right of the term and centred on it.
@@ -29059,7 +29083,7 @@
     if (typed != null) return typed + sourcesHTML(cardSources(c));
     let html = "";
     if (c.answer) {
-      const hasTr = !!c.hanzi;
+      const hasTr = !!c.hanzi && !cardMapSpec(c);
       html += '<div class="answer"><div class="answer-main"><span class="label">Answer' + ttsPlayHTML("answer", true) + "</span>";
       /* The flag, where the card has one, sits BESIDE the term inside `.answer-av` — so the wrapper is
          emitted only when there is one, and every card without a flag keeps byte-identical markup. */
@@ -29067,6 +29091,7 @@
       html += '<div class="answer-av">' +
         (flagHTML ? '<div class="av-term"><span class="val">' + c.answer + "</span>" + flagHTML + "</div>"
                   : '<span class="val">' + c.answer + "</span>");
+      if (cardMapSpec(c)) html += answerNameHTML(c);
       html += '<div class="av-row">' + (c.answerDate || "") + "</div></div></div>";
       /* The figures sit BESIDE the answer, not under it (Aug 2026, on request) — a sibling of .answer-main
          inside the coloured box, which is the slot `.answer-tr` already occupies on a Chinese card. That is

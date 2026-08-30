@@ -1401,6 +1401,16 @@ body[data-theme="folio"] .collection-deco::after{
 .cf-k{font-family:var(--mono); font-size:calc(8.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); font-weight:600; opacity:.62; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .cf-v{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink-soft); line-height:1.35; overflow-wrap:anywhere;}
 
+/* ---------- a map card's answer in Chinese (see answerNameHTML) ----------
+   One line under the answer term: simplified, the traditional form at half strength where it differs,
+   then the pinyin. `align-items:center` is what vertically centres the small romanisation against the
+   tall glyphs — a baseline alignment would hang it off the characters' feet. It wraps rather than
+   overflowing, since a four-character name with its pinyin is wider than a phone's answer column. */
+.ans-cn{display:flex; align-items:center; flex-wrap:wrap; gap:0 10px; margin:3px 0 1px; line-height:1.15;}
+.ans-cn .ac-s{font-family:var(--han); font-weight:400; font-size:calc(21px * var(--fs)); color:var(--zh);}
+.ans-cn .ac-t{font-family:var(--han); font-weight:400; font-size:calc(21px * var(--fs)); color:var(--zh); opacity:.5;}
+.ans-cn .ac-p{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint);}
+
 /* ---------- a map card's window (see the MAP CARDS block in app.js) ----------
    The question is a canvas: one place shaded on the globe, turned and zoomed by the reader. `touch-action:
    none` is what makes it work on a phone at all — the same rule the whiteboard canvas needs, and for the
