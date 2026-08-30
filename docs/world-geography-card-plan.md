@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-208`, less the deferred `gw-195` and `gw-201`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-211`, less the deferred `gw-195` and `gw-201`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-209` the Northern Mariana Islands, `gw-195` Jersey and `gw-201` Guernsey being deferred
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-212` the British Virgin Islands, `gw-195` Jersey and `gw-201` Guernsey being deferred
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,61 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 76 (Northern Mariana Islands, Sint Maarten, Liechtenstein) found that the M49 list is not only a
+register of codes but a DATED RECORD OF WHEN AN ENTITY CAME INTO BEING.** Its change log carries
+`580 | Northern Mariana Islands | 1991 | Formerly part of Pacific Islands (Trust Territory) (numerical
+code 582)` and `534 | Sint Maarten (Dutch part) | 2010 | Formerly part of the Netherlands Antilles
+(numerical code 530)` — the statistical trace of two constitutional changes, one the year after the
+Security Council ended the Trusteeship Agreement and the other the year the Netherlands Antilles was
+dissolved. Batch 74 reached for this list to settle a question about Jersey and Guernsey and found it
+carried a change log at all; **it is worth grepping for any territory whose status changed in living
+memory**, since it dates the change in the UN's own books and needs no second source to interpret.
+
+**A UN digital-library RECORD PAGE may carry the whole substance of a resolution in its Summary field,
+which matters because so many of the older PDFs are image scans.** Batch 74 could cite A/RES/849(IX) only
+for its title. Here the record for **S/RES/683 (1990)** prints a full abstract: that the peoples of the
+Federated States of Micronesia, the Marshall Islands and the Northern Mariana Islands had approved their
+new status agreements in plebiscites observed by visiting missions of the Trusteeship Council, and that
+the Council determined the Trusteeship Agreement's applicability terminated with respect to them. The
+record also gives the meeting (2972nd), the date (22 December 1990) and the **vote (14–1)** in fields of
+their own. **Read the record before opening the PDF**: it is faster, it survives a scanned file, and its
+Summary is written by the Library rather than extracted.
+
+**`doi.gov` answers, and the Office of Insular Affairs is to the American territories what the C-24
+working papers are to the listed ones.** The Northern Marianas have no working paper — they left the
+United Nations' books in 1990 — so the equivalent institutional account is the administering power's own,
+and OIA's page gives the whole constitutional sequence in five sentences: the Trust Territory administered
+for the United Nations from 1947, the Covenant passed into federal law in 1975, the constitution adopted
+in 1977, the first constitutional government in 1978, federal minimum wage rules in 2007, federal
+immigration law in 2008, and Homeland Security taking over immigration and border controls in June 2009.
+**Reach for it for Guam, American Samoa and the US Virgin Islands too**, beside their working papers.
+
+**A third capital-field divergence in two batches, and this one is a seat-of-government case rather than a
+stale figure.** UNdata names **Garapan** as the capital of the Northern Marianas; the Office of Insular
+Affairs addresses the Governor at **Capital Hill, Saipan**. That is C10's Palau case exactly — Ngerulmud
+against Melekeok — and it is recorded rather than corrected: the facts box takes UNdata's field and the
+abstract says where the government actually sits. With batch 75's Pago Pago agglomeration and Cockburn
+Town's hundred people dated 2001, **the capital field has now failed three ways in two batches** and
+should be read as a claim to check rather than a value to copy.
+
+**`government.nl` carried a whole card on its own, four pages of it.** Batch 69 found the route and batch
+71 extended it; Sint Maarten is where it pays in full, because four separate topic pages each answer a
+different question — the constitutional change of 10 October 2010, the division of powers under the
+Charter for the Kingdom, the Governor's role and the Ministers Plenipotentiary, and the reconstruction
+after hurricane Irma. The last is the most useful and the least expected: a government explaining what it
+spent and on what condition. **Sint Maarten has no Minister Plenipotentiary in Washington where Aruba and
+Curaçao do**, which the governance page states outright and which no statistical profile would ever
+contain.
+
+Liechtenstein, finally, is the batch's quiet correction. Its glossary term said the country shares with
+Switzerland "a currency, a customs union and its diplomatic representation abroad" — present tense — where
+the recognition guide says it *yielded* control of its foreign affairs to Switzerland "for much of the
+twentieth century" and then "began pursuing independent membership in international organizations at the
+end of the twentieth century", joining the United Nations in 1990 and receiving its first accredited
+American ambassador in 1997. **A present-tense clause about an arrangement a source describes in the past
+is the same error as a superlative no source states**, and it is easier to miss, since nothing in the
+sentence looks like a claim.
 
 **Batch 75 (Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands) REFINES batch 74's warning
 about the World Bank's area series into something usable.** Batch 74 found `AG.SRF.TOTL.K2` wrong by
