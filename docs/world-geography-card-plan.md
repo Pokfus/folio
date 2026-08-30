@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-217`, less the deferred `gw-195` and `gw-201`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-221`, less the deferred `gw-195`, `gw-201` and `gw-218`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland, Anguilla, Palau, Cook Islands) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-218` Saint Martin, `gw-195` Jersey and `gw-201` Guernsey being deferred
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-222` Nauru, `gw-195` Jersey, `gw-201` Guernsey and `gw-218` Saint Martin being deferred
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,55 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 79 (Anguilla, Palau, Cook Islands) MEASURED the shape batch 74 corrected, and the two lists'
+holes turn out to be independent.** Batch 74 established that UNdata's profile set is narrower than M49
+and must be tested per entity; this batch met four entities in one sitting and every combination
+appeared. **Saint Martin: World Bank yes, UNdata no** (`mf` returns 500, `MAF` has both population and
+area series). **Anguilla: UNdata yes, World Bank no** (`AIA` returns an empty result set — no error, a
+`total` of 0, which is the quieter failure of the two). **Cook Islands: UNdata yes, World Bank no**
+(`COK` is not a valid country code at all). **Åland, last batch: neither.** So the two are not one list
+with one set of gaps — they are independent registers, and **the only reliable procedure is to try both
+for every entity**, which costs two requests and settles it.
+
+**`gw-218` Saint Martin is DEFERRED, and on the narrowest possible ground: nothing openable names its
+seat of government.** Everything else is there — the World Bank's population series (24,941 for 2025,
+down from 37,369 in 2015, a third gone since hurricane Irma), its area series at 50 km², the European
+Commission naming Saint-Martin one of the EU's nine **outermost regions** where "EU law and all the
+rights and duties associated with EU membership apply", Article 355(1) TFEU listing it among the regions
+the Treaties apply to under Article 349, the M49 entry (663, MAF), and Anguilla's own working paper
+locating the island 8 km to its south. What is missing is Marigot: `insee.fr`'s dossier and comparateur
+are JavaScript shells, `legifrance.gouv.fr` and `outre-mer.gouv.fr` are 403, the collectivity's own site
+mentions Marigot only in a meeting-room address, and the prefecture's does not mention it at all. **The
+facts box could have taken a Status row instead and the card would have shipped**; it is deferred because
+the plan already numbers `gw-718` Marigot, and a countries card that quietly drops the Capital row every
+other card carries is a worse answer than a gap the plan explains.
+
+**A stranded marker was found in the Palau term, and it is the kind only reading the source catches.**
+The term said "its capital is Ngerulmud" with the marker pointing at UNdata — **which names Melekeok**.
+Nothing was broken: the fold listed a real source, the claim is defensible, and `gloss-source-audit.js`
+counts citations rather than checking them. It now says what its source says. The card carries the whole
+picture instead, because UNdata's own footnote confesses it: the capital-city figure of 11,400 for 2018
+"Refers to Koror", and the recognition guide puts the American embassy at Koror too. **`gw-720` Ngerulmud
+needs a source or a re-plan** — nothing reachable here names it (`palaugov.pw` serves a 202 challenge,
+`un.int` and `pacificdata.org` are 403, the Pacific Islands Forum's page says nothing).
+
+**The capital field has now failed in five distinct ways across four batches, and in three of them
+UNdata says so itself.** Batch 75: Pago Pago's 48,500 is an agglomeration larger than American Samoa's
+whole population; Cockburn Town's is a hundred people dated 2001. Batch 76: Garapan named where the
+government sits at Capital Hill. This batch: Palau's figure "Refers to Koror", and the Cook Islands'
+13,100 for Avarua "Refers to the island of Rarotonga" — which is the entire country. **The footnote is
+the field's own erratum slip; read it before copying the value.**
+
+Two more things worth keeping. **UNdata's Cook Islands area footnote makes a constitutional-sounding
+claim that is a filing convention**: 236 km² "Excluding Niue, shown separately, which is part of Cook
+Islands, but because of remoteness is administered separately". Niue is a self-governing state in free
+association with New Zealand in its own right and has its own card coming; the note is repeated on the
+card **attributed to the statistics division**, never asserted. And **`legislation.gov.uk` served a
+second overseas-territory constitution**, the Anguilla Constitution Order 1982 (SI 1982/334), forty years
+older than batch 77's Turks and Caicos order and equally complete — so the route is not a recent-instruments
+one, and it should carry Montserrat, the Falklands, Saint Helena and the rest of the deck's British
+territories.
 
 **Batch 78 (Marshall Islands, San Marino, Åland) met the deck's THIRD entity invisible to both
 quantitative sources and did NOT defer it, which is what the batch is for.** `data.un.org/en/iso/ax.html`
