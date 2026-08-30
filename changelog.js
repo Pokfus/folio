@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.413", released: "2026-08-30T08:08Z" };
+window.FOLIO_VERSION = { v: "1.414", released: "2026-08-30T10:36Z" };
 
 window.CHANGELOG = [
   {
@@ -44,7 +44,7 @@ window.CHANGELOG = [
     items: [
       "<b>The China geography collection is finished</b>, all 31 provinces and regions and all 27 provincial capitals, each with a glossary term and a picture of its own.",
       "The figures beside a geography card's answer are now <b>centred against it</b> rather than pinned to its top line.",
-      "<b>Twenty-eight China geography cards rewritten</b> around each place's own history, culture and society, with a consistent box of figures beside the answer.",
+      "<b>Thirty China geography cards rewritten</b> around each place's own history, culture and society, with a consistent box of figures beside the answer.",
       "Every China geography card now carries <b>the same four figures</b>, and <b>its name in Chinese</b> under the answer, in both scripts with the pinyin beside them.",
       "Populations on those cards are written short — <b>126M, 868k</b> — rather than to the last person.",
       "A Chinese capital now gives <b>its rank among all China's cities</b> rather than within its own province.",
