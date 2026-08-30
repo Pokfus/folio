@@ -1599,7 +1599,8 @@ window.GLOSSARY = {
 "Carthage": "<b>Carthage</b> was a city on the North African coast, in what is now Tunisia, founded from the Phoenician city of Tyre and dated by ancient convention to about 814 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It belonged to a westward Phoenician expansion that also produced Utica and Gadir, became the leading city of the Punic west, and fought three wars with Rome, the last of which ended in its destruction in 146 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Genome-wide data from Punic sites shows its people drawing most of their ancestry from a profile resembling that of Sicily and the Aegean rather than from the Levant, with North African ancestry a minority contributor at every site sampled.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Urartu": "<b>Urartu</b> was an Iron Age kingdom in the mountains around Lake Van, in what is now eastern Turkey and Armenia, at its height between about 800 and 600 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings set down a language of their own in the cuneiform script of Mesopotamia and built fortresses across the highlands, one of which is thought to survive as a massive mudbrick wall at Artaxata.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Most of what was written about it comes from Assyria, whose kings campaigned against it and recorded in detail the canals, orchards and shrines they destroyed there.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Lydia": "Lydia was a kingdom of western Anatolia centred on Sardis, beneath Mount Tmolus on the Hermus plain, whose kings came to rule the peoples west of the river Halys and to take tribute from the Greek cities of the coast.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its language, Lydian, belonged to the Anatolian branch of Indo-European and was written in an alphabet of Greek-looking letters that is not descended straight from the Phoenician script.<sup class=\"fn\" data-fn=\"3\"></sup> Tombs are the largest class of monument it left, scores of mounds standing at Bin Tepe north of the city, and Sardis fell to Cyrus about 547 BCE, after which Lydia was ruled by Persian satraps.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Medes": "The Medes were an Iranian-speaking people of the Zagros mountains and the western Iranian plateau, named in Assyrian annals from the 9th century BCE onwards and described there as a country of many local chiefs and mayors rather than as a single kingdom.<sup class=\"fn\" data-fn=\"1\"></sup> In the Babylonian chronicle of Nabopolassar they appear under Cyaxares, taking Ashur and then joining the Babylonians in the destruction of Nineveh in 612 BCE.<sup class=\"fn\" data-fn=\"2\"></sup> Herodotus instead gives them four kings in succession and a capital at Ecbatana ringed by seven walls, ending when Cyrus deposed Astyages, and Darius later met a rebel in Media claiming the family of Cyaxares.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Medes": "The Medes were an Iranian-speaking people of the Zagros mountains and the western Iranian plateau, named in Assyrian annals from the 9th century BCE onwards and described there as a country of many local chiefs and mayors rather than as a single kingdom.<sup class=\"fn\" data-fn=\"1\"></sup> In the Babylonian chronicle of Nabopolassar they appear under Cyaxares, taking Ashur and then joining the Babylonians in the destruction of Nineveh in 612 BCE.<sup class=\"fn\" data-fn=\"2\"></sup> Herodotus instead gives them four kings in succession and a capital at Ecbatana ringed by seven walls, ending when Cyrus deposed Astyages, and Darius later met a rebel in Media claiming the family of Cyaxares.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Cyrus_the_Great": "Cyrus the Great founded the Persian empire, and on his clay cylinder from Babylon he takes the old Babylonian titles and traces himself through Cambyses and an earlier Cyrus to Teispes, all kings of Anshan.<sup class=\"fn\" data-fn=\"1\"></sup> The cylinder is a Babylonian text of a conventional kind, denouncing Nabonidus for neglecting the cult until Marduk chose Cyrus, brought him into the city without battle and had gods and people returned to their homes.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus tells the conquest otherwise, as a diversion of the Euphrates, and gives him death among the Massagetae after a reign one year short of thirty, while Xenophon made him the model ruler of a didactic romance.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2325,7 +2326,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Carthage": "c. 814 – 146 BCE",
 "Urartu": "c. 800 – 600 BCE",
 "Lydia": "c. 680 – 547 BCE",
-"Medes": "9th – 6th century BCE"
+"Medes": "9th – 6th century BCE",
+"Cyrus_the_Great": "c. 559 – 530 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3346,7 +3348,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Carthage": ["Carthaginian"],
 "Urartu": ["Urartian"],
 "Lydia": ["Lydian"],
-"Medes": ["Mede","Median","Media"]
+"Medes": ["Mede","Median","Media"],
+"Cyrus_the_Great": ["Cyrus II"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4972,7 +4975,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Carthage": ["place","city","history","archaeology","iron age"],
 "Urartu": ["state","place","history","archaeology","iron age"],
 "Lydia": ["state","place","history","archaeology","anatolia","iron age"],
-"Medes": ["people","state","history","politics","iron age","iran"]
+"Medes": ["people","state","history","politics","iron age","iran"],
+"Cyrus_the_Great": ["person","ruler","history","politics","iron age","iran"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
