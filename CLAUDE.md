@@ -3765,6 +3765,16 @@ the end of a successful add and print the candidates, their licences, their size
   glossary terms and one artefact today, most of them abstract concepts and living scholars — say so in the
   commit message rather than leaving the gap looking like an oversight. `--no-image` skips the lookup for a
   batch run with no network.
+· **AND WHEN `upload.wikimedia.org` RATE-LIMITS, `Special:FilePath` STILL SERVES THE FILE** (Aug 2026).
+  A long session that has looked at a dozen pictures starts getting a 2,255-byte **429** from
+  `upload.wikimedia.org` on every request, and it does not clear with backoff — fifteen minutes of waiting
+  bought nothing. `https://commons.wikimedia.org/wiki/Special:FilePath/<FILE>?width=900` answers 200 with
+  the image, and so does `commons.wikimedia.org/w/thumb.php?f=<FILE>&width=900`; the ordinary file
+  DESCRIPTION page keeps working throughout too, which is where the licence and author have to be read
+  from when the `api.php` endpoint is also limited. **Use those to LOOK at a candidate**; the `src` written
+  into the card stays the normal `/thumb/…/1920px-…` URL, since the limit is this container's and not a
+  reader's. The rule this protects is the one that matters: **look at the picture before using it**, and a
+  host that will not serve it is a reason to keep trying or to ship without one, never to install unseen.
 · It writes the same fields the pass writes: a card and a term take `{ src, title, desc, credit, alt }`, an
   artefact `{ src, credit, alt }`, and **`credit` is required in all three** — a picture on Folio is always
   somebody else's file, and `add-card.js`, `add-glossary.js`, `add-artefacts.js`, `add-images.js` and the
