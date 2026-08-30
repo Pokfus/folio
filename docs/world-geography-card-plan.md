@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-174` Cabo Verde
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-177` Bahamas
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,43 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 65 (Cabo Verde, Brunei, Belize) is where the recognition guide, the spine of Phase 3's history,
+CONTRADICTS ITSELF AND MISSPELLS A NAME IT PRINTS TWICE** — P2's rule that a spine source is not infallible,
+in a third coat. The Brunei page says the United States recognised full independence on 1 January 1984 and
+"opened the American Embassy in Bandar Seri Begawan on that same date", and then, four paragraphs down, that
+"diplomatic relations and the American Embassy in Brunei were established on May 28, 1984". Both cannot be
+the embassy's opening. The card states the recognition and the credentials and **leaves the embassy date
+unstated** rather than picking one. The Cape Verde page prints the president's surname as *Pereria* in both
+of the places it appears, which is a form no other reachable source uses; **the name was dropped from the
+card rather than corrected on a hunch**, since nothing openable here gives the spelling. And the Belize page
+dates the Guatemala dispute to "an 1859 treaty between Imperial Spain and Great Britain", which the card
+does not repeat: it says only *a treaty of 1859*. **Where a source is the only one you have and it is
+visibly wrong about something, state the part it can carry and say nothing about the rest** — the alternative
+is to publish somebody else's slip with Folio's name on it. Three finds go the other way. **Brunei carries
+the deck's oldest treaty still in force**: the Treaty of Peace, Friendship, Commerce and Navigation signed
+on 23 June 1850, in force from 11 July 1853, which the guide says "is still in effect today" — older than
+most of the states in this deck. **Belize's recognition came FIVE WEEKS AFTER its independence**, on 29
+October 1981 against 21 September, by raising a consulate general to an embassy, where the deck's usual
+pattern is the same day or a few days. And **the ICJ carried a second card in two batches**:
+`icj-cij.org/case/177` dates the Guatemala/Belize special agreement to 8 December 2008, its protocol to 25
+May 2015 and the seising of the Court to 12 June 2019, which no statistical profile holds. **The guide also
+settles D1's naming problem with a citation rather than an inference** — "In 2013, the country was re-named
+Cabo Verde" — so the card can say outright that the United Nations and the WTO use Cabo Verde while the
+guide still files it under Cape Verde, which is why the glossary key is `Cape_Verde` and the alias is the
+other way round. Two smaller notes. **This is the first batch since C10 with no population correction at
+all**, and the reason is arithmetic rather than better editing: Cabo Verde's whole decade runs 512,394 to
+524,877, so a term written at any point in it is still right. And **Belize is the pass's fifth moving World
+Bank area series and the first that moves the RIGHT way** — 22,970 for 2019–22 and 22,966 for 2023, a
+de-rounding toward UNdata's 22,965, where Canada, the Dominican Republic, Monaco and Montenegro all moved
+without explanation and one was outright error. Access: `ine.cv`, Cabo Verde's own statistics institute,
+serves 10 KB containing the single word "INE", another JavaScript shell; `un.org/development/desa`,
+`unctad.org` and `au.int/en/countryprofiles` are all shut, so a small African state outside the Commonwealth
+has no bloc profile and is carried by UNdata, the guide, the WTO and the two World Bank series between them.
+Batch 45's rule fired for the twelfth consecutive batch and took four superlatives: Brunei's forest as "one
+of the highest proportions left in the region" became 72.1 per cent, and Belize's "longest reef system in
+the northern hemisphere", its "only Central American state whose official language is English" and Cape
+Verde's "more Cape Verdeans now live abroad than at home" all went, none being in anything reachable.
 
 **Batch 64 (Western Sahara, Malta, Maldives) wrote the deck's first NON-SELF-GOVERNING TERRITORY, and
 the route is the United Nations' own decolonization machinery rather than any of Phase 3's three sources.**
