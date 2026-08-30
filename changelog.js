@@ -45,6 +45,7 @@ window.CHANGELOG = [
       "<b>The China geography collection is finished</b>, all 31 provinces and regions and all 27 provincial capitals, each with a glossary term and a picture of its own.",
       "The figures beside a geography card's answer are now <b>centred against it</b> rather than pinned to its top line.",
       "<b>Eight China geography cards rewritten</b> around each place's own history, culture and society, with a consistent box of figures beside the answer.",
+      "Every China geography card now carries <b>the same four figures</b>, a capital city's among them its GDP a head.",
     ],
   },
   {
