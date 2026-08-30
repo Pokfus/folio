@@ -312,7 +312,12 @@ async function crossref(doi) {
       const m = JSON.parse(r.body).message;
       const yr = (k) => (m[k] && m[k]["date-parts"] && m[k]["date-parts"][0] || [])[0] || null;
       const rec = {
-        authors: (m.author || []).map((a) => ((a.given || "") + " " + (a.family || "")).trim()).filter(Boolean),
+        /* A MONONYM is a person's whole name — Mongolian and Indonesian bylines carry
+           them — and citedAuthors() drops any token with no space in it, so a record
+           keeping one would push every later author one place out of step and report
+           three good names as wrong.  Drop them from BOTH sides, not from one. */
+        authors: (m.author || []).map((a) => ((a.given || "") + " " + (a.family || "")).trim())
+          .filter((n) => n && /\s/.test(n)),
         title: (m.title || [])[0] || "",
         years: [...new Set(["issued", "published-print", "published-online"].map(yr).filter(Boolean))],
         print: !!yr("published-print"),
