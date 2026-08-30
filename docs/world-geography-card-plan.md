@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-189` Seychelles
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-192` Aruba
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,38 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 70 (Seychelles, Grenada, Micronesia) turns the UNdata capital-city footnote into a STANDING
+RULE, because it has now been wrong three times in seven batches and in three different ways.** Malta's
+212,800 for "Valletta" is the Northern and Southern Harbour districts; Curaçao's 144,000 for "Willemstad" is
+the island's own total excluding some neighbourhoods; and Grenada's 39,300 for "Saint George's" is footnoted
+*"Refers to Saint George Parish"*. **Never print UNdata's capital-city population without reading its
+footnote** — the field is not a city's population often enough that the safe assumption is the opposite.
+Grenada's card states the figure and what it actually counts, which is the honest form. The batch's three
+recognitions are all instruments the deck had not met. **Seychelles was recognised by a SATELLITE TRACKING
+AGREEMENT**: on 29 June 1976, its independence day, representatives of the two states signed at Victoria an
+agreement "relating to the establishment, operation, and maintenance of a tracking and telemetry facility on
+the island of Mahe", and that signature is what the guide records as the act of recognition — a technical
+annexe standing in for a note verbale. **Micronesia was recognised by a PRESIDENTIAL PROCLAMATION**, Reagan
+noting in Proclamation 5564 of 3 November 1986 that the United States had fulfilled its trusteeship
+obligations, so that the Compact of Free Association entered into force the same day. And **Grenada's
+ambassador presented HER credentials in Washington** on 29 November 1974, three months before the American
+ambassador presented his at Saint George's — the recognition running from the smaller state outward.
+Micronesia also gives the deck its clearest gap between an American act and a United Nations one: the
+trusteeship ended for Washington in 1986, but **the Security Council did not determine that the Trusteeship
+Agreement had terminated until 22 December 1990**, by 14 votes to 1, on the ground that the peoples of
+Micronesia, the Marshall Islands and the Northern Mariana Islands had approved their new status in
+plebiscites observed by Trusteeship Council visiting missions — four years, and the UN membership another
+nine months after that. Two more notes. **Bridgetown claims a fourth card**: Grenada's ambassador is
+resident in Barbados and its embassy is run by a chargé reporting to him, after Saint Lucia's, the Windward
+Islands' special representative and the guide's own statement that Bridgetown is the American base for the
+region. And **Seychelles is the pass's first population SERIES BREAK**: the World Bank's figures run 93,419
+in 2015 to 99,258 in 2021 and then jump to 119,878 in 2022, a 21 per cent step in one year that is a
+rebasing rather than growth — so **C8's stale-versus-contested test assumes a smooth series and cannot be
+applied across a break**; read the series before trusting either end of it. The Commonwealth's "98,462
+(2022)" is the World Bank's 2020 value, which is the same break seen from the other side. Its embassy is
+also the deck's only one to close and reopen — shut on 30 August 1996, relations run through Mauritius for
+27 years, reopened on 1 July 2023.
 
 **Batch 69 (Guam, Curaçao, Kiribati) RESOLVED C10's Kiribati deferral, and the answer was in UNdata's own
 footnote the whole time.** C10 recorded Kiribati's area as a three-way disagreement — UNdata 726 km² against
