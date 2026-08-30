@@ -1588,7 +1588,8 @@ window.GLOSSARY = {
 "Nineveh": "<b>Nineveh</b> was an ancient city on the Tigris, at what is now Mosul in northern Iraq, which Sennacherib made the Assyrian capital and rebuilt from about 704 BCE behind double walls with 15 gates.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Watering a city that size meant fetching it from far off, and his inscriptions record eighteen canals dug into the Khosr, the small tributary running through it, and a further supply drawn from the mountains and carried across a valley on a stone aqueduct at Jerwan.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It fell to the armies of Babylon and the Medes in 612 BCE, after which what was left of the Assyrian kingdom held out at Harran further west.<sup class=\"fn\" data-fn=\"5\"></sup>",
 "Ashurbanipal": "<b>Ashurbanipal</b> was king of Assyria from 668 to about 631 BCE, ruling from Nineveh at the height of an empire that had become the largest the world had yet seen.<sup class=\"fn\" data-fn=\"2\"></sup> His inscriptions are unusual in claiming scholarship for a king, saying he read the script of Sumer and the obscure Akkadian that is hard to master, though the same annals were re-edited between versions to enlarge his campaigns.<sup class=\"fn\" data-fn=\"1\"></sup> The tablets he gathered at Nineveh, about 30,000 pieces of correspondence, medicine, astronomy, omens and literature now in the British Museum, carry the fixed versions of many compositions on which modern reconstructions of them rely.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Mass_deportation": "<b>Mass deportation</b> is the forced movement of a whole population out of its homeland by a state, carried out to break resistance, to suppress revolt and to place the people moved where the state wants them.<sup class=\"fn\" data-fn=\"1\"></sup> It is documented in Mesopotamia as early as the 3rd millennium BCE, though rarely, and had become a regular instrument of rule by the 1st, when one campaign could claim tens of thousands carried off with their livestock.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Those moved were normally resettled and absorbed rather than killed, so the practice worked as a labour and population policy as much as a punishment, filling the deporting state's own cities.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Neo-Babylonian_Empire": "The <b>Neo-Babylonian Empire</b>, also called the Chaldaean monarchy, was the state ruled from Babylon between the fall of Assyria and the Persian conquest, founded by Nabopolassar, whose war against Assyria took Nineveh in 612 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings styled themselves providers of the great temples rather than conquerors, Nebuchadnezzar II, who ruled from 604 to 562 BCE, calling himself king of Babylon, provider of Esagila and Ezida, first-born son of Nabopolassar.<sup class=\"fn\" data-fn=\"2\"></sup> Its most visible remains are walls of glazed brick, where lions, dragons and bulls in white and ochre stand against a blue ground; it ended in 539 BCE when Cyrus II took Babylonia.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Neo-Babylonian_Empire": "The <b>Neo-Babylonian Empire</b>, also called the Chaldaean monarchy, was the state ruled from Babylon between the fall of Assyria and the Persian conquest, founded by Nabopolassar, whose war against Assyria took Nineveh in 612 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings styled themselves providers of the great temples rather than conquerors, Nebuchadnezzar II, who ruled from 604 to 562 BCE, calling himself king of Babylon, provider of Esagila and Ezida, first-born son of Nabopolassar.<sup class=\"fn\" data-fn=\"2\"></sup> Its most visible remains are walls of glazed brick, where lions, dragons and bulls in white and ochre stand against a blue ground; it ended in 539 BCE when Cyrus II took Babylonia.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Nebuchadnezzar_II": "<b>Nebuchadnezzar II</b> was king of Babylon from 605 to 562 BCE, the longest reign of the Neo-Babylonian dynasty, and he came to the throne in the year he defeated Necho II of Egypt at Carchemish.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He is known chiefly from building inscriptions rather than from annals of campaigns, and his foundation bricks call him king of Babylon, provider of Esagila and Ezida, first-born son of Nabopolassar.<sup class=\"fn\" data-fn=\"3\"></sup> The Ishtar Gate at Babylon carries his name on the bricks of its earliest phase, and the magnetism recorded in that fired clay puts the building of the whole complex at about 569 BCE, within his reign.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2307,7 +2308,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Oxus_civilization": "c. 2300 – 1500 BCE",
 "Neo-Assyrian_Empire": "c. 912 – 609 BCE",
 "Nineveh": "capital c. 704 – 612 BCE",
-"Ashurbanipal": "668 – c. 631 BCE"
+"Ashurbanipal": "668 – c. 631 BCE",
+"Nebuchadnezzar_II": "605 – 562 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3318,7 +3320,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Neo-Assyrian_Empire": ["Assyrian Empire","Neo-Assyrian empire"],
 "Ashurbanipal": ["Assurbanipal"],
 "Mass_deportation": ["deportation"],
-"Neo-Babylonian_Empire": ["Chaldaean monarchy","Neo-Babylonian empire"]
+"Neo-Babylonian_Empire": ["Chaldaean monarchy","Neo-Babylonian empire"],
+"Nebuchadnezzar_II": ["Nebuchadrezzar II"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4933,7 +4936,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Nineveh": ["city","place","history","archaeology","iron age","iraq"],
 "Ashurbanipal": ["ruler","person","history","archaeology","iron age","iraq"],
 "Mass_deportation": ["practice","concept","history","warfare","politics","migration"],
-"Neo-Babylonian_Empire": ["state","history","archaeology","iron age","iraq"]
+"Neo-Babylonian_Empire": ["state","history","archaeology","iron age","iraq"],
+"Nebuchadnezzar_II": ["ruler","person","history","archaeology","iron age","iraq"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
