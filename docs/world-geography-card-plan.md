@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-211`, less the deferred `gw-195` and `gw-201`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-214`, less the deferred `gw-195` and `gw-201`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-212` the British Virgin Islands, `gw-195` Jersey and `gw-201` Guernsey being deferred
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-215` the Marshall Islands, `gw-195` Jersey and `gw-201` Guernsey being deferred
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,61 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 77 (British Virgin Islands, Gibraltar, Monaco) settles the World Bank area question and finds
+the first entity in this deck whose AREA IS ITSELF DISPUTED.** Batch 74 read `AG.SRF.TOTL.K2`'s failures
+as a problem at the extremes of size; batch 75 measured three successes and concluded it fails per entity
+rather than by size. This batch is the confirmation, because it holds two failures and one success at
+sizes that overlap: **Monaco 74.9 km² against the statistics division's 2** (37 times over) and
+**Gibraltar 10 against 6**, where the **British Virgin Islands' 150 against 151** is right — and batch 75's
+Sint Maarten, at 34 km², is smaller than Gibraltar and correct. **There is no size rule; the guard is a
+plausibility check per entity**, and Monaco's failure is the one D1 recorded during the glossary pass and
+is now measured on the card side too.
+
+**Gibraltar's area is contested and the working paper prints both claims in one sentence** — 5.8 km²
+"according to the administering Power" and 4.8 "according to Spain, which claims sovereignty over the
+Territory" — with the statistics division's 6 and the World Bank's 10 beside them. That is four figures
+for one place, and the honest card states the disagreement rather than choosing: the facts box takes
+UNdata's neutral 6 and the abstract names all four. **The paper does the same for the substance**: the
+United Kingdom holds that Gibraltar's territorial waters flow from its sovereignty over the land, and
+Spain that article 10 of the Treaty of Utrecht ceded only the city, castle, port and fortifications. It
+is the plans' rule about a state's account of its own actions in the easiest possible form — **the source
+attributes both positions itself**, so the card can carry the dispute without adjudicating it. Two dates
+anchor the rest: General Assembly **resolution 2070 (XX) of 16 December 1965**, the first appeal for
+talks, and **decision 80/517 of 2025**, still urging a definitive solution in the spirit of the Brussels
+Declaration of 27 November 1984 — sixty years of the same request, which is the fact worth a reader's
+memory.
+
+**Batch 75's letter-substitution finding needs a sharper test, and this batch supplies it.** That entry
+said a subset font may map a capital wrongly and suggested looking for a letter that never appears; run
+over all five working papers, no capital is ever wholly absent, because a document mixes fonts and the
+letter survives in headers and tables. The real tell is **a digit inside a word**: this batch's British
+Virgin Islands paper decodes both D and F (`6utch`, `Jost Van 6yke`, `8inancial services`) and the
+Gibraltar paper decodes C and B (`5onstitution`, `4ritish`, `4russels Declaration`), where batch 74's
+Bermuda paper had no substitution at all. **Grep an extraction for `[0-9][a-z]`** before trusting a proper
+noun in it; the set differs per file and per font within a file.
+
+**`history.state.gov` has an entry that begins before the United States did.** Monaco's summary opens
+"When the United States announced its independence from Great Britain in 1776, the Principality of Monaco
+was a sovereign, independent country under the military protection of the King of France, Louis XVI" —
+the guide's second inversion of its own frame after Andorra's in batch 73, and between them they mark the
+two European microstates older than the state whose recognition the guide records. It then gives what no
+statistical profile can: annexation to the First French Republic in 1793, independence regained in 1814
+and reaffirmed by the Treaty of Vienna, the protectorship of Piedmont-Sardinia from 1815 to 1861 and the
+military safeguard of France since, and the **2005 renegotiation of the 1918 Franco-Monégasque treaty**,
+after which Monaco began receiving foreign ambassadors at all. Monaco's own term was reconciled against
+it and lost two superlatives no source states — "the second-smallest country in the world after the
+Vatican" and "the most densely populated state on Earth" — for the figure UNdata prints, 25,732.2 people
+to the square kilometre, which says the same thing and can be checked.
+
+The British Virgin Islands, finally, give the C-24 papers' least expected use: **a working paper reporting
+a finding AGAINST the territorial government it describes.** The Commission of Inquiry established in
+January 2021 reported publicly on 29 April 2022 with 49 recommendations, and found that belonger status by
+tenure was being measured against a 20-year residence requirement the Cabinet had applied since 2004
+"contrary to the statutory criteria in section 16(3) of the 1977 Immigration and Passport Act" — unlawful,
+in the Commission's word, with a review published in September 2023 making fifteen more recommendations.
+**The papers are not a territory's self-description**; where a governance failure is on the record they
+carry it, which is what makes them usable as a spine at all.
 
 **Batch 76 (Northern Mariana Islands, Sint Maarten, Liechtenstein) found that the M49 list is not only a
 register of codes but a DATED RECORD OF WHEN AN ENTITY CAME INTO BEING.** Its change log carries
