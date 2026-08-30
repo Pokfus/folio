@@ -195,6 +195,12 @@ const isInitial = (w) => w.length === 1;
    says): all three must match, so it can never quietly excuse a different fault on
    the same paper.  Add one only after reading the article's own byline. */
 const CROSSREF_WRONG = [
+  // Crossref has parsed three Chinese bylines given surname-first, so the family
+  // names land in the given-name field: the article's own byline is Yuxin Feng,
+  // Yunxia Tian and Xiaoyu Lv.
+  ["10.1371/journal.pone.0299286", "Yuxin Feng", "Feng Yuxin"],
+  ["10.1371/journal.pone.0299286", "Yunxia Tian", "Tian Yunxia"],
+  ["10.1371/journal.pone.0299286", "Xiaoyu Lv", "Lv Xiaoyu"],
   // The article's own title page spells it Jacques; Crossref has dropped the c.
   ["10.14430/arctic1218", "Jacques Cinq-Mars", "Jaques Cinq-Mars"],
   // Radiocarbon's own page gives van der Plicht, a Dutch tussenvoegsel Crossref has
