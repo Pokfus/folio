@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-199` Andorra, `gw-195` Jersey being deferred
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-203` Bermuda, `gw-195` Jersey and `gw-201` Guernsey being deferred
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,40 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 73 (Andorra, Cayman Islands, Dominica) found the one entry in the recognition guide with NO
+RECOGNITION IN IT, and it is Andorra.** Every other page in the guide answers the question *when did the
+United States recognise this state*; Andorra's answers that the question does not arise. "Andorra has
+considered itself independent since medieval times, and therefore was already independent when the United
+States declared independence from the British Empire in 1776. Unlike many other independent states in the
+late eighteenth century, Andorra never signed a bilateral treaty with the United States, which would have
+legally constituted recognition of the new republic." **The guide inverts its own frame** — the older state
+is the one that did not need recognising — and its diplomatic history therefore begins in 1995, with an
+exchange of letters, 202 years after the constitutional history of most of its neighbours. That left the
+card without a recognition date to anchor it, and what fills the gap is **the General Assembly's own
+admission resolution**, A/RES/47/232 of 28 July 1993, adopted without a vote at the 108th meeting: where a
+state has no recognition act, **its admission to the United Nations is the datable equivalent and the
+digital library holds one for every member**. **`gw-201` Guernsey is deferred with `gw-195` Jersey, which
+settles batch 72's finding as a pair rather than a one-off**: `data.un.org/en/iso/gg.html` returns 500 and
+`GGY` is not a valid World Bank country code at all — the API answers "The provided parameter value is not
+valid" — so both Channel Island bailiwicks are invisible to both quantitative sources while the Isle of
+Man, Gibraltar and the Faroes each have a profile. **Two entities failing the same way in successive
+batches is a rule, not an accident**, and the rule is that UNdata and the World Bank both follow the UN's
+list of countries and areas, on which the Channel Islands are one entry. The Cayman Islands are the fourth
+territory carried by a C-24 working paper and the first whose history is mostly ADMINISTRATIVE rather than
+diplomatic: settled by the British between 1661 and 1671, self-government growing from 1734, an Assembly of
+Justices and Vestry in 1831, slavery abolished in 1834, and **a dependency of Jamaica from 1863 which stayed
+under the Crown when Jamaica became independent 99 years later** — the working paper counts those 99 years
+itself, which is the sort of sentence no statistical profile ever contains. Its population is batch 71's
+Virgin Islands case inverted once more and decided the same way: the working paper's 84,738 for 2023 sits
+above UNdata's 76,000 and the World Bank's 74,457, so **the two that agree take the facts box and the
+abstract prints all three**. Dominica, finally, closes the Bridgetown thread at eight cards and puts the
+same three names on their third card each: **Frank V. Ortiz Jr. attended its independence celebrations as
+President Carter's personal representative**, which is the recognition; **Sally Angela Shelton**, Saint
+Lucia's first ambassador, was Dominica's too and presented her credentials at Bridgetown; and **Milan D.
+Bish** covered Saint Vincent, Antigua and Barbuda and four more from the same desk. **Where a deck's
+entities are small and adjacent, the same handful of officials recurs, and naming them is what makes the
+pattern visible** rather than eight separate cards each mentioning Barbados in passing.
 
 **Batch 72 (Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man) produced the pass's
 FIRST DEFERRAL IN THE 190s, and the reason narrows batch 69's rule.** `gw-195` **Jersey is deferred**:
