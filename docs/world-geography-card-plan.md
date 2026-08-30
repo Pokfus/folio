@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-214`, less the deferred `gw-195` and `gw-201`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-217`, less the deferred `gw-195` and `gw-201`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-215` the Marshall Islands, `gw-195` Jersey and `gw-201` Guernsey being deferred
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-218` Saint Martin, `gw-195` Jersey and `gw-201` Guernsey being deferred
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,53 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 78 (Marshall Islands, San Marino, Åland) met the deck's THIRD entity invisible to both
+quantitative sources and did NOT defer it, which is what the batch is for.** `data.un.org/en/iso/ax.html`
+returns 500 and `ALA` is not a valid World Bank country code — the Jersey and Guernsey shape exactly, and
+the third instance of the pattern batch 74 narrowed to "the profile sets are their own lists, test per
+entity". Jersey and Guernsey were deferred because nothing else could fill a facts box. Åland can be
+filled twice over, from **its own government and its own statistical office**: `aland.ax/en/facts-about-aland`
+and `asub.ax/en/facts-about-aland`. **A territory outside the UN's statistical system may still publish
+everything about itself** — the deferral test is whether an OPENABLE source states the figures, never
+whether UNdata carries a profile.
+
+**The Government of Åland's page is the richest single source this pass has met**, and it is worth saying
+what it contains, because a card can be written from it end to end: the definition ("an autonomous,
+demilitarised, Swedish-speaking region of Finland"); the main island holding 70 per cent of the land and
+90 per cent of the people; Mariehamn founded in 1861 and Sottunga "the smallest municipality in Åland,
+and all of Finland"; the Lagting's 30 members and four-year terms; the Finnish President's veto limited
+to two named cases; the lump sum at 0.45 per cent of Finnish government income; right of domicile as a
+regional citizenship; and the whole demilitarisation history — Bomarsund taken by British and French
+troops in the Crimean War, demilitarisation by a **one-sided Russian commitment** at Paris in 1856,
+the League of Nations settling the affiliation in 1921 with a convention signed by ten states that added
+neutralisation, **Russia not a party to it**, and the Moscow Treaty of 1940 and Paris Peace Treaty of
+1947 carrying demilitarisation but not neutralisation. That last distinction is the sort of thing only a
+source with an interest in the question states precisely, and it is stated by the party with the
+interest — which is why the card attributes it rather than asserting it.
+
+**The area came from a fourth kind of source: a Nordic Statistics PXWeb API query.** Batch 76 found that
+a PxWeb page embeds its whole series as a `pxDatas` block; here the same software answers a POST to
+`pxweb.nordicstatistics.org/api/v1/en/.../AREA02.px` with JSON, giving Åland **1,586 km²** for 2024
+alongside Finland's 338,485 and a comment noting that Finland's figure "Includes Åland". **When a PxWeb
+site is the only holder of a figure, query its API rather than scraping its page** — it is two lines and
+the answer carries its own metadata.
+
+**The M49 change log paid a second time and on a second trusteeship entity.** Batch 76 found it dating the
+Northern Mariana Islands to 1991; here it dates the **Marshall Islands to 1991 in the same words**
+("Formerly part of Pacific Islands (Trust Territory)") and **Åland to 2003** ("Issued a numerical code in
+2003"), which is nine years after Åland's EU accession and has nothing to do with any constitutional
+change — so the log dates a STATISTICAL decision, which sometimes coincides with a political one and
+sometimes does not. **Read the reason column, not just the year.**
+
+Two smaller notes. **C10's Marshall Islands finding now has its own card**: the population has fallen in
+every year the World Bank records, 48,800 in 2015 to 36,282 in 2025, a quarter of it gone in a decade
+under the Compact's free movement, and this is the deck's steepest decline so far — stated as the series
+rather than as a superlative. And **the recognition guide's San Marino entry is the third of its
+inversions**, after Andorra in batch 73 and Monaco in batch 77: recognition there is a letter, Lincoln's
+of 7 May 1861 accepting an offer of honorary citizenship, which the guide quotes — "although your
+dominion is small, your State is nevertheless one of the most honored, in all history" — and no
+ambassador was accredited for another 145 years.
 
 **Batch 77 (British Virgin Islands, Gibraltar, Monaco) settles the World Bank area question and finds
 the first entity in this deck whose AREA IS ITSELF DISPUTED.** Batch 74 read `AG.SRF.TOTL.K2`'s failures
