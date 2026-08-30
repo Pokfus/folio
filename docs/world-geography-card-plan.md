@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-186` Guam
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-189` Seychelles
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,38 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 69 (Guam, Curaçao, Kiribati) RESOLVED C10's Kiribati deferral, and the answer was in UNdata's own
+footnote the whole time.** C10 recorded Kiribati's area as a three-way disagreement — UNdata 726 km² against
+811 at the Commonwealth and 810 at the World Bank — and **dropped UNdata from that term outright**, the only
+time Phase 3's Source A has been discarded. Its footnote b reads: *"Land area only. Excluding 84 square km
+of uninhabited islands."* **726 and 84 make 810.** It was never an outlier; it was a different measure,
+stated in its own apparatus, and nobody had read down that far. So the rule to carry is stronger than batch
+14's: **a UNdata figure that looks wrong usually carries its own explanation, and the footnote is the first
+place to look, not the last** — this pass has now read four of them into cards in six batches and every one
+changed what the card could honestly say. Guam and Curaçao between them fill the last two gaps in the
+territory recipe. **Guam's C-24 working paper is the American mirror of the French ones** — Navy
+administration from 1899 to 1950, the Organic Act of Guam, an unincorporated territory to which not all of
+the Constitution applies, residents who cannot vote for a President they become able to elect on moving to a
+state, a delegate to Congress, Apra Harbor, the 2020 census ethnic breakdown — though its "Brief history" is
+two sentences where New Caledonia's runs to a dozen, so **the block's length varies enormously by
+territory**. **Curaçao is the batch's genuinely new route, because it is on NO list at all**: not a
+non-self-governing territory, not a Commonwealth member, with no recognition-guide page and no bloc profile,
+since the Netherlands Antilles left the United Nations' colonial reporting in 1955. What answers is
+**`government.nl`**, the Dutch state's own topic pages, which state outright that "On 10 October 2010
+Curaçao and St Maarten became autonomous countries", that the four countries of the Kingdom run their own
+governance, education and courts, and that the Kingdom answers for foreign relations, defence and
+nationality law. **Reach for the metropole's own government site when a territory belongs to no
+organisation.** Its UN half is a resolution record rather than a text: A/RES/945 of 15 December 1955 is a
+SCAN with no extractable text, so the card cites only what the catalogue states — the title, the 557th
+plenary meeting, and the recorded vote of **21 to 10 with 33 abstentions**, which is itself the most
+eloquent fact available about how contested that removal was. **Where a document is an image, cite the
+record and not the reading.** Two figure notes. **Curaçao is the pass's widest unexplained population
+divergence** — UNdata 186,000 for 2025 against the World Bank's 155,967 for 2024, about a fifth apart, with
+no third source and no footnote — so the card gives both and adjudicates nothing, on C5's rule. And UNdata's
+capital-city figure for Curaçao is footnoted "Total population of Curaçao excluding some neighborhoods",
+making it Malta's harbour districts one island over and **the second time in six batches that UNdata's
+"capital city population" is not a city's**.
 
 **Batch 68 (São Tomé and Príncipe, Samoa, Saint Lucia) caught the recognition guide contradicting
 ITSELF A SECOND TIME, three batches after Brunei, and this one is in a HEADING.** The Saint Lucia page's
