@@ -362,12 +362,14 @@ const homeState = async (page, base) => {
   });
   check("a deck is on the daily-study list to set limits on", !!deckKey, String(deckKey));
   const serverLimit = () => (((db.progress[aliceId].data || {}).deckOpts || {})[deckKey] || {}).newPerDay;
-  const writeAsOtherDevice = (n) => {
+  const writeAsOtherDevice = (n, extra) => {
     db.progress[aliceId] = {
-      data: Object.assign({}, db.progress[aliceId].data, { deckOpts: { [deckKey]: { newPerDay: n, maxReviews: 50, newIgnoresReview: true } } }),
+      data: Object.assign({}, db.progress[aliceId].data,
+        { deckOpts: { [deckKey]: { newPerDay: n, maxReviews: 50, newIgnoresReview: true } } }, extra || {}),
       updated_at: stamp(db),
     };
   };
+  const deckRows = () => D.page.evaluate(() => document.querySelectorAll(".active-deck[data-review]").length);
 
   await gotoFresh(D.page, base + "#home");
   await sheet();
@@ -380,7 +382,13 @@ const homeState = async (page, base) => {
   await D.page.waitForTimeout(5000);
   check("a boot that is genuinely in sync sends no push at all", patches === 0, "patches=" + patches);
 
-  writeAsOtherDevice(99);                        // the reader's other device
+  /* The other device changed the deck's limit AND added a second collection. The reader is about to edit
+     the limit while the pull is in the air, so the two fields must part company: `deckOpts` is theirs and
+     `active` is not, and a reconcile that answers with one blob or the other gets one of them wrong.
+     That is not a hypothetical — `setFriendCount` writes `S.friendCount` from the friends list, so a
+     BACKGROUND write can make "something moved locally" true while the reader has edited nothing at all,
+     and an all-or-nothing rule would then push a stale blob over the other device's. */
+  writeAsOtherDevice(99, { active: [deckKey, "col-13"] });
   pullDelay = 4000;                              // …and a slow link on this one
   await D.page.reload({ waitUntil: "load" });
   await D.page.waitForTimeout(1200);             // boot underway, the pull not yet back
@@ -390,6 +398,8 @@ const homeState = async (page, base) => {
   await D.page.waitForTimeout(6000);             // the pull lands mid-session
   pullDelay = 0;
   check("an edit made while the pull was in flight is not overwritten", (await readLimit()) === "33");
+  check("\u2026while a field the reader did NOT touch still adopts the server's copy",
+    (await deckRows()) === 2, "deck rows=" + (await deckRows()));
   await D.page.waitForTimeout(8000);
   check("\u2026and is the copy that reaches the server", serverLimit() === 33, JSON.stringify(db.progress[aliceId].data.deckOpts));
   await D.page.reload({ waitUntil: "load" });

@@ -5432,6 +5432,14 @@ dead code (never rendered).
   is the newer write and wins outright**, and is pushed rather than merged, so the other device converges on its next
   pull. **An idle device still adopts**, which is the half a guard like this most easily breaks — asserted both ways in
   `test-account-switch.js` section 6.
+  **THE ADOPT IS A THREE-WAY MERGE PER FIELD, NOT AN ALL-OR-NOTHING SKIP** — what was local when the pull
+  started, what is local now, and what the server holds: a PROGRESS_FIELD the reader did not touch takes the
+  server's copy and one they did is theirs. The first cut skipped the adopt outright whenever anything had
+  moved, and that is wrong for a reason only visible once `friendCount` joined the blob: **`setFriendCount`
+  writes from the friends list**, so a reader sitting on the account page at boot can have a BACKGROUND write
+  suppress the adopt and push a stale blob over the other device's — the very fault this closes, through a
+  different door. Merging per field needs no list of "fields a reader may edit" and so **cannot rot as more
+  background writers arrive**; it is not the arithmetic merge refused above, which was merging WITHIN one field.
   Sign-in adopts server progress (or MIGRATES local progress up if the server row is empty); the pre-sign-in device state is
   stashed (`folio_supa_guest_v1`) and restored on sign-out. **That migration is OWNERSHIP-GATED by `S._supaOwner`** —
   the account id the progress currently in localStorage belongs to (device-local like `_supaTs`, so it never syncs

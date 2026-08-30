@@ -182,6 +182,13 @@ the whole reason the suites exist and the reason their narratives are worth keep
     of last-write-wins, and a guard that refused every adopt would strand a reader's phone and laptop on
     different data for ever. So: an edit made during the wait survives, is the copy that reaches the
     server, and survives the next reload; AND an idle boot still takes the other device's 77.
+    **A third assertion arrived on merging main and is the one that changed the fix.** The other device
+    now also adds a second collection, so `deckOpts` and `active` must part company — the reader edits the
+    first and never touches the second — and a reconcile answering with one blob or the other gets one of
+    them wrong. That is not hypothetical: `setFriendCount` writes `S.friendCount` from the friends list,
+    so a BACKGROUND write can make "something moved locally" true while the reader has edited nothing, and
+    the original all-or-nothing skip would then push a stale blob over the other device's. The adopt is a
+    three-way merge per field now, and the row count is what catches it — 2 with the merge, 5 without.
     The third assertion is the defect that made the first fire so often, and it is counted rather than
     observed: **a boot that is genuinely in sync must send no PATCH at all.** The reconcile compared
     `extractProgress()` — which appends `revlog` — against `row.data`, which never carries it, so the two

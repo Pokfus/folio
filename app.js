@@ -2812,17 +2812,37 @@
        than merged, so the device that wrote first converges on the next pull. Field-by-field merging was
        the alternative and is refused: two devices editing one deck's limits have no arithmetic answer,
        and a half-adopted blob is a state neither reader chose. */
-    const beforePull = stableJson(progressBlob());
+    const beforePull = progressBlob();
+    const beforeJson = stableJson(beforePull);
     const row = await supaPull();
-    const movedDuringPull = stableJson(progressBlob()) !== beforePull;
-    if (row && row.updated_at && row.updated_at !== S._supaTs && !movedDuringPull) {
-      // another device wrote since this one last synced → adopt the server copy (last write wins)
-      applyProgress(row.data || {});
+    const afterPull = progressBlob();
+    const movedDuringPull = stableJson(afterPull) !== beforeJson;
+    if (row && row.updated_at && row.updated_at !== S._supaTs) {
+      /* Another device wrote since this one last synced → adopt the server copy (last write wins), FIELD
+         BY FIELD, keeping any field this device changed while the request was in the air.
+         It is a three-way merge on the three blobs to hand — what was local when the pull started, what is
+         local now, and what the server holds — and the tie-break is unambiguous because the granularity is
+         a whole PROGRESS_FIELD: a field the reader did not touch takes the server's copy, and one they did
+         is theirs. That is NOT the arithmetic merge refused above, which was merging WITHIN a field (two
+         devices editing one deck's limits have no answer); this only decides which whole field wins.
+         The first cut skipped the adopt outright when anything had moved, which is wrong in a way that
+         only showed up on merging main: `setFriendCount` writes `S.friendCount` from the friends list, so
+         a reader sitting on the account page at boot could have a BACKGROUND write suppress the adopt and
+         push a stale blob over the other device's — the very fault this closes, through a different door.
+         Merging per field needs no list of "fields a reader may edit" and so cannot rot as more background
+         writers arrive. */
+      const merged = Object.assign({}, row.data || {});
+      if (movedDuringPull) {
+        PROGRESS_FIELDS.forEach((k) => {
+          if (stableJson(afterPull[k]) !== stableJson(beforePull[k])) merged[k] = afterPull[k];
+        });
+      }
+      applyProgress(merged);
       S._supaTs = row.updated_at;
       if (SUPA_PROFILE && SUPA_PROFILE.name) S.user.name = SUPA_PROFILE.name;
-      save();
+      save();   // …which queues the debounced push, so a kept field reaches the server on its own
       if (current && ["home", "decks"].includes(current.name)) render();
-    } else if (row && (movedDuringPull || stableJson(progressBlob()) !== stableJson(row.data || {}))) {
+    } else if (row && stableJson(progressBlob()) !== stableJson(row.data || {})) {
       /* COMPARE THE BLOB THAT IS ACTUALLY SENT, WHICH IS `progressBlob()` AND NOT `extractProgress()`
          (Aug 2026). The latter appends `revlog`, which has a table of its own and so is never in
          `progress.data` — the two could therefore NEVER be equal, the "in sync" branch below was dead
