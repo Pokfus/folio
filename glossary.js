@@ -1614,7 +1614,8 @@ window.GLOSSARY = {
 "Histiaeus": "Histiaeus was tyrant of Miletus under Darius I, rewarded for keeping the Persian bridge over the Danube and then held at Susa as the king's counsellor.<sup class=\"fn\" data-fn=\"1\"></sup> With the roads watched, he sent word to Aristagoras that Ionia should revolt by shaving a trusted slave's head, marking it, waiting for the hair to grow, and telling him only to have it shaved again on arrival.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Sent down to settle the revolt he had begun, he was met at Sardis by Artaphernes, who told him he had stitched the shoe Aristagoras put on; he fled, was captured and impaled, and his head was sent embalmed to the king.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Ionian_Revolt": "The Ionian Revolt was the rising of the Greek cities of Asia Minor against Persian rule, beginning in 499 BCE when Aristagoras of Miletus gave up his own tyranny and put down the tyrants the king had installed elsewhere.<sup class=\"fn\" data-fn=\"1\"></sup> Athens sent twenty ships and Eretria five, Sardis was burnt, and the rising spread to Cyprus, the Hellespont and Caria before the Persians took the cities back one by one and netted the islands.<sup class=\"fn\" data-fn=\"1\"></sup> Artaphernes then fixed each city's tribute and made the Ionians settle disputes by law, Mardonius replaced their tyrants with democracies, and Nepos gives the burning of Sardis as the reason Darius alleged for invading Greece.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Sardis": "Sardis was a city in western Anatolia, on the northern slope of Mount Tmolus above the plain of the Hermus, capital in turn of the Lydian kingdom and seat of Persian government in the region.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Strabo describes it as a large city with a strong citadel, and says the Pactolus once carried down from the mountain above the gold dust behind the proverbial wealth of Croesus.<sup class=\"fn\" data-fn=\"2\"></sup> It was burned in 498 BCE by Ionian, Athenian and Eretrian troops who took the lower town but not the citadel, and the fire, which destroyed a temple of the goddess Cybebe, was afterwards given as a Persian reason for burning Greek temples.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Battle_of_Lade": "The Battle of Lade was the sea fight of 494 BCE, off the small island of that name near Miletus, in which a Persian fleet destroyed the combined navy of the Greek cities of Asia and ended their revolt.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Herodotus counts 353 Ionian triremes against 600 on the Persian side, and describes an alliance that broke before the fighting: the crews refused their commander's drill, the Samians withdrew on terms arranged beforehand, and the Lesbians and most of the rest went with them.<sup class=\"fn\" data-fn=\"1\"></sup> The Chians fought on and lost most of their ships, and Herodotus declines to say who behaved well, since the cities afterwards blamed one another.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Battle_of_Lade": "The Battle of Lade was the sea fight of 494 BCE, off the small island of that name near Miletus, in which a Persian fleet destroyed the combined navy of the Greek cities of Asia and ended their revolt.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Herodotus counts 353 Ionian triremes against 600 on the Persian side, and describes an alliance that broke before the fighting: the crews refused their commander's drill, the Samians withdrew on terms arranged beforehand, and the Lesbians and most of the rest went with them.<sup class=\"fn\" data-fn=\"1\"></sup> The Chians fought on and lost most of their ships, and Herodotus declines to say who behaved well, since the cities afterwards blamed one another.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Didyma": "Didyma, also called Branchidae after the priestly family that served it, was the oracle and sanctuary of Apollo near Miletus, joined to the city by a Sacred Way and holding one of the largest temples of the archaic age.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Strabo records that the Branchidae gave up the god's treasures to the Persian king and went away with him to escape punishment for the sacrilege, and that the temple was burnt on the order of Xerxes.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus instead puts the plundering and burning with the fall of Miletus in 494 BCE, and Pausanias says Xerxes carried off its bronze Apollo, which Seleucus afterwards sent home.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2835,7 +2836,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Aegina": ["Aigina"],
 "Chalcis": ["Chalkis"],
 "Lelantine_War": ["Lelantine war"],
-"Miletus": ["Archaic Miletus","Miletos","Milesian"],
+"Miletus": ["Archaic Miletus","Miletos","Milesian","sack of Miletus"],
 "Artemision_at_Ephesus": ["Temple of Artemis at Ephesus"],
 "Oikist": ["oikistes","oikists"],
 "Acragas": ["Akragas","Agrigento"],
@@ -3396,7 +3397,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Histiaeus": ["Histiaeus of Miletus"],
 "Ionian_Revolt": ["Ionian revolt"],
 "Sardis": ["burning of Sardis","Sardes"],
-"Battle_of_Lade": ["Lade"]
+"Battle_of_Lade": ["Lade"],
+"Didyma": ["Branchidae","Didymeus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5039,7 +5041,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Histiaeus": ["person","history","warfare","greece"],
 "Ionian_Revolt": ["event","history","warfare","greece","iran"],
 "Sardis": ["city","place","geography","history","anatolia"],
-"Battle_of_Lade": ["battle","event","history","warfare","greece","iran"]
+"Battle_of_Lade": ["battle","event","history","warfare","greece","iran"],
+"Didyma": ["building","place","religion","history","greece","anatolia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
