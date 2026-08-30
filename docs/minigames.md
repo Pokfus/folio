@@ -360,6 +360,60 @@ The five bullets below are as they stood in CLAUDE.md, verbatim.
   · `score` is the guesses left when it landed (3/2/1, `total` 3 — Common Thread's precedent for a total
     that is not 5); `won`, and the gold tile, is first go.
 
+## The day's draw is the same draw for everyone (Aug 2026, on a bug report)
+
+> "When playing the True or False minigame, I'm seeing different questions than another user. Every user
+> should see the same minigame questions every day in the same order so comparing stats actually makes
+> sense."
+
+Six of the nine were already seeded off the day — Timeline, Common Thread, Find it, the crossword, the
+picture round and What year? all build their set from `mulberry32(hashStr("<game>-" + todayStr()))`.
+**Multiple Choice, True or False and Who said it? drew through `pick`, which is `Math.random`**, so every
+reader got a private quiz. That is fine for a game played for its own sake and wrong for these three,
+because the whole surrounding apparatus treats the result as comparable: the score is written to the tile
+as TODAY'S, the tile's own record card shows it beside a site-wide average for the day, and a friend's
+account shows theirs beside yours. Two readers comparing 4/5 against 3/5 were comparing two different
+tests, and nothing on either screen said so.
+
+**`dayPick(key, arr, n)` is `pick`'s seeded twin** — same signature, same Fisher–Yates, with the day
+standing in for the entropy — so each call site changed by the name of the function and a key. It lives in
+the ONE PLAY A DAY block beside `gameLockedToday`, which is where the rest of the daily-game plumbing is;
+`hashStr` / `mulberry32` / `seededShuffle` are function declarations further down the same IIFE and hoist,
+so the three games above them can call it.
+
+Four things about it are decisions rather than plumbing.
+
+**The key names the DRAW, not the game.** A round draws its questions and then its options, and two draws
+handed the same seed shuffle in step — which on a four-option round means the right answer lands in the
+same position in every round of the day. So every draw carries its own suffix (`challenge`,
+`challenge-d-<id>`, `challenge-o-<id>`).
+
+**A per-round key carries something stable about that round, never its position.** `challenge-o-<card id>`
+and `whosaid-o-<pool index>`, not the round number: a key built on position moves every later round's
+options the day an earlier card drops out of `gameCardIdSet`, which would look like the seeding not
+working rather than like the pool changing. Who said it? draws its rounds as POOL INDICES for exactly this
+reason — `it.who` is the LOCALISED speaker name, so keying on it would deal a Spanish reader different
+decoys from an English one, which is the same bug one language over.
+
+**Day-to-day variety is kept; reader-to-reader variety is what goes.** Multiple Choice deliberately
+shuffles its distractor candidates before the stable kinship sort, so a card with several equally-close
+siblings does not offer the same three every day. Seeding that shuffle on the day keeps all of it — the
+draw still turns over at midnight, it just turns over identically for everybody.
+
+**It is seeded on the READER'S own day** (`todayStr` → `dayKey`), not on UTC. That is the same boundary the
+one-play-a-day lock, the streak and every other per-day record use, so a reader whose day rolls at 3am gets
+yesterday's set until then and gets it consistently with their own lock — rather than being shut out by the
+gate from a set they had never been shown. The consequence to state plainly: two readers on opposite sides
+of the date line are a day apart, as they are on every other daily thing on the site. What the fix
+guarantees is that **everyone sharing a date shares a quiz**, not that the planet turns over at once.
+
+One thing was NOT seeded and should not be: Common Thread's **Shuffle** button (`tiles = pick(tiles)`). That
+is the player jumbling their own board mid-puzzle, not a draw.
+
+The failure is silent from every angle — each reader's game works perfectly, deals five well-formed rounds
+and scores them correctly — so nothing but two people talking to each other could have found it, and
+nothing but a check that the same date twice yields the same set can keep it fixed.
+
 ## A tile turns over to its record (Aug 2026, on request)
 
 > "When long-pressing a minigame tile on the home page, the tile should flip around and reveal the user's

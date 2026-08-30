@@ -118,6 +118,7 @@ function builder() {
     sl("  function hashStr(s) {", "  function dailyChronoSet"),
     sl("  const XW_ENTRIES =", "  PAGES.crossword = function"),
     sl("  const WY_EVENTS = 5", "  PAGES.whatyear = function"),
+    sl("  function dayPick(key, arr, n) {", "\n  PAGES.challenge"),
   ].join("\n");
   /* `gameCardIdSet` is shimmed to the REAL rule — the available cards at or below GAME_MAX_DIFFICULTY,
      with the bar read out of app.js rather than written down here — because the whole value of the
@@ -147,7 +148,7 @@ function builder() {
   if (!(global.window && global.window.CARD_DATA)) { global.window = global.window || {}; require(path.join(ROOT, "data.js")); }
   if (!global.window.WHATYEAR) require(path.join(ROOT, "whatyear.js"));
   const CARDS = global.window.CARD_DATA;
-  const make = new Function("CARDS", "todayStr", "window", "return (function(){" + shim + body + "; return {dailyCrossword, dailyWhatYear};})()");
+  const make = new Function("CARDS", "todayStr", "window", "return (function(){" + shim + body + "; return {dailyCrossword, dailyWhatYear, dayPick};})()");
   return (day) => make(CARDS, () => day, global.window);
 }
 function simulate(days) {
@@ -818,6 +819,101 @@ function crosswordForPage(clueIds) {
     check("[ws] …and the closing line counts the same five",
       /^Five fresh voices/.test(end.tomorrow.trim()), end.tomorrow);
     await ctx.close();
+  }
+
+
+  /* ---- THE DAY'S DRAW IS THE SAME FOR EVERY READER (Aug 2026, on a bug report) ----
+     Two readers comparing True or False scores found they had been answering different statements:
+     Multiple Choice, True or False and Who said it? drew through `pick`, which is Math.random, while the
+     other six were seeded off the day. The failure is invisible from inside one browser — every reader
+     gets five well-formed rounds, scored correctly, on a page that says nothing is wrong — so the only
+     thing that can see it is TWO READERS, which is what this does: two browser contexts, independent
+     storage, no shared state but the date, asked for the same game.
+
+     Each pair is compared on the QUESTIONS RENDERED and on the OPTION ORDER where a game has options,
+     because both are part of "the same questions in the same order" and only the first would catch a
+     seed shared between a round's two draws. The contexts are opened fresh rather than reloaded in one
+     page: a reload proves the draw is stable within a browser, which a Math.random draw already fails,
+     but it cannot tell a per-day seed from a per-install one.
+
+     It is asserted on all THREE at once rather than on the reported game alone — the report named True
+     or False and the same fault sat in two of its neighbours, and a test written to the report would
+     have left both live. */
+  {
+    /* Each reader is walked TWO rounds rather than one, and the pair is compared on the whole trace —
+       the first question, the order its options came up in, and the SECOND question. One round would
+       only prove the two readers were handed the same set; it is the sequence the report is about
+       ("the same questions every day in the same order"), and the second round is what measures it.
+       The options are folded into the same trace rather than asserted separately: True or False's two
+       are static markup, so a check of its option order alone is a check that cannot fail, which reads
+       as coverage and is not. */
+    const trace = async (hash, sel) => {
+      const [ctx, page] = await fresh({ width: 1280, height: 900 });
+      watch(page);
+      await page.goto(base + hash, { waitUntil: "load" });
+      await page.waitForTimeout(700);
+      const read = () => page.evaluate((s) => ({
+        q: ((document.querySelector(s.q) || {}).textContent || "").replace(/\s+/g, " ").trim(),
+        opts: [...document.querySelectorAll(s.o)].map((b) => b.textContent.replace(/\s+/g, " ").trim()),
+      }), sel);
+      const r1 = await read();
+      await page.click(sel.o);                    // answer round 1 however it falls; the reveal is what matters
+      await page.waitForTimeout(250);
+      await page.click(sel.next);                 // …and on to round 2
+      await page.waitForTimeout(400);
+      const r2 = await read();
+      await ctx.close();
+      return { r1: r1, r2: r2, key: JSON.stringify([r1.q, r1.opts, r2.q]) };
+    };
+    const GAMES = [
+      ["True or False",   "#truefalse", { q: ".qtext", o: "#tfopts .opt", next: "#tf-next" }],
+      ["Multiple Choice", "#challenge", { q: ".qtext", o: "#opts .opt",   next: "#mc-next" }],
+      ["Who said it?",    "#whosaid",   { q: ".ws-quote", o: "#opts .opt", next: "#ws-next" }],
+    ];
+    for (const [name, hash, sel] of GAMES) {
+      const a = await trace(hash, sel), b = await trace(hash, sel);
+      check("[seed] " + name + " deals two readers the same two rounds, in the same order",
+        !!a.r1.q && !!a.r2.q && a.r1.q !== a.r2.q && a.key === b.key,
+        a.key + "\n         vs " + b.key);
+    }
+  }
+
+  /* …and the same draw is a DIFFERENT draw tomorrow, which is the half a FIXED seed would also pass —
+     the two-context check above cannot tell a per-day seed from a per-install one. That half is done in
+     NODE rather than in the browser, and deliberately: the site's day runs on the READER'S own clock
+     with a settable boundary capped at noon, so from mid-afternoon onwards there is no setting that
+     rolls a live page back into yesterday at all, and a browser version of this would pass every
+     morning and be unrunnable every afternoon. Here the day is simply an argument.
+
+     `dayPick` is sliced out of app.js by the same builder that runs the crossword and What year?, so
+     what is measured is the shipped function rather than a restatement of it. */
+  {
+    const dp = (day) => builder()(day).dayPick;
+    const idx = Array.from({ length: 178 }, (_, i) => i);   // a pool's worth of positions; the values do not matter
+    const set = (day, key) => dp(day)(key, idx, 5).join(",");
+
+    check("[seed] the same day and key deal the same five",
+      set("2026-08-30", "truefalse") === set("2026-08-30", "truefalse"), set("2026-08-30", "truefalse"));
+
+    /* Distinctness over a long run rather than over one pair: two consecutive days colliding is a
+       one-in-many coincidence a fixed seed would also produce, where 90 days collapsing to a handful is
+       a seed that is not reading the date. */
+    const days = [];
+    for (let d = 0; d < 90; d++) days.push(new Date(Date.UTC(2026, 7, 30 + d)).toISOString().slice(0, 10));
+    const sets = days.map((d) => set(d, "truefalse"));
+    check("[seed] …and 90 days deal 90 different sets", new Set(sets).size === 90,
+      new Set(sets).size + " distinct");
+    check("[seed] …each of them five distinct statements",
+      sets.every((x) => new Set(x.split(",")).size === 5));
+
+    /* THE KEY NAMES THE DRAW, NOT THE GAME. Two draws inside one round handed the same seed shuffle in
+       step, which on a four-option round puts the right answer in the same position every round of the
+       day — the bug the suffixes exist to prevent, and one that reads as a game being easy rather than
+       as a seeding fault. */
+    const day = "2026-08-30";
+    check("[seed] …and two draws on one day do not shuffle in step",
+      set(day, "truefalse") !== set(day, "truefalse-o") && set(day, "challenge") !== set(day, "challenge-d"),
+      [set(day, "truefalse"), set(day, "truefalse-o")].join(" / "));
   }
 
   check("[all] no page errors anywhere", errs.length === 0, errs.slice(0, 4).join(" | "));

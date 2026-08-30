@@ -731,9 +731,29 @@ the whole reason the suites exist and the reason their narratives are worth keep
     under test. That sweep was run against a browser page while the restriction was being tuned (0 blank
     days, 726 of 730 distinct grids, 7 group categories) and its numbers are recorded in the game's own
     bullet; what is committed is the guard that fires on the day the pool is starved.
+    **ITS SEEDING SECTION EXISTS BECAUSE ONLY TWO PEOPLE TALKING COULD FIND THE BUG** (Aug 2026): Multiple
+    Choice, True or False and Who said it? drew through `pick`, i.e. `Math.random`, so every reader got a
+    private quiz while the tile, the tile's record card and a friend's account all presented the score as
+    comparable. From inside one browser there is nothing to see — five well-formed rounds, correctly
+    scored — so the test is TWO CONTEXTS, independent storage, sharing nothing but the date, and it walks
+    **two rounds** of each game rather than one: one round would only prove the two readers got the same
+    SET, where the report is about the same questions *in the same order*, and the second round is what
+    measures that. The option order is folded into the same trace rather than asserted on its own,
+    because True or False's two options are static markup and a check of their order is a check that
+    cannot fail — which reads as coverage and is not.
+    **The day-to-day half is done in NODE, and that is forced rather than preferred**: the site's day runs
+    on the reader's own boundary, capped at noon, so from mid-afternoon onwards no setting rolls a live
+    page back into yesterday and a browser version would pass every morning and be unrunnable every
+    afternoon. `dayPick` is sliced out of app.js by the same `builder()` that runs the crossword sweep, so
+    what is measured is the shipped function. It asserts 90 days dealing 90 different sets — distinctness
+    over a long run, since one pair colliding is a coincidence a FIXED seed would also survive — and that
+    two keys on one day do not shuffle in step, which is the fault the per-draw key suffixes prevent and
+    which would otherwise put the right answer in the same position in every round of the day.
+    **Re-run after touching `dayPick` or any game's draw**, and never let a game's draw go back to `pick`.
     **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
     `xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` / `xwMarkGaveUp`, `picturePool` /
-    `dailyPictureRounds` / `tagKinship`, `buildWhoSaidRounds`, `threadEasyKeys` / `dailyThreadPuzzle` /
+    `dailyPictureRounds` / `tagKinship`, `dayPick` / `buildChallengeQuestions` / `buildWhoSaidRounds` /
+    `PAGES.truefalse`'s draw, `threadEasyKeys` / `dailyThreadPuzzle` /
     `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`,
     `DAILY_GAMES` / `GAME_NAMES` / `PAGE_META` / the `valid` route list, `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY`, `whatyear.js` / `truefalse.js` / `quotes.js`, or the home page's tile grid.**

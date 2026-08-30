@@ -29551,19 +29551,23 @@
   function buildChallengeQuestions() {
     const avail = gameCardIdSet();   // well-known terms only — a round is answered cold, with no background to read
     const poolIds = ALL_CARD_IDS.filter((id) => avail.has(id));
-    const chosen = pick(poolIds, Math.min(5, poolIds.length)).map((id) => CARD_BY_ID[id]);
+    // seeded on the day, not on Math.random, so every reader is asked the same five — see dayPick
+    const chosen = dayPick("challenge", poolIds, Math.min(5, poolIds.length)).map((id) => CARD_BY_ID[id]);
     return chosen.map((card) => {
       const correct = card.answerText;
       /* The three wrong answers are the cards most AKIN to this one (see cardKinship) — same kind first,
          then as many shared subjects as possible. Candidates are shuffled before sorting, so a card with
          several equally-close siblings does not offer the same three every day; the sort is stable, which
-         is what makes that shuffle survive it. */
-      const cands = pick(CARDS.filter((c) => avail.has(c.id) && c.answerText && c.answerText !== correct))
+         is what makes that shuffle survive it. That day-to-day variety is kept by seeding the shuffle on
+         the day — what it loses is the READER-to-reader variety, which was never wanted. The key carries
+         the card's own id rather than its place in the round, so a round's options do not move when an
+         earlier card drops out of the pool. */
+      const cands = dayPick("challenge-d-" + card.id, CARDS.filter((c) => avail.has(c.id) && c.answerText && c.answerText !== correct))
         .map((c) => ({ a: c.answerText, k: cardKinship(card, c) }))
         .sort((x, y) => y.k - x.k);
       const uniq = [];
       for (const d of cands) { if (uniq.length >= 3) break; if (!uniq.includes(d.a)) uniq.push(d.a); }
-      const options = pick([correct, ...uniq]);
+      const options = dayPick("challenge-o-" + card.id, [correct, ...uniq]);
       return { card, options, correct };
     }).map((q) => {   // display in the site language when translations exist (typing/distractor matching stays English)
       /* THE FIRST PHRASING, ALWAYS (Aug 2026, on request). A card carries three ways of asking the same
@@ -29642,6 +29646,31 @@
       () => route("home"), "Back home"
     );
     return true;
+  }
+  /* ---------- THE DAY'S DRAW IS THE SAME DRAW FOR EVERYONE (Aug 2026, on a bug report: two readers
+     comparing True or False scores found they had been answering different statements) ----------
+     A daily game is played once, its score is written to the tile as TODAY'S and read off a friend's
+     account beside your own — so the set has to be a function of the DAY and of nothing else. Six of the
+     nine already were, seeded off `todayStr()` through `mulberry32`; Multiple Choice, True or False and
+     Who said it? drew through `pick`, which is `Math.random`, so every reader got a private quiz and a
+     shared score compared two different tests.
+
+     `dayPick` is `pick`'s seeded twin — same signature, same Fisher-Yates, with the day standing in for
+     the entropy — so the fix at each call site is the name of the function and a key.
+     THE KEY NAMES THE DRAW, NOT THE GAME, and it has to: a round draws its statements and then its
+     options, and two draws sharing a seed shuffle in step, which on a four-option round means the answer
+     lands in the same position every time. So a per-round draw carries something stable about that round
+     — the card's id, the pool index — rather than the round NUMBER, since a key built on position would
+     move every later round's options when an earlier one is filtered out.
+     IT IS SEEDED ON THE READER'S OWN DAY (`todayStr` → `dayKey`), not on UTC, which is the same boundary
+     the one-play-a-day lock, the streak and every other per-day record use: a reader whose day rolls at
+     3am gets yesterday's set until then, and gets it consistently with their own lock rather than being
+     shut out of a set they never saw. Two readers on opposite sides of the date line are therefore a day
+     apart, as they are on every other daily thing on the site — the fix is that everyone sharing a date
+     shares a quiz, not that the planet turns over at once. */
+  function dayPick(key, arr, n) {
+    const a = seededShuffle(arr, mulberry32(hashStr(key + "-" + todayStr())));
+    return n == null ? a : a.slice(0, n);
   }
 
   PAGES.challenge = function (root) {
@@ -29755,10 +29784,8 @@
     const POOL = (window.TRUEFALSE || []).map((x) => tfLocalized(x));
     const ROUNDS = 5;
     if (POOL.length < ROUNDS) { root.innerHTML = emptyPlacard("Coming soon", "真", "Not enough statements to play yet.", () => route("home"), "Back home"); return; }
-    // pick ROUNDS distinct statements at random
-    const idx = POOL.map((_, i) => i);
-    for (let i = idx.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = idx[i]; idx[i] = idx[j]; idx[j] = t; }
-    const picks = idx.slice(0, ROUNDS).map((i) => POOL[i]);
+    // the day's five, distinct and the same for every reader — see dayPick
+    const picks = dayPick("truefalse", POOL.map((_, i) => i), ROUNDS).map((i) => POOL[i]);
     let r = 0, score = 0; const results = [];
 
     renderRound();
@@ -29854,11 +29881,16 @@
       catOf.set(x.who, (RAW[i] && RAW[i].cat) || "");
       eraOf.set(x.who, (RAW[i] && RAW[i].era) || "");
     });
-    const picks = pick(POOL, Math.min(WS_ROUNDS, POOL.length));
+    /* Seeded on the day, not on Math.random — see dayPick. The rounds are drawn as POOL INDICES so each
+       one has a language-independent name to key its own two draws on: `it.who` is the LOCALISED
+       speaker, so keying on it would deal a Spanish reader different decoys from an English one. */
+    const order = dayPick("whosaid", POOL.map((_, i) => i), Math.min(WS_ROUNDS, POOL.length));
+    const picks = order.map((i) => POOL[i]);
     const allWho = [...new Set(POOL.map((x) => x.who))];
-    return picks.map((it) => {
+    return picks.map((it, k) => {
+      const seed = "whosaid-" + order[k];
       const myCat = catOf.get(it.who) || "", myEra = eraOf.get(it.who) || "";
-      const others = pick(allWho.filter((w) => w !== it.who));
+      const others = dayPick(seed + "-d", allWho.filter((w) => w !== it.who));
       const sameCat = (w) => myCat && catOf.get(w) === myCat;
       const sameEra = (w) => myEra && eraOf.get(w) === myEra;
       const both = others.filter((w) => sameCat(w) && sameEra(w));
@@ -29866,7 +29898,7 @@
       const era  = others.filter((w) => !sameCat(w) && sameEra(w));
       const rest = others.filter((w) => !sameCat(w) && !sameEra(w));
       const distractors = both.concat(cat, era, rest).slice(0, 3);
-      return { it, options: pick([it.who, ...distractors]) };
+      return { it, options: dayPick(seed + "-o", [it.who, ...distractors]) };
     });
   }
   PAGES.whosaid = function (root) {

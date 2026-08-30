@@ -2990,6 +2990,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A NEW GAME IS WIRED IN SIX PLACES AND FIVE OF THEM FAIL SILENTLY**: `PAGES.<key>`, the `valid` route
     list, `PAGE_META`, `DAILY_GAMES`, `GAME_NAMES` + `GAME_SET_WORD`, and the tile plus its click handler in
     `PAGES.home`. `test-minigames.js` asserts all six, against the tiles the home page actually paints.
+  · **THE DAY'S DRAW IS THE SAME DRAW FOR EVERY READER, AND `dayPick(key, arr, n)` IS THE ONE WAY TO MAKE
+    ONE** (Aug 2026, on a bug report: two readers comparing True or False scores had been answering
+    different statements). A daily game's score is written to the tile as TODAY'S, shown beside a
+    site-wide average on the tile's own record card, and read off a friend's account beside your own — so
+    a set drawn from `Math.random` makes every one of those comparisons a comparison of two different
+    tests, silently. Six of the nine were seeded off `todayStr()` already; **Multiple Choice, True or
+    False and Who said it? were not**, and now are. `dayPick` is `pick`'s seeded twin — same signature,
+    same shuffle, the day in place of the entropy — and lives beside `gameLockedToday`. **NEVER `pick`
+    IN A GAME'S DRAW**; the one legitimate `Math.random` left in the games is Common Thread's Shuffle
+    button, which is the player jumbling their own board rather than a draw.
+    **The key names the DRAW, not the game**: a round draws its questions and then its options, and two
+    draws sharing a seed shuffle in step, which on a four-option round puts the answer in the same
+    position every round. And a per-round key carries something STABLE about that round — the card's id,
+    the pool index — never its position, which would move every later round's options the day an earlier
+    card left the pool, and never a LOCALISED string, which would deal a Spanish reader different
+    decoys. It reads the reader's OWN day boundary, like the lock and the streak: everyone sharing a date
+    shares a quiz, which is the guarantee — not that the planet turns over at once.
   · **ONE PLAY A DAY** (`gameLockedToday(root, key)`, called as each page's first act) — every game is
     daily, its rounds are drawn once and its score is today's, so a second run is a run with the answers in
     hand. The placard wears the game's own tile icon (`ICON`, at module scope so the tile and the placard
@@ -5072,7 +5089,8 @@ dead code (never rendered).
     restricted pool** (75 assertions), and every one of its checks is for something that fails SILENTLY.
     **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
     `xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` / `xwMarkGaveUp`, `picturePool` /
-    `dailyPictureRounds` / `tagKinship`, `buildWhoSaidRounds`, `threadEasyKeys` / `dailyThreadPuzzle` /
+    `dailyPictureRounds` / `tagKinship`, `dayPick` / `buildChallengeQuestions` / `buildWhoSaidRounds` /
+    `PAGES.truefalse`'s draw, `threadEasyKeys` / `dailyThreadPuzzle` /
     `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`, `DAILY_GAMES` / `GAME_NAMES` /
     `PAGE_META` / the `valid` route list, `gameCardIdSet` / `GAME_MAX_DIFFICULTY`, `whatyear.js` /
     `truefalse.js` / `quotes.js`, `gameBackHTML` / `flipGameTile` / `gameStatsPost` / `gameStatsLoad` /
