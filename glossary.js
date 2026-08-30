@@ -1598,7 +1598,8 @@ window.GLOSSARY = {
 "Phoenicia": "<b>Phoenicia</b> is the name given to the Iron Age culture of the Levantine coast, a line of independent city-states that lived by sea trade and had no single capital, their own inhabitants disputing whether Tyre or Sidon held the first place.<sup class=\"fn\" data-fn=\"1\"></sup> Its best-known product was a purple dye extracted from marine molluscs, although direct archaeological evidence for making it is scarce and only one excavated site anywhere shows sustained large-scale production.<sup class=\"fn\" data-fn=\"2\"></sup> Settlements carrying Phoenician language, script and religion spread across the central and western Mediterranean, yet ancient DNA from them holds almost no Levantine ancestry, so what travelled was a culture rather than a population.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Carthage": "<b>Carthage</b> was a city on the North African coast, in what is now Tunisia, founded from the Phoenician city of Tyre and dated by ancient convention to about 814 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It belonged to a westward Phoenician expansion that also produced Utica and Gadir, became the leading city of the Punic west, and fought three wars with Rome, the last of which ended in its destruction in 146 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Genome-wide data from Punic sites shows its people drawing most of their ancestry from a profile resembling that of Sicily and the Aegean rather than from the Levant, with North African ancestry a minority contributor at every site sampled.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Urartu": "<b>Urartu</b> was an Iron Age kingdom in the mountains around Lake Van, in what is now eastern Turkey and Armenia, at its height between about 800 and 600 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings set down a language of their own in the cuneiform script of Mesopotamia and built fortresses across the highlands, one of which is thought to survive as a massive mudbrick wall at Artaxata.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Most of what was written about it comes from Assyria, whose kings campaigned against it and recorded in detail the canals, orchards and shrines they destroyed there.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Lydia": "Lydia was a kingdom of western Anatolia centred on Sardis, beneath Mount Tmolus on the Hermus plain, whose kings came to rule the peoples west of the river Halys and to take tribute from the Greek cities of the coast.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its language, Lydian, belonged to the Anatolian branch of Indo-European and was written in an alphabet of Greek-looking letters that is not descended straight from the Phoenician script.<sup class=\"fn\" data-fn=\"3\"></sup> Tombs are the largest class of monument it left, scores of mounds standing at Bin Tepe north of the city, and Sardis fell to Cyrus about 547 BCE, after which Lydia was ruled by Persian satraps.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Lydia": "Lydia was a kingdom of western Anatolia centred on Sardis, beneath Mount Tmolus on the Hermus plain, whose kings came to rule the peoples west of the river Halys and to take tribute from the Greek cities of the coast.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its language, Lydian, belonged to the Anatolian branch of Indo-European and was written in an alphabet of Greek-looking letters that is not descended straight from the Phoenician script.<sup class=\"fn\" data-fn=\"3\"></sup> Tombs are the largest class of monument it left, scores of mounds standing at Bin Tepe north of the city, and Sardis fell to Cyrus about 547 BCE, after which Lydia was ruled by Persian satraps.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Medes": "The Medes were an Iranian-speaking people of the Zagros mountains and the western Iranian plateau, named in Assyrian annals from the 9th century BCE onwards and described there as a country of many local chiefs and mayors rather than as a single kingdom.<sup class=\"fn\" data-fn=\"1\"></sup> In the Babylonian chronicle of Nabopolassar they appear under Cyaxares, taking Ashur and then joining the Babylonians in the destruction of Nineveh in 612 BCE.<sup class=\"fn\" data-fn=\"2\"></sup> Herodotus instead gives them four kings in succession and a capital at Ecbatana ringed by seven walls, ending when Cyrus deposed Astyages, and Darius later met a rebel in Media claiming the family of Cyaxares.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2323,7 +2324,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ancient_Israel_and_Judah": "c. 950 – 586 BCE",
 "Carthage": "c. 814 – 146 BCE",
 "Urartu": "c. 800 – 600 BCE",
-"Lydia": "c. 680 – 547 BCE"
+"Lydia": "c. 680 – 547 BCE",
+"Medes": "9th – 6th century BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3343,7 +3345,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Phoenicia": ["Phoenician"],
 "Carthage": ["Carthaginian"],
 "Urartu": ["Urartian"],
-"Lydia": ["Lydian"]
+"Lydia": ["Lydian"],
+"Medes": ["Mede","Median","Media"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4968,7 +4971,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Phoenicia": ["place","state","history","archaeology","iron age"],
 "Carthage": ["place","city","history","archaeology","iron age"],
 "Urartu": ["state","place","history","archaeology","iron age"],
-"Lydia": ["state","place","history","archaeology","anatolia","iron age"]
+"Lydia": ["state","place","history","archaeology","anatolia","iron age"],
+"Medes": ["people","state","history","politics","iron age","iran"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
