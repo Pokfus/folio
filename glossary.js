@@ -1596,7 +1596,8 @@ window.GLOSSARY = {
 "Hebrew_Bible": "The <b>Hebrew Bible</b> is the collection of Jewish scriptures, written mostly in Hebrew with a few passages in Aramaic and arranged in three parts that were already being spoken of together by the 2nd century BCE as the Law, the Prophets and the remaining books.<sup class=\"fn\" data-fn=\"1\"></sup> It was built up over centuries from texts composed, copied and revised by many hands, and analysis of word frequencies can separate distinct bodies of scribal writing within its first nine books.<sup class=\"fn\" data-fn=\"2\"></sup> Its wording was still somewhat fluid in antiquity and had settled by late Roman times into the consonantal text that medieval scribes transmitted and that most printed editions follow.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Judaism": "<b>Judaism</b> is the religion of the Jewish people, centred on the worship of one God and on the Torah, the body of law and narrative that its communities read, interpret and apply.<sup class=\"fn\" data-fn=\"1\"></sup> It took much of its lasting shape in the Second Temple period, when a written law became the framework of communal life while remaining open to interpretation, revision and outright dispute.<sup class=\"fn\" data-fn=\"1\"></sup> After the temple in Jerusalem was destroyed in 70 CE its practice moved to the reading and application of that law in local assemblies, the pattern by which it has been carried on since.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Phoenicia": "<b>Phoenicia</b> is the name given to the Iron Age culture of the Levantine coast, a line of independent city-states that lived by sea trade and had no single capital, their own inhabitants disputing whether Tyre or Sidon held the first place.<sup class=\"fn\" data-fn=\"1\"></sup> Its best-known product was a purple dye extracted from marine molluscs, although direct archaeological evidence for making it is scarce and only one excavated site anywhere shows sustained large-scale production.<sup class=\"fn\" data-fn=\"2\"></sup> Settlements carrying Phoenician language, script and religion spread across the central and western Mediterranean, yet ancient DNA from them holds almost no Levantine ancestry, so what travelled was a culture rather than a population.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Carthage": "<b>Carthage</b> was a city on the North African coast, in what is now Tunisia, founded from the Phoenician city of Tyre and dated by ancient convention to about 814 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It belonged to a westward Phoenician expansion that also produced Utica and Gadir, became the leading city of the Punic west, and fought three wars with Rome, the last of which ended in its destruction in 146 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Genome-wide data from Punic sites shows its people drawing most of their ancestry from a profile resembling that of Sicily and the Aegean rather than from the Levant, with North African ancestry a minority contributor at every site sampled.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Carthage": "<b>Carthage</b> was a city on the North African coast, in what is now Tunisia, founded from the Phoenician city of Tyre and dated by ancient convention to about 814 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> It belonged to a westward Phoenician expansion that also produced Utica and Gadir, became the leading city of the Punic west, and fought three wars with Rome, the last of which ended in its destruction in 146 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Genome-wide data from Punic sites shows its people drawing most of their ancestry from a profile resembling that of Sicily and the Aegean rather than from the Levant, with North African ancestry a minority contributor at every site sampled.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Urartu": "<b>Urartu</b> was an Iron Age kingdom in the mountains around Lake Van, in what is now eastern Turkey and Armenia, at its height between about 800 and 600 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Its kings set down a language of their own in the cuneiform script of Mesopotamia and built fortresses across the highlands, one of which is thought to survive as a massive mudbrick wall at Artaxata.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Most of what was written about it comes from Assyria, whose kings campaigned against it and recorded in detail the canals, orchards and shrines they destroyed there.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2319,7 +2320,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Nebuchadnezzar_II": "605 – 562 BCE",
 "Babylonian_captivity": "597 – 539 BCE",
 "Ancient_Israel_and_Judah": "c. 950 – 586 BCE",
-"Carthage": "c. 814 – 146 BCE"
+"Carthage": "c. 814 – 146 BCE",
+"Urartu": "c. 800 – 600 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3337,7 +3339,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Ancient_Israel_and_Judah": ["Israel and Judah"],
 "Hebrew_Bible": ["Tanakh"],
 "Phoenicia": ["Phoenician"],
-"Carthage": ["Carthaginian"]
+"Carthage": ["Carthaginian"],
+"Urartu": ["Urartian"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4960,7 +4963,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hebrew_Bible": ["text","history","religion","literature","israel"],
 "Judaism": ["religion","practice","history","israel"],
 "Phoenicia": ["place","state","history","archaeology","iron age"],
-"Carthage": ["place","city","history","archaeology","iron age"]
+"Carthage": ["place","city","history","archaeology","iron age"],
+"Urartu": ["state","place","history","archaeology","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
