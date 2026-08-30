@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-168` Luxembourg
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-171` Western Sahara
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,34 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 63 (Luxembourg, Suriname, Montenegro) found the deck's ninth distinct mode of recognition and,
+in Montenegro, the ONLY recognition the United States has ever WITHDRAWN and later granted again.**
+Luxembourg was recognised on 31 May 1878 when President Hayes issued an **exequatur** to François Berger as
+consul general ad interim at New York — not a note, not a treaty, not a ceremony attended, but the routine
+document admitting another state's consul to do business, which is an act of recognition because only a state
+has consuls to admit. **Look for an exequatur where a small European state's recognition seems to be
+missing**: the guide records no earlier note for Luxembourg at all. Montenegro's entry then runs the whole
+arc twice. It was recognised on 3 March 1905, when Roosevelt approved the Diplomatic and Consular Act
+assigning the mission in Greece responsibility for Montenegro as well; Wilson decided to withdraw that
+recognition on 30 December 1920, and on 21 January 1921 Acting Secretary Norman H. Davis told the honorary
+consul-general that "in view of the present status of Montenegro, this Government no longer considers it
+necessary to accord recognition to her diplomatic and consular officers"; independence was declared again on
+3 June 2006 and recognised on 13 June, with relations established on 15 August — **85 years between the
+withdrawal and the second recognition**, and the only place in the deck where a country's guide page has to
+be read as two separate histories of the same name. Suriname is the Gambia's shape one continent over:
+the independence ceremony at Paramaribo on 25 November 1975 was attended by the **Secretary of the Navy** as
+the President's representative, with Ford's letter of recognition sent the same day, so the attendance and
+the letter are one act rather than two. Three figure findings go with the batch. **Luxembourg's three
+sources give three areas** — 2,586 km² at UNdata, 2,590 at the World Bank and 2,595 at Eurostat — which is
+inside C9's spread and was left alone, while its population was corrected from "roughly 670,000" to 680,000,
+the term having sat below all three. **Montenegro is the pass's FOURTH moving area series**: the World Bank
+gives 13,810 km² for 2020–22 and 13,888 for 2023 with no explanation, after Canada, the Dominican Republic
+and Monaco, so a World Bank area that changes mid-series is a fact about the series rather than about the
+country. And **Suriname's income per head has FALLEN** — 8,814 US dollars in 2015, 6,792 in 2020, 5,976 in
+2023 — which with Equatorial Guinea's earlier fall makes two, so a per-head figure needs its year stated as
+firmly as a population does. Batch 45's rule fired for the tenth consecutive batch: Luxembourg's grand duchy
+described as "the only one left" is in no reachable source and was cut to what the sources print.
 
 **Batch 62 (Solomon Islands, Bhutan, Macau) found the source that answers for an entity OUTSIDE every other
 source, and it is a general route rather than a lucky page.** Macau has no recognition-guide entry (the guide
