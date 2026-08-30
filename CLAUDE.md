@@ -991,6 +991,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     uncited — `gloss-source-audit.js` did, on its first run after the split — and a WRITER
     re-serialises what it loaded and **deletes 1.29 MB without erroring**. `writeGlossary` also STRIPS
     either block from `glossary.js` if one creeps back in.
+    **AND THE QUEUE'S KEYS ARE THE GLOBALS' OWN NAMES.** A one-off inspection that reaches past
+    `gloss-io.js` has to read `window.GLOSSARY_EXTRA_IN[0].GLOSSARY_IMAGES` — not `.images`, and not
+    `window.GLOSSARY_IMAGES`, which the file never assigns. Both wrong forms return `undefined`, which
+    reads as *this term has no picture*: on that answer an existing illustration was overwritten in
+    Aug 2026 and had to be reverted. **A check that cannot tell an absent table from an absent entry is
+    worse than no check**, so confirm a table's SIZE before trusting what it says about one key.
   · **`check-style.js` reads `glossary-extra.js` too**, and that is not housekeeping: rule 4 (BCE/CE)
     sweeps the text a PICTURE carries, which is where most of the site's remaining "BC"s were, and the
     whole images table moved out of its reach. Its citations mask now matches **both** block shapes —
@@ -3908,6 +3914,16 @@ the end of a successful add and print the candidates, their licences, their size
   glossary terms and one artefact today, most of them abstract concepts and living scholars — say so in the
   commit message rather than leaving the gap looking like an oversight. `--no-image` skips the lookup for a
   batch run with no network.
+· **AND WHEN `upload.wikimedia.org` RATE-LIMITS, `Special:FilePath` STILL SERVES THE FILE** (Aug 2026).
+  A long session that has looked at a dozen pictures starts getting a 2,255-byte **429** from
+  `upload.wikimedia.org` on every request, and it does not clear with backoff — fifteen minutes of waiting
+  bought nothing. `https://commons.wikimedia.org/wiki/Special:FilePath/<FILE>?width=900` answers 200 with
+  the image, and so does `commons.wikimedia.org/w/thumb.php?f=<FILE>&width=900`; the ordinary file
+  DESCRIPTION page keeps working throughout too, which is where the licence and author have to be read
+  from when the `api.php` endpoint is also limited. **Use those to LOOK at a candidate**; the `src` written
+  into the card stays the normal `/thumb/…/1920px-…` URL, since the limit is this container's and not a
+  reader's. The rule this protects is the one that matters: **look at the picture before using it**, and a
+  host that will not serve it is a reason to keep trying or to ship without one, never to install unseen.
 · It writes the same fields the pass writes: a card and a term take `{ src, title, desc, credit, alt }`, an
   artefact `{ src, credit, alt }`, and **`credit` is required in all three** — a picture on Folio is always
   somebody else's file, and `add-card.js`, `add-glossary.js`, `add-artefacts.js`, `add-images.js` and the
@@ -3928,6 +3944,17 @@ alias (`Clovis_point` as a key, `Clovis` as an alias of `Clovis_culture`), since
 surfaces longest-first; and **ask whether a one-word term is also an everyday word** before adding it —
 `Boreal` needed `caseSensitive: true` or four country and region terms saying "boreal forest" would have
 linked to a Holocene chronozone.
+**AND CHECK WHETHER THE TERM ALREADY EXISTS BEFORE RUNNING `add-glossary.js`, WHICH OVERWRITES IN
+SILENCE** (Aug 2026, on `wh-294`). The collections share a vocabulary: `Phoenician_alphabet` had been
+written for Ancient Greece long before World History reached it, and the helper answered a fresh entry
+with **`updated glossary term`** rather than `added` — one word, in a line nobody reads twice — having
+replaced a four-source description, its tags and its whole citation list with a two-source one. Nothing
+failed: the audits still reported 1,595 terms all at the bar, because a REPLACED term is still cited.
+What was lost was the part the older entry had and the newer did not, namely that whether a script with
+no vowel signs should be called an alphabet at all is disputed. **The pairing rule is satisfied by a term
+that already exists**, so the check is one command before the work rather than a repair after it, and the
+repair is `git checkout` on `glossary.js` and `glossary-extra.js` — which is only clean because nothing
+else in the batch had touched them.
 
 The deck and glossary are being regrown one entry at a time, each researched from **Wikipedia and
 academic sources** — accuracy is non-negotiable, never invent dates, names, or definitions. The kept
@@ -4102,6 +4129,19 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   may then say "7th century" in words. **The fix is in the DATE LINE, not in `cardYears`**: 52 of the
   447 shipped date lines carry a century form beside a plain year, so teaching that function to read
   centuries would silently move their sort years too.
+  **AND AN ERA MARKER ONLY REACHES THE YEAR IT FOLLOWS**, so a row naming two alternative years —
+  `1188 or 1177 BCE` — is read as 1188 **CE** beside 1177 BCE (Aug 2026, on `wh-268`). Write the era
+  on both: `1188 BCE or 1177 BCE`. The sort year is usually unaffected, which is why nothing reports
+  it: `cardStartYear` takes the MINIMUM, so the stray positive hides there and surfaces only in
+  `cardSpanYears`, where it runs a Bronze Age deck's coverage to the 12th century CE.
+  **AND A `c.` INSIDE A RANGE BREAKS THE ERA'S LEFTWARD CARRY** (Aug 2026, on `wh-284`). A range writes
+  the era once and lets it carry back to the first number — `668 – 631 BCE` yields −668 and −631 — but
+  `668 – c. 631 BCE` yields only **−631**, the approximation mark standing between the two. The failure
+  is the opposite way round from the one above and LOUDER, since the lost year is usually the EARLIER
+  one and `cardStartYear` takes the minimum: the card silently sorts by whatever else its date line
+  happens to name. Write the era twice (`668 BCE – c. 631 BCE`) or move the `c.` to the front
+  (`c. 668 – 631 BCE`) — both parse. **Read the sort year back after writing a date line**, which is
+  two lines of Node against `cardYears` and is the only thing that can see this.
 - `abstract` (the background) — **exactly 10 sentences and about 300 words** (keep within 270–330, which
   `add-card.js` has ENFORCED since 2026-08-06 — it never measured the abstract before, which is how seven
   cards reached 331–342 unremarked; they are recorded in the changelog and left as they are), as two

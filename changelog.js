@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.432", released: "2026-08-30T10:20Z" };
+window.FOLIO_VERSION = { v: "1.433", released: "2026-08-30T11:04Z" };
 
 window.CHANGELOG = [
   {
@@ -44,6 +44,7 @@ window.CHANGELOG = [
     items: [
       "<b>Sixty new cards in The world</b>, completing the countries and territories deck at 227 of 233, with twenty-six new glossary terms and thirty-two others corrected against their own sources.",
       "<b>Seventeen new cards in the Ancient Greece deck</b>, with seventeen new glossary terms to go with them.",
+      "<b>Eighteen new cards in the World History collection</b>, in its Iron Age Near East deck, with sixteen new glossary terms.",
     ],
   },
   {
@@ -64,6 +65,7 @@ window.CHANGELOG = [
       "<b>The whiteboard marker no longer stops drawing when a palm rests on the screen</b>, and a second finger can no longer bend a straight line into a zigzag.",
       "<b>Thirty-three new cards in the Ancient Greece deck</b>, with thirty-three new glossary terms to go with them.",
       "<b>Sixty-seven new cards in The world</b>, in the countries and territories deck, with three new glossary terms and fifty-five others corrected against their own sources.",
+      "<b>Thirty-two new cards in the World History collection</b>, finishing its Bronze Age world deck and opening its Iron Age Near East one, with sixteen new glossary terms.",
       "<b>A geography card can now shade a divided island whole</b>, so the Cyprus card lights up all of it rather than the southern part alone.",
     ],
   },
