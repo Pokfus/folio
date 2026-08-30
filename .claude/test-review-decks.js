@@ -1705,6 +1705,82 @@ const SETTINGS = {
     await page.close();
   }
 
+  /* ================= 21. a card on a learning step is REACHABLE (Aug 2026, on a bug report) ============
+     "Getting a card wrong pushes it forward some minutes before showing it again. This creates a bug
+     where exiting out of the deck study causes the active deck banner to report X cards still to be
+     reviewed in the red number, but clicking the deck says the study has already been completed for the
+     day, since those minutes haven't passed yet."
+
+     Two functions telling the truth and contradicting each other: `entryPiles` and `pileCounts` count a
+     learning card from the moment it is failed until it graduates, and every queue-builder selected on
+     `isDueNow`, which that card is not for another nine minutes. `learnAheadIds` closes it — the learning
+     cards are dealt when the queue would otherwise be empty.
+
+     THE ASSERTION IS THAT THE TWO AGREE, not that either number is a particular value. That is the only
+     form the bug has: a red count is right, an empty session is right, and it is holding both at once
+     that is wrong — so the check is written as the equivalence and cannot be satisfied by a fixed
+     figure drifting into place.
+     A single new card a day is what makes the state reachable in one grade: fail it, and the deck's
+     whole day is one card sitting on a one-minute step. */
+  {
+    const page = await newPage({ active: [deckA], settings: Object.assign({}, SETTINGS, { newPerDay: 1 }), cards: {} });
+    await page.goto(base + "#home", { waitUntil: "load" });
+    await page.reload({ waitUntil: "load" });
+    await page.waitForTimeout(1400);
+
+    const snap = () => page.evaluate(() => ({
+      piles: [...document.querySelectorAll(".banner .stat b")].map((e) => e.textContent).join("/"),
+      start: !!document.querySelector(".banner .cta"),
+      row: [...document.querySelectorAll(".dk-counts")].map((e) => [...e.querySelectorAll("span")].map((x) => x.textContent).join("/"))[0] || "",
+    }));
+
+    await page.evaluate(() => document.querySelector("#b-review").click());
+    await page.waitForTimeout(900);
+    await page.evaluate(() => document.querySelector("#reveal-btn").click());
+    await page.waitForTimeout(300);
+    await page.evaluate(() => document.querySelector(".grade.again").click());
+    await page.waitForTimeout(400);
+    await page.evaluate(() => document.querySelector("#exit").click());
+    await page.waitForTimeout(1000);
+
+    const card = await page.evaluate(() => {
+      const S = JSON.parse(localStorage.getItem("folio_v1"));
+      const id = Object.keys(S.cards || {})[0], c = id && S.cards[id];
+      return c ? { status: c.status, secs: Math.round((c.due - Date.now()) / 1000) } : null;
+    });
+    check("Again leaves the card on a learning step, minutes out",
+      !!card && card.status === "learning" && card.secs > 0, JSON.stringify(card));
+
+    const st = await snap();
+    check("the banner counts it under Learning", /^0\/[1-9]/.test(st.piles), JSON.stringify(st));
+    check("...and does NOT also claim the day is finished — the whole report",
+      st.start === (st.piles !== "0/0/0"), JSON.stringify(st));
+    check("...and the deck's own row says the same thing the banner does", st.row === st.piles, JSON.stringify(st));
+
+    /* The other half of the contradiction, and the half the reader actually pressed: the row opens a
+       session with the card in it rather than a completion screen. */
+    const opened = await page.evaluate(() => {
+      const r = document.querySelector("[data-review]");
+      if (!r) return null;
+      r.click();
+      return true;
+    });
+    if (opened) {
+      await page.waitForTimeout(1200);
+      const got = await page.evaluate(() => ({
+        question: !!document.querySelector(".question"),
+        reveal: !!document.querySelector("#reveal-btn"),
+        text: (document.body.textContent || "").slice(0, 3000),
+      }));
+      check("tapping the deck row deals the card rather than a completion screen",
+        got.question && got.reveal && !/caught up|already/i.test(got.text),
+        JSON.stringify({ question: got.question, reveal: got.reveal }));
+    } else {
+      check("tapping the deck row deals the card rather than a completion screen", false, "no deck row to press");
+    }
+    await page.close();
+  }
+
   console.log("");
   if (errs.length) { console.log("page errors:"); errs.forEach((e) => console.log("  " + e)); fail += errs.length; }
   console.log(pass + " passed, " + fail + " failed");

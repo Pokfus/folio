@@ -1504,6 +1504,13 @@
       published: 0,      // how many of the reader's own decks have been published to the shared decks
       publishedIds: {},  // remote deck id -> when it first went up, so an UPDATE is not counted a second time
       theme: "folio",    // the theme this reader wears — synced, because a friend's banner is drawn in it
+      /* How many ACCEPTED friends this reader has, recorded rather than looked up (Aug 2026, on a bug
+         report). The `friends` table is RLS-scoped to rows involving its owner, so nothing can count a
+         friend's friends and nothing can count your own without a request — and a badge is tested in the
+         middle of a study session, which must never go to the network. `setFriendCount` writes it when the
+         friends list is drawn; a reader who has never opened that page has 0, which is what they had
+         before the field existed. See progStats. */
+      friendCount: 0,
     };
   }
   let S = load();
@@ -1785,6 +1792,17 @@
     if (won && (!running || freshWin)) gl.wins += 1;
     S.gameLog[key] = gl;
     if (freshWin) sfx("win");   // a perfect run earns the gold tile — and a little fanfare, once per day
+    /* A WIN IS A WIN IN ANY OF THE NINE, AND FOR MONTHS ONLY ONE OF THEM COUNTED (Aug 2026, on a bug
+       report that the Victor and Champion badges "do not work"). `S.daily.wins` was incremented inside
+       Multiple Choice's own results screen — written back when that game WAS the daily challenge and
+       there was nothing else to win — so a reader who swept the other eight every day for a month
+       unlocked neither badge, and nothing on the page explained why. It is counted here instead, at the
+       one door every game already goes through, so a tenth game is covered without anybody remembering
+       this. `freshWin` is what gates it: the game's FIRST win today, which the one-play-a-day rule makes
+       its only one, so nothing is farmable and the old `S.daily.winDate` guard is retired with the
+       branch that needed it. Winning three games today is three wins — "win 10 minigames" means ten
+       perfect runs, which is what the badge now says it means. */
+    if (freshWin) { S.daily.wins = (S.daily.wins || 0) + 1; S.daily.winDate = todayStr(); }
     if (won) g.won = true;
     if (typeof score === "number" && typeof total === "number") {   // remember today's BEST score (games can be replayed) — shown on the home tile
       if (!(typeof g.s === "number" && g.s >= score)) g.s = score;
@@ -1850,7 +1868,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -2177,21 +2195,164 @@
       ? '<span class="monogram ' + (cls || "") + ' has-img"><img src="' + esc(avatar) + '" alt=""></span>'
       : '<span class="monogram ' + (cls || "") + '">' + initialOf(name) + "</span>";
   }
-  function avatarFromFile(file, cb) {   // centre-crop to a 128px square JPEG data-URI
+  const AVATAR_PX = 128;   // the stored square, and the reason the enlarge is what it is — see openAvatarViewer
+  /* ---------- CHOOSING THE CROP, RATHER THAN BEING GIVEN ONE (Aug 2026, on request) ----------
+     "When uploading a profile picture, it should be possible to move/crop it."
+     It centre-cropped to a square and that was the whole of it, which is the wrong default often enough
+     to be worth a control: a portrait taken in portrait orientation loses the top of the head and the
+     chin at once, and a photograph of two people keeps whichever half happens to be in the middle. There
+     was no appeal — the only remedy was to crop the file in something else and upload it again.
+
+     `openAvatarCropper` puts the image behind a round window the reader drags and zooms, and hands back
+     the same 128px JPEG data-URI `avatarFromFile` did, so nothing downstream changed: `supaSetAvatar`,
+     the profiles row and every monogram on the site are untouched. Four things.
+
+     THE WINDOW IS ROUND BECAUSE THE AVATAR IS. `.monogram` is a circle everywhere it appears, so a
+     square preview would show the reader corners that no surface will ever draw — and framing a face
+     inside a square that is about to become a circle is exactly the mistake this control exists to stop.
+     The CANVAS is square (the stored image is), and the round mask is drawn over it.
+
+     THE IMAGE CAN NEVER BE SMALLER THAN THE WINDOW. `minScale` is what makes the shorter side fill it,
+     and both the zoom and the pan are clamped against it, so there is no gesture that puts a wedge of
+     empty canvas in the crop. That is a hard guarantee rather than a nicety: a transparent corner
+     becomes BLACK the moment the canvas is encoded as a JPEG.
+
+     ONE POINTER OWNS THE PAN AND TWO MEAN PINCH — the whiteboard's rule, and here for the smaller
+     version of the whiteboard's reason: a second finger landing mid-drag would otherwise walk into the
+     first one's gesture and the picture would jump.
+
+     AND THE OUTPUT IS RE-RENDERED, NOT SCALED FROM THE PREVIEW. The preview is sized to the screen and
+     backed by `devicePixelRatio`; the saved square is drawn from the ORIGINAL image with the same
+     transform expressed in its own pixels, so what is stored is as sharp as the source allows rather
+     than as sharp as this phone's preview happened to be. */
+  function openAvatarCropper(file, cb) {
     if (!file || !/^image\//.test(file.type)) { toast("Choose an image file"); return; }
     if (file.size > 8 * 1024 * 1024) { toast("That image is too large — pick one under 8 MB"); return; }
     const img = new Image();
-    img.onload = () => {
-      const SIZE = 128, c = document.createElement("canvas");
-      c.width = SIZE; c.height = SIZE;
-      const ctx = c.getContext("2d");
-      const s = Math.min(img.naturalWidth, img.naturalHeight);
-      ctx.drawImage(img, (img.naturalWidth - s) / 2, (img.naturalHeight - s) / 2, s, s, 0, 0, SIZE, SIZE);
-      URL.revokeObjectURL(img.src);
-      cb(c.toDataURL("image/jpeg", 0.85));
-    };
     img.onerror = () => { URL.revokeObjectURL(img.src); toast("Couldn't read that image"); };
+    img.onload = () => { URL.revokeObjectURL(img.src); mount(img, cb); };
     img.src = URL.createObjectURL(file);
+
+    function mount(im, done) {
+      const ex = document.querySelector(".av-crop"); if (ex) ex.remove();
+      const ov = document.createElement("div");
+      ov.className = "av-crop";
+      ov.innerHTML =
+        '<div class="avc-box" role="dialog" aria-modal="true" aria-label="Position your photo">' +
+          '<div class="avc-title">Position your photo</div>' +
+          '<div class="avc-stage"><canvas class="avc-canvas"></canvas><div class="avc-ring" aria-hidden="true"></div></div>' +
+          '<label class="avc-zoom"><span class="avc-zlabel">Zoom</span>' +
+            '<input class="avc-range" type="range" min="1" max="4" step="0.01" value="1" aria-label="Zoom"></label>' +
+          '<p class="avc-hint">Drag the photo to move it. Pinch, scroll or use the slider to zoom.</p>' +
+          '<div class="avc-acts"><button type="button" class="avc-cancel">Cancel</button>' +
+            '<button type="button" class="avc-ok">Use photo</button></div>' +
+        "</div>";
+      document.body.appendChild(ov);
+
+      const cv = ov.querySelector(".avc-canvas");
+      const range = ov.querySelector(".avc-range");
+      const box = cv.getBoundingClientRect();
+      const VIEW = Math.max(1, Math.round(box.width)) || 260;          // CSS px of the square window
+      const dpr = Math.min(3, window.devicePixelRatio || 1);
+      cv.width = Math.round(VIEW * dpr); cv.height = Math.round(VIEW * dpr);
+      const ctx = cv.getContext("2d");
+
+      const iw = im.naturalWidth, ih = im.naturalHeight;
+      const minScale = VIEW / Math.min(iw, ih);   // the shorter side exactly fills the window
+      let scale = minScale, ox = 0, oy = 0;       // ox/oy: the image's top-left, in window CSS px
+      const centre = () => { ox = (VIEW - iw * scale) / 2; oy = (VIEW - ih * scale) / 2; };
+      centre();
+
+      // no gesture may bring an edge inside the window — a gap here is a black wedge in the saved JPEG
+      const clamp = () => {
+        const w = iw * scale, h = ih * scale;
+        ox = Math.min(0, Math.max(VIEW - w, ox));
+        oy = Math.min(0, Math.max(VIEW - h, oy));
+      };
+      const draw = () => {
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.clearRect(0, 0, VIEW, VIEW);
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(im, ox, oy, iw * scale, ih * scale);
+      };
+      // zoom about a FIXED POINT of the window, so the slider grows the middle and a pinch grows what is
+      // between the fingers — zooming about the origin walks the picture off the corner instead
+      const zoomTo = (next, px, py) => {
+        const s2 = Math.max(minScale, Math.min(minScale * 4, next));
+        if (s2 === scale) return;
+        const cx = px == null ? VIEW / 2 : px, cy = py == null ? VIEW / 2 : py;
+        ox = cx - (cx - ox) * (s2 / scale);
+        oy = cy - (cy - oy) * (s2 / scale);
+        scale = s2; clamp(); draw();
+      };
+      draw();
+
+      /* ONE POINTER PANS, TWO PINCH. The ids are tracked rather than counted, for the whiteboard's
+         reason: a palm or a second thumb landing mid-drag walks into the first gesture, and the picture
+         jumps to wherever the two disagree. */
+      const pts = new Map();
+      let panId = null, lastX = 0, lastY = 0, pinch0 = 0, scale0 = 1;
+      const local = (e) => { const r = cv.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+      cv.addEventListener("pointerdown", (e) => {
+        cv.setPointerCapture(e.pointerId);
+        const p = local(e); pts.set(e.pointerId, p);
+        if (pts.size === 1) { panId = e.pointerId; lastX = p[0]; lastY = p[1]; }
+        else if (pts.size === 2) {
+          panId = null;
+          const [a, b] = [...pts.values()];
+          pinch0 = Math.hypot(a[0] - b[0], a[1] - b[1]) || 1; scale0 = scale;
+        }
+      });
+      cv.addEventListener("pointermove", (e) => {
+        if (!pts.has(e.pointerId)) return;
+        const p = local(e); pts.set(e.pointerId, p);
+        if (pts.size >= 2) {
+          const [a, b] = [...pts.values()];
+          const d = Math.hypot(a[0] - b[0], a[1] - b[1]) || 1;
+          zoomTo(scale0 * (d / pinch0), (a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
+          range.value = String(scale / minScale);
+        } else if (e.pointerId === panId) {
+          ox += p[0] - lastX; oy += p[1] - lastY; lastX = p[0]; lastY = p[1];
+          clamp(); draw();
+        }
+      });
+      const drop = (e) => {
+        pts.delete(e.pointerId);
+        if (e.pointerId === panId) panId = null;
+        if (pts.size === 1) { const [id] = [...pts.keys()]; panId = id; const p = pts.get(id); lastX = p[0]; lastY = p[1]; }
+      };
+      cv.addEventListener("pointerup", drop);
+      cv.addEventListener("pointercancel", drop);
+      cv.addEventListener("wheel", (e) => {
+        e.preventDefault();
+        const p = local(e);
+        zoomTo(scale * (e.deltaY < 0 ? 1.12 : 1 / 1.12), p[0], p[1]);
+        range.value = String(scale / minScale);
+      }, { passive: false });
+      range.addEventListener("input", () => zoomTo(minScale * parseFloat(range.value)));
+
+      const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); };
+      function onKey(e) {
+        if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); }
+        else if (e.key === "Enter") { e.preventDefault(); e.stopPropagation(); save(); }
+      }
+      function save() {
+        // re-rendered from the ORIGINAL at the stored size, never scaled up out of the preview
+        const out = document.createElement("canvas");
+        out.width = AVATAR_PX; out.height = AVATAR_PX;
+        const k = AVATAR_PX / VIEW;   // window px -> stored px
+        const o = out.getContext("2d");
+        o.imageSmoothingQuality = "high";
+        o.drawImage(im, ox * k, oy * k, iw * scale * k, ih * scale * k);
+        close();
+        done(out.toDataURL("image/jpeg", 0.85));
+      }
+      ov.querySelector(".avc-ok").addEventListener("click", save);
+      ov.querySelector(".avc-cancel").addEventListener("click", close);
+      ov.addEventListener("mousedown", (e) => { if (e.target === ov) close(); });
+      document.addEventListener("keydown", onKey, true);
+      setTimeout(() => { const b = ov.querySelector(".avc-ok"); if (b) b.focus(); }, 0);
+    }
   }
   async function supaSetAvatar(dataUri) {   // null removes the photo
     if (!supaLoggedIn()) return { error: "Sign in first" };
@@ -4712,6 +4873,47 @@
     const c = S.cards[id];
     return c && (c.status === "review" || schedIsLearning(c.status)) && c.due <= now();
   }
+  /* ---------- LEARNING AHEAD, WHEN THERE IS NOTHING ELSE LEFT (Aug 2026, on a bug report) ----------
+     "Getting a card wrong pushes it forward some minutes before showing it again. This creates a bug
+     where exiting out of the deck study causes the active deck banner to report X cards still to be
+     reviewed in the red number, but clicking the deck says the study has already been completed for the
+     day, since those minutes haven't passed yet."
+
+     Two true statements about the same card, from two functions that disagreed by design. `entryPiles`
+     and the banner's `pileCounts` count a LEARNING card from the moment it is answered wrong until it
+     graduates, whether or not its step has come round — which is right, and the comment beside
+     `pileCounts` says why: a count that emptied while a card sat on its timer would tell the reader the
+     work was done. Every queue-builder, meanwhile, filtered on `isDueNow`, which that card is not for
+     another nine minutes. So the row said "1" and the session it opened said "you have finished".
+
+     THE FIX IS NOT TO DROP THE TIMER, and the request's own suggestion — put a failed card at the back of
+     the queue and forget the clock — is what already happens WITHIN a session (`res.requeue`). Across
+     sessions the delay is the whole of what a learning step is: `SCHED.learnSteps` is `1m 10m`, ported
+     from Anki, and a card re-asked four seconds after it was failed is a card whose answer is still on
+     the reader's screen. Removing it would make the first step meaningless and the second unreachable,
+     and `test-scheduler.js` walks both as arithmetic.
+
+     So the two are made to AGREE instead, which is Anki's own answer to this: its `collapseTime` deals
+     learning cards ahead of their step when there is nothing else left to do. Here that is
+     `learnAheadIds` — the learning cards whose step has NOT come round, earliest first — appended by
+     every queue-builder ONLY when the queue would otherwise be empty. While there is other work the
+     spacing is untouched, which is the point of it; when there is not, the reader is handed the cards the
+     red number is counting rather than a completion screen contradicting it.
+     THERE IS DELIBERATELY NO WINDOW on how far ahead it reaches, and `SCHED_AHEAD_MS` is the thing to
+     read it against: that constant (Anki's twenty minutes) bounds the IN-SESSION requeue, where a live
+     queue will come back to the card of its own accord and the bound only decides how long the reader is
+     asked to wait. Here the session is being BUILT and would otherwise be empty and dismissed, so a bound
+     buys nothing and costs the guarantee: the moment a step ran longer than it, the row would show a red
+     count again and the session would again say the day was done. The count is of cards still being
+     learned, so the queue has to be able to reach every one of them. Today the two are the same in
+     practice — `learnSteps` is `1m 10m` and `relearnSteps` `10m`, all inside the window — which is
+     exactly why the difference has to be written down rather than discovered later. */
+  function learnAheadIds(ids) {
+    const t = now();
+    return ids
+      .filter((id) => { const c = S.cards[id]; return c && schedIsLearning(c.status) && c.due > t && !isSuspended(id) && !isBuried(id); })
+      .sort((a, b) => S.cards[a].due - S.cards[b].due);
+  }
   // preview next intervals (in days) for a grade, given current card
   function preview(id) {
     return schedPreview(S.cards[id], id, null, schedCfgFor(id));
@@ -6379,7 +6581,14 @@
     let take = newRemainingToday();
     if (!RL.newIgnoresReview) take = Math.min(take, Math.max(0, rvLeft - dueCapped.length));
     const fresh = seededShuffle(pool, mulberry32(hashStr("review-" + todayStr()))).slice(0, take);
-    return { due: dueCapped, fresh, all: [...dueCapped, ...fresh] };
+    /* Nothing due and nothing new left, but cards still on a learning step — deal them rather than
+       telling the reader the day is done while the banner's red pile says otherwise. See learnAheadIds.
+       They join `due` because that is what they are: work the schedule has already committed to today,
+       as against `fresh`, which is spent out of an allowance. The banner counts them under Learning
+       either way, `pileCounts` testing the status before it ever looks at this set. */
+    let dueOut = dueCapped;
+    if (!dueOut.length && !fresh.length) dueOut = learnAheadIds(activeCardIds());
+    return { due: dueOut, fresh, all: [...dueOut, ...fresh] };
   }
   /* ============================================================
      CARD STATS — the pooled counters behind the community difficulty rating
@@ -22862,7 +23071,31 @@
       queue._sd = sd;
       queue._unseen = unseen;
     }
+    /* THE LEARN-AHEAD IS ONE TAIL STEP RATHER THAN SIX BRANCHES (see learnAheadIds). Every branch above
+       selects on `isDueNow`, so a card whose learning step has not come round is in none of them — and a
+       fix written into each would be five copies of one rule, with the sixth added later left out and
+       nothing on the page to say so. Here it can only ever fire on an EMPTY queue, which is exactly the
+       state the bug report describes: a row showing a red count that opens on a completion screen.
+       The review scope needs no help — `reviewQueue` has already done it, so `queue` is not empty there —
+       but going through the same step costs nothing and means there is one rule rather than two.
+       `_sd` / `_ud` / `_unseen` are left alone: those are the "push on with extra cards" affordance, and
+       a learning card is not an extra. */
+    if (!queue.length) {
+      const ahead = learnAheadIds(scopeAllIds(scope));
+      if (ahead.length) { queue = ahead; total = ahead.length; }
+    }
     return { queue, where, scope };
+  }
+  /* Every card a scope can reach, before any allowance or due-date filter — the one thing `buildSession`'s
+     six branches do not have in common, each having narrowed its own list on the way past. Used only by
+     the learn-ahead above, which needs the whole reachable set rather than what today's caps let through. */
+  function scopeAllIds(scope) {
+    if (!scope) return activeCardIds();
+    if (scope.type === "review") return activeCardIds();
+    if (scope.type === "card") return [scope.id];
+    if (scope.type === "cotd") return cotdIds();
+    const avail = availableCardIdSet();
+    return entryCardIds(scopeEntryId(scope)).filter((id) => avail.has(id));
   }
 
   /* ============================================================
@@ -29362,6 +29595,24 @@
     if (s) openMediaViewer(vid, s);
   }
   function openImageViewer(img) { openMediaViewer(img, null); }
+  /* A PROFILE PHOTO, ENLARGED (Aug 2026, on request: "when visiting someone else's profile, I should be
+     able to click their profile picture to enlarge it"). It goes through the site's own image viewer
+     rather than a second overlay — the pinch, the pan, the Escape and the × are all written already —
+     with two differences declared on the element instead of in the caller.
+     IT IS DRAWN ROUND, because that is the shape the photo was composed in: the cropper frames it inside
+     a circle and every monogram on the site is one, so revealing the square's corners here would show
+     the owner a version of their own picture they never chose.
+     AND IT IS CAPPED, WHICH IS AN HONEST LIMIT RATHER THAN A CHOICE. A stored avatar is `AVATAR_PX`
+     square — small on purpose, since the friends list fetches one per friend — so the viewer's default
+     (an `<img>` at its natural size under a `max-width`) would show it at 128px, barely larger than the
+     row it was tapped in. `.iv-avatar` takes it to about 320, which is soft and is plainly a photograph;
+     the reader can still pinch further if they want to. Raising the stored size is the only thing that
+     would make it sharper, and it would cost every friends list a few hundred kilobytes to serve a
+     gesture made now and then. */
+  function openAvatarViewer(avatar, name) {
+    if (!avatar) return;
+    openImageViewer({ src: avatar, alt: (name || "This reader") + "'s profile photo", viewClass: "iv-avatar" });
+  }
   function openMediaViewer(img, vsrc) {
     closeImageViewer();
     const ov = document.createElement("div");
@@ -29371,7 +29622,7 @@
     ov.innerHTML =
       (vsrc
         ? '<div class="iv-stage iv-vidstage">' + videoPlayerHTML(vsrc, img.title, "iv-vid", true) + "</div>"
-        : '<div class="iv-stage"><img class="iv-img" src="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || "") + '" draggable="false"></div>') +
+        : '<div class="iv-stage"><img class="iv-img' + (img.viewClass ? " " + esc(img.viewClass) : "") + '" src="' + esc(img.src) + '" alt="' + esc(img.alt || img.title || "") + '" draggable="false"></div>') +
       '<button class="iv-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>' +
       ((img.title || img.desc || credit)
         ? '<div class="iv-meta">' +
@@ -29782,7 +30033,8 @@
       S.daily.games++;
       S.daily.best = Math.max(S.daily.best || 0, score);
       S.daily.lastPlayed = now();
-      if (won && S.daily.winDate !== todayStr()) { S.daily.wins = (S.daily.wins || 0) + 1; S.daily.winDate = todayStr(); }   // count at most one win per day (revives Victor/Champion; "win 10 daily challenges" = 10 distinct days, not farmable by replaying)
+      // `S.daily.wins` is NOT incremented here any more — every game's perfect run counts, and it is
+      // counted once in `markGamePlayed`. See the note there.
       markGamePlayed("challenge", won, score, Q.length);
       save();
       checkAchievements();
@@ -35015,7 +35267,7 @@
       '<div class="statcard"><b>' + seen + '</b><span>Cards seen</span></div>' +
       '<div class="statcard zh"><b>' + streak + '</b><span>Day streak</span></div>' + due +
       '<div class="statcard"><b>' + mature + '</b><span>Mature (21d+)</span></div>' +
-      '<div class="statcard"><b>' + wins + '</b><span>Challenge wins</span></div>' +
+      '<div class="statcard"><b>' + wins + '</b><span>Minigame wins</span></div>' +
       '<div class="statcard"><b>' + best + '</b><span>Best score</span></div></div>';
   }
   /* ---------- review statistics: heatmap, forecast, retention ----------
@@ -35432,8 +35684,12 @@
     { id: "deck3", icon: "🗂️", name: "Polymath", desc: "Make progress in 3 decks", test: (s) => s.decksStarted >= 3, prog: (s) => [s.decksStarted, 3] },
     { id: "friend1", icon: "🤝", name: "First Friend", desc: "Add your first friend", test: (s) => s.friends >= 1 },
     { id: "friend5", icon: "🌐", name: "Well Connected", desc: "Have 5 friends", test: (s) => s.friends >= 5, prog: (s) => [s.friends, 5] },
-    { id: "win1", icon: "🏅", name: "Victor", desc: "Win a daily challenge", test: (s) => s.wins >= 1 },
-    { id: "win10", icon: "👑", name: "Champion", desc: "Win 10 daily challenges", test: (s) => s.wins >= 10, prog: (s) => [s.wins, 10] },
+    /* "daily challenge" was this game's name when it was the only one; there are nine now and the word
+       for one of them is MINIGAME (Aug 2026, on request). The IDS are untouched, as the Library's route
+       was when it became Collections: a label is what a reader sees and an id is what a save is keyed
+       by, and renaming one would take the badge off everybody already holding it. */
+    { id: "win1", icon: "🏅", name: "Victor", desc: "Win a minigame", test: (s) => s.wins >= 1 },
+    { id: "win10", icon: "👑", name: "Champion", desc: "Win 10 minigames", test: (s) => s.wins >= 10, prog: (s) => [s.wins, 10] },
     { id: "sweep", icon: "🎯", name: "Clean Sweep", desc: "Score perfectly in every daily game in one day", test: (s) => s.dailySweep },
     // the reading done AROUND the cards — the glossary and the Atlas, which until now earned nothing
     { id: "terms25", icon: "🔖", name: "Margin Notes", desc: "Open 25 glossary terms", test: (s) => s.terms >= 25, prog: (s) => [s.terms, 25] },
@@ -35487,6 +35743,17 @@
     { id: "read5", icon: "🪶", name: "Five Hours in One Book", desc: "Spend five hours reading one book", test: (s) => s.readBookMs >= 5 * 3600e3, prog: (s) => [Math.round(s.readBookMs / 3600e3), 5] },
     { id: "read25", icon: "🗝️", name: "Twenty-five Hours in the Library", desc: "Spend twenty-five hours reading, across every book", test: (s) => s.readMs >= 25 * 3600e3, prog: (s) => [Math.round(s.readMs / 3600e3), 25] },
   ];
+  /* `friendsCount` IS AN OVERRIDE, AND THE FALLBACK IS THE FIELD (Aug 2026, on a bug report that the
+     First Friend and Well Connected badges "do not work"). They never could: `checkAchievements` passed
+     `currentUser().friends.length`, and `currentUser()` reads `ACCT` — the LEGACY device-local accounts,
+     retired when accounts moved to Supabase and empty for every reader since. So the count handed in was
+     always 0 and the two badges were unreachable for anyone whose friends are real.
+     Friends now live in a Supabase table that RLS scopes to rows involving ME, which is why the count has
+     to be RECORDED rather than looked up on demand: a badge is tested at grade time, in the middle of a
+     study session, and cannot go to the network — and a FRIEND's progress, which this same function reads
+     for their badge grid, is a blob that cannot be joined against a table only they may read. So
+     `setFriendCount` writes it into the progress blob whenever the friends list is drawn, and every
+     reader's own count travels with their own progress. */
   function progStats(prog, friendsCount) {
     const cards = prog.cards || {};
     const seen = Object.keys(cards).length;
@@ -35504,7 +35771,7 @@
     const arts = (prog.artefacts && typeof prog.artefacts === "object") ? Object.keys(prog.artefacts) : [];
     const legendaries = arts.filter((id) => ARTEFACT_BY_ID[id] && rarityId(ARTEFACT_BY_ID[id]) === "legendary").length;
     const st = prog.studyTime;
-    return { seen, mature, streak: (prog.streak && prog.streak.count) || 0, wins: (prog.daily && prog.daily.wins) || 0, dailySweep: allGamesWonToday(prog), decksStarted, decksDone, friends: friendsCount || 0,
+    return { seen, mature, streak: (prog.streak && prog.streak.count) || 0, wins: (prog.daily && prog.daily.wins) || 0, dailySweep: allGamesWonToday(prog), decksStarted, decksDone, friends: (friendsCount != null ? friendsCount : (prog.friendCount | 0)),
       terms: glossSeenCount(prog), countries: countrySeenCount(prog), countryTotal: (window.WORLD_GEO && window.WORLD_GEO.length) || 0,
       chestsOpened: (prog.chestsOpened | 0), artefacts: arts.length, legendaries,
       published: (prog.published | 0),
@@ -35541,9 +35808,19 @@
        backfill runs once per reader (a badge already in `S.achievements` is never "newly" again), so
        this cannot pay out twice for the same badge.
      `grantChest` saves, which is what the bare `save()` here used to do. */
+  /* Record how many accepted friends this reader has, and test the badges that read it. Saves only on a
+     CHANGE — this runs on every draw of the friends list — and always checks, since a badge may be owed
+     from a count recorded before the field existed. */
+  function setFriendCount(n) {
+    const v = Math.max(0, n | 0);
+    if (S.friendCount !== v) { S.friendCount = v; save(); }
+    checkAchievements();
+  }
   function checkAchievements(silent) {
     if (!S.achievements) S.achievements = {};
-    const s = progStats(S, currentUser() ? (currentUser().friends || []).length : 0);
+    // no friend count is passed: `progStats` reads `S.friendCount`, which `setFriendCount` keeps. The
+    // old argument came from the retired local-accounts store and was always 0 — see progStats.
+    const s = progStats(S);
     const newly = [];
     ACHIEVEMENTS.forEach((a) => { if (!S.achievements[a.id] && a.test(s)) { S.achievements[a.id] = Date.now(); newly.push(a); } });
     if (newly.length) {
@@ -35917,12 +36194,14 @@
     avatarInput.addEventListener("change", () => {
       const f = avatarInput.files && avatarInput.files[0];
       if (!f) return;
-      avatarFromFile(f, async (uri) => {
+      openAvatarCropper(f, async (uri) => {
         const r = await supaSetAvatar(uri);
         if (r.error) return toast(r.error);
         toast("Profile photo updated");
         render();
       });
+      // …or the same file will not fire `change` again if it is picked a second time after a cancel
+      avatarInput.value = "";
     });
     const avatarRemove = root.querySelector("#avatarRemove");
     if (avatarRemove) avatarRemove.addEventListener("click", async () => {
@@ -36030,6 +36309,12 @@
       const incoming = rows.filter((r) => r.status === "pending" && r.friend_id === me).map((r) => r.user_id).filter((k) => profs[k]);
       const outgoing = rows.filter((r) => r.status === "pending" && r.user_id === me).map((r) => r.friend_id).filter((k) => profs[k]);
       const accepted = rows.filter((r) => r.status === "accepted").map((r) => (r.user_id === me ? r.friend_id : r.user_id)).filter((k) => profs[k]);
+      /* THE ONE PLACE THE COUNT IS WRITTEN, and it is written here rather than in the three handlers
+         below because this list is redrawn after every one of them — an accept, a decline, a removal and
+         a request answered from the other side all end at `refresh()`, which is this function. The
+         handlers used to call `checkAchievements()` themselves, BEFORE anything had recorded the new
+         count, which is a second reason the friend badges never fired. */
+      setFriendCount(accepted.length);
       let html = '<div class="friend-add"><input class="auth-in" id="friendAdd" placeholder="Add a friend by username" autocomplete="off"><button class="auth-btn sm" id="friendAddBtn" type="button">Add</button></div><div class="friend-msg" id="friendMsg"></div>';
       if (incoming.length) html += '<div class="friend-sub">Requests</div>' + incoming.map((k) => userRow(k, profs, '<span class="friend-acts"><button class="mini-btn ok" data-accept="' + esc(k) + '">Accept</button><button class="mini-btn" data-decline="' + esc(k) + '">Decline</button></span>', false)).join("");
       if (outgoing.length) html += '<div class="friend-sub">Pending</div>' + outgoing.map((k) => userRow(k, profs, '<span class="friend-acts"><button class="mini-btn" data-cancel="' + esc(k) + '">Cancel</button></span>', false)).join("");
@@ -36050,7 +36335,7 @@
         if (incoming.includes(t.id)) {   // they already asked you → accept instead
           const a = await supaFetch("/rest/v1/friends?user_id=eq." + t.id + "&friend_id=eq." + me, { method: "PATCH", body: { status: "accepted" } });
           if (!a.ok) return fmsg(supaErrMsg(a, "Could not accept the request."));
-          checkAchievements(); fmsg("You're now friends!", true); return refresh();
+          fmsg("You're now friends!", true); return refresh();   // refresh() records the count and checks the badges
         }
         const r = await supaFetch("/rest/v1/friends", { method: "POST", body: { user_id: me, friend_id: t.id } });
         if (!r.ok) return fmsg(supaErrMsg(r, "Could not send the request."));
@@ -36058,7 +36343,7 @@
         fmsg("Request sent.", true); refresh();
       });
       box.querySelectorAll("[data-view]").forEach((b) => b.addEventListener("click", () => route("account", { viewUser: b.dataset.view })));
-      box.querySelectorAll("[data-accept]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + b.dataset.accept + "&friend_id=eq." + me, { method: "PATCH", body: { status: "accepted" } }); checkAchievements(); refresh(); }));
+      box.querySelectorAll("[data-accept]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + b.dataset.accept + "&friend_id=eq." + me, { method: "PATCH", body: { status: "accepted" } }); refresh(); }));
       box.querySelectorAll("[data-decline]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + b.dataset.decline + "&friend_id=eq." + me, { method: "DELETE" }); refresh(); }));
       box.querySelectorAll("[data-cancel]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?user_id=eq." + me + "&friend_id=eq." + b.dataset.cancel, { method: "DELETE" }); refresh(); }));
       box.querySelectorAll("[data-remove]").forEach((b) => b.addEventListener("click", async () => { await supaFetch("/rest/v1/friends?or=(and(user_id.eq." + me + ",friend_id.eq." + b.dataset.remove + "),and(user_id.eq." + b.dataset.remove + ",friend_id.eq." + me + "))", { method: "DELETE" }); refresh(); }));
@@ -36088,7 +36373,12 @@
       root.innerHTML = `
         <button class="back-link" id="backBtn" type="button">← Back to your account</button>
         <div class="profile friend-profile"${fskin}>
-          ${monogramHTML(u.avatar, u.name)}
+          ${/* Their photo enlarges; a MONOGRAM does not, being a letter the page is already showing at
+                the size a letter is worth. So the button exists only where there is a photograph, rather
+                than always existing and doing nothing five sixths of the time. */""}
+          ${u.avatar
+            ? `<button class="mono-view" type="button" id="fAvatar" aria-label="View ${esc(u.name)}'s profile photo">${monogramHTML(u.avatar, u.name)}</button>`
+            : monogramHTML(u.avatar, u.name)}
           <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + '</span>' : ""}</div></div>
           <button class="ghost-btn" id="rmFriend" type="button">Remove friend</button>
         </div>
@@ -36117,11 +36407,15 @@
       root.querySelector("#fReviewStats").innerHTML = reviewStatsHTML(prog, u.joined);   // their reviewLog rides along in the synced progress blob
       renderDeckStats(root.querySelector("#fDeckStats"), prog, false);   // their community decks live on their device, not in the blob
       root.querySelector("#fExploreStats").innerHTML = exploreStatsHTML(prog);
-      root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog, 0));
+      // no friend count is forced any more: their own blob carries `friendCount`, so their First Friend
+      // and Well Connected badges read their friends rather than a hard 0. See progStats.
+      root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog));
       renderCollectionLevels(root.querySelector("#fLevels"), prog.cards || {}, S.cards);   // their progress, with a "You: …" chip beside each
       root.querySelector("#fShowcase").innerHTML = showcaseHTML(prog, false);
       wireReliquary(root.querySelector("#fShowcase"), prog, false);   // …so "See Reliquary" opens THEIR collection, not yours
       renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
+      const fAv = root.querySelector("#fAvatar");
+      if (fAv) fAv.addEventListener("click", () => openAvatarViewer(u.avatar, u.name));
       root.querySelector("#backBtn").addEventListener("click", () => route("account"));
       root.querySelector("#rmFriend").addEventListener("click", async () => {
         await supaFetch("/rest/v1/friends?or=(and(user_id.eq." + me + ",friend_id.eq." + key + "),and(user_id.eq." + key + ",friend_id.eq." + me + "))", { method: "DELETE" });
