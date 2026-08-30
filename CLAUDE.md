@@ -872,6 +872,46 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   seat** and the plan says which each card asks for, with the working seat named in the facts box.
   **Israel and Palestine are deferred**, numbered but not written, because a card that shades a shape and
   asks for one word cannot hold a capital question whose answer is the dispute. Not part of the site.
+- `docs/china-geography-card-plan.md` — the running order for **China** (`geo-china`, the third
+  collection of the Geography SECTION), and the third plan that is not a thousand cards: it is **58
+  cards** — the 31 provincial-level divisions of mainland China (`gc-001`–`gc-031`) and the 27
+  provincial capitals (`gc-501`–`gc-531`, four numbers deliberately unused) — on the same **map card**
+  format, so it points at `docs/geography-card-plan.md` rather than restating it. **IT IS COMPLETE**:
+  all 58 shipped in Aug 2026, each with a paired glossary term at the citation bar and a picture, so the
+  plan is now a record of what was decided rather than a queue of work. **Sorted by
+  population, largest first, and fixed at planning time**, on the same reasoning *The world* gives.
+  Four things in it are decisions rather than lists. **WHICH DIVISIONS ARE IN IT COMES OUT OF ONE
+  DOCUMENT** — the National Bureau of Statistics' Seventh National Population Census, Communiqué No. 3,
+  which reports "31 provinces, autonomous regions and municipalities directly under the central
+  government of the Chinese mainland" — and that is also the work the order is sorted by and the work
+  the NAMES follow, so the list, the order and the spelling are one source rather than three judgements.
+  **HONG KONG, MACAU AND TAIWAN ARE NOT IN IT, and that is a fact about Folio rather than a claim about
+  any of them**: each has an ISO 3166-1 code, each is drawn by `world.js`, and each is already a card in
+  *The world* (`gw-104`, `gw-167`, `gw-060`), so carding one here would ask a shape twice on one site.
+  **FOUR CAPITAL NUMBERS ARE NEVER WRITTEN** — Beijing, Shanghai, Tianjin and Chongqing are cities that
+  are themselves divisions, so the shape being shaded IS the answer — and the decision is enforced by
+  `window.CHINA_CAPITALS` holding 27 rows rather than by the plan saying so, which is what makes
+  `add-card.js` refuse such a card. And its **sourcing survey is the one to read before writing**: every
+  Chinese government host outside `stats.gov.cn` refuses the connection here, `whc.unesco.org` and
+  `britannica.com` are 403, and `chinadaily.com.cn` answers and is a state newspaper, citable for what
+  it is and never as an independent source. Not part of the site.
+- `china-provinces.js` + `.claude/build-china-provinces.js` — the 31 provincial-level divisions of
+  mainland China and the 27 provincial capitals (`window.CHINA_PROVINCES` / `window.CHINA_CAPITALS`),
+  the third shape layer a map card can be drawn on. **Lazy** (bundle `chinaprov`, with `lakes.js` beside
+  it for the reason `usstates` carries it), **generated — never hand-edited**. Its shape is
+  `us-states.js`'s exactly, down to the tolerance, plus a `t` for the division's KIND — Province,
+  Autonomous Region or Municipality, which every card in the deck states and which the question is
+  careful not to assume — so one renderer draws a province and a state alike.
+  **📖 Read the script's header before touching it**, for one finding above all: **Natural Earth's
+  `Admin-1 capital` class is unusable for China**, where for the United States it was the whole answer.
+  It returns 32 points for 31 divisions and is wrong five ways at once — Zhaotong filed as a capital of
+  Yunnan and Fushun of Liaoning, Xining filed under Gansu, Beijing absent because it carries the
+  Admin-0 class instead, and two names misspelt. So the capital is DECLARED city by city and the
+  COORDINATE is still never typed: the point comes from Natural Earth's own record of the named city,
+  and **every point is then tested for falling inside its own province's polygon before it is written**,
+  which is the check Natural Earth's own attribution fails. It also records, measured rather than
+  assumed, that the `_lakes` variant changes NOTHING for China — all 32 features are vertex-identical
+  in the two variants, because the clipping is applied to lakes lying BETWEEN divisions.
 - `world-capitals.js` + `.claude/build-world-capitals.js` — the capital of every country and territory as
   a POINTS TABLE for a map card's gold dot (`window.WORLD_CAPITALS`, 246 cities across 233 entities,
   13.5 KB), the `world` layer's companion exactly as `US_CAPITALS` is `us-states.js`'s. **Lazy** (bundle
@@ -1306,7 +1346,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   which dropped the comment standing above the tree on every run — both headers are written out in full
   now. **Diff `data.js` after any tool run**: a whole-file rewrite normalises every card's KEY ORDER, which
   is semantically identical and turns a one-card change into 400 lines of review noise (the fix above
-  prevents it, and the cure is to splice the changed line into the old text).
+  prevents it, and the cure is to splice the changed line into the old text). **`add-card.js` has a
+  second, smaller footprint of the same kind, worth knowing before reviewing its diff**: it re-serialises
+  the array through `JSON.stringify`, which writes a whole-number float without its fractional part — so a
+  LOCATOR's authored `area` or `spine` comes back with `57.0` as `57` and `1.0` as `1`, on cards nobody
+  touched. Five did when the first China geography card was added. `57.0 === 57`, so nothing renders
+  differently and nothing is lost; it is review noise, and the cure is the same — restore those lines from
+  `git show HEAD:data.js` before committing.
   Not part of the site.
 - `.claude/add-card-difficulty.js` — writes `card.difficulty`, the 1–5 rating of how well known a card's
   ANSWER TERM is, in batches: `node .claude/add-card-difficulty.js <batch.json>` over
@@ -4005,7 +4051,7 @@ lists it under Collections. **Its empty decks need no change**: `isComingSoon` i
 subtreeCardIds(node).length === 0`, so a deck with no cards is coming-soon on its own account and
 becomes visible the day one lands in it.
 
-**THE SEVENTEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
+**THE EIGHTEEN PLANNED COLLECTIONS — the index (Aug 2026).** Every one is grown the same way: **"generate
 the next <collection> card" means take the lowest id not yet in `data.js`, read its topic and deck from
 that collection's plan, research it, and add it** with `node .claude/add-card.js <card.json> <deckId>`.
 **Always pass the deck id** — without one `add-card.js` falls back to the first leaf in the whole tree,
@@ -4031,6 +4077,7 @@ lookup.
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
 | The world | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 136 cards — 470 rather than 1000, and sorted by POPULATION, see below |
+| China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
 

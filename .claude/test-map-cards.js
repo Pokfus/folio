@@ -108,9 +108,25 @@ function staticChecks() {
      statement about the only layer there was and became a false one the day a second collection shipped —
      the repo's own "a hard-coded label in a test is not an assertion about the label" fault. Each card is
      now checked against ITS OWN layer's shapes and points. */
+  /* the third layer: China's provincial-level divisions, whose capitals live in the SAME file as its
+     shapes rather than in one of their own — see the chinaprov bundle in app.js for why. Its point table
+     is DELIBERATELY short of four divisions (Beijing, Shanghai, Tianjin and Chongqing are cities that are
+     themselves divisions), which is asserted below rather than left to read as a gap. */
+  const cwin = {};
+  new Function("window", fs.readFileSync(path.join(ROOT, "china-provinces.js"), "utf8"))(cwin);
+  const CP = cwin.CHINA_PROVINCES || [], CPCAP = cwin.CHINA_CAPITALS || {};
+  const cpNames = new Set(CP.map((p) => p.n));
+  ok(CP.length === 31, "china-provinces.js carries the census's 31 provincial-level divisions", CP.length);
+  ok(Object.keys(CPCAP).length === 27, "china-provinces.js carries 27 provincial capitals, not 31", Object.keys(CPCAP).length);
+  ok(["Beijing", "Shanghai", "Tianjin", "Chongqing"].every((m) => cpNames.has(m) && !Object.values(CPCAP).some((v) => v.s === m)),
+     "...the four missing are the municipalities, whose shape would be their own answer");
+  const cpOrphan = Object.keys(CPCAP).filter((n) => !cpNames.has(CPCAP[n].s));
+  ok(!cpOrphan.length, "every China capital names a division the layer actually has", cpOrphan.slice(0, 5).join(", "));
+
   const LAYERS = {
     "us-states": { shapes: new Set(ST.map((s) => s.n)), points: CAP, what: "state" },
     world: { shapes: wgNames, points: WCAP, what: "country" },
+    "china-provinces": { shapes: cpNames, points: CPCAP, what: "province" },
   };
 
   const dwin = {};
