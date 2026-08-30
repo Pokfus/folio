@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-229`, less the deferred `gw-195`, `gw-201`, `gw-218`, `gw-223` and `gw-224`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-233`, the WHOLE running order less the deferred `gw-195`, `gw-201`, `gw-218`, `gw-223`, `gw-224` and `gw-230`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,15 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland, Anguilla, Palau, Cook Islands, Nauru, Tuvalu, Saint Pierre and Miquelon, Saint Helena, Montserrat, Falkland Islands) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland, Anguilla, Palau, Cook Islands, Nauru, Tuvalu, Saint Pierre and Miquelon, Saint Helena, Montserrat, Falkland Islands, Niue, Vatican City, Pitcairn Islands) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-230` Norfolk Island, `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna and `gw-224` Saint Barthélemy being deferred
-and the next capital is `gw-542` Warsaw.
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -915,6 +914,53 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 82 (Niue, Vatican City, Pitcairn Islands) reaches the END of the countries deck's numbering —
+`gw-233` is the last id in the running order — and it does so with `gw-230` Norfolk Island DEFERRED.**
+Norfolk Island is the deck's fourth entity invisible to both quantitative sources (`nf` returns 500,
+`NFK` is not a valid World Bank code) and, unlike Åland, its metropole does not fill the gap: the
+Australian department that administers the territory refuses the connection outright at
+`infrastructure.gov.au` and `regional.gov.au`, the island's own `norfolkisland.gov.nf` closes the tunnel
+mid-exchange, and `legislation.gov.au`'s search is JavaScript-driven and returns tax statutes for a query
+about the Norfolk Island Act. **The Australian Bureau of Statistics DOES answer** — its 2021 Census
+QuickStats for area 901041004 gives 2,188 people, a median age of 50 and 1,220 private dwellings — but
+nothing openable gives the island's area or names Kingston, so the facts box cannot be filled. That is
+`gw-218` Saint Martin's shape with a different flag, and it is worth recording that **Australia joins
+France in the "publishes, but not to a reader"** column while the United Kingdom, the Netherlands,
+Denmark, New Zealand and the United States all answer plainly.
+
+**The Vatican is the first entity in this deck whose OWN GOVERNMENT is the whole source list.** The
+Governorate of Vatican City State publishes three short pages that between them carry everything a card
+needs and nothing a summary would: the territory at **0.44 km² (44 hectares)**, walled in part, taking in
+Saint Peter's Square "up to the marble strip that joins the ground to the outer parts of the Colonnade";
+five entrances guarded by the Swiss Guard and the Gendarmerie; and, updated to 31 December 2024, **673
+citizens, 458 of them inside the walls including 120 Swiss Guards, and 882 residents in all**, with about
+30 per cent of citizens living abroad because their work is diplomatic. It also dates the state exactly —
+the Lateran Treaty signed 11 February 1929 and ratified 7 June — and states its own constitutional
+position: a personality under international law "separate from the Holy See", with structures "reduced to
+the bare minimum required to carry out its functions". **UNdata files the entity as the Holy See and
+gives NO surface area at all**, only a density, so the Governorate is not a supplement here but the
+source. The term was reconciled with it and lost "the smallest sovereign state in the world" — a
+superlative no cited source states, where the 0.44 km² beside it says the same thing and can be checked.
+
+**Pitcairn is the smallest population the deck will ever card, and its two sources disagree about it.**
+The Secretariat's working paper says 35 (2023); the territory's own government says "a population of only
+around fifty". Both are printed. The paper is otherwise the richest short entry in the C-24 series —
+four islands of which one is inhabited, 35.5 km² in all against 4.35 for Pitcairn itself, an exclusive
+economic zone of 842,000 km² that is now a marine protected area, no political parties, official
+languages English and **Pitkern**, "a mixture of eighteenth-century English and Tahitian", and the
+Governor's office held concurrently by the United Kingdom's High Commissioner to New Zealand. A small
+divergence worth knowing: **the paper writes HMS *Bounty* and the islanders' own government writes
+HMAV** — His Majesty's Armed Vessel, which is what she was.
+
+**And UNdata contradicts itself across two profiles, which the Niue card has to say out loud.** Its Cook
+Islands profile footnotes the area as excluding "Niue, shown separately, which is part of Cook Islands,
+but because of remoteness is administered separately" — batch 79 recorded that and attributed it. Its
+Niue profile, meanwhile, files Niue under Polynesia in its own right and excludes it from the data for
+New Zealand, and New Zealand's own foreign ministry calls it "a self-governing state in 'free
+association' with New Zealand" under the Niue Constitution Act 1974. **Where one publisher's two pages
+disagree, cite both and let the reader see it**; the card names the Cook Islands footnote as the
+statistics division's filing convention rather than as a fact about Niue.
 
 **Batch 81 (Saint Helena, Montserrat, Falkland Islands) is the batch where the C-24 working papers and
 `legislation.gov.uk` finally run as ONE recipe**, and it is the cheapest three cards the pass has
