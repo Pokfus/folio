@@ -2944,6 +2944,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   selection menu; the Settings "Audio" card was removed. The machinery and the baked `audio/` files stay
   dormant for a later revival — Web Speech plus four Piper-baked narrators, all **CC BY 4.0**, and
   **`hfc_male`/`ryan`/`lessac` are CC BY-NC and must not be used.** See `docs/reader-settings.md`.
+  · **A COMMUNITY CARD TYPE'S `.uc-tts` IS NOT PART OF THAT AND IS LIVE** — it deliberately bypasses
+    `ttsEnabled()`, being a control a reader presses rather than something Folio does to them (see the
+    `.uc-tts` bullet above). So "read-aloud does nothing" reported on a LANGUAGE DECK is never the
+    site-wide switch, and answering it with that switch sends the next session looking in the wrong place.
+  · **AND A PRESS MUST NEVER COME BACK AS SILENCE** (`TTS_SILENT_MS` / `ttsSilentNote` / `ttsCanSpeak`,
+    Aug 2026, on a bug report that read-aloud "is not working at all" on the Spanish decks). A browser can
+    carry `speechSynthesis` and `SpeechSynthesisUtterance` and have **no voice installed behind them** —
+    ordinary on Linux without speech-dispatcher, on some Android WebViews, and in **headless Chromium,
+    where it is measurable**: the API is present, `getVoices()` is empty, and `speak()` returns with no
+    sound, no error and no `onstart`. Every guard on the path passed, so the control drew itself as a live
+    button and answered a press with nothing at all.
+    **THE OUTCOME IS MEASURED, NEVER PREDICTED, and that is the whole of the design.** Refusing up front
+    on an empty voice list was written first and is wrong twice over: `getVoices()` **arrives
+    asynchronously**, so the same list is empty at boot and full a second later, and on some engines it is
+    empty while speech works — so refusing would silence a control that WOULD have spoken. `cardSpeak`
+    therefore always attempts, and asks afterwards whether the engine actually started (`onstart`, then
+    `speaking`/`pending` after `TTS_SILENT_MS`); only then does it report. `ttsSilentNote()` picks the
+    message from `ttsCanSpeak()` — **no voices at all is a fact about the DEVICE**, where an engine that
+    has voices and still produced nothing is a failure of this one attempt.
+    **`ttsSupported()` STILL ANSWERS ONLY "IS THE API HERE"** and must not be taught otherwise: it gates
+    `body.no-tts`, which takes the button's chrome away, and **the shipped language decks' control is an
+    EMPTY span** (`<span class="uc-tts uc-say" data-say="{{Word}}"></span>`) that collapses to **0px wide**
+    under that class — measured — so widening it would make the control vanish rather than explain itself.
+    Guarded by `test-speak.js`'s last section, which asserts all three cases including that **an engine
+    which really speaks is never nagged**.
   **📖 `docs/reader-settings.md` — READ BEFORE CHANGING ANY OF IT.** Every measured contrast ratio, the
   spelling table's traps in full, the units sweep's awkward shapes, the i18n engine's `I18N_HTML` gating
   and its cap, and the whole dormant narration system — the voice scoring, the chunking, the baked
@@ -5017,6 +5042,10 @@ dead code (never rendered).
     `supaSwitchTo` / `supaRemember` / `supaForget` / `supaSetEmail` / `SUPA_ACCTS_KEY`** — a switch that
     carries the outgoing account's progress across is exactly what its `_supaOwner` assertions exist to
     catch, and nothing on screen would say so.**
+    Its **section 6 is the RECONCILE** (Aug 2026) — that an edit made while the progress pull is still in
+    flight is not overwritten, that an IDLE device still adopts another device's write, and that a boot
+    which is genuinely in sync sends **no push at all**. **Re-run it after touching `supaBoot`'s reconcile,
+    `progressBlob` / `extractProgress` / `applyProgress` / `_supaLastSent` / `supaPull` / `supaPush`.**
   · `node .claude/test-video.js` — 100 assertions on card + glossary videos **and the fullscreen viewer's
     gestures**: that every accepted link shape resolves to the embed this code builds and **every other
     URL resolves to no player at all** (the check that keeps an `<iframe src>` off untrusted input), that
@@ -5295,6 +5324,19 @@ dead code (never rendered).
   (`review_log`, block 10; see the `revlog` bullet) precisely because this blob is PATCHed whole, so anything that must grow
   without bound belongs beside it rather than in it. `extractProgress()` still includes the log, since the guest stash is a
   whole device state; **if you add a field that grows per review, give it a table and keep it out of PROGRESS_FIELDS.**
+  **…AND THE RECONCILE MUST COMPARE THE BLOB IT ACTUALLY SENDS** (Aug 2026, on a bug report that deck settings "won't
+  save"). It compared `extractProgress()` against `row.data`, and since the former appends `revlog` while the latter can
+  never carry it, **the two could not be equal**: the "in sync, do nothing" branch was unreachable and every signed-in
+  boot re-uploaded the whole blob — a wasted upload per launch on exactly the slow links that can least afford one, and
+  worse, each push bumps `updated_at`, so for a two-device reader "another device wrote" was true on essentially every
+  launch. **The pull is also a NETWORK ROUND TRIP the reader is not waiting for**, and `applyProgress` replaces every
+  progress field, `deckOpts` among them — so a reader who pressed Save on a deck's Daily limits while it was in flight
+  had the change overwritten the moment the row landed, silently, having just been toasted "Daily limits saved". A slow
+  link does not CAUSE that; it only holds the window open long enough to hit every time, which is why it was reported as
+  a connectivity fault. The blob is now snapshotted before the wait and compared after it: **a write made in the meantime
+  is the newer write and wins outright**, and is pushed rather than merged, so the other device converges on its next
+  pull. **An idle device still adopts**, which is the half a guard like this most easily breaks — asserted both ways in
+  `test-account-switch.js` section 6.
   Sign-in adopts server progress (or MIGRATES local progress up if the server row is empty); the pre-sign-in device state is
   stashed (`folio_supa_guest_v1`) and restored on sign-out. **That migration is OWNERSHIP-GATED by `S._supaOwner`** —
   the account id the progress currently in localStorage belongs to (device-local like `_supaTs`, so it never syncs

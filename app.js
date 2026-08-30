@@ -2639,15 +2639,37 @@
     supaRemember();
     applyMode();
     bootAdminSettled();   // the role has arrived: send an admin back to the page they reloaded
+    /* THE PULL IS A NETWORK ROUND TRIP AND THE READER IS ALREADY USING THE PAGE (Aug 2026, on a bug
+       report: deck settings that "won't save"). `applyProgress` REPLACES every progress field, `deckOpts`
+       among them — so a reader who opens a deck's Daily limits and presses Save while this is still in
+       flight has their change overwritten the moment the row lands, silently, having just been told
+       "Daily limits saved". On a slow connection that window is seconds wide, which is why it reads as a
+       connectivity fault; it is not one, and a fast connection only makes it rarer.
+       So the blob is snapshotted BEFORE the wait and compared after it: if the reader wrote in the
+       meantime, theirs is the newer write and it wins outright — which is the same last-write-wins rule
+       this reconcile already runs on, applied to the one writer it could not see. It is pushed rather
+       than merged, so the device that wrote first converges on the next pull. Field-by-field merging was
+       the alternative and is refused: two devices editing one deck's limits have no arithmetic answer,
+       and a half-adopted blob is a state neither reader chose. */
+    const beforePull = stableJson(progressBlob());
     const row = await supaPull();
-    if (row && row.updated_at && row.updated_at !== S._supaTs) {
+    const movedDuringPull = stableJson(progressBlob()) !== beforePull;
+    if (row && row.updated_at && row.updated_at !== S._supaTs && !movedDuringPull) {
       // another device wrote since this one last synced → adopt the server copy (last write wins)
       applyProgress(row.data || {});
       S._supaTs = row.updated_at;
       if (SUPA_PROFILE && SUPA_PROFILE.name) S.user.name = SUPA_PROFILE.name;
       save();
       if (current && ["home", "decks"].includes(current.name)) render();
-    } else if (row && stableJson(extractProgress()) !== stableJson(row.data || {})) {
+    } else if (row && (movedDuringPull || stableJson(progressBlob()) !== stableJson(row.data || {}))) {
+      /* COMPARE THE BLOB THAT IS ACTUALLY SENT, WHICH IS `progressBlob()` AND NOT `extractProgress()`
+         (Aug 2026). The latter appends `revlog`, which has a table of its own and so is never in
+         `progress.data` — the two could therefore NEVER be equal, the "in sync" branch below was dead
+         code, and every signed-in boot re-uploaded the whole blob. That is a wasted upload per launch on
+         exactly the slow connections that can least afford one, and worse: each of those pushes bumps
+         `updated_at`, so for a reader with two devices the "another device wrote" test above was true on
+         essentially every launch — which is the condition that opens the overwrite window this same
+         batch closes. */
       supaPush();   // this device moved ahead while offline → send it up
     } else {
       _supaLastSent = row ? stableJson(row.data || {}) : null;   // in sync — remember it so the next save() can no-op
@@ -17783,9 +17805,30 @@
   let _ttsSeq = 0;   // generation counter — bumped by ttsStop() so a pending delayed read (e.g. the gloss 0.5s pause) dies
   let _ttsVoicesHook = null;   // the Settings page hangs its voice-list refresher here (mobile delivers getVoices() async)
   function ttsAllVoices() { try { return (window.speechSynthesis && speechSynthesis.getVoices()) || []; } catch (e) { return []; } }
+  /* ---- "is the API here" and "can this device actually SPEAK" are two questions (Aug 2026, on a bug
+     report that read-aloud did nothing at all on a language deck) ----
+     `ttsSupported()` answers the first and was being asked the second all over the file. A browser can
+     carry `speechSynthesis` and `SpeechSynthesisUtterance` and have NO VOICE INSTALLED behind them —
+     ordinary on Linux without speech-dispatcher, on some Android WebViews and in headless Chromium, where
+     it is measurable: the API is present, `getVoices()` is empty, and `speak()` returns without a sound
+     and without an error. Every guard on the read-aloud path passed, so the control drew itself as a live
+     button and answered a press with silence, which is indistinguishable from a broken site.
+     This is deliberately NOT wired into `body.no-tts`, which would take the button away instead. Two
+     reasons: `getVoices()` is unreliable enough on some engines that hiding on an empty list risks
+     removing a control that WOULD have worked, and a control that vanishes teaches a reader nothing —
+     where one that says why is the thing they were missing. So the button stays and `cardSpeak` reports.
+     Voices arrive ASYNCHRONOUSLY, so nothing may cache this: it is asked at the moment of the press. */
+  function ttsCanSpeak() { return ttsSupported() && ttsAllVoices().length > 0; }
   if (ttsSupported()) {
     ttsAllVoices();   // nudge Chrome to start loading the voice list (it arrives async)
-    try { speechSynthesis.addEventListener("voiceschanged", () => { if (_ttsVoicesHook) _ttsVoicesHook(); }); } catch (e) {}
+    try {
+      speechSynthesis.addEventListener("voiceschanged", () => {
+        if (_ttsVoicesHook) _ttsVoicesHook();
+        /* …and anything already on screen that was drawn while the list was still empty. `wireSpeakControls`
+           skips a control it has already named, so this is idempotent and costs a querySelectorAll. */
+        try { wireSpeakControls(document.body); } catch (e) {}
+      });
+    } catch (e) {}
   }
   function ttsEnVoices() { return ttsAllVoices().filter((v) => /^en/i.test(v.lang)); }
   function ttsZhVoices() { return ttsAllVoices().filter((v) => /^(zh|cmn)/i.test(v.lang) || /chinese|mandarin|普通话|中文/i.test(v.name)); }
@@ -18110,6 +18153,19 @@
     return ttsPickVoice(pool, /$^/, /$^/, null) || pool[0];
   }
   const SPEECH_RATE = 0.85;   // the same deliberate slowness the English narration reads at
+  /* How long to wait before calling a press silent: comfortably longer than the 60ms the call is already
+     deferred by, and short enough that the reader has not yet given up and pressed again. It is a
+     JUDGEMENT rather than a measurement — this sandbox has no voice to time a real engine's `onstart`
+     against — so if it ever proves too tight on a slow engine the symptom is a spurious note beside speech
+     that then arrives, and the fix is to raise it rather than to drop the check. */
+  const TTS_SILENT_MS = 900;
+  /* WHY it was silent, in the reader's terms. The two cases are worth telling apart: an empty voice list
+     is a fact about the DEVICE that no amount of pressing will change, where an engine that has voices and
+     still produced nothing is a failure of this one attempt. `ttsCanSpeak` is asked at the moment of the
+     report rather than cached, the voice list arriving asynchronously. */
+  function ttsSilentNote() {
+    return ttsCanSpeak() ? "This device could not read that aloud" : "Speech isn't available on this device";
+  }
   // What a control SAYS is its own text, unless it carries data-say — which is how a control can show one
   // thing and pronounce another (a pinyin button that has to speak the characters, since a Mandarin voice
   // handed "bēizi" reads the romanisation rather than the word). The site's own .tr-play buttons already
@@ -18133,8 +18189,45 @@
       if (v) u.voice = v;
       el.classList.add("tts-playing");
       const done = () => { if (gen === _ttsSeq) el.classList.remove("tts-playing"); };
-      u.onend = done; u.onerror = done;
-      setTimeout(() => { if (gen === _ttsSeq) try { speechSynthesis.speak(u); } catch (e) { done(); } }, 60);
+      /* ---- A PRESS MUST NEVER COME BACK AS SILENCE (Aug 2026, on a bug report that read-aloud did
+         nothing at all on a language deck) ----
+         A browser can carry `speechSynthesis` and `SpeechSynthesisUtterance` and have NO VOICE INSTALLED
+         behind them — ordinary on Linux without speech-dispatcher, on some Android WebViews and in
+         headless Chromium, where it is measurable: the API is present, `getVoices()` is empty, and
+         `speak()` returns without a sound, without an error and without firing `onstart`. Every guard on
+         this path passed, so the control drew itself as a live button and answered a press with nothing,
+         which from the reader's side is indistinguishable from a broken site.
+         THE OUTCOME IS MEASURED RATHER THAN PREDICTED, and that is the whole design. Refusing up front on
+         an empty voice list was written first and is wrong twice over: `getVoices()` is unreliable enough
+         on some engines that it would silence a control that WOULD have worked, and it arrives
+         asynchronously, so the same list is empty at boot and full a second later. Asking afterwards
+         whether the engine actually started needs no faith in either. */
+      let started = false;
+      u.onstart = () => { started = true; };
+      u.onend = done;
+      /* An engine that REFUSES an utterance reports it here and nowhere else. "interrupted" and
+         "canceled" are excluded deliberately: `ttsStop()` above raises one every time a reader presses a
+         second control before the first has finished, which is ordinary use rather than a fault. */
+      u.onerror = (ev) => {
+        done();
+        const why = String((ev && ev.error) || "");
+        if (gen === _ttsSeq && why !== "interrupted" && why !== "canceled") toast(ttsSilentNote());
+      };
+      setTimeout(() => {
+        if (gen !== _ttsSeq) return;
+        try { speechSynthesis.speak(u); } catch (e) { done(); toast(ttsSilentNote()); return; }
+        /* …and the case that raises nothing at all: nothing started, nothing is speaking and nothing is
+           queued. `started` is the reliable half — an engine that has begun has fired `onstart` — and the
+           `speaking`/`pending` pair is the belt to its braces for an engine that reports state without
+           firing it. Re-checked against `gen`, so a reader who has already pressed something else is not
+           told about the utterance they replaced. */
+        setTimeout(() => {
+          if (gen !== _ttsSeq || started) return;
+          let live = false;
+          try { live = !!(speechSynthesis.speaking || speechSynthesis.pending); } catch (e) {}
+          if (!live) { done(); toast(ttsSilentNote()); }
+        }, TTS_SILENT_MS);
+      }, 60);
     } catch (e) { el.classList.remove("tts-playing"); }
   }
   document.addEventListener("click", (e) => {
