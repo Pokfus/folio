@@ -169,6 +169,35 @@ the whole reason the suites exist and the reason their narratives are worth keep
     **or any of `supaSignIn` / `supaEmailForUsername` / `supaSwitchTo` / `supaRemember` / `supaForget` /
     `supaSetEmail` / `SUPA_ACCTS_KEY`** — a switch that carries the outgoing account's progress across is
     exactly what its `_supaOwner` assertions exist to catch, and nothing on screen would say so.**
+    **Section 6 is the RECONCILE** (Aug 2026), added after a reader reported deck settings that "won't
+    save" and the fault was blamed on their connection. It was not one. `supaBoot` AWAITS the progress
+    pull and hands the row to `applyProgress`, which replaces every progress field — `deckOpts` among
+    them — so a reader who pressed Save on a deck's Daily limits while that request was in flight had the
+    change overwritten the moment it landed, silently, having just been toasted "Daily limits saved". A
+    slow link only holds the window open long enough to hit every time, which is exactly why it reads as
+    a network fault and is not one. The mock therefore grew a `pullDelay` knob: holding the one request
+    boot waits on IS the reproduction, and nothing shorter reproduces it at all.
+    **The two halves are asserted together because fixing one alone is worse than fixing neither** — the
+    reconcile must still ADOPT another device's write when this device has been idle, that being the whole
+    of last-write-wins, and a guard that refused every adopt would strand a reader's phone and laptop on
+    different data for ever. So: an edit made during the wait survives, is the copy that reaches the
+    server, and survives the next reload; AND an idle boot still takes the other device's 77.
+    **A third assertion arrived on merging main and is the one that changed the fix.** The other device
+    now also adds a second collection, so `deckOpts` and `active` must part company — the reader edits the
+    first and never touches the second — and a reconcile answering with one blob or the other gets one of
+    them wrong. That is not hypothetical: `setFriendCount` writes `S.friendCount` from the friends list,
+    so a BACKGROUND write can make "something moved locally" true while the reader has edited nothing, and
+    the original all-or-nothing skip would then push a stale blob over the other device's. The adopt is a
+    three-way merge per field now, and the row count is what catches it — 2 with the merge, 5 without.
+    The third assertion is the defect that made the first fire so often, and it is counted rather than
+    observed: **a boot that is genuinely in sync must send no PATCH at all.** The reconcile compared
+    `extractProgress()` — which appends `revlog` — against `row.data`, which never carries it, so the two
+    could not be equal, the "in sync" branch was unreachable, and every signed-in boot re-uploaded the
+    whole blob. Nothing on screen shows that; only a request count does.
+    Two harness traps cost a run each. **Sign in BEFORE adding the deck**: signing in adopts the account's
+    server progress wholesale — section 1's own subject — so a deck added as a guest first is discarded by
+    the very mechanism under test, and the row the section needs is simply absent. And the suite now runs
+    past two minutes, so give it a real timeout rather than reading the kill as a failure.
   · `node .claude/test-video.js` — 100 assertions on card + glossary videos **and the fullscreen viewer's
     gestures**: that every accepted link shape
     resolves to the embed this code builds and **every other URL resolves to no player at all** (the check
@@ -1295,3 +1324,34 @@ the whole reason the suites exist and the reason their narratives are worth keep
     `uCardIdFor` / `uDeckStudyIds` / `clozeMark` / `clozeOrds` / `clozeOrd` / `CLOZE_RX` / `type.cloze` /
     `isBuried` / `buryCard` / `burySiblings` / `deckBurySiblings` /
     `entryHasSiblings`, the Studio's Types tab, or `levelFromXP`.**
+  · `node .claude/test-speak.js` — **automatic read-aloud on reveal, and the guard that keeps it quiet**;
+    its last section (Aug 2026) is **the rule that a press must never come back as silence**, added after a
+    reader reported that read-aloud "is not working at all" when studying Spanish.
+    The first thing that report cost was a wrong diagnosis, and it is worth not repeating: the site-wide
+    `ttsEnabled()` switch has had the whole read-aloud SYSTEM set aside since July 2026, so the obvious
+    answer is that it is off on purpose — and it is the wrong answer, because a community card type's
+    `.uc-tts` deliberately bypasses that switch, and the shipped language decks are exactly what uses it.
+    The real fault was that **nothing failed**. A browser can carry `speechSynthesis` and
+    `SpeechSynthesisUtterance` and have no voice installed behind them — ordinary on Linux without
+    speech-dispatcher, on some Android WebViews, and **in headless Chromium, where the suite itself runs**,
+    which is why the section can assert the reader's own case directly: `getVoices()` is empty, `speak()`
+    returns with no sound, no error and no `onstart`, every guard passes, and the control draws itself as a
+    live button that answers a press with nothing whatever.
+    **All three cases are asserted together because the danger is symmetrical.** Refusing up front on an
+    empty voice list was the first fix written and is wrong twice over — `getVoices()` arrives
+    asynchronously, so the same list is empty at boot and full a second later, and on some engines it is
+    empty while speech works — so case 1 pins that the attempt is still MADE and only the OUTCOME is
+    reported. Case 2 pins that a device with voices but none for the card's language still speaks, in the
+    card's own language, without having a wrong-language voice forced on it, and gets the *other* message.
+    Case 3 is the half a one-sided test would have shipped broken: **an engine that really speaks must
+    never be nagged**, and a suite that only tested the failure would have passed happily while toasting at
+    every reader on earth.
+    Each case installs its own stub rather than using the suite's `__spoke` recorder, because what is
+    measured here is what the READER was told, which needs an "engine" that can be made to start or not
+    start on demand. Two things a first draft got wrong: a hand-made voice object **is not** a
+    `SpeechSynthesisVoice` and Chrome rejects the assignment, so a fixture that supplies one measures its
+    own fixture rather than the code (use a voice whose language does not match, and none is assigned at
+    all); and the report lands a full `TTS_SILENT_MS` after the press, so a probe that waits the old 700ms
+    sees nothing and reads as a regression.
+    **Re-run after touching `cardSpeak` / `ttsSilentNote` / `ttsCanSpeak` / `TTS_SILENT_MS` /
+    `ttsSupported` / `speechVoiceFor` / `wireSpeakControls` / the `.uc-tts` listeners, or `body.no-tts`.**

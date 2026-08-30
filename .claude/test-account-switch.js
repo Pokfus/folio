@@ -104,14 +104,23 @@ function handleSupa(db, url, method, body, headers) {
   return [404, { message: "mock: unhandled " + method + " " + p }];
 }
 
+/* Two knobs the reconcile section below needs, and nothing else touches. `pullDelay` stands in for a slow
+   connection — the progress GET is the one request `supaBoot` awaits before it overwrites local state, so
+   holding it open is exactly what a bad link does — and `patches` counts the pushes a boot makes, which is
+   how "this boot was a no-op" is asserted at all. */
+let pullDelay = 0, patches = 0;
+
 async function attachMock(ctx, db) {
   await ctx.route((url) => SUPA.test(url.toString()), async (routeObj) => {
     const req = routeObj.request();
     let body = null;
     try { const pd = req.postData(); if (pd) body = JSON.parse(pd); } catch (e) {}
+    const isProgress = req.url().includes("/rest/v1/progress");
+    if (isProgress && req.method() === "PATCH") patches++;
     let out;
     try { out = handleSupa(db, req.url(), req.method(), body, req.headers()); }
     catch (e) { out = [500, { message: "mock error: " + e.message }]; }
+    if (pullDelay && isProgress && req.method() === "GET") await new Promise((r) => setTimeout(r, pullDelay));
     await routeObj.fulfill({
       status: out[0], contentType: "application/json",
       headers: { "access-control-allow-origin": "*" },
@@ -289,7 +298,120 @@ const homeState = async (page, base) => {
   st = await local(C.page);
   check("an account created after a legacy session starts clean", st.cards === 0 && st.achievements === 0, JSON.stringify(st));
 
-  const errs = A.errs.concat(C.errs);
+  /* ============ 6. THE RECONCILE MUST NOT OVERWRITE WHAT THE READER JUST WROTE ============
+     Reported as deck settings that "won't save", and blamed on connectivity — which is the tell rather
+     than the cause. `supaBoot` AWAITS the progress pull and then hands the row to `applyProgress`, which
+     replaces every progress field, `deckOpts` among them. A reader who opens a deck's Daily limits and
+     presses Save while that request is still in flight has the change overwritten the moment it lands,
+     silently, having just been told "Daily limits saved". A slow link does not cause this; it only holds
+     the window open long enough to hit reliably.
+
+     The two halves are asserted together because fixing one alone is worse than fixing neither. The
+     reconcile must still ADOPT another device's write when this device has been idle — that is the whole
+     of last-write-wins, and a guard that refused every adopt would strand a reader's phone and laptop on
+     different data for ever. So: an edit made during the wait survives AND an idle boot still adopts.
+
+     The push-counting check is the second defect and the reason the first fired so often. The reconcile
+     compared `extractProgress()` — which appends `revlog` — against `row.data`, which never carries it,
+     `supaPush` sending `progressBlob()`. The two could not be equal, so the "in sync, do nothing" branch
+     was unreachable and every signed-in boot re-uploaded the whole blob. Each of those pushes bumps
+     `updated_at`, so for a reader with two devices "another device wrote" was true on essentially every
+     launch — which is precisely the condition that opened the overwrite window above. */
+  const D = await newPage(browser, db, null);
+  /* SIGN IN FIRST, THEN ADD THE DECK. Signing in adopts the account's server progress wholesale — that is
+     section 1's whole subject — so a deck added as a guest beforehand is discarded by the very mechanism
+     this section goes on to test, and the row it needs is simply not there. */
+  await openAccount(D.page, base);
+  await signIn(D.page, "alice@test", PW);
+  await gotoFresh(D.page, base + "#decks");
+  await D.page.evaluate(() => {
+    const b = [...document.querySelectorAll("button")].find((x) => /add to review/i.test(x.getAttribute("aria-label") || ""));
+    if (b) b.click();
+  });
+  await D.page.waitForTimeout(700);
+
+  const sheet = async () => {
+    await D.page.evaluate(() => document.querySelector(".active-deck[data-review]")
+      .dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, cancelable: true })));
+    await D.page.waitForTimeout(600);
+    await D.page.evaluate(() => [...document.querySelectorAll(".dm-item")]
+      .find((x) => /daily limits/i.test(x.textContent || "")).click());
+    await D.page.waitForTimeout(600);
+  };
+  const setLimit = async (v) => {
+    await D.page.evaluate((val) => {
+      const n = document.querySelector('[data-lim="dNew"]');
+      n.value = String(val);
+      n.dispatchEvent(new Event("input", { bubbles: true }));
+      [...document.querySelectorAll("button")].find((b) => b.getAttribute("data-act") === "save").click();
+    }, v);
+    await D.page.waitForTimeout(400);
+  };
+  const readLimit = async () => {
+    await gotoFresh(D.page, base + "#home");
+    await sheet();
+    const v = await D.page.evaluate(() => document.querySelector('[data-lim="dNew"]').value);
+    await D.page.keyboard.press("Escape");
+    await D.page.waitForTimeout(300);
+    return v;
+  };
+  await gotoFresh(D.page, base + "#home");
+  const deckKey = await D.page.evaluate(() => {
+    const r = document.querySelector(".active-deck[data-review]");
+    return r ? r.getAttribute("data-review") : null;
+  });
+  check("a deck is on the daily-study list to set limits on", !!deckKey, String(deckKey));
+  const serverLimit = () => (((db.progress[aliceId].data || {}).deckOpts || {})[deckKey] || {}).newPerDay;
+  const writeAsOtherDevice = (n, extra) => {
+    db.progress[aliceId] = {
+      data: Object.assign({}, db.progress[aliceId].data,
+        { deckOpts: { [deckKey]: { newPerDay: n, maxReviews: 50, newIgnoresReview: true } } }, extra || {}),
+      updated_at: stamp(db),
+    };
+  };
+  const deckRows = () => D.page.evaluate(() => document.querySelectorAll(".active-deck[data-review]").length);
+
+  await gotoFresh(D.page, base + "#home");
+  await sheet();
+  await setLimit(11);
+  await D.page.waitForTimeout(8000);            // the push is debounced 6s
+  check("a deck limit reaches the server", serverLimit() === 11, JSON.stringify(db.progress[aliceId].data.deckOpts));
+
+  patches = 0;
+  await gotoFresh(D.page, base + "#home");
+  await D.page.waitForTimeout(5000);
+  check("a boot that is genuinely in sync sends no push at all", patches === 0, "patches=" + patches);
+
+  /* The other device changed the deck's limit AND added a second collection. The reader is about to edit
+     the limit while the pull is in the air, so the two fields must part company: `deckOpts` is theirs and
+     `active` is not, and a reconcile that answers with one blob or the other gets one of them wrong.
+     That is not a hypothetical — `setFriendCount` writes `S.friendCount` from the friends list, so a
+     BACKGROUND write can make "something moved locally" true while the reader has edited nothing at all,
+     and an all-or-nothing rule would then push a stale blob over the other device's. */
+  writeAsOtherDevice(99, { active: [deckKey, "col-13"] });
+  pullDelay = 4000;                              // …and a slow link on this one
+  await D.page.reload({ waitUntil: "load" });
+  await D.page.waitForTimeout(1200);             // boot underway, the pull not yet back
+  await gotoFresh(D.page, base + "#home");
+  await sheet();
+  await setLimit(33);
+  await D.page.waitForTimeout(6000);             // the pull lands mid-session
+  pullDelay = 0;
+  check("an edit made while the pull was in flight is not overwritten", (await readLimit()) === "33");
+  check("\u2026while a field the reader did NOT touch still adopts the server's copy",
+    (await deckRows()) === 2, "deck rows=" + (await deckRows()));
+  await D.page.waitForTimeout(8000);
+  check("\u2026and is the copy that reaches the server", serverLimit() === 33, JSON.stringify(db.progress[aliceId].data.deckOpts));
+  await D.page.reload({ waitUntil: "load" });
+  await D.page.waitForTimeout(2000);
+  check("\u2026and survives the next reload", (await readLimit()) === "33");
+
+  writeAsOtherDevice(77);
+  await D.page.reload({ waitUntil: "load" });
+  await D.page.waitForTimeout(2500);
+  check("an IDLE device still adopts the other device's write", (await readLimit()) === "77");
+
+  const errs = A.errs.concat(C.errs).concat(D.errs);
   check("no console errors", errs.length === 0, errs.slice(0, 3).join(" | "));
 
   await browser.close();

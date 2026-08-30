@@ -314,6 +314,82 @@ const holdRow = (page, match) => page.evaluate((m) => {
       (await page.evaluate(() => window.__spoke)).length === 0);
   }
 
+  /* ---------- A PRESS MUST NEVER COME BACK AS SILENCE (Aug 2026, on a bug report) ----------
+     Reported as "TTS is not working at all when studying Spanish", and the reason nothing anywhere caught
+     it is that nothing FAILED: a browser can carry `speechSynthesis` and `SpeechSynthesisUtterance` and
+     have no voice installed behind them, and then `speak()` returns without a sound, without an error and
+     without firing `onstart`. Every guard passed, the control drew itself as a live button, and the press
+     produced nothing whatever — which from the reader's side is a broken site.
+     The three cases are asserted together because the danger is symmetrical. Refusing up front on an
+     empty voice list was the first fix written and is wrong twice: `getVoices()` arrives asynchronously,
+     so the same list is empty at boot and full a second later, and on some engines it is empty while
+     speech works — so case 1 asserts that the attempt is still MADE. Case 3 is the other side: an engine
+     that really speaks must never be nagged, and a check that only tested the failure would pass happily
+     while toasting at every reader on earth.
+     Each case installs its own stub rather than using the suite's `__spoke` recorder, because what is
+     being measured here is the reported OUTCOME — what the reader was told — and that needs an "engine"
+     that can be made to start or not start on demand. */
+  const pressTts = (mode, waitMs) => page.evaluate(async ([mode, waitMs]) => {
+    document.querySelectorAll("#ttsprobe").forEach((e) => e.remove());
+    const h = document.createElement("div");
+    h.id = "ttsprobe";
+    h.setAttribute("lang", "es-ES");
+    // exactly what the shipped language decks put on a card: an EMPTY span carrying data-say
+    h.innerHTML = '<span class="uc-tts uc-say" data-say="hablar"></span>';
+    document.body.appendChild(h);
+    const t = document.getElementById("toast"), seen = [];
+    const mo = new MutationObserver(() => {
+      const v = (t.textContent || "").trim();
+      if (v && seen[seen.length - 1] !== v) seen.push(v);
+    });
+    if (t) mo.observe(t, { childList: true, subtree: true, characterData: true });
+    const spoke = [], orig = speechSynthesis.speak.bind(speechSynthesis);
+    speechSynthesis.speak = (u) => {
+      spoke.push({ text: u.text, lang: u.lang, voice: u.voice ? u.voice.name : null });
+      if (mode === "engine" && typeof u.onstart === "function") setTimeout(() => u.onstart({}), 10);
+    };
+    document.querySelector("#ttsprobe .uc-tts").click();
+    await new Promise((r) => setTimeout(r, waitMs));
+    speechSynthesis.speak = orig;
+    mo.disconnect();
+    h.remove();
+    return { toasts: seen, spoke };
+  }, [mode, waitMs]);
+  const setVoices = (list) => page.evaluate((l) => {
+    Object.defineProperty(speechSynthesis, "getVoices", { configurable: true, value: () => l });
+  }, list);
+
+  // 1. no voices at all — headless Chromium's real state, and a real reader's on a machine with none
+  check("the test browser has no voices, which is the reported reader's case",
+    await page.evaluate(() => speechSynthesis.getVoices().length === 0));
+  const dead = await pressTts("dead", 1600);
+  check("a press still ATTEMPTS to speak rather than refusing up front",
+    dead.spoke.length === 1, JSON.stringify(dead.spoke));
+  /* …and the message must be ACTIONABLE, not merely true. "Speech isn't available on this device" was
+     both, and a dead end: the fix is in the operating system rather than in Folio, so the note names the
+     voice and where to add it. Asserted on both halves — a wording that drops either is a wording that
+     has quietly gone back to telling a reader something they can do nothing with. */
+  check("\u2026and one that produced nothing tells the reader why",
+    dead.toasts.some((x) => /voice/i.test(x)), JSON.stringify(dead.toasts));
+  check("\u2026and what to do about it", dead.toasts.some((x) => /settings/i.test(x)), JSON.stringify(dead.toasts));
+
+  // 2. voices present, none for the card's language — the commonest real case
+  await setVoices([{ name: "French Test", lang: "fr-FR", voiceURI: "fr-test", localService: true, default: true }]);
+  const other = await pressTts("dead", 1600);
+  check("with voices present it speaks the data-say text",
+    other.spoke.length === 1 && other.spoke[0].text === "hablar", JSON.stringify(other.spoke));
+  check("\u2026in the card's own language", !!other.spoke[0] && other.spoke[0].lang === "es-ES");
+  check("\u2026without forcing a voice of the wrong language on it",
+    !!other.spoke[0] && other.spoke[0].voice === null);
+  check("\u2026and a silent engine that HAS voices gets the other message",
+    other.toasts.some((x) => /could not read that aloud/i.test(x)), JSON.stringify(other.toasts));
+
+  // 3. a working engine must never be nagged
+  const live = await pressTts("engine", 1600);
+  check("an engine that actually starts says the words",
+    live.spoke.length === 1 && live.spoke[0].text === "hablar", JSON.stringify(live.spoke));
+  check("\u2026and the reader is told nothing at all", live.toasts.length === 0, JSON.stringify(live.toasts));
+
   const own = errs.filter((e) => !/fonts\.googleapis|gstatic|ERR_CONNECTION_RESET/.test(e));
   check("no same-origin console errors", own.length === 0, own.slice(0, 3).join(" | "));
 
