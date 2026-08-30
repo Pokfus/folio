@@ -12,24 +12,21 @@ before writing a card.** This file is the running order and the decisions partic
 divisions are in the list, which of them can have a capital card at all, what each is called, and where
 the figures come from.
 
-The next card to write is the lowest `gc-NNN` not yet in `data.js`:
+The next card to write would be the lowest `gc-NNN` not yet in `data.js` — the command below prints
+nothing now, the collection being finished:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gc-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — `gc-001` Guangdong, `gc-002` Shandong, `gc-003` Henan, `gc-004` Jiangsu,
-`gc-005` Sichuan, `gc-006` Hebei, `gc-007` Hunan, `gc-008` Zhejiang, `gc-009` Anhui, `gc-010` Hubei,
-`gc-011` Guangxi, `gc-012` Yunnan, `gc-013` Jiangxi, `gc-014` Liaoning, `gc-015` Fujian,
-`gc-016` Shaanxi, `gc-017` Guizhou, `gc-018` Shanxi, `gc-019` Chongqing, `gc-020` Heilongjiang,
-`gc-021` Xinjiang, `gc-022` Gansu, `gc-023` Shanghai, `gc-024` Jilin, `gc-025` Inner Mongolia,
-`gc-026` Beijing, `gc-027` Tianjin, `gc-028` Hainan, `gc-029` Ningxia and `gc-030` Qinghai, with `gc-501` Guangzhou,
-`gc-502` Jinan, `gc-503` Zhengzhou, `gc-504` Nanjing, `gc-505` Chengdu, `gc-506` Shijiazhuang, `gc-507` Changsha,
-`gc-508` Hangzhou, `gc-509` Hefei, `gc-510` Wuhan, `gc-511` Nanning, `gc-512` Kunming, `gc-513` Nanchang,
-`gc-514` Shenyang, `gc-515` Fuzhou, `gc-516` Xi'an, `gc-517` Guiyang, `gc-518` Taiyuan,
-`gc-520` Harbin, `gc-521` Ürümqi, `gc-522` Lanzhou, `gc-524` Changchun, `gc-525` Hohhot,
-`gc-528` Haikou, `gc-529` Yinchuan, `gc-530` Xining and `gc-531` Lhasa.**
-The first province card and the first capital card were written together, so that the new map layer, its
-point table, the fit and the gold dot were all proved on a real card rather than on a test. The next
-province is `gc-031` Tibet, and it is the last card in the collection: every capital is written.
+**THE COLLECTION IS COMPLETE — all 58 cards are written: the 31 provincial-level divisions
+`gc-001`–`gc-031` and the 27 provincial capitals, `gc-501`–`gc-531` less the four numbers that are
+deliberately never used** (`gc-519` Chongqing, `gc-523` Shanghai, `gc-526` Beijing and `gc-527` Tianjin,
+whose shapes ARE their own answers). Every card carries a paired glossary term at the citation bar and a
+picture. The first province card and the first capital card were written together, so that the new map
+layer, its point table, the fit and the gold dot were all proved on a real card rather than on a test;
+the rest followed one province and one capital at a time, in the population order below.
+
+The running order is kept for the record, and because a card id is a permanent address: if a card is ever
+rewritten, its number is the one below and not a new one.
 
 ---
 

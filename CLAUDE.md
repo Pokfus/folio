@@ -876,7 +876,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   collection of the Geography SECTION), and the third plan that is not a thousand cards: it is **58
   cards** — the 31 provincial-level divisions of mainland China (`gc-001`–`gc-031`) and the 27
   provincial capitals (`gc-501`–`gc-531`, four numbers deliberately unused) — on the same **map card**
-  format, so it points at `docs/geography-card-plan.md` rather than restating it. **Sorted by
+  format, so it points at `docs/geography-card-plan.md` rather than restating it. **IT IS COMPLETE**:
+  all 58 shipped in Aug 2026, each with a paired glossary term at the citation bar and a picture, so the
+  plan is now a record of what was decided rather than a queue of work. **Sorted by
   population, largest first, and fixed at planning time**, on the same reasoning *The world* gives.
   Four things in it are decisions rather than lists. **WHICH DIVISIONS ARE IN IT COMES OUT OF ONE
   DOCUMENT** — the National Bureau of Statistics' Seventh National Population Census, Communiqué No. 3,
@@ -3986,7 +3988,7 @@ lookup.
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
 | The world | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 136 cards — 470 rather than 1000, and sorted by POPULATION, see below |
-| China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | 57 cards — 58 rather than 1000, and sorted by POPULATION, see below |
+| China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):
 
