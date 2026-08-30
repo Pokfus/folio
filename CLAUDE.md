@@ -3964,6 +3964,14 @@ This stays cheap as `data.js` grows (it never re-Edits the whole file). Content 
   on both: `1188 BCE or 1177 BCE`. The sort year is usually unaffected, which is why nothing reports
   it: `cardStartYear` takes the MINIMUM, so the stray positive hides there and surfaces only in
   `cardSpanYears`, where it runs a Bronze Age deck's coverage to the 12th century CE.
+  **AND A `c.` INSIDE A RANGE BREAKS THE ERA'S LEFTWARD CARRY** (Aug 2026, on `wh-284`). A range writes
+  the era once and lets it carry back to the first number — `668 – 631 BCE` yields −668 and −631 — but
+  `668 – c. 631 BCE` yields only **−631**, the approximation mark standing between the two. The failure
+  is the opposite way round from the one above and LOUDER, since the lost year is usually the EARLIER
+  one and `cardStartYear` takes the minimum: the card silently sorts by whatever else its date line
+  happens to name. Write the era twice (`668 BCE – c. 631 BCE`) or move the `c.` to the front
+  (`c. 668 – 631 BCE`) — both parse. **Read the sort year back after writing a date line**, which is
+  two lines of Node against `cardYears` and is the only thing that can see this.
 - `abstract` (the background) — **exactly 10 sentences and about 300 words** (keep within 270–330, which
   `add-card.js` has ENFORCED since 2026-08-06 — it never measured the abstract before, which is how seven
   cards reached 331–342 unremarked; they are recorded in the changelog and left as they are), as two

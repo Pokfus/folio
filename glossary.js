@@ -1585,7 +1585,8 @@ window.GLOSSARY = {
 "Nebra_sky_disc": "<b>Nebra sky disc</b> is a bronze disc about 32 centimetres (13 inches) across, inlaid with gold showing a sun or full moon, a crescent and a scatter of stars, among which a cluster of seven is widely read as the Pleiades.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was buried on the Mittelberg hill in Saxony-Anhalt with two swords, two axes, two spiral arm-rings and a chisel, and is held to be the oldest concrete depiction of cosmic phenomena known anywhere.<sup class=\"fn\" data-fn=\"3\"></sup> Its copper came from the Mitterberg mine in the Austrian Alps and its gold from the Carnon River in Cornwall, and the image was altered in stages long after it was first hammered out.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Oxus_civilization": "<b>Oxus civilisation</b>, also called the Bactria-Margiana Archaeological Complex, is the Bronze Age culture of southern Central Asia, whose walled mud-brick centres stood in the irrigated oases of what are now Turkmenistan, Uzbekistan and northern Afghanistan.<sup class=\"fn\" data-fn=\"1\"></sup> It belonged to a wide network of exchange reaching the Indus civilisation, Mesopotamia and the Syro-Anatolian world, and its bronze was made from Iranian copper and from the copper-tin mine at Mushiston in Tajikistan.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Genetically its people descend from the local Chalcolithic population rather than from incomers, and the Indo-Iranian speakers of Central Asia today draw their ancestry from them.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Neo-Assyrian_Empire": "The <b>Neo-Assyrian Empire</b> was the Mesopotamian state on the Tigris, in what is now northern Iraq, that dominated the Near East from about 912 to 609 BCE and at its height ran from central Anatolia to Egypt and eastward to western Iran.<sup class=\"fn\" data-fn=\"1\"></sup> Beaten kingdoms were usually held as tribute-paying clients and then annexed as provinces under governors, a post an indigenous ruler was sometimes given, and deportees were resettled in capitals larger than any earlier Mesopotamian city.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Its royal inscriptions, written for the palace and given to inflating their figures between editions, are the main narrative source, and they stop at a collapse that took Nineveh in 612 BCE.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Nineveh": "<b>Nineveh</b> was an ancient city on the Tigris, at what is now Mosul in northern Iraq, which Sennacherib made the Assyrian capital and rebuilt from about 704 BCE behind double walls with 15 gates.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Watering a city that size meant fetching it from far off, and his inscriptions record eighteen canals dug into the Khosr, the small tributary running through it, and a further supply drawn from the mountains and carried across a valley on a stone aqueduct at Jerwan.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It fell to the armies of Babylon and the Medes in 612 BCE, after which what was left of the Assyrian kingdom held out at Harran further west.<sup class=\"fn\" data-fn=\"5\"></sup>"
+"Nineveh": "<b>Nineveh</b> was an ancient city on the Tigris, at what is now Mosul in northern Iraq, which Sennacherib made the Assyrian capital and rebuilt from about 704 BCE behind double walls with 15 gates.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Watering a city that size meant fetching it from far off, and his inscriptions record eighteen canals dug into the Khosr, the small tributary running through it, and a further supply drawn from the mountains and carried across a valley on a stone aqueduct at Jerwan.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It fell to the armies of Babylon and the Medes in 612 BCE, after which what was left of the Assyrian kingdom held out at Harran further west.<sup class=\"fn\" data-fn=\"5\"></sup>",
+"Ashurbanipal": "<b>Ashurbanipal</b> was king of Assyria from 668 to about 631 BCE, ruling from Nineveh at the height of an empire that had become the largest the world had yet seen.<sup class=\"fn\" data-fn=\"2\"></sup> His inscriptions are unusual in claiming scholarship for a king, saying he read the script of Sumer and the obscure Akkadian that is hard to master, though the same annals were re-edited between versions to enlarge his campaigns.<sup class=\"fn\" data-fn=\"1\"></sup> The tablets he gathered at Nineveh, about 30,000 pieces of correspondence, medicine, astronomy, omens and literature now in the British Museum, carry the fixed versions of many compositions on which modern reconstructions of them rely.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2303,7 +2304,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Nebra_sky_disc": "c. 1600 BCE",
 "Oxus_civilization": "c. 2300 – 1500 BCE",
 "Neo-Assyrian_Empire": "c. 912 – 609 BCE",
-"Nineveh": "capital c. 704 – 612 BCE"
+"Nineveh": "capital c. 704 – 612 BCE",
+"Ashurbanipal": "668 – c. 631 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3311,7 +3313,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Únětice_culture": ["Únětice","Unetice culture","Unetice","Aunjetitz culture","Aunjetitz"],
 "Nebra_sky_disc": ["Nebra disc","sky disc of Nebra","Nebra Sky Disc"],
 "Oxus_civilization": ["Oxus civilisation","Bactria-Margiana Archaeological Complex","BMAC","Bactria–Margiana Archaeological Complex"],
-"Neo-Assyrian_Empire": ["Assyrian Empire","Neo-Assyrian empire"]
+"Neo-Assyrian_Empire": ["Assyrian Empire","Neo-Assyrian empire"],
+"Ashurbanipal": ["Assurbanipal"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4923,7 +4926,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Nebra_sky_disc": ["object","archaeology","astronomy","bronze age","europe"],
 "Oxus_civilization": ["culture","archaeology","bronze age","asia"],
 "Neo-Assyrian_Empire": ["state","history","archaeology","iron age","iraq"],
-"Nineveh": ["city","place","history","archaeology","iron age","iraq"]
+"Nineveh": ["city","place","history","archaeology","iron age","iraq"],
+"Ashurbanipal": ["ruler","person","history","archaeology","iron age","iraq"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
