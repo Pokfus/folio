@@ -623,16 +623,50 @@ they are arranging, and a modal over it would take the thing being renamed off t
 commit, Escape abandons, and the row's own click is stopped throughout — otherwise naming a deck would deal
 its first card.
 
-### The foot row, and the one state that would strand a reader
+### Where the button sits, and the one state that would strand a reader
 
-`.rv-foot` used to be drawn only when the day's timer had something to say, on the reasoning that a row
-holding one item that is often empty spends the card's bottom padding on nothing. The Edit button lives
-there, so it is drawn whenever there are decks — a control that only appears once you have studied a card
-is a control most mornings do not have.
+It began at the bottom left, in `.rv-foot` beside the day's timer, which is what the request above asked
+for. It is at the **banner's top right** now, on a later request — *"move the active decks edit button and
+study timer to the top right of the Daily Study banner (edit button in the top right, timer to the left of
+it) vertically centered to the Daily Study title"* — and then, the same day, *"move the timer back to where
+it was before"*, so the corner holds the button alone and `.rv-foot` went back to holding the timer alone,
+which is what it held before this mode existed.
 
-It also **survives the list emptying while the mode is open.** Remove the last deck and the list goes, and
-with it the three buttons — including the Revert that is the only way to get that deck back. The condition
-is `!fresh && (activeIds.length || deckEditOn)`.
+**The row is a sibling of the banner, not a child of it, and that is forced rather than chosen.** The
+banner is a `<button>`; a `<button>` inside a `<button>` is not merely invalid but is hoisted straight back
+out by the parser, and the last control that tried to live in there (the "+ New group" tab) had to be a
+`role="button"` span the banner's own handler deferred to. So `.rv-topacts` is laid OVER the banner's
+corner — `position:absolute` against `.review-group`, which has been `position:relative` since the
+Ordered/Random pill sat in that same corner — with `pointer-events:none` on the row and `auto` on its
+children, so the rest of the banner is still one big pressable tile and these buttons are ordinary
+`<button>`s with ordinary keyboard behaviour.
+
+**The vertical centring is the title's own line box rather than a number.** `top` is the banner's padding
+plus its border and the row's `height` is `.review-title`'s font-size at its `line-height:1`, so the row is
+exactly the box the title's first line occupies and `align-items:center` does the rest — and both halves
+follow the text-size setting on their own.
+
+**Three things share that corner and all three had to be measured.** The title's `padding-right` is the
+reservation that keeps it out from under the row: it was a flat 132px, left over from the Ordered/Random
+pill, and is now `calc(132px * var(--fs))` — and `calc(156px * var(--fs))` on a phone, taken from the
+widest the row ever gets, which is the three buttons of the open mode at Very small text, since a button's
+padding and border do not scale with the text inside it. The completion mark (`.gt-check` / `.gt-seal`) is
+in the same corner and appears exactly when the day is cleared, so the row insets under `.rv-done` /
+`.rv-won` to clear its left edge. And below 640px the three buttons give up their padding, their tracking
+and Undo's icon (187px → 143px), with a second step below 360px (→ 132px), which is where the title's own
+longest WORD and three buttons still cannot share a 246px card. Measured at 320/360/390/430/640/768/1440
+in all five text sizes; the tightest clearance left is 10px, at 320px with Very large text and the mode
+open.
+
+The row is drawn **whenever there are decks**, never only when the timer has something to say — a control
+that only appears once you have studied a card is a control most mornings do not have. It also **survives
+the list emptying while the mode is open.** Remove the last deck and the list goes, and with it the three
+buttons — including the Revert that is the only way to get that deck back. The condition is
+`!fresh && (activeIds.length || deckEditOn)`. `.rv-foot` went back to being conditional on the timer
+itself, and on the mode being SHUT — which is what it was before, and what the mode's own request asked
+for ("the study timer disappears until the editing mode is closed"). That was written when the timer
+shared the row with the three buttons and they needed its width; the buttons have left, so the reason is
+now the request rather than the space, and a later session may reasonably ask whether it should still go.
 
 ### And one repaint that was still a navigation
 

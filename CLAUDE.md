@@ -2060,7 +2060,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **THE HANDLES, THE CROSSES AND THE RENAMES LIVE IN AN EDITOR MODE** (`deckEditOn` /
     `deckEditCheckpoint` / `deckEditBarHTML` / `setEntryTitle` / `.rv-editing`; Aug 2026, on request). The
     grips used to sit at `.32` on every row at rest, which is six handles competing with six deck names;
-    they are `visibility:hidden` until an **Edit** button at the foot of the list is pressed — hidden that
+    they are `visibility:hidden` until an **Edit** button is pressed — hidden that
     way rather than with `display:none`, so the column the row's padding reserves for them does not
     collapse and re-open, and `visibility` rather than `opacity` alone because an invisible control that
     still swallows the press meant for the row underneath is the worse failure of the two. Six things.
@@ -2077,11 +2077,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     served the whole list, and it rides in the record the colour and icon are in, so it syncs and survives
     a reset with no schema of its own; `data-shipname` on every row is what lets `setEntryTitle` tell a
     real rename from the reader typing the existing name back, which CLEARS the override rather than
-    storing a copy of it. **`.rv-foot` IS DRAWN WHENEVER THERE ARE DECKS** — it used to wait for the day's
-    timer to have something to say, which would have hidden the Edit button every morning — **and it
-    survives the list emptying while the mode is open**, the one state that would otherwise strand a
-    reader with no Revert to get the last deck back. **AND IT IS A MODE, NOT A SETTING**: module-level, so
-    it survives a repaint and resets on reload.
+    storing a copy of it. **THE BUTTON IS AT THE BANNER'S TOP RIGHT** (`.rv-topacts`, Aug 2026, on request:
+    "move the active decks edit button and study timer to the top right of the Daily Study banner …
+    vertically centered to the Daily Study title" — and then, the same day, "move the timer back to where
+    it was before", so the corner holds the button alone and `.rv-foot` still holds the timer). It is a
+    SIBLING of the banner rather than a child of it, and that is forced: the banner is a `<button>`, so a
+    real `<button>` inside it is hoisted straight back out by the parser — the row is laid over the corner
+    with `pointer-events:none` and `auto` on its children, which keeps the rest of the banner one big
+    pressable tile. The vertical centring is the title's own line box (the banner's padding for `top`, the
+    title's font-size for the row's `height`), so it follows the text-size setting with no second set of
+    numbers; the title's `padding-right` is the reservation that keeps the two apart and MUST be kept in
+    step with the row's width; and the row steps aside for the completion mark, which is in the same
+    corner. **It is DRAWN WHENEVER THERE ARE DECKS**, never only when the timer has something to say,
+    which would have hidden the Edit button every morning — **and it survives the list emptying while the
+    mode is open**, the one state that would otherwise strand a reader with no Revert to get the last deck
+    back. **AND IT IS A MODE, NOT A SETTING**: module-level, so it survives a repaint and resets on reload.
   · **Guarded by `test-review-decks.js`** (sections 1–5, 8–11, 17–21) **and `test-layout.js`.**
   **📖 `docs/daily-study.md` — READ BEFORE TOUCHING THE REVIEW OR A DECK'S OPTIONS.** Why each rule above
   exists, what every sheet row is for, the sheet's arming window and its ×, the group machinery in full, and
@@ -5223,7 +5233,7 @@ dead code (never rendered).
     `clearStudySession` / `clearDeckLimits` / `deckDoneToday` / `entryPiles` / `openDeckMenu` /
     `openDeckLimits` / `addActive` / `maxActiveDecks` / `STUDY_KEY` / `qIdx` / `S.deckOrder` /
     `orderedIds` / `setupDeckDrag` / `deckEditOn` / `deckEditCheckpoint` / `deckEditBarHTML` /
-    `setEntryTitle` / `adOwnTitle` / `rowTitle` / `.rv-editing` / `.dk-del` /
+    `setEntryTitle` / `adOwnTitle` / `rowTitle` / `.rv-editing` / `.rv-topacts` / `.rv-foot` / `.dk-del` /
     `S.deckGroups` / `S.deckNest` / `groupCreate` / `groupDelete` /
     `setNestParent` / `nestChildren` / `openDeckSched` / `setDeckSched` / `setDeckRetention` /
     `setDeckFsrsParams` / `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll`
