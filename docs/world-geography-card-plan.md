@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-180` New Caledonia
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-183` São Tomé and Principe
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,40 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 67 (New Caledonia, Barbados, French Polynesia) turned batch 64's Western Sahara route into a
+REPEATABLE RECIPE for a non-self-governing territory, and it is better than the one for a small state.**
+Neither French territory has a recognition-guide page or a bloc profile, but the Secretariat's annual
+**working paper for the Special Committee on decolonization** opens with a "Territory at a glance" block —
+land area, exclusive economic zone, population, life expectancy, ethnic composition, languages, capital,
+head of government, GDP per head — followed by a **"Brief history" paragraph that runs from first contact to
+the present in a dozen sentences**. It is the single richest per-territory source the pass has found: New
+Caledonia's gives Cook naming Grande Terre in 1774, the French annexation of 24 September 1853, the overseas
+territory of 1946, the *événements* in which about 80 people died between 1984 and 1988, the Matignon
+Agreements of 26 June 1988, the Nouméa Accord of 5 May 1998 and all three referendums with the exact
+question put to the voters. **Reach for `A/AC.109/<year>/<n>` before anything else on a listed territory**;
+the index is a search of the digital library for the territory's name plus "working paper". Two things
+follow. **The territory's own re-inscription is a citable General Assembly resolution**, which dates the
+status the card asserts: A/RES/41/41 A of 2 December 1986 declares that France is obliged to transmit
+information on New Caledonia under Chapter XI and affirms its people's inalienable right to
+self-determination, and A/RES/67/265 of 17 May 2013, **adopted without a vote on a draft moved by Nauru,
+Solomon Islands and Tuvalu**, put French Polynesia back on the list — three of the smallest states in the
+world moving a resolution about a neighbour. And **UNdata and the working paper disagree about area on both
+territories, without either being wrong**: 19,100 km² against 18,575 for New Caledonia and 3,687 against
+"about 3,500" for French Polynesia, because one is a surface area and the other a land area, so the cards
+give both and say which is which. Batch 14's footnote rule pays a third time in four batches: **UNdata's
+first footnote on each of them reads "For statistical purposes, the data for France do not include this
+area"**, which is the statistical form of the constitutional fact the whole card is about. Barbados adds a
+recognition mode the Bahamas gave a batch ago and confirms it is a Caribbean pattern rather than a one-off:
+**the act of recognition was the opening of the embassy**, on 30 November 1966, the same day independence
+took effect, with the American consular presence on the island dating back to **11 June 1823** — the oldest
+date on any card in this deck. Two negative findings worth recording. **`caricom.org` is 403 on every
+path**, so the Caribbean has no bloc profile and its states are carried by the Commonwealth, the guide and
+UNdata. And **nothing openable from here records that Barbados became a republic in 2021** — not the
+Commonwealth's own member page, not the recognition guide, and the digital library returns no match for
+"Republic of Barbados" — so the clause stands in the term unmarked, on the C0 practice of keeping an
+uncontested claim and recording that it rests on nothing citable, rather than deleting a constitutional
+change because this sandbox cannot reach a page about it.
 
 **Batch 66 (Bahamas, Iceland, Vanuatu) found the deck's only case of DIPLOMATIC RELATIONS ESTABLISHED
 BEFORE THERE WAS A COUNTRY TO HAVE THEM WITH**, and two more modes of recognition with it. Iceland took over
