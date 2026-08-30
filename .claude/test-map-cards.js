@@ -122,7 +122,12 @@ function staticChecks() {
     const L = LAYERS[c.map.layer];
     ok(!!L, c.id + ": names a known layer", c.map.layer);
     if (!L) return;
-    ok(L.shapes.has(c.map.key), c.id + ": its key is a " + L.what + " the layer actually has", c.map.key);
+    /* `key` may be a LIST where the layer files one place as several polygons (Cyprus is three). Every
+       name has to resolve: a card shading two of three draws perfectly and asks about a shape that is not
+       the country. */
+    const mkeys = Array.isArray(c.map.key) ? c.map.key : [c.map.key];
+    ok(mkeys.length > 0 && mkeys.every((k) => L.shapes.has(k)), c.id + ": every key is a " + L.what + " the layer actually has", mkeys.join(", "));
+    ok(mkeys.every((k) => String(k).indexOf("|") < 0), c.id + ": no key contains the pipe the renderer joins them with");
     /* A map card carries NO extra phrasings. The other two would have to describe the same shape in two
        more ways, which is either the same sentence or a different question about a different thing. */
     ok(!c.questions || !c.questions.length, c.id + ": carries no extra phrasings");
@@ -133,7 +138,7 @@ function staticChecks() {
     if (c.map.dot) {
       const P = L.points[c.map.dot];
       ok(!!P, c.id + ": its dot is a capital the layer actually has", c.map.dot);
-      ok(P && P.s === c.map.key, c.id + ": …in the " + L.what + " the card shades", P && P.s);
+      ok(P && mkeys.indexOf(P.s) >= 0, c.id + ": …in the " + L.what + " the card shades", P && P.s);
       ok((c.answerText || "").trim() === c.map.dot, c.id + ": …and the answer is that city", c.answerText);
     }
   });
@@ -488,9 +493,12 @@ async function browserChecks(page) {
   /* THE LABEL NAMES THE DOT AND NOT THE SHAPE. Reading a word back off a canvas means re-drawing it and
      comparing pixels, which is more machinery than the claim is worth; what is asserted instead is that
      the reveal repainted at all, plus the rule that decides WHICH name it writes — read out of app.js, so
-     it cannot quietly go back to labelling the state on a card whose answer is the city. */
+     it cannot quietly go back to labelling the state on a card whose answer is the city.
+     The name is wrapped in `gameCapFirst` since Aug 2026 (every place on a card's globe is capitalised,
+     on request), which changes nothing on a map card — a state and a capital are already capitalised —
+     but does change this line, so the pattern names it rather than being loosened to match anything. */
   ok(dotBack.png !== dotBefore, "the reveal repainted the map");
-  ok(/const nm = dot \? dot\.n : target \? target\.n : ""/.test(APP), "the revealed label names the dot where there is one");
+  ok(/const nm = gameCapFirst\(dot \? dot\.n : target \? target\.n : ""\)/.test(APP), "the revealed label names the dot where there is one");
 
   /* 8. THE LOCATOR (Aug 2026, on request). A globe at the FOOT of a card whose answer is a place, saying
      where it is. It is not a map card — it has no shape to shade and no question to hold back — and the
