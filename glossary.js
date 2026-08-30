@@ -1610,7 +1610,8 @@ window.GLOSSARY = {
 "Achaemenid_army": "The Achaemenid army was the military force of the Persian empire, drawn from its many subject peoples and marching, as Xenophon saw it at Cunaxa, in national divisions, each a solid square.<sup class=\"fn\" data-fn=\"3\"></sup> Herodotus equips its Persian troops with iron-scaled tunics, wicker shields, short spears, long bows and reed arrows, and Greek writers took its weapon to be the bow, Aeschylus setting the drawing of the bow against the might of the spear-head.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Greek figures for its size are enormous, Herodotus giving 1,700,000 for the land army and then wondering how so many were fed, and at Plataea judging its men no less brave but unarmoured against opponents fully armed.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Immortals": "The Immortals were a corps of ten thousand picked Persian soldiers in the Achaemenid army, known from Herodotus, who says the number was kept exact by choosing a replacement whenever one of them died or fell sick.<sup class=\"fn\" data-fn=\"1\"></sup> He calls them the best men in the army and the most richly adorned, marching about the king with golden and silver pomegranates on their spear-shafts, and names Hydarnes son of Hydarnes as their general.<sup class=\"fn\" data-fn=\"1\"></sup> The name is Greek, and Xenophon describes a royal guard of the same size without using it, while at Thermopylae Herodotus says the corps fared no better than the Medes it was sent in to relieve.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Scythian_campaign_of_Darius_I": "The Scythian campaign of Darius I was a Persian expedition across the Bosphorus and the Danube into the country north of the Black Sea, dated by convention to about 513 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus is the main source, giving the army as 700,000 men with 600 ships and saying that the Scythians refused battle and withdrew before it until Darius turned back to the Danube bridge his Ionian tyrants guarded.<sup class=\"fn\" data-fn=\"1\"></sup> Strabo says he was nearly cut off for want of water, Justin gives the war a different cause and a heavy loss, and Darius' own inscription at Behistun records instead a Scythian war he won, taking the leader Skunkha prisoner.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Aristagoras": "Aristagoras was deputy tyrant of Miletus, a city Strabo gives four harbours and colonies throughout the Black Sea, and he raised the Ionian cities against Darius I after a failed Persian expedition against Naxos that he had proposed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Herodotus has him carry to mainland Greece a bronze tablet engraved with a map of all the earth, which Cleomenes of Sparta refused on learning the king's seat lay three months inland, and which persuaded Athens to vote twenty ships.<sup class=\"fn\" data-fn=\"1\"></sup> He abandoned the revolt he had begun, left Miletus in another man's charge and sailed to Thrace, where he was killed besieging a town, and Herodotus judges he had shown little courage.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Aristagoras": "Aristagoras was deputy tyrant of Miletus, a city Strabo gives four harbours and colonies throughout the Black Sea, and he raised the Ionian cities against Darius I after a failed Persian expedition against Naxos that he had proposed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Herodotus has him carry to mainland Greece a bronze tablet engraved with a map of all the earth, which Cleomenes of Sparta refused on learning the king's seat lay three months inland, and which persuaded Athens to vote twenty ships.<sup class=\"fn\" data-fn=\"1\"></sup> He abandoned the revolt he had begun, left Miletus in another man's charge and sailed to Thrace, where he was killed besieging a town, and Herodotus judges he had shown little courage.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Histiaeus": "Histiaeus was tyrant of Miletus under Darius I, rewarded for keeping the Persian bridge over the Danube and then held at Susa as the king's counsellor.<sup class=\"fn\" data-fn=\"1\"></sup> With the roads watched, he sent word to Aristagoras that Ionia should revolt by shaving a trusted slave's head, marking it, waiting for the hair to grow, and telling him only to have it shaved again on arrival.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Sent down to settle the revolt he had begun, he was met at Sardis by Artaphernes, who told him he had stitched the shoe Aristagoras put on; he fled, was captured and impaled, and his head was sent embalmed to the king.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2348,7 +2349,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Achaemenid_army": "c. 550 – 330 BCE",
 "Immortals": "c. 5th century BCE",
 "Scythian_campaign_of_Darius_I": "c. 513 BCE",
-"Aristagoras": "died c. 497 BCE"
+"Aristagoras": "died c. 497 BCE",
+"Histiaeus": "died c. 493 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3385,7 +3387,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Achaemenid_army": ["Persian army","Persian armies"],
 "Immortals": ["Persian Immortals"],
 "Scythian_campaign_of_Darius_I": ["Scythian campaign"],
-"Aristagoras": ["Aristagoras of Miletus"]
+"Aristagoras": ["Aristagoras of Miletus"],
+"Histiaeus": ["Histiaeus of Miletus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5023,7 +5026,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Achaemenid_army": ["institution","history","warfare","iran"],
 "Immortals": ["institution","history","warfare","iran"],
 "Scythian_campaign_of_Darius_I": ["event","history","warfare","iran"],
-"Aristagoras": ["person","history","warfare","greece"]
+"Aristagoras": ["person","history","warfare","greece"],
+"Histiaeus": ["person","history","warfare","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
