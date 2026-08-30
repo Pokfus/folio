@@ -1601,7 +1601,8 @@ window.GLOSSARY = {
 "Alcmaeon_of_Croton": "Alcmaeon of Croton was a Greek writer of the early 5th century BCE from a city in southern Italy, described by Diogenes Laertius as writing chiefly on medicine, though whether he practised it is disputed.<sup class=\"fn\" data-fn=\"1\"></sup> He is the earliest figure on record to place understanding in the brain and to distinguish understanding from perception, holding that the sense organs are joined to the brain by channels.<sup class=\"fn\" data-fn=\"2\"></sup> He defined health in the language of politics, as the equality of the powers in the body — wet and dry, hot and cold, bitter and sweet — with the sole rule of any one of them producing disease.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Achaemenid_Empire": "The Achaemenid Empire was the Persian state ruled by the house of Achaemenes, reaching from Ionia in the west to Gandara in the east.<sup class=\"fn\" data-fn=\"1\"></sup> Darius set out its extent in his own words on the rock at Behistun, naming 23 lands that had come to him and that brought him tribute, and titling himself the great king, the king of kings, the king of the provinces.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus describes it instead as an administrative machine, saying that Darius divided it into 20 provinces, which they call satrapies, and fixed for each a yearly tribute reckoned by the talent.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Cyrus_the_Great": "Cyrus the Great was the Persian king who founded the Achaemenid Empire in the middle of the 6th century BCE, leading the Persians against his own grandfather Astyages and ending Median rule over Asia beyond the Halys.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus reports several rival accounts of both his rise and his death, choosing in each case the one he finds most credible, and gives the latter as a defeat by the Massagetae one year short of thirty years on the throne.<sup class=\"fn\" data-fn=\"1\"></sup> Greek writers treat him unusually warmly for a Persian king, Aeschylus calling him blessed in good fortune and Plato crediting his rule with the due measure between slavery and freedom.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Lydia": "Lydia was a kingdom of western Anatolia with its capital at Sardis, remembered above all for its wealth and for Croesus, the last of its kings.<sup class=\"fn\" data-fn=\"1\"></sup> It fell to Cyrus after a siege of 14 days, Croesus having ruled 14 years and having marched, on Herodotus' account, on the strength of an oracle telling him that if he sent an army against the Persians he would destroy a great empire.<sup class=\"fn\" data-fn=\"1\"></sup> Cyrus is said to have disarmed the Lydians afterwards and set their sons to lyre-playing and shop-keeping, and Aeschylus lists them among the peoples he won to his rule.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Lydia": "Lydia was a kingdom of western Anatolia with its capital at Sardis, remembered above all for its wealth and for Croesus, the last of its kings.<sup class=\"fn\" data-fn=\"1\"></sup> It fell to Cyrus after a siege of 14 days, Croesus having ruled 14 years and having marched, on Herodotus' account, on the strength of an oracle telling him that if he sent an army against the Persians he would destroy a great empire.<sup class=\"fn\" data-fn=\"1\"></sup> Cyrus is said to have disarmed the Lydians afterwards and set their sons to lyre-playing and shop-keeping, and Aeschylus lists them among the peoples he won to his rule.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Phocaea": "Phocaea was an Ionian city of the Asia Minor coast whose people, Herodotus says, were the earliest Greeks to make long sea voyages, finding the Adriatic, Tyrrhenia, Iberia and Tartessus in fifty-oared ships rather than round freighters.<sup class=\"fn\" data-fn=\"1\"></sup> Thucydides has them defeating a Carthaginian fleet while they were founding Marseilles, in whose citadel Strabo describes temples of Ephesian Artemis and Delphian Apollo.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Besieged by the Persian general Harpagus, its people asked for a day to deliberate and used it to load their families, goods and temple statues aboard and sail; survivors of that flight later founded the Italian town called Hyele.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2330,7 +2331,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Alcmaeon_of_Croton": "active c. 500 – 450 BCE",
 "Achaemenid_Empire": "c. 550 – 330 BCE",
 "Cyrus_the_Great": "reigned c. 559 – 530 BCE",
-"Lydia": "kingdom to c. 546 BCE"
+"Lydia": "kingdom to c. 546 BCE",
+"Phocaea": "Ionian city, from c. 600 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3358,7 +3360,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Alcmaeon_of_Croton": ["Alcmaeon","Alkmaion"],
 "Achaemenid_Empire": ["Achaemenid","Achaemenids","Persian Empire"],
 "Cyrus_the_Great": ["Cyrus II","Cyrus"],
-"Lydia": ["Lydian","Lydians","Persian conquest of Lydia"]
+"Lydia": ["Lydian","Lydians","Persian conquest of Lydia"],
+"Phocaea": ["Phocaeans","Phocaean","Phokaia"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -4986,7 +4989,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Alcmaeon_of_Croton": ["person","science","philosophy","greece","italy"],
 "Achaemenid_Empire": ["state","history","warfare","iran"],
 "Cyrus_the_Great": ["ruler","history","warfare","iran"],
-"Lydia": ["state","history","geography","warfare"]
+"Lydia": ["state","history","geography","warfare"],
+"Phocaea": ["city","history","geography","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
