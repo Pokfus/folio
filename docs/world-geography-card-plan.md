@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-221`, less the deferred `gw-195`, `gw-201` and `gw-218`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-226`, less the deferred `gw-195`, `gw-201`, `gw-218`, `gw-223` and `gw-224`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland, Anguilla, Palau, Cook Islands) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland, Anguilla, Palau, Cook Islands, Nauru, Tuvalu, Saint Pierre and Miquelon) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-222` Nauru, `gw-195` Jersey, `gw-201` Guernsey and `gw-218` Saint Martin being deferred
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-227` Saint Helena, `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna and `gw-224` Saint Barthélemy being deferred
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,54 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 80 (Nauru, Tuvalu, Saint Pierre and Miquelon) names the pass's blind spot: THE FRENCH OVERSEAS
+COLLECTIVITIES.** Batch 79 deferred `gw-218` Saint Martin because nothing openable names Marigot. This
+batch met the same wall twice more and both are deferred — **`gw-223` Wallis and Futuna** and **`gw-224`
+Saint Barthélemy** — so three of the four French Caribbean and Pacific collectivities this deck reaches
+are now blocked, and always in the same place. The cause is measured rather than guessed: the
+collectivities' own sites are JavaScript single-page applications (`comstbarth.fr` serves a 760-byte shell
+with one empty `<div id="app">`), `insee.fr`'s dossiers, comparateur and search are all JS-driven,
+`legifrance.gouv.fr`, `outre-mer.gouv.fr` and `vie-publique.fr` are 403 or serve 281-byte stubs, and the
+prefectures publish news rather than facts. **France's own institutional web is the least readable of any
+metropole in this deck** — the United Kingdom hands over whole constitutions on `legislation.gov.uk`, the
+Netherlands writes plain topic pages on `government.nl`, Denmark's territories publish their own
+statistics, and the United States has both C-24 papers and the Office of Insular Affairs.
+
+**Wallis and Futuna is deferred over a SPELLING, which is a first.** Everything else is there: UNdata's
+11,000 for 2025, 142 km² and CFP franc; the Overseas Countries and Territories Association's census
+figure of about 11,620 for 2023, its 72.5/27.5 split between Wallis and Futuna, and the three customary
+kingdoms (Uvea on Wallis, Alo and Sigave on Futuna) alongside a prefect and a 20-member Territorial
+Assembly. **But UNdata is the only reachable source that names the capital, and it writes "Matu-Utu"** —
+verified in the raw HTML, not an artefact of extraction — where the name is Mata-Utu, which `gw-723`
+already plans. Printing the source's spelling teaches a reader an error; printing the right one asserts
+what no cited source says. **A source's typo can block a card as effectively as a missing figure**, and
+the honest answer is the same: defer, and say why.
+
+**OCTA — the Overseas Countries and Territories Association — is the route that will unblock them, and it
+is the batch's real find.** Co-funded by its members and the European Union, it publishes a profile per
+OCT with the figures a facts box needs: Saint-Pierre-and-Miquelon at 242 km² and 6,008 people (2016), the
+Morne de la Grande Montagne at 240 m, the organic law of 21 February 2007, the 19-member Territorial
+Council, taxation and customs as territorial competences, and French law applying directly. It carried
+Saint-Barthélemy's 21 km² (25 including islets) and 9,793 (2018) too. **What it does not carry anywhere
+is a capital**, which is exactly the field the French collectivities fail on — so it rescues the prose and
+not the box. Saint Pierre and Miquelon ships only because **UNdata has a `pm` profile and names
+Saint-Pierre correctly**.
+
+**The Commonwealth's Key Facts is the source that answers the capital question HONESTLY**, and after five
+batches of UNdata failures that is worth stating as a preference. For Nauru it says outright **"No
+official capital, government offices in the district of Yaren"**; for Tuvalu, **"Vaiaku (government
+offices), Fongafale islet, Funafuti atoll"** — a seat, an islet and an atoll, where UNdata gives
+"Funafuti" flat. UNdata's Nauru entry meanwhile is the sixth capital-field failure and again confesses in
+its own footnote: the 11,300 it gives for Yaren "Refers to Nauru", i.e. the whole country. **Nauru's facts
+box therefore reads "None; offices at Yaren"** — the first card in the deck whose Capital row is not a
+place name, and the right answer rather than a tidy one.
+
+Two smaller notes. **The World Bank now files Nauru under its Nauruan name, Naoero**, which is worth
+knowing before a series lookup fails on the English one. And **Tuvalu's own term was reconciled**: it said
+"roughly 11,000 people" where UNdata gives 10,000 and the World Bank 9,492 for 2025, and both it and
+Nauru's lost a rank superlative no source states ("the fourth smallest state in the world", "the third
+smallest state by area") — the figures they already print say the same thing and can be checked.
 
 **Batch 79 (Anguilla, Palau, Cook Islands) MEASURED the shape batch 74 corrected, and the two lists'
 holes turn out to be independent.** Batch 74 established that UNdata's profile set is narrower than M49
