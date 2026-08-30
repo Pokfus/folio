@@ -65,6 +65,35 @@ The seven bullets below are as they stood in CLAUDE.md, verbatim.
     || due - now <= SCHED_AHEAD_MS)}`. The old 11-minute window silently stopped requeuing the moment a step ran longer
     than it; the learn-ahead allowance is Anki's, and is what stops the last card of a late-night session being stranded
     a few minutes the wrong side of the cut-off.
+  · **A CARD ON A LEARNING STEP IS ALWAYS REACHABLE, EVEN BEFORE ITS STEP COMES ROUND** (`learnAheadIds` /
+    `scopeAllIds`, Aug 2026, on a bug report). The reader: *"getting a card wrong pushes it forward some
+    minutes before showing it again. This creates a bug where exiting out of the deck study causes the active
+    deck banner to report X cards still to be reviewed in the red number, but clicking the deck says the study
+    has already been completed for the day, since those minutes haven't passed yet."*
+    Two functions telling the truth and contradicting each other. `entryPiles` and the banner's `pileCounts`
+    count a LEARNING card from the moment it is failed until it graduates — right, and the comment beside
+    `pileCounts` says why: a count that emptied while a card sat on its timer would tell the reader the work
+    was done. Every queue-builder, meanwhile, selected on `isDueNow`, which that card is not for another nine
+    minutes. So the row said **1** and the session it opened said **you have finished**.
+    **The request's own suggestion — put a failed card at the back of the queue and forget the clock — is what
+    already happens WITHIN a session** (`res.requeue`, the bullet above). Across sessions the delay is the
+    whole of what a learning step is: a card re-asked four seconds after it was failed is one whose answer is
+    still on the reader's screen, and dropping the wait would make the first step meaningless and the second
+    unreachable. So the two are made to AGREE instead, which is Anki's own answer: its `collapseTime` deals
+    learning cards ahead of their step when there is nothing else left to do.
+    **It is ONE TAIL STEP IN `buildSession` rather than a fix in each of its six branches** — five copies of a
+    rule is five places for the sixth, added later, to be left out of — and it can only ever fire on an EMPTY
+    queue, which is exactly the state the report describes. While there is other work, the spacing is
+    untouched.
+    **And it carries NO WINDOW, which is where it differs from `SCHED_AHEAD_MS` deliberately.** That constant
+    (Anki's twenty minutes) bounds the in-session requeue, where a live queue will come back to the card by
+    itself and the bound only decides how long the reader waits. Here the session is being BUILT and would
+    otherwise be empty and dismissed, so a bound buys nothing and costs the guarantee: the moment a step ran
+    longer than it, the row would show a red count again and the session would again say the day was done.
+    Today the two are the same in practice — the steps are `1m 10m` and `10m`, all inside the window — which
+    is precisely why the difference is written down rather than left to be discovered.
+    Guarded by `test-review-decks.js` section 21, which asserts the EQUIVALENCE rather than any figure: a red
+    count is right, an empty session is right, and holding both at once is the whole of the bug.
   · **A DUE DATE MEASURED IN DAYS LANDS AT THE START OF ITS DAY** (`dayStartTs` / `SCHED.dayAnchor` / `schedDayDue`,
     Aug 2026, on request). An interval of one day used to mean *twenty-four hours from the moment you graded it*, so a
     card answered at nine in the evening was not offered again until nine the next evening — which makes "today's

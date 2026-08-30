@@ -202,3 +202,71 @@ Six bullets, in the order they appeared in CLAUDE.md:
   `z-index` (9800) must stay above the gloss stack** — popups sit at 8000+ and the mobile sheet at 9600, and a
   gloss image opens the viewer *from inside* a popup; `focusGlossWin` renormalizes its counter at
   `GLOSS_Z_CAP` so a long session can't climb past it.
+
+
+## A profile photo: choosing its crop, and enlarging someone else's (Aug 2026, on request)
+
+> "When uploading a profile picture, it should be possible to move/crop it."
+> "When visiting someone else's profile, I should be able to click their profile picture to enlarge it."
+
+The upload centre-cropped to a square and that was the whole of it — `avatarFromFile`, eight lines, no
+appeal. It is the wrong crop often enough to be worth a control: a portrait taken in portrait orientation
+loses the top of the head and the chin at once, and a photograph of two people keeps whichever half was in
+the middle. The only remedy was to crop the file in something else and upload it again.
+
+`openAvatarCropper` puts the image behind a round window the reader drags and zooms and hands back the same
+128px JPEG data-URI its predecessor did, so nothing downstream changed — `supaSetAvatar`, the `profiles`
+row and every monogram on the site are untouched. Five things about it are decisions rather than plumbing.
+
+**The window is round because the avatar is.** `.monogram` is a circle on every surface that draws one, so
+a square preview would show the reader corners no surface will ever paint — and framing a face inside a
+square that is about to become a circle is exactly the mistake the control exists to prevent. The CANVAS
+stays square, because the square is what gets saved; `.avc-ring` is an overlay on top of it (a huge inset
+box-shadow dimming everything outside the circle, plus a hairline at its edge) and is `pointer-events:none`,
+or it would swallow the drag it is there to describe.
+
+**The image can never be smaller than the window, and that is a hard guarantee rather than a nicety.**
+`minScale` makes the shorter side fill it and both the zoom and the pan are clamped against it, so no
+gesture can put a wedge of empty canvas inside the crop. The reason is the encoding: the canvas is saved as
+a JPEG, which has no alpha, so a hole does not show as a gap — it shows as a **black wedge in somebody's
+face**, on every surface of the site, and only they will ever see it.
+
+**Zoom is about a fixed point of the window** — the middle for the slider, the point between the fingers
+for a pinch, the cursor for a wheel. Zooming about the origin instead walks the picture off into a corner
+and is the commonest way a crop control comes to feel broken.
+
+**One pointer pans and two pinch**, tracked by id rather than counted — the whiteboard's rule, here for the
+smaller version of the whiteboard's reason: a second thumb landing mid-drag walks into the first gesture and
+the picture jumps to wherever the two disagree.
+
+**And the output is re-rendered from the ORIGINAL, not scaled out of the preview.** The preview is sized to
+the screen and backed by `devicePixelRatio`; the saved square is drawn from the source image with the same
+transform expressed in its own pixels, so what is stored is as sharp as the photograph allows rather than as
+sharp as this phone's preview happened to be.
+
+### Enlarging one
+
+`openAvatarViewer(avatar, name)` goes through the site's own image viewer rather than a second overlay — the
+pinch, the pan, the Escape and the × are written already — with two differences declared on the element
+through a new `img.viewClass` hook rather than in the caller.
+
+It is **drawn round**, because that is the shape the photo was composed in: revealing the square's corners
+here would show the owner a version of their own picture they never chose.
+
+And it is **capped at about 320px, which is an honest limit rather than a preference**. A stored avatar is
+`AVATAR_PX` square — small on purpose, since the friends list fetches one row per friend — so the viewer's
+default (an `<img>` at its natural size under a `max-width`) would draw it at 128px, barely larger than the
+row it was tapped in. Raising the stored size is the only thing that would make it genuinely sharper, and it
+would cost every friends list a few hundred kilobytes to serve a gesture made now and then. The reader can
+still pinch further.
+
+The button exists **only where there is a photograph**: a monogram is a letter the page is already showing
+at the size a letter is worth, so wrapping it would give five readers in six a control that does nothing.
+
+Guarded by `.claude/test-avatar.js` (17 assertions). It reaches the cropper through a **patched app.js**, the
+technique `test-i18n-lang.js` already uses: the dialog lives behind a Supabase sign-in, and mocking auth to
+reach it would test the mock. The patch appends one line inside the IIFE and the suite fails if the tail it
+appends to is not found, so a refactor cannot leave it quietly testing nothing. Its picture is chosen so the
+assertions can be made in COLOUR — a red band down the far left, green through the middle — because a drag
+wired to nothing still opens a dialog, still shows the photograph and still saves; what it saves is the
+centre crop, and reaching the left edge is the whole of what was asked for.

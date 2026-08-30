@@ -1897,13 +1897,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A CHEST MAY ALSO HOLD A THEME** (Aug 2026, on request): the five non-`folio` themes are locked until
     one drops, at `THEME_DROP` (14%) while any are still locked. **`themeGrandfather` is the part not to
     remove** — a theme already worn is written into the register, once, or the change would silently strip
-    five of the six from every existing reader. A locked theme's button is **pressable, not `disabled`**
-    (Chrome fires no events on a disabled button, which would take the hover try-on away from exactly the
-    themes that need advertising); `setTheme` is the gate.
+    five of the six from every existing reader. `setTheme` is the gate, and it stays one as a backstop:
+    the Settings picker lists **only what the reader owns** and draws no locked tile at all (Aug 2026, on
+    request), so nothing renders the id that guard refuses.
+    **BUT THE THEME ROW ITSELF IS ALWAYS DRAWN, AND HIDING IT UNTIL A CHEST HAD DROPPED ONE WAS THE
+    OVER-REACH** (Aug 2026, on a bug report: "I don't see anywhere to change my theme on the settings
+    page"). Listing only what is owned was the request; hiding the whole section was a second decision
+    taken beside it, and it took the feature off the page — a reader found a Settings page with no
+    mention of themes and no way to tell an empty collection from a control that had moved or broken.
+    **The state belongs in the COPY, not in whether the row exists**: the row names how many are still to
+    find and where they come from, and says nothing once the set is complete. A sentence can be right in
+    every state; a hidden row is right in one.
   · **THE PLATE IS ONE BUILDER** (`artefactPlateHTML` + `wireArtefactPlate`), used by the reader's overlay
     and by the admin preview alike — a preview written from a second copy of the markup drifts silently.
     **THE SHOWCASE IS FOUR** (`SHOWCASE_MAX`), filtered on the way OUT so a retired artefact leaves no slot
     pointing at nothing, and its actions sit at the TOP of the plate rather than below five sentences.
+  · **TWO FAMILIES OF BADGE WERE UNREACHABLE FOR MONTHS, AND BOTH FAILED IN THE SAME SHAPE** (Aug 2026,
+    on a bug report: the badges "for adding a friend and completing a 'daily challenge' … do not work").
+    **A COUNT WAS BEING READ FROM SOMEWHERE THAT HAD STOPPED BEING WRITTEN.** `checkAchievements` took
+    the friend count from `currentUser().friends` — `ACCT`, the LEGACY device-local accounts, retired
+    when accounts moved to Supabase and empty for everybody since — so First Friend and Well Connected
+    were tested against a hard 0. Friends now live in a table RLS-scopes to rows involving their owner,
+    and a badge is tested mid-session and cannot go to the network, so the count is RECORDED:
+    `setFriendCount` writes `S.friendCount` (a `PROGRESS_FIELD`) whenever the friends list is drawn, and
+    `progStats` falls back to it. That also fixes a friend's OWN badge grid, which was passing a literal 0.
+    And **`S.daily.wins` was incremented inside Multiple Choice's results screen**, written when that game
+    WAS the daily challenge — so sweeping the other eight every day unlocked neither Victor nor Champion.
+    It is counted in **`markGamePlayed`** now, the one door every game already goes through, gated on
+    `freshWin` (which the one-play-a-day rule makes a game's only win of the day), so a tenth game is
+    covered without anybody remembering this. **The badges say "minigame" rather than "daily challenge"**
+    (same request) and the ids are untouched, for the reason the Library's route was when it became
+    Collections: renaming one takes the badge off everybody holding it.
+    **THE LESSON IS THE SHARED ONE: A BADGE THAT CANNOT FIRE LOOKS EXACTLY LIKE A BADGE NOT YET EARNED.**
+    Nothing throws, nothing is logged, and the reader assumes they have not done enough. When a badge's
+    `test` reads a counter, check that something still WRITES that counter.
   · **FIFTEEN COLLECTOR'S BADGES** read `progStats`, and are tested **at the moment they are earned**
     rather than at the next card. A badge grants a chest, so the chest balance is not a plain subtraction —
     `spendChest()` increments `S.chestsOpened`, which is what the tests assert against.
@@ -1960,6 +1987,17 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **EVERY COUNT IS DERIVED, NEVER TALLIED** (`deckDoneToday`): `grade()` writes `c.first`, the day a card
     was introduced, and every per-deck new count is read back off it — which is what makes the figures right
     for a deck outside the review, right after an undo, and right for a card in two decks at once.
+  · **A CARD ON A LEARNING STEP IS ALWAYS REACHABLE** (`learnAheadIds` / `scopeAllIds`; Aug 2026, on a
+    bug report that a deck row showed a red count and then said the day was finished). `entryPiles` and
+    `pileCounts` count a learning card from the moment it is failed until it graduates, and every
+    queue-builder selected on `isDueNow` — both right, and contradicting each other for the nine minutes
+    the step lasts. **The fix is NOT to drop the timer**: the requeue already puts a failed card at the
+    back of the queue WITHIN a session, and across sessions the delay is the whole of what a step is. So
+    the queue learns ahead instead, Anki's `collapseTime` answer — **ONE TAIL STEP in `buildSession`
+    rather than a fix in each of its six branches**, firing only on an EMPTY queue, so the spacing is
+    untouched while there is other work. **It carries no window, unlike `SCHED_AHEAD_MS`**, which bounds
+    the in-session requeue: a bound here would put the disagreement back the day a step ran longer than
+    it. Guarded by `test-review-decks.js` section 21, which asserts the two AGREE rather than any figure.
   · **THE POOLED REVIEW IS ITSELF AN ENTRY**, `REVIEW_ENTRY` (`"review:all"`), so `deckLimits` /
     `deckDoneToday` / `entryCardIds` / `entryInfo` and the long-press sheet all answer for it as for a deck —
     which is what makes the banner and the rows beneath it arithmetically incapable of disagreeing. Its
@@ -2044,7 +2082,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     survives the list emptying while the mode is open**, the one state that would otherwise strand a
     reader with no Revert to get the last deck back. **AND IT IS A MODE, NOT A SETTING**: module-level, so
     it survives a repaint and resets on reload.
-  · **Guarded by `test-review-decks.js`** (sections 1–5, 8–11, 17–20) **and `test-layout.js`.**
+  · **Guarded by `test-review-decks.js`** (sections 1–5, 8–11, 17–21) **and `test-layout.js`.**
   **📖 `docs/daily-study.md` — READ BEFORE TOUCHING THE REVIEW OR A DECK'S OPTIONS.** Why each rule above
   exists, what every sheet row is for, the sheet's arming window and its ×, the group machinery in full, and
   the faults that were invisible on the page — a subdeck dealing one direction for thirty days, a phone drag
@@ -2759,10 +2797,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **The viewer's `z-index` (9800) must stay above the gloss stack** — popups sit at 8000+ and the mobile
   sheet at 9600, and a gloss image opens the viewer *from inside* a popup; `focusGlossWin` renormalizes its
   counter at `GLOSS_Z_CAP` so a long session cannot climb past it.
+- **A PROFILE PHOTO IS CROPPED BY ITS OWNER AND ENLARGED BY ANYONE ELSE** (`openAvatarCropper` /
+  `openAvatarViewer` / `AVATAR_PX` / `.av-crop` / `.iv-avatar`; Aug 2026, on request). The upload
+  centre-cropped and there was no appeal — a portrait lost the head and the chin at once. The cropper is a
+  round window the reader drags and zooms, handing back the SAME 128px JPEG data-URI, so `supaSetAvatar`,
+  the `profiles` row and every monogram are untouched. **The image can never be smaller than the window**
+  (`minScale` plus a clamp on both the zoom and the pan) and that is a hard guarantee rather than a nicety:
+  a canvas saved as a JPEG has no alpha, so a hole is not a gap but a **black wedge in somebody's face**.
+  Zoom is about a fixed point; one pointer pans and two pinch, by id, the whiteboard's rule; and the saved
+  square is **re-rendered from the ORIGINAL** rather than scaled out of a preview sized to this screen.
+  A friend's photo opens in the site's own viewer through an `img.viewClass` hook — round, being the shape
+  it was composed in, and capped at ~320px, which is an honest limit: the stored square is small because a
+  friends list fetches one per friend. **The button exists only where there IS a photograph**; a monogram
+  is a letter already shown at the size a letter is worth. Guarded by `.claude/test-avatar.js`.
   **📖 `docs/media.md` — READ BEFORE TOUCHING ANY OF IT.** The viewer's zoom, pinch and pan arithmetic and
   the pointer-capture retargeting that made a real finger unable to fire the tap toggle at all, the video
-  regexes as a security boundary, the alt-text reasoning, the dead-link treatment, and the gate's four
-  surfaces in full.
+  regexes as a security boundary, the alt-text reasoning, the dead-link treatment, the gate's four
+  surfaces in full, and the profile-photo cropper's own five decisions.
 - **Themes (6):** folio, synth, arcade, academy, marble, gazette — each light + dark, tokens **hex-only**
   (the canvas globe parses and blends them). **Seven themes were REMOVED on request** (atlas, press, bloom,
   tide, scroll, grove, dynasty), and clay and garden with them; a saved selection of one falls back to folio
@@ -3111,6 +3162,23 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   · **A NEW GAME IS WIRED IN SIX PLACES AND FIVE OF THEM FAIL SILENTLY**: `PAGES.<key>`, the `valid` route
     list, `PAGE_META`, `DAILY_GAMES`, `GAME_NAMES` + `GAME_SET_WORD`, and the tile plus its click handler in
     `PAGES.home`. `test-minigames.js` asserts all six, against the tiles the home page actually paints.
+  · **THE DAY'S DRAW IS THE SAME DRAW FOR EVERY READER, AND `dayPick(key, arr, n)` IS THE ONE WAY TO MAKE
+    ONE** (Aug 2026, on a bug report: two readers comparing True or False scores had been answering
+    different statements). A daily game's score is written to the tile as TODAY'S, shown beside a
+    site-wide average on the tile's own record card, and read off a friend's account beside your own — so
+    a set drawn from `Math.random` makes every one of those comparisons a comparison of two different
+    tests, silently. Six of the nine were seeded off `todayStr()` already; **Multiple Choice, True or
+    False and Who said it? were not**, and now are. `dayPick` is `pick`'s seeded twin — same signature,
+    same shuffle, the day in place of the entropy — and lives beside `gameLockedToday`. **NEVER `pick`
+    IN A GAME'S DRAW**; the one legitimate `Math.random` left in the games is Common Thread's Shuffle
+    button, which is the player jumbling their own board rather than a draw.
+    **The key names the DRAW, not the game**: a round draws its questions and then its options, and two
+    draws sharing a seed shuffle in step, which on a four-option round puts the answer in the same
+    position every round. And a per-round key carries something STABLE about that round — the card's id,
+    the pool index — never its position, which would move every later round's options the day an earlier
+    card left the pool, and never a LOCALISED string, which would deal a Spanish reader different
+    decoys. It reads the reader's OWN day boundary, like the lock and the streak: everyone sharing a date
+    shares a quiz, which is the guarantee — not that the planet turns over at once.
   · **ONE PLAY A DAY** (`gameLockedToday(root, key)`, called as each page's first act) — every game is
     daily, its rounds are drawn once and its score is today's, so a second run is a run with the answers in
     hand. The placard wears the game's own tile icon (`ICON`, at module scope so the tile and the placard
@@ -4992,7 +5060,7 @@ dead code (never rendered).
   under Node requires setting `global.window = {}` first.
 - Put any Unicode (Chinese text) used in a test script into a file — don't pass it inline via
   `node -e`.
-- **Forty-six committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
+- **Forty-seven committed regression tests** (in `.claude/`, not loaded by the site — the count excludes
   `test-noise.js`, which is a shared console-noise filter rather than a suite): most drive a real browser with
   Playwright; `test-card-plans.js`, `test-daily-quote.js`, `test-date-line.js`, `test-difficulty.js`,
   `test-discovery.js`, `test-scheduler.js` and `test-streak-chest.js` are plain Node with
@@ -5198,11 +5266,24 @@ dead code (never rendered).
     restricted pool** (75 assertions), and every one of its checks is for something that fails SILENTLY.
     **Re-run after touching `PAGES.crossword` / `PAGES.picture` / `PAGES.whatyear`, `xwNorm` / `xwPool` /
     `xwLayout` / `dailyCrossword` / `xwLocked` / `nextOpen` / `xwMarkGaveUp`, `picturePool` /
-    `dailyPictureRounds` / `tagKinship`, `buildWhoSaidRounds`, `threadEasyKeys` / `dailyThreadPuzzle` /
+    `dailyPictureRounds` / `tagKinship`, `dayPick` / `buildChallengeQuestions` / `buildWhoSaidRounds` /
+    `PAGES.truefalse`'s draw, `threadEasyKeys` / `dailyThreadPuzzle` /
     `THREAD_GROUP_MIN` / `THREAD_TRIES`, `wyStep` / `dailyWhatYear`, `DAILY_GAMES` / `GAME_NAMES` /
     `PAGE_META` / the `valid` route list, `gameCardIdSet` / `GAME_MAX_DIFFICULTY`, `whatyear.js` /
     `truefalse.js` / `quotes.js`, `gameBackHTML` / `flipGameTile` / `gameStatsPost` / `gameStatsLoad` /
-    `markGamePlayed`, or the home page's tile grid.**
+    `markGamePlayed`, `gameAnswerNote` / `gameGlossKey`, `gameTap` / `gameCommit` / `gameClearPick` /
+    `gameFound` / `TINT_PICK` / the `.mg-acts` buttons, or the home page's tile grid.**
+  · `node .claude/test-avatar.js` — **the profile photo's crop, and enlarging someone else's** (17
+    assertions, Aug 2026), and all three of its subjects fail SILENTLY: a hole in the crop becomes a black
+    wedge in a JPEG that only its owner ever sees; a drag wired to nothing still opens a dialog, shows the
+    picture and saves the centre crop it always saved; and a viewer left at the stored 128px is an
+    "enlarge" barely larger than the row it was tapped in. So it reads PIXELS off the canvas and off the
+    saved data-URI, on a picture whose left edge and middle are different colours. It reaches the cropper
+    through a **patched app.js** (`test-i18n-lang.js`'s technique — the dialog is behind a Supabase
+    sign-in, and mocking auth to reach it would test the mock) and fails if the tail it appends to is
+    gone, so a refactor cannot leave it testing nothing. **Re-run after touching `openAvatarCropper` /
+    `openAvatarViewer` / `AVATAR_PX` / `supaSetAvatar` / `monogramHTML` / the `img.viewClass` hook in
+    `openMediaViewer`, or the `.av-crop` / `.avc-*` / `.iv-avatar` / `.mono-view` styles.**
   · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (69
     assertions, Aug 2026). **Re-run after touching `cardDifficulty` / `difficultyOK` / `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY` / `cardUndatable` / `chronoPool` / `cardStartYear` / `serializeCardData` /
