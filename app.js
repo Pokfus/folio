@@ -14449,20 +14449,32 @@
     e.stopPropagation(); e.preventDefault();
   }, true);
   function wireHoldMenu(el, onHold, onTap) {
-    let timer = null, sx = 0, sy = 0;
+    let timer = null, sx = 0, sy = 0, fired = false;
     const cancel = () => { if (timer) { clearTimeout(timer); timer = null; } };
-    const fire = () => { _holdUntil = Date.now() + 700; onHold(); };
+    const fire = () => { fired = true; _holdUntil = Date.now() + 700; onHold(); };
+    /* THE GUARD'S WINDOW IS MEASURED FROM THE RELEASE, NOT FROM THE FIRE (Aug 2026, on a bug report:
+       "the minigame tiles ... when flipping them they immediately flip back"). The hold fires at
+       HOLD_MS and armed the swallow for 700ms from THERE — but the click that has to be swallowed is
+       dispatched when the finger comes UP, and a reader holding a tile for a second and a half to see
+       what happens releases at 1,500ms, long past a window that shut at 1,180. The click then went
+       through to `onTap`, which on a tile already flipped is "turn it back": the record appeared and
+       vanished in the same gesture, and the longer you held the more reliably it did.
+       So the release re-arms it. Measured in a real browser through CDP touch input: a 600ms hold flipped
+       and a 1,400ms hold flipped and immediately unflipped — a synthetic `el.click()` cannot see this at
+       all, since it never follows a real pointer sequence. */
+    const release = () => { cancel(); if (fired) { fired = false; _holdUntil = Date.now() + 700; } };
     el.addEventListener("pointerdown", (e) => {
       if (e.button && e.button !== 0) return;
       sx = e.clientX; sy = e.clientY;
+      fired = false;
       cancel();
       timer = setTimeout(() => { timer = null; fire(); }, HOLD_MS);
     });
     el.addEventListener("pointermove", (e) => {
       if (timer && Math.abs(e.clientX - sx) + Math.abs(e.clientY - sy) > HOLD_SLOP) cancel();
     });
-    el.addEventListener("pointerup", cancel);
-    el.addEventListener("pointercancel", cancel);
+    el.addEventListener("pointerup", release);
+    el.addEventListener("pointercancel", release);
     el.addEventListener("contextmenu", (e) => { e.preventDefault(); cancel(); fire(); });
     if (onTap) el.addEventListener("click", onTap);
     el.addEventListener("keydown", (e) => {
@@ -17394,6 +17406,24 @@
     /* …and a term INSIDE a control is that control's (a gloss link cannot be, but the test costs nothing
        and keeps the two kinds from both claiming one press). */
     const tipUnder = (e) => (hitUnder(e, CTL_SEL) ? null : hitUnder(e, TIP_SEL));
+    /* ---- A THIRD KIND OF TARGET: A SURFACE THAT OWNS ITS OWN DRAG (Aug 2026, on a bug report: "on
+       mobile, dragging to move that atlas window doesn't work, it only scrolls the whole page") ----
+       A card's map window is a globe the reader turns with a finger. With the marker down the ink canvas
+       covers the whole visible page and IS the pointer target, so that finger never reaches the window's
+       own listeners — and in STYLUS MODE, where a finger is declared not to be a drawing tool, the whole
+       gesture went to the hand-rolled page scroll instead. Reproduced in a browser through CDP touch
+       input: the globe did not move a degree and the page went down 130px.
+       It cannot join CTL_SEL, which claims a press at pointerdown and activates it as a CLICK at
+       pointerup — a click is not a drag, and a drag is the whole of what this window is for. So it is its
+       own kind: the ink canvas keeps the pointer (it must, or the moves stop arriving) and forwards the
+       DELTA to the window through the small `pan` the map exposes for it.
+       It is scoped to a FINGER IN STYLUS MODE and nothing else, deliberately. Everywhere else on the page
+       the finger IS the pen — taking drawing away from it would be a regression nobody asked for — and a
+       stylus still draws on a map, which is the contract stylus mode already states everywhere else. */
+    const mapUnder = (e) => {
+      const host = hitUnder(e, ".map-card");
+      return host && host._folioMap && host._folioMap.pan ? host._folioMap : null;
+    };
     /* ---- the finger's scroll, performed rather than permitted (stylus mode) ----
        See wbApplyStylusMode for why CSS cannot do this. `scrollerUnder` finds what the finger is actually
        over — the document under a card, but a gloss popup's body or the Atlas panel's columns are their own
@@ -17416,7 +17446,7 @@
       }
       return doc;
     };
-    let panEl = null, panLast = 0, panAt = 0, panV = 0, panRAF = 0;
+    let panEl = null, panLast = 0, panX = 0, panAt = 0, panV = 0, panRAF = 0, passMap = null;
     const panStop = () => { if (panRAF) cancelAnimationFrame(panRAF); panRAF = 0; };
     WB._panStop = () => { panStop(); panEl = null; };   // so a rebuild (the next card) can kill a fling still running
     const panFling = () => {
@@ -17433,6 +17463,37 @@
       panRAF = requestAnimationFrame(step);
     };
     let passCtl = null, passScroll = false, sx = 0, sy = 0, strokePts = null, pendTip = null;
+    /* ---- ONE POINTER OWNS THE GESTURE (Aug 2026, on a bug report: "sometimes I find myself unable to
+       draw lines for a few seconds … other times lines that should be straight end up crooked") ----
+       Every other pointer surface on the site records the id it started on and ignores the rest — the
+       marker's own drag handle, the page swipe, the colour picker, the gloss window. The DRAWING surface,
+       which is the one place a second pointer is not merely possible but expected, did not: a stylus rests
+       a palm on the screen, and a phone has two thumbs. The handlers below keep a single `WB.drawing`,
+       `WB.last` and `passScroll` between them, so a second pointer did not begin a second gesture — it
+       walked into the first one, and both reported symptoms are that walk seen from two sides.
+       CROOKED LINES are the palm's coordinates landing in the pen's stroke. With no id test the move
+       handler drew `WB.last → p` for whichever pointer moved last, so a straight pen stroke was sewn
+       through the palm's position and back on every alternate sample. It is the plain multi-touch case
+       too: two fingers on a card draw one line zigzagging between them.
+       NOT DRAWING FOR A FEW SECONDS is the same collision at the other end. Any other pointer lifting ran
+       `end()`, which sets `WB.drawing = false` — so a palm settling and re-settling killed the stroke the
+       pen was in the middle of, and the pen went on moving over a canvas that had stopped listening until
+       it was lifted and put down again. Worse in stylus mode: a palm landing while the pen draws sets
+       `passScroll`, and the move handler's first line hands EVERY later move to the page scroll, so the
+       pen scrolls the card instead of marking it.
+       So a gesture has an owner and only the owner is heard. The one preemption is a PEN over a finger,
+       and it is the case that made this reportable rather than theoretical: the palm usually lands first,
+       so ignoring the newcomer would leave a stylus reader unable to draw at all. Nothing preempts a pen,
+       and a finger never preempts a finger — the reader lifts and presses again, which is what they were
+       already doing to get out of it. */
+    let gid = null, gpen = false;
+    const dropGesture = () => {
+      if (gid !== null) { try { canvas.releasePointerCapture(gid); } catch (x) {} }
+      gid = null; gpen = false;
+      panStop(); panEl = null;
+      passCtl = null; passScroll = false; pendTip = null; passMap = null;
+      end();   // commits a finger's stroke rather than losing it; a no-op when nothing was drawn
+    };
     /* The stroke's own opening, lifted out of pointerdown because a press over a glossary term defers it
        until the pointer has moved — and it must then begin where the PRESS was, not where the pointer had
        got to by the time we decided. `at` is that original point. */
@@ -17449,6 +17510,12 @@
     canvas.addEventListener("pointerdown", (e) => {
       if (!WB.enabled) return;
       if (e.pointerType === "pen") wbNoteStylus();    // the first stroke of a stylus is what usually teaches us
+      if (gid !== null && e.pointerId !== gid) {
+        // a pen takes the surface off a finger (the palm lands first); nothing else takes it off anybody
+        if (e.pointerType !== "pen" || gpen) { e.preventDefault(); return; }
+        dropGesture();
+      }
+      gid = e.pointerId; gpen = e.pointerType === "pen";
       sx = e.clientX; sy = e.clientY;
       /* A FINGER IN STYLUS MODE IS NOT A STROKE — it is a scroll, and possibly a tap on a control. Both are
          done by hand: the scroll above, and the control underneath through the same pass-through the ink
@@ -17458,7 +17525,10 @@
         panStop();                                    // a second finger down mid-fling catches the page, as a scroller does
         // a finger here never draws, so a glossary term is simply one more thing it can tap
         passCtl = controlUnder(e) || tipUnder(e); passScroll = true;
-        panEl = scrollerUnder(e); panLast = e.clientY; panAt = e.timeStamp || performance.now(); panV = 0;
+        // …and a map window turns under it rather than the page scrolling beneath it (see mapUnder)
+        passMap = passCtl ? null : mapUnder(e);
+        panEl = passMap ? null : scrollerUnder(e);
+        panLast = e.clientY; panX = e.clientX; panAt = e.timeStamp || performance.now(); panV = 0;
         try { canvas.setPointerCapture(e.pointerId); } catch (x) {}
         e.preventDefault();                           // no compatibility click — pointerup activates the control itself
         return;
@@ -17473,7 +17543,13 @@
       e.preventDefault();
     });
     canvas.addEventListener("pointermove", (e) => {
+      if (gid === null || e.pointerId !== gid) return;   // a palm, or a second thumb: not this gesture
       if (passScroll) {   // stylus mode, finger down: this gesture is the page's, not the ink's
+        if (passMap) {   // …unless it began on a map window, which turns instead (see mapUnder)
+          passMap.pan(e.clientX - panX, e.clientY - panLast);
+          panX = e.clientX; panLast = e.clientY;
+          return;
+        }
         if (!panEl) return;
         const now = e.timeStamp || performance.now(), dy = e.clientY - panLast, dt = now - panAt;
         panEl.scrollTop -= dy;
@@ -17532,9 +17608,18 @@
       else wbSnapCard();
     };
     canvas.addEventListener("pointerup", (e) => {
-      const ctl = passCtl, scrolled = passScroll, tip = pendTip;
-      passCtl = null; passScroll = false; pendTip = null;
-      if (scrolled) panFling();
+      /* …and this is the half that stopped the pen dead: without the test, ANY pointer lifting ran the
+         `end()` at the bottom and took `WB.drawing` down with it, mid-stroke. */
+      if (gid === null || e.pointerId !== gid) return;
+      gid = null; gpen = false;
+      const ctl = passCtl, scrolled = passScroll, tip = pendTip, onMap = passMap;
+      passCtl = null; passScroll = false; pendTip = null; passMap = null;
+      /* A map window's own gesture ends with the finger: there is nothing to fling, and `panFling` would
+         throw the page the map was standing on. Only the FLING is skipped — the rest of this handler runs
+         as it does for any other finger, so `end()` still clears the stroke state at the bottom rather
+         than being jumped over by an early return. `passCtl` and `passMap` are mutually exclusive by
+         construction, so nothing below can fire on a gesture the map has just had. */
+      if (scrolled && !onMap) panFling();
       /* a press on a glossary term that never became a stroke: open the term. Nothing was drawn, so there
          is no dot to take back — which is the whole reason the stroke is deferred rather than undone. */
       if (tip) { if (tipUnder(e) === tip) tip.click(); return; }
@@ -17556,7 +17641,13 @@
       }
       end();
     });
-    canvas.addEventListener("pointercancel", () => { passCtl = null; passScroll = false; pendTip = null; panEl = null; panStop(); end(); });
+    canvas.addEventListener("pointercancel", (e) => {
+      /* A cancel for a pointer that owns nothing is a palm the browser has rejected for us — which is the
+         good case, and it must not be allowed to cancel the stroke the pen is in the middle of. */
+      if (gid === null || e.pointerId !== gid) return;
+      gid = null; gpen = false;
+      passCtl = null; passScroll = false; pendTip = null; passMap = null; panEl = null; panStop(); end();
+    });
     if (WB._onResize) window.removeEventListener("resize", WB._onResize);
     WB._onResize = () => wbResize(true);
     window.addEventListener("resize", WB._onResize);
@@ -20298,19 +20389,32 @@
       ? today.s + "/" + today.n
       : today && today.played ? "played" : "—";
     const row = (k, v) => '<span class="gtb-k">' + esc(k) + '</span><span class="gtb-v">' + esc(String(v)) + "</span>";
-    let right;
-    if (site === "off") right = '<p class="gtb-none">Site-wide figures aren\u2019t collected on this site.</p>';
+    /* ---- THE SITE HALF IS WRITTEN TWICE, AND THE STYLESHEET PICKS (Aug 2026, on a bug report: "the
+       minigame tiles don't display their flip stats correctly on mobile") ----
+       Three tiles to a 390px row is about 110px each, and the back was two columns of three rows plus a
+       heading and a footer — 167px of content in a 110px box, clipped by the tile's own `overflow:hidden`
+       into two 34px columns of overlapping half-words. Measured, not guessed.
+       So the phone stacks the two columns and the SITE half comes down to one line. It is emitted as a
+       second element rather than chosen in JS, which is what keeps the breakpoint in the stylesheet where
+       every other one on this page lives; whichever form is not wanted is `display:none`, so it is out of
+       the accessibility tree too and nothing is announced twice.
+       EVERY STATE KEEPS ITS OWN SHORT FORM. "Not collected", "Unavailable" and "None yet" say three
+       different things, and collapsing them to a dash would tell a reader nobody had played when the
+       truth is that this site does not count. */
+    let right, brief;
+    if (site === "off") { right = '<p class="gtb-none">Site-wide figures aren\u2019t collected on this site.</p>'; brief = "Not collected"; }
     // a fetch that failed is a DIFFERENT fact from a table that was never created, and saying the second
     // when the first happened is a claim about the site made out of a dropped connection
-    else if (site === "err") right = '<p class="gtb-none">Couldn\u2019t reach the site figures.</p>';
-    else if (!site) right = '<p class="gtb-none">Loading\u2026</p>';
+    else if (site === "err") { right = '<p class="gtb-none">Couldn\u2019t reach the site figures.</p>'; brief = "Unavailable"; }
+    else if (!site) { right = '<p class="gtb-none">Loading\u2026</p>'; brief = "Loading\u2026"; }
     else {
       const r = site[key];
-      if (!r || !r.plays) right = '<p class="gtb-none">Nobody has finished it yet today.</p>';
+      if (!r || !r.plays) { right = '<p class="gtb-none">Nobody has finished it yet today.</p>'; brief = "None yet"; }
       else {
         const avg = r.rounds ? (r.score_sum / r.plays).toFixed(1) + "/" + r.rounds : (r.score_sum / r.plays).toFixed(1);
         right = '<div class="gtb-grid">' + row("Finished", r.plays) + row("Average", avg) +
           row("Perfect", Math.round((r.wins / r.plays) * 100) + "%") + "</div>";
+        brief = avg + " avg";
       }
     }
     // GAME_NAMES is [name, icon] — the icon is the tile's own and the back needs only the name
@@ -20319,7 +20423,8 @@
         '<div class="gtb-col"><span class="gtb-lbl">You</span><div class="gtb-grid">' +
           row("Today", mine) + row("Played", lg.plays) + row("Perfect", lg.wins) +
         "</div></div>" +
-        '<div class="gtb-col"><span class="gtb-lbl">Everyone, today</span>' + right + "</div>" +
+        '<div class="gtb-col gtb-site"><span class="gtb-lbl">Everyone, today</span>' + right +
+          '<span class="gtb-brief">' + esc(brief) + "</span></div>" +
       "</div>" +
       '<span class="gtb-tap">Tap to play</span>';
   }
@@ -27957,7 +28062,24 @@
        rivers live in the `atlas` bundle and are WARMED at idle rather than awaited, so the card is
        readable immediately and the map fills in. See the note above `cardCollectionRoot`. */
     const sibCard = host.getAttribute("data-map-card") || "";
-    const sib = sibCard ? locatorSiblings(sibCard) : { dots: [], terms: new Set() };
+    const sib = sibCard ? locatorSiblings(sibCard) : { dots: [], terms: new Set(), termName: new Map(), own: new Set() };
+    /* What sort of place this card is about, and the shape that goes with it — see the note above
+       `cardLocator`. Read off the host rather than passed in, like every other thing this window knows,
+       so the editor previews and the study card build it the same way. */
+    const locKind = host.getAttribute("data-map-kind") || "point";
+    const readPts = (a) => (a ? a.trim().split(/\s+/).map((q) => q.split(",").map(Number)).filter((q) => q.length === 2 && isFinite(q[0]) && isFinite(q[1])) : null);
+    const locArea = readPts(host.getAttribute("data-map-area"));
+    const locSpine = readPts(host.getAttribute("data-map-spine"));
+    /* WHERE A REGION'S NAME IS WRITTEN. `at` is the point the card's author picked out INSIDE the region,
+       which is the right anchor for a dot and the wrong one for a name: Doggerland's sits on its southern
+       shore, so the label was printed along the bottom edge of a shape filling the window. An area is
+       named at its middle, the way an atlas names one. A RANGE keeps `at` — a spine's bbox centre is out
+       in the Tyrrhenian Sea, where "The Apennines" would be a caption for the water. */
+    const locMid = locArea && locArea.length
+      ? (() => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
+          for (const q of locArea) { if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; if (q[1] < y0) y0 = q[1]; if (q[1] > y1) y1 = q[1]; }
+          return [(x0 + x1) / 2, (y0 + y1) / 2]; })()
+      : null;
     let rotLon = 0, rotLat = 0, zoom = 1, homeLon = 0, homeLat = 0, homeZoom = 1;
     let W = 0, H = 0, cx = 0, cy = 0, R = 0, baseR = 0, dpr = 1;
     let Cx = 0, Cy = 0, Cz = 0, Ex = 0, Ey = 0, Ez = 0, Nx = 0, Ny = 0, Nz = 0;
@@ -28066,8 +28188,41 @@
       if (ringOpen && close !== false) ctx.closePath();
     }
     function pathOf(rings) { ctx.beginPath(); for (let i = 0; i < rings.length; i++) if (visible(rings[i])) addRing(rings[i]); }
+    /* ---------- CROSSED SWORDS, FOR A BATTLE (Aug 2026, on request) ----------
+       "Battle locations displayed on the atlas window should be identified by a crossed swords icon
+       instead of the red dot." A battle is not a place — it HAPPENED at one — and the mark that says so
+       is the one every historical atlas uses. It is drawn rather than set in a font: there is no glyph
+       for it in any face the site loads, and a canvas needs a path.
+       Two blades at ±45° with a cross-guard on each, stroked in the mark's own colour with a light halo
+       under it so it reads over land, water and a shaded region alike. `sz` is the half-length of a
+       blade, so it scales the whole mark. */
+    function drawSwords(x, y, sz, fill, edge) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+      for (const a of [Math.PI / 4, -Math.PI / 4]) {
+        ctx.save();
+        ctx.rotate(a);
+        // the halo first, so the two blades stay separate over a dark map
+        ctx.strokeStyle = halo; ctx.lineWidth = sz * 0.72;
+        ctx.beginPath(); ctx.moveTo(0, -sz); ctx.lineTo(0, sz); ctx.stroke();
+        ctx.strokeStyle = fill; ctx.lineWidth = sz * 0.34;
+        ctx.beginPath(); ctx.moveTo(0, -sz); ctx.lineTo(0, sz); ctx.stroke();
+        // the guard, a short bar across the hilt end
+        ctx.strokeStyle = edge; ctx.lineWidth = sz * 0.2;
+        ctx.beginPath(); ctx.moveTo(-sz * 0.38, sz * 0.52); ctx.lineTo(sz * 0.38, sz * 0.52); ctx.stroke();
+        ctx.restore();
+      }
+      ctx.restore();
+    }
     function draw() {
       if (stopped || !W) return;
+      /* Set by the river pass when the card's OWN river was actually traced. The gold dot then stands
+         down: a dot on a river card is the mark the request asked to be rid of. It is a per-frame flag
+         rather than a one-off, because the river arrives with the `atlas` bundle a second or two after
+         the card paints — until then the dot is all there is, and drawing nothing at all in the meantime
+         would leave the reader a globe with no answer on it. */
+      let ownRiver = false;
       setBasis();
       R = baseR * zoom;
       visDeg = Math.asin(clampN(Math.hypot(W, H) / 2 / R, 0, 1)) / CMAP_DEG + 2;
@@ -28134,6 +28289,21 @@
         ctx.strokeStyle = TINT_SEL.line; ctx.lineWidth = 2.6; ctx.stroke();
         ctx.restore();
       }
+      /* ---------- A REGION IS AN AREA, DRAWN AS ONE (Aug 2026, on request) ----------
+         It takes the shaded place's wash so a region and a shaded state read as the same kind of claim —
+         "this is what the card is about" — but its EDGE IS DASHED where the state's is solid, and that is
+         the whole of the honesty here: `area` is an approximation somebody drew, and a crisp gold outline
+         round the Fertile Crescent would assert a boundary that does not exist. A dash says about.
+         It is drawn UNDER the cities and the collection's other places, which are marks and must stay
+         legible over it. */
+      if (locArea && visible(locArea)) {
+        ctx.save();
+        ctx.beginPath(); addRing(locArea);
+        ctx.fillStyle = "rgba(" + TINT_SEL.rgb + "," + TINT_SEL.fillA + ")"; ctx.fill();
+        ctx.setLineDash([7, 5]);
+        ctx.strokeStyle = TINT_SEL.line; ctx.lineWidth = 2; ctx.stroke();
+        ctx.restore();
+      }
       /* A CITY IS A DOT, because a capital card's answer is the city and shading its state alone says only
          which state (Aug 2026, on request). It is the Atlas's own focus-point mark — the same gold at full
          strength, the same 5.5px radius, the same dark ring — so a place pointed at on a card and a place
@@ -28156,29 +28326,79 @@
            a thousand blue threads through it, most of them creeks nobody is studying, are texture that
            buries the marks that mean something. So the same test that chose the labels now chooses the
            rivers, and a river on this map is always a river the collection teaches. */
+        /* ---- ONE REGISTER OF LABEL BOXES FOR THE WHOLE MAP ----
+           It used to be created after the rivers, so the rivers were the one layer that collided with
+           everything: on the Apennines card "Tiber" was drawn straight through "The Apennines". The
+           card's OWN mark is reserved first, as it always was — a sibling's name over the answer's mark
+           is the one collision that costs something — and now the river names take their turn against
+           the same list. The card's own river is exempt and reserved rather than tested: it IS the
+           answer, and an answer that yields to a neighbour's label is not an answer. */
+        const placed = [];
+        /* The reservation has to be the shape the answer's label will ACTUALLY be: a dot's name is set to
+           its RIGHT and an area's or a range's is CENTRED on it, and reserving a right-hand box round a
+           centred label leaves the whole left half of it open for a neighbour to be drawn into — which is
+           how "Tiber" came to be printed through "The Apennines". The two cases are the same two
+           `beside` decides below. */
+        { const lat = locMid || (dot ? dot.c : null);
+          if (lat) {
+            proj(lat[0], lat[1]);
+            if (PV >= 0) {
+              const beside = !!dot && !locMid && locKind !== "range";
+              placed.push(beside ? [PX - 9, PY - 11, PX + 132, PY + 11] : [PX - 84, PY - 11, PX + 84, PY + 11]);
+            }
+          } }
+        const clashes = (bx) => {
+          for (let j = 0; j < placed.length; j++) {
+            const q = placed[j];
+            if (bx[0] < q[2] && bx[2] > q[0] && bx[1] < q[3] && bx[3] > q[1]) return true;
+          }
+          return false;
+        };
         const RIV = sib.terms.size ? (window.RIVERS || []) : [];
         if (RIV.length) {
-          ctx.font = "500 11px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
           for (let i = 0; i < RIV.length; i++) {
             const nm = RIV[i].n;
             if (!nm || !sib.terms.has(String(nm).toLowerCase())) continue;
             const lines = RIV[i].p;
+            /* THE CARD'S OWN RIVER IS THE ANSWER AND IS DRAWN AS ONE (Aug 2026, on request: "For river
+               cards like 'Tiber' ensure it is displayed on the map as an actual river and not just a
+               dot"). A river the collection merely teaches elsewhere stays a thin blue thread; the one
+               this card is ABOUT takes the gold every other locator's own mark takes, at the weight the
+               shaded place on a map card is outlined at, and its name is set at the answer's own size
+               rather than the neighbourhood's. That is the whole difference between "there is a river
+               here" and "this is the river".
+               `mine` is decided by the card's own answer term and its glossary aliases, which is what
+               finds the Tiber under Natural Earth's `Tevere`. */
+            const mine = sib.own.has(String(nm).toLowerCase());
+            if (mine) ownRiver = true;
             /* Thin, in the map's own water colour, and CULLED by the same visibility test the borders use.
                `false` keeps the path OPEN — a river is a polyline, and closing it draws its mouth back to
                its source across half a continent. */
-            ctx.strokeStyle = ocean; ctx.lineWidth = 1.1; ctx.globalAlpha = 0.7;
+            ctx.strokeStyle = mine ? TINT_SEL.line : ocean;
+            ctx.lineWidth = mine ? 2.6 : 1.1;
+            ctx.globalAlpha = mine ? 1 : 0.7;
+            if (mine) { ctx.save(); ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9; }
             for (let j = 0; j < lines.length; j++) {
               if (!visible(lines[j])) continue;
               ctx.beginPath(); addRing(lines[j], false); ctx.stroke();
             }
+            if (mine) ctx.restore();
             ctx.globalAlpha = 1;
+            // the card's own river is named only once the answer is shown, exactly as its dot would be
+            if (mine && !revealed) continue;
+            ctx.font = (mine ? "600 13px " : "500 11px ") + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
             const line = lines[0];
             if (!line || !line.length || !visible(line)) continue;
             const mid = line[Math.floor(line.length / 2)];
             proj(mid[0], mid[1]);
             if (PV < 0) continue;
-            ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, PX, PY);
-            ctx.fillStyle = ink; ctx.fillText(nm, PX, PY);
+            const lbl = gameCapFirst(sib.termName.get(String(nm).toLowerCase()) || nm);
+            const half = ctx.measureText(lbl).width / 2 + 2;
+            const box = [PX - half, PY - 8, PX + half, PY + 8];
+            if (!mine && clashes(box)) continue;
+            placed.push(box);
+            ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(lbl, PX, PY);
+            ctx.fillStyle = ink; ctx.fillText(lbl, PX, PY);
           }
         }
         const CTS = window.CITIES || [];
@@ -28195,16 +28415,23 @@
              continent, and the 2,057 division capitals only when it is a country or less. It is the
              Atlas's own `CITY_SEP` rule in the form this window can afford — a zoom test rather than a
              per-label collision pass, since these carry no labels to collide. */
-          const tierZ = zoom >= CMAP_ZLOC * 4 ? 2 : zoom >= CMAP_ZLOC * 1.75 ? 1 : 0;
+          /* THE DIVISION CAPITALS ARE GONE AND THE REST ARE QUIETER (Aug 2026, on request: "make all the
+             black dots smaller and less conspicuous, and only put them for foreign capitals and cities
+             with over 1M population"). `r` is 0 for a national capital, 1 for a city of a million or
+             more and 2 for an administrative capital under that — and tier 2 is 2,057 of the 2,665, so
+             it was five sixths of the layer and every one of them a place the card is not about. What is
+             left is 608 dots that a reader can recognise, at two thirds of the size and about two thirds
+             of the ink: they are there to give the card's own mark a world to sit in, and the moment
+             they compete with it they have stopped doing their job. */
+          const tierZ = zoom >= CMAP_ZLOC * 1.75 ? 1 : 0;
           for (let i = 0; i < CTS.length; i++) {
             const ct = CTS[i], r = ct.r | 0;
-            if (r > tierZ) continue;
+            if (r > tierZ || r > 1) continue;
             proj(ct.c[0], ct.c[1]);
             if (PV < 0) continue;
             if (PX < -20 || PY < -20 || PX > W + 20 || PY > H + 20) continue;
-            const rad = r === 0 ? 2.6 : r === 1 ? 2.1 : 1.7;
-            ctx.beginPath(); ctx.arc(PX, PY, rad, 0, Math.PI * 2);
-            ctx.fillStyle = rgbaOf("#000000", r === 0 ? 0.42 : 0.3); ctx.fill();
+            ctx.beginPath(); ctx.arc(PX, PY, r === 0 ? 1.9 : 1.5, 0, Math.PI * 2);
+            ctx.fillStyle = rgbaOf("#000000", r === 0 ? 0.28 : 0.2); ctx.fill();
           }
         }
         /* THE COLLECTION'S OTHER PLACES, in a red that is nobody else's mark on this map: the card's own
@@ -28224,8 +28451,6 @@
            a heap; zooming in frees the rest.
            **AND THEY ARE THE RIVER LABELS' SIZE, NOT THE ANSWER'S** — 11px 500 against 13px 600 — so the
            card's own place still reads as the subject and the rest as its neighbourhood. */
-        const placed = [];
-        if (dot) { proj(dot.c[0], dot.c[1]); if (PV >= 0) placed.push([PX - 9, PY - 10, PX + 132, PY + 10]); }
         const sibAt = [];
         for (let i = 0; i < sib.dots.length; i++) {
           const d = sib.dots[i];
@@ -28233,36 +28458,79 @@
           if (PV < 0) continue;
           if (PX < -20 || PY < -20 || PX > W + 20 || PY > H + 20) continue;
           sibAt.push([PX, PY, d.n]);
-          ctx.beginPath(); ctx.arc(PX, PY, 3.4, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill();
-          ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#ffffff", 0.75); ctx.stroke();
+          // a sibling battle is crossed swords in the same red the other places take, so the mark says
+          // WHAT happened there and the colour still says whose subject it is (see drawSwords)
+          if (d.kind === "battle") drawSwords(PX, PY, 5.5, "rgba(200,69,60,.95)", "rgba(120,30,26,.9)");
+          else {
+            ctx.beginPath(); ctx.arc(PX, PY, 3.4, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(200,69,60,.9)"; ctx.fill();
+            ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#ffffff", 0.75); ctx.stroke();
+          }
         }
         ctx.font = "500 11px " + font; ctx.textAlign = "left"; ctx.textBaseline = "middle";
         for (let i = 0; i < sibAt.length; i++) {
-          const nm = sibAt[i][2];
+          /* EVERY NAME ON THIS MAP OPENS ON A CAPITAL (Aug 2026, on request: "All locations in the atlas
+             window should be capitalised"). A label here is a place NAMED, not a word in a sentence — a
+             locator's `name` is written to match the card's answer term, so a Latin one like `casa
+             Romuli` arrives lower-case and read as a map label looks like a mistake. It is done at DRAW
+             time rather than in the data, so it covers the sibling names, the river names out of Natural
+             Earth and anything added later, without a pass over `data.js` that would then have to be
+             kept up. `gameCapFirst` is the site's one first-letter helper; the name is historical. */
+          const nm = gameCapFirst(sibAt[i][2]);
           if (!nm) continue;
           const lx = sibAt[i][0] + 6, ly = sibAt[i][1];
           const bx = [lx - 2, ly - 7, lx + ctx.measureText(nm).width + 2, ly + 7];
           if (bx[0] < 2 || bx[1] < 2 || bx[2] > W - 2 || bx[3] > H - 2) continue;
-          let clash = false;
-          for (let j = 0; j < placed.length; j++) {
-            const q = placed[j];
-            if (bx[0] < q[2] && bx[2] > q[0] && bx[1] < q[3] && bx[3] > q[1]) { clash = true; break; }
-          }
-          if (clash) continue;
+          if (clashes(bx)) continue;
           placed.push(bx);
           ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, lx, ly);
           ctx.fillStyle = ink; ctx.fillText(nm, lx, ly);
         }
       }
-      if (dot) {
+      /* ---------- A RANGE IS A ROW OF MOUNTAINS ALONG ITS SPINE (Aug 2026, on request: "it should not
+         just be a dot, but triangular black mountain icons running along the spine of the mountain
+         range") ----------
+         The spine is a polyline of a dozen points and a triangle is drawn at each, so a range reads at a
+         glance as a chain running somewhere rather than as a place. Two things make it look like a map
+         and not like a row of arrowheads: the triangles are drawn UPRIGHT in screen space rather than
+         turned along the line, which is how every hand-drawn range on every atlas is set; and they are
+         SIZED off the zoom, small enough at the opening view to read as a texture and big enough close in
+         to read as peaks. They are the ink colour rather than the answer's gold — a mountain symbol is
+         black on a map and always has been, and the gold is spent on the label. */
+      if (locSpine) {
+        const mh = clampN(3.4 * Math.sqrt(zoom / CMAP_ZLOC), 3, 9), mw = mh * 0.85;
+        ctx.save();
+        ctx.fillStyle = rgbaOf("#000000", 0.62);
+        ctx.strokeStyle = halo; ctx.lineWidth = 1;
+        for (let i = 0; i < locSpine.length; i++) {
+          proj(locSpine[i][0], locSpine[i][1]);
+          if (PV < 0) continue;
+          if (PX < -20 || PY < -20 || PX > W + 20 || PY > H + 20) continue;
+          ctx.beginPath();
+          ctx.moveTo(PX - mw, PY + mh * 0.55);
+          ctx.lineTo(PX, PY - mh * 0.75);
+          ctx.lineTo(PX + mw, PY + mh * 0.55);
+          ctx.closePath();
+          ctx.fill(); ctx.stroke();
+        }
+        ctx.restore();
+      }
+      /* The card's own mark. A river has already drawn itself and a range has its triangles, so neither
+         wants a dot on top of it saying the place is one point after all. */
+      /* A REGION AND A RANGE GET NO DOT EITHER: "not just as dots" is what the request asked for, and a
+         gold dot inside a shaded region says "and specifically HERE", which is the false precision the
+         shape was drawn to be rid of. */
+      if (dot && !(locKind === "river" && ownRiver) && locKind !== "range" && locKind !== "region") {
         proj(dot.c[0], dot.c[1]);
         if (PV >= 0) {
-          ctx.save();
-          ctx.beginPath(); ctx.arc(PX, PY, 5.5, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fill();
-          ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke();
-          ctx.restore();
+          if (locKind === "battle") drawSwords(PX, PY, 7.5, "rgba(" + TINT_SEL.rgb + ",1)", "rgba(60,40,0,.85)");
+          else {
+            ctx.save();
+            ctx.beginPath(); ctx.arc(PX, PY, 5.5, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(" + TINT_SEL.rgb + ",1)"; ctx.fill();
+            ctx.lineWidth = 1.6; ctx.strokeStyle = "rgba(60,40,0,.75)"; ctx.stroke();
+            ctx.restore();
+          }
         }
       }
       ctx.restore();
@@ -28273,14 +28541,20 @@
          otherwise, since on a capital card the state is the clue and the city is the answer. A dot's label
          sits BESIDE it rather than over it, the Atlas's placement, or the mark it names is under the word. */
       if (revealed) {
-        const at = dot ? dot.c : target ? target.c : null;
-        const nm = dot ? dot.n : target ? target.n : "";
-        if (at && nm) {
+        const at = locMid || (dot ? dot.c : target ? target.c : null);
+        const nm = gameCapFirst(dot ? dot.n : target ? target.n : "");
+        /* A river names ITSELF along its course (see the river pass) — a second label beside a dot the
+           card no longer draws would name the same thing twice, in two places. */
+        if (at && nm && !(locKind === "river" && ownRiver)) {
           proj(at[0], at[1]);
           if (PV >= 0) {
             ctx.font = "600 13px " + font;
-            ctx.textAlign = dot ? "left" : "center"; ctx.textBaseline = "middle";
-            const lx = dot ? PX + 10 : PX;
+            /* A DOT is named beside itself, or the word covers the mark. An AREA, a RANGE and a shaded
+               shape are named at their middle, where there is no single mark to be covered and the label
+               reads as belonging to the whole of it. */
+            const beside = !!dot && locKind !== "region" && locKind !== "range";
+            ctx.textAlign = beside ? "left" : "center"; ctx.textBaseline = "middle";
+            const lx = beside ? PX + 10 : PX;
             ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, lx, PY);
             ctx.fillStyle = ink; ctx.fillText(nm, lx, PY);
           }
@@ -28308,6 +28582,23 @@
       const at = target ? target.c : dot ? dot.c : null;
       homeLon = at ? at[0] : 0; homeLat = at ? at[1] : 0;
       let z = target ? 4 : CMAP_ZLOC;
+      /* A LOCATOR WITH AN EXTENT FRAMES THAT EXTENT (Aug 2026). A point has nothing to read a zoom off
+         and takes the standard ~50° window; a region or a range is a shape, and the same arithmetic a map
+         card uses on a state's rings gives the zoom that fits it — otherwise the Apennines open at a
+         window that cuts both ends off and the Fertile Crescent at one that leaves it a smear.
+         **THE VIEW CENTRES ON THE SHAPE, NOT ON `at`.** It was `at` for an hour and Doggerland showed it:
+         the point a card's author picked for a region is somewhere INSIDE it, not at its middle, so the
+         zoom that fits the shape framed it half off the top of the window. `at` still decides where the
+         NAME is written — that is the choice the author was actually making — and the shape decides where
+         the reader is standing to look at it. */
+      const ext = locArea || locSpine;
+      if (!target && ext && ext.length) {
+        let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
+        for (const q of ext) { if (q[0] < x0) x0 = q[0]; if (q[0] > x1) x1 = q[0]; if (q[1] < y0) y0 = q[1]; if (q[1] > y1) y1 = q[1]; }
+        homeLon = (x0 + x1) / 2; homeLat = (y0 + y1) / 2;
+        const span = Math.max(y1 - y0, (x1 - x0) * Math.cos(homeLat * CMAP_DEG), 0.2);
+        z = 0.85 / (0.46 * CMAP_DEG * span);
+      }
       if (target) {
         let x0 = 180, y0 = 90, x1 = -180, y1 = -90;
         for (const ring of fitRings) { const b = bbox(ring); if (b[0] < x0) x0 = b[0]; if (b[1] < y0) y0 = b[1]; if (b[2] > x1) x1 = b[2]; if (b[3] > y1) y1 = b[3]; }
@@ -28344,10 +28635,23 @@
       // `target` alone reports every locator as a window that never loaded.
       ready() { return !!(target || dot); },
       view() { return { lon: rotLon, lat: rotLat, zoom: zoom, home: [homeLon, homeLat, homeZoom] }; },
+      pan(dx, dy) { panBy(dx, dy); },
     };
     let ro = null;
     if (window.ResizeObserver) { ro = new ResizeObserver(() => resize()); ro.observe(cv); }
 
+    /* Turn the globe by a pixel delta. A degree spans R·DEG pixels at the centre, so this is "the point
+       under the finger follows it". It is lifted out of `pointermove` because the whiteboard needs to
+       drive it too: with the marker down the ink canvas covers the whole visible page and IS the pointer
+       target, so a finger over this window never reaches these listeners at all — see the handoff in
+       setupWhiteboard. A function is handed over rather than a synthetic pointer stream, because the only
+       thing the other caller has is a delta and the only thing it wants is this. */
+    const panBy = (dx, dy) => {
+      const k = R * CMAP_DEG || 1;
+      rotLon -= dx / k;
+      rotLat = clampN(rotLat + dy / k, -88, 88);
+      schedule();
+    };
     /* Turning it. `setPointerCapture` is what keeps this self-contained — the stream keeps arriving after
        the pointer leaves the canvas without a single window-level listener to remove afterwards. */
     const ptrs = new Map();
@@ -28365,12 +28669,8 @@
       ptrs.set(e.pointerId, [e.clientX, e.clientY]);
       if (ptrs.size >= 2) { const d = ptrDist(); if (pinch) { zoom = clampN(zoom * (d / pinch), CMAP_ZMIN, CMAP_ZMAX); schedule(); } pinch = d; last = null; return; }
       if (!last) { last = [e.clientX, e.clientY]; return; }
-      // a degree spans R·DEG pixels at the centre, so this is "the point under the finger follows it"
-      const k = R * CMAP_DEG || 1;
-      rotLon -= (e.clientX - last[0]) / k;
-      rotLat = clampN(rotLat + (e.clientY - last[1]) / k, -88, 88);
+      panBy(e.clientX - last[0], e.clientY - last[1]);
       last = [e.clientX, e.clientY];
-      schedule();
     });
     const release = (e) => { ptrs.delete(e.pointerId); if (ptrs.size < 2) pinch = 0; if (!ptrs.size) last = null; };
     cv.addEventListener("pointerup", release);
@@ -28620,12 +28920,57 @@
         (q.n ? ' data-cqn="' + esc(q.n) + '"' : "") + '>Read it in the Library</button>' +
       "</figcaption></figure>";
   }
+  /* ---------- WHAT SORT OF PLACE IT IS (Aug 2026, on request) ----------
+     "For river cards like 'Tiber' ensure it is displayed on the map as an actual river and not just a dot.
+     Same goes for mountain ranges like the Apennines ... Also regions ... Battle locations should be
+     identified by a crossed swords icon instead of the red dot."
+
+     A locator was one thing — a coordinate with a gold dot on it — and a dot is the right mark for a cave,
+     a palace or a city and the WRONG one for everything with extent. The Apennines run 1,200 km and the
+     card put a single dot in the middle of Italy; Latium is a plain and got a dot; the Tiber is 400 km of
+     river and got a dot at Rome. A dot there does not merely under-describe the place, it makes a false
+     claim about it — that this is where the thing is, when the thing is a line or an area.
+
+     So a locator declares its KIND, and the kind decides the mark:
+       point   (default) the gold dot, unchanged — a site, a building, a city, a cave
+       battle  crossed swords, because a battle happened at a place rather than being one
+       river   the river itself, traced out of `rivers.js` and drawn in the answer's gold
+       range   small black triangles walked along `spine`, which is how a map has always drawn mountains
+       region  an approximate area, `area`, washed in the answer's gold under a soft dashed edge
+
+     **`area` AND `spine` ARE APPROXIMATE AND THE DRAWING SAYS SO.** A region has no border to be right
+     about — Ionia is a stretch of coast, Latium a plain, the Fertile Crescent a schematic — so the outline
+     is DASHED and the fill soft, which reads as "about here" where a crisp line would read as a frontier
+     Folio had surveyed. They are the one part of a locator that is authored rather than fetched, and that
+     is why: a coordinate can be looked up and an extent cannot.
+     A RIVER carries no geometry of its own: it is matched by name against `rivers.js` through the card's
+     answer term and its glossary aliases, which is the machinery that was already there for naming a
+     river a collection teaches. Natural Earth files the Tiber under `Tevere`, so the alias is what finds
+     it — and a card whose term has no alias visibly draws no river, which is the honest failure. */
+  const LOC_KINDS = ["point", "battle", "river", "range", "region"];
+  // a list of [lon, lat] pairs, validated rather than trusted: `locator` is hand-authored in data.js and a
+  // transposed pair draws a region in the wrong ocean without anything throwing
+  function locPts(v) {
+    if (!Array.isArray(v) || v.length < 2) return null;
+    const out = [];
+    for (let i = 0; i < v.length; i++) {
+      const p = v[i];
+      if (!Array.isArray(p) || p.length < 2) return null;
+      const lon = Number(p[0]), lat = Number(p[1]);
+      if (!isFinite(lon) || !isFinite(lat) || Math.abs(lon) > 180 || Math.abs(lat) > 90) return null;
+      out.push([lon, lat]);
+    }
+    return out;
+  }
   function cardLocator(c) {
     const l = c && c.locator;
     if (!l || typeof l !== "object" || !Array.isArray(l.at)) return null;
     const lon = Number(l.at[0]), lat = Number(l.at[1]);
     if (!isFinite(lon) || !isFinite(lat) || Math.abs(lon) > 180 || Math.abs(lat) > 90) return null;
-    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0 };
+    const kind = LOC_KINDS.indexOf(l.kind) > 0 ? l.kind : "point";
+    const area = kind === "region" ? locPts(l.area) : null;
+    const spine = kind === "range" ? locPts(l.spine) : null;
+    return { name: String(l.name || "").trim(), at: [lon, lat], zoom: Number(l.zoom) || 0, kind: kind, area: area, spine: spine };
   }
   /* ---------- WHAT ELSE IS ON A LOCATOR'S MAP (Aug 2026, on request) ----------
      "History cards with an atlas locator should also show the collection's other card locations as
@@ -28655,19 +29000,41 @@
      collection — the second is what decides which rivers are named. Built once per collection and cached,
      since `subtreeCardIds` walks the tree and a drag of the globe must not do that per frame; thrown away
      whole by `uCacheBust`, which is what an admin edit goes through. */
+  /* The card's OWN answer term and its glossary aliases, lowercased. The collection's `terms` decides
+     which rivers are drawn at all; this decides which of them is the card's SUBJECT, and so takes the
+     answer's gold rather than the water's blue. It is per card and therefore outside the per-collection
+     cache — which is why it is a function of its own rather than a line inside the miss branch, where the
+     cache HIT path would have skipped it and every second visit to a river card would have drawn its own
+     river as somebody else's. */
+  function locOwnTerms(id) {
+    const own = new Set();
+    const me = CARD_BY_ID[id], t = me ? String(me.answerText || "").trim() : "";
+    if (t) {
+      own.add(t.toLowerCase());
+      const al = (window.GLOSSARY_ALIASES || {})[t.replace(/\s+/g, "_")] || (window.GLOSSARY_ALIASES || {})[t];
+      if (Array.isArray(al)) al.forEach((a) => { const v = String(a || "").trim(); if (v) own.add(v.toLowerCase()); });
+    }
+    return own;
+  }
   function locatorSiblings(id) {
     const root = cardCollectionRoot(id);
-    if (!root) return { dots: [], terms: new Set() };
+    if (!root) return { dots: [], terms: new Set(), termName: new Map(), own: new Set() };
     if (!_locSibCache) _locSibCache = new Map();
     const hit = _locSibCache.get(root.id);
-    if (hit) return { dots: hit.dots.filter((d) => d.id !== id), terms: hit.terms };
-    const dots = [], terms = new Set();
+    if (hit) return { dots: hit.dots.filter((d) => d.id !== id), terms: hit.terms, termName: hit.termName, own: locOwnTerms(id) };
+    const dots = [], terms = new Set(), termName = new Map();
     subtreeCardIds(root).forEach((cid) => {
       const c = CARD_BY_ID[cid];
       if (!c) return;
       const t = String(c.answerText || "").trim();
       if (t) {
         terms.add(t.toLowerCase());
+        /* …AND WHAT FOLIO CALLS IT (Aug 2026). Natural Earth names a river in the language of the country
+           it runs through, so the Tiber is in `rivers.js` as `Tevere` — which is how the card finds it and
+           is NOT what the card should print. A map that draws the Tiber and labels it Tevere has answered
+           a question the reader did not ask. Every surface that can match a river maps back to the term
+           the collection teaches, and that is the name drawn. */
+        termName.set(t.toLowerCase(), t);
         /* AND THE TERM'S GLOSSARY ALIASES WITH IT, which is what lets a river card find its river
            (Aug 2026). Natural Earth labels a river in whatever language the country speaks — the Tiber is
            `Tevere` in `rivers.js`, the Danube is also `Donau`, the Yangtze also `Chang Jiang` — so an
@@ -28677,13 +29044,23 @@
            entry is written in the same commit as the card. So a Tiber card whose term carries `Tevere`
            draws and names its river, and one whose term does not, does not — visibly, on the card. */
         const al = (window.GLOSSARY_ALIASES || {})[t.replace(/\s+/g, "_")] || (window.GLOSSARY_ALIASES || {})[t];
-        if (Array.isArray(al)) al.forEach((a) => { const v = String(a || "").trim(); if (v) terms.add(v.toLowerCase()); });
+        if (Array.isArray(al)) al.forEach((a) => { const v = String(a || "").trim(); if (v) { terms.add(v.toLowerCase()); termName.set(v.toLowerCase(), t); } });
       }
       const l = cardLocator(c);
-      if (l) dots.push({ id: cid, n: l.name, c: l.at });
+      /* A REGION AND A RANGE ARE LEFT OFF EVERY OTHER CARD'S MAP (Aug 2026, on request: "Regions and
+         mountains do not need to appear on the atlas windows of other cards in the same collection").
+         They are drawn as an AREA and a SPINE on their own card, and the only thing a sibling entry could
+         carry is a single red dot at the middle of them — which says the Apennines are a point near
+         L'Aquila and Latium a point near Rome, i.e. exactly the false claim their own cards stopped
+         making. A place with extent is either drawn with its extent or not drawn. */
+      /* A RIVER IS LEFT OFF THEM TOO, for the same reason one step on: it IS drawn on every map in its
+         collection — as the thin blue thread the rule above this one puts there — so a red dot beside it
+         would be a second mark for a thing already on the map, pinning a 400 km river to one arbitrary
+         point on its course. */
+      if (l && l.kind !== "region" && l.kind !== "range" && l.kind !== "river") dots.push({ id: cid, n: l.name, c: l.at, kind: l.kind });
     });
-    _locSibCache.set(root.id, { dots: dots, terms: terms });
-    return { dots: dots.filter((d) => d.id !== id), terms: terms };
+    _locSibCache.set(root.id, { dots: dots, terms: terms, termName: termName });
+    return { dots: dots.filter((d) => d.id !== id), terms: terms, termName: termName, own: locOwnTerms(id) };
   }
   function cardLocatorHTML(c) {
     const l = cardLocator(c);
@@ -28694,6 +29071,11 @@
       '<div class="map-card map-loc" data-map-layer="world" data-map-named data-map-card="' + esc(c.id || "") + '"' +
       ' data-map-at="' + l.at[0] + "," + l.at[1] + '"' +
       (l.name ? ' data-map-atname="' + esc(l.name) + '"' : "") +
+      (l.kind !== "point" ? ' data-map-kind="' + esc(l.kind) + '"' : "") +
+      // "lon,lat lon,lat …" — a compact attribute rather than JSON, which would have to be escaped into
+      // the markup and parsed back out again for a list of numbers
+      (l.area ? ' data-map-area="' + l.area.map((q) => q[0] + "," + q[1]).join(" ") + '"' : "") +
+      (l.spine ? ' data-map-spine="' + l.spine.map((q) => q[0] + "," + q[1]).join(" ") + '"' : "") +
       (l.zoom ? ' data-map-zoom="' + l.zoom + '"' : "") + ">" +
       '<canvas class="mc-canvas" tabindex="0" role="img" aria-label="' + esc(said) + '"></canvas>' +
       '<div class="mc-zoom">' +
@@ -30948,8 +31330,23 @@
     const n = {};
     return (window.WHATYEAR || [])
       .filter((x) => x && typeof x.y === "number" && x.e)
-      .map((x) => { n[x.y] = (n[x.y] || 0) + 1; return { id: "wy-" + x.y + "-" + n[x.y], name: String(x.e), year: x.y }; });
+      .map((x) => { n[x.y] = (n[x.y] || 0) + 1; return { id: "wy-" + x.y + "-" + n[x.y], name: String(x.e), year: x.y, d: typeof x.d === "string" ? x.d : "" }; });
   }
+  /* ---- THE FIVE ARE SHOWN IN ORDER (Aug 2026, on request: "the historical events should be listed in
+     chronological order (where possible)") ----
+     All five belong to ONE year, so "chronological" here means WITHIN that year, which the pool did not
+     record: the entries were written in whatever order they were researched, so a 1066 puzzle opened on
+     Edward's death in January, jumped to Halley's comet in April, and then put the fleet sailing from the
+     Somme after the battle it sailed to. Read in order they are a narrative; shuffled they are a list.
+     `d` is a plain "MM-DD" (or "MM" where only the month is settled) sort key and is never shown — it
+     could not be, since the pool's first rule is that an entry may not name a date. **WHERE POSSIBLE is
+     load-bearing**: seven of the 98 entries carry no `d` because the day or month is genuinely disputed
+     or the event is a whole year long ("seventeen African colonies became independent within a single
+     year"), and inventing one to make the list tidy is the one thing this file's own rules forbid. Those
+     sort LAST, after everything datable, rather than being dropped or guessed at.
+     A month-only key sorts before that month's dated entries, which is the honest place for "some time in
+     April" among things known to the day. Ties keep the drawn order, `Array.sort` being stable. */
+  const wyOrder = (a, b) => (a.d || "99").localeCompare(b.d || "99");
   function dailyWhatYear() {
     const byYear = new Map();
     wyPool().forEach((x) => { const a = byYear.get(x.year) || []; a.push(x); byYear.set(x.year, a); });
@@ -30961,7 +31358,9 @@
     const ring = seededShuffle(years, mulberry32(hashStr("whatyear-ring")));   // one base order, turned per cycle
     const year = ring[(((dayNo % n) + wyRotation(cycle, n)) % n + n) % n];
     const rng = mulberry32(hashStr("whatyear-" + todayStr()));
-    const events = seededShuffle(byYear.get(year), rng).slice(0, WY_EVENTS);
+    // the shuffle chooses WHICH five (a repeated year must not be a repeated puzzle); the sort decides the
+    // order they are read in, so the two do different jobs and both are needed
+    const events = seededShuffle(byYear.get(year), rng).slice(0, WY_EVENTS).sort(wyOrder);
     const step = wyStep(year, WY_TICKS);
     const at = WY_EDGE + Math.floor(rng() * (WY_TICKS - WY_EDGE * 2));
     return { year: year, step: step, at: at, ticks: WY_TICKS, from: year - at * step, events: events };
@@ -30972,6 +31371,7 @@
     const puz = dailyWhatYear();
     if (!puz) { root.innerHTML = emptyPlacard("Coming soon", ICON.whatyear, "Folio doesn't yet have five events from one year to build today's puzzle from.", () => route("home"), "Back home"); return; }
 
+    const wyChev = (pts) => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="' + pts + '"/></svg>';
     const yearAt = (i) => puz.from + i * puz.step;
     let lo = 0, hi = puz.ticks - 1, tries = 0, over = false;
     const guesses = [];   // tick indexes already tried, so the rail can mark them
@@ -30988,7 +31388,22 @@
           </div>
           <ul class="wy-events">${puz.events.map((e) => `<li><span class="wy-dot"></span>${esc(e.name)}</li>`).join("")}</ul>
           <div class="wy-rail" id="wyRail">
-            <div class="wy-readout" id="wyRead"></div>
+            ${/* ---- THE YEAR IS STEPPED AS WELL AS DRAGGED (Aug 2026, on request: "the year should also
+                  be changable by chevrons on the left/right of it") ----
+                  The rail is a LATTICE of 33 ticks and the answer sits exactly on one of them, so the
+                  reader's last move before guessing is almost always "one more tick" — which a 24px thumb
+                  on a 340px track makes a matter of aim rather than of judgement. The chevrons step the
+                  marker one tick, so the lattice can be walked as well as swept.
+                  They move `pos` and repaint through the SAME `paint()` the slider does rather than
+                  keeping a figure of their own — the readout, the range's value and the marks all come
+                  out of `pos`, and a second writer would be a second answer to "where is the marker".
+                  A wrong guess narrows the rail, so their disabled state has to be recomputed on every
+                  paint rather than set once: `lo` and `hi` move under them. */""}
+            <div class="wy-readrow">
+              <button class="wy-step" id="wyPrev" type="button" aria-label="An earlier year">${wyChev("15 18 9 12 15 6")}</button>
+              <div class="wy-readout" id="wyRead"></div>
+              <button class="wy-step" id="wyNext" type="button" aria-label="A later year">${wyChev("9 6 15 12 9 18")}</button>
+            </div>
             <div class="wy-track">
               <div class="wy-out wy-out-lo" id="wyOutLo"></div>
               <div class="wy-out wy-out-hi" id="wyOutHi"></div>
@@ -31003,6 +31418,9 @@
         </div>`;
       const range = root.querySelector("#wyRange");
       range.addEventListener("input", () => { pos = +range.value; paint(); });
+      const step = (d) => { if (over) return; const was = pos; pos = Math.min(hi, Math.max(lo, pos + d)); if (pos !== was) { sfx("click"); paint(); } };
+      root.querySelector("#wyPrev").addEventListener("click", () => step(-1));
+      root.querySelector("#wyNext").addEventListener("click", () => step(1));
       paint();
       wireActions();
     }
@@ -31014,6 +31432,9 @@
       range.disabled = over;
       range.setAttribute("aria-valuetext", yearLabel(yearAt(pos)));
       root.querySelector("#wyRead").textContent = yearLabel(yearAt(pos));
+      const prev = root.querySelector("#wyPrev"), next = root.querySelector("#wyNext");
+      if (prev) prev.disabled = over || pos <= lo;
+      if (next) next.disabled = over || pos >= hi;
       root.querySelector("#wyLo").textContent = yearLabel(yearAt(lo));
       root.querySelector("#wyHi").textContent = yearLabel(yearAt(hi));
       // the ruled-out spans stay drawn rather than vanishing, so the rail's scale does not silently
@@ -31227,7 +31648,6 @@
             ${/* the phone sheet's resize grip (Aug 2026, on request): drag the top edge to give the panel
                   more of the screen or less. It shows only on the sheet layout — on the desktop the panel
                   already runs the height of the stage. */""}
-            <button class="cp-close" id="cpClose" type="button" aria-label="Close">×</button>
             <div class="cp-head">
               <div class="cp-crumb" id="cpCrumb" hidden></div>
               ${/* the discovery chip rides on the TITLE's own line rather than under it (Aug 2026, on
@@ -31242,6 +31662,16 @@
                       in the part that is not there yet. Hidden on the desktop, where the panel already
                       runs the height of the stage and there is nothing to reveal. */""}
                 <button class="cp-more" id="cpMore" type="button" aria-expanded="false" aria-label="Show this place's details">${cpChev}</button>
+                ${/* THE × SITS ON THE TITLE'S OWN LINE (Aug 2026, on a bug report: "the cross to close
+                      them in the top right should be on the same horizontal line as the chevron and state
+                      title"). It used to be a sibling of `.cp-head`, absolutely positioned at the sheet's
+                      top-right corner, which put it a few pixels ABOVE the name it belongs to and beyond
+                      the chevron — three controls on one edge and none of them lined up.
+                      It is written INSIDE the title row and stays `position:absolute` on the desktop, where
+                      the panel runs the height of the stage and the corner is the right place for it; a
+                      positioned element is out of flow, so being in this row changes nothing there. The
+                      sheet sets it `position:static` and it becomes the row's last flex item. */""}
+                <button class="cp-close" id="cpClose" type="button" aria-label="Close">×</button>
               </div>
               <div class="cp-span" id="cpSpan"></div>
               <div class="cp-tools">
@@ -34161,13 +34591,64 @@
       return null;
     }
     const fmtYearG = (y) => (y >= MAXY ? "today" : y < 0 ? -y + " BCE" : String(y));
+    /* ---------- A MAP LABEL IS NOT A QUESTION (Aug 2026, on a bug report) ----------
+       "When the Find It minigame says what state to find, it should differentiate between the two Congos
+       and not just say 'Congo' since I didn't know which one it meant." The round's name comes straight
+       out of `world.js`, whose labels are written to FIT ON A MAP: they are abbreviated ("Dem. Rep.
+       Congo", "Central African Rep.") and, in one case, genuinely ambiguous — `Congo` is the everyday
+       name of the Republic of the Congo AND of its neighbour, so "Find Congo" asks a question with two
+       right answers and marks one of them wrong.
+
+       So the ROUND TEXT gets a reader-facing name and nothing else does. The answer is still matched on
+       the map's own label (`r.n`), which is what `entityName` hands back and what the reveal flashes, so
+       this cannot change what counts as correct — it only changes what the reader is asked. The table is
+       DECLARED rather than derived: an expansion is a fact about English usage, not something a regex can
+       take out of an abbreviation, and every key here is a label `world.js` actually carries (checked
+       against the file — a key that matches nothing is simply inert). */
+    const FINDIT_NAMES = {
+      "congo": "Republic of the Congo (Congo-Brazzaville)",
+      "dem. rep. congo": "Democratic Republic of the Congo (Congo-Kinshasa)",
+      "s. sudan": "South Sudan",
+      "w. sahara": "Western Sahara",
+      "central african rep.": "Central African Republic",
+      "dominican rep.": "Dominican Republic",
+      "bosnia and herz.": "Bosnia and Herzegovina",
+      "eq. guinea": "Equatorial Guinea",
+      "n. cyprus": "Northern Cyprus",
+      "fr. polynesia": "French Polynesia",
+      "fr. s. antarctic lands": "French Southern and Antarctic Lands",
+      "br. indian ocean ter.": "British Indian Ocean Territory",
+      "s. geo. and the is.": "South Georgia and the South Sandwich Islands",
+      "n. mariana is.": "Northern Mariana Islands",
+      "u.s. virgin is.": "United States Virgin Islands",
+      "british virgin is.": "British Virgin Islands",
+      "st. vin. and gren.": "Saint Vincent and the Grenadines",
+      "antigua and barb.": "Antigua and Barbuda",
+      "st. kitts and nevis": "Saint Kitts and Nevis",
+      "st. pierre and miquelon": "Saint Pierre and Miquelon",
+      "turks and caicos is.": "Turks and Caicos Islands",
+      "heard i. and mcdonald is.": "Heard Island and McDonald Islands",
+      "faeroe is.": "Faroe Islands",
+      "wallis and futuna is.": "Wallis and Futuna Islands",
+      "ashmore and cartier is.": "Ashmore and Cartier Islands",
+      "clipperton i.": "Clipperton Island",
+      "marshall is.": "Marshall Islands",
+      "solomon is.": "Solomon Islands",
+      "falkland is.": "Falkland Islands",
+      "cayman is.": "Cayman Islands",
+      "cook is.": "Cook Islands",
+      "pitcairn is.": "Pitcairn Islands",
+      "coral sea is.": "Coral Sea Islands",
+      "spratly is.": "Spratly Islands",
+    };
+    const finditName = (n) => FINDIT_NAMES[String(n || "").trim().toLowerCase()] || n;
     function gameShowRound() {
       const r = gameRounds[gameRi]; gameTries = 0; gameLock = false; pulsePin = null;
       hideCountryPopup();   // the previous round's learn-panel closes with the round
       setYear(r.year);
       mgRoundEl.textContent = "Round " + (gameRi + 1) + " / " + gameRounds.length;
       mgScoreEl.textContent = gameFirstTry + (gameFirstTry === 1 ? " point" : " points");
-      mgQEl.innerHTML = (r.kind === "capital" ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(r.n) + "</b>") + (r.year >= MAXY ? " on today's map" : " — in " + fmtYearG(r.year));
+      mgQEl.innerHTML = (r.kind === "capital" ? "Find the city of <b>" + esc(r.n) + "</b>" : "Find <b>" + esc(finditName(r.n)) + "</b>") + (r.year >= MAXY ? " on today's map" : " — in " + fmtYearG(r.year));
       mgFeedbackEl.hidden = true; mgNextEl.hidden = true;
       selSet.clear(); subSelGeo = -1; subSelUK = []; pulseSet = null;
       gameMarks = []; gamePin = null;   // last round's wrong guesses and its answer come off the board with it

@@ -2027,7 +2027,16 @@ body.grading .stage{padding-bottom:150px;}
 .wy-events li{display:flex; align-items:baseline; gap:11px; font-family:var(--serif); font-size:calc(17px * var(--fs)); line-height:1.4; color:var(--ink);}
 .wy-dot{flex:none; width:7px; height:7px; border-radius:99px; background:var(--tile, var(--indigo)); opacity:.75;}
 .wy-rail{background:var(--card); border:1px solid var(--rule); border-radius:14px; box-shadow:var(--shadow-md); padding:20px 22px 16px; margin-bottom:16px;}
-.wy-readout{font-family:var(--display); font-weight:600; font-size:calc(30px * var(--fs)); line-height:1.1; text-align:center; margin-bottom:16px; color:var(--ink);}
+/* the year and the two chevrons that step it (see the note in PAGES.whatyear). The readout keeps
+   `flex:1` so it stays centred in the rail whatever the two buttons weigh, and the row carries the
+   margin the readout used to. */
+.wy-readrow{display:flex; align-items:center; gap:6px; margin-bottom:16px;}
+.wy-readout{font-family:var(--display); font-weight:600; font-size:calc(30px * var(--fs)); line-height:1.1; text-align:center; color:var(--ink); flex:1; min-width:0;}
+.wy-step{appearance:none; flex:none; width:40px; height:40px; border-radius:11px; border:1px solid var(--rule); background:var(--card); color:var(--ink-soft); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .15s var(--ease), color .15s var(--ease), border-color .15s var(--ease);}
+.wy-step svg{width:19px; height:19px;}
+.wy-step:hover:not(:disabled){border-color:var(--indigo); color:var(--indigo);}
+.wy-step:disabled{opacity:.35; cursor:default;}
+.wy-step:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 .wy-track{position:relative; padding:10px 0;}
 /* the ruled-out spans: `--ink-faint` rather than `--rule`, which is the track's own border colour and left
    them all but invisible against it — a band the reader cannot see is a narrowing they are not told about */
@@ -3594,6 +3603,10 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    own cost the short phone sheet a whole line before the description started. The 20px right margin that
    used to sit on .cp-name moves up here: it is what clears the × button. */
 .cp-titlerow{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:0 20px 2px 0;}
+/* The × lives INSIDE the title row (see the markup note in app.js) and is still absolutely positioned
+   here, so on the desktop it keeps the panel's top-right corner and the row's 20px right margin is still
+   what clears it. `margin-left:auto` is what puts it last once the sheet sets it back in flow. */
+.cp-titlerow .cp-close{margin-left:auto;}
 /* The phone sheet's reveal chevron is drawn ONLY on the phone (see the ≤720px block): the desktop panel
    already runs the height of the stage, so there is nothing to reveal and a control that does nothing is
    worse than none. It must be declared HERE, above that block — a media query adds no specificity, so a
@@ -3684,6 +3697,16 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
     background:transparent; color:var(--ink-soft); cursor:pointer; transition:transform .22s var(--ease);}
   .cp-more svg{width:17px; height:17px;}
   .cp-more[aria-expanded="true"]{transform:rotate(180deg);}
+  /* ---- THE × JOINS THE TITLE'S LINE (Aug 2026, on a bug report) ----
+     On the sheet it stops being absolutely positioned and becomes the last item of `.cp-titlerow`, so the
+     name, the reveal chevron and the close sit on one baseline and the row's own `align-items:center`
+     keeps them there however the name wraps. The row's 20px right margin went with the absolute
+     positioning — it existed only to clear the corner button — and `margin-left:auto` moves to the
+     CHEVRON, which is now the first of the two controls to be pushed right.
+     It matches the chevron's 30px box rather than keeping its own 24px one: two controls of different
+     sizes side by side on the same line read as two different kinds of thing. */
+  .cp-titlerow{margin-right:0;}
+  .cp-titlerow .cp-close{position:static; margin-left:0; width:30px; height:30px; border-radius:9px; font-size:calc(19px * var(--fs)); color:var(--ink-soft); flex:none;}
   .cp-shut .cp-cols,.cp-shut .cp-dots,.cp-shut .cp-tools,.cp-shut .cp-hist{display:none;}
   .cp-shut .cp-head{overflow:visible;}
 }
@@ -4490,6 +4513,10 @@ button.game-tile:active{transform:translateY(0) scale(.99);}
 .gtb-v{font-family:var(--display); font-weight:600; font-size:calc(11.5px * var(--fs)); color:var(--ink); white-space:nowrap;}
 .gtb-none{font-family:var(--sans); font-size:calc(10px * var(--fs)); line-height:1.35; color:var(--ink-faint); margin:0;}
 .gtb-tap{font-family:var(--mono); font-size:calc(8.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint);}
+/* the one-line site figure is the PHONE's form of the column above it — see the note in gameBackHTML.
+   Declared here, above the ≤640px block, because a media query adds no specificity: a base rule sitting
+   after it would silently win and both forms would be drawn at every width. */
+.gtb-brief{display:none; font-family:var(--display); font-weight:600; font-size:calc(9.5px * var(--fs)); color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .gt-glyph{position:absolute; right:-8px; top:-20px; font-family:var(--han); font-weight:700; font-size:calc(98px * var(--fs)); line-height:1; color:var(--tile, var(--indigo)); opacity:.12; pointer-events:none; user-select:none;}
 .gt-glyph-svg{top:-14px; right:-14px;}
 .gt-glyph-svg svg{display:block; width:112px; height:112px;}
@@ -4905,6 +4932,23 @@ button.game-tile .gt-glyph{opacity:.14;}
   .gt-title{font-size:calc(12.5px * var(--fs)); line-height:1.15;}   /* one line per tile — see the padding note above */
   .gt-glyph-svg svg{width:78px; height:78px;}   /* a 112px ornament fills a 110px tile edge to edge */
   .gt-glyph-svg{top:-10px; right:-10px;}
+  /* ---- THE TILE'S BACK, AT A THIRD OF A 390px ROW (Aug 2026, on a bug report) ----
+     Two columns of three rows in 90px of usable width is 34px a column, which is not a layout — it is
+     overlapping half-words clipped by the tile's own `overflow:hidden`, 167px of content in a 110px box.
+     So the columns STACK, the type comes down a step, the site half falls back to its one-line form
+     (`.gtb-brief`, emitted beside the grid by gameBackHTML) and "Tap to play" goes: a phone reader knows
+     a tile is tapped, and it was the least informative line of the six. What is left is the reader's own
+     three figures and today's site average, which is what the back is for. */
+  .gt-back{padding:9px 9px 8px; gap:3px;}
+  .gtb-head{font-size:calc(10.5px * var(--fs)); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .gtb-cols{grid-template-columns:1fr; gap:4px; align-content:start;}
+  .gtb-lbl{font-size:calc(7px * var(--fs)); letter-spacing:.06em;}
+  .gtb-grid{gap:0 5px;}
+  .gtb-k{font-size:calc(8px * var(--fs)); letter-spacing:.02em;}
+  .gtb-v{font-size:calc(9.5px * var(--fs));}
+  .gtb-site .gtb-grid, .gtb-site .gtb-none{display:none;}
+  .gtb-site .gtb-brief{display:block;}
+  .gtb-tap{display:none;}
   /* the offer's two controls go under its prose rather than beside it — at 390px "Take the tour" and
      "No thanks" on the same line as the sentence leave the sentence four words wide */
   .to-acts{flex:1 1 100%; justify-content:flex-start;}

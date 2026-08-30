@@ -493,9 +493,12 @@ async function browserChecks(page) {
   /* THE LABEL NAMES THE DOT AND NOT THE SHAPE. Reading a word back off a canvas means re-drawing it and
      comparing pixels, which is more machinery than the claim is worth; what is asserted instead is that
      the reveal repainted at all, plus the rule that decides WHICH name it writes — read out of app.js, so
-     it cannot quietly go back to labelling the state on a card whose answer is the city. */
+     it cannot quietly go back to labelling the state on a card whose answer is the city.
+     The name is wrapped in `gameCapFirst` since Aug 2026 (every place on a card's globe is capitalised,
+     on request), which changes nothing on a map card — a state and a capital are already capitalised —
+     but does change this line, so the pattern names it rather than being loosened to match anything. */
   ok(dotBack.png !== dotBefore, "the reveal repainted the map");
-  ok(/const nm = dot \? dot\.n : target \? target\.n : ""/.test(APP), "the revealed label names the dot where there is one");
+  ok(/const nm = gameCapFirst\(dot \? dot\.n : target \? target\.n : ""\)/.test(APP), "the revealed label names the dot where there is one");
 
   /* 8. THE LOCATOR (Aug 2026, on request). A globe at the FOOT of a card whose answer is a place, saying
      where it is. It is not a map card — it has no shape to shade and no question to hold back — and the

@@ -673,6 +673,16 @@ the whole reason the suites exist and the reason their narratives are worth keep
     re-coarsened — each caught. **Re-run after touching the `MAP CARDS` block, `startCardGlobe` /
     `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `serializeCardData` /
     `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map card.**
+    **AND IT WAITS FOR THE PAGE GHOST BEFORE READING THE CARD** (`settle()`, Aug 2026, found while merging).
+    Boot renders the home page and then routes to study, which is a same-document render, so `makePageGhost`
+    lays a CLONE of the outgoing page over the stage for `PAGE_GHOST_MS + 60` — and this file's flat 250ms
+    sleep was racing a 260ms fade. It passed for months and started losing the moment the `usstates` bundle
+    gained a second file to fetch. **Both ways it then fails look like faults in the site and neither is**:
+    a strict Playwright locator throws `resolved to 2 elements`, and a `document.querySelector` may pick the
+    GHOST's canvas — which is a clone, so it carries no pixels and `toDataURL()` reads back an empty map,
+    reported as a globe that drew nothing. Waiting on `!document.querySelector(".page-ghost")` is one line
+    in the two navigation helpers and covers every query after them; **a fixed sleep across a transition is
+    a race with a stopwatch on it**, and the right shape is to wait for the thing to be gone.
   · `node .claude/test-minigames.js` — the three games added on 2026-08-09 **plus Common Thread's restricted
     pool** (75 assertions), and every one of
     its checks is for something that fails SILENTLY. **The wiring**: each of the three is a route, has a

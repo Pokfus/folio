@@ -25,6 +25,12 @@
 //              the one the place's own Wikipedia article publishes, and a typed pair is a dot a degree out
 //              that draws perfectly and points at the wrong place.
 //                "locator": { "name": "Knossos", "at": [25.163, 35.2979], "zoom": 6 }
+//              A place with EXTENT says so, and a dot is not drawn for it — a `kind` of "river" (traced
+//              out of rivers.js by the card's answer term and its glossary aliases), "range" (with a
+//              `spine` of [lon, lat] points, drawn as mountains), "region" (with an approximate `area`,
+//              washed under a dashed edge) or "battle" (crossed swords rather than a dot):
+//                "locator": { "name": "The Apennines", "at": [13.5656, 42.4692], "kind": "range",
+//                             "spine": [[8.45, 44.35], [9.55, 44.45], …] }
 //              Any card may also carry an `answerFlag` — the flag of the place it is about, drawn inside
 //              coloured answer box beside the term. Three fields, and `credit` AND `alt` are both required:
 //                "answerFlag": { "src": "https://…", "credit": "…, public domain, via Wikimedia Commons (…)",
@@ -352,6 +358,38 @@ if (card.locator) {
   if (!String(card.locator.name || "").trim()) {
     console.error("ERROR: card.locator has no `name` — the dot is drawn labelled, so an unnamed one is a mark with nothing to say.");
     process.exit(1);
+  }
+  /* ---- AND WHAT SORT OF PLACE IT IS (Aug 2026, with the locator kinds) ----
+     A dot is the right mark for a cave and the wrong one for a river, a range or a region, so a locator
+     may declare a `kind` and — for the two that have extent — the shape to draw. Both are hand-authored,
+     which is exactly why they are validated here: `at` can be fetched and an extent cannot, so a
+     transposed pair in an `area` is a region drawn in the wrong ocean and nothing anywhere would throw.
+     A `kind` app.js does not know is silently treated as a point, which is the quiet failure this
+     refusal exists to turn into a loud one. */
+  const KINDS = ["point", "battle", "river", "range", "region"];
+  const kind = card.locator.kind == null ? "point" : String(card.locator.kind);
+  if (KINDS.indexOf(kind) < 0) {
+    console.error("ERROR: card.locator.kind must be one of " + KINDS.join(", ") + " — got " + JSON.stringify(card.locator.kind) + ".");
+    process.exit(1);
+  }
+  const shape = kind === "region" ? "area" : kind === "range" ? "spine" : null;
+  if (shape) {
+    const pts = card.locator[shape];
+    if (!Array.isArray(pts) || pts.length < 3) {
+      console.error("ERROR: a locator of kind \"" + kind + "\" needs a `" + shape + "` of at least three [lon, lat] points — without it the card falls back to a dot, which is the mark this kind exists to replace.");
+      process.exit(1);
+    }
+    const bad = pts.findIndex((q) => !Array.isArray(q) || q.length !== 2 || !isFinite(q[0]) || !isFinite(q[1]) || Math.abs(q[0]) > 180 || Math.abs(q[1]) > 90);
+    if (bad >= 0) {
+      console.error("ERROR: card.locator." + shape + "[" + bad + "] is not a [lon, lat] pair within the globe: " + JSON.stringify(pts[bad]) + ".");
+      process.exit(1);
+    }
+  }
+  for (const extra of ["area", "spine"]) {
+    if (card.locator[extra] && extra !== shape) {
+      console.error("ERROR: card.locator." + extra + " is only read on a locator of kind \"" + (extra === "area" ? "region" : "range") + "\" — this one is \"" + kind + "\", so the shape would be carried in data.js and never drawn.");
+      process.exit(1);
+    }
   }
 }
 /* A QUOTATION IS CHECKED AGAINST THE ACTUAL SHELF (Aug 2026, with the card quotations). The card names
