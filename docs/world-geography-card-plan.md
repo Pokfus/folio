@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-171` Western Sahara
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-174` Cabo Verde
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,44 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 64 (Western Sahara, Malta, Maldives) wrote the deck's first NON-SELF-GOVERNING TERRITORY, and
+the route is the United Nations' own decolonization machinery rather than any of Phase 3's three sources.**
+`history.state.gov` has no page for Western Sahara and the World Bank has no series, but **UNdata does have
+a profile** — `data.un.org/en/iso/eh.html` — which refines C0's finding that a state without an ISO code
+gets nothing: **the test is the ISO code, not statehood**, and `EH` has one where Kosovo's `xk` 500s. The
+history is carried by three UN works instead: the **International Court of Justice's advisory opinion of 16
+October 1975** (`icj-cij.org/case/61`, which states the questions the General Assembly asked in December
+1974 and the answers — not *terra nullius*, ties of allegiance to the Sultan of Morocco and land rights of
+the Mauritanian entity, but no tie of territorial sovereignty with either), **Security Council resolution
+690 of 29 April 1991** establishing MINURSO, and **the Secretariat's annual working paper for the Special
+Committee on decolonization** (A/AC.109/2025/17). That last one is what makes the card writable at all under
+the rule that no state's account of its own actions is repeated as established fact: **it states each
+party's position in that party's own words**, so Morocco's autonomy initiative and territorial integrity and
+the Frente POLISARIO's "last colony in Africa" both appear as claims, attributed, with the Court's opinion
+and the unheld referendum as the facts around them. Two access findings go with it. **`un.org`'s
+decolonization section answers 202 with an EMPTY BODY** — an eighth variety of non-error refusal and a worse
+one than the 200-status error documents, since there is no document at all to inspect — while
+`peacekeeping.un.org` and `minurso.unmissions.org` are 403; `digitallibrary.un.org` and `icj-cij.org` carry
+everything. And **a UN document PDF needs a CMap-aware extractor**: the working paper's fonts are subset
+with hex-encoded strings, so a literal-string extractor returns image noise and not one readable word, where
+reading the ToUnicode CMaps out of the file recovers the whole text. **Batch 14's footnote rule paid twice
+and the second is the one to carry.** UNdata's area footnote for Western Sahara names the two former Spanish
+territories outright — the Northern Region, formerly Saguia el Hamra, and the Southern Region, formerly Rio
+de Oro — which is the colonial geography for free. And **Malta's capital-city population footnote says it
+"refers to the localities of the Northern Harbour and Southern Harbour"**, so UNdata's 212,800 for
+"Valletta" is two harbour districts rather than the city, which holds a few thousand people: a capital card
+written from that field would print a figure that is not its city's. Elsewhere, **Malta's autumn of 1964 is
+four acts on four sources within eleven weeks** — recognised on 18 September, the embassy at Valletta opened
+on 21 September, GATT on 17 November, the United Nations on 1 December — and **the Maldives is the deck's
+second state to leave the Commonwealth and rejoin**, withdrawing on 13 October 2016 and returning on 1
+February 2020, after South Africa. Both populations were stale by C8's test and both were raised, Malta's to
+570,000 and the Maldives' to 530,000; **UNdata is the outlier on Malta** at 545,000 against the World Bank's
+568,847 and Eurostat's 574,250. Batch 45's rule fired for the eleventh consecutive batch, and hardest here:
+the Maldives term's "lowest-lying country in the world, averaging about 1.5 m" and its "1,190 coral islands
+in a double chain of atolls spread over 90,000 km² of sea" are in nothing reachable, and were replaced by
+the Commonwealth's around 1,200 islands and sandbanks with about 200 inhabited and UNESCO's measured reefs —
+seventh largest in the world, about 5 per cent of the world's reef area.
 
 **Batch 63 (Luxembourg, Suriname, Montenegro) found the deck's ninth distinct mode of recognition and,
 in Montenegro, the ONLY recognition the United States has ever WITHDRAWN and later granted again.**
