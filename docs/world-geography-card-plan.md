@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-142`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-205`, less the deferred `gw-195` and `gw-201`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-203` Bermuda, `gw-195` Jersey and `gw-201` Guernsey being deferred
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-206` Saint Kitts and Nevis, `gw-195` Jersey and `gw-201` Guernsey being deferred
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -916,6 +916,79 @@ caption has to explain that it is not of the thing it is filed under is not an i
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
 
+**Batch 74 (Bermuda, Greenland, Faroe Islands) DISPROVED A FINDING THIS FILE HAD ALREADY PUBLISHED
+TWICE, and that is its most useful output.** Batches 72 and 73 explained why `data.un.org/en/iso/je.html`
+and `.../gg.html` return 500 by saying that UNdata follows the UN's own list of countries and areas, on
+which the Channel Islands are one area rather than two. Reading the **UNSD's M49 list** for this batch's
+three codes settles it the other way: `Jersey | 832 | JEY` and `Guernsey | 831 | GGY` each hold entries of
+their own, the change log records that Guernsey was "issued a separate numerical code in 2005", and a
+footnote states outright that "Channel Islands (numerical code 830) **has been removed** from the list of
+geographic regions". So the list carries the two bailiwicks and it is UNdata's PROFILE SET that does not
+— a narrower list of its own, with no published rule behind it. **An explanation that fits two
+observations is not thereby a rule**; both entries are corrected in place, and the standing instruction
+is now to TEST a profile URL per entity rather than to predict it. Nothing shipped wrong on the back of
+it — Jersey and Guernsey were deferred for want of a facts box either way — but the next reader would
+have believed it.
+
+**The World Bank's area series was unusable on all three, which extends C11's warning from "contains
+errors" to "is wrong by orders of magnitude at both ends of the size range".** `AG.SRF.TOTL.K2` gives
+Bermuda **4,290 km²** against the working paper's 53.35, the Faroe Islands **12,960** against 1,393, and
+Greenland **410,450** against 2,166,086 — too large by eighty times, nine times and five times too small
+in turn. C11 caught Canada at 15,634,410 and the Dominican Republic at 146,839; three more in one batch
+makes the series a source to check against another before quoting, never one to adjudicate with. It is
+cited on none of these three cards, where the population series `SP.POP.TOTL` is cited on all three and
+agrees with everything.
+
+**UNdata rounds a population to whole thousands, and on entities this small the ROUNDING is itself a
+divergence.** Its Greenland profile gives 56,000 for 2025 where the World Bank gives 56,831 and
+*Greenland in Figures 2024* says "just about 57,000"; its Faroe Islands profile gives 56,000 where the
+World Bank gives 54,900 and Statistics Faroe Islands counted 55,070 in August 2025. C10's rule — two
+sources agreeing against UNdata take the facts box — applies unchanged, and both cards print 57,000 and
+55,000 respectively while the abstract names the rounding. Bermuda is the control: UNdata's 65,000, the
+World Bank's 64,555 and the working paper's 63,905 all sit within a percent of each other.
+
+**A statistics office that looks like a JavaScript statbank may be serving every number in its own
+HTML.** `hagstova.fo` renders as a navigation shell and `hagstova.fo/en/faroe-islands-figures` 404s, so
+the obvious conclusion is that Statistics Faroe Islands is unreadable from here — and it is wrong. Every
+table on a Hagstova page is embedded as a `pxDatas.push({…})` block carrying the whole series in a
+`"data"` array beside its PX metadata: the stub and heading variables, the month or year list, the source
+line, the footnotes. Parsing one gives the monthly population since 1985, the eighteen islands with their
+areas and altitudes, the highest mountains, the largest lakes and the per-island density, all without
+running a line of the page's script. **Grep a statistics page for `pxDatas` before writing the office
+off**; this is the standard PxWeb front end and the same trick should serve any Nordic office.
+
+**The Faroe Islands are the deck's SECOND empty date line after the Isle of Man, and the card describes
+the territory's status entirely through what institutions DO about it.** `government.fo` and
+`norden.org` are 403 here, `retsinformation.dk` is a JavaScript application, and `logting.fo`, `um.dk`
+and `denmark.dk` 404 on every path tried, so nothing openable states the constitutional arrangement or
+dates it. What IS citable is the practice: the Danish krone is the currency, the United Nations excludes
+the islands from its figures for Denmark and files them separately under Northern Europe with the code
+234, its foreign-born share counts people born in Denmark and Greenland as foreign-born, and **Article
+355 of the Treaty on the Functioning of the European Union provides that the Treaties "shall not apply to
+the Faeroe Islands"**. **Where no source states a status, describe the practice** — what an institution
+does about an entity is citable where what the entity IS, is not. Two smaller notes from the same card:
+the treaty spells it **Faeroe**, which is also `world.js`'s map key, where every statistical source
+writes Faroe; and the FAO's fishery country profile at `fao.org/fishery/en/facp/fro` serves a
+five-language "Page not found" **with a 200 status**, a sixth variety of 200-status error document after
+`senate.gov`, `state.gov`, the Security Council's CloudFront block, the UN press "Client Challenge" and
+`history.house.gov`.
+
+**Greenland's own term was corrected on one word.** It said Denmark "reasserted control in 1721" where
+*Greenland in Figures 2024* says Greenland "became a Danish colony" that year — *reasserted* smuggles in a
+prior Danish control the source does not assert, and the fix costs the term nothing, both phrases running
+to five words. Its card is carried by that publication's own page 4, which states the 81 per cent ice
+cover, the world's lowest population density at 0.3 people per square kilometre of ice-free ground, Nuuk
+at 19,880 on 1 January 2024, the 44,087 km of coastline, and the sequence colony 1721 → Danish county
+1953 → home rule 1979 → self-government 21 June 2009 → out of the European Economic Community in 1985
+after a referendum in 1982. **A/RES/849(IX) is an image scan with no extractable text**, so it is cited
+for what its catalogue record states — and the title IS the fact: "Cessation of the transmission of
+information under Article 73e of the Charter in respect of Greenland", adopted at the 499th plenary
+meeting on 22 November 1954. Bermuda takes the mirror of it, A/RES/66(I) of 14 December 1946, whose text
+does extract and does name Bermuda among the territories the United Kingdom reported on — the two
+resolutions bracketing the same list, one entering and one leaving. Both entities, incidentally, are
+filed by the United Nations under **Northern America**, which is a fact about M49's regions rather than
+about either place.
+
 **Batch 73 (Andorra, Cayman Islands, Dominica) found the one entry in the recognition guide with NO
 RECOGNITION IN IT, and it is Andorra.** Every other page in the guide answers the question *when did the
 United States recognise this state*; Andorra's answers that the question does not arise. "Andorra has
@@ -933,8 +1006,10 @@ settles batch 72's finding as a pair rather than a one-off**: `data.un.org/en/is
 `GGY` is not a valid World Bank country code at all — the API answers "The provided parameter value is not
 valid" — so both Channel Island bailiwicks are invisible to both quantitative sources while the Isle of
 Man, Gibraltar and the Faroes each have a profile. **Two entities failing the same way in successive
-batches is a rule, not an accident**, and the rule is that UNdata and the World Bank both follow the UN's
-list of countries and areas, on which the Channel Islands are one entry. The Cayman Islands are the fourth
+batches is a rule, not an accident**, and the rule is only that the profile sets of UNdata and of the
+World Bank each have holes in them, which have to be measured per entity (the stronger explanation
+offered here and in batch 72 — that both follow a UN list carrying the Channel Islands as one entry —
+is corrected in batch 74). The Cayman Islands are the fourth
 territory carried by a C-24 working paper and the first whose history is mostly ADMINISTRATIVE rather than
 diplomatic: settled by the British between 1661 and 1671, self-government growing from 1734, an Assembly of
 Justices and Vestry in 1831, slavery abolished in 1834, and **a dependency of Jamaica from 1863 which stayed
@@ -955,9 +1030,14 @@ FIRST DEFERRAL IN THE 190s, and the reason narrows batch 69's rule.** `gw-195` *
 `data.un.org/en/iso/je.html` returns 500 and the World Bank has no `JEY` series at all, so it is the first
 entity in this deck invisible to BOTH of the pass's quantitative sources. Batch 69 concluded from Western
 Sahara that "the test is the ISO code, not statehood"; Jersey has ISO `JE` and no profile, so the rule needs
-its second half: **UNdata's country profiles follow the UN's own list of countries and areas, not ISO
-3166** — measured here, `im` (Isle of Man), `gi` (Gibraltar) and `fo` (Faroe Islands) all answer 200 while
-`je` and `gg` both 500, the Channel Islands being one area in that list rather than two. Its own government
+its second half: **UNdata's country profiles do not cover every entity holding an ISO code** — measured
+here, `im` (Isle of Man), `gi` (Gibraltar) and `fo` (Faroe Islands) all answer 200 while `je` and `gg`
+both 500. *(Corrected in batch 74. This entry first explained the gap by saying UNdata follows the UN's
+own list of countries and areas, on which the Channel Islands are one area rather than two. That is
+wrong: the UNSD's M49 list gives* **Jersey 832/JEY and Guernsey 831/GGY entries of their own**, *and its
+own footnote records that "Channel Islands (numerical code 830) has been removed from the list of
+geographic regions". The profile set is its own list, narrower than M49, and has to be tested per entity
+rather than predicted from one.)* Its own government
 answers where the international bodies do not — **`opendata.gov.je`, a CKAN portal, serves the States of
 Jersey's population series as CSV** (104,540 at the end of 2024, growing only by migration: 730 births
 against 880 deaths and net migration of 670) — but `www.gov.je` itself is 500 on every path tried, the
