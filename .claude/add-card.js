@@ -108,6 +108,13 @@ const MAP_LAYERS = {
      locator card reads the shapes and never the table. Keep this table in step with CARD_MAP_LAYERS in
      app.js; the two are checked against each other by nothing but this comment. */
   world: { file: "world.js", global: "WORLD_GEO", what: "country", points: "WORLD_CAPITALS", pointsFile: "world-capitals.js", dotWhat: "capital city" },
+  /* China's provincial-level divisions. Its capitals live in the SAME file as its shapes — no
+     `pointsFile` — which is the one structural difference from `world` above and is app.js's own
+     `chinaprov` bundle written out here: nothing but a China map card ever loads this layer, so there is
+     nobody to spare the 13 KB from. Four provinces are DELIBERATELY absent from the point table: Beijing,
+     Shanghai, Tianjin and Chongqing are cities that are themselves divisions, so a dot card there would
+     shade the answer. The refusal a missing point produces is the intended one. */
+  "china-provinces": { file: "china-provinces.js", global: "CHINA_PROVINCES", what: "province", points: "CHINA_CAPITALS", dotWhat: "provincial capital" },
 };
 const MAPQ_MIN = 5, MAPQ_MAX = 20;
 const MAP_FACTS_MIN = 3, MAP_FACTS_MAX = 8;

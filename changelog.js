@@ -35,16 +35,23 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.433", released: "2026-08-30T11:04Z" };
+window.FOLIO_VERSION = { v: "1.434", released: "2026-08-30T14:05Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-08-30",
-    t: "Every country and territory in The world is now mapped",
+    t: "Two geography decks finished: The world and China",
     items: [
       "<b>Sixty new cards in The world</b>, completing the countries and territories deck at 227 of 233, with twenty-six new glossary terms and thirty-two others corrected against their own sources.",
       "<b>Seventeen new cards in the Ancient Greece deck</b>, with seventeen new glossary terms to go with them.",
       "<b>Eighteen new cards in the World History collection</b>, in its Iron Age Near East deck, with sixteen new glossary terms.",
+      "<b>The China geography collection is finished</b>, all 31 provinces and regions and all 27 provincial capitals, each with a glossary term and a picture of its own.",
+      "The figures beside a geography card's answer are now <b>centred against it</b> rather than pinned to its top line.",
+      "<b>All 58 China geography cards rewritten</b> around each place's own history, culture and society, with a consistent box of figures beside the answer.",
+      "Every China geography card now carries <b>the same four figures</b>, and <b>its name in Chinese</b> under the answer, in both scripts with the pinyin beside them.",
+      "Populations on those cards are written short — <b>126M, 868k</b> — rather than to the last person.",
+      "A Chinese capital now gives <b>its rank among all China's cities</b> rather than within its own province.",
+      "China's four municipalities now show <b>how fast they grew between the last two censuses</b>, in place of a figure that differed on each of them.",
     ],
   },
   {
@@ -67,6 +74,9 @@ window.CHANGELOG = [
       "<b>Sixty-seven new cards in The world</b>, in the countries and territories deck, with three new glossary terms and fifty-five others corrected against their own sources.",
       "<b>Thirty-two new cards in the World History collection</b>, finishing its Bronze Age world deck and opening its Iron Age Near East one, with sixteen new glossary terms.",
       "<b>A geography card can now shade a divided island whole</b>, so the Cyprus card lights up all of it rather than the southern part alone.",
+      "<b>A new China collection joins Geography</b>, with a deck of its 31 provinces, regions and municipalities and one of their 27 capitals, ordered by population.",
+      "<b>The China geography cards have dropped their passages on American consulates and diplomacy</b>, and eight backgrounds were rewritten around Chinese material instead.",
+      "<b>Forty-one new cards in the China geography decks</b>, twenty-two provinces and nineteen capitals, each with a glossary term of its own.",
     ],
   },
   {
