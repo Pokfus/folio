@@ -365,8 +365,13 @@ const holdRow = (page, match) => page.evaluate((m) => {
   const dead = await pressTts("dead", 1600);
   check("a press still ATTEMPTS to speak rather than refusing up front",
     dead.spoke.length === 1, JSON.stringify(dead.spoke));
+  /* …and the message must be ACTIONABLE, not merely true. "Speech isn't available on this device" was
+     both, and a dead end: the fix is in the operating system rather than in Folio, so the note names the
+     voice and where to add it. Asserted on both halves — a wording that drops either is a wording that
+     has quietly gone back to telling a reader something they can do nothing with. */
   check("\u2026and one that produced nothing tells the reader why",
-    dead.toasts.some((x) => /speech isn't available on this device/i.test(x)), JSON.stringify(dead.toasts));
+    dead.toasts.some((x) => /voice/i.test(x)), JSON.stringify(dead.toasts));
+  check("\u2026and what to do about it", dead.toasts.some((x) => /settings/i.test(x)), JSON.stringify(dead.toasts));
 
   // 2. voices present, none for the card's language — the commonest real case
   await setVoices([{ name: "French Test", lang: "fr-FR", voiceURI: "fr-test", localService: true, default: true }]);

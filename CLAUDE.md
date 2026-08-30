@@ -2963,6 +2963,20 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `speaking`/`pending` after `TTS_SILENT_MS`); only then does it report. `ttsSilentNote()` picks the
     message from `ttsCanSpeak()` — **no voices at all is a fact about the DEVICE**, where an engine that
     has voices and still produced nothing is a failure of this one attempt.
+    **AND THE FIRST OF THOSE TELLS THE READER WHAT TO DO** (Aug 2026, on request): the fix is an
+    operating-system one, so it reads *"No speech voice installed — add one in your device's settings"*
+    rather than the true-but-dead-end "Speech isn't available on this device". **The advice is
+    deliberately PLATFORM-NEUTRAL**: naming the menu path is more helpful when right and worse than
+    silence when wrong — it differs across Windows, macOS, Android, iOS and the Linux desktops,
+    `navigator.platform` is unreliable and deprecated, and a reader sent to a screen that does not exist
+    gives up on something that would have worked. It rides a longer dwell (`TTS_NOTE_MS`, via `toast`'s
+    optional second argument), a message that asks for an action being read rather than glanced at.
+    **`.toast` had to learn `width:max-content` for it, and that fixed every toast on a phone**: positioned
+    `left:50%` with no `right`, a shrink-to-fit box may only be as wide as the space to the right edge —
+    HALF the viewport — so on a 360px phone every message was capped at 180px, and "Daily limits saved"
+    already wrapped to two lines while this one ran to five. Measured before and after at 360/390/768/1280:
+    the long note goes 5 lines to 2 on a phone and 2 to 1 at 768, nothing overflows at any width, and
+    nothing that already fitted on one line moved.
     **`ttsSupported()` STILL ANSWERS ONLY "IS THE API HERE"** and must not be taught otherwise: it gates
     `body.no-tts`, which takes the button's chrome away, and **the shipped language decks' control is an
     EMPTY span** (`<span class="uc-tts uc-say" data-say="{{Word}}"></span>`) that collapses to **0px wide**

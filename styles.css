@@ -2921,8 +2921,17 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 .set-time:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
 
 /* toast */
+/* A TOAST IS SIZED BY `width:max-content`, AND THAT IS NOT COSMETIC (Aug 2026, on a message that had to
+   say something a reader could act on). Positioned `left:50%` with no `right`, a shrink-to-fit box may
+   only be as wide as the space LEFT of the right edge — half the viewport — so on a 360px phone every
+   toast was capped at 180px and wrapped: "Daily limits saved" ran to two lines, and a sentence telling a
+   reader how to install a speech voice ran to five. `max-content` escapes that constraint and the
+   max-width puts a sane ceiling back. Measured before/after at 360 / 390 / 768 / 1280: the long message
+   goes 5 lines to 2 on a phone and 2 lines to 1 at 768, no toast overflows at any width, and nothing that
+   already fitted on one line moved. */
 .toast{
   position:fixed; left:50%; bottom:30px; transform:translateX(-50%) translateY(20px);
+  width:max-content; max-width:min(92vw, 560px);
   background:var(--ink); color:var(--paper); font-family:var(--mono); font-size:calc(12.5px * var(--fs)); letter-spacing:.04em;
   border-left:4px solid #C39A2E;
   padding:12px 20px; border-radius:10px; box-shadow:var(--shadow-lg); opacity:0; pointer-events:none;

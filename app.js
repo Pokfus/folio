@@ -14377,7 +14377,12 @@
 
   /* ---------- toast ---------- */
   let toastTimer;
-  function toast(msg) {
+  /* `ms` is optional and almost nothing passes it: 2.2s is right for a confirmation, which a reader
+     glances at to learn that the thing they just did happened. A message that asks them to go and DO
+     something — install a speech voice, say — is read rather than glanced at, and 2.2s is not long
+     enough to finish a sentence and decide what it means. Passing a longer dwell is the exception and
+     should stay one; a site where every toast lingers is a site with a banner. */
+  function toast(msg, ms) {
     let el = document.getElementById("toast");
     if (!el) {
       el = document.createElement("div");
@@ -14388,7 +14393,7 @@
     el.textContent = msg;
     el.classList.add("show");
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
+    toastTimer = setTimeout(() => el.classList.remove("show"), ms || 2200);
   }
   // in-page replacement for native prompt()/confirm() — those are silently blocked in sandboxed/embedded contexts
   // (so the New-collection/rename/delete buttons appeared dead). onOk fires only on confirm (value for prompts, true for confirms).
@@ -18159,13 +18164,24 @@
      against — so if it ever proves too tight on a slow engine the symptom is a spurious note beside speech
      that then arrives, and the fix is to raise it rather than to drop the check. */
   const TTS_SILENT_MS = 900;
-  /* WHY it was silent, in the reader's terms. The two cases are worth telling apart: an empty voice list
-     is a fact about the DEVICE that no amount of pressing will change, where an engine that has voices and
-     still produced nothing is a failure of this one attempt. `ttsCanSpeak` is asked at the moment of the
-     report rather than cached, the voice list arriving asynchronously. */
+  /* WHY it was silent, in the reader's terms — and, where there is something they can DO about it, what.
+     The two cases are worth telling apart and only one of them is actionable. An empty voice list means
+     the device has no speech voice INSTALLED, which is ordinary on Linux and on some Android browsers and
+     is fixed in the operating system rather than in Folio; "Speech isn't available on this device" was
+     true and a dead end, so it now says where to go. An engine that HAS voices and still produced nothing
+     is a failure of this one attempt, with nothing to install and nothing to advise.
+     THE ADVICE IS DELIBERATELY PLATFORM-NEUTRAL. Naming the path is more helpful when it is right and
+     worse than saying nothing when it is wrong — the menu differs across Windows, macOS, Android, iOS and
+     the Linux desktops, `navigator.platform` is unreliable and deprecated, and a reader sent to a screen
+     that does not exist gives up on a thing that would have worked. "Your device's settings" is the most
+     specific form that is true everywhere.
+     `ttsCanSpeak` is asked at the moment of the report rather than cached, the voice list arriving
+     asynchronously. */
   function ttsSilentNote() {
-    return ttsCanSpeak() ? "This device could not read that aloud" : "Speech isn't available on this device";
+    return ttsCanSpeak() ? "This device could not read that aloud"
+                         : "No speech voice installed — add one in your device's settings";
   }
+  const TTS_NOTE_MS = 4200;   // it asks the reader to go and do something; see `toast`'s own note on dwell
   // What a control SAYS is its own text, unless it carries data-say — which is how a control can show one
   // thing and pronounce another (a pinyin button that has to speak the characters, since a Mandarin voice
   // handed "bēizi" reads the romanisation rather than the word). The site's own .tr-play buttons already
@@ -18211,11 +18227,11 @@
       u.onerror = (ev) => {
         done();
         const why = String((ev && ev.error) || "");
-        if (gen === _ttsSeq && why !== "interrupted" && why !== "canceled") toast(ttsSilentNote());
+        if (gen === _ttsSeq && why !== "interrupted" && why !== "canceled") toast(ttsSilentNote(), TTS_NOTE_MS);
       };
       setTimeout(() => {
         if (gen !== _ttsSeq) return;
-        try { speechSynthesis.speak(u); } catch (e) { done(); toast(ttsSilentNote()); return; }
+        try { speechSynthesis.speak(u); } catch (e) { done(); toast(ttsSilentNote(), TTS_NOTE_MS); return; }
         /* …and the case that raises nothing at all: nothing started, nothing is speaking and nothing is
            queued. `started` is the reliable half — an engine that has begun has fired `onstart` — and the
            `speaking`/`pending` pair is the belt to its braces for an engine that reports state without
@@ -18225,7 +18241,7 @@
           if (gen !== _ttsSeq || started) return;
           let live = false;
           try { live = !!(speechSynthesis.speaking || speechSynthesis.pending); } catch (e) {}
-          if (!live) { done(); toast(ttsSilentNote()); }
+          if (!live) { done(); toast(ttsSilentNote(), TTS_NOTE_MS); }
         }, TTS_SILENT_MS);
       }, 60);
     } catch (e) { el.classList.remove("tts-playing"); }
