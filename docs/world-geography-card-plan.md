@@ -16,7 +16,7 @@ The next card to write is the lowest `gw-NNN` not yet in `data.js`:
 
     node -e "global.window={};require('./data.js');const h=new Set(window.CARD_DATA.map(c=>c.id));for(let i=1;i<=1000;i++){const id='gw-'+String(i).padStart(3,'0');if(!h.has(id)){console.log(id);break}}"
 
-**Shipped so far — countries `gw-001`–`gw-226`, less the deferred `gw-195`, `gw-201`, `gw-218`, `gw-223` and `gw-224`** (India, China, United States, Indonesia, Pakistan,
+**Shipped so far — countries `gw-001`–`gw-229`, less the deferred `gw-195`, `gw-201`, `gw-218`, `gw-223` and `gw-224`** (India, China, United States, Indonesia, Pakistan,
 Nigeria, Brazil, Bangladesh, Russia, Ethiopia, Mexico, Japan, Egypt, Philippines, Democratic Republic of
 the Congo, Vietnam, Iran, Turkey, Germany, Thailand, United Kingdom, Tanzania, France, South Africa,
 Italy, Kenya, Myanmar, Colombia, South Korea, Sudan, Uganda, Spain, Algeria, Iraq, Argentina,
@@ -26,14 +26,14 @@ Korea, Syria, Mali, Burkina Faso, Taiwan, Sri Lanka, Malawi, Zambia, Kazakhstan,
 Somalia, Senegal, Guatemala, Ecuador, Netherlands, Cambodia, Zimbabwe, Guinea, Benin, Rwanda, Burundi,
 Bolivia, Tunisia, South Sudan, Belgium, Haiti, Jordan, Dominican Republic, United Arab Emirates, Cuba,
 Czechia, Honduras, Portugal, Tajikistan, Papua New Guinea, Sweden, Greece, Azerbaijan, Israel, Hungary,
-Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland, Anguilla, Palau, Cook Islands, Nauru, Tuvalu, Saint Pierre and Miquelon) **and capitals
+Austria, Belarus, Switzerland, Sierra Leone, Togo, Laos, Hong Kong, Turkmenistan, Libya, Kyrgyzstan, Paraguay, Nicaragua, Serbia, Bulgaria, El Salvador, Republic of the Congo, Singapore, Denmark, Lebanon, Finland, Liberia, Norway, Slovakia, Ireland, Central African Republic, New Zealand, Palestine, Oman, Mauritania, Costa Rica, Kuwait, Panama, Croatia, Georgia, Eritrea, Mongolia, Uruguay, Puerto Rico, Bosnia and Herzegovina, Armenia, Namibia, Lithuania, Qatar, Jamaica, Gambia, Gabon, Botswana, Moldova, Albania, Lesotho, Guinea-Bissau, Slovenia, Equatorial Guinea, Latvia, North Macedonia, Kosovo, Bahrain, Timor-Leste, Estonia, Trinidad and Tobago, Cyprus, Mauritius, Eswatini, Djibouti, Fiji, Comoros, Guyana, Solomon Islands, Bhutan, Macau, Luxembourg, Suriname, Montenegro, Western Sahara, Malta, Maldives, Cabo Verde, Brunei, Belize, Bahamas, Iceland, Vanuatu, New Caledonia, Barbados, French Polynesia, São Tomé and Principe, Samoa, Saint Lucia, Guam, Curaçao, Kiribati, Seychelles, Grenada, Micronesia, Aruba, United States Virgin Islands, Tonga, Saint Vincent and the Grenadines, Antigua and Barbuda, Isle of Man, Andorra, Cayman Islands, Dominica, Bermuda, Greenland, Faroe Islands, Saint Kitts and Nevis, American Samoa, Turks and Caicos Islands, Northern Mariana Islands, Sint Maarten, Liechtenstein, British Virgin Islands, Gibraltar, Monaco, Marshall Islands, San Marino, Åland, Anguilla, Palau, Cook Islands, Nauru, Tuvalu, Saint Pierre and Miquelon, Saint Helena, Montserrat, Falkland Islands) **and capitals
 `gw-503` Washington, D.C., `gw-505` Islamabad, `gw-507` Brasília, `gw-510` Addis
 Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-517` Tehran, `gw-518`
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
 `gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-227` Saint Helena, `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna and `gw-224` Saint Barthélemy being deferred
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** The next country is `gw-230` Norfolk Island, `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna and `gw-224` Saint Barthélemy being deferred
 and the next capital is `gw-542` Warsaw.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
@@ -915,6 +915,53 @@ Sentinel-2 file named *Khartoum, Sudan* is a FALSE-COLOUR image whose own descri
 caption has to explain that it is not of the thing it is filed under is not an illustration of that
 thing. **Read the Commons description before the licence**; the licence decides whether a picture MAY
 ship and the description decides whether it SHOULD.
+
+**Batch 81 (Saint Helena, Montserrat, Falkland Islands) is the batch where the C-24 working papers and
+`legislation.gov.uk` finally run as ONE recipe**, and it is the cheapest three cards the pass has
+produced since the EU country pages: a working paper each (A/AC.109/2026/13, /10 and /6), a UNdata
+profile each, and the territory's own constitution as a British statutory instrument each — the St
+Helena, Ascension and Tristan da Cunha Constitution Order 2009 (SI 2009/1751), the Montserrat
+Constitution Order 2010 (SI 2010/2474) and the Falkland Islands Constitution Order 2008 (SI 2008/2846),
+all served in full. Batch 77 found the route and batch 79 showed it reaches back to 1982; **it now covers
+every British overseas territory this deck has met**, and it should be reached for before any other
+constitutional source.
+
+**The Falkland Islands are the second entity whose NAME is contested, and the working paper states both
+positions in its own voice.** The territory has been on the United Nations list since 1946, and at the
+Fourth Committee's twenty-fifth meeting on 6 December that year "the delegation of Argentina expressed a
+reservation to the effect that the Government of Argentina did not recognize British sovereignty in the
+Falkland Islands (Malvinas)" while "the delegation of the United Kingdom expressed a parallel reservation
+that it did not recognize Argentine sovereignty in those islands". UNdata's own footnote says the same in
+one sentence, and the M49 register goes further than either: it lists the entity as **Falkland Islands
+(Malvinas)** in English and French and as **Islas Malvinas (Falkland)** in Spanish, the order reversed.
+That is Gibraltar's case again — **where the sources attribute both positions themselves, the card can
+carry the dispute without adjudicating it** — and the naming detail is checkable in a way no summary of
+the argument would be.
+
+**Montserrat's capital was ABANDONED, which is the seventh distinct shape the capital field has taken.**
+The working paper says it plainly: "Plymouth, abandoned in 1997 following the volcanic eruption. Most of
+the offices of the Government of Montserrat are based in Brades." UNdata gives "Brades Estate". The facts
+box reads **"Brades; Plymouth abandoned 1997"** — the second Capital row in two batches that is a
+sentence rather than a place name, after Nauru's "None; offices at Yaren", and both are right rather than
+tidy. The paper also gives the figure that makes the island legible: of 103 km², **only 40.1 are
+habitable**.
+
+**Saint Helena is one island and three capitals, and the card has to say so.** The territory is Saint
+Helena, Ascension and Tristan da Cunha; UNdata's 309 km² and 5,000 people are footnoted "Including
+Ascension and Tristan da Cunha", and the working paper breaks the population into 4,122 on Saint Helena
+(June 2025), about 800 on Ascension and 221 on Tristan da Cunha, with Jamestown, Georgetown and Edinburgh
+of the Seven Seas as their seats. **A card whose answer is one island but whose figures are a territory's
+must name both**, which is C1's Cyprus problem in a different ocean. The 2009 constitution is what made
+the difference: it renamed the territory from "Saint Helena and its Dependencies" and gave the three
+groups equal standing.
+
+**And batch 77's digit-in-a-word test was confirmed three times over in one batch.** The Saint Helena
+paper decodes D as `6` (`6ata`, `6ecember`), Montserrat's decodes A as `3` (`3ntigua`, `3lliouagana`,
+`3pril`), and the Falkland Islands' decodes four letters at once — C as `5`, G as `9`, B as `4`, D
+unaffected (`5onstitutional`, `9eneral Assembly`, `4ritain`). Five files, five different substitution
+sets. **One warning to add: do NOT fix it with a global replace.** Running `.replace('6','D')` over the
+Saint Helena text turned the genuine years 1633 and 1659 into "1D33" and "1D59" — the repair corrupted
+the digits it was meant to leave alone. Read the affected tokens by eye; there are never many.
 
 **Batch 80 (Nauru, Tuvalu, Saint Pierre and Miquelon) names the pass's blind spot: THE FRENCH OVERSEAS
 COLLECTIVITIES.** Batch 79 deferred `gw-218` Saint Martin because nothing openable names Marigot. This
