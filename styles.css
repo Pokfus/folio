@@ -631,13 +631,51 @@ body.night .banner{
 .banner:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
 .banner .body{flex:1; min-width:0;}
 .banner h2{font-family:var(--display); font-weight:600; font-size:calc(25px * var(--fs)); margin:7px 0 6px; letter-spacing:-.01em; color:var(--ink);}
-/* The Ordered / Random toggle is absolutely positioned at the group's top right. The big gold numeral used
-   to sit ABOVE this title on a phone and push it clear of that toggle; with the numeral gone (Aug 2026) the
-   title moved up into it, so the padding is what keeps them apart. It is on the TITLE rather than on
-   `.body`, because the counts and the xp bar below should still use the full width — and on a phone the
-   title steps down a size, since 39px plus a 120px toggle cannot share a 350px card without wrapping. */
-.banner h2.review-title{font-size:calc(39px * var(--fs)); margin:0 0 11px; line-height:1.0; padding-right:132px;}
-@media (max-width:640px){ .banner h2.review-title{font-size:calc(32px * var(--fs));} }
+/* THE PADDING IS WHAT KEEPS THE TITLE OUT FROM UNDER THE CORNER ROW, and it is the one number here that
+   is not free to change on its own. The Ordered/Random toggle used to stand in that corner and this
+   reserved its width; the toggle is gone (Aug 2026) and `.rv-topacts` — the deck list's Edit control —
+   stands there instead, so the reservation is still doing exactly the job it was written for and the two
+   must be kept in step. It is on the TITLE rather than on `.body`, because the counts and the xp
+   bar below should still use the full width — and on a phone the title steps down a size, since 39px plus
+   a corner row cannot share a 350px card without wrapping.
+   IT SCALES WITH `--fs` BECAUSE THE ROW DOES, and on a phone it reserves MORE. It was a flat 132px, which
+   is right at Medium on a wide card and wrong everywhere else: the corner's text is written
+   `calc(<px> * var(--fs))`, so at Very large the row grows by a third and the reservation did not, and the
+   three editor buttons ran into the title on a 320px screen. The phone's own figure is measured off the
+   WIDEST the row ever gets — the three buttons of the open mode — at the text size where they are
+   proportionally widest, which is Very small, since a button's padding and border do not scale with the
+   text inside it. Over-reserving at the other sizes costs nothing: it only makes the title wrap a word
+   sooner, which is what the reservation is for. */
+.banner h2.review-title{font-size:calc(39px * var(--fs)); margin:0 0 11px; line-height:1.0; padding-right:calc(132px * var(--fs));}
+/* the phone's banner has its own padding (22px 20px) and its own title size, and the corner row is
+   written from both — so the two numbers move together rather than being guessed at twice */
+@media (max-width:640px){
+  .banner h2.review-title{font-size:calc(32px * var(--fs)); padding-right:calc(156px * var(--fs));}
+  .rv-topacts{top:23px; right:20px; height:calc(32px * var(--fs));}
+  .review-group.rv-done .rv-topacts, .review-group.rv-won .rv-topacts{right:44px;}
+  /* THE CORNER AND THE TITLE SHARE ONE LINE, and on a phone that line is 313px wide with "Daily study"
+     taking half of it — so the three buttons the editor mode opens lose what they can afford to lose
+     rather than lying on top of the title: the padding and the tracking come in, and Undo gives up its
+     icon (Revert and Done never had one, so the mode reads as three words either way). Measured, not
+     guessed: 187px → 143px. The one button of the shut state was never the problem at 65px, and it keeps
+     its word — a pencil alone in the corner of a card is a control a reader has to guess at, and this one
+     is the only way into the mode. */
+  .rv-topacts .rv-editacts{gap:4px;}
+  .rv-topacts .rv-editacts .rv-edit{padding:5px 7px; letter-spacing:.05em;}
+  .rv-topacts .rv-edit-undo svg{display:none;}
+}
+/* …and once more below 360px, which is the only phone width where the mode's three buttons and the
+   title's own longest WORD still cannot share the card. The arithmetic is what forces a second step
+   rather than taste: at Very large text on a 320px screen the buttons are 170px, "Daily" is 94px, and the
+   card is 246px — and a word cannot be made narrower, so the buttons take the difference. It is the
+   BUTTONS that give rather than the heading: they are chrome the reader has just summoned and can still
+   read at 8px × the text scale, where the title is what the card is called. Applied at every text size at
+   this width rather than only at the two that need it, so there is one rule to reason about and no
+   `data-fs` selector to keep in step. */
+@media (max-width:360px){
+  .rv-topacts .rv-editacts{gap:2px;}
+  .rv-topacts .rv-editacts .rv-edit{padding:5px 5px; font-size:calc(8px * var(--fs)); letter-spacing:.02em;}
+}
 .banner .desc{color:var(--ink-soft); font-size:calc(15px * var(--fs)); margin:0; line-height:1.5;}
 .banner .meta{display:flex; gap:16px; margin-top:14px; flex-wrap:wrap; align-items:center;}
 /* each figure sits CENTRED over its own label rather than left-aligned against it: three columns of two
@@ -649,22 +687,58 @@ body.night .banner{
    list now, on request; see the note there) */
 .banner .cta{margin-left:auto;}   /* sits on the SAME line as the three piles, pushed to the right edge */
 /* ---------- the footer row under the DECK LIST ----------
-   It has lost both of the things that shared it with the day's timer: "+ New group" (`.rv-tools` /
-   `.rv-newgroup`) when the group function left the daily study block, and the "+ Add decks" lip
-   (`.rv-lip`) when the way to the collections became a button standing OUTSIDE the group — both Aug 2026,
-   both on request. So the row is one item wide and is drawn only when there is a timer to hold; see the
-   note in PAGES.home for why it is conditional rather than always present. */
-.rv-foot{display:flex; align-items:center; gap:12px; min-height:34px;}
+   It has lost everything that ever shared it with the day's timer: "+ New group" (`.rv-tools` /
+   `.rv-newgroup`) when the group function left the daily study block, the "+ Add decks" lip (`.rv-lip`)
+   when the way to the collections became a button standing OUTSIDE the group, and the Edit button when
+   that went up to the banner's own corner — all Aug 2026, all on request. The TIMER stayed (it went up to
+   the corner with the button and came back the same day, on request), so the row is one item wide again
+   and is drawn only when there is a timer to hold; see the note in PAGES.home for why it is conditional
+   rather than always present. */
+.rv-foot{display:flex; align-items:center; min-height:34px;}
+/* ---------- THE EDIT BUTTON, AT THE BANNER'S TOP RIGHT ----------
+   (Aug 2026, on request: "move the active decks edit button and study timer to the top right of the Daily
+   Study banner … vertically centered to the Daily Study title" — and then, the same day, "move the timer
+   back to where it was before", so this corner holds the button alone.) Four things are load-bearing.
+   IT IS LAID OVER THE BANNER, NOT WRITTEN INTO IT, because the banner is a `<button>` and a button may
+   not contain one — see the note in PAGES.home. So the row is a sibling positioned against
+   `.review-group`, which has been `position:relative` since the Ordered/Random pill sat in this same
+   corner; `pointer-events:none` here with `auto` on the children is what keeps the rest of the banner one
+   big pressable tile while the one control it holds — or the three the editor mode opens — takes its own
+   presses.
+   THE VERTICAL CENTRING IS THE TITLE'S OWN LINE BOX, NOT A NUMBER. `top` is the banner's padding plus its
+   border, and the row's HEIGHT is `.review-title`'s font-size at its `line-height:1` — so the row is
+   exactly the box the title's first line occupies and `align-items:center` does the rest. Both halves
+   scale with `--fs` on their own, and the phone's smaller padding and title are one override rather than
+   a second set of guesses.
+   IT STEPS ASIDE FOR THE COMPLETION MARK. `.gt-check` and `.gt-seal` sit in this corner too (top 11–12px,
+   up to 29px square) and appear exactly when the day is cleared — which is a day that has a timer to
+   show, so the two are drawn together rather than alternately. The inset under `.rv-done` / `.rv-won`
+   clears the mark's left edge, and is written in PHYSICAL `right` because the mark it is dodging is.
+   AND THE TITLE ALREADY RESERVED THE ROOM: `.banner h2.review-title` carries a `padding-right` left over
+   from the Ordered/Random pill that used to stand here. It is what stops the title running under this
+   row, so the two numbers must be kept in step — see the note there. */
+.rv-topacts{
+  position:absolute; z-index:4; top:27px; right:28px;
+  height:calc(39px * var(--fs));
+  display:flex; align-items:center; justify-content:flex-end;
+  pointer-events:none;
+}
+.rv-topacts > *{pointer-events:auto;}
+.review-group.rv-done .rv-topacts, .review-group.rv-won .rv-topacts{right:48px;}
+/* the inset these carried in the foot row was that row's left margin; here the row is right-aligned
+   against the banner's own padding and has nothing to its left */
+.rv-topacts .rv-edit, .rv-topacts .rv-editacts{margin-inline-start:0;}
+.rv-topacts .rv-editacts{flex-wrap:nowrap;}
 /* ---------- THE DECK LIST'S EDITOR MODE (Aug 2026, on request) ----------
    "Rather than the drag handles being visible at all times, make them invisible by default … Add a button
    in the bottom left, just below the active decks list, vertically centered to the study timer."
-   The button is the first thing in `.rv-foot` and the timer follows it, which is what puts the two on one
-   line and centres them against each other — hence `align-items:center` above, where the row used to
-   start-align its single item. Open, the one button becomes three IN THE SAME PLACE, so nothing on the
-   page moves under the press, and the timer is not rendered at all (see PAGES.home). */
+   The bottom left is where it began; it is the banner's TOP RIGHT now (Aug 2026, on a second request —
+   see `.rv-topacts` above), centred on the title's line rather than on the timer's, and the timer stayed
+   where it was. Open, the one button becomes three IN THE SAME PLACE, so nothing on the page moves under
+   the press. */
 .rv-edit{
   appearance:none; display:inline-flex; align-items:center; gap:5px; flex:none;
-  margin-inline-start:20px;            /* the inset the timer uses, so the two ends of the row line up */
+  margin-inline-start:20px;            /* the foot row's own inset; zeroed in the corner (.rv-topacts) */
   padding:5px 10px; border:1px solid var(--rule); border-radius:999px; background:var(--card);
   font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
   color:var(--ink-faint); cursor:pointer; white-space:nowrap;
@@ -680,8 +754,6 @@ body.night .banner{
 .rv-editacts .rv-edit{margin-inline-start:0;}
 .rv-edit-done{border-color:var(--indigo); color:var(--indigo);}
 .rv-edit-revert:not(:disabled){color:var(--danger,#c8453c);}
-/* a button preceding the timer already carries the inset, so the timer must not add its own on top */
-.rv-foot .rv-edit + .rv-time, .rv-foot .rv-editacts + .rv-time{margin-inline-start:0; padding-top:0;}
 /* ---------- the handles, which are what the mode is FOR ----------
    They sat at `.32` on every row at rest and the request is that they not be there at all until asked
    for. Hidden with `opacity` rather than `display:none` so the column they occupy is still reserved —
@@ -718,15 +790,15 @@ body.night .banner{
   padding:1px 4px; border:1px solid var(--indigo); border-radius:5px; background:var(--paper);
 }
 .dk-rename:focus{outline:none; box-shadow:0 0 0 2px var(--indigo-wash);}
-/* THE DAY'S TIME ON CARDS, at the left end of that same edge (Aug 2026, on request — it was a stat in the
-   banner's meta row beside the three piles). Out here it is on the page's own paper rather than on the
-   card, and the row it joins is one small tab high, so it is ONE line rather than the piles' figure over a
-   word: the figure in the display face at the caption's own size, the words in the mono caption style the
-   lip opposite it uses, and the word LEADING it ("studied 13m today", on request) so it reads as a
-   sentence rather than as a labelled statistic. The inset matches the lip's `margin-inline-end`, so the
-   two sit symmetrically at the two ends of the block; the padding is what puts its line on the lip's,
-   which is set by that tab's own 6px/-1px rather than by anything here — measured on the rendered page,
-   not derived. */
+/* THE DAY'S TIME ON CARDS, at the left end of the group's own bottom edge (Aug 2026, on request — it was
+   a stat in the banner's meta row beside the three piles, and it briefly went up to the banner's corner
+   with the Edit button before being asked back the same day). Out here it is on the page's own paper
+   rather than on the card, and the row it joins is one small tab high, so it is ONE line rather than the
+   piles' figure over a word: the figure in the display face at the caption's own size, the words in the
+   mono caption style, and the word LEADING it
+   ("studied 13m today", on request) so it reads as a sentence rather than as a labelled statistic. The
+   inset and the top padding are what put its line where the row's other items used to sit — measured on
+   the rendered page, not derived. */
 .rv-time{
   display:inline-flex; align-items:baseline; gap:6px; flex:0 1 auto; min-width:0;
   margin-inline-start:20px; padding:7px 0 0;

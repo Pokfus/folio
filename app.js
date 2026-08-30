@@ -19828,14 +19828,14 @@
   // tag), revealed by clicking the quote. A quote carries one ONLY where the wording is documented:
   // Bacon wrote his essay in English, and where the exact original could not be verified there is no `o`
   // rather than a plausible-looking reconstruction — the same rule the cards and glossary run on.
-  /* THREE OF THESE CARRY NO `o` BLOCK, AND TWO OF THEM NEVER WILL (Aug 2026, on request that a quote
-     with no translation either gain one or go). Bacon and Vivekananda WROTE IN ENGLISH — the line on the
-     page IS the original — so there is nothing to flip to and the control correctly does not appear;
-     both were kept on that ground, and what was missing was the DATE, which both now have (Vivekananda's
-     is the letter to "Kidi" of 3 March 1894, which is where the sentence is). Ashoka's edict does have a
-     Prakrit original and it is NOT here: nothing openable from this sandbox carries a transliteration
-     clean enough to set down, and a reconstructed one would be exactly the invention this file must
-     never contain. See docs/refinements-2026-08-27.md. */
+  /* TWO OF THESE CARRY NO `o` BLOCK AND NEVER WILL (Aug 2026, on request that a quote with no
+     translation either gain one or go). Bacon and Vivekananda WROTE IN ENGLISH — the line on the page IS
+     the original — so there is nothing to flip to and the control correctly does not appear; both were
+     kept on that ground, and what was missing was the DATE, which both now have (Vivekananda's is the
+     letter to "Kidi" of 3 March 1894, which is where the sentence is). See
+     docs/refinements-2026-08-27.md. Ashoka's edict was the third of them until Aug 2026 and now carries
+     its Prakrit — see the note on that quote for where it was finally read, and for the three decisions
+     taken in setting it down. */
   const SHIPPED_QUOTES = [
     { t: "To learn, and at due times to repeat what one has learnt — is that not after all a pleasure?", a: "Confucius", s: "Analects I.1",
       o: { lang: "lzh", t: "學而時習之，不亦說乎？", a: "孔子", s: "《論語·學而》" } },
@@ -19899,16 +19899,31 @@
     { t: "Yoga is the stilling of the movements of the mind.", a: "Patanjali", s: "Yoga Sutras 1.2",
       o: { lang: "sa", t: "योगश्चित्तवृत्तिनिरोधः।", a: "पतञ्जलि", s: "योगसूत्र १.२" } },
     // NO ORIGINAL, AND THE REASON IS THE DIACRITICS RATHER THAN THE TEXT (Aug 2026, looked for on
-    // request). The Prakrit exists and is not in doubt: Hultzsch prints the Girnar version of clause (H)
-    // in the Corpus Inscriptionum Indicarum I (1925), which is the edition the English above follows.
-    // What could not be had is a copy that survives being read. The volume is on the Internet Archive
-    // twice and BOTH are OCR of a 1925 type-facsimile: the two scans agree on the letters and disagree
-    // on the macrons, and neither preserves an under-dot at all — so ātpa/atpa is a guess and every
-    // retroflex ḍ and ṇ in pāsaṁḍa is unrecoverable. A transliteration of an inscription is exactly the
-    // place where a plausible reconstruction is a fabrication, so none is written; en.wikipedia's Major
-    // Rock Edicts carries Hultzsch's ENGLISH only, and no Unicode edition was found on Wikisource,
-    // GRETIL or SARIT. Ship it the day a keyed text turns up — the sentence wanted is Girnar XII (H).
-    { t: "Whoever honours his own sect and disparages another's, thinking to do honour to his own sect, injures his own sect the more gravely.", a: "Ashoka", s: "Major Rock Edict XII, c. 257 BCE" },
+    // request), and it has one since Aug 2026, on the second — reported again on the day the edict came
+    // up. THE ORIGINAL IS HULTZSCH'S GIRNAR TEXT of clause (H), Corpus Inscriptionum Indicarum I (1925),
+    // which is the edition the English above follows.
+    // WHAT WAS WRONG BEFORE WAS THE COPY, NOT THE CONCLUSION, and the correction is worth carrying past
+    // this file. The earlier note here read the Internet Archive's `_djvu.txt` and found the diacritics
+    // gone — the scans "disagree on the macrons" and preserve "no under-dot at all" — and concluded that
+    // no readable copy existed, so that writing the line would be reconstruction. That is true of the
+    // OCR and false of the BOOK: `iiif.archive.org` serves a crop of any leaf of the same scan at native
+    // resolution, and at that size `pāsaṁḍa` shows its macron, its anusvāra dot and its retroflex
+    // under-dot plainly. The text below was read off leaves 156 and 157 of
+    // `InscriptionsOfAsoka.NewEditionByE.Hultzsch` (printed pp. 20–21) — so ASK THE PAGE IMAGE BEFORE
+    // CONCLUDING A SCAN HAS LOST SOMETHING; an OCR layer losing a diacritic says nothing about the page.
+    // THREE DECISIONS IN SETTING IT DOWN, so nobody has to re-take them. It is the GIRNAR version and
+    // `s` says so: the edict survives in several recensions in different dialects, so "the Prakrit
+    // original" without a place names no one text. The LETTERS ARE HULTZSCH'S AND HIS SQUARE BRACKETS
+    // ARE NOT KEPT — `v[a]`, `Piyad[a]si`, `pāsaṁḍa[ṁ]` mark aksharas damaged on the rock, which is
+    // apparatus about the stone rather than part of the passage, and each is his own restoration, so
+    // dropping the brackets changes no letter where printing them on a home page reads as corruption.
+    // (`karāto` is likewise what he prints; his footnote 2 says to READ `karoto`, which is a correction
+    // to the mason rather than to the text.) And the SPEAKER is how the king names himself in this very
+    // edict, in its own opening clause — the same rule every other original here follows.
+    // There is no `o.s`: an inscription is not a book and carries no title in its own language, so the
+    // one source line stays through the flip rather than blanking (see dailyQuoteHTML).
+    { t: "Whoever honours his own sect and disparages another's, thinking to do honour to his own sect, injures his own sect the more gravely.", a: "Ashoka", s: "Major Rock Edict XII (Girnar), c. 257 BCE",
+      o: { lang: "pra-Latn", t: "yo hi kochi ātpa-pāsaṁḍaṁ pūjayati para-pāsaṁḍaṁ va garahati savaṁ ātpa-pāsaṁḍa-bhatiyā kiṁti ātpa-pāsaṁḍaṁ dīpayema iti so cha puna tatha karāto ātpa-pāsaṁḍaṁ bāḍhataraṁ upahanāti", a: "Devānaṁpiye Piyadasi rājā" } },
     { t: "Where the mind is without fear and the head is held high — into that heaven of freedom, let my country awake.", a: "Rabindranath Tagore", s: "Gitanjali 35, 1912",
       // Tagore's own English of his Bengali poem, so the "original" is Naibedya 72 (1901) rather than
       // anything in Gitanjali. Both ends of the sentence, as the English quotes them, with the same middle
@@ -20113,11 +20128,17 @@
     const pair = (en, orig) =>
       '<span class="dq-live">' + esc(en) + "</span>" +
       (o ? '<span class="dq-orig notranslate" lang="' + esc(o.lang) + '" hidden>' + esc(orig) + "</span>" : "");
+    // …EXCEPT the source line, where an original may have nothing of its own to put opposite it: an
+    // INSCRIPTION is not a book and carries no title in its own language (Ashoka's Girnar edict is the
+    // one that needs this). A pair would then hide the reference on the flip and show an empty span in
+    // its place, so where `o.s` is missing the one line is emitted UNPAIRED and simply stays put — which
+    // is also what it is, the modern reference for the passage rather than a second language of it.
+    const srcPair = (en) => (o && o.s ? pair(en, o.s) : esc(en));
     return '<figure class="daily-quote' + (o ? " dq-flip" : "") + '"' +
       (o ? ' tabindex="0" role="button" title="Show the original" aria-label="Show the original"' : "") + ">" +
       "<blockquote>" + pair(q.t, o && o.t) + "</blockquote>" +
       "<figcaption>" + pair(q.a, o && o.a) +   // the caption's dash is the gold ::before rule, not a text em-dash
-      (q.s ? '<span class="dq-src">' + pair(q.s, o && o.s) + "</span>" : "") +
+      (q.s ? '<span class="dq-src">' + srcPair(q.s) + "</span>" : "") +
       "</figcaption></figure>";
   }
   // flip the whole figure between the reader's language and the original. The swap itself is still the
@@ -21570,21 +21591,25 @@
        fourth `.stat` in the meta row beside New / Learning / Review). It is not a pile: those three say
        what is left to do today and this says what has been done, so standing it among them made a reader
        read four numbers of two different kinds off one line. It goes to the bottom LEFT of the review
-       group, on the `.rv-foot` line the "+ Add decks" lip already hangs from — the two ends of the block's
+       group, on the `.rv-foot` line the "+ Add decks" lip used to hang from — the two ends of the block's
        own bottom edge, which is where a footnote about the day belongs.
-       Being out of the banner it also stops being a figure-over-a-word: the row it joins is one small tab
-       high, so it is one line, and it names the day now that nothing beside it supplies one. Drawn only
-       once there is time to report — a "0s" before the first card is a clock reporting that nothing has
-       happened, which the empty row already says — and it counts the study page alone, so the minigames
-       are outside it by construction rather than by a rule (see studyTimeAdd). */
-    const timeFoot = (() => {
+       IT WENT UP TO THE BANNER'S CORNER WITH THE EDIT BUTTON AND CAME STRAIGHT BACK (Aug 2026, on the
+       request that moved the button and then on a second one the same day: "move the timer back to where
+       it was before"). So the corner holds the Edit control alone and this holds the timer alone, which is
+       also what it held before the editor mode existed.
+       Being out of the banner it is one line rather than a figure over a word, and it names the day now
+       that nothing beside it supplies one. Drawn only once there is time to report — a "0s" before the
+       first card is a clock reporting that nothing has happened, which the empty row already says — and it
+       counts the study page alone, so the minigames are outside it by construction rather than by a rule
+       (see studyTimeAdd). */
+    const dayTime = (() => {
       const ms = studyTimeToday();
       /* THE WORD LEADS AND THE FIGURE FOLLOWS — "studied 13m today", not "13m studied today" (Aug 2026, on
          request). It reads as a sentence about the day rather than as a labelled statistic, which is what
          the three piles in the banner are and what this deliberately stopped being when it left them.
          Three flex children rather than two, so the gap spaces them and no text node carries a space of
          its own; "today" is last and is its own span so the narrowest phones can drop it (see .rv-today),
-         where the longest this prints — "studied 3h 07m today" — runs past the lip and ellipsises. */
+         where the longest this prints — "studied 3h 07m today" — runs past the row and ellipsises. */
       return ms > 0 ? `<div class="rv-time" title="Time spent on cards today — the daily games are not counted"><span>studied</span><b>${esc(fmtStudyTime(ms))}</b><span class="rv-today">today</span></div>` : "";
     })();
     /* THE CHEST NEVER SHOWS AS A NUMBER ON THIS BANNER (Aug 2026, on request). It was a `chest-chip` stat
@@ -21652,7 +21677,7 @@
               ${/* a "Seen total" stat sat here and was removed on request (Aug 2026) — the xp bar directly
                     above it is already the count of distinct cards studied, said as progress towards the
                     next level rather than as a bare number. */""}
-              ${/* the day's time on cards stood here and is now under the deck list — see `timeFoot` above */""}
+              ${/* the day's time on cards stood here and is now under the deck list — see `dayTime` above */""}
               ${streakChip}
               ${/* THE CTA IS DRAWN ONLY WHILE THERE IS WORK (Aug 2026, on request). A cleared day used to
                     swap "Start" for a ghost "Browse collections", which is a second route to a page the
@@ -21698,34 +21723,48 @@
        having moved out of the banner a fortnight earlier; the request is to take the group function off
        the daily study block altogether, so the control goes and `promptNewGroup` with it — see the note
        where that function was defined for what deliberately STAYS, and why.
-       THE FOOTER ROW NOW HOLDS THE DAY'S TIMER ALONE, and is therefore DRAWN ONLY WHEN THERE IS A TIMER
-       TO HOLD: the lip that used to hang from its right went out of the group altogether (see
-       `collectionsBtn`), and `timeFoot` is empty until the first card of the day is studied, so an
-       unconditional row would spend the group's own bottom padding on nothing every morning. */
+       THE EDIT BUTTON LEFT THE FOOTER ROW FOR THE BANNER'S TOP RIGHT (Aug 2026, on request: "move the
+       active decks edit button and study timer to the top right of the Daily Study banner … vertically
+       centered to the Daily Study title"), AND THE TIMER CAME BACK DOWN AGAIN the same day, on a second
+       request ("move the timer back to where it was before"). So `.rv-foot` is still drawn and holds the
+       day's timer alone — which is what it held before the editor mode was built — and is therefore
+       CONDITIONAL on there being a timer again: `dayTime` is empty until the first card of the day is
+       studied, so an unconditional row would spend the group's own bottom padding on nothing every
+       morning, and the mode still hides it. What the mode's own three buttons needed the row for
+       (surviving the list emptying, so Revert stays reachable) is the corner row's problem now, and it
+       answers it the same way.
+       THE CORNER ROW IS A SIBLING OF THE BANNER, NOT A CHILD OF IT, and that is forced rather than
+       chosen: the banner IS a `<button>`, so a real `<button>` cannot go inside it — the parser hoists it straight
+       back out — and the last control that tried (the "+ New group" tab) had to be a `role="button"` span
+       the banner's own handler deferred to. Standing outside it, these are ordinary buttons again with
+       ordinary keyboard behaviour, and no press of theirs can reach the banner underneath, since the
+       events never travel through it. `.rv-topacts` is what lays the row over the banner's top right; it
+       is `pointer-events:none` with its children `auto`, so the rest of the banner is still one big
+       button. Drawn on the same condition the foot row was: there are decks to edit, or the mode is open
+       (which is what keeps Revert reachable after the last deck has been removed). */
+    /* The corner row holds the EDIT CONTROL AND NOTHING ELSE. The timer went up here with it and came
+       back down the same day, on request, so the corner has the width of one button at rest and of the
+       three the mode opens — which is the whole of why the three still fit beside the title on a phone. */
+    const topActs = fresh || (!activeIds.length && !deckEditOn) ? ""
+      : `<div class="rv-topacts">${deckEditBarHTML()}</div>`;
     const reviewGroup = `<div class="review-group ${activeIds.length && !fresh ? "has-active" : ""}${reviewDone ? " rv-done" : ""}${reviewWon ? " rv-won" : ""}">
             ${bannerHTML}
             ${/* The Ordered/Random pill lived here until Aug 2026 and is now in the banner's own
-                  long-press sheet (openReviewMenu) — see the comment there. */""}
+                  long-press sheet (openReviewMenu) — see the comment there. Its old corner is where the
+                  Edit button sits now, and the `padding-right` it left on the title is what keeps the two
+                  apart. */""}
+            ${topActs}
             ${fresh ? "" : `<div class="active-decks">${activeHTML}</div>`}
             ${collectionsBtn}
             ${/* The footer row BELOW the card — the day's time studied, on the page's own paper rather
-                  than on the card, against the left end of the group's own bottom edge. Drawn only when
-                  there is a timer to hold: `timeFoot` is empty until the first card of the day is
-                  studied, so an unconditional row would spend the group's bottom padding on nothing every
-                  morning. */""}
-            ${/* THE FOOT IS NOW DRAWN WHENEVER THERE ARE DECKS, not only when there is a timer (Aug 2026,
-                  with the editor mode): the request puts the edit button here, "in the bottom left, just
-                  below the active decks list, vertically centered to the study timer", and a control that
-                  only appears once the reader has studied a card is a control most mornings do not have.
-                  The TIMER is still conditional inside it — "0s" before the first card is a clock
-                  reporting that nothing has happened — and it is hidden outright while the mode is open,
-                  which is what the request asks for and what leaves the three buttons the row's own
-                  width. */""}
-            ${/* …and it SURVIVES the list emptying while the mode is open, which is the one state that
-                  would otherwise strand the reader: removing the last deck takes the list away, and with
-                  it the three buttons — including the Revert that is the only way to get the deck back.
-                  With the mode shut and no decks there is nothing to edit and the row is not drawn. */""}
-            ${fresh || (!activeIds.length && !deckEditOn) ? "" : `<div class="rv-foot">${deckEditBarHTML()}${deckEditOn ? "" : timeFoot}</div>`}
+                  than on the card, against the left end of the group's own bottom edge. It is STILL
+                  hidden while the editor mode is open, which is what the mode's own request asked for
+                  ("the study timer disappears until the editing mode is closed") — that was written when
+                  the timer shared this row with the three buttons and they needed its width, and the
+                  buttons have since left for the banner's corner, so the reason is now the request rather
+                  than the space. Restoring it is what "back to where it was before" means; a later
+                  session may reasonably ask whether it should still go. */""}
+            ${fresh || deckEditOn || !dayTime ? "" : `<div class="rv-foot">${dayTime}</div>`}
           </div>`;
     /* ONE PAGE at every width now, in one order: the quote, the day's work (the review, the decks under it
        and the lip to the collections), then the games under a heading of their own. The phone's three swiped
