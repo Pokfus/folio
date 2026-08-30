@@ -21,15 +21,15 @@ The next card to write is the lowest `gc-NNN` not yet in `data.js`:
 `gc-011` Guangxi, `gc-012` Yunnan, `gc-013` Jiangxi, `gc-014` Liaoning, `gc-015` Fujian,
 `gc-016` Shaanxi, `gc-017` Guizhou, `gc-018` Shanxi, `gc-019` Chongqing, `gc-020` Heilongjiang,
 `gc-021` Xinjiang, `gc-022` Gansu, `gc-023` Shanghai, `gc-024` Jilin, `gc-025` Inner Mongolia,
-`gc-026` Beijing, `gc-027` Tianjin, `gc-028` Hainan and `gc-029` Ningxia, with `gc-501` Guangzhou, `gc-502` Jinan,
-`gc-503` Zhengzhou, `gc-504` Nanjing, `gc-505` Chengdu, `gc-506` Shijiazhuang, `gc-507` Changsha,
+`gc-026` Beijing, `gc-027` Tianjin, `gc-028` Hainan, `gc-029` Ningxia and `gc-030` Qinghai, with `gc-501` Guangzhou,
+`gc-502` Jinan, `gc-503` Zhengzhou, `gc-504` Nanjing, `gc-505` Chengdu, `gc-506` Shijiazhuang, `gc-507` Changsha,
 `gc-508` Hangzhou, `gc-509` Hefei, `gc-510` Wuhan, `gc-511` Nanning, `gc-512` Kunming, `gc-513` Nanchang,
 `gc-514` Shenyang, `gc-515` Fuzhou, `gc-516` Xi'an, `gc-517` Guiyang, `gc-518` Taiyuan,
 `gc-520` Harbin, `gc-521` Ürümqi, `gc-522` Lanzhou, `gc-524` Changchun, `gc-525` Hohhot,
-`gc-528` Haikou, `gc-529` Yinchuan and `gc-530` Xining.**
+`gc-528` Haikou, `gc-529` Yinchuan, `gc-530` Xining and `gc-531` Lhasa.**
 The first province card and the first capital card were written together, so that the new map layer, its
 point table, the fit and the gold dot were all proved on a real card rather than on a test. The next
-province is `gc-030` Qinghai and the next capital is `gc-531` Lhasa.
+province is `gc-031` Tibet, and it is the last card in the collection: every capital is written.
 
 ---
 
