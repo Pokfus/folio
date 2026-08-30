@@ -1607,7 +1607,8 @@ window.GLOSSARY = {
 "Darius_I": "Darius I was the Achaemenid king of Persia who took the throne on the death of Cambyses and held it for 36 years.<sup class=\"fn\" data-fn=\"2\"></sup> On a cliff at Behistun he had his own account of that accession carved in three languages, declaring that a Magian called Gaumata had lied by taking the name of Cyrus' son Smerdis, and that nine further rebel kings lied in the same way.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus instead makes him one of seven conspirators who killed the Magian and won the throne by a groom's trick, while Plato remembers a man who was no king's son who divided the empire and fixed its tribute by law.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Satrapy": "A satrapy was a province of the Achaemenid Persian empire, governed by a satrap whom the king appointed, a title Darius uses at Behistun of the men he set over Bactria and Arachosia.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says Darius divided his dominions into 20 such provinces and fixed each one's yearly tribute, while Xenophon describes a governor answering at a yearly review for the cultivation of his land as well as its garrisons.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Because one man held both the revenue and the troops of a whole region, the office could rival the throne, and Herodotus tells how Darius had Oroetes of Sardis killed by his own guards with a sealed letter.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Royal_Road": "The Royal Road was the highway of the Achaemenid Persian empire, running from Sardis in western Anatolia to Susa, which Herodotus reckoned at 111 posting stations and 450 parasangs, or 90 days of walking.<sup class=\"fn\" data-fn=\"1\"></sup> It carried a relay courier post the Persians called the angareion, with a man and a horse waiting at each day's interval, of which Herodotus says that nothing mortal travels faster, stopped by neither snow nor rain nor heat nor darkness.<sup class=\"fn\" data-fn=\"1\"></sup> Xenophon credits Cyrus with the posting stations, and the administrative tablets from Persepolis show the system working, recording rations issued to travellers a day's journey apart and express horses kept permanently at the posts.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Achaemenid_army": "The Achaemenid army was the military force of the Persian empire, drawn from its many subject peoples and marching, as Xenophon saw it at Cunaxa, in national divisions, each a solid square.<sup class=\"fn\" data-fn=\"3\"></sup> Herodotus equips its Persian troops with iron-scaled tunics, wicker shields, short spears, long bows and reed arrows, and Greek writers took its weapon to be the bow, Aeschylus setting the drawing of the bow against the might of the spear-head.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Greek figures for its size are enormous, Herodotus giving 1,700,000 for the land army and then wondering how so many were fed, and at Plataea judging its men no less brave but unarmoured against opponents fully armed.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Achaemenid_army": "The Achaemenid army was the military force of the Persian empire, drawn from its many subject peoples and marching, as Xenophon saw it at Cunaxa, in national divisions, each a solid square.<sup class=\"fn\" data-fn=\"3\"></sup> Herodotus equips its Persian troops with iron-scaled tunics, wicker shields, short spears, long bows and reed arrows, and Greek writers took its weapon to be the bow, Aeschylus setting the drawing of the bow against the might of the spear-head.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Greek figures for its size are enormous, Herodotus giving 1,700,000 for the land army and then wondering how so many were fed, and at Plataea judging its men no less brave but unarmoured against opponents fully armed.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Immortals": "The Immortals were a corps of ten thousand picked Persian soldiers in the Achaemenid army, known from Herodotus, who says the number was kept exact by choosing a replacement whenever one of them died or fell sick.<sup class=\"fn\" data-fn=\"1\"></sup> He calls them the best men in the army and the most richly adorned, marching about the king with golden and silver pomegranates on their spear-shafts, and names Hydarnes son of Hydarnes as their general.<sup class=\"fn\" data-fn=\"1\"></sup> The name is Greek, and Xenophon describes a royal guard of the same size without using it, while at Thermopylae Herodotus says the corps fared no better than the Medes it was sent in to relieve.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2342,7 +2343,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Darius_I": "reigned c. 522 – 486 BCE",
 "Satrapy": "c. 550 – 330 BCE",
 "Royal_Road": "in use by c. 500 BCE",
-"Achaemenid_army": "c. 550 – 330 BCE"
+"Achaemenid_army": "c. 550 – 330 BCE",
+"Immortals": "c. 5th century BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3376,7 +3378,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Darius_I": ["Darius the Great"],
 "Satrapy": ["satrap","satraps","satrapal"],
 "Royal_Road": ["angareion"],
-"Achaemenid_army": ["Persian army","Persian armies"]
+"Achaemenid_army": ["Persian army","Persian armies"],
+"Immortals": ["Persian Immortals"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -3399,7 +3402,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Shun": true,
 "Pyramid_of_Djoser": true,
 "Great_Pyramid_of_Giza": true,
-"Ding_(vessel)": true
+"Ding_(vessel)": true,
+"Immortals": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -5010,7 +5014,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Darius_I": ["ruler","history","warfare","iran"],
 "Satrapy": ["institution","history","geography","iran"],
 "Royal_Road": ["place","history","geography","technology","iran"],
-"Achaemenid_army": ["institution","history","warfare","iran"]
+"Achaemenid_army": ["institution","history","warfare","iran"],
+"Immortals": ["institution","history","warfare","iran"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
