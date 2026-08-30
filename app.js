@@ -14183,7 +14183,14 @@
       // NOT filtered: an empty element is what admits the bare stem — see the table's own note
       sfx.split("|").forEach((t) => { gb[g + t] = u + t; if (!oneWay) us[u + t] = g + t; });
     });
-    const rx = (m) => new RegExp("\\b(?:" + Object.keys(m).sort((a, b) => b.length - a.length).join("|") + ")\\b", "gi");
+    /* THE BOUNDARY IS UNICODE-AWARE, AND `\b` CANNOT BE (Aug 2026, on a bug report). JS's `\b` is
+       defined over ASCII `\w`, so an accented letter counts as a NON-word character and stands as a
+       boundary of its own — which means a pattern anchored with `\b` matches INSIDE an accented word:
+       `Moldávia` became `Mouldávia`, `literário` became `litreário`, `élaborer` became `élabourer` and
+       `honoré` became `honouré`, because `Mold`, `liter`, `labor` and `honor` each end at an `á` or an
+       `é`. Bound on letters, numbers and underscore by Unicode instead — `buildGlossIndex` above already
+       does exactly this, and for the mirror of this reason (`Æsir` and `Vé` could never MATCH). */
+    const rx = (m) => new RegExp("(?<![\\p{L}\\p{N}_])(?:" + Object.keys(m).sort((a, b) => b.length - a.length).join("|") + ")(?![\\p{L}\\p{N}_])", "giu");
     return { gb, us, rxGB: rx(gb), rxUS: rx(us) };
   })();
   function spellSystem() { return SPELLINGS.includes(S.settings && S.settings.spelling) ? S.settings.spelling : "en-GB"; }
@@ -14228,10 +14235,68 @@
     }
     return out + swap(text.slice(last));
   }
+  /* THE PAGE ALREADY SAYS WHAT LANGUAGE ITS TEXT IS IN, AND THIS PASS WAS NOT ASKING (Aug 2026, on a
+     bug report: the Spanish `por favor` shown as `por favour`). A British/American switch is a choice
+     between two spellings OF ENGLISH, and it was being run over every text node on the page — including
+     a language deck's own Spanish, French, German, Italian and Portuguese, where the table's American
+     forms are ordinary foreign words. `por favor` became `por favour`, the Spanish verb `saber` became
+     `sabre` ON THE FRONT OF THE CARD (so the word a learner is being taught was the misspelling), German
+     `Labor` became `labour` and Portuguese `valor` became `valour`. Measured over the 52 shipped decks:
+     5,568 rewrites of somebody else's language.
+
+     THE FIX NEEDED NO NEW MACHINERY, WHICH IS THE POINT. `cardTypeSideHTML` has always written the card
+     type's `speechLang` onto the `.uc-card` wrapper, so the Spanish card that was being rewritten was
+     sitting inside `lang="es-ES"` the whole time; the daily quote's original-language block carries its
+     own `lang` for the same reason. So the rule is the standard one: a text node whose nearest declaring
+     ancestor is not English is not English, and is left exactly as its author wrote it. `<html lang="en">`
+     is that ancestor for everything else on the site, so Folio's own prose is untouched.
+
+     KNOWN GAP, STATED RATHER THAN PAPERED OVER: the rule can only see a language that is DECLARED, and
+     foreign text carrying no `lang` is still swept. Two ways that happens, both measured: a card type
+     with no `speechLang` (all 52 shipped decks declare one on every type, so the shipped corpus is
+     covered, but a stranger's imported deck need not), and a deck's own GLOSSARY, whose popup is drawn
+     outside the card wrapper and so inherits no language at all (no shipped deck carries one today —
+     `UGLOSS` is empty across all 52 — so there is nothing to fix yet, and a deck that ever does would
+     want `lang` on `.gloss-win`). The Unicode boundary above is what keeps those cases from mangling
+     the INSIDE of accented words; an exact ASCII collision in such a deck remains possible. */
+  const SPELL_LANG_EN = /^en(?:[-_]|$)/i;
+  /* `[lang|="en"]` is the attribute selector's own language test — it matches `en` and `en-GB` and
+     nothing else — so this finds an element declaring a language that is not English. It is asked ONCE
+     per pass rather than per text node, and on every page of Folio's own site the answer is no: measured
+     on `#decks` (8,848 text nodes, the heaviest list on the site), a `closest("[lang]")` per node costs
+     2.74ms and this costs 0.15ms. A reader who has no foreign text on screen pays for none of it. */
+  const SPELL_FOREIGN_SEL = '[lang]:not([lang|="en" i])';
+  // one skip test for both branches: the walker's nodes AND a bare text node handed to spellTree by the
+  // observer, which had no test of its own at all — so a citation updated in place was being rewritten
+  function spellSkip(p, foreign) {
+    if (!p || p.nodeName === "SCRIPT" || p.nodeName === "STYLE" || p.nodeName === "TEXTAREA") return true;
+    /* .notranslate is what protects the CITATIONS, and here it matters more than it does for units:
+       a citation names a published work, and rewriting `The Colour of Prehistory` into `Color`
+       invents a title that does not exist. The Library's books are covered by the same rule for the
+       same reason — a translation is somebody's published prose, transcribed rather than edited. */
+    if (p.isContentEditable) return true;
+    if (!p.closest) return false;
+    if (p.closest(".notranslate, .bk-page")) return true;
+    if (!foreign) return false;
+    const decl = p.closest("[lang]");
+    if (!decl) return false;
+    // an EMPTY lang declares nothing (HTML's "unknown"), so it is not a reason to skip — only a stated
+    // language that is not English is
+    const tag = (decl.getAttribute("lang") || "").trim();
+    return !!tag && !SPELL_LANG_EN.test(tag);
+  }
   function spellTree(root) {
     if (!root) return;
     const us = spellSystem() === "en-US";
-    if (root.nodeType === 3) { const v = spellText(root.nodeValue, us); if (v !== root.nodeValue) root.nodeValue = v; return; }
+    /* The document is asked as well as the root, and in that order: `render()` hands us a page that is
+       already in the document, but the observer can hand us a subtree, and a root that is somehow
+       detached would answer for itself. */
+    const foreign = !!(document.querySelector(SPELL_FOREIGN_SEL) ||
+      (root.nodeType === 1 && root.matches && (root.matches(SPELL_FOREIGN_SEL) || root.querySelector(SPELL_FOREIGN_SEL))));
+    if (root.nodeType === 3) {
+      if (spellSkip(root.parentNode, foreign)) return;
+      const v = spellText(root.nodeValue, us); if (v !== root.nodeValue) root.nodeValue = v; return;
+    }
     if (!root.querySelectorAll) return;
     const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
     const nodes = []; let n;
@@ -14239,13 +14304,7 @@
     nodes.forEach((node) => {
       const src = node.nodeValue;
       if (!src) return;
-      const p = node.parentNode;
-      if (!p || p.nodeName === "SCRIPT" || p.nodeName === "STYLE" || p.nodeName === "TEXTAREA") return;
-      /* .notranslate is what protects the CITATIONS, and here it matters more than it does for units:
-         a citation names a published work, and rewriting `The Colour of Prehistory` into `Color`
-         invents a title that does not exist. The Library's books are covered by the same rule for the
-         same reason — a translation is somebody's published prose, transcribed rather than edited. */
-      if (p.isContentEditable || (p.closest && p.closest(".notranslate, .bk-page"))) return;
+      if (spellSkip(node.parentNode, foreign)) return;
       const v = spellText(src, us);
       if (v !== src) node.nodeValue = v;
     });

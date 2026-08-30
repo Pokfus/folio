@@ -12,7 +12,7 @@
  *
  * Run: NODE_PATH=<playwright> FOLIO_CHROMIUM=<chrome> node .claude/test-spelling.js
  */
-const fs = require("fs"), path = require("path"), http = require("http");
+const fs = require("fs"), path = require("path"), http = require("http"), os = require("os");
 const ROOT = path.resolve(__dirname, "..");
 const SRC = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
 
@@ -94,6 +94,29 @@ if (spellText) {
   check("a URL survives the pass", gb2us(u) === "See https://www.ncei.noaa.gov/pub/data/paleo/icecore for the color of the theater.", gb2us(u));
   const u2 = "https://upload.wikimedia.org/x/Panionium_theatre.jpg";
   check("…and so does one that is the whole node", gb2us(u2) === u2, gb2us(u2));
+
+  /* THE WORD BOUNDARY IS UNICODE-AWARE, AND `\b` CANNOT BE (Aug 2026, on a bug report). JS's `\b` is
+     defined over ASCII `\w`, so an accented letter is a NON-word character and stands as a boundary of
+     its own — which let a `\b`-anchored pattern match INSIDE an accented word. Every case below was
+     found in the shipped decks, not invented: `Mold`+`ávia`, `liter`+`ário`, `élab`+`or`+`er`,
+     `honor`+`é`. None of them is an English word at all, and the reader saw the corruption mid-word,
+     which reads as a typo in the content rather than as a transform. */
+  [["Moldávia é um país", "us2gb"], ["um texto literário", "us2gb"], ["élaborer un plan", "us2gb"],
+   ["il est honoré", "us2gb"], ["une décoloration", "us2gb"], ["réorganiser le texte", "gb2us"]].forEach(([t, dir]) => {
+    const out = dir === "us2gb" ? us2gb(t) : gb2us(t);
+    check("an accented word is not matched into: " + JSON.stringify(t), out === t, out);
+  });
+  /* …and the boundary still BINDS: the change must not turn the anchors off, or `neighbour` starts
+     matching inside `neighbourhood` and every word in the table matches inside every longer one. */
+  check("the boundary still holds at the LEFT", gb2us("a discolouration") === "a discolouration", gb2us("a discolouration"));
+  check("…and at the RIGHT", gb2us("the timetree") === "the timetree", gb2us("the timetree"));
+  check("…while a real word still transforms beside an accented one", us2gb("the color of Moldávia") === "the colour of Moldávia", us2gb("the color of Moldávia"));
+
+  /* A LANGUAGE DECK'S OWN WORDS ARE NOT MISSPELLED ENGLISH. These are the exact tokens the transform
+     was rewriting on 52 shipped decks — Spanish `por favor` and `saber`, German `Labor`, Portuguese
+     `valor` — and at this level they are indistinguishable from American English, which is why the DOM
+     half below (the `lang` rule) is what actually fixes them rather than a row removed from the table. */
+  check("the table alone cannot tell Spanish from American English", us2gb("por favor") === "por favour", us2gb("por favor"));
 }
 
 /* THE TABLE AGAINST THE REAL CORPUS. A row is only ever as good as what it does to the prose that
@@ -201,6 +224,98 @@ const srv = http.createServer((rq, rs) => {
     check("a citation in the data still carries its British spelling", /colour|centre|behaviour|organis/i.test(cite.src), cite.src);
   } else {
     check("(no British-spelled citation in the corpus to check)", true);
+  }
+
+  /* ---------- 4. THE `lang` RULE, ON A REAL LANGUAGE DECK (Aug 2026, on a bug report) ----------
+     A reader met the Spanish `por favor` shown as `por favour`. The transform was running over every
+     text node on the page, and a language deck's cards are not English: `por favor` and the verb
+     `saber` are ordinary Spanish, and `favor` / `saber` are also rows in this table. `saber` is the
+     WORD ON THE FRONT of DELE A1's card 108, so what a learner was being taught to produce was the
+     misspelling — which no amount of reading the table can catch, because at the level of a string
+     `favor` really is American English (asserted as much in section 1).
+
+     IT MUST RUN IN en-GB, WHICH IS THE DEFAULT AND WAS THE WHOLE OF THE REPORT. `favor` is an
+     AMERICAN form, so it is the American-to-British pass that corrupts it — written against en-US
+     this section passes on the unfixed code, because that direction never looks at `favor` at all.
+     A liveness check goes with it for the same reason: without one, a future change that stopped the
+     en-GB pass running would make every assertion here pass while testing nothing.
+
+     It is asserted on the REAL shipped deck rather than on a fixture, because what fixes it is a
+     `lang` attribute written by `cardTypeSideHTML` out of the card TYPE's `speechLang` — a fixture
+     would be asserting that this test file writes `lang` correctly. Every one of the 52 shipped decks
+     declares `speechLang` on every type; if that ever stops being true, this fails. */
+  await page.goto("http://127.0.0.1:8797/#settings");
+  await page.waitForTimeout(1200);
+  await page.evaluate(() => { const el = document.querySelector('#spellPick [data-spelling="en-GB"]'); if (el) el.click(); });
+  await page.waitForTimeout(800);
+
+  /* THE FLAG'S SELECTOR, ASSERTED DIRECTLY. `spellSkip` only consults `lang` when a one-per-pass
+     `querySelector` says the page has foreign text on it — so a selector that quietly stopped matching
+     would put the whole bug back with nothing on the page or in this file to say so. `[lang|="en" i]`
+     is the attribute selector's own language test: it matches `en` and `en-GB` and, with the `i`, their
+     casings. An EMPTY lang counts as foreign here and is then let through by `SPELL_LANG_EN` — the flag
+     is allowed to be conservative, the per-node test is what decides. */
+  const selSrc = (SRC.match(/const SPELL_FOREIGN_SEL = (['"])(.*?)\1;/) || [])[2];
+  check("the foreign-language selector is still declared", !!selSrc, selSrc);
+  if (selSrc) {
+    const sel = await page.evaluate((SEL) => {
+      const h = document.createElement("div");
+      document.body.appendChild(h);
+      const ask = (v) => { h.innerHTML = v === null ? "<span>x</span>" : '<span lang="' + v + '">x</span>'; return !!h.querySelector(SEL); };
+      const out = { es: ask("es-ES"), fr: ask("fr"), zh: ask("zh-CN"), grc: ask("grc"),
+                    en: ask("en"), enGB: ask("en-GB"), ENgb: ask("EN-gb"), none: ask(null) };
+      h.remove();
+      return out;
+    }, selSrc);
+    check("…and it finds a non-English language", sel.es && sel.fr && sel.zh && sel.grc, JSON.stringify(sel));
+    check("…and does NOT fire on English, in any casing", !sel.en && !sel.enGB && !sel.ENgb && !sel.none, JSON.stringify(sel));
+  }
+
+  const deckSrc = path.join(ROOT, "decks", "Spanish-Phrases.folio-deck.json");
+  if (fs.existsSync(deckSrc)) {
+    const full = JSON.parse(fs.readFileSync(deckSrc, "utf8"));
+    const porFavor = (full.cards || []).find((c) => (c.fields || {}).Spanish === "por favor");
+    check("the shipped Spanish deck still leads on `por favor`", !!porFavor);
+    check("…and its type declares the language it speaks", Object.values(full.meta.types || {}).every((t) => !!t.speechLang),
+      JSON.stringify(Object.values(full.meta.types || {}).map((t) => t.speechLang)));
+    if (porFavor) {
+      const probe = path.join(os.tmpdir(), "folio-spell-es.folio-deck.json");
+      /* The deck's own TITLE is the liveness check: it is Folio chrome rather than card content, so it
+         sits outside every `lang` and MUST still be transformed. `color` -> `colour` there and
+         `por favor` left alone on the card is the pair that says the fix is a skip and not an off switch. */
+      fs.writeFileSync(probe, JSON.stringify({ folioDeck: 1,
+        meta: { ...full.meta, id: "spelles1", title: "Spelling probe in color" }, cards: [porFavor], gloss: {} }));
+
+      await page.goto("http://127.0.0.1:8797/#studio");
+      await page.waitForTimeout(1600);
+      const fchoose = page.waitForEvent("filechooser");
+      await page.click("#stImport");
+      (await fchoose).setFiles(probe);
+      await page.waitForTimeout(1400);
+      await page.goto("http://127.0.0.1:8797/#decks");
+      await page.waitForTimeout(1500);
+      const titles = await page.evaluate(() => [...document.querySelectorAll(".collection-title, .sd-title")].map((e) => e.textContent));
+      check("LIVENESS: the en-GB pass is running on ordinary page text",
+        titles.some((t) => /Spelling probe in colour/.test(t)), JSON.stringify(titles.filter((t) => /Spelling probe/.test(t))));
+
+      await page.click('[data-uadd="spelles1"]').catch(() => {});
+      await page.waitForTimeout(900);
+      await page.goto("http://127.0.0.1:8797/#home");
+      await page.waitForTimeout(1500);
+      await page.evaluate(() => { const r = document.querySelector("[data-review]"); if (r) r.click(); });
+      await page.waitForTimeout(1600);
+
+      const card = await page.evaluate(() => {
+        const el = document.querySelector(".uc-card");
+        return el ? { lang: el.getAttribute("lang"), word: (document.querySelector(".uc-word") || {}).textContent } : null;
+      });
+      check("the Spanish card is on screen", !!card && !!card.word, JSON.stringify(card));
+      /* The wrapper's `lang` is the whole mechanism: it was already being written when the bug was
+         reported, and the spelling pass simply was not reading it. If this fails, the fix has no seam
+         left to hang on and the one below is failing for a different reason. */
+      check("…and the wrapper declares the language it is in", !!card && /^es\b/i.test(card.lang || ""), JSON.stringify(card && card.lang));
+      check("Spanish `por favor` is left as its author wrote it", !!card && (card.word || "").trim() === "por favor", JSON.stringify(card && card.word));
+    }
   }
 
   // back to British, so the run leaves nothing behind

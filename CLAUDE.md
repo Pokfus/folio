@@ -2780,7 +2780,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Verified over the whole corpus: 341 fields transform and no other bracket is touched. **Re-run that
     check after a units batch.**
 - **British or American spelling, the reader's** (`S.settings.spelling` / `SPELL_PAIRS` / `spellText` /
-  `spellTree` / `applySpelling`). The units switch's shape exactly, so no field is authored twice. Eight
+  `spellTree` / `applySpelling`). The units switch's shape exactly, so no field is authored twice. Ten
   things are decisions rather than plumbing.
   · **IT IS A DECLARED TABLE AND NEVER A RULE, and every trap in it was found in the real corpus** — a
     `-re`→`-er` rule turns `timetree` into `timetrer`, a `kerb`→`curb` rule reaches into `Kerberos`, an
@@ -2803,9 +2803,45 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     Colour of Prehistory* invents a title that does not exist, and a book is somebody's translation.
   · **`gradeCloze` TRANSFORMS THE ANSWER, NEVER THE GUESS** — the stored `answerText` is British, so an
     American reader typing what is on their screen would be marked wrong.
+  · **A TEXT NODE UNDER A NON-ENGLISH `lang` IS NOT ENGLISH AND IS LEFT ALONE** (`spellSkip` /
+    `SPELL_LANG_EN` / `SPELL_FOREIGN_SEL`; Aug 2026, on a bug report that the Spanish `por favor` was shown
+    as `por favour`). This is a switch between two spellings OF ENGLISH and it was being run over every text
+    node on the page, a **language deck's own Spanish, French, German, Italian and Portuguese included** —
+    where the table's American forms are ordinary foreign words. Measured over the 52 shipped decks: **5,568
+    rewrites of somebody else's language**, of which the worst is that the Spanish verb `saber` was shown as
+    `sabre` **on the FRONT of DELE A1's card 108**, so the word a learner was being taught to produce was
+    the misspelling. German `Labor` became `labour`, Portuguese `valor` `valour`, Spanish `color` `colour`.
+    **THE FIX NEEDED NO NEW MACHINERY, WHICH IS THE POINT**: `cardTypeSideHTML` has always written the card
+    type's `speechLang` onto the `.uc-card` wrapper, so the Spanish card was sitting inside `lang="es-ES"`
+    the whole time and the pass simply was not asking; the daily quote's original-language block carries its
+    own `lang` for the same reason, and `<html lang="en">` is the declaring ancestor for everything else, so
+    Folio's own prose is untouched. It is asked **once per pass, not per text node** — measured on `#decks`
+    (8,848 text nodes), a `closest("[lang]")` per node costs 2.74ms against 0.15ms for the flag, so a reader
+    with no foreign text on screen pays for none of it. An **empty** `lang` declares nothing and is not a
+    reason to skip. **KNOWN GAP, STATED RATHER THAN PAPERED OVER**: the rule can only see a language that is
+    DECLARED, so foreign text carrying no `lang` is still swept — a card type with no `speechLang` (all 52
+    shipped decks declare one on every type, so the shipped corpus is covered; a stranger's imported deck
+    need not), and a deck's own GLOSSARY, whose popup is drawn outside the card wrapper and inherits no
+    language (`UGLOSS` is empty across all 52, so there is nothing to fix yet; a deck that ever carries one
+    would want `lang` on `.gloss-win`).
+  · **THE WORD BOUNDARY IS UNICODE-AWARE, AND `\b` CANNOT BE** (same report). JS's `\b` is defined over
+    ASCII `\w`, so an **accented letter is a non-word character and stands as a boundary of its own** — a
+    `\b`-anchored pattern therefore matches INSIDE an accented word: `Moldávia` became `Mouldávia`,
+    `literário` `litreário`, `élaborer` `élabourer`, `honoré` `honouré`, `réorganiser` `réorganizer`. The
+    fix is the lookarounds `buildGlossIndex` already uses for the mirror of this reason (`Æsir` and `Vé`
+    could never MATCH): `(?<![\p{L}\p{N}_]) … (?![\p{L}\p{N}_])` with the `u` flag. **Folio's own corpus
+    was measured clean of it** — the fault only ever reached accented content, which is the decks — and it
+    is what keeps the known gap above from mangling the inside of words.
+  · **AND `spellSkip` IS ONE TEST FOR BOTH BRANCHES.** `spellTree`'s bare-text-node branch — the one the
+    MutationObserver feeds — had **no skip test at all**, so a citation or a book's prose updated in place
+    was rewritten while the same text reached through the walker was protected.
   **Known limit, stated rather than papered over**: the card browser searches stored card TEXT, so
-  "color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (64
-  assertions), most of which needs no browser.
+  "color" will not find a card whose stored prose says "colour". Guarded by `.claude/test-spelling.js` (83
+  assertions), most of which needs no browser — and its section 4 must stay in **en-GB**, since `favor` is
+  an American form and the American-to-British direction is the one that corrupts it; written against
+  en-US it passes on the unfixed code. It carries a **liveness check** beside it for the same reason: a
+  change that stopped the en-GB pass running would otherwise make every assertion there pass while testing
+  nothing.
 - **ENGLISH ONLY — `const MULTILANG = false`** (app.js, beside `LANG_CODES`; Aug 2026, on request). The site
   ships in English while the work is on making the English as good as it can be. It is **one switch** and it
   shuts three doors: no Language card on Settings, `?lang=xx` no longer switches, and `setLang` refuses
