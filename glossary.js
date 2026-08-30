@@ -1606,7 +1606,8 @@ window.GLOSSARY = {
 "Cambyses_II": "Cambyses II was the second king of the Achaemenid Persian empire, the son and successor of Cyrus the Great, reigning seven years and five months.<sup class=\"fn\" data-fn=\"1\"></sup> His reign is remembered above all for the conquest of Egypt in 525 BCE, which ended the country’s history under native dynasties.<sup class=\"fn\" data-fn=\"3\"></sup> Greek writers, and Herodotus in particular, present him as violent and unbalanced, telling how he stabbed the sacred Apis bull at Memphis and killed his own brother, while the one Persian record of his reign, the inscription Darius cut at Behistûn, confirms only that he had a brother Smerdis and slew him in secret.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Darius_I": "Darius I was the Achaemenid king of Persia who took the throne on the death of Cambyses and held it for 36 years.<sup class=\"fn\" data-fn=\"2\"></sup> On a cliff at Behistun he had his own account of that accession carved in three languages, declaring that a Magian called Gaumata had lied by taking the name of Cyrus' son Smerdis, and that nine further rebel kings lied in the same way.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus instead makes him one of seven conspirators who killed the Magian and won the throne by a groom's trick, while Plato remembers a man who was no king's son who divided the empire and fixed its tribute by law.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Satrapy": "A satrapy was a province of the Achaemenid Persian empire, governed by a satrap whom the king appointed, a title Darius uses at Behistun of the men he set over Bactria and Arachosia.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says Darius divided his dominions into 20 such provinces and fixed each one's yearly tribute, while Xenophon describes a governor answering at a yearly review for the cultivation of his land as well as its garrisons.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Because one man held both the revenue and the troops of a whole region, the office could rival the throne, and Herodotus tells how Darius had Oroetes of Sardis killed by his own guards with a sealed letter.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Royal_Road": "The Royal Road was the highway of the Achaemenid Persian empire, running from Sardis in western Anatolia to Susa, which Herodotus reckoned at 111 posting stations and 450 parasangs, or 90 days of walking.<sup class=\"fn\" data-fn=\"1\"></sup> It carried a relay courier post the Persians called the angareion, with a man and a horse waiting at each day's interval, of which Herodotus says that nothing mortal travels faster, stopped by neither snow nor rain nor heat nor darkness.<sup class=\"fn\" data-fn=\"1\"></sup> Xenophon credits Cyrus with the posting stations, and the administrative tablets from Persepolis show the system working, recording rations issued to travellers a day's journey apart and express horses kept permanently at the posts.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Royal_Road": "The Royal Road was the highway of the Achaemenid Persian empire, running from Sardis in western Anatolia to Susa, which Herodotus reckoned at 111 posting stations and 450 parasangs, or 90 days of walking.<sup class=\"fn\" data-fn=\"1\"></sup> It carried a relay courier post the Persians called the angareion, with a man and a horse waiting at each day's interval, of which Herodotus says that nothing mortal travels faster, stopped by neither snow nor rain nor heat nor darkness.<sup class=\"fn\" data-fn=\"1\"></sup> Xenophon credits Cyrus with the posting stations, and the administrative tablets from Persepolis show the system working, recording rations issued to travellers a day's journey apart and express horses kept permanently at the posts.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Achaemenid_army": "The Achaemenid army was the military force of the Persian empire, drawn from its many subject peoples and marching, as Xenophon saw it at Cunaxa, in national divisions, each a solid square.<sup class=\"fn\" data-fn=\"3\"></sup> Herodotus equips its Persian troops with iron-scaled tunics, wicker shields, short spears, long bows and reed arrows, and Greek writers took its weapon to be the bow, Aeschylus setting the drawing of the bow against the might of the spear-head.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Greek figures for its size are enormous, Herodotus giving 1,700,000 for the land army and then wondering how so many were fed, and at Plataea judging its men no less brave but unarmoured against opponents fully armed.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2340,7 +2341,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Cambyses_II": "reigned c. 530 – 522 BCE",
 "Darius_I": "reigned c. 522 – 486 BCE",
 "Satrapy": "c. 550 – 330 BCE",
-"Royal_Road": "in use by c. 500 BCE"
+"Royal_Road": "in use by c. 500 BCE",
+"Achaemenid_army": "c. 550 – 330 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3373,7 +3375,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cambyses_II": ["Cambyses"],
 "Darius_I": ["Darius the Great"],
 "Satrapy": ["satrap","satraps","satrapal"],
-"Royal_Road": ["angareion"]
+"Royal_Road": ["angareion"],
+"Achaemenid_army": ["Persian army","Persian armies"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5006,7 +5009,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Cambyses_II": ["ruler","history","warfare","iran","egypt"],
 "Darius_I": ["ruler","history","warfare","iran"],
 "Satrapy": ["institution","history","geography","iran"],
-"Royal_Road": ["place","history","geography","technology","iran"]
+"Royal_Road": ["place","history","geography","technology","iran"],
+"Achaemenid_army": ["institution","history","warfare","iran"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
