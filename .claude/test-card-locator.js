@@ -16,14 +16,18 @@
    query, and "the reds are there" and "the card's own gold is still the biggest mark" are exactly the two
    things a reader would notice going wrong.
 
-   ONE THING THIS CANNOT ASSERT, and it is recorded rather than papered over: **no shipped card's answer
-   is a named river**, so the "only where the river is a card" rule has no live instance and what is
-   asserted is its OTHER half — that with no carded river, no river is drawn at all. Natural Earth's 10m
-   set names the Nile, Euphrates, Tigris, Danube, Po, Indus, Ganges, Yangtze and Jordan, and **it labels a
-   river in the language of the country it runs through**: the Tiber is in there as `Tevere`, the Danube
-   also as `Donau`, the Yangtze also as `Chang Jiang`. That is why `locatorSiblings` matches a card's
-   answer term AND its glossary aliases — the day a Tiber card is written, `Tevere` on the paired glossary
-   term is what puts the river on the map.
+   THE RIVERS ARE NOW THE ATLAS'S WHOLE SET, UNLABELLED (Aug 2026, on request: "the same Rivers
+   displayed on the Atlas should also be displayed in Atlas windows in cards (only without their
+   labels)"). For a fortnight a river was drawn only where the collection taught one, and this file
+   asserted the other half of that rule — that a collection with no river card got no river at all. It
+   asserts the replacement instead, in two directions, because a regression either way draws a perfectly
+   good map: the water-coloured pixels must GROW when the bundle lands, and the dark ink must not, since
+   a thousand river names arriving with them is exactly what was asked to be left out.
+   Natural Earth **labels a river in the language of the country it runs through**: the Tiber is in there
+   as `Tevere`, the Danube also as `Donau`, the Yangtze also as `Chang Jiang`. That is still why
+   `locatorSiblings` maps a card's answer term AND its glossary aliases back to the name the collection
+   teaches — a river card's own river takes the answer's gold and is named after the reveal, and `Tevere`
+   on the paired glossary term is what finds it.
 
        node .claude/test-card-locator.js
 
@@ -82,7 +86,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     return { painted: ink > 10, w: cv.width, water: water };
   });
   check("...which paints without waiting for the atlas", !!drew && drew.painted, JSON.stringify({ painted: drew && drew.painted, w: drew && drew.w }));
-  const waterBefore = drew ? drew.water : -1;
+
 
   // wait for the idle warm to land, then look for the extra layers
   await page.waitForTimeout(9000);
@@ -90,31 +94,10 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     cities: (window.CITIES || []).length,
     rivers: (window.RIVERS || []).length,
   }));
-  const water = await page.evaluate(() => {
-    const cv = document.querySelector(".map-card.map-loc .mc-canvas");
-    const ctx = cv.getContext("2d");
-    const d = ctx.getImageData(0, 0, cv.width, cv.height).data;
-    let n = 0;
-    for (let i = 0; i < d.length; i += 4) if (d[i + 2] > 200 && d[i + 2] - d[i] > 40 && d[i + 1] > 180) n++;
-    return n;
-  });
   check("the cities and rivers arrive at idle", after.cities > 1000 && after.rivers > 500, JSON.stringify(after));
   check("...fetched, not bundled into the eager path",
     asked.some((u) => /cities\.js/.test(u)) && asked.some((u) => /rivers\.js/.test(u)));
 
-  /* A RIVER IS DRAWN ONLY WHERE IT IS ITSELF A CARD (Aug 2026, on a bug report: "Rivers look very strange
-     with long straight lines … remove all Rivers for now except the ones which appear specifically as
-     cards"). The card under test is `gr-002`, and ANCIENT GREECE teaches no river — so all 1,073 arrive
-     and none of them is painted here, measured as the water-coloured pixel count being IDENTICAL side by
-     side with `waterBefore`, taken before the bundle landed. A river is stroked in the map's own ocean
-     colour, so a single one drawn across a continent moves this count by hundreds.
-     **THE COLLECTION IS THE POINT OF THIS ASSERTION, NOT THE CORPUS.** It read "no shipped card's answer
-     is a named river" until Aug 2026, when `rm-003` Tiber was given `kind: "river"` and its glossary term
-     the `Tevere` alias that finds it — so a Rome card now draws one and this check would have gone on
-     claiming otherwise. Section 2 below is where a drawn river is asserted; here the claim is that a
-     collection with no river card gets no river. */
-  check("...and none of them is drawn, this collection teaching no river",
-    water === waterBefore, water + " vs " + waterBefore);
 
   // the sibling dots: count the red pixels the collection's other 54 places put on the globe
   const red = await page.evaluate(() => {
@@ -223,6 +206,55 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   check("a range card draws mountains along its spine", am.dark > 300 && am.dw > 120 * am.dpr,
     JSON.stringify({ dark: am.dark, spread: am.dw, dpr: am.dpr }));
   check("...and no gold dot with them", am.gold < 60, "gold px " + am.gold);
+
+  /* ============================================================
+     3. EVERY RIVER THE ATLAS DRAWS, AND NOT ONE OF THEIR NAMES (Aug 2026, on request)
+     ============================================================
+     "The same Rivers displayed on the Atlas should also be displayed in Atlas windows in cards (only
+     without their labels)." For a fortnight a river was drawn only where the collection taught one, and
+     this file asserted the other half of that rule — that a collection with no river card got no river.
+
+     THE LAYER IS ISOLATED BY TAKING IT AWAY, which is the only honest way to measure it. A "before the
+     bundle lands" reading cannot do the job: on a `file://` run the `atlas` warm resolves within a second
+     or two of the reveal, so the first frame a test can get to already has the rivers in it, and the two
+     readings come back identical whether the layer draws or not — which is exactly how the old form of
+     this check passed for the wrong reason. So the page is measured as it stands, `window.RIVERS` is
+     emptied, the same view is redrawn (zoom in and back out returns the frame byte for byte) and it is
+     measured again.
+
+     THE RANGE CARD IS THE ONE TO DO IT ON, and the collection is the point rather than the corpus:
+     `rm-002` frames Italy, where the Po, the Arno, the Tiber and half a dozen others are in view, and
+     ANCIENT ROME's own answer term there is a mountain range rather than a river — so the only thing
+     that changes between the two frames is the thin blue layer itself. (Section 1's `gr-002` frames the
+     Cyclades, where there is no river to draw at any zoom.)
+
+     · the water-coloured pixels must FALL when the rivers are taken away — the layer is drawn;
+     · the dark ink must not move by one pixel — the layer is drawn WITHOUT NAMES, which is the half of
+       the request that a screenshot makes look like a matter of taste and is not. */
+  const rivCount = () => {
+    const cv = document.querySelector(".map-card.map-loc .mc-canvas");
+    const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
+    let water = 0, dark = 0;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 2] > 200 && d[i + 2] - d[i] > 40 && d[i + 1] > 180) water++;                  // the ocean colour a river is stroked in
+      if (d[i] < 90 && d[i + 1] < 90 && d[i + 2] < 90 && d[i + 3] > 200) dark++;              // every label on the map
+    }
+    return { water: water, dark: dark };
+  };
+  const redraw = async (pg) => {
+    await pg.evaluate(() => { const b = document.querySelector('.map-card.map-loc [data-mc="in"]'); if (b) b.click(); });
+    await pg.waitForTimeout(700);
+    await pg.evaluate(() => { const b = document.querySelector('.map-card.map-loc [data-mc="out"]'); if (b) b.click(); });
+    await pg.waitForTimeout(1100);
+  };
+  const withRiv = await rng.evaluate(rivCount);
+  await rng.evaluate(() => { window.RIVERS = []; });
+  await redraw(rng);
+  const noRiv = await rng.evaluate(rivCount);
+  check("the collection's map draws the Atlas's rivers", withRiv.water - noRiv.water > 150,
+    JSON.stringify({ withRivers: withRiv.water, without: noRiv.water }));
+  check("...and not one of them is named", withRiv.dark === noRiv.dark,
+    JSON.stringify({ withRivers: withRiv.dark, without: noRiv.dark }));
   await rng.close();
 
   check("no console or page errors on the extent cards", errs.length === 0, errs.join(" | ").slice(0, 300));

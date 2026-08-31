@@ -28563,7 +28563,7 @@
        rivers live in the `atlas` bundle and are WARMED at idle rather than awaited, so the card is
        readable immediately and the map fills in. See the note above `cardCollectionRoot`. */
     const sibCard = host.getAttribute("data-map-card") || "";
-    const sib = sibCard ? locatorSiblings(sibCard) : { dots: [], terms: new Set(), termName: new Map(), own: new Set() };
+    const sib = sibCard ? locatorSiblings(sibCard) : { dots: [], termName: new Map(), own: new Set() };
     /* What sort of place this card is about, and the shape that goes with it — see the note above
        `cardLocator`. Read off the host rather than passed in, like every other thing this window knows,
        so the editor previews and the study card build it the same way. */
@@ -28818,22 +28818,34 @@
          warmed at idle out of the `atlas` bundle, so for the first second or two of a card's life this
          section draws the siblings alone, which is exactly what is intended. */
       if (sibCard) {
-        /* ONLY A RIVER THAT IS ITSELF A CARD IS DRAWN AT ALL (Aug 2026, on a bug report: "Rivers look
-           very strange with long straight lines … remove all Rivers for now except the ones which appear
-           specifically as cards in the collections, e.g. Tiber"). All 1,073 used to be drawn and only the
-           carded ones NAMED. Two things were wrong with that. The straight lines were a real fault — see
-           `addRing`'s `close` flag, which this block now passes — and they are fixed rather than hidden.
-           But the rest is a judgement about what a locator is FOR: the map exists to place one thing, and
-           a thousand blue threads through it, most of them creeks nobody is studying, are texture that
-           buries the marks that mean something. So the same test that chose the labels now chooses the
-           rivers, and a river on this map is always a river the collection teaches. */
+        /* ---- EVERY RIVER THE ATLAS DRAWS, AND NOT ONE OF THEIR NAMES ----
+           (Aug 2026, on request: "the same Rivers displayed on the Atlas should also be displayed in
+           Atlas windows in cards (only without their labels)".) For a fortnight this window drew a river
+           only where the collection taught one, and that narrowing was the answer to a REAL fault: all
+           1,073 were being drawn with their mouths joined back to their sources across a continent,
+           because `addRing` closed every path. The fault is fixed — see its `close` flag, which this
+           block passes `false` — so the narrowing can go, and a card's globe shows the water the Atlas
+           shows rather than a river system that changes shape from one collection to the next.
+           WHAT DOES NOT COME BACK IS THE NAMES. On the Atlas a river label is a layer of its own, drawn
+           only past a zoom and against a de-collision pass; a thousand of them in a window this size
+           would bury the marks the card is about, and the request asks for the water rather than the
+           words. The one exception is the card's OWN river, which is not a river label at all but the
+           answer's mark, and is named after the reveal exactly as a dot's name is.
+           THE THIN ONES ARE ONE PATH, STROKED ONCE. It was a `beginPath`/`stroke` per river, which is
+           right for the handful a collection teaches and is 1,073 strokes a frame for all of them, on a
+           globe the reader is dragging. Batched, they cost one — and `visible` still culls each line, so
+           the far side of the planet is walked and not painted.
+           IT IS THE LOCATOR'S LAYER AND NOT THE MAP CARD'S: a geography card asks the reader to name a
+           shape and deliberately never fetches the `atlas` bundle (see `DATA_BUNDLES`), so it draws no
+           rivers and pays for none. */
         /* ---- ONE REGISTER OF LABEL BOXES FOR THE WHOLE MAP ----
-           It used to be created after the rivers, so the rivers were the one layer that collided with
-           everything: on the Apennines card "Tiber" was drawn straight through "The Apennines". The
-           card's OWN mark is reserved first, as it always was — a sibling's name over the answer's mark
-           is the one collision that costs something — and now the river names take their turn against
-           the same list. The card's own river is exempt and reserved rather than tested: it IS the
-           answer, and an answer that yields to a neighbour's label is not an answer. */
+           The card's OWN mark is reserved first — a sibling's name over the answer's mark is the one
+           collision that costs something — and the sibling names below take their turn against the same
+           list. The card's own river reserves its box rather than being tested against them: it IS the
+           answer, and an answer that yields to a neighbour's label is not an answer. (It used to be the
+           river names that collided with everything, the register having been built after them: on the
+           Apennines card "Tiber" was drawn straight through "The Apennines". There are no river names
+           to collide now but the ordering stands, since the answer's own is still drawn among them.) */
         const placed = [];
         /* The reservation has to be the shape the answer's label will ACTUALLY be: a dot's name is set to
            its RIGHT and an area's or a range's is CENTRED on it, and reserving a right-hand box round a
@@ -28855,51 +28867,66 @@
           }
           return false;
         };
-        const RIV = sib.terms.size ? (window.RIVERS || []) : [];
+        const RIV = window.RIVERS || [];
+        /* Only a card whose own answer is a river has anything to look up, and this loop runs 1,073 times
+           a frame on a globe being dragged — so the lowercasing is skipped outright for every other card
+           rather than done and thrown away. */
+        const ownSet = sib.own && sib.own.size ? sib.own : null;
+        let ownLines = null, ownName = "";
         if (RIV.length) {
+          ctx.save();
+          /* THE ATLAS'S OWN TREATMENT, down to the arithmetic: the ocean colour at full strength, so a
+             river reads as water continuous with the sea, and the same `0.4 + zoom * 0.16` capped at
+             1.8px, so it thickens as the reader zooms in. The carded-rivers version that stood here drew
+             them at a flat 1.1px and 0.7 alpha — a fine weight for the two or three a collection taught
+             and too faint to be the layer this is now. */
+          ctx.strokeStyle = ocean; ctx.lineWidth = clampN(0.4 + zoom * 0.16, 0.5, 1.8);
+          ctx.beginPath();
           for (let i = 0; i < RIV.length; i++) {
-            const nm = RIV[i].n;
-            if (!nm || !sib.terms.has(String(nm).toLowerCase())) continue;
+            const nm = ownSet ? String(RIV[i].n || "").toLowerCase() : "";
+            /* `mine` is decided by the card's own answer term and its glossary aliases, which is what
+               finds the Tiber under Natural Earth's `Tevere`. It is held OUT of the thin path and drawn
+               afterwards, over the rest: the answer must never be a thread running under its
+               neighbours. */
+            if (nm && ownSet.has(nm)) { ownLines = RIV[i].p; ownName = sib.termName.get(nm) || RIV[i].n; ownRiver = true; continue; }
             const lines = RIV[i].p;
-            /* THE CARD'S OWN RIVER IS THE ANSWER AND IS DRAWN AS ONE (Aug 2026, on request: "For river
-               cards like 'Tiber' ensure it is displayed on the map as an actual river and not just a
-               dot"). A river the collection merely teaches elsewhere stays a thin blue thread; the one
-               this card is ABOUT takes the gold every other locator's own mark takes, at the weight the
-               shaded place on a map card is outlined at, and its name is set at the answer's own size
-               rather than the neighbourhood's. That is the whole difference between "there is a river
-               here" and "this is the river".
-               `mine` is decided by the card's own answer term and its glossary aliases, which is what
-               finds the Tiber under Natural Earth's `Tevere`. */
-            const mine = sib.own.has(String(nm).toLowerCase());
-            if (mine) ownRiver = true;
-            /* Thin, in the map's own water colour, and CULLED by the same visibility test the borders use.
-               `false` keeps the path OPEN — a river is a polyline, and closing it draws its mouth back to
-               its source across half a continent. */
-            ctx.strokeStyle = mine ? TINT_SEL.line : ocean;
-            ctx.lineWidth = mine ? 2.6 : 1.1;
-            ctx.globalAlpha = mine ? 1 : 0.7;
-            if (mine) { ctx.save(); ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9; }
             for (let j = 0; j < lines.length; j++) {
-              if (!visible(lines[j])) continue;
-              ctx.beginPath(); addRing(lines[j], false); ctx.stroke();
+              // `false` keeps the path OPEN — a river is a polyline, and closing it draws its mouth
+              // back to its source across half a continent
+              if (visible(lines[j])) addRing(lines[j], false);
             }
-            if (mine) ctx.restore();
-            ctx.globalAlpha = 1;
-            // the card's own river is named only once the answer is shown, exactly as its dot would be
-            if (mine && !revealed) continue;
-            ctx.font = (mine ? "600 13px " : "500 11px ") + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-            const line = lines[0];
-            if (!line || !line.length || !visible(line)) continue;
+          }
+          ctx.stroke();
+          ctx.restore();
+        }
+        /* THE CARD'S OWN RIVER IS THE ANSWER AND IS DRAWN AS ONE (Aug 2026, on request: "For river
+           cards like 'Tiber' ensure it is displayed on the map as an actual river and not just a
+           dot"). A river the collection merely runs past stays a thin blue thread; the one this card is
+           ABOUT takes the gold every other locator's own mark takes, at the weight the shaded place on a
+           map card is outlined at, and its name is set at the answer's own size rather than the
+           neighbourhood's. That is the whole difference between "there is a river here" and "this is the
+           river". */
+        if (ownLines) {
+          ctx.save();
+          ctx.strokeStyle = TINT_SEL.line; ctx.lineWidth = 2.6;
+          ctx.shadowColor = TINT_SEL.glow; ctx.shadowBlur = 9;
+          ctx.beginPath();
+          for (let j = 0; j < ownLines.length; j++) if (visible(ownLines[j])) addRing(ownLines[j], false);
+          ctx.stroke();
+          ctx.restore();
+          // named only once the answer is shown, exactly as its dot would be
+          const line = revealed ? ownLines[0] : null;
+          if (line && line.length && visible(line)) {
             const mid = line[Math.floor(line.length / 2)];
             proj(mid[0], mid[1]);
-            if (PV < 0) continue;
-            const lbl = gameCapFirst(sib.termName.get(String(nm).toLowerCase()) || nm);
-            const half = ctx.measureText(lbl).width / 2 + 2;
-            const box = [PX - half, PY - 8, PX + half, PY + 8];
-            if (!mine && clashes(box)) continue;
-            placed.push(box);
-            ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(lbl, PX, PY);
-            ctx.fillStyle = ink; ctx.fillText(lbl, PX, PY);
+            if (PV >= 0) {
+              const lbl = gameCapFirst(ownName);
+              ctx.font = "600 13px " + font; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+              const half = ctx.measureText(lbl).width / 2 + 2;
+              placed.push([PX - half, PY - 8, PX + half, PY + 8]);
+              ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(lbl, PX, PY);
+              ctx.fillStyle = ink; ctx.fillText(lbl, PX, PY);
+            }
           }
         }
         const CTS = window.CITIES || [];
@@ -29500,7 +29527,9 @@
   /* ---------- WHAT ELSE IS ON A LOCATOR'S MAP (Aug 2026, on request) ----------
      "History cards with an atlas locator should also show the collection's other card locations as
      smaller red dots, plus state capitals, million-plus cities, and rivers — names only if the river is
-     a card." Two halves, and they are paid for very differently.
+     a card." Two halves, and they are paid for very differently. (The rivers have since been widened to
+     the Atlas's whole set and their names dropped — on request, Aug 2026; see the river block in
+     `startCardGlobe`'s `draw()`. That clause is the request as it was written, not the rule in force.)
 
      · **THE SIBLING DOTS COST NOTHING AND SHIP UNCONDITIONALLY.** Every locator is already in `data.js`,
        which every visitor downloads before flipping a card, so the other 54 places in Ancient Greece are
@@ -29521,16 +29550,20 @@
     while (n && n.parentId) n = NODE_BY_ID[n.parentId];
     return n || null;
   }
-  /* Every other card in this card's collection that has a locator, plus the answer terms of the whole
-     collection — the second is what decides which rivers are named. Built once per collection and cached,
-     since `subtreeCardIds` walks the tree and a drag of the globe must not do that per frame; thrown away
-     whole by `uCacheBust`, which is what an admin edit goes through. */
-  /* The card's OWN answer term and its glossary aliases, lowercased. The collection's `terms` decides
-     which rivers are drawn at all; this decides which of them is the card's SUBJECT, and so takes the
-     answer's gold rather than the water's blue. It is per card and therefore outside the per-collection
-     cache — which is why it is a function of its own rather than a line inside the miss branch, where the
-     cache HIT path would have skipped it and every second visit to a river card would have drawn its own
-     river as somebody else's. */
+  /* Every other card in this card's collection that has a locator, plus a table from every matchable
+     surface in the collection — an answer term or one of its glossary aliases — to the name the
+     collection actually teaches. Built once per collection and cached, since `subtreeCardIds` walks the
+     tree and a drag of the globe must not do that per frame; thrown away whole by `uCacheBust`, which is
+     what an admin edit goes through.
+     THERE WAS A `terms` SET BESIDE IT AND IT IS GONE (Aug 2026), with the rule it existed for: rivers
+     were drawn only where the collection taught one, and every river is drawn now, so the only question
+     left about a river's name is what to CALL the one the card is about. Its keys were `termName`'s
+     keys exactly, which is a second copy of one table and the kind of thing that comes to disagree. */
+  /* The card's OWN answer term and its glossary aliases, lowercased — which of the rivers on the map is
+     this card's SUBJECT, and so takes the answer's gold rather than the water's blue. It is per card and
+     therefore outside the per-collection cache — which is why it is a function of its own rather than a
+     line inside the miss branch, where the cache HIT path would have skipped it and every second visit to
+     a river card would have drawn its own river as somebody else's. */
   function locOwnTerms(id) {
     const own = new Set();
     const me = CARD_BY_ID[id], t = me ? String(me.answerText || "").trim() : "";
@@ -29543,17 +29576,16 @@
   }
   function locatorSiblings(id) {
     const root = cardCollectionRoot(id);
-    if (!root) return { dots: [], terms: new Set(), termName: new Map(), own: new Set() };
+    if (!root) return { dots: [], termName: new Map(), own: new Set() };
     if (!_locSibCache) _locSibCache = new Map();
     const hit = _locSibCache.get(root.id);
-    if (hit) return { dots: hit.dots.filter((d) => d.id !== id), terms: hit.terms, termName: hit.termName, own: locOwnTerms(id) };
-    const dots = [], terms = new Set(), termName = new Map();
+    if (hit) return { dots: hit.dots.filter((d) => d.id !== id), termName: hit.termName, own: locOwnTerms(id) };
+    const dots = [], termName = new Map();
     subtreeCardIds(root).forEach((cid) => {
       const c = CARD_BY_ID[cid];
       if (!c) return;
       const t = String(c.answerText || "").trim();
       if (t) {
-        terms.add(t.toLowerCase());
         /* …AND WHAT FOLIO CALLS IT (Aug 2026). Natural Earth names a river in the language of the country
            it runs through, so the Tiber is in `rivers.js` as `Tevere` — which is how the card finds it and
            is NOT what the card should print. A map that draws the Tiber and labels it Tevere has answered
@@ -29569,7 +29601,7 @@
            entry is written in the same commit as the card. So a Tiber card whose term carries `Tevere`
            draws and names its river, and one whose term does not, does not — visibly, on the card. */
         const al = (window.GLOSSARY_ALIASES || {})[t.replace(/\s+/g, "_")] || (window.GLOSSARY_ALIASES || {})[t];
-        if (Array.isArray(al)) al.forEach((a) => { const v = String(a || "").trim(); if (v) { terms.add(v.toLowerCase()); termName.set(v.toLowerCase(), t); } });
+        if (Array.isArray(al)) al.forEach((a) => { const v = String(a || "").trim(); if (v) termName.set(v.toLowerCase(), t); });
       }
       const l = cardLocator(c);
       /* A REGION AND A RANGE ARE LEFT OFF EVERY OTHER CARD'S MAP (Aug 2026, on request: "Regions and
@@ -29578,14 +29610,14 @@
          carry is a single red dot at the middle of them — which says the Apennines are a point near
          L'Aquila and Latium a point near Rome, i.e. exactly the false claim their own cards stopped
          making. A place with extent is either drawn with its extent or not drawn. */
-      /* A RIVER IS LEFT OFF THEM TOO, for the same reason one step on: it IS drawn on every map in its
-         collection — as the thin blue thread the rule above this one puts there — so a red dot beside it
-         would be a second mark for a thing already on the map, pinning a 400 km river to one arbitrary
-         point on its course. */
+      /* A RIVER IS LEFT OFF THEM TOO, for the same reason one step on: it is already on every map in
+         the collection — every river is, as one of the Atlas's thin blue threads — so a red dot beside it
+         would be a second mark for a thing already drawn, pinning a 400 km river to one arbitrary point
+         on its course. */
       if (l && l.kind !== "region" && l.kind !== "range" && l.kind !== "river") dots.push({ id: cid, n: l.name, c: l.at, kind: l.kind });
     });
-    _locSibCache.set(root.id, { dots: dots, terms: terms, termName: termName });
-    return { dots: dots.filter((d) => d.id !== id), terms: terms, termName: termName, own: locOwnTerms(id) };
+    _locSibCache.set(root.id, { dots: dots, termName: termName });
+    return { dots: dots.filter((d) => d.id !== id), termName: termName, own: locOwnTerms(id) };
   }
   function cardLocatorHTML(c) {
     const l = cardLocator(c);
