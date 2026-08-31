@@ -2670,25 +2670,34 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     foreign capitals and cities with over 1M population") — that tier was five sixths of the layer and
     every one of them a place no card is about, and what is left is drawn at about two thirds of its old
     radius and two thirds of its old ink. They are there to give the card's own mark a world to sit in,
-    and the moment they compete with it they have stopped doing their job. **A RIVER IS DRAWN AT ALL
-    ONLY WHERE IT IS ITSELF A CARD IN THE COLLECTION** (Aug 2026, on a bug report: "Rivers look very
-    strange with long straight lines … remove all Rivers for now except the ones which appear specifically
-    as cards, e.g. Tiber"). It used to draw all 1,073 and NAME only the carded ones, and two different
-    things were wrong with that. The straight lines were a real fault and are fixed rather than hidden:
-    **`addRing` closed every path**, and a river is a POLYLINE, so closing one drew its mouth back to its
-    source across a continent — it now takes a `close` flag, `false` for a river, which is the flag the
-    Atlas has always passed its own `addClipped`. The rest is a judgement about what a locator is FOR: the
-    map exists to place ONE thing, and a thousand blue threads through it are texture that buries the marks
-    that mean something. **So `sib.terms` chooses the rivers as well as their labels**, and a river on this
-    map is always one the collection teaches. **Natural Earth labels a river in the language of the country
-    it runs through**, which is why the match also reads the term's GLOSSARY ALIASES: the Tiber is in
-    `rivers.js` as `Tevere` (the Danube also as `Donau`, the Yangtze as `Chang Jiang`), so a Tiber card
-    puts its river on the map by carrying `Tevere` as an alias on the paired glossary term — and one that
-    does not, visibly does not. **That alias was added in Aug 2026 and the mechanism now has a live
-    instance**: `rm-003` is the first card whose answer is a river. **AND WHAT IS DRAWN IS LABELLED WITH
-    FOLIO'S OWN NAME FOR IT, not Natural Earth's** — a map that draws the Tiber and prints "Tevere" beside
-    it has answered a question nobody asked — so `locatorSiblings` hands back a `termName` map from every
-    matchable surface to the term the collection teaches.
+    and the moment they compete with it they have stopped doing their job. **EVERY RIVER THE ATLAS
+    DRAWS IS DRAWN HERE TOO, AND NOT ONE OF THEIR NAMES** (Aug 2026, on request: "the same Rivers
+    displayed on the Atlas should also be displayed in Atlas windows in cards (only without their
+    labels)"). For a fortnight a river was drawn only where the collection taught one, and that narrowing
+    was the answer to a REAL fault: **`addRing` closed every path**, and a river is a POLYLINE, so all
+    1,073 were drawn with their mouths joined back to their sources across a continent. It takes a `close`
+    flag now, `false` for a river, which is the flag the Atlas has always passed its own `addClipped` —
+    and with the fault fixed the narrowing could go, a map that draws the Rhine only for a collection with
+    a Rhine card being one whose water means something different on every card. **WHAT DOES NOT COME BACK
+    IS THE NAMES**: on the Atlas a river label is a layer of its own, drawn only past a zoom and against a
+    de-collision pass, and a thousand of them in a window this size buries the marks the card is about.
+    The one exception is the card's OWN river, which is not a river label at all but the answer's mark,
+    named after the reveal exactly as a dot's is. **THE THIN ONES ARE ONE PATH, STROKED ONCE** — it was a
+    `beginPath`/`stroke` per river, which is right for the handful a collection teaches and is 1,073
+    strokes a frame for all of them, on a globe the reader is dragging. **`sib.terms` WENT WITH THE RULE
+    IT EXISTED FOR**: the only question left about a river is which one is the card's SUBJECT, which
+    `locOwnTerms` answers per card, and that set's keys were `termName`'s keys exactly — one table in two
+    copies, which is the kind of thing that comes to disagree. **Natural Earth labels a river in the
+    language of the country it runs through**, which is why that match reads the term's GLOSSARY ALIASES:
+    the Tiber is in `rivers.js` as `Tevere` (the Danube also as `Donau`, the Yangtze as `Chang Jiang`), so
+    a Tiber card takes the gold and gets its name by carrying `Tevere` as an alias on the paired glossary
+    term — and one that does not, visibly does not. **That alias was added in Aug 2026 and the mechanism
+    now has a live instance**: `rm-003` is the first card whose answer is a river. **AND WHAT IS DRAWN IS
+    LABELLED WITH FOLIO'S OWN NAME FOR IT, not Natural Earth's** — a map that draws the Tiber and prints
+    "Tevere" beside it has answered a question nobody asked — so `locatorSiblings` hands back a `termName`
+    map from every matchable surface to the term the collection teaches. **IT IS THE LOCATOR'S LAYER AND
+    NOT THE MAP CARD'S**: a geography card asks the reader to name a shape and deliberately never fetches
+    the `atlas` bundle, so it draws no rivers and pays for none.
     **AND THE SIBLING DOTS ARE NAMED** (Aug 2026, on the same report: "the other dots don't have their
     labels"). They went up bare, which made them decoration rather than information on a map whose whole
     job is to say where. A sibling's name gives nothing away — `locatorSiblings` excludes the card itself —
@@ -2733,8 +2742,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **AND EVERY NAME ON THE MAP OPENS ON A CAPITAL** (same request), done at DRAW time through
     `gameCapFirst` rather than in the data — so it covers the sibling names, Natural Earth's river names
     and anything added later without a pass over `data.js` that would then have to be kept up.
-    Guarded by `.claude/test-card-locator.js`, whose second section measures the SHAPE of the ink: a river
-    is long and thin where a dot is a blob that fills four fifths of its own box.
+    Guarded by `.claude/test-card-locator.js`, whose second section measures the SHAPE of the ink — a
+    river is long and thin where a dot is a blob that fills four fifths of its own box — and whose third
+    measures the river layer BY TAKING IT AWAY, the water falling when `window.RIVERS` is emptied and the
+    dark ink not moving by a pixel.
   · **A LOCATOR'S NAME IS A PLACE, NOT THE CARD'S ANSWER** (Aug 2026, on the same request: "A card like
     'founding of Rome' should simply have Rome as its atlas window location, and not a dot titled 'founding
     of Rome' which is obviously not a real location"). Thirty of the Rome collection's locators were named
@@ -5239,7 +5250,7 @@ dead code (never rendered).
     `setDeckFsrsParams` / `schedModeOf` / `deckSchedCfg` / `cardEntryId` / `schedCfgFor` / `revFetchAll`
     / `fsrsSequences` / `defaultState().settings.newPerDay` / `buildChallengeQuestions`, `buildSession`'s
     per-deck allowances, or anything named `sched*` or `fsrs*`.**
-  · `node .claude/test-card-locator.js` — **what a locator draws, and what SHAPE it draws it in** (13
+  · `node .claude/test-card-locator.js` — **what a locator draws, and what SHAPE it draws it in** (14
     assertions, Aug 2026). The marks are on a canvas, so the honest test is a PIXEL COUNT — the
     collection's reds are there, and the card's own gold is still the biggest mark on the map. It also
     asserts the PAYMENT in both directions: the card paints before the `atlas` bundle arrives, and the
@@ -5247,7 +5258,16 @@ dead code (never rendered).
     locator KINDS and measures the shape of the ink rather than its amount**, since a river card that has
     quietly gone back to a dot draws a perfectly good map: a river is LONG (its longer side many times an
     11px dot) and THIN (it leaves most of its own bounding box empty, where a dot fills four fifths of
-    one), and a range spreads dark ink across most of the window with no gold anywhere. **Re-run after
+    one), and a range spreads dark ink across most of the window with no gold anywhere. **Its third
+    section measures the RIVERS BY TAKING THEM AWAY** — read the pixels, empty `window.RIVERS`, redraw the
+    same view, read them again — because a "before the bundle lands" reading measures nothing: on a
+    `file://` run the `atlas` warm resolves within a second or two of the reveal, so the first frame a
+    test can reach already has the rivers in it and the two readings come back equal whether the layer
+    draws or not, **which is how the previous form of that check passed for the wrong reason**. The water
+    must FALL when the rivers go and the dark ink must not move by a pixel, which is "without their
+    labels" stated as arithmetic. It runs on `rm-002`, which frames Italy — `gr-002` frames the Cyclades,
+    where there is no river to draw at any zoom, so the section-1 card cannot see this layer at all.
+    **Re-run after
     touching `locatorSiblings` / `cardCollectionRoot` / `locOwnTerms` / `LOC_KINDS` / `locPts` /
     `drawSwords` / the extras block in `startCardGlobe`'s `draw()` / `fitTarget`'s extent branch / the idle
     `ensureData("atlas")` beside it / `uCacheBust`, and after giving a card a locator `kind`.**
