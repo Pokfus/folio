@@ -1737,7 +1737,8 @@ window.GLOSSARY = {
 "Lhasa": "Lhasa is the capital of the Tibet Autonomous Region and stands in the south-central Qinghai-Tibet Plateau at about 3,650 metres (11,980 feet) above the sea, with a permanent population of 867,900 in 2020.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its climate is cold semi-arid, with cold dry winters and springs, a short summer in which the rain arrives, and thin air that lets solar radiation and ultraviolet through with little to stop them.<sup class=\"fn\" data-fn=\"3\"></sup> The Lhasa River gives the city its name and its water, running 568 kilometres (353 miles) and carrying an average of 288 cubic metres (10,200 cubic feet) a second through a basin that takes about 545 millimetres (21 inches) of rain a year.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Tibet": "Tibet is an autonomous region occupying the core of the Qinghai-Tibet Plateau in south-western China, its average elevation about 4,000 metres (13,100 feet) and more than nine tenths of it standing above 2,000 metres (6,600 feet).<sup class=\"fn\" data-fn=\"1\"></sup> Height, cold, dryness, thin air and steady wind make its ecosystems distinctive and fragile, running from cold desert through alpine steppe, meadow and shrub to montane forest, with its rivers running out to the east and draining inward to lakes and wetlands in the centre and north.<sup class=\"fn\" data-fn=\"1\"></sup> The plateau holds the world's largest unbroken area of alpine permafrost and has warmed at roughly twice the global rate, so that permafrost is now thawing downwards faster than it was.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Datis": "Datis was a Mede in Achaemenid service who commanded the expedition Darius I sent against Athens and Eretria in 490 BCE, with the king's nephew Artaphernes as his colleague.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus has him sail through the Cyclades, burn Naxos, spare Delos and burn three hundred talents of frankincense on its altar, take Eretria, and return to Asia with the Eretrian captives after the defeat at Marathon.<sup class=\"fn\" data-fn=\"1\"></sup> Ctesias instead reports that he was killed at Marathon and that Athens refused to give up his body, while Plato names him alone as the commander Darius sent, under orders to bring the two cities back in chains.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Battle_of_Marathon": "The Battle of Marathon was fought in 490 BCE on the coastal plain of eastern Attica, where an Athenian army with a thousand Plataeans met the Persian force Darius had sent under Datis and Artaphernes.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Herodotus says the Athenian line was stretched to the Persian one's length so that its centre stood a few ranks deep, that the men crossed the eight stades at a run, and that the wings won and closed on the enemy who had broken through.<sup class=\"fn\" data-fn=\"1\"></sup> He counts about 6,400 dead among the invaders and 192 Athenians, who were buried where they fell, an honour Thucydides says Athens granted to no other war dead.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Battle_of_Marathon": "The Battle of Marathon was fought in 490 BCE on the coastal plain of eastern Attica, where an Athenian army with a thousand Plataeans met the Persian force Darius had sent under Datis and Artaphernes.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Herodotus says the Athenian line was stretched to the Persian one's length so that its centre stood a few ranks deep, that the men crossed the eight stades at a run, and that the wings won and closed on the enemy who had broken through.<sup class=\"fn\" data-fn=\"1\"></sup> He counts about 6,400 dead among the invaders and 192 Athenians, who were buried where they fell, an honour Thucydides says Athens granted to no other war dead.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Miltiades": "Miltiades was the Athenian who ruled the Thracian Chersonese as a subject of Darius I and then commanded at Marathon in 490 BCE, where his was the plan the Athenians fought by.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says he fled the Chersonese from the Phoenician fleet, was prosecuted at Athens for tyranny there and acquitted, and was elected one of the ten generals for the campaign.<sup class=\"fn\" data-fn=\"1\"></sup> After Marathon he took seventy ships against Paros, failed, and was fined fifty talents; Herodotus has him die of a wound with his son Cimon paying, while Diodorus has him die in the state prison, unable to pay.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3586,7 +3587,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Medes": ["Mede","Median","Media"],
 "Ürümqi": ["Urumqi"],
 "Datis": ["Datis and Artaphernes","Datis the Mede"],
-"Eretria": ["sack of Eretria"]
+"Eretria": ["sack of Eretria"],
+"Miltiades": ["Miltiades the Younger"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5352,7 +5354,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Lhasa": ["place","geography","city","asia"],
 "Tibet": ["place","geography","province","asia"],
 "Datis": ["person","people","warfare","history","greece","iran"],
-"Battle_of_Marathon": ["battle","event","history","warfare","greece","iran"]
+"Battle_of_Marathon": ["battle","event","history","warfare","greece","iran"],
+"Miltiades": ["person","ruler","history","warfare","greece","athens"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
