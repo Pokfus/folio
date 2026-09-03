@@ -172,7 +172,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N9 | 9 | Greek architecture and its orders — **shipped**, 7 of 9 pictured (see below) |
 | N10 | 12 | Greek vessel and object vocabulary — **shipped**, all twelve pictured |
 | N11 | 12 | Greek regions and islands — **shipped**, all twelve pictured |
-| N12 | 12 | Crete: sites and landscape |
+| N12 | 12 | Crete: sites and landscape — **shipped**, all twelve pictured |
 | N13 | 12 | Cyprus and the Late Bronze Age east |
 | N14 | 12 | Materials, alloys and the sciences that source them — also carries N9's deferred *Poros stone* |
 | N15 | 12 | Rome's foundation and its earliest institutions |
@@ -331,6 +331,74 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N12's findings
+
+**N12 — Crete: sites and landscape (shipped, all twelve pictured).** Mount Ida, Mount Dikte, the
+Psychro cave, Lasithi, Kommos, Praisos, Ierapetra, Mount Juktas, Amnisos, Gortyn, Archanes,
+Anemospilia.
+
+**THE TWO SPINES ARE SMITH'S <i>GEOGRAPHY</i> AND RUTTER'S <i>AEGEAN PREHISTORIC ARCHAEOLOGY</i>**,
+and the division of labour is clean because the terms fall into two kinds. A place the ancient
+authors describe — Gortyn, Ierapetra, Praisos, Ida, Dikte — is carried by Smith with Strabo,
+Pausanias or Herodotus behind him; a place known only because it was dug — Anemospilia, Archanes,
+Kommos, Amnisos, the Juktas peak sanctuary — is carried by Rutter's lessons. Six terms take one of
+each, which is the shape to aim for: the ancient testimony for what the place was, the excavation
+report for what is there.
+
+**SMITH'S <i>GEOGRAPHY</i> HAS A CRETAN ENTRY FOR ALMOST EVERY NAME IN GREECE, AND THAT IS THE TRAP.**
+N11 recorded that `arcadia-geo` is a town in Crete rather than the Peloponnesian region; one batch
+later the same fault waited in the opposite direction — **`ida-geo` is Mount Ida in PHRYGIA**, the
+mountain above Troy, not the Cretan one, which is `ide-geo`. `gortys-geo` is the Arcadian city and
+`gortyn-geo` the Cretan. **Grep the fetched entry for a word the right place must contain** before
+citing it; the headword alone settles nothing, and both wrong entries read perfectly.
+
+**AND SMITH IS SOMETIMES CITING A SUPERSEDED IDENTIFICATION.** His DICTE entry equates Dicte with
+Juktas, which was Evans's own early view and is not where the Diktaean cave or the mountain are now
+placed. Smith is therefore NOT cited for Dikte's location; Strabo 10.4.12 is, which says only what it
+says. A source open, authoritative and about the right name can still be arguing a case its own
+century settled differently — read what the entry claims, not just that it exists.
+
+**FIVE RUTTER LESSON TITLES IN THE DRAFT WERE COMPOSED RATHER THAN READ, AND THE AUDIT THAT FOLLOWED
+FOUND FOUR ALREADY SHIPPED.** A lesson's title is long and its opening words are memorable, so a
+citation written from memory ends at the colon and looks finished: "Lesson 14: Late Minoan Painting
+and Other Representational Art" is really "…: Pottery, Frescoes, Steatite Vases, Ivories, and
+Bronzes", and "Neopalatial Minoan Influence in the Aegean and Eastern Mediterranean" is really
+"…and Eastern Mediterranean Worlds". Checked against the lessons index, **4 of the 218 Rutter
+citations already in the glossary carried a truncated title** and were corrected in this batch.
+`check-citations.js` cannot see this — Rutter has no DOI — so the check is the index page, and it
+costs one fetch for a whole batch.
+
+**THE SIBLING-DUPLICATION MEASURE PAID AGAIN, AND ITS TARGET WAS NOT IN THE BATCH.** `Archanes` shared
+two eight-word runs with the shipped `Palaikastro`: both had been written from Rutter's house-tomb
+typology and both were reciting it. Archanes was rebuilt around what it owns — the palatial building,
+the Phourni cemetery and its Late Minoan IIIA tholos with its Treasury of Atreus parallel — and the
+measure now reads 0. **Run the measure against the nearest EXISTING terms as well as within the
+batch**; the term a new one duplicates is usually the one already written about the same subject.
+
+**TWO CORRECTIONS THE SOURCES MADE TO THE DRAFT.** Anemospilia said three people died; Rutter says
+four skeletons were found and three were killed by the collapse, the fourth being the youth on the
+platform. And Gortyn's wall: **Smith says Ptolemy Philopator carried it eighty stadia and Strabo says
+the same**, where an intermediate reading had it at eight — a figure that is defensible until it is
+read beside the city's own ninety stadia from the sea. An unsourced isthmus width and a "gulf of
+Mirabello" came out of `Ierapetra` for the same reason.
+
+**HALF THE FIRST-CHOICE PICTURES WERE REJECTED BY LOOKING — SIX OF TWELVE**, against four of twelve in
+N11, and the failures group into three kinds worth naming. **A SIGNBOARD**: the file named
+`Praisos 1. Akropolis 01.jpg` is the site's entrance notices, and `Yuchtas top 9246337.JPG` is a gate
+and a brown sign. **A MUSEUM CASE**: `Juktas 1.JPG` is offering tables from the peak sanctuary behind
+glass in Heraklion — genuine material from the right place, and not a picture of the mountain.
+**A DETAIL WHERE A VIEW WAS WANTED**: an odeon's brick piers in receding perspective for Gortyn, a
+painted house front for Ierapetra, a distant hillside for Anemospilia. A fourth was the name in the
+wrong place a third time — `Πάνω πόλη Κανλί Καστέλι - Γιούχτας` names the MUNICIPALITY of Juktas and
+photographs a different mountain. The rule stands as the geography pass wrote it: **the search finds a
+subject's pictures and cannot judge one.**
+
+**A COMMONS FILE NAME WITH PARENTHESES IS STILL USABLE, PERCENT-ENCODED.** The best Psychro cave
+picture is `Cave Dikti12(js).jpg`, and its description page URL would ship truncated at the `(`
+through `SRC_URL_RX`; `File:Cave_Dikti12%28js%29.jpg` resolves and carries no bare bracket. Encode
+the credit rather than settling for a worse picture — but check it resolves, since only the file
+path is encodable this way.
 
 ### N11's findings
 
