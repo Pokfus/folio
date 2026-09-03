@@ -4340,9 +4340,27 @@ small place within the city, but the city zoomed out, as a skyline or aerial vie
   Olympiastadion for Olympia, a Nissan Skyline GT-R for Montpelier, Dover Castle in England for Dover
   in Delaware, and Springfield MASSACHUSETTS for the capital of Illinois. **A city name is ambiguous far
   more often than it looks**, so a capital's search carries its state and the result is still read.
-· **`geo-world` (227 countries and 36 capitals) IS NOT DONE and is the pass's remaining work.** Its
-  country list is an editorial judgement per country — which landmark stands for Bhutan, for Chad, for
-  Niue — and each answer needs looking at, so it is a pass of its own rather than a tail of this one.
+· **ALL THREE GEOGRAPHY COLLECTIONS ARE COMPLETE: 421 of 421** (100 United States, 58 China, 263
+  World), every picture read on a sheet before it was applied. The World collection's 227 countries
+  were the editorial half — which landmark stands for Bhutan, for Chad, for Niue — and the answer for
+  each is NAMED in the batch rather than searched for, because `pageimages` for a country returns its
+  flag.
+· **WHAT THE SHEET CAUGHT, over 421 cards, is one taxonomy and it is worth knowing before the next
+  pass.** Roughly one in eight had to be replaced, and almost none was a near miss:
+  **a picture from ORBIT** (Landsat, MODIS, Sentinel, an STS or ISS frame, NASA, Apollo 17's whole
+  Earth for the Great Blue Hole) — a diagram of a place rather than a view of it;
+  **a MAP** wearing no such word in its name (`Txu-…`/`pclmaps` map-library scans for Inner Mongolia
+  and Qinghai, a nautical chart for Kiritimati, locator `.png`s for Santorini, Issyk-Kul, Baa Atoll
+  and the Stockholm archipelago);
+  **a MONTAGE or COLLAGE** (Asmara, Paramaribo, Torres del Paine) and a 7:1 wiki **banner**;
+  **the RIGHT NAME IN THE WRONG PLACE** — Ostrog Monastery in Montenegro filed against Kosovo's
+  Gračanica, the Berlin Olympiastadion for Olympia, Dover Castle in England for Dover in Delaware,
+  Springfield Massachusetts for the capital of Illinois, and a photograph of New York for Phoenix;
+  and **a thing that is not the place at all** — a necklace for Meroë, a signboard for Dzanga-Sangha,
+  a window sticker reading "you can see Kuwait City", the interior tuned mass damper for Taipei 101,
+  and a portrait of a man in sunglasses for Anguilla.
+  The first three families are now refused by `SPACEBORNE` / `SURVEY` / `NOTAPHOTO`; **the last two
+  cannot be, and that is the whole argument for the sheet.**
 **A NEW CARD SHIPS WITH A GLOSSARY ENTRY FOR ITS OWN ANSWER TERM, IN THE SAME COMMIT (Aug 2026, on
 request).** Not afterwards and not in a later batch: a card's answer is exactly the word its siblings will
 use in their own backgrounds, and a term with no entry auto-links to nothing. Write it **cited, at the
