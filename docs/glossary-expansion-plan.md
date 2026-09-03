@@ -174,7 +174,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N11 | 12 | Greek regions and islands — **shipped**, all twelve pictured |
 | N12 | 12 | Crete: sites and landscape — **shipped**, all twelve pictured |
 | N13 | 12 | Cyprus and the Late Bronze Age east — **shipped**, all twelve pictured |
-| N14 | 12 | Materials, alloys and the sciences that source them — also carries N9's deferred *Poros stone* |
+| N14 | 12 | Materials, alloys and the sciences that source them — **shipped**, 10 of 12 pictured; clears N9's deferred *Poros stone* |
 | N15 | 12 | Rome's foundation and its earliest institutions |
 | N16 | 12 | The hills of Rome and the city's topography |
 | N17 | 12 | Latium: the Latial culture and its sites |
@@ -331,6 +331,62 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N14's findings
+
+**N14 — Materials, alloys and the sciences that source them (shipped, 10 of 12 pictured).** Limestone,
+sandstone, granite, poros stone, provenance, faience, carnelian, smelting, slag, alloy, lead isotope
+analysis, X-ray fluorescence.
+
+**N9'S DEFERRED *POROS STONE* IS CLEARED, AND THE MINERALOGICAL SECOND SOURCE SAYS THE TERM HAS NO
+MINERALOGY.** N9 sent it here because "a mineralogical second source can be found for it"; the source
+found is de Vals and Moretti's survey of the Gulf of Corinth in *Comptes Rendus Géoscience*, and what
+it says is that pôros "lack[s] geological meaning" and that they decline to use the word — covering
+recently consolidated sediments of medium to low density, usually not conglomerates, though the finest
+of those are called poros too. **A deferral can be closed by a source that refuses the question rather
+than answering it**, and that refusal is the most interesting thing the term has to say.
+
+**THE SHELF FOR A MATERIALS BATCH IS PMC, USGS AND THE DIAMOND OA JOURNALS — AND MDPI IS SHUT.** Europe
+PMC's REST API (`ebi.ac.uk/europepmc/webservices/rest/search?query=…AND OPEN_ACCESS:Y AND IN_EPMC:Y`)
+is the right instrument here: it is scriptable, it reports hit counts, and it found open papers for
+carnelian, faience, slag, bronze alloys, lead isotopes and XRF in a few minutes. **`usgs.gov` answers
+here** (P6 recorded it 403; it is 200 now) and its FAQ pages define the rock classes plainly. But
+**`mdpi.com` serves its ARTICLE pages as a 2,208-byte Google-Tag-Manager shell** while journal landing
+pages come back at half a megabyte — so an MDPI paper is citable only through its PMC copy, which is
+how both faience sources are cited.
+
+**PMC HAS A reCAPTCHA WALL AND IT IS A CONSTANT 21,35x BYTES.** Four of eleven article fetches in one
+burst came back as a 200-status page titled "Checking your browser - reCAPTCHA"; all four succeeded on
+a retry twenty-five seconds later. That is the eighth variety of 200-status error document this pass
+has recorded, and like `senate.gov`'s shell it has a near-constant size, so a size check catches it.
+**Space PMC fetches out and check the byte count**, since the wall is indistinguishable from a paper
+in the exit status.
+
+**THE TWELFTH TERM CHANGED BECAUSE OF THE SOURCE RULE, NOT THE MEASUREMENT.** `Alabaster` has seven
+corpus uses against `Provenance`'s four and would have won on the corpus measurement the batches are
+picked by — but Europe PMC has exactly one open paper about it (the sourcing of Herod the Great's
+calcite-alabaster bathtubs) and the USGS gypsum commodity summary is about wallboard. **`Alabaster` is
+deferred with its one source recorded**; `Provenance` took the slot and is the better keystone for a
+batch about the sciences that source materials. When the corpus measurement and the two-source bar
+disagree, the bar decides.
+
+**TWO CLAIMS WERE CAUGHT REACHING PAST THEIR SOURCE, AND ONE WAS A COMPOSED NAME.** The draft of
+`Lead_isotope_analysis` credited the method's standing to "Noël Gale and Zofia Stos-Gale" — the paper
+says only "Gale and Stos-Gale", and the given names were mine. N4's rule applied: the names came out
+rather than being guessed at. The draft of `Granite` had the Unfinished Obelisk "still lying in its
+bed", which is true and is not what the cited paper says; it says cracks, joint intersections and
+mafic enclaves halted the extraction, so that is what the entry says now. And `Faience` was narrowed
+from "the bowls of Ptolemaic Egypt" to the seven bowls from Tell Atrib the paper actually studied.
+
+**TWO TERMS SHIP WITHOUT A PICTURE AND THE REASON IS THE SAME FOR BOTH: THE SUBJECT IS A PROCESS OR AN
+INSTRUMENT, AND COMMONS PHOTOGRAPHS NEITHER.** For `Smelting` the candidates were a museum diorama
+with painted toy figures and two Timna landscapes in which the smelting camp is invisible at a popup's
+150px; for `X-ray_fluorescence`, a Mars rover's PIXL instrument, a cluttered out-of-focus sample-prep
+bench, and PAS records of the brooches an analysis was run on but not of the analyser. **A term whose
+subject is a technique is the hardest kind to illustrate**, and the honest outcome is to say so rather
+than to hang a laboratory stock photograph on it. The ten that are pictured include two that solve the
+same problem sideways: `Lead_isotope_analysis` shows galena, the ore the ratios are compared against,
+and `Provenance` shows Melian obsidian, a material whose source is legible in its chemistry.
 
 ### N13's findings
 
