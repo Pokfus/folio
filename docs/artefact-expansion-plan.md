@@ -255,13 +255,14 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | A2 | `venus-of-willendorf` | `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, ~~`vindolanda-tablets`~~ (shipped in A2b) |
 | B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | `gandhara-buddha-head`, `chola-nataraja`, `mughal-miniature`, `nbpw-sherd`, `punch-marked-coin`, `etched-carnelian-bead`, `glass-bangle` |
 | D2 | `oak-coffin-textile`, `amber-bead`, `ochre-crayon` | `palaeolithic-bone-flute`, `antler-spearthrower`, `saddle-quern`, `sickle-blade`, `bone-fishhook`, `eyed-bone-needle` |
-| D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | `palaeolithic-bone-flute`, `bone-fishhook` |
+| D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | ~~`palaeolithic-bone-flute`, `bone-fishhook`~~ (both shipped in D2c) |
 | C3/C2 | `clovis-point`, `obsidian-blade`, `ostrich-eggshell-bead` | — |
 | C1 | `byzantine-lead-seal`, `lustreware-bowl`, `glass-coin-weight` | — |
 | C1b | `islamic-star-tile`, `byzantine-silk` | `fustat-paper`, `mamluk-mosque-lamp` |
 | D1 | `antler-comb`, `bone-ice-skate` | `novgorod-birch-bark-letter` (held, see below) |
 | D1b/C2 | `seal-matrix`, `manilla` | — |
 | A2b/E1 | `vindolanda-tablets` (UN-DEFERRED), `sling-bullet` | — |
+| D2c | `palaeolithic-bone-flute`, `bone-fishhook` (both UN-DEFERRED — **D2's list is now empty**) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -269,6 +270,34 @@ on the buried weapons is not a Qin anti-rust technology two millennia ahead of i
 from the lacquer on the figures — a story most popular accounts still repeat. A plate that states the
 current standing of the thing a reader half-remembers is doing more work than one that recites the
 half-memory. The Great Isaiah Scroll's 2025 radiocarbon-plus-style programme is the same shape.
+
+**D2c EMPTIES THE D2 DEFERRAL LIST, and it confirms the cheap/expensive distinction D2b proposed.**
+D2 deferred six for want of a third work; D2b shipped four and D2c the last two, so every one of them
+came back — against A2's and B1's, where the problem is the field rather than the count. **The two
+that took longest were the two that needed the newly-open hosts**: `nature.com` (readable by curl, as
+C1b established) for the Hohle Fels flute, and both Europe PMC *and* DOAJ for the fishhook, which DOAJ
+alone would have left at one source.
+
+**The flute's finding is that a contested object is worth more than a certain one, and it should be
+carded with BOTH sides cited.** The Divje Babe I bear femur is either a Neanderthal flute or a bone a
+carnivore punctured, and `Arheološki vestnik` has published the argument from both directions and left
+them open: Albrecht and colleagues hold that every Middle Palaeolithic 'flute' is a pseudo-artefact,
+while Turk and colleagues' computed tomography counts four holes, finds a carnivore could have made at
+most one, and reads the rest as cut with tools from the site. **A plate that names one side and hides
+the other is worse than one that says the question is open** — and the same journal carrying both is
+what makes it citable at all.
+
+**Its access finding is that a PAYWALLED landmark is sometimes the right citation, and the label is
+the honest part.** Conard, Malina and Münzel's *Nature* paper is the primary publication of the Swabian
+Jura flutes and its abstract carries the claims the plate makes; the full text is behind the paywall,
+so it is marked `[Paywalled]` and sits beside two open works. The plan's rule holds — a paywalled work
+earns its place only as the landmark for a claim nothing open carries — and this is that case.
+
+**And a line drawing is refused on the same ground as a book plate.** The best-titled Commons match for
+`bone-fishhook` was an archaeological illustration of a needle and a hook with a scale bar: accurate,
+useful, and not a photograph of the object, exactly like C1b's engraving of a Byzantine silk. What
+shipped instead is nine hooks on a museum board whose own label states the line-groove and the unbaited
+lure — **a picture that carries its own caption is worth looking for.**
 
 **A2b UN-DEFERS THE VINDOLANDA TABLETS, and the reason is that a dead host had a live successor.**
 A2 deferred them because `vindolanda.csad.ox.ac.uk` — Vindolanda Tablets Online — refuses the

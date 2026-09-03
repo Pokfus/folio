@@ -924,4 +924,18 @@ window.ARTEFACTS = [
     date: "c. 4th – 1st century BCE",
     origin: "Greece, Macedon and the Roman world",
   },
+  {
+    id: "palaeolithic-bone-flute",
+    name: "Palaeolithic bone flute",
+    rarity: "common",
+    date: "c. 35,000 years ago onwards",
+    origin: "Central Europe",
+  },
+  {
+    id: "bone-fishhook",
+    name: "Bone fishhook",
+    rarity: "common",
+    date: "c. 13,000 – 4,000 BCE",
+    origin: "The Levant and northern Europe",
+  },
 ];
