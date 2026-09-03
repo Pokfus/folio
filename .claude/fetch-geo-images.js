@@ -56,7 +56,13 @@ const BAD_LIC = /\b(nc|nd|noncommercial|non-commercial|noderiv|fair use|non-free
    is the whole of why this is written twice rather than once), so `\blandsat\b` matches nothing on
    the very file it was written for. `sentinel` keeps its hyphen — the satellites are Sentinel-1 and
    Sentinel-2, and Sentinel Peak is a real Tucson landmark a card may legitimately want. */
-const SPACEBORNE = /(satellite|landsat|sentinel-\d|from space|copernicus|modis|nlcd)/i;
+/* `seen from orbit`, an `STS\d\d` shuttle frame and an `ISS\d` expedition frame are all the same
+   picture as a Landsat scene wearing a different name — a photograph OF a place from outside the
+   atmosphere, which is a diagram of it rather than a view. `montage` and `banner` are here for a
+   different reason: a montage is several pictures in one and a wiki banner is a 7:1 sliver, and
+   neither renders as a card illustration. */
+const SPACEBORNE = /(satellite|landsat|sentinel-\d|from space|from orbit|copernicus|modis|nlcd|\bsts\d\d|\biss\d)/i;
+const NOTAPHOTO = /(montag|banner|non.political|\bpng$)/i;
 /* `Txu-…` / `…pclmaps…` are the University of Texas map library's scans, which are enormous and so
    win any largest-file tie-break: they gave Inner Mongolia a topographic sheet and Qinghai a geological
    one, neither of which says "map" anywhere in its name. */
@@ -323,7 +329,7 @@ function creditLine(f) {
            century old and monochrome (Mammoth Cave's lead was one). Both are legitimate pictures and
            neither is what a card asking a reader to recognise a place should show. */
         if (/\b(map|diagram|sign|logo|seal|chart|graph|plaque|flag|coat.of.arms|locator)\b/i.test(t)) return null;
-        if (SPACEBORNE.test(t) || SURVEY.test(t)) return null;
+        if (SPACEBORNE.test(t) || SURVEY.test(t) || NOTAPHOTO.test(t)) return null;
         const f = await fileInfo(t);
         if (!f || /svg/i.test(f.mime)) return null;
         if (f.fullWidth < MIN_W) return null;
