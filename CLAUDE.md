@@ -5360,13 +5360,18 @@ dead code (never rendered).
   · `node .claude/test-i18n-lang.js` — **21 assertions**, in two halves. First the **English-only gate**,
     on the real app.js: **Re-run after touching `MULTILANG` / `langBundle` / `loadLangData` /
     `DATA_BUNDLES`, after adding a language, or after anything that writes card or glossary content.**
-  · `node .claude/test-account-switch.js` — 22 assertions on switching accounts on one device, against an
+  · `node .claude/test-account-switch.js` — assertions on switching accounts on one device, and on
+    CREATING one, against an
     in-memory mock of the Supabase **auth + progress** endpoints (a test that really signed up would
     create users in the live project). **Re-run after touching `supaAfterSignIn` / `supaSignOut` /
     `supaBoot` / `_supaOwner` / `PROGRESS_FIELDS`, **or any of `supaSignIn` / `supaEmailForUsername` /
-    `supaSwitchTo` / `supaRemember` / `supaForget` / `supaSetEmail` / `SUPA_ACCTS_KEY`** — a switch that
+    `supaSwitchTo` / `supaRemember` / `supaForget` / `supaSetEmail` / `supaSetUsername` / `authThrewMsg` /
+    `SUPA_ACCTS_KEY`, or the auth forms' `busy` / `msg` helpers** — a switch that
     carries the outgoing account's progress across is exactly what its `_supaOwner` assertions exist to
     catch, and nothing on screen would say so.**
+    Its **sections 7 and 8 are ACCOUNT CREATION** (Sep 2026) — that a refused sign-up says why and gives
+    the button its label back, that a taken username is reported rather than silently substituted, and
+    that the handle can be changed afterwards and then signed in with.
     Its **section 6 is the RECONCILE** (Aug 2026) — that an edit made while the progress pull is still in
     flight is not overwritten, that an IDLE device still adopts another device's write, and that a boot
     which is genuinely in sync sends **no push at all**. **Re-run it after touching `supaBoot`'s reconcile,
@@ -5750,6 +5755,36 @@ dead code (never rendered).
     link is followed, so the panel says so rather than reporting a change that has not happened yet.
     `openPanel(want)` keeps the email, password and switch panels mutually exclusive — three folds open at
     once on a phone is the whole account page.
+- **CREATING AN ACCOUNT — three faults, all silent (Sep 2026, on a bug report).** They are one bullet
+  because the report was one sentence and they compound: the form could refuse a sign-up, say nothing
+  about it, and leave a button that still looked as though it were working.
+  · **THE AUTH BUTTONS' LABEL WAS EATEN BY THE FIRST PRESS.** `busy(f, on)` wrote `"…"` into the button
+    and only THEN asked whether it had a stored label — so the first press stored `"…"` AS the label, and
+    every restore afterwards put `"…"` back. All three forms (sign in, create, forgot) read `"…"` for the
+    rest of the visit. **Stash the label BEFORE overwriting it**; `.auth-btn:disabled` now dims too, since
+    a busy button that looks exactly like an idle one was the other half of the illusion.
+  · **A TAKEN USERNAME RENAMES THE ACCOUNT AND NOBODY WAS TOLD.** `handle_new_user` catches the
+    `unique_violation` and signs the reader up under `scholar_<8 hex>` — the right call, since refusing a
+    whole sign-up over a handle would be worse — but the form said "Account created — welcome!", signing
+    in by the chosen username then failed, and no friend could find them by it. `supaSignUp` hands back
+    the handle the profile ACTUALLY got (it has just loaded it) and the form says so, on a long toast.
+    **A pre-flight availability check is impossible anyway**: `profiles` is readable `to authenticated`,
+    and the reader creating the account is nobody yet.
+  · **…AND THERE WAS NO WAY BACK FROM IT** (`supaSetUsername`, `#unPanel` / `#unToggle` / `#unShown`).
+    The account page's field edits the DISPLAY NAME; `username` was written once by the signup trigger and
+    never again, so a reader could be permanently landed with a handle they never chose. The schema has
+    granted `update (username, name, avatar)` since the first block and nothing had ever used the first
+    column. **The uniqueness stays the DATABASE's answer** — a look-up first would be a race AND a second,
+    weaker copy of the rule in the client, so this reads the 409 and says it in words.
+  · **AND A THROW ON THE AUTH PATH NOW REPORTS ITSELF** (`authThrewMsg`, plus a `finally` round every
+    `busy`). `supaSignUp` awaits `supaAfterSignIn`, which loads a profile, pulls progress, applies it and
+    remounts the community decks — any of which can raise on odd stored state, and every one of those
+    threw straight out of the submit handler as an unhandled rejection. The account had been CREATED, so
+    the reader's next attempt met "User already registered" over a form that had told them nothing.
+  · Guarded by **`.claude/test-account-switch.js` sections 7 and 8**, whose mock had to learn three things
+    the real backend does and the old mock did not: the trigger's `scholar_<hex>` fallback, the unique and
+    check constraints on a `profiles` PATCH, and `login_email` — **a mock that always grants the handle
+    asked for cannot see any of this.**
 - **Live content editing (cloud overrides)** — the `/* cloud content overrides */` module in app.js + the `content_overrides`
   table (single row `id=1`, in `.claude/supabase-schema.sql`; **the user must run the SQL once** — until then every fetch 404s and
   the module degrades silently). The row's `data` holds an admin-edit overlay in the exact `folio_admin_v1` delta format. Every

@@ -2592,7 +2592,17 @@
   async function supaSignUp(email, username, name, pw) {
     const r = await supaFetch("/auth/v1/signup", { method: "POST", auth: false, body: { email, password: pw, data: { username, name } } });
     if (!r.ok) return { error: supaErrMsg(r, "Could not create the account.") };
-    if (r.data && r.data.access_token) { supaAdoptSession(r.data); await supaAfterSignIn(); supaRemember(); return { ok: true } }
+    if (r.data && r.data.access_token) {
+      supaAdoptSession(r.data); await supaAfterSignIn(); supaRemember();
+      /* WHAT THE ACCOUNT IS ACTUALLY CALLED, WHICH IS NOT ALWAYS WHAT WAS ASKED FOR (Sep 2026, on a bug
+         report about creating an account). `handle_new_user` catches a unique_violation on the username
+         and signs the reader up anyway under `scholar_<8 hex>` — the right call, since refusing the whole
+         signup over a taken handle would be worse — but NOTHING told them: the form said "Account created
+         — welcome!", the account was named something else, signing in by the username they chose failed,
+         and no friend could find them by it. The profile has just been loaded, so the real handle is in
+         hand; hand it back and let the caller say so. */
+      return { ok: true, username: (SUPA_PROFILE && SUPA_PROFILE.username) || username };
+    }
     return { ok: true, confirm: true };   // email confirmation is on: no session until the emailed link is clicked
   }
   /* SIGNING IN WITH A USERNAME (Aug 2026, on request). Supabase authenticates on an EMAIL, so a username
@@ -2700,6 +2710,33 @@
     await supaAfterSignIn();
     supaRemember();
     return { ok: true };
+  }
+  /* CHANGING THE USERNAME (Sep 2026, on a bug report about creating an account). It could not be changed
+     at all: the account page's field edits the DISPLAY NAME, and `username` — the handle a reader signs in
+     with and the one friends look them up by — was written once by the signup trigger and never again.
+     That is survivable while signup always grants the handle asked for, and it does not: `handle_new_user`
+     falls back to `scholar_<8 hex>` when the requested one is taken, so a reader could be permanently
+     landed with a handle they never chose, unable to sign in by the one they did and invisible to anybody
+     searching for them. The schema has granted `update (username, name, avatar)` to `authenticated` since
+     the first block; nothing had ever used the first column.
+     The uniqueness is the DATABASE's answer and not a pre-flight check: `profiles` is readable by
+     signed-in users, so a look-up first is possible here — and it would still be a race, and it would put
+     a second, weaker copy of the rule in the client. The unique index is the rule; this reads its refusal
+     and says it in words. */
+  async function supaSetUsername(name) {
+    if (!supaLoggedIn()) return { error: "You are not signed in." };
+    const u = uKey(name);
+    if (!/^[a-z0-9_]{3,24}$/.test(u)) return { error: "Username: 3–24 characters — letters, numbers and underscores only." };
+    if (SUPA_PROFILE && SUPA_PROFILE.username === u) return { error: "That is already your username." };
+    const r = await supaFetch("/rest/v1/profiles?id=eq." + SUPA.user.id, { method: "PATCH", body: { username: u } });
+    if (!r.ok) {
+      const m = supaErrMsg(r, "");
+      if (r.status === 409 || /duplicate key|unique/i.test(String(m))) return { error: "That username is already taken." };
+      return { error: m || "Could not change the username." };
+    }
+    if (SUPA_PROFILE) SUPA_PROFILE.username = u;
+    supaRemember();   // the switcher's button shows the handle, so it has to follow the change
+    return { ok: true, username: u };
   }
   async function supaSetName(name) {
     if (!supaLoggedIn()) return;
@@ -36714,6 +36751,19 @@
       toast("Forgotten on this device");
     }));
   }
+  /* A THROW ON THE AUTH PATH MUST STILL SAY SOMETHING (Sep 2026, on a bug report about creating an
+     account). `supaSignUp` awaits `supaAfterSignIn`, which loads a profile, pulls progress, applies it and
+     remounts the community decks — half a dozen places that can raise on odd stored state. Every one of
+     those threw straight out of the submit handler as an unhandled rejection: the button never came back,
+     the message area stayed blank, and the account had in fact been CREATED, so the reader's next attempt
+     met "User already registered" over a form that had told them nothing the first time. Anything that
+     escapes is reported here instead, and the button is restored in a `finally` so the form is usable
+     whichever way the call ends. */
+  function authThrewMsg(err) {
+    try { console.error("[folio] auth", err); } catch (e) {}
+    return "Something went wrong finishing that — reload the page and try signing in; the account may already exist.";
+  }
+
   function acctAuthView(root) {
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your account</span><h1>Account</h1></div>
@@ -36801,10 +36851,22 @@
       forms.forEach((f) => { f.hidden = f.dataset.form !== t.dataset.av; });
     }));
     const msg = (form, text, ok) => { const m = form.querySelector("[data-msg]"); m.textContent = text || ""; m.className = "auth-msg" + (text ? (ok ? " ok" : " err") : ""); };
-    const busy = (f, on) => { const b = f.querySelector(".auth-btn"); if (b) { b.disabled = on; b.textContent = on ? "…" : b.dataset.lbl || b.textContent; if (!b.dataset.lbl) b.dataset.lbl = b.textContent; } };
+    /* THE LABEL IS STASHED BEFORE IT IS OVERWRITTEN, WHICH IT WAS NOT (Sep 2026, on a bug report about
+       creating an account). This wrote "…" into the button and only THEN asked whether it had a stored
+       label — so the first press stored "…" as the label, and every restore afterwards put "…" back.
+       The button on all three auth forms therefore read "…" for the rest of the visit: after a rejected
+       sign-up the reader was looking at a form that had said nothing and a button that still looked as
+       though it were working, which is a failed submission wearing the costume of a hung one. */
+    const busy = (f, on) => {
+      const b = f.querySelector(".auth-btn"); if (!b) return;
+      if (!b.dataset.lbl) b.dataset.lbl = b.textContent;
+      b.disabled = on;
+      b.textContent = on ? "…" : b.dataset.lbl;
+    };
     root.querySelector('[data-form="signin"]').addEventListener("submit", async (e) => {
       e.preventDefault(); const f = e.target;
-      busy(f, true); const r = await supaSignIn(f.u.value.trim(), f.p.value); busy(f, false);
+      busy(f, true);
+      let r; try { r = await supaSignIn(f.u.value.trim(), f.p.value); } catch (err) { r = { error: authThrewMsg(err) }; } finally { busy(f, false); }
       if (r.error) return msg(f, r.error);
       toast("Signed in as " + ((SUPA_PROFILE && SUPA_PROFILE.name) || "you")); afterAuthChange();
     });
@@ -36814,14 +36876,21 @@
       if (!/^[a-z0-9_]{3,24}$/.test(uname)) return msg(f, "Username: 3–24 characters — letters, numbers and underscores only.");
       if (f.p.value !== f.p2.value) return msg(f, "Passwords don't match.");
       if (f.p.value.length < 6) return msg(f, "Password must be at least 6 characters.");
-      busy(f, true); const r = await supaSignUp(f.e.value.trim(), uname, f.u.value.trim(), f.p.value); busy(f, false);
+      busy(f, true);
+      let r; try { r = await supaSignUp(f.e.value.trim(), uname, f.u.value.trim(), f.p.value); } catch (err) { r = { error: authThrewMsg(err) }; } finally { busy(f, false); }
       if (r.error) return msg(f, r.error);
       if (r.confirm) return msg(f, "Account created — check your email inbox for a confirmation link, then sign in.", true);
-      toast("Account created — welcome!"); afterAuthChange();
+      /* The handle the account really got. It differs only when the one asked for was already taken, and
+         then the reader has to be told outright — a longer dwell than the ordinary toast, because it asks
+         them to do something (rename it on this page) rather than merely reporting that it worked. */
+      if (r.username && r.username !== uname) toast("That username was taken — your account is @" + r.username + " for now. Change it under Username on this page.", 7000);
+      else toast("Account created — welcome!");
+      afterAuthChange();
     });
     root.querySelector('[data-form="forgot"]').addEventListener("submit", async (e) => {
       e.preventDefault(); const f = e.target;
-      busy(f, true); const r = await supaRecover(f.u.value.trim()); busy(f, false);
+      busy(f, true);
+      let r; try { r = await supaRecover(f.u.value.trim()); } catch (err) { r = { error: authThrewMsg(err) }; } finally { busy(f, false); }
       if (r.error) return msg(f, r.error);
       msg(f, "Reset link sent — check your email inbox.", true);
     });
@@ -36856,12 +36925,13 @@
         <input type="file" id="avatarFile" accept="image/*" hidden>
         <div class="who">
           <input class="namefield" id="name" value="${esc(S.user.name)}" maxlength="28" aria-label="Display name" />
-          <div class="since">@${esc(me.username)} · ${roleBadge(me.role)} · since ${joined}</div>
+          <div class="since"><span id="unShown">@${esc(me.username)}</span> · ${roleBadge(me.role)} · since ${joined}</div>
         </div>
         ${/* Aug 2026, on request: Change password moved up here beside Sign out. The two are the same kind
               of thing — what you do to the ACCOUNT — and it had been sitting a section lower among the
               photo controls, where it read as one of them. */""}
         <div class="acct-idacts">
+          <button class="ghost-btn" id="unToggle" type="button">Username</button>
           <button class="ghost-btn" id="emToggle" type="button">Email address</button>
           <button class="ghost-btn" id="pwToggle" type="button">Change password</button>
           <button class="ghost-btn" id="swToggle" type="button">Switch account</button>
@@ -36871,6 +36941,18 @@
       ${/* …and the sync line moved with them: it says what happens to the thing those two buttons act on,
             so it belongs directly under them rather than beside a Remove-photo button. */""}
       <div class="acct-syncnote"><span class="auth-note">${S._supaTs ? "Progress synced to your account ✓" : "Progress will sync automatically as you study"}</span></div>
+      ${/* CHANGING THE HANDLE (Sep 2026, on a bug report about creating an account). Sign-up does not always
+            grant the username asked for — a taken one is answered with `scholar_<8 hex>` so that the account
+            is still made — and until now there was no way back from that: the field above edits the display
+            name, and the handle was write-once. The panel says what the handle IS as well as changing it,
+            since it is what the reader signs in with and what a friend searches for. */""}
+      <div class="acct-panel" id="unPanel" hidden>
+        <div class="acct-current">Your username is <b>@${esc(me.username)}</b></div>
+        <label>New username<input class="auth-in" id="unNew" autocomplete="username" placeholder="letters, numbers, underscore" maxlength="24"></label>
+        <div class="auth-msg" id="unMsg"></div>
+        <button class="auth-btn sm" id="unSave" type="button">Change username</button>
+        <p class="auth-note">This is the handle you can sign in with and the one friends add you by. Your display name above is separate.</p>
+      </div>
       ${/* SEEING AND CHANGING THE ADDRESS (Aug 2026, on request). The address a reader signs in with was
             nowhere on this page, which on an account that also has a username is the one fact they cannot
             look up anywhere else. It is shown plainly and changed in the same panel, and the note says the
@@ -37011,14 +37093,27 @@
     root.querySelector("#signout").addEventListener("click", async (e) => { e.target.disabled = true; await supaSignOut(); toast("Signed out"); afterAuthChange(); });
     /* One panel open at a time. They are three answers to "what about this account", and two of them
        showing at once pushes the third off the screen on a phone for no reason. */
-    const panels = ["emPanel", "pwPanel", "swPanel"];
+    const panels = ["unPanel", "emPanel", "pwPanel", "swPanel"];
     const openPanel = (want) => panels.forEach((p) => {
       const el = root.querySelector("#" + p);
       if (el) el.hidden = p === want ? !el.hidden : true;
     });
+    root.querySelector("#unToggle").addEventListener("click", () => openPanel("unPanel"));
     root.querySelector("#emToggle").addEventListener("click", () => openPanel("emPanel"));
     root.querySelector("#swToggle").addEventListener("click", () => openPanel("swPanel"));
     root.querySelector("#pwToggle").addEventListener("click", () => openPanel("pwPanel"));
+    root.querySelector("#unSave").addEventListener("click", async (e) => {
+      const m = root.querySelector("#unMsg"), inp = root.querySelector("#unNew");
+      e.target.disabled = true;
+      let r; try { r = await supaSetUsername(inp.value); } catch (err) { r = { error: authThrewMsg(err) }; } finally { e.target.disabled = false; }
+      if (r.error) { m.textContent = r.error; m.className = "auth-msg err"; return; }
+      m.textContent = "Username changed to @" + r.username + "."; m.className = "auth-msg ok";
+      inp.value = "";
+      // the handle is printed twice on this page — the identity line and this panel's own current-value line
+      const shown = root.querySelector("#unShown"), cur = root.querySelector("#unPanel .acct-current b");
+      if (shown) shown.textContent = "@" + r.username;
+      if (cur) cur.textContent = "@" + r.username;
+    });
     root.querySelector("#emSave").addEventListener("click", async (e) => {
       const m = root.querySelector("#emMsg"), inp = root.querySelector("#emNew");
       e.target.disabled = true;
