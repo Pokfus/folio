@@ -176,7 +176,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N13 | 12 | Cyprus and the Late Bronze Age east — **shipped**, all twelve pictured |
 | N14 | 12 | Materials, alloys and the sciences that source them — **shipped**, 10 of 12 pictured; clears N9's deferred *Poros stone* |
 | N15 | 12 | Rome's foundation and its earliest institutions — **shipped**, 8 of 12 pictured |
-| N16 | 12 | The hills of Rome and the city's topography |
+| N16 | 12 | The hills of Rome and the city's topography — **shipped**, 6 of 12 pictured |
 | N17 | 12 | Latium: the Latial culture and its sites |
 | N18 | 12 | The Italic peoples — Samnites, Sabines, Umbrians |
 | N19 | 12 | Umbria and its sanctuaries |
@@ -331,6 +331,79 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N16's findings
+
+**N16 — The hills of Rome and the city's topography (shipped, 6 of 12 pictured).** The Aventine, the
+Caelian, the Esquiline, the Quirinal, the Viminal, the Janiculum, the Campus Martius, the Velabrum, the
+Argiletum, the Comitium, the Regia and the Rostra.
+
+**THE SPINE IS PLATNER AND ASHBY, AND IT IS ALREADY IN THE GLOSSARY UNDER A URL NOBODY HAD WRITTEN DOWN.**
+*A Topographical Dictionary of Ancient Rome* (1929) is the standard reference for exactly this subject, it
+is out of copyright, and it has an entry for every place a Rome batch will want. It is reachable **twice**:
+on **Perseus** at text id `1999.04.0054` with lower-case hyphenated slugs (`aventinus-mons`,
+`quirinalis-collis`), and on **LacusCurtius** under
+`penelope.uchicago.edu/…/PLATOP*/<Entry_Name>.html`. `Cloaca_Maxima` was already citing the LacusCurtius
+copy, which is the form to follow, because **LacusCurtius states the page range on the page itself** —
+"Article on pp134‑137" — so a Chicago citation gets its page numbers for free where the Perseus copy shows
+none.
+
+**THE TWO COPIES DO NOT HOLD THE SAME ENTRIES, AND THE SLUGS ARE NOT PREDICTABLE.** LacusCurtius has not
+transcribed AVENTINUS MONS at all — its `A.html` index page is a stub marked NOTYET — so `Aventine_Hill`
+is cited to the Perseus copy while its eleven siblings are cited to LacusCurtius. And the LacusCurtius
+slug is the entry's own heading with the case it happens to carry: `Caelius_Mons` and `Esquiliae` resolve,
+`Aventinus_Mons` and `Quirinalis_collis` 404, while `Quirinalis`, `Viminalis` and `Janiculum` do — the
+Latin `Ianiculum` does not. **Probe the slug; do not derive it.**
+
+**THE SECOND SOURCE IS LIVY FOR SEVEN OF THE TWELVE, AND FOUR CHAPTERS CARRY ALL SEVEN.** Livy 1.30 adds
+the Caelian, 1.33 the Aventine and the Janiculum, 1.44 the Quirinal, the Viminal, the Esquiline **and** the
+Campus Martius census muster, and 1.36 puts the statue of Attus Navius in the Comitium. That is N15's
+finding holding at one remove: for early Rome one ancient narrative and one reference work between them
+carry a batch, and the work is choosing which chapter rather than hunting a source per term.
+
+**BUT ROBERTS DOES NOT TRANSLATE `ARGILETUM`, AND THE PAGE STILL LOOKS RIGHT.** Platner cites Livy 1.19.2
+for the Argiletum, and Perseus's Roberts translation of that very sentence renders *ad infimum Argiletum*
+as "at the foot of the Aventine" — so a citation placed on Platner's authority would have pointed a reader
+at a page that does not contain the word, on a URL that answers 200 with the right chapter. **When a
+reference work cites an ancient passage, grep the translation you are actually citing for the term before
+citing it.** The Argiletum's second source is Martial 1.3 instead, whose *Argiletanas … tabernas* is the
+epigram Platner cites for the street's shops.
+
+**THREE PERSEUS FAILURE MODES, ALL 200, AND THEY ARE DIFFERENT SIZES.** A wrong dictionary entry slug
+serves the **1,877-byte** page N13 recorded (`argiletum-geo`, `velabrum-geo` — neither exists in Smith's
+*Geography*). A wrong TEXT id serves a **66,664-byte** "We're sorry, but we were unable to find a document
+matching your query" page, which is large enough to pass any byte-count sanity check (`1999.02.0161` for
+Livy's Latin, `2008.01.0461` for an English Martial). And a rapid sequence of legitimate requests is
+refused with a **275-byte 429**, which clears with 12-second gaps. Three sizes, one status code: **check
+the body, not the code, and not the length alone.** Plutarch's Lives are one text id per Life and the ids
+are not sequential by subject — `2008.01.0063` is *Solon* and `2008.01.0065` is *Tiberius Gracchus*, so
+*Numa* was never found and the `Regia`'s second source is Smith's Antiquities entry instead.
+
+**THE OWNERSHIP PROBLEM WAS INSIDE THE BATCH AND IT WAS THE SERVIUS SENTENCE.** Four terms cite Livy 1.44
+and three of them opened by narrating the same addition, which measured as shared eight-word runs between
+`Esquiline_Hill`, `Quirinal_Hill` and `Viminal_Hill`. Assigning ownership fixed it in one pass — the
+Quirinal owns the addition itself, the Esquiline owns Servius *living* on it, the Viminal owns being
+named with the Quirinal — and a second run ("of the traditional seven hills of Rome") was Platner's own
+formula repeated verbatim in two first sentences. **When several terms in a batch share one chapter,
+decide who owns which clause before drafting, not after.**
+
+**A HILL INSIDE A MODERN CITY HAS ALMOST NO HONEST PICTURE, AND THAT IS WHY THIS BATCH SHIPS SIX.** Every
+one of Rome's hills is built over, so what Commons offers is the buildings standing on it rather than the
+hill: the Quirinal returns a telephoto of rooftops with the palace tower among them, the Caelian a hazy
+panorama of umbrella pines, the Esquiline a Villa Giulia ceiling in which the hill is a small inset panel,
+the Janiculum a view over twentieth-century apartment blocks with a green ridge along the top edge. All
+were looked at and all were refused. **The one that worked is the one where the hill itself is the
+subject**: Piranesi's *Veduta degli avanzi di antiche fabbriche alle falde dell'Aventino*, which is about
+the Aventine rising above the Marmorata. The Forum terms have no such difficulty — the Regia, the Rostra,
+the Comitium and the ground under the Colonnacce are all excavated and all photographed.
+
+**AND ONE CANDIDATE WAS REFUSED FOR BEING POSSIBLY THE WRONG HILL.** `Caelian Hill from Aventine Hill.jpg`
+is titled for the Caelian, but its foreground is plainly the floor of the Circus Maximus and the wooded
+ridge behind it could as easily be the Palatine, which `Palatine_Hill` already illustrates from almost the
+same viewpoint. A title is a claim by an uploader, not a fact; where the picture cannot be told apart from
+one of a neighbouring subject, it is not usable. Two more were refused for what was IN the frame rather
+than for the subject — a Rostra shot carrying a burnt-in camera date stamp, and a Curia façade with a
+coach party filling the lower fifth.
 
 ### N15's findings
 
