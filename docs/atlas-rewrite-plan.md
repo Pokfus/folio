@@ -200,7 +200,8 @@ is an open question and its batch size follows from the answer.
 |---|---|---|
 | **A0** | the three code changes, `add-place-info.js`, `atlas-audit.js` | **shipped 2026-08-21** |
 | **A1** | The eight most-studied present-day countries | **shipped 2026-08-21** |
-| A2–A33 | The remaining 250 present-day countries and territories, in descending population | planned |
+| **A2** | Russia, Mexico, Ethiopia, Japan, Egypt, the Philippines, DR Congo, Vietnam | **shipped 2026-09-03** |
+| A3–A33 | The remaining 242 present-day countries and territories, in descending population | planned |
 | B1–… | Stage 2, the 424 historical states, grouped by era | planned |
 | C1–… | Stage 3, the 528 names of the 1600 era, at a bar to be decided | planned |
 
@@ -293,3 +294,60 @@ after this one.
   States correctly falls through to its short name, that being its official one. The same check confirmed
   the apparatus end to end — India's eight markers numbered 1,1,5,1,2,2,3,4 with none removed, five items,
   five links, five back-links, the year section hidden and the phone's pager down to three dots.
+
+### A2 — the next eight by population (2026-09-03)
+
+Russia, Mexico, Ethiopia, Japan, Egypt, the Philippines, DR Congo and Vietnam, continuing the descending
+population order. All eight at the bar; five citations apiece, forty in all, every one open access and every
+one curled before the batch was written. Six findings.
+
+- **A COUNTRY'S DESCRIPTION CAN BE ABOUT SOMETHING ELSE ENTIRELY, AND NOTHING REPORTS IT.** `COUNTRY_INFO`'s
+  `japan` entry was five sentences on the **Azuchi–Momoyama period** — Nobunaga's castle at Azuchi,
+  Hideyoshi's sword hunt, the invasions of Korea — filed under the name of the modern state and shown to
+  every reader who clicked Japan on any of the six eras it appears in. It reads as a perfectly good
+  paragraph, it is five sentences of the old house style, and `atlas-audit.js` counted it as a box that
+  exists. **A coverage count cannot see a description that is about the wrong subject**, so the rewrite pass
+  is the only thing that will find the rest of them; read each existing entry before treating it as a
+  starting hypothesis, which is what step 1 of the per-place workflow is for.
+- **THE COMPARISON THAT CARRIES AN AREA CITATION SHOULD CITE BOTH COUNTRIES, AND THE WORLD BANK API TAKES A
+  SEMICOLON LIST.** A1 established that an area citation has to hang on a ratio or a comparison rather than
+  on a figure, because `stripInfoNoise` deletes the sentence and its marker with it. What A1 left is that
+  the citation then named only the country's own series while the claim rests on two. C9 recorded that
+  `api.worldbank.org/v2/country/AAA;BBB/indicator/…` serves a semicolon-separated list in one request; that
+  URL is openable, `SRC_URL_RX` allows the semicolon, and each of these eight cites the two-country series
+  its comparison actually stands on. **The anchor countries were chosen for a series the World Bank is not
+  wrong about** — India, the United Kingdom, Italy, Germany, the United States, the Philippines — and Canada,
+  the Dominican Republic and Monaco stay out of every comparison, per C11 and D1. France is out too: the
+  series gives it 606,410 km², which is the republic including its overseas departments and not the country
+  a reader pictures.
+- **THE MAP CAN CHECK A NEIGHBOUR LIST, AND IT CAUGHT TWO.** Step 6 of the workflow says to read the
+  description against the polygon; done as arithmetic — every claimed neighbour's own rings against this
+  country's, at a 0.35° tolerance over `world.js` — it is a few seconds per place and it found that Russia's
+  draft omitted **Poland**, which the map borders at the Kaliningrad exclave, and that Egypt's omitted
+  **Palestine**, which the map draws at Gaza. Both drafts read as complete lists and both were short one
+  state. Run the adjacency both ways: asking the map for a country's full neighbour set also confirmed DR
+  Congo's "borders nine states" against exactly the nine named.
+- **THE RECOGNITION GUIDE STILL DATES RECOGNITION, AND MEXICO IS C11's CASE UNCHANGED.** Grepped rather than
+  assumed: `history.state.gov/countries/mexico` carries no 1821 anywhere, so no independence year is claimed
+  for it. What the page does state is used instead — Spanish sovereignty ending with Napoleon's invasion of
+  Spain in 1808, and Monroe receiving José Manuel Zozaya on 12 December 1822 — and the fifth source is
+  **NARA's Milestone Document for the Treaty of Guadalupe Hidalgo**, which states outright that Mexico ceded
+  55 per cent of its territory and names the states. That is a checkable claim about Mexico from a page that
+  is really about the treaty, which is the same trade the Milestones make.
+- **A NEIGHBOUR'S GUIDE PAGE CARRIES THE CLAIM THIS COUNTRY'S DOES NOT.** Ethiopia has no independence date
+  to cite — its own page says the two states were "both long established" and dates only the 1903 treaty of
+  commerce — so the fact that actually needs a source is that it is **landlocked**, and the page that states
+  it is **Eritrea's**: independence declared 27 April 1993, "Eritrea previously had been under Ethiopian
+  sovereignty." D3 used El Salvador's page for Nicaragua on the same reasoning. Where a country's own entry
+  in the guide goes quiet, ask which neighbour's page the event is about.
+- **AND WHERE THE GUIDE GOES QUIET ABOUT AN ERA, THE MILESTONE ABOUT THE EVENT ANSWERS.** Five of the eight
+  take their fifth source from Milestones rather than from a statistical profile, and each is about an event
+  rather than a state, which is why one page can carry several claims: the collapse of the Soviet Union
+  dates Russia's succession and names the eleven republics that joined the CIS on 21 December 1991; the
+  opening to Japan carries both the 1639 expulsion and Perry's four ships on 8 July 1853; the Philippine-
+  American War carries the Treaty of Paris cession and the fighting from 4 February 1899; Congo
+  decolonization carries the elections, the Force Publique mutiny of 5 July and the UN force of 13 July; and
+  Ending the Vietnam War carries the Paris agreement of 27 January 1973 and the fact that neither party kept
+  it. **The Milestones have been retired and are no longer maintained**, which the pages say at the top; they
+  are still served, still stable and still the Office of the Historian's own text, so they are cited as they
+  stand.

@@ -35,13 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.440", released: "2026-09-03T17:34Z" };
+window.FOLIO_VERSION = { v: "1.441", released: "2026-09-03T18:57Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-03",
     t: "Ten gemstone themes, and the crossword gets clues of its own",
     items: [
+      "<b>Eight more countries on the Atlas have a full information box with sources</b> \u2014 Russia, Mexico, Ethiopia, Japan, Egypt, the Philippines, DR Congo and Vietnam.",
       "<b>Ten new themes</b> — Diamond, Ruby, Opalite, Jade, Emerald, Amber, Amethyst, Aquamarine, Bloodstone and Carnelian — each with its own colours, type and shapes.",
       "<b>The crossword is now clued with its own simple history questions</b> rather than with card questions, so it deals a fresh grid every day.",
       "<b>The Collections page has a menu bar</b> — History, Geography, Language, Other, Community and All — and Collections is a tab in the top bar again, between Home and Library.",
