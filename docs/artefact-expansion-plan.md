@@ -158,7 +158,7 @@ literature — which is what made batches 15 and 8 of the first pass cheap and b
 | B2 China | 7 | `oracle-bone`, `bronze-ding`; `han-tomb-brick`, `inkstone`, `bamboo-slip`, `longquan-celadon-bowl`, `crossbow-trigger` | archive.org (Laufer, Terrien de Lacouperie), J-Stage, *Arts Asiatiques*, Cambridge |
 | B3 Japan and Korea | 7 | `samurai-katana`, `dotaku`, `ukiyo-e-print`, `goryeo-celadon`; `magatama`, `jomon-dogu`, `buncheong-bowl` | **J-Stage** (Japan's national journal platform — answers with real content), museum bulletins on archive.org, Cambridge |
 | B4 Southeast Asia and the Pacific | 6 | `dong-son-drum`, `lapita-pottery`; `ban-chiang-pot`, `sumatralith`, `shell-adze`, `palm-leaf-folio` | *Journal of Indo-Pacific Archaeology*, PLOS, Antiquity via `doi.org`. **The highest-risk batch — see below** |
-| C1 Islam and Byzantium | 8 | `lustreware-bowl`, `mamluk-mosque-lamp`, `byzantine-ivory-panel`, `byzantine-silk`; `islamic-star-tile`, `glass-coin-weight`, `fustat-paper`, `byzantine-lead-seal` | `collections.louvre.fr`, the V&A API, Cleveland's open API, Dumbarton Oaks, OpenEdition — all reachable and all rich here |
+| C1 Islam and Byzantium | 8 | `lustreware-bowl`, `mamluk-mosque-lamp`, `byzantine-ivory-panel`, `byzantine-silk`; `islamic-star-tile`, `glass-coin-weight`, `fustat-paper`, `byzantine-lead-seal` | the V&A API, Cleveland's open API, Dumbarton Oaks, DOAJ, *'Atiqot* — all measured open (`collections.louvre.fr` 429s here); the five Dumbarton Oaks seal catalogue volumes are whole on archive.org |
 | C2 Africa and the Arctic | 5 | `great-zimbabwe-bird`, `ife-head`, `thule-harpoon-head`; `ostrich-eggshell-bead`, `manilla` | archive.org (Randall-MacIver, Caton-Thompson, Thurstan Shaw), PLOS and *Scientific Reports* for isotope and provenance work, *Arctic* (open, Calgary) |
 | C3 The Americas | 5 | `moche-portrait-vessel`, `mississippian-shell-gorget`, `clovis-point`; `wampum-bead`, `obsidian-blade` | *Latin American Antiquity* via Cambridge, PLOS, Europe PMC, archive.org (Squier and Davis, Moorehead) |
 
@@ -257,6 +257,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | D2 | `oak-coffin-textile`, `amber-bead`, `ochre-crayon` | `palaeolithic-bone-flute`, `antler-spearthrower`, `saddle-quern`, `sickle-blade`, `bone-fishhook`, `eyed-bone-needle` |
 | D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | `palaeolithic-bone-flute`, `bone-fishhook` |
 | C3/C2 | `clovis-point`, `obsidian-blade`, `ostrich-eggshell-bead` | — |
+| C1 | `byzantine-lead-seal`, `lustreware-bowl`, `glass-coin-weight` | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -264,6 +265,30 @@ on the buried weapons is not a Qin anti-rust technology two millennia ahead of i
 from the lacquer on the figures — a story most popular accounts still repeat. A plate that states the
 current standing of the thing a reader half-remembers is doing more work than one that recites the
 half-memory. The Great Isaiah Scroll's 2025 radiocarbon-plus-style programme is the same shape.
+
+**C1 found the pass's best *reason*, and it is a fact about a material rather than about an object.**
+Islamic glass coin weights are glass and not metal because glass cannot be altered invisibly: any
+reduction, enlargement or knock to a finished disc shows at once, so a standard that has been shaved
+announces itself. That is the whole argument for the object's existence in one sentence, and it is the
+kind of thing a plate is for — **when researching a humble object, look for the property that made it
+that material**, which is usually stated once, in a paragraph nothing indexes.
+
+**Two access findings.** *'Atiqot*, the Israel Antiquities Authority's journal, is fully open at
+`publications.iaa.org.il` — Hebrew articles with English summaries, and the summary is often enough for
+one dated claim; and the **DOAJ API** (`doaj.org/api/search/articles/…`) is the right index for this
+half of the pass where Europe PMC is the right one for the science batches. DOAJ found all three of the
+glass weight's works in one query, including a PLOS ONE study of 275 Byzantine glass weights that turns
+out to be the Islamic object's own ancestor. Against that, `doi.org/10.1021/…` is **403** (ACS is shut
+here), so the ACS Nano citation is written to its Europe PMC copy — the route this file already records
+for `academic.oup.com`, now confirmed for a second publisher.
+
+**Its cautionary finding is a Commons file whose NAME is right and whose CONTENTS are another
+civilisation.** `File:Coin Weight MET 5328.jpg` is a photograph of three Attic lekythoi — the number is
+an old Metropolitan negative reference, not an accession — and it is 4,000 px, CC0 and the top hit for
+a glass-weight search, so every automatic test passes it. It would have shipped Greek pottery on a card
+about Islamic metrology. **This is the third region in which the look-at-the-picture rule has caught
+something no filter could**, and the shape is always the same: the metadata is not lying, it is simply
+about something else.
 
 **C3/C2's finding corrects a note this file already carries: *Azania* IS reachable, at Europe PMC.**
 B1 recorded the etched carnelian bead as deferred partly because "their literature is in … *Azania*,

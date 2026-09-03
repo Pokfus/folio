@@ -847,4 +847,25 @@ window.ARTEFACTS = [
     date: "c. 50,000 years ago onwards",
     origin: "Eastern and southern Africa",
   },
+  {
+    id: "byzantine-lead-seal",
+    name: "Byzantine lead seal",
+    rarity: "common",
+    date: "c. 6th – 15th century CE",
+    origin: "The Byzantine Empire",
+  },
+  {
+    id: "lustreware-bowl",
+    name: "Lustreware bowl",
+    rarity: "rare",
+    date: "c. 9th – 18th century CE",
+    origin: "Iraq, Egypt, Iran, Spain and Italy",
+  },
+  {
+    id: "glass-coin-weight",
+    name: "Glass coin weight",
+    rarity: "common",
+    date: "c. 8th – 16th century CE",
+    origin: "Egypt, Syria and Palestine",
+  },
 ];
