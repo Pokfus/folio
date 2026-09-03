@@ -631,50 +631,14 @@ body.night .banner{
 .banner:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
 .banner .body{flex:1; min-width:0;}
 .banner h2{font-family:var(--display); font-weight:600; font-size:calc(25px * var(--fs)); margin:7px 0 6px; letter-spacing:-.01em; color:var(--ink);}
-/* THE PADDING IS WHAT KEEPS THE TITLE OUT FROM UNDER THE CORNER ROW, and it is the one number here that
-   is not free to change on its own. The Ordered/Random toggle used to stand in that corner and this
-   reserved its width; the toggle is gone (Aug 2026) and `.rv-topacts` — the deck list's Edit control —
-   stands there instead, so the reservation is still doing exactly the job it was written for and the two
-   must be kept in step. It is on the TITLE rather than on `.body`, because the counts and the xp
-   bar below should still use the full width — and on a phone the title steps down a size, since 39px plus
-   a corner row cannot share a 350px card without wrapping.
-   IT SCALES WITH `--fs` BECAUSE THE ROW DOES, and on a phone it reserves MORE. It was a flat 132px, which
-   is right at Medium on a wide card and wrong everywhere else: the corner's text is written
-   `calc(<px> * var(--fs))`, so at Very large the row grows by a third and the reservation did not, and the
-   three editor buttons ran into the title on a 320px screen. The phone's own figure is measured off the
-   WIDEST the row ever gets — the three buttons of the open mode — at the text size where they are
-   proportionally widest, which is Very small, since a button's padding and border do not scale with the
-   text inside it. Over-reserving at the other sizes costs nothing: it only makes the title wrap a word
-   sooner, which is what the reservation is for. */
-.banner h2.review-title{font-size:calc(39px * var(--fs)); margin:0 0 11px; line-height:1.0; padding-right:calc(132px * var(--fs));}
-/* the phone's banner has its own padding (22px 20px) and its own title size, and the corner row is
-   written from both — so the two numbers move together rather than being guessed at twice */
+/* THE TITLE HAS THE WHOLE CARD AGAIN (Sep 2026). It carried a `padding-right` reserving the banner's top
+   right — first for the Ordered/Random pill, then for the deck list's Edit control — and BOTH have left
+   that corner: the Edit button is at the foot of the list now, on request (see `.rv-foot`). What is still
+   in the corner is the completion mark, which is 29px and sits above the title's own line rather than in
+   it, so it needs no reservation. The phone keeps its smaller title, which was never about the corner. */
+.banner h2.review-title{font-size:calc(39px * var(--fs)); margin:0 0 11px; line-height:1.0;}
 @media (max-width:640px){
-  .banner h2.review-title{font-size:calc(32px * var(--fs)); padding-right:calc(156px * var(--fs));}
-  .rv-topacts{top:23px; right:20px; height:calc(32px * var(--fs));}
-  .review-group.rv-done .rv-topacts, .review-group.rv-won .rv-topacts{right:44px;}
-  /* THE CORNER AND THE TITLE SHARE ONE LINE, and on a phone that line is 313px wide with "Daily study"
-     taking half of it — so the three buttons the editor mode opens lose what they can afford to lose
-     rather than lying on top of the title: the padding and the tracking come in, and Undo gives up its
-     icon (Revert and Done never had one, so the mode reads as three words either way). Measured, not
-     guessed: 187px → 143px. The one button of the shut state was never the problem at 65px, and it keeps
-     its word — a pencil alone in the corner of a card is a control a reader has to guess at, and this one
-     is the only way into the mode. */
-  .rv-topacts .rv-editacts{gap:4px;}
-  .rv-topacts .rv-editacts .rv-edit{padding:5px 7px; letter-spacing:.05em;}
-  .rv-topacts .rv-edit-undo svg{display:none;}
-}
-/* …and once more below 360px, which is the only phone width where the mode's three buttons and the
-   title's own longest WORD still cannot share the card. The arithmetic is what forces a second step
-   rather than taste: at Very large text on a 320px screen the buttons are 170px, "Daily" is 94px, and the
-   card is 246px — and a word cannot be made narrower, so the buttons take the difference. It is the
-   BUTTONS that give rather than the heading: they are chrome the reader has just summoned and can still
-   read at 8px × the text scale, where the title is what the card is called. Applied at every text size at
-   this width rather than only at the two that need it, so there is one rule to reason about and no
-   `data-fs` selector to keep in step. */
-@media (max-width:360px){
-  .rv-topacts .rv-editacts{gap:2px;}
-  .rv-topacts .rv-editacts .rv-edit{padding:5px 5px; font-size:calc(8px * var(--fs)); letter-spacing:.02em;}
+  .banner h2.review-title{font-size:calc(32px * var(--fs));}
 }
 .banner .desc{color:var(--ink-soft); font-size:calc(15px * var(--fs)); margin:0; line-height:1.5;}
 .banner .meta{display:flex; gap:16px; margin-top:14px; flex-wrap:wrap; align-items:center;}
@@ -687,58 +651,33 @@ body.night .banner{
    list now, on request; see the note there) */
 .banner .cta{margin-left:auto;}   /* sits on the SAME line as the three piles, pushed to the right edge */
 /* ---------- the footer row under the DECK LIST ----------
-   It has lost everything that ever shared it with the day's timer: "+ New group" (`.rv-tools` /
-   `.rv-newgroup`) when the group function left the daily study block, the "+ Add decks" lip (`.rv-lip`)
-   when the way to the collections became a button standing OUTSIDE the group, and the Edit button when
-   that went up to the banner's own corner — all Aug 2026, all on request. The TIMER stayed (it went up to
-   the corner with the button and came back the same day, on request), so the row is one item wide again
-   and is drawn only when there is a timer to hold; see the note in PAGES.home for why it is conditional
-   rather than always present. */
-.rv-foot{display:flex; align-items:center; min-height:34px;}
-/* ---------- THE EDIT BUTTON, AT THE BANNER'S TOP RIGHT ----------
-   (Aug 2026, on request: "move the active decks edit button and study timer to the top right of the Daily
-   Study banner … vertically centered to the Daily Study title" — and then, the same day, "move the timer
-   back to where it was before", so this corner holds the button alone.) Four things are load-bearing.
-   IT IS LAID OVER THE BANNER, NOT WRITTEN INTO IT, because the banner is a `<button>` and a button may
-   not contain one — see the note in PAGES.home. So the row is a sibling positioned against
-   `.review-group`, which has been `position:relative` since the Ordered/Random pill sat in this same
-   corner; `pointer-events:none` here with `auto` on the children is what keeps the rest of the banner one
-   big pressable tile while the one control it holds — or the three the editor mode opens — takes its own
-   presses.
-   THE VERTICAL CENTRING IS THE TITLE'S OWN LINE BOX, NOT A NUMBER. `top` is the banner's padding plus its
-   border, and the row's HEIGHT is `.review-title`'s font-size at its `line-height:1` — so the row is
-   exactly the box the title's first line occupies and `align-items:center` does the rest. Both halves
-   scale with `--fs` on their own, and the phone's smaller padding and title are one override rather than
-   a second set of guesses.
-   IT STEPS ASIDE FOR THE COMPLETION MARK. `.gt-check` and `.gt-seal` sit in this corner too (top 11–12px,
-   up to 29px square) and appear exactly when the day is cleared — which is a day that has a timer to
-   show, so the two are drawn together rather than alternately. The inset under `.rv-done` / `.rv-won`
-   clears the mark's left edge, and is written in PHYSICAL `right` because the mark it is dodging is.
-   AND THE TITLE ALREADY RESERVED THE ROOM: `.banner h2.review-title` carries a `padding-right` left over
-   from the Ordered/Random pill that used to stand here. It is what stops the title running under this
-   row, so the two numbers must be kept in step — see the note there. */
-.rv-topacts{
-  position:absolute; z-index:4; top:27px; right:28px;
-  height:calc(39px * var(--fs));
-  display:flex; align-items:center; justify-content:flex-end;
-  pointer-events:none;
-}
-.rv-topacts > *{pointer-events:auto;}
-.review-group.rv-done .rv-topacts, .review-group.rv-won .rv-topacts{right:48px;}
-/* the inset these carried in the foot row was that row's left margin; here the row is right-aligned
-   against the banner's own padding and has nothing to its left */
-.rv-topacts .rv-edit, .rv-topacts .rv-editacts{margin-inline-start:0;}
-.rv-topacts .rv-editacts{flex-wrap:nowrap;}
+   The day's timer at one end and the deck list's Edit control at the other (Sep 2026, on request: "move
+   it to the bottom right just below the active decks list, vertically centered opposite the study
+   timer"). The row has held, at various times, "+ New group", the "+ Add decks" lip and the Edit button;
+   the first two are gone for good and the third is back, having spent a fortnight in the banner's corner.
+   `justify-content:space-between` with `align-items:center` is the whole of "opposite, centred": the
+   timer keeps the left, the control keeps the right, and the two share one line box whatever either is.
+   The timer's span is emitted EVEN WHEN EMPTY, so the button stays at the right edge on a morning with
+   nothing studied yet rather than sliding across to the left. It WRAPS, which is what a phone in the
+   editor mode needs: four controls and a sentence do not fit on one 313px line, so the controls drop to
+   their own line under the time rather than being squeezed to nothing. */
+.rv-foot{display:flex; align-items:center; justify-content:space-between; gap:10px 12px; min-height:34px; flex-wrap:wrap;}
+.rv-foot .rv-timeslot{flex:0 1 auto; min-width:0;}   /* holds the row's left end open on a morning with no time yet */
+/* THE ABSOLUTE CORNER ROW (`.rv-topacts`) STOOD HERE AND IS GONE (Sep 2026, on request). It laid the
+   Edit control over the banner's top right, which had to be an overlay rather than markup — the banner is
+   a `<button>` and cannot contain one — with `pointer-events:none` on the row and `auto` on its children,
+   a height computed from the title's own line box, an inset that dodged the completion mark, and two
+   media queries shrinking the three editor buttons so they and the word "Daily" could share a 313px line.
+   All of that existed to put a button somewhere a button cannot go. In `.rv-foot` it is an ordinary
+   button in an ordinary row and none of it is needed. */
 /* ---------- THE DECK LIST'S EDITOR MODE (Aug 2026, on request) ----------
    "Rather than the drag handles being visible at all times, make them invisible by default … Add a button
    in the bottom left, just below the active decks list, vertically centered to the study timer."
-   The bottom left is where it began; it is the banner's TOP RIGHT now (Aug 2026, on a second request —
-   see `.rv-topacts` above), centred on the title's line rather than on the timer's, and the timer stayed
-   where it was. Open, the one button becomes three IN THE SAME PLACE, so nothing on the page moves under
-   the press. */
+   The bottom left is where it began; it went to the banner's top right in Aug 2026 and is back at the
+   foot of the list — on the RIGHT of it — since Sep 2026, opposite the timer, on request. Open, the one
+   button becomes four IN THE SAME PLACE, so nothing on the page moves under the press. */
 .rv-edit{
   appearance:none; display:inline-flex; align-items:center; gap:5px; flex:none;
-  margin-inline-start:20px;            /* the foot row's own inset; zeroed in the corner (.rv-topacts) */
   padding:5px 10px; border:1px solid var(--rule); border-radius:999px; background:var(--card);
   font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.1em; text-transform:uppercase;
   color:var(--ink-faint); cursor:pointer; white-space:nowrap;
@@ -748,12 +687,22 @@ body.night .banner{
 .rv-edit:hover:not(:disabled){color:var(--ink); border-color:var(--indigo);}
 .rv-edit:focus-visible{outline:none; border-color:var(--indigo); box-shadow:0 0 0 3px var(--indigo-wash);}
 .rv-edit:disabled{opacity:.45; cursor:default;}
-/* the three share the one inset: it goes on the wrapper, so the row's left edge does not move when the
-   single button becomes three */
-.rv-editacts{display:flex; align-items:center; gap:6px; margin-inline-start:20px; flex-wrap:wrap;}
-.rv-editacts .rv-edit{margin-inline-start:0;}
+/* the four sit together at the row's right end; they wrap as a group rather than one at a time */
+.rv-editacts{display:flex; align-items:center; gap:6px; flex-wrap:wrap; justify-content:flex-end;}
 .rv-edit-done{border-color:var(--indigo); color:var(--indigo);}
 .rv-edit-revert:not(:disabled){color:var(--danger,#c8453c);}
+/* THE ICON SWITCH (Sep 2026, on request), which is a state rather than an action — so it says which state
+   it is in by being FILLED when on, in the same gold the marks it governs are drawn in, rather than by
+   looking like the three commands beside it. Off, it is an ordinary quiet button like them. */
+.rv-edit-icons.on{color:#9A7A22; border-color:color-mix(in srgb,#C39A2E 55%, var(--rule)); background:color-mix(in srgb,#C39A2E 12%, var(--card));}
+body.night .rv-edit-icons.on{color:#E6C765; border-color:color-mix(in srgb,#E6C765 45%, var(--rule)); background:color-mix(in srgb,#E6C765 14%, var(--card));}
+.rv-edit-icons.on svg{fill:currentColor;}
+/* a phone in the mode holds four controls and a sentence: the words come in rather than the buttons going */
+@media (max-width:430px){
+  .rv-editacts{gap:4px;}
+  .rv-editacts .rv-edit{padding:5px 7px; letter-spacing:.05em;}
+  .rv-edit-undo svg, .rv-edit-icons svg{display:none;}
+}
 /* ---------- the handles, which are what the mode is FOR ----------
    They sat at `.32` on every row at rest and the request is that they not be there at all until asked
    for. Hidden with `opacity` rather than `display:none` so the column they occupy is still reserved —
@@ -883,6 +832,24 @@ body[data-theme="gazette"] .gt-check{box-shadow:none;}
 /* arcade squares every mark off and outlines it in ink; the gazette prints flat, so the wax loses its lift */
 body[data-theme="arcade"] .gt-seal{clip-path:none; border:2px solid var(--ink); filter:none;}
 body[data-theme="gazette"] .gt-seal{filter:none;}
+/* ---------- ON A PHONE THE MARK OWNS THE TILE'S TOP-RIGHT QUARTER (Sep 2026, on request: "the checkmarks
+   and medals on completed minigame tiles should be much larger, covering the top right quarter of the
+   tile") ----------
+   Three tiles to a 390px row is about 110px each, and at 21px the mark was a speck in a corner — a reader
+   glancing at the grid to see what is left to play could not tell a played tile from an unplayed one
+   without reading it. It is sized as a FRACTION of the tile rather than in pixels, so it stays a quarter
+   at every tile width the grid produces, with `aspect-ratio:1` keeping the seal's fluted rim round and a
+   max in px so a wide phone does not grow it past the corner it belongs in.
+   THE GLYPH INSIDE SCALES WITH IT, in percent for the same reason: a 12px check floating in a 50px circle
+   reads as a ring, not as a tick. It is scoped to `.game-tile` — the review banner's own copy of these
+   marks is a different surface with its own pair of sizes, and it is not what the request is about. */
+@media (max-width:640px){
+  .game-tile .gt-check, .game-tile .gt-seal{
+    top:5px; right:5px; width:min(46%, 68px); height:auto; aspect-ratio:1;
+  }
+  .game-tile .gt-check svg, .game-tile .gt-seal-face svg{width:52%; height:52%;}
+  .game-tile .gt-seal-face{width:100%; height:100%; display:grid; place-items:center;}
+}
 /* daily challenge accent treatment */
 .banner.challenge{background:linear-gradient(135deg, var(--card) 60%, var(--zh-wash));}
 .banner.challenge h2{color:var(--ink);}
@@ -1329,8 +1296,15 @@ body[data-theme="folio"] .collection-deco::after{
 /* WHERE THIS CARD STANDS, in the three colours the study bar's own counts use (Aug 2026, on request) —
    blue for a card never studied, red for one being learned, green for one up for review. It is a mark
    rather than a control, so it takes no pointer; its name is on the element, since three colours say
-   nothing to a reader who cannot see them. */
-.study-card .q-dot{display:inline-block; width:calc(7px * var(--fs)); height:calc(7px * var(--fs));
+   nothing to a reader who cannot see them.
+   IT IS A SIBLING OF THE "Question" LABEL RATHER THAN A CHILD OF IT (Sep 2026, on a bug report that it
+   "should be at full opacity, same color as the three dots in the top right"). It was inside `.label`,
+   which carries `opacity:.5` to set the word quietly over the question — and OPACITY ON AN ANCESTOR IS A
+   GROUP: it composites the element and everything under it, so the dot's own `opacity:1` could not
+   escape it and no colour, `!important` or otherwise, could have. Standing outside the label it takes
+   `--indigo-bright` / `--zh` / `--good` at full strength, which is exactly the ink the study bar's own
+   three counts (`.cnt::before`) are drawn in. The size is bumped 7px → 8px with them for the same reason. */
+.study-card .q-dot{display:inline-block; width:calc(8px * var(--fs)); height:calc(8px * var(--fs));
   border-radius:50%; margin-right:8px; vertical-align:baseline; flex:none; opacity:1;}
 .study-card .q-dot.q-new{background:var(--indigo-bright);}
 .study-card .q-dot.q-learn{background:var(--zh);}
@@ -1417,27 +1391,8 @@ body[data-theme="folio"] .collection-deco::after{
 .dt-sub{grid-column:2; opacity:.72;}
 .dt-k{font-family:var(--mono); font-size:calc(9px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); font-weight:600; opacity:.55; white-space:nowrap;}
 .dt-v{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.01em; color:var(--ink-faint); line-height:1.45; min-width:0;}
-/* flex-shrink 0: never squeeze the translation column below its content — otherwise a wide translation (long
-   traditional line + TTS button) gets clipped on the left by .tr-collapse's overflow:hidden on narrower cards.
-   The answer text (.answer-main, min-width:0) wraps to absorb the width instead. Mobile stacks these (see below). */
-.answer-tr{flex:0 0 auto; align-self:stretch; min-width:0; display:flex; flex-direction:row; align-items:stretch; gap:0;}
-.tr-toggle{flex:0 0 auto; align-self:flex-start; display:inline-flex; align-items:center; justify-content:center; background:none; border:0; cursor:pointer; padding:1px 8px 0 0; margin:0; font-family:var(--han); font-size:calc(13.5px * var(--fs)); font-weight:400; line-height:1.15; letter-spacing:.03em; color:var(--ink-faint); opacity:.85; transition:opacity .18s, color .18s;}
-.tr-toggle:hover{opacity:1;}
-.answer-tr.collapsed .tr-toggle{opacity:.85;}
-.tr-toggle:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px; border-radius:4px;}
-.tr-collapse{overflow:hidden; display:grid; grid-template-columns:1fr; grid-template-rows:1fr; align-items:center; justify-items:end; transition:grid-template-columns .42s var(--ease); border-left:1px solid rgba(54,53,122,.18);}
-.answer-tr.collapsed .tr-collapse{grid-template-columns:0fr;}
-.tr-collapse-inner{min-width:0; overflow:hidden; display:flex; justify-content:flex-end; align-items:center;}
-.night .answer-tr .tr-collapse{border-left-color:rgba(166,164,240,.25);}
-.tr-list{flex:none; width:max-content; display:flex; flex-direction:column; align-items:flex-end; gap:1px; text-align:right; margin-left:16px;}
-.tr-cn{display:flex; align-items:center; justify-content:flex-end; gap:8px; font-family:var(--han); font-weight:400; font-size:calc(28px * var(--fs)); line-height:1.02; color:var(--zh);}
-.answer .tr-cn .hz{font-family:var(--han); font-weight:400; font-size:calc(25px * var(--fs)); line-height:1.18; color:var(--zh);}
-.answer-tr, .answer-tr b, .answer-tr strong{font-weight:400;}
-.tr-tradline{line-height:1.06; margin-bottom:1px;}
-.tr-pinline{line-height:1.15; margin-top:1px;}
-.tr-trad{font-family:var(--han); font-weight:400; font-size:calc(17px * var(--fs)); color:var(--zh); opacity:.5;}
-.tr-pin{font-family:var(--mono); font-size:calc(12px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint);}
-.tr-oth{display:flex; gap:7px; align-items:baseline; line-height:1.4; margin-top:4px; justify-content:flex-end;}
+/* The collapsible translation column (`.answer-tr`, the 中文 toggle) stood here and is retired (Sep 2026):
+   every card with a Chinese name now shows it in the answer box's middle section — see `.ans-cn` below. */
 .tr-ov{color:var(--ink-soft); font-family:var(--han); font-weight:400; font-size:calc(16px * var(--fs));}
 .tr-rom{font-family:var(--mono); font-size:calc(12px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint);}
 .tr-lit{color:var(--ink-soft); font-style:italic; font-family:var(--serif); font-size:calc(13.5px * var(--fs));}
@@ -1473,15 +1428,29 @@ body[data-theme="folio"] .collection-deco::after{
 .cf-k{font-family:var(--mono); font-size:calc(8.5px * var(--fs)); letter-spacing:.08em; text-transform:uppercase; color:var(--indigo); font-weight:600; opacity:.62; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .cf-v{font-family:var(--mono); font-size:calc(12px * var(--fs)); color:var(--ink-soft); line-height:1.35; overflow-wrap:anywhere;}
 
-/* ---------- a map card's answer in Chinese (see answerNameHTML) ----------
-   One line under the answer term: simplified, the traditional form at half strength where it differs,
-   then the pinyin. `align-items:center` is what vertically centres the small romanisation against the
-   tall glyphs — a baseline alignment would hang it off the characters' feet. It wraps rather than
-   overflowing, since a four-character name with its pinyin is wider than a phone's answer column. */
-.ans-cn{display:flex; align-items:center; flex-wrap:wrap; gap:0 10px; margin:3px 0 1px; line-height:1.15;}
-.ans-cn .ac-s{font-family:var(--han); font-weight:400; font-size:calc(21px * var(--fs)); color:var(--zh);}
-.ans-cn .ac-t{font-family:var(--han); font-weight:400; font-size:calc(21px * var(--fs)); color:var(--zh); opacity:.5;}
+/* ---------- the answer's Chinese name (see answerNameHTML) ----------
+   THE MIDDLE SECTION OF THE ANSWER BOX (Sep 2026, on request): a sibling of `.answer-main` and of the
+   figures grid, so on a wide card it stands between the term on the left and the figures on the right,
+   ruled off from the term by a hairline. Two lines — the characters (simplified, then the traditional form
+   at half strength where it differs) over the pinyin with its speaker — and the block is centred against
+   the term, as the figures are. It was a line under the term, on a map card only; every card that carries
+   a Chinese name gets it now. Below 640px `.answer` stacks (see the phone block), so it goes under the
+   term at full width with the rule on its top edge instead. */
+.ans-cn{display:flex; flex-direction:column; align-items:flex-start; gap:2px; flex:0 1 auto; min-width:0;
+  align-self:center; padding:2px 0 2px 16px; border-left:1px solid color-mix(in srgb, var(--zh) 22%, transparent); line-height:1.15;}
+.ans-cn .ac-chars{display:flex; align-items:baseline; flex-wrap:wrap; gap:0 10px;}
+.ans-cn .ac-s{font-family:var(--han); font-weight:400; font-size:calc(24px * var(--fs)); color:var(--zh); line-height:1.15;}
+.ans-cn .ac-t{font-family:var(--han); font-weight:400; font-size:calc(19px * var(--fs)); color:var(--zh); opacity:.5; line-height:1.15;}
+.ans-cn .ac-row{display:flex; align-items:center; gap:7px;}
 .ans-cn .ac-p{font-family:var(--mono); font-size:calc(11.5px * var(--fs)); letter-spacing:.02em; color:var(--ink-faint);}
+/* the speaker: a small round button in the Chinese ink, hidden outright on a device with no speech engine */
+.ans-cn .ac-say{flex:none; width:calc(22px * var(--fs)); height:calc(22px * var(--fs)); border-radius:50%; border:1px solid color-mix(in srgb, var(--zh) 45%, var(--rule));
+  background:var(--card); color:var(--zh); display:inline-flex; align-items:center; justify-content:center; padding:0; cursor:pointer;
+  transition:background .15s var(--ease), color .15s var(--ease);}
+.ans-cn .ac-say svg{width:calc(12px * var(--fs)); height:calc(12px * var(--fs)); display:block;}
+.ans-cn .ac-say:hover, .ans-cn .ac-say.tts-playing{background:var(--zh); color:#fff;}
+.ans-cn .ac-say:focus-visible{outline:2px solid var(--zh); outline-offset:2px;}
+body.no-tts .ans-cn .ac-say{display:none;}
 
 /* ---------- a map card's window (see the MAP CARDS block in app.js) ----------
    The question is a canvas: one place shaded on the globe, turned and zoomed by the reader. `touch-action:
@@ -1507,22 +1476,15 @@ body[data-theme="folio"] .collection-deco::after{
 }
 .mc-btn:hover{background:var(--card); color:var(--ink);}
 .mc-btn svg{width:14px; height:14px;}
-/* the hint, bottom-left, quiet — it says what to DO, which a canvas cannot say for itself */
-.mc-note{
-  position:absolute; left:11px; bottom:9px; pointer-events:none;
-  font:500 calc(9.5px * var(--fs))/1.2 var(--sans); letter-spacing:.04em; text-transform:uppercase;
-  color:var(--ink-faint); background:color-mix(in srgb, var(--card) 74%, transparent);
-  padding:3px 7px; border-radius:5px;
-}
+/* The "Drag to turn · zoom to look closer" chip that sat bottom-left is gone (Sep 2026, on request); the
+   canvas's aria-label still says what to do, which is the one reader the words were for. */
 /* the two lazy bundles behind it. A window that says nothing while it waits reads as one that failed. */
 .map-card.mc-loading::after, .map-card.mc-failed::after{
   content:"Loading the map…"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
   background:var(--paper-2); color:var(--ink-faint); font:500 calc(12px * var(--fs))/1.4 var(--sans); text-align:center; padding:16px;
 }
 .map-card.mc-failed::after{content:"This map could not be loaded. The answer is below.";}
-.map-card.mc-loading .mc-zoom, .map-card.mc-failed .mc-zoom,
-.map-card.mc-loading .mc-note, .map-card.mc-failed .mc-note{display:none;}
-@media (max-width:640px){ .mc-note{display:none;} }   /* at 390px it competes with the map it explains */
+.map-card.mc-loading .mc-zoom, .map-card.mc-failed .mc-zoom{display:none;}
 
 /* ---------- the locator (see cardLocatorHTML in app.js) ----------
    The same window on the back of a card whose answer is a place, saying where it is. It is shorter than a
@@ -1691,10 +1653,17 @@ body.night .gloss-book{background:linear-gradient(105deg, color-mix(in srgb, var
   display:flex; flex-direction:column;
 }
 .img-viewer.show{opacity:1;}
-.iv-stage{flex:1; min-height:0; display:flex; align-items:center; justify-content:center; overflow:hidden; cursor:zoom-in; touch-action:none;}
+/* A COLUMN, because the caption is inside it (Sep 2026, on request: the title, description and source
+   "should stick to the bottom of the image rather than the bottom of the page"). The picture and its
+   words are one centred group, so the caption is directly under the image whatever shape the image is —
+   where a caption pinned to the overlay's own foot sat half a screen below a wide, short picture.
+   `.iv-img` is `flex:0 1 auto` with `min-height:0` against a `flex:none` caption: a tall picture gives up
+   the height the words need instead of pushing them off the bottom of the screen. `max-height` is 100% of
+   what the flexbox leaves rather than 94% of the stage, the gap being the column's own `gap` now. */
+.iv-stage{flex:1; min-height:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; overflow:hidden; cursor:zoom-in; touch-action:none; padding:3vh 0;}
 .iv-stage.zoomed{cursor:grab;}
 .iv-stage.zoomed:active{cursor:grabbing;}
-.iv-img{max-width:94%; max-height:94%; object-fit:contain; transition:transform .18s var(--ease); user-select:none;}
+.iv-img{max-width:94%; max-height:100%; min-height:0; flex:0 1 auto; object-fit:contain; transition:transform .18s var(--ease); user-select:none;}
 .iv-stage.iv-live .iv-img{transition:none;}   /* a pinch or a drag moves the picture per frame; the ease would lag behind the fingers */
 /* a profile photo in the viewer — round, because that is the shape it was cropped in, and capped rather
    than shown at its stored 128px, which would be barely larger than the row it was tapped in. See
@@ -1702,7 +1671,7 @@ body.night .gloss-book{background:linear-gradient(105deg, color-mix(in srgb, var
 .iv-avatar{width:min(320px,74vw); height:auto; border-radius:50%;}
 /* the same overlay for a video: no zoom/pan, just the biggest 16:9 the viewport allows */
 .iv-vidstage{cursor:default;}
-.iv-vid{width:min(94%, calc((94vh - 120px) * 16 / 9)); aspect-ratio:16/9; max-height:94%; border:0; display:block; background:#000; border-radius:8px;}
+.iv-vid{width:min(94%, calc((94vh - 120px) * 16 / 9)); aspect-ratio:16/9; max-height:100%; min-height:0; flex:0 1 auto; border:0; display:block; background:#000; border-radius:8px;}
 .iv-close{
   position:absolute; top:14px; right:14px; width:42px; height:42px; border-radius:50%; border:0;
   background:rgba(255,255,255,.12); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center;
@@ -1710,9 +1679,13 @@ body.night .gloss-book{background:linear-gradient(105deg, color-mix(in srgb, var
 }
 .iv-close:hover{background:rgba(255,255,255,.24);}
 .iv-close svg{width:18px; height:18px;}
+/* Under the picture rather than under the screen — see `.iv-stage`. It keeps its own pointer events (the
+   credit is a link, and the stage's pan/zoom handlers step over it), and the gradient it used to carry is
+   gone with the position: a wash rising from the foot of the overlay meant nothing once the words stopped
+   being there. `flex:none` so the picture yields the height instead. */
 .iv-meta{
-  flex:none; padding:14px clamp(16px,5vw,48px) 18px; text-align:center; color:#EDE9E2;
-  background:linear-gradient(to top, rgba(0,0,0,.55), transparent);
+  flex:none; max-width:min(94%, 78ch); padding:0 clamp(12px,4vw,32px); text-align:center; color:#EDE9E2;
+  overflow-y:auto; max-height:34%;
 }
 .iv-title{font-family:var(--display); font-weight:600; font-size:calc(18px * var(--fs)); letter-spacing:-.01em; color:#fff;}
 .iv-desc{font-family:var(--serif); font-size:calc(14px * var(--fs)); line-height:1.55; color:#D8D3C9; margin:6px auto 0; max-width:72ch;}
@@ -3360,8 +3333,13 @@ body.hc:not(.night){
 .showcase{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:10px;}
 /* the way in to the whole collection. It sits ABOVE the four slots and to the right, where a "see the
    rest of this" control belongs — under them it would read as a caption on the fourth tile. */
-.ar-schead{display:flex; justify-content:flex-end; margin-bottom:8px;}
-.ar-all{font-size:calc(12.5px * var(--fs));}
+/* The showcase's heading and its one button on a single line, centred against each other (Sep 2026, on
+   request). It carries `.section-label` as well, so the mono small-caps and the 26px top margin are the
+   page's own rather than a second set of numbers — what this adds is the row. `align-items:center` and not
+   `baseline`: the button is a bordered box and a baseline would hang it a couple of pixels low against a
+   line of small caps. It keeps the label's bottom margin, so the tiles below have not moved either. */
+.ar-schead{display:flex; align-items:center; justify-content:space-between; gap:12px;}
+.ar-all{font-size:calc(12.5px * var(--fs)); flex:none;}
 .ar-note{font-size:calc(12px * var(--fs)); color:var(--ink-faint); margin:6px 2px 16px;}
 /* an empty slot is DRAWN rather than left out: four dashed frames say "four of these can go here", where
    two tiles and a gap say nothing at all.
@@ -3467,6 +3445,26 @@ body.night .ar-win{background:linear-gradient(180deg,color-mix(in srgb,var(--rar
 /* a picture whose file never arrived leaves the frame entirely (the delegated `error` listener), so the
    column would otherwise hold 220px of nothing beside the text */
 .ar-winart:has(.card-img.media-dead){display:none;}
+/* ---------- A PICTURE STILL ON ITS WAY SPINS (Sep 2026, on request) ----------
+   An artefact's picture is a link to somebody else's file, and a 220px square of nothing while it travels
+   reads as an artefact that HAS no picture. The ring is drawn on the frame's own `::after` rather than as
+   an element, so nothing has to be inserted or removed from the markup — `.ar-loading` is put on by
+   `artefactPlateArtHTML` and taken off by the delegated `load` listener (or by `wireArtefactPlate`, for a
+   file the cache answered first). The IMG is faded rather than hidden, so a picture that decodes in
+   stages is not snapped in at the end; the ring stops on the reduced-motion killswitch and is replaced by
+   a still ring, which still says "waiting" where a frozen spinner says "broken". */
+.ar-frame.ar-loading{background:color-mix(in srgb, var(--ink) 6%, var(--paper-2));}
+.ar-frame.ar-loading img{opacity:0;}
+.ar-frame img{transition:opacity .25s var(--ease);}
+.ar-frame.ar-loading::after{
+  content:""; position:absolute; top:50%; left:50%; width:30px; height:30px; margin:-15px 0 0 -15px;
+  border-radius:50%; border:3px solid color-mix(in srgb, var(--rar, var(--indigo)) 26%, transparent);
+  border-top-color:var(--rar, var(--indigo)); pointer-events:none;
+  animation:ar-spin .8s linear infinite;
+}
+@keyframes ar-spin{to{transform:rotate(360deg);}}
+@media (prefers-reduced-motion:reduce){ .ar-frame.ar-loading::after{animation:none;} }
+body.no-anim .ar-frame.ar-loading::after{animation:none;}
 .ar-wintext{flex:1; min-width:0;}
 /* the name and its rarity on one line, the chip on the title's own baseline; it wraps rather than
    squeezing the name on a narrow plate */
@@ -3994,10 +3992,19 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
      width — the year and the play button above it, the rail beneath — and the stage's bottom inset follows.
      The right padding stays: it is what keeps the rail clear of the corner buttons stacked above it. */
   :root{--timebar-h:118px;}
-  .atlas-timebar{display:grid; grid-template-columns:auto 1fr; grid-template-areas:"play year" "rail rail";
-    align-content:center; gap:4px 12px; padding:6px 74px 8px clamp(12px,4vw,20px);}
-  .tl-play{grid-area:play; margin-right:0;}
-  .atlas-yearbox{grid-area:year; justify-self:end;}
+  /* THE RAIL RUNS THE WHOLE WIDTH AND THE YEAR IS CENTRED (Sep 2026, on request: "on the mobile Atlas
+     page, the timeline in the bottom should extend all the way to the right and the year should be
+     centered"). Two things had to change together. The bar carried a 74px right padding — written to keep
+     the rail clear of the zoom buttons — and it was never needed on this row: `.globe-zoom` is positioned
+     inside `.globe-stage`, whose bottom inset IS `--timebar-h`, so those buttons stop where this bar
+     begins and the rail had been giving up a fifth of a 390px screen to nothing. And the year could not
+     be centred while the grid was two columns, `justify-self:center` in a cell that starts after the play
+     button being centred in what is left rather than in the bar: three columns with `1fr` on each side
+     put the middle one over the bar's own centre, and the rail spans all three. */
+  .atlas-timebar{display:grid; grid-template-columns:1fr auto 1fr; grid-template-areas:"play year ." "rail rail rail";
+    align-content:center; gap:4px 8px; padding:6px clamp(12px,4vw,20px) 8px;}
+  .tl-play{grid-area:play; margin-right:0; justify-self:start;}
+  .atlas-yearbox{grid-area:year; justify-self:center;}
   .atlas-timeline{grid-area:rail;}
   .ay-num{font-size:calc(27px * var(--fs));} .ay-display{min-width:88px;} .ay-chev{width:30px; height:30px;}
   .globe-hint{font-size:calc(9px * var(--fs));}
@@ -4970,7 +4977,7 @@ button.game-tile .gt-glyph{opacity:.14;}
   .answer{flex-direction:column; align-items:stretch; gap:0;}
   .answer-main{flex-direction:column; align-items:flex-start; gap:5px; width:100%;}
   .av-row{flex-direction:column; align-items:flex-start; gap:10px;}
-  .answer-tr{align-self:stretch; justify-content:flex-end;}
+  .ans-cn{align-self:stretch; padding:10px 0 0; margin-top:8px; border-left:0; border-top:1px solid color-mix(in srgb, var(--zh) 22%, transparent);}
   /* .answer stacks here, so "on the right" has nowhere to be — the figures go back under the answer and
      take the full width. Two columns still, which at 390px is what the tiles were sized for anyway. */
   .card-facts{max-width:none; width:100%; margin-top:12px;}

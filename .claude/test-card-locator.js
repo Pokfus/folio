@@ -49,10 +49,19 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   page.on("pageerror", (e) => errs.push(e.message));
   page.on("console", (m) => { const t = m.text(); if (m.type() === "error" && !isNoise(t)) errs.push(t); });
   page.on("request", (r) => asked.push(r.url()));
+  /* THE SIBLINGS ARE THE STUDIED ONES (Sep 2026, on request: "the only locations displayed on the map
+     should be ones from cards that the user has already studied, so that the map fills up the more they
+     study a collection"). So this reader has a record on a dozen of Ancient Greece's placed cards — the
+     Cretan palaces, Akrotiri, Mycenae, Tiryns, Thebes, Olympia, Delphi — and it is those that the red
+     marks and their names below are counted from. Section 2's reader has studied nothing, and asserts
+     the other half: a map with no studied sibling on it. */
   await page.addInitScript(() => {
+    const rec = { due: Date.now() + 9e8, ivl: 9, ease: 2.5, status: "review", reps: 2, first: "2026-08-01" };
+    const cards = { "gr-001": rec };
+    ["gr-004", "gr-008", "gr-011", "gr-012", "gr-013", "gr-042", "gr-049", "gr-058", "gr-067", "gr-069", "gr-163", "gr-164", "gr-189", "gr-119"].forEach((id) => { cards[id] = rec; });
     localStorage.setItem("folio_v1", JSON.stringify({
       active: ["cotd:added"], cotd: ["gr-002"],
-      cards: { "gr-001": { due: Date.now() + 9e8, ivl: 9, ease: 2.5, status: "review", reps: 2, first: "2026-08-01" } },
+      cards: cards,
       settings: { newPerDay: 5 },
     }));
   });
@@ -113,16 +122,20 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   });
   check("the collection's other places are on the map, in red", red > 60, "red px " + red);
 
-  // …and they are SMALLER than the card's own gold dot
+  /* …and the card's own mark is still there in the answer's gold. `gr-002` is a REGION, and since Sep 2026
+     a region is clipped to the land: the Cyclades' dashed edge lies at sea and is trimmed away, so what is
+     left of the mark is the TINT over each island — the selection gold at 24% over the land colour, which
+     is warm where the land is grey and the sea is blue. So the count is of warm pixels: red well above
+     blue, and not the sibling red, whose green is low. */
   const gold = await page.evaluate(() => {
     const cv = document.querySelector(".map-card.map-loc .mc-canvas");
     const ctx = cv.getContext("2d");
     const d = ctx.getImageData(0, 0, cv.width, cv.height).data;
     let n = 0;
-    for (let i = 0; i < d.length; i += 4) if (d[i] > 210 && d[i + 1] > 140 && d[i + 1] < 210 && d[i + 2] < 90) n++;
+    for (let i = 0; i < d.length; i += 4) if (d[i] > 200 && d[i + 1] > 180 && d[i] - d[i + 2] > 30) n++;
     return n;
   });
-  check("...with the card's own place still the biggest mark on it", gold > 0, "gold px " + gold);
+  check("...with the card's own place still marked in the answer's gold", gold > 30, "gold/tint px " + gold);
 
   /* THE SIBLING DOTS ARE NAMED (Aug 2026, on a bug report: "the other dots don't have their labels").
      A pixel proxy, and deliberately a loose one: the labels are canvas text, so there is no element to
@@ -206,6 +219,17 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   check("a range card draws mountains along its spine", am.dark > 300 && am.dw > 120 * am.dpr,
     JSON.stringify({ dark: am.dark, spread: am.dw, dpr: am.dpr }));
   check("...and no gold dot with them", am.gold < 60, "gold px " + am.gold);
+  /* …AND NO RED: this reader has studied nothing, so none of the collection's other places is on the
+     map yet (Sep 2026, on request). A regression here is the old map — every place of the collection
+     drawn for a reader who has met none of them. */
+  const rmRed = await rng.evaluate(() => {
+    const cv = document.querySelector(".map-card.map-loc .mc-canvas");
+    const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
+    let n = 0;
+    for (let i = 0; i < d.length; i += 4) { const r = d[i], g = d[i + 1], b = d[i + 2]; if (r > 150 && r - g > 60 && r - b > 60) n++; }
+    return n;
+  });
+  check("a reader who has studied nothing sees none of the collection's other places", rmRed === 0, "red px " + rmRed);
 
   /* ============================================================
      3. EVERY RIVER THE ATLAS DRAWS, AND NOT ONE OF THEIR NAMES (Aug 2026, on request)

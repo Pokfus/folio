@@ -394,7 +394,7 @@ already shipped before adding it.
 ### Neolithic China and the Xia — `col-2`
 
     cnh-041  Neolithic China
-    cnh-042  The origins of Chinese agriculture
+    cnh-042  Peiligang culture
     cnh-043  Millet and rice in early China
     cnh-044  Jiahu
     cnh-045  Yangshao culture
