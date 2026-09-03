@@ -756,4 +756,25 @@ window.ARTEFACTS = [
     date: "c. 30,000 years ago",
     origin: "Willendorf II, Lower Austria — Natural History Museum, Vienna",
   },
+  {
+    id: "indus-seal",
+    name: "Indus seal",
+    rarity: "rare",
+    date: "c. 2600 – 1900 BCE",
+    origin: "Mohenjo-daro, Harappa and the other Indus cities",
+  },
+  {
+    id: "indus-weight",
+    name: "Indus cubical weight",
+    rarity: "common",
+    date: "c. 2600 – 1900 BCE",
+    origin: "Mohenjo-daro, Harappa and the other Indus cities",
+  },
+  {
+    id: "harappan-toy-cart",
+    name: "Harappan toy cart",
+    rarity: "common",
+    date: "c. 2600 – 1900 BCE",
+    origin: "Mohenjo-daro, Harappa and Chanhu-daro",
+  },
 ];

@@ -252,6 +252,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 |---|---|---|
 | A1 | `terracotta-warrior`, `antikythera-mechanism`, `great-isaiah-scroll` | — |
 | A2 | `venus-of-willendorf` | `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, `vindolanda-tablets` |
+| B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | `gandhara-buddha-head`, `chola-nataraja`, `mughal-miniature`, `nbpw-sherd`, `punch-marked-coin`, `etched-carnelian-bead`, `glass-bangle` |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -259,6 +260,47 @@ on the buried weapons is not a Qin anti-rust technology two millennia ahead of i
 from the lacquer on the figures — a story most popular accounts still repeat. A plate that states the
 current standing of the thing a reader half-remembers is doing more work than one that recites the
 half-memory. The Great Isaiah Scroll's 2025 radiocarbon-plus-style programme is the same shape.
+
+**B1 CONFIRMS THE ASI ROUTE AND ADDS THE FILENAME TRAP THAT HIDES IT.** Marshall's *Mohenjo-daro and
+the Indus Civilization* volumes 1 and 2 and Vats's *Excavations at Harappa* are all on archive.org with
+full OCR — 1.67 MB, 1.17 MB and 1.54 MB of readable text — and between them they carry the seals'
+classes and animals, the weights' shapes and ratios and Hemmy's 13.71 g modal value, and the toy carts.
+**But the standard one-liner finds none of it.** On these DLI-sourced scans the OCR file is named after
+the item's TITLE rather than its identifier (`15269-Mohenjo-daro And The Indus Civilization
+Vol-i_djvu.txt`), so `archive.org/stream/<id>/<id>_djvu.txt` returns **0 bytes** and reads exactly like
+the "a 200 is not a readable book" case `artefact-citation-plan.md` warns about — a book that is right
+there. **Ask `archive.org/metadata/<id>` for the real filename before concluding an item has no text.**
+
+Its other finding is about the ASI reports' limits rather than their reach. They are excellent on
+typology, form and measurement and silent on anything modern, so each artefact pairs them with an open
+paper reached through **Europe PMC** for the dating and the current reading — Parikh and Petrie 2019 for
+the Indus script being unread and the seals working as access control, Suryanarayan et al. 2021 for the
+Mature Harappan span of c. 2600–1900 BCE. Both are published in journals shut here (*World Archaeology*
+at Taylor & Francis, *JAS* at Elsevier) and both are open at Europe PMC, which is now the route that has
+paid in three batches running.
+
+**One clause was written and cut, and it is the fault to watch for on a source this old.** The toy cart's
+draft said the carts are "among the reasons the Indus plain is argued over in any account of where the
+wheel was first put to work" — which Marshall does not say and which is a summary reaching one step past
+its record, the exact shape the glossary pass names. What he does say is that they are roughly
+contemporary with the chariot on a stone slab at Ur and with a model wagon from Anau, so that is what the
+sentence says now. **A 1931 excavation report invites this**, because its prose is confident and its
+conclusions are ninety years old; quote what it records, not what it seems to imply.
+
+**`harappan-toy-cart` ships without a picture, stated rather than quietly skipped.** Commons has no
+photograph of an Indus toy cart that clears the 900px bar — there is no category for them, the Met's open
+collection returns one Indus object with an image and it is a copper head, and four plausible filenames
+404. The other two carry pictures looked at before use.
+
+**The seven deferrals are one sourcing problem in two halves.** `gandhara-buddha-head`, `chola-nataraja`
+and `mughal-miniature` are art-historical rather than archaeological, and their literature is in book
+chapters and in *Artibus Asiae* and *Ars Orientalis*, none reachable; `etched-carnelian-bead`,
+`nbpw-sherd`, `punch-marked-coin` and `glass-bangle` each have one good source and no third. Two routes
+found while looking and worth trying first when they are picked up: **Beck's own bead report is a chapter
+of Vats 1940** and carries the etching chemistry, and **Allan's British Museum *Catalogue of the Coins of
+Ancient India* is on archive.org**, which is the coins rule from the first pass holding for India too.
+`journals.uchicago.edu`, `royalsocietypublishing.org` and — newly — **`journals.openedition.org` behind
+the Anubis bot wall again** (the first pass had recorded it as cleared) are all shut.
 
 **A2 IS THE FIRST BATCH TO COME BACK SHORT, and the reason is a class of host rather than a class of
 object.** The plan named B4 and C2 as the likely thin spots; A2 was expected to be easy, and four of its
