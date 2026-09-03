@@ -3,7 +3,7 @@
 The collection is **United States** (`geo-us`), the first of the Geography SECTION on the Collections
 page — Geography is a heading there rather than a node in the tree, so a second country is a collection
 beside this one rather than a deck inside it (it was a wrapper node holding one deck until Aug 2026; see
-`COLLECTION_SECTION` in app.js). **That second collection now exists: `geo-world`, The world**, 233
+`COLLECTION_SECTION` in app.js). **That second collection now exists: `geo-world`, World**, 233
 countries and territories and their capitals, sorted by population — see
 `docs/world-geography-card-plan.md`. It uses this file's map-card format unchanged, so a change to the
 format here reaches both, and the three glossary collisions listed below are shared with it.

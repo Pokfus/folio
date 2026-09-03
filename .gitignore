@@ -102,3 +102,4 @@ decks/Spanish-All-Levels.folio-deck.json
 
 # .claude/check-citations.js Crossref answers (regenerated on demand)
 .claude/.crossref-cache.json
+.claude/worktrees/

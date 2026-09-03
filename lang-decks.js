@@ -4,13 +4,13 @@
    Metadata only — a few hundred bytes a deck — so the Collections page can paint its Languages
    section without fetching 149 MB of decks. The file itself is fetched on Add. */
 window.LANG_DECKS = [
-  { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "300 words · both directions", notes: 300, cards: 600, bytes: 626462 },
+  { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-1.folio-deck.json", id: "hsk30l1", title: "Mandarin Chinese — HSK 3.0 Level 1", sub: "300 words · both directions", notes: 300, cards: 600, bytes: 612868 },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-2.folio-deck.json", id: "hsk30l2", title: "Mandarin Chinese — HSK 3.0 Level 2", sub: "197 words · both directions", notes: 197, cards: 394, bytes: 415656 },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-3.folio-deck.json", id: "hsk30l3", title: "Mandarin Chinese — HSK 3.0 Level 3", sub: "491 words · both directions", notes: 491, cards: 982, bytes: 1050477 },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-4.folio-deck.json", id: "hsk30l4", title: "Mandarin Chinese — HSK 3.0 Level 4", sub: "990 words · both directions", notes: 990, cards: 1980, bytes: 2073850 },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-5.folio-deck.json", id: "hsk30l5", title: "Mandarin Chinese — HSK 3.0 Level 5", sub: "1,579 words · both directions", notes: 1579, cards: 3158, bytes: 3266471 },
   { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Level-6.folio-deck.json", id: "hsk30l6", title: "Mandarin Chinese — HSK 3.0 Level 6", sub: "1,777 words · both directions", notes: 1777, cards: 3554, bytes: 3355385 },
-  { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Levels-7-9.folio-deck.json", id: "hsk30l7", title: "Mandarin Chinese — HSK 3.0 Levels 7–9", sub: "5,562 words · both directions", notes: 5562, cards: 11124, bytes: 9351327 },
+  { lang: "Mandarin Chinese", file: "Mandarin-HSK-3.0-Levels-7-9.folio-deck.json", id: "hsk30l7", title: "Mandarin Chinese — HSK 3.0 Levels 7–9", sub: "5,562 words · both directions", notes: 5562, cards: 11124, bytes: 9351297 },
   { lang: "Mandarin Chinese", file: "Mandarin-Everyday-Phrases.folio-deck.json", id: "hsk30phr", title: "Mandarin Chinese — Everyday phrases", sub: "159 expressions · both directions", notes: 159, cards: 318, bytes: 311909 },
   { lang: "Mandarin Chinese", file: "Mandarin-Idioms.folio-deck.json", id: "hsk30idm", title: "Mandarin Chinese — Idioms (chengyu)", sub: "477 idioms · both directions", notes: 477, cards: 954, bytes: 1015083 },
   { lang: "Spanish", file: "DELE-A1-Spanish.folio-deck.json", id: "delea1", title: "DELE A1 — Spanish", sub: "500 words · both directions, as two cards per word", notes: 496, cards: 992, bytes: 1492387 },

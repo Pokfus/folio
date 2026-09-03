@@ -147,6 +147,8 @@ function builder() {
   // data.js and whatyear.js assign onto `window`; require() caches, so only prime the global if unloaded
   if (!(global.window && global.window.CARD_DATA)) { global.window = global.window || {}; require(path.join(ROOT, "data.js")); }
   if (!global.window.WHATYEAR) require(path.join(ROOT, "whatyear.js"));
+  // …and the crossword's own bank, which since Sep 2026 is where its clues come from rather than the cards
+  if (!global.window.CROSSWORD) require(path.join(ROOT, "crossword.js"));
   const CARDS = global.window.CARD_DATA;
   const make = new Function("CARDS", "todayStr", "window", "return (function(){" + shim + body + "; return {dailyCrossword, dailyWhatYear, dayPick};})()");
   return (day) => make(CARDS, () => day, global.window);
@@ -350,8 +352,14 @@ function crosswordForPage(clueIds) {
       check("[xw] …with a numbered square for every entry and none spare",
         built.nums.length === new Set(built.nums).size && built.nums.length > 0 && built.nums.length <= built.clues.length,
         built.nums.join(","));
-      check("[xw] …every clue carrying its enumeration and the card's own blank",
-        built.clues.every((c) => c.len >= 4 && c.len <= 11 && c.blank), JSON.stringify(built.clues.map((c) => c.len)));
+      /* THE CLUES ARE THE GAME'S OWN NOW, NOT CARD QUESTIONS (Sep 2026, on request), so this asserts the
+         opposite of what it used to about the blank: a clue must carry its enumeration and must NOT
+         carry `<span class="blank">`, which is the cloze marker a card question is written around. A
+         reversion to the card pool would put 28-word sentences with a gap in the middle under a grid,
+         and that is exactly what the second half of this catches. */
+      check("[xw] …every clue carrying its enumeration and no card cloze",
+        built.clues.every((c) => c.len >= 4 && c.len <= 11 && !c.blank),
+        JSON.stringify(built.clues.map((c) => c.len)) + (built.clues.some((c) => c.blank) ? "  (a clue still carries a card's blank)" : ""));
       check("[xw] …and the clue being typed pinned above the grid", /across|down/i.test(built.cur), built.cur.slice(0, 40));
 
       /* THE GRID MUST CONTAIN NO WORD NOBODY CLUED. Every maximal run of two or more filled squares, in

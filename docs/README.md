@@ -74,7 +74,7 @@ argument before writing for that collection — getting it wrong makes a claim w
 | `dinosaurs-card-plan.md` | Dinosaurs (`dino`) | `dino-` |
 | `korea-card-plan.md` | Korea (`korea`) | `ko-` |
 | `geography-card-plan.md` | Geography (`geo-us`) — **not** a 1000-card plan | `geo-` |
-| `world-geography-card-plan.md` | The world (`geo-world`) — 459 cards, sorted by population | `gw-` |
+| `world-geography-card-plan.md` | World (`geo-world`) — 459 cards, sorted by population | `gw-` |
 | `china-geography-card-plan.md` | China (`geo-china`) — 58 cards, sorted by population | `gc-` |
 
 `china-card-findings.md` is China's per-card research log; the other seventeen keep theirs in their own plan

@@ -1,7 +1,7 @@
 # China — the card plan
 
 The collection is **China** (`geo-china`), the third of the Geography SECTION on the Collections page,
-beside **The world** (`geo-world`) and **United States** (`geo-us`). It is **58 cards in two decks**:
+beside **World** (`geo-world`) and **United States** (`geo-us`). It is **58 cards in two decks**:
 **The provinces and regions** (`geo-china-provinces`, `gc-001`–`gc-031`) and **The provincial capitals**
 (`geo-china-capitals`, `gc-501`–`gc-531` with four numbers deliberately unused). Its cards use the **map
 card** format — a shape on a globe, and the question is what it is.

@@ -1749,6 +1749,7 @@ function scrimCheck() {
         about: !!document.querySelector(".home-about"),
         // Collections left the top bar with the tile row; that button is the only way to it now
         decksTab: !!document.querySelector('.topbar [data-route="decks"]'),
+        leftOrder: [...document.querySelectorAll('.topbar .nav.left .tab')].map((t) => t.dataset.route),
         // …and About left it a fortnight later, so the home page's own line is the only way there too
         aboutTab: !!document.querySelector('.topbar [data-route="mission"]'),
       };
@@ -1762,7 +1763,15 @@ function scrimCheck() {
     check("[desktop] ...with the Collections button closing the review card, under the deck list",
       /^collections$/i.test(d.lip) && d.lipInCard && d.lipBelowDecks,
       JSON.stringify({ label: d.lip, inCard: d.lipInCard, belowDecks: d.lipBelowDecks }));
-    check("[desktop] ...and Collections gone from the top bar, that button being the way to it", !d.decksTab);
+    /* COLLECTIONS IS BACK IN THE TOP BAR (Sep 2026, on request: "put a tab for the Collections page in
+       the website's main menu bar, between Home and Library"). It left both bars in Aug 2026 and the
+       home page's button became the only route; the button is still there and still works, so this is a
+       SECOND route rather than a replacement — which is why the assertion above it, that the button
+       closes the review card, is unchanged and still has to pass. What is asserted here now is the tab's
+       PLACE, since "between Home and Library" is the whole of what was asked for and a tab appended to
+       the end of the row would satisfy a mere presence check. */
+    check("[desktop] ...and Collections is a tab again, between Home and Library",
+      d.decksTab && d.leftOrder.join(" ") === "home decks library map", d.leftOrder.join(" "));
     /* About left the DESKTOP's top bar too (Aug 2026, on request), a fortnight after Collections did and
        for the same reason: the two bars now name the same destinations, and the home page's own line is
        the only route to the page at every width. This assertion was the opposite way round while the tab

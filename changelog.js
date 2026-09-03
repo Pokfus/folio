@@ -35,9 +35,32 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.439", released: "2026-08-31T13:48Z" };
+window.FOLIO_VERSION = { v: "1.440", released: "2026-09-03T17:34Z" };
 
 window.CHANGELOG = [
+  {
+    d: "2026-09-03",
+    t: "Ten gemstone themes, and the crossword gets clues of its own",
+    items: [
+      "<b>Ten new themes</b> — Diamond, Ruby, Opalite, Jade, Emerald, Amber, Amethyst, Aquamarine, Bloodstone and Carnelian — each with its own colours, type and shapes.",
+      "<b>The crossword is now clued with its own simple history questions</b> rather than with card questions, so it deals a fresh grid every day.",
+      "<b>The Collections page has a menu bar</b> — History, Geography, Language, Other, Community and All — and Collections is a tab in the top bar again, between Home and Library.",
+      "<b>A card's map now shows only the places you have already studied</b>, so the map fills up as you work through a collection.",
+      "<b>Capital cities on a card's map are a square</b>, battles are crossed steel swords, and far more place names fit at once.",
+      "<b>Italy, Greece and China are drawn at much finer detail</b> on the maps of their own collections' cards.",
+      "<b>Ten cards whose subject covers ground now show it as an area</b> rather than a dot, clipped to the coast — among them the Roman Republic, the Etruscans and both Aegean civilisations.",
+      "<b>Studying a word both ways no longer asks the two sides back to back</b> unless they are the last cards left.",
+      "<b>A card's Chinese name now sits beside the answer with a button to hear it</b>, on every card that has one.",
+      "<b>An enlarged picture's caption now sits under the picture</b> rather than at the foot of the screen.",
+      "<b>Clicking your own profile photo now offers to change or remove it</b>.",
+      "<b>The Edit button for your daily study decks has moved back below the list</b>, opposite the study timer, and can now switch the gold icons off.",
+      "<b>On a phone, a played minigame's check or seal is much larger</b>, and the Atlas timeline runs the full width with the year centred.",
+      "<b>An artefact's picture now shows a spinner while it loads</b>.",
+      "<b>Eight Mandarin cards had their pinyin corrected</b> where an -r ending was written as a separate syllable.",
+      "<b>The geography collection <i>The world</i> is now called <i>World</i></b>.",
+      "<b>Every card in every geography collection now carries a picture</b> — a landmark for a state, province or country, a wide view of the city for a capital.",
+    ],
+  },
   {
     d: "2026-08-31",
     t: "The Atlas's rivers on a card's map",
