@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-546` Maputo.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-547` Accra.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -330,6 +330,17 @@ the Delhi warning at the head of this section arriving as a real card. Its divid
 same footnote block exactly as batch 14 predicted: **UNdata's footnote d says "Kuala Lumpur is the capital
 and Putrajaya is the administrative capital"**, which is the source both `gw-544` and `gw-754` needed and
 which no other reachable work states.
+**AND `gw-546` MAPUTO BREAKS THE RELAY, WHICH IS WHY IT MUST BE CHECKED RATHER THAN ASSUMED IN EITHER
+DIRECTION.** UNdata gives the capital 1,104.3 thousand under a 2019 footnote and the World Bank's
+`EN.URB.LCTY` gives **1,668,740** for that same year — half a million apart, where Warsaw, Tashkent, Kyiv,
+Kuala Lumpur and Riyadh matched to the person. So the UNdata row is sometimes its own figure and sometimes
+the World Bank's, and the only way to know is to fetch both. **Worse, the World Bank series names no city**:
+it is *population in largest city*, and Mozambique's largest city may well be Matola rather than Maputo, so
+where the two disagree the divergence cannot be read as a measurement difference — the series may not be
+about the capital at all. `gw-546` therefore cites UNdata alone for its population, dated as UNdata dates
+it, and the World Bank is off the card. **Where the two disagree by more than a rounding, drop the World
+Bank rather than average or choose.**
+
 
 
 **THE FRUS CORPUS IS SEARCHABLE FROM HERE, AND IT IS A CITY SPINE WHERE THE COUNTRY PAGES ARE THIN**

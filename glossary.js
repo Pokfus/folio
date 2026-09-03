@@ -1739,7 +1739,8 @@ window.GLOSSARY = {
 "Warsaw": "Warsaw is the capital and largest city of Poland, standing on the Vistula in the east-central part of the country and holding about 1.8 million people.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It became the capital of the Polish state restored in 1918, and before the Second World War it held some 1.3 million inhabitants, more than 350,000 of them Jews, which was the largest Jewish community in Europe.<sup class=\"fn\" data-fn=\"2\"></sup> German forces took the city in September 1939, confined its Jewish population in a sealed ghetto from November 1940, deported about 265,000 of them to the Treblinka killing centre in 1942, and razed the city centre after crushing an uprising in October 1944.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Tashkent": "Tashkent is the capital and largest city of Uzbekistan, in Central Asia, and holds about 2.7 million people.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> It lay in Turkestan when an American consul was held under arrest there from October 1918; the country it now heads was recognised as independent in December 1991, admitted to the United Nations on 2 March 1992 and given an American embassy in the city a fortnight later.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It has twice given its name to an agreement signed in it, the declaration by which India and Pakistan withdrew to their pre-war positions in January 1966, and one adopted by the heads of the Shanghai Cooperation Organisation in June 2004.<sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"6\"></sup>",
 "Kuala_Lumpur": "Kuala Lumpur is the capital of Malaysia and the centre of its largest urban area, which the World Bank puts at about 9.0 million people.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It is the capital without being the seat of the whole government, the United Nations profile of the country footnoting its capital field to say that Kuala Lumpur is the capital and Putrajaya the administrative capital.<sup class=\"fn\" data-fn=\"1\"></sup> The city held an American consulate from 1948, and on 31 August 1957, the day the Federation of Malaya became independent, that consulate general was raised to an embassy; ambassadors have been resident here ever since, including after the federation was enlarged into Malaysia in 1963.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Riyadh": "Riyadh is the capital of Saudi Arabia, inland in the centre of the country, and the World Bank’s series for the kingdom’s largest city puts it at about 7.95 million people.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It was the seat of the king long before it was a diplomatic capital: the United States opened its legation at Jidda on the Red Sea coast in 1942 and raised it to an embassy there in 1949, so business with the king meant travelling inland.<sup class=\"fn\" data-fn=\"2\"></sup> The American embassy moved here only on 26 September 1984, when the liaison office in the city was raised to embassy rank and the mission at Jidda became a consulate general.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Riyadh": "Riyadh is the capital of Saudi Arabia, inland in the centre of the country, and the World Bank’s series for the kingdom’s largest city puts it at about 7.95 million people.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It was the seat of the king long before it was a diplomatic capital: the United States opened its legation at Jidda on the Red Sea coast in 1942 and raised it to an embassy there in 1949, so business with the king meant travelling inland.<sup class=\"fn\" data-fn=\"2\"></sup> The American embassy moved here only on 26 September 1984, when the liaison office in the city was raised to embassy rank and the mission at Jidda became a consulate general.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Maputo": "Maputo is the capital of Mozambique, a port on the country’s southern coast, and the United Nations table gives it about 1,104,300 people under a footnote dating the figure to 2019.<sup class=\"fn\" data-fn=\"1\"></sup> It was called Lourenço Marques while the territory was ruled by Portugal, a name it still carried when the United States opened its embassy there on 8 November 1975, five months after independence.<sup class=\"fn\" data-fn=\"2\"></sup> American shipping had used the port long before: in 1889 the captain of the bark <i>Carrie Heckle</i> was fined £15 by the customs authorities for breaking a port regulation, and the Portuguese foreign ministry later agreed to return the money.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3585,7 +3586,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Carthage": ["Carthaginian"],
 "Urartu": ["Urartian"],
 "Medes": ["Mede","Median","Media"],
-"Ürümqi": ["Urumqi"]
+"Ürümqi": ["Urumqi"],
+"Maputo": ["Lourenço Marques"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5353,7 +5355,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Warsaw": ["place","city","geography","capital","poland","europe"],
 "Tashkent": ["place","city","geography","capital","uzbekistan","central asia"],
 "Kuala_Lumpur": ["place","city","geography","capital","malaysia","southeast asia"],
-"Riyadh": ["place","city","geography","capital","saudi arabia","western asia"]
+"Riyadh": ["place","city","geography","capital","saudi arabia","western asia"],
+"Maputo": ["place","city","geography","capital","mozambique","africa"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
