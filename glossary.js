@@ -1736,7 +1736,8 @@ window.GLOSSARY = {
 "Qinghai": "Qinghai is a province of the north-eastern Qinghai-Tibet Plateau, named for Qinghai Lake, the largest inland saltwater lake in China, which lies in a closed mountain-ringed basin fed by about fifty rivers.<sup class=\"fn\" data-fn=\"1\"></sup> Its southern half is the Sanjiangyuan, 363,000 square kilometres (140,000 square miles) of high plateau where the Yangtze, the Yellow River and the Mekong all rise, and which yields between a quarter and a half of what those rivers carry.<sup class=\"fn\" data-fn=\"2\"></sup> Its north-west is the Qaidam Basin, an enclosed depression taking as little as 34 millimetres (1.3 inches) of rain a year, so the province as a whole is high, cold and thinly peopled.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Lhasa": "Lhasa is the capital of the Tibet Autonomous Region and stands in the south-central Qinghai-Tibet Plateau at about 3,650 metres (11,980 feet) above the sea, with a permanent population of 867,900 in 2020.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its climate is cold semi-arid, with cold dry winters and springs, a short summer in which the rain arrives, and thin air that lets solar radiation and ultraviolet through with little to stop them.<sup class=\"fn\" data-fn=\"3\"></sup> The Lhasa River gives the city its name and its water, running 568 kilometres (353 miles) and carrying an average of 288 cubic metres (10,200 cubic feet) a second through a basin that takes about 545 millimetres (21 inches) of rain a year.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Tibet": "Tibet is an autonomous region occupying the core of the Qinghai-Tibet Plateau in south-western China, its average elevation about 4,000 metres (13,100 feet) and more than nine tenths of it standing above 2,000 metres (6,600 feet).<sup class=\"fn\" data-fn=\"1\"></sup> Height, cold, dryness, thin air and steady wind make its ecosystems distinctive and fragile, running from cold desert through alpine steppe, meadow and shrub to montane forest, with its rivers running out to the east and draining inward to lakes and wetlands in the centre and north.<sup class=\"fn\" data-fn=\"1\"></sup> The plateau holds the world's largest unbroken area of alpine permafrost and has warmed at roughly twice the global rate, so that permafrost is now thawing downwards faster than it was.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Datis": "Datis was a Mede in Achaemenid service who commanded the expedition Darius I sent against Athens and Eretria in 490 BCE, with the king's nephew Artaphernes as his colleague.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus has him sail through the Cyclades, burn Naxos, spare Delos and burn three hundred talents of frankincense on its altar, take Eretria, and return to Asia with the Eretrian captives after the defeat at Marathon.<sup class=\"fn\" data-fn=\"1\"></sup> Ctesias instead reports that he was killed at Marathon and that Athens refused to give up his body, while Plato names him alone as the commander Darius sent, under orders to bring the two cities back in chains.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Datis": "Datis was a Mede in Achaemenid service who commanded the expedition Darius I sent against Athens and Eretria in 490 BCE, with the king's nephew Artaphernes as his colleague.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus has him sail through the Cyclades, burn Naxos, spare Delos and burn three hundred talents of frankincense on its altar, take Eretria, and return to Asia with the Eretrian captives after the defeat at Marathon.<sup class=\"fn\" data-fn=\"1\"></sup> Ctesias instead reports that he was killed at Marathon and that Athens refused to give up his body, while Plato names him alone as the commander Darius sent, under orders to bring the two cities back in chains.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Marathon": "The Battle of Marathon was fought in 490 BCE on the coastal plain of eastern Attica, where an Athenian army with a thousand Plataeans met the Persian force Darius had sent under Datis and Artaphernes.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Herodotus says the Athenian line was stretched to the Persian one's length so that its centre stood a few ranks deep, that the men crossed the eight stades at a run, and that the wings won and closed on the enemy who had broken through.<sup class=\"fn\" data-fn=\"1\"></sup> He counts about 6,400 dead among the invaders and 192 Athenians, who were buried where they fell, an honour Thucydides says Athens granted to no other war dead.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2501,7 +2502,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ancient_Israel_and_Judah": "c. 950 – 586 BCE",
 "Carthage": "c. 814 – 146 BCE",
 "Urartu": "c. 800 – 600 BCE",
-"Medes": "9th – 6th century BCE"
+"Medes": "9th – 6th century BCE",
+"Battle_of_Marathon": "490 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5349,7 +5351,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Qinghai": ["place","geography","province","asia"],
 "Lhasa": ["place","geography","city","asia"],
 "Tibet": ["place","geography","province","asia"],
-"Datis": ["person","people","warfare","history","greece","iran"]
+"Datis": ["person","people","warfare","history","greece","iran"],
+"Battle_of_Marathon": ["battle","event","history","warfare","greece","iran"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
