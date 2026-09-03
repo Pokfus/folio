@@ -61,8 +61,8 @@ const BAD_LIC = /\b(nc|nd|noncommercial|non-commercial|noderiv|fair use|non-free
    atmosphere, which is a diagram of it rather than a view. `montage` and `banner` are here for a
    different reason: a montage is several pictures in one and a wiki banner is a 7:1 sliver, and
    neither renders as a card illustration. */
-const SPACEBORNE = /(satellite|landsat|sentinel-\d|from space|from orbit|copernicus|modis|nlcd|\bsts\d\d|\biss\d)/i;
-const NOTAPHOTO = /(montag|banner|non.political|\bpng$)/i;
+const SPACEBORNE = /(satellite|landsat|sentinel[ -]?\d|from space|from orbit|copernicus|modis|nlcd|\bsts\d\d|\biss\d|\bnasa\b|apollo ?\d)/i;
+const NOTAPHOTO = /(montag|collage|banner|non.political|\bpng$)/i;
 /* `Txu-…` / `…pclmaps…` are the University of Texas map library's scans, which are enormous and so
    win any largest-file tie-break: they gave Inner Mongolia a topographic sheet and Qinghai a geological
    one, neither of which says "map" anywhere in its name. */
