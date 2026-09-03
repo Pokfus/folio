@@ -1753,7 +1753,8 @@ window.GLOSSARY = {
 "Second_Persian_invasion_of_Greece": "The second Persian invasion of Greece was the campaign Xerxes I led in person from 480 BCE, in which the army crossed the Hellespont on bridges of boats and the fleet passed through a canal cut at Athos.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus calls it by far the greatest expedition known and reckons the force brought as far as Thermopylae at 5,283,220 men, of whom 1,700,000 were land soldiers and 1,207 the warships from Asia.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus counts differently, reaching not less than a million soldiers with as many again in the fleet and supply train, while Thucydides says the war was decided in two actions by sea and two by land.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Hellenic_League": "The Hellenic League was the alliance of Greek states that agreed to resist the Persian invasion of 480 BCE, led by Sparta after Athens waived its claim to command the fleet.<sup class=\"fn\" data-fn=\"1\"></sup> Its members swore that in victory they would dedicate to Delphi the property of any Greek state that had submitted to Persia of its own free will, and they ended the feuds then running among themselves.<sup class=\"fn\" data-fn=\"1\"></sup> Envoys sent to Argos, Syracuse, Corcyra and Crete brought no help, and after the war the allies set up a gold tripod at Delphi on a three-headed bronze serpent, on which the Spartans had the names of the cities inscribed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Congress_at_the_Isthmus": "The congress at the Isthmus was the council through which the Greek states allied against Xerxes reached their decisions, meeting at the sanctuary of Poseidon on the Isthmus of Corinth from about 481 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus describes it as men chosen from the cities best disposed towards Hellas, and records it receiving a Thessalian appeal to hold the pass of Olympus, then resolving after that attempt failed to defend Thermopylae and Artemisium instead.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus reports it voting that any Greek who joined the Persians willingly should pay a tithe to the gods, and after Salamis the admirals returned to the same altar to vote on the prize of valour.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Wooden_wall_oracle": "The wooden wall oracle was the response the Pythia at Delphi gave the Athenians in 480 BCE, promising a wall of wood as a stronghold while all else within their borders fell.<sup class=\"fn\" data-fn=\"1\"></sup> Opinion at Athens divided between those who took the wall to be the old thorn hedge on the acropolis and those who took it to mean the fleet, the closing lines about divine Salamis telling against the latter.<sup class=\"fn\" data-fn=\"1\"></sup> Themistocles argued that a Salamis called divine rather than cruel must promise the enemy's deaths, and the assembly accepted him; Nepos and Justin later give one unambiguous answer telling the Athenians to defend themselves with wooden walls.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Wooden_wall_oracle": "The wooden wall oracle was the response the Pythia at Delphi gave the Athenians in 480 BCE, promising a wall of wood as a stronghold while all else within their borders fell.<sup class=\"fn\" data-fn=\"1\"></sup> Opinion at Athens divided between those who took the wall to be the old thorn hedge on the acropolis and those who took it to mean the fleet, the closing lines about divine Salamis telling against the latter.<sup class=\"fn\" data-fn=\"1\"></sup> Themistocles argued that a Salamis called divine rather than cruel must promise the enemy's deaths, and the assembly accepted him; Nepos and Justin later give one unambiguous answer telling the Athenians to defend themselves with wooden walls.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Tempe_expedition": "The Tempe expedition was the first Greek attempt to halt the Persian invasion of 480 BCE, when about ten thousand hoplites were shipped north to hold the pass where the Peneus leaves Thessaly between Olympus and Ossa.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus names Euaenetus and Themistocles as its commanders and says the Greeks withdrew after a few days, ostensibly on the advice of Alexander of Macedon but in his view from fear, having learned of a second route into Thessaly through Perrhaebia.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus instead calls the Spartan commander Synetus and attributes the withdrawal to the Thessalians and their neighbours having already submitted to Xerxes, leaving the pass open to him.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2532,7 +2533,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Second_Persian_invasion_of_Greece": "480 – 479 BCE",
 "Hellenic_League": "c. 481 – 479 BCE",
 "Congress_at_the_Isthmus": "c. 481 – 479 BCE",
-"Wooden_wall_oracle": "480 BCE"
+"Wooden_wall_oracle": "480 BCE",
+"Tempe_expedition": "480 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3630,7 +3632,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Second_Persian_invasion_of_Greece": ["invasion of 480","second Persian invasion"],
 "Hellenic_League": ["Greek League"],
 "Congress_at_the_Isthmus": ["Isthmus congress"],
-"Wooden_wall_oracle": ["wooden wall"]
+"Wooden_wall_oracle": ["wooden wall"],
+"Tempe_expedition": ["expedition to Tempe"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5412,7 +5415,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Second_Persian_invasion_of_Greece": ["event","history","warfare","greece","iran"],
 "Hellenic_League": ["institution","history","warfare","politics","greece"],
 "Congress_at_the_Isthmus": ["institution","event","history","politics","greece"],
-"Wooden_wall_oracle": ["event","history","religion","politics","greece"]
+"Wooden_wall_oracle": ["event","history","religion","politics","greece"],
+"Tempe_expedition": ["event","history","warfare","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
