@@ -1742,7 +1742,8 @@ window.GLOSSARY = {
 "Riyadh": "Riyadh is the capital of Saudi Arabia, inland in the centre of the country, and the World Bank’s series for the kingdom’s largest city puts it at about 7.95 million people.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It was the seat of the king long before it was a diplomatic capital: the United States opened its legation at Jidda on the Red Sea coast in 1942 and raised it to an embassy there in 1949, so business with the king meant travelling inland.<sup class=\"fn\" data-fn=\"2\"></sup> The American embassy moved here only on 26 September 1984, when the liaison office in the city was raised to embassy rank and the mission at Jidda became a consulate general.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Maputo": "Maputo is the capital of Mozambique, a port on the country’s southern coast, and the United Nations table gives it about 1,104,300 people under a footnote dating the figure to 2019.<sup class=\"fn\" data-fn=\"1\"></sup> It was called Lourenço Marques while the territory was ruled by Portugal, a name it still carried when the United States opened its embassy there on 8 November 1975, five months after independence.<sup class=\"fn\" data-fn=\"2\"></sup> American shipping had used the port long before: in 1889 the captain of the bark <i>Carrie Heckle</i> was fined £15 by the customs authorities for breaking a port regulation, and the Portuguese foreign ministry later agreed to return the money.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Accra": "Accra is the capital of Ghana, on the country’s southern coast, and the United Nations table gives it about 2,475,200 people under a footnote dating the figure to 2019.<sup class=\"fn\" data-fn=\"1\"></sup> It was the seat of the British colony of the Gold Coast, where the American post was raised to a consulate general in the 1950s as self-government approached, and then to an embassy on 6 March 1957, the day the territory was proclaimed independent.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The city became a meeting place for the newly independent continent, the first Conference of Independent African States sitting here from 15 to 22 April 1958 and issuing a joint declaration on its last day.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Lima": "Lima is the capital of Peru, on the Pacific coast, and the United Nations counts it together with the Constitutional Province of Callao, giving the pair about 10.55 million people for 2019 and the World Bank’s series about 11.5 million for 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> An American legation opened in the city on 21 May 1827, five years after Peruvian independence was proclaimed, and was raised to an embassy on 24 April 1920.<sup class=\"fn\" data-fn=\"2\"></sup> The city gave its name to the Declaration of Lima, the statement of hemispheric solidarity signed at the Eighth International Conference of American States, which met there in December 1938.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Lima": "Lima is the capital of Peru, on the Pacific coast, and the United Nations counts it together with the Constitutional Province of Callao, giving the pair about 10.55 million people for 2019 and the World Bank’s series about 11.5 million for 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> An American legation opened in the city on 21 May 1827, five years after Peruvian independence was proclaimed, and was raised to an embassy on 24 April 1920.<sup class=\"fn\" data-fn=\"2\"></sup> The city gave its name to the Declaration of Lima, the statement of hemispheric solidarity signed at the Eighth International Conference of American States, which met there in December 1938.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Antananarivo": "Antananarivo is the capital of Madagascar, inland in the highlands at the centre of the island, and the World Bank’s series for the country’s largest city puts it at about 4.2 million people.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> The American post on the island sat at the port of Tamatave from 1866 until it moved up to the capital in July 1916, a generation after France had assumed sovereignty over the island as a colony.<sup class=\"fn\" data-fn=\"2\"></sup> The consulate general there became an embassy when the Malagasy Republic became independent on 26 June 1960, its consul general presenting credentials as chargé d’affaires that morning with a message from President Eisenhower dated the day before.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3589,7 +3590,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Urartu": ["Urartian"],
 "Medes": ["Mede","Median","Media"],
 "Ürümqi": ["Urumqi"],
-"Maputo": ["Lourenço Marques"]
+"Maputo": ["Lourenço Marques"],
+"Antananarivo": ["Tananarive"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5360,7 +5362,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Riyadh": ["place","city","geography","capital","saudi arabia","western asia"],
 "Maputo": ["place","city","geography","capital","mozambique","africa"],
 "Accra": ["place","city","geography","capital","ghana","africa"],
-"Lima": ["place","city","geography","capital","peru","south america"]
+"Lima": ["place","city","geography","capital","peru","south america"],
+"Antananarivo": ["place","city","geography","capital","madagascar","africa"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
