@@ -222,6 +222,10 @@ const CROSSREF_WRONG = [
   ["10.9750/psas.057.41.45", "A. P. Laurie", "Principal Laurie"],
   // Crossref carries the shorter of a two-part surname: Aubin Nzeukou Nzeugang.
   ["10.1016/j.heliyon.2021.e07608", "Aubin Nzeukou Nzeugang", "A.N. Nzeukou"],
+  // Crossref has Stephen; the article's own byline is Steven P. Ashby, and the ORCID
+  // it carries on that byline (0000-0003-1420-2108) registers Steven Paul Ashby.
+  // Crossref itself spells him Steven on 10.3176/arch.2020.1.01, under the same ORCID.
+  ["10.11141/ia.30.3", "Steven P. Ashby", "Stephen P. Ashby"],
 ];
 /* The same, for a YEAR Crossref states in a published-print record and gets wrong.
    A row is (DOI, the year the citation gives, the year Crossref gives). */

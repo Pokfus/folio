@@ -259,6 +259,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | C3/C2 | `clovis-point`, `obsidian-blade`, `ostrich-eggshell-bead` | — |
 | C1 | `byzantine-lead-seal`, `lustreware-bowl`, `glass-coin-weight` | — |
 | C1b | `islamic-star-tile`, `byzantine-silk` | `fustat-paper`, `mamluk-mosque-lamp` |
+| D1 | `antler-comb`, `bone-ice-skate` | `novgorod-birch-bark-letter` (held, see below) |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -266,6 +267,33 @@ on the buried weapons is not a Qin anti-rust technology two millennia ahead of i
 from the lacquer on the figures — a story most popular accounts still repeat. A plate that states the
 current standing of the thing a reader half-remembers is doing more work than one that recites the
 half-memory. The Great Isaiah Scroll's 2025 radiocarbon-plus-style programme is the same shape.
+
+**D1's finding is that `check-citations.js` earns its keep on a name nothing else could have caught.**
+The comb's first citation was written **Steven P. Ashby**, off the article's own byline, and Crossref
+answered **Stephen**. That is not a typo to wave through: it is one letter, both spellings are ordinary
+English names, and no reader would ever query it. The **ORCID on the byline** settles it —
+0000-0003-1420-2108 registers *Steven Paul Ashby*, and Crossref itself spells him Steven on the Salme
+paper under that same ORCID — so the row is declared in `CROSSREF_WRONG` with that reasoning, the
+twelfth such row and the first found by an artefact batch. **When Crossref and a byline disagree on a
+given name, the ORCID is the tie-breaker**, and it is usually one click away on the article page.
+
+**Its content finding is that a humble object can carry a live scholarly argument, and that is worth
+more than a superlative.** A bone skate is a horse or ox long bone with one face worn flat, and whether
+those objects are skates *at all* is genuinely contested: they have been read as hide scrapers, as
+burnishers, and as net weights, and an influential use-wear study rejected the skating reading outright
+for unperforated pieces. Against that, micro- and macroscopic work on the Gniezno finds concluded that
+in a waterlogged town skating really was ordinary life, transport and recreation both. **Three sources
+that disagree make a better plate than three that agree**, and a common — a kind of object rather than
+a named one — is where that is easiest to find, because the kind is what gets argued about.
+
+**`novgorod-birch-bark-letter` is HELD rather than deferred, and the distinction is worth keeping.**
+Three works were found and read — Vovin on birch bark giving way to parchment as paper spread, Kalugina
+on what the letters record about cloth, Petrukhin on the disputed reading of letter no. 724 — and every
+one is about what the letters SAY. Not one describes what the object physically is, so the plate's
+first sentence would have rested on nothing. That is a different failure from A2's and B1's (no
+reachable field) and from C1b's two (no reachable work at all): here the works are open and read, and
+what is missing is a source for the obvious. **Look for the source of the first sentence before
+collecting sources for the rest.**
 
 **C1b came back SHORT, and it is the D2 kind of short rather than the A2 kind.** Neither deferral is
 a region problem. **`fustat-paper`** has no reachable source for the period that matters: the standard

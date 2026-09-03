@@ -882,4 +882,18 @@ window.ARTEFACTS = [
     date: "c. 8th – 11th century CE",
     origin: "The Byzantine Empire",
   },
+  {
+    id: "antler-comb",
+    name: "Antler comb",
+    rarity: "common",
+    date: "c. 400 – 1450 CE",
+    origin: "Northern Europe",
+  },
+  {
+    id: "bone-ice-skate",
+    name: "Bone ice skate",
+    rarity: "common",
+    date: "c. 2000 BCE – 1900 CE",
+    origin: "Europe and northern Russia",
+  },
 ];
