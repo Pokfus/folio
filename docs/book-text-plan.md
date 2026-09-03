@@ -204,6 +204,14 @@ head of the list, by candidates then variants:
   58   4  don-quixote         42   2  seneca-letters       0   0  ptahhotep
 ```
 
+**AND THE COUNT CAN BE WILDLY LOW, WHICH E5 FOUND THE HARD WAY.** `book-scan` gives the Canterbury Tales
+44 candidates; the batch shipped **151 repairs**, because the damage there is not the class this scan looks
+for. A slip scanner reads TOKENS, so it cannot see a quotation mark set as a pound sign, a ligature set as
+two letters, or a line the reader dropped altogether — and those were nine tenths of that book's trouble.
+**Run the non-ASCII character census beside `book-scan`** (count the characters a transcription uses that
+are neither ASCII nor its own curly quotes and dashes); it is two lines, needs no judgement, and on that
+book it pointed straight at every passage a reader could not read.
+
 **Most candidates are correct English and only reading the sentence tells you which.** On the Art of War 13
 of the 14 are — `paint`, `white`, `impassible`, `safely`, `wailing`, `fails`, `tying`, `tearing`, `black`,
 `month`, `notion`, `befit`, `fears` all read correctly in context — and one, `meaniug`, is the slip. Budget
@@ -213,10 +221,16 @@ the pass at reading ~1,400 lines to find something on the order of a hundred.
 
 ## 5. Reachability — which books the machinery can already correct
 
-`applyFixes(applyGlyphs(…))` is called at exactly two sites, both inside the **wiki chapter loop**, and the
-first sits *before* the `parallel`/`interleaved`/`shloka` branch — so every wiki book is covered, parallel
-books included. **TEI books and the plain-text/Project Gutenberg layouts are not**: `journey`, `boethius`,
-`polo`, `bede`, `ptahhotep`, `quixote`, `chaucer` and every `source: "tei"` original call `fetchText` raw.
+`applyFixes(applyGlyphs(…))` is called inside the **wiki chapter loop**, *before* the
+`parallel`/`interleaved`/`shloka` branch — so every wiki book is covered, parallel books included.
+
+**THIS SECTION SAID THE PLAIN-TEXT AND TEI LAYOUTS WERE NOT, AND THAT IS NO LONGER TRUE.** It named
+`journey`, `boethius`, `polo`, `bede`, `ptahhotep`, `quixote` and `chaucer` as calling `fetchText` raw;
+each was wired into `correctRaw` as its own batch reached it, and measured again in Sep 2026 **all seven
+now call it** — `polo` through `vols.map(correctRaw)`, the rest directly on the raw. What is left off the
+chain is a `source: "tei"` ORIGINAL. Re-measure before believing this paragraph: it went a year out of
+date without anything failing, because a book with no `fixes` table cannot tell you whether it would be
+corrected if it had one.
 
 That is why the Art of War is book batch 1 twice over: it is a `parallel` book, so it needs no new plumbing,
 and it is the only book that carries its own evidence.
@@ -264,13 +278,76 @@ re-run and diffed byte for byte.
 | **E2** ✅ | `marco-polo` | the error check; **no words changed, and that is the finding** — for a scholarly edition the aggregate test is weak and the independent scan is the poorer witness; the `✛` revision mark identified and explained on the About page |
 | **E3** ✅ | `rigveda` | **52 slips**, every one anchored in the Internet Archive's scan of the same 1896 second edition before it became a row; the `layout: "sukta"` branch wired into `correctRaw`, without which the table was inert |
 | **E4** ✅ | `ramayana`, `don-quixote` | **ten slips corrected and two false corrections refused**, every one read against a scan of the same translation; the page-IMAGE route, for the four places where the witness's own text layer repeats the error; and the measured no-witness records for the Aeneid, Plato and the Summa |
-| **E5–En** | the rest of the error half | what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E5** ✅ | `canterbury-tales` | **151 repairs in 75 rows** — far the worst-damaged text on the shelf, and the damage is not the letter slips the batch went looking for: **eight pages printed straight and scanned askew**, where the reader dropped and transposed whole lines; the **opening quotation mark read as a pound sign** on 59; the **AE ligature read two wrong ways**, `iE` and `/E`, which made King Aella unreadable thirteen times; two full-page plates whose signature and dirt were set down mid-sentence; 40 dropped words restored |
+| **E6** | `canterbury-tales`, and a change to shared machinery | what E5 leaves in that book and cannot express: the SAME opening quote read as a lowercase `c` on **157** lines, the closing quote as a slash on about eleven, and eleven stray carets. `applyFixes` is split/join with no word boundary, so none of these can be a row; the batch is a word-boundary-aware correction pass plus the readings, and the pass must be proved inert on the nine books that already declare `fixes` |
+| **E7–En** | the rest of the error half | what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E5 — the Canterbury Tales, shipped 2026-09-03
+
+**75 rows, 151 substitutions, and the batch found something bigger than it was sent for.** E5 was
+scoped as the next tier of letter slips; the Canterbury Tales turned out to be the worst-damaged
+text on the shelf, and its damage is of a different order — not a wrong letter here and there but
+**whole lines dropped and transposed**, and a quotation mark misread more than two hundred times, of
+which this batch could reach sixty.
+
+**THE SWEEP THAT FOUND IT IS TWO LINES AND SHOULD BE RUN ON EVERY BOOK: count the characters the
+transcription uses that are neither ASCII nor its own curly quotes and dashes.** For this book that
+was `£ ™ ° § « » ■ „`, and every one of them except the section marks of the Parson's Tale was a
+letter, a quotation mark or a mark on the leaf. It needs no judgement, no witness and no reading,
+and it points straight at the passages a reader cannot read. The density sweep that had been used
+until now — count odd-looking tokens in a sliding window — found the thirteen worst passages and
+missed the eighteen the census then turned up, because a passage can be badly wrong in one character
+and a window of twelve tokens cannot see it.
+
+**EIGHT PAGES ARE PRINTED STRAIGHT AND SCANNED ASKEW**, and on those the OCR did not misread words,
+it lost them. A reader met `*° °Ve Him bCSt °f any creature` where page 230 says *I warrant him to
+love him best of any creature, had he no more than his kirtle*; met one line made of the halves of
+two, where January's brawn and his `Noel!` had been folded together; and met five scrambled lines
+on page 142 in place of *deliberation he sent for a churl in that city … to, the judge was glad*.
+Forty words are restored. **The pages themselves are perfectly legible** — that is the point, and
+the reason every one of these is a repair and not a guess.
+
+**TWO SCANS OF ONE EDITION SHARE AN OCR ENGINE, SO THEIR AGREEMENT PROVES NOTHING AND THEIR
+DISAGREEMENT PROVES A GREAT DEAL.** A second copy of the same 1912 printing (`completepoetical00chau`,
+the New York Public Library's) reads `full`, `lord` and `sooth` where ours reads `fuli`, `loid` and
+`scoth` — decisive. It also reads `undei` and `othei`, exactly as ours does, which looked like a
+defective sort in the forme and is not: **read the letter rather than the OCR.** Measured on the page
+image, the final glyph of `undei` is solid, dotless and eleven pixels wide against a control `r` of
+twenty — an `r` whose arm failed to ink. The same measurement settled all six of the batch's
+ambiguous words, and twice it went against the first reading by eye: `wili`'s fourth glyph has an
+`l`'s top serif at row 15 where the true `i` beside it carries a round dot at row 16, and `scoth`'s
+second letter is an `o` with a three-row gap in the right of its bowl, closed above and below it.
+
+**THREE SYSTEMATIC FAMILIES, and they dwarf the slips.** The edition's opening single quote is read
+as a **pound sign** on 59 lines (every one checked, every one opening a speech); the **AE ligature**
+is read as `iE` and as `/E`, which between them made King Aella's name unreadable thirteen times and
+also hid Aegeus, Aesculapius and Aeneas; and **a full-page plate can land inside a sentence**, so
+Warwick Goble's signature was set down in the middle of *Some evil … aspect or disposition of
+Saturn* and a speck from another plate between *Brother mine Valerian,* and *will you lead me
+thither?* — the second dragging its caption into the prose, which the running-head sweep takes
+sixty times and misses once.
+
+**WHAT IS DELIBERATELY LEFT, AND WHY IT IS ITS OWN BATCH.** The same opening quote is read as a
+lowercase **`c` on 157 further lines** and the closing quote as a slash on about eleven, and neither
+can be a `fixes` row: `applyFixes` is split/join with no word boundary of its own, so `"c  "` would
+match inside every word ending in c, and 157 rows each carrying their own context is not a table but
+a transcript. That wants a word-boundary-aware pass — a change to machinery nine other books share,
+which must be proved inert on all of them — so it is E6 rather than the tail of this. Eleven stray
+carets, each needing its own page read, wait with it. **The book's front matter says so to the
+reader**, in the paragraph naming the 151 repairs.
+
+**A DEFECT CLASS CAN BE INVISIBLE TO THE MEASURE THAT FOUND ITS SIBLINGS.** Both `wili` and `vour`
+collide as substrings with real words in the same book (`wiliness`, `devouring`), and the second
+`vour` slip is in Troilus and Criseyde — outside the Tales, so not shipped and not fixed. **Count a
+candidate as a substring and as a whole word before writing the row**, and check which part of the
+volume it falls in: this edition is the Complete Poetical Works — Troilus, the minor poems and the
+Legend of Good Women are all in the same file, and none of them ships.
 
 ### E4 — the Ramayana and Don Quixote, shipped 2026-09-03
 

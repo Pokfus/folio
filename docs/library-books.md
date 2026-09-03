@@ -674,7 +674,16 @@ book added later will meet the same traps.
   dropped as too coarse for 1912 and marked with a row of asterisks that ships where they printed it
   (the mark is read five different ways by the scan and is normalised, the Journey rule). Take those
   two tales out and the columns run 130,000 words against 135,000, which is prose against verse rather
-  than anything missing. The front matter says all of it, and the Middle English beside it is complete),
+  than anything missing. The front matter says all of it, and the Middle English beside it is complete.
+  **AND IT IS THE WORST-DAMAGED TEXT ON THE SHELF, repaired in 151 places in Sep 2026 (batch E5)**: it
+  is not the odd wrong letter but **eight pages printed straight and scanned askew**, where the reader
+  dropped and transposed whole lines and 40 words went missing, plus the opening quotation mark read as
+  a pound sign on 59 lines and the AE ligature read two wrong ways, which made King Aella unreadable
+  thirteen times. The sweep that found it is worth stealing for any OCR'd book: **count the characters
+  the transcription uses that are neither ASCII nor its own curly quotes and dashes** — here `£ ™ ° § «
+  » ■ „`, of which only the Parson's Tale's section marks were meant. **What is still wrong is larger
+  than what was fixed**: the same opening quote is read as a lowercase `c` on 157 further lines, which
+  `applyFixes` cannot express, and waits on a word-boundary-aware pass — see `docs/book-text-plan.md`),
   `journey-to-the-west` (~524 KB, all 100 chapters, **100 chapter sections**, **0 notes** — Timothy
   Richard's *A Mission to Heaven* of 1913, the first English translation there ever was, and **the
   first book here whose SOURCE IS PLAIN OCR TEXT rather than markup.** Every other reader on the

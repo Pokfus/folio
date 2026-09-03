@@ -11939,6 +11939,14 @@ const BOOKS = {
         "Tale of Gamelyn, a poem found in some manuscripts of the Cook's unfinished tale, which he " +
         "prints as an appendix and says is not Chaucer's. The translators do not render it, and it is " +
         "not here.",
+      "One last thing about the prose column, because it is the sort of thing a reader deserves to be " +
+        "told rather than to discover. It is not a typed transcription but a machine reading of the " +
+        "1912 pages, and machines misread. Where the scan went wrong it has been corrected against " +
+        "photographs of the same edition — 151 places, from single letters up to whole lines that the " +
+        "reader had dropped or run together, on eight pages that were printed straight and scanned " +
+        "askew. Nothing was mended by guess: every correction is a passage read off the page. Some " +
+        "misreadings remain, and the commonest by far is the opening quotation mark, which the machine " +
+        "sets as a lowercase c on about a hundred and fifty lines of speech.",
     ],
 
     /* THE TRANSLATION IS A PLAIN-TEXT OCR and the only copy of this edition that can be opened at all.
@@ -11950,8 +11958,289 @@ const BOOKS = {
 
        The scan itself is unusually clean for a machine reading — the whole run of the Canterbury Tales
        yields about forty blocks of scanner dirt and they are reported by name on every run — but it is
-       a machine reading all the same, and the odd letter is wrong. Left as it is rather than repaired
-       by guess. */
+       a machine reading all the same, and the odd letter is wrong. It said here for a year that this
+       was left as it stood rather than repaired by guess, which was the right rule and the wrong
+       conclusion: a guess is forbidden, and the page images are published beside the text. The table
+       below repairs 151 places against them. */
+    /* ---------- WHAT THE SCAN LOST, AND WHAT IT NEVER SET (Sep 2026, batch E5) ----------
+       The witness is this edition's own page images, at the Internet Archive item the text above
+       comes from, read leaf by leaf; where the scan and the page were both ambiguous a SECOND copy
+       of the same 1912 printing was consulted (`completepoetical00chau`, the New York Public
+       Library's), and that second copy is the reason several of these rows exist at all.
+
+       THE TWO SCANS SHARE AN OCR ENGINE, SO THEIR AGREEMENT PROVES NOTHING AND THEIR DISAGREEMENT
+       PROVES A GREAT DEAL. Both read `undei` and `othei`, which looked at first like a defective
+       sort in the forme — until the glyphs were measured: the final letter is solid, dotless and
+       eight to twelve pixels wide against a control `r` of twenty, so it is an `r` whose arm failed
+       to ink and not the `i` two engines guessed. The same measurement settled `fuli` (a four-row
+       break in an `l`, not a dotted `i`), `wili`, `loid` and `scoth`, whose second letter is an `o`
+       with a three-row gap in the right of its bowl, closed above and below it. READ THE LETTER
+       RATHER THAN THE OCR; it decided every one of the six, and twice against the first guess.
+
+       THREE FAMILIES, and the largest of them is punctuation rather than spelling.
+       · EIGHT PAGES ARE PRINTED STRAIGHT AND SCANNED SKEWED — 142, 198, 230, 240, 258, 260, 262 and
+         292 — and on those the OCR did not merely misread words, it DROPPED and TRANSPOSED whole
+         lines. A reader met `*° °Ve Him bCSt °f any creature` where the page says `I warrant him to
+         love him best of any creature, had he no more than his kirtle`, and met one line made of
+         halves of two where January's brawn and his `Noel!` had been folded together. The fifteen
+         rows at the head of this table are those passages, each transcribed off the page.
+       · THE EDITION'S OPENING SINGLE QUOTE IS READ AS A POUND SIGN on fifty-nine lines. Every one
+         was looked at and every one opens a speech, so it is one row; the sixtieth has no space
+         after it and is a row of its own.
+       · AND THE `AE` LIGATURE IS READ TWO DIFFERENT WRONG WAYS, `iE` and `/E`, which between them
+         made King Aella's name unreadable thirteen times.
+       · AND A MARK ON THE LEAF IS READ AS PROSE. Two of the eighteen rows at the foot of this table
+         delete a full-page plate that landed inside a sentence: the artist's signature on the plate
+         facing page 18 was set down between `Some evil` and `aspect or disposition of Saturn`, and a
+         speck on the plate facing page 272 between `Brother mine Valerian,` and `will you lead me
+         thither?`. The rest of that group are single characters — a degree sign, a guillemet, a
+         double low quote — standing where the page has a letter or an opening quote.
+
+       WHAT IS DELIBERATELY NOT HERE, and it is larger than what is: the SAME opening quote is read
+       as a lowercase `c` on 157 further lines, and the closing quote as a slash on about eleven.
+       `applyFixes` is split/join with no word boundary of its own, so `c` cannot be a row — one
+       written `"c  "` would match inside every word ending in c — and 157 rows each carrying their
+       own context is not a table, it is a transcript. That class wants a word-boundary-aware
+       correction pass, which is a change to machinery nine other books share and so wants a batch
+       of its own rather than the tail of this one. Eleven further spots carry a stray caret, each
+       needing a page of its own read, and they wait with it. Both are in docs/book-text-plan.md.
+
+       THE SWEEP THAT FOUND ALL OF THIS IS WORTH KEEPING: count the characters this transcription
+       uses that are neither ASCII nor its own curly quotes and dashes. Before the batch that was
+       `£ ™ ° § « » ■ „`, and every one of them but the section marks of the Parson's Tale was a
+       letter, a quotation mark or a mark on the leaf. It is two lines of script, it needs no
+       judgement, and it points straight at the passages a reader cannot read.
+
+       Every row was checked against the raw before it was written here: none is dead, none is a
+       duplicate, and no row's `from` occurs inside another row's `from` or `to`, so the single pass
+       cannot shadow or cascade. 151 substitutions in all. */
+    fixes: [
+      ["•  ^Pon  a  ^  ma^  went  toward  a  temple  in  the  town \n",
+       "Upon  a  day  this  maid  went  toward  a  temple  in  the  town, \n",
+       "page 142 reads 'Upon a day this maid went toward a temple in the town,'; the scan lost 'a day this maid'"],
+      ["Wherefore  after  great \n\nbfboeth  f nt  f°-  aCh^r‘  l\".  that  whom  he  knel  to \n\nbe  both  bold  and  cunning.  To  him  this  judge  told  his  tale  in \n\nW,f  a|'<l  took  hij  assurance  to  tell  no  creature;  and  if  he \nfo  ’the  r  Se,  h‘S  he^d-  when  this  cursed  plan  was  agreed \nrich  aniUprgeciLasS  fife’.  \"d  ^  Wm  cheer  and  ga™ \n",
+       "Wherefore  after  great \ndeliberation  he  sent  for  a  churl  in  that  city  whom  he  knew  to \nbe  both  bold  and  cunning.  To  him  this  judge  told  his  tale  in \nsecret  wise  and  took  his  assurance  to  tell  no  creature;  and  if  he \ndid,  he  should  lose  his  head.  When  this  cursed  plan  was  agreed \nto,  the  judge  was  glad,  and  made  him  great  cheer  and  gave  him \nrich  and  precious  gifts. \n",
+       "page 142, the last paragraph of the Physician's Tale's opening; the scan scrambled five lines and dropped 'deliberation', 'for a churl in', 'city', 'secret wise', 'did, he should lose his', and 'to, the judge was glad'"],
+      ["then  our  _  loyal  meaning,  who  never  yet  refused  your  behest! \nai?*T’  r01^’  if  you  will  assent",
+       "then,  our  loyal  meaning,  who  never  yet  refused  your  behest, \nand,  lord,  if  you  will  assent",
+       "page 198 reads 'Accept, then, our loyal meaning, who never yet refused your behest, and, lord, if you will assent'"],
+      [".  ut  .  trutll ls.  that  tllls.  fresh  May  received  that  day  such  an \nimpression  of  pity  for  this  sick  Damian  that  she  could  not  drive \nrom  her  heart  the  thought  of  bringing  him  ease.  ‘  In  truth  ’ \n",
+       "But  the  truth  is  that  this  fresh  May  received  that  day  such  an \nimpression  of  pity  for  this  sick  Damian  that  she  could  not  drive \nfrom  her  heart  the  thought  of  bringing  him  ease.  ‘  In  truth,’ \n",
+       "page 230 reads 'But the truth is that this fresh May' and 'could not drive from her heart'"],
+      ["*°  °Ve  Him  bCSt  °f  any  creature’  had  he  no  more \n\nLo,  pity",
+       "I  warrant  him  to  love  him  best  of  any  creature,  had  he  no  more \nthan  his  kirtle.’ \n\nLo,  pity",
+       "page 230 reads 'I warrant him to love him best of any creature, had he no more than his kirtle.'; the scan lost the last four words"],
+      ["™any>  with  hearts  as  hard  as  any  stone,  who  would  have \nkt  him  die  m  the  place",
+       "be  many,  with  hearts  as  hard  as  any  stone,  who  would  have \nlet  him  die  in  the  place",
+       "page 230 reads 'indeed there be many, with hearts as hard as any stone, who would have let him die in the place'"],
+      ["SX  m  the'r  Pride>  “d  care  not  though’ they \n\n,  T1?'8  gu-nti!e,  MayI  ful1  pity,  made  a  letter  with  her  own \n",
+       "would  rejoice  in  their  cruel  pride,  and  care  not  though  they \ndid  murder. \n\nThis  gentle  May,  full  of  pity,  made  a  letter  with  her  own \n",
+       "page 230 reads 'would rejoice in their cruel pride, and care not though they did murder. This gentle May, full of pity, made a letter with her own hand'"],
+      ["nought  lacked \n\nbe  eve^afL3  ^  she  might  ™et  him,  foAt  should \n\nbe  even  as  he  would  have  it.",
+       "nought  lacked \nbut  only  day  and  place  where  she  might  meet  him,  for  it  should \nbe  even  as  he  would  have  it.",
+       "page 230 reads 'nought lacked but only day and place where she might meet him, for it should be even as he would have it.'"],
+      ["•  ‘™S  m^rror  e^e>  which  I  have  in  my  hand,  hath  such  a \n",
+       "‘  This  mirror  eke,  which  I  have  in  my  hand,  hath  such  a \n",
+       "page 240 reads 'This mirror eke, which I have in my hand, hath such a might'"],
+      ["‘  NJ°W  1  cond^de  *us,  that  if  I  could  find  some  old \n\ncomrade  at  Orleans",
+       "‘  Now  then,  I  conclude  thus,  that  if  I  could  find  some  old \ncomrade  at  Orleans",
+       "page 258 reads 'Now then, I conclude thus, that if I could find some old comrade at Orleans'"],
+      ["where  he  shone  full’pale \n\\  dare,wed  saT  The  bitter  frosts",
+       "where  he  shone  full  pale, \nI  dare  well  say.  The  bitter  frosts",
+       "page 260 reads 'where he shone full pale, I dare well say. The bitter frosts'"],
+      ["sits  by  the  fire  and  drinks  the  wine  out  of  his  ox-horn;  before \n\ncriTs,  ‘  Notl  C raWn  °f  tHe  tUSked  ^  and  6VeiT  lusfy  man \n\nAurelius  did",
+       "sits  by  the  fire  and  drinks  the  wine  out  of  his  ox-horn;  before \nhim  stands  brawn  of  the  tusked  boar,  and  every  lusty  man \ncries,  ‘  Noel ! ’ \n\nAurelius  did",
+       "page 260 reads 'before him stands brawn of the tusked boar, and every lusty man cries, Noel!'; the scan read two lines as one and lost 'him stands' and 'boar'"],
+      ["day  and  mght,,0  watch  after  a  fitting  time  to  work  his  problem  • \n\ncrafty  sllhT’  h^  appearafnce>  bY  ^h  an  ilhision  or \ncratty  sleight",
+       "day  and  night,  to  watch  after  a  fitting  time  to  work  his  problem ; \nthat  is  to  say,  to  create  an  appearance,  by  such  an  illusion  or \ncrafty  sleight",
+       "page 260 reads 'day and night, to watch after a fitting time to work his problem; that is to say, to create an appearance, by such an illusion or crafty sleight'"],
+      ["and  with  good  will  chose  not \n\nWhvrsh°  fdVti!”  TSent  m  be  r°bbed  o§f  her  maidenhood. \n\nWhy  should  I,",
+       "and  with  good  will  chose  not \nrather  to  die  than  consent  to  be  robbed  of  her  maidenhood. \nWhy  should  I,",
+       "page 262 reads 'and with good will chose not rather to die than consent to be robbed of her maidenhood. Why should I, then, fear to die?'"],
+      ["by  the  dragon  he \n\nsUtonerSJh°td  dse’  and  h5s  brotherfbnm- \n\n°Ut  °f  Sd  and  l»na.  ‘And  therefore,’ \nsaid  he,  take  heed",
+       "by  the  dragon  he \nunderstood  mercury  and  naught  else,  and  by  his  brother,  brimstone, \nthat  were  drawn  out  of  sol  and  luna.  ‘  And  therefore,’ \nsaid  he,  ‘  take  heed",
+       "page 292 reads 'by the dragon he understood mercury and naught else, and by his brother, brimstone, that were drawn out of sol and luna'"],
+      ["£  ",
+       "‘  ",
+       "the edition's opening single quote, read as a pound sign on 59 lines; every one checked, and each opens a speech"],
+      ["£Nay,  old  cob",
+       "‘  Nay,  old  cob",
+       "the same misreading with no space after it, page 185"],
+      ["iElla",
+       "Aella",
+       "the edition sets 'King Aella' with an AE ligature (page 88); read as 'iE' on ten lines"],
+      ["/Ella",
+       "Aella",
+       "the same name, the same ligature read as a slash and an E (page 100)"],
+      ["iEgeus",
+       "Aegeus",
+       "the edition sets the AE ligature; 'Aegeus' is Theseus's father in the Knight's Tale"],
+      ["iEsculapius",
+       "Aesculapius",
+       "the edition sets the AE ligature, in the roll of physicians in the Prologue"],
+      ["/Eneas",
+       "Aeneas",
+       "the edition sets the AE ligature, in the Legend the Man of Law recites"],
+      ["opinion  fhat  perfect",
+       "opinion  that  perfect",
+       "page 12 reads 'the opinion that perfect felicity'"],
+      ["Therefore  I  wili",
+       "Therefore  I  will",
+       "page 61 reads 'Therefore I will go sleep an hour or two'; the final l is broken in the forme"],
+      ["bushel  of  vour",
+       "bushel  of  your",
+       "page 71 reads 'a loaf that was made of half a bushel of your own meal'"],
+      ["child,  fuli  gracious",
+       "child,  full  gracious",
+       "page 208 reads 'a manchild, full gracious and fair to see'"],
+      ["Second  Nun's  Lale,",
+       "Second  Nun's  Tale,",
+       "page 331 reads 'Here beginneth the Second Nun's Tale'"],
+      ["I  hear  it  everv",
+       "I  hear  it  every",
+       "page 100 reads 'I hear it every bit'"],
+      ["ruler  of  everv  plant",
+       "ruler  of  every  plant",
+       "page 297 reads 'lord and ruler of every plant, herb, tree, and flower'"],
+      ["his  loid  he",
+       "his  lord  he",
+       "page 25 reads 'Better than his lord he knew how to pick up wealth'; the r has lost its arm"],
+      ["helped  the  othei",
+       "helped  the  other",
+       "page 48 reads 'each helped the other to arm'; the r has lost its arm"],
+      ["incites  othei",
+       "incites  other",
+       "page 279 reads 'then he incites other folk to it'; the same"],
+      ["penny  ofher.goods.",
+       "penny  of  her  goods.",
+       "page 179 reads 'as give a penny of her goods' — three words, not two"],
+      ["stood  tied  undei",
+       "stood  tied  under",
+       "page 78 reads 'where he stood tied under an arbor'; the r has lost its arm"],
+      ["And  ceites,",
+       "And  certes,",
+       "page 356 reads 'And certes, unless they amend them'"],
+      ["And  in  scoth",
+       "And  in  sooth",
+       "page 220 reads 'And in sooth it is fitting that bachelors have pain and woe oft'"],
+      ["Phcebus",
+       "Phoebus",
+       "the edition sets the OE ligature and this transcription expands it to 'oe' everywhere else, 25 times"],
+      ["Here  begmneth",
+       "Here  beginneth",
+       "page 45 reads 'Here beginneth the Miller his Tale'"],
+      ["day’s  journev.",
+       "day’s  journey.",
+       "page 45 reads 'a full day's journey'"],
+      ["Here  endelh",
+       "Here  endeth",
+       "page 45 reads 'Here endeth the Prologue'"],
+      ["ciying  and  pains",
+       "crying  and  pains",
+       "page 251 reads 'is cause of all my crying and pains'"],
+      ["corpus  Madnan",
+       "corpus  Madrian",
+       "page 268 reads 'by the precious corpus Madrian'"],
+      ["I  wotf  loJd",
+       "I  wot,  lord",
+       "page 254 reads 'For well I wot, lord Phoebus'"],
+      ["Here  followelh",
+       "Here  followeth",
+       "page 269 reads 'Here followeth the Prologue of the Pardoner's Tale'"],
+      ["visage.  Farthei",
+       "visage.  Farther",
+       "page 59 reads 'with dejection and sorry visage. Farther yet I saw madness'"],
+      ["so  secretiy  that",
+       "so  secretly  that",
+       "page 230 reads 'wrung it hard, but so secretly that'"],
+      ["had  slam  Phidon",
+       "had  slain  Phidon",
+       "page 262 reads 'had slain Phidon at a feast in Athens'"],
+      ["Crcesus",
+       "Croesus",
+       "page 137, the rubric over the Monk's last tragedy; the OE ligature again, and the very next line spells it out"],
+      ["of  Messema  had",
+       "of  Messenia  had",
+       "page 262 reads 'They of Messenia had fifty maidens'"],
+      ["of  Lacediemonia  sought",
+       "of  Lacedaemonia  sought",
+       "page 262 sets the AE ligature; this transcription writes 'Lacedaemon' elsewhere"],
+      ["named \nStymphahs,",
+       "named \nStymphalis,",
+       "page 262 reads 'a maiden named Stymphalis'"],
+      ["in  Athens,  of  the* \nmalice",
+       "in  Athens,  of  their \nmalice",
+       "page 262 reads 'at a feast in Athens, of their malice they commanded men'"],
+      ["read  it  if  hi  will'  She",
+       "read  it  if  he  will !  She",
+       "page 230 reads 'let him read it if he will!'"],
+      ["all  this  land,  at  the' least \n",
+       "all  this  land,  at  the  least, \n",
+       "page 198 reads 'of all this land, at the least, such that it ought to seem'"],
+      ["say  that  the^ocks  of  Brittany",
+       "say  that  the  rocks  of  Brittany",
+       "page 260 reads 'should think and say that the rocks of Brittany were gone'"],
+      ["was  Hermes,  father  of \np  ilosophers",
+       "was  Hermes,  father  of \nphilosophers",
+       "page 292 reads 'was Hermes, father of philosophers'"],
+      ["they  caused  it \nail  to  pass  out",
+       "they  caused  it \nall  to  pass  out",
+       "page 258 reads 'straightway they caused it all to pass out'"],
+      ["‘  y°ur  horse  is  g°ing",
+       "‘  your  horse  is  going",
+       "page 79 reads 'your horse is going to the fen with wild mares'"],
+      ["and \n\nj°y. \n\nThis  January",
+       "and \njoy. \n\nThis  January",
+       "page 227 reads 'filled to the full with all beauty and joy'"],
+      ["°-na  laLy-’  unto  fresh  lady.",
+       "or  a  lay,  unto  his  fair  fresh  lady.",
+       "page 228 reads 'in the style of a complaint or a lay, unto his fair fresh lady'"],
+      ["the  exaltation \n°!  JuPIter-  And",
+       "the  exaltation \nof  Jupiter.  And",
+       "page 234 reads 'which is the exaltation of Jupiter. And so befell'"],
+      ["f  N°>  quoth  she,",
+       "‘  No,’  quoth  she,",
+       "page 254 reads 'No, quoth she, by that Lord that made me!'"],
+      [".  J°u  bed  went  Aurelius",
+       "To  bed  went  Aurelius",
+       "page 260 reads 'To bed went Aurelius when he would'"],
+      ["repose  well- \nmgh  all  that  night",
+       "repose  well- \nnigh  all  that  night",
+       "page 260 reads 'had repose wellnigh all that night'"],
+      ["go  for  that \nsum.  ° \n",
+       "go  for  that \nsum. \n",
+       "page 260 ends the paragraph at 'to go for that sum.'; the degree sign is a mark on the leaf"],
+      ["« May,  with  thy  flowers",
+       "‘  May,  with  thy  flowers",
+       "page 39, the opening quote of Absalom's song, read as a guillemet"],
+      ["«  Avaunt !",
+       "‘  Avaunt !",
+       "page 138, the same misreading"],
+      ["«  Go  we  to  supper,",
+       "‘  Go  we  to  supper,",
+       "page 259, the same misreading"],
+      ["no  b„eard  nor  ever",
+       "no  beard  nor  ever",
+       "page 21 reads 'He had no beard nor ever would have'"],
+      ["why  he  lo.ved  gold",
+       "why  he  loved  gold",
+       "page 14 reads 'that was why he loved gold above all else'"],
+      ["fair  wimple \n^nd  on  her  head",
+       "fair  wimple \nand  on  her  head",
+       "page 14 reads 'wearing a fair wimple and on her head a hat as broad as a buckler'"],
+      ["and  pigs’^jbones  in  a \nglass",
+       "and  pigs’  bones  in  a \nglass",
+       "page 18 reads 'set full of false gems, and pigs' bones in a glass'"],
+      ["barren  of  alLgrace  and  hope",
+       "barren  of  all  grace  and  hope",
+       "page 31 reads 'so barren of all grace and hope'"],
+      ["Some  evil \n\n\n\\VakWick \n\n\nj \n\n\\ ' \n\n!H6 \n\n\nEMILY  IN  THE  GARDEN \n",
+       "Some  evil \n\n\nEMILY  IN  THE  GARDEN \n",
+       "the plate facing page 18 is signed 'Warwick Goble' and the signature was read as prose, mid-sentence, between 'Some evil' and 'aspect or disposition of Saturn'"],
+      ["\n\n\nTHE  ANGEL  PRESENTING  THE  CROWNS  TO  CECILY  AND  VALERIAN \n\n\n■ \n\n\nTHE  SECOND  NUN’S  TALE \n",
+       "\n\n\nTHE  SECOND  NUN’S  TALE \n",
+       "the plate facing page 272 and a mark on it, both read as prose between 'Brother mine Valerian,' and 'will you lead me thither?'; the running-head sweep takes the other sixty captions and misses this one"],
+    ],
     sourceName: "Internet Archive",
     sourceUrl: "https://archive.org/details/completepoetical0000chau_q3l3",
     source: "html",
