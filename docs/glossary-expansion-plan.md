@@ -170,7 +170,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N7 | 12 | Athens topography — **shipped**, all twelve pictured |
 | N8 | 11 | Mycenaean tombs and grave circles — **shipped**, all eleven pictured (Tomb N deferred, see below) |
 | N9 | 9 | Greek architecture and its orders — **shipped**, 7 of 9 pictured (see below) |
-| N10 | 12 | Greek vessel and object vocabulary |
+| N10 | 12 | Greek vessel and object vocabulary — **shipped**, all twelve pictured |
 | N11 | 12 | Greek regions and islands |
 | N12 | 12 | Crete: sites and landscape |
 | N13 | 12 | Cyprus and the Late Bronze Age east |
@@ -331,6 +331,72 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N10's findings
+
+**N10 — Greek vessel and object vocabulary (shipped, all twelve pictured).** Krater, kylix, hydria,
+lekythos, alabastron, aryballos, skyphos, kantharos, pyxis, rhyton, olpe, oinochoe.
+
+**THE TWELVE WERE CHOSEN BY MEASURING THE CORPUS, NOT BY LISTING THE SHAPES.** The plan names the
+subject and the count and not the terms, so the list was derived by grepping every card and every
+glossary description for vessel vocabulary: eleven of the twelve occur in shipped prose (krater in 9
+cards, rhyton in 5, kylix, hydria, lekythos and alabastron in 2 each), and the twelfth, *oinochoe*, was
+added because the olpe is a kind of it and because `Dipylon_oinochoe` was already an alias with no term
+behind it. **A substring grep lies and the check is two minutes**: `pelike` appeared to occur in
+`wh-004` and the word was *apelike*; `dinos` in `geo-018` was *dinosaur*. **And the corpus writes these
+plurals in Greek** — rhyta 9, kraters 7, kylikes 5, lekythoi 5, pyxides 3, hydriae 3 — which
+`pluralForms` cannot make from any of the singulars except *kraters*, so ten of the twelve needed an
+alias to auto-link at all.
+
+**`kotyle` was NOT made an alias of `Skyphos`, and reading the source is why.** The two are treated as
+one shape often enough that the alias looked free; Walters distinguishes them outright — the skyphos
+"is of the same type as the kotyle, but the body tapers below and has a higher foot, while the handles
+are placed lower down and bent upwards" — so the alias would have pointed `rm-038`'s kotyle at a term
+that is about a different cup. **N2's rule in a new dress: before adding a synonym alias, ask whether
+the source treats the two names as the same thing.**
+
+**The spine is one 1905 monograph, one lexicon and one university teaching site, and each does a
+different job.** H. B. Walters's *History of Ancient Pottery* vol. 1 (archive.org, full OCR) has a
+chapter — "Uses and Shapes of Greek Vases", pp. 131–201 — that describes every one of the twelve with a
+page to itself, which is the artefact plan's rule paying again: where the modern synthesis is closed,
+the standard older monograph is open and is often where the type name was fixed. **LSJ on Perseus
+carries the Greek word**, which is what a first sentence defining a term wants and what no
+archaeological description supplies. And **Rutter's Aegean site carries the Bronze Age half** — its own
+Glossary defines krater, kylix, alabastron, kantharos, pyxis and rhyton out of Warren, Biers and
+Pedley, and the lesson narratives carry the claims (the goblet becoming the kylix in LH IIIA, the
+alabastron among the commonest LH IIIA2 tomb vases, kantharoi in the Shaft Graves' gold, the Marine
+Style rhyta). **Walters is cited only for form and ancient testimony**, never for the parts he has been
+overtaken on: his "the name aryballos has been used for a later variety of the lekythos" is not
+repeated, and neither is his reading of the shape names as unfixable.
+
+**PERSEUS SERVES A "NO DOCUMENT FOUND" PAGE WITH A 200**, which makes it the seventh variety of
+200-status error document this project records. Two of the twelve headwords were composed from the
+obvious beta code and both were wrong — ἀλάβαστρον is filed under **`a)la/bastos`**, and ῥυτόν has no
+entry of its own but sits as sense II of **`r(uto/s3`** — so the saved "entry" for each was the error
+page, and a URL check would have passed it. **Grep a fetched Perseus page for `unable to find a
+document` before citing it.** Beta code with a breathing also has to be **percent-encoded**: `SRC_URL_RX`
+stops at `)`, so a citation ending `entry=a)ru/ballos` would ship truncated, where `%29` is safe.
+
+**The picture pass found the shape rather than the subject, and that is a different search.** A whole
+vessel on a plain ground says what a shape is; a detail of its painting does not, and a name match
+cannot tell them apart — the top-ranked krater candidate was a **Martian crater**, the first kantharos
+was a close crop of the figures with both handles out of frame, and a "Kantharos" search returned an
+Etruscan scarab. **The Walters Art Museum series is the answer for eight of the twelve**: it photographs
+whole vessels on a plain ground, in the public domain, and its old monochrome plates show a profile
+better than a colour three-quarter view in a display case does — the Nikosthenes eye-cup is the only
+kylix found whose stem, bowl and both handles read at 150px.
+
+**And a picture that contradicts the prose is a correction to the PROSE.** Every olpe photographed —
+Attic, Protocorinthian, Etruscan — has a swelling ovoid body, where the draft said "almost cylindrical"
+on Walters's authority. He is describing one Attic black-figure type rather than the shape at large, so
+the sentence now says what the shape has (a tall handle, no marked neck, a plain or trefoil lip) and
+gives the cylindrical form as the Attic case it is. **Look at the picture before trusting the sentence,
+not only the other way round.**
+
+**One thing outside the batch and left alone:** the whole-corpus split audit reports `Santa_Fe` as **two
+sentences rather than three**, its second joined by a semicolon. It is a real breach of the
+three-sentence rule from an earlier pass, not a splitter gap, and re-cutting cited prose is its own
+small job.
 
 ### N9's findings
 
