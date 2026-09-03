@@ -1745,7 +1745,8 @@ window.GLOSSARY = {
 "Shield_signal_at_Marathon": "The shield signal at Marathon is an accusation reported by Herodotus, that after the battle of 490 BCE somebody at Athens held a shield up as a sign to the beaten Persian fleet as it rounded Sunium for the city.<sup class=\"fn\" data-fn=\"1\"></sup> The charge named the Alcmaeonids, a family already held accursed for the killing of Cylon's suppliants, and Herodotus rejects it, arguing that they were tyrant-haters who had worked to bring down the sons of Pisistratus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He will not give up the fact itself, saying that a shield was held up and that this cannot be denied, but that he does not know who did it.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Themistocles": "Themistocles was the Athenian politician and general who turned his city into a naval power, began the walls of Piraeus in his year as archon, and commanded the fleet that fought the Persians at Salamis in 480 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Thucydides credits him with an unschooled genius for judging a sudden crisis and for guessing at the distant future, and says he was the first who dared tell the Athenians to stick to the sea.<sup class=\"fn\" data-fn=\"2\"></sup> He was ostracised and then condemned in his absence for dealing with Persia, took service with the Persian king, and died at Magnesia, which the king had given him for his bread at fifty talents a year.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Naval_bill_of_Themistocles": "The naval bill was the measure carried at Athens by Themistocles in about 483 BCE, by which a windfall from the Attic silver mines was spent on warships instead of being shared out among the citizens.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says each man was to have received ten drachmas and that two hundred ships were built for the war with Aegina, while the <i>Constitution of the Athenians</i> has a hundred talents lent to the hundred richest Athenians, a talent each, and a hundred triremes built.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The fleet was used against the Persians instead, at Salamis in 480 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Aristides": "Aristides son of Lysimachus, of the Athenian deme Alopece, was a general and statesman whom Greek tradition surnamed 'the Just'.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus places him at Salamis in 480 BCE, arriving from Aegina to warn Themistocles that the fleet was encircled, and afterwards landing armed men on the islet of Psyttaleia to kill the Persians on it; the next summer he commanded the eight thousand Athenians on the left of the line at Plataea.<sup class=\"fn\" data-fn=\"2\"></sup> When the allies transferred the naval command from Sparta to Athens he was chosen to assess what each city should contribute, a first total Thucydides gives as 460 talents with the common treasury on Delos.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Aristides": "Aristides son of Lysimachus, of the Athenian deme Alopece, was a general and statesman whom Greek tradition surnamed 'the Just'.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus places him at Salamis in 480 BCE, arriving from Aegina to warn Themistocles that the fleet was encircled, and afterwards landing armed men on the islet of Psyttaleia to kill the Persians on it; the next summer he commanded the eight thousand Athenians on the left of the line at Plataea.<sup class=\"fn\" data-fn=\"2\"></sup> When the allies transferred the naval command from Sparta to Athens he was chosen to assess what each city should contribute, a first total Thucydides gives as 460 talents with the common treasury on Delos.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Ostracism_of_Aristides": "The ostracism of Aristides was the Athenian vote, held in the archonship of Nicomedes, that banished Aristides son of Lysimachus from the city for ten years.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch attributes it to resentment of his reputation for justice, sharpened by a story Themistocles set going that he had done away with the public courts, and tells how an unlettered voter, tired of hearing him called 'the Just', asked Aristides himself to write the name on his sherd.<sup class=\"fn\" data-fn=\"2\"></sup> The <i>Athenian Constitution</i> records that in the third year afterwards, under the archon Hypsechides, the Athenians recalled everyone they had ostracised because Xerxes was marching on Greece.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2516,7 +2517,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Marathon_tumuli": "490 BCE",
 "Shield_signal_at_Marathon": "490 BCE",
 "Naval_bill_of_Themistocles": "c. 483 BCE",
-"Aristides": "fl. 490 – 478 BCE"
+"Aristides": "fl. 490 – 478 BCE",
+"Ostracism_of_Aristides": "c. 482 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3606,7 +3608,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Marathon_tumuli": ["Soros","Tumulus of the Athenians","Tomb of the Athenians"],
 "Shield_signal_at_Marathon": ["shield signal"],
 "Naval_bill_of_Themistocles": ["naval bill"],
-"Aristides": ["Aristides the Just","Aristides son of Lysimachus"]
+"Aristides": ["Aristides the Just","Aristides son of Lysimachus"],
+"Ostracism_of_Aristides": ["ostracism of Aristides"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5380,7 +5383,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Shield_signal_at_Marathon": ["event","history","warfare","greece","athens"],
 "Themistocles": ["person","history","warfare","politics","greece","athens"],
 "Naval_bill_of_Themistocles": ["event","history","warfare","politics","greece","athens"],
-"Aristides": ["person","history","politics","warfare","greece","athens"]
+"Aristides": ["person","history","politics","warfare","greece","athens"],
+"Ostracism_of_Aristides": ["event","history","politics","greece","athens"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
