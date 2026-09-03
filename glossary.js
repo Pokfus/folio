@@ -3246,7 +3246,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Naukrary": ["naukraries","naucrary","naucraries","naukraros","naukraroi"],
 "Peisistratid_building_programme": ["building programme of the Peisistratids","Peisistratid buildings"],
 "Old_Temple_of_Athena": ["Archaios Neos","old temple of Athena","Old Athena Temple"],
-"Laurion": ["Laureion","Laurium","Lavrion"],
+"Laurion": ["Laureion","Laurium","Lavrion","Laurion strike"],
 "Athenian_owls": ["Athenian owl","owl tetradrachm","Attic owl"],
 "Enmity_between_Athens_and_Aegina": ["ancient enmity between Athens and Aegina","Athenian enmity with Aegina","quarrel between Athens and Aegina"],
 "Orientalising_period": ["Orientalizing period","orientalising period","Orientalising art","orientalizing art"],
