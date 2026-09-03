@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-543` Tashkent.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-544` Kuala Lumpur.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -307,6 +307,34 @@ and `congress.gov` are all **403**; `senate.gov` serves its 404 page **with a 20
 history through JavaScript and hand back navigation chrome; and `beijing.gov.cn` resets the connection.
 **Find the city spine before writing the batch, not during it** — three country cards were written in
 the time it took to establish that the obvious capital sources do not answer.
+
+**UNDATA'S CAPITAL-CITY POPULATION IS THE WORLD BANK'S LARGEST-CITY SERIES, SO THE TWO CAN NEVER
+CORROBORATE EACH OTHER ON A CAPITAL** (found on `gw-542` Warsaw, confirmed on `gw-543` Tashkent, and it
+sent a correction back to `gw-541`). UNdata's *Capital city pop. (000, 2025)* row carries a footnote,
+and the footnote dates the figure years earlier — 2019 on all three checked — where the row's own
+heading says 2025. Read against `EN.URB.LCTY` the figure is not merely close but **identical**: Warsaw
+1,775.9 against 1,775,933, Tashkent 2,490.3 against 2,490,334, Kyiv 2,973.3 against 2,973,335. So a
+sentence saying the UN and the World Bank agree on a capital's population is **one source counted
+twice**, which is C8's false-corroboration finding one indicator over. `gw-541` Kyiv said exactly that
+and has been corrected, on the card and on its glossary term. **Read the footnote before citing the
+row**: give the current figure to the World Bank, and where the UN figure is worth stating at all, state
+what it is — the same series at the year its footnote names.
+
+**THE FRUS CORPUS IS SEARCHABLE FROM HERE, AND IT IS A CITY SPINE WHERE THE COUNTRY PAGES ARE THIN**
+(`gw-543`). `history.state.gov/search?q=<city>` answers, ranks by relevance and searches the whole of
+*Foreign Relations of the United States* as well as the guide — which matters because Uzbekistan's
+country page is four sentences and names Tashkent once. The search returned the city's whole American
+record: an **editorial note** (`frus1964-68v25/d278`) giving the Ayub–Shastri conference of 4–10
+January 1966, Kosygin's part in it, the terms of the Tashkent Declaration and Shastri's death in the
+city the next day; and a **1919 telegram** (`frus1919Russia/d136`) recording Roger C. Tredwell,
+American consul at Tashkent, under arrest there since 20 October 1918 — a consular presence the
+guide's own Consular Presence section does not list at all, because the guide is written per modern
+state and the consulate was in Turkestan. This is the volume-preface route generalised: **where a
+capital has no institutions publishing their own history, search the diplomatic record for the city's
+name.** Two things left out for want of a source: the 1966 earthquake, which the USGS/ISC-GEM catalogue
+records as M 5.3 nine kilometres from the city but with nothing about the damage — a magnitude alone
+would read as a minor tremor and mislead — and everything before 1918, since `unesco.org`'s Silk Roads
+pages carry no Tashkent article and `usgs.gov` itself is 403.
 
 **THE TEST HAS NOW DECIDED THIRTEEN CAPITALS AND HAS NOT BEEN WRONG ONCE.** Washington, Islamabad,
 Brasília, Addis Ababa and Cairo passed it and are written; New Delhi, Beijing, Jakarta, Abuja, Dhaka,
