@@ -41,6 +41,16 @@ const path = require("path"), http = require("http"), fs = require("fs");
 const { chromium } = require("playwright");
 const { isNoise } = require("./test-noise.js");
 const ROOT = path.join(__dirname, "..");
+/* THE COLLECTIBLE THEMES, READ OUT OF app.js RATHER THAN NAMED (Sep 2026). `THEMES` lives inside the
+   IIFE, so it is sliced by text — the shape this file already uses for ARTEFACT_SRC_TARGET. The
+   fixtures below used to seed the five by name, and the comment beside them said in as many words that
+   "a seventh theme added later would silently stop them being the whole collectible set". Ten gemstone
+   themes arrived and it did exactly that: three assertions failed on a chest that still had themes to
+   give. Derived, the fixture owns whatever the set currently is and cannot go stale again. */
+const THEME_LIST = ((fs.readFileSync(path.join(ROOT, "app.js"), "utf8").match(/const\s+THEMES\s*=\s*\[([\s\S]*?)\]/) || [])[1] || "")
+  .split(",").map((x) => x.trim().replace(/^["']|["']$/g, "")).filter(Boolean);
+const COLLECTIBLE = THEME_LIST.filter((t) => t !== "folio");
+const ALL_THEMES_OWNED = Object.fromEntries(COLLECTIBLE.map((t) => [t, 1]));
 const LAUNCH = process.env.FOLIO_CHROMIUM ? { executablePath: process.env.FOLIO_CHROMIUM } : {};
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml" };
 let pass = 0, fail = 0;
@@ -176,7 +186,8 @@ function syntheticPool() {
 
   /* ================= 3. the roll ================= */
   {
-    await page.evaluate((pool) => {
+    // one argument only — `page.evaluate` refuses a second, so the pair travels as an object
+    await page.evaluate(({ pool, owned }) => {
       const ov = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}");
       ov.artefacts = pool;
       localStorage.setItem("folio_admin_v1", JSON.stringify(ov));
@@ -189,9 +200,9 @@ function syntheticPool() {
          hand back and this sweep measures exactly what it measured before themes were collectible. The
          theme drop is asserted on its own in 3b, where it can be made deterministic; left locked here it
          would take a random ~14% of these 32 openings and the run would fail on a coin toss. */
-      s.themes = { synth: 1, arcade: 1, academy: 1, marble: 1, gazette: 1 };
+      s.themes = owned;
       localStorage.setItem("folio_v1", JSON.stringify(s));
-    }, syntheticPool());
+    }, { pool: syntheticPool(), owned: ALL_THEMES_OWNED });
     await page.reload({ waitUntil: "domcontentloaded" });
     await page.waitForTimeout(700);
     await page.evaluate(() => { location.hash = "account"; });
@@ -248,14 +259,13 @@ function syntheticPool() {
       s.chests = 2; s.themes = {};                       // every collectible theme locked again
       localStorage.setItem("folio_v1", JSON.stringify(s));
     });
-    /* THEMES lives inside the IIFE, so it is read out of app.js by text — the shape this file already
-       uses for ARTEFACT_SRC_TARGET. It is worth asserting rather than assuming: the fixtures above and
-       below seed the five by name, and a seventh theme added later would silently stop them being the
-       whole collectible set. */
-    const themeList = ((fs.readFileSync(path.join(ROOT, "app.js"), "utf8").match(/const\s+THEMES\s*=\s*\[([^\]]*)\]/) || [])[1] || "")
-      .split(",").map((x) => x.trim().replace(/^["']|["']$/g, "")).filter(Boolean);
-    check("the collectible themes are the five the fixtures seed",
-      themeList.filter((t) => t !== "folio").join(",") === "synth,arcade,academy,marble,gazette", themeList.join(","));
+    /* The set is DERIVED now (see THEME_LIST at the top), so what is left to assert is that the slice
+       actually found something and that `folio` is not in the collectible set — a regex that silently
+       matched nothing would make every "owns the lot" fixture own nothing, and every assertion resting
+       on an exhausted pool would fail for a reason nowhere near the theme it was really about. */
+    check("the collectible themes are read out of app.js and folio is not one of them",
+      COLLECTIBLE.length >= 5 && THEME_LIST.includes("folio") && !COLLECTIBLE.includes("folio"),
+      COLLECTIBLE.length + " collectible: " + COLLECTIBLE.join(","));
     await page.reload({ waitUntil: "domcontentloaded" });
     await page.waitForTimeout(700);
     await page.evaluate(() => { location.hash = "account"; });
@@ -280,11 +290,11 @@ function syntheticPool() {
     check("…and counted as opened", (afterTheme.chestsOpened | 0) > 0, String(afterTheme.chestsOpened));
 
     // now own the lot: nothing left of either kind, so the chest says so instead of opening
-    await page.evaluate(() => {
+    await page.evaluate((owned) => {
       const s = JSON.parse(localStorage.getItem("folio_v1") || "{}");
-      s.themes = { synth: 1, arcade: 1, academy: 1, marble: 1, gazette: 1 };
+      s.themes = owned;
       localStorage.setItem("folio_v1", JSON.stringify(s));
-    });
+    }, ALL_THEMES_OWNED);
     await page.reload({ waitUntil: "domcontentloaded" });
     await page.waitForTimeout(700);
     await page.evaluate(() => { location.hash = "account"; });
