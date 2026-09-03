@@ -20,6 +20,18 @@
   are a thicket — it checks the one thing that decides the boundary: an initial in the zhuyin must be an
   initial in the pinyin, and the two must have the same number of syllables.
 
+  WHAT A TONE COMPARISON SHOWS, AND WHY IT IS NOT A CHECK (measured Sep 2026, chasing the report that
+  "in some Mandarin cards the TTS pronunciation differs from the pinyin tone"). Both notations carry
+  tone, so they can be compared syllable by syllable — and doing it over the 11,500 cross-checkable
+  readings returns 231 disagreements, of which almost none are errors:
+  · ~123 are 不 and 一 TONE SANDHI. Pinyin writes what is SPOKEN (bú kè qi, yì xiē) and zhuyin writes the
+    citation tone (ㄅㄨˋ, ㄧ). Both conventions are right and the difference is systematic.
+  · ~100 are NEUTRAL-TONE VARIANCE between the mainland and Taiwan standards — 学生 xuéshēng against
+    ㄕㄥ˙, 回来 huí lái against ㄌㄞ˙. Neither is wrong; the two standards genuinely differ.
+  So a tone check would cry wolf 220 times to find eight real faults, and a checker nobody runs is worse
+  than no checker. The eight it WOULD have found are the erhua case below, which the zhuyin identifies
+  exactly and which is therefore checked on its own terms instead. Do not add a blanket tone check.
+
   THREE THINGS ARE DELIBERATELY NOT FINDINGS:
   · ERHUA. Pinyin writes 好玩儿 as "hǎo wánr", two syllables; zhuyin keeps ㄦ as a third. Both are
     correct and the difference is a convention, so a trailing ㄦ is dropped before counting.
@@ -42,7 +54,7 @@ const showAll = process.argv.includes("--all");
 
 const files = fs.readdirSync(DECKS).filter((f) => /^Mandarin.*\.folio-deck\.json$/.test(f)).sort();
 let checked = 0, skipped = 0;
-const split = [], initial = [], spaced = [];
+const split = [], initial = [], spaced = [], erhua = [];
 
 for (const f of files) {
   const deck = JSON.parse(fs.readFileSync(path.join(DECKS, f), "utf8"));
@@ -72,6 +84,21 @@ for (const f of files) {
        agree with the zhuyin's own ㄦ and ㄦ carries no initial to check. Two cards had it. */
     if (ps.some((x) => bare(x) === "r")) { split.push([f, c.id, c.hanzi, p, z, 'a bare "r" — erhua is written onto the syllable before it']); continue; }
     if (ps.length !== zs.length) { split.push([f, c.id, c.hanzi, p, z, ps.length + " syllable(s) against " + zs.length]); continue; }
+    /* ERHUA WRITTEN AS A SEPARATE `ér` SYLLABLE (Sep 2026, on a report that "in some Mandarin cards the
+       TTS pronunciation differs from the pinyin tone"). 那儿 was set "nà ér" — two syllables, the second
+       a full second tone — where the word is "nàr" and the speaker, handed the CHARACTERS, says "nàr".
+       So the printed reading and the spoken one disagreed, which is exactly what was reported.
+       THE ZHUYIN DECIDES, AND THAT IS THE WHOLE OF WHY THIS IS CHECKABLE. 儿 is two different things:
+       a SUFFIX, which zhuyin writes ㄦ˙ (neutral), and a SYLLABLE of its own, which it writes ㄦˊ (second
+       tone) — 女儿 nǚ'ér, 婴儿 yīng'ér, 孤儿 gū'ér, 胎儿 tāi'ér, 少儿 shào'ér are all correct as two
+       syllables. Of the thirteen cards that wrote a trailing `ér`, the zhuyin sorted them 8 to 5 and the
+       eight were repaired; the five stand. A rule that looked only at the pinyin could not have told them
+       apart, and "fixing" all thirteen would have broken five correct readings.
+       This is the erhua case the bare-`r` guard above does not see, `ér` carrying a vowel and a tone. */
+    if (ps.length > 1 && /^(ér|er)$/i.test(ps[ps.length - 1].normalize("NFC")) && zs[zs.length - 1] === "ㄦ˙") {
+      erhua.push([f, c.id, c.hanzi, p, z, "the zhuyin's ㄦ˙ is a suffix — write it onto the syllable before it"]);
+      continue;
+    }
     for (let i = 0; i < ps.length; i++) {
       const want = INIT[zs[i][0]];
       if (!want) continue;                                     // no initial: the pinyin may open on y, w or a vowel
@@ -97,6 +124,7 @@ console.log("Mandarin pinyin, against the same cards' bopomofo");
 console.log("  " + files.length + " decks, " + checked + " readings cross-checked, " + skipped + " skipped (no bopomofo, or two readings)");
 list(initial, "A CONSONANT HAS MOVED ACROSS A SYLLABLE BOUNDARY", "the reported fault: \"fanguan\" split as fang+uan rather than fan+guan");
 list(split, "THE TWO NOTATIONS COUNT DIFFERENT SYLLABLES");
+list(erhua, "ERHUA WRITTEN AS ITS OWN SYLLABLE", "\u5417\u513f is \"n\u01cer\", not \"n\u01ce \u00e9r\" \u2014 and the speaker, given the characters, says the first");
 list(spaced, "WRITTEN AS ONE WORD where the rest of the corpus separates the syllables", "house style, not an error — but the decks should agree with themselves");
-if (!initial.length && !split.length && !spaced.length) console.log("\n  clean");
-process.exit(initial.length + split.length ? 1 : 0);
+if (!initial.length && !split.length && !spaced.length && !erhua.length) console.log("\n  clean");
+process.exit(initial.length + split.length + erhua.length ? 1 : 0);

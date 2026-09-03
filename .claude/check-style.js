@@ -6,7 +6,7 @@
      2. Centuries and millennia are always numbered ("11th century", never "eleventh century") — any ordinal.
      3. Literature titles are italicised (<i>…</i>).
      4. Eras are BCE and CE, never BC or AD — everywhere a reader can see one (rule 4 alone also runs over
-        artefacts.js and countries.js, which are prose a reader reads and were the last two files still
+        artefacts.js, countries.js and crossword.js, which are prose a reader reads and were the files still
         saying "1500 BC"; the other three rules stay scoped to cards + glossary, as CLAUDE.md scopes them).
      5. A changelog DAY TITLE is at most 72 characters (report-only, changelog.js) — see the rule's own
         note at the foot of this file for the measurement behind the number.
@@ -27,8 +27,12 @@ const FIX = process.argv.includes("--fix");
    so. The citations in the same file stay masked from rule 4 as they always were -- a published
    title is the author's -- by the GLOSSARY_SOURCES mask below, which matches the block wherever
    it lives. */
-const FILES = ["data.js", "glossary.js", "glossary-extra.js", "artefacts.js", "countries.js"].map((f) => path.join(__dirname, "..", f));
-const ERA_ONLY = new Set(["artefacts.js", "countries.js"]);
+/* `crossword.js` joined the ERA_ONLY list in Sep 2026 with the game's own clue bank. It is prose a
+   reader reads, so the BCE/CE rule binds on it exactly as it does on an artefact or a country
+   description — and NOT the other three rules, which are about a card's or a term's own conventions
+   (italicised work titles, numerals) that a four-word crossword clue has no business carrying. */
+const FILES = ["data.js", "glossary.js", "glossary-extra.js", "artefacts.js", "countries.js", "crossword.js"].map((f) => path.join(__dirname, "..", f));
+const ERA_ONLY = new Set(["artefacts.js", "countries.js", "crossword.js"]);
 
 /* --- rule 2: ordinal words before century/millennium --- */
 const ORD = {

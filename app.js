@@ -31335,9 +31335,16 @@
   const THREAD_ROWS = 4, THREAD_LIVES = 4;
   // Too broad to name a group — see the rule above. These are the site's subject-area tags, which nearly
   // every term in their field carries.
+  /* `event` JOINED THEM IN SEP 2026, ON A REPORT: "'Events' is much too broad to be a category." It is
+     the site's own kind-tag for anything that HAPPENED, and measured over the shipped glossary it holds
+     51 terms — a naval battle, a volcanic eruption, the decipherment of a script, a flood myth and the
+     founding of Rome, which have nothing in common a solver could see. A group is a category only if a
+     reader can say why the four tiles belong together, and "these are all things that happened" is true
+     of most of the grid. It is the same test the sixteen already here fail. */
   const THREAD_BROAD = new Set([
     "history", "place", "archaeology", "geography", "science", "prehistory", "concept", "object",
     "era", "person", "nature", "palaeontology", "geology", "evolution", "politics", "technology",
+    "event",
   ]);
   // At most ONE group per family, because these are the tags that NEST — a region inside a region, a period
   // inside a period. Everything else (a kind, a discipline, a practice) sits beside its neighbours rather
@@ -31447,7 +31454,7 @@
   // read as a bare word where the group is a class of thing, so those are given the fuller phrase.
   const THREAD_LABELS = {
     title: "Titles and offices", text: "Texts", ruler: "Rulers", industry: "Stone industries",
-    building: "Buildings", art: "Art", event: "Events", fossil: "Fossils", animal: "Animals",
+    building: "Buildings", art: "Art", fossil: "Fossils", animal: "Animals",
     practice: "Practices", people: "Peoples", culture: "Cultures", literature: "Literature",
     warfare: "Warfare", religion: "Religion", biology: "Biology", hominin: "Hominins",
     deity: "Deities", city: "Cities", state: "States", institution: "Institutions",
@@ -31666,19 +31673,25 @@
   function xwNorm(s) {
     return String(s == null ? "" : s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().replace(/[^A-Z]/g, "");
   }
+  /* THE POOL IS THE GAME'S OWN BANK, NOT THE CARDS (Sep 2026, on request: "the crossword puzzles should
+     no longer use questions from the cards; create completely unique, simple history-based crossword
+     puzzles"). See `crossword.js` for the bank and for the three reasons a card question is the wrong
+     shape for a grid. What this function keeps from the card version is every GUARD, because the layout
+     search and the marking both depend on them: one word, 4 to 11 letters, A-Z, no duplicate after
+     normalising. They are asserted here rather than trusted to the file, since the file is hand-written
+     and a thirteen-letter answer would be dropped by `xwLayout` in silence and simply narrow the pool.
+     `id` is kept in the row because the marking and the record are keyed on the entry; it is the answer
+     itself now rather than a card id, which is the only thing that was ever needed of it. */
   function xwPool() {
-    const avail = gameCardIdSet(), seen = new Set(), out = [];
-    CARDS.forEach((c) => {
-      if (!avail.has(c.id)) return;
-      const loc = cardLocalized(c);
-      const raw = String(loc.answerText == null ? "" : loc.answerText).trim();
-      if (!raw || /\s/.test(raw)) return;                 // one word — see the rule above
+    const bank = window.CROSSWORD || [], seen = new Set(), out = [];
+    bank.forEach((e) => {
+      const raw = String((e && e.a) || "").trim();
+      const clue = String((e && e.c) || "").trim();
+      if (!raw || !clue) return;
       const w = xwNorm(raw);
       if (w.length < XW_MIN_LEN || w.length > XW_MAX_LEN || seen.has(w)) return;
-      const clue = String(loc.question == null ? "" : loc.question).trim();
-      if (!clue) return;
       seen.add(w);
-      out.push({ id: c.id, w: w, clue: clue, answer: raw });
+      out.push({ id: "xw:" + w, w: w, clue: clue, answer: raw });
     });
     return out;
   }

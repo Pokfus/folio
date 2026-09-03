@@ -114,10 +114,14 @@ function poolBody(name, endAt) {
   const j = APP.indexOf(endAt, i);
   return j < 0 ? APP.slice(i, i + 2000) : APP.slice(i, j);
 }
+/* THE CROSSWORD LEFT THIS TABLE IN SEP 2026, on the request that it stop using card questions as clues:
+   its pool is `crossword.js` now, so there is no card for the difficulty bar to filter and asserting it
+   draws through `gameCardIdSet()` would be asserting a rule that no longer applies to it. What replaces
+   that assertion is the pair below — it draws from the bank, and it no longer reaches for the cards —
+   which is exactly the shape What year? took when it stopped sharing Timeline's pool. */
 const FED = [
   ["buildChallengeQuestions", "return chosen.map", "Multiple Choice"],
   ["chronoPool", "function hashStr", "Timeline"],
-  ["xwPool", "/* The layout search", "Crossword"],
   ["picturePool", "function dailyPictureRounds", "Picture round"],
 ];
 for (const [fn, end, label] of FED) {
@@ -134,6 +138,26 @@ for (const [fn, end, label] of FED) {
   const body = poolBody("dailyWhatYear", "PAGES.whatyear");
   ok(!!body && /wyPool\(\)/.test(body), "What year? draws from wyPool()");
   ok(!!body && !/chronoPool\(\)/.test(body), "What year? no longer draws from the cards");
+}
+/* …and the crossword, for the same reason and in the same shape (Sep 2026). A silent reversion here
+   would bring back a grid clued with 28-word cloze sentences carrying `<span class="blank">` markup. */
+{
+  const body = poolBody("xwPool", "/* The layout search");
+  ok(!!body && /window\.CROSSWORD/.test(body), "Crossword draws from window.CROSSWORD");
+  ok(!!body && !/gameCardIdSet\(\)/.test(body) && !/CARDS\.forEach/.test(body), "Crossword no longer draws from the cards");
+}
+{
+  // …and the bank itself is really there and really usable, which no regex over app.js can say
+  const w = {};
+  new Function("window", require("fs").readFileSync(require("path").join(ROOT, "crossword.js"), "utf8"))(w);
+  ok(Array.isArray(w.CROSSWORD) && w.CROSSWORD.length >= 120, "the crossword bank is loaded  " + (w.CROSSWORD || []).length + " entries");
+  const bad = (w.CROSSWORD || []).filter((e) => !/^[A-Z]{4,11}$/.test(String(e && e.a)) || !String(e && e.c).trim() || /[<>&]/.test(String(e.c)));
+  ok(!bad.length, "every bank entry is one 4-11 letter answer with a markup-free clue" + (bad.length ? "  " + JSON.stringify(bad[0]) : ""));
+  const seen = new Set(), dup = (w.CROSSWORD || []).filter((e) => { const k = String(e.a); if (seen.has(k)) return true; seen.add(k); return false; });
+  ok(!dup.length, "no two bank entries share an answer" + (dup.length ? "  " + dup[0].a : ""));
+  // a clue that contains its own answer is a clue already solved
+  const gives = (w.CROSSWORD || []).filter((e) => new RegExp("\\b" + e.a + "\\b", "i").test(String(e.c)));
+  ok(!gives.length, "no clue names its own answer" + (gives.length ? "  " + gives[0].a : ""));
 }
 
 // ---- 4. the filtered pool can still deal ----

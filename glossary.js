@@ -4619,7 +4619,7 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Andean_domestication": ["practice","agriculture","prehistory","archaeology","nature","history","south america"],
 "Chinchorro_mummies": ["object","archaeology","prehistory","practice","history","south america","chile"],
 "Prehistoric_warfare": ["practice","warfare","archaeology","prehistory","history"],
-"Social_inequality": ["concept","archaeology","prehistory","agriculture","history"],
+"Social_inequality": ["concept","archaeology","prehistory","history"],
 "Fibre_technology": ["practice","technology","archaeology","prehistory","history"],
 "Plough": ["object","technology","agriculture","archaeology","prehistory","history"],
 "Irrigation": ["practice","technology","agriculture","archaeology","history"],
