@@ -167,7 +167,7 @@ literature — which is what made batches 15 and 8 of the first pass cheap and b
 | batch | n | artefacts | spine |
 |---|---|---|---|
 | D1 Medieval everyday | 8 | `novgorod-birch-bark-letter`; `seal-matrix`, `bone-ice-skate`, `green-glazed-jug`, `wax-tablet`, `turnshoe`, `antler-comb`, `bodkin-arrowhead` | *Internet Archaeology* (open), Persée, `tidsskrift.dk`, archive.org |
-| D2 Prehistory's everyday, worldwide | 9 | `palaeolithic-bone-flute`; `antler-spearthrower`, `saddle-quern`, `sickle-blade`, `bone-fishhook`, `ochre-crayon`, `eyed-bone-needle`, `oak-coffin-textile`, `amber-bead` | PLOS, *Scientific Reports*, Europe PMC, Antiquity, Persée, archive.org (Evans) |
+| D2 Prehistory's everyday, worldwide | 9 | `palaeolithic-bone-flute`; `spear-thrower` (planned as `antler-spearthrower`), `saddle-quern`, `sickle-blade`, `bone-fishhook`, `ochre-crayon`, `eyed-bone-needle`, `oak-coffin-textile`, `amber-bead` | PLOS, *Scientific Reports*, Europe PMC, Antiquity, Persée, archive.org (Evans) |
 | E1 Arms, antiquity to the twentieth century | 7 | `sling-bullet`, `mail-fragment`, `flintlock-musket`, `iron-cannonball`, `socket-bayonet`, `trench-art-shell-case`, `identity-disc` | archive.org (Ffoulkes), *Post-Medieval Archaeology*, PSAS. **`iwm.org.uk` is 403 here** |
 | E2 Instruments of knowledge | 8 | `gutenberg-bible-leaf`; `portable-sundial`, `mariners-astrolabe`, `albarello`, `type-sort`, `slide-rule`, `daguerreotype`, `telegraph-key` | Getty, Rijksmuseum, archive.org, *International Journal of Nautical Archaeology* |
 | E3 The industrial everyday | 5 | `phonograph-cylinder`, `transferware`, `bartmann-jug`, `thimble`, `steel-pen-nib` | *Post-Medieval Archaeology*, *Historical Archaeology*, archive.org |
@@ -254,6 +254,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | A2 | `venus-of-willendorf` | `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, `vindolanda-tablets` |
 | B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | `gandhara-buddha-head`, `chola-nataraja`, `mughal-miniature`, `nbpw-sherd`, `punch-marked-coin`, `etched-carnelian-bead`, `glass-bangle` |
 | D2 | `oak-coffin-textile`, `amber-bead`, `ochre-crayon` | `palaeolithic-bone-flute`, `antler-spearthrower`, `saddle-quern`, `sickle-blade`, `bone-fishhook`, `eyed-bone-needle` |
+| D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | `palaeolithic-bone-flute`, `bone-fishhook` |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -261,6 +262,32 @@ on the buried weapons is not a Qin anti-rust technology two millennia ahead of i
 from the lacquer on the figures — a story most popular accounts still repeat. A plate that states the
 current standing of the thing a reader half-remembers is doing more work than one that recites the
 half-memory. The Great Isaiah Scroll's 2025 radiocarbon-plus-style programme is the same shape.
+
+**D2b PICKED UP FOUR OF D2's SIX DEFERRALS AND CONFIRMS THAT A DEFERRAL FOR WANT OF A THIRD WORK IS
+CHEAP, WHILE ONE FOR WANT OF A REACHABLE FIELD IS NOT.** A2's and B1's eleven deferrals are still
+deferred; D2's six each had an open paper already in hand, and four of them were finished in a single
+pass. **When a batch comes back short, record WHICH kind of short it is** — the two look identical in a
+table and behave completely differently when they are picked up again.
+
+**`antler-spearthrower` SHIPPED AS `spear-thrower`, and the rename is the plans' own rule at work.** The
+open literature is about the WEAPON SYSTEM — impact fractures on flint points, launch velocities — and
+not about the carved antler hooks the planned name asserts; those hooks are what survives, but nothing
+reachable here says so. A plan line is a subject to research rather than a fact to assert, so the line
+was renamed in the same commit as the artefact.
+
+**Three of the four carry a correction, and one of them corrects the artefact's own reputation.** The
+eyed bone needle is traditionally *the* evidence for the invention of tailoring, and Gilligan et al.
+2024 qualifies that: bone awls across Africa and Eurasia were already making fitted garments, so what the
+needle adds is finer and faster sewing rather than the idea of a fitted garment. What the needles were
+made OF was not established until 2024 either — canid, felid and hare bone at La Prele, chosen for size.
+The spear-thrower's own correction is social rather than technical: 2,160 launches by 108 people show it
+equalises female and male dart velocity where a hand-thrown javelin does not, which its authors read as
+a reason to interpret male and female burials with such weapons alike.
+
+**`sickle-blade` ships without a picture**, the third to do so, and for a reason worth naming because it
+will recur: **a class of object defined by a microscopic trait is hard to photograph.** What identifies a
+used sickle blade is the gloss along its edge, which does not read at web size, and Commons has no image
+of a hafted Neolithic sickle clearing the bar. The other three were looked at before use.
 
 **D2 IS THE FIRST BATCH WHERE SOURCING WAS NOT THE CONSTRAINT.** Prehistory's everyday things are
 studied by natural scientists, so they are published in PLOS ONE, *Scientific Reports* and *Science

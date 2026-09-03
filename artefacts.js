@@ -798,4 +798,32 @@ window.ARTEFACTS = [
     date: "c. 90,000 – 70,000 years ago",
     origin: "Middle Stone Age sites of southern Africa",
   },
+  {
+    id: "spear-thrower",
+    name: "Spear-thrower",
+    rarity: "common",
+    date: "In use by c. 31,000 years ago",
+    origin: "Upper Palaeolithic Europe, and independently across much of the world",
+  },
+  {
+    id: "saddle-quern",
+    name: "Saddle quern",
+    rarity: "common",
+    date: "c. 9000 BCE onwards",
+    origin: "Southwest Asia, and wherever grain was ground before the rotary mill",
+  },
+  {
+    id: "sickle-blade",
+    name: "Sickle blade",
+    rarity: "common",
+    date: "c. 9000 BCE onwards",
+    origin: "Southwest Asia, and across the Neolithic world",
+  },
+  {
+    id: "eyed-bone-needle",
+    name: "Eyed bone needle",
+    rarity: "common",
+    date: "c. 40,000 years ago onwards",
+    origin: "Siberia, the Caucasus, East Asia and Europe",
+  },
 ];
