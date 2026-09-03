@@ -246,6 +246,49 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
    pool was 100, so its top rung was half the Reliquary; at 200 it would have been a quarter.
 2. **The split was done first**, so the second hundred never costs the eager path anything.
 
+## The batch log
+
+| batch | shipped | deferred |
+|---|---|---|
+| A1 | `terracotta-warrior`, `antikythera-mechanism`, `great-isaiah-scroll` | — |
+| A2 | `venus-of-willendorf` | `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, `vindolanda-tablets` |
+
+**A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
+for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
+on the buried weapons is not a Qin anti-rust technology two millennia ahead of its time but contamination
+from the lacquer on the figures — a story most popular accounts still repeat. A plate that states the
+current standing of the thing a reader half-remembers is doing more work than one that recites the
+half-memory. The Great Isaiah Scroll's 2025 radiocarbon-plus-style programme is the same shape.
+
+**A2 IS THE FIRST BATCH TO COME BACK SHORT, and the reason is a class of host rather than a class of
+object.** The plan named B4 and C2 as the likely thin spots; A2 was expected to be easy, and four of its
+five could not reach three readable works. The Bayeux Tapestry, the Book of Kells and the Lewis chessmen
+are all extremely well studied, and their scholarship sits almost entirely in book chapters from Boydell,
+Brepols and Routledge, none of which answer here. Newly measured on 2026-09-03 and added to the
+unreachable list:
+
+| host | what it holds | status |
+|---|---|---|
+| `journals.uchicago.edu` | *Current Anthropology* — Soffer et al. on the figurines' woven headgear | **403** |
+| `royalsocietypublishing.org` | *Proc. B* — Star et al. on walrus-ivory provenance, the Lewis chessmen's obvious route | **403** |
+| `vindolanda.csad.ox.ac.uk` | Vindolanda Tablets Online, Oxford — the tablets' own edition | **connection reset** |
+| `romaninscriptionsofbritain.org` | RIB's Vindolanda tablets | **500** |
+| `puvodni.mzm.cz` | *Anthropologie* (Brno) — Antl-Weiser on the Willendorf figurines | **502 through the proxy** |
+| `digitalcollections.tcd.ie` | the Book of Kells | answers, but JavaScript-driven (4.6 KB, no content) |
+
+**The rule held rather than being bent**: nothing was padded to the bar. The Bayeux Tapestry could have
+been given three pages of its own museum's website, which would have passed every check and taught a
+reader nothing three clicks would not — that is precisely the filler the first pass threw away three
+drafts of. All four wait for a batch that can source them.
+
+**The routes to try when they are picked up again**, in order: the **Europe PMC copy** (which is what
+rescued the Venus's third work when `academic.oup.com` returned 403 on the DOI — cite
+`europepmc.org/article/PMC/PMC…`, the route `artefact-citation-plan.md` already records); **archive.org's
+early monographs**, which for the Book of Kells means Westwood and the Palaeographical Society facsimiles
+and for the Lewis hoard means Madden's 1832 *Archaeologia* paper; and **Cambridge Core via `doi.org`**,
+which is open here and carries *Antiquity*, *Britannia* and the *Proceedings of the Society of Antiquaries
+of Scotland* — the last of which is the natural home for the Lewis chessmen.
+
 ## The per-artefact workflow
 
 Unchanged from the first pass, and `artefact-citation-plan.md` states it in full. In short: research

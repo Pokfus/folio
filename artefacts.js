@@ -749,4 +749,11 @@ window.ARTEFACTS = [
     date: "c. 180 – 100 BCE",
     origin: "Qumran Cave 1, Judaean Desert — Shrine of the Book, Israel Museum, Jerusalem",
   },
+  {
+    id: "venus-of-willendorf",
+    name: "Venus of Willendorf",
+    rarity: "epic",
+    date: "c. 30,000 years ago",
+    origin: "Willendorf II, Lower Austria — Natural History Museum, Vienna",
+  },
 ];
