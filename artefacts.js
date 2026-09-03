@@ -952,4 +952,18 @@ window.ARTEFACTS = [
     date: "c. 3rd millennium BCE onwards",
     origin: "The Indus Valley",
   },
+  {
+    id: "chola-nataraja",
+    name: "Chola Nataraja",
+    rarity: "epic",
+    date: "c. 10th – 13th century CE",
+    origin: "Tamil Nadu, southern India",
+  },
+  {
+    id: "gandhara-buddha-head",
+    name: "Gandhara Buddha head",
+    rarity: "rare",
+    date: "c. 1st – 5th century CE",
+    origin: "Gandhara, in modern Pakistan and Afghanistan",
+  },
 ];

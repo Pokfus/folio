@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.452", released: "2026-09-03T23:22Z" };
+window.FOLIO_VERSION = { v: "1.453", released: "2026-09-03T23:42Z" };
 
 window.CHANGELOG = [
   {
@@ -59,7 +59,7 @@ window.CHANGELOG = [
       "<b>Eight Mandarin cards had their pinyin corrected</b> where an -r ending was written as a separate syllable.",
       "<b>The geography collection <i>The world</i> is now called <i>World</i></b>.",
       "<b>Every card in every geography collection now carries a picture</b> — a landmark for a state, province or country, a wide view of the city for a capital.",
-      "<b>Thirty-two new artefacts to find in a chest</b> — among them a Terracotta Army warrior, the Antikythera Mechanism, the Great Isaiah Scroll, the Venus of Willendorf, a Clovis point and the Vindolanda tablets.",
+      "<b>Thirty-four new artefacts to find in a chest</b> — among them a Terracotta Army warrior, the Antikythera Mechanism, the Great Isaiah Scroll, the Venus of Willendorf, a Clovis point, the Vindolanda tablets and a Chola Nataraja.",
       "<b>A new badge for collecting 100 artefacts</b>, since the ladder used to stop at 50.",
       "<b>The site now loads a little faster</b>, because an artefact's description and picture are only fetched when you open a chest.",
     ],

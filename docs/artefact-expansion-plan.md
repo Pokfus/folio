@@ -253,7 +253,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 |---|---|---|
 | A1 | `terracotta-warrior`, `antikythera-mechanism`, `great-isaiah-scroll` | — |
 | A2 | `venus-of-willendorf` | `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, ~~`vindolanda-tablets`~~ (shipped in A2b) |
-| B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | `gandhara-buddha-head`, `chola-nataraja`, `mughal-miniature`, `nbpw-sherd`, ~~`punch-marked-coin`, `etched-carnelian-bead`~~ (both shipped in B1b), `glass-bangle` |
+| B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | ~~`gandhara-buddha-head`, `chola-nataraja`~~ (shipped in B1c), `mughal-miniature`, `nbpw-sherd`, ~~`punch-marked-coin`, `etched-carnelian-bead`~~ (shipped in B1b), `glass-bangle` |
 | D2 | `oak-coffin-textile`, `amber-bead`, `ochre-crayon` | `palaeolithic-bone-flute`, `antler-spearthrower`, `saddle-quern`, `sickle-blade`, `bone-fishhook`, `eyed-bone-needle` |
 | D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | ~~`palaeolithic-bone-flute`, `bone-fishhook`~~ (both shipped in D2c) |
 | C3/C2 | `clovis-point`, `obsidian-blade`, `ostrich-eggshell-bead` | — |
@@ -264,6 +264,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | A2b/E1 | `vindolanda-tablets` (UN-DEFERRED), `sling-bullet` | — |
 | D2c | `palaeolithic-bone-flute`, `bone-fishhook` (both UN-DEFERRED — **D2's list is now empty**) | — |
 | B1b | `punch-marked-coin`, `etched-carnelian-bead` (both UN-DEFERRED) | — |
+| B1c | `chola-nataraja`, `gandhara-buddha-head` (both UN-DEFERRED) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -271,6 +272,29 @@ on the buried weapons is not a Qin anti-rust technology two millennia ahead of i
 from the lacquer on the figures — a story most popular accounts still repeat. A plate that states the
 current standing of the thing a reader half-remembers is doing more work than one that recites the
 half-memory. The Great Isaiah Scroll's 2025 radiocarbon-plus-style programme is the same shape.
+
+**B1c TAKES SOUTH ASIA'S DEFERRAL LIST FROM SEVEN TO THREE, AND BOTH ITS ARTEFACTS TURN ON A
+CORRECTION TO WHAT THE READER ALREADY BELIEVES.** A Chola Nataraja is popularly cast in *pañcaloha*,
+the five-metal alloy; x-ray fluorescence on the Rijksmuseum bronze gives an alloy consistent with other
+Chola-period work and **not** that recipe, which the study reads as a modern tradition. And a Gandhara
+Buddha head is popularly Greek; the nineteenth-century premise that a Graeco-Roman influence was
+*needed* before the Buddha could be shown in human form — bound up with the aniconism theory — was
+undone by twentieth-century work, and the taste for reading the sculpture as more Greek than Indian is
+now understood as a product of the European scholarship that formed it. **A1 found that a legendary's
+third work is often a correction; four batches on, the pattern is that ANY artefact a reader arrives
+holding a belief about has one, and it is the fact worth leading with.**
+
+**The Nataraja also shows what a museum bulletin can carry that a journal will not.** The Rijksmuseum's
+own study is art history and analytical chemistry in one paper, and its last finding is a provenance:
+Indian soil still on the bronze and burial corrosion say it never went back into a temple before a
+Parisian dealer sold it in 1935. **A museum publishing on its own object will say where the object came
+from**, which is a question the plate should not dodge and which no technical paper would have raised.
+
+**And the pass's third route to a broken subject is the OUT-OF-COPYRIGHT CLASSIC, used for iconography
+rather than for facts.** Coomaraswamy's *The Dance of Śiva* (1918) is on archive.org and gives the
+reading of the pose that every later account rests on — the five activities, the dwarf Muyalaka, the
+golden hall at Chidambaram. B1b used the same route for Cunningham and for Beck; here it supplies not
+data but a MEANING, which is the one thing the analytical literature does not.
 
 **B1b BREAKS INTO SOUTH ASIA, WHICH HAD LOOKED LIKE THE PASS'S HARDEST REGION, AND BOTH ROUTES WERE
 ALREADY WRITTEN DOWN HERE.** B1 deferred seven; two of them are now shipped on exactly the routes this
