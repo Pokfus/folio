@@ -19482,7 +19482,7 @@
        than naming a state. A worn slot is offered only where the artefact is TAGGED for one (most are
        not, being pots, coins and tablets); every artefact can stand on the display object. */
     const eqBtns = [];
-    if (own) {
+    if (own && avatarShown()) {
       const ws = artefactSlotOf(a);
       if (ws) eqBtns.push({ slot: ws, label: (equipped(S, ws) || {}).id === id ? "Take it off" : "Wear it" });
       eqBtns.push({ slot: "object", label: (equipped(S, "object") || {}).id === id ? "Take it off the display" : "Put it on display" });
@@ -19815,6 +19815,19 @@
      the thing standing between a reader and the reward. */
   const SCENE_DROP = 0.09;
 
+  /* ADMIN-ONLY FOR NOW (Sep 2026, on request). The feature is finished and its art is not: everything on
+     screen is a placeholder from avatar.js, and a reader meeting a placeholder figure has no way to tell
+     "not drawn yet" from "this is what Folio looks like". So it is shown to an editor and to nobody else
+     until the sprites exist.
+     IT IS ONE PREDICATE AND THE GUARD IS IN THE MOUNT, not at the three call sites. A gate repeated per
+     surface is a gate one surface will be added without — and the failure is silent in the wrong
+     direction, since the surface that forgot it is the one that shows the unfinished thing. The mount
+     REMOVES its host rather than leaving it empty, or the account page would keep the 6px the scene's
+     margin reserves and open on a gap.
+     THE PLATE'S EQUIP BUTTONS GO WITH IT: they write into a loadout nothing is drawing, so to a
+     non-admin they would be controls with no visible effect at all. Turning this on is deleting the
+     `isAdmin()` here. */
+  function avatarShown() { return isAdmin(); }
   function avatarArt() { return (window.AVATAR_ART && typeof window.AVATAR_ART === "object") ? window.AVATAR_ART : null; }
   function avatarScenes() { const a = avatarArt(); return (a && Array.isArray(a.scenes)) ? a.scenes : []; }
   function sceneById(id) { return avatarScenes().filter((s) => s && s.id === id)[0] || null; }
@@ -20038,6 +20051,7 @@
      top of it. */
   function mountAvatarScene(host, prog, own) {
     if (!host) return;
+    if (!avatarShown()) { host.remove(); return; }
     const draw = () => {
       if (!document.body.contains(host)) return;
       host.innerHTML = avatarSceneHTML(prog, own);
@@ -20182,6 +20196,7 @@
      nothing. `S.showcase` is deliberately NOT cleared: the field still syncs, and a device still
      running the previous build would otherwise find its profile emptied by a device running this one. */
   function avatarMigrateShowcase() {
+    if (!avatarShown()) return;   // it writes into a synced record; a reader who cannot see the scene has nothing to migrate for
     if (!S.equip || typeof S.equip !== "object") S.equip = {};
     if (S.equip.object || S.equip._sc) return;
     const first = (Array.isArray(S.showcase) ? S.showcase : []).filter((id) => (S.artefacts || {})[id])[0];

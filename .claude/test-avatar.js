@@ -42,7 +42,7 @@ const { isNoise } = require("./test-noise.js");
 
 const ROOT = path.join(__dirname, "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png" };
-const HOOK = "\n  window.__av = { setEquip, equipped, equipCandidates, artefactSlotOf, avatarLook, setAvatarLook, currentScene, lockedScenes, unlockScene, rollChestItem, avatarMigrateShowcase, resetProgress, isEquipped, avatarSceneHTML, S: () => S };\n";
+const HOOK = "\n  window.__av = { setEquip, equipped, equipCandidates, artefactSlotOf, avatarLook, setAvatarLook, currentScene, lockedScenes, unlockScene, rollChestItem, avatarMigrateShowcase, resetProgress, isEquipped, avatarSceneHTML, avatarShown, isAdmin, mountAvatarScene, S: () => S };\n";
 
 let pass = 0, fail = 0, patched = false;
 function check(name, ok, extra) {
@@ -257,6 +257,32 @@ const SEED = {
   check("…and your own scene has the pencil", ro.minePencil);
   check("a friend's scene carries no buttons at all — not a slot, not the pencil", ro.theirsButtons === 0, String(ro.theirsButtons));
   check("…but still shows all six slots and what is in them", ro.theirsSlots === 6 && ro.theirsFigure && ro.theirsItem);
+
+  /* ---------- 9. it is admin-only for now ----------
+     The art is placeholder, so the scene is shown to an editor and to nobody else until sprites exist.
+     THE SUITE ITSELF RUNS AS AN ADMIN and would not otherwise know it: a guest on 127.0.0.1 is
+     admin-eligible (isDevOrigin), which is what lets every assertion above reach the page at all — so
+     without this the whole file would go on passing if the gate were tightened to hide the scene from
+     everyone, and would be testing nothing. Both directions are asserted here. */
+  const gated = await page.evaluate(() => {
+    const A = window.__av, S = A.S();
+    const out = { adminHere: A.isAdmin(), shownForAdmin: A.avatarShown() };
+    // `adminMode:false` is the "preview as a visitor" state — the one way to stop being an admin here
+    S.settings.adminMode = false;
+    out.shownForVisitor = A.avatarShown();
+    // …and the mount takes its host away entirely rather than leaving an empty box reserving margin
+    const host = document.createElement("div");
+    host.className = "avs-host";
+    document.body.appendChild(host);
+    A.mountAvatarScene(host, S, true);
+    out.hostRemoved = !document.body.contains(host);
+    S.settings.adminMode = true;
+    return out;
+  });
+  check("the suite is running as an admin — which is what lets it see the scene at all", gated.adminHere);
+  check("the scene is shown to an admin", gated.shownForAdmin);
+  check("…and hidden from everybody else while the art is still placeholder", gated.shownForVisitor === false);
+  check("…with its host removed rather than left as an empty box", gated.hostRemoved);
 
   check("no console errors while the scene was drawn and driven", errs.length === 0, errs.slice(0, 3).join(" | "));
 

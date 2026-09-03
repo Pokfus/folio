@@ -2084,7 +2084,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     deliberately NOT cleared: a device on the previous build reads it. The migration writes a marker
     rather than testing whether the slot is filled — one that runs on every page open puts the artefact
     back every time the reader takes it off.
-  · **Guarded by `.claude/test-avatar.js`** (47 assertions).
+  · **IT IS ADMIN-ONLY FOR NOW** (`avatarShown()`, Sep 2026, on request). The feature is finished and its
+    ART IS NOT — everything on screen is a placeholder from `avatar.js`, and a reader meeting one has no
+    way to tell "not drawn yet" from "this is what Folio looks like". **One predicate, and the guard is
+    in `mountAvatarScene` rather than at its three call sites**, since a gate repeated per surface is one
+    a later surface is added without; the mount REMOVES its host rather than leaving it empty, or the
+    account page opens on the 6px the scene's margin reserves. The plate's equip buttons and
+    `avatarMigrateShowcase` are behind it too — the first would be controls with no visible effect, the
+    second writes into a synced record for a reader with nothing to migrate for. **Turning it on is
+    deleting the `isAdmin()` in `avatarShown`.**
+  · **Guarded by `.claude/test-avatar.js`** (51 assertions), which asserts the gate in BOTH directions —
+    the suite runs as an admin (a guest on 127.0.0.1 is admin-eligible), so without that it would go on
+    passing if the scene were hidden from everyone and would be testing nothing.
   **📖 `docs/avatar.md` — READ BEFORE TOUCHING ANY OF IT.** Why the art lives outside the code and how
   a sprite replaces a placeholder, the mask recolouring and the two techniques rejected, the anchor
   frames, what the showcase left behind, and the four faults that rendered perfectly while being
@@ -5596,7 +5607,7 @@ dead code (never rendered).
     `truefalse.js` / `quotes.js`, `gameBackHTML` / `flipGameTile` / `gameStatsPost` / `gameStatsLoad` /
     `markGamePlayed`, `gameAnswerNote` / `gameGlossKey`, `gameTap` / `gameCommit` / `gameClearPick` /
     `gameFound` / `TINT_PICK` / the `.mg-acts` buttons, or the home page's tile grid.**
-  · `node .claude/test-avatar.js` — **the avatar scene, its six slots and what may go in them** (47
+  · `node .claude/test-avatar.js` — **the avatar scene, its six slots and what may go in them** (51
     assertions, Sep 2026), reached through a patched app.js the way `test-photo.js` reaches the cropper.
     Every one of its subjects fails silently: a box whose ratio has drifted from the art's crops the
     scene and points every anchor at the wrong part of it; a slot column that collapses to a 4px stripe
@@ -5606,7 +5617,7 @@ dead code (never rendered).
     **Re-run after touching the `THE AVATAR` block, `avatarSceneHTML` / `mountAvatarScene` / `setEquip` /
     `equipped` / `equipCandidates` / `currentScene` / `lockedScenes` / `avatarMigrateShowcase` /
     `artefactSlotOf` / `AVATAR_SLOTS` / `SCENE_DROP` / `rollChestItem`, `avatar.js`, the `.avs-*` styles,
-    `RESET_KEEPS`, or after tagging artefacts with `add-artefact-slots.js`.**
+    `RESET_KEEPS`, `avatarShown`, or after tagging artefacts with `add-artefact-slots.js`.**
   · `node .claude/test-photo.js` — **the profile photo's crop, and enlarging someone else's** (17
     assertions, Aug 2026), and all three of its subjects fail SILENTLY: a hole in the crop becomes a black
     wedge in a JPEG that only its owner ever sees; a drag wired to nothing still opens a dialog, shows the

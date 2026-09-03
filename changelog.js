@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.441", released: "2026-09-03T22:48Z" };
+window.FOLIO_VERSION = { v: "1.442", released: "2026-09-03T23:02Z" };
 
 window.CHANGELOG = [
   {
@@ -43,6 +43,7 @@ window.CHANGELOG = [
     t: "Your own avatar, standing in a scene you collect",
     items: [
       "<b>Your account page now opens on your own avatar</b> — a drawn figure in a historical scene, with an edit button for how they look.",
+      "<b>The avatar is shown to editors only for the moment</b>, while its artwork is still being drawn.",
       "<b>Artefacts are now worn or set on display by your avatar</b> instead of pinned to four tiles: a head, body, jewellery, hand and display slot.",
       "<b>Scenes are a new thing to find in chests</b>, each with a backdrop and a display object of its own — an altar in Rome, a desk in the study.",
       "<b>Friends now see your avatar and everything on it</b> when they visit your profile.",

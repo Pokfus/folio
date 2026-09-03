@@ -242,6 +242,30 @@ including the altar and the figure's legs — a fade is an edge, not a vignette.
 
 ---
 
+## It is admin-only for now
+
+`avatarShown()` is `isAdmin()`, and **turning the feature on for everybody is deleting that call**.
+
+The reason is the art. Everything on screen is a placeholder, and a reader meeting a placeholder figure
+has no way to tell *not drawn yet* from *this is what Folio looks like* — the one impression a study
+site cannot take back. An editor knows which it is.
+
+**The guard is in `mountAvatarScene`, not at its three call sites** (the account page, the signed-out
+page, a friend's profile). A gate repeated per surface is a gate that a fourth surface gets added
+without, and the failure is silent in the wrong direction: the surface that forgot it is the one showing
+the unfinished thing. The mount **removes its host** rather than leaving it empty, or the account page
+opens on the 6px the scene's margin reserves.
+
+Two things ride behind the same predicate. The plate's **equip buttons**, which would otherwise write
+into a loadout nothing is drawing — controls with no visible effect at all. And
+**`avatarMigrateShowcase`**, which writes into a synced record: a reader who cannot see the scene has
+nothing to migrate for, and the migration is a once-only marker, so running it now would spend it.
+
+`test-avatar.js` asserts the gate in **both directions**, and that is not symmetry for its own sake: the
+suite runs as an admin (a guest on `127.0.0.1` is admin-eligible through `isDevOrigin`), which is what
+lets its other fifty assertions reach the page at all — so without the negative half the whole file
+would go on passing if the gate were tightened to hide the scene from everyone, while testing nothing.
+
 ## Not built yet, and why the layers are separate anyway
 
 **Idle animation.** Asked about and deliberately deferred. Every part is its own element rather than
