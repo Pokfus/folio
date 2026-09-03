@@ -4975,6 +4975,14 @@ latter on `/document/<id>` as well as its property pages — are all **403** her
 `nature.com` and `link.springer.com`, the last two **303ing to an identity-provider cookie endpoint**, for
 which **Europe PMC is the way in** (resolve the PMCID with `search?query=DOI:"…"&resultType=core` — a
 guessed one in N1 returned a paper on stress in mice).
+**THAT LAST PART IS A FACT ABOUT THE TOOL, NOT THE HOST, and it was measured wrong** (Sep 2026,
+artefact batch C1b): **WebFetch** will not follow a cross-host redirect, so it stops at the identity
+provider and reports the article unreachable — but **`curl -L` with a browser user-agent completes the
+cookie handshake and serves the whole article**, 86,000 characters of it, on a paper Europe PMC has no
+record of at all. So **Springer Open journals — `Heritage Science` above all — ARE open to this
+sandbox**, which is a large body of exactly the archaeometry the citation passes need. **Retest a host
+with curl before trusting a WebFetch refusal**; the two disagree, and only one of them is measuring the
+host.
 **N8's finding is that a wrong TERM is not always a wrong FACT, and only a reader caught it.**
 `Smilodon` opened "*Smilodon fatalis* is the saber-toothed cat" and held every sabre-tooth alias, so the
 whole vocabulary of the group resolved to one American genus. Nothing in it was false about *Smilodon* —

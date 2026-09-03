@@ -868,4 +868,18 @@ window.ARTEFACTS = [
     date: "c. 8th – 16th century CE",
     origin: "Egypt, Syria and Palestine",
   },
+  {
+    id: "islamic-star-tile",
+    name: "Islamic star tile",
+    rarity: "common",
+    date: "c. 1200 – 1350 CE",
+    origin: "Kashan, Iran",
+  },
+  {
+    id: "byzantine-silk",
+    name: "Byzantine silk",
+    rarity: "rare",
+    date: "c. 8th – 11th century CE",
+    origin: "The Byzantine Empire",
+  },
 ];

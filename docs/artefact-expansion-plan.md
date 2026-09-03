@@ -258,6 +258,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | `palaeolithic-bone-flute`, `bone-fishhook` |
 | C3/C2 | `clovis-point`, `obsidian-blade`, `ostrich-eggshell-bead` | — |
 | C1 | `byzantine-lead-seal`, `lustreware-bowl`, `glass-coin-weight` | — |
+| C1b | `islamic-star-tile`, `byzantine-silk` | `fustat-paper`, `mamluk-mosque-lamp` |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -265,6 +266,40 @@ on the buried weapons is not a Qin anti-rust technology two millennia ahead of i
 from the lacquer on the figures — a story most popular accounts still repeat. A plate that states the
 current standing of the thing a reader half-remembers is doing more work than one that recites the
 half-memory. The Great Isaiah Scroll's 2025 radiocarbon-plus-style programme is the same shape.
+
+**C1b came back SHORT, and it is the D2 kind of short rather than the A2 kind.** Neither deferral is
+a region problem. **`fustat-paper`** has no reachable source for the period that matters: the standard
+article on the adoption of paper serves an HTML landing page rather than its PDF, the one open study
+of Islamic paper's material properties is about **18th–20th-century** papers, and the BioResources
+papyrus-to-paper article extracts to nothing. **`mamluk-mosque-lamp`** has superb V&A records and no
+scholarship — DOAJ has one Mamluk-glass hit and it 404s, and archive.org's only matches on Islamic
+glass are auction catalogues. Both are one open article away, so they belong with D2's six rather than
+with A2's eleven; and neither was padded, which is the rule this file exists to hold.
+
+**Its correction is to a recorded finding about a HOST, and it matters beyond this batch.** This file
+and `CLAUDE.md` both record `nature.com` as unreachable — 303ing to an identity-provider cookie
+endpoint, with Europe PMC as the way in. That is true of **WebFetch**, which will not follow a
+cross-host redirect, and false of **`curl -L` with a browser user-agent**, which completes the cookie
+handshake and lands on the full article: the Byzantine silk's provenance study came back as 86,000
+characters of readable text, and Europe PMC has no record of it at all. **Springer Open journals —
+*Heritage Science* above all — are therefore open to this pass**, which is a large body of exactly the
+archaeometry these batches need. Retest a host with curl before trusting a WebFetch refusal.
+Against that, **OpenEdition's Anubis wall is back** (`journals.openedition.org` served the bot
+challenge again), reversing what N3 recorded.
+
+**And the look-at-the-picture rule caught a subtler thing than usual: a Commons file whose TITLE
+contradicts the museum text inside its own record.** `File:Probably Byzantium - Samite fragments with
+double-headed eagles …` is captioned by the Cleveland Museum of Art's own description as belonging to
+"a group of **Spanish** silks that emulated the great silks being produced at that time in Byzantium".
+The title asserts what the description denies, in one record, and taking the title would have shipped
+a Spanish imitation as the Byzantine original — on the one card where that distinction is the point.
+**Read the description, not the file name.** A second candidate was rejected for a plainer reason: it
+was a photograph of a printed book plate, an engraving of a textile rather than the textile.
+
+**One mechanical note worth carrying.** The star tile's Commons page URL contains `(Tiled Kiosk)`, and
+`SRC_URL_RX` stops at `)`, so both the picture and its credit link would have shipped truncated.
+Percent-encoding the parentheses (`%28`/`%29`) survives the class and is the fix — better than
+rejecting a good picture, which is what the rule in `CLAUDE.md` suggests doing.
 
 **C1 found the pass's best *reason*, and it is a fact about a material rather than about an object.**
 Islamic glass coin weights are glass and not metal because glass cannot be altered invisibly: any
