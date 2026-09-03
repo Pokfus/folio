@@ -51,6 +51,17 @@ const SKYLINE_RX = /skyline|aerial|panorama|cityscape|downtown|from above|seen f
 const OK_LIC = /^(cc0|public domain|pd|cc by(-sa)?([ -][0-9.]+)?( [a-z]+)?|attribution([ -]sharealike)?)/i;
 const BAD_LIC = /\b(nc|nd|noncommercial|non-commercial|noderiv|fair use|non-free)\b/i;
 
+/* NOT A PICTURE OF A PLACE — the two families a sheet of 38 turned up (Sep 2026), and BOTH need
+   the leading word boundary LEFT OFF. Commons filenames run words together (`Chesapeakelandsat.jpeg`
+   is the whole of why this is written twice rather than once), so `\blandsat\b` matches nothing on
+   the very file it was written for. `sentinel` keeps its hyphen — the satellites are Sentinel-1 and
+   Sentinel-2, and Sentinel Peak is a real Tucson landmark a card may legitimately want. */
+const SPACEBORNE = /(satellite|landsat|sentinel-\d|from space|copernicus|modis|nlcd)/i;
+/* `Txu-…` / `…pclmaps…` are the University of Texas map library's scans, which are enormous and so
+   win any largest-file tie-break: they gave Inner Mongolia a topographic sheet and Qinghai a geological
+   one, neither of which says "map" anywhere in its name. */
+const SURVEY = /(usgs|topograph|survey photo|geological survey|^file:txu-|pclmaps)/i;
+
 const die = (m) => { console.error("ERROR: " + m); process.exit(1); };
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -179,12 +190,17 @@ function licenceOK(f) {
   if (BAD_LIC.test(l)) return false;
   return OK_LIC.test(l) || /^cc[ -]/i.test(l);
 }
+/* THE HOUSE CREDIT SHAPE IS `Author, LICENCE, via Wikimedia Commons. <url>` — the URL LAST, after a
+   full stop, and never in brackets. That is what 567 of the site's 2,281 existing credits already say
+   (the other 1,714 are a bare URL, which `mediaCreditHTML` turns into a link); a Commons file name is
+   full of parentheses — `Historic Entrance (Mammoth Cave, Kentucky, USA) 2 (37773583192).jpg` — so a
+   URL wrapped in another pair of them ends on `))` and reads as a typo wherever a reader copies it. */
 function creditLine(f) {
   const bits = [];
   if (f.artist) bits.push(f.artist);
   if (f.licence) bits.push(f.licence);
   bits.push("via Wikimedia Commons");
-  return bits.join(", ") + " (" + f.page + ")";
+  return bits.join(", ") + ". " + f.page;
 }
 
 (async () => {
@@ -218,7 +234,22 @@ function creditLine(f) {
     }
     n++;
     let picked = null, why = "";
-    if (spec.city) {
+    if (spec.file) {
+      /* A NAMED FILE, WHICH IS WHAT A REVIEW PRODUCES. The searches here find a subject's pictures;
+         they cannot judge one, and the standing rule is that a picture is looked at before it is
+         applied. So the sheet is read, and the handful the search got wrong are named outright —
+         `White Sands National Park`'s article really does offer its VISITOR CENTRE as the only file
+         over 900px, and no scoring rule can turn that into a photograph of the dunes. The named file
+         still goes through `fileInfo` and `licenceOK`, so a pinned choice cannot smuggle in a
+         non-free or undersized picture; it is the SUBJECT that is being asserted by hand, never the
+         licence. */
+      const t = /^File:/i.test(spec.file) ? spec.file : "File:" + spec.file;
+      const f = await fileInfo(t);
+      if (!f) why = "no file info for " + t;
+      else if (f.fullWidth < MIN_W) why = t + " is only " + f.fullWidth + "px";
+      else if (!licenceOK(f)) why = t + " is " + (f.licence || "unlicensed");
+      else picked = f;
+    } else if (spec.city) {
       /* EVERY CANDIDATE IS SCORED AND THE BEST TAKEN, rather than the first that passes. Taking the
          first gave Phoenix a sepia aerial from the 1970s and Boston one from 1975 — both genuinely of
          the right city, both the wrong picture for a card, because the categories are walked
@@ -228,10 +259,33 @@ function creditLine(f) {
          recent photograph over an old one (a year in the name before 2000 is what dates these), and a
          larger file over a smaller. It is a ranking rather than a filter, so a city with only one
          usable picture still gets it. */
+      /* SCORED ON THE NAME FIRST, AND ONLY THE BEST FEW ARE FETCHED. `fileInfo` asks for `extmetadata`,
+         which is the expensive call, and asking it for two dozen candidates a city was costing minutes
+         per card and being throttled hard — fifty capitals would have run for hours. Every term the
+         score uses except the width is in the FILE NAME, so the ranking is done on titles alone and the
+         full record is fetched for the top few only. The licence and the size are still read off Commons
+         before anything is used; what is skipped is reading them for candidates that were never going to
+         win. */
       const files = await cityFiles(spec.city, spec.article);
+      const nameScore = (t) => {
+        let sc = 0;
+        if (/skyline/i.test(t)) sc += 6;
+        if (/panorama|cityscape/i.test(t)) sc += 4;
+        if (/aerial|from above|from the air|bird/i.test(t)) sc += 2;
+        if (/downtown/i.test(t)) sc += 1;
+        const yr = (String(t).match(/\b(1[89]\d{2}|20\d{2})\b/) || [])[1];
+        if (yr && +yr < 2000) sc -= 6;                 // a dated photograph of a city is a picture of the past
+        if (/cockpit|windshield|window|wing|propeller/i.test(t)) sc -= 5;
+        return sc;
+      };
+      const shortlist = files
+        .filter((t) => !/\.svg$/i.test(t) && SKYLINE_RX.test(t))
+        .map((t) => [nameScore(t), t])
+        .sort((a, b) => b[0] - a[0])
+        .slice(0, 5)
+        .map((x) => x[1]);
       const cands = [];
-      for (const t of files) {
-        if (/\.svg$/i.test(t)) continue;
+      for (const t of shortlist) {
         const f = await fileInfo(t);
         if (!f) continue;
         if (/svg/i.test(f.mime)) continue;
@@ -242,17 +296,7 @@ function creditLine(f) {
            is tested on the TITLE alone rather than on the description, which is where the New York file
            slipped through. A photographer names a skyline "…skyline"; a description can mention one in
            passing while the picture is of something else. */
-        if (!SKYLINE_RX.test(t)) continue;
-        let sc = 0;
-        if (/skyline/i.test(t)) sc += 6;
-        if (/panorama|cityscape/i.test(t)) sc += 4;
-        if (/aerial|from above|from the air|bird/i.test(t)) sc += 2;
-        if (/downtown/i.test(t)) sc += 1;
-        const yr = (String(t).match(/\b(1[89]\d{2}|20\d{2})\b/) || [])[1];
-        if (yr && +yr < 2000) sc -= 6;                 // a dated photograph of a city is a picture of the past
-        if (/cockpit|windshield|window|wing|propeller/i.test(t)) sc -= 5;
-        sc += Math.min(3, Math.floor(f.fullWidth / 2000));
-        cands.push([sc, f]);
+        cands.push([nameScore(t) + Math.min(3, Math.floor(f.fullWidth / 2000)), f]);
       }
       cands.sort((a, b) => b[0] - a[0]);
       picked = cands.length ? cands[0][1] : null;
@@ -279,7 +323,7 @@ function creditLine(f) {
            century old and monochrome (Mammoth Cave's lead was one). Both are legitimate pictures and
            neither is what a card asking a reader to recognise a place should show. */
         if (/\b(map|diagram|sign|logo|seal|chart|graph|plaque|flag|coat.of.arms|locator)\b/i.test(t)) return null;
-        if (/\b(satellite|landsat|sentinel|from space|topo|USGS|NLCD)\b/i.test(t)) return null;
+        if (SPACEBORNE.test(t) || SURVEY.test(t)) return null;
         const f = await fileInfo(t);
         if (!f || /svg/i.test(f.mime)) return null;
         if (f.fullWidth < MIN_W) return null;
@@ -302,10 +346,10 @@ function creditLine(f) {
           ? "nothing usable on " + spec.subject + " (lead " + tried[0] + " refused, " + files.length + " other file(s) tried)"
           : "no usable picture on " + spec.subject;
       }
-    } else { missed.push([id, "the batch entry names neither `subject` nor `city`"]); continue; }
+    } else { missed.push([id, "the batch entry names none of `file`, `subject` or `city`"]); continue; }
 
     if (picked) {
-      const label = spec.city ? spec.city : spec.subject;
+      const label = spec.city || spec.subject || spec.name || "";
       const image = {
         src: picked.src,
         title: spec.name || label,
@@ -319,7 +363,7 @@ function creditLine(f) {
     } else {
       missed.push([id, why]);
       fs.writeFileSync(cachePath, JSON.stringify({ why }, null, 1));
-      console.log("MISS  " + id.padEnd(9) + (spec.city || spec.subject || "").padEnd(26) + why.slice(0, 70));
+      console.log("MISS  " + id.padEnd(9) + (spec.city || spec.subject || spec.name || "").padEnd(26) + why.slice(0, 70));
     }
     await sleep(400);
   }

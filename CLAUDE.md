@@ -1400,6 +1400,29 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   are refused**, both being legitimate pictures of a place and neither being a view of it. The sheet
   tiles a fetched batch into one image so every candidate can be LOOKED AT, which is the standing rule
   and does not otherwise scale past a handful.
+  · **A THIRD INPUT, `file`, NAMES A COMMONS FILE OUTRIGHT, AND IT IS WHAT A REVIEW PRODUCES.** The
+    searches find a subject's pictures and cannot judge one: `White Sands National Park`'s own article
+    offers its VISITOR CENTRE as the only file over 900px, and no scoring rule turns that into a
+    photograph of the dunes. A pinned file still goes through `fileInfo` and `licenceOK`, so it can
+    never smuggle in a non-free or undersized picture — it is the SUBJECT that is asserted by hand,
+    never the licence. **Of the 158 pictures the pass shipped, 41 were pinned this way**, which is the
+    honest measure of how far a name match gets you.
+  · **THE SKIP PATTERNS CARRY NO LEADING WORD BOUNDARY, AND THAT IS THE WHOLE OF WHY THEY WORK.**
+    Commons runs words together — `Chesapeakelandsat.jpeg` is a false-colour Landsat scene and
+    `\blandsat\b` matches nothing in it. `sentinel-\d` keeps its hyphen, since Sentinel Peak is a real
+    Tucson landmark a card may legitimately want. **`Txu-…` and `…pclmaps…` were added after Inner
+    Mongolia got a topographic sheet and Qinghai a geological one**: those are the University of Texas
+    map library's scans, they are enormous, so they win any largest-file tie-break, and neither says
+    "map" anywhere in its name.
+  · **THE CREDIT ENDS IN ITS URL, AFTER A FULL STOP, NEVER IN BRACKETS.** That is the shape 567 of the
+    site's 2,281 existing credits already use (the other 1,714 are a bare URL, which `mediaCreditHTML`
+    turns into a link); a Commons file name is full of parentheses — `Historic Entrance (Mammoth Cave,
+    Kentucky, USA) 2 (37773583192).jpg` — so a URL wrapped in another pair ends on `))`.
+  · **A SMALL STATE CAPITAL HAS NO SKYLINE, AND THE HONEST ANSWER IS ITS MAIN STREET.** Commons has no
+    wide view of Montpelier (7,900 people), Pierre, Frankfort, Dover, Concord or Jefferson City, and
+    what it offers instead is a 19th-century bird's-eye LITHOGRAPH — a drawing of a town that no longer
+    looks like that, which on a card is worse than no picture. Those six ship a downtown streetscape
+    with a `desc` that says so rather than "seen from a distance".
 - `fetch-countries.js` — standalone Node helper (run manually, resumable) that fetches the 5-sentence
   Wikipedia summaries into `countries.js` for every clickable name. Re-run after adding timeline eras so
   their new territories get descriptions. Not loaded by the site.
@@ -4311,6 +4334,15 @@ small place within the city, but the city zoomed out, as a skyline or aerial vie
   a false-colour Landsat scene for Chesapeake Bay, the VISITOR CENTRE for White Sands, a monochrome USGS
   survey photograph for Mammoth Cave, and a hooded figure in steam for Hot Springs — none of which any
   automatic test would have caught. The first three are now refused by name.
+· **THE UNITED STATES AND CHINA COLLECTIONS ARE COMPLETE: 158 of 158**, every picture read on a sheet.
+  The measure of how far the search alone gets is that **41 of the 158 had to be pinned by name** after
+  review, and the rejects were not near misses: a MAP of the Mammoth Cave system, the Berlin
+  Olympiastadion for Olympia, a Nissan Skyline GT-R for Montpelier, Dover Castle in England for Dover
+  in Delaware, and Springfield MASSACHUSETTS for the capital of Illinois. **A city name is ambiguous far
+  more often than it looks**, so a capital's search carries its state and the result is still read.
+· **`geo-world` (227 countries and 36 capitals) IS NOT DONE and is the pass's remaining work.** Its
+  country list is an editorial judgement per country — which landmark stands for Bhutan, for Chad, for
+  Niue — and each answer needs looking at, so it is a pass of its own rather than a tail of this one.
 **A NEW CARD SHIPS WITH A GLOSSARY ENTRY FOR ITS OWN ANSWER TERM, IN THE SAME COMMIT (Aug 2026, on
 request).** Not afterwards and not in a later batch: a card's answer is exactly the word its siblings will
 use in their own backgrounds, and a term with no entry auto-links to nothing. Write it **cited, at the
