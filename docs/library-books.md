@@ -685,8 +685,16 @@ book added later will meet the same traps.
   QUOTATION MARKS**, the opening single quote having been misread six different ways — as `c` 227
   times, and as `*`, `4`, `f`, `{` and `<` — which a census of every one-character token found and
   which took a boundary-aware `reFixes` table to express, an asterisk being also the mark the
-  translators use for a passage they cut. 509 repairs in all, and what still waits is the CLOSING
-  quote, read as a slash — see `docs/book-text-plan.md`),
+  translators use for a passage they cut. **Batch E7 then cleared the two remaining classes that
+  have a shape** — a possessive apostrophe dropped or mangled on 73 lines in three shapes, and the
+  closing quote on 43, where the finding is that **the slash stands for TWO characters and not one**,
+  the comma or full stop AND the quote beside it, so which of the two it is is a judgement about the
+  sentence: the sweep claims only the 37 a speech tag follows and the other six were read on the leaf.
+  It also established that **the SECOND Internet Archive scan of an edition is a witness for a single
+  damaged word** — cheap, being a `grep` rather than a page image — and that where both copies fail
+  differently at one point the fault is the type rather than the scan. 628 repairs in all; what waits
+  is a word's first letter broken off it and about thirty stray marks, neither of which has a shape to
+  sweep — see `docs/book-text-plan.md`),
   `journey-to-the-west` (~524 KB, all 100 chapters, **100 chapter sections**, **0 notes** — Timothy
   Richard's *A Mission to Heaven* of 1913, the first English translation there ever was, and **the
   first book here whose SOURCE IS PLAIN OCR TEXT rather than markup.** Every other reader on the

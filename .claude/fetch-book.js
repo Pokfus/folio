@@ -11942,14 +11942,15 @@ const BOOKS = {
       "One last thing about the prose column, because it is the sort of thing a reader deserves to be " +
         "told rather than to discover. It is not a typed transcription but a machine reading of the " +
         "1912 pages, and machines misread. Where the scan went wrong it has been corrected against " +
-        "photographs of the same edition — 509 places, from single letters up to whole " +
+        "photographs of the same edition — 628 places, from single letters up to whole " +
         "lines that the reader had dropped or run together, on eight pages that were printed straight " +
-        "and scanned askew. The commonest fault by far was the opening quotation mark, which the " +
+        "and scanned askew. The commonest fault by far was the quotation mark. The opening one the " +
         "machine set as a lowercase c, an asterisk, a figure 4, an f, a brace or a less-than sign on " +
-        "355 lines of speech; those are now quotation marks. Nothing was mended by guess: every " +
-        "correction is a passage read off the page. Some misreadings remain — chiefly the CLOSING " +
-        "quotation mark, which the machine sets as a slash, and a possessive apostrophe it reads as a " +
-        "space.",
+        "357 lines of speech; the closing one it set as a slash, swallowing the comma or full stop " +
+        "beside it, on 43 more; and a possessive apostrophe it dropped or mangled on 73. All of those " +
+        "are now punctuation again. Nothing was mended by guess: every correction is a passage read " +
+        "off the page. A few misreadings remain, chiefly a word whose first letter has been broken " +
+        "off it and about thirty stray marks standing in the run of the prose.",
     ],
 
     /* THE TRANSLATION IS A PLAIN-TEXT OCR and the only copy of this edition that can be opened at all.
@@ -12255,6 +12256,44 @@ const BOOKS = {
        "page 106 reads 'bidding the household \u2018farewell, adieu!\u2019'"],
       ["he  says  *  yea.’", "he  says  ‘  yea.’",
        "page 220 reads 'She says not once \u2018nay\u2019 when he says \u2018yea.\u2019'"],
+
+      /* ---------- BATCH E7: EIGHT MORE THE SWEEPS BELOW CANNOT REACH ----------
+         The first two are possessives whose apostrophe was read as a MARK rather than dropped, so the
+         regex row below — which looks for a bare space — passes straight over them. The last six are
+         the closing quotation mark read as a slash where what it closes is the END OF A SENTENCE
+         rather than a clause: the sweep restores a comma before the quote, which is right on the
+         thirty-seven lines a speech tag follows and wrong on these, where a full stop is what the
+         page prints. Which of the two it is cannot be decided by a pattern, so each of these was
+         read on the leaf. */
+      ["Oxford? s  Tale.", "Oxford’s  Tale.",
+       "page 148 heads the tale 'Here beginneth the Prologue of the Clerk of Oxford’s Tale'"],
+      ["Manciple* s  Tale", "Manciple’s  Tale",
+       "the tale heading reads 'Here beginneth the Manciple’s Tale of the Crow'"],
+      ["‘Away  with  your  boldness/  Almachius  said  then,",
+       "‘Away  with  your  boldness,’  Almachius  said  then,",
+       "the page reads '‘Away with your boldness,’ Almachius said then'; the sentence runs on, so this one really is a comma, and it is here only because a capitalised name follows rather than a speech tag"],
+      ["is  prepared/ \n\n\n24 \n\n\nTHE  CANTERBURY  TALES",
+       "is  prepared.’ \n\n\n24 \n\n\nTHE  CANTERBURY  TALES",
+       "the page ends the speech 'there an end of thy woe is prepared.’'"],
+      ["done  your  duty/ \n\n‘Host/  quoth  he,",
+       "done  your  duty.’ \n\n‘Host/  quoth  he,",
+       "the page ends the speech 'you will have done your duty.’'; the second slash on the next line IS a comma and is deliberately left for the sweep"],
+      ["master  of  divinity/  And  with  that  this  foul  fiend",
+       "master  of  divinity.’  And  with  that  this  foul  fiend",
+       "the page reads 'than a master of divinity.’ And with that this foul fiend'"],
+      ["should  hide/ \n\n‘Yea,  tell  on,",
+       "should  hide.’ \n\n‘Yea,  tell  on,",
+       "the page ends the speech 'and eke reveal what you should hide.’'"],
+      ["I  will  tell/ \n\nHere  endeth  the  Prologue",
+       "I  will  tell.’ \n\nHere  endeth  the  Prologue",
+       "the page ends the prologue 'such things as I know I will tell.’'"],
+      ["nor  renov/n  in  this  combat", "nor  renown  in  this  combat",
+       "the page reads 'nor renown in this combat nor vain praise for mine exploits'; the w is broken into a v and a stroke. It is the LAST slash left in the book, and it is here rather than in the sweep above because it stands for a letter and not for a quotation mark"],
+      ["noster /’", "noster!’",
+       "the page reads '‘Now mum, and say a pater noster!’ said Nick'; the exclamation mark is read as a stroke, and the closing quote beside it survived"],
+      ["Sam- \n\n\n/ \n\n\n150 \n\n\nTHE  CANTERBURY  TALES \n\n\nsoun,",
+       "Sam-soun, \n\n\n150 \n\n\nTHE  CANTERBURY  TALES \n\n\n",
+       "a mark at the head of the leaf, standing alone between a word broken across the page turn and the running head; the running-head sweep takes the folio and the title and cannot see a line of one character. The word is carried over the page turn WHOLE rather than left to the page-turn join, because the hyphen in Sam-soun is one the edition prints — it sets the name so again four words later — and the join is written for a word broken by the line and would eat it"],
     ],
 
     /* ---------- THE OPENING QUOTATION MARK, MISREAD SIX WAYS (Sep 2026, batch E6) ----------
@@ -12284,10 +12323,11 @@ const BOOKS = {
        further `4`s open a speech whose first word is a misread `I` set as `1`, and they are left for
        the batch that takes on that class rather than half-repaired here.
 
-       WHAT IS STILL LEFT, measured the same way and recorded in docs/book-text-plan.md: the CLOSING
-       quote is read as a slash on 19 lines and as an asterisk on 3; a possessive apostrophe is read
-       as a space on 59; and a word's first letter is broken off it on about fifteen. None of those
-       is a single mark standing where a quotation mark belongs, so none belongs in this table. */
+       WHAT IS STILL LEFT, measured the same way and recorded in docs/book-text-plan.md: the closing
+       quote is read as an asterisk on 2 lines, a word's first letter is broken off it on about
+       fifteen, and some thirty stray marks stand in the run of the prose. None of those is a single
+       mark standing where an OPENING quotation mark belongs, so none belongs in this table; the
+       possessive and the closing quote read as a slash are batch E7, in `reFixes` below. */
     reFixes: [
       [/(?<=\s)c(?= {1,2}[A-Za-z“])/g, "‘",
        "the opening single quote read as a lowercase c; all 227 were listed and read, and every one opens a speech. It is the ONE row that allows a single space: the printing sets two between words, so a lone space is itself a scanning fault, and widening the others by a space would take a stray brace and two currency figures out of the back matter"],
@@ -12301,6 +12341,28 @@ const BOOKS = {
        "the same, read as a left brace"],
       [/(?<=\s)<(?=  [A-Za-z“])/g, "‘",
        "the same, read as a less-than sign"],
+
+      /* ---------- BATCH E7: THE POSSESSIVE, AND THE CLOSING QUOTE READ AS A SLASH ----------
+         Both classes were enumerated in full before a rule was written, and neither has an exception
+         inside its own shape. The possessive appears in three: the apostrophe simply gone, and the
+         apostrophe present but with a space driven in after it. All 71 were listed and read, and
+         every one is a broken possessive — there is no line in the book where a word is followed by
+         a standing lowercase s.
+
+         The slash is the more interesting of the two, because it stands for TWO characters and not
+         one: the printing sets a comma or a full stop and THEN the closing quote, and the scan reads
+         the pair as a single stroke. Which of the two it is is a judgement about the sentence, so
+         the sweep here claims only the thirty-seven where a speech tag follows on the same line —
+         'quoth he', 'said she', 'answered Criseyde' — where a comma is what the page prints without
+         exception. The five that close a sentence outright are in `fixes` above, read on the leaf. */
+      [/(?<=[A-Za-z])  s(?= )/g, "’s",
+       "a possessive apostrophe read as a space"],
+      [/(?<=[A-Za-z])' s(?= )/g, "’s",
+       "the same, with the apostrophe read as a straight one and a space driven in after it"],
+      [/(?<=[A-Za-z])’ s(?= )/g, "’s",
+       "the same, with the apostrophe read correctly and a space driven in after it"],
+      [/(?<=[A-Za-z])\/(?=  [a-z])/g, ",’",
+       "the closing quotation mark and the comma before it read together as a slash; claimed only where a lowercase word follows, which on every one of the thirty-seven is a speech tag or the narrative resuming"],
     ],
     sourceName: "Internet Archive",
     sourceUrl: "https://archive.org/details/completepoetical0000chau_q3l3",

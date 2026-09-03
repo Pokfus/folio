@@ -282,14 +282,67 @@ re-run and diffed byte for byte.
 | **E4** ✅ | `ramayana`, `don-quixote` | **ten slips corrected and two false corrections refused**, every one read against a scan of the same translation; the page-IMAGE route, for the four places where the witness's own text layer repeats the error; and the measured no-witness records for the Aeneid, Plato and the Summa |
 | **E5** ✅ | `canterbury-tales` | **151 repairs in 75 rows** — far the worst-damaged text on the shelf, and the damage is not the letter slips the batch went looking for: **eight pages printed straight and scanned askew**, where the reader dropped and transposed whole lines; the **opening quotation mark read as a pound sign** on 59; the **AE ligature read two wrong ways**, `iE` and `/E`, which made King Aella unreadable thirteen times; two full-page plates whose signature and dirt were set down mid-sentence; 40 dropped words restored |
 | **E6** ✅ | `canterbury-tales`, and a change to shared machinery | **355 quotation marks put back in 6 rows**, and the class was three times what E5 estimated: the opening quote is misread SIX ways, not one — `c` 227 times, `*` 61, `4` 40, `f` 15, `{` 6, `<` 6. The `reFixes` table (a regex `fixes`, same assertion, boundary-aware) is the machinery, proved inert on the nine books already declaring `fixes` |
-| **E7** | `canterbury-tales` | what the census leaves, all of it measurable on the shipped prose: the CLOSING quote read as a slash (19 of the 24 slashes) and as an asterisk (3); a possessive apostrophe read as a SPACE on 57 lines, in TWO shapes that want different rows — 10 where the apostrophe survives and only the space is wrong (`the Knight' s Tale`) and 47 where the apostrophe is gone altogether (`God s sake`, `the Shipman s Prologue`); a word's first letter broken off it about fifteen times (`H ow`, `H e`, `J eremy`, `j oy`, `T ale`); and about thirty stray marks standing alone (`_` 10, `-` 10, `'` 5, `•` 2), plus `1` set for `I` |
-| **E7–En** | the rest of the error half | what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E7** ✅ | `canterbury-tales` | **119 more repairs — the possessive and the closing quotation mark, both cleared to zero.** A possessive apostrophe was dropped or mangled on 73 lines in three shapes (`God s sake`, `the Knight' s Tale`, `Saint Peter’ s sister`); the closing quote was read as a slash on 43, and the slash stands for TWO characters, not one — the comma or full stop AND the quote beside it. Three one-off strays went with them, each witnessed on the SECOND scan of the same edition |
+| **E8** | `canterbury-tales` | what the census leaves and no sweep can claim: a word's first letter broken off it about fifteen times (`H ow`, `J eremy`, `j oy`, `T ale`, `N ow`), `1` and `l` set for `I`, `m` for `in`, `y` for `by`, and about thirty stray marks standing alone (`_` 10, `-` 10, `'` 5, `•` 2). Each is a separate reading; there is no shape to sweep |
+| **E9–En** | the rest of the error half | what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E7 — the Canterbury Tales' possessives and closing quotes, shipped 2026-09-03
+
+**119 more repairs, and two whole classes cleared to zero.** E6 put back the OPENING quotation mark
+in six disguises and left the closing one, the possessive and the strays. This batch takes the two
+that have a shape, and the count is 108 by sweep plus eleven read on the leaf. The book has now been
+corrected in **628 places**, and neither remaining class can be swept at all.
+
+**The possessive was three shapes, not one, and the shape says what happened to the apostrophe.**
+The mark is simply gone on 61 lines (`God  s  sake`, `the  Shipman  s  Prologue`, `Chaucer  s  Tale
+of  Melibee`); it survives as a straight apostrophe with a space driven in after it on 8 (`the
+Knight'  s  Tale`); and it survives correctly, with the same space, on 2 (`Saint  Peter’  s
+sister`). Two more escaped every one of those because the apostrophe was read as *a different mark*
+— `Oxford?  s  Tale` and `Manciple*  s  Tale`, both tale headings — and are `fixes` rows. **All 73
+were enumerated and read before a rule was written**, and there is no line anywhere in the book
+where a word is followed by a standing lowercase `s`, so the sweep has no exception inside its own
+shape. The cost of the class is that the reader had been meeting `the Wife of Bath' s Tale` at the
+head of a tale.
+
+**THE FINDING IS THE SLASH, AND IT IS THAT ONE CHARACTER STANDS FOR TWO.** The printing sets a
+comma or a full stop and *then* the closing quote; the scan reads the pair as a single stroke. So a
+rule cannot simply substitute a quotation mark — it has to decide which punctuation the page prints
+before it, and that is a judgement about the sentence rather than about the glyph. The sweep
+therefore claims only the 37 where a lowercase word follows on the same line, because on every one
+of those the word is a speech tag or the narrative resuming — `quoth he`, `said she`, `answered
+Criseyde`, `replied the sumner` — and a comma is what the page sets without exception. The other
+six were read on the leaf: five close a sentence outright and take a full stop, and one takes a
+comma and is only outside the sweep because a capitalised name follows rather than a tag. **Had the
+sweep been written to the class rather than to the safe half of it, five sentences would have
+gained a comma where the page prints a full stop, and nothing would ever have reported it.**
+
+**The second scan is a witness for a word, and that is the cheapest route this pass has found.**
+E5 established that two Internet Archive scans of one edition share an OCR engine, so their
+agreement on a systematic class proves nothing. The converse is what pays: where ONE copy is
+damaged at a single point and the other reads cleanly, the damage is in that copy's scan and not in
+the plate, and the clean reading is a printed witness that costs a `grep` instead of a page image.
+Three of the four slashes left after the sweep were settled this way — `renov/n` for **renown** in
+Arcite's prayer, `pater noster /’` for **`pater noster!’`**, and a mark standing alone at the head
+of a leaf between `Sam-` and `soun` which the other copy does not have at all. **Two were not**, and
+they are the shape to expect: `ah benedicite /,` and `cor meum eructavit /”` are damaged in BOTH
+copies and damaged *differently* (`benedicite .',` and `eructavit T'` in the second). Two independent
+scans failing in different ways at the same point is what faint or worn type looks like rather than
+what a scanner artefact looks like, so no third scan is likely to settle them; they are recorded
+here and left alone.
+
+**A `fixes` row can undo a repair the extractor then makes badly, so read what it produced.** The
+stray mark between `Sam-` and `soun` was removed first as a bare deletion, which let the page-turn
+join finally fire — and the join is written for a word broken by the LINE, so it ate the hyphen and
+produced `Samsoun` where the edition sets `Sam-soun`, as it does again four words later in the same
+sentence. The row now carries the word over the page turn whole. **The stray had been protecting a
+correct reading by preventing a wrong join**, which is the second time in this pass that repairing
+one character has changed a decision the extractor makes about the text around it.
 
 ### E6 — the Canterbury Tales' quotation marks, shipped 2026-09-03
 
