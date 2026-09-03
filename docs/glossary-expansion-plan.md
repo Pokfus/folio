@@ -175,7 +175,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N12 | 12 | Crete: sites and landscape — **shipped**, all twelve pictured |
 | N13 | 12 | Cyprus and the Late Bronze Age east — **shipped**, all twelve pictured |
 | N14 | 12 | Materials, alloys and the sciences that source them — **shipped**, 10 of 12 pictured; clears N9's deferred *Poros stone* |
-| N15 | 12 | Rome's foundation and its earliest institutions |
+| N15 | 12 | Rome's foundation and its earliest institutions — **shipped**, 8 of 12 pictured |
 | N16 | 12 | The hills of Rome and the city's topography |
 | N17 | 12 | Latium: the Latial culture and its sites |
 | N18 | 12 | The Italic peoples — Samnites, Sabines, Umbrians |
@@ -331,6 +331,91 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N15's findings
+
+**N15 — Rome's foundation and its earliest institutions (shipped, 8 of 12 pictured).** Rhea Silvia,
+Numitor, the Lupercal, Quirites, the Roman Senate, the curia, the pontifex maximus, the Vestal Virgin,
+the lictor, the interrex, the auspices, the Roman dictator.
+
+**THE BATCH'S SOURCE SPINE IS TWO WORKS AND ONLY TWO, AND THAT IS THE FINDING TO CARRY INTO N16–N20.**
+Every one of the twenty-four citations is either a chapter of **Livy** or an entry in **Smith's
+*Dictionary of Greek and Roman Antiquities***, both on Perseus, both openable, both free. Where the
+Aegean batches needed a new work per term — N7 recorded fifteen of thirty-two works new, and N13 and
+N14 went further afield still — early Rome is a subject where one ancient narrative and one
+19th-century reference work between them carry a whole batch. The reason is structural: these terms are
+*Roman institutions described by Romans*, so the ancient text states the fact and the dictionary states
+the office. **Reach for Livy and Smith first for anything in N16–N19**, and only go looking when the
+subject is archaeological rather than institutional.
+
+**A SMITH ENTRY MAY BE A CROSS-REFERENCE STUB, AND IT ANSWERS 200 WITH REAL CONTENT.** N13 recorded
+that a wrong Smith slug serves a 1,877-byte error page, which is easy to spot. This is the subtler
+failure: `quirites-cn` and `auspicium-cn` are *real entries* that consist of nothing but a pointer —
+"QUIRITES, QUIRITIUM JUS. [JUS]" and "AUSPICIUM [AUGUR]" — so the fetch succeeds, the page is large,
+and the citation would name a work that says nothing about the claim. **Grep the fetched entry for a
+sentence, not just for a status code.** `Quirites` was re-sourced to Livy 1.13 plus Smith's CURIA.
+
+**AND THE STUB DECIDED WHICH TWELFTH TERM WAS WRITTEN.** `Augur` was on the list and was dropped,
+because with `auspicium-cn` a stub both `Augur` and `Auspices` would have rested on the same AUGUR
+entry — two terms citing one work for two different definitions, which is the shape L10 recorded as
+duplication that cannot be deleted. `Vestal_Virgin` took the slot instead and has its own entry.
+
+**THE BARE SURFACE `dictator` WAS MEASURED AND REFUSED; THE KEY IS `Roman_dictator`.** This is the
+`Boreal` case in a form the existing rule did not quite cover — not an everyday word that happens to
+be capitalised differently, but one whose ancient and modern senses are both lowercase, so
+`caseSensitive` cannot separate them. Measured over the shipped corpus: the singular **dictator** is
+Roman in all seven of its occurrences, and the plural **dictators**, which `pluralForms` would register
+automatically, is *modern in six of its seven* — `gw-006` Nigeria, `gw-015` DR Congo, `gw-022`
+Tanzania, `gw-026` Kenya, `gw-030` Sudan and `gw-031` Uganda all say "ruled by dictators or military
+juntas for decades". Seven right links against six wrong ones is not a trade worth making, and the
+wrong side is the side that will grow: Russia, the Second World War, China and the United States are
+all planned collections that will use the word in its modern sense. So the key follows the
+`Roman_Senate` precedent set earlier in the same batch — a qualified head word, an alias of "Roman
+dictator", and **no bare surface at all**, which means the term auto-links nowhere today and is
+reachable from the glossary page and the search. **A term that links to nothing is better than one that
+links to the wrong century.**
+
+**`Auspices` WAS MEASURED THE SAME WAY AND KEPT, AND THE ASYMMETRY IS THE POINT.** Its bare surface is
+Roman in six places and modern in exactly one — `gw-155` Timor-Leste, "a popular referendum held under
+United Nations auspices" — and that one sits in a *finished* collection, where the modern "dictators"
+sit in collections barely begun. The balance decides it, not the mere existence of a modern sense.
+The one mis-link is recorded here rather than fixed, because `check-gloss-links.js` cannot see it:
+that checker compares a card's geography tags against the term's, and `Auspices` carries none.
+
+**`Roman_Senate` LIKEWISE TAKES NO BARE "Senate" ALIAS.** The word splits three ways in the corpus —
+three Rome cards, five in *The world* and five in the United States geography deck — because the
+geography collections use it of modern legislatures.
+
+**FOUR TERMS SHIP WITHOUT A PICTURE AND EACH REFUSAL IS DIFFERENT.** `Numitor` and `Interrex` have no
+Commons category of the right subject at all — the searches return a US Navy repair ship, a 1720 Walsh
+opera score, four skipper butterflies and a series of Polish primates who served as interrex. `Curia`
+has candidates and none of them is the term's subject: the Curia Iulia is the *senate house*, and the
+entry is about the thirty divisions of the citizen body, so a photograph of it would illustrate a
+different curia from the one being defined. `Quirites` was offered the **Togatus Barberini**, which is
+the canonical statue of a Roman in the toga and was still refused — its subject is the *imagines*, the
+ancestral portrait busts the figure carries, which is a claim about patrician descent rather than about
+citizens in their civil capacity, and `Patrician` already carries its own picture.
+
+**THE EIGHT THAT DID SHIP WERE FOUND BY CATEGORY, NEVER BY NAME.** `add-glossary.js`'s own name-match
+suggestions were wrong for nearly every term in this batch — Charlie Chaplin's *The Great Dictator* for
+`Roman_dictator`, the minesweeper USS *Augury* for `Auspices`, five plates of a Handel-era opera for
+`Numitor`, and five paintings by the 16th-century Neapolitan **Francesco Curia** for `Curia` — which is
+the "suggest, never install" rule earning its keep in a single run. Searching Commons *categories*
+first (`cats.js` against namespace 14) then listing that category's files produced a right answer for
+every subject that had one, and two of them are exact: `Category:Mattei sarcophagus of Mars and Rhea
+Silvia` gives an ancient relief of the batch's first term, and **Bernhard Rode's 1768 engraving *Ein
+Augur*** carries a Commons description that is the `Auspices` entry's own third sentence — "An augur
+stands behind the covered body of Numa Pompilius at an auspicium ceremony to look at the sign from the
+birds".
+
+**AND CHECK WHAT THE SIBLING TERMS ALREADY USE BEFORE CHOOSING.** `Fasces` already carries the Verona
+lictor relief and `Sabines` already carries *The Intervention of the Sabine Women*, so `Lictor` took a
+bronze statuette instead and the Sabine-peace route was closed to `Quirites` before it was tried. Read
+`GLOSSARY_IMAGES` for the neighbours at the same time as reading their prose for duplication.
+
+**PERSEUS RATE-LIMITS A RAPID SEQUENCE WITH A 275-BYTE 429.** Verifying nineteen citation URLs back to
+back had seven of them refused; the same seven answered with 12-second gaps. It is not a dead slug and
+it is not a wrong document — check the byte count before rewriting a citation.
 
 ### N14's findings
 
