@@ -13570,7 +13570,10 @@
     // A route with no tab of its own lights the tab it plainly belongs under: the discovered-terms list
     // is part of "your record", and one book is part of the Library it was opened from.
     const lit = name === "glossary" || name === "browse" || name === "reliquary" ? "account"
-      : name === "book" ? "library" : name;
+      : name === "book" ? "library"
+      // the Studio is where one of your own decks is edited, and those live on the Collections page
+      : name === "studio" || name === "deck" ? "decks"
+      : name;
     document.querySelectorAll(".tab").forEach((t) => {
       t.classList.toggle("active", t.dataset.route === lit);
     });
@@ -13957,7 +13960,19 @@
     return null;
   }
 
-  const THEMES = ["folio", "synth", "arcade", "academy", "marble", "gazette"];
+  /* SIXTEEN THEMES SINCE SEP 2026 — the six the site had, and TEN GEMSTONES added on request ("create a
+     number of new themes: Diamond, Ruby, Opalite, Jade, Emerald, Amber, Amethyst, Aquamarine, Bloodstone,
+     Carnelian, all inspired by the look and feel of their gemstones; make each theme feel unique in
+     colors, shapes, etc."). Each is a full token set plus a font pairing, a corner language and one
+     signature treatment — see the GEMSTONE THEMES block at the foot of styles.css for what each stone
+     was read as and why.
+     THEY USE ONLY FACES THE STYLESHEET ALREADY IMPORTS. A theme that pulled in a font of its own would
+     cost EVERY visitor that request, whatever theme they wear, since there is one `@import` for the site;
+     the twenty families already loaded are more than ten themes need to sound different from each other.
+     THE GEMSTONES ARE COLLECTIBLE LIKE THE REST — `COLLECTIBLE_THEMES` is `THEMES` minus folio, so they
+     join the chest pool by being in this list and nothing else had to change. */
+  const THEMES = ["folio", "synth", "arcade", "academy", "marble", "gazette",
+    "diamond", "ruby", "opalite", "jade", "emerald", "amber", "amethyst", "aquamarine", "bloodstone", "carnelian"];
   /* id, name, one-line description, and the three colours the tiny mockup is drawn in. It lives beside
      THEMES rather than in PAGES.settings because three places read it now — the picker, the chest reveal
      and the admin Themes tab — and a second copy is how a theme comes to be named two different things. */
@@ -13968,6 +13983,19 @@
     ["academy", "Academy", "Formal faculty", "#16305B", "#8E2233", "#F5F0E4"],
     ["marble", "Marble", "Marble &amp; bronze", "#8C6A3F", "#7E2F27", "#F2F0EA"],
     ["gazette", "Gazette", "1940s newsprint", "#1D1C1A", "#B5271D", "#DAD8CF"],
+    /* The ten stones. The three colours are the specimen's own — accent, secondary, paper — and are read
+       off each theme's tokens rather than invented here, so the little mockup in the picker really is a
+       swatch of the theme it names. */
+    ["diamond", "Diamond", "Colourless brilliance", "#2C6E9B", "#7A8794", "#FBFCFD"],
+    ["ruby", "Ruby", "Pigeon's blood", "#9B1B30", "#C6803A", "#FCF6F4"],
+    ["opalite", "Opalite", "Milky iridescence", "#6E7FC4", "#C081A8", "#F7F6FB"],
+    ["jade", "Jade", "Carved nephrite", "#2E7A63", "#A8823C", "#F3F7F2"],
+    ["emerald", "Emerald", "Step-cut green", "#0F6B4B", "#B08A2E", "#F2F7F3"],
+    ["amber", "Amber", "Fossil resin", "#A9691A", "#7A5426", "#FBF4E7"],
+    ["amethyst", "Amethyst", "Violet quartz", "#6B44A0", "#8E6BB8", "#F8F5FC"],
+    ["aquamarine", "Aquamarine", "Sea-pale beryl", "#0E7490", "#3E9E9E", "#F2FAFB"],
+    ["bloodstone", "Bloodstone", "Heliotrope, flecked", "#2A5741", "#A62B22", "#EFF3EE"],
+    ["carnelian", "Carnelian", "Banded chalcedony", "#B4471F", "#8A5A2B", "#FDF3EC"],
   ];
   const THEME_BY_ID = {};
   THEME_OPTS.forEach((t) => { THEME_BY_ID[t[0]] = t; });
@@ -14069,7 +14097,7 @@
      reader signed in on two machines can wear a different one on each and the friend view shows whichever
      they last set. */
   function setTheme(theme) {
-    if (!THEMES.includes(theme) || !themeUnlocked(theme)) return;
+    if (!THEMES.includes(theme) || !themePickable(theme)) return;
     S.settings.theme = theme;
     S.theme = theme;
     applyTheme();
@@ -19084,6 +19112,15 @@
      theme, `lockedThemes` counted it as still droppable so a chest could "unlock" what they already had,
      and once the picker began listing only what is owned it vanished from the page altogether. */
   function themeUnlocked(id) { return id === "folio" || Object.prototype.hasOwnProperty.call(ownedThemes(), id); }
+  /* AN ADMIN MAY SEE AND WEAR A LOCKED THEME (Sep 2026, on request: "on an Admin account, allow me to see
+     and select locked themes"). It is a SECOND predicate rather than a clause inside `themeUnlocked`, and
+     that separation is what keeps the chests working: `lockedThemes()` — the pool a chest rolls from — is
+     `themeUnlocked`'s complement, so folding the admin bypass into it would leave an admin's chests with
+     nothing to give and quietly cost them the reward. Ownership is a fact about the reader's collection;
+     this is a fact about what the picker will let them do, and only the second is what an editor needed.
+     Nothing is written into `S.themes` by wearing one this way, so an admin's collection stays honest and
+     a theme they have not won still shows as locked in Admin → Themes and still turns up in a chest. */
+  function themePickable(id) { return themeUnlocked(id) || isAdmin(); }
   /* WHEN a theme was unlocked, or 0 for one there is no date for (Aug 2026, on request: "unlocked themes
      in the theme selection should mention the date on which they were unlocked"). The date was already
      being stored — `unlockTheme` writes `Date.now()` — so nothing new is recorded and no save migrates;
@@ -22517,6 +22554,59 @@
   const COLLECTION_SECTION = { "geo-us": "Geography", "geo-world": "Geography", "geo-china": "Geography", psych: "Science", bio: "Science", dino: "Science", phil: "Philosophy" };
   const sectionOf = (id) => COLLECTION_SECTION[id] || COLLECTION_SECTIONS[0].label;
 
+  /* ---------- THE COLLECTIONS PAGE'S OWN TAB BAR (Sep 2026, on request) ----------
+     "Put a menu bar at the top which defaults to 'All'. Other pages should be 'History', 'Geography',
+     'Language', and 'Other'. Put Psychology in Other. These tabs should all be to the left of 'All'. To
+     the left of 'All' should be 'Community', which features the user-made decks and below it the shared
+     community collections."
+
+     The page had grown to five stacked sections plus a Planned fold, which on a phone is a great deal of
+     scrolling to reach the shelf you came for. The bar is a FILTER over what was already there rather than
+     five new pages: every section still renders exactly as it did, and a tab decides which of them is
+     drawn. Four things.
+
+     · **A TAB IS A GROUP OF SECTIONS, NOT A NEW LEVEL.** `COLLECTION_SECTIONS` is unchanged and so is
+       `COLLECTION_SECTION`; this table only says which tab each of those headings answers to, which is
+       why "Put Psychology in Other" costs one row rather than a re-filing of the collection. Science and
+       Philosophy share the Other tab today; a third non-history section joins them by adding a row here
+       and nothing else.
+     · **THE ORDER IS THE REQUEST'S, READ LITERALLY.** The four subject tabs are left of All, Community is
+       immediately left of All, and All — the default — is the last of the six. It is the widest thing the
+       bar offers and sits at the end of the row rather than the start, which is unusual and is what was
+       asked for.
+     · **THE CHOICE IS MODULE-LEVEL, NOT IN `S`.** It is a way of looking at one page — the call the
+       glossary record's sort and the Reliquary's make — so it survives navigating away and back within a
+       session and resets on reload, and it syncs nowhere. A reader who lands on `#decks` from a shared
+       link gets the whole shelf, which is what that link has always meant.
+     · **A TAB WITH NOTHING IN IT IS STILL DRAWN**, unlike an empty SECTION. A section appears when it has
+       collections because a heading over nothing says nothing; a tab is a way to get somewhere, and one
+       that came and went as collections shipped would be a bar whose shape a reader could not learn. The
+       page says the tab is empty instead, in a sentence. */
+  const COLLECTION_TABS = [
+    { id: "history", label: "History", sections: ["History"] },
+    { id: "geography", label: "Geography", sections: ["Geography"] },
+    { id: "language", label: "Language", sections: [] },       // the Languages shelf is its own builder
+    { id: "other", label: "Other", sections: ["Science", "Philosophy"] },
+    { id: "community", label: "Community", sections: [] },     // your own decks, then everyone else's
+    { id: "all", label: "All", sections: null },               // null = every section; the default
+  ];
+  let collTab = "all";
+  const collTabIs = (id) => collTab === "all" || collTab === id;
+  // which of COLLECTION_SECTIONS the current tab draws — every one of them under All
+  function collTabSections() {
+    if (collTab === "all") return COLLECTION_SECTIONS.map((s) => s.label);
+    const t = COLLECTION_TABS.find((x) => x.id === collTab);
+    return t && t.sections ? t.sections : [];
+  }
+  function collTabBarHTML() {
+    return '<div class="coll-tabs" role="tablist" aria-label="Which collections to show">' +
+      COLLECTION_TABS.map((t) =>
+        '<button type="button" class="coll-tab' + (collTab === t.id ? " on" : "") + '" role="tab"' +
+        ' aria-selected="' + (collTab === t.id ? "true" : "false") + '" data-colltab="' + t.id + '">' +
+        esc(t.label) + "</button>").join("") +
+      "</div>";
+  }
+
   /* ============================================================
      PAGE: DECKS
      ============================================================ */
@@ -22526,6 +22616,14 @@
     const bySection = {};
     available.forEach((d) => { (bySection[sectionOf(d.id)] = bySection[sectionOf(d.id)] || []).push(d); });
     const admin = isAdmin();
+    /* What this tab draws. `shown` is the subject sections it covers, `soonShown` the planned collections
+       filtered to those sections, and `empty` says the tab has nothing at all — which is a real state
+       (Geography's planned shelf is empty, and so is Other's) and one the page has to answer in words. */
+    const shown = collTabSections();
+    const soonShown = comingSoon.filter((d) => collTab === "all" || shown.indexOf(sectionOf(d.id)) >= 0);
+    const langShown = collTabIs("language") && (window.LANG_DECKS || []).length;
+    const commShown = collTabIs("community");
+    const empty = !soonShown.length && !langShown && !commShown && !shown.some((lab) => (bySection[lab] || []).length);
     const slot = (slotId, count) => `<div class="collection-list" id="${slotId}">${count === 0 && admin ? '<div class="lib-empty">Drag a collection here</div>' : ""}</div>`;
     const section = (label, n, slotId, count) =>
       `<div class="collection-group">
@@ -22572,24 +22670,47 @@
             an admin: that one has a drop target worth offering, where a "Geography" heading over nothing
             would advertise a section a drag cannot put anything into — the section comes from the table
             above, not from where a collection is dropped. */""}
+      ${/* The tab bar, directly under the page head — see COLLECTION_TABS. Everything below is filtered
+            by it; under "All", which is the default, nothing is filtered at all. */""}
+      ${collTabBarHTML()}
       ${COLLECTION_SECTIONS.map((sec, i) => {
+        if (shown.indexOf(sec.label) < 0) return "";
         const items = bySection[sec.label] || [];
+        // an empty section is drawn only for History, and only for an admin, whose drag needs the target
         if (!items.length && !(admin && i === 0)) return "";
         return section(sec.label, items.length, sec.slot, items.length);
       }).join("")}
-      ${langCollectionsHTML()}
+      ${collTabIs("language") ? langCollectionsHTML() : ""}
       ${/* …and the coming-soon fold under all three of them rather than under History, so it reads as
-            "everything still being written" rather than as a claim about one subject. */""}
-      ${comingSoon.length || admin ? soonSection(comingSoon.length, "collection-list-soon", comingSoon.length) : ""}
-      ${communityLibraryHTML()}
-      ${sharedDecksHTML()}`;
+            "everything still being written" rather than as a claim about one subject.
+            IT IS FILTERED WITH THE REST (Sep 2026): under a subject tab it holds that subject's planned
+            collections and nothing else, which is what makes "Geography" a complete answer about
+            geography rather than the finished half of one. It is not drawn on the Community tab at all —
+            nothing there is a curated collection waiting to be written — and the EMPTY fold an admin gets
+            for its drop target is drawn only under All and History, which are the two tabs a collection
+            dragged into it would actually land under. Everywhere else an empty "Planned" heading would
+            offer a target that can put nothing anywhere. */""}
+      ${soonShown.length || (admin && (collTab === "all" || collTab === "history")) ? soonSection(soonShown.length, "collection-list-soon", soonShown.length) : ""}
+      ${collTabIs("community") ? communityLibraryHTML() + sharedDecksHTML() : ""}
+      ${/* A tab that is genuinely empty says so rather than leaving the reader a page with a bar and
+            nothing under it, which reads as a failure to load. */""}
+      ${empty ? '<div class="lib-empty coll-tab-empty">Nothing here yet — the collections in this group are still being written.</div>' : ""}`;
 
     COLLECTION_SECTIONS.forEach((sec) => {
+      // `querySelector` answers null for a section this tab did not draw, which is the filter working
       const list = root.querySelector("#" + sec.slot);
       if (list) (bySection[sec.label] || []).forEach((d) => list.appendChild(buildCollection(d)));
     });
     const soonList = root.querySelector("#collection-list-soon");
-    if (soonList) comingSoon.forEach((d) => soonList.appendChild(buildCollection(d)));
+    if (soonList) soonShown.forEach((d) => soonList.appendChild(buildCollection(d)));
+    /* The bar itself. `renderInPlace` rather than `render()`: changing a filter is not a navigation, and
+       scrolling the reader to the top of the page and replaying its entrance animation is exactly the
+       "the page refreshes" complaint that helper exists for. */
+    root.querySelectorAll("[data-colltab]").forEach((b) => b.addEventListener("click", () => {
+      if (collTab === b.dataset.colltab) return;
+      collTab = b.dataset.colltab;
+      renderInPlace();
+    }));
     wireLibraryDnd(root);
     wireLangDecks(root);
     wireCommunityLibrary(root);
@@ -37689,9 +37810,10 @@
          `esc` here would print the entity itself. Only the date is escaped, being the one part composed
          at render out of the reader's own locale. */
       const when = esc(themeUnlockedOnText(t[0]));
-      const tag = when ? "Unlocked " + when : t[2];
-      const tip = t[1] + " — " + t[2] + (when ? ". Unlocked " + when : "") + ".";
-      return `<button class="theme-opt" data-theme="${t[0]}" type="button" title="${tip}">
+      const locked = !themeUnlocked(t[0]);   // only an admin ever sees one of these — see shownThemes
+      const tag = locked ? "Locked — admin view" : when ? "Unlocked " + when : t[2];
+      const tip = t[1] + " — " + t[2] + (locked ? ". Not yet unlocked; visible because you are an editor" : when ? ". Unlocked " + when : "") + ".";
+      return `<button class="theme-opt${locked ? " theme-locked" : ""}" data-theme="${t[0]}" type="button" title="${tip}">
       ${themeMockHTML(t)}
       <span class="theme-name">${t[1]}</span><span class="theme-tag">${tag}</span></button>`;
     };
@@ -37719,9 +37841,17 @@
        The click handler keeps its locked guard as a backstop rather than as a path anybody reaches: it
        reads an id off an attribute, and a guard on a value read out of the DOM is worth keeping even
        when nothing renders the value it refuses. */
-    const shownThemes = THEME_OPTS.filter((t) => themeUnlocked(t[0]));
+    /* …AND AN ADMIN SEES ALL SIXTEEN (Sep 2026, on request). A locked tile is drawn with `.theme-locked`
+       and says so in its own line, which is the shape the picker had before Aug 2026 and is right for
+       exactly one reader: an editor checking that a new theme looks the way it should cannot be asked to
+       win it from a chest first. Every other reader still sees only what they hold. */
+    const shownThemes = THEME_OPTS.filter((t) => themePickable(t[0]));
     const stillLocked = lockedThemes().length;
-    const themeHint = !stillLocked ? ""
+    // an admin is looking at every tile, so "N more are still to find" would be a sentence about a list
+    // they can already see — they are told what the greyed ones mean instead
+    const themeHint = isAdmin() && stillLocked
+      ? stillLocked + (stillLocked === 1 ? " theme is" : " themes are") + " not yet unlocked on this account — they are greyed above, and an editor may wear one anyway."
+      : !stillLocked ? ""
       : shownThemes.length > 1
         ? stillLocked + (stillLocked === 1 ? " more theme is" : " more themes are") + " still to find in artefact chests."
         : "The other " + stillLocked + " are found in artefact chests, which a level, a clean sweep of the daily games or a week's streak will earn you.";
@@ -37963,7 +38093,7 @@
     (themeGrid ? themeGrid.querySelectorAll(".theme-opt") : []).forEach((b) => {
       b.addEventListener("click", () => {
         const t = b.dataset.theme;
-        if (!themeUnlocked(t)) { toast(themeName(t) + " is locked — themes come from chests."); return; }
+        if (!themePickable(t)) { toast(themeName(t) + " is locked — themes come from chests."); return; }
         setTheme(t);
         markTheme();
       });

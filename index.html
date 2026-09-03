@@ -57,11 +57,18 @@
         <svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.4 12 4l9 7.4"/><path d="M5.5 9.8V20h13V9.8"/></svg>
         <span class="tab-label">Home</span><span class="ink"></span>
       </button>
-      <!-- Collections (#decks) is NOT a tab here either (Aug 2026, on request — it left the phone's bar a
-           fortnight earlier and now leaves the desktop's, so the two read the same). It is reached from the
-           "+ Add decks" lip hanging off the bottom of the home page's daily-review group (see .rv-lip),
-           which is the route the home page advertises and is now the only one. The route itself is
-           untouched: every #decks link ever shared still works. -->
+      <!-- COLLECTIONS (#decks) IS A TAB AGAIN, BETWEEN HOME AND LIBRARY (Sep 2026, on request: "put a tab
+           for the Collections page in the website's main menu bar, between Home and Library"). It left
+           both bars in Aug 2026 and was reached only from the home page's own Collections button, which
+           is still there and still works — this is a second route rather than a replacement, and the two
+           agree about where they go. It is NOT added to the phone's bottom bar: that has five cells for
+           five destinations, and the page swipe was deliberately narrowed to what that bar can reach, so
+           a sixth tab there would take a cell from something and put the swipe and the bar out of step
+           again. The desktop's bar has the room, which is the whole difference. -->
+      <button class="tab" type="button" data-route="decks">
+        <svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="13" height="14" rx="2"/><path d="M7 4h11a2 2 0 0 1 2 2v11"/></svg>
+        <span class="tab-label">Collections</span><span class="ink"></span>
+      </button>
       <button class="tab" type="button" data-route="library">
         <svg class="tab-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5h5.5a2.5 2.5 0 0 1 2.5 2.5v11a2 2 0 0 0-2-2H3z"/><path d="M21 5.5h-5.5A2.5 2.5 0 0 0 13 8v11a2 2 0 0 1 2-2h6z"/></svg>
         <span class="tab-label">Library</span><span class="ink"></span>

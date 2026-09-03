@@ -852,7 +852,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   guides, National Park Service), and the finding that `history.house.gov` serves a 200-status error
   document. The next card is the lowest `geo-NNN` not yet in `data.js`; see the "GEOGRAPHY" bullet under
   "Generating cards & glossary entries". Not part of the site.
-- `docs/world-geography-card-plan.md` — the running order for **The world** (`geo-world`, the second
+- `docs/world-geography-card-plan.md` — the running order for **World** (`geo-world`, the second
   collection of the Geography SECTION), and the second plan that is not a thousand cards: it is **470
   cards** — 233 countries and territories (`gw-001`–`gw-233`) and 237 capitals (`gw-501`–`gw-733` with
   seven numbers deliberately unused, plus `gw-751`–`gw-761` for the extra seats of the ten countries that
@@ -4204,7 +4204,7 @@ lookup.
 | Dinosaurs | `dino` | `dino-` | `docs/dinosaurs-card-plan.md` | 9 / 43 | empty — not a history collection |
 | Korea | `korea` | `ko-` | `docs/korea-card-plan.md` | 9 / 43 | empty |
 | Geography | `geo-us` | `geo-` | `docs/geography-card-plan.md` | 2 / 2 | 5 cards — and it is NOT a 1000-card plan, see below |
-| The world | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 136 cards — 470 rather than 1000, and sorted by POPULATION, see below |
+| World | `geo-world` | `gw-` | `docs/world-geography-card-plan.md` | 2 / 2 | 136 cards — 470 rather than 1000, and sorted by POPULATION, see below |
 | China (Geography) | `geo-china` | `gc-` | `docs/china-geography-card-plan.md` | 2 / 2 | **COMPLETE, 58 of 58** — 58 rather than 1000, and sorted by POPULATION, see below |
 
 The next id for any of them (substitute the prefix):

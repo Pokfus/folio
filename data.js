@@ -6918,7 +6918,7 @@ window.COLLECTION_TREE = {
     },
     {
       "id": "geo-world",
-      "title": "The world",
+      "title": "World",
       "total": 263,
       "placeholder": false,
       "children": [
