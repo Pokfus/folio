@@ -910,4 +910,18 @@ window.ARTEFACTS = [
     date: "c. 15th – 20th century CE",
     origin: "West Africa, cast in Europe",
   },
+  {
+    id: "vindolanda-tablets",
+    name: "Vindolanda tablets",
+    rarity: "epic",
+    date: "1st – 2nd century CE",
+    origin: "Vindolanda, Roman Britain",
+  },
+  {
+    id: "sling-bullet",
+    name: "Sling bullet",
+    rarity: "common",
+    date: "c. 4th – 1st century BCE",
+    origin: "Greece, Macedon and the Roman world",
+  },
 ];

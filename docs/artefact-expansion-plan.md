@@ -147,7 +147,7 @@ literature — which is what made batches 15 and 8 of the first pass cheap and b
 | batch | n | artefacts | spine |
 |---|---|---|---|
 | A1 | 3 | `terracotta-warrior`, `antikythera-mechanism`, `great-isaiah-scroll` | `namuseum.gr` (open, and holds the mechanism), Antiquity and Nature via `doi.org`, archive.org, Qumran literature in open journals |
-| A2 | 5 | `venus-of-willendorf`, `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, `vindolanda-tablets` | `nhm-wien.ac.at` (server-rendered, confirmed), `digitalcollections.tcd.ie`, `bayeuxmuseum.com`, Vindolanda Tablets Online at Oxford, Persée |
+| A2 | 5 | `venus-of-willendorf`, `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, `vindolanda-tablets` | `nhm-wien.ac.at` (server-rendered, confirmed), `digitalcollections.tcd.ie`, `bayeuxmuseum.com`, Persée. **Vindolanda Tablets Online at Oxford refuses the connection — use `romaninscriptionsofbritain.org/tabvindol/`, which carries the whole corpus** |
 | A3 | 7 | `pazyryk-carpet`, `dancing-girl-mohenjo-daro`, `golden-crown-of-silla`, `jade-burial-suit`, `aztec-sun-stone`, `igbo-ukwu-bronze`, `enigma-machine` | archive.org (Marshall, Rudenko), J-Stage, Cambridge via `doi.org`, INAH, cryptologic history |
 
 ### Region by region
@@ -252,7 +252,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | batch | shipped | deferred |
 |---|---|---|
 | A1 | `terracotta-warrior`, `antikythera-mechanism`, `great-isaiah-scroll` | — |
-| A2 | `venus-of-willendorf` | `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, `vindolanda-tablets` |
+| A2 | `venus-of-willendorf` | `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, ~~`vindolanda-tablets`~~ (shipped in A2b) |
 | B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | `gandhara-buddha-head`, `chola-nataraja`, `mughal-miniature`, `nbpw-sherd`, `punch-marked-coin`, `etched-carnelian-bead`, `glass-bangle` |
 | D2 | `oak-coffin-textile`, `amber-bead`, `ochre-crayon` | `palaeolithic-bone-flute`, `antler-spearthrower`, `saddle-quern`, `sickle-blade`, `bone-fishhook`, `eyed-bone-needle` |
 | D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | `palaeolithic-bone-flute`, `bone-fishhook` |
@@ -261,6 +261,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | C1b | `islamic-star-tile`, `byzantine-silk` | `fustat-paper`, `mamluk-mosque-lamp` |
 | D1 | `antler-comb`, `bone-ice-skate` | `novgorod-birch-bark-letter` (held, see below) |
 | D1b/C2 | `seal-matrix`, `manilla` | — |
+| A2b/E1 | `vindolanda-tablets` (UN-DEFERRED), `sling-bullet` | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -268,6 +269,35 @@ on the buried weapons is not a Qin anti-rust technology two millennia ahead of i
 from the lacquer on the figures — a story most popular accounts still repeat. A plate that states the
 current standing of the thing a reader half-remembers is doing more work than one that recites the
 half-memory. The Great Isaiah Scroll's 2025 radiocarbon-plus-style programme is the same shape.
+
+**A2b UN-DEFERS THE VINDOLANDA TABLETS, and the reason is that a dead host had a live successor.**
+A2 deferred them because `vindolanda.csad.ox.ac.uk` — Vindolanda Tablets Online — refuses the
+connection here, and it still does. But **`romaninscriptionsofbritain.org` now carries the whole
+Vindolanda corpus** at `/tabvindol/`, tablet by tablet at `/inscriptions/TabVindol<n>`, with the Latin,
+the translation, the commentary and the dating; and that host was itself recorded as **500** in an
+earlier batch of this pass. Two lessons, and they point the same way: **a corpus can move**, so look
+for the edition rather than the site you remember; and **re-test a host that failed**, because two of
+this batch's three standing "unreachable" records were wrong by the time they were used.
+
+**Its cautionary finding is that `check-citations.js` caught TWO fabrications in one citation, both
+mine.** I wrote *Giulia* Vasco off Europe PMC's "Vasco G" — the paper's own byline says **Giovanna** —
+and I listed Alessandro Buccolieri as the fifth author when the article's XML files him under
+`contrib-group content-type="editor"`. Neither would have been visible to a reader: the DOI resolves,
+the paper is real, the other three names are right. And a third error came out of the same check —
+every given name in the Orr et al. citation was my invention, because *Scientific Reports* published
+that paper with **initials throughout** (`Orr, C. H.`), so the citation now reads as published. **Read
+the byline in the article, not the author string in the index**: Europe PMC abbreviates, and expanding
+its abbreviation is guessing with a plausible answer.
+
+**And the sling bullet is the pass's best argument for a common.** Three of its five sentences rest on
+what is written *on* the object: a bullet from south-western Bulgaria carries a thunderbolt and the
+letters ΦΙ, the abbreviation used for Philip V on his own coinage, tying it to his siege of Petra in
+181 BCE; bullets naming Demetrius, a commander under Philip II, run from Selymbria to the west coast
+of the Black Sea and put him on campaigns no surviving author mentions. **A cheap mass-produced object
+can be a primary historical source when the mould carries a name**, and that is a better fact than any
+superlative about a famous one. Two of its four candidate sources were unreachable
+(`impactum-journals.uc.pt` 500, `ejournals.eu` refuses the connection) and the batch still made the bar
+from a third host — **check reachability before drafting, not after**.
 
 **D1b's finding is which INDEX to ask, and it is not one index.** Three searches in this batch came
 back empty from DOAJ and full from Europe PMC, or the reverse, on subjects a page apart: DOAJ found
@@ -506,7 +536,7 @@ unreachable list:
 | `journals.uchicago.edu` | *Current Anthropology* — Soffer et al. on the figurines' woven headgear | **403** |
 | `royalsocietypublishing.org` | *Proc. B* — Star et al. on walrus-ivory provenance, the Lewis chessmen's obvious route | **403** |
 | `vindolanda.csad.ox.ac.uk` | Vindolanda Tablets Online, Oxford — the tablets' own edition | **connection reset** |
-| `romaninscriptionsofbritain.org` | RIB's Vindolanda tablets | **500** |
+| `romaninscriptionsofbritain.org` | RIB's Vindolanda tablets | **200 as of Sep 2026** — it was 500 when first measured; it carries the whole Vindolanda corpus, and is what replaces the dead Oxford site |
 | `puvodni.mzm.cz` | *Anthropologie* (Brno) — Antl-Weiser on the Willendorf figurines | **502 through the proxy** |
 | `digitalcollections.tcd.ie` | the Book of Kells | answers, but JavaScript-driven (4.6 KB, no content) |
 
