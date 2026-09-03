@@ -223,9 +223,10 @@ national corpus, and the answer to three museum sites that will not serve a reco
   being padded to the bar.** Three drafts of the first pass's named-object batch reached three
   citations by adding a work that had nothing to do with the object, and all three were thrown away.
 · **C2 (Africa) is second.** *African Archaeological Review* is Springer and *Azania* is Taylor &
-  Francis, both shut. The way in is archive.org's early monographs plus modern isotope and
-  provenance work in PLOS and *Scientific Reports* — the "who has analysed it" move that rescued the
-  Sipán ear ornaments.
+  Francis, both shut **at the publisher — but `Azania` is open at Europe PMC** (measured in C3/C2;
+  see the batch log), so ask there before writing a title off. Beyond that the way in is archive.org's
+  early monographs plus modern isotope and provenance work in PLOS and *Scientific Reports* — the
+  "who has analysed it" move that rescued the Sipán ear ornaments.
 · **B3's museums are JS-driven** (above), so Japan and Korea rest on J-Stage and archive.org rather
   than on the obvious institutional page.
 · **`wampum-bead` and `manilla` both touch living communities and painful history** — wampum is held
@@ -255,6 +256,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | `gandhara-buddha-head`, `chola-nataraja`, `mughal-miniature`, `nbpw-sherd`, `punch-marked-coin`, `etched-carnelian-bead`, `glass-bangle` |
 | D2 | `oak-coffin-textile`, `amber-bead`, `ochre-crayon` | `palaeolithic-bone-flute`, `antler-spearthrower`, `saddle-quern`, `sickle-blade`, `bone-fishhook`, `eyed-bone-needle` |
 | D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | `palaeolithic-bone-flute`, `bone-fishhook` |
+| C3/C2 | `clovis-point`, `obsidian-blade`, `ostrich-eggshell-bead` | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -262,6 +264,26 @@ on the buried weapons is not a Qin anti-rust technology two millennia ahead of i
 from the lacquer on the figures — a story most popular accounts still repeat. A plate that states the
 current standing of the thing a reader half-remembers is doing more work than one that recites the
 half-memory. The Great Isaiah Scroll's 2025 radiocarbon-plus-style programme is the same shape.
+
+**C3/C2's finding corrects a note this file already carries: *Azania* IS reachable, at Europe PMC.**
+B1 recorded the etched carnelian bead as deferred partly because "their literature is in … *Azania*,
+none reachable" — measured against Taylor & Francis, which is shut here. But Moffett & Haour 2024 on
+West African bead production is open at `europepmc.org/article/PMC/PMC11649215`, and it carries the
+ostrich eggshell bead's third work. **A journal is not shut because its publisher is**: Europe PMC
+indexes far outside biomedicine, so ask it before writing a title off. That does not un-defer the
+carnelian bead, whose problem is Indus-specific, but it removes one of the two reasons given for it.
+
+**Its other finding is that a common artefact's third work is often the one that says the KIND matters.**
+`obsidian-blade` and `ostrich-eggshell-bead` are both kinds of object rather than named things, and for
+both the strongest citation is a provenancing study — Ucareo obsidian reaching the Templo Mayor across
+rival polities, Melian obsidian in Cycladic graves, a shared bead diameter range spanning 3,000 km of
+southern and eastern Africa. **A kind of object earns a plate when its distribution is the fact**, which
+is also why these are the cheapest artefacts in the pass to source: the papers exist because somebody
+wanted to know where the material came from. `clovis-point` is the counter-example and the more
+interesting one — its third work is A1's correction shape (Eren et al. 2026 finding that "Clovis atlatl
+use is not supported", against the spear-thrower every museum caption assumes), so the rule that a
+legendary's third work is often a correction turns out to hold for a **rare** as well, wherever a reader
+arrives already holding a half-memory.
 
 **D2b PICKED UP FOUR OF D2's SIX DEFERRALS AND CONFIRMS THAT A DEFERRAL FOR WANT OF A THIRD WORK IS
 CHEAP, WHILE ONE FOR WANT OF A REACHABLE FIELD IS NOT.** A2's and B1's eleven deferrals are still

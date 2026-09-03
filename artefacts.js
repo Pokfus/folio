@@ -826,4 +826,25 @@ window.ARTEFACTS = [
     date: "c. 40,000 years ago onwards",
     origin: "Siberia, the Caucasus, East Asia and Europe",
   },
+  {
+    id: "clovis-point",
+    name: "Clovis point",
+    rarity: "rare",
+    date: "c. 13,050 – 12,650 cal BP",
+    origin: "North America",
+  },
+  {
+    id: "obsidian-blade",
+    name: "Obsidian blade",
+    rarity: "common",
+    date: "c. 30,000 BCE onwards",
+    origin: "Anatolia, Mesoamerica, the Aegean, East Africa and every other volcanic region",
+  },
+  {
+    id: "ostrich-eggshell-bead",
+    name: "Ostrich eggshell bead",
+    rarity: "common",
+    date: "c. 50,000 years ago onwards",
+    origin: "Eastern and southern Africa",
+  },
 ];
