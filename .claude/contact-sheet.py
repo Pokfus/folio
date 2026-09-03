@@ -52,7 +52,12 @@ missing = []
 for i, cid in enumerate(ids):
     e = cards[cid]
     x = (i % COLS) * CELL; y = (i // COLS) * (CELL + CAP)
-    b = grab(e.get("src", ""), cid + "-" + e.get("title", ""))
+    # a batch may name a Commons FILE rather than carry a resolved src — that is the shape a pinned
+    # review batch has, and reading it here is what lets the picks be looked at before they are fetched
+    src = e.get("src") or ""
+    if not src and e.get("file"):
+        src = "https://commons.wikimedia.org/wiki/Special:FilePath/" + urllib.parse.quote(re.sub(r"^File:", "", e["file"]))
+    b = grab(src, cid + "-" + (e.get("title") or e.get("name") or e.get("file") or ""))
     if b:
         try:
             im = Image.open(io.BytesIO(b)).convert("RGB")
@@ -62,7 +67,8 @@ for i, cid in enumerate(ids):
             missing.append((cid, str(ex))); d.rectangle([x+4, y+4, x+CELL-4, y+CELL-4], outline="#c8453c", width=2)
     else:
         missing.append((cid, "download failed")); d.rectangle([x+4, y+4, x+CELL-4, y+CELL-4], outline="#c8453c", width=2)
-    d.text((x + 6, y + CELL + 6), (cid + "  " + str(e.get("title", "")))[:44], fill="#f2efe6")
+    label = e.get("title") or e.get("name") or re.sub(r"^File:", "", e.get("file", ""))
+    d.text((x + 6, y + CELL + 6), (cid + "  " + str(label))[:44], fill="#f2efe6")
 sheet.save(args[1])
 print("wrote %s  (%d cells, %d cols)" % (args[1], len(ids), COLS))
 for m in missing:
