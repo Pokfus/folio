@@ -1738,7 +1738,8 @@ window.GLOSSARY = {
 "Tibet": "Tibet is an autonomous region occupying the core of the Qinghai-Tibet Plateau in south-western China, its average elevation about 4,000 metres (13,100 feet) and more than nine tenths of it standing above 2,000 metres (6,600 feet).<sup class=\"fn\" data-fn=\"1\"></sup> Height, cold, dryness, thin air and steady wind make its ecosystems distinctive and fragile, running from cold desert through alpine steppe, meadow and shrub to montane forest, with its rivers running out to the east and draining inward to lakes and wetlands in the centre and north.<sup class=\"fn\" data-fn=\"1\"></sup> The plateau holds the world's largest unbroken area of alpine permafrost and has warmed at roughly twice the global rate, so that permafrost is now thawing downwards faster than it was.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Persepolis": "Persepolis was the palace terrace of the Achaemenid kings of Persia, in southern Iran, an artificial platform of roughly 455 by 300 metres (1,490 by 980 feet) founded by Darius I and built on by his successors, carrying an audience hall, palaces, a treasury and a garrison quarter.<sup class=\"fn\" data-fn=\"1\"></sup> Its stairways are carved with processions of tribute-bearing delegations from 23 nations of the empire, and its royal inscriptions were cut in three languages, Old Persian, Elamite and Babylonian.<sup class=\"fn\" data-fn=\"1\"></sup> Clay archives kept on the terrace record silver paid to workmen there under Darius I and his successors<sup class=\"fn\" data-fn=\"2\"></sup>, and Greek accounts describe the site plundered and its palaces burned when Alexander took it.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Zoroastrianism": "Zoroastrianism is the religion of the Avesta, whose teaching is ascribed to Zarathustra and whose supreme god is Ahura Mazda, later called Ormazd.<sup class=\"fn\" data-fn=\"1\"></sup> Its tenets set a good principle against an evil one, divide all beings between them, and look to a world of limited duration ending in evil's defeat and the resurrection of the dead<sup class=\"fn\" data-fn=\"1\"></sup>, while its priests, the Magi, are described by Greek writers sacrificing on high places and tending a fire nobody may breathe upon.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> After the Arab conquest it survived in Persia in a diminished community and among the Parsis of India, whose tradition dates their landing at Sanjan to about 716 CE.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Behistun_Inscription": "The Behistun Inscription is a relief and text cut into a cliff in western Iran about 150 metres (500 feet) above the plain, in which Darius I gives his account of the year he took the Achaemenid throne.<sup class=\"fn\" data-fn=\"1\"></sup> The panel has the king standing over a fallen rival with nine roped captives before him, and beneath and beside it the same account runs in three languages: five columns of Old Persian, three of Elamite and one of Babylonian.<sup class=\"fn\" data-fn=\"1\"></sup> A short label beside each captive says that man lied<sup class=\"fn\" data-fn=\"2\"></sup>, and the three parallel versions were the ground on which cuneiform was deciphered in the nineteenth century.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Behistun_Inscription": "The Behistun Inscription is a relief and text cut into a cliff in western Iran about 150 metres (500 feet) above the plain, in which Darius I gives his account of the year he took the Achaemenid throne.<sup class=\"fn\" data-fn=\"1\"></sup> The panel has the king standing over a fallen rival with nine roped captives before him, and beneath and beside it the same account runs in three languages: five columns of Old Persian, three of Elamite and one of Babylonian.<sup class=\"fn\" data-fn=\"1\"></sup> A short label beside each captive says that man lied<sup class=\"fn\" data-fn=\"2\"></sup>, and the three parallel versions were the ground on which cuneiform was deciphered in the nineteenth century.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Xerxes_I": "Xerxes I was a king of the Achaemenid Empire of Persia, the son and successor of Darius I, whose inscriptions style him great king, king of kings, and king of countries containing many kinds of people.<sup class=\"fn\" data-fn=\"1\"></sup> At Persepolis he completed unfinished work and added buildings of his own, among them the terrace gate whose trilingual inscription calls it a colonnade for all countries, a palace, and the quarters excavators named the Harem.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Greek writers supply almost all that is told of his invasion of Greece in 480 and 479 BCE and of his killing by the captain of his own bodyguard.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2506,7 +2507,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Medes": "9th – 6th century BCE",
 "Persepolis": "built from the late 6th century BCE; burned 330 BCE",
 "Zoroastrianism": "attested in Greek accounts from the 5th century BCE",
-"Behistun_Inscription": "cut c. 520 BCE"
+"Behistun_Inscription": "cut c. 520 BCE",
+"Xerxes_I": "reigned 486 – 465 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3587,7 +3589,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Carthage": ["Carthaginian"],
 "Urartu": ["Urartian"],
 "Medes": ["Mede","Median","Media"],
-"Ürümqi": ["Urumqi"]
+"Ürümqi": ["Urumqi"],
+"Xerxes_I": ["Xerxes"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5354,7 +5357,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Tibet": ["place","geography","province","asia"],
 "Persepolis": ["place","city","history","archaeology","iron age","iran"],
 "Zoroastrianism": ["religion","practice","history","iron age","iran"],
-"Behistun_Inscription": ["text","object","history","archaeology","iron age","iran"]
+"Behistun_Inscription": ["text","object","history","archaeology","iron age","iran"],
+"Xerxes_I": ["ruler","person","history","politics","iran"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
