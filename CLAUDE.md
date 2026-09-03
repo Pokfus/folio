@@ -1280,6 +1280,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
   only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
   connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
+- **📖 `docs/artefact-expansion-plan.md` — READ BEFORE WRITING ANY OF THE SECOND HUNDRED ARTEFACTS.** The
+  pool is 100 and this plans it to 200: fifteen batches, each with its source spine, weighted the OPPOSITE
+  way from the first hundred — Rome has 19 artefacts and South Asia, Southeast Asia, Korea, Oceania, North
+  America and the Arctic have **none**, and none of the India, Korea, Russia, United States or Second World
+  War collections is served at all. Three things in it are decisions rather than lists. **The rarity budget
+  is 60 / 25 / 12 / 3 and is not free choice**: `rollArtefact` renormalises the drop odds over whatever
+  rarities still hold something unowned, so a tier whose share of the POOL does not match its share of the
+  ODDS empties early and drops out of the roll — a failure a reader experiences and never reports. **A
+  common is a KIND of object and is where a missing region is cheapest to fill**, since every culture has
+  its everyday things and everyday things are what the pool lacks outside Rome; a named singular object is
+  naturally epic or legendary. And **`artefacts.js` is on the EAGER path, where 94% of it is `desc` +
+  `sources` + `image` that nothing reads until a chest opens** — measured: 237.5 KB of 251, against a 14 KB
+  index that is all `progStats` needs — so the file wants `glossary-extra.js`'s split BEFORE the prose is
+  written, which makes doubling the pool cost every visitor about 14 KB rather than 260. It also records the
+  reachability measured for the new regions on 2026-09-03, of which the load-bearing finding is that **the
+  East Asian and Israeli national museum sites answer 200 and serve their object pages through JavaScript**
+  (e-Museum, the National Museum of Korea and the Dead Sea Scrolls digital library all return zero hits when
+  their own object's name is grepped out of the HTML), so Japan, Korea and Qumran rest on **J-Stage** and
+  archive.org rather than on the obvious institutional page. Not part of the site.
 - `decks/*.folio-deck.json` — **the community decks**, files a reader imports through the Studio. Not
   part of the site and never loaded by it: a deck file is somebody else's content that happens to have
   been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
