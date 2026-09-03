@@ -9414,12 +9414,13 @@ const BOOKS = {
         "normalised so that a name is spelt one way throughout. A handful of names are spelt in " +
         "this printing against the Chinese it is printed beside — Nanch‘êng for a place the " +
         "Chinese writes Nanzheng, Ch‘uan for a man the transcriber himself marks as a slip for " +
-        "Ch‘üan — and there the Chinese column decides. About forty spellings are left exactly as he " +
-        "set them: a place he names once in a note and the Chinese never names at all, a " +
-        "word the scan has garbled past reading, and one style borne by two different men " +
-        "in different chapters, which a single spelling cannot tell apart. A name with " +
-        "nothing to check it against is a name that would be guessed at. Nothing else about " +
-        "his prose is altered.",
+        "Ch‘üan — and there the Chinese column decides. Every Wade-Giles mark has now gone from " +
+        "the text: the accents left in it are the pinyin Lü of 吕 and a few French words he " +
+        "is fond of. A few spellings are still his, because nothing here can settle them — a " +
+        "word the scan has garbled past reading, a name whose umlaut the printing drops in " +
+        "one place out of thirty-seven, and a surname this printing reads one way and the " +
+        "Chinese beside it another. A name with nothing to check it against is a name that " +
+        "would be guessed at. Nothing else about his prose is altered.",
       "Each chapter is headed by the couplet its Chinese original is headed by, in the translator's " +
         "own English and in the case his printer set it in. Those chapter titles are taken from the " +
         "chapters themselves rather than from the volumes' contents pages, which print them in " +
@@ -9460,6 +9461,9 @@ const BOOKS = {
        `ALLOWED`, so `stripTags` was already dropping them and keeping their text. */
     nameMarkup: true,
     head: "sankuo",
+    /* The titles come off the chapters' own heads, out of text `correctRaw` has already been over, so
+       `writeEnglish` must not run the romanisation over them a second time — see the note there. */
+    titlesCorrected: true,
     /* The printer's colophon at the foot of the last chapter, which is set on the one leaf in the
        book the edition never numbered — the Republic's structural rule, and it needs to know nothing
        about what is printed on it. Measured over the sample before it was declared: chapter 120 is
@@ -9499,6 +9503,42 @@ const BOOKS = {
       ["We‘ve", "We’ve", "the same"],
       ["E‘en", "E’en", "the same"],
       ["E‘er", "E’er", "the same, twice"],
+      /* …AND THE SLIPS A ROMANISATION SWEEP TURNS UP, which are a different claim from the
+         eight above: each is a Chinese name the printing sets one way once and another way
+         many times, so the outlier is a transcription slip rather than a variant reading, and
+         the count that decides it is given beside each. They run BEFORE the romanisation for
+         the reason that order exists — an unfixed variant does not merely stay unconverted, it
+         converts wrongly into a plausible different name (batch B6b). */
+      ["Changan", "Ch‘angan", "the turned comma is dropped: 1 against 65 Ch‘angan"],
+      ["Chichou", "Ch‘ichou", "the turned comma is dropped: 1 against 35 Ch‘ichou"],
+      ["Pingyüan", "P‘ingyüan", "the turned comma is dropped: 1 against 19 P‘ingyüan"],
+      ["Tai-yü", "T‘ai-yü", "the turned comma is dropped: 3 against 7 T‘ai-yü"],
+      ["Ch‘ûan", "Ch‘üan", "a circumflex for the umlaut: 1 against 440 Ch‘üan"],
+      ["K‘ôu", "K‘ou", "a circumflex Wade-Giles has not got; the final is spelt k‘ou 78 times, and every other ô in the book is in a French word"],
+      ["Ch‘ènts‘ang", "Ch‘ênts‘ang", "a grave accent for the circumflex: 1 against 18 Ch‘ênts‘ang"],
+      ["Anlô", "Anlo", "a circumflex Wade-Giles has not got, on the pattern K‘ôu sets"],
+      ["Szŭch‘uan", "Ssŭch‘uan", "the initial is spelt Ss elsewhere: 1 against 16 Ssŭch‘uan"],
+      ["Szech‘uan", "Ssŭch‘uan", "as above, with the medial dropped too"],
+      ["Paitch‘êng", "Paitich‘êng", "a syllable is dropped: 1 against 8 Paitich‘êng"],
+      ["Ssü", "Ssŭ", "an umlaut for the breve: 1 against 682 Ssŭ"],
+      ["ssü", "ssŭ", "as above: 1 against 16 ssŭ"],
+      ["Mêngtê’s", "Mêng-tê’s", "the hyphen is dropped: 1 against 9 Mêng-tê"],
+      ["Hanshuik‘ow", "Hanshuik‘ou", "ow is not a Wade-Giles final; the name ends k‘ou, as shuik‘ou does twice"],
+      ["Sha‘kou", "Shak‘ou", "the turned comma is set before the k rather than after it: 4 against 1 for Shak‘ou"],
+      ["Yuchow", "Yuchou", "chow for chou: 2 against 10 for Yuchou"],
+      ["Taichow", "Taichou", "chow for chou: 1 against 1 for Taichou"],
+      ["Chinchow", "Chinchou", "chow for chou: 1 against 1 for Chinchou"],
+      ["Ichow", "Ichou", "chow for chou: 2 against 45 for Ichou"],
+      ["Yüchow", "Yüchou", "chow for chou: 2 against 8 for Yüchou"],
+      ["Yenchow", "Yenchou", "chow for chou: 7 against 26 for Yenchou"],
+      ["Hsüchow", "Hsüchou", "chow for chou: 1 against 63 for Hsüchou"],
+      ["Chingchow", "Chingchou", "chow for chou: 2 against 286 for Chingchou"],
+      ["Yingchow", "Yingchou", "chow for chou: 1 against 4 for Yingchou"],
+      ["Ch‘ingchow", "Ch‘ingchou", "chow for chou: 2 against 13 for Ch‘ingchou"],
+      ["Yangchow", "Yangchou", "chow for chou: 2 against 12 for Yangchou"],
+      ["Hangchow", "Hangchou", "chow for chou: 1 against 1 for Hangchou"],
+      ["Ch‘ichow", "Ch‘ichou", "chow for chou: 1 against 35 for Ch‘ichou"],
+      ["mêlee", "mêlée", "the acute is dropped on a French word: 1 against 9 mêlée"],
     ],
 
     /* MODERN PINYIN, AND THE MAPPING IS MECHANICAL RATHER THAN REMEMBERED.
@@ -9775,7 +9815,6 @@ const BOOKS = {
       ["Liu Yu", "Liu Yao", "Liu Yao, the governor of Yang province; the mechanical reading of Yu would give You"],
       ["Ma Yen", "Ma Yan"],
       ["Mi Chu", "Mi Zhu"],
-      ["Ssŭ-ma", "Sima"],
       ["Tan Fu", "Shan Fu", "Shan Fu; the surname is read Shan, not Dan, and this is Xu Shu's alias in chapters 35-36"],
       ["Tzŭ-fu", "Zifu"],
       ["Yen Yü", "Yan Yu"],
@@ -9794,15 +9833,10 @@ const BOOKS = {
          spelt two ways in one book. These twelve are the whole of it, found by stripping the marks
          off every title and matching what was left against the table; each is read in its own
          chapter before it is written down, since a stripped spelling can belong to somebody else. */
-      ["Ting Yuan", "Ding Yuan"],
       ["Lu Pu", "Lü Bu"],
       ["Chia Hsu", "Jia Xu"],
-      ["Kuan Yu", "Guan Yu"],
       ["Ch‘e Chou", "Che Zhou"],
       ["Yu Chi", "Yu Ji"],
-      ["Chao Yun", "Zhao Yun"],
-      ["Chou Yu", "Zhou Yu"],
-      ["Kuan Yun-ch‘ang", "Guan Yunchang"],
       ["Sun Ch‘uan", "Sun Quan"],
       ["Hsu Ch‘u", "Xu Chu"],
       /* THE 52 BELOW ARE NOT NEW NAMES: each is a WORD of a name already declared above,
@@ -9846,7 +9880,6 @@ const BOOKS = {
       ["Ch‘üan", "Quan"],
       ["Jên", "Ren"],
       ["Ch‘êng", "Cheng"],
-      ["K‘ai", "Kai"],
       ["Shêng", "Sheng"],
       ["Ts‘ai", "Cai"],
       ["Shên", "Shen"],
@@ -9875,7 +9908,6 @@ const BOOKS = {
       ["P‘u", "Pu"],
       ["Ch‘ou", "Chou"],
       ["Ch‘ê", "Che"],
-      ["Ts‘ang", "Cang"],
       ["T‘u", "Tu"],
 
       /* THE REST OF THE BOOK’S NAMES ARE DERIVED RATHER THAN WRITTEN DOWN, and the
@@ -10315,7 +10347,7 @@ const BOOKS = {
       ["Chai Jung", "Zhai Rong"],
       ["Ch‘iao Sui", "Qiao Sui"],
       ["Lu Ch‘ien", "Lü Qian"],
-      ["Yu Chin", "You Jin"],
+      ["Yu Chin", "Yu Jin", "于禁, 90 times in the edition's own Chinese, and the man this printing sets Yü Chin elsewhere; B6 read the bare Yu as the Wade-Giles syllable and gave You"],
       ["Hsia Yu", "Xia You"],
       ["Liu Ching-hsing", "Liu Jingsheng"],
       ["Shên Yung", "Shen Yong"],
@@ -10491,14 +10523,11 @@ const BOOKS = {
       ["P‘anho", "Panhe"],
       ["shên", "shen"],
       ["Tê", "De"],
-      ["Tzŭ", "Zi"],
       ["Tu-yü", "Duyu"],
       ["Tingt‘ao", "Dingtao"],
-      ["Tai-yü", "Daiyu"],
       ["Tsê", "Ze"],
       ["Hsiap‘ei", "Xiaopei"],
       ["Hsüt‘ien", "Xutian"],
-      ["P‘o", "Po"],
       ["Wuchün", "Wujun"],
       ["Liuch‘êng", "Liucheng"],
       ["Ts‘an", "Can"],
@@ -10529,12 +10558,9 @@ const BOOKS = {
       ["Ch‘iaochün", "Qiaojun"],
       ["Ch‘êngkao", "Chenggao"],
       ["Po-shê", "Boshe"],
-      ["Yüchow", "Yuzhou"],
       ["Peip‘ing", "Beiping"],
       ["Shê", "She"],
       ["Ch‘eng", "Cheng"],
-      ["Ch‘ih-êrh", "Chier"],
-      ["Ch‘ingchow", "Qingzhou"],
       ["Chüanch‘êng", "Juancheng"],
       ["Ta-ssŭ-ma", "Dasima"],
       ["Hsüi", "Xuyi"],
@@ -10558,7 +10584,7 @@ const BOOKS = {
       ["Miao-tsê", "Miaoze"],
       ["Chinp‘ing", "Jinping"],
       ["Wêng", "Weng"],
-      ["Ch‘aoyao", "Chaoyao"],
+      ["Ch‘aoyao", "Xiaoyao", "as above: the printing spells the same ford two ways and neither is the name"],
       ["Juhsük‘ou", "Ruxukou"],
       ["Yench‘ü", "Yanqu"],
       ["Linchü", "Linju"],
@@ -10570,7 +10596,6 @@ const BOOKS = {
       ["Ts‘inling", "Qinling"],
       ["Ch‘iung", "Qiong"],
       ["Nananchün", "Nan'anjun"],
-      ["Chüan", "Juan"],
       ["T‘ai-Ho", "Taihe"],
       ["Shênshang", "Shenshang"],
       ["Mienk‘ou", "Miankou"],
@@ -10582,10 +10607,8 @@ const BOOKS = {
       ["Tzŭ-fang", "Zifang"],
       ["Yünshan", "Yunshan"],
       ["Tingchünshan", "Dingjunshan"],
-      ["Mot‘ien", "Motian"],
       ["Fufêng", "Fufeng"],
       ["Mêng-te", "Mengde"],
-      ["K‘ang-ch‘êng", "Kangcheng"],
       ["Wên-tê", "Wende"],
       ["Chülu", "Julu"],
       ["Shou-ch‘ang", "Shouchang"],
@@ -10597,7 +10620,6 @@ const BOOKS = {
       ["Chochün", "Zhuojun"],
       ["Ssŭ-tu", "Sidu"],
       ["Mich‘êng", "Micheng"],
-      ["Pingyüan", "Bingyuan"],
       ["Wênming", "Wenming"],
       ["Fênhsien", "Fenxian"],
       ["t‘ang-ni", "tangni"],
@@ -10605,8 +10627,6 @@ const BOOKS = {
       ["Ch‘en-liu", "Chenliu"],
       ["Wên-ch‘ien", "Wenqian"],
       ["Man-ch‘êng", "Mancheng"],
-      ["Hsüchow", "Xuzhou"],
-      ["Wên-t‘ai", "Wentai"],
       ["Tzŭ-ying", "Ziying"],
       ["Mêngching", "Mengjing"],
       ["Ch‘êng-kao", "Chenggao"],
@@ -10617,11 +10637,8 @@ const BOOKS = {
       ["Chüa", "Qu'e"],
       ["Hêngmên", "Hengmen"],
       ["Tiaoch‘an", "Diaochan"],
-      ["Hsüanp‘ing", "Xuanping"],
-      ["Mên", "Men"],
       ["Ssŭnung", "Sinong"],
       ["Ch‘üfou", "Qufou"],
-      ["Wên-chü", "Wenju"],
       ["Chuangch‘êng", "Zhuangcheng"],
       ["Ch‘ênch‘êng", "Chencheng"],
       ["Chungk‘ang", "Zhongkang"],
@@ -10630,7 +10647,6 @@ const BOOKS = {
       ["Hsiao-p‘ei", "Xiaopei"],
       ["Yuch‘ing", "Youqing"],
       ["Yangchün", "Yangjun"],
-      ["Ta-ssü-ma", "Dasima"],
       ["Hsing-P‘ing", "Xingping"],
       ["Wup‘ing", "Wuping"],
       ["Hsüchun", "Xuzhun"],
@@ -10646,7 +10662,6 @@ const BOOKS = {
       ["Hsianch‘êng", "Xiancheng"],
       ["Sün", "Xun"],
       ["Liangch‘êng", "Liangcheng"],
-      ["Chang-chün", "Zhangjun"],
       ["Tach‘êng", "Dacheng"],
       ["Kungt‘ai", "Gongtai"],
       ["Kung-t‘ai", "Gongtai"],
@@ -10658,7 +10673,6 @@ const BOOKS = {
       ["Fêngling", "Fengling"],
       ["Chich‘uan", "Jichuan"],
       ["Ich‘êng", "Yicheng"],
-      ["Ssü", "Si"],
       ["Ssŭshang", "Sishang"],
       ["Ts‘uan", "Cuan"],
       ["Hungmên", "Hongmen"],
@@ -10674,11 +10688,7 @@ const BOOKS = {
       ["Fei-t‘u", "Feitu"],
       ["Tsên", "Zen"],
       ["Yü-yang", "Yuyang"],
-      ["Tê-tsu", "Dezu"],
       ["T‘ushan", "Tushan"],
-      ["Po-t‘ao", "Botao"],
-      ["Yüan-chien", "Yuanjian"],
-      ["Ch‘ichow", "Qizhou"],
       ["Kuch‘eng", "Gucheng"],
       ["Tant‘u", "Dantu"],
       ["Yü-jang", "Yurang"],
@@ -10686,7 +10696,6 @@ const BOOKS = {
       ["Ch‘ao-ch‘ang", "Chaochang"],
       ["Yüan-t‘an", "Yuantan"],
       ["Tzŭ-yuan", "Ziyuan"],
-      ["Yüan-chin", "Yuanjin"],
       ["Ts‘ang-t‘ing", "Cangting"],
       ["Ts‘angt‘ing", "Cangting"],
       ["Maoch‘êng", "Maocheng"],
@@ -10699,27 +10708,20 @@ const BOOKS = {
       ["Lulungk‘ou", "Lulongkou"],
       ["Pait‘an", "Baitan"],
       ["Liut‘ing", "Liuting"],
-      ["Ch‘ûan", "Chuan"],
-      ["T‘ung-p‘o", "Tongpo"],
       ["Tê-ts‘ao", "Decao"],
       ["Fanchêng", "Fancheng"],
-      ["K‘ôu", "Kou"],
       ["P‘eichün", "Peijun"],
       ["Fanch‘eng", "Fancheng"],
       ["Ichêngt‘ing", "Yizhengting"],
-      ["Kuang-yüan", "Guangyuan"],
       ["P‘eihsien", "Peixian"],
       ["Tungchün", "Dongjun"],
       ["Lungchiushuik‘ou", "Longjiushuikou"],
-      ["Szech‘uan", "Sichuan"],
       ["Ts‘ao-ch‘uan", "Caochuan"],
       ["Yüshan", "Yushan"],
-      ["T‘ing", "Ting"],
       ["Tsŭ-shun", "Zishun"],
       ["Ch‘ang-pan", "Changban"],
       ["Ts‘angwu", "Cangwu"],
       ["Hanchingk‘ou", "Hanjingkou"],
-      ["Tê-shu", "Deshu"],
       ["Ts‘ien", "Qian"],
       ["Ch‘aisengchün", "Chaisengjun"],
       ["Sanchiangk‘ou", "Sanjiangkou"],
@@ -10729,19 +10731,14 @@ const BOOKS = {
       ["P‘o-lo", "Poluo"],
       ["Tzŭ-cho", "Zizhuo"],
       ["Jê", "Re"],
-      ["Yu-ch‘ang", "Youchang"],
       ["Chi-ch‘ang", "Jichang"],
       ["Chênting", "Zhending"],
       ["ya-mên", "yamen"],
       ["Lingchün", "Lingjun"],
-      ["Pên", "Ben"],
       ["Ch‘ient‘ang", "Qiantang"],
       ["Tzŭching", "Zijing"],
       ["Ch‘iaotung", "Qiaodong"],
-      ["Shou-ch‘êng", "Shoucheng"],
       ["Ch‘iangs", "Qiangs"],
-      ["Ch‘ün", "Qun"],
-      ["Tzŭ-po", "Zibo"],
       ["Mêng-mei", "Mengmei"],
       ["Chün-p‘ing", "Junping"],
       ["Wangch‘êng", "Wangcheng"],
@@ -10751,10 +10748,6 @@ const BOOKS = {
       ["Wên-jo", "Wenruo"],
       ["Ch‘êngyang", "Chengyang"],
       ["Wên-chang", "Wenzhang"],
-      ["K‘uan", "Kuan"],
-      ["Chi-yü", "Jiyu"],
-      ["Chên-wei", "Zhenwei"],
-      ["Tangk‘ou", "Dangkou"],
       ["Yüantê", "Xuande"],
       ["Shêngch‘ih", "Shengchi"],
       ["Yühang", "Yuhang"],
@@ -10763,7 +10756,6 @@ const BOOKS = {
       ["Tzŭ-chien", "Zijian"],
       ["Wênchow", "Wenzhou"],
       ["Yüan-fang", "Yuanfang"],
-      ["Mêngtê", "Mengde"],
       ["Tz‘u", "Ci"],
       ["Tzŭ-ch‘un", "Zichun"],
       ["Kuant‘ao", "Guantao"],
@@ -10773,11 +10765,9 @@ const BOOKS = {
       ["Mits‘ang", "Micang"],
       ["Lant‘ien", "Lantian"],
       ["Shangyü", "Shangyu"],
-      ["Ch‘u-ping", "Chubing"],
       ["Taichün", "Daijun"],
       ["Yuan-tê", "Xuande"],
       ["Tsêngk‘ouch‘üan", "Zengkouquan"],
-      ["Hanshuik‘ow", "Hanshuikou"],
       ["Ch‘iaochun", "Qiaojun"],
       ["Yanglingp‘o", "Yanglingpo"],
       ["Hsünyang-chiang", "Xunyangjiang"],
@@ -10802,8 +10792,6 @@ const BOOKS = {
       ["Yün-chang", "Yunzhang"],
       ["Yüan-chang", "Yuanzhang"],
       ["Ch‘ingch‘êng", "Qingcheng"],
-      ["Hsiao-ch‘i", "Xiaoqi"],
-      ["P‘iao-chi", "Piaoji"],
       ["Wuk‘ou", "Wukou"],
       ["Shuch‘uan", "Shuchuan"],
       ["Chien-p‘ing", "Jianping"],
@@ -10812,12 +10800,8 @@ const BOOKS = {
       ["Fênglou", "Fenglou"],
       ["Tungk‘ou", "Dongkou"],
       ["Yüfupu", "Yufubu"],
-      ["Szŭch‘uan", "Sichuan"],
       ["Yüehchien", "Yuejian"],
-      ["Shê-ch‘i", "Sheqi"],
       ["Tung-T‘una", "Dongtuna"],
-      ["Sha‘kou", "Shakou"],
-      ["Yink‘êng", "Yinkeng"],
       ["yünhsiang", "yunxiang"],
       ["yün-hsiang", "yunxiang"],
       ["Mêngchieh", "Mengjie"],
@@ -10825,14 +10809,12 @@ const BOOKS = {
       ["Mêngs", "Mengs"],
       ["hsüeh-i", "xueyi"],
       ["T‘uan", "Tuan"],
-      ["T‘aohua", "Taohua"],
       ["Yungch‘ang", "Yongchang"],
       ["Yüan-chung", "Yuanzhong"],
       ["Wênchao", "Wenzhao"],
       ["Ts‘an-chün", "Canjun"],
       ["T‘ai-shih", "Taishi"],
       ["Hêngmen", "Hengmen"],
-      ["Tzŭlung", "Zilong"],
       ["Fêngming", "Fengming"],
       ["Shihch‘êng", "Shicheng"],
       ["T‘ienshuichün", "Tianshuijun"],
@@ -10840,20 +10822,16 @@ const BOOKS = {
       ["Shêt‘ing", "Sheting"],
       ["Ch‘êlichi", "Cheliji"],
       ["Shêns", "Shens"],
-      ["Paitch‘êng", "Baicheng"],
       ["Kueich‘e", "Guiche"],
       ["Hsŭn", "Xun"],
       ["Shun-p‘ing", "Shunping"],
-      ["Ya-mên", "Yamen"],
       ["Ch‘ilien", "Qilian"],
       ["Ch‘angkuan", "Changguan"],
       ["T‘aipailing", "Taibailing"],
-      ["Ch‘ènts‘ang", "Chencang"],
       ["K‘o", "Ke"],
       ["Yungch‘êng", "Yongcheng"],
       ["Ch‘ên-ts‘ang", "Chencang"],
       ["Yüehshan", "Yueshan"],
-      ["Tzŭ-tan", "Zidan"],
       ["Ts‘inchüan", "Qinjuan"],
       ["Hung-yüan-i-ch‘i", "Hongyuanyiqi"],
       ["Shangk‘uei", "Shanggui", "上邽"],
@@ -10863,10 +10841,7 @@ const BOOKS = {
       ["Ch‘aomên", "Chaomen"],
       ["Ch‘aohuk‘ou", "Chaohukou"],
       ["San-t‘ai", "Santai"],
-      ["Chü-i", "Juyi"],
       ["Ch‘ashan", "Chashan"],
-      ["Ch‘ao-yang", "Chaoyang"],
-      ["T‘ai-chi", "Taiji"],
       ["Much‘iu", "Muqiu"],
       ["Yüehlang", "Yuelang"],
       ["Liaohok‘ou", "Liaohekou"],
@@ -10915,10 +10890,8 @@ const BOOKS = {
       ["T‘ai-Shih", "Taishi"],
       ["Yüan-Hsing", "Yuanxing"],
       ["kêng-tzu", "gengzu"],
-      ["Ch‘iu-ming", "Qiuming"],
       ["Ch‘uchung", "Chuzhong"],
       ["Hêngchiang", "Hengjiang"],
-      ["Fên", "Fen"],
       ["Ts‘en", "Cen"],
       ["Chienp‘ing", "Jianping"],
       ["Han Kao-Tsu", "Han Gaozu"],
@@ -10986,7 +10959,6 @@ const BOOKS = {
       ["Pahsi","Baxi"],
       ["Yatan","Yadan"],
       ["Mitang","Midang"],
-      ["Yenchow","Yanzhou"],
       ["Tsung","Zong"],
       ["Jung","Rong"],
       ["Hsin","Xin"],
@@ -11058,7 +11030,6 @@ const BOOKS = {
       ["chia","jia"],
       ["Hsien-ying","Xianying"],
       ["Chungti","Zhongdi"],
-      ["Yuchow","Youzhou"],
       ["Chingling","Jingling"],
       ["Kuangtsung","Guangzong"],
       ["Anhsi","Anxi"],
@@ -11068,12 +11039,10 @@ const BOOKS = {
       ["Kung-lu","Gonglu"],
       ["Suantsao","Suanzao"],
       ["Wukuan","Wuguan"],
-      ["Chingchow","Jingzhou"],
       ["Tunghai","Donghai"],
       ["Kuanchung","Guanzhong"],
       ["Kopei","Gebei"],
       ["Taliang","Daliang"],
-      ["Yangchow","Yangzhou"],
       ["Tiko","Dige"],
       ["Chinghsien","Jingxian"],
       ["Mangtang","Mangdang"],
@@ -11088,7 +11057,6 @@ const BOOKS = {
       ["Kuei","Gui"],
       ["Leiyanghsien","Leiyangxian"],
       ["Paishui","Baishui"],
-      ["Tsu","Zu"],
       ["Pachung","Bazhong"],
       ["Hsiapan","Xiaban"],
       ["Chiahsia","Jiaxia"],
@@ -11111,8 +11079,6 @@ const BOOKS = {
       ["Chung-ying","Zhongying"],
       ["Chuyang","Zhuyang"],
       ["Taichou","Daizhou"],
-      ["Taichow","Daizhou"],
-      ["Pieh-pu","Biebu"],
       ["Hochien","Hejian"],
       ["Meng-te","Mengde"],
       ["Chungmou","Zhongmou"],
@@ -11130,7 +11096,6 @@ const BOOKS = {
       ["Hanchiang","Hanjiang"],
       ["Fengi","Fengyi"],
       ["Chouchih","Zhouzhi"],
-      ["Chung-lang","Zhonglang"],
       ["Kuang-wu","Guangwu"],
       ["Haipin","Haibin"],
       ["Hsichou","Xizhou"],
@@ -11145,10 +11110,8 @@ const BOOKS = {
       ["Yehwang","Yewang"],
       ["Po-ning","Boning"],
       ["Yuan-lung","Yuanlong"],
-      ["Pai-hu","Baihu"],
       ["Chiahsing","Jiaxing"],
       ["Huichi","Huiji"],
-      ["Chung-hsiang","Zhongxiang"],
       ["Yuchi","Youji"],
       ["Tawan","Dawan"],
       ["Chiehshih","Jieshi"],
@@ -11158,11 +11121,8 @@ const BOOKS = {
       ["Tsuyi","Zuyi"],
       ["I-ching","Yijing"],
       ["Wangi","Wangyi"],
-      ["Wen-jo","Wenruo"],
-      ["Chin-wu","Jinwu"],
       ["Tsui","Zui"],
       ["Chung-ni","Zhongni"],
-      ["Tsang","Zang"],
       ["Yingwuchou","Yingwuzhou"],
       ["Chiang-han","Jianghan"],
       ["Hsiho","Xihe"],
@@ -11188,7 +11148,6 @@ const BOOKS = {
       ["I-tu","Yidu"],
       ["Chingshan","Jingshan"],
       ["Chinghsia","Jingxia"],
-      ["Hsing-pa","Xingba"],
       ["Huayungtao","Huayongdao"],
       ["Tao-jung","Daorong"],
       ["Yuhsien","Youxian"],
@@ -11202,19 +11161,15 @@ const BOOKS = {
       ["Chihchiang","Zhijiang"],
       ["Linghsiang","Lingxiang"],
       ["Wu-yen","Wuyan"],
-      ["Hsiangju","Xiangru"],
       ["Hochou","Hezhou"],
       ["Hsintu","Xindu"],
       ["Hsiapien","Xiabian"],
       ["Tung-hua","Donghua"],
-      ["Jih-ti","Ridi"],
       ["Kuan-nei","Guannei"],
       ["Tangshih","Dangshi"],
       ["Kueichin","Guijin"],
       ["Paochang","Baozhang"],
-      ["Taochieh","Daojie"],
       ["Tsohsien","Zuoxian"],
-      ["Ê","E"],
       ["Sangkan","Sanggan"],
       ["Saipei","Saibei"],
       ["Chingchao","Jingzhao"],
@@ -11225,7 +11180,6 @@ const BOOKS = {
       ["chien-shih","jianshi"],
       ["Ching-chou","Jingzhou"],
       ["Anhsiang","Anxiang"],
-      ["Chiu","Jiu"],
       ["Shihihsien","Shiyixian"],
       ["keng-wu","gengwu"],
       ["Langchou","Langzhou"],
@@ -11239,19 +11193,16 @@ const BOOKS = {
       ["Po-yen","Boyan"],
       ["Paiti","Baidi"],
       ["Chang-Wu","Zhangwu"],
-      ["Huang-ti","Huangdi"],
       ["Puchou","Buzhou"],
       ["Paochia","Baojia"],
       ["Chintai","Jindai"],
       ["Erhho","Erhe"],
       ["Hsierh","Xier"],
       ["hsiehyeh","xieye"],
-      ["Kannan","Gannan"],
       ["Liangtu","Liangdu"],
       ["Chia-kuei","Jiagui"],
       ["Hsini","Xinyi"],
       ["Wuku","Wugu"],
-      ["Piao-chi","Biaoji"],
       ["Po-shih","Boshi"],
       ["Wu-hsiang","Wuxiang"],
       ["ping-yen","bingyan"],
@@ -11268,7 +11219,6 @@ const BOOKS = {
       ["tun-chia","dunjia"],
       ["Changhsia","Zhangxia"],
       ["Wukung","Wugong"],
-      ["Wei-chih","Weizhi"],
       ["Nanku","Nangu"],
       ["Chung-wu","Zhongwu"],
       ["Yungan","Yongan"],
@@ -11279,9 +11229,7 @@ const BOOKS = {
       ["hsien","xian"],
       ["Yang-lieh","Yanglie"],
       ["Liaochui","Liaozhui"],
-      ["Jou","Rou"],
       ["Lu-chih","Luzhi"],
-      ["Lüeh","Lüe"],
       ["Shihying","Shiying"],
       ["Kaokueihsiang","Gaoguixiang"],
       ["Hsiangling","Xiangling"],
@@ -11342,7 +11290,6 @@ const BOOKS = {
       ["Kiangnan", "Jiangnan", "江南"],
       ["Kiukiang", "Jiujiang", "九江"],
       ["Soochow", "Suzhou"],
-      ["Hangchow", "Hangzhou"],
       ["Anking", "Anqing"],
       ["Tsinghai", "Qinghai"],
       ["Nanking", "Nanjing"],
@@ -11359,7 +11306,497 @@ const BOOKS = {
       ["Samoko", "Shamoke", "沙摩柯"],
       ["Kiangsu", "Jiangsu"],
       ["Kiangsi", "Jiangxi"],
-      ["Yen-Hsi", "Yanshi", "彥士"],
+      // 彥士 was declared against Yen-Hsi, which is not how the printing spells it — that is the Shu
+      // reign period 延熙, declared 240 rows above as Yanxi. `to` is built in declaration order, so the
+      // later row silently won and the shipped book dated two chapters to the "sixteenth year of
+      // Yanshi". Nothing could report it: ROMAN_HITS is keyed by the `from` string, so the two rows
+      // shared one counter and neither read as dead. Ts‘ao Mao's other name is set Yen-shih, once.
+      ["Yen-shih", "Yanshi", "彥士"],
+      // ---- batch B6b ----------------------------------------------------------------
+      // A second pass over this book, made from the same commit and without sight of the
+      // table above, turned out not to be nested with it: each covered names the other
+      // missed. These are its rows, after every one was checked against the printing
+      // rather than taken on trust — twenty-one were struck out, and what they were is in
+      // docs/book-text-plan.md's B6b entry. The bare unaspirated single syllables are the
+      // substance of it and are the class B6 excluded: a bare Chang, Kuan or Kuo is safe
+      // here because this printing distinguishes them from Ch‘ang, K‘uan and K‘uo, which
+      // it sets 14, 2 and 0 times against 1,467, 1,006 and 465 for the bare form. Where
+      // that ratio runs the other way the row was dropped: Yu against Yü is 107 to 1,224,
+      // and two of its occurrences are chapter titles about 關羽, Guan Yu.
+      ["Anlo", "Anle"],
+      ["Kashing", "Jiaxing"],
+      ["Ho ho", "Ho ho"],
+      ["Lo!", "Lo!"],
+      ["Ch‘ang Ch‘i", "Chang Qi"],
+      ["Ch‘ao-yang Tien", "Chaoyang Dian"],
+      ["Ch‘ên Ch‘ün", "Chen Qun"],
+      ["Ch‘ên Fan", "Chen Fan"],
+      ["Ch‘ên Hsiang", "Chen Xiang"],
+      ["Ch‘ên Hsiao-ch‘i", "Chen Xiaoqi"],
+      ["Ch‘ên Lu", "Chen Lu"],
+      ["Ch‘ên Ssŭ", "Chen Si"],
+      ["Ch‘ên Sun", "Chen Sun"],
+      ["Ch‘ên Yüan-lung", "Chen Yuanlong"],
+      ["Ch‘êng Tê-shu", "Cheng Deshu"],
+      ["Ch‘êng Wu", "Cheng Wu"],
+      ["Ch‘ing Chi", "Qing Ji"],
+      ["Ch‘ishan K‘ung-ming", "Qishan Kongming"],
+      ["Ch‘iu Chien", "Qiu Jian"],
+      ["Ch‘üan Chi", "Quan Ji"],
+      ["Ch‘üan Tuan", "Quan Duan"],
+      ["Ch‘ung Erh", "Chong Er"],
+      ["Chan", "Zhan"],
+      ["Chang", "Zhang"],
+      ["Chang Ch‘ao", "Zhang Chao"],
+      ["Chang Ch‘i", "Zhang Qi"],
+      ["Chang Ch‘iu", "Zhang Qiu"],
+      ["Chang Chieh", "Zhang Jie"],
+      ["Chang Chien", "Zhang Jian"],
+      ["Chang Ching", "Zhang Jing"],
+      ["Chang Chün", "Zhang Jun"],
+      ["Chang Hêng", "Zhang Heng"],
+      ["Chang Hsiang", "Zhang Xiang"],
+      ["Chang Ling", "Zhang Ling"],
+      ["Chang Miao", "Zhang Miao"],
+      ["Chang Ni", "Zhang Ni"],
+      ["Chang Su", "Zhang Su"],
+      ["Chang T‘ao", "Zhang Tao"],
+      ["Chang Tang", "Zhang Dang"],
+      ["Chang Yüeh", "Zhang Yue"],
+      ["Changs", "Zhangs"],
+      ["Changshan", "Zhangshan"],
+      ["Chao", "Zhao"],
+      ["Chao Jui", "Zhao Rui"],
+      ["Chao Ts‘ên", "Zhao Cen"],
+      ["Chao Tzŭlung", "Zhao Zilong"],
+      ["Chao Yung", "Zhao Yong"],
+      ["Chao-Lieh Huang-ti", "Zhaolie Huangdi"],
+      ["Chaoyao", "Xiaoyao", "逍遙津; the transcription's own [sic] tooltip on this word reads 'Hsiao-yao'"],
+      ["Chên Ch‘ên", "Zhen Chen"],
+      ["Chên-wei Chiang-chün", "Zhenwei Jiangjun"],
+      ["Chêng K‘ang-ch‘êng", "Zheng Kangcheng"],
+      ["Chêng Lun", "Zheng Lun"],
+      ["Chêng Tu", "Zheng Du"],
+      ["Chi", "Ji"],
+      ["Chi Miao", "Ji Miao"],
+      ["Chi Mu", "Ji Mu"],
+      ["Chi T‘ai", "Ji Tai"],
+      ["Chiang Huai", "Jiang Huai"],
+      ["Chiang Shang", "Jiang Shang"],
+      ["Chiang Yen", "Jiang Yan"],
+      ["Chiangchou", "Jiangzhou"],
+      ["Chiangling Wu Yen", "Jiangling Wu Yan"],
+      ["Chiangs", "Jiangs"],
+      ["Chiantung", "Jiandong"],
+      ["Chiao Ch‘u", "Jiao Chu"],
+      ["Chieh Yu", "Jie Yu", "接輿, the madman of Chu, whom the same sentence quotes out of the Lun-yü"],
+      ["Chih Chin-wu", "Zhi Jinwu"],
+      ["Chin", "Jin"],
+      ["Chin Jih-ti", "Jin Ridi"],
+      ["Chin Shang", "Jin Shang"],
+      ["Chin Wei", "Jin Wei"],
+      ["Chinchingchung", "Jinjingzhong"],
+      ["Chinchou", "Jinzhou"],
+      ["Chingchin", "Jingjin"],
+      ["Chins", "Jins"],
+      ["Chiu Fan", "Jiu Fan"],
+      ["Chou", "Zhou"],
+      ["Chou A-fu", "Zhou Afu"],
+      ["Chou Kung", "Zhou Gong"],
+      ["Chou Kung-chin", "Zhou Gongjin"],
+      ["Chou P‘o", "Zhou Po"],
+      ["Chous", "Zhous"],
+      ["Chu", "Zhu"],
+      ["Chuang", "Zhuang"],
+      ["Chuko Shang", "Zhuge Shang"],
+      ["Chuko Yüan", "Zhuge Yuan"],
+      ["Chukuan", "Zhuguan"],
+      ["Chung Chün", "Zhong Jun"],
+      ["Chung Huang", "Zhong Huang"],
+      ["Chung Yao", "Zhong Yao"],
+      ["Chung-lang Chiang", "Zhonglang Jiang"],
+      ["Chuo", "Zhuo"],
+      ["Fan Ch‘ung", "Fan Chong"],
+      ["Fan K‘ang", "Fan Kang"],
+      ["Fan P‘ang", "Fan Pang"],
+      ["Foukuan", "Fouguan"],
+      ["Fu Huang-hou", "Fu Huanghou"],
+      ["Fu T‘ung", "Fu Tong"],
+      ["Fu-ma", "Fuma"],
+      ["Fu-po Chang-chün", "Fubo Zhangjun"],
+      ["Fushih Jên", "Fushi Ren"],
+      ["Haihsia", "Haixia"],
+      ["Han Ch‘i", "Han Qi"],
+      ["Han Chên", "Han Zhen"],
+      ["Hanching", "Hanjing"],
+      ["Hangchou", "Hangzhou"],
+      ["Hanshuik‘ou", "Hanshuikou"],
+      ["Ho", "He"],
+      ["Ho Ch‘u-ping", "He Chubing"],
+      ["Ho Chih", "He Zhi"],
+      ["Ho Miao", "He Miao"],
+      ["Hochi", "Heji"],
+      ["Hou Chi", "Hou Ji"],
+      ["Hou Hsüan", "Hou Xuan"],
+      ["Hsi Shih", "Xi Shi"],
+      ["Hsi-tzu", "Xizu"],
+      ["Hsia Hsün", "Xia Xun"],
+      ["Hsiahou En", "Xiahou En"],
+      ["Hsiahou Ying", "Xiahou Ying"],
+      ["Hsian-pi", "Xianbi"],
+      ["Hsiang Chi", "Xiang Ji"],
+      ["Hsiangchou", "Xiangzhou"],
+      ["Hsiangjang", "Xiangrang"],
+      ["Hsiao Kuan", "Xiao Guan"],
+      ["Hsiaohuai", "Xiaohuai"],
+      ["Hsich‘êng Shui", "Xicheng Shui"],
+      ["Hsieh Hsiung", "Xie Xiong"],
+      ["Hsienyeh", "Xianye"],
+      ["Hsin Ming", "Xin Ming"],
+      ["Hsinfung", "Xinfong"],
+      ["Hsiwei P‘o", "Xiwei Po"],
+      ["Hsü Ch‘ang", "Xu Chang"],
+      ["Hsü Ch‘iu", "Xu Qiu"],
+      ["Hsü Kung-ming", "Xu Gongming"],
+      ["Hsü Ssŭ", "Xu Si"],
+      ["Hsü Yün", "Xu Yun"],
+      ["Hsüanp‘ing Mên", "Xuanping Men"],
+      ["Hsucheng", "Xuzheng"],
+      ["Hsüchou Ts‘ao Ts‘ao", "Xuzhou Cao Cao"],
+      ["Hsüeh Ch‘iao", "Xue Qiao"],
+      ["Hsüeh Lan", "Xue Lan"],
+      ["Hsün Chêng", "Xun Zheng"],
+      ["Hsün Chuan", "Xun Zhuan"],
+      ["Hsün Hsü", "Xun Xu"],
+      ["Hsün Wen-jo", "Xun Wenruo"],
+      ["Hu Ch‘ih-êrh", "Hu Chier"],
+      ["Hu Fên", "Hu Fen"],
+      ["Hu-wei Chiang-chün", "Huwei Jiangjun"],
+      ["Hua Ho", "Hua He"],
+      ["Hua Yung", "Hua Yong"],
+      ["Huan Kung", "Huan Gong"],
+      ["Huanchou", "Huanzhou"],
+      ["Huang Ch‘êng-yen", "Huang Chengyan"],
+      ["Huang Chang", "Huang Zhang"],
+      ["Huang-hou", "Huanghou"],
+      ["Huang-Wu", "Huangwu"],
+      ["Hung", "Hong"],
+      ["Jang Chu", "Rang Zhu"],
+      ["Jên Kung", "Ren Gong"],
+      ["Jên Tso", "Ren Zuo"],
+      ["Jungan", "Rongan"],
+      ["Jungpang", "Rongbang"],
+      ["Jungyang", "Rongyang"],
+      ["Juying", "Ruying"],
+      ["K‘ou Fêng", "Kou Feng"],
+      ["K‘uai T‘ung", "Kuai Tong"],
+      ["K‘ung Pohai", "Kong Bohai"],
+      ["K‘ung Wên-chü", "Kong Wenju"],
+      ["Kai", "Gai"],
+      ["Kan", "Gan"],
+      ["Kan Hsing-pa", "Gan Xingba"],
+      ["Kannan Shui", "Gannan Shui"],
+      ["Kao", "Gao"],
+      ["Kao Jou", "Gao Rou"],
+      ["Kao P‘ei", "Gao Pei"],
+      ["Kao Tsu", "Gao Zu"],
+      ["Kêng Shih", "Geng Shi"],
+      ["Kêng Yen", "Geng Yan"],
+      ["Ko Yung", "Ge Yong"],
+      ["Kou", "Gou"],
+      ["Ku", "Gu"],
+      ["Kuan", "Guan"],
+      ["Kuan-hsi", "Guanxi"],
+      ["Kuan-wai", "Guanwai"],
+      ["Kuang Ya-mên", "Guang Yamen"],
+      ["Kuang Yüan", "Guang Yuan"],
+      ["Kuanghan", "Guanghan"],
+      ["Kuangling", "Guangling"],
+      ["Kuanglu", "Guanglu"],
+      ["Kuans", "Guans"],
+      ["Kueichi", "Guiji"],
+      ["Kung Ch‘i", "Gong Qi"],
+      ["Kung-ming", "Gongming"],
+      ["Kungsun Kung", "Gongsun Gong"],
+      ["Kungsun Tu", "Gongsun Du"],
+      ["Kungsuns", "Gongsuns"],
+      ["Kuo", "Guo"],
+      ["Kuo Fêng-hsiao", "Guo Fengxiao"],
+      ["Lan-ching", "Lanjing"],
+      ["Langyeh", "Langye"],
+      ["Lanyeh", "Lanye"],
+      ["Lao Tzŭ", "Lao Zi"],
+      ["Lei Hsü", "Lei Xu"],
+      ["Li Chuan", "Li Zhuan"],
+      ["Li Erh", "Li Er"],
+      ["Li Hsien", "Li Xian"],
+      ["Li Kuei", "Li Gui"],
+      ["Li P‘êng", "Li Peng"],
+      ["Li Shê-ch‘i", "Li Sheqi"],
+      ["Li Ssŭ", "Li Si"],
+      ["Liang Fu-yin", "Liang Fuyin"],
+      ["Liang Hsiao", "Liang Xiao"],
+      ["Liao Yüan-chien", "Liao Yuanjian"],
+      ["Lin Hsiangju", "Lin Xiangru"],
+      ["Liu Ch‘êng", "Liu Cheng"],
+      ["Liu Chi-yü", "Liu Jiyu"],
+      ["Liu Chinchou", "Liu Jinzhou"],
+      ["Liu Ho", "Liu He"],
+      ["Liu Hsia Hui", "Liu Xia Hui"],
+      ["Liu Hsieh", "Liu Xie"],
+      ["Liu Hsiung", "Liu Xiong"],
+      ["Liu Lüeh", "Liu Lüe"],
+      ["Liu P‘an", "Liu Pan"],
+      ["Liu Pang", "Liu Bang"],
+      ["Liu Shêng", "Liu Sheng"],
+      ["Liu Shih", "Liu Shi"],
+      ["Liu Yeh", "Liu Ye"],
+      ["Liu Yüan", "Liu Yuan"],
+      ["Liulangpu", "Liulangbu"],
+      ["Lo", "Luo"],
+      ["Lou Tzŭ-po", "Lou Zibo"],
+      ["Lü Chan", "Lü Zhan"],
+      ["Lu Chia", "Lu Jia"],
+      ["Lu Ching", "Lu Jing"],
+      ["Lu Chün", "Lu Jun"],
+      ["Lü Po-shê", "Lü Boshe"],
+      ["Lü Tai", "Lü Dai"],
+      ["Lu Yü", "Lu Yu"],
+      ["Ma Chao", "Ma Zhao"],
+      ["Ma Shou-ch‘êng", "Ma Shoucheng"],
+      ["Ma Yu-ch‘ang", "Ma Youchang"],
+      ["Ma-an", "Maan"],
+      ["Mangyachang", "Mangyazhang"],
+      ["Mankuo", "Manguo"],
+      ["Mantang", "Mandang"],
+      ["Mao Chih", "Mao Zhi"],
+      ["Mêng Kuang", "Meng Guang"],
+      ["Mêng Ming", "Meng Ming"],
+      ["Mêng Pên", "Meng Ben"],
+      ["Mêng T‘ien", "Meng Tian"],
+      ["Mêng Tsung", "Meng Zong"],
+      ["Miaochung", "Miaozhong"],
+      ["Mien", "Mian"],
+      ["Mingkung", "Minggong"],
+      ["Mot‘ien Ling", "Motian Ling"],
+      ["Mu Yüan-chin", "Mu Yuanjin"],
+      ["Mu-fu", "Mufu"],
+      ["Nanchêng Wei", "Nanzheng Wei"],
+      ["Nankuan", "Nanguan"],
+      ["Nanping", "Nanbing"],
+      ["Nanyeh", "Nanye"],
+      ["O-tou", "Adou", "the milk-name 阿斗, 28 times in the edition's own Chinese"],
+      ["Omei", "Emei"],
+      ["Omi", "Emei", "the printing writes Mount 峨嵋 both Omei and Omi"],
+      ["Ou Hsing", "Ou Xing"],
+      ["P‘an Chü", "Pan Ju"],
+      ["P‘an Fêng", "Pan Feng"],
+      ["P‘ang Chüan", "Pang Juan"],
+      ["P‘ang Hsi", "Pang Xi"],
+      ["P‘êng Ho", "Peng He"],
+      ["P‘êng Jung-yen", "Peng Rongyan"],
+      ["P‘êng Po", "Peng Bo"],
+      ["P‘iao-chi Chiang-chün", "Piaoji Jiangjun"],
+      ["Pa", "Ba"],
+      ["Pachiu", "Bajiu"],
+      ["Pai Lo", "Bai Luo"],
+      ["Pana", "Bana"],
+      ["Pao", "Bao"],
+      ["Pao Chung", "Bao Zhong"],
+      ["Paokan", "Baogan"],
+      ["Pei", "Bei"],
+      ["Peitou", "Beidou"],
+      ["Pi", "Bi"],
+      ["Piao", "Biao"],
+      ["Piao Hsiu", "Biao Xiu"],
+      ["Piao-chi Ta Chiang-chün", "Biaoji Da Jiangjun"],
+      ["Pieh-pu Ssŭ-ma", "Biebu Sima"],
+      ["Pien Ch‘iao", "Bian Qiao"],
+      ["Pien Jang", "Bian Rang"],
+      ["Po Ch‘i", "Bo Qi"],
+      ["Po Chü-i", "Bo Juyi"],
+      ["Po Lo", "Bo Luo"],
+      ["Pohai", "Bohai"],
+      ["Pohai Yüan Shao", "Bohai Yuan Shao"],
+      ["Poyang", "Boyang"],
+      ["Pu", "Bu"],
+      ["Putung", "Budong"],
+      ["Puyeh", "Buye"],
+      ["Shan T‘ao", "Shan Tao"],
+      ["Shang Kuang", "Shang Guang"],
+      ["Shangtang", "Shangdang"],
+      ["Shanpichung", "Shanbizhong"],
+      ["Shanyu", "Chanyu", "單于, the Xiongnu title, 5 times in the edition's own Chinese"],
+      ["Shih Kuang-yüan", "Shi Guangyuan"],
+      ["Shih Pao", "Shi Bao"],
+      ["Shih Yü", "Shi Yu"],
+      ["Shu-ming", "Shuming"],
+      ["Shunyu Tao", "Chunyu Dao", "淳于導; the compound surname is Chunyu, as the row for it two above already says"],
+      ["Ssŭ-ma Ch‘ien", "Sima Qian"],
+      ["Ssŭma Chien", "Sima Jian"],
+      ["Ssŭma Chih", "Sima Zhi"],
+      ["Ssŭma Liang", "Sima Liang"],
+      ["Ssŭma Shui-ching", "Sima Shuijing"],
+      ["Ssŭma Sui", "Sima Sui"],
+      ["Su T‘ung-p‘o", "Su Tongpo"],
+      ["Su Yu", "Su You"],
+      ["Su Yüeh", "Su Yue"],
+      ["Sun Chi", "Sun Ji"],
+      ["Sun Jui", "Sun Rui"],
+      ["Sun K‘ai", "Sun Kai"],
+      ["Sun K‘uang", "Sun Kuang"],
+      ["Sun Têng", "Sun Deng"],
+      ["Sun Wên-t‘ai", "Sun Wentai"],
+      ["Sung", "Song"],
+      ["T‘ai Miao", "Tai Miao"],
+      ["T‘ai-chi Tien", "Taiji Dian"],
+      ["T‘aishih Ch‘êng", "Taishi Cheng"],
+      ["T‘aishih Hsiang", "Taishi Xiang"],
+      ["T‘an Fu", "Tan Fu"],
+      ["T‘an Hsiung", "Tan Xiong"],
+      ["T‘aohua Shui", "Taohua Shui"],
+      ["T‘ien Kung", "Tian Gong"],
+      ["T‘ing Wei", "Ting Wei"],
+      ["T‘u Lo", "Tu Luo"],
+      ["T‘ung Kuan", "Tong Guan"],
+      ["Ta", "Da"],
+      ["Ta Chin", "Da Jin"],
+      ["Ta Ssŭ-ma", "Da Sima"],
+      ["Tai", "Dai"],
+      ["Tai Chia", "Dai Jia"],
+      ["Tangk‘ou Chiang-chün", "Dangkou Jiangjun"],
+      ["Tanshi", "Danshi"],
+      ["Tao", "Dao"],
+      ["Têng T‘ung", "Deng Tong"],
+      ["Têng Yü", "Deng Yu"],
+      ["Ti Kung", "Di Gong"],
+      ["Tiensui", "Diansui"],
+      ["Ting", "Ding"],
+      ["Ting Li", "Ding Li"],
+      ["Tingchun", "Dingjun", "定軍山, 34 times in the edition's own Chinese; the printing drops the umlaut of Tingchün and the mechanical reading gives a place that does not exist"],
+      ["Ts‘ai Hsün", "Cai Xun"],
+      ["Ts‘ai Lin", "Cai Lin"],
+      ["Ts‘ai Yen", "Cai Yan"],
+      ["Ts‘ang Kung", "Cang Gong"],
+      ["Ts‘ao An-ming", "Cao Anming"],
+      ["Ts‘ao Ang", "Cao Ang"],
+      ["Ts‘ao Ch‘ên", "Cao Chen"],
+      ["Ts‘ao Chü", "Cao Ju"],
+      ["Ts‘ao Ê", "Cao E"],
+      ["Ts‘ao Hsiung", "Cao Xiong"],
+      ["Ts‘ao Hsü", "Cao Xu"],
+      ["Ts‘ao Huang", "Cao Huang"],
+      ["Ts‘ao Lin", "Cao Lin"],
+      ["Ts‘ao T‘êng", "Cao Teng"],
+      ["Ts‘ao Tê", "Cao De"],
+      ["Ts‘ao Ts‘an", "Cao Can"],
+      ["Ts‘ao Tzŭ-tan", "Cao Zidan"],
+      ["Ts‘ao Yü", "Cao Yu"],
+      ["Ts‘in Ch‘ing-t‘ung", "Cin Qingtong"],
+      ["Tsang Ts‘ang", "Zang Cang"],
+      ["Tsangko", "Zangge"],
+      ["Tsanko", "Zange"],
+      ["Tso Ch‘iu-ming", "Zuo Qiuming"],
+      ["Tso Kuan", "Zuo Guan"],
+      ["Tso Po-t‘ao", "Zuo Botao"],
+      ["Tsu Pi", "Zu Bi"],
+      ["Tsung Pao", "Zong Bao"],
+      ["Tu", "Du"],
+      ["Tu K‘ang", "Du Kang"],
+      ["Tu Mu", "Du Mu"],
+      ["Tu Wei", "Du Wei"],
+      ["Tu-ting", "Duding"],
+      ["Tu-yu", "Duyou"],
+      ["Tuan", "Duan"],
+      ["Tui", "Dui"],
+      ["Tulu", "Dulu"],
+      ["Tun", "Dun"],
+      ["Tung Ch‘ao", "Dong Chao"],
+      ["Tung Chün", "Dong Jun"],
+      ["Tung Ho", "Dong He"],
+      ["Tung Hsün", "Dong Xun"],
+      ["Tung Kuan", "Dong Guan"],
+      ["Tungchun", "Dongjun", "東郡, whose prefect the same sentence names; as above"],
+      ["Tungs", "Dongs"],
+      ["Wan Yü", "Wan Yu"],
+      ["Wan-sui", "Wansui"],
+      ["Wang Chên", "Wang Zhen"],
+      ["Wang Jung", "Wang Rong"],
+      ["Wang Lien", "Wang Lian"],
+      ["Wang T‘ao", "Wang Tao"],
+      ["Wang Tsê", "Wang Ze"],
+      ["Wang Yeh", "Wang Ye"],
+      ["Wang Yen", "Wang Yan"],
+      ["Wang Yu", "Wang You"],
+      ["Wanyeh", "Wanye"],
+      ["Wei Ch‘an", "Wei Chan"],
+      ["Wei Ching", "Wei Jing"],
+      ["Wei P‘ing", "Wei Ping"],
+      ["Wei Taochieh", "Wei Daojie"],
+      ["Wei Tzŭ", "Wei Zi"],
+      ["Wên Kung", "Wen Gong"],
+      ["Wu Ch‘ên", "Wu Chen"],
+      ["Wu Hsi", "Wu Xi"],
+      ["Wu K‘uang", "Wu Kuang"],
+      ["Wu Ts‘an", "Wu Can"],
+      ["Wu-yang", "Wuyang"],
+      ["Wuch‘iu Chien", "Wuqiu Jian"],
+      ["Wuchang", "Wuzhang"],
+      ["Wuhuan Ch‘u", "Wuhuan Chu"],
+      ["Wuping", "Wubing"],
+      ["Wutan", "Wudan"],
+      ["Yang Chio-ai", "Yang Jueai", "羊角哀, and 角 here is jue as it is in 張角"],
+      ["Yang Hsiung", "Yang Xiong"],
+      ["Yang Hung", "Yang Hong"],
+      ["Yang Tê-tsu", "Yang Dezu"],
+      ["Yang Tsung", "Yang Zong"],
+      ["Yang Yung", "Yang Yong"],
+      ["Yang-o", "Yange"],
+      ["Yang-wu", "Yangwu"],
+      ["Yangchu", "Yangzhu"],
+      ["Yangping", "Yangbing"],
+      ["Yao-miao", "Yaomiao"],
+      ["Yen Chih", "Yan Zhi"],
+      ["Yen Hui", "Yan Hui"],
+      ["Yen Ming", "Yan Ming"],
+      ["Yen Pai-hu", "Yan Baihu"],
+      ["Yen-Hsing", "Yanxing"],
+      ["Yenching", "Yanjing"],
+      ["Yenchou Ts‘ao Ts‘ao", "Yanzhou Cao Cao"],
+      ["Yens", "Yans"],
+      ["Yichou", "Yizhou"],
+      ["Yin Hsiang", "Yin Xiang"],
+      ["Yingchou", "Yingzhou"],
+      ["Yink‘êng Shan", "Yinkeng Shan"],
+      ["Yo", "Yue"],
+      ["Yo Fei", "Yue Fei"],
+      ["Yu Ch‘uan", "Yu Quan", "于詮; the printing drops both umlauts and B6 converted the surname as though it had not"],
+      ["Yü Chung-hsiang", "Yu Zhongxiang"],
+      ["Yü Mi", "Yu Mi"],
+      ["Yü Shê", "Yu She"],
+      ["Yü Sung", "Yu Song"],
+      ["Yu-kung", "Yugong", "庾公之斯, the archer of the story the same sentence tells"],
+      ["Yüan K‘ai", "Yuan Kai"],
+      ["Yüan Kung-lu", "Yuan Gonglu"],
+      ["Yüan Wei-chih", "Yuan Weizhi"],
+      ["Yuchang", "Yuzhang", "豫章, whose prefect Hua Xin was; the printing drops the umlaut of Yüchang"],
+      ["Yuchou", "Youzhou"],
+      ["Yutan", "Yadan", "雅丹, the Qiang minister, 12 times in the edition's own Chinese"],
+      // 張角's given name, which the shipped Chang Chio row above already reads as Jue. The second
+      // pass offered it as Jie, a different reading of 角; both bare occurrences are the same man,
+      // and one of them names his two brothers beside him, whom the table converts.
+      ["Chio", "Jue"],
+      // The five rows below read as dead until the style block above stopped hiding a chapter head
+      // from them: each is a name this printing sets WITHOUT its umlaut, and it does so only in the
+      // heads, which is the one place the correction chain could not reach.
+      ["Ting Yuan", "Ding Yuan"],
+      ["Kuan Yu", "Guan Yu"],
+      ["Chao Yun", "Zhao Yun"],
+      ["Chou Yu", "Zhou Yu"],
+      ["Kuan Yun-ch‘ang", "Guan Yunchang"],
+      // The other half a printed page turn splits. Its sibling, Chang Ch‘ao, was already declared
+      // above and already firing; only this one was missing.
+      ["Ch‘ang I", "Chang Yi"],
     ],
 
     /* ---------- THE ORIGINAL ----------
@@ -15274,6 +15711,18 @@ function unwrapNameMarkup(h) {
     BLACK_HITS.anchor++;
     return inner;
   });
+  /* A TemplateStyles BLOCK SPLITS A NAME AS SURELY AS A PAGE MARKER DOES (Aug 2026, batch B6b).
+     MediaWiki emits the tooltip template's CSS as an inline <style> element immediately before the
+     first tooltip on the page — and this book puts a tooltip inside a CHAPTER HEAD, round the very
+     word a row is written for. Unwrapping the tooltip leaves the style block standing between the
+     two halves, `Kuan <style…>…</style>Yun-ch‘ang`, and every pass below treats markup as opaque, so
+     the row for the whole name cannot fire and the half that can is rewritten on its own: the bar
+     read "Guan Yun-ch‘ang" over a chapter whose text says Guan Yunchang, and chapter 86's head gave
+     Cao Bei for 曹丕, whom the same page's own [sic] marks as a slip for P‘ei.
+
+     The block is REMOVED WHOLE rather than unwrapped — its content is CSS, not prose, and every
+     later pass drops it anyway — so not one character of prose changes, only what a row can see. */
+  h = h.replace(/<style\b[^>]*>[\s\S]*?<\/style>/g, () => { BLACK_HITS.style = (BLACK_HITS.style || 0) + 1; return ""; });
   BLACK_HITS.left += (h.match(/<span class="wst-tooltip/g) || []).length;
   return h;
 }
@@ -15356,7 +15805,14 @@ function applyFixes(h) {
    · AND EVERY ENTRY MUST FIRE, counted and reported exactly as a fix is. A name the transcription has
      since reworded around leaves the book claiming a conversion it no longer makes. */
 const ROMAN_HITS = Object.create(null);
-const ROMAN_JOIN = { moved: 0, dropcap: 0 };
+const ROMAN_JOIN = { moved: 0, dropcap: 0, split: 0 };
+/* A SPACE INSIDE A ROW IS ANY RUN OF WHITESPACE **OR OF THE ENTITIES THAT ENCODE ONE** (Aug 2026,
+   batch B6b). Wikisource sets the space after a page turn as `&#32;` rather than as a space
+   character, so a row written `Lü Pu` cannot see it however the marker is moved out of the way; both
+   the pattern a row compiles to and the key its hit is looked up by go through this one class, or a
+   row would match text it could not then find a target for. */
+const ROMAN_SP = "(?:\\s|&#0*32;|&#[xX]0*20;|&nbsp;)+";
+const ROMAN_SP_RX = /(?:\s|&#0*32;|&#[xX]0*20;|&nbsp;)+/g;
 let _romanRx = null, _romanFor = null;
 function applyRoman(h) {
   if (!BOOK || !BOOK.roman || !BOOK.roman.length) return h;
@@ -15373,6 +15829,32 @@ function applyRoman(h) {
      was written: three markers fall inside a word and exactly one of them splits a name. */
   h = h.replace(/([A-Za-z\u00C0-\u024F\u0417\u0437])(<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>)([A-Za-z\u00C0-\u024F\u0417\u0437]+)/g,
     (m, before, mark, after) => { ROMAN_JOIN.moved++; return before + after + mark; });
+  /* …AND THE PAGE TURN MAY FALL BETWEEN THE TWO HALVES OF A NAME RATHER THAN INSIDE A WORD, where
+     what separates them is an ENTITY and not a space (Aug 2026, batch B6b, the Three Kingdoms).
+     Chapter 9 reads `Lü&#32;<span…pagenum…></span></span></span>Pu` and chapter 48 `Chou&#32;…Yü`,
+     so the shipped book said *Lü Pu* and *Chou Yu* where it should say Lü Bu and Zhou Yu. The rule
+     above cannot reach either: it asks for a LETTER immediately before the span, and what stands
+     there is `&#32;` — the entity, not a space character.
+
+     THE JOIN IS BUILT FROM THE ROWS RATHER THAN FROM THE MARKER, and that is what keeps it minimal.
+     The marker is moved only where moving it makes a DECLARED two-word row match, so a page turn
+     falling at an ordinary word break is left exactly where the transcription put it, and it fires in
+     six places in the whole novel — the two above, whose halves convert to something visibly wrong,
+     and Huang Chung, Liang K‘uan, Ssŭma Wang and Têng Ai, whose halves each convert correctly on
+     their own and therefore looked like nothing at all. Written the other way round — any
+     letter, any entity, any marker — it would relocate a leaf boundary at 1,700 ordinary word breaks
+     to convert two names, which is a great deal of movement for a pass that is supposed to change
+     nothing but what a row can see. */
+  if (BOOK.roman.some(([f]) => / /.test(f))) {
+    const joinable = new Set(BOOK.roman.map(([f]) => f).filter((f) => / /.test(f)));
+    h = h.replace(
+      /([A-Za-z\u00C0-\u024F][A-Za-z\u00C0-\u024F\u2018'\u2019]*)((?:&#\d+;|&#[xX][0-9a-fA-F]+;|&[a-z]+;)+)(<span><span class="pagenum[\s\S]*?<\/span><\/span><\/span>)([A-Za-z\u00C0-\u024F][A-Za-z\u00C0-\u024F\u2018'\u2019]*)/g,
+      (m, head, ent, mark, tail) => {
+        if (!joinable.has(head + " " + tail)) return m;
+        ROMAN_JOIN.split++;
+        return head + ent + tail + mark;
+      });
+  }
   /* A DROP CAPITAL SPLITS A WORD'S FIRST LETTER FROM THE REST OF IT, AND NOTHING REPORTS THE MISS
      (Aug 2026, the Three Kingdoms). Where the printing opens a chapter on a drop capital, this
      transcription sets that one letter in a span of its own — `<span class="wst-largeinitial">T</span>s'ao`
@@ -15414,7 +15896,7 @@ function applyRoman(h) {
     const lead = BOOK.romanApos ? "(?<![" + edge + "])"
       : "(?<![A-Za-z\u00C0-\u024F-])(?<![A-Za-z\u00C0-\u024F][\u2018'\u2019])";
     _romanRx = new RegExp(
-      lead + "(" + from.map((f) => esc(f).replace(/ /g, "\\s+")).join("|") +
+      lead + "(" + from.map((f) => esc(f).replace(/ /g, ROMAN_SP)).join("|") +
       ")(?![" + (BOOK.romanApos ? edge : "A-Za-z\u00C0-\u024F\u2018-") + "])", "g");
     _romanFor = BOOK;
     for (const [f] of BOOK.roman) if (!(f in ROMAN_HITS)) ROMAN_HITS[f] = 0;
@@ -15451,7 +15933,7 @@ function applyRoman(h) {
   return h.replace(split, (m, tag, text) => {
     if (tag) return tag;
     return text.replace(_romanRx, (hit) => {
-      const key = hit.replace(/\s+/g, " ");
+      const key = hit.replace(ROMAN_SP_RX, " ");
       ROMAN_HITS[key] = (ROMAN_HITS[key] || 0) + 1;
       return to[key];
     });
@@ -18963,6 +19445,7 @@ function originalChapters(h, warn) {
    No section pass. A book reaching this function pairs on its CHAPTER — see the note on `original` in
    The Prince's entry — so the chapter is returned as one block, which is what bookRows then sets
    beside the whole of the English chapter. */
+let ORIG_TIPS = 0;
 function originalChapter(h, O, warn) {
   let b = h.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<!--[\s\S]*?-->/g, "");
   /* A PAGE TYPED ONTO THE WIKI RATHER THAN TRANSCLUDED FROM A SCAN has no `prp-pages-output` wrapper
@@ -19063,6 +19546,25 @@ function originalChapter(h, O, warn) {
     if (!m) break;
     const end = blockEnd(b, m.index, "span");
     if (end < 0) break;
+    b = b.slice(0, m.index) + b.slice(end);
+  }
+  /* A TEXTUAL VARIANT SET AS A TOOLTIP IS AN EDITOR'S NOTE, NOT THE NOVEL (Aug 2026, batch B6b).
+     Chinese Wikisource marks a variant reading the way the English side marks a printer's slip —
+     `<span class="variant-text">璟<span class="variant-tooltip">一作「景」</span></span>` — and the tag
+     strip flattens the tooltip into the running prose, so the sentence reads 吳璟一作「景」不和 with an
+     editorial gloss glued into the middle of it. The character the page PRINTS is kept and the note
+     goes, which is exactly what `unwrapNameMarkup` does with `wst-tooltip` on the translation side.
+
+     It arrived between the August import and this one, on a page nobody was editing, and it is the
+     reason a re-import is diffed rather than trusted: nothing threw, the chapter was four characters
+     LONGER, and every count read as healthy. The Book of Documents' entry records the same shape on
+     the same wiki as a trap for a facing original it never got; this is the first book to meet it. */
+  for (let k = 0; k < 400; k++) {
+    const m = /<span class="variant-tooltip\b[^>]*>/.exec(b);
+    if (!m) break;
+    const end = blockEnd(b, m.index, "span");
+    if (end < 0) break;
+    ORIG_TIPS++;
     b = b.slice(0, m.index) + b.slice(end);
   }
   b = b.replace(/<link[^>]*\/?>/g, "").replace(/<meta[^>]*\/?>/g, "");
@@ -23068,8 +23570,19 @@ function writeEnglish(chapters, warnings) {
      contents page or from the chapter's own head rather than through `cleanBody`, so the apply chain
      never reaches it, and it is set at eighteen different pushes; this is the one place they all pass
      through. Gated on the book DECLARING a `roman` table, so it cannot reach a book without one, and
-     inert on the Art of War, whose chapter titles are English ("Laying Plans"). */
-  if (BOOK.roman) chapters.forEach((c) => { c.t = applyRoman(c.t); });
+     inert on the Art of War, whose chapter titles are English ("Laying Plans").
+
+     …BUT NOT WHERE THE TITLE WAS READ OFF TEXT THE CHAIN HAS ALREADY CORRECTED, which is what
+     `titlesCorrected` declares (Aug 2026, batch B6b, the Three Kingdoms). That book has no contents
+     page in its config: `sanKuoHead` takes each title off the chapter's own printed head, out of the
+     `h` that `correctRaw` has already been over — so running the pass here is a SECOND application of
+     a table designed to be applied once, and the collision rule then bites. A row's correct output
+     can be another row's input (Wade-Giles `P‘i` is pinyin `Pi` and Wade-Giles `Pi` is pinyin `Bi`),
+     so chapter 33's "Cao Pi" became "Cao Bi" and chapter 59's "Xu Chu" and "Ma Chao" became "Xu Zhu"
+     and "Ma Zhao" — four men renamed in the chapter bar, where the body of the same chapter reads
+     them correctly. It was harmless until B6b: the
+     single-syllable unaspirated rows are what turn a second pass from a no-op into a rename. */
+  if (BOOK.roman && !BOOK.titlesCorrected) chapters.forEach((c) => { c.t = applyRoman(c.t); });
 
   const outDir = path.join(ROOT, "books");
   fs.mkdirSync(outDir, { recursive: true });
@@ -23142,7 +23655,8 @@ function writeEnglish(chapters, warnings) {
     console.log("  unwrapped " + (BLACK_HITS.wrapped + BLACK_HITS.bare) +
       " blackletter letter(s) (" + BLACK_HITS.wrapped + " wrapped, " + BLACK_HITS.bare +
       " bare), " + BLACK_HITS.tip + " tooltip span(s), " + BLACK_HITS.anchor +
-      " link(s) and " + BLACK_HITS.dedupe + " style-dedupe link(s)");
+      " link(s), " + BLACK_HITS.dedupe + " style-dedupe link(s) and " +
+      (BLACK_HITS.style || 0) + " TemplateStyles block(s)");
     // Only a book that DECLARES blackletter can be warned about not finding any.
     // `nameMarkup` is the general “peel markup that splits a name in two” flag and has
     // three jobs; Legge’s Sacred Books volumes are the only books here with an en-Latf
@@ -23167,6 +23681,8 @@ function writeEnglish(chapters, warnings) {
       console.log("  moved " + ROMAN_JOIN.moved + " page marker(s) out of the middle of a word so the rows could see it");
     if (ROMAN_JOIN.dropcap)
       console.log("  unwrapped " + ROMAN_JOIN.dropcap + " drop capital(s) so the rows could see the word they open");
+    if (ROMAN_JOIN.split)
+      console.log("  rejoined " + ROMAN_JOIN.split + " name(s) a printed page turn splits in two");
   }
   if (warnings.length) {
     console.log("\n  " + warnings.length + " warning(s):");
@@ -23949,6 +24465,8 @@ function writeOriginal(byNum, warnings) {
      original, which is the right behaviour and also a completely silent one — so the gap is reported
      here rather than left to be discovered by a reader turning the column on and finding nothing. */
   if (missing.length) console.log("  no original for " + missing.length + " chapter(s): " + missing.join(", "));
+  if (ORIG_TIPS)
+    console.log("  dropped " + ORIG_TIPS + " editorial variant tooltip(s) from the original's prose");
   if (warnings.length) {
     console.log("\n  " + warnings.length + " warning(s):");
     warnings.forEach((w) => console.log("    " + w));

@@ -1020,13 +1020,18 @@ function aeneidChecks() {
     const libTabs = d.tabs.filter((t) => /^library$/i.test(t.l));
     check("exactly one tab is called Library, and it is the books one",
       libTabs.length === 1 && libTabs[0].r === "library", JSON.stringify(d.tabs));
-    /* …and there is no #decks TAB at all any more (Aug 2026, on request): Collections left the phone's bar
-       first and the desktop's a fortnight later, and is reached from the "Collections" button under the daily
-       review. So the assertion the rename needs is the pair — no tab called Collections, and none called
-       Library except the books one, which is what "two pages called Library" was ever about. The ROUTE is
-       asserted above, and separately: every #decks link ever shared still has to resolve. */
-    check("...and no tab claims the collections at all — the home page's lip is the way in",
-      !d.tabs.some((t) => t.r === "decks"), JSON.stringify(d.tabs));
+    /* …and the DESKTOP's Collections tab sits between Home and Library (Sep 2026, on request). This
+       assertion used to read the other way round — that no tab claimed the collections at all — which
+       was true for the fortnight between Collections leaving both bars and coming back to the top one.
+       What the rename actually needs is the pair the next two lines make: a tab pointing at `#decks`
+       that is NOT called Library, and exactly one called Library which is the books page, that being
+       what "two pages called Library" was ever about. The phone's bar is asserted separately in
+       test-layout.js, where the five-cell bar and the page swipe are checked against each other. */
+    const decksTab = d.tabs.find((t) => t.r === "decks");
+    check("...the top bar's Collections tab points at #decks and sits between Home and Library",
+      !!decksTab && /^Collections$/i.test(decksTab.l) &&
+      d.tabs.findIndex((t) => t.r === "home") < d.tabs.indexOf(decksTab) &&
+      d.tabs.indexOf(decksTab) < d.tabs.findIndex((t) => t.r === "library"), JSON.stringify(d.tabs));
     await page.close();
   }
 

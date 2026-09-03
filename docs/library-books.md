@@ -286,7 +286,7 @@ book added later will meet the same traps.
   line numbers are dropped**, one every fifth line of every metre: James translates the verse into
   English verse rather than line for line, so a number there would point at a place the facing page
   cannot find — the Canterbury Tales' finding on a second book. Said on the book's own first page),
-  `three-kingdoms` (~3.15 MB, all 120 chapters, **562,900 words**, 369 verse blocks, 16 notes — C. H.
+  `three-kingdoms` (~3.03 MB, all 120 chapters, **562,900 words**, 369 verse blocks, 16 notes — C. H.
   Brewitt-Taylor's English of 1925, and **the book whose chapter titles are on the chapter pages and
   nowhere else worth taking them from.** Both volumes print a full table of contents and both are
   transcribed complete, so `indexPage` is the obvious move; compared against the body chapter by
@@ -1278,7 +1278,7 @@ book added later will meet the same traps.
   Monk's Tale whose margin carries one, which is why the margin is stripped per line before the blocks
   are judged. Skeat's apparatus, his marginal summaries and the Tale of Gamelyn — which he prints as an
   appendix and says is not Chaucer's — are not reproduced),
-  `three-kingdoms.zh.js` (~1.78 MB, all 120 chapters, **483,000 hanzi** — the novel in the recension of
+  `three-kingdoms.zh.js` (~1.74 MB, all 120 chapters, **483,000 hanzi** — the novel in the recension of
   Mao Lun and Mao Zonggang as transcribed at Chinese Wikisource, and **the original here whose
   RECENSION IS STATED BY THE TRANSCRIPTION ITSELF, which is what made the pairing a check rather than
   a search.** This novel exists in two forms that divide the story differently — the 1522 printing in

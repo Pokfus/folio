@@ -259,7 +259,7 @@ re-run and diffed byte for byte.
 | **B5b** ✅ | `journey-to-the-west` | **83 names in 756 places**, verified against the Chinese column the plan said this book did not have; a third OCR confusion (w read as av, 63 places); the tag-crossing bug in `applyRoman` that was hiding 37% of the novel from every row |
 | **B6** ✅ | `three-kingdoms` | **1,727 names in 23,369 places**, verified twice over against the parallel Chinese column; the batch absorbed B7–B8, a shared surname making 40-chapter batching incoherent; five names the printing spells against its own Chinese, and one it converts to a name the book has not got; 349 aspiration marks normalised; about forty spellings left as printed and said so on the book's own page |
 | **E1** ✅ | `journey-to-the-west` | the tail B5 deferred: **261 further rows, 319 declared in all**, every remaining junk token read against its own sentence; the widened character class that found 27 more; 91 marks left and named on the book's page |
-| **B6b** | `three-kingdoms` | two names still in Wade-Giles because a printed page turn splits them, and two whose halves need two rows each; the residue sweep's own false-positive rate measured; **and the 527 candidate rows a second independent pass turned up, held in `.claude/three-kingdoms-candidates.js`** — see the B6b note in the batch log |
+| **B6b** ✅ | `three-kingdoms` | the second pass's 527 candidates, **462 of 483 romanisations shipped and 21 struck out** after each was checked against the printing rather than taken on trust; the table goes **1,727 → 2,100 names in 24,741 places**; the page-turn join, which found **six** split names and not two; the TemplateStyles block that was hiding a chapter head from every row; **sixteen chapter titles corrected**, among them Cao Pi, Sun Quan, Xiaoyao Ford and Guan Yunchang; and an editorial variant tooltip glued into the Chinese of this book and of Journey to the West |
 | **E2** ✅ | `marco-polo` | the error check; **no words changed, and that is the finding** — for a scholarly edition the aggregate test is weak and the independent scan is the poorer witness; the `✛` revision mark identified and explained on the About page |
 | **E3** ✅ | `rigveda` | **52 slips**, every one anchored in the Internet Archive's scan of the same 1896 second edition before it became a row; the `layout: "sukta"` branch wired into `correctRaw`, without which the table was inert |
 | **E4–En** | the rest of the error half | the slip and variant candidates, book by book, heaviest first — canterbury-tales (18), summa-theologica (15), virgil-aeneid (14); a book with no printed witness reachable contributes findings rather than fixes |
@@ -350,44 +350,98 @@ and diffed byte for byte against the shipped file.
 
 ---
 
-### B6b — Romance of the Three Kingdoms, the residue measured (specified, not yet shipped)
+### B6b — Romance of the Three Kingdoms, shipped 2026-09-03
 
-**Swept over the shipped English, B6's table leaves 21 Wade-Giles-looking residues, of which 17 are not
-residues at all.** That ratio is the entry's point: **a residue sweep is evidence and never a verdict**,
-for a reason peculiar to this romanisation.
+**462 OF 483 CANDIDATE ROMANISATIONS SHIPPED AND 21 STRUCK OUT, and the 21 are the entry's point.**
+The two notes this replaces recorded that a second independent pass over this book had built a table
+neither nested with nor worse than B6's, and held its 527 extra rows in
+`.claude/three-kingdoms-candidates.js` against the day somebody merged them. Merging them is this
+batch, and the file is deleted with it — a file headed NOT SHIPPED that has been shipped is a lie
+waiting to be read, and what it held is now in the importer with the reasons beside each row. What the earlier notes did not say — because it could not be known without doing the work — is
+that **a table built from a second pass is research and not a result**, and that the rows most worth
+having are the rows most likely to be wrong.
 
-**A ROW'S CORRECT OUTPUT CAN EQUAL ANOTHER ROW'S INPUT, AND THAT IS A COLLISION RATHER THAN A CHAIN.**
-Wade-Giles `P‘` is pinyin `p` and Wade-Giles `P` is pinyin `b`, so `Liu P‘i → Liu Pi` and `Liu Pi → Liu
-Bi` are BOTH correct, about two different men. The sweep sees the output of the first and reads it as an
-unconverted input to the second. Four such pairs account for the 17: `Liu P‘i`/`Liu Pi`, `Liu Yü`/`Liu
-Yu`, `Huang K‘ai`/`Huang Kai`, `Nanch‘ang`/`Nanchang`. **The obvious fix is therefore actively wrong** —
-running `applyRoman` to a fixed point, or twice, would turn a correct `Liu Pi` into `Liu Bi` and rename
-the man. `applyRoman` is single-pass by design and must stay so.
+**THE CHECK THAT MADE IT SAFE IS A DETERMINISTIC WADE-GILES → PINYIN SYLLABLE CONVERTER, CALIBRATED
+AGAINST B6'S OWN 1,727 ROWS.** The syllable mapping is fixed — `Ts‘ao` is `cao` whatever character it
+spells — so a converter can say whether a row asserts only the mapping or asserts something beyond
+it. Run over the shipped table it corroborates 1,618 rows outright, leaves 98 that are
+character-carried corrections and 11 it cannot read, which is close enough to B6's own account of
+itself to trust. Run over the 483 candidates it corroborates 458. **The 25 it does not are where the
+errors were**, and reading them is what caught `Chio → Jie` (張角 is Zhang **Jue**, as the shipped
+`Chang Chio` row already says, and the row ships with that target instead) and `Chuko Ch‘üo → Zhuge Que` (the shipped table carries `Ch‘üo → Ke`,
+and 諸葛恪 is Zhuge Ke — a longer row would have silently renamed him in seven places).
 
-**THE FOUR REAL MISSES ARE IN TWO CLASSES AND BOTH ARE ABOUT MARKUP.** `applyRoman` treats markup as
-opaque, which is what keeps a row from matching across a tag — and here the tag is a page break:
+**BUT THE CONVERTER CANNOT SEE THE ERROR THAT MATTERS MOST, and that has to be said plainly.** It
+checks which SYLLABLE a spelling is; it cannot check which CHARACTER. Nine rows were mechanically
+perfect and factually wrong, every one of them found by reading the rebuild's own diff against the
+edition's Chinese: `Yushui → Youshui` (淯水 is Yushui), `Anping → Anbing` (安平), `Tingchun → Dingzhun`
+(定軍山), `Tungchun → Dongzhun` (東郡), `Yuchang → Youzhang` (豫章), `Yutan → Youdan` (雅丹),
+`Shanyu → Shanyou` (單于, the Xiongnu **Chanyu**), `Yu-kung → Yougong` (庾公之斯) and
+`Shunyu Tao → Shunyou Dao` (淳于導, contradicting the table's own `Shunyu → Chunyu` two rows above).
+**Diff the rebuilt book and read the tail of the change list**; the common forms are safe by weight of
+numbers and the singletons are where a wrong name hides.
 
-- **A PRINTED PAGE TURN SPLITS A NAME (2).** Chapter 9 reads `Lü&#32;<span…pagenum…></span></span></span>Pu`
-  and chapter 48 `Chou&#32;<span…pagenum…></span></span></span>Yü`, so the shipped book says *Lü Pu* and
-  *Chou Yu* where it should say Lü Bu and Zhou Yu. The in-word rule already written for this shape
-  requires a LETTER immediately before the span, and what stands there is `&#32;` — the entity, not a
-  space character — so it cannot fire. The join has to be built from the ROWS rather than from the
-  marker, matching whatever separator the entity encodes.
-- **A NAME WHOSE TWO HALVES NEED TWO ROWS (2).** Chapter 5's raw `Chang Chʻao` converts to `Chang Chao`
-  and chapter 3's `Ch‘ang I` to `Chang I`, where the pinyin is Zhang Chao and Chang Yi. Both surnames
-  are single-syllable, and the table excludes single syllables by its own policy — a bare `Chang` is
-  three different surnames and converting it blind would rename people. They want their own two-syllable
-  rows.
+**THE BARE UNASPIRATED SINGLE SYLLABLE IS THE CLASS B6 EXCLUDED, AND IT IS 1,330 OF THE 1,638 WORDS
+THIS BATCH CHANGES.** B6's policy was that "a bare `Chang` is three different surnames"; the real test
+is narrower and is measurable — **does this printing distinguish the bare form from its marked
+sibling, and in which direction?** Counted over the whole novel: `Chang` 1,467 against `Ch‘ang` 14,
+`Kuan` 1,006 against `K‘uan` 2, `Kuo` 465 against no `K‘uo` at all — so the bare form is real and the
+row is safe. Where the ratio runs the other way the row is a dropped mark wearing a name: `Chun` 3
+against `Chün` 36 (諸葛均 Zhuge Jun), `Tang` 42 against `T‘ang` 14 but all three of its uncovered
+occurrences are 唐, and **`Yu` 107 against `Yü` 1,224 — two of them chapter titles about 關羽, Guan
+Yu**. Eight bare rows were struck on that measurement, `Hsui → Xui` with them, `xui` being no pinyin
+syllable at all.
 
-**Shipping it is a full rebuild rather than an edit.** `applyRoman` is shared, so a change to the join
-needs `--force` over all 120 chapters of this book plus byte-for-byte inertness on all six sibling books
-that declare a correction table — which is why it is a batch of its own rather than a hotfix to B6.
+**A ROW THAT WAS ONLY EVER CORRECT BY ACCIDENT: `writeEnglish` WAS RUNNING THE ROMANISATION TWICE.**
+That function applies `applyRoman` to every chapter title, because a title comes from a contents page
+and the chain never reaches it — but this book has no contents page in its config and `sanKuoHead`
+reads each title off the chapter's own printed head, out of text `correctRaw` has already been over.
+So the pass was a SECOND application of a table designed to be applied once, and the collision rule
+then bites: `Ts‘ao P‘ei → Cao Pi` first, `Pei → Bei` second, and the bar reads *Cao Bei*. It was
+harmless until this batch, because the bare unaspirated rows are what turn a second pass from a no-op
+into a rename. `titlesCorrected: true` declares the case per book.
 
-**AND THE MEASUREMENT COULD ONLY BE TAKEN ON A FORCED RUN.** The wiki per-chapter cache holds
-POST-correction prose, so a table re-verified from a cached run reports its own previous output as
-already-converted: the same sweep said **229 of 242 rows dead on a cached run and 9 on `--force`**, and
-9 was the true figure. Whole-file branches (TEI, plain text, one-page HTML) cache the raw source and do
-not have this. **Re-verify a `roman` or `fixes` table only on `--force`.**
+**AND THE FIRST PASS COULD NOT REACH THE TITLES EITHER, BECAUSE A STYLESHEET STOOD IN THE MIDDLE OF
+ONE.** MediaWiki emits the tooltip template's CSS as an inline `<style>` element immediately before
+the first tooltip on the page, and this book puts a tooltip inside a chapter head, round the very word
+a row is written for: `Kuan <style…>…</style>Yun-ch‘ang`. Every pass treats markup as opaque, so the
+row for the whole name could not fire and the half that could was rewritten alone. **This is the third
+costume the same fault has worn** — a page marker inside a word (the Book of Rites), a drop capital
+(B6), and now a stylesheet — and the answer is the same one each time: remove what carries no prose,
+so a row can see the word, and change not one character of what ships. 859 blocks per run, and the
+five sibling books are byte-identical with it in place.
+
+**SIX PAGE-TURN SPLITS, NOT TWO.** The earlier note found `Lü Pu` and `Chou Yü`, whose halves convert
+to something visibly wrong; the join finds `Huang Chung`, `Liang K‘uan`, `Ssŭma Wang` and `Têng Ai`
+too, whose halves each convert correctly on their own and therefore looked like nothing. **The join is
+built from the ROWS rather than from the marker** — the marker moves only where moving it makes a
+declared two-word row match — because the general form would relocate a leaf boundary at 1,700
+ordinary word breaks to convert two names. The separator is `&#32;` rather than a space, so the class
+a row's space compiles to had to learn the entity as well.
+
+**TWO DEFECTS IN B6'S OWN TABLE THAT NOTHING COULD REPORT.** `Yen-Hsi` was declared twice with
+different targets — `Yanxi` for the Shu reign period 延熙 and `Yanshi` for 彥士 — and `to` is built in
+declaration order, so the later row won and the shipped book dated two chapters to the "sixteenth year
+of Yanshi". **`ROMAN_HITS` is keyed by the `from` string, so the two rows shared one counter and
+neither read as dead.** 彥士 is set `Yen-shih` by the printing, once; the row now says so. And the
+surname 于 was converted three ways at once: `Yü Chin → Yu Jin` right, `Yu Chin → You Jin` wrong,
+`Yu Ch‘uan → You Chuan` wrong — 于禁 appears 90 times in this edition's own Chinese and 于詮 five.
+
+**THE PRUNE IS 88 SHIPPED ROWS, AND IT WAS PROVED BYTE-NEUTRAL BY REBUILDING WITH THEM BACK IN.**
+Twenty-four were superseded by a new `fixes` row that repairs their input before the romanisation
+runs; sixty were shadowed by a longer candidate row; four went dead only after the stylesheet fix let
+longer rows reach a chapter head. Every figure above is the importer's own: **2,100 of 2,100 declared
+names fire, in 24,741 places, with 38 fixes and one glyph, and no warnings.**
+
+**AND THE RE-IMPORT FOUND SOMETHING NOBODY WAS LOOKING FOR.** Chinese Wikisource has taken to marking
+a textual variant as a tooltip — `<span class="variant-text">璟<span class="variant-tooltip">一作「景」
+</span></span>` — which the tag strip flattens into the running prose, so a sentence reads
+吳璟一作「景」不和 with an editor's note glued into the middle of it. The Book of Documents' entry
+records the same shape on the same wiki as a trap for a facing original it never got; this is the
+first book to meet it. **Fourteen of them were already shipped inside Journey to the West's Chinese
+and one inside this book's**, and nothing threw, nothing counted wrong, and each chapter was simply a
+few characters longer. The originals also picked up two upstream corrections (范彊 → 范疆), which is
+what a re-import is for.
 
 ---
 
@@ -833,41 +887,6 @@ The book now carries **617 corrections** in all — y as j 468, th as tli 79, w 
 three lost spaces — and 756 romanisations across all 83 declared rows, with no old form surviving
 anywhere in the shipped text and every declared row firing.
 
-
----
-
-### B6b — Three Kingdoms, the second pass's candidates, NOT shipped
-
-**Two independent passes were made over this book from the same starting commit, and neither table is
-a superset of the other.** B6 above shipped 1,727 names in 23,369 places; a second pass, made without
-sight of it, reached 1,952 names in 24,733 places. Keyed by their `from` strings the two overlap
-heavily and diverge in both directions: **236 keys exist only in the shipped table and 507 only in the
-second pass.** So this is not a case of one being better — each covers names the other misses, and the
-union is better than either.
-
-**The 527 rows the second pass has and the shipped table has not are kept in
-`.claude/three-kingdoms-candidates.js`** — 483 romanisations, 29 spelling fixes and 15 glyph repairs.
-Nothing reads that file; it is research held so the next pass does not repeat it.
-
-**THEY ARE NOT SHIPPED BECAUSE MERGING TWO TABLES CHANGES WHICH ROWS FIRE.** `applyRoman` sorts
-longest-first so a longer row shadows a shorter one, and this repo's standing rule is that a declared
-row which matches nothing is a defect rather than spare capacity — a claim about the page that turned
-out to be false. So the union cannot be spliced in and called done: it has to be spliced in, the book
-rebuilt with `--force`, the dead-row report read, the dead rows struck out, the book rebuilt again to
-prove the prune byte-neutral, and the residue re-measured, after which every figure quoted in the
-importer's commentary, the book's own About page, this plan and the changelog has to be corrected to
-what was actually measured. Two full build cycles at roughly fifty minutes each.
-
-**THE SECOND PASS ALSO MEASURED THE RESIDUE, AND THE MEASUREMENT IS WORTH CARRYING WHATEVER HAPPENS TO
-THE ROWS.** Over the CHAPTERS ONLY — a whole-file sweep is inflated by the About page, which
-deliberately prints Wade-Giles illustrations, and reading one is how the figures came out wrong the
-first time — **669 Wade-Giles-looking marks remain and 611 of them are CORRECT**: 602 are the pinyin
-Lü of 吕 and 略, and 9 are the French mêlée. **The other 58, across 18 forms, are the real gap.**
-They are not one class. The commonest single case is the SECOND element of a two-token personal name
-whose FIRST element a shorter row has already converted, and **24 of the 58 are one name**. A hyphen
-guard was suspected as the cause and **measured rather than asserted**: over the five commonest forms,
-43 occurrences carry 8 that sit beside a hyphen, so that is not the explanation. State a residue as a
-count of forms and a cause you have checked, never as a cause that sounds right.
 
 ---
 
