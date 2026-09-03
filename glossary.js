@@ -1751,7 +1751,8 @@ window.GLOSSARY = {
 "Hellespont_bridges": "The Hellespont bridges were the pair of pontoon roads laid across the strait between Abydos and the Chersonese to carry the army of Xerxes I from Asia into Europe in 480 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says a storm destroyed the first pair and that the second were carried on 360 ships for one bridge and 314 for the other, held by two flaxen cables and four of papyrus and surfaced with timber, brushwood and stamped earth.<sup class=\"fn\" data-fn=\"1\"></sup> He reports that the army crossed for seven days and seven nights without pause, and Aeschylus calls the work a roadway cast as a yoke upon the neck of the sea.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Athos_canal": "The Athos canal was a channel cut for Xerxes I through the isthmus at the landward end of the Athos peninsula in northern Greece, so that a fleet could pass without rounding the mountain.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says earlier ships attempting the passage had been wrecked, that the digging took about three years under two Persian overseers, and that the trench was made wide enough for two triremes to row abreast.<sup class=\"fn\" data-fn=\"1\"></sup> Strabo reports that the cut was still visible at Acanthus in his own day, and also that Demetrius of Scepsis held it had never been navigable because a flat rock stopped the digging short of the sea.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Second_Persian_invasion_of_Greece": "The second Persian invasion of Greece was the campaign Xerxes I led in person from 480 BCE, in which the army crossed the Hellespont on bridges of boats and the fleet passed through a canal cut at Athos.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus calls it by far the greatest expedition known and reckons the force brought as far as Thermopylae at 5,283,220 men, of whom 1,700,000 were land soldiers and 1,207 the warships from Asia.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus counts differently, reaching not less than a million soldiers with as many again in the fleet and supply train, while Thucydides says the war was decided in two actions by sea and two by land.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Hellenic_League": "The Hellenic League was the alliance of Greek states that agreed to resist the Persian invasion of 480 BCE, led by Sparta after Athens waived its claim to command the fleet.<sup class=\"fn\" data-fn=\"1\"></sup> Its members swore that in victory they would dedicate to Delphi the property of any Greek state that had submitted to Persia of its own free will, and they ended the feuds then running among themselves.<sup class=\"fn\" data-fn=\"1\"></sup> Envoys sent to Argos, Syracuse, Corcyra and Crete brought no help, and after the war the allies set up a gold tripod at Delphi on a three-headed bronze serpent, on which the Spartans had the names of the cities inscribed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Hellenic_League": "The Hellenic League was the alliance of Greek states that agreed to resist the Persian invasion of 480 BCE, led by Sparta after Athens waived its claim to command the fleet.<sup class=\"fn\" data-fn=\"1\"></sup> Its members swore that in victory they would dedicate to Delphi the property of any Greek state that had submitted to Persia of its own free will, and they ended the feuds then running among themselves.<sup class=\"fn\" data-fn=\"1\"></sup> Envoys sent to Argos, Syracuse, Corcyra and Crete brought no help, and after the war the allies set up a gold tripod at Delphi on a three-headed bronze serpent, on which the Spartans had the names of the cities inscribed.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Congress_at_the_Isthmus": "The congress at the Isthmus was the council through which the Greek states allied against Xerxes reached their decisions, meeting at the sanctuary of Poseidon on the Isthmus of Corinth from about 481 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus describes it as men chosen from the cities best disposed towards Hellas, and records it receiving a Thessalian appeal to hold the pass of Olympus, then resolving after that attempt failed to defend Thermopylae and Artemisium instead.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus reports it voting that any Greek who joined the Persians willingly should pay a tithe to the gods, and after Salamis the admirals returned to the same altar to vote on the prize of valour.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2528,7 +2529,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hellespont_bridges": "480 BCE",
 "Athos_canal": "c. 483 – 480 BCE",
 "Second_Persian_invasion_of_Greece": "480 – 479 BCE",
-"Hellenic_League": "c. 481 – 479 BCE"
+"Hellenic_League": "c. 481 – 479 BCE",
+"Congress_at_the_Isthmus": "c. 481 – 479 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3624,7 +3626,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hellespont_bridges": ["bridges over the Hellespont","bridge of boats over the Hellespont"],
 "Athos_canal": ["canal of Xerxes","Xerxes canal"],
 "Second_Persian_invasion_of_Greece": ["invasion of 480","second Persian invasion"],
-"Hellenic_League": ["Greek League"]
+"Hellenic_League": ["Greek League"],
+"Congress_at_the_Isthmus": ["Isthmus congress"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5404,7 +5407,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hellespont_bridges": ["building","object","technology","warfare","history","greece","iran"],
 "Athos_canal": ["building","technology","warfare","history","greece","iran"],
 "Second_Persian_invasion_of_Greece": ["event","history","warfare","greece","iran"],
-"Hellenic_League": ["institution","history","warfare","politics","greece"]
+"Hellenic_League": ["institution","history","warfare","politics","greece"],
+"Congress_at_the_Isthmus": ["institution","event","history","politics","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
