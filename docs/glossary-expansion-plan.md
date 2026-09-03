@@ -171,7 +171,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N8 | 11 | Mycenaean tombs and grave circles — **shipped**, all eleven pictured (Tomb N deferred, see below) |
 | N9 | 9 | Greek architecture and its orders — **shipped**, 7 of 9 pictured (see below) |
 | N10 | 12 | Greek vessel and object vocabulary — **shipped**, all twelve pictured |
-| N11 | 12 | Greek regions and islands |
+| N11 | 12 | Greek regions and islands — **shipped**, all twelve pictured |
 | N12 | 12 | Crete: sites and landscape |
 | N13 | 12 | Cyprus and the Late Bronze Age east |
 | N14 | 12 | Materials, alloys and the sciences that source them — also carries N9's deferred *Poros stone* |
@@ -331,6 +331,63 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N11's findings
+
+**N11 — Greek regions and islands (shipped, all twelve pictured).** Thrace, Paros, Thasos, Delos, Kea,
+Siphnos, Chios, Kythera, Corcyra, Arcadia, Elis, Phocis.
+
+**THE SPINE IS SMITH'S <i>DICTIONARY OF GREEK AND ROMAN GEOGRAPHY</i> (1854) ON PERSEUS**, which has an
+entry for every region and island a Greek batch is likely to want and cites its ancient authorities line
+by line, so it passes the plan's per-article encyclopedia test on every one of them. Perseus's text id is
+`1999.04.0064` and the slugs take the LATIN head word with a `-geo` suffix — `cythera-geo`,
+`thracia-geo`, `ceos-geo`, `corcyra-geo` — which is why a search for the modern name finds nothing. The
+second source is the ancient author the entry itself points at, also on Perseus: Herodotus for Thrace,
+Thasos, Siphnos and Kea, Thucydides for Delos, Chios, Kythera and Corcyra, Pausanias for Phocis, Strabo
+for Elis. **Twelve terms, three works and one lexicon-shaped source: the research really is shared.**
+
+**AND ITS ONE TRAP IS THAT `arcadia-geo` IS A TOWN IN CRETE.** The slug resolves, the entry is real, and
+it is about a Cretan city that disputed Mount Ida's claim to be Zeus's birthplace — nothing to do with
+the Peloponnesian region. Smith's Geography as digitised on Perseus has no second ARCADIA entry, so
+Arcadia is the one term in the batch built on ancient authors alone (Strabo 8.8 and Pausanias 8.1, which
+between them give the mountainous interior, Kyllene, the Azanes and Parrhasians, and the ring of coastal
+peoples). **A resolving slug is not a verified subject** — read the entry's first line before citing it.
+
+**THE TWELVE WERE MEASURED OUT OF THE CORPUS, as in N10**, and the measurement removed two candidates
+that a list would have kept. **`Macedonia` was dropped** although it is the most-used un-keyed name in
+the corpus (19 occurrences): those uses split between the ancient region in `gr-112` and `gr-169` and the
+MODERN naming dispute in `gw-152`, so a `Macedonia` term would auto-link inside a sentence about
+North Macedonia's recognition — the wrong link, in the one place where getting it wrong is a political
+claim. `Macedon`, the alternative key, occurs zero times and would link nothing. It wants a deliberate
+decision rather than a slot in a batch. **`Poros` was dropped** for the opposite reason: the
+case-insensitive count of 8 was entirely *poros stone*, which N9 deferred to N14, and the island itself
+never appears.
+
+**Two of the twelve have a Bronze Age sibling already on the shelf and the split was decided before
+drafting** — `Minoan_Kythera` owns the Cretan settlement at Kastri, `Kythera` the island; `Ayia_Irini`
+owns the Bronze Age town, `Kea` the island. L9's eight-word-run measure over the batch plus its ten
+nearest siblings (`Cyclades`, `Siphnian_Treasury`, `Euboea`, `Phylakopi`, `Krisa`, `Kalapodi` and the
+rest) returns **0 shared runs between every pair**, which is what deciding ownership first buys.
+`Siphnos` is the case that needed most care: `Siphnian_Treasury` already carries the mines, the "richest
+of the islanders" and the tenth sent to Delphi, so the island term states the mines in its own register —
+what they were worth, that the workings were faced in Parian marble, and Pausanias's story that the gods
+drowned them when the tenth stopped coming. **"Siphnian" was refused as an alias** for the same reason:
+the treasury owns that surface.
+
+**SMITH MIS-CITES HERODOTUS ONCE IN THIS BATCH**, and it is the kind of error a second-hand citation
+carries forward silently: the Kythera entry gives Demaratus' advice to Xerxes as "Hdt. 8.235", which is
+7.235. Nothing was cited from it — Thucydides 4.53 carries the Judge of Kythera and the Athenian capture
+instead — but **a reference read out of another work is a reference to check, not to copy.**
+
+**The pictures are a region's landmark or its landscape, and four of twelve were rejected by looking.**
+Two Paros marble-quarry photographs are dark cave mouths, one with a magenta cast, showing no marble at
+all; the Arcadia candidate that ranked first is a shepherds' washing line in front of Mount Kyllini, so
+the subject reads as laundry; a 6,000-pixel "Parikia harbour" is a row of modern motorboats. What
+answered was the plainest thing in each case — the Nestos gorge for Thrace, the Terrace of the Lions for
+Delos, the rock-cut Lion of Kea, Parnassus for Phocis, an Arcadian upland flooded into a karst lake.
+**Four of the twelve are medieval or later monuments** (Ekatontapiliani, Nea Moni, Kastro, the castle at
+Chora) and that is the honest answer for an island whose ancient remains are slight: the geography pass's
+rule asks for the most significant landmark, not the most ancient one.
 
 ### N10's findings
 
