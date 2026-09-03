@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-544` Kuala Lumpur.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-545` Riyadh.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -319,6 +319,18 @@ twice**, which is C8's false-corroboration finding one indicator over. `gw-541` 
 and has been corrected, on the card and on its glossary term. **Read the footnote before citing the
 row**: give the current figure to the World Bank, and where the UN figure is worth stating at all, state
 what it is — the same series at the year its footnote names.
+**`gw-544` Kuala Lumpur is the fourth confirmation and it adds the second half of the trap** — 7,780.3
+against the World Bank's 7,780,301 for 2019 — because there UNdata footnotes the row TWICE, the second
+footnote reading *"Refers to the Greater Kuala Lumpur"*. So the figure is not the city at all but the
+agglomeration, and the World Bank's series, being the same series, is the agglomeration too: on that card
+both sources are one source measuring something the card is not about. **Neither source has a figure for
+a capital's own municipality**, so where the two carry a metropolitan figure the card must say which it is
+— `gw-544`'s facts box reads *9.0 million in Greater Kuala Lumpur* rather than a bare population, which is
+the Delhi warning at the head of this section arriving as a real card. Its divided seat came out of the
+same footnote block exactly as batch 14 predicted: **UNdata's footnote d says "Kuala Lumpur is the capital
+and Putrajaya is the administrative capital"**, which is the source both `gw-544` and `gw-754` needed and
+which no other reachable work states.
+
 
 **THE FRUS CORPUS IS SEARCHABLE FROM HERE, AND IT IS A CITY SPINE WHERE THE COUNTRY PAGES ARE THIN**
 (`gw-543`). `history.state.gov/search?q=<city>` answers, ranks by relevance and searches the whole of
