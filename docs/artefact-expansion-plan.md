@@ -260,6 +260,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | C1 | `byzantine-lead-seal`, `lustreware-bowl`, `glass-coin-weight` | — |
 | C1b | `islamic-star-tile`, `byzantine-silk` | `fustat-paper`, `mamluk-mosque-lamp` |
 | D1 | `antler-comb`, `bone-ice-skate` | `novgorod-birch-bark-letter` (held, see below) |
+| D1b/C2 | `seal-matrix`, `manilla` | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -267,6 +268,29 @@ on the buried weapons is not a Qin anti-rust technology two millennia ahead of i
 from the lacquer on the figures — a story most popular accounts still repeat. A plate that states the
 current standing of the thing a reader half-remembers is doing more work than one that recites the
 half-memory. The Great Isaiah Scroll's 2025 radiocarbon-plus-style programme is the same shape.
+
+**D1b's finding is which INDEX to ask, and it is not one index.** Three searches in this batch came
+back empty from DOAJ and full from Europe PMC, or the reverse, on subjects a page apart: DOAJ found
+every medieval European everyday object (combs, skates, seal matrices, sealing wax) and returned
+literally nothing for `manilla`, for Moche pottery, for Mississippian shell or for Thule harpoons;
+Europe PMC found the manilla's key paper as its first hit. The split is not by discipline but by
+PUBLISHER — DOAJ indexes the small national and institutional archaeology journals (Starinar,
+Archaeologia Polona, Slavia Antiqua, Dissertationes Archaeologicae, *'Atiqot*, Internet Archaeology),
+Europe PMC indexes PLOS, PNAS, Nature portfolio and Springer Open. **Ask both before concluding a
+subject has no literature**; a batch that asks one is half-searching.
+
+**Its content finding is that the best fact about a common is often a MISIDENTIFICATION.** The bone
+skate's plate turned on whether those objects are skates at all; the seal matrix's turns on an object
+found on Rudnik mountain in 2015, published as the seal die of Prince Lazar, and shown by a fresh
+reading of its own inscription to be a mould for a medallion in the foot of a goblet — a correction the
+same two authors published against themselves five years later. **A named object's third work is often
+a correction of a popular belief** (A1); a common's is often a correction of the identification itself,
+because a class of object is what gets confused with another class.
+
+**And the `(FindID …)` parenthesis is now the second Commons URL in three batches to need percent-
+encoding.** The Portable Antiquities Scheme names every one of its files that way, and PAS is the
+richest open source of photographs of English medieval everyday objects — which is most of batch D1 —
+so `%28`/`%29` is not an occasional fix here but the standing form for that whole family.
 
 **D1's finding is that `check-citations.js` earns its keep on a name nothing else could have caught.**
 The comb's first citation was written **Steven P. Ashby**, off the article's own byline, and Crossref

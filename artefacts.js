@@ -896,4 +896,18 @@ window.ARTEFACTS = [
     date: "c. 2000 BCE – 1900 CE",
     origin: "Europe and northern Russia",
   },
+  {
+    id: "seal-matrix",
+    name: "Seal matrix",
+    rarity: "common",
+    date: "c. 11th – 16th century CE",
+    origin: "Medieval Europe",
+  },
+  {
+    id: "manilla",
+    name: "Manilla",
+    rarity: "common",
+    date: "c. 15th – 20th century CE",
+    origin: "West Africa, cast in Europe",
+  },
 ];
