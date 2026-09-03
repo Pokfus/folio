@@ -1743,7 +1743,8 @@ window.GLOSSARY = {
 "Pheidippides": "Pheidippides was the Athenian long-distance runner sent to Sparta for help when the Persians landed at Marathon in 490 BCE; Herodotus, the earliest source, calls him Philippides.<sup class=\"fn\" data-fn=\"1\"></sup> He reached Sparta on the day after leaving Athens and was told they could not march before the full moon, and he reported that Pan had spoken to him on Mount Parthenium, after which Athens gave the god a precinct below the Acropolis.<sup class=\"fn\" data-fn=\"1\"></sup> The run from the battlefield that the modern race commemorates is given to him by no ancient writer: Plutarch has the news carried by Thersippus of Eroeadae, or, as most had it, by Eucles, who announced it and died.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Marathon_tumuli": "The Marathon tumuli are the two burial mounds on the plain of Marathon in Attica, the larger of them, called the Soros, raised over the Athenians who fell in the battle of 490 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Herodotus counts 192 Athenian dead, and Thucydides says burial on the field was an exception granted for their valour, since Athens otherwise laid its war dead in the public cemetery outside the city.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Pausanias saw slabs on the mound giving the names of the dead by tribe, and a second grave beside it for the Plataeans and for the slaves, who fought then for the first time alongside their masters.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Shield_signal_at_Marathon": "The shield signal at Marathon is an accusation reported by Herodotus, that after the battle of 490 BCE somebody at Athens held a shield up as a sign to the beaten Persian fleet as it rounded Sunium for the city.<sup class=\"fn\" data-fn=\"1\"></sup> The charge named the Alcmaeonids, a family already held accursed for the killing of Cylon's suppliants, and Herodotus rejects it, arguing that they were tyrant-haters who had worked to bring down the sons of Pisistratus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He will not give up the fact itself, saying that a shield was held up and that this cannot be denied, but that he does not know who did it.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Themistocles": "Themistocles was the Athenian politician and general who turned his city into a naval power, began the walls of Piraeus in his year as archon, and commanded the fleet that fought the Persians at Salamis in 480 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Thucydides credits him with an unschooled genius for judging a sudden crisis and for guessing at the distant future, and says he was the first who dared tell the Athenians to stick to the sea.<sup class=\"fn\" data-fn=\"2\"></sup> He was ostracised and then condemned in his absence for dealing with Persia, took service with the Persian king, and died at Magnesia, which the king had given him for his bread at fifty talents a year.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Themistocles": "Themistocles was the Athenian politician and general who turned his city into a naval power, began the walls of Piraeus in his year as archon, and commanded the fleet that fought the Persians at Salamis in 480 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Thucydides credits him with an unschooled genius for judging a sudden crisis and for guessing at the distant future, and says he was the first who dared tell the Athenians to stick to the sea.<sup class=\"fn\" data-fn=\"2\"></sup> He was ostracised and then condemned in his absence for dealing with Persia, took service with the Persian king, and died at Magnesia, which the king had given him for his bread at fifty talents a year.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Naval_bill_of_Themistocles": "The naval bill was the measure carried at Athens by Themistocles in about 483 BCE, by which a windfall from the Attic silver mines was spent on warships instead of being shared out among the citizens.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says each man was to have received ten drachmas and that two hundred ships were built for the war with Aegina, while the <i>Constitution of the Athenians</i> has a hundred talents lent to the hundred richest Athenians, a talent each, and a hundred triremes built.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The fleet was used against the Persians instead, at Salamis in 480 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2512,7 +2513,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Marathon": "490 BCE",
 "Callimachus_(polemarch)": "d. 490 BCE",
 "Marathon_tumuli": "490 BCE",
-"Shield_signal_at_Marathon": "490 BCE"
+"Shield_signal_at_Marathon": "490 BCE",
+"Naval_bill_of_Themistocles": "c. 483 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3600,7 +3602,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Callimachus_(polemarch)": ["Callimachus of Aphidnae","Callimachus the polemarch"],
 "Pheidippides": ["Philippides"],
 "Marathon_tumuli": ["Soros","Tumulus of the Athenians","Tomb of the Athenians"],
-"Shield_signal_at_Marathon": ["shield signal"]
+"Shield_signal_at_Marathon": ["shield signal"],
+"Naval_bill_of_Themistocles": ["naval bill"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5372,7 +5375,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Pheidippides": ["person","history","warfare","greece","athens"],
 "Marathon_tumuli": ["place","history","warfare","greece","attica"],
 "Shield_signal_at_Marathon": ["event","history","warfare","greece","athens"],
-"Themistocles": ["person","history","warfare","politics","greece","athens"]
+"Themistocles": ["person","history","warfare","politics","greece","athens"],
+"Naval_bill_of_Themistocles": ["event","history","warfare","politics","greece","athens"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
