@@ -728,4 +728,25 @@ window.ARTEFACTS = [
     date: "3rd century BCE – 15th century CE",
     origin: "The Mediterranean world",
   },
+  {
+    id: "terracotta-warrior",
+    name: "Terracotta Army warrior",
+    rarity: "legendary",
+    date: "c. 210 BCE",
+    origin: "Pit 1, mausoleum of Qin Shihuang, Lintong, Xi'an — Emperor Qin Shihuang's Mausoleum Site Museum",
+  },
+  {
+    id: "antikythera-mechanism",
+    name: "Antikythera Mechanism",
+    rarity: "legendary",
+    date: "c. 2nd century BCE",
+    origin: "Recovered from a shipwreck off Antikythera, Greece — National Archaeological Museum, Athens",
+  },
+  {
+    id: "great-isaiah-scroll",
+    name: "Great Isaiah Scroll",
+    rarity: "legendary",
+    date: "c. 180 – 100 BCE",
+    origin: "Qumran Cave 1, Judaean Desert — Shrine of the Book, Israel Museum, Jerusalem",
+  },
 ];
