@@ -35,14 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.445", released: "2026-09-03T23:29Z" };
+window.FOLIO_VERSION = { v: "1.446", released: "2026-09-03T23:53Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-03",
     t: "Ten gemstone themes, and the crossword gets clues of its own",
     items: [
-      "<b>The Canterbury Tales has been corrected in 628 places</b> against photographs of the 1912 edition — quotation marks, possessives, and whole lines the scan had lost.",
+      "<b>The Canterbury Tales has been corrected in 689 places</b> against photographs of the 1912 edition — quotation marks, commas, possessives, and whole lines the scan had lost.",
       "<b>Ten new themes</b> — Diamond, Ruby, Opalite, Jade, Emerald, Amber, Amethyst, Aquamarine, Bloodstone and Carnelian — each with its own colours, type and shapes.",
       "<b>The crossword is now clued with its own simple history questions</b> rather than with card questions, so it deals a fresh grid every day.",
       "<b>The Collections page has a menu bar</b> — History, Geography, Language, Other, Community and All — and Collections is a tab in the top bar again, between Home and Library.",

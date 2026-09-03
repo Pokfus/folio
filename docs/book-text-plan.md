@@ -283,14 +283,54 @@ re-run and diffed byte for byte.
 | **E5** ✅ | `canterbury-tales` | **151 repairs in 75 rows** — far the worst-damaged text on the shelf, and the damage is not the letter slips the batch went looking for: **eight pages printed straight and scanned askew**, where the reader dropped and transposed whole lines; the **opening quotation mark read as a pound sign** on 59; the **AE ligature read two wrong ways**, `iE` and `/E`, which made King Aella unreadable thirteen times; two full-page plates whose signature and dirt were set down mid-sentence; 40 dropped words restored |
 | **E6** ✅ | `canterbury-tales`, and a change to shared machinery | **355 quotation marks put back in 6 rows**, and the class was three times what E5 estimated: the opening quote is misread SIX ways, not one — `c` 227 times, `*` 61, `4` 40, `f` 15, `{` 6, `<` 6. The `reFixes` table (a regex `fixes`, same assertion, boundary-aware) is the machinery, proved inert on the nine books already declaring `fixes` |
 | **E7** ✅ | `canterbury-tales` | **119 more repairs — the possessive and the closing quotation mark, both cleared to zero.** A possessive apostrophe was dropped or mangled on 73 lines in three shapes (`God s sake`, `the Knight' s Tale`, `Saint Peter’ s sister`); the closing quote was read as a slash on 43, and the slash stands for TWO characters, not one — the comma or full stop AND the quote beside it. Three one-off strays went with them, each witnessed on the SECOND scan of the same edition |
-| **E8** | `canterbury-tales` | what the census leaves and no sweep can claim: a word's first letter broken off it about fifteen times (`H ow`, `J eremy`, `j oy`, `T ale`, `N ow`), `1` and `l` set for `I`, `m` for `in`, `y` for `by`, and about thirty stray marks standing alone (`_` 10, `-` 10, `'` 5, `•` 2). Each is a separate reading; there is no shape to sweep |
-| **E9–En** | the rest of the error half | what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E8** ✅ | `canterbury-tales` | **62 repairs, and a tool.** The second scan is queried in BULK — anchor on the words around a suspicious token, score candidate positions by the words that follow, print what the other copy has between the same two words: 221 candidates, 191 located. The finding is that this edition SPACES its `;` `!` `?` `:` as a house style and does not space its comma (10,944 attached to 40), so 59 commas were put back on their own words. A census over tag-stripped HTML first reported 22 phantom errors that were Folio's own `bk-n` markers |
+| **E9** | `canterbury-tales` | the last of it: 13 standalone commas and about 150 single characters standing in the run of the prose — a word's first letter broken off it (`H ow`, `J eremy`, `T ale`), `1` and `l` for `I`, `m` for `in`, `y` for `by`, and the stray marks (`_` 10, `-` 10, `\\` 6, `•` 2). The second-scan table already carries a verdict for most; each still needs reading |
+| **E10–En** | the rest of the error half | what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E8 — the Canterbury Tales' displaced commas, shipped 2026-09-03
+
+**62 more repairs, and the batch's real product is a TOOL.** E7 established that the second Internet
+Archive scan of an edition is a witness for a single damaged word. E8 turns that into something that
+scales: `/tmp` scratch aside, the method is to take every suspicious token in the shipped prose,
+anchor on the three words before it, find the same passage in the second scan by word sequence,
+score each candidate position by how many of the words AFTER it also match, and print what the other
+copy has between the same two words. **221 candidates, 191 located automatically.** A question that
+was a page image apiece is now a table.
+
+**IT ALSO CAUGHT A PHANTOM CLASS, WHICH IS THE WARNING TO CARRY.** The first census reported 22
+digits standing before tale headings, running 1 to 25 in sequence, and the obvious reading was that
+the edition numbers its tales and the numbers were leaking into the prose. They are Folio's own
+`<span class="bk-n">` section markers. **A census run over tag-stripped HTML sees the site's own
+apparatus as text**, and this one nearly produced 22 deletions of the reader's own furniture. Strip
+`.bk-n` before counting, and when a class looks too tidy, look at the markup rather than the text.
+
+**The finding is that this edition spaces its punctuation, and the comma is the exception.** It
+really does set a space before a semicolon, an exclamation mark, a question mark and a colon — 1178,
+736, 281 and 78 times against 328, 105, 86 and 27 closed up, so between three-quarters and
+seven-eighths, which is a house style and is left exactly as it stands. **The comma is 10,944
+attached against 40 spaced: 0.4%, which is not a convention but noise.** The second scan settles it
+outright, attaching every one of them in its own misreadings included — it reads `Squire^` and
+`Haberdasher^` where this copy reads `Squire ,` and `Haberdasher ,`. 59 commas were put back on
+their own words, and the one spaced comma left alone is `{Frankl. T ,)`, where the mark is a misread
+full stop inside a back-matter reference and closing it up would only make a wrong stop tidier.
+
+**Three word slips came free with the class**, each read off the second scan while the commas were
+being checked: `a IVeaver, a Oyer` in the Prologue's five guildsmen is `a Weaver, a Dyer` (the W
+broken into an I and a V, the D read as an O), and `son ot Philip` is `son of Philip`. **Looking at
+what is beside the thing you are checking is worth more than looking harder at the thing** — none of
+the three is a shape any sweep would have flagged.
+
+**What is left, measured rather than estimated: 13 standalone commas and about 150 single characters
+standing in the run of the prose**, and the second-scan table already carries a verdict for most of
+them. The `_` class alone is 10, of which the other copy shows 6 to be nothing at all, 2 to be em
+dashes, one to be part of a garbled run of quotation marks, and one to be a mark both copies read
+and read differently — the E7 signature of worn type rather than a scanner artefact. Those are E9.
 
 ### E7 — the Canterbury Tales' possessives and closing quotes, shipped 2026-09-03
 

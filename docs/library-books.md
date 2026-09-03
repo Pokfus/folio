@@ -692,8 +692,13 @@ book added later will meet the same traps.
   sentence: the sweep claims only the 37 a speech tag follows and the other six were read on the leaf.
   It also established that **the SECOND Internet Archive scan of an edition is a witness for a single
   damaged word** — cheap, being a `grep` rather than a page image — and that where both copies fail
-  differently at one point the fault is the type rather than the scan. 628 repairs in all; what waits
-  is a word's first letter broken off it and about thirty stray marks, neither of which has a shape to
+  differently at one point the fault is the type rather than the scan. **Batch E8 then queried that
+  second scan in BULK** — anchoring on the words around each suspicious token and printing what the
+  other copy has between the same two — which located 191 of 221 candidates at once, and established
+  that **this edition SPACES its `;` `!` `?` `:` as a house style and does not space its comma**
+  (10,944 attached against 40), so 59 commas were put back on their own words and the spaced
+  semicolons were left alone. 689 repairs in all; what waits is a word's first letter broken off it
+  and about 150 single characters standing in the run of the prose, none of which has a shape to
   sweep — see `docs/book-text-plan.md`),
   `journey-to-the-west` (~524 KB, all 100 chapters, **100 chapter sections**, **0 notes** — Timothy
   Richard's *A Mission to Heaven* of 1913, the first English translation there ever was, and **the

@@ -11942,15 +11942,17 @@ const BOOKS = {
       "One last thing about the prose column, because it is the sort of thing a reader deserves to be " +
         "told rather than to discover. It is not a typed transcription but a machine reading of the " +
         "1912 pages, and machines misread. Where the scan went wrong it has been corrected against " +
-        "photographs of the same edition — 628 places, from single letters up to whole " +
+        "photographs of the same edition, and against a second scan of it — 689 places, from single " +
+        "letters up to whole " +
         "lines that the reader had dropped or run together, on eight pages that were printed straight " +
         "and scanned askew. The commonest fault by far was the quotation mark. The opening one the " +
         "machine set as a lowercase c, an asterisk, a figure 4, an f, a brace or a less-than sign on " +
         "357 lines of speech; the closing one it set as a slash, swallowing the comma or full stop " +
         "beside it, on 43 more; and a possessive apostrophe it dropped or mangled on 73. All of those " +
-        "are now punctuation again. Nothing was mended by guess: every correction is a passage read " +
-        "off the page. A few misreadings remain, chiefly a word whose first letter has been broken " +
-        "off it and about thirty stray marks standing in the run of the prose.",
+        "are now punctuation again, and a comma driven a space off its own word was put back on it " +
+        "59 times more. Nothing was mended by guess: every correction is a passage read off the page. " +
+        "A few misreadings remain, chiefly a word whose first letter has been broken off it and some " +
+        "stray marks standing in the run of the prose.",
     ],
 
     /* THE TRANSLATION IS A PLAIN-TEXT OCR and the only copy of this edition that can be opened at all.
@@ -12294,6 +12296,10 @@ const BOOKS = {
       ["Sam- \n\n\n/ \n\n\n150 \n\n\nTHE  CANTERBURY  TALES \n\n\nsoun,",
        "Sam-soun, \n\n\n150 \n\n\nTHE  CANTERBURY  TALES \n\n\n",
        "a mark at the head of the leaf, standing alone between a word broken across the page turn and the running head; the running-head sweep takes the folio and the title and cannot see a line of one character. The word is carried over the page turn WHOLE rather than left to the page-turn join, because the hyphen in Sam-soun is one the edition prints — it sets the name so again four words later — and the join is written for a word broken by the line and would eat it"],
+      ["a  IVeaver,  a  Oyer", "a  Weaver,  a  Dyer",
+       "the Prologue's five guildsmen read 'A Haberdasher, a Carpenter, a Weaver, a Dyer and an Upholsterer'; the W is broken into an I and a V, and the D read as an O"],
+      ["son  ot  Philip", "son  of  Philip",
+       "the page reads 'and was son of Philip of Macedon'"],
     ],
 
     /* ---------- THE OPENING QUOTATION MARK, MISREAD SIX WAYS (Sep 2026, batch E6) ----------
@@ -12363,6 +12369,18 @@ const BOOKS = {
        "the same, with the apostrophe read correctly and a space driven in after it"],
       [/(?<=[A-Za-z])\/(?=  [a-z])/g, ",’",
        "the closing quotation mark and the comma before it read together as a slash; claimed only where a lowercase word follows, which on every one of the thirty-seven is a speech tag or the narrative resuming"],
+
+      /* ---------- BATCH E8: THE COMMA DRIVEN OFF ITS OWN WORD ----------
+         This edition really does set a SPACE before a semicolon, an exclamation mark, a question mark
+         and a colon — that is a 1912 house style and it is left exactly as it stands. It does not do
+         so before a comma, and the corpus says so outright: 10,944 commas sit against the word before
+         them and 40 stand a space away, which is 0.4% and is noise rather than a convention. The
+         second scan of this edition attaches every one of them, in its own misreadings included — it
+         reads `Squire^` and `Haberdasher^` where this one reads `Squire ,` and `Haberdasher ,`. The
+         one place a spaced comma is left alone is `{Frankl. T ,)`, where the mark is a misread full
+         stop inside a back-matter reference and closing it up would only make a wrong stop tidier. */
+      [/(?<=[A-Za-z]) ,(?=\s)/g, ",",
+       "a comma set a space away from the word it belongs to"],
     ],
     sourceName: "Internet Archive",
     sourceUrl: "https://archive.org/details/completepoetical0000chau_q3l3",
