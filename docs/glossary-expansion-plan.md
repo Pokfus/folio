@@ -173,7 +173,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N10 | 12 | Greek vessel and object vocabulary — **shipped**, all twelve pictured |
 | N11 | 12 | Greek regions and islands — **shipped**, all twelve pictured |
 | N12 | 12 | Crete: sites and landscape — **shipped**, all twelve pictured |
-| N13 | 12 | Cyprus and the Late Bronze Age east |
+| N13 | 12 | Cyprus and the Late Bronze Age east — **shipped**, all twelve pictured |
 | N14 | 12 | Materials, alloys and the sciences that source them — also carries N9's deferred *Poros stone* |
 | N15 | 12 | Rome's foundation and its earliest institutions |
 | N16 | 12 | The hills of Rome and the city's topography |
@@ -331,6 +331,72 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N13's findings
+
+**N13 — Cyprus and the Late Bronze Age east (shipped, all twelve pictured).** Enkomi, Alashiya,
+Cypro-Minoan, Cape Gelidonya, the oxhide ingot, Kition, Salamis in Cyprus, Idalion, Paphos, Tyre,
+Sidon, Byblos.
+
+**THE SPINE IS <i>BRYN MAWR CLASSICAL REVIEW</i>, AND IT WAS ALREADY IN THE GLOSSARY.** Three shipped
+terms — `Cypriot_city-kingdoms`, `Cypriot_syllabary`, `Arcadocypriot` — were cited to BMCR reviews, so
+the reachable-host survey for Cyprus had been done and nobody had noticed it was a spine rather than a
+one-off. A BMCR review states substantive claims in its own voice about the book under review, its
+back catalogue reaches to 1990, it is fully open, and a search of it returns 16 to 20 hits for each of
+Enkomi, Kition, Idalion, Kourion and Cypro-Minoan. **Search the glossary's own citations before
+surveying hosts**: the batch before you may have found the answer and filed it under one term.
+
+**AND THE SECOND SPINE IS THE ONE THE CARD PASS ALREADY USES.** Rutter's Lesson 22, *Aspects of
+Mycenaean Trade*, carries Cape Gelidonya at nine mentions and oxhide ingots at eleven — the wreck's
+depth, the ingots' size and weight, the stacking, the findspots from Sardinia to Syria, and the two
+12th-century BCE Cypriot works on which such ingots are shown. **Rutter's course has no Cyprus lesson**
+and Cyprus is nonetheless well covered, inside the trade and post-palatial lessons; the lesson titles
+are the `<h2>` after the `<h1>` on each narrative page, not the page `<title>`, which is generic.
+
+**A PARENTHETICAL KEY REALLY DOES STAND DOWN FROM ITS BARE NAME, AND THIS BATCH IS THE PROOF.**
+`Salamis` has been the Saronic island since N7, which recorded that the Cypriot city would take a
+disambiguated key when Cyprus was reached. `Salamis_(Cyprus)` ships with **no aliases at all** and
+`check-gloss-links.js` reports the same 112 links to check by eye before and after the batch, with no
+competing-surface finding — so the two keys coexist and the island keeps the surface. **A term that
+wants the bare name has to ask for it with an alias**; nothing is inherited from the key.
+
+**THE MOST USEFUL THING THE BATCH FOUND IS A DISAGREEMENT BETWEEN TWO GOOD SOURCES, TWICE.** Strabo
+16.2.23 says Tyre is **wholly an island** joined to the mainland by Alexander's mound; Smith's TYRUS
+says it was built **partly on an island and partly on the mainland**. Both are cited and the sentence
+now says which says which, rather than blending them. And on Byblos the two contradict each other on
+plain geography — Strabo's coastal order runs Byblos, then the river Adonis, where Smith puts Byblos
+"a little S. of the Adonis" — so **the river was dropped from the locator entirely** and the entry
+places the city between Sidon and Theoprosopon, which both carry. **Where two sources disagree, say
+what both carry or attribute each half; never average them.**
+
+**A CLAIM THAT IS IN THE MODERN SUMMARY IS NOT ALWAYS IN THE ANCIENT SECTION IT SUMMARISES.** Smith's
+SIDON reports that "Strabo places it 400 stadia S. of Berytus, 200 N. of Tyre"; Strabo 16.2.22 gives
+only the 400. A draft sentence marked the whole clause to Strabo and would have pointed at a section
+that carries half of it. Likewise the draft had Salamis "reached from the mainland by a crossing of
+seventy stadia" — Strabo's seventy stadia is the crossing of the ISLAND at its narrow point, not from
+Anatolia. **Read the ancient passage itself for every figure a modern account attributes to it.**
+
+**FIVE OF TWELVE FIRST-CHOICE PICTURES WERE REJECTED BY LOOKING**, and two of the five are new kinds.
+**A MUSEUM CASE**: the best-named oxhide ingot photograph is a dim vitrine with reflections, two
+ingots and a poster, unreadable small — replaced by a studio shot of a single ingot with its incised
+mark showing. **A DIG PHOTOGRAPH**: the only Idalion site pictures on Commons are the Swedish Cyprus
+Expedition's monochrome trench records of the 1920s, which are the excavation rather than the place —
+`docs/history-focus-plan.md`'s rule in picture form — so the term takes the Idalion tablet instead.
+The other three were an empty gravel foreground for Paphos, a lighthouse with a light leak for Cape
+Gelidonya, and a crop too tight to place Byblos.
+
+**A COMMONS FILE NAME WITH AN APOSTROPHE NEEDS THE SAME TREATMENT AS ONE WITH BRACKETS.** N12 recorded
+percent-encoding `(js)` in a credit URL; this batch has `dall'acropoli di idalion` and a name carrying
+double quotes, and `SRC_URL_RX` stops at `'`, `"` and `)` alike. Encode `%27`, `%22`, `%28`, `%29`
+in the credit and check the page still resolves.
+
+**AND THE 429 IS ON ORIGINAL FILE PATHS, NOT ON `upload.wikimedia.org` AS A WHOLE.** Eleven of the
+twelve pictures verified first time on their `/commons/thumb/…/1920px-…` paths while the twelfth,
+whose file is under 1920px and so takes the original `/commons/5/58/…` path, answered 429 through
+thirty seconds of backoff and kept doing so. The same file's thumb path answered 200 at once. **When a
+picture 429s, ask for a thumb before assuming the host is throttling you** — and note that a
+`?utm_source=…` query rides on every URL the Commons API hands back and must be stripped, since no
+shipped image in the glossary carries one.
 
 ### N12's findings
 
