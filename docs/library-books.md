@@ -681,9 +681,12 @@ book added later will meet the same traps.
   a pound sign on 59 lines and the AE ligature read two wrong ways, which made King Aella unreadable
   thirteen times. The sweep that found it is worth stealing for any OCR'd book: **count the characters
   the transcription uses that are neither ASCII nor its own curly quotes and dashes** — here `£ ™ ° § «
-  » ■ „`, of which only the Parson's Tale's section marks were meant. **What is still wrong is larger
-  than what was fixed**: the same opening quote is read as a lowercase `c` on 157 further lines, which
-  `applyFixes` cannot express, and waits on a word-boundary-aware pass — see `docs/book-text-plan.md`),
+  » ■ „`, of which only the Parson's Tale's section marks were meant. **Batch E6 then put back 355
+  QUOTATION MARKS**, the opening single quote having been misread six different ways — as `c` 227
+  times, and as `*`, `4`, `f`, `{` and `<` — which a census of every one-character token found and
+  which took a boundary-aware `reFixes` table to express, an asterisk being also the mark the
+  translators use for a passage they cut. 509 repairs in all, and what still waits is the CLOSING
+  quote, read as a slash — see `docs/book-text-plan.md`),
   `journey-to-the-west` (~524 KB, all 100 chapters, **100 chapter sections**, **0 notes** — Timothy
   Richard's *A Mission to Heaven* of 1913, the first English translation there ever was, and **the
   first book here whose SOURCE IS PLAIN OCR TEXT rather than markup.** Every other reader on the

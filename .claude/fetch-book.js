@@ -11942,11 +11942,14 @@ const BOOKS = {
       "One last thing about the prose column, because it is the sort of thing a reader deserves to be " +
         "told rather than to discover. It is not a typed transcription but a machine reading of the " +
         "1912 pages, and machines misread. Where the scan went wrong it has been corrected against " +
-        "photographs of the same edition — 151 places, from single letters up to whole lines that the " +
-        "reader had dropped or run together, on eight pages that were printed straight and scanned " +
-        "askew. Nothing was mended by guess: every correction is a passage read off the page. Some " +
-        "misreadings remain, and the commonest by far is the opening quotation mark, which the machine " +
-        "sets as a lowercase c on about a hundred and fifty lines of speech.",
+        "photographs of the same edition — 509 places, from single letters up to whole " +
+        "lines that the reader had dropped or run together, on eight pages that were printed straight " +
+        "and scanned askew. The commonest fault by far was the opening quotation mark, which the " +
+        "machine set as a lowercase c, an asterisk, a figure 4, an f, a brace or a less-than sign on " +
+        "355 lines of speech; those are now quotation marks. Nothing was mended by guess: every " +
+        "correction is a passage read off the page. Some misreadings remain — chiefly the CLOSING " +
+        "quotation mark, which the machine sets as a slash, and a possessive apostrophe it reads as a " +
+        "space.",
     ],
 
     /* THE TRANSLATION IS A PLAIN-TEXT OCR and the only copy of this edition that can be opened at all.
@@ -12013,7 +12016,8 @@ const BOOKS = {
 
        Every row was checked against the raw before it was written here: none is dead, none is a
        duplicate, and no row's `from` occurs inside another row's `from` or `to`, so the single pass
-       cannot shadow or cascade. 151 substitutions in all. */
+       cannot shadow or cascade. 151 substitutions in all when this table shipped; batch E6 added three
+       more rows below it, each an exception the sweep in `reFixes` must not see. */
     fixes: [
       ["•  ^Pon  a  ^  ma^  went  toward  a  temple  in  the  town \n",
        "Upon  a  day  this  maid  went  toward  a  temple  in  the  town, \n",
@@ -12240,6 +12244,63 @@ const BOOKS = {
       ["\n\n\nTHE  ANGEL  PRESENTING  THE  CROWNS  TO  CECILY  AND  VALERIAN \n\n\n■ \n\n\nTHE  SECOND  NUN’S  TALE \n",
        "\n\n\nTHE  SECOND  NUN’S  TALE \n",
        "the plate facing page 272 and a mark on it, both read as prose between 'Brother mine Valerian,' and 'will you lead me thither?'; the running-head sweep takes the other sixty captions and misses this one"],
+
+      /* THREE EXCEPTIONS THE SWEEP BELOW MUST NOT SEE, and the reason `fixes` runs before `reFixes`.
+         The first is a stray mark the `f`-as-quote rule would otherwise read as a quotation mark; the
+         other two are quotation marks the ASTERISK rule deliberately cannot reach, because that rule
+         is anchored on the punctuation before it and these two follow a plain word. */
+      ["and  every- \nf  where,", "and  every- \nwhere,",
+       "page 209 reads 'in word and deed here and everywhere, as if she were an emperor's daughter'; the f is a mark on the leaf, at the head of a line"],
+      ["household  *  farewell,", "household  ‘  farewell,",
+       "page 106 reads 'bidding the household \u2018farewell, adieu!\u2019'"],
+      ["he  says  *  yea.’", "he  says  ‘  yea.’",
+       "page 220 reads 'She says not once \u2018nay\u2019 when he says \u2018yea.\u2019'"],
+    ],
+
+    /* ---------- THE OPENING QUOTATION MARK, MISREAD SIX WAYS (Sep 2026, batch E6) ----------
+       E5 repaired what the scan LOST. This is what it never set: the edition's opening single quote,
+       which the machine reads as a letter or a bracket on 355 lines of speech — `c` 227 times, `*` 61,
+       `4` 40, `f` 15, `{` 6 and `<` 6. A reader met `c Alas ! \u2019 quoth he, c my cousin Arcite`.
+
+       EVERY ONE WAS ENUMERATED AND READ BEFORE A ROW WAS WRITTEN, which is affordable because the
+       count is in the hundreds rather than the thousands and because the shape is so regular. Two
+       checks did the work of reading three hundred lines: what FOLLOWS (a quotation mark is followed
+       by two spaces and a word, where the page furniture it might be confused with is followed by a
+       run of capitals or a digit), and what PRECEDES (a quotation mark opens after a full stop, a
+       comma, a colon, a dash or a paragraph break). The second is only needed for the asterisk.
+
+       WHY THE ASTERISK IS ANCHORED AND THE OTHERS ARE NOT. The translators mark each passage they cut
+       with a row of asterisks, and an asterisk is also used for a mark on the leaf, so five of the
+       seventy loose matches are not quotes at all — one of them the semicolon in `burnished gold ;
+       but now he was descended`. Requiring punctuation before it removes all five and costs two real
+       quotes, which are restored by hand in the two `fixes` rows above. No other character here is
+       ever used in a run of itself, so for the rest the loose rule is exact and the same anchor would
+       only cost quotes — eight of them on the `c` row alone, each following a running head, a page
+       number or a stray mark.
+
+       AND `4` NEEDS A GUARD THE OTHERS DO NOT, because it is also a page number: `4  THE CANTERBURY
+       TALES` is the top of a leaf and `4  Thou shalt to Athens` is Mercury speaking. A capital
+       followed by a capital is a running head; a capital followed by anything else is a word. Two
+       further `4`s open a speech whose first word is a misread `I` set as `1`, and they are left for
+       the batch that takes on that class rather than half-repaired here.
+
+       WHAT IS STILL LEFT, measured the same way and recorded in docs/book-text-plan.md: the CLOSING
+       quote is read as a slash on 19 lines and as an asterisk on 3; a possessive apostrophe is read
+       as a space on 59; and a word's first letter is broken off it on about fifteen. None of those
+       is a single mark standing where a quotation mark belongs, so none belongs in this table. */
+    reFixes: [
+      [/(?<=\s)c(?= {1,2}[A-Za-z“])/g, "‘",
+       "the opening single quote read as a lowercase c; all 227 were listed and read, and every one opens a speech. It is the ONE row that allows a single space: the printing sets two between words, so a lone space is itself a scanning fault, and widening the others by a space would take a stray brace and two currency figures out of the back matter"],
+      [/(?<=[.,;:!?’”—‘\]]\s{1,3}|\n\n)\*(?=  [A-Za-z“])/g, "‘",
+       "the same, read as an asterisk; anchored on the punctuation before it so the translators' rows of asterisks and four marks on the leaf are left alone"],
+      [/(?<=\s)4(?=  [A-Z](?![A-Z])|  [a-z])/g, "‘",
+       "the same, read as a figure 4; the lookahead refuses a run of capitals, which is a running head after a page number"],
+      [/(?<=\s)f(?=  [A-Za-z“])/g, "‘",
+       "the same, read as a lowercase f"],
+      [/(?<=\s)\{(?=  [A-Za-z“])/g, "‘",
+       "the same, read as a left brace"],
+      [/(?<=\s)<(?=  [A-Za-z“])/g, "‘",
+       "the same, read as a less-than sign"],
     ],
     sourceName: "Internet Archive",
     sourceUrl: "https://archive.org/details/completepoetical0000chau_q3l3",
@@ -16101,6 +16162,46 @@ function applyFixes(h) {
   return h;
 }
 
+/* THE SAME REPAIR, WHERE THE THING TO MATCH IS A SINGLE CHARACTER (Sep 2026, batch E6, after the
+   Canterbury Tales turned out to have its opening quotation mark misread six different ways on 228
+   lines).
+
+   IT ASSERTS EXACTLY WHAT `fixes` ASSERTS — the printed page reads X and this transcription reads Y,
+   a claim about a book, made only with a witness in hand — so it is not a fourth kind of act beside
+   `glyphs` and `roman`. It is `fixes` with a boundary, and it exists because `applyFixes` is
+   split/join and CANNOT EXPRESS ONE. Two shapes defeat a substring rule outright:
+
+   · A SINGLE LETTER. `c` set for an opening quote wants a row matching a standalone `c` and nothing
+     else. Written `"c  "` it matches inside every word ending in c. Written `"  c  "` — with the
+     spaces on BOTH sides — it is in fact safe, and E5's note that a letter could not be a row at all
+     was wrong; what a two-sided row cannot do is the second shape.
+   · A CHARACTER THAT ALSO APPEARS LEGITIMATELY IN A RUN OF ITSELF. The translators mark each passage
+     they omit with a row of asterisks, so `  *  ` matches inside `*  *  *  *  *` and a two-sided row
+     would eat the marks the extractor counts. Only "an asterisk followed by a LETTER" separates the
+     quote from the mark, and a lookahead is the one way to say it.
+
+   The regex is written by the author rather than composed here, so a row can say exactly what it
+   means; it must carry the `g` flag (without it `.replace` changes the first match and silently
+   leaves the rest) and that is checked rather than assumed. Every row MUST FIRE, counted and printed
+   exactly as a fix is, for the same reason: a repair that quietly lapses is worse than none.
+
+   IT RUNS AFTER `fixes`, WHICH IS LOAD-BEARING. A hand-written passage row is specific and a regex
+   row is general, so the specific one gets first refusal — that is how the stray `f` inside the
+   hyphen-wrapped `every-where` is deleted before the `f`-as-quote sweep can see it and read it as a
+   quotation mark. Order the exceptions above, and the sweep below. */
+const REFIX_HITS = Object.create(null);
+function applyReFixes(h) {
+  if (!BOOK || !BOOK.reFixes) return h;
+  for (const [rx, to] of BOOK.reFixes) {
+    if (!(rx instanceof RegExp) || !rx.global)
+      throw new Error("a reFixes row needs a global RegExp: " + rx);
+    const key = String(rx);
+    if (!(key in REFIX_HITS)) REFIX_HITS[key] = 0;
+    h = h.replace(rx, (...a) => { REFIX_HITS[key]++; return to; });
+  }
+  return h;
+}
+
 /* MODERN PINYIN OVER THE TRANSLATOR'S OWN ROMANISATION (Aug 2026, on request: "for the Chinese texts,
    enforce the use of modern pinyin for all Chinese transliterations, overriding the antiquated
    transliteration systems used in these old English translations").
@@ -16294,7 +16395,7 @@ function applyRoman(h) {
    or Greek it faces. An original that needs a slip corrected wants a table of its own on `O`; none
    does today, and that is a gap rather than a decision. */
 function correctRaw(t) {
-  return applyRoman(applyFixes(applyGlyphs(unwrapNameMarkup(t))));
+  return applyRoman(applyReFixes(applyFixes(applyGlyphs(unwrapNameMarkup(t)))));
 }
 
 
@@ -23968,6 +24069,13 @@ function writeEnglish(chapters, warnings) {
       const n = FIX_HITS[from] || 0;
       console.log("  fix " + (n ? "applied " + n + "x" : "DID NOT FIRE") + " — " + why);
       if (!n) warnings.push("a declared fix matched nothing: " + JSON.stringify(from.slice(0, 60)));
+    }
+  }
+  if (BOOK.reFixes) {
+    for (const [rx, , why] of BOOK.reFixes) {
+      const n = REFIX_HITS[String(rx)] || 0;
+      console.log("  refix " + (n ? "applied " + n + "x" : "DID NOT FIRE") + " — " + why);
+      if (!n) warnings.push("a declared reFix matched nothing: " + String(rx));
     }
   }
   if (BOOK.glyphs) {

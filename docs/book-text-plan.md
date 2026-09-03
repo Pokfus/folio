@@ -221,8 +221,10 @@ the pass at reading ~1,400 lines to find something on the order of a hundred.
 
 ## 5. Reachability — which books the machinery can already correct
 
-`applyFixes(applyGlyphs(…))` is called inside the **wiki chapter loop**, *before* the
+`applyReFixes(applyFixes(applyGlyphs(…)))` is called inside the **wiki chapter loop**, *before* the
 `parallel`/`interleaved`/`shloka` branch — so every wiki book is covered, parallel books included.
+**`reFixes` joined the chain in E6** — a regex `fixes`, for the repairs a split/join cannot express —
+and it runs AFTER `fixes` so a hand-written passage row pre-empts a general sweep.
 
 **THIS SECTION SAID THE PLAIN-TEXT AND TEI LAYOUTS WERE NOT, AND THAT IS NO LONGER TRUE.** It named
 `journey`, `boethius`, `polo`, `bede`, `ptahhotep`, `quixote` and `chaucer` as calling `fetchText` raw;
@@ -279,7 +281,8 @@ re-run and diffed byte for byte.
 | **E3** ✅ | `rigveda` | **52 slips**, every one anchored in the Internet Archive's scan of the same 1896 second edition before it became a row; the `layout: "sukta"` branch wired into `correctRaw`, without which the table was inert |
 | **E4** ✅ | `ramayana`, `don-quixote` | **ten slips corrected and two false corrections refused**, every one read against a scan of the same translation; the page-IMAGE route, for the four places where the witness's own text layer repeats the error; and the measured no-witness records for the Aeneid, Plato and the Summa |
 | **E5** ✅ | `canterbury-tales` | **151 repairs in 75 rows** — far the worst-damaged text on the shelf, and the damage is not the letter slips the batch went looking for: **eight pages printed straight and scanned askew**, where the reader dropped and transposed whole lines; the **opening quotation mark read as a pound sign** on 59; the **AE ligature read two wrong ways**, `iE` and `/E`, which made King Aella unreadable thirteen times; two full-page plates whose signature and dirt were set down mid-sentence; 40 dropped words restored |
-| **E6** | `canterbury-tales`, and a change to shared machinery | what E5 leaves in that book and cannot express: the SAME opening quote read as a lowercase `c` on **157** lines, the closing quote as a slash on about eleven, and eleven stray carets. `applyFixes` is split/join with no word boundary, so none of these can be a row; the batch is a word-boundary-aware correction pass plus the readings, and the pass must be proved inert on the nine books that already declare `fixes` |
+| **E6** ✅ | `canterbury-tales`, and a change to shared machinery | **355 quotation marks put back in 6 rows**, and the class was three times what E5 estimated: the opening quote is misread SIX ways, not one — `c` 227 times, `*` 61, `4` 40, `f` 15, `{` 6, `<` 6. The `reFixes` table (a regex `fixes`, same assertion, boundary-aware) is the machinery, proved inert on the nine books already declaring `fixes` |
+| **E7** | `canterbury-tales` | what the census leaves, all of it measurable on the shipped prose: the CLOSING quote read as a slash (19 of the 24 slashes) and as an asterisk (3); a possessive apostrophe read as a SPACE on 57 lines, in TWO shapes that want different rows — 10 where the apostrophe survives and only the space is wrong (`the Knight' s Tale`) and 47 where the apostrophe is gone altogether (`God s sake`, `the Shipman s Prologue`); a word's first letter broken off it about fifteen times (`H ow`, `H e`, `J eremy`, `j oy`, `T ale`); and about thirty stray marks standing alone (`_` 10, `-` 10, `'` 5, `•` 2), plus `1` set for `I` |
 | **E7–En** | the rest of the error half | what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
@@ -287,6 +290,64 @@ The error half of a Chinese book rides with its romanisation batch; the rest run
 ---
 
 ## 8. Batch log
+
+### E6 — the Canterbury Tales' quotation marks, shipped 2026-09-03
+
+**355 opening quotation marks put back, in six rows, and the batch begins by correcting the batch
+before it.** E5 deferred this class saying `applyFixes` could not express it at all, because a row
+written `"c  "` matches inside every word ending in c. **That was half right and the half it got
+wrong is worth stating: a row written `"  c  "`, with the spaces on BOTH sides, matches only a
+standalone `c` and would have been perfectly safe.** What genuinely defeats a substring rule is the
+other shape — a character that also appears legitimately in a run of itself. The translators mark
+each passage they cut with a row of asterisks, so `"  *  "` matches inside `*  *  *  *  *` and would
+have eaten the marks the extractor counts and reports. Only *an asterisk followed by a letter*
+separates the quote from the mark, and that needs a lookahead.
+
+**AND THE CLASS WAS THREE TIMES THE SIZE E5 REPORTED.** E5 counted the `c`. A census of every
+one-character token in the shipped prose — two lines of script — found the opening quote misread
+**six** ways: `c` 227 times, `*` 61, `4` 40, `f` 15, `{` 6 and `<` 6. **Count the alphabet, not the
+letter you noticed**: the same census is what turns "a quotation mark is sometimes wrong" into a
+list you can finish.
+
+**`reFixes` IS `fixes` WITH A BOUNDARY, NOT A FOURTH KIND OF ACT.** It asserts what `fixes` asserts —
+the printed page reads X and this transcription reads Y — so it takes the same `why`, the same
+must-fire rule and the same per-row count, and it is deliberately NOT filed beside `glyphs` and
+`roman`, which assert nothing about a page. It runs AFTER `fixes`, and that order is load-bearing: a
+hand-written passage row is specific and a regex row is general, so the specific one gets first
+refusal. Three rows exercise it — a stray `f` inside the hyphen-wrapped `every-where` is deleted
+before the `f`-as-quote sweep can read it as a quotation mark, and two real quotes the asterisk rule
+deliberately cannot reach are restored by hand.
+
+**EVERY ONE OF THE 355 WAS ENUMERATED AND READ BEFORE A ROW WAS WRITTEN.** That is affordable at
+this size and it is what the rules are built out of. Two tests did the work: **what FOLLOWS** (a
+quotation mark is followed by a word; the page furniture it can be confused with is followed by a
+run of capitals or a digit) and **what PRECEDES** (a quotation mark opens after a full stop, comma,
+colon, dash or paragraph break). The second is needed only for the asterisk, where anchoring on the
+punctuation removes all five false positives — one of them the semicolon in *burnished gold ; but
+now he was descended* — at the cost of two real quotes, restored by hand.
+
+**A GUARD FOR ONE ROW ONLY: `4` IS ALSO A PAGE NUMBER.** `4  THE CANTERBURY TALES` is the top of a
+leaf and `4  Thou shalt to Athens` is Mercury speaking; a capital followed by a capital is a running
+head. And **only the `c` row allows a single space** before the following word. The printing sets two
+between words, so a lone space is itself a scanning fault — but widening the others by a space takes
+a stray brace and two currency figures (`a coin worth 4 d.`) out of the back matter, so it was
+measured row by row rather than applied across the table.
+
+**THE FALSE POSITIVES ARE WHERE THE VALUE OF ENUMERATING IS.** Five of the seventy loose asterisk
+matches are not quotes at all, and one of them is prose a reader meets. Had the rule been written
+from the shape alone and shipped on its count, the book would have gained 355 correct quotation
+marks and five new errors, and nothing in the pipeline could have told the difference.
+
+**AND REPAIRING A CHARACTER CAN REPAIR THE PARAGRAPHING AROUND IT, which is worth expecting rather
+than being surprised by.** The extractor's own heuristics READ the text they are deciding about: a
+block beginning with a lowercase letter is treated as a continuation of the paragraph above it. Two
+blocks in this book began with a misread quotation mark and were therefore glued to their
+predecessor — the Wife of Bath's `“ Sir old dotard, is this how you would have things ?`, which the
+printing sets as a new paragraph, and a mangled page number `J87`, which was riding into the prose on
+the back of the `f` that followed it. Both come right on their own once the character is a quotation
+mark, so the diff carries one paragraph more and one piece of scanner dirt fewer than the rows
+account for. **Diff the paragraph structure as well as the words** after a batch like this; the
+change is correct here and would have been just as invisible had it not been.
 
 ### E5 — the Canterbury Tales, shipped 2026-09-03
 
