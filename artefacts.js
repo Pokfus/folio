@@ -777,4 +777,25 @@ window.ARTEFACTS = [
     date: "c. 2600 – 1900 BCE",
     origin: "Mohenjo-daro, Harappa and Chanhu-daro",
   },
+  {
+    id: "oak-coffin-textile",
+    name: "Oak-coffin textile",
+    rarity: "common",
+    date: "c. 1500 – 1100 BCE",
+    origin: "Bronze Age barrows of Jutland, Denmark — National Museum of Denmark, Copenhagen",
+  },
+  {
+    id: "amber-bead",
+    name: "Amber bead",
+    rarity: "common",
+    date: "c. 4th millennium BCE onwards",
+    origin: "Baltic and Sicilian amber, worked and traded across prehistoric Europe",
+  },
+  {
+    id: "ochre-crayon",
+    name: "Ochre crayon",
+    rarity: "common",
+    date: "c. 90,000 – 70,000 years ago",
+    origin: "Middle Stone Age sites of southern Africa",
+  },
 ];

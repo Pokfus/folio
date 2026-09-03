@@ -253,6 +253,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | A1 | `terracotta-warrior`, `antikythera-mechanism`, `great-isaiah-scroll` | — |
 | A2 | `venus-of-willendorf` | `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, `vindolanda-tablets` |
 | B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | `gandhara-buddha-head`, `chola-nataraja`, `mughal-miniature`, `nbpw-sherd`, `punch-marked-coin`, `etched-carnelian-bead`, `glass-bangle` |
+| D2 | `oak-coffin-textile`, `amber-bead`, `ochre-crayon` | `palaeolithic-bone-flute`, `antler-spearthrower`, `saddle-quern`, `sickle-blade`, `bone-fishhook`, `eyed-bone-needle` |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -260,6 +261,36 @@ on the buried weapons is not a Qin anti-rust technology two millennia ahead of i
 from the lacquer on the figures — a story most popular accounts still repeat. A plate that states the
 current standing of the thing a reader half-remembers is doing more work than one that recites the
 half-memory. The Great Isaiah Scroll's 2025 radiocarbon-plus-style programme is the same shape.
+
+**D2 IS THE FIRST BATCH WHERE SOURCING WAS NOT THE CONSTRAINT.** Prehistory's everyday things are
+studied by natural scientists, so they are published in PLOS ONE, *Scientific Reports* and *Science
+Advances* and are all open — every one of D2's nine topics returned open literature on the first sweep,
+against four of five in A2 and three of ten in B1. **The pattern across four batches is now clear and is
+worth using to order the remaining ones: what limits this pass is not the subject or the region but
+whether its literature lives in journals or in books.** Archaeology and archaeometry are reachable;
+art history and medieval studies are not.
+
+**All three of D2's shipped artefacts carry a correction, and that is a property of the field rather
+than of the selection.** The oak-coffin textile's strontium evidence for a long-distance Bronze Age
+marriage is undercut by agricultural lime raising the modern Danish baseline, so the Egtved and
+Skrydstrup women most plausibly came from near where they were buried. The amber bead's own analysts
+moved the arrival of Baltic amber in Iberia back by more than a millennium between their 2018 review and
+their 2023 find. And the ochre crayon's excavators say the word *crayon* is itself misleading, since
+seven Blombos pieces turn out to be retouchers for pressure-flaking stone rather than anything used to
+make a mark. **Where a subject is being actively worked on, the third source is usually the one that
+revises the first two** — which is A1's finding arriving again from a different direction.
+
+**AND THE AUTHOR CHECK PAID, CONFIRMING RATHER THAN REFUTING.** The amber citations needed a given name
+that neither Crossref nor Europe PMC carries for that paper — both give `A. Martín Cólliga` — which is
+exactly where the glossary pass's fabricated author (N4) hid. **The route that resolved it: search
+Crossref for the author's OTHER works.** The same registry spells "Araceli Martín Cólliga" in full on
+four of them, and on a second record of the amber paper itself. Do that before either writing an
+expansion or settling for an initial; an initial is honest, but a verified full name is better and is
+usually one query away.
+
+**`ochre-crayon` ships without a picture**, the second to do so. Commons has no photograph of a worked
+Middle Stone Age ochre piece that clears the bar, and the glossary's own `Ochre` illustration is a
+modern pigment powder, which on an artefact plate would show a reader the wrong object entirely.
 
 **B1 CONFIRMS THE ASI ROUTE AND ADDS THE FILENAME TRAP THAT HIDES IT.** Marshall's *Mohenjo-daro and
 the Indus Civilization* volumes 1 and 2 and Vats's *Excavations at Harappa* are all on archive.org with
