@@ -938,4 +938,18 @@ window.ARTEFACTS = [
     date: "c. 13,000 – 4,000 BCE",
     origin: "The Levant and northern Europe",
   },
+  {
+    id: "punch-marked-coin",
+    name: "Punch-marked coin",
+    rarity: "common",
+    date: "c. 6th – 2nd century BCE",
+    origin: "The Indian subcontinent",
+  },
+  {
+    id: "etched-carnelian-bead",
+    name: "Etched carnelian bead",
+    rarity: "common",
+    date: "c. 3rd millennium BCE onwards",
+    origin: "The Indus Valley",
+  },
 ];

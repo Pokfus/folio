@@ -253,7 +253,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 |---|---|---|
 | A1 | `terracotta-warrior`, `antikythera-mechanism`, `great-isaiah-scroll` | — |
 | A2 | `venus-of-willendorf` | `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, ~~`vindolanda-tablets`~~ (shipped in A2b) |
-| B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | `gandhara-buddha-head`, `chola-nataraja`, `mughal-miniature`, `nbpw-sherd`, `punch-marked-coin`, `etched-carnelian-bead`, `glass-bangle` |
+| B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | `gandhara-buddha-head`, `chola-nataraja`, `mughal-miniature`, `nbpw-sherd`, ~~`punch-marked-coin`, `etched-carnelian-bead`~~ (both shipped in B1b), `glass-bangle` |
 | D2 | `oak-coffin-textile`, `amber-bead`, `ochre-crayon` | `palaeolithic-bone-flute`, `antler-spearthrower`, `saddle-quern`, `sickle-blade`, `bone-fishhook`, `eyed-bone-needle` |
 | D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | ~~`palaeolithic-bone-flute`, `bone-fishhook`~~ (both shipped in D2c) |
 | C3/C2 | `clovis-point`, `obsidian-blade`, `ostrich-eggshell-bead` | — |
@@ -263,6 +263,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | D1b/C2 | `seal-matrix`, `manilla` | — |
 | A2b/E1 | `vindolanda-tablets` (UN-DEFERRED), `sling-bullet` | — |
 | D2c | `palaeolithic-bone-flute`, `bone-fishhook` (both UN-DEFERRED — **D2's list is now empty**) | — |
+| B1b | `punch-marked-coin`, `etched-carnelian-bead` (both UN-DEFERRED) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -270,6 +271,31 @@ on the buried weapons is not a Qin anti-rust technology two millennia ahead of i
 from the lacquer on the figures — a story most popular accounts still repeat. A plate that states the
 current standing of the thing a reader half-remembers is doing more work than one that recites the
 half-memory. The Great Isaiah Scroll's 2025 radiocarbon-plus-style programme is the same shape.
+
+**B1b BREAKS INTO SOUTH ASIA, WHICH HAD LOOKED LIKE THE PASS'S HARDEST REGION, AND BOTH ROUTES WERE
+ALREADY WRITTEN DOWN HERE.** B1 deferred seven; two of them are now shipped on exactly the routes this
+file recorded and nobody had walked: **Allan's British Museum *Catalogue of the Coins of Ancient India*
+is on archive.org**, as is **Cunningham 1891**, which names the type outright — "as all these pieces
+are stamped with several dies or punches … they have received the descriptive name of punch-marked
+coins" — and gives the Sanskrit *purāṇa* and *kārshāpaṇa* with the mentions in Manu and Pāṇini; and
+**H. C. Beck's bead report is a chapter of Vats's *Excavations at Harappa* (1940)**, also on
+archive.org, which carries the etching chemistry in one sentence: the design is drawn in carbonate of
+soda and the stone heated till red hot. **A route recorded and not taken is worth as much as a
+deferral** — read the plan's own notes before searching again.
+
+**Its access finding is a SIXTH variety of unusable 200.** `ancient-asia-journal.com` answers 200 on a
+correctly-formed article URL and returns **zero bytes**. That is worse than a 404, because
+`add-artefacts.js` checks that a citation ends in a URL and a 200 satisfies every automatic test; only
+reading the body catches it. It is why `nbpw-sherd` stays deferred — its one open work is published in
+that journal, whose DOIs 404 at Ubiquity and whose new host serves nothing.
+
+**AND THE SAME MISTAKE OF MINE HAS NOW BEEN CAUGHT THREE BATCHES RUNNING, SO IT IS A WORKFLOW RULE
+RATHER THAN AN INCIDENT.** `check-citations.js` found *Giulia* for Giovanna in A2b, and here found
+**six fabricated given names in two citations** — Anand for Amit, Nishant for Neeraj, Ram for Rajiv,
+Miao for Meiting, Jia for Jiancheng, Cun for Chunlei. Every one came from expanding Europe PMC's
+`authorString`, which prints initials (`Upadhyay AK`, `Yan M`), and every expansion was plausible,
+resolvable and wrong. **Take author names from CROSSREF, or from the article's own byline — never from
+an index's author string**, and run the checker before committing rather than after.
 
 **D2c EMPTIES THE D2 DEFERRAL LIST, and it confirms the cheap/expensive distinction D2b proposed.**
 D2 deferred six for want of a third work; D2b shipped four and D2c the last two, so every one of them
@@ -589,6 +615,12 @@ the object, read what each of the five sentences actually claims, find three rea
 every URL resolves before writing it**, place the markers with `mark-artefact-sources.js` rather than
 by hand, and run `node .claude/add-artefacts.js <batch.json>`, which refuses anything under the bar.
 Then `node .claude/test-artefacts.js` and `node .claude/check-style.js`.
+
+**NAMES COME FROM CROSSREF, NEVER FROM AN INDEX'S AUTHOR STRING.** Europe PMC and PubMed print
+`Surname AB`; expanding those initials produces a name that reads perfectly and is wrong, and it has
+been caught in three consecutive batches. Query `api.crossref.org/works/<doi>` for the author list, or
+read the byline in the article itself, and run `node .claude/check-citations.js --artefacts` BEFORE
+committing.
 
 **A new artefact ships with a picture or with a stated reason why not** — `add-artefacts.js` calls
 `suggest-image.js` and prints candidates with their licences; it suggests and never installs, and the
