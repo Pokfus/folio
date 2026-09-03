@@ -1748,7 +1748,8 @@ window.GLOSSARY = {
 "Aristides": "Aristides son of Lysimachus, of the Athenian deme Alopece, was a general and statesman whom Greek tradition surnamed 'the Just'.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus places him at Salamis in 480 BCE, arriving from Aegina to warn Themistocles that the fleet was encircled, and afterwards landing armed men on the islet of Psyttaleia to kill the Persians on it; the next summer he commanded the eight thousand Athenians on the left of the line at Plataea.<sup class=\"fn\" data-fn=\"2\"></sup> When the allies transferred the naval command from Sparta to Athens he was chosen to assess what each city should contribute, a first total Thucydides gives as 460 talents with the common treasury on Delos.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Ostracism_of_Aristides": "The ostracism of Aristides was the Athenian vote, held in the archonship of Nicomedes, that banished Aristides son of Lysimachus from the city for ten years.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch attributes it to resentment of his reputation for justice, sharpened by a story Themistocles set going that he had done away with the public courts, and tells how an unlettered voter, tired of hearing him called 'the Just', asked Aristides himself to write the name on his sherd.<sup class=\"fn\" data-fn=\"2\"></sup> The <i>Athenian Constitution</i> records that in the third year afterwards, under the archon Hypsechides, the Athenians recalled everyone they had ostracised because Xerxes was marching on Greece.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Xerxes_I": "Xerxes I was the Achaemenid king of Persia who succeeded his father Darius I and carried out the invasion of Greece that Darius had been preparing when he died.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says the succession was contested between Artobazanes, eldest of the sons born before Darius became king, and Xerxes, eldest of those born afterwards to Atossa daughter of Cyrus.<sup class=\"fn\" data-fn=\"1\"></sup> His inscription on the gateway at Persepolis calls him king of kings and king of the countries of many peoples; Diodorus says he was killed in his bedchamber by Artabanus, the captain of his bodyguard, after more than twenty years as king.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Hellespont_bridges": "The Hellespont bridges were the pair of pontoon roads laid across the strait between Abydos and the Chersonese to carry the army of Xerxes I from Asia into Europe in 480 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says a storm destroyed the first pair and that the second were carried on 360 ships for one bridge and 314 for the other, held by two flaxen cables and four of papyrus and surfaced with timber, brushwood and stamped earth.<sup class=\"fn\" data-fn=\"1\"></sup> He reports that the army crossed for seven days and seven nights without pause, and Aeschylus calls the work a roadway cast as a yoke upon the neck of the sea.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Hellespont_bridges": "The Hellespont bridges were the pair of pontoon roads laid across the strait between Abydos and the Chersonese to carry the army of Xerxes I from Asia into Europe in 480 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says a storm destroyed the first pair and that the second were carried on 360 ships for one bridge and 314 for the other, held by two flaxen cables and four of papyrus and surfaced with timber, brushwood and stamped earth.<sup class=\"fn\" data-fn=\"1\"></sup> He reports that the army crossed for seven days and seven nights without pause, and Aeschylus calls the work a roadway cast as a yoke upon the neck of the sea.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Athos_canal": "The Athos canal was a channel cut for Xerxes I through the isthmus at the landward end of the Athos peninsula in northern Greece, so that a fleet could pass without rounding the mountain.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says earlier ships attempting the passage had been wrecked, that the digging took about three years under two Persian overseers, and that the trench was made wide enough for two triremes to row abreast.<sup class=\"fn\" data-fn=\"1\"></sup> Strabo reports that the cut was still visible at Acanthus in his own day, and also that Demetrius of Scepsis held it had never been navigable because a flat rock stopped the digging short of the sea.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2522,7 +2523,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Aristides": "fl. 490 – 478 BCE",
 "Ostracism_of_Aristides": "c. 482 BCE",
 "Xerxes_I": "reigned c. 486 – 465 BCE",
-"Hellespont_bridges": "480 BCE"
+"Hellespont_bridges": "480 BCE",
+"Athos_canal": "c. 483 – 480 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3615,7 +3617,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Aristides": ["Aristides the Just","Aristides son of Lysimachus"],
 "Ostracism_of_Aristides": ["ostracism of Aristides"],
 "Xerxes_I": ["Xerxes"],
-"Hellespont_bridges": ["bridges over the Hellespont","bridge of boats over the Hellespont"]
+"Hellespont_bridges": ["bridges over the Hellespont","bridge of boats over the Hellespont"],
+"Athos_canal": ["canal of Xerxes","Xerxes canal"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5392,7 +5395,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Aristides": ["person","history","politics","warfare","greece","athens"],
 "Ostracism_of_Aristides": ["event","history","politics","greece","athens"],
 "Xerxes_I": ["ruler","history","warfare","politics","iran","greece"],
-"Hellespont_bridges": ["building","object","technology","warfare","history","greece","iran"]
+"Hellespont_bridges": ["building","object","technology","warfare","history","greece","iran"],
+"Athos_canal": ["building","technology","warfare","history","greece","iran"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
