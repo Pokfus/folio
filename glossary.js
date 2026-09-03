@@ -1739,7 +1739,8 @@ window.GLOSSARY = {
 "Datis": "Datis was a Mede in Achaemenid service who commanded the expedition Darius I sent against Athens and Eretria in 490 BCE, with the king's nephew Artaphernes as his colleague.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus has him sail through the Cyclades, burn Naxos, spare Delos and burn three hundred talents of frankincense on its altar, take Eretria, and return to Asia with the Eretrian captives after the defeat at Marathon.<sup class=\"fn\" data-fn=\"1\"></sup> Ctesias instead reports that he was killed at Marathon and that Athens refused to give up his body, while Plato names him alone as the commander Darius sent, under orders to bring the two cities back in chains.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_Marathon": "The Battle of Marathon was fought in 490 BCE on the coastal plain of eastern Attica, where an Athenian army with a thousand Plataeans met the Persian force Darius had sent under Datis and Artaphernes.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Herodotus says the Athenian line was stretched to the Persian one's length so that its centre stood a few ranks deep, that the men crossed the eight stades at a run, and that the wings won and closed on the enemy who had broken through.<sup class=\"fn\" data-fn=\"1\"></sup> He counts about 6,400 dead among the invaders and 192 Athenians, who were buried where they fell, an honour Thucydides says Athens granted to no other war dead.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Miltiades": "Miltiades was the Athenian who ruled the Thracian Chersonese as a subject of Darius I and then commanded at Marathon in 490 BCE, where his was the plan the Athenians fought by.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says he fled the Chersonese from the Phoenician fleet, was prosecuted at Athens for tyranny there and acquitted, and was elected one of the ten generals for the campaign.<sup class=\"fn\" data-fn=\"1\"></sup> After Marathon he took seventy ships against Paros, failed, and was fined fifty talents; Herodotus has him die of a wound with his son Cimon paying, while Diodorus has him die in the state prison, unable to pay.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Callimachus_(polemarch)": "Callimachus of Aphidnae was the Athenian polemarch in 490 BCE, the magistrate who under the arrangement of that time held a vote alongside the ten elected generals and took the right wing of the line.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says the generals were divided over whether to fight at Marathon, that Miltiades put the decision to him, and that he voted to attack and was killed in the battle at the Persian ships.<sup class=\"fn\" data-fn=\"1\"></sup> A marble Nike on an inscribed column was dedicated for him on the Acropolis, and what survives of its text names him polemarch of the Athenians who fought for the Greeks at Marathon.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Callimachus_(polemarch)": "Callimachus of Aphidnae was the Athenian polemarch in 490 BCE, the magistrate who under the arrangement of that time held a vote alongside the ten elected generals and took the right wing of the line.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says the generals were divided over whether to fight at Marathon, that Miltiades put the decision to him, and that he voted to attack and was killed in the battle at the Persian ships.<sup class=\"fn\" data-fn=\"1\"></sup> A marble Nike on an inscribed column was dedicated for him on the Acropolis, and what survives of its text names him polemarch of the Athenians who fought for the Greeks at Marathon.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Pheidippides": "Pheidippides was the Athenian long-distance runner sent to Sparta for help when the Persians landed at Marathon in 490 BCE; Herodotus, the earliest source, calls him Philippides.<sup class=\"fn\" data-fn=\"1\"></sup> He reached Sparta on the day after leaving Athens and was told they could not march before the full moon, and he reported that Pan had spoken to him on Mount Parthenium, after which Athens gave the god a precinct below the Acropolis.<sup class=\"fn\" data-fn=\"1\"></sup> The run from the battlefield that the modern race commemorates is given to him by no ancient writer: Plutarch has the news carried by Thersippus of Eroeadae, or, as most had it, by Eucles, who announced it and died.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3591,7 +3592,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Datis": ["Datis and Artaphernes","Datis the Mede"],
 "Eretria": ["sack of Eretria"],
 "Miltiades": ["Miltiades the Younger"],
-"Callimachus_(polemarch)": ["Callimachus of Aphidnae","Callimachus the polemarch"]
+"Callimachus_(polemarch)": ["Callimachus of Aphidnae","Callimachus the polemarch"],
+"Pheidippides": ["Philippides"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5359,7 +5361,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Datis": ["person","people","warfare","history","greece","iran"],
 "Battle_of_Marathon": ["battle","event","history","warfare","greece","iran"],
 "Miltiades": ["person","ruler","history","warfare","greece","athens"],
-"Callimachus_(polemarch)": ["person","history","warfare","greece","athens"]
+"Callimachus_(polemarch)": ["person","history","warfare","greece","athens"],
+"Pheidippides": ["person","history","warfare","greece","athens"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
