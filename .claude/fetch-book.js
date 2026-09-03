@@ -12161,6 +12161,12 @@ const BOOKS = {
         "that survives in many printings is somebody's constituted text whether or not it says so. " +
         "That is the same question that keeps the Italian out of the Divine Comedy here, and it is " +
         "answered the same way: better to ship the English alone and say why.",
+      "One last thing about the text itself. The transcription this is taken from is a very clean " +
+        "one, and a sweep of it turned up a single machine slip \u2014 <i>neigbbour's</i> where the page " +
+        "reads neighbour's \u2014 <b>corrected here against a scan of the 1885 printing</b> and listed " +
+        "in the importer. Two other words that looked like slips were read against the same scan and " +
+        "are Ormsby's own: the village really is called <i>Baratario</i>, and the ass really is " +
+        "<i>like a little sard</i>.",
     ],
 
     /* ---------- ONE PLAIN-TEXT FILE, CHOSEN OVER A CLEAN WIKI TRANSCRIPTION ----------
@@ -12189,6 +12195,15 @@ const BOOKS = {
        Gutenberg prints the same titles in capitals over each chapter, which is Aesop's
        unrecoverable case; taking them from the wiki keeps their capitalisation without composing
        anything. No `indexPage`, therefore, and no per-page title read. */
+    /* ONE SCANNING SLIP, read against the printed page before it became a row (batch E4). The
+       transcription is Project Gutenberg's of Ormsby; the witness is the Internet Archive's scan of
+       the 1885 third volume (`ingeniousgentlem18853cerv`, corroborated by `ingeniousgentle03cerv`),
+       which reads "wipe the nose of your neighbour's son". Two further candidates were read against
+       the same scans and are NOT slips — the printing really does set "the name of the village was
+       Baratario" and "an ass like a little sard" — which is what the witness rule is for. */
+    fixes: [
+      ["neigbbour", "neighbour", "h read as b: 1 against 55 neighbour, and the page reads neighbour"],
+    ],
     layout: "quixote",
     url: "https://www.gutenberg.org/cache/epub/996/pg996.txt",
     chapterWord: "Chapter",
@@ -12581,8 +12596,33 @@ const BOOKS = {
         "divides. And <b>Griffith's own footnotes are here</b> — a thousand of them, folded under each " +
         "canto — explaining a name, a custom, or a line he found obscure; they are as Victorian as the " +
         "verse, and as informative.",
+      "The transcription this text was taken from is a machine reading of the printed book, so it " +
+        "carries a few of that machine's slips rather than Griffith's \u2014 <i>jovful</i> where the page " +
+        "reads joyful, <i>Ayodby\u00e1</i> for Ayodhy\u00e1, <i>arras</i> for arms. <b>Nine of them have been " +
+        "corrected here against the printed page</b>, each read in a scan of the same translation " +
+        "before it was touched, and each listed in the importer with the words the page carries. " +
+        "Anything a witness does not settle is left exactly as found.",
     ],
 
+    /* NINE SCANNING SLIPS, EACH READ AGAINST THE PRINTED PAGE BEFORE IT BECAME A ROW (batch E4). The
+       transcription is Project Gutenberg's of Griffith; the witness is the Internet Archive's scan of
+       the same translation (`ramayanvlmkitra00grifgoog`), and where that scan's OWN text layer repeats
+       the error — an OCR of the same typeface makes the same mistake — the page IMAGE was read instead.
+       Four of the nine needed that: Ayodhyá's, Namuchi, Videha and horns. See docs/book-text-plan.md.
+
+       Every one of the nine strings occurs EXACTLY ONCE in the raw source, which is what makes a bare
+       substring replace safe here; `applyFixes` matches no word boundary of its own. */
+    fixes: [
+      ["Ayodby\u00e1", "Ayodhy\u00e1", "h read as b; the page reads \"King R\u00e1ma reached Ayodhy\u00e1's gate\""],
+      ["Vindhva", "Vindhya", "y read as v; the scan's own text layer reads Vindhya here"],
+      ["K\u00e1rtikeva", "K\u00e1rtikeya", "y read as v, in a note; the page reads K\u00e1rtikeya"],
+      ["jovful", "joyful", "y read as v; the page reads \"The loud huzza and joyful shout\""],
+      ["Vidcha", "Videha", "e read as c, in a note; the page reads \"Called also Videha, later T\u00edrabhukti\""],
+      ["Mamda", "Mainda", "in read as m; the page reads Mainda, as it does ten times elsewhere"],
+      ["Namuehi", "Namuchi", "c read as e; the page reads \"As Namuchi and Indra met\""],
+      ["hons", "horns", "a dropped r, in a note; the page reads \"bows out of the horns of antelopes\""],
+      ["arras", "arms", "m read as rn; the page reads \"In cruel arms his struggling prey\""],
+    ],
     layout: "kanda",
     chapterWord: "Canto",
     chapters: RAM_CANTOS.map((_, i) => i + 1),

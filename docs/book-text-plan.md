@@ -68,8 +68,9 @@ ships the wrong name.
 **A slip is corrected only against a printed witness.** The scan below produces candidates; a candidate becomes
 a `fixes` entry when the printed page has been read and disagrees with the transcription. Where no scan of the
 printed page is reachable, the candidate is **recorded here and left in the text** — the shelf's standing answer
-(`homer-iliad`'s thirteen welds, `virgil-aeneid`'s ~120 l→I slips, `lucretius`'s 24 doubled vowels are all
-recorded rather than repaired).
+(`homer-iliad`'s thirteen welds, `virgil-aeneid`'s l→I slips, `lucretius`'s 24 doubled vowels are all
+recorded rather than repaired). **That l→I figure was an estimate of ~120 and is now a measurement:
+28 forms and 37 occurrences across six books, 14 of the forms in the Aeneid** — see the E4 entry.
 
 **A romanisation is converted only when it is known which name is meant, AND THAT IS A WEAKER CLAIM THAN IT
 SOUNDS.** The syllable mapping is *deterministic* — Wade-Giles was built as a one-to-one system and every
@@ -262,13 +263,75 @@ re-run and diffed byte for byte.
 | **B6b** ✅ | `three-kingdoms` | the second pass's 527 candidates, **462 of 483 romanisations shipped and 21 struck out** after each was checked against the printing rather than taken on trust; the table goes **1,727 → 2,100 names in 24,741 places**; the page-turn join, which found **six** split names and not two; the TemplateStyles block that was hiding a chapter head from every row; **sixteen chapter titles corrected**, among them Cao Pi, Sun Quan, Xiaoyao Ford and Guan Yunchang; and an editorial variant tooltip glued into the Chinese of this book and of Journey to the West |
 | **E2** ✅ | `marco-polo` | the error check; **no words changed, and that is the finding** — for a scholarly edition the aggregate test is weak and the independent scan is the poorer witness; the `✛` revision mark identified and explained on the About page |
 | **E3** ✅ | `rigveda` | **52 slips**, every one anchored in the Internet Archive's scan of the same 1896 second edition before it became a row; the `layout: "sukta"` branch wired into `correctRaw`, without which the table was inert |
-| **E4–En** | the rest of the error half | the slip and variant candidates, book by book, heaviest first — canterbury-tales (18), summa-theologica (15), virgil-aeneid (14); a book with no printed witness reachable contributes findings rather than fixes |
+| **E4** ✅ | `ramayana`, `don-quixote` | **ten slips corrected and two false corrections refused**, every one read against a scan of the same translation; the page-IMAGE route, for the four places where the witness's own text layer repeats the error; and the measured no-witness records for the Aeneid, Plato and the Summa |
+| **E5–En** | the rest of the error half | what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E4 — the Ramayana and Don Quixote, shipped 2026-09-03
+
+**TEN SLIPS CORRECTED, TWO FALSE CORRECTIONS REFUSED, AND THE SECOND NUMBER IS THE ONE THAT JUSTIFIES
+THE WITNESS RULE.** `Baratario` and `sard` both look exactly like scanning slips — a village named
+one letter off the island it names, an ass compared to a word no dictionary carries — and the 1885
+printing sets both. Without the scan they would have shipped as corrections, which is the failure this
+plan's bar exists to prevent, and the only way to know is to look.
+
+**THE FILTER THAT MADE THE READING TRACTABLE IS THE SHELF ITSELF.** `book-scan` has no dictionary and
+says so; forty-seven other books are one. Ranking a book's candidates by how many OTHER books on the
+shelf ever write the word puts every real slip in the first band and every ordinary English word below
+it: on the Ramayana the nine that turned out to be slips all sit among the thirteen rarest of 159
+candidates, and the rest of the list is *tabours*, *laves*, *lath*, *hern*, *lops*, *glean* — words
+this book uses correctly and a dozen books share. On the Summa the same ranking separates one real
+slip (`corning` for coming) from sixty-four correct words, most of them Latin citations.
+
+**AND THE SECOND FILTER IS A SYSTEMATIC CLASS THE SUBSTITUTION SCAN DOES NOT NAME: `l` READ AS CAPITAL
+`I`.** A capital I inside a lowercase word is the same stroke as an l in most faces and is never
+correct English. Swept over the whole shelf, deciding each case by whether swapping the glyph gives a
+word that same book writes often: **28 forms and 37 occurrences across six books**, of which the
+Aeneid has 14 forms and Plato 4. That is a measurement where §2 carried an estimate — §2 carried an
+estimate of "~120" for the Aeneid alone, and the estimate was four times high; it now carries the
+measurement instead.
+
+**THE WITNESS'S OWN TEXT LAYER IS NOT ALWAYS A WITNESS, AND THAT IS THE BATCH'S REUSABLE FINDING.** An
+OCR of the same typeface makes the same mistake: the Internet Archive's scan of Griffith reads
+`Ayodby4` at one place, `Namuehi` at another, exactly as Folio's transcription does. The asymmetry is
+what saves it — **an OCR turns a printed letter into a wrong one and never a printed wrong letter into
+a right one**, so where the scan's text reads the CORRECT form the printed page carries it and the
+check is done (five of the nine settled that way), and where it repeats the error the page IMAGE has
+to be read (the other four did). `<id>_djvu.xml` carries per-word coordinates on every page, so the
+line can be cropped out of `archive.org/download/<id>/page/n<leaf>_w1400.jpg` and looked at: the page
+reads *King Ráma reached Ayodhyá's gate*, *As Namuchi and Indra met*, *Called also Videha*, and *bows
+out of the horns of antelopes*.
+
+**A SECOND TRANSCRIPTION IS A WEAKER TOOL THAN IT SOUNDS, and it was tried and measured rather than
+assumed.** Folio's Ramayana is Project Gutenberg's transcription and the witness is a Google scan of
+the same translation, so a word Folio uses once and the scan never uses at all ought to be a candidate
+the substitution scan cannot reach — a dropped or inserted letter, which it deliberately does not look
+for. It reports **1,197 words**, because the 1895 one-volume reprint is abridged where the five-volume
+edition is not and because Sanskrit proper names are the bulk of both books' rare vocabulary. It found
+nothing the ranking had not, and is recorded here so the next pass does not spend an hour on it.
+
+**WHAT THE TEN ARE.** Nine in the Ramayana, all in one family or another of the shapes a letterpress
+page confuses: y read as v (`jovful`, `Vindhva`, `Kártikeva`), h as b (`Ayodbyá`), c as e (`Namuehi`),
+e as c (`Vidcha`), `in` as m (`Mamda`), m as rn (`arras` for arms) and one dropped r (`hons` for
+horns). One in Don Quixote, `neigbbour's`, in a transcription otherwise clean enough that a sweep of
+2.4 MB turned up nothing else. Each string occurs exactly once in its raw source, which is what makes
+`applyFixes`'s bare substring replace safe on all ten.
+
+**WHAT IS RECORDED RATHER THAN REPAIRED, and why, per book.** `virgil-aeneid` — **the 1910 Houghton
+Mifflin printing of Theodore Chickering Williams's translation is not on the Internet Archive**, which
+holds his Georgics of 1915 and his poems of 1910 but not this; its 22 candidates stand. `plato-dialogues`
+— the Loeb volumes are there, and **their OCR is unusable because the facing Greek bleeds into the
+English column**, so the text layer reads as transliterated gibberish; 14 candidates stand, among them
+`Iawgiver`, `moster` for monster, `Hipponieus` and `possibillty`. `summa-theologica` — its two
+(`corning`, `inproportionate`) would need the right one of twenty-two volumes and are not worth the
+search for two words.
+
+---
 
 ### E3 — the Rigveda, shipped 2026-08-22
 
