@@ -87,7 +87,8 @@ const G = loadGlossary();
 let ART = [];
 try {
   const w = {};
-  new Function("window", fs.readFileSync(path.join(ROOT, "artefacts.js"), "utf8"))(w);
+  // the citations live in the LAZY artefacts-extra.js, not in the eager index — see artefact-io.js
+  w.ARTEFACTS = require("./artefact-io.js").loadArtefacts();
   ART = w.ARTEFACTS || [];
 } catch (e) { /* artefacts are optional */ }
 

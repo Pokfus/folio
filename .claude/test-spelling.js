@@ -121,7 +121,7 @@ if (spellText) {
 
 /* THE TABLE AGAINST THE REAL CORPUS. A row is only ever as good as what it does to the prose that
    actually ships, and every fault this feature had was found here rather than by reading the table. */
-const corpus = ["data.js", "glossary.js", "artefacts.js", "countries.js", "country-years.js", "mission.js", "changelog.js"]
+const corpus = ["data.js", "glossary.js", "artefacts.js", "artefacts-extra.js", "countries.js", "country-years.js", "mission.js", "changelog.js"]
   .map((f) => { try { return fs.readFileSync(path.join(ROOT, f), "utf8"); } catch (e) { return ""; } }).join("\n");
 check("the corpus was read", corpus.length > 1e6, corpus.length);
 

@@ -9634,6 +9634,10 @@
        point is only to keep 1.29 MB off the path that blocks first paint. openGlossWin awaits it for
        the reader who beats the warm. */
     glossExtra: { files: ["glossary-extra.js"], after: glossExtraIngest },
+    /* An artefact's description, citations and picture — 94% of artefacts.js, which is EAGER, and not
+       one of the three read until a chest opens or the Reliquary is visited. Warmed at idle after boot
+       and awaited by the four surfaces that render prose or a picture. See artefactExtraIngest. */
+    artefactExtra: { files: ["artefacts-extra.js"], after: artefactExtraIngest },
     // everything else the Atlas needs: historical eras, physical layers, per-country prose + figures
     atlas: {
       files: ["uk.js", "lakes.js", "rivers.js", "water.js", "cities.js", "timeline.js", "countries.js", "country-stats.js", "country-spans.js", "country-years.js", "country-sources.js"],
@@ -9677,6 +9681,35 @@
      is the same rule the atlas bundle's hook follows for window.TIMELINE: a lazy file overwrites
      what applyAdminEdits() already did, so the overlay has to go back on afterwards.
      A QUEUE rather than a slot, like the i18n files, so nothing is lost if the file lands twice. */
+  /* THE ARTEFACT POOL'S HEAVY HALF, arriving after boot (bundle "artefactExtra").
+     `desc`, `sources` and `image` were 237.5 KB of artefacts.js's 251 -- 94% of a file on the EAGER
+     path -- and nothing reads any of them until a chest opens or the Reliquary is visited. What stays
+     eager is the index, because progStats counts legendaries on every grade and needs `rarity` alone.
+
+     IT MERGES BACK INTO `window.ARTEFACTS` AND THEN REBUILDS, and both halves are load-bearing.
+     `window.ARTEFACTS` is the pool's own baseline -- `artefactIsShipped` and `revertArtefact` read it
+     directly, and `artefactsMerged` re-applies ADMIN_EDITS over it on every call -- so merging into it
+     and calling refreshArtefacts() is what puts the overlay back on top of what just landed. This is
+     glossExtraIngest's re-seed in the shape a pool with no separate PRISTINE snapshot takes: without
+     it, Admin -> Artefacts' Revert would compare a real description against nothing and DELETE it.
+     A QUEUE rather than a slot, like the i18n files, so nothing is lost if the file lands twice. */
+  function artefactExtraIngest() {
+    const q = window.ARTEFACTS_EXTRA_IN || [];
+    window.ARTEFACTS_EXTRA_IN = [];
+    const base = Array.isArray(window.ARTEFACTS) ? window.ARTEFACTS : [];
+    const by = {};
+    base.forEach((a) => { if (a && a.id) by[a.id] = a; });
+    q.forEach((inc) => {
+      const t = inc.ARTEFACTS_EXTRA || {};
+      Object.keys(t).forEach((id) => {
+        // an id the index does not carry is NOT resurrected: the index is what decides the pool, and a
+        // row left behind by a retired artefact must not walk back in carrying only prose
+        if (!by[id]) return;
+        ["desc", "sources", "image"].forEach((k) => { if (t[id][k] !== undefined) by[id][k] = t[id][k]; });
+      });
+    });
+    refreshArtefacts();   // rebuilds from the enriched base, re-applying ADMIN_EDITS on top
+  }
   function glossExtraIngest() {
     const q = window.GLOSSARY_EXTRA_IN || [];
     window.GLOSSARY_EXTRA_IN = [];
@@ -19465,6 +19498,11 @@
   function openArtefactWin(id) {
     const a = ARTEFACT_BY_ID[id];
     if (!a) return;
+    /* The plate IS the lazy half — description, citations and picture — so on the rare open that beats
+       the idle warm, wait and re-enter rather than drawing an empty plate. Re-entering rather than
+       filling slots in place (which is what openGlossWin does) because unlike a definition there is
+       nothing else on a plate to look at meanwhile: without its prose it is a title over white space. */
+    if (!dataReady("artefactExtra")) { ensureData("artefactExtra").then(() => openArtefactWin(id)); return; }
     closeArtefactWin();
     const own = ownsArtefact(id);
     const ov = document.createElement("div");
@@ -19503,6 +19541,9 @@
   let _collectionClose = null;
   function closeCollectionWin() { if (_collectionClose) _collectionClose(); }
   function openCollectionWin(prog, own) {
+    // a grid of tiles, and a tile's art is in the lazy half — wait and re-enter rather than opening a
+    // window of placeholders, the same call PAGES.reliquary makes about the same grid
+    if (!dataReady("artefactExtra")) { ensureData("artefactExtra").then(() => openCollectionWin(prog, own)); return; }
     closeCollectionWin();
     const p = prog || S;
     const ov = document.createElement("div");
@@ -19530,6 +19571,13 @@
      over it, redrawing the very thing they are looking through. Both blocks are optional (a friend's page
      and the signed-out page carry one or neither), so each is guarded. */
   function refreshReliquary() {
+    /* THE ACCOUNT PAGE'S TILES ARE THE ONE SURFACE THAT DOES NOT WAIT, deliberately: the showcase and
+       the Reliquary strip sit inside a page full of other things a reader came for, so holding the
+       whole page for a picture would be the wrong trade — they draw at once with the rarity placeholder
+       and fill in when the bundle lands. This is openGlossWin's rule, not PAGES.reliquary's: re-fill
+       what arrived rather than take the page away and give it back. Fire-and-forget, and `ensureData`
+       resolves rather than rejects, so a failed bundle simply leaves the placeholders standing. */
+    if (!dataReady("artefactExtra")) ensureData("artefactExtra").then(() => { if (current) refreshReliquary(); });
     /* The waiting-chests notice lives on the HOME page now (Aug 2026, on request) and the two Reliquary
        blocks on the account page, so this runs on either — a chest opened from the home page has to be
        able to take its own notice away. It is replaced in place rather than through render(), for the
@@ -19636,6 +19684,16 @@
   const RARITY_RANK = {};
   RARITIES.forEach((r, i) => { RARITY_RANK[r.id] = i; });   // common 0 … legendary 3
   PAGES.reliquary = function (root) {
+    /* Every tile here carries the artefact's own picture, which lives in the lazy half — so a page drawn
+       before the bundle lands is a grid of rarity-coloured placeholders, which is not wrong so much as
+       it is the Reliquary with its contents removed. `render()` re-invokes the current page, so the
+       placard is replaced the moment the file arrives. */
+    if (!dataReady("artefactExtra")) {
+      root.innerHTML = '<div class="page-head"><span class="eyebrow">Your collection</span><h1>Reliquary</h1></div>' +
+        '<div class="data-loading">Opening the Reliquary…</div>';
+      ensureData("artefactExtra").then(() => { if (current && current.name === "reliquary") render(); });
+      return;
+    }
     const owned = ownedArtefacts(S);            // already newest-found first
     const at = S.artefacts || {};
     const total = ARTEFACTS.length;
@@ -19752,6 +19810,11 @@
   function openChestPop(opts) {
     opts = opts || {};
     closeChestPop();
+    /* The prose and the picture are lazy (bundle "artefactExtra"), so ask for them the moment the chest
+       appears rather than when the lid is tapped: the reader has to read the hint and reach for the
+       chest, which is the whole of the head start this needs. The tap then awaits — a plate revealed
+       with an empty description is the one outcome worth a spinner. */
+    ensureData("artefactExtra");
     const ov = document.createElement("div");
     ov.className = "chest-pop";
     const nothingLeft = !rollChestItem();
@@ -19790,11 +19853,23 @@
       toast(chestCount() === 1 ? "Saved — it's waiting in your account." : chestCount() + " chests waiting in your account.");
     }, true);
     let opening = false;
-    btn.addEventListener("click", () => {
-      if (opening) return;
+    /* `pre` carries an ALREADY-ROLLED item back in after the wait below. Re-rolling there would be
+       harmless — nothing has been claimed yet — but it would hand the reader a different artefact from
+       the one the wait was for, and a roll that happens twice is a roll nobody can reason about. */
+    function openLid(pre) {
+      if (opening && !pre) return;
       opening = true;
-      const item = rollChestItem();
+      const item = pre || rollChestItem();
       if (!item) { close(); return; }
+      /* The reveal draws a description, a citation list and a picture, all of which are in the lazy
+         half — so on the rare tap that beats the idle warm, wait for it. A plate revealed with an empty
+         description is the one outcome here worth a moment's delay: this is the site congratulating the
+         reader, and it must not congratulate them with a blank. */
+      if (item.kind === "artefact" && !dataReady("artefactExtra")) {
+        ov.querySelector("#chestHint").textContent = "Opening…";
+        ensureData("artefactExtra").then(() => { if (_chestClose === close) openLid(item); });
+        return;
+      }
       const isTheme = item.kind === "theme";
       const a = item.artefact;
       /* A THEME OPENS AS AN EPIC, and that is a decision rather than a placeholder: the whole chest
@@ -19844,7 +19919,8 @@
         addAct("Close", close, true);
         unitizeTree(rev);
       }, dur);
-    });
+    }
+    btn.addEventListener("click", () => openLid());
     function addAct(label, fn, ghost) {
       const acts = ov.querySelector("#chestActs");
       acts.hidden = false;
@@ -36485,6 +36561,11 @@
     { id: "art10", icon: "🏺", name: "Antiquarian", desc: "Collect 10 artefacts", test: (s) => s.artefacts >= 10, prog: (s) => [s.artefacts, 10] },
     { id: "art25", icon: "🖼️", name: "Curator", desc: "Collect 25 artefacts", test: (s) => s.artefacts >= 25, prog: (s) => [s.artefacts, 25] },
     { id: "art50", icon: "🏛️", name: "Keeper of the Reliquary", desc: "Collect 50 artefacts", test: (s) => s.artefacts >= 50, prog: (s) => [s.artefacts, 50] },
+    /* The ladder stopped at 50 while the pool was 100, so the top of it was half the Reliquary. The
+       pool is being taken to 200, which would have made `art50` a quarter — an early milestone wearing
+       the name of a final one. This is the rung that keeps the top of the ladder near the top of the
+       pool. It changes nothing already earned: a badge is only ever added to `S.achievements`. */
+    { id: "art100", icon: "🏆", name: "Antiquary Royal", desc: "Collect 100 artefacts", test: (s) => s.artefacts >= 100, prog: (s) => [s.artefacts, 100] },
     /* A legendary is 3% of a roll, so this is the one badge here that a reader cannot simply grind
        towards — hence no `prog`: "0 / 1" over a thing decided by chance says nothing useful. */
     { id: "legend1", icon: "🌟", name: "Once in a Lifetime", desc: "Find a legendary artefact", test: (s) => s.legendaries >= 1 },
@@ -36794,6 +36875,9 @@
       </button>` : ""}`;
     root.querySelectorAll("[data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
     { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true, { entry: true }); wireReliquary(rel); } }
+    // the tiles carry the artefacts' own pictures, which are lazy — fill them in when the bundle lands
+    // rather than holding a page full of other things the reader came for. See refreshReliquary.
+    if (!dataReady("artefactExtra")) ensureData("artefactExtra").then(() => { if (current && current.name === "account") refreshReliquary(); });
     wireAcctSwitch(root);
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
     tabs.forEach((t) => t.addEventListener("click", () => {
@@ -37271,56 +37355,100 @@
      in full rather than preserved from the file on disk: this is the ONLY copy of it once the file has
      been round-tripped, and a serializer that drops the documentation is how a file stops explaining
      itself. Offered by Admin → Artefacts as "Copy as JS" and written by auto-save / "Save to project". */
+  /* artefacts.js — THE INDEX, and it is EAGER. See serializeArtefactsExtra below for the other 94%.
+     The head comment is written out in full rather than preserved from disk: once the file has been
+     round-tripped through this editor it is the only copy of the shape's documentation, and a
+     serializer that drops it is how a file stops explaining itself. Kept in step with
+     .claude/artefact-io.js by hand; `node .claude/split-artefacts.js --check` verifies the result. */
   function serializeArtefacts() {
     const s = (v) => JSON.stringify(String(v == null ? "" : v));
     return "/* ============================================================\n" +
-      "   ARTEFACTS — the pool a level-up chest draws from\n" +
+      "   ARTEFACTS — the pool a level-up chest draws from (THE INDEX)\n" +
       "   ============================================================\n" +
       "   Every entry is a REAL historical object. The same rule the cards and the glossary run on applies here\n" +
       "   without exception: nothing is invented — not a date, not a museum, not a measurement — and where the\n" +
       "   scholarship is unsettled the description says so rather than picking a side.\n\n" +
+      "   THIS FILE IS THE INDEX ONLY, AND IT IS EAGER. Each artefact's DESCRIPTION, CITATIONS and PICTURE\n" +
+      "   live in the lazy artefacts-extra.js (bundle `artefactExtra`, warmed at idle). Together those three\n" +
+      "   were 94% of this file — 237 KB of 251 — and not one of them is read until a chest opens or the\n" +
+      "   Reliquary is visited, while every visitor downloaded all of it before flipping a card. What stays\n" +
+      "   here is what a reader needs BEFORE a chest is opened: `progStats` counts legendaries on every grade\n" +
+      "   and needs `rarity` alone. See .claude/split-artefacts.js, and `--check` to verify the split.\n\n" +
       "   Shape:\n" +
       "     id      a stable slug. It is what the reader's own inventory (S.artefacts) is keyed by, so it must\n" +
       "             NEVER be reused for a different object and never renamed once shipped — a renamed id takes\n" +
-      "             the artefact out of every collection that holds it.\n" +
+      "             the artefact out of every collection that holds it. It is also the JOIN to artefacts-extra.js.\n" +
       "     name    the title shown when it is looted.\n" +
       "     rarity  \"common\" | \"rare\" | \"epic\" | \"legendary\" — grey, blue, purple, orange. It decides the drop\n" +
-      "             odds (60 / 25 / 12 / 3) and how expansive the chest animation and its sound are.\n" +
+      "             odds (60 / 25 / 12 / 3) and how expansive the chest animation and its sound are. THE POOL'S\n" +
+      "             OWN SHAPE MUST MIRROR THOSE ODDS: rollArtefact renormalises over whatever rarities still\n" +
+      "             hold something unowned, so a tier under-represented here empties early and drops out of the\n" +
+      "             roll — which a reader experiences as bad luck and never reports.\n" +
       "     date    a short date line, in the compact notation the cards use.\n" +
-      "     origin  where it is from, and where it is now if that is worth knowing.\n" +
-      "     image   optional { src, title, desc, credit, alt } — a LINK, never an upload, exactly as a card's\n" +
-      "             picture is. `credit` is required wherever `src` is set; an artefact with no picture draws\n" +
-      "             a rarity-coloured placeholder rather than an empty frame. `title` and `desc` are what the\n" +
-      "             fullscreen viewer captions the picture with — they were added Aug 2026, on request, all 99\n" +
-      "             pictures having opened the viewer with a blank description until then. Neither composes\n" +
-      "             anything: the title is the artefact's own name and the description is the alt with the\n" +
-      "             attribution `credit` already carries. See .claude/fix-image-text.js.\n" +
-      "     desc    exactly FIVE sentences, about 200 words (±10%), at the same reading level as a card's\n" +
-      "             background. Rich HTML: <b> for the object's own name at its first mention, <i> for titles\n" +
-      "             and foreign terms. Metric first with the imperial equivalent in brackets. It carries the\n" +
-      "             footnote markers — <sup class=\"fn\"></sup>, written EMPTY, since the digit is drawn from\n" +
-      "             the list at render time and a hand-typed number goes stale the moment the list is\n" +
-      "             re-ordered.\n" +
-      "     sources at least THREE Chicago note-form citations, each ending in the URL that lets a reader\n" +
-      "             check it, and each pointed at by at least one marker in the description. Real works only:\n" +
-      "             a museum's own record of the object, an excavation report, a journal article, an ancient\n" +
-      "             author in a published translation. Never a citation composed to fit a sentence.\n\n" +
+      "     origin  where it is from, and where it is now if that is worth knowing.\n\n" +
       "   Written and edited in Admin → Artefacts, which shows the reader's plate live beside the form and can\n" +
-      "   also hand this whole file back as a JS literal. */\n" +
+      "   also hand both files back as JS literals. GENERATED by .claude/artefact-io.js — do not hand-edit. */\n" +
       "window.ARTEFACTS = [\n" +
       ARTEFACTS.map((a) => {
         let out = "  {\n    id: " + s(a.id) + ",\n    name: " + s(a.name) + ",\n    rarity: " + s(a.rarity) + ",\n";
         if (a.date) out += "    date: " + s(a.date) + ",\n";
         if (a.origin) out += "    origin: " + s(a.origin) + ",\n";
-        if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) +
-          (a.image.title ? ", title: " + s(a.image.title) : "") +
-          (a.image.desc ? ", desc: " + s(a.image.desc) : "") +
-          ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
-        out += "    desc: " + s(a.desc) + ",\n";
-        const src = normSources(a.sources);
-        if (src.length) out += "    sources: [\n" + src.map((x) => "      " + s(x) + ",").join("\n") + "\n    ],\n";
         return out + "  },";
       }).join("\n") + "\n];\n";
+  }
+  /* artefacts-extra.js — the description, citations and picture, which are LAZY (bundle
+     "artefactExtra") because together they were 94% of artefacts.js on the EAGER path and not one of
+     them is read until a chest opens. See artefactExtraIngest for why the file stages onto a queue.
+     IT IS ONLY SAFE TO WRITE ONCE THE BUNDLE HAS LOADED: until then every entry in the pool carries an
+     empty `desc` and no sources, so baking would replace 240 KB of researched prose with nothing.
+     `artefactFiles()` is the gate — the same rule glossExtraFiles() applies, for the same reason. */
+  function serializeArtefactsExtra() {
+    const s = (v) => JSON.stringify(String(v == null ? "" : v));
+    const rows = ARTEFACTS.map((a) => {
+      let out = "";
+      if (a.image && a.image.src) out += "  image: { src: " + s(a.image.src) +
+        (a.image.title ? ", title: " + s(a.image.title) : "") +
+        (a.image.desc ? ", desc: " + s(a.image.desc) : "") +
+        ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
+      out += "  desc: " + s(a.desc) + ",\n";
+      const src = normSources(a.sources);
+      if (src.length) out += "  sources: [\n" + src.map((x) => "    " + s(x) + ",").join("\n") + "\n  ],\n";
+      return s(a.id) + ": {\n" + out + "}";
+    }).join(",\n");
+    return "/* An artefact's DESCRIPTION, CITATIONS and PICTURE — split out of artefacts.js and LAZY.\n" +
+      " *\n" +
+      " * WHY THIS FILE EXISTS. artefacts.js is on the eager load path, so every visitor downloads it\n" +
+      " * before flipping a card, and these three fields were 94% of it — 237 KB of 251. Not one of them\n" +
+      " * is read until a CHEST OPENS or the Reliquary is visited; the only boot-adjacent reader of the\n" +
+      " * pool is progStats, which counts legendaries and so needs `rarity` alone. They are fetched now by\n" +
+      " * the `artefactExtra` data bundle: warmed at idle after boot, and awaited by the chest reveal, the\n" +
+      " * Reliquary, a friend's collection and Admin → Artefacts.\n" +
+      " *\n" +
+      " * IT STAGES ONTO A QUEUE RATHER THAN ASSIGNING, for the same reason glossary-extra.js does. The\n" +
+      " * file lands AFTER boot, where refreshArtefacts() has already built the pool from the index alone\n" +
+      " * and applyAdminEdits() has already run — so a plain assignment would leave Admin → Artefacts'\n" +
+      " * Revert comparing a real description against nothing and DELETING it rather than restoring it.\n" +
+      " * The bundle's `after` hook (artefactExtraIngest) drains the queue, merges the three fields back\n" +
+      " * into window.ARTEFACTS and rebuilds the pool, which re-applies the admin overlay on top.\n" +
+      " *\n" +
+      " * The key is the artefact's `id`, which is the join to the index and is never renamed.\n" +
+      " *\n" +
+      " * GENERATED — do not hand-edit. Written by .claude/artefact-io.js (the helper scripts) and by\n" +
+      " * app.js's serializeArtefactsExtra (the in-app editor). `node .claude/split-artefacts.js --check`\n" +
+      " * verifies the split is still intact. */\n" +
+      "(function () {\n" +
+      "  var ARTEFACTS_EXTRA = {\n" + rows + "\n};\n" +
+      "  (window.ARTEFACTS_EXTRA_IN = window.ARTEFACTS_EXTRA_IN || []).push({ ARTEFACTS_EXTRA: ARTEFACTS_EXTRA });\n" +
+      "})();\n";
+  }
+  /* Both artefact files, or NEITHER. They are joined on `id`, so writing the index alone would leave an
+     artefact added here with no prose anywhere, and writing either before the bundle has loaded would
+     bake an empty description over a researched one. Nothing is written unless the overlay actually
+     holds an artefact edit, which is what keeps an ordinary Save from rewriting two untouched files. */
+  function artefactFiles() {
+    if (!Object.keys(ADMIN_EDITS.artefacts || {}).length) return {};
+    if (!dataReady("artefactExtra")) return {};
+    return { "artefacts.js": serializeArtefacts(), "artefacts-extra.js": serializeArtefactsExtra() };
   }
 
   /* ---------- THE AI PROMPTS (Aug 2026, on request) ----------
@@ -38869,7 +38997,7 @@
     b.classList.toggle("on", s === "on" || s === "saving" || s === "saved");
     b.classList.toggle("warn", s === "reconnect" || s === "error");
   }
-  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); if (ADMIN_EDITS.mission) f["mission.js"] = serializeMission(); if (Object.keys(ADMIN_EDITS.artefacts || {}).length) f["artefacts.js"] = serializeArtefacts(); Object.assign(f, glossI18nFiles()); Object.assign(f, glossExtraFiles()); return f; }
+  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); if (ADMIN_EDITS.mission) f["mission.js"] = serializeMission(); Object.assign(f, artefactFiles()); Object.assign(f, glossI18nFiles()); Object.assign(f, glossExtraFiles()); return f; }
   async function autoSaveNow() {
     if (!autoSaveArmed || !autoSaveDir) return;
     if (_autoWriting) { autoSaveWrite(); return; }                                  // a write is in flight → coalesce into the next tick
@@ -38912,7 +39040,6 @@
   async function adminExport() {
     const dataJs = serializeCardData(), glossJs = serializeGlossary();
     const hasTl = Array.isArray(ADMIN_EDITS.timeline);
-    const hasArt = Object.keys(ADMIN_EDITS.artefacts || {}).length > 0;
     // fallback for any path where direct write isn't available: download the generated files so they can be placed manually.
     // stagger the fallback downloads: firing 2–3 a.click() downloads in one tight loop trips Chrome's "site is trying to
     // download multiple files" block, so only the first would actually save. Space them out so every file lands.
@@ -38920,7 +39047,7 @@
       const files = [["data.js", dataJs], ["glossary.js", glossJs]];
       if (hasTl) files.push(["timeline.js", serializeTimeline()]);
       if (ADMIN_EDITS.mission) files.push(["mission.js", serializeMission()]);
-      if (hasArt) files.push(["artefacts.js", serializeArtefacts()]);
+      Object.entries(artefactFiles()).forEach((e) => files.push(e));
       Object.entries(glossI18nFiles()).forEach((e) => files.push(e));
       Object.entries(glossExtraFiles()).forEach((e) => files.push(e));
       // a browser download can't carry a folder — send the basename and say where the i18n ones belong
@@ -38949,7 +39076,7 @@
       await writeFileTo(dir, "glossary.js", glossJs);
       if (hasTl) await writeFileTo(dir, "timeline.js", serializeTimeline());   // commit historical eras to timeline.js (then the overlay copy is dropped below)
       if (ADMIN_EDITS.mission) await writeFileTo(dir, "mission.js", serializeMission());   // bake the Mission intro (overlay dropped below)
-      if (hasArt) await writeFileTo(dir, "artefacts.js", serializeArtefacts());   // bake the artefact pool (overlay dropped below)
+      for (const [n, txt] of Object.entries(artefactFiles())) await writeFileTo(dir, n, txt);   // bake the artefact pool — BOTH files, or neither (overlay dropped below)
       for (const [n, txt] of Object.entries(glossI18nFiles())) await writeFileTo(dir, n, txt);   // bake edited glossary translations, one file per language
       // deck date labels + coming-soon pins live only in the delta overlay (not encoded in the files) — keep them so a
       // save never loses them; everything else is now baked into data.js / glossary.js, so drop it.
@@ -38974,7 +39101,7 @@
       const out = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() };
       if (Array.isArray(ADMIN_EDITS.timeline)) out["timeline.js"] = serializeTimeline();
       if (ADMIN_EDITS.mission) out["mission.js"] = serializeMission();
-      if (Object.keys(ADMIN_EDITS.artefacts || {}).length) out["artefacts.js"] = serializeArtefacts();
+      Object.assign(out, artefactFiles());
       Object.assign(out, glossI18nFiles());
       Object.assign(out, glossExtraFiles());
       return out;
@@ -41152,6 +41279,18 @@
     function adminRenderArtefacts() {
       const items = root.querySelector("#adminListItems");
       const countEl = root.querySelector("#adminListCount");
+      /* THE EDITOR MUST NOT OPEN BEFORE THE LAZY HALF HAS LANDED, and this is the one await here that
+         guards against DATA LOSS rather than against a blank screen. Every artefact's description and
+         citation list is in artefacts-extra.js; until it arrives the pool carries empty prose, so the
+         word/sentence counters would read 0, every plate preview would be blank, and — worst — a save
+         made against that state would write the emptiness back. The tab is reached by a deliberate
+         press, so a moment's wait costs nothing. */
+      if (!dataReady("artefactExtra")) {
+        if (countEl) countEl.textContent = "";
+        if (items) items.innerHTML = '<div class="data-loading">Loading the artefact descriptions…</div>';
+        ensureData("artefactExtra").then(() => { if (adminState.tab === "artefacts") adminRenderArtefacts(); });
+        return;
+      }
       const pool = ARTEFACTS;
       if (countEl) countEl.textContent = pool.length + (pool.length === 1 ? " artefact" : " artefacts");
       const order = { legendary: 0, epic: 1, rare: 2, common: 3 };
@@ -41241,7 +41380,16 @@
       const nb = items.querySelector("#aNew");
       if (nb) nb.addEventListener("click", () => { _aEditing = ""; adminRenderArtefacts(); });
       const cb = items.querySelector("#aCopy");
-      if (cb) cb.addEventListener("click", () => copySelText(serializeArtefacts(), pool.length + " artefacts copied — paste over artefacts.js"));
+      /* Copy as JS hands back BOTH files, separated by a banner, because the pool is two files now and a
+         copy of the index alone would look complete and silently discard every description. It refuses
+         outright before the lazy half has landed rather than copying empty prose. */
+      if (cb) cb.addEventListener("click", () => {
+        if (!dataReady("artefactExtra")) { toast("Still loading the artefact descriptions — try again in a moment."); return; }
+        copySelText(serializeArtefacts() +
+          "\n\n/* ==================== artefacts-extra.js ==================== */\n\n" +
+          serializeArtefactsExtra(),
+          pool.length + " artefacts copied — paste the two halves over artefacts.js and artefacts-extra.js");
+      });
 
       const form = items.querySelector("#aForm");
       if (form) {
@@ -41737,6 +41885,13 @@
      warm still gets both: openGlossWin re-fills its picture and Sources slots when the file lands.
      Skipped under Save-Data, like the mini globe was. */
   whenIdle(() => { if (!(navigator.connection && navigator.connection.saveData)) ensureData("glossExtra"); });
+  /* …and the artefact pool's descriptions, citations and pictures (artefacts-extra.js), which used to
+     sit on the EAGER path inside artefacts.js and were 94% of it. Same bargain as the line above: a
+     chest arrives unasked, in the middle of a study session, and the reader should not watch a spinner
+     at the one moment the site is congratulating them — but it has no business blocking first paint
+     either. The four surfaces that render an artefact's prose or picture await the bundle for the
+     reader who beats the warm. Skipped under Save-Data. */
+  whenIdle(() => { if (!(navigator.connection && navigator.connection.saveData)) ensureData("artefactExtra"); });
 
   // Service worker (sw.js) — makes Folio installable and usable offline. Registered after boot so
   // it never competes with first paint, and NEVER on a dev origin: a file-watching dev server's

@@ -67,7 +67,7 @@ every culture has its everyday things and everyday things are what the pool lack
 named singular object is naturally epic or legendary.** Rare sits between: a distinctive class that
 belongs to one tradition (a Goryeo celadon, an oracle bone, a Đông Sơn drum).
 
-## Batch 0 — the split, and it comes first
+## Batch 0 — the split, and it comes first  ✅ SHIPPED (Sep 2026)
 
 **`artefacts.js` is on the EAGER load path**, between `glossary-wikipedia.js` and `lang-decks.js`, so
 every visitor downloads all of it before flipping a card. It is 0.26 MB raw / 0.08 MB gzipped today,
@@ -108,8 +108,18 @@ on a fetch, but it has no business blocking first paint. `serializeArtefacts`, `
 `mark-artefact-sources.js` and `check-style.js` (rule 4 sweeps an artefact's prose *and* its picture
 text) all touch the file and all need pointing at the split.
 
-**This is a recommendation, not a decision already taken** — say so before doing it, because it
-touches the admin editor's revert path, which is the one place a mistake deletes shipped prose.
+**DONE, on request.** `artefacts.js` went **262.8 KB → 19.2 KB** and `artefacts-extra.js` carries the
+rest, so the second hundred costs the eager path about 14 KB rather than 260. Three things it turned up
+that were not predicted here and are worth carrying into the batches:
+· **`test-artefacts.js` reported `0 of 100 cited` while 81 assertions passed** — it read `artefacts.js`
+  alone, so every citation-shape check ran over an empty list. That is `gloss-io.js`'s warning arriving
+  one shelf over, and it is the reason eleven scripts were repointed at `.claude/artefact-io.js` rather
+  than two. **A reader script that reaches past the merge does not fail, it lies.**
+· **The shared serializer closed a live bug.** `add-artefact-sources.js` carried a private copy that
+  emitted an image as `{ src, credit, alt }`, written before the viewer's `title` and `desc` existed —
+  so one run of the citation tool would have stripped the caption off all 100 pictures.
+· **The revert baseline was checked in a browser, not reasoned about**: edit through the overlay,
+  reload, drop the delta, reload, and assert the shipped 1,446-character description comes back whole.
 
 ## The three legendaries
 
@@ -228,14 +238,13 @@ national corpus, and the answer to three museum sites that will not serve a reco
   (the Ishtar Gate lion relief is already in the pool) but because the sourcing here is thin enough
   that it would likely be padded. It is a reserve.
 
-## Two questions for the reader, not decisions taken
+## Two decisions, and why
 
-1. **The collector's badges stop at 50** (`art10` / `art25` / `art50`). At 200 artefacts the top badge
-   is a quarter of the pool. Add a 100-artefact badge, or leave the ladder as it is and let it become
-   an early milestone? Adding one is a row in `ACHIEVEMENTS`; it changes nothing already earned.
-2. **Should `artefacts.js` be split before the prose is written** (batch 0 above), or should the pass
-   ship and the split follow? Splitting first means the second hundred never costs the eager path
-   anything; splitting after means doing it with 200 entries to verify rather than 100.
+Both answered, Sep 2026, on request — recorded because the reasoning behind each still binds.
+
+1. **A 100-artefact badge was added** — `art100`, "Antiquary Royal". The ladder stopped at 50 while the
+   pool was 100, so its top rung was half the Reliquary; at 200 it would have been a quarter.
+2. **The split was done first**, so the second hundred never costs the eager path anything.
 
 ## The per-artefact workflow
 
