@@ -1685,8 +1685,8 @@ body.night .gloss-book{background:linear-gradient(105deg, color-mix(in srgb, var
 .iv-stage.iv-live .iv-img{transition:none;}   /* a pinch or a drag moves the picture per frame; the ease would lag behind the fingers */
 /* a profile photo in the viewer — round, because that is the shape it was cropped in, and capped rather
    than shown at its stored 128px, which would be barely larger than the row it was tapped in. See
-   openAvatarViewer for why raising the stored size is not the answer. */
-.iv-avatar{width:min(320px,74vw); height:auto; border-radius:50%;}
+   openPhotoViewer for why raising the stored size is not the answer. */
+.iv-photo{width:min(320px,74vw); height:auto; border-radius:50%;}
 /* the same overlay for a video: no zoom/pan, just the biggest 16:9 the viewport allows */
 .iv-vidstage{cursor:default;}
 .iv-vid{width:min(94%, calc((94vh - 120px) * 16 / 9)); aspect-ratio:16/9; max-height:100%; min-height:0; flex:0 1 auto; border:0; display:block; background:#000; border-radius:8px;}
@@ -3059,28 +3059,28 @@ body.night .sc-pip.on{background:#E6C765; border-color:#E6C765;}
 
 /* ---------- positioning a profile photo before it is saved (Aug 2026, on request) ----------
    The dialog borrows `.inline-prompt`'s box, its z-index band and its buttons; what it adds is the round
-   window. `.avc-ring` is an OVERLAY rather than a `border-radius` on the canvas, and that is the point of
+   window. `.phc-ring` is an OVERLAY rather than a `border-radius` on the canvas, and that is the point of
    it: the canvas has to stay square, because the square is what gets saved, so the circle is drawn on top
    as a huge inset shadow that dims everything outside it and a hairline that marks the edge. It is
    `pointer-events:none`, or it would swallow the drag it exists to describe. */
-.av-crop{position:fixed; inset:0; z-index:400; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb,#000 46%,transparent); padding:20px; animation:overlayIn .18s var(--ease) both;}
-.avc-box{width:min(360px,92vw); background:var(--card); border:1px solid var(--rule); border-radius:14px; box-shadow:0 24px 60px rgba(0,0,0,.34); padding:18px 20px 16px; animation:dialogIn .26s var(--ease) both;}
-.avc-title{font-family:var(--display); font-weight:600; font-size:calc(15.5px * var(--fs)); color:var(--ink); margin-bottom:12px;}
-.avc-stage{position:relative; width:100%; aspect-ratio:1; border-radius:12px; overflow:hidden; background:var(--paper-2);}
-.avc-canvas{display:block; width:100%; height:100%; touch-action:none; cursor:grab;}
-.avc-canvas:active{cursor:grabbing;}
-.avc-ring{position:absolute; inset:0; pointer-events:none; border-radius:50%;
+.ph-crop{position:fixed; inset:0; z-index:400; display:flex; align-items:center; justify-content:center; background:color-mix(in srgb,#000 46%,transparent); padding:20px; animation:overlayIn .18s var(--ease) both;}
+.phc-box{width:min(360px,92vw); background:var(--card); border:1px solid var(--rule); border-radius:14px; box-shadow:0 24px 60px rgba(0,0,0,.34); padding:18px 20px 16px; animation:dialogIn .26s var(--ease) both;}
+.phc-title{font-family:var(--display); font-weight:600; font-size:calc(15.5px * var(--fs)); color:var(--ink); margin-bottom:12px;}
+.phc-stage{position:relative; width:100%; aspect-ratio:1; border-radius:12px; overflow:hidden; background:var(--paper-2);}
+.phc-canvas{display:block; width:100%; height:100%; touch-action:none; cursor:grab;}
+.phc-canvas:active{cursor:grabbing;}
+.phc-ring{position:absolute; inset:0; pointer-events:none; border-radius:50%;
   box-shadow:0 0 0 9999px color-mix(in srgb,var(--paper) 62%,transparent), inset 0 0 0 1.5px color-mix(in srgb,#fff 70%,transparent);}
-.avc-zoom{display:flex; align-items:center; gap:10px; margin-top:14px;}
-.avc-zlabel{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);}
-.avc-range{flex:1; accent-color:var(--indigo);}
-.avc-hint{font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint); margin:8px 0 0;}
-.avc-acts{display:flex; justify-content:flex-end; gap:8px; margin-top:14px;}
-.avc-acts button{appearance:none; border:1px solid var(--rule); background:var(--paper); color:var(--ink); border-radius:8px; padding:8px 16px; font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:600; cursor:pointer;}
-.avc-acts .avc-cancel:hover{border-color:var(--ink-faint);}
-.avc-acts .avc-ok{background:var(--indigo); border-color:var(--indigo); color:#fff;}
-.avc-acts .avc-ok:hover{filter:brightness(1.08);}
-/* a photo on someone else's profile is a button — see openAvatarViewer */
+.phc-zoom{display:flex; align-items:center; gap:10px; margin-top:14px;}
+.phc-zlabel{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint);}
+.phc-range{flex:1; accent-color:var(--indigo);}
+.phc-hint{font-size:calc(11.5px * var(--fs)); line-height:1.45; color:var(--ink-faint); margin:8px 0 0;}
+.phc-acts{display:flex; justify-content:flex-end; gap:8px; margin-top:14px;}
+.phc-acts button{appearance:none; border:1px solid var(--rule); background:var(--paper); color:var(--ink); border-radius:8px; padding:8px 16px; font-family:var(--sans); font-size:calc(13px * var(--fs)); font-weight:600; cursor:pointer;}
+.phc-acts .phc-cancel:hover{border-color:var(--ink-faint);}
+.phc-acts .phc-ok{background:var(--indigo); border-color:var(--indigo); color:#fff;}
+.phc-acts .phc-ok:hover{filter:brightness(1.08);}
+/* a photo on someone else's profile is a button — see openPhotoViewer */
 .mono-view{appearance:none; background:none; border:0; padding:0; cursor:zoom-in; border-radius:50%; display:inline-flex;}
 .mono-view:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:3px;}
 
@@ -3529,6 +3529,10 @@ body.no-anim .ar-frame.ar-loading::after{animation:none;}
 /* with the button above it the name's own top margin would double the gap; the × sits in the same corner,
    so the row it opens on keeps clear of it */
 .ar-pinbtn + .ar-wtop{margin-top:10px;}
+/* ONE BUTTON PER SLOT since Sep 2026 (see the plate in app.js), so they need a row of their own: they
+   wrap rather than squeezing, a plate being 220px wide beside its picture on a phone. */
+.ar-eqacts{display:flex; flex-wrap:wrap; gap:8px;}
+.ar-eqacts + .ar-wtop{margin-top:10px;}
 
 /* ---- the whole collection, raised from the showcase's "See all" ----
    It reuses `.artefact-pop`'s backdrop and the inventory's own grid, so the list in here is byte-for-byte
@@ -7515,6 +7519,174 @@ body.night .book-tile, body.night .gloss-book{
 .ed-day:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
 .ed-day.off{background:color-mix(in srgb,var(--zh) 12%,var(--card)); border-color:color-mix(in srgb,var(--zh) 45%,transparent); color:var(--zh);}
 .ed-day.off span{text-decoration:line-through; text-decoration-thickness:1px;}
+
+
+/* ============================================================
+   THE AVATAR SCENE (Sep 2026, on request)
+   ============================================================
+   The box at the top of the account page: a drawn figure in a historical scene, wearing the artefacts
+   the reader has equipped, with six square slots down its right edge. See THE AVATAR in app.js for
+   what goes in each and avatar.js for the art manifest. Six things here are decisions.
+
+   · **THE BOTTOM EDGE FADES WITH A MASK, NEVER A GRADIENT OVERLAY.** An overlay fading to the page has
+     to know what colour the page is, and there are sixteen themes, each in light and dark, plus high
+     contrast — so one of those thirty-odd combinations would always be wrong, and the failure is a
+     visible band across the reader's own avatar. A mask fades to TRANSPARENT, which is the paper
+     whatever the paper happens to be, and needs no per-theme rule at all.
+   · **EVERY POSITION IS A PERCENTAGE.** The box is fluid from a 390px phone to a wide stage, so a
+     figure or an item anchored in pixels is right at exactly one width. The figure is an
+     `aspect-ratio` box whose height is a percentage of the scene, and each worn item is positioned
+     inside THAT — which is what keeps a sword in the hand holding it at every size.
+   · **THE SLOTS ARE INSIDE THE BOX, over the scene rather than beside it.** A column beside it would
+     cost the scene a fifth of its width on a phone, where the scene is the point; over it they read as
+     part of the picture and the figure is anchored right of centre so they never cover it.
+   · **A SLOT IS A SQUARE AT EVERY WIDTH** (`aspect-ratio:1`) and shrinks with the box rather than
+     wrapping: six of them have to fit the height of the scene on a 390px phone, and a wrapped column
+     would run off the bottom of it.
+   · **THE ART IS `pointer-events:none` ALL THE WAY DOWN.** Every layer is a stacked absolute box over
+     the whole scene, so without it the topmost one would swallow every press meant for the slots
+     beneath — which looks exactly like slots that were never wired.
+   · **AND NOTHING HERE ANIMATES YET.** The layers are separate elements so an idle animation can be
+     added without redrawing anything, but a figure that breathes on a page a reader is reading is a
+     decision of its own, and it is not this one. */
+.avs-host{margin:0 0 6px;}
+/* the WRAP is what carries the width cap, so a slot column absolutely positioned in it sits against
+   the box's own edge rather than against a stage that may be much wider */
+.avs-wrap{position:relative; width:100%; max-width:640px; margin-inline:auto;}
+/* THE BOX KEEPS THE ART'S OWN RATIO AND IS CAPPED BY WIDTH, NEVER BY HEIGHT. A `max-height` over an
+   `aspect-ratio` does not scale the box, it OVERRIDES the ratio — so on a wide stage the box went to
+   3:1.9 while the scene inside it stayed 3:2, `object-fit:cover` cropped the difference, and every
+   anchor in avatar.js (which are percentages of the BOX) pointed at the wrong part of a cropped
+   picture: the figure floated above a floor line that had been cut away. Capping the WIDTH keeps the
+   two ratios identical, so an anchor means what it says at every size. */
+.avs-box{position:relative; width:100%; aspect-ratio:3/2;
+  border-radius:14px; overflow:hidden; background:var(--paper-2); isolation:isolate;
+  -webkit-mask-image:linear-gradient(to bottom, #000 0, #000 84%, transparent 100%);
+  mask-image:linear-gradient(to bottom, #000 0, #000 84%, transparent 100%);}
+/* the box before the manifest lands: its own size, so nothing under it jumps when the figure arrives */
+.avs-box-wait{background:linear-gradient(160deg, color-mix(in srgb,var(--indigo) 7%,var(--paper-2)), var(--paper-2));}
+.avs-bg{position:absolute; inset:0; pointer-events:none;}
+.avs-bg .avs-svg, .avs-bg img{display:block; width:100%; height:100%; object-fit:cover;}
+.avs-layer{position:absolute; inset:0; pointer-events:none;}
+.avs-layer .avs-svg, .avs-layer img{display:block; width:100%; height:100%; object-fit:contain;}
+/* a recoloured region of a SPRITE: the colour painted through the part's own mask, line art over it */
+.avs-tint{position:absolute; inset:0; -webkit-mask-size:contain; mask-size:contain;
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-position:center; mask-position:center;}
+.avs-fig{position:absolute; aspect-ratio:1/2; transform:translateX(-50%); pointer-events:none;}
+.avs-item{position:absolute; aspect-ratio:1; transform:translate(-50%,-50%); pointer-events:none;}
+.avs-itemph{color:var(--rar, var(--ochre));}
+.avs-itemph svg{--avs-item:color-mix(in srgb, var(--rar,#8A867C) 62%, #E8DFCC);}
+.avs-itemphoto img{object-fit:contain; filter:drop-shadow(0 2px 4px rgba(0,0,0,.28));}
+/* An artefact's picture is a link to somebody else's file, so link rot is a certainty (the site's own
+   rule — see the media bullet in CLAUDE.md). A broken-image glyph standing on the altar is worse than
+   an empty altar, so a failed load empties the slot rather than marking it. */
+.avs-dead{display:none;}
+/* the display object's own artefact stands ON the surface, so it is anchored by its FOOT */
+.avs-obj{position:absolute; aspect-ratio:1; transform:translate(-50%,-100%); pointer-events:none;}
+
+/* the six slots */
+/* THE COLUMN IS SIZED BY ITS OWN HEIGHT, NOT BY FLEX. `flex:1 1 0` plus `aspect-ratio:1` is
+   circular in a column — the item's height comes from the flex line and the line's width comes from
+   the items, so the column collapsed to a 4px sliver of colour down the edge and the slots were
+   invisible. Stating each slot's height as a fraction of the column breaks the loop: the height is
+   known, the width follows from the ratio, and six squares fit the scene at every size. */
+.avs-slots{position:absolute; top:8px; right:8px; bottom:14%; display:flex; flex-direction:column;
+  gap:4px; justify-content:center; align-items:flex-end; z-index:2;}
+.avs-slot{flex:0 0 auto; height:calc((100% - 20px) / 6); aspect-ratio:1; appearance:none; position:relative;
+  border:1px solid color-mix(in srgb, var(--ink) 22%, transparent); border-radius:9px;
+  background:color-mix(in srgb, var(--card) 74%, transparent); backdrop-filter:blur(2px);
+  padding:0; cursor:pointer; overflow:hidden; display:block;
+  transition:border-color .14s var(--ease), transform .14s var(--ease), background .14s var(--ease);}
+div.avs-slot{cursor:default;}
+.avs-slot:hover{border-color:var(--rar, var(--indigo)); transform:translateY(-1px);}
+.avs-slot:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+.avs-slot.filled{border-color:color-mix(in srgb, var(--rar,var(--ochre)) 62%, transparent);
+  background:color-mix(in srgb, var(--rar,var(--ochre)) 12%, color-mix(in srgb,var(--card) 78%,transparent));}
+.avs-slotart{position:absolute; inset:12%; display:block;}
+.avs-slotart .avs-layer{position:absolute; inset:0;}
+.avs-slotscene{position:absolute; inset:0; border-radius:5px; overflow:hidden; display:block;}
+.avs-slotscene svg, .avs-slotscene img{display:block; width:100%; height:100%; object-fit:cover;}
+/* an empty slot says so with a mark rather than a word: at 34px on a phone a label is unreadable, and
+   the slot's own aria-label and title carry the name for everyone who needs it */
+.avs-slotmark{position:absolute; inset:34%; border-radius:50%;
+  border:1.5px dashed color-mix(in srgb, var(--ink) 30%, transparent);}
+/* the label rides UNDER the slot on a wide box and is clipped away on a narrow one — see the media
+   query below; it is clipped rather than removed so a screen reader still reads it */
+.avs-slotlbl{position:absolute; left:0; right:0; bottom:1px; text-align:center; font-family:var(--mono);
+  font-size:calc(7.5px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint);
+  background:color-mix(in srgb,var(--card) 72%,transparent); line-height:1.5; pointer-events:none;}
+.avs-edit{position:absolute; left:10px; top:10px; z-index:2; appearance:none; width:32px; height:32px;
+  border-radius:50%; border:1px solid color-mix(in srgb,var(--ink) 20%,transparent);
+  background:color-mix(in srgb,var(--card) 82%,transparent); color:var(--ink-soft); cursor:pointer;
+  display:grid; place-items:center; opacity:.72; transition:opacity .14s var(--ease), border-color .14s var(--ease);}
+.avs-edit svg{width:16px; height:16px;}
+.avs-edit:hover{opacity:1; border-color:var(--indigo);}
+.avs-edit:focus-visible{outline:2px solid var(--focus); outline-offset:2px; opacity:1;}
+
+/* ---- the sheets: appearance, and a slot's picker ---- */
+.avs-sheet{position:fixed; inset:0; z-index:9500; display:flex; align-items:center; justify-content:center;
+  padding:20px; background:color-mix(in srgb,#000 44%,transparent); opacity:0; transition:opacity .18s var(--ease);}
+.avs-sheet.show{opacity:1;}
+.avs-sheetbox{width:min(560px,94vw); max-height:86vh; display:flex; flex-direction:column;
+  background:var(--card); border:1px solid var(--rule); border-radius:14px; box-shadow:0 24px 60px rgba(0,0,0,.34);
+  animation:dialogIn .26s var(--ease) both;}
+.avs-sheethead{display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:14px 16px 10px; border-bottom:1px solid var(--rule);}
+.avs-sheethead h3{margin:0; font-family:var(--display); font-size:calc(15.5px * var(--fs)); font-weight:600; color:var(--ink);}
+.avs-sheetx{appearance:none; background:none; border:0; font-size:calc(20px * var(--fs)); line-height:1;
+  color:var(--ink-faint); cursor:pointer; padding:2px 6px; border-radius:7px;}
+.avs-sheetx:hover{color:var(--ink);}
+.avs-sheetbody{padding:14px 16px 16px; overflow:auto;}
+.avs-ed{display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap;}
+.avs-edprev{flex:0 0 168px; max-width:100%;}
+.avs-edprev .avs-box{aspect-ratio:3/4; max-height:none; -webkit-mask-image:none; mask-image:none;}
+.avs-edprev .avs-slots, .avs-edprev .avs-edit{display:none;}
+.avs-edfields{flex:1 1 240px; min-width:0; display:flex; flex-direction:column; gap:12px;}
+.avs-edlbl{display:block; font-family:var(--mono); font-size:calc(9.5px * var(--fs)); letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px;}
+.avs-swatches{display:flex; flex-wrap:wrap; gap:8px;}
+.avs-sw{appearance:none; width:30px; height:30px; border-radius:50%; cursor:pointer;
+  background:var(--avs-sw); border:2px solid color-mix(in srgb,var(--ink) 18%,transparent);
+  transition:transform .12s var(--ease), border-color .12s var(--ease);}
+.avs-sw:hover{transform:scale(1.08);}
+.avs-sw.on{border-color:var(--indigo); box-shadow:0 0 0 2px color-mix(in srgb,var(--indigo) 30%,transparent);}
+.avs-sw:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+.avs-chips{display:flex; flex-wrap:wrap; gap:6px;}
+.avs-chip{appearance:none; background:var(--paper); border:1px solid var(--rule); border-radius:8px;
+  padding:6px 11px; cursor:pointer; font-family:var(--sans); font-size:calc(12px * var(--fs)); color:var(--ink-soft);}
+.avs-chip:hover{border-color:color-mix(in srgb,var(--indigo) 45%,var(--rule));}
+.avs-chip.on{background:color-mix(in srgb,var(--indigo) 12%,var(--card)); border-color:var(--indigo); color:var(--ink);}
+.avs-chip:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+.avs-picknote{margin:0 0 12px; font-size:calc(12.5px * var(--fs)); color:var(--ink-faint);}
+.avs-pickempty{margin:0; font-size:calc(13px * var(--fs)); line-height:1.55; color:var(--ink-soft);}
+.avs-picks{display:grid; grid-template-columns:repeat(auto-fill,minmax(118px,1fr)); gap:10px;}
+.avs-pick{appearance:none; background:var(--paper); border:1px solid var(--rule); border-radius:11px;
+  padding:9px; cursor:pointer; text-align:center; display:flex; flex-direction:column; gap:5px; align-items:stretch;
+  transition:border-color .14s var(--ease), transform .14s var(--ease);}
+.avs-pick:hover{transform:translateY(-2px); border-color:var(--rar,var(--indigo));}
+.avs-pick:focus-visible{outline:2px solid var(--focus); outline-offset:2px;}
+.avs-pick.on{border-color:var(--rar,var(--indigo)); background:color-mix(in srgb,var(--rar,var(--indigo)) 10%,var(--card));}
+.avs-pickart{position:relative; display:block; width:100%; aspect-ratio:1; border-radius:8px;
+  background:color-mix(in srgb,var(--rar,var(--ink)) 7%,var(--card)); overflow:hidden;}
+.avs-pickscene{position:absolute; inset:0; display:block;}
+.avs-pickscene svg, .avs-pickscene img{display:block; width:100%; height:100%; object-fit:cover;}
+.avs-pickname{font-family:var(--display); font-size:calc(12.5px * var(--fs)); font-weight:600; color:var(--ink); line-height:1.3;}
+.avs-picksub{font-family:var(--mono); font-size:calc(9.5px * var(--fs)); color:var(--ink-faint); line-height:1.35;}
+.avs-pickacts{margin-top:14px; display:flex; justify-content:flex-end;}
+/* the chest's own reveal of a scene — a wide plate rather than the square an artefact gets */
+.chest-scene{width:min(320px,72vw); aspect-ratio:3/2; border-radius:12px; overflow:hidden;}
+.chest-scene svg, .chest-scene img{display:block; width:100%; height:100%; object-fit:cover;}
+
+@media (max-width:640px){
+  /* THE SLOTS COME OUT OF THE PICTURE AND SIT UNDER IT, in a row. A column over a 390px scene gives six
+     squares of about 29px, which is well under a thumb's target size and covers a fifth of the only
+     drawing on the page; a row under it gives about 54px each and takes the width it has anyway. */
+  .avs-slots{position:static; flex-direction:row; align-items:stretch; justify-content:space-between;
+    gap:6px; margin-top:8px;}
+  .avs-slot{flex:1 1 0; height:auto; min-width:0;}
+  .avs-slotlbl{font-size:calc(7px * var(--fs));}
+  .avs-edprev{flex-basis:130px;}
+}
 
 /* ============================================================
    GEMSTONE THEMES (Sep 2026, on request)

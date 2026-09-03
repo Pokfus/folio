@@ -187,7 +187,15 @@ function syntheticPool() {
   /* ================= 3. the roll ================= */
   {
     // one argument only — `page.evaluate` refuses a second, so the pair travels as an object
-    await page.evaluate(({ pool, owned }) => {
+    await page.evaluate(async ({ pool, owned }) => {
+      /* The avatar manifest is LAZY — it is fetched when the account page mounts, and this runs before
+         that — so the scene list has to be pulled in before it can be read. Reading `window.AVATAR_ART`
+         while it is still undefined silently leaves every scene locked, which is the failure this whole
+         paragraph exists to prevent, wearing a different coat. */
+      if (!window.AVATAR_ART) await new Promise((r) => {
+        const sc = document.createElement("script"); sc.src = "avatar.js"; sc.onload = r; sc.onerror = r;
+        document.head.appendChild(sc);
+      });
       const ov = JSON.parse(localStorage.getItem("folio_admin_v1") || "{}");
       ov.artefacts = pool;
       localStorage.setItem("folio_admin_v1", JSON.stringify(ov));
@@ -201,6 +209,12 @@ function syntheticPool() {
          theme drop is asserted on its own in 3b, where it can be made deterministic; left locked here it
          would take a random ~14% of these 32 openings and the run would fail on a coin toss. */
       s.themes = owned;
+      /* …and every SCENE with them, for exactly the same reason (Sep 2026, when a chest gained a third
+         kind — see docs/avatar.md). Left locked, a scene takes a random ~9% of these 32 openings and the
+         sweep fails on a coin toss: it did, the first time this ran, as "32 chests yielded 33 artefacts",
+         which reads like a duplicate rather than like a second kind of prize. The scene drop is asserted
+         on its own in test-avatar.js, where it can be made deterministic. */
+      (window.AVATAR_ART && window.AVATAR_ART.scenes || []).forEach((sc) => { if (!sc.free) s.scenes = Object.assign(s.scenes || {}, { [sc.id]: 1 }); });
       localStorage.setItem("folio_v1", JSON.stringify(s));
     }, { pool: syntheticPool(), owned: ALL_THEMES_OWNED });
     await page.reload({ waitUntil: "domcontentloaded" });
@@ -348,22 +362,21 @@ function syntheticPool() {
     await page.waitForTimeout(600);
     check("...to the Reliquary's own page", (await page.evaluate(() => location.hash)) === "#reliquary");
     check("the inventory lists everything owned", await page.locator("#rqGrid .ar-tile").count() === 32);
-    // the showcase: four, and the fifth is refused out loud
-    const pinned = [];
-    for (let i = 0; i < 5; i++) {
-      await page.locator("#rqGrid .ar-tile").nth(i).click();
-      await page.waitForTimeout(200);
-      const label = await page.locator("#arPin").textContent();
-      await page.locator("#arPin").click();
-      await page.waitForTimeout(200);
-      pinned.push(await page.locator("#arPin").textContent() !== label);
-      await page.locator(".ar-close").click();
-      await page.waitForTimeout(150);
-    }
-    check("four artefacts pin", pinned.slice(0, 4).every(Boolean), JSON.stringify(pinned));
-    check("…and the fifth is refused", pinned[4] === false);
-    const show = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).showcase);
-    check("the showcase holds exactly four", show.length === 4, JSON.stringify(show));
+    /* THE PLATE'S ACTIONS. Four pinned tiles became six avatar slots in Sep 2026 (see docs/avatar.md), so
+       what the plate offers is no longer one "Show on profile" but one button per slot the artefact may
+       go in: every artefact can be put on display, and one carrying a `slot` can also be worn. The button
+       names what pressing it DOES rather than naming a state, so the label flipping is the assertion. */
+    await page.locator("#rqGrid .ar-tile").first().click();
+    await page.waitForTimeout(250);
+    const eqWas = await page.locator('[data-areq="object"]').textContent();
+    await page.locator('[data-areq="object"]').click();
+    await page.waitForTimeout(250);
+    const eqNow = await page.locator('[data-areq="object"]').textContent();
+    check("an artefact can be put on the scene's display object", /put it on display/i.test(eqWas) && /take it off/i.test(eqNow), eqWas + " → " + eqNow);
+    const eq = await page.evaluate(() => JSON.parse(localStorage.getItem("folio_v1")).equip || {});
+    check("…and the loadout records it", !!eq.object, JSON.stringify(eq));
+    await page.locator(".ar-close").click();
+    await page.waitForTimeout(150);
 
     /* THE PLATE'S APPARATUS. The fold is the site's own, so what is worth asserting is the JOIN: a marker
        shows the number of the entry it opens, and the entry it opens exists. An unwired plate looks the
@@ -385,21 +398,18 @@ function syntheticPool() {
     await page.locator(".ar-close").click();
     await page.waitForTimeout(200);
 
-    /* THE SHOWCASE'S "See all" BUTTON IS NOT ASSERTED HERE, and that is a fact about the page rather than
-       an omission: the SIGNED-OUT account page carries the inventory and no showcase at all, because a
-       showcase is four artefacts chosen to be SEEN and there is nobody to see a guest's. It is guarded in
-       .claude/test-account-page.js, which has the session this needs. What is asserted here is the other
-       half — that a guest is not shown a control that belongs to a section they have not got. */
     await page.evaluate(() => { location.hash = "account"; });
-    await page.waitForTimeout(500);
-    /* A guest gets the Reliquary section and no showcase — a showcase is four artefacts chosen to be SEEN
-       and there is nobody to see a guest's. The section is the ENTRY now rather than the grid (see above),
-       so the "See Reliquary" button IS the expected control here; what would be an orphan is a showcase
-       slot, and there is none. */
-    check("a guest gets the Reliquary section and no showcase",
-      await page.locator("#reliquary").count() === 1 && await page.locator("#showcase").count() === 0);
-    check("…with exactly one way through to it, and no showcase slot to pin from",
+    await page.waitForTimeout(700);
+    /* A guest gets the Reliquary section, its one way through, and — since Sep 2026 — their avatar,
+       on the same reasoning: a guest levels up, earns chests and opens them entirely on this device, so
+       walling either off would hide a reward that can be won and never looked at. What a guest does NOT
+       get is a showcase slot to pin from; there is no showcase anywhere any more. */
+    check("a guest gets the Reliquary section",
+      await page.locator("#reliquary").count() === 1);
+    check("…with exactly one way through to it, and no showcase slot left to pin from",
       await page.locator("#reliquary [data-arall]").count() === 1 && await page.locator("[data-arslot]").count() === 0);
+    check("…and their own avatar scene above it, with its six slots",
+      await page.locator("#avatarScene .avs-box").count() === 1 && await page.locator("#avatarScene .avs-slot").count() === 6);
   }
 
   /* ================= 4b. the plate: its picture, its rarity, its prose =================

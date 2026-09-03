@@ -209,19 +209,24 @@ Six bullets, in the order they appeared in CLAUDE.md:
 > "When uploading a profile picture, it should be possible to move/crop it."
 > "When visiting someone else's profile, I should be able to click their profile picture to enlarge it."
 
-The upload centre-cropped to a square and that was the whole of it — `avatarFromFile`, eight lines, no
+The upload centre-cropped to a square and that was the whole of it — `photoFromFile`, eight lines, no
 appeal. It is the wrong crop often enough to be worth a control: a portrait taken in portrait orientation
 loses the top of the head and the chin at once, and a photograph of two people keeps whichever half was in
 the middle. The only remedy was to crop the file in something else and upload it again.
 
-`openAvatarCropper` puts the image behind a round window the reader drags and zooms and hands back the same
-128px JPEG data-URI its predecessor did, so nothing downstream changed — `supaSetAvatar`, the `profiles`
+`openPhotoCropper` puts the image behind a round window the reader drags and zooms and hands back the same
+128px JPEG data-URI its predecessor did, so nothing downstream changed — `supaSetPhoto`, the `profiles`
 row and every monogram on the site are untouched. Five things about it are decisions rather than plumbing.
 
-**The window is round because the avatar is.** `.monogram` is a circle on every surface that draws one, so
+*(Everything in this section is the PROFILE PHOTO. It was all called "avatar" until Sep 2026,
+when the account page gained a drawn full-body figure that is genuinely the avatar — see
+`docs/avatar.md`. The client-side names are `photo*`; the database column is still
+`profiles.avatar`, renaming it being a migration every signed-in device would have to survive.)*
+
+**The window is round because the photo is.** `.monogram` is a circle on every surface that draws one, so
 a square preview would show the reader corners no surface will ever paint — and framing a face inside a
 square that is about to become a circle is exactly the mistake the control exists to prevent. The CANVAS
-stays square, because the square is what gets saved; `.avc-ring` is an overlay on top of it (a huge inset
+stays square, because the square is what gets saved; `.phc-ring` is an overlay on top of it (a huge inset
 box-shadow dimming everything outside the circle, plus a hairline at its edge) and is `pointer-events:none`,
 or it would swallow the drag it is there to describe.
 
@@ -246,15 +251,15 @@ sharp as this phone's preview happened to be.
 
 ### Enlarging one
 
-`openAvatarViewer(avatar, name)` goes through the site's own image viewer rather than a second overlay — the
+`openPhotoViewer(photo, name)` goes through the site's own image viewer rather than a second overlay — the
 pinch, the pan, the Escape and the × are written already — with two differences declared on the element
 through a new `img.viewClass` hook rather than in the caller.
 
 It is **drawn round**, because that is the shape the photo was composed in: revealing the square's corners
 here would show the owner a version of their own picture they never chose.
 
-And it is **capped at about 320px, which is an honest limit rather than a preference**. A stored avatar is
-`AVATAR_PX` square — small on purpose, since the friends list fetches one row per friend — so the viewer's
+And it is **capped at about 320px, which is an honest limit rather than a preference**. A stored photo is
+`PHOTO_PX` square — small on purpose, since the friends list fetches one row per friend — so the viewer's
 default (an `<img>` at its natural size under a `max-width`) would draw it at 128px, barely larger than the
 row it was tapped in. Raising the stored size is the only thing that would make it genuinely sharper, and it
 would cost every friends list a few hundred kilobytes to serve a gesture made now and then. The reader can
@@ -263,7 +268,7 @@ still pinch further.
 The button exists **only where there is a photograph**: a monogram is a letter the page is already showing
 at the size a letter is worth, so wrapping it would give five readers in six a control that does nothing.
 
-Guarded by `.claude/test-avatar.js` (17 assertions). It reaches the cropper through a **patched app.js**, the
+Guarded by `.claude/test-photo.js` (17 assertions). It reaches the cropper through a **patched app.js**, the
 technique `test-i18n-lang.js` already uses: the dialog lives behind a Supabase sign-in, and mocking auth to
 reach it would test the mock. The patch appends one line inside the IIFE and the suite fails if the tail it
 appends to is not found, so a refactor cannot leave it quietly testing nothing. Its picture is chosen so the

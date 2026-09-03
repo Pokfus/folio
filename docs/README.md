@@ -43,6 +43,7 @@ before changing the thing it names.
 | `home-page.md` | The home page's running order, the daily quote, the review banner. |
 | `whiteboard.md` | The floating marker — the fling, the snap home, the pass-through, the stylus split. |
 | `reliquary.md` | Artefact chests, collectible themes, the showcase, the collector's badges. |
+| `avatar.md` | The account page's figure — its scene, its six slots, the art manifest and the anchors. |
 | `card-difficulty.md` | The 1–5 rating, the community rating, and `undatable`. |
 | `map-cards.md` | The geography format — a shape on a globe as the question. |
 | `library-books.md` | Per-book findings for all 48 — how each edition is set, what pairs, the licence ground. |

@@ -1511,6 +1511,17 @@
          friends list is drawn; a reader who has never opened that page has 0, which is what they had
          before the field existed. See progStats. */
       friendCount: 0,
+      /* ---- THE AVATAR (Sep 2026, on request). Three fields rather than one, and the split is what
+         makes Reset progress mean what it says: `avatar` is the LOOK — skin, hair, face, build — which
+         is a choice about how the reader wants to appear and is kept on a reset exactly as the theme
+         is; `equip` and `scenes` are what the collection BOUGHT and go with the artefacts and chests
+         they came from. All three sync, so the figure a phone draws is the figure a laptop draws, and
+         a friend's profile can draw it too. An empty `equip.scene` resolves to the free scene at read
+         time rather than being written here, so a scene added later can never be shadowed by a stale
+         default sitting in ten thousand saves. */
+      avatar: {},        // { skin, hairColor, build, face, hair } — see avatarLook() for the defaults
+      equip: {},         // slot id -> artefact id (or scene id in the `scene` slot); see AVATAR_SLOTS
+      scenes: {},        // scene id -> when it was drawn from a chest. The free scene is never in here.
     };
   }
   let S = load();
@@ -1868,7 +1879,7 @@
      Kept for: the admin page's local-user manager, the guest-progress stash helpers (extractProgress /
      applyProgress / emptyProgress), and older saves. The account page no longer signs in against this. */
   const ACCT_KEY = "folio_acct_v1";
-  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount"];
+  const PROGRESS_FIELDS = ["cards", "suspended", "buried", "flags", "daily", "chrono", "games", "intro", "deckOpts", "deckDay", "reviewLog", "reviewDay", "studyTime", "studyTotal", "streak", "active", "deckOrder", "deckGroups", "deckNest", "cotd", "achievements", "glossSeen", "placesSeen", "gameLog", "reading", "bookFavs", "artefacts", "chests", "showcase", "sweepChest", "streakChest", "chestsOpened", "themes", "published", "publishedIds", "theme", "friendCount", "avatar", "equip", "scenes"];
   const B32 = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   function defaultAcct() { return { users: {}, current: null, guest: null }; }
   let ACCT = (function () {
@@ -1960,7 +1971,7 @@
      streak and the badges, and an unlocked theme is an appearance the reader is wearing — clearing it
      would take the site's own look away from somebody who reset a card schedule, and would leave them
      wearing a theme they no longer own. `chestsOpened` and `published` are history and go. */
-  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest", "flags", "themes", "theme"];
+  const RESET_KEEPS = ["active", "deckOpts", "reading", "bookFavs", "deckGroups", "deckNest", "flags", "themes", "theme", "avatar"];
   function resetProgress() {
     const base = emptyProgress();
     PROGRESS_FIELDS.forEach((k) => { if (RESET_KEEPS.indexOf(k) < 0) S[k] = JSON.parse(JSON.stringify(base[k])); });
@@ -2189,13 +2200,18 @@
     if (r.ok && Array.isArray(r.data) && r.data[0]) SUPA_PROFILE = r.data[0];
     return SUPA_PROFILE;
   }
-  /* --- profile photos: stored as a small data-URI on the profiles row (client resizes to a 128px JPEG, ~6 KB) --- */
+  /* --- profile photos: stored as a small data-URI on the profiles row (client resizes to a 128px JPEG, ~6 KB) ---
+     EVERYTHING HERE IS THE PHOTO, NOT THE AVATAR. They were both called "avatar" until Sep 2026, when the
+     account page gained a drawn full-body figure that is genuinely the reader's avatar (see THE AVATAR);
+     two meanings for one word in one file is how the next session edits the wrong one. The client-side
+     names are `photo*` and the DATABASE COLUMN is still `profiles.avatar` — renaming that is a migration
+     every signed-in device would have to survive, for no reader-visible gain. */
   function monogramHTML(avatar, name, cls) {
     return avatar
       ? '<span class="monogram ' + (cls || "") + ' has-img"><img src="' + esc(avatar) + '" alt=""></span>'
       : '<span class="monogram ' + (cls || "") + '">' + initialOf(name) + "</span>";
   }
-  const AVATAR_PX = 128;   // the stored square, and the reason the enlarge is what it is — see openAvatarViewer
+  const PHOTO_PX = 128;   // the stored square, and the reason the enlarge is what it is — see openPhotoViewer
   /* ---------- CHOOSING THE CROP, RATHER THAN BEING GIVEN ONE (Aug 2026, on request) ----------
      "When uploading a profile picture, it should be possible to move/crop it."
      It centre-cropped to a square and that was the whole of it, which is the wrong default often enough
@@ -2203,11 +2219,11 @@
      chin at once, and a photograph of two people keeps whichever half happens to be in the middle. There
      was no appeal — the only remedy was to crop the file in something else and upload it again.
 
-     `openAvatarCropper` puts the image behind a round window the reader drags and zooms, and hands back
-     the same 128px JPEG data-URI `avatarFromFile` did, so nothing downstream changed: `supaSetAvatar`,
+     `openPhotoCropper` puts the image behind a round window the reader drags and zooms, and hands back
+     the same 128px JPEG data-URI `photoFromFile` did, so nothing downstream changed: `supaSetPhoto`,
      the profiles row and every monogram on the site are untouched. Four things.
 
-     THE WINDOW IS ROUND BECAUSE THE AVATAR IS. `.monogram` is a circle everywhere it appears, so a
+     THE WINDOW IS ROUND BECAUSE THE PHOTO IS. `.monogram` is a circle everywhere it appears, so a
      square preview would show the reader corners that no surface will ever draw — and framing a face
      inside a square that is about to become a circle is exactly the mistake this control exists to stop.
      The CANVAS is square (the stored image is), and the round mask is drawn over it.
@@ -2225,7 +2241,7 @@
      backed by `devicePixelRatio`; the saved square is drawn from the ORIGINAL image with the same
      transform expressed in its own pixels, so what is stored is as sharp as the source allows rather
      than as sharp as this phone's preview happened to be. */
-  function openAvatarCropper(file, cb) {
+  function openPhotoCropper(file, cb) {
     if (!file || !/^image\//.test(file.type)) { toast("Choose an image file"); return; }
     if (file.size > 8 * 1024 * 1024) { toast("That image is too large — pick one under 8 MB"); return; }
     const img = new Image();
@@ -2234,23 +2250,23 @@
     img.src = URL.createObjectURL(file);
 
     function mount(im, done) {
-      const ex = document.querySelector(".av-crop"); if (ex) ex.remove();
+      const ex = document.querySelector(".ph-crop"); if (ex) ex.remove();
       const ov = document.createElement("div");
-      ov.className = "av-crop";
+      ov.className = "ph-crop";
       ov.innerHTML =
-        '<div class="avc-box" role="dialog" aria-modal="true" aria-label="Position your photo">' +
-          '<div class="avc-title">Position your photo</div>' +
-          '<div class="avc-stage"><canvas class="avc-canvas"></canvas><div class="avc-ring" aria-hidden="true"></div></div>' +
-          '<label class="avc-zoom"><span class="avc-zlabel">Zoom</span>' +
-            '<input class="avc-range" type="range" min="1" max="4" step="0.01" value="1" aria-label="Zoom"></label>' +
-          '<p class="avc-hint">Drag the photo to move it. Pinch, scroll or use the slider to zoom.</p>' +
-          '<div class="avc-acts"><button type="button" class="avc-cancel">Cancel</button>' +
-            '<button type="button" class="avc-ok">Use photo</button></div>' +
+        '<div class="phc-box" role="dialog" aria-modal="true" aria-label="Position your photo">' +
+          '<div class="phc-title">Position your photo</div>' +
+          '<div class="phc-stage"><canvas class="phc-canvas"></canvas><div class="phc-ring" aria-hidden="true"></div></div>' +
+          '<label class="phc-zoom"><span class="phc-zlabel">Zoom</span>' +
+            '<input class="phc-range" type="range" min="1" max="4" step="0.01" value="1" aria-label="Zoom"></label>' +
+          '<p class="phc-hint">Drag the photo to move it. Pinch, scroll or use the slider to zoom.</p>' +
+          '<div class="phc-acts"><button type="button" class="phc-cancel">Cancel</button>' +
+            '<button type="button" class="phc-ok">Use photo</button></div>' +
         "</div>";
       document.body.appendChild(ov);
 
-      const cv = ov.querySelector(".avc-canvas");
-      const range = ov.querySelector(".avc-range");
+      const cv = ov.querySelector(".phc-canvas");
+      const range = ov.querySelector(".phc-range");
       const box = cv.getBoundingClientRect();
       const VIEW = Math.max(1, Math.round(box.width)) || 260;          // CSS px of the square window
       const dpr = Math.min(3, window.devicePixelRatio || 1);
@@ -2339,22 +2355,22 @@
       function save() {
         // re-rendered from the ORIGINAL at the stored size, never scaled up out of the preview
         const out = document.createElement("canvas");
-        out.width = AVATAR_PX; out.height = AVATAR_PX;
-        const k = AVATAR_PX / VIEW;   // window px -> stored px
+        out.width = PHOTO_PX; out.height = PHOTO_PX;
+        const k = PHOTO_PX / VIEW;   // window px -> stored px
         const o = out.getContext("2d");
         o.imageSmoothingQuality = "high";
         o.drawImage(im, ox * k, oy * k, iw * scale * k, ih * scale * k);
         close();
         done(out.toDataURL("image/jpeg", 0.85));
       }
-      ov.querySelector(".avc-ok").addEventListener("click", save);
-      ov.querySelector(".avc-cancel").addEventListener("click", close);
+      ov.querySelector(".phc-ok").addEventListener("click", save);
+      ov.querySelector(".phc-cancel").addEventListener("click", close);
       ov.addEventListener("mousedown", (e) => { if (e.target === ov) close(); });
       document.addEventListener("keydown", onKey, true);
-      setTimeout(() => { const b = ov.querySelector(".avc-ok"); if (b) b.focus(); }, 0);
+      setTimeout(() => { const b = ov.querySelector(".phc-ok"); if (b) b.focus(); }, 0);
     }
   }
-  async function supaSetAvatar(dataUri) {   // null removes the photo
+  async function supaSetPhoto(dataUri) {   // null removes the photo
     if (!supaLoggedIn()) return { error: "Sign in first" };
     const r = await supaFetch("/rest/v1/profiles?id=eq." + SUPA.user.id, { method: "PATCH", body: { avatar: dataUri } });
     if (!r.ok) return { error: supaErrMsg(r, "Couldn't save the photo — try again.") };
@@ -9634,6 +9650,12 @@
        point is only to keep 1.29 MB off the path that blocks first paint. openGlossWin awaits it for
        the reader who beats the warm. */
     glossExtra: { files: ["glossary-extra.js"], after: glossExtraIngest },
+    /* THE AVATAR's manifest — the parts, the scenes and their anchor points, plus the placeholder line
+       art (see avatar.js). Fetched when the account page mounts and never before: a reader who only
+       studies pays nothing for it. It is METADATA, a few KB — the sprites themselves are ordinary
+       same-origin files that the browser fetches per layer, so only what a reader is actually wearing
+       is ever downloaded. */
+    avatar: { files: ["avatar.js"] },
     // everything else the Atlas needs: historical eras, physical layers, per-country prose + figures
     atlas: {
       files: ["uk.js", "lakes.js", "rivers.js", "water.js", "cities.js", "timeline.js", "countries.js", "country-stats.js", "country-spans.js", "country-years.js", "country-sources.js"],
@@ -13719,7 +13741,7 @@
      ask the same question of it: a page swipe must not fire under an open sheet, and neither must a study
      page's keyboard shortcuts — `3` with a panel open grades the card the reader is reading ABOUT, and
      Ctrl+Z undoes a grade they cannot see. Written twice they would drift, and the drift is invisible. */
-  const OVERLAY_SEL = ".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour, .artefact-pop, .chest-pop";
+  const OVERLAY_SEL = ".deck-menu, .inline-prompt, .img-viewer, .levelup-pop, .gloss-win, .ctx-menu, .folio-tour, .artefact-pop, .chest-pop, .avs-sheet";
   function overlayOpen() { return !!document.querySelector(OVERLAY_SEL); }
   function swipeEnabled() {
     if (!window.matchMedia || !matchMedia("(max-width:640px)").matches) return false;
@@ -13770,6 +13792,7 @@
     closeReliquaryPage(); // …and the Reliquary page's repaint hook goes with the page it belonged to
     closeDeckMenu();      // …nor an added deck's options sheet, which also lives on document.body
     closePageHelp();      // …nor a page's first-visit card, which is on the body for the same reason (pageHelp)
+    closeAvatarSheet();   // …nor an avatar sheet, which a deep link or a back/forward would otherwise strand
     closeColorMenu();   // the colour menu lives on document.body — make sure it can't outlive its page on hashchange/back nav
     closeGlossPicker();
     closeRtColorMenu();
@@ -19007,6 +19030,11 @@
     const out = {
       id, name,
       rarity: RARITY_BY_ID[a.rarity] ? a.rarity : "common",
+      /* WHICH BODY SLOT THIS CAN BE WORN IN, or absent for one that can only be displayed (Sep 2026 —
+         see THE AVATAR). It is validated against the slot list rather than carried through as typed:
+         this field decides what a reader may put on their profile, and the overlay it can arrive
+         through is a table any signed-in admin can PATCH from a phone. Every artefact is eligible for
+         the display object whatever this says, so an untagged one loses nothing. */
       date: sanitizePlain(String(a.date || "")).trim().slice(0, 120),
       origin: sanitizePlain(String(a.origin || "")).trim().slice(0, 200),
       desc: sanitizeHTML(String(a.desc || "")),
@@ -19017,6 +19045,7 @@
          any signed-in admin can PATCH). normSources then trims, de-duplicates and caps the list. */
       sources: normSources((Array.isArray(a.sources) ? a.sources : []).map((s) => sanitizeHTML(String(s == null ? "" : s)))),
     };
+    if (WEAR_SLOTS.indexOf(a.slot) >= 0) out.slot = a.slot;
     const im = a.image;
     if (im && typeof im === "object" && im.src) {
       const src = sanitizeUrl(String(im.src), ["http", "https"]);
@@ -19212,33 +19241,35 @@
      cannot disagree about whether a chest is empty. Returns null only when the reader has everything. */
   function rollChestItem() {
     const locked = lockedThemes();
+    const scenes = lockedScenes();
     const art = rollArtefact();
+    /* THE THREE KINDS CANNOT STARVE EACH OTHER, because each is offered only while it still has
+       something to give: an exhausted pool drops out of the draw rather than rolling a duplicate, which
+       is `rollArtefact`'s own rule one level up. The order below is the priority when a chest happens to
+       qualify for more than one — a scene first, being the rarest and the most visible. */
+    if (scenes.length && (!art || Math.random() < SCENE_DROP)) {
+      return { kind: "scene", scene: scenes[Math.floor(Math.random() * scenes.length)] };
+    }
     if (locked.length && (!art || Math.random() < THEME_DROP)) {
       return { kind: "theme", theme: locked[Math.floor(Math.random() * locked.length)] };
     }
     return art ? { kind: "artefact", artefact: art } : null;
   }
 
-  /* ---------- the showcase: up to four pinned to the profile ---------- */
+  /* ---------- what the four-tile showcase left behind (Sep 2026) ----------
+     The showcase was four artefacts pinned to the profile, shown as tiles. The avatar scene replaced it
+     — the same idea with a picture — so the TILES are gone and `S.showcase` is read exactly once, by
+     `avatarMigrateShowcase`, to decide what stands on the display object for a reader who had pinned
+     something. The field itself is deliberately still written and still synced: a device on the previous
+     build reads it, and clearing it here would empty that device's profile. */
   function showcaseIds(prog) {
     const list = Array.isArray(prog && prog.showcase) ? prog.showcase : [];
     const owned = (prog && prog.artefacts) || {};
-    // filtered on the way OUT rather than on the way in: an artefact retired from the pool since it was
-    // pinned would otherwise leave a slot pointing at nothing, and the reader can't fix what they can't see
     return list.filter((id) => owned[id] && ARTEFACT_BY_ID[id]).slice(0, SHOWCASE_MAX);
   }
-  function inShowcase(id) { return showcaseIds(S).indexOf(id) !== -1; }
-  // returns false when the four slots are full, so the caller can say why rather than doing nothing
-  function toggleShowcase(id) {
-    const cur = showcaseIds(S);
-    const at = cur.indexOf(id);
-    if (at !== -1) { cur.splice(at, 1); S.showcase = cur; save(); return true; }
-    if (cur.length >= SHOWCASE_MAX) return false;
-    if (!ownsArtefact(id)) return false;
-    cur.push(id);
-    S.showcase = cur;
-    save();
-    return true;
+  // is this artefact standing in one of the avatar's six slots? — what the tile's star means now
+  function isEquipped(prog, id) {
+    return AVATAR_SLOTS.some((s) => s.id !== "scene" && (equipped(prog, s.id) || {}).id === id);
   }
 
   /* ---------- rendering ---------- */
@@ -19278,59 +19309,30 @@
   }
   function artefactTileHTML(a, opts) {
     const r = rarityId(a);
-    const pinned = opts && opts.pinned;
+    const pinned = opts && opts.pinned;   // "this one is on your avatar" — it was "pinned to the showcase"
     return '<button type="button" class="ar-tile" data-artefact="' + esc(a.id) + '" data-rar="' + r + '" title="' + esc(a.name + " — " + rarityLabel(r)) + '">' +
       artefactArtHTML(a) +
       '<span class="ar-tname">' + esc(a.name) + '</span>' +
       '<span class="ar-trar">' + esc(rarityLabel(r)) + '</span>' +
-      (pinned ? '<span class="ar-pin" aria-hidden="true">★</span>' : "") +
+      (pinned ? '<span class="ar-pin" aria-hidden="true" title="On your avatar">★</span>' : "") +
       '</button>';
   }
-  // the profile strip: four slots, filled or empty, on your own account and on a friend's
+  /* THE WAY IN TO THE WHOLE COLLECTION. This used to be the head of the four-tile showcase and is all
+     that is left of it (Sep 2026): the tiles are the avatar's slots now, but a reader still needs a route
+     to everything they hold, and on a FRIEND's profile this is the only one there is — that page carries
+     no inventory section, deliberately, and never had one.
+     IT SITS ON THE HEADING'S OWN LINE (Sep 2026, on request: "the 'See reliquary' button should align
+     centered vertically with the … header"). The heading is emitted here rather than by each account
+     page, which is what lets the two share a flex row; a caller writing its own `.section-label` and this
+     writing its own button could only ever have them on separate lines. It appears only once there is
+     something behind it: a control over an empty collection does nothing. */
   function showcaseHTML(prog, own) {
-    const ids = showcaseIds(prog);
-    let cells = ids.map((id) => artefactTileHTML(ARTEFACT_BY_ID[id])).join("");
-    /* AN EMPTY SLOT ON YOUR OWN PROFILE IS A CONTROL (Aug 2026, on a bug report: "when I click one of the
-       four empty squares, nothing happens"). It was a decorative `div` carrying a "+", which is the mark
-       for "you may add something here" and so invites exactly the click it could not answer. It opens the
-       collection, which is where an artefact is pinned from; where nothing is owned yet there is nothing to
-       pin, so it says so rather than raising an empty list — a control that explains itself beats one that
-       silently does nothing either way. On a FRIEND'S profile the slots stay decoration: their showcase is
-       not yours to fill. */
-    for (let i = ids.length; i < SHOWCASE_MAX; i++) {
-      cells += own
-        ? '<button type="button" class="ar-tile ar-slot" data-arslot="1" title="Pin one of your artefacts here">' +
-          '<span class="ar-slotmark" aria-hidden="true">+</span><span class="ar-slotlbl">Pin an artefact</span></button>'
-        : '<div class="ar-tile ar-slot" aria-hidden="true"><span class="ar-slotmark">+</span></div>';
-    }
-    /* THE WAY IN TO THE WHOLE COLLECTION (Aug 2026, on request). The showcase is four artefacts out of
-       however many a reader holds, and until now it said nothing about the rest: on your own account the
-       inventory was three sections further down the page, and on a friend's it was below their statistics,
-       so the four tiles read as the whole of it. The button opens the collection as an OVERLAY rather than
-       scrolling to that section, for two reasons — it is the same list wherever the showcase is rendered,
-       including a page that carries no inventory section at all, and a reader who came to look at four
-       artefacts is asking to see more of them, not to be moved somewhere else on a long page.
-       It appears only once there is something behind it: a control over an empty collection does nothing.
-       IT IS NAMED FOR WHERE IT LEADS (Aug 2026, on request — it read "See all N artefacts"). The inventory
-       had a section of its own further down this page as well, so the reader met the same list twice under
-       two names; that section is gone from the signed-in view and this is the only way to the whole
-       collection, which makes naming it after the place the right way round. The count moves into the
-       title, where it is still a fact about the collection and no longer the button's own name. */
-    /* IT SITS ON THE HEADING'S OWN LINE (Sep 2026, on request: "the 'See reliquary' button should align
-       centered vertically with the 'Profile showcase' header"). It was a right-aligned row of its own
-       BELOW that heading, so a section with one heading and one button spent two lines on them and neither
-       was aligned with the other. The heading is emitted HERE now rather than by each account page, which
-       is what lets the two share a flex row — a caller writing its own `.section-label` and this writing
-       its own button could only ever have them on separate lines. Both account views dropped their copy.
-       `.section-label`'s own 26px top margin comes with it, so nothing above the showcase moved. */
     const n = ownedArtefacts(prog).length;
-    const head = '<div class="section-label ar-schead"><span>Profile showcase</span>' + (n
+    return '<div class="section-label ar-schead"><span>Reliquary</span>' + (n
       ? '<button type="button" class="ghost-btn ar-all" data-arall="1" title="' +
         (own ? "Everything you have collected" : "Everything this scholar has collected") +
         " — " + n + " artefact" + (n === 1 ? "" : "s") + '">See Reliquary</button>'
       : "") + "</div>";
-    return head + '<div class="showcase">' + cells + '</div>' +
-      (own ? '<p class="ar-note">Open an artefact below to pin it here — up to ' + SHOWCASE_MAX + ', shown to anyone who visits your profile.</p>' : "");
   }
   /* THE WAITING-CHESTS BANNER, at the very top of the account page (Aug 2026, on request, with the chest
      overlay's own "Save for later"). The two halves are one feature: a chest may now be put by, so there
@@ -19373,7 +19375,7 @@
         esc("Everything you have collected — " + list.length + " artefact" + (list.length === 1 ? "" : "s")) +
         '">See Reliquary</button></div>';
     }
-    return head + '<div class="ar-grid">' + list.map((a) => artefactTileHTML(a, { pinned: own && inShowcase(a.id) })).join("") + '</div>' +
+    return head + '<div class="ar-grid">' + list.map((a) => artefactTileHTML(a, { pinned: own && isEquipped(S, a.id) })).join("") + '</div>' +
       (own && list.length < total ? '<p class="ar-note">' + (total - list.length) + ' still to find.</p>' : "");
   }
   /* ---------- THE PLATE ----------
@@ -19399,8 +19401,15 @@
            and a fold of citations — so on anything but the shortest artefact it was off the bottom of a
            scrolling box, and a reader who opened a plate to pin it had to read past everything first. It is
            the one ACTION on a page that is otherwise all reading, and an action belongs where the reader
-           arrives rather than where the reading runs out. */
-        (o.pin ? '<button type="button" class="ghost-btn ar-pinbtn" id="arPin">' + esc(o.pin) + "</button>" : "") +
+           arrives rather than where the reading runs out.
+           IT IS NOW ONE BUTTON PER SLOT rather than a single "Show on profile" (Sep 2026): the four-tile
+           showcase became the avatar's six slots, so the question an owner is answering is no longer
+           WHETHER to show an artefact but WHERE — worn, or standing on the scene's display object. An
+           artefact with no body slot offers the display alone, which is most of them. */
+        (o.equip && o.equip.length
+          ? '<div class="ar-eqacts">' + o.equip.map((b) =>
+              '<button type="button" class="ghost-btn ar-pinbtn" data-areq="' + esc(b.slot) + '">' + esc(b.label) + "</button>").join("") + "</div>"
+          : "") +
         /* The rarity sits AFTER the name on its own line (Aug 2026, on request) rather than above it: a
            chip standing alone over a title reads as a section heading for the whole plate, where beside
            the name it reads as what it is — an adjective on this object. `.ar-wtop` is a baseline-aligned
@@ -19469,10 +19478,19 @@
     const own = ownsArtefact(id);
     const ov = document.createElement("div");
     ov.className = "artefact-pop";
+    /* WHAT AN OWNER MAY DO WITH IT, worked out per slot so a button says what pressing it does rather
+       than naming a state. A worn slot is offered only where the artefact is TAGGED for one (most are
+       not, being pots, coins and tablets); every artefact can stand on the display object. */
+    const eqBtns = [];
+    if (own) {
+      const ws = artefactSlotOf(a);
+      if (ws) eqBtns.push({ slot: ws, label: (equipped(S, ws) || {}).id === id ? "Take it off" : "Wear it" });
+      eqBtns.push({ slot: "object", label: (equipped(S, "object") || {}).id === id ? "Take it off the display" : "Put it on display" });
+    }
     ov.innerHTML = artefactPlateHTML(a, {
       close: true,
       attrs: ' role="dialog" aria-modal="true" aria-label="' + esc(a.name) + '"',
-      pin: own ? (inShowcase(id) ? "Remove from profile" : "Show on profile") : "",
+      equip: eqBtns,
     });
     document.body.appendChild(ov);
     wireArtefactPlate(ov, a);
@@ -19482,14 +19500,23 @@
     document.addEventListener("keydown", onKey, true);
     ov.addEventListener("click", (e) => { if (e.target === ov) close(); });
     ov.querySelector(".ar-close").addEventListener("click", close);
-    const pin = ov.querySelector("#arPin");
-    if (pin) pin.addEventListener("click", () => {
-      if (!toggleShowcase(id)) { toast("Your profile holds " + SHOWCASE_MAX + " artefacts — remove one first."); return; }
-      const on = inShowcase(id);
-      pin.textContent = on ? "Remove from profile" : "Show on profile";
-      toast(on ? "Pinned to your profile" : "Removed from your profile");
-      refreshReliquary();
+    const eqLabel = (slot, on) => on ? (slot === "object" ? "Take it off the display" : "Take it off")
+                                     : (slot === "object" ? "Put it on display" : "Wear it");
+    /* EVERY BUTTON IS RE-READ after any of them is pressed, not just the one clicked: an artefact can
+       only be in one place at a time (see setEquip), so putting it on display takes it off the body —
+       and a button still reading "Take it off" beside it would describe a state that no longer exists. */
+    const eqSync = (scope) => scope.querySelectorAll("[data-areq]").forEach((o) => {
+      o.textContent = eqLabel(o.dataset.areq, (equipped(S, o.dataset.areq) || {}).id === id);
     });
+    ov.querySelectorAll("[data-areq]").forEach((b) => b.addEventListener("click", () => {
+      const slot = b.dataset.areq;
+      const on = (equipped(S, slot) || {}).id === id;
+      if (!setEquip(slot, on ? "" : id)) { toast("That can't go in this slot."); return; }
+      eqSync(ov);
+      toast(on ? "Taken off." : (slot === "object" ? "It is on display in your scene." : "Your avatar is wearing it."));
+      refreshReliquary();
+      refreshAvatarScene();
+    }));
     requestAnimationFrame(() => ov.classList.add("show"));
     unitizeTree(ov);
   }
@@ -19544,7 +19571,7 @@
        chest is opened over the page — redraw the very thing they are looking at an overlay through. */
     if (current.name === "reliquary") { if (_reliqRepaint) _reliqRepaint(); return; }
     if (current.name !== "account") return;
-    const host = document.querySelector("#reliquary"), sc = document.querySelector("#showcase");
+    const host = document.querySelector("#reliquary"), sc = document.querySelector("#showcase");   // #showcase is the signed-out page's head row; the signed-in one has none
     if (host) { host.innerHTML = reliquaryHTML(S, true, { entry: true }); wireReliquary(host, S, true); }
     if (sc) { sc.innerHTML = showcaseHTML(S, true); wireReliquary(sc, S, true); }
   }
@@ -19700,7 +19727,7 @@
       if (!owned.length) return;
       grid.className = shown.length ? "ar-grid" : "rq-msg";
       grid.innerHTML = shown.length
-        ? shown.map((a) => artefactTileHTML(a, { pinned: inShowcase(a.id) })).join("")
+        ? shown.map((a) => artefactTileHTML(a, { pinned: isEquipped(S, a.id) })).join("")
         : '<div class="gl-empty"><p>No artefact here matches that.</p></div>';
       const k = reliqSort + "|" + reliqRev;
       if (k !== dirKey) {
@@ -19729,6 +19756,438 @@
     repaint();
     _reliqRepaint = repaint;
   };
+
+  /* ============================================================
+     THE AVATAR — a figure, what it is wearing, and the scene around it
+     ============================================================
+     (Sep 2026, on request: "every user should have a 2D full-body avatar … collected artefacts, instead
+     of being displayed in four tiles on the account page, can instead be equipped by the avatar.")
+
+     The account page opens on a scene: a drawn figure standing in a historical setting, with the
+     artefacts the reader has chosen worn on it and one set down on the scene's own display object — an
+     altar in Rome, a desk in the study. Six square slots down the right edge say what is in each.
+     It REPLACES the four-tile showcase, which was the same idea with no picture: four artefacts a
+     reader had chosen to be seen holding, shown as a row of tiles.
+
+     Eight decisions, and most of them are about what fails silently.
+
+     · **THE ART IS NOT HERE, AND THAT IS THE WHOLE SHAPE OF IT.** `avatar.js` holds the manifest and
+       the placeholder line art; the sprites are ordinary same-origin files fetched per layer. So this
+       block knows about SLOTS, ANCHORS and OWNERSHIP and nothing about how anything looks, and drawn
+       art arrives one file at a time without a line changing here.
+     · **EVERY ARTEFACT CAN BE DISPLAYED; ONLY SOME CAN BE WORN.** `a.slot` names the body slot an
+       artefact belongs in — head, body, jewelry or hand — and roughly twenty of the hundred carry one,
+       because most of them are pots, coins and tablets. Every artefact, including those twenty, is
+       eligible for `object`. That is not a compromise: an altar is where a real object is set down,
+       which is what most of this collection is.
+     · **THE SLOT IS CHECKED ON THE WAY OUT, NEVER ONLY ON THE WAY IN** (`equipped`). An artefact
+       retired from the pool, or re-tagged into a different slot, would otherwise leave a slot pointing
+       at something that no longer belongs there — and the reader cannot fix what they cannot see. Same
+       rule `showcaseIds` has always followed, for the same reason.
+     · **THE SCENE FALLS BACK RATHER THAN BEING WRITTEN.** `defaultState` stores no scene, and
+       `currentScene` resolves an empty or unknown one to whichever scene is `free`. A default written
+       into the save would sit in every existing reader's progress and shadow any later change to which
+       scene is the free one.
+     · **A SCENE IS THE THIRD THING A CHEST HOLDS**, beside an artefact and a theme, and it is built the
+       same way: `lockedScenes()` is the pool, so a scene is never a duplicate, and the two collectible
+       kinds cannot starve each other because each drops only while it has something left to give.
+     · **NOTHING IS EQUIPPED THE READER DOES NOT OWN.** `setEquip` refuses an unowned artefact and an
+       unowned scene outright rather than trusting the picker that offered it — the picker is a view and
+       this is the gate, and the state syncs, so a bad write would travel to every device.
+     · **THE LOOK IS KEPT ON A RESET AND THE LOADOUT IS NOT.** See the `avatar` / `equip` / `scenes`
+       split in `defaultState`.
+     · **AND THE LAYERS ARE SEPARATE ELEMENTS FROM THE START**, which costs nothing now and is what
+       makes an idle animation possible later: a figure drawn as one flat image can never breathe. */
+
+  const AVATAR_SLOTS = [
+    { id: "head",    label: "Head",       wear: true,  blurb: "Helmets, masks and crowns" },
+    { id: "body",    label: "Body",       wear: true,  blurb: "What the figure is wearing" },
+    { id: "jewelry", label: "Jewellery",  wear: true,  blurb: "Torcs, brooches and pendants" },
+    { id: "hand",    label: "Hand",       wear: true,  blurb: "Something to carry" },
+    { id: "object",  label: "On display", wear: false, blurb: "One artefact, set down on the scene" },
+    { id: "scene",   label: "Scene",      wear: false, blurb: "Where your figure stands" },
+  ];
+  const AVATAR_SLOT_BY_ID = {};
+  AVATAR_SLOTS.forEach((s) => { AVATAR_SLOT_BY_ID[s.id] = s; });
+  const WEAR_SLOTS = AVATAR_SLOTS.filter((s) => s.wear).map((s) => s.id);
+  /* Deliberately below THEME_DROP (0.14). There are two scenes against a hundred artefacts, and a chest
+     is mostly for the Reliquary: a rate high enough to finish the set in a week would make the artefacts
+     the thing standing between a reader and the reward. */
+  const SCENE_DROP = 0.09;
+
+  function avatarArt() { return (window.AVATAR_ART && typeof window.AVATAR_ART === "object") ? window.AVATAR_ART : null; }
+  function avatarScenes() { const a = avatarArt(); return (a && Array.isArray(a.scenes)) ? a.scenes : []; }
+  function sceneById(id) { return avatarScenes().filter((s) => s && s.id === id)[0] || null; }
+  function freeScene() { return avatarScenes().filter((s) => s && s.free)[0] || avatarScenes()[0] || null; }
+  function artPart(list, id, fallbackFirst) {
+    const arr = Array.isArray(list) ? list : [];
+    return arr.filter((p) => p && p.id === id)[0] || (fallbackFirst === false ? null : arr[0]) || null;
+  }
+
+  /* ---------- the look ----------
+     Read through one accessor with the defaults applied, so nothing downstream has to cope with a save
+     written before this shipped, or with a part id that has since been retired from the manifest. */
+  function avatarLook(prog) {
+    const raw = (prog && prog.avatar && typeof prog.avatar === "object") ? prog.avatar : {};
+    const a = avatarArt();
+    const pick = (list, id) => { const p = artPart(list, id); return p ? p.id : ""; };
+    return {
+      skin:      a ? pick(a.skins, raw.skin)           : (raw.skin || ""),
+      hairColor: a ? pick(a.hairColors, raw.hairColor) : (raw.hairColor || ""),
+      build:     a ? pick(a.builds, raw.build)         : (raw.build || ""),
+      face:      a ? pick(a.faces, raw.face)           : (raw.face || ""),
+      hair:      a ? pick(a.hair, raw.hair)            : (raw.hair || ""),
+    };
+  }
+  function setAvatarLook(key, id) {
+    if (["skin", "hairColor", "build", "face", "hair"].indexOf(key) < 0) return false;
+    if (!S.avatar || typeof S.avatar !== "object") S.avatar = {};
+    S.avatar[key] = String(id || "");
+    save();
+    return true;
+  }
+
+  /* ---------- scenes: owned like a theme, drawn like an artefact ---------- */
+  function ownedScenes() { const o = S.scenes; return (o && typeof o === "object") ? o : (S.scenes = {}); }
+  // ownership is the KEY BEING PRESENT, never the value being truthy — the themes' rule, and for its reason
+  function sceneUnlocked(id, prog) {
+    const f = freeScene();
+    if (f && id === f.id) return true;
+    const reg = (prog && prog !== S) ? ((prog.scenes && typeof prog.scenes === "object") ? prog.scenes : {}) : ownedScenes();
+    return Object.prototype.hasOwnProperty.call(reg, id);
+  }
+  function lockedScenes() { return avatarScenes().filter((s) => s && !s.free && !sceneUnlocked(s.id)); }
+  function unlockScene(id) {
+    const sc = sceneById(id);
+    if (!sc || sc.free || sceneUnlocked(id)) return false;
+    ownedScenes()[id] = Date.now();
+    return true;
+  }
+  function claimScene(id) { unlockScene(id); spendChest(); }
+  function currentScene(prog) {
+    const want = equipRaw(prog).scene;
+    const sc = want ? sceneById(want) : null;
+    return (sc && sceneUnlocked(sc.id, prog)) ? sc : freeScene();
+  }
+
+  /* ---------- the loadout ---------- */
+  function equipRaw(prog) {
+    const e = (prog && prog.equip && typeof prog.equip === "object") ? prog.equip : {};
+    return e;
+  }
+  // an artefact's body slot, or "" for one that can only be displayed
+  function artefactSlotOf(a) { return (a && WEAR_SLOTS.indexOf(a.slot) >= 0) ? a.slot : ""; }
+  /* WHAT IS ACTUALLY IN EACH SLOT, filtered on the way out: owned, still in the pool, and still tagged
+     for the slot it is sitting in. Returns artefact objects for the five item slots and nothing for
+     `scene`, which is `currentScene`'s answer rather than an artefact. */
+  function equipped(prog, slot) {
+    const id = equipRaw(prog)[slot];
+    if (!id || slot === "scene") return null;
+    const owned = (prog && prog.artefacts) || {};
+    const a = ARTEFACT_BY_ID[id];
+    if (!a || !owned[id]) return null;
+    if (slot !== "object" && artefactSlotOf(a) !== slot) return null;
+    return a;
+  }
+  function equipCandidates(prog, slot) {
+    if (slot === "scene") return avatarScenes().filter((s) => sceneUnlocked(s.id, prog));
+    const owned = (prog && prog.artefacts) || {};
+    return ARTEFACTS.filter((a) => owned[a.id] && (slot === "object" || artefactSlotOf(a) === slot));
+  }
+  /* THE GATE. The picker only ever offers what is legal, and this refuses anything else anyway: the
+     loadout syncs, so a bad write reaches every device the reader owns. Passing "" clears the slot. */
+  function setEquip(slot, id) {
+    if (!AVATAR_SLOT_BY_ID[slot]) return false;
+    if (!S.equip || typeof S.equip !== "object") S.equip = {};
+    const want = String(id || "");
+    if (!want) { delete S.equip[slot]; save(); return true; }
+    if (slot === "scene") {
+      if (!sceneById(want) || !sceneUnlocked(want)) return false;
+    } else {
+      const a = ARTEFACT_BY_ID[want];
+      if (!a || !(S.artefacts || {})[want]) return false;
+      if (slot !== "object" && artefactSlotOf(a) !== slot) return false;
+      /* ONE ARTEFACT CANNOT BE IN TWO PLACES AT ONCE. A gladius worn in the hand and standing on the
+         altar is one object drawn twice, which reads as a bug rather than as a collection — so
+         equipping it anywhere takes it out of wherever it was. */
+      AVATAR_SLOTS.forEach((s) => { if (s.id !== slot && S.equip[s.id] === want) delete S.equip[s.id]; });
+    }
+    S.equip[slot] = want;
+    save();
+    return true;
+  }
+
+  /* ---------- drawing ----------
+     One helper for every layer, so a placeholder and a sprite are the same call. A part carrying `src`
+     is a drawn file; one carrying `mask` as well is recoloured by painting `tint` through the mask and
+     laying the line art over it. A part with neither is the manifest's own placeholder SVG. */
+  function avatarPartHTML(part, cls, tint) {
+    if (!part) return "";
+    const base = (avatarArt() && avatarArt().base) || "avatar/";
+    const c = "avs-layer " + (cls || "");
+    if (part.src) {
+      const url = /^https?:|^\//.test(part.src) ? part.src : base + part.src;
+      const mask = part.mask ? (/^https?:|^\//.test(part.mask) ? part.mask : base + part.mask) : "";
+      return '<div class="' + c + '">' +
+        (mask && tint ? '<span class="avs-tint" style="background:' + tint + ';-webkit-mask-image:url(' + esc(mask) + ');mask-image:url(' + esc(mask) + ')"></span>' : "") +
+        '<img src="' + esc(url) + '" alt="" draggable="false">' +
+      "</div>";
+    }
+    return part.svg ? '<div class="' + c + '">' + part.svg + "</div>" : "";
+  }
+  /* What a slot's contents look like at the size the scene draws them. An artefact with a drawn sprite
+     uses it; one without falls back to the slot's silhouette, EXCEPT on the display object, where its
+     own photograph is the honest answer — the altar is a place a real object is set down. */
+  function avatarItemHTML(a, slot) {
+    const art = avatarArt();
+    const sp = art && art.items && art.items[a.id];
+    if (sp) return avatarPartHTML(sp, "avs-itemart");
+    if (slot === "object" && a.image && a.image.src)
+      return '<div class="avs-layer avs-itemart avs-itemphoto"><img src="' + esc(a.image.src) + '" alt="" draggable="false"></div>';
+    const svg = (art && art.itemSVG && art.itemSVG[slot]) || "";
+    return svg ? '<div class="avs-layer avs-itemart avs-itemph" data-rar="' + esc(rarityId(a)) + '">' + svg + "</div>" : "";
+  }
+  function sceneArtHTML(sc) {
+    if (!sc) return "";
+    const base = (avatarArt() && avatarArt().base) || "avatar/";
+    if (sc.src) {
+      const url = /^https?:|^\//.test(sc.src) ? sc.src : base + sc.src;
+      return '<img class="avs-svg" src="' + esc(url) + '" alt="" draggable="false">';
+    }
+    return sc.svg || "";
+  }
+
+  /* THE SCENE BOX. Percentages throughout — see avatar.js. The figure is an aspect-ratio box anchored
+     to the scene's own `figure` anchor, and every worn item is anchored inside THAT, so an item stays
+     on the hand holding it however the box is resized and whichever scene is behind it. */
+  function avatarSceneHTML(prog, own) {
+    const p = prog || S;
+    if (!avatarArt()) return '<div class="avs-wrap"><div class="avs-box avs-box-wait" aria-hidden="true"></div></div>';
+    const look = avatarLook(p);
+    const art = avatarArt();
+    const skin = artPart(art.skins, look.skin), hc = artPart(art.hairColors, look.hairColor);
+    const build = artPart(art.builds, look.build), face = artPart(art.faces, look.face), hair = artPart(art.hair, look.hair);
+    const sc = currentScene(p);
+    const an = (sc && sc.anchors) || { figure: { x: 62, bottom: 4, h: 84 }, object: { x: 30, y: 64, w: 15 }, slots: {} };
+    const slotAnchors = an.slots || {};
+    const vars = "--avs-skin:" + ((skin && skin.hex) || "#CE9C6F") +
+      ";--avs-skin-shade:" + ((skin && skin.shade) || "#B27F53") +
+      ";--avs-hair:" + ((hc && hc.hex) || "#4A2E1E");
+
+    let worn = "";
+    WEAR_SLOTS.forEach((slot) => {
+      const a = equipped(p, slot);
+      if (!a) return;
+      const g = slotAnchors[slot] || { x: 50, y: 50, w: 40 };
+      worn += '<div class="avs-item avs-item-' + slot + '" style="left:' + g.x + "%;top:" + g.y + "%;width:" + g.w + '%">' +
+        avatarItemHTML(a, slot) + "</div>";
+    });
+    const obj = equipped(p, "object");
+    const og = an.object || { x: 30, y: 64, w: 15 };
+
+    const figure =
+      '<div class="avs-fig" style="left:' + an.figure.x + "%;bottom:" + an.figure.bottom + "%;height:" + an.figure.h + '%">' +
+        (hair && hair.back ? '<div class="avs-layer avs-hairback">' + hair.back + "</div>" : "") +
+        avatarPartHTML(build, "avs-body", "var(--avs-skin)") +
+        avatarPartHTML(face, "avs-face") +
+        (hair ? (hair.front ? '<div class="avs-layer avs-hairfront">' + hair.front + "</div>" : avatarPartHTML(hair, "avs-hairfront", "var(--avs-hair)")) : "") +
+        worn +
+      "</div>";
+
+    const slotCells = AVATAR_SLOTS.map((s) => {
+      const isScene = s.id === "scene";
+      const a = isScene ? null : equipped(p, s.id);
+      const scn = isScene ? sc : null;
+      const filled = isScene ? !!scn : !!a;
+      const name = isScene ? ((scn && scn.name) || "None") : (a ? a.name : "Empty");
+      const inner = isScene
+        ? '<span class="avs-slotscene">' + (scn ? sceneArtHTML(scn) : "") + "</span>"
+        : (a ? avatarItemHTML(a, s.id === "object" ? "object" : s.id) : '<span class="avs-slotmark" aria-hidden="true"></span>');
+      const tag = own ? "button" : "div";
+      const attrs = own
+        ? ' type="button" data-avslot="' + s.id + '" aria-label="' + esc(s.label + ": " + name + (filled ? " — change it" : " — choose one")) + '" title="' + esc(s.label + " · " + name) + '"'
+        : ' title="' + esc(s.label + " · " + name) + '"';
+      return "<" + tag + ' class="avs-slot' + (filled ? " filled" : "") + '"' + attrs +
+        (a ? ' data-rar="' + esc(rarityId(a)) + '"' : "") + ">" +
+        '<span class="avs-slotart">' + inner + "</span>" +
+        '<span class="avs-slotlbl">' + esc(s.label) + "</span>" +
+      "</" + tag + ">";
+    }).join("");
+
+    return '<div class="avs-wrap">' +
+      '<div class="avs-box" style="' + vars + '" data-scene="' + esc((sc && sc.id) || "") + '">' +
+        '<div class="avs-bg">' + sceneArtHTML(sc) + "</div>" +
+        (obj ? '<div class="avs-obj" style="left:' + og.x + "%;top:" + og.y + "%;width:" + og.w + '%">' + avatarItemHTML(obj, "object") + "</div>" : "") +
+        figure +
+        (own ? '<button type="button" class="avs-edit" id="avsEdit" aria-label="Change your avatar’s appearance" title="Change your appearance">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>' +
+        "</button>" : "") +
+      "</div>" +
+      /* THE SLOTS ARE A SIBLING OF THE BOX, NOT A CHILD OF IT, and that is forced by two things at once:
+         the box carries `overflow:hidden` and a bottom fade MASK, so a column inside it is clipped by
+         the first and washed out by the second — the last two slots were unreadable ghosts over the
+         fade. Outside it they can also leave the picture entirely on a phone, where six squares are a
+         row under the scene rather than a column over it, at a size a thumb can actually hit. */
+      '<div class="avs-slots">' + slotCells + "</div>" +
+    "</div>";
+  }
+
+  /* The account page mounts this: fetch the manifest if it is not here yet, draw, and wire. It is
+     called again by every writer, so a slot change repaints the scene in place rather than the page —
+     a repaint is not a navigation, and re-rendering the account page would take the reader back to the
+     top of it. */
+  function mountAvatarScene(host, prog, own) {
+    if (!host) return;
+    const draw = () => {
+      if (!document.body.contains(host)) return;
+      host.innerHTML = avatarSceneHTML(prog, own);
+      wireAvatarScene(host, prog, own);
+      unitizeTree(host);
+    };
+    draw();
+    if (!avatarArt()) ensureData("avatar").then(draw);
+    /* A DEAD LINK EMPTIES THE SLOT RATHER THAN DRAWING A BROKEN GLYPH. `error` does not bubble, so this
+       is a CAPTURE listener on the host — the same shape the card and glossary frames use — and it is
+       wired once on the host rather than per image, since the scene is rebuilt on every equip. */
+    if (!host._avsErr) {
+      host._avsErr = true;
+      host.addEventListener("error", (e) => {
+        const im = e.target;
+        if (im && im.tagName === "IMG" && im.closest(".avs-layer")) im.closest(".avs-layer").classList.add("avs-dead");
+      }, true);
+    }
+  }
+  let _avsRepaint = null;
+  function refreshAvatarScene() { if (_avsRepaint) _avsRepaint(); }
+  function wireAvatarScene(host, prog, own) {
+    if (!own) { _avsRepaint = null; return; }
+    _avsRepaint = () => { if (document.body.contains(host)) mountAvatarScene(host, prog, own); else _avsRepaint = null; };
+    const ed = host.querySelector("#avsEdit");
+    if (ed) ed.addEventListener("click", () => openAvatarEditor());
+    host.querySelectorAll("[data-avslot]").forEach((b) => b.addEventListener("click", () => openSlotPicker(b.dataset.avslot)));
+  }
+
+  /* ---------- the sheets ----------
+     One overlay builder for both, so the appearance editor and a slot picker cannot drift apart in
+     how they close. It is on `document.body` like every other overlay here, which is why `render()`
+     closes it: a hash change that is not a click (a deep link, back/forward) would otherwise strand it
+     over whatever renders next. */
+  let _avsSheetClose = null;
+  function closeAvatarSheet() { if (_avsSheetClose) _avsSheetClose(); }
+  function avatarSheet(title, bodyHTML, onWire) {
+    closeAvatarSheet();
+    const ov = document.createElement("div");
+    ov.className = "avs-sheet";
+    ov.innerHTML =
+      '<div class="avs-sheetbox" role="dialog" aria-modal="true" aria-label="' + esc(title) + '">' +
+        '<div class="avs-sheethead"><h3>' + esc(title) + "</h3>" +
+          '<button type="button" class="avs-sheetx" aria-label="Close">×</button></div>' +
+        '<div class="avs-sheetbody">' + bodyHTML + "</div>" +
+      "</div>";
+    document.body.appendChild(ov);
+    const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); _avsSheetClose = null; };
+    _avsSheetClose = close;
+    function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
+    document.addEventListener("keydown", onKey, true);
+    ov.addEventListener("click", (e) => { if (e.target === ov) close(); });
+    ov.querySelector(".avs-sheetx").addEventListener("click", close);
+    requestAnimationFrame(() => ov.classList.add("show"));
+    if (onWire) onWire(ov, close);
+    unitizeTree(ov);
+    return ov;
+  }
+
+  function openAvatarEditor() {
+    const art = avatarArt();
+    if (!art) { ensureData("avatar").then(() => { if (avatarArt()) openAvatarEditor(); }); return; }
+    const look = avatarLook(S);
+    const swatches = (key, list, cur) => '<div class="avs-swatches">' + list.map((o) =>
+      '<button type="button" class="avs-sw' + (o.id === cur ? " on" : "") + '" data-look="' + key + '" data-val="' + esc(o.id) + '"' +
+      ' style="--avs-sw:' + esc(o.hex) + '" title="' + esc(o.name) + '" aria-label="' + esc(o.name) + '" aria-pressed="' + (o.id === cur) + '"></button>').join("") + "</div>";
+    const chips = (key, list, cur) => '<div class="avs-chips">' + list.map((o) =>
+      '<button type="button" class="avs-chip' + (o.id === cur ? " on" : "") + '" data-look="' + key + '" data-val="' + esc(o.id) + '" aria-pressed="' + (o.id === cur) + '">' + esc(o.name) + "</button>").join("") + "</div>";
+    const body =
+      '<div class="avs-ed">' +
+        '<div class="avs-edprev" id="avsEdPrev"></div>' +
+        '<div class="avs-edfields">' +
+          '<div class="avs-edrow"><span class="avs-edlbl">Skin</span>' + swatches("skin", art.skins, look.skin) + "</div>" +
+          '<div class="avs-edrow"><span class="avs-edlbl">Hair colour</span>' + swatches("hairColor", art.hairColors, look.hairColor) + "</div>" +
+          '<div class="avs-edrow"><span class="avs-edlbl">Hair</span>' + chips("hair", art.hair, look.hair) + "</div>" +
+          '<div class="avs-edrow"><span class="avs-edlbl">Face</span>' + chips("face", art.faces, look.face) + "</div>" +
+          '<div class="avs-edrow"><span class="avs-edlbl">Build</span>' + chips("build", art.builds, look.build) + "</div>" +
+        "</div>" +
+      "</div>";
+    avatarSheet("Your avatar", body, (ov) => {
+      /* THE PREVIEW IS THE SCENE'S OWN BUILDER, not a second drawing of the same figure — a preview
+         written from a second copy of the markup drifts from what it is previewing, silently. */
+      const prev = ov.querySelector("#avsEdPrev");
+      const paint = () => { prev.innerHTML = avatarSceneHTML(S, false); };
+      paint();
+      ov.querySelectorAll("[data-look]").forEach((b) => b.addEventListener("click", () => {
+        if (!setAvatarLook(b.dataset.look, b.dataset.val)) return;
+        const key = b.dataset.look;
+        ov.querySelectorAll('[data-look="' + key + '"]').forEach((o) => {
+          const on = o === b;
+          o.classList.toggle("on", on);
+          o.setAttribute("aria-pressed", String(on));
+        });
+        paint();
+        refreshAvatarScene();
+      }));
+    });
+  }
+
+  function openSlotPicker(slot) {
+    const meta = AVATAR_SLOT_BY_ID[slot];
+    if (!meta) return;
+    if (!avatarArt()) { ensureData("avatar").then(() => openSlotPicker(slot)); return; }
+    const isScene = slot === "scene";
+    const list = equipCandidates(S, slot);
+    const cur = isScene ? ((currentScene(S) || {}).id || "") : ((equipped(S, slot) || {}).id || "");
+    /* AN EMPTY SLOT SAYS WHY IT IS EMPTY. "Nothing here" over a Head slot reads as a broken picker; a
+       reader with twelve artefacts and no helmet among them has nothing wrong with their site. */
+    const empty = isScene
+      ? "Scenes come out of chests, like artefacts and themes. You have the one you are standing in."
+      : slot === "object"
+        ? "Open a chest and the artefact inside can be set down here."
+        : "Nothing you have found belongs in this slot yet — " + meta.blurb.toLowerCase() + " turn up in chests.";
+    const cells = list.map((o) => {
+      const on = o.id === cur;
+      const artHTML = isScene ? '<span class="avs-pickscene">' + sceneArtHTML(o) + "</span>" : avatarItemHTML(o, slot);
+      const sub = isScene ? esc(o.blurb || "") : esc(o.date || o.origin || "");
+      return '<button type="button" class="avs-pick' + (on ? " on" : "") + '" data-pick="' + esc(o.id) + '"' +
+        ' data-rar="' + esc(isScene ? (o.rarity || "common") : rarityId(o)) + '" aria-pressed="' + on + '">' +
+        '<span class="avs-pickart">' + artHTML + "</span>" +
+        '<span class="avs-pickname">' + esc(o.name) + "</span>" +
+        (sub ? '<span class="avs-picksub">' + sub + "</span>" : "") +
+      "</button>";
+    }).join("");
+    const body =
+      '<p class="avs-picknote">' + esc(meta.blurb) + ".</p>" +
+      (list.length ? '<div class="avs-picks">' + cells + "</div>" : '<p class="avs-pickempty">' + empty + "</p>") +
+      (!isScene && cur ? '<div class="avs-pickacts"><button type="button" class="btn ghost" id="avsClear">Leave this slot empty</button></div>' : "");
+    avatarSheet(meta.label, body, (ov, close) => {
+      ov.querySelectorAll("[data-pick]").forEach((b) => b.addEventListener("click", () => {
+        if (!setEquip(slot, b.dataset.pick)) { toast("That can't go in this slot."); return; }
+        refreshAvatarScene();
+        close();
+      }));
+      const cl = ov.querySelector("#avsClear");
+      if (cl) cl.addEventListener("click", () => { setEquip(slot, ""); refreshAvatarScene(); close(); });
+    });
+  }
+
+  /* ONE MIGRATION, AND IT RUNS ONCE. The showcase's first pin becomes what stands on the display
+     object, so a reader who chose four artefacts to be seen holding does not arrive at a scene holding
+     nothing. `S.showcase` is deliberately NOT cleared: the field still syncs, and a device still
+     running the previous build would otherwise find its profile emptied by a device running this one. */
+  function avatarMigrateShowcase() {
+    if (!S.equip || typeof S.equip !== "object") S.equip = {};
+    if (S.equip.object || S.equip._sc) return;
+    const first = (Array.isArray(S.showcase) ? S.showcase : []).filter((id) => (S.artefacts || {})[id])[0];
+    S.equip._sc = 1;                       // "the showcase has been looked at", so a later unequip is not undone
+    if (first) S.equip.object = first;
+  }
 
   /* ---------- the chest ----------
      Phase 1 is a closed chest waiting to be tapped; phase 2 is the opening, whose length and furniture
@@ -19763,7 +20222,7 @@
           '<div class="chest-rays" aria-hidden="true"></div>' +
         '</div>' +
         '<div class="chest-hint" id="chestHint">' + (nothingLeft
-          ? "You have found everything Folio holds — every artefact and every theme. This chest will keep until there is more."
+          ? "You have found everything Folio holds — every artefact, every theme and every scene. This chest will keep until there is more."
           : "Tap the chest") + '</div>' +
         (chestCount() > 1 ? '<div class="chest-more" id="chestMore">' + chestCount() + ' chests waiting</div>' : "") +
         '<div class="chest-reveal" id="chestReveal" hidden></div>' +
@@ -19772,7 +20231,7 @@
     document.body.appendChild(ov);
     // closing repaints the Reliquary under it: an artefact was claimed and a chest spent, and the section
     // the reader is about to be looking at would otherwise still be describing the moment before
-    const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); _chestClose = null; refreshReliquary(); };
+    const close = () => { ov.remove(); document.removeEventListener("keydown", onKey, true); _chestClose = null; refreshReliquary(); refreshAvatarScene(); };
     _chestClose = close;
     function onKey(e) { if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); } }
     document.addEventListener("keydown", onKey, true);
@@ -19796,12 +20255,16 @@
       const item = rollChestItem();
       if (!item) { close(); return; }
       const isTheme = item.kind === "theme";
+      const isScene = item.kind === "scene";
       const a = item.artefact;
       /* A THEME OPENS AS AN EPIC, and that is a decision rather than a placeholder: the whole chest
          animation — the shake, the burst, the confetti, the sound — is sized by rarity, and a theme has
          none. Epic is what a thing five-of-a-kind deep should feel like, and it means a theme never
          steals the legendary flourish that three artefacts in a hundred earn. */
-      const r = isTheme ? "epic" : rarityId(a);
+      /* A SCENE CARRIES ITS OWN RARITY where a theme does not, so it is not forced into the epic band:
+         the manifest says what a scene is worth and the whole opening — the shake, the burst, the sound
+         — is sized by that, exactly as an artefact's is. */
+      const r = isScene ? (RARITY_BY_ID[item.scene.rarity] ? item.scene.rarity : "rare") : isTheme ? "epic" : rarityId(a);
       const dur = prefersReducedMotion() ? 120 : (CHEST_MS[r] || 900);
       ov.dataset.rar = r;
       ov.classList.add("opening");
@@ -19812,13 +20275,26 @@
       sfx("chest");
       if (!prefersReducedMotion()) chestConfetti(ov, r);
       setTimeout(() => {
-        if (isTheme) claimTheme(item.theme); else claimArtefact(a);
+        if (isScene) claimScene(item.scene.id); else if (isTheme) claimTheme(item.theme); else claimArtefact(a);
         sfx("loot-" + r);
         ov.classList.add("opened");
         const rev = ov.querySelector("#chestReveal");
         rev.hidden = false;
         rev.dataset.rar = r;
-        if (isTheme) {
+        if (isScene) {
+          const sc = item.scene;
+          rev.innerHTML =
+            '<span class="ar-chip" data-rar="' + r + '">Scene</span>' +
+            '<div class="chest-art chest-scene">' + sceneArtHTML(sc) + '</div>' +
+            '<h3 class="chest-name">' + esc(sc.name) + '</h3>' +
+            (sc.blurb ? '<div class="chest-meta">' + esc(sc.blurb) + '</div>' : "") +
+            '<div class="chest-meta">A new place for your avatar to stand — with a display object of its own.</div>';
+          /* STANDING IN IT IS ONE PRESS, for the theme's reason: a scene is a thing that DOES something,
+             and leaving the reader to find the Scene slot on the account page to use what they just won
+             would make the reveal read as a certificate. Keeping it is still the default. */
+          addAct("Stand in it", () => { setEquip("scene", sc.id); close(); route("account"); toast("Your avatar now stands in " + sc.name + "."); });
+          addAct("Keep it for later", close, true);
+        } else if (isTheme) {
           const t = THEME_BY_ID[item.theme] || [item.theme, item.theme, "", "#36357A", "#C8453C", "#F6F5F1"];
           rev.innerHTML =
             '<span class="ar-chip" data-rar="' + r + '">Theme</span>' +
@@ -30358,16 +30834,16 @@
      IT IS DRAWN ROUND, because that is the shape the photo was composed in: the cropper frames it inside
      a circle and every monogram on the site is one, so revealing the square's corners here would show
      the owner a version of their own picture they never chose.
-     AND IT IS CAPPED, WHICH IS AN HONEST LIMIT RATHER THAN A CHOICE. A stored avatar is `AVATAR_PX`
+     AND IT IS CAPPED, WHICH IS AN HONEST LIMIT RATHER THAN A CHOICE. A stored avatar is `PHOTO_PX`
      square — small on purpose, since the friends list fetches one per friend — so the viewer's default
      (an `<img>` at its natural size under a `max-width`) would show it at 128px, barely larger than the
-     row it was tapped in. `.iv-avatar` takes it to about 320, which is soft and is plainly a photograph;
+     row it was tapped in. `.iv-photo` takes it to about 320, which is soft and is plainly a photograph;
      the reader can still pinch further if they want to. Raising the stored size is the only thing that
      would make it sharper, and it would cost every friends list a few hundred kilobytes to serve a
      gesture made now and then. */
-  function openAvatarViewer(avatar, name) {
+  function openPhotoViewer(avatar, name) {
     if (!avatar) return;
-    openImageViewer({ src: avatar, alt: (name || "This reader") + "'s profile photo", viewClass: "iv-avatar" });
+    openImageViewer({ src: avatar, alt: (name || "This reader") + "'s profile photo", viewClass: "iv-photo" });
   }
   function openMediaViewer(img, vsrc) {
     closeImageViewer();
@@ -36777,8 +37253,13 @@
             thing they are working towards. Shown only once a streak exists — on a first visit there is
             nothing to show. */""}
       ${(S.streak && S.streak.count > 0) ? streakChestHTML(S) : ""}
+      ${/* A GUEST GETS THE AVATAR TOO, on the reasoning the Reliquary paragraph above already gives: the
+            figure is drawn from artefacts won on THIS DEVICE, so walling it off would hide a reward that
+            can be earned and never looked at. It appears on the same condition — once there is something
+            to show — so a first visit is still the sign-in page it has always been rather than a stranger
+            being handed a character to dress. */""}
       ${(Object.keys(S.artefacts || {}).length || chestCount())
-        ? `<div class="section-label">Reliquary</div><div class="reliquary" id="reliquary"></div>`
+        ? `<div id="avatarScene" class="avs-host"></div><div class="section-label">Reliquary</div><div class="reliquary" id="reliquary"></div>`
         : ""}
       ${/* THE CARD BROWSER IS SHOWN SIGNED OUT TOO, for the Reliquary's reason one section up: it is about
             the cards on THIS DEVICE and not about an account. A guest studies, flags and forgets cards like
@@ -36793,6 +37274,8 @@
         <span class="ex-go" aria-hidden="true">&rarr;</span>
       </button>` : ""}`;
     root.querySelectorAll("[data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
+    avatarMigrateShowcase();
+    mountAvatarScene(root.querySelector("#avatarScene"), S, true);
     { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true, { entry: true }); wireReliquary(rel); } }
     wireAcctSwitch(root);
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
@@ -36837,7 +37320,16 @@
     const st = progStats(S, 0);
     const earnedBadges = Object.keys(S.achievements || {}).filter((k) => S.achievements[k]).length;
     const statTile = (cls, val, label) => `<div class="ph-stat ${cls}"><b>${val}</b><span>${label}</span></div>`;
+    avatarMigrateShowcase();
     root.innerHTML = `
+      ${/* THE AVATAR STANDS AT THE TOP OF THE PAGE (Sep 2026, on request), ABOVE the page head rather
+            than under it: it is a full-bleed hero and the heading below reads as the start of the
+            record, where a heading above it would read as a caption for a picture. Its bottom edge
+            fades into the page with a MASK rather than a gradient overlay — an overlay has to know
+            what colour the paper is, which differs across sixteen themes, both light and dark, and
+            high contrast. It is filled after the render (see mountAvatarScene): the manifest is lazy,
+            so the box is drawn at its own size straight away and the figure lands a moment later. */""}
+      <div id="avatarScene" class="avs-host"></div>
       <div class="page-head"><span class="eyebrow">Your record</span><h1>Account</h1></div>
       ${/* Waiting chests were announced here and are now above the Daily-study banner on the home page
             (Aug 2026, on request), which is where a reader who deferred one lands. */""}
@@ -36853,7 +37345,7 @@
           </button>
           <span class="ph-lvl" title="Folio level — the ring fills toward the next level">Lv ${info.level}</span>
         </div>
-        <input type="file" id="avatarFile" accept="image/*" hidden>
+        <input type="file" id="photoFile" accept="image/*" hidden>
         <div class="who">
           <input class="namefield" id="name" value="${esc(S.user.name)}" maxlength="28" aria-label="Display name" />
           <div class="since">@${esc(me.username)} · ${roleBadge(me.role)} · since ${joined}</div>
@@ -36911,9 +37403,16 @@
             button in a section of its own, a screen away from the picture it acted on, and it existed only
             while there WAS a photo — so the row appeared and disappeared as the reader changed it. Both
             actions are on the picture now; see the menu in the wiring below. */""}
-      ${/* THE RELIQUARY (Aug 2026, on request). The showcase sits directly under the profile hero because
-            it IS part of the profile — the four artefacts a reader has chosen to be seen holding — while
-            the inventory itself is a section of its own further down, beside the badges it belongs with. */""}
+      ${/* THE FOUR TILES STOOD HERE AND ARE GONE (Sep 2026, on request). They were four artefacts a reader
+            had chosen to be seen holding; the avatar scene at the top of the page is the same idea with a
+            picture, and the six slots down its right edge are what a reader arranges now. `S.showcase`
+            survives: the field still syncs, and a device on the previous build would find its profile
+            emptied if this one cleared it — its first pin becomes what stands on the display object (see
+            avatarMigrateShowcase).
+            WHAT STAYS IS THE HEAD ROW, and it has to: it carries "See Reliquary", which on this page is
+            the ONLY route to the whole collection — the inventory section below it was removed in Aug
+            2026 as a duplicate of the tiles. Dropping the tiles and the row together left a reader who
+            had collected forty artefacts with no way to look at them, and nothing on the page to say so. */""}
       <div id="showcase"></div>
       <div class="section-label">Friends</div>
       <div class="friends-box" id="friendsBox"></div>
@@ -36955,6 +37454,7 @@
         <button class="suspbox-head" id="suspHead" type="button" aria-expanded="false"><span class="suspbox-title">Set-aside cards <span class="suspbox-count" id="suspCount"></span></span><span class="suspbox-chev"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></button>
         <div class="suspbox-collapse collapsed" id="suspCollapse"><div class="suspbox-collapse-inner"><div class="susplist" id="susplist"></div></div></div>
       </div>`;
+    mountAvatarScene(root.querySelector("#avatarScene"), S, true);
     root.querySelector("#statWrap").innerHTML = statGridHTML(S, dueCountNow());
     root.querySelector("#reviewStats").innerHTML = reviewStatsHTML(S, S.user && S.user.joined);   // the heatmap opens on the day the account was created
     renderDeckStats(root.querySelector("#deckStats"), S, true);   // your own community decks belong in your picker
@@ -36970,7 +37470,7 @@
     nameInput.addEventListener("blur", sync);
 
     // profile photo: click the monogram to pick an image (resized client-side), Remove photo to clear it
-    const avatarInput = root.querySelector("#avatarFile");
+    const photoInput = root.querySelector("#photoFile");
     /* CLICKING YOUR OWN PICTURE OFFERS THE TWO THINGS YOU CAN DO TO IT (Sep 2026, on request). It used to
        open the file picker outright, with Remove living in a row of its own further down the page.
        WITH NO PHOTO SET THERE IS STILL NO MENU, deliberately: a menu of one item is a button wearing a
@@ -36981,9 +37481,9 @@
        picture rather than at the pointer, since it belongs to that control and a keyboard press has no
        pointer to anchor to. */
     const monoBtn = root.querySelector("#monoBtn");
-    const pickPhoto = () => avatarInput.click();
+    const pickPhoto = () => photoInput.click();
     const removePhoto = async () => {
-      const r = await supaSetAvatar(null);
+      const r = await supaSetPhoto(null);
       if (r.error) return toast(r.error);
       toast("Profile photo removed");
       render();
@@ -36996,17 +37496,17 @@
         { label: "Remove photo", act: removePhoto },
       ]);
     });
-    avatarInput.addEventListener("change", () => {
-      const f = avatarInput.files && avatarInput.files[0];
+    photoInput.addEventListener("change", () => {
+      const f = photoInput.files && photoInput.files[0];
       if (!f) return;
-      openAvatarCropper(f, async (uri) => {
-        const r = await supaSetAvatar(uri);
+      openPhotoCropper(f, async (uri) => {
+        const r = await supaSetPhoto(uri);
         if (r.error) return toast(r.error);
         toast("Profile photo updated");
         render();
       });
       // …or the same file will not fire `change` again if it is picked a second time after a cancel
-      avatarInput.value = "";
+      photoInput.value = "";
     });
     root.querySelector("#signout").addEventListener("click", async (e) => { e.target.disabled = true; await supaSignOut(); toast("Signed out"); afterAuthChange(); });
     /* One panel open at a time. They are three answers to "what about this account", and two of them
@@ -37169,18 +37669,24 @@
       const fskin = ' data-ftheme="' + esc(ft[0]) + '" style="--ft-a:' + ft[3] + ';--ft-b:' + ft[4] + ';--ft-p:' + ft[5] + '"';
       root.innerHTML = `
         <button class="back-link" id="backBtn" type="button">← Back to your account</button>
+        ${/* THEIR AVATAR, ABOVE EVERYTHING (Sep 2026, on request: "friends see your scene"). The whole
+              point of arranging a figure is that somebody else looks at it, so it stands where it does on
+              your own page. It is READ-ONLY here — no slot is a button, no pencil — which the one `own`
+              flag through `mountAvatarScene` decides; their loadout and their look ride in the synced
+              progress blob an accepted friend may already read, so nothing new is fetched for it. */""}
+        <div id="fAvatarScene" class="avs-host"></div>
         <div class="profile friend-profile"${fskin}>
           ${/* Their photo enlarges; a MONOGRAM does not, being a letter the page is already showing at
                 the size a letter is worth. So the button exists only where there is a photograph, rather
                 than always existing and doing nothing five sixths of the time. */""}
           ${u.avatar
-            ? `<button class="mono-view" type="button" id="fAvatar" aria-label="View ${esc(u.name)}'s profile photo">${monogramHTML(u.avatar, u.name)}</button>`
+            ? `<button class="mono-view" type="button" id="fPhoto" aria-label="View ${esc(u.name)}'s profile photo">${monogramHTML(u.avatar, u.name)}</button>`
             : monogramHTML(u.avatar, u.name)}
           <div class="who"><div class="friend-title">${esc(u.name)}</div><div class="since">@${esc(u.username)} · ${roleBadge(u.role)}${u.theme && u.theme !== "folio" ? ' · <span class="ft-wearing">wearing ' + esc(themeName(u.theme)) + '</span>' : ""}</div></div>
           <button class="ghost-btn" id="rmFriend" type="button">Remove friend</button>
         </div>
-        ${/* the four artefacts they chose to be seen holding — the whole point of the showcase is that
-              somebody else sees it, so it sits at the top of their profile as it does on your own */""}
+        ${/* …and the way into everything they hold. This page carries no inventory section, deliberately,
+              so this button is the only route to their collection. */""}
         <div id="fShowcase"></div>
         <div id="fStat"></div>
         <div class="section-label">Review statistics</div>
@@ -37207,11 +37713,12 @@
       // and Well Connected badges read their friends rather than a hard 0. See progStats.
       root.querySelector("#fBadges").innerHTML = badgesHTML(prog.achievements, progStats(prog));
       renderCollectionLevels(root.querySelector("#fLevels"), prog.cards || {}, S.cards);   // their progress, with a "You: …" chip beside each
+      mountAvatarScene(root.querySelector("#fAvatarScene"), prog, false);
       root.querySelector("#fShowcase").innerHTML = showcaseHTML(prog, false);
       wireReliquary(root.querySelector("#fShowcase"), prog, false);   // …so "See Reliquary" opens THEIR collection, not yours
       renderDeckProgress(root.querySelector("#fDeck"), prog.cards || {});
-      const fAv = root.querySelector("#fAvatar");
-      if (fAv) fAv.addEventListener("click", () => openAvatarViewer(u.avatar, u.name));
+      const fAv = root.querySelector("#fPhoto");
+      if (fAv) fAv.addEventListener("click", () => openPhotoViewer(u.avatar, u.name));
       root.querySelector("#backBtn").addEventListener("click", () => route("account"));
       root.querySelector("#rmFriend").addEventListener("click", async () => {
         await supaFetch("/rest/v1/friends?or=(and(user_id.eq." + me + ",friend_id.eq." + key + "),and(user_id.eq." + key + ",friend_id.eq." + me + "))", { method: "DELETE" });
@@ -37286,6 +37793,9 @@
       "     name    the title shown when it is looted.\n" +
       "     rarity  \"common\" | \"rare\" | \"epic\" | \"legendary\" — grey, blue, purple, orange. It decides the drop\n" +
       "             odds (60 / 25 / 12 / 3) and how expansive the chest animation and its sound are.\n" +
+      "     slot    optional \"head\" | \"body\" | \"jewelry\" | \"hand\" — the body slot this can be WORN in on the\n" +
+      "             account page's avatar (see THE AVATAR in app.js). Most artefacts have none, which costs\n" +
+      "             them nothing: every artefact can stand on the scene's display object whatever this says.\n" +
       "     date    a short date line, in the compact notation the cards use.\n" +
       "     origin  where it is from, and where it is now if that is worth knowing.\n" +
       "     image   optional { src, title, desc, credit, alt } — a LINK, never an upload, exactly as a card's\n" +
@@ -37310,6 +37820,7 @@
       "window.ARTEFACTS = [\n" +
       ARTEFACTS.map((a) => {
         let out = "  {\n    id: " + s(a.id) + ",\n    name: " + s(a.name) + ",\n    rarity: " + s(a.rarity) + ",\n";
+        if (a.slot) out += "    slot: " + s(a.slot) + ",\n";
         if (a.date) out += "    date: " + s(a.date) + ",\n";
         if (a.origin) out += "    origin: " + s(a.origin) + ",\n";
         if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) +
@@ -41204,6 +41715,13 @@
           field("aName", "name", a.name) +
           '<label class="admin-field"><span class="af-label">rarity <small>— decides the drop odds and how big the chest opening is</small></span>' +
             '<select class="af-input" id="aRar">' + RARITIES.map((r) => '<option value="' + r.id + '"' + (rarityId(a) === r.id ? " selected" : "") + ">" + esc(r.label) + " · " + r.weight + "%</option>").join("") + "</select></label>" +
+          /* THE AVATAR SLOT (Sep 2026). It is on the form because `draft()` is a WHITELIST — a field the
+             form does not offer is a field the first admin edit silently deletes, which is how a batch
+             tool once stripped every card's rating (see CLAUDE.md). Most artefacts have none, so the
+             first option is the honest default rather than a slot picked at random. */
+          '<label class="admin-field"><span class="af-label">avatar slot <small>— where it can be WORN, if anywhere. Every artefact can stand on the display object whatever this says.</small></span>' +
+            '<select class="af-input" id="aSlot"><option value=""' + (a.slot ? "" : " selected") + ">— display only</option>" +
+            AVATAR_SLOTS.filter((x) => x.wear).map((x) => '<option value="' + x.id + '"' + (a.slot === x.id ? " selected" : "") + ">" + esc(x.label) + "</option>").join("") + "</select></label>" +
           field("aDate", "date", a.date, "— the compact notation the cards use: c. 1600 – 1500 BCE") +
           field("aOrigin", "origin", a.origin, "— where it is from, and where it is now if that is worth knowing") +
           '<label class="admin-field"><span class="af-label">description <small>— five sentences, 180–220 words. &lt;b&gt; the name, &lt;i&gt; titles and foreign terms. Point at a source with &lt;sup class="fn"&gt;&lt;/sup&gt;, left EMPTY — the number is drawn from the list.</small></span>' +
@@ -41258,6 +41776,7 @@
             name: val("aName") || "Untitled",
             rarity: val("aRar") || "common",
             date: val("aDate"), origin: val("aOrigin"),
+            slot: val("aSlot"),
             desc: ta.value.trim(), sources: srcLines(),
           };
           if (val("aImg")) o.image = { src: val("aImg"), credit: val("aCredit"), alt: val("aAlt") };

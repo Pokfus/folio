@@ -890,14 +890,34 @@ the whole reason the suites exist and the reason their narratives are worth keep
     reload, and **an older save keeps the light/dark it chose** — the one way this change could strand
     somebody. **Re-run after touching `unitizeText` / `unitizeTree` / `applyUnits` / `applyTheme` /
     `setNight` / `setThemeAuto`, and after any units batch.**
+  · `node .claude/test-avatar.js` — **the avatar scene** (47 assertions, Sep 2026). It reaches the internals
+    through a **patched app.js**, appending one line inside the IIFE and failing if the tail it appends to
+    is not found — `test-photo.js`'s technique, and here for its reason: the account page's own controls
+    live behind a Supabase sign-in and mocking auth to reach them would test the mock.
+    Five silences. **The box's ratio** is measured rather than assumed, because every anchor in `avatar.js`
+    is a percentage of the box and a box that stops being 3:2 crops the scene and points all of them at the
+    wrong part of a cropped picture — which is exactly what `max-height` beside `aspect-ratio` does, and it
+    shipped that way for an hour. **The slot column** is measured for collapse: `flex:1 1 0` with
+    `aspect-ratio:1` in a column is circular and rendered the six slots as a 4px stripe of colour, which
+    reads as a feature nobody built. **The gate** (`setEquip`) is driven with an unowned artefact, one
+    tagged for another slot, a nonsense id and a slot that does not exist, because the picker only ever
+    OFFERS what is legal — a gate that stopped refusing could not be seen from the page, and the loadout
+    syncs to every device the reader has. **The migration** is run twice with an unequip between, since one
+    that runs on every page open puts the artefact back each time the reader takes it off. And **Reset
+    progress** is asserted in both directions — the look kept, the loadout and scenes gone — because
+    getting that split backwards deletes something the dialog promised to keep and is found afterwards.
+    It also drives 4,000 chest rolls to prove a scene can actually drop while artefacts and themes still
+    do, and measures the phone layout, where the slots leave the picture and become a row a thumb can hit.
   · `node .claude/test-artefacts.js` — **THE RELIQUARY, the collection banners, and the two colour swaps that
     went with them** (Aug 2026). Everything in it fails SILENTLY, which is why it is a file rather than a few
     lines appended elsewhere. **The roll**: a chest never returns something already owned (with a small pool a
     duplicate reads as bad luck and is never reported), every rarity is reachable, and an exhausted pool SAYS
     so rather than opening on nothing — driven through 32 real chest openings over a synthetic 32-artefact
     pool planted in the admin overlay, under `reducedMotion` so the rarity-sized waits collapse to a tick.
-    **The queue**: dismissing an overlay keeps the chest, opening one spends exactly one. **The showcase cap**:
-    four, and the fifth refused. **The colour swap, in both directions** — a book's marker measured against a
+    **The queue**: dismissing an overlay keeps the chest, opening one spends exactly one. **The plate's
+    actions** (Sep 2026): the showcase cap it used to assert — four, and the fifth refused — is gone with the
+    showcase, and what stands in its place is that the plate offers one button per avatar slot whose label
+    names what pressing it DOES, and that pressing one reaches the loadout. **The colour swap, in both directions** — a book's marker measured against a
     CARD's rather than against a hex literal, so a re-toned `--zh` moves both together, and an undiscovered
     term measured against a card's blank, which it must no longer match. **The collection banner**: an icon
     where the numeral was, a studied/total bar where the XP bar was, and no numeral or `.lib-cap` left
@@ -1267,7 +1287,8 @@ the whole reason the suites exist and the reason their narratives are worth keep
     mock that forgets it reports a connection failure that is really a CORS one. It also owns the **Profile
     showcase's "See Reliquary" button** (Aug 2026) — absent when the reader holds nothing, saying how many
     they DO hold, opening the collection and closing on Escape — because the signed-out account page carries
-    no showcase at all and `test-artefacts.js` therefore cannot reach one.
+    no showcase at all and `test-artefacts.js` therefore cannot reach one. *(Since Sep 2026 there is no
+    showcase anywhere: that button is the head row `showcaseHTML` was cut back to.)*
     **TWO OF ITS ASSERTIONS WERE STALE FOR A BATCH, AND BOTH HAD BEEN PINNING WHAT THE PAGE NO LONGER DID**
     (Aug 2026, found while shipping the collectibles): the account actions became a 2×2 grid and "See all 2"
     became "See Reliquary" with the count moved into the button's `title`, and the two checks went on

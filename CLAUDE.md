@@ -1385,6 +1385,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   adding an entry** — the answer is one word of 4–11 letters already normalised to capitals, the clue is
   emitted RAW (so no bare `<`, `>` or `&`), and a clue may not contain its own answer. `check-style.js`
   sweeps it for BCE/CE and `test-difficulty.js` checks the whole bank's shape.
+- `avatar.js` (~15 KB) — the **avatar scene's art manifest**: the figure's parts, the palettes, the two
+  scenes with their anchor points, and the flat placeholder line art. **Lazy** (bundle `avatar`, fetched
+  when the account page mounts). It is METADATA plus placeholders — the sprites themselves are ordinary
+  same-origin files under `avatar/`, fetched per layer, so a reader downloads only what they are wearing.
+  **Every part declares both a `src` and an `svg`**, which is what lets drawn art replace a placeholder
+  one file at a time with no code change. See the AVATAR bullet under "How the app is wired" and
+  **📖 `docs/avatar.md`**.
+- `.claude/add-artefact-slots.js` — writes an artefact's `slot` (which avatar slot it can be WORN in) in
+  batches: `node .claude/add-artefact-slots.js <batch.json>`, `--report` for the current tagging. It
+  SPLICES one line per artefact rather than re-serialising `artefacts.js`, for `add-card-tags.js`'s
+  reason — a whole-file rewrite normalises every entry's key order and turns a twenty-artefact change
+  into a two-thousand-line diff. Validates the whole batch before writing anything, and re-parses after.
+  Not part of the site.
 - `coast/italy.js`, `coast/greece.js`, `coast/china.js` — the **hi-res coastlines** for the Rome, Greece
   and China collections' card maps (`window.HIRES_COAST_IN.push({ region, shapes })`, a QUEUE for the
   reason the i18n files push). **Lazy** (`coast_<region>`), **generated — never hand-edited**, by
@@ -2019,6 +2032,64 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the shallow lid, the plate's wash and its media frame, the glossary links inside a plate and the z-index
   drop plus `escTakenAbovePlate` they forced, the showcase's empty-slot control and "See Reliquary", why a
   guest's artefacts show on the signed-out account page, and the streak meter's pips.
+  *(The four-tile SHOWCASE is retired — see THE AVATAR below. `showcaseHTML` is now the "See Reliquary"
+  head row alone, and the plate's single "Show on profile" is one button per avatar slot.)*
+- **THE AVATAR — a figure, a scene, and six slots** (the `THE AVATAR` block in app.js, just below THE
+  RELIQUARY; `avatar.js`; the `.avs-*` styles. Sep 2026, on request). The account page opens on a drawn
+  figure standing in a historical scene, wearing the artefacts the reader has equipped, with one set
+  down on the scene's display object and six square slots saying what is in each — head, body,
+  jewellery, hand, on display, scene. It REPLACES the four-tile showcase, which was the same idea with
+  no picture. The operational half:
+  · **THE ART IS NOT IN THE CODE.** `avatar.js` is the manifest — the parts, the two scenes, their
+    anchor points — and it is **lazy** (bundle `avatar`, fetched when the account page mounts). Every
+    part declares BOTH a `src` (a sprite under `avatar/`) and an `svg` (a flat placeholder drawn in the
+    manifest), and the renderer uses the file when there is one: so the feature is complete before a
+    single PNG is drawn and **adding art is dropping a file in a folder and setting `src`** — no code
+    change, no layout change. The sprites are same-origin files the browser fetches per LAYER, so only
+    what a reader is wearing is downloaded; `img-src 'self'` already covers them and `_headers` needs
+    no change.
+  · **SKIN AND HAIR ARE RECOLOURED THROUGH A MASK, not by a sprite per colour**: the part carries
+    `mask` (a white-on-transparent PNG of the region), the renderer paints the chosen colour through
+    it and lays the line art over. One file per region rather than 216 pre-rendered bodies.
+  · **EVERY COORDINATE IS A PERCENTAGE, and there are two frames**: a scene's `figure` / `object`
+    anchors are of the SCENE box, a slot anchor is of the FIGURE box. **The box's ratio and the art's
+    ratio are the same fact** — every anchor is a percentage of the box, so a box that stops being 3:2
+    crops the scene and points every anchor at the wrong part of it. Cap the WIDTH, never the height:
+    `max-height` beside `aspect-ratio` does not scale a box, it overrides the ratio.
+  · **THREE STATE FIELDS, AND THE SPLIT IS WHAT MAKES RESET HONEST**: `S.avatar` is the LOOK (skin,
+    hair, face, build) and is in `RESET_KEEPS` beside the theme, being a choice about how the reader
+    appears; `S.equip` and `S.scenes` are what the COLLECTION bought and go with the artefacts and
+    chests they came from. All three sync, which is what lets a friend's profile draw the figure with
+    no new request. **The scene FALLS BACK rather than being written** — `defaultState` stores none and
+    `currentScene` resolves an empty or unknown one to whichever scene is `free`, or a stale default
+    would sit in every existing save and shadow any later change to which scene that is.
+  · **AN ARTEFACT'S `slot`** (`head` / `body` / `jewelry` / `hand`) says where it can be WORN, and
+    **every artefact can stand on the display object whatever it says** — of the hundred, ~20 are
+    wearable and 80 are pots, coins and tablets, and an altar is where a real object is set down.
+    Written by `.claude/add-artefact-slots.js`, validated in `artefactSanitize`, carried by
+    `serializeArtefacts` **and offered by the admin form**, whose `draft()` is a whitelist: a field the
+    form does not offer is one the first admin edit silently deletes. The **body slot is deliberately
+    empty** — there are no outfits in the pool — and the picker's empty state says so.
+  · **`setEquip` IS THE GATE AND THE PICKER IS ONLY A VIEW**: it refuses an unowned artefact, one
+    tagged for another slot, an unknown id and an unowned scene, because the loadout SYNCS. **An
+    artefact cannot be in two places at once** (equipping it anywhere takes it out of where it was),
+    and the slot is checked on the way OUT too (`equipped`), so a re-tagged or retired artefact cannot
+    leave a slot pointing at something that does not belong there.
+  · **A SCENE IS THE THIRD THING A CHEST HOLDS**, beside an artefact and a theme, built the same way —
+    `lockedScenes()` is the pool, so it is never a duplicate, and each kind is offered only while it
+    has something to give. `SCENE_DROP` (0.09) sits below `THEME_DROP`; a scene carries its OWN rarity,
+    so the opening is sized by the manifest rather than forced into a theme's epic band. Adding a scene
+    is an entry in `avatar.js` and nothing else.
+  · **`S.showcase` IS READ EXACTLY ONCE** (`avatarMigrateShowcase` → the display object) and is
+    deliberately NOT cleared: a device on the previous build reads it. The migration writes a marker
+    rather than testing whether the slot is filled — one that runs on every page open puts the artefact
+    back every time the reader takes it off.
+  · **Guarded by `.claude/test-avatar.js`** (47 assertions).
+  **📖 `docs/avatar.md` — READ BEFORE TOUCHING ANY OF IT.** Why the art lives outside the code and how
+  a sprite replaces a placeholder, the mask recolouring and the two techniques rejected, the anchor
+  frames, what the showcase left behind, and the four faults that rendered perfectly while being
+  wrong — a `max-height` that silently overrode an aspect ratio, a slot column that collapsed to a 4px
+  stripe, a fade that washed out its own controls, and a helmet that took the reader's face away.
 - **A BATCH OF INTERFACE FIXES, Sep 2026, all on request.** Each is small; three of them have a reason
   worth keeping.
   · **THE CARD'S STATE DOT IS OUTSIDE THE "Question" LABEL** (`cardStateDotHTML`, `.study-card .q-dot`).
@@ -2961,10 +3032,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **The viewer's `z-index` (9800) must stay above the gloss stack** — popups sit at 8000+ and the mobile
   sheet at 9600, and a gloss image opens the viewer *from inside* a popup; `focusGlossWin` renormalizes its
   counter at `GLOSS_Z_CAP` so a long session cannot climb past it.
-- **A PROFILE PHOTO IS CROPPED BY ITS OWNER AND ENLARGED BY ANYONE ELSE** (`openAvatarCropper` /
-  `openAvatarViewer` / `AVATAR_PX` / `.av-crop` / `.iv-avatar`; Aug 2026, on request). The upload
+- **A PROFILE PHOTO IS CROPPED BY ITS OWNER AND ENLARGED BY ANYONE ELSE** (`openPhotoCropper` /
+  `openPhotoViewer` / `PHOTO_PX` / `.ph-crop` / `.iv-photo`; Aug 2026, on request). The upload
   centre-cropped and there was no appeal — a portrait lost the head and the chin at once. The cropper is a
-  round window the reader drags and zooms, handing back the SAME 128px JPEG data-URI, so `supaSetAvatar`,
+  round window the reader drags and zooms, handing back the SAME 128px JPEG data-URI, so `supaSetPhoto`,
   the `profiles` row and every monogram are untouched. **The image can never be smaller than the window**
   (`minScale` plus a clamp on both the zoom and the pan) and that is a hard guarantee rather than a nicety:
   a canvas saved as a JPEG has no alpha, so a hole is not a gap but a **black wedge in somebody's face**.
@@ -2973,7 +3044,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   A friend's photo opens in the site's own viewer through an `img.viewClass` hook — round, being the shape
   it was composed in, and capped at ~320px, which is an honest limit: the stored square is small because a
   friends list fetches one per friend. **The button exists only where there IS a photograph**; a monogram
-  is a letter already shown at the size a letter is worth. Guarded by `.claude/test-avatar.js`.
+  is a letter already shown at the size a letter is worth. Guarded by `.claude/test-photo.js`.
   **📖 `docs/media.md` — READ BEFORE TOUCHING ANY OF IT.** The viewer's zoom, pinch and pan arithmetic and
   the pointer-capture retargeting that made a real finger unable to fire the tap toggle at all, the video
   regexes as a security boundary, the alt-text reasoning, the dead-link treatment, the gate's four
@@ -5525,7 +5596,18 @@ dead code (never rendered).
     `truefalse.js` / `quotes.js`, `gameBackHTML` / `flipGameTile` / `gameStatsPost` / `gameStatsLoad` /
     `markGamePlayed`, `gameAnswerNote` / `gameGlossKey`, `gameTap` / `gameCommit` / `gameClearPick` /
     `gameFound` / `TINT_PICK` / the `.mg-acts` buttons, or the home page's tile grid.**
-  · `node .claude/test-avatar.js` — **the profile photo's crop, and enlarging someone else's** (17
+  · `node .claude/test-avatar.js` — **the avatar scene, its six slots and what may go in them** (47
+    assertions, Sep 2026), reached through a patched app.js the way `test-photo.js` reaches the cropper.
+    Every one of its subjects fails silently: a box whose ratio has drifted from the art's crops the
+    scene and points every anchor at the wrong part of it; a slot column that collapses to a 4px stripe
+    reads as a feature nobody built; a gate that stops refusing cannot be seen from a picker that only
+    offers what is legal; a migration that runs twice puts an artefact back every time the reader takes
+    it off; and getting the Reset split backwards deletes something the dialog promised to keep.
+    **Re-run after touching the `THE AVATAR` block, `avatarSceneHTML` / `mountAvatarScene` / `setEquip` /
+    `equipped` / `equipCandidates` / `currentScene` / `lockedScenes` / `avatarMigrateShowcase` /
+    `artefactSlotOf` / `AVATAR_SLOTS` / `SCENE_DROP` / `rollChestItem`, `avatar.js`, the `.avs-*` styles,
+    `RESET_KEEPS`, or after tagging artefacts with `add-artefact-slots.js`.**
+  · `node .claude/test-photo.js` — **the profile photo's crop, and enlarging someone else's** (17
     assertions, Aug 2026), and all three of its subjects fail SILENTLY: a hole in the crop becomes a black
     wedge in a JPEG that only its owner ever sees; a drag wired to nothing still opens a dialog, shows the
     picture and saves the centre crop it always saved; and a viewer left at the stored 128px is an
@@ -5533,9 +5615,9 @@ dead code (never rendered).
     saved data-URI, on a picture whose left edge and middle are different colours. It reaches the cropper
     through a **patched app.js** (`test-i18n-lang.js`'s technique — the dialog is behind a Supabase
     sign-in, and mocking auth to reach it would test the mock) and fails if the tail it appends to is
-    gone, so a refactor cannot leave it testing nothing. **Re-run after touching `openAvatarCropper` /
-    `openAvatarViewer` / `AVATAR_PX` / `supaSetAvatar` / `monogramHTML` / the `img.viewClass` hook in
-    `openMediaViewer`, or the `.av-crop` / `.avc-*` / `.iv-avatar` / `.mono-view` styles.**
+    gone, so a refactor cannot leave it testing nothing. **Re-run after touching `openPhotoCropper` /
+    `openPhotoViewer` / `PHOTO_PX` / `supaSetPhoto` / `monogramHTML` / the `img.viewClass` hook in
+    `openMediaViewer`, or the `.ph-crop` / `.phc-*` / `.iv-photo` / `.mono-view` styles.**
   · `node .claude/test-difficulty.js` — **card difficulty and the minigames' pool filters** (69
     assertions, Aug 2026). **Re-run after touching `cardDifficulty` / `difficultyOK` / `gameCardIdSet` /
     `GAME_MAX_DIFFICULTY` / `cardUndatable` / `chronoPool` / `cardStartYear` / `serializeCardData` /
