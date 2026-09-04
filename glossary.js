@@ -1845,7 +1845,8 @@ window.GLOSSARY = {
 "Pristina": "<b>Pristina</b> is the capital of Kosovo, which declared its independence from Serbia on 17 February 2008 and was recognised by the United States the following day.<sup class=\"fn\" data-fn=\"1\"></sup> No population figure for the city is given here, because the statistical series this collection relies on carry none: the World Bank publishes neither a largest-city figure nor a surface area for Kosovo.<sup class=\"fn\" data-fn=\"2\"></sup> It does publish the country's population, which has fallen from 1,788,274 in 2015 to 1,576,876 in 2025, and the International Court of Justice advised in 2010 that the declaration of independence had not violated international law.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Manama": "<b>Manama</b> is the capital of Bahrain, in the region the United Nations files as Western Asia.<sup class=\"fn\" data-fn=\"1\"></sup> Its population is given as 600.4 thousand for 2019, in a row footnoted exactly: the figure covers the urban area of the municipality of Al-Manamah, a part of a named unit rather than the whole of it.<sup class=\"fn\" data-fn=\"1\"></sup> The World Bank's series for Bahrain's largest urban agglomeration matches that figure and then rises faster than any other city series in this collection, reaching 743,066 by 2025, in a country that is also the most crowded here at some 2,099 people to the square kilometre.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Dili": "<b>Dili</b> is the capital of Timor-Leste, on the north coast of the island, in the region the United Nations files as South-eastern Asia.<sup class=\"fn\" data-fn=\"1\"></sup> Its population is given as 281.1 thousand for 2018, with no statement of what the figure counts, and it has no ready second source: the World Bank publishes no series at all for the country's largest urban agglomeration.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> About one Timorese in five lives there, in a country whose population has risen steadily and without interruption from 1,205,131 in 2015 to 1,418,517 in 2025, a gain of roughly a sixth in ten years.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Tallinn": "<b>Tallinn</b> is the capital of Estonia and stands on the Gulf of Finland, in the region the United Nations files as Northern Europe.<sup class=\"fn\" data-fn=\"1\"></sup> Its population is given as 441.3 thousand for 2019, with no statement of what the figure counts, and the World Bank's series for the country's largest urban agglomeration gives 441,321 for the same year.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The city has grown in every year since, reaching 457,657 by 2025, and Estonia's own population has risen as well, which sets it apart from Latvia next door, where the capital and the country are both shrinking despite the two states being almost equally thinly settled.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Tallinn": "<b>Tallinn</b> is the capital of Estonia and stands on the Gulf of Finland, in the region the United Nations files as Northern Europe.<sup class=\"fn\" data-fn=\"1\"></sup> Its population is given as 441.3 thousand for 2019, with no statement of what the figure counts, and the World Bank's series for the country's largest urban agglomeration gives 441,321 for the same year.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The city has grown in every year since, reaching 457,657 by 2025, and Estonia's own population has risen as well, which sets it apart from Latvia next door, where the capital and the country are both shrinking despite the two states being almost equally thinly settled.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Port-of-Spain": "<b>Port-of-Spain</b> is the capital of Trinidad and Tobago, in the region the United Nations files as the Caribbean; the American recognition guide hyphenates the name and the United Nations does not.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its population is given as 544.3 thousand for 2019, in a row footnoted only as referring to the urban agglomeration, and the World Bank's series for the country's largest urban agglomeration gives 544,259 for the same year.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> That series is the flattest in this collection, ending at 546,564 in 2025 after a slight dip, a change of under a third of one per cent across a decade.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3710,7 +3711,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Oslo": ["Christiania","Kristiania"],
 "Bratislava": ["Pressburg"],
 "Dublin": ["Baile Átha Cliath"],
-"San_José": ["San Jose"]
+"San_José": ["San Jose"],
+"Port-of-Spain": ["Port of Spain"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5584,7 +5586,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Pristina": ["place","city","geography","capital","kosovo","western balkans"],
 "Manama": ["place","city","geography","capital","bahrain","western asia"],
 "Dili": ["place","city","geography","capital","timor-leste","south-eastern asia"],
-"Tallinn": ["place","city","geography","capital","estonia","northern europe"]
+"Tallinn": ["place","city","geography","capital","estonia","northern europe"],
+"Port-of-Spain": ["place","city","geography","capital","trinidad and tobago","caribbean"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
