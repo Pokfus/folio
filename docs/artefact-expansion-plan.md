@@ -259,7 +259,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | C3/C2 | `clovis-point`, `obsidian-blade`, `ostrich-eggshell-bead` | — |
 | C1 | `byzantine-lead-seal`, `lustreware-bowl`, `glass-coin-weight` | — |
 | C1b | `islamic-star-tile`, `byzantine-silk` | `fustat-paper`, `mamluk-mosque-lamp` |
-| D1 | `antler-comb`, `bone-ice-skate` | `novgorod-birch-bark-letter` (held, see below) |
+| D1 | `antler-comb`, `bone-ice-skate` | ~~`novgorod-birch-bark-letter`~~ (held; released and shipped in D1c) |
 | D1b/C2 | `seal-matrix`, `manilla` | — |
 | A2b/E1 | `vindolanda-tablets` (UN-DEFERRED), `sling-bullet` | — |
 | D2c | `palaeolithic-bone-flute`, `bone-fishhook` (both UN-DEFERRED — **D2's list is now empty**) | — |
@@ -282,6 +282,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | C3b/E3d | `wampum-bead`, `thimble` (**two, not three — see below**) | `moche-portrait-vessel`, `bodkin-arrowhead` |
 | B1d | `mughal-miniature` (UN-DEFERRED; **one, not three — see below**) | `glass-bangle` again, `mariners-astrolabe`, `turnshoe` |
 | B4b | `shell-adze` | `sumatralith` (no openable work uses the term) |
+| D1c | `novgorod-birch-bark-letter` (**UN-HELD — D1's list is now empty**) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1297,6 +1298,36 @@ DOIs, and `doi.org` redirects straight to the PDF.
   direct AMS date of 9,580 ± 70 uncal. BP on a *Cassis cornuta* adze that is "clearly at odds with its
   stratigraphic position", and Hiroa reports three STONE adzes from Rakahanga, where by his own argument
   none should exist. Both went into the plate as they stand.
+
+**D1c releases the pass's only HELD artefact, and it is the hold's own finding cashed in.** D1 recorded
+that three open works on the Novgorod letters had been read and every one was about what the letters SAY,
+so the plate's first sentence — what the object physically is — would have rested on nothing, and it said:
+**look for the source of the first sentence before doing the rest.** That source exists and is
+authoritative: **`gramoty.ru`**, the birch-bark corpus published by HSE University and the Institute of
+Slavic Studies of the Russian Academy of Sciences, carries A. A. Zaliznyak's own general overview from
+*Древненовгородский диалект* as a server-rendered page. It gives the whole first half of the plate —
+sheets usually trimmed at the edges and most often 15–40 cm by 2–8 cm, letters pressed in with a metal or
+bone stylus, only two of the corpus (nos. 13 and 496) in ink, most written on the darker inner side
+because the outer flakes and curls up against the stylus, the two longest at 176 and 166 words and most
+complete letters under twenty, and a corpus of 1,209 from thirteen towns by the end of 2017.
+· **THE BEST FACT IN IT IS ABOUT THE DAMAGE.** Only about a quarter survive whole, and the commonest
+  cause is not fire or decay: the recipient **tore or cut the letter up when he had finished with it so
+  that nobody else could read it.** A source describing how an object was DESTROYED is doing something no
+  catalogue of survivals can.
+· **A DATABASE RECORD IS A CITABLE WORK, and it is what lets a plate name one object.** The same site's
+  entry for letter no. 531 gives city, three separate datings (conventional, stratigraphic and
+  extra-stratigraphic), preservation, excavation and estate, genre, repository and the full text in the
+  original and word-divided — enough to say that no. 531 is Anna writing to her brother because a man has
+  stood surety against her sister and called her a cow. **Cite the record as well as the essay**; they are
+  different works by different hands.
+· Three access notes from the same site, all of which cost a fetch each. Its **linked PDFs 404**
+  (`/bundles/birchbarkdocuments/pdf/janin01.pdf` and its Zaliznyak companion are both dead), and its
+  **library scans of the NGB excavation volumes are image-only** — NGB I comes back as 8 KB of junk from a
+  10 MB file. What works is the HTML: the overview page and the per-letter records. And **a Russian
+  journal PDF may extract only its Latin-script bibliography**: Vovin's 2026 article on birch bark giving
+  way to parchment yields its REFERENCES in full and not one word of its Cyrillic body, which reads at a
+  glance like a successful extraction and is not one. **Grep an extraction for a word the body must
+  contain before believing it.**
 
 ## The per-artefact workflow
 

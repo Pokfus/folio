@@ -1274,4 +1274,11 @@ window.ARTEFACTS = [
     date: "c. 8000 BCE – 1900 CE",
     origin: "Island Southeast Asia and the Pacific",
   },
+  {
+    id: "novgorod-birch-bark-letter",
+    name: "Birch-bark letter",
+    rarity: "rare",
+    date: "11th – 15th century CE",
+    origin: "Novgorod, Rus'",
+  },
 ];
