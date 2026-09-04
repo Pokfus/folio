@@ -1,0 +1,63 @@
+{
+  "_": [
+    "TWO ARTICLES OF THE SUMMA THAT THE WIKISOURCE TRANSCRIPTION LOST (Sep 2026, batch E35).",
+    "Its page for I-II q.52 sets article 2 twice, under article 3's number, and its page for II-II q.43",
+    "sets article 4 twice under article 5's; each question's own list of points of inquiry names the",
+    "article that is therefore missing. The text below is the SAME TRANSLATION -- the Fathers of the",
+    "English Dominican Province, Benziger 1920 -- from Project Gutenberg's transcription of it.",
+    "",
+    "WHY THIS FILE AND NOT A CORRECTION ROW: this is prose Folio ASSERTS belongs in the book, not a rule",
+    "about somebody else's text, so it belongs where it can be read and reviewed rather than inside the",
+    "importer. fetch-book.js holds rules; this holds words.",
+    "",
+    "THE CONVERTER WAS VALIDATED BEFORE IT WAS USED. Run on I-II q.52 article 1, which BOTH",
+    "transcriptions carry, it produces text 99.83% word-identical to the one this book already ships --",
+    "so the two transcriptions are the same edition twice, and what is below is not a different Summa.",
+    "",
+    "THREE NORMALISATIONS, all of typography and none of words, each because this book's own 614",
+    "questions are set that way: `Obj. N:` is written out as `Objection N:` (the wiki transcription",
+    "spells it out 20,448 times and abbreviates it never), `Reply Obj. N:` as `Reply to Objection N:`,",
+    "and Gutenberg's underscore italics are dropped (this book carries no <i> at all). The article",
+    "titles are lower-cased after the first word, which is how the wiki sets every other article head.",
+    "",
+    "A dead entry is REPORTED by the importer, as a dead correction row is: if a question stops carrying",
+    "the duplication this repairs, the entry has stopped describing the source and must be re-read."
+  ],
+  "articles": [
+    {
+      "ch": 171,
+      "question": "I-II q. 52",
+      "article": 3,
+      "title": "Whether every act increases its habit?",
+      "paragraphs": [
+        "Objection 1: It would seem that every act increases its habit. For when the cause is increased the effect is increased. Now acts are causes of habits, as stated above (Q. 51, A. 2). Therefore a habit increases when its acts are multiplied.",
+        "Objection 2: Further, of like things a like judgment should be formed. But all the acts proceeding from one and the same habit are alike (Ethic. ii, 1, 2). Therefore if some acts increase a habit, every act should increase it.",
+        "Objection 3: Further, like is increased by like. But any act is like the habit whence it proceeds. Therefore every act increases the habit.",
+        "On the contrary, Opposite effects do not result from the same cause. But according to Ethic. ii, 2, some acts lessen the habit whence they proceed, for instance if they be done carelessly. Therefore it is not every act that increases a habit.",
+        "I answer that, \"Like acts cause like habits\" (Ethic. ii, 1, 2). Now things are like or unlike not only in respect of their qualities being the same or various, but also in respect of the same or a different mode of participation. For it is not only black that is unlike white, but also less white is unlike more white, since there is movement from less white to more white, even as from one opposite to another, as stated in Phys. v, text. 52.",
+        "But since use of habits depends on the will, as was shown above (Q. 50, A. 5); just as one who has a habit may fail to use it or may act contrary to it; so may he happen to use the habit by performing an act that is not in proportion to the intensity of the habit. Accordingly, if the intensity of the act correspond in proportion to the intensity of the habit, or even surpass it, every such act either increases the habit or disposes to an increase thereof, if we may speak of the increase of habits as we do of the increase of an animal. For not every morsel of food actually increases the animal's size as neither does every drop of water hollow out the stone: but the multiplication of food results at last in an increase of the body. So, too, repeated acts cause a habit to grow. If, however, the act falls short of the intensity of the habit, such an act does not dispose to an increase of that habit, but rather to a lessening thereof.",
+        "From this it is clear how to solve the objections."
+      ],
+      "source": "https://www.gutenberg.org/ebooks/17897",
+      "marker": "THIRD ARTICLE [I-II, Q. 52, Art. 3]"
+    },
+    {
+      "ch": 276,
+      "question": "II-II q. 43",
+      "article": 5,
+      "title": "Whether passive scandal may happen even to the perfect?",
+      "paragraphs": [
+        "Objection 1: It would seem that passive scandal may happen even to the perfect. For Christ was supremely perfect: and yet He said to Peter (Matt. 16:23): \"Thou art a scandal to Me.\" Much more therefore can other perfect men suffer scandal.",
+        "Objection 2: Further, scandal denotes an obstacle which is put in a person's spiritual way. Now even perfect men can be hindered in their progress along the spiritual way, according to 1 Thess. 2:18: \"We would have come to you, I Paul indeed, once and again; but Satan hath hindered us.\" Therefore even perfect men can suffer scandal.",
+        "Objection 3: Further, even perfect men are liable to venial sins, according to 1 John 1:8: \"If we say that we have no sin, we deceive ourselves.\" Now passive scandal is not always a mortal sin, but is sometimes venial, as stated above (A. 4). Therefore passive scandal may be found in perfect men.",
+        "On the contrary, Jerome, in commenting on Matt. 18:6, \"He that shall scandalize one of these little ones,\" says: \"Observe that it is the little one that is scandalized, for the elders do not take scandal.\"",
+        "I answer that, Passive scandal implies that the mind of the person who takes scandal is unsettled in its adherence to good. Now no man can be unsettled, who adheres firmly to something immovable. The elders, i.e. the perfect, adhere to God alone, Whose goodness is unchangeable, for though they adhere to their superiors, they do so only in so far as these adhere to Christ, according to 1 Cor. 4:16: \"Be ye followers of me, as I also am of Christ.\" Wherefore, however much others may appear to them to conduct themselves ill in word or deed, they themselves do not stray from their righteousness, according to Ps. 124:1: \"They that trust in the Lord shall be as Mount Sion: he shall not be moved for ever that dwelleth in Jerusalem.\" Therefore scandal is not found in those who adhere to God perfectly by love, according to Ps. 118:165: \"Much peace have they that love Thy law, and to them there is no stumbling-block (scandalum).\"",
+        "Reply Objection 1: As stated above (A. 2, ad 2), in this passage, scandal is used in a broad sense, to denote any kind of hindrance. Hence Our Lord said to Peter: \"Thou art a scandal to Me,\" because he was endeavoring to weaken Our Lord's purpose of undergoing His Passion.",
+        "Reply Objection 2: Perfect men may be hindered in the performance of external actions. But they are not hindered by the words or deeds of others, from tending to God in the internal acts of the will, according to Rom. 8:38, 39: \"Neither death, nor life . . . shall be able to separate us from the love of God.\"",
+        "Reply Objection 3: Perfect men sometimes fall into venial sins through the weakness of the flesh; but they are not scandalized (taking scandal in its true sense), by the words or deeds of others, although there can be an approach to scandal in them, according to Ps. 72:2: \"My feet were almost moved.\""
+      ],
+      "source": "https://www.gutenberg.org/ebooks/18755",
+      "marker": "FIFTH ARTICLE [II-II, Q. 43, Art. 5]"
+    }
+  ]
+}

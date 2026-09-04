@@ -1568,6 +1568,11 @@ function aeneidChecks() {
         /207 of the 611/.test(summa.intro), summa.intro.slice(0, 60));
       check("[summa] ...and what the transcription is missing",
         /Fourteen questions/.test(summa.intro), "");
+      /* E35: the front matter used to say "No prose is missing — the words are all there", and that
+         turned out to be untrue of two questions. It now says which two, and what was done. A page
+         that has stopped saying so is a page claiming more than the book delivers. */
+      check("[summa] ...and that two articles were missing and are back",
+        /Two articles were missing outright/.test(summa.intro) && /q\. 47/.test(summa.intro), "");
     } else {
       check("[summa] the book is on disk", false, "missing books/summa-theologica.js");
     }
@@ -2795,6 +2800,30 @@ function aeneidChecks() {
     check("[plates] and the book ends where its translator ends it",
       !jw.includes("ASTtC IjIFE") && jw.includes("perfect saints of all the Universe"));
     check("[plates] the running head 107 read as lOT is gone", !jw.includes("SCRIPTURES lOT"));
+
+    /* ================= 6f. two articles of the Summa that its transcription lost =================
+       Sep 2026, batch E35. Wikisource sets article 2 of I-II q.52 twice — the second under article
+       3's number — and article 4 of II-II q.43 twice under article 5's, so the book shipped a false
+       claim and an article of Aquinas was missing. Put back from Project Gutenberg's transcription of
+       the same translation. Asserted on the shipped text: the article that was lost is present, the
+       one that was duplicated appears once, and the heading matches the question's own list of points
+       of inquiry — which is the witness the repair was made on. */
+    const su = fs.readFileSync(path.join(ROOT, "books", "summa-theologica.js"), "utf8");
+    check("[summa] q.52 carries its third article again",
+      su.includes("Whether every act increases its habit?") &&
+      (su.match(/Whether habits increases by addition\?/g) || []).length === 1);
+    check("[summa] ...and it is the article the question's own list names",
+      su.includes("(3) Whether each act increases the habit?"));
+    check("[summa] q.43 carries its fifth article again",
+      su.includes("Whether passive scandal may happen even to the perfect?") &&
+      (su.match(/Whether scandal is a mortal sin\?/g) || []).length === 1);
+    check("[summa] ...and the supplied prose is there, not just the heading",
+      su.includes("Passive scandal implies that the mind of the person who takes scandal"));
+    /* AND THE ONE THIS BATCH DELIBERATELY DID NOT TOUCH: q.47's duplicated heading is the PRINTING's,
+       both transcriptions carrying it, so it must stay as printed. A future batch that "tidies" it
+       would be inventing a heading no edition has. */
+    check("[summa] q.47's duplicated heading is left as the printing has it",
+      (su.match(/Whether solicitude belongs to prudence\?/g) || []).length === 2);
   }
 
   /* ================= 7. the switch is a crossfade, not a cut =================

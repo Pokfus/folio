@@ -14051,10 +14051,20 @@ const BOOKS = {
         "shape of it. Every question states how many articles it has, so the gaps are countable: " +
         "twelve questions carry one heading fewer than they should and two carry none at all, which " +
         "means those articles run on into the one before them and cannot be cited from the page. " +
-        "<b>No prose is missing</b> — the words are all there, and the numbering shows where a gap " +
-        "falls rather than closing over it, so a question that jumps from article 1 to article 4 is " +
-        "telling you the truth about the transcription. It is the transcription's gap and not the " +
-        "edition's, and it is 14 questions in 614.",
+        "Where a heading is lost the prose is not: the words run on into the article before them, and " +
+        "the numbering shows where the gap falls rather than closing over it, so a question that jumps " +
+        "from article 1 to article 4 is telling you the truth about the transcription. It is the " +
+        "transcription's gap and not the edition's, and it is 14 questions in 614.",
+      "<b>Two articles were missing outright</b>, and they have been put back. The transcription sets " +
+        "article 2 of I-II q. 52 twice — the second time under article 3's number — and article 4 of " +
+        "II-II q. 43 twice under article 5's, so what stood in each place was its neighbour rather " +
+        "than the article the question's own list of points of inquiry names. Both have been supplied " +
+        "from Project Gutenberg's transcription of this same translation, which on an article both " +
+        "transcriptions carry agrees with this one word for word to better than 99.8 per cent. " +
+        "A third question, II-II q. 47, sets article 10 under article 9's title and is left exactly " +
+        "as it stands: the Gutenberg transcription prints the same heading, so that one is the 1920 " +
+        "edition's own slip rather than a transcriber's, and correcting it would mean inventing a " +
+        "heading no printing of the Summa has.",
       "There is <b>no Latin facing it</b>, and that is worth explaining because the Latin is not hard " +
         "to find. The complete text of Leo XIII's Leonine edition is online, but the digital editions " +
         "that carry it reserve rights in their own work, which is not a footing this library serves " +
@@ -14133,6 +14143,10 @@ const BOOKS = {
        Thucydides' gate, in its fourth book. */
     body: "plain",
     sections: "articuli",
+    /* TWO ARTICLES THE WIKISOURCE TRANSCRIPTION LOST, put back from Project Gutenberg's
+       transcription of the same translation. See supplyArticles, and the header of the file itself
+       for what was measured before a word of it was used. */
+    supplied: "summa-supplied.json",
     /* The shortest question in the sample is 6.0 KB of prose and the shortest article-less page would
        be a fraction of that; 2,500 sits well below the one and far above what a failed extraction
        returns. */
@@ -17860,6 +17874,65 @@ function correctRaw(t) {
    with it, a chapter head being English text like any other. Both shapes an extractor returns are
    taken — an ARRAY of parts (`play`, `laisses`) and a single object (the other three) — since the
    alternative is five copies of the same three lines. */
+/* AN ARTICLE THE TRANSCRIPTION LOST, PUT BACK FROM ANOTHER TRANSCRIPTION OF THE SAME EDITION
+   (Sep 2026, batch E35). Wikisource's Summa sets article 2 of I-II q.52 twice — the second time under
+   article 3's number — and article 4 of II-II q.43 twice under article 5's. Each question opens by
+   listing its own points of inquiry, so THE BOOK ITSELF NAMES THE ARTICLE THAT IS MISSING, and what
+   shipped in its place was a false claim: it said article 3 asks what article 2 asks.
+
+   THE REPLACEMENT IS THE SAME TRANSLATION — the Fathers of the English Dominican Province, Benziger
+   1920 — from Project Gutenberg's transcription of it, and that is MEASURED rather than assumed: run
+   on an article BOTH transcriptions carry, the converter produces text 99.83% word-identical to the
+   one this book already ships. The words live in `.claude/summa-supplied.json` rather than here,
+   because this file holds RULES and that one holds somebody's prose; its header carries the three
+   typographic normalisations and the reason for each.
+
+   IT REPAIRS ONLY WHAT IT FINDS BROKEN. An entry names the chapter and the article, and the splice
+   happens only where that article's body really is its predecessor's word for word — so if the
+   transcription is fixed upstream, the entry stops firing and SAYS SO rather than overwriting a
+   corrected article with our copy. A dead entry is reported exactly as a dead correction row is.
+
+   AND THE THIRD CASE IT DELIBERATELY DOES NOT TOUCH: II-II q.47 sets article 10 under article 9's
+   title, and the Gutenberg transcription does the same. Two independent transcriptions agreeing is
+   the evidence that the fault is the PRINTING's, not the wiki's, so it is transcribed as printed —
+   the Bhagavad-Gita rule of batch E31, one batch on. A second transcription of the same edition is
+   what tells one kind of error from the other, and it is the only thing that can. */
+let SUPPLIED = 0;
+const SUPPLY_DEAD = [];
+let _supplyTable = null;
+function supplyArticles(rec, book, warn) {
+  if (!_supplyTable) {
+    const p = path.join(__dirname, book.supplied);
+    _supplyTable = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")).articles : [];
+    if (!_supplyTable.length) warn("the supplied-articles table is missing or empty: " + book.supplied);
+  }
+  const want = _supplyTable.filter((a) => a.ch === rec.n);
+  if (!want.length) return rec.html;
+  let html = rec.html;
+  for (const a of want) {
+    const HEAD = /<p><span class="bk-n">(\d+)<\/span>\s*<b>([\s\S]*?)<\/b><\/p>/g;
+    const cuts = [];
+    let m;
+    while ((m = HEAD.exec(html))) cuts.push({ n: +m[1], at: m.index, after: m.index + m[0].length });
+    const i = cuts.findIndex((c) => c.n === a.article);
+    if (i < 1) { SUPPLY_DEAD.push(a.question + " art " + a.article + ": no such article in the chapter"); continue; }
+    const bodyOf = (k) => html.slice(cuts[k].after, k + 1 < cuts.length ? cuts[k + 1].at : html.length)
+      .replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+    if (bodyOf(i) !== bodyOf(i - 1)) {
+      SUPPLY_DEAD.push(a.question + " art " + a.article + ": no longer repeats article " + cuts[i - 1].n +
+        " — the transcription may have been corrected upstream, so read it before trusting this entry");
+      continue;
+    }
+    const end = i + 1 < cuts.length ? cuts[i + 1].at : html.length;
+    const built = '<p><span class="bk-n">' + a.article + '</span> <b>' + a.title + "</b></p>\n" +
+      a.paragraphs.map((q) => "<p>" + q + "</p>").join("\n") + "\n";
+    html = html.slice(0, cuts[i].at) + built + html.slice(end);
+    SUPPLIED++;
+  }
+  return html;
+}
+
+
 function correctGot(got) {
   const one = (c) => {
     if (!c || typeof c !== "object") return c;
@@ -25630,7 +25703,9 @@ async function fetchEnglish() {
          byte-for-byte over every book on the shelf before it was kept. */
       const html = correctRaw(c.html);
       const notes = (c.notes || []).map(correctRaw);
-      chapters.push({ n, t: titles[n] || c.t || chapterTitle(n), p: partOf(n), html: html, notes: notes });
+      const cached = { n, t: titles[n] || c.t || chapterTitle(n), p: partOf(n), html: html, notes: notes };
+      if (BOOK.supplied) cached.html = supplyArticles(cached, BOOK, (m) => warnings.push(m));
+      chapters.push(cached);
       continue;
     }
     /* A CHAPTER MAY BE PRINTED ACROSS MORE THAN ONE WIKI PAGE (Aug 2026, adding the Book of
@@ -25802,6 +25877,7 @@ async function fetchEnglish() {
     CACHE_RAW++;
     rec.html = correctRaw(rec.html);
     rec.notes = (rec.notes || []).map(correctRaw);
+    if (BOOK.supplied) rec.html = supplyArticles(rec, BOOK, (m) => warnings.push(m));
     chapters.push(rec);
     console.log("  " + BOOK.chapterWord + " " + n + " — " + rec.t + " (" + html.length + " chars, " + notes.length + " notes)");
     await sleep(700);
@@ -26153,6 +26229,14 @@ function writeEnglish(chapters, warnings) {
       if (!n) warnings.push("a declared reFix matched nothing: " + String(rx));
     }
   }
+  /* THE ARTICLES PUT BACK, counted both ways for the reason every table here is: a splice that has
+     stopped firing is either an upstream fix (good, and the entry must go) or this file having lost
+     its grip on the page (bad), and the two look identical from a silent run. */
+  if (BOOK.supplied)
+    console.log("  " + SUPPLIED + " article(s) supplied from a second transcription of the same edition" +
+      (SUPPLY_DEAD.length ? ", and " + SUPPLY_DEAD.length + " entr(y/ies) that no longer apply" : ""));
+  for (const d of SUPPLY_DEAD) warnings.push("a supplied article did not apply — " + d);
+
   if (BOOK.glyphs) {
     let hit = 0, dead = [];
     for (const [from] of BOOK.glyphs) {

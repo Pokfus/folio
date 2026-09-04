@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.470", released: "2026-09-04T15:28Z" };
+window.FOLIO_VERSION = { v: "1.471", released: "2026-09-04T15:54Z" };
 
 window.CHANGELOG = [
   {
@@ -48,6 +48,7 @@ window.CHANGELOG = [
       "<b>423 broken paragraphs joined in Augustine, Ovid, Herodotus, Aquinas, Caesar and Chaucer</b> — a printed page-turn had become a paragraph break, 43 of them splitting a word in two.",
       "<b>Seventy quotations of Virgil restored to Seneca’s Latin</b> — seven were missing outright, sixty-three were never shown on the page, and thirteen more now read as verse instead of running together.",
       "<b>483 lost spaces restored to Seneca’s Latin</b> — the last quarter of the book had been typed with the space at every line end swallowed, so its words ran together.",
+      "<b>Two missing articles put back into the Summa Theologica</b> — the transcription it comes from set two articles twice and lost their neighbours, so the book was showing the wrong text under two headings.",
       "<b>Forty-three lines of printing lifted out of Journey to the West</b> — the scanner read the book’s engravings as text, so their captions had landed in the middle of the paragraphs they interrupted.",
       "<b>Eighty-six italic passages restored to Don Quixote</b> — the transcription marks italic with underscores, and they had been showing on the page instead: <i>terra firma</i> read as _terra firma_.",
       "<b>974 names put right in Romance of the Three Kingdoms</b> — a fault of ours had spelled them a second time, so Chang’an had become Zhang’an and Ma Chao had become Ma Zhao.",

@@ -325,7 +325,9 @@ re-run and diffed byte for byte.
 | **E32** ✅ | E29's move, and where it is exactly backwards | **Five branches moved and proved byte-for-byte inert; three deliberately not moved, because moving them loses 193 repairs.** Measured first: of the six page-correcting books that carry a table, **not one row lands inside a tag**, so E29's weakness was not being suffered and the move is a hardening rather than a repair. The five that read markup (two TEI, three HTML) moved with every row still firing. The three that read PLAIN TEXT must not: their rows name the scan's own damage — `his_^pmiishment`, `Ping(preftctHre.)Chap.`, a page number inside a word — which the extractor exists to clean up, so after extraction **180 of the Canterbury Tales' 198 rows and 13 of Journey's 327 match nothing**. **Which side of extraction a book's chain runs on follows from what its rows name.** It also found E31's own fault in the helper written to close it: `correctGot` returned an unrecognised shape UNTOUCHED and reported nothing |
 | **E33** ✅ | a third scanner, and what it found in the first minute | **86 italic passages restored to Don Quixote, 13 more corrections, and two confusion shapes the scanner's set did not carry.** A new audit — *is this a thing a finished book should contain at all?* — found Don Quixote's italics shipping as literal underscores: Gutenberg marks italic with a pair of them, `extractChaucer` has converted them since the day it was written and `extractQuixote` never did. Reading round the findings turned up **`h` read as `n`** (`somewnat`, `cniefest`, `bethougnt`, `Tney`) and **`na` read as `m`** (`Damans` for *Danaans*, three times; `naortal`, `naagic`), neither in the confusion set. **The shelf is the dictionary**: the h/n sweep returns 57 candidates, nearly all ordinary words, and filtering to forms no other book knows cuts it to nine — four damage, five real archaic words |
 | **E34** ✅ | the Journey scan's plate captions | **Twenty-two plate captions, eighteen blocks of engraving noise and a leaked running head removed — nearly 2 KB of furniture, three of it inside a sentence.** The table of what to remove is **the book's own List of Illustrations**, read out of the front matter the reader throws away: a rule about the SHAPE of a caption is impossible here, the scan having 523 runs of four blank lines. Its finding is about the threshold — **the correction chain romanises the LIST and not the mangled caption**, so the two drift apart by the width of the correction and one caption moves from 0.30 to 0.40. A row that fires on one side of a comparison and not on the other widens it |
-| **E35–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E35** ✅ | two articles of the Summa, put back | **A new check — does the book carry a paragraph twice in one chapter? — found the Summa missing two articles of Aquinas.** Wikisource sets article 2 of I-II q.52 twice under article 3's number, and article 4 of II-II q.43 twice under article 5's, so Folio was making a false claim rather than merely repeating one. Each question's own list of points of inquiry names what is gone; the replacement is Project Gutenberg's transcription of the same translation, **99.83% word-identical on an article both carry**. Its finding is the instrument: **II-II q.47 looks identical and gets no repair, because the Gutenberg transcription carries the same wrong heading** — two independent transcriptions agreeing is what tells a transcriber's error from the printer's |
+| **E36** | the rest of the Summa's duplication | **15 paragraphs still repeat inside a chapter**, twelve of them in I-II q.20, whose wiki page carries SEVEN article headings for a six-article question — article 5 set twice, the second time under article 6's number, and the real sixth under a seventh. No text is lost there, so the repair is a rule in `markArticuli` (two consecutive headings with the same title and the same body are one article) and it must be proved inert across all 614 questions. Three single repeats in q.108, q.109 and q.95 want reading first |
+| **E37–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
@@ -390,6 +392,59 @@ not deferred.**
 ---
 
 ## 8. Batch log
+
+### E35 — two articles of Aquinas, put back, shipped 2026-09-04
+
+**A book that carries a paragraph twice is a book that is wrong about something, and nothing else on
+this shelf could see it.** The words are spelled right, the tags balance, the chapter is the right
+length. `book-audit.js` gained the check this batch, and its first run reported fifteen repeated
+paragraphs in the Summa Theologica. Read out, they are not repeated passages but **whole articles set
+under their neighbour's number**:
+
+| question | the transcription sets | the question's own inquiry list names |
+|---|---|---|
+| I-II q. 52 | article 2 twice, the second as article 3 | *(3) Whether each act increases the habit?* |
+| II-II q. 43 | article 4 twice, the second as article 5 | *(5) Whether the perfect can be scandalized?* |
+
+So Folio was not repeating a passage; it was **making a false claim** — that article 3 asks what
+article 2 asks — while an article of Aquinas was missing from the book altogether.
+
+> **WHEN A WORK STATES ITS OWN CONTENTS, CHECK THE CONTENTS AGAINST THEM.** Every question in the
+> Summa opens by listing its points of inquiry, so the witness is on the same page as the fault. It
+> cost one pass over 614 questions, and it is a stronger witness than any outside source could be.
+
+**THE REPLACEMENT IS THE SAME TRANSLATION, MEASURED RATHER THAN ASSUMED.** Project Gutenberg carries
+the Fathers of the English Dominican Province (Benziger 1920) in three volumes. Run on an article
+**both** transcriptions carry, the converter produces text **99.83% word-identical** to the one this
+book already ships — so the two are one edition transcribed twice, and what is spliced in is not a
+different Summa. **Validate a converter on the overlap before using it on the gap**; the first run of
+this one scored 0.9958 and the difference was three typographic conventions, which is how they were
+found.
+
+The words live in **`.claude/summa-supplied.json`** rather than in the importer: that file holds
+rules, this one holds somebody's prose, and prose Folio asserts belongs in a book belongs where it can
+be read. Its header carries the three normalisations and the reason for each. The splice fires only
+where the named article's body really is its predecessor's word for word, so an upstream fix makes the
+entry stop firing and **say so** rather than overwrite a corrected article with our copy.
+
+**AND THE THIRD CASE IS THE FINDING.** II-II q.47 sets article 10 under article 9's title, and its own
+inquiry list disagrees with it — the same shape as the other two, in the same book, found by the same
+check. **The Gutenberg transcription carries the same wrong heading.**
+
+> Two independent transcriptions agreeing is the evidence that the fault is the PRINTING's rather than
+> the wiki's, so q.47 is transcribed as printed and gets no repair. This is E31's Bhagavad-Gita rule
+> one batch on, and it names the instrument: **a second transcription of the same edition is what
+> tells a transcriber's error from the printer's, and nothing else can.** Where only one transcription
+> exists the question cannot be settled, and the text stands. It is worth knowing how close the two
+> cases look: without the second transcription, q.47 would have been "repaired" to a heading no
+> edition of the Summa has ever printed.
+
+**Left for E36, measured and not repaired.** Fifteen paragraphs still repeat, twelve of them in I-II
+q.20 — whose wiki page carries **seven article headings for a six-article question**, article 5 set
+twice and the real sixth pushed to a seventh. No text is lost there, so the repair is a rule in
+`markArticuli` rather than a supplied article, and a rule in that function has to be proved inert
+across all 614 questions. The three single repeats in q.108, q.109 and II-II q.95 want reading first:
+a formula the Summa genuinely repeats looks identical to a duplication until it is read.
 
 ### E34 — a plate is not nothing to an OCR, shipped 2026-09-04
 

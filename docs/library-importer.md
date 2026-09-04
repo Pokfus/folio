@@ -1449,3 +1449,37 @@ between "He" and "agreed". The trailing class now takes `T` as well, and **the w
 exactly one more line in the whole book**: what makes that safe is the caps test the head rule already
 applies (over three-quarters capitals, six letters or more), which no line of this translation's prose
 or verse passes. Widen the glyph class if you must; never drop the caps test.
+
+**AN ARTICLE THE TRANSCRIPTION LOST, AND THE ONLY THING THAT CAN TELL ITS ERROR FROM THE PRINTING'S**
+(Sep 2026, batch E35). A new check — *does the book carry a paragraph twice in one chapter?* — found
+the Summa serving duplicated text. Read out, the duplication is a whole ARTICLE: Wikisource's page for
+I-II q.52 sets article 2 twice, the second time under article 3's number, and its page for II-II q.43
+sets article 4 twice under article 5's. So Folio was not merely repeating a passage; it was making a
+FALSE CLAIM — that article 3 asks what article 2 asks — and an article of Aquinas was missing.
+
+  · **THE BOOK ITSELF NAMES WHAT IS MISSING.** Every question in the Summa opens by listing its own
+    points of inquiry, so the witness is inside the text: q.52's list ends "(3) Whether each act
+    increases the habit?" where the transcription sets "Whether habits increases by addition?" twice.
+    **When a work states its own contents, check the contents against them** — it costs one pass and
+    it is the strongest witness there is, being the same page.
+  · **THE REPLACEMENT IS THE SAME TRANSLATION, AND THAT IS MEASURED, NOT ASSUMED.** Project Gutenberg
+    carries the Fathers of the English Dominican Province (Benziger 1920) in three volumes. Run on an
+    article BOTH transcriptions carry, the converter produces text **99.83% word-identical** to the one
+    this book already ships — so the two are one edition transcribed twice, and what is spliced in is
+    not a different Summa. **Validate a converter on the overlap before using it on the gap.**
+  · **THE WORDS LIVE IN `.claude/summa-supplied.json`, NOT IN THIS FILE.** `fetch-book.js` holds rules;
+    prose Folio asserts belongs in a book belongs where it can be read and reviewed. Three typographic
+    normalisations are declared in that file's own header, each because this book's 614 questions are
+    set that way — `Obj. N:` written out (the wiki spells it out 20,448 times and abbreviates it never),
+    `Reply Obj. N:` likewise, and Gutenberg's underscore italics dropped (this book carries no `<i>`).
+  · **IT REPAIRS ONLY WHAT IT FINDS BROKEN.** The splice happens only where the named article's body
+    really is its predecessor's word for word, so an upstream fix makes the entry stop firing and SAY
+    SO rather than overwrite a corrected article with our copy. Reported like a dead correction row.
+
+**AND THE THIRD CASE, WHICH IS THE FINDING.** II-II q.47 sets article 10 under article 9's title, and
+its own inquiry list disagrees with it. It looks exactly like the other two — and **the Gutenberg
+transcription carries the same wrong heading.** Two independent transcriptions agreeing is the evidence
+that the fault is the PRINTING's rather than the wiki's, so it is transcribed as printed and gets no
+repair. That is E31's Bhagavad-Gita rule one batch on, and it names the instrument: **a second
+transcription of the same edition is what tells a transcriber's error from the printer's, and nothing
+else can.** Where only one transcription exists, the question cannot be settled and the text stands.

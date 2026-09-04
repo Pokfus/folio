@@ -44,6 +44,22 @@ const CHECKS = [
   ["an OCR sentinel run of punctuation", /[~^_]{1,}[A-Za-z]|[A-Za-z][~^_]{1,}[A-Za-z]/g],
 ];
 
+/* A PARAGRAPH THE BOOK CARRIES TWICE IN ONE CHAPTER (Sep 2026, batch E35). Nothing else here can see
+   it: every word is spelled right, the tags balance, the chapter is the right length, and what the
+   reader gets is a passage printed twice. It found three articles of the Summa that Wikisource sets
+   under their neighbour's number — each of which meant an article of Aquinas MISSING from the book,
+   not merely repeated. Long paragraphs only, because a short one may honestly recur (a refrain, a
+   formula, a stage direction). */
+function repeatedParas(book, strip) {
+  let n = 0, first = "";
+  for (const c of book.chapters || []) {
+    const ps = (c.html.match(/<p[^>]*>[\s\S]*?<\/p>/g) || []).map(strip).filter((t) => t.length > 120);
+    const seen = new Set();
+    for (const t of ps) { if (seen.has(t)) { n++; if (!first) first = "ch" + c.n + ": " + t.slice(0, 70); } seen.add(t); }
+  }
+  return { n: n, first: first };
+}
+
 function tagsBalanced(html) {
   const VOID = new Set(["br", "hr", "img", "input", "meta", "link"]);
   const stack = [];
@@ -76,7 +92,9 @@ for (const [side, list] of [["en", en], ["or", or]]) {
     }
     if (b.intro && b.intro.html) { const bal = tagsBalanced(b.intro.html); if (bal) badTags.push("intro: " + bal); }
     const named = Object.keys(hits).filter((k) => !k.startsWith("_ex"));
-    if (named.length || badTags.length) rows.push([side, b.id, chars, hits, named, badTags]);
+      const rep = repeatedParas(b, (h) => h.replace(/<[^>]*>/g, " ").replace(/&[a-z]+;|&#\d+;/g, " ").replace(/\s+/g, " ").trim());
+    if (rep.n) { hits["a paragraph the chapter carries twice"] = rep.n; hits["_exa paragraph the chapter carries twice"] = rep.first; named.push("a paragraph the chapter carries twice"); }
+  if (named.length || badTags.length) rows.push([side, b.id, chars, hits, named, badTags]);
   }
 }
 for (const [side, id, chars, hits, named, badTags] of rows) {
