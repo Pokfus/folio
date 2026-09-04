@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-576` Porto-Novo.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-577` Kigali.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -856,6 +856,26 @@ the reverse, without counting anything. **A card may not cite the deck it is in*
 retired an Astana sentence. Note also that the 1958 admission PDF has **no text layer** — the pre-1970 UN
 scans do not — so the citation rests on the record page, which states the title, the plenary meeting and
 the date, exactly as Senegal's did.
+
+**`gw-576` PORTO-NOVO IS THE TWO-CAPITAL CASE AND THE BROKEN RELAY AT ONCE, AND THE SAME FOOTNOTE
+CARRIES BOTH.** UNdata's footnote c on Benin reads *"Porto-Novo is the constitutional capital and Cotonou
+is the economic capital"* — the second UNdata footnote in three cards to state a divided capital, after
+the Netherlands — and it is ALSO why the relay breaks: the *Capital city pop.* field gives **285.3
+thousand** for Porto-Novo while `EN.URB.LCTY` gives **991,000**, which is Cotonou. That is the sixth
+break and the second in three cards, and the two faults have one cause, so **on any capital whose UNdata
+footnote names a second city, expect the largest-city series to be measuring that second city** and cite
+UNdata alone, as Quito and Astana did.
+
+**AND THE RECOGNITION GUIDE CORROBORATES THE SPLIT BY WHERE IT PUT THE EMBASSY.** The Benin page never
+mentions Porto-Novo: the mission is **Embassy Cotonou**, established 15 February 1961. Amsterdam's guide
+page followed the GOVERNMENT to The Hague; Benin's follows the ECONOMY to Cotonou; in both the guide
+names a city other than the capital, and in both that is evidence rather than an omission. **Three
+institutions now agree the capital is not the working city, and none of them says it in the same words** —
+which is what makes the claim safe to assert. Two smaller things: the guide dates the COUNTRY's renaming
+("In 1975, the country was re-named the Republic of Benin"), unlike Harare's undated city renaming, so
+that date is citable; and `Porto-Novo vue.jpg` is 834px and **below the picture bar**, though Commons
+served an upscaled 960px thumbnail for it without complaint — **check the ORIGINAL's dimensions, since a
+thumbnail request larger than the file still returns 200.**
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
