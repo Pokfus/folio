@@ -1793,7 +1793,9 @@ window.GLOSSARY = {
 "Diocletian": "Diocletian was a Roman emperor who reorganised the state after a long stretch of usurpation and invasion, and who is remembered above all for sharing power rather than holding it alone. The Augustan History says the army acclaimed him in 284 CE, and that he then took Maximian as a fellow emperor and set Galerius and Constantius beneath them, so that there were two <i>Augusti</i> and two <i>Caesares</i>.<sup class=\"fn\" data-fn=\"1\"></sup> Lactantius, who wrote against him, describes an empire quartered between multiplying armies and officials, an edict fixing maximum prices that was abandoned, and an abdication outside Nicomedia<sup class=\"fn\" data-fn=\"2\"></sup> that an inscription dates to 1 May 305 CE.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Constantine_the_Great": "Constantine the Great was the Roman emperor who ended the persecution of the Christians, took the faith up himself, and founded the city that took his name. A milestone cut in Cornwall within a year of his accession styles him <i>nobilissimo Caesari</i> and son of the deified Constantius, the junior rank rather than the throne.<sup class=\"fn\" data-fn=\"1\"></sup> Lactantius quotes entire the letter he issued from Milan with Licinius, which gave Christians liberty to follow their worship and gave the same liberty to everyone else,<sup class=\"fn\" data-fn=\"2\"></sup> while Eusebius says he was baptised only as he lay dying.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Christianity": "Christianity is the religion whose adherents worship Christ as divine and take their name from him. The earliest outside account of its practice, written by a provincial governor, has them meeting before dawn on a fixed day, singing to Christ as to a god, swearing not to steal or cheat or break faith, and afterwards eating an ordinary meal together.<sup class=\"fn\" data-fn=\"1\"></sup> Tertullian, writing from inside it, calls it a body knit together by a common profession, a common discipline and a common hope, which assembles to pray and to read its sacred writings under the presidency of its elders.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"First_Council_of_Nicaea": "The First Council of Nicaea was an assembly of bishops held in 325 CE at Nicaea in Bithynia, summoned by the emperor Constantine, who called them from every quarter of the empire and gave them the imperial post to travel by.<sup class=\"fn\" data-fn=\"1\"></sup> Its creed described the Son as begotten and not made, of the substance of the Father, and <i>homoousios</i>, of one substance with him; its synodal letter anathematised the teaching of Arius and settled a common date for Easter.<sup class=\"fn\" data-fn=\"2\"></sup> It also issued twenty canons of church discipline, and a church history of the next century records that 318 bishops subscribed while five refused over that one word.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"First_Council_of_Nicaea": "The First Council of Nicaea was an assembly of bishops held in 325 CE at Nicaea in Bithynia, summoned by the emperor Constantine, who called them from every quarter of the empire and gave them the imperial post to travel by.<sup class=\"fn\" data-fn=\"1\"></sup> Its creed described the Son as begotten and not made, of the substance of the Father, and <i>homoousios</i>, of one substance with him; its synodal letter anathematised the teaching of Arius and settled a common date for Easter.<sup class=\"fn\" data-fn=\"2\"></sup> It also issued twenty canons of church discipline, and a church history of the next century records that 318 bishops subscribed while five refused over that one word.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Fall_of_the_Western_Roman_Empire": "The fall of the Western Roman Empire is the name given to the end of imperial rule in the western provinces, conventionally dated to 476 CE, when the last emperor in Italy was deposed. Jordanes wrote that the western empire of the Roman race perished with that emperor, Romulus Augustulus, and that kings of the Goths held Rome and Italy from then on.<sup class=\"fn\" data-fn=\"1\"></sup> Procopius describes the same events as a mutiny over land in which the boy was left alive, and says the Gothic king who followed never took the imperial name and yet ruled as truly an emperor as any before him.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Romulus_Augustulus": "Romulus Augustulus was the last man to hold the title of Roman emperor in the west, put on the throne as a boy by his father Orestes and deposed within the year. Procopius says the Romans called him by the diminutive Augustulus because he took the empire while still a lad, and that when the troops killed Orestes and made Odoacer king, the boy was left alive as a private citizen.<sup class=\"fn\" data-fn=\"2\"></sup> Jordanes has him driven from the throne and condemned to exile in Campania, and says the western empire of the Roman race perished with him.<sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2608,7 +2610,9 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Crisis_of_the_Third_Century": "235-284 CE",
 "Diocletian": "reigned 284-305 CE",
 "Constantine_the_Great": "reigned 32 years from 306 CE",
-"First_Council_of_Nicaea": "325 CE"
+"First_Council_of_Nicaea": "325 CE",
+"Fall_of_the_Western_Roman_Empire": "conventionally 476 CE",
+"Romulus_Augustulus": "deposed 476 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3707,7 +3711,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Roman_roads": ["Roman road","Appian Way","Via Appia"],
 "Hadrians_Wall": ["Hadrian’s Wall","Hadrian's Wall"],
 "Constantine_the_Great": ["Constantine I"],
-"First_Council_of_Nicaea": ["Council of Nicaea","Nicaea I"]
+"First_Council_of_Nicaea": ["Council of Nicaea","Nicaea I"],
+"Fall_of_the_Western_Roman_Empire": ["Fall of Rome"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5529,7 +5534,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Diocletian": ["ruler","person","history","politics","warfare","rome","classical"],
 "Constantine_the_Great": ["ruler","person","history","politics","religion","rome","classical"],
 "Christianity": ["concept","religion","history","practice"],
-"First_Council_of_Nicaea": ["event","history","religion","politics","classical"]
+"First_Council_of_Nicaea": ["event","history","religion","politics","classical"],
+"Fall_of_the_Western_Roman_Empire": ["event","history","politics","warfare","classical"],
+"Romulus_Augustulus": ["ruler","person","history","politics","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
