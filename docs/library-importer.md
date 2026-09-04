@@ -1657,6 +1657,33 @@ Herodotus, against zero notes on either side.**
     test counted WORDS and reported twenty-eight Chinese chapters of 5,765 characters as near-empty:
     **a length is not a word count in every script.**
 
+**AND THE OTHER KIND OF CLAIM A FRONT MATTER MAKES: WHAT IS WRONG WITH THE BOOK** (Sep 2026, batch
+E50). A count can be checked; a sentence saying a chapter stops, a column is untranslated or an edition
+leaves lines out cannot, because no count disagrees with it. Swept by their vocabulary — *missing,
+absent, omitted, empty, breaks off, unnumbered, no original, gap* — there are **106 such sentences in
+48 books**, and every one was read. **105 are right**, several of them verifiable outright against
+`check-pairing.js` (Medea's two empty cells, the Oedipus's three, the Confessions' Book I 19–20,
+Thucydides 8.61, the Ramayana's three Sanskrit-less cantos, the Rigveda's three suppressed passages).
+
+  · **THE ILIAD'S WAS WRONG, AND IN TWO WAYS.** It said the Greek loses "four lines of book 9
+    altogether and four more in book 8", which is **ten lines across four books**: 8.548 and 550–552
+    are in Perseus's file wrapped in `<del>` and dropped with the mark that disowns them, while
+    9.458–461, **11.543 and 14.269** are absent from the numbering outright — the last two unmentioned.
+    The two mechanisms are different and had been merged, which is why the count came out wrong: one
+    leaves the `<l n>` sequence complete and the other puts gaps in it.
+  · **AND NOTHING "STANDS EMPTY" IN EITHER HOMER**, which is what both front matters said. That is the
+    wording the genuinely one-sided books use (the Confessions, Thucydides, Medea, the Oedipus); here
+    the Iliad's columns carry 425 numbered places each and the Odyssey's 288 each, and both rebuilds
+    report *0 English and 0 Greek left unpaired*. What a reader meets is a Greek block shorter than its
+    own numbering spans, never an empty cell.
+  · **THE MEASURE THAT FOUND IT IS NOT A SHELF-WIDE INSTRUMENT, and that is recorded rather than
+    shipped.** *Does this column print every line its numbering claims?* is answerable only where the
+    numbering counts that column's own lines — Homer alone here. Elsewhere the marks number a different
+    text and the noise is total: Ovid's Latin reports 658 short and its English 4,315 over, the Poetic
+    Edda 4,691, the Rigveda 9,458, and a lyric line set across two printed lines counts twice, which is
+    most of Antigone's 98. A checker reporting thousands of legitimate rows to find two real ones is one
+    nobody runs.
+
 **A BOOK'S FRONT MATTER COUNTING WHAT THE BOOK NO LONGER HOLDS** (Sep 2026, batch E49). Every book
 opens by counting things — "124 letters", "614 questions", "404 chapters on each side" — and nothing
 had ever compared one of those hand-written figures to the file. Measured over 154 counted claims in

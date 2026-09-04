@@ -232,6 +232,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     to its date line. `node .claude/check-counts.js` is the proxy — report-only, the NEAR MISS being
     the signal, a count under 40 untested and the legitimate misses declared with reasons — and its
     own header states the three things it cannot see.
+  · **AND THE OTHER KIND OF CLAIM IT MAKES — WHAT IS WRONG WITH THE BOOK — HAS NO CHECK AT ALL**
+    (Sep 2026, batch E50). A count can be compared to the file; a sentence saying an edition leaves
+    lines out cannot. All **106 such sentences across the 48 books** were read and 105 hold; the
+    Iliad's did not, saying its Greek loses eight lines where it loses **ten across four books**, two
+    of them unnamed — because it had merged two different mechanisms, a line Perseus wraps in `<del>`
+    (numbering intact) with one absent from the numbering outright. **And neither Homer has an empty
+    cell**, though both front matters said "stand empty in the Greek column": the columns carry 425
+    and 288 numbered places each and pair on every one. **Write what a reader would SEE**, and reserve
+    that phrase for the books that really do draw one side blank.
   · **A CHANGE TO A SHARED EXTRACTOR MUST BE PROVED INERT ON ITS SIBLINGS, BYTE-FOR-BYTE** — re-run
     every other book on that path and diff the generated files. That check has twice found a live
     fault in a book nobody was editing.
@@ -5712,7 +5721,7 @@ dead code (never rendered).
     empty, which is two editors dividing a text differently, and every one of the 107 was already
     recorded in its book's entry. Exits 0 whatever it finds. **Re-run after adding an
     original-language column.** Not part of the site.
-  · `node .claude/test-library.js` — the Library (402 assertions): the rename, the shelf, one book, and
+  · `node .claude/test-library.js` — the Library (404 assertions): the rename, the shelf, one book, and
     the reader's place. **Re-run after touching `PAGES.library` / `PAGES.book` / `BOOKS` / `bookIngest` /
     `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` / `readingPos` / `setReadingPos` /
     `bookSections` / `bookRows` / `applyLangMode` / `anchorNow` / `slideChapter` / `BOOK_SORTS` /

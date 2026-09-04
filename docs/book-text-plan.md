@@ -3946,3 +3946,101 @@ hundred lines above, and that is where the assertion belongs.
   against 3,125, in one book, with the sentence quoted; run against the repaired ones it reports
   nothing and excuses four declared rows.
 - `book-audit.js`, `check-twins.js`, `check-cutoff.js` and `check-pairing.js` all unchanged.
+
+---
+
+## E50 — a front matter's account of the book's own condition
+
+**E49's check-counts.js states three things it cannot see, and this batch acts on the second of them.**
+A front matter counts divisions, and it also makes a different kind of claim: what is WRONG with the
+book — a chapter that stops, an untranslated column, lines the edition leaves out. No count disagrees
+with a sentence like that, so nothing on the shelf can check one. **Fifty batches of repairs have run
+against 48 books whose front matter says what is wrong with each.**
+
+**THE MEASURE: 106 sentences asserting a defect, across 48 books**, swept out of the front matter by
+their vocabulary — *missing, absent, omitted, lost, empty, breaks off, unnumbered, cannot be cited, no
+original, gap*. Every one was read.
+
+**105 are right**, and several are precise enough to be verified outright against the file:
+
+| book | what it claims | measured |
+|---|---|---|
+| euripides-medea | "two of the five hundred and two English passages draw beside an empty Greek cell" | 500 paired + 2 English-only ✓ |
+| sophocles-oedipus-rex | "three of the six hundred and eighty-three" | 680 + 3 ✓ |
+| confessions | "Book I, chapters 19 and 20 … the English column beside them is empty" | Book I — 2 with no translation (19, 20) ✓ |
+| thucydides | "chapter 61 of book 8" | Book 8 — 1 with no translation (61) ✓ |
+| ramayana | "those three cantos are shown alone … with no Sanskrit beside them" | 3 whole chapters absent from the original (251, 475, 476) ✓ |
+| rigveda | "1.179 has none of its six verses; 10.61 is missing 5 to 9; 10.86 is missing 16 and 17" | ✓ all three, exactly |
+| ptahhotep | "section 32 … carries four words in square brackets" | § 32 is "[Concerning continence]." and nothing else ✓ |
+| prose-edda | "the marks in that tab run from II rather than from I" | first tab's marks: 2, 3, 4, 5 ✓ |
+| plato-dialogues | "every one of the thirty-five works pairs without a single gap on either side" | absent from check-pairing's list ✓ |
+| caesar | "404 chapters on each side … nothing missing on either side" | ✓ |
+| city-of-god | "one passage has been repaired … they are restored" | E45's eight words are in the Latin ✓ |
+
+### The one that was wrong: the Iliad's Greek
+
+*"Monro and Allen omit four lines of book 9 altogether and bracket four more in book 8 as later
+insertions, so those eight places stand empty in the Greek column where the English still translates
+them."*
+
+**IT IS TEN LINES, NOT EIGHT, AND TWO OF THE FOUR BOOKS GO UNNAMED.** Measured against the traditional
+line totals, the shipped Greek is short in four books:
+
+| book | short by | what it is |
+|---|---|---|
+| 8 | 4 | lines 548, 550, 551, 552, wrapped in `<del>` in the TEI — the editor's mark of spurious text, which the extractor drops with its words |
+| 9 | 4 | 458–461, absent from the numbering outright |
+| 11 | 1 | **543 — unmentioned** |
+| 14 | 1 | **269 — unmentioned** |
+
+The two mechanisms are different and the front matter had merged them: book 8's four are *present in
+Perseus's file and disowned by its editors*, so `<l n="…">` numbers all 565 and nothing is missing from
+the numbering; the other six are simply **not in the text**, and its numbering steps over them —
+`<l n>` gaps at 9.458–461, 11.543 and 14.269, six in all, against the Odyssey's three.
+
+**AND NOTHING "STANDS EMPTY", IN EITHER HOMER.** That is the vocabulary the other bilingual books use
+for a genuinely empty CELL — the Confessions', Thucydides', Medea's, the Oedipus's — and here there is
+none: the Iliad's two columns carry **425 numbered places each** and the Odyssey's **288 each**, and
+both rebuilds report *"0 English and 0 Greek left unpaired"*. What a reader meets is a Greek block a
+line or four shorter than its own numbering spans. A reader who took the sentence at its word and went
+looking for the empty cells would not find one.
+
+**The Odyssey's substance was exactly right** — its Greek carries 12,107 numbered lines against the
+traditional 12,110, and the three absent numbers are 10.456, 16.101 and 23.49, precisely as stated.
+Only its last clause needed the same repair.
+
+**AND THE ENGLISH REALLY DOES CARRY WHAT THE GREEK DROPS, at the one place that was read**: Murray
+translates Iliad 9.458–461, the lines in which Phoenix says he took counsel to kill his father — a
+passage known from Plutarch's quotation and athetised out of the Greek. The rewritten sentence names
+that one and does not assert the other nine, which were not read.
+
+### A measured negative: the line-count check is not a shelf-wide instrument
+
+The question that found books 11 and 14 — *does this column print every line its own numbering claims?*
+— was put to all 21 verse columns on the shelf, and it is **only answerable where the numbering counts
+that column's own lines**, which here is Homer alone.
+
+Everywhere else the numbering belongs to a different text and the measure is pure noise: Ovid's Latin
+reports 658 lines "short" and its English 4,315 "over", because the marks number the LATIN and Kline's
+English wraps freely; the Poetic Edda's translation reports 4,691 over and the Rigveda's 9,458, for the
+same reason; and even in an original, a lyric line set across two printed lines counts twice, which is
+most of Antigone's 98 and the Oedipus's 47. **It is recorded here rather than committed** — a checker
+that reports thousands of legitimate rows in nineteen books to find two real ones in the twentieth is
+one nobody runs, and E49's floors are the precedent for saying so out loud instead of shipping it.
+
+### What proves it
+
+- Both rebuilds changed the front matter and nothing else: **all 24 chapters byte-identical in each of
+  the four files**, and both Greek columns byte-identical whole.
+- The importer's own reconciliation reports **0 unpaired on either side** for both poems, which is the
+  measurement behind the "nothing stands empty" repair.
+- `check-counts.js`, `check-pairing.js`, `book-audit.js`, `check-twins.js` and `check-cutoff.js` all
+  report exactly what they reported before the batch.
+
+**A POSTSCRIPT THIS BATCH EARNED HONESTLY.** The assertion count pinned in `CLAUDE.md` for
+`test-library.js` is itself a hand-written figure of exactly the kind E49 was about, and this batch's
+edit to it **silently did nothing** — the replacement was written without an assertion that it had
+matched, so it reported success while changing no byte, and the pinned figure would have stayed two
+low. It is 404, measured. **A find-and-replace that cannot fail is a find-and-replace that cannot be
+trusted**; every other edit in these batches asserts its match count first, and this one did not
+because it was a one-line afterthought rather than part of the repair.

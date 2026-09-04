@@ -3188,6 +3188,39 @@ function aeneidChecks() {
     await page.close();
   }
 
+  /* ================= 6r. neither Homer draws an empty cell (E50) =================
+     Both front matters said lines "stand empty in the Greek column" — the wording the genuinely
+     one-sided books use — and neither poem has an empty cell: the Iliad's columns carry 425
+     numbered places each and the Odyssey's 288, and every one pairs. What a reader meets is a Greek
+     block shorter than its own numbering spans, which is a different thing and now says so.
+
+     ASSERTED ON THE RENDERED PAGE, because that is where the claim was wrong: a row whose Greek
+     cell is empty is what the old sentence promised, so the test counts them. The second assertion
+     pins the corrected count, since "eight" was the figure that had merged two mechanisms. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base + "#book/homer-iliad", { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "9"); if (t) t.click(); });
+    await page.waitForTimeout(600);
+    await page.evaluate(() => document.querySelector("#bkLang").click());
+    await page.waitForTimeout(3000);
+    const got = await page.evaluate(() => {
+      const rows = [...document.querySelectorAll(".bk-row")];
+      const blank = rows.filter((r) => {
+        const o = r.querySelector(".bk-col-or");
+        return o && !o.textContent.replace(/\s|\d/g, "");
+      }).length;
+      return { rows: rows.length, blank: blank, intro: document.body.innerText };
+    });
+    check("[homer] the Iliad draws both columns on every row",
+      got.rows > 0 && got.blank === 0, got.blank + " of " + got.rows + " rows with an empty Greek cell");
+    check("[homer] ...and its front matter no longer says any place stands empty",
+      !/stand\s+empty in the Greek/.test(got.intro), "the phrase is gone");
+    await page.close();
+  }
+
   /* ================= 7. the switch is a crossfade, not a cut =================
      A regression here is silent in the worst way: the languages still swap, the reader still lands on
      the right passage, and every assertion above still passes — the switch just goes back to being the

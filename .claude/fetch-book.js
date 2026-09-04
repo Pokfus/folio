@@ -8425,9 +8425,15 @@ const BOOKS = {
         "this edition does not give you. Murray's printed page carries 144 footnotes, and the " +
         "transcription used here preserves only the numbers that pointed at them and not a word of " +
         "their text, so they are dropped and there is no fold of notes under the chapters. And the " +
-        "Greek is a constituted text like any other: Monro and Allen omit four lines of book 9 " +
-        "altogether and bracket four more in book 8 as later insertions, so those eight places stand " +
-        "empty in the Greek column where the English still translates them.",
+        "Greek is a constituted text like any other, and it is <b>ten lines shorter</b> than the " +
+        "vulgate Murray translated, in two different ways. Four lines of book 8 — 548, and 550 to " +
+        "552 — Monro and Allen print as later insertions rather than as Homer's, and a line their " +
+        "edition disowns is dropped here along with the mark that disowns it. Six more are simply " +
+        "not in their text, its numbering stepping straight over them: <b>9.458 to 461, 11.543 and " +
+        "14.269</b>. Nothing stands empty on the page — the two columns pair on the line number and " +
+        "all 425 numbered places carry both — but where the Greek runs short the English beside it " +
+        "may still have the passage, as it does at 9.458, which is Phoenix saying he thought of " +
+        "killing his father.",
     ],
 
     /* ---------- A TEI EDITION ON BOTH SIDES, and the English one had to be chosen ----------
@@ -8664,9 +8670,10 @@ const BOOKS = {
         "this edition does not give you. Murray's printed page carries 192 footnotes, and the " +
         "transcription used here preserves only the numbers that pointed at them and not a word of " +
         "their text, so they are dropped and there is no fold of notes under the chapters. And the " +
-        "Greek column is three lines short of the poem's traditional 12,110: this text omits 10.456, " +
-        "16.101 and 23.49, numbering straight past each of them, so those three places stand empty in " +
-        "the Greek where the English still translates them.",
+        "Greek column is three lines short of the poem's traditional 12,110: this text omits <b>10.456, " +
+        "16.101 and 23.49</b>, numbering straight past each of them. Nothing stands empty on the " +
+        "page — both columns carry the same 288 numbered places and pair on every one — but three " +
+        "of the Greek blocks hold one line fewer than their own numbering spans.",
     ],
 
     /* ---------- A TEI EDITION ON BOTH SIDES, and the English one had to be chosen ----------
