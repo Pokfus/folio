@@ -336,9 +336,9 @@ question, and the surrounding words are damaged too. `1ii«` wants to be *the* f
 lowest official position of all*) and does not look like it. And the Rigveda's `Varuni3` sits in a
 line addressing two gods, where the vocative could be *Varuna* or a dual form.
 
-**The Rigveda's five rows were still rebuilding when this was committed** — it is 1,028 pages and
-takes some forty minutes — and are confirmed separately, as E14's and E15's were. Its five are
-`1ndra` (four times), `3trength`, `we.1grown`, `f1ed` and `Marut3`, all read in context beforehand.
+**The Rigveda's five rows landed in a follow-up commit**, it being 1,028 pages and some forty
+minutes to rebuild: `1ndra` four times, plus `3trength`, `we.1grown`, `f1ed` and `Marut3` — eight
+repairs in all, each read in context beforehand and each verified in the rebuilt book after.
 
 **A separate fault surfaced and is NOT repaired here, because it is ours and not the source's.**
 About thirty-eight of Plato's references are run together in the prose — `Cf. Laws638 B`, `Hom. Il.
