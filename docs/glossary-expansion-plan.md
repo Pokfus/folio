@@ -184,7 +184,8 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N21 | 12 | Tanzania, the Serengeti and African mammal groups — **shipped**, all twelve pictured |
 | N22 | 12 | Olduvai beds, palaeoanthropology's institutions and dating methods — **shipped**, 11 of 12 pictured |
 | N23 | 12 | Amarna and Egypt — **shipped**, all twelve pictured |
-| N24–N32 | ~107 | **the Italian provinces**, by region |
+| N24 | 12 | **The Italian provinces I** — the twelve a World Heritage property names twice — **shipped**, all twelve pictured |
+| N25–N32 | ~95 | the remaining Italian provinces — **blocked on sourcing**, see N24's findings |
 
 **N3 shipped eight terms rather than twelve, and the missing four are one deferral and one
 fold.** *Subminoan* is deferred: Rutter's Chronology Overview gives it a single sentence — "The
@@ -331,6 +332,76 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N24's findings
+
+**N24 — the Italian provinces I (shipped, all twelve pictured).** The twelve are `Florence`, `Venice`,
+`Siena`, `Naples`, `Ferrara`, `Milan`, `Genoa`, `Palermo`, `Padua`, `Pisa`, `Salerno` and `Brescia`, each
+a province or metropolitan city of Italy and the city that heads it, and each carried by two World
+Heritage property pages. **The plan's row said "by region" and this batch is not by region**, for the
+reason below; the row is split rather than abandoned.
+
+**THE FINDING IS THAT THE ITALIAN PROVINCES CANNOT BE WRITTEN AT THE BAR FROM THIS SANDBOX ON A
+STATISTICAL SPINE, and the plan named one that does not exist.** The row was written against
+`istat.it`, "the national statistical office, per province". Measured:
+
+- **ISTAT publishes no readable per-province page.** Its administrative-units classification
+  (`istat.it/classificazione/codici-dei-comuni-delle-province-e-delle-regioni/`) is 200 and names not one
+  province in its HTML; the successor portal **SITUAS** is a hash-routed single-page app served as a 3.9 KB
+  shell; and `demo.istat.it`'s population app answers **only to POST** — a GET with the same parameters
+  returns 73 bytes — while its per-province downloads are ZIP files. None of those is a work a reader can
+  open and check.
+- **Treccani fails the plan's own encyclopedia test.** The rule since N9 is that an encyclopedia may be
+  cited if that article cites its sources, tested per article. `treccani.it` is reachable, but the online
+  encyclopedia's article on Bergamo carries **no bibliography, no sources and no further reading**, and the
+  Enciclopedia Italiana article behind the same search is the **1931** text, Fascist-era prose describing
+  buildings "per opera del Fascismo". Britannica failed this test in N9; Italy's national encyclopedia
+  fails it the same way.
+- **EUR-Lex answers 202 with a zero-byte body**, which rules out the NUTS regulation — the EU instrument
+  that legally names every Italian province as a NUTS-3 region and would have been one work for all 110.
+  That is the same shape N23 recorded for `escholarship.org`, and it is worth naming as a family: **a 202
+  with nothing in it is a wall, not an empty resource.** Eurostat's data browser is an SPA shell,
+  `citypopulation.de` answers "Check for Humans", and **Ramsar's site information service answers 418
+  "Checking you are not a bot"** — an eighth variety of non-content response, after the five 200-status
+  error documents, the 202/0 and the 429 checkpoint.
+- **The Italian public web is largely shut from here.** 503 on `lombardiabeniculturali.it`,
+  `catalogo.beniculturali.it`, `dati.beniculturali.it`, `arpalombardia.it`,
+  `turismo.regione.lombardia.it`, `unesco.cultura.gov.it`, `egymonuments.gov.eg`'s Italian counterpart
+  `italia.it`, and three of the eleven Lombardy provincial sites (`provincia.bergamo.it`,
+  `provincia.como.it`, `provincia.mb.it`). What does answer — a provincial or municipal homepage — is a
+  service portal carrying no description of the territory.
+
+**WHAT IS OPEN IS UNESCO, AND `whc.unesco.org` HAS REOPENED.** The plan recorded it as 403 and reached
+UNESCO properties "through the state party's own record"; it now answers 200 on the Italy state-party
+page, on every one of Italy's 62 property pages, and on `ich.unesco.org`. **Re-probe a host the plan
+records as shut before working around it** — this one had been worked around for the whole pass.
+
+**So the spine for the provinces is the World Heritage list, and the batch is cut by what it covers.**
+Fetching all 62 Italian property pages and scanning their brief syntheses and locality lines gives a
+measurable, checkable criterion: **44 provinces are named by at least one property and 14 by two or more**,
+of which `Rome` and `Bologna` already exist as terms — leaving exactly twelve. Two things about that scan
+are worth keeping. Each property page carries a **locality line** after its dossier number naming the
+province and region outright ("Province of Milano, Lombardy"; "City and Province of Verona, Veneto
+Region"; "Provinces of Caserta and Benevento, Campania"), which is the cleanest per-province statement
+this pass found anywhere. And **a name in the page is not a fact about the place**: of the pairs the first
+scan proposed, `Verona`'s second was the painter *Jacopo da Verona*, `Milan`'s the *Bishop of Milan*
+supporting a shrine in Piedmont, and `Pisa`'s a remark about Siena's rivals — the first was dropped and
+`Brescia` took its slot. **Grep the synthesis, then read the sentence.**
+
+**Its other finding is L9's lever firing on a formula rather than on shared research.** Twelve
+administrative units defined in the same shape produced **15 pairs sharing an eight-word run** on the
+first draft — "and the seat of the metropolitan city that", "italy and the city that is its capital" —
+with no duplicated content at all behind it. Rewriting each opening sentence to say something particular
+about the place (Genoa "pressed between mountains and sea", Brescia "at the foot of the Alps", Padua "a
+university city on the Venetian plain") took it to 0. **Where a batch's terms share a grammatical shape,
+expect the run measure to fire on the shape**, and fix it by making each definition specific rather than
+by shortening it.
+
+**N25–N32 are blocked until a per-province source exists.** What would unblock them, in order of promise:
+a reachable mirror of the NUTS classification; ISTAT's *Annuario statistico italiano* as a citable PDF
+with page numbers; or a per-province spine like the Commonwealth Secretariat's Key Facts blocks that
+carried Phase 3 of the citation pass. Twenty-two of the remaining provinces are named by exactly one
+World Heritage property and would need only a second work each.
 
 ### N23's findings
 
