@@ -1981,7 +1981,8 @@ window.GLOSSARY = {
 "Licinio-Sextian_rogations": "The Licinio-Sextian rogations are a group of Roman bills of the middle Republic, attributed to the tribunes Gaius Licinius Stolo and Lucius Sextius Lateranus, which are said to have set interest already paid against the principal of a debt, forbidden anyone to occupy more than 500 iugera of public land, and required that one consul each year be a plebeian.<sup class=\"fn\" data-fn=\"1\"></sup> Livy has their passage blocked for years by tribunes vetoing at the patricians' request, and answered by a counter-veto that stopped elections to the senior magistracies altogether.<sup class=\"fn\" data-fn=\"1\"></sup> The settlement that followed created a praetorship reserved to patricians, an office no plebeian held until 337 BCE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Leges_Genuciae": "The Leges Genuciae are a group of Roman measures of the middle Republic which Livy reports at second hand, saying that he finds them in various authorities: a bill of the tribune Lucius Genucius against lending at interest, a rule against holding the same office twice within ten years, another against holding two offices in one year, and a provision that both consuls of a year might lawfully be plebeian.<sup class=\"fn\" data-fn=\"1\"></sup> Livy adds that the older writers agree on nothing beyond the mutiny the settlement followed.<sup class=\"fn\" data-fn=\"1\"></sup> Later authors treat the ban on interest as complete and as constantly evaded.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Nobiles": "The nobiles were the families of the Roman Republic whose ancestors had held a curule magistracy, a class that took shape once such offices were opened beyond the patricians and that held no legal privilege as such.<sup class=\"fn\" data-fn=\"1\"></sup> Their mark was the right to keep the wax portrait masks of office-holding ancestors in the hall of the house, a usage resting on custom rather than any law; a man who reached curule office with no such ancestors was called a novus homo.<sup class=\"fn\" data-fn=\"1\"></sup> Roman writers describe the masks being worn at family funerals by relatives dressed in the robes of the offices those ancestors had held.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Cursus_honorum": "The cursus honorum was the ranked sequence of elected magistracies through which a man of the Roman Republic advanced, the offices being divided into greater ones that carried imperium and lesser ones that carried only potestas.<sup class=\"fn\" data-fn=\"2\"></sup> That division governed how each was filled, the greater magistrates being elected by the people voting in centuries and the lesser by the people voting in tribes, and it governed which magistrate could block another, since an act could be stopped only by an equal or greater power.<sup class=\"fn\" data-fn=\"2\"></sup> Polybius reports that ten years of military service were required before a man was eligible for any political office at all.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Cursus_honorum": "The cursus honorum was the ranked sequence of elected magistracies through which a man of the Roman Republic advanced, the offices being divided into greater ones that carried imperium and lesser ones that carried only potestas.<sup class=\"fn\" data-fn=\"2\"></sup> That division governed how each was filled, the greater magistrates being elected by the people voting in centuries and the lesser by the people voting in tribes, and it governed which magistrate could block another, since an act could be stopped only by an equal or greater power.<sup class=\"fn\" data-fn=\"2\"></sup> Polybius reports that ten years of military service were required before a man was eligible for any political office at all.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Praetor": "A praetor was a Roman magistrate whose chief work was judicial, ranking below the consuls and owing them obedience but holding imperium and sitting in a curule chair.<sup class=\"fn\" data-fn=\"1\"></sup> One praetor heard suits at Rome and another those involving foreigners, and the number was increased as territory was acquired, further praetors being created to govern provinces.<sup class=\"fn\" data-fn=\"1\"></sup> At the start of his year each posted an edict setting out the rules he intended to apply, which his successor could take over, alter or drop, and the body of law built that way was called the ius honorarium.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2766,7 +2767,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Capitoline_geese": "390 BCE, by the usual dating",
 "Aius_Locutius": "shrine founded c. 390 BCE",
 "Licinio-Sextian_rogations": "carried 367 BCE, by the usual dating",
-"Leges_Genuciae": "carried 342 BCE, by the usual dating"
+"Leges_Genuciae": "carried 342 BCE, by the usual dating",
+"Praetor": "office created 366 BCE, by the usual dating"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3980,7 +3982,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Licinio-Sextian_rogations": ["Licinio-Sextian laws","Licinian-Sextian laws","Licinian rogations"],
 "Leges_Genuciae": ["Lex Genucia","Genucian laws","Genucian law"],
 "Nobiles": ["nobilitas","Roman nobility","novus homo"],
-"Cursus_honorum": ["course of honours"]
+"Cursus_honorum": ["course of honours"],
+"Praetor": ["praetorship","praetors","praetor urbanus","praetor peregrinus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5994,7 +5997,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Licinio-Sextian_rogations": ["event","law","history","politics","italy"],
 "Leges_Genuciae": ["event","law","history","politics","italy"],
 "Nobiles": ["people","institution","history","politics","italy"],
-"Cursus_honorum": ["institution","concept","history","politics","italy"]
+"Cursus_honorum": ["institution","concept","history","politics","italy"],
+"Praetor": ["title","institution","history","politics","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
