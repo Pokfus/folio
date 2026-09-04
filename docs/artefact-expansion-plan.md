@@ -253,7 +253,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 |---|---|---|
 | A1 | `terracotta-warrior`, `antikythera-mechanism`, `great-isaiah-scroll` | — |
 | A2 | `venus-of-willendorf` | ~~`bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`~~ (all three shipped in A2c), ~~`vindolanda-tablets`~~ (shipped in A2b) |
-| B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | ~~`gandhara-buddha-head`, `chola-nataraja`~~ (shipped in B1c), `mughal-miniature`, `nbpw-sherd`, ~~`punch-marked-coin`, `etched-carnelian-bead`~~ (shipped in B1b), `glass-bangle` |
+| B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | ~~`gandhara-buddha-head`, `chola-nataraja`~~ (shipped in B1c), `mughal-miniature`, ~~nbpw-sherd~~ (cleared and shipped in B1e), ~~`punch-marked-coin`, `etched-carnelian-bead`~~ (shipped in B1b), `glass-bangle` |
 | D2 | `oak-coffin-textile`, `amber-bead`, `ochre-crayon` | `palaeolithic-bone-flute`, ~~antler-spearthrower~~ (shipped in D2b as `spear-thrower`), `saddle-quern`, `sickle-blade`, `bone-fishhook`, `eyed-bone-needle` |
 | D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | ~~`palaeolithic-bone-flute`, `bone-fishhook`~~ (both shipped in D2c) |
 | C3/C2 | `clovis-point`, `obsidian-blade`, `ostrich-eggshell-bead` | — |
@@ -289,7 +289,8 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B2c/B3c | `han-tomb-brick`, `buncheong-bowl` (both UN-DEFERRED — **B3's list is now empty**) | — |
 | A3a/B2d | `golden-crown-of-silla`, `inkstone` (UN-DEFERRED — **B2's list is now empty**) | — |
 | E2d | `mariners-astrolabe` (UN-DEFERRED; **one, not three — see below**) | `trench-art-shell-case`, `identity-disc`, `ban-chiang-pot` again |
-| A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | `turnshoe` again, `nbpw-sherd`, `identity-disc` again |
+| A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | `turnshoe` again, ~~nbpw-sherd~~ (cleared and shipped in B1e), `identity-disc` again |
+| B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, `igbo-ukwu-bronze`, `bodkin-arrowhead` again, `fustat-paper` again |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -336,7 +337,8 @@ deferral** — read the plan's own notes before searching again.
 correctly-formed article URL and returns **zero bytes**. That is worse than a 404, because
 `add-artefacts.js` checks that a citation ends in a URL and a 200 satisfies every automatic test; only
 reading the body catches it. It is why `nbpw-sherd` stays deferred — its one open work is published in
-that journal, whose DOIs 404 at Ubiquity and whose new host serves nothing.
+that journal, whose DOIs 404 at Ubiquity and whose new host serves nothing. **(Cleared in B1e — the
+*Ancient Asia* paper was never needed; *Asian Perspectives* and *Current Science* carry the whole plate.)**
 
 **AND THE SAME MISTAKE OF MINE HAS NOW BEEN CAUGHT THREE BATCHES RUNNING, SO IT IS A WORKFLOW RULE
 RATHER THAN AN INCIDENT.** `check-citations.js` found *Giulia* for Giovanna in A2b, and here found
@@ -1555,6 +1557,41 @@ traced.
   not in the HTML, so nothing can be grepped — a seventh variety of content-free 200. And **Cleveland has
   six Ban Chiang jars and not one description**, which is C3c's rule biting the other way: a record with
   only fields is a caption, and the museum that carried three plates this week cannot carry this one.
+
+**B1e'S FINDING IS THAT A DEFERRAL CAN OUTLIVE ITS OWN REASON.** `nbpw-sherd` was deferred twice on the
+same fact — that its one open work is in *Ancient Asia*, whose old DOIs 404 and whose new host serves an
+empty 200 — and that fact is true and was never the point. Northern Black Polished Ware is covered by
+**two journals that are wholly open and were not looked at**: *Asian Perspectives*, whose back issues sit
+in **ScholarSpace** at the University of Hawai'i, and **`currentscience.ac.in`**, which serves every issue
+as a free PDF. Between them they carry the dating, the distribution, the forerunner argument, the British
+Museum laboratory's reading of the surface and the elemental work — three works, no gaps. **When a
+deferral names one unreachable journal, the question is not whether that journal has reopened.**
+· **SCHOLARSPACE IS A DSPACE 7 AND ITS REST API IS THE WAY IN, NOT ITS SEARCH PAGE.**
+  `/server/api/discover/search/objects?query=` returns JSON hits, `/server/api/core/items/<uuid>` gives
+  the handle and metadata, and `/server/api/core/items/<uuid>/bundles` → bitstreams gives the PDF. Cite
+  the **handle** (`https://hdl.handle.net/10125/…`), which is the persistent address; the article's own
+  DOI is a Project MUSE one and MUSE is shut here.
+· **A JOURNAL PDF THAT EXTRACTS AS ONE LETTER PER TOKEN IS STILL READABLE.** Both *Current Science* and
+  the *Asian Perspectives* offprint come out of the zlib-stream extractor with a space between almost
+  every character; `re.sub(r'(?<=\S) (?=\S)', '', text)` puts them back and the prose is then greppable.
+  **Do not write a PDF off on the first look at its extraction** — that is a different failure from the
+  subset-font case (Szabó 2010, Vovin 2026, and the *Yoruba Studies Review* PDF met in this same batch),
+  where the bytes are not letters at all and nothing can be recovered.
+· **`link.springer.com` SERVES A "CLIENT CHALLENGE" WITH A 200 — AN EIGHTH VARIETY.** C1b's rule that
+  Springer answers `curl -L` with a browser user-agent holds for **nature.com**, which is where the
+  BMC and SpringerOpen journals live (*Heritage Science*, *Scientific Reports*); it does **not** hold for
+  `link.springer.com`, which is where *African Archaeological Review* and *Archaeologies* are. That is
+  what stops `igbo-ukwu-bronze`: the modern metallography of Igbo Isaiah is there, and the only other
+  openable work DOAJ finds is a conference abstract whose PDF link returns XML.
+· **`ife-head` HAS ONE MAGNIFICENT SOURCE AND NO SECOND, AND THE ONE IS THE PROBLEM.** Frobenius's
+  *The Voice of Africa* (1913) is open on archive.org and describes the Olokun head being lifted out of a
+  sack in the grove at Ife in his own words — followed immediately by his declaration that it is "Atlantic
+  Africa's Poseidon", a "remnant of the erstwhile Lord and Ruler of the Empire of Atlantis", and by his
+  contempt for the "degenerate and feeble-minded posterity" who kept it. **A plate resting on that alone
+  would be reporting a racist misattribution with nothing beside it to answer with**, and the answers are
+  all shut: the British Museum 403, the Smithsonian 403, both OpenEdition articles on the Ita Yemoo
+  excavations behind the Anubis wall, *Yoruba Studies Review*'s PDFs subset-encoded, and neither Cleveland
+  nor the Met holds an Ife head. It waits for a second work, not for a better first one.
 
 ## The per-artefact workflow
 

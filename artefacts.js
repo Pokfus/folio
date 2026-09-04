@@ -1344,4 +1344,11 @@ window.ARTEFACTS = [
     date: "c. 400 BCE",
     origin: "Altai mountains, southern Siberia",
   },
+  {
+    id: "nbpw-sherd",
+    name: "Northern Black Polished Ware sherd",
+    rarity: "common",
+    date: "c. 700 – 300 BCE",
+    origin: "Ganges plain, northern India",
+  },
 ];
