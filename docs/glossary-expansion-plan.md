@@ -181,7 +181,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N18 | 12 | The Italic peoples — Samnites, Sabines, Umbrians — **shipped**, 6 of 12 pictured |
 | N19 | 12 | Umbria and its sanctuaries — **shipped**, 10 of 12 pictured |
 | N20 | 12 | Italian landscape and geology — **shipped**, 11 of 12 pictured |
-| N21 | 12 | Tanzania, the Serengeti and African mammal groups |
+| N21 | 12 | Tanzania, the Serengeti and African mammal groups — **shipped**, all twelve pictured |
 | N22 | 12 | Olduvai beds, palaeoanthropology's institutions |
 | N23 | 12 | Amarna and Egypt |
 | N24–N32 | ~107 | **the Italian provinces**, by region |
@@ -331,6 +331,63 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N21's findings
+
+**N21 — Tanzania, the Serengeti and African mammal groups (shipped, all twelve pictured).** The Great
+Rift Valley, savanna, grassland, the soda lake, Kilimanjaro, the wildebeest, the zebra, the giraffe, the
+gazelle, the antelope, the hyena and the African buffalo. `Serengeti`, `Ngorongoro_Conservation_Area`,
+`Tanzania`, `Maasai`, `Hadza_people`, `Olduvai_Gorge`, `Laetoli_footprints`, `Elephant`, `Hippopotamus`
+and `Rhinoceros` were terms already, so the batch is the country and the animals around them.
+
+**A THIRD SPINE HAS CLOSED, AND THE REPLACEMENT IS BETTER THAN THE ONE THAT SHUT.** The **IUCN Red
+List** — the obvious authority for a batch of species — answers a Cloudflare 403 on `iucnredlist.org`
+and on its API host alike, joining N20's Global Volcanism Program and USGS. What replaced it is the
+**Animal Diversity Web** (`animaldiversity.org`), the University of Michigan Museum of Zoology's
+account series, which is open, has a per-species page for everything this batch needed **and a family
+page for Bovidae**, and passes N9's per-article encyclopedia test outright: every account carries a
+named author with an institution, named editors, and a full references list of journal papers.
+
+**AN ADW ACCOUNT MUST BE READ, NOT ASSUMED — FOUR DRAFTED CLAUSES WERE WRONG AGAINST IT.** Writing the
+mammal terms from general knowledge and marking them to ADW produced a wildebeest "light behind" and
+with a muzzle "suited to cropping short grass", a hyena with "jaws and teeth able to break and digest
+bone", a buffalo whose horn boss both sexes carry, and a bovid family with "unbranched horns of bone
+sheathed in keratin that are never shed" — **none of which the accounts say.** What they do say is
+better: broad shoulders and bracket-shaped horns, one Kalahari study finding **70 per cent** of the
+hyena's diet to be its own kills, a boss on the males of some subspecies, and a family of **more than
+140 living and some 300 extinct species whose very monophyly is argued over**. The correction improved
+every one of the four; the lesson is N4's, one level down from a fabricated author — **do not compose a
+sentence and then look for a source that will bear it.**
+
+**AND A GUESSED PMC IDENTIFIER RESOLVED TO A DIFFERENT PAPER, WITH A 200.** The Serengeti grasses
+checklist is cited on two existing terms and its identifier was reconstructed from memory as
+`PMC4837038`; that URL is live and is somebody else's article. The corpus's own citation gives
+`PMC4867701`. **Copy an identifier from the existing citation, never from recall** — and the check that
+caught it is the batch's URL verifier grepping each page for a word the work must contain, which a bare
+status check cannot do.
+
+**THE MOST-USED SURFACE IN THE BATCH WAS THE ONE NOT WRITTEN.** *Lion* has 28 corpus hits, more than any
+other candidate — and only about four are the living animal: the rest are the Lion Gate, the Lion-man,
+the Sphinx's body, Lydian coin types, a stone lion in the Forum, and Taung's Setswana etymology, with
+one that is a **different species**, the cave lion. A `Lion` term would have auto-linked into all of
+them, so the slot went to `Hyena`, which has none. N20's tufa rule in a new dress: **count what a
+surface would actually catch before keying it.** `Savanna` was keyed without a *savannah* alias for the
+same reason — two of that spelling's three hits are the city in Georgia — and `Great_Rift_Valley` DOES
+claim the bare *Rift Valley*, because its 12 hits include the Jordan Rift and the term is written to
+cover the whole system, which is the honest way to earn them.
+
+**Two terms rest on a paper that was already in the corpus, and both were re-opened first.** Duporge et
+al. 2025 is cited on `Serengeti` for the wildebeest count; `Wildebeest` takes that clause and `Zebra`
+takes a different one, the paper's own admission that its figure is an overestimate because zebras
+travel with the herds and could not be told apart. Rowan et al. 2026 is cited on `Africa` and carries
+the Turkana crustal thinning here. G6's rule, applied before drafting rather than after.
+
+**All twelve are pictured, which is the pass's first clean sweep since N13, and the reason is that
+African wildlife photography on Commons is unusually good.** Three candidates were still refused on
+inspection: a Featured-picture wildebeest **caked in mud**, which hides the mane, beard and shoulder
+stripes the term names; a rift-valley viewpoint with a **bare arm and bangles** filling the foreground;
+and a "savanna" that is a **palm-lined river**. A fourth was reassigned rather than refused — the
+Serengeti kopje is a fine photograph of a rock and no kind of grassland.
 
 ### N20's findings
 
