@@ -1953,7 +1953,8 @@ window.GLOSSARY = {
 "Aristocracy": "An aristocracy is rule by a small privileged class, usually one that claims the right by birth or by superior worth, and in which the offices of state are closed to everybody else. Aristotle counts it a right constitution rather than a deviation, government by more than one yet only a few, so named either because the best men rule or because they rule with a view to what is best for the state and its members.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius treats it as one of the three kinds most writers recognised, and argued that none of the three is stable on its own.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Oligarchy": "An oligarchy is a state in which power is held by a small group, most often the wealthy, and in which the rest of the citizen body is shut out of office whatever its numbers. Aristotle makes it the deviation corresponding to aristocracy, government conducted in the interest of the rich rather than of the community as a whole.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus has its advocate rest the case on the incompetence of the alternatives, granting the objections to rule by one man while holding that nothing is more foolish or violent than an unguided crowd, and that men fleeing a tyrant's insolence should not fall victim to the mob's.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Conflict_of_the_Orders": "The Conflict of the Orders is the modern name for the struggle by which the plebeians of the Roman Republic obtained the political and religious rights that the patricians had held alone.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient accounts open it with a debt crisis and a withdrawal of the commons from the city in 494 BCE, settled by the creation of inviolable tribunes, then intermarriage between the orders in 445 BCE, a plebeian consul in 367 BCE, and admission to the pontificate and augurate in 300 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It is conventionally closed by the lex Hortensia, dated 287 BCE, which made the resolutions of the plebs binding on the whole citizen body.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Secessio_plebis": "A secessio plebis was a withdrawal of the Roman plebeians in a body from the city, leaving the patricians without the soldiers and workers they depended on until the commons' demands were met.<sup class=\"fn\" data-fn=\"1\"></sup> The first, in 494 BCE, followed a crisis over debt: the seceders camped on a hill beyond the river Anio and returned only when granted magistrates of their own, whose persons a law and a general oath made inviolable.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Ancient writers record further withdrawals down to a last one, after which the dictator Quintus Hortensius reconciled the two orders and gave the resolutions of the plebs the force of law binding on the whole nation.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Secessio_plebis": "A secessio plebis was a withdrawal of the Roman plebeians in a body from the city, leaving the patricians without the soldiers and workers they depended on until the commons' demands were met.<sup class=\"fn\" data-fn=\"1\"></sup> The first, in 494 BCE, followed a crisis over debt: the seceders camped on a hill beyond the river Anio and returned only when granted magistrates of their own, whose persons a law and a general oath made inviolable.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Ancient writers record further withdrawals down to a last one, after which the dictator Quintus Hortensius reconciled the two orders and gave the resolutions of the plebs the force of law binding on the whole nation.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Tribune_of_the_plebs": "A tribune of the plebs was a Roman officer elected each year by the plebeians, open to no one else, whose purpose was to give a citizen help against a magistrate.<sup class=\"fn\" data-fn=\"1\"></sup> His person was sacrosanct, and whoever struck him was outlawed with his goods forfeit to the temple of Ceres; his house stood open day and night, he might not leave the city for a day, and his power reached one Roman mile beyond the gates.<sup class=\"fn\" data-fn=\"1\"></sup> The college numbered two at first and ten from 457 BCE, and any one member could veto a magistrate, a colleague or the Senate, which Polybius says left that body unable even to meet.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3906,7 +3907,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Consul_general": ["consul-general","consuls general"],
 "Tyranny": ["tyrant"],
 "Conflict_of_the_Orders": ["Struggle of the Orders"],
-"Secessio_plebis": ["secession of the plebs","first secession of the plebs"]
+"Secessio_plebis": ["secession of the plebs","first secession of the plebs"],
+"Tribune_of_the_plebs": ["tribunus plebis","plebeian tribune"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5892,7 +5894,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Aristocracy": ["concept","politics","history"],
 "Oligarchy": ["concept","politics","history"],
 "Conflict_of_the_Orders": ["event","institution","history","politics","italy"],
-"Secessio_plebis": ["event","practice","institution","history","politics","italy"]
+"Secessio_plebis": ["event","practice","institution","history","politics","italy"],
+"Tribune_of_the_plebs": ["title","institution","history","politics","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
