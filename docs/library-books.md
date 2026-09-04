@@ -1078,7 +1078,10 @@ book added later will meet the same traps.
   thirty-five chapters**, 1,484 Stephanus sections, 1,627 notes. **Eight of its fourteen slip
   candidates were repaired in Sep 2026 (batch E14)** as the capital-I-for-l class, which needs no
   witness and so is unaffected by the Loeb scan's OCR being unusable; the other six are real English
-  words in the wrong place (`sling` for `sting`, `patent` for `potent`) and still want a leaf read. The first book here whose chapter is a
+  words in the wrong place (`sling` for `sting`, `patent` for `potent`) and still want a leaf read.
+  **Batch E15 then established which OCR families are worth sweeping at all**: one is safe exactly
+  where the wrong spelling is a NON-WORD, so the capital-I family paid and the `rn`/`m` family did
+  not — seven of its thirteen candidates were correct as they stood. The first book here whose chapter is a
   separate work rather than a division of one, so both columns are addressed through a table
   (`DIALOGUES` in the importer) instead of by arithmetic. It **absorbed the standalone
   `plato-symposium`** on 2026-08-06 — a `S.reading` / `S.bookFavs` migration in app.js carries the

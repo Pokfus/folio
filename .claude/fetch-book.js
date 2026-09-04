@@ -7750,6 +7750,8 @@ const BOOKS = {
        measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
        cry `Io Paean!` in four books where it is exactly right. */
     reFixes: [
+      [/(?<![A-Za-z0-9])a1oud(?![A-Za-z0-9])/g, "aloud",
+       "the digit 1 read for the l of `aloud`, in 'and Athene cried aloud'"],
       [/(?<![A-Za-z])walI(?![A-Za-z])/g, "wall",
        "a capital I read for the lowercase l of `wall`"],
       [/(?<![A-Za-z])pIaited(?![A-Za-z])/g, "plaited",
@@ -8793,6 +8795,10 @@ const BOOKS = {
        is why the book is here at all — the damage is in the letters ("Avas" for "was", "vmitcd" for
        "united", "deviL" for "devil"), never in whole lines, and it is recorded rather than repaired,
        since a repair pass over ninety thousand words would be rewriting somebody's book by guess. */
+    reFixes: [
+      [/(?<![A-Za-z])rnen(?![A-Za-z])/g, "men",
+       "an rn read for the m of `men`, in 'you are one of the superior men, full of filial piety'"],
+    ],
     sourceName: "Internet Archive",
     sourceUrl: "https://archive.org/details/cu31924074502034",
     source: "html",
@@ -13155,6 +13161,20 @@ const BOOKS = {
       "of 1964–1981, Timothy McDermott's abridgement of 1989 and Alfred Freddoso's translation are " +
       "still in copyright and are not used here.) There is no Latin beside it, and the book's own " +
       "first page says why.",
+    /* ---------- THE SECOND OCR FAMILY, AND WHICH FAMILIES PAY (Sep 2026, batch E15) ----------
+       E14 swept the shelf for a capital I standing where a lowercase l belongs and repaired 42. The
+       obvious next move is the other families a scanner confuses — the digit 1 for an l, `rn` for `m`
+       and back, `cl` for `d` — and the measured answer is that ONLY the first pays, for a reason that
+       can be stated in advance. **A substitution family is safe exactly where the wrong spelling is a
+       NON-WORD.** A capital in the middle of a word never is one, so E14's yield was ~100%. `rn` and
+       `m` are both ordinary English, so of thirteen candidates SEVEN were correct as they stood — a
+       real `dose`, papers `torn` down, the Syrian city `Homs`, archaic `doth`, and in Marco Polo's
+       notes the Old French `corne` and `cornes` and the manuscript called the *Liber Horne*. What
+       survives is only what is no word at all in any language the book quotes. */
+    reFixes: [
+      [/(?<![A-Za-z])corning(?![A-Za-z])/g, "coming",
+       "an rn read for the m of `coming`, in 'by the dove coming upon the Lord when He was baptized'; E4 recorded this one as needing the right one of twenty-two volumes and not worth the search, and it needs no volume at all. IT MUST STAY BOUNDARY-ANCHORED: `corning` is a substring of `scorning`, which this book uses three times, and a bare substring row would make all three `scoming`"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Summa_Theologiae",
 
@@ -13847,6 +13867,12 @@ const BOOKS = {
        measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
        cry `Io Paean!` in four books where it is exactly right. */
     reFixes: [
+      [/(?<![A-Za-z0-9])Se1f(?![A-Za-z0-9])/g, "Self",
+       "the digit 1 read for the l of `Self`, in 'Invincible! Self-luminous!'"],
+      [/(?<![A-Za-z])Pavarnana(?![A-Za-z])/g, "Pavamana",
+       "an rn read for the m of `Pavamana`, the epithet of Soma — 'O Soma Pavamana' and 'O Pavamana, place me'"],
+      [/(?<![A-Za-z])bome(?![A-Za-z])/g, "borne",
+       "an m read for the rn of `borne`, in 'The Consort-Queen hath borne him'"],
       [/(?<![A-Za-z])Iong(?![A-Za-z])/g, "long",
        "a capital I read for the lowercase l of `long`"],
       [/(?<![A-Za-z])wiId(?![A-Za-z])/g, "wild",

@@ -290,13 +290,57 @@ re-run and diffed byte for byte.
 | **E12** ✅ | `canterbury-tales` | **17 repairs, and the batch was small because it was COUNTED first.** The spaced full stop is 31 occurrences in the raw and six units of work: twelve are the plate list's leader dots and eleven the back matter's `( Sh . T.)` keys, neither of which the extractor puts in a chapter. The rest are mangled runs, two of them a heap of marks where the page prints one closing quote. Nine marks are left, three of which are a correct `—,` both copies read |
 | **E13** ✅ | `canterbury-tales` | **6 repairs, every one cropped out of the page image and read**, the second scan being unable to align to a run it garbles differently. Two are punctuation the scan flattened and both change the sentence (a colon, a question mark); one is a closing quote lost while its neighbours survived; three are nothing, and each a different kind of nothing — a line break, SHOW-THROUGH from the facing page, and a reader's PENCIL down the margin. It also corrects a figure E12 estimated rather than measured |
 | **E14** ✅ | eight books | **42 repairs, and it UNBLOCKS the two E4 wrote off.** The capital I and the lowercase l are the same stroke, so an OCR writes `Iooked` for `looked` and `househoIds` for `households` — `virgil-aeneid`'s 22 unrepairable candidates are this class exactly, and eight of `plato-dialogues`' fourteen. Inside a word no witness is needed (no type sets one there); at the start the book's own vocabulary decides. It proposed six CORRECT readings — `Io` the nymph, `Io Pæan!`, the Gnostic `Ieu` — all excluded by name |
-| **E15–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica` (2); and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E15** ✅ | five books | **6 repairs, and a rule that applies BEFORE the work: a substitution family is safe exactly where the wrong spelling is a NON-WORD.** E14's capital-I yield was ~100% because a capital mid-word never is one; the same sweep for `rn`/`m` proposed thirteen and SEVEN were right as they stood (a `dose`, papers `torn`, the city `Homs`, archaic `doth`, Old French `corne`), and `cl`/`d` got all three wrong. It also closes `summa-theologica`'s `corning` — E4's third deferral — with no volume opened |
+| **E16** | twelve books | **the third family, already measured: a word that MIXES LETTERS AND DIGITS** — 108 across twelve books, of which the legitimate ones are bibliographic and name themselves (`1ff`, `78ff` for 'and following', `8vo` and `4to` for octavo and quarto, `1274bb` for a Bekker page), leaving ~35 that are damage: `0ceanus`, `1ndra`×4, `f1ed`, `3trength`, `k9ew`, `4orth`, `equa1`, `highe3t`, `com6`, `baggag6`. It passes E15's test — a digit inside an English word is a non-word — but several need reading (`1ii`, `Na4o`, `m6me`, `1grown` are not obvious) |
+| **E17–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E15 — the second OCR family, and the rule for which families pay, shipped 2026-09-04
+
+**Six repairs across five books, and the batch's real product is a rule that can be applied BEFORE
+the work.** E14 swept the shelf for a capital I standing where a lowercase l belongs and repaired 42.
+The obvious next move is the scanner's other confusions — the digit `1` for an `l`, `rn` for `m` and
+back, `cl` for `d` — and the measured answer is that **only the first pays, for a reason that could
+have been stated in advance.**
+
+**A SUBSTITUTION FAMILY IS SAFE EXACTLY WHERE THE WRONG SPELLING IS A NON-WORD.** A capital in the
+middle of a word never is one, so E14's yield was near 100% and its only exclusions were proper names
+(`Io`, `Ieu`). `rn` and `m` are both ordinary English, so the same measure over the same shelf
+proposed thirteen changes of which **SEVEN were correct as they stood**: a real `dose` of medicine,
+red papers `torn` down, the Syrian city of `Homs`, the archaic `doth` — and, in Marco Polo's notes,
+the Old French `corne` and `cornes` (`un corne ad en la teste`, `pour acheter cornes et glus pour
+faire arbalestres`) and the manuscript called the **Liber Horne**. `cl`-for-`d` did worse: all three
+of its candidates were right. **A book that quotes other languages defeats the test twice over**, and
+Marco Polo, with its apparatus of Old French, Latin and transliterated Persian, produced five of the
+seven.
+
+**What survives is only what is no word at all in any language the book quotes**: `a1oud` in the
+Iliad (`and Athene cried aloud`), `Se1f` and `Pavarnana` and `bome` in the Rigveda (`Invincible!
+Self-luminous!`, `O Soma Pavamana`, `The Consort-Queen hath borne him`), `rnen` in Journey to the
+West, and `corning` in the Summa.
+
+**That last one closes E4's third and smallest deferral without opening a book.** E4 recorded the
+Summa's two candidates as needing the right one of twenty-two volumes and not worth the search for
+two words. One of them is this family — `by the dove coming upon the Lord when He was baptized` — and
+it needs no volume at all. **Two of E4's three 'no witness reachable' entries are now closed by
+rules rather than by witnesses**, which is worth saying plainly: a deferral recorded for want of a
+SCAN should be re-read whenever a new rule arrives, because the reason it was deferred may no longer
+be the reason it is hard.
+
+**A NON-WORD IS STILL A SUBSTRING OF REAL WORDS, and one of these six proves it.** `corning` is not
+a word, which is what makes it safe to repair — and it sits inside `scorning`, which the Summa uses
+three times (`in scorning the command of the proconsul`). A bare substring row would have written
+`scoming` in all three, silently, while the report said one fix applied. **The rows are anchored on
+word boundaries and that is not decoration**; the row for this one says so in its own `why`, because
+the trap is invisible from the corrected line.
+
+**And E14's own two pending confirmations are closed here**: the Rigveda's Sanskrit column rebuilt
+**byte-identical**, and Journey to the West's single row fired on `the boundless and universal law`.
 
 ### E14 — the capital I standing where a lowercase l belongs, shipped 2026-09-04
 
@@ -773,7 +817,8 @@ fourteen, and Virgil's 22 entire, without any scan at all: both were the capital
 is settled by a rule about type and by the book's own vocabulary. Read E14 before treating a
 'no witness reachable' entry here as closed.)** `summa-theologica` — its two
 (`corning`, `inproportionate`) would need the right one of twenty-two volumes and are not worth the
-search for two words.
+search for two words. **(Batch E15 repaired `corning` with no volume opened: it is the rn-for-m
+family, and `corning` is a non-word. `inproportionate` stands.)**
 
 ---
 
