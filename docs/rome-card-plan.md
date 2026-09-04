@@ -418,7 +418,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-157  Battle of Sentinum
     rm-158  Roman conquest of Etruria
     rm-159  Roman conquest of Umbria and Picenum
-    rm-160  Rome's Gallic wars in northern Italy
+    rm-160  Senones
     rm-161  Battle of Telamon
     rm-162  The conquest of Cisalpine Gaul
     rm-163  Tarentum

@@ -2009,7 +2009,8 @@ window.GLOSSARY = {
 "Third_Samnite_War": "The Third Samnite War was fought between Rome and the Samnites from 298 to 290 BCE, the last of the three conflicts that decided the control of central and southern Italy.<sup class=\"fn\" data-fn=\"2\"></sup> It opened when envoys from Lucania asked the Roman senate for help, saying the Samnites had pressed them into an alliance and invaded when they refused, and it widened as the Samnites drew the Etruscans, Umbrians and Gauls into a league.<sup class=\"fn\" data-fn=\"1\"></sup> That coalition was broken at Sentinum in 295 BCE, but the Samnites fought on for five more years before laying down their arms.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Battle_of_Sentinum": "The Battle of Sentinum was fought in 295 BCE in Umbria, in the Third Samnite War, between Rome and a coalition of Samnites, Gauls, Etruscans and Umbrians.<sup class=\"fn\" data-fn=\"2\"></sup> The two consuls commanded, Quintus Fabius on the right against the Samnites and Publius Decius Mus on the left against the Gauls; Decius devoted himself to death when his wing began to give way, as his father had done, and the Samnite leader Gellius Egnatius was killed.<sup class=\"fn\" data-fn=\"1\"></sup> Livy reports 25,000 of the enemy dead, and the exact ground on which the battle was fought is not known.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Roman_conquest_of_Etruria": "The Roman conquest of Etruria was the reduction of the Etruscan cities of central Italy by Rome, beginning with the capture of Veii in 396 BCE and ending with the submission of Volsinii shortly before the First Punic War.<sup class=\"fn\" data-fn=\"1\"></sup> It was not a single campaign: colonies at Sutrium and Nepete formed a frontier, a forty-year truce with Tarquinii held from 351, and the decisive fighting came after 311 with the crossing of the Ciminian forest and victories at Lake Vadimon.<sup class=\"fn\" data-fn=\"1\"></sup> Several cities took separate truces rather than fight on, and the terms on which each was received are almost entirely unknown.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Roman_conquest_of_Umbria_and_Picenum": "The Roman conquest of Umbria and Picenum was the absorption of the two regions between the Apennines and the Adriatic into the Roman system, completed by 268 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Umbria was not a single state but a set of tribes without common government, and after a defeat near Mevania in 308 BCE they submitted on terms that differed from place to place; they took part in the coalition beaten at Sentinum in 295 and were not in arms as a people afterwards.<sup class=\"fn\" data-fn=\"1\"></sup> Picenum entered a treaty with Rome in 299 BCE and kept it for a generation, until two consuls reduced the region in a single campaign.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Roman_conquest_of_Umbria_and_Picenum": "The Roman conquest of Umbria and Picenum was the absorption of the two regions between the Apennines and the Adriatic into the Roman system, completed by 268 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Umbria was not a single state but a set of tribes without common government, and after a defeat near Mevania in 308 BCE they submitted on terms that differed from place to place; they took part in the coalition beaten at Sentinum in 295 and were not in arms as a people afterwards.<sup class=\"fn\" data-fn=\"1\"></sup> Picenum entered a treaty with Rome in 299 BCE and kept it for a generation, until two consuls reduced the region in a single campaign.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Senones": "The Senones were a Gallic people who settled south of the Po on the Adriatic side of Italy, the southernmost of the tribes that took the northern plain from the Etruscans.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius describes them living in open villages without permanent buildings and occupied with war and farming, and records their part in the long quarrel with Rome, including a treaty kept for thirty years and broken in 299 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> After Roman envoys were killed during the fighting of 283 BCE a consul destroyed the tribe and expelled the survivors, and Rome planted the colony of Sena Gallica on their coast.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2812,7 +2813,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Third_Samnite_War": "298 – 290 BCE",
 "Battle_of_Sentinum": "295 BCE",
 "Roman_conquest_of_Etruria": "396 – 264 BCE",
-"Roman_conquest_of_Umbria_and_Picenum": "308 – 268 BCE"
+"Roman_conquest_of_Umbria_and_Picenum": "308 – 268 BCE",
+"Senones": "c. 4th – 3rd century BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4042,7 +4044,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Latin_colony": ["Latin colonies","colonia Latina","coloniae Latinae"],
 "Caudine_Forks": ["Caudine Pass"],
 "Maniple_(military_unit)": ["maniple","maniples","manipulus","manipuli"],
-"Battle_of_Sentinum": ["Sentinum"]
+"Battle_of_Sentinum": ["Sentinum"],
+"Senones": ["Senonian Gauls","Senonian"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6084,7 +6087,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Third_Samnite_War": ["event","history","warfare","italy"],
 "Battle_of_Sentinum": ["battle","history","warfare","italy"],
 "Roman_conquest_of_Etruria": ["event","history","warfare","italy"],
-"Roman_conquest_of_Umbria_and_Picenum": ["event","history","warfare","italy"]
+"Roman_conquest_of_Umbria_and_Picenum": ["event","history","warfare","italy"],
+"Senones": ["people","history","warfare","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
