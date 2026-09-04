@@ -1764,7 +1764,8 @@ window.GLOSSARY = {
 "Conflict_of_the_Orders": "The Conflict of the Orders was the struggle by which the plebeians of the Roman Republic gained access to the offices, priesthoods and legal protections the patricians had reserved to themselves.<sup class=\"fn\" data-fn=\"3\"></sup> It opened in 494 BCE with a secession, the plebs withdrawing from the city until they were granted magistrates of their own, inviolable in person and closed to patricians.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The quaestorship opened to plebeians in 421 BCE, the consulship in 367, the censorship in 351, the praetorship in 336 and the chief priesthoods in 300, and after a last secession in 286 the dictator Quintus Hortensius gave their resolutions the force of law.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Roman_legion": "The Roman legion was the main formation of the Roman army, in the middle Republic a body of about 4,200 foot and 300 cavalry, raised to 5,000 foot when the danger was great.<sup class=\"fn\" data-fn=\"2\"></sup> Its men were conscripted citizens sorted by age and means into velites, hastati, principes and triarii, and divided into maniples of which each had two centurions, so that one was always present to command.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Service was owed for sixteen years in the infantry or ten in the cavalry, and discipline rested on penalties as severe as the fustuarium, under which a condemned man was beaten or stoned by the whole camp.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
 "Punic_Wars": "The Punic Wars were three wars fought between Rome and Carthage for the western Mediterranean, the first running 24 years without a break and ending with the loss of Sicily to Rome.<sup class=\"fn\" data-fn=\"1\"></sup> The second was argued over on both sides, Rome holding that the destruction of Saguntum breached the treaties and Carthage that the earlier seizure of Sardinia justified her, and its peace took her fleet and elephants and set 10,000 talents over fifty years.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> For the third the Romans had made up their minds long before and waited only for a pretext that would look just to other nations, and it ended with Carthage crushed.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
-"Hannibal": "Hannibal was the Carthaginian general who commanded against Rome in the second Punic War, taking an army from Iberia over the Alps into the plain of the Po in 218 BCE, the first year of the war.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He is said to have sworn an oath against Rome at the altar at nine, when his father was setting out on campaign, and to have told the story years later at the court of Antiochus.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius calls him the single cause of all that befell both nations, and records that some accused him of extreme cruelty and others of avarice.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Hannibal": "Hannibal was the Carthaginian general who commanded against Rome in the second Punic War, taking an army from Iberia over the Alps into the plain of the Po in 218 BCE, the first year of the war.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He is said to have sworn an oath against Rome at the altar at nine, when his father was setting out on campaign, and to have told the story years later at the court of Antiochus.<sup class=\"fn\" data-fn=\"1\"></sup> Polybius calls him the single cause of all that befell both nations, and records that some accused him of extreme cruelty and others of avarice.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_Cannae": "The Battle of Cannae was fought in Apulia in 216 BCE between a Roman army of about 80,000 foot and rather more than 6,000 cavalry and a smaller Carthaginian force under Hannibal.<sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Hannibal drew his Iberian and Celtic infantry into a crescent with its convex face towards the enemy and his Africans on either side, so that when the crescent gave way and the legions pressed into it the Africans stood on both their flanks.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> About 70,000 Romans died, some 10,000 were taken at their camp and seventy of the cavalry escaped with one consul, and the defeat brought Tarentum and Campanian towns over to Hannibal.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2555,7 +2556,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ancient_Rome": "753 BCE – 476 CE",
 "Roman_Senate": "509 – 27 BCE",
 "Twelve_Tables": "451 – 449 BCE",
-"Conflict_of_the_Orders": "494 – 286 BCE"
+"Conflict_of_the_Orders": "494 – 286 BCE",
+"Battle_of_Cannae": "216 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5433,7 +5435,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Conflict_of_the_Orders": ["event","history","politics","law","rome","classical"],
 "Roman_legion": ["institution","history","warfare","rome","classical","army"],
 "Punic_Wars": ["event","history","warfare","rome","carthage","classical"],
-"Hannibal": ["person","history","warfare","rome","carthage","classical"]
+"Hannibal": ["person","history","warfare","rome","carthage","classical"],
+"Battle_of_Cannae": ["battle","history","warfare","rome","carthage","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
