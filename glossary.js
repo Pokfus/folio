@@ -1803,7 +1803,8 @@ window.GLOSSARY = {
 "Athenian_democracy": "Athenian democracy was the constitution under which the citizen body governed itself, and the <i>Athenian Constitution</i> locates its power in the jury-court, saying that with the power of the vote the people becomes sovereign.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle's marks of a democratic constitution describe it closely: officials elected by all from all, ruling and being ruled in turn, allotment for offices needing no skill, no property qualification, short terms and a sovereign assembly.<sup class=\"fn\" data-fn=\"2\"></sup> A hostile contemporary pamphlet ascribed to Xenophon grants its logic while rejecting it, on the ground that the poor man the ships and give the city its strength.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Ecclesia_(ancient_Athens)": "The ecclesia was the assembly of the citizens of Athens, which met four times in each presidency of the council's year on days and at a place posted in advance with the business to be taken.<sup class=\"fn\" data-fn=\"1\"></sup> One of the four was the sovereign meeting, confirming the magistrates in office and dealing with the food supply and the defence of the country, and in the sixth presidency it voted on whether to hold an ostracism.<sup class=\"fn\" data-fn=\"1\"></sup> Aeschines describes its opening, a purifying sacrifice carried round and the herald's prayers, followed by the call asking who above fifty years of age wished to speak before any other entitled Athenian did.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Prytaneis": "The prytaneis were the fifty members of one Athenian tribe who presided over the council of five hundred for a tenth of the year, each tribe taking its turn in an order settled by lot.<sup class=\"fn\" data-fn=\"1\"></sup> The <i>Athenian Constitution</i> says they dined together in the Round-house at public expense, called the meetings of the council and of the people, and posted the agenda and the place in advance.<sup class=\"fn\" data-fn=\"1\"></sup> One of them was drawn by lot to preside for a single day and a night, keeping the keys of the temples that held the state's money and its seal, and could not hold that office twice.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Dikasteria": "The dikasteria were the jury-courts of Athens, open to any citizen over thirty who was not in debt to the Treasury or disfranchised, each juror carrying a boxwood ticket cut with his name, his father's name and his deme.<sup class=\"fn\" data-fn=\"1\"></sup> The <i>Athenian Constitution</i> says a juror voted with two bronze pebbles, one pierced and one whole, pressing them against the lamp-stand so that neither party could see which he was holding.<sup class=\"fn\" data-fn=\"2\"></sup> The votes were counted on a pierced board in front of the litigants and the herald called the number, an equal vote going to the defendant.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Dikasteria": "The dikasteria were the jury-courts of Athens, open to any citizen over thirty who was not in debt to the Treasury or disfranchised, each juror carrying a boxwood ticket cut with his name, his father's name and his deme.<sup class=\"fn\" data-fn=\"1\"></sup> The <i>Athenian Constitution</i> says a juror voted with two bronze pebbles, one pierced and one whole, pressing them against the lamp-stand so that neither party could see which he was holding.<sup class=\"fn\" data-fn=\"2\"></sup> The votes were counted on a pierced board in front of the litigants and the herald called the number, an equal vote going to the defendant.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Misthos": "Misthos was the pay an Athenian drew for public service, which the <i>Athenian Constitution</i> says began when Pericles made jury service a paid office as a counter to Cimon's wealth.<sup class=\"fn\" data-fn=\"1\"></sup> It sets out the rates: a drachma for an ordinary meeting of the assembly and half that for the jury-courts, five obols for the council and an extra obol for its presidents.<sup class=\"fn\" data-fn=\"2\"></sup> Aristotle counts payment for public duties among the marks of a democratic constitution, and pay for attending the assembly came last of all, an obol at first and three by the time Agyrrhius had finished with it.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3345,7 +3346,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cleisthenic_tribes": ["Cleisthenic tribe","ten tribes of Cleisthenes"],
 "Deme": ["demesman","demesmen","Attic deme"],
 "Trittys": ["trittyes"],
-"Council_of_Five_Hundred": ["Council of the Five Hundred", "boule"],
+"Council_of_Five_Hundred": ["Council of the Five Hundred","boule"],
 "Isonomia": ["isonomy"],
 "Naukrary": ["naukraries","naucrary","naucraries","naukraros","naukraroi"],
 "Peisistratid_building_programme": ["building programme of the Peisistratids","Peisistratid buildings"],
@@ -3751,7 +3752,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Athenian_democracy": ["radical democracy","Athenian radical democracy"],
 "Ecclesia_(ancient_Athens)": ["ecclesia","ekklesia"],
 "Prytaneis": ["prytaneis","prytanis","prytany","prytanies"],
-"Dikasteria": ["dikasteria","dikasterion","dikastery","jury-court","jury-courts"]
+"Dikasteria": ["dikasteria","dikasterion","dikastery","jury-court","jury-courts"],
+"Misthos": ["misthos"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5585,7 +5587,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Athenian_democracy": ["concept","history","greece","politics","athens"],
 "Ecclesia_(ancient_Athens)": ["institution","history","greece","politics","athens"],
 "Prytaneis": ["institution","history","greece","politics","athens"],
-"Dikasteria": ["institution","history","greece","politics","athens"]
+"Dikasteria": ["institution","history","greece","politics","athens"],
+"Misthos": ["concept","history","greece","politics","athens"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
