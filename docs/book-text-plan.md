@@ -293,13 +293,63 @@ re-run and diffed byte for byte.
 | **E15** ✅ | five books | **6 repairs, and a rule that applies BEFORE the work: a substitution family is safe exactly where the wrong spelling is a NON-WORD.** E14's capital-I yield was ~100% because a capital mid-word never is one; the same sweep for `rn`/`m` proposed thirteen and SEVEN were right as they stood (a `dose`, papers `torn`, the city `Homs`, archaic `doth`, Old French `corne`), and `cl`/`d` got all three wrong. It also closes `summa-theologica`'s `corning` — E4's third deferral — with no volume opened |
 | **E16** ✅ | eight books | **23 repairs in the family E15 predicted would pay** — a digit inside an English word is a non-word. It runs BOTH ways (`0ceanus`, `1ndra`, `k9ew`, `equa1`; and Suetonius's `[i6th March]` where the letter stands for the digit), and the legitimate cases name themselves (`1ff`, `8vo`, `1274bb`). Its lesson is that **a row carrying context carries its source's SPACING**: written first with the Canterbury Tales' double spaces, 22 of 23 were dead |
 | **E17** ✅ | six books, in shared machinery | **193 spaces inserted at a citation's element boundary, and not one other byte changed in sixteen rebuilt books.** Perseus encodes a cited work as an element and leaves no whitespace at its edge, so unwrapping welds it to the prose (`Cf. Laws638 B`, `302has said`, `betweenἔρωςand`). THE FIRST DIAGNOSIS WAS WRONG and is recorded: the missing space is in the SOURCE, not eaten by our tag-strip — an abbreviation keeps its space only because its full stop sits outside the element. So it is a FLATTENING rule in `teiInline`, not a book's `fixes` table: sixteen books read this source |
-| **E18–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E18** ✅ | `plato-dialogues.grc` | **13 citations restored, and the rule is SELF-VERIFYING.** Perseus ran a beta-code converter over references that were already in Latin script, so Plato's Greek cited the Iliad as `ηομ. ιλ. 14.291` — Greek letters spelling nothing. The same `<bibl>` carries the right form on its `n=` attribute, so the repair decodes the text and writes the attribute in ONLY where the two match: 42 genuinely Greek `<title>`s cannot pass that test. One is a PREFIX match and keeps its extra reference |
+| **E19–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E18 — a citation put through a beta-code converter, shipped 2026-09-04
+
+**13 citations restored in Plato's Greek, and nothing else changed in sixteen rebuilt books.** E17
+banked this as a finding while its own insertions were being read; this is it measured and repaired.
+Perseus's Greek files cite Homer like this:
+
+```
+<bibl n="Hom. Il. 14.291">ηομ. ιλ. 14.291</bibl>
+```
+
+`h o m . i l .` is beta code for `η ο μ . ι λ .`, so a reader of Plato's Greek meets a reference to
+the Iliad **spelled in Greek letters that spell nothing**. A converter was pointed at text that was
+already Latin script and did exactly what it was asked.
+
+**IT WAS CONFIRMED IN THE SOURCE BEFORE A LINE WAS WRITTEN, which is the step E17 had to learn the
+hard way** — and the answer was not the obvious one. Folio HAS a beta-code decoder (`betaGreek`), so
+the natural suspicion was that this is ours; it is not, because that decoder runs only where a book
+declares `greek: "beta"`, which is the Satyricon alone, and the mangling is in Perseus's file as
+served. Two minutes of `curl` and one `grep` of the importer, and the batch was pointed at the right
+thing.
+
+**THE TEST IS A ROUND TRIP, AND THAT IS THE WHOLE SAFETY OF THE RULE.** The element's text is decoded
+back through the importer's own beta table and must then MATCH the `n=` attribute on the same
+`<bibl>`; only then is the attribute written in. **A citation legitimately given in Greek cannot pass
+that test**, because decoding real Greek yields a string of consonants that is not its own reference —
+measured: 42 `<title>` elements across the shelf carry genuine Greek and not one matches. The reverse
+table is DERIVED from `BETA_LET` rather than typed out, a second copy of a mapping being a copy that
+comes to disagree with the first.
+
+**ONE OF THE THIRTEEN IS A PREFIX MATCH, AND IT IS THE ONE THAT WOULD HAVE COST SOMETHING.**
+`ηομ. ιλ. 14.201, 302.` sits against `n="Hom. Il. 14.201"` — the text cites a SECOND line that the
+attribute does not — so a rule that took the attribute whole would have silently dropped a reference
+while looking like it had tidied one up. Where the decoded text merely BEGINS with the attribute, the
+attribute supplies the capitals and the decoded remainder is kept.
+
+**MEASURED OVER EVERY PERSEUS FILE THE SHELF READS, both columns**: 1,301 `<bibl>` elements carrying
+text, of which 13 are this fault and **every one is in Plato's Greek**. Twelve match outright, one is
+the prefix case, and no other element on the shelf is affected — the fault does not occur in a
+`<title>` anywhere.
+
+**The proof is the same shape as E17's and is unusually clean.** Sixteen books rebuilt, fifteen
+byte-identical; `plato-dialogues.grc.js` is the same LENGTH as before (`ηομ. ιλ.` and `Hom. Il.` are
+both eight characters) and differs in exactly **26 runs — the thirteen citations' two abbreviations
+each** — in a file of 3.05 MB. Nothing else moved.
+
+**KNOWN LIMIT, stated rather than papered over**: a future instance that fails the round trip is left
+standing rather than reported, `teiInline` being a pure function with nowhere to warn to. It would
+show as Greek gibberish in the book, and the census that found these is what would find it.
 
 ### E17 — a citation's element boundary is a word boundary, shipped 2026-09-04
 

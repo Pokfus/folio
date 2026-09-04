@@ -21190,6 +21190,48 @@ function teiSectionProse(raw, notes) {
 function teiInline(s) {
   let b = s;
 
+  /* A CITATION RUN THROUGH A BETA-CODE CONVERTER THAT SHOULD NEVER HAVE SEEN IT — Sep 2026 (batch
+     E18), found while reading E17's insertions in the Greek column and confirmed in the source
+     before anything was written, which is the step E17 had to learn.
+
+       <bibl n="Hom. Il. 14.291">ηομ. ιλ. 14.291</bibl>
+
+     `h o m . i l .` is beta code for `η ο μ . ι λ .`, so a reader of Plato's Greek meets a citation
+     of the Iliad spelled in Greek letters that spell nothing: the converter was pointed at a
+     reference already in Latin script and did what it was asked. **It is Perseus's file and not
+     ours** — `betaGreek` runs here only where a book declares `greek: "beta"`, which is the
+     Satyricon alone — and the same `<bibl>` carries the correct form on its own `n=` attribute,
+     which is what makes the repair checkable rather than a guess.
+
+     THE TEST IS A ROUND TRIP, AND THAT IS THE WHOLE SAFETY OF IT. The element's text is decoded back
+     through the table above and must then MATCH the `n=` attribute; only then is the attribute
+     written in. A citation legitimately given in Greek cannot pass that test, because decoding real
+     Greek yields a string of consonants that is not its own reference — 42 `<title>` elements on the
+     shelf carry genuine Greek and not one of them matches. So the rule cannot reach them.
+
+     A PREFIX MATCH IS KEPT AND IS NOT A ROUNDING ERROR. One of the thirteen reads
+     `ηομ. ιλ. 14.201, 302.` against `n="Hom. Il. 14.201"` — the text cites a SECOND line that the
+     attribute does not — so taking the attribute whole would silently drop a reference. Where the
+     decoded text merely BEGINS with the attribute, the attribute supplies the capitals and the
+     decoded remainder is kept.
+
+     MEASURED OVER EVERY PERSEUS FILE THE SHELF READS, both columns: 1,301 `<bibl>` elements carrying
+     text, of which 13 are this fault and every one is in Plato's Greek. Twelve match outright and
+     one is the prefix case. **KNOWN LIMIT, stated rather than papered over**: a future instance that
+     fails the round trip is left standing rather than reported, `teiInline` being a pure function
+     with nowhere to warn to — it would show as Greek gibberish in the book, and the census that
+     found these is what would find it. */
+  b = b.replace(/<bibl\b([^>]*)>([^<]*)<\/bibl>/g, (whole, attrs, txt) => {
+    if (!/[\u0370-\u03FF\u1F00-\u1FFF]/.test(txt)) return whole;
+    const n = (attrs.match(/\bn="([^"]*)"/) || [])[1];
+    if (!n) return whole;
+    const dec = txt.replace(/[\u0370-\u03FF\u1F00-\u1FFF]/g, (c) => BETA_BACK[c] || c);
+    const a = dec.toLowerCase(), z = n.toLowerCase();
+    if (a === z) return "<bibl" + attrs + ">" + n + "</bibl>";
+    if (a.startsWith(z)) return "<bibl" + attrs + ">" + n + dec.slice(n.length) + "</bibl>";
+    return whole;
+  });
+
   /* A CITATION'S ELEMENT BOUNDARY IS A WORD BOUNDARY, AND THE SOURCE DOES NOT ALWAYS SET ONE —
      Sep 2026 (batch E17), on the Loeb Plato, whose apparatus is denser in references than anything
      else on the shelf. Perseus encodes a cited work as an element and leaves no whitespace at its
@@ -21983,6 +22025,11 @@ function dramaHtml(sections) {
 const BETA_LET = { a: "α", b: "β", g: "γ", d: "δ", e: "ε", z: "ζ", h: "η", q: "θ", i: "ι", k: "κ",
   l: "λ", m: "μ", n: "ν", c: "ξ", o: "ο", p: "π", r: "ρ", s: "σ", t: "τ", u: "υ",
   f: "φ", x: "χ", y: "ψ", w: "ω" };
+/* THE SAME TABLE READ BACKWARDS, and it is DERIVED rather than typed out — a second copy of a
+   mapping is a copy that comes to disagree with the first. Used by teiInline to undo a beta-code
+   conversion that ran over a citation which was never beta code; see the note there. */
+const BETA_BACK = (() => { const r = {}; for (const k in BETA_LET) r[BETA_LET[k]] = k; r["ς"] = "s"; return r; })();
+
 const BETA_BREATH = { ")": "̓", "(": "̔", "+": "̈" };
 const BETA_ACCENT = { "/": "́", "\\": "̀", "=": "͂" };
 const BETA_SUB = { "|": "ͅ" };

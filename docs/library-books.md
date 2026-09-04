@@ -1090,10 +1090,15 @@ book added later will meet the same traps.
   apparatus is denser in references than anything else on the shelf, and Perseus leaves no whitespace
   at a `<title>` or `<bibl>` boundary, so `Cf. <title>Laws</title>638 B` flattened to `Cf. Laws638 B`.
   It is a fault of the SOURCE and not of the tag-strip, which is what E16 had assumed; the repair is a
-  flattening rule in `teiInline` shared by all sixteen TEI books. **A finding it left behind**: this
-  book's GREEK column carries citations partly transliterated into Greek letters — `ηομ. ιλ. 14.291`
-  against the English's `Hom. Il. 14.291` — in Perseus's own file, with the correct Latin-script form
-  sitting on the same `<bibl>`'s `n=` attribute. The first book here whose chapter is a
+  flattening rule in `teiInline` shared by all sixteen TEI books. **The finding it left behind became E18**: this
+  book's GREEK column carried 13 citations put through a beta-code converter that should never have
+  seen them — `ηομ. ιλ. 14.291`, Greek letters spelling nothing, against the English's `Hom. Il.
+  14.291` — in Perseus's own file, with the correct Latin-script form sitting on the same `<bibl>`'s
+  `n=` attribute. They are repaired by a round trip: the text is decoded back through the importer's
+  own beta table and the attribute written in only where the two match, which no genuinely Greek
+  citation can satisfy. **This is the only book on the shelf with the fault**, and one of its
+  thirteen cites a second line the attribute omits, so the attribute supplies the capitals there
+  rather than replacing the reference. The first book here whose chapter is a
   separate work rather than a division of one, so both columns are addressed through a table
   (`DIALOGUES` in the importer) instead of by arithmetic. It **absorbed the standalone
   `plato-symposium`** on 2026-08-06 — a `S.reading` / `S.bookFavs` migration in app.js carries the
