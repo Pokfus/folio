@@ -203,7 +203,8 @@ is an open question and its batch size follows from the answer.
 | **A2** | Russia, Mexico, Ethiopia, Japan, Egypt, the Philippines, DR Congo, Vietnam | **shipped 2026-09-03** |
 | **A3** | Iran, Turkey, Germany, France, the United Kingdom, Thailand, South Africa, Italy | **shipped 2026-09-04** |
 | **A4** | Tanzania, Myanmar, Colombia, South Korea, Spain, Kenya, Argentina, Uganda | **shipped 2026-09-04** |
-| A5–A33 | The remaining 226 present-day countries and territories, in descending population | planned |
+| **A5** | Algeria, Afghanistan, Ukraine, Sudan, Iraq, Poland, Canada, Morocco | **shipped 2026-09-04** |
+| A6–A33 | The remaining 218 present-day countries and territories, in descending population | planned |
 | B1–… | Stage 2, the 424 historical states, grouped by era | planned |
 | C1–… | Stage 3, the 528 names of the 1600 era, at a bar to be decided | planned |
 
@@ -447,3 +448,44 @@ the batch was written; every source open access. Six findings.
   against Source A, exactly as C2 recorded. It costs this pass nothing, because `stripInfoNoise` means no
   description states a population figure at all; the ratio claim rests on the World Bank series. **Where a
   figure is contested, the rule that keeps figures out of the prose is also what keeps the prose right.**
+
+### A5 — the next eight by population (2026-09-04)
+
+Algeria, Afghanistan, Ukraine, Sudan, Iraq, Poland, Canada and Morocco. All eight at the bar, five
+citations apiece, every URL curled and every source open access. Six findings, and the first supersedes
+A4's version of it.
+
+- **THE WORD "OFFICIALLY" MAY APPEAR ONCE IN A DESCRIPTION AND ONLY IN THE OPENING CLAUSE.** A4 recorded
+  that an "officially" clause must be closed by a comma; that was the narrow case. `officialName` searches
+  the WHOLE description for `\bofficially\b` and takes everything up to the next comma, so Afghanistan's
+  eighth sentence — quoting the guide's "officially free and independent in its affairs" — put **that
+  phrase in the panel title**, on a country whose opening sentence had no official-name clause at all.
+  **A one-line audit over every cited place now exists and should be run after each batch**: flag any
+  `officially` more than ~90 characters in, and any resolved title longer than 60 characters. Run over all
+  forty entries it found exactly this one, which is the reassuring half of the result.
+- **WHERE A STATE'S OFFICIAL NAME IS CONTESTED, LET THE TITLE FALL THROUGH TO THE MAP'S OWN NAME.** Neither
+  UNdata nor the recognition guide gives Afghanistan a long form — both say simply "Afghanistan" — and the
+  two long forms in circulation are the competing claims of two governments. Writing no "officially" clause
+  is the neutral course and needs no special case: `officialName` already returns the short name, exactly as
+  it does for Japan, Canada and the United States.
+- **CANADA IS THE COUNTRY A1's AREA WARNING WAS WRITTEN ABOUT, AND IT NEEDED THE OPPOSITE TREATMENT.** A1
+  recorded that a global area ranking is unsafe because `AG.SRF.TOTL.K2` gives Canada 15,634,410 km²
+  against the true 9,984,670. Here the country needing a ranking IS Canada, so the World Bank series was
+  **dropped from its source list altogether** and its area rests on the two works that agree — UNdata's
+  9,984,670 and the Commonwealth Secretariat's rounded "10 million" — with the Commonwealth page also
+  carrying its 1931 entry under the Statute of Westminster. **The fix for a series that is wrong about one
+  country is to stop citing it for that country**, not to avoid the claim.
+- **SUDAN HAS NO SURFACE AREA FIELD AT UNDATA AT ALL**, which C9 recorded and which is still true: its
+  profile is the only one in the pass that omits one. Its area therefore rests on the World Bank series
+  alone, stated here rather than hidden, and the comparison chosen is coarse — nearly twice the size of
+  Egypt — so that a single source is carrying as little weight as possible.
+- **A NEIGHBOUR'S GUIDE PAGE CARRIED SUDAN'S OWN RECENT HISTORY**, as Eritrea's did Ethiopia's in A2.
+  Sudan's page states the 1956 independence and the Anglo-Egyptian condominium and stops; **South Sudan's**
+  page carries the recurring north-south civil wars, the Comprehensive Peace Agreement of 2005, the
+  referendum of January 2011 and the declaration of 9 July 2011. That is now the second time the route has
+  paid, and it is worth reaching for whenever a country's own entry goes quiet after independence.
+- **UKRAINE'S UN SEAT IS C3's TRAP AND THE SENTENCE SAYS SO.** UNdata gives 24 October 1945, which is the
+  Ukrainian SSR's own seat and not the date of anything the modern state did; the description states the
+  date and immediately says it was taken up while the country was a constituent republic of the Soviet
+  Union. **A date that would mislead standing alone can still be used, provided the sentence carries what
+  makes it not mislead** — which is cheaper than dropping it, and tells the reader something true.
