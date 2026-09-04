@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-561` Sri Jayawardenepura Kotte.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-562` Lilongwe.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -502,6 +502,30 @@ closure on 28 February 1979, thirty years apart. FRUS then supplies the one thin
 an EVENT in the city: the **riot of 24 May 1957**, in which the embassy was wrecked and burned after a
 court martial's acquittal, reported by the army attaché the next morning and analysed by Ambassador Rankin
 the day after that. **When a capital's country has no guide page, its former sovereign's may carry it.**
+
+**`gw-561` KOTTE: THE SPLIT IS STATED OUTRIGHT BY BOTH SOURCES, IN A FOOTNOTE AND IN A FIELD.** UNdata's
+*Capital city* row for Sri Lanka reads **Colombo**, not Kotte, and carries footnote `c`: *"Colombo is the
+capital and Sri Jayewardenepura Kotte is the legislative capital."* The Commonwealth Secretariat's Key Facts
+divides the same pair by function — *"Colombo (executive and judicial), Sri Jayewardenepura Kotte
+(legislative)"*. So the deck's hardest-looking capital is its best-documented split, and **the footnote is
+the source, not the field**: reading the row alone would have put Colombo on this card. **Read the letters
+beside a UNdata value before trusting the value.**
+
+**AND ITS POPULATION ROW IS OMITTED FOR A SECOND TIME, ON A DIFFERENT GROUND FROM TAIPEI'S.** Here the
+figure exists and is about the WRONG CITY: UNdata's 606.2 thousand is Colombo's, `EN.URB.LCTY` gives
+606,158 for the same year, and neither body publishes anything for Kotte — the third capital the
+largest-city series is not about, after Yamoussoukro and Canberra, and the first where the sources say so
+themselves. The card states that in its last sentence rather than leaving a gap to be read as an oversight,
+and the facts box carries **Role — legislative capital** in the population's place.
+
+**THE SPELLING DIVERGENCE IS NOW TWO INSTITUTIONS AGAINST FOLIO, AND THE CARD SAYS SO RATHER THAN PICKING
+A SIDE.** UNdata and the Commonwealth both write **Jayewardenepura**; `world-capitals.js`, this plan and the
+glossary write **Jayawardenepura**, and `add-card.js` validates `map.dot` against that file, so the answer
+term cannot change without regenerating it. The abstract therefore states the difference as a fact about
+the sources — *"Both bodies write the name Sri Jayewardenepura Kotte, one letter different from the
+spelling used here"* — and the glossary term carries the institutional form as an **alias**, so a reader
+arriving with either spelling lands on the same entry. **A divergence a card explains is content; one it
+hides is an error waiting to be reported.**
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
