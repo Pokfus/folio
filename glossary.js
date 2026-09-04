@@ -1802,7 +1802,8 @@ window.GLOSSARY = {
 "Varna_(Hinduism)": "Varna is the fourfold ordering of society set out in classical Sanskrit texts, into Brahmana, Kshatriya, Vaishya and Shudra, and the word means 'colour'.<sup class=\"fn\" data-fn=\"1\"></sup> A late hymn of the Rigveda derives the four from the body of a primeval man, and the law-books give each its work, making the first three twice-born, the Shudra a servant of the others, and denying that there is a fifth.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The groups people are actually born into are the <i>jati</i>, hundreds of endogamous bodies each with a common name and a traditional occupation, of which the Rigveda knows nothing, so the scheme is a frame rather than a description.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Gautama_Buddha": "Gautama Buddha is the teacher whose discourses the Buddhist tradition preserves, and Buddha is a title rather than a name, marking the night when \"the ascetic Gotama had become the Buddha, the awakened\".<sup class=\"fn\" data-fn=\"1\"></sup> He was a Sakya of Kapilavatthu on the Ganges plain, made a prince by later legend although the oldest texts give his father as a wealthy landowner, and taught for 44 of his eighty years before dying at Kusinara.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His dates are reckoned back from Ashoka rather than recorded, so open works give 483 or about 480 BCE for the death; the earliest external evidence is Ashoka's pillar at Lumbini.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Buddhism": "Buddhism is the religion built on the teaching of the Buddha, which a person enters by taking refuge three times over in the Buddha, the Dhamma and the Sangha.<sup class=\"fn\" data-fn=\"1\"></sup> Its core is the four truths of the first discourse, suffering and its origin in craving, its cessation and the eightfold path, offered as a middle way between indulgence and self-affliction; rebirth is accepted and karma decides it, though no permanent self is admitted.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its monks live by begging, recite their list of offences twice a month and settle in one place for the rains, and lay believers support them without entering the order.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Jainism": "Jainism is the religion of the Jina, the victor, whose followers count 24 <i>tirthankaras</i> teaching the same law in succession, the last of them Mahavira, a contemporary of the Buddha.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its central discipline is non-injury: its oldest text holds that no living creature should be slain, treated with violence, abused, tormented or driven away, and a monk's first great vow renounces all killing, whether caused or merely consented to.<sup class=\"fn\" data-fn=\"2\"></sup> The church later divided into the Svetambaras, whose monks wear white clothes, and the Digambaras, who are sky-clad, and the two disagree about the canon itself.<sup class=\"fn\" data-fn=\"4\"></sup>"
+"Jainism": "Jainism is the religion of the Jina, the victor, whose followers count 24 <i>tirthankaras</i> teaching the same law in succession, the last of them Mahavira, a contemporary of the Buddha.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its central discipline is non-injury: its oldest text holds that no living creature should be slain, treated with violence, abused, tormented or driven away, and a monk's first great vow renounces all killing, whether caused or merely consented to.<sup class=\"fn\" data-fn=\"2\"></sup> The church later divided into the Svetambaras, whose monks wear white clothes, and the Digambaras, who are sky-clad, and the two disagree about the canon itself.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Maurya_Empire": "The Maurya Empire was the first state to hold most of the Indian subcontinent, founded by Chandragupta about 321 BCE on the kingdom of Magadha and ruled from Pataliputra on the Ganges.<sup class=\"fn\" data-fn=\"1\"></sup> Its inscriptions survey India from the Hindu Kush to Ceylon but distinguish the king's own dominions, governed from the capital and from viceroyalties at Takshasila, Ujjayini and Kalinga, from border peoples counted within his influence rather than his rule.<sup class=\"fn\" data-fn=\"2\"></sup> The Puranas disagree about the succession but agree that the dynasty lasted 137 years, ending about 184 BCE when the last Maurya was killed by his own commander.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2622,7 +2623,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Romulus_Augustulus": "deposed 476 CE",
 "Mahajanapadas": "c. 600-500 BCE",
 "Upanishads": "older ones by 550 BCE",
-"Gautama_Buddha": "c. 563 – 483 BCE"
+"Gautama_Buddha": "c. 563 – 483 BCE",
+"Maurya_Empire": "c. 321 – 184 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3729,7 +3731,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Varna_(Hinduism)": ["varna","jati"],
 "Gautama_Buddha": ["Buddha","Siddhartha Gautama","Gotama"],
 "Buddhism": ["Buddhists"],
-"Jainism": ["Jains","Jaina"]
+"Jainism": ["Jains","Jaina"],
+"Maurya_Empire": ["Mauryan","Mauryas"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5561,7 +5564,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Varna_(Hinduism)": ["concept","practice","history","religion","india"],
 "Gautama_Buddha": ["person","religion","history","philosophy","india"],
 "Buddhism": ["concept","religion","practice","philosophy","india"],
-"Jainism": ["concept","religion","practice","philosophy","india"]
+"Jainism": ["concept","religion","practice","philosophy","india"],
+"Maurya_Empire": ["state","history","politics","india","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
