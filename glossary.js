@@ -1806,7 +1806,8 @@ window.GLOSSARY = {
 "Dikasteria": "The dikasteria were the jury-courts of Athens, open to any citizen over thirty who was not in debt to the Treasury or disfranchised, each juror carrying a boxwood ticket cut with his name, his father's name and his deme.<sup class=\"fn\" data-fn=\"1\"></sup> The <i>Athenian Constitution</i> says a juror voted with two bronze pebbles, one pierced and one whole, pressing them against the lamp-stand so that neither party could see which he was holding.<sup class=\"fn\" data-fn=\"2\"></sup> The votes were counted on a pierced board in front of the litigants and the herald called the number, an equal vote going to the defendant.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Misthos": "Misthos was the pay an Athenian drew for public service, which the <i>Athenian Constitution</i> says began when Pericles made jury service a paid office as a counter to Cimon's wealth.<sup class=\"fn\" data-fn=\"1\"></sup> It sets out the rates: a drachma for an ordinary meeting of the assembly and half that for the jury-courts, five obols for the council and an extra obol for its presidents.<sup class=\"fn\" data-fn=\"2\"></sup> Aristotle counts payment for public duties among the marks of a democratic constitution, and pay for attending the assembly came last of all, an obol at first and three by the time Agyrrhius had finished with it.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Strategos": "A strategos was one of the ten generals of Athens, elected by a show of hands as every military officer there was, where the other offices were filled by lot.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The <i>Athenian Constitution</i> says the same vote assigned each his command, the heavy infantry abroad, the defence of the country, the two posts in the Piraeus and the trierarchs, and sent the rest out as occasion arose.<sup class=\"fn\" data-fn=\"1\"></sup> A confirmatory vote was taken on each of them in every presidency, and one who lost it went before a jury-court, which assessed his penalty or returned him to his command.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Pericles'_citizenship_law": "Pericles' citizenship law confined Athenian standing to men of citizen birth on both sides, and the <i>Athenian Constitution</i> dates it to the archonship of Antidotus, giving the large number of the citizens as its reason.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says that when the king of Egypt sent forty thousand measures of grain to be shared among the citizens, prosecutions followed against men of illegal birth, a little under five thousand were sold, and fourteen thousand and forty were adjudged Athenians.<sup class=\"fn\" data-fn=\"2\"></sup> Years later, his legitimate sons dead, Pericles asked for the law he had carried to be suspended, and the Athenians let his illegitimate son be enrolled and given his name.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Pericles'_citizenship_law": "Pericles' citizenship law confined Athenian standing to men of citizen birth on both sides, and the <i>Athenian Constitution</i> dates it to the archonship of Antidotus, giving the large number of the citizens as its reason.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says that when the king of Egypt sent forty thousand measures of grain to be shared among the citizens, prosecutions followed against men of illegal birth, a little under five thousand were sold, and fourteen thousand and forty were adjudged Athenians.<sup class=\"fn\" data-fn=\"2\"></sup> Years later, his legitimate sons dead, Pericles asked for the law he had carried to be suspended, and the Athenians let his illegitimate son be enrolled and given his name.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"First_Peloponnesian_War": "The First Peloponnesian War is a modern name for the fighting between Athens and the Peloponnesians in the years between the Persian invasions and the war of 431.<sup class=\"fn\" data-fn=\"1\"></sup> Thucydides begins it with the defection of Megara from the Spartan alliance, which brought Athens the Megarid and long walls down to Nisaea, and which he calls the principal cause of Corinthian hatred for Athens.<sup class=\"fn\" data-fn=\"2\"></sup> It ended when Euboea and Megara revolted and a Peloponnesian army reached Eleusis, after which Athens made a truce for thirty years and gave up Nisaea, Pegae, Troezen and Achaea.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2622,7 +2623,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Ephialtes": "d. c. 461 BCE",
 "Reform_of_the_Areopagus": "462 BCE",
 "Pericles": "c. 495 – 429 BCE",
-"Pericles'_citizenship_law": "451 BCE"
+"Pericles'_citizenship_law": "451 BCE",
+"First_Peloponnesian_War": "c. 460 – 446 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3758,7 +3760,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Dikasteria": ["dikasteria","dikasterion","dikastery","jury-court","jury-courts"],
 "Misthos": ["misthos"],
 "Strategos": ["strategos","strategoi","strategus"],
-"Pericles'_citizenship_law": ["Periclean citizenship law","citizenship law of Pericles"]
+"Pericles'_citizenship_law": ["Periclean citizenship law","citizenship law of Pericles"],
+"First_Peloponnesian_War": ["first Peloponnesian War"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5595,7 +5598,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Dikasteria": ["institution","history","greece","politics","athens"],
 "Misthos": ["concept","history","greece","politics","athens"],
 "Strategos": ["title","history","greece","politics","warfare"],
-"Pericles'_citizenship_law": ["event","history","greece","politics","athens"]
+"Pericles'_citizenship_law": ["event","history","greece","politics","athens"],
+"First_Peloponnesian_War": ["event","history","greece","warfare","athens"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
