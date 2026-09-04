@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-575` Conakry.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-576` Porto-Novo.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -837,6 +837,25 @@ things: the guide writes *"the American Embassy at Salisbury (now Harare)"* with
 the card says Salisbury was the city's name at the time and dates nothing; and the glossary term was
 drafted with the alias *"Salisbury, Rhodesia"*, which is a comma-bearing string no prose contains, then
 **left with no alias at all**, since bare *Salisbury* is also a city in England and in Maryland.
+
+**`gw-575` CONAKRY IS THE SECOND THIN GUIDE PAGE IN A ROW, AND THE FIX IS THE SAME ONE: FIND THE UN
+ADMISSION AND READ THE ORDER OF THE DATES.** The Guinea page gives two facts — recognition on 1 November
+1958 by a letter from Eisenhower to Sékou Touré, and the embassy established on 13 February 1959 — and
+General Assembly resolution 1325 (XIII) puts the admission to the United Nations at the 789th plenary
+meeting on **12 December 1958**, which falls BETWEEN them. That ordering is the card's own subject:
+recognition, then a seat at the United Nations, then an embassy. **Where a guide page yields only two
+dates, the admission record is the third, and its position in the sequence is often more interesting than
+the date itself.**
+
+**AND TWO CLAIMS WERE CUT IN DRAFT FOR THE SAME REASON HARARE'S SUPERLATIVE WAS.** The draft said French
+West Africa's administrative seat was at Dakar rather than Conakry — true, and in NEITHER guide page, the
+Guinea one saying only "part of French West Africa" and the Senegal one nothing about the federation's
+capital — so it went. And it said the order was "unusual: most capitals in this deck…", which is a claim
+about FOLIO rather than about the world; the sentence now states the sequence and calls it less usual than
+the reverse, without counting anything. **A card may not cite the deck it is in**, the same rule that
+retired an Astana sentence. Note also that the 1958 admission PDF has **no text layer** — the pre-1970 UN
+scans do not — so the citation rests on the record page, which states the title, the plenary meeting and
+the date, exactly as Senegal's did.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
