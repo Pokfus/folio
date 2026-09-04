@@ -1852,7 +1852,8 @@ window.GLOSSARY = {
 "Mbabane": "Mbabane is the administrative capital of Eswatini, a landlocked country in Southern Africa, and the United Nations gives the city 68,000 people in a figure its footnotes date to 2018.<sup class=\"fn\" data-fn=\"1\"></sup> The country has more than one seat of government, and the United Nations states the division in a footnote of its own: Mbabane is the administrative capital and Lobamba the legislative one, with the Commonwealth adding the judiciary to Mbabane and the Southern African Development Community the royal seat to Lobamba.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It has been the seat of an independent state since 6 September 1968, when the country, then called Swaziland, gained independence and the United States established its embassy there.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Djibouti_(city)": "Djibouti is the capital of the country of the same name, which the United Nations places in Eastern Africa, and it gives the city 568,800 people in a figure dated 2019 and defined as the <i>cercle</i>, the administrative district left by French rule.<sup class=\"fn\" data-fn=\"1\"></sup> That district holds close to half of the country's 1,184,000 people, and the World Bank's series for the largest urban agglomeration carries the same estimate forward to 616,332 by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The city has been the seat of an independent state since 27 June 1977, when the American consulate general to the former French Territory of the Afars and the Issas became an embassy there.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Suva": "Suva is the capital of Fiji, an island country the United Nations places in Melanesia, and the same source gives the city 178,300 people in a figure it footnotes to 2018.<sup class=\"fn\" data-fn=\"1\"></sup> It became the seat of an independent state on 10 October 1970, when Fiji ended the British colonial rule that had begun in 1874, and the country around it is credited with 933,000 people on 18,272 square kilometres.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> The American embassy there was established on 1 November 1971, though no United States ambassador was resident in the city until 1978, earlier ones having lived at Wellington in New Zealand.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Moroni": "Moroni is the capital of the Comoros, an island country the United Nations places in Eastern Africa, and the same source gives the city 62,400 people in a figure it footnotes to 2018.<sup class=\"fn\" data-fn=\"1\"></sup> The country around it holds 883,000 people and is published with two different areas, 2,235 square kilometres by the United Nations and 1,861 by the World Bank, neither of which explains the difference.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American embassy stood in the city only between 26 August 1985 and 30 September 1993, diplomatic relations having begun eight years before it opened and been conducted since its closure from Port Louis and then Antananarivo.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Moroni": "Moroni is the capital of the Comoros, an island country the United Nations places in Eastern Africa, and the same source gives the city 62,400 people in a figure it footnotes to 2018.<sup class=\"fn\" data-fn=\"1\"></sup> The country around it holds 883,000 people and is published with two different areas, 2,235 square kilometres by the United Nations and 1,861 by the World Bank, neither of which explains the difference.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American embassy stood in the city only between 26 August 1985 and 30 September 1993, diplomatic relations having begun eight years before it opened and been conducted since its closure from Port Louis and then Antananarivo.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Georgetown,_Guyana": "Georgetown is the capital of Guyana, a country the United Nations places in South America, and the same source gives the city 109,900 people in a figure it footnotes to 2018.<sup class=\"fn\" data-fn=\"1\"></sup> The country around it is thinly peopled, 836,000 people across 214,969 square kilometres at a density of about four to the square kilometre, so roughly an eighth of them live in the capital.<sup class=\"fn\" data-fn=\"1\"></sup> It became the seat of an independent state on 26 May 1966, the day the United States recognised Guyana by establishing its embassy in the city, and Guyana joined the Commonwealth the same year.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3719,7 +3720,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Dublin": ["Baile Átha Cliath"],
 "San_José": ["San Jose"],
 "Port-of-Spain": ["Port of Spain"],
-"Djibouti_(city)": ["Djibouti City"]
+"Djibouti_(city)": ["Djibouti City"],
+"Georgetown,_Guyana": ["Georgetown"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5600,7 +5602,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Mbabane": ["place","city","geography","capital","eswatini","africa"],
 "Djibouti_(city)": ["place","city","geography","capital","djibouti","africa"],
 "Suva": ["place","city","geography","capital","fiji","oceania"],
-"Moroni": ["place","city","geography","capital","comoros","africa"]
+"Moroni": ["place","city","geography","capital","comoros","africa"],
+"Georgetown,_Guyana": ["place","city","geography","capital","guyana","south america"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
