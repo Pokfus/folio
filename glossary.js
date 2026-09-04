@@ -2005,7 +2005,8 @@ window.GLOSSARY = {
 "First_Samnite_War": "The First Samnite War began in 343 BCE, when Rome answered a Campanian appeal against Samnium, sent the fetials to demand redress and had the people vote a declaration of war.<sup class=\"fn\" data-fn=\"1\"></sup> Both consuls took the field, winning below Mount Gaurus, near Saticula and at Suessula, and both triumphed.<sup class=\"fn\" data-fn=\"2\"></sup> A mutiny among the troops wintering in Campania, unrest at Rome and the cooling of the Latins brought a treaty in 341 BCE that renewed the old alliance and left the Samnites free to make peace or war with the Sidicini as they chose, which is hard to reconcile with the account that makes Samnium humbled.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Second_Samnite_War": "The Second Samnite War began in 326 BCE, when Samnite and Nolan troops were put into the Greek cities of Palaepolis and Neapolis after Rome had declared war on them; Palaepolis fell to a plot from within and Neapolis kept the Roman alliance ever after.<sup class=\"fn\" data-fn=\"1\"></sup> It was fought in two theatres, on the Campanian frontier and up the Volturnus into Samnium, and in Apulia in support of new allies there.<sup class=\"fn\" data-fn=\"2\"></sup> A Roman army was trapped at Caudium in 321 BCE and Samnite victories followed, but Rome recovered, sacked the Pentrian capital of Bovianum twice, and made peace in 304 BCE on terms the sources do not agree about.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Caudine_Forks": "The Caudine Forks were a defile in Samnium, in the central Apennines of Italy, where a Roman army was surrounded and forced to surrender in 321 BCE during the second war between Rome and the Samnites.<sup class=\"fn\" data-fn=\"1\"></sup> Livy places the trap between two narrow wooded passes enclosing a grassy plain, both of them barricaded once the legions had marched in, and reports that the Samnite commander Gaius Pontius disarmed the men and sent them under the yoke rather than free or kill them.<sup class=\"fn\" data-fn=\"1\"></sup> Rome afterwards disowned the terms and the fighting resumed, and later scholarship has held that the surviving accounts of the episode are heavily reworked.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Maniple_(military_unit)": "A maniple, in Latin <i>manipulus</i>, was a subdivision of the Roman legion used in the centuries between the abandoning of the phalanx and the adoption of the cohort as the standard unit.<sup class=\"fn\" data-fn=\"2\"></sup> The name is derived from <i>manus</i> and first meant a wisp of hay, which Roman tradition made the earliest military standard, so that the word came to mean the men serving under one ensign.<sup class=\"fn\" data-fn=\"2\"></sup> Polybius describes each grade of the heavy infantry being divided into ten such companies, each with two centurions, two rear-rank officers and two standard-bearers, so that it should never be without a commander.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Maniple_(military_unit)": "A maniple, in Latin <i>manipulus</i>, was a subdivision of the Roman legion used in the centuries between the abandoning of the phalanx and the adoption of the cohort as the standard unit.<sup class=\"fn\" data-fn=\"2\"></sup> The name is derived from <i>manus</i> and first meant a wisp of hay, which Roman tradition made the earliest military standard, so that the word came to mean the men serving under one ensign.<sup class=\"fn\" data-fn=\"2\"></sup> Polybius describes each grade of the heavy infantry being divided into ten such companies, each with two centurions, two rear-rank officers and two standard-bearers, so that it should never be without a commander.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Third_Samnite_War": "The Third Samnite War was fought between Rome and the Samnites from 298 to 290 BCE, the last of the three conflicts that decided the control of central and southern Italy.<sup class=\"fn\" data-fn=\"2\"></sup> It opened when envoys from Lucania asked the Roman senate for help, saying the Samnites had pressed them into an alliance and invaded when they refused, and it widened as the Samnites drew the Etruscans, Umbrians and Gauls into a league.<sup class=\"fn\" data-fn=\"1\"></sup> That coalition was broken at Sentinum in 295 BCE, but the Samnites fought on for five more years before laying down their arms.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2804,7 +2805,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "First_Samnite_War": "343 – 341 BCE",
 "Second_Samnite_War": "326 – 304 BCE",
 "Caudine_Forks": "321 BCE",
-"Maniple_(military_unit)": "c. 4th – 1st century BCE"
+"Maniple_(military_unit)": "c. 4th – 1st century BCE",
+"Third_Samnite_War": "298 – 290 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6071,7 +6073,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "First_Samnite_War": ["event","history","warfare","italy"],
 "Second_Samnite_War": ["event","history","warfare","italy"],
 "Caudine_Forks": ["event","history","warfare","italy"],
-"Maniple_(military_unit)": ["institution","warfare","history","rome"]
+"Maniple_(military_unit)": ["institution","warfare","history","rome"],
+"Third_Samnite_War": ["event","history","warfare","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
