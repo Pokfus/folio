@@ -1759,7 +1759,8 @@ window.GLOSSARY = {
 "Leonidas_I": "Leonidas I was the Agiad king of Sparta who commanded the Greeks at Thermopylae in 480 BCE and was killed holding the pass against Xerxes.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says the kingship reached him unexpectedly, as a younger son of Anaxandrides who succeeded only after his elder brothers Cleomenes and Dorieus died, and that he took three hundred Spartans chosen for having sons.<sup class=\"fn\" data-fn=\"1\"></sup> He reports that the Pythia had told the Spartans either their city must fall or a king of Heracles' line must die, and that Xerxes had the dead man's head cut off and impaled; Pausanias later saw his tomb at Sparta, the bones brought home forty years after the battle.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Ephialtes_of_Trachis": "Ephialtes of Trachis is the man Herodotus names as having shown Xerxes the mountain path by which the Greek force at Thermopylae was surrounded in 480 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus calls him a Malian, the son of Eurydemus, says he acted expecting a great reward, and rejects a rival account naming two other guides on the ground that the Amphictyons set a price on his head and not on theirs.<sup class=\"fn\" data-fn=\"1\"></sup> He fled to Thessaly, returned to Anticyra and was killed there by a Trachinian named Athenades for what Herodotus says was another reason altogether; Diodorus tells the same betrayal without any name, calling the guide simply a Trachinian who knew the mountains.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Thespiae": "Thespiae was a city of southern Boeotia lying just south of Mount Helicon, above the Crisaean Gulf, with a port at Creusa.<sup class=\"fn\" data-fn=\"2\"></sup> It was one of only two Boeotian cities, Plataea the other, that did not give earth and water to Xerxes, and it sent 700 hoplites to Thermopylae in 480 BCE, all of whom stayed with Leonidas after the other allies were dismissed and died there.<sup class=\"fn\" data-fn=\"1\"></sup> The Persians burnt the town, whose people had withdrawn to the Peloponnese, and 1,800 Thespian survivors mustered at Plataea the next year without hoplite armour; Strabo notes that Thespiae and Tanagra alone of Boeotia's cities still stood in his day.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Battle_of_Artemisium": "The Battle of Artemisium was a naval engagement fought off the northern coast of Euboea in 480 BCE, on the same days as Thermopylae, between a Greek fleet of 271 triremes under the Spartan Eurybiades and the larger fleet of Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> The Greeks fought to keep the Persians out of the Euripus, and over three days neither side won a decisive result, while a Persian squadron of 200 ships sent round the island was wrecked in a storm.<sup class=\"fn\" data-fn=\"1\"></sup> The fleet withdrew towards Salamis on hearing that Leonidas had been killed; Diodorus gives a different account, of two battles fought after Thermopylae had fallen, and counts 280 Greek triremes.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Battle_of_Artemisium": "The Battle of Artemisium was a naval engagement fought off the northern coast of Euboea in 480 BCE, on the same days as Thermopylae, between a Greek fleet of 271 triremes under the Spartan Eurybiades and the larger fleet of Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> The Greeks fought to keep the Persians out of the Euripus, and over three days neither side won a decisive result, while a Persian squadron of 200 ships sent round the island was wrecked in a storm.<sup class=\"fn\" data-fn=\"1\"></sup> The fleet withdrew towards Salamis on hearing that Leonidas had been killed; Diodorus gives a different account, of two battles fought after Thermopylae had fallen, and counts 280 Greek triremes.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Evacuation_of_Athens": "The evacuation of Athens was the removal of the Athenian population from Attica in 480 BCE, after the defeat at Thermopylae opened the road south to the army of Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> Most families were sent to Troezen, which voted to maintain them at public cost, and others to Aegina and to Salamis, while the men of fighting age went aboard the fleet.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Herodotus reports that a snake kept in the sacred precinct on the acropolis left its monthly honey-cake untouched and the priestess took this for the goddess abandoning the city; Plutarch presents the sign as Themistocles' own management of a reluctant assembly.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2543,7 +2544,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Thermopylae": "480 BCE",
 "Leonidas_I": "died 480 BCE",
 "Ephialtes_of_Trachis": "fl. 480 BCE",
-"Battle_of_Artemisium": "480 BCE"
+"Battle_of_Artemisium": "480 BCE",
+"Evacuation_of_Athens": "480 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5436,7 +5438,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Leonidas_I": ["ruler","history","warfare","politics","greece"],
 "Ephialtes_of_Trachis": ["person","history","warfare","greece"],
 "Thespiae": ["city","geography","history","greece"],
-"Battle_of_Artemisium": ["battle","history","warfare","greece","iran"]
+"Battle_of_Artemisium": ["battle","history","warfare","greece","iran"],
+"Evacuation_of_Athens": ["event","history","warfare","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
