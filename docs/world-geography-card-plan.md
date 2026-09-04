@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-681` Bridgetown.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-682` Papeete.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -3203,6 +3203,49 @@ a ridge panorama with the city as a smudge in the middle distance. What shipped 
 frame, taken from the youth hostel. **Filter the category by licence AND read the picture** — three of
 the four leading candidates here failed on licence or on subject, and neither failure is visible in a
 file name.
+
+**`gw-681` BRIDGETOWN HAS THE EARLIEST AMERICAN DATE IN THE WHOLE CAPITALS RUN, AND IT IS A
+CONSULATE RATHER THAN AN EMBASSY.** The recognition guide's summary paragraph — the one C12 found
+carries the datable claim where the Recognition heading does not — states that "[t]he United States
+maintained a consular presence in Barbados beginning June 11, 1823, when Barbados was still a British
+colony." That is 143 years before independence, and it is the first time in this run that the guide's
+consular date has been the interesting one. **Read the summary paragraph as well as the two headed
+sections**; on a long-colonial territory it is where the pre-independence record lives.
+
+**AND BARBADOS COLLAPSES THE EMBASSY LIFE-CYCLE TO A SINGLE ACT.** The guide says the United States
+"recognized Barbados' independence that same day when it opened the American Embassy in Bridgetown",
+and dates the embassy's establishment to 30 November 1966 with George Dolgin as chargé d'affaires ad
+interim. Recognition, relations and the mission are one event on one day — the opposite end of the
+range from Port Vila, where the embassy opened forty-four years after independence, and from Malé,
+where it never opened at all. The guide also states the standing arrangement in plain words: the
+United States "has used Bridgetown as a base for diplomatic relations with Barbados and the region",
+which is a fact about the CITY rather than about the country and belongs on a capital card.
+
+**THE CAPITAL-SHARE CORROBORATION HELD A SECOND TIME, AT A QUITE DIFFERENT LEVEL.** Nouméa's 197,800
+against 71.1 per cent urban, and now Bridgetown's 89,200 against 31.2 per cent — 89,200 over the World
+Bank's 280,711 for 2018 is 31.8 per cent — so in both cases the capital figure is essentially the
+whole urban population, at seventy per cent and at a third. **The test travels; the level does not.**
+A low urban share is not evidence that the capital figure is a narrow commune boundary.
+
+**THREE SOURCES ON THE AREA, AGREEING TO ONE SQUARE KILOMETRE, AND DISAGREEING ON THE POPULATION.**
+UNdata gives 431 km², the World Bank and the Commonwealth both 430. The populations part company the
+usual way — the Commonwealth's 287,370 for 2022 against the World Bank's 282,318, about 1.8 per cent
+— which is small enough that neither is a correction of the other, and the card states both rather
+than choosing. Note also that Barbados' population is the FLATTEST the deck has met: 278,990 in 2015
+to 282,623 in 2025, 1.3 per cent over a decade, so C8's stale-population diagnostic has nothing to
+find here and a figure written five years ago is still right.
+
+**PICTURE: THE FIRST NAME-MATCH TRAP OF THE RUN WAS THE PUBLIC-DOMAIN ONE.**
+`Bridgetown, Barbados.jpg` is public domain, 4288×2845, and named exactly as a card wants — and is an
+**ISS photograph**, the refused family, which no metadata field says. `Bridgetown, Barbados
+(51090743958).jpg` is a moored tall ship and `Bridgetown, Barbados - panoramio.jpg` is a beach lounger
+seen over the photographer's own feet. The two panoramas in the category are 7.6:1 and 5.4:1, too wide
+for a card frame. What shipped is `Bridgetown aerial.JPG` (P. Lechien, CC0, 1936×2592): an **oblique**
+aerial from an aircraft window, clouds below the horizon, the deep-water port, the Careenage and the
+city inland — portrait, and the first portrait picture in this run, which the 16:9 frame letterboxes
+rather than crops. **An oblique aerial is a view; a vertical one is a diagram** — that is the line the
+satellite refusal is really drawing, and it is worth stating because a straight ban on "from the air"
+would have thrown this one away too.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
