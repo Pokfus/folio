@@ -2592,7 +2592,17 @@
   async function supaSignUp(email, username, name, pw) {
     const r = await supaFetch("/auth/v1/signup", { method: "POST", auth: false, body: { email, password: pw, data: { username, name } } });
     if (!r.ok) return { error: supaErrMsg(r, "Could not create the account.") };
-    if (r.data && r.data.access_token) { supaAdoptSession(r.data); await supaAfterSignIn(); supaRemember(); return { ok: true } }
+    if (r.data && r.data.access_token) {
+      supaAdoptSession(r.data); await supaAfterSignIn(); supaRemember();
+      /* WHAT THE ACCOUNT IS ACTUALLY CALLED, WHICH IS NOT ALWAYS WHAT WAS ASKED FOR (Sep 2026, on a bug
+         report about creating an account). `handle_new_user` catches a unique_violation on the username
+         and signs the reader up anyway under `scholar_<8 hex>` — the right call, since refusing the whole
+         signup over a taken handle would be worse — but NOTHING told them: the form said "Account created
+         — welcome!", the account was named something else, signing in by the username they chose failed,
+         and no friend could find them by it. The profile has just been loaded, so the real handle is in
+         hand; hand it back and let the caller say so. */
+      return { ok: true, username: (SUPA_PROFILE && SUPA_PROFILE.username) || username };
+    }
     return { ok: true, confirm: true };   // email confirmation is on: no session until the emailed link is clicked
   }
   /* SIGNING IN WITH A USERNAME (Aug 2026, on request). Supabase authenticates on an EMAIL, so a username
@@ -2700,6 +2710,33 @@
     await supaAfterSignIn();
     supaRemember();
     return { ok: true };
+  }
+  /* CHANGING THE USERNAME (Sep 2026, on a bug report about creating an account). It could not be changed
+     at all: the account page's field edits the DISPLAY NAME, and `username` — the handle a reader signs in
+     with and the one friends look them up by — was written once by the signup trigger and never again.
+     That is survivable while signup always grants the handle asked for, and it does not: `handle_new_user`
+     falls back to `scholar_<8 hex>` when the requested one is taken, so a reader could be permanently
+     landed with a handle they never chose, unable to sign in by the one they did and invisible to anybody
+     searching for them. The schema has granted `update (username, name, avatar)` to `authenticated` since
+     the first block; nothing had ever used the first column.
+     The uniqueness is the DATABASE's answer and not a pre-flight check: `profiles` is readable by
+     signed-in users, so a look-up first is possible here — and it would still be a race, and it would put
+     a second, weaker copy of the rule in the client. The unique index is the rule; this reads its refusal
+     and says it in words. */
+  async function supaSetUsername(name) {
+    if (!supaLoggedIn()) return { error: "You are not signed in." };
+    const u = uKey(name);
+    if (!/^[a-z0-9_]{3,24}$/.test(u)) return { error: "Username: 3–24 characters — letters, numbers and underscores only." };
+    if (SUPA_PROFILE && SUPA_PROFILE.username === u) return { error: "That is already your username." };
+    const r = await supaFetch("/rest/v1/profiles?id=eq." + SUPA.user.id, { method: "PATCH", body: { username: u } });
+    if (!r.ok) {
+      const m = supaErrMsg(r, "");
+      if (r.status === 409 || /duplicate key|unique/i.test(String(m))) return { error: "That username is already taken." };
+      return { error: m || "Could not change the username." };
+    }
+    if (SUPA_PROFILE) SUPA_PROFILE.username = u;
+    supaRemember();   // the switcher's button shows the handle, so it has to follow the change
+    return { ok: true, username: u };
   }
   async function supaSetName(name) {
     if (!supaLoggedIn()) return;
@@ -9629,11 +9666,23 @@
     coast_italy: { files: ["coast/italy.js"], after: hiresCoastIngest },
     coast_greece: { files: ["coast/greece.js"], after: hiresCoastIngest },
     coast_china: { files: ["coast/china.js"], after: hiresCoastIngest },
+    /* HI-RES RIVERS for the same two frames (Sep 2026, on request). Their own bundles rather than files
+       inside coast_italy / coast_greece: the coast is what a window is drawn ON and the rivers are a layer
+       over it, the coast files are warmed for China too where there is no river file, and a reader on a
+       thin connection who gets one and not the other still has a better map than before. Warmed at IDLE by
+       the locator windows of the collection that frames it, never awaited — the card paints on rivers.js
+       and the water sharpens when the file lands. ~89 KB and ~47 KB. */
+    river_italy: { files: ["rivers/italy.js"], after: hiresRiverIngest },
+    river_greece: { files: ["rivers/greece.js"], after: hiresRiverIngest },
     /* The glossary's citations + illustrations. Warmed at IDLE after boot (see the warm below) rather
        than fetched on the first popup, because popups are common and a reader should not wait: the
        point is only to keep 1.29 MB off the path that blocks first paint. openGlossWin awaits it for
        the reader who beats the warm. */
     glossExtra: { files: ["glossary-extra.js"], after: glossExtraIngest },
+    /* An artefact's description, citations and picture — 94% of artefacts.js, which is EAGER, and not
+       one of the three read until a chest opens or the Reliquary is visited. Warmed at idle after boot
+       and awaited by the four surfaces that render prose or a picture. See artefactExtraIngest. */
+    artefactExtra: { files: ["artefacts-extra.js"], after: artefactExtraIngest },
     // everything else the Atlas needs: historical eras, physical layers, per-country prose + figures
     atlas: {
       files: ["uk.js", "lakes.js", "rivers.js", "water.js", "cities.js", "timeline.js", "countries.js", "country-stats.js", "country-spans.js", "country-years.js", "country-sources.js"],
@@ -9677,6 +9726,35 @@
      is the same rule the atlas bundle's hook follows for window.TIMELINE: a lazy file overwrites
      what applyAdminEdits() already did, so the overlay has to go back on afterwards.
      A QUEUE rather than a slot, like the i18n files, so nothing is lost if the file lands twice. */
+  /* THE ARTEFACT POOL'S HEAVY HALF, arriving after boot (bundle "artefactExtra").
+     `desc`, `sources` and `image` were 237.5 KB of artefacts.js's 251 -- 94% of a file on the EAGER
+     path -- and nothing reads any of them until a chest opens or the Reliquary is visited. What stays
+     eager is the index, because progStats counts legendaries on every grade and needs `rarity` alone.
+
+     IT MERGES BACK INTO `window.ARTEFACTS` AND THEN REBUILDS, and both halves are load-bearing.
+     `window.ARTEFACTS` is the pool's own baseline -- `artefactIsShipped` and `revertArtefact` read it
+     directly, and `artefactsMerged` re-applies ADMIN_EDITS over it on every call -- so merging into it
+     and calling refreshArtefacts() is what puts the overlay back on top of what just landed. This is
+     glossExtraIngest's re-seed in the shape a pool with no separate PRISTINE snapshot takes: without
+     it, Admin -> Artefacts' Revert would compare a real description against nothing and DELETE it.
+     A QUEUE rather than a slot, like the i18n files, so nothing is lost if the file lands twice. */
+  function artefactExtraIngest() {
+    const q = window.ARTEFACTS_EXTRA_IN || [];
+    window.ARTEFACTS_EXTRA_IN = [];
+    const base = Array.isArray(window.ARTEFACTS) ? window.ARTEFACTS : [];
+    const by = {};
+    base.forEach((a) => { if (a && a.id) by[a.id] = a; });
+    q.forEach((inc) => {
+      const t = inc.ARTEFACTS_EXTRA || {};
+      Object.keys(t).forEach((id) => {
+        // an id the index does not carry is NOT resurrected: the index is what decides the pool, and a
+        // row left behind by a retired artefact must not walk back in carrying only prose
+        if (!by[id]) return;
+        ["desc", "sources", "image"].forEach((k) => { if (t[id][k] !== undefined) by[id][k] = t[id][k]; });
+      });
+    });
+    refreshArtefacts();   // rebuilds from the enriched base, re-applying ADMIN_EDITS on top
+  }
   function glossExtraIngest() {
     const q = window.GLOSSARY_EXTRA_IN || [];
     window.GLOSSARY_EXTRA_IN = [];
@@ -13682,8 +13760,8 @@
 
      The guards are the whole of the difficulty, because a false positive here TAKES A PAGE AWAY:
        · touch only. A trackpad's horizontal scroll arrives as wheel, and a mouse drag is a selection.
-       · never out of a horizontal scroller. The Atlas sheet's pager, the heatmap and the theme row all
-         scroll sideways, and a swipe that starts in one belongs to it — walked up the ancestor chain rather
+       · never out of a horizontal scroller. The heatmap and the theme row scroll sideways (so did the
+         Atlas sheet's pager, until Sep 2026), and a swipe that starts in one belongs to it — walked up the ancestor chain rather
          than listed by class, so a scroller added later is covered without anyone remembering this.
        · never while an overlay is up, never mid-gesture on a control, never while grading.
      And it is deliberately generous on distance (SWIPE_MIN) and strict on angle: a diagonal is a scroll that
@@ -18574,42 +18652,6 @@
      mouse to have focused it with. A tablet is as much a phone as a phone here. */
   function touchDevice() { return !!(window.matchMedia && window.matchMedia("(hover:none)").matches); }
 
-  /* ---------- one page per swipe ----------
-     The Atlas place panel's sections are swiped one page at a time on a phone, and a gesture must move
-     exactly ONE of them: a flick that carries two along skips a whole section, and silently,
-     since the reader only sees where it lands. `scroll-snap-stop:always` in the stylesheet is the real fix
-     and does the work wherever it is supported; this is the net under it, for the same reason the footnote
-     numbering has one — the failure is invisible, so it must not depend on a single mechanism.
-     It records the page the gesture STARTED on and, once the scroller has settled, pulls it back to one
-     step away if snapping landed further. The correction is deliberately made after the settle rather than
-     by fighting the gesture: nothing here can predict a fling, and a scroller wrestled mid-flick feels
-     broken in a way an overshoot does not. */
-  function wireOnePageSwipe(el) {
-    if (!el || el._onePage) return;
-    el._onePage = true;
-    let from = -1, settleT = 0;
-    // in RTL a scroller's scrollLeft runs NEGATIVE from 0 at the right edge, so pages are counted off its
-    // magnitude and the corrective scroll is signed back — Arabic is one of the ten site languages
-    const dirSign = () => (getComputedStyle(el).direction === "rtl" ? -1 : 1);
-    const pageAt = () => Math.round(Math.abs(el.scrollLeft) / (el.clientWidth || 1));
-    const mark = () => { if (from < 0) from = pageAt(); };
-    el.addEventListener("pointerdown", mark, { passive: true });
-    el.addEventListener("touchstart", mark, { passive: true });   // pointer events cover touch, but not on every engine we ship to
-    el.addEventListener("scroll", () => {
-      clearTimeout(settleT);
-      settleT = setTimeout(() => {
-        const w = el.clientWidth || 1, at = pageAt();
-        const last = Math.max(0, Math.round(el.scrollWidth / w) - 1);
-        const start = from;
-        from = -1;   // cleared BEFORE the corrective scroll, whose own scroll events must not re-enter this
-        if (start >= 0 && Math.abs(at - start) > 1) {
-          const to = Math.max(0, Math.min(last, start + (at > start ? 1 : -1)));
-          el.scrollTo({ left: dirSign() * to * w, behavior: prefersReducedMotion() ? "auto" : "smooth" });
-        }
-      }, 150);
-    }, { passive: true });
-  }
-
   /* ---------- levels / XP ----------
      XP = the number of distinct cards a user has studied. Each level costs `XP_PER_LEVEL × level` more cards
      (5, 10, 15, …), so the bar starts at 0/5 and the requirement grows every level. The step is FIVE rather
@@ -19465,6 +19507,11 @@
   function openArtefactWin(id) {
     const a = ARTEFACT_BY_ID[id];
     if (!a) return;
+    /* The plate IS the lazy half — description, citations and picture — so on the rare open that beats
+       the idle warm, wait and re-enter rather than drawing an empty plate. Re-entering rather than
+       filling slots in place (which is what openGlossWin does) because unlike a definition there is
+       nothing else on a plate to look at meanwhile: without its prose it is a title over white space. */
+    if (!dataReady("artefactExtra")) { ensureData("artefactExtra").then(() => openArtefactWin(id)); return; }
     closeArtefactWin();
     const own = ownsArtefact(id);
     const ov = document.createElement("div");
@@ -19503,6 +19550,9 @@
   let _collectionClose = null;
   function closeCollectionWin() { if (_collectionClose) _collectionClose(); }
   function openCollectionWin(prog, own) {
+    // a grid of tiles, and a tile's art is in the lazy half — wait and re-enter rather than opening a
+    // window of placeholders, the same call PAGES.reliquary makes about the same grid
+    if (!dataReady("artefactExtra")) { ensureData("artefactExtra").then(() => openCollectionWin(prog, own)); return; }
     closeCollectionWin();
     const p = prog || S;
     const ov = document.createElement("div");
@@ -19530,6 +19580,13 @@
      over it, redrawing the very thing they are looking through. Both blocks are optional (a friend's page
      and the signed-out page carry one or neither), so each is guarded. */
   function refreshReliquary() {
+    /* THE ACCOUNT PAGE'S TILES ARE THE ONE SURFACE THAT DOES NOT WAIT, deliberately: the showcase and
+       the Reliquary strip sit inside a page full of other things a reader came for, so holding the
+       whole page for a picture would be the wrong trade — they draw at once with the rarity placeholder
+       and fill in when the bundle lands. This is openGlossWin's rule, not PAGES.reliquary's: re-fill
+       what arrived rather than take the page away and give it back. Fire-and-forget, and `ensureData`
+       resolves rather than rejects, so a failed bundle simply leaves the placeholders standing. */
+    if (!dataReady("artefactExtra")) ensureData("artefactExtra").then(() => { if (current) refreshReliquary(); });
     /* The waiting-chests notice lives on the HOME page now (Aug 2026, on request) and the two Reliquary
        blocks on the account page, so this runs on either — a chest opened from the home page has to be
        able to take its own notice away. It is replaced in place rather than through render(), for the
@@ -19636,6 +19693,16 @@
   const RARITY_RANK = {};
   RARITIES.forEach((r, i) => { RARITY_RANK[r.id] = i; });   // common 0 … legendary 3
   PAGES.reliquary = function (root) {
+    /* Every tile here carries the artefact's own picture, which lives in the lazy half — so a page drawn
+       before the bundle lands is a grid of rarity-coloured placeholders, which is not wrong so much as
+       it is the Reliquary with its contents removed. `render()` re-invokes the current page, so the
+       placard is replaced the moment the file arrives. */
+    if (!dataReady("artefactExtra")) {
+      root.innerHTML = '<div class="page-head"><span class="eyebrow">Your collection</span><h1>Reliquary</h1></div>' +
+        '<div class="data-loading">Opening the Reliquary…</div>';
+      ensureData("artefactExtra").then(() => { if (current && current.name === "reliquary") render(); });
+      return;
+    }
     const owned = ownedArtefacts(S);            // already newest-found first
     const at = S.artefacts || {};
     const total = ARTEFACTS.length;
@@ -19752,6 +19819,11 @@
   function openChestPop(opts) {
     opts = opts || {};
     closeChestPop();
+    /* The prose and the picture are lazy (bundle "artefactExtra"), so ask for them the moment the chest
+       appears rather than when the lid is tapped: the reader has to read the hint and reach for the
+       chest, which is the whole of the head start this needs. The tap then awaits — a plate revealed
+       with an empty description is the one outcome worth a spinner. */
+    ensureData("artefactExtra");
     const ov = document.createElement("div");
     ov.className = "chest-pop";
     const nothingLeft = !rollChestItem();
@@ -19790,11 +19862,23 @@
       toast(chestCount() === 1 ? "Saved — it's waiting in your account." : chestCount() + " chests waiting in your account.");
     }, true);
     let opening = false;
-    btn.addEventListener("click", () => {
-      if (opening) return;
+    /* `pre` carries an ALREADY-ROLLED item back in after the wait below. Re-rolling there would be
+       harmless — nothing has been claimed yet — but it would hand the reader a different artefact from
+       the one the wait was for, and a roll that happens twice is a roll nobody can reason about. */
+    function openLid(pre) {
+      if (opening && !pre) return;
       opening = true;
-      const item = rollChestItem();
+      const item = pre || rollChestItem();
       if (!item) { close(); return; }
+      /* The reveal draws a description, a citation list and a picture, all of which are in the lazy
+         half — so on the rare tap that beats the idle warm, wait for it. A plate revealed with an empty
+         description is the one outcome here worth a moment's delay: this is the site congratulating the
+         reader, and it must not congratulate them with a blank. */
+      if (item.kind === "artefact" && !dataReady("artefactExtra")) {
+        ov.querySelector("#chestHint").textContent = "Opening…";
+        ensureData("artefactExtra").then(() => { if (_chestClose === close) openLid(item); });
+        return;
+      }
       const isTheme = item.kind === "theme";
       const a = item.artefact;
       /* A THEME OPENS AS AN EPIC, and that is a decision rather than a placeholder: the whole chest
@@ -19844,7 +19928,8 @@
         addAct("Close", close, true);
         unitizeTree(rev);
       }, dur);
-    });
+    }
+    btn.addEventListener("click", () => openLid());
     function addAct(label, fn, ghost) {
       const acts = ov.querySelector("#chestActs");
       acts.hidden = false;
@@ -28028,8 +28113,8 @@
      release build"). `country-years.js` stays on disk with all 682 of its researched paragraphs and every
      reader of it is intact, because the request is "for now" and a switch is what makes that true —
      deleting the file to satisfy a temporary scope decision is the one irreversible thing the Atlas pass
-     could do. Flip it and the section, its dot on the phone's pager and its half of the citation list all
-     come back with nothing else to rewire. See `docs/atlas-rewrite-plan.md`. */
+     could do. Flip it and the section and its half of the citation list come back with nothing else to
+     rewire. See `docs/atlas-rewrite-plan.md`. */
   const ATLAS_YEAR_PROSE = false;
   function placeSources(name, yr) {
     const k = (name || "").trim().toLowerCase().replace(/\s+/g, " ");
@@ -28699,6 +28784,23 @@
      state of 0.44 km² — which on any card framing Rome is a square nobody asked about. Italy's polygon
      has no hole there, so leaving the shape out leaves the land whole. */
   const CMAP_SKIP = { Vatican: true };
+  /* THE COLLECTION'S HOME CITY, ON EVERY MAP IN IT (Sep 2026, on request: "Rome should always be visible
+     in the Roman collection, with a slightly larger red square as icon, and Athens should have the same in
+     the Ancient Greek collection"). Every other red mark on a locator's map is EARNED — a sibling appears
+     once its card has been studied — so a reader three cards into Ancient Rome sees the Mediterranean with
+     one gold mark on it and nothing to place it against. The city the whole collection is about is the one
+     fixed point worth giving them, and it is drawn whether or not any card has taught it.
+     ITS COORDINATE IS DECLARED HERE RATHER THAN LOOKED UP, and that is not laziness about generated data:
+     the two obvious sources both fail the word ALWAYS. cities.js is the `atlas` bundle, warmed at idle, so
+     a mark taken from it would be absent for the first second of every card; and the collection's own
+     locators would give Rome (39 cards stand `within` it) and NOT Athens, which no Greek card has yet.
+     Two cities, each named beside its own numbers, is a table a reader of this file can check.
+     A SQUARE, because that is the mark this window already gives a seat of government, and larger than a
+     sibling's dot because it is the one place on the map that is there by right. */
+  const CMAP_ANCHOR = {
+    "col-40": { n: "Rome", c: [12.4964, 41.9028] },
+    "col-13": { n: "Athens", c: [23.7275, 37.9838] },
+  };
   function hiresCoastIngest() {
     const q = window.HIRES_COAST_IN;
     if (!Array.isArray(q)) return;
@@ -28709,6 +28811,25 @@
       const m = new Map();
       e.shapes.forEach((sh) => { if (sh && sh.n && sh.r && typeof sh.r === "object") m.set(sh.n, sh.r); });
       window.HIRES_COAST[e.region] = m;
+    }
+  }
+  /* THE FRAME'S HI-RES RIVERS (Sep 2026, on request: "Rivers in Italy in the Roman deck and Greek rivers
+     in the Greek deck should have a much higher resolution on the atlas windows, and there should be more
+     of them"). The coast's sibling, and deliberately a REPLACEMENT rather than the coast's splice: a
+     coastline is spliced ring by ring because a land border is shared with a neighbour and a hi-res copy
+     over the low-res one doubles it, where a river shares nothing and can simply be drawn instead. So the
+     file names the rivers.js entries it takes over (`supersede`) and carries them, plus the ones rivers.js
+     never had — the European supplement's Arno, Volturno, Acheloos and Haliacmon among them. A river is
+     replaced WHOLE and never clipped to the frame: the two chains are up to 5 km apart, and a box edge
+     inside a card's opening view would show the jog. See .claude/build-hires-rivers.js. */
+  function hiresRiverIngest() {
+    const q = window.HIRES_RIVER_IN;
+    if (!Array.isArray(q)) return;
+    window.HIRES_RIVER = window.HIRES_RIVER || {};
+    while (q.length) {
+      const e = q.shift();
+      if (!e || !e.region || !Array.isArray(e.rivers)) continue;
+      window.HIRES_RIVER[e.region] = { sup: new Set(Array.isArray(e.supersede) ? e.supersede.map(String) : []), rivers: e.rivers };
     }
   }
   /* A LOCATOR has no shape to read a zoom off, so it takes one: about a 50° window, which puts Knossos in
@@ -28836,6 +28957,18 @@
        and thrown away when a different bundle object lands — a per-frame map over 117,000 vertices is not
        something a drag can afford. Before the bundle arrives it is world.js's own rings, untouched. */
     const hiRegion = sibCard ? (CMAP_HIRES[(cardCollectionRoot(sibCard) || {}).id] || "") : "";
+    /* The collection's home city (see CMAP_ANCHOR) — dropped on the card that IS that city, or on one
+       standing inside it, where the answer's own gold mark is already there and a red square beside it
+       would be a second name for one place. */
+    const anchor = (() => {
+      const a = sibCard ? CMAP_ANCHOR[(cardCollectionRoot(sibCard) || {}).id] : null;
+      if (!a) return null;
+      const k = a.n.toLowerCase();
+      if (locWithin === k) return null;
+      const me = sibCard ? cardLocator(CARD_BY_ID[sibCard]) : null;
+      if (me && String(me.name || "").trim().toLowerCase() === k) return null;
+      return a;
+    })();
     let hiFor = null, hiCache = null;
     function effRings(g) {
       const HI = hiRegion && window.HIRES_COAST ? window.HIRES_COAST[hiRegion] : null;
@@ -28848,6 +28981,21 @@
         hiCache.set(g, r);
       }
       return r;
+    }
+    /* THE RIVERS THIS WINDOW DRAWS: rivers.js with the frame's hi-res set swapped in — the superseded
+       entries dropped and the region's own appended, so a river is never drawn twice and the map gains the
+       ones the world file leaves out. Memoised on the pair of tables rather than rebuilt per frame: this
+       runs on a globe the reader is dragging. Before the bundle lands it is rivers.js, untouched. */
+    let rivHi = null, rivLow = null, rivList = null;
+    function effRivers() {
+      const LOW = window.RIVERS || [];
+      const HR = hiRegion && window.HIRES_RIVER ? window.HIRES_RIVER[hiRegion] : null;
+      if (!HR) return LOW;
+      if (rivHi !== HR || rivLow !== LOW) {
+        rivHi = HR; rivLow = LOW;
+        rivList = LOW.filter((r) => !HR.sup.has(String(r.n))).concat(HR.rivers);
+      }
+      return rivList;
     }
     let rotLon = 0, rotLat = 0, zoom = 1, homeLon = 0, homeLat = 0, homeZoom = 1;
     let W = 0, H = 0, cx = 0, cy = 0, R = 0, baseR = 0, dpr = 1;
@@ -29212,7 +29360,7 @@
           if (fits(left)) { placed.push(left); return { x: x - 8, align: "right" }; }
           return null;
         };
-        const RIV = window.RIVERS || [];
+        const RIV = effRivers();
         /* Only a card whose own answer is a river has anything to look up, and this loop runs 1,073 times
            a frame on a globe being dragged — so the lowercasing is skipped outright for every other card
            rather than done and thrown away. */
@@ -29220,12 +29368,18 @@
         let ownLines = null, ownName = "";
         if (RIV.length) {
           ctx.save();
-          /* THE ATLAS'S OWN TREATMENT, down to the arithmetic: the ocean colour at full strength, so a
-             river reads as water continuous with the sea, and the same `0.4 + zoom * 0.16` capped at
-             1.8px, so it thickens as the reader zooms in. The carded-rivers version that stood here drew
-             them at a flat 1.1px and 0.7 alpha — a fine weight for the two or three a collection taught
-             and too faint to be the layer this is now. */
-          ctx.strokeStyle = ocean; ctx.lineWidth = clampN(0.4 + zoom * 0.16, 0.5, 1.8);
+          /* THE ATLAS'S OWN TREATMENT: the ocean colour at full strength, so a river reads as water
+             continuous with the sea, thickening as the reader zooms in and capped at 1.8px. The
+             carded-rivers version that stood here drew them at a flat 1.1px and 0.7 alpha — a fine
+             weight for the two or three a collection taught and too faint to be the layer this is now.
+             THE WEIGHT WAS THE ATLAS'S `0.4 + zoom * 0.16` FLOORED AT 0.5 AND IS THINNER AT THE BOTTOM
+             NOW (Sep 2026, on request: "make rivers thinner when zooming out"). The Atlas draws its
+             rivers only past a zoom; this window draws all 1,073 of them at every zoom, so at a card's
+             opening ~50° view the same weight is a continent's worth of blue thread over a map whose
+             coast is stroked at 0.7. It reaches the old figure again around zoom 6 — where the frame is
+             a region and a river is something the reader is actually looking at — and nothing changes
+             at the deep end, where the cap has always decided it. */
+          ctx.strokeStyle = ocean; ctx.lineWidth = clampN(0.15 + zoom * 0.18, 0.3, 1.8);
           ctx.beginPath();
           for (let i = 0; i < RIV.length; i++) {
             const nm = ownSet ? String(RIV[i].n || "").toLowerCase() : "";
@@ -29295,6 +29449,8 @@
             if (!S.cards || !S.cards[d.id]) continue;
             const key = String(d.within || d.n || "").trim().toLowerCase();
             if (!key || (locWithin && key === locWithin)) continue;
+            // the home city has its own, larger mark below, drawn studied or not
+            if (anchor && key === anchor.n.toLowerCase()) continue;
             const isCity = !d.within || String(d.n || "").trim().toLowerCase() === key;
             let g = groups.get(key);
             if (!g) { g = { n: d.within || d.n, c: d.c, kind: d.kind, city: isCity }; groups.set(key, g); }
@@ -29307,8 +29463,14 @@
             sibAt.push([PX, PY, g.n, g.kind]);
           });
         }
-        const nearSib = (x, y) => { for (let j = 0; j < sibAt.length; j++) if (Math.abs(sibAt[j][0] - x) < 7 && Math.abs(sibAt[j][1] - y) < 7) return true; return false; };
-        const capAt = [];
+        /* Where the home city falls, if it is on this side of the globe. Taken before the capitals are
+           drawn, so the grey square underneath it can stand aside for it exactly as it does for a
+           sibling — two marks on one city say less than either. */
+        let anchorAt = null;
+        if (anchor) { proj(anchor.c[0], anchor.c[1]); if (PV >= 0 && PX > -20 && PY > -20 && PX < W + 20 && PY < H + 20) anchorAt = [PX, PY]; }
+        const nearSib = (x, y) => {
+          if (anchorAt && Math.abs(anchorAt[0] - x) < 7 && Math.abs(anchorAt[1] - y) < 7) return true;
+          for (let j = 0; j < sibAt.length; j++) if (Math.abs(sibAt[j][0] - x) < 7 && Math.abs(sibAt[j][1] - y) < 7) return true; return false; };
         const CTS = window.CITIES || [];
         if (CTS.length) {
           /* Capitals, million-plus cities and division capitals — `r` 0, 1 and 2, exactly the three the
@@ -29335,9 +29497,14 @@
              displayed with a prominent square icon instead of a dot"), the mark every atlas gives a seat
              of government; the million-plus cities keep their quiet dots. A capital that sits under one of
              the collection's own marks is not drawn — the red mark says more about it than the square
-             would, and two marks on one pixel read as neither. Its NAME is set after the collection's
-             names have taken their places, in a smaller, quieter face, so a capital is labelled wherever
-             there is room and never at a card's expense. */
+             would, and two marks on one pixel read as neither.
+             THE SQUARE IS ALL OF IT — A MODERN CAPITAL IS NOT NAMED HERE (Sep 2026, on request: "modern
+             capitals should not have their text labels shown, only their squares"). They were named once
+             the frame was a region rather than a continent, which on a card about the Roman Republic put
+             Tirana, Valletta and Podgorica in the same face and the same weight as the places the
+             collection teaches — a map of modern states with a history card's marks on it. The square
+             still gives the reader the seat of government to place a site against, which is what this
+             layer is for; the words on this map belong to the collection. */
           const tierZ = zoom >= CMAP_ZLOC * 1.75 ? 1 : 0;
           for (let i = 0; i < CTS.length; i++) {
             const ct = CTS[i], r = ct.r | 0;
@@ -29347,10 +29514,14 @@
             if (PX < -20 || PY < -20 || PX > W + 20 || PY > H + 20) continue;
             if (r === 0) {
               if (nearSib(PX, PY)) continue;
-              const q = 2.7;
+              /* SMALLER, AND OUTLINED IN GREY RATHER THAN WHITE (Sep 2026, on request). A white keyline
+                 is what an atlas gives a mark that has to survive being drawn over land, sea and a
+                 label at once; here the square is already the loudest thing on a quiet map, and the
+                 white ring was a second highlight around it. A grey outline still lifts it off the
+                 land without competing with the collection's own red and gold marks. */
+              const q = 2.1;
               ctx.fillStyle = rgbaOf("#000000", 0.74); ctx.fillRect(PX - q, PY - q, q * 2, q * 2);
-              ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#ffffff", 0.9); ctx.strokeRect(PX - q, PY - q, q * 2, q * 2);
-              capAt.push([PX, PY, ct.n]);
+              ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#8b8b8b", 0.9); ctx.strokeRect(PX - q, PY - q, q * 2, q * 2);
             } else {
               ctx.beginPath(); ctx.arc(PX, PY, 1.5, 0, Math.PI * 2);
               ctx.fillStyle = rgbaOf("#000000", 0.2); ctx.fill();
@@ -29384,6 +29555,21 @@
             ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#ffffff", 0.75); ctx.stroke();
           }
         }
+        /* …and the collection's home city over them, a red square rather than a dot and a little bigger
+           than one (see CMAP_ANCHOR). Its name is set BEFORE the siblings take their boxes, so the one
+           mark that is on every map in the collection is also the one that is always labelled. */
+        if (anchorAt) {
+          const q = 4.4;
+          ctx.fillStyle = "rgba(200,69,60,.92)"; ctx.fillRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2);
+          ctx.lineWidth = 1.2; ctx.strokeStyle = rgbaOf("#ffffff", 0.8); ctx.strokeRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2);
+          ctx.font = "600 11.5px " + font; ctx.textBaseline = "middle";
+          const at = placeLabel(anchorAt[0], anchorAt[1], anchor.n, 8);
+          if (at) {
+            ctx.textAlign = at.align;
+            ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(anchor.n, at.x, anchorAt[1]);
+            ctx.fillStyle = ink; ctx.fillText(anchor.n, at.x, anchorAt[1]);
+          }
+        }
         ctx.font = "500 11px " + font; ctx.textBaseline = "middle";
         for (let i = 0; i < sibAt.length; i++) {
           /* EVERY NAME ON THIS MAP OPENS ON A CAPITAL (Aug 2026, on request: "All locations in the atlas
@@ -29400,23 +29586,6 @@
           ctx.textAlign = at.align;
           ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, at.x, sibAt[i][1]);
           ctx.fillStyle = ink; ctx.fillText(nm, at.x, sibAt[i][1]);
-        }
-        /* …and the capitals' names, where the collection's have left room — but only once the frame is a
-           region rather than a continent. At the Roman Republic's opening view, which is the whole
-           Mediterranean, every capital from Nassau to Colombo is in the window and naming them all made a
-           map about the Republic read as a map of modern states; the squares stay, the names wait for the
-           reader to come closer. ~3.5 is a window of about 55 degrees, the locator's own opening size. */
-        if (capAt.length && zoom >= 3.5) {
-          ctx.font = "500 10px " + font;
-          for (let i = 0; i < capAt.length; i++) {
-            const nm = gameCapFirst(capAt[i][2]);
-            if (!nm) continue;
-            const at = placeLabel(capAt[i][0], capAt[i][1], nm, 6);
-            if (!at) continue;
-            ctx.textAlign = at.align;
-            ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, at.x, capAt[i][1]);
-            ctx.fillStyle = rgbaOf(ink, 0.72); ctx.fillText(nm, at.x, capAt[i][1]);
-          }
         }
       }
       /* ---------- A RANGE IS A ROW OF MOUNTAINS ALONG ITS SPINE (Aug 2026, on request: "it should not
@@ -29659,6 +29828,8 @@
       whenIdle(() => { if (!stopped) ensureData("atlas").then(() => { if (!stopped) schedule(); }); });
       // …and the frame's hi-res coast, on the same bargain (see CMAP_HIRES)
       if (hiRegion) whenIdle(() => { if (!stopped) ensureData("coast_" + hiRegion).then(() => { if (!stopped) { hiFor = null; schedule(); } }); });
+      // …and its hi-res rivers, where the frame has a set (Italy and Greece; China has none)
+      if (hiRegion && DATA_BUNDLES["river_" + hiRegion]) whenIdle(() => { if (!stopped) ensureData("river_" + hiRegion).then(() => { if (!stopped) schedule(); }); });
     }
     host.classList.add("mc-loading");
     /* The points table is a THIRD bundle, and only where this card asks for a dot — see `pointsBundle`
@@ -29750,8 +29921,10 @@
   }
 
   /* ---------- the name in Chinese, under a map card's answer term (Aug 2026, on request) ----------
-     ONE LINE: simplified, then traditional at half strength where it DIFFERS, then the pinyin, all
-     baseline-independent and centred against each other by flex. The characters take the site's own
+     TWO LINES OF CHARACTERS: the traditional form at half strength where it DIFFERS on the line ABOVE
+     the simplified (Sep 2026, on request — it stood beside it, and a reader comparing two scripts is
+     comparing them character for character, which one above the other makes possible and a side-by-side
+     pair does not), then the pinyin under both. The characters take the site's own
      Chinese ink (`--zh`); the pinyin is small and takes the quiet ink, so the eye reads the glyphs first
      and the romanisation only when it wants it.
 
@@ -29782,8 +29955,9 @@
     const tr = String((c && c.traditional) || "").trim();
     const py = String((c && c.pinyin) || "").trim();
     return '<div class="ans-cn">' +
-      '<div class="ac-chars"><span class="ac-s">' + esc(hz) + "</span>" +
-      (tr && tr !== hz ? '<span class="ac-t">' + esc(tr) + "</span>" : "") + "</div>" +
+      '<div class="ac-chars">' +
+      (tr && tr !== hz ? '<span class="ac-t">' + esc(tr) + "</span>" : "") +
+      '<span class="ac-s">' + esc(hz) + "</span></div>" +
       '<div class="ac-row">' +
       (py ? '<span class="ac-p">' + esc(py) + "</span>" : "") +
       '<button type="button" class="ac-say" lang="zh-CN" data-say="' + esc(hz) + '" aria-label="' + esc("Hear " + hz + " read aloud") + '" title="Hear it in Mandarin">' + AC_SAY_SVG + "</button>" +
@@ -30648,6 +30822,34 @@
      crossword is one: its answers turn green as they are found rather than being revealed by a check, so
      there is nothing an unfinished grid could give away and no reason to shut a reader out of a puzzle
      they have half done. Every other game reveals its answers as it is played and is spent when it ends. */
+  /* ---------- A ROUND ANSWERED STAYS ANSWERED (Sep 2026, on a bug report) ----------
+     A daily game is played once and its rounds are the same for every reader, so a run left half way is
+     still that reader's run: leaving the page and coming back must resume it rather than deal the same
+     questions again with the answers now known. The record rides in `S.games[key]` — the row that already
+     holds today's date, score and lock, is already a PROGRESS_FIELD and so already syncs — as `prog`, an
+     array of booleans, one per round answered. Three things follow.
+     · **THE DATE ON THE ROW IS WHAT SCOPES IT.** `markGamePlayed` already replaces the row when the day
+       turns, so a stale `prog` from yesterday can never be read as today's — and `gameProgress` checks
+       the date itself, for the reader who leaves a game open across their own day boundary.
+     · **IT HOLDS THE OUTCOMES, NOT THE INDEX.** The count is the round to resume at and the trues are the
+       score, so the two can never come to disagree; an index alone could not restore the score at all.
+     · **IT IS CLEARED WHEN THE RUN FINISHES**, where the lock takes over. A finished game reads its score
+       off the row like every other, and a `prog` left behind would be a resume point inside a run that
+       is over. */
+  function gameProgress(key) {
+    const g = (S.games && S.games[key]) || null;
+    if (!g || g.date !== todayStr() || !Array.isArray(g.prog)) return null;
+    return g.prog.map((x) => !!x);
+  }
+  function setGameProgress(key, results) {
+    if (!S.games) S.games = {};
+    const t = todayStr();
+    let g = S.games[key];
+    if (!g || g.date !== t) g = { date: t, played: false, won: false };
+    if (results && results.length) g.prog = results.map((x) => !!x); else delete g.prog;
+    S.games[key] = g;
+    save();
+  }
   function gameLockedToday(root, key, opts) {
     if (!gamePlayedToday(key)) return false;
     if (opts && opts.untilSolved && !gameWonToday(key)) return false;
@@ -32148,95 +32350,68 @@
   /* ============================================================
      PAGE: PICTURE ROUND (name what is in the picture)
      ============================================================
-     Five pictures, four options each, drawn from every illustration Folio holds — a card's, a glossary
-     term's or an artefact's — so a picture added anywhere feeds the game without a second registry.
+     Five pictures, four options each, drawn from the ARTEFACTS and from nothing else (Sep 2026, on
+     request) — see picturePool below for what left the pool and why.
 
-     TWO FILTERS NARROW THAT (Aug 2026, on request) and both are documented where they are applied: the
-     DIFFICULTY bar now reaches the glossary half as well as the cards, and a subject whose picture can
-     only EXEMPLIFY it — a state, a period, an abstraction — is out. Measured over the shipped corpus the
-     pool is 157, against a floor of 8; the placard below is what a starved pool gets instead of a bad
-     round, and it was the whole of this game for the fortnight before the picture pass ran.
-
-     TWO THINGS ARE DELIBERATE ABOUT WHAT IS SHOWN. The picture's own TITLE, DESCRIPTION AND CREDIT are
+     THREE THINGS ARE DELIBERATE ABOUT WHAT IS SHOWN. The picture's own TITLE, DESCRIPTION AND CREDIT are
      held back until the guess is in — every one of them names the subject, so showing the credit up front
      would hand over the answer in a link, and the site's rule is that a picture is credited, not that it
-     is credited before it is useful. And the DECOYS are other real subjects from the same pool rather than
-     invented ones, which is the rule Who said it? already follows: three plausible wrong answers teach
-     something, three obvious ones teach nothing. */
+     is credited before it is useful. THE PICTURE IS NOT ENLARGEABLE UNTIL THEN EITHER, and for the same
+     reason rather than for tidiness: the viewer's own caption bar carries the title and the credit, so a
+     frame that opened before the guess would hand the answer over in one tap. And the DECOYS are other
+     real subjects from the same pool rather than invented ones, which is the rule Who said it? already
+     follows: three plausible wrong answers teach something, three obvious ones teach nothing.
+
+     A ROUND ANSWERED STAYS ANSWERED (Sep 2026, on a bug report: "halfway through the minigame i could go
+     back to the home page, re enter the game, and start from the first question again and get it right
+     this time"). Every daily game is played once and this one held its place in a CLOSURE, so leaving the
+     page threw it away and the one-play lock — which is only set when a run FINISHES — had nothing to say
+     about a run abandoned half way. The answered rounds are written to `S.games.picture.prog` as they are
+     answered (see gameProgress / setGameProgress), so re-entering resumes at the round the reader left
+     rather than at the first, and the score they have already earned is theirs whether they come back or
+     not. */
   const PIC_ROUNDS = 5, PIC_OPTS = 4, PIC_MIN_POOL = 8;
-  /* A SUBJECT WHOSE PICTURE CAN ONLY EXEMPLIFY IT IS NOT A PICTURE ROUND (Aug 2026, on request: "states,
-     time periods or abstract terms should not appear … those pictures are unlikely to be interpreted as
-     their larger general meaning"). The game works when the picture DEPICTS its subject — point at it and
-     say "that is a hand-axe", "that is Ur", "that is Homo erectus". It fails when the picture is one
-     instance standing for a class: a hand-axe under "Acheulean", a temple under "Classical antiquity", a
-     flag under a country. Both are perfectly good illustrations and only one of them is a question.
-     The test is the subject's KIND — the first of its tags, which is the vocabulary `GLOSSARY_TAGS` and
-     `card.tags` are already written in — and the list is DECLARED rather than derived, because "does this
-     picture depict or exemplify?" is a judgement about a category and not something a rule can read off a
-     record. Three of the twelve are the request's own words (`state`, `era`, `concept`); the rest are the
-     same shape (`practice`, `theory`, `institution`, `title`, `language`, `symbol`) or a class of objects
-     rather than an object (`industry`, `culture`, `people` — the Acheulean is not a hand-axe).
-     What is NOT on it and could have been: `event` (a painting of a battle depicts the battle about as
-     well as a picture depicts anything), `hominin` and `fossil` (a skull IS the specimen), `text` (a
-     manuscript page IS the text). Those are kept because the request names three things and stretching a
-     principle past what it was asked for is how a filter starves its own game.
-     A subject whose kind cannot be read at all is KEPT, which is the safe direction — measured over the
-     shipped corpus it never happens today, the glossary fallback below covering every untagged card. */
-  const PIC_ABSTRACT_KINDS = new Set(
-    ("era,state,concept,theory,practice,institution,title,language,symbol,industry,culture,people").split(",")
-  );
+  /* ---------- IT IS THE ARTEFACTS, AND ONLY THE ARTEFACTS (Sep 2026, on request: "The game 'Picture
+     round' should only use pictures from artefacts") ----------
+     The pool used to be every illustration Folio holds — a card's, a glossary term's and an artefact's —
+     and the two halves that have gone were the ones this game kept having to apologise for. A card's or a
+     term's picture ILLUSTRATES its subject, which is a different thing from depicting it: a hand-axe under
+     `Acheulean`, a temple under `Classical antiquity`, a flag under a country. Two filters had grown up
+     around that — a declared list of abstract KINDS, and the difficulty bar reaching past the cards into
+     the glossary through `threadEasyKeys()` — and both are gone with the halves they were guarding, since
+     an ARTEFACT needs neither: it is a photograph of one object, the object is the answer, and there is
+     nothing to rate or to except. The whole of "does this picture depict its subject?" is now answered by
+     which table the picture came out of.
+     WHAT IT COSTS is the pool's size — 157 subjects to 99 — which is still an order above `PIC_MIN_POOL`
+     and buys a game where every round is the same KIND of question. `PIC_ABSTRACT_KINDS` is DELETED
+     rather than left standing over a pool it can no longer see, a filter nothing filters being the next
+     session's puzzle. */
   function picturePool() {
     const out = [], seen = new Set();
-    const add = (img, label, kind, gloss, tags, note) => {
-      if (!img || !img.src || !label) return;
-      const l = String(label).trim();
-      if (!l || seen.has(l.toLowerCase())) return;   // one entry per subject, or a round could offer the answer twice
-      const t = Array.isArray(tags) && tags.length ? tags : [kind];
-      if (PIC_ABSTRACT_KINDS.has(String(t[0] || "").toLowerCase())) return;
-      seen.add(l.toLowerCase());
-      /* `desc` DESCRIBES THE PICTURE AND `note` DESCRIBES THE SUBJECT, and conflating the two is what
-         made this game unteachable (Aug 2026, on request). Every entry already carried a `desc` and it
-         is the image's own caption — "Delineations on pieces of antler. Public domain, via Wikimedia
-         Commons." — which says what is in the photograph and nothing whatever about what the thing IS.
-         `note` is the subject's glossary entry (see gameAnswerNote), resolved from the LABEL, which is
-         the answer term for a card and the head word for a glossary subject. An ARTEFACT resolves to
-         nothing, having no glossary entry, and gets its own description instead — an artefact plate is
-         already three to five sentences about the object, which is exactly this. */
-      out.push({ src: img.src, label: l, title: img.title || "", desc: img.desc || "", credit: img.credit || "", alt: img.alt || "",
-                 kind: kind, gloss: gloss || "", note: note || "", tags: t });
-    };
-    /* EVERY SUBJECT DRAWN FROM THE CORPUS IS NOW UNDER THE DIFFICULTY BAR (Aug 2026, on request: "ensure
-       the Picture Round minigame uses only cards with level 1 or 2 difficulty rating"). The CARD half
-       always was, through `gameCardIdSet()`. The GLOSSARY half was not — `difficulty` is a card field and
-       this is the one game whose pool reaches past the cards — so a round could deal a term rated nowhere
-       at all, cold, with three specialist decoys beside it.
-       The rating a glossary term has not got is the rating of the CARD it answers, which the card→glossary
-       pairing rule guarantees exists, so the half goes through **`threadEasyKeys()`** — the very set Common
-       Thread built for its own version of this problem. One door, one bar, and a game added later reaches
-       for the same function rather than inventing a second rule. Measured over the shipped corpus: the
-       glossary half falls from 684 subjects to 96, and the pool as a whole to 157, comfortably above
-       `PIC_MIN_POOL`.
-       ARTEFACTS are deliberately NOT filtered and cannot be: an artefact is a photograph of one object,
-       which is the ideal subject for this game and the one kind of record with no difficulty to read. */
-    const easyGloss = threadEasyKeys();
-    /* Each entry carries the TAGS its subject is filed under, which is what lets a round's three wrong
-       answers be things of the same kind (Aug 2026, on request). They come from the two tables that
-       already hold them — a card's own `tags`, a glossary term's `GLOSSARY_TAGS` row — and an artefact,
-       which is filed under neither, is simply an artefact: that is one honest category rather than a
-       guess dressed up as several. */
-    const avail = gameCardIdSet();
-    /* A card with no tags of its own borrows its ANSWER TERM's, which is the same pairing the bar above
-       leans on — without it 26 illustrated cards have no readable kind, so the abstract filter cannot see
-       them and the kinship measure ranks their decoys on nothing. */
-    const idx = glossIndexFor(GLOSS_SCOPE_SITE);
-    const kindTags = (c) => {
-      if (Array.isArray(c.tags) && c.tags.length) return c.tags;
-      const k = idx && idx.byAnySurface ? idx.byAnySurface[String(c.answerText || "").trim().toLowerCase()] : null;
-      return k && !isDeckGlossKey(k) ? glossTags(k) : null;
-    };
-    CARDS.forEach((c) => { if (avail.has(c.id)) { const lc = cardLocalized(c); add(c.image, lc.answerText, "card", "", kindTags(c), gameAnswerNote(lc.answerText)); } });
-    easyGloss.forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k, glossTags(k), gameAnswerNote(glossTitle(k))); });
-    artefactsMerged().forEach((a) => add(a.image, a.name, "artefact", "", null, sanitizeHTML(String(a.desc || "").replace(/<sup class="fn"[^>]*><\/sup>/g, ""))));
+    artefactsMerged().forEach((a) => {
+      const img = a.image, label = String(a.name || "").trim();
+      if (!img || !img.src || !label || seen.has(label.toLowerCase())) return;
+      seen.add(label.toLowerCase());   // one entry per subject, or a round could offer the answer twice
+      /* THE THREE WRONG ANSWERS ARE STILL RANKED, and an artefact is filed under no tags at all, so two
+         are DERIVED from what an artefact does carry. `origin` matches only where two objects really
+         share one — most origins are a find-spot and a museum and so are unique, which costs nothing —
+         and the ERA bucket is what does the work: a Roman sword is then answered against other objects of
+         antiquity rather than against a medieval crown. Four buckets rather than a century, because the
+         point is a plausible neighbour and not a chronology. */
+      const y = artefactYear(a);
+      const era = y == null ? "" : y < -3000 ? "prehistory" : y < 500 ? "antiquity" : y < 1500 ? "medieval" : "modern";
+      const tags = ["artefact"];
+      if (era) tags.push(era);
+      if (a.origin) tags.push(String(a.origin).toLowerCase());
+      /* `note` IS THE ARTEFACT'S OWN BACKGROUND, MARKERS AND ALL (Sep 2026, on request: "below it should
+         show that Artefacts background paragraph with citations"). It used to be the same prose with every
+         `<sup class="fn">` stripped out, because the reveal had nowhere to put the works they point at;
+         it carries its `sources` beside it now and the reveal renders the site's own numbered fold under
+         the paragraph, so a reader can see what the five sentences rest on exactly as they can on the
+         artefact's own plate. */
+      out.push({ src: img.src, label: label, title: img.title || "", desc: img.desc || "", credit: img.credit || "",
+                 alt: img.alt || "", note: sanitizeHTML(String(a.desc || "")), sources: normSources(a.sources), tags: tags });
+    });
     return out;
   }
   function dailyPictureRounds() {
@@ -32270,8 +32445,12 @@
       return;
     }
     const ROUNDS = rounds.length;
-    let r = 0, score = 0; const results = [];
-    renderRound();
+    /* Where this reader left off today (see gameProgress). A run answered through to the end has no
+       record — the lock above is what answers for that — so anything here is a run to be resumed. */
+    const held = gameProgress("picture") || [];
+    const results = held.slice(0, ROUNDS);
+    let r = results.length, score = results.filter(Boolean).length;
+    if (r >= ROUNDS) renderEnd(); else renderRound();
 
     function pips() { return `<div class="tf-pips">${rounds.map((_, k) => `<span class="tf-pip ${k < r ? (results[k] ? "ok" : "no") : (k === r ? "cur" : "")}"></span>`).join("")}</div>`; }
     function renderRound() {
@@ -32316,22 +32495,59 @@
         if (options[i] === it.label) b.classList.add("correct");
         else if (b === btn) b.classList.add("wrong");
       });
+      /* THE PICTURE BECOMES ENLARGEABLE HERE AND NOT BEFORE (Sep 2026, on request: "clicking the image
+         should only work once the answer has been revealed"). It calls `openImageViewer` directly rather
+         than earning the `.card-img` class the delegated listener watches for: that class carries a fixed
+         16:9 frame and a `height:100%` on the picture inside it, so adopting it at the reveal would
+         RESHAPE the picture the reader is looking at — a crop and a jump at the exact moment they are told
+         what they were looking at. The frame keeps `.pic-frame`'s own shape and gains only the cursor, the
+         zoom mark and a tab stop.
+         Its title is the ARTEFACT's name where the file has none, which is what the plate shows too and
+         what a reader who has just been told the answer expects to see over the picture. */
+      const fig = root.querySelector(".pic-frame");
+      if (fig && !fig.classList.contains("pic-open")) {
+        fig.classList.add("pic-open");
+        fig.setAttribute("role", "button");
+        fig.setAttribute("tabindex", "0");
+        fig.setAttribute("title", "Click to enlarge");
+        fig.insertAdjacentHTML("beforeend", '<span class="ci-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>');
+        const open = () => openImageViewer({ src: it.src, title: it.title || gameCapFirst(it.label), desc: it.desc || "", credit: it.credit || "", alt: it.alt || "" });
+        fig.addEventListener("click", open);
+        fig.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+      }
       const rev = root.querySelector("#picReveal"); rev.hidden = false;
       rev.innerHTML =
         '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it’s <b>" + esc(gameCapFirst(it.label)) + "</b></div>" +
         /* Order: what it is called, what it IS, then what this particular picture shows. `note` is the
-           subject's own entry and `desc` the photograph's caption — see the note field in picturePool.
-           `.pic-shows` is quieter than `.pic-cap` because it is now the third line rather than the
-           second, and a caption set as loud as the title reads as a second title. */
+           artefact's own five sentences and `desc` the photograph's caption — see the note field in
+           picturePool. `.pic-shows` is quieter than `.pic-cap` because it is now the third line rather
+           than the second, and a caption set as loud as the title reads as a second title.
+           THE CITATIONS COME WITH THE PARAGRAPH (Sep 2026, on request). It is the site's own apparatus —
+           `sourcesHTML` plus `wireFootnotes` — so the markers in the prose number themselves, the works
+           link, the access chips show and the jump works both ways, exactly as on the artefact's plate and
+           with no wiring of this game's own. */
         (it.title ? '<p class="pic-cap">' + esc(it.title) + "</p>" : "") +
-        (it.note ? '<p class="tf-why">' + it.note + "</p>" : "") +
+        (it.note ? '<div class="tf-why pic-note">' + it.note + "</div>" : "") +
+        (it.sources && it.sources.length ? sourcesHTML(it.sources) : "") +
         (it.desc ? '<p class="pic-shows">' + esc(it.desc) + "</p>" : "") +
         (it.credit ? '<p class="pic-credit">' + mediaCreditHTML(it.credit) + "</p>" : "") +
         '<button class="btn" id="pic-next">' + (r + 1 < ROUNDS ? "Next round" : "See results") + "</button>";
+      wireFootnotes(rev);
+      /* The answered round is written before the reader can leave it — the point of the record is the
+         reader who does not press Next at all. */
+      setGameProgress("picture", results.slice(0, r + 1));
       rev.querySelector("#pic-next").addEventListener("click", () => { r++; (r < ROUNDS) ? renderRound() : renderEnd(); });
     }
+    /* THE SUMMARY CARRIES THE PROSE WITHOUT ITS MARKERS. There is no source list on this screen — five
+       artefacts' lists under a score would be the page — and a marker with no entry behind it PRINTS ITS
+       OWN DIGIT (`sup.fn:empty::before`), so leaving them in would set stray numerals through five
+       paragraphs pointing at nothing. `wireFootnotes` removes such a marker where it runs, and it does
+       not run here; taking them out is the same answer one step earlier. */
+    function picNoteBare(note) { return String(note || "").replace(/<sup class="fn"[^>]*><\/sup>/g, ""); }
     function renderEnd() {
-      markGamePlayed("picture", score === ROUNDS, score, ROUNDS); save(); checkAchievements();
+      markGamePlayed("picture", score === ROUNDS, score, ROUNDS);
+      setGameProgress("picture", null);   // the run is over; the lock answers for it now
+      save(); checkAchievements();
       const msg = score === ROUNDS ? "Flawless — a good eye." : score >= ROUNDS - 1 ? "Sharp — nearly every one." : score >= Math.ceil(ROUNDS / 2) ? "Solid effort." : "Worth another look at the pictures.";
       root.innerHTML = `
         <div class="dc-shell">
@@ -32340,7 +32556,7 @@
           <div class="tf-summary">${rounds.map((rd, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">${esc(gameCapFirst(rd.it.label))}</p><p class="tf-sum-a">${rd.it.note || esc(rd.it.title || "")}</p></div>
+              <div><p class="tf-sum-q">${esc(gameCapFirst(rd.it.label))}</p><p class="tf-sum-a">${picNoteBare(rd.it.note) || esc(rd.it.title || "")}</p></div>
             </div>`).join("")}</div>
           <p class="tf-tomorrow">Five fresh pictures arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="pic-home">Home</button></div>
@@ -32777,9 +32993,18 @@
               ${/* the discovery chip rides on the TITLE's own line rather than under it (Aug 2026, on
                     request): it announces the place whose name is beside it, and a row of its own pushed
                     the description a line further down a sheet that is already short. */""}
+              ${/* THE NAME AND ITS CHIP SHARE A WRAPPER, AND THE CONTROLS NEVER WRAP (Sep 2026, on a
+                    bug report: a long country name — with the discovery chip beside it — pushed the × onto
+                    a second line, where it appeared at the BOTTOM LEFT of the sheet). The row used to be a
+                    single `flex-wrap:wrap` line holding four things, so the two buttons were simply the
+                    last items to be pushed over. `.cp-titlemain` is the one item allowed to shrink and to
+                    wrap INSIDE itself; the row itself is `nowrap`, so the chevron and the × keep the
+                    top-right corner at every name length. */""}
               <div class="cp-titlerow">
-                <div class="cp-name" id="cpName"></div>
-                <div class="cp-new" id="cpNew" hidden></div>
+                <div class="cp-titlemain">
+                  <div class="cp-name" id="cpName"></div>
+                  <div class="cp-new" id="cpNew" hidden></div>
+                </div>
                 ${/* THE PHONE SHEET OPENS ON THE NAME ALONE (Aug 2026, on request), and this is what
                       opens the rest of it. It sits on the title's own line rather than under it, because
                       that line IS the whole of the sheet until it is pressed — a control below it would be
@@ -32807,7 +33032,7 @@
               <div class="cp-hist" id="cpHistList" hidden></div>
             </div>
             <div class="cp-cols">
-              <div class="cp-sec" id="cpDescSec">
+              <div class="cp-descsec cp-sec" id="cpDescSec">
                 <button class="cp-sec-head" type="button" aria-expanded="true"><span class="cp-sec-t">Description</span>${cpChev}</button>
                 <div class="cp-sec-body"><div class="cp-desc" id="cpDesc"></div></div>
               </div>
@@ -32831,7 +33056,6 @@
                 <div class="cp-sec-body"><div class="cp-src" id="cpSrc"></div></div>
               </div>
             </div>
-            <div class="cp-dots" id="cpDots" hidden></div>
           </div>
         </div>
         <div class="atlas-timebar"${GAME ? " inert" : ""}>
@@ -32946,28 +33170,36 @@
     let cpCrumbEl = null, cpHistListEl = null;   // drill breadcrumb + the "Through the ages" strip
     let cpColsEl = null, cpDescSecEl = null, cpYearSecEl = null, cpStatsSecEl = null;   // the scroller + the three collapsible sections
     let cpSrcEl = null, cpSrcSecEl = null;   // the citations behind this place's prose (hidden outright when it has none)
-    let cpDotsEl = null;   // the phone pager's dots (one per pane it can reach)
     /* Each section opens or closes as the popup is filled: open when it has something to say, closed when it
        doesn't, so a place with no year paragraph and no figures shows two quiet headers instead of a dash and
        a grid of dashes. This RESETS on every entity — the reader's manual toggles belong to the popup they
        were made in, not to the next country.
-       `cp-blank` is the same fact told to the PHONE, where the sections are pages you swipe rather than folds
-       you scroll past: an empty page is a swipe that lands on a dash, so it is dropped from the pager instead
-       of collapsed. `alwaysPane` keeps a section in the pager even with nothing of its own — the description
-       carries a "no description yet" line, and the reader must always land on that page first. */
-    function cpSection(sec, hasContent, alwaysPane) {
+       `cp-blank` is the same fact told to the SHEET, which is short: a collapsed header saying nothing is a
+       line of a small box spent on an absence, so an empty section is dropped from it outright rather than
+       shown shut. `alwaysShow` keeps a section on the sheet with nothing of its own — the description
+       carries a "no description yet" line, which is an answer where a missing section is a puzzle. */
+    function cpSection(sec, hasContent, alwaysShow) {
       if (!sec) return;
       sec.classList.toggle("collapsed", !hasContent);
-      sec.classList.toggle("cp-blank", !hasContent && !alwaysPane);
+      sec.classList.toggle("cp-blank", !hasContent && !alwaysShow);
       const head = sec.querySelector(".cp-sec-head");
       if (head) head.setAttribute("aria-expanded", hasContent ? "true" : "false");
     }
-    /* The sheet lays the sections out side by side (see the `--cp-sheet` block in styles.css) because a
-       bottom sheet is short and scrolling four stacked sections buries the figures below the fold. The dots
-       say there is more than one page — a horizontal scroller with no marker reads as a panel that just
-       happens to be cut off — and double as the way to reach a page without swiping.
+    /* THE SHEET IS ONE PAGE, AND THE FIGURES ARE AT THE TOP OF IT (Sep 2026, on request: "users
+       currently need to swipe right to see the country data boxes — instead, move them to above the
+       country background paragraphs so it is all in one page").
 
-       IT ASKS THE ELEMENT RATHER THAN RESTATING THE BREAKPOINT (Aug 2026, when tablets were moved onto the
+       It was a horizontal PAGER: the four sections lay side by side and were swiped between, with dots
+       under them saying how many there were. That was the answer to a real fault — a bottom sheet is
+       short, and four sections stacked in it buried the figures three scrolls down — but it answered it
+       by putting the figures behind a gesture, which is worse than putting them low: a reader who does
+       not swipe never learns they exist, and the dots are the only thing on the sheet saying so. Reading
+       the figures FIRST retires the fault the pager was built for, so the pager goes with it and the
+       sheet scrolls the way the desktop panel always has. `.cp-statsec` is lifted to the top by `order`
+       in the ≤1024px block rather than by moving the node, so the desktop panel — where the paragraph is
+       what the reader came for and a column has room for both — keeps the order it has always had.
+
+       IT STILL ASKS THE ELEMENT RATHER THAN RESTATING THE BREAKPOINT (Aug 2026, when tablets were moved onto the
        sheet on request). This was `matchMedia("(max-width:720px)")` beside a `@media (max-width:720px)` in
        the stylesheet: one decision written twice in two files, so widening it meant finding both, and
        getting one of them meant a window laid out as a sheet by CSS while JS went on treating it as the
@@ -32977,24 +33209,7 @@
        geometric read-back because `getComputedStyle().top` on a positioned element hands back the USED
        value, so `top:auto` cannot be told from `top:16px` that way. */
     const cpSheetMode = () => !!(cpEl && getComputedStyle(cpEl).getPropertyValue("--cp-sheet").trim() === "1");
-    const cpPagerOn = () => !!(cpColsEl && cpSheetMode());
-    const cpPanes = () => (cpColsEl ? Array.prototype.filter.call(cpColsEl.children, (s) => !s.hidden && !s.classList.contains("cp-blank")) : []);
-    function cpSyncDots() {
-      if (!cpDotsEl) return;
-      const panes = cpPagerOn() ? cpPanes() : [];
-      if (panes.length < 2) { cpDotsEl.hidden = true; cpDotsEl.innerHTML = ""; return; }
-      cpDotsEl.innerHTML = panes.map((p, i) => {
-        const t = p.querySelector(".cp-sec-t, .cp-year-num");
-        return '<button class="cp-dot' + (i ? "" : " on") + '" type="button" data-i="' + i + '" aria-label="' + esc((t && t.textContent.trim()) || ("Page " + (i + 1))) + '"></button>';
-      }).join("");
-      cpDotsEl.hidden = false;
-    }
-    function cpActiveDot() {   // whichever pane the scroller has settled nearest to
-      if (!cpDotsEl || cpDotsEl.hidden || !cpColsEl) return;
-      const panes = cpPanes(), w = cpColsEl.clientWidth || 1;
-      const i = Math.max(0, Math.min(panes.length - 1, Math.round(cpColsEl.scrollLeft / w)));
-      Array.prototype.forEach.call(cpDotsEl.children, (d, k) => d.classList.toggle("on", k === i));
-    }
+    const cpSheetOn = () => !!(cpColsEl && cpSheetMode());
     /* ---- the phone sheet's height is the reader's to set (Aug 2026, on request) ----
        Drag the grip at its top edge: down to the title bar alone, up to the top of the screen. The height is
        stored as a FRACTION of the viewport, not a pixel count — a sheet dragged to half the screen should
@@ -33046,46 +33261,71 @@
     function cpMinH() {
       if (!cpEl) return 0;
       const title = cpEl.querySelector(".cp-titlerow");
-      const dots = cpEl.querySelector(".cp-dots");
       const padB = parseFloat(getComputedStyle(cpEl).paddingBottom) || 8;
-      const h = (title ? title.offsetTop + title.offsetHeight : 70) + padB +
-        (dots && !dots.hidden ? dots.offsetHeight : 0);
-      return Math.max(56, h);
+      return Math.max(56, (title ? title.offsetTop + title.offsetHeight : 70) + padB);
     }
-    /* The CEILING is the smaller of two things: what the screen has room for, and what the PAGE ON SCREEN
-       actually needs (Aug 2026, on request — "the max height should always be the point where everything is
-       displayed fully, so we are never left with empty space at the bottom"). The pages are wildly uneven —
-       a five-sentence description against a 2×2 grid of figures — so one height for all of them means a
-       sheet either cut off on the long page or half empty on the short one.
-       cpFitH() is what makes the second half of the request work: swiping to a shorter page pulls the sheet
-       down to fit it. The reader's own dragged height is kept as the CAP it always was, not overwritten, so
-       swiping back to a long page restores it — a swipe answers for the page it lands on, and must not
-       quietly relitigate a setting. */
-    function cpPaneNeedH() {
+    /* The CEILING is the smaller of two things: what the screen has room for, and what the CONTENT actually
+       needs (Aug 2026, on request — "the max height should always be the point where everything is
+       displayed fully, so we are never left with empty space at the bottom"). A short place — a name, two
+       sentences and a grid of dashes — would otherwise open a sheet half full of nothing.
+       It measured the PAGE the pager had settled on until Sep 2026; with the sections stacked into one
+       scroller it is that scroller's own content height, and folding a section away pulls the sheet down
+       to fit what is left (see the section-head listener, which re-applies the height). */
+    function cpContentNeedH() {
       if (!cpEl || !cpColsEl) return Infinity;
-      const panes = cpPanes();
-      if (!panes.length) return Infinity;
-      const w = cpColsEl.clientWidth || 1;
-      const pane = panes[Math.max(0, Math.min(panes.length - 1, Math.round(cpColsEl.scrollLeft / w)))];
-      if (!pane) return Infinity;
-      // everything outside the scroller: the head, the dots, the box's own padding — measured through
-      // offsets for the reason cpMinH is (the head scrolls inside the box being resized)
-      const dots = cpEl.querySelector(".cp-dots");
+      /* Everything outside the scroller: the head and the box's own padding. The head is measured by its
+         own CONTENT (`scrollHeight`) rather than by where the scroller currently sits under it, and that is
+         the whole of why this is not one line: it is `flex:0 1 auto` inside the box being resized, and it
+         is measured while the box is still at the height it is opening FROM — so at that instant it is
+         squeezed, `.cp-cols`'s offsetTop reads short by however much, and the sheet opens that much shy of
+         its own content. It was ~26px on an ordinary country: a paragraph cut off mid-line, in the state
+         the fit exists to prevent. */
+      const head = cpEl.querySelector(".cp-head");
       const cs = getComputedStyle(cpEl);
-      const chrome = (cpColsEl.offsetTop || 0) + (parseFloat(cs.paddingBottom) || 0) +
-        (dots && !dots.hidden ? dots.offsetHeight : 0);
-      return chrome + pane.scrollHeight + 2;
+      const chrome = (head ? head.offsetTop + head.scrollHeight : (cpColsEl.offsetTop || 0)) +
+        (parseFloat(cs.paddingBottom) || 0);
+      return chrome + cpColsContentH() + 2;
+    }
+    /* …and the sections are added up rather than read off the scroller, for the same reason again, one
+       element down: `scrollHeight` is never LESS than the element's own padding box, so a scroller inside a
+       box we have already given a height reports that height back however little is in it. Folding a
+       section away therefore left the sheet exactly as tall as the paragraph that was no longer in it —
+       measured as a no-op, so nothing on screen said the fold had done anything but leave a gap. Each
+       section's own `offsetHeight` is a fact about its content and does not answer for the box. */
+    function cpColsContentH() {
+      if (!cpColsEl) return 0;
+      const kids = Array.prototype.filter.call(cpColsEl.children,
+        (k) => !k.hidden && getComputedStyle(k).display !== "none");
+      const gap = parseFloat(getComputedStyle(cpColsEl).rowGap) || 0;
+      let h = gap * Math.max(0, kids.length - 1);
+      kids.forEach((k) => { h += k.offsetHeight; });
+      return h;
+    }
+    /* THE ROOM IS THE STAGE'S, NOT THE SCREEN'S (Sep 2026, on a bug report: on mobile the popup expanded
+       "too tall … i can't see the top of the popup or the button to close it"). The sheet is
+       `position:absolute` inside `.globe-stage`, which is a FIXED box running from the top bar down to the
+       top of the timeline — `bottom:calc(var(--timebar-h) + var(--tabbar-h) + …)` — and which CLIPS its
+       overflow. So its height is the viewport's less about 154px on a phone, and measuring the ceiling
+       against `documentElement.clientHeight` overshot by exactly that: on a long country the sheet grew
+       past the top of the stage and the title row, the breadcrumb and the × were cut off by it, with no
+       way back down but the chevron the reader could no longer see. Ask the box the sheet is actually
+       positioned in — which is also what makes CP_BOTTOM_GAP agree with the `bottom:14px` it stands for,
+       both being offsets from the same edge. `closest` rather than `offsetParent`, which is null while the
+       popup is hidden; the viewport is the fallback and never the answer. */
+    function cpRoomH() {
+      const host = cpEl && cpEl.closest(".globe-stage");
+      const h = (host && host.clientHeight) || document.documentElement.clientHeight || window.innerHeight || 0;
+      return h - CP_TOP_GAP - CP_BOTTOM_GAP;
     }
     function cpMaxH() {
-      const room = (document.documentElement.clientHeight || window.innerHeight || 0) - CP_TOP_GAP - CP_BOTTOM_GAP;
-      return Math.max(cpMinH(), Math.min(room, cpPaneNeedH()));
+      return Math.max(cpMinH(), Math.min(cpRoomH(), cpContentNeedH()));
     }
-    /* Two heights and nothing in between: the name (cpMinH) or the page (cpMaxH). Above the pager's
-       breakpoint the sheet is a column beside the globe and neither applies, so the inline height and both
+    /* Two heights and nothing in between: the name (cpMinH) or the whole of it (cpMaxH). Above the sheet's
+       breakpoint the panel is a column beside the globe and neither applies, so the inline height and both
        classes come off and the stylesheet has it back. */
     function cpApplyH(animate) {
       if (!cpEl) return;
-      if (!cpPagerOn()) { cpEl.classList.remove("cp-sized", "cp-shut"); cpEl.style.height = ""; cpSyncMore(); return; }
+      if (!cpSheetOn()) { cpEl.classList.remove("cp-sized", "cp-shut"); cpEl.style.height = ""; cpSyncMore(); return; }
       cpEl.classList.add("cp-sized");
       cpFoldClass(animate);
       cpSyncMore();
@@ -33099,7 +33339,7 @@
     function cpSyncMore() {
       const b = cpEl && cpEl.querySelector("#cpMore");
       if (!b) return;
-      const on = cpPagerOn();
+      const on = cpSheetOn();
       b.hidden = !on;
       const open = on && !cpShut;
       b.setAttribute("aria-expanded", open ? "true" : "false");
@@ -33108,21 +33348,15 @@
     function cpSetShut(v) {
       cpShut = !!v;
       cpApplyH(true);
-      // the pager measures its panes against the box's width, which has just changed
-      if (!cpShut) { cpSyncDots(); cpActiveDot(); }
     }
-    // …and re-fit after a swipe: the ceiling has moved because the page under it has
-    function cpFitH() {
-      if (!cpEl || cpEl.hidden || !cpPagerOn() || !cpEl.classList.contains("cp-sized")) return;
-      const max = cpMaxH();
-      if (cpEl.getBoundingClientRect().height > max + 1) cpEl.style.height = Math.round(max) + "px";
-      else cpApplyH();
-    }
-    // crossing the pager's breakpoint (a rotated phone, a dragged window edge) changes what the sections ARE
+    /* `cpFitH` stood here and re-fitted the sheet after a SWIPE — the ceiling had moved because the page
+       under it had. There are no pages now, so the two things that change the content height are a fold
+       and a rotation, and each already calls cpApplyH: it is the same measurement without the
+       shrink-only clause, which existed to keep a swipe from relitigating a dragged height that is itself
+       long gone. */
+    // crossing the sheet's breakpoint (a rotated phone, a dragged window edge) changes how the panel sizes itself
     function cpResize() {
-      if (!cpEl || cpEl.hidden) { if (cpDotsEl) { cpDotsEl.hidden = true; cpDotsEl.innerHTML = ""; } return; }
-      if (!cpPagerOn() && cpColsEl) cpColsEl.scrollLeft = 0;   // back to the stacked layout: a leftover offset would hide the text
-      cpSyncDots(); cpActiveDot();
+      if (!cpEl || cpEl.hidden) return;
       cpApplyH();
     }
     let popPointLL = null;    // the lon/lat that opened the popup (the click point, or a search anchor) — feeds the crumb parent + "Who ruled here?"
@@ -33131,13 +33365,10 @@
     function countryStats(name) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); return (window.COUNTRY_STATS || {})[k] || null; }
     function countryStatsYear(name, yr) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); const o = (window.COUNTRY_STATS_YEARS || {})[k]; return (o && o[String(yr)]) || null; }   // per-state, per-year figures for a HISTORICAL map-year ({pop, area, gdp}); null → dash
     function countrySpan(name) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); return (window.COUNTRY_SPANS || {})[k] || ""; }   // the years this state/iteration existed, e.g. "1815 – Present" — shown thin/grey under the title
-    /* Discovery counting on the Atlas. placesSeen records every place opened, present-day and historical
-       alike, but only the present-day countries form a set with an honest total (258, fixed and shipped);
-       the era territories are open-ended and grow with every map added. So the chip counts a country
-       against that 258 and shows a territory its label alone. Memoized: GEO is fixed for the mount. */
-    let _geoNames = null;
-    const geoNameSet = () => (_geoNames || (_geoNames = new Set(GEO.map((c) => c.n).filter(Boolean))));
-    const countriesSeenCount = () => { const g = geoNameSet(); return Object.keys((S && S.placesSeen) || {}).filter((n) => g.has(n)).length; };
+    /* Discovery counting on the Atlas lived here — a set of the present-day country names and a tally of
+       how many of them had been opened, which is what the chip's "7 / 258" was counted from. Both went
+       with the counter in Sep 2026: nothing on this panel reads them now, and the reader's own tally is
+       still kept (placesSeen) and still shown, on the account page, by countrySeenCount. */
     // parse a formatted stat string ("41.45 million", "49,710", "$20.5B", "$709M") to a raw number, or NaN
     function statNum(s) {
       if (!s) return NaN; const t = String(s).toLowerCase().replace(/[$,]/g, "").trim();
@@ -33192,11 +33423,14 @@
       // forceGeneral (a UK constituent): just its name + its general description, no year paragraph or stats.
       cpNameEl.textContent = forceGeneral ? name : officialName(name, desc);
       if (cpSpanEl) cpSpanEl.textContent = forceGeneral ? "" : countrySpan(name);   // the years this state/iteration existed (thin grey under the title); "" → the line collapses
-      if (cpNewEl) {   // the discovery chip — first opening only, and the panel element is REUSED, so it must be cleared on every other one
+      /* The discovery chip — first opening only, and the panel element is REUSED, so it must be cleared on
+         every other one. IT CARRIES NO COUNTER (Sep 2026, on request): the chip shares the title's line,
+         and a running "7 / 258" beside a place's name is a second number competing with the one thing that
+         line is for — the reader's tally is on the account page, where it is read on purpose rather than
+         glanced at over a map. The count is still kept; only the chip stops reciting it. */
+      if (cpNewEl) {
         if (firstSeen) {
-          const isCountry = geoNameSet().has(name);
-          cpNewEl.innerHTML = discChipHTML("New place!", isCountry ? discCounter(countriesSeenCount(), geoNameSet().size) : "",
-            isCountry ? "Present-day countries you have opened on the Atlas" : "");
+          cpNewEl.innerHTML = discChipHTML("New discovery!", "", "");
           cpNewEl.hidden = false;
         } else { cpNewEl.hidden = true; cpNewEl.innerHTML = ""; }
       }
@@ -33235,9 +33469,8 @@
       const colDesc = (forceGeneral || !ATLAS_YEAR_PROSE) ? "" : stripInfoNoise(yd);   // the per-year paragraph for THIS map-year (the general description above stays constant)
       cpYearDescEl.textContent = colDesc || "—";
       if (colDesc) { autoLinkGlossary(cpYearDescEl, name, []); setupTooltips(cpYearDescEl); }
-      /* HIDDEN rather than collapsed while the switch is off. On a phone `.cp-cols` is a pager and
-         `cpPanes()` counts whatever is not `hidden`, so a merely-collapsed section keeps a dot for a page
-         that renders nothing and a swipe lands on a blank screen. */
+      /* HIDDEN rather than collapsed while the switch is off: a collapsed section still draws its header,
+         which on the sheet is a line promising a paragraph the reader can never open. */
       if (cpYearSecEl) cpYearSecEl.hidden = !ATLAS_YEAR_PROSE;
       cpSection(cpYearSecEl, !!colDesc);
       const st = forceGeneral ? null : (present ? countryStats(name) : countryStatsYear(name, year));   // present-day figures at the present year; per-year figures (COUNTRY_STATS_YEARS) for a historical map-year
@@ -33277,15 +33510,10 @@
       // the numbering is decoration failing loudly enough to take a panel down with it otherwise.
       if (cpColsEl) { try { wireFootnotes(cpColsEl); } catch (err) {} }
       cpEl.hidden = false;
-      // A fresh entity starts at the beginning of its own panel — the general description, in both layouts.
-      // The popup element is REUSED, so without this the scroller keeps wherever the previous country left
-      // it: however far DOWN it on the desktop panel, and on the phone however far ACROSS, which would open
-      // the next country on its figures. `scrollLeft` is set with the pages already laid out, so it lands on
-      // page one rather than on a stale offset.
-      if (cpColsEl) { cpColsEl.scrollTop = 0; cpColsEl.scrollLeft = 0; }
-      // the dots FIRST: the height is fitted to the page on screen, and the dot row is part of what the
-      // sheet has to make room for (see cpPaneNeedH)
-      cpSyncDots(); cpActiveDot();
+      // A fresh entity starts at the top of its own panel. The popup element is REUSED, so without this the
+      // scroller keeps wherever the previous country left it, and the next place opens part way down
+      // somebody else's paragraph.
+      if (cpColsEl) cpColsEl.scrollTop = 0;
       // …and SHUT again, whatever the last place was left at: a tap on a country asks what it is, and the
       // name is the answer. Reset here rather than remembered, which is the request's "always collapsed".
       cpShut = true;
@@ -35415,43 +35643,25 @@
     cpPopEl = root.querySelector("#cpPop"); cpAreaEl = root.querySelector("#cpArea"); cpGdpEl = root.querySelector("#cpGdp"); cpGdppcEl = root.querySelector("#cpGdppc");
     cpCrumbEl = root.querySelector("#cpCrumb"); cpHistListEl = root.querySelector("#cpHistList");
     cpColsEl = root.querySelector(".cp-cols");
-    cpDotsEl = root.querySelector("#cpDots");
     cpDescSecEl = root.querySelector("#cpDescSec"); cpYearSecEl = root.querySelector("#cpYearSec"); cpStatsSecEl = root.querySelector("#cpStatsSec");
     cpSrcEl = root.querySelector("#cpSrc"); cpSrcSecEl = root.querySelector("#cpSrcSec");
     { const cpClose = root.querySelector("#cpClose"); if (cpClose) cpClose.addEventListener("click", hideCountryPopup); }
     { const more = root.querySelector("#cpMore"); if (more) more.addEventListener("click", () => cpSetShut(!cpShut)); }
-    // one delegated listener folds any of the three sections open or shut, so a reader can put away the part
-    // they aren't reading — a long description on a phone sheet buries the year paragraph under it.
-    // On the phone the sections are PAGES, not folds: there is nothing below a section to uncover by shutting
-    // it, so the head does nothing there (and must not write srcCollapsed on the way past).
+    /* One delegated listener folds any of the sections open or shut, so a reader can put away the part they
+       aren't reading — a long description buries the figures under it on a sheet the size of a hand.
+       IT WORKS ON THE SHEET TOO SINCE SEP 2026, when the sections stopped being pages you swipe between:
+       there is something below a section to uncover now, so the head does what it says. The sheet's height
+       is fitted to its content, so a fold has to re-apply it — otherwise shutting a section leaves the box
+       the size of the paragraph that is no longer in it. */
     if (cpEl) cpEl.addEventListener("click", (e) => {
       const head = e.target.closest(".cp-sec-head"); if (!head || !cpEl.contains(head)) return;
       const sec = head.closest(".cp-sec"); if (!sec) return;
-      if (cpPagerOn()) return;
       const open = sec.classList.toggle("collapsed") === false;
       head.setAttribute("aria-expanded", open ? "true" : "false");
+      if (cpSheetOn()) cpApplyH();
     });
-    // the phone pager: dots follow the swipe, and a tap on one turns to that page
-    /* The dots follow the finger; the HEIGHT waits for it to stop. Re-fitting the sheet on every scroll
-       event would resize the box a gesture is being made inside — the snap would be measuring a moving
-       target — so the fit is debounced past the settle, exactly as the dot correction is. */
-    if (cpColsEl) {
-      let fitT = null;
-      cpColsEl.addEventListener("scroll", () => {
-        if (!cpPagerOn()) return;
-        cpActiveDot();
-        if (fitT) clearTimeout(fitT);
-        fitT = setTimeout(() => { fitT = null; cpFitH(); }, 140);
-      }, { passive: true });
-    }
-    if (cpColsEl) wireOnePageSwipe(cpColsEl);   // a hard flick must not carry past the year paragraph into the figures
-    if (cpDotsEl) cpDotsEl.addEventListener("click", (e) => {
-      const b = e.target.closest(".cp-dot"); if (!b) return;
-      const pane = cpPanes()[+b.dataset.i]; if (!pane) return;
-      cpColsEl.scrollTo({ left: pane.offsetLeft - cpColsEl.offsetLeft, behavior: prefersReducedMotion() ? "auto" : "smooth" });
-    });
-    // rotating the phone (or resizing a narrow window) crosses the pager's breakpoint — rebuild the dots for
-    // whichever layout is now in force, and put the reader back on the page they were reading
+    // rotating the phone (or resizing a narrow window) crosses the sheet's breakpoint — the two layouts
+    // size themselves differently, so the height has to be re-derived for whichever is now in force
     window.addEventListener("resize", cpResize);
     // breadcrumb: climb back up the drill hierarchy (territory → its empire; drilled country/constituent → its holder)
     if (cpCrumbEl) cpCrumbEl.addEventListener("click", (e) => {
@@ -36485,6 +36695,11 @@
     { id: "art10", icon: "🏺", name: "Antiquarian", desc: "Collect 10 artefacts", test: (s) => s.artefacts >= 10, prog: (s) => [s.artefacts, 10] },
     { id: "art25", icon: "🖼️", name: "Curator", desc: "Collect 25 artefacts", test: (s) => s.artefacts >= 25, prog: (s) => [s.artefacts, 25] },
     { id: "art50", icon: "🏛️", name: "Keeper of the Reliquary", desc: "Collect 50 artefacts", test: (s) => s.artefacts >= 50, prog: (s) => [s.artefacts, 50] },
+    /* The ladder stopped at 50 while the pool was 100, so the top of it was half the Reliquary. The
+       pool is being taken to 200, which would have made `art50` a quarter — an early milestone wearing
+       the name of a final one. This is the rung that keeps the top of the ladder near the top of the
+       pool. It changes nothing already earned: a badge is only ever added to `S.achievements`. */
+    { id: "art100", icon: "🏆", name: "Antiquary Royal", desc: "Collect 100 artefacts", test: (s) => s.artefacts >= 100, prog: (s) => [s.artefacts, 100] },
     /* A legendary is 3% of a roll, so this is the one badge here that a reader cannot simply grind
        towards — hence no `prog`: "0 / 1" over a thing decided by chance says nothing useful. */
     { id: "legend1", icon: "🌟", name: "Once in a Lifetime", desc: "Find a legendary artefact", test: (s) => s.legendaries >= 1 },
@@ -36714,6 +36929,19 @@
       toast("Forgotten on this device");
     }));
   }
+  /* A THROW ON THE AUTH PATH MUST STILL SAY SOMETHING (Sep 2026, on a bug report about creating an
+     account). `supaSignUp` awaits `supaAfterSignIn`, which loads a profile, pulls progress, applies it and
+     remounts the community decks — half a dozen places that can raise on odd stored state. Every one of
+     those threw straight out of the submit handler as an unhandled rejection: the button never came back,
+     the message area stayed blank, and the account had in fact been CREATED, so the reader's next attempt
+     met "User already registered" over a form that had told them nothing the first time. Anything that
+     escapes is reported here instead, and the button is restored in a `finally` so the form is usable
+     whichever way the call ends. */
+  function authThrewMsg(err) {
+    try { console.error("[folio] auth", err); } catch (e) {}
+    return "Something went wrong finishing that — reload the page and try signing in; the account may already exist.";
+  }
+
   function acctAuthView(root) {
     root.innerHTML = `
       <div class="page-head"><span class="eyebrow">Your account</span><h1>Account</h1></div>
@@ -36794,6 +37022,9 @@
       </button>` : ""}`;
     root.querySelectorAll("[data-exgo]").forEach((b) => b.addEventListener("click", () => route(b.dataset.exgo)));
     { const rel = root.querySelector("#reliquary"); if (rel) { rel.innerHTML = reliquaryHTML(S, true, { entry: true }); wireReliquary(rel); } }
+    // the tiles carry the artefacts' own pictures, which are lazy — fill them in when the bundle lands
+    // rather than holding a page full of other things the reader came for. See refreshReliquary.
+    if (!dataReady("artefactExtra")) ensureData("artefactExtra").then(() => { if (current && current.name === "account") refreshReliquary(); });
     wireAcctSwitch(root);
     const tabs = root.querySelectorAll(".auth-tab"), forms = root.querySelectorAll(".auth-form");
     tabs.forEach((t) => t.addEventListener("click", () => {
@@ -36801,10 +37032,22 @@
       forms.forEach((f) => { f.hidden = f.dataset.form !== t.dataset.av; });
     }));
     const msg = (form, text, ok) => { const m = form.querySelector("[data-msg]"); m.textContent = text || ""; m.className = "auth-msg" + (text ? (ok ? " ok" : " err") : ""); };
-    const busy = (f, on) => { const b = f.querySelector(".auth-btn"); if (b) { b.disabled = on; b.textContent = on ? "…" : b.dataset.lbl || b.textContent; if (!b.dataset.lbl) b.dataset.lbl = b.textContent; } };
+    /* THE LABEL IS STASHED BEFORE IT IS OVERWRITTEN, WHICH IT WAS NOT (Sep 2026, on a bug report about
+       creating an account). This wrote "…" into the button and only THEN asked whether it had a stored
+       label — so the first press stored "…" as the label, and every restore afterwards put "…" back.
+       The button on all three auth forms therefore read "…" for the rest of the visit: after a rejected
+       sign-up the reader was looking at a form that had said nothing and a button that still looked as
+       though it were working, which is a failed submission wearing the costume of a hung one. */
+    const busy = (f, on) => {
+      const b = f.querySelector(".auth-btn"); if (!b) return;
+      if (!b.dataset.lbl) b.dataset.lbl = b.textContent;
+      b.disabled = on;
+      b.textContent = on ? "…" : b.dataset.lbl;
+    };
     root.querySelector('[data-form="signin"]').addEventListener("submit", async (e) => {
       e.preventDefault(); const f = e.target;
-      busy(f, true); const r = await supaSignIn(f.u.value.trim(), f.p.value); busy(f, false);
+      busy(f, true);
+      let r; try { r = await supaSignIn(f.u.value.trim(), f.p.value); } catch (err) { r = { error: authThrewMsg(err) }; } finally { busy(f, false); }
       if (r.error) return msg(f, r.error);
       toast("Signed in as " + ((SUPA_PROFILE && SUPA_PROFILE.name) || "you")); afterAuthChange();
     });
@@ -36814,14 +37057,21 @@
       if (!/^[a-z0-9_]{3,24}$/.test(uname)) return msg(f, "Username: 3–24 characters — letters, numbers and underscores only.");
       if (f.p.value !== f.p2.value) return msg(f, "Passwords don't match.");
       if (f.p.value.length < 6) return msg(f, "Password must be at least 6 characters.");
-      busy(f, true); const r = await supaSignUp(f.e.value.trim(), uname, f.u.value.trim(), f.p.value); busy(f, false);
+      busy(f, true);
+      let r; try { r = await supaSignUp(f.e.value.trim(), uname, f.u.value.trim(), f.p.value); } catch (err) { r = { error: authThrewMsg(err) }; } finally { busy(f, false); }
       if (r.error) return msg(f, r.error);
       if (r.confirm) return msg(f, "Account created — check your email inbox for a confirmation link, then sign in.", true);
-      toast("Account created — welcome!"); afterAuthChange();
+      /* The handle the account really got. It differs only when the one asked for was already taken, and
+         then the reader has to be told outright — a longer dwell than the ordinary toast, because it asks
+         them to do something (rename it on this page) rather than merely reporting that it worked. */
+      if (r.username && r.username !== uname) toast("That username was taken — your account is @" + r.username + " for now. Change it under Username on this page.", 7000);
+      else toast("Account created — welcome!");
+      afterAuthChange();
     });
     root.querySelector('[data-form="forgot"]').addEventListener("submit", async (e) => {
       e.preventDefault(); const f = e.target;
-      busy(f, true); const r = await supaRecover(f.u.value.trim()); busy(f, false);
+      busy(f, true);
+      let r; try { r = await supaRecover(f.u.value.trim()); } catch (err) { r = { error: authThrewMsg(err) }; } finally { busy(f, false); }
       if (r.error) return msg(f, r.error);
       msg(f, "Reset link sent — check your email inbox.", true);
     });
@@ -36856,12 +37106,13 @@
         <input type="file" id="avatarFile" accept="image/*" hidden>
         <div class="who">
           <input class="namefield" id="name" value="${esc(S.user.name)}" maxlength="28" aria-label="Display name" />
-          <div class="since">@${esc(me.username)} · ${roleBadge(me.role)} · since ${joined}</div>
+          <div class="since"><span id="unShown">@${esc(me.username)}</span> · ${roleBadge(me.role)} · since ${joined}</div>
         </div>
         ${/* Aug 2026, on request: Change password moved up here beside Sign out. The two are the same kind
               of thing — what you do to the ACCOUNT — and it had been sitting a section lower among the
               photo controls, where it read as one of them. */""}
         <div class="acct-idacts">
+          <button class="ghost-btn" id="unToggle" type="button">Username</button>
           <button class="ghost-btn" id="emToggle" type="button">Email address</button>
           <button class="ghost-btn" id="pwToggle" type="button">Change password</button>
           <button class="ghost-btn" id="swToggle" type="button">Switch account</button>
@@ -36871,6 +37122,18 @@
       ${/* …and the sync line moved with them: it says what happens to the thing those two buttons act on,
             so it belongs directly under them rather than beside a Remove-photo button. */""}
       <div class="acct-syncnote"><span class="auth-note">${S._supaTs ? "Progress synced to your account ✓" : "Progress will sync automatically as you study"}</span></div>
+      ${/* CHANGING THE HANDLE (Sep 2026, on a bug report about creating an account). Sign-up does not always
+            grant the username asked for — a taken one is answered with `scholar_<8 hex>` so that the account
+            is still made — and until now there was no way back from that: the field above edits the display
+            name, and the handle was write-once. The panel says what the handle IS as well as changing it,
+            since it is what the reader signs in with and what a friend searches for. */""}
+      <div class="acct-panel" id="unPanel" hidden>
+        <div class="acct-current">Your username is <b>@${esc(me.username)}</b></div>
+        <label>New username<input class="auth-in" id="unNew" autocomplete="username" placeholder="letters, numbers, underscore" maxlength="24"></label>
+        <div class="auth-msg" id="unMsg"></div>
+        <button class="auth-btn sm" id="unSave" type="button">Change username</button>
+        <p class="auth-note">This is the handle you can sign in with and the one friends add you by. Your display name above is separate.</p>
+      </div>
       ${/* SEEING AND CHANGING THE ADDRESS (Aug 2026, on request). The address a reader signs in with was
             nowhere on this page, which on an account that also has a username is the one fact they cannot
             look up anywhere else. It is shown plainly and changed in the same panel, and the note says the
@@ -37011,14 +37274,27 @@
     root.querySelector("#signout").addEventListener("click", async (e) => { e.target.disabled = true; await supaSignOut(); toast("Signed out"); afterAuthChange(); });
     /* One panel open at a time. They are three answers to "what about this account", and two of them
        showing at once pushes the third off the screen on a phone for no reason. */
-    const panels = ["emPanel", "pwPanel", "swPanel"];
+    const panels = ["unPanel", "emPanel", "pwPanel", "swPanel"];
     const openPanel = (want) => panels.forEach((p) => {
       const el = root.querySelector("#" + p);
       if (el) el.hidden = p === want ? !el.hidden : true;
     });
+    root.querySelector("#unToggle").addEventListener("click", () => openPanel("unPanel"));
     root.querySelector("#emToggle").addEventListener("click", () => openPanel("emPanel"));
     root.querySelector("#swToggle").addEventListener("click", () => openPanel("swPanel"));
     root.querySelector("#pwToggle").addEventListener("click", () => openPanel("pwPanel"));
+    root.querySelector("#unSave").addEventListener("click", async (e) => {
+      const m = root.querySelector("#unMsg"), inp = root.querySelector("#unNew");
+      e.target.disabled = true;
+      let r; try { r = await supaSetUsername(inp.value); } catch (err) { r = { error: authThrewMsg(err) }; } finally { e.target.disabled = false; }
+      if (r.error) { m.textContent = r.error; m.className = "auth-msg err"; return; }
+      m.textContent = "Username changed to @" + r.username + "."; m.className = "auth-msg ok";
+      inp.value = "";
+      // the handle is printed twice on this page — the identity line and this panel's own current-value line
+      const shown = root.querySelector("#unShown"), cur = root.querySelector("#unPanel .acct-current b");
+      if (shown) shown.textContent = "@" + r.username;
+      if (cur) cur.textContent = "@" + r.username;
+    });
     root.querySelector("#emSave").addEventListener("click", async (e) => {
       const m = root.querySelector("#emMsg"), inp = root.querySelector("#emNew");
       e.target.disabled = true;
@@ -37271,56 +37547,100 @@
      in full rather than preserved from the file on disk: this is the ONLY copy of it once the file has
      been round-tripped, and a serializer that drops the documentation is how a file stops explaining
      itself. Offered by Admin → Artefacts as "Copy as JS" and written by auto-save / "Save to project". */
+  /* artefacts.js — THE INDEX, and it is EAGER. See serializeArtefactsExtra below for the other 94%.
+     The head comment is written out in full rather than preserved from disk: once the file has been
+     round-tripped through this editor it is the only copy of the shape's documentation, and a
+     serializer that drops it is how a file stops explaining itself. Kept in step with
+     .claude/artefact-io.js by hand; `node .claude/split-artefacts.js --check` verifies the result. */
   function serializeArtefacts() {
     const s = (v) => JSON.stringify(String(v == null ? "" : v));
     return "/* ============================================================\n" +
-      "   ARTEFACTS — the pool a level-up chest draws from\n" +
+      "   ARTEFACTS — the pool a level-up chest draws from (THE INDEX)\n" +
       "   ============================================================\n" +
       "   Every entry is a REAL historical object. The same rule the cards and the glossary run on applies here\n" +
       "   without exception: nothing is invented — not a date, not a museum, not a measurement — and where the\n" +
       "   scholarship is unsettled the description says so rather than picking a side.\n\n" +
+      "   THIS FILE IS THE INDEX ONLY, AND IT IS EAGER. Each artefact's DESCRIPTION, CITATIONS and PICTURE\n" +
+      "   live in the lazy artefacts-extra.js (bundle `artefactExtra`, warmed at idle). Together those three\n" +
+      "   were 94% of this file — 237 KB of 251 — and not one of them is read until a chest opens or the\n" +
+      "   Reliquary is visited, while every visitor downloaded all of it before flipping a card. What stays\n" +
+      "   here is what a reader needs BEFORE a chest is opened: `progStats` counts legendaries on every grade\n" +
+      "   and needs `rarity` alone. See .claude/split-artefacts.js, and `--check` to verify the split.\n\n" +
       "   Shape:\n" +
       "     id      a stable slug. It is what the reader's own inventory (S.artefacts) is keyed by, so it must\n" +
       "             NEVER be reused for a different object and never renamed once shipped — a renamed id takes\n" +
-      "             the artefact out of every collection that holds it.\n" +
+      "             the artefact out of every collection that holds it. It is also the JOIN to artefacts-extra.js.\n" +
       "     name    the title shown when it is looted.\n" +
       "     rarity  \"common\" | \"rare\" | \"epic\" | \"legendary\" — grey, blue, purple, orange. It decides the drop\n" +
-      "             odds (60 / 25 / 12 / 3) and how expansive the chest animation and its sound are.\n" +
+      "             odds (60 / 25 / 12 / 3) and how expansive the chest animation and its sound are. THE POOL'S\n" +
+      "             OWN SHAPE MUST MIRROR THOSE ODDS: rollArtefact renormalises over whatever rarities still\n" +
+      "             hold something unowned, so a tier under-represented here empties early and drops out of the\n" +
+      "             roll — which a reader experiences as bad luck and never reports.\n" +
       "     date    a short date line, in the compact notation the cards use.\n" +
-      "     origin  where it is from, and where it is now if that is worth knowing.\n" +
-      "     image   optional { src, title, desc, credit, alt } — a LINK, never an upload, exactly as a card's\n" +
-      "             picture is. `credit` is required wherever `src` is set; an artefact with no picture draws\n" +
-      "             a rarity-coloured placeholder rather than an empty frame. `title` and `desc` are what the\n" +
-      "             fullscreen viewer captions the picture with — they were added Aug 2026, on request, all 99\n" +
-      "             pictures having opened the viewer with a blank description until then. Neither composes\n" +
-      "             anything: the title is the artefact's own name and the description is the alt with the\n" +
-      "             attribution `credit` already carries. See .claude/fix-image-text.js.\n" +
-      "     desc    exactly FIVE sentences, about 200 words (±10%), at the same reading level as a card's\n" +
-      "             background. Rich HTML: <b> for the object's own name at its first mention, <i> for titles\n" +
-      "             and foreign terms. Metric first with the imperial equivalent in brackets. It carries the\n" +
-      "             footnote markers — <sup class=\"fn\"></sup>, written EMPTY, since the digit is drawn from\n" +
-      "             the list at render time and a hand-typed number goes stale the moment the list is\n" +
-      "             re-ordered.\n" +
-      "     sources at least THREE Chicago note-form citations, each ending in the URL that lets a reader\n" +
-      "             check it, and each pointed at by at least one marker in the description. Real works only:\n" +
-      "             a museum's own record of the object, an excavation report, a journal article, an ancient\n" +
-      "             author in a published translation. Never a citation composed to fit a sentence.\n\n" +
+      "     origin  where it is from, and where it is now if that is worth knowing.\n\n" +
       "   Written and edited in Admin → Artefacts, which shows the reader's plate live beside the form and can\n" +
-      "   also hand this whole file back as a JS literal. */\n" +
+      "   also hand both files back as JS literals. GENERATED by .claude/artefact-io.js — do not hand-edit. */\n" +
       "window.ARTEFACTS = [\n" +
       ARTEFACTS.map((a) => {
         let out = "  {\n    id: " + s(a.id) + ",\n    name: " + s(a.name) + ",\n    rarity: " + s(a.rarity) + ",\n";
         if (a.date) out += "    date: " + s(a.date) + ",\n";
         if (a.origin) out += "    origin: " + s(a.origin) + ",\n";
-        if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) +
-          (a.image.title ? ", title: " + s(a.image.title) : "") +
-          (a.image.desc ? ", desc: " + s(a.image.desc) : "") +
-          ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
-        out += "    desc: " + s(a.desc) + ",\n";
-        const src = normSources(a.sources);
-        if (src.length) out += "    sources: [\n" + src.map((x) => "      " + s(x) + ",").join("\n") + "\n    ],\n";
         return out + "  },";
       }).join("\n") + "\n];\n";
+  }
+  /* artefacts-extra.js — the description, citations and picture, which are LAZY (bundle
+     "artefactExtra") because together they were 94% of artefacts.js on the EAGER path and not one of
+     them is read until a chest opens. See artefactExtraIngest for why the file stages onto a queue.
+     IT IS ONLY SAFE TO WRITE ONCE THE BUNDLE HAS LOADED: until then every entry in the pool carries an
+     empty `desc` and no sources, so baking would replace 240 KB of researched prose with nothing.
+     `artefactFiles()` is the gate — the same rule glossExtraFiles() applies, for the same reason. */
+  function serializeArtefactsExtra() {
+    const s = (v) => JSON.stringify(String(v == null ? "" : v));
+    const rows = ARTEFACTS.map((a) => {
+      let out = "";
+      if (a.image && a.image.src) out += "  image: { src: " + s(a.image.src) +
+        (a.image.title ? ", title: " + s(a.image.title) : "") +
+        (a.image.desc ? ", desc: " + s(a.image.desc) : "") +
+        ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
+      out += "  desc: " + s(a.desc) + ",\n";
+      const src = normSources(a.sources);
+      if (src.length) out += "  sources: [\n" + src.map((x) => "    " + s(x) + ",").join("\n") + "\n  ],\n";
+      return s(a.id) + ": {\n" + out + "}";
+    }).join(",\n");
+    return "/* An artefact's DESCRIPTION, CITATIONS and PICTURE — split out of artefacts.js and LAZY.\n" +
+      " *\n" +
+      " * WHY THIS FILE EXISTS. artefacts.js is on the eager load path, so every visitor downloads it\n" +
+      " * before flipping a card, and these three fields were 94% of it — 237 KB of 251. Not one of them\n" +
+      " * is read until a CHEST OPENS or the Reliquary is visited; the only boot-adjacent reader of the\n" +
+      " * pool is progStats, which counts legendaries and so needs `rarity` alone. They are fetched now by\n" +
+      " * the `artefactExtra` data bundle: warmed at idle after boot, and awaited by the chest reveal, the\n" +
+      " * Reliquary, a friend's collection and Admin → Artefacts.\n" +
+      " *\n" +
+      " * IT STAGES ONTO A QUEUE RATHER THAN ASSIGNING, for the same reason glossary-extra.js does. The\n" +
+      " * file lands AFTER boot, where refreshArtefacts() has already built the pool from the index alone\n" +
+      " * and applyAdminEdits() has already run — so a plain assignment would leave Admin → Artefacts'\n" +
+      " * Revert comparing a real description against nothing and DELETING it rather than restoring it.\n" +
+      " * The bundle's `after` hook (artefactExtraIngest) drains the queue, merges the three fields back\n" +
+      " * into window.ARTEFACTS and rebuilds the pool, which re-applies the admin overlay on top.\n" +
+      " *\n" +
+      " * The key is the artefact's `id`, which is the join to the index and is never renamed.\n" +
+      " *\n" +
+      " * GENERATED — do not hand-edit. Written by .claude/artefact-io.js (the helper scripts) and by\n" +
+      " * app.js's serializeArtefactsExtra (the in-app editor). `node .claude/split-artefacts.js --check`\n" +
+      " * verifies the split is still intact. */\n" +
+      "(function () {\n" +
+      "  var ARTEFACTS_EXTRA = {\n" + rows + "\n};\n" +
+      "  (window.ARTEFACTS_EXTRA_IN = window.ARTEFACTS_EXTRA_IN || []).push({ ARTEFACTS_EXTRA: ARTEFACTS_EXTRA });\n" +
+      "})();\n";
+  }
+  /* Both artefact files, or NEITHER. They are joined on `id`, so writing the index alone would leave an
+     artefact added here with no prose anywhere, and writing either before the bundle has loaded would
+     bake an empty description over a researched one. Nothing is written unless the overlay actually
+     holds an artefact edit, which is what keeps an ordinary Save from rewriting two untouched files. */
+  function artefactFiles() {
+    if (!Object.keys(ADMIN_EDITS.artefacts || {}).length) return {};
+    if (!dataReady("artefactExtra")) return {};
+    return { "artefacts.js": serializeArtefacts(), "artefacts-extra.js": serializeArtefactsExtra() };
   }
 
   /* ---------- THE AI PROMPTS (Aug 2026, on request) ----------
@@ -38869,7 +39189,7 @@
     b.classList.toggle("on", s === "on" || s === "saving" || s === "saved");
     b.classList.toggle("warn", s === "reconnect" || s === "error");
   }
-  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); if (ADMIN_EDITS.mission) f["mission.js"] = serializeMission(); if (Object.keys(ADMIN_EDITS.artefacts || {}).length) f["artefacts.js"] = serializeArtefacts(); Object.assign(f, glossI18nFiles()); Object.assign(f, glossExtraFiles()); return f; }
+  function autoSaveFiles() { const f = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() }; if (Array.isArray(ADMIN_EDITS.timeline)) f["timeline.js"] = serializeTimeline(); if (ADMIN_EDITS.mission) f["mission.js"] = serializeMission(); Object.assign(f, artefactFiles()); Object.assign(f, glossI18nFiles()); Object.assign(f, glossExtraFiles()); return f; }
   async function autoSaveNow() {
     if (!autoSaveArmed || !autoSaveDir) return;
     if (_autoWriting) { autoSaveWrite(); return; }                                  // a write is in flight → coalesce into the next tick
@@ -38912,7 +39232,6 @@
   async function adminExport() {
     const dataJs = serializeCardData(), glossJs = serializeGlossary();
     const hasTl = Array.isArray(ADMIN_EDITS.timeline);
-    const hasArt = Object.keys(ADMIN_EDITS.artefacts || {}).length > 0;
     // fallback for any path where direct write isn't available: download the generated files so they can be placed manually.
     // stagger the fallback downloads: firing 2–3 a.click() downloads in one tight loop trips Chrome's "site is trying to
     // download multiple files" block, so only the first would actually save. Space them out so every file lands.
@@ -38920,7 +39239,7 @@
       const files = [["data.js", dataJs], ["glossary.js", glossJs]];
       if (hasTl) files.push(["timeline.js", serializeTimeline()]);
       if (ADMIN_EDITS.mission) files.push(["mission.js", serializeMission()]);
-      if (hasArt) files.push(["artefacts.js", serializeArtefacts()]);
+      Object.entries(artefactFiles()).forEach((e) => files.push(e));
       Object.entries(glossI18nFiles()).forEach((e) => files.push(e));
       Object.entries(glossExtraFiles()).forEach((e) => files.push(e));
       // a browser download can't carry a folder — send the basename and say where the i18n ones belong
@@ -38949,7 +39268,7 @@
       await writeFileTo(dir, "glossary.js", glossJs);
       if (hasTl) await writeFileTo(dir, "timeline.js", serializeTimeline());   // commit historical eras to timeline.js (then the overlay copy is dropped below)
       if (ADMIN_EDITS.mission) await writeFileTo(dir, "mission.js", serializeMission());   // bake the Mission intro (overlay dropped below)
-      if (hasArt) await writeFileTo(dir, "artefacts.js", serializeArtefacts());   // bake the artefact pool (overlay dropped below)
+      for (const [n, txt] of Object.entries(artefactFiles())) await writeFileTo(dir, n, txt);   // bake the artefact pool — BOTH files, or neither (overlay dropped below)
       for (const [n, txt] of Object.entries(glossI18nFiles())) await writeFileTo(dir, n, txt);   // bake edited glossary translations, one file per language
       // deck date labels + coming-soon pins live only in the delta overlay (not encoded in the files) — keep them so a
       // save never loses them; everything else is now baked into data.js / glossary.js, so drop it.
@@ -38974,7 +39293,7 @@
       const out = { "data.js": serializeCardData(), "glossary.js": serializeGlossary() };
       if (Array.isArray(ADMIN_EDITS.timeline)) out["timeline.js"] = serializeTimeline();
       if (ADMIN_EDITS.mission) out["mission.js"] = serializeMission();
-      if (Object.keys(ADMIN_EDITS.artefacts || {}).length) out["artefacts.js"] = serializeArtefacts();
+      Object.assign(out, artefactFiles());
       Object.assign(out, glossI18nFiles());
       Object.assign(out, glossExtraFiles());
       return out;
@@ -41152,6 +41471,18 @@
     function adminRenderArtefacts() {
       const items = root.querySelector("#adminListItems");
       const countEl = root.querySelector("#adminListCount");
+      /* THE EDITOR MUST NOT OPEN BEFORE THE LAZY HALF HAS LANDED, and this is the one await here that
+         guards against DATA LOSS rather than against a blank screen. Every artefact's description and
+         citation list is in artefacts-extra.js; until it arrives the pool carries empty prose, so the
+         word/sentence counters would read 0, every plate preview would be blank, and — worst — a save
+         made against that state would write the emptiness back. The tab is reached by a deliberate
+         press, so a moment's wait costs nothing. */
+      if (!dataReady("artefactExtra")) {
+        if (countEl) countEl.textContent = "";
+        if (items) items.innerHTML = '<div class="data-loading">Loading the artefact descriptions…</div>';
+        ensureData("artefactExtra").then(() => { if (adminState.tab === "artefacts") adminRenderArtefacts(); });
+        return;
+      }
       const pool = ARTEFACTS;
       if (countEl) countEl.textContent = pool.length + (pool.length === 1 ? " artefact" : " artefacts");
       const order = { legendary: 0, epic: 1, rare: 2, common: 3 };
@@ -41241,7 +41572,16 @@
       const nb = items.querySelector("#aNew");
       if (nb) nb.addEventListener("click", () => { _aEditing = ""; adminRenderArtefacts(); });
       const cb = items.querySelector("#aCopy");
-      if (cb) cb.addEventListener("click", () => copySelText(serializeArtefacts(), pool.length + " artefacts copied — paste over artefacts.js"));
+      /* Copy as JS hands back BOTH files, separated by a banner, because the pool is two files now and a
+         copy of the index alone would look complete and silently discard every description. It refuses
+         outright before the lazy half has landed rather than copying empty prose. */
+      if (cb) cb.addEventListener("click", () => {
+        if (!dataReady("artefactExtra")) { toast("Still loading the artefact descriptions — try again in a moment."); return; }
+        copySelText(serializeArtefacts() +
+          "\n\n/* ==================== artefacts-extra.js ==================== */\n\n" +
+          serializeArtefactsExtra(),
+          pool.length + " artefacts copied — paste the two halves over artefacts.js and artefacts-extra.js");
+      });
 
       const form = items.querySelector("#aForm");
       if (form) {
@@ -41737,6 +42077,13 @@
      warm still gets both: openGlossWin re-fills its picture and Sources slots when the file lands.
      Skipped under Save-Data, like the mini globe was. */
   whenIdle(() => { if (!(navigator.connection && navigator.connection.saveData)) ensureData("glossExtra"); });
+  /* …and the artefact pool's descriptions, citations and pictures (artefacts-extra.js), which used to
+     sit on the EAGER path inside artefacts.js and were 94% of it. Same bargain as the line above: a
+     chest arrives unasked, in the middle of a study session, and the reader should not watch a spinner
+     at the one moment the site is congratulating them — but it has no business blocking first paint
+     either. The four surfaces that render an artefact's prose or picture await the bundle for the
+     reader who beats the warm. Skipped under Save-Data. */
+  whenIdle(() => { if (!(navigator.connection && navigator.connection.saveData)) ensureData("artefactExtra"); });
 
   // Service worker (sw.js) — makes Folio installable and usable offline. Registered after boot so
   // it never competes with first paint, and NEVER on a dev origin: a file-watching dev server's

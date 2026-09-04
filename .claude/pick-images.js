@@ -37,7 +37,8 @@ function corpus() {
   // glossary.js alone yields EMPTY GLOSSARY_IMAGES/GLOSSARY_SOURCES, silently.
   require("./gloss-io.js").loadGlossary(global.window);
   require(path.join(ROOT, "data.js"));
-  require(path.join(ROOT, "artefacts.js"));
+  // the pool is TWO files and an artefact's `image` is in the lazy half — see .claude/artefact-io.js
+  global.window.ARTEFACTS = require("./artefact-io.js").loadArtefacts();
   const w = global.window;
   _corpus = {
     G: w.GLOSSARY || {},

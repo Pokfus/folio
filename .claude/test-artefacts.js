@@ -574,10 +574,16 @@ function syntheticPool() {
     // or none, and the pool is what a reader is actually handed
     const bar = (fs.readFileSync(path.join(ROOT, "app.js"), "utf8").match(/const\s+ARTEFACT_SRC_TARGET\s*=\s*(\d+)/) || [])[1];
     check("the bar is declared in app.js", !!bar, String(bar));
-    const vm = require("vm");
-    const ctx = vm.createContext({ window: {} });   // the file assigns a global, so a bare window stands in for the browser
-    vm.runInContext(fs.readFileSync(path.join(ROOT, "artefacts.js"), "utf8"), ctx, { filename: "artefacts.js" });
-    const pool = ctx.window.ARTEFACTS || [];
+    /* THROUGH artefact-io.js, NEVER `require("../artefacts.js")`. The pool is TWO files since the
+       Sep 2026 split — the eager index, and the lazy artefacts-extra.js holding every description,
+       citation list and picture — so reading the index alone hands back 100 entries with no `sources`
+       on any of them. Every shape assertion below then passes over an empty list and the coverage line
+       reports a fully cited pool as `0 of 100 cited`, which is what this suite did for the first run
+       after the split. That is gloss-io.js's own warning arriving one shelf over: a reader script that
+       reaches past the merge does not fail, it lies. */
+    const pool = require("./artefact-io.js").loadArtefacts();
+    check("the pool loads from BOTH files", pool.length > 0 && pool.every((a) => a.desc && a.desc.trim()),
+      pool.length + " artefacts, " + pool.filter((a) => a.desc && a.desc.trim()).length + " with a description");
     const n = Number(bar || 3);
     /* THE SHAPE IS AN INVARIANT; THE COVERAGE IS A PASS IN PROGRESS, and the two are asserted differently
        on purpose. Anything that HAS been cited must be cited properly — a citation with no URL, a marker
