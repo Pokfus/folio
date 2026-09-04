@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-567` Bucharest.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-568` Mogadishu.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -649,6 +649,36 @@ the urban population of Santiago Metropolitan Area Region"* beside `d` = 2019, a
 city. After Kuala Lumpur, this is routine enough to state as a rule: **where the footnote says
 agglomeration, say so in the prose**, because a reader comparing capitals is otherwise told this one is
 five times the size of its neighbours for a reason nothing on the card explains.
+
+**`gw-567` BUCHAREST HAS THE LONGEST GUIDE ENTRY THE DECK HAS MET, AND ITS BEST MATERIAL IS A CONSULATE
+NOBODY PAID FOR.** Romania's page runs to a dozen dated events. Two are worth the card on their own. **The
+consulate here predates the country**: Louis J. Czapkay was appointed to Bucharest on 20 June 1866 while
+the principalities were still an autonomous part of the Ottoman Empire; and his successor **Benjamin
+Franklin Peixotto** was appointed in 1870 "as an expression of U.S. concern with the status of Romania's
+Jewish community, which was denied citizenship and subject to persecution", the guide adding that he was
+"financially supported by a consortium of American, British, and French Jews since there was little
+American commerce with Romania". A consular post funded by private subscription because the trade did not
+justify it is the kind of fact only this source carries.
+
+**And it is the clearest case yet of a capital sharing its minister.** The 1882 legation's first head,
+Eugene Schuyler, "was also accredited to Greece and Serbia and moved his residence to Athens"; from 1885
+to 1905 the commissions covered Greece, Romania and Serbia with residence AT ATHENS; from 1905 the
+minister lived in Bucharest but was still accredited to Serbia and at times Bulgaria; and **Peter Augustus
+Jay, appointed 18 April 1921, was the first commissioned exclusively to Romania** — thirty-nine years
+after the legation opened. After Abidjan, Dakar and Brazzaville, this is the shape at its extreme: not a
+mission in the wrong city for six months but a capital that did not have a minister to itself for two
+generations.
+
+**A FALLING CAPITAL, AND THE PLAINEST INSTANCE SO FAR.** `EN.URB.LCTY` for Romania falls in **every one of
+the eleven years 2015–2025**, 1,848,922 → 1,758,699. C10's Marshall Islands finding — that "out of date"
+must not be read as "too low" — has a European instance now, and it is worth stating in the prose rather
+than quoting one year, because a reader who knows the 2019 figure would otherwise think the card stale.
+
+**AND A COMMONS ORIGINAL EXACTLY 1000px WIDE HAS NO 1000px THUMB.** `Bucuresti_de_sus.jpg` is 1,000 × 665,
+and `/thumb/…/1000px-…` answers **400** — Commons does not generate a thumbnail at or above the original's
+own width. The fix is to point `src` at the ORIGINAL file path (no `/thumb/`), which is what this card
+does. Sibling of the earlier finding that `Special:FilePath?width=N` silently serves the original when it
+is smaller than N: **between them, any file near the 900px bar needs its src checked rather than built.**
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
