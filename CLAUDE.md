@@ -2843,7 +2843,9 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     here* where a crisp gold line would assert a frontier Folio had surveyed. They are the one part of a
     locator that is AUTHORED rather than fetched, which is exactly why `add-card.js` validates them: a
     coordinate can be looked up and an extent cannot, so a transposed pair draws a region in the wrong
-    ocean and nothing throws.
+    ocean and nothing throws. **A card ALREADY SHIPPED gets one through `.claude/add-locators.js`**, which
+    takes the same `kind` / `area` / `spine` and applies the same validation, and still FETCHES the `at`
+    from a named article — the shape is the only part of a locator that may be typed.
     **NONE OF THE FOUR DRAWS A DOT AS WELL** — "not just as dots" was the request, and a gold dot inside a
     shaded region says "and specifically HERE", which is the false precision the shape exists to be rid of.
     The one exception is a river the `atlas` bundle has not landed yet: the dot stands until the river is
@@ -3360,12 +3362,41 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **Multiple Choice** (`challenge`), **Timeline** (`chrono`), **True or False** (`truefalse`), **Who said
   it?** (`whosaid`, from `quotes.js`), **Find it** (`findit`, on the real Atlas globe), **Common Thread**
   (`thread`, the only one built on the GLOSSARY), **Crossword** (`crossword`, clued from the cards' own
-  questions), **Picture round** (`picture`, from every illustration Folio holds) and **What year?**
+  questions), **Picture round** (`picture`, from the ARTEFACTS alone since Sep 2026) and **What year?**
   (`whatyear`, from `whatyear.js`). The operational half:
   · **EVERY CARD-FED GAME DRAWS THROUGH `gameCardIdSet()`, NEVER `availableCardIdSet()`** — the well-known
     terms only, at or below `GAME_MAX_DIFFICULTY`, since a game deals a term COLD. A tenth game reaches for
     that function; `test-difficulty.js` asserts there is no other path. **Timeline has a second filter**
-    (`card.undatable`) and nothing else may borrow it.
+    (`card.undatable`) and nothing else may borrow it. **Three games are not card-fed at all** and each
+    left that rule by being asked to: the crossword (`crossword.js`), What year? (`whatyear.js`) and the
+    picture round (the artefacts).
+  · **THE PICTURE ROUND IS THE ARTEFACTS AND NOTHING ELSE** (Sep 2026, on request: "The game 'Picture
+    round' should only use pictures from artefacts"). A card's or a term's picture ILLUSTRATES its subject,
+    which is a different thing from depicting it — a hand-axe under `Acheulean`, a flag under a country —
+    and the two filters that had grown up around that (`PIC_ABSTRACT_KINDS`, and the difficulty bar
+    reaching into the glossary through `threadEasyKeys()`) are **DELETED** with the halves they guarded:
+    an artefact is a photograph of ONE object, so there is nothing to rate and nothing to except. The pool
+    falls from 157 subjects to 99, still an order above `PIC_MIN_POOL`. Its decoys are ranked on tags
+    DERIVED from what an artefact carries — an era bucket off `artefactYear` and its `origin` — since it is
+    filed under none of its own.
+  · **…AND ITS REVEAL IS THE ARTEFACT'S OWN PLATE, MINUS THE PLATE** (same request): the five sentences
+    with their footnote markers intact and `sourcesHTML` under them, wired by `wireFootnotes`, so the
+    apparatus behaves exactly as it does on the plate itself. **The SUMMARY screen strips the markers**
+    (`picNoteBare`) — there is no list under it, and `sup.fn:empty::before` prints a marker's own digit,
+    so leaving them in sets stray numerals through five paragraphs pointing at nothing.
+  · **A ROUND ANSWERED STAYS ANSWERED** (`gameProgress` / `setGameProgress`; Sep 2026, on a bug report
+    that leaving the picture round half way and re-entering dealt the same questions again with the
+    answers known). The one-play lock is only set when a run FINISHES, so an abandoned run was free; the
+    outcomes are written to `S.games[key].prog` as each round is answered — before the reader can press
+    Next, since the reader who never presses it is the case — and re-entering resumes there. It holds the
+    OUTCOMES rather than an index, so the round to resume at and the score cannot disagree; the row's own
+    `date` scopes it; and it is cleared when the run ends, where the lock takes over. **Only the picture
+    round uses it so far** — the helpers are general, and a second game adopts them in three lines.
+  · **A PICTURE IS ENLARGEABLE ONLY AFTER THE REVEAL** (same request), and it calls `openImageViewer`
+    directly rather than earning the `.card-img` class the delegated listener watches for: that class
+    carries a fixed 16:9 frame and a `height:100%` on the picture inside it, so adopting it at the reveal
+    would RESHAPE the picture the reader is looking at. It is held back for the same reason the caption is
+    — the viewer's meta bar carries the title and the credit, both of which name the subject.
   · **A NEW GAME IS WIRED IN SIX PLACES AND FIVE OF THEM FAIL SILENTLY**: `PAGES.<key>`, the `valid` route
     list, `PAGE_META`, `DAILY_GAMES`, `GAME_NAMES` + `GAME_SET_WORD`, and the tile plus its click handler in
     `PAGES.home`. `test-minigames.js` asserts all six, against the tiles the home page actually paints.

@@ -35,13 +35,17 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.442", released: "2026-09-04T00:40Z" };
+window.FOLIO_VERSION = { v: "1.443", released: "2026-09-04T01:17Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-04",
     t: "Finer rivers for Italy and Greece, and Rome always on the map",
     items: [
+      "<b>The Picture round now uses the artefacts alone</b>, and the reveal shows the object\u2019s full description with the works it rests on.",
+      "<b>An answered Picture round question stays answered</b>, so leaving the game and coming back resumes where you left off.",
+      "<b>A Picture round image can be enlarged once the answer is out</b>, with its title, description and source.",
+      "<b>Seven Ancient Rome cards now show the country they are about as an area</b> \u2014 Latium, Sabina, Samnium, Umbria, Liguria, Venetia and Messapia \u2014 rather than a single dot.",
       "<b>The rivers of Italy and Greece are drawn in far finer detail</b> on the maps of their own collections’ cards, with many more of them shown.",
       "<b>Rome is now always marked on the map in the Ancient Rome collection</b>, and Athens in Ancient Greece, as a red square.",
       "<b>Modern capital cities on a card’s map no longer show their names</b>, only their squares.",
