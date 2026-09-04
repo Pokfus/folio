@@ -166,7 +166,7 @@ literature — which is what made batches 15 and 8 of the first pass cheap and b
 
 | batch | n | artefacts | spine |
 |---|---|---|---|
-| D1 Medieval everyday | 8 | `novgorod-birch-bark-letter`; `seal-matrix`, `bone-ice-skate`, `green-glazed-jug`, `wax-tablet`, `turnshoe`, `antler-comb`, `bodkin-arrowhead` | *Internet Archaeology* (open), Persée, `tidsskrift.dk`, archive.org |
+| D1 Medieval everyday | 8 | `novgorod-birch-bark-letter`; `seal-matrix`, `bone-ice-skate`, `green-glazed-jug`, `wax-tablet`, ~~`turnshoe`~~ (cleared and shipped in D1a), `antler-comb`, `bodkin-arrowhead` | *Internet Archaeology* (open), Persée, `tidsskrift.dk`, archive.org |
 | D2 Prehistory's everyday, worldwide | 9 | `palaeolithic-bone-flute`; `spear-thrower` (planned under the name antler-spearthrower), `saddle-quern`, `sickle-blade`, `bone-fishhook`, `ochre-crayon`, `eyed-bone-needle`, `oak-coffin-textile`, `amber-bead` | PLOS, *Scientific Reports*, Europe PMC, Antiquity, Persée, archive.org (Evans) |
 | E1 Arms, antiquity to the twentieth century | 7 | `sling-bullet`, `mail-fragment`, `flintlock-musket`, `iron-cannonball`, `socket-bayonet`, `trench-art-shell-case`, `identity-disc` | archive.org (Ffoulkes), *Post-Medieval Archaeology*, PSAS. **`iwm.org.uk` is 403 here** |
 | E2 Instruments of knowledge | 8 | `gutenberg-bible-leaf`; `portable-sundial`, `mariners-astrolabe`, `albarello`, `type-sort`, `slide-rule`, `daguerreotype`, `telegraph-key` | Getty, Rijksmuseum, archive.org, *International Journal of Nautical Archaeology* |
@@ -280,7 +280,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | E2b/E3b/D1c | `albarello`, `phonograph-cylinder`, `green-glazed-jug` | — |
 | E3c/C1c/E2c | `bartmann-jug`, `byzantine-ivory-panel`, `gutenberg-bible-leaf` | — |
 | C3b/E3d | `wampum-bead`, `thimble` (**two, not three — see below**) | ~~moche-portrait-vessel~~ (cleared and shipped in C3c), `bodkin-arrowhead` |
-| B1d | `mughal-miniature` (UN-DEFERRED; **one, not three — see below**) | ~~glass-bangle~~ (cleared and shipped in B1f), ~~mariners-astrolabe~~ (cleared and shipped in E2d), `turnshoe` |
+| B1d | `mughal-miniature` (UN-DEFERRED; **one, not three — see below**) | ~~glass-bangle~~ (cleared and shipped in B1f), ~~mariners-astrolabe~~ (cleared and shipped in E2d), ~~turnshoe~~ (cleared and shipped in D1a) |
 | B4b | `shell-adze` | ~~sumatralith~~ ("no openable work uses the term" — wrong; cleared and shipped in B4c) |
 | D1c | `novgorod-birch-bark-letter` (**UN-HELD — D1's list is now empty**) | — |
 | E3e | `steel-pen-nib` (UN-DEFERRED — **E3's list is now empty**) | — |
@@ -289,13 +289,14 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B2c/B3c | `han-tomb-brick`, `buncheong-bowl` (both UN-DEFERRED — **B3's list is now empty**) | — |
 | A3a/B2d | `golden-crown-of-silla`, `inkstone` (UN-DEFERRED — **B2's list is now empty**) | — |
 | E2d | `mariners-astrolabe` (UN-DEFERRED; **one, not three — see below**) | `trench-art-shell-case`, `identity-disc`, ~~ban-chiang-pot~~ (cleared in B4c) |
-| A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | `turnshoe` again, ~~nbpw-sherd~~ (cleared and shipped in B1e), `identity-disc` again |
+| A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | ~~turnshoe~~ (cleared and shipped in D1a), ~~nbpw-sherd~~ (cleared and shipped in B1e), `identity-disc` again |
 | B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, ~~igbo-ukwu-bronze~~ (dropped in C2b), `bodkin-arrowhead` again, `fustat-paper` again |
 | B4c | `ban-chiang-pot`, `sumatralith` (both UN-DEFERRED — **B4's list is now empty**) | — |
 | B1f | `glass-bangle` (UN-DEFERRED, and **shipped with no picture** — see below; **B1's list is now empty**) | ~~jade-burial-suit~~ (cleared and shipped in A3d), `bodkin-arrowhead` again |
-| S1 | **nothing — a search batch, see below** | `identity-disc` (one work found), `turnshoe` again, `trench-art-shell-case`, `fustat-paper` again |
+| S1 | **nothing — a search batch, see below** | `identity-disc` (one work found), ~~turnshoe~~ (cleared and shipped in D1a), `trench-art-shell-case`, `fustat-paper` again |
 | C2b | `benin-bronze-plaque` (**SUBSTITUTED for `igbo-ukwu-bronze` — see below**) | — |
 | A3d | `jade-burial-suit` (UN-DEFERRED; **A3's list is now empty**) | — |
+| D1a | `turnshoe` (UN-DEFERRED; **one, not three — see below**) | `bodkin-arrowhead` again (**two of three works now found**), `fustat-paper`, `ife-head` |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1779,6 +1780,45 @@ and epic and legendary were already full at 25 and 7 before this batch, so the l
 four commons and three rares. The plan's own definition settles it without strain: rare is "a
 distinctive class that belongs to one tradition", which a jade suit, of which several dozen have been
 excavated, exactly is.
+
+**D1a is A3d's finding paying out twice, and it settles what `turnshoe` was actually deferred on.**
+Three batches had recorded it as failing "on the word" — a turnshoe is defined by how it is built, and
+the open literature talks about shoes. That was true of the hosts then searched and beside the point:
+**OpenAIRE and DOAJ between them named three open works in one pass**, and the definition the batches
+wanted turned out to be sitting in a Scottish excavation report from 1983. Its route is the one to
+carry: **`journals.socantscot.org` is full-text searchable and open, back to 1851** — a query for
+*turnshoe* returns the reports that contain the word, not merely those whose titles do, which is
+exactly the search a construction term needs. Clare Thomas's leather report inside McGavin's Kirkwall
+excavation gives the whole thing in four sentences: made inside out with the flesh side facing out, one
+upper and a single sole doing for both outsole and insole, then turned; the rand between sole and upper
+for strength and water; and the moment about 1500 when a rand stitched to the *outside* left a shoe
+that never had to be turned, at which point the rand is a welt. **A specialist's report buried inside a
+site report is invisible to a title search and visible to a full-text one.**
+
+**Its second finding is that a PDF whose text comes out as hex CIDs is usually a FIXED OFFSET, and it
+takes one line to undo.** The Basel conference volume extracts as `<002F004800440057>`, which is not a
+failure but Adobe's standard subset ordering: `0x2F` is `L`, `0x48` is `e`, `0x44` is `a` — every code
+is its character minus 29. This is the *easy* sibling of A3d's substitution cipher and should be tried
+first, because it is checkable in one word: decode a title you already know and see whether it reads.
+Between the two, the "subset font, unrecoverable" verdict recorded in B1e now applies to far fewer
+files than it looked like.
+
+**And a confirmation worth having in writing: `journals.openedition.org` answers 200 with an ANUBIS
+CHALLENGE, not an article.** C2b recorded OpenEdition as walled from a search result; here it was
+tested directly, and a *Gallia* article that OpenAIRE lists as open returns a 5 KB page reading "We're
+currently verifying that you're not a robot" under a 200 status. That is the sixth variety of
+200-status error document this pass has met, after `cia.gov`'s JavaScript shell, `senate.gov`'s 404,
+`state.gov`'s "Technical Difficulties", CloudFront's "Request blocked" and the "Client Challenge" pages
+of JSTOR and Springer. **Check the BYTE COUNT before the status code**: every one of them is small.
+
+**`bodkin-arrowhead` is deferred again, but for the first time it is close.** OpenAIRE found two of the
+three works it needs and both use the word: Sara Canavan's LJMU master's thesis on the bodkin arrowhead
+found inside the thorax of a skeleton at Poulton, Cheshire, and the *International Journal of
+Osteoarchaeology* paper on the same case — Wiley is 403 here, but **LJMU's repository carries the
+accepted manuscript**, which is the route worth remembering, since OpenAIRE lists the green copy beside
+the publisher's. What is missing is a third work on the object rather than on that one case; the
+typology everything cites (Jessop 1996 in *Medieval Archaeology*) is on the Archaeology Data Service,
+and **`archaeologydataservice.ac.uk` is 403 on every path below its own front page**.
 
 ## The per-artefact workflow
 

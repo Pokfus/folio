@@ -1386,4 +1386,11 @@ window.ARTEFACTS = [
     date: "c. 150 BCE – 220 CE",
     origin: "Han China",
   },
+  {
+    id: "turnshoe",
+    name: "Turnshoe",
+    rarity: "common",
+    date: "c. 1000 – 1500 CE",
+    origin: "Medieval Europe",
+  },
 ];
