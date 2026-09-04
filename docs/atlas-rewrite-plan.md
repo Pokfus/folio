@@ -205,7 +205,8 @@ is an open question and its batch size follows from the answer.
 | **A4** | Tanzania, Myanmar, Colombia, South Korea, Spain, Kenya, Argentina, Uganda | **shipped 2026-09-04** |
 | **A5** | Algeria, Afghanistan, Ukraine, Sudan, Iraq, Poland, Canada, Morocco | **shipped 2026-09-04** |
 | **A6** | Angola, Uzbekistan, Peru, Saudi Arabia, Ghana, Malaysia, Madagascar, Venezuela | **shipped 2026-09-04** |
-| A7–A33 | The remaining 210 present-day countries and territories, in descending population | planned |
+| **A7** | Côte d’Ivoire, Mozambique, Nepal, Cameroon, Yemen, Australia, North Korea, Syria | **shipped 2026-09-04** |
+| A8–A33 | The remaining 202 present-day countries and territories, in descending population | planned |
 | B1–… | Stage 2, the 424 historical states, grouped by era | planned |
 | C1–… | Stage 3, the 528 names of the 1600 era, at a bar to be decided | planned |
 
@@ -526,3 +527,50 @@ five citations apiece, every URL curled and every source open access. Five findi
   reader moving around the Atlas accumulates a scale rather than a list of unrelated ratios. It costs nothing
   to choose the anchor that way, and the World Bank's semicolon list makes the two-country citation the same
   single fetch either way.
+
+### A7 — the next eight by population (2026-09-04)
+
+Côte d’Ivoire, Mozambique, Nepal, Cameroon, Yemen, Australia, North Korea and Syria. All eight at the bar;
+North Korea carries six citations for the reason A4 gave for South Korea. Six findings, and the first adds
+a source to the spine.
+
+- **`un.org/en/about-us/growth-in-un-membership` IS A SPINE SOURCE, AND IT IS THE SIBLING OF THE PAGE A1
+  RULED OUT.** A1 recorded that `un.org/en/about-us/member-states` cannot carry a founding-member claim —
+  the served HTML is a list of names with no dates. **The neighbouring page has all of them**, server
+  rendered: the fifty-one original members of 1945 by name, then every later cohort by year, with the
+  states listed under the names they were admitted under and footnotes on the awkward cases. It settled
+  five of this batch's fifth sources and three claims nothing else here could carry — that Yemen's 1947
+  seat is the one the organisation lists as the Yemen Arab Republic, that Syria "resumed its separate
+  membership" on 13 October 1961 after the United Arab Republic, and that both Koreas were admitted on the
+  same day in 1991. It also supports arithmetic about the cohorts themselves: **1960 is the largest single
+  year of admissions the organisation has had, seventeen states of which sixteen were African**, and 1955's
+  sixteen broke a deadlock that had held membership flat since 1950. Both counts were derived from the page
+  rather than recalled.
+- **NORTH KOREA HAS NO PAGE IN THE RECOGNITION GUIDE, ON ANY SLUG**, which the Korea plan records and which
+  was confirmed here against `north-korea`, `korea-north`, `dprk` and `korea,-north`, all 404 — the United
+  States has never recognised it. What stands in is the guide's **`/countries/korea`** page, on the Kingdom
+  of Choson and the Japanese takeover of Korean foreign relations in 1905, plus the Korean War milestone for
+  the division at the 38th parallel; with the growth page that makes six. **A country outside the American
+  recognition system is not a country outside this pass** — it is a country whose second source has to be
+  about the place rather than about the relationship.
+- **DO NOT SINGLE A COUNTRY OUT ON A FOOTNOTE EVERY COUNTRY CARRIES.** A draft sentence said North Korea's
+  published population figures are outside estimates rather than its own returns, marked to UNdata, whose
+  population row does carry "Projected est. (medium fertility variant)" — **and so does every other profile
+  in this pass.** The footnote supports a statement about UNdata's method, not about North Korea, and the
+  sentence was replaced by one the sources do carry. The epistemics of a closed state are worth writing
+  about; they need a source that is actually about that state.
+- **THE COMMONWEALTH'S JOINING LINE FOR CAMEROON NOW READS DIFFERENTLY FROM WHAT C6 RECORDED, AND IS STILL
+  NOT CITABLE.** C6 measured it as 1995 and called Cameroon "the near-match to withhold on"; today the page
+  says "Joined the Commonwealth 1960, following independence from Britain", which is wrong twice over —
+  Cameroon acceded in 1995, and what was independent from Britain in 1961 was the Southern Cameroons.
+  Withheld, and the fifth source is the growth page instead. **A finding that a source is unreliable for one
+  country does not go stale when the source changes; re-read the line, then withhold anyway.**
+- **A FOURTH SECOND-SEAT CASE IN FOUR BATCHES**: UNdata's capital field for Côte d’Ivoire says
+  "Yamoussoukro" with a footnote reading "Yamoussoukro is the capital and Abidjan is the administrative
+  capital", after South Africa, Tanzania and Malaysia. **Read the footnote block on every profile** is no
+  longer advice; on the evidence it is part of the recipe.
+- **THE ATLAS DEEP LINK TAKES THE ENCODED ENTITY NAME, NOT A SLUG**, which the browser check found the hard
+  way: `#map/<year>/<name>` is parsed by `parseMapHash`, which `decodeURIComponent`s `parts[2]` and matches
+  it as a name. A harness lowercasing and hyphenating the name worked by luck on plain ASCII and returned an
+  empty panel for **Côte d’Ivoire**, which reads exactly like a place whose description failed to write.
+  Use `encodeURIComponent(name)`; A1–A6's checks were passing for the wrong reason.
