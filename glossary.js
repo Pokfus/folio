@@ -1784,7 +1784,8 @@ window.GLOSSARY = {
 "Colosseum": "The Colosseum is the amphitheatre at Rome built by the emperor Vespasian on ground that had held the ornamental lake of Nero's Golden House, dedicated before his death in 79 CE and enlarged by his son Titus, who opened it in 80 with a hundred days of games.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Elliptical and 188 by 156 metres (617 by 512 feet) across, it has an outer wall of travertine in four storeys, the lower three open arcades.<sup class=\"fn\" data-fn=\"1\"></sup> Romans knew it as the <i>Amphitheatrum Flavium</i>; the name Colosseum, taken from a colossal statue of Nero that stood nearby, belongs to the Middle Ages.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Roman_law": "Roman law is the law of the Roman state and the jurisprudence built on it, divided by the jurists into public law, which concerns the state, and private law, which concerns the individual citizen.<sup class=\"fn\" data-fn=\"2\"></sup> Its sources were listed as statutes, plebiscites, decrees of the senate, constitutions of the emperors, the edicts of magistrates entitled to issue them, and the opinions of jurists, with unwritten custom beside them.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A state's own rules were called the <i>ius civile</i> and those natural reason established among all peoples the <i>ius gentium</i>; Justinian had the whole gathered into the <i>Digest</i> and <i>Institutes</i> of 533 CE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Roman_citizenship": "Roman citizenship was the legal status carrying the full rights of a member of the Roman state, its private side being the <i>commercium</i>, the capacity to own and bequeath by Roman title, and the <i>connubium</i>, the capacity to contract a marriage the law recognised.<sup class=\"fn\" data-fn=\"1\"></sup> Free persons were divided into citizens, Latins and peregrines, a Latin holding the first of those rights without the second; a freed slave entered one class or another according to how he had been held and freed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It spread outward from the city, to all Italy by a law of 90 BCE and at last to everyone in the empire under Caracalla.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Pompeii": "Pompeii was a town of Campania on the river Sarno below Vesuvius, held in turn by Oscans, Tyrrhenians and Pelasgians, and Samnites before it came under Rome.<sup class=\"fn\" data-fn=\"1\"></sup> The river carried cargoes inland and out to sea again, so the town served as the port of Nola, Nuceria and Acerrae behind it, and an earthquake under Nero demolished a large part of what Tacitus calls a populous place.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Vesuvius erupted in 79 CE and buried it with neighbouring Herculaneum under ash, which by one account fell while the people of Pompeii were sitting in the theatre.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Pompeii": "Pompeii was a town of Campania on the river Sarno below Vesuvius, held in turn by Oscans, Tyrrhenians and Pelasgians, and Samnites before it came under Rome.<sup class=\"fn\" data-fn=\"1\"></sup> The river carried cargoes inland and out to sea again, so the town served as the port of Nola, Nuceria and Acerrae behind it, and an earthquake under Nero demolished a large part of what Tacitus calls a populous place.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Vesuvius erupted in 79 CE and buried it with neighbouring Herculaneum under ash, which by one account fell while the people of Pompeii were sitting in the theatre.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Nero": "Nero was a Roman emperor and the last of the Julio-Claudian line, which Suetonius says came to an end with him.<sup class=\"fn\" data-fn=\"3\"></sup> He had his mother Agrippina killed, performed in public as a singer to the lyre before soldiers and a full house, and drove members of the old families to sing, to drive teams and to fight as gladiators.<sup class=\"fn\" data-fn=\"4\"></sup> A great fire destroyed much of Rome in his reign, which Tacitus says may have been accidental or contrived by the emperor, since authors give both accounts; Nero fastened the guilt on the Christians.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2591,7 +2592,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Roman_roads": "from 312 BCE",
 "Roman_aqueduct": "from 312 BCE",
 "Colosseum": "dedicated before 79 CE",
-"Pompeii": "buried 79 CE"
+"Pompeii": "buried 79 CE",
+"Nero": "reigned 54-68 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5500,7 +5502,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Colosseum": ["building","history","technology","art","rome","classical"],
 "Roman_law": ["institution","history","politics","law","rome","classical"],
 "Roman_citizenship": ["institution","history","politics","law","rome","classical"],
-"Pompeii": ["city","history","geography","archaeology","rome","classical"]
+"Pompeii": ["city","history","geography","archaeology","rome","classical"],
+"Nero": ["ruler","person","history","politics","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
