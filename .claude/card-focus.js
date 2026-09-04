@@ -94,7 +94,7 @@ const NOT_A_SURNAME = new Set(["Bryn", "Mawr", "Classical", "Review", "Press", "
 const ANCIENT = new Set(`Homer Hesiod Herodotus Thucydides Xenophon Plato Aristotle Plutarch Pausanias Strabo
 Diodorus Polybius Arrian Apollodorus Aeschylus Sophocles Euripides Aristophanes Pindar Sappho Solon Theognis
 Tyrtaeus Archilochus Hippocrates Theophrastus Demosthenes Isocrates Lysias Aeschines Livy Ovid Lucretius
-Suetonius Caesar Seneca Cicero Tacitus Virgil Horace Vitruvius Pliny Josephus Athenaeus Vyasa Confucius
+Suetonius Caesar Seneca Cicero Tacitus Sallust Virgil Horace Vitruvius Pliny Josephus Athenaeus Vyasa Confucius
 Mencius Laozi Zhuangzi Sima Ptolemy Euclid Archimedes Galen Aelian Hyginus Ovidius Quintilian
 Gellius Aulus Dionysius Halicarnassus Varro Festus Censorinus
 Nepos Justin Trogus Aeneas Tacticus Polyaenus Frontinus Onasander Asclepiodotus Diogenes Laertius`.split(/\s+/));
