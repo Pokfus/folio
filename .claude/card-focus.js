@@ -31,6 +31,7 @@
   The measure is a PROXY, not a verdict. Read the card before rewriting it.
 */
 const fs = require("fs"), path = require("path");
+const splitAbstract = require("./split-abstract.js");
 const dataPath = path.join(__dirname, "..", "data.js");
 
 // Cards whose ANSWER TERM is itself a modern theory, debate, method or scholar. Historiography is the
@@ -145,7 +146,18 @@ function scholarsOf(card) {
 // Attribution with the name filed off — still historiography.
 const ANON_ATTRIB = /\b(?:his|her|its|the) reviewer\b|\bone (?:contribution|scholarly account|essay|study|argument)\b|\bmodern (?:scholarship|accounts?|reading|pictures?|interpretations?)\b|\bscholars? (?:divide|disagree|now|have|hold|set|put|question)\b|\bhas (?:been|largely) (?:called|attacked|questioned|challenged|dismantled|doubted|taken apart)\b|\bis (?:now )?(?:doubted|unsettled|contested|not universally accepted)\b|\blater work\b|\bthe standard (?:work|collection)\b/i;
 
-const sentences = (t) => plain(t).split(/(?<=\.)\s+/).filter(Boolean);
+/* THE SENTENCE SPLIT IS split-abstract.js's, NOT A REGEX OF THIS SCRIPT'S OWN. It was
+   `plain(t).split(/(?<=\.)\s+/)`, which breaks after ANY full stop and never after a `?` or a `!` —
+   so an initial, a decimal, an era abbreviation or an abbreviated genus each added a phantom
+   sentence, and a sentence closing on a quoted question lost one. Measured over the shipped
+   corpus it disagreed with the real split on 206 of 1,426 cards: rule 2 is a fraction of TEN,
+   so every one of those had the wrong denominator — leniently on the 200-odd that over-counted,
+   strictly on the handful that under-counted. `pieces` carries every guard the batches
+   accumulated and is exported for exactly this. */
+const sentences = (t) => {
+  const { parts } = splitAbstract.blocks(String(t || ""));
+  return parts.flatMap((b) => splitAbstract.pieces(b)).map(plain).filter(Boolean);
+};
 
 function measure(card) {
   const names = [...scholarsOf(card)];
