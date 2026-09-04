@@ -3834,3 +3834,115 @@ chapters here", where the file holds a prologue and **forty-one** numbered fitts
 own 29 and 30 being absent. The count in that sentence describes the poem's numbering rather than the
 book's contents, which is defensible and is not what a reader counting tabs will conclude. It is a
 sentence to rewrite, not a text to repair, and it is left for the batch that next opens that book.
+
+---
+
+## E49 — a book's front matter counting what the book no longer holds
+
+**EVERY BOOK ON THE SHELF OPENS BY COUNTING THINGS** — "124 letters", "614 questions", "102 of the
+305 poems", "404 chapters on each side" — and until this batch **nothing had ever compared one of
+those figures to the file it describes**. They are written by hand, they are the first thing a reader
+is told about a book, and they are the one part of the apparatus with no check behind it.
+
+**THE MEASURE: 154 counted claims across 48 books.** Read against each book's chapter count and its
+section count in both columns, every one of them was right except in a single book.
+
+### The Summa's front matter, three times over
+
+**1. A COUNT FOUR BATCHES OUT OF DATE.** The layout paragraph said "each of its **3,094** articles is
+a numbered section". Measured commit by commit, that was the file's own figure at E35 and E36 —
+and then:
+
+| batch | what it did | articles |
+|---|---|---|
+| E36 | — | 3,094 |
+| E38 | the question a second witness found missing | 3,098 |
+| E39 | the article heads the transcription left as prose | 3,125 |
+| E40 | the two articles that were simply gone | 3,124 |
+| E41 | the question heading that was really an article | **3,125** |
+
+**Four batches put 31 articles of Aquinas back and not one of them touched the sentence that counts
+them.** Now 3,125.
+
+**2. AND THE WORSE ONE, WHICH NO COUNT COULD HAVE CAUGHT.** The same front matter went on telling the
+reader that *"Fourteen questions of the 614 are missing an article heading … twelve carry one heading
+fewer than they should and two carry none at all, which means those articles run on into the one
+before them and cannot be cited from the page."* **That is exactly the defect E39, E40 and E41
+repaired.** Measured now: **every one of the 614 questions carries a clean run of article numbers from
+1 to its own stated count** — zero gaps, zero questions with none — with a single exception that is
+not a gap, II-II q. 48, whose *four points of inquiry* are the plan for questions 48 to 51 rather than
+a list of its own articles.
+
+**The text was mended and the book went on apologising for a defect it no longer had.** The paragraph
+now says what happened instead: twenty-seven headings lost by the transcription, across fourteen
+questions, put back.
+
+**3. TWO TOTALS FOR ONE BOOK, UNRECONCILED.** The same front matter says "**614 questions**" flatly in
+two places and "207 of the **611** questions" in a third. Both are true and the reader is told neither
+of them is the other: the five Parts hold 119 + 114 + 189 + 90 + 99 = **611** questions, and the
+Appendix's **three** make the 614 tabs. The sentence now says so.
+
+### And Beowulf's, which E48 recorded and left
+
+*"The manuscript breaks the text into numbered sections — fitts — a prologue and then **forty-three**
+of them, and those are the chapters here."* Forty-three is where the numbering ENDS, not how many
+there are: there is no fitt XXX, the section editors call [XXIX] carries no number, and the tabs are a
+prologue and **forty-one** numbered fitts. Verified from the line marks — fitt 28 runs 1965–2140 with
+36 marks against a normal fitt's 15–18, because it carries the bracketed section whole, and fitt 31
+takes up at 2145. The paragraph already explained the gap correctly; it now also says where the
+bracketed section is printed, which is why one tab is twice the length of its neighbours.
+
+### `.claude/check-counts.js`, and what it cannot see
+
+A proxy, report-only, exit 0, in the manner of `card-focus.js`. **The signal is the NEAR MISS**: a
+figure far from any of the book's counts is nearly always about something else (Chambry's 359 Greek
+fables, the Franco-Italian Polo's 232 chapters, the 305 poems Legge selected 102 of), while a figure
+close to a count and not equal to it is the shape a number takes when it was right once.
+
+**Two floors keep it honest, and both were measured rather than guessed.** A count under **40** is not
+tested at all — a book with eight chapters mentions "seven books" legitimately, one with five
+mentions "four treatises", one with twenty-one mentions "the first twenty books", and at that scale
+proximity carries no information: the band reports **22 rows without the floor and 4 with it**. And a
+figure the prose itself hedges is not a claim to check, so "about 3,000 articles" is passed over
+rather than reported for rounding.
+
+The legitimate near misses are **declared with their reasons**, and a row excuses a claim only when
+the book, the claimed number AND the actual count all still agree — `check-citations.js`'s
+`CROSSREF_WRONG` rule, so the day a file's count moves the exemption stops applying.
+
+**IT FOUND ONE OF THE FOUR THINGS THIS BATCH REPAIRED, and its header says so.** Run against the shelf
+as it stood it reports the 3,094 and nothing else. It cannot see Beowulf's, because that sentence
+counts with a PRONOUN — "forty-three of them" — and this reads a number beside a noun. It cannot see
+the fourteen-questions paragraph, because that is a claim about the book's condition rather than a
+count of its divisions, and no count anywhere disagrees with it. And it passes over a figure that is
+FAR from any count by design. **Stating the three is the point**: a proxy whose blind spots are
+written down is one the next session can reason about.
+
+### And the suite was holding the book to the stale sentence
+
+`test-library.js` carried `check("[summa] ...and what the transcription is missing",
+/Fourteen questions/.test(summa.intro))` — **an assertion pinning the apology.** It was written when
+the fourteen questions really were missing their headings, and it went on passing through E39, E40 and
+E41, which put all 27 back; the day the prose was corrected, that is what failed. **A test that pins
+prose pins it as it was written**, so when the thing the prose describes is repaired the assertion has
+to move with it. It now pins the repair, and asserts the ABSENCE of the retired claim as well as the
+presence of the new one.
+
+Its neighbour is the lesson generalised: the article count in the front matter is now checked against
+**`summa.secs`, the marks the book actually draws**, rather than against a number written in the
+suite. A second pinned figure would have gone stale exactly as the first did. Both sides of the
+comparison come from the file, so it cannot.
+
+**And the browser block this batch first wrote for it was deleted.** It read the count from a rendered
+page, where the book's chapters are not all in the DOM at once, and reported "0 drawn across 0
+chapters" — a fixture fault dressed as a finding. The suite already loads the file in Node three
+hundred lines above, and that is where the assertion belongs.
+
+### What proves it
+
+- Both rebuilds changed the front matter and nothing else: the Summa's **614 chapters are
+  byte-identical**, Beowulf's 42 are, and `beowulf.ang.js` is byte-identical whole.
+- The check was **proved to fire**: run against the shipped files as they stood it reports the 3,094
+  against 3,125, in one book, with the sentence quoted; run against the repaired ones it reports
+  nothing and excuses four declared rows.
+- `book-audit.js`, `check-twins.js`, `check-cutoff.js` and `check-pairing.js` all unchanged.

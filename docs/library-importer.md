@@ -1657,6 +1657,31 @@ Herodotus, against zero notes on either side.**
     test counted WORDS and reported twenty-eight Chinese chapters of 5,765 characters as near-empty:
     **a length is not a word count in every script.**
 
+**A BOOK'S FRONT MATTER COUNTING WHAT THE BOOK NO LONGER HOLDS** (Sep 2026, batch E49). Every book
+opens by counting things — "124 letters", "614 questions", "404 chapters on each side" — and nothing
+had ever compared one of those hand-written figures to the file. Measured over 154 counted claims in
+48 books, one book was wrong, three times over.
+
+  · **A REPAIR DOES NOT TRAVEL TO THE PROSE THAT DESCRIBES IT.** E38, E39, E40 and E41 put 31 articles
+    of the Summa back — 3,094 to 3,125 — and none of them touched the sentence in its front matter
+    that counts them. **When a batch changes what a book HOLDS, grep that book's `about` for the
+    figure**, exactly as a card correction is grepped through to its date line.
+  · **AND THE WORSE HALF IS NOT A COUNT AT ALL.** The same front matter went on telling the reader that
+    fourteen of its questions were missing an article heading and could not be cited from the page,
+    which those same batches had made untrue — every one of the 614 now carries a clean run from 1 to
+    its own stated number. A book apologising for a defect it no longer has is worse than a wrong
+    total, and no check can see it, because no count disagrees with it.
+  · **TWO TOTALS FOR ONE BOOK NEED RECONCILING IN THE PROSE**: the Summa's front matter says "614
+    questions" and "the 611 questions" in the same file, and both are true — 611 in the five Parts,
+    plus the Appendix's three.
+  · **`.claude/check-counts.js` IS THE PROXY**, report-only. The signal is the NEAR MISS, since a
+    figure far from any count is nearly always about something else; a count under 40 is not tested at
+    all (measured: 22 rows without that floor, 4 with it), a hedged figure is passed over, and the
+    legitimate near misses are declared with their reasons under `check-citations.js`'s
+    `CROSSREF_WRONG` rule. **Its blind spots are in its own header**: it found one of the four things
+    E49 repaired, and cannot see a sentence that counts with a pronoun ("forty-three of them", in
+    Beowulf) or a claim about a book's condition rather than its divisions.
+
 **AND ITS MIRROR: A NOTE IN THE FOLD THAT NO MARKER POINTS AT** (Sep 2026, batch E48). One on the whole
 shelf, and it is not a footnote at all: Perseus tags the Loeb's one-line ARGUMENT of the *Lysis*
 `type="Com"` — *"Socrates relates a conversation he had in a wrestling-school"* — and prints it ahead of

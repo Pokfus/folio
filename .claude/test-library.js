@@ -1579,8 +1579,25 @@ function aeneidChecks() {
          say so — a reader who knows the Summa will go looking for the Latin. */
       check("[summa] the front matter says why there is no Latin",
         /207 of the 611/.test(summa.intro), summa.intro.slice(0, 60));
-      check("[summa] ...and what the transcription is missing",
-        /Fourteen questions/.test(summa.intro), "");
+      /* THIS ASSERTION USED TO PIN THE OPPOSITE (E49). It read `/Fourteen questions/`, holding the
+         front matter to its statement that fourteen questions were missing an article heading and
+         could not be cited from the page — which E39, E40 and E41 had made untrue, putting all 27
+         headings back. So the suite was keeping a book's apology for a defect it no longer had, and
+         the day the prose was corrected this is what failed. A test that pins prose pins it as it
+         was written; when the thing the prose describes is repaired, the assertion moves with it. */
+      check("[summa] ...and that the lost article headings were put back",
+        /Twenty-seven article headings were lost/.test(summa.intro) &&
+        !/missing an article heading/.test(summa.intro), "");
+      /* AND THE COUNT IN IT IS READ AGAINST THE MARKS THE BOOK ACTUALLY DRAWS (E49), never against a
+         number written here. That sentence said "3,094 articles" for four batches after the book held
+         3,125 — E38, E39, E40 and E41 each put articles back and none of them touched the prose that
+         counts them. A second pinned figure would go stale the same way; this one cannot, because both
+         sides of it come from the file. `check-counts.js` asks the same question of all 48 books. */
+      const said = /each of its ([\d,]+) articles is a numbered section/
+        .exec(summa.intro.replace(/<[^>]*>/g, ""));   // the figure is set in <b>, so read the prose
+      check("[summa] ...and the article count in the front matter is the one the book draws",
+        !!said && +said[1].replace(/,/g, "") === summa.secs,
+        (said ? said[1] + " stated" : "no such sentence") + ", " + summa.secs + " drawn");
       /* E35: the front matter used to say "No prose is missing — the words are all there", and that
          turned out to be untrue of two questions. It now says which two, and what was done. A page
          that has stopped saying so is a page claiming more than the book delivers. */

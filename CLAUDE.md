@@ -223,6 +223,15 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     that sweep can keep it — and it is deliberately NOT dropped, since dropping loses editorial text
     the reader has. `teiSections` warns on any note whose marker did not survive, and `book-audit.js`
     asks it of the whole shelf.
+  · **A BOOK'S FRONT MATTER COUNTS THINGS, AND A REPAIR DOES NOT TRAVEL TO IT** (Sep 2026, batch
+    E49). Four batches put 31 articles of the Summa back — 3,094 to 3,125 — and none touched the
+    sentence in its `about` that counts them; worse, the same front matter went on telling readers
+    that fourteen of its questions were missing an article heading, which those batches had made
+    untrue, and **no count anywhere disagrees with a sentence like that**. **When a batch changes what
+    a book HOLDS, grep that book's `about` for the figure**, as a card correction is grepped through
+    to its date line. `node .claude/check-counts.js` is the proxy — report-only, the NEAR MISS being
+    the signal, a count under 40 untested and the legitimate misses declared with reasons — and its
+    own header states the three things it cannot see.
   · **A CHANGE TO A SHARED EXTRACTOR MUST BE PROVED INERT ON ITS SIBLINGS, BYTE-FOR-BYTE** — re-run
     every other book on that path and diff the generated files. That check has twice found a live
     fault in a book nobody was editing.
@@ -5653,6 +5662,20 @@ dead code (never rendered).
     other book's fault" is what a probe matching everything would say. **It exits 0 whatever it
     finds**, being a measure like `card-focus.js` rather than a gate. **Re-run after any change to
     that book.** Not part of the site.
+  · `node .claude/check-counts.js` — **a book's own account of itself, checked against itself**
+    (Sep 2026, batch E49). Every book opens by counting things — "124 letters", "614 questions",
+    "404 chapters on each side" — and nothing had ever compared one of those hand-written figures
+    to the file. **A repair does not travel to the prose that describes it**: four batches put 31
+    articles of the Summa back and none touched the sentence counting them, so it read 3,094 against
+    a real 3,125. **The signal is the NEAR MISS** — a figure far from any count is nearly always
+    about something else (Chambry's 359 fables, the Franco-Italian Polo's 232 chapters) — with two
+    measured floors: a count under 40 is not tested at all (22 rows of noise without it, 4 with),
+    and a figure the prose hedges is passed over rather than reported for rounding. The legitimate
+    misses are DECLARED with reasons, and a row excuses a claim only while the book, the claimed
+    number AND the actual count all still agree, which is `check-citations.js`'s `CROSSREF_WRONG`
+    rule. **Its header states the three things it cannot see**, the first being a sentence that
+    counts with a pronoun. Report-only, exits 0. **Re-run after changing what a book holds.** Not
+    part of the site.
   · `node .claude/check-cutoff.js` — **a chapter that STOPS rather than ends** (Sep 2026, batch
     E43). The tell is terminal punctuation and it is the only one there is: a truncated chapter is
     not short — the Summa's Supplement q.95 lost 1,123 words and still ran to 20 KB — and it is not
@@ -5689,7 +5712,7 @@ dead code (never rendered).
     empty, which is two editors dividing a text differently, and every one of the 107 was already
     recorded in its book's entry. Exits 0 whatever it finds. **Re-run after adding an
     original-language column.** Not part of the site.
-  · `node .claude/test-library.js` — the Library (401 assertions): the rename, the shelf, one book, and
+  · `node .claude/test-library.js` — the Library (402 assertions): the rename, the shelf, one book, and
     the reader's place. **Re-run after touching `PAGES.library` / `PAGES.book` / `BOOKS` / `bookIngest` /
     `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` / `readingPos` / `setReadingPos` /
     `bookSections` / `bookRows` / `applyLangMode` / `anchorNow` / `slideChapter` / `BOOK_SORTS` /
@@ -5709,7 +5732,8 @@ dead code (never rendered).
     carry and its `VOID_TAGS` guard / `teiBookChapters`' `data-n` scale / cleanBody's
     `sections: "bookchapter"` marker rule / `dropEscapedTagsIn` and `writeOriginal`'s footnote-marker
     strip / `teiSectionProse`'s `type="Com"` rule and `teiSections`' lost-marker warning, after running
-    `fetch-book.js`, or after renaming anything on the Collections page.**
+    `fetch-book.js`, after changing a book's `about`, or after renaming anything on the Collections
+    page.**
   · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
     figures (Aug 2026). **Re-run after touching `acctSelfView` / `showcaseHTML` / `openCollectionWin` /
     `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**

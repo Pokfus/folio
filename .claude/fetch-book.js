@@ -5962,13 +5962,17 @@ const BOOKS = {
         "everything written about Beowulf since begins from that lecture, whether it agrees with it " +
         "or not.",
       "The poem's divisions are the scribes' own, and they are odd in a way this edition preserves. " +
-        "The manuscript breaks the text into numbered sections — <i>fitts</i> — a prologue and then " +
-        "forty-three of them, and those are the chapters here. There is <b>no fitt numbered XXX</b>: " +
+        "The manuscript breaks the text into numbered sections — <i>fitts</i> — running from I to " +
+        "<b>XLIII</b> after a prologue, but there are fewer of them than that, and the tabs here say " +
+        "so: a prologue and <b>forty-one</b> numbered fitts. There is <b>no fitt numbered XXX</b>: " +
         "the numbering runs to XXVIII, then to an unnumbered section that editors supply as [XXIX], " +
         "and then straight on to XXXI. Nothing is missing, and the line numbers prove it — Wyatt's " +
-        "XXVIII ends at 2038, the bracketed section runs 2039–2143, and XXXI takes up at 2144. So the " +
-        "chapter numbers on these tabs carry the same gap the manuscript carries, rather than being " +
-        "renumbered tidily into a sequence the poem does not have.",
+        "XXVIII ends at 2038, the bracketed section runs 2039–2143, and XXXI takes up at 2144. The " +
+        "bracketed section carries no number of its own, so it is printed here at the end of fitt 28 " +
+        "rather than given a tab the manuscript does not give it, which is why that one runs to " +
+        "twice the length of its neighbours. So the chapter numbers on these tabs carry the same gap " +
+        "the manuscript carries, rather than being renumbered tidily into a sequence the poem does " +
+        "not have.",
       "This edition is Francis Barton Gummere's, published by Macmillan in 1909 in a volume called " +
         "<i>The Oldest English Epic</i>. He translates line for line and keeps the alliteration and " +
         "the four-stress measure, which almost nobody attempts, and the result is deliberately " +
@@ -14120,7 +14124,7 @@ const BOOKS = {
         "argument turns on distinctions that a graceful paraphrase would lose. The edition credits no " +
         "individual translator, and the book's licence note says what follows from that.",
       "A word on how it is laid out here. Each of the <b>614 questions</b> is a chapter, because the " +
-        "question is what any citation of the Summa names, and each of its <b>3,094 articles</b> is a " +
+        "question is what any citation of the Summa names, and each of its <b>3,125 articles</b> is a " +
         "numbered section. The tabs number the questions <b>straight through from 1 to 614</b>, while " +
         "the citation restarts at 1 in each Part — so the number on a tab and the <i>q.</i> in its " +
         "title are two different things, and the title carries the citation. The line in bold at the " +
@@ -14128,14 +14132,16 @@ const BOOKS = {
         "grouping and the finest division of the work it prints. The translators added almost no " +
         "notes: seven in the whole work, all in the Third Part, so four chapters carry a note fold and " +
         "the other 610 have none.",
-      "Fourteen questions of the 614 are missing an article heading, and it is worth knowing the " +
-        "shape of it. Every question states how many articles it has, so the gaps are countable: " +
-        "twelve questions carry one heading fewer than they should and two carry none at all, which " +
-        "means those articles run on into the one before them and cannot be cited from the page. " +
-        "Where a heading is lost the prose is not: the words run on into the article before them, and " +
-        "the numbering shows where the gap falls rather than closing over it, so a question that jumps " +
-        "from article 1 to article 4 is telling you the truth about the transcription. It is the " +
-        "transcription's gap and not the edition's, and it is 14 questions in 614.",
+      "<b>Twenty-seven article headings were lost by the transcription and have been put back</b>, " +
+        "across fourteen questions. They were never missing prose — the words ran on into the article " +
+        "before them — but an article that carries no number cannot be cited from the page, which for " +
+        "a work read by citation is most of what an article is. The heads had failed to become " +
+        "headings in five different ways at the source, all of which look identical in a finished " +
+        "book, and each was found only by reading what survived the last. Every question states how " +
+        "many articles it has, so the repair is countable: all 614 now carry a clean run from 1 to " +
+        "their own stated number, with a single exception that is not a gap — II-II q. 48, whose " +
+        "<i>four points of inquiry</i> are the plan for questions 48 to 51 rather than a list of its " +
+        "own articles.",
       "<b>Two articles were missing outright</b>, and they have been put back. The transcription sets " +
         "article 2 of I-II q. 52 twice — the second time under article 3's number — and article 4 of " +
         "II-II q. 43 twice under article 5's, so what stood in each place was its neighbour rather " +
@@ -14150,10 +14156,11 @@ const BOOKS = {
         "to find. The complete text of Leo XIII's Leonine edition is online, but the digital editions " +
         "that carry it reserve rights in their own work, which is not a footing this library serves " +
         "books on. What is freely transcribed — the Latin Wikisource — has the First Part complete and " +
-        "then stops: <b>207 of the 611 questions</b>, with the whole of the Second Part of the Second " +
-        "Part and the whole Third Part not begun. A facing page that ran out after a third of the book " +
-        "would be worse than none, so the book ships in English alone until a complete free " +
-        "transcription exists.",
+        "then stops: <b>207 of the 611 questions of the five Parts</b> — the Appendix's three, which " +
+        "make the 614 tabs here, are a later hand and are not transcribed either — with the whole of " +
+        "the Second Part of the Second Part and the whole Third Part not begun. A facing page that " +
+        "ran out after a third of the book would be worse than none, so the book ships in English " +
+        "alone until a complete free transcription exists.",
     ],
 
     /* ---------- ONE WIKI PAGE PER QUESTION, 614 OF THEM ----------
