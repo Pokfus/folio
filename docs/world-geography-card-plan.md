@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-574` Harare.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-575` Conakry.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -816,6 +816,27 @@ after Guatemala City — and the pattern is worth naming: **when the recognition
 years in a mission's history, ask what the Security Council was doing in those years.** The guide's own
 last line spells the city "Phnom Pehn"; that is a typo in the source and the card does not reproduce it,
 by the rule Dakar's UNdata footnote established.
+
+**`gw-574` HARARE IS THE THIN GUIDE PAGE WHOSE SECOND SOURCE IS THE WHOLE CARD, AND IT IS THE THIRD
+SECURITY COUNCIL RESOLUTION IN SIX CARDS.** The Zimbabwe page is four sentences long — recognition and
+relations both on 18 April 1980, plus a note that the United States never recognised Rhodesia's 1965
+unilateral declaration. Everything else the card says comes from **resolution 460 (1979)**, adopted at the
+2181st meeting on 21 December 1979, which recalls resolution 232 of 16 December 1966, notes that the
+Lancaster House conference had produced agreement on a constitution for "a free and independent Zimbabwe
+providing for genuine majority rule", deplores "the fourteen years of rebellion", reaffirms the people's
+right to self-determination and calls on members to terminate the Chapter VII measures. **A capital whose
+country had a contested sovereignty has a UN paper trail in proportion**; Guatemala City, Phnom Penh and
+Harare have now all been carried by one, and the search-by-symbol route is the way in.
+
+**AND THE SUPERLATIVE THAT WANTED WRITING WAS NOT IN THE SOURCE.** The draft said resolution 232 was the
+first measure the Council ever made binding on all members — which is true, is in every account of the
+sanctions, and is in NEITHER cited work: 460 merely recalls 232 by number and date. It was cut, and the
+sentence now says what 460 says, that the Council acted under Chapter VII. **The claims most likely to
+slip past a source check are the ones a writer already knows**; they arrive feeling verified. Two smaller
+things: the guide writes *"the American Embassy at Salisbury (now Harare)"* with **no renaming date**, so
+the card says Salisbury was the city's name at the time and dates nothing; and the glossary term was
+drafted with the alias *"Salisbury, Rhodesia"*, which is a comma-bearing string no prose contains, then
+**left with no alias at all**, since bare *Salisbury* is also a city in England and in Maryland.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
