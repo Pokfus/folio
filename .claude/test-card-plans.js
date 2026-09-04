@@ -223,6 +223,40 @@ for (const [colId, [slug, prefix, numbering]] of Object.entries(PLANS)) {
     const stray = [...ids].filter((i) => !placed.has(i));
     is(!stray.length, `${label}: every shipped card sits in this collection's tree`,
        stray.length ? "stray: " + stray.slice(0, 5).join(", ") : `${shipped.length} cards`);
+
+    /* ...at a number the running order actually names, and — where the plan names the ANSWER
+       rather than a subject to research — as the city the plan put there.
+
+       Both halves exist because they failed silently in Sep 2026: eight capitals were written from
+       a "next card is" line at the head of the plan instead of from the running order, so Asmara
+       shipped at `gw-613` (Brazzaville's slot), Vilnius at `gw-615` (Copenhagen's), and Zagreb at
+       `gw-614` — one of the SEVEN NUMBERS THE PLAN DELIBERATELY LEAVES UNUSED. Nothing complained:
+       every card was correct in itself, cited, at the bar and filed in the right deck, and the only
+       symptom was that the plan and the deck had quietly stopped describing the same thing. A card
+       id is a permanent address, so the drift is unrecoverable once a reader holds the card.
+
+       The number check is general to all eighteen collections. The name check applies only where a
+       plan line reads `Name  [Country]`, which is the three GEOGRAPHY plans: elsewhere a topic is a
+       subject to research and deliberately is not the answer term. A DEFERRED slot holds no card. */
+    const byNum = new Map(plan.cards.map((c) => [c.n, c.topic]));
+    const offPlan = shipped.filter((c) => !byNum.has(+c.id.slice(prefix.length)));
+    is(!offPlan.length, `${label}: every shipped card's number is in the running order`,
+       offPlan.length ? "not planned: " + offPlan.map((c) => c.id).slice(0, 6).join(", ") : "");
+
+    const fold = (x) => x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+    const wrong = [];
+    for (const c of shipped) {
+      const topic = byNum.get(+c.id.slice(prefix.length));
+      if (topic === undefined) continue;
+      const m = topic.match(/^(.+?)\s+\[(.+)\]$/);
+      if (!m) continue;
+      if (/^DEFERRED$/i.test(m[1])) { wrong.push(`${c.id} is DEFERRED in the plan`); continue; }
+      if (fold(m[1]) !== fold(c.answerText || c.answer || "")) {
+        wrong.push(`${c.id} is "${c.answerText || c.answer}", the plan says "${m[1]}"`);
+      }
+    }
+    is(!wrong.length, `${label}: every shipped card is the one the plan puts at that number`,
+       wrong.length ? wrong.slice(0, 6).join("; ") : `${shipped.length} checked`);
   }
   console.log("");
 }

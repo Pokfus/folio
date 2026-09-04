@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Asmara, `gw-614` Zagreb, `gw-615` Vilnius, `gw-616` Chișinău, `gw-617` Tbilisi, `gw-618` Yerevan, `gw-619` Ulaanbaatar, `gw-620` Doha,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-621` Vientiane.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-613` Brazzaville.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -1666,7 +1666,7 @@ May 1849** — so the guide's El Salvador entry dates the same country three way
 (1821), as a member of a federation (1824) and as a state in its own right (1849). **Take the date that
 matches the polity the card is about**, which for a capital card is the last of the three.
 
-**`gw-613` ASMARA IS THE ONE CAPITAL THE RECOGNITION GUIDE MAKES THE INSTRUMENT OF RECOGNITION RATHER
+**`gw-632` ASMARA IS THE ONE CAPITAL THE RECOGNITION GUIDE MAKES THE INSTRUMENT OF RECOGNITION RATHER
 THAN ITS SETTING.** Every other page in the deck records a note between governments or an envoy presenting
 credentials; Eritrea's says the United States recognised the republic on **27 April 1993**, "when the
 American consulate at Asmara informed Eritrean authorities of this decision on the same date Eritrea
@@ -1696,7 +1696,7 @@ an apostrophe and another capital, which is the shape of every O'/D' surname; **
 shipped card blocks and glossary descriptions with zero splits changed.** The guarantee is unchanged: a
 real boundary is swallowed only where the previous sentence ended on a single capital letter.
 
-**`gw-614` ZAGREB IS THE WIDEST AREA DISAGREEMENT IN THE WHOLE PASS — 56% — AND NEITHER SOURCE IS
+**`gw-630` ZAGREB IS THE WIDEST AREA DISAGREEMENT IN THE WHOLE PASS — 56% — AND NEITHER SOURCE IS
 WRONG.** UNdata and the EU country page both give Croatia **56,594 km²**, exactly; `AG.SRF.TOTL.K2` gives
 **88,070**. C9's rule says correct a term only when it falls outside the spread of the two sources, and
 C12's says UNdata is a source rather than an authority — but neither applies here, because this is not a
@@ -1717,7 +1717,7 @@ reminder that "out of date" is not a synonym for "too low". Croatia's own dates 
 taken in public**, a White House statement and the president's remarks to the press, where every other
 entry in the deck records an exchange of notes or an envoy presenting credentials.
 
-**`gw-615` VILNIUS CONFIRMS ZAGREB'S AREA FINDING BY BEING ITS OPPOSITE, WHICH IS THE ONLY WAY AN
+**`gw-639` VILNIUS CONFIRMS ZAGREB'S AREA FINDING BY BEING ITS OPPOSITE, WHICH IS THE ONLY WAY AN
 EXPLANATION LIKE THAT GETS TESTED.** One card earlier the same two series differed by 56% for Croatia and
 the reason offered was the World Bank's definition — total area "including areas under inland bodies of
 water and some coastal waterways". Lithuania has a short Baltic coast, and the two series differ by **four
@@ -1737,7 +1737,7 @@ continued uninterrupted** — fifty-one years of unbroken relations with no post
 write the legation sentence from the pattern; read which CITY the page names**, and whether it is the one
 the card is about.
 
-**`gw-616` CHIȘINĂU EXPLAINS D1's MOLDOVA DIVERGENCE, AND THE EXPLANATION WAS IN A FOOTNOTE ALL ALONG.**
+**`gw-645` CHIȘINĂU EXPLAINS D1's MOLDOVA DIVERGENCE, AND THE EXPLANATION WAS IN A FOOTNOTE ALL ALONG.**
 D1 recorded that UNdata gives Moldova 2,996 thousand where `SP.POP.TOTL` gives 2,360,527, chose the World
 Bank because it matched the term, and filed it under "the World Bank is not always the UN's number". The
 country row's footnote b says what the difference is: UNdata's population is **"Including the Transnistria
@@ -1756,7 +1756,7 @@ this says how firm the other end of the series is. Chișinău's own capital-city
 from 526,146 in 2015 to 484,352 in 2025, which with Zagreb and the Marshall Islands makes three, and the
 country's falls faster still.
 
-**`gw-617` TBILISI PAID FOR `footnote=y` THE VERY NEXT CARD, AND THE ANSWER IS THAT A STEP IN A SERIES IS
+**`gw-631` TBILISI PAID FOR `footnote=y` THE VERY NEXT CARD, AND THE ANSWER IS THAT A STEP IN A SERIES IS
 NOT ALWAYS GROWTH.** Georgia's `SP.POP.TOTL` sits between 3.71 and 3.73 million from 2015 to 2023 and then
 jumps to 3,812,518 and 3,935,766 — six per cent in two years, which on C8's stale-population diagnostic
 would read as a term written from an old figure. The observations carry their own note: **"Average of
@@ -1779,7 +1779,7 @@ four: **read the prose and ignore the furniture.** Georgia's page is also the ra
 printed citation — the Fitzwater press statement in the *Public Papers of the Presidents* — for a date it
 states.
 
-**`gw-618` YEREVAN IS THE ONLY CAPITAL IN THE DECK WHOSE COUNTRY THE UNITED STATES HAS RECOGNISED TWICE,
+**`gw-637` YEREVAN IS THE ONLY CAPITAL IN THE DECK WHOSE COUNTRY THE UNITED STATES HAS RECOGNISED TWICE,
 71 YEARS APART — AND THE FIRST RECOGNITION EXPRESSLY DECLINED TO RECOGNISE ITS BORDERS.** On 23 April 1920
 Secretary of State Bainbridge Colby delivered a note to the Armenian Republic's representative in
 Washington conveying Wilson's decision, with the note stating that the recognition "in no way
@@ -1801,7 +1801,7 @@ Georgia's gap one card earlier, and with nothing openable here to explain it. **
 territorial explanation just because the region makes it available**: where the footnote is absent, the
 divergence is unexplained and the card says only that the two differ.
 
-**`gw-619` ULAANBAATAR IS THE ONE PAGE THAT SAYS WHAT DOES *NOT* COUNT AS RECOGNITION, AND IT IS WORTH
+**`gw-633` ULAANBAATAR IS THE ONE PAGE THAT SAYS WHAT DOES *NOT* COUNT AS RECOGNITION, AND IT IS WORTH
 MORE THAN A DATE.** Mongolia joined the United Nations in 1961 with the United States abstaining rather
 than blocking, and the two had signed multilateral treaties to which both were parties — and the guide
 states in terms that **neither act constituted recognition**, which came only on **27 January 1987**, in a
@@ -1825,7 +1825,7 @@ category.**
 45% of all Mongolians in 2015 and about 48% in 2025, against a national density of 2.3 people per square
 kilometre — a country emptying into one valley.
 
-**`gw-620` DOHA IS THE FIRST BREAK OF THE UNDATA↔WORLD BANK CAPITAL RELAY THAT THE FOOTNOTE ITSELF
+**`gw-640` DOHA IS THE FIRST BREAK OF THE UNDATA↔WORLD BANK CAPITAL RELAY THAT THE FOOTNOTE ITSELF
 EXPLAINS.** The relay has held to the person on every card since Bern, and Bern broke it for a structural
 reason (the capital is not the largest city). Doha breaks it for a definitional one: UNdata gives 637.3
 thousand for 2019 against `EN.URB.LCTY`'s **715,997**, a 12% gap, and UNdata's own footnote says its
@@ -1843,6 +1843,29 @@ the deck's stock sentence about a legation opening in the capital keeps needing 
 post on 24 February 1973 under a chargé, and a **resident ambassador only on 22 August 1974**, almost
 three years after independence. Where a page distinguishes an accredited envoy from a resident one, the
 capital's own date is the second.
+
+**⚠ THE EIGHT-CARD NUMBERING DRIFT OF SEP 2026, AND THE CHECK THAT NOW CATCHES IT.** Eight capitals were
+written from the **"The next card is a CAPITAL: …" line at the head of this file** rather than from the
+running order below, and that line is advanced by hand each time — so once it was wrong by one city it
+stayed wrong, and eight cards shipped at other cities' addresses before anyone looked: **Asmara at
+`gw-613`** (Brazzaville's slot), Vilnius at `gw-615` (Copenhagen's), Chișinău at `gw-616` (Beirut's),
+Tbilisi at `gw-617` (Helsinki's), Yerevan at `gw-618` (Monrovia's), Ulaanbaatar at `gw-619` (Oslo's), Doha
+at `gw-620` (Bratislava's) — and **Zagreb at `gw-614`, one of the seven numbers this plan deliberately
+leaves unused.** All eight were renumbered into their own planned slots (630, 631, 632, 633, 637, 639,
+640, 645) the moment it was found, which was safe only because they were hours old and
+`check-overlay.js` reported the live overlay carrying no card deltas at all; **a day later it would not
+have been.** Three things to carry.
+**NOTHING IN THE PIPELINE COULD SEE IT.** Each card was correct in itself — cited at the bar, style-clean,
+in the right deck, with its paired glossary term — and `test-card-plans.js` checked that the running order
+had no gaps and no duplicates without ever asking whether a SHIPPED card matched the topic at its own
+number. The only symptom was that the plan and the deck had quietly stopped describing the same thing.
+**IT IS NOW A TEST.** `test-card-plans.js` asserts two new things for every collection: that a shipped
+card's number appears in the running order at all (which is what catches a card at a deliberately unused
+number), and — wherever a plan line reads `Name  [Country]`, i.e. the three geography plans — that the
+card's answer IS the city the plan put there. Verified to fail on the real fault before being kept.
+**AND THE HEADER LINE IS A CONVENIENCE, NOT THE SOURCE.** Read the running order before writing a card:
+`grep -n "^  gw-NNN " docs/world-geography-card-plan.md`. This file already warned that the next-card line
+had been guessed wrong repeatedly; a warning is not a check, which is the whole of why the check exists.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
