@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-560` Taipei.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-561` Sri Jayawardenepura Kotte.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -476,6 +476,32 @@ in 1984 — so a card about this capital cites a work whose title names a countr
 is correct and looks like an error. **Say in the prose that the seat took its UN seat under the older
 name**, or the citation reads as a filing mistake. The same holds for the guide, whose page is titled
 *Burkina Faso (Upper Volta)*.
+
+**`gw-560` TAIPEI IS THE FIRST CAPITAL CARD WITH NO POPULATION AT ALL, AND THE ROW IS OMITTED RATHER
+THAN FILLED.** Batch 20 solved the COUNTRY card by finding the WTO, and left the figures unmarked with the
+facts box stating Folio's own; a CITY figure is a different matter, because there is no widely-agreed round
+number to state. Measured again here: `eng.stat.gov.tw`, `www.ris.gov.tw` and `english.gov.taipei` all
+answer **200 with real bodies** — so D2's "the reachable Taiwanese statistical sites are JavaScript-driven"
+is still true of the FIGURES but no longer of the hosts — and none of the three serves a population in its
+HTML; `eng.dbas.gov.taipei`, the city's own budget and statistics bureau, is **refused by the egress policy
+outright**. So the facts box carries Territory, Region, Where and **In the WTO as — Chinese Taipei**, and
+says nothing it cannot source. **A missing row is honest; an invented figure is not**, and this is the
+first card in the deck to take that option.
+
+**ITS QUESTION IS THE ONLY ONE IN THE DECK THAT DOES NOT SAY "THE CAPITAL OF THE COUNTRY".** All 51 other
+capital cards ask for "the capital of the country shaded around it"; this one asks for **"the seat of
+government of the territory shaded around it"**, which is the countries deck's own "country or territory"
+convention carried across, and it matches `gw-060`'s facts label. Folio takes no position by asking; it
+would take one by asserting.
+
+**AND THE CHINA GUIDE PAGE IS A CITY SOURCE AS WELL AS A COUNTRY ONE.** Batch 20 read it for the island's
+diplomatic history; read for the CITY it also gives the consular post opened at **Taipei in 1914 under the
+name Taihoku** while the island was Japanese — which is the earliest date on the card and predates the
+government it is a capital for by thirty-five years — and the embassy's arrival on 19 December 1949 and
+closure on 28 February 1979, thirty years apart. FRUS then supplies the one thing the guide never does,
+an EVENT in the city: the **riot of 24 May 1957**, in which the embassy was wrecked and burned after a
+court martial's acquittal, reported by the army attaché the next morning and analysed by Ambassador Rankin
+the day after that. **When a capital's country has no guide page, its former sovereign's may carry it.**
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
