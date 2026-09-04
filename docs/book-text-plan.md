@@ -296,13 +296,67 @@ re-run and diffed byte for byte.
 | **E18** ✅ | `plato-dialogues.grc` | **13 citations restored, and the rule is SELF-VERIFYING.** Perseus ran a beta-code converter over references that were already in Latin script, so Plato's Greek cited the Iliad as `ηομ. ιλ. 14.291` — Greek letters spelling nothing. The same `<bibl>` carries the right form on its `n=` attribute, so the repair decodes the text and writes the attribute in ONLY where the two match: 42 genuinely Greek `<title>`s cannot pass that test. One is a PREFIX match and keeps its extra reference |
 | **E19** ✅ | five books, and a fault in the machinery | **A CORRECTION ROW ADDED TO A CACHED WIKI BOOK DID NOTHING, AND NOTHING SAID SO.** `correctRaw` ran only on the fetch path, so a row met the page only when `--force` was passed — and its own comment promises the opposite. The Book of Documents shipped the same emperor title as `Tî` 25 times and `Di` 69, by which chapters happened to be cached. Fixed, proved byte-for-byte over the whole shelf, and the run now says which kind of dead row it is reporting. Plus 15 repairs to Plato and the Summa, closing E4's last two deferrals |
 | **E20** ✅ | six books | **10 repairs from 78 candidates, and E19's table is what said where to look.** Every candidate in the seven cleanest books read in full: Thucydides' nineteen were ALL correct (place names, `hods`, `hove`, `waives`), and the yield came from the others — `haye`, `goverment`, `continuallly`, `Archaeans`, `faired-haired`, `inflecting`/`inflected`, and two LOST SPACES (`andvice`, `[Isay]`) that no confusion-family sweep would have named. `Lede` for Leda is DEFERRED: it is in Perseus's file and the Greek is Λήδην, so it wants a printed witness |
-| **E21–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E21** ✅ | six books | **40 repairs, 30 of them in the Summa** — 2.5 million words whose candidate list had never been read. Its 245 are mostly the book's own LATIN, which no rarity test can tell from a typo; what was left is 30 slips, each a single occurrence against hundreds of the correct form. Three findings: **a TRANSPOSITION is two edits and was invisible** to E19's sweep (`creatuers`, and ten more across the shelf); **one error finds another** (three `no` for `not`, which no sweep can see, all found by reading round a neighbour); and **the filter that made the list readable hid a real error** (`Wheather`, an inserted `a`) |
+| **E22–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E21 — the biggest book on the shelf, and what its errors led to, shipped 2026-09-04
+
+**40 repairs across six books, 30 of them in the Summa Theologica** — 2.5 million words, the largest
+thing Folio serves by a wide margin, and a book whose candidate list had never been read.
+
+**MOST OF ITS 245 CANDIDATES ARE ITS OWN LATIN**, which is E19's noise rule seen from the inside: the
+Summa sits at 9.7 candidates per 100,000 words, near the CLEAN end of that table, and still returns a
+long list simply because it is enormous. `accidens`, `agens`, `actio`, `conditio`, `conjunctio`,
+`ambitione`, `De Celebratione missae`, `Ex opere operato`, a hundred more — every one a real citation
+and none of them tellable from a typo by any rarity test. **The rate normalises for size; the list
+still has to be read.**
+
+**What was left is 30 slips, and every one is a single occurrence against hundreds or thousands of the
+correct form in the same book** — `Obejection` against 20,617 `Objection`, `thut` against 42,487
+`that`, `countrary` against 4,881 `contrary`, `sats` against 7,194 `says`. That ratio is what settles
+them; no scan was opened for any of it.
+
+**THREE FINDINGS, and each is about the instrument rather than the book.**
+
+**1. A TRANSPOSITION IS TWO EDITS, SO THE ONE-EDIT SWEEP WAS BLIND TO IT.** `creatuers` for `creatures`
+turned up by eye, in the same clause as `primaily`. A transposition sweep was written and run over the
+shelf, and it is **higher precision than the one-edit sweep**, because a swap of two adjacent letters
+that lands on a word the book uses constantly is very rarely a coincidence: `substnaces`, `subsistnet`,
+`gaint` for giant, `sieze`, `cheiftain`, `solenm`, `siezed`, `emnity`, `battels`, `kindgom`,
+`strenghten`, `afroe`. Eleven more repairs across five other books, all of them non-words.
+
+**2. ONE ERROR FINDS ANOTHER, AND THE SECOND IS OFTEN INVISIBLE TO EVERY SWEEP HERE.** Reading round
+`substnaces` produced *"We are **no**, however, accustomed to say Three substances"*; reading round
+`primaily` produced *"**Wheather** names predicated of God are predicated primarily of **cretures**"* —
+**three faults in one heading**. `no` for `not` is a perfectly good word in the wrong place and no
+vocabulary measure can ever name it; three of them are repaired here and all three were found by
+standing next to something else. **The neighbourhood of a known error is the best-yielding place to
+look**, and it costs nothing once you are already there.
+
+**3. THE FILTER THAT MADE THE LIST READABLE HID A REAL ERROR.** E19's sweep proposed 295 candidates for
+Plato, which is not a work list, so E20 and this batch read a version filtered to declared confusion
+classes — an inserted or dropped `i l n m r e t u c`, or a substitution from a named set. `Wheather`
+is an inserted **`a`**, so it was in the unfiltered 295 and not in the list that was read. **A filter
+that buys legibility spends precision**, and the honest way to say what this batch did is: every
+candidate in the FILTERED list was read, and the unfiltered one is where the next pass should start.
+
+**One is deferred, and one is deferred for a reason worth stating.** `graps` in Journey to the West —
+*"some purple fungus of immortality, some jade **graps** and Immortal Pills"* — is certainly damage,
+and has TWO plausible readings: `grapes` (a transposition) and `grass` (the immortals' 瑤草 is a real
+item in that banquet). The book uses neither word elsewhere, so its own usage cannot choose, and a
+witness is wanted. And the Summa's *"it was also established that **there several** real relations in
+God"* is missing a word, not carrying a wrong one: the clause is ungrammatical and the parallel three
+words later supplies the repair, but **inserting a word is a stronger claim than repairing a
+non-word** — the printed Benziger page might read that way — so it stands, recorded.
+
+**The proof.** Six books rebuilt: five changed by one to four single-word runs each, read individually;
+the Summa by 24 lines, every changed word one of the 30 rows. Nothing else on the shelf moved.
 
 ### E20 — the cleanest books' candidates, read in full, shipped 2026-09-04
 

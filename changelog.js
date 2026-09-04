@@ -35,14 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.458", released: "2026-09-04T04:50Z" };
+window.FOLIO_VERSION = { v: "1.459", released: "2026-09-04T05:23Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-04",
     t: "Books corrected across the Library, from Virgil to Chaucer",
     items: [
-      "<b>96 corrections across fifteen books</b> — Virgil, Plato, Homer, Aristotle, Caesar, Confucius, Ovid, Suetonius, Lucretius, Aquinas and others — where a word had been misread, two words run together, or a name spelled two ways in one book.",
+      "<b>136 corrections across eighteen books</b> — among them 30 to the Summa Theologica, the largest book on the shelf, whose text had never been checked word by word.",
       "<b>Another 142 corrections to the Canterbury Tales</b>, including words the scan had broken open and marks it invented out of a pencil note in the margin.",
       "<b>206 references repaired in Plato, Herodotus, Thucydides and the Satyricon</b>, welded to the words beside them or spelled in Greek letters, plus 56 corrections to the Greek Odyssey.",
     ],

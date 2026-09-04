@@ -8626,7 +8626,14 @@ const BOOKS = {
        decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
        measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
        cry `Io Paean!` in four books where it is exactly right. */
+    /* ---------- A TRANSPOSITION (Sep 2026, batch E21) ----------
+       Two adjacent letters swapped, which is TWO edits and so invisible to the one-edit sweep of
+       E19 and E20 — the gap the Summa's `creatuers` exposed. It is a HIGH-PRECISION test: a swap
+       that lands on a word the book uses constantly is very rarely a coincidence, and each row
+       below is a single occurrence against dozens or hundreds of the correct form. */
     reFixes: [
+      [/(?<![A-Za-z])kindgom(?![A-Za-z])/g, "kingdom",
+       "a transposition in `kingdom`, against 27 correct"],
       [/(?<![A-Za-z])Iooked(?![A-Za-z])/g, "looked",
        "a capital I read for the lowercase l of `looked`"],
       [/(?<![A-Za-z])Iot(?![A-Za-z])/g, "lot",
@@ -9758,6 +9765,15 @@ const BOOKS = {
     ],
 
     wiki: "en.wikisource.org",
+    /* ---------- A TRANSPOSITION (Sep 2026, batch E21) ----------
+       Two adjacent letters swapped, which is TWO edits and so invisible to the one-edit sweep of
+       E19 and E20 — the gap the Summa's `creatuers` exposed. It is a HIGH-PRECISION test: a swap
+       that lands on a word the book uses constantly is very rarely a coincidence, and each row
+       below is a single occurrence against dozens or hundreds of the correct form. */
+    reFixes: [
+      [/(?<![A-Za-z])strenghten(?![A-Za-z])/g, "strengthen",
+       "a transposition in `strengthen`, against 14 correct"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/San_Kuo",
     /* Two volumes of sixty chapters each, which is the edition's own division and the only one it
@@ -13381,7 +13397,87 @@ const BOOKS = {
        repaired. What made that possible is the cache fault this batch fixes: on a cached run every
        row reported DEAD, so a genuinely dead one said nothing a live one did not. The trap it
        documents is real and is kept in the plan's E15 entry; a row that can never fire is not. */
+    /* ---------- THE BIGGEST BOOK ON THE SHELF, SWEPT (Sep 2026, batch E21) ----------
+       2.5 million words, and its candidate list had never been read. All 245 were, and the great
+       majority are this book's own LATIN — `accidens`, `agens`, `conditio`, `ambitione`, `De
+       Celebratione missae`, a hundred more — which no rarity test can tell from a typo. These are
+       what was left, and every one is a single occurrence against hundreds or thousands of the
+       correct form in the same book, so each is settled by the book's own usage and not by a scan.
+
+       THREE OF THEM ARE TRANSPOSITIONS AND EXPOSED A GAP IN THE MEASURE. `creatuers` for
+       `creatures` is a swap of two adjacent letters, which is TWO edits, so the one-edit sweep that
+       found the other twenty-two was blind to it; it turned up by eye, in the same clause as
+       `primaily`. A transposition sweep was then written and run over the whole shelf — see the plan.
+
+       AND ONE ERROR FOUND ANOTHER. `We are no, however, accustomed to say Three substnaces` carries
+       two faults, and only one of them is a non-word: `no` for `not` is a perfectly good word in the
+       wrong place, invisible to every sweep here, and was found only because `substnaces` four words
+       later brought a reader to the sentence. */
     reFixes: [
+      [/(?<![A-Za-z])accordingm(?![A-Za-z])/g, "according",
+       "a stray m on `according`, in 'everything has being only according as it resembles Him'"],
+      [/(?<![A-Za-z])aforsaid(?![A-Za-z])/g, "aforesaid",
+       "a dropped e in `aforesaid`, which this translation spells correctly 367 times"],
+      [/(?<![A-Za-z])Buit(?![A-Za-z])/g, "But",
+       "a stray i in `But`, opening a sentence"],
+      [/(?<![A-Za-z])concupscible(?![A-Za-z])/g, "concupiscible",
+       "a dropped i in `concupiscible`, one of this book's constant terms — 357 correct"],
+      [/(?<![A-Za-z])countrary(?![A-Za-z])/g, "contrary",
+       "a stray u in `contrary`, against 4,881 correct"],
+      [/(?<![A-Za-z])futher(?![A-Za-z])/g, "further",
+       "a dropped r in `further`, against 475 correct"],
+      [/(?<![A-Za-z])Hillary(?![A-Za-z])/g, "Hilary",
+       "a doubled l in `Hilary` of Poitiers, whom this book names correctly 90 times"],
+      [/(?<![A-Za-z])mann(?![A-Za-z])/g, "man",
+       "a doubled n in `man`, in the title 'Whether a man is bound to correct his prelate?'"],
+      [/(?<![A-Za-z])meas(?![A-Za-z])/g, "means",
+       "a dropped n in `means`, in 'persuades men by means of rewards or punishments'"],
+      [/(?<![A-Za-z])Obejection(?![A-Za-z])/g, "Objection",
+       "a stray e in `Objection`, the commonest word in the book — 20,617 correct"],
+      [/(?<![A-Za-z])payers(?![A-Za-z])/g, "prayers",
+       "an r out of place in `prayers`, in 'offering up prayers' (Heb. 5:7)"],
+      [/(?<![A-Za-z])primaily(?![A-Za-z])/g, "primarily",
+       "a dropped r in `primarily`, against 92 correct"],
+      [/(?<![A-Za-z])creatuers(?![A-Za-z])/g, "creatures",
+       "a TRANSPOSITION in `creatures` — the sweep that found the rest could not see it, since a swap of two letters is two edits and not one"],
+      [/(?<![A-Za-z])sats(?![A-Za-z])/g, "says",
+       "a t read for the y of `says`, against 7,194 correct"],
+      [/(?<![A-Za-z])senstive(?![A-Za-z])/g, "sensitive",
+       "a dropped i in `sensitive`, against 861 correct"],
+      [/(?<![A-Za-z])separarted(?![A-Za-z])/g, "separated",
+       "a stray r in `separated`, against 378 correct"],
+      [/(?<![A-Za-z])thut(?![A-Za-z])/g, "that",
+       "a u read for the a of `that`, the second commonest word in the book"],
+      [/(?<![A-Za-z])tsuffrages(?![A-Za-z])/g, "suffrages",
+       "a stray t on the front of `suffrages`, opening a treatise on them"],
+      [/(?<![A-Za-z])substnaces(?![A-Za-z])/g, "substances",
+       "a transposition in `substances`, against 342 correct"],
+      [/(?<![A-Za-z])subsistnet(?![A-Za-z])/g, "subsistent",
+       "a transposition in `subsistent`, against 82 correct"],
+      [/(?<![A-Za-z])mall(?![A-Za-z])/g, "man",
+       "an l read for the n of `man`, in 'as when a man curbs his lust and perseveres in covetousness'. " +
+       "`mall` IS a word, which is why the context and not the spelling is what settles it"],
+      [/(?<![A-Za-z])ther(?![A-Za-z])/g, "there",
+       "a dropped e in `there`, in 'Whether there are several persons in God?'"],
+      [/(?<![A-Za-z])thre(?![A-Za-z])/g, "there",
+       "a transposition in `there`, one sentence away from the last — 'hence it follows that there are " +
+       "also several realities subsistent'. The sweep proposed `three`, which the context refuses"],
+      [/duty to cor\. rect the/g, "duty to correct the",
+       "a full stop and a space driven into the middle of `correct`"],
+      [/(?<![A-Za-z])Wheather(?![A-Za-z])/g, "Whether",
+       "a stray a in `Whether`, against 6,358 correct. IT WAS HIDDEN BY THE SWEEP'S OWN FILTER: the " +
+       "confusion classes that made the candidate list readable admit an inserted i, l, n, m, r, e, " +
+       "t, u or c, and this is an inserted A — so it was in the unfiltered list of 295 and not in the " +
+       "one that was read. It turned up by eye, on the same line as `primaily`"],
+      [/(?<![A-Za-z])cretures(?![A-Za-z])/g, "creatures",
+       "a dropped a in `creatures`, on that same line again — three faults in one heading"],
+      [/(?<![A-Za-z])no as meaning the essence/g, "not as meaning the essence",
+       "a second dropped t in `not`, found the same way as the first: by reading round a neighbour"],
+      [/there are no only three persons/g, "there are not only three persons",
+       "a third dropped t in `not`"],
+      [/We are no, however, accustomed/g, "We are not, however, accustomed",
+       "a dropped t in `not`, which no vocabulary sweep can see — `no` is a word. It was found by " +
+       "reading round `substnaces`, four words later in the same sentence"],
 
       /* E4's LAST DEFERRAL, closed the same way and with no volume opened either (Sep 2026, batch
          E19). It is not a non-word to a modern eye — `inproportionate` reads as a plausible if
@@ -13613,6 +13709,19 @@ const BOOKS = {
       "column is the age of the text alone. (The modern translations by Robert Goldman and others, " +
       "1984–2017, Hari Prasad Shastri, 1952–59, and Arshia Sattar, 1996, are still in copyright and " +
       "are not used.) Griffith's appendix, his additional notes and his index are not reproduced.",
+    /* ---------- A TRANSPOSITION (Sep 2026, batch E21) ----------
+       Two adjacent letters swapped, which is TWO edits and so invisible to the one-edit sweep of
+       E19 and E20 — the gap the Summa's `creatuers` exposed. It is a HIGH-PRECISION test: a swap
+       that lands on a word the book uses constantly is very rarely a coincidence, and each row
+       below is a single occurrence against dozens or hundreds of the correct form. */
+    reFixes: [
+      [/(?<![A-Za-z])gaint(?![A-Za-z])/g, "giant",
+       "a transposition in `giant`, against 471 correct"],
+      [/(?<![A-Za-z])sieze(?![A-Za-z])/g, "seize",
+       "a transposition in `seize`, against 32 correct"],
+      [/(?<![A-Za-z])cheiftain(?![A-Za-z])/g, "chieftain",
+       "a transposition in `chieftain`, against 94 correct"],
+    ],
     sourceName: "Project Gutenberg",
     sourceUrl: "https://www.gutenberg.org/ebooks/24869",
     url: "https://www.gutenberg.org/files/24869/24869-tei/24869-tei.tei",
@@ -14083,7 +14192,20 @@ const BOOKS = {
        decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
        measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
        cry `Io Paean!` in four books where it is exactly right. */
+    /* ---------- A TRANSPOSITION (Sep 2026, batch E21) ----------
+       Two adjacent letters swapped, which is TWO edits and so invisible to the one-edit sweep of
+       E19 and E20 — the gap the Summa's `creatuers` exposed. It is a HIGH-PRECISION test: a swap
+       that lands on a word the book uses constantly is very rarely a coincidence, and each row
+       below is a single occurrence against dozens or hundreds of the correct form. */
     reFixes: [
+      [/(?<![A-Za-z])solenm(?![A-Za-z])/g, "solemn",
+       "a transposition in `solemn`, against 60 correct"],
+      [/(?<![A-Za-z])siezed(?![A-Za-z])/g, "seized",
+       "a transposition in `seized`, against 19 correct"],
+      [/(?<![A-Za-z])emnity(?![A-Za-z])/g, "enmity",
+       "a transposition in `enmity`, against 13 correct"],
+      [/(?<![A-Za-z])battels(?![A-Za-z])/g, "battles",
+       "a transposition in `battles`, against 62 correct"],
       [/(?<![A-Za-z0-9])1ndra(?![A-Za-z0-9])/g, "Indra",
        "a 1 read for the I of `Indra`"],
       [/(?<![A-Za-z0-9])3trength(?![A-Za-z0-9])/g, "strength",
@@ -14821,6 +14943,15 @@ const BOOKS = {
       "and softened passages he thought unsuitable for boys. The modern editions by Eugène Vinaver, " +
       "1947, Helen Cooper, 1998, and Dorsey Armstrong, 2009, are still in copyright and are not " +
       "used.)",
+    /* ---------- A TRANSPOSITION (Sep 2026, batch E21) ----------
+       Two adjacent letters swapped, which is TWO edits and so invisible to the one-edit sweep of
+       E19 and E20 — the gap the Summa's `creatuers` exposed. It is a HIGH-PRECISION test: a swap
+       that lands on a word the book uses constantly is very rarely a coincidence, and each row
+       below is a single occurrence against dozens or hundreds of the correct form. */
+    reFixes: [
+      [/(?<![A-Za-z])afroe(?![A-Za-z])/g, "afore",
+       "a transposition in `afore`, which Malory uses 247 times"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Le_Morte_d%27Arthur",
 

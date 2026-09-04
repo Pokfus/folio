@@ -838,7 +838,16 @@ book added later will meet the same traps.
   printed on every run, and the book's front matter tells the reader why it has no note fold. **AND
   THE EASIER COPYRIGHT WAS ATTACHED TO THE UNUSABLE TEXT** — see the Library bullet for the choice
   between Perseus's two English Iliads),
-  `summa-theologica` (**~15.1 MB, by a factor of six the largest thing on the shelf** — all 614
+  `summa-theologica` (**~15.1 MB, by a factor of six the largest thing on the shelf**. **Batch E21
+  read its candidate list for the first time and repaired 30 slips** — `Obejection` against 20,617
+  correct `Objection`, `thut` against 42,487 `that`, `countrary`, `sats`, `Hillary` for Hilary of
+  Poitiers, `cor. rect` with a full stop driven into the middle of it, and three `no` for `not`.
+  **Most of its 245 candidates are the book's own LATIN** (`accidens`, `agens`, `conditio`, `Ex opere
+  operato`), which no rarity test can tell from a typo: the Summa sits near the CLEAN end of the
+  noise table and still returns a long list simply because it is enormous — the rate normalises for
+  size, the list still has to be read. **One thing is deferred**: "it was also established that
+  **there several** real relations in God" is missing a word rather than carrying a wrong one, and
+  inserting a word is a stronger claim than repairing a non-word, so it wants a printed witness. All 614
   questions as **614 chapters**, **3,094 article numbers**, 7 notes — the Fathers of the English
   Dominican Province's translation of 1920, and **the first book here whose SIZE was the first
   question rather than the last.** Every earlier import decides the pairing and then finds out how
