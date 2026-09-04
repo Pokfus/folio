@@ -1787,7 +1787,8 @@ window.GLOSSARY = {
 "Pompeii": "Pompeii was a town of Campania on the river Sarno below Vesuvius, held in turn by Oscans, Tyrrhenians and Pelasgians, and Samnites before it came under Rome.<sup class=\"fn\" data-fn=\"1\"></sup> The river carried cargoes inland and out to sea again, so the town served as the port of Nola, Nuceria and Acerrae behind it, and an earthquake under Nero demolished a large part of what Tacitus calls a populous place.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Vesuvius erupted in 79 CE and buried it with neighbouring Herculaneum under ash, which by one account fell while the people of Pompeii were sitting in the theatre.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Nero": "Nero was a Roman emperor and the last of the Julio-Claudian line, which Suetonius says came to an end with him.<sup class=\"fn\" data-fn=\"3\"></sup> He had his mother Agrippina killed, performed in public as a singer to the lyre before soldiers and a full house, and drove members of the old families to sing, to drive teams and to fight as gladiators.<sup class=\"fn\" data-fn=\"4\"></sup> A great fire destroyed much of Rome in his reign, which Tacitus says may have been accidental or contrived by the emperor, since authors give both accounts; Nero fastened the guilt on the Christians.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Trajan": "Trajan was a Roman emperor under whom the empire reached its furthest extent, conquering Dacia and campaigning east beyond the Euphrates as far as the Persian Gulf.<sup class=\"fn\" data-fn=\"1\"></sup> Dio admired above all the stone bridge he threw across the Danube, and records that he reigned 19 years, 6 months and 15 days and died at Selinus in Cilicia.<sup class=\"fn\" data-fn=\"1\"></sup> His rescripts to the younger Pliny in Bithynia, and those quoted in the <i>Digest</i>, are the fullest surviving record of a Roman emperor answering a governor: that Christians were not to be sought out, that anonymous informations were not to be received, and that nobody should be convicted on suspicion.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Hadrians_Wall": "Hadrian's Wall was the frontier work the Romans drew across the north of the province of Britannia, given in both the inscriptions and the literary record as 80 Roman miles long.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A dedication from Jarrow says the necessity of keeping the empire within its limits had been laid on Hadrian by divine precept, and that the army of the province built the work under Aulus Platorius Nepos.<sup class=\"fn\" data-fn=\"1\"></sup> Building stones along the line record who raised each stretch, from a legion at a milecastle down to a single century credited with 112 Roman feet of rampart.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Hadrians_Wall": "Hadrian's Wall was the frontier work the Romans drew across the north of the province of Britannia, given in both the inscriptions and the literary record as 80 Roman miles long.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A dedication from Jarrow says the necessity of keeping the empire within its limits had been laid on Hadrian by divine precept, and that the army of the province built the work under Aulus Platorius Nepos.<sup class=\"fn\" data-fn=\"1\"></sup> Building stones along the line record who raised each stretch, from a legion at a milecastle down to a single century credited with 112 Roman feet of rampart.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Marcus_Aurelius": "Marcus Aurelius was a Roman emperor whose reign was taken up by war on the Danube and by a pestilence brought home from the east, and who is remembered chiefly for a notebook of Stoic reflections he kept for himself.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> He wrote it not in Latin but in the language of the Greeks, and it survives in twelve books under a title meaning simply 'to himself'.<sup class=\"fn\" data-fn=\"2\"></sup> Dio judged that he did not meet the good fortune he deserved, being frail and beset by troubles, and admired him the more for bringing the empire through them.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2597,7 +2598,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Pompeii": "buried 79 CE",
 "Nero": "reigned 54-68 CE",
 "Trajan": "reigned 98-117 CE",
-"Hadrians_Wall": "built from about 122 CE"
+"Hadrians_Wall": "built from about 122 CE",
+"Marcus_Aurelius": "reigned 161-180 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5510,7 +5512,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Pompeii": ["city","history","geography","archaeology","rome","classical"],
 "Nero": ["ruler","person","history","politics","rome","classical"],
 "Trajan": ["ruler","person","history","politics","warfare","rome","classical"],
-"Hadrians_Wall": ["building","history","warfare","geography","rome","classical"]
+"Hadrians_Wall": ["building","history","warfare","geography","rome","classical"],
+"Marcus_Aurelius": ["ruler","person","history","philosophy","politics","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
