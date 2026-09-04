@@ -1204,4 +1204,25 @@ window.ARTEFACTS = [
     date: "c. 15th – 19th century CE",
     origin: "Europe and its wars",
   },
+  {
+    id: "albarello",
+    name: "Albarello",
+    rarity: "common",
+    date: "c. 1450 – 1700 CE",
+    origin: "Italy",
+  },
+  {
+    id: "phonograph-cylinder",
+    name: "Phonograph cylinder",
+    rarity: "common",
+    date: "1877 – 1929 CE",
+    origin: "United States",
+  },
+  {
+    id: "green-glazed-jug",
+    name: "Green-glazed jug",
+    rarity: "common",
+    date: "c. 1100 – 1500 CE",
+    origin: "England",
+  },
 ];

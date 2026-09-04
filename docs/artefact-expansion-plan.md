@@ -277,6 +277,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | E2a | `type-sort`, `slide-rule`, `portable-sundial` | — |
 | E3a | `transferware`, `socket-bayonet`, `flintlock-musket` | `steel-pen-nib` (one work only) |
 | E1a | `mail-fragment`, `telegraph-key`, `iron-cannonball` | — |
+| E2b/E3b/D1c | `albarello`, `phonograph-cylinder`, `green-glazed-jug` | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1092,6 +1093,45 @@ key, which exists to make and break one circuit and nothing else.
   volume 2**. `militaryantiquit01gros` serves Grose's first volume in full; `militaryantiquit02gros`
   returns a 503, so his artillery volume was not opened and the cannonball plate uses Simpson and Adye for
   the ordnance instead. Search for the second volume by title rather than by incrementing the number.
+
+**E2b/E3b/D1c's finding is that THREE SOURCES A GENERATION APART BEAT ONE AUTHORITY, and the shape is
+the same one E1a named.** All three of its plates are built out of trade and museum literature spanning
+decades, and in each the works say different things because they were written at different moments.
+The phonograph cylinder is Prescott's 1878 account of the tinfoil machine (a brass drum grooved about
+2.5 mm apart, a stylus denting the foil to depths that varied with the voice), Edison's own words in
+1888 ("instead of tin-foil, I now use a cylinder of wax", incised in lines hardly visible to the naked
+eye, with a turning tool to pare off what was said before), and the National Phonograph Company's 1900
+shop manual (the Standard shipped complete with a sapphire shaving knife, a hearing tube, a brass horn
+and an oak case, advertised as "will record, will reproduce, will shave off"). That is one object
+described three times across twenty-two years, and the plate can therefore say what CHANGED rather than
+what the thing was.
+· **A SOURCE THAT REFUTES ANOTHER SOURCE IN THE SAME PLATE IS WORTH MORE THAN EITHER.** `green-glazed-jug`
+  cites Jewitt 1878, who dug the Burley Hill kiln himself and calls its 41 cm pitcher "the finest and
+  most interesting fictile remain of the Norman period in existence" — and Hobson's 1903 British Museum
+  catalogue, which answers in a footnote that Jewitt's Norman attribution "was based on insufficient
+  evidence". The plate therefore ends on the dating problem rather than on the Norman claim, which is
+  what the two sources together actually support. **Read the later catalogue's footnotes for the earlier
+  excavator's name**; this is the citation passes' sibling-consistency check applied inside one artefact.
+· **THE TRADE LITERATURE ROUTE HOLDS FOR CERAMICS TOO.** E1/E2/E3 were opened by out-of-copyright trade
+  manuals; the same shelf carries the connoisseurs' catalogues, and they are better than the manuals
+  because a catalogue states the PROCESS as well as the object. Fortnum's *Maiolica* (1892) gives the
+  whole tin-glaze recipe in one paragraph — siliceous glass, oxide of lead for translucency, oxide of tin
+  for an opaque white of great purity, milled to the consistency of cream, dipped and fired again — which
+  is what makes an albarello plate about a technology rather than about a shape.
+· **AN OBJECT'S ORIGIN IS OFTEN THE THING THE OLD SOURCE ALREADY SETTLED.** Wallis 1904 dismisses the
+  "various fanciful suggestions" about where the Italian albarello came from as unnecessary to discuss
+  "now that we are aware it was a common form of vase in Eastern use", and records albarelli imported from
+  Persia, Syria and Egypt into Sicily and Moresco ones from Spain. A 1904 book can be current on a
+  question a modern popular account still gets wrong.
+· Two access notes. **`archive.org/download/<id>/<id>_djvu.txt` can return an empty body where the
+  node-specific host serves the file** — `ia801605.us.archive.org/0/items/<id>/<id>_djvu.txt` and
+  `archive.org/stream/<id>/<id>_djvu.txt` both worked for the same id that `download` returned 0 bytes
+  for, so try the alternates from `archive.org/metadata/<id>` before concluding a text derivative is
+  missing. And **`upload.wikimedia.org` 429s while `commons.wikimedia.org` does not**, so a URL sweep of a
+  picture batch will report a 429 that is this container's rate limit rather than a broken path — confirm
+  against the file's own Commons page, and fetch the picture itself through
+  `commons.wikimedia.org/w/thumb.php?f=<FILE>&width=<n>`, which answers when `Special:FilePath` hands back
+  HTML.
 
 ## The per-artefact workflow
 
