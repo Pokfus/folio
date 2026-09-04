@@ -1520,3 +1520,41 @@ proved inert, whatever it did to the text.
 > same day, one closing *reverentissime frater* to a bishop and one *domine fili* to a king. **A work
 > that repeats itself by convention looks exactly like a transcription that repeats itself by
 > accident, and only reading the two occurrences apart tells them apart.**
+
+**THE CACHE MARKER WAS TELLING A HALF-TRUTH, AND THE DEAD-ROW REPORT LIED ABOUT FIVE LIVE ROWS**
+(Sep 2026, batch E37). A sweep of the whole shelf — every one of the 32 books that carries a
+correction table, rebuilt and its report read — returned **24 dead romanisation rows in the Three
+Kingdoms** and nothing anywhere else. Every one of the 24 names is CORRECT in the shipped book: Guan
+Yu 589 times, Zhao Yun 357, Lü Bu 403. So the rows were not broken, and the report was.
+
+  · **THE CAUSE IS E29 HALF-APPLIED.** That batch moved the correction chain to run on the extracted
+    prose so a row would fire on every run — and corrected the TITLE where `sanKuoHead` reads it,
+    which is *before* the record is cached. So a cache record marked **`raw: 1`** — E30's marker,
+    meaning *this holds the extractor's own output and not a corrected copy* — had a raw `html` and a
+    corrected `t`. Five of this book's romanisation rows fire **only on chapter heads**, because the
+    printing drops the umlaut there and nowhere else (`Lu Pu` for *Lü Pu*, `Kuan Yu` for *Kuan Yü*);
+    on a cached run they met a head already converted and reported themselves dead.
+  · **THE DANGER IS THE HOUSE RULE ITSELF.** *Every declared row must fire; a dead row is a defect.*
+    A session following it would have deleted five live rows, and **eight chapter titles would have
+    gone back to Wade-Giles at the next `--force`, with the build saying nothing**. E30 taught that a
+    dead-row report is evidence about the text in hand rather than about the source; this is the same
+    lesson one level down — **it is evidence about the CACHE, and a marker that overstates what the
+    cache holds makes it evidence about nothing.**
+  · **THE FIX IS A VERSIONED MARKER, and it had to be.** The title is now cached raw and corrected on
+    the way out, beside the html and the notes. But a record written before that says `raw: 1` and its
+    title is ALREADY corrected, so correcting it again applies `applyRoman` twice — which is not
+    idempotent, and which E30 caught doing exactly this to 974 names in the body. Measured before the
+    marker was bumped: **seven titles moved, `Tao` → `Dao`, `Pi` → `Bi`, `Chao` → `Zhao`**, every one
+    of them a name that was already right. A `raw: 2` record gets its title corrected here; a `raw: 1`
+    record does not, and a refetch is what makes it honest.
+  · **PROVED BY REFRESHING THE FIVE BOOKS IT CAN REACH** — the wiki-walk books that carry a `roman`
+    table, since `fixes` and `glyphs` are idempotent and cannot double-apply. All five rebuild
+    **byte-identical**; the Three Kingdoms goes from 2,076 of 2,100 declared names firing to **2,100 of
+    2,100**, and from 24 dead rows to none. The cache for chapter 3 now holds the head as the printing
+    sets it — *"Tung Cho Silences Ting Yuan: Li Su Bribes Lu Pu."* — which is the plain-u form those
+    five rows were written for, and the evidence that they were never redundant.
+
+Recorded and not repaired: the Book of Documents and the Book of Rites both warn that **the
+blackletter pre-pass matched nothing**. Every romanisation row in both books fires, so no name is
+going unconverted today; what is unknown is whether Wikisource has dropped the `en-Latf` spans the
+pre-pass looks for, or whether the flag has simply outlived them. It wants a page fetched and read.

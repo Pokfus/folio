@@ -327,7 +327,8 @@ re-run and diffed byte for byte.
 | **E34** ✅ | the Journey scan's plate captions | **Twenty-two plate captions, eighteen blocks of engraving noise and a leaked running head removed — nearly 2 KB of furniture, three of it inside a sentence.** The table of what to remove is **the book's own List of Illustrations**, read out of the front matter the reader throws away: a rule about the SHAPE of a caption is impossible here, the scan having 523 runs of four blank lines. Its finding is about the threshold — **the correction chain romanises the LIST and not the mangled caption**, so the two drift apart by the width of the correction and one caption moves from 0.30 to 0.40. A row that fires on one side of a comparison and not on the other widens it |
 | **E35** ✅ | two articles of the Summa, put back | **A new check — does the book carry a paragraph twice in one chapter? — found the Summa missing two articles of Aquinas.** Wikisource sets article 2 of I-II q.52 twice under article 3's number, and article 4 of II-II q.43 twice under article 5's, so Folio was making a false claim rather than merely repeating one. Each question's own list of points of inquiry names what is gone; the replacement is Project Gutenberg's transcription of the same translation, **99.83% word-identical on an article both carry**. Its finding is the instrument: **II-II q.47 looks identical and gets no repair, because the Gutenberg transcription carries the same wrong heading** — two independent transcriptions agreeing is what tells a transcriber's error from the printer's |
 | **E36** ✅ | the rest of the Summa's duplication | **Seventeen paragraphs removed, in the four questions that were read and nowhere else.** Two faults: the tail of one article pasted at the end of the one before it (I q.108, I q.109 — four paragraphs, the first of each pair truncated, so an article ends by answering objections it never raised), and a run set twice in a row (I-II q.20's eleven, plus two single paragraphs). **The finding is the four cases that look identical and are not**: six article boundaries end with a paragraph that also stands in the next article, and four are the Summa's own closing formula, which it prints 55 times. They run 48–66 characters against the real faults' 213 and 416, so the bar sits in 147 characters of open ground |
-| **E37–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E37** ✅ | the dead rows across the whole shelf | **24 rows reported dead in the Three Kingdoms and every one of them was live.** Rebuilding all 32 books that carry a correction table found dead rows in one book only — and all 24 names are correct in the shipped text, so the report was wrong rather than the rows. E29 corrected the chapter TITLE on the way in, so a cache marked `raw: 1` (meaning *the extractor's own output*) held a corrected title, and five rows that fire only on heads met one already converted. **The house rule would have deleted them**: eight chapter titles would have gone back to Wade-Giles at the next `--force`, silently. Fixed with a versioned marker, because correcting an already-corrected title applies `applyRoman` twice — measured, seven titles moved and every one was already right |
+| **E38–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
@@ -392,6 +393,56 @@ not deferred.**
 ---
 
 ## 8. Batch log
+
+### E37 — twenty-four rows that were reported dead and were not, shipped 2026-09-04
+
+**The whole shelf, asked whether its correction tables are honest.** All 32 books that carry a table,
+rebuilt and their reports read: **24 dead rows, all in one book**, and a note about a pre-pass in two
+others. That is a good answer and the wrong one.
+
+**Every one of the 24 names is CORRECT in the shipped book** — Guan Yu 589 times, Zhao Yun 357, Lü Bu
+403, Sima 619. So the rows were not broken; the report was.
+
+> **THE CAUSE IS E29 HALF-APPLIED.** That batch moved the correction chain to run on the extracted
+> prose so a row would fire on every run — and corrected the TITLE where `sanKuoHead` reads it, which
+> is *before* the record is cached. So a record marked `raw: 1` — E30's marker, meaning *this holds
+> the extractor's own output and not a corrected copy* — had a raw `html` and a corrected `t`. Five of
+> this book's rows fire **only on chapter heads**, because the printing drops the umlaut there and
+> nowhere else, and on a cached run they met a head already converted.
+
+**THE DANGER IS THE HOUSE RULE ITSELF.** *Every declared row must fire; a dead row is a defect.* A
+session following it would have deleted five live rows, and **eight chapter titles would have gone
+back to Wade-Giles at the next `--force`, with the build saying nothing.** E30 taught that a dead-row
+report is evidence about the text in hand rather than about the source. This is the same lesson one
+level down: **it is evidence about the CACHE, and a marker that overstates what the cache holds makes
+it evidence about nothing.**
+
+**The fix is a versioned marker, and it had to be.** The title is cached raw now and corrected on the
+way out. But a record written before that says `raw: 1` and its title is already corrected, so
+correcting it again applies `applyRoman` twice — not idempotent, and E30 caught it doing exactly this
+to 974 names in the body. Measured before the marker was bumped:
+
+| | shipped title | what a second application made of it |
+|---|---|---|
+| ch 24 | Tao | **Dao** |
+| ch 45, 98 | Pi | **Bi** |
+| ch 59 | Kan | **Gan** |
+| ch 71 | Chu, Chao | **Zhu**, **Zhao** |
+| ch 76 | Chao | **Zhao** |
+
+Seven titles, every one of them a name that was already right.
+
+**Proved by refreshing the five books it can reach** — the wiki-walk books with a `roman` table, since
+`fixes` and `glyphs` are idempotent and cannot double-apply. All five rebuild **byte-identical**; the
+Three Kingdoms goes from 2,076 of 2,100 declared names firing to **2,100 of 2,100** and from 24 dead
+rows to none. Its cache for chapter 3 now holds the head as the printing sets it — *"Tung Cho Silences
+Ting Yuan: Li Su Bribes Lu Pu."* — the plain-u form those five rows were written for, and the evidence
+that they were never redundant.
+
+**Recorded and not repaired.** The Book of Documents and the Book of Rites both warn that the
+blackletter pre-pass matched nothing. Every romanisation row in both fires, so no name is going
+unconverted today; what is unknown is whether Wikisource has dropped the `en-Latf` spans the pre-pass
+looks for, or whether the flag has outlived them. It wants a page fetched and read.
 
 ### E36 — the four cases that look identical and are not, shipped 2026-09-04
 

@@ -25800,7 +25800,14 @@ async function fetchEnglish() {
          byte-for-byte over every book on the shelf before it was kept. */
       const html = correctRaw(c.html);
       const notes = (c.notes || []).map(correctRaw);
-      const cached = { n, t: titles[n] || c.t || chapterTitle(n), p: partOf(n), html: html, notes: notes };
+      /* THE TITLE IS CORRECTED HERE ONLY IF THE RECORD IS raw: 2 (Sep 2026, batch E37). A record
+         written before that says `raw: 1`, and its title had ALREADY been corrected on the way in —
+         so correcting it again would apply `applyRoman` twice, which is not idempotent and which
+         E30 caught doing exactly this to 974 names in the body. Measured on the Three Kingdoms
+         before the marker was bumped: seven titles moved, `Tao` to `Dao` and `Pi` to `Bi` and
+         `Chao` to `Zhao`, every one of them a name that was already right. */
+      const cached = { n, t: c.raw >= 2 ? correctRaw(titles[n] || c.t || chapterTitle(n))
+        : (titles[n] || c.t || chapterTitle(n)), p: partOf(n), html: html, notes: notes };
       if (BOOK.supplied) cached.html = supplyArticles(cached, BOOK, (m) => warnings.push(m));
       if (BOOK.dedupe) cached.html = dedupeArticles(cached, BOOK, (m) => warnings.push(m));
       chapters.push(cached);
@@ -25840,7 +25847,7 @@ async function fetchEnglish() {
          beside an uncorrected body — an asymmetry, and the only shape that is right for both. It is
          also what keeps `titlesCorrected` true for this book: the title has still been through the
          chain exactly once by the time `writeEnglish` sees it. */
-      tFromText = correctRaw(got.t);
+      tFromText = got.t;
       if (got.t) SANKUO.titled++;
     }
     if (BOOK.layout === "parallel" || BOOK.layout === "interleaved" || BOOK.layout === "shloka") {
@@ -25854,7 +25861,7 @@ async function fetchEnglish() {
          closing formula rather than on a contents page. It yields to `titles[n]`, so a title stated
          in this file still wins; see the Gita entry, and `titleOf` in the Meditations' for the rule
          that a title is transcribed and never composed. */
-      tFromText = correctRaw(got.t || "");
+      tFromText = got.t || "";
     } else {
       const got = notesOf(h);
       const keep = endnotes && got.notes.length ? resolveEndnotes(got, endnotes, warn) : null;
@@ -25964,17 +25971,25 @@ async function fetchEnglish() {
        translation and leaves `rec.orig` alone. Measured over the shelf when it was moved: the only
        book it changes is the one whose table really was reaching across.
 
-       The TITLE goes through the chain here rather than through `writeEnglish`'s `applyRoman` pass,
-       which is what `titlesCorrected` declares and why that flag still holds for the Three Kingdoms:
-       `sanKuoHead` reads the title off the raw page now, so it is corrected once, here, exactly as
-       it was when the whole page was corrected before it. */
+       THE TITLE GOES THROUGH THE CHAIN ON THE WAY OUT TOO, AND FOR A FORTNIGHT IT DID NOT (Sep 2026,
+       batch E37). E29 corrected it where `sanKuoHead` reads it — before this record is written — so
+       the cache held a record marked `raw: 1` whose html was the extractor's own and whose TITLE was
+       already corrected. The marker was telling a half-truth, and the cost was not the title, which
+       was right, but the DEAD-ROW REPORT: five romanisation rows fire only on chapter heads, and on
+       a cached run they met a head that was already converted and reported themselves dead. The
+       house rule says a dead row is a defect and should be pruned; a session following it would have
+       deleted five live rows and sent eight chapter titles back to Wade-Giles on the next --force,
+       with the build saying nothing. So the title is cached RAW and corrected here, beside the html
+       and the notes, on both the fetch path and the cached one. `titlesCorrected` still declares that
+       this book's heads are corrected in this file rather than by `writeEnglish`'s own pass. */
     /* `raw: 1` says this record holds the EXTRACTOR's output and not a corrected copy of it — see
        CACHE_RAW above. It is written onto a copy rather than onto `rec`, which is the record the
        book file is serialized from and must carry nothing this script invented. */
-    fs.writeFileSync(cf, JSON.stringify(Object.assign({ raw: 1 }, rec)));
+    fs.writeFileSync(cf, JSON.stringify(Object.assign({ raw: 2 }, rec)));
     CACHE_RAW++;
     rec.html = correctRaw(rec.html);
     rec.notes = (rec.notes || []).map(correctRaw);
+    rec.t = correctRaw(rec.t);
     if (BOOK.supplied) rec.html = supplyArticles(rec, BOOK, (m) => warnings.push(m));
     if (BOOK.dedupe) rec.html = dedupeArticles(rec, BOOK, (m) => warnings.push(m));
     chapters.push(rec);

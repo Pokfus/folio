@@ -2841,6 +2841,29 @@ function aeneidChecks() {
     check("[summa] ...and so are the two single ones",
       (su.match(/The same thing cannot be the subject of contraries/g) || []).length === 1 &&
       (su.match(/there were some possessed of the spirit of prophecy/g) || []).length === 1);
+    /* ================= 6g. the chapter heads the correction chain nearly lost =================
+       Sep 2026, batch E37. Five of the Three Kingdoms' romanisation rows fire only on chapter HEADS,
+       because the printing drops the umlaut there and nowhere else — and a cache marked as holding
+       the extractor's own output was holding a corrected title, so all five reported themselves dead.
+       The house rule says prune a dead row; pruning these would have sent eight titles back to
+       Wade-Giles with the build saying nothing.
+
+       Asserted on the shipped titles rather than on the row count, because the count is exactly the
+       thing that lied. Both directions: the pinyin is there and the Wade-Giles is not. */
+    const tk = fs.readFileSync(path.join(ROOT, "books", "three-kingdoms.js"), "utf8");
+    const titles = (tk.match(/\bt: "[^"]*"/g) || []).join(" ");
+    check("[heads] the Three Kingdoms' chapter titles are in pinyin",
+      /Ding Yuan/.test(titles) && /Guan Yu /.test(titles) && /Zhao Yun/.test(titles) &&
+      /Zhou Yu /.test(titles) && /Guan Yunchang/.test(titles));
+    check("[heads] ...and carry no Wade-Giles left over",
+      !/Ting Yuan|Kuan Yu|Chao Yun|Chou Yu|Kuan Yun-/.test(titles),
+      (titles.match(/Ting Yuan|Kuan Yu|Chao Yun|Chou Yu|Kuan Yun-/) || [""])[0]);
+    /* AND NOT ROMANISED TWICE, which is what a stale cache made the fix do until the marker was
+       versioned: Tao became Dao and Pi became Bi in seven heads that were already right. */
+    check("[heads] ...and nothing romanised a second time",
+      /Cao Pi|Tao Qian|Gan Ning/.test(titles) && !/Cao Bi|Dao Qian/.test(titles),
+      (titles.match(/Cao Bi|Dao Qian/) || [""])[0]);
+
     check("[summa] but the work's own closing formula is untouched, 55 times over",
       (su.match(/This suffices for the Replies to the Objections/g) || []).length === 55,
       String((su.match(/This suffices for the Replies to the Objections/g) || []).length));
