@@ -3,7 +3,7 @@
 The collection is **World** (`geo-world`, renamed from *The world* in Sep 2026 on request), the second of the Geography SECTION on the Collections
 page, beside **United States** (`geo-us`). It is **470 cards in two decks**: **The countries and
 territories** (`geo-world-countries`, `gw-001`–`gw-233`) and **The capitals**
-(`geo-world-capitals`, `gw-501`–`gw-733` with seven numbers deliberately unused, plus `gw-751`–`gw-761`
+(`geo-world-capitals`, `gw-501`–`gw-733` with seven numbers deliberately unused, plus `gw-751`–`gw-762`
 for the second and third seats of the ten countries that have more than one). Its cards use the
 **map card** format — a shape on a globe, and the question is what it is.
 
@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-578` Bujumbura.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-579` Sucre.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -146,7 +146,7 @@ the modern order rather than about its size.*
 
 ## Countries with more than one capital get a card each
 
-**Ten countries have more than one seat, and each seat is its own card** (Aug 2026, on request: "for
+**Eleven countries have more than one seat, and each seat is its own card** (Aug 2026, on request: "for
 countries with multiple capitals, give each their own card where the question makes it clear what sort of
 capital it is"). The alternative — one card per country, asking for whichever seat the plan picked —
 teaches the reader that Bolivia's capital is Sucre and quietly makes La Paz a wrong answer, which is the
@@ -179,10 +179,12 @@ it splits its government up.
 | | `gw-759` Cotonou | the seat of government and largest city |
 | Bolivia | `gw-579` Sucre | the constitutional capital |
 | | `gw-760` La Paz | the seat of government |
+| Burundi | `gw-578` Gitega | the political capital |
+| | `gw-762` Bujumbura | the economic capital and largest city |
 | Eswatini | `gw-660` Mbabane | the administrative capital |
 | | `gw-761` Lobamba | the legislative and royal capital |
 
-**THE SECOND AND THIRD SEATS ARE NUMBERED IN A BAND OF THEIR OWN, `gw-751`–`gw-761`, and that is not
+**THE SECOND AND THIRD SEATS ARE NUMBERED IN A BAND OF THEIR OWN, `gw-751`–`gw-762`, and that is not
 tidiness.** The pairing rule is that a country's capital is its own number plus 500, which is what lets a
 reader meet a country and then its capital a day later; renumbering the capitals deck to make room would
 move cards between ids, and a card id is a permanent address — the same reason the running order is never
@@ -214,7 +216,7 @@ a question with no content:
 
 **A capital card asks:** *"The dot on the map marks ____, the capital of the country shaded around it."*
 — with `country or territory` where the entity is a territory, and with the qualifier in place of *the
-capital* on the twenty-one cards of the ten countries that have more than one seat: *"…marks ____, the
+capital* on the twenty-three cards of the eleven countries that have more than one seat: *"…marks ____, the
 judicial capital of the country shaded around it."*
 
 **The capital question puts its blank in the MIDDLE, and that is not a stylistic preference.** The
@@ -898,6 +900,28 @@ two sentences fixed both at once. The repair also needed the card taking OUT of 
 `git checkout data.js` then a re-add is clean, and the glossary files are untouched by it. **Run
 `split-abstract.js` and `check-style.js` before the commit, not after** — a 5+6 abstract renders perfectly
 and a spelled-out number reads as prose.
+
+**`gw-578` FOUND THE PLAN OUT OF DATE: BURUNDI HAS MOVED ITS CAPITAL, AND IS THE ELEVENTH MULTI-SEAT
+COUNTRY.** The running order said *Bujumbura [Burundi]*, written from the population snapshot; UNdata's
+*Capital city* field says **Gitega**. So Burundi joins the table above with `gw-578` Gitega as the
+political capital and **`gw-762` Bujumbura** as the economic capital and largest city, and the second-seat
+band runs to `gw-762`. **`gw-578` IS DEFERRED, and for a mechanical reason worth stating**: `world-
+capitals.js` holds only `Bujumbura` for Burundi, that table being generated from Natural Earth, which
+still files Bujumbura as the capital — so a Gitega card has no dot, and the rule that **a coordinate is
+generated and never typed** is what defers it rather than any gap in the sources. It waits on a Gitega
+point in that table, exactly as the six territory cards wait on one facts field.
+
+**AND UNdata's BURUNDI PROFILE CARRIES AN ORPHANED FOOTNOTE, WHICH IS WHY THE POPULATION IS CITED TO THE
+WORLD BANK.** The *Capital city pop.* row gives **899** thousand marked only `c` (2018) under a Capital
+city field reading Gitega — and footnote **e** on the same page reads, in full, *"Bujumbura"*, attached to
+no row at all. That figure is Bujumbura's size, not Gitega's, and the page no longer says so: the label was
+updated after the 2019 move and the footnote was left unanchored. **Check which row a UNdata footnote
+actually hangs on before leaning on it** — the parse that reads footnotes positionally will happily attach
+this one to the row above. The card therefore takes its population from `EN.URB.LCTY`, which
+unambiguously counts the largest city, and cites UNdata for the capital, the region, the area and the
+membership date. The recognition guide's own contribution is the city's older name — *Embassy Usumbura
+(Bujumbura)* — and a rank that went backwards before it went forwards, to legation on 15 December 1962 and
+to embassy again on 16 September 1963.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
@@ -4655,7 +4679,7 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
   gw-575  Conakry  [Guinea]
   gw-576  Porto-Novo  [Benin — the official capital]
   gw-577  Kigali  [Rwanda]
-  gw-578  Bujumbura  [Burundi]
+  gw-578  Gitega  [Burundi — the political capital; DEFERRED, no coordinate in world-capitals.js]
   gw-579  Sucre  [Bolivia — the constitutional capital]
   gw-580  Tunis  [Tunisia]
   gw-581  Juba  [South Sudan]
@@ -4818,3 +4842,4 @@ own beside `George_Washington`. And **`Kingston` is two cities**, exactly as it 
   gw-759  Cotonou  [Benin — the seat of government and largest city]
   gw-760  La Paz  [Bolivia — the seat of government]
   gw-761  Lobamba  [Eswatini — the legislative and royal capital]
+  gw-762  Bujumbura  [Burundi — the economic capital and largest city]
