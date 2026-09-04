@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-566` Santiago.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-567` Bucharest.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -623,6 +623,32 @@ glossary keys already carry apostrophes**, so the key needed no special handling
 the picture search: `NDjamena, Chad.jpg` — a filename with no hint in it — is an **orbital photograph**,
 refused by the pass's own SPACEBORNE rule, and the two next-best candidates were a river bend in open
 country and a stretch of riverbank scrub. The card and term both take street-level views instead.
+
+**`gw-566` SANTIAGO FOUND A SPLITTER GAP, AND THE CARD WAS REWORDED RATHER THAN THE SPLITTER CHANGED.**
+The Allende milestone quotes his last broadcast — *"Long live Chile! Long live the people! Long live the
+workers!"* — and `split-abstract.js` read the three exclamation marks as three sentence ends, returning
+**5+7**. The existing quotation guard (added for `geo-012`) holds a terminator that sits INSIDE a closing
+quote when the next word is lowercase; here each `!` is followed by a space and a CAPITAL inside the
+quotation, which is indistinguishable from a real boundary without tracking whether a quotation is open.
+That fix is worth making, but it is shared machinery and the house rule is to prove such a change inert
+over all 2,600-odd texts first — so the card paraphrases the three cries instead, and **the gap is recorded
+here rather than papered over**. Anyone quoting more than one exclamatory sentence in an abstract will meet
+it; check the split before committing the prose.
+
+**Its other lesson is that the guide's LONGEST entries are the ones about a city.** Chile's runs to five
+dated events and reads as a narrative — Monroe's message to Congress of March 1822 asking for ministers to
+five new states, the appropriations bill signed 4 May 1822, the Senate's confirmation of Heman Allen on
+**27 January 1823** as the act of recognition, Allen presenting credentials in Santiago on 23 April 1824 to
+Ramón Freire Serrano "who had replaced Bernardo O'Higgins as Supreme Director", and the legation raised to
+embassy status on **1 October 1914** — ninety years between the first minister and the first ambassador,
+which is a fact about this city and about American diplomacy at once.
+
+**And Santiago is the fourth AGGLOMERATION footnote.** UNdata's capital-city row carries `c` = *"Refers to
+the urban population of Santiago Metropolitan Area Region"* beside `d` = 2019, and `EN.URB.LCTY` gives
+6,723,516 for that year — the relay holding, and both figures being the metropolitan region rather than the
+city. After Kuala Lumpur, this is routine enough to state as a rule: **where the footnote says
+agglomeration, say so in the prose**, because a reader comparing capitals is otherwise told this one is
+five times the size of its neighbours for a reason nothing on the card explains.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
