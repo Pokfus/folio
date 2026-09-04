@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-564` Astana.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-565` N'Djamena.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -319,6 +319,18 @@ twice**, which is C8's false-corroboration finding one indicator over. `gw-541` 
 and has been corrected, on the card and on its glossary term. **Read the footnote before citing the
 row**: give the current figure to the World Bank, and where the UN figure is worth stating at all, state
 what it is — the same series at the year its footnote names.
+**`gw-564` ASTANA IS THE MEASURED EXCEPTION, AND IT SAYS EXACTLY WHAT THE RELAY IS.** Ten capitals in a
+row had UNdata's *Capital city pop.* row equal to `EN.URB.LCTY` to the person; Kazakhstan's does not —
+UNdata gives **1,117.6 thousand** for 2019 and the World Bank **1,862,809** for the same year. They are two
+different cities, and the reason is the only thing that ever made the relay work: **UNdata counts whatever
+city its own *Capital city* FIELD names, and `EN.URB.LCTY` counts whichever city is LARGEST, so the two
+coincide only where the capital is the largest city.** Where it is not — Yamoussoukro, Canberra, Kotte,
+Astana — they part company, and each source is right about a different place. That also resolves the family
+cleanly: on such a capital, **cite UNdata for the city and leave the World Bank series out of the figures
+altogether**, because it is about somewhere else. (Kotte is the mirror image and worth keeping straight:
+there UNdata's Capital city field names COLOMBO, so its capital-city figure is Colombo's and the relay
+holds — the field, not the country, decides.)
+
 **`gw-556` Pyongyang is the fifth** — 3,060.9 against 3,060,864 for 2019, the footnote again reading
 2019 under a heading saying 2025.
 **`gw-544` Kuala Lumpur is the fourth confirmation and it adds the second half of the trap** — 7,780.3
@@ -572,6 +584,20 @@ obvious route to the city was dropped rather than asserted: **a resolution every
 Manifesto is not a source that says "Lusaka" unless you can read it.** The 1955 admission resolution
 `A/RES/995 (X)` behaves the same way; from about 1971 the scans carry text and the recipe works. **Test the
 extraction before planning a sentence around a pre-1970 document.**
+
+**`gw-564` ASTANA ALSO SHOWS THE UN PUBLISHING A CITY UNDER TWO NAMES.** Its Economic Commission for
+Europe issued *Smart Sustainable Cities Profile: Nur-Sultan, Kazakhstan* (`ECE/HBP/197`, Geneva 2020) while
+UNdata's country profile now gives the capital as **Astana** — one organisation, two names, twelve years of
+records either side. A UN CITY PROFILE is a source class this deck had not used before and is worth
+remembering: it is about the city rather than the country, which is what a capital card wants and what a
+country page never gives. The Security Council's press statement `SC/12701` of 31 January 2017, headed
+*International Meeting on Syria in Astana*, is the same shape — the city named in a document's own title.
+**Search the UN Digital Library for the CITY, not the state.**
+
+**And Kazakhstan's guide page stops before the capital moved**: it records the embassy established at
+*Alma-Ata (now Almaty)* on 3 February 1992 and nothing after, so the guide is a source for the OLD capital
+and for that city's own renaming, not for this card's subject. It is still worth citing for exactly that —
+the mission is in the larger city, which is the card's point.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
