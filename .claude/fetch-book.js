@@ -4395,6 +4395,18 @@ const BOOKS = {
        thousands. 120 sits below the shortest real fable and far above anything a failed extraction
        produces, which is a handful of characters or none. */
     minChars: 120,
+    /* ONE FABLE THE TRANSCRIPTION SERVES AS ITS NEIGHBOUR (Sep 2026, batch E42). Scan page 90 carries
+       three fables and Wikisource's mainspace page for `The Old Lion` transcludes the FIRST of them,
+       so chapters 121 and 122 shipped byte-identical and The Old Lion was in the book nowhere. The
+       Wolf and the Shepherds, on the same scan page, is right, so the fault is that one page's
+       transclusion rather than this file's reading of a shared page.
+
+       ITS WITNESS IS THE SCAN PAGE ITSELF, not a second edition — so unlike every other supplied
+       text on this shelf it validates EXACTLY: run on the neighbouring fable, which Folio already
+       carries, the extractor produces a byte-identical string. Gutenberg's Townsend was refused as
+       an American reprint (`clamor` for `clamour`, and a clause reordered in the very fable used to
+       check it). See the file's own header. */
+    supplied: "aesop-supplied.json",
     page: (n) => "Three Hundred Æsop's Fables/" + AESOP_FABLES[n - 1],
     titleOf: (n) => AESOP_TITLE(AESOP_FABLES[n - 1]),
     chapters: Array.from({ length: AESOP_FABLES.length }, (_, i) => i + 1),
@@ -14100,7 +14112,7 @@ const BOOKS = {
 
        The half a redirection can fix is here: chapter 456 wants question 34, which is on the page
        named `Question 35`. The half it cannot is the Nativity, supplied from the Gutenberg
-       transcription by `supplyQuestion` and declared in `summa-supplied.json`. Both carry the
+       transcription by `supplyChapter` and declared in `summa-supplied.json`. Both carry the
        phrase they expect the fault to show, so if the wiki is corrected upstream the run says so
        rather than quietly serving the wrong question a second time. */
     pageShift: { 456: { q: 35, was: "the perfection of the child conceived" } },
@@ -14165,7 +14177,7 @@ const BOOKS = {
     body: "plain",
     sections: "articuli",
     /* TWO ARTICLES AND ONE WHOLE QUESTION THE WIKISOURCE TRANSCRIPTION LOST, put back from Project
-       Gutenberg's transcription of the same translation. See supplyArticles and supplyQuestion,
+       Gutenberg's transcription of the same translation. See supplyArticles and supplyChapter,
        and the header of the file itself for what was measured before a word of it was used. */
     supplied: "summa-supplied.json",
     /* AND TWO SHAPES OF DUPLICATION THE SAME TRANSCRIPTION LEAVES BEHIND — see dedupeArticles for
@@ -18196,8 +18208,13 @@ let _supplyTable = null;
 function supplyArticles(rec, book, warn) {
   if (!_supplyTable) {
     const p = path.join(__dirname, book.supplied);
-    _supplyTable = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")).articles : [];
-    if (!_supplyTable.length) warn("the supplied-articles table is missing or empty: " + book.supplied);
+    /* `|| []` AND THE WARNING ON THE FILE RATHER THAN THE ARRAY (Sep 2026, batch E42). A supplied
+       file may legitimately carry only whole chapters and no articles at all — Aesop's does — and
+       written without the fallback this threw "Cannot read properties of undefined" on the first
+       chapter of a book whose file was perfectly good. The thing worth warning about is a NAMED file
+       that is not there. */
+    if (!fs.existsSync(p)) warn("the supplied table is missing: " + book.supplied);
+    _supplyTable = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")).articles || [] : [];
   }
   const want = _supplyTable.filter((a) => a.ch === rec.n);
   if (!want.length) return rec.html;
@@ -18241,29 +18258,29 @@ function supplyArticles(rec, book, warn) {
    BROKEN chapter contains — the opening of the question that is standing in the missing one's place
    — and if that phrase has gone, the wiki has been corrected upstream and this entry must be read
    again rather than trusted. A dead entry is reported exactly as a dead correction row is. */
-let SUPPLIED_Q = 0;
-const SUPPLY_Q_DEAD = [];
-let _supplyQTable = null;
-function supplyQuestion(rec, book, warn) {
-  if (!_supplyQTable) {
+let SUPPLIED_C = 0;
+const SUPPLY_C_DEAD = [];
+let _supplyCTable = null;
+function supplyChapter(rec, book, warn) {
+  if (!_supplyCTable) {
     const p = path.join(__dirname, book.supplied);
-    _supplyQTable = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")).questions || [] : [];
+    _supplyCTable = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")).chapters || [] : [];
   }
-  const a = _supplyQTable.find((x) => x.ch === rec.n);
+  const a = _supplyCTable.find((x) => x.ch === rec.n);
   if (!a) return rec.html;
   const flat = rec.html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ");
   if (flat.indexOf(a.broken) < 0) {
-    SUPPLY_Q_DEAD.push("chapter " + rec.n + ": no longer opens on \u201c" + a.broken.slice(0, 60) +
+    SUPPLY_C_DEAD.push("chapter " + rec.n + ": no longer opens on \u201c" + a.broken.slice(0, 60) +
       "\u2026\u201d \u2014 the transcription may have been corrected upstream, so read it before trusting this entry");
     return rec.html;
   }
-  SUPPLIED_Q++;
+  SUPPLIED_C++;
   return a.html;
 }
 
 
 /* A LOST ARTICLE, WHICH IS NEITHER OF THE OTHER TWO (Sep 2026, batch E40). `supplyArticles` REPLACES
-   an article the wiki set twice under its neighbour's number; `supplyQuestion` REPLACES a whole
+   an article the wiki set twice under its neighbour's number; `supplyChapter` REPLACES a whole
    question whose page carries the one before it. This INSERTS an article that is simply absent, and
    renumbers what follows.
 
@@ -26125,7 +26142,7 @@ async function fetchEnglish() {
         : (c.raw >= 2 ? correctRaw(c.t || chapterTitle(n)) : (c.t || chapterTitle(n))),
         p: partOf(n), html: html, notes: notes };
       if (BOOK.pageShift) checkPageShift(cached, BOOK);
-      if (BOOK.supplied) cached.html = supplyQuestion(cached, BOOK, (m) => warnings.push(m));
+      if (BOOK.supplied) cached.html = supplyChapter(cached, BOOK, (m) => warnings.push(m));
       if (BOOK.supplied) cached.html = supplyArticles(cached, BOOK, (m) => warnings.push(m));
       if (BOOK.supplied) cached.html = insertArticle(cached, BOOK, (m) => warnings.push(m));
       if (BOOK.dedupe) cached.html = dedupeArticles(cached, BOOK, (m) => warnings.push(m));
@@ -26310,7 +26327,7 @@ async function fetchEnglish() {
     rec.notes = (rec.notes || []).map(correctRaw);
     rec.t = correctRaw(rec.t);
     if (BOOK.pageShift) checkPageShift(rec, BOOK);
-    if (BOOK.supplied) rec.html = supplyQuestion(rec, BOOK, (m) => warnings.push(m));
+    if (BOOK.supplied) rec.html = supplyChapter(rec, BOOK, (m) => warnings.push(m));
     if (BOOK.supplied) rec.html = supplyArticles(rec, BOOK, (m) => warnings.push(m));
     if (BOOK.supplied) rec.html = insertArticle(rec, BOOK, (m) => warnings.push(m));
     if (BOOK.dedupe) rec.html = dedupeArticles(rec, BOOK, (m) => warnings.push(m));
@@ -26669,17 +26686,17 @@ function writeEnglish(chapters, warnings) {
      stopped firing is either an upstream fix (good, and the entry must go) or this file having lost
      its grip on the page (bad), and the two look identical from a silent run. */
   if (BOOK.supplied)
-    console.log("  " + SUPPLIED + " article(s) and " + SUPPLIED_Q +
-      " whole question(s) and " + INSERTED +
+    console.log("  " + SUPPLIED + " article(s) and " + SUPPLIED_C +
+      " whole chapter(s) and " + INSERTED +
       " inserted article(s) supplied from a second transcription of the same edition" +
-      (SUPPLY_DEAD.length + SUPPLY_Q_DEAD.length + INSERT_DEAD.length
-        ? ", and " + (SUPPLY_DEAD.length + SUPPLY_Q_DEAD.length + INSERT_DEAD.length) +
+      (SUPPLY_DEAD.length + SUPPLY_C_DEAD.length + INSERT_DEAD.length
+        ? ", and " + (SUPPLY_DEAD.length + SUPPLY_C_DEAD.length + INSERT_DEAD.length) +
           " entr(y/ies) that no longer apply" : ""));
   if (BOOK.dedupe)
     console.log("  " + DEDUPE_TRAIL + " paragraph(s) removed from the end of an article they do not belong to, and " +
       DEDUPE_RUN + " from a run the transcription set twice");
   for (const d of SUPPLY_DEAD) warnings.push("a supplied article did not apply — " + d);
-  for (const d of SUPPLY_Q_DEAD) warnings.push("a supplied question did not apply — " + d);
+  for (const d of SUPPLY_C_DEAD) warnings.push("a supplied chapter did not apply — " + d);
   for (const d of INSERT_DEAD) warnings.push("a supplied article was not inserted — " + d);
   for (const d of SHIFT_DEAD) warnings.push("a page redirection may no longer be needed — " + d);
 

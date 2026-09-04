@@ -2882,6 +2882,23 @@ function aeneidChecks() {
       /Cao Pi|Tao Qian|Gan Ning/.test(titles) && !/Cao Bi|Dao Qian/.test(titles),
       (titles.match(/Cao Bi|Dao Qian/) || [""])[0]);
 
+    /* ================= 6l. the fable that was its neighbour =================
+       Sep 2026, batch E42. The Summa's duplicated-chapter check was pointed at the other 47 books
+       and found one pair: Aesop's fable 122, "The Old Lion", carrying fable 121's text, because
+       Wikisource's page for it transcludes the wrong part of a scan page holding three fables. The
+       failure is the quiet one — chapter 122 is perfectly good prose, correctly formatted, and about
+       two travellers and an axe. */
+    const ae = fs.readFileSync(path.join(ROOT, "books", "aesop-fables.js"), "utf8");
+    check("[aesop] The Old Lion is the Old Lion",
+      /A Lion, worn out with years, and powerless from disease/.test(ae));
+    check("[aesop] ...and the travellers' fable stands once, not twice",
+      (ae.match(/Two men were journeying together in each other's company/g) || []).length === 1,
+      String((ae.match(/Two men were journeying together in each other's company/g) || []).length));
+    /* Its witness is the scan page this book is transcribed FROM, not a second edition — so unlike
+       every other supplied text here it validates exactly, on the fable printed beside it. */
+    check("[aesop] ...and its neighbour on the same scan page is untouched",
+      /A Wolf passing by, saw some Shepherds in a hut eating for their dinner a haunch of mutton/.test(ae));
+
     /* ================= 6k. the question heading that was really an article =================
        Sep 2026, batch E41. II-II q.153's page heads itself "Question. 153 - Whether the matter of
        lust is only venereal desires and pleasures?" — which is ARTICLE 1's title — and its prologue

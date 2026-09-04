@@ -332,7 +332,8 @@ re-run and diffed byte for byte.
 | **E39** ✅ | the article heads the transcription left as prose | **27 article numbers restored across fourteen questions, from one fault wearing five coats.** An article head that never became a heading: escaped as `==== Art. N -` in the prose (the title wrapped, and a wiki heading must be on one line), the same with no closing run, the same inside a `<pre>` (the line began with a space), a bare paragraph with no markup at all, and a `<pre>` with no equals signs. **Each coat was found only by reading the SURVIVORS of the last**, because in the finished book they all look identical — a repair rate measured on the output said "finished" three times. The rule for an unmarked head comes out of the work's own shape (every article opens with its question and then "Objection 1:") and its argument is a measurement: **3,071 agreements with the existing numbering against 16 findings**. Its own fault was that the first fix ATE an article — the treatise fallback claims the first unnumbered heading on a page, which on a page whose only headings this pass had just made was article 1 |
 | **E40** ✅ | the two articles that were simply gone | **Four more articles of Aquinas put back, a third supply mode, and a fault in the text this programme had already supplied.** Supplement q.12 is E38's fault again (its page carries question 11's text) and Gutenberg stops at Part III, so the witness is **CCEL** — validated at 99.0%/99.1% on two questions Folio has, then cross-checked against New Advent, because CCEL and Wikisource may share a lineage and **agreement between relatives proves nothing**. II-II q.180's article 5 needed an INSERT rather than a replace: its `Art. 5` heading carries article SIX (99.83% against 45%, measured). And **28 replies shipped without their "to"** — two normalisations of the witness's abbreviations are ORDER-DEPENDENT and had been the wrong way round since E35, so `Reply Obj. 3:` became `Reply Objection 3:` in every article supplied. Nothing could see it: the words are right and the marker is a form the book never otherwise uses |
 | **E41** ✅ | the question heading that was really an article | **One chapter changed, out of a full 614-page rebuild — and that is the finding.** II-II q.153 heads itself with ARTICLE 1's title and has no prologue, so the pass dropped that heading as furniture and article 1 with it: the printing's articles 2–5 numbered 1–4, with every sentence on the page. Two fixes: a question's own title is a noun phrase and never an interrogative, so the weak role test stands down on a heading ending in "?"; and the article COUNT is read from the `ws-title` header block **every one of the 614 pages carries**, which is right even where the body's heading is missing, misnumbered or carries an article's title. Changing where the count comes from touches every question, so all 614 were refetched and diffed — **one chapter moved**, which says the header and the heading agree on 613 pages and the header is right on the one they do not. 608 of 614 questions are now numbered by their own stated count, against 4 before E39 |
-| **E42–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E42** ✅ | the shelf's own structure, checked | **The Summa's cheapest check pointed at the other 47 books, and it found one thing.** Aesop's fable 122, "The Old Lion", was carrying fable 121's text: scan page 90 holds three fables and Wikisource's page for that one transcludes the first. **Its witness is the scan page this book is transcribed FROM**, so for the first time a supplied text validates EXACTLY — byte-for-byte, on the fable printed beside it — where Gutenberg's Townsend was refused as an American reprint (`clamor` for `clamour`). Over the shelf: **4,397 chapters compared pairwise, one pair**, so apart from the Summa's two and this one no chapter carries another's text. It compares eight-word RUNS, not vocabulary: two chapters of one work share their author's whole vocabulary and a bag-of-words test finds nothing. The sibling title-check does NOT transfer — 123 flags of 1,979, essentially all legitimate — because **a title check only works where the title is a claim about the text** |
+| **E43–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
@@ -397,6 +398,57 @@ not deferred.**
 ---
 
 ## 8. Batch log
+
+### E42 — the shelf's own structure, checked, shipped 2026-09-04
+
+**The Summa's cheapest check, pointed at the other forty-seven books, and it found one thing.** E38
+found the Summa shipping two chapters byte-identical with a whole question of Aquinas gone; E40 found
+a second pair the same way. Both came from the one check in `summa-witness.js` that needs no second
+transcription at all — **and that check had been pointed at one of the shelf's forty-eight books.**
+
+**WHAT IT FOUND: Aesop's fable 122, "The Old Lion", carrying fable 121's text.** Scan page 90 of the
+Routledge printing holds three fables — The Two Travellers and the Axe, The Old Lion, and The Wolf and
+the Shepherds — and Wikisource's mainspace page for *The Old Lion* transcludes the FIRST of them. The
+Wolf and the Shepherds, on the same scan page, is right, so this is that one page's transclusion and
+not Folio's reading of a shared page. **The failure is the quiet kind this whole programme is about:
+chapter 122 is perfectly good prose, correctly formatted, and about two travellers and an axe.**
+
+**ITS WITNESS IS THE SCAN PAGE THIS BOOK IS TRANSCRIBED FROM, so for the first time a supplied text
+validates EXACTLY rather than at 99-point-something.** Run on the fable printed beside it, which Folio
+already carries, the extractor produces a byte-for-byte identical string. **Project Gutenberg's
+Townsend was looked at first and refused**: ebook 21 is an American reprint, printing `clamor` for
+`clamour`, opening each fable in small capitals and reordering a clause of the very fable used to check
+it — same translator, different printing, and splicing its wording in would put one paragraph of
+another edition inside a book transcribed from the London text.
+
+**AND THE RESULT OVER THE SHELF IS THE OTHER HALF OF THE BATCH.** 4,397 chapters compared pairwise
+within their books, six too short to judge, and **one pair**. That is worth stating plainly: apart from
+the Summa's two, already repaired, and this one, **no chapter on the shelf carries another chapter's
+text**. `.claude/check-twins.js` is committed so the next book added is measured rather than assumed.
+
+> **IT COMPARES SHINGLES, NOT VOCABULARY**, and that is the whole of why it works. Two chapters of one
+> work share their author's entire vocabulary, so a bag-of-words test scores every pair high and finds
+> nothing; runs of eight words are shared only where the text really is the same. Aquinas closes 54
+> articles with one identical sentence and no pair of them comes near the bar. The bar is **half the
+> shorter chapter's runs**, deliberately low so that a partial paste shows — and it costs nothing:
+> at 50% it reports exactly what byte-equality reports, so there is no band of near-misses to wade
+> through.
+
+**THE OTHER NO-WITNESS CHECK DOES NOT TRANSFER, and that is worth recording so nobody builds it
+twice.** `summa-witness.js` also compares each chapter's TITLE against its own opening, which is what
+found a question standing in another's place. Run over the shelf it flags **123 of 1,979** chapters and
+essentially all of them are legitimate — Seneca's letter titles are the translator's editorial
+headings, Sophocles is divided into "Episode, lines 883–943", the Ramayana transliterates its names one
+way in a title and another in the verse. It worked on the Summa because that book's titles are the
+question's own subject, stated by the edition. **A check that reads a title only works where the title
+is a claim about the text.**
+
+**Two smaller things.** The supply mechanism's array is named `chapters` rather than `questions` now:
+it was written for the Summa and is not the Summa's, and one name for one thing is the house rule.
+And `supplyArticles` read `.articles` with no fallback, so a supplied file carrying only whole chapters
+— Aesop's does — threw *"Cannot read properties of undefined"* on the book's first chapter; the warning
+it carried was about the ARRAY being empty when the thing worth warning about is a NAMED FILE that is
+not there.
 
 ### E41 — the question heading that was really an article, shipped 2026-09-04
 

@@ -1612,6 +1612,28 @@ there first, with the body heading and E39's prose sentence as backstops.
     question 34. The printed numbers are kept, which is right for 456, and 457 is replaced by the
     supplied question anyway — but the guard firing there is correct and should stay.
 
+**📖 `.claude/check-twins.js` — RUN IT AFTER ADDING A BOOK.** The Summa's duplicated-chapter check,
+generalised to the whole shelf (Sep 2026, batch E42), and it is the one fault no other checker here
+can see: **the wrong chapter is perfectly good prose**, and what gives it away is a fact about the
+BOOK rather than about any sentence in it. It found Aesop's fable 122, *The Old Lion*, carrying fable
+121's text — scan page 90 holds three fables and Wikisource's page for that one transcludes the first.
+Over the shelf: 4,397 chapters compared pairwise, one pair.
+
+  · **IT COMPARES RUNS OF EIGHT WORDS, NEVER VOCABULARY.** Two chapters of one work share their
+    author's entire vocabulary, so a bag-of-words test scores every pair high and finds nothing.
+    Aquinas closes 54 articles with one identical sentence and no pair comes near the bar.
+  · **THE WITNESS FOR THE REPAIR IS THE SCAN PAGE THE BOOK IS TRANSCRIBED FROM**, which is why it
+    validates EXACTLY where every other supplied text on this shelf validates at 99-point-something:
+    run on the fable printed beside it, the extractor produces a byte-identical string. Gutenberg's
+    Townsend (ebook 21) was refused as an American reprint — `clamor` for `clamour`, small capitals,
+    a clause reordered in the very fable used to check it.
+  · **THE SIBLING TITLE-CHECK DOES NOT TRANSFER, and it is recorded here so nobody builds it twice.**
+    `summa-witness.js` also reads each chapter's title against its own opening; over the shelf that
+    flags 123 of 1,979 chapters and essentially all are legitimate — Seneca's letter titles are the
+    translator's, Sophocles is divided into "Episode, lines 883–943", the Ramayana transliterates a
+    name one way in a title and another in the verse. **A title check only works where the title is a
+    claim about the text**, which the Summa's are and most books' are not.
+
 **📖 `.claude/summa-witness.js` — RUN IT AFTER ANY CHANGE TO THIS BOOK.** The fourth scanner, and the
 only one that can see text that is simply gone. Three checks: articles against the witness, each
 chapter's TITLE against its own PROLOGUE (two independent statements of one fact — this is what finds

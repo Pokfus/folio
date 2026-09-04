@@ -5606,6 +5606,17 @@ dead code (never rendered).
     the bracket the first run reported 33 phantom findings. **It exits 0 whatever it finds**, being a
     measure like `card-focus.js` rather than a gate. **Re-run after any change to that book.** Not
     part of the site.
+  · `node .claude/check-twins.js` — **a chapter carrying another chapter's text, over the whole
+    shelf** (Sep 2026, batch E42). The Summa's cheapest check — the one in `summa-witness.js` that
+    needs no second transcription — pointed at all 48 books. It found Aesop's fable 122, *The Old
+    Lion*, carrying fable 121's text, because Wikisource's page for it transcludes the wrong part of
+    a scan page holding three fables. **This is the one fault no other checker here can see**: the
+    wrong chapter is perfectly good prose, and what gives it away is a fact about the BOOK rather
+    than about any sentence in it. **It compares runs of eight words, never vocabulary** — two
+    chapters of one work share their author's whole vocabulary, so a bag-of-words test scores every
+    pair high and finds nothing. The bar is half the shorter chapter's runs, low enough that a
+    partial paste shows and measured to cost nothing. It **exits 0 whatever it finds**, being a
+    measure rather than a gate. **Re-run after adding a book.** Not part of the site.
   · `node .claude/test-library.js` — the Library (333 assertions): the rename, the shelf, one book, and
     the reader's place. **Re-run after touching `PAGES.library` / `PAGES.book` / `BOOKS` / `bookIngest` /
     `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` / `readingPos` / `setReadingPos` /
