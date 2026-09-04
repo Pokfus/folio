@@ -267,7 +267,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B1c | `chola-nataraja`, `gandhara-buddha-head` (both UN-DEFERRED) | — |
 | A2c | `book-of-kells`, `bayeux-tapestry`, `lewis-chessmen` (all three UN-DEFERRED — **A2's list is now empty**) | — |
 | A3a | `aztec-sun-stone`, `enigma-machine`, `dancing-girl-mohenjo-daro` | — |
-| B2a | `oracle-bone`, `bamboo-slip`, `crossbow-trigger` | ~~`longquan-celadon-bowl`~~ (shipped in B2b), ~~inkstone~~ (cleared and shipped in B2d), `igbo-ukwu-bronze`, `pazyryk-carpet` |
+| B2a | `oracle-bone`, `bamboo-slip`, `crossbow-trigger` | ~~`longquan-celadon-bowl`~~ (shipped in B2b), ~~inkstone~~ (cleared and shipped in B2d), `igbo-ukwu-bronze`, ~~pazyryk-carpet~~ (cleared and shipped in A3c) |
 | B2b | `bronze-ding`, `longquan-celadon-bowl` (UN-DEFERRED), `wax-tablet` | ~~han-tomb-brick~~ (cleared and shipped in B2c) |
 | B3a | `samurai-katana`, `ukiyo-e-print`, `goryeo-celadon` | — |
 | B3b | `daguerreotype`, `jomon-dogu`, `magatama` (**B3's list is now empty but for `dotaku`**) | `dotaku` (needs a third openable work) |
@@ -289,6 +289,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B2c/B3c | `han-tomb-brick`, `buncheong-bowl` (both UN-DEFERRED — **B3's list is now empty**) | — |
 | A3a/B2d | `golden-crown-of-silla`, `inkstone` (UN-DEFERRED — **B2's list is now empty**) | — |
 | E2d | `mariners-astrolabe` (UN-DEFERRED; **one, not three — see below**) | `trench-art-shell-case`, `identity-disc`, `ban-chiang-pot` again |
+| A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | `turnshoe` again, `nbpw-sherd`, `identity-disc` again |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1520,6 +1521,40 @@ finished. **Search the museum before the library**; B1d's three failures were al
   has good public-domain photographs of both (a 16th (Irish) Division vase engraved HULLUCH · LOOS ·
   GUILLEMONT · GINCHY among them); it is the words that are missing, which is the opposite of
   `glass-bangle`'s problem and worth remembering when picking the next batch.
+
+**A3c'S FINDING IS THE LIMIT OF E2d'S RULE: SEARCH THE MUSEUM FIRST — UNLESS THE MUSEUM IS UNREACHABLE,
+AND FOR THIS OBJECT IT IS.** The Pazyryk carpet is in the **Hermitage**, and `hermitagemuseum.org` does not
+answer at all from here (a refused connection on `www`, bare and `http` alike — not a 403, not a wall,
+nothing), so the one collection that could describe it is out. What carried the plate instead was the
+scientific literature, found the way B2d found its own: two calls to `doaj.org/api` and one to Crossref.
+**`nature.com` serves Scientific Reports in full to `curl -L` with a browser user-agent**, exactly as C1b
+recorded for Springer, so Späth et al. 2021 supplies the size, the knot count, the date, the ice lens and
+the finding that the fermentation dyeing it shows is two thousand years older than the technique had been
+traced.
+· **THE RUSSIAN OPEN-ACCESS ARCHAEOLOGY JOURNALS ANSWER, AND THEY ARE WHERE THIS SUBJECT LIVES.**
+  `archaeologie.pro` (*Povolzhskaya Arkheologiya*, CC BY-SA) and `journal.archaeology.nsc.ru`
+  (*Archaeology, Ethnology & Anthropology of Eurasia*) both serve full articles; `elibrary.ru` is 403.
+  Tsareva's paper on the fifth Pazyryk kurgan's imported Syrian and Egyptian textiles is the second work
+  and is the one that puts the carpet in a tomb full of cloth from the far west of the Persian empire —
+  a context no museum caption would have given.
+· **A SOURCE CAN BE WRONG ABOUT A DATE THE PLATE DOES NOT NEED.** Späth et al. say the carpet was found
+  "by Russian archaeologists in 1947"; the excavation of the fifth Pazyryk barrow is conventionally dated
+  1949. The plate names no discovery year — everything else in that paper is measurement — and the point
+  is general: **where an open source's one weak fact is also the one the plate can do without, drop the
+  fact rather than the source.**
+· **CROSSREF'S YEAR FOR A JOURNAL THAT DEPOSITS LATE IS THE DEPOSIT YEAR, AND THE BY-EYE TIER IS DOING ITS
+  JOB.** `check-citations.js` reports Polosmak's "The Pazyryk Style" as 2022 against the citation's 2021;
+  the journal's own page reads "Vol 49, No 4 (2021)" and the DOI string carries 2021. No correction, and
+  no `CROSSREF_YEAR_WRONG` row — this is precisely the case that rule already covers.
+· **THREE MORE COLLECTIONS PROBED AND ALL THREE FAILED DIFFERENTLY, which is worth recording because each
+  looked promising.** The **London Museum** answers and its medieval leather shoes carry real descriptions
+  (cordwainers, poulaines, the No. 1 Poultry drawstring shoe) — **but it uses the word "turnshoe" only of
+  19th-century boots**, so `turnshoe` still has no source for the construction that defines it, and the
+  open leather literature is about species identification rather than sewing (the Borgund ZooMS paper
+  contains no "turned" at all). **Te Papa** answers with a Next.js shell: a search page whose results are
+  not in the HTML, so nothing can be grepped — a seventh variety of content-free 200. And **Cleveland has
+  six Ban Chiang jars and not one description**, which is C3c's rule biting the other way: a record with
+  only fields is a caption, and the museum that carried three plates this week cannot carry this one.
 
 ## The per-artefact workflow
 

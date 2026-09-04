@@ -1337,4 +1337,11 @@ window.ARTEFACTS = [
     date: "c. 1470 – 1700 CE",
     origin: "Europe",
   },
+  {
+    id: "pazyryk-carpet",
+    name: "Pazyryk carpet",
+    rarity: "epic",
+    date: "c. 400 BCE",
+    origin: "Altai mountains, southern Siberia",
+  },
 ];
