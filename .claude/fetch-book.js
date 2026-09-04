@@ -11942,7 +11942,7 @@ const BOOKS = {
       "One last thing about the prose column, because it is the sort of thing a reader deserves to be " +
         "told rather than to discover. It is not a typed transcription but a machine reading of the " +
         "1912 pages, and machines misread. Where the scan went wrong it has been corrected against " +
-        "photographs of the same edition, and against a second scan of it — 689 places, from single " +
+        "photographs of the same edition, and against a second scan of it — 760 places, from single " +
         "letters up to whole " +
         "lines that the reader had dropped or run together, on eight pages that were printed straight " +
         "and scanned askew. The commonest fault by far was the quotation mark. The opening one the " +
@@ -11950,7 +11950,10 @@ const BOOKS = {
         "357 lines of speech; the closing one it set as a slash, swallowing the comma or full stop " +
         "beside it, on 43 more; and a possessive apostrophe it dropped or mangled on 73. All of those " +
         "are now punctuation again, and a comma driven a space off its own word was put back on it " +
-        "59 times more. Nothing was mended by guess: every correction is a passage read off the page. " +
+        "59 times more. The oddest of them was the figure 1, which stood for three different marks " +
+        "in 66 places and gave no sign which: before a small letter it is the word I, after a word " +
+        "it is an exclamation mark, and after a full stop it is the quotation mark opening the speech " +
+        "that follows. Nothing was mended by guess: every correction is a passage read off the page. " +
         "A few misreadings remain, chiefly a word whose first letter has been broken off it and some " +
         "stray marks standing in the run of the prose.",
     ],
@@ -12300,6 +12303,63 @@ const BOOKS = {
        "the Prologue's five guildsmen read 'A Haberdasher, a Carpenter, a Weaver, a Dyer and an Upholsterer'; the W is broken into an I and a V, and the D read as an O"],
       ["son  ot  Philip", "son  of  Philip",
        "the page reads 'and was son of Philip of Macedon'"],
+
+      /* ---------- BATCH E9: THE SEVEN THE `1`-AS-`I` SWEEP BELOW MUST NOT SEE ----------
+         Thirty-five times a lone figure 1 stands before a lowercase word, and thirty of them are the
+         pronoun. These are the other five, plus two where the quotation mark before the pronoun was
+         itself read as a 4 and is set a single space away, which puts it outside the E6 rule. */
+      ["them. \n\n1  here  was  a  Shipman", "them. \n\nThere  was  a  Shipman",
+       "the General Prologue reads 'There was a Shipman, from far in the West'; the T and h of There are read as a 1 and the word broken"],
+      ["said  our  Host,  1  blessings", "said  our  Host,  ‘blessings",
+       "the page reads '‘Sir Nun's Priest,’ said our Host, ‘blessings on your breech’ — an opening quote, not a pronoun"],
+      ["quoth  he,  1  now  fair  befall", "quoth  he,  ‘now  fair  befall",
+       "the page reads '‘Sir priest,’ quoth he, ‘now fair befall you !’ — the same"],
+      ["Alas  1  that  ever  that", "Alas  !  that  ever  that",
+       "the page reads 'Thus I am slain, since Pity has died. Alas ! that ever that day should be'; the mark is an exclamation, set with the space this edition gives one"],
+      ["thy  humble \n1  bearing,", "thy  humble \nbearing,",
+       "the page reads 'and thine obsequiousness and thy humble bearing, and thy counterfeited woe and pain'; the mark is a tick in the MARGIN, outside the text block"],
+      ["and  said,  4 1  forbid  you", "and  said,  ‘I  forbid  you",
+       "an opening quote read as a 4 and set one space from the pronoun, which is what puts it outside the E6 sweep"],
+      ["4 1  grant  it  you,’", "‘I  grant  it  you,’",
+       "the same"],
+
+      /* ---------- BATCH E9: THE SEVEN THE TWO `1`-BEFORE-A-CAPITAL SWEEPS MUST NOT SEE ----------
+         Twenty-one times the figure stands before a CAPITAL, and there it is a quotation mark or an
+         exclamation mark rather than the pronoun — which of the two the sweeps below decide by what
+         comes before it. These seven decide nothing: three are a mark at the end of a line where the
+         sentence is already closed and nothing belongs, and four sit inside a run the scan has
+         mangled past any rule. */
+      ["bit.’  1 \n\nThus", "bit.’ \n\nThus",
+       "the page closes the speech at 'I hear it every bit !’ and begins a new paragraph; the mark is dirt at the end of the line"],
+      ["safe  place.  1 \n\nWho", "safe  place. \n\nWho",
+       "the same shape — 'cast them away in a safe place.' ends the paragraph"],
+      ["many  a  thing.’  1 \n\nThen", "many  a  thing.’ \n\nThen",
+       "the same shape — 'where you shall hear many a thing.’' ends the speech"],
+      ["ment.’  r  1 \n\nWhen", "ment.’ \n\n‘When",
+       "the page reads '‘When they came out of the town’; the opening quote is read as an r and a 1 either side of the line end"],
+      ["escape.  J  1 \n\n,  ‘  AUs,", "escape. \n\n‘  Alas,",
+       "the page reads '‘Alas, has not many a noble wife and many a maiden slain herself before this'; three marks and a mis-set word for one opening quote"],
+      ["Richard \n\n1 V°u  A?nC  °,f  ,Bo.hemia \'>  the  noble  terceI",
+       "Richard \n\nII  to  Anne  of  Bohemia  ;  the  noble  tercel",
+       "the note reads 'celebrates the betrothal of Richard II to Anne of Bohemia ; the noble tercel eagle represents the former'"],
+      ["suitors \nor  the  princess", "suitors \nof  the  princess",
+       "the same note reads 'two other suitors of the princess'"],
+
+      /* ---------- BATCH E9: THE SINGLE ASTERISK, WHICH IS NOT A ROW OF THEM ----------
+         The translators DO print a row of seven spaced asterisks where they have cut a passage —
+         verified on the leaf, and the reason the E6 sweep is anchored so as to leave them alone. But
+         the second scan of this edition prints none of them, its OCR discarding the ornament this one
+         keeps, WHICH IS THE LIMIT ON THAT WITNESS: the other copy is evidence for what a character
+         IS and never for what is absent. These four are single asterisks standing inside a sentence,
+         where the row is not. */
+      ["or  two  * \nthen", "or  two  ; \nthen",
+       "the leaf reads 'John lay still whilst a man might walk a furlong or two ; then he arose'"],
+      ["burnished  gold  *  but", "burnished  gold  ;  but",
+       "the page reads 'with his bright beams like burnished gold ; but now he was descended'"],
+      ["into  the  crucible  * \nand", "into  the  crucible  ; \nand",
+       "the page reads 'out of the hollow and down into the crucible ; and so it must needs'"],
+      ["son-in-law  ?  * \n\nThese", "son-in-law  ?  ’ \n\nThese",
+       "the page reads 'take me as your son-in-law ?’ These sudden words so astonied the'; a closing quote, where E6's rule reads an asterisk after punctuation as an OPENING one"],
     ],
 
     /* ---------- THE OPENING QUOTATION MARK, MISREAD SIX WAYS (Sep 2026, batch E6) ----------
@@ -12381,6 +12441,31 @@ const BOOKS = {
          stop inside a back-matter reference and closing it up would only make a wrong stop tidier. */
       [/(?<=[A-Za-z]) ,(?=\s)/g, ",",
        "a comma set a space away from the word it belongs to"],
+
+      /* ---------- BATCH E9: THE PRONOUN READ AS A FIGURE ----------
+         All 45 were listed and read against the second scan and, where that was not enough, against
+         the leaf. Five are not the pronoun and two more carry a quotation mark the E6 sweep cannot
+         reach; all seven are handled in `fixes` above, so what arrives here is a capital I whose
+         serifs the scan lost. It is anchored on a LOWERCASE word following, which is what keeps it
+         off a page number and off the start of a sentence — the two places a real figure 1 could
+         stand. The lookahead allows a NEWLINE as well as the two spaces this text sets between
+         words: written with the spaces alone it missed ten, every one of them the pronoun at the end
+         of a line, and the count looked healthy while a quarter of the class stood untouched. */
+      [/(?<=\s)1(?=\s{1,3}[a-z])/g, "I",
+       "the pronoun I read as a figure 1"],
+
+      /* ---------- BATCH E9: THE SAME FIGURE BEFORE A CAPITAL, WHICH IS NOT THE PRONOUN ----------
+         The figure 1 stands for three different marks in this scan and WHERE IT STANDS decides which.
+         Before a lowercase word it is the pronoun, above. Before a CAPITAL it is never the pronoun,
+         and the seventeen occurrences partition exactly: after a bare word it is an exclamation mark,
+         which this edition sets with a space before it; after a full stop, a colon, a dash or a
+         closing quote it is the opening quotation mark of the speech that follows. All twenty-one
+         were read, sixteen of them against the second scan and the rest on the leaf, and the two rows
+         below account for every one that the seven `fixes` above do not. */
+      [/(?<=[A-Za-z]\s{1,3})1(?=\s{1,3}[A-Z])/g, "!",
+       "an exclamation mark read as a figure 1, after a word"],
+      [/(?<=[.:’—]\s{1,3})1(?=\s{1,3}[A-Z])/g, "‘",
+       "an opening quotation mark read as a figure 1, after the punctuation closing the sentence before it"],
     ],
     sourceName: "Internet Archive",
     sourceUrl: "https://archive.org/details/completepoetical0000chau_q3l3",

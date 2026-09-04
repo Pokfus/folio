@@ -697,9 +697,14 @@ book added later will meet the same traps.
   other copy has between the same two — which located 191 of 221 candidates at once, and established
   that **this edition SPACES its `;` `!` `?` `:` as a house style and does not space its comma**
   (10,944 attached against 40), so 59 commas were put back on their own words and the spaced
-  semicolons were left alone. 689 repairs in all; what waits is a word's first letter broken off it
-  and about 150 single characters standing in the run of the prose, none of which has a shape to
-  sweep — see `docs/book-text-plan.md`),
+  semicolons were left alone. **Batch E9 then resolved the oddest class in the book**: a lone figure
+  `1`, which stands for THREE different marks in 66 places and gives no sign which — the pronoun
+  before a small letter, an exclamation mark after a word, and the OPENING QUOTE of the next speech
+  after a full stop, colon, dash or closing quote. It also fixed the limit on the second-scan
+  witness: that copy's OCR discards the rows of asterisks this one keeps, so it answers *what is
+  this mark* and never *is there a mark here*, for which only the leaf will do. 760 repairs in all;
+  what waits is a word's first letter broken off it and about 130 single characters standing in the
+  run of the prose, none of which has a shape to sweep — see `docs/book-text-plan.md`),
   `journey-to-the-west` (~524 KB, all 100 chapters, **100 chapter sections**, **0 notes** — Timothy
   Richard's *A Mission to Heaven* of 1913, the first English translation there ever was, and **the
   first book here whose SOURCE IS PLAIN OCR TEXT rather than markup.** Every other reader on the

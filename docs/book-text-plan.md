@@ -284,14 +284,56 @@ re-run and diffed byte for byte.
 | **E6** ✅ | `canterbury-tales`, and a change to shared machinery | **355 quotation marks put back in 6 rows**, and the class was three times what E5 estimated: the opening quote is misread SIX ways, not one — `c` 227 times, `*` 61, `4` 40, `f` 15, `{` 6, `<` 6. The `reFixes` table (a regex `fixes`, same assertion, boundary-aware) is the machinery, proved inert on the nine books already declaring `fixes` |
 | **E7** ✅ | `canterbury-tales` | **119 more repairs — the possessive and the closing quotation mark, both cleared to zero.** A possessive apostrophe was dropped or mangled on 73 lines in three shapes (`God s sake`, `the Knight' s Tale`, `Saint Peter’ s sister`); the closing quote was read as a slash on 43, and the slash stands for TWO characters, not one — the comma or full stop AND the quote beside it. Three one-off strays went with them, each witnessed on the SECOND scan of the same edition |
 | **E8** ✅ | `canterbury-tales` | **62 repairs, and a tool.** The second scan is queried in BULK — anchor on the words around a suspicious token, score candidate positions by the words that follow, print what the other copy has between the same two words: 221 candidates, 191 located. The finding is that this edition SPACES its `;` `!` `?` `:` as a house style and does not space its comma (10,944 attached to 40), so 59 commas were put back on their own words. A census over tag-stripped HTML first reported 22 phantom errors that were Folio's own `bk-n` markers |
-| **E9** | `canterbury-tales` | the last of it: 13 standalone commas and about 150 single characters standing in the run of the prose — a word's first letter broken off it (`H ow`, `J eremy`, `T ale`), `1` and `l` for `I`, `m` for `in`, `y` for `by`, and the stray marks (`_` 10, `-` 10, `\\` 6, `•` 2). The second-scan table already carries a verdict for most; each still needs reading |
-| **E10–En** | the rest of the error half | what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E9** ✅ | `canterbury-tales` | **71 repairs, and a character that stands for three marks.** A lone figure `1` appears 66 times: before a lowercase word it is the pronoun (37), before a CAPITAL it is an exclamation mark after a bare word and an OPENING QUOTE after a full stop, colon, dash or closing quote (21) — two rules and seven read exceptions cover every one. It also fixes the limit on the second-scan witness: that copy's OCR discards the asterisk rows this one keeps, so it answers *what is this mark* and never *is there a mark here* |
+| **E10** | `canterbury-tales` | what the census still holds: about 130 single characters — a word's first letter broken off it (`H ow`, `J eremy`, `T ale`, `k nowest`), `m` for `in`, `y` for `by`, `l` for `I`, and the stray marks (`_` 10, `-` 10, `\\` 6, `•` 2, `'` 5), plus 13 standalone commas the E8 sweep could not reach. The second-scan table carries a verdict for most |
+| **E11–En** | the rest of the error half | what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E9 — the figure that stood for three marks, shipped 2026-09-04
+
+**71 more repairs, taking the book to 760, and the finding is a single character that means three
+different things depending only on where it stands.** The scan reads a lone figure `1` in 66 places.
+Before a lowercase word it is the pronoun **I**, whose serifs the scan lost — 37 of them. Before a
+CAPITAL it is never the pronoun, and the 21 occurrences partition exactly: **after a bare word it is
+an exclamation mark**, which this edition sets with a space before it (`So wags the world ! God
+shield us`, `tender creatures ! Thou didst set`), and **after a full stop, a colon, a dash or a
+closing quote it is the opening quotation mark** of the speech that follows (`‘What folk are you`,
+`‘Experience, though no authority`, `‘My sorrowful hand,’ quoth she`). Two rules and seven read
+exceptions account for every one, and nothing in the shape of the character says which of the three
+it is — only its neighbours do.
+
+**THE SECOND SCAN IS A WITNESS FOR WHAT A CHARACTER IS AND NEVER FOR WHAT IS ABSENT, and E9 found
+that out by nearly deleting something real.** Its OCR prints no asterisk row anywhere in the book,
+which read as proof that the `* * * * *` between paragraphs is this copy's dirt and that E5's
+account of them as the translators' omission marks was wrong. **The leaf settles it the other way:
+the page prints a row of seven spaced asterisks**, and the other copy's OCR simply discards the
+ornament. E5 was right. The rule to carry is that the other copy answers *what is this mark* and
+cannot answer *is there a mark here* — for that, only the page will do. **E7's one deletion made on
+an absence was re-checked on the leaf under that rule and is confirmed**: the page turn at 150
+prints the folio, the running head and then `soun, Sam-soun !’`, with nothing between.
+
+**A count can look healthy while a quarter of a class stands untouched.** The `1`-as-pronoun sweep
+was first written to the two spaces this text sets between words, fired 27 times, reported no dead
+row and left ten behind — every one of them the pronoun at the END of a line, where the following
+space is a newline. **Write the lookahead for the whitespace the text actually has, and check what
+the class has LEFT rather than what the row reports.**
+
+**A census over tag-stripped HTML lies in both directions.** E8 recorded the phantom class it
+invents; E9 adds the other half — a row that fires and repairs nothing a reader sees. Three of this
+batch's rows correct the back-matter notes, which the extractor does not put in any chapter, so
+they are real corrections to the raw and invisible in the book. That is not a fault, but a repair
+count and a shipped count are two numbers: 71 rows fired and 34 regions of the shipped chapters
+changed.
+
+Four single asterisks inside a sentence went with the class — three are semicolons in the house
+style (`a furlong or two ; then he arose`, verified on the leaf) and one is a CLOSING quote, which
+is the mark E6's rule cannot read, being anchored on the punctuation before it and so committed to
+the opening one.
 
 ### E8 — the Canterbury Tales' displaced commas, shipped 2026-09-03
 
