@@ -3516,3 +3516,100 @@ only and reported Thucydides with 916 unpaired sections — a real fault, found 
 had it been a book where the Greek was the side without a key the same measure would have reported
 nothing. It was rewritten off `bookSections` itself before anything was believed. **Read the rule you are
 measuring out of the code that implements it.**
+
+---
+
+## E45 — markup printed as characters, and eight words of Augustine
+
+**EIGHT ESCAPED MARKUP TAGS REACHED THE READER AS TEXT, IN THREE BOOKS.** Two laisses of the Song of
+Roland opened `<poem>`; the City of God's Latin carried `<poem>` and a mangled `<§/poem>` around a
+quotation of Horace; two Rigveda hymns carried a raw `<A HREF="errata.htm#0">children</A>` around a word
+of Griffith's. In every case the escaping is **MediaWiki's own** — the caches hold it, so the source
+typed a tag in a place the wiki would not parse — and Folio reproduced it faithfully, which here means
+printing it.
+
+**THE DISCRIMINATION IS THE WHOLE OF THE RULE, AND WITHOUT IT THE RULE DOES REAL DAMAGE.** A critical
+text supplies words the manuscripts lack INSIDE ANGLE BRACKETS. Godley's Herodotus writes "the
+`<Pisidians>` had little shields"; Ross's Aristotle "`<are not wicked>`"; the Latin Seneca does it about
+ninety times, including — this is the case that settles it — "quo `<a>` morte vita diducitur", where
+`<a>` is the Latin preposition AND an HTML tag name. **166 such passages stand on the shelf and every
+one of them is the edition.** A rule that stripped angle brackets, or that keyed on the tag name, would
+delete an editor's supplements from four books, silently, leaving prose that still reads.
+
+So there are **three tests, each sufficient on its own and each safe on its own terms**: a CLOSING tag
+(an editor supplies a word, never `</word>` — this is also what catches the City of God's `<§/poem>`,
+whose section sign is the transcriber's own slip); a tag carrying an ATTRIBUTE (an editor supplies
+words, never `name="value"`); and a MediaWiki extension tag from a **declared list**, which being a list
+can never grow by accident into `a`, `i`, `b` or `q`. Measured before anything was rebuilt: **166
+survive, 8 go.**
+
+**IT RUNS AT THE WRITE, NOT IN `stripTags`, AND THAT WAS THE SECOND ATTEMPT.** `stripTags` looks like
+the one place every branch passes through — 21 call sites, 48 books — and it is not: the Rigveda's
+`suktaBody` flattens its page with a blunt regex of its own, because three of its four page shapes carry
+no markup at all. So the first version fired for the Song of Roland and the City of God and **silently
+did nothing for the book with half the occurrences** — which the rebuild caught, the file coming back
+byte-identical while the run reported nothing. `writeEnglish` and `writeOriginal` are the places every
+branch really must reach, being what serialise the file; and running there means each output file is
+swept exactly once, which is what makes the count honest. **A "single choke point" is a claim to
+measure, not to assume.**
+
+**THE COUNT TOOK THREE TRIES AND THE FAILURES ARE INSTRUCTIVE.** Reported per file from inside
+`stripTags`, the Song of Roland's two `<poem>`s were counted twice and printed under its Old French,
+where the pages carry none — because that branch **re-extracts the English page** to compare line
+counts. Reported once per run as a maximum, the Rigveda's anchor, which stands in two hymns, counted
+one. Both are gone once the sweep is per output file: each tag is met once, where it belongs.
+
+### The eight words
+
+**THE CITY OF GOD'S `<§/poem>` MARKED A WOUND RATHER THAN A BLEMISH.** Book V, chapter 13: the
+transcription set Horace's ode inside a `<poem>` the wiki did not parse, put the ode's last word
+*outside* it, and between that word and the prose that answers it **dropped a clause** — leaving Latin
+with no subject and no main verb: *"…et uterque Poenus Serviat uni spiritu sancto, et amore
+intelligibilis pulchritudinis non refrenant, melius saltem…"*. The loss is the transcription's and not
+Folio's: the cached page carries "Verumtamen" nowhere, nor "libidines turpiores", nor "impetrat".
+
+**FOUR WITNESSES, AND THE FIRST IS THE EDITION ITSELF** — which is what makes restoring it right rather
+than composing. Migne's own volume, PL 41, is on archive.org (`bim_early-english-books-1641-1700_…_1846_41`)
+and reads, under an OCR of the period, *"Verunitamen qu! lipidines turpiores, Atle pletitis / ImpetF416
+Splriti vantto , et amure intelligibints pul- / thritaginis non reſrenant"*: **Verumtamen qui libidines
+turpiores, fide pietatis impetrato Spiritu sancto, et amore intelligibilis pulchritudinis non refrenant.**
+Dombart and Kalb's constituted text says the same in two independent transcriptions; and so, in English,
+does Marcus Dods **on Folio's own shelf, facing this very Latin**: "not by the power of the Holy Spirit
+obtained by the faith of piety, or by the love of intelligible beauty".
+
+**THE ORTHOGRAPHY IS TAKEN FROM FOLIO'S OWN COPY OF MIGNE rather than from the witnesses**, which is the
+only way to be sure it is this edition's: `Verumtamen` stands **36 times across the 22 books here and
+`Verum tamen` never**, so the one word where the critical text differs is settled from within.
+
+**TWO THINGS ARE DELIBERATELY NOT RESTORED, and the book's own front matter says so.** Migne prints a
+citation of the ode which this transcription drops — the OCR gives "( Carinin. (ib. 2, eurm. 2, vers.
+942A)", plainly "(Carmin. lib. 2, carm. 2, vers. 9-12.)" — and the WORDS are certain while the DIGITS
+rest on one bad OCR of a figure; a citation with a wrong verse range is worse than none. And the ode
+reads on as prose, the transcription having given it no line breaks to keep. **Restore what a witness
+states; do not compose what it merely implies.**
+
+### The mechanism that was missing
+
+**AN ORIGINAL-LANGUAGE COLUMN HAD NO WAY TO BE REPAIRED AT ALL.** `BOOK.reFixes` is English and runs
+through `correctRaw`, which also applies a Wade-Giles romanisation pass and a scan's broken-letter
+table — neither of which has any business near a Latin, Greek or Sanskrit column, so the original
+branches have always been right not to call it. What they had instead was nothing: three ways of
+gathering an original and no way of fixing a defect in one. **`O.reFixes` is the sibling that was
+missing** — a declared `[regex, replacement, why]` list and nothing else, applied in `writeOriginal`
+where all three gathering branches meet, on the extractor's own output rather than on the page (E29's
+rule), counted and reported with DID NOT FIRE exactly as the English's are.
+
+### What proves it
+
+**BYTE-FOR-BYTE, IN BOTH DIRECTIONS.** All five rebuilt files differ from what shipped by **exactly the
+declared change** — the eight tags, the line each stood on where it stood alone, and the one Latin
+repair. And six siblings were rebuilt and came back **byte-identical**, chosen so that three of them are
+the books whose editorial angle brackets the rule must not touch: `seneca-letters` (about ninety),
+`herodotus-histories`, `aristotle-nicomachean-ethics`, plus `aesop-fables`, `machiavelli-prince` and
+`sun-tzu-art-of-war`. None of the six reports a dropped tag.
+
+**AND THE SHELF IS MEASURED FOR EVER RATHER THAN ONCE.** `book-audit.js` gains the three tests as three
+checks, so the question "does any escaped markup remain?" is asked of every shipped book on every run.
+It reports the shelf clean now, and run against the file as it shipped before this batch it reports the
+Song of Roland's two. The run says what it REMOVED; the audit says what REMAINS — which is the right
+division, because a run can only answer for the pages it read.

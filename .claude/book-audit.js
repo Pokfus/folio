@@ -42,6 +42,25 @@ const CHECKS = [
   ["a stray closing tag with no text", /<\/(p|i|b)>\s*<\/\1>/g],
   ["a page-number artefact inside prose", /\s\[?p{1,2}\.?\s?\d{1,4}\]?\s/g],
   ["an OCR sentinel run of punctuation", /[~^_]{1,}[A-Za-z]|[A-Za-z][~^_]{1,}[A-Za-z]/g],
+  /* MARKUP THE SOURCE ESCAPED, WHICH THE READER SEES AS CHARACTERS (Sep 2026, batch E45). Eight of
+     these shipped for months — `<poem>` opening two laisses of the Song of Roland, `<poem>` and a
+     mangled `<§/poem>` round a quotation of Horace in the City of God's Latin, and a raw
+     `<A HREF="errata.htm#0">…</A>` around a word of two Rigveda hymns — and no check here could see
+     one: every word is spelled correctly, every tag balances, and the chapter is the right length.
+     `fetch-book.js` drops them now, at the write; this is what says whether any remain.
+
+     THE THREE TESTS ARE THE EXTRACTOR'S OWN, and they are narrow for a reason that matters more than
+     the check: a critical text supplies words the manuscripts lack INSIDE ANGLE BRACKETS. Godley's
+     Herodotus writes "the <Pisidians> had little shields", Ross's Aristotle "<are not wicked>", the
+     Latin Seneca does it about ninety times — including "<a>", which is a preposition AND a tag
+     name. 166 such passages stand on the shelf and every one of them is the edition. So: a CLOSING
+     tag (an editor writes a word, never `</word>`), a tag carrying an ATTRIBUTE (an editor supplies
+     words, never `name="value"`), or a MediaWiki extension tag from a DECLARED list — nothing else. */
+  ["an escaped closing tag printed as characters", /&lt;[^a-zA-Z&<>]{0,3}\/\s*[a-zA-Z][a-zA-Z0-9]{0,14}\s*&gt;/g],
+  ["an escaped tag with an attribute, printed as characters",
+   /&lt;\/?[a-zA-Z][a-zA-Z0-9]{0,14}\s+[a-zA-Z][a-zA-Z0-9-]{0,20}\s*=\s*"[^"&]{0,200}"[^&<>]{0,40}&gt;/g],
+  ["an escaped MediaWiki extension tag, printed as characters",
+   /&lt;\s*(?:poem|nowiki|pre|ref|references|gallery|math|score|syntaxhighlight|timeline|includeonly|noinclude|onlyinclude)\s*\/?\s*&gt;/gi],
 ];
 
 /* A PARAGRAPH THE BOOK CARRIES TWICE IN ONE CHAPTER (Sep 2026, batch E35). Nothing else here can see

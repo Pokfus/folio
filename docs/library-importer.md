@@ -1637,6 +1637,41 @@ not ungrammatical, because every sentence but the last is whole. What it cannot 
     Edda quoting one skaldic stanza twice under two kennings with a fresh attribution each time.
     Recorded here so nobody runs it again expecting a yield.
 
+**MARKUP THE SOURCE ESCAPED, WHICH THE READER SEES AS CHARACTERS** (Sep 2026, batch E45,
+`dropEscapedTags` / `dropEscapedTagsIn` / `reportEscapedTags`). Eight tags shipped for months —
+`<poem>` opening two laisses of the Song of Roland, `<poem>` and a mangled `<§/poem>` round a quotation
+of Horace in the City of God's Latin, a raw `<A HREF="errata.htm#0">…</A>` in two Rigveda hymns. The
+escaping is MediaWiki's own in every case, so the fault is the transcription's and the repair is Folio's.
+
+  · **THE DISCRIMINATION IS THE WHOLE RULE.** A critical text supplies words the manuscripts lack
+    inside angle brackets — Godley's `<Pisidians>`, Ross's `<are not wicked>`, and the Latin Seneca's
+    ninety-odd including **`<a>`, which is a preposition AND a tag name**. 166 such passages stand on
+    the shelf and every one is the edition. So the rule has three tests, each safe alone: a CLOSING
+    tag, a tag carrying an ATTRIBUTE, and a MediaWiki extension tag from a DECLARED list. Measured
+    before anything was rebuilt: 166 survive, 8 go.
+  · **IT RUNS AT THE WRITE, NOT IN `stripTags`, and that was the second attempt.** `stripTags` looks
+    like the one place every branch passes through — 21 call sites — and the Rigveda's `suktaBody`
+    flattens its page with a blunt regex of its own, so the first version did nothing at all for the
+    book with half the occurrences and said nothing about it. **A "single choke point" is a claim to
+    measure, not to assume.**
+  · **THE COUNT IS PER OUTPUT FILE and took three tries.** Counted inside `stripTags`, the Song of
+    Roland's two were counted twice and printed under its Old French, because that branch re-extracts
+    the English page to compare line counts; counted once per run as a maximum, the Rigveda's anchor,
+    which stands in two hymns, counted one.
+  · **`book-audit.js` CARRIES THE SAME THREE TESTS**, so what REMAINS on the shelf is measured on every
+    run where what was REMOVED is only reported by the run that removed it.
+
+**`O.reFixes` — AN ORIGINAL-LANGUAGE COLUMN'S OWN CORRECTION TABLE** (Sep 2026, batch E45). `BOOK.reFixes`
+is English and runs through `correctRaw`, which also applies `applyRoman` and `applyGlyphs`; neither
+belongs anywhere near a Latin, Greek or Sanskrit column, which is why the original branches have always
+been right not to call it — and what they had instead was **nothing**, so a defect in an original could
+only be recorded. `O.reFixes` is a declared `[regex, replacement, why]` list and nothing else, applied in
+`writeOriginal` where all three gathering branches meet, on the extractor's own output rather than on the
+page, counted and reported with DID NOT FIRE like the English's. Its first use puts back **eight words of
+Augustine** that the City of God's Latin transcription lost between Horace's ode and the sentence that
+answers it — see `docs/book-text-plan.md` for the four witnesses and for the two things deliberately not
+restored.
+
 **📖 `.claude/check-pairing.js` — RUN IT AFTER ADDING AN ORIGINAL-LANGUAGE COLUMN.** The two columns
 paired the way the reader's page pairs them (Sep 2026, batch E44), and it is the first thing on this
 shelf to ask the question in **app.js's own terms** rather than in the importer's.

@@ -192,6 +192,19 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     cannot re-set another. **Twenty-two layouts** exist; reach for a **hook** before a layout.
   · **`--force` re-runs the EXTRACTOR** (the cache holds extracted prose, not the fetched page). The
     chapter titles and volume divisions are re-derived on every run, so re-titling costs no refetch.
+  · **MARKUP THE SOURCE ESCAPED IS DROPPED AT THE WRITE, AND THE EDITOR'S ANGLE BRACKET IS NOT**
+    (`dropEscapedTags`). Eight tags reached readers as characters — `<poem>`, a raw `<A HREF=…>` —
+    while a critical text supplies words the manuscripts lack INSIDE angle brackets: Godley's
+    `<Pisidians>`, Ross's `<are not wicked>`, the Latin Seneca's ninety-odd including **`<a>`, a
+    preposition and a tag name at once**. 166 of those stand on the shelf, so the rule is three narrow
+    tests — a CLOSING tag, an ATTRIBUTE, a DECLARED extension-tag name — and nothing else. It runs in
+    `writeEnglish`/`writeOriginal` and NOT in `stripTags`, which 21 call sites make look like the one
+    choke point and which the Rigveda's own flattener bypasses; `book-audit.js` carries the same three
+    tests over the shipped shelf.
+  · **AN ORIGINAL-LANGUAGE COLUMN HAS ITS OWN CORRECTION TABLE, `O.reFixes`** — declared rows and
+    nothing else, applied in `writeOriginal`. `BOOK.reFixes` is English and drags a romanisation pass
+    and a glyph table with it through `correctRaw`, which is why the original branches never called it
+    and why, until Sep 2026, a defect in an original could only be recorded.
   · **A CHANGE TO A SHARED EXTRACTOR MUST BE PROVED INERT ON ITS SIBLINGS, BYTE-FOR-BYTE** — re-run
     every other book on that path and diff the generated files. That check has twice found a live
     fault in a book nobody was editing.

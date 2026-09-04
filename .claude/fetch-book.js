@@ -8048,6 +8048,16 @@ const BOOKS = {
         "41.0347 arriving in the middle of a sentence is a reference to a page rather than anything " +
         "Augustine wrote. His numbered subdivisions inside the longer chapters are left as he printed " +
         "them.",
+      "One passage of the Latin has been repaired against Migne's own printed volume, and it is worth " +
+        "saying which. In <b>book V, chapter 13</b>, where Augustine quotes an ode of Horace, this " +
+        "transcription lost eight words between the end of the quotation and the sentence that answers " +
+        "it \u2014 leaving Latin with no subject and no main verb. They are restored: <i>Verumtamen qui " +
+        "libidines turpiores, fide pietatis impetrato</i>, read off the scan of Patrologia Latina 41 " +
+        "and confirmed by two transcriptions of the critical text and by what Dods translates in the " +
+        "column beside it. Two things there are NOT restored, because the evidence will not carry them: " +
+        "Migne prints a citation of the ode which this transcription drops, and only its wording is " +
+        "legible in the scan and not its verse numbers; and the ode itself reads on as prose, the " +
+        "transcription having given it no line breaks to keep.",
     ],
 
     /* ---------- ONE BOOK OF THE WORK, ONE CHAPTER HERE ----------
@@ -8153,6 +8163,47 @@ const BOOKS = {
          reach nothing else. */
       dropLeadParas: [/^LIBER(?:\s+[A-Z]+){1,2}\s*\.?$/],
       minChars: 20000,
+
+      /* ---------- EIGHT WORDS THE TRANSCRIPTION LOST, PUT BACK (Sep 2026, batch E45) ----------
+         Book V, chapter 13, at Augustine's quotation of Horace. This transcription set the ode inside
+         a `<poem>` the wiki did not parse, printed the tag, put the ode's last word OUTSIDE it, and
+         between that word and the prose that follows dropped a clause — leaving Latin with no subject
+         and no main verb: "…et uterque Poenus Serviat uni spiritu sancto, et amore intelligibilis
+         pulchritudinis non refrenant, melius saltem…". It is the transcription's loss and not Folio's:
+         the cached page carries "Verumtamen" nowhere, and neither "libidines turpiores" nor "impetrat".
+
+         FOUR WITNESSES, AND THE FIRST IS THE EDITION ITSELF. Migne's own volume — PL 41, on
+         archive.org as `bim_early-english-books-1641-1700_patrologiae-cursus-completus-_1846_41` —
+         reads, under an OCR of the period ("Verunitamen qu! lipidines turpiores, Atle pletitis /
+         ImpetF416 Splriti vantto , et amure intelligibints pul- / thritaginis non reſrenant"):
+         **Verumtamen qui libidines turpiores, fide pietatis impetrato Spiritu sancto, et amore
+         intelligibilis pulchritudinis non refrenant**. Dombart and Kalb's constituted text says the
+         same, in two independent transcriptions (thelatinlibrary.com/augustine/civ5.shtml and
+         la.wikisource.org/wiki/De_civitate_Dei/Liber_V); and so, in English, does Marcus Dods on
+         Folio's own shelf, facing this very Latin: "Nevertheless, they who restrain baser lusts, not
+         by the power of the Holy Spirit obtained by the faith of piety, or by the love of intelligible
+         beauty".
+
+         THE ORTHOGRAPHY IS TAKEN FROM FOLIO'S OWN COPY OF MIGNE rather than from the witnesses, which
+         is the only way to be sure it is this edition's: `Verumtamen` stands 36 times across the 22
+         books here and `Verum tamen` never, so the one word where the critical text differs is settled
+         from within. `impetrato` agrees with `Spiritu`, ablative, as all four witnesses have it.
+
+         WHAT IS NOT RESTORED, and why. Migne prints a citation of the ode after it — the OCR gives
+         "( Carinin. (ib. 2, eurm. 2, vers. 942A)", which is plainly "(Carmin. lib. 2, carm. 2, vers.
+         9-12.)" — and this transcription drops it. The words are certain and the DIGITS are not: they
+         rest on one bad OCR of a figure, and a citation with a wrong verse range is worse than none.
+         Nor is the ode set as verse: the source's `<poem>` carried no line breaks the extractor could
+         read, so it reads on as prose, as it did before. Both are recorded in the front matter. */
+      reFixes: [
+        /* The whitespace is matched loosely because the escaped `<poem>` stood between these two
+           words and its removal leaves whatever it leaves — a blank line today, and something else
+           the day that sweep moves again. The WORDS either side are what pins the site. */
+        [/Poenus Serviat\s*\n\s*uni spiritu sancto,/,
+         "Poenus\nServiat uni.\nVerumtamen qui libidines turpiores, fide pietatis impetrato Spiritu sancto,",
+         "V.13: eight words lost between Horace's ode and the prose that answers it, restored from " +
+         "Migne's own volume (PL 41) and corroborated by Dombart-Kalb and by Dods's English"],
+      ],
     },
   },
 
@@ -16035,6 +16086,89 @@ const ALLOWED = new Set(["p", "i", "b", "em", "strong", "br", "blockquote", "sup
    because it is the one void element this extractor KEEPS. */
 const VOID_TAGS = new Set(["area", "base", "col", "embed", "hr", "img", "input",
                            "link", "meta", "param", "source", "track", "wbr"]);
+
+/* ---------- A TAG THE SOURCE ESCAPED, WHICH REACHES THE READER AS CHARACTERS ----------
+   (Sep 2026, batch E45.) Everything above reduces REAL markup. This is the other case: markup the
+   wiki itself escaped, so it survives every pass as ordinary text and is PRINTED. The reader of the
+   Song of Roland met two laisses opening `<poem>`; the Rigveda's hymns 121 and 131 carried a raw
+   `<A HREF="errata.htm#0">children</A>` around a word of Griffith's; the City of God's Latin had
+   `<poem>` and a mangled `<§/poem>` round a quotation of Horace. Eight in all, over three books.
+   In every case the escaping is MediaWiki's own — the caches hold it — so the fault is the
+   transcription's and the repair is Folio's.
+
+   THE DISCRIMINATION IS THE WHOLE OF THIS RULE, AND WITHOUT IT THE RULE DOES REAL DAMAGE. A critical
+   text supplies words the manuscripts lack INSIDE ANGLE BRACKETS: Godley's Herodotus writes "the
+   <Pisidians> had little shields", Ross's Aristotle "<are not wicked>", and the Latin Seneca does it
+   about ninety times — "erras si in navigatione tantum existimas minimum esse quo <a> morte vita
+   diducitur", where `<a>` is the preposition AND an HTML tag name. Those are the EDITION. A rule that
+   stripped angle brackets, or that keyed on the tag name, would delete an editor's supplements from
+   four books, silently, and leave prose that still reads.
+
+   So there are three tests, each sufficient on its own and each safe on its own terms:
+     · a CLOSING tag — an editor supplies a word, never `</word>`. This is also what catches the City
+       of God's `<§/poem>`, whose section sign is the transcriber's own slip.
+     · an ATTRIBUTE — an editor supplies words, never `name="value"`. This is the Rigveda's anchor.
+     · a MediaWiki EXTENSION TAG BY NAME, from a list DECLARED here rather than derived. None of these
+       is a word in English, Latin, Greek, Old French, Old English or Sanskrit, and being a list it
+       can never grow by accident into `a`, `i`, `b` or `q`, which are all words somewhere on this
+       shelf.
+   Anything else is left exactly as it stands, which is what keeps the ninety supplements safe.
+
+   IT RUNS AT THE WRITE, NOT IN `stripTags`, AND THAT WAS THE SECOND ATTEMPT. `stripTags` looks like
+   the one place every branch passes through — 21 call sites, 48 books — and it is not: the Rigveda's
+   `suktaBody` flattens its page with a blunt regex of its own, because three of its four page shapes
+   carry no markup at all, so the rule fired for the Song of Roland and the City of God and silently
+   did nothing for the book with half the occurrences. `writeEnglish` and `writeOriginal` are the
+   places every branch really must reach, since they are what serialise the file; running here also
+   means each output file is swept exactly once, which is what makes the count honest.
+
+   WHAT IS DROPPED IS COUNTED AND REPORTED, per file: a rule that silently removed text from every
+   book on the shelf is the last thing this file needs. */
+const ESC_EXT_TAGS = ["poem", "nowiki", "pre", "ref", "references", "gallery", "math", "score",
+                      "syntaxhighlight", "timeline", "includeonly", "noinclude", "onlyinclude"];
+const ESC_CLOSING = /&lt;[^a-zA-Z&<>]{0,3}\/\s*[a-zA-Z][a-zA-Z0-9]{0,14}\s*&gt;/g;
+const ESC_ATTR = /&lt;\/?[a-zA-Z][a-zA-Z0-9]{0,14}\s+[a-zA-Z][a-zA-Z0-9-]{0,20}\s*=\s*"[^"&]{0,200}"[^&<>]{0,40}&gt;/g;
+const ESC_EXT = new RegExp("&lt;\\s*(?:" + ESC_EXT_TAGS.join("|") + ")\\s*/?\\s*&gt;", "gi");
+const ESC_HITS = Object.create(null);
+/* Each test twice: once for a tag STANDING ALONE ON ITS LINE, which takes the line with it, and then
+   for one sitting inside a line, which takes only itself. Without the first the removal leaves the
+   blank line the tag occupied — invisible to a reader, since these newlines collapse, and debris in
+   a generated file that a person does read. The line form is tried first because the inline form
+   would otherwise match and leave the newline behind for it. */
+const ESC_RULES = [ESC_CLOSING, ESC_ATTR, ESC_EXT].map((rx) => [
+  new RegExp("^[ \\t]*(?:" + rx.source + ")[ \\t]*\\n", rx.flags.replace("g", "") + "gm"),
+  rx,
+]);
+function dropEscapedTags(b) {
+  if (typeof b !== "string" || b.indexOf("&lt;") < 0) return b;
+  for (const [line, inline] of ESC_RULES) {
+    b = b.replace(line, (m) => { const t = m.trim(); ESC_HITS[t] = (ESC_HITS[t] || 0) + 1; return ""; });
+    b = b.replace(inline, (m) => { ESC_HITS[m] = (ESC_HITS[m] || 0) + 1; return ""; });
+  }
+  return b;
+}
+/* Every string a chapter record carries, since a tag printed in a translator's NOTE reads exactly as
+   badly as one printed in the prose, and a chapter TITLE is text like any other. */
+function dropEscapedTagsIn(chapters) {
+  chapters.forEach((c) => {
+    if (typeof c.html === "string") c.html = dropEscapedTags(c.html);
+    if (typeof c.t === "string") c.t = dropEscapedTags(c.t);
+    if (Array.isArray(c.notes)) c.notes = c.notes.map(dropEscapedTags);
+  });
+}
+/* Reported AND CLEARED at each write, which is honest now that the sweep runs once per output file:
+   the first shape of this ran inside `stripTags`, where a page read twice — the Song of Roland's
+   English is read once for the translation and again to reconcile the Old French against it — was
+   counted twice and then printed under the wrong column. Swept per file, each is counted where it
+   belongs and the tally starts again for the next. */
+function reportEscapedTags() {
+  const ks = Object.keys(ESC_HITS);
+  if (!ks.length) return;
+  console.log("  " + ks.reduce((n, k) => n + ESC_HITS[k], 0) + " escaped markup tag(s) dropped: " +
+    ks.map((k) => k + (ESC_HITS[k] > 1 ? " ×" + ESC_HITS[k] : "")).join(", "));
+  ks.forEach((k) => delete ESC_HITS[k]);
+}
+
 function stripTags(b) {
   const out = [];
   const stack = [];
@@ -17895,6 +18029,9 @@ function applyFixes(h) {
    hyphen-wrapped `every-where` is deleted before the `f`-as-quote sweep can see it and read it as a
    quotation mark. Order the exceptions above, and the sweep below. */
 const REFIX_HITS = Object.create(null);
+/* The same tally for `O.reFixes`, kept apart from the English one so a row of each cannot be
+   reported under the other's heading — see writeOriginal, where the original's table is applied. */
+const ORIG_REFIX_HITS = Object.create(null);
 function applyReFixes(h) {
   if (!BOOK || !BOOK.reFixes) return h;
   for (const [rx, to] of BOOK.reFixes) {
@@ -26661,6 +26798,9 @@ function joinBrokenParas(chapters) {
 
 function writeEnglish(chapters, warnings) {
   chapters.sort((a, b) => a.n - b.n);
+  /* A tag the source escaped, which would otherwise be PRINTED — see dropEscapedTags for the three
+     tests and for why this is here rather than in `stripTags`. */
+  dropEscapedTagsIn(chapters);
   /* A CHAPTER TITLE IS ON THE ROMANISATION'S OTHER SIDE, and it was not for the first run of B2. The
      Analects names its twenty books after their opening words — 子路, 顏淵, 子張 — so the chapter bar
      read "Tsze-lu" over a chapter whose every sentence had been given as Zilu. A title comes from the
@@ -26768,6 +26908,13 @@ function writeEnglish(chapters, warnings) {
       if (!n) warnings.push("a declared reFix matched nothing: " + String(rx));
     }
   }
+  /* WHAT THE ESCAPED-TAG RULE TOOK OUT, named rather than counted (Sep 2026, batch E45). It is the
+     one pass in this file that removes text from every book on the shelf without a row in any entry
+     declaring it, so a run that removes something must say what: eight tags in three books when it
+     was written, and a NINTH appearing on some other book is either a new transcription fault worth
+     knowing about or this rule having grown a false positive, and both want reading. */
+  reportEscapedTags();
+
   /* THE ARTICLES PUT BACK, counted both ways for the reason every table here is: a splice that has
      stopped firing is either an upstream fix (good, and the entry must go) or this file having lost
      its grip on the page (bad), and the two look identical from a silent run. */
@@ -27601,6 +27748,34 @@ function writeOriginal(byNum, warnings) {
      rather than the passes being written twice: a repair that runs on one column and not the other
      is a book whose two halves disagree about what a paragraph is. */
   const asChapters = nums.map((n) => ({ n: n, html: byNum[n] }));
+  /* The same sweep the translation gets, and the City of God is why it must be on both halves: its
+     two escaped tags are on the LATIN side, so a rule written only for the English would have missed
+     the book that motivated it. */
+  dropEscapedTagsIn(asChapters);
+  asChapters.forEach((c) => { byNum[c.n] = c.html; });
+  /* ---------- THE ORIGINAL'S OWN CORRECTION TABLE (Sep 2026, batch E45) ----------
+     `BOOK.reFixes` is English. It runs through `correctRaw`, which also applies `applyRoman` and
+     `applyGlyphs` — a Wade-Giles romanisation pass and a scan's broken-letter table — and neither has
+     any business anywhere near a Latin, Greek or Sanskrit column, which is why the original branches
+     have always been right not to call it. What they had instead was NOTHING: three ways of gathering
+     an original and no way at all of repairing a defect in one, so a fault in an original column could
+     only be recorded, never fixed.
+     `O.reFixes` is the sibling that was missing, and it is deliberately the NARROWEST of the two: a
+     declared list of `[regex, replacement, why]` and no romanisation, no glyph table, no name
+     unwrapping. It runs HERE — one place, where all three gathering branches meet — and on the
+     extractor's own output rather than on the page, which is E29's rule. Counted and reported exactly
+     as the English's are, DID NOT FIRE included, since a row that has stopped matching is either an
+     upstream repair or this file having lost its grip, and a silent run cannot tell you which. */
+  if (O.reFixes) {
+    for (const [rx, to] of O.reFixes) {
+      const key = String(rx);
+      if (!(key in ORIG_REFIX_HITS)) ORIG_REFIX_HITS[key] = 0;
+      asChapters.forEach((c) => {
+        c.html = c.html.replace(rx, () => { ORIG_REFIX_HITS[key]++; return to; });
+      });
+    }
+    asChapters.forEach((c) => { byNum[c.n] = c.html; });
+  }
   restoreLostSpaces(asChapters, O);
   if (O.verseNewlines) versifyNewlines(asChapters);
   wrapLooseText(asChapters);
@@ -27650,6 +27825,14 @@ function writeOriginal(byNum, warnings) {
   if (missing.length) console.log("  no original for " + missing.length + " chapter(s): " + missing.join(", "));
   if (ORIG_TIPS)
     console.log("  dropped " + ORIG_TIPS + " editorial variant tooltip(s) from the original's prose");
+  reportEscapedTags();
+  if (O.reFixes) {
+    for (const [rx, , why] of O.reFixes) {
+      const n = ORIG_REFIX_HITS[String(rx)] || 0;
+      console.log("  " + O.langName.toLowerCase() + " refix " + (n ? "applied " + n + "x" : "DID NOT FIRE") + " — " + why);
+      if (!n) warnings.push("a declared original-language reFix matched nothing: " + String(rx));
+    }
+  }
   if (warnings.length) {
     console.log("\n  " + warnings.length + " warning(s):");
     warnings.forEach((w) => console.log("    " + w));
