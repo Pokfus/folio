@@ -272,6 +272,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B3a | `samurai-katana`, `ukiyo-e-print`, `goryeo-celadon` | — |
 | B3b | `daguerreotype`, `jomon-dogu`, `magatama` (**B3's list is now empty but for `dotaku`**) | `dotaku` (needs a third openable work) |
 | B4a | `dong-son-drum`, `lapita-pottery`, `palm-leaf-folio` | `ban-chiang-pot` |
+| C2a | `thule-harpoon-head`, `great-zimbabwe-bird` (**two, not three — see below**) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -912,6 +913,43 @@ journal before concluding the region has no literature.**
   answers 202 with an empty body**, joining figshare as a second of that shape; `mdpi.com` is 403 as
   before, and neither *Chemosensors* nor *Religions* has a PMC copy, so C1b's "check PMC first" does not
   rescue an MDPI journal outside the life sciences.
+
+**C2a's finding is that THE OUT-OF-COPYRIGHT MONOGRAPH IS NOT A LAST RESORT, IT IS THE BEST SOURCE
+THERE IS FOR A VICTORIAN EXCAVATION — and that a whole plate can be built from three of them.** The
+Zimbabwe Bird rests on Bent 1892, Hall and Neal 1904 and Randall-MacIver 1906, all whole on archive.org
+with clean OCR, and between them they give the object (the one intact beak, the ruled feathers, the
+necklace with its brooch, the rosette eyes, what each bird perches on), the whole roll-call of Victorian
+speculation, and the 1905 excavation that ended it — *nothing more than a few centuries old, and nothing
+that was not either a medieval import or characteristically African*. **No modern paper could have
+carried that plate**, because the argument the artefact is famous for happened in those books: `Azania`
+is Taylor & Francis and 403 here, the *South African Archaeological Bulletin* is on JSTOR, and neither
+is where the mistake was made. The same route carried the Thule harpoon head, whose typology is
+Mathiassen's 1930 Fifth Thule Expedition volume, open in full.
+
+· **THE BATCH IS TWO ARTEFACTS AND NOT THREE, AND THE THIRD WAS A SELF-INFLICTED WOUND.** `obsidian-blade`
+  was researched to three open sources — Buck's 1982 surgical paper, the Templo Mayor pXRF study and the
+  Keros sourcing study — and then refused by `add-artefacts.js` because **it is already in the pool**. The
+  plan's own row lists it, the diff of plan against pool did not, and the id was chosen from the row. **Read
+  the DIFF, never the plan row**: one command answers what is actually missing
+  (`node -e` over `artefact-io.js` against the plan's tables), and it is the only thing that knows what has
+  shipped. The research is not wasted so much as unspendable — the existing entry is at the bar already.
+· **A NEW ARTEFACT MAY SHIP WITHOUT A PICTURE, AND THIS ONE DOES.** Commons has no photograph of an
+  archaeological Thule harpoon head: `Category:Thule culture` holds house ruins, food caches and
+  distribution maps, the searches return modern Inuit hunting gear, a Smithsonian plate of toggle harpoons
+  from everywhere at once, and — the trap worth recording — a Met file whose title says harpoon and whose
+  record says **Japan**. A modern head captioned as an ancient one would be the replica fault in another
+  coat, so the entry ships with none.
+· **`journals.openedition.org` IS BEHIND THE ANUBIS WALL AGAIN**, which retires N3's note that it had
+  dropped it. That closes the one open source found for `phonograph-cylinder` (a *Gradhiva* paper on the
+  1907–09 South Cameroon cylinders), and E3 is now the batch to worry about rather than B4: **the
+  industrial everyday's literature is in *Post-Medieval Archaeology* (403) and *Historical Archaeology*
+  (Springer, paywalled, and the curl route that opens *Heritage Science* does not open a closed Springer
+  article — it returns a 3,038-byte stub)**, and Crossref's open alternatives for transferware, Bartmann
+  jugs and wax cylinders came to one usable work apiece. Expect to write E3 from archive.org or to defer
+  most of it.
+· Two smaller notes. **`id.erudit.org` is CONNECT-rejected here**, so an Érudit DOI cannot be followed even
+  though `www.erudit.org` answers 200 — try the article path directly. And **`pmc.ncbi.nlm.nih.gov` throws
+  an occasional reCAPTCHA page**; it clears on a retry and is not a fact about the article.
 
 ## The per-artefact workflow
 

@@ -1113,4 +1113,18 @@ window.ARTEFACTS = [
     date: "c. 16th – early 20th century CE",
     origin: "South and Southeast Asia",
   },
+  {
+    id: "thule-harpoon-head",
+    name: "Thule harpoon head",
+    rarity: "rare",
+    date: "c. 1000 – 1600 CE",
+    origin: "The North American Arctic and Greenland",
+  },
+  {
+    id: "great-zimbabwe-bird",
+    name: "Zimbabwe Bird",
+    rarity: "epic",
+    date: "c. 13th – 15th century CE",
+    origin: "Great Zimbabwe",
+  },
 ];
