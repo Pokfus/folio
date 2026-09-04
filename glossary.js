@@ -2007,7 +2007,8 @@ window.GLOSSARY = {
 "Caudine_Forks": "The Caudine Forks were a defile in Samnium, in the central Apennines of Italy, where a Roman army was surrounded and forced to surrender in 321 BCE during the second war between Rome and the Samnites.<sup class=\"fn\" data-fn=\"1\"></sup> Livy places the trap between two narrow wooded passes enclosing a grassy plain, both of them barricaded once the legions had marched in, and reports that the Samnite commander Gaius Pontius disarmed the men and sent them under the yoke rather than free or kill them.<sup class=\"fn\" data-fn=\"1\"></sup> Rome afterwards disowned the terms and the fighting resumed, and later scholarship has held that the surviving accounts of the episode are heavily reworked.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Maniple_(military_unit)": "A maniple, in Latin <i>manipulus</i>, was a subdivision of the Roman legion used in the centuries between the abandoning of the phalanx and the adoption of the cohort as the standard unit.<sup class=\"fn\" data-fn=\"2\"></sup> The name is derived from <i>manus</i> and first meant a wisp of hay, which Roman tradition made the earliest military standard, so that the word came to mean the men serving under one ensign.<sup class=\"fn\" data-fn=\"2\"></sup> Polybius describes each grade of the heavy infantry being divided into ten such companies, each with two centurions, two rear-rank officers and two standard-bearers, so that it should never be without a commander.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Third_Samnite_War": "The Third Samnite War was fought between Rome and the Samnites from 298 to 290 BCE, the last of the three conflicts that decided the control of central and southern Italy.<sup class=\"fn\" data-fn=\"2\"></sup> It opened when envoys from Lucania asked the Roman senate for help, saying the Samnites had pressed them into an alliance and invaded when they refused, and it widened as the Samnites drew the Etruscans, Umbrians and Gauls into a league.<sup class=\"fn\" data-fn=\"1\"></sup> That coalition was broken at Sentinum in 295 BCE, but the Samnites fought on for five more years before laying down their arms.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Battle_of_Sentinum": "The Battle of Sentinum was fought in 295 BCE in Umbria, in the Third Samnite War, between Rome and a coalition of Samnites, Gauls, Etruscans and Umbrians.<sup class=\"fn\" data-fn=\"2\"></sup> The two consuls commanded, Quintus Fabius on the right against the Samnites and Publius Decius Mus on the left against the Gauls; Decius devoted himself to death when his wing began to give way, as his father had done, and the Samnite leader Gellius Egnatius was killed.<sup class=\"fn\" data-fn=\"1\"></sup> Livy reports 25,000 of the enemy dead, and the exact ground on which the battle was fought is not known.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Battle_of_Sentinum": "The Battle of Sentinum was fought in 295 BCE in Umbria, in the Third Samnite War, between Rome and a coalition of Samnites, Gauls, Etruscans and Umbrians.<sup class=\"fn\" data-fn=\"2\"></sup> The two consuls commanded, Quintus Fabius on the right against the Samnites and Publius Decius Mus on the left against the Gauls; Decius devoted himself to death when his wing began to give way, as his father had done, and the Samnite leader Gellius Egnatius was killed.<sup class=\"fn\" data-fn=\"1\"></sup> Livy reports 25,000 of the enemy dead, and the exact ground on which the battle was fought is not known.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Roman_conquest_of_Etruria": "The Roman conquest of Etruria was the reduction of the Etruscan cities of central Italy by Rome, beginning with the capture of Veii in 396 BCE and ending with the submission of Volsinii shortly before the First Punic War.<sup class=\"fn\" data-fn=\"1\"></sup> It was not a single campaign: colonies at Sutrium and Nepete formed a frontier, a forty-year truce with Tarquinii held from 351, and the decisive fighting came after 311 with the crossing of the Ciminian forest and victories at Lake Vadimon.<sup class=\"fn\" data-fn=\"1\"></sup> Several cities took separate truces rather than fight on, and the terms on which each was received are almost entirely unknown.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2808,7 +2809,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Caudine_Forks": "321 BCE",
 "Maniple_(military_unit)": "c. 4th – 1st century BCE",
 "Third_Samnite_War": "298 – 290 BCE",
-"Battle_of_Sentinum": "295 BCE"
+"Battle_of_Sentinum": "295 BCE",
+"Roman_conquest_of_Etruria": "396 – 264 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6078,7 +6080,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Caudine_Forks": ["event","history","warfare","italy"],
 "Maniple_(military_unit)": ["institution","warfare","history","rome"],
 "Third_Samnite_War": ["event","history","warfare","italy"],
-"Battle_of_Sentinum": ["battle","history","warfare","italy"]
+"Battle_of_Sentinum": ["battle","history","warfare","italy"],
+"Roman_conquest_of_Etruria": ["event","history","warfare","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

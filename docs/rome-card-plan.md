@@ -416,7 +416,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-155  Maniple
     rm-156  Third Samnite War
     rm-157  Battle of Sentinum
-    rm-158  Rome's conquest of Etruria
+    rm-158  Roman conquest of Etruria
     rm-159  The conquest of Umbria and Picenum
     rm-160  Rome's Gallic wars in northern Italy
     rm-161  Battle of Telamon
