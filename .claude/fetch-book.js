@@ -18233,6 +18233,64 @@ function supplyQuestion(rec, book, warn) {
 }
 
 
+/* A LOST ARTICLE, WHICH IS NEITHER OF THE OTHER TWO (Sep 2026, batch E40). `supplyArticles` REPLACES
+   an article the wiki set twice under its neighbour's number; `supplyQuestion` REPLACES a whole
+   question whose page carries the one before it. This INSERTS an article that is simply absent, and
+   renumbers what follows.
+
+   II-II q.180 forced it. Its page carries seven headings for a question that states eight articles,
+   and the heading labelled `Art. 5` carries article SIX's title and text — measured, Folio's block
+   numbered 5 is **99.83%** the witness's article six and 45% its article five. So article 5 is gone,
+   the count-agreement rule cannot renumber (seven headings against a stated eight), and every article
+   from there on is filed one number early.
+
+   THE GUARD IS THE BLOCK THAT STANDS IN THE MISSING ONE'S PLACE. `beforeTitle` names the title that
+   block carries WHILE THE FAULT STANDS; the insert goes immediately before it, and if that title has
+   gone the wiki has been corrected upstream and the entry reports itself dead rather than inserting
+   an article into a page that already has one. A dead entry is reported exactly as a dead correction
+   row is.
+
+   IT RENUMBERS THE WHOLE CHAPTER 1..N AFTERWARDS, which is `markArticuli`'s own count-agreement rule
+   applied one layer later: with the insert in place the article blocks are all there and in order, so
+   their numbers are their positions. That is what turns the printing's `Art. 7` and `Art. 8` — which
+   were correct all along and which the missing head had left looking like a gap — back into 7 and 8
+   with a real 6 between them. */
+let INSERTED = 0;
+const INSERT_DEAD = [];
+let _insertTable = null;
+function insertArticle(rec, book, warn) {
+  if (!_insertTable) {
+    const p = path.join(__dirname, book.supplied);
+    _insertTable = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")).inserts || [] : [];
+  }
+  const want = _insertTable.filter((a) => a.ch === rec.n);
+  if (!want.length) return rec.html;
+  let html = rec.html;
+  for (const a of want) {
+    const HEAD = /<p><span class="bk-n">(\d+)<\/span>\s*<b>([\s\S]*?)<\/b><\/p>/g;
+    const cuts = [];
+    let m;
+    while ((m = HEAD.exec(html))) cuts.push({ n: +m[1], at: m.index, title: m[2].replace(/<[^>]*>/g, "") });
+    const i = cuts.findIndex((c) => c.title.indexOf(a.beforeTitle) === 0);
+    if (i < 0) {
+      INSERT_DEAD.push(a.question + " art " + a.article + ": nothing in the chapter opens on \u201c" +
+        a.beforeTitle.slice(0, 60) + "\u2026\u201d \u2014 the transcription may have been corrected " +
+        "upstream, so read it before trusting this entry");
+      continue;
+    }
+    const built = '<p><span class="bk-n">' + a.article + "</span> <b>" + a.title + "</b></p>\n" +
+      a.paragraphs.map((q) => "<p>" + q + "</p>").join("\n") + "\n<p><br></p>\n";
+    html = html.slice(0, cuts[i].at) + built + html.slice(cuts[i].at);
+    /* and renumber every article block in the chapter, in the order they stand */
+    let k = 0;
+    html = html.replace(/<p><span class="bk-n">\d+<\/span>/g, () =>
+      '<p><span class="bk-n">' + ++k + "</span>");
+    INSERTED++;
+  }
+  return html;
+}
+
+
 /* THE OTHER HALF OF THAT SHIFT, GUARDED (Sep 2026, batch E38). `pageShift` sends a chapter to a
    differently-named page, which is right exactly while the source is wrong. Each entry names the
    opening the SHIFTED page carries, so a run can tell "the fault is still there and the redirection
@@ -26040,6 +26098,7 @@ async function fetchEnglish() {
       if (BOOK.pageShift) checkPageShift(cached, BOOK);
       if (BOOK.supplied) cached.html = supplyQuestion(cached, BOOK, (m) => warnings.push(m));
       if (BOOK.supplied) cached.html = supplyArticles(cached, BOOK, (m) => warnings.push(m));
+      if (BOOK.supplied) cached.html = insertArticle(cached, BOOK, (m) => warnings.push(m));
       if (BOOK.dedupe) cached.html = dedupeArticles(cached, BOOK, (m) => warnings.push(m));
       chapters.push(cached);
       continue;
@@ -26224,6 +26283,7 @@ async function fetchEnglish() {
     if (BOOK.pageShift) checkPageShift(rec, BOOK);
     if (BOOK.supplied) rec.html = supplyQuestion(rec, BOOK, (m) => warnings.push(m));
     if (BOOK.supplied) rec.html = supplyArticles(rec, BOOK, (m) => warnings.push(m));
+    if (BOOK.supplied) rec.html = insertArticle(rec, BOOK, (m) => warnings.push(m));
     if (BOOK.dedupe) rec.html = dedupeArticles(rec, BOOK, (m) => warnings.push(m));
     chapters.push(rec);
     console.log("  " + BOOK.chapterWord + " " + n + " — " + rec.t + " (" + html.length + " chars, " + notes.length + " notes)");
@@ -26581,14 +26641,17 @@ function writeEnglish(chapters, warnings) {
      its grip on the page (bad), and the two look identical from a silent run. */
   if (BOOK.supplied)
     console.log("  " + SUPPLIED + " article(s) and " + SUPPLIED_Q +
-      " whole question(s) supplied from a second transcription of the same edition" +
-      (SUPPLY_DEAD.length + SUPPLY_Q_DEAD.length
-        ? ", and " + (SUPPLY_DEAD.length + SUPPLY_Q_DEAD.length) + " entr(y/ies) that no longer apply" : ""));
+      " whole question(s) and " + INSERTED +
+      " inserted article(s) supplied from a second transcription of the same edition" +
+      (SUPPLY_DEAD.length + SUPPLY_Q_DEAD.length + INSERT_DEAD.length
+        ? ", and " + (SUPPLY_DEAD.length + SUPPLY_Q_DEAD.length + INSERT_DEAD.length) +
+          " entr(y/ies) that no longer apply" : ""));
   if (BOOK.dedupe)
     console.log("  " + DEDUPE_TRAIL + " paragraph(s) removed from the end of an article they do not belong to, and " +
       DEDUPE_RUN + " from a run the transcription set twice");
   for (const d of SUPPLY_DEAD) warnings.push("a supplied article did not apply — " + d);
   for (const d of SUPPLY_Q_DEAD) warnings.push("a supplied question did not apply — " + d);
+  for (const d of INSERT_DEAD) warnings.push("a supplied article was not inserted — " + d);
   for (const d of SHIFT_DEAD) warnings.push("a page redirection may no longer be needed — " + d);
 
   if (BOOK.glyphs) {

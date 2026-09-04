@@ -1551,6 +1551,42 @@ in five spellings, and each was found only by reading the survivors of the last:
     16 taken the other way. One survives even that (II-II q.48 says four points and has one article,
     the other three being questions 49–51), and it is recorded rather than "fixed".
 
+**AND TWO MORE THAT WERE SIMPLY GONE** (Sep 2026, batch E40, `insertArticle`). E39 repaired heads that
+were UNREAD; these had nothing behind them, and between them they needed the THIRD supply mode and a
+second witness.
+
+  · **SUPPLEMENT QUESTION 12 IS E38's FAULT AGAIN** — its page carries question 11's text, so chapters
+    523 and 524 shipped byte-identical. **Gutenberg's four volumes stop at Part III**, which is what
+    made E38 leave it; the witness is **CCEL**, validated at **99.02% and 99.12%** on Supplement
+    questions 11 and 13 that Folio already carries, and it needs no reply-marker normalisation because
+    it writes "Objection 1:" exactly as this book does. **It is cross-checked against New Advent's
+    independently derived copy (97.4%)**, and that matters more here than anywhere: CCEL and Wikisource
+    may share a transcription lineage, and **agreement between relatives proves nothing**.
+  · **ASK WHO ELSE PUBLISHES THE TRANSLATION BEFORE CONCLUDING A WITNESS IS UNREACHABLE.** The
+    archive.org search that E38 ran found printed volumes for Supplement questions 34–68, 69–86 and
+    87–99 and **none for 1–33**; two web editions of the same translation carry all of it.
+  · **CCEL's OWN TEXT IS ONE `<div class="book-content">`.** A slice from the top of the page drags 40%
+    site chrome in and scores 0.83 — which reads as a different transcription and is a different
+    SELECTION of the same one.
+  · **II-II q.180's ARTICLE 5 IS A LOST ARTICLE AND NEEDED AN INSERT.** Its heading labelled `Art. 5`
+    carries article SIX's title and text (**99.83% against 45%**, measured), so the question ran
+    1,2,3,4,5,7,8 with the fifth gone. `insertArticle` puts it before the block standing in its place
+    and renumbers the chapter 1..N — the count-agreement rule one layer later — with `beforeTitle` as
+    the guard, naming the title that block carries WHILE THE FAULT STANDS.
+  · **THE TWO REPLY NORMALISATIONS ARE ORDER-DEPENDENT AND WERE THE WRONG WAY ROUND.** `Obj. N:` →
+    `Objection N:` applied first eats the `Obj.` inside `Reply Obj. N:`, so **28 replies shipped as
+    "Reply Objection 3:"** — 3 in the article E35 supplied, 25 in the question E38 supplied — against
+    7,590 correct ones written by the transcription itself. **Nothing in the pipeline could see it**:
+    the words are right and the marker is a form the book never otherwise uses, so no non-word sweep
+    and no citation check touches it. It surfaced only on running the converter again and reading its
+    output. **Read what a converter PRODUCES, not only what it was given.**
+  · **KNOWN AND UNREPAIRED: II-II q.153, a page fault of a fifth kind.** Its question heading carries
+    **article 1's title** and its prologue is missing, so that heading is dropped as furniture and
+    article 1 with it, leaving four headings for a stated five and the printing's articles 2–5
+    numbered 1–4. The likely rule — *a question's own title is a noun phrase in capitals and never an
+    interrogative, so a "Question…" heading ending in a question mark is an article head* — touches the
+    weak role test that four other questions depend on, so it wants a whole-book remeasure.
+
 **📖 `.claude/summa-witness.js` — RUN IT AFTER ANY CHANGE TO THIS BOOK.** The fourth scanner, and the
 only one that can see text that is simply gone. Three checks: articles against the witness, each
 chapter's TITLE against its own PROLOGUE (two independent statements of one fact — this is what finds

@@ -1555,8 +1555,11 @@ function aeneidChecks() {
       /* 3,094 until E38 restored question 35 (+4), then 3,098 until E39 read 27 article heads the
          transcription had left as prose. A pinned total is exactly the assertion that ought to fire
          on a change like either, and it did both times — so raise it deliberately, against a figure
-         derived from the edition, and never to whatever the run happens to print. */
-      check("...3,125 articles across them", summa.secs === 3125, String(summa.secs));
+         derived from the edition, and never to whatever the run happens to print. E40 then took it
+         DOWN to 3,124: Supplement q.12's three articles stand where question 11's five were being
+         printed a second time, and q.180 gained the article it had lost. A pinned total that only
+         ever goes up is not measuring the book. */
+      check("...3,124 articles across them", summa.secs === 3124, String(summa.secs));
       check("...every chapter's articles ascending, with no duplicate",
         !summa.disorder.length, JSON.stringify(summa.disorder.slice(0, 6)));
       /* Both of these were pinned to a fault rather than to a fact, and E39 removed the fault: I-II
@@ -2873,6 +2876,31 @@ function aeneidChecks() {
       /Cao Pi|Tao Qian|Gan Ning/.test(titles) && !/Cao Bi|Dao Qian/.test(titles),
       (titles.match(/Cao Bi|Dao Qian/) || [""])[0]);
 
+    /* ================= 6j. the two articles that were simply gone =================
+       Sep 2026, batch E40. Two more losses of E38's kind and one of the programme's own making.
+
+       Supplement q.12 is E38's fault a second time — the wiki's page for it carries question 11's
+       text — and it has no Gutenberg volume behind it, so its witness is CCEL's copy of the same
+       translation, cross-checked against New Advent's. II-II q.180's article 5 is a LOST ARTICLE
+       rather than a lost question: the heading labelled `Art. 5` carries article SIX, so the
+       question ran 1,2,3,4,5,7,8 with the fifth absent and the sixth wearing its number. */
+    check("[summa] Supplement q.12 is no longer question 11 printed twice",
+      su.indexOf("We must now inquire about the seal of confession") ===
+      su.lastIndexOf("We must now inquire about the seal of confession"));
+    check("[summa] ...and carries satisfaction, with its three articles",
+      /We must now consider satisfaction; about which four things have to be considered/.test(su) &&
+      /Whether the definition of satisfaction given in the text is suitable\?/.test(su));
+    check("[summa] II-II q.180's article 5 is back, before the one that wore its number",
+      su.indexOf("reach to the vision of the Divine essence?") > 0 &&
+      su.indexOf("reach to the vision of the Divine essence?") <
+        su.indexOf("fittingly divided into a threefold movement"));
+    /* AND THE FAULT IN OUR OWN SUPPLIED TEXT. Two normalisations of the witness's abbreviations are
+       order-dependent and were applied the wrong way round, so 28 replies shipped as "Reply
+       Objection 3:" where this book writes "Reply to Objection 3:" 7,590 times. Nothing could see
+       it: the words are right and the marker is a form the book does not otherwise use. */
+    check("[summa] no reply is left without its 'to'",
+      !/Reply Objection \d+:/.test(su), (su.match(/Reply Objection \d+:/g) || []).length + " left");
+
     /* ================= 6i. the heads the transcription left as prose =================
        Sep 2026, batch E39. Twenty-seven article heads across fourteen questions never became
        headings at all — five spellings of one fault, none of which throws and all of which read as a
@@ -2928,8 +2956,12 @@ function aeneidChecks() {
     check("[summa] the Supplement's question 25 is headed Of Indulgences",
       /OF INDULGENCES/.test(su) && !/UNDLUGENCES/.test(su));
 
-    check("[summa] but the work's own closing formula is untouched, 55 times over",
-      (su.match(/This suffices for the Replies to the Objections/g) || []).length === 55,
+    /* 55 until E40, and the one that went is the point rather than a loss: chapter 524 was printing
+       question 11's text a second time and question 11 uses the formula, so the 55th occurrence was
+       the duplicate. Checked chapter by chapter before this was re-pinned — every other chapter that
+       carried it still does, in the same number. */
+    check("[summa] but the work's own closing formula is untouched, 54 times over",
+      (su.match(/This suffices for the Replies to the Objections/g) || []).length === 54,
       String((su.match(/This suffices for the Replies to the Objections/g) || []).length));
   }
 

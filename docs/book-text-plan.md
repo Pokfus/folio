@@ -330,7 +330,8 @@ re-run and diffed byte for byte.
 | **E37** ✅ | the dead rows across the whole shelf | **24 rows reported dead in the Three Kingdoms and every one of them was live.** Rebuilding all 32 books that carry a correction table found dead rows in one book only — and all 24 names are correct in the shipped text, so the report was wrong rather than the rows. E29 corrected the chapter TITLE on the way in, so a cache marked `raw: 1` (meaning *the extractor's own output*) held a corrected title, and five rows that fire only on heads met one already converted. **The house rule would have deleted them**: eight chapter titles would have gone back to Wade-Giles at the next `--force`, silently. Fixed with a versioned marker, because correcting an already-corrected title applies `applyRoman` twice — measured, seven titles moved and every one was already right |
 | **E38** ✅ | a second witness for the whole Summa | **A whole question of Aquinas was absent from the book and no scanner here could see it.** Wikisource serves Third Part question 33 under `Question 34` and question 34 under `Question 35`, so question 35 — Of Christ's Nativity, eight articles — is on no page of it: chapters 455 and 456 shipped **byte-identical** and 3,678 words were gone. E35 and E36 found lost text only because the loss left a DUPLICATE to trip over; **a loss that leaves nothing behind is invisible to a spelling sweep, to `book-audit` and to a duplication check alike**, and only a second transcription can see it. Repaired in two halves — a page redirection for the half that exists somewhere, the witness for the half that does not — plus a contents-page typo (`OF UNDLUGENCES`) that **could not fire**, E37's cache guard having refused to correct a freshly fetched title. Its finding is the instrument: the first run reported 33 phantom findings because Gutenberg's article headings **disagree with their own brackets seventeen times**, and E35's similarity walk reports 12.96% for two texts that are 99.41% identical |
 | **E39** ✅ | the article heads the transcription left as prose | **27 article numbers restored across fourteen questions, from one fault wearing five coats.** An article head that never became a heading: escaped as `==== Art. N -` in the prose (the title wrapped, and a wiki heading must be on one line), the same with no closing run, the same inside a `<pre>` (the line began with a space), a bare paragraph with no markup at all, and a `<pre>` with no equals signs. **Each coat was found only by reading the SURVIVORS of the last**, because in the finished book they all look identical — a repair rate measured on the output said "finished" three times. The rule for an unmarked head comes out of the work's own shape (every article opens with its question and then "Objection 1:") and its argument is a measurement: **3,071 agreements with the existing numbering against 16 findings**. Its own fault was that the first fix ATE an article — the treatise fallback claims the first unnumbered heading on a page, which on a page whose only headings this pass had just made was article 1 |
-| **E40–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E40** ✅ | the two articles that were simply gone | **Four more articles of Aquinas put back, a third supply mode, and a fault in the text this programme had already supplied.** Supplement q.12 is E38's fault again (its page carries question 11's text) and Gutenberg stops at Part III, so the witness is **CCEL** — validated at 99.0%/99.1% on two questions Folio has, then cross-checked against New Advent, because CCEL and Wikisource may share a lineage and **agreement between relatives proves nothing**. II-II q.180's article 5 needed an INSERT rather than a replace: its `Art. 5` heading carries article SIX (99.83% against 45%, measured). And **28 replies shipped without their "to"** — two normalisations of the witness's abbreviations are ORDER-DEPENDENT and had been the wrong way round since E35, so `Reply Obj. 3:` became `Reply Objection 3:` in every article supplied. Nothing could see it: the words are right and the marker is a form the book never otherwise uses |
+| **E41–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
@@ -395,6 +396,75 @@ not deferred.**
 ---
 
 ## 8. Batch log
+
+### E40 — the two articles that were simply gone, shipped 2026-09-04
+
+**Four more articles of Aquinas put back, a third supply mode, and a fault of this programme's own
+making found in the text it had already supplied.** E39 fixed heads that were UNREAD; these are heads
+with nothing behind them.
+
+**SUPPLEMENT QUESTION 12 IS E38's FAULT A SECOND TIME.** The wiki's page for *Of Satisfaction, as to
+its Nature* carries question 11's text, so chapters 523 and 524 shipped byte-identical and three
+articles were absent. **Gutenberg's four volumes stop at Part III**, which is why E38 left this
+measured and not repaired — so the witness had to be found. It is **CCEL**, whose copy of the same
+Dominican translation validates at **99.02% and 99.12%** on Supplement questions 11 and 13, which Folio
+already carries, and which needs no reply-marker normalisation at all because it writes "Objection 1:"
+exactly as this book does. **It is then cross-checked against New Advent's independently derived copy,
+which agrees at 97.4%** — and that second check matters more here than anywhere, because CCEL and
+Wikisource may share a transcription lineage and **agreement between relatives proves nothing**.
+
+> Two notes on finding it. The archive.org search for a printed Supplement volume produced the 1922
+> volume for questions 87–99 and the 1912 volumes for 34–68 and 69–86, and **no volume for questions
+> 1–33 at all** — the one that holds q.12. What answered instead were two web editions of the same
+> translation, either of which E38 could have used had it looked past the scans. **Ask who else
+> publishes the translation before concluding a witness is unreachable.** And CCEL's own text is one
+> `<div class="book-content">`: a slice taken from the top of the page drags 40% site chrome in and
+> scores 0.83, which reads as a different transcription and is a different SELECTION of the same one.
+
+**II-II QUESTION 180's ARTICLE 5 IS A LOST ARTICLE, WHICH NEEDED THE THIRD SUPPLY MODE.**
+`supplyArticles` REPLACES an article the wiki set twice under its neighbour's number; `supplyQuestion`
+REPLACES a whole question whose page carries the one before it; neither can INSERT one that is simply
+absent. Here the heading labelled `Art. 5` carries article SIX's title and text — **measured, Folio's
+block numbered 5 is 99.83% the witness's article six and 45% its article five** — so the question ran
+1,2,3,4,5,7,8 with the fifth gone and the sixth wearing its number. `insertArticle` puts it in front of
+the block that stands in its place and then renumbers the chapter 1..N, which is `markArticuli`'s own
+count-agreement rule applied one layer later; `beforeTitle` is the guard, naming the title that block
+carries WHILE THE FAULT STANDS. Both new guards were negative-tested by breaking their phrase.
+
+**AND 28 REPLIES SHIPPED WITHOUT THEIR "to", IN THE TEXT THIS PROGRAMME SUPPLIED.** The witness
+abbreviates, so two normalisations turn `Obj. N:` into `Objection N:` and `Reply Obj. N:` into `Reply
+to Objection N:` — **and they are order-dependent.** Applied the wrong way round, as they were from
+E35, the first rule eats the `Obj.` inside the second's pattern and the second matches nothing: 3
+replies in the article E35 supplied and 25 in the question E38 supplied read "Reply Objection 3:"
+against 7,590 correct ones written by the transcription itself. **Nothing in the pipeline could see
+it** — the words are right, the paragraph is right, and the marker is a form the book does not
+otherwise use, so no sweep for a non-word and no citation check touches it. It surfaced only because
+E40 ran the same converter again and read its output paragraph by paragraph. **Read what a converter
+produces, not only what it was given.**
+
+**A THIRD PINNED ASSERTION FIRED, AND IT WAS THE ONE WORTH HAVING.** E36 pinned the Summa's own
+closing formula — *This suffices for the Replies to the Objections* — at 55, because the rule that
+removes duplicated paragraphs is one measurement away from removing the work's own refrain. It came
+back 54. Checked chapter by chapter before anything was re-pinned: **every chapter that carried it
+still does, in the same number, and the one that went is chapter 524**, which had been printing
+question 11's text a second time. The 55th occurrence WAS the duplicate. That is a pinned figure doing
+exactly the job it was written for — noticing, and making somebody look.
+
+**Left for E41, diagnosed and not repaired: II-II q.153, *Of Lust*, and it is a page fault of a fifth
+kind.** Its question heading carries **article 1's title** instead of the question's own ("Question.
+153 - Whether the matter of lust is only venereal desires and pleasures?"), and its prologue is missing
+altogether — so `markArticuli` reads that heading as furniture and drops article 1 with it, leaving
+four headings for a stated five and numbering the printing's articles 2–5 as 1–4. The repair is
+plausibly one clause: **a question's own title is a noun phrase in capitals and never an interrogative,
+so a "Question…" heading ENDING IN A QUESTION MARK is an article head**. It is left for its own batch
+because the weak "Question" test exists for four questions of the 614 and re-roling it wants a
+whole-book remeasure, which is 614 fetches this batch did not budget. The count would then have to come
+from the page's own `ws-title` block, the prologue that usually carries it being gone.
+
+**After it the book's own measure stands at ONE question** — II-II q.48, the known false positive whose
+"four points of inquiry" are the plan for questions 48 to 51 — **and the witness at 489 of 506
+agreeing**, the seventeen remaining being Gutenberg's own missing and misnumbered headings and two
+bracket typos E38 recorded.
 
 ### E39 — the article heads the transcription left as prose, shipped 2026-09-04
 
