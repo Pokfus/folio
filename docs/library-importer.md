@@ -1354,3 +1354,45 @@ It was found by pointing the helper at the three plain-text readers, whose parts
 dead-row report** — the build printed its counts, said `Wrote books/canterbury-tales.js`, and was
 believed for a good ten minutes. It throws now, naming the keys it found. **A comment claiming a
 helper fails loudly is not a helper that fails loudly**, and the difference is one line and a test.
+
+**THE TRANSCRIPTION'S ITALIC, WHICH ONE READER WAS NEVER GIVEN** (Sep 2026, batch E33). Project
+Gutenberg marks italic with a pair of underscores. `extractChaucer` has converted them since the day
+it was written; `extractQuixote` did not — so **86 italic passages of Don Quixote shipped with their
+marks showing**: *terra firma* reached the reader as `_terra firma_`, `_mine_` and `_thine_` in the
+Golden Age speech carried four underscores between them, and the romance parody the novel opens on
+had one at each end of 271 characters.
+
+  · **MEASURED BEFORE IT WAS WRITTEN**, because a pairing rule that guesses is worse than the marks it
+    replaces. Every chapter's underscore count is EVEN, all 86 spans pair, and **not one crosses a
+    paragraph, a blockquote or even a `<br>`** — so the conversion runs per BLOCK, where `[^_]` cannot
+    reach past the end of the block it is in, and it needs no lookahead and no state.
+  · **WHAT IS LEFT OVER IS REPORTED RATHER THAN KEPT QUIETLY.** An odd underscore is either damage the
+    reader should be told about or a pairing this rule cannot see; the run prints both figures, for the
+    same reason the verse blocks and the all-capital blocks are counted beside them.
+  · **AND AN UNDERSCORE IS NOT ALWAYS AN ITALIC MARKER.** The Canterbury Tales' source is a SCAN, not a
+    Gutenberg text, so its 22 underscores are specks and rules the OCR read as characters — which is
+    why `extractChaucer`'s own `_..._` rule has never once fired on it: all 106 of that book's italics
+    are rubrics. **Ask what the source IS before reading its punctuation as markup.**
+
+**TWO CONFUSION SHAPES THE SCANNER'S SET DID NOT CARRY** (Sep 2026, batch E33). `book-scan.js` holds
+u/n, c/e, l/i, l/t, h/b, f/t, o/c, g/q, y/v, m/n, rn/m, in/m, cl/d, li/h and ii/n. Two more turned up
+by accident, in a word noticed while reading round something else:
+
+  · **`h` READ AS `n`** — the arch of the h breaking so the letter closes into an n. `somewnat` for
+    *somewhat*, `cniefest` for *chiefest*, `bethougnt` for *bethought*, `Tney` for *They*.
+  · **`na` READ AS `m`, AND `m` SET AS `na`** — the same accident as the `rn/m` and `in/m` already in
+    the set, one letter pair further on. `Damans` for *Danaans*, `naortal` for *mortal*, `naagic` for
+    *magic*.
+
+**THE SHELF IS THE DICTIONARY, and that is what makes the h/n class usable at all.** Swept over the
+whole corpus it returns 57 candidates, nearly all of them ordinary words — `snow`/`show`,
+`heed`/`need`, `nigh`/`high` — because n and h swap into common English. Filtering to forms **no
+other book on the shelf knows** cuts it to nine, of which four are damage and five are real archaic
+words the filter cannot know (`nere` in Malory, `nighest` in the Summa, `snaring` in Plato, and the
+Chinese place names `Jianghan` and `Nanzhong`, both correct as printed). The plan's own rule about
+the confusion set — *a list nobody can read through is not evidence* — survives, and the shelf-wide
+filter is how a noisy class is made readable rather than abandoned.
+
+**AND A NAME MISREAD IS MISREAD WHEREVER IT IS SET THE SAME WAY.** `Damans` stands **three** times in
+the Iliad, so the single-occurrence sweep is blind to it: the `na`/`m` sweep allows up to four
+occurrences for exactly this reason, and the shelf filter carries the weight the count no longer can.

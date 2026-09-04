@@ -132,6 +132,21 @@ letter took it back to **207**, because a shortened word reaches every shorter r
 every longer one; that class is deliberately not reached, and the two shapes it would have caught are recorded
 in §6 instead. **A list nobody can read through is not evidence.**
 
+### `.claude/book-audit.js` — what cannot be right in a finished book
+
+The third scanner, and it asks a different question from the other two: not *is this word right?* but
+*is this a thing a finished book should contain at all?* — a replacement character, a double-escaped
+entity, an unresolved `[Greek: ]` marker, a Gutenberg sentinel, an empty paragraph, an unbalanced tag,
+a page number in the run of prose. It reads the shipped `books/*.js` rather than a cache, so it
+measures what a reader actually gets, and needs no network and no dictionary.
+
+**Its first run found Don Quixote's 86 italic passages shipping as literal underscores** — a fault
+nothing else on the shelf could see, because every word in the book is spelled correctly and every tag
+is balanced. That is the argument for a check written against the FORM of a finished text rather than
+against its words. Like its siblings it produces evidence and never a verdict: several of its checks
+fire on things that are correct (Marco Polo's seven bare ampersands are all `&c.`, which is what Yule
+prints).
+
 ### `.claude/book-vary.js <id>` — one name written two ways
 
 Fold every romanised form to a key ignoring case, hyphenation and the aspiration mark; report every key the
@@ -308,7 +323,9 @@ re-run and diffed byte for byte.
 | **E30** ✅ | the caches refreshed, and what fell out | **974 double-romanised names repaired across 111 of the Three Kingdoms' 120 chapters, and a row E19 deleted put back.** Refetching the twelve books that carry a correction table turned E29's machinery on and turned up two regressions of this programme's own making: E19's cached-path correction was applying `roman` a SECOND time to prose already romanised (`Ma Chao` → `Ma Zhao`, `Chang'an` → `Zhang'an`, `Kan Ze` → `Gan Ze`), and E19 had removed E15's live `corning` row on a dead-row report that meant nothing. A record now says whether its prose is the source's or ours, and the run says which it read |
 | **E31** ✅ | the twenty-one books nobody had read, and five branches outside the chain | **12 repairs across eight books — and four of them could not land, because five English branches never called the correction chain at all.** The 434 single-occurrence candidates in the 21 never-swept books yielded twelve slips (`beagn`, `soliders`, `carth` for *earth*, `Triviri`, `Tintagel`, `Eleine`, `sithin`, `Balled`, `Carlum`, `Marsilium`, `Sarrazens`, `goner`). Four reported `DID NOT FIRE` with the misspellings sitting in the shipped files: `play`, `fitts`, `terzine`, `eddapoem` and `laisses` each read a cached page, handed it to a reader of their own and pushed the result on without ever calling `correctRaw` — **E29's "one spelling of the chain, called on every branch" was untrue for five of them**. A thirteenth row was written, applied and withdrawn: the Gita's `INDESCTRUCTIBLE` is the 1922 printing's own, with the correct spelling nowhere in the book |
 | **E32** ✅ | E29's move, and where it is exactly backwards | **Five branches moved and proved byte-for-byte inert; three deliberately not moved, because moving them loses 193 repairs.** Measured first: of the six page-correcting books that carry a table, **not one row lands inside a tag**, so E29's weakness was not being suffered and the move is a hardening rather than a repair. The five that read markup (two TEI, three HTML) moved with every row still firing. The three that read PLAIN TEXT must not: their rows name the scan's own damage — `his_^pmiishment`, `Ping(preftctHre.)Chap.`, a page number inside a word — which the extractor exists to clean up, so after extraction **180 of the Canterbury Tales' 198 rows and 13 of Journey's 327 match nothing**. **Which side of extraction a book's chain runs on follows from what its rows name.** It also found E31's own fault in the helper written to close it: `correctGot` returned an unrecognised shape UNTOUCHED and reported nothing |
-| **E33–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E33** ✅ | a third scanner, and what it found in the first minute | **86 italic passages restored to Don Quixote, 13 more corrections, and two confusion shapes the scanner's set did not carry.** A new audit — *is this a thing a finished book should contain at all?* — found Don Quixote's italics shipping as literal underscores: Gutenberg marks italic with a pair of them, `extractChaucer` has converted them since the day it was written and `extractQuixote` never did. Reading round the findings turned up **`h` read as `n`** (`somewnat`, `cniefest`, `bethougnt`, `Tney`) and **`na` read as `m`** (`Damans` for *Danaans*, three times; `naortal`, `naagic`), neither in the confusion set. **The shelf is the dictionary**: the h/n sweep returns 57 candidates, nearly all ordinary words, and filtering to forms no other book knows cuts it to nine — four damage, five real archaic words |
+| **E34** | the Journey scan's plate captions | **18 of its 26 plate captions reach the reader and 3 of them land inside a sentence** — "But the women Bajie tempted at the Bathing Fool. would not let him go." is a caption folded into the prose it interrupts. Measured in E33 and left, this being E25's family (page furniture become text) in a book whose reader has no rule for it |
+| **E35–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
@@ -373,6 +390,90 @@ not deferred.**
 ---
 
 ## 8. Batch log
+
+### E33 — a third scanner, and what it found in the first minute, shipped 2026-09-04
+
+**The two scanners this plan was built on both ask about WORDS.** `book-scan.js` asks whether a word
+is a scan's misreading of another word; `book-vary.js` asks whether a name is written two ways. Neither
+can see a book in which every word is spelled correctly and every tag is balanced and the reader is
+still being shown something no printed page contains. So this batch adds a third — **`book-audit.js`,
+which asks whether a finished book contains a thing a finished book should not** — and its first run
+found more than the two batches before it.
+
+**DON QUIXOTE'S ITALICS HAVE BEEN SHIPPING AS UNDERSCORES.** Project Gutenberg marks italic with a
+pair of them. `extractChaucer` — the other plain-text reader on this shelf — has converted them since
+the day it was written; `extractQuixote` never did. So 86 passages reached the reader with their marks
+showing:
+
+| the reader saw | the page prints |
+|---|---|
+| `“_the reason of the unreason with which my reason is afflicted…_”` | *the reason of the unreason…* (271 characters of it) |
+| `on _terra firma_` | on *terra firma* |
+| `the two words “_mine_” and “_thine_”` | *mine* and *thine* |
+| `a motto which says _Miau_` | *Miau* |
+| `“_History of Don Quixote of La Mancha, written by Cid Hamete Benengeli_”` | the title, in italic |
+
+**Measured before the rule was written**, because a pairing rule that guesses is worse than the marks
+it replaces: every chapter's underscore count is EVEN, all 86 spans pair, and **not one crosses a
+paragraph, a blockquote or even a `<br>`**. So the conversion runs per block, where `[^_]` cannot
+reach past the block it is in — no lookahead, no state. What is left over is reported: the run now
+prints how many italics it read and which chapters, if any, still carry an odd underscore. It prints
+**86 and none**.
+
+> **AN UNDERSCORE IS NOT ALWAYS AN ITALIC MARKER, and the same batch has the counter-example.** The
+> Canterbury Tales' source is a SCAN, not a Gutenberg text: its 22 underscores are specks and rules the
+> OCR read as characters, three of which reach the reader (`why rise ye so early ? _`). That is why
+> `extractChaucer`'s own `_..._` rule has never once fired on it — all 106 of that book's italics are
+> rubrics. **Ask what the source IS before reading its punctuation as markup.**
+
+**AND READING ROUND THE FINDINGS TURNED UP TWO CONFUSION SHAPES THE SET DOES NOT CARRY.** The scanner
+holds u/n, c/e, l/i, l/t, h/b, f/t, o/c, g/q, y/v, m/n, rn/m, in/m, cl/d, li/h, ii/n. Two more were
+sitting in plain sight:
+
+| shape | book | reads | should read | against |
+|---|---|---|---|---|
+| `h` → `n` | canterbury-tales | `somewnat` | `somewhat` | 67 |
+| `h` → `n` | canterbury-tales | `cniefest` | `chiefest` | 12 |
+| `h` → `n` | homer-iliad | `bethougnt` | `bethought` | 13 |
+| `h` → `n` | journey-to-the-west | `Tney` | `They` | 180 |
+| `na` → `m` | homer-iliad | `Damans` ×3 | `Danaans` | 136 |
+| `m` → `na` | journey-to-the-west | `naortal` | `mortal` | 11 |
+| `m` → `na` | journey-to-the-west | `naagic` | `magic` | 121 |
+| a broken `r` | journey-to-the-west | `l-eckoning` | `reckoning` | 4 |
+
+The `na`/`m` pair is the same accident as the `rn/m` and `in/m` already in the set, one letter pair
+further on. The h/n one is the arch of the h breaking so the letter closes into an n.
+
+> **THE SHELF IS THE DICTIONARY, and that is what makes the h/n class usable at all.** Swept over the
+> corpus it returns **57 candidates, nearly all ordinary words** — `snow`/`show`, `heed`/`need`,
+> `nigh`/`high` — because n and h swap into common English, which is exactly the noise §3 says an
+> unrestricted substitution produces. Filtering to forms **no other book on the shelf knows** cuts it
+> to **nine**: four are damage and five are real words the filter cannot know — `nere` in Malory
+> ("and nere that he nys not stable", Middle English for *were it not that*), `nighest` in the Summa,
+> `snaring` in Plato ("the crafty craving for snaring birds"), and the Chinese place names `Jianghan`
+> and `Nanzhong`, both correct as printed and both one letter from their neighbours `Jiangnan` and
+> `Hanzhong`. **A noisy class is made readable by a better filter, not abandoned.**
+
+> **AND A NAME MISREAD IS MISREAD WHEREVER IT IS SET THE SAME WAY.** `Damans` stands **three** times,
+> so the single-occurrence sweep is blind to it by construction. The `na`/`m` sweep allows up to four
+> occurrences and lets the shelf filter carry the weight the count no longer can — which is the first
+> time in this programme that a frequency bar has been RELAXED rather than tightened, and it works only
+> because there is a second, independent test to put in its place.
+
+**Left for E34, measured and not repaired.** The Journey to the West scan carries **26 plate captions**
+— a short line sitting alone inside a run of blank lines, under the engraving it names — and **18 of
+them reach the reader**, three landing inside a sentence: *"But the women Bajie tempted at the Bathing
+Fool. would not let him go."* is a caption folded into the prose it interrupts. It is E25's family (page
+furniture become text) in a book whose reader has no rule for it, and it wants a batch of its own rather
+than a corner of this one. (`Bathing Fool` is `Bathing Pool`, and deliberately gets no row here: a
+repair inside a line that is about to be removed is a repair to nothing.)
+
+**What the audit found and this batch deliberately did NOT change**, because reading the finding is the
+whole point of a scanner that produces evidence: Marco Polo's seven bare ampersands are all `&c.` for
+*et cetera*, which is what Yule prints and what a browser renders; the Latin Boethius's twelve
+`[Greek: …]` markers are a transcription that represents ALL Greek as bracketed transliteration — 152 of
+them in the source and not one Greek character anywhere in it — so decoding them would mean inventing
+accents and breathings, which is what E18 refused to do where the marks would not compose.
 
 ### E32 — E29's move, and the three books where it is exactly backwards, shipped 2026-09-04
 

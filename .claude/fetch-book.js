@@ -8219,6 +8219,18 @@ const BOOKS = {
        themselves against 598 and 174 correct spellings. A name is only a false positive until you
        count it. */
     reFixes: [
+      /* ---------- E33: TWO CONFUSION SHAPES THE SCANNER'S SET DID NOT CARRY (Sep 2026) ----------
+         `h` read as `n` — the arch of the h breaking so the letter closes into an n — and `na` read
+         as `m`, which is the same accident as the `rn/m` and `in/m` the set already holds, one
+         letter pair further on. Swept over the whole shelf with the SHELF as the dictionary: a form
+         no other book on it knows is not English or archaic, which is what tells `cniefest` from
+         `nigh` and `nere`. Fifty-seven h/n candidates came back and nine survived that filter, of
+         which four were damage; the `na`/`m` sweep returned three and all three were. */
+      [/(?<![A-Za-z])Damans(?![A-Za-z])/g, "Danaans",
+       "the `na` of `Danaans` closed up into an m — three times, in books 16 and 24, against 136 correct; " +
+       "the single-occurrence sweep cannot see a name misread wherever it is set the same way"],
+      [/(?<![A-Za-z])bethougnt(?![A-Za-z])/g, "bethought",
+       "an h read as n in `bethought`, in the same sentence as one of the three — 1 against 13"],
       [/(?<![A-Za-z])Achaeams(?![A-Za-z])/g, "Achaeans",
        "`Achaeams` for `Achaeans` — against 598 correct"],
       [/(?<![A-Za-z])Agamemon(?![A-Za-z])/g, "Agamemnon",
@@ -9348,6 +9360,21 @@ const BOOKS = {
        "united", "deviL" for "devil"), never in whole lines, and it is recorded rather than repaired,
        since a repair pass over ninety thousand words would be rewriting somebody's book by guess. */
     reFixes: [
+      /* ---------- E33: TWO CONFUSION SHAPES THE SCANNER'S SET DID NOT CARRY (Sep 2026) ----------
+         `h` read as `n` — the arch of the h breaking so the letter closes into an n — and `na` read
+         as `m`, which is the same accident as the `rn/m` and `in/m` the set already holds, one
+         letter pair further on. Swept over the whole shelf with the SHELF as the dictionary: a form
+         no other book on it knows is not English or archaic, which is what tells `cniefest` from
+         `nigh` and `nere`. Fifty-seven h/n candidates came back and nine survived that filter, of
+         which four were damage; the `na`/`m` sweep returned three and all three were. */
+      [/(?<![A-Za-z])Tney(?![A-Za-z])/g, "They",
+       "an h read as n in `They`, of the women who bound Bajie — 1 against 180"],
+      [/(?<![A-Za-z])naortal(?![A-Za-z])/g, "mortal",
+       "the m of `mortal` set as na — one day in heaven is one year in the reckoning of mortal men — 1 against 11"],
+      [/(?<![A-Za-z])naagic(?![A-Za-z])/g, "magic",
+       "the m of `magic` set the same way, of the divine Kinsman changing shape — 1 against 121"],
+      [/(?<![A-Za-z])l-eckoning(?![A-Za-z])/g, "reckoning",
+       "an r broken into `l-`, in the same sentence as `naortal` — 1 against 4"],
       [/3"0ung/g, "young",
        "a digit, a quote and a zero read into `young`, in 'there were 3,600 women, young and old, in the palace'"],
       [/(?<![A-Za-z0-9])monke3-s(?![A-Za-z0-9])/g, "monkeys",
@@ -12796,6 +12823,16 @@ const BOOKS = {
        cannot shadow or cascade. 151 substitutions in all when this table shipped; batch E6 added three
        more rows below it, each an exception the sweep in `reFixes` must not see. */
     fixes: [
+      /* ---------- E33: three stray marks the OCR left at a paragraph boundary ----------
+         The same family as E8-E13's: a speck or a rule on the printed page read as a character. All
+         three sit where a paragraph ends or begins, in prose that reads straight through without
+         them, and no printed edition puts an underscore there. This scan is NOT a Gutenberg text,
+         so an underscore here is never the italic marker it is in Don Quixote — which is why the
+         `_..._` rule twenty lines below extractChaucer has never once fired on this book: all 106
+         of its italics are rubrics. */
+      ["early  ? _ \n", "early  ? \n", "a stray mark after Absalom's question at the window"],
+      ["with.  ___ \n", "with. \n", "three of them, after the hot coulter smote Nicholas"],
+      ["_ c  Nay,", "c  Nay,", "one at the head of the Shipman's interruption of the Lollard"],
       ["else5>", "else,",
        "a digit and a bracket read for the comma of 'Learn to endure, or else, on my life, ye shall learn it'"],
       ["•  ^Pon  a  ^  ma^  went  toward  a  temple  in  the  town \n",
@@ -13380,6 +13417,17 @@ const BOOKS = {
        mark standing where an OPENING quotation mark belongs, so none belongs in this table; the
        possessive and the closing quote read as a slash are batch E7, in `reFixes` below. */
     reFixes: [
+      /* ---------- E33: TWO CONFUSION SHAPES THE SCANNER'S SET DID NOT CARRY (Sep 2026) ----------
+         `h` read as `n` — the arch of the h breaking so the letter closes into an n — and `na` read
+         as `m`, which is the same accident as the `rn/m` and `in/m` the set already holds, one
+         letter pair further on. Swept over the whole shelf with the SHELF as the dictionary: a form
+         no other book on it knows is not English or archaic, which is what tells `cniefest` from
+         `nigh` and `nere`. Fifty-seven h/n candidates came back and nine survived that filter, of
+         which four were damage; the `na`/`m` sweep returned three and all three were. */
+      [/(?<![A-Za-z])cniefest(?![A-Za-z])/g, "chiefest",
+       "an h read as n in `chiefest`, of the parish clerk's eye on the carpenter's wife — 1 against 12"],
+      [/(?<![A-Za-z])somewnat(?![A-Za-z])/g, "somewhat",
+       "an h read as n in `somewhat`, of the Lollard who will preach us somewhat — 1 against 67"],
       [/(?<![A-Za-z0-9])4orth(?![A-Za-z0-9])/g, "worth",
        "a 4 read for the w of `worth`, in 'that tale is not worth a rake-handle'"],
       [/(?<![A-Za-z0-9])k9ew(?![A-Za-z0-9])/g, "knew",
@@ -20446,7 +20494,8 @@ function extractQuixote(text, book, warn) {
   const VOLUME_II = /\n[^\S\n]*Volume II[^\S\n]*\n/;
 
   const end = t.indexOf("*** END OF THE PROJECT GUTENBERG");
-  const out = { chapters: [], titles: 0, verse: 0, paras: 0, plates: 0, heads: 0, caps: [] };
+  const out = { chapters: [], titles: 0, verse: 0, paras: 0, plates: 0, heads: 0, caps: [],
+    italics: 0, underscored: [] };
 
   heads.forEach((h, i) => {
     const from = h.index + h[0].length;
@@ -20499,6 +20548,28 @@ function extractQuixote(text, book, warn) {
         html.push("<p>" + escHtml(ls.map((l) => l.trim()).join(" ")) + "</p>");
       }
     }
+    /* THE TRANSCRIPTION'S ITALIC, WHICH THIS READER WAS NEVER GIVEN (Sep 2026, batch E33). Project
+       Gutenberg marks italic with a pair of underscores, and `extractChaucer` — the other plain-text
+       reader on this shelf — has converted them since the day it was written. This one did not, so
+       86 italic passages shipped with their marks showing: <i>terra firma</i> reached the reader as
+       _terra firma_, `_mine_` and `_thine_` in the Golden Age speech carried four, and the romance
+       parody Cervantes opens on — "the reason of the unreason with which my reason is afflicted" —
+       had an underscore at each end of 271 characters.
+
+       MEASURED BEFORE IT WAS WRITTEN, because a pairing rule that guesses is worse than the marks it
+       replaces: every chapter's underscore count is EVEN, all 86 spans pair, and not one crosses a
+       paragraph, a blockquote or even a <br>. So the conversion runs per BLOCK, where `[^_]` cannot
+       reach past the end of the block it is in, and needs no lookahead and no state.
+
+       WHAT IS LEFT OVER IS REPORTED RATHER THAN KEPT QUIETLY. An odd underscore is either damage
+       this reader should be told about or a pairing this rule cannot see, and both are things to
+       look at rather than to ship — the same reason the verse blocks and the all-capital blocks are
+       counted a dozen lines above. */
+    for (let k = 0; k < html.length; k++)
+      html[k] = html[k].replace(/_([^_]*?)_/g, (whole, inner) => { out.italics++; return "<i>" + inner + "</i>"; });
+    const left = html.join("").match(/_/g);
+    if (left) out.underscored.push((i + 1) + " (" + left.length + ")");
+
     out.chapters.push({ n: i + 1, html: html.join("\n") });
   });
   return out;
@@ -25299,6 +25370,13 @@ async function fetchEnglish() {
     console.log("  " + got.verse + " verse blocks, and " + got.caps.length +
       " short all-capital blocks kept as headings: " +
       [...new Set(got.caps)].slice(0, 6).join(" · "));
+    /* AND THE ITALIC IS COUNTED BOTH WAYS, for the reason the verse count is: the transcription marks
+       it with a pair of underscores and nothing else on the page says whether they were read. A run
+       in which the first figure moves is a run to look at; a run in which the second is not empty is
+       a chapter left carrying an odd underscore. */
+    console.log("  " + got.italics + " italic passage(s) read off the transcription's underscores" +
+      (got.underscored.length ? ", and " + got.underscored.length +
+        " chapter(s) left carrying one: " + got.underscored.join(", ") : ""));
     return writeEnglish(chapters, warnings);
   }
   /* THE CANTERBURY TALES — a plain-text OCR of one volume, of which this book is the first sixth. One

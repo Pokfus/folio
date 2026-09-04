@@ -2751,6 +2751,27 @@ function aeneidChecks() {
     try { correctGot({ stanzas: [{ html: "a" }], counts: {} }); } catch (e) { threw = e.message; }
     check("[chain] ...and it THROWS on a shape it does not know, rather than doing nothing",
       /correctGot: nothing to correct/.test(threw), threw || "(returned quietly)");
+
+    /* ================= 6d. the transcription's italic =================
+       Sep 2026, batch E33. Project Gutenberg marks italic with a pair of underscores and
+       `extractQuixote` never converted them, so 86 passages of Don Quixote shipped with their marks
+       showing. The failure is entirely invisible to every other check on this shelf — the words are
+       spelled right, the tags balance, the counts read healthy — so what is asserted is the SHAPE of
+       the finished text: no underscore survives in any chapter of the three plain-text books, and
+       Don Quixote carries the italics it should. `extractChaucer`'s source is a SCAN rather than a
+       Gutenberg text, so its underscores were specks rather than markers and are asserted gone too. */
+    for (const id of ["don-quixote", "canterbury-tales", "journey-to-the-west"]) {
+      const txt = fs.readFileSync(path.join(ROOT, "books", id + ".js"), "utf8");
+      const body = txt.slice(txt.indexOf("chapters:"));
+      check("[italic] no underscore reaches the reader in " + id,
+        !/_/.test(body.replace(/FOLIO_BOOKS?_[A-Z_]*/g, "")),
+        (body.match(/.{0,40}_.{0,40}/) || [""])[0]);
+    }
+    const dq = fs.readFileSync(path.join(ROOT, "books", "don-quixote.js"), "utf8");
+    check("[italic] ...and Don Quixote carries its 86 italic passages",
+      (dq.match(/<i>/g) || []).length >= 86, String((dq.match(/<i>/g) || []).length));
+    check("[italic] ...including the ones the old rule would have missed",
+      dq.includes("<i>terra firma</i>") && dq.includes("<i>tantum pellis et ossa fuit</i>"));
   }
 
   /* ================= 7. the switch is a crossfade, not a cut =================
