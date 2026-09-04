@@ -204,7 +204,8 @@ is an open question and its batch size follows from the answer.
 | **A3** | Iran, Turkey, Germany, France, the United Kingdom, Thailand, South Africa, Italy | **shipped 2026-09-04** |
 | **A4** | Tanzania, Myanmar, Colombia, South Korea, Spain, Kenya, Argentina, Uganda | **shipped 2026-09-04** |
 | **A5** | Algeria, Afghanistan, Ukraine, Sudan, Iraq, Poland, Canada, Morocco | **shipped 2026-09-04** |
-| A6–A33 | The remaining 218 present-day countries and territories, in descending population | planned |
+| **A6** | Angola, Uzbekistan, Peru, Saudi Arabia, Ghana, Malaysia, Madagascar, Venezuela | **shipped 2026-09-04** |
+| A7–A33 | The remaining 210 present-day countries and territories, in descending population | planned |
 | B1–… | Stage 2, the 424 historical states, grouped by era | planned |
 | C1–… | Stage 3, the 528 names of the 1600 era, at a bar to be decided | planned |
 
@@ -489,3 +490,39 @@ A4's version of it.
   date and immediately says it was taken up while the country was a constituent republic of the Soviet
   Union. **A date that would mislead standing alone can still be used, provided the sentence carries what
   makes it not mislead** — which is cheaper than dropping it, and tells the reader something true.
+
+### A6 — the next eight by population (2026-09-04)
+
+Angola, Uzbekistan, Peru, Saudi Arabia, Ghana, Malaysia, Madagascar and Venezuela. All eight at the bar,
+five citations apiece, every URL curled and every source open access. Five findings.
+
+- **A SPINE SOURCE CAN BE WRONG ABOUT A PLAIN FACT, AND SOURCE A CAUGHT IT.** The recognition guide's Peru
+  page ends its summary "Peru has been a member of the United Nations since 1949"; UNdata gives **31 October
+  1945**, which is the date Peru ratified the Charter as an original member. The two cannot both be right and
+  the guide is the one that is wrong, on a page otherwise good enough to carry the July 1821 independence
+  date C12 recommends it for. P2 recorded that a spine source is not infallible and that the fault is usually
+  inside one essay; this is the same thing across two sources, and it is caught only because **both are read
+  for every place** rather than one being used for history and the other for figures. The description uses
+  UNdata's date and does not repeat the guide's.
+- **THE GUIDE'S PAGE SHAPE IS NOT UNIFORM, AND A SCRAPE KEYED ON ONE HEADING WILL SILENTLY MISS PAGES.**
+  A4 found the two Korea pages have no Summary section at all; Uzbekistan's has one under a different name,
+  **"Historical Overview"**. So a country's page can be rich and come back empty from an extractor written
+  for the usual shape. **Read the raw page when a scrape returns nothing** — it is far more often the heading
+  than the page.
+- **A CAPITAL-CITY FOOTNOTE IS NOW THE THIRD SECOND-SEAT CASE IN THREE BATCHES.** UNdata's field for Malaysia
+  says "Kuala Lumpur" with a footnote marker, and the footnote reads "Kuala Lumpur is the capital and
+  Putrajaya is the administrative capital" — after A3's South Africa and A4's Tanzania. **Read the footnote
+  block on every profile**; on the evidence so far roughly one country in ten has something there that the
+  field itself does not say.
+- **SEVEN OF THE EIGHT DRAFTS CAME IN UNDER THE WORD FLOOR, WHICH IS A FACT ABOUT THE COUNTRIES.** A1–A5
+  averaged one or two short drafts a batch; here it was seven. These are countries whose recognition-guide
+  pages are short — Ghana's whole summary is a single sentence — so there is less cited history to write, and
+  the words have to come from geography instead. **Where the guide is thin, budget the geography block
+  wider**: the fix each time was a real clause about the country rather than padding, and it is easier to
+  write that at drafting time than to retrofit it.
+- **AN AREA COMPARISON IS WORTH MORE WHEN IT LANDS ON A COUNTRY THE READER HAS ALREADY MET.** Madagascar is
+  almost exactly the size of Kenya, Malaysia a tenth larger than Italy, Uzbekistan a little larger than Iraq,
+  Venezuela a little smaller than Nigeria — all four anchors are places already at the bar in this pass, so a
+  reader moving around the Atlas accumulates a scale rather than a list of unrelated ratios. It costs nothing
+  to choose the anchor that way, and the World Bank's semicolon list makes the two-country citation the same
+  single fetch either way.
