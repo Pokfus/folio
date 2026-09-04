@@ -3611,7 +3611,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_Lade": ["Lade"],
 "Didyma": ["Branchidae","Didymeus"],
 "Phrynichus_(tragic_poet)": ["Phrynichus"],
-"Mardonius": ["Mardonius' campaign"],
+"Mardonius": ["Mardonius' campaign", "Mardonius in Greece"],
 "Earth_and_water": ["earth and water"],
 "Western_Zhou": ["Western Zhou dynasty","Western Zhou period"],
 "Mandate_of_Heaven": ["tianming","Heaven's Mandate","heavenly mandate"],
