@@ -1998,7 +1998,8 @@ window.GLOSSARY = {
 "Latin_rights": "Latin rights were the standing a community could hold towards Rome without holding Roman citizenship, consisting of the private half of that citizenship — commercium, the capacity to act under the civil law, and conubium, that of contracting a lawful Roman marriage — but not the vote or the right to Roman office.<sup class=\"fn\" data-fn=\"1\"></sup> They began as rights exchanged reciprocally with the communities of Latium and ceased to pass between those communities after the Latin War, each town thereafter dealing with Rome directly.<sup class=\"fn\" data-fn=\"2\"></sup> A man holding a higher magistracy in such a town came into the Roman citizenship, and after the Social War the status was granted abroad as a favour.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Municipium": "A municipium was a town whose inhabitants held Roman citizenship while keeping laws and magistrates of their own, bound by no Roman statute their own citizens had not ratified.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient writers defined the word two ways, for people who shared everything with Roman citizens except the vote and the holding of office, and for those whose whole community had passed into the Roman state, the first keeping a commonwealth of its own and the second governed from Rome.<sup class=\"fn\" data-fn=\"2\"></sup> Neither kind had a share in the public law, so its people were citizens but not of the fullest right.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Civitas_sine_suffragio": "Civitas sine suffragio was Roman citizenship without the vote, carrying the private rights of conubium and commercium but no share in the public law, so that its holder could neither vote in the assemblies nor stand for Roman office.<sup class=\"fn\" data-fn=\"2\"></sup> It brought no relief from Rome's demands, since its holders served in the legions or in a corps of their own, and the registers of such citizens were called the tables of the Caerites after the first town to receive it.<sup class=\"fn\" data-fn=\"1\"></sup> It could be a favour or a penalty, and ended when the laws closing the Social War gave every Italian community the full franchise.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Colonia_(Roman)": "A colonia was a body of Roman citizens or allies sent out by a public act of the state to hold a place, described by Gellius as an offshoot of the citizen body and a small likeness of the Roman people.<sup class=\"fn\" data-fn=\"2\"></sup> The early foundations were garrisons planted in conquered towns, the settlers receiving a share of the land, commonly a third, while the former inhabitants kept the rest and lived among them.<sup class=\"fn\" data-fn=\"1\"></sup> None was founded without a law: commissioners were elected to lead the settlers out, the law fixed how much land each received, and the boundary of the new town was marked with a plough.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Colonia_(Roman)": "A colonia was a body of Roman citizens or allies sent out by a public act of the state to hold a place, described by Gellius as an offshoot of the citizen body and a small likeness of the Roman people.<sup class=\"fn\" data-fn=\"2\"></sup> The early foundations were garrisons planted in conquered towns, the settlers receiving a share of the land, commonly a third, while the former inhabitants kept the rest and lived among them.<sup class=\"fn\" data-fn=\"1\"></sup> None was founded without a law: commissioners were elected to lead the settlers out, the law fixed how much land each received, and the boundary of the new town was marked with a plough.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"Latin_colony": "A Latin colony was led out by Roman commissioners after a vote of the people, like a colony of citizens, but formed an independent community under no Roman magistrate and was not bound to take Roman law except as it chose.<sup class=\"fn\" data-fn=\"1\"></sup> Its settlers gave up the Roman franchise and counted as foreigners at Rome, serving in allied cohorts and squadrons rather than in the legions, while holding commercium and probably conubium with the city.<sup class=\"fn\" data-fn=\"1\"></sup> In all 27 were planted in conquered land beyond Latium, almost always inland, where colonies of citizens in the same period were as a rule set on the coast.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4018,7 +4019,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Aes_grave": ["aes grave"],
 "Latin_rights": ["ius Latii","Latin right"],
 "Municipium": ["municipia","municipes"],
-"Colonia_(Roman)": ["colonia","coloniae","Roman colony"]
+"Colonia_(Roman)": ["colonia","coloniae","Roman colony"],
+"Latin_colony": ["Latin colonies","colonia Latina","coloniae Latinae"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6049,7 +6051,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Latin_rights": ["institution","history","politics","law","italy"],
 "Municipium": ["institution","history","politics","law","italy"],
 "Civitas_sine_suffragio": ["institution","history","politics","law","italy"],
-"Colonia_(Roman)": ["institution","history","politics","warfare","italy"]
+"Colonia_(Roman)": ["institution","history","politics","warfare","italy"],
+"Latin_colony": ["institution","history","politics","warfare","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
