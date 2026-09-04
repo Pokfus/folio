@@ -268,7 +268,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | A2c | `book-of-kells`, `bayeux-tapestry`, `lewis-chessmen` (all three UN-DEFERRED — **A2's list is now empty**) | — |
 | A3a | `aztec-sun-stone`, `enigma-machine`, `dancing-girl-mohenjo-daro` | — |
 | B2a | `oracle-bone`, `bamboo-slip`, `crossbow-trigger` | ~~`longquan-celadon-bowl`~~ (shipped in B2b), `inkstone`, `igbo-ukwu-bronze`, `pazyryk-carpet` |
-| B2b | `bronze-ding`, `longquan-celadon-bowl` (UN-DEFERRED), `wax-tablet` | `han-tomb-brick` |
+| B2b | `bronze-ding`, `longquan-celadon-bowl` (UN-DEFERRED), `wax-tablet` | ~~han-tomb-brick~~ (cleared and shipped in B2c) |
 | B3a | `samurai-katana`, `ukiyo-e-print`, `goryeo-celadon` | — |
 | B3b | `daguerreotype`, `jomon-dogu`, `magatama` (**B3's list is now empty but for `dotaku`**) | `dotaku` (needs a third openable work) |
 | B4a | `dong-son-drum`, `lapita-pottery`, `palm-leaf-folio` | `ban-chiang-pot` |
@@ -286,6 +286,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | E3e | `steel-pen-nib` (UN-DEFERRED — **E3's list is now empty**) | — |
 | C1d | `mamluk-mosque-lamp` (UN-DEFERRED) | — |
 | C3c | `moche-portrait-vessel` (UN-DEFERRED — **C3's list is now empty**) | — |
+| B2c/B3c | `han-tomb-brick`, `buncheong-bowl` (both UN-DEFERRED — **B2's and B3's lists are now empty**) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -998,7 +999,8 @@ works none of which existed in B3b's search because none was found by searching 
   wrong about the same article.**
 · One access note: **`id.erudit.org` and `journals.openedition.org` remain shut**, `koreascience.kr`
   refuses, and the Korean art-history journals (`kjah`, `jkaahe`, `dah`, `jshs`) resolve to closed
-  aggregators — so `buncheong-bowl` has no route yet either.
+  aggregators — so `buncheong-bowl` has no route yet either. **(Cleared in B3c, from a museum's own
+  records and a 1929 survey — the journals were never the way in.)**
 
 **E2a's finding is the answer to C2a's warning that E1–E3 are shut: THE INSTRUMENTS AND THE
 INDUSTRIAL EVERYDAY ARE THE ONE PART OF THIS POOL BEST SERVED BY OUT-OF-COPYRIGHT BOOKS, because the
@@ -1245,7 +1247,8 @@ recording, because every one of them was a plausible-looking route that does not
   (Fairholt's *Costume in England*, Wright's *Domestic Manners*) describes shoes as DEPICTED in manuscripts
   and monuments, never as made. Costume history is not construction history; the term is 20th-century
   leather archaeology, and the 19th century cannot answer for it.
-· **`han-tomb-brick` and `inkstone` were probed and left.** Laufer's *Beginnings of Porcelain in China*
+· **`han-tomb-brick` and `inkstone` were probed and left.** **(The brick was cleared in B2c — the one
+  Laufer fact turned out to be enough as a THIRD work beside two museum records.)** Laufer's *Beginnings of Porcelain in China*
   (1917) carries one real fact about them — "the bricks and tiles of the Han and Wei periods, as far as we
   know them, are all unglazed" — and no more; Bushell's *Chinese Art* mentions ink-stones only in a list of
   crafts. Both need a source class this pass has not found.
@@ -1410,6 +1413,43 @@ a source, a record with only fields is a caption.
   institutional monograph, plus a museum's own record of one object** — after `steel-pen-nib` and
   `mamluk-mosque-lamp`. The remaining deferrals were all made looking for modern journal literature; work
   the pair before deferring again.
+
+**B2c/B3c IS THE FOURTH DEFERRAL PAIR CLEARED BY THE SAME MANOEUVRE, AND ITS OWN FINDING IS THAT
+BOTH BOOKS WERE ALREADY ON DISK.** `han-tomb-brick` was deferred in B2b because Laufer's *Beginnings of
+Porcelain in China* (1917) "carries one real fact about them and no more", and `buncheong-bowl` in C2a
+because every Korean art-history journal resolves to a closed aggregator. Neither needed anything new:
+the Laufer text was fetched for that very probe and Eckardt's *A History of Korean Art* (1929) for an
+earlier one, and both were still in the scratch directory. **A single fact is not too little for a THIRD
+work** — Laufer's one sentence, that the bricks and tiles of the Han and Wei periods are so far as they
+are known all unglazed, is exactly the kind of claim no museum record makes, and it carries the plate's
+last sentence on its own. The deferral was made by asking whether a book could carry a plate rather than
+whether it could carry a sentence.
+· **CLEVELAND'S API IS THE OTHER HALF, AND ITS `description` FIELD IS A CURATORIAL ESSAY.** C3c recorded
+  that a Cleveland record carries a written note where the Met's carries fields; B2c and B3c are both
+  built on it. `1915.66` supplies the whole second sentence of the Han plate — the change from
+  rammed-earth graves to chambers lined with decorated brick, and the ceramic stoves, houses, servants
+  and pets set inside them — and `1962.153` and `1921.649` supply buncheong's definition, its two kinds
+  of kiln and the Goryeo ancestry of its techniques. **Two records of the same doorway are two works and
+  not one**: `1915.69` is the lintel above the column and is cited for its own measurement, exactly as
+  C3c cited two Moche heads.
+· **A COMPANION RECORD CAN REPEAT ITS SIBLING'S ESSAY WORD FOR WORD.** Cleveland's note on `1915.69` is
+  the same paragraph as `1915.66`'s, because the two objects are halves of one doorway. That is a reason
+  to cite the second record for the fact only IT holds — here 137.2 cm of lintel — rather than for the
+  prose both share, and a reason not to let a marker on a shared claim point at it.
+· **THE WARE'S OWN NAME IS THE PLATE'S LAST SENTENCE, and it came out of the 1929 book rather than the
+  museum.** Eckardt files these pots under the Japanese trade names *Mishima-de* and *Hakeme-yaki* and
+  records that "whether the Koreans ever had for it a popular name of their own has not been
+  ascertained" — which is a fact about the scholarship, checkable, and better than an unsourced claim
+  that *buncheong* is a modern coinage. He also describes the technique the picture shows: points and
+  lines punched into the greyish ground, filled with white earth, rubbed smooth and then glazed.
+· **A KOGL LICENCE IS NOT ON THE PIPELINE'S LIST, whatever it permits.** The best-resolution buncheong
+  bowls on Commons are the National Museum of Korea's, at 3000 × 2000 and under **KOGL Type 1** — which
+  allows commercial use and derivatives, and which `licenceClass` in `fetch-images.js` classes as
+  "other", so `suggest-image.js` would refuse it. The bar is public domain, CC BY or CC BY-SA, and a
+  hand-picked file is held to it exactly as a searched one is. The Met's own buncheong bowl (17.175.17)
+  is CC0 and was looked at and rejected on the picture instead: a 1917 black-and-white record shot with
+  the accession number inked on the foot. What shipped is a CC BY-SA 4.0 photograph of a stamped lidded
+  bowl in the Horim Museum.
 
 ## The per-artefact workflow
 

@@ -1302,4 +1302,18 @@ window.ARTEFACTS = [
     date: "c. 100 – 800 CE",
     origin: "North coast of Peru",
   },
+  {
+    id: "han-tomb-brick",
+    name: "Han tomb brick",
+    rarity: "common",
+    date: "c. 202 BCE – 220 CE",
+    origin: "Han China",
+  },
+  {
+    id: "buncheong-bowl",
+    name: "Buncheong bowl",
+    rarity: "common",
+    date: "c. 1400 – 1600 CE",
+    origin: "Korea",
+  },
 ];
