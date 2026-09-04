@@ -1756,6 +1756,49 @@ const BOOKS = {
        "a capital I read for the lowercase l of `ignobly`"],
       [/(?<![A-Za-z])equaIizing(?![A-Za-z])/g, "equalizing",
        "a capital I read for the lowercase l of `equalizing`"],
+
+      /* ---------- A RARE WORD ONE EDIT FROM A COMMON ONE (Sep 2026, batch E19) ----------
+         The fourth sweep, and it generalises E14, E15 and E16 rather than adding a fourth family:
+         instead of naming a confusion and looking for it, it asks the SHELF's own vocabulary which
+         words are rare everywhere and sit one edit from a word the shelf uses constantly. Eleven of
+         the twelve below are NON-WORDS, which is E15's rule and needs no witness; the two that are
+         not are settled by this book's own usage and are marked as such.
+
+         EACH OCCURS EXACTLY ONCE ACROSS ALL SIXTY-NINE PLATO FILES, both columns, which is what
+         makes the damaged token safe to anchor on alone — and they are anchored anyway, for E15's
+         `scorning` reason: `lonians` is a substring of `Babylonians`, which this book happens not
+         to use and the next edition might. */
+      [/(?<![A-Za-z])Cortinthian(?![A-Za-z])/g, "Corinthian",
+       "a stray t in `Corinthian`, of the colony in Chalcidice"],
+      [/(?<![A-Za-z])Bocotia(?![A-Za-z])/g, "Boeotia",
+       "a c read for the e of `Boeotia`"],
+      [/(?<![A-Za-z])Poseiden(?![A-Za-z])/g, "Poseidon",
+       "an e read for the o of `Poseidon`"],
+      [/(?<![A-Za-z])lonians(?![A-Za-z])/g, "Ionians",
+       "a lowercase l read for the capital I of `Ionians` — E14's family, the other way up"],
+      [/(?<![A-Za-z])possibillty(?![A-Za-z])/g, "possibility",
+       "an l read for the i of `possibility`"],
+      [/(?<![A-Za-z])wlth(?![A-Za-z])/g, "with",
+       "an l read for the i of `with`"],
+      [/(?<![A-Za-z])weree(?![A-Za-z])/g, "were",
+       "a doubled e in `were`"],
+      [/(?<![A-Za-z])sayng(?![A-Za-z])/g, "saying",
+       "a dropped i in `saying`"],
+      [/(?<![A-Za-z])sarting(?![A-Za-z])/g, "starting",
+       "a dropped t in `starting-point`"],
+      [/(?<![A-Za-z])moster(?![A-Za-z])/g, "monster",
+       "a dropped n in `monster`, of the beast Theseus killed between Corinth and Megara"],
+      [/(?<![A-Za-z])grap(?![A-Za-z])/g, "grasp",
+       "a dropped s in `grasp`"],
+      [/(?<![A-Za-z])Hipponieus(?![A-Za-z])/g, "Hipponicus",
+       "an e read for the c of `Hipponicus` — NOT a non-word but a non-name, and the book spells " +
+       "him correctly seven times in the same dialogue"],
+      [/cry outc\.(?=<)/g, "cry out.",
+       "a stray c at the end of a note reading `the tendency to cry out`"],
+      [/(?<![A-Za-z])fake opinion(?![A-Za-z])/g, "false opinion",
+       "`fake` for `false` — THE ONE ROW HERE THAT IS NOT A NON-WORD, and it is not a guess: this " +
+       "is the Theaetetus at the centre of its argument about false opinion, and the same source " +
+       "file writes `false opinion` thirty-seven times and this once"],
     ],
     /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
        The third family, and it passes E15's test: a digit inside an English word is a non-word, so
@@ -13269,9 +13312,25 @@ const BOOKS = {
        real `dose`, papers `torn` down, the Syrian city `Homs`, archaic `doth`, and in Marco Polo's
        notes the Old French `corne` and `cornes` and the manuscript called the *Liber Horne*. What
        survives is only what is no word at all in any language the book quotes. */
+    /* E15'S `corning` ROW WAS HERE AND IS REMOVED (Sep 2026, batch E19). It could never fire: the
+       word `corning` does not occur in this translation at all, only the three `scorning`s the row
+       was anchored to spare, and the passage its note described — "by the dove coming upon the Lord
+       when He was baptized" — is not in this book either, which reads "the Holy Ghost descended upon
+       Him in the shape of a dove". E4's candidate was itself a substring match inside `scorning`, so
+       E15 wrote a careful boundary anchor around a fault that was not there and announced it as
+       repaired. What made that possible is the cache fault this batch fixes: on a cached run every
+       row reported DEAD, so a genuinely dead one said nothing a live one did not. The trap it
+       documents is real and is kept in the plan's E15 entry; a row that can never fire is not. */
     reFixes: [
-      [/(?<![A-Za-z])corning(?![A-Za-z])/g, "coming",
-       "an rn read for the m of `coming`, in 'by the dove coming upon the Lord when He was baptized'; E4 recorded this one as needing the right one of twenty-two volumes and not worth the search, and it needs no volume at all. IT MUST STAY BOUNDARY-ANCHORED: `corning` is a substring of `scorning`, which this book uses three times, and a bare substring row would make all three `scoming`"],
+
+      /* E4's LAST DEFERRAL, closed the same way and with no volume opened either (Sep 2026, batch
+         E19). It is not a non-word to a modern eye — `inproportionate` reads as a plausible if
+         unusual formation — and that is why E15 left it standing. What settles it is the BOOK'S OWN
+         USAGE: this translation renders the Latin `improportionatus` as `improportionate` ten times
+         and writes `inproportionate` exactly once, in a sentence saying the same thing as the other
+         ten. An n for an m, and the house form decides which. */
+      [/(?<![A-Za-z])inproportionate(?![A-Za-z])/g, "improportionate",
+       "an n read for the m of `improportionate`, which this translation uses ten times against this one"],
     ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Summa_Theologiae",
@@ -24594,7 +24653,27 @@ async function fetchEnglish() {
       // the cache holds the extracted prose only — the title and the part are re-derived on every
       // run, so re-titling or re-dividing a book costs no refetch
       const c = JSON.parse(fs.readFileSync(cf, "utf8"));
-      chapters.push({ n, t: titles[n] || c.t || chapterTitle(n), p: partOf(n), html: c.html, notes: c.notes || [] });
+      /* AND THE CORRECTIONS ARE RE-APPLIED HERE, WHICH THEY WERE NOT (Sep 2026, batch E19).
+         `correctRaw` is called on the FETCH path a few lines below and nowhere else on this branch,
+         so a row added to a book whose chapters were already cached did nothing at all until
+         somebody thought to pass `--force` — and `correctRaw`'s own comment promises the opposite,
+         that "a row added or corrected in this file is picked up on the very next run". True on the
+         TEI branches, which correct after reading their cache; false here, on every per-chapter wiki
+         book, which is most of the shelf.
+
+         IT FAILS IN THE WORST WAY THIS FILE KEEPS MEETING: the row is written, the build says
+         nothing, the book is rewritten, and the only symptom is that the word is still wrong. It
+         is worse than a dead row, because the build DOES report a dead row — and it reported these,
+         to a run that had no reason to believe them, since a row can also read as dead when the
+         damage it names is genuinely absent. Batch E15's `corning` was announced as shipped on
+         exactly that reading and had never applied.
+
+         The chain is idempotent — see the note above applyRoman — which is what makes re-running it
+         over prose that has already been through it safe rather than merely tolerable. Proved
+         byte-for-byte over every book on the shelf before it was kept. */
+      const html = correctRaw(c.html);
+      const notes = (c.notes || []).map(correctRaw);
+      chapters.push({ n, t: titles[n] || c.t || chapterTitle(n), p: partOf(n), html: html, notes: notes });
       continue;
     }
     /* A CHAPTER MAY BE PRINTED ACROSS MORE THAN ONE WIKI PAGE (Aug 2026, adding the Book of
@@ -24814,6 +24893,17 @@ function writeEnglish(chapters, warnings) {
   /* Say what the extractor was unsure of. A chapter that comes through with no section numbers is the
      quietest failure this script has: it does not throw, it does not shorten the text and it does not
      look wrong on the page — it simply leaves that chapter with nothing to cite and nothing to pair. */
+  /* A DEAD ROW MEANS TWO DIFFERENT THINGS, AND ONLY ONE OF THEM IS A FAULT (Sep 2026, batch E19).
+     On a `--force` run the corrections meet the page as the source served it, so a row that fires
+     nowhere names damage that is not there and wants removing. On a CACHED run they meet prose an
+     earlier run has already corrected, so a row doing its job perfectly also fires nowhere. The two
+     read identically in the lines below, and batch E15 read one as the other: it announced
+     `summa-theologica`'s `corning` as repaired on the strength of a row that had never applied and
+     never could — the word occurs only inside `scorning`, which the row is anchored to spare.
+     So the run says which kind of report this is rather than leaving it to be assumed. */
+  if ((BOOK.fixes || BOOK.reFixes) && !FORCE)
+    console.log("  (read from cache: a row reported DEAD here may simply have been applied on an" +
+                " earlier run — re-run with --force to tell the two apart)");
   if (BOOK.fixes) {
     for (const [from, , why] of BOOK.fixes) {
       const n = FIX_HITS[from] || 0;

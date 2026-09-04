@@ -290,17 +290,100 @@ re-run and diffed byte for byte.
 | **E12** ✅ | `canterbury-tales` | **17 repairs, and the batch was small because it was COUNTED first.** The spaced full stop is 31 occurrences in the raw and six units of work: twelve are the plate list's leader dots and eleven the back matter's `( Sh . T.)` keys, neither of which the extractor puts in a chapter. The rest are mangled runs, two of them a heap of marks where the page prints one closing quote. Nine marks are left, three of which are a correct `—,` both copies read |
 | **E13** ✅ | `canterbury-tales` | **6 repairs, every one cropped out of the page image and read**, the second scan being unable to align to a run it garbles differently. Two are punctuation the scan flattened and both change the sentence (a colon, a question mark); one is a closing quote lost while its neighbours survived; three are nothing, and each a different kind of nothing — a line break, SHOW-THROUGH from the facing page, and a reader's PENCIL down the margin. It also corrects a figure E12 estimated rather than measured |
 | **E14** ✅ | eight books | **42 repairs, and it UNBLOCKS the two E4 wrote off.** The capital I and the lowercase l are the same stroke, so an OCR writes `Iooked` for `looked` and `househoIds` for `households` — `virgil-aeneid`'s 22 unrepairable candidates are this class exactly, and eight of `plato-dialogues`' fourteen. Inside a word no witness is needed (no type sets one there); at the start the book's own vocabulary decides. It proposed six CORRECT readings — `Io` the nymph, `Io Pæan!`, the Gnostic `Ieu` — all excluded by name |
-| **E15** ✅ | five books | **6 repairs, and a rule that applies BEFORE the work: a substitution family is safe exactly where the wrong spelling is a NON-WORD.** E14's capital-I yield was ~100% because a capital mid-word never is one; the same sweep for `rn`/`m` proposed thirteen and SEVEN were right as they stood (a `dose`, papers `torn`, the city `Homs`, archaic `doth`, Old French `corne`), and `cl`/`d` got all three wrong. It also closes `summa-theologica`'s `corning` — E4's third deferral — with no volume opened |
+| **E15** ✅ | five books | **6 repairs, and a rule that applies BEFORE the work: a substitution family is safe exactly where the wrong spelling is a NON-WORD.** E14's capital-I yield was ~100% because a capital mid-word never is one; the same sweep for `rn`/`m` proposed thirteen and SEVEN were right as they stood (a `dose`, papers `torn`, the city `Homs`, archaic `doth`, Old French `corne`), and `cl`/`d` got all three wrong. It also claimed to close `summa-theologica`'s `corning` — **and that claim was wrong; see E19**, which found the row could never fire |
 | **E16** ✅ | eight books | **23 repairs in the family E15 predicted would pay** — a digit inside an English word is a non-word. It runs BOTH ways (`0ceanus`, `1ndra`, `k9ew`, `equa1`; and Suetonius's `[i6th March]` where the letter stands for the digit), and the legitimate cases name themselves (`1ff`, `8vo`, `1274bb`). Its lesson is that **a row carrying context carries its source's SPACING**: written first with the Canterbury Tales' double spaces, 22 of 23 were dead |
 | **E17** ✅ | six books, in shared machinery | **193 spaces inserted at a citation's element boundary, and not one other byte changed in sixteen rebuilt books.** Perseus encodes a cited work as an element and leaves no whitespace at its edge, so unwrapping welds it to the prose (`Cf. Laws638 B`, `302has said`, `betweenἔρωςand`). THE FIRST DIAGNOSIS WAS WRONG and is recorded: the missing space is in the SOURCE, not eaten by our tag-strip — an abbreviation keeps its space only because its full stop sits outside the element. So it is a FLATTENING rule in `teiInline`, not a book's `fixes` table: sixteen books read this source |
 | **E18** ✅ | `plato-dialogues.grc` | **13 citations restored, and the rule is SELF-VERIFYING.** Perseus ran a beta-code converter over references that were already in Latin script, so Plato's Greek cited the Iliad as `ηομ. ιλ. 14.291` — Greek letters spelling nothing. The same `<bibl>` carries the right form on its `n=` attribute, so the repair decodes the text and writes the attribute in ONLY where the two match: 42 genuinely Greek `<title>`s cannot pass that test. One is a PREFIX match and keeps its extra reference |
-| **E19–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E19** ✅ | five books, and a fault in the machinery | **A CORRECTION ROW ADDED TO A CACHED WIKI BOOK DID NOTHING, AND NOTHING SAID SO.** `correctRaw` ran only on the fetch path, so a row met the page only when `--force` was passed — and its own comment promises the opposite. The Book of Documents shipped the same emperor title as `Tî` 25 times and `Di` 69, by which chapters happened to be cached. Fixed, proved byte-for-byte over the whole shelf, and the run now says which kind of dead row it is reporting. Plus 15 repairs to Plato and the Summa, closing E4's last two deferrals |
+| **E20–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E19 — a correction row that did nothing, and nothing said so, shipped 2026-09-04
+
+**A fault in the importer, four books silently uncorrected, and 15 repairs that close the last two
+things E4 wrote off.** It began as a small batch — Plato's remaining slip candidates — and turned into
+the machinery when the Summa's new row refused to fire.
+
+**THE FAULT.** On the per-chapter wiki branch, `correctRaw` is called on the FETCH path and nowhere
+else. A chapter read from cache goes straight into the book, so **a correction row added to a book
+whose chapters were already cached does nothing at all** until somebody passes `--force`. And
+`correctRaw`'s own comment promises the opposite in as many words: *"a row added or corrected in this
+file is picked up on the very next run."* True on the TEI branches, which correct after reading their
+cache. False on every per-chapter wiki book, which is most of the shelf.
+
+**WHAT IT COST, MEASURED.** Four books were shipping half-corrected, and the shape is the worst
+possible one — not an error left standing, but the SAME WORD SPELLED TWO WAYS in one book, by the
+accident of which chapters happened to be in the cache when the row was written:
+
+| book | before | after |
+|---|---|---|
+| `book-of-documents` | `Tî` 25 × **and** `Di` 69 × | `Di` 71 ×, `Tî` 0 |
+| `sun-tzu-art-of-war` | `Yao-Ch'ên` 1 × **and** `Yaochen` 60 × | `Yaochen` 61 ×, `Yao-Ch'ên` 0 |
+| `three-kingdoms` | `Tao and put` 1 ×, `Dao` elsewhere | `Dao and put` |
+| `summa-theologica` | — | `improportionate`, this batch's own row |
+
+**AND IT IS WHY BATCH E15 SHIPPED A CLAIM THAT WAS FALSE.** E15 announced `summa-theologica`'s
+`corning` as repaired. That row **has never applied and never could**: the word does not occur in this
+translation at all — only the three `scorning`s the row is anchored to spare — and the passage its
+note describes, *"by the dove coming upon the Lord when He was baptized"*, is not in this book either,
+which reads *"the Holy Ghost descended upon Him in the shape of a dove"*. E4's candidate was itself a
+substring match inside `scorning`. So E15 wrote a careful boundary anchor around a fault that was not
+there, and the build's DEAD-ROW warning — which fired correctly — said nothing that every other row on
+that cached run was not also saying. **A guard that cries wolf on everything is a guard nobody reads.**
+The row is removed; the `scorning` trap it documents is real and is kept in E15's entry.
+
+**THE FIX, AND THE ONE THING IT COSTS.** The cached branch now runs `correctRaw` over the prose and
+its notes. The chain is idempotent — stated above `applyRoman` and relied on here — so re-running it
+over prose that has already been through it is safe by construction rather than by luck. What it costs
+is that **a dead row on a cached run is now ambiguous**: a row doing its job perfectly fires nowhere,
+because the cache already carries its output. That ambiguity is not new — before this change every row
+on a fully cached run reported dead, which is strictly worse — but it is now worth naming, so the run
+PRINTS which kind of report it is giving and says to re-run with `--force` to tell them apart.
+
+**THE DEAD ROWS WERE THEN AUDITED RATHER THAN ASSUMED**, by a test that settles it without a refetch:
+**look for the row's OUTPUT in the built book.** A row that already applied has left its output behind;
+a row that never applied has not. Fifteen dead rows across the shelf, **fourteen already applied and
+one genuinely dead** — and the genuinely dead one is exactly `corning`.
+
+**THE REPAIRS.** Fourteen in `plato-dialogues` and one in `summa-theologica`, found by a **fourth
+sweep that generalises E14, E15 and E16 rather than adding a fourth family**: instead of naming a
+confusion and hunting for it, ask the SHELF's own vocabulary which words are rare everywhere and sit
+one edit from a word the shelf uses constantly. Eleven of Plato's fourteen are NON-WORDS, which is
+E15's rule and needs no witness — `Cortinthian`, `Bocotia`, `Poseiden`, `possibillty`, `wlth`,
+`weree`, `sayng`, `sarting`, `moster`, `grap`, `lonians` (E14's capital-I family the other way up).
+Three are not, and each is settled by the book's own usage: **`Hipponieus`** against seven correct
+`Hipponicus` in the same dialogue; **`fake opinion`** in the Theaetetus, whose source file writes
+`false opinion` thirty-seven times and this once; and the Summa's **`inproportionate`**, where the
+translation renders *improportionatus* as `improportionate` ten times.
+
+**TWO OF E4's SIX PLATO CANDIDATES WERE NEVER ERRORS**, which is worth recording because they were
+carried as outstanding work for four batches: `patent` is right (*"in patent ignorance"*) and `sling`
+is right (*"stones flung either by hand or by sling"*).
+
+**WHERE THE NEW SWEEP CAN BE RUN, MEASURED.** Shelf-wide it returns **3,559 candidates**, which is not
+a work list. Normalised per 100,000 words the rate runs from **9.0 to 202** — a factor of twenty-two —
+and the ordering explains itself: **the noise floor is set by how much Latin-alphabet non-English the
+book carries.** Marco Polo tops it at 202 because Yule's notes quote Old French, Portuguese, Italian
+and Latin, and no rarity test can tell *aler parmy la forest* from a typo. Plato sits near the clean
+end at 11.4 **because its foreign matter is Greek** — another script, invisible to a Latin-letter word
+scan — and there the sweep yielded 14 real repairs from 79 candidates. **So it is an instrument for a
+book you have reason to suspect, and the table says which books it can be pointed at**: the Odyssey
+(9.0), the Summa (9.7), Thucydides (9.8), Caesar (10.5), the Analects (10.9), the Ethics (11.2), Plato
+(11.4), the Book of Documents (12.2), the Republic (12.6).
+
+**A NEGATIVE RESULT WORTH KEEPING.** Before any of this, all sixteen TEI books were re-fetched with
+`--force` to see how much more had drifted upstream since E17 found the Odyssey and the Oedipus had.
+**Nothing had**: every built file byte-identical. The shelf's TEI sources are current, and the drift
+E17 adopted was the whole of it.
+
+**The proof.** Every book with a cache rebuilt; five changed and each change was read. `book-of-documents`
+28 substitutions, `three-kingdoms` 8, `sun-tzu-art-of-war` 1, `summa-theologica` 1, `plato-dialogues`
+14 — and no book without a correction table moved a byte.
 
 ### E18 — a citation put through a beta-code converter, shipped 2026-09-04
 
@@ -502,6 +585,15 @@ three times (`in scorning the command of the proconsul`). A bare substring row w
 `scoming` in all three, silently, while the report said one fix applied. **The rows are anchored on
 word boundaries and that is not decoration**; the row for this one says so in its own `why`, because
 the trap is invisible from the corrected line.
+
+> **THE `corning` REPAIR ITSELF WAS NOT REAL, and batch E19 found it out.** The word occurs nowhere in
+> this translation — only the three `scorning`s the anchor spares — and the passage described above
+> ("by the dove coming upon the Lord when He was baptized") is not in the book, which reads "the Holy
+> Ghost descended upon Him in the shape of a dove". E4's candidate was itself a substring match inside
+> `scorning`; the row was written around a fault that was not there and reported as shipped. What let
+> that through is the cache fault E19 fixes: on a cached run EVERY row reported dead, so the warning
+> this one correctly raised said nothing the others did not. **The trap above is real and stands; the
+> repair did not, and the row is removed.**
 
 **And E14's own two pending confirmations are closed here**: the Rigveda's Sanskrit column rebuilt
 **byte-identical**, and Journey to the West's single row fired on `the boundless and universal law`.

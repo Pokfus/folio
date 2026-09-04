@@ -1075,7 +1075,16 @@ book added later will meet the same traps.
   `plato-republic` (~666 KB, all 10 books, **no section numbers at all**, 117 translator notes — the
   first book here with none, which is why it has no original; see the `<id>.<lang>.js` bullet below),
   `plato-dialogues` (**~3.9 MB, much the largest book on the shelf** — **thirty-five whole WORKS as
-  thirty-five chapters**, 1,484 Stephanus sections, 1,627 notes. **Eight of its fourteen slip
+  thirty-five chapters**, 1,484 Stephanus sections, 1,627 notes. **Batch E19 repaired fourteen more
+  slips** — `Cortinthian`, `Bocotia`, `Poseiden`, `possibillty`, `wlth`, `weree`, `sayng`, `sarting`,
+  `moster`, `grap`, `lonians` for `Ionians`, `Hipponieus` for a man the same dialogue names correctly
+  seven times, `fake opinion` in the Theaetetus against thirty-seven `false opinion`s in its own
+  source file, and a stray `c` on `cry out` — and **closed two of E4's six candidates as never having
+  been errors at all**: `patent` ("in patent ignorance") and `sling` ("stones flung either by hand or
+  by sling") are both right. The sweep that found them asks the shelf's own vocabulary for words that
+  are rare everywhere and one edit from a common one; **it works on this book because its foreign
+  matter is GREEK**, invisible to a Latin-letter word scan, where a book quoting Latin or Old French
+  buries the signal. **Eight of its fourteen slip
   candidates were repaired in Sep 2026 (batch E14)** as the capital-I-for-l class, which needs no
   witness and so is unaffected by the Loeb scan's OCR being unusable; the other six are real English
   words in the wrong place (`sling` for `sting`, `patent` for `potent`) and still want a leaf read.
