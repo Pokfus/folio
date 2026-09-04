@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-569` Dakar.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-570` Guatemala City.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -703,6 +703,30 @@ begins *"Page not found"*; `/milestones/1989-1992/somalia` honestly 404s. The Mi
 some slugs simply do not exist, so this is a seventh variety of 200-status error document and the first on
 a host the deck relies on. **Grep a milestone's body for the city or the subject before citing it** — the
 status line will not tell you.
+
+**`gw-569` DAKAR IS THE MISSION-ELSEWHERE FAMILY RUN BACKWARDS, AND IT IS THE FOURTH SHAPE THAT
+FAMILY TAKES.** Bamako, Niamey and Ouagadougou were each dated by an American mission sitting in ANOTHER
+city — the guide says where the accrediting embassy was, and the capital's own date falls out of it.
+Dakar is the same sentence read from the other end: the embassy never moved at all, and it was the
+ACCREDITATION that changed, from the Federation of Mali to the republic that had just left it. The guide
+is unusually explicit about it — *"The Embassy at Dakar had been accredited previously to the Federation
+of Mali, which no longer existed"* — which is why this pair is worth carrying together: `gw-558` Bamako
+and `gw-569` Dakar are one federation seen from its two halves, and 24 September 1960 is the day one city
+became a capital in American eyes while the other stopped being the capital of anything larger than
+itself. **On a state that federated, merged or seceded, read the guide for where the mission was AND for
+what it was accredited to** — the second question is the one that answers a capital card when the mission
+was here all along.
+
+**A SOURCE'S OWN TEXT CAN CARRY A TYPO, AND NEITHER REPRODUCING IT NOR SILENTLY FIXING IT IS RIGHT.**
+UNdata's footnote d on Senegal reads *"Refers to the sum of the Departments of Dakar, Pikinie and
+Guédiawaye, in Dakar Region"* — and the department is **Pikine**. Quoting the list reproduces a
+misspelling on a study card; correcting it puts words in the source's mouth that a reader checking the
+citation will not find. The card says the figure is *"the sum of three departments of the Dakar Region"*,
+which is exactly what the footnote asserts and names nothing it does not. **Where a source's wording is
+wrong in a way that does not touch its claim, paraphrase the claim and leave the wording alone.** The
+relay itself held here for the eleventh time — UNdata's 3,057.1 thousand for 2019 and the World Bank's
+`EN.URB.LCTY` 3,057,065 for the same year are one number, Dakar being both the capital and the largest
+city, which is the condition the Astana exception established.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
