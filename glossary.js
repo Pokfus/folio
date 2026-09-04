@@ -1756,7 +1756,8 @@ window.GLOSSARY = {
 "Wooden_wall_oracle": "The wooden wall oracle was the response the Pythia at Delphi gave the Athenians in 480 BCE, promising a wall of wood as a stronghold while all else within their borders fell.<sup class=\"fn\" data-fn=\"1\"></sup> Opinion at Athens divided between those who took the wall to be the old thorn hedge on the acropolis and those who took it to mean the fleet, the closing lines about divine Salamis telling against the latter.<sup class=\"fn\" data-fn=\"1\"></sup> Themistocles argued that a Salamis called divine rather than cruel must promise the enemy's deaths, and the assembly accepted him; Nepos and Justin later give one unambiguous answer telling the Athenians to defend themselves with wooden walls.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Tempe_expedition": "The Tempe expedition was the first Greek attempt to halt the Persian invasion of 480 BCE, when about ten thousand hoplites were shipped north to hold the pass where the Peneus leaves Thessaly between Olympus and Ossa.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus names Euaenetus and Themistocles as its commanders and says the Greeks withdrew after a few days, ostensibly on the advice of Alexander of Macedon but in his view from fear, having learned of a second route into Thessaly through Perrhaebia.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus instead calls the Spartan commander Synetus and attributes the withdrawal to the Thessalians and their neighbours having already submitted to Xerxes, leaving the pass open to him.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Battle_of_Thermopylae": "The Battle of Thermopylae was fought in 480 BCE at the narrow coast road into central Greece, where a Greek force under Leonidas of Sparta held the pass against the army of Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus puts the defenders at three hundred Spartans with several thousand allies, fighting from behind a wall the Phocians had built, and says that on the third day a mountain path was shown to the Persians.<sup class=\"fn\" data-fn=\"1\"></sup> Most of the allies were dismissed and those who stayed were surrounded and killed; the Amphictyons set pillars over the dead, one of which Strabo still saw, telling a stranger that the Spartans lay there obedient to their commands.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Leonidas_I": "Leonidas I was the Agiad king of Sparta who commanded the Greeks at Thermopylae in 480 BCE and was killed holding the pass against Xerxes.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says the kingship reached him unexpectedly, as a younger son of Anaxandrides who succeeded only after his elder brothers Cleomenes and Dorieus died, and that he took three hundred Spartans chosen for having sons.<sup class=\"fn\" data-fn=\"1\"></sup> He reports that the Pythia had told the Spartans either their city must fall or a king of Heracles' line must die, and that Xerxes had the dead man's head cut off and impaled; Pausanias later saw his tomb at Sparta, the bones brought home forty years after the battle.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Leonidas_I": "Leonidas I was the Agiad king of Sparta who commanded the Greeks at Thermopylae in 480 BCE and was killed holding the pass against Xerxes.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says the kingship reached him unexpectedly, as a younger son of Anaxandrides who succeeded only after his elder brothers Cleomenes and Dorieus died, and that he took three hundred Spartans chosen for having sons.<sup class=\"fn\" data-fn=\"1\"></sup> He reports that the Pythia had told the Spartans either their city must fall or a king of Heracles' line must die, and that Xerxes had the dead man's head cut off and impaled; Pausanias later saw his tomb at Sparta, the bones brought home forty years after the battle.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Ephialtes_of_Trachis": "Ephialtes of Trachis is the man Herodotus names as having shown Xerxes the mountain path by which the Greek force at Thermopylae was surrounded in 480 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus calls him a Malian, the son of Eurydemus, says he acted expecting a great reward, and rejects a rival account naming two other guides on the ground that the Amphictyons set a price on his head and not on theirs.<sup class=\"fn\" data-fn=\"1\"></sup> He fled to Thessaly, returned to Anticyra and was killed there by a Trachinian named Athenades for what Herodotus says was another reason altogether; Diodorus tells the same betrayal without any name, calling the guide simply a Trachinian who knew the mountains.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2538,7 +2539,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Wooden_wall_oracle": "480 BCE",
 "Tempe_expedition": "480 BCE",
 "Battle_of_Thermopylae": "480 BCE",
-"Leonidas_I": "died 480 BCE"
+"Leonidas_I": "died 480 BCE",
+"Ephialtes_of_Trachis": "fl. 480 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3639,7 +3641,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Wooden_wall_oracle": ["wooden wall"],
 "Tempe_expedition": ["expedition to Tempe"],
 "Battle_of_Thermopylae": ["Thermopylae"],
-"Leonidas_I": ["Leonidas"]
+"Leonidas_I": ["Leonidas"],
+"Ephialtes_of_Trachis": ["Ephialtes"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5424,7 +5427,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Wooden_wall_oracle": ["event","history","religion","politics","greece"],
 "Tempe_expedition": ["event","history","warfare","greece"],
 "Battle_of_Thermopylae": ["battle","history","warfare","greece","iran"],
-"Leonidas_I": ["ruler","history","warfare","politics","greece"]
+"Leonidas_I": ["ruler","history","warfare","politics","greece"],
+"Ephialtes_of_Trachis": ["person","history","warfare","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
