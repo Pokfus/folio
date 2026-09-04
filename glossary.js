@@ -2000,7 +2000,8 @@ window.GLOSSARY = {
 "Civitas_sine_suffragio": "Civitas sine suffragio was Roman citizenship without the vote, carrying the private rights of conubium and commercium but no share in the public law, so that its holder could neither vote in the assemblies nor stand for Roman office.<sup class=\"fn\" data-fn=\"2\"></sup> It brought no relief from Rome's demands, since its holders served in the legions or in a corps of their own, and the registers of such citizens were called the tables of the Caerites after the first town to receive it.<sup class=\"fn\" data-fn=\"1\"></sup> It could be a favour or a penalty, and ended when the laws closing the Social War gave every Italian community the full franchise.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Colonia_(Roman)": "A colonia was a body of Roman citizens or allies sent out by a public act of the state to hold a place, described by Gellius as an offshoot of the citizen body and a small likeness of the Roman people.<sup class=\"fn\" data-fn=\"2\"></sup> The early foundations were garrisons planted in conquered towns, the settlers receiving a share of the land, commonly a third, while the former inhabitants kept the rest and lived among them.<sup class=\"fn\" data-fn=\"1\"></sup> None was founded without a law: commissioners were elected to lead the settlers out, the law fixed how much land each received, and the boundary of the new town was marked with a plough.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Latin_colony": "A Latin colony was led out by Roman commissioners after a vote of the people, like a colony of citizens, but formed an independent community under no Roman magistrate and was not bound to take Roman law except as it chose.<sup class=\"fn\" data-fn=\"1\"></sup> Its settlers gave up the Roman franchise and counted as foreigners at Rome, serving in allied cohorts and squadrons rather than in the legions, while holding commercium and probably conubium with the city.<sup class=\"fn\" data-fn=\"1\"></sup> In all 27 were planted in conquered land beyond Latium, almost always inland, where colonies of citizens in the same period were as a rule set on the coast.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Ager_publicus": "The ager publicus was land held in common by the Roman people, made out of conquest: a defeated community was commonly left standing but stripped of part of its territory, often a third.<sup class=\"fn\" data-fn=\"2\"></sup> Cultivated ground was assigned to settlers in surveyed lots, sold by the quaestors in full ownership, or leased, while the greater part, lying wasted by war, was thrown open to whoever would work it for a tenth of the grain and a fifth of the fruit.<sup class=\"fn\" data-fn=\"1\"></sup> Those occupiers were called possessores, and although holding state land gave them no right against the state, the arrangement was recognised in law and could be undone only by legislation.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Ager_publicus": "The ager publicus was land held in common by the Roman people, made out of conquest: a defeated community was commonly left standing but stripped of part of its territory, often a third.<sup class=\"fn\" data-fn=\"2\"></sup> Cultivated ground was assigned to settlers in surveyed lots, sold by the quaestors in full ownership, or leased, while the greater part, lying wasted by war, was thrown open to whoever would work it for a tenth of the grain and a fifth of the fruit.<sup class=\"fn\" data-fn=\"1\"></sup> Those occupiers were called possessores, and although holding state land gave them no right against the state, the arrangement was recognised in law and could be undone only by legislation.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Samnite_Wars": "The Samnite Wars were three wars fought between Rome and the Samnite league of the central Apennines, beginning in 343 BCE when the Campanians, attacked by Samnium, asked Rome for help against a people Rome had lately made a treaty with.<sup class=\"fn\" data-fn=\"2\"></sup> The second opened in 326 BCE over the Greek city of Palaepolis and the third in 298 BCE, when Samnium leagued with the Etruscans, Umbrians and Gauls and the fighting spread far beyond its own hills.<sup class=\"fn\" data-fn=\"1\"></sup> The Samnites laid down their arms in 290 BCE, and Livy introduced the whole struggle as one greater than any before it in the forces engaged, its length and the ground it covered.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2794,7 +2795,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Appius_Claudius_Caecus": "censor 312 BCE, consul 307 and 296 BCE",
 "Appian_Way": "begun 312 BCE",
 "Aqua_Appia": "312 BCE",
-"Roman_expansion_in_Italy": "c. 387 – 264 BCE"
+"Roman_expansion_in_Italy": "c. 387 – 264 BCE",
+"Samnite_Wars": "343 – 290 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6054,7 +6056,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Civitas_sine_suffragio": ["institution","history","politics","law","italy"],
 "Colonia_(Roman)": ["institution","history","politics","warfare","italy"],
 "Latin_colony": ["institution","history","politics","warfare","italy"],
-"Ager_publicus": ["institution","history","politics","agriculture","italy"]
+"Ager_publicus": ["institution","history","politics","agriculture","italy"],
+"Samnite_Wars": ["event","history","warfare","politics","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
