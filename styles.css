@@ -878,17 +878,36 @@ body[data-theme="gazette"] .gt-seal{filter:none;}
    showing; the band does that now, so the green circle and the gold seal are a second badge on top of a
    badge. What is left is a big white tick with a shadow under it — the same tick in both states, since it
    is the BAND that says which. `.gt-seal`'s clip-path, gold and glint all go with it; they are unchanged
-   above the breakpoint, where the tile has no band. */
+   above the breakpoint, where the tile has no band.
+   NEITHER BAND IS A FLAT COLOUR (on request): each is a three-stop gradient running with the tile's own
+   diagonal, palest at the top-left and deepest at the bottom-right, so the band reads as a lit surface
+   rather than as a swatch. The gold one additionally carries `gt-gold-shine` — the seal's own sweep, at the
+   seal's own 3.4s and with the same 3.4s rest between passes, since the glint the wax used to make is the
+   thing the wax took with it when it went, and a perfect score is the one state on the page worth a
+   flourish. The shine is a first background LAYER over the gold, which is why this rule sets
+   `background-image`/`-size`/`-position` rather than the shorthand the green band uses. The global motion
+   killswitch would leave it parked on its end frame, so it is named beside `.gt-seal` in both of that
+   switch's halves — the OS setting and Folio's own — exactly as the seal is. */
 @media (max-width:640px){
   .game-tile.done .gt-face::before, .game-tile.won .gt-face::before{
     content:""; flex:1 1 auto; min-height:0;
     margin:calc(-1 * var(--gt-py)) calc(-1 * var(--gt-px)) 7px;
-    background:color-mix(in srgb, var(--good, #4F9D67) 66%, var(--card));
+    background:linear-gradient(158deg,
+      color-mix(in srgb, var(--good, #4F9D67) 54%, var(--card)) 0%,
+      color-mix(in srgb, var(--good, #4F9D67) 72%, var(--card)) 55%,
+      color-mix(in srgb, var(--good, #4F9D67) 88%, var(--card)) 100%);
   }
   .game-tile.won .gt-face::before{
-    background:linear-gradient(160deg,
-      color-mix(in srgb, #E3C367 88%, var(--card)),
-      color-mix(in srgb, #C79E33 84%, var(--card)));
+    background-image:
+      linear-gradient(112deg, rgba(255,255,255,0) 40%, rgba(255,255,255,.52) 50%, rgba(255,255,255,0) 60%),
+      linear-gradient(158deg,
+        color-mix(in srgb, #F2DC9A 92%, var(--card)) 0%,
+        color-mix(in srgb, #DDB84E 90%, var(--card)) 52%,
+        color-mix(in srgb, #BE9527 88%, var(--card)) 100%);
+    background-size:250% 100%, 100% 100%;
+    background-repeat:no-repeat;
+    background-position:110% 0, 0 0;
+    animation:gt-gold-shine 3.4s ease-in-out infinite;
   }
   .game-tile.done .gt-glyph, .game-tile.won .gt-glyph{display:none;}
   /* one tick, no badge behind it — every property either state set to hold a small mark is unset here */
@@ -900,6 +919,13 @@ body[data-theme="gazette"] .gt-seal{filter:none;}
   }
   .game-tile .gt-check svg, .game-tile .gt-seal-face svg{width:32px; height:32px; stroke-width:3.4;}
   .game-tile .gt-seal-face{color:#fff; filter:none;}
+}
+/* the band's sweep answers to the same two switches the seal's does — and this half has to be declared
+   BELOW the block that starts it: `.game-tile.won .gt-face::before` beats nothing of its own specificity
+   except by coming later, so the copy that sits up beside `.gt-seal` reaches the seal alone. (Folio's own
+   switch is `body.no-anim …`, further down with the rest of the killswitch, and outranks it outright.) */
+@media (max-width:640px) and (prefers-reduced-motion:reduce){
+  .game-tile.won .gt-face::before{animation:none;}
 }
 /* daily challenge accent treatment */
 .banner.challenge{background:linear-gradient(135deg, var(--card) 60%, var(--zh-wash));}
@@ -5287,7 +5313,7 @@ button.game-tile .gt-glyph{opacity:.14;}
 body.no-anim *,body.no-anim *::before,body.no-anim *::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
 body.no-anim .page > *{animation-delay:0s !important;}
 body.no-anim .lu-conf,body.no-anim .lu-burst{display:none;}
-body.no-anim .gt-seal{animation:none;}
+body.no-anim .gt-seal, body.no-anim .game-tile.won .gt-face::before{animation:none;}
 body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::before{animation:none; border-color:var(--rule); border-top-color:var(--indigo);}
 
 /* ============================================================
