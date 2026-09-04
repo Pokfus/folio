@@ -97,7 +97,8 @@ Tyrtaeus Archilochus Hippocrates Theophrastus Demosthenes Isocrates Lysias Aesch
 Suetonius Caesar Seneca Cicero Tacitus Sallust Virgil Horace Vitruvius Pliny Josephus Athenaeus Vyasa Confucius
 Mencius Laozi Zhuangzi Sima Ptolemy Euclid Archimedes Galen Aelian Hyginus Ovidius Quintilian
 Gellius Aulus Dionysius Halicarnassus Varro Festus Censorinus
-Nepos Justin Trogus Aeneas Tacticus Polyaenus Frontinus Onasander Asclepiodotus Diogenes Laertius`.split(/\s+/));
+Nepos Justin Trogus Aeneas Tacticus Polyaenus Frontinus Onasander Asclepiodotus Diogenes Laertius
+Procopius`.split(/\s+/));
 
 function loadWindow(file) { const win = {}; new Function("window", fs.readFileSync(file, "utf8"))(win); return win; }
 const plain = (s) => String(s || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
