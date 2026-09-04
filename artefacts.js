@@ -966,4 +966,25 @@ window.ARTEFACTS = [
     date: "c. 1st – 5th century CE",
     origin: "Gandhara, in modern Pakistan and Afghanistan",
   },
+  {
+    id: "book-of-kells",
+    name: "Book of Kells",
+    rarity: "epic",
+    date: "c. 800 CE",
+    origin: "Iona, Kells or Pictish Scotland",
+  },
+  {
+    id: "bayeux-tapestry",
+    name: "Bayeux Tapestry",
+    rarity: "epic",
+    date: "c. 1070s CE",
+    origin: "Normandy or England",
+  },
+  {
+    id: "lewis-chessmen",
+    name: "Lewis chessmen",
+    rarity: "rare",
+    date: "c. 12th century CE",
+    origin: "Norway or the Norse North Atlantic; found on Lewis, Scotland",
+  },
 ];

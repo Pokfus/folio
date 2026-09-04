@@ -252,7 +252,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | batch | shipped | deferred |
 |---|---|---|
 | A1 | `terracotta-warrior`, `antikythera-mechanism`, `great-isaiah-scroll` | — |
-| A2 | `venus-of-willendorf` | `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, ~~`vindolanda-tablets`~~ (shipped in A2b) |
+| A2 | `venus-of-willendorf` | ~~`bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`~~ (all three shipped in A2c), ~~`vindolanda-tablets`~~ (shipped in A2b) |
 | B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | ~~`gandhara-buddha-head`, `chola-nataraja`~~ (shipped in B1c), `mughal-miniature`, `nbpw-sherd`, ~~`punch-marked-coin`, `etched-carnelian-bead`~~ (shipped in B1b), `glass-bangle` |
 | D2 | `oak-coffin-textile`, `amber-bead`, `ochre-crayon` | `palaeolithic-bone-flute`, `antler-spearthrower`, `saddle-quern`, `sickle-blade`, `bone-fishhook`, `eyed-bone-needle` |
 | D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | ~~`palaeolithic-bone-flute`, `bone-fishhook`~~ (both shipped in D2c) |
@@ -265,6 +265,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | D2c | `palaeolithic-bone-flute`, `bone-fishhook` (both UN-DEFERRED — **D2's list is now empty**) | — |
 | B1b | `punch-marked-coin`, `etched-carnelian-bead` (both UN-DEFERRED) | — |
 | B1c | `chola-nataraja`, `gandhara-buddha-head` (both UN-DEFERRED) | — |
+| A2c | `book-of-kells`, `bayeux-tapestry`, `lewis-chessmen` (all three UN-DEFERRED — **A2's list is now empty**) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -622,7 +623,8 @@ unreachable list:
 **The rule held rather than being bent**: nothing was padded to the bar. The Bayeux Tapestry could have
 been given three pages of its own museum's website, which would have passed every check and taught a
 reader nothing three clicks would not — that is precisely the filler the first pass threw away three
-drafts of. All four wait for a batch that can source them.
+drafts of. All four wait for a batch that can source them. *(All four have since shipped — the tablets in
+A2b and the other three in A2c, whose finding is below.)*
 
 **The routes to try when they are picked up again**, in order: the **Europe PMC copy** (which is what
 rescued the Venus's third work when `academic.oup.com` returned 403 on the DOI — cite
@@ -631,6 +633,55 @@ early monographs**, which for the Book of Kells means Westwood and the Palaeogra
 and for the Lewis hoard means Madden's 1832 *Archaeologia* paper; and **Cambridge Core via `doi.org`**,
 which is open here and carries *Antiquity*, *Britannia* and the *Proceedings of the Society of Antiquaries
 of Scotland* — the last of which is the natural home for the Lewis chessmen.
+
+**A2c CLEARS A2's LIST AND SHOWS THAT ITS DIAGNOSIS WAS RIGHT ABOUT THE HOSTS AND WRONG ABOUT THE
+CONCLUSION.** A2 was correct that the modern scholarship on these three objects sits in Boydell, Brepols
+and Routledge chapters that do not answer here, and it drew from that the conclusion that the objects
+could not be sourced. They can: all three were written from OPEN JOURNALS AND NINETEENTH-CENTURY
+MONOGRAPHS, and **the three routes A2 itself listed as "to try when they are picked up again" are the
+three that worked**, which is the most useful thing a deferral can leave behind. The corrections to
+those routes are worth as much as the routes:
+
+· **PSAS is open at `journals.socantscot.org`, not through Cambridge Core.** A2 predicted the
+  *Proceedings of the Society of Antiquaries of Scotland* would be the natural home for the Lewis
+  chessmen and predicted it would be reached through `doi.org` at Cambridge. The journal is right and
+  the door is wrong: the Society publishes its own whole back catalogue, every article carrying a
+  `10.9750/PSAS.…` DOI and a free PDF, and its own OJS search found F. W. L. Thomas's 1863 notice in
+  three requests. **The prediction was right about the journal and wrong about the door**, which is the
+  cheaper half to get wrong.
+· **`Archaeologia` volume 24 is NOT on archive.org** — A2 named Madden's 1832 paper as the Lewis route
+  and no volume of that series from the 1830s is there under any identifier tried. It did not matter,
+  because Murray 1913 quotes and dates Madden's argument and Wilson 1851 answers it. **A work you cannot
+  open may still be reachable through the two works that argue with it**, and on a plate that describes a
+  dispute, the two answers are what the sentence needs anyway.
+· **A nineteenth-century monograph is not a fallback for these three, it is the better source.** Fowke
+  1913 counts the tapestry's figures (623 people, 202 horses, 41 ships — 1,512 objects), Sullivan 1920
+  gives the Book of Kells' 339 leaves against Ussher's tally of 344 in 1621, and Murray 1913 inventories
+  the Lewis hoard piece by piece. Those are exactly the physical facts a plate is made of, and they are
+  precisely what the modern art-historical literature assumes rather than states. This is batch 25's rule
+  from the first pass — *a 19th-century figure is his own best institutional record* — turned round onto
+  objects.
+· **The correction pattern held for all three, and in all three it is the SAME correction: the popular
+  NAME.** The Bayeux Tapestry is not a tapestry, and Matilda did not make it; the Book of Kells' blue is
+  woad rather than the lapis lazuli every account gave it until the 2004–7 analysis; the Lewis chessmen
+  are not Viking. **Where a reader arrives holding a name, the correction is usually inside the name** —
+  which is a sharper form of A1's finding and cost no extra searching at all, since each one falls out of
+  the first source read.
+· **Two of the four usable Lewis pictures were traps, and the look-at-it rule caught both.** One is a
+  REPLICA in a chess museum in Baku whose own label reads "walrus ivory, replica" and "probably made by
+  Vikings" — the myth this artefact's plate exists to correct, printed under a copy of the thing. The
+  other is a group shot through display glass carrying half a dozen visitors' reflections and a scarlet
+  board. Neither is detectable from a file name, a licence or a pixel count.
+
+Measured 2026-09-03/04 and worth adding to the survey: `journals.socantscot.org` **200 with full PDFs**;
+`exarc.net`, `ride.i-d-e.de`, `historia.scribere.at` and `journals.lub.lu.se` all **200 with real
+content**; `bayeuxmuseum.com` 200 but too thin to cite; `britishmuseum.org` and `nms.ac.uk` **403**;
+`archaeologydataservice.ac.uk` answers at the root and **403s on `/archives/view/…`**;
+`journals.openedition.org` is still behind the Anubis wall, returning exactly **5,261 bytes** for all
+three of DOAJ's Bayeux candidates, which is the same constant B1 recorded; `api.openalex.org` **429s
+from this container with or without a polite user-agent**, so it is not an index to plan on here; and
+`pmc.ncbi.nlm.nih.gov` answers 200 for *Phil. Trans. A* records that carry **no deposited full text**,
+which reads as an article and is a landing page.
 
 ## The per-artefact workflow
 
