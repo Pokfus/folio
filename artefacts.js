@@ -1225,4 +1225,25 @@ window.ARTEFACTS = [
     date: "c. 1100 – 1500 CE",
     origin: "England",
   },
+  {
+    id: "bartmann-jug",
+    name: "Bartmann jug",
+    rarity: "common",
+    date: "c. 1500 – 1700 CE",
+    origin: "Rhineland",
+  },
+  {
+    id: "byzantine-ivory-panel",
+    name: "Byzantine ivory panel",
+    rarity: "rare",
+    date: "c. 400 – 1200 CE",
+    origin: "Byzantine Empire",
+  },
+  {
+    id: "gutenberg-bible-leaf",
+    name: "Leaf of the Gutenberg Bible",
+    rarity: "epic",
+    date: "c. 1454 – 1455 CE",
+    origin: "Mainz",
+  },
 ];

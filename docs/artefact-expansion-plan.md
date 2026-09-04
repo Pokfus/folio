@@ -278,6 +278,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | E3a | `transferware`, `socket-bayonet`, `flintlock-musket` | `steel-pen-nib` (one work only) |
 | E1a | `mail-fragment`, `telegraph-key`, `iron-cannonball` | — |
 | E2b/E3b/D1c | `albarello`, `phonograph-cylinder`, `green-glazed-jug` | — |
+| E3c/C1c/E2c | `bartmann-jug`, `byzantine-ivory-panel`, `gutenberg-bible-leaf` | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1132,6 +1133,45 @@ what the thing was.
   against the file's own Commons page, and fetch the picture itself through
   `commons.wikimedia.org/w/thumb.php?f=<FILE>&width=<n>`, which answers when `Special:FilePath` hands back
   HTML.
+
+**E3c/C1c/E2c's finding is that THE CATALOGUE OF A GREAT COLLECTION IS THE BEST SINGLE SOURCE THIS PASS
+HAS FOUND, and its refusals are worth as much as its facts.** All three plates lean on one — Hobson's
+*English Pottery* (1903), Dalton's *Ivory Carvings of the Christian Era* (1909), and the British Museum's
+*Catalogue of Books Printed in the XVth Century* (1908) — and each is out of copyright, whole on
+archive.org, and written by a curator describing objects in front of him. What a trade manual gives is a
+process; what a catalogue gives is a MEASURED OBJECT with its attribution argued, and the two together
+are most of what a 200-word plate needs.
+· **BMC I DOES NOT NAME GUTENBERG, and that is the fact the plate is built on.** The British Museum files
+  the 42-line Bible under "Printer, or Printers, of the 42-line Bible and 30-line Indulgence" — the book
+  carries no printer, place or date, and De Vinne records that by the 16th century the tradition that
+  Gutenberg made it was entirely lost, the attribution reviving only when a copy was identified in
+  Cardinal Mazarin's library. Pollard adds that bibliographers settled on "the 42-line Bible" precisely as
+  "a safe uncontroversial title". **When the standard catalogue declines to attribute, say so**: a plate
+  that names the printer flatly is asserting what its own best source refuses to.
+· **A CATALOGUE ENTRY IS ALSO A COLLATION, which is where the process shows.** BMC's entry gives 643
+  leaves, two columns, 42 lines at 292×198 mm — and then 40-line and 41-line pages, the type filed down
+  twice so that 42 of the smaller lines take slightly less room than 40 of the old, six presses working at
+  once, and a mid-run decision to enlarge the edition that forced already-printed pages to be reset. It
+  also dates the book from the OUTSIDE: Heinrich Cremer finished rubricating and binding his copy on 24
+  August 1456, so copies were on sale weeks before. **Read the collation, not the headnote.**
+· **THE OBJECT'S OWN NAME CAN BE THE DISAGREEMENT.** Solon (1892) calls the Rhenish jug the *Bartmann*,
+  after the bearded face under its spout, and never uses "Bellarmine"; Hobson and Rhead call the same
+  thing a Greybeard or Bellarmine. Rhead then goes further and doubts the English ever made the ordinary
+  sort at all, preferring "to let the bellarmines go by default of evidence" — against Hobson's record of
+  three separate petitions for the monopoly (William Simpson under Elizabeth, Rous and Cullen in 1626,
+  David Ramsay in 1636), each claiming to have solved the mystery of producing stoneware as in Germany.
+  Three works, two names and one open question, from one shelf.
+· **A QUESTION THE SOURCES CANNOT ANSWER IS STILL A FACT WORTH CARDING.** Maskell (1876) records that
+  nobody can explain how the largest ivory slabs were obtained — one British Museum piece runs to 41 by
+  14 cm — and gives both standing theories, a lost method of softening and flattening ivory, or tusks
+  larger than the modern animal yields. Beside it Dalton's *Byzantine Art and Archaeology* supplies the
+  two things a reader forgets about ivories: that they were painted and gilded, inscriptions picked out in
+  red and some stained the imperial purple, and that the consular series is COUNTABLE — 49 known, 37 named
+  by inscription or monogram and 12 anonymous, ending with Basilius in 541 when Justinian abolished the
+  office.
+· One access note to add to E2b's: **`archive.org/advancedsearch.php` is the way to find these**, since a
+  catalogue's title is long and its author is often the institution rather than the curator (Hobson's and
+  Dalton's BM catalogues are both filed under the British Museum). Search the TITLE, not the person.
 
 ## The per-artefact workflow
 
