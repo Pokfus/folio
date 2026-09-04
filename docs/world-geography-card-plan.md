@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-568` Mogadishu.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-569` Dakar.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -679,6 +679,30 @@ and `/thumb/…/1000px-…` answers **400** — Commons does not generate a thum
 own width. The fix is to point `src` at the ORIGINAL file path (no `/thumb/`), which is what this card
 does. Sibling of the earlier finding that `Special:FilePath?width=N` silently serves the original when it
 is smaller than N: **between them, any file near the 900px bar needs its src checked rather than built.**
+
+**`gw-568` MOGADISHU IS THE MISSION-ELSEWHERE SHAPE AT ITS LIMIT: TWENTY-EIGHT YEARS.** The guide records
+the embassy closed on **5 January 1991** with all American personnel withdrawn after the collapse of the
+central government — and states in the same breath that relations were NOT severed, the United States
+dealing with Somalia "through the U.S. Embassy in Nairobi, Kenya" until the mission in Mogadishu reopened
+on **2 December 2018**, with Nairobi still handling consular coverage afterwards. Beside Abidjan's six
+months for Niamey and Brazzaville's for N'Djamena, this is the same arrangement lasting most of a working
+lifetime, and it is the single fact the card is built on.
+
+**TWO ORGANS SETTLED ITS INDEPENDENCE DATE AND BOTH RECORDS ARE CITABLE BY TITLE.** `A/RES/1418 (XIV)` and
+`T/RES/2015 (XXVI)` are both headed *Date of independence of the Trust Territory of Somaliland under
+Italian administration*, and the Trusteeship Council's carries a usable note — *"Adopted at the 1104th
+plenary meeting, 7 June 1960"* — three weeks before the date it fixed. Both are pre-1970 scans with no text
+layer, so **the citation rests on the catalogue metadata rather than the document**, which is exactly what
+Lusaka's finding said to check first. Where a trust territory is involved, look for the TRUSTEESHIP COUNCIL
+resolution beside the General Assembly one: it is a second organ on the same question and its record
+usually carries the meeting number and date.
+
+**AND A RETIRED MILESTONE URL ANSWERS 200 WITH A "PAGE NOT FOUND" BODY.**
+`history.state.gov/milestones/1993-2000/somalia` returns **200** and 19 KB of navigation chrome whose text
+begins *"Page not found"*; `/milestones/1989-1992/somalia` honestly 404s. The Milestones were retired and
+some slugs simply do not exist, so this is a seventh variety of 200-status error document and the first on
+a host the deck relies on. **Grep a milestone's body for the city or the subject before citing it** — the
+status line will not tell you.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the

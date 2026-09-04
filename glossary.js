@@ -1761,7 +1761,8 @@ window.GLOSSARY = {
 "Astana": "Astana is the capital of Kazakhstan, in the north of the country, and the United Nations counts about 1,117,600 people there under a footnote dating the figure to 2019.<sup class=\"fn\" data-fn=\"1\"></sup> It is not the country’s largest city: the World Bank’s largest-city series gives about 1,862,800 for the same year, and the American embassy stands in that other city, having been established at Alma-Ata, now Almaty, on 3 February 1992.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The city has been published under more than one name by the United Nations itself, whose Economic Commission for Europe issued a profile of it in 2020 headed Nur-Sultan.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "N'Djamena": "N'Djamena is the capital of Chad, in the south-west of the country on the Cameroon border, and the World Bank puts it near 1.72 million people in 2025, where the United Nations gives 1,371,500 for 2019.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American mission opened there on 1 February 1961 was Embassy Fort Lamy, and the guide still lists the post under that name and this one, six months after Chad became independent from French Equatorial Africa on 11 August 1960.<sup class=\"fn\" data-fn=\"3\"></sup> That embassy was closed on 24 March 1980 and its staff evacuated after heavy fighting broke out in the city, and it reopened on 15 January 1982.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Santiago": "Santiago is the capital of Chile, in the centre of the country, and the United Nations counts about 6,723,500 people there for 2019, a figure it notes covers the urban population of the wider metropolitan region rather than the city alone.<sup class=\"fn\" data-fn=\"1\"></sup> The United States recognised Chile on 27 January 1823, when the Senate confirmed Heman Allen as minister, and he presented his credentials there the next year; the legation became an embassy only on 1 October 1914.<sup class=\"fn\" data-fn=\"2\"></sup> On the morning of 11 September 1973 the military launched a coup against Salvador Allende, who made his final broadcast from the presidential palace while it was under attack.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Bucharest": "Bucharest is the capital of Romania, in the south-east of the country, and the United Nations counts about 1,812,300 people there for 2019, on a series that has fallen in every year of the past decade to roughly 1.76 million in 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American consul was appointed to the city on 20 June 1866, while the principalities were still an autonomous part of the Ottoman Empire, and the United States recognised the kingdom on 7 April 1881.<sup class=\"fn\" data-fn=\"3\"></sup> For forty years afterwards no American minister was commissioned to Romania alone, the post being shared with Greece, Serbia and at times Bulgaria, until Peter Augustus Jay was appointed in 1921.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Bucharest": "Bucharest is the capital of Romania, in the south-east of the country, and the United Nations counts about 1,812,300 people there for 2019, on a series that has fallen in every year of the past decade to roughly 1.76 million in 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American consul was appointed to the city on 20 June 1866, while the principalities were still an autonomous part of the Ottoman Empire, and the United States recognised the kingdom on 7 April 1881.<sup class=\"fn\" data-fn=\"3\"></sup> For forty years afterwards no American minister was commissioned to Romania alone, the post being shared with Greece, Serbia and at times Bulgaria, until Peter Augustus Jay was appointed in 1921.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Mogadishu": "Mogadishu is the capital of Somalia, on the coast in the south of the country, and the United Nations counts about 2,179,900 people there for 2019, a figure it notes refers to the urban agglomeration.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was the seat of a United Nations trust territory administered by Italy until 1 July 1960, when that territory united with the former British protectorate of Somaliland as the Somali Republic and the American consulate general there became an embassy.<sup class=\"fn\" data-fn=\"3\"></sup> That embassy closed on 5 January 1991 after the central government collapsed, and Somali affairs were handled from Nairobi for 28 years until it reopened on 2 December 2018.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3613,7 +3614,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Yaoundé": ["Yaounde"],
 "Sri_Jayawardenepura_Kotte": ["Sri Jayewardenepura Kotte","Kotte"],
 "Astana": ["Nur-Sultan"],
-"N'Djamena": ["Fort Lamy","Fort-Lamy"]
+"N'Djamena": ["Fort Lamy","Fort-Lamy"],
+"Mogadishu": ["Mogadiscio"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5403,7 +5405,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Astana": ["place","city","geography","capital","kazakhstan","asia"],
 "N'Djamena": ["place","city","geography","capital","chad","africa"],
 "Santiago": ["place","city","geography","capital","chile","south america"],
-"Bucharest": ["place","city","geography","capital","romania","europe"]
+"Bucharest": ["place","city","geography","capital","romania","europe"],
+"Mogadishu": ["place","city","geography","capital","somalia","africa"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
