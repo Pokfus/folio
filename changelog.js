@@ -35,14 +35,14 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.468", released: "2026-09-04T04:40Z" };
+window.FOLIO_VERSION = { v: "1.469", released: "2026-09-04T04:49Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-04",
     t: "The Persian deck finished, and Greece begun",
     items: [
-      "<b>Nineteen new cards in the World History collection</b>, finishing its Iron Age Near East and Persia deck and opening its Greece deck, with thirteen new glossary terms.",
+      "<b>Twenty new cards in the World History collection</b>, finishing its Iron Age Near East and Persia deck and opening its Greece deck, with thirteen new glossary terms.",
     ],
   },
   {
@@ -95,7 +95,7 @@ window.CHANGELOG = [
       "<b>The True or False statement about the 'Mozart effect' now states the claim plainly</b> instead of denying it.",
       "<b>Sixty new cards in The world</b>, completing the countries and territories deck at 227 of 233, with twenty-six new glossary terms and thirty-two others corrected against their own sources.",
       "<b>Seventeen new cards in the Ancient Greece deck</b>, with seventeen new glossary terms to go with them.",
-      "<b>Nineteen new cards in the World History collection</b>, in its Iron Age Near East deck, with sixteen new glossary terms.",
+      "<b>Twenty new cards in the World History collection</b>, in its Iron Age Near East deck, with sixteen new glossary terms.",
       "<b>The China geography collection is finished</b>, all 31 provinces and regions and all 27 provincial capitals, each with a glossary term and a picture of its own.",
       "The figures beside a geography card's answer are now <b>centred against it</b> rather than pinned to its top line.",
       "<b>All 58 China geography cards rewritten</b> around each place's own history, culture and society, with a consistent box of figures beside the answer.",
