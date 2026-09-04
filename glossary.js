@@ -1744,7 +1744,8 @@ window.GLOSSARY = {
 "Darius_III": "Darius III was the last king of the Achaemenid Empire of Persia, put on the throne by the chiliarch Bagoas after the royal house had been extinguished, being a member of the court circle descended from a brother of Artaxerxes II.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus says he answered Bagoas's attempt to poison him by handing him the cup and making him drink it himself.<sup class=\"fn\" data-fn=\"1\"></sup> He lost Asia to Alexander of Macedon, wrote to him asking for his captured mother, wife and children and offering alliance, and was killed in flight by Bessus, his own satrap of Bactria.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Ancient_Greece": "Ancient Greece is the civilisation of the Greek-speaking cities of the mainland, the Aegean islands and the Ionian coast of Asia Minor, together with the colonies they planted in Italy, Sicily and elsewhere.<sup class=\"fn\" data-fn=\"1\"></sup> Its political unit was the polis, a settlement with its farmland governed as an independent state, whose citizens were those entitled to share in judgement and office, so that resident foreigners and enslaved people lived in it without belonging to it.<sup class=\"fn\" data-fn=\"2\"></sup> Herodotus puts what these cities shared not in any common government but in kinship of blood and speech, shrines and sacrifices held in common, and a like way of life.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Classical_Athens": "Classical Athens is the Greek city of Attica between the Persian Wars and Alexander's conquests, whose people counted as citizens of one polity because Theseus, Thucydides writes, had merged the council chambers of the Attic townships into a single town-hall.<sup class=\"fn\" data-fn=\"1\"></sup> At the outbreak of the Peloponnesian War its allied tribute came to 600 talents, beside 6,000 talents of coined silver on the Acropolis, 13,000 hoplites and 300 galleys fit for service.<sup class=\"fn\" data-fn=\"2\"></sup> Its sea power made the harbour at Piraeus a gathering point for Mediterranean goods, and a hostile Athenian writer remarked that the city, hearing every kind of dialect, mixed the speech and dress of Greeks and foreigners.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Athenian_democracy": "Athenian democracy is the constitution under which the adult male citizens of Athens governed themselves directly, filling most offices by lot and settling public business in the assembly and the jury courts, a system the Constitution of the Athenians says had made the people master of everything.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle's Politics gives its marks as election by lot to any office not needing skill, no property qualification, no office held twice, short tenure, and judicial duties exercised by all citizens.<sup class=\"fn\" data-fn=\"2\"></sup> It was carried at public expense, the empire's tributes and taxes being reckoned to feed more than 20,000 men, among them 6,000 jurymen and 500 councillors.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Athenian_democracy": "Athenian democracy is the constitution under which the adult male citizens of Athens governed themselves directly, filling most offices by lot and settling public business in the assembly and the jury courts, a system the Constitution of the Athenians says had made the people master of everything.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle's Politics gives its marks as election by lot to any office not needing skill, no property qualification, no office held twice, short tenure, and judicial duties exercised by all citizens.<sup class=\"fn\" data-fn=\"2\"></sup> It was carried at public expense, the empire's tributes and taxes being reckoned to feed more than 20,000 men, among them 6,000 jurymen and 500 councillors.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Greco-Persian_Wars": "The Greco-Persian Wars were fought between the Achaemenid Empire and the Greek cities in the early 5th century BCE, running from the revolt of the Ionians to the failure of the invasion led by Xerxes, a conflict Thucydides calls the greatest achievement of past times and one that nevertheless found a speedy decision in two actions by sea and two by land.<sup class=\"fn\" data-fn=\"1\"></sup> The Greeks who resisted met and exchanged guarantees, resolving to end all their feuds and sending envoys as far as Sicily to seek help.<sup class=\"fn\" data-fn=\"2\"></sup> A tithe of the spoils was set apart for Delphi and made into a tripod resting on a bronze three-headed serpent.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2518,7 +2519,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Darius_III": "reigned c. 336 – 330 BCE",
 "Ancient_Greece": "c. 800 – 146 BCE",
 "Classical_Athens": "c. 480 – 323 BCE",
-"Athenian_democracy": "c. 508 – 322 BCE"
+"Athenian_democracy": "c. 508 – 322 BCE",
+"Greco-Persian_Wars": "499 – 479 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3601,7 +3603,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Medes": ["Mede","Median","Media"],
 "Ürümqi": ["Urumqi"],
 "Xerxes_I": ["Xerxes"],
-"Darius_III": ["Darius the Third"]
+"Darius_III": ["Darius the Third"],
+"Greco-Persian_Wars": ["Persian Wars","Persian War","Median war"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5374,7 +5377,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Darius_III": ["ruler","person","history","politics","iran"],
 "Ancient_Greece": ["culture","era","history","politics","greece"],
 "Classical_Athens": ["city","place","history","greece","classical","politics"],
-"Athenian_democracy": ["institution","concept","history","greece","politics","classical"]
+"Athenian_democracy": ["institution","concept","history","greece","politics","classical"],
+"Greco-Persian_Wars": ["event","history","warfare","greece","iran","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
