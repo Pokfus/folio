@@ -1819,7 +1819,8 @@ window.GLOSSARY = {
 "Coinage_Decree": "The <b>Coinage Decree</b> is an Athenian decree requiring the allied cities to use Athenian silver coinage, weights and measures on pain of loss of rights, confiscation and, in one clause, death.<sup class=\"fn\" data-fn=\"1\"></sup> It is known only from fragments of the copies the cities were ordered to cut and set up in their own agoras at their own expense, found in seven places and differing from one another.<sup class=\"fn\" data-fn=\"1\"></sup> It carries no date and no ancient historian mentions it, so its year is argued from other evidence, notably a joke in Aristophanes' <i>Birds</i> of 414 BCE about adopting the weights and measures of the Olophyxians.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Revolt_of_Samos": "The <b>revolt of Samos</b> was the rising of that island against Athens in 440 BCE, which began in a quarrel with Miletus over Priene and became the gravest rebellion the Athenian empire faced before the Peloponnesian War.<sup class=\"fn\" data-fn=\"1\"></sup> Samian exiles hired troops, made terms with the Persian satrap at Sardis, recovered the hostages Athens had lodged on Lemnos and handed over the Athenian garrison, and Byzantium revolted with them.<sup class=\"fn\" data-fn=\"1\"></sup> Pericles besieged the city into its ninth month, losing command of the sea for a fortnight to a sortie led by the philosopher Melissus, and imposed terms that took the walls, the fleet, hostages and the cost of the war.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Athenian_empire": "The <b>Athenian empire</b> is the rule Athens exercised in the 5th century BCE over the cities that had joined it in alliance against Persia, enforced by tribute, garrisons, settlers and above all by its courts.<sup class=\"fn\" data-fn=\"1\"></sup> Allies were required to bring important cases to Athens, which the Athenians defended as trial under equal laws and a critic described as a way of keeping jurors paid and of protecting friendly factions in the subject cities.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Athenian speakers used the word tyranny of it themselves, Pericles calling it unjust to have taken up and unsafe to lay down.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Piraeus": "<b>Piraeus</b> was the harbour town of Athens, a rocky peninsula south-west of the city whose sheltered water Xenophon called the finest and safest anchorage anywhere, and which served as both naval base and commercial port.<sup class=\"fn\" data-fn=\"1\"></sup> Trade was transacted at the Deigma, an exchange where cargoes were shown by sample, and the town had a market and a long portico of its own, a precinct of Athena and Zeus, and a sanctuary of Aphrodite built by Conon.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its entrance could be closed from the pier at Eetioneia, which an oligarchic faction fortified in 411 BCE while compelling all imported grain to be landed and sold beside it.<sup class=\"fn\" data-fn=\"4\"></sup>"
+"Piraeus": "<b>Piraeus</b> was the harbour town of Athens, a rocky peninsula south-west of the city whose sheltered water Xenophon called the finest and safest anchorage anywhere, and which served as both naval base and commercial port.<sup class=\"fn\" data-fn=\"1\"></sup> Trade was transacted at the Deigma, an exchange where cargoes were shown by sample, and the town had a market and a long portico of its own, a precinct of Athena and Zeus, and a sanctuary of Aphrodite built by Conon.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its entrance could be closed from the pier at Eetioneia, which an oligarchic faction fortified in 411 BCE while compelling all imported grain to be landed and sold beside it.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Long_Walls": "The <b>Long Walls</b> were fortifications running from Athens down to the sea, begun about the middle of the 5th century BCE, one reaching the haven of Phaleron and the other Piraeus, with a third added later beside the Piraeus wall.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Thucydides gives their measurements as 35 stades to Phaleron and 40 down to Piraeus, and notes that only the outermost of the walls to Piraeus was manned.<sup class=\"fn\" data-fn=\"3\"></sup> They made the fortified city and its port one place, so that in the war the country people who crowded in were quartered along the walls themselves; the terms of surrender in 404 BCE brought them down.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2647,7 +2648,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Athenian_tribute_lists": "from 454 BCE",
 "Coinage_Decree": "uncertain, 450 – 410 BCE",
 "Revolt_of_Samos": "440 – 439 BCE",
-"Athenian_empire": "5th century BCE"
+"Athenian_empire": "5th century BCE",
+"Long_Walls": "c. 458 – 404 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5639,7 +5641,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Coinage_Decree": ["text","history","greece","athens","politics"],
 "Revolt_of_Samos": ["event","history","greece","athens","warfare"],
 "Athenian_empire": ["institution","history","greece","athens","politics"],
-"Piraeus": ["place","history","greece","athens","geography"]
+"Piraeus": ["place","history","greece","athens","geography"],
+"Long_Walls": ["building","history","greece","athens","warfare"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
