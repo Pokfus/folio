@@ -1958,7 +1958,8 @@ window.GLOSSARY = {
 "Sacrosanctity": "Sacrosanctity was the status the Roman plebeians gave their own magistrates by oath, under which anyone who compelled, whipped or killed a tribune of the plebs was accursed, his goods consecrated and his own killer guiltless of murder.<sup class=\"fn\" data-fn=\"1\"></sup> It rested on a bargain between the orders and an oath sworn by the plebs alone rather than on a law of the whole people, and was renewed after the decemvirate by a consular law devoting an offender to Jupiter.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Roman jurists read that later law as conferring the status on nobody, since it made the offender sacer, and took the imprisonment of an aedile as proof that only tribunes held it.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Plebeian_council": "The plebeian council, or concilium plebis, was the assembly in which the Roman plebeians met by tribes under the presidency of their own tribunes, to elect their magistrates and to pass the resolutions known as plebiscita.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It counted as a concilium rather than as comitia because a tribune could summon only a part of the people and could refer nothing to the patricians, so that what it voted was called a scitum and not a law.<sup class=\"fn\" data-fn=\"1\"></sup> A series of statutes made its resolutions binding on the whole citizen body, the last of them the lex Hortensia, after which they carried the force of law.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Aedile": "An aedile was a Roman magistrate whose name is said to come from the care of the temple, the aedes, of Ceres, and whose duties covered the city's buildings, streets, markets, corn supply and public games.<sup class=\"fn\" data-fn=\"1\"></sup> The first pair were plebeians, created at the same time as the tribunes and at first their assistants, hearing the smaller cases referred to them and keeping the decrees of the senate and the resolutions of the plebs.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Two curule aediles were added later, drawn from the patricians and afterwards from either order, and marked out by the folding chair, the purple-bordered toga and the right to issue edicts.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Gnaeus_Marcius_Coriolanus": "Gnaeus Marcius Coriolanus is a Roman patrician of the early Republic known only from the annalistic tradition, which gives him his surname from the capture of the Volscian town of Corioli.<sup class=\"fn\" data-fn=\"1\"></sup> The story has him oppose the sale of imported corn to the commons except at the price of the tribunate, stand impeached by the tribunes, be condemned in his absence, and take refuge among the Volscians, whose army he then led against his own city.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He is said to have turned back at the pleading of his mother and wife, and the accounts differ over their names and over how he died.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>"
+"Gnaeus_Marcius_Coriolanus": "Gnaeus Marcius Coriolanus is a Roman patrician of the early Republic known only from the annalistic tradition, which gives him his surname from the capture of the Volscian town of Corioli.<sup class=\"fn\" data-fn=\"1\"></sup> The story has him oppose the sale of imported corn to the commons except at the price of the tribunate, stand impeached by the tribunes, be condemned in his absence, and take refuge among the Volscians, whose army he then led against his own city.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He is said to have turned back at the pleading of his mother and wife, and the accounts differ over their names and over how he died.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Lucius_Quinctius_Cincinnatus": "Lucius Quinctius Cincinnatus was a Roman patrician of the 5th century BCE, remembered for two dictatorships and for the tradition that the senate's envoys found him at work on a farm of four iugera across the Tiber.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He is said to have relieved an army trapped by the Aequi and to have laid down on the sixteenth day an office granted for six months, which made him a standing Roman example of power surrendered.<sup class=\"fn\" data-fn=\"2\"></sup> The same sources make him a hard opponent of the plebeians' claims, and the reference works gathering the ancient notices record that the legend's inconsistencies have long been pointed out.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2725,7 +2726,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Urartu": "c. 800 – 600 BCE",
 "Medes": "9th – 6th century BCE",
 "Conflict_of_the_Orders": "c. 494 – 287 BCE",
-"Gnaeus_Marcius_Coriolanus": "fl. c. 493 BCE"
+"Gnaeus_Marcius_Coriolanus": "fl. c. 493 BCE",
+"Lucius_Quinctius_Cincinnatus": "c. 519 – after 439 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3917,7 +3919,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Sacrosanctity": ["sacrosanctitas"],
 "Plebeian_council": ["concilium plebis","plebeian assembly"],
 "Aedile": ["aedileship","aediles curules","curule aedile"],
-"Gnaeus_Marcius_Coriolanus": ["Coriolanus","Marcius Coriolanus","Caius Marcius Coriolanus"]
+"Gnaeus_Marcius_Coriolanus": ["Coriolanus","Marcius Coriolanus","Caius Marcius Coriolanus"],
+"Lucius_Quinctius_Cincinnatus": ["Cincinnatus","L. Quinctius Cincinnatus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5908,7 +5911,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Sacrosanctity": ["concept","institution","history","politics","italy"],
 "Plebeian_council": ["institution","concept","history","politics","italy"],
 "Aedile": ["title","institution","history","politics","italy"],
-"Gnaeus_Marcius_Coriolanus": ["person","history","warfare","politics","italy"]
+"Gnaeus_Marcius_Coriolanus": ["person","history","warfare","politics","italy"],
+"Lucius_Quinctius_Cincinnatus": ["person","history","politics","warfare","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
