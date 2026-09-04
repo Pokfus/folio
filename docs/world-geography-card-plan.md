@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-590` Lisbon.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-591` Dushanbe.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -1130,6 +1130,32 @@ areas agree within 2 km² (UNdata 112,492, the World Bank 112,490), so the card 
 nothing strained. And **the 23 March 1943 joint announcement raising seven American legations to embassies
 now carries a third card**, after Haiti and the Dominican Republic; where a guide entry is thin on the
 capital itself, that announcement is usually the last datable act it records.
+
+**`gw-590` LISBON IS WHERE UNdata FINALLY SAYS WHAT `EN.URB.LCTY` MEASURES, AND IT IS NOT A CITY.**
+Every capital card in this deck has leaned on the relay — UNdata's *Capital city pop.* usually equalling
+the World Bank's *Population in largest city* to the person — and Portugal both confirms it and explains
+it. The figure is 2,942.1 thousand against `EN.URB.LCTY`'s **2,942,097**, the same number; and UNdata's
+footnote **c** defines it as **"Grande Lisboa, the Peninsula of Setúbal, and the municipality Azambuja"**,
+a three-part statistical region, where the city of Lisbon itself is about a fifth of that. So the series
+is the national statistical office's own largest-urban-unit definition relayed unchanged, and it is
+published wherever that office publishes it — which is why a capital figure in this deck should be
+labelled by its region rather than asserted as a city population. **Read the footnote letters on the
+capital row, not just the number**: Portugal's carries **c** and **d** together, and **d is "2019"**, so a
+column headed *(000, 2025)* is in fact a 2019 figure. The other divergence is between the two European
+sources and is left standing rather than resolved: UNdata gives the country 10,412 thousand and the EU
+country page gives Eurostat's **10,749,635**, about 3 per cent apart, so the card states both and names
+each. The areas agree — 92,226 km² at UNdata and on the EU page, 92,230 at the World Bank.
+
+**AND THE RECOGNITION GUIDE ADDS A FIFTH MISSION-ELSEWHERE SHAPE: THE MISSION LEFT THE CONTINENT.** The
+four already recorded all keep the mission somewhere in the region — accredited from a neighbouring
+capital, an accreditation that moved while the mission stayed, a mission in the economic capital, a
+minister who never presented his credentials in the capital at all. Portugal's is larger than any of
+them: the legation was established at Lisbon on **13 May 1791**, the day the credentials of David
+Humphreys were accepted — Portugal being "the first neutral nation to establish diplomatic ties with the
+United States" — and then, when the King fled to Brazil during the Napoleonic Wars, **the legation
+followed him and sat at Rio de Janeiro from 1810 until it closed in July 1821**, returning with him to
+Lisbon in 1822. A capital's mission history can therefore run for eleven years on another continent, and
+the guide records the whole of it under the country rather than the city.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
