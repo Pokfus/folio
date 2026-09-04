@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-595` Baku.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-597` Budapest — `gw-596` (Israel) is deferred.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -1253,6 +1253,35 @@ same shape: the mission is accredited to a government, not to a city, and goes w
 The recognition itself is worth reading for its own sake: asked in 1833 by Britain, France and Russia to
 acknowledge Otto of Bavaria as King of Greece, the United States sent a reply the guide itself calls
 ambiguous, and recognition proper waited until **7 November 1837**.
+
+**`gw-595` BAKU MAKES IT FOUR DEFINITIONS IN FOUR CARDS, AND ADDS A SECOND KIND OF FOOTNOTE ENTIRELY.**
+Azerbaijan's capital-city footnote reads **"Including communities under the authority of the Town
+Council"** — an administrative jurisdiction, after Portugal's list of regions, Sweden's national statistical
+concept and Greece's list of localities — and the figure again equals `EN.URB.LCTY` to the person (2,313.1
+thousand against **2,313,138**). Four kinds, four cards, no exceptions: **read the footnote letters on the
+capital row every time.** What is new here is a footnote on the COUNTRY row rather than the capital one:
+UNdata's national population of 10,398 thousand carries footnote **b, "Including Nagorno-Karabakh"** — the
+profile stating what territory its own count covers, which is the same service the capital footnote
+performs one line down. **A country footnote can be a statement about disputed territory**, so read those
+letters too, and where one says so the card should say so rather than quoting the figure bare.
+
+**Its guide entry confirms the post-Soviet prediction made at Dushanbe, and refines it.** The three dated
+lines are the same three to the letter — recognition **25 December 1991** by the address on the dissolution
+of the USSR, relations **19 February 1992** by a press statement, the embassy at Baku **16 March 1992**
+under a chargé d'affaires (Dushanbe's was 13 March under McWilliams, three days earlier). What Dushanbe's
+lacked is a **Summary paragraph carrying a pre-Soviet independence**: Azerbaijan's records a state "de
+facto recognized by the Allies in January 1920" whose independence ended "when the Red Army arrived in
+April of that year". **So the four-line shape holds and the Summary is where anything older lives** —
+worth reading on the remaining post-Soviet capitals rather than skipping to the dated sections.
+
+**Two smaller things. The WTO has an ACCESSIONS page as well as a members page**, and it is the source to
+reach for when a country is not a member: `wto.org/english/thewto_e/acc_e/a1_<country>_e.htm` gives the
+date its working party was established (Azerbaijan's, 16 July 1997), which is a datable fact where the
+members page is a 404 — **and the members-page 404 REDIRECTS to `/error/error_404.htm` with a 200 at the
+end of the chain**, so follow redirects and read the effective URL rather than trusting the status. And a
+Commons file named for a city and a year can be a **photo-contest poster**: `Baku_2020.jpg` is a competition
+entry with four society logos, a photographer's name set in the margin and a URL across the foot — a
+watermarked composite rather than a photograph of anywhere.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
