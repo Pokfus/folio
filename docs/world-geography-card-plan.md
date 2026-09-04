@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-594` Athens.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-595` Baku.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -1223,6 +1223,36 @@ solicitation offered its friendship to the United States". Franklin negotiated i
 Sweden. Relations proper began on 29 April 1818, and Jonathan Russell resided at Stockholm as minister **to
 the court of Sweden and Norway, "which were not then separate countries"** — one more shape for the mission
 family: a single residence accredited to a union of two crowns.
+
+**`gw-594` ATHENS IS THE THIRD PUBLISHED DEFINITION IN THREE CARDS, AND THE FIRST CAPITAL WHOSE
+GLOSSARY TERM ALREADY EXISTED.** UNdata's footnote here reads **"Refers to the localities of Calithèa,
+Peristérion and Piraeus, among others"** — an agglomeration named by its component localities, where
+Portugal's named a set of regions and Sweden's named a national statistical concept — and again the figure
+matches `EN.URB.LCTY` to the person (3,154.2 thousand against **3,154,152**). Three definitions of three
+different kinds settle the rule beyond argument: **the World Bank's largest-city series is the national
+statistical office's own urban unit, whatever that office has chosen it to be, and UNdata's footnote is
+where it is written down.** Do not describe such a figure as a city population without reading the
+footnote first.
+
+**And this card wrote no glossary term, because `Athens` has been in the glossary since the Ancient Greece
+collection and is already at the bar with five sources.** The pairing rule is satisfied by a term that
+already exists, so the work is to CHECK rather than to write — and the checking matters, because
+`add-glossary.js` would have replaced that five-source entry with a three-sentence one and said only
+"updated". What the term did lack was a picture, and a picture is ADDED to an existing entry with
+**`add-images.js`**, which writes the `GLOSSARY_IMAGES` row and touches nothing else. **Look the term up
+before writing one**, and reach for `add-images.js` rather than `add-glossary.js` when the only thing
+missing is the illustration.
+
+**Its guide entry is Portugal's wartime twin, and the plural accreditation at its extreme.** The legation
+at Athens **closed on 14 July 1941** under the German occupation; the mission followed the Greek government
+to London, where Anthony J. Drexel Biddle, Jr. was "also commissioned to the exile governments of Belgium,
+Czechoslovakia, Luxembourg, the Netherlands, Norway, Poland, and Yugoslavia" — **eight governments at once,
+against Port Moresby's three states** — then to Cairo, and back to Athens on **27 October 1944**. So the
+mission-elsewhere family now has a wartime branch beside Portugal's Napoleonic one, and the two are the
+same shape: the mission is accredited to a government, not to a city, and goes where that government goes.
+The recognition itself is worth reading for its own sake: asked in 1833 by Britain, France and Russia to
+acknowledge Otto of Bavaria as King of Greece, the United States sent a reply the guide itself calls
+ambiguous, and recognition proper waited until **7 November 1837**.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
