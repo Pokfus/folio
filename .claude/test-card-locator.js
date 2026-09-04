@@ -32,8 +32,9 @@
        node .claude/test-card-locator.js
 
    Re-run after touching `locatorSiblings` / `cardCollectionRoot` / `cardLocatorHTML` / the extras block in
-   `startCardGlobe`'s `draw()` / the idle `ensureData("atlas")` beside it / `uCacheBust`. Not part of the
-   site. */
+   `startCardGlobe`'s `draw()` / the idle `ensureData("atlas")` beside it / `uCacheBust` / `CMAP_ANCHOR` /
+   `hiresRiverIngest` / `effRivers` / the `river_*` bundles, or after re-running
+   .claude/build-hires-rivers.js. Not part of the site. */
 const { chromium } = require("playwright");
 const { isNoise } = require("./test-noise.js");
 // The repo's own index.html, resolved from THIS file rather than written out: a hardcoded
@@ -219,17 +220,27 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   check("a range card draws mountains along its spine", am.dark > 300 && am.dw > 120 * am.dpr,
     JSON.stringify({ dark: am.dark, spread: am.dw, dpr: am.dpr }));
   check("...and no gold dot with them", am.gold < 60, "gold px " + am.gold);
-  /* …AND NO RED: this reader has studied nothing, so none of the collection's other places is on the
-     map yet (Sep 2026, on request). A regression here is the old map — every place of the collection
-     drawn for a reader who has met none of them. */
+  /* …AND THE ONLY RED IS ROME: this reader has studied nothing, so none of the collection's EARNED places
+     is on the map (Sep 2026, on request) — but the collection's home city is drawn whether or not any card
+     has taught it (Sep 2026, on request: "Rome should always be visible in the Roman collection, with a
+     slightly larger red square as icon"). The two rules pull against each other and the measure is the
+     SHAPE of the red: one compact square, ~9px a side, and not the scattered dots of section 1's studied
+     reader (292 px spread across the Aegean). A regression either way is visible here — a red mark with a
+     wide bounding box is the old map back, and no red at all is the home city gone. */
   const rmRed = await rng.evaluate(() => {
     const cv = document.querySelector(".map-card.map-loc .mc-canvas");
     const d = cv.getContext("2d").getImageData(0, 0, cv.width, cv.height).data;
-    let n = 0;
-    for (let i = 0; i < d.length; i += 4) { const r = d[i], g = d[i + 1], b = d[i + 2]; if (r > 150 && r - g > 60 && r - b > 60) n++; }
-    return n;
+    let n = 0, x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9;
+    for (let i = 0; i < d.length; i += 4) {
+      const r = d[i], g = d[i + 1], b = d[i + 2];
+      if (r > 150 && r - g > 60 && r - b > 60) { n++; const p = i / 4, x = p % cv.width, y = (p / cv.width) | 0; if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+    }
+    return { n: n, w: x1 - x0, h: y1 - y0, dpr: cv.width / cv.getBoundingClientRect().width };
   });
-  check("a reader who has studied nothing sees none of the collection's other places", rmRed === 0, "red px " + rmRed);
+  check("a reader who has studied nothing sees none of the collection's EARNED places",
+    rmRed.w < 16 * rmRed.dpr && rmRed.h < 16 * rmRed.dpr, JSON.stringify(rmRed));
+  check("...but the collection's home city is always on the map, as a square",
+    rmRed.n > 30 && rmRed.n < 130, JSON.stringify(rmRed));
 
   /* ============================================================
      3. EVERY RIVER THE ATLAS DRAWS, AND NOT ONE OF THEIR NAMES (Aug 2026, on request)
@@ -271,14 +282,78 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
     await pg.evaluate(() => { const b = document.querySelector('.map-card.map-loc [data-mc="out"]'); if (b) b.click(); });
     await pg.waitForTimeout(1100);
   };
+  /* The frame's own hi-res set, read BEFORE anything is emptied — section 4 asks about it, and by then
+     both river tables have been taken away to measure the layer. */
+  const hr = await rng.evaluate(() => {
+    const H = (window.HIRES_RIVER || {}).italy;
+    if (!H) return null;
+    const low = new Set((window.RIVERS || []).map((r) => String(r.n)));
+    const named = H.rivers.filter((r) => r.n);
+    return {
+      rivers: H.rivers.length, named: named.length, sup: H.sup.size,
+      supReal: [...H.sup].every((n) => low.has(n)),
+      doubled: named.filter((r) => low.has(String(r.n)) && !H.sup.has(String(r.n))).map((r) => r.n),
+      pts: H.rivers.reduce((a, r) => a + r.p.reduce((b, l) => b + l.length, 0), 0),
+    };
+  });
   const withRiv = await rng.evaluate(rivCount);
+  /* BOTH river tables, in two steps: since Sep 2026 an Italian or Greek frame draws its own hi-res set as
+     well (see hiresRiverIngest), so emptying rivers.js alone would leave the water on screen and report a
+     layer that had stopped drawing as one that was still there. Taking the hi-res set away first measures
+     it on its own, which is section 4's first check. */
+  await rng.evaluate(() => { window.HIRES_RIVER = {}; });
+  await redraw(rng);
+  const noHi = await rng.evaluate(rivCount);
   await rng.evaluate(() => { window.RIVERS = []; });
   await redraw(rng);
   const noRiv = await rng.evaluate(rivCount);
   check("the collection's map draws the Atlas's rivers", withRiv.water - noRiv.water > 150,
     JSON.stringify({ withRivers: withRiv.water, without: noRiv.water }));
-  check("...and not one of them is named", withRiv.dark === noRiv.dark,
+  /* A HANDFUL OF PIXELS EITHER WAY IS THE LABELS' ANTIALIASING, NOT A NAME. It was an equality until
+     Sep 2026, when the hi-res set joined rivers.js and taking BOTH away moved the count by five: a
+     label's edge pixels blend against whatever is under them, and a stroke of water under a letter puts
+     one or two of them the other side of the "dark" threshold. A river NAME is tens of dark pixels and
+     there are fifty-odd rivers in this frame, so the gap between a rounding and a regression is three
+     orders of magnitude — the tolerance costs the check nothing. */
+  check("...and not one of them is named", Math.abs(withRiv.dark - noRiv.dark) < 40,
     JSON.stringify({ withRivers: withRiv.dark, without: noRiv.dark }));
+
+  /* ============================================================
+     4. THE FRAME'S OWN RIVERS, AND THE CAPITAL THAT IS A SQUARE AND NOTHING ELSE (Sep 2026, on request)
+     ============================================================
+     "Rivers in Italy in the Roman deck and Greek rivers in the Greek deck should have a much higher
+     resolution … and there should be more of them", and "modern capitals should not have their text
+     labels shown, only their squares."
+
+     BOTH FAIL SILENTLY. A hi-res bundle that stops arriving leaves the map drawing rivers.js — a perfectly
+     good map, one thirtieth as detailed — and a supersede row that stops being honoured draws the same
+     river twice, five kilometres apart, which reads as two rivers rather than as a fault. The capital's
+     label is the mirror: a name that comes back looks deliberate.
+
+     The double-draw is checked on the DATA rather than on the ink, because that is where it can actually
+     go wrong: the drawn set is rivers.js minus `supersede` plus the region's own, so a name the region
+     carries that rivers.js also has and `supersede` does not name is the one way a river can be laid over
+     itself. The layer's presence is checked the way section 3 checks rivers.js — by taking it away. */
+  check("the Italian frame carries its own rivers, and more of them than rivers.js has there",
+    !!hr && hr.rivers >= 40 && hr.named >= 40 && hr.sup >= 15, JSON.stringify(hr && { rivers: hr.rivers, named: hr.named, supersedes: hr.sup }));
+  check("...at a resolution rivers.js has not got", !!hr && hr.pts / hr.rivers > 40, hr && "points " + hr.pts);
+  check("...every one it supersedes is really in rivers.js", !!hr && hr.supReal);
+  check("...and no river is drawn over itself", !!hr && hr.doubled.length === 0, hr && hr.doubled.join(", "));
+  check("...and the map really draws it", withRiv.water - noHi.water > 150,
+    JSON.stringify({ withHiRes: withRiv.water, without: noHi.water }));
+  /* rm-002's page still has both river tables emptied from section 3, which is what makes the capital
+     measurable: the only thing added is one capital, in the open Tyrrhenian where nothing else is drawn,
+     under a name long enough that a label would be hundreds of dark pixels. The square alone is a couple
+     of dozen — so the assertion is that the mark IS drawn and the name is NOT. */
+  await rng.evaluate(() => { window.CITIES = []; });
+  await redraw(rng);
+  const capBefore = (await rng.evaluate(rivCount)).dark;
+  await rng.evaluate(() => { window.CITIES = [{ n: "Mmmmmmmmmmmmmmmmmmmm", c: [12.2, 40.2], r: 0 }]; });
+  await redraw(rng);
+  const capAfter = (await rng.evaluate(rivCount)).dark;
+  const capInk = capAfter - capBefore;
+  check("a modern capital is drawn", capInk >= 6, "dark px " + capInk);
+  check("...as a square and never with its name", capInk < 90, "dark px " + capInk);
   await rng.close();
 
   check("no console or page errors on the extent cards", errs.length === 0, errs.join(" | ").slice(0, 300));
