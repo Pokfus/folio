@@ -190,7 +190,8 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N23 | 12 | Amarna and Egypt — **shipped**, all twelve pictured |
 | N24 | 12 | **The Italian provinces I** — the twelve a World Heritage property names twice — **shipped**, all twelve pictured |
 | N25 | 12 | **The international order** — the institutions a country term names, and the principle they rest on — **shipped**, 11 of 12 pictured |
-| N26–N33 | ~95 | the remaining Italian provinces — **blocked on sourcing**, see N24's findings |
+| N26 | 12 | **The vocabulary of diplomacy** — the words on nearly every card of the World collection — **shipped**, 9 of 12 pictured |
+| N27–N34 | ~95 | the remaining Italian provinces — **blocked on sourcing**, see N24's findings |
 
 **N3 shipped eight terms rather than twelve, and the missing four are one deferral and one
 fold.** *Subminoan* is deferred: Rutter's Chronology Overview gives it a single sentence — "The
@@ -337,6 +338,63 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N26's findings
+
+**N26 — the vocabulary of diplomacy (shipped, 9 of 12 pictured).** The twelve are `Embassy`, `Legation`,
+`Ambassador`, `Envoy`, `Chargé_d'affaires`, `Diplomatic_relations`, `Accreditation`,
+`Letter_of_credence`, `Consulate`, `Consul_general`, `Exequatur` and `Treaty` — measured out of the
+corpus as N23 and N25 were, and the weights are large: `embassy` 197, `treaty` 157, `credentials` 120,
+`diplomatic relations` 115, `ambassador` 103, `legation` 86, `consulate` 66, `chargé d'affaires` 61,
+`accredited` 41, `consul general` 28, `envoy` 25. **N25 defined the bodies a country card names and this
+defines the words it uses**, both out of the same fact: 470 cards of the World collection are written
+from the Office of the Historian's recognition guide, in that guide's own vocabulary, and a reader met
+`chargé d'affaires ad interim` sixty-one times with nothing to click.
+
+**THE BATCH IS BUILT ON PRIMARY LAW, AND `legal.un.org` SERVES IT AS PDFs.** The Vienna Conventions on
+Diplomatic Relations (1961), on Consular Relations (1963) and on the Law of Treaties (1969), and the 1975
+convention on representation at international organisations, are all open at
+`legal.un.org/ilc/texts/instruments/english/conventions/`. **They are PDFs, and nothing in this sandbox
+reads a PDF** — no `pdftotext`, no `pypdf`, no PIL. A 30-line extractor (inflate every stream, take the
+text-showing operators) reads all four cleanly, and is the thing to reach for the next time a source is
+a PDF rather than treating the format as a wall. Its output mangles accented characters and curly
+quotes, which does not matter for reading and would matter for quoting.
+
+**AND THE SECOND SOURCE FOR EACH IS A NAMED SCHOLARLY ESSAY ON THE SAME HOST.** The UN's Audiovisual
+Library of International Law publishes an **introductory note** for each instrument, by a named author —
+Eileen Denza on the diplomatic convention, Juan Manuel Gómez Robledo on the consular one, Karl Zemanek
+on the law of treaties — and each is a proper historical essay: Denza carries the Congress of Westphalia
+in 1648, the 1815 Regulation of the Congress of Vienna, Grotius, Bynkershoek and Vattel, and reciprocity
+as the sanction behind diplomatic law; Gómez Robledo carries the medieval consul, Colbert's *Ordonnance
+de la Marine* of 1681 and the League of Nations' failed attempt; Zemanek carries the twenty-year
+codification and its four rapporteurs. **A convention plus its introductory note is a two-source pair
+that satisfies the bar without straining**, and it is the shape to reuse for any term of international
+law.
+
+**ITS FINDING IS A REFUSAL: `Diplomatic_recognition` WAS MEASURED, RESEARCHED AND LEFT OUT.** The word
+`recognition` is in 102 shipped cards and terms — the second-largest surface in the family, and the one
+the whole World collection turns on, since the guide it is written from is *A Guide to the United States'
+History of Recognition, Diplomatic, and Consular Relations*. **Nothing openable here defines it.** The
+Vienna Convention deliberately does not: its Article 2 makes the establishment of relations a matter of
+mutual consent and says nothing about recognising a state, which is exactly why a state can recognise
+another and keep no mission there. Denza's note never uses the word. The ILC's *Fundamental Rights and
+Duties of States* summary uses it only in another sense. `history.state.gov`'s own front matter lists its
+countries and defines nothing. **A term whose subject an instrument avoids on purpose cannot be carried
+by that instrument**, and the honest outcome is a deferral rather than two citations that do not say it.
+It also could not have taken the obvious alias: `recognition` is an ordinary English word in this corpus
+— *a recognition that hardship is necessary*, *social recognition*, *recognition rates* on oracle-bone
+variants, the recognition that the Odyssey turns on — so even a shipped term would have had to go
+without it.
+
+**Three terms ship without a picture, for one reason each.** `Envoy` and `Chargé_d'affaires` are ranks
+rather than things, and a photograph of a particular holder illustrates the person and not the office;
+`Diplomatic_relations` is a relation between states, and the only candidates were a parties map, which
+this pass refuses. The nine that are pictured include four documents that are the terms themselves —
+Edward VII's 1905 letter of credence raising his mission at Tokyo to an embassy, Roosevelt's 1938
+exequatur for the French consul general at New York, the authentication page of the North Atlantic
+Treaty, and the 1815 Congress of Vienna, whose Regulation settled the classes `Ambassador` describes.
+**Where a term is an instrument, the picture is the instrument**; that is a better answer than a
+building, and Commons has more of them than the search terms suggest.
 
 ### N25's findings
 
