@@ -3671,3 +3671,59 @@ witness at all, and the Journey scan's remaining punctuation runs. **What is not
 half**: every new CLASS of question has found something real — a lost fable, five truncations, a book
 pairing on nothing, eight printed tags and eight lost words of Augustine — so the honest statement is
 that the backlog is nearly clear and the programme is not.
+
+---
+
+## E47 — footnote markers in a column that has no footnotes
+
+**567 MARKERS AGAINST ZERO NOTES, IN TWO ORIGINAL-LANGUAGE COLUMNS.** The Old English Beowulf carried
+483 `<sup class="fn" data-fn="N">` and the Greek Herodotus 84, and neither file carries a single note.
+That is not an oversight about the notes: Folio's reader folds notes under the **translation alone** —
+an original column has nowhere to put one — so the importer lifts an original's editorial notes out and
+throws the list away, and says so on every run. **What it did not throw away was the marks they left
+behind**, and the line that reported the drop is the line that should have said so.
+
+**AND app.js DOES NOT IGNORE THEM, WHICH IS WHAT MAKES IT A FAULT RATHER THAN A STRAY ATTRIBUTE.**
+`wireFootnotes` takes its list from the FIRST `.src-note` on the page — on a book page that is the
+translation's — and then walks every `sup.fn` in document order, the original column's included. A
+marker whose number is at or under the translation's note count is kept, numbered, and made a
+**control** pointing at that note; only the excess is removed. **369 of the 567 were clickable.** What
+they offered was a note about the English, attached to a word of the Old English or the Greek.
+
+**READ IN A BROWSER, NOT INFERRED FROM THE CODE** — the discipline the last four batches earned. Fitt 28
+of Beowulf drew **twenty markers in the Old English against the translation's ten notes**, the first
+sitting on `heal-reced` in *"Meodu-scencum hwearf geond þæt heal-reced"* and opening Gummere's note
+*"By the hands of one of his retainers, who, as Tacitus pointed out, and Earle reminds us…"*.
+
+**THE RULE IS UNIVERSAL AND NOT PER BOOK, BECAUSE THE REASON IS.** Measured over the shelf before the
+rule was written: **no original-language file carries a single note**, and none can while the reader has
+one fold and gives it to the translation. So a column with no notes may not carry a marker, and the
+strip runs in `writeOriginal` — beside the escaped-tag sweep E45 put there, and for the same reason:
+it is the one place every gathering branch must reach.
+
+**WHAT PROVES IT.** Both rebuilt files are byte-identical to what shipped once the markers are stripped
+from the old copy — 18,495 and 3,219 bytes, all of it markers. Four sibling originals of four different
+kinds (`seneca-letters`, `city-of-god`, `sophocles-antigone`, `caesar-gallic-war`) rebuilt
+byte-identical, none of them reporting a dropped marker. In the browser, fitt 28's Old English column
+now carries none **and the translation's own ten are untouched with their ten notes behind them** —
+which is the half that says the fix did not take the apparatus with the fault.
+
+**`book-audit.js` CARRIES THE CHECK, ON THE ORIGINAL SIDE ONLY**, because on the translation side a
+marker pointing at the book's own note is the apparatus working. It reports the shelf clean, and reports
+483 against the Beowulf file as it shipped before this batch.
+
+### How it was found, which is the part worth keeping
+
+**FIVE QUESTIONS ASKED OF THE WHOLE SHELF AT ONCE, CHEAPLY, BEFORE ANY OF THEM WAS BUILT INTO A
+SCANNER** — orphaned notes, markers past the end of their list, a note printed twice, a chapter that is
+nearly empty, and a gap or duplicate in the chapter numbering. Four of the five found nothing that was
+not already known. The fifth found this.
+
+**AND THE PROBE WAS WRONG FIRST, FOR THE FOURTH BATCH RUNNING.** Its "nearly empty chapter" test counted
+WORDS, and **Chinese is written without spaces**: the Three Kingdoms' 5,765-character chapters counted as
+23 words apiece and twenty-eight of them were reported near-empty. Counted in characters the shelf has
+29 chapters under 200, and every one is genuine — Aesop's three shortest fables, Ptahhotep's *"[Concerning
+continence]"* where the papyrus has lost the maxim, two one-verse hymns of the Rigveda, Antigone's closing
+choral tag, and eleven chapters of Marco Polo that open `⚜ (` because **Yule abridges them into a
+parenthetical summary rather than translating them**, which the mark is there to say. **A length is not a
+word count in every script.**

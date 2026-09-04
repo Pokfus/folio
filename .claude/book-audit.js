@@ -113,6 +113,27 @@ for (const [side, list] of [["en", en], ["or", or]]) {
     const named = Object.keys(hits).filter((k) => !k.startsWith("_ex"));
       const rep = repeatedParas(b, (h) => h.replace(/<[^>]*>/g, " ").replace(/&[a-z]+;|&#\d+;/g, " ").replace(/\s+/g, " ").trim());
     if (rep.n) { hits["a paragraph the chapter carries twice"] = rep.n; hits["_exa paragraph the chapter carries twice"] = rep.first; named.push("a paragraph the chapter carries twice"); }
+    /* A FOOTNOTE MARKER IN A COLUMN THAT HAS NO FOOTNOTES (Sep 2026, batch E47). Folio's reader folds
+       notes under the TRANSLATION alone, so an original's notes are dropped by the importer — and for
+       months their MARKERS were not dropped with them: 483 in the Old English Beowulf and 84 in the
+       Greek Herodotus, against zero notes on either side. app.js does not ignore them. `wireFootnotes`
+       takes its list from the first `.src-note` on the page, which is the TRANSLATION's, then walks
+       every marker in document order; any whose number is at or under that count is made a CONTROL
+       pointing at that note. 369 of the 567 became clickable, offering a note about the English on a
+       word of the Old English. Nothing else here could see it: the prose is whole, the tags balance,
+       and both note lists are correct in themselves.
+       It is checked on the ORIGINAL side only, because on the translation side a marker pointing at
+       the book's own note is the apparatus working. */
+    if (side === "or") {
+      let fn = 0, ex = "";
+      for (const c of b.chapters || []) {
+        const m = (c.html || "").match(/<sup class="fn"[^>]*><\/sup>/g);
+        if (m) { fn += m.length; if (!ex) ex = "ch" + c.n + ": " + m[0]; }
+      }
+      if (fn) { hits["a footnote marker in a column that carries no notes"] = fn;
+        hits["_exa footnote marker in a column that carries no notes"] = ex;
+        named.push("a footnote marker in a column that carries no notes"); }
+    }
   if (named.length || badTags.length) rows.push([side, b.id, chars, hits, named, badTags]);
   }
 }

@@ -27340,6 +27340,8 @@ async function fetchOriginal() {
       console.log("  paired " + paired + " of " + (paired + blankOrig) + " chapters; " + blankOrig +
         " draw an empty " + O.langName + " cell and " + blankEng + " an empty English one");
       console.log("  " + notes + " editorial notes dropped from the original column (it has no fold)");
+      /* …and their markers with them — see the note in writeOriginal. This line is where the drop was
+         reported without saying that the marks it leaves behind were being kept. */
       Object.keys(or).forEach((n) => { byNum[n] = or[n].html; });
       return writeOriginal(byNum, warnings);
     }
@@ -27752,6 +27754,32 @@ function writeOriginal(byNum, warnings) {
      two escaped tags are on the LATIN side, so a rule written only for the English would have missed
      the book that motivated it. */
   dropEscapedTagsIn(asChapters);
+
+  /* ---------- A MARKER IN A COLUMN THAT HAS NO NOTES (Sep 2026, batch E47) ----------
+     THE NOTES ARE DROPPED FROM AN ORIGINAL AND THEIR MARKERS WERE NOT DROPPED WITH THEM. Folio's
+     reader folds notes under the TRANSLATION alone — the original column has nowhere to put one — so
+     `teiSectionProse` and its siblings lift an original's editorial notes out and this file throws the
+     list away, which is right and is reported a few lines below. What survived was the `<sup class="fn"
+     data-fn="N">` left behind in the prose: 483 of them in the Old English Beowulf and 84 in the Greek
+     Herodotus, against zero notes on either side.
+
+     AND app.js DOES NOT SIMPLY IGNORE THEM. `wireFootnotes` takes its list from the FIRST `.src-note`
+     on the page — which on a book page is the TRANSLATION's — and then walks every `sup.fn` in document
+     order, the original column's included. A marker whose number is at or under the translation's note
+     count is kept, numbered, and made a CONTROL pointing at that note; only the excess is removed. So
+     369 of the 567 became clickable, and what they offered was a note about the English attached to a
+     word of the Old English or the Greek. Read in a browser rather than inferred: fitt 28 of Beowulf
+     drew twenty of them against the translation's ten notes, the first sitting on `heal-reced` and
+     opening Gummere's note "By the hands of one of his retainers, who, as Tacitus pointed out…".
+
+     THE RULE IS UNIVERSAL AND NOT PER BOOK, because the reason is: measured over the shelf, NO
+     original-language file carries a single note, and none can while the reader has one fold and gives
+     it to the translation. A column with no notes may not carry a marker. */
+  let fnGone = 0;
+  asChapters.forEach((c) => {
+    c.html = c.html.replace(/<sup class="fn"[^>]*><\/sup>/g, () => { fnGone++; return ""; });
+  });
+
   asChapters.forEach((c) => { byNum[c.n] = c.html; });
   /* ---------- THE ORIGINAL'S OWN CORRECTION TABLE (Sep 2026, batch E45) ----------
      `BOOK.reFixes` is English. It runs through `correctRaw`, which also applies `applyRoman` and
@@ -27825,6 +27853,9 @@ function writeOriginal(byNum, warnings) {
   if (missing.length) console.log("  no original for " + missing.length + " chapter(s): " + missing.join(", "));
   if (ORIG_TIPS)
     console.log("  dropped " + ORIG_TIPS + " editorial variant tooltip(s) from the original's prose");
+  if (fnGone)
+    console.log("  dropped " + fnGone + " footnote marker(s) from the original's prose — its notes are " +
+      "not carried, so a marker there points at the TRANSLATION's list (see the note in writeOriginal)");
   reportEscapedTags();
   if (O.reFixes) {
     for (const [rx, , why] of O.reFixes) {

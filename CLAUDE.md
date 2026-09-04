@@ -205,6 +205,12 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     nothing else, applied in `writeOriginal`. `BOOK.reFixes` is English and drags a romanisation pass
     and a glyph table with it through `correctRaw`, which is why the original branches never called it
     and why, until Sep 2026, a defect in an original could only be recorded.
+  · **AN ORIGINAL-LANGUAGE COLUMN CARRIES NO FOOTNOTE MARKER, BECAUSE IT CARRIES NO NOTES.** The
+    reader has one fold and gives it to the translation, so `writeOriginal` drops an original's notes —
+    and until Sep 2026 kept their markers: 483 in the Old English Beowulf, 84 in the Greek Herodotus.
+    `wireFootnotes` reads its list from the page's FIRST `.src-note`, which is the translation's, so
+    369 of them became clickable links offering a note about the English on a word of the Old English.
+    Stripped in `writeOriginal`; `book-audit.js` checks it, on the original side only.
   · **A CHANGE TO A SHARED EXTRACTOR MUST BE PROVED INERT ON ITS SIBLINGS, BYTE-FOR-BYTE** — re-run
     every other book on that path and diff the generated files. That check has twice found a live
     fault in a book nobody was editing.
@@ -5671,7 +5677,7 @@ dead code (never rendered).
     empty, which is two editors dividing a text differently, and every one of the 107 was already
     recorded in its book's entry. Exits 0 whatever it finds. **Re-run after adding an
     original-language column.** Not part of the site.
-  · `node .claude/test-library.js` — the Library (395 assertions): the rename, the shelf, one book, and
+  · `node .claude/test-library.js` — the Library (398 assertions): the rename, the shelf, one book, and
     the reader's place. **Re-run after touching `PAGES.library` / `PAGES.book` / `BOOKS` / `bookIngest` /
     `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` / `readingPos` / `setReadingPos` /
     `bookSections` / `bookRows` / `applyLangMode` / `anchorNow` / `slideChapter` / `BOOK_SORTS` /
@@ -5689,8 +5695,8 @@ dead code (never rendered).
     `teiVerseBooks`' `prose` branch and its two spacing rules / `cardMarks`' `both` sweep / the mid-line
     card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` / `stripTags`'s `data-n`
     carry and its `VOID_TAGS` guard / `teiBookChapters`' `data-n` scale / cleanBody's
-    `sections: "bookchapter"` marker rule, after running `fetch-book.js`, or after renaming anything on
-    the Collections page.**
+    `sections: "bookchapter"` marker rule / `dropEscapedTagsIn` and `writeOriginal`'s footnote-marker
+    strip, after running `fetch-book.js`, or after renaming anything on the Collections page.**
   · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
     figures (Aug 2026). **Re-run after touching `acctSelfView` / `showcaseHTML` / `openCollectionWin` /
     `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**

@@ -1637,6 +1637,26 @@ not ungrammatical, because every sentence but the last is whole. What it cannot 
     Edda quoting one skaldic stanza twice under two kennings with a fresh attribution each time.
     Recorded here so nobody runs it again expecting a yield.
 
+**A FOOTNOTE MARKER IN A COLUMN THAT HAS NO FOOTNOTES** (Sep 2026, batch E47). Folio's reader folds
+notes under the TRANSLATION alone, so `writeOriginal` throws an original's editorial notes away — and
+for months it kept the marks they left behind: **483 in the Old English Beowulf and 84 in the Greek
+Herodotus, against zero notes on either side.**
+
+  · **app.js DOES NOT IGNORE THEM.** `wireFootnotes` takes its list from the first `.src-note` on the
+    page — the TRANSLATION's — then walks every `sup.fn` in document order, the original column's
+    included; any whose number is at or under that count becomes a CONTROL pointing at that note. **369
+    of the 567 were clickable**, offering a note about the English on a word of the Old English. Fitt 28
+    of Beowulf drew twenty against the translation's ten, the first on `heal-reced`.
+  · **THE RULE IS UNIVERSAL BECAUSE THE REASON IS**: measured over the shelf, no original-language file
+    carries a single note, and none can while the reader has one fold and gives it to the translation.
+    The strip runs in `writeOriginal`, beside E45's escaped-tag sweep and for the same reason.
+  · **`book-audit.js` CHECKS IT ON THE ORIGINAL SIDE ONLY** — on the translation side a marker pointing
+    at the book's own note is the apparatus working.
+  · **It was found by asking five cheap questions of the whole shelf at once**, of which four found
+    nothing new. The probe's "nearly empty chapter" test counted WORDS and reported twenty-eight
+    Chinese chapters of 5,765 characters as near-empty: **a length is not a word count in every
+    script.**
+
 **MARKUP THE SOURCE ESCAPED, WHICH THE READER SEES AS CHARACTERS** (Sep 2026, batch E45,
 `dropEscapedTags` / `dropEscapedTagsIn` / `reportEscapedTags`). Eight tags shipped for months —
 `<poem>` opening two laisses of the Song of Roland, `<poem>` and a mangled `<§/poem>` round a quotation

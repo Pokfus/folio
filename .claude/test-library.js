@@ -3090,6 +3090,46 @@ function aeneidChecks() {
     await page.close();
   }
 
+  /* ================= 6o. no footnote markers in a column with no footnotes (E47) =================
+     Folio's reader folds notes under the TRANSLATION alone — an original column has nowhere to put one
+     — so the importer drops an original's editorial notes. For months it did NOT drop their markers,
+     and app.js does not ignore those: `wireFootnotes` takes its list from the first `.src-note` on the
+     page, which is the translation's, then walks every `sup.fn` in document order; a marker whose
+     number is at or under that count is numbered and made a CONTROL pointing at that note. 483 stood
+     in the Old English Beowulf and 84 in the Greek Herodotus, against zero notes on either side, and
+     369 of the 567 were clickable — offering a note about the English on a word of the Old English.
+
+     FITT 28 IS PINNED BECAUSE IT WAS THE WORST: twenty markers in the Old English against the
+     translation's ten notes, the first sitting on `heal-reced` and opening Gummere's note "By the
+     hands of one of his retainers, who, as Tacitus pointed out…". The assertion is on the RENDERED
+     page rather than on the data file, since what made this a fault rather than a stray attribute is
+     what `wireFootnotes` did with it — and the translation's own ten must still be there, or the fix
+     would have taken the apparatus with the fault. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base + "#book/beowulf", { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "28"); t.click(); });
+    await page.waitForTimeout(600);
+    await page.evaluate(() => document.querySelector("#bkLang").click());
+    await page.waitForTimeout(3000);
+    const fn = await page.evaluate(() => ({
+      or: document.querySelectorAll(".bk-col-or sup.fn").length,
+      orLive: [...document.querySelectorAll(".bk-col-or sup.fn")].filter((x) => x.getAttribute("role") === "button").length,
+      en: document.querySelectorAll(".bk-col-en sup.fn").length,
+      notes: document.querySelectorAll(".src-note .src-item").length,
+      rows: document.querySelectorAll(".bk-row").length,
+    }));
+    check("[notes] the Old English column carries no footnote marker at all",
+      fn.or === 0, fn.or + " markers, " + fn.orLive + " of them clickable");
+    check("[notes] ...while the translation keeps its own ten, with ten notes behind them",
+      fn.en === 10 && fn.notes === 10, fn.en + " markers, " + fn.notes + " notes");
+    check("[notes] ...and the two columns still pair",
+      fn.rows > 0, String(fn.rows));
+    await page.close();
+  }
+
   /* ================= 7. the switch is a crossfade, not a cut =================
      A regression here is silent in the worst way: the languages still swap, the reader still lands on
      the right passage, and every assertion above still passes — the switch just goes back to being the

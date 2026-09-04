@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.480", released: "2026-09-04T21:12Z" };
+window.FOLIO_VERSION = { v: "1.481", released: "2026-09-04T21:49Z" };
 
 window.CHANGELOG = [
   {
@@ -57,6 +57,7 @@ window.CHANGELOG = [
       "<b>Thucydides now reads with its Greek beside it</b> — the two columns had been pairing on nothing, so every English chapter stood opposite an empty column and then every Greek one.",
       "<b>Eight stray pieces of markup removed from three books</b> — the Song of Roland, the Rigveda and the Latin City of God had been printing tags like <i>&lt;poem&gt;</i> in the middle of the text.",
       "<b>Eight lost words of Augustine restored to the Latin City of God</b>, checked against a scan of the 1841 edition the book is taken from.",
+      "<b>567 footnote marks removed from the Old English Beowulf and the Greek Herodotus</b>, which had been offering notes written about the English translation.",
     ],
   },
   {
