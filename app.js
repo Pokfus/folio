@@ -29328,12 +29328,18 @@
         let ownLines = null, ownName = "";
         if (RIV.length) {
           ctx.save();
-          /* THE ATLAS'S OWN TREATMENT, down to the arithmetic: the ocean colour at full strength, so a
-             river reads as water continuous with the sea, and the same `0.4 + zoom * 0.16` capped at
-             1.8px, so it thickens as the reader zooms in. The carded-rivers version that stood here drew
-             them at a flat 1.1px and 0.7 alpha — a fine weight for the two or three a collection taught
-             and too faint to be the layer this is now. */
-          ctx.strokeStyle = ocean; ctx.lineWidth = clampN(0.4 + zoom * 0.16, 0.5, 1.8);
+          /* THE ATLAS'S OWN TREATMENT: the ocean colour at full strength, so a river reads as water
+             continuous with the sea, thickening as the reader zooms in and capped at 1.8px. The
+             carded-rivers version that stood here drew them at a flat 1.1px and 0.7 alpha — a fine
+             weight for the two or three a collection taught and too faint to be the layer this is now.
+             THE WEIGHT WAS THE ATLAS'S `0.4 + zoom * 0.16` FLOORED AT 0.5 AND IS THINNER AT THE BOTTOM
+             NOW (Sep 2026, on request: "make rivers thinner when zooming out"). The Atlas draws its
+             rivers only past a zoom; this window draws all 1,073 of them at every zoom, so at a card's
+             opening ~50° view the same weight is a continent's worth of blue thread over a map whose
+             coast is stroked at 0.7. It reaches the old figure again around zoom 6 — where the frame is
+             a region and a river is something the reader is actually looking at — and nothing changes
+             at the deep end, where the cap has always decided it. */
+          ctx.strokeStyle = ocean; ctx.lineWidth = clampN(0.15 + zoom * 0.18, 0.3, 1.8);
           ctx.beginPath();
           for (let i = 0; i < RIV.length; i++) {
             const nm = ownSet ? String(RIV[i].n || "").toLowerCase() : "";
@@ -29468,9 +29474,14 @@
             if (PX < -20 || PY < -20 || PX > W + 20 || PY > H + 20) continue;
             if (r === 0) {
               if (nearSib(PX, PY)) continue;
-              const q = 2.7;
+              /* SMALLER, AND OUTLINED IN GREY RATHER THAN WHITE (Sep 2026, on request). A white keyline
+                 is what an atlas gives a mark that has to survive being drawn over land, sea and a
+                 label at once; here the square is already the loudest thing on a quiet map, and the
+                 white ring was a second highlight around it. A grey outline still lifts it off the
+                 land without competing with the collection's own red and gold marks. */
+              const q = 2.1;
               ctx.fillStyle = rgbaOf("#000000", 0.74); ctx.fillRect(PX - q, PY - q, q * 2, q * 2);
-              ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#ffffff", 0.9); ctx.strokeRect(PX - q, PY - q, q * 2, q * 2);
+              ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#8b8b8b", 0.9); ctx.strokeRect(PX - q, PY - q, q * 2, q * 2);
             } else {
               ctx.beginPath(); ctx.arc(PX, PY, 1.5, 0, Math.PI * 2);
               ctx.fillStyle = rgbaOf("#000000", 0.2); ctx.fill();
@@ -29870,8 +29881,10 @@
   }
 
   /* ---------- the name in Chinese, under a map card's answer term (Aug 2026, on request) ----------
-     ONE LINE: simplified, then traditional at half strength where it DIFFERS, then the pinyin, all
-     baseline-independent and centred against each other by flex. The characters take the site's own
+     TWO LINES OF CHARACTERS: the traditional form at half strength where it DIFFERS on the line ABOVE
+     the simplified (Sep 2026, on request — it stood beside it, and a reader comparing two scripts is
+     comparing them character for character, which one above the other makes possible and a side-by-side
+     pair does not), then the pinyin under both. The characters take the site's own
      Chinese ink (`--zh`); the pinyin is small and takes the quiet ink, so the eye reads the glyphs first
      and the romanisation only when it wants it.
 
@@ -29902,8 +29915,9 @@
     const tr = String((c && c.traditional) || "").trim();
     const py = String((c && c.pinyin) || "").trim();
     return '<div class="ans-cn">' +
-      '<div class="ac-chars"><span class="ac-s">' + esc(hz) + "</span>" +
-      (tr && tr !== hz ? '<span class="ac-t">' + esc(tr) + "</span>" : "") + "</div>" +
+      '<div class="ac-chars">' +
+      (tr && tr !== hz ? '<span class="ac-t">' + esc(tr) + "</span>" : "") +
+      '<span class="ac-s">' + esc(hz) + "</span></div>" +
       '<div class="ac-row">' +
       (py ? '<span class="ac-p">' + esc(py) + "</span>" : "") +
       '<button type="button" class="ac-say" lang="zh-CN" data-say="' + esc(hz) + '" aria-label="' + esc("Hear " + hz + " read aloud") + '" title="Hear it in Mandarin">' + AC_SAY_SVG + "</button>" +

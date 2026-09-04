@@ -1508,14 +1508,22 @@ body[data-theme="folio"] .collection-deco::after{
 /* ---------- the answer's Chinese name (see answerNameHTML) ----------
    THE MIDDLE SECTION OF THE ANSWER BOX (Sep 2026, on request): a sibling of `.answer-main` and of the
    figures grid, so on a wide card it stands between the term on the left and the figures on the right,
-   ruled off from the term by a hairline. Two lines — the characters (simplified, then the traditional form
-   at half strength where it differs) over the pinyin with its speaker — and the block is centred against
-   the term, as the figures are. It was a line under the term, on a map card only; every card that carries
+   ruled off from the term by a hairline. The traditional form where it differs sits on the line above the
+   simplified, and the pinyin with its speaker under both; the block is centred against the term, as the
+   figures are. It was a line under the term, on a map card only; every card that carries
    a Chinese name gets it now. Below 640px `.answer` stacks (see the phone block), so it goes under the
    term at full width with the rule on its top edge instead. */
-.ans-cn{display:flex; flex-direction:column; align-items:flex-start; gap:2px; flex:0 1 auto; min-width:0;
-  align-self:center; padding:2px 0 2px 16px; border-left:1px solid color-mix(in srgb, var(--zh) 22%, transparent); line-height:1.15;}
-.ans-cn .ac-chars{display:flex; align-items:baseline; flex-wrap:wrap; gap:0 10px;}
+/* THE BLOCK IS SET FLUSH RIGHT (Sep 2026, on request). Its three lines are of very different widths — a
+   two-character name over a four-character one over a romanisation twice as long as either — and ranged
+   left they read as a ragged column drifting away from the rule beside them; ranged right they line up
+   against the figures grid, which is the edge the eye is already following down the card. */
+.ans-cn{display:flex; flex-direction:column; align-items:flex-end; gap:2px; flex:0 1 auto; min-width:0;
+  align-self:center; padding:2px 0 2px 16px; border-left:1px solid color-mix(in srgb, var(--zh) 22%, transparent);
+  line-height:1.15; text-align:right;}
+.ans-cn .ac-chars{display:flex; flex-direction:column; align-items:flex-end; gap:1px;}
+/* the traditional form is written FIRST in the markup and so sits on the line above; it is still the
+   quieter of the two, smaller and at half strength, so the simplified form under it reads as the name
+   and this as the second script it is also written in. */
 .ans-cn .ac-s{font-family:var(--han); font-weight:400; font-size:calc(24px * var(--fs)); color:var(--zh); line-height:1.15;}
 .ans-cn .ac-t{font-family:var(--han); font-weight:400; font-size:calc(19px * var(--fs)); color:var(--zh); opacity:.5; line-height:1.15;}
 .ans-cn .ac-row{display:flex; align-items:center; gap:7px;}
@@ -5093,7 +5101,10 @@ button.game-tile .gt-glyph{opacity:.14;}
   .answer{flex-direction:column; align-items:stretch; gap:0;}
   .answer-main{flex-direction:column; align-items:flex-start; gap:5px; width:100%;}
   .av-row{flex-direction:column; align-items:flex-start; gap:10px;}
-  .ans-cn{align-self:stretch; padding:10px 0 0; margin-top:8px; border-left:0; border-top:1px solid color-mix(in srgb, var(--zh) 22%, transparent);}
+  /* the rule is the ordinary `--rule` grey here, not the Chinese ink (Sep 2026, on request): on a phone
+     it runs the full width of the card, where a red hairline reads as part of the answer rather than as
+     the line dividing it from the name below. */
+  .ans-cn{align-self:stretch; padding:10px 0 0; margin-top:8px; border-left:0; border-top:1px solid var(--rule);}
   /* .answer stacks here, so "on the right" has nowhere to be — the figures go back under the answer and
      take the full width. Two columns still, which at 390px is what the tiles were sized for anyway. */
   .card-facts{max-width:none; width:100%; margin-top:12px;}
