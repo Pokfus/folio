@@ -868,9 +868,12 @@ body[data-theme="gazette"] .gt-seal{filter:none;}
    coloured left border still shows.
    IT PAINTS UNDER THE GLYPH AND THE WORDS with no z-index at all: it is in flow, and an in-flow background
    paints below every positioned descendant, which the glyph, the body and the mark all are.
-   THE GLYPH DARKENS OVER IT, and in `--ink` rather than in black: the tile hue at .14 is invisible on a
-   mid-tone band, and a black glyph would be invisible again the moment the band is the NIGHT band, which is
-   dark. Ink is the one value that is the opposite of its own paper in both.
+   THE GLYPH GOES ALTOGETHER (on request, having first been darkened so that it could be seen on the band —
+   which is what made it worth removing: the corner icon is an ornament naming a game whose name is written
+   underneath it in words, so on a played tile it is a second mark competing with the tick for the same
+   corner and the same colour). `display:none` rather than `opacity:0`, since it is decoration and a reader
+   on a screen reader gains nothing by keeping it in the tree. It is untouched above the breakpoint and on
+   every unplayed tile, which is every tile for most of the day.
    THE MARK LOSES ITS DISC AND ITS WAX. Both existed to hold a small tick against whatever the tile was
    showing; the band does that now, so the green circle and the gold seal are a second badge on top of a
    badge. What is left is a big white tick with a shadow under it — the same tick in both states, since it
@@ -887,7 +890,7 @@ body[data-theme="gazette"] .gt-seal{filter:none;}
       color-mix(in srgb, #E3C367 88%, var(--card)),
       color-mix(in srgb, #C79E33 84%, var(--card)));
   }
-  .game-tile.done .gt-glyph, .game-tile.won .gt-glyph{color:var(--ink); opacity:.18;}
+  .game-tile.done .gt-glyph, .game-tile.won .gt-glyph{display:none;}
   /* one tick, no badge behind it — every property either state set to hold a small mark is unset here */
   .game-tile .gt-check, .game-tile .gt-seal{
     top:4px; right:6px; width:auto; height:auto;
