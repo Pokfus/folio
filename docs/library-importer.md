@@ -1313,3 +1313,44 @@ misspelling is the 1922 Natesan printing's own, this file's entry had already re
 to keep it as printed, and a row for it was written, applied, and then withdrawn. Transcribing a
 title means transcribing it. **The count was in front of me the whole time and said 0 correct** —
 the check costs one grep, and it is the one that separates a slip from an edition's own error.
+
+**WHICH SIDE OF EXTRACTION A BOOK'S CHAIN RUNS ON IS DECIDED BY WHAT ITS ROWS NAME** (Sep 2026, batch
+E32). E29 moved one branch from correcting the page to correcting the extracted prose and gave the
+reason: a row facing a page full of tags is weaker than one facing prose. E31's scan found eight more
+branches still on the older shape. Pointed at all eight, the reason turns out to hold for **five of
+them and to be exactly backwards for three**.
+
+  · **MEASURED FIRST, and the weakness was not being suffered.** Six of the eight books carry a
+    correction table. Applying each book's own rows to its raw cached page and asking whether any hit
+    lands inside a tag: **zero, on all six**. So the move is a hardening against a row written LATER,
+    not a repair — which is worth saying plainly, because it decides how much risk is worth taking
+    for it.
+  · **THE FIVE THAT READ MARKUP WERE MOVED** — `kanda` and `satyricon` (TEI), `sukta`, `tablets` and
+    `ptahhotep` (HTML). Rebuilt: **all five byte-identical, every row still firing, no dead rows.**
+  · **THE THREE THAT READ PLAIN TEXT WERE NOT, and the measurement is the argument.** Moved,
+    the Canterbury Tales loses **180 of its 198 rows** and Journey to the West **13 of its 327** —
+    193 repairs — while Don Quixote's single row is inert either way. The mechanism is not subtle
+    once seen: those rows name **the scan's own damage**, and the extractor's job is to clean exactly
+    that up before it builds a paragraph. `his_^pmiishment`, `fiie"clouds~and`, `Ping(preftctHre.)Chap.`,
+    a page number sitting inside a word, five lines the scanner scrambled — none of those strings
+    exists any more once `extractChaucer` or `extractJourney` has run, so the row matches nothing and
+    the damage ships.
+  · **So the rule is not a preference.** A row that names a form the SOURCE published — an OCR
+    ligature, a run-together line, a stray mark — must run on the page, because that form is what the
+    page has and what the extractor removes. A row that names a WORD can run on either, and runs on
+    the prose, because that is where a tag can no longer come between its letters. **Read the book's
+    own rows before deciding, and if they are full of punctuation the reader will never see, the
+    answer is already given.**
+
+**AND `correctGot` DID NOTHING AT ALL ON A SHAPE IT DID NOT RECOGNISE** (Sep 2026, batch E32, and it
+is E31's own fault wearing the coat of the helper written to close it). Shipped in E31 it ended
+`return one(got)`, so an object that was neither an array nor a part — a reader's `{ chapters: […],
+counts }` — fell through and came back **untouched, with nothing reported**. Its own comment claimed
+that a reader added later with a name not in the list would "fail loudly here"; it did not, and the
+comment was the only thing saying otherwise.
+
+It was found by pointing the helper at the three plain-text readers, whose parts hang off `chapters`:
+**198 Canterbury Tales rows went dead in one run, and the only thing on screen that said so was the
+dead-row report** — the build printed its counts, said `Wrote books/canterbury-tales.js`, and was
+believed for a good ten minutes. It throws now, naming the keys it found. **A comment claiming a
+helper fails loudly is not a helper that fails loudly**, and the difference is one line and a test.

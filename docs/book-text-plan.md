@@ -307,7 +307,7 @@ re-run and diffed byte for byte.
 | **E29** ✅ | the correction chain moves after the cache | **The chain was running against MARKUP where it should have run against PROSE, and it was weaker for it.** Correcting on the way in poisoned the cache (so a live row reported DEAD one run later — E19's caveat) and, worse, made every row face a page still full of tags: the Book of Documents came back from a refetch with four `Tî` the romanisation had missed and a running head the Book of Rites' own remover could no longer see. Moved to run on the extracted prose. **The title is the one exception and it had to be**, `applyRoman` not being idempotent |
 | **E30** ✅ | the caches refreshed, and what fell out | **974 double-romanised names repaired across 111 of the Three Kingdoms' 120 chapters, and a row E19 deleted put back.** Refetching the twelve books that carry a correction table turned E29's machinery on and turned up two regressions of this programme's own making: E19's cached-path correction was applying `roman` a SECOND time to prose already romanised (`Ma Chao` → `Ma Zhao`, `Chang'an` → `Zhang'an`, `Kan Ze` → `Gan Ze`), and E19 had removed E15's live `corning` row on a dead-row report that meant nothing. A record now says whether its prose is the source's or ours, and the run says which it read |
 | **E31** ✅ | the twenty-one books nobody had read, and five branches outside the chain | **12 repairs across eight books — and four of them could not land, because five English branches never called the correction chain at all.** The 434 single-occurrence candidates in the 21 never-swept books yielded twelve slips (`beagn`, `soliders`, `carth` for *earth*, `Triviri`, `Tintagel`, `Eleine`, `sithin`, `Balled`, `Carlum`, `Marsilium`, `Sarrazens`, `goner`). Four reported `DID NOT FIRE` with the misspellings sitting in the shipped files: `play`, `fitts`, `terzine`, `eddapoem` and `laisses` each read a cached page, handed it to a reader of their own and pushed the result on without ever calling `correctRaw` — **E29's "one spelling of the chain, called on every branch" was untrue for five of them**. A thirteenth row was written, applied and withdrawn: the Gita's `INDESCTRUCTIBLE` is the 1922 printing's own, with the correct spelling nowhere in the book |
-| **E32** | E29's move, finished | **Seven English branches still correct the PAGE rather than the extracted prose.** E29 moved one branch — the per-chapter wiki walk — and gave the reason: a row facing a page full of tags is weaker than one facing prose, and refetching the Book of Documents under the old order returned four `Tî` the romanisation had missed and a running head the Book of Rites' own remover could no longer see. `extractRamayan`, `extractSatyricon`, `extractSukta`, `extractJourney`, `extractPtahhotep`, `extractQuixote`, `extractChaucer` and `extractTablets` are still on it. They FIRE — those caches hold raw pages, so the chain runs at read — so this is a strength question rather than a correctness one, and it is bounded: eight call sites, and a byte-for-byte rebuild of the books on them says whether any row was being blocked by markup |
+| **E32** ✅ | E29's move, and where it is exactly backwards | **Five branches moved and proved byte-for-byte inert; three deliberately not moved, because moving them loses 193 repairs.** Measured first: of the six page-correcting books that carry a table, **not one row lands inside a tag**, so E29's weakness was not being suffered and the move is a hardening rather than a repair. The five that read markup (two TEI, three HTML) moved with every row still firing. The three that read PLAIN TEXT must not: their rows name the scan's own damage — `his_^pmiishment`, `Ping(preftctHre.)Chap.`, a page number inside a word — which the extractor exists to clean up, so after extraction **180 of the Canterbury Tales' 198 rows and 13 of Journey's 327 match nothing**. **Which side of extraction a book's chain runs on follows from what its rows name.** It also found E31's own fault in the helper written to close it: `correctGot` returned an unrecognised shape UNTOUCHED and reported nothing |
 | **E33–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
@@ -374,6 +374,77 @@ not deferred.**
 
 ## 8. Batch log
 
+### E32 — E29's move, and the three books where it is exactly backwards, shipped 2026-09-04
+
+**E31's scan found eight English branches still correcting the PAGE rather than the extracted prose.**
+E29 moved one and gave the reason: a row facing a page full of tags is weaker than one facing prose.
+Pointed at all eight, that reason holds for five of them and is **backwards** for three.
+
+**MEASURED BEFORE ANYTHING WAS MOVED, and the weakness was not being suffered.** Six of the eight
+books carry a correction table. Applying each book's own rows to its own raw cached page and asking
+whether any hit lands inside a tag:
+
+| book | branch | cache | rows | hits | inside a tag |
+|---|---|---|---|---|---|
+| ramayana | `kanda` | TEI | 12 | 12 | **0** |
+| satyricon | `satyricon` | TEI | — | — | (no table) |
+| rigveda | `sukta` | 1,028 HTML pages | 66 | 66 | **0** |
+| epic-of-gilgamesh | `tablets` | HTML | 1 | 1 | **0** |
+| ptahhotep | `ptahhotep` | HTML | — | — | (no table) |
+| journey-to-the-west | `journey` | plain text | 410 | 327 | n/a |
+| don-quixote | `quixote` | plain text | 1 | 1 | n/a |
+| canterbury-tales | `chaucer` | plain text | 198 | 198 | n/a |
+
+So the move is a **hardening against a row written later**, not a repair — worth saying plainly,
+because it decides how much risk is worth taking for it.
+
+**THE FIVE THAT READ MARKUP WERE MOVED.** Rebuilt: all five **byte-identical**, every row still
+firing, no dead rows. Ten books now go through `correctGot` (these five plus E31's five) and all ten
+were rebuilt and diffed.
+
+**THE THREE THAT READ PLAIN TEXT WERE NOT, AND THE MEASUREMENT IS THE WHOLE ARGUMENT.** Moved:
+
+| book | rows firing before | after | lost |
+|---|---|---|---|
+| canterbury-tales | 198 | 18 | **180** |
+| journey-to-the-west | 327 | 314 | **13** |
+| don-quixote | 1 | 1 | 0 |
+
+193 repairs, gone, with the books still building and every count still reading healthy. The mechanism
+is not subtle once seen: **those rows name the scan's own damage, and cleaning that up is what the
+extractor is for.** `his_^pmiishment`, `fiie"clouds~and`, `Ping(preftctHre.)Chap.`, a page number
+sitting inside a word, five lines the scanner scrambled — none of those strings exists any more once
+`extractChaucer` or `extractJourney` has run. Don Quixote's single row is `neigbbour` → `neighbour`,
+a plain word, and is inert either way, which is the control case.
+
+> **WHICH SIDE OF EXTRACTION A BOOK'S CHAIN RUNS ON FOLLOWS FROM WHAT ITS ROWS NAME.** A row naming a
+> form the SOURCE published — an OCR ligature, a run-together line, a stray mark — must run on the
+> page, because that form is what the page has and what the extractor removes. A row naming a WORD can
+> run on either, and should run on the prose, where a tag can no longer come between its letters.
+> Read the book's own rows before deciding: if they are full of punctuation the reader will never see,
+> the answer is already given.
+
+**AND IT FOUND E31'S OWN FAULT IN THE HELPER WRITTEN TO CLOSE IT.** `correctGot` shipped ending
+`return one(got)`, so an object that was neither an array nor a part — a reader's `{ chapters: […],
+counts }` — fell through and came back **untouched, with nothing reported**. Its own comment claimed a
+reader added later with an unlisted name would "fail loudly here". It did not.
+
+It surfaced because the first trial of the three plain-text branches produced *198 dead Chaucer rows
+and a byte-different file* — a result I read as "moving is destructive" for ten minutes before noticing
+it was really "the helper did nothing", which is a different and worse finding. Both turned out true,
+but only after the helper was fixed and the trial re-run honestly. **A wrong diagnosis that predicts
+the right number is the hardest kind to catch**, and what caught it was the one row whose behaviour
+made no sense: Don Quixote's `neigbbour` is a plain word that extraction cannot touch, so its going
+dead could not mean what the other 197 appeared to mean.
+
+`correctGot` now throws, naming the keys it found, and `test-library.js` asserts all three of its
+behaviours including the throw. **A comment claiming a helper fails loudly is not a helper that fails
+loudly**, and the difference is one line and a test.
+
+**Nothing in `books/` changes, so there is no changelog line and no version bump.** This batch is
+entirely in the importer: five branches moved and proved inert, three left alone with the reason
+measured, one helper hardened, three assertions added.
+
 ### E31 — the twenty-one unread books, and five branches outside the chain, shipped 2026-09-04
 
 **The programme's sweep had never been pointed at twenty-one of the forty-eight books.** This batch
@@ -420,6 +491,10 @@ those branches holding raw pages; what they are not is E29's better shape, and E
 reason for preferring it. Recorded as E32 rather than done here: this batch's subject is the twelve
 slips and the five branches that were in NO chain at all, and a second extractor change riding along
 with it would have to be proved inert separately anyway.
+
+> **E32 answers this and the answer is only five of the eight.** Three of those branches read PLAIN
+> TEXT, where there are no tags to face and the rows name the scan's own damage; moving them loses
+> 193 repairs. See E32's entry above.
 
 > **The dead-row report is now two claims, not one.** E30 found a row reported dead because the cache
 > held prose the chain had already corrected. E31 finds four reported dead because the chain was never

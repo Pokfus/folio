@@ -2727,6 +2727,30 @@ function aeneidChecks() {
       /(?<![A-Za-z])Marsiliun(?![A-Za-z])/.test(roland) &&
       /(?<![A-Za-z])Sarrazins(?![A-Za-z])/.test(roland) &&
       /(?<![A-Za-z])Ballad(?![A-Za-z])/.test(edda));
+
+    /* AND correctGot ITSELF REFUSES A SHAPE IT DOES NOT KNOW (Sep 2026, batch E32). Written to fall
+       through, it returned an unrecognised object untouched and reported nothing — so pointing it at
+       a reader whose parts hang off a name not in its list corrected NOTHING while every count read
+       healthy. Sliced out of the importer and run against a marker `correctRaw`, which is the only
+       way to see a helper whose whole contract is what it does to somebody else's object. */
+    const fn = src.slice(src.indexOf("function correctGot("));
+    let depth = 0, end = 0;
+    for (let i = fn.indexOf("{"); i < fn.length; i++) {
+      if (fn[i] === "{") depth++;
+      else if (fn[i] === "}") { depth--; if (!depth) { end = i + 1; break; } }
+    }
+    const correctGot = new Function("correctRaw", fn.slice(0, end) + "; return correctGot;")
+      ((t) => "<" + t + ">");
+    const arr = correctGot([{ html: "a", t: "b", notes: ["c"] }])[0];
+    check("[chain] correctGot corrects html, title and notes",
+      arr.html === "<a>" && arr.t === "<b>" && arr.notes[0] === "<c>", JSON.stringify(arr));
+    const map = correctGot({ cantos: { 1: { html: "a", name: "n" } }, counts: {} });
+    check("[chain] ...and a reader's named collection of parts",
+      map.cantos[1].html === "<a>" && map.cantos[1].name === "<n>", JSON.stringify(map.cantos));
+    let threw = "";
+    try { correctGot({ stanzas: [{ html: "a" }], counts: {} }); } catch (e) { threw = e.message; }
+    check("[chain] ...and it THROWS on a shape it does not know, rather than doing nothing",
+      /correctGot: nothing to correct/.test(threw), threw || "(returned quietly)");
   }
 
   /* ================= 7. the switch is a crossfade, not a cut =================

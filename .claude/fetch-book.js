@@ -17806,10 +17806,34 @@ function correctGot(got) {
     if (!c || typeof c !== "object") return c;
     if (typeof c.html === "string") c.html = correctRaw(c.html);
     if (typeof c.t === "string") c.t = correctRaw(c.t);
+    if (typeof c.name === "string") c.name = correctRaw(c.name);
     if (Array.isArray(c.notes)) c.notes = c.notes.map((x) => (typeof x === "string" ? correctRaw(x) : x));
     return c;
   };
-  return Array.isArray(got) ? got.map(one) : one(got);
+  if (Array.isArray(got)) return got.map(one);
+  /* THE READERS THAT HAND BACK A NAMED COLLECTION rather than the parts themselves: the two TEI
+     readers key their parts by citation (`cantos`, `sections`), Ptahhotep's returns an array under
+     `secs`, and the three plain-text readers one under `chapters`. Named explicitly rather than
+     walked generically — but naming them is only half of it. */
+  for (const k of ["cantos", "sections", "secs", "chapters"]) {
+    const v = got && got[k];
+    if (!v || typeof v !== "object") continue;
+    for (const id of Object.keys(v)) one(v[id]);
+    return got;
+  }
+  if (got && typeof got === "object" && typeof got.html !== "string" && typeof got.t !== "string")
+    /* AND IT THROWS ON A SHAPE IT DOES NOT KNOW, which is the whole point of naming them (Sep 2026,
+       batch E32). Written to fall through to `one(got)`, it returned an unrecognised object
+       UNTOUCHED and reported nothing: pointed at a reader whose parts hang off a name not in the
+       list, it silently corrected NOTHING while every count still read healthy and the build still
+       said "Wrote books/…". That is E31's fault — a branch outside the chain — wearing the coat of
+       the helper written to close it, and it was found by pointing this at the three plain-text
+       readers, whose parts hang off `chapters`: 198 Canterbury Tales rows went dead in one run and
+       the only thing on screen that said so was the dead-row report. A comment claiming a helper
+       fails loudly is not a helper that fails loudly. */
+    throw new Error("correctGot: nothing to correct in a " + Object.keys(got).join("/") +
+      " — name the reader's own key in the list above rather than leaving its book uncorrected");
+  return one(got);
 }
 
 
@@ -24739,8 +24763,7 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, xml); }
-    xml = correctRaw(xml);
-    const got = extractRamayan(xml, warn);
+    const got = correctGot(extractRamayan(xml, warn));
     const c = got.counts;
     console.log("  " + Object.keys(got.cantos).length + " cantos, " + c.lines + " lines of verse in " +
       c.stanzas + " stanzas, " + c.paras + " prose paragraph(s), " + c.notes + " notes");
@@ -24781,8 +24804,7 @@ async function fetchEnglish() {
     let xml;
     if (!FORCE && fs.existsSync(cf)) xml = fs.readFileSync(cf, "utf8");
     else { xml = await fetchText(BOOK.url); fs.writeFileSync(cf, xml); }
-    xml = correctRaw(xml);
-    const got = extractSatyricon(xml, { greek: BOOK.greek }, warn);
+    const got = correctGot(extractSatyricon(xml, { greek: BOOK.greek }, warn));
     const c = got.counts;
     console.log("  " + Object.keys(got.sections).length + " sections, " + c.notes + " notes, " +
       c.quotes + " display quotations (" + c.verse + " of them verse, " + c.lines + " lines), " +
@@ -24936,8 +24958,7 @@ async function fetchEnglish() {
          Wikisource serves it, so a `fixes` row can be re-verified against the cache instead of
          needing a full refetch to prove it still fires. Every other book on this path — there is
          none; `layout: "sukta"` is the Rigveda's alone — would be unaffected either way. */
-      h = correctRaw(h);
-      const got = extractSukta(h, where, warn);
+      const got = correctGot(extractSukta(h, where, warn));
       /* A hymn may honestly be three verses long, so the short-chapter guard is a floor on the
          WHOLE book rather than a throw on one page: what it is for is catching an extraction that
          has returned the wiki's furniture instead of the text, and one three-verse hymn is not
@@ -25219,8 +25240,7 @@ async function fetchEnglish() {
     let raw;
     if (!FORCE && fs.existsSync(cf)) raw = fs.readFileSync(cf, "utf8");
     else { raw = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, raw); }
-    raw = correctRaw(raw);
-    const got = extractPtahhotep(raw, BOOK, warn);
+    const got = correctGot(extractPtahhotep(raw, BOOK, warn));
     const c = got.counts;
     console.log("  " + got.secs.length + " sections, " + c.notes + " notes, " + c.marks +
       " marker(s), " + c.pages + " printed page number(s) removed" +
@@ -25327,8 +25347,7 @@ async function fetchEnglish() {
     let h;
     if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
     else { h = await fetchText(BOOK.url); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, h); }
-    h = correctRaw(h);
-    const got = extractTablets(h, BOOK, warn);
+    const got = correctGot(extractTablets(h, BOOK, warn));
     let notes = 0, cols = 0, marks = 0;
     got.forEach((c) => {
       if (c.n < FROM || c.n > TO) return;
