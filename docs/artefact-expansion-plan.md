@@ -167,7 +167,7 @@ literature — which is what made batches 15 and 8 of the first pass cheap and b
 | batch | n | artefacts | spine |
 |---|---|---|---|
 | D1 Medieval everyday | 8 | `novgorod-birch-bark-letter`; `seal-matrix`, `bone-ice-skate`, `green-glazed-jug`, `wax-tablet`, `turnshoe`, `antler-comb`, `bodkin-arrowhead` | *Internet Archaeology* (open), Persée, `tidsskrift.dk`, archive.org |
-| D2 Prehistory's everyday, worldwide | 9 | `palaeolithic-bone-flute`; `spear-thrower` (planned as `antler-spearthrower`), `saddle-quern`, `sickle-blade`, `bone-fishhook`, `ochre-crayon`, `eyed-bone-needle`, `oak-coffin-textile`, `amber-bead` | PLOS, *Scientific Reports*, Europe PMC, Antiquity, Persée, archive.org (Evans) |
+| D2 Prehistory's everyday, worldwide | 9 | `palaeolithic-bone-flute`; `spear-thrower` (planned under the name antler-spearthrower), `saddle-quern`, `sickle-blade`, `bone-fishhook`, `ochre-crayon`, `eyed-bone-needle`, `oak-coffin-textile`, `amber-bead` | PLOS, *Scientific Reports*, Europe PMC, Antiquity, Persée, archive.org (Evans) |
 | E1 Arms, antiquity to the twentieth century | 7 | `sling-bullet`, `mail-fragment`, `flintlock-musket`, `iron-cannonball`, `socket-bayonet`, `trench-art-shell-case`, `identity-disc` | archive.org (Ffoulkes), *Post-Medieval Archaeology*, PSAS. **`iwm.org.uk` is 403 here** |
 | E2 Instruments of knowledge | 8 | `gutenberg-bible-leaf`; `portable-sundial`, `mariners-astrolabe`, `albarello`, `type-sort`, `slide-rule`, `daguerreotype`, `telegraph-key` | Getty, Rijksmuseum, archive.org, *International Journal of Nautical Archaeology* |
 | E3 The industrial everyday | 5 | `phonograph-cylinder`, `transferware`, `bartmann-jug`, `thimble`, `steel-pen-nib` | *Post-Medieval Archaeology*, *Historical Archaeology*, archive.org |
@@ -254,7 +254,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | A1 | `terracotta-warrior`, `antikythera-mechanism`, `great-isaiah-scroll` | — |
 | A2 | `venus-of-willendorf` | ~~`bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`~~ (all three shipped in A2c), ~~`vindolanda-tablets`~~ (shipped in A2b) |
 | B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | ~~`gandhara-buddha-head`, `chola-nataraja`~~ (shipped in B1c), `mughal-miniature`, `nbpw-sherd`, ~~`punch-marked-coin`, `etched-carnelian-bead`~~ (shipped in B1b), `glass-bangle` |
-| D2 | `oak-coffin-textile`, `amber-bead`, `ochre-crayon` | `palaeolithic-bone-flute`, `antler-spearthrower`, `saddle-quern`, `sickle-blade`, `bone-fishhook`, `eyed-bone-needle` |
+| D2 | `oak-coffin-textile`, `amber-bead`, `ochre-crayon` | `palaeolithic-bone-flute`, ~~antler-spearthrower~~ (shipped in D2b as `spear-thrower`), `saddle-quern`, `sickle-blade`, `bone-fishhook`, `eyed-bone-needle` |
 | D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | ~~`palaeolithic-bone-flute`, `bone-fishhook`~~ (both shipped in D2c) |
 | C3/C2 | `clovis-point`, `obsidian-blade`, `ostrich-eggshell-bead` | — |
 | C1 | `byzantine-lead-seal`, `lustreware-bowl`, `glass-coin-weight` | — |
@@ -279,6 +279,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | E1a | `mail-fragment`, `telegraph-key`, `iron-cannonball` | — |
 | E2b/E3b/D1c | `albarello`, `phonograph-cylinder`, `green-glazed-jug` | — |
 | E3c/C1c/E2c | `bartmann-jug`, `byzantine-ivory-panel`, `gutenberg-bible-leaf` | — |
+| C3b/E3d | `wampum-bead`, `thimble` (**two, not three — see below**) | `moche-portrait-vessel`, `bodkin-arrowhead` |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1172,6 +1173,45 @@ are most of what a 200-word plate needs.
 · One access note to add to E2b's: **`archive.org/advancedsearch.php` is the way to find these**, since a
   catalogue's title is long and its author is often the institution rather than the curator (Hobson's and
   Dalton's BM catalogues are both filed under the British Museum). Search the TITLE, not the person.
+
+**C3b/E3d's finding is a bookkeeping one, and it is that PROSE DOES NOT FIX A MACHINE-READABLE ROW.**
+That `antler-spearthrower` shipped as `spear-thrower` has been written in this file since D2b, in a
+finding of its own — and the id went on being counted as outstanding anyway, because it survived in
+BACKTICKS in two rows the plan-versus-pool diff reads: the region table's parenthetical "(planned as
+`antler-spearthrower`)" and the batch log's D2 deferred column. Both are now de-backticked and struck, and
+the outstanding count drops by one. **Where a planned id ships under another name, take the id out of
+every row that carries it**; a paragraph explaining the rename is for the reader, and the diff cannot read
+paragraphs.
+· **TWO PLATES, NOT THREE, AND THE REASON IS `moche-portrait-vessel`.** Kroeber's *Ancient Pottery from
+  Trujillo* (Field Museum, 1926) is open, excellent and carries the whole subject — including the fact that
+  the style was called **Proto-Chimu** before it was called Moche, that the stirrup-mouth is the form most
+  characteristic of Trujillo, and that the stirrup often occurs attached to a modelled human head — but
+  nothing else openable joins it. Joyce's *South American Archaeology* (1912) uses Truxillo vase scenes as
+  evidence for hunting, fishing and warfare and never describes the portrait vessels; Squier's *Peru*
+  (1877) is about Tiahuanaco and the Inca; Mead's two Peruvian leaflets run to 30 KB and say nothing;
+  `escholarship.org` answers **202 with an empty body**, which takes the UC-PAAE Moche reports with it;
+  and **Persée's search page is JavaScript-driven**, so its `Journal de la Société des Américanistes` run
+  cannot be searched from here even though its documents are served. Deferred at one work.
+· **`bodkin-arrowhead` IS DEFERRED ON A WORD, NOT ON A HOST.** Hewitt's *Ancient Armour and Weapons in
+  Europe* (1855) contains the string "bodkin" **zero times** across both volumes, and so does the first
+  volume of Grose; Ffoulkes has none either. The term is a modern antiquarian and archaeological label
+  rather than a medieval one, so the 19th-century arms literature that opens every other E1 subject is
+  blind to it. **Grep for the object's period name before concluding a shelf is silent.**
+· **THE PLATE'S BEST FACT IS OFTEN THE ONE THE SOURCES REFUSE.** `wampum-bead` ends on the money question
+  because Holmes reasons that shells traded far from the sea would naturally become a currency and then
+  quotes Morgan's flat denial that the Iroquois ever made wampum one in any sense, "having no common
+  standard of value until they found it in our currency". Beauchamp supplies the physical tell that goes
+  with it: **a steel drill leaves a nearly uniform bore where the earlier Indian bead tapers to the centre
+  from each end**, which is how colonial-made wampum is told from Indian-made — a distinction only a source
+  that watched both being made could give.
+· **AND A TRADE-LITERATURE PLATE CAN BE HONEST ABOUT ITS OWN DATE.** `thimble` is dated *19th century* and
+  no wider, because Ure, Tomlinson and Timmins describe the Victorian object and nothing cited reaches
+  further back. Ure is the find: his *Dictionary* gives the definition in one sentence, both kinds (closed
+  and open), and the whole Rouy and Berthier process from red-hot disks to the gold leaf held on by
+  pressure alone. **A date field is a claim like any other** — write the span the sources carry, not the
+  span the object had.
+· One access note: **`finds.org.uk` is now behind a Cloudflare interstitial** (403, "Just a moment…") on
+  its search paths, so the Portable Antiquities Scheme is not a route from here at present.
 
 ## The per-artefact workflow
 

@@ -1246,4 +1246,18 @@ window.ARTEFACTS = [
     date: "c. 1454 – 1455 CE",
     origin: "Mainz",
   },
+  {
+    id: "wampum-bead",
+    name: "Wampum bead",
+    rarity: "common",
+    date: "c. 1600 – 1900 CE",
+    origin: "Northeastern North America",
+  },
+  {
+    id: "thimble",
+    name: "Thimble",
+    rarity: "common",
+    date: "19th century CE",
+    origin: "Britain and France",
+  },
 ];
