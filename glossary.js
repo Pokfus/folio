@@ -1742,7 +1742,8 @@ window.GLOSSARY = {
 "Xerxes_I": "Xerxes I was a king of the Achaemenid Empire of Persia, the son and successor of Darius I, whose inscriptions style him great king, king of kings, and king of countries containing many kinds of people.<sup class=\"fn\" data-fn=\"1\"></sup> At Persepolis he completed unfinished work and added buildings of his own, among them the terrace gate whose trilingual inscription calls it a colonnade for all countries, a palace, and the quarters excavators named the Harem.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Greek writers supply almost all that is told of his invasion of Greece in 480 and 479 BCE and of his killing by the captain of his own bodyguard.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Aramaic": "Aramaic is a Semitic language of the Near East, its earliest substantial texts being the royal inscriptions of small kingdoms in northern Syria, set down in an alphabet adopted from Phoenician.<sup class=\"fn\" data-fn=\"1\"></sup> While the Assyrian, Babylonian and Persian empires ruled it served for commerce, diplomacy and administration, and it survives in bulk only where the climate spared papyrus, chiefly in Egypt, giving way to Greek in Ptolemaic times.<sup class=\"fn\" data-fn=\"2\"></sup> Its alphabet outlasted that official standing: the Jews adopted it along with the language after the Exile, and the square characters of Hebrew manuscripts, the Nabataean script and the Palmyrene all grew out of it.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Darius_III": "Darius III was the last king of the Achaemenid Empire of Persia, put on the throne by the chiliarch Bagoas after the royal house had been extinguished, being a member of the court circle descended from a brother of Artaxerxes II.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus says he answered Bagoas's attempt to poison him by handing him the cup and making him drink it himself.<sup class=\"fn\" data-fn=\"1\"></sup> He lost Asia to Alexander of Macedon, wrote to him asking for his captured mother, wife and children and offering alliance, and was killed in flight by Bessus, his own satrap of Bactria.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Ancient_Greece": "Ancient Greece is the civilisation of the Greek-speaking cities of the mainland, the Aegean islands and the Ionian coast of Asia Minor, together with the colonies they planted in Italy, Sicily and elsewhere.<sup class=\"fn\" data-fn=\"1\"></sup> Its political unit was the polis, a settlement with its farmland governed as an independent state, whose citizens were those entitled to share in judgement and office, so that resident foreigners and enslaved people lived in it without belonging to it.<sup class=\"fn\" data-fn=\"2\"></sup> Herodotus puts what these cities shared not in any common government but in kinship of blood and speech, shrines and sacrifices held in common, and a like way of life.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Ancient_Greece": "Ancient Greece is the civilisation of the Greek-speaking cities of the mainland, the Aegean islands and the Ionian coast of Asia Minor, together with the colonies they planted in Italy, Sicily and elsewhere.<sup class=\"fn\" data-fn=\"1\"></sup> Its political unit was the polis, a settlement with its farmland governed as an independent state, whose citizens were those entitled to share in judgement and office, so that resident foreigners and enslaved people lived in it without belonging to it.<sup class=\"fn\" data-fn=\"2\"></sup> Herodotus puts what these cities shared not in any common government but in kinship of blood and speech, shrines and sacrifices held in common, and a like way of life.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Classical_Athens": "Classical Athens is the Greek city of Attica between the Persian Wars and Alexander's conquests, whose people counted as citizens of one polity because Theseus, Thucydides writes, had merged the council chambers of the Attic townships into a single town-hall.<sup class=\"fn\" data-fn=\"1\"></sup> At the outbreak of the Peloponnesian War its allied tribute came to 600 talents, beside 6,000 talents of coined silver on the Acropolis, 13,000 hoplites and 300 galleys fit for service.<sup class=\"fn\" data-fn=\"2\"></sup> Its sea power made the harbour at Piraeus a gathering point for Mediterranean goods, and a hostile Athenian writer remarked that the city, hearing every kind of dialect, mixed the speech and dress of Greeks and foreigners.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2514,7 +2515,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Xerxes_I": "reigned 486 – 465 BCE",
 "Aramaic": "attested from before 727 BCE",
 "Darius_III": "reigned c. 336 – 330 BCE",
-"Ancient_Greece": "c. 800 – 146 BCE"
+"Ancient_Greece": "c. 800 – 146 BCE",
+"Classical_Athens": "c. 480 – 323 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5368,7 +5370,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Xerxes_I": ["ruler","person","history","politics","iran"],
 "Aramaic": ["language","concept","history","writing","iron age","syria"],
 "Darius_III": ["ruler","person","history","politics","iran"],
-"Ancient_Greece": ["culture","era","history","politics","greece"]
+"Ancient_Greece": ["culture","era","history","politics","greece"],
+"Classical_Athens": ["city","place","history","greece","classical","politics"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
