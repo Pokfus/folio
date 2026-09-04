@@ -702,9 +702,14 @@ book added later will meet the same traps.
   before a small letter, an exclamation mark after a word, and the OPENING QUOTE of the next speech
   after a full stop, colon, dash or closing quote. It also fixed the limit on the second-scan
   witness: that copy's OCR discards the rows of asterisks this one keeps, so it answers *what is
-  this mark* and never *is there a mark here*, for which only the leaf will do. 760 repairs in all;
-  what waits is a word's first letter broken off it and about 130 single characters standing in the
-  run of the prose, none of which has a shape to sweep — see `docs/book-text-plan.md`),
+  this mark* and never *is there a mark here*, for which only the leaf will do. **Batch E10 answered
+  that by MEASURING the marks** in this scan's own page XML rather than reading them anywhere: they
+  fall into three populations that do not overlap — 121×6 is a RULE the edition prints at a paragraph
+  break (kept, set as a dash), 20–47 wide by 57–67 tall is the wide SPACE after a full stop boxed as
+  though it were a glyph (nothing is printed there at all), and under 20×14 is a speck of dirt. 787
+  repairs in all; what waits is a word's first letter broken off it and about 30 marks whose shape
+  falls between the three, mostly inside runs the scan has mangled past any single rule — see
+  `docs/book-text-plan.md`),
   `journey-to-the-west` (~524 KB, all 100 chapters, **100 chapter sections**, **0 notes** — Timothy
   Richard's *A Mission to Heaven* of 1913, the first English translation there ever was, and **the
   first book here whose SOURCE IS PLAIN OCR TEXT rather than markup.** Every other reader on the

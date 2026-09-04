@@ -285,7 +285,8 @@ re-run and diffed byte for byte.
 | **E7** ✅ | `canterbury-tales` | **119 more repairs — the possessive and the closing quotation mark, both cleared to zero.** A possessive apostrophe was dropped or mangled on 73 lines in three shapes (`God s sake`, `the Knight' s Tale`, `Saint Peter’ s sister`); the closing quote was read as a slash on 43, and the slash stands for TWO characters, not one — the comma or full stop AND the quote beside it. Three one-off strays went with them, each witnessed on the SECOND scan of the same edition |
 | **E8** ✅ | `canterbury-tales` | **62 repairs, and a tool.** The second scan is queried in BULK — anchor on the words around a suspicious token, score candidate positions by the words that follow, print what the other copy has between the same two words: 221 candidates, 191 located. The finding is that this edition SPACES its `;` `!` `?` `:` as a house style and does not space its comma (10,944 attached to 40), so 59 commas were put back on their own words. A census over tag-stripped HTML first reported 22 phantom errors that were Folio's own `bk-n` markers |
 | **E9** ✅ | `canterbury-tales` | **71 repairs, and a character that stands for three marks.** A lone figure `1` appears 66 times: before a lowercase word it is the pronoun (37), before a CAPITAL it is an exclamation mark after a bare word and an OPENING QUOTE after a full stop, colon, dash or closing quote (21) — two rules and seven read exceptions cover every one. It also fixes the limit on the second-scan witness: that copy's OCR discards the asterisk rows this one keeps, so it answers *what is this mark* and never *is there a mark here* |
-| **E10** | `canterbury-tales` | what the census still holds: about 130 single characters — a word's first letter broken off it (`H ow`, `J eremy`, `T ale`, `k nowest`), `m` for `in`, `y` for `by`, `l` for `I`, and the stray marks (`_` 10, `-` 10, `\\` 6, `•` 2, `'` 5), plus 13 standalone commas the E8 sweep could not reach. The second-scan table carries a verdict for most |
+| **E10** ✅ | `canterbury-tales` | **27 repairs, decided by MEASUREMENT.** With the second scan unable to witness an absence, the strays were classified by their bounding boxes in the page XML, and they fall into three populations that do not overlap: 121×6 or 61×7 is a RULE the edition prints at a break (kept, set as a dash); 20–47 wide by 57–67 tall is the wide space after a full stop, boxed as though it were a glyph (nothing is there); under 20×14 is a speck. The apostrophe family is excluded whatever it measures |
+| **E11** | `canterbury-tales` | the last of it: about 30 marks whose shape falls between the three populations — mostly inside runs the scan has mangled past any single rule — plus the four apostrophes E10 set aside, 13 standalone commas, and the word whose first letter is broken off it (`H ow`, `J eremy`, `k nowest`, `m` for `in`, `y` for `by`) |
 | **E11–En** | the rest of the error half | what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
@@ -293,6 +294,42 @@ The error half of a Chinese book rides with its romanisation batch; the rest run
 ---
 
 ## 8. Batch log
+
+### E10 — the strays, sorted by measuring them, shipped 2026-09-04
+
+**27 repairs, taking the book to 787, and the method is the point: the marks were classified by
+MEASURING them in this scan rather than by reading them anywhere.** E9 established that the second
+copy cannot witness an absence, its OCR discarding ornament this one keeps — which leaves nothing to
+ask about a mark that may be dirt. The page XML carries the bounding box of every word, so the
+question becomes arithmetic: what SHAPE is this thing, and does any type on the same page have that
+shape? Measured against the page's own text column and median glyph height, the strays fall into
+three populations that do not overlap.
+
+**About 121 by 6, or 61 by 7 — long and flat. That is a RULE and the edition prints it**, at a
+paragraph break, in the same spirit as its rows of asterisks: `he would fain die.——` then `Alas!
+this noble, lordly January`. Confirmed on the leaf. It is KEPT, set as a dash, because it is type
+and the reader should see it — the same decision E5 made about the asterisk rows, and consistent
+with the book already rendering those as `* * * * *`.
+
+**About 20 to 47 wide by 57 to 67 tall — narrow and full-height. Nothing is printed there at all.**
+It is the WIDE SPACE this edition sets after a full stop, which the scanner has boxed as though it
+were a glyph. Confirmed on the leaf, where `thou wilt I shall have my love.  Thy honor` runs on with
+a gap and no mark of any kind. Twelve deleted.
+
+**Under 20 by 14 — a speck.** Dirt on the leaf, one of them measurably in the MARGIN, outside the
+text block. Six deleted.
+
+**A mark of the apostrophe family is deliberately excluded whatever it measures.** Three batches
+were spent putting quotation marks back, and an apostrophe really is a small tall mark, so it sits
+inside the second population by shape while being type. Deleting one by arithmetic is the single
+mistake this pass must not make; the four that measure like a space are left for a reading.
+
+**FIVE OF THE THIRTY-TWO ROWS WERE DEAD, AND EVERY ONE WAS A ROW E5 HAD ALREADY MADE.** They were
+generated against the ORIGINAL raw, where the marks are; by the time they run, E5's passage repairs
+have rewritten those very sentences. Nothing was wrong with the reading — the repair had simply
+happened already. **A generated row must be checked against the text AS THE CHAIN SEES IT, not
+against the file it was derived from**, and the dead-row report is what catches it: five rows, all
+removed, and the batch is what is left.
 
 ### E9 — the figure that stood for three marks, shipped 2026-09-04
 

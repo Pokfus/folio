@@ -11942,7 +11942,7 @@ const BOOKS = {
       "One last thing about the prose column, because it is the sort of thing a reader deserves to be " +
         "told rather than to discover. It is not a typed transcription but a machine reading of the " +
         "1912 pages, and machines misread. Where the scan went wrong it has been corrected against " +
-        "photographs of the same edition, and against a second scan of it — 760 places, from single " +
+        "photographs of the same edition, and against a second scan of it — 787 places, from single " +
         "letters up to whole " +
         "lines that the reader had dropped or run together, on eight pages that were printed straight " +
         "and scanned askew. The commonest fault by far was the quotation mark. The opening one the " +
@@ -11953,7 +11953,11 @@ const BOOKS = {
         "59 times more. The oddest of them was the figure 1, which stood for three different marks " +
         "in 66 places and gave no sign which: before a small letter it is the word I, after a word " +
         "it is an exclamation mark, and after a full stop it is the quotation mark opening the speech " +
-        "that follows. Nothing was mended by guess: every correction is a passage read off the page. " +
+        "that follows. Some of what looked like stray marks turned out to be nothing at all — the wide " +
+        "space this edition sets after a full stop, which the scanner boxed as though it were a letter " +
+        "— and some to be a short rule the translators print where they have cut a passage, which is " +
+        "kept and set as a dash. Nothing was mended by guess: every correction is a passage read off " +
+        "the page. " +
         "A few misreadings remain, chiefly a word whose first letter has been broken off it and some " +
         "stray marks standing in the run of the prose.",
     ],
@@ -12360,6 +12364,106 @@ const BOOKS = {
        "the page reads 'out of the hollow and down into the crucible ; and so it must needs'"],
       ["son-in-law  ?  * \n\nThese", "son-in-law  ?  ’ \n\nThese",
        "the page reads 'take me as your son-in-law ?’ These sudden words so astonied the'; a closing quote, where E6's rule reads an asterisk after punctuation as an OPENING one"],
+
+      /* ---------- BATCH E10: THE STRAY MARKS, SORTED BY MEASURING THEM ----------
+         E9 established that the second scan cannot witness an ABSENCE, its OCR discarding ornament
+         this one keeps. So these were decided on THIS scan's own geometry instead, out of the word
+         coordinates in the page XML, and the marks fall into three populations that do not overlap:
+
+           · about 121 by 6, or 61 by 7 — long and flat. That is a RULE, and the edition prints it at
+             a paragraph break in the same spirit as its rows of asterisks: 'he would fain die.——'.
+             Confirmed on the leaf. It is kept, set as a dash, because it is type and the reader
+             should see it.
+           · about 20 to 47 wide by 57 to 67 tall — narrow and full-height. Nothing is printed there
+             at all: it is the WIDE SPACE this edition sets after a full stop, which the scan has
+             boxed as though it were a glyph. Confirmed on the leaf, where 'have my love.  Thy honor'
+             runs on with a gap and no mark. Deleted.
+           · under 20 by 14 — a speck. Dirt on the leaf. Deleted.
+
+         A mark of the apostrophe family is deliberately NOT in this batch whatever it measures: three
+         earlier batches were spent putting quotation marks BACK, and deleting one by arithmetic is
+         the one mistake this pass must not make. */
+      ["have  my  love.  _",
+       "have  my  love.  ",
+       "the page prints nothing here: the mark measures 41 by 67, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["is  so  jealous  -",
+       "is  so  jealous  ",
+       "a speck on the leaf, 6 by 3 — far below the height of any letter on the page"],
+      ["he  can \ngallop.  _",
+       "he  can \ngallop.  ",
+       "the page prints nothing here: the mark measures 28 by 65, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["talked  and  disported  _",
+       "talked  and  disported  ",
+       "the page prints nothing here: the mark measures 23 by 57, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["thus  in  sloth. _",
+       "thus  in  sloth. —",
+       "a rule the edition prints at the break, 61 by 6 in the scan — a horizontal line, not type — read as a underscore; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["shall  now  tell.  ~",
+       "shall  now  tell.  ",
+       "a speck on the leaf, 9 by 4 — far below the height of any letter on the page"],
+      ["never  a  dispute \n\\",
+       "never  a  dispute \n",
+       "the page prints nothing here: the mark measures 45 by 46, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["fables  and \nmockeries. \n\n-",
+       "fables  and \nmockeries. \n\n—",
+       "a rule the edition prints at the break, 117 by 6 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["so  I  shall.’ -",
+       "so  I  shall.’ —",
+       "a rule the edition prints at the break, 122 by 7 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["he \nrecked  not.  _",
+       "he \nrecked  not.  ",
+       "the page prints nothing here: the mark measures 47 by 65, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["ever  before \nthee. -",
+       "ever  before \nthee. —",
+       "a rule the edition prints at the break, 121 by 6 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["say  no  better.’ _",
+       "say  no  better.’ —",
+       "a rule the edition prints at the break, 121 by 7 in the scan — a horizontal line, not type — read as a underscore; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["would  fain \ndie. -",
+       "would  fain \ndie. —",
+       "a rule the edition prints at the break, 121 by 5 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["say  no  more. -",
+       "say  no  more. —",
+       "a rule the edition prints at the break, 121 by 6 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["such  a  trick. -",
+       "such  a  trick. —",
+       "a rule the edition prints at the break, 121 by 5 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["shall  now  hear. \n\n_",
+       "shall  now  hear. \n\n",
+       "the page prints nothing here: the mark measures 20 by 63, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["and  else  not.’ \n\n-",
+       "and  else  not.’ \n\n—",
+       "a rule the edition prints at the break, 122 by 5 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["devotion  to  chastity. -",
+       "devotion  to  chastity. —",
+       "a rule the edition prints at the break, 121 by 6 in the scan — a horizontal line, not type — read as a hyphen; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["the  canon  replied  •",
+       "the  canon  replied  ",
+       "a speck on the leaf, 11 by 9 — far below the height of any letter on the page"],
+      ["men  cure  folk,’ _",
+       "men  cure  folk,’ —",
+       "a rule the edition prints at the break, 62 by 8 in the scan — a horizontal line, not type — read as a underscore; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["say  this,  that, _",
+       "say  this,  that, —",
+       "a rule the edition prints at the break, 61 by 7 in the scan — a horizontal line, not type — read as a underscore; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["all  they  would, _",
+       "all  they  would, —",
+       "a rule the edition prints at the break, 61 by 6 in the scan — a horizontal line, not type — read as a underscore; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["beware  of \nthis ^",
+       "beware  of \nthis ",
+       "the page prints nothing here: the mark measures 41 by 67, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["not  tell  you  •",
+       "not  tell  you  ",
+       "a speck on the leaf, 9 by 8 — far below the height of any letter on the page"],
+      ["must  needs  be. _",
+       "must  needs  be. —",
+       "a rule the edition prints at the break, 61 by 8 in the scan — a horizontal line, not type — read as a underscore; it is set as a dash, the mark being one the translators use and the reader should see"],
+      ["he  felt  that \n\\",
+       "he  felt  that \n",
+       "the page prints nothing here: the mark measures 41 by 56, which is the shape of the WIDE SPACE this edition sets after a full stop and of no type on the line"],
+      ["his  father  sent.  _",
+       "his  father  sent.  ",
+       "a speck on the leaf, 8 by 8 — far below the height of any letter on the page"],
     ],
 
     /* ---------- THE OPENING QUOTATION MARK, MISREAD SIX WAYS (Sep 2026, batch E6) ----------
