@@ -307,6 +307,54 @@ re-run and diffed byte for byte.
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
+### How much is left (measured 2026-09-04, after E26)
+
+**The structural half is nearly closed and the error half is bounded by reading, not by a list.** Two
+figures rather than one, because they behave differently.
+
+**The structural faults — an extractor doing something wrong to every book on a path — have a finite
+number and this programme has been finding them faster than it has been closing them.** E17 found a
+citation join, E18 a beta-code conversion, E19 a correction chain that never ran on a cached book,
+E25 a page-turn become a paragraph break, E26 a table rule that ate seven quotations and a renderer
+that hid sixty-three more. **Every one was larger than the batch that went looking for it**, and the
+last two were found by pulling on a thread the batch before had recorded rather than by searching.
+One row is open and bounded (E27, eighteen paragraphs), and there is no reason to think it is the
+last of the family.
+
+**The error half — a scan's own damage — has 434 candidates left to read, across the 21 books whose
+lists have never been read at all.** Measured with E22's own settings (a single occurrence, one
+confusion-class substitution or one transposition away from a form the same book uses ten times or
+more):
+
+| book | words | candidates | | book | words | candidates |
+|---|---|---|---|---|---|---|
+| divine-comedy | 63,747 | 57 | | boethius-consolation | 23,713 | 17 |
+| morte-darthur | 184,968 | 49 | | caesar-gallic-war | 50,555 | 14 |
+| poetic-edda | 43,008 | 44 | | aristotle-nicomachean-ethics | 44,819 | 12 |
+| lucretius-nature-of-things | 45,836 | 38 | | aesop-fables | 18,069 | 11 |
+| prose-edda | 30,208 | 34 | | bhagavad-gita | 10,285 | 11 |
+| song-of-roland | 19,303 | 29 | | kalidasa-shakuntala | 18,427 | 11 |
+| bede-history | 63,757 | 27 | | epic-of-gilgamesh | 9,455 | 9 |
+| confessions | 65,033 | 27 | | machiavelli-prince | 16,885 | 9 |
+| marcus-aurelius-meditations | 23,693 | 18 | | classic-of-poetry | 14,153 | 8 |
+| | | | | euripides-medea | 7,537 | 5 |
+| | | | | sophocles-antigone | 6,657 | 4 |
+| | | | | ptahhotep | 2,326 | 0 |
+
+That is **762,434 words, about a sixth of the shelf**, and at the pace of E20–E23 — 78, 245 and ~200
+candidates read per batch — it is **two or three batches of reading**. What it is NOT is a count of
+errors: E23 read Don Quixote's whole list and repaired nothing, and E22 found Three Kingdoms, which
+the noise-rate table called the fourth cleanest book on the shelf, to be the most damaged text yet
+swept. **A low noise rate is not a low error rate**; it only says the list is short enough to read.
+
+**And the 27 books already named in a batch log are not finished either.** What is recorded as
+outstanding on them: 45 marks in the Canterbury Tales and six of `plato-dialogues`' candidates, all
+inside runs that need a page-image leaf read; `summa-theologica`'s `inproportionate` and its missing
+word in *"there several real relations in God"*; `Lede` for Leda in the Odyssey and `jade graps` in
+Journey to the West, both wanting a printed witness this sandbox cannot reach. **A book with no
+printed witness reachable contributes findings rather than fixes**, and those five are the standing
+examples.
+
 ---
 
 ## 8. Batch log
