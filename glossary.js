@@ -1803,7 +1803,8 @@ window.GLOSSARY = {
 "Gautama_Buddha": "Gautama Buddha is the teacher whose discourses the Buddhist tradition preserves, and Buddha is a title rather than a name, marking the night when \"the ascetic Gotama had become the Buddha, the awakened\".<sup class=\"fn\" data-fn=\"1\"></sup> He was a Sakya of Kapilavatthu on the Ganges plain, made a prince by later legend although the oldest texts give his father as a wealthy landowner, and taught for 44 of his eighty years before dying at Kusinara.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> His dates are reckoned back from Ashoka rather than recorded, so open works give 483 or about 480 BCE for the death; the earliest external evidence is Ashoka's pillar at Lumbini.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Buddhism": "Buddhism is the religion built on the teaching of the Buddha, which a person enters by taking refuge three times over in the Buddha, the Dhamma and the Sangha.<sup class=\"fn\" data-fn=\"1\"></sup> Its core is the four truths of the first discourse, suffering and its origin in craving, its cessation and the eightfold path, offered as a middle way between indulgence and self-affliction; rebirth is accepted and karma decides it, though no permanent self is admitted.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its monks live by begging, recite their list of offences twice a month and settle in one place for the rains, and lay believers support them without entering the order.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "Jainism": "Jainism is the religion of the Jina, the victor, whose followers count 24 <i>tirthankaras</i> teaching the same law in succession, the last of them Mahavira, a contemporary of the Buddha.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Its central discipline is non-injury: its oldest text holds that no living creature should be slain, treated with violence, abused, tormented or driven away, and a monk's first great vow renounces all killing, whether caused or merely consented to.<sup class=\"fn\" data-fn=\"2\"></sup> The church later divided into the Svetambaras, whose monks wear white clothes, and the Digambaras, who are sky-clad, and the two disagree about the canon itself.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Maurya_Empire": "The Maurya Empire was the first state to hold most of the Indian subcontinent, founded by Chandragupta about 321 BCE on the kingdom of Magadha and ruled from Pataliputra on the Ganges.<sup class=\"fn\" data-fn=\"1\"></sup> Its inscriptions survey India from the Hindu Kush to Ceylon but distinguish the king's own dominions, governed from the capital and from viceroyalties at Takshasila, Ujjayini and Kalinga, from border peoples counted within his influence rather than his rule.<sup class=\"fn\" data-fn=\"2\"></sup> The Puranas disagree about the succession but agree that the dynasty lasted 137 years, ending about 184 BCE when the last Maurya was killed by his own commander.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Maurya_Empire": "The Maurya Empire was the first state to hold most of the Indian subcontinent, founded by Chandragupta about 321 BCE on the kingdom of Magadha and ruled from Pataliputra on the Ganges.<sup class=\"fn\" data-fn=\"1\"></sup> Its inscriptions survey India from the Hindu Kush to Ceylon but distinguish the king's own dominions, governed from the capital and from viceroyalties at Takshasila, Ujjayini and Kalinga, from border peoples counted within his influence rather than his rule.<sup class=\"fn\" data-fn=\"2\"></sup> The Puranas disagree about the succession but agree that the dynasty lasted 137 years, ending about 184 BCE when the last Maurya was killed by his own commander.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Chandragupta_Maurya": "Chandragupta Maurya founded the Maurya Empire by overthrowing the Nanda king of Magadha and taking Pataliputra on the Ganges, and the Greeks knew him as Sandrocottus.<sup class=\"fn\" data-fn=\"1\"></sup> About 305 BCE Seleucus crossed the Indus, found him master of all Hindustan, and settled for a safe retirement, a marriage alliance and 500 elephants in exchange for the Greek dominions as far as the Kabul valley.<sup class=\"fn\" data-fn=\"2\"></sup> His reign is put at 24 years, but the Puranas and the Buddhist books are not independent witnesses, the traditions disagree about the year it began, and no likeness of him survives.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2624,7 +2625,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Mahajanapadas": "c. 600-500 BCE",
 "Upanishads": "older ones by 550 BCE",
 "Gautama_Buddha": "c. 563 – 483 BCE",
-"Maurya_Empire": "c. 321 – 184 BCE"
+"Maurya_Empire": "c. 321 – 184 BCE",
+"Chandragupta_Maurya": "c. 321 – 297 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3732,7 +3734,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Gautama_Buddha": ["Buddha","Siddhartha Gautama","Gotama"],
 "Buddhism": ["Buddhists"],
 "Jainism": ["Jains","Jaina"],
-"Maurya_Empire": ["Mauryan","Mauryas"]
+"Maurya_Empire": ["Mauryan","Mauryas"],
+"Chandragupta_Maurya": ["Sandrocottus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5565,7 +5568,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Gautama_Buddha": ["person","religion","history","philosophy","india"],
 "Buddhism": ["concept","religion","practice","philosophy","india"],
 "Jainism": ["concept","religion","practice","philosophy","india"],
-"Maurya_Empire": ["state","history","politics","india","iron age"]
+"Maurya_Empire": ["state","history","politics","india","iron age"],
+"Chandragupta_Maurya": ["ruler","person","history","politics","india"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
