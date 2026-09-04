@@ -271,6 +271,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B2b | `bronze-ding`, `longquan-celadon-bowl` (UN-DEFERRED), `wax-tablet` | `han-tomb-brick` |
 | B3a | `samurai-katana`, `ukiyo-e-print`, `goryeo-celadon` | — |
 | B3b | `daguerreotype`, `jomon-dogu`, `magatama` (**B3's list is now empty but for `dotaku`**) | `dotaku` (needs a third openable work) |
+| B4a | `dong-son-drum`, `lapita-pottery`, `palm-leaf-folio` | `ban-chiang-pot` |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -865,6 +866,52 @@ matching.
   32 still to come: a common is a KIND of object, so its literature is materials science and there is
   always some — the plate about daguerreotypes never has to identify a particular plate, and the one about
   magatama never has to date a particular bead.
+
+**B4a's finding is that THE BATCH NAMED AS MOST LIKELY TO COME BACK SHORT CAME BACK FULL, and the
+reason is that the Pacific and Southeast Asia have their own open journals rather than none.** The risk
+was written from the hosts a search engine offers first, which are shut here — `teara.govt.nz`, the
+*Journal of the Polynesian Society*, Museums Victoria, the British Museum and the Smithsonian — and every
+one of those is beside the point. **Four venues answered and between them carried all three artefacts.**
+The **Journal of Pacific Archaeology** (`pacificarchaeology.org`) is diamond open access and carried two
+of Lapita's three works; **ANU Press** (`press.anu.edu.au`, the whole *Terra Australis* series) serves
+complete born-digital PDFs of the standard Pacific conference volumes and carried the third; **Persée**
+holds the *Bulletin de l'École française d'Extrême-Orient* back to 1901, which is the founding literature
+of Đông Sơn and carried that plate outright; and the **Bulletin of the Indo-Pacific Prehistory
+Association** and the **Journal of Indo-Pacific Archaeology** (both `journals.lib.washington.edu`) are
+open and are where the Southeast Asian argument is actually conducted. **Look for the region's own
+journal before concluding the region has no literature.**
+
+· **PERSÉE SERVES ITS TEXT PAGE BY PAGE AND NOT AS A PDF.** `/docAsPDF/<id>.pdf` is **403** and the
+  article page itself carries only the citation block, so the OCR is reached at
+  `/doc/<id>?pageId=T1_<n>`, one page per request, everything after the string `RIS (ProCite, Endnote, …)`
+  being that page's prose. Forty-six pages of Goloubew 1929 came out that way. It rate-limits at about
+  fifteen requests, so pause between them and expect an occasional connection reset.
+· **A SCANNED OPEN JOURNAL IS NOT A READABLE ONE, and BIPPA is the case.** Its PDFs are page images with
+  no text layer at all — `pypdf` returns zero characters from four pages — so an article that is open,
+  free and exactly on the subject cannot be read from here without OCR. That, not paywalls, is why
+  `ban-chiang-pot` is deferred: the three works on Ban Chiang's chronology are open and readable
+  (Higham, Douka and Higham in PLOS ONE and in JIPA), and **nothing openable is about the painted pottery
+  itself**, which is what the artefact is. The AUP figshare archive of Ban Chiang painted pottery answers
+  **202 with an empty body**. A plate about a pot that talked about bronze chronology would be an artefact
+  described from the literature that happens to exist rather than from itself.
+· **THE CORRECTION IS INSIDE THE NAME A FIFTH TIME, and here it is inside the founding paper.** Hirth held
+  the metal drum to be a Chinese invention of the first century CE, made during campaigns against the
+  southern tribes; Parmentier's comparison of the drums' engraved boats, deer and figures with the same
+  scenes on locally made bronze axes and daggers is what argued them into being a local industry, and
+  Goloubew's pit graves on the Sông Mã — extended bodies, bronzes, iron and pottery, unlike the Chinese
+  brick tombs of the region — are what settled it. Goudineau's 2000 survey is the honest close: after a
+  century the ornament has been read as a solar cult, as Central Asian shamanism, as water ritual and as
+  funerary ceremony, and **the argument is a nationalist one as much as an archaeological one**, which a
+  plate has to say rather than pick a side in.
+· **`add-artefacts.js` REFUSED THE DRUM AT 227 WORDS**, and the two clauses cut to reach the bar were both
+  padding round a claim rather than a claim — "quite unlike … found across the region" and "a nationalist
+  one as much as an archaeological one". The refusal is doing its job: at 227 words a five-sentence plate
+  has started explaining itself twice.
+· Two smaller access notes. **`ojs.bioresources.com` serves gzip that must be asked for** — without
+  `curl --compressed` the body arrives as binary and reads as a broken host. And **`degruyterbrill.com`
+  answers 202 with an empty body**, joining figshare as a second of that shape; `mdpi.com` is 403 as
+  before, and neither *Chemosensors* nor *Religions* has a PMC copy, so C1b's "check PMC first" does not
+  rescue an MDPI journal outside the life sciences.
 
 ## The per-artefact workflow
 

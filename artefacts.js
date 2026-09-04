@@ -1092,4 +1092,25 @@ window.ARTEFACTS = [
     date: "c. 5000 BCE – 8th century CE",
     origin: "Japan",
   },
+  {
+    id: "dong-son-drum",
+    name: "Đông Sơn drum",
+    rarity: "rare",
+    date: "c. 500 BCE – 100 CE",
+    origin: "Northern Vietnam",
+  },
+  {
+    id: "lapita-pottery",
+    name: "Lapita pottery",
+    rarity: "rare",
+    date: "c. 1350 – 750 BCE",
+    origin: "The Bismarck Archipelago east to Tonga and Samoa",
+  },
+  {
+    id: "palm-leaf-folio",
+    name: "Palm-leaf folio",
+    rarity: "common",
+    date: "c. 16th – early 20th century CE",
+    origin: "South and Southeast Asia",
+  },
 ];
