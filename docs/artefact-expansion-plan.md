@@ -267,6 +267,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B1c | `chola-nataraja`, `gandhara-buddha-head` (both UN-DEFERRED) | — |
 | A2c | `book-of-kells`, `bayeux-tapestry`, `lewis-chessmen` (all three UN-DEFERRED — **A2's list is now empty**) | — |
 | A3a | `aztec-sun-stone`, `enigma-machine`, `dancing-girl-mohenjo-daro` | — |
+| B2a | `oracle-bone`, `bamboo-slip`, `crossbow-trigger` | `longquan-celadon-bowl`, `inkstone`, `igbo-ukwu-bronze`, `pazyryk-carpet` |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -729,6 +730,43 @@ family names for both authors of the Borowska and Rzeszutko paper**, which `chec
 as a mismatch — the journal's own article page and its own How-to-Cite block settle it, and the pair are
 declared in `CROSSREF_WRONG` with that reasoning. That is the fifth and sixth row of a table that exists
 because a checker which cries wolf is a checker nobody runs.
+
+**B2a's finding is that CHINA IS THE PASS'S BEST-SOURCED REGION, and the reason is a class of paper
+nobody planned for: the MACHINE-LEARNING DATASET.** The plan's B2 spine named archive.org, J-Stage,
+Persée and Cambridge, and none of them was needed. What carried all three of this batch is open science
+publishing in two forms — *Heritage Science* and *Mechanical Sciences* for the archaeometry and the
+mechanics, and *Scientific Data* and *PLOS ONE* for the corpora. **A dataset paper is written to be
+cited and so states its own numbers plainly**: OBIMD gives 10,077 oracle-bone images across five phases
+of the Shang and 93,652 annotated characters, DeepJiandu 7,416 images and 99,852 characters in 2,242
+forms, and each opens by explaining, for a reader outside the field, what the object is and why it is
+hard to read. That is exactly the material an artefact plate needs, and it is the one genre of paper
+that is reliably open.
+
+· **The corrections are all in those papers' own framing.** Oracle bones: fewer than half the known
+  inscriptions are securely deciphered, and the bones were deliberately drilled and heat-cracked, so
+  they are too fragile to handle and the field works from rubbings. Crossbow triggers: the marks on the
+  Qin locks are MATCHING marks, and parts made in one workshop cell stayed together through assembly —
+  so the popular story of interchangeable parts two millennia early is the wrong reading, exactly as
+  A1's chromium finding was on the same site. **Two corrections now come out of the terracotta army,
+  and both are of the same shape: a modern industrial idea read back into a bureaucratic one.**
+· **Three hosts confirmed, one lost.** `heritagesciencejournal.springeropen.com` and `ms.copernicus.org`
+  both serve complete articles here, which settles the Springer Open finding recorded in CLAUDE.md;
+  `journals.uni-lj.si` (*Asian Studies*) and `ocula.it` answer. **`quod.lib.umich.edu` / `doi.org/10.3998`
+  — Michigan's *Ars Orientalis* — is behind the ANUBIS WALL**, which is the fourth host to join that
+  list and the reason `longquan-celadon-bowl` is deferred at two sources rather than three: the two
+  Heritage Science papers on it (10.1186/s40494-021-00583-4 and 10.1186/s40494-024-01352-9) are both
+  open and both are about shipwreck corrosion, and the third work has to come from somewhere else.
+  `mdpi.com` remains 403, which costs this batch three otherwise-usable candidates.
+· **The Commons API rate-limits before `upload.wikimedia.org` does**, and the way round is the same one
+  CLAUDE.md records for the files: **the ordinary file DESCRIPTION page keeps answering**, and it
+  carries the licence, the author, the source and the description in readable HTML. Use
+  `commons.wikimedia.org/wiki/File:<name>` when `api.php` says "too many requests".
+· **And the replica trap fired again, one batch after the Lewis chessmen.** The first bamboo-slip
+  candidate is a set of pristine, crisply inked slips with new binding cord, credited to an audit
+  museum in Nantong — a replica of the Shuihudi laws, not the Shuihudi laws. The picture that shipped
+  is the Hubei Provincial Museum's own display of the real 201 slips, whose label is legible in the
+  photograph and states the tomb, the year and the count. **Where a famous object has a famous replica,
+  assume the first good picture is of the replica.**
 
 ## The per-artefact workflow
 

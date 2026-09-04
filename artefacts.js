@@ -1008,4 +1008,25 @@ window.ARTEFACTS = [
     date: "c. 2500 BCE",
     origin: "Mohenjo-daro, Indus Valley",
   },
+  {
+    id: "oracle-bone",
+    name: "Oracle bone",
+    rarity: "rare",
+    date: "c. 1250 – 1050 BCE",
+    origin: "Anyang, Shang China",
+  },
+  {
+    id: "bamboo-slip",
+    name: "Bamboo slip",
+    rarity: "common",
+    date: "c. 5th century BCE – 4th century CE",
+    origin: "China",
+  },
+  {
+    id: "crossbow-trigger",
+    name: "Crossbow trigger",
+    rarity: "common",
+    date: "c. 6th century BCE – 3rd century CE",
+    origin: "China",
+  },
 ];
