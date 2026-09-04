@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-593` Stockholm.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-594` Athens.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -1194,6 +1194,35 @@ answer 400 while 960 answers 200**, so the ladder of generated widths is not con
 is therefore to **test the exact URL you intend to ship** rather than to reason from the original's
 dimensions — and to fall back down the standard ladder (1280, 960, 800) rather than trying arbitrary
 widths.
+
+**`gw-593` STOCKHOLM TURNS LISBON'S FINDING INTO A RULE, AND THEN BREAKS THE AREA RULE.** Lisbon showed
+UNdata's capital-city footnote defining the figure as a three-part statistical region; Sweden's defines it
+as **"tätort" (according to the administrative divisions of 2005)** — the Swedish statistical locality —
+and again it equals `EN.URB.LCTY` to the person (1,608.0 thousand against **1,608,037**). Two published
+definitions of two different kinds, both relayed unchanged, settle it: **the World Bank's largest-city
+series is whatever the national statistical office calls its largest urban unit, and UNdata's footnote is
+where that definition is written down.** Read the footnote before calling a capital figure a city
+population.
+
+**AND `AG.SRF.TOTL.K2` IS NOT ALWAYS A SECOND OPINION ON THE SAME QUANTITY.** C9 established it as the
+tie-breaker when UNdata's area looks wrong, and C11 recorded that it contains outright errors. Sweden is
+neither case and is worse for being neither: **UNdata gives 438,574 km², Eurostat 447,424 and the World
+Bank 528,860** — 20 per cent above UNdata — and the indicator's own `sourceNote`, which the API returns,
+says why: *"Surface area is a country's total area, including areas under inland bodies of water and some
+coastal waterways."* For a country with a large archipelago and territorial sea that is a different
+measurement, not a disagreement about the same one. So: **fetch the indicator's `sourceNote` before
+treating the two as comparable**, and where they are not, say so in the card rather than picking a winner —
+this one states all three figures and names each source. `AG.LND.TOTL.K2` (Sweden 407,280) is the land-only
+series if a like-for-like figure is ever wanted.
+
+**Its guide entry also runs the other way round.** Every recognition entry so far records the United States
+recognising somebody; Sweden's records **Sweden recognising the United States**, on 3 April 1783 by signing
+the Treaty of Amity and Commerce at Paris, on an approach from the Swedish minister there who hoped it
+would be remembered that "Sweden was the first power in Europe which had voluntarily and without
+solicitation offered its friendship to the United States". Franklin negotiated it without ever going to
+Sweden. Relations proper began on 29 April 1818, and Jonathan Russell resided at Stockholm as minister **to
+the court of Sweden and Norway, "which were not then separate countries"** — one more shape for the mission
+family: a single residence accredited to a union of two crowns.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
