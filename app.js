@@ -6470,7 +6470,13 @@
     if (id === COTD_ENTRY) return { type: "cotd" };
     // a GROUP the reader made has no cards of its own — see buildSession's group branch. A collection
     // drawn as a group header is still a tree node and still studies as one.
-    if (isGroupId(id)) return { type: "group", id };
+    /* A LANGUAGE studies as a GROUP, and for the group's own reason (Sep 2026, on a bug report: "I can't
+       study [language collections] directly in the way that I can with history collections"). Both are
+       CONTAINERS with no cards of their own — `entryCardIds` unions their members — and both carry their
+       own allowances, order and skip, which is exactly what the group branch of `buildSession` reads. The
+       alternative, a `deck` scope, looks the container up in `NODE_BY_ID`, where a synthesised id has
+       never been and never will be. */
+    if (isGroupId(id) || isLangCtxId(id)) return { type: "group", id };
     const ud = uDeckIdOf(id);
     // …and a subdeck of one of the reader's own decks studies just that subdeck
     if (ud) return { type: "udeck", id: ud, sub: uSubOf(id), tpl: uTplOf(id) };
@@ -21485,20 +21491,20 @@
              a row apologising for itself. It takes the group header's wash and the ordinary title face,
              plus the three coloured piles and the bar every other row carries — which it can now answer for,
              `entryCardIds` having learnt to union its members.
-             IT IS STILL NOT A GROUP: no `data-review`, because "study all of Spanish" is a scope the
-             reader never asked for and this row deals no cards.
-             WHAT IT DOES HAVE IS ITS OPTIONS (Aug 2026, on a bug report: "when I long-press an active
-             language collection, I don't see the popup menu to see/change its settings"). It carried no
-             `data-review`, so neither of the home page's two hold-menu walks reached it and holding it
-             did nothing — one row in a list where every other row answers a hold, which from the reader's
-             side is the feature having broken rather than a row deliberately doing less.
-             So it is a real `role="button"` with a tab stop after all, and its ONE action is the sheet:
-             the tap opens it as well as the hold, unlike every other row here. That is not a slip — a
-             container with no session of its own has nothing else a press could mean, a press that does
-             nothing is what was reported, and it is what gives the row a KEYBOARD route, a hold being
-             something that cannot be typed. */
+             IT IS A GROUP HEADER IN EVERY WAY THAT MATTERS (Sep 2026, on a bug report: "I can't study
+             [language collections] directly in the way that I can with history collections"). It used to
+             carry no `data-review` and its ONE action was its options sheet, on the reasoning that "study
+             all of Spanish" is a scope the reader never asked for and that this row deals no cards. Both
+             halves were wrong by the time they were written: `entryCardIds` unions its members, which is
+             what draws its piles and its bar, and every other container on this list — the review banner,
+             a group the reader made, a collection — is tapped to study exactly the cards it is claiming.
+             A row that shows three coloured counts and then refuses to deal them is the odd one out.
+             So it takes `data-review` and the generic walk handles it: TAP studies the language, HOLD
+             opens the options. Its own `data-langhead` walk went with the change — two walks binding one
+             row would have opened the sheet twice. (The earlier fix that walk was written for still
+             stands: holding it must do something, and now it does what holding every other row does.) */
           if (r.langhead) {
-            return `<div class="active-deck dk-langhead${shut}"${nodeAttr} role="button" tabindex="0" aria-haspopup="dialog" title="Options for ${esc(title)}" data-langhead="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
+            return `<div class="active-deck dk-langhead${shut}"${nodeAttr} data-review="${esc(r.drag)}" role="button" tabindex="0" title="Study everything in ${esc(title)}" data-langhead="${esc(r.drag)}" data-depth="${r.depth}"${drag}${hueStyle(r.hue)}padding-left:calc(${pad}px + var(--dk-grip-w))">
               ${grip}
               ${adIcon(r.drag, r.parent)}
               ${adCounts(r.drag)}
@@ -22052,15 +22058,9 @@
       const id = el.dataset.pending;
       wireHoldMenu(el, () => openDeckMenu(id), () => {});
     });
-    /* …and a LANGUAGE'S OWN HEADER, whose only action is its options — so unlike the two walks above it
-       passes the SAME handler as the tap. See the row template for why. `wireHoldMenu` binds Enter and
-       Space to the tap handler, so the tab stop the row now carries is a complete keyboard route on its
-       own, and the trailing click after a hold is swallowed by the document-level guard exactly as it is
-       for a deck row. */
-    root.querySelectorAll(".active-deck[data-langhead]").forEach((el) => {
-      const id = el.dataset.langhead;
-      wireHoldMenu(el, () => openDeckMenu(id), () => openDeckMenu(id));
-    });
+    /* A LANGUAGE'S OWN HEADER needs no walk of its own: it carries `data-review` since Sep 2026, so the
+       walk above gives it the tap and the hold every other container row has. `data-langhead` stays on the
+       element as the marker that says which container it is. */
     root.querySelectorAll("[data-langdl]").forEach((b) => {
       b.addEventListener("pointerdown", (e) => e.stopPropagation());
       b.addEventListener("click", async (e) => {
@@ -22179,7 +22179,14 @@
          `S.active`, so there is nothing there to remove. */
       adList.querySelectorAll(".active-deck[data-drag]").forEach((row) => {
         const id = row.dataset.drag;
-        if (!id || row.classList.contains("context") || row.classList.contains("dk-langhead")) return;
+        /* A LANGUAGE HEADER GETS ONE (Sep 2026, on a bug report: "language collections don't have an X to
+           remove them"). It was skipped here because it is not itself in `S.active` — but `removeActive`
+           has always known what removing one means (take out the decks gathered under it, free anything
+           dragged in), which is exactly what its row stands for, and its options sheet has carried a
+           Remove all along. A row that can be removed from a menu and not from the mode built for
+           removing rows is the mode having a hole in it. A CONTEXT row still gets none: it is not in
+           `S.active` AND nothing under it is, so there is nothing there to remove. */
+        if (!id || row.classList.contains("context")) return;
         const x = document.createElement("button");
         x.type = "button";
         x.className = "dk-del";
@@ -23541,8 +23548,11 @@
          everything nested under it, at any depth — but in every other way it is the deck branch below: its
          own review and new-card allowances, its own Random-order switch, the piles chosen before the
          shuffle so the setting decides presentation order and never which cards get through. */
-      if (!groupRec(scope.id)) return null;
-      where = groupTitle(scope.id);
+      const gLang = isLangCtxId(scope.id);
+      if (!gLang && !groupRec(scope.id)) return null;
+      // a language is synthesised rather than stored, so there is no record to look for — its name comes
+      // from the reader's own rename first and the catalogue second, which is `entryInfo`'s own order
+      where = gLang ? entryInfo(scope.id).title : groupTitle(scope.id);
       const availG = availableCardIdSet();
       // …and not a card buried by a sibling answered elsewhere: a group is another route to the same
       // cards, so leaving it out here would let a buried card come back through one
@@ -29197,6 +29207,53 @@
          the card paints — until then the dot is all there is, and drawing nothing at all in the meantime
          would leave the reader a globe with no answer on it. */
       let ownRiver = false;
+      /* The card's own river, found by the thin-river pass and drawn late, over everything: the pass now
+         runs UNDER the country borders (see below), and the answer's own mark must not go under them
+         with it. */
+      let ownLines = null, ownName = "";
+      /* THE THIN RIVERS, hoisted out of the sibling block so they can be drawn between the land fill and
+         the border stroke — see the land/rivers/borders note below. A function declaration rather than a
+         block of statements moved bodily, because the pass needs `placed`-free access to `sib` and reads
+         `ownLines` / `ownName` / `ownRiver` out of this scope. */
+      function drawThinRivers() {
+        const RIV = effRivers();
+        /* Only a card whose own answer is a river has anything to look up, and this loop runs 1,073 times
+           a frame on a globe being dragged — so the lowercasing is skipped outright for every other card
+           rather than done and thrown away. */
+        const ownSet = sib.own && sib.own.size ? sib.own : null;
+        if (RIV.length) {
+          ctx.save();
+          /* THE ATLAS'S OWN TREATMENT: the ocean colour at full strength, so a river reads as water
+             continuous with the sea, thickening as the reader zooms in and capped at 1.8px. The
+             carded-rivers version that stood here drew them at a flat 1.1px and 0.7 alpha — a fine
+             weight for the two or three a collection taught and too faint to be the layer this is now.
+             THE WEIGHT WAS THE ATLAS'S `0.4 + zoom * 0.16` FLOORED AT 0.5 AND IS THINNER AT THE BOTTOM
+             NOW (Sep 2026, on request: "make rivers thinner when zooming out"). The Atlas draws its
+             rivers only past a zoom; this window draws all 1,073 of them at every zoom, so at a card's
+             opening ~50° view the same weight is a continent's worth of blue thread over a map whose
+             coast is stroked at 0.7. It reaches the old figure again around zoom 6 — where the frame is
+             a region and a river is something the reader is actually looking at — and nothing changes
+             at the deep end, where the cap has always decided it. */
+          ctx.strokeStyle = ocean; ctx.lineWidth = clampN(0.15 + zoom * 0.18, 0.3, 1.8);
+          ctx.beginPath();
+          for (let i = 0; i < RIV.length; i++) {
+            const nm = ownSet ? String(RIV[i].n || "").toLowerCase() : "";
+            /* `mine` is decided by the card's own answer term and its glossary aliases, which is what
+               finds the Tiber under Natural Earth's `Tevere`. It is held OUT of the thin path and drawn
+               afterwards, over the rest: the answer must never be a thread running under its
+               neighbours. */
+            if (nm && ownSet.has(nm)) { ownLines = RIV[i].p; ownName = sib.termName.get(nm) || RIV[i].n; ownRiver = true; continue; }
+            const lines = RIV[i].p;
+            for (let j = 0; j < lines.length; j++) {
+              // `false` keeps the path OPEN — a river is a polyline, and closing it draws its mouth
+              // back to its source across half a continent
+              if (visible(lines[j])) addRing(lines[j], false);
+            }
+          }
+          ctx.stroke();
+          ctx.restore();
+        }
+      }
       setBasis();
       R = baseR * zoom;
       visDeg = Math.asin(clampN(Math.hypot(W, H) / 2 / R, 0, 1)) / CMAP_DEG + 2;
@@ -29207,8 +29264,33 @@
       ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.clip();
       ctx.fillStyle = ocean; ctx.fill();
       const GEO = window.WORLD_GEO || [];
-      ctx.fillStyle = land; ctx.strokeStyle = border; ctx.lineWidth = 0.7;
-      for (let i = 0; i < GEO.length; i++) { if (CMAP_SKIP[GEO[i].n]) continue; pathOf(effRings(GEO[i])); ctx.fill("evenodd"); ctx.stroke(); }
+      /* ---------- THE LAND IS FILLED, THEN THE RIVERS, THEN THE BORDERS (Sep 2026, on two bug reports:
+         "in the atlas windows of the world history collection, rivers appear on top of borders, making
+         the borders invisible", and "in the China collection atlas windows, the northeast border with
+         Russia is invisible") ----------
+         Those are one fault seen twice. The rivers were drawn after the countries, in the ocean colour and
+         at up to 1.8px against a border stroked at 0.7 — so anywhere a border FOLLOWS a river it was
+         painted out, which is most of the world history collection's frames and, exactly, the Amur and the
+         Ussuri, which are the whole of China's north-eastern frontier. A river is water on the land and a
+         border is a line drawn over it; the fix is the order, not the weight.
+         IT COSTS ONE GEOMETRY PASS, NOT TWO. The obvious split — fill every country, draw the rivers,
+         then walk every country again to stroke it — projects 117,000 vertices twice a frame on a globe
+         the reader is dragging. Each country's projected outline is built ONCE into a `Path2D`, filled
+         from it, and added to a single border path that is stroked after the water. `addRing` writes
+         through `tc`, so pointing that at a path rather than at the context is all it takes. */
+      const bord = new Path2D();
+      ctx.fillStyle = land;
+      for (let i = 0; i < GEO.length; i++) {
+        if (CMAP_SKIP[GEO[i].n]) continue;
+        const rings = effRings(GEO[i]), gp = new Path2D();
+        tc = gp;
+        for (let k = 0; k < rings.length; k++) if (visible(rings[k])) addRing(rings[k]);
+        tc = ctx;
+        ctx.fill(gp, "evenodd");
+        bord.addPath(gp);
+      }
+      if (sibCard) drawThinRivers();
+      ctx.strokeStyle = border; ctx.lineWidth = 0.7; ctx.stroke(bord);
       /* The layer's own shapes are FILLED with the land colour before they are outlined, because the two
          files trace the same coastline at different tolerances: world.js at 0.02 for a world map, this
          layer at 0.002 for a card that zooms to 90×. So the states are the finer of the two and routinely
@@ -29360,44 +29442,6 @@
           if (fits(left)) { placed.push(left); return { x: x - 8, align: "right" }; }
           return null;
         };
-        const RIV = effRivers();
-        /* Only a card whose own answer is a river has anything to look up, and this loop runs 1,073 times
-           a frame on a globe being dragged — so the lowercasing is skipped outright for every other card
-           rather than done and thrown away. */
-        const ownSet = sib.own && sib.own.size ? sib.own : null;
-        let ownLines = null, ownName = "";
-        if (RIV.length) {
-          ctx.save();
-          /* THE ATLAS'S OWN TREATMENT: the ocean colour at full strength, so a river reads as water
-             continuous with the sea, thickening as the reader zooms in and capped at 1.8px. The
-             carded-rivers version that stood here drew them at a flat 1.1px and 0.7 alpha — a fine
-             weight for the two or three a collection taught and too faint to be the layer this is now.
-             THE WEIGHT WAS THE ATLAS'S `0.4 + zoom * 0.16` FLOORED AT 0.5 AND IS THINNER AT THE BOTTOM
-             NOW (Sep 2026, on request: "make rivers thinner when zooming out"). The Atlas draws its
-             rivers only past a zoom; this window draws all 1,073 of them at every zoom, so at a card's
-             opening ~50° view the same weight is a continent's worth of blue thread over a map whose
-             coast is stroked at 0.7. It reaches the old figure again around zoom 6 — where the frame is
-             a region and a river is something the reader is actually looking at — and nothing changes
-             at the deep end, where the cap has always decided it. */
-          ctx.strokeStyle = ocean; ctx.lineWidth = clampN(0.15 + zoom * 0.18, 0.3, 1.8);
-          ctx.beginPath();
-          for (let i = 0; i < RIV.length; i++) {
-            const nm = ownSet ? String(RIV[i].n || "").toLowerCase() : "";
-            /* `mine` is decided by the card's own answer term and its glossary aliases, which is what
-               finds the Tiber under Natural Earth's `Tevere`. It is held OUT of the thin path and drawn
-               afterwards, over the rest: the answer must never be a thread running under its
-               neighbours. */
-            if (nm && ownSet.has(nm)) { ownLines = RIV[i].p; ownName = sib.termName.get(nm) || RIV[i].n; ownRiver = true; continue; }
-            const lines = RIV[i].p;
-            for (let j = 0; j < lines.length; j++) {
-              // `false` keeps the path OPEN — a river is a polyline, and closing it draws its mouth
-              // back to its source across half a continent
-              if (visible(lines[j])) addRing(lines[j], false);
-            }
-          }
-          ctx.stroke();
-          ctx.restore();
-        }
         /* THE CARD'S OWN RIVER IS THE ANSWER AND IS DRAWN AS ONE (Aug 2026, on request: "For river
            cards like 'Tiber' ensure it is displayed on the map as an actual river and not just a
            dot"). A river the collection merely runs past stays a thin blue thread; the one this card is
@@ -29463,71 +29507,26 @@
             sibAt.push([PX, PY, g.n, g.kind]);
           });
         }
-        /* Where the home city falls, if it is on this side of the globe. Taken before the capitals are
-           drawn, so the grey square underneath it can stand aside for it exactly as it does for a
-           sibling — two marks on one city say less than either. */
+        /* Where the home city falls, if it is on this side of the globe. */
         let anchorAt = null;
         if (anchor) { proj(anchor.c[0], anchor.c[1]); if (PV >= 0 && PX > -20 && PY > -20 && PX < W + 20 && PY < H + 20) anchorAt = [PX, PY]; }
-        const nearSib = (x, y) => {
-          if (anchorAt && Math.abs(anchorAt[0] - x) < 7 && Math.abs(anchorAt[1] - y) < 7) return true;
-          for (let j = 0; j < sibAt.length; j++) if (Math.abs(sibAt[j][0] - x) < 7 && Math.abs(sibAt[j][1] - y) < 7) return true; return false; };
-        const CTS = window.CITIES || [];
-        if (CTS.length) {
-          /* Capitals, million-plus cities and division capitals — `r` 0, 1 and 2, exactly the three the
-             request names. UNLABELLED, deliberately: the request asks for names on the rivers and not on
-             these, and a locator that named every city near its subject would bury the one label that
-             matters.
-             THEY THIN WITH ZOOM, AND THAT WAS FOUND BY LOOKING RATHER THAN BY REASONING. Drawn all at
-             once they are 2,665 dots, which at a locator's opening view of about 50° covers Europe and
-             North Africa in a grey rash and buries the collection's own red marks in it — the map became
-             less legible for having more on it. So each tier earns its place at a zoom: the 216 national
-             capitals always, the 392 million-plus cities once the frame is a region rather than a
-             continent, and the 2,057 division capitals only when it is a country or less. It is the
-             Atlas's own `CITY_SEP` rule in the form this window can afford — a zoom test rather than a
-             per-label collision pass, since these carry no labels to collide. */
-          /* THE DIVISION CAPITALS ARE GONE AND THE REST ARE QUIETER (Aug 2026, on request: "make all the
-             black dots smaller and less conspicuous, and only put them for foreign capitals and cities
-             with over 1M population"). `r` is 0 for a national capital, 1 for a city of a million or
-             more and 2 for an administrative capital under that — and tier 2 is 2,057 of the 2,665, so
-             it was five sixths of the layer and every one of them a place the card is not about. What is
-             left is 608 dots that a reader can recognise, at two thirds of the size and about two thirds
-             of the ink: they are there to give the card's own mark a world to sit in, and the moment
-             they compete with it they have stopped doing their job. */
-          /* A CAPITAL IS A SQUARE, AND A PROMINENT ONE (Sep 2026, on request: "capital cities should be
-             displayed with a prominent square icon instead of a dot"), the mark every atlas gives a seat
-             of government; the million-plus cities keep their quiet dots. A capital that sits under one of
-             the collection's own marks is not drawn — the red mark says more about it than the square
-             would, and two marks on one pixel read as neither.
-             THE SQUARE IS ALL OF IT — A MODERN CAPITAL IS NOT NAMED HERE (Sep 2026, on request: "modern
-             capitals should not have their text labels shown, only their squares"). They were named once
-             the frame was a region rather than a continent, which on a card about the Roman Republic put
-             Tirana, Valletta and Podgorica in the same face and the same weight as the places the
-             collection teaches — a map of modern states with a history card's marks on it. The square
-             still gives the reader the seat of government to place a site against, which is what this
-             layer is for; the words on this map belong to the collection. */
-          const tierZ = zoom >= CMAP_ZLOC * 1.75 ? 1 : 0;
-          for (let i = 0; i < CTS.length; i++) {
-            const ct = CTS[i], r = ct.r | 0;
-            if (r > tierZ || r > 1) continue;
-            proj(ct.c[0], ct.c[1]);
-            if (PV < 0) continue;
-            if (PX < -20 || PY < -20 || PX > W + 20 || PY > H + 20) continue;
-            if (r === 0) {
-              if (nearSib(PX, PY)) continue;
-              /* SMALLER, AND OUTLINED IN GREY RATHER THAN WHITE (Sep 2026, on request). A white keyline
-                 is what an atlas gives a mark that has to survive being drawn over land, sea and a
-                 label at once; here the square is already the loudest thing on a quiet map, and the
-                 white ring was a second highlight around it. A grey outline still lifts it off the
-                 land without competing with the collection's own red and gold marks. */
-              const q = 2.1;
-              ctx.fillStyle = rgbaOf("#000000", 0.74); ctx.fillRect(PX - q, PY - q, q * 2, q * 2);
-              ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#8b8b8b", 0.9); ctx.strokeRect(PX - q, PY - q, q * 2, q * 2);
-            } else {
-              ctx.beginPath(); ctx.arc(PX, PY, 1.5, 0, Math.PI * 2);
-              ctx.fillStyle = rgbaOf("#000000", 0.2); ctx.fill();
-            }
-          }
-        }
+        /* ---------- THE MODERN CITIES ARE GONE (Sep 2026, on request: "in all atlas windows in all
+           history decks, modern capitals/cities should no longer be marked with small black squares,
+           but should not appear at all — unless they’re a card answer term e.g. Athens, which should
+           always appear") ----------
+           This layer was `cities.js` filtered to national capitals and million-plus cities — 608 marks,
+           every one of them a place no card in the collection is about. It was there to give the card’s
+           own mark a world to sit in, and the shape it had settled into said so: unlabelled, thinned by
+           zoom, made smaller and greyer twice, and yielding wherever it fell under one of the
+           collection’s own marks. What the request settles is that a history card’s map should carry
+           the collection’s places and nothing else — the coastline, the rivers and the borders are the
+           world it sits in.
+           A CITY THAT IS A CARD’S ANSWER IS UNAFFECTED, and that is why nothing had to be added for the
+           exception the request names: a studied place comes through `locatorSiblings` as a red mark
+           with its name beside it, and the collection’s home city — Rome, Athens — through
+           `CMAP_ANCHOR`, which draws it whether or not any card has taught it yet. Both are drawn below.
+           `nearSib` went with the layer: it existed only so a grey square could stand aside for a red
+           one, and there are no grey squares left to stand aside. */
         /* THE COLLECTION'S OTHER PLACES, in a red that is nobody else's mark on this map: the card's own
            dot is the Atlas's selection gold and the cities are grey, so a reader can tell at a glance
            which marks are Folio's own subject matter. Smaller than the card's dot, as asked. */

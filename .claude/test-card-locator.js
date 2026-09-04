@@ -322,13 +322,13 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
      4. THE FRAME'S OWN RIVERS, AND THE CAPITAL THAT IS A SQUARE AND NOTHING ELSE (Sep 2026, on request)
      ============================================================
      "Rivers in Italy in the Roman deck and Greek rivers in the Greek deck should have a much higher
-     resolution … and there should be more of them", and "modern capitals should not have their text
-     labels shown, only their squares."
+     resolution … and there should be more of them", and — since Sep 2026 — "modern capitals/cities …
+     should not appear at all".
 
      BOTH FAIL SILENTLY. A hi-res bundle that stops arriving leaves the map drawing rivers.js — a perfectly
      good map, one thirtieth as detailed — and a supersede row that stops being honoured draws the same
-     river twice, five kilometres apart, which reads as two rivers rather than as a fault. The capital's
-     label is the mirror: a name that comes back looks deliberate.
+     river twice, five kilometres apart, which reads as two rivers rather than as a fault. The city layer
+     is the mirror: a layer that comes back looks deliberate.
 
      The double-draw is checked on the DATA rather than on the ink, because that is where it can actually
      go wrong: the drawn set is rivers.js minus `supersede` plus the region's own, so a name the region
@@ -341,10 +341,13 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   check("...and no river is drawn over itself", !!hr && hr.doubled.length === 0, hr && hr.doubled.join(", "));
   check("...and the map really draws it", withRiv.water - noHi.water > 150,
     JSON.stringify({ withHiRes: withRiv.water, without: noHi.water }));
-  /* rm-002's page still has both river tables emptied from section 3, which is what makes the capital
-     measurable: the only thing added is one capital, in the open Tyrrhenian where nothing else is drawn,
-     under a name long enough that a label would be hundreds of dark pixels. The square alone is a couple
-     of dozen — so the assertion is that the mark IS drawn and the name is NOT. */
+  /* A MODERN CITY IS NOT ON THE MAP AT ALL (Sep 2026, on request: "modern capitals/cities should no
+     longer be marked with small black squares, but should not appear at all"). This assertion used to run
+     the other way — that the square WAS drawn and its name was not — and it is measured the same way,
+     which is what makes the removal checkable rather than assumed: rm-002's page still has both river
+     tables emptied from section 3, so a capital dropped into the open Tyrrhenian, under a name long
+     enough that a label would be hundreds of dark pixels, is the only thing that could be added there.
+     A layer that comes back looks deliberate, which is why it is worth a test at all. */
   await rng.evaluate(() => { window.CITIES = []; });
   await redraw(rng);
   const capBefore = (await rng.evaluate(rivCount)).dark;
@@ -352,8 +355,7 @@ const check = (n, ok, x) => { if (ok) { pass++; console.log("ok    " + n + (x ? 
   await redraw(rng);
   const capAfter = (await rng.evaluate(rivCount)).dark;
   const capInk = capAfter - capBefore;
-  check("a modern capital is drawn", capInk >= 6, "dark px " + capInk);
-  check("...as a square and never with its name", capInk < 90, "dark px " + capInk);
+  check("a modern city puts nothing on the map — neither a square nor a name", capInk === 0, "dark px " + capInk);
   await rng.close();
 
   check("no console or page errors on the extent cards", errs.length === 0, errs.join(" | ").slice(0, 300));
