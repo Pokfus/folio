@@ -1764,7 +1764,8 @@ window.GLOSSARY = {
 "Troezen_decree": "The Troezen decree is an inscribed stone from the Troezenia in the north-eastern Peloponnese carrying a text that presents itself as the Athenian decree of 480 BCE, ordering the city abandoned and the fleet manned against the invasion of Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> It was turned up by accident in 1932 or 1933, stood for about 25 years in a private house, and was recorded and published in 1959, becoming famous within months.<sup class=\"fn\" data-fn=\"1\"></sup> Its standing as evidence for what Athens did is not straightforward, since Herodotus and Aristotle both describe the evacuation as an improvised response rather than a measure settled in advance.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Sack_of_the_Acropolis": "The sack of the Acropolis was the storming and burning of the Athenian citadel by the army of Xerxes I in 480 BCE, after the city below had been evacuated and a small garrison of treasurers and poor men had barricaded the height.<sup class=\"fn\" data-fn=\"1\"></sup> The Persians shot fire-arrows from the Areopagus opposite and, when the barricade held, climbed the cliff at the front of the rock, killed the suppliants and burnt the sanctuary.<sup class=\"fn\" data-fn=\"1\"></sup> Mardonius destroyed what remained of the city the following year, and Pausanias was still shown fire-blackened statues of Athena on the citadel in the 2nd century CE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_Salamis": "The Battle of Salamis was a naval engagement fought in 480 BCE in the strait between the island of Salamis and the coast of Attica, in which the allied Greek fleet destroyed much of the navy of Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> The Greek ships were drawn into the narrows, where the far larger Persian fleet could not deploy and its rear ran foul of its own front, and the Persian commander Ariabignes, a brother of the king, was killed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Ancient counts of the fleets differ: Herodotus gives the Greeks 378 triremes, Aeschylus 310 against a Persian thousand, and Thucydides speaks of four hundred ships in all.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Eurybiades": "Eurybiades, son of Euryclides, was the Spartan commander of the allied Greek fleet during the invasion of Xerxes I in 480 BCE, holding the command at Artemisium and at Salamis because the allies refused to serve under Athenian leadership.<sup class=\"fn\" data-fn=\"1\"></sup> He twice favoured withdrawal, from Artemisium and from Salamis to the Isthmus, and both times was persuaded to stay, on the first occasion by money Themistocles had taken from the Euboeans.<sup class=\"fn\" data-fn=\"1\"></sup> After the victory he opposed sailing to destroy the bridges over the Hellespont, arguing that a Persian king trapped in Europe would be more dangerous than one allowed to leave, and Sparta later crowned him for valour.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Eurybiades": "Eurybiades, son of Euryclides, was the Spartan commander of the allied Greek fleet during the invasion of Xerxes I in 480 BCE, holding the command at Artemisium and at Salamis because the allies refused to serve under Athenian leadership.<sup class=\"fn\" data-fn=\"1\"></sup> He twice favoured withdrawal, from Artemisium and from Salamis to the Isthmus, and both times was persuaded to stay, on the first occasion by money Themistocles had taken from the Euboeans.<sup class=\"fn\" data-fn=\"1\"></sup> After the victory he opposed sailing to destroy the bridges over the Hellespont, arguing that a Persian king trapped in Europe would be more dangerous than one allowed to leave, and Sparta later crowned him for valour.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Artemisia_I_of_Caria": "Artemisia I of Caria was the ruler of Halicarnassus, Cos, Nisyrus and Calydnos who fought on the Persian side in the invasion of Greece in 480 BCE, contributing five ships to the fleet of Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus, a native of her city, gives her an unusually prominent part, reporting that she alone advised the king against fighting at sea before Salamis and that she escaped the battle by ramming a ship of her own side.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Later writers added further stratagems under her name, and Pausanias records a statue of her among the marble Persians of the Persian Stoa at Sparta.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2553,7 +2554,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Troezen_decree": "480 BCE, if genuine",
 "Sack_of_the_Acropolis": "480 BCE",
 "Battle_of_Salamis": "480 BCE",
-"Eurybiades": "fl. 480 BCE"
+"Eurybiades": "fl. 480 BCE",
+"Artemisia_I_of_Caria": "fl. 480 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3657,7 +3659,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Leonidas_I": ["Leonidas"],
 "Ephialtes_of_Trachis": ["Ephialtes"],
 "Thespiae": ["Thespians","Thespian","Thespians at Thermopylae"],
-"Battle_of_Artemisium": ["Artemisium"]
+"Battle_of_Artemisium": ["Artemisium"],
+"Artemisia_I_of_Caria": ["Artemisia of Halicarnassus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5451,7 +5454,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Troezen_decree": ["text","history","archaeology","greece"],
 "Sack_of_the_Acropolis": ["event","history","warfare","greece","iran"],
 "Battle_of_Salamis": ["battle","history","warfare","greece","iran"],
-"Eurybiades": ["person","history","warfare","greece"]
+"Eurybiades": ["person","history","warfare","greece"],
+"Artemisia_I_of_Caria": ["ruler","history","warfare","greece","iran"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
