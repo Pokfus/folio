@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-559` Harare.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-560` Taipei.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -452,6 +452,30 @@ smaller than the width asked for, so a 715px file comes back looking like a succ
 **Read the size off the returned bytes, not off the request.** With the API rate-limited, the file
 DESCRIPTION page carries "Original file (5,172 × 2,906 pixels)" and the licence in plain text, which
 is the fallback that got this card its picture.
+
+**THE NEXT-CARD LINE AT THE TOP OF THIS FILE IS A CONVENIENCE AND THE RUNNING ORDER IS THE AUTHORITY —
+IT WENT WRONG ONCE AND THE CHECK COSTS TWO SECONDS.** After `gw-558` it was written `gw-559` Harare, from
+memory; the table gives `gw-559` **Ouagadougou** and puts Harare at `gw-574`. Nothing catches this — a card
+written to the wrong number is a perfectly valid card, it simply occupies a slot the plan promised to
+another city, and `test-card-plans.js` checks that every number is covered rather than that a number holds
+the topic beside it. **`grep -n "gw-NNN " docs/world-geography-card-plan.md` before writing the line**, and
+before writing the card.
+
+**`gw-559` OUAGADOUGOU PAYS FOR THE SECOND GUIDE PAGE, WHICH IS A ROUTE WORTH KEEPING.** Its own page is
+four short paragraphs; what makes the card is that the chargé d'affaires who opened relations on 5 August
+1960, **Donald R. Norland**, is the same man the NIGER page records presenting his credentials two days
+earlier as the consul general at Abidjan and resident there — so one officer opened relations with two new
+states in one week, and neither page says so on its own. **When a guide page is thin, read its neighbours'**:
+the Sahelian states were decolonised in a fortnight by a handful of officers, and the interesting facts sit
+between the pages rather than on them. Ouagadougou then waited until 31 December 1960 for an embassy, five
+months, exactly as Niamey waited until 3 February 1961.
+
+**AND THE UN ADMITTED THE COUNTRY UNDER A NAME IT NO LONGER USES.** Resolution 1483 (XV) of 20 September
+1960 is headed *Admission of the Republic of the Upper Volta*, the state having renamed itself Burkina Faso
+in 1984 — so a card about this capital cites a work whose title names a country that does not exist, which
+is correct and looks like an error. **Say in the prose that the seat took its UN seat under the older
+name**, or the citation reads as a filing mistake. The same holds for the guide, whose page is titled
+*Burkina Faso (Upper Volta)*.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
