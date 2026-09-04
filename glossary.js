@@ -1772,7 +1772,8 @@ window.GLOSSARY = {
 "Gracchi_brothers": "The Gracchi brothers were Tiberius and Gaius Sempronius Gracchus, tribunes of the Roman plebs whose attempts to redistribute publicly owned land ended in the violent deaths of both.<sup class=\"fn\" data-fn=\"3\"></sup> Tiberius carried a law in 133 BCE limiting any holder of Roman public land to 500 iugera, with half as much again for each of two sons, and appointed three elected commissioners to divide the remainder among poorer citizens.<sup class=\"fn\" data-fn=\"1\"></sup> He was beaten to death that year by senators led by Scipio Nasica; Gaius, tribune from 123 BCE, revived the programme with grain distributions and colonies and died in 121 BCE after armed conflict on the Aventine.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Marius_and_Sulla": "Marius and Sulla were rival Roman commanders of the early 1st century BCE whose quarrel produced the first war fought between Roman armies.<sup class=\"fn\" data-fn=\"1\"></sup> Gaius Marius, the first man elected consul seven times, secured the command against Mithridates for himself after it had fallen by lot to the consul Lucius Cornelius Sulla, who answered by leading six legions on Rome and fighting the first pitched battle inside the city.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Marius died in 86 BCE during a seventh consulship; Sulla returned, proscribed senators and knights by published list, and had himself made dictator without a fixed term before laying the office down.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Third_Servile_War": "The Third Servile War is the modern name for the slave and gladiator rising against Rome that ancient writers called the war against Spartacus.<sup class=\"fn\" data-fn=\"3\"></sup> It began when gladiators broke out of a training school at Capua, seized weapons and took refuge on Vesuvius, where escaped slaves and country labourers joined them; ancient accounts of the breakout give between about 30 and 78 men.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The rebels defeated several Roman commanders over three years before Licinius Crassus destroyed them in a final battle in which Spartacus was killed, and 6,000 prisoners were crucified along the road to Rome.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Julius_Caesar": "Julius Caesar was a Roman general, politician and writer, born about 100 BCE, who rose through the offices of the Republic to hold a dictatorship and was killed by conspirators on his way to a meeting of the senate.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> As a young man he refused the dictator Sulla's order to divorce his wife, losing a priesthood and his inheritances, and was later captured by pirates and ransomed for 50 talents.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Among his acts in power was a reform of the calendar, which fixed the year at 365 days with one more added every fourth year.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Julius_Caesar": "Julius Caesar was a Roman general, politician and writer, born about 100 BCE, who rose through the offices of the Republic to hold a dictatorship and was killed by conspirators on his way to a meeting of the senate.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> As a young man he refused the dictator Sulla's order to divorce his wife, losing a priesthood and his inheritances, and was later captured by pirates and ransomed for 50 talents.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Among his acts in power was a reform of the calendar, which fixed the year at 365 days with one more added every fourth year.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Gallic_Wars": "The Gallic Wars were the campaigns Julius Caesar fought in Gaul from 58 BCE, in which Plutarch reckons he stormed more than 800 cities and subdued 300 nations in under ten years.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The main account of them is the memoirs Caesar wrote himself, which open by dividing Gaul between the Belgae, the Aquitani and the peoples the Romans called Gauls, and which a contemporary judged carelessly made and untruthful about their author's own actions.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The fighting culminated in 52 BCE at Alesia, where a general revolt under Vercingetorix was besieged and forced to surrender.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2568,7 +2569,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Destruction_of_Carthage": "146 BCE",
 "Gracchi_brothers": "133 – 121 BCE",
 "Marius_and_Sulla": "107 – 82 BCE",
-"Third_Servile_War": "73 – 71 BCE"
+"Third_Servile_War": "73 – 71 BCE",
+"Gallic_Wars": "from 58 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3657,7 +3659,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Gracchi_brothers": ["Gracchi","Tiberius Gracchus","Gaius Gracchus","Sempronius Gracchus"],
 "Marius_and_Sulla": ["Gaius Marius","Lucius Cornelius Sulla","Sulla"],
 "Third_Servile_War": ["Spartacus","war of Spartacus","Spartacus revolt"],
-"Julius_Caesar": ["Caesar","Gaius Julius Caesar"]
+"Julius_Caesar": ["Caesar","Gaius Julius Caesar"],
+"Gallic_Wars": ["Gallic War","Vercingetorix","Alesia"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5458,7 +5461,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Gracchi_brothers": ["people","history","politics","law","rome","classical"],
 "Marius_and_Sulla": ["people","history","politics","warfare","rome","classical"],
 "Third_Servile_War": ["event","history","warfare","politics","rome","classical"],
-"Julius_Caesar": ["person","history","politics","warfare","rome","classical"]
+"Julius_Caesar": ["person","history","politics","warfare","rome","classical"],
+"Gallic_Wars": ["event","history","warfare","politics","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
