@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-602` Lomé.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-603` Vientiane.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -1403,6 +1403,33 @@ two dates rather than one**; the card's date line carries both, and neither is w
 doing all the work. And the areas divide two against one: UNdata and the World Bank both give **72,300
 km²** where the Commonwealth Secretariat gives **71,740**, a 0.8 per cent gap — inside the spread C9's rule
 tolerates, so the card states the majority figure and names the third rather than correcting anything.
+
+**`gw-602` LOMÉ CONFIRMS THE FREETOWN PREDICTION ON THE VERY NEXT CARD, AND WIDENS IT BEYOND THE
+BRITISH EMPIRE.** The consulate-becomes-embassy pattern was recorded as a British-colony shape; Togo was
+**French**-administered, and the guide says the same thing in the same words — "the American consulate at
+Lomé was raised to Embassy status" on **27 April 1960**, with Jesse M. MacKnight as chargé d'affaires ad
+interim. So the rule is about a CONSULAR PRESENCE rather than about which empire held the territory:
+**wherever the United States kept a consulate in a dependency, independence is a change of rank**. Two
+details worth carrying. Togoland was a **United Nations trust territory** under France rather than a
+plain colony, which is the same standing the guide gives Papua New Guinea's northern half — so the
+trusteeship route recurs and is worth naming in the prose, since a trusteeship ending is not a colony
+being released. And Togo's independence day, 27 April 1960, is the same date of the year as Sierra Leone's
+at `gw-601`, one year apart; a coincidence, but one that makes the two cards easy to confuse when writing
+them back to back.
+
+**UNdata has a FIFTH kind of footnote: a methodological note that dates its own revision.** After a list
+of regions (Portugal), a national statistical concept (Sweden), a list of localities (Greece) and an
+administrative jurisdiction (Baku, Minsk), Togo's country population carries this: *"Results obtained from
+an interim update of Togo's population estimates and medium variant projections released on 19 January
+2026 … more detailed results from the Togo general population and housing census 2022."* That is the
+profile telling you WHEN its figure changed and WHY — which is exactly what a card correcting an older
+number needs, and it is why C7's correction of this term to 8.6 million now agrees with the profile
+exactly. **Read the country-row footnotes for a revision note before deciding a figure is stale.**
+
+**And the thumbnail rule is confirmed as untestable in the abstract.** Port Moresby recorded that a width
+BELOW the original's can 400; here the original is exactly 1,280px wide and the **1280 thumb answers 200
+while 1024 answers 400** — the opposite way round. The only rule that survives both is the one already
+written: **test the exact URL you intend to ship.**
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
