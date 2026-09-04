@@ -1409,6 +1409,30 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   "hello (answering the telephone)" over three sentences reading "I am". **Report-only and a proxy** —
   23% of the corpus trips it, because a correct gloss is often a synonym of what the sentence says — so
   it is a ranked review list, never a gate.
+- `.claude/decks/check-say-reading.js` — **which Mandarin cards a speech engine will read with the WRONG
+  READING** (Sep 2026, on a bug report: "the card '了' tts pronounces it as liao instead of le. '差' reads
+  chà but pronounces chā"). A Mandarin card's speaker is handed the card's own CHARACTERS, which is right —
+  a Mandarin voice given "bēizi" reads the romanisation — and is the whole of the problem where the word is
+  ONE POLYPHONIC CHARACTER: a lone 了 or 差 carries no context, so the engine falls back to the character's
+  commonest reading, and for these two that is not the reading the card teaches.
+  · **THERE IS NO POLYPHONE DICTIONARY HERE, SO THE MEASURE IS THE CORPUS'S OWN.** The decks carry 11,000-odd
+    multi-character words with their pinyin written syllable by syllable, so where a word's character count
+    and syllable count agree, each character's reading is readable straight off — which gives every
+    character a reading DISTRIBUTION, and "what an engine will guess" is very well approximated by "what
+    this corpus uses most". A single-character card on a MINORITY reading is a card the engine is likely to
+    get wrong: **27 of 1,503**, of which the two reported are the 3rd and 11th widest margins.
+  · **REPORT-ONLY AND A PROXY, like `check-senses.js`.** A card whose Pinyin teaches BOTH readings
+    ("重 chóng / zhòng") is listed and is not a fault, and a character split a few cards either way in a
+    corpus this size is noise. **Read the list; do not sweep it.**
+  · **THE REPAIR IS A `Say` FIELD, and it is what makes any of this fixable.** The Mandarin card type's
+    templates read `{{#Say}}{{Say}}{{/Say}}{{^Say}}{{Simplified}}{{/Say}}`, so a card carrying one has its
+    own value spoken and every other card is untouched — the same `data-say` contract `cardSpeak` has
+    always honoured. What goes in it is the shortest ORDINARY word that pins the reading (了 is spoken as
+    好了, 差 as 还差), and **that is a two-syllable answer to a one-syllable question, knowingly**: a lone
+    polyphone gives an engine no reading to pick, and a substituted homophone would be a different
+    character carrying its own risk of being read wrong. The reader hears one syllable of context and then
+    the card's own, which is what a dictionary's audio does with a particle. **Adding the field to a deck
+    is a change to that deck's TYPE as well as to the card**, so it is two edits in one file.
 - **📖 `docs/lang-decks.md` — READ BEFORE TOUCHING ANY DECK OR GENERATOR.** Every pipeline's findings:
   which exam boards publish a word list and which do not, the CJK and PDF extraction traps, the
   variety filters, the clitic and conjugation rules, the sense-ranking faults, and the catalogue's
@@ -2215,13 +2239,24 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     language through `entryChain`. **A GROUP still gets none of the four**, deliberately: it is an
     arrangement holding decks from anywhere, so a figure on it would cap several collections at once from
     a row that names none of them.
-  · **A LANGUAGE'S HEADER IS A SYNTHESISED CONTAINER, AND ITS ONE ACTION IS ITS OPTIONS** (`langCtxId`,
-    `.dk-langhead`, `data-langhead`; Aug 2026, on a bug report that holding one opened nothing). It carries
-    no `data-review` — it deals no cards — so neither of the home page's two hold-menu walks reached it, and
-    a row that answers a hold with nothing looks exactly like a row that was never meant to. It is a real
-    `role="button"` with a tab stop now and the TAP opens the sheet as well as the hold, this being the one
-    row with no session to open instead; that is also its keyboard route, a hold not being something that
-    can be typed. **It takes the GROUP's shape of the sheet** — the cascading session settings, a name, a
+  · **A LANGUAGE'S HEADER IS A SYNTHESISED CONTAINER, AND IT IS STUDIED AND REMOVED LIKE ANY OTHER**
+    (`langCtxId`, `.dk-langhead`, `data-langhead`; Aug 2026, on a bug report that holding one opened
+    nothing, and Sep 2026, on one that it could be neither studied nor removed). It carried no
+    `data-review` — the reasoning being that it deals no cards — so neither of the home page's two
+    hold-menu walks reached it, and a row that answers a hold with nothing looks exactly like a row that
+    was never meant to. The first fix made it a real `role="button"` with a tab stop whose ONE action, tap
+    and hold alike, was the sheet. **That reasoning was wrong twice and the second report is what showed
+    it**: `entryCardIds` unions its members, which is what draws its three coloured pile counts and its
+    progress bar, so the row DOES claim cards — and a row that claims cards and refuses to deal them is
+    the only one on the list that does. It carries `data-review` now, so the generic walk gives it the
+    TAP-studies / HOLD-opens-the-options pair every other container row has, and its own walk is retired
+    (two walks on one row would open the sheet twice). **It studies as a GROUP, not as a deck**
+    (`entryScope`): both are containers with no cards of their own and their own allowances, order and
+    skip, which is exactly `buildSession`'s group branch, where the deck branch would look a synthesised
+    id up in `NODE_BY_ID` and find nothing. **AND THE EDIT MODE'S CROSS REACHES IT**: it was skipped there
+    because it is not itself in `S.active`, but `removeActive` has always known what removing one means —
+    take out the decks gathered under it and free anything dragged in — and its own sheet has carried
+    Remove all along, so the mode simply had a hole in it. **It takes the GROUP's shape of the sheet** — the cascading session settings, a name, a
     colour and an icon, never the daily allowances, which belong to something the review iterates — and its
     last row is Remove, a language not being something that can be taken apart. **Four helpers know about
     it and each was silent in its own way**: `entryChain` (or a switch is stored where nothing reads it),
@@ -2852,21 +2887,25 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     continent.
   · **A LOCATOR SHOWS THE REST OF ITS COLLECTION, AND THE WORLD AROUND IT** (`cardCollectionRoot` /
     `locatorSiblings` / `_locSibCache`; Aug 2026, on request). Four layers under the card's own gold dot:
-    the collection's other card places as smaller RED dots, the Atlas's capitals and million-plus cities
-    as grey ones, and its rivers. **The two halves are paid for differently and that is the whole design.**
+    the collection's other card places as smaller RED dots and its rivers. **The two halves are paid for
+    differently and that is the whole design.**
     The siblings are FREE — every locator is in `data.js`, which every visitor downloads before flipping a
-    card — so they ship unconditionally; the cities and rivers are the `atlas` bundle (~600 KB), so they
+    card — so they ship unconditionally; the rivers are the `atlas` bundle (~600 KB), so they
     are **warmed at IDLE and never awaited**, which is `glossExtra`'s bargain, and skipped outright under
     `saveData`, which is `startMiniGlobe`'s. A card with a locator therefore paints at once with its own
-    places and fills in a moment later. **THE CITIES THIN WITH ZOOM, and that was found by LOOKING**: all
-    2,665 drawn at once cover Europe and North Africa in a grey rash at the opening 50° view and bury the
-    red marks that are the point — so the 216 capitals show always and the 392 million-plus cities once
-    the frame is a region. **THE 2,057 DIVISION CAPITALS ARE GONE ALTOGETHER, and the rest are quieter**
-    (Aug 2026, on request: "make all the black dots smaller and less conspicuous, and only put them for
-    foreign capitals and cities with over 1M population") — that tier was five sixths of the layer and
-    every one of them a place no card is about, and what is left is drawn at about two thirds of its old
-    radius and two thirds of its old ink. They are there to give the card's own mark a world to sit in,
-    and the moment they compete with it they have stopped doing their job. **EVERY RIVER THE ATLAS
+    places and fills in a moment later. **THE MODERN CITIES ARE GONE ALTOGETHER** (Sep 2026, on request:
+    "in all atlas windows in all history decks, modern capitals/cities should no longer be marked with
+    small black squares, but should not appear at all — unless they’re a card answer term e.g. Athens,
+    which should always appear"). The layer was `cities.js` filtered to national capitals and million-plus
+    cities, and its whole history is one long retreat: 2,665 dots covered Europe in a grey rash, so it was
+    thinned by zoom; the 2,057 division capitals went; the rest were made smaller and greyer twice; and a
+    capital falling under one of the collection's own marks stood aside for it. Every one of them was a
+    place no card in the collection is about, which is what the request settles — **a history card's map
+    carries the collection's places, and the coastline, the rivers and the borders are the world it sits
+    in.** The exception the request names needed nothing added: **a city that IS a card's answer is drawn
+    already**, as a studied sibling, or as the collection's home city through `CMAP_ANCHOR`. `nearSib`
+    went with the layer, having existed only so a grey square could stand aside for a red one.
+    **EVERY RIVER THE ATLAS
     DRAWS IS DRAWN HERE TOO, AND NOT ONE OF THEIR NAMES** (Aug 2026, on request: "the same Rivers
     displayed on the Atlas should also be displayed in Atlas windows in cards (only without their
     labels)"). For a fortnight a river was drawn only where the collection taught one, and that narrowing
@@ -3015,17 +3054,28 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     the coast and never awaited, so the card paints on `rivers.js` and the water sharpens when the file
     lands. **📖 read `.claude/build-hires-rivers.js`'s header before touching it** — why a river is
     replaced whole rather than clipped to the frame, and where the extra rivers come from.
-  · **A MODERN CAPITAL IS A SQUARE AND NOTHING ELSE** (Sep 2026, on request: "modern capitals should not
-    have their text labels shown, only their squares"). They were named once the frame was a region rather
-    than a continent, which on a Roman Republic card put Tirana, Valletta and Podgorica in the same face
-    and weight as the places the collection teaches — a map of modern states with a history card's marks on
-    it. The square still gives a reader a seat of government to place a site against, which is the whole
-    of what that layer is for; **the words on this map belong to the collection.** `capAt` is DELETED
-    rather than left unread, a register nothing draws from being the next session's bug. **The square is SMALLER and
-    outlined in GREY rather than white** (Sep 2026, on request): a white keyline is what an atlas gives a
-    mark that must survive being drawn over land, sea and a label at once, and here it was a second
-    highlight around the loudest thing on a quiet map.
-  · **AND A RIVER IS THINNER WHEN THE FRAME IS WIDE** (same request). The weight was the Atlas's own
+  · **A MODERN CAPITAL WAS A SQUARE, THEN A SMALLER ONE, AND IS NOW NOTHING** — three requests in one
+    month, each taking more off the same layer, and the third took the layer. The reasoning is in the
+    locator bullet above; what is worth keeping here is the shape of the retreat, because it is the
+    argument against ever adding a layer of places the collection is not about: every step of it was
+    "make this quieter" and the end of that road is "take it away". `capAt` and `nearSib` are DELETED
+    rather than left unread, a register nothing draws from being the next session's bug.
+  · **THE LAND IS FILLED, THEN THE RIVERS, THEN THE BORDERS** (Sep 2026, on two bug reports: "in the
+    atlas windows of the world history collection, rivers appear on top of borders, making the borders
+    invisible", and "in the China collection atlas windows, the northeast border with Russia is
+    invisible"). **Those are one fault seen twice, and the second is the one that shows why it matters**:
+    the Amur and the Ussuri ARE China's north-eastern frontier, so the river drawn over the border did not
+    merely obscure a line, it deleted a country's edge — and nothing about it looks like a fault, since
+    what is left is a perfectly good map with one border missing. The rivers were painted after the
+    countries, in the ocean colour and at up to 1.8px against a border stroked at 0.7, so anywhere a
+    border FOLLOWS a river it was painted out. A river is water on the land and a border is a line drawn
+    over it; the fix is the ORDER, not the weight. **It costs one geometry pass and not two**: the obvious
+    split walks all 117,000 vertices twice a frame on a globe the reader is dragging, so each country's
+    projected outline is built ONCE into a `Path2D`, filled from it, and added to a single border path
+    stroked after the water — `addRing` writes through `tc`, so pointing that at a path rather than at the
+    context is the whole of it. The thin-river pass moved out of the sibling block into `drawThinRivers()`
+    for the same reason; the card's own river, which is the ANSWER, still goes on last and over everything.
+  · **AND A RIVER IS THINNER WHEN THE FRAME IS WIDE** (Sep 2026, on request). The weight was the Atlas's own
     `0.4 + zoom * 0.16` floored at 0.5 and is `0.15 + zoom * 0.18` floored at 0.3, reaching the old figure
     again around zoom 6 and unchanged at the deep end, where the 1.8px cap has always decided it. The
     Atlas draws its rivers only past a zoom; this window draws all 1,073 of them at every zoom, so at a
@@ -5812,7 +5862,8 @@ dead code (never rendered).
   · `node .claude/test-lang-decks.js` — **the Collections page's Languages section** (Aug 2026), in two
     halves and both for silent failures. **Re-run after touching `langCollectionsHTML` /
     `langCollectionHTML` / `langRowHTML` / `langRowSpecs` / `langNodeSpecs` / `langCollId` /
-    `wireLangDecks` / `entryPending` / `langDeckDownload` / `langCatalogById` / `langCatalogNode` / the
+    `wireLangDecks` / `entryPending` / `langDeckDownload` / `langCatalogById` / `langCatalogNode` /
+    `entryScope`'s language branch / `buildSession`'s group branch / the deck list's `.dk-del` walk / the
     `.dk-pending` row in `PAGES.home` / `cardBytes` / `nodeBytes` / `fmtDeckSize` / `.node-size` /
     `buildNode`'s `nodeSpanHTML` / the `lang-*` rows of `COLL_THEME` / `.claude/build-lang-decks.js`, and
     after adding, rebuilding or removing a deck in `decks/`. Section 4 covers the LANGUAGE HEADER's own

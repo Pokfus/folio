@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.518", released: "2026-09-04T19:04Z" };
+window.FOLIO_VERSION = { v: "1.519", released: "2026-09-04T22:07Z" };
 
 window.CHANGELOG = [
   {
@@ -53,6 +53,12 @@ window.CHANGELOG = [
       "<b>The rivers of Italy and Greece are drawn in far finer detail</b> on the maps of their own collections’ cards, with many more of them shown.",
       "<b>Rome is now always marked on the map in the Ancient Rome collection</b>, and Athens in Ancient Greece, as a red square.",
       "<b>Modern capital cities on a card’s map no longer show their names</b>, only their squares.",
+      "<b>Modern cities are no longer marked at all on a history card’s map</b>, unless the place is a card’s own answer, like Rome or Athens.",
+      "<b>Rivers no longer paint over borders on a card’s map</b>, which had left China’s north-eastern frontier with Russia invisible.",
+      "<b>Five more cards now show where they are on a map</b> — Jiahu, Banpo and, as shaded regions, the Liangzhu culture, the Howiesons Poort and the Mal’ta-Buret’ culture.",
+      "<b>A language collection can now be studied by tapping its row</b>, as a history collection can.",
+      "<b>A language collection now has a cross to remove it</b> when you edit your daily study list.",
+      "<b>Two Mandarin cards are now read aloud with the right pronunciation</b> — 了 as <i>le</i> and 差 as <i>chà</i>, each spoken in a short word that fixes the reading.",
       "<b>A card\u2019s traditional Chinese characters now sit on the line above the simplified ones</b> rather than beside them.",
       "<b>A card\u2019s Chinese name is set flush right</b> rather than left.",
       "<b>The Attica, Hongshan culture and Yangshao culture cards now show their region shaded on a map</b>, as the other place cards do.",
