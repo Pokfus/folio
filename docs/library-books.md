@@ -1086,7 +1086,14 @@ book added later will meet the same traps.
   digit for a letter in `0ceanus` and `k9ew`, a letter for a digit in Suetonius's `[i6th March]`),
   and its own lesson is that **a correction row carrying context carries its source's SPACING** —
   written first with the Canterbury Tales' double spaces, 22 of 23 were dead against the TEI and
-  wiki books, which set one. The first book here whose chapter is a
+  wiki books, which set one. **Batch E17 then took 186 of its spaces back** — this edition's
+  apparatus is denser in references than anything else on the shelf, and Perseus leaves no whitespace
+  at a `<title>` or `<bibl>` boundary, so `Cf. <title>Laws</title>638 B` flattened to `Cf. Laws638 B`.
+  It is a fault of the SOURCE and not of the tag-strip, which is what E16 had assumed; the repair is a
+  flattening rule in `teiInline` shared by all sixteen TEI books. **A finding it left behind**: this
+  book's GREEK column carries citations partly transliterated into Greek letters — `ηομ. ιλ. 14.291`
+  against the English's `Hom. Il. 14.291` — in Perseus's own file, with the correct Latin-script form
+  sitting on the same `<bibl>`'s `n=` attribute. The first book here whose chapter is a
   separate work rather than a division of one, so both columns are addressed through a table
   (`DIALOGUES` in the importer) instead of by arithmetic. It **absorbed the standalone
   `plato-symposium`** on 2026-08-06 — a `S.reading` / `S.bookFavs` migration in app.js carries the
@@ -1404,8 +1411,16 @@ book added later will meet the same traps.
   `<q>` was measured and rejected, since they nest three deep and `rend="merge"` repeats the tag on every
   line of a continuing speech, which would put quotation marks on every line of every one of Virgil's
   long speeches. Said in the front matter instead),
-  `homer-odyssey.grc.js` (~574 KB, all 24 books, **all 288 of the translation's card sections** — the
-  Greek printed facing Murray's English in the same 1919 Loeb volumes, which is why it is the ONLY
+  `homer-odyssey.grc.js` (~574 KB, all 24 books, **all 288 of the translation's card sections**.
+  **PERSEUS EDITS THIS FILE, and a rebuild picks the edits up** — 56 lines of Murray's Greek changed
+  between the last two builds (Sep 2026, noticed in batch E17 and separated from that batch's own
+  work by rebuilding with the change reverted): accents and breathings (`μὰλα`→`μάλα`, `ὥς`→`ὣς`,
+  `οἷ`→`οἱ`, `γὰρ σφιν`→`γάρ σφιν`, which is right before an enclitic) and a few real words
+  (`προσέθη`→`προσέφη`, `Πηλεΐδαο`→`Πηλεΐωνα`, `ἔσιδε`→`εἴσιδε`, `κατὰ ἔσχεθε`→`κατὰ δʼ ἔσχεθε`).
+  They are adopted rather than reverted, being the edition's own maintainers correcting their
+  transcription — but **a diff of this book after any rebuild is not automatically this repo's doing**,
+  and Jebb's Oedipus Rex drifted in the same window by one word ("for a **lone** time" → "a long
+  time"). The Greek is printed facing Murray's English in the same 1919 Loeb volumes, which is why it is the ONLY
   original here that costs its book no second licence to reason about: one publication, one editor,
   one death year, both columns. **23 of the 24 books carry byte-identical card lists and 286 of the
   288 numbers appear on both sides**, with no duplicate and nothing out of order either way. The two

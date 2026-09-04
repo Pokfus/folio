@@ -292,14 +292,75 @@ re-run and diffed byte for byte.
 | **E14** ✅ | eight books | **42 repairs, and it UNBLOCKS the two E4 wrote off.** The capital I and the lowercase l are the same stroke, so an OCR writes `Iooked` for `looked` and `househoIds` for `households` — `virgil-aeneid`'s 22 unrepairable candidates are this class exactly, and eight of `plato-dialogues`' fourteen. Inside a word no witness is needed (no type sets one there); at the start the book's own vocabulary decides. It proposed six CORRECT readings — `Io` the nymph, `Io Pæan!`, the Gnostic `Ieu` — all excluded by name |
 | **E15** ✅ | five books | **6 repairs, and a rule that applies BEFORE the work: a substitution family is safe exactly where the wrong spelling is a NON-WORD.** E14's capital-I yield was ~100% because a capital mid-word never is one; the same sweep for `rn`/`m` proposed thirteen and SEVEN were right as they stood (a `dose`, papers `torn`, the city `Homs`, archaic `doth`, Old French `corne`), and `cl`/`d` got all three wrong. It also closes `summa-theologica`'s `corning` — E4's third deferral — with no volume opened |
 | **E16** ✅ | eight books | **23 repairs in the family E15 predicted would pay** — a digit inside an English word is a non-word. It runs BOTH ways (`0ceanus`, `1ndra`, `k9ew`, `equa1`; and Suetonius's `[i6th March]` where the letter stands for the digit), and the legitimate cases name themselves (`1ff`, `8vo`, `1274bb`). Its lesson is that **a row carrying context carries its source's SPACING**: written first with the Canterbury Tales' double spaces, 22 of 23 were dead |
-| **E17** | `plato-dialogues`, and a change to shared machinery | ~38 references run together in the prose (`Cf. Laws638 B`, `Hom. Il. 14.201, 302has said`). An abbreviated work name keeps its space and a spelled-out one loses it, which is a TAG-STRIP JOIN and not scanner damage — so it is fixed in the extractor, with the byte-for-byte proof on every TEI sibling that a shared change requires |
-| **E17–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E17** ✅ | six books, in shared machinery | **193 spaces inserted at a citation's element boundary, and not one other byte changed in sixteen rebuilt books.** Perseus encodes a cited work as an element and leaves no whitespace at its edge, so unwrapping welds it to the prose (`Cf. Laws638 B`, `302has said`, `betweenἔρωςand`). THE FIRST DIAGNOSIS WAS WRONG and is recorded: the missing space is in the SOURCE, not eaten by our tag-strip — an abbreviation keeps its space only because its full stop sits outside the element. So it is a FLATTENING rule in `teiInline`, not a book's `fixes` table: sixteen books read this source |
+| **E18–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E17 — a citation's element boundary is a word boundary, shipped 2026-09-04
+
+**193 spaces inserted across six books, and not one other byte changed in the sixteen that were
+rebuilt.** Perseus's TEI encodes a cited work as an element — `<title>Laws</title>`, `<bibl>Hom. Il.
+14.201, 302</bibl>` — and leaves no whitespace at its edge, so flattening the markup welds the
+citation to the words on either side of it:
+
+```
+Cf. <title>Laws</title>638 B.               →  Cf. Laws638 B.
+<bibl>Hom. Il. 14.201, 302</bibl>has said   →  Hom. Il. 14.201, 302has said
+Cf. 86 E;<title>Phaedo</title>81 C          →  Cf. 86 E;Phaedo81 C
+between<foreign>ἔρως</foreign>and           →  betweenἔρωςand
+```
+
+**THE FIRST DIAGNOSIS WAS WRONG, and it is the same shape of error as E9's, so it is recorded rather
+than quietly replaced.** E16's log called this "a TAG-STRIP JOIN and not scanner damage" — a fault of
+OURS — on the strength of a real and telling observation: an ABBREVIATED work keeps its space
+(`Rep. 392 D`) and a spelled-out one loses it (`Laws638`). The observation was right and the actor was
+wrong. The source itself reads `<title>Laws</title>638`; an abbreviation keeps its space only because
+its own full stop sits OUTSIDE the element and carries the space after it. **Reading the source before
+writing the rule is the step that was missing**, and it took one `curl` — the same two minutes E9's
+absence fallacy cost, in the other direction.
+
+**SO IT IS A FLATTENING RULE AND NOT A CORRECTION**, which decides where it lives. Folio's reader has
+no `<title>` and no `<bibl>`; this importer's job is to say what those boundaries become in plain
+prose, and two words welded together is not one of the answers. **Sixteen books read Perseus TEI**, so
+a `fixes` table would be the same three rows sixteen times over — the duplication a shared extractor
+exists to prevent. It sits at the head of `teiInline`, which every TEI reader and both columns of every
+TEI book go through.
+
+**MEASURED OVER EVERY PERSEUS FILE THE SHELF READS, before the rule was written**: 176 boundaries in
+the files that could be fetched up front, every one of which wants a space, and 193 in the event once
+Plato's Greek and Suetonius's per-chapter files were rebuilt too. The rules are anchored on the
+element's own tag, so they can reach nothing else. **The second of the three is the abbreviation's own
+stop** — `<title>Rep</title>.401 D` is the stop set correctly and the number then set tight to it —
+and it is why the first rule cannot simply be widened to any non-space character: `</title>.` is right
+115 times against seven, so the digit after the stop is what tells them apart.
+
+**THE PROOF IS THE POINT OF THE BATCH.** Sixteen books rebuilt, ten unchanged; the six that changed
+changed by exactly the inserted spaces and nothing else — each file's length is its old length plus
+its insertions, and no other byte differs. Plato 167 + 19, Herodotus 4, the Satyricon 1 on each side,
+Thucydides' Greek 1.
+
+**AND THE PROOF EARNED ITS KEEP IMMEDIATELY: two of the eight changed files had nothing to do with
+this rule.** `homer-odyssey.grc.js` and `sophocles-oedipus-rex.js` came back different because
+**Perseus has edited those texts since Folio last built them**. Rebuilding with the change reverted,
+off the same cache, separated the two cleanly. What drifted is 56 lines of Murray's Greek — accents
+and breathings (`μὰλα`→`μάλα`, `ὥς`→`ὣς`, `οἷ`→`οἱ`, `γὰρ σφιν`→`γάρ σφιν`, which is right before an
+enclitic) and a handful of real words (`προσέθη`→`προσέφη`, `Πηλεΐδαο`→`Πηλεΐωνα`, `ἔσιδε`→`εἴσιδε`,
+`κατὰ ἔσχεθε`→`κατὰ δʼ ἔσχεθε`) — and one typo in Jebb's Oedipus, "for a **lone** time" → "a long
+time". They are adopted rather than reverted: they are corrections from the edition's own maintainers
+and re-shipping a text one knows to be worse is not a defensible option. **They are somebody else's
+work and are counted separately from this batch's own.**
+
+**A FINDING FOR A LATER BATCH, from reading the Greek column's insertions**: Plato's Greek files carry
+their citations partly TRANSLITERATED INTO GREEK LETTERS — `ηομ. ιλ. 14.291` where the English says
+`Hom. Il. 14.291` — and this is in Perseus's own file rather than anything Folio does. Fourteen of the
+nineteen Greek insertions sit against one. The `n=` attribute on the same `<bibl>` carries the correct
+Latin-script form, so the repair is to prefer the attribute over the element's text on that side; it
+wants its own measurement and its own sibling proof.
 
 ### E16 — the third family, and what a row carries with its context, shipped 2026-09-04
 
@@ -340,12 +401,18 @@ line addressing two gods, where the vocative could be *Varuna* or a dual form.
 minutes to rebuild: `1ndra` four times, plus `3trength`, `we.1grown`, `f1ed` and `Marut3` — eight
 repairs in all, each read in context beforehand and each verified in the rebuilt book after.
 
-**A separate fault surfaced and is NOT repaired here, because it is ours and not the source's.**
-About thirty-eight of Plato's references are run together in the prose — `Cf. Laws638 B`, `Hom. Il.
-14.201, 302has said`, `Hes. WD 25and in all other cases`. The pattern is structural: **an abbreviated
-work name keeps its space (`Rep. 392 D`) and a spelled-out one loses it (`Laws638`)**, which is what
-a tag-strip joining two elements looks like, not what a scanner does. It belongs in the extractor
-with the byte-for-byte sibling proof a shared change requires, and it is E17.
+**A separate fault surfaced and is NOT repaired here.** About thirty-eight of Plato's references are
+run together in the prose — `Cf. Laws638 B`, `Hom. Il. 14.201, 302has said`, `Hes. WD 25and in all
+other cases`. The pattern is structural: **an abbreviated work name keeps its space (`Rep. 392 D`)
+and a spelled-out one loses it (`Laws638`)**, which is what a boundary between two elements looks
+like, not what a scanner does. It belongs in the extractor with the byte-for-byte sibling proof a
+shared change requires, and it is E17.
+
+> **This paragraph read "because it is ours and not the source's", and that was wrong** — see E17,
+> which read the source before writing the rule and found the space missing THERE. The observation
+> above is sound and the actor was not; the correction is kept in view rather than edited away,
+> because the mistake is the reusable part.
+
 
 ### E15 — the second OCR family, and the rule for which families pay, shipped 2026-09-04
 

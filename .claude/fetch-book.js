@@ -21189,6 +21189,51 @@ function teiSectionProse(raw, notes) {
    becomes italic, which is how the printed page sets the Latin and Greek it glosses. */
 function teiInline(s) {
   let b = s;
+
+  /* A CITATION'S ELEMENT BOUNDARY IS A WORD BOUNDARY, AND THE SOURCE DOES NOT ALWAYS SET ONE —
+     Sep 2026 (batch E17), on the Loeb Plato, whose apparatus is denser in references than anything
+     else on the shelf. Perseus encodes a cited work as an element and leaves no whitespace at its
+     edge, so unwrapping welds the citation to the words on either side of it:
+
+       Cf. <title>Laws</title>638 B.            →  Cf. Laws638 B.
+       <bibl>Hom. Il. 14.201, 302</bibl>has     →  Hom. Il. 14.201, 302has
+       Cf. 86 E;<title>Phaedo</title>81 C       →  Cf. 86 E;Phaedo81 C
+       between<foreign>ἔρως</foreign>and        →  betweenἔρωςand
+
+     THE FIRST DIAGNOSIS WAS WRONG AND IS WORTH RECORDING, because it is the same shape of error as
+     E9's. The pattern that gives it away is that an ABBREVIATED work keeps its space and a spelled-
+     out one loses it — `Rep. 392 D` against `Laws638 B` — which was read here as a tag-strip eating
+     whitespace, i.e. as OUR fault. It is not: the source itself reads `<title>Laws</title>638`, and
+     an abbreviation keeps its space only because its own full stop sits OUTSIDE the element and
+     carries the space after it. The observation was right and the actor was wrong; the source was
+     read before the rule was written, and that is the step that was missing the first time.
+
+     SO IT IS A FLATTENING RULE RATHER THAN A CORRECTION, which is why it lives here instead of in a
+     book's `fixes` table. Folio's reader has no `<title>` and no `<bibl>`; this importer's job is to
+     decide what those boundaries become in plain prose, and two words welded together is not one of
+     the answers. Sixteen books read Perseus TEI, so a table would be the same three rows sixteen
+     times over — the duplication a shared extractor exists to prevent.
+
+     MEASURED OVER EVERY PERSEUS FILE THE SHELF READS, both columns, before it was written: 176
+     boundaries, and every one of them wants a space. 45 of the 60 in the first rule are Plato's
+     `Laws638` family, 14 are a Greek gloss welded to the English around it, and one is Thucydides'
+     Greek running into a citation of the Iliad. The third rule's 109 are the mirror image, of which
+     83 are a comma, semicolon or abbreviation-stop set flush against the reference that follows it.
+     The rules are anchored on the element's own tag, so they can reach nothing else.
+
+     THE SECOND RULE IS THE ABBREVIATION'S OWN STOP: `<title>Rep</title>.401 D` is the stop set
+     correctly, tight to `Rep`, and the number then set tight to the stop. Seven of those, all in
+     Plato, and they are why the first rule cannot simply be widened to any non-space character —
+     `</title>.` is right far more often than it is wrong (115 times against seven), so the digit
+     after the stop is what distinguishes them.
+
+     PROVED BYTE-FOR-BYTE INERT ON EVERY BOOK WITH NO SUCH BOUNDARY, which the standing rule for a
+     shared extractor requires and which matters more here than usual: `teiInline` is read by every
+     TEI book on the shelf and by both columns of each. */
+  b = b.replace(/<\/(title|bibl|foreign)>(?=[\p{L}\p{N}])/gu, "</$1> ");
+  b = b.replace(/<\/(title|bibl)>\.(?=\p{N})/gu, "</$1>. ");
+  b = b.replace(/(?<=[\p{L}\p{N}.,;’])(?=<(?:title|bibl|foreign)[ >])/gu, " ");
+
   b = b.replace(/<del\b[^>]*>[\s\S]*?<\/del>/g, "");
   b = b.replace(/<\/?add\b[^>]*>/g, "");
 
