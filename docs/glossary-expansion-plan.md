@@ -191,7 +191,8 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N24 | 12 | **The Italian provinces I** — the twelve a World Heritage property names twice — **shipped**, all twelve pictured |
 | N25 | 12 | **The international order** — the institutions a country term names, and the principle they rest on — **shipped**, 11 of 12 pictured |
 | N26 | 12 | **The vocabulary of diplomacy** — the words on nearly every card of the World collection — **shipped**, 9 of 12 pictured |
-| N27–N34 | ~95 | the remaining Italian provinces — **blocked on sourcing**, see N24's findings |
+| N27 | 12 | **The forms of government** — the words every collection uses about who rules — **shipped**, 8 of 12 pictured |
+| N28–N35 | ~95 | the remaining Italian provinces — **blocked on sourcing**, see N24's findings |
 
 **N3 shipped eight terms rather than twelve, and the missing four are one deferral and one
 fold.** *Subminoan* is deferred: Rutter's Chronology Overview gives it a single sentence — "The
@@ -338,6 +339,59 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N27's findings
+
+**N27 — the forms of government (shipped, 8 of 12 pictured).** The twelve are `Constitution`, `Council`,
+`Colony`, `Republic`, `Senate`, `Monarchy`, `Tyranny`, `Democracy`, `Citizenship`, `Magistrate`,
+`Aristocracy` and `Oligarchy`, measured out of the corpus like the three batches before them and with
+weights that dwarf most of the pass: `constitution` 152, `council` 118, `colony` 108, `republic` 66,
+`senate` 53, `monarchy` 41, `tyranny` 31, `democracy` 25, `citizenship` 20, `magistrate` 20,
+`aristocracy` 13, `oligarchy` 8. **These are the words EVERY collection uses**, not one deck's
+vocabulary — Greece, Rome, China, Russia, the United States and the World collection all describe who
+holds power, and none of them had a term to click.
+
+**THE SPINE IS THE CANON PLUS AN ENCYCLOPEDIA THAT CITES ITS SOURCES, AND BOTH ARE OPEN.** Aristotle's
+*Politics*, Polybius VI and Herodotus III are on **Perseus** — a stable citation by book and Bekker or
+chapter number, in an out-of-copyright translation, which is exactly what the philosophy plan's rule
+about standard divisions asks for. The **Stanford Encyclopedia of Philosophy** carries the modern half,
+and passes the pass's own encyclopedia test outright, every entry ending in a bibliography. Aristotle
+3.1279a–b gives the sixfold classification in one page — kingship, aristocracy and constitutional
+government against tyranny, oligarchy and democracy, sorted by how many rule and in whose interest —
+which carries six of the twelve on its own.
+
+**THE SEP TOLD US NOT TO CITE ONE OF ITS OWN ENTRIES, AND THAT IS THE FINDING TO CARRY.** CLAUDE.md
+already says to read `plato.stanford.edu/cgi-bin/encyclopedia/archinfo.cgi?entry=<slug>` for the exact
+title, authors and archive edition rather than composing them. It says something else too: for
+`republicanism` it answers that **the latest version "is not yet archived and may change before it is
+archived in the Fall 2026 edition. You should wait for the Fall 2026 archived edition of the
+Encyclopedia to quote or cite this version."** A source can tell you it is not yet citable, and only the
+metadata page says so — the entry itself reads exactly like the other four. `Republic` took Polybius and
+Aristotle instead. **Ask the archinfo page before citing an SEP entry, not only for the edition but for
+whether there is one.**
+
+**Its second finding is the keyword verifier catching a claim BEFORE it shipped.** The `Colony` draft
+said the practice was "as old as recorded history while the systematic European form dates from the 15th
+century" — plausible, conventional, and **not what the cited entry says**. Kohn and Reddy's difficulty is
+that the word is used as a synonym for imperialism, and their distinction is that colonialism names
+places held by a large population of permanent settlers while imperialism names a territory administered
+without much settlement. The sentence was rewritten to that. **N4 caught a fabricated author this way;
+this is the same check catching a fabricated CLAIM**, and it costs one line in `keywords.json` per
+citation.
+
+**And a picture named after a building can be a 3D model of it.** `File:Curia Julia.jpg` is a computer
+reconstruction, rendered against a flat sand-coloured plane — the correct subject, the correct name, and
+not a photograph of anything. It was rejected by looking, which is the only thing that catches it; a
+real photograph of the Curia took its place. Add it to the family the geography pass records: after a
+picture from orbit, a map, a montage and the right name in the wrong place, **a rendering**.
+
+**Four terms ship without a picture.** `Republic`, `Aristocracy` and `Oligarchy` are forms of rule rather
+than things, and any photograph of a particular republic or ruling class illustrates that instance and
+quietly asserts it is typical; `Colony` is worse, since every candidate was a colonial-era view whose
+framing is itself the argument the term is about. The eight that are pictured are all objects or places
+the concept can be shown BY — a written constitution, a council house, a senate house, a crown, the
+tyrant-slayers, the speaker's platform on the Pnyx, a bronze grant of citizenship, and a lictor with the
+fasces.
 
 ### N26's findings
 
