@@ -1817,7 +1817,8 @@ window.GLOSSARY = {
 "Cleruchy": "A <b>cleruchy</b> was a body of Athenian settlers established on land taken from another state, each holding an allotment there; the earliest Herodotus records is the four thousand put on the lands of the Chalcidian Hippobotai in 506 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch reports a series of them under Pericles, a thousand to the Chersonese, five hundred to Naxos, half that to Andros and a thousand into Thrace, sent to lighten the city, relieve the poor and hold the allies to their obedience.<sup class=\"fn\" data-fn=\"2\"></sup> The severest example is Histiaea on Euboea in 446 BCE, whose people Thucydides says were driven from their homes so that Athenians could take over their territory.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Athenian_tribute_lists": "The <b>Athenian tribute lists</b> are the stelai on which Athens recorded, for each year from 454/3 BCE, the sixtieth part of the allied tribute paid to Athena, entered city by city at one mina per talent.<sup class=\"fn\" data-fn=\"1\"></sup> The first fifteen years were cut on a single stone reconstructed from 184 fragments, the next eight on a second, and every year after that on a stele of its own.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They preserve detail no ancient historian records: headings of 434/3 BCE that separate cities that assessed themselves from those individuals signed up to pay for, and a reassessment of 425/4 with sworn assessors, penalties for delay and a court of a thousand.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Coinage_Decree": "The <b>Coinage Decree</b> is an Athenian decree requiring the allied cities to use Athenian silver coinage, weights and measures on pain of loss of rights, confiscation and, in one clause, death.<sup class=\"fn\" data-fn=\"1\"></sup> It is known only from fragments of the copies the cities were ordered to cut and set up in their own agoras at their own expense, found in seven places and differing from one another.<sup class=\"fn\" data-fn=\"1\"></sup> It carries no date and no ancient historian mentions it, so its year is argued from other evidence, notably a joke in Aristophanes' <i>Birds</i> of 414 BCE about adopting the weights and measures of the Olophyxians.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Revolt_of_Samos": "The <b>revolt of Samos</b> was the rising of that island against Athens in 440 BCE, which began in a quarrel with Miletus over Priene and became the gravest rebellion the Athenian empire faced before the Peloponnesian War.<sup class=\"fn\" data-fn=\"1\"></sup> Samian exiles hired troops, made terms with the Persian satrap at Sardis, recovered the hostages Athens had lodged on Lemnos and handed over the Athenian garrison, and Byzantium revolted with them.<sup class=\"fn\" data-fn=\"1\"></sup> Pericles besieged the city into its ninth month, losing command of the sea for a fortnight to a sortie led by the philosopher Melissus, and imposed terms that took the walls, the fleet, hostages and the cost of the war.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Revolt_of_Samos": "The <b>revolt of Samos</b> was the rising of that island against Athens in 440 BCE, which began in a quarrel with Miletus over Priene and became the gravest rebellion the Athenian empire faced before the Peloponnesian War.<sup class=\"fn\" data-fn=\"1\"></sup> Samian exiles hired troops, made terms with the Persian satrap at Sardis, recovered the hostages Athens had lodged on Lemnos and handed over the Athenian garrison, and Byzantium revolted with them.<sup class=\"fn\" data-fn=\"1\"></sup> Pericles besieged the city into its ninth month, losing command of the sea for a fortnight to a sortie led by the philosopher Melissus, and imposed terms that took the walls, the fleet, hostages and the cost of the war.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Athenian_empire": "The <b>Athenian empire</b> is the rule Athens exercised in the 5th century BCE over the cities that had joined it in alliance against Persia, enforced by tribute, garrisons, settlers and above all by its courts.<sup class=\"fn\" data-fn=\"1\"></sup> Allies were required to bring important cases to Athens, which the Athenians defended as trial under equal laws and a critic described as a way of keeping jurors paid and of protecting friendly factions in the subject cities.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Athenian speakers used the word tyranny of it themselves, Pericles calling it unjust to have taken up and unsafe to lay down.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2644,7 +2645,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Cleruchy": "from 506 BCE",
 "Athenian_tribute_lists": "from 454 BCE",
 "Coinage_Decree": "uncertain, 450 – 410 BCE",
-"Revolt_of_Samos": "440 – 439 BCE"
+"Revolt_of_Samos": "440 – 439 BCE",
+"Athenian_empire": "5th century BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5634,7 +5636,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Cleruchy": ["institution","history","greece","athens","politics"],
 "Athenian_tribute_lists": ["text","history","greece","athens","politics"],
 "Coinage_Decree": ["text","history","greece","athens","politics"],
-"Revolt_of_Samos": ["event","history","greece","athens","warfare"]
+"Revolt_of_Samos": ["event","history","greece","athens","warfare"],
+"Athenian_empire": ["institution","history","greece","athens","politics"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
