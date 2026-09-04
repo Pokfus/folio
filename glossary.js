@@ -1754,7 +1754,8 @@ window.GLOSSARY = {
 "Parthenon": "The Parthenon is the temple of Athena on the acropolis of Athens, built after the Persian sack out of the tribute of Athens' allies, with Callicrates and Ictinus as its architects and Pheidias overseeing the work.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias found the front pediment given to the birth of Athena and the rear to her contest with Poseidon for the land, and inside a standing statue of ivory and gold with a Victory in one hand and a spear in the other.<sup class=\"fn\" data-fn=\"2\"></sup> Thucydides reckoned forty talents of pure gold on that statue, all of it removable, which the city might use to save itself and would afterwards have to restore in full.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Greek_theatre": "Greek theatre means the plays performed in competition at the Athenian festivals of Dionysus, for which the chief archon appointed the chorus-leaders of the tragedies from among the wealthiest men in the city.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle traces tragedy and comedy alike to improvisation, the one from the prelude to the dithyramb and the other from the prelude to the phallic songs, and credits Aeschylus with the second actor and Sophocles with the third and with scene-painting.<sup class=\"fn\" data-fn=\"2\"></sup> He defines tragedy as a representation of an action heroic and complete, acted rather than narrated, whose six parts are plot, character, diction, thought, spectacle and song.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Socrates": "Socrates was an Athenian philosopher who wrote nothing himself and is known from the writings of others, and whom Aristotle credits with disregarding the physical universe, confining his study to moral questions and concentrating first upon definition.<sup class=\"fn\" data-fn=\"3\"></sup> Plato has him tell the court that the oracle at Delphi denied anyone was wiser, and that on questioning men of reputation he found himself wiser only in this, that what he did not know he did not think he knew.<sup class=\"fn\" data-fn=\"1\"></sup> He was tried on a charge of rejecting the gods the state acknowledged, bringing in strange deities and corrupting the youth, and was put to death by hemlock.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Peloponnesian_War": "The Peloponnesian War was fought from 431 to 404 BCE between Athens with its maritime empire and Sparta with the Peloponnesian League, most of the Greek world being drawn in on one side or the other.<sup class=\"fn\" data-fn=\"1\"></sup> Thucydides, who lived through it and wrote its history, treats it as one war of 27 years, holding that the interval of the Peace of Nicias cannot rationally be counted peace.<sup class=\"fn\" data-fn=\"1\"></sup> It ended with the Athenian fleet gone and the city surrendered on terms requiring the Long Walls and those of Piraeus to be pulled down, all but twelve ships given up, and Sparta followed by land and sea.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Peloponnesian_War": "The Peloponnesian War was fought from 431 to 404 BCE between Athens with its maritime empire and Sparta with the Peloponnesian League, most of the Greek world being drawn in on one side or the other.<sup class=\"fn\" data-fn=\"1\"></sup> Thucydides, who lived through it and wrote its history, treats it as one war of 27 years, holding that the interval of the Peace of Nicias cannot rationally be counted peace.<sup class=\"fn\" data-fn=\"1\"></sup> It ended with the Athenian fleet gone and the city surrendered on terms requiring the Long Walls and those of Piraeus to be pulled down, all but twelve ships given up, and Sparta followed by land and sea.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Philip_II_of_Macedon": "Philip II was king of Macedon from 359 to 336 BCE, taking the throne after a defeat that had left the kingdom exposed to the Illyrians and building it, in Diodorus' judgement, into the greatest of the dominions in Europe.<sup class=\"fn\" data-fn=\"1\"></sup> He remade the army, devising the compact order and equipment of the phalanx and fielding it alongside cavalry, archers, mercenaries and siege artillery in campaigns that Demosthenes complained kept no season for inaction.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Victory over the Athenians and Boeotians at Chaeronea in 338 BCE left him master of the Greek mainland, and two years later he was killed at a festival by a man nursing a private grievance.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2538,7 +2539,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Parthenon": "c. 447 – 432 BCE",
 "Greek_theatre": "c. 500 – 400 BCE",
 "Socrates": "died 399 BCE",
-"Peloponnesian_War": "431 – 404 BCE"
+"Peloponnesian_War": "431 – 404 BCE",
+"Philip_II_of_Macedon": "382 – 336 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5406,7 +5408,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Parthenon": ["building","history","greece","art","religion","classical"],
 "Greek_theatre": ["practice","art","history","greece","religion","classical"],
 "Socrates": ["person","philosophy","history","greece","classical"],
-"Peloponnesian_War": ["event","warfare","history","politics","greece","classical"]
+"Peloponnesian_War": ["event","warfare","history","politics","greece","classical"],
+"Philip_II_of_Macedon": ["ruler","person","history","warfare","politics","greece","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
