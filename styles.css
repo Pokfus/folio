@@ -2090,6 +2090,15 @@ body.grading .stage{padding-bottom:150px;}
 .pic-frame{margin:0 0 20px; background:var(--paper-2); border:1px solid var(--rule); border-radius:12px; overflow:hidden; display:grid; place-items:center; min-height:200px;}
 .pic-img{display:block; width:100%; max-height:46vh; object-fit:contain;}
 /* a link that has rotted — there is no upload path here, so every picture is somebody else's URL */
+/* THE PICTURE IS ENLARGEABLE ONLY ONCE THE ANSWER IS OUT (Sep 2026, on request). The class is added by
+   the reveal, never by the markup, and it carries the cursor and the zoom mark alone — `.card-img`, the
+   frame the rest of the site enlarges from, would also impose its 16:9 box and reshape the picture under
+   the reader at the moment of the reveal. */
+.pic-frame.pic-open{position:relative; cursor:zoom-in;}
+.pic-frame.pic-open:hover .ci-zoom{opacity:1;}
+.pic-frame.pic-open:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* the artefact's own five sentences, and the works they rest on, under the reveal */
+.pic-note{margin-bottom:10px;}
 .pic-frame.pic-dead::after{content:"This picture didn’t load"; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); padding:40px 16px;}
 .pic-frame.pic-dead .pic-img{display:none;}
 .pic-cap{font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs)); line-height:1.35; margin:0 0 6px;}

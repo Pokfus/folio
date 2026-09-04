@@ -122,7 +122,6 @@ function poolBody(name, endAt) {
 const FED = [
   ["buildChallengeQuestions", "return chosen.map", "Multiple Choice"],
   ["chronoPool", "function hashStr", "Timeline"],
-  ["picturePool", "function dailyPictureRounds", "Picture round"],
 ];
 for (const [fn, end, label] of FED) {
   const body = poolBody(fn, end);
@@ -130,6 +129,18 @@ for (const [fn, end, label] of FED) {
   if (!body) continue;
   ok(/gameCardIdSet\(\)/.test(body), label + " draws from gameCardIdSet()");
   ok(!/availableCardIdSet\(\)/.test(body), label + " does NOT draw the unfiltered set");
+}
+/* THE PICTURE ROUND LEFT THIS TABLE IN SEP 2026, on the request that it use artefact pictures alone: its
+   pool is `artefactsMerged()` now, so there is no card for the difficulty bar to filter and asserting it
+   draws through `gameCardIdSet()` would assert a rule that no longer applies to it — the same move the
+   crossword made below. The pair that replaces it is that it draws from the artefacts and reaches for
+   neither the cards nor the glossary, a silent reversion being a game that deals a flag under a country
+   again. */
+{
+  const body = poolBody("picturePool", "function dailyPictureRounds");
+  ok(!!body && /artefactsMerged\(\)/.test(body), "Picture round draws from artefactsMerged()");
+  ok(!!body && !/gameCardIdSet\(\)/.test(body) && !/CARDS\.forEach/.test(body), "Picture round no longer draws from the cards");
+  ok(!!body && !/threadEasyKeys\(\)/.test(body) && !/glossImage\(/.test(body), "Picture round no longer draws from the glossary");
 }
 /* Timeline and What year? once shared `chronoPool`. What year? has its own pool now, so the assertion is
    that it no longer reaches for the cards at all — a silent reversion would bring back a game that asks

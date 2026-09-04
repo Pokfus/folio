@@ -635,6 +635,16 @@ function crosswordForPage(clueIds) {
       !/Plate \d/.test(round.body) && !/A description naming/.test(round.body) && !/example\.org/.test(round.html),
       round.body.slice(0, 80));
 
+    /* THE PICTURE IS NOT ENLARGEABLE BEFORE THE GUESS (Sep 2026, on request), and the reason is the same
+       one that holds the caption back: the viewer's own meta bar carries the title and the credit, both of
+       which name the subject, so a frame that opened here would hand the answer over in one tap. Clicked
+       for real rather than inspected for a class — a handler wired in the wrong place would leave the
+       class off and still open the viewer. */
+    await page.click(".pic-frame");
+    await page.waitForTimeout(250);
+    check("[pic] …and the picture cannot be enlarged until the answer is out",
+      await page.evaluate(() => !document.querySelector(".img-viewer") && !document.querySelector(".pic-frame.pic-open")));
+
     await page.click("#picOpts .opt");
     await page.waitForTimeout(300);
     const rev = await page.evaluate(() => ({
@@ -647,6 +657,55 @@ function crosswordForPage(clueIds) {
     check("[pic] …the guess reveals the answer, its caption and its credit as a link",
       /correct|not quite/i.test(rev.verdict) && /Plate \d/.test(rev.cap) && /^https:\/\/example\.org\//.test(rev.credit) && rev.marked === 1,
       JSON.stringify({ cap: rev.cap, credit: rev.credit }));
+    /* THE ARTEFACT'S OWN FIVE SENTENCES, AND THE WORKS THEY REST ON (Sep 2026, on request: "below it
+       should show that Artefacts background paragraph with citations"). Three things have to be true at
+       once and each fails on its own: the paragraph is there, the fold under it lists the artefact's real
+       sources, and the markers in the prose have been NUMBERED by `wireFootnotes` — an unwired marker is
+       an empty superscript that prints its own `data-fn` through a stylesheet rule, which looks right and
+       links nowhere. */
+    const cite = await page.evaluate(() => {
+      const note = document.querySelector(".pic-note");
+      const marks = [...document.querySelectorAll(".pic-note sup.fn")];
+      return {
+        note: !!note && note.textContent.trim().length > 80,
+        items: document.querySelectorAll("#picReveal .src-item").length,
+        marks: marks.length,
+        linked: marks.filter((m) => m.textContent.trim() || m.querySelector("a, button")).length,
+      };
+    });
+    check("[pic] …with the artefact's own paragraph and the works it rests on",
+      cite.note && cite.items >= 3 && cite.marks > 0 && cite.linked === cite.marks, JSON.stringify(cite));
+    /* …AND NOW THE PICTURE OPENS, with the three things the request names on it. */
+    await page.click(".pic-frame");
+    await page.waitForTimeout(300);
+    const viewer = await page.evaluate(() => {
+      const v = document.querySelector(".img-viewer");
+      const out = { open: !!v, title: (document.querySelector(".iv-title") || {}).textContent || "",
+                    desc: (document.querySelector(".iv-desc") || {}).textContent || "",
+                    credit: (document.querySelector(".iv-credit") || {}).textContent || "" };
+      const c = document.querySelector(".iv-close"); if (c) c.click();
+      return out;
+    });
+    check("[pic] …and the picture now enlarges, with its title, description and source",
+      viewer.open && /Plate \d/.test(viewer.title) && /A description naming/.test(viewer.desc) && /example\.org/.test(viewer.credit),
+      JSON.stringify(viewer));
+
+    /* A ROUND ANSWERED STAYS ANSWERED (Sep 2026, on a bug report: leaving the game half way and coming
+       back dealt the same questions again with the answers now known). The reader leaves WITHOUT pressing
+       Next, which is the case a record kept only on the way out of a round would miss. */
+    await page.evaluate(() => { location.hash = "#home"; });
+    await page.waitForTimeout(700);
+    await page.evaluate(() => { location.hash = "#picture"; });
+    await page.waitForTimeout(800);
+    const back = await page.evaluate(() => ({
+      h1: (document.querySelector("h1") || {}).textContent.replace(/\s+/g, " ").trim(),
+      answered: document.querySelectorAll(".tf-pip.ok, .tf-pip.no").length,
+      stored: (((JSON.parse(localStorage.getItem("folio_v1") || "{}").games) || {}).picture || {}).prog,
+    }));
+    check("[pic] …and leaving half way resumes where it left off rather than dealing it again",
+      /Round 2 \/ 5/.test(back.h1) && back.answered === 1 && Array.isArray(back.stored) && back.stored.length === 1,
+      JSON.stringify(back));
+
     /* A LINK THAT HAS ROTTED. There is no upload path here — every picture is somebody else's URL — so a
        404 is a certainty rather than an edge case, and it must read as a broken link rather than as an
        empty frame the reader is being asked to name. Driven by firing the event at the frame on the page
@@ -662,12 +721,15 @@ function crosswordForPage(clueIds) {
     check("[pic] …and a picture that will not load says so rather than showing an empty frame",
       dead.marked && dead.hidden, JSON.stringify(dead));
 
-    // play it out: five rounds, a score, and a summary row per round
-    for (let i = 0; i < 5; i++) {
-      const n = await page.$("#pic-next"); if (!n) break;
+    /* Play it out from wherever the resume left us: answer if a round is open, advance if a reveal is.
+       Written as a pair rather than as "next then answer" because the run is resumed mid-way now and the
+       first thing on the page is a question rather than a reveal. */
+    for (let i = 0; i < 12; i++) {
+      const o = await page.$("#picOpts .opt:not([disabled])");
+      if (o) { await o.click(); await page.waitForTimeout(200); }
+      const n = await page.$("#pic-next");
+      if (!n) break;
       await n.click(); await page.waitForTimeout(250);
-      const o = await page.$("#picOpts .opt"); if (!o) break;
-      await o.click(); await page.waitForTimeout(200);
     }
     const done = await page.evaluate(() => ({
       h1: (document.querySelector("h1") || {}).textContent.replace(/\s+/g, " ").trim(),

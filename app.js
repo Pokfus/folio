@@ -9666,6 +9666,14 @@
     coast_italy: { files: ["coast/italy.js"], after: hiresCoastIngest },
     coast_greece: { files: ["coast/greece.js"], after: hiresCoastIngest },
     coast_china: { files: ["coast/china.js"], after: hiresCoastIngest },
+    /* HI-RES RIVERS for the same two frames (Sep 2026, on request). Their own bundles rather than files
+       inside coast_italy / coast_greece: the coast is what a window is drawn ON and the rivers are a layer
+       over it, the coast files are warmed for China too where there is no river file, and a reader on a
+       thin connection who gets one and not the other still has a better map than before. Warmed at IDLE by
+       the locator windows of the collection that frames it, never awaited — the card paints on rivers.js
+       and the water sharpens when the file lands. ~89 KB and ~47 KB. */
+    river_italy: { files: ["rivers/italy.js"], after: hiresRiverIngest },
+    river_greece: { files: ["rivers/greece.js"], after: hiresRiverIngest },
     /* The glossary's citations + illustrations. Warmed at IDLE after boot (see the warm below) rather
        than fetched on the first popup, because popups are common and a reader should not wait: the
        point is only to keep 1.29 MB off the path that blocks first paint. openGlossWin awaits it for
@@ -28736,6 +28744,23 @@
      state of 0.44 km² — which on any card framing Rome is a square nobody asked about. Italy's polygon
      has no hole there, so leaving the shape out leaves the land whole. */
   const CMAP_SKIP = { Vatican: true };
+  /* THE COLLECTION'S HOME CITY, ON EVERY MAP IN IT (Sep 2026, on request: "Rome should always be visible
+     in the Roman collection, with a slightly larger red square as icon, and Athens should have the same in
+     the Ancient Greek collection"). Every other red mark on a locator's map is EARNED — a sibling appears
+     once its card has been studied — so a reader three cards into Ancient Rome sees the Mediterranean with
+     one gold mark on it and nothing to place it against. The city the whole collection is about is the one
+     fixed point worth giving them, and it is drawn whether or not any card has taught it.
+     ITS COORDINATE IS DECLARED HERE RATHER THAN LOOKED UP, and that is not laziness about generated data:
+     the two obvious sources both fail the word ALWAYS. cities.js is the `atlas` bundle, warmed at idle, so
+     a mark taken from it would be absent for the first second of every card; and the collection's own
+     locators would give Rome (39 cards stand `within` it) and NOT Athens, which no Greek card has yet.
+     Two cities, each named beside its own numbers, is a table a reader of this file can check.
+     A SQUARE, because that is the mark this window already gives a seat of government, and larger than a
+     sibling's dot because it is the one place on the map that is there by right. */
+  const CMAP_ANCHOR = {
+    "col-40": { n: "Rome", c: [12.4964, 41.9028] },
+    "col-13": { n: "Athens", c: [23.7275, 37.9838] },
+  };
   function hiresCoastIngest() {
     const q = window.HIRES_COAST_IN;
     if (!Array.isArray(q)) return;
@@ -28746,6 +28771,25 @@
       const m = new Map();
       e.shapes.forEach((sh) => { if (sh && sh.n && sh.r && typeof sh.r === "object") m.set(sh.n, sh.r); });
       window.HIRES_COAST[e.region] = m;
+    }
+  }
+  /* THE FRAME'S HI-RES RIVERS (Sep 2026, on request: "Rivers in Italy in the Roman deck and Greek rivers
+     in the Greek deck should have a much higher resolution on the atlas windows, and there should be more
+     of them"). The coast's sibling, and deliberately a REPLACEMENT rather than the coast's splice: a
+     coastline is spliced ring by ring because a land border is shared with a neighbour and a hi-res copy
+     over the low-res one doubles it, where a river shares nothing and can simply be drawn instead. So the
+     file names the rivers.js entries it takes over (`supersede`) and carries them, plus the ones rivers.js
+     never had — the European supplement's Arno, Volturno, Acheloos and Haliacmon among them. A river is
+     replaced WHOLE and never clipped to the frame: the two chains are up to 5 km apart, and a box edge
+     inside a card's opening view would show the jog. See .claude/build-hires-rivers.js. */
+  function hiresRiverIngest() {
+    const q = window.HIRES_RIVER_IN;
+    if (!Array.isArray(q)) return;
+    window.HIRES_RIVER = window.HIRES_RIVER || {};
+    while (q.length) {
+      const e = q.shift();
+      if (!e || !e.region || !Array.isArray(e.rivers)) continue;
+      window.HIRES_RIVER[e.region] = { sup: new Set(Array.isArray(e.supersede) ? e.supersede.map(String) : []), rivers: e.rivers };
     }
   }
   /* A LOCATOR has no shape to read a zoom off, so it takes one: about a 50° window, which puts Knossos in
@@ -28873,6 +28917,18 @@
        and thrown away when a different bundle object lands — a per-frame map over 117,000 vertices is not
        something a drag can afford. Before the bundle arrives it is world.js's own rings, untouched. */
     const hiRegion = sibCard ? (CMAP_HIRES[(cardCollectionRoot(sibCard) || {}).id] || "") : "";
+    /* The collection's home city (see CMAP_ANCHOR) — dropped on the card that IS that city, or on one
+       standing inside it, where the answer's own gold mark is already there and a red square beside it
+       would be a second name for one place. */
+    const anchor = (() => {
+      const a = sibCard ? CMAP_ANCHOR[(cardCollectionRoot(sibCard) || {}).id] : null;
+      if (!a) return null;
+      const k = a.n.toLowerCase();
+      if (locWithin === k) return null;
+      const me = sibCard ? cardLocator(CARD_BY_ID[sibCard]) : null;
+      if (me && String(me.name || "").trim().toLowerCase() === k) return null;
+      return a;
+    })();
     let hiFor = null, hiCache = null;
     function effRings(g) {
       const HI = hiRegion && window.HIRES_COAST ? window.HIRES_COAST[hiRegion] : null;
@@ -28885,6 +28941,21 @@
         hiCache.set(g, r);
       }
       return r;
+    }
+    /* THE RIVERS THIS WINDOW DRAWS: rivers.js with the frame's hi-res set swapped in — the superseded
+       entries dropped and the region's own appended, so a river is never drawn twice and the map gains the
+       ones the world file leaves out. Memoised on the pair of tables rather than rebuilt per frame: this
+       runs on a globe the reader is dragging. Before the bundle lands it is rivers.js, untouched. */
+    let rivHi = null, rivLow = null, rivList = null;
+    function effRivers() {
+      const LOW = window.RIVERS || [];
+      const HR = hiRegion && window.HIRES_RIVER ? window.HIRES_RIVER[hiRegion] : null;
+      if (!HR) return LOW;
+      if (rivHi !== HR || rivLow !== LOW) {
+        rivHi = HR; rivLow = LOW;
+        rivList = LOW.filter((r) => !HR.sup.has(String(r.n))).concat(HR.rivers);
+      }
+      return rivList;
     }
     let rotLon = 0, rotLat = 0, zoom = 1, homeLon = 0, homeLat = 0, homeZoom = 1;
     let W = 0, H = 0, cx = 0, cy = 0, R = 0, baseR = 0, dpr = 1;
@@ -29249,7 +29320,7 @@
           if (fits(left)) { placed.push(left); return { x: x - 8, align: "right" }; }
           return null;
         };
-        const RIV = window.RIVERS || [];
+        const RIV = effRivers();
         /* Only a card whose own answer is a river has anything to look up, and this loop runs 1,073 times
            a frame on a globe being dragged — so the lowercasing is skipped outright for every other card
            rather than done and thrown away. */
@@ -29332,6 +29403,8 @@
             if (!S.cards || !S.cards[d.id]) continue;
             const key = String(d.within || d.n || "").trim().toLowerCase();
             if (!key || (locWithin && key === locWithin)) continue;
+            // the home city has its own, larger mark below, drawn studied or not
+            if (anchor && key === anchor.n.toLowerCase()) continue;
             const isCity = !d.within || String(d.n || "").trim().toLowerCase() === key;
             let g = groups.get(key);
             if (!g) { g = { n: d.within || d.n, c: d.c, kind: d.kind, city: isCity }; groups.set(key, g); }
@@ -29344,8 +29417,14 @@
             sibAt.push([PX, PY, g.n, g.kind]);
           });
         }
-        const nearSib = (x, y) => { for (let j = 0; j < sibAt.length; j++) if (Math.abs(sibAt[j][0] - x) < 7 && Math.abs(sibAt[j][1] - y) < 7) return true; return false; };
-        const capAt = [];
+        /* Where the home city falls, if it is on this side of the globe. Taken before the capitals are
+           drawn, so the grey square underneath it can stand aside for it exactly as it does for a
+           sibling — two marks on one city say less than either. */
+        let anchorAt = null;
+        if (anchor) { proj(anchor.c[0], anchor.c[1]); if (PV >= 0 && PX > -20 && PY > -20 && PX < W + 20 && PY < H + 20) anchorAt = [PX, PY]; }
+        const nearSib = (x, y) => {
+          if (anchorAt && Math.abs(anchorAt[0] - x) < 7 && Math.abs(anchorAt[1] - y) < 7) return true;
+          for (let j = 0; j < sibAt.length; j++) if (Math.abs(sibAt[j][0] - x) < 7 && Math.abs(sibAt[j][1] - y) < 7) return true; return false; };
         const CTS = window.CITIES || [];
         if (CTS.length) {
           /* Capitals, million-plus cities and division capitals — `r` 0, 1 and 2, exactly the three the
@@ -29372,9 +29451,14 @@
              displayed with a prominent square icon instead of a dot"), the mark every atlas gives a seat
              of government; the million-plus cities keep their quiet dots. A capital that sits under one of
              the collection's own marks is not drawn — the red mark says more about it than the square
-             would, and two marks on one pixel read as neither. Its NAME is set after the collection's
-             names have taken their places, in a smaller, quieter face, so a capital is labelled wherever
-             there is room and never at a card's expense. */
+             would, and two marks on one pixel read as neither.
+             THE SQUARE IS ALL OF IT — A MODERN CAPITAL IS NOT NAMED HERE (Sep 2026, on request: "modern
+             capitals should not have their text labels shown, only their squares"). They were named once
+             the frame was a region rather than a continent, which on a card about the Roman Republic put
+             Tirana, Valletta and Podgorica in the same face and the same weight as the places the
+             collection teaches — a map of modern states with a history card's marks on it. The square
+             still gives the reader the seat of government to place a site against, which is what this
+             layer is for; the words on this map belong to the collection. */
           const tierZ = zoom >= CMAP_ZLOC * 1.75 ? 1 : 0;
           for (let i = 0; i < CTS.length; i++) {
             const ct = CTS[i], r = ct.r | 0;
@@ -29387,7 +29471,6 @@
               const q = 2.7;
               ctx.fillStyle = rgbaOf("#000000", 0.74); ctx.fillRect(PX - q, PY - q, q * 2, q * 2);
               ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#ffffff", 0.9); ctx.strokeRect(PX - q, PY - q, q * 2, q * 2);
-              capAt.push([PX, PY, ct.n]);
             } else {
               ctx.beginPath(); ctx.arc(PX, PY, 1.5, 0, Math.PI * 2);
               ctx.fillStyle = rgbaOf("#000000", 0.2); ctx.fill();
@@ -29421,6 +29504,21 @@
             ctx.lineWidth = 1; ctx.strokeStyle = rgbaOf("#ffffff", 0.75); ctx.stroke();
           }
         }
+        /* …and the collection's home city over them, a red square rather than a dot and a little bigger
+           than one (see CMAP_ANCHOR). Its name is set BEFORE the siblings take their boxes, so the one
+           mark that is on every map in the collection is also the one that is always labelled. */
+        if (anchorAt) {
+          const q = 4.4;
+          ctx.fillStyle = "rgba(200,69,60,.92)"; ctx.fillRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2);
+          ctx.lineWidth = 1.2; ctx.strokeStyle = rgbaOf("#ffffff", 0.8); ctx.strokeRect(anchorAt[0] - q, anchorAt[1] - q, q * 2, q * 2);
+          ctx.font = "600 11.5px " + font; ctx.textBaseline = "middle";
+          const at = placeLabel(anchorAt[0], anchorAt[1], anchor.n, 8);
+          if (at) {
+            ctx.textAlign = at.align;
+            ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(anchor.n, at.x, anchorAt[1]);
+            ctx.fillStyle = ink; ctx.fillText(anchor.n, at.x, anchorAt[1]);
+          }
+        }
         ctx.font = "500 11px " + font; ctx.textBaseline = "middle";
         for (let i = 0; i < sibAt.length; i++) {
           /* EVERY NAME ON THIS MAP OPENS ON A CAPITAL (Aug 2026, on request: "All locations in the atlas
@@ -29437,23 +29535,6 @@
           ctx.textAlign = at.align;
           ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, at.x, sibAt[i][1]);
           ctx.fillStyle = ink; ctx.fillText(nm, at.x, sibAt[i][1]);
-        }
-        /* …and the capitals' names, where the collection's have left room — but only once the frame is a
-           region rather than a continent. At the Roman Republic's opening view, which is the whole
-           Mediterranean, every capital from Nassau to Colombo is in the window and naming them all made a
-           map about the Republic read as a map of modern states; the squares stay, the names wait for the
-           reader to come closer. ~3.5 is a window of about 55 degrees, the locator's own opening size. */
-        if (capAt.length && zoom >= 3.5) {
-          ctx.font = "500 10px " + font;
-          for (let i = 0; i < capAt.length; i++) {
-            const nm = gameCapFirst(capAt[i][2]);
-            if (!nm) continue;
-            const at = placeLabel(capAt[i][0], capAt[i][1], nm, 6);
-            if (!at) continue;
-            ctx.textAlign = at.align;
-            ctx.lineWidth = 3; ctx.strokeStyle = halo; ctx.strokeText(nm, at.x, capAt[i][1]);
-            ctx.fillStyle = rgbaOf(ink, 0.72); ctx.fillText(nm, at.x, capAt[i][1]);
-          }
         }
       }
       /* ---------- A RANGE IS A ROW OF MOUNTAINS ALONG ITS SPINE (Aug 2026, on request: "it should not
@@ -29696,6 +29777,8 @@
       whenIdle(() => { if (!stopped) ensureData("atlas").then(() => { if (!stopped) schedule(); }); });
       // …and the frame's hi-res coast, on the same bargain (see CMAP_HIRES)
       if (hiRegion) whenIdle(() => { if (!stopped) ensureData("coast_" + hiRegion).then(() => { if (!stopped) { hiFor = null; schedule(); } }); });
+      // …and its hi-res rivers, where the frame has a set (Italy and Greece; China has none)
+      if (hiRegion && DATA_BUNDLES["river_" + hiRegion]) whenIdle(() => { if (!stopped) ensureData("river_" + hiRegion).then(() => { if (!stopped) schedule(); }); });
     }
     host.classList.add("mc-loading");
     /* The points table is a THIRD bundle, and only where this card asks for a dot — see `pointsBundle`
@@ -30685,6 +30768,34 @@
      crossword is one: its answers turn green as they are found rather than being revealed by a check, so
      there is nothing an unfinished grid could give away and no reason to shut a reader out of a puzzle
      they have half done. Every other game reveals its answers as it is played and is spent when it ends. */
+  /* ---------- A ROUND ANSWERED STAYS ANSWERED (Sep 2026, on a bug report) ----------
+     A daily game is played once and its rounds are the same for every reader, so a run left half way is
+     still that reader's run: leaving the page and coming back must resume it rather than deal the same
+     questions again with the answers now known. The record rides in `S.games[key]` — the row that already
+     holds today's date, score and lock, is already a PROGRESS_FIELD and so already syncs — as `prog`, an
+     array of booleans, one per round answered. Three things follow.
+     · **THE DATE ON THE ROW IS WHAT SCOPES IT.** `markGamePlayed` already replaces the row when the day
+       turns, so a stale `prog` from yesterday can never be read as today's — and `gameProgress` checks
+       the date itself, for the reader who leaves a game open across their own day boundary.
+     · **IT HOLDS THE OUTCOMES, NOT THE INDEX.** The count is the round to resume at and the trues are the
+       score, so the two can never come to disagree; an index alone could not restore the score at all.
+     · **IT IS CLEARED WHEN THE RUN FINISHES**, where the lock takes over. A finished game reads its score
+       off the row like every other, and a `prog` left behind would be a resume point inside a run that
+       is over. */
+  function gameProgress(key) {
+    const g = (S.games && S.games[key]) || null;
+    if (!g || g.date !== todayStr() || !Array.isArray(g.prog)) return null;
+    return g.prog.map((x) => !!x);
+  }
+  function setGameProgress(key, results) {
+    if (!S.games) S.games = {};
+    const t = todayStr();
+    let g = S.games[key];
+    if (!g || g.date !== t) g = { date: t, played: false, won: false };
+    if (results && results.length) g.prog = results.map((x) => !!x); else delete g.prog;
+    S.games[key] = g;
+    save();
+  }
   function gameLockedToday(root, key, opts) {
     if (!gamePlayedToday(key)) return false;
     if (opts && opts.untilSolved && !gameWonToday(key)) return false;
@@ -32185,95 +32296,68 @@
   /* ============================================================
      PAGE: PICTURE ROUND (name what is in the picture)
      ============================================================
-     Five pictures, four options each, drawn from every illustration Folio holds — a card's, a glossary
-     term's or an artefact's — so a picture added anywhere feeds the game without a second registry.
+     Five pictures, four options each, drawn from the ARTEFACTS and from nothing else (Sep 2026, on
+     request) — see picturePool below for what left the pool and why.
 
-     TWO FILTERS NARROW THAT (Aug 2026, on request) and both are documented where they are applied: the
-     DIFFICULTY bar now reaches the glossary half as well as the cards, and a subject whose picture can
-     only EXEMPLIFY it — a state, a period, an abstraction — is out. Measured over the shipped corpus the
-     pool is 157, against a floor of 8; the placard below is what a starved pool gets instead of a bad
-     round, and it was the whole of this game for the fortnight before the picture pass ran.
-
-     TWO THINGS ARE DELIBERATE ABOUT WHAT IS SHOWN. The picture's own TITLE, DESCRIPTION AND CREDIT are
+     THREE THINGS ARE DELIBERATE ABOUT WHAT IS SHOWN. The picture's own TITLE, DESCRIPTION AND CREDIT are
      held back until the guess is in — every one of them names the subject, so showing the credit up front
      would hand over the answer in a link, and the site's rule is that a picture is credited, not that it
-     is credited before it is useful. And the DECOYS are other real subjects from the same pool rather than
-     invented ones, which is the rule Who said it? already follows: three plausible wrong answers teach
-     something, three obvious ones teach nothing. */
+     is credited before it is useful. THE PICTURE IS NOT ENLARGEABLE UNTIL THEN EITHER, and for the same
+     reason rather than for tidiness: the viewer's own caption bar carries the title and the credit, so a
+     frame that opened before the guess would hand the answer over in one tap. And the DECOYS are other
+     real subjects from the same pool rather than invented ones, which is the rule Who said it? already
+     follows: three plausible wrong answers teach something, three obvious ones teach nothing.
+
+     A ROUND ANSWERED STAYS ANSWERED (Sep 2026, on a bug report: "halfway through the minigame i could go
+     back to the home page, re enter the game, and start from the first question again and get it right
+     this time"). Every daily game is played once and this one held its place in a CLOSURE, so leaving the
+     page threw it away and the one-play lock — which is only set when a run FINISHES — had nothing to say
+     about a run abandoned half way. The answered rounds are written to `S.games.picture.prog` as they are
+     answered (see gameProgress / setGameProgress), so re-entering resumes at the round the reader left
+     rather than at the first, and the score they have already earned is theirs whether they come back or
+     not. */
   const PIC_ROUNDS = 5, PIC_OPTS = 4, PIC_MIN_POOL = 8;
-  /* A SUBJECT WHOSE PICTURE CAN ONLY EXEMPLIFY IT IS NOT A PICTURE ROUND (Aug 2026, on request: "states,
-     time periods or abstract terms should not appear … those pictures are unlikely to be interpreted as
-     their larger general meaning"). The game works when the picture DEPICTS its subject — point at it and
-     say "that is a hand-axe", "that is Ur", "that is Homo erectus". It fails when the picture is one
-     instance standing for a class: a hand-axe under "Acheulean", a temple under "Classical antiquity", a
-     flag under a country. Both are perfectly good illustrations and only one of them is a question.
-     The test is the subject's KIND — the first of its tags, which is the vocabulary `GLOSSARY_TAGS` and
-     `card.tags` are already written in — and the list is DECLARED rather than derived, because "does this
-     picture depict or exemplify?" is a judgement about a category and not something a rule can read off a
-     record. Three of the twelve are the request's own words (`state`, `era`, `concept`); the rest are the
-     same shape (`practice`, `theory`, `institution`, `title`, `language`, `symbol`) or a class of objects
-     rather than an object (`industry`, `culture`, `people` — the Acheulean is not a hand-axe).
-     What is NOT on it and could have been: `event` (a painting of a battle depicts the battle about as
-     well as a picture depicts anything), `hominin` and `fossil` (a skull IS the specimen), `text` (a
-     manuscript page IS the text). Those are kept because the request names three things and stretching a
-     principle past what it was asked for is how a filter starves its own game.
-     A subject whose kind cannot be read at all is KEPT, which is the safe direction — measured over the
-     shipped corpus it never happens today, the glossary fallback below covering every untagged card. */
-  const PIC_ABSTRACT_KINDS = new Set(
-    ("era,state,concept,theory,practice,institution,title,language,symbol,industry,culture,people").split(",")
-  );
+  /* ---------- IT IS THE ARTEFACTS, AND ONLY THE ARTEFACTS (Sep 2026, on request: "The game 'Picture
+     round' should only use pictures from artefacts") ----------
+     The pool used to be every illustration Folio holds — a card's, a glossary term's and an artefact's —
+     and the two halves that have gone were the ones this game kept having to apologise for. A card's or a
+     term's picture ILLUSTRATES its subject, which is a different thing from depicting it: a hand-axe under
+     `Acheulean`, a temple under `Classical antiquity`, a flag under a country. Two filters had grown up
+     around that — a declared list of abstract KINDS, and the difficulty bar reaching past the cards into
+     the glossary through `threadEasyKeys()` — and both are gone with the halves they were guarding, since
+     an ARTEFACT needs neither: it is a photograph of one object, the object is the answer, and there is
+     nothing to rate or to except. The whole of "does this picture depict its subject?" is now answered by
+     which table the picture came out of.
+     WHAT IT COSTS is the pool's size — 157 subjects to 99 — which is still an order above `PIC_MIN_POOL`
+     and buys a game where every round is the same KIND of question. `PIC_ABSTRACT_KINDS` is DELETED
+     rather than left standing over a pool it can no longer see, a filter nothing filters being the next
+     session's puzzle. */
   function picturePool() {
     const out = [], seen = new Set();
-    const add = (img, label, kind, gloss, tags, note) => {
-      if (!img || !img.src || !label) return;
-      const l = String(label).trim();
-      if (!l || seen.has(l.toLowerCase())) return;   // one entry per subject, or a round could offer the answer twice
-      const t = Array.isArray(tags) && tags.length ? tags : [kind];
-      if (PIC_ABSTRACT_KINDS.has(String(t[0] || "").toLowerCase())) return;
-      seen.add(l.toLowerCase());
-      /* `desc` DESCRIBES THE PICTURE AND `note` DESCRIBES THE SUBJECT, and conflating the two is what
-         made this game unteachable (Aug 2026, on request). Every entry already carried a `desc` and it
-         is the image's own caption — "Delineations on pieces of antler. Public domain, via Wikimedia
-         Commons." — which says what is in the photograph and nothing whatever about what the thing IS.
-         `note` is the subject's glossary entry (see gameAnswerNote), resolved from the LABEL, which is
-         the answer term for a card and the head word for a glossary subject. An ARTEFACT resolves to
-         nothing, having no glossary entry, and gets its own description instead — an artefact plate is
-         already three to five sentences about the object, which is exactly this. */
-      out.push({ src: img.src, label: l, title: img.title || "", desc: img.desc || "", credit: img.credit || "", alt: img.alt || "",
-                 kind: kind, gloss: gloss || "", note: note || "", tags: t });
-    };
-    /* EVERY SUBJECT DRAWN FROM THE CORPUS IS NOW UNDER THE DIFFICULTY BAR (Aug 2026, on request: "ensure
-       the Picture Round minigame uses only cards with level 1 or 2 difficulty rating"). The CARD half
-       always was, through `gameCardIdSet()`. The GLOSSARY half was not — `difficulty` is a card field and
-       this is the one game whose pool reaches past the cards — so a round could deal a term rated nowhere
-       at all, cold, with three specialist decoys beside it.
-       The rating a glossary term has not got is the rating of the CARD it answers, which the card→glossary
-       pairing rule guarantees exists, so the half goes through **`threadEasyKeys()`** — the very set Common
-       Thread built for its own version of this problem. One door, one bar, and a game added later reaches
-       for the same function rather than inventing a second rule. Measured over the shipped corpus: the
-       glossary half falls from 684 subjects to 96, and the pool as a whole to 157, comfortably above
-       `PIC_MIN_POOL`.
-       ARTEFACTS are deliberately NOT filtered and cannot be: an artefact is a photograph of one object,
-       which is the ideal subject for this game and the one kind of record with no difficulty to read. */
-    const easyGloss = threadEasyKeys();
-    /* Each entry carries the TAGS its subject is filed under, which is what lets a round's three wrong
-       answers be things of the same kind (Aug 2026, on request). They come from the two tables that
-       already hold them — a card's own `tags`, a glossary term's `GLOSSARY_TAGS` row — and an artefact,
-       which is filed under neither, is simply an artefact: that is one honest category rather than a
-       guess dressed up as several. */
-    const avail = gameCardIdSet();
-    /* A card with no tags of its own borrows its ANSWER TERM's, which is the same pairing the bar above
-       leans on — without it 26 illustrated cards have no readable kind, so the abstract filter cannot see
-       them and the kinship measure ranks their decoys on nothing. */
-    const idx = glossIndexFor(GLOSS_SCOPE_SITE);
-    const kindTags = (c) => {
-      if (Array.isArray(c.tags) && c.tags.length) return c.tags;
-      const k = idx && idx.byAnySurface ? idx.byAnySurface[String(c.answerText || "").trim().toLowerCase()] : null;
-      return k && !isDeckGlossKey(k) ? glossTags(k) : null;
-    };
-    CARDS.forEach((c) => { if (avail.has(c.id)) { const lc = cardLocalized(c); add(c.image, lc.answerText, "card", "", kindTags(c), gameAnswerNote(lc.answerText)); } });
-    easyGloss.forEach((k) => { if (!isDeckGlossKey(k)) add(glossImage(k), glossTitle(k), "gloss", k, glossTags(k), gameAnswerNote(glossTitle(k))); });
-    artefactsMerged().forEach((a) => add(a.image, a.name, "artefact", "", null, sanitizeHTML(String(a.desc || "").replace(/<sup class="fn"[^>]*><\/sup>/g, ""))));
+    artefactsMerged().forEach((a) => {
+      const img = a.image, label = String(a.name || "").trim();
+      if (!img || !img.src || !label || seen.has(label.toLowerCase())) return;
+      seen.add(label.toLowerCase());   // one entry per subject, or a round could offer the answer twice
+      /* THE THREE WRONG ANSWERS ARE STILL RANKED, and an artefact is filed under no tags at all, so two
+         are DERIVED from what an artefact does carry. `origin` matches only where two objects really
+         share one — most origins are a find-spot and a museum and so are unique, which costs nothing —
+         and the ERA bucket is what does the work: a Roman sword is then answered against other objects of
+         antiquity rather than against a medieval crown. Four buckets rather than a century, because the
+         point is a plausible neighbour and not a chronology. */
+      const y = artefactYear(a);
+      const era = y == null ? "" : y < -3000 ? "prehistory" : y < 500 ? "antiquity" : y < 1500 ? "medieval" : "modern";
+      const tags = ["artefact"];
+      if (era) tags.push(era);
+      if (a.origin) tags.push(String(a.origin).toLowerCase());
+      /* `note` IS THE ARTEFACT'S OWN BACKGROUND, MARKERS AND ALL (Sep 2026, on request: "below it should
+         show that Artefacts background paragraph with citations"). It used to be the same prose with every
+         `<sup class="fn">` stripped out, because the reveal had nowhere to put the works they point at;
+         it carries its `sources` beside it now and the reveal renders the site's own numbered fold under
+         the paragraph, so a reader can see what the five sentences rest on exactly as they can on the
+         artefact's own plate. */
+      out.push({ src: img.src, label: label, title: img.title || "", desc: img.desc || "", credit: img.credit || "",
+                 alt: img.alt || "", note: sanitizeHTML(String(a.desc || "")), sources: normSources(a.sources), tags: tags });
+    });
     return out;
   }
   function dailyPictureRounds() {
@@ -32307,8 +32391,12 @@
       return;
     }
     const ROUNDS = rounds.length;
-    let r = 0, score = 0; const results = [];
-    renderRound();
+    /* Where this reader left off today (see gameProgress). A run answered through to the end has no
+       record — the lock above is what answers for that — so anything here is a run to be resumed. */
+    const held = gameProgress("picture") || [];
+    const results = held.slice(0, ROUNDS);
+    let r = results.length, score = results.filter(Boolean).length;
+    if (r >= ROUNDS) renderEnd(); else renderRound();
 
     function pips() { return `<div class="tf-pips">${rounds.map((_, k) => `<span class="tf-pip ${k < r ? (results[k] ? "ok" : "no") : (k === r ? "cur" : "")}"></span>`).join("")}</div>`; }
     function renderRound() {
@@ -32353,22 +32441,59 @@
         if (options[i] === it.label) b.classList.add("correct");
         else if (b === btn) b.classList.add("wrong");
       });
+      /* THE PICTURE BECOMES ENLARGEABLE HERE AND NOT BEFORE (Sep 2026, on request: "clicking the image
+         should only work once the answer has been revealed"). It calls `openImageViewer` directly rather
+         than earning the `.card-img` class the delegated listener watches for: that class carries a fixed
+         16:9 frame and a `height:100%` on the picture inside it, so adopting it at the reveal would
+         RESHAPE the picture the reader is looking at — a crop and a jump at the exact moment they are told
+         what they were looking at. The frame keeps `.pic-frame`'s own shape and gains only the cursor, the
+         zoom mark and a tab stop.
+         Its title is the ARTEFACT's name where the file has none, which is what the plate shows too and
+         what a reader who has just been told the answer expects to see over the picture. */
+      const fig = root.querySelector(".pic-frame");
+      if (fig && !fig.classList.contains("pic-open")) {
+        fig.classList.add("pic-open");
+        fig.setAttribute("role", "button");
+        fig.setAttribute("tabindex", "0");
+        fig.setAttribute("title", "Click to enlarge");
+        fig.insertAdjacentHTML("beforeend", '<span class="ci-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg></span>');
+        const open = () => openImageViewer({ src: it.src, title: it.title || gameCapFirst(it.label), desc: it.desc || "", credit: it.credit || "", alt: it.alt || "" });
+        fig.addEventListener("click", open);
+        fig.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+      }
       const rev = root.querySelector("#picReveal"); rev.hidden = false;
       rev.innerHTML =
         '<div class="tf-verdict ' + (right ? "ok" : "no") + '">' + (right ? "Correct" : "Not quite") + " — it’s <b>" + esc(gameCapFirst(it.label)) + "</b></div>" +
         /* Order: what it is called, what it IS, then what this particular picture shows. `note` is the
-           subject's own entry and `desc` the photograph's caption — see the note field in picturePool.
-           `.pic-shows` is quieter than `.pic-cap` because it is now the third line rather than the
-           second, and a caption set as loud as the title reads as a second title. */
+           artefact's own five sentences and `desc` the photograph's caption — see the note field in
+           picturePool. `.pic-shows` is quieter than `.pic-cap` because it is now the third line rather
+           than the second, and a caption set as loud as the title reads as a second title.
+           THE CITATIONS COME WITH THE PARAGRAPH (Sep 2026, on request). It is the site's own apparatus —
+           `sourcesHTML` plus `wireFootnotes` — so the markers in the prose number themselves, the works
+           link, the access chips show and the jump works both ways, exactly as on the artefact's plate and
+           with no wiring of this game's own. */
         (it.title ? '<p class="pic-cap">' + esc(it.title) + "</p>" : "") +
-        (it.note ? '<p class="tf-why">' + it.note + "</p>" : "") +
+        (it.note ? '<div class="tf-why pic-note">' + it.note + "</div>" : "") +
+        (it.sources && it.sources.length ? sourcesHTML(it.sources) : "") +
         (it.desc ? '<p class="pic-shows">' + esc(it.desc) + "</p>" : "") +
         (it.credit ? '<p class="pic-credit">' + mediaCreditHTML(it.credit) + "</p>" : "") +
         '<button class="btn" id="pic-next">' + (r + 1 < ROUNDS ? "Next round" : "See results") + "</button>";
+      wireFootnotes(rev);
+      /* The answered round is written before the reader can leave it — the point of the record is the
+         reader who does not press Next at all. */
+      setGameProgress("picture", results.slice(0, r + 1));
       rev.querySelector("#pic-next").addEventListener("click", () => { r++; (r < ROUNDS) ? renderRound() : renderEnd(); });
     }
+    /* THE SUMMARY CARRIES THE PROSE WITHOUT ITS MARKERS. There is no source list on this screen — five
+       artefacts' lists under a score would be the page — and a marker with no entry behind it PRINTS ITS
+       OWN DIGIT (`sup.fn:empty::before`), so leaving them in would set stray numerals through five
+       paragraphs pointing at nothing. `wireFootnotes` removes such a marker where it runs, and it does
+       not run here; taking them out is the same answer one step earlier. */
+    function picNoteBare(note) { return String(note || "").replace(/<sup class="fn"[^>]*><\/sup>/g, ""); }
     function renderEnd() {
-      markGamePlayed("picture", score === ROUNDS, score, ROUNDS); save(); checkAchievements();
+      markGamePlayed("picture", score === ROUNDS, score, ROUNDS);
+      setGameProgress("picture", null);   // the run is over; the lock answers for it now
+      save(); checkAchievements();
       const msg = score === ROUNDS ? "Flawless — a good eye." : score >= ROUNDS - 1 ? "Sharp — nearly every one." : score >= Math.ceil(ROUNDS / 2) ? "Solid effort." : "Worth another look at the pictures.";
       root.innerHTML = `
         <div class="dc-shell">
@@ -32377,7 +32502,7 @@
           <div class="tf-summary">${rounds.map((rd, k) => `
             <div class="tf-sum-row">
               <span class="tf-sum-mark ${results[k] ? "ok" : "no"}">${results[k] ? "✓" : "✗"}</span>
-              <div><p class="tf-sum-q">${esc(gameCapFirst(rd.it.label))}</p><p class="tf-sum-a">${rd.it.note || esc(rd.it.title || "")}</p></div>
+              <div><p class="tf-sum-q">${esc(gameCapFirst(rd.it.label))}</p><p class="tf-sum-a">${picNoteBare(rd.it.note) || esc(rd.it.title || "")}</p></div>
             </div>`).join("")}</div>
           <p class="tf-tomorrow">Five fresh pictures arrive tomorrow.</p>
           <div class="tf-actions"><button class="btn ghost" id="pic-home">Home</button></div>
