@@ -1790,7 +1790,8 @@ window.GLOSSARY = {
 "Hadrians_Wall": "Hadrian's Wall was the frontier work the Romans drew across the north of the province of Britannia, given in both the inscriptions and the literary record as 80 Roman miles long.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A dedication from Jarrow says the necessity of keeping the empire within its limits had been laid on Hadrian by divine precept, and that the army of the province built the work under Aulus Platorius Nepos.<sup class=\"fn\" data-fn=\"1\"></sup> Building stones along the line record who raised each stretch, from a legion at a milecastle down to a single century credited with 112 Roman feet of rampart.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Marcus_Aurelius": "Marcus Aurelius was a Roman emperor whose reign was taken up by war on the Danube and by a pestilence brought home from the east, and who is remembered chiefly for a notebook of Stoic reflections he kept for himself.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> He wrote it not in Latin but in the language of the Greeks, and it survives in twelve books under a title meaning simply 'to himself'.<sup class=\"fn\" data-fn=\"2\"></sup> Dio judged that he did not meet the good fortune he deserved, being frail and beset by troubles, and admired him the more for bringing the empire through them.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Crisis_of_the_Third_Century": "The Crisis of the Third Century is the modern name for the years between 235 and 284 CE, when Roman emperors followed one another in rapid succession and rival regimes held parts of the empire. The Augustan History's life of the two Gallieni describes armies ranging about on all sides while a Roman emperor was held as a slave in Persia, Valerian having been taken alive by Sapor,<sup class=\"fn\" data-fn=\"1\"></sup> and its Thirty Pretenders names usurpers whose count its author reduces to 22.<sup class=\"fn\" data-fn=\"2\"></sup> Milestones in Britannia salute Postumus as emperor of a breakaway west,<sup class=\"fn\" data-fn=\"3\"></sup> and the crisis closed as Aurelian defeated Zenobia, recovered the east and walled the city of Rome.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Diocletian": "Diocletian was a Roman emperor who reorganised the state after a long stretch of usurpation and invasion, and who is remembered above all for sharing power rather than holding it alone. The Augustan History says the army acclaimed him in 284 CE, and that he then took Maximian as a fellow emperor and set Galerius and Constantius beneath them, so that there were two <i>Augusti</i> and two <i>Caesares</i>.<sup class=\"fn\" data-fn=\"1\"></sup> Lactantius, who wrote against him, describes an empire quartered between multiplying armies and officials, an edict fixing maximum prices that was abandoned, and an abdication outside Nicomedia<sup class=\"fn\" data-fn=\"2\"></sup> that an inscription dates to 1 May 305 CE.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Diocletian": "Diocletian was a Roman emperor who reorganised the state after a long stretch of usurpation and invasion, and who is remembered above all for sharing power rather than holding it alone. The Augustan History says the army acclaimed him in 284 CE, and that he then took Maximian as a fellow emperor and set Galerius and Constantius beneath them, so that there were two <i>Augusti</i> and two <i>Caesares</i>.<sup class=\"fn\" data-fn=\"1\"></sup> Lactantius, who wrote against him, describes an empire quartered between multiplying armies and officials, an edict fixing maximum prices that was abandoned, and an abdication outside Nicomedia<sup class=\"fn\" data-fn=\"2\"></sup> that an inscription dates to 1 May 305 CE.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Constantine_the_Great": "Constantine the Great was the Roman emperor who ended the persecution of the Christians, took the faith up himself, and founded the city that took his name. A milestone cut in Cornwall within a year of his accession styles him <i>nobilissimo Caesari</i> and son of the deified Constantius, the junior rank rather than the throne.<sup class=\"fn\" data-fn=\"1\"></sup> Lactantius quotes entire the letter he issued from Milan with Licinius, which gave Christians liberty to follow their worship and gave the same liberty to everyone else,<sup class=\"fn\" data-fn=\"2\"></sup> while Eusebius says he was baptised only as he lay dying.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2603,7 +2604,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Hadrians_Wall": "built from about 122 CE",
 "Marcus_Aurelius": "reigned 161-180 CE",
 "Crisis_of_the_Third_Century": "235-284 CE",
-"Diocletian": "reigned 284-305 CE"
+"Diocletian": "reigned 284-305 CE",
+"Constantine_the_Great": "reigned 32 years from 306 CE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3700,7 +3702,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Roman_Empire": ["Roman empire"],
 "Pax_Romana": ["Roman peace"],
 "Roman_roads": ["Roman road","Appian Way","Via Appia"],
-"Hadrians_Wall": ["Hadrian’s Wall","Hadrian's Wall"]
+"Hadrians_Wall": ["Hadrian’s Wall","Hadrian's Wall"],
+"Constantine_the_Great": ["Constantine I"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5519,7 +5522,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Hadrians_Wall": ["building","history","warfare","geography","rome","classical"],
 "Marcus_Aurelius": ["ruler","person","history","philosophy","politics","rome","classical"],
 "Crisis_of_the_Third_Century": ["era","history","politics","warfare","rome","classical"],
-"Diocletian": ["ruler","person","history","politics","warfare","rome","classical"]
+"Diocletian": ["ruler","person","history","politics","warfare","rome","classical"],
+"Constantine_the_Great": ["ruler","person","history","politics","religion","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
