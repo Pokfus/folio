@@ -1823,7 +1823,8 @@ window.GLOSSARY = {
 "Bangui": "Bangui is the capital and largest city of the Central African Republic, standing in the south of that middle African state on the Ubangi river. The United Nations Statistics Division names it as the capital and gives about 869,600 people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series that grows by more than a quarter across the decade and passes a million in 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Embassy Bangui was established on 10 February 1961, six months after independence and after relations had been opened from the American consulate in Brazzaville.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Wellington": "Wellington is the capital of New Zealand, standing in the south of the North Island on a harbour ringed by steep hills. It is not the country's largest city: the United Nations Statistics Division gives it about 413,000 people for 2019, where the World Bank's figure for the largest metropolitan area in the same year is 1,582,028, and that larger series keeps rising while the capital's does not close the gap.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American legation was established in the city on 1 April 1942, six weeks after the United States recognised New Zealand as running its own foreign relations, and became an embassy in 1948.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Muscat": "<b>Muscat</b> is the capital of Oman<sup class=\"fn\" data-fn=\"1\"></sup> and stands on the Gulf of Oman where the ridges of the Hajar mountains reach the coast, so that its settled ground lies in pockets between rock and water rather than spreading inland. Because the built-up area runs along that shore as a chain rather than around one centre, the population figure usually quoted is a regional one: the United Nations records about 1.50 million for 2019 and says in the same line that the count refers to the governorate of Muscat.<sup class=\"fn\" data-fn=\"1\"></sup> The World Bank's series for Oman's largest urban agglomeration gives 1,501,635 for that year and about 1.70 million for 2025.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Nouakchott": "<b>Nouakchott</b> is the capital of Mauritania<sup class=\"fn\" data-fn=\"1\"></sup> and stands on the Atlantic coast of Western Africa, on flat sand at the edge of the Sahara with no river and no high ground to contain it. It is among the fastest-growing capital cities in Africa: the World Bank's series for Mauritania's largest urban agglomeration rises from 1,057,796 in 2015 to 1,612,940 in 2025, more than half again in ten years.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations gives 1,259.0 thousand, a figure its own footnote dates to 2019 rather than to the heading of the column it appears under, and which matches the World Bank's 1,258,973 for that year almost exactly.<sup class=\"fn\" data-fn=\"1\"></sup>"
+"Nouakchott": "<b>Nouakchott</b> is the capital of Mauritania<sup class=\"fn\" data-fn=\"1\"></sup> and stands on the Atlantic coast of Western Africa, on flat sand at the edge of the Sahara with no river and no high ground to contain it. It is among the fastest-growing capital cities in Africa: the World Bank's series for Mauritania's largest urban agglomeration rises from 1,057,796 in 2015 to 1,612,940 in 2025, more than half again in ten years.<sup class=\"fn\" data-fn=\"2\"></sup> The United Nations gives 1,259.0 thousand, a figure its own footnote dates to 2019 rather than to the heading of the column it appears under, and which matches the World Bank's 1,258,973 for that year almost exactly.<sup class=\"fn\" data-fn=\"1\"></sup>",
+"San_José": "<b>San José</b> is the capital of Costa Rica<sup class=\"fn\" data-fn=\"1\"></sup> and lies in the interior highlands rather than on either of the country's coasts, spread across a valley floor with mountains around it. The United Nations gives its population as 1,378.5 thousand and states in the same row both what the figure counts, the urban population of cantons, and that it dates from 2019 rather than from the heading of its column.<sup class=\"fn\" data-fn=\"1\"></sup> The World Bank's series for Costa Rica's largest urban agglomeration gives 1,378,546 for that year and about 1.50 million for 2025, a rise of roughly a sixth across the decade.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3687,7 +3688,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Helsinki": ["Helsingfors"],
 "Oslo": ["Christiania","Kristiania"],
 "Bratislava": ["Pressburg"],
-"Dublin": ["Baile Átha Cliath"]
+"Dublin": ["Baile Átha Cliath"],
+"San_José": ["San Jose"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5539,7 +5541,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Bangui": ["place","city","geography","capital","central african republic"],
 "Wellington": ["place","city","geography","capital","new zealand"],
 "Muscat": ["place","city","geography","capital","oman","western asia"],
-"Nouakchott": ["place","city","geography","capital","mauritania","western africa"]
+"Nouakchott": ["place","city","geography","capital","mauritania","western africa"],
+"San_José": ["place","city","geography","capital","costa rica","central america"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
