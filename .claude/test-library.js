@@ -1552,16 +1552,22 @@ function aeneidChecks() {
       check("...divided into the edition's six Parts, each the right length",
         JSON.stringify(summa.parts) === JSON.stringify([119, 114, 189, 90, 99, 3]),
         JSON.stringify(summa.parts));
-      /* 3,094 until E38 restored question 35, whose eight articles stand where question 34's four
-         did: +4. A pinned total is exactly the assertion that ought to fire on a change like that,
-         and it did — so raise it deliberately, and never to whatever the run happens to print. */
-      check("...3,098 articles across them", summa.secs === 3098, String(summa.secs));
+      /* 3,094 until E38 restored question 35 (+4), then 3,098 until E39 read 27 article heads the
+         transcription had left as prose. A pinned total is exactly the assertion that ought to fire
+         on a change like either, and it did both times — so raise it deliberately, against a figure
+         derived from the edition, and never to whatever the run happens to print. */
+      check("...3,125 articles across them", summa.secs === 3125, String(summa.secs));
       check("...every chapter's articles ascending, with no duplicate",
         !summa.disorder.length, JSON.stringify(summa.disorder.slice(0, 6)));
-      check("[summa] the two questions with no article headings are the known two",
-        summa.none.join(",") === "147,551", summa.none.join(","));
-      check("[summa] no article heading left unread anywhere, bar the one the edition misnumbers",
-        summa.strayArt === 1, String(summa.strayArt));
+      /* Both of these were pinned to a fault rather than to a fact, and E39 removed the fault: I-II
+         q.28 and Supplement q.39 were "the two questions with no article headings" until their heads
+         — bare paragraphs and preformatted blocks — were read as headings, and the one stray head the
+         edition misnumbers went with the rest. Pinned to zero now, which is a fact about the book
+         rather than about how far the importer had got. */
+      check("[summa] every question has its article headings read",
+        summa.none.length === 0, summa.none.join(","));
+      check("[summa] no article heading is left unread anywhere",
+        summa.strayArt === 0, String(summa.strayArt));
       check("[summa] the seven notes the translators added, and their markers resolve",
         summa.notes === 7 && !summa.noteFaults.length,
         summa.notes + " — " + JSON.stringify(summa.noteFaults.slice(0, 4)));
@@ -2866,6 +2872,32 @@ function aeneidChecks() {
     check("[heads] ...and nothing romanised a second time",
       /Cao Pi|Tao Qian|Gan Ning/.test(titles) && !/Cao Bi|Dao Qian/.test(titles),
       (titles.match(/Cao Bi|Dao Qian/) || [""])[0]);
+
+    /* ================= 6i. the heads the transcription left as prose =================
+       Sep 2026, batch E39. Twenty-seven article heads across fourteen questions never became
+       headings at all — five spellings of one fault, none of which throws and all of which read as a
+       book: an escaped `==== Art. N - …`, the same with no closing run, the same inside a `<pre>`,
+       a head with no markup whatever, and a question whose article count is stated only in its own
+       prose. Asserted on the two extremes, which between them cover every spelling.
+
+       I-II q.28 had NO article numbers at all — six articles run together as one wall of prose — and
+       Supplement q.39 the same, its heads being preformatted blocks. Both fail silently: the chapter
+       renders, the words are all there, and only the numbering is gone. */
+    /* The book file is JavaScript, so its HTML attributes are written with escaped quotes; these
+       four read the unescaped form, which is what the page actually carries. */
+    const suH = su.replace(/\\"/g, '"');
+    check("[summa] I-II q.28's six articles are numbered",
+      /<span class="bk-n">6<\/span> <b>Whether love is cause of all that the lover does\?/.test(suH));
+    check("[summa] ...and Supplement q.39's six, whose heads were preformatted blocks",
+      /<span class="bk-n">6<\/span> <b>Whether lack of members should be an impediment\?/.test(suH));
+    /* AND NO ESCAPED HEADING IS LEFT STANDING IN THE PROSE — the shape that made this findable, and
+       the one a regression would put straight back. */
+    check("[summa] no article heading is left as literal wiki markup",
+      !/==== Art\./.test(su), (su.match(/==== Art\.[^<]{0,40}/) || [""])[0]);
+    /* III q.30 printed its first and fourth heads and nothing between; both middles are back. */
+    check("[summa] III q.30's annunciation articles 2 and 3 are back",
+      /<span class="bk-n">2<\/span> <b>Whether the annunciation should have been made by an angel/.test(suH) &&
+      /<span class="bk-n">3<\/span> <b>Whether the angel of annunciation should have appeared/.test(suH));
 
     /* ================= 6h. the question a second witness found missing =================
        Sep 2026, batch E38. Wikisource's Third Part serves question 33 under Question 34 and question

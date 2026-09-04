@@ -16334,6 +16334,119 @@ const ART_WORDS = {
   ELVEN: 11,
 };
 function markArticuli(b, warn) {
+  /* A HEADING THAT NEVER BECAME ONE, BECAUSE ITS TITLE WRAPPED (Sep 2026, batch E39). Ten article
+     heads across nine of the 614 questions stand in the prose as literal text —
+
+         <p><br />
+         ==== Art. 2 - Whether the annunciation should have been made by an angel to the Blessed
+         Virgin?====
+         </p>
+
+     — and the cause is visible in the second line: **a MediaWiki heading must be on one line**, and
+     the transcriber let the title wrap, so the closing `====` was on a line of its own and the
+     markup rendered as characters. The page therefore carries fewer headings than the question says
+     it has, the numbering falls back to the printed numbers, and the article after the gap goes
+     unnumbered — which is how III q.30 came to show articles 1 and 4 with nothing between them.
+
+     IT IS NORMALISED HERE RATHER THAN RECOGNISED DOWNSTREAM. Rewritten into the same heading div
+     the transcription's own headings carry, everything after this point — the role test, the
+     duplicate rule, the count agreement, the numbering, the marker carrying — works unchanged and
+     unaware. That is the whole reason to put it first: a second code path for a second spelling of
+     one thing is how the two come to disagree.
+
+     AND THE CLOSING RUN IS OPTIONAL, BECAUSE THE FAULT HAS TWO SPELLINGS. Five of the ten wrapped
+     as above; the other five carry no closing `====` at all — the transcriber typed the opening
+     marks and stopped — so a rule anchored on a closing run finds half of them and reports the
+     other half as prose. Written with the closing run required it repaired 6 numbers of the 10;
+     the pattern was widened only after the five survivors were read in the source and found to be
+     the same fault with the second half of its punctuation missing.
+
+     THE ANCHOR IS THE EQUALS SIGNS **AND** `Art.`, and both halves are load-bearing. The prose of
+     this book quotes plenty of things and none of them opens a paragraph with a run of `=`; but a
+     rule on the equals signs alone would also catch a stray one, and the three headings that open
+     on a spurious `=` are already handled by `plain()` below. Requiring the article marker as well
+     means this can only ever fire on something that is unmistakably an article head.
+
+     THE FAULT HAS THREE SPELLINGS AND EACH WAS FOUND ONLY BY READING THE SURVIVORS. Written for the
+     wrapped case it repaired 6 of the 10; widening the closing run to optional took it to 9; the
+     last is `<pre>==== Art. 6 - … ====</pre>`, the transcriber having begun the line with a SPACE,
+     which in wiki markup is a preformatted block. So the container is a `<p>` OR a `<pre>`, matched
+     by a backreference so an opening tag cannot be closed by the other. **Each survivor was read in
+     the SOURCE**: in the finished book all ten look identical, so a count taken from the output
+     would have said the rule was complete three separate times.
+
+     Measured over all 614 questions before it was written: ten paragraphs match, in nine questions,
+     and every one is an `Art. N -` head. The count is PRINTED on every run, for the reason the
+     dash-less headings are — a shape found by a number moving rather than by reading a page. */
+  let wrapped = 0;
+  b = b.replace(/<(p|pre)(?:\s[^>]*)?>\s*(?:<br\s*\/?>\s*)?(=+)\s*(Art\.[\s\S]{4,300}?)(?:=+\s*)?<\/\1>/g,
+    (whole, tag, eq, inner) => {
+    const t = inner.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+    if (!/^Art\.?\s*\d+/.test(t)) return whole;
+    wrapped++;
+    const lvl = Math.min(6, Math.max(2, eq.length));
+    return '<div class="mw-heading mw-heading' + lvl + '"><h' + lvl + ">" + t + "</h" + lvl + "></div>";
+  });
+  if (wrapped) warn && warn(wrapped + " article heading(s) stood in the prose as literal wiki markup " +
+    "rather than as headings, and have been read as headings");
+
+  /* AND A HEAD THAT WAS NEVER MARKED UP AT ALL (Sep 2026, batch E39). Two questions of the 614 —
+     I-II q.28 and Supplement q.39 — carry NO headings whatever: not a wrong one, not an escaped one,
+     nothing, so the pass above finds a page with a question, a prologue and six articles and no way
+     to tell where one article ends and the next begins. Four more carry a page of proper headings
+     with one or two heads left as plain paragraphs among them.
+
+     THE RULE COMES OUT OF THE WORK'S OWN INVARIABLE SHAPE rather than out of the markup: every
+     article of the Summa opens with its question and then, immediately, "Objection 1:". So a SHORT
+     paragraph ENDING IN A QUESTION MARK whose very next paragraph opens on that phrase is an article
+     head, whatever the transcription did or did not do to it.
+
+     MEASURED OVER THE WHOLE BOOK BEFORE IT WAS WRITTEN, AND THAT MEASUREMENT IS THE ARGUMENT: the
+     test matches 3,071 heads that are already numbered and exactly 16 that are not — and all 16 sit
+     in the six questions the book's own list of points of inquiry says are short of an article. A
+     rule with a 3,071-to-16 agreement rate with the existing numbering is not guessing.
+
+     IT IS DELIBERATELY NOT USED TO CHECK A HEAD THAT IS ALREADY MARKED UP. 38 numbered heads do not
+     open their next paragraph with an objection — the article answers a contrary first, or the
+     transcription runs the two together — and reading that as evidence of anything would turn a
+     finder of missing heads into a remover of real ones. It only ever ADDS.
+
+     A candidate standing immediately after a heading is skipped: there the heading is the head and
+     the paragraph would be a restatement of it. */
+  let bareHeads = 0;
+  {
+    /* A `<pre>` COUNTS AS A PARAGRAPH HERE, and Supplement q.39 is why: all six of its article heads
+       are preformatted blocks, the transcriber having begun each line with a space. Same fault as
+       the third spelling above, without the equals signs. The tag is matched by a backreference so
+       one kind cannot be closed by the other. */
+    const P = /<(p|pre)(?:\s[^>]*)?>([\s\S]*?)<\/\1>/g;
+    const flat = (x) => x.replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+    const ps = [];
+    let m;
+    while ((m = P.exec(b))) ps.push({ at: m.index, end: P.lastIndex, whole: m[0], t: flat(m[2]) });
+    const cut = [];
+    for (let i = 0; i < ps.length - 1; i++) {
+      const p = ps[i];
+      if (!/\?$/.test(p.t) || p.t.length < 12 || p.t.length > 230) continue;
+      if (!/^Objection 1\s*:/.test(ps[i + 1].t)) continue;
+      /* only where nothing but whitespace stands between the two, so this cannot leap a heading */
+      if (b.slice(p.end, ps[i + 1].at).trim()) continue;
+      if (/<\/div>\s*$/.test(b.slice(Math.max(0, p.at - 400), p.at))) continue;
+      cut.push(p);
+    }
+    for (let i = cut.length - 1; i >= 0; i--) {
+      bareHeads++;
+      /* MARKED AS OURS, because the treatise fallback below claims the FIRST heading on a page that
+         carries no article number — and on a page whose only headings are the ones this pass just
+         made, that silently ate article 1 and left the question one short of its own stated count,
+         so nothing was numbered at all. I-II q.28 shipped that way for the length of one run. */
+      b = b.slice(0, cut[i].at) + '<div class="mw-heading mw-heading4 folio-barehead"><h4>' +
+        cut[i].t + "</h4></div>" + b.slice(cut[i].end);
+    }
+  }
+  if (bareHeads) warn && warn(bareHeads + " article head(s) stood as an ordinary paragraph with no " +
+    "heading markup at all, and have been read as headings");
+
   const HEAD = /<div class="[^"]*\bmw-heading\b[^"]*"[^>]*>\s*<h[2-6][^>]*>(?:<span[^>]*><\/span>)?\s*([\s\S]*?)<\/h[2-6]>[\s\S]*?<\/div>/g;
   const plain = (x) =>
     x.replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;/g, " ")
@@ -16362,7 +16475,8 @@ function markArticuli(b, warn) {
      and it is the City of God's rule about looking for a marker where it actually is rather than
      where the regular cases happen to put it. */
   const heads = [];
-  b.replace(HEAD, (whole, inner) => {
+  b.replace(HEAD, (whole, inner, ...rest) => {
+    const mine = /folio-barehead/.test(whole);
     const t = plain(inner);
     const am = ARTICLES_RX.exec(t);
     /* A KEPT HEADING MAY CARRY A MARKER TOO, and stripping the heading to its words throws it away.
@@ -16377,12 +16491,44 @@ function markArticuli(b, warn) {
        and runs second, because "Question" is also how an article's own text can begin. */
     else if (/^Ques[a-z]{0,3}on\b/i.test(t)) h.role = "question";
     else if (/^(?:Footnotes?|References?|Notes)$/i.test(t)) h.role = "foot";
-    else if (!heads.length && !h.art) h.role = "treatise";
+    else if (!heads.length && !h.art && !mine) h.role = "treatise";
     heads.push(h);
     return whole;
   });
   let expect = null;
   for (const h of heads) if (h.role === "question" && h.count != null) { expect = h.count; break; }
+  /* AND WHERE NO HEADING STATES THE COUNT, THE QUESTION'S OWN PROSE DOES (Sep 2026, batch E39).
+     Three questions of the 614 carry no question heading at all — I-II q.28, II-II q.29 and
+     Supplement q.39 — so the parenthetical "(FOUR ARTICLES)" this pass reads the count from is not
+     on the page. It is in the prose all the same: every question opens by saying how many points of
+     inquiry it has, in words, and then listing them. That is the SAME statement by the same edition,
+     read from the body instead of from a heading, so it earns the same numbering.
+
+     It is taken from the LAST such sentence before the first article, and that is not fussiness:
+     several questions open with a two-level plan — the treatise's topics first ("(4) of its
+     blessings; (5) of the impediments thereto"), and only then "Under the first head there are
+     three points of inquiry" — so a rule taking the first match reads the plan as the article list
+     and reports a question of three articles as one of seven. Measured: taking the first match
+     flags 35 questions as short of an article and taking the last flags 16, and the 19 in between
+     are all this shape.
+
+     IT ALSO CORRECTS A MISNUMBERED HEADING, which is the point of the count-agreement rule and is
+     what II-II q.29 needed: its three headings are numbered 1, 2 and 3 where the third is the
+     question's FOURTH article, the third having lost its heading altogether. */
+  if (expect == null) {
+    const firstArt = heads.findIndex((h) => h.role === "article");
+    const upto = b.replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").slice(0, 4000);
+    const W = { one:1, two:2, three:3, four:4, five:5, six:6, seven:7, eight:8, nine:9, ten:10,
+      eleven:11, twelve:12, thirteen:13, fourteen:14, fifteen:15, sixteen:16, seventeen:17,
+      eighteen:18, nineteen:19, twenty:20 };
+    for (const m of upto.matchAll(/there (?:are|is)\s+(?:only\s+)?([a-z]+|\d+)\s+points?\s+of\s+inquiry/gi)) {
+      const v = /^\d+$/.test(m[1]) ? +m[1] : W[m[1].toLowerCase()];
+      if (v) expect = v;
+    }
+    if (expect != null && firstArt >= 0)
+      warn && warn("no heading states this question's article count; read " + expect +
+        " from its own prose, where it says how many points of inquiry it has");
+  }
 
   /* A heading repeating the one before it WORD FOR WORD is a duplicate rather than a second article
      — one question in the book carries its fifth article's title twice — and dropping it is what

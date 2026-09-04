@@ -1514,6 +1514,43 @@ shipped chapters 455 and 456 byte-identical with 3,678 words of Aquinas absent.
     Gutenberg's four volumes stop at Part III, so it is **measured and not repaired**; find the 1920
     Supplement volume before treating it as unreachable.
 
+**AND TWENTY-SEVEN ARTICLE HEADS THAT NEVER BECAME HEADINGS** (Sep 2026, batch E39, the two
+normalisation passes at the head of `markArticuli`). E38 measured fourteen questions carrying articles
+Folio does not number, and in twelve the text was present and only the heading unread. It is ONE fault
+in five spellings, and each was found only by reading the survivors of the last:
+
+  · **`==== Art. 2 - … ====` sitting in the prose**, because the transcriber let the TITLE WRAP and a
+    MediaWiki heading must be on one line, so the closing marks stood on a line of their own (5).
+  · **The same with no closing run at all** — the opening marks typed and then nothing (3).
+  · **The same inside a `<pre>`**, the line having begun with a SPACE, which is a preformatted block (2).
+  · **A bare paragraph with no markup whatever** (10), and **a `<pre>` with no equals signs** (6).
+
+  · **THE COUNT IS CHECKED AGAINST THE SOURCE, NEVER AGAINST THE OUTPUT.** In the finished book all
+    ten escaped heads look identical, so after the first pattern the run reported 6 of 10 and the
+    four survivors were indistinguishable from the six. **A repair rate measured on the thing you
+    have just repaired says "finished" every time** — it said so three times here.
+  · **THE UNMARKED HEAD IS FOUND BY THE WORK'S OWN SHAPE, AND THE ARGUMENT IS A MEASUREMENT.** Every
+    article opens with its question and then "Objection 1:", so a short paragraph ending in a question
+    mark whose next paragraph opens on that phrase is a head. Over the whole book it agrees with the
+    existing numbering **3,071 times** and finds **16** that are not numbered, all in the six
+    questions the book's own points of inquiry say are short. It only ever ADDS: 38 numbered heads do
+    not open on an objection, and reading that as evidence would make a finder into a remover.
+  · **WHERE NO HEADING STATES THE COUNT, THE PROSE DOES.** Three questions carry no question heading,
+    so the `(FOUR ARTICLES)` parenthetical is not on the page — but the question opens by saying how
+    many points of inquiry it has, in words. Same statement, same edition, read from the body. It also
+    **corrects** II-II q.29, whose three headings are numbered 1, 2 and 3 where the third is the
+    question's fourth article.
+  · **ITS OWN FIRST FIX ATE AN ARTICLE.** The role test claims the first heading carrying no article
+    number as the TREATISE line; on a page whose only headings this pass had just made, that was
+    article 1, leaving five against a stated six and nothing numbered at all. Synthesised headings
+    carry `folio-barehead` and the fallback skips them. **A normalisation feeding an existing pass
+    must be read against every rule that pass already applies.**
+  · **THE COUNT SENTENCE IS THE LAST ONE, NOT THE FIRST.** Several questions open with a two-level plan
+    — the treatise's topics, then "Under the first head there are three points of inquiry" — so taking
+    the first match reads the plan as the article list: 35 questions look short of an article against
+    16 taken the other way. One survives even that (II-II q.48 says four points and has one article,
+    the other three being questions 49–51), and it is recorded rather than "fixed".
+
 **📖 `.claude/summa-witness.js` — RUN IT AFTER ANY CHANGE TO THIS BOOK.** The fourth scanner, and the
 only one that can see text that is simply gone. Three checks: articles against the witness, each
 chapter's TITLE against its own PROLOGUE (two independent statements of one fact — this is what finds

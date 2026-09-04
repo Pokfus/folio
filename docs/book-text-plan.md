@@ -329,7 +329,8 @@ re-run and diffed byte for byte.
 | **E36** ✅ | the rest of the Summa's duplication | **Seventeen paragraphs removed, in the four questions that were read and nowhere else.** Two faults: the tail of one article pasted at the end of the one before it (I q.108, I q.109 — four paragraphs, the first of each pair truncated, so an article ends by answering objections it never raised), and a run set twice in a row (I-II q.20's eleven, plus two single paragraphs). **The finding is the four cases that look identical and are not**: six article boundaries end with a paragraph that also stands in the next article, and four are the Summa's own closing formula, which it prints 55 times. They run 48–66 characters against the real faults' 213 and 416, so the bar sits in 147 characters of open ground |
 | **E37** ✅ | the dead rows across the whole shelf | **24 rows reported dead in the Three Kingdoms and every one of them was live.** Rebuilding all 32 books that carry a correction table found dead rows in one book only — and all 24 names are correct in the shipped text, so the report was wrong rather than the rows. E29 corrected the chapter TITLE on the way in, so a cache marked `raw: 1` (meaning *the extractor's own output*) held a corrected title, and five rows that fire only on heads met one already converted. **The house rule would have deleted them**: eight chapter titles would have gone back to Wade-Giles at the next `--force`, silently. Fixed with a versioned marker, because correcting an already-corrected title applies `applyRoman` twice — measured, seven titles moved and every one was already right |
 | **E38** ✅ | a second witness for the whole Summa | **A whole question of Aquinas was absent from the book and no scanner here could see it.** Wikisource serves Third Part question 33 under `Question 34` and question 34 under `Question 35`, so question 35 — Of Christ's Nativity, eight articles — is on no page of it: chapters 455 and 456 shipped **byte-identical** and 3,678 words were gone. E35 and E36 found lost text only because the loss left a DUPLICATE to trip over; **a loss that leaves nothing behind is invisible to a spelling sweep, to `book-audit` and to a duplication check alike**, and only a second transcription can see it. Repaired in two halves — a page redirection for the half that exists somewhere, the witness for the half that does not — plus a contents-page typo (`OF UNDLUGENCES`) that **could not fire**, E37's cache guard having refused to correct a freshly fetched title. Its finding is the instrument: the first run reported 33 phantom findings because Gutenberg's article headings **disagree with their own brackets seventeen times**, and E35's similarity walk reports 12.96% for two texts that are 99.41% identical |
-| **E39–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E39** ✅ | the article heads the transcription left as prose | **27 article numbers restored across fourteen questions, from one fault wearing five coats.** An article head that never became a heading: escaped as `==== Art. N -` in the prose (the title wrapped, and a wiki heading must be on one line), the same with no closing run, the same inside a `<pre>` (the line began with a space), a bare paragraph with no markup at all, and a `<pre>` with no equals signs. **Each coat was found only by reading the SURVIVORS of the last**, because in the finished book they all look identical — a repair rate measured on the output said "finished" three times. The rule for an unmarked head comes out of the work's own shape (every article opens with its question and then "Objection 1:") and its argument is a measurement: **3,071 agreements with the existing numbering against 16 findings**. Its own fault was that the first fix ATE an article — the treatise fallback claims the first unnumbered heading on a page, which on a page whose only headings this pass had just made was article 1 |
+| **E40–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
@@ -394,6 +395,80 @@ not deferred.**
 ---
 
 ## 8. Batch log
+
+### E39 — the article heads the transcription left as prose, shipped 2026-09-04
+
+**Twenty-seven article numbers restored across fourteen questions, and the fault has five spellings.**
+E38 left this measured and not repaired: fourteen questions where the witness has an article Folio does
+not number, twelve of them with the text present and only the heading unread. Read out, it is one fault
+— **an article head that never became a heading** — wearing five different coats, and each coat was
+found only by reading the survivors of the last.
+
+| spelling | what the transcriber did | how many |
+|---|---|---|
+| `==== Art. 2 - … ====` in the prose | let the title WRAP; a wiki heading must be on one line | 5 |
+| `==== Art. 5 - …` with no closing run | typed the opening marks and stopped | 3 |
+| `<pre>==== Art. 6 - … ====</pre>` | began the line with a SPACE, making it preformatted | 2 |
+| a bare paragraph, no markup at all | nothing | 10 |
+| a `<pre>` block, no equals signs | began the line with a space | 6 |
+
+**THE COUNT WAS CHECKED AGAINST THE SOURCE AND NEVER AGAINST THE OUTPUT, and that is the whole of why
+it got past three false finishes.** In the finished book all ten escaped heads look identical — the
+same `==== Art. N -` sitting in a paragraph — so after the first pattern was written the run reported
+6 of 10 repaired and the other four looked, in the book, exactly like the six. Only reading each
+survivor in the wiki markup showed the closing run missing, then the `<pre>`, then the `<p
+class="bk-loose">` the wrap pass had already put round two of them. **A repair rate measured on the
+thing you have just repaired will tell you it is finished every time.**
+
+**THE RULE FOR A HEAD WITH NO MARKUP COMES OUT OF THE WORK'S OWN SHAPE, and its argument is a
+measurement.** Every article of the Summa opens with its question and then, immediately, "Objection
+1:" — so a SHORT paragraph ENDING IN A QUESTION MARK whose very next paragraph opens on that phrase is
+an article head, whatever the transcription did. Measured over the whole book before it was written:
+the test matches **3,071 heads that are already numbered and exactly 16 that are not**, and all 16 sit
+in the six questions the book's own list of points of inquiry says are short. A rule agreeing with the
+existing numbering 3,071 times to 16 is not guessing. **It is deliberately never used to CHECK a head
+that is already marked up** — 38 numbered heads do not open their next paragraph with an objection,
+and reading that as evidence would turn a finder of missing heads into a remover of real ones.
+
+**AND WHERE NO HEADING STATES THE ARTICLE COUNT, THE QUESTION'S OWN PROSE DOES.** Three questions carry
+no question heading at all, so the `(FOUR ARTICLES)` this pass reads the count from is not on the page
+— but every question opens by saying how many points of inquiry it has, in words. That is the same
+statement by the same edition read from the body instead of a heading, so it earns the same numbering,
+and it is what let II-II q.29 be **corrected**: its three headings are numbered 1, 2 and 3 where the
+third is the question's FOURTH article, the third having lost its heading altogether.
+
+**ITS FIRST FIX ATE AN ARTICLE, IN A WAY ONLY A PINNED TOTAL WOULD HAVE CAUGHT.** The pass that turns a
+bare paragraph into a heading put I-II q.28's six heads on a page that had none — and the role test
+below it claims the FIRST heading on a page as the TREATISE line whenever it carries no article number.
+So article 1 became a running head, five articles stood against a stated six, the count-agreement rule
+declined to number anything, and the question shipped with no numbers at all for the length of one run.
+Synthesised headings are marked as ours and the treatise fallback skips them. **A normalisation that
+feeds an existing pass has to be read against every rule that pass already applies.**
+
+**THE MEASURE'S OWN TRAP, worth knowing before pointing it anywhere.** "The question states how many
+points of inquiry it has" is true and is not always about the ARTICLES: several questions open with a
+two-level plan — the treatise's topics first ("(2) Of its integral parts; (3) Of its subjective
+parts"), and only then "Under the first head there are three points of inquiry" — so a rule taking the
+FIRST such sentence reads the plan as the article list. Taking the first flags **35** questions as
+short of an article; taking the last flags **16**; the nineteen in between are all that shape. One
+survives even the last-match rule: **II-II q.48 says "four points of inquiry" and has ONE article**,
+its other three points being questions 49, 50 and 51 — so the extractor is right there and the measure
+is wrong, and it is recorded rather than "fixed".
+
+**AND TWO PINNED ASSERTIONS FIRED, both correctly.** `test-library.js` held that "the two questions
+with no article headings are the known two" (147 and 551) and that exactly one article heading is left
+unread anywhere — **both of which were pinned to a FAULT rather than to a fact about the edition**, and
+this batch removed the fault. They are pinned to zero now. That is the second batch running in which
+the suite's exact figures were what noticed a change; a total pinned to what the run happened to print
+would have noticed neither.
+
+**Left for E40: two LOST articles, which is a different thing from an unread head.** II-II q.180's
+article 5 — *Whether in the present state of life the contemplative life can reach to the vision of the
+Divine essence?* — is in the book nowhere, and the wiki's heading labelled `Art. 5` carries article
+SIX's title and text. It is E38's fault at the scale of one article, and it wants the same treatment:
+extract from the witness, validate, guard. It joins **Supplement question 12**, which has the same
+shape and no reachable witness. After it the book's own measure stands at 2 questions, one of which is
+the false positive above.
 
 ### E38 — the question a second witness found missing, shipped 2026-09-04
 
