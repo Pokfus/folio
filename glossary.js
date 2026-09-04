@@ -1972,7 +1972,8 @@ window.GLOSSARY = {
 "Roman_legion": "A Roman legion was the standing unit of the Roman army, numbering some 4,000 to 5,000 foot with about 300 horse in the centuries of the Republic before the Punic Wars.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Livy describes two very different arrangements: an infantry graded by property, each man arming himself according to his class, and a later order of maniples drawn up in three lines of <i>hastati</i>, <i>principes</i> and <i>triarii</i>, each line falling back through the gaps in the one behind it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He attributes the change from the round <i>clipeus</i> to the oblong <i>scutum</i>, and the abandoning of the phalanx, to the point at which soldiers began to be paid.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Siege_of_Veii": "The siege of Veii was the Roman capture of the nearest Etruscan city, which Livy gives as ten summers and winters of blockade ended by a mine into the citadel rather than by assault.<sup class=\"fn\" data-fn=\"2\"></sup> It obliged the Romans to keep an army in the field through the winter, a novelty for their soldiers, and the tribunes of the plebs read the new military pay as a device to keep able-bodied men out of the city.<sup class=\"fn\" data-fn=\"1\"></sup> On its fall the survivors were sold as slaves, the city's Juno was formally invited to move to Rome, and the tenth of the spoils vowed to Apollo became a grievance against the victorious commander.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Marcus_Furius_Camillus": "Marcus Furius Camillus was a Roman commander of the early 4th century BCE made dictator at the taking of Veii and again against the Gauls.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Roman tradition assigned him a set of exemplary acts — refusing the schoolmaster who betrayed the boys of Falerii, and breaking off the weighing of the Gallic ransom with the order to recover the country by steel rather than gold — after which his soldiers hailed him as a second founder of the city.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The same tradition records his impeachment over the spoils of Veii and his exile, and Plutarch says the four white horses of his triumph turned the citizens against him.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Stipendium": "The <i>stipendium</i> was the pay the Roman state gave its soldiers, introduced by a decree of the senate that Livy places at the taking of Anxur, when every man had until then served at his own expense.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The name is from <i>stipem</i> and <i>pendo</i>, weighing out, because Rome had not yet coined silver and bronze passed by weight rather than by count.<sup class=\"fn\" data-fn=\"3\"></sup> It was funded by a war tax on the citizens who received it, which the tribunes of the plebs objected to at once as generosity at other men’s expense.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Stipendium": "The <i>stipendium</i> was the pay the Roman state gave its soldiers, introduced by a decree of the senate that Livy places at the taking of Anxur, when every man had until then served at his own expense.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The name is from <i>stipem</i> and <i>pendo</i>, weighing out, because Rome had not yet coined silver and bronze passed by weight rather than by count.<sup class=\"fn\" data-fn=\"3\"></sup> It was funded by a war tax on the citizens who received it, which the tribunes of the plebs objected to at once as generosity at other men’s expense.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Battle_of_the_Allia": "The battle of the Allia was the Roman defeat by a Gallic army about 16 km (11 Roman miles) north of Rome, where the stream of that name runs into the Tiber, which opened the way to the capture of the city.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Livy has the Romans form up with no camp, no entrenchments and no favourable auspices, their line stretched thin against outflanking, and says none were killed while actually fighting.<sup class=\"fn\" data-fn=\"2\"></sup> Most of the survivors crossed the Tiber to hostile Veii rather than take the road home, no word of the defeat was sent to Rome, and the day was afterwards counted among the unluckiest in the Roman calendar.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2750,7 +2751,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Roman_censor": "443 BCE – 22 BCE",
 "Quaestor": "447 BCE onwards",
 "Siege_of_Veii": "ended 396 BCE",
-"Stipendium": "from 405 BCE"
+"Stipendium": "from 405 BCE",
+"Battle_of_the_Allia": "390 BCE, by the usual dating"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3955,7 +3957,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Roman_legion": ["legion","legions","legio"],
 "Siege_of_Veii": ["siege of Veii","capture of Veii","fall of Veii"],
 "Marcus_Furius_Camillus": ["Camillus","Furius Camillus"],
-"Stipendium": ["stipendia"]
+"Stipendium": ["stipendia"],
+"Battle_of_the_Allia": ["battle of the Allia","Allia","dies Alliensis"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5960,7 +5963,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Roman_legion": ["institution","warfare","history","politics","italy"],
 "Siege_of_Veii": ["event","warfare","history","religion","italy"],
 "Marcus_Furius_Camillus": ["person","history","warfare","politics","italy"],
-"Stipendium": ["concept","institution","warfare","history","italy"]
+"Stipendium": ["concept","institution","warfare","history","italy"],
+"Battle_of_the_Allia": ["battle","event","warfare","history","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
