@@ -406,7 +406,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-145  Latin rights
     rm-146  Municipium
     rm-147  Civitas sine suffragio
-    rm-148  Roman colonisation in Italy
+    rm-148  Colonia
     rm-149  Latin colony
     rm-150  Ager publicus
     rm-151  Samnite Wars
@@ -1089,7 +1089,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-777  Roman Dacia
     rm-778  Roman Sicily
     rm-779  Provincial self-government
-    rm-780  Colonia
+    rm-780  Ius Italicum
     rm-781  Roman urbanism in the provinces
     rm-782  Romanisation
     rm-783  Resistance to Roman rule
