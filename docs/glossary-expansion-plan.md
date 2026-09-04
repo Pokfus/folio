@@ -152,8 +152,12 @@ Reachable, and what each is for:
 | `openarchaeologydata.metajnl.com` | open excavation datasets |
 
 Shut here: `britannica.com` (403, and it fails the cites-its-sources test the plan already
-applies), `whc.unesco.org` (403 — reach UNESCO properties through the state party's own record),
-`ascsa.edu.gr` (no answer).
+applies), `ascsa.edu.gr` (no answer), `ich.unesco.org` (a CAPTCHA served with a 200, on element and
+state pages alike), `vocab.getty.edu` (403 — the TGN's own web interface at `getty.edu/vow/` works).
+**`whc.unesco.org` HAS REOPENED** — it was recorded 403 here and worked around for the whole pass,
+and it now answers on the state-party page, on every property and on the Tentative List; so has
+`main.un.org/securitycouncil/`, which the citation pass recorded as a blocked 200. **Re-probe a host
+this list calls shut before working around it.**
 
 ### Batches
 
@@ -185,7 +189,8 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N22 | 12 | Olduvai beds, palaeoanthropology's institutions and dating methods — **shipped**, 11 of 12 pictured |
 | N23 | 12 | Amarna and Egypt — **shipped**, all twelve pictured |
 | N24 | 12 | **The Italian provinces I** — the twelve a World Heritage property names twice — **shipped**, all twelve pictured |
-| N25–N32 | ~95 | the remaining Italian provinces — **blocked on sourcing**, see N24's findings |
+| N25 | 12 | **The international order** — the institutions a country term names, and the principle they rest on — **shipped**, 11 of 12 pictured |
+| N26–N33 | ~95 | the remaining Italian provinces — **blocked on sourcing**, see N24's findings |
 
 **N3 shipped eight terms rather than twelve, and the missing four are one deferral and one
 fold.** *Subminoan* is deferred: Rutter's Chronology Overview gives it a single sentence — "The
@@ -332,6 +337,66 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N25's findings
+
+**N25 — the international order (shipped, 11 of 12 pictured).** The twelve are `United_Nations`,
+`United_Nations_General_Assembly`, `United_Nations_Security_Council`, `World_Trade_Organization`,
+`General_Agreement_on_Tariffs_and_Trade`, `World_Bank`, `European_Union`, `Commonwealth_of_Nations`,
+`NATO`, `World_Heritage_Site`, `United_Nations_trust_territories` and `Sovereignty`.
+
+**IT IS NOT THE BATCH THE PLAN NAMED, BECAUSE THE PLAN'S NEXT BATCH IS BLOCKED AND THE CORPUS HAD A
+LOUDER ANSWER.** N24 established that the remaining Italian provinces cannot be written at the bar from
+here, so the plan's own running order had nothing unblocked left in it. The batch was derived instead by
+N23's method — measure the shipped cards and terms for the surfaces that carry no entry — and the
+measurement is not close: **`United Nations` is named in 314 of them**, against N23's `Nile` at 48, which
+was the largest the expansion had met until now. Behind it come `World Trade Organization` at 151,
+`World Bank` at 130, `General Agreement on Tariffs and Trade` at 122, `General Assembly` at 105,
+`Commonwealth` at 79, `European Union` at 58 and `Security Council` at 50. **The World geography
+collection is what produces those numbers**: 470 of its cards state when a country joined the United
+Nations and what it belongs to, so the vocabulary of the international order was the single most-used
+and least-defined thing on the site.
+
+**AN UNBLOCKING ATTEMPT WAS MADE FIRST AND IS RECORDED RATHER THAN SKIPPED.** N24 listed three routes to
+the provinces and all three were probed. A **reachable NUTS classification**: Eurostat's RAMON
+nomenclature server is 404 and the NUTS overview page is an overview, naming no province. **ISTAT's
+*Annuario statistico italiano* as a citable PDF**: the file path is 404 and `istat.it` still publishes no
+per-province page. **A per-province spine like the Commonwealth's Key Facts**: the nearest thing that
+answers is the **Getty Thesaurus of Geographic Names**, whose web interface at
+`getty.edu/vow/TGNServlet` works (`vocab.getty.edu` is 403) and whose full record gives a province's
+hierarchy, coordinates, name variants and — the plan's own test — its **Sources and Contributors**. It
+passes the encyclopedia rule where Treccani failed it. **What it cannot do is carry a SENTENCE**: a TGN
+record states that Bergamo is a second-level subdivision of Lombardy and nothing else, which is the
+first sentence of the term and the one sentence that must go unmarked, so it makes a second citation
+that stands behind no claim. **A source that confirms the definition is not a source for the term**, and
+that is why the provinces are still blocked with the gazetteer in hand.
+
+**TWO HOSTS THE PASS HAD WRITTEN OFF ARE OPEN, WHICH MAKES THE RE-PROBE RULE A STANDING ONE.** N24 found
+`whc.unesco.org` alive after the plan had recorded it 403 for the whole pass; N25 found
+**`main.un.org/securitycouncil/` serving a real 181 KB page**, where C0 of the citation pass recorded
+`un.org/securitycouncil/*` as a CloudFront "Request blocked" document with a 200 status. It is a
+different HOST for the same section, which is the shape to try: **when a path on `www.` is walled, try
+the application host before concluding the section is shut.** Set against that, `ich.unesco.org` — the
+obvious sibling of the World Heritage list, and a per-place spine for the blocked provinces — is a
+**CAPTCHA wall served with a 200**, on its element pages and its state pages alike, which is a sixth
+variety of 200-status non-content document after C0's two and P3's, P7's and N24's.
+
+**ITS OWN FINDING IS THAT L10's RE-REGISTERING RULE APPLIES TO PRIMARY INSTRUMENTS TOO.** Five of the
+twelve rest on the UN Charter, and the eight-word-run measure found exactly one pair —
+`United_Nations` and `Sovereignty`, both quoting *the sovereign equality of all its Members*, because
+both are entitled to it: the Charter says it about the organisation and it is the definition of the
+principle. Deleting the clause from either is wrong, so each states it in the register it owns — the
+organisation "rests on" it, the principle appears as its members "standing as sovereign equals" — which
+took the pair to 0 with no marker lost. **Where a batch shares one founding document, expect the run
+measure to fire on the document's own words**, and re-register rather than cut.
+
+**Two smaller things.** The alias rule fired again, in its case-sensitivity form: `Commonwealth` is the
+association in 77 of the 79 places the corpus uses the word and an ordinary noun in the other two
+(`rm-025`'s Etruscan *rasnal*, `gw-042`'s Polish-Lithuanian commonwealth), so the alias ships with
+`caseSensitive: true` — the capital letter is exactly the distinction. And **`General_Agreement_on_Tariffs_and_Trade`
+ships without a picture**: it was an agreement rather than a place, its Geneva home is the building the
+WTO term already shows, and Commons has no photograph of it that is a photograph of anything — a
+search returns congressional reports, EEC accession protocols and an actor named Gatt.
 
 ### N24's findings
 
