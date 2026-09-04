@@ -1102,3 +1102,55 @@ of God and the Summa are wiki books — so there is no reader it could live in.
     quotation of verse, and the rule needs a guard for that before it can be pointed at the other
     column. The English column happens to contain no such quotation, which is why the census had to
     be read rather than trusted.
+
+**`wrapLooseText` — TEXT BETWEEN TWO PARAGRAPHS AND INSIDE NEITHER** (Sep 2026, batch E26). The
+third shared repair, beside `joinBrokenParas` and at the same point in `writeEnglish` — and, unlike
+the other two, in `writeOriginal` as well, because the column it was written for is an original.
+
+  · **The fault is that such text is INVISIBLE.** `bookSections` in app.js splits a chapter at its
+    section markers by walking `box.children` — the ELEMENT children — so a bare text node between
+    two blocks belongs to no section and never reaches the page. Measured when it was found: 67 such
+    blocks in the books that have an original column, **63 of them in the Latin Seneca**, and every
+    one a quotation of Virgil, Ovid or Ennius set off from the prose. About six thousand characters
+    of poetry, in the data and not on the screen.
+  · **IT ONLY SHOWS IN THE TWO-COLUMN VIEW**, which is why nobody met it: the single-column reader
+    renders the chapter's html directly, so the same passage is visible with the original column off
+    and gone with it on. Probed both ways in a browser before anything was written.
+  · **The internal newlines become `<br>`.** Every other original column writes a verse line break
+    that way — the Iliad 15,258 times, the Aeneid 9,452, the Ramayana 39,061 — and the Latin Seneca
+    is the only one with none at all. Rescued without them, four hexameters arrive as one line.
+  · **A wrapped paragraph is MARKED (`class="bk-loose"`) and `joinBrokenParas` will not join across
+    it.** A block this pass lifted out of nowhere is by definition set off from the prose around it,
+    so the seam below it is a real boundary; the seam above needs no rule, a `<p>` with attributes
+    being one the join already refuses.
+  · **It is repaired at the other end too, and that half is the more important one.** `bookSections`
+    now carries a text node instead of discarding it — so the next one is rendered rather than lost
+    in silence — and `test-library.js` asserts the TEXT: three lines of Virgil that are in
+    `books/seneca-letters.la.js` must be on the screen.
+
+**A TABLE HOLDING A POEM IS NOT FURNITURE** (Sep 2026, batch E26, in `originalChapters`). Latin
+Wikisource sets a verse quotation as `{{block center|<poem>…</poem>}}`, which MediaWiki renders as a
+one-cell **table** used for centring — and the rule that removes this wiki's prev/next navigation
+bar, its export bar and its table-of-contents placeholder removed those too. **Seven quotations of
+Virgil, in letters 56, 58, 59, 64 and 67, were not in the file at all**, and nothing said so: the
+letters are long, the section numbers still pair, every count reads healthy, and the only symptom is
+Seneca introducing a line the reader is never shown. The `div.poem` is lifted out before the table
+round it is dropped — **and a table carrying prose is now REPORTED**, which is the half that would
+have caught this when the rule was written. `dropTables`, added later for the Three Kingdoms, has
+said so from its first line; this older rule did not, and that is the difference between a fault
+found in an hour and one found in a year.
+
+**And two things `joinBrokenParas` learned when it was pointed at the original columns** (E26):
+
+  · **PROSE ON ONE SIDE AND VERSE ON THE OTHER IS A BLOCK QUOTATION, AND ITS BREAK IS REAL.** Seneca
+    introduces a line with *Deinde cum subinde recitasset* and the verse follows as a block of its
+    own, legitimately opening on a lowercase letter — so E25's "a paragraph never begins on a
+    lowercase letter" is not universal, and this is the counter-example. Two verse paragraphs in a
+    row are one poem split mid-line; two prose paragraphs are the page-turn; one of each is the
+    boundary between them and is left alone.
+  · **A BOOK MUST BE TOLD WHERE A BARE NEWLINE IS A LINE BREAK** (`verseNewlines`, declared on the
+    Latin Seneca's `original` and nowhere else). Read as a general rule the same test fires on prose
+    wrapped at the source's own line length: one ungated run put a `<br>` into **317 lines of the
+    City of God**, whose paragraphs carry 134 internal newlines of exactly that kind. Gated, it can
+    only ever refuse a join — a mismatch keeps the break — so the flag makes the pass cautious rather
+    than confident.

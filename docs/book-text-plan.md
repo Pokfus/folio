@@ -301,14 +301,102 @@ re-run and diffed byte for byte.
 | **E23** ✅ | two books, and a third read clean | **27 repairs — 24 in the Iliad, 3 in Herodotus, 0 in Don Quixote.** The two long narrative translations, the Iliad and Three Kingdoms, are much the most damaged texts on the shelf (24 and 26); the two histories beside them returned almost nothing. **A candidate list of proper names is not a false-positive problem, it is a COUNTING problem**: eighteen Homeric names were left alone and the two that were not — `Achaeams`, `Agamemon` — announce themselves against 598 and 174 correct spellings |
 | **E24** ✅ | two books, and a STRUCTURAL fault found and deferred | **12 repairs, and a much bigger finding left unrepaired on purpose.** City of God carries **364 paragraph breaks that begin on a lowercase letter — 52 of them INSIDE A WORD** (`sensa`/`tion`, `com`/`pelled`, `him`/`self`), which a reader sees as a paragraph ending mid-word. It is a printed-page turn become a paragraph break. **The mechanism could not be confirmed** — Wikimedia is rate-limiting — and E17's rule is not to write an extractor change on an unverified diagnosis, so it is measured, recorded and left for E25 |
 | **E25** ✅ | the paragraph fault, in the extractor | **387 false paragraph breaks joined across four books, 43 of them inside a word.** The mechanism is Wikisource's own: the fetched HTML for City of God I.20 carries `no sensa` `</p><p>` `tion, nor of the irrational` literally, with no pagenum span or anchor to join on, so the lowercase letter is the only signal there is. The join is easy and the SEPARATOR is the whole problem — nothing, `<br>` or a space — decided per boundary by the book's own vocabulary and by whether the LINE is verse. Proved byte for byte over all 48 books |
-| **E26** | the same fault in the ORIGINAL-language columns | 38 boundaries — 18 in Caesar's Latin, 17 in the Canterbury Tales' Middle English, 3 in Seneca — and **Seneca's three are not the fault at all**, being Virgil quoted in verse, where a lowercase paragraph opening is correct. So the rule needs a block-quotation guard before it can be pointed at `writeOriginal`, and one of Seneca's three hides a SECOND fault: a `<quote>` dropped entirely, leaving "cum dicit Vergilius noster diserte quidem dicit" with the verse it is about missing |
-| **E27–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E26** ✅ | the original columns — and 70 quotations nobody could read | **7 quotations of Virgil restored to the Latin Seneca and 63 more made visible, 36 paragraph breaks joined, and a silent renderer fault closed.** Chasing E25's leftover found something much larger: this wiki sets a verse quotation as `{{block center|<poem>}}`, which MediaWiki renders as a centring TABLE, and "every table on this page is furniture" ate seven of them outright; 63 more were in the file and INVISIBLE, because `bookSections` split a chapter by its ELEMENT children and a text node between two paragraphs belonged to no section. Repaired at both ends, with a per-book gate for the one column on the shelf that writes a verse line break as a bare newline |
+| **E27** | the Latin Seneca's remaining run-on verse | 18 paragraphs still carry a bare newline where a line break belongs, of which **14 are verse and 5 are prose** — so it is a judgement per paragraph rather than a rule, and the list is in E26's log. They render as run-on lines rather than being lost, which is why they are a batch of their own and not a blocker |
+| **E28–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E26 — seventy quotations of Virgil that nobody could read, shipped 2026-09-04
+
+**This batch was meant to be E25's leftover — 38 paragraph breaks in the original-language columns —
+and the leftover turned out to be the smallest thing in it.**
+
+**Seven quotations were not in the file at all.** Letters 56, 58 (twice), 59, 64 and 67 introduce a
+line of Virgil and then discuss it, and the line was missing. The wikitext says why:
+
+> `Itaque cum dicit Vergilius noster{{block center|<poem>:::''et mala mentis''` / `''gaudia,''</poem>}}`
+
+MediaWiki renders `{{block center}}` as a one-cell **table** used for centring, and
+`originalChapters` removes every table on the page — a rule written for this wiki's prev/next
+navigation bar, its export bar and its table-of-contents placeholder, all of which are tables and
+none of which is text. It has been right about all of those for as long as the book has been on the
+shelf, and wrong about seven quotations for exactly as long. **Nothing said so**: the letters are
+long, the section numbers still pair, the chapter counts are right, and the only symptom is Seneca
+introducing a verse the reader has never been shown. The `div.poem` is now lifted out before the
+table round it is dropped — **and a table carrying prose is REPORTED**, which is the half that would
+have caught this when the rule was written. `dropTables`, added later for the Three Kingdoms, has
+said so from its first line; this older rule did not.
+
+**Sixty-three more were in the file and invisible.** `bookSections` in app.js splits a chapter at its
+section markers by walking `box.children` — the ELEMENT children — so a bare text node between two
+paragraphs belongs to no section and never reaches the page. Measured over the shelf: **67 such
+blocks in the books that have an original column, 63 of them in the Latin Seneca**, and every one a
+quotation set off from the prose. About six thousand characters of poetry, present in the data and
+absent from the screen.
+
+It is the quietest failure this programme has met, and it hides in a specific place: **only the
+two-column view loses it**, because the single-column reader renders the chapter's html directly.
+Probed in a browser, with the original column on and off:
+
+| book | column | with the original off | with it on |
+|---|---|---|---|
+| Thucydides | English | the epigram renders | **gone** |
+| Seneca | Latin | — | **gone** |
+| Book of Documents | English (no original) | renders | renders |
+
+**Repaired at both ends, and they are different failures.** The importer wraps such text in a
+paragraph, converting its internal newlines to `<br>` — because a text node between blocks is not
+what `cleanBody` is meant to emit, and because rescuing it without the line breaks would hand the
+reader four hexameters run into one line. And `bookSections` now carries a text node instead of
+discarding it, so the next one can never be lost in silence. `test-library.js` asserts the text
+rather than the markup: three lines of Virgil that are in `books/seneca-letters.la.js` must be on
+the screen.
+
+**Then the paragraph joins, which is what the batch was for.** 36 of the 38: Caesar's 18, the
+Canterbury Tales' Middle English 17, and Seneca's letter 73. Two were not joined and both are
+findings:
+
+- **Caesar's mechanism is not City of God's.** Perseus divides each chapter into numbered SECTIONS,
+  and a section boundary falls mid-sentence — `naves in Venetiam, ubi Caesarem primum bellum
+  gesturum` ends section 9 and `constabat, quam plurimas possunt cogunt` opens section 10. The
+  markup is correct and the division is real; what is wrong is rendering it as a paragraph break.
+  Safe to join because `bookSections` groups unnumbered paragraphs into the section they follow, so
+  two of them joined were already one section, and a paragraph opening on a marker begins with a tag
+  and can never match this rule anyway.
+- **The Canterbury Tales' 17 are all in tales 10 and 25** — the Melibee and the Parson's Tale, the
+  only two written in prose. The verse tales break at line ends and cannot show the fault. That is
+  the same page-turn as the City of God's, seen in a second book.
+
+**Two guards the joins needed, and each was earned by a wrong run.**
+
+**PROSE ON ONE SIDE AND VERSE ON THE OTHER IS A BLOCK QUOTATION, AND ITS BREAK IS REAL.** Seneca
+introduces a line with *Deinde cum subinde recitasset* and the verse follows as a block of its own,
+legitimately opening on a lowercase letter. E25 said "a paragraph never begins on a lowercase
+letter"; this is the counter-example, and the rule is now that two verse paragraphs in a row are one
+poem split mid-line, two prose paragraphs are the page-turn, and one of each is the boundary between
+them.
+
+**AND A BOOK MUST BE TOLD WHERE A NEWLINE IS A LINE BREAK.** The Latin Seneca is the only column on
+the shelf with no `<br>` in it at all — the Iliad has 15,258, the Aeneid 9,452 — so its verse lines
+are separated by bare newlines and the verse test cannot see them. Read as a general rule instead,
+the newline test fires on prose wrapped at the source's own line length: **one ungated run put a line
+break into 317 lines of the City of God**, whose paragraphs carry 134 internal newlines of exactly
+that kind. It is a per-book flag now, in this file's own idiom, and it is deliberately CAUTIOUS — a
+mismatch keeps the break, so the flag can only ever refuse a join, never invent one.
+
+**The proof.** Every book rebuilt; the four books E25 touched come back with **identical join counts
+and no verse joins** (364 / 9 / 9 / 5, 43 inside a word, 0 with `<br>`), which is the check that the
+new guards changed nothing E25 had settled.
+
+**Left for E27.** Eighteen paragraphs in the Latin Seneca still carry a bare newline where a line
+break belongs. Fourteen are verse and five are prose (letters 87, 88, 106, 108, 109, where the
+newline stands at a section seam), so it is a judgement per paragraph rather than a rule, and the
+words are on the page either way — a run-on line, not a loss.
 
 ### E25 — a paragraph that begins on a lowercase letter, shipped 2026-09-04
 
@@ -382,8 +470,15 @@ of verse — and the pass cannot be pointed at `writeOriginal` until it can tell
 The English column happens to contain no such quotation, which is why the rule is safe where it now
 runs and why the census had to be read rather than trusted. One of Seneca's three also hides a
 different fault worth its own look: `cum dicit Vergilius noster` `</p><p>` `diserte quidem dicit`
-is a **dropped `<quote>`** — the verse the sentence is about is missing from the file altogether.
+is a **dropped quotation** — the verse the sentence is about is missing from the file altogether.
 Both are E26.
+
+> **E26 corrects this paragraph in two places.** Reading the three in full: only ONE of Seneca's
+> three is a legitimate verse block (letter 122). Letter 73 is a genuine mid-line split — the prose
+> ends `clamanti 'hac` and the verse's own first word is on the wrong side of the break — and letter
+> 59 is the dropped quotation, which E26 restored rather than worked around. The counter-example to
+> "a paragraph never begins on a lowercase letter" is real and stands; it is one instance, not three,
+> and it was found by reading them rather than by grouping them.
 
 ### E24 — twelve repairs, and a structural fault worth more than all of them, shipped 2026-09-04
 

@@ -2648,6 +2648,35 @@ function aeneidChecks() {
     await page.close();
   }
 
+  /* THE VERSE THAT WAS IN THE FILE AND NOT ON THE PAGE (Sep 2026, batch E26). Seneca quotes Virgil,
+     Ovid and Ennius constantly, and 63 of those quotations sat between two paragraphs and inside
+     neither — where `bookSections`, walking the ELEMENT children to split a chapter at its section
+     markers, dropped them without a word. The chapter rendered, the sections paired, every count was
+     right, and about six thousand characters of poetry were simply not there. So this asserts the
+     text, not the markup: three lines that ARE in books/seneca-letters.la.js must be on the screen.
+     It only shows in the two-column view, which is why it is here and not in section 3. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base, { waitUntil: "load" });
+    await page.evaluate(() => { try { localStorage.setItem("folio_book_orig_v1", "1"); } catch (e) {} });
+    await page.goto(base + "#book/seneca-letters/76", { waitUntil: "load" });
+    await page.waitForTimeout(3000);
+    const seen = await page.evaluate(() => {
+      const t = document.body.innerText;
+      return {
+        ctl: /Vergilius|animus/.test(t),
+        one: t.includes("non ulla laborum"),
+        two: t.includes("nova mi facies"),
+        three: t.includes("omnia praecepi"),
+      };
+    });
+    check("the Latin chapter renders at all", seen.ctl);
+    check("...and the Virgil it quotes is on the page, not only in the file",
+      seen.one && seen.two && seen.three, JSON.stringify(seen));
+    await page.close();
+  }
+
   /* ================= 7. the switch is a crossfade, not a cut =================
      A regression here is silent in the worst way: the languages still swap, the reader still lands on
      the right passage, and every assertion above still passes — the switch just goes back to being the

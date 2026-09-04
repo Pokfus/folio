@@ -1118,6 +1118,17 @@ const BOOKS = {
         "edition text carried by Latin Wikisource, without a modern editor's apparatus.",
       sourceName: "Latin Wikisource",
       sourceUrl: "https://la.wikisource.org/wiki/Epistulae_morales_ad_Lucilium",
+      /* THE ONE COLUMN ON THE SHELF THAT SETS A VERSE LINE WITHOUT A <br> (Sep 2026, batch E26).
+         Seneca quotes Virgil, Ovid and Ennius on nearly every other page, and this transcription
+         separates the lines of a quotation with a bare newline where the Iliad uses <br> 15,258 times
+         and the Aeneid 9,452. `joinBrokenParas` has to know which of its two paragraphs is verse
+         before it can decide that a break between them is real, so it is told here rather than
+         guessing: read as a general rule the same test puts a line break into 317 lines of the City
+         of God's prose, which is wrapped at the source's own line length. Eighteen paragraphs here
+         carry such a newline and five of them are prose — so this flag makes the pass CAUTIOUS,
+         never confident: a mismatch keeps the break, and only two matching verse paragraphs would
+         ever be joined with a <br>. */
+      verseNewlines: true,
       // one page per book of the collection; the letters are the h2 headings inside each
       pages: [
         "Epistulae morales ad Lucilium/Liber I",
@@ -20900,8 +20911,28 @@ function originalChapters(h, warn) {
     // the [recensere] edit link that follows every heading, and the </div> closing the heading block
     b = b.replace(/^\s*<span class="mw-editsection">[\s\S]*?<\/div>/, "");
     b = b.split(/<div class="mw-heading/)[0];
-    // the site's own furniture: the prev/next navigation table, the export bar, the ToC placeholder
-    b = b.replace(/<table[\s\S]*?<\/table>/g, "");
+    /* The site's own furniture: the prev/next navigation table, the export bar, the ToC placeholder.
+
+       A TABLE HOLDING A POEM IS NOT FURNITURE, AND SEVEN QUOTATIONS OF VIRGIL WENT OUT WITH THE
+       NAVIGATION (Sep 2026, batch E26). This wiki sets a verse quotation as
+       `{{block center|<poem>…</poem>}}`, which MediaWiki renders as a one-cell TABLE used for
+       centring — so "every table on this page is furniture" ate the verse in letters 56, 58, 59, 64
+       and 67 along with it. Nothing said so: the letters are long, the section numbers still pair,
+       and the only symptom is that Seneca introduces a line of Virgil and then discusses a line the
+       reader has never been shown. The `div.poem` is lifted out and the table dropped round it.
+
+       AND A TABLE THAT CARRIES PROSE IS NOW REPORTED, which is the half that would have caught this
+       when it was written — `dropTables` has said so since the Three Kingdoms, and this rule, older,
+       did not. A rule that begins eating text must not be able to do it quietly. */
+    b = b.replace(/<table\b[\s\S]*?<\/table>/g, (t) => {
+      const poems = t.match(/<div class="poem"[^>]*>[\s\S]*?<\/div>/g);
+      if (poems) return "\n" + poems.join("\n") + "\n";
+      const prose = t.replace(/<a\b[^>]*>[\s\S]*?<\/a>/g, "").replace(/<[^>]*>/g, "")
+        .replace(/&#\d+;|&nbsp;/g, " ").replace(/\s+/g, " ").trim();
+      if (prose.length > 40) warn("a table carrying " + prose.length + " characters of text was removed: " +
+        JSON.stringify(prose.slice(0, 60)));
+      return "";
+    });
     b = b.replace(/<div class="ws-noexport"[\s\S]*?<\/div>/g, "");
     b = b.replace(/<meta[^>]*\/?>/g, "").replace(/<link[^>]*\/?>/g, "");
 
@@ -25203,6 +25234,43 @@ async function fetchEnglish() {
    Wikisource pages and a single TEI edition — share one way of writing it out and one report at the
    end, and so cannot drift apart in what they emit. The same split, and the same reason, as
    writeOriginal below. */
+/* TEXT BETWEEN TWO PARAGRAPHS AND INSIDE NEITHER IS INVISIBLE TO THE READER (Sep 2026, batch E26).
+   `bookSections` in app.js walks `box.children` — ELEMENTS — to split a chapter at its section
+   markers, so a bare text node between two blocks belongs to no section and is silently dropped from
+   the page. Measured over the shelf: 67 such blocks in the books that HAVE an original column, 63 of
+   them in the Latin Seneca, and every one of them a quotation of Virgil, Ovid or Ennius set off from
+   the prose. Six thousand characters of poetry present in the file and absent from the page, with
+   nothing anywhere to say so — the chapter renders, the counts are right, and only searching the
+   rendered text for a line that is in the data finds it.
+
+   It is repaired at BOTH ends and the two are different failures. Here, the loose text is wrapped in
+   a paragraph, because a text node between blocks is not what `cleanBody` is supposed to emit; in
+   app.js, `bookSections` now carries a text node instead of discarding it, so the next one can never
+   again be lost in silence.
+
+   THE INTERNAL NEWLINES BECOME <br>, which is what makes this a repair rather than a rescue. Every
+   other original column on the shelf writes a verse line break as <br> — the Iliad 15,258 times, the
+   Aeneid 9,452, the Ramayana 39,061 — and the Latin Seneca is the ONLY one with none at all: its
+   verse is separated by bare newlines, which HTML collapses to spaces, so a rescued block would
+   arrive as four hexameters run into one line. Wrapped this way it reads as the verse it is. */
+function wrapLooseText(chapters) {
+  let n = 0, lines = 0;
+  const fix = (html) => String(html || "").replace(
+    /(<\/(?:p|div|blockquote|h[1-6]|li|ul|ol|table)>)([^<]*[^\s<][^<]*)(?=<)/gi,
+    (whole, close, text) => {
+      if (!/[\p{L}\p{N}]/u.test(text)) return whole;
+      const body = text.trim().replace(/\n+/g, "<br>");
+      n++; lines += (body.match(/<br>/g) || []).length;
+      return close + '\n<p class="bk-loose">' + body + "</p>\n";
+    });
+  chapters.forEach((c) => {
+    c.html = fix(c.html);
+    if (c.notes) c.notes = c.notes.map(fix);
+  });
+  if (n) console.log("  wrapped " + n + " block" + (n === 1 ? "" : "s") +
+    " of text that sat outside every paragraph" + (lines ? " (" + lines + " verse line breaks restored)" : ""));
+}
+
 /* A PARAGRAPH NEVER BEGINS WITH A LOWERCASE LETTER, and where one does the paragraph break is not
    the author's (Sep 2026, batch E25). The City of God is served by Wikisource one printed PAGE at a
    time, and the page-turn arrives in the markup as a paragraph break — mid-sentence, and 43 times of
@@ -25237,7 +25305,7 @@ async function fetchEnglish() {
    A <p> carrying ATTRIBUTES is never joined — the opening tag is discarded by the join, and a tag
    that says something about its paragraph must not be thrown away to close a gap. None of the 387
    has one. */
-function joinBrokenParas(chapters) {
+function joinBrokenParas(chapters, VERSE_NL) {
   const word = new Map(), bigram = new Map();
   const count = (html) => {
     /* Within a paragraph only. A bigram counted ACROSS a break would be manufactured by the very
@@ -25252,9 +25320,9 @@ function joinBrokenParas(chapters) {
   };
   chapters.forEach((c) => { count(c.html); (c.notes || []).forEach(count); });
 
-  let joined = 0, welded = 0, versed = 0;
+  let joined = 0, welded = 0, versed = 0, kept = 0;
   const fix = (html) => String(html || "").replace(
-    /([a-z]+)<\/p>\s*<p>([a-z]+)/g,
+    /([a-z]+)<\/p>\s*<p>([a-z]+)/g,   // a <p> with ATTRIBUTES is never joined — see the note above
     (whole, a, z, at, all) => {
       const lc = a.toLowerCase(), rc = z.toLowerCase();
       const mid = (word.get(lc + rc) || 0) > 0 && (bigram.get(lc + " " + rc) || 0) === 0;
@@ -25265,7 +25333,31 @@ function joinBrokenParas(chapters) {
          only if the line it stands in is. */
       const before = all.slice(Math.max(0, all.lastIndexOf("<p", at)), at);
       const after = all.slice(at + whole.length, (all.indexOf("</p>", at + whole.length) + 1) || undefined);
-      const verse = /<br\s*\/?>/i.test(before) || /<br\s*\/?>/i.test(after);
+      /* A LINE BREAK IS A <br> ALMOST EVERYWHERE AND A BARE NEWLINE IN THE LATIN SENECA, which is the
+         one column on the shelf with no <br> in it at all. So the newline reading is GATED per book,
+         like every other rule in this file, and for a measured reason: read ungated it fires on
+         ordinary PROSE wrapped at the source's own line length, and it did — the City of God has 134
+         paragraph-internal newlines and one ungated run put a line break into 317 lines of Augustine's
+         prose. A rule that cannot tell a hexameter from a wrapped sentence must be told which book it
+         is looking at. */
+      const isVerse = (seg) => /<br\s*\/?>/i.test(seg) || (VERSE_NL && /[^>\s]\n[^<\s]/.test(seg));
+      const vb = isVerse(before), va = isVerse(after);
+      /* PROSE ON ONE SIDE AND VERSE ON THE OTHER IS A BLOCK QUOTATION, AND ITS BREAK IS REAL (Sep
+         2026, batch E26, extending this pass to the original-language columns). Seneca introduces a
+         line of Virgil with "Deinde cum subinde recitasset" and the verse follows as a block of its
+         own, which legitimately opens on a lowercase letter — so "a paragraph never begins on a
+         lowercase letter" is not universal, and the counter-example is exactly this shape. Two verse
+         paragraphs in a row are one poem split mid-line (Ovid); two prose paragraphs are the
+         page-turn this pass was written for; one of each is the boundary between them, and joining
+         it would run a quotation into the sentence that introduces it. */
+      /* AND A BLOCK THIS RUN ITSELF LIFTED OUT OF NOWHERE IS NEVER JOINED FORWARD. `wrapLooseText`
+         runs first and marks what it wrapped; such a paragraph is by definition a passage set off
+         from the prose around it, so the seam below it is a real boundary and not a page-turn. The
+         seam ABOVE it needs no rule — the wrapped <p> carries an attribute, and a <p> with attributes
+         is never joined. */
+      if (/class="bk-loose"/.test(before)) { kept++; return whole; }
+      if (!mid && vb !== va) { kept++; return whole; }
+      const verse = vb && va;
       joined++; if (mid) welded++; else if (verse) versed++;
       return a + (mid ? "" : (verse ? "<br>" : " ")) + z;
     });
@@ -25273,8 +25365,9 @@ function joinBrokenParas(chapters) {
     c.html = fix(c.html);
     if (c.notes) c.notes = c.notes.map(fix);
   });
-  if (joined) console.log("  joined " + joined + " false paragraph break" + (joined === 1 ? "" : "s") +
-    " (" + welded + " inside a word, " + versed + " between verse lines)");
+  if (joined || kept) console.log("  joined " + joined + " false paragraph break" + (joined === 1 ? "" : "s") +
+    " (" + welded + " inside a word, " + versed + " between verse lines)" +
+    (kept ? ", kept " + kept + " prose/verse boundar" + (kept === 1 ? "y" : "ies") : ""));
 }
 
 function writeEnglish(chapters, warnings) {
@@ -25299,7 +25392,8 @@ function writeEnglish(chapters, warnings) {
      single-syllable unaspirated rows are what turn a second pass from a no-op into a rename. */
   if (BOOK.roman && !BOOK.titlesCorrected) chapters.forEach((c) => { c.t = applyRoman(c.t); });
 
-  joinBrokenParas(chapters);
+  wrapLooseText(chapters);
+  joinBrokenParas(chapters, !!BOOK.verseNewlines);
 
   const outDir = path.join(ROOT, "books");
   fs.mkdirSync(outDir, { recursive: true });
@@ -26159,6 +26253,15 @@ async function fetchOriginal() {
 function writeOriginal(byNum, warnings) {
   const O = BOOK.original;
   const nums = Object.keys(byNum).map(Number).sort((a, b) => a - b);
+  /* THE SAME TWO PASSES THE TRANSLATION GETS, over a shape this half stores differently. `byNum` is
+     a number-to-html map where `writeEnglish` holds an array of records, so it is adapted here
+     rather than the passes being written twice: a repair that runs on one column and not the other
+     is a book whose two halves disagree about what a paragraph is. */
+  const asChapters = nums.map((n) => ({ n: n, html: byNum[n] }));
+  wrapLooseText(asChapters);
+  joinBrokenParas(asChapters, !!O.verseNewlines);
+  asChapters.forEach((c) => { byNum[c.n] = c.html; });
+
   const outDir = path.join(ROOT, "books");
   const out = path.join(outDir, id + "." + O.lang + ".js");
   const lines = [];
