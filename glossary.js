@@ -1865,7 +1865,8 @@ window.GLOSSARY = {
 "Bandar_Seri_Begawan": "Bandar Seri Begawan is the capital of Brunei Darussalam, a country the United Nations places in South-eastern Asia, and the same source gives the city 40,800 people in a figure it footnotes to 2018.<sup class=\"fn\" data-fn=\"1\"></sup> That is under a tenth of the national 466,000, although the profile puts more than three quarters of Bruneians in towns, and it says nothing about what territory the capital figure covers.<sup class=\"fn\" data-fn=\"1\"></sup> The United States signed a treaty of friendship and commerce in Brunei in 1850 that remains in force, kept a consulate there from 1865 to 1868, and has had an embassy in the city since 1984, when full independence from Britain was recognised.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Belmopan": "Belmopan is the capital of Belize, a country the United Nations places in Central America, and the same source gives the city 23,000 people in a figure it footnotes to 2018 — about a twentieth of the national 423,000.<sup class=\"fn\" data-fn=\"1\"></sup> The country around it is thinly settled at about nineteen people to the square kilometre and is still 55 per cent forest, with fewer than half of Belizeans living in towns.<sup class=\"fn\" data-fn=\"1\"></sup> It was not the seat of the American embassy for the first quarter-century of independence: Belize became independent from the United Kingdom in September 1981, and the embassy moved from Belize City to Belmopan only on 11 December 2006.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Nassau": "Nassau is the capital of the Bahamas, a country the United Nations places in the Caribbean, and the same source gives the city 279,700 people in a figure it footnotes to 2018.<sup class=\"fn\" data-fn=\"1\"></sup> That is more than two thirds of a national population of 403,000, in a country where the profile puts 83.1 per cent of people in towns, so the capital holds most of the population of an archipelago state.<sup class=\"fn\" data-fn=\"1\"></sup> The Bahamas became independent from the United Kingdom on 10 July 1973, the day the United States recognised it by establishing its embassy in the city, and joined the United Nations that September.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
-"Reykjavík": "Reykjavík is the capital of Iceland, a country the United Nations places in Northern Europe, and the same source gives the city 216,400 people in a figure it footnotes to 2018 — more than half of a national population of 398,000.<sup class=\"fn\" data-fn=\"1\"></sup> The country around it is thinly settled, at four people to the square kilometre across 103,000 square kilometres, and its population has grown by close to a fifth since 2015.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> An American legation was established in the city on 30 September 1941, three years before Iceland became a republic on 17 June 1944, and it was raised to an embassy in 1955.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Reykjavík": "Reykjavík is the capital of Iceland, a country the United Nations places in Northern Europe, and the same source gives the city 216,400 people in a figure it footnotes to 2018 — more than half of a national population of 398,000.<sup class=\"fn\" data-fn=\"1\"></sup> The country around it is thinly settled, at four people to the square kilometre across 103,000 square kilometres, and its population has grown by close to a fifth since 2015.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> An American legation was established in the city on 30 September 1941, three years before Iceland became a republic on 17 June 1944, and it was raised to an embassy in 1955.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Port_Vila": "Port Vila is the capital of Vanuatu, a country the United Nations places in Melanesia, and the same source gives the city 52,700 people in a figure it footnotes to 2018 — about a sixth of the national 335,000.<sup class=\"fn\" data-fn=\"1\"></sup> The country around it has grown by roughly a quarter since 2015 and covers 12,189 square kilometres of islands.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It has been the seat of an independent state since 30 July 1980, when an Anglo-French condominium ended, though the United States established diplomatic relations only in 1986 and opened an embassy in the city on 19 July 2024, accrediting its ambassador in Papua New Guinea to Vanuatu in the meantime.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3735,7 +3736,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Djibouti_(city)": ["Djibouti City"],
 "Georgetown,_Guyana": ["Georgetown"],
 "Luxembourg_(city)": ["Luxembourg City"],
-"Reykjavík": ["Reykjavik"]
+"Reykjavík": ["Reykjavik"],
+"Port_Vila": ["Port-Vila"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5629,7 +5631,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Bandar_Seri_Begawan": ["place","city","geography","capital","brunei","asia"],
 "Belmopan": ["place","city","geography","capital","belize","central america"],
 "Nassau": ["place","city","geography","capital","bahamas","caribbean"],
-"Reykjavík": ["place","city","geography","capital","iceland","europe"]
+"Reykjavík": ["place","city","geography","capital","iceland","europe"],
+"Port_Vila": ["place","city","geography","capital","vanuatu","oceania"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
