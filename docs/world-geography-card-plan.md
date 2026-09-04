@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-682` Papeete.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-683` São Tomé.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -3246,6 +3246,57 @@ city inland — portrait, and the first portrait picture in this run, which the 
 rather than crops. **An oblique aerial is a view; a vertical one is a diagram** — that is the line the
 satellite refusal is really drawing, and it is worth stating because a straight ban on "from the air"
 would have thrown this one away too.
+
+**`gw-682` PAPEETE CLOSES THE CAPITAL-FOOTNOTE TAXONOMY: UNdata SAYS EXACTLY WHAT IT COUNTED.**
+The run has spent twenty cards working up a ladder of footnotes — a bare year (unknowable), a *cercle*
+(Djibouti), a district (Paramaribo), the urban part of a municipality (Podgorica), two harbour
+localities not named after the city (Valletta), and back to bare (Bandar Seri Begawan). French
+Polynesia's profile ends it: footnote f reads **"Refers to the total population in the communes of
+Arue, Faaa, Mahina, Papara, Papeete, Pirae and Punaauia"** — seven communes, named. It is the only
+capital figure in the collection whose boundary is stated outright, and it settles what the arithmetic
+elsewhere could only infer: 136,000 over the World Bank's 279,815 for 2018 is about half the
+territory, against an urban share of 61.9 per cent, so the capital is four fifths of the urban
+population and NOT all of it — which is what a defined multi-commune agglomeration looks like beside
+Nouméa's and Bridgetown's near-coincidence. **Read the footnotes before writing the comparison
+sentence; on one profile in the deck they do the work for you.**
+
+**AND THE SAME PROFILE EXPLAINS ITS OWN AREA GAP — THE FIRST TIME IN THE RUN.** UNdata's 3,687 km²
+carries footnote c: "Including water bodies of lake Vaihiria, lake Temae and the Maiao lagoons, but
+not lake Maeva and the lagoons of Raiatea and Tahaa from the upper islands. No lagoons from lower
+islands are included." The World Bank gives a flat 3,471 and the Secretariat's working paper "about
+3,500 km²" for the land — so the 216 km² gap is **water, itemised**. Everywhere else in Phase 3 and in
+this run the two figures simply differ and neither source says why; here the card can state the reason
+rather than the gap. **When an area diverges, look for a footnote on the area field itself** — it is a
+different footnote from the one on the capital population and is easy to skim past.
+
+**A NON-SELF-GOVERNING TERRITORY HAS A BETTER SOURCE THAN THE RECOGNITION GUIDE, AND IT IS THE ANNUAL
+WORKING PAPER.** `history.state.gov/countries/french-polynesia` is a 404, as New Caledonia's was, but
+the Special Committee on decolonization has a Secretariat working paper per territory
+(`A/AC.109/<year>/<n>`), and it is far richer than a recognition page: a "Territory at a glance" block
+with the administering Power, the High Commissioner, land area, EEZ, population, languages, capital
+and head of government, then sections on the economy, transport and external relations. For Papeete it
+gave the Autonomous Port of Papeete and the international airport at **Faaʻa — one of the seven
+communes the capital figure counts**, which is the join between the two sources. **Search the Digital
+Library for the territory's working paper before concluding a territory has no history source.**
+
+**AND THE WORKING PAPER'S PDF IS EXTRACTABLE HERE, WHICH THE N10 FINDING SAID IT MIGHT NOT BE.**
+There is no `pdftotext`, `pypdf`, `fitz` or `mutool` in this sandbox, and the file's text is hex-coded
+against subset fonts — but it **carries its ToUnicode CMaps**, so about forty lines of Python get the
+whole 17 pages: inflate every stream, take the ones containing `beginbfchar`/`beginbfrange`, build the
+code→character map, then inflate the content streams and decode every `<hex>` inside a `TJ` array or
+before a `Tj`. **Check the three merged CMaps for conflicting codes first** (there were none here; a
+conflict would mean the per-font maps disagree and the merge would silently corrupt the text). A first
+attempt that read the PDF's *literal* `(...)` strings returned 161 KB of `en-GB` language tags and no
+prose — **a large extraction that contains none of your search terms is a font problem, not an empty
+document.**
+
+**PICTURE.** `Category:Views of Papeete` and `Category:Port of Papeete` do not exist; the parent
+category is large and mostly street furniture, monuments and food stalls. The best-named candidate,
+`Papeete et Moorea depuis le belvédère de Pīra'e.jpg` (CC BY-SA 4.0, 6016×4000), is the Monts-Koghis
+case again — a ridge panorama with the town a thin strip in the middle distance under cloud. What
+shipped is `Rade de Papeete.jpg` (Jérémie Silvestro, CC BY-SA 4.0, 6016×4000), the waterfront from the
+harbour. Note the rejected file's name carries an **apostrophe**, which `SRC_URL_RX` stops at, so it
+would have needed percent-encoding in the credit line.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
