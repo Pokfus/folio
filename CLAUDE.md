@@ -3970,6 +3970,21 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   content; and the sections are added up by `cpColsContentH` rather than read off `.cp-cols`'s
   `scrollHeight`, which can never be less than the padding box we have just given a height — so folding a
   section away measured as a no-op and left the sheet as tall as the paragraph that was no longer in it.
+- **…AND ITS ROOM IS THE STAGE'S, NOT THE SCREEN'S** (`cpRoomH`; Sep 2026, on a bug report: on mobile the
+  popup expanded "too tall … i can't see the top of the popup or the button to close it"). `cpMaxH` is the
+  smaller of what the content needs and what there is room for, and the second half asked
+  `documentElement.clientHeight` — the whole viewport. The sheet is `position:absolute` inside
+  **`.globe-stage`**, which is a FIXED box running from the top bar down to the top of the timeline
+  (`bottom:calc(var(--timebar-h) + var(--tabbar-h) + …)`) and which **CLIPS its overflow** — so on a phone
+  the ceiling overshot by about **154px**, and a long country's sheet grew straight past the top of the
+  stage: measured at 390×844, the sheet's top sat at **−168px** and the × at **−152**, cut away entirely,
+  leaving no way to shut it but the chevron that had gone with them. Asking the box the sheet is actually
+  positioned in is also what makes `CP_BOTTOM_GAP` agree with the `bottom:14px` it stands for, both being
+  offsets from one edge. **`closest(".globe-stage")` rather than `offsetParent`**, which is null while the
+  popup is hidden, with the viewport as a fallback that is never the answer. **A short place cannot see
+  this at all** — France and Spain fit inside either ceiling — so the guard in `test-layout.js` opens the
+  United States, and checks the × as a RECT inside the stage rather than by its size, a control clipped by
+  an ancestor's overflow still measuring its full height and reporting itself perfectly visible.
 - **…AND THE TITLE ROW NO LONGER WRAPS, so the × keeps the corner** (`.cp-titlemain`; Sep 2026, on a bug
   report: a country name long enough "pushes the X button for closing the popup to the next line,
   especially when the new place chip is there, so it appears in the bottom left"). Four items on one
@@ -5554,7 +5569,7 @@ dead code (never rendered).
     `#fsRange` / `MULTILANG` / `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
     `wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` / the ink layer's
     pass-through / `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on
-    `.admin-list-items` / `cpWireResize` / `cpContentNeedH` / `cpColsContentH` / `.cp-titlemain` / `lockHeight`, or after adding an
+    `.admin-list-items` / `cpWireResize` / `cpContentNeedH` / `cpColsContentH` / `cpRoomH` / `cpMaxH` / `.cp-titlemain` / `lockHeight`, or after adding an
     overlay to `document.body`.**
   · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js` —

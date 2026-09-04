@@ -2358,6 +2358,40 @@ function scrimCheck() {
     const reopened = await slack();
     check("...and opens to what ITS own sections need", reopened.slack <= 24 && reopened.h > next.h,
       JSON.stringify({ shut: next.h, opened: reopened }));
+
+    /* A LONG PLACE IS CAPPED BY THE STAGE, NOT BY THE SCREEN (Sep 2026, on a bug report: on mobile the
+       popup expanded "too tall … i can't see the top of the popup or the button to close it"). The sheet
+       is absolutely positioned inside `.globe-stage`, which stops above the timeline and the tab bar and
+       CLIPS what overflows it — so a ceiling measured against `documentElement.clientHeight` overshot by
+       about 154px on a phone and pushed the title row, the breadcrumb and the × off the top, where they
+       were cut away with no way back but the chevron the reader could no longer see. Measured on the
+       United States, whose sections run past the room a phone has; France and Spain above both fit
+       comfortably, so neither of them can see this at all — which is why it is asserted on a place chosen
+       for being TOO LONG rather than on the one already open. The × is checked as a RECT inside the sheet
+       rather than by its height, since a control clipped by an ancestor's overflow still measures its full
+       size and reports itself perfectly visible. */
+    await page.evaluate(() => { location.hash = "#map/2026/united-states-of-america"; });
+    await page.waitForTimeout(1800);
+    await page.click("#cpMore");
+    await page.waitForTimeout(600);
+    const big = await page.evaluate(() => {
+      const p = document.querySelector("#countryPop"), stage = p.closest(".globe-stage");
+      const pr = p.getBoundingClientRect(), sr = stage.getBoundingClientRect();
+      const tr = document.querySelector(".cp-titlerow").getBoundingClientRect();
+      const x = p.querySelector(".cp-close").getBoundingClientRect();
+      return {
+        top: Math.round(pr.top), bottom: Math.round(pr.bottom),
+        stageTop: Math.round(sr.top), stageBottom: Math.round(sr.bottom),
+        titleTop: Math.round(tr.top), xTop: Math.round(x.top), xBottom: Math.round(x.bottom),
+        overflow: Math.round(document.querySelector(".cp-cols").scrollHeight - document.querySelector(".cp-cols").clientHeight),
+      };
+    });
+    check("a long place's sheet stays inside the globe stage",
+      big.top >= big.stageTop - 1 && big.bottom <= big.stageBottom + 1, JSON.stringify(big));
+    check("...so its name is on screen", big.titleTop >= big.stageTop - 1, JSON.stringify(big));
+    check("...and so is the button that closes it",
+      big.xTop >= big.stageTop - 1 && big.xBottom <= big.stageBottom + 1, JSON.stringify(big));
+    check("...with the rest reached by scrolling rather than by growing", big.overflow > 0, JSON.stringify(big));
     await page.close();
   }
 
