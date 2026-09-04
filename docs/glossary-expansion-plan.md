@@ -183,7 +183,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N20 | 12 | Italian landscape and geology — **shipped**, 11 of 12 pictured |
 | N21 | 12 | Tanzania, the Serengeti and African mammal groups — **shipped**, all twelve pictured |
 | N22 | 12 | Olduvai beds, palaeoanthropology's institutions and dating methods — **shipped**, 11 of 12 pictured |
-| N23 | 12 | Amarna and Egypt |
+| N23 | 12 | Amarna and Egypt — **shipped**, all twelve pictured |
 | N24–N32 | ~107 | **the Italian provinces**, by region |
 
 **N3 shipped eight terms rather than twelve, and the missing four are one deferral and one
@@ -331,6 +331,70 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N23's findings
+
+**N23 — Amarna and Egypt (shipped, all twelve pictured).** The twelve are `Nile`, `Amarna`, `Amun`,
+`Aten`, `Nefertiti`, `Memphis_(Egypt)`, `Saqqara`, `Giza`, `Ptah`, `Horus`, `Demotic` and `Obelisk`,
+derived as usual by measuring the corpus rather than by listing what an Egypt batch ought to contain:
+`Nile` alone was named **48 times across the shipped cards and terms with no entry behind it**, the
+largest uncovered surface the expansion has met.
+
+**ITS FIRST FINDING IS AN ACCESS REGRESSION IN CONTENT ALREADY SHIPPED, and it was found by reading the
+existing terms' citations rather than by looking for it.** `egymonuments.gov.eg`, the Egyptian Ministry
+of Tourism and Antiquities' *Discover Egypt's Monuments*, is **503 on every path from this sandbox** —
+the root, Saqqara, Karnak, Tell el-Amarna, the Giza Plateau — and it is cited on **seven shipped
+glossary terms** (`Mummification`, `Karnak`, `Valley_of_the_Kings`, `Great_Pyramid_of_Giza`,
+`Old_Kingdom_of_Egypt`, `Great_Sphinx_of_Giza`, `Pyramid_of_Djoser`). Those citations were written when
+the host answered; nothing in the pipeline re-checks a URL after it ships, so a citation can rot in
+place and every audit still reports the term at the bar. **Read the neighbouring terms' source lists
+before starting a batch in a subject the glossary already covers** — it is where the reusable sources
+are (G6's economy) and it is the only place this kind of decay is visible. N23 used none of that host.
+
+**Its second finding is the reachable spine for Egyptology, measured rather than assumed.** Almost every
+museum is walled: `britishmuseum.org` and `rmo.nl` serve Cloudflare's "Just a moment…", `penn.museum`
+403, `smarthistory.org` 403, and **`metmuseum.org` answers 429 with a Vercel Security Checkpoint**.
+`escholarship.org` — which is where the peer-reviewed **UCLA Encyclopedia of Egyptology** actually
+lives, the UEE's own site being a notice pointing at it — returns **202 with a zero-byte body**, a
+seventh variety of non-content response to add to the five 200-status error documents already recorded.
+What does answer, and carried the whole batch: **PMC open access** for the science, **the American
+Research Center in Egypt's topic articles** (authored and affiliated — Ola el Aguizy of Cairo
+University on Saqqara, Anna Stevens of Cambridge and Monash on the Aten, Steve Vinson of Indiana and
+Marina Escolano-Poveda of Liverpool on Demotic), **Digital Egypt for Universities** at UCL, **the
+Theban Mapping Project**, **the Amarna Project** and **`isac.uchicago.edu`**, whose Oriental Institute
+PDFs the corpus already cites.
+
+**Its third finding is that a compact reference list can carry a definitional term where a monograph
+cannot, which is G8's rule seen from the other side.** Three gods — `Amun`, `Ptah`, `Horus` — looked
+like the terms the literature does not pay for, and the first plan was to source them from Erman (1907)
+and Breasted (1912) on archive.org. Digital Egypt's *Gods and Goddesses in Ancient Egypt: The Main Names
+at the Main Places* states each in a clause: Amun "god of universal power (his name means 'the hidden
+one')", Ptah "god of material creation, crafts. Main deity at Memphis", Horus "god of kingship,
+celestial power", with the towns and the absorptions listed. **A page organised as a list of definitions
+is worth looking for before a book that argues** — N22 found the same in the ICZN's code.
+
+**Two decisions about surfaces are worth carrying.** `Memphis_(Egypt)` **is keyed with a parenthetical
+and deliberately does NOT claim the bare name**: of the corpus's nineteen "Memphis"es, sixteen are
+Egyptian and **three are Tennessee** (`geo-034`, `geo-534` and the `Tennessee` term), so an alias would
+mislink one in six — the fault `check-gloss-links.js` exists to report. The cost is that a real and
+important term links from nothing, and that is the honest price of the rule. `Kush` was **dropped from
+the batch for the same reason and did not survive it**: two of its six corpus hits are the **Hindu
+Kush**, and until a `Hindu_Kush` term exists to win the longer surface, a Nubian kingdom would be
+attached to an Afghan mountain range.
+
+**`Upper_Egypt` is deferred, at 12 corpus hits the highest-reach term this batch left behind, and the
+reason is principled rather than practical.** It is a conventional division — the southern half of a
+country, named as such — and nothing among the reachable hosts states it as a claim; G8's rule holds and
+N22's exception does not apply, because no body maintains "Upper Egypt" the way the ICZN maintains
+*holotype*. It wants a source that describes the division as a historical fact rather than using it as a
+label; `Lower Egypt` (2 hits) waits with it.
+
+Its picture pass rejected four on the standing rules: **an ISS photograph of Memphis from orbit** and a
+**Nile basin map**, both diagrams of a place rather than views of it; a Petrie Museum Aten stela whose
+incised disc is invisible at the size the popup draws; and a Ptah model tower with the museum's typed
+catalogue label intruding along the bottom edge. The `Granite` term already carries the **Unfinished
+Obelisk**, so `Obelisk` took Hatshepsut's at Karnak instead — **check what a sibling already shows before
+choosing**, since the obvious picture for a term is often already spent.
 
 ### N22's findings
 
