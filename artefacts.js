@@ -987,4 +987,25 @@ window.ARTEFACTS = [
     date: "c. 12th century CE",
     origin: "Norway or the Norse North Atlantic; found on Lewis, Scotland",
   },
+  {
+    id: "aztec-sun-stone",
+    name: "Aztec Sun Stone",
+    rarity: "epic",
+    date: "c. 1502 – 1519 CE",
+    origin: "Tenochtitlan, Mexica empire",
+  },
+  {
+    id: "enigma-machine",
+    name: "Enigma machine",
+    rarity: "epic",
+    date: "c. 1930 – 1945 CE",
+    origin: "Germany",
+  },
+  {
+    id: "dancing-girl-mohenjo-daro",
+    name: "Dancing Girl of Mohenjo-daro",
+    rarity: "rare",
+    date: "c. 2500 BCE",
+    origin: "Mohenjo-daro, Indus Valley",
+  },
 ];

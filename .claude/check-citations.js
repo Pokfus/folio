@@ -202,6 +202,12 @@ const CROSSREF_WRONG = [
   ["10.1371/journal.pone.0299286", "Yuxin Feng", "Feng Yuxin"],
   ["10.1371/journal.pone.0299286", "Yunxia Tian", "Tian Yunxia"],
   ["10.1371/journal.pone.0299286", "Xiaoyu Lv", "Lv Xiaoyu"],
+  // Crossref has transposed given and family for both authors of this paper: it
+  // holds given "Borowska" / family "Anna". The journal's own article page lists
+  // "Anna Borowska" and "Elzbieta Rzeszutko" with their affiliations, and its own
+  // How-to-Cite block renders them "Borowska, A., & Rzeszutko, E. (2014)".
+  ["10.7494/csci.2014.15.4.365", "Anna Borowska", "Borowska Anna"],
+  ["10.7494/csci.2014.15.4.365", "Elzbieta Rzeszutko", "Rzeszutko Elzbieta"],
   // The article's own title page spells it Jacques; Crossref has dropped the c.
   ["10.14430/arctic1218", "Jacques Cinq-Mars", "Jaques Cinq-Mars"],
   // Radiocarbon's own page gives van der Plicht, a Dutch tussenvoegsel Crossref has

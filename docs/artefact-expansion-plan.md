@@ -266,6 +266,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B1b | `punch-marked-coin`, `etched-carnelian-bead` (both UN-DEFERRED) | — |
 | B1c | `chola-nataraja`, `gandhara-buddha-head` (both UN-DEFERRED) | — |
 | A2c | `book-of-kells`, `bayeux-tapestry`, `lewis-chessmen` (all three UN-DEFERRED — **A2's list is now empty**) | — |
+| A3a | `aztec-sun-stone`, `enigma-machine`, `dancing-girl-mohenjo-daro` | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -682,6 +683,52 @@ three of DOAJ's Bayeux candidates, which is the same constant B1 recorded; `api.
 from this container with or without a polite user-agent**, so it is not an index to plan on here; and
 `pmc.ncbi.nlm.nih.gov` answers 200 for *Phil. Trans. A* records that carry **no deposited full text**,
 which reads as an article and is a landing page.
+
+**A3a's finding is that the FOUNDING DESCRIPTION of a famous object is usually open, and it is usually
+the one that made the mistake everybody now repeats.** All three of this batch turn on a document written
+by the person who first published the thing, and in each the modern correction is a correction of that
+document rather than of the object:
+
+· **Antonio de León y Gama saw the Sun Stone lifted out of the Plaza Mayor on 17 December 1790** and
+  published his *Descripción histórica y cronológica de las dos piedras* two years later, reading it as a
+  calendar. Stuart's point is that the reading had a physical consequence: because it was taken for a
+  calendrical instrument it was mounted UPRIGHT in the outer wall of the cathedral, and it has been shown
+  vertically in every museum and reproduction since — of a disc that was carved as a horizontal surface.
+  **The interpretation changed the object's posture, and the posture now teaches the interpretation.**
+· **John Marshall named the Dancing Girl**, and Ernest Mackay guessed her a temple dancer on the strength
+  of a resemblance to a second bronze. Nothing in the object says she is dancing; the name is a 1931
+  reading that has been the object's identity for a century, and both excavators described her in the
+  racial vocabulary of their decade. This is the A2c rule again — *where a reader arrives holding a name,
+  the correction is usually inside the name* — arriving from a completely different literature two
+  batches later, which is what makes it a rule rather than a coincidence.
+· **Enigma's founding account is the popular one**, that Bletchley Park broke it. The Science Museum
+  Group Journal's own conversation with Dermot Turing states what the British had before Pyry in July
+  1939 — no wiring, no way into a plugboard Enigma — and that the Poles handed over two
+  reverse-engineered machines five weeks before the war.
+
+Three routes it establishes, all measured:
+
+· **`journals.socantscot.org`'s Mexican equivalent is `nahuatl.historicas.unam.mx`** — *Estudios de
+  Cultura Náhuatl*, UNAM's own OJS, open, DOIs from 2023 on, and its search answered "Piedra del Sol"
+  with the two papers that carry the live disputes (the central face, and whether the stone is a
+  *cuauhxicalli* or a *temalacatl*). `revistas.unam.mx` itself is **403**, so go to the institute's host
+  rather than the university's portal.
+· **`mesoweb.com` publishes peer-reviewed Mesoamerican monographs open, in full**, in English and
+  Spanish — David Stuart's *King and Cosmos* is 22 MB of readable PDF. It is the single best open source
+  the pass has found for central Mexico, and nothing in the plan's survey named it.
+· **`archive.org` carries Marshall 1931 and Mackay 1938 AND 1935**, but under Digital Library of India
+  identifiers (`in.ernet.dli.2015.69817`, `.70071`, `.70456`) rather than readable slugs, and **the
+  readable-slug copies are lending-restricted**: `frozentombsofsib00rude` returns 401 where the
+  user-uploaded duplicate is open. **Search the DLI identifiers before concluding a book is closed** —
+  and note the corollary, that an open duplicate of an in-copyright book is not a licence to cite it;
+  Rudenko 1970 was dropped from this batch for that reason and the Pazyryk carpet waits.
+
+Two cautions. **`api.openalex.org` 429s from this container** whatever user-agent is sent, so it is not
+an index to plan on here; DOAJ and Europe PMC both answer. And **Crossref has transposed given and
+family names for both authors of the Borowska and Rzeszutko paper**, which `check-citations.js` reported
+as a mismatch — the journal's own article page and its own How-to-Cite block settle it, and the pair are
+declared in `CROSSREF_WRONG` with that reasoning. That is the fifth and sixth row of a table that exists
+because a checker which cries wolf is a checker nobody runs.
 
 ## The per-artefact workflow
 
