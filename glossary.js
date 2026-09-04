@@ -1809,7 +1809,8 @@ window.GLOSSARY = {
 "Vilnius": "Vilnius is the capital and largest city of Lithuania, standing in the southeast of that northern European state. The United Nations Statistics Division names it as the capital and gives about 538,000 people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series that flattens near 541,500 by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> No American post stood in the city until an embassy was established there on 2 October 1991: the legations of the interwar republic were at Riga and then at Kovno, and the second of them closed in 1940 after the Soviet annexation.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Chișinău": "Chișinău is the capital and largest city of Moldova, standing in the centre of that eastern European state. The United Nations Statistics Division names it as the capital and gives about 504,000 people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series that falls throughout the decade to some 484,000 by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy in the city was established on 13 March 1992, three months after the United States recognised Moldova's independence and eleven days after it joined the United Nations.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Tbilisi": "Tbilisi is the capital and largest city of Georgia, standing in the east of that state, which the United Nations files under western Asia. The United Nations Statistics Division names it as the capital and gives about 1.077 million people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series that barely moves across the decade, from 1,078,125 in 2015 to 1,087,022 in 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy in the city was established on 23 April 1992, a month after diplomatic relations with Georgia and three months before it joined the United Nations.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Yerevan": "Yerevan is the capital and largest city of Armenia, standing in the west of that state, which the United Nations files under western Asia. The United Nations Statistics Division names it as the capital and gives about 1.083 million people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series rising steadily to about 1.1 million by 2025, which is roughly a third of the national population.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy in the city opened on 3 February 1992, six weeks after the United States recognised Armenia's independence for the second time in 71 years.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Yerevan": "Yerevan is the capital and largest city of Armenia, standing in the west of that state, which the United Nations files under western Asia. The United Nations Statistics Division names it as the capital and gives about 1.083 million people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series rising steadily to about 1.1 million by 2025, which is roughly a third of the national population.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy in the city opened on 3 February 1992, six weeks after the United States recognised Armenia's independence for the second time in 71 years.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Ulaanbaatar": "Ulaanbaatar is the capital and largest city of Mongolia, standing in the north of that eastern Asian state. The United Nations Statistics Division names it as the capital and gives about 1.553 million people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series climbing by a quarter across the decade to about 1.72 million by 2025 — close to half of everyone in Mongolia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy in the city opened on 17 April 1988, a year after the two states recognised each other in a joint communiqué and 27 years after Mongolia joined the United Nations.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3667,7 +3668,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tripoli": ["Tarabulus"],
 "Asunción": ["Asuncion"],
 "Belgrade": ["Beograd"],
-"Chișinău": ["Chisinau","Kishinev"]
+"Chișinău": ["Chisinau","Kishinev"],
+"Ulaanbaatar": ["Ulan Bator"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5505,7 +5507,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Vilnius": ["place","city","geography","capital","lithuania"],
 "Chișinău": ["place","city","geography","capital","moldova"],
 "Tbilisi": ["place","city","geography","capital","georgia"],
-"Yerevan": ["place","city","geography","capital","armenia"]
+"Yerevan": ["place","city","geography","capital","armenia"],
+"Ulaanbaatar": ["place","city","geography","capital","mongolia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
