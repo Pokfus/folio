@@ -1729,6 +1729,32 @@ const BOOKS = {
       "International licence. (The modern translations — the Hackett Complete Works edited by John " +
       "Cooper, 1997, and the Penguin and Oxford versions by Walter Hamilton, Robin Waterfield and " +
       "Christopher Rowe — are still in copyright and are not used here.)",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    reFixes: [
+      [/(?<![A-Za-z])househoIds(?![A-Za-z])/g, "households",
+       "a capital I read for the lowercase l of `households`"],
+      [/(?<![A-Za-z])illiberaI(?![A-Za-z])/g, "illiberal",
+       "a capital I read for the lowercase l of `illiberal`"],
+      [/(?<![A-Za-z])vaIueless(?![A-Za-z])/g, "valueless",
+       "a capital I read for the lowercase l of `valueless`"],
+      [/(?<![A-Za-z])equivaIent(?![A-Za-z])/g, "equivalent",
+       "a capital I read for the lowercase l of `equivalent`"],
+      [/(?<![A-Za-z])Iawgiver(?![A-Za-z])/g, "lawgiver",
+       "a capital I read for the lowercase l of `lawgiver`"],
+      [/(?<![A-Za-z])benevolentIy(?![A-Za-z])/g, "benevolently",
+       "a capital I read for the lowercase l of `benevolently`"],
+      [/(?<![A-Za-z])ignobIy(?![A-Za-z])/g, "ignobly",
+       "a capital I read for the lowercase l of `ignobly`"],
+      [/(?<![A-Za-z])equaIizing(?![A-Za-z])/g, "equalizing",
+       "a capital I read for the lowercase l of `equalizing`"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059/",
 
@@ -1881,6 +1907,18 @@ const BOOKS = {
       "released under a Creative Commons Attribution-ShareAlike 4.0 International licence. (The modern " +
       "translations by Rolfe Humphries, 1955, Allen Mandelbaum, 1993, Charles Martin, 2004, and " +
       "Stephanie McCarter, 2022, are still in copyright and are not used here.)",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    reFixes: [
+      [/(?<![A-Za-z])Iamb(?![A-Za-z])/g, "lamb",
+       "a capital I read for the lowercase l of `lamb`"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0959.phi006/",
 
@@ -2050,6 +2088,18 @@ const BOOKS = {
       "Library at Tufts University and are released under a Creative Commons Attribution-ShareAlike " +
       "4.0 International licence. (The modern translations by Robert Graves, 1957, Catharine Edwards, " +
       "2000, and Tom Holland, 2021, are still in copyright and are not used here.)",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    reFixes: [
+      [/(?<![A-Za-z])Iviii(?![A-Za-z])/g, "lviii",
+       "a capital I read for the lowercase l of `lviii`"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1348/",
 
@@ -2253,6 +2303,18 @@ const BOOKS = {
       "an editor nor a date for the text it prints, so none is claimed here. (The modern " +
       "translations by Rolfe Humphries, 1968, Ronald Melville, 1997, and A. E. Stallings, 2007, are " +
       "still in copyright and are not used here.)",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    reFixes: [
+      [/(?<![A-Za-z])aIl(?![A-Za-z])/g, "all",
+       "a capital I read for the lowercase l of `all`"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0550.phi001/",
 
@@ -7679,6 +7741,28 @@ const BOOKS = {
       "Attribution-ShareAlike 4.0 International licence. (The modern translations by Richmond " +
       "Lattimore, 1951, Robert Fagles, 1990, Caroline Alexander, 2015, and Emily Wilson, 2023, are " +
       "still in copyright and are not used here, nor is William F. Wyatt's 1999 revision of Murray.)",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    reFixes: [
+      [/(?<![A-Za-z])walI(?![A-Za-z])/g, "wall",
+       "a capital I read for the lowercase l of `wall`"],
+      [/(?<![A-Za-z])pIaited(?![A-Za-z])/g, "plaited",
+       "a capital I read for the lowercase l of `plaited`"],
+      [/(?<![A-Za-z])exuIting(?![A-Za-z])/g, "exulting",
+       "a capital I read for the lowercase l of `exulting`"],
+      [/(?<![A-Za-z])trembIing(?![A-Za-z])/g, "trembling",
+       "a capital I read for the lowercase l of `trembling`"],
+      [/(?<![A-Za-z])feIl(?![A-Za-z])/g, "fell",
+       "a capital I read for the lowercase l of `fell`"],
+      [/(?<![A-Za-z])muIe(?![A-Za-z])/g, "mule",
+       "a capital I read for the lowercase l of `mule`"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg001/",
 
@@ -8351,6 +8435,42 @@ const BOOKS = {
       "Commons Attribution-ShareAlike 4.0 International licence. (The modern translations by Allen " +
       "Mandelbaum, 1971, Robert Fitzgerald, 1983, Robert Fagles, 2006, Sarah Ruden, 2008, and Shadi " +
       "Bartsch, 2021, are still in copyright and are not used here.)",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    reFixes: [
+      [/(?<![A-Za-z])Iooked(?![A-Za-z])/g, "looked",
+       "a capital I read for the lowercase l of `looked`"],
+      [/(?<![A-Za-z])Iot(?![A-Za-z])/g, "lot",
+       "a capital I read for the lowercase l of `lot`"],
+      [/(?<![A-Za-z])Iords(?![A-Za-z])/g, "lords",
+       "a capital I read for the lowercase l of `lords`"],
+      [/(?<![A-Za-z])Ionger(?![A-Za-z])/g, "longer",
+       "a capital I read for the lowercase l of `longer`"],
+      [/(?<![A-Za-z])Iow(?![A-Za-z])/g, "low",
+       "a capital I read for the lowercase l of `low`"],
+      [/(?<![A-Za-z])Iooming(?![A-Za-z])/g, "looming",
+       "a capital I read for the lowercase l of `looming`"],
+      [/(?<![A-Za-z])Ioudly(?![A-Za-z])/g, "loudly",
+       "a capital I read for the lowercase l of `loudly`"],
+      [/(?<![A-Za-z])Iose(?![A-Za-z])/g, "lose",
+       "a capital I read for the lowercase l of `lose`"],
+      [/(?<![A-Za-z])Ioomed(?![A-Za-z])/g, "loomed",
+       "a capital I read for the lowercase l of `loomed`"],
+      [/(?<![A-Za-z])Ioathed(?![A-Za-z])/g, "loathed",
+       "a capital I read for the lowercase l of `loathed`"],
+      [/(?<![A-Za-z])Ioosened(?![A-Za-z])/g, "loosened",
+       "a capital I read for the lowercase l of `loosened`"],
+      [/(?<![A-Za-z])Ioose(?![A-Za-z])/g, "loose",
+       "a capital I read for the lowercase l of `loose`"],
+      [/(?<![A-Za-z])Iet(?![A-Za-z])/g, "let",
+       "a capital I read for the lowercase l of `let`"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0690.phi003/",
 
@@ -8731,6 +8851,12 @@ const BOOKS = {
        THE SAME REASONING GIVES OPPOSITE ANSWERS FOR THE TWO CONFUSIONS, and only enumerating every
        occurrence says which: enumerate before writing a blanket row, not after. */
     fixes: [
+      /* ---------- BATCH E14: A CAPITAL I FOR A LOWERCASE l ----------
+         The shelf-wide fault of batch E14 in its one form here, and the only one anywhere that needed
+         more than the letter: the scan reads `boundIe.?s` where the list reads `boundless`, so the
+         capital stands in the middle of a word the machine also broke. */
+      ["boundIe.?s", "boundless",
+       "the litany reads 'In the saints who follow the boundless and universal law'"],
       ["j'^", "y", "y read as j with an apostrophe and a caret after it (thej'^ → they)"],
       ["j\"^", "y", "y read as j with a quotation mark and a caret after it (manj\"^ → many)"],
       ["j;^", "y", "y read as j with a semicolon and a caret after it (anj;^ → any)"],
@@ -13712,6 +13838,20 @@ const BOOKS = {
       "alone. (The modern translations by Jamison and Brereton, 2014, Wendy Doniger, 1981, and " +
       "Walter Maurer, 1986, are still in copyright and are not used.) Griffith's preface and " +
       "appendices, and the Sanskrit pages' commentary of Sayana, are not reproduced.",
+    /* ---------- A CAPITAL I STANDING WHERE A LOWERCASE l BELONGS (Sep 2026, batch E14) ----------
+       One fault, found on every shelf where a scanner has been: the capital I and the lowercase l are
+       the same stroke in most faces, and an OCR that guesses wrong writes `Iooked` for `looked` and
+       `househoIds` for `households`. It needs no printed witness where the capital falls INSIDE the
+       word, because no type sets one there; where it falls at the START, the book's own vocabulary
+       decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
+       measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
+       cry `Io Paean!` in four books where it is exactly right. */
+    reFixes: [
+      [/(?<![A-Za-z])Iong(?![A-Za-z])/g, "long",
+       "a capital I read for the lowercase l of `long`"],
+      [/(?<![A-Za-z])wiId(?![A-Za-z])/g, "wild",
+       "a capital I read for the lowercase l of `wild`"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/The_Hymns_of_the_Rigveda",
 

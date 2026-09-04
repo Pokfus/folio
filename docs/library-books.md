@@ -756,7 +756,12 @@ book added later will meet the same traps.
   first thing a reader needs to know. See the `journey-to-the-west.zh.js` entry for why it is worth
   shelving anyway),
   `virgil-aeneid` (~621 KB, all 12 books, **396 card sections**, **0 notes** — Theodore C. Williams's
-  blank verse of 1910, and **the first book here whose TRANSLATION MARKS ITS CARDS TWO WAYS AT ONCE.**
+  blank verse of 1910. **Its 22 candidates were recorded as unrepairable and were repaired in Sep 2026
+  (batch E14) with no scan at all**: the 1910 Houghton Mifflin printing is genuinely not on the
+  Internet Archive, but every one of the 22 was a capital I standing where a lowercase l belongs
+  (`Iooked`, `Ioudly`, `Iords`), which is settled by a rule about type and by the book's own
+  vocabulary rather than by a witness. It is also **the first book here whose TRANSLATION MARKS ITS
+  CARDS TWO WAYS AT ONCE.**
   Every earlier file on the TEI card path picks one mechanism and keeps to it — Ovid's English divides
   into `<div subtype="card">` and its Latin marks `<milestone unit="card"/>` — and Williams uses BOTH,
   327 divisions and 69 milestones, because the choice follows where the boundary falls: a card opening
@@ -1070,7 +1075,10 @@ book added later will meet the same traps.
   `plato-republic` (~666 KB, all 10 books, **no section numbers at all**, 117 translator notes — the
   first book here with none, which is why it has no original; see the `<id>.<lang>.js` bullet below),
   `plato-dialogues` (**~3.9 MB, much the largest book on the shelf** — **thirty-five whole WORKS as
-  thirty-five chapters**, 1,484 Stephanus sections, 1,627 notes. The first book here whose chapter is a
+  thirty-five chapters**, 1,484 Stephanus sections, 1,627 notes. **Eight of its fourteen slip
+  candidates were repaired in Sep 2026 (batch E14)** as the capital-I-for-l class, which needs no
+  witness and so is unaffected by the Loeb scan's OCR being unusable; the other six are real English
+  words in the wrong place (`sling` for `sting`, `patent` for `potent`) and still want a leaf read. The first book here whose chapter is a
   separate work rather than a division of one, so both columns are addressed through a table
   (`DIALOGUES` in the importer) instead of by arithmetic. It **absorbed the standalone
   `plato-symposium`** on 2026-08-06 — a `S.reading` / `S.bookFavs` migration in app.js carries the

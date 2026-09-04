@@ -289,13 +289,51 @@ re-run and diffed byte for byte.
 | **E11** ✅ | `canterbury-tales` | **21 repairs, using the book to check itself.** A word broken open is found by joining the lone letter to the fragment and scoring the result against THIS text's own vocabulary (`H`+`ow` 619 to 6). It is a proxy: it also proposed joining `a bout` in 'cannot stand a bout', which the second scan shows is the printing, and the join would have been grammatical and wrong. The second class — a letter standing for another word (`m` for `in`, `y` for `by`, `l` for `I`) — no frequency test can see |
 | **E12** ✅ | `canterbury-tales` | **17 repairs, and the batch was small because it was COUNTED first.** The spaced full stop is 31 occurrences in the raw and six units of work: twelve are the plate list's leader dots and eleven the back matter's `( Sh . T.)` keys, neither of which the extractor puts in a chapter. The rest are mangled runs, two of them a heap of marks where the page prints one closing quote. Nine marks are left, three of which are a correct `—,` both copies read |
 | **E13** ✅ | `canterbury-tales` | **6 repairs, every one cropped out of the page image and read**, the second scan being unable to align to a run it garbles differently. Two are punctuation the scan flattened and both change the sentence (a colon, a question mark); one is a closing quote lost while its neighbours survived; three are nothing, and each a different kind of nothing — a line break, SHOW-THROUGH from the facing page, and a reader's PENCIL down the margin. It also corrects a figure E12 estimated rather than measured |
-| **E14–En** | the rest of the error half | 45 marks left in the Canterbury Tales, nearly all inside runs mangled past any rule; then what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E14** ✅ | eight books | **42 repairs, and it UNBLOCKS the two E4 wrote off.** The capital I and the lowercase l are the same stroke, so an OCR writes `Iooked` for `looked` and `househoIds` for `households` — `virgil-aeneid`'s 22 unrepairable candidates are this class exactly, and eight of `plato-dialogues`' fourteen. Inside a word no witness is needed (no type sets one there); at the start the book's own vocabulary decides. It proposed six CORRECT readings — `Io` the nymph, `Io Pæan!`, the Gnostic `Ieu` — all excluded by name |
+| **E15–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica` (2); and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E14 — the capital I standing where a lowercase l belongs, shipped 2026-09-04
+
+**42 repairs across EIGHT books, and it unblocks the two the plan had written off.** E4 recorded
+`virgil-aeneid`'s 22 candidates as unrepairable because the 1910 Houghton Mifflin printing of
+Williams's translation is not on the Internet Archive, and `plato-dialogues`' because the Loeb
+volumes' OCR is unusable where the facing Greek bleeds into the English column. **Both were the same
+fault, and it needs no scan at all.** Virgil's 22 is this class exactly; Plato's are eight of its
+fourteen.
+
+**The capital I and the lowercase l are the same stroke in most faces**, so an OCR that guesses wrong
+writes `Iooked` for `looked`, `Ioudly` for `loudly`, `househoIds` for `households`. **Where the
+capital falls INSIDE the word no witness is needed**, because no type sets one there — the same shape
+of argument as E8's 10,944-to-40 comma measurement: the corpus establishes the convention and the
+reading follows from it. **Where it falls at the START, the book's own vocabulary decides**, on E11's
+measure: `looked` against `Iooked`, counted in that text.
+
+**AND IT PROPOSED SIX CORRECT READINGS, WHICH IS THE THIRD TIME A FREQUENCY MEASURE HAS DONE SO.**
+`lo` is common, so `Io` scores as a fix — and in all four books that carry it, it is right: **Io the
+nymph** in the Aeneid (`horned Io—wondrous the device!— a shaggy heifer`) and in the City of God,
+and the ritual cry **`Io Pæan! Io Pæan!`** in Lysistrata. Marco Polo's `Ieu` is the Gnostic name and
+its `Iar` a Turkic word for earth. All six are excluded by name. **After `a bout` in E11 and
+`Io` here, the rule is settled: a vocabulary score says a change is POSSIBLE, and a proper name is
+what it cannot see.**
+
+Two that look like the class and are not quite: Ovid's `Iamb` is a **lamb**, not an iamb — `Could I
+be braver than the lamb that hears the wolves howling around?` — and Suetonius's `Iviii` is a
+**chapter number**, `lviii`, in a cross-reference to Augustus 58. Journey to the West's single
+instance needed more than the letter: the scan reads `boundIe.?s` where the litany reads
+`boundless`, so the capital sits inside a word the machine had also broken, and it is a `fixes` row
+rather than part of the sweep.
+
+**The six Greek and Latin original-language columns are byte-identical**, which is what anchoring
+the rows on ASCII word boundaries buys. **The Rigveda's Sanskrit column and Journey to the West were
+still rebuilding when this was committed** — the Rigveda is 1,028 pages and its two English repairs
+are verified (`The long-known laws`, `a wild-cow's hide`), but the Sanskrit column's byte-identity
+and Journey's single row are confirmed separately, as batch E6's Rigveda was.
 
 ### E13 — the six that needed the leaf, shipped 2026-09-04
 
@@ -729,8 +767,11 @@ horns). One in Don Quixote, `neigbbour's`, in a transcription otherwise clean en
 Mifflin printing of Theodore Chickering Williams's translation is not on the Internet Archive**, which
 holds his Georgics of 1915 and his poems of 1910 but not this; its 22 candidates stand. `plato-dialogues`
 — the Loeb volumes are there, and **their OCR is unusable because the facing Greek bleeds into the
-English column**, so the text layer reads as transliterated gibberish; 14 candidates stand, among them
-`Iawgiver`, `moster` for monster, `Hipponieus` and `possibillty`. `summa-theologica` — its two
+English column**, so the text layer reads as transliterated gibberish; 14 candidates stood, among them
+`Iawgiver`, `moster` for monster, `Hipponieus` and `possibillty`. **(Batch E14 repaired eight of the
+fourteen, and Virgil's 22 entire, without any scan at all: both were the capital-I-for-l class, which
+is settled by a rule about type and by the book's own vocabulary. Read E14 before treating a
+'no witness reachable' entry here as closed.)** `summa-theologica` — its two
 (`corning`, `inproportionate`) would need the right one of twenty-two volumes and are not worth the
 search for two words.
 
