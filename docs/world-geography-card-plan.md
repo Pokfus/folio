@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-580` Tunis.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-581` Juba.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -941,6 +941,28 @@ picture's Commons file name carries PARENTHESES, which `SRC_URL_RX` stops at, an
 (`%28`/`%29`) keeps the credit line whole — the fix the plan's apostrophe-and-bracket rule implies but had
 not stated; and a draft sentence saying Bolivia was recognised "two years before it took a seat at the
 United Nations in 1945" was arithmetic nonsense for 1848 and was cut. **Read a sentence that computes.**
+
+**`gw-580` TUNIS IS THE ONE CAPITAL WHOSE GUIDE PAGE RUNS THE RECOGNITION THE OTHER WAY.** Its first
+heading is *"Tunisian Recognition of the United States, 1795"* — the authorities here accepted an American
+consular representative in mid-1795, before there was anything to recognise in the other direction — and
+the page is then almost entirely ABOUT THE CITY rather than the country: Donaldson named consul for Tunis
+on 28 March 1795 but resident at Algiers, Famin deputised and arranging a truce effective 15 June 1796,
+Eaton presenting his credentials to Hamouda Pasha on 15 March 1798, the Treaty of Bardo of 12 May 1881, the
+La Marsa Convention of 8 June 1883, the consulate general of 22 May 1946, the embassy of 5 June 1956. Only
+the Netherlands page has the same inversion, and there it is one sentence. **A pre-1800 consular
+relationship is the richest kind of guide page this deck can meet**, because a consulate is in a CITY where
+a legation is accredited to a state.
+
+**IT ALSO CONTRADICTS ITSELF ON A DATE, AND THE CARD DROPS THE DAY.** The Recognition section dates the
+Treaty of Peace and Friendship "on or around August 28, 1797" and the Consular section calls it "the August
+1, 1797 treaty" — the same treaty, two days, one page. The card says **"signed in 1797"**, which is what
+both statements agree on, rather than picking the hedged one and looking precise. C2's rule that a spine
+source is not infallible usually means reading a source against ANOTHER source; here it means reading a
+page against itself. (The page also spells the country "Tunisa", the deputy "Flamin" once and "Famin"
+twice, and "Ocotber" — typos, and the card reproduces none of them, by the Dakar rule.) Its admission is
+the deck's first to show **the Charter's two steps separately**: Security Council resolution 116 (1956) at
+the 732nd meeting on 26 July recommends, General Assembly resolution 1112 (XI) at the 574th plenary on
+12 November admits. **Both records are openable; cite the pair where a card has room.**
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
