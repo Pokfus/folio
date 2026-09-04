@@ -13905,6 +13905,14 @@ const BOOKS = {
        wrong place, invisible to every sweep here, and was found only because `substnaces` four words
        later brought a reader to the sentence. */
     reFixes: [
+      /* A TYPO IN THE CONTENTS PAGE RATHER THAN IN THE PROSE (Sep 2026, batch E38). The Supplement's
+         contents page heads question 25 "OF UNDLUGENCES", which is nowhere in the printing and which
+         the question's own prologue contradicts three words in — it speaks of indulgence
+         throughout. It is the only correction row in this file that fires on a chapter TITLE and
+         nothing else, which is why E38 also had to make a freshly fetched title go through the
+         chain: E37's cache guard was refusing to correct the one string that always needs it. */
+      [/(?<![A-Za-z])UNDLUGENCES(?![A-Za-z])/g, "INDULGENCES",
+       "`UNDLUGENCES` for `INDULGENCES`, in the Supplement's contents heading for question 25"],
       [/(?<![A-Za-z])corning(?![A-Za-z])/g, "coming",
        "an rn read for the m of `coming`, of the dove at the baptism — anchored to spare `scorning`"],
       /* ---------- WHAT THE FILTER HID (Sep 2026, batch E22) ----------
@@ -14084,9 +14092,22 @@ const BOOKS = {
     source: "wiki",
     chapterWord: "Question",
     chapters: Array.from({ length: 614 }, (_, i) => i + 1),
+    /* WIKISOURCE'S THIRD PART IS SHIFTED BY ONE QUESTION OVER TWO PAGES (Sep 2026, batch E38).
+       Its `Question 34` page carries question 33's text and its `Question 35` page carries question
+       34's; `Question 36` is right again, so question 35 — Of Christ's Nativity — appears on no page
+       of it at all. Folio therefore shipped chapters 455 and 456 byte-identical and the Nativity
+       missing, which is what a second witness found and no spelling sweep ever could.
+
+       The half a redirection can fix is here: chapter 456 wants question 34, which is on the page
+       named `Question 35`. The half it cannot is the Nativity, supplied from the Gutenberg
+       transcription by `supplyQuestion` and declared in `summa-supplied.json`. Both carry the
+       phrase they expect the fault to show, so if the wiki is corrected upstream the run says so
+       rather than quietly serving the wrong question a second time. */
+    pageShift: { 456: { q: 35, was: "the perfection of the child conceived" } },
     page: (n) => {
       const a = summaAt(n);
-      return "Summa Theologiae/" + a.part.key + "/Question " + a.q;
+      const sh = BOOKS["summa-theologica"].pageShift[n];
+      return "Summa Theologiae/" + a.part.key + "/Question " + (sh ? sh.q : a.q);
     },
     parts: (() => {
       let at = 0;
@@ -14143,9 +14164,9 @@ const BOOKS = {
        Thucydides' gate, in its fourth book. */
     body: "plain",
     sections: "articuli",
-    /* TWO ARTICLES THE WIKISOURCE TRANSCRIPTION LOST, put back from Project Gutenberg's
-       transcription of the same translation. See supplyArticles, and the header of the file itself
-       for what was measured before a word of it was used. */
+    /* TWO ARTICLES AND ONE WHOLE QUESTION THE WIKISOURCE TRANSCRIPTION LOST, put back from Project
+       Gutenberg's transcription of the same translation. See supplyArticles and supplyQuestion,
+       and the header of the file itself for what was measured before a word of it was used. */
     supplied: "summa-supplied.json",
     /* AND TWO SHAPES OF DUPLICATION THE SAME TRANSCRIPTION LEAVES BEHIND — see dedupeArticles for
        what each is, what was measured before the rule was written, and why the length bar is what
@@ -18027,6 +18048,60 @@ function supplyArticles(rec, book, warn) {
     SUPPLIED++;
   }
   return html;
+}
+
+
+/* ---------- A WHOLE QUESTION THE TRANSCRIPTION HAS NOT GOT (Sep 2026, batch E38) ----------
+   `supplyArticles` above puts back an ARTICLE the wiki set twice under its neighbour's number. This
+   puts back a QUESTION it has not got at all, and the two faults are the same fault at two scales.
+
+   Wikisource's Third Part serves question 33's text under Question 34 and question 34's under
+   Question 35, so the Summa's own question 35 — Of Christ's Nativity, eight articles — appears
+   nowhere in it, and Folio shipped chapters 455 and 456 byte-identical with the Nativity absent.
+   The page shift is handled where it belongs, in this book's own `page(n)`; what no redirection can
+   supply is the question the source does not carry, and that comes from the Gutenberg transcription
+   of the same translation, VALIDATED at 99.41% word-identical on question 36, which both carry.
+
+   IT REFUSES TO WRITE OVER A CHAPTER THAT NO LONGER SHOWS THE FAULT. The entry names a phrase the
+   BROKEN chapter contains — the opening of the question that is standing in the missing one's place
+   — and if that phrase has gone, the wiki has been corrected upstream and this entry must be read
+   again rather than trusted. A dead entry is reported exactly as a dead correction row is. */
+let SUPPLIED_Q = 0;
+const SUPPLY_Q_DEAD = [];
+let _supplyQTable = null;
+function supplyQuestion(rec, book, warn) {
+  if (!_supplyQTable) {
+    const p = path.join(__dirname, book.supplied);
+    _supplyQTable = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")).questions || [] : [];
+  }
+  const a = _supplyQTable.find((x) => x.ch === rec.n);
+  if (!a) return rec.html;
+  const flat = rec.html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ");
+  if (flat.indexOf(a.broken) < 0) {
+    SUPPLY_Q_DEAD.push("chapter " + rec.n + ": no longer opens on \u201c" + a.broken.slice(0, 60) +
+      "\u2026\u201d \u2014 the transcription may have been corrected upstream, so read it before trusting this entry");
+    return rec.html;
+  }
+  SUPPLIED_Q++;
+  return a.html;
+}
+
+
+/* THE OTHER HALF OF THAT SHIFT, GUARDED (Sep 2026, batch E38). `pageShift` sends a chapter to a
+   differently-named page, which is right exactly while the source is wrong. Each entry names the
+   opening the SHIFTED page carries, so a run can tell "the fault is still there and the redirection
+   is doing its job" from "the wiki has been corrected and this redirection is now the fault" — the
+   two are indistinguishable in a silent run, and the second serves the reader the wrong question
+   under the right title, which is the state this batch was written to end. */
+const SHIFT_DEAD = [];
+function checkPageShift(rec, book) {
+  const a = book.pageShift && book.pageShift[rec.n];
+  if (!a) return;
+  const flat = rec.html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ");
+  if (flat.indexOf(a.was) < 0)
+    SHIFT_DEAD.push("chapter " + rec.n + " is read from question " + a.q + "'s page, which no longer " +
+      "opens on \u201c" + a.was + "\u2026\u201d \u2014 the transcription may have been corrected " +
+      "upstream, in which case this redirection now serves the wrong question");
 }
 
 
@@ -25806,8 +25881,18 @@ async function fetchEnglish() {
          E30 caught doing exactly this to 974 names in the body. Measured on the Three Kingdoms
          before the marker was bumped: seven titles moved, `Tao` to `Dao` and `Pi` to `Bi` and
          `Chao` to `Zhao`, every one of them a name that was already right. */
-      const cached = { n, t: c.raw >= 2 ? correctRaw(titles[n] || c.t || chapterTitle(n))
-        : (titles[n] || c.t || chapterTitle(n)), p: partOf(n), html: html, notes: notes };
+      /* AND A TITLE READ FROM THE CONTENTS PAGE IN THIS RUN IS ALWAYS CORRECTED (Sep 2026, batch
+         E38). E37's guard is about the CACHE, whose title a `raw: 1` record already carries
+         corrected — but `titles[n]` does not come from the cache at all: `titlesOf` fetches the
+         edition's contents pages on every run, so that string has been through nothing, and the
+         guard was refusing to correct the one title that always needs it. The Summa's contents page
+         reads "OF UNDLUGENCES" for Supplement question 25, and no correction row could reach it. */
+      const fresh = titles[n];
+      const cached = { n, t: fresh != null ? correctRaw(fresh)
+        : (c.raw >= 2 ? correctRaw(c.t || chapterTitle(n)) : (c.t || chapterTitle(n))),
+        p: partOf(n), html: html, notes: notes };
+      if (BOOK.pageShift) checkPageShift(cached, BOOK);
+      if (BOOK.supplied) cached.html = supplyQuestion(cached, BOOK, (m) => warnings.push(m));
       if (BOOK.supplied) cached.html = supplyArticles(cached, BOOK, (m) => warnings.push(m));
       if (BOOK.dedupe) cached.html = dedupeArticles(cached, BOOK, (m) => warnings.push(m));
       chapters.push(cached);
@@ -25990,6 +26075,8 @@ async function fetchEnglish() {
     rec.html = correctRaw(rec.html);
     rec.notes = (rec.notes || []).map(correctRaw);
     rec.t = correctRaw(rec.t);
+    if (BOOK.pageShift) checkPageShift(rec, BOOK);
+    if (BOOK.supplied) rec.html = supplyQuestion(rec, BOOK, (m) => warnings.push(m));
     if (BOOK.supplied) rec.html = supplyArticles(rec, BOOK, (m) => warnings.push(m));
     if (BOOK.dedupe) rec.html = dedupeArticles(rec, BOOK, (m) => warnings.push(m));
     chapters.push(rec);
@@ -26347,12 +26434,16 @@ function writeEnglish(chapters, warnings) {
      stopped firing is either an upstream fix (good, and the entry must go) or this file having lost
      its grip on the page (bad), and the two look identical from a silent run. */
   if (BOOK.supplied)
-    console.log("  " + SUPPLIED + " article(s) supplied from a second transcription of the same edition" +
-      (SUPPLY_DEAD.length ? ", and " + SUPPLY_DEAD.length + " entr(y/ies) that no longer apply" : ""));
+    console.log("  " + SUPPLIED + " article(s) and " + SUPPLIED_Q +
+      " whole question(s) supplied from a second transcription of the same edition" +
+      (SUPPLY_DEAD.length + SUPPLY_Q_DEAD.length
+        ? ", and " + (SUPPLY_DEAD.length + SUPPLY_Q_DEAD.length) + " entr(y/ies) that no longer apply" : ""));
   if (BOOK.dedupe)
     console.log("  " + DEDUPE_TRAIL + " paragraph(s) removed from the end of an article they do not belong to, and " +
       DEDUPE_RUN + " from a run the transcription set twice");
   for (const d of SUPPLY_DEAD) warnings.push("a supplied article did not apply — " + d);
+  for (const d of SUPPLY_Q_DEAD) warnings.push("a supplied question did not apply — " + d);
+  for (const d of SHIFT_DEAD) warnings.push("a page redirection may no longer be needed — " + d);
 
   if (BOOK.glyphs) {
     let hit = 0, dead = [];

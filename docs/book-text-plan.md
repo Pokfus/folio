@@ -328,7 +328,8 @@ re-run and diffed byte for byte.
 | **E35** ✅ | two articles of the Summa, put back | **A new check — does the book carry a paragraph twice in one chapter? — found the Summa missing two articles of Aquinas.** Wikisource sets article 2 of I-II q.52 twice under article 3's number, and article 4 of II-II q.43 twice under article 5's, so Folio was making a false claim rather than merely repeating one. Each question's own list of points of inquiry names what is gone; the replacement is Project Gutenberg's transcription of the same translation, **99.83% word-identical on an article both carry**. Its finding is the instrument: **II-II q.47 looks identical and gets no repair, because the Gutenberg transcription carries the same wrong heading** — two independent transcriptions agreeing is what tells a transcriber's error from the printer's |
 | **E36** ✅ | the rest of the Summa's duplication | **Seventeen paragraphs removed, in the four questions that were read and nowhere else.** Two faults: the tail of one article pasted at the end of the one before it (I q.108, I q.109 — four paragraphs, the first of each pair truncated, so an article ends by answering objections it never raised), and a run set twice in a row (I-II q.20's eleven, plus two single paragraphs). **The finding is the four cases that look identical and are not**: six article boundaries end with a paragraph that also stands in the next article, and four are the Summa's own closing formula, which it prints 55 times. They run 48–66 characters against the real faults' 213 and 416, so the bar sits in 147 characters of open ground |
 | **E37** ✅ | the dead rows across the whole shelf | **24 rows reported dead in the Three Kingdoms and every one of them was live.** Rebuilding all 32 books that carry a correction table found dead rows in one book only — and all 24 names are correct in the shipped text, so the report was wrong rather than the rows. E29 corrected the chapter TITLE on the way in, so a cache marked `raw: 1` (meaning *the extractor's own output*) held a corrected title, and five rows that fire only on heads met one already converted. **The house rule would have deleted them**: eight chapter titles would have gone back to Wade-Giles at the next `--force`, silently. Fixed with a versioned marker, because correcting an already-corrected title applies `applyRoman` twice — measured, seven titles moved and every one was already right |
-| **E38–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E38** ✅ | a second witness for the whole Summa | **A whole question of Aquinas was absent from the book and no scanner here could see it.** Wikisource serves Third Part question 33 under `Question 34` and question 34 under `Question 35`, so question 35 — Of Christ's Nativity, eight articles — is on no page of it: chapters 455 and 456 shipped **byte-identical** and 3,678 words were gone. E35 and E36 found lost text only because the loss left a DUPLICATE to trip over; **a loss that leaves nothing behind is invisible to a spelling sweep, to `book-audit` and to a duplication check alike**, and only a second transcription can see it. Repaired in two halves — a page redirection for the half that exists somewhere, the witness for the half that does not — plus a contents-page typo (`OF UNDLUGENCES`) that **could not fire**, E37's cache guard having refused to correct a freshly fetched title. Its finding is the instrument: the first run reported 33 phantom findings because Gutenberg's article headings **disagree with their own brackets seventeen times**, and E35's similarity walk reports 12.96% for two texts that are 99.41% identical |
+| **E39–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
@@ -393,6 +394,85 @@ not deferred.**
 ---
 
 ## 8. Batch log
+
+### E38 — the question a second witness found missing, shipped 2026-09-04
+
+**A whole question of the Summa was absent, and nothing this programme had could see it.** E35 found
+two articles of Aquinas gone and E36 seventeen paragraphs set twice; both were found by a duplication
+check, which can only see a loss that leaves a duplicate behind. **A loss that leaves nothing behind
+is invisible to every scanner on the shelf** — a spelling sweep reads what is there, `book-audit`
+asks whether what is there belongs, and neither has any idea what is not. The only instrument that
+can see it is a second independent transcription, and E35 built the route to one and then put it down
+after two questions. E38 points it at all 614.
+
+**What it found.** Project Gutenberg carries the same Dominican Fathers translation in four volumes —
+Part I, I-II, II-II and III, which is 512 of Folio's 614 questions; **there is no Gutenberg volume for
+the Supplement or the Appendix**, so 102 questions have no second witness at all and the report says
+so rather than passing them. Of the 506 questions compared, 478 agree article for article. Two
+faults are real and both are the same fault at two scales as E35's:
+
+- **Third Part question 35, Of Christ's Nativity, was in the book nowhere.** Wikisource serves
+  question 33's text under `Question 34` and question 34's under `Question 35`; `Question 36` is
+  right again, so question 35 falls down the gap. Folio reproduced it faithfully: chapters 455 and
+  456 were **byte-identical**, chapter 457 was titled *Of Christ's Nativity* and held the question
+  before it, and eight articles — 3,678 words — were absent. Repaired in two halves, because the
+  fault is in two halves: chapter 456 now reads from the page named `Question 35`, which is where its
+  text is, and the Nativity itself is supplied from the witness, there being no page to redirect to.
+- **Supplement question 12, Of Satisfaction, As To Its Nature, is missing the same way** — its page
+  carries question 11's text and chapters 523 and 524 are byte-identical. **It is measured and NOT
+  repaired**: Gutenberg's four volumes stop at Part III, so there is no second witness for the
+  Supplement, and a book with no reachable witness contributes findings rather than fixes. E39 should
+  look for the 1920 Supplement volume before treating it as unreachable — the Latin is on archive.org
+  and the English was not found in the twenty minutes E38 spent on it, which is not the same as absent.
+
+**And a third fault, in a title rather than in prose.** The Supplement's contents page heads question
+25 **"OF UNDLUGENCES"**, which is in no printing and which the question's own prologue contradicts
+three words in. It is the only correction row in the importer that fires on a chapter TITLE, and it
+**could not fire at all**: E37 taught the cached path to correct a title only on a `raw: 2` record,
+which is right about the CACHE and wrong about `titles[n]`, since `titlesOf` fetches the edition's
+contents pages on every run and that string has been through nothing. E37's guard was refusing to
+correct the one title that always needs it. **A guard written about one source of a value binds on
+every source of it unless it is told otherwise.**
+
+**THE FINDING THAT MATTERS MOST IS ABOUT THE INSTRUMENT, AND IT COST FOUR ROUNDS.** The first run
+reported 33 questions where Folio has an article the witness has not — a startling result, and every
+one of the 33 was the checker's own. Gutenberg heads each article `NINTH ARTICLE [I, Q. 19, Art. 8]`,
+and **the ordinal word and the bracket disagree seventeen times** across the four volumes; the
+bracket also writes `I.` for `I,`, `A.` for `Art.`, and sometimes omits the part letter. Keyed on the
+bracket the comparison is nonsense. **The ordinal word is the running position and is the reliable
+half**, and after switching to it the phantom column fell from 33 to 14 — and those 14 are Gutenberg
+headings that are simply absent or misnumbered, its own transcription faults. **A disagreement
+between two witnesses is evidence that one of them is wrong, and says nothing about which.** This is
+E37's lesson one turn on: there, a report of 24 dead rows was wrong; here, a report of 33 extra
+articles was wrong; both times the instrument had to be hardened before its output meant anything.
+
+**AND THE SIMILARITY MEASURE E35 VALIDATED WITH DOES NOT SCALE.** Its sequential walk over two word
+lists desynchronises past the first long insertion and reported **12.96%** for a pair of texts that
+are the same question in two transcriptions; a bag-of-words comparison of the same pair gives
+**99.41%**, and 99.1–99.7% article by article. It is right for one article of 800 words and wrong for
+a question of 7,500. The converter for question 35 was validated on question 36, which both
+transcriptions carry, before a word of it was used — E35's rule, with E35's arithmetic replaced.
+
+**Two checks in the new scanner need no witness, which is why they reach the Supplement.** A
+chapter's TITLE comes from the edition's contents page and its PROLOGUE from the question's own page,
+so the two are independent statements of one fact; comparing them is what finds a question standing
+in another's place, and it flagged 17 of 614, of which the two real faults score 0.00 and the rest
+are questions whose prologue opens a whole treatise. And two chapters carrying byte-identical text is
+a fault whatever the cause — that check alone found both duplicates in a second.
+
+**And a pinned total fired, correctly.** `test-library.js` asserts the Summa's article count exactly,
+and question 35's eight articles standing where question 34's four did makes it 3,094 → 3,098. That is
+the one assertion in the suite that could have caught this fault the day the book was imported if the
+number had ever been derived from the edition rather than from the run — **a pinned figure is only
+worth pinning if the source of truth is somewhere other than the thing it measures.**
+
+**Left for E39, measured and not repaired.** Fourteen questions where the witness has an article
+Folio does not number, **and in twelve of them the text is present and merely unnumbered** — I-II
+q.28 carries all six of its articles with no `bk-n` on any of them, II-II q.153 has lost its prologue
+and its first heading so its four numbers are the printing's 2–5. That is a heading-recognition
+family rather than a loss, and it is 20-odd numbers in a book of 2,665. Fourteen more where Folio has
+an article the witness has not, all of them Gutenberg's own missing headings. And the Supplement's
+question 12, which wants a witness first.
 
 ### E37 — twenty-four rows that were reported dead and were not, shipped 2026-09-04
 

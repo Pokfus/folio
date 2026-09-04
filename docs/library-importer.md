@@ -1484,6 +1484,53 @@ repair. That is E31's Bhagavad-Gita rule one batch on, and it names the instrume
 transcription of the same edition is what tells a transcriber's error from the printer's, and nothing
 else can.** Where only one transcription exists, the question cannot be settled and the text stands.
 
+**AND A WHOLE QUESTION, WHICH THE SAME TRANSCRIPTION HAS NOT GOT AT ALL** (Sep 2026, batch E38,
+`supplyQuestion` + `pageShift` + `.claude/summa-witness.js`). E35's duplication check finds a loss
+that leaves a DUPLICATE behind. **A loss that leaves nothing behind is invisible to it, to every
+spelling sweep and to `book-audit` alike** — and the Summa had one. Wikisource's Third Part serves
+question 33's text under `Question 34` and question 34's under `Question 35`; `Question 36` is right
+again, so **question 35 — Of Christ's Nativity, eight articles — is on no page of it**, and Folio
+shipped chapters 455 and 456 byte-identical with 3,678 words of Aquinas absent.
+
+  · **THE FAULT IS IN TWO HALVES AND SO IS THE REPAIR.** Chapter 456 wants question 34, which exists
+    and is on the page named `Question 35`: that is a redirection, declared in this book's own
+    `pageShift`. Question 35 exists nowhere in the source: that is a supply, from the same Gutenberg
+    transcription E35 used. **Redirect what is merely misfiled; supply only what is genuinely gone.**
+  · **BOTH HALVES NAME THE FAULT THEY EXPECT TO FIND.** `pageShift` carries the opening the SHIFTED
+    page has while it is still wrong, and the supplied question carries the opening the BROKEN chapter
+    has; if either phrase goes, the wiki has been corrected upstream and the run says so rather than
+    quietly serving the wrong question under the right title. Reported like a dead correction row —
+    which is E35's rule, and the two guards were negative-tested by breaking each phrase in turn.
+  · **THE VALIDATION AT SCALE NEEDED A DIFFERENT MEASURE.** E35's sequential word walk reports
+    **12.96%** for question 36 in the two transcriptions; a bag-of-words comparison of the same pair
+    reports **99.41%**, and 99.1–99.7% article by article. The walk desynchronises past the first long
+    insertion, so it is right for one article of 800 words and wrong for a question of 7,500.
+    **Validate on the overlap, but check that the yardstick survives the length.**
+  · **THE ARTICLE TITLES ARE SET BY HAND, checked word-for-word against the witness.** The wiki writes
+    every article head in sentence case and Gutenberg in title case, and a rule that lower-cases after
+    the first word also lower-cases Christ, the Blessed Virgin and Bethlehem.
+  · **THE SUPPLEMENT HAS THE SAME FAULT AND NO WITNESS.** Its `Question 12` page carries question 11's
+    text, chapters 523 and 524 are byte-identical, and *Of Satisfaction, As To Its Nature* is gone.
+    Gutenberg's four volumes stop at Part III, so it is **measured and not repaired**; find the 1920
+    Supplement volume before treating it as unreachable.
+
+**📖 `.claude/summa-witness.js` — RUN IT AFTER ANY CHANGE TO THIS BOOK.** The fourth scanner, and the
+only one that can see text that is simply gone. Three checks: articles against the witness, each
+chapter's TITLE against its own PROLOGUE (two independent statements of one fact — this is what finds
+a question standing in another's place), and any two chapters carrying byte-identical text. The last
+two need no witness, which is why they reach the Supplement and the Appendix, where 102 of the 614
+questions have none.
+
+  · **READ THE HEADING'S ORDINAL WORD, NEVER ITS BRACKET.** Gutenberg heads an article
+    `NINTH ARTICLE [I, Q. 19, Art. 8]`, and the two disagree **seventeen times** across the four
+    volumes; the bracket also writes `I.` for `I,`, `A.` for `Art.` and sometimes omits the part
+    letter. Keyed on the bracket the first run reported 33 questions where Folio has an article the
+    witness has not, and every one of the 33 was the checker's own. **A comparison between two
+    witnesses reports the weaker one's faults as the stronger one's** until it is hardened, which is
+    E37's lesson in a new subject.
+  · **IT EXITS 0 WHATEVER IT FINDS.** It is a measure, like `card-focus.js`, not a gate: its standing
+    residue is the numbering family E38 left for E39, and a permanent red teaches everyone to ignore it.
+
 **TWO MORE SHAPES OF DUPLICATION, AND THE FOUR CASES THAT LOOK IDENTICAL AND ARE NOT** (Sep 2026,
 batch E36, `dedupeArticles`). E35 put back two articles the Summa's transcription had lost; fifteen
 paragraphs still stood twice. Read out they are two faults, both a transcriber's paste gone astray:

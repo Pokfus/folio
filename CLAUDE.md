@@ -5592,6 +5592,20 @@ dead code (never rendered).
   · `node .claude/test-reset.js` — **Settings → Danger zone → Reset progress, and who the home page
     thinks you are** (21 assertions, Aug 2026). **Re-run after touching `resetProgress` / `RESET_KEEPS` /
     `PROGRESS_FIELDS` / `emptyProgress`, the home page's `fresh`, or the Settings reset row.**
+  · `node .claude/summa-witness.js` — **the Summa against a second transcription of the same
+    translation** (Sep 2026, batch E38). The fourth scanner, and the only one that can see text that
+    is simply GONE: a spelling sweep reads what is there, `book-audit.js` asks whether what is there
+    belongs, and the duplication check finds a loss only where it left a duplicate behind. It found a
+    whole question of Aquinas — Third Part q.35, Of Christ's Nativity, eight articles — absent from
+    the book, because Wikisource serves q.33 under `Question 34` and q.34 under `Question 35`. Three
+    checks: articles against the witness; each chapter's TITLE against its own PROLOGUE (two
+    independent statements of one fact, which is what finds a question standing in another's place);
+    and any two chapters with byte-identical text. The last two need no witness, which is why they
+    reach the Supplement and the Appendix, where 102 of the 614 questions have none. **Read the
+    heading's ORDINAL WORD, never its bracket** — Gutenberg's disagree seventeen times, and keyed on
+    the bracket the first run reported 33 phantom findings. **It exits 0 whatever it finds**, being a
+    measure like `card-focus.js` rather than a gate. **Re-run after any change to that book.** Not
+    part of the site.
   · `node .claude/test-library.js` — the Library (333 assertions): the rename, the shelf, one book, and
     the reader's place. **Re-run after touching `PAGES.library` / `PAGES.book` / `BOOKS` / `bookIngest` /
     `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` / `readingPos` / `setReadingPos` /

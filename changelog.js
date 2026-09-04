@@ -35,20 +35,20 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.472", released: "2026-09-04T16:15Z" };
+window.FOLIO_VERSION = { v: "1.473", released: "2026-09-04T17:02Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-04",
     t: "Books corrected across the Library, from Virgil to Chaucer",
     items: [
-      "<b>230 corrections across twenty-eight books</b> — among them 30 to the Summa Theologica, 26 to Romance of the Three Kingdoms and 27 to the Iliad, none of which had been checked word by word before.",
+      "<b>231 corrections across twenty-eight books</b> — among them 31 to the Summa Theologica, 26 to Romance of the Three Kingdoms and 27 to the Iliad, none of which had been checked word by word before.",
       "<b>Another 142 corrections to the Canterbury Tales</b>, including words the scan had broken open and marks it invented out of a pencil note in the margin.",
       "<b>206 references repaired in Plato, Herodotus, Thucydides and the Satyricon</b>, welded to the words beside them or spelled in Greek letters, plus 56 corrections to the Greek Odyssey.",
       "<b>423 broken paragraphs joined in Augustine, Ovid, Herodotus, Aquinas, Caesar and Chaucer</b> — a printed page-turn had become a paragraph break, 43 of them splitting a word in two.",
       "<b>Seventy quotations of Virgil restored to Seneca’s Latin</b> — seven were missing outright, sixty-three were never shown on the page, and thirteen more now read as verse instead of running together.",
       "<b>483 lost spaces restored to Seneca’s Latin</b> — the last quarter of the book had been typed with the space at every line end swallowed, so its words ran together.",
-      "<b>Two missing articles put back into the Summa Theologica</b>, and seventeen paragraphs it printed twice taken out — the transcription it comes from had lost two articles and pasted others where they do not belong.",
+      "<b>The eight articles on Christ's Nativity restored to the Summa Theologica</b>, with two other missing articles put back and seventeen paragraphs it printed twice taken out.",
       "<b>Forty-three lines of printing lifted out of Journey to the West</b> — the scanner read the book’s engravings as text, so their captions had landed in the middle of the paragraphs they interrupted.",
       "<b>Eighty-six italic passages restored to Don Quixote</b> — the transcription marks italic with underscores, and they had been showing on the page instead: <i>terra firma</i> read as _terra firma_.",
       "<b>974 names put right in Romance of the Three Kingdoms</b> — a fault of ours had spelled them a second time, so Chang’an had become Zhang’an and Ma Chao had become Ma Zhao.",

@@ -1552,7 +1552,10 @@ function aeneidChecks() {
       check("...divided into the edition's six Parts, each the right length",
         JSON.stringify(summa.parts) === JSON.stringify([119, 114, 189, 90, 99, 3]),
         JSON.stringify(summa.parts));
-      check("...3,094 articles across them", summa.secs === 3094, String(summa.secs));
+      /* 3,094 until E38 restored question 35, whose eight articles stand where question 34's four
+         did: +4. A pinned total is exactly the assertion that ought to fire on a change like that,
+         and it did — so raise it deliberately, and never to whatever the run happens to print. */
+      check("...3,098 articles across them", summa.secs === 3098, String(summa.secs));
       check("...every chapter's articles ascending, with no duplicate",
         !summa.disorder.length, JSON.stringify(summa.disorder.slice(0, 6)));
       check("[summa] the two questions with no article headings are the known two",
@@ -2863,6 +2866,35 @@ function aeneidChecks() {
     check("[heads] ...and nothing romanised a second time",
       /Cao Pi|Tao Qian|Gan Ning/.test(titles) && !/Cao Bi|Dao Qian/.test(titles),
       (titles.match(/Cao Bi|Dao Qian/) || [""])[0]);
+
+    /* ================= 6h. the question a second witness found missing =================
+       Sep 2026, batch E38. Wikisource's Third Part serves question 33 under Question 34 and question
+       34 under Question 35, so question 35 — Of Christ's Nativity, eight articles — is on no page of
+       it, and Folio shipped chapters 455 and 456 byte-identical with the Nativity absent.
+
+       ASSERTED ON THE SHIPPED TEXT AND FROM BOTH ENDS, because each end fails silently on its own: a
+       redirection that stops firing puts the duplicate back, and a supplied question that stops
+       firing leaves a chapter titled Of Christ's Nativity holding the question before it. Neither
+       throws, and both read as a book. */
+    check("[summa] chapters 455 and 456 are no longer the same question twice",
+      su.indexOf("We have now to consider the mode and order of Christ's conception") ===
+      su.lastIndexOf("We have now to consider the mode and order of Christ's conception"));
+    check("[summa] ...and 456 carries question 34, the perfection of the child conceived",
+      /We must now consider the perfection of the child conceived/.test(su));
+    check("[summa] question 35, Of Christ's Nativity, is in the book",
+      /After considering Christ's conception, we must treat of His nativity/.test(su));
+    /* Its eight articles, by their own headings — the count alone would pass on eight of anything. */
+    check("[summa] ...with all eight of its articles",
+      /Whether nativity regards the nature rather than the person\?/.test(su) &&
+      /Whether there are two filiations in Christ\?/.test(su) &&
+      /Whether Christ was born without His Mother suffering\?/.test(su) &&
+      /Whether Christ should have been born in Bethlehem\?/.test(su) &&
+      /Whether Christ was born at a fitting time\?/.test(su));
+    /* AND THE CONTENTS-PAGE TYPO, which is the only correction row in the importer that fires on a
+       chapter title. It could not fire at all until E38 sent a freshly fetched title through the
+       chain, so this assertion is about the plumbing as much as about the word. */
+    check("[summa] the Supplement's question 25 is headed Of Indulgences",
+      /OF INDULGENCES/.test(su) && !/UNDLUGENCES/.test(su));
 
     check("[summa] but the work's own closing formula is untouched, 55 times over",
       (su.match(/This suffices for the Replies to the Objections/g) || []).length === 55,
