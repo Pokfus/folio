@@ -304,8 +304,9 @@ re-run and diffed byte for byte.
 | **E26** ✅ | the original columns — and 70 quotations nobody could read | **7 quotations of Virgil restored to the Latin Seneca and 63 more made visible, 36 paragraph breaks joined, and a silent renderer fault closed.** Chasing E25's leftover found something much larger: this wiki sets a verse quotation as `{{block center|<poem>}}`, which MediaWiki renders as a centring TABLE, and "every table on this page is furniture" ate seven of them outright; 63 more were in the file and INVISIBLE, because `bookSections` split a chapter by its ELEMENT children and a text node between two paragraphs belonged to no section. Repaired at both ends, with a per-book gate for the one column on the shelf that writes a verse line break as a bare newline |
 | **E27** ✅ | the Latin Seneca's run-on verse | **13 verse paragraphs lineated, 25 lines restored — and E26 was wrong to call it a judgement.** Measured, the eighteen paragraphs carrying an internal newline split into thirteen verse with a longest line of 25–51 characters and five prose with one of 1,428–2,179: **a gap 1,377 characters wide**, so the threshold sits in open ground rather than on a border. `versifyNewlines` runs before `joinBrokenParas`, which could then go back to asking a single question — does this paragraph carry a `<br>`? — and lose the book-specific flag E26 had given it |
 | **E28** ✅ | the Latin Seneca's lost spaces | **483 spaces restored, and the first sweep understated it by three and a half times.** The last four books — letters 101 to 124 — were typed into Wikisource with the space at each line end swallowed: `bonumesse`, `occupationibussum`, `claritasbonum`, `mortemhomo`. It is upstream (every form is glued in the wikitext) so no rule could undo it, and the repair is a declared map of 483 entries on the book's `original`. Sorting the damage from the real Latin that splits the same way took a **833,000-word lexicon** built out of the shelf's other Latin, and then a reading of every survivor |
-| **E29** | the correction chain runs BEFORE the cache on the biggest wiki branch | `let h = correctRaw(await api(...))` corrects the page and the extracted prose is then cached, so a live row reports DEAD one run after it is added — which is E19's caveat and the reason `corning` was once announced as shipped. Seneca's two English rows report dead now and the live page still carries `Govenor`, so they are alive. Correcting AFTER extraction makes the report trustworthy; it is a shared change wanting the byte-for-byte proof |
-| **E30–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E29** ✅ | the correction chain moves after the cache | **The chain was running against MARKUP where it should have run against PROSE, and it was weaker for it.** Correcting on the way in poisoned the cache (so a live row reported DEAD one run later — E19's caveat) and, worse, made every row face a page still full of tags: the Book of Documents came back from a refetch with four `Tî` the romanisation had missed and a running head the Book of Rites' own remover could no longer see. Moved to run on the extracted prose. **The title is the one exception and it had to be**, `applyRoman` not being idempotent |
+| **E30** | the caches still hold corrected prose | the change bites at each book's next REFETCH, so until then a dead-row report is still E19's caveat rather than a fact. Refetching 48 books is thousands of requests; the cheap half is to do it per book when one is next touched, and to say in the run which kind of cache a book is reading |
+| **E31–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
@@ -360,6 +361,58 @@ examples.
 ---
 
 ## 8. Batch log
+
+### E29 — the correction chain was reading markup, shipped 2026-09-04
+
+**`let h = correctRaw(await api(pageNames[0]))`.** The chain ran on the page as Wikisource serves
+it — tags, classes, page furniture and all — and then the extractor was run over the result. E28
+noticed the first consequence: the prose cached from that corrected page is corrected, so on the next
+run every row meets a page it has already repaired and **reports itself DEAD**. That is E19's caveat,
+and the caveat is the only thing standing between it and another `corning` — E15's repair announced
+as shipped on a dead-row report that meant nothing.
+
+**The second consequence is the larger one, and it is a fault rather than a nuisance: a row facing
+markup is a weaker row than the same row facing prose.** Measured by refetching chapters under both
+orders and diffing:
+
+| book | old === new | matches the SHIPPED text |
+|---|---|---|
+| three-kingdoms (ch 12, 33) | yes | old ✓ new ✓ |
+| confucius-analects (ch 1–2) | yes | old ✓ new ✓ |
+| sun-tzu, summa, seneca, morte-darthur, city-of-god | yes | — |
+| **book-of-rites** (ch 1–2) | **no** | old ✗ **new ✓** |
+| **book-of-documents** (ch 1–2) | **no** | old ✗ **new ✓** |
+
+**Both differences are the old order losing, and both would have arrived silently at the next
+refetch.** The Book of Rites came back carrying `<p class="bk-head">THE LÎ <i>K</i>Yi</p>` — its own
+running head, mangled by a correction into something the head-remover no longer recognised, and so
+left standing in the text. And the Book of Documents came back with **four `Tî` the romanisation had
+missed**, which is E19's own example book and E19's own word: that batch fixed the CACHED path and
+proved it byte for byte over cached rebuilds, and the fetch path went on being the weaker of the two.
+
+**The title is the one exception, and getting it wrong renamed five men for an hour.** `applyRoman`
+is not idempotent — a row's output can be another row's input, Wade-Giles `Pi` being pinyin `Bi` —
+so a title corrected into the cache and corrected again on reading it gives Cao **Bi**, Xu **Zhu**, Ma
+**Zhao**, **Dao** and **Gan** Ze. The body can be cached raw and corrected on the way out precisely
+because `fixes`, `reFixes` and `glyphs` ARE idempotent and `roman` is applied to prose where its
+inputs are unambiguous; the title cannot. So it is corrected **where it is read**, and the cache holds
+a corrected title beside an uncorrected body. An asymmetry, and the only shape that is right for both
+— and it is what keeps `titlesCorrected` true for the Three Kingdoms, the title still having been
+through the chain exactly once by the time `writeEnglish` sees it.
+
+**It also takes the original column out of the English chain**, which `correctRaw`'s own comment says
+is where it belongs: a facing-page book extracts both columns from one page, so correcting the page
+corrected the Chinese too. Correcting the record leaves `rec.orig` alone. Measured: no facing-page
+book's output changes, so nothing was reaching across today — the guard is against tomorrow.
+
+**Proof.** Nine books refetched chapter by chapter under both orders (every shape the branch has:
+`roman` with `sanKuoHead`, facing-page, multi-page chapters, `pageMark`, and `reFixes` at scale);
+seven identical, two better. Then the whole shelf rebuilt from cache: **not one file changes**.
+
+**Left for E30, and it is worth saying plainly.** The caches still hold corrected prose, so the
+benefit begins at each book's next refetch and until then a dead-row report is still E19's caveat
+rather than a fact. Refetching 48 books is thousands of requests; the cheap half is to refetch a book
+when it is next touched anyway, and to have the run say which kind of cache it is reading.
 
 ### E28 — 483 spaces the source swallowed, shipped 2026-09-04
 

@@ -1202,3 +1202,31 @@ table of its own on `O`; none does today, and that is a gap rather than a decisi
   · **Every key is anchored on both sides, keys are letters only (so there is nothing to escape), and
     a key that fires nowhere is REPORTED.** A repair that has stopped applying and says so is a
     finding; one that stops in silence is a text quietly going back to being wrong.
+
+**THE CORRECTION CHAIN RUNS ON THE EXTRACTED PROSE, NOT ON THE PAGE** (Sep 2026, batch E29). On the
+per-chapter wiki branch — most of the shelf — it used to be `let h = correctRaw(await api(...))`, so
+every `glyphs`, `fixes`, `reFixes` and `roman` row faced the page as Wikisource serves it, tags and
+furniture and all, and the extractor was then run over the result. Two consequences and the second is
+the larger.
+
+  · **The cache was poisoned.** The prose cached from a corrected page is corrected, so on the next
+    run every row meets a page it has already repaired and **reports itself DEAD** — E19's caveat, and
+    the only thing standing between it and another `corning`.
+  · **A ROW FACING MARKUP IS A WEAKER ROW THAN THE SAME ROW FACING PROSE.** Refetching chapters under
+    both orders: seven books identical, and two where the old order LOSES and the new one matches the
+    shipped text. The Book of Rites came back carrying `<p class="bk-head">THE LÎ <i>K</i>Yi</p>` — its
+    own running head, mangled by a correction into something the head-remover no longer recognised and
+    so left standing in the prose. The Book of Documents came back with **four `Tî` the romanisation
+    had missed** — E19's own example book and its own word: that batch fixed the CACHED path and
+    proved it over cached rebuilds, and the fetch path went on being the weaker of the two.
+  · **THE TITLE IS THE ONE EXCEPTION AND IT HAD TO BE.** `applyRoman` is not idempotent — a row's
+    output can be another row's input, Wade-Giles `Pi` being pinyin `Bi` — so a title corrected into
+    the cache and corrected again on reading it gives Cao **Bi**, Xu **Zhu**, Ma **Zhao**, **Dao** and
+    **Gan** Ze. It is corrected **where it is read** (`sanKuoHead`, `bothColumns`), so the cache holds
+    a corrected title beside an uncorrected body: an asymmetry, and the only shape right for both. It
+    is also what keeps `titlesCorrected` true for the Three Kingdoms.
+  · **It takes the original column out of the English chain**, which `correctRaw`'s own comment says
+    is where it belongs — a facing-page book extracts both columns from one page, so correcting the
+    page corrected the Chinese too. Nothing changes today; the guard is against tomorrow.
+  · **The benefit begins at each book's next REFETCH.** The caches still hold corrected prose, so
+    until a book is refetched a dead-row report is still E19's caveat rather than a fact.

@@ -25238,7 +25238,7 @@ async function fetchEnglish() {
        string still means exactly what it always did, so no shipped book's config is touched. */
     const pageNames = [].concat(BOOK.page(n));
     const warn = (m) => warnings.push(BOOK.chapterWord + " " + n + ": " + m);
-    let h = correctRaw(await api(pageNames[0]));
+    let h = await api(pageNames[0]);
     let html, notes, orig = "", tFromText = "";
     /* THE CHAPTER'S OWN PRINTED HEAD, read and then removed, for an edition whose titles are only on
        the chapter pages — see sanKuoHead for why the contents pages are the worse reading. It runs on
@@ -25249,7 +25249,17 @@ async function fetchEnglish() {
     if (BOOK.head === "sankuo") {
       const got = sanKuoHead(h, n, warn);
       h = got.h;
-      tFromText = got.t;
+      /* THE TITLE IS CORRECTED HERE, WHERE IT IS READ, and not with the body below (Sep 2026, batch
+         E29). The body is cached uncorrected and corrected on the way out, which is what makes a dead
+         row mean something; a TITLE cannot follow it, because `applyRoman` is NOT idempotent — a row's
+         output can be another row's input, Wade-Giles `Pi` being pinyin `Bi` — so a title corrected
+         into the cache and corrected again on reading it renames five men in the chapter bar. Measured
+         when this was got wrong for an hour: Cao Pi became Cao Bi, Xu Chu became Xu Zhu, Ma Chao
+         became Ma Zhao, Tao became Dao and Kan Ze became Gan Ze. So the cache holds a corrected title
+         beside an uncorrected body — an asymmetry, and the only shape that is right for both. It is
+         also what keeps `titlesCorrected` true for this book: the title has still been through the
+         chain exactly once by the time `writeEnglish` sees it. */
+      tFromText = correctRaw(got.t);
       if (got.t) SANKUO.titled++;
     }
     if (BOOK.layout === "parallel" || BOOK.layout === "interleaved" || BOOK.layout === "shloka") {
@@ -25263,7 +25273,7 @@ async function fetchEnglish() {
          closing formula rather than on a contents page. It yields to `titles[n]`, so a title stated
          in this file still wins; see the Gita entry, and `titleOf` in the Meditations' for the rule
          that a title is transcribed and never composed. */
-      tFromText = got.t || "";
+      tFromText = correctRaw(got.t || "");
     } else {
       const got = notesOf(h);
       const keep = endnotes && got.notes.length ? resolveEndnotes(got, endnotes, warn) : null;
@@ -25308,7 +25318,7 @@ async function fetchEnglish() {
       for (const extra of pageNames.slice(1)) {
         await sleep(700);
         if (BOOK.pageMark) BOOK.expect = BOOK.pageMark(extra);
-        const eh = correctRaw(await api(extra));
+        const eh = await api(extra);
         const eg = notesOf(eh);
         const ekeep = endnotes && eg.notes.length ? resolveEndnotes(eg, endnotes, warn) : null;
         let ehtml = cleanBody(eh, eg.ids, BOOK, quiet);
@@ -25358,7 +25368,28 @@ async function fetchEnglish() {
     if (html.length < floor) throw new Error("chapter " + n + " came back short (" + html.length + " chars)");
     const rec = { n, t: titles[n] || tFromText || chapterTitle(n), p: partOf(n), html, notes };
     if (orig) rec.orig = orig;
+    /* THE CACHE HOLDS WHAT THE EXTRACTOR PRODUCED, NOT WHAT THE CORRECTION TABLE MADE OF IT (Sep
+       2026, batch E29). The chain used to run on the way IN — `correctRaw(await api(...))` — so the
+       prose written here was already corrected, and on the next run every row met a page it had
+       already repaired and reported itself DEAD. That is E19's caveat, and the caveat is all that
+       stood between it and another `corning`: E15 announced a repair as shipped on a dead-row
+       report that meant nothing. Correcting on the way OUT makes the report mean something — a row
+       fires on every run, and a row that does not is a row whose damage is gone.
+
+       AND IT TAKES THE ORIGINAL COLUMN OUT OF THE CHAIN, which `correctRaw`'s own comment says is
+       where it belongs: "a table written against a translator's romanisation has no business
+       rewriting the Chinese, Latin or Greek it faces." A facing-page book extracts both columns from
+       this one page, so correcting the page corrected both; correcting the record corrects the
+       translation and leaves `rec.orig` alone. Measured over the shelf when it was moved: the only
+       book it changes is the one whose table really was reaching across.
+
+       The TITLE goes through the chain here rather than through `writeEnglish`'s `applyRoman` pass,
+       which is what `titlesCorrected` declares and why that flag still holds for the Three Kingdoms:
+       `sanKuoHead` reads the title off the raw page now, so it is corrected once, here, exactly as
+       it was when the whole page was corrected before it. */
     fs.writeFileSync(cf, JSON.stringify(rec));
+    rec.html = correctRaw(rec.html);
+    rec.notes = (rec.notes || []).map(correctRaw);
     chapters.push(rec);
     console.log("  " + BOOK.chapterWord + " " + n + " — " + rec.t + " (" + html.length + " chars, " + notes.length + " notes)");
     await sleep(700);
