@@ -1771,7 +1771,8 @@ window.GLOSSARY = {
 "Pausanias_the_regent": "Pausanias the regent was a Spartan, son of Cleombrotus, who governed for the boy king Pleistarchus and led the allied Greek army that defeated the Persians at Plataea in 479 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Given command at sea afterwards, he was recalled from Byzantium on complaints of oppression and medism, acquitted on the heaviest charge and never restored, and the couplet he had cut on the Delphic tripod claiming the victory for himself was erased by the Spartans.<sup class=\"fn\" data-fn=\"2\"></sup> Later evidence of dealings with Persia and of intrigue with the helots led the ephors to wall him into the temple of Athena of the Brazen House, where he starved.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_Mycale": "Mycale is a headland on the Ionian coast opposite Samos where a Greek fleet under the Spartan Leotychides and the Athenian Xanthippus attacked a Persian force in 479 BCE, landing to storm the beached ships and the stockade round them.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus puts the Persian army at 60,000 under Tigranes and says the fighting fell on the same day as Plataea, a rumour of that victory reaching the advancing line; Diodorus gives about 100,000 and a Greek fleet of 250 triremes.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The ships and wall were burnt and Tigranes killed, the Ionian cities revolted from Persia a second time, and the islanders were sworn into the Greek alliance at Samos.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Serpent_Column": "The Serpent Column is a bronze monument of three snakes twined into one shaft, dedicated at Delphi from a tithe of the spoil taken at Plataea in 479 BCE, with a gold tripod on the heads.<sup class=\"fn\" data-fn=\"1\"></sup> Thucydides records that a couplet claiming the victory for the Spartan regent Pausanias was cut on it and erased, the allied cities' names being put in its place, and 31 of those names have been traced on the coils.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The gold was taken by the Phocian leaders in the 4th century BCE and the bronze carried to Constantinople, where the heads were lost and the broken shaft still stands in the old hippodrome.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Histories_(Herodotus)": "The Histories of Herodotus is a prose account in nine books of the rise of the Persian empire and its wars with the Greek cities, declared at the outset an inquiry into the cause of that war.<sup class=\"fn\" data-fn=\"1\"></sup> It reaches back well beyond the fighting, declining to judge the mythical abductions it opens with and beginning instead with the ruler the writer says he knows first wronged the Greeks.<sup class=\"fn\" data-fn=\"2\"></sup> Its method is stated in the text: what is told is set down without any undertaking to believe it, rival versions stand side by side, informants are sometimes named, and the writer's own arithmetic is marked as his.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"6\"></sup>"
+"Histories_(Herodotus)": "The Histories of Herodotus is a prose account in nine books of the rise of the Persian empire and its wars with the Greek cities, declared at the outset an inquiry into the cause of that war.<sup class=\"fn\" data-fn=\"1\"></sup> It reaches back well beyond the fighting, declining to judge the mythical abductions it opens with and beginning instead with the ruler the writer says he knows first wronged the Greeks.<sup class=\"fn\" data-fn=\"2\"></sup> Its method is stated in the text: what is told is set down without any undertaking to believe it, rival versions stand side by side, informants are sometimes named, and the writer's own arithmetic is marked as his.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"6\"></sup>",
+"Persians_(play)": "Persians is a tragedy by Aeschylus, first produced at Athens in 472 BCE, and the only Greek tragedy to survive that takes a recent historical event rather than a story from myth as its subject.<sup class=\"fn\" data-fn=\"1\"></sup> It is set at Susa, where a chorus of Persian elders, the queen mother Atossa and the ghost of Darius hear by messenger of the defeat at Salamis, related at length and entirely from the losing side.<sup class=\"fn\" data-fn=\"2\"></sup> It closes with the king coming home in torn clothes to a sung lament, and the ancient life of the poet reports that the play was staged again in Sicily at the wish of Hiero.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2566,7 +2567,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Plataea": "479 BCE",
 "Pausanias_the_regent": "fl. 479 BCE",
 "Battle_of_Mycale": "479 BCE",
-"Serpent_Column": "479 BCE"
+"Serpent_Column": "479 BCE",
+"Persians_(play)": "472 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3675,7 +3677,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Persian_retreat_from_Greece": ["Persian retreat"],
 "Pausanias_the_regent": ["Pausanias, son of Cleombrotus"],
 "Battle_of_Mycale": ["Mycale"],
-"Histories_(Herodotus)": ["Herodotus' Histories","Histories of Herodotus"]
+"Histories_(Herodotus)": ["Herodotus' Histories","Histories of Herodotus"],
+"Persians_(play)": ["Persae"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5476,7 +5479,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Pausanias_the_regent": ["person","history","warfare","greece"],
 "Battle_of_Mycale": ["battle","history","warfare","greece","iran"],
 "Serpent_Column": ["object","history","warfare","greece","art"],
-"Histories_(Herodotus)": ["text","literature","history","greece","iran"]
+"Histories_(Herodotus)": ["text","literature","history","greece","iran"],
+"Persians_(play)": ["text","literature","history","greece","iran"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
