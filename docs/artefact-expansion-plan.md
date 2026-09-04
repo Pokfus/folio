@@ -159,7 +159,7 @@ literature — which is what made batches 15 and 8 of the first pass cheap and b
 | B3 Japan and Korea | 7 | `samurai-katana`, `dotaku`, `ukiyo-e-print`, `goryeo-celadon`; `magatama`, `jomon-dogu`, `buncheong-bowl` | **J-Stage** (Japan's national journal platform — answers with real content), museum bulletins on archive.org, Cambridge |
 | B4 Southeast Asia and the Pacific | 6 | `dong-son-drum`, `lapita-pottery`; `ban-chiang-pot`, `sumatralith`, `shell-adze`, `palm-leaf-folio` | *Journal of Indo-Pacific Archaeology*, PLOS, Antiquity via `doi.org`. **The highest-risk batch — see below** |
 | C1 Islam and Byzantium | 8 | `lustreware-bowl`, `mamluk-mosque-lamp`, `byzantine-ivory-panel`, `byzantine-silk`; `islamic-star-tile`, `glass-coin-weight`, ~~`fustat-paper`~~ (renamed `islamic-paper-sheet` and shipped in C1e), `byzantine-lead-seal` | the V&A API, Cleveland's open API, Dumbarton Oaks, DOAJ, *'Atiqot* — all measured open (`collections.louvre.fr` 429s here); the five Dumbarton Oaks seal catalogue volumes are whole on archive.org |
-| C2 Africa and the Arctic | 5 | `great-zimbabwe-bird`, `ife-head`, `thule-harpoon-head`; `ostrich-eggshell-bead`, `manilla` | archive.org (Randall-MacIver, Caton-Thompson, Thurstan Shaw), PLOS and *Scientific Reports* for isotope and provenance work, *Arctic* (open, Calgary) |
+| C2 Africa and the Arctic | 5 | `great-zimbabwe-bird`, ~~`ife-head`~~ (cleared and shipped in C2c), `thule-harpoon-head`; `ostrich-eggshell-bead`, `manilla` | archive.org (Randall-MacIver, Caton-Thompson, Thurstan Shaw), PLOS and *Scientific Reports* for isotope and provenance work, *Arctic* (open, Calgary) |
 | C3 The Americas | 5 | `moche-portrait-vessel`, `mississippian-shell-gorget`, `clovis-point`; `wampum-bead`, `obsidian-blade` | *Latin American Antiquity* via Cambridge, PLOS, Europe PMC, archive.org (Squier and Davis, Moorehead) |
 
 ### Europe's everyday, and the periods the pool stops short of
@@ -290,7 +290,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | A3a/B2d | `golden-crown-of-silla`, `inkstone` (UN-DEFERRED — **B2's list is now empty**) | — |
 | E2d | `mariners-astrolabe` (UN-DEFERRED; **one, not three — see below**) | ~~trench-art-shell-case~~, ~~identity-disc~~ (both cleared and shipped in E1c), ~~ban-chiang-pot~~ (cleared in B4c) |
 | A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | ~~turnshoe~~ (cleared and shipped in D1a), ~~nbpw-sherd~~ (cleared and shipped in B1e), ~~identity-disc~~ (cleared and shipped in E1c) |
-| B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, ~~igbo-ukwu-bronze~~ (dropped in C2b), ~~bodkin-arrowhead~~ (cleared and shipped in D1b), ~~fustat-paper~~ (renamed and shipped in C1e) |
+| B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | ~~ife-head~~ (cleared and shipped in C2c), ~~igbo-ukwu-bronze~~ (dropped in C2b), ~~bodkin-arrowhead~~ (cleared and shipped in D1b), ~~fustat-paper~~ (renamed and shipped in C1e) |
 | B4c | `ban-chiang-pot`, `sumatralith` (both UN-DEFERRED — **B4's list is now empty**) | — |
 | B1f | `glass-bangle` (UN-DEFERRED, and **shipped with no picture** — see below; **B1's list is now empty**) | ~~jade-burial-suit~~ (cleared and shipped in A3d), ~~bodkin-arrowhead~~ (cleared and shipped in D1b) |
 | S1 | **nothing — a search batch, see below** | ~~identity-disc~~, ~~trench-art-shell-case~~ (both cleared and shipped in E1c), ~~turnshoe~~ (cleared and shipped in D1a), ~~fustat-paper~~ (renamed and shipped in C1e) |
@@ -300,6 +300,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | D1b/E1b | `bodkin-arrowhead` (UN-DEFERRED after four deferrals; **D1's list is now empty**) | `fustat-paper`, `ife-head` (**one work found**), `trench-art-shell-case`, `identity-disc` |
 | E1c | `identity-disc`, `trench-art-shell-case` (both UN-DEFERRED — **E1's list is now empty**) | `fustat-paper`, `ife-head` (**one work found**) |
 | C1e | `islamic-paper-sheet` (**RENAMED from `fustat-paper` — see below**; **C1's list is now empty**) | `ife-head` (**one work found**) |
+| C2c | `ife-head` — **the two hundredth artefact. THE PASS IS COMPLETE: 200 of 200, at 116 / 52 / 25 / 7, which is the budget exactly.** | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1913,6 +1914,47 @@ Schechter Geniza collection) and `genizalab.princeton.edu` are both **403**, whi
 form — one institution, two hosts, opposite answers. And the Met's collection API answers and is
 searchable by department, but has no early Islamic paper: `q=Fatimid paper&departmentId=14` returns two
 objects, both ceramic.
+
+**C2c ships the two hundredth artefact and the pass is finished — 200 of 200, at 116 / 52 / 25 / 7,
+which is the budget's target shape to the artefact.** That was not luck: the tiers were checked before
+each of the last dozen plates was written, and the final four were placed to close the gap (`turnshoe`,
+`bodkin-arrowhead`, `identity-disc` and `trench-art-shell-case` common; `islamic-paper-sheet` and
+`ife-head` rare). **Read the counts before choosing a rarity, not after** — the instinct on a famous
+object is always to reach upwards, and `jade-burial-suit` and `ife-head` are both plainly "epic" to the
+eye and both correctly rare by the plan's own definition, a distinctive class belonging to one
+tradition.
+
+**Its finding is the one this whole tail of the pass has been circling: the open-access MONOGRAPH, and
+the aggregator that finds it.** `ife-head` had been deferred five times with one magnificent source and
+no second — Frobenius's own account of digging up the Olokun head in 1910. What answered was **OAPEN**
+(`library.oapen.org`), which indexes open-access scholarly books and has a working REST API, and it
+holds Carsten Stahn's *Confronting Colonial Objects* (Oxford, 2023), whose section 9 is titled "The
+'sale' and return of the Olokun head from Ife (1910)". So the plate has both halves of the story from
+the two sides: Frobenius writing "This was, in very deed, the Olokun, Atlantic Africa's Poseidon!"
+because he could not believe the head was African work, and Stahn on the six pounds and the bottle of
+whisky, the interpreter reversing the terms of the copy agreement to the Ọ̀ni, the townspeople's
+complaint, the trial, and the forced return. **DOAJ finds the articles, OpenAIRE finds the repository
+copies, OAPEN finds the books** — that is the search order, and it took until artefact 200 to have all
+three.
+
+**One access note, and it is the third instance of the same shape in three batches.** OAPEN's HTML is
+**403** on every human path — the handle page, the bitstream download page — while
+`library.oapen.org/rest/…` answers 200 and serves the whole PDF. That is `geniza.princeton.edu` against
+`genizalab.princeton.edu` and `awm.gov.au` against the Royal Armouries again: **one institution can
+answer on one host and refuse on another, so a 403 is a fact about a HOST and never about a
+collection.** The citation therefore carries the REST URL, which is what a reader can actually open.
+`directory.doabooks.org` and `academic.oup.com` are both 403, so there is no alternative.
+
+**And two hosts worth adding to the survey, both found looking for this one artefact.**
+`www.cambridge.org/core` answers **200** (though its chapter pages carry no summary for a paywalled
+book, so they are not citable), and **`gallica.bnf.fr`'s SRU metadata API answers while its text service
+is behind an ALTCHA proof-of-work challenge served with a 200** — a seventh variety of 200-status wall,
+after the JavaScript shell, the 404-as-200, "Technical Difficulties", CloudFront's "Request blocked",
+the "Client Challenge" and Anubis. Museums, meanwhile, were nearly all shut: the British Museum, Penn,
+the Walters, Yale, Harvard, the MFA, Detroit, the Fowler, the quai Branly and the Smithsonian are 403 or
+JavaScript, and **the one that answered was the Minneapolis Institute of Art**, whose Elasticsearch
+endpoint (`search.artsmia.org/<query>`) returns full records including curatorial text and rights
+status. It holds exactly one Ife object, and that one carried the plate's first sentence.
 
 ## The per-artefact workflow
 

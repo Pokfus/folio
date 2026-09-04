@@ -1421,4 +1421,11 @@ window.ARTEFACTS = [
     date: "c. 850 – 1400 CE",
     origin: "Egypt and the Islamic Mediterranean",
   },
+  {
+    id: "ife-head",
+    name: "Ife head",
+    rarity: "rare",
+    date: "c. 1100 – 1400 CE",
+    origin: "Ile-Ife, western Nigeria",
+  },
 ];

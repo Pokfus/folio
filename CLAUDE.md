@@ -1299,10 +1299,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `Würm`'s "generally"). One blind spot remains, worth knowing before a batch of calibrated dates: the year
   regex needs the number immediately before "years ago", so an intervening word defeats it and `Boreal`'s
   "8,000 **calendar** years ago" reads as lost when it survived. Not part of the site.
-- `docs/artefact-citation-plan.md` — the batch plan for **citing the 100 artefacts**, the third citation pass
+- `docs/artefact-citation-plan.md` — the batch plan for **citing the artefacts**, the third citation pass
   after the cards' and the glossary's. The bar is **3 works per artefact** (`ARTEFACT_SRC_TARGET`), each with
   an openable URL and a marker pointing at it, and unlike the other two it is a REFUSAL rather than a target
-  reported against. **THE PASS IS COMPLETE: all 100 are cited and at the bar** (batches 1–15), so a new
+  reported against. **THE PASS IS COMPLETE: all 100 were cited and at the bar** (batches 1–15), and the second
+  hundred was written cited, so the pool stands at **200 of 200** — a new
   artefact joins at the bar instead of reopening a backlog, exactly as the glossary now works; the file holds
   the batch table and the per-artefact workflow. Its most reusable half is the **reachable-host survey** —
   which scholarly and museum hosts answer from this sandbox and which serve a bot wall, measured rather than
@@ -1315,8 +1316,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
   only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
   connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
-- **📖 `docs/artefact-expansion-plan.md` — READ BEFORE WRITING ANY OF THE SECOND HUNDRED ARTEFACTS.** The
-  pool is 100 and this plans it to 200: fifteen batches, each with its source spine, weighted the OPPOSITE
+- **📖 `docs/artefact-expansion-plan.md` — READ BEFORE ADDING AN ARTEFACT, OR BEFORE LOOKING FOR AN OPEN
+  SOURCE FOR ANYTHING.** **THE EXPANSION IS COMPLETE: the pool is 200, at 116 common / 52 rare / 25 epic /
+  7 legendary, which is the budget's target shape exactly** — so the file is now a record of what was
+  decided rather than a queue, and its value is its findings: forty-odd batches of measured host
+  reachability, the search order that emerged (**DOAJ finds the articles, OpenAIRE finds the repository
+  copies, OAPEN finds the books**), the seven varieties of 200-status wall, and the two PDF ciphers
+  (a fixed CID offset, and a full substitution solvable on words with the digits pinned by arithmetic).
+  It planned the pool from 100 to 200 in fifteen batches, each with its source spine, weighted the OPPOSITE
   way from the first hundred — Rome has 19 artefacts and South Asia, Southeast Asia, Korea, Oceania, North
   America and the Arctic have **none**, and none of the India, Korea, Russia, United States or Second World
   War collections is served at all. Three things in it are decisions rather than lists. **The rarity budget
@@ -1328,7 +1335,7 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   naturally epic or legendary. And **`artefacts.js` is on the EAGER path, where 94% of it is `desc` +
   `sources` + `image` that nothing reads until a chest opens** — measured: 237.5 KB of 251, against a 14 KB
   index that is all `progStats` needs — so the file wants `glossary-extra.js`'s split BEFORE the prose is
-  written, which makes doubling the pool cost every visitor about 14 KB rather than 260. It also records the
+  written, which makes doubling the pool cost every visitor about 14 KB rather than 260 — the split shipped first, and it did. It also records the
   reachability measured for the new regions on 2026-09-03, of which the load-bearing finding is that **the
   East Asian and Israeli national museum sites answer 200 and serve their object pages through JavaScript**
   (e-Museum, the National Museum of Korea and the Dead Sea Scrolls digital library all return zero hits when
