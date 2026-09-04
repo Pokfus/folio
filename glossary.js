@@ -1978,7 +1978,8 @@ window.GLOSSARY = {
 "Brennus_(leader_of_the_Senones)": "Brennus is the name the Roman sources give the Gaulish chieftain who took Rome and besieged the Capitol after the defeat at the Allia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Livy and Plutarch have him agree with the consular tribune Quintus Sulpicius on a thousand Roman pounds of gold to raise the siege, then produce false weights and lay his sword on the scale with the words <i>vae victis</i>, woe to the vanquished.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He does not appear in Polybius, whose Gauls hold the city until an invasion of their own country recalls them, make a treaty and depart, which leaves the bargain and the sword resting on the Roman tradition alone.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Capitoline_geese": "The Capitoline geese are the birds kept at the temple of Juno on the Capitol which Roman tradition credits with saving the citadel during the Gallic siege, when a night attack passed the sentries and the dogs unnoticed.<sup class=\"fn\" data-fn=\"1\"></sup> Their noise is said to have roused Marcus Manlius, who knocked the leading climber back off the summit, and the soldiers rewarded him next day out of their own rations.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Livy has the birds spared through the famine because they were sacred, where Plutarch has them neglected and says it was hunger that kept them wakeful, and Pliny records that dogs were still punished yearly in Rome for their failure that night.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Aius_Locutius": "Aius Locutius, also written Aius Loquens, is a Roman deity whose name is compounded from two verbs of speaking, worshipped at a shrine on the Nova Via in Rome.<sup class=\"fn\" data-fn=\"4\"></sup> The cult atoned for a disregarded warning: Livy reports that a plebeian, Marcus Caedicius, heard a more than human voice at night announcing the Gauls' approach, and that his humble rank was one reason it was ignored.<sup class=\"fn\" data-fn=\"1\"></sup> Cicero, who instead gives the words as an order to repair the walls and gates, describes an altar enclosed by a hedge there in his own day, and has a speaker ask why the god fell silent once he was named.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Licinio-Sextian_rogations": "The Licinio-Sextian rogations are a group of Roman bills of the middle Republic, attributed to the tribunes Gaius Licinius Stolo and Lucius Sextius Lateranus, which are said to have set interest already paid against the principal of a debt, forbidden anyone to occupy more than 500 iugera of public land, and required that one consul each year be a plebeian.<sup class=\"fn\" data-fn=\"1\"></sup> Livy has their passage blocked for years by tribunes vetoing at the patricians' request, and answered by a counter-veto that stopped elections to the senior magistracies altogether.<sup class=\"fn\" data-fn=\"1\"></sup> The settlement that followed created a praetorship reserved to patricians, an office no plebeian held until 337 BCE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Licinio-Sextian_rogations": "The Licinio-Sextian rogations are a group of Roman bills of the middle Republic, attributed to the tribunes Gaius Licinius Stolo and Lucius Sextius Lateranus, which are said to have set interest already paid against the principal of a debt, forbidden anyone to occupy more than 500 iugera of public land, and required that one consul each year be a plebeian.<sup class=\"fn\" data-fn=\"1\"></sup> Livy has their passage blocked for years by tribunes vetoing at the patricians' request, and answered by a counter-veto that stopped elections to the senior magistracies altogether.<sup class=\"fn\" data-fn=\"1\"></sup> The settlement that followed created a praetorship reserved to patricians, an office no plebeian held until 337 BCE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Leges_Genuciae": "The Leges Genuciae are a group of Roman measures of the middle Republic which Livy reports at second hand, saying that he finds them in various authorities: a bill of the tribune Lucius Genucius against lending at interest, a rule against holding the same office twice within ten years, another against holding two offices in one year, and a provision that both consuls of a year might lawfully be plebeian.<sup class=\"fn\" data-fn=\"1\"></sup> Livy adds that the older writers agree on nothing beyond the mutiny the settlement followed.<sup class=\"fn\" data-fn=\"1\"></sup> Later authors treat the ban on interest as complete and as constantly evaded.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2762,7 +2763,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Brennus_(leader_of_the_Senones)": "fl. 390 BCE, by the usual dating",
 "Capitoline_geese": "390 BCE, by the usual dating",
 "Aius_Locutius": "shrine founded c. 390 BCE",
-"Licinio-Sextian_rogations": "carried 367 BCE, by the usual dating"
+"Licinio-Sextian_rogations": "carried 367 BCE, by the usual dating",
+"Leges_Genuciae": "carried 342 BCE, by the usual dating"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3973,7 +3975,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Brennus_(leader_of_the_Senones)": ["Brennus"],
 "Capitoline_geese": ["geese of the Capitol","sacred geese of Juno"],
 "Aius_Locutius": ["Aius Loquens"],
-"Licinio-Sextian_rogations": ["Licinio-Sextian laws","Licinian-Sextian laws","Licinian rogations"]
+"Licinio-Sextian_rogations": ["Licinio-Sextian laws","Licinian-Sextian laws","Licinian rogations"],
+"Leges_Genuciae": ["Lex Genucia","Genucian laws","Genucian law"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5984,7 +5987,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Brennus_(leader_of_the_Senones)": ["person","history","warfare","politics","italy"],
 "Capitoline_geese": ["event","animal","history","religion","italy"],
 "Aius_Locutius": ["deity","religion","mythology","history","italy"],
-"Licinio-Sextian_rogations": ["event","law","history","politics","italy"]
+"Licinio-Sextian_rogations": ["event","law","history","politics","italy"],
+"Leges_Genuciae": ["event","law","history","politics","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

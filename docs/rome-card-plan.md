@@ -384,7 +384,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-126  The geese of the Capitol
     rm-127  Aius Locutius
     rm-128  Licinio-Sextian laws
-    rm-129  The plebeian consulship
+    rm-129  Lex Genucia
     rm-130  Nobiles
     rm-131  Cursus honorum
     rm-132  The praetorship
