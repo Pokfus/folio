@@ -2327,19 +2327,64 @@ function scrimCheck() {
     /* …and folding a section away re-fits it. The heads do nothing on the sheet while the sections are
        pages — they are folds again now, and a fold that leaves the box the size of the paragraph it just
        took away is a fold that has only made a gap. It measured as a no-op when this shipped, because a
-       scroller's `scrollHeight` is never less than the box it is in. */
+       scroller's `scrollHeight` is never less than the box it is in.
+
+       BUT THE HEIGHT IS THE SMALLER OF TWO THINGS, AND ONLY ONE OF THEM IS THE CONTENT (`cpMaxH` =
+       min(room, need)). This was asserted as "fold one section and the sheet gets shorter", which is only
+       true where what is LEFT fits in the room — and on France at 390×800 it does not: the room is 602px
+       and folding the 552px description still leaves 567px of sections under ~90px of chrome. So the sheet
+       stayed at 602 and the check failed, on a sheet doing exactly the right thing. It failed on main for
+       as long as it existed, which is what a suite that is a second opinion rather than a gate can hide.
+       BOTH HALVES ARE ASSERTED NOW, because they fail in opposite directions: a sheet that shrank while
+       its content still overflowed would be showing empty space over a scroller with more to give, and one
+       that would not shrink once its content DID fit is the gap this check was written for. The second
+       half is what actually exercises the re-fit, so it names the numbers it is standing on. */
     const tall = await slack();
-    await page.evaluate(async () => {
-      document.querySelector("#cpDescSec .cp-sec-head").click();
-      await new Promise((r) => setTimeout(r, 450));
-    });
-    await page.waitForTimeout(400);
-    const folded = await page.evaluate(() => ({
-      h: Math.round(document.querySelector("#countryPop").getBoundingClientRect().height),
-      collapsed: document.querySelector("#cpDescSec").classList.contains("collapsed"),
-    }));
-    check("...folding a section shrinks the sheet to fit what is left",
-      folded.collapsed && folded.h < tall.h - 20, JSON.stringify({ tall: tall.h, folded: folded }));
+    /* The room is the stage's height less the sheet's own two clearances, and those are SLICED OUT OF
+       app.js rather than copied: a test carrying its own 22 would fail on the day either constant moved,
+       and the message would be about a fold rather than about the clearance that had changed. */
+    const cpGaps = /const CP_TOP_GAP = (\d+), CP_BOTTOM_GAP = (\d+)/
+      .exec(fs.readFileSync(path.join(ROOT, "app.js"), "utf8"));
+    check("the sheet's two clearances are still declared where this test reads them", !!cpGaps);
+    const cpGap = cpGaps ? Number(cpGaps[1]) + Number(cpGaps[2]) : 22;
+    const foldSec = async (id) => {
+      await page.evaluate(async (sel) => {
+        document.querySelector(sel + " .cp-sec-head").click();
+        await new Promise((r) => setTimeout(r, 450));
+      }, id);
+      await page.waitForTimeout(400);
+      return page.evaluate((a) => {
+        const p = document.querySelector("#countryPop");
+        const stage = p.closest(".globe-stage");
+        return { h: Math.round(p.getBoundingClientRect().height),
+                 room: Math.round((stage ? stage.clientHeight : 0) - a.gap),   // CP_TOP_GAP + CP_BOTTOM_GAP
+                 // how much of what is left the sheet still cannot show. Measured against the SCROLLER's
+                 // box rather than against the room, since the room has to hold the head and the padding
+                 // too — comparing the sections' own height with the room reads ~90px of chrome as slack.
+                 over: Math.round(slackNeed() - cols().clientHeight),
+                 need: Math.round(slackNeed()), collapsed: document.querySelector(a.sel).classList.contains("collapsed") };
+        function cols() { return document.querySelector(".cp-cols"); }
+        function slackNeed() {
+          const c0 = cols();
+          const secs = [...c0.children].filter((c) => !c.hidden && getComputedStyle(c).display !== "none");
+          const gap = parseFloat(getComputedStyle(c0).rowGap) || 0;
+          return secs.reduce((a, c) => a + c.offsetHeight, 0) + gap * Math.max(0, secs.length - 1);
+        }
+      }, { sel: id, gap: cpGap });
+    };
+    const oneShut = await foldSec("#cpDescSec");
+    check("...folding a section that still leaves too much keeps the sheet at the room's height",
+      oneShut.collapsed && oneShut.over > 0 && oneShut.h === oneShut.room,
+      JSON.stringify({ tall: tall.h, oneShut }));
+    const bothShut = await foldSec("#cpSrcSec");
+    check("...and folding until it fits shrinks the sheet to what is left",
+      /* `over <= 0` rather than `< 0`: once the content fits, the sheet is sized TO the content, so the
+         scroller's box and what is in it are the same number and the slack is exactly zero — which is the
+         whole of what "fit what is left" means. */
+      bothShut.collapsed && bothShut.over <= 0 && bothShut.h < oneShut.h - 20,
+      JSON.stringify({ oneShut: oneShut.h, bothShut }));
+    await page.evaluate(() => { document.querySelector("#cpSrcSec .cp-sec-head").click(); });
+    await page.waitForTimeout(500);
 
     /* THE NEXT PLACE OPENS SHUT, AND THEN TO ITS OWN CONTENT'S HEIGHT — there is nothing remembered now, which
        is what removing the drag bought. Both halves are asserted because they fail in opposite directions:
