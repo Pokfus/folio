@@ -31,7 +31,13 @@ function loadWindow(files) { const win = {}; for (const f of files) vm.runInNewC
 // glossary.js is TWO files now — the citations and illustrations live in the lazy
 // glossary-extra.js — so it is loaded through the shared helper. Reading glossary.js
 // alone yields EMPTY GLOSSARY_SOURCES/GLOSSARY_IMAGES, silently.
-const W = loadWindow(["data.js", "glossary.js", "glossary-extra.js", "artefacts.js", "timeline.js"]);
+const W = loadWindow(["data.js", "glossary.js", "glossary-extra.js", "artefacts.js", "artefacts-extra.js", "timeline.js"]);
+// the artefact pool stages onto a queue like the glossary's extra — drain it, or every artefact reads
+// as having no description and an overlay that merely edited one would look like an overlay that added it
+(W.ARTEFACTS_EXTRA_IN || []).forEach((inc) => {
+  const by = {}; (W.ARTEFACTS || []).forEach((a) => { if (a && a.id) by[a.id] = a; });
+  Object.keys(inc.ARTEFACTS_EXTRA || {}).forEach((id) => { if (by[id]) Object.assign(by[id], inc.ARTEFACTS_EXTRA[id]); });
+});
 for (const inc of W.GLOSSARY_EXTRA_IN || []) { Object.assign(W.GLOSSARY_IMAGES = W.GLOSSARY_IMAGES || {}, inc.GLOSSARY_IMAGES || {}); Object.assign(W.GLOSSARY_SOURCES = W.GLOSSARY_SOURCES || {}, inc.GLOSSARY_SOURCES || {}); }
 const CARDS = W.CARD_DATA || [], byId = Object.fromEntries(CARDS.map(c => [c.id, c]));
 const text = s => String(s == null ? "" : s).replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();

@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.451", released: "2026-09-04T10:32Z" };
+window.FOLIO_VERSION = { v: "1.488", released: "2026-09-04T13:35Z" };
 
 window.CHANGELOG = [
   {
@@ -91,6 +91,9 @@ window.CHANGELOG = [
       "<b>Your username can now be changed</b> from the account page — it is the handle you sign in with and the one friends add you by.",
       "<b>The Sign in and Create account buttons no longer stay stuck reading \u201c\u2026\u201d</b> after an attempt that was refused.",
       "<b>Eighty-four more glossary terms</b> — Greek pottery and regions, the sites of Crete and Cyprus, ancient materials, and Rome’s institutions and hills — each with sources and most with a picture.",
+      "<b>One hundred new artefacts to find in a chest</b> — among them a Terracotta Army warrior, the Antikythera Mechanism, the Book of Kells, the Bayeux Tapestry, the Aztec Sun Stone, an Enigma machine and a Hokusai print.",
+      "<b>A new badge for collecting 100 artefacts</b>, since the ladder used to stop at 50.",
+      "<b>The site now loads a little faster</b>, because an artefact's description and picture are only fetched when you open a chest.",
     ],
   },
   {

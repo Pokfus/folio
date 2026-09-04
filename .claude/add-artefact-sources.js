@@ -32,7 +32,10 @@
 const fs = require("fs"), path = require("path");
 const { pieces } = require("./split-abstract.js");
 const root = path.join(__dirname, "..");
-const file = path.join(root, "artefacts.js");
+/* THE POOL IS TWO FILES (see .claude/split-artefacts.js) and this script re-serialises what it
+   loads, so it goes through artefact-io.js — reading artefacts.js alone would append the citations
+   correctly and delete every description in the pool on the way out. */
+const { loadArtefacts, writeArtefacts } = require("./artefact-io.js");
 
 // the bar, sliced out of app.js by text so this file and the site can never disagree about what it is
 const APP = fs.readFileSync(path.join(root, "app.js"), "utf8");
@@ -52,9 +55,7 @@ const batch = JSON.parse(fs.readFileSync(arg, "utf8"));
 const patch = batch.artefacts || batch;
 if (!patch || typeof patch !== "object" || !Object.keys(patch).length) { console.error("ERROR: batch holds no artefacts."); process.exit(1); }
 
-global.window = {};
-require(file);
-const all = global.window.ARTEFACTS || [];
+const all = loadArtefacts();   // both files, merged, exactly as the browser sees them
 const byId = {};
 all.forEach((a) => { byId[a.id] = a; });
 
@@ -107,25 +108,18 @@ Object.keys(patch).forEach((id) => {
   if (p.desc != null) a.desc = String(p.desc);
 });
 
-const s = (v) => JSON.stringify(String(v == null ? "" : v));
-const HEAD = fs.readFileSync(file, "utf8").split("window.ARTEFACTS")[0];
-const body = all.map((a) => {
-  let out = "  {\n    id: " + s(a.id) + ",\n    name: " + s(a.name) + ",\n    rarity: " + s(a.rarity) + ",\n";
-  if (a.date) out += "    date: " + s(a.date) + ",\n";
-  if (a.origin) out += "    origin: " + s(a.origin) + ",\n";
-  if (a.image && a.image.src) out += "    image: { src: " + s(a.image.src) + ", credit: " + s(a.image.credit) + ", alt: " + s(a.image.alt) + " },\n";
-  out += "    desc: " + s(a.desc) + ",\n";
-  if (Array.isArray(a.sources) && a.sources.length) out += "    sources: [\n" + a.sources.map((x) => "      " + s(x) + ",").join("\n") + "\n    ],\n";
-  return out + "  },";
-}).join("\n");
-fs.writeFileSync(file, HEAD + "window.ARTEFACTS = [\n" + body + "\n];\n");
+/* Write BOTH files through artefact-io.js rather than from a serializer of this script's own. The
+   copy that used to live here had gone stale in exactly the way a copy does: it emitted an image as
+   `{ src, credit, alt }`, having been written before the fullscreen viewer's `title` and `desc` were
+   added in Aug 2026 — so one run of this citation tool would have stripped the caption off all 100
+   pictures, silently, while doing its own job perfectly. One serializer, in one place. */
+writeArtefacts(all);
 
-// re-parse, so a malformed write is caught here rather than by a reader with a blank plate
-delete require.cache[require.resolve(file)];
-global.window = {};
-require(file);
-const back = global.window.ARTEFACTS || [];
+// re-load both, so a malformed write is caught here rather than by a reader with a blank plate
+const back = loadArtefacts();
 if (back.length !== all.length) { console.error("ERROR: re-parse returned the wrong count."); process.exit(1); }
+const lost = back.filter((a) => !a.desc || !a.desc.trim());
+if (lost.length) { console.error("ERROR: " + lost.length + " artefacts came back with no description."); process.exit(1); }
 
 const at = back.filter((a) => (a.sources || []).length >= BAR).length;
 const none = back.filter((a) => !(a.sources || []).length).length;

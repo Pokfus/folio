@@ -31,8 +31,12 @@ const FIX = process.argv.includes("--fix");
    reader reads, so the BCE/CE rule binds on it exactly as it does on an artefact or a country
    description — and NOT the other three rules, which are about a card's or a term's own conventions
    (italicised work titles, numerals) that a four-word crossword clue has no business carrying. */
-const FILES = ["data.js", "glossary.js", "glossary-extra.js", "artefacts.js", "countries.js", "crossword.js"].map((f) => path.join(__dirname, "..", f));
-const ERA_ONLY = new Set(["artefacts.js", "countries.js", "crossword.js"]);
+/* artefacts-extra.js is here for the reason glossary-extra.js is: rule 4 (BCE/CE) sweeps the text a
+   PICTURE carries as well as the prose, and the artefact split moved BOTH out of artefacts.js — which
+   would have left every artefact description and every picture caption outside this checker's reach
+   while it went on reporting a clean pass over an index of names and dates. */
+const FILES = ["data.js", "glossary.js", "glossary-extra.js", "artefacts.js", "artefacts-extra.js", "countries.js", "crossword.js"].map((f) => path.join(__dirname, "..", f));
+const ERA_ONLY = new Set(["artefacts.js", "artefacts-extra.js", "countries.js", "crossword.js"]);
 
 /* --- rule 2: ordinal words before century/millennium --- */
 const ORD = {

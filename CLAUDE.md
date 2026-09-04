@@ -123,6 +123,7 @@ of blocking JS to flip a card; the Atlas layers and the translation tables are ~
 | `river_italy` / `river_greece` | `rivers/<region>.js` | warmed at IDLE by a LOCATOR window in the Rome or Greece collection, never awaited (China has no river file) |
 | `worldcaps` | `world-capitals.js` | a map card asks for a DOT on the `world` layer (a capital card in the world collection). Its own bundle, and fetched only when a card carries `map.dot`: the shapes are `world`'s, which every map window already loads for the coastline under it, and a locator card reads those shapes and never this table |
 | `glossExtra` | `glossary-extra.js` | **warmed at IDLE after boot**, and awaited by `openGlossWin` for a reader who beats the warm. The glossary's CITATIONS and ILLUSTRATIONS — 54% of `glossary.js`, and nothing reads either until a popup opens |
+| `artefactExtra` | `artefacts-extra.js` | **warmed at IDLE after boot**, and awaited by the chest reveal, the Reliquary, a friend's collection and Admin → Artefacts. An artefact's DESCRIPTION, CITATIONS and PICTURE — **94% of `artefacts.js`** (237 KB of 251), and nothing reads any of them until a chest opens |
 | `uiI18n:<lang>` | `i18n/ui-<lang>.js` | the site language isn't English |
 | ~~`glossI18n:<lang>`~~ | *(removed 2026-08-08)* | the glossary translations were deleted on request; `loadLangData` no longer asks for this bundle, and the registration in `langBundle` is inert |
 | `gamesI18n:<lang>` | `i18n/games-<lang>.js` | ditto (the True-or-False / Who-said-it pools) |
@@ -1019,6 +1020,40 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   in `CLAUDE.md`; reasoning lives in `docs/`**, reached by an imperative `📖 … — READ BEFORE …` pointer,
   because a file nobody is told to read is a file nobody reads. Eight docs were in exactly that state
   when it was written — unreferenced from here, several of them holding OPEN work.
+- `artefacts-extra.js` + `.claude/split-artefacts.js` + `.claude/artefact-io.js` — **the artefact pool
+  is TWO files**, and it is the glossary split below in miniature. `desc`, `sources` and `image` were
+  **237.5 KB of `artefacts.js`'s 251 — 94%** — on the EAGER path, and **not one of them is read until a
+  chest opens or the Reliquary is visited**; the only boot-adjacent reader of the pool is `progStats`,
+  which counts legendaries and so needs `rarity` alone. The eager file went **262.8 KB → 19.2 KB**.
+  · **IT MERGES BACK INTO `window.ARTEFACTS` AND THEN REBUILDS** (`artefactExtraIngest`), where the
+    glossary's hook re-seeds a separate PRISTINE snapshot. The reason is that the artefact pool has no
+    such snapshot: `window.ARTEFACTS` **IS** the revert baseline — `artefactIsShipped` and
+    `revertArtefact` read it directly and `artefactsMerged` re-applies `ADMIN_EDITS` over it on every
+    call — so merging into it and calling `refreshArtefacts()` is what puts the overlay back on top of
+    what just landed. Without it, Admin → Artefacts' **Revert would compare a real description against
+    nothing and DELETE it**. Guarded by a browser check in the split's own commit.
+  · **IT STAGES ONTO A QUEUE** (`window.ARTEFACTS_EXTRA_IN`), for the reason `glossary-extra.js` does,
+    and **an id the INDEX does not carry is not resurrected**: the index decides the pool, so a row left
+    behind by a retired artefact must not walk back in carrying only prose.
+  · **EVERY HELPER GOES THROUGH `.claude/artefact-io.js`** (`loadArtefacts` / `writeArtefacts`).
+    Requiring `artefacts.js` alone now yields entries with EMPTY prose: a READER then reports a fully
+    cited pool as uncited — **`test-artefacts.js` did exactly that on its first run after the split,
+    printing `0 of 100 cited` while 80 assertions passed over an empty list** — and a WRITER
+    re-serialises what it loaded and **deletes 240 KB without erroring**. Eleven scripts were repointed.
+    `writeArtefacts` writes **BOTH files or neither**: they are joined on `id`, and an index entry with
+    no row in the extra is an artefact with no prose anywhere.
+  · **THE SHARED SERIALIZER ALSO CLOSED A LIVE BUG.** `add-artefact-sources.js` carried a private copy
+    that emitted an image as `{ src, credit, alt }` — written before the fullscreen viewer's `title` and
+    `desc` were added — so **one run of the citation tool would have stripped the caption off all 100
+    pictures** while doing its own job perfectly. A copy of a serializer goes stale on a change made in
+    another file by someone with no reason to look here; `add-images.js` had the same trap recorded
+    against it and now shares the module too.
+  · **`check-style.js` reads `artefacts-extra.js`**, and that is not housekeeping: rule 4 (BCE/CE) sweeps
+    the text a PICTURE carries as well as the prose, and the split moved BOTH out of its reach.
+  · **`node .claude/split-artefacts.js --check` asserts the split is still intact, and CI runs it** —
+    both directions of the join, no heavy field back in the index, and a byte-for-byte round trip. The
+    split itself REFUSED to write until it had re-loaded its own output and compared it field by field
+    against what it started with, so the bytes that ship are the bytes that were checked.
 - `glossary-extra.js` + `.claude/split-glossary.js` + `.claude/gloss-io.js` — **the glossary is TWO
   files.** `GLOSSARY_SOURCES` (786 KB) and `GLOSSARY_IMAGES` (523 KB) were 54% of `glossary.js`, which is
   on the EAGER path, and **nothing reads either until a popup opens** — so they moved to
@@ -1265,10 +1300,11 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   `Würm`'s "generally"). One blind spot remains, worth knowing before a batch of calibrated dates: the year
   regex needs the number immediately before "years ago", so an intervening word defeats it and `Boreal`'s
   "8,000 **calendar** years ago" reads as lost when it survived. Not part of the site.
-- `docs/artefact-citation-plan.md` — the batch plan for **citing the 100 artefacts**, the third citation pass
+- `docs/artefact-citation-plan.md` — the batch plan for **citing the artefacts**, the third citation pass
   after the cards' and the glossary's. The bar is **3 works per artefact** (`ARTEFACT_SRC_TARGET`), each with
   an openable URL and a marker pointing at it, and unlike the other two it is a REFUSAL rather than a target
-  reported against. **THE PASS IS COMPLETE: all 100 are cited and at the bar** (batches 1–15), so a new
+  reported against. **THE PASS IS COMPLETE: all 100 were cited and at the bar** (batches 1–15), and the second
+  hundred was written cited, so the pool stands at **200 of 200** — a new
   artefact joins at the bar instead of reopening a backlog, exactly as the glossary now works; the file holds
   the batch table and the per-artefact workflow. Its most reusable half is the **reachable-host survey** —
   which scholarly and museum hosts answer from this sandbox and which serve a bot wall, measured rather than
@@ -1281,6 +1317,31 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   OCR. Two cautions it records: **a 200 from archive.org is not a readable book** — several items hand back
   only page furniture, so grep the `_djvu.txt` for a word the book must contain — and **a 403 or a refused
   connection is a different fact from a paywall** and must not be labelled as one. Not part of the site.
+- **📖 `docs/artefact-expansion-plan.md` — READ BEFORE ADDING AN ARTEFACT, OR BEFORE LOOKING FOR AN OPEN
+  SOURCE FOR ANYTHING.** **THE EXPANSION IS COMPLETE: the pool is 200, at 116 common / 52 rare / 25 epic /
+  7 legendary, which is the budget's target shape exactly** — so the file is now a record of what was
+  decided rather than a queue, and its value is its findings: forty-odd batches of measured host
+  reachability, the search order that emerged (**DOAJ finds the articles, OpenAIRE finds the repository
+  copies, OAPEN finds the books**), the seven varieties of 200-status wall, and the two PDF ciphers
+  (a fixed CID offset, and a full substitution solvable on words with the digits pinned by arithmetic).
+  It planned the pool from 100 to 200 in fifteen batches, each with its source spine, weighted the OPPOSITE
+  way from the first hundred — Rome has 19 artefacts and South Asia, Southeast Asia, Korea, Oceania, North
+  America and the Arctic have **none**, and none of the India, Korea, Russia, United States or Second World
+  War collections is served at all. Three things in it are decisions rather than lists. **The rarity budget
+  is 60 / 25 / 12 / 3 and is not free choice**: `rollArtefact` renormalises the drop odds over whatever
+  rarities still hold something unowned, so a tier whose share of the POOL does not match its share of the
+  ODDS empties early and drops out of the roll — a failure a reader experiences and never reports. **A
+  common is a KIND of object and is where a missing region is cheapest to fill**, since every culture has
+  its everyday things and everyday things are what the pool lacks outside Rome; a named singular object is
+  naturally epic or legendary. And **`artefacts.js` is on the EAGER path, where 94% of it is `desc` +
+  `sources` + `image` that nothing reads until a chest opens** — measured: 237.5 KB of 251, against a 14 KB
+  index that is all `progStats` needs — so the file wants `glossary-extra.js`'s split BEFORE the prose is
+  written, which makes doubling the pool cost every visitor about 14 KB rather than 260 — the split shipped first, and it did. It also records the
+  reachability measured for the new regions on 2026-09-03, of which the load-bearing finding is that **the
+  East Asian and Israeli national museum sites answer 200 and serve their object pages through JavaScript**
+  (e-Museum, the National Museum of Korea and the Dead Sea Scrolls digital library all return zero hits when
+  their own object's name is grepped out of the HTML), so Japan, Korea and Qumran rest on **J-Stage** and
+  archive.org rather than on the obvious institutional page. Not part of the site.
 - `decks/*.folio-deck.json` — **the community decks**, files a reader imports through the Studio. Not
   part of the site and never loaded by it: a deck file is somebody else's content that happens to have
   been written here, and it goes through `uDeckNormalize` on import exactly as a stranger's would.
@@ -2002,7 +2063,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     **THE LESSON IS THE SHARED ONE: A BADGE THAT CANNOT FIRE LOOKS EXACTLY LIKE A BADGE NOT YET EARNED.**
     Nothing throws, nothing is logged, and the reader assumes they have not done enough. When a badge's
     `test` reads a counter, check that something still WRITES that counter.
-  · **FIFTEEN COLLECTOR'S BADGES** read `progStats`, and are tested **at the moment they are earned**
+  · **THE ARTEFACT LADDER GOES TO 100** (`art10` / `art25` / `art50` / **`art100` "Antiquary Royal"**,
+    Sep 2026, on request). It stopped at 50 while the pool was 100, so its top rung was half the
+    Reliquary; the pool is being taken to 200, which would have made `art50` a quarter — an early
+    milestone wearing the name of a final one. **Adding a rung changes nothing already earned**, a badge
+    being only ever ADDED to `S.achievements`, which is why this is cheap where RENAMING one is not (see
+    the Victor/Champion note above: renaming an id takes the badge off everybody holding it).
+  · **SIXTEEN COLLECTOR'S BADGES** read `progStats`, and are tested **at the moment they are earned**
     rather than at the next card. A badge grants a chest, so the chest balance is not a plain subtraction —
     `spendChest()` increments `S.chestsOpened`, which is what the tests assert against.
   · `S.artefacts` / `S.chests` / `S.showcase` / `S.sweepChest` / `S.chestsOpened` / `S.themes` /
@@ -5068,6 +5135,14 @@ latter on `/document/<id>` as well as its property pages — are all **403** her
 `nature.com` and `link.springer.com`, the last two **303ing to an identity-provider cookie endpoint**, for
 which **Europe PMC is the way in** (resolve the PMCID with `search?query=DOI:"…"&resultType=core` — a
 guessed one in N1 returned a paper on stress in mice).
+**THAT LAST PART IS A FACT ABOUT THE TOOL, NOT THE HOST, and it was measured wrong** (Sep 2026,
+artefact batch C1b): **WebFetch** will not follow a cross-host redirect, so it stops at the identity
+provider and reports the article unreachable — but **`curl -L` with a browser user-agent completes the
+cookie handshake and serves the whole article**, 86,000 characters of it, on a paper Europe PMC has no
+record of at all. So **Springer Open journals — `Heritage Science` above all — ARE open to this
+sandbox**, which is a large body of exactly the archaeometry the citation passes need. **Retest a host
+with curl before trusting a WebFetch refusal**; the two disagree, and only one of them is measuring the
+host.
 **N8's finding is that a wrong TERM is not always a wrong FACT, and only a reader caught it.**
 `Smilodon` opened "*Smilodon fatalis* is the saber-toothed cat" and held every sabre-tooth alias, so the
 whole vocabulary of the group resolved to one American genus. Nothing in it was false about *Smilodon* —
