@@ -1741,7 +1741,8 @@ window.GLOSSARY = {
 "Behistun_Inscription": "The Behistun Inscription is a relief and text cut into a cliff in western Iran about 150 metres (500 feet) above the plain, in which Darius I gives his account of the year he took the Achaemenid throne.<sup class=\"fn\" data-fn=\"1\"></sup> The panel has the king standing over a fallen rival with nine roped captives before him, and beneath and beside it the same account runs in three languages: five columns of Old Persian, three of Elamite and one of Babylonian.<sup class=\"fn\" data-fn=\"1\"></sup> A short label beside each captive says that man lied<sup class=\"fn\" data-fn=\"2\"></sup>, and the three parallel versions were the ground on which cuneiform was deciphered in the nineteenth century.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Xerxes_I": "Xerxes I was a king of the Achaemenid Empire of Persia, the son and successor of Darius I, whose inscriptions style him great king, king of kings, and king of countries containing many kinds of people.<sup class=\"fn\" data-fn=\"1\"></sup> At Persepolis he completed unfinished work and added buildings of his own, among them the terrace gate whose trilingual inscription calls it a colonnade for all countries, a palace, and the quarters excavators named the Harem.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Greek writers supply almost all that is told of his invasion of Greece in 480 and 479 BCE and of his killing by the captain of his own bodyguard.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Aramaic": "Aramaic is a Semitic language of the Near East, its earliest substantial texts being the royal inscriptions of small kingdoms in northern Syria, set down in an alphabet adopted from Phoenician.<sup class=\"fn\" data-fn=\"1\"></sup> While the Assyrian, Babylonian and Persian empires ruled it served for commerce, diplomacy and administration, and it survives in bulk only where the climate spared papyrus, chiefly in Egypt, giving way to Greek in Ptolemaic times.<sup class=\"fn\" data-fn=\"2\"></sup> Its alphabet outlasted that official standing: the Jews adopted it along with the language after the Exile, and the square characters of Hebrew manuscripts, the Nabataean script and the Palmyrene all grew out of it.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Darius_III": "Darius III was the last king of the Achaemenid Empire of Persia, put on the throne by the chiliarch Bagoas after the royal house had been extinguished, being a member of the court circle descended from a brother of Artaxerxes II.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus says he answered Bagoas's attempt to poison him by handing him the cup and making him drink it himself.<sup class=\"fn\" data-fn=\"1\"></sup> He lost Asia to Alexander of Macedon, wrote to him asking for his captured mother, wife and children and offering alliance, and was killed in flight by Bessus, his own satrap of Bactria.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>"
+"Darius_III": "Darius III was the last king of the Achaemenid Empire of Persia, put on the throne by the chiliarch Bagoas after the royal house had been extinguished, being a member of the court circle descended from a brother of Artaxerxes II.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus says he answered Bagoas's attempt to poison him by handing him the cup and making him drink it himself.<sup class=\"fn\" data-fn=\"1\"></sup> He lost Asia to Alexander of Macedon, wrote to him asking for his captured mother, wife and children and offering alliance, and was killed in flight by Bessus, his own satrap of Bactria.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
+"Ancient_Greece": "Ancient Greece is the civilisation of the Greek-speaking cities of the mainland, the Aegean islands and the Ionian coast of Asia Minor, together with the colonies they planted in Italy, Sicily and elsewhere.<sup class=\"fn\" data-fn=\"1\"></sup> Its political unit was the polis, a settlement with its farmland governed as an independent state, whose citizens were those entitled to share in judgement and office, so that resident foreigners and enslaved people lived in it without belonging to it.<sup class=\"fn\" data-fn=\"2\"></sup> Herodotus puts what these cities shared not in any common government but in kinship of blood and speech, shrines and sacrifices held in common, and a like way of life.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2512,7 +2513,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Behistun_Inscription": "cut c. 520 BCE",
 "Xerxes_I": "reigned 486 – 465 BCE",
 "Aramaic": "attested from before 727 BCE",
-"Darius_III": "reigned c. 336 – 330 BCE"
+"Darius_III": "reigned c. 336 – 330 BCE",
+"Ancient_Greece": "c. 800 – 146 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5365,7 +5367,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Behistun_Inscription": ["text","object","history","archaeology","iron age","iran"],
 "Xerxes_I": ["ruler","person","history","politics","iran"],
 "Aramaic": ["language","concept","history","writing","iron age","syria"],
-"Darius_III": ["ruler","person","history","politics","iran"]
+"Darius_III": ["ruler","person","history","politics","iran"],
+"Ancient_Greece": ["culture","era","history","politics","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
