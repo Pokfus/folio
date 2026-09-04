@@ -1758,7 +1758,8 @@ window.GLOSSARY = {
 "Sri_Jayawardenepura_Kotte": "Sri Jayawardenepura Kotte is the legislative capital of Sri Lanka, just east of Colombo, which the United Nations names as the country’s capital and the Commonwealth Secretariat as its executive and judicial seat.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Both bodies write the name Sri Jayewardenepura Kotte, and neither publishes a population for this city: the figure the United Nations gives for the capital, about 606,200 for 2019, is Colombo’s.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The United States recognised the state as a dominion within the British Commonwealth on 4 February 1948, and the American embassy it established the following year stands at Colombo rather than here.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Lilongwe": "Lilongwe is the capital of Malawi, in the centre of the country, and the World Bank puts it near 1.39 million people in 2025, where the United Nations gives 1,074,700 for 2019.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy, which had stood at Blantyre since independence in 1964 while being designated as Zomba until 1970, was moved here on 1 April 1976.<sup class=\"fn\" data-fn=\"3\"></sup> The country was recognised on 6 July 1964, the day the British territory of Nyasaland became independent and the American consulate at Blantyre was raised to an embassy, and both the United Nations and the Commonwealth Secretariat now name this city as its capital.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Lusaka": "Lusaka is the capital of Zambia, in the south-east of the country, and the World Bank puts it near 3.47 million people in 2025, where the United Nations gives 2,646,600 for 2019.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was already an American consular post when the country became independent on 24 October 1964, and the raising of that consulate to an embassy was itself the act by which the United States recognised Zambia.<sup class=\"fn\" data-fn=\"3\"></sup> It was also where southern Africa was negotiated: a message Henry Kissinger sent from his 1976 shuttle records that SWAPO was based there, and that he had flown in from Pretoria to put a Rhodesian settlement to President Kenneth Kaunda.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Astana": "Astana is the capital of Kazakhstan, in the north of the country, and the United Nations counts about 1,117,600 people there under a footnote dating the figure to 2019.<sup class=\"fn\" data-fn=\"1\"></sup> It is not the country’s largest city: the World Bank’s largest-city series gives about 1,862,800 for the same year, and the American embassy stands in that other city, having been established at Alma-Ata, now Almaty, on 3 February 1992.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The city has been published under more than one name by the United Nations itself, whose Economic Commission for Europe issued a profile of it in 2020 headed Nur-Sultan.<sup class=\"fn\" data-fn=\"4\"></sup>"
+"Astana": "Astana is the capital of Kazakhstan, in the north of the country, and the United Nations counts about 1,117,600 people there under a footnote dating the figure to 2019.<sup class=\"fn\" data-fn=\"1\"></sup> It is not the country’s largest city: the World Bank’s largest-city series gives about 1,862,800 for the same year, and the American embassy stands in that other city, having been established at Alma-Ata, now Almaty, on 3 February 1992.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The city has been published under more than one name by the United Nations itself, whose Economic Commission for Europe issued a profile of it in 2020 headed Nur-Sultan.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"N'Djamena": "N'Djamena is the capital of Chad, in the south-west of the country on the Cameroon border, and the World Bank puts it near 1.72 million people in 2025, where the United Nations gives 1,371,500 for 2019.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American mission opened there on 1 February 1961 was Embassy Fort Lamy, and the guide still lists the post under that name and this one, six months after Chad became independent from French Equatorial Africa on 11 August 1960.<sup class=\"fn\" data-fn=\"3\"></sup> That embassy was closed on 24 March 1980 and its staff evacuated after heavy fighting broke out in the city, and it reopened on 15 January 1982.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3609,7 +3610,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Antananarivo": ["Tananarive"],
 "Yaoundé": ["Yaounde"],
 "Sri_Jayawardenepura_Kotte": ["Sri Jayewardenepura Kotte","Kotte"],
-"Astana": ["Nur-Sultan"]
+"Astana": ["Nur-Sultan"],
+"N'Djamena": ["Fort Lamy","Fort-Lamy"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5396,7 +5398,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Sri_Jayawardenepura_Kotte": ["place","city","geography","capital","sri lanka","asia"],
 "Lilongwe": ["place","city","geography","capital","malawi","africa"],
 "Lusaka": ["place","city","geography","capital","zambia","africa"],
-"Astana": ["place","city","geography","capital","kazakhstan","asia"]
+"Astana": ["place","city","geography","capital","kazakhstan","asia"],
+"N'Djamena": ["place","city","geography","capital","chad","africa"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

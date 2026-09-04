@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-565` N'Djamena.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-566` Santiago.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -598,6 +598,31 @@ country page never gives. The Security Council's press statement `SC/12701` of 3
 *Alma-Ata (now Almaty)* on 3 February 1992 and nothing after, so the guide is a source for the OLD capital
 and for that city's own renaming, not for this card's subject. It is still worth citing for exactly that —
 the mission is in the larger city, which is the card's point.
+
+**`gw-565` N'DJAMENA IS THE ONLY CAPITAL SO FAR WHOSE EMBASSY WAS CLOSED BY A BATTLE IN THE CITY.** Chad's
+guide entry carries five dated events and every one is about this place: relations opened on 11 August 1960
+by **Alan W. Lukens, the consul at Brazzaville** — the fourth capital in this run served at first from
+another country, after Abidjan for Niamey and Ouagadougou and Dakar for Bamako; **Embassy Fort Lamy (now
+N'Djamena)** established 1 February 1961 under Frederic L. Chapin; **closed on 24 March 1980** with the
+staff evacuated "following the outbreak of heavy fighting in the city"; and **reopened on 15 January 1982**
+under John Blane. A guide page that looks like boilerplate on most countries is, on a few, the fullest
+account of the capital anyone has published.
+
+**AND THE RENAMING DATE WAS CUT FROM BOTH DRAFTS, FOR LILONGWE'S REASON.** The guide establishes that the
+post was Fort Lamy and is now N'Djamena; it does not date the change, and nothing else openable here does.
+The card was drafted "spent its first twelve years as a capital under another name" and the term "It was
+called Fort Lamy until the 1970s" — both true, neither sourced — and both were rewritten to what the guide
+carries, which is the two names and the dates of the POST. **That is the second batch running where a
+capital's own renaming date had to be dropped**; expect it wherever the guide's parenthesis is the only
+witness, and reach for the parenthesis rather than the year.
+
+**THE APOSTROPHE COST NOTHING THIS TIME BECAUSE IT WAS EXPECTED.** `world-capitals.js` writes the dot name
+with a straight ASCII apostrophe and the answer, question and glossary key all match it; both Commons
+filenames percent-encode theirs as `%27`, so no credit line was truncated by `SRC_URL_RX`. **Fifteen
+glossary keys already carry apostrophes**, so the key needed no special handling. What did need care is
+the picture search: `NDjamena, Chad.jpg` — a filename with no hint in it — is an **orbital photograph**,
+refused by the pass's own SPACEBORNE rule, and the two next-best candidates were a river bend in open
+country and a stretch of riverbank scrub. The card and term both take street-level views instead.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
