@@ -253,7 +253,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 |---|---|---|
 | A1 | `terracotta-warrior`, `antikythera-mechanism`, `great-isaiah-scroll` | — |
 | A2 | `venus-of-willendorf` | ~~`bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`~~ (all three shipped in A2c), ~~`vindolanda-tablets`~~ (shipped in A2b) |
-| B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | ~~`gandhara-buddha-head`, `chola-nataraja`~~ (shipped in B1c), `mughal-miniature`, ~~nbpw-sherd~~ (cleared and shipped in B1e), ~~`punch-marked-coin`, `etched-carnelian-bead`~~ (shipped in B1b), `glass-bangle` |
+| B1 | `indus-seal`, `indus-weight`, `harappan-toy-cart` | ~~`gandhara-buddha-head`, `chola-nataraja`~~ (shipped in B1c), `mughal-miniature`, ~~nbpw-sherd~~ (cleared and shipped in B1e), ~~`punch-marked-coin`, `etched-carnelian-bead`~~ (shipped in B1b), ~~glass-bangle~~ (cleared and shipped in B1f) |
 | D2 | `oak-coffin-textile`, `amber-bead`, `ochre-crayon` | `palaeolithic-bone-flute`, ~~antler-spearthrower~~ (shipped in D2b as `spear-thrower`), `saddle-quern`, `sickle-blade`, `bone-fishhook`, `eyed-bone-needle` |
 | D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | ~~`palaeolithic-bone-flute`, `bone-fishhook`~~ (both shipped in D2c) |
 | C3/C2 | `clovis-point`, `obsidian-blade`, `ostrich-eggshell-bead` | — |
@@ -280,7 +280,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | E2b/E3b/D1c | `albarello`, `phonograph-cylinder`, `green-glazed-jug` | — |
 | E3c/C1c/E2c | `bartmann-jug`, `byzantine-ivory-panel`, `gutenberg-bible-leaf` | — |
 | C3b/E3d | `wampum-bead`, `thimble` (**two, not three — see below**) | ~~moche-portrait-vessel~~ (cleared and shipped in C3c), `bodkin-arrowhead` |
-| B1d | `mughal-miniature` (UN-DEFERRED; **one, not three — see below**) | `glass-bangle` again, ~~mariners-astrolabe~~ (cleared and shipped in E2d), `turnshoe` |
+| B1d | `mughal-miniature` (UN-DEFERRED; **one, not three — see below**) | ~~glass-bangle~~ (cleared and shipped in B1f), ~~mariners-astrolabe~~ (cleared and shipped in E2d), `turnshoe` |
 | B4b | `shell-adze` | ~~sumatralith~~ ("no openable work uses the term" — wrong; cleared and shipped in B4c) |
 | D1c | `novgorod-birch-bark-letter` (**UN-HELD — D1's list is now empty**) | — |
 | E3e | `steel-pen-nib` (UN-DEFERRED — **E3's list is now empty**) | — |
@@ -292,6 +292,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | `turnshoe` again, ~~nbpw-sherd~~ (cleared and shipped in B1e), `identity-disc` again |
 | B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, `igbo-ukwu-bronze`, `bodkin-arrowhead` again, `fustat-paper` again |
 | B4c | `ban-chiang-pot`, `sumatralith` (both UN-DEFERRED — **B4's list is now empty**) | — |
+| B1f | `glass-bangle` (UN-DEFERRED, and **shipped with no picture** — see below; **B1's list is now empty**) | `jade-burial-suit`, `bodkin-arrowhead` again |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1242,7 +1243,8 @@ recording, because every one of them was a plausible-looking route that does not
   *Certaine Errors in Navigation* (1599)**, both being blackletter with OCR that is not merely poor but
   useless, and **Hues's *Tractatus de Globis* (Hakluyt, 1889), which reads perfectly, never mentions the
   instrument.** **Test a period scan by grepping for the subject word before planning a plate on it.**
-· **`glass-bangle` has the sources and no picture.** Marshall's *Taxila* vol. 2 has a whole section on
+· **`glass-bangle` has the sources and no picture.** **(Half right: it now has THREE sources and still no
+  picture, and shipped that way in B1f.)** Marshall's *Taxila* vol. 2 has a whole section on
   them — 232 specimens, 38 from the Bhir Mound and 194 from Sirkap, the earliest from a fifth-century-BCE
   stratum, blue the favourite colour throughout from copper and from cobalt, black glass "very like
   obsidian" made there from an early period, specific gravity 2.3–2.6 showing little or no lead — but it
@@ -1627,6 +1629,38 @@ was always there. **When a batch fails, record what was searched, not only what 
   a jar in the **National Museum, Bangkok**. A plate whose second sentence is about vessels leaving
   Thailand should not illustrate itself with one that left. The LACMA record also dates its pot to the
   "3rd millennium B.C.", which is the chronology the plate's own sources overturned.
+
+**B1f IS THE FIRST ARTEFACT OF THIS PASS TO SHIP WITH NO PICTURE, AND THAT IS THE FINDING.** B1d recorded
+`glass-bangle` as having "the sources and no picture"; the first half was wrong — it had ONE source — and
+the second half has now been tested three times. *Asian Perspectives* supplies the two works Marshall could
+not: Kanungo's 2004 survey of glass across India, and Lankton's review of the Kopia excavation, which is
+where the plate's best fact comes from — **a solid glass rod is what tells an excavator that bangles were
+MADE on a site, because a bangle is worked from a rod where a bead is worked from a tube.** But Commons
+still holds no photograph of an ancient South Asian glass bangle: searches on the object, on Taxila, on
+Sirkap and on the Taxila Museum return Victorian travel books and Cleveland's Gandharan metalwork. **Five
+of the first hundred artefacts already ship without one** (`sipan-ear-ornaments`, `harappan-toy-cart`,
+`ochre-crayon`, `sickle-blade`, `thule-harpoon-head`), so the plate renders correctly; the rule that an
+artefact ships with a picture **or with a stated reason** is what this is, and the reason is stated here
+rather than left looking like an oversight.
+· **A FIGURE IN A 1951 EXCAVATION REPORT IS IN INCHES, AND THE HOUSE RULE IS METRIC FIRST.** Marshall gives
+  the commonest Sirkap ring as "1·2 to 2·35 in. in diameter, about 0·35 in. in width"; the plate leads with
+  30 to 60 mm and 9 mm and puts the inches in brackets, which is the units rule read the way round it is
+  actually written rather than copied from the source.
+· **`doaj.org` WAS DOWN FOR THIS BATCH — a 502 on every query, including the API root.** It has been the
+  first move for three batches running, so it is worth writing down that the fallbacks work: **ScholarSpace's
+  DSpace search covers the whole Asia-Pacific**, and Crossref's `query.bibliographic` covers everything, with
+  the resolution test done afterwards. Two subjects were carried entirely on those.
+· **A LEAD LEFT WARM FOR `jade-burial-suit`.** Margarete Prüch's review of Allison Miller's *Kingly
+  Splendor* (*Asian Perspectives* 61, no. 1, 2022, handle `10125/108254`) carries a real argument about the
+  object: Miller holds that the jade suit was **not** the natural development of a Neolithic tradition of
+  jade in burial, but a form that became popular in a particular historical moment, when Western Han trade
+  and technology made high-quality jade reachable. That is one work of three; the other two were not found
+  in this batch, and neither `link.springer.com`'s chapters nor MDPI's *Religions* can supply them.
+· **THE MEDIEVAL DEFERRALS LOST ANOTHER ROUTE.** Jessop's "A New Artefact Typology for the Study of
+  Medieval Arrowheads" — the work `bodkin-arrowhead` actually needs — is in *Medieval Archaeology* and so
+  on Taylor & Francis, which is 403; the **Archaeology Data Service** answers on its root and **403s on
+  every `library/` path**; and `intarch.ac.uk` answers but exposes no issue index or search that can be
+  fetched. The London Museum record naming "London Museum type 7" remains the only work in hand.
 
 ## The per-artefact workflow
 

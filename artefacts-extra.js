@@ -1736,6 +1736,14 @@
     "Yinghua Li et al., \"A New Technological Analysis of Hoabinhian Stone Artifacts from Vietnam and Its Implications for Cultural Homogeneity and Variability between Mainland Southeast Asia and South China,\" <i>Asian Perspectives</i> 60, no. 1 (2021). [Open access] https://hdl.handle.net/10125/108212",
     "Bennet Bronson and Teguh Asmar, \"Prehistoric Investigations at Tianko Panjang Cave, Sumatra: An Interim Report,\" <i>Asian Perspectives</i> 18, no. 2 (1976): 128–45. [Open access] https://hdl.handle.net/10125/16840",
   ],
+},
+"glass-bangle": {
+  desc: "A <b>glass bangle</b> is a closed ring of glass worn on the wrist, and in South Asia it reaches back to the 5th century BCE: of 232 excavated at Taxila, 38 came from the Bhir Mound — three from its earliest stratum — and 194 from Sirkap.<sup class=\"fn\" data-fn=\"1\"></sup> Blue was the favourite from first to last, some shades from metallic copper and some from cobalt, with sea-green appearing about the 4th century BCE and amber, violet and yellow only singly; the black looks very like obsidian and seems to have been made at Taxila early.<sup class=\"fn\" data-fn=\"1\"></sup> The commonest Sirkap ring is 30 to 60 mm (1¼ to 2⅜ inches) across and about 9 mm (⅜ inch) wide, flat inside and convex or ridged outside, and a specific gravity of 2.3 to 2.6 shows little or no lead in the glass.<sup class=\"fn\" data-fn=\"1\"></sup> They were made across the subcontinent — glass went into beads and bangles at Singh Bhagwanpur between 700 and 400 BCE — and the craft never stopped: the roads around Purdalpur still carry them out by cart and cycle.<sup class=\"fn\" data-fn=\"2\"></sup> What tells an excavator that bangles were made on a site rather than traded in is a solid rod of glass, a bangle being worked from a rod where a bead is worked from a tube, and at Kopia a handful of rod fragments carried that argument.<sup class=\"fn\" data-fn=\"3\"></sup>",
+  sources: [
+    "John Marshall, <i>Taxila: An Illustrated Account of Archaeological Excavations</i>, vol. 2 (Cambridge: Cambridge University Press, 1951), 684–85. [Open access] https://archive.org/details/taxila-an-illustrated-account-of-archaeological-excavations-volume-2",
+    "Alok Kumar Kanungo, \"Glass Beads in Ancient India and Furnace-Wound Beads at Purdalpur: An Ethnoarchaeological Approach,\" <i>Asian Perspectives</i> 43, no. 1 (2004): 123–50. [Open access] https://hdl.handle.net/10125/17204",
+    "James W. Lankton, review of <i>Glass in Ancient India: Excavations at Kopia</i>, by Alok Kumar Kanungo, <i>Asian Perspectives</i> 57, no. 1 (2018). [Open access] https://hdl.handle.net/10125/72081",
+  ],
 }
 };
   (window.ARTEFACTS_EXTRA_IN = window.ARTEFACTS_EXTRA_IN || []).push({ ARTEFACTS_EXTRA: ARTEFACTS_EXTRA });

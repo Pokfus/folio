@@ -1365,4 +1365,11 @@ window.ARTEFACTS = [
     date: "c. 11,000 – 5,000 BP",
     origin: "Sumatra and mainland Southeast Asia",
   },
+  {
+    id: "glass-bangle",
+    name: "Glass bangle",
+    rarity: "common",
+    date: "c. 500 BCE – present",
+    origin: "South Asia",
+  },
 ];
