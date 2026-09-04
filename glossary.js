@@ -1806,7 +1806,8 @@ window.GLOSSARY = {
 "San_Salvador": "San Salvador is the capital and largest city of El Salvador, standing in the centre of that Central American state. The United Nations Statistics Division names it as the capital and gives about 1.11 million people for 2019, defining the figure as the urban parts of eight municipalities rather than the city alone, and returning the same number the World Bank gives that year for the country's largest metropolitan area.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> American diplomatic relations were established there on 15 June 1863, when James R. Partridge presented his credentials, and the legation in the city opened the same day.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Asmara": "Asmara is the capital and largest city of Eritrea, standing in the centre of that Eastern African state. The United Nations Statistics Division names it as the capital and gives about 929,000 people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series that passes a million in 2022 and reaches some 1.15 million by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The United States recognised Eritrea on 27 April 1993, the day it declared independence, when the American consulate in the city informed the Eritrean authorities, and that consulate was raised to an embassy on 11 June.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Zagreb": "Zagreb is the capital and largest city of Croatia, standing in the north of that southern European state. The United Nations Statistics Division names it as the capital and gives about 685,000 people for 2019, describing the figure as the settlement of Zagreb rather than any administrative boundary, and the World Bank returns 685,233 for the same year for the country's largest metropolitan area, on a series that falls slowly through the decade.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy in the city opened on 25 August 1992, nineteen days after diplomatic relations with Croatia were established.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Vilnius": "Vilnius is the capital and largest city of Lithuania, standing in the southeast of that northern European state. The United Nations Statistics Division names it as the capital and gives about 538,000 people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series that flattens near 541,500 by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> No American post stood in the city until an embassy was established there on 2 October 1991: the legations of the interwar republic were at Riga and then at Kovno, and the second of them closed in 1940 after the Soviet annexation.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Vilnius": "Vilnius is the capital and largest city of Lithuania, standing in the southeast of that northern European state. The United Nations Statistics Division names it as the capital and gives about 538,000 people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series that flattens near 541,500 by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> No American post stood in the city until an embassy was established there on 2 October 1991: the legations of the interwar republic were at Riga and then at Kovno, and the second of them closed in 1940 after the Soviet annexation.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Chișinău": "Chișinău is the capital and largest city of Moldova, standing in the centre of that eastern European state. The United Nations Statistics Division names it as the capital and gives about 504,000 people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series that falls throughout the decade to some 484,000 by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy in the city was established on 13 March 1992, three months after the United States recognised Moldova's independence and eleven days after it joined the United Nations.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3663,7 +3664,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Bujumbura": ["Usumbura"],
 "Tripoli": ["Tarabulus"],
 "Asunción": ["Asuncion"],
-"Belgrade": ["Beograd"]
+"Belgrade": ["Beograd"],
+"Chișinău": ["Chisinau","Kishinev"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5498,7 +5500,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "San_Salvador": ["place","city","geography","capital","el salvador"],
 "Asmara": ["place","city","geography","capital","eritrea"],
 "Zagreb": ["place","city","geography","capital","croatia"],
-"Vilnius": ["place","city","geography","capital","lithuania"]
+"Vilnius": ["place","city","geography","capital","lithuania"],
+"Chișinău": ["place","city","geography","capital","moldova"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
