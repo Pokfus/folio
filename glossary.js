@@ -1812,7 +1812,8 @@ window.GLOSSARY = {
 "Yerevan": "Yerevan is the capital and largest city of Armenia, standing in the west of that state, which the United Nations files under western Asia. The United Nations Statistics Division names it as the capital and gives about 1.083 million people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series rising steadily to about 1.1 million by 2025, which is roughly a third of the national population.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy in the city opened on 3 February 1992, six weeks after the United States recognised Armenia's independence for the second time in 71 years.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Ulaanbaatar": "Ulaanbaatar is the capital and largest city of Mongolia, standing in the north of that eastern Asian state. The United Nations Statistics Division names it as the capital and gives about 1.553 million people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series climbing by a quarter across the decade to about 1.72 million by 2025 — close to half of everyone in Mongolia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy in the city opened on 17 April 1988, a year after the two states recognised each other in a joint communiqué and 27 years after Mongolia joined the United Nations.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Doha": "Doha is the capital and largest city of Qatar, standing on the east coast of that western Asian state. The two institutions that usually agree on a capital's size do not here: the United Nations Statistics Division gives about 637,000 people for 2019 and the World Bank 715,997 for the same year, because the statistics division's figure excludes the populations of the industrial area and of zone 58.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy in the city opened on 24 February 1973, a year after diplomatic relations were established through an envoy who lived in Kuwait.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Brazzaville": "Brazzaville is the capital and largest city of the Republic of the Congo, standing in the south of that middle African state. The United Nations Statistics Division names it as the capital and gives about 2.31 million people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series climbing to some 2.81 million by 2025 — over two fifths of everyone in the country.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> During the Second World War it served as the symbolic capital of Free France, and on 15 August 1960 it saw independence, American recognition and the opening of an American embassy on one day.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Brazzaville": "Brazzaville is the capital and largest city of the Republic of the Congo, standing in the south of that middle African state. The United Nations Statistics Division names it as the capital and gives about 2.31 million people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series climbing to some 2.81 million by 2025 — over two fifths of everyone in the country.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> During the Second World War it served as the symbolic capital of Free France, and on 15 August 1960 it saw independence, American recognition and the opening of an American embassy on one day.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Copenhagen": "Copenhagen is the capital and largest city of Denmark, standing on the east coast of that northern European state. The United Nations Statistics Division names it as the capital and gives about 1.334 million people for 2019, defining the figure as the Greater Copenhagen Region of parts of 16 municipalities, and the World Bank returns 1,333,888 for the same year for the country's largest metropolitan area.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American legation stood in the city from 20 September 1827, closing in December 1941 under the German occupation and reopening after the liberation in June 1945.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3671,7 +3672,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Asunción": ["Asuncion"],
 "Belgrade": ["Beograd"],
 "Chișinău": ["Chisinau","Kishinev"],
-"Ulaanbaatar": ["Ulan Bator"]
+"Ulaanbaatar": ["Ulan Bator"],
+"Copenhagen": ["København"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5512,7 +5514,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Yerevan": ["place","city","geography","capital","armenia"],
 "Ulaanbaatar": ["place","city","geography","capital","mongolia"],
 "Doha": ["place","city","geography","capital","qatar"],
-"Brazzaville": ["place","city","geography","capital","republic of the congo"]
+"Brazzaville": ["place","city","geography","capital","republic of the congo"],
+"Copenhagen": ["place","city","geography","capital","denmark"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
