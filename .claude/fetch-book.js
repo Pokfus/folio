@@ -1013,6 +1013,17 @@ const BOOKS = {
       "Public domain in the United States: Gummere's translation was published in 1917, 1920 and 1925, " +
       "all before 1929, so its copyright has expired. (The widely-read Penguin translation by Robin " +
       "Campbell, 1969, is still in copyright and is not used here.)",
+    /* ---------- THE VOCABULARY SWEEP (Sep 2026, batch E24) ----------
+       140 candidates and two repairs: this book quotes Seneca's Latin on nearly every page, and the
+       list is almost entirely that — `collectio`, `comprehensio`, `consolatio`, `elementa`, `naturae`
+       — plus the modern scholars Gummere cites in his notes (Leage, Holmes). The second repair is the
+       one that matters: **the man the letters are addressed to**. */
+    reFixes: [
+      [/(?<![A-Za-z])Govenor(?![A-Za-z])/g, "Governor",
+       "a dropped r in `Governor`, in a note on Lucilius's post in Sicily"],
+      [/(?<![A-Za-z])Lucillius(?![A-Za-z])/g, "Lucilius",
+       "a doubled l in `Lucilius` — the correspondent these 124 letters are written TO, and spelled correctly 112 times"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Moral_letters_to_Lucilius",
     /* THE FRONT MATTER — the book's own opening chapter, written by hand and emitted as `intro` into
@@ -7688,6 +7699,37 @@ const BOOKS = {
       "author's life plus seventy or even a hundred years. (Henry Bettenson's translation of 1972, " +
       "R. W. Dyson's of 1998 and William Babcock's of 2012–2013 are still in copyright and are not " +
       "used here.)",
+    /* ---------- THE VOCABULARY SWEEP (Sep 2026, batch E24) ----------
+       112 candidates, and the list is mostly Augustine's own Latin — `corruptione`, `divinatione`,
+       `generatio`, `naturali`, `remissione`, dozens more — which no rarity test can tell from a typo.
+       Eight are damage, each a single occurrence against the same book's own usage.
+
+       TWO WERE REFUSED AND BOTH ARE WORTH RECORDING. **`Heberews` is DELIBERATE**: the sentence is
+       Augustine's etymology — "they were called after Heber, Heberews, and then, dropping a letter,
+       Hebrews" — so repairing it would delete the argument it is making. And **`Phenicians` is this
+       translation's own spelling**, not a slip: Dods writes `Phenician` and `Phenicia` elsewhere and
+       the Æ/œ ligature forms occur nowhere. A house spelling is not an error; check the neighbours
+       before assuming a familiar word has been damaged. */
+    reFixes: [
+      [/(?<![A-Za-z])coveteousness(?![A-Za-z])/g, "covetousness",
+       "`coveteousness` for `covetousness` — a stray e, twice, against 4 correct"],
+      [/(?<![A-Za-z])disgracful(?![A-Za-z])/g, "disgraceful",
+       "`disgracful` for `disgraceful` — a dropped e, against 14 correct"],
+      [/(?<![A-Za-z])Emperior(?![A-Za-z])/g, "Emperor",
+       "`Emperior` for `Emperor` — a stray i, against 5 correct"],
+      [/(?<![A-Za-z])opinon(?![A-Za-z])/g, "opinion",
+       "`opinon` for `opinion` — a dropped i, against 162 correct"],
+      [/(?<![A-Za-z])santification(?![A-Za-z])/g, "sanctification",
+       "`santification` for `sanctification` — a dropped c, against 2 correct"],
+      [/(?<![A-Za-z])superflous(?![A-Za-z])/g, "superfluous",
+       "`superflous` for `superfluous` — a dropped u, against 9 correct"],
+      [/(?<![A-Za-z])truely(?![A-Za-z])/g, "truly",
+       "`truely` for `truly` — a stray e, against 84 correct"],
+      [/(?<![A-Za-z])Eneas(?![A-Za-z])/g, "&#198;neas",
+       "a dropped A in `\u00c6neas`, which this translation writes with the ligature 39 times. THE " +
+       "REPLACEMENT IS THE ENTITY because that is what the text carries, and a bare \u00c6 here would " +
+       "be the only one in the book"],
+    ],
     sourceName: "Wikisource",
     sourceUrl:
       "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_I/Volume_II/City_of_God",

@@ -299,13 +299,64 @@ re-run and diffed byte for byte.
 | **E21** ✅ | six books | **40 repairs, 30 of them in the Summa** — 2.5 million words whose candidate list had never been read. Its 245 are mostly the book's own LATIN, which no rarity test can tell from a typo; what was left is 30 slips, each a single occurrence against hundreds of the correct form. Three findings: **a TRANSPOSITION is two edits and was invisible** to E19's sweep (`creatuers`, and ten more across the shelf); **one error finds another** (three `no` for `not`, which no sweep can see, all found by reading round a neighbour); and **the filter that made the list readable hid a real error** (`Wheather`, an inserted `a`) |
 | **E22** ✅ | three books | **30 repairs, 26 of them in Three Kingdoms** — which E19's table called the FOURTH CLEANEST book on the shelf and which turns out to be the most damaged text yet swept (`afaid`, `attck`, `broher`, `flooor`, `speeech`, `twefth`). **A low noise rate is not a low error rate**; it only means the list is worth reading. The other four are what E21's filter hid: widening the confusion set by the two missing vowels returned 42 candidates across nine already-swept books, of which three in the Summa and one in the Odyssey are damage — and TWO would have destroyed archaic quotations |
 | **E23** ✅ | two books, and a third read clean | **27 repairs — 24 in the Iliad, 3 in Herodotus, 0 in Don Quixote.** The two long narrative translations, the Iliad and Three Kingdoms, are much the most damaged texts on the shelf (24 and 26); the two histories beside them returned almost nothing. **A candidate list of proper names is not a false-positive problem, it is a COUNTING problem**: eighteen Homeric names were left alone and the two that were not — `Achaeams`, `Agamemon` — announce themselves against 598 and 174 correct spellings |
-| **E24–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E24** ✅ | two books, and a STRUCTURAL fault found and deferred | **12 repairs, and a much bigger finding left unrepaired on purpose.** City of God carries **364 paragraph breaks that begin on a lowercase letter — 52 of them INSIDE A WORD** (`sensa`/`tion`, `com`/`pelled`, `him`/`self`), which a reader sees as a paragraph ending mid-word. It is a printed-page turn become a paragraph break. **The mechanism could not be confirmed** — Wikimedia is rate-limiting — and E17's rule is not to write an extractor change on an unverified diagnosis, so it is measured, recorded and left for E25 |
+| **E25** | the City of God paragraph fault | confirm the mechanism against the Wikisource markup, then fix it in the extractor with the byte-for-byte sibling proof; only four books have any such boundary and 364 of the 387 are this one |
+| **E26–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E24 — twelve repairs, and a structural fault worth more than all of them, shipped 2026-09-04
+
+**12 repairs — 9 in City of God, 3 in Seneca's Letters — and a finding this batch deliberately does
+NOT repair.**
+
+**THE FINDING FIRST, because it is the important part.** Looking for a broken word in City of God
+turned up something bigger: **364 of its paragraphs begin on a lowercase letter**, and **52 of those
+breaks fall INSIDE A WORD** — the reader meets a paragraph ending `…since they have no sensa` and the
+next beginning `tion, nor of the irrational animals…`. The same happens to `com`/`pelled`,
+`him`/`self`, `them`/`selves`, `be`/`cause`, `can`/`not`, `Nep`/`tune`, `admon`/`ished`. **It is a
+printed page-turn become a paragraph break**, and it is a far more visible defect than any single-word
+slip this programme has repaired.
+
+Measured over the whole shelf: **387 lowercase-to-lowercase paragraph breaks, of which 364 are this
+one book** (Herodotus 5, Ovid 9, the Summa 9). The `<br>` equivalents in Beowulf, Ovid and Virgil are
+verse-line coincidences and not this fault — `see`/`the` joining to "seethe" across two lines of
+hexameter is a false positive, and reading them is what tells the two apart.
+
+**AND IT IS NOT REPAIRED HERE, ON PURPOSE.** The obvious fix is a rule in the extractor joining such
+paragraphs, and I could not confirm the mechanism: **Wikimedia is rate-limiting this sandbox**, so the
+Wikisource markup at one of those boundaries could not be fetched. E17's whole lesson is that a
+structural diagnosis written from the pattern rather than from the source is how a batch ends up
+fixing the wrong thing in the wrong place — its own first diagnosis was exactly that. So the fault is
+**measured, recorded and made E25**, with the census above as the acceptance test.
+
+**A SMALLER VERSION OF THE SAME TRAP CAUGHT ME EARLIER IN THE BATCH.** Dumping context with tags
+replaced by a space produced `admon ished`, `in scribed` and `re spects`, which read exactly like a
+space driven inside a word — the Summa's `cor. rect` fault. They are not: the words are contiguous in
+the data and my own tag-strip inserted the space. **A tool that reformats before it reports can invent
+the fault it is looking for**; the check is to search the RAW field before believing a context dump.
+
+**THE TWELVE REPAIRS.** City of God's 112 candidates are mostly Augustine's Latin; nine are damage —
+`coveteousness` (twice), `disgracful`, `Emperior`, `opinon`, `santification`, `superflous`, `truely`,
+and `Eneas` for `Æneas`, which this translation writes with the ligature 39 times. Seneca's 140 are
+mostly Seneca's Latin and Gummere's cited scholars; three are damage — `Govenor`, and `Lucillius`
+twice, **the man the 124 letters are addressed to**, spelled correctly 112 times.
+
+**TWO WERE REFUSED AND BOTH ARE INSTRUCTIVE.** **`Heberews` is deliberate** — the sentence is
+Augustine's etymology, *"they were called after Heber, Heberews, and then, dropping a letter,
+Hebrews"* — so repairing it would delete the argument being made. And **`Phenicians` is the
+translation's own house spelling**: Dods writes `Phenician` and `Phenicia` elsewhere and the ligature
+forms occur nowhere in the book. **A house spelling is not an error, and the way to tell is to look at
+its neighbours before assuming a familiar word has been damaged.**
+
+**The proof.** City of God has no cache, so it was fetched from Wikisource in full — and **only the
+nine repairs changed**, which is a second measurement worth having: that text has NOT drifted upstream
+since Folio last built it, unlike the two Perseus books E17 found. Nine changed lines in City of God
+and three in Seneca, every one read.
 
 ### E23 — the Iliad, and two books that read clean, shipped 2026-09-04
 

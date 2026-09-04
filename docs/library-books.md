@@ -940,7 +940,19 @@ book added later will meet the same traps.
   translations a reader is likeliest to own** — Chadwick 1991, Boulding 1997, Ruden 2017 — are named
   as the ones not to reach for, and with them **Outler's of 1955, which Wikisource carries beside
   this one** and which is in copyright until 2060),
-  `city-of-god` (**~2.4 MB, the largest English text on the shelf** — Augustine's twenty-two books as
+  `city-of-god` (**~2.4 MB, the largest English text on the shelf**. ⚠ **IT HAS A STRUCTURAL FAULT
+  THAT IS MEASURED BUT NOT YET FIXED** (batch E24): **364 of its paragraphs begin on a lowercase
+  letter and 52 of those breaks fall INSIDE A WORD** — a reader meets a paragraph ending
+  `…they have no sensa` and the next beginning `tion, nor of the irrational animals…`, and the same
+  for `com`/`pelled`, `him`/`self`, `be`/`cause`, `Nep`/`tune`. It is a printed page-turn become a
+  paragraph break; the shelf carries 387 such boundaries in all and **364 of them are this one book**.
+  The repair belongs in the extractor, and it is NOT written yet because the Wikisource markup at one
+  of those boundaries could not be fetched to confirm the mechanism (Wikimedia rate-limits this
+  sandbox) — see the plan's E25 row. Batch E24 did repair nine word-level slips here
+  (`coveteousness` twice, `disgracful`, `Emperior`, `opinon`, `santification`, `superflous`, `truely`,
+  `Eneas` for the ligature `Æneas` this translation uses 39 times) and **refused two that look like
+  slips and are not**: `Heberews` is Augustine's own etymology, and `Phenicians` is Dods's house
+  spelling, matching his `Phenician` and `Phenicia`. Augustine's twenty-two books as
   **22 chapters**, **661 chapter numbers**, 1,675 notes — and the first book here whose CHAPTER IS
   ASSEMBLED FROM HUNDREDS OF WIKI PAGES. The Book of Documents established that `page(n)` may return an
   array; this is that at scale, 687 pages for 22 chapters, because Wikisource gives every one of
