@@ -713,10 +713,14 @@ book added later will meet the same traps.
   which the second scan shows is the printing and where the join would have been grammatical and
   wrong. **Batch E12 then took the tail E8 had left** — the spaced full stop, which is 31 occurrences
   in the raw and six units of work, the rest being the plate list's leader dots and the back matter's
-  `( Sh . T.)` keys, neither of which the extractor puts in a chapter. **825 repairs in all, and nine
-  marks are left**: three of them a `—,` that BOTH copies read and the page really prints, and six
-  inside runs so mangled that the second copy cannot be aligned to them — see
-  `docs/book-text-plan.md`),
+  `( Sh . T.)` keys, neither of which the extractor puts in a chapter. **Batch E13 then read the last
+  six off the page images**, the second copy being unable to align to a run it garbles differently —
+  two are punctuation the scan flattened and both change the sentence (a colon, a question mark), one
+  is a closing quote lost while its neighbours survived, and three are nothing, each a different kind
+  of nothing: a line break, SHOW-THROUGH from the facing page, and a reader's PENCIL down the margin.
+  **831 repairs in all; no standalone full stop is left in the shipped prose and the three standalone
+  commas are all correct**, and what remains is 45 marks nearly all inside runs mangled past any
+  rule — see `docs/book-text-plan.md`),
   `journey-to-the-west` (~524 KB, all 100 chapters, **100 chapter sections**, **0 notes** — Timothy
   Richard's *A Mission to Heaven* of 1913, the first English translation there ever was, and **the
   first book here whose SOURCE IS PLAIN OCR TEXT rather than markup.** Every other reader on the

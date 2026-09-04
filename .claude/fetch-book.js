@@ -11942,7 +11942,7 @@ const BOOKS = {
       "One last thing about the prose column, because it is the sort of thing a reader deserves to be " +
         "told rather than to discover. It is not a typed transcription but a machine reading of the " +
         "1912 pages, and machines misread. Where the scan went wrong it has been corrected against " +
-        "photographs of the same edition, and against a second scan of it — 825 places, from single " +
+        "photographs of the same edition, and against a second scan of it — 831 places, from single " +
         "letters up to whole " +
         "lines that the reader had dropped or run together, on eight pages that were printed straight " +
         "and scanned askew. The commonest fault by far was the quotation mark. The opening one the " +
@@ -11960,8 +11960,9 @@ const BOOKS = {
         "'k nowest' is knowest — and a letter standing in for another word put right, an m that was " +
         "in and a y that was by. Nothing was mended by guess: every correction is a passage read off " +
         "the page. " +
-        "A few misreadings remain — about twenty marks inside passages the scanner made such a mess " +
-        "of that no single rule reaches them, and they are recorded rather than guessed at.",
+        "Some misreadings remain — about forty-five stray marks, nearly all of them inside passages " +
+        "the scanner made such a mess of that no rule reaches them, and they are recorded rather than " +
+        "guessed at.",
     ],
 
     /* THE TRANSLATION IS A PLAIN-TEXT OCR and the only copy of this edition that can be opened at all.
@@ -12557,6 +12558,27 @@ const BOOKS = {
        "the same, after a closing quotation mark"],
       ["forevermore  ! .  Whatever  manner", "forevermore  !  Whatever  manner",
        "the same, after an exclamation mark — 'take warning by me forevermore !'"],
+
+      /* ---------- BATCH E13: THE SIX THAT NEEDED THE LEAF ----------
+         E12 left nine marks in the shipped prose. Three are correct — the page really does print `—,`
+         and BOTH copies read it — and these are the other six. The second scan could not settle any
+         of them, in four cases because it cannot be aligned to the run at all, so each was cropped
+         out of the page image and read. Two turn out to be punctuation the scan flattened (a colon
+         and a question mark, both of which change the sentence), one is a closing quotation mark that
+         was simply lost, and three are nothing: a line break, a show-through from the facing page,
+         and a reader's pencil in the margin. */
+      ["as  fast  as  you  may.’  .  TTT,  ... \n\n‘  In  faith", "as  fast  as  you  may.’ \n\n‘  In  faith",
+       "the page reads 'I pray you as fast as you may.’' and opens the next paragraph at '‘In faith it shall be done,’ quoth Simkin'; the marks between are show-through from the facing leaf"],
+      ["Save  only \nthis  .  she  prayed  the  man", "Save  only \nthis  :  she  prayed  the  man",
+       "the page reads 'Save only this : she prayed the man that, if he could, he should bury her little son in the earth' — a colon, set with the space this edition gives one"],
+      ["tain  .  Methinks", "tain?  Methinks",
+       "the page reads 'Now, will you joust at the quintain? Methinks you are in a noble state for that, sweet sir !' — a question mark, and set tight against the word, which this edition does not always do"],
+      ["cried  c  Ah  ! ,  as  though", "cried  c  Ah  !,’  as  though",
+       "the page reads 'therewith he started and cried ‘Ah !,’ as though he were stricken through the heart'; the exclamation mark and the comma both survived and the closing quotation mark beside them did not"],
+      ["to  the  tower \n.  <,and  guarded  amongst", "to  the  tower \nand  guarded  amongst",
+       "the page reads 'The bridle was carried to the tower and guarded amongst his most precious jewels'; the marks are a reader's pencil in the margin, which this leaf carries down its whole outer edge"],
+      ["I  thought \nhim  .  so  faithful", "I  thought \nhim  so  faithful",
+       "the page reads 'But nevertheless I thought him so faithful, and eke, sooth to say, that he should return' — nothing stands between the two words but the line break"],
     ],
 
     /* ---------- THE OPENING QUOTATION MARK, MISREAD SIX WAYS (Sep 2026, batch E6) ----------

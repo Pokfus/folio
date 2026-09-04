@@ -288,13 +288,48 @@ re-run and diffed byte for byte.
 | **E10** ✅ | `canterbury-tales` | **27 repairs, decided by MEASUREMENT.** With the second scan unable to witness an absence, the strays were classified by their bounding boxes in the page XML, and they fall into three populations that do not overlap: 121×6 or 61×7 is a RULE the edition prints at a break (kept, set as a dash); 20–47 wide by 57–67 tall is the wide space after a full stop, boxed as though it were a glyph (nothing is there); under 20×14 is a speck. The apostrophe family is excluded whatever it measures |
 | **E11** ✅ | `canterbury-tales` | **21 repairs, using the book to check itself.** A word broken open is found by joining the lone letter to the fragment and scoring the result against THIS text's own vocabulary (`H`+`ow` 619 to 6). It is a proxy: it also proposed joining `a bout` in 'cannot stand a bout', which the second scan shows is the printing, and the join would have been grammatical and wrong. The second class — a letter standing for another word (`m` for `in`, `y` for `by`, `l` for `I`) — no frequency test can see |
 | **E12** ✅ | `canterbury-tales` | **17 repairs, and the batch was small because it was COUNTED first.** The spaced full stop is 31 occurrences in the raw and six units of work: twelve are the plate list's leader dots and eleven the back matter's `( Sh . T.)` keys, neither of which the extractor puts in a chapter. The rest are mangled runs, two of them a heap of marks where the page prints one closing quote. Nine marks are left, three of which are a correct `—,` both copies read |
-| **E13–En** | the rest of the error half | six marks left in the Canterbury Tales, each inside a run needing a leaf read; then what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E13** ✅ | `canterbury-tales` | **6 repairs, every one cropped out of the page image and read**, the second scan being unable to align to a run it garbles differently. Two are punctuation the scan flattened and both change the sentence (a colon, a question mark); one is a closing quote lost while its neighbours survived; three are nothing, and each a different kind of nothing — a line break, SHOW-THROUGH from the facing page, and a reader's PENCIL down the margin. It also corrects a figure E12 estimated rather than measured |
+| **E14–En** | the rest of the error half | 45 marks left in the Canterbury Tales, nearly all inside runs mangled past any rule; then what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E13 — the six that needed the leaf, shipped 2026-09-04
+
+**Six repairs, taking the book to 831, and every one was cropped out of the page image and read.**
+E12 left nine marks in the shipped prose, three of them correct — the page really does print `—,`
+and both copies read it. The second scan could not settle any of the other six, in four cases
+because it cannot be ALIGNED to a run it has garbled differently, so there was nothing left but the
+leaf.
+
+**Two are punctuation the scan flattened, and both change the sentence.** `Save only this . she
+prayed the man` is a COLON on the page — `Save only this : she prayed the man that, if he could, he
+should bury her little son in the earth` — set with the space this edition gives one. And `will you
+joust at the quintain . Methinks` is a QUESTION MARK, set tight against the word, which this edition
+does not always do. A flattened colon and a flattened question mark both read as a finished sentence
+and neither looks damaged.
+
+**One is a closing quotation mark that was simply lost while its neighbours survived**: the page
+reads `he started and cried ‘Ah !,’ as though he were stricken through the heart`, and this scan has
+the exclamation mark and the comma and not the quote.
+
+**Three are nothing, and each is a different KIND of nothing** — which is the argument for reading
+the leaf rather than inferring. `I thought . him so faithful` has a line break between the words and
+no mark at all. `you may.’ . TTT, ...` is SHOW-THROUGH from the facing page, the ghost of type on the
+other side of the leaf. `the tower . <,and guarded` is a READER'S PENCIL, running down the whole
+outer margin of that leaf and legible as handwriting in the crop.
+
+**The book's own front matter carried a figure I had estimated rather than measured, and this batch
+corrects it.** E12 wrote 'about twenty marks remain'; the census says 75 single characters, of which
+27 are the printed rows of asterisks and 3 the correct `—,`, leaving **45**. **A count in prose a
+reader can check is one to measure**, and the sentence now says forty-five.
+
+**Where the book stands: 831 repairs, no standalone full stop left in the shipped prose, and three
+standalone commas that are all correct.** What remains is 45 marks, nearly all inside runs the scan
+mangled past any rule, plus the four apostrophe-shaped marks E10 set aside on principle.
 
 ### E12 — the spaced full stop and the last mangled runs, shipped 2026-09-04
 
