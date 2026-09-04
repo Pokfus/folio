@@ -1787,7 +1787,8 @@ window.GLOSSARY = {
 "Phoros": "<b>Phoros</b> was the money the members of the alliance led by Athens paid into its common fund, an obligation that could be discharged instead by serving with ships. Thucydides says most preferred to pay rather than leave home, so that Athens increased her navy on their contributions while a revolt found them without ships or the practice of war.<sup class=\"fn\" data-fn=\"1\"></sup> By 431 BCE an average of 600 talents came in yearly, and what it bought was contested: Pericles held that the payers gave neither horse nor ship nor hoplite but money only, which belonged to those who took it so long as they did what they took it for.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Assessment_of_Aristides": "The <b>assessment of Aristides</b> was the first fixing of what each member of the alliance led by Athens owed, made two years after the battle of Salamis and setting the total at 460 talents.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Plutarch says the allies asked for Aristides themselves and had him inspect their territories and revenues before fixing sums according to each one's worth and ability to pay, and that he returned from the commission poorer than he set out.<sup class=\"fn\" data-fn=\"3\"></sup> It was remembered as a fair settlement and praised as a golden age, a reputation Plutarch connects with what followed, since the tariff was doubled, then trebled, and at last reached 1,300 talents.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Cimon": "<b>Cimon</b> was an Athenian general and statesman, the son of Miltiades, who commanded for the alliance led by Athens through the years in which it turned into an empire. Plutarch reports that he inherited his father's unpaid fine of 50 talents and a poor reputation, and that once rich he took the fences from his farms so that anyone might take the fruit and kept a daily table for the poor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He held that Greece needed both its leading states and named a son Lacedaemonius, a policy broken when Sparta dismissed his troops from Ithome and Athens then abandoned the alliance against Persia.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Siege_of_Eion": "The <b>siege of Eion</b> was the capture of a Persian-held town at the mouth of the Strymon by Athens and its allies, the first operation Thucydides records for the alliance formed after the Persian invasions.<sup class=\"fn\" data-fn=\"1\"></sup> Its commander refused the terms offered him and destroyed himself, his household and the town's treasure rather than surrender, an end Herodotus and Plutarch tell alike while naming him differently.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Athens took farmland from it rather than plunder and voted the generals three stone herms, on the condition, Aeschines says, that they should not inscribe their own names, so that the honour would read as the people's.<sup class=\"fn\" data-fn=\"4\"></sup>"
+"Siege_of_Eion": "The <b>siege of Eion</b> was the capture of a Persian-held town at the mouth of the Strymon by Athens and its allies, the first operation Thucydides records for the alliance formed after the Persian invasions.<sup class=\"fn\" data-fn=\"1\"></sup> Its commander refused the terms offered him and destroyed himself, his household and the town's treasure rather than surrender, an end Herodotus and Plutarch tell alike while naming him differently.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Athens took farmland from it rather than plunder and voted the generals three stone herms, on the condition, Aeschines says, that they should not inscribe their own names, so that the honour would read as the people's.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Scyros": "<b>Scyros</b> is an island in the central Aegean which Athens took and settled with its own colonists early in the life of the alliance formed after the Persian invasions.<sup class=\"fn\" data-fn=\"1\"></sup> The ancient accounts differ over who lived there and what became of them, Thucydides giving a Dolopian population that the Athenians enslaved, Diodorus giving Pelasgians and Dolopes and a founder appointed to portion out the land, and Plutarch saying the Dolopians were driven out.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It was also where Theseus was said to have been killed by its king Lycomedes, and the finding of a grave there and the return of the bones to Athens made the conquest popular at home.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3713,7 +3714,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Hellenotamiai": ["Hellenotamias","treasurers of the Greeks"],
 "Assessment_of_Aristides": ["Aristides' assessment"],
 "Cimon": ["Kimon"],
-"Siege_of_Eion": ["Eion"]
+"Siege_of_Eion": ["Eion"],
+"Scyros": ["Skyros"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5530,7 +5532,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Phoros": ["concept","history","greece","politics","institution"],
 "Assessment_of_Aristides": ["event","history","greece","politics","institution"],
 "Cimon": ["person","history","greece","politics","warfare"],
-"Siege_of_Eion": ["event","history","greece","warfare","politics"]
+"Siege_of_Eion": ["event","history","greece","warfare","politics"],
+"Scyros": ["place","history","greece","warfare","religion"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
