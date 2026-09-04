@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-582` Brussels.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-583` Port-au-Prince.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -981,6 +981,25 @@ Its own subject is the speed: **five days from declaration to membership**, with
 steps openable — Security Council resolution 1999 (2011) at the 6582nd meeting on 13 July recommending,
 General Assembly resolution 65/308 at the 108th plenary on 14 July deciding — which is the second card in
 two to cite the pair, after Tunis.
+
+**`gw-582` BRUSSELS IS THE THIRD SOURCE JOINING THE OTHER TWO, AND THE EU PAGE EARNS ITS PLACE ON A
+NON-FIGURE FIELD.** C1 found the EU country page for the accession date and the figures; here it also
+supplies **the three official languages** — Dutch, French and German — which nothing else openable states
+and which is the fact a reader of a Brussels card most wants after the population. Its area (30,667 km²)
+and UNdata's (30,528) differ by half a per cent, the land-against-total spread C1 measured, and the card
+states both rather than choosing. **On an EU capital, read the country page for its NON-numeric fields
+too**; the accession line is what the recipe was built for, but Capital, languages and Schengen are all
+stated outright.
+
+**ITS OWN INTEREST IS A RECOGNITION SEQUENCE WITH THREE DIFFERENT DATES FOR ONE INDEPENDENCE.** Belgium
+declared it on 4 October 1830; "most of the European powers recognized de facto independence" on
+20 December 1830; the United States recognised it on 6 January 1832 by an exequatur to the Belgian consul
+at New York; and the former ruler accepted it only with the Treaty of London of 19 April 1839 — nine years
+between the declaration and the Netherlands' acceptance, with the American recognition in the middle. That
+is the clearest case yet of why **a card should give the sequence rather than "independence: 1830"**, and
+the date line carries three of the four. Note the guide's own phrasing there — it says the Netherlands
+"recognized **Brussels** as a sovereign state", using the city for the state, which is a nice sentence and
+not a fact to build on.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
