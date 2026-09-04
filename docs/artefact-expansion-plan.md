@@ -258,7 +258,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | ~~`palaeolithic-bone-flute`, `bone-fishhook`~~ (both shipped in D2c) |
 | C3/C2 | `clovis-point`, `obsidian-blade`, `ostrich-eggshell-bead` | — |
 | C1 | `byzantine-lead-seal`, `lustreware-bowl`, `glass-coin-weight` | — |
-| C1b | `islamic-star-tile`, `byzantine-silk` | `fustat-paper`, `mamluk-mosque-lamp` |
+| C1b | `islamic-star-tile`, `byzantine-silk` | `fustat-paper`, ~~mamluk-mosque-lamp~~ (cleared and shipped in C1d) |
 | D1 | `antler-comb`, `bone-ice-skate` | ~~`novgorod-birch-bark-letter`~~ (held; released and shipped in D1c) |
 | D1b/C2 | `seal-matrix`, `manilla` | — |
 | A2b/E1 | `vindolanda-tablets` (UN-DEFERRED), `sling-bullet` | — |
@@ -284,6 +284,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B4b | `shell-adze` | `sumatralith` (no openable work uses the term) |
 | D1c | `novgorod-birch-bark-letter` (**UN-HELD — D1's list is now empty**) | — |
 | E3e | `steel-pen-nib` (UN-DEFERRED — **E3's list is now empty**) | — |
+| C1d | `mamluk-mosque-lamp` (UN-DEFERRED) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1354,6 +1355,34 @@ contains, and the marginal cost of asking is nil.
   hard to make interesting on its own terms; the quill trade it destroyed is not, and Tomlinson happens
   to have counted it. **When an industrial artefact reads flat, look for what it displaced** — the
   displaced thing is usually better documented, because somebody was still measuring it when it died.
+
+**C1d clears `mamluk-mosque-lamp`, and it is E3e's rule applied one shelf over: the 19th-century MUSEUM
+CATALOGUE is to Islamic art what the dictionary of manufactures is to the industrial everyday.** C1b
+deferred this artefact for want of reachable work. What was needed was two books, both whole on
+archive.org: **Stanley Lane-Poole's *The Art of the Saracens in Egypt* (1886)**, whose glass chapter says
+that most surviving Egyptian glass of the 14th century is mosque lamps and then diagrams one band by band
+— A on the neck, B at the junction of neck and body, C round the body **interrupted by the glass loops
+the silver chains fastened to**, D on the lower curve, E on the foot — and gives the main inscription as
+the Verse of Light with its letters in cobalt and the shading in red; and **Alexander Nesbitt's
+*Descriptive Catalogue of the Glass Vessels in the South Kensington Museum* (1878)**, which supplies the
+judgement Lane-Poole quotes: the glass is "badly made, full of bubbles, of a smoky tinge, and rather
+horny texture" while the gilding and enamelling, learnt probably from the Byzantines, is expert.
+· **THE TWO BOOKS ARE JOINED BY THEIR AUTHORS, WHICH IS WORTH NOTICING BEFORE CITING EITHER.** Nesbitt's
+  catalogue prints Lane-Poole's own transcriptions and translations of the Arabic on its lamps, and
+  Lane-Poole's book in turn quotes Nesbitt on the quality of the metal. That is the same shape as E3e's
+  Ure-quoting-Timmins and B1d's Brown-quoting-the-*A'in*: **where two open works cite each other, the
+  pair is stronger than either**, and the plate can take the technical verdict from one and the reading of
+  the inscription from the other.
+· **THE V&A's API IS A WORKING THIRD SOURCE and it is a database record, exactly as gramoty.ru's was.**
+  `api.vam.ac.uk/v2/objects/search?q=…` returns real records, and `api.vam.ac.uk/v2/museumobject/<id>`
+  returns one in full — for lamp O804: gilt and enamelled glass blown with an applied foot, 40.7 cm high,
+  lotus flowers and peonies in red outline reserved against a blue ground, Egypt 1347–1361, probably made
+  for Sultan al-Nasir Hasan, with an object history tying it to a Wallace Collection lamp bearing an
+  amir's blazon. Cite the public page (`collections.vam.ac.uk/item/<id>/…`), which also answers 200.
+· The lesson to carry to the deferral list: **the C1, B1 and B2 deferrals were all made looking for modern
+  scholarship, and the 19th-century institutional shelf was never asked.** Lane-Poole, Nesbitt, Migeon,
+  Bushell, Marshall, Hiroa, Beauchamp and Holmes have now each carried a plate; the museums that
+  published them are the same museums whose APIs supply the third source.
 
 ## The per-artefact workflow
 

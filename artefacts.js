@@ -1288,4 +1288,11 @@ window.ARTEFACTS = [
     date: "c. 1810 – 1900 CE",
     origin: "Birmingham",
   },
+  {
+    id: "mamluk-mosque-lamp",
+    name: "Mosque lamp",
+    rarity: "rare",
+    date: "c. 1280 – 1400 CE",
+    origin: "Mamluk Egypt and Syria",
+  },
 ];
