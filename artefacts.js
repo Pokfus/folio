@@ -1127,4 +1127,18 @@ window.ARTEFACTS = [
     date: "c. 13th – 15th century CE",
     origin: "Great Zimbabwe",
   },
+  {
+    id: "dotaku",
+    name: "Dōtaku bell",
+    rarity: "rare",
+    date: "c. 400 BCE – 200 CE",
+    origin: "Japan, chiefly the Kinki region",
+  },
+  {
+    id: "mississippian-shell-gorget",
+    name: "Shell gorget",
+    rarity: "rare",
+    date: "c. 1200 – 1600 CE",
+    origin: "The Mississippian and Caddo Southeast",
+  },
 ];

@@ -273,6 +273,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B3b | `daguerreotype`, `jomon-dogu`, `magatama` (**B3's list is now empty but for `dotaku`**) | `dotaku` (needs a third openable work) |
 | B4a | `dong-son-drum`, `lapita-pottery`, `palm-leaf-folio` | `ban-chiang-pot` |
 | C2a | `thule-harpoon-head`, `great-zimbabwe-bird` (**two, not three — see below**) | — |
+| D3a | `dotaku` (UN-DEFERRED), `mississippian-shell-gorget` | — (a deferral sweep that cleared one of eight) |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -950,6 +951,42 @@ Mathiassen's 1930 Fifth Thule Expedition volume, open in full.
 · Two smaller notes. **`id.erudit.org` is CONNECT-rejected here**, so an Érudit DOI cannot be followed even
   though `www.erudit.org` answers 200 — try the article path directly. And **`pmc.ncbi.nlm.nih.gov` throws
   an occasional reCAPTCHA page**; it clears on a retry and is not a fact about the article.
+
+**D3a SWEPT THE WHOLE DEFERRAL LIST AND CLEARED ONE OF EIGHT, and the negative result is the useful
+half.** B2b's rule — that a deferral one batch old is the cheapest work on the list — was tested against
+every standing deferral in one pass, and seven of them are not cheap at all: `mamluk-mosque-lamp` has
+exactly ONE openable work and it is a very good one (the Brooklyn Museum's enamelled lamp, analysed to
+decide whether it is Mamluk or a 19th-century European copy), `fustat-paper` has one, `inkstone` one,
+`igbo-ukwu-bronze` one, `han-tomb-brick`, `ban-chiang-pot`, `mughal-miniature`, `nbpw-sherd` and
+`glass-bangle` none that is about the object rather than around it. **A deferral is cheap to RE-TRY and
+usually still fails; what makes it worth a sweep is that one of them clears** — `dotaku` did, on three
+works none of which existed in B3b's search because none was found by searching for the culture.
+
+· **THE THREE THAT CLEARED `dotaku` NAME THREE DIFFERENT ROUTES, AND NONE IS "SEARCH FOR THE OBJECT".**
+  *Materia Japan* on J-Stage is a METALLURGY journal and carries the lead-isotope history (found by
+  searching for the material, B3a's own rule); the *Japanese Journal of Religious Studies* is open at
+  Nanzan and carries the deposition and the iconography (found by searching for what the object was FOR);
+  and MedCrave's *Journal of Historical Archaeology & Anthropological Sciences* carries a comparison with
+  Malaysian bronze bells (found by searching for the object beside something else). **When a subject
+  search fails, search the material, the purpose, and the comparison.**
+· **THE CORRECTION IS INSIDE THE METAL.** Japanese archaeology argued for decades between native copper
+  and imported metal, and lead isotope ratios settled it in a way neither side expected: the earliest
+  bells are on Korean metal and the later ones on lead from Han China, so the source MOVED over the three
+  centuries the bells were made. The bells moved the other way — bigger, more ornate, and no longer
+  depicting the farming year — which one Japanese archaeologist put as the change from bells for
+  listening to into bells for looking at.
+· **`Index of Texas Archaeology` IS AN OPEN GREY-LITERATURE REPOSITORY AND IT IS A REAL SOURCE.** Three of
+  its notes carried the shell gorget — the trade in conch shell cups into the Caddo country, the style
+  series and its iconography, and a child's burial at the Gilbreath site with a gorget on the chest —
+  where *Southeastern Archaeology* is Taylor & Francis and shut. Its Crossref records carry no volume or
+  pages, so the citations give the year alone, which is honest rather than incomplete.
+· **A LANDING PAGE'S `citation_firstpage` CAN DISAGREE WITH THE PUBLISHER'S OWN HOW-TO-CITE BLOCK, AND THE
+  BLOCK WINS.** MedCrave's meta tags give the Jusoh paper as 62–65 and its own citation line as 46–52,
+  which is also what Crossref holds. **Read the How-to-Cite block; the meta tags are generated and can be
+  wrong about the same article.**
+· One access note: **`id.erudit.org` and `journals.openedition.org` remain shut**, `koreascience.kr`
+  refuses, and the Korean art-history journals (`kjah`, `jkaahe`, `dah`, `jshs`) resolve to closed
+  aggregators — so `buncheong-bowl` has no route yet either.
 
 ## The per-artefact workflow
 
