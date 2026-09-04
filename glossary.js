@@ -1990,7 +1990,8 @@ window.GLOSSARY = {
 "Appius_Claudius_Caecus": "Appius Claudius Caecus was a Roman magistrate of the late 4th and early 3rd centuries BCE, censor in 312 BCE and twice consul, whose surname records the blindness of his later years.<sup class=\"fn\" data-fn=\"1\"></sup> His censorship began the road and the aqueduct that bear his name and was remembered for a disputed revision of the senate roll, for his refusal to lay the office down at the end of its legal term, and for the political following that grew out of it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> In old age he was carried into the senate to speak against a proposed peace with Pyrrhus of Epirus.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Appian_Way": "The Appian Way was a Roman road running south from Rome, begun in 312 BCE by the censor Appius Claudius, from whom it takes its name, and reckoned the first Roman highway to be paved.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A road of that kind was laid in courses, a footing of hand-sized stones under rubble and lime, then a bedding of pounded potsherds and lime, and on the surface polygonal blocks of lava crowned so as to shed water, with a raised footway along either side.<sup class=\"fn\" data-fn=\"2\"></sup> Procopius, describing it centuries afterwards, records stone brought from a distance, cut to fit without mortar, and joints that had not opened under long use.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Aqua_Appia": "The Aqua Appia was the first aqueduct built to supply Rome, brought in during the censorship of 312 BCE by Appius Claudius, whose name it carries and who in the same office began the road that also bears it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Frontinus gives its channel as 11,190 paces from the intake to the salt works by the Porta Trigemina, of which 11,130 paces ran underground and only sixty were carried above ground on substructures and arches.<sup class=\"fn\" data-fn=\"1\"></sup> Before it the city had drawn on the Tiber, on wells and on springs; stretches of the buried channel have since been found beneath Rome.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Aes_grave": "Aes grave is the name given to the heavy cast bronze coinage of early Rome and central Italy, pieces whose value lay in their weight of metal rather than in a stamp's guarantee.<sup class=\"fn\" data-fn=\"1\"></sup> Its unit was the as, in principle a pound of copper divided into twelve ounces, though few surviving pieces reach it and most come to about ten, and the fractions bore pellets marking how many ounces each was worth.<sup class=\"fn\" data-fn=\"1\"></sup> The usual types set the prow of a warship against a god's head, and the standard fell steeply, Pliny recording the as cut to two ounces during the First Punic War to clear debts.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Aes_grave": "Aes grave is the name given to the heavy cast bronze coinage of early Rome and central Italy, pieces whose value lay in their weight of metal rather than in a stamp's guarantee.<sup class=\"fn\" data-fn=\"1\"></sup> Its unit was the as, in principle a pound of copper divided into twelve ounces, though few surviving pieces reach it and most come to about ten, and the fractions bore pellets marking how many ounces each was worth.<sup class=\"fn\" data-fn=\"1\"></sup> The usual types set the prow of a warship against a god's head, and the standard fell steeply, Pliny recording the as cut to two ounces during the First Punic War to clear debts.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Roman_expansion_in_Italy": "Roman expansion in Italy is the process by which Rome, one city among many in Latium, came to control the Italian peninsula, an ascent Polybius dated from the withdrawal of the Gauls and traced through wars with the Latins, the Etruscans, the Celts and the Samnites.<sup class=\"fn\" data-fn=\"1\"></sup> A defeated community was either bound to Rome by treaty or reduced to complete subjection by conquest or surrender.<sup class=\"fn\" data-fn=\"2\"></sup> The states received into alliance kept a measure of independence and were held together by a perpetual military alliance under Roman leadership, with fixed contingents demanded of each and the older confederacies broken up so that every people faced Rome alone.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2783,7 +2784,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lex_Ogulnia": "300 BCE",
 "Appius_Claudius_Caecus": "censor 312 BCE, consul 307 and 296 BCE",
 "Appian_Way": "begun 312 BCE",
-"Aqua_Appia": "312 BCE"
+"Aqua_Appia": "312 BCE",
+"Roman_expansion_in_Italy": "c. 387 – 264 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -6029,7 +6031,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Appius_Claudius_Caecus": ["person","history","politics","law","italy"],
 "Appian_Way": ["building","technology","history","geography","italy"],
 "Aqua_Appia": ["building","technology","history","geography","italy"],
-"Aes_grave": ["object","technology","history","italy"]
+"Aes_grave": ["object","technology","history","italy"],
+"Roman_expansion_in_Italy": ["event","history","warfare","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

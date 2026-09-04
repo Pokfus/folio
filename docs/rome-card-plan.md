@@ -399,7 +399,7 @@ sites than by scholarship and the cited source has to be chosen with care.
 
 ### The conquest of Italy — `rm-conquest-italy`
 
-    rm-141  Rome's conquest of Italy
+    rm-141  Roman expansion in Italy
     rm-142  Latin War
     rm-143  The dissolution of the Latin League
     rm-144  The settlement of 338 BCE
