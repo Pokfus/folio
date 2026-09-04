@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-552` Yaoundé.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-553` Caracas.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -371,6 +371,20 @@ have multiplied its capital's population by twenty-six. **Ask whether the capita
 before touching that indicator**; the divided-seat countries in the table above are exactly where it
 fails, and UNdata's own capital footnote is what tells you (here: *"Yamoussoukro is the capital and
 Abidjan is the administrative capital"*, which is also the source `gw-755` will need).
+**THE TEST FOR THAT IS THE MATCH ITSELF** (`gw-552`). Where UNdata's capital figure EQUALS the World Bank
+series at the year UNdata's footnote names, the series is measuring the capital and can be cited for the
+current year: Yaoundé's 3,822.4 thousand is `EN.URB.LCTY`'s 3,822,425 for 2019, which settles that the
+series is not following the larger port at Douala. Six capitals match that way and two do not; a mismatch
+means either a different definition or a different city, and either way the series comes off the card.
+
+**TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
+provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
+FlateDecode streams with `zlib` and pulling the text out of the parenthesised strings — twenty lines of
+Python, and it is what got resolution 1608's actual operative paragraphs onto `gw-552`. And a
+`upload.wikimedia.org` thumbnail URL at a width nobody has generated yet answers **400** from here: build
+the src, then CHECK it, and fall back to a width that already exists (1280 or 1920). One glossary picture
+shipped a 400 for a minute for want of that check.
+
 
 
 
