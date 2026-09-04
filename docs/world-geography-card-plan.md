@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-563` Lusaka.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-564` Astana.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -553,6 +553,25 @@ building — and the term takes the City Centre block. **Worth recording for its
 scrubland the year before the embassy moved in.** It is the single most card-relevant image in the
 category and it goes UNUSED, because the deck's rule is that a city card shows the city; noted here so the
 next session does not spend the search finding it again.
+
+**`gw-563` LUSAKA: WHERE THE GUIDE IS THIN, ASK WHAT WAS NEGOTIATED IN THE CITY.** Zambia's guide entry
+is three facts — a consulate at Lusaka raised to embassy status on 24 October 1964, that elevation being
+the act of recognition, and Robert C. Foulon as chargé — and it repeats its Recognition paragraph verbatim
+under Diplomatic Relations, so it is thinner than it looks. What carried the card is **FRUS searched for
+the CITY NAME rather than the country**: Kissinger's own report to the President of 21 September 1976
+opens "From Pretoria I flew to Lusaka, Zambia, Monday to report to President Kaunda", describes the
+three-hour meeting at which he put the Rhodesia programme, records that Kaunda "was speechless", and notes
+in passing that **SWAPO was based in Lusaka**, which is the sort of city fact no country page ever carries.
+**Search FRUS for the capital's name before concluding a capital is thinly sourced.**
+
+**AND A 1969 UN RESOLUTION CAN BE CITED BY TITLE AND NOT BY TEXT.** `A/RES/2505 (XXIV)`, *Manifesto on
+Southern Africa* — the Assembly's endorsement of what is commonly called the Lusaka Manifesto — is a
+SCANNED PDF with no text layer, and so is the Zambian representative's covering letter `S/9363` of 28 July
+1969; the `zlib` recipe returns nothing from either, and neither catalogue record names Lusaka. So the
+obvious route to the city was dropped rather than asserted: **a resolution everyone calls the Lusaka
+Manifesto is not a source that says "Lusaka" unless you can read it.** The 1955 admission resolution
+`A/RES/995 (X)` behaves the same way; from about 1971 the scans carry text and the recipe works. **Test the
+extraction before planning a sentence around a pre-1970 document.**
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
