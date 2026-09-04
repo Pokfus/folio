@@ -1791,7 +1791,8 @@ window.GLOSSARY = {
 "Scyros": "<b>Scyros</b> is an island in the central Aegean which Athens took and settled with its own colonists early in the life of the alliance formed after the Persian invasions.<sup class=\"fn\" data-fn=\"1\"></sup> The ancient accounts differ over who lived there and what became of them, Thucydides giving a Dolopian population that the Athenians enslaved, Diodorus giving Pelasgians and Dolopes and a founder appointed to portion out the land, and Plutarch saying the Dolopians were driven out.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It was also where Theseus was said to have been killed by its king Lycomedes, and the finding of a grave there and the return of the bones to Athens made the conquest popular at home.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Battle_of_the_Eurymedon": "The <b>Battle of the Eurymedon</b> was a double victory over Persian forces at the mouth of that river in Pamphylia, won by land and by sea on the same day by Cimon.<sup class=\"fn\" data-fn=\"1\"></sup> The ancient figures do not agree: Thucydides has 200 Phoenician ships destroyed, Plutarch reports his own authorities giving the enemy 600 ships or 350 under different commanders, and Diodorus claims 340 ships and over 20,000 men taken.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Diodorus says the Persians answered by building more triremes than before, and that Athens dedicated a tenth of the spoil with an epigram claiming no such deed by land and sea had been done since the sea divided Europe from Asia.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Revolt_of_Naxos": "The <b>revolt of Naxos</b> was the attempt of an island member to leave the alliance led by Athens, and Thucydides marks its reduction as the first time membership was enforced by siege.<sup class=\"fn\" data-fn=\"1\"></sup> He notes that the rest followed in the order circumstances prescribed, and gives the usual causes as arrears of tribute and ships and failure of service, with Athens severe towards members unused to continuous labour.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He blames the members too, since most had commuted service into money and so had neither ships nor practice when they wanted them, while Plutarch reaches the same end from the other side, saying Cimon indulged them into becoming subjects.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Revolt_of_Thasos": "The <b>revolt of Thasos</b> was an island member's attempt to leave the alliance led by Athens, in a quarrel over its trading places on the Thracian coast opposite and a mine there.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus, who had seen its workings, puts its revenue at some 200 talents a year from the mainland and the mines together, and records that Darius had already made the Thasians pull down their walls and hand over their ships.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Athens beat them at sea and besieged the town, a Spartan invasion of Attica promised in secret never came, and in the third year they took the terms Darius had imposed, with tribute and the mainland added.<sup class=\"fn\" data-fn=\"4\"></sup>"
+"Revolt_of_Thasos": "The <b>revolt of Thasos</b> was an island member's attempt to leave the alliance led by Athens, in a quarrel over its trading places on the Thracian coast opposite and a mine there.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus, who had seen its workings, puts its revenue at some 200 talents a year from the mainland and the mines together, and records that Darius had already made the Thasians pull down their walls and hand over their ships.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Athens beat them at sea and besieged the town, a Spartan invasion of Attica promised in secret never came, and in the third year they took the terms Darius had imposed, with tribute and the mainland added.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Third_Messenian_War": "The <b>Third Messenian War</b> is the modern name for the rising of helots and perioikoi against Sparta that followed a great earthquake, which the ancient writers call the secession to Ithome.<sup class=\"fn\" data-fn=\"1\"></sup> Thucydides says most of the rebels descended from the Messenians enslaved in the earlier war, so that all were called Messenians, while Diodorus makes the rising a calculation on Spartan losses and Pausanias reports a Messenian tradition blaming a sacrilege at Taenarum for the earthquake.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The rebels held Ithome for ten years and left on terms, quitting the Peloponnese for good on pain of enslavement if they returned, and were settled by Athens at Naupactus.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2599,7 +2600,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Siege_of_Eion": "c. 476 BCE",
 "Battle_of_the_Eurymedon": "c. 466 BCE",
 "Revolt_of_Naxos": "c. 469 BCE",
-"Revolt_of_Thasos": "c. 465 - 463 BCE"
+"Revolt_of_Thasos": "c. 465 - 463 BCE",
+"Third_Messenian_War": "c. 464 - 455 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3722,7 +3724,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Cimon": ["Kimon"],
 "Siege_of_Eion": ["Eion"],
 "Scyros": ["Skyros"],
-"Battle_of_the_Eurymedon": ["Eurymedon"]
+"Battle_of_the_Eurymedon": ["Eurymedon"],
+"Third_Messenian_War": ["secession to Ithome"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5543,7 +5546,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Scyros": ["place","history","greece","warfare","religion"],
 "Battle_of_the_Eurymedon": ["battle","history","greece","warfare","politics"],
 "Revolt_of_Naxos": ["event","history","greece","politics","warfare"],
-"Revolt_of_Thasos": ["event","history","greece","politics","warfare"]
+"Revolt_of_Thasos": ["event","history","greece","politics","warfare"],
+"Third_Messenian_War": ["event","history","greece","warfare","politics"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
