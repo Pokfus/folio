@@ -148,7 +148,7 @@ literature — which is what made batches 15 and 8 of the first pass cheap and b
 |---|---|---|---|
 | A1 | 3 | `terracotta-warrior`, `antikythera-mechanism`, `great-isaiah-scroll` | `namuseum.gr` (open, and holds the mechanism), Antiquity and Nature via `doi.org`, archive.org, Qumran literature in open journals |
 | A2 | 5 | `venus-of-willendorf`, `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, `vindolanda-tablets` | `nhm-wien.ac.at` (server-rendered, confirmed), `digitalcollections.tcd.ie`, `bayeuxmuseum.com`, Persée. **Vindolanda Tablets Online at Oxford refuses the connection — use `romaninscriptionsofbritain.org/tabvindol/`, which carries the whole corpus** |
-| A3 | 7 | `pazyryk-carpet`, `dancing-girl-mohenjo-daro`, `golden-crown-of-silla`, `jade-burial-suit`, `aztec-sun-stone`, ~~`igbo-ukwu-bronze`~~ (dropped in C2b; `benin-bronze-plaque` shipped in its place), `enigma-machine` | archive.org (Marshall, Rudenko), J-Stage, Cambridge via `doi.org`, INAH, cryptologic history |
+| A3 | 7 | `pazyryk-carpet`, `dancing-girl-mohenjo-daro`, `golden-crown-of-silla`, ~~`jade-burial-suit`~~ (cleared and shipped in A3d), `aztec-sun-stone`, ~~`igbo-ukwu-bronze`~~ (dropped in C2b; `benin-bronze-plaque` shipped in its place), `enigma-machine` | archive.org (Marshall, Rudenko), J-Stage, Cambridge via `doi.org`, INAH, cryptologic history |
 
 ### Region by region
 
@@ -292,9 +292,10 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | `turnshoe` again, ~~nbpw-sherd~~ (cleared and shipped in B1e), `identity-disc` again |
 | B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, ~~igbo-ukwu-bronze~~ (dropped in C2b), `bodkin-arrowhead` again, `fustat-paper` again |
 | B4c | `ban-chiang-pot`, `sumatralith` (both UN-DEFERRED — **B4's list is now empty**) | — |
-| B1f | `glass-bangle` (UN-DEFERRED, and **shipped with no picture** — see below; **B1's list is now empty**) | `jade-burial-suit`, `bodkin-arrowhead` again |
+| B1f | `glass-bangle` (UN-DEFERRED, and **shipped with no picture** — see below; **B1's list is now empty**) | ~~jade-burial-suit~~ (cleared and shipped in A3d), `bodkin-arrowhead` again |
 | S1 | **nothing — a search batch, see below** | `identity-disc` (one work found), `turnshoe` again, `trench-art-shell-case`, `fustat-paper` again |
 | C2b | `benin-bronze-plaque` (**SUBSTITUTED for `igbo-ukwu-bronze` — see below**) | — |
+| A3d | `jade-burial-suit` (UN-DEFERRED; **A3's list is now empty**) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1738,6 +1739,46 @@ but an article's page returns the first page of text and nothing else, `docAsPDF
 `?pageId=N` hands back the same landing text rather than page N. **A host that answers with the opening
 of the article is not a host that answers**, and the failure looks like a short article rather than a
 paywall. Recorded so the next batch does not spend a search on it.
+
+**A3d's finding is the aggregator that should have been tried nine batches ago: OpenAIRE.** The warm
+lead left for `jade-burial-suit` was one work (Prüch's review of Miller in *Asian Perspectives*), and
+Crossref, DOAJ and ScholarSpace between them added nothing — the subject lives in books and in
+Chinese-language journals. **`api.openaire.eu/search/publications?keywords=…&format=json` answers, is
+free and unmetered, and indexes REPOSITORIES rather than publishers**, which is exactly the half
+Crossref cannot see: a search for *jade burial suit Han* returned five records, of which two were the
+work the batch needed — a Ljubljana thesis and, decisively, **Jie Shi's University of Chicago
+dissertation on the Mancheng tombs**, open, 300 pages, supervised by Wu Hung, and carrying every
+measured figure the plate wanted. It is the DOAJ/Crossref pair's missing third leg, and it belongs in
+the standing search order from here on. (`base-search.net` refuses this IP outright, so BASE is not the
+alternative.)
+
+**Its second finding is that a subset-font PDF is not always lost — it is often a SUBSTITUTION CIPHER,
+and it can be solved.** The dissertation extracts as byte codes, the failure recorded against the
+Yoruba Studies Review in B1e. But the codes are *consistent*: `:0'/0` is *which*, `:23` is *was*,
+`-,23*.3` is *reasons*. Twenty guessed letters make the text readable, and the rest fall out of it.
+**The digits are the part to be careful about**, because a wrong one is a plausible number rather than
+a visible failure: the first solve read Liu Sheng's suit as 2,293 pieces, and the map was only pinned
+by cross-checking numbers whose values are known independently — Dou Wan's tomb is stated to be *over
+10% larger* than her husband's, which fixes 3,000 against 2,700 and so fixes two digits at once, and
+"the Mancheng tombs, seven years later" after an excavation dated X fixes another, since Mancheng is
+1968. With the map pinned the count reads **2,498**, which is the published figure. **Solve the cipher
+on words, pin the digits on arithmetic, and never cite a number the arithmetic has not confirmed.**
+
+**Third: the correction is the object's own failure.** Han writers held that gold and jade in the nine
+orifices stop a corpse decaying, and the suits are the belief built at full size — and Shi records that
+Dou Wan's flesh and bones "had long vanished" before the excavation, leaving the jade holding the shape
+of a body no longer in it. Beside that, **Laufer's 1912 Field Museum catalogue supplies the
+historiography for nothing**: he knew the practice from texts alone and had to write that of these jade
+cases "none has as yet come to light", fifty-six years before one was lifted out of Mancheng. That is
+batch 25's rule again — the early-20th-century institutional monograph — used not for a fact but for a
+DATE at which the fact was still unknown.
+
+**And a note on the rarity: this is a `rare`, not an epic, and the budget decided it.** A jade suit is
+a named-sounding thing and the instinct is to reach for epic — but the target shape is 116 / 52 / 25 / 7
+and epic and legendary were already full at 25 and 7 before this batch, so the last seven slots are
+four commons and three rares. The plan's own definition settles it without strain: rare is "a
+distinctive class that belongs to one tradition", which a jade suit, of which several dozen have been
+excavated, exactly is.
 
 ## The per-artefact workflow
 

@@ -1379,4 +1379,11 @@ window.ARTEFACTS = [
     date: "c. 1500 – 1600 CE",
     origin: "Kingdom of Benin, southern Nigeria",
   },
+  {
+    id: "jade-burial-suit",
+    name: "Jade burial suit",
+    rarity: "rare",
+    date: "c. 150 BCE – 220 CE",
+    origin: "Han China",
+  },
 ];
