@@ -201,7 +201,8 @@ is an open question and its batch size follows from the answer.
 | **A0** | the three code changes, `add-place-info.js`, `atlas-audit.js` | **shipped 2026-08-21** |
 | **A1** | The eight most-studied present-day countries | **shipped 2026-08-21** |
 | **A2** | Russia, Mexico, Ethiopia, Japan, Egypt, the Philippines, DR Congo, Vietnam | **shipped 2026-09-03** |
-| A3–A33 | The remaining 242 present-day countries and territories, in descending population | planned |
+| **A3** | Iran, Turkey, Germany, France, the United Kingdom, Thailand, South Africa, Italy | **shipped 2026-09-04** |
+| A4–A33 | The remaining 234 present-day countries and territories, in descending population | planned |
 | B1–… | Stage 2, the 424 historical states, grouped by era | planned |
 | C1–… | Stage 3, the 528 names of the 1600 era, at a bar to be decided | planned |
 
@@ -351,3 +352,52 @@ one curled before the batch was written. Six findings.
   it. **The Milestones have been retired and are no longer maintained**, which the pages say at the top; they
   are still served, still stable and still the Office of the Historian's own text, so they are cited as they
   stand.
+
+### A3 — the next eight by population (2026-09-04)
+
+Iran, Turkey, Germany, France, the United Kingdom, Thailand, South Africa and Italy. All eight at the bar;
+five citations apiece, forty in all, every one open access and every one curled before the batch was
+written. Six findings, and the first is the one that will bite every batch after this.
+
+- **A DESCRIPTION IS SHARED BY EVERY ERA, SO IT MAY NOT SAY ANYTHING ABOUT THE MAP IN FRONT OF THE READER.**
+  Two drafts here did, and both were caught by asking which eras the place appears in rather than by reading
+  the prose. France's said that French Guiana "is why the map shows France bordering Brazil and Suriname" —
+  true of `world.js`, and **France also appears in the 1500 era**, where it does not. Italy's said San Marino
+  and Vatican City are "drawn on this map as separate countries" — true of `world.js`, and **neither of them
+  appears in ANY of the thirteen eras**, so that sentence would have been false on every historical map Italy
+  is drawn on. The bar already says a description may not be written as a companion to one era; what these
+  two show is that the failure arrives dressed as the step-6 map check, which is otherwise the most useful
+  thing this pass does. **State the fact about the country, not about the polygon**: the republic's own land
+  frontiers reach Brazil and Suriname, and Rome is the only capital that contains a foreign state — both true
+  in 1500 and today.
+- **THE MAP'S ADJACENCY CHECK PAID AGAIN, AND ONCE IT SAID DO NOT COUNT.** Run over `world.js` at a 0.35°
+  tolerance it confirmed the United Kingdom's "only land border is with Ireland" and Thailand's four
+  neighbours exactly, and it caught a superlative that is simply wrong: Germany's draft said nine land
+  neighbours, "more than any other European state", and **Russia has fourteen**. It also showed why a COUNT
+  is riskier than a LIST — Iran's eight map-adjacent states include Kuwait across the Persian Gulf, so the
+  description names the seven land neighbours and claims no total.
+- **IRAN IS D2's AREA DISAGREEMENT AND THE COMPARISON HAD TO SURVIVE IT.** UNdata gives 1,630,848 km² and
+  the World Bank 1,745,150, seven per cent apart and neither adjudicable from here — the widest standing
+  disagreement the glossary pass recorded. The area citation therefore hangs on a claim that is true under
+  **both** figures: more than half as large again as Egypt is 1.63 on UNdata's number and 1.74 on the World
+  Bank's. **When two sources disagree, pick a comparison coarse enough that the disagreement cannot change
+  the answer**; that is cheaper than adjudicating, and honest.
+- **FRANCE HAS THREE OFFICIAL AREAS, AND THEY ARE THREE DIFFERENT FRANCES.** UNdata gives 551,500 km²,
+  the World Bank 606,410 and the EU's own country page 638,475, which is not a data-quality problem but a
+  definitional one: metropolitan France, an intermediate FAO figure, and the republic including its five
+  overseas departments. **No France area comparison is safe unless it holds under all three**, so the
+  description claims only that it is the largest member state of the European Union by area, which beats
+  Spain's 505,976 on every one of them.
+- **UNDATA'S FOOTNOTES CARRY CLAIMS ITS FIELDS DO NOT.** South Africa's Capital city field says only
+  "Pretoria", and footnote *c* at the bottom of the same page says "Pretoria is the administrative capital,
+  Cape Town is the legislative capital and Bloemfontein is the judiciary capital" — the whole three-capital
+  fact from Source A, where the field alone would have made the description wrong by omission. **Read the
+  footnote block, not just the table**; the world-geography plan already records that twelve countries have
+  more than one seat, and this is where the Atlas learns which.
+- **AND THE EU COUNTRY PAGE IS INTACT — THE LABEL CHANGED, NOT THE BLOCK.** C1 recorded the Key Facts block
+  as Capital, Geographical size, Population and "EU Member State : since <date>"; a first pass here reported
+  three of those four missing and it was the extraction, not the page — the label is **Capital**, not
+  *Capital city*, and the figures sit under a **Figures :** heading. All four fields are still served for
+  Germany, France and Italy, each with the founding date of 1 January 1958. **Confirm a spine source is
+  really broken before recording it as broken**, which cost two minutes here and would have retired a
+  working source for every European batch after this one.
