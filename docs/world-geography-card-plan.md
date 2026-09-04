@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-570` Guatemala City.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-571` Quito.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -727,6 +727,30 @@ wrong in a way that does not touch its claim, paraphrase the claim and leave the
 relay itself held here for the eleventh time — UNdata's 3,057.1 thousand for 2019 and the World Bank's
 `EN.URB.LCTY` 3,057,065 for the same year are one number, Dakar being both the capital and the largest
 city, which is the condition the Astana exception established.
+
+**`gw-570` GUATEMALA CITY IS WHERE C11'S SPANISH-AMERICA WARNING COMES GOOD, AND THE GUIDE PAGE IS THE
+RICHEST IN THE DECK.** C11 found that the recognition guide dates by U.S. RECOGNITION, which in Spanish
+America is not independence — the Central American states through the Federation in 1824 — and deferred
+Mexico, Costa Rica and Nicaragua on it. Guatemala's page is the one that states BOTH: *"Following its
+independence from Spain in 1821, Guatemala joined the Federation of Central American States in 1823"*,
+and then the 1824 federal recognition, an 1844 recognition of an independent Guatemala by exequatur, an
+1849 credentialing and an 1882 raising of the legation to an embassy. **Five datable relations claims on
+one page, of which four name a rank or an instrument** — grep the summary paragraph for the independence
+year before deferring a Spanish-American capital, exactly as C12 found for South America.
+
+**AND IT CARRIES AN ADMISSION AGAINST INTEREST, WHICH IS CITED AS AN ACCOUNT AND NOT AS A FINDING.** The
+same page says the Central Intelligence Agency "assisted in the overthrow" of President Jacobo Árbenz
+Guzmán in June 1954 and that relations were resumed on 12 July. The house rule is that **no state's
+account of its own actions is repeated as established fact**, and it does not lift merely because the
+account is unflattering — so the card writes *"The American record states that…"* and lets the reader see
+whose sentence it is. The corroboration is a different institution: **Security Council resolution 104
+(1954)**, adopted unanimously at the 675th meeting on 20 June 1954 on a cablegram from the Guatemalan
+minister for external relations, calling for "the immediate termination of any action likely to cause
+bloodshed" and asking all members "to abstain, in the spirit of the Charter, from rendering assistance to
+any such action." **A Security Council resolution is the second source a contested American account
+needs**, and `digitallibrary.un.org/search?p=S%2FRES%2F<n>%28<year>%29` resolves one by symbol where the
+free-text search returns nothing at all. Its PDF needs `curl -sL` — the files endpoint 302s, and a
+redirect not followed hands back 182 bytes that decompress to nothing.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
