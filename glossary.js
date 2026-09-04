@@ -1959,7 +1959,8 @@ window.GLOSSARY = {
 "Plebeian_council": "The plebeian council, or concilium plebis, was the assembly in which the Roman plebeians met by tribes under the presidency of their own tribunes, to elect their magistrates and to pass the resolutions known as plebiscita.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It counted as a concilium rather than as comitia because a tribune could summon only a part of the people and could refer nothing to the patricians, so that what it voted was called a scitum and not a law.<sup class=\"fn\" data-fn=\"1\"></sup> A series of statutes made its resolutions binding on the whole citizen body, the last of them the lex Hortensia, after which they carried the force of law.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Aedile": "An aedile was a Roman magistrate whose name is said to come from the care of the temple, the aedes, of Ceres, and whose duties covered the city's buildings, streets, markets, corn supply and public games.<sup class=\"fn\" data-fn=\"1\"></sup> The first pair were plebeians, created at the same time as the tribunes and at first their assistants, hearing the smaller cases referred to them and keeping the decrees of the senate and the resolutions of the plebs.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Two curule aediles were added later, drawn from the patricians and afterwards from either order, and marked out by the folding chair, the purple-bordered toga and the right to issue edicts.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Gnaeus_Marcius_Coriolanus": "Gnaeus Marcius Coriolanus is a Roman patrician of the early Republic known only from the annalistic tradition, which gives him his surname from the capture of the Volscian town of Corioli.<sup class=\"fn\" data-fn=\"1\"></sup> The story has him oppose the sale of imported corn to the commons except at the price of the tribunate, stand impeached by the tribunes, be condemned in his absence, and take refuge among the Volscians, whose army he then led against his own city.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He is said to have turned back at the pleading of his mother and wife, and the accounts differ over their names and over how he died.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
-"Lucius_Quinctius_Cincinnatus": "Lucius Quinctius Cincinnatus was a Roman patrician of the 5th century BCE, remembered for two dictatorships and for the tradition that the senate's envoys found him at work on a farm of four iugera across the Tiber.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He is said to have relieved an army trapped by the Aequi and to have laid down on the sixteenth day an office granted for six months, which made him a standing Roman example of power surrendered.<sup class=\"fn\" data-fn=\"2\"></sup> The same sources make him a hard opponent of the plebeians' claims, and the reference works gathering the ancient notices record that the legend's inconsistencies have long been pointed out.<sup class=\"fn\" data-fn=\"4\"></sup>"
+"Lucius_Quinctius_Cincinnatus": "Lucius Quinctius Cincinnatus was a Roman patrician of the 5th century BCE, remembered for two dictatorships and for the tradition that the senate's envoys found him at work on a farm of four iugera across the Tiber.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He is said to have relieved an army trapped by the Aequi and to have laid down on the sixteenth day an office granted for six months, which made him a standing Roman example of power surrendered.<sup class=\"fn\" data-fn=\"2\"></sup> The same sources make him a hard opponent of the plebeians' claims, and the reference works gathering the ancient notices record that the legend's inconsistencies have long been pointed out.<sup class=\"fn\" data-fn=\"4\"></sup>",
+"Twelve_Tables": "The Twelve Tables were the earliest written law of Rome, drawn up by a board of ten men appointed for the purpose, cut on bronze and set up in a public place where anyone could read them.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They covered both public and private law, from the summons of a defendant and the treatment of a judged debtor to burial, and one ancient historian called them the source of all public and private jurisprudence.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> No copy survives: what is known of their wording comes from brief and archaic fragments quoted by later writers, and the arrangement of those fragments into tables is a modern reconstruction.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2727,7 +2728,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Medes": "9th – 6th century BCE",
 "Conflict_of_the_Orders": "c. 494 – 287 BCE",
 "Gnaeus_Marcius_Coriolanus": "fl. c. 493 BCE",
-"Lucius_Quinctius_Cincinnatus": "c. 519 – after 439 BCE"
+"Lucius_Quinctius_Cincinnatus": "c. 519 – after 439 BCE",
+"Twelve_Tables": "451 – 449 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3920,7 +3922,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Plebeian_council": ["concilium plebis","plebeian assembly"],
 "Aedile": ["aedileship","aediles curules","curule aedile"],
 "Gnaeus_Marcius_Coriolanus": ["Coriolanus","Marcius Coriolanus","Caius Marcius Coriolanus"],
-"Lucius_Quinctius_Cincinnatus": ["Cincinnatus","L. Quinctius Cincinnatus"]
+"Lucius_Quinctius_Cincinnatus": ["Cincinnatus","L. Quinctius Cincinnatus"],
+"Twelve_Tables": ["Lex Duodecim Tabularum","Law of the Twelve Tables"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5912,7 +5915,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Plebeian_council": ["institution","concept","history","politics","italy"],
 "Aedile": ["title","institution","history","politics","italy"],
 "Gnaeus_Marcius_Coriolanus": ["person","history","warfare","politics","italy"],
-"Lucius_Quinctius_Cincinnatus": ["person","history","politics","warfare","italy"]
+"Lucius_Quinctius_Cincinnatus": ["person","history","politics","warfare","italy"],
+"Twelve_Tables": ["text","institution","history","politics","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
