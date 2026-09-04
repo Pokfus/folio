@@ -1763,7 +1763,8 @@ window.GLOSSARY = {
 "Evacuation_of_Athens": "The evacuation of Athens was the removal of the Athenian population from Attica in 480 BCE, after the defeat at Thermopylae opened the road south to the army of Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> Most families were sent to Troezen, which voted to maintain them at public cost, and others to Aegina and to Salamis, while the men of fighting age went aboard the fleet.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Herodotus reports that a snake kept in the sacred precinct on the acropolis left its monthly honey-cake untouched and the priestess took this for the goddess abandoning the city; Plutarch presents the sign as Themistocles' own management of a reluctant assembly.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Troezen_decree": "The Troezen decree is an inscribed stone from the Troezenia in the north-eastern Peloponnese carrying a text that presents itself as the Athenian decree of 480 BCE, ordering the city abandoned and the fleet manned against the invasion of Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> It was turned up by accident in 1932 or 1933, stood for about 25 years in a private house, and was recorded and published in 1959, becoming famous within months.<sup class=\"fn\" data-fn=\"1\"></sup> Its standing as evidence for what Athens did is not straightforward, since Herodotus and Aristotle both describe the evacuation as an improvised response rather than a measure settled in advance.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Sack_of_the_Acropolis": "The sack of the Acropolis was the storming and burning of the Athenian citadel by the army of Xerxes I in 480 BCE, after the city below had been evacuated and a small garrison of treasurers and poor men had barricaded the height.<sup class=\"fn\" data-fn=\"1\"></sup> The Persians shot fire-arrows from the Areopagus opposite and, when the barricade held, climbed the cliff at the front of the rock, killed the suppliants and burnt the sanctuary.<sup class=\"fn\" data-fn=\"1\"></sup> Mardonius destroyed what remained of the city the following year, and Pausanias was still shown fire-blackened statues of Athena on the citadel in the 2nd century CE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Battle_of_Salamis": "The Battle of Salamis was a naval engagement fought in 480 BCE in the strait between the island of Salamis and the coast of Attica, in which the allied Greek fleet destroyed much of the navy of Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> The Greek ships were drawn into the narrows, where the far larger Persian fleet could not deploy and its rear ran foul of its own front, and the Persian commander Ariabignes, a brother of the king, was killed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Ancient counts of the fleets differ: Herodotus gives the Greeks 378 triremes, Aeschylus 310 against a Persian thousand, and Thucydides speaks of four hundred ships in all.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Battle_of_Salamis": "The Battle of Salamis was a naval engagement fought in 480 BCE in the strait between the island of Salamis and the coast of Attica, in which the allied Greek fleet destroyed much of the navy of Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> The Greek ships were drawn into the narrows, where the far larger Persian fleet could not deploy and its rear ran foul of its own front, and the Persian commander Ariabignes, a brother of the king, was killed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Ancient counts of the fleets differ: Herodotus gives the Greeks 378 triremes, Aeschylus 310 against a Persian thousand, and Thucydides speaks of four hundred ships in all.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Eurybiades": "Eurybiades, son of Euryclides, was the Spartan commander of the allied Greek fleet during the invasion of Xerxes I in 480 BCE, holding the command at Artemisium and at Salamis because the allies refused to serve under Athenian leadership.<sup class=\"fn\" data-fn=\"1\"></sup> He twice favoured withdrawal, from Artemisium and from Salamis to the Isthmus, and both times was persuaded to stay, on the first occasion by money Themistocles had taken from the Euboeans.<sup class=\"fn\" data-fn=\"1\"></sup> After the victory he opposed sailing to destroy the bridges over the Hellespont, arguing that a Persian king trapped in Europe would be more dangerous than one allowed to leave, and Sparta later crowned him for valour.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2551,7 +2552,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Evacuation_of_Athens": "480 BCE",
 "Troezen_decree": "480 BCE, if genuine",
 "Sack_of_the_Acropolis": "480 BCE",
-"Battle_of_Salamis": "480 BCE"
+"Battle_of_Salamis": "480 BCE",
+"Eurybiades": "fl. 480 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5448,7 +5450,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Evacuation_of_Athens": ["event","history","warfare","greece"],
 "Troezen_decree": ["text","history","archaeology","greece"],
 "Sack_of_the_Acropolis": ["event","history","warfare","greece","iran"],
-"Battle_of_Salamis": ["battle","history","warfare","greece","iran"]
+"Battle_of_Salamis": ["battle","history","warfare","greece","iran"],
+"Eurybiades": ["person","history","warfare","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
