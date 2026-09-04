@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-586` Abu Dhabi.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-587` Havana.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -1057,6 +1057,25 @@ usual `AG.SRF.TOTL.K2` fallback is barred. **Security Council resolution 203 (19
 1208th meeting, 14 May 1965, "deeply concerned at the grave events in the Dominican Republic", calling for
 a strict cease-fire — which is also the UN's own record of what the guide alludes to when it says American
 military occupations "have at times strained relations".
+
+**`gw-586` ABU DHABI EXPLAINS THE WIDEST AREA GAP IN PHASE 3, AND THE ANSWER WAS IN A FOOTNOTE ALL
+ALONG.** C5 deferred the UAE because UNdata's 71,024 km² sat 17% below the term's 83,600 with no second
+source; D2 resolved it with the World Bank's 98,648, which puts the term between the two. Neither read
+UNdata's **footnote b on that row: *"Land area only."*** The two bodies are not disagreeing — one is
+measuring land and the other surface, on a country of shoals, sabkha and islands. **A UNdata figure that
+looks wrong by a wide margin may be measuring something narrower, and the footnote says which**; this is
+the third time in ten cards that a UNdata footnote has settled a question the fields alone could not, after
+the Netherlands' and Benin's divided capitals and Burundi's orphaned one.
+
+**IT IS ALSO THE EIGHTH RELAY BREAK, THE THIRD MISSION-ELSEWHERE CARD RUNNING, AND THE THIRD CHARTER PAIR
+IN SIX.** `EN.URB.LCTY` gives 2,833,079 for 2019 against UNdata's 1,452,100 for the capital, because the
+series counts **Dubai** — and here, unusually, the card CAN name the larger city, the recognition guide
+listing Dubai among the seven sheikdoms; Sucre's could not. Stoltzfus, credentialed 20 March 1972, "was
+also accredited to a number of other Persian Gulf states and he resided in Kuwait", with an embassy at Abu
+Dhabi only on 24 June 1974 — Langston at Port-au-Prince and Heath at Saigon in the same shape. And the
+admission is Security Council resolution 304 (1971), voted unanimously on 8 December, then General
+Assembly resolution 2794 (XXVI) at the 2007th plenary on 9 December: **one week from declaration to
+membership.**
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
