@@ -6,7 +6,7 @@
   coastlines of Italy / Greece / China" in the card Atlas windows of the Rome, Greece and China
   collections). Standalone Node helper, zero deps. Not part of the site.
 
-    node .claude/build-hires-coasts.js [--src=<ne_10m_admin_0_countries.geojson>] [--tol=0.0015] [--region=italy]
+    node .claude/build-hires-coasts.js [--src=<the 10m countries geojson>] [--tol=0.0015] [--region=italy]
 
   Writes coast/<region>.js, one file per region, each pushing onto `window.HIRES_COAST_IN` — a QUEUE
   rather than an assignment, for the reason the i18n files push: two regions may land in one session and
@@ -59,7 +59,11 @@
 const fs = require("fs"), path = require("path");
 const ROOT = path.join(__dirname, "..");
 const args = Object.fromEntries(process.argv.slice(2).map((a) => { const m = /^--([^=]+)(?:=(.*))?$/.exec(a); return m ? [m[1], m[2] == null ? true : m[2]] : [a, true]; }));
-const SRC = args.src || path.join(__dirname, "ne_10m_admin_0_countries.geojson");
+/* `dl-ne10.js` writes `ne_10m.geojson`; the default here named the file by its upstream name, which that
+   downloader has never produced — so a first run died on a file nobody could have had. Both are accepted:
+   the one the downloader writes wins, and a hand-placed copy under the upstream name still works. */
+const SRC = args.src || ["ne_10m.geojson", "ne_10m_admin_0_countries.geojson"]
+  .map((f) => path.join(__dirname, f)).find((f) => fs.existsSync(f)) || path.join(__dirname, "ne_10m.geojson");
 const TOL_DEFAULT = Number(args.tol) || 0.002;
 const ONLY = args.region ? String(args.region) : null;
 const die = (m) => { console.error("ERROR: " + m); process.exit(1); };
@@ -151,6 +155,26 @@ const inBox = (p, bb) => p[0] >= bb[0] && p[0] <= bb[2] && p[1] >= bb[1] && p[1]
 const ringBox = (r) => { let x0 = 180, y0 = 90, x1 = -180, y1 = -90; for (const p of r) { if (p[0] < x0) x0 = p[0]; if (p[0] > x1) x1 = p[0]; if (p[1] < y0) y0 = p[1]; if (p[1] > y1) y1 = p[1]; } return [x0, y0, x1, y1]; };
 const boxesMeet = (a, b) => a[0] <= b[2] && a[2] >= b[0] && a[1] <= b[3] && a[3] >= b[1];
 
+/* THE ARC A LOW-RES EDGE STANDS FOR IS THE SHORT ONE, AND `dir` ALONE CANNOT SAY SO (Sep 2026, on a bug
+   report: "in the Ancient Greece collection I can no longer see the landmass of Turkey"). `dir` is the
+   ring's own direction, decided once by majority over the whole ring, and for a handful of edges the
+   index mapping runs the other way — a vertex whose rounded key matches the 10m ring in two places is
+   enough. Walking those in `dir` goes the LONG way round: the chain comes back as nearly the entire 10m
+   ring, and the spliced ring is then the country traced twice over.
+   IT RENDERS, WHICH IS WHY NOTHING CAUGHT IT. A doubled ring has twice the signed area and every vertex
+   in the right place, so it looks perfect stroked and perfect under a NONZERO fill — and the card window
+   fills EVEN-ODD, where two windings cancel: Turkey's mainland was drawn and then unfilled by its own
+   second copy, leaving Anatolia as open sea between the Black Sea and the Mediterranean. China's ring
+   was traced three times and so still filled, at three times the points. A low-res edge is a
+   simplification of a SHORT arc, so an arc longer than half the ring is wrong whatever `dir` says, and
+   the complementary walk is the true one. Used for a coast EDGE only — an island deliberately walks the
+   whole ring. */
+function edgeChain(ring, i, j, dir) {
+  const n = ring.length;
+  const m = (ring[0][0] === ring[n - 1][0] && ring[0][1] === ring[n - 1][1]) ? n - 1 : n;
+  const steps = dir > 0 ? ((j - i) % m + m) % m : ((i - j) % m + m) % m;
+  return subChain(ring, i, j, steps * 2 > m ? -dir : dir);
+}
 // the 10m sub-chain from index i to index j of `ring`, walking in direction `dir` (+1 / -1), wrapping
 function subChain(ring, i, j, dir) {
   const n = ring.length, out = [];
@@ -199,7 +223,7 @@ function spliceCountry(name, region, log) {
     const dir = fwd >= back ? 1 : -1;
     // coast edges: a low-res edge is coast when the 10m chain it stands for is mostly unshared
     const coast = pts.map((p, i) => {
-      const chain = subChain(HR, at[i], at[(i + 1) % n], dir);
+      const chain = edgeChain(HR, at[i], at[(i + 1) % n], dir);
       let shared = 0;
       for (let q = 0; q + 1 < chain.length; q++) if (edgeShared(chain[q], chain[q + 1])) shared++;
       return shared * 2 < Math.max(1, chain.length - 1);
@@ -224,7 +248,7 @@ function spliceCountry(name, region, log) {
         // a coast edge p[i] -> p[i+1]: the 10m chain between the same two vertices, where the frame reaches it
         const j = (i + 1) % n;
         if (inBox(p, region.bbox) || inBox(pts[j], region.bbox)) {
-          const chain = dp(subChain(HR, at[i], at[j], dir), TOL).map(r4);
+          const chain = dp(edgeChain(HR, at[i], at[j], dir), TOL).map(r4);
           for (let q = 0; q < chain.length - 1; q++) res.push(chain[q]);   // the edge's last vertex is the next edge's first
           runs++; hiPts += chain.length - 1;
         } else res.push(p);

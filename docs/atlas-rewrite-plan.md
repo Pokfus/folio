@@ -200,7 +200,13 @@ is an open question and its batch size follows from the answer.
 |---|---|---|
 | **A0** | the three code changes, `add-place-info.js`, `atlas-audit.js` | **shipped 2026-08-21** |
 | **A1** | The eight most-studied present-day countries | **shipped 2026-08-21** |
-| A2–A33 | The remaining 250 present-day countries and territories, in descending population | planned |
+| **A2** | Russia, Mexico, Ethiopia, Japan, Egypt, the Philippines, DR Congo, Vietnam | **shipped 2026-09-03** |
+| **A3** | Iran, Turkey, Germany, France, the United Kingdom, Thailand, South Africa, Italy | **shipped 2026-09-04** |
+| **A4** | Tanzania, Myanmar, Colombia, South Korea, Spain, Kenya, Argentina, Uganda | **shipped 2026-09-04** |
+| **A5** | Algeria, Afghanistan, Ukraine, Sudan, Iraq, Poland, Canada, Morocco | **shipped 2026-09-04** |
+| **A6** | Angola, Uzbekistan, Peru, Saudi Arabia, Ghana, Malaysia, Madagascar, Venezuela | **shipped 2026-09-04** |
+| **A7** | Côte d’Ivoire, Mozambique, Nepal, Cameroon, Yemen, Australia, North Korea, Syria | **shipped 2026-09-04** |
+| A8–A33 | The remaining 202 present-day countries and territories, in descending population | planned |
 | B1–… | Stage 2, the 424 historical states, grouped by era | planned |
 | C1–… | Stage 3, the 528 names of the 1600 era, at a bar to be decided | planned |
 
@@ -293,3 +299,278 @@ after this one.
   States correctly falls through to its short name, that being its official one. The same check confirmed
   the apparatus end to end — India's eight markers numbered 1,1,5,1,2,2,3,4 with none removed, five items,
   five links, five back-links, the year section hidden and the phone's pager down to three dots.
+
+### A2 — the next eight by population (2026-09-03)
+
+Russia, Mexico, Ethiopia, Japan, Egypt, the Philippines, DR Congo and Vietnam, continuing the descending
+population order. All eight at the bar; five citations apiece, forty in all, every one open access and every
+one curled before the batch was written. Six findings.
+
+- **A COUNTRY'S DESCRIPTION CAN BE ABOUT SOMETHING ELSE ENTIRELY, AND NOTHING REPORTS IT.** `COUNTRY_INFO`'s
+  `japan` entry was five sentences on the **Azuchi–Momoyama period** — Nobunaga's castle at Azuchi,
+  Hideyoshi's sword hunt, the invasions of Korea — filed under the name of the modern state and shown to
+  every reader who clicked Japan on any of the six eras it appears in. It reads as a perfectly good
+  paragraph, it is five sentences of the old house style, and `atlas-audit.js` counted it as a box that
+  exists. **A coverage count cannot see a description that is about the wrong subject**, so the rewrite pass
+  is the only thing that will find the rest of them; read each existing entry before treating it as a
+  starting hypothesis, which is what step 1 of the per-place workflow is for.
+- **THE COMPARISON THAT CARRIES AN AREA CITATION SHOULD CITE BOTH COUNTRIES, AND THE WORLD BANK API TAKES A
+  SEMICOLON LIST.** A1 established that an area citation has to hang on a ratio or a comparison rather than
+  on a figure, because `stripInfoNoise` deletes the sentence and its marker with it. What A1 left is that
+  the citation then named only the country's own series while the claim rests on two. C9 recorded that
+  `api.worldbank.org/v2/country/AAA;BBB/indicator/…` serves a semicolon-separated list in one request; that
+  URL is openable, `SRC_URL_RX` allows the semicolon, and each of these eight cites the two-country series
+  its comparison actually stands on. **The anchor countries were chosen for a series the World Bank is not
+  wrong about** — India, the United Kingdom, Italy, Germany, the United States, the Philippines — and Canada,
+  the Dominican Republic and Monaco stay out of every comparison, per C11 and D1. France is out too: the
+  series gives it 606,410 km², which is the republic including its overseas departments and not the country
+  a reader pictures.
+- **THE MAP CAN CHECK A NEIGHBOUR LIST, AND IT CAUGHT TWO.** Step 6 of the workflow says to read the
+  description against the polygon; done as arithmetic — every claimed neighbour's own rings against this
+  country's, at a 0.35° tolerance over `world.js` — it is a few seconds per place and it found that Russia's
+  draft omitted **Poland**, which the map borders at the Kaliningrad exclave, and that Egypt's omitted
+  **Palestine**, which the map draws at Gaza. Both drafts read as complete lists and both were short one
+  state. Run the adjacency both ways: asking the map for a country's full neighbour set also confirmed DR
+  Congo's "borders nine states" against exactly the nine named.
+- **THE RECOGNITION GUIDE STILL DATES RECOGNITION, AND MEXICO IS C11's CASE UNCHANGED.** Grepped rather than
+  assumed: `history.state.gov/countries/mexico` carries no 1821 anywhere, so no independence year is claimed
+  for it. What the page does state is used instead — Spanish sovereignty ending with Napoleon's invasion of
+  Spain in 1808, and Monroe receiving José Manuel Zozaya on 12 December 1822 — and the fifth source is
+  **NARA's Milestone Document for the Treaty of Guadalupe Hidalgo**, which states outright that Mexico ceded
+  55 per cent of its territory and names the states. That is a checkable claim about Mexico from a page that
+  is really about the treaty, which is the same trade the Milestones make.
+- **A NEIGHBOUR'S GUIDE PAGE CARRIES THE CLAIM THIS COUNTRY'S DOES NOT.** Ethiopia has no independence date
+  to cite — its own page says the two states were "both long established" and dates only the 1903 treaty of
+  commerce — so the fact that actually needs a source is that it is **landlocked**, and the page that states
+  it is **Eritrea's**: independence declared 27 April 1993, "Eritrea previously had been under Ethiopian
+  sovereignty." D3 used El Salvador's page for Nicaragua on the same reasoning. Where a country's own entry
+  in the guide goes quiet, ask which neighbour's page the event is about.
+- **AND WHERE THE GUIDE GOES QUIET ABOUT AN ERA, THE MILESTONE ABOUT THE EVENT ANSWERS.** Five of the eight
+  take their fifth source from Milestones rather than from a statistical profile, and each is about an event
+  rather than a state, which is why one page can carry several claims: the collapse of the Soviet Union
+  dates Russia's succession and names the eleven republics that joined the CIS on 21 December 1991; the
+  opening to Japan carries both the 1639 expulsion and Perry's four ships on 8 July 1853; the Philippine-
+  American War carries the Treaty of Paris cession and the fighting from 4 February 1899; Congo
+  decolonization carries the elections, the Force Publique mutiny of 5 July and the UN force of 13 July; and
+  Ending the Vietnam War carries the Paris agreement of 27 January 1973 and the fact that neither party kept
+  it. **The Milestones have been retired and are no longer maintained**, which the pages say at the top; they
+  are still served, still stable and still the Office of the Historian's own text, so they are cited as they
+  stand.
+
+### A3 — the next eight by population (2026-09-04)
+
+Iran, Turkey, Germany, France, the United Kingdom, Thailand, South Africa and Italy. All eight at the bar;
+five citations apiece, forty in all, every one open access and every one curled before the batch was
+written. Six findings, and the first is the one that will bite every batch after this.
+
+- **A DESCRIPTION IS SHARED BY EVERY ERA, SO IT MAY NOT SAY ANYTHING ABOUT THE MAP IN FRONT OF THE READER.**
+  Two drafts here did, and both were caught by asking which eras the place appears in rather than by reading
+  the prose. France's said that French Guiana "is why the map shows France bordering Brazil and Suriname" —
+  true of `world.js`, and **France also appears in the 1500 era**, where it does not. Italy's said San Marino
+  and Vatican City are "drawn on this map as separate countries" — true of `world.js`, and **neither of them
+  appears in ANY of the thirteen eras**, so that sentence would have been false on every historical map Italy
+  is drawn on. The bar already says a description may not be written as a companion to one era; what these
+  two show is that the failure arrives dressed as the step-6 map check, which is otherwise the most useful
+  thing this pass does. **State the fact about the country, not about the polygon**: the republic's own land
+  frontiers reach Brazil and Suriname, and Rome is the only capital that contains a foreign state — both true
+  in 1500 and today.
+- **THE MAP'S ADJACENCY CHECK PAID AGAIN, AND ONCE IT SAID DO NOT COUNT.** Run over `world.js` at a 0.35°
+  tolerance it confirmed the United Kingdom's "only land border is with Ireland" and Thailand's four
+  neighbours exactly, and it caught a superlative that is simply wrong: Germany's draft said nine land
+  neighbours, "more than any other European state", and **Russia has fourteen**. It also showed why a COUNT
+  is riskier than a LIST — Iran's eight map-adjacent states include Kuwait across the Persian Gulf, so the
+  description names the seven land neighbours and claims no total.
+- **IRAN IS D2's AREA DISAGREEMENT AND THE COMPARISON HAD TO SURVIVE IT.** UNdata gives 1,630,848 km² and
+  the World Bank 1,745,150, seven per cent apart and neither adjudicable from here — the widest standing
+  disagreement the glossary pass recorded. The area citation therefore hangs on a claim that is true under
+  **both** figures: more than half as large again as Egypt is 1.63 on UNdata's number and 1.74 on the World
+  Bank's. **When two sources disagree, pick a comparison coarse enough that the disagreement cannot change
+  the answer**; that is cheaper than adjudicating, and honest.
+- **FRANCE HAS THREE OFFICIAL AREAS, AND THEY ARE THREE DIFFERENT FRANCES.** UNdata gives 551,500 km²,
+  the World Bank 606,410 and the EU's own country page 638,475, which is not a data-quality problem but a
+  definitional one: metropolitan France, an intermediate FAO figure, and the republic including its five
+  overseas departments. **No France area comparison is safe unless it holds under all three**, so the
+  description claims only that it is the largest member state of the European Union by area, which beats
+  Spain's 505,976 on every one of them.
+- **UNDATA'S FOOTNOTES CARRY CLAIMS ITS FIELDS DO NOT.** South Africa's Capital city field says only
+  "Pretoria", and footnote *c* at the bottom of the same page says "Pretoria is the administrative capital,
+  Cape Town is the legislative capital and Bloemfontein is the judiciary capital" — the whole three-capital
+  fact from Source A, where the field alone would have made the description wrong by omission. **Read the
+  footnote block, not just the table**; the world-geography plan already records that twelve countries have
+  more than one seat, and this is where the Atlas learns which.
+- **AND THE EU COUNTRY PAGE IS INTACT — THE LABEL CHANGED, NOT THE BLOCK.** C1 recorded the Key Facts block
+  as Capital, Geographical size, Population and "EU Member State : since <date>"; a first pass here reported
+  three of those four missing and it was the extraction, not the page — the label is **Capital**, not
+  *Capital city*, and the figures sit under a **Figures :** heading. All four fields are still served for
+  Germany, France and Italy, each with the founding date of 1 January 1958. **Confirm a spine source is
+  really broken before recording it as broken**, which cost two minutes here and would have retired a
+  working source for every European batch after this one.
+
+### A4 — the next eight by population (2026-09-04)
+
+Tanzania, Myanmar, Colombia, South Korea, Spain, Kenya, Argentina and Uganda. All eight at the bar, and
+**South Korea carries six citations rather than five** for the reason given below. Every URL curled before
+the batch was written; every source open access. Six findings.
+
+- **AN "OFFICIALLY" CLAUSE MUST BE CLOSED BY A COMMA, AND NOTHING MAY BE ADDED INSIDE IT.** `officialName`
+  reads `\bofficially\s+(?:the\s+)?(.+?)\s*[,(.;:]` — non-greedy up to the first comma — so Myanmar's
+  draft, which opened "officially the Republic of the Union of Myanmar and long known abroad as Burma,",
+  put **the whole of that clause in the panel title**. It was caught in the browser and not by any check:
+  `add-place-info.js` cannot see it, the sentence reads perfectly, and the failure is a title six words too
+  long rather than an error. The fix is one comma. **A country with a second widely used name gets it in
+  its own clause**, after the official one is closed.
+- **THE RECOGNITION GUIDE HAS TWO KOREA PAGES AND THEY ARE DIFFERENT WORKS.** `/countries/south-korea` is a
+  404; what answers is **`/countries/korea`**, on the Kingdom of Choson — the treaty of amity and commerce
+  signed with the United States at Chemulpo on 22 May 1882, the first Korea signed with any western nation,
+  and Japan taking over Korean foreign relations on 17 November 1905 — and **`/countries/korea-south`**, on
+  the Republic of Korea, recognised on 1 January 1949. Neither page has a Summary section, which is why a
+  scrape written for the usual shape came back empty from both. South Korea therefore cites both, plus the
+  Korean War milestone for the division at the 38th parallel, and runs to six sources: **the bar is a floor,
+  and a country whose history needs a sixth work should have one.** (The Korea plan already records that the
+  guide has no page for North Korea at all.)
+- **MARK ONLY WHAT THE PAGE ACTUALLY SAYS, AND THE COMMONWEALTH PAGE IS SHORTER THAN IT LOOKS.** Tanzania's
+  draft carried a sentence about the union of the mainland with Zanzibar marked to the Commonwealth's own
+  country page; grepped, that page contains **one** mention of Zanzibar — "The country includes the island of
+  Zanzibar" — and **no** mention of 1964 or of the union at all. The sentence was rewritten to what the page
+  does carry, which also gave Kilimanjaro's "highest point in Africa" a citation it had been asserting
+  unmarked in the first block. **Grep the saved page for the year before marking a sentence to it** — the
+  same two-second check C11 recommends for the recognition guide's independence dates.
+- **THE COMMONWEALTH PAGE IS ALSO WHERE A SECOND SEAT OF GOVERNMENT TURNS UP.** UNdata gives Tanzania's
+  capital as "Dodoma" and nothing else; the Commonwealth's Key Facts give "Dar es Salaam (acting), Dodoma
+  (official)". That is A3's South Africa finding one source over — the fact is real, the field is not where
+  it lives — and between the two, **UNdata's footnote block and the Commonwealth's Key Facts are where the
+  Atlas learns which countries have more than one seat.**
+- **MY OWN WORD COUNT HAD TO BE MADE THE TOOL'S.** The draft checker replaced tags with a space where
+  `add-place-info.js` deletes them, so `<b>Spain</b>,` counted as two tokens against the tool's one, and
+  Spain was refused at 269 words after passing the draft check at 270. The scratch checker now uses the
+  tool's own expression. **A pre-flight check that is a paraphrase of the gate is a check that will
+  disagree with it at the boundary**, and the boundary is where a 270-word bar puts every short entry.
+- **SPAIN IS C2's POPULATION DIVERGENCE, STILL THERE AND NOW THREE-WAY.** UNdata gives 47,890 thousand, the
+  EU's own country page 49,077,984 and the World Bank 49.36 million — the EU and the World Bank agreeing
+  against Source A, exactly as C2 recorded. It costs this pass nothing, because `stripInfoNoise` means no
+  description states a population figure at all; the ratio claim rests on the World Bank series. **Where a
+  figure is contested, the rule that keeps figures out of the prose is also what keeps the prose right.**
+
+### A5 — the next eight by population (2026-09-04)
+
+Algeria, Afghanistan, Ukraine, Sudan, Iraq, Poland, Canada and Morocco. All eight at the bar, five
+citations apiece, every URL curled and every source open access. Six findings, and the first supersedes
+A4's version of it.
+
+- **THE WORD "OFFICIALLY" MAY APPEAR ONCE IN A DESCRIPTION AND ONLY IN THE OPENING CLAUSE.** A4 recorded
+  that an "officially" clause must be closed by a comma; that was the narrow case. `officialName` searches
+  the WHOLE description for `\bofficially\b` and takes everything up to the next comma, so Afghanistan's
+  eighth sentence — quoting the guide's "officially free and independent in its affairs" — put **that
+  phrase in the panel title**, on a country whose opening sentence had no official-name clause at all.
+  **A one-line audit over every cited place now exists and should be run after each batch**: flag any
+  `officially` more than ~90 characters in, and any resolved title longer than 60 characters. Run over all
+  forty entries it found exactly this one, which is the reassuring half of the result.
+- **WHERE A STATE'S OFFICIAL NAME IS CONTESTED, LET THE TITLE FALL THROUGH TO THE MAP'S OWN NAME.** Neither
+  UNdata nor the recognition guide gives Afghanistan a long form — both say simply "Afghanistan" — and the
+  two long forms in circulation are the competing claims of two governments. Writing no "officially" clause
+  is the neutral course and needs no special case: `officialName` already returns the short name, exactly as
+  it does for Japan, Canada and the United States.
+- **CANADA IS THE COUNTRY A1's AREA WARNING WAS WRITTEN ABOUT, AND IT NEEDED THE OPPOSITE TREATMENT.** A1
+  recorded that a global area ranking is unsafe because `AG.SRF.TOTL.K2` gives Canada 15,634,410 km²
+  against the true 9,984,670. Here the country needing a ranking IS Canada, so the World Bank series was
+  **dropped from its source list altogether** and its area rests on the two works that agree — UNdata's
+  9,984,670 and the Commonwealth Secretariat's rounded "10 million" — with the Commonwealth page also
+  carrying its 1931 entry under the Statute of Westminster. **The fix for a series that is wrong about one
+  country is to stop citing it for that country**, not to avoid the claim.
+- **SUDAN HAS NO SURFACE AREA FIELD AT UNDATA AT ALL**, which C9 recorded and which is still true: its
+  profile is the only one in the pass that omits one. Its area therefore rests on the World Bank series
+  alone, stated here rather than hidden, and the comparison chosen is coarse — nearly twice the size of
+  Egypt — so that a single source is carrying as little weight as possible.
+- **A NEIGHBOUR'S GUIDE PAGE CARRIED SUDAN'S OWN RECENT HISTORY**, as Eritrea's did Ethiopia's in A2.
+  Sudan's page states the 1956 independence and the Anglo-Egyptian condominium and stops; **South Sudan's**
+  page carries the recurring north-south civil wars, the Comprehensive Peace Agreement of 2005, the
+  referendum of January 2011 and the declaration of 9 July 2011. That is now the second time the route has
+  paid, and it is worth reaching for whenever a country's own entry goes quiet after independence.
+- **UKRAINE'S UN SEAT IS C3's TRAP AND THE SENTENCE SAYS SO.** UNdata gives 24 October 1945, which is the
+  Ukrainian SSR's own seat and not the date of anything the modern state did; the description states the
+  date and immediately says it was taken up while the country was a constituent republic of the Soviet
+  Union. **A date that would mislead standing alone can still be used, provided the sentence carries what
+  makes it not mislead** — which is cheaper than dropping it, and tells the reader something true.
+
+### A6 — the next eight by population (2026-09-04)
+
+Angola, Uzbekistan, Peru, Saudi Arabia, Ghana, Malaysia, Madagascar and Venezuela. All eight at the bar,
+five citations apiece, every URL curled and every source open access. Five findings.
+
+- **A SPINE SOURCE CAN BE WRONG ABOUT A PLAIN FACT, AND SOURCE A CAUGHT IT.** The recognition guide's Peru
+  page ends its summary "Peru has been a member of the United Nations since 1949"; UNdata gives **31 October
+  1945**, which is the date Peru ratified the Charter as an original member. The two cannot both be right and
+  the guide is the one that is wrong, on a page otherwise good enough to carry the July 1821 independence
+  date C12 recommends it for. P2 recorded that a spine source is not infallible and that the fault is usually
+  inside one essay; this is the same thing across two sources, and it is caught only because **both are read
+  for every place** rather than one being used for history and the other for figures. The description uses
+  UNdata's date and does not repeat the guide's.
+- **THE GUIDE'S PAGE SHAPE IS NOT UNIFORM, AND A SCRAPE KEYED ON ONE HEADING WILL SILENTLY MISS PAGES.**
+  A4 found the two Korea pages have no Summary section at all; Uzbekistan's has one under a different name,
+  **"Historical Overview"**. So a country's page can be rich and come back empty from an extractor written
+  for the usual shape. **Read the raw page when a scrape returns nothing** — it is far more often the heading
+  than the page.
+- **A CAPITAL-CITY FOOTNOTE IS NOW THE THIRD SECOND-SEAT CASE IN THREE BATCHES.** UNdata's field for Malaysia
+  says "Kuala Lumpur" with a footnote marker, and the footnote reads "Kuala Lumpur is the capital and
+  Putrajaya is the administrative capital" — after A3's South Africa and A4's Tanzania. **Read the footnote
+  block on every profile**; on the evidence so far roughly one country in ten has something there that the
+  field itself does not say.
+- **SEVEN OF THE EIGHT DRAFTS CAME IN UNDER THE WORD FLOOR, WHICH IS A FACT ABOUT THE COUNTRIES.** A1–A5
+  averaged one or two short drafts a batch; here it was seven. These are countries whose recognition-guide
+  pages are short — Ghana's whole summary is a single sentence — so there is less cited history to write, and
+  the words have to come from geography instead. **Where the guide is thin, budget the geography block
+  wider**: the fix each time was a real clause about the country rather than padding, and it is easier to
+  write that at drafting time than to retrofit it.
+- **AN AREA COMPARISON IS WORTH MORE WHEN IT LANDS ON A COUNTRY THE READER HAS ALREADY MET.** Madagascar is
+  almost exactly the size of Kenya, Malaysia a tenth larger than Italy, Uzbekistan a little larger than Iraq,
+  Venezuela a little smaller than Nigeria — all four anchors are places already at the bar in this pass, so a
+  reader moving around the Atlas accumulates a scale rather than a list of unrelated ratios. It costs nothing
+  to choose the anchor that way, and the World Bank's semicolon list makes the two-country citation the same
+  single fetch either way.
+
+### A7 — the next eight by population (2026-09-04)
+
+Côte d’Ivoire, Mozambique, Nepal, Cameroon, Yemen, Australia, North Korea and Syria. All eight at the bar;
+North Korea carries six citations for the reason A4 gave for South Korea. Six findings, and the first adds
+a source to the spine.
+
+- **`un.org/en/about-us/growth-in-un-membership` IS A SPINE SOURCE, AND IT IS THE SIBLING OF THE PAGE A1
+  RULED OUT.** A1 recorded that `un.org/en/about-us/member-states` cannot carry a founding-member claim —
+  the served HTML is a list of names with no dates. **The neighbouring page has all of them**, server
+  rendered: the fifty-one original members of 1945 by name, then every later cohort by year, with the
+  states listed under the names they were admitted under and footnotes on the awkward cases. It settled
+  five of this batch's fifth sources and three claims nothing else here could carry — that Yemen's 1947
+  seat is the one the organisation lists as the Yemen Arab Republic, that Syria "resumed its separate
+  membership" on 13 October 1961 after the United Arab Republic, and that both Koreas were admitted on the
+  same day in 1991. It also supports arithmetic about the cohorts themselves: **1960 is the largest single
+  year of admissions the organisation has had, seventeen states of which sixteen were African**, and 1955's
+  sixteen broke a deadlock that had held membership flat since 1950. Both counts were derived from the page
+  rather than recalled.
+- **NORTH KOREA HAS NO PAGE IN THE RECOGNITION GUIDE, ON ANY SLUG**, which the Korea plan records and which
+  was confirmed here against `north-korea`, `korea-north`, `dprk` and `korea,-north`, all 404 — the United
+  States has never recognised it. What stands in is the guide's **`/countries/korea`** page, on the Kingdom
+  of Choson and the Japanese takeover of Korean foreign relations in 1905, plus the Korean War milestone for
+  the division at the 38th parallel; with the growth page that makes six. **A country outside the American
+  recognition system is not a country outside this pass** — it is a country whose second source has to be
+  about the place rather than about the relationship.
+- **DO NOT SINGLE A COUNTRY OUT ON A FOOTNOTE EVERY COUNTRY CARRIES.** A draft sentence said North Korea's
+  published population figures are outside estimates rather than its own returns, marked to UNdata, whose
+  population row does carry "Projected est. (medium fertility variant)" — **and so does every other profile
+  in this pass.** The footnote supports a statement about UNdata's method, not about North Korea, and the
+  sentence was replaced by one the sources do carry. The epistemics of a closed state are worth writing
+  about; they need a source that is actually about that state.
+- **THE COMMONWEALTH'S JOINING LINE FOR CAMEROON NOW READS DIFFERENTLY FROM WHAT C6 RECORDED, AND IS STILL
+  NOT CITABLE.** C6 measured it as 1995 and called Cameroon "the near-match to withhold on"; today the page
+  says "Joined the Commonwealth 1960, following independence from Britain", which is wrong twice over —
+  Cameroon acceded in 1995, and what was independent from Britain in 1961 was the Southern Cameroons.
+  Withheld, and the fifth source is the growth page instead. **A finding that a source is unreliable for one
+  country does not go stale when the source changes; re-read the line, then withhold anyway.**
+- **A FOURTH SECOND-SEAT CASE IN FOUR BATCHES**: UNdata's capital field for Côte d’Ivoire says
+  "Yamoussoukro" with a footnote reading "Yamoussoukro is the capital and Abidjan is the administrative
+  capital", after South Africa, Tanzania and Malaysia. **Read the footnote block on every profile** is no
+  longer advice; on the evidence it is part of the recipe.
+- **THE ATLAS DEEP LINK TAKES THE ENCODED ENTITY NAME, NOT A SLUG**, which the browser check found the hard
+  way: `#map/<year>/<name>` is parsed by `parseMapHash`, which `decodeURIComponent`s `parts[2]` and matches
+  it as a name. A harness lowercasing and hyphenating the name worked by luck on plain ASCII and returned an
+  empty panel for **Côte d’Ivoire**, which reads exactly like a place whose description failed to write.
+  Use `encodeURIComponent(name)`; A1–A6's checks were passing for the wrong reason.
