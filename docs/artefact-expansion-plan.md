@@ -293,6 +293,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, `igbo-ukwu-bronze`, `bodkin-arrowhead` again, `fustat-paper` again |
 | B4c | `ban-chiang-pot`, `sumatralith` (both UN-DEFERRED — **B4's list is now empty**) | — |
 | B1f | `glass-bangle` (UN-DEFERRED, and **shipped with no picture** — see below; **B1's list is now empty**) | `jade-burial-suit`, `bodkin-arrowhead` again |
+| S1 | **nothing — a search batch, see below** | `identity-disc` (one work found), `turnshoe` again, `trench-art-shell-case`, `fustat-paper` again |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1661,6 +1662,43 @@ rather than left looking like an oversight.
   on Taylor & Francis, which is 403; the **Archaeology Data Service** answers on its root and **403s on
   every `library/` path**; and `intarch.ac.uk` answers but exposes no issue index or search that can be
   fetched. The London Museum record naming "London Museum type 7" remains the only work in hand.
+
+**S1 SHIPPED NOTHING, AND ITS FINDING IS THE MOST DANGEROUS 200 THIS PASS HAS MET.**
+**`archive.org` SERVES ITS HTML DETAILS PAGE, WITH A 200, AT `download/<id>/<id>_djvu.txt` FOR AN ITEM
+THAT HAS NO TEXT LAYER.** That matters more here than anywhere else a content-free 200 has turned up,
+because the method for a scanned book is to download that file and grep it: the grep returns zero, and
+zero reads as **"the book does not mention the subject"** when in fact no book was downloaded. Two of this
+batch's downloads were that page — the 1911 *Field Service Pocket Book* and *Casualties and Medical
+Statistics of the Great War* — and both came back as byte-identical HTML of 137,595 bytes under different
+identifiers, which is what gave it away. **Check the first bytes for `<!DOCTYPE html>` before grepping a
+`_djvu.txt`, and treat a suspiciously round or repeated file size as the signature.** It also puts a
+question mark over every earlier "the scan yields zero hits" note.
+· **AND THE ONE THAT MATTERED MOST WAS RE-TESTED AND STANDS.** B1d deferred `mariners-astrolabe` partly
+  because "the archive.org scan of Cortés's *Arte of Nauigation* (1589) yields zero hits for 'astrolab'"
+  and the same for Wright's *Certaine Errors*. Both were downloaded again: real text files of 369 KB and
+  922 KB, no HTML, and genuinely **zero** occurrences. The blackletter OCR really is useless, and that
+  finding is now measured rather than assumed.
+· **ALL THREE OPEN-ACCESS AGGREGATORS WERE DOWN OR WALLED ON THE SAME DAY.** `doaj.org` returned **502**
+  on every query including the API root (second batch running); **`api.openalex.org` now BILLS PER
+  REQUEST** and answers 429 with a price attached — *"This request costs $0.001 but you only have $0
+  remaining"* — which is a new kind of wall and not a rate limit that waiting fixes;
+  `api.semanticscholar.org` 429s without a key; and `api.core.ac.uk` answered the first query and
+  rate-limited after it. **Crossref's `query.bibliographic`, ScholarSpace's DSpace API and archive.org
+  carried everything**, and are the three to reach for first.
+· **`identity-disc` HAS ITS FIRST WORK AND IT IS A GOOD ONE.** The *Field Service Pocket Book, 1914*
+  (archive.org `b28998558`, a real 768 KB scan) lists **"Disc, identity, with cord"** in the field-kit
+  tables for mounted officers, dismounted officers and mounted men, at a quarter of an ounce — the disc as
+  an issued item, priced into the weight a man carried. That is E2a's rule again: an official manual is a
+  better source for an everyday object than a modern paper. What is still missing is the 1916 change to
+  two discs; the Canadian official medical history is a real 860 KB scan containing the phrase **zero**
+  times, `cwgc.org` is 403, and both Fromelles papers are behind Intellect and the OpenEdition wall —
+  which is on **`books.openedition.org` as well as `journals.`**, tested this batch.
+· **`turnshoe` LOST TWO MORE ROUTES.** The *Encyclopedia of Medieval Dress and Textiles* has a "Turnshoe"
+  entry, and it is Brill — 403, and barred as an encyclopedia by the pass's own rule in any case. And the
+  shoe-trade literature, which E2a's rule would predict, does not describe the construction: *Modern
+  Shoemaking* (1916) uses "turned shoes" exactly once, in an advertisement for a Louis-heel slipper, and
+  *Shoes and Shoemaking Illustrated* (1897) not at all. The London Museum's two records — a 13th-century
+  ankle-shoe and a Regency boot described as "Turnshoe construction" — remain the only works in hand.
 
 ## The per-artefact workflow
 
