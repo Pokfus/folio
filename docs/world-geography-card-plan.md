@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-689` Victoria.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa, `gw-689` Victoria,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-690` Saint George's.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -3557,6 +3557,47 @@ Tarawa`** — the third card running where an `allcategories` prefix query was t
 shipped is `South Tarawa from the air.jpg` (an employee of the Government of Kiribati, CC BY 3.0,
 3000×1569), the ribbon of settlement between lagoon and ocean, which is the one picture that shows
 what this capital physically is.
+
+**`gw-689` VICTORIA HAS THE FULL MISSION CYCLE IN ONE ENTRY, ALL OF IT AT THE CAPITAL.** The guide
+gives recognition on **29 June 1976** — the day of independence — by the signing of an agreement on a
+**tracking and telemetry facility on Mahé**, and says the agreement was signed *at the capital,
+Victoria*; relations on **1 July 1976**, when the **American consulate at Victoria was raised to
+embassy rank**; the embassy **closed on 30 August 1996**, with Seychelles handled from the embassy in
+**Mauritius**; and the mission **reopened on 1 July 2023**. That is open → closed → handled elsewhere
+→ reopened with all four dates, and a **new recognising act** (a technical agreement about a satellite
+station, the eleventh distinct mechanism the run has met). It also gives the *consulate raised to
+embassy* step, which is different from an embassy being established. **On a capital card, read the
+guide for the mission's whole life, not just its first date.**
+
+**THE WORLD BANK'S POPULATION SERIES HAS A STEP IN IT, AND THE COMMONWEALTH IS QUOTING THE OLD ONE.**
+`SP.POP.TOTL` for Seychelles goes 99,258 (2021) → **119,878 (2022)**, up a fifth in a single year,
+which is a rebasing rather than growth. And the Commonwealth's Key Facts give **"Population 98,462
+(2022)"** — a number that appears in the World Bank series at **2020**, exactly. **A Commonwealth
+population labelled with a year can be an earlier year's figure**, which sharpens C4's and C11's
+read-both rule into something checkable: grep the World Bank series for the Commonwealth's exact
+value before treating the two as independent measurements. And C8's stale-population diagnostic
+assumes a smooth series — **look for a level shift before asking when a term's figure was true.**
+
+**THE AREA HAS TWO ANSWERS AND THE COMMONWEALTH IS THE OUTLIER THIS TIME.** UNdata 457 km², the World
+Bank a flat 460 (the nearest ten, so the usual agreement), the Commonwealth **452**, which is not 457
+rounded at any precision. Samoa's Commonwealth figure two cards ago WAS just coarser rounding; this
+one is a different measurement. **Test the rounding hypothesis rather than assuming it.**
+
+**A DISAMBIGUATED GLOSSARY KEY WITH NO BARE ALIAS, DELIBERATELY.** The term is `Victoria,_Seychelles`
+and it carries **no `Victoria` alias**, so the card's own answer does not auto-link. That is correct:
+`glossKeyTitle` strips the qualifier and a bare `Victoria` surface would fire on Queen Victoria, Lake
+Victoria and the Australian state wherever those appear in other collections. **A capital whose name
+is an ordinary word gets the qualified key and no short alias** — the pairing rule is satisfied by the
+term existing, not by it claiming the surface.
+
+**AND COMMONS DISAMBIGUATES THE SAME CITY TWO DIFFERENT WAYS AT ONCE.** The live category is
+`Category:Victoria (Seychelles)` — **parentheses**, where Hagåtña and Willemstad both took a comma —
+while `Category:Aerial photographs of Victoria, Seychelles` uses the comma, for the same city. Neither
+`Category:Victoria, Seychelles` nor `Category:Views of Victoria, Seychelles` exists. **Search
+namespace 14 for the city's name rather than guessing the qualifier's punctuation**; an
+`allcategories` prefix query only finds the form you guessed. What shipped is `Victoria Sunrise
+(14625666105).jpg` (Andrew Moore, CC BY-SA 2.0, 5184×3456), the town and its harbour from the ridge
+above.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
