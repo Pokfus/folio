@@ -1796,7 +1796,8 @@ window.GLOSSARY = {
 "First_Council_of_Nicaea": "The First Council of Nicaea was an assembly of bishops held in 325 CE at Nicaea in Bithynia, summoned by the emperor Constantine, who called them from every quarter of the empire and gave them the imperial post to travel by.<sup class=\"fn\" data-fn=\"1\"></sup> Its creed described the Son as begotten and not made, of the substance of the Father, and <i>homoousios</i>, of one substance with him; its synodal letter anathematised the teaching of Arius and settled a common date for Easter.<sup class=\"fn\" data-fn=\"2\"></sup> It also issued twenty canons of church discipline, and a church history of the next century records that 318 bishops subscribed while five refused over that one word.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Fall_of_the_Western_Roman_Empire": "The fall of the Western Roman Empire is the name given to the end of imperial rule in the western provinces, conventionally dated to 476 CE, when the last emperor in Italy was deposed. Jordanes wrote that the western empire of the Roman race perished with that emperor, Romulus Augustulus, and that kings of the Goths held Rome and Italy from then on.<sup class=\"fn\" data-fn=\"1\"></sup> Procopius describes the same events as a mutiny over land in which the boy was left alive, and says the Gothic king who followed never took the imperial name and yet ruled as truly an emperor as any before him.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Romulus_Augustulus": "Romulus Augustulus was the last man to hold the title of Roman emperor in the west, put on the throne as a boy by his father Orestes and deposed within the year. Procopius says the Romans called him by the diminutive Augustulus because he took the empire while still a lad, and that when the troops killed Orestes and made Odoacer king, the boy was left alive as a private citizen.<sup class=\"fn\" data-fn=\"2\"></sup> Jordanes has him driven from the throne and condemned to exile in Campania, and says the western empire of the Roman race perished with him.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Mahajanapadas": "The mahajanapadas were the states of northern India in the age of the Buddha and before it, remembered in a stock list of sixteen great countries that recurs in the Buddhist canon. The names on that list are names of peoples rather than of places, and it is older than the books that carry it: three of the sixteen had already lost their independence by the Buddha's lifetime.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Some were monarchies and some were clan states whose business was done in a public assembly under an elected chief, and they ran from Gandhara in the north-west to Avanti in the centre.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Mahajanapadas": "The mahajanapadas were the states of northern India in the age of the Buddha and before it, remembered in a stock list of sixteen great countries that recurs in the Buddhist canon. The names on that list are names of peoples rather than of places, and it is older than the books that carry it: three of the sixteen had already lost their independence by the Buddha's lifetime.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Some were monarchies and some were clan states whose business was done in a public assembly under an elected chief, and they ran from Gandhara in the north-west to Avanti in the centre.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Upanishads": "The Upanishads are Sanskrit texts standing at the end of the Brahmanas, whose name means sitting down beside and came to mean a secret doctrine, because they were imparted to selected pupils rather than to the wider circle.<sup class=\"fn\" data-fn=\"1\"></sup> They set the sacrificial religion of the Vedas aside for enquiry into the self, and teach that the self in each person is identical with the self of the universe, put as 'that art thou' and as 'I am brahma'.<sup class=\"fn\" data-fn=\"2\"></sup> Thirteen are counted as the principal ones,<sup class=\"fn\" data-fn=\"3\"></sup> and the older of them are dated on the whole no later than 550 BCE.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2614,7 +2615,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "First_Council_of_Nicaea": "325 CE",
 "Fall_of_the_Western_Roman_Empire": "conventionally 476 CE",
 "Romulus_Augustulus": "deposed 476 CE",
-"Mahajanapadas": "c. 600-500 BCE"
+"Mahajanapadas": "c. 600-500 BCE",
+"Upanishads": "older ones by 550 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3715,7 +3717,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Constantine_the_Great": ["Constantine I"],
 "First_Council_of_Nicaea": ["Council of Nicaea","Nicaea I"],
 "Fall_of_the_Western_Roman_Empire": ["Fall of Rome"],
-"Mahajanapadas": ["mahajanapada"]
+"Mahajanapadas": ["mahajanapada"],
+"Upanishads": ["Upanishad"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5540,7 +5543,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "First_Council_of_Nicaea": ["event","history","religion","politics","classical"],
 "Fall_of_the_Western_Roman_Empire": ["event","history","politics","warfare","classical"],
 "Romulus_Augustulus": ["ruler","person","history","politics","rome","classical"],
-"Mahajanapadas": ["state","history","politics","india","iron age"]
+"Mahajanapadas": ["state","history","politics","india","iron age"],
+"Upanishads": ["text","history","philosophy","religion","india","iron age"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
