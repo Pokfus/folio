@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-680` Nouméa.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-681` Bridgetown.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -3143,6 +3143,66 @@ administration Anglo-French condominium"* — not "following independence from B
 was no single metropole. C4's rule that the joining line usually dates independence still holds
 (1980 is the independence year), but the CLAUSE is worth quoting rather than paraphrasing as colonial
 rule ending, since a condominium is two powers and the card should say so.
+
+**`gw-680` NOUMÉA IS THE FIRST TERRITORY CAPITAL IN THE DECK, AND IT LOSES THE RECOGNITION GUIDE
+ALTOGETHER.** `history.state.gov/countries/new-caledonia` is a 404, and correctly so — the guide is a
+record of relations between the United States and *states*, and New Caledonia is not one. That takes
+away the source that has carried the second block of nearly every capital card in this run, and the
+replacement is the UN Digital Library, which is where a territory's institutional record actually
+lives: **A/RES/53/65 of 3 December 1998**, whose own catalogue summary states that the Assembly
+"[w]elcomes the significant developments that have taken place in New Caledonia as exemplified by the
+signing of the Nouméa Accord of 5 May 1998 between the representatives of New Caledonia and the
+Government of France", and goes on to name the administering Power, the Matignon and Nouméa Accords
+and "an act of self-determination in which all options are open". **The record summary is the citable
+text** — four of the card's ten sentences rest on that one page, and none of them needed the PDF.
+A **second** resolution gives the question's present standing: searching the library for the exact
+phrase `"Question of New Caledonia"`, newest first, returns the whole series, and the top English
+record is **A/RES/80/98**, adopted without a vote at the eightieth session's 55th plenary meeting on
+5 December 2025. **Search the phrase rather than guessing a symbol** — the symbol changes every year
+and the series is unbroken, so the newest record is always the current standing of the question.
+One refusal worth recording beside it: `A/RES/41/41 A`, the 1986 re-inscription, was NOT cited,
+because the record's title is the general decolonization one and its summary does not state the
+re-inscription — that would have been the C8/Mayotte inference fault a few cards back, committed
+again.
+
+**AND THE UN's OWN DECOLONIZATION PAGES ARE SHUT HERE.** `un.org/dppa/decolonization/en/nsgt` and its
+per-territory child both answer **202 with a zero-length body** — a sixth variety of not-an-error
+that a status check alone reads as success. The Digital Library is open and is the better source
+anyway, being the instruments themselves rather than a page about them.
+
+**THE `EN.URB.LCTY` ABSENCE IS NOW FIFTEEN, AND NEW CALEDONIA BREAKS THE SIZE PATTERN THE OTHER WAY.**
+The fourteen before it were all under about 2.7 million people, with Djibouti at 1.18 million the one
+that *has* a series. New Caledonia has 295,000 people and no series — consistent with size — but it is
+also the first **territory** to be checked, and a territory whose statistics France excludes from its
+own (UNdata footnote a: "For statistical purposes, the data for France do not include this area")
+would have no series whatever its size. **Size is where to look; sovereignty may be the real rule**,
+and the deck has not met enough territory capitals to tell the two apart yet.
+
+**AND THE AREA GAP IS THE LARGEST THE CAPITALS RUN HAS MET: 520 km².** UNdata gives 19,100 km²
+(footnoted to 2023) against the World Bank's 18,580, flat across the whole decade. The rounding test
+settles it instantly and negatively — 18,580 is not 19,100 rounded to anything — so this is neither a
+rounding nor a revision but two different measurements, and **neither source says which area it is
+measuring**. Stated as a gap in the card, with no explanation offered, on the Comoros rule.
+
+**THE CAPITAL SHARE IS THE HIGHEST IN THE DECK AND THE TWO FIGURES CORROBORATE EACH OTHER.** UNdata's
+197,800 (footnoted 2018) against the World Bank's 283,541 for that same year is about seventy per
+cent, and the profile's urban share is 71.1 per cent for 2019 — so almost everybody counted as urban
+is counted at the capital. That is the **opposite** of the Bandar Seri Begawan case, where 40,800
+against 77.9 per cent urban could not both describe the built-up area; here the two agree, which is
+what a bare capital footnote looks like when it is the agglomeration. **Compare the capital figure to
+the population of ITS OWN YEAR, not to the current one** — 197,800 against 2025's 295,000 gives 67 per
+cent and quietly compares a 2018 numerator with a 2025 denominator.
+
+**PICTURE.** `Category:Views of Nouméa` is **empty**, and `Category:Nouméa` is unusually full of
+**FAL** files (the Free Art License), which is outside the pass's stated bar of PD / CC BY / CC BY-SA
+— including `Quartiers sud Nouméa.JPG`, the best elevated city view in the category. Two other traps
+in the same list: `Nouméa, New Caledonia.jpg`, CC BY-SA 4.0 and plausible by name, is a **satellite
+image** — a refused family — and `Monts-Koghis - Pic Malaoui (687 m) - Vue sur Nouméa`, CC BY 2.0, is
+a ridge panorama with the city as a smudge in the middle distance. What shipped is
+`View over Noumea.jpg` (Pilettes, CC BY-SA 3.0, 3872×2592): cathedral, town, marina and lagoon in one
+frame, taken from the youth hostel. **Filter the category by licence AND read the picture** — three of
+the four leading candidates here failed on licence or on subject, and neither failure is visible in a
+file name.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
