@@ -22857,6 +22857,17 @@ function teiSections(xml, opts, warn) {
     // the marker goes INSIDE the first paragraph, which is where bookSections looks for it
     html += (html ? "\n" : "") + text.replace(/^<p>/, '<p><span class="bk-n">' + n + "</span> ");
   });
+  /* A NOTE NOTHING CAN POINT AT (Sep 2026, batch E48). teiSectionProse lifts a note out where it
+     stands and then keeps only what is inside a `<p>`, so a note standing OUTSIDE one loses its
+     marker and keeps its entry — and app.js draws that as a plain unnumbered line at the head of the
+     fold: an entry no sentence opens, which is the mirror of the dead marker the apparatus already
+     refuses to draw. The rule above answers the one instance the shelf has; this is what says
+     whether another arrives, and it asks about the MECHANISM rather than about any note's shape. */
+  const pointed = new Set([...html.matchAll(/<sup class="fn"[^>]*data-fn="(\d+)"/g)].map((x) => +x[1]));
+  notes.forEach((t, i) => {
+    if (!pointed.has(i + 1))
+      warn("note " + (i + 1) + " lost its marker in the prose — " + JSON.stringify(t).slice(0, 70));
+  });
   return { html: html, notes: notes, count: kept, skipped: skipped };
 }
 
@@ -22884,6 +22895,17 @@ function teiSectionProse(raw, notes) {
        of Nero's 57 chapters with one line of warning to say so. Set in italic, as an editorial
        interpolation in someone else's text should be. */
     if (/place="inline"/.test(attrs)) return " <i>" + t + "</i> ";
+    /* NEITHER IS A NOTE MARKED type="Com", WHICH IS THE EDITION'S ARGUMENT OF THE WORK (Sep 2026,
+       batch E48). There is exactly one on the shelf — Perseus's Lysis opens section 203 with
+       "Socrates relates a conversation he had in a wrestling-school", the one-line summary the Loeb
+       prints at the head of the dialogue — and it is not a note on a word: it stands BEFORE the
+       first paragraph, so its marker went into text the `<p>` sweep below then threw away, and the
+       line reached the reader as entry 1 of a fold nothing points at. TEI's `type` says what it is
+       as plainly as `place` says where the note above belongs.
+       It is returned as its OWN paragraph rather than in the flow, because a headnote standing
+       outside a paragraph cannot survive that sweep at all; italic, as the editor's voice in
+       someone else's text, which is the rule the line above already keeps. */
+    if (/type="Com"/i.test(attrs)) return "<p><i>" + t + "</i></p>";
     notes.push(t);
     return '<sup class="fn" data-fn="' + notes.length + '"></sup>';
   });

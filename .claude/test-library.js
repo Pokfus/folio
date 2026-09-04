@@ -3130,6 +3130,47 @@ function aeneidChecks() {
     await page.close();
   }
 
+  /* ================= 6p. no entry in the fold that no sentence opens (E48) =================
+     The mirror of the check above, and the harder one to see: app.js is GRACEFUL about an
+     uncited entry — `wireFootnotes` gives it a plain number rather than a jump to nowhere — so
+     nothing looks broken, and what the reader gets is a line at the head of the apparatus that
+     no marker in the chapter points at.
+
+     THE LYSIS IS PINNED BECAUSE IT WAS THE SHELF'S ONLY ONE, and because it is not a footnote at
+     all: Perseus tags the Loeb's one-line argument of the dialogue `type="Com"` and prints it
+     ahead of section 203's first paragraph, so the extractor lifted it into the fold and its
+     marker went into text the paragraph sweep then threw away. It now stands where the printed
+     page puts it, in italic at the head of the section, and the fold holds the thirteen notes
+     that are notes. Both halves are asserted, because dropping the line altogether would satisfy
+     the first on its own — and that would lose editorial text the reader currently has. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base + "#book/plato-dialogues", { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "20"); t.click(); });
+    await page.waitForTimeout(900);
+    const got = await page.evaluate(() => {
+      const items = [...document.querySelectorAll(".src-note .src-item")];
+      const at = new Set([...document.querySelectorAll("#bkPage sup.fn")].map((x) => +x.getAttribute("data-fn")));
+      return {
+        notes: items.length,
+        unpointed: items.map((li, i) => i + 1).filter((n) => !at.has(n)),
+        first: (items[0] ? items[0].textContent : "").replace(/^\s*\d+\s*/, "").slice(0, 40),
+        argument: [...document.querySelectorAll("#bkPage .bk-prose i")].some(
+          (x) => /wrestling-school/.test(x.textContent)),
+      };
+    });
+    check("[notes] every entry in the Lysis's fold has a marker pointing at it",
+      got.notes === 13 && got.unpointed.length === 0,
+      got.notes + " entries, unpointed: " + (got.unpointed.join(",") || "none"));
+    check("[notes] ...and the fold now opens on a note rather than on the dialogue's argument",
+      /^i\.e\., of Hermes/.test(got.first), JSON.stringify(got.first));
+    check("[notes] ...which stands in the prose instead, in the editor's italic",
+      got.argument === true, String(got.argument));
+    await page.close();
+  }
+
   /* ================= 7. the switch is a crossfade, not a cut =================
      A regression here is silent in the worst way: the languages still swap, the reader still lands on
      the right passage, and every assertion above still passes — the switch just goes back to being the

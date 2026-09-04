@@ -1652,10 +1652,37 @@ Herodotus, against zero notes on either side.**
     The strip runs in `writeOriginal`, beside E45's escaped-tag sweep and for the same reason.
   · **`book-audit.js` CHECKS IT ON THE ORIGINAL SIDE ONLY** — on the translation side a marker pointing
     at the book's own note is the apparatus working.
-  · **It was found by asking five cheap questions of the whole shelf at once**, of which four found
-    nothing new. The probe's "nearly empty chapter" test counted WORDS and reported twenty-eight
-    Chinese chapters of 5,765 characters as near-empty: **a length is not a word count in every
-    script.**
+  · **It was found by asking five cheap questions of the whole shelf at once**, of which only two were
+    then READ — see the entry below, which reads the other three. The probe's "nearly empty chapter"
+    test counted WORDS and reported twenty-eight Chinese chapters of 5,765 characters as near-empty:
+    **a length is not a word count in every script.**
+
+**AND ITS MIRROR: A NOTE IN THE FOLD THAT NO MARKER POINTS AT** (Sep 2026, batch E48). One on the whole
+shelf, and it is not a footnote at all: Perseus tags the Loeb's one-line ARGUMENT of the *Lysis*
+`type="Com"` — *"Socrates relates a conversation he had in a wrestling-school"* — and prints it ahead of
+section 203's first paragraph, so the dialogue shipped with fourteen entries in its fold and thirteen
+markers numbered 2 to 14.
+
+  · **THE MECHANISM IS POSITION, NOT SHAPE.** `teiSectionProse` lifts every note out where it stands and
+    then keeps **only what is inside a `<p>`**. A note standing outside one keeps its text and loses its
+    marker. So the check that matters is not "is this note of an odd type" but "did this note's marker
+    survive its own extraction", and `teiSections` asks exactly that, per chapter, every run.
+  · **NOTHING LOOKED BROKEN, WHICH IS WHY IT LASTED.** app.js is deliberately graceful here —
+    `wireFootnotes` gives an entry nothing cites a plain number rather than a jump to nowhere — so the
+    page renders correctly and the loss is one of MEANING: a summary of a whole dialogue presented as a
+    footnote on nothing.
+  · **THE REPAIR SAYS WHAT THE MARKUP SAYS.** `type="Com"` joins `place="inline"` as a note that is not
+    a footnote, set as **its own italic paragraph** rather than in the flow, because a headnote outside
+    a paragraph cannot survive that sweep at all. **Deliberately not dropped**: dropping satisfies every
+    check in one line and loses editorial text the reader has, so the browser test asserts the fold
+    clean AND the argument present.
+  · **`book-audit.js` ASKS IT OF THE WHOLE SHELF**, the mirror of the original-side check above. A
+    chapter carrying a BARE marker is reported as such rather than counted — all 16,006 markers on the
+    shelf are explicit, so reading order does not enter into it.
+  · **PROVED INERT ON THE ONLY SIBLING.** `teiSectionProse` is shared by Plato and Suetonius alone; both
+    the twelve lives' columns and the Greek Plato rebuilt byte-identical, and the English Plato changed
+    by 11 bytes in one chapter of thirty-five. The guard was proved to FIRE by disabling the rule and
+    rebuilding.
 
 **MARKUP THE SOURCE ESCAPED, WHICH THE READER SEES AS CHARACTERS** (Sep 2026, batch E45,
 `dropEscapedTags` / `dropEscapedTagsIn` / `reportEscapedTags`). Eight tags shipped for months —

@@ -211,6 +211,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     `wireFootnotes` reads its list from the page's FIRST `.src-note`, which is the translation's, so
     369 of them became clickable links offering a note about the English on a word of the Old English.
     Stripped in `writeOriginal`; `book-audit.js` checks it, on the original side only.
+  · **AND THE MIRROR OF THAT: A NOTE THE FOLD CARRIES THAT NO MARKER POINTS AT** (Sep 2026, batch
+    E48). `teiSectionProse` lifts a note out where it stands and then keeps only what is inside a
+    `<p>`, so a note standing OUTSIDE one keeps its text and loses its marker. It happened once on the
+    whole shelf and it was not a footnote at all — Perseus tags the Loeb's one-line ARGUMENT of the
+    *Lysis* `type="Com"` and prints it ahead of section 203, so the dialogue shipped with fourteen
+    entries and thirteen markers numbered 2 to 14. **Nothing looked broken**: `wireFootnotes` gives an
+    uncited entry a plain number rather than a jump to nowhere, so the loss is one of meaning. The
+    rule now reads `type` as it already reads `place` — the argument is set as its own italic
+    paragraph at the head of its section, which is where the printed page puts it and the only place
+    that sweep can keep it — and it is deliberately NOT dropped, since dropping loses editorial text
+    the reader has. `teiSections` warns on any note whose marker did not survive, and `book-audit.js`
+    asks it of the whole shelf.
   · **A CHANGE TO A SHARED EXTRACTOR MUST BE PROVED INERT ON ITS SIBLINGS, BYTE-FOR-BYTE** — re-run
     every other book on that path and diff the generated files. That check has twice found a live
     fault in a book nobody was editing.
@@ -5677,7 +5689,7 @@ dead code (never rendered).
     empty, which is two editors dividing a text differently, and every one of the 107 was already
     recorded in its book's entry. Exits 0 whatever it finds. **Re-run after adding an
     original-language column.** Not part of the site.
-  · `node .claude/test-library.js` — the Library (398 assertions): the rename, the shelf, one book, and
+  · `node .claude/test-library.js` — the Library (401 assertions): the rename, the shelf, one book, and
     the reader's place. **Re-run after touching `PAGES.library` / `PAGES.book` / `BOOKS` / `bookIngest` /
     `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` / `readingPos` / `setReadingPos` /
     `bookSections` / `bookRows` / `applyLangMode` / `anchorNow` / `slideChapter` / `BOOK_SORTS` /
@@ -5696,7 +5708,8 @@ dead code (never rendered).
     card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` / `stripTags`'s `data-n`
     carry and its `VOID_TAGS` guard / `teiBookChapters`' `data-n` scale / cleanBody's
     `sections: "bookchapter"` marker rule / `dropEscapedTagsIn` and `writeOriginal`'s footnote-marker
-    strip, after running `fetch-book.js`, or after renaming anything on the Collections page.**
+    strip / `teiSectionProse`'s `type="Com"` rule and `teiSections`' lost-marker warning, after running
+    `fetch-book.js`, or after renaming anything on the Collections page.**
   · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
     figures (Aug 2026). **Re-run after touching `acctSelfView` / `showcaseHTML` / `openCollectionWin` /
     `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**

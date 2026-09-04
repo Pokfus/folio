@@ -134,6 +134,34 @@ for (const [side, list] of [["en", en], ["or", or]]) {
         hits["_exa footnote marker in a column that carries no notes"] = ex;
         named.push("a footnote marker in a column that carries no notes"); }
     }
+    /* AND THE MIRROR OF IT: A NOTE IN THE FOLD THAT NO MARKER POINTS AT (Sep 2026, batch E48).
+       app.js is graceful about this — `wireFootnotes` gives such an entry a plain number rather than
+       a jump to nowhere — so it never looks broken; what the reader gets is a line standing at the
+       head of the apparatus that no sentence in the chapter opens. It fires ONCE on the whole shelf,
+       which is the argument for a permanent check rather than a batch: Perseus's Lysis carries the
+       Loeb's one-line argument of the dialogue as a `type="Com"` note before the first paragraph,
+       and the extractor's paragraph sweep threw its marker away and kept its text.
+       Read against the numbers a marker actually carries. Every one of the shelf's 16,006 markers is
+       explicit, so reading order does not enter into it — a chapter carrying a BARE marker is
+       reported as such instead, since there the count is app.js's to settle and not this file's. */
+    {
+      let orphan = 0, ex = "", bare = 0;
+      for (const c of b.chapters || []) {
+        const html = c.html || "", n = (c.notes || []).length;
+        const loose = (html.match(/<sup class="fn"(?![^>]*data-fn)/g) || []).length;
+        if (loose) { bare += loose; continue; }
+        if (!n) continue;
+        const at = new Set([...html.matchAll(/<sup class="fn"[^>]*data-fn="(\d+)"/g)].map((m) => +m[1]));
+        for (let i = 1; i <= n; i++)
+          if (!at.has(i)) { orphan++; if (!ex) ex = "ch" + c.n + " note " + i + ": " + String(c.notes[i - 1]).slice(0, 60); }
+      }
+      if (orphan) { hits["a note in the fold that no marker points at"] = orphan;
+        hits["_exa note in the fold that no marker points at"] = ex;
+        named.push("a note in the fold that no marker points at"); }
+      if (bare) { hits["a footnote marker carrying no target"] = bare;
+        hits["_exa footnote marker carrying no target"] = "numbered by reading order at render";
+        named.push("a footnote marker carrying no target"); }
+    }
   if (named.length || badTags.length) rows.push([side, b.id, chars, hits, named, badTags]);
   }
 }

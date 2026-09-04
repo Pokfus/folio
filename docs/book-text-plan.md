@@ -3716,8 +3716,11 @@ marker pointing at the book's own note is the apparatus working. It reports the 
 
 **FIVE QUESTIONS ASKED OF THE WHOLE SHELF AT ONCE, CHEAPLY, BEFORE ANY OF THEM WAS BUILT INTO A
 SCANNER** — orphaned notes, markers past the end of their list, a note printed twice, a chapter that is
-nearly empty, and a gap or duplicate in the chapter numbering. Four of the five found nothing that was
-not already known. The fifth found this.
+nearly empty, and a gap or duplicate in the chapter numbering. Only two of the five were actually READ
+in this batch — the fifth, which found this, and the nearly-empty one, whose probe is corrected below.
+The sentence that stood here said all four of the others "found nothing that was not already known",
+which was a count read off a summary line rather than a reading; **E48 reads them, and one of the three
+is a fault.**
 
 **AND THE PROBE WAS WRONG FIRST, FOR THE FOURTH BATCH RUNNING.** Its "nearly empty chapter" test counted
 WORDS, and **Chinese is written without spaces**: the Three Kingdoms' 5,765-character chapters counted as
@@ -3727,3 +3730,107 @@ continence]"* where the papyrus has lost the maxim, two one-verse hymns of the R
 choral tag, and eleven chapters of Marco Polo that open `⚜ (` because **Yule abridges them into a
 parenthetical summary rather than translating them**, which the mark is there to say. **A length is not a
 word count in every script.**
+
+---
+
+## E48 — the three questions E47 counted and did not read
+
+**THIS BATCH BEGINS BY CORRECTING ITS PREDECESSOR.** E47 asked five questions of the whole shelf,
+built a scanner out of one of them, and then wrote that "four of the five found nothing that was not
+already known". That was a count read off a summary line, not a reading. Three of the five had only
+been *counted*: numbering gaps, notes printed twice, and notes nothing points at. **They are read
+here, and one of them is a fault** — which is the argument for reading a probe's output rather than
+its total, and the reason the sentence above has been rewritten to say what was actually done.
+
+### 1. The numbering gaps — no finding
+
+Three books have a gap in their chapter numbers, and every one is the edition's own and is already
+declared:
+
+| book | gaps | what they are |
+|---|---|---|
+| Beowulf | 28 → 31 | the manuscript's own numbering; the config lists the fitts explicitly (`.filter((n) => n !== 29 && n !== 30)`) and the front matter says so. Fitt 28's line marks run 1965–2140, so it carries the bracketed `[XXIX]` section whole and **no line of the poem is missing** |
+| The Classic of Poetry | 28 gaps | Legge selects 102 of the 305 poems and the front matter states it |
+| Ramayana (Sanskrit) | 250 → 252, 474 → 477 | the three English chapters with no original, already recorded in E44 |
+
+**A gap in a numbering is not evidence of a loss**, and none of these three is one. What a gap needs
+is the book's own account of itself — which each of these has, in the front matter a reader can see.
+
+### 2. The duplicate notes — no finding
+
+Eight notes across four books repeat another note's exact words, and every one has **its own marker on
+its own passage**, which is what makes a repetition honest:
+
+- **Gilgamesh** ch. 6, notes 4/5/6, all *"Singular in the text."* — identical in the SOURCE too
+  (`_ftn82`, `_ftn83`, `_ftn84`), attached to "thy asses", "thy steeds" and "[thy mules". Thompson
+  making the same observation at three places is the apparatus working, not a duplication.
+- **Satyricon** ch. 124, markers 6 and 8 — "Thou Marcellus," and "Thou, Lentulus,".
+- **Herodotus** ch. 2, markers 2 and 3 — two separate mentions of the priests of Hephaestus; ch. 9,
+  markers 37 and 38 — one off Lectum, one at Sestus.
+- **Poetic Edda** ch. 12 and ch. 33 — speaker changes ("Atli spake", "Guthrun spake", "Atli spake"),
+  which recur because the poem does.
+
+**A note repeated across DIFFERENT passages is an edition's habit; a note repeated with nothing
+pointing at it is the fault.** That is the next section.
+
+### 3. The orphan note — the fault, and it is not a footnote at all
+
+**ONE NOTE IN 16,006 MARKERS AND 4,403 CHAPTERS STANDS IN A FOLD THAT NOTHING POINTS AT.** Perseus's
+*Lysis* opens section 203 with
+
+> `<note anchored="true" resp="Loeb" type="Com">Socrates relates a conversation he had in a wrestling-school</note>`
+
+— the one-line **argument of the dialogue** the Loeb prints at its head. It is not a note on a word,
+and Perseus says so in the markup: `type="Com"`, where the other thirteen notes of the dialogue carry
+no type at all.
+
+**THE MECHANISM IS POSITION, NOT SHAPE.** `teiSectionProse` lifts every note out where it stands and
+replaces it with a marker, and then keeps **only what is inside a `<p>`**. This note stands *before*
+the first paragraph, so its text reached the list and its marker went into prose the paragraph sweep
+threw away. The dialogue shipped with fourteen entries in its fold and thirteen markers, numbered 2
+to 14, and the argument standing as an unnumbered entry 1 at the head of the apparatus.
+
+**NOTHING LOOKED BROKEN, WHICH IS WHY IT LASTED.** app.js is deliberately graceful here — an entry no
+marker cites "keeps a plain number rather than offering a jump to nowhere" — so the page renders
+correctly and the loss is one of MEANING: a summary of the whole dialogue presented as a footnote on
+nothing.
+
+**THE REPAIR SAYS WHAT THE MARKUP SAYS.** `type="Com"` joins `place="inline"` as a note that is not a
+footnote, and is returned as **its own italic paragraph** rather than in the flow — a headnote outside
+a paragraph cannot survive the sweep at all. The line now stands where the printed page puts it, at
+the head of section 203 in the editor's italic, and the fold holds the thirteen notes that are notes,
+numbered 1 to 13 with a marker apiece.
+
+**IT IS DELIBERATELY NOT DROPPED.** Dropping would have satisfied every check in one line and lost
+editorial text the reader currently has, which is why the browser test asserts BOTH halves — the fold
+clean *and* the argument present.
+
+### What proves it
+
+- **`teiSectionProse` is shared, and its only sibling is Suetonius.** Both the twelve lives' columns
+  rebuilt **byte-identical**; the Greek Plato rebuilt byte-identical; the English Plato changed by 11
+  bytes in one chapter of thirty-five.
+- **The new guard was proved to fire.** With the rule's test changed to one that cannot match, the
+  rebuild reports `Dialogue 20: note 1 lost its marker in the prose — "Socrates relates a conversation
+  he had in a wrestling-school"`; restored, it reports none and the file is byte-identical to the
+  repaired build. **A declared check that has never fired is not a check.**
+- `check-pairing.js` is unchanged at 25,379 rows and 107 drawn one-sided.
+
+### Two checks, and the second is the durable one
+
+**`teiSections` NOW WARNS ON A NOTE WHOSE MARKER DID NOT SURVIVE ITS OWN EXTRACTION** — the mechanism,
+asked at the point it happens, so a note of a shape nobody has thought of is still caught.
+
+**`book-audit.js` ASKS IT OF THE WHOLE SHELF**, as the mirror of E47's original-side check: an entry in
+the fold that no marker points at. It fires exactly once on the shelf as it stood, and reports the
+shelf clean now. A chapter carrying a **bare** marker is reported as such instead of being counted —
+all 16,006 markers on the shelf are explicit, so reading order does not enter into it, and if that ever
+stops being true the numbering is app.js's to settle and not this file's.
+
+### A loose end, recorded rather than repaired
+
+Beowulf's front matter says the poem has "a prologue and then forty-three of them, and those are the
+chapters here", where the file holds a prologue and **forty-one** numbered fitts — the manuscript's
+own 29 and 30 being absent. The count in that sentence describes the poem's numbering rather than the
+book's contents, which is defensible and is not what a reader counting tabs will conclude. It is a
+sentence to rewrite, not a text to repair, and it is left for the batch that next opens that book.
