@@ -1817,7 +1817,8 @@ window.GLOSSARY = {
 "Beirut": "Beirut is the capital and largest city of Lebanon, standing on the coast of that western Asian state. The United Nations Statistics Division names it as the capital and gives about 2.407 million people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, but attaches two warnings of its own: that the estimate rests on scarce data, and that it excludes Syrian refugees.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American legation stood in the city from 1944 and became an embassy in 1952; its staff were withdrawn in September 1989 during the civil war and it reopened in November 1990.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Helsinki": "Helsinki is the capital and largest city of Finland, standing in the south of that northern European state. The United Nations Statistics Division names it as the capital and gives about 1.292 million people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series climbing steadily to about 1.355 million by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American legation opened in the city on 19 March 1920 under its Swedish name of Helsingfors, closed on 30 June 1944 when relations were severed, and was reestablished on 1 September 1945.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Monrovia": "Monrovia is the capital and largest city of Liberia, standing on the coast of that western African state. The United Nations Statistics Division names it as the capital and gives about 1.467 million people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series growing by more than two fifths across the decade to about 1.79 million by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American legation was established in the city on 23 February 1864, two years after the United States recognised Liberia and seventeen after the republic was founded, and it became an embassy in 1949.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Oslo": "Oslo is the capital and largest city of Norway, standing in the southeast of that northern European state at the head of a fjord. The United Nations Statistics Division names it as the capital and gives about 1.027 million people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series climbing steadily to about 1.12 million by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American consulate stood in the city from 1809, when it was called Christiania, a name it kept until 1925; the legation there closed under the German occupation in 1940 and the embassy returned from London on 31 May 1945.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Oslo": "Oslo is the capital and largest city of Norway, standing in the southeast of that northern European state at the head of a fjord. The United Nations Statistics Division names it as the capital and gives about 1.027 million people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series climbing steadily to about 1.12 million by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American consulate stood in the city from 1809, when it was called Christiania, a name it kept until 1925; the legation there closed under the German occupation in 1940 and the embassy returned from London on 31 May 1945.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Bratislava": "Bratislava is the capital and largest city of Slovakia, standing in the southwest of that eastern European state on the Danube. The United Nations Statistics Division names it as the capital and gives about 432,500 people for 2019, the same figure the World Bank returns that year for the country's largest metropolitan area, on a series rising slowly to about 444,000 by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy in the city was established on 4 January 1993, three days after Slovakia and the Czech Republic became separate states and were recognised by the United States.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3679,7 +3680,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Ulaanbaatar": ["Ulan Bator"],
 "Copenhagen": ["København"],
 "Helsinki": ["Helsingfors"],
-"Oslo": ["Christiania","Kristiania"]
+"Oslo": ["Christiania","Kristiania"],
+"Bratislava": ["Pressburg"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5525,7 +5527,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Beirut": ["place","city","geography","capital","lebanon"],
 "Helsinki": ["place","city","geography","capital","finland"],
 "Monrovia": ["place","city","geography","capital","liberia"],
-"Oslo": ["place","city","geography","capital","norway"]
+"Oslo": ["place","city","geography","capital","norway"],
+"Bratislava": ["place","city","geography","capital","slovakia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
