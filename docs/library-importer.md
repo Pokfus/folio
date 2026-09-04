@@ -1396,3 +1396,56 @@ filter is how a noisy class is made readable rather than abandoned.
 **AND A NAME MISREAD IS MISREAD WHEREVER IT IS SET THE SAME WAY.** `Damans` stands **three** times in
 the Iliad, so the single-occurrence sweep is blind to it: the `na`/`m` sweep allows up to four
 occurrences for exactly this reason, and the shelf filter carries the weight the count no longer can.
+
+**A PLATE IS NOT NOTHING TO AN OCR, AND ITS CAPTION LANDS IN THE PROSE** (Sep 2026, batch E34, in
+`extractJourney`). Journey to the West is a 1913 volume with thirty engravings, each captioned under
+the plate. The scanner reads the picture as a run of blank lines, so the caption arrives as an
+ordinary line of text in the middle of whatever paragraph the plate was bound into — and three of
+them broke a sentence in half: *"But the women Bajie tempted at the Bathing Fool. would not let him
+go."*
+
+  · **THE TABLE OF WHAT TO REMOVE IS THE BOOK'S OWN LIST OF ILLUSTRATIONS**, read out of the front
+    matter the reader is about to throw away. That is the whole reason it is safe. The alternative is
+    a rule about the SHAPE of a caption — a short line inside a run of blank lines — and this scan has
+    **523 runs of four blank lines**, most of them ordinary page breaks. Matching against the
+    printing's own list asks a question the book has already answered, and it travels with the
+    transcription instead of being a guess about it.
+  · **IT IS A FUZZY MATCH BECAUSE BOTH SIDES ARE OCR** — the list prints "A Dragon transformed into a
+    Horse" and the plate itself comes back "A Dragon tbanspormed into a r:cRSE." At a threshold of
+    **0.40**, with the line required to sit behind **three or more blank lines**, twenty-two blocks
+    match and every one is a plate caption; the nearest thing that is not is at 0.43. Both halves are
+    needed: the ratio alone catches "chapter." against "The Master", and the blank run alone catches
+    every page break in the book.
+  · **THE THRESHOLD IS 0.40 RATHER THAN 0.35 BECAUSE THE CORRECTION CHAIN MOVES ONE SIDE AND NOT THE
+    OTHER**, and that is the thing to know before tuning it again. The chain runs before this reader,
+    so the LIST is romanised — *Kwanyin the Holy Spirit* becomes *Guanyin the Holy Spirit* — while the
+    caption on the plate is too mangled for the same row to fire on it (`KWANYIM TIIE IFOLY SpiKIT`).
+    The two drift apart by the width of the correction: that one caption sits at 0.30 against the raw
+    list and 0.40 against the corrected one. **A row that fires on one side of a comparison and not on
+    the other widens it.**
+  · **A CAPTION MAY RUN TO MORE THAN ONE LINE**, so what is removed is the whole non-blank BLOCK the
+    matching line belongs to — nineteen are one line, two are two, and one is four, the plate of the
+    Incarnate One carrying the translator's note on the dove under its caption.
+  · **AND THE ENGRAVING COMES OFF WITH IT.** The hatching is read as short blocks of punctuation
+    (`-^A^^K^^^i^`, `\&r,4??:`) and the plate's corner marks as two- to six-character blocks that
+    happen to be letters (`Vx-j`, `Mihi`), all sitting in the same white space. The removal walks OUT
+    from the caption over any adjacent block that is short and mostly not letters, and stops at the
+    first that is not — **eighteen blocks absorbed, every one engraving noise**. The six-character
+    bound sounds reckless and is measured: the book has 24 such blocks, four of them real prose left
+    stranded by a page break (`Truly.`, `done,`, `next.`, `Thus,`), and **not one of the four sits
+    beside a plate**. The rule only ever walks out from a matched caption, which is what keeps it so.
+    The chapter title `A DRAGON EXECUTED`, which sits directly after one of the plates, has eighteen
+    letters and is untouched.
+  · **THREE LINES ARE LEFT TO PER-INSTANCE ROWS** rather than to a wider rule, and each says why: the
+    sub-caption under the Kwanyin plate (the list names a plate once, so there is nothing to match it
+    with), and the last plate's hatching and the tail of its caption, which are too long for the noise
+    rule and too letter-dense for its ratio. Widening either bound to reach them would mean taking any
+    short capitalised sentence next to a caption, which is a rule that eats prose.
+
+**A 107th RUNNING HEAD, AND WHY THE CAPS TEST IS LOAD-BEARING** (same batch). `HEAD_NUM`'s comment
+recorded that the trailing page number "read cleanly in all 106 cases", so only the LEADING form took
+the widened glyph class. The 107th is `BUDDHA PEOVIDES SCRIPTURES lOT` — 107 read as l-O-T — standing
+between "He" and "agreed". The trailing class now takes `T` as well, and **the widening removes
+exactly one more line in the whole book**: what makes that safe is the caps test the head rule already
+applies (over three-quarters capitals, six letters or more), which no line of this translation's prose
+or verse passes. Widen the glyph class if you must; never drop the caps test.

@@ -324,7 +324,7 @@ re-run and diffed byte for byte.
 | **E31** ✅ | the twenty-one books nobody had read, and five branches outside the chain | **12 repairs across eight books — and four of them could not land, because five English branches never called the correction chain at all.** The 434 single-occurrence candidates in the 21 never-swept books yielded twelve slips (`beagn`, `soliders`, `carth` for *earth*, `Triviri`, `Tintagel`, `Eleine`, `sithin`, `Balled`, `Carlum`, `Marsilium`, `Sarrazens`, `goner`). Four reported `DID NOT FIRE` with the misspellings sitting in the shipped files: `play`, `fitts`, `terzine`, `eddapoem` and `laisses` each read a cached page, handed it to a reader of their own and pushed the result on without ever calling `correctRaw` — **E29's "one spelling of the chain, called on every branch" was untrue for five of them**. A thirteenth row was written, applied and withdrawn: the Gita's `INDESCTRUCTIBLE` is the 1922 printing's own, with the correct spelling nowhere in the book |
 | **E32** ✅ | E29's move, and where it is exactly backwards | **Five branches moved and proved byte-for-byte inert; three deliberately not moved, because moving them loses 193 repairs.** Measured first: of the six page-correcting books that carry a table, **not one row lands inside a tag**, so E29's weakness was not being suffered and the move is a hardening rather than a repair. The five that read markup (two TEI, three HTML) moved with every row still firing. The three that read PLAIN TEXT must not: their rows name the scan's own damage — `his_^pmiishment`, `Ping(preftctHre.)Chap.`, a page number inside a word — which the extractor exists to clean up, so after extraction **180 of the Canterbury Tales' 198 rows and 13 of Journey's 327 match nothing**. **Which side of extraction a book's chain runs on follows from what its rows name.** It also found E31's own fault in the helper written to close it: `correctGot` returned an unrecognised shape UNTOUCHED and reported nothing |
 | **E33** ✅ | a third scanner, and what it found in the first minute | **86 italic passages restored to Don Quixote, 13 more corrections, and two confusion shapes the scanner's set did not carry.** A new audit — *is this a thing a finished book should contain at all?* — found Don Quixote's italics shipping as literal underscores: Gutenberg marks italic with a pair of them, `extractChaucer` has converted them since the day it was written and `extractQuixote` never did. Reading round the findings turned up **`h` read as `n`** (`somewnat`, `cniefest`, `bethougnt`, `Tney`) and **`na` read as `m`** (`Damans` for *Danaans*, three times; `naortal`, `naagic`), neither in the confusion set. **The shelf is the dictionary**: the h/n sweep returns 57 candidates, nearly all ordinary words, and filtering to forms no other book knows cuts it to nine — four damage, five real archaic words |
-| **E34** | the Journey scan's plate captions | **18 of its 26 plate captions reach the reader and 3 of them land inside a sentence** — "But the women Bajie tempted at the Bathing Fool. would not let him go." is a caption folded into the prose it interrupts. Measured in E33 and left, this being E25's family (page furniture become text) in a book whose reader has no rule for it |
+| **E34** ✅ | the Journey scan's plate captions | **Twenty-two plate captions, eighteen blocks of engraving noise and a leaked running head removed — nearly 2 KB of furniture, three of it inside a sentence.** The table of what to remove is **the book's own List of Illustrations**, read out of the front matter the reader throws away: a rule about the SHAPE of a caption is impossible here, the scan having 523 runs of four blank lines. Its finding is about the threshold — **the correction chain romanises the LIST and not the mangled caption**, so the two drift apart by the width of the correction and one caption moves from 0.30 to 0.40. A row that fires on one side of a comparison and not on the other widens it |
 | **E35–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
@@ -390,6 +390,74 @@ not deferred.**
 ---
 
 ## 8. Batch log
+
+### E34 — a plate is not nothing to an OCR, shipped 2026-09-04
+
+**Journey to the West is a 1913 volume with thirty engravings, and the scanner reads a picture as a
+run of blank lines.** So the caption printed under each plate arrives as an ordinary line of text in
+the middle of whatever paragraph the plate was bound into, and the engraving's own hatching arrives
+as short blocks of punctuation around it. Eighteen captions reached the reader and three of them broke
+a sentence in half:
+
+> But the women Bajie tempted at the Bathing Fool. would not let him go.
+
+Removed this batch: **22 caption blocks, 18 blocks of engraving noise, one leaked running head and
+three lines by per-instance row** — 1,967 bytes of furniture out of a 480 KB book, and the last page
+now ends where Richard ends it, on *"and the perfect saints of all the Universe."*
+
+**THE TABLE OF WHAT TO REMOVE IS THE BOOK'S OWN LIST OF ILLUSTRATIONS**, read out of the front matter
+this reader is about to throw away. That is the whole design, and the alternative shows why. A rule
+about the SHAPE of a caption — a short line sitting alone inside a run of blank lines — cannot work
+here: measured, the scan has **2,748 blank runs of two (ordinary paragraph breaks) and 523 of four**,
+most of the latter ordinary page breaks. Matching against the printing's own list of its plates asks a
+question the book has already answered, and it travels with the transcription rather than being a
+guess about it.
+
+**It is a fuzzy match because both sides are OCR** — the list prints *A Dragon transformed into a
+Horse* and the plate comes back `A Dragon tbanspormed into a r:cRSE.` At a threshold of **0.40**, with
+the line required to sit behind **three or more blank lines**, twenty-two blocks match and every one is
+a plate caption; the nearest thing that is not is at 0.43. Both halves are needed: the ratio alone
+catches `chapter.` against *The Master*, and the blank run alone catches every page break in the book.
+
+> **THE FINDING IS WHY THE THRESHOLD IS 0.40 AND NOT 0.35.** The correction chain runs before this
+> reader, so the LIST is romanised — *Kwanyin the Holy Spirit* becomes *Guanyin the Holy Spirit* —
+> while the caption on the plate is too mangled for the same row to fire on it (`KWANYIM TIIE IFOLY
+> SpiKIT`). The two drift apart by exactly the width of the correction: that caption sits at **0.30
+> against the raw list and 0.40 against the corrected one**, and at 0.35 it was the one plate of
+> twenty-two left standing. **A row that fires on one side of a comparison and not on the other widens
+> it** — which will be true of any book whose furniture is matched against its own front matter, and
+> is not visible in either half on its own.
+
+**AND THE ENGRAVING COMES OFF WITH ITS CAPTION.** The hatching reads as `-^A^^K^^^i^`, `\&r,4??:`,
+`^f:=-<:`; the plate's corner marks as two- to six-character blocks that happen to be letters, `Vx-j`
+and `Mihi`. The removal walks OUT from the caption over any adjacent block that is short and mostly
+not letters and stops at the first that is not — **eighteen absorbed, every one engraving noise**.
+
+> **The six-character bound sounds reckless and is measured.** The book has 24 blocks of six characters
+> or fewer, of which four are real prose stranded by a page break — `Truly.`, `done,`, `next.`,
+> `Thus,` — and **not one of the four sits beside a plate**. What keeps the rule honest is that it only
+> ever walks out from a MATCHED CAPTION; it is not a rule about short blocks. The chapter title `A
+> DRAGON EXECUTED`, which sits directly after one of the plates, has eighteen letters and is untouched.
+
+**Three lines are left to per-instance rows rather than to a wider rule**, each with its reason: the
+sub-caption under the Kwanyin plate (*"The Dove and Rosary as symbols."* — the list names a plate once,
+so there is nothing to match it with), and the last plate's hatching and the tail of its caption (the
+word MONASTIC broken across the blank space under it), which are too long for the noise rule and too
+letter-dense for its ratio. Widening either bound to reach them means taking any short capitalised
+sentence next to a caption, which is a rule that eats prose.
+
+**A 107th RUNNING HEAD, and the guard that makes widening safe.** `HEAD_NUM`'s own comment recorded
+that the trailing page number "read cleanly in all 106 cases", so only the LEADING form took the
+widened glyph class. The 107th is `BUDDHA PEOVIDES SCRIPTURES lOT` — 107 read as l-O-T — standing
+between "He" and "agreed". The trailing class now takes `T`, and **the widening removes exactly one
+more line in the whole book**. What makes that safe is the caps test the head rule already applies
+(over three-quarters capitals, six letters or more), which no line of this translation's prose or verse
+passes. **Widen the glyph class if you must; never drop the caps test.**
+
+**What the audit still reports on this book, and why it is not this batch's**: seven runs of OCR
+punctuation and two page references, all of them the scan's Chinese characters and marginal marks in
+the run of prose — a different and much larger family from the plates, and one that wants its own
+measurement rather than a corner of this one.
 
 ### E33 — a third scanner, and what it found in the first minute, shipped 2026-09-04
 

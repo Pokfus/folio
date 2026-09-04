@@ -2772,6 +2772,29 @@ function aeneidChecks() {
       (dq.match(/<i>/g) || []).length >= 86, String((dq.match(/<i>/g) || []).length));
     check("[italic] ...including the ones the old rule would have missed",
       dq.includes("<i>terra firma</i>") && dq.includes("<i>tantum pellis et ossa fuit</i>"));
+
+    /* ================= 6e. a plate is not part of the prose =================
+       Sep 2026, batch E34. Journey to the West is a scan of an illustrated volume, and the OCR reads
+       an engraving as a run of blank lines — so the caption printed under each plate arrived as an
+       ordinary line of text in the middle of the paragraph the plate was bound into, three of them
+       cutting a sentence in half. The failure is invisible to every word-level check: the captions
+       are the book's own words, correctly spelled, in balanced markup.
+
+       Asserted on the SHIPPED text rather than on a count, because a count that has stopped counting
+       reads the same as a book with no plates: the three sentences that were cut must read straight
+       through, and the engraving's own hatching must be gone. The last of them also pins where the
+       book ENDS — the final plate sat between the closing sentence and the index. */
+    const jw = fs.readFileSync(path.join(ROOT, "books", "journey-to-the-west.js"), "utf8");
+    check("[plates] the caption no longer cuts the women's sentence in half",
+      jw.includes("But the women would not let him go") && !jw.includes("Bathing Fool"));
+    check("[plates] ...nor the Incarnate One's, in the list of monkeys",
+      !jw.includes("Dove settling down") && !jw.includes("The Dove and Rosary"));
+    check("[plates] ...nor the temple's", jw.includes("The temple was called the Shang temple"));
+    check("[plates] the engraving's own hatching is gone too",
+      !jw.includes("-^A^^K^^^i^") && !jw.includes("uH^^^^-^^^") && !jw.includes("Mihi"));
+    check("[plates] and the book ends where its translator ends it",
+      !jw.includes("ASTtC IjIFE") && jw.includes("perfect saints of all the Universe"));
+    check("[plates] the running head 107 read as lOT is gone", !jw.includes("SCRIPTURES lOT"));
   }
 
   /* ================= 7. the switch is a crossfade, not a cut =================

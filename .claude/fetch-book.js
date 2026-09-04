@@ -9448,6 +9448,17 @@ const BOOKS = {
        THE SAME REASONING GIVES OPPOSITE ANSWERS FOR THE TWO CONFUSIONS, and only enumerating every
        occurrence says which: enumerate before writing a blanket row, not after. */
     fixes: [
+      /* ---------- E34: the one line of a plate that the caption rule cannot reach ----------
+         The plate of Kwanyin carries a SECOND line under its caption — the translator's note on
+         what the picture shows — and the list of illustrations names a plate once, so there is
+         nothing for the fuzzy match to catch it with. Removing it by shape would mean taking any
+         short capitalised sentence next to a caption, which is a rule that would eat prose. One
+         line, one row, with the reason written down: it is the only one in the book. */
+      ["The Dove and Rosary as symbols. \n", "", "the note under the plate of Kwanyin, which the caption rule leaves behind"],
+      ["t-^rf.-tan'j'saaaiiiatf-ga. i i nnfiJiaijt ifti*-. r- i^itx \n", "",
+       "the last plate's own hatching, too long for the noise rule and too letter-dense for its ratio"],
+      ["ASTtC IjIFE in LaOSHAN. \n", "",
+       "and the tail of that plate's caption, the word MONASTIC broken across the blank space under it"],
       /* ---------- BATCH E14: A CAPITAL I FOR A LOWERCASE l ----------
          The shelf-wide fault of batch E14 in its one form here, and the only one anywhere that needed
          more than the letter: the scan reads `boundIe.?s` where the list reads `boundless`, so the
@@ -20617,13 +20628,72 @@ function extractJourney(text, book, warn) {
      SHAPE of a head rather than becoming a rule about its words. It is widened on the LEADING form
      alone: a verso head opens on its page number, where the recto's trailing number read cleanly in
      all 106 cases, and a line ending in a lone "I" or "U" is something a page of verse can plausibly
-     contain. */
-  const HEAD_NUM = /^(?:[\dOoIlUu|]{1,3}\s+(.{6,45})|(.{6,45}?)\s+\d{1,3})$/;
+     contain.
+
+     A 107th CASE TURNED UP IN SEP 2026 (batch E34): "BUDDHA PEOVIDES SCRIPTURES lOT", where 107 is
+     read as l-O-T, standing in the middle of a sentence between "He" and "agreed". The trailing form
+     now takes the same class plus T, which is what a 7 breaks into. THE CAPS TEST IS WHAT MAKES THAT
+     SAFE and it has to stay: a head must be over three-quarters capitals with six letters or more,
+     which no line of this translation's prose or verse is — measured, the widening removes EXACTLY
+     ONE more line in the whole book, and it is that head. */
+  const HEAD_NUM = /^(?:[\dOoIlUu|]{1,3}\s+(.{6,45})|(.{6,45}?)\s+[\dOoIlUu|T]{1,3})$/;
   const VERSE_MAX = book.verseMax || 44;
 
   let src = String(text).replace(/\r\n?/g, "\n");
   const first = src.search(/\n[^A-Za-z0-9]{0,6}C[HKB][AEPR][PFR]?T?E?R?\.?\s+I\.?[ \t]*\n/);
   if (first < 0) throw new Error("no chapter heading — the transcription has changed shape");
+
+  /* THE PLATE CAPTIONS, AND THE BOOK'S OWN LIST OF THEM (Sep 2026, batch E34). This volume carries
+     thirty engravings, each with its caption printed under it — and the OCR reads a plate as a run
+     of blank lines, so the caption arrives as an ordinary line of text in the middle of whatever
+     paragraph the plate was bound into. Eighteen of them reached the reader, three inside a
+     sentence: "But the women Bajie tempted at the Bathing Fool. would not let him go." is a caption
+     folded into the prose it interrupts.
+
+     THE TABLE OF WHAT TO REMOVE IS THE BOOK'S OWN LIST OF ILLUSTRATIONS, read out of the front
+     matter this reader is about to throw away. That is the whole reason this is safe: the
+     alternative is a rule about the SHAPE of a caption — a short line inside a run of blank lines —
+     and the scan has 523 runs of four blank lines, most of them ordinary page breaks. Matching
+     against the printing's own list of its plates asks a question the book has already answered,
+     and it travels with the transcription instead of being a guess about it.
+
+     IT IS A FUZZY MATCH BECAUSE BOTH SIDES ARE OCR. The list prints "A Dragon transformed into a
+     Horse" and the plate itself comes back "A Dragon tbanspormed into a r:cRSE." Measured over the
+     whole book: at a threshold of 0.40, with the line required to sit behind THREE OR MORE blank
+     lines, twenty-two blocks match and EVERY ONE IS A PLATE CAPTION; the nearest thing that is not
+     is at 0.43. Both halves are needed — the ratio alone catches "chapter." against "The Master",
+     and the blank run alone catches every one of this scan's 523 page breaks.
+
+     THE THRESHOLD IS 0.40 RATHER THAN 0.35 BECAUSE THE CORRECTION CHAIN MOVES ONE SIDE AND NOT THE
+     OTHER, which is the thing to know before tuning it again. The chain runs before this reader, so
+     the LIST is romanised — "Kwanyin the Holy Spirit" becomes "Guanyin the Holy Spirit" — while the
+     caption on the plate is too mangled for the same row to fire on it ("KWANYIM TIIE IFOLY SpiKIT").
+     The two drift apart by the width of the correction, and that one caption went from 0.30 against
+     the raw list to 0.40 against the corrected one. A ROW THAT FIRES ON ONE SIDE OF A COMPARISON AND
+     NOT ON THE OTHER WIDENS IT, and the same will be true of any book whose furniture is matched
+     against its own front matter.
+
+     A CAPTION MAY RUN TO MORE THAN ONE LINE, so what is removed is the whole non-blank BLOCK the
+     matching line belongs to — nineteen are one line, two are two, and one is four, the plate of the
+     Incarnate One carrying the translator's note about the dove under its caption. A caption sits
+     alone between blank runs, so the block is bounded by the page's own typography. */
+  const frontMatter = src.slice(0, first);
+  const plateCaptions = [];
+  {
+    const a = frontMatter.search(/LIST OF ILLUSTRATIONS/i);
+    if (a >= 0) {
+      const rest = frontMatter.slice(a);
+      const b = rest.search(/\n\s*INTRODUCTION\b/);
+      for (const line of rest.slice(0, b > 0 ? b : rest.length).split("\n")) {
+        const t = line.trim();
+        if (!t || /ILLUSTRATION/i.test(t)) continue;
+        /* the page number is OCR too, so it is the handful of glyphs a digit is read as */
+        const m = /^(.*?)[\s.·•]*[0-9OolIi]{1,3}$/.exec(t);
+        if (m && m[1].replace(/[^A-Za-z]/g, "").length >= 6) plateCaptions.push(m[1].trim());
+      }
+    } else warn("no list of illustrations — the plate captions are still in the text");
+  }
+
   src = src.slice(first);
 
   /* THE OCR HAS NO END BOUNDARY OF ITS OWN, and the front one is only half the job. This reader
@@ -20655,6 +20725,69 @@ function extractJourney(text, book, warn) {
       return true;
     })
     .join("\n");
+
+  /* …and now the plates, against the list read above. See the block beside `frontMatter` for why the
+     book's own list is the table and why both the ratio and the blank run are needed. */
+  let plates = 0;
+  if (plateCaptions.length) {
+    const norm = (t) => t.toLowerCase().replace(/[^a-z]/g, "");
+    /* WHAT AN ENGRAVING LOOKS LIKE TO AN OCR. Not nothing: the hatching comes back as short blocks
+       of punctuation with a letter or two in them — "-^A^^K^^^i^", "\\&r,4??:", "^f:=-<:" — and the
+       plate's own corner marks as blocks of two to six characters that happen to be letters, "Vx-j"
+       and "Mihi". Both are absorbed, and the six-character bound is what reaches the second kind.
+       MEASURED, because that bound sounds reckless and is not: the book has 24 blocks of six
+       characters or fewer, of which four are real prose ("Truly.", "done,", "next.", "Thus,") left
+       stranded by a page break — and not one of the four sits beside a plate, so none is touched.
+       The rule only ever walks OUT FROM A MATCHED CAPTION, which is what keeps it honest. */
+    const plateNoise = (t) => {
+      const x = t.trim();
+      if (!x || x.length > 40) return false;
+      const letters = x.replace(/[^A-Za-z]/g, "").length;
+      return x.length <= 6 || letters < 4 || letters / x.length < 0.5;
+    };
+    const capNorm = plateCaptions.map(norm).filter((n) => n.length >= 6);
+    const ls = src.split("\n");
+    const drop = new Set();
+    for (let i = 0; i < ls.length; i++) {
+      const n = norm(ls[i]);
+      if (n.length < 6 || n.length > 70) continue;
+      let blank = 0;
+      for (let j = i - 1; j >= 0 && !ls[j].trim(); j--) blank++;
+      if (blank < 3) continue;
+      let best = 1;
+      for (const c of capNorm) { const r = editDist(n, c) / c.length; if (r < best) best = r; }
+      if (best > 0.40) continue;
+      let a = i; while (a > 0 && ls[a - 1].trim()) a--;
+      let z = i; while (z + 1 < ls.length && ls[z + 1].trim()) z++;
+      /* AND THE ENGRAVING ITSELF COMES OFF WITH ITS CAPTION. The OCR does not read a picture as
+         nothing: it reads the hatching as short blocks of punctuation — "-^A^^K^^^i^", "\\&r,4??:",
+         "uH^^^^-^^^" — which sit beside the caption in the same white space and reach the reader as
+         a line of gibberish in the middle of a paragraph. So the removal walks OUT from the caption
+         over any adjacent block that is short and mostly not letters, and stops at the first block
+         that is not. Measured over the whole book: ten blocks are absorbed and every one is
+         engraving noise; the chapter title "A DRAGON EXECUTED", which sits directly after one of the
+         plates, has eighteen letters and is not touched. */
+      for (;;) {
+        let j = a - 1; while (j >= 0 && !ls[j].trim()) j--;
+        if (j < 0) break;
+        let y = j; while (y > 0 && ls[y - 1].trim()) y--;
+        if (!plateNoise(ls.slice(y, j + 1).join(" "))) break;
+        a = y;
+      }
+      for (;;) {
+        let p = z + 1; while (p < ls.length && !ls[p].trim()) p++;
+        if (p >= ls.length) break;
+        let y = p; while (y + 1 < ls.length && ls[y + 1].trim()) y++;
+        if (!plateNoise(ls.slice(p, y + 1).join(" "))) break;
+        z = y;
+      }
+      for (let k = a; k <= z; k++) drop.add(k);
+      plates++;
+      i = z;
+    }
+    src = ls.filter((_, i) => !drop.has(i)).join("\n");
+  }
+
   /* The scan's own line wrap, which breaks a word with a hyphen. Only where a lower-case letter
      follows, so a real hyphenated compound broken across the wrap keeps its hyphen. */
   src = src.replace(/([A-Za-z])-[ \t]*\n[ \t]*([a-z])/g, "$1$2");
@@ -20788,7 +20921,8 @@ function extractJourney(text, book, warn) {
   const missing = [];
   for (let i = 1; i <= out.length; i++) if (!out.some((c) => c.n === i)) missing.push(i);
   if (missing.length) warn("chapter(s) with no heading found: " + missing.join(", "));
-  return { chapters: out, repairs: repairs, heads: heads, outlines: outlines, marks: marks,
+  return { chapters: out, plates: plates, plateCaptions: plateCaptions.length,
+    repairs: repairs, heads: heads, outlines: outlines, marks: marks,
     verseBlocks: verseBlocks, joins: joins, lateHeads: lateHeads, dropped: dropped };
 }
 
@@ -25188,6 +25322,14 @@ async function fetchEnglish() {
       got.joins + " paragraphs rejoined across a page break, " + got.verseBlocks + " verse blocks" +
       (got.lateHeads ? " (" + got.lateHeads + " of the heads the OCR split in two, caught as blocks)" : ""));
     console.log("  " + got.dropped + " characters of back matter dropped at the end boundary");
+    /* THE PLATES, COUNTED BOTH WAYS — how many of the printing's own list of illustrations were found
+       in the text and how many the list holds. They will never be equal: several plates are bound
+       into the front matter this reader starts after, and one or two captions are OCR'd past the
+       threshold. What matters is that the first figure does not fall to zero, which is what a list
+       that has stopped parsing looks like from here, and that it does not run away, which is what a
+       threshold set too loose looks like. */
+    console.log("  " + got.plates + " plate caption(s) removed, of the " + got.plateCaptions +
+      " the printing's own list of illustrations names");
     /* THE ONE FIGURE THIS BOOK IS ABOUT. Richard condenses most of the novel and marks the chapters
        he condensed himself, so this count is the single most important thing a reader can be told
        about the text — and a change in it means the mark has stopped being recognised, which is how
