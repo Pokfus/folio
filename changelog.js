@@ -35,13 +35,16 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.447", released: "2026-09-04T03:29Z" };
+window.FOLIO_VERSION = { v: "1.448", released: "2026-09-04T04:14Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-04",
     t: "Finer rivers for Italy and Greece, and Rome always on the map",
     items: [
+      "<b>An Atlas place on a phone or tablet is now one page, with its figures above the description</b>, so the population, area and GDP no longer take a swipe to reach.",
+      "<b>The close button of an Atlas place stays in its top right</b>, however long the name, instead of being pushed onto a line below it.",
+      "<b>The chip marking a place you have not opened before now reads \u201cNew discovery!\u201d</b> and no longer carries a running count.",
       "<b>The Picture round now uses the artefacts alone</b>, and the reveal shows the object\u2019s full description with the works it rests on.",
       "<b>An answered Picture round question stays answered</b>, so leaving the game and coming back resumes where you left off.",
       "<b>A Picture round image can be enlarged once the answer is out</b>, with its title, description and source.",

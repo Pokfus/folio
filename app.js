@@ -13727,8 +13727,8 @@
 
      The guards are the whole of the difficulty, because a false positive here TAKES A PAGE AWAY:
        · touch only. A trackpad's horizontal scroll arrives as wheel, and a mouse drag is a selection.
-       · never out of a horizontal scroller. The Atlas sheet's pager, the heatmap and the theme row all
-         scroll sideways, and a swipe that starts in one belongs to it — walked up the ancestor chain rather
+       · never out of a horizontal scroller. The heatmap and the theme row scroll sideways (so did the
+         Atlas sheet's pager, until Sep 2026), and a swipe that starts in one belongs to it — walked up the ancestor chain rather
          than listed by class, so a scroller added later is covered without anyone remembering this.
        · never while an overlay is up, never mid-gesture on a control, never while grading.
      And it is deliberately generous on distance (SWIPE_MIN) and strict on angle: a diagonal is a scroll that
@@ -18618,42 +18618,6 @@
      focusing a field on a touch device raises one over the page, and `hover:none` is what says there is no
      mouse to have focused it with. A tablet is as much a phone as a phone here. */
   function touchDevice() { return !!(window.matchMedia && window.matchMedia("(hover:none)").matches); }
-
-  /* ---------- one page per swipe ----------
-     The Atlas place panel's sections are swiped one page at a time on a phone, and a gesture must move
-     exactly ONE of them: a flick that carries two along skips a whole section, and silently,
-     since the reader only sees where it lands. `scroll-snap-stop:always` in the stylesheet is the real fix
-     and does the work wherever it is supported; this is the net under it, for the same reason the footnote
-     numbering has one — the failure is invisible, so it must not depend on a single mechanism.
-     It records the page the gesture STARTED on and, once the scroller has settled, pulls it back to one
-     step away if snapping landed further. The correction is deliberately made after the settle rather than
-     by fighting the gesture: nothing here can predict a fling, and a scroller wrestled mid-flick feels
-     broken in a way an overshoot does not. */
-  function wireOnePageSwipe(el) {
-    if (!el || el._onePage) return;
-    el._onePage = true;
-    let from = -1, settleT = 0;
-    // in RTL a scroller's scrollLeft runs NEGATIVE from 0 at the right edge, so pages are counted off its
-    // magnitude and the corrective scroll is signed back — Arabic is one of the ten site languages
-    const dirSign = () => (getComputedStyle(el).direction === "rtl" ? -1 : 1);
-    const pageAt = () => Math.round(Math.abs(el.scrollLeft) / (el.clientWidth || 1));
-    const mark = () => { if (from < 0) from = pageAt(); };
-    el.addEventListener("pointerdown", mark, { passive: true });
-    el.addEventListener("touchstart", mark, { passive: true });   // pointer events cover touch, but not on every engine we ship to
-    el.addEventListener("scroll", () => {
-      clearTimeout(settleT);
-      settleT = setTimeout(() => {
-        const w = el.clientWidth || 1, at = pageAt();
-        const last = Math.max(0, Math.round(el.scrollWidth / w) - 1);
-        const start = from;
-        from = -1;   // cleared BEFORE the corrective scroll, whose own scroll events must not re-enter this
-        if (start >= 0 && Math.abs(at - start) > 1) {
-          const to = Math.max(0, Math.min(last, start + (at > start ? 1 : -1)));
-          el.scrollTo({ left: dirSign() * to * w, behavior: prefersReducedMotion() ? "auto" : "smooth" });
-        }
-      }, 150);
-    }, { passive: true });
-  }
 
   /* ---------- levels / XP ----------
      XP = the number of distinct cards a user has studied. Each level costs `XP_PER_LEVEL × level` more cards
@@ -28073,8 +28037,8 @@
      release build"). `country-years.js` stays on disk with all 682 of its researched paragraphs and every
      reader of it is intact, because the request is "for now" and a switch is what makes that true —
      deleting the file to satisfy a temporary scope decision is the one irreversible thing the Atlas pass
-     could do. Flip it and the section, its dot on the phone's pager and its half of the citation list all
-     come back with nothing else to rewire. See `docs/atlas-rewrite-plan.md`. */
+     could do. Flip it and the section and its half of the citation list come back with nothing else to
+     rewire. See `docs/atlas-rewrite-plan.md`. */
   const ATLAS_YEAR_PROSE = false;
   function placeSources(name, yr) {
     const k = (name || "").trim().toLowerCase().replace(/\s+/g, " ");
@@ -32953,9 +32917,18 @@
               ${/* the discovery chip rides on the TITLE's own line rather than under it (Aug 2026, on
                     request): it announces the place whose name is beside it, and a row of its own pushed
                     the description a line further down a sheet that is already short. */""}
+              ${/* THE NAME AND ITS CHIP SHARE A WRAPPER, AND THE CONTROLS NEVER WRAP (Sep 2026, on a
+                    bug report: a long country name — with the discovery chip beside it — pushed the × onto
+                    a second line, where it appeared at the BOTTOM LEFT of the sheet). The row used to be a
+                    single `flex-wrap:wrap` line holding four things, so the two buttons were simply the
+                    last items to be pushed over. `.cp-titlemain` is the one item allowed to shrink and to
+                    wrap INSIDE itself; the row itself is `nowrap`, so the chevron and the × keep the
+                    top-right corner at every name length. */""}
               <div class="cp-titlerow">
-                <div class="cp-name" id="cpName"></div>
-                <div class="cp-new" id="cpNew" hidden></div>
+                <div class="cp-titlemain">
+                  <div class="cp-name" id="cpName"></div>
+                  <div class="cp-new" id="cpNew" hidden></div>
+                </div>
                 ${/* THE PHONE SHEET OPENS ON THE NAME ALONE (Aug 2026, on request), and this is what
                       opens the rest of it. It sits on the title's own line rather than under it, because
                       that line IS the whole of the sheet until it is pressed — a control below it would be
@@ -32983,7 +32956,7 @@
               <div class="cp-hist" id="cpHistList" hidden></div>
             </div>
             <div class="cp-cols">
-              <div class="cp-sec" id="cpDescSec">
+              <div class="cp-descsec cp-sec" id="cpDescSec">
                 <button class="cp-sec-head" type="button" aria-expanded="true"><span class="cp-sec-t">Description</span>${cpChev}</button>
                 <div class="cp-sec-body"><div class="cp-desc" id="cpDesc"></div></div>
               </div>
@@ -33007,7 +32980,6 @@
                 <div class="cp-sec-body"><div class="cp-src" id="cpSrc"></div></div>
               </div>
             </div>
-            <div class="cp-dots" id="cpDots" hidden></div>
           </div>
         </div>
         <div class="atlas-timebar"${GAME ? " inert" : ""}>
@@ -33122,28 +33094,36 @@
     let cpCrumbEl = null, cpHistListEl = null;   // drill breadcrumb + the "Through the ages" strip
     let cpColsEl = null, cpDescSecEl = null, cpYearSecEl = null, cpStatsSecEl = null;   // the scroller + the three collapsible sections
     let cpSrcEl = null, cpSrcSecEl = null;   // the citations behind this place's prose (hidden outright when it has none)
-    let cpDotsEl = null;   // the phone pager's dots (one per pane it can reach)
     /* Each section opens or closes as the popup is filled: open when it has something to say, closed when it
        doesn't, so a place with no year paragraph and no figures shows two quiet headers instead of a dash and
        a grid of dashes. This RESETS on every entity — the reader's manual toggles belong to the popup they
        were made in, not to the next country.
-       `cp-blank` is the same fact told to the PHONE, where the sections are pages you swipe rather than folds
-       you scroll past: an empty page is a swipe that lands on a dash, so it is dropped from the pager instead
-       of collapsed. `alwaysPane` keeps a section in the pager even with nothing of its own — the description
-       carries a "no description yet" line, and the reader must always land on that page first. */
-    function cpSection(sec, hasContent, alwaysPane) {
+       `cp-blank` is the same fact told to the SHEET, which is short: a collapsed header saying nothing is a
+       line of a small box spent on an absence, so an empty section is dropped from it outright rather than
+       shown shut. `alwaysShow` keeps a section on the sheet with nothing of its own — the description
+       carries a "no description yet" line, which is an answer where a missing section is a puzzle. */
+    function cpSection(sec, hasContent, alwaysShow) {
       if (!sec) return;
       sec.classList.toggle("collapsed", !hasContent);
-      sec.classList.toggle("cp-blank", !hasContent && !alwaysPane);
+      sec.classList.toggle("cp-blank", !hasContent && !alwaysShow);
       const head = sec.querySelector(".cp-sec-head");
       if (head) head.setAttribute("aria-expanded", hasContent ? "true" : "false");
     }
-    /* The sheet lays the sections out side by side (see the `--cp-sheet` block in styles.css) because a
-       bottom sheet is short and scrolling four stacked sections buries the figures below the fold. The dots
-       say there is more than one page — a horizontal scroller with no marker reads as a panel that just
-       happens to be cut off — and double as the way to reach a page without swiping.
+    /* THE SHEET IS ONE PAGE, AND THE FIGURES ARE AT THE TOP OF IT (Sep 2026, on request: "users
+       currently need to swipe right to see the country data boxes — instead, move them to above the
+       country background paragraphs so it is all in one page").
 
-       IT ASKS THE ELEMENT RATHER THAN RESTATING THE BREAKPOINT (Aug 2026, when tablets were moved onto the
+       It was a horizontal PAGER: the four sections lay side by side and were swiped between, with dots
+       under them saying how many there were. That was the answer to a real fault — a bottom sheet is
+       short, and four sections stacked in it buried the figures three scrolls down — but it answered it
+       by putting the figures behind a gesture, which is worse than putting them low: a reader who does
+       not swipe never learns they exist, and the dots are the only thing on the sheet saying so. Reading
+       the figures FIRST retires the fault the pager was built for, so the pager goes with it and the
+       sheet scrolls the way the desktop panel always has. `.cp-statsec` is lifted to the top by `order`
+       in the ≤1024px block rather than by moving the node, so the desktop panel — where the paragraph is
+       what the reader came for and a column has room for both — keeps the order it has always had.
+
+       IT STILL ASKS THE ELEMENT RATHER THAN RESTATING THE BREAKPOINT (Aug 2026, when tablets were moved onto the
        sheet on request). This was `matchMedia("(max-width:720px)")` beside a `@media (max-width:720px)` in
        the stylesheet: one decision written twice in two files, so widening it meant finding both, and
        getting one of them meant a window laid out as a sheet by CSS while JS went on treating it as the
@@ -33153,24 +33133,7 @@
        geometric read-back because `getComputedStyle().top` on a positioned element hands back the USED
        value, so `top:auto` cannot be told from `top:16px` that way. */
     const cpSheetMode = () => !!(cpEl && getComputedStyle(cpEl).getPropertyValue("--cp-sheet").trim() === "1");
-    const cpPagerOn = () => !!(cpColsEl && cpSheetMode());
-    const cpPanes = () => (cpColsEl ? Array.prototype.filter.call(cpColsEl.children, (s) => !s.hidden && !s.classList.contains("cp-blank")) : []);
-    function cpSyncDots() {
-      if (!cpDotsEl) return;
-      const panes = cpPagerOn() ? cpPanes() : [];
-      if (panes.length < 2) { cpDotsEl.hidden = true; cpDotsEl.innerHTML = ""; return; }
-      cpDotsEl.innerHTML = panes.map((p, i) => {
-        const t = p.querySelector(".cp-sec-t, .cp-year-num");
-        return '<button class="cp-dot' + (i ? "" : " on") + '" type="button" data-i="' + i + '" aria-label="' + esc((t && t.textContent.trim()) || ("Page " + (i + 1))) + '"></button>';
-      }).join("");
-      cpDotsEl.hidden = false;
-    }
-    function cpActiveDot() {   // whichever pane the scroller has settled nearest to
-      if (!cpDotsEl || cpDotsEl.hidden || !cpColsEl) return;
-      const panes = cpPanes(), w = cpColsEl.clientWidth || 1;
-      const i = Math.max(0, Math.min(panes.length - 1, Math.round(cpColsEl.scrollLeft / w)));
-      Array.prototype.forEach.call(cpDotsEl.children, (d, k) => d.classList.toggle("on", k === i));
-    }
+    const cpSheetOn = () => !!(cpColsEl && cpSheetMode());
     /* ---- the phone sheet's height is the reader's to set (Aug 2026, on request) ----
        Drag the grip at its top edge: down to the title bar alone, up to the top of the screen. The height is
        stored as a FRACTION of the viewport, not a pixel count — a sheet dragged to half the screen should
@@ -33222,46 +33185,56 @@
     function cpMinH() {
       if (!cpEl) return 0;
       const title = cpEl.querySelector(".cp-titlerow");
-      const dots = cpEl.querySelector(".cp-dots");
       const padB = parseFloat(getComputedStyle(cpEl).paddingBottom) || 8;
-      const h = (title ? title.offsetTop + title.offsetHeight : 70) + padB +
-        (dots && !dots.hidden ? dots.offsetHeight : 0);
-      return Math.max(56, h);
+      return Math.max(56, (title ? title.offsetTop + title.offsetHeight : 70) + padB);
     }
-    /* The CEILING is the smaller of two things: what the screen has room for, and what the PAGE ON SCREEN
-       actually needs (Aug 2026, on request — "the max height should always be the point where everything is
-       displayed fully, so we are never left with empty space at the bottom"). The pages are wildly uneven —
-       a five-sentence description against a 2×2 grid of figures — so one height for all of them means a
-       sheet either cut off on the long page or half empty on the short one.
-       cpFitH() is what makes the second half of the request work: swiping to a shorter page pulls the sheet
-       down to fit it. The reader's own dragged height is kept as the CAP it always was, not overwritten, so
-       swiping back to a long page restores it — a swipe answers for the page it lands on, and must not
-       quietly relitigate a setting. */
-    function cpPaneNeedH() {
+    /* The CEILING is the smaller of two things: what the screen has room for, and what the CONTENT actually
+       needs (Aug 2026, on request — "the max height should always be the point where everything is
+       displayed fully, so we are never left with empty space at the bottom"). A short place — a name, two
+       sentences and a grid of dashes — would otherwise open a sheet half full of nothing.
+       It measured the PAGE the pager had settled on until Sep 2026; with the sections stacked into one
+       scroller it is that scroller's own content height, and folding a section away pulls the sheet down
+       to fit what is left (see the section-head listener, which re-applies the height). */
+    function cpContentNeedH() {
       if (!cpEl || !cpColsEl) return Infinity;
-      const panes = cpPanes();
-      if (!panes.length) return Infinity;
-      const w = cpColsEl.clientWidth || 1;
-      const pane = panes[Math.max(0, Math.min(panes.length - 1, Math.round(cpColsEl.scrollLeft / w)))];
-      if (!pane) return Infinity;
-      // everything outside the scroller: the head, the dots, the box's own padding — measured through
-      // offsets for the reason cpMinH is (the head scrolls inside the box being resized)
-      const dots = cpEl.querySelector(".cp-dots");
+      /* Everything outside the scroller: the head and the box's own padding. The head is measured by its
+         own CONTENT (`scrollHeight`) rather than by where the scroller currently sits under it, and that is
+         the whole of why this is not one line: it is `flex:0 1 auto` inside the box being resized, and it
+         is measured while the box is still at the height it is opening FROM — so at that instant it is
+         squeezed, `.cp-cols`'s offsetTop reads short by however much, and the sheet opens that much shy of
+         its own content. It was ~26px on an ordinary country: a paragraph cut off mid-line, in the state
+         the fit exists to prevent. */
+      const head = cpEl.querySelector(".cp-head");
       const cs = getComputedStyle(cpEl);
-      const chrome = (cpColsEl.offsetTop || 0) + (parseFloat(cs.paddingBottom) || 0) +
-        (dots && !dots.hidden ? dots.offsetHeight : 0);
-      return chrome + pane.scrollHeight + 2;
+      const chrome = (head ? head.offsetTop + head.scrollHeight : (cpColsEl.offsetTop || 0)) +
+        (parseFloat(cs.paddingBottom) || 0);
+      return chrome + cpColsContentH() + 2;
+    }
+    /* …and the sections are added up rather than read off the scroller, for the same reason again, one
+       element down: `scrollHeight` is never LESS than the element's own padding box, so a scroller inside a
+       box we have already given a height reports that height back however little is in it. Folding a
+       section away therefore left the sheet exactly as tall as the paragraph that was no longer in it —
+       measured as a no-op, so nothing on screen said the fold had done anything but leave a gap. Each
+       section's own `offsetHeight` is a fact about its content and does not answer for the box. */
+    function cpColsContentH() {
+      if (!cpColsEl) return 0;
+      const kids = Array.prototype.filter.call(cpColsEl.children,
+        (k) => !k.hidden && getComputedStyle(k).display !== "none");
+      const gap = parseFloat(getComputedStyle(cpColsEl).rowGap) || 0;
+      let h = gap * Math.max(0, kids.length - 1);
+      kids.forEach((k) => { h += k.offsetHeight; });
+      return h;
     }
     function cpMaxH() {
       const room = (document.documentElement.clientHeight || window.innerHeight || 0) - CP_TOP_GAP - CP_BOTTOM_GAP;
-      return Math.max(cpMinH(), Math.min(room, cpPaneNeedH()));
+      return Math.max(cpMinH(), Math.min(room, cpContentNeedH()));
     }
-    /* Two heights and nothing in between: the name (cpMinH) or the page (cpMaxH). Above the pager's
-       breakpoint the sheet is a column beside the globe and neither applies, so the inline height and both
+    /* Two heights and nothing in between: the name (cpMinH) or the whole of it (cpMaxH). Above the sheet's
+       breakpoint the panel is a column beside the globe and neither applies, so the inline height and both
        classes come off and the stylesheet has it back. */
     function cpApplyH(animate) {
       if (!cpEl) return;
-      if (!cpPagerOn()) { cpEl.classList.remove("cp-sized", "cp-shut"); cpEl.style.height = ""; cpSyncMore(); return; }
+      if (!cpSheetOn()) { cpEl.classList.remove("cp-sized", "cp-shut"); cpEl.style.height = ""; cpSyncMore(); return; }
       cpEl.classList.add("cp-sized");
       cpFoldClass(animate);
       cpSyncMore();
@@ -33275,7 +33248,7 @@
     function cpSyncMore() {
       const b = cpEl && cpEl.querySelector("#cpMore");
       if (!b) return;
-      const on = cpPagerOn();
+      const on = cpSheetOn();
       b.hidden = !on;
       const open = on && !cpShut;
       b.setAttribute("aria-expanded", open ? "true" : "false");
@@ -33284,21 +33257,15 @@
     function cpSetShut(v) {
       cpShut = !!v;
       cpApplyH(true);
-      // the pager measures its panes against the box's width, which has just changed
-      if (!cpShut) { cpSyncDots(); cpActiveDot(); }
     }
-    // …and re-fit after a swipe: the ceiling has moved because the page under it has
-    function cpFitH() {
-      if (!cpEl || cpEl.hidden || !cpPagerOn() || !cpEl.classList.contains("cp-sized")) return;
-      const max = cpMaxH();
-      if (cpEl.getBoundingClientRect().height > max + 1) cpEl.style.height = Math.round(max) + "px";
-      else cpApplyH();
-    }
-    // crossing the pager's breakpoint (a rotated phone, a dragged window edge) changes what the sections ARE
+    /* `cpFitH` stood here and re-fitted the sheet after a SWIPE — the ceiling had moved because the page
+       under it had. There are no pages now, so the two things that change the content height are a fold
+       and a rotation, and each already calls cpApplyH: it is the same measurement without the
+       shrink-only clause, which existed to keep a swipe from relitigating a dragged height that is itself
+       long gone. */
+    // crossing the sheet's breakpoint (a rotated phone, a dragged window edge) changes how the panel sizes itself
     function cpResize() {
-      if (!cpEl || cpEl.hidden) { if (cpDotsEl) { cpDotsEl.hidden = true; cpDotsEl.innerHTML = ""; } return; }
-      if (!cpPagerOn() && cpColsEl) cpColsEl.scrollLeft = 0;   // back to the stacked layout: a leftover offset would hide the text
-      cpSyncDots(); cpActiveDot();
+      if (!cpEl || cpEl.hidden) return;
       cpApplyH();
     }
     let popPointLL = null;    // the lon/lat that opened the popup (the click point, or a search anchor) — feeds the crumb parent + "Who ruled here?"
@@ -33307,13 +33274,10 @@
     function countryStats(name) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); return (window.COUNTRY_STATS || {})[k] || null; }
     function countryStatsYear(name, yr) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); const o = (window.COUNTRY_STATS_YEARS || {})[k]; return (o && o[String(yr)]) || null; }   // per-state, per-year figures for a HISTORICAL map-year ({pop, area, gdp}); null → dash
     function countrySpan(name) { const k = (name || "").trim().toLowerCase().replace(/\s+/g, " "); return (window.COUNTRY_SPANS || {})[k] || ""; }   // the years this state/iteration existed, e.g. "1815 – Present" — shown thin/grey under the title
-    /* Discovery counting on the Atlas. placesSeen records every place opened, present-day and historical
-       alike, but only the present-day countries form a set with an honest total (258, fixed and shipped);
-       the era territories are open-ended and grow with every map added. So the chip counts a country
-       against that 258 and shows a territory its label alone. Memoized: GEO is fixed for the mount. */
-    let _geoNames = null;
-    const geoNameSet = () => (_geoNames || (_geoNames = new Set(GEO.map((c) => c.n).filter(Boolean))));
-    const countriesSeenCount = () => { const g = geoNameSet(); return Object.keys((S && S.placesSeen) || {}).filter((n) => g.has(n)).length; };
+    /* Discovery counting on the Atlas lived here — a set of the present-day country names and a tally of
+       how many of them had been opened, which is what the chip's "7 / 258" was counted from. Both went
+       with the counter in Sep 2026: nothing on this panel reads them now, and the reader's own tally is
+       still kept (placesSeen) and still shown, on the account page, by countrySeenCount. */
     // parse a formatted stat string ("41.45 million", "49,710", "$20.5B", "$709M") to a raw number, or NaN
     function statNum(s) {
       if (!s) return NaN; const t = String(s).toLowerCase().replace(/[$,]/g, "").trim();
@@ -33368,11 +33332,14 @@
       // forceGeneral (a UK constituent): just its name + its general description, no year paragraph or stats.
       cpNameEl.textContent = forceGeneral ? name : officialName(name, desc);
       if (cpSpanEl) cpSpanEl.textContent = forceGeneral ? "" : countrySpan(name);   // the years this state/iteration existed (thin grey under the title); "" → the line collapses
-      if (cpNewEl) {   // the discovery chip — first opening only, and the panel element is REUSED, so it must be cleared on every other one
+      /* The discovery chip — first opening only, and the panel element is REUSED, so it must be cleared on
+         every other one. IT CARRIES NO COUNTER (Sep 2026, on request): the chip shares the title's line,
+         and a running "7 / 258" beside a place's name is a second number competing with the one thing that
+         line is for — the reader's tally is on the account page, where it is read on purpose rather than
+         glanced at over a map. The count is still kept; only the chip stops reciting it. */
+      if (cpNewEl) {
         if (firstSeen) {
-          const isCountry = geoNameSet().has(name);
-          cpNewEl.innerHTML = discChipHTML("New place!", isCountry ? discCounter(countriesSeenCount(), geoNameSet().size) : "",
-            isCountry ? "Present-day countries you have opened on the Atlas" : "");
+          cpNewEl.innerHTML = discChipHTML("New discovery!", "", "");
           cpNewEl.hidden = false;
         } else { cpNewEl.hidden = true; cpNewEl.innerHTML = ""; }
       }
@@ -33411,9 +33378,8 @@
       const colDesc = (forceGeneral || !ATLAS_YEAR_PROSE) ? "" : stripInfoNoise(yd);   // the per-year paragraph for THIS map-year (the general description above stays constant)
       cpYearDescEl.textContent = colDesc || "—";
       if (colDesc) { autoLinkGlossary(cpYearDescEl, name, []); setupTooltips(cpYearDescEl); }
-      /* HIDDEN rather than collapsed while the switch is off. On a phone `.cp-cols` is a pager and
-         `cpPanes()` counts whatever is not `hidden`, so a merely-collapsed section keeps a dot for a page
-         that renders nothing and a swipe lands on a blank screen. */
+      /* HIDDEN rather than collapsed while the switch is off: a collapsed section still draws its header,
+         which on the sheet is a line promising a paragraph the reader can never open. */
       if (cpYearSecEl) cpYearSecEl.hidden = !ATLAS_YEAR_PROSE;
       cpSection(cpYearSecEl, !!colDesc);
       const st = forceGeneral ? null : (present ? countryStats(name) : countryStatsYear(name, year));   // present-day figures at the present year; per-year figures (COUNTRY_STATS_YEARS) for a historical map-year
@@ -33453,15 +33419,10 @@
       // the numbering is decoration failing loudly enough to take a panel down with it otherwise.
       if (cpColsEl) { try { wireFootnotes(cpColsEl); } catch (err) {} }
       cpEl.hidden = false;
-      // A fresh entity starts at the beginning of its own panel — the general description, in both layouts.
-      // The popup element is REUSED, so without this the scroller keeps wherever the previous country left
-      // it: however far DOWN it on the desktop panel, and on the phone however far ACROSS, which would open
-      // the next country on its figures. `scrollLeft` is set with the pages already laid out, so it lands on
-      // page one rather than on a stale offset.
-      if (cpColsEl) { cpColsEl.scrollTop = 0; cpColsEl.scrollLeft = 0; }
-      // the dots FIRST: the height is fitted to the page on screen, and the dot row is part of what the
-      // sheet has to make room for (see cpPaneNeedH)
-      cpSyncDots(); cpActiveDot();
+      // A fresh entity starts at the top of its own panel. The popup element is REUSED, so without this the
+      // scroller keeps wherever the previous country left it, and the next place opens part way down
+      // somebody else's paragraph.
+      if (cpColsEl) cpColsEl.scrollTop = 0;
       // …and SHUT again, whatever the last place was left at: a tap on a country asks what it is, and the
       // name is the answer. Reset here rather than remembered, which is the request's "always collapsed".
       cpShut = true;
@@ -35591,43 +35552,25 @@
     cpPopEl = root.querySelector("#cpPop"); cpAreaEl = root.querySelector("#cpArea"); cpGdpEl = root.querySelector("#cpGdp"); cpGdppcEl = root.querySelector("#cpGdppc");
     cpCrumbEl = root.querySelector("#cpCrumb"); cpHistListEl = root.querySelector("#cpHistList");
     cpColsEl = root.querySelector(".cp-cols");
-    cpDotsEl = root.querySelector("#cpDots");
     cpDescSecEl = root.querySelector("#cpDescSec"); cpYearSecEl = root.querySelector("#cpYearSec"); cpStatsSecEl = root.querySelector("#cpStatsSec");
     cpSrcEl = root.querySelector("#cpSrc"); cpSrcSecEl = root.querySelector("#cpSrcSec");
     { const cpClose = root.querySelector("#cpClose"); if (cpClose) cpClose.addEventListener("click", hideCountryPopup); }
     { const more = root.querySelector("#cpMore"); if (more) more.addEventListener("click", () => cpSetShut(!cpShut)); }
-    // one delegated listener folds any of the three sections open or shut, so a reader can put away the part
-    // they aren't reading — a long description on a phone sheet buries the year paragraph under it.
-    // On the phone the sections are PAGES, not folds: there is nothing below a section to uncover by shutting
-    // it, so the head does nothing there (and must not write srcCollapsed on the way past).
+    /* One delegated listener folds any of the sections open or shut, so a reader can put away the part they
+       aren't reading — a long description buries the figures under it on a sheet the size of a hand.
+       IT WORKS ON THE SHEET TOO SINCE SEP 2026, when the sections stopped being pages you swipe between:
+       there is something below a section to uncover now, so the head does what it says. The sheet's height
+       is fitted to its content, so a fold has to re-apply it — otherwise shutting a section leaves the box
+       the size of the paragraph that is no longer in it. */
     if (cpEl) cpEl.addEventListener("click", (e) => {
       const head = e.target.closest(".cp-sec-head"); if (!head || !cpEl.contains(head)) return;
       const sec = head.closest(".cp-sec"); if (!sec) return;
-      if (cpPagerOn()) return;
       const open = sec.classList.toggle("collapsed") === false;
       head.setAttribute("aria-expanded", open ? "true" : "false");
+      if (cpSheetOn()) cpApplyH();
     });
-    // the phone pager: dots follow the swipe, and a tap on one turns to that page
-    /* The dots follow the finger; the HEIGHT waits for it to stop. Re-fitting the sheet on every scroll
-       event would resize the box a gesture is being made inside — the snap would be measuring a moving
-       target — so the fit is debounced past the settle, exactly as the dot correction is. */
-    if (cpColsEl) {
-      let fitT = null;
-      cpColsEl.addEventListener("scroll", () => {
-        if (!cpPagerOn()) return;
-        cpActiveDot();
-        if (fitT) clearTimeout(fitT);
-        fitT = setTimeout(() => { fitT = null; cpFitH(); }, 140);
-      }, { passive: true });
-    }
-    if (cpColsEl) wireOnePageSwipe(cpColsEl);   // a hard flick must not carry past the year paragraph into the figures
-    if (cpDotsEl) cpDotsEl.addEventListener("click", (e) => {
-      const b = e.target.closest(".cp-dot"); if (!b) return;
-      const pane = cpPanes()[+b.dataset.i]; if (!pane) return;
-      cpColsEl.scrollTo({ left: pane.offsetLeft - cpColsEl.offsetLeft, behavior: prefersReducedMotion() ? "auto" : "smooth" });
-    });
-    // rotating the phone (or resizing a narrow window) crosses the pager's breakpoint — rebuild the dots for
-    // whichever layout is now in force, and put the reader back on the page they were reading
+    // rotating the phone (or resizing a narrow window) crosses the sheet's breakpoint — the two layouts
+    // size themselves differently, so the height has to be re-derived for whichever is now in force
     window.addEventListener("resize", cpResize);
     // breadcrumb: climb back up the drill hierarchy (territory → its empire; drilled country/constituent → its holder)
     if (cpCrumbEl) cpCrumbEl.addEventListener("click", (e) => {
