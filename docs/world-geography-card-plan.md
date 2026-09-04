@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-572` Harare.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-573` Phnom Penh.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -773,6 +773,28 @@ is also a genuine fifth source on a capital whose statistical profile has only o
 is what made this card reach the bar at all. Ecuador's recognition page is the deck's best example of the
 guide treating recognition as a SEQUENCE of acts — an 1832 letter, an 1835 exequatur, an 1836 instruction
 — rather than a date.
+
+**`gw-572` AMSTERDAM IS THE TWO-CAPITAL CASE WITH BOTH SOURCES STATING THE SPLIT OUTRIGHT, WHICH KOTTE
+DID NOT HAVE.** UNdata carries footnote d on the Netherlands reading *"Amsterdam is the capital and The
+Hague is the seat of government"*, and the EU country page's Capital field reads *"Amsterdam; Parliament
+and government are located in The Hague"* — two institutions saying the same thing in their own words, so
+the card can assert the division rather than describe it around the edges. Compare `gw-561`, where
+UNdata's Capital field simply names **Colombo** and the split had to be handled by omission. **Read the
+FOOTNOTES on a UNdata profile before writing a capital card, not just the fields**: on a divided capital
+the qualification is where the fact lives, and it is the same footnote apparatus that carries the
+agglomeration wording. The relay held here for the twelfth time (1,140.3 thousand against 1,140,339 for
+2019), Amsterdam being the largest city as well as the capital.
+
+**AND THE AMERICAN RECORD FOLLOWS THE GOVERNMENT, NOT THE CAPITAL — WHICH IS WHAT MAKES THE GUIDE USABLE
+ON A CARD ABOUT THE OTHER CITY.** Every diplomatic event on the Netherlands page happens at The Hague:
+relations established there on 19 April 1782, the legation closed there in 1801, moved to London in 1940,
+raised to embassy rank in 1942 and returned there in 1945. Amsterdam appears in that record exactly once
+and in a different register — as a CONSULAR post, Sylvanus Bourne acknowledged consul general on 2 January
+1798, who then oversaw American interests from Amsterdam for the thirteen years the legation was shut. So
+the guide is not silent about this capital; it places it correctly, and the card says so. **On a divided
+capital, the recognition guide is evidence FOR the division rather than a source that has missed the
+point** — check the consular section, which is where the commercial city turns up when the diplomatic one
+has the government.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
