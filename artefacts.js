@@ -1260,4 +1260,11 @@ window.ARTEFACTS = [
     date: "19th century CE",
     origin: "Britain and France",
   },
+  {
+    id: "mughal-miniature",
+    name: "Mughal miniature",
+    rarity: "rare",
+    date: "c. 1550 – 1750 CE",
+    origin: "Mughal India",
+  },
 ];

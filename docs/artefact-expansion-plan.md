@@ -280,6 +280,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | E2b/E3b/D1c | `albarello`, `phonograph-cylinder`, `green-glazed-jug` | — |
 | E3c/C1c/E2c | `bartmann-jug`, `byzantine-ivory-panel`, `gutenberg-bible-leaf` | — |
 | C3b/E3d | `wampum-bead`, `thimble` (**two, not three — see below**) | `moche-portrait-vessel`, `bodkin-arrowhead` |
+| B1d | `mughal-miniature` (UN-DEFERRED; **one, not three — see below**) | `glass-bangle` again, `mariners-astrolabe`, `turnshoe` |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1212,6 +1213,50 @@ paragraphs.
   span the object had.
 · One access note: **`finds.org.uk` is now behind a Cloudflare interstitial** (403, "Just a moment…") on
   its search paths, so the Portable Antiquities Scheme is not a route from here at present.
+
+**B1d's finding is the cost of the deferral list: a batch spent almost entirely on searching, and one
+plate to show for it.** Six subjects were opened and five closed, and the five failures are each worth
+recording, because every one of them was a plausible-looking route that does not exist.
+· **`mariners-astrolabe` has one usable work and two unreadable ones.** Markham's Hakluyt Society edition
+  of *The Voyages and Works of John Davis* (1880) is excellent and carries the plate's best fact — Davis,
+  in *The Seaman's Secrets* of 1595, calls the compass, chart and cross-staff "instruments sufficient for
+  the seaman's vse, the Astrolabie and Quadrant being instruments very vncertaine for Sea observations",
+  so the instrument everyone pictures as the navigator's was the one the best English navigator of his
+  generation distrusted. But the period manuals beside it will not read: the archive.org scan of
+  **Cortés's *Arte of Nauigation* (1589) yields zero hits for "astrolab"** and so does **Edward Wright's
+  *Certaine Errors in Navigation* (1599)**, both being blackletter with OCR that is not merely poor but
+  useless, and **Hues's *Tractatus de Globis* (Hakluyt, 1889), which reads perfectly, never mentions the
+  instrument.** **Test a period scan by grepping for the subject word before planning a plate on it.**
+· **`glass-bangle` has the sources and no picture.** Marshall's *Taxila* vol. 2 has a whole section on
+  them — 232 specimens, 38 from the Bhir Mound and 194 from Sirkap, the earliest from a fifth-century-BCE
+  stratum, blue the favourite colour throughout from copper and from cobalt, black glass "very like
+  obsidian" made there from an early period, specific gravity 2.3–2.6 showing little or no lead — but it
+  is one work, Beck's *Beads from Taxila* is not on archive.org, and the Indus reports cannot help because
+  Marshall himself says the Indus peoples had no true glass. **And Commons has no photograph of an ancient
+  South Asian glass bangle at all**: the search returns modern Hyderabad bazaar stock and Celtic examples
+  from Manching, which is the right-name-wrong-place trap in its purest form.
+· **`turnshoe` fails on the word, like `bodkin-arrowhead` before it.** A turnshoe is defined by its
+  CONSTRUCTION — sewn inside out and turned — and the Victorian shelf that covers medieval dress
+  (Fairholt's *Costume in England*, Wright's *Domestic Manners*) describes shoes as DEPICTED in manuscripts
+  and monuments, never as made. Costume history is not construction history; the term is 20th-century
+  leather archaeology, and the 19th century cannot answer for it.
+· **`han-tomb-brick` and `inkstone` were probed and left.** Laufer's *Beginnings of Porcelain in China*
+  (1917) carries one real fact about them — "the bricks and tiles of the Han and Wei periods, as far as we
+  know them, are all unglazed" — and no more; Bushell's *Chinese Art* mentions ink-stones only in a list of
+  crafts. Both need a source class this pass has not found.
+· **A JOURNAL THAT CHANGES PUBLISHER CAN TAKE ITS BACK CATALOGUE'S DOIs WITH IT.** *Ancient Asia* is open,
+  alive and exactly the right venue for South Asian archaeology — but it moved from Ubiquity Press, and
+  every **`10.5334/aa.*`** DOI now resolves to a 404 on the new site, so nothing it published before 2022
+  is citable from here. Its current articles carry a `10.47509/aa.*` prefix and work. **Resolve the DOI
+  before planning a batch around a journal's archive.**
+· What the one plate is worth is a reminder of why the batches are shaped this way. `mughal-miniature`
+  rests on Percy Brown (1924), Vincent Smith (1911) and **Blochmann's translation of the *A'in-i-Akbari*
+  (1873) — the primary source Brown quotes**, which is the better third work every time it can be reached:
+  it names Daswanth and Basawan, records that the week's painting went before Akbar himself, and gives the
+  emperor's own answer to the charge that image-making is forbidden. It also disagrees with Brown about
+  the *Hamzanama*: twelve volumes of a hundred folios is 1,200 pictures, and the *A'in* counts
+  illustrations to 1,400 passages. **Where a survey quotes a primary source, cite both and let them
+  differ.**
 
 ## The per-artefact workflow
 
