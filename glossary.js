@@ -2006,7 +2006,8 @@ window.GLOSSARY = {
 "Second_Samnite_War": "The Second Samnite War began in 326 BCE, when Samnite and Nolan troops were put into the Greek cities of Palaepolis and Neapolis after Rome had declared war on them; Palaepolis fell to a plot from within and Neapolis kept the Roman alliance ever after.<sup class=\"fn\" data-fn=\"1\"></sup> It was fought in two theatres, on the Campanian frontier and up the Volturnus into Samnium, and in Apulia in support of new allies there.<sup class=\"fn\" data-fn=\"2\"></sup> A Roman army was trapped at Caudium in 321 BCE and Samnite victories followed, but Rome recovered, sacked the Pentrian capital of Bovianum twice, and made peace in 304 BCE on terms the sources do not agree about.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Caudine_Forks": "The Caudine Forks were a defile in Samnium, in the central Apennines of Italy, where a Roman army was surrounded and forced to surrender in 321 BCE during the second war between Rome and the Samnites.<sup class=\"fn\" data-fn=\"1\"></sup> Livy places the trap between two narrow wooded passes enclosing a grassy plain, both of them barricaded once the legions had marched in, and reports that the Samnite commander Gaius Pontius disarmed the men and sent them under the yoke rather than free or kill them.<sup class=\"fn\" data-fn=\"1\"></sup> Rome afterwards disowned the terms and the fighting resumed, and later scholarship has held that the surviving accounts of the episode are heavily reworked.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Maniple_(military_unit)": "A maniple, in Latin <i>manipulus</i>, was a subdivision of the Roman legion used in the centuries between the abandoning of the phalanx and the adoption of the cohort as the standard unit.<sup class=\"fn\" data-fn=\"2\"></sup> The name is derived from <i>manus</i> and first meant a wisp of hay, which Roman tradition made the earliest military standard, so that the word came to mean the men serving under one ensign.<sup class=\"fn\" data-fn=\"2\"></sup> Polybius describes each grade of the heavy infantry being divided into ten such companies, each with two centurions, two rear-rank officers and two standard-bearers, so that it should never be without a commander.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Third_Samnite_War": "The Third Samnite War was fought between Rome and the Samnites from 298 to 290 BCE, the last of the three conflicts that decided the control of central and southern Italy.<sup class=\"fn\" data-fn=\"2\"></sup> It opened when envoys from Lucania asked the Roman senate for help, saying the Samnites had pressed them into an alliance and invaded when they refused, and it widened as the Samnites drew the Etruscans, Umbrians and Gauls into a league.<sup class=\"fn\" data-fn=\"1\"></sup> That coalition was broken at Sentinum in 295 BCE, but the Samnites fought on for five more years before laying down their arms.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Third_Samnite_War": "The Third Samnite War was fought between Rome and the Samnites from 298 to 290 BCE, the last of the three conflicts that decided the control of central and southern Italy.<sup class=\"fn\" data-fn=\"2\"></sup> It opened when envoys from Lucania asked the Roman senate for help, saying the Samnites had pressed them into an alliance and invaded when they refused, and it widened as the Samnites drew the Etruscans, Umbrians and Gauls into a league.<sup class=\"fn\" data-fn=\"1\"></sup> That coalition was broken at Sentinum in 295 BCE, but the Samnites fought on for five more years before laying down their arms.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Battle_of_Sentinum": "The Battle of Sentinum was fought in 295 BCE in Umbria, in the Third Samnite War, between Rome and a coalition of Samnites, Gauls, Etruscans and Umbrians.<sup class=\"fn\" data-fn=\"2\"></sup> The two consuls commanded, Quintus Fabius on the right against the Samnites and Publius Decius Mus on the left against the Gauls; Decius devoted himself to death when his wing began to give way, as his father had done, and the Samnite leader Gellius Egnatius was killed.<sup class=\"fn\" data-fn=\"1\"></sup> Livy reports 25,000 of the enemy dead, and the exact ground on which the battle was fought is not known.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2806,7 +2807,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Second_Samnite_War": "326 – 304 BCE",
 "Caudine_Forks": "321 BCE",
 "Maniple_(military_unit)": "c. 4th – 1st century BCE",
-"Third_Samnite_War": "298 – 290 BCE"
+"Third_Samnite_War": "298 – 290 BCE",
+"Battle_of_Sentinum": "295 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4035,7 +4037,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Colonia_(Roman)": ["colonia","coloniae","Roman colony"],
 "Latin_colony": ["Latin colonies","colonia Latina","coloniae Latinae"],
 "Caudine_Forks": ["Caudine Pass"],
-"Maniple_(military_unit)": ["maniple","maniples","manipulus","manipuli"]
+"Maniple_(military_unit)": ["maniple","maniples","manipulus","manipuli"],
+"Battle_of_Sentinum": ["Sentinum"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6074,7 +6077,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Second_Samnite_War": ["event","history","warfare","italy"],
 "Caudine_Forks": ["event","history","warfare","italy"],
 "Maniple_(military_unit)": ["institution","warfare","history","rome"],
-"Third_Samnite_War": ["event","history","warfare","italy"]
+"Third_Samnite_War": ["event","history","warfare","italy"],
+"Battle_of_Sentinum": ["battle","history","warfare","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
