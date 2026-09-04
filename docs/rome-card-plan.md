@@ -217,7 +217,7 @@ second home at writing time where it genuinely earns one — the obvious cases:
 - `rm-949 Virgil`, `rm-950 The Aeneid` → also `rm-augustus`
 - `rm-351 Caesar's Commentaries`, `rm-956 Livy` → also their narrative decks
 - `rm-399 The praetorian guard` → also `rm-army`
-- `rm-155 The manipular legion`, `rm-295 The Marian reforms` → also `rm-army`
+- `rm-155 Maniple`, `rm-295 The Marian reforms` → also `rm-army`
 - `rm-545 The Antonine Constitution` → also `rm-government`, which is where citizenship is taught
 - `rm-478 Pompeii`, `rm-479 Herculaneum` → also `rm-daily-life`, which is largely written from them
 - `rm-475 The Colosseum` → also `rm-spectacle`
@@ -413,7 +413,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-152  First Samnite War
     rm-153  Second Samnite War
     rm-154  Caudine Forks
-    rm-155  The manipular legion
+    rm-155  Maniple
     rm-156  Third Samnite War
     rm-157  Battle of Sentinum
     rm-158  Rome's conquest of Etruria
