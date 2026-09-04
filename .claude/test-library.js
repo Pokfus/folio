@@ -1558,8 +1558,9 @@ function aeneidChecks() {
          derived from the edition, and never to whatever the run happens to print. E40 then took it
          DOWN to 3,124: Supplement q.12's three articles stand where question 11's five were being
          printed a second time, and q.180 gained the article it had lost. A pinned total that only
-         ever goes up is not measuring the book. */
-      check("...3,124 articles across them", summa.secs === 3124, String(summa.secs));
+         ever goes up is not measuring the book. E41 then put it at 3,125, for II-II q.153's first
+         article, whose heading the pass had been dropping as the question's own. */
+      check("...3,125 articles across them", summa.secs === 3125, String(summa.secs));
       check("...every chapter's articles ascending, with no duplicate",
         !summa.disorder.length, JSON.stringify(summa.disorder.slice(0, 6)));
       /* Both of these were pinned to a fault rather than to a fact, and E39 removed the fault: I-II
@@ -2821,6 +2822,11 @@ function aeneidChecks() {
        one that was duplicated appears once, and the heading matches the question's own list of points
        of inquiry — which is the witness the repair was made on. */
     const su = fs.readFileSync(path.join(ROOT, "books", "summa-theologica.js"), "utf8");
+    /* The book file is JavaScript, so its HTML attributes are written with escaped quotes; the
+       assertions that match markup read this unescaped copy, which is what the page carries. Declared
+       beside `su` rather than beside its first use — E41 added a block ABOVE that use and every
+       assertion in the section threw "Cannot access 'suH' before initialization". */
+    const suH = su.replace(/\\"/g, '"');
     check("[summa] q.52 carries its third article again",
       su.includes("Whether every act increases its habit?") &&
       (su.match(/Whether habits increases by addition\?/g) || []).length === 1);
@@ -2876,6 +2882,21 @@ function aeneidChecks() {
       /Cao Pi|Tao Qian|Gan Ning/.test(titles) && !/Cao Bi|Dao Qian/.test(titles),
       (titles.match(/Cao Bi|Dao Qian/) || [""])[0]);
 
+    /* ================= 6k. the question heading that was really an article =================
+       Sep 2026, batch E41. II-II q.153's page heads itself "Question. 153 - Whether the matter of
+       lust is only venereal desires and pleasures?" — which is ARTICLE 1's title — and its prologue
+       is missing altogether, so the pass claimed that heading as the question's, dropped it as
+       furniture, and article 1 went with it: four headings for a stated five, and the printing's
+       articles 2 to 5 numbered 1 to 4. Every sentence was on the page and every number was wrong. */
+    check("[summa] II-II q.153's first article is its own, not the question's heading",
+      /<span class="bk-n">1<\/span> <b>Whether the matter of lust is only venereal desires and pleasures\?/.test(suH));
+    check("[summa] ...and the article that had been numbered 1 is numbered 2",
+      /<span class="bk-n">2<\/span> <b>Whether no venereal act can be without sin\?/.test(suH));
+    /* AND NO ARTICLE IS LEFT TITLED AFTER THE QUESTION IT IS IN. */
+    check("[summa] no article heading carries a 'Question. N -' prefix",
+      !/<b>Ques[a-z]{0,3}on\.?\s*\d+\s*[-–—]/i.test(suH),
+      (suH.match(/<b>Ques[a-z]{0,3}on\.?\s*\d+\s*[-–—][^<]{0,40}/i) || [""])[0]);
+
     /* ================= 6j. the two articles that were simply gone =================
        Sep 2026, batch E40. Two more losses of E38's kind and one of the programme's own making.
 
@@ -2911,9 +2932,6 @@ function aeneidChecks() {
        I-II q.28 had NO article numbers at all — six articles run together as one wall of prose — and
        Supplement q.39 the same, its heads being preformatted blocks. Both fail silently: the chapter
        renders, the words are all there, and only the numbering is gone. */
-    /* The book file is JavaScript, so its HTML attributes are written with escaped quotes; these
-       four read the unescaped form, which is what the page actually carries. */
-    const suH = su.replace(/\\"/g, '"');
     check("[summa] I-II q.28's six articles are numbered",
       /<span class="bk-n">6<\/span> <b>Whether love is cause of all that the lover does\?/.test(suH));
     check("[summa] ...and Supplement q.39's six, whose heads were preformatted blocks",

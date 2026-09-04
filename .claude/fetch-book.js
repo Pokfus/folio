@@ -16333,7 +16333,7 @@ const ART_WORDS = {
      page says, and the number it stands for is not in doubt. */
   ELVEN: 11,
 };
-function markArticuli(b, warn) {
+function markArticuli(b, warn, page) {
   /* A HEADING THAT NEVER BECAME ONE, BECAUSE ITS TITLE WRAPPED (Sep 2026, batch E39). Ten article
      heads across nine of the 614 questions stand in the prose as literal text —
 
@@ -16489,7 +16489,13 @@ function markArticuli(b, warn) {
     /* Four of the 614 questions head themselves without stating an article count, so the test above
        cannot see them; they do all open on the word, in one of its spellings. It is the WEAKER test
        and runs second, because "Question" is also how an article's own text can begin. */
-    else if (/^Ques[a-z]{0,3}on\b/i.test(t)) h.role = "question";
+    /* AND IT MUST NOT CLAIM AN INTERROGATIVE (Sep 2026, batch E41). A question's own title is a noun
+       phrase set in capitals — OF LUST, OF THE CONTEMPLATIVE LIFE — and never a question; an
+       ARTICLE's title is always one. II-II q.153's page heads itself "Question. 153 - Whether the
+       matter of lust is only venereal desires and pleasures?", which is article 1's title, and its
+       prologue is missing altogether — so this test claimed that heading, the pass dropped it as
+       furniture, and article 1 went with it, leaving the printing's articles 2 to 5 numbered 1 to 4. */
+    else if (/^Ques[a-z]{0,3}on\b/i.test(t) && !/\?\s*$/.test(t)) h.role = "question";
     else if (/^(?:Footnotes?|References?|Notes)$/i.test(t)) h.role = "foot";
     else if (!heads.length && !h.art && !mine) h.role = "treatise";
     heads.push(h);
@@ -16515,6 +16521,15 @@ function markArticuli(b, warn) {
      IT ALSO CORRECTS A MISNUMBERED HEADING, which is the point of the count-agreement rule and is
      what II-II q.29 needed: its three headings are numbered 1, 2 and 3 where the third is the
      question's FOURTH article, the third having lost its heading altogether. */
+  /* AND THE PAGE'S OWN HEADER BLOCK OUTRANKS BOTH (Sep 2026, batch E41), because it is the only
+     statement of the count that is on EVERY page and is independent of what the body's headings did.
+     Read first, and the heading and the prose stay as backstops for a page whose header block a
+     future markup change takes away. */
+  if (page) {
+    const t = /<span id="ws-title">([\s\S]*?)<\/span>/.exec(page);
+    const am = t && ARTICLES_RX.exec(t[1].replace(/<[^>]*>/g, " "));
+    if (am && ART_WORDS[am[1]] != null) expect = ART_WORDS[am[1]];
+  }
   if (expect == null) {
     const firstArt = heads.findIndex((h) => h.role === "article");
     const upto = b.replace(/<[^>]*>/g, " ").replace(/&#160;|&nbsp;/g, " ").replace(/\s+/g, " ").slice(0, 4000);
@@ -16533,7 +16548,13 @@ function markArticuli(b, warn) {
   /* A heading repeating the one before it WORD FOR WORD is a duplicate rather than a second article
      — one question in the book carries its fifth article's title twice — and dropping it is what
      brings the count back to what the edition states. */
-  const titleOf = (h) => (h.art ? h.art[3] : h.t).trim();
+  /* AN ARTICLE HEADING MAY CARRY THE QUESTION'S OWN PREFIX, and stripping it is the other half of
+     E41's fix: II-II q.153's first article is headed "Question. 153 - Whether the matter of lust is
+     only venereal desires and pleasures?", so reading it as an article without this leaves the
+     article titled after the question it is in. One place, so the duplicate test below and the
+     emitted heading compare and print the same string. */
+  const artTitle = (x) => x.replace(/^Ques[a-z]{0,3}on\.?\s*\d+\s*[-–—]\s*/i, "").trim();
+  const titleOf = (h) => artTitle(h.art ? h.art[3] : h.t);
   let arts = heads.filter((h) => h.role === "article");
   /* A HEADING REPEATING THE ONE BEFORE IT WORD FOR WORD IS DROPPED ONLY WHERE THE PAGE HAS MORE
      HEADINGS THAN THE QUESTION HAS ARTICLES, and that condition is the whole of the rule rather than
@@ -16609,7 +16630,7 @@ function markArticuli(b, warn) {
       return plant("<p><b>" + h.t + "</b>" + h.fn + "</p>");
     }
     found++;
-    const title = (h.art ? h.art[3] : h.t).trim();
+    const title = artTitle(h.art ? h.art[3] : h.t);
     return plant('<p><span class="bk-n">' + h.n + "</span>" +
       (title ? " <b>" + title + "</b>" : "") + h.fn + "</p>");
   });
@@ -17423,7 +17444,15 @@ function cleanBody(h, noteIds, book, warn) {
   /* Before the generic div pass turns the heading blocks into blockquotes and stripTags unwraps the
      h2/h3/h4 inside them — see markArticuli, which is the whole reason this hook has two occupants.
      Gated per book, so it is provably inert on the thirty-six already shipped. */
-  if (book && book.sections === "articuli") b = markArticuli(b, warn || (() => {}));
+  if (book && book.sections === "articuli")
+    /* THE PAGE STATES ITS OWN ARTICLE COUNT AND WE HAD ALREADY THROWN IT AWAY (Sep 2026, batch E41).
+       Every one of the 614 carries a `ws-title` header block — "Summa Theologiae — Question 153 - OF
+       LUST (FIVE ARTICLES)" — put there by the transcription's own header template, and it is right
+       even where the body's question heading is missing, misnumbered or carries an article's title
+       instead. It is read from `h`, the WHOLE page, because the `ws-noexport` pass above has already
+       removed that block from `b` by the time this hook runs: it is furniture to a reader and the
+       edition's own statement to this pass. */
+    b = markArticuli(b, warn || (() => {}), h);
   /* Before the three heading divs become blockquotes and the class this keys on is gone — see
      markMaloryHeads, which reads the chapter number off one of them and Caxton's rubric off another.
      Gated per book, so it is provably inert on the forty-five already shipped. */

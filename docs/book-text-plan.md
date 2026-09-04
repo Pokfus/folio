@@ -331,7 +331,8 @@ re-run and diffed byte for byte.
 | **E38** ✅ | a second witness for the whole Summa | **A whole question of Aquinas was absent from the book and no scanner here could see it.** Wikisource serves Third Part question 33 under `Question 34` and question 34 under `Question 35`, so question 35 — Of Christ's Nativity, eight articles — is on no page of it: chapters 455 and 456 shipped **byte-identical** and 3,678 words were gone. E35 and E36 found lost text only because the loss left a DUPLICATE to trip over; **a loss that leaves nothing behind is invisible to a spelling sweep, to `book-audit` and to a duplication check alike**, and only a second transcription can see it. Repaired in two halves — a page redirection for the half that exists somewhere, the witness for the half that does not — plus a contents-page typo (`OF UNDLUGENCES`) that **could not fire**, E37's cache guard having refused to correct a freshly fetched title. Its finding is the instrument: the first run reported 33 phantom findings because Gutenberg's article headings **disagree with their own brackets seventeen times**, and E35's similarity walk reports 12.96% for two texts that are 99.41% identical |
 | **E39** ✅ | the article heads the transcription left as prose | **27 article numbers restored across fourteen questions, from one fault wearing five coats.** An article head that never became a heading: escaped as `==== Art. N -` in the prose (the title wrapped, and a wiki heading must be on one line), the same with no closing run, the same inside a `<pre>` (the line began with a space), a bare paragraph with no markup at all, and a `<pre>` with no equals signs. **Each coat was found only by reading the SURVIVORS of the last**, because in the finished book they all look identical — a repair rate measured on the output said "finished" three times. The rule for an unmarked head comes out of the work's own shape (every article opens with its question and then "Objection 1:") and its argument is a measurement: **3,071 agreements with the existing numbering against 16 findings**. Its own fault was that the first fix ATE an article — the treatise fallback claims the first unnumbered heading on a page, which on a page whose only headings this pass had just made was article 1 |
 | **E40** ✅ | the two articles that were simply gone | **Four more articles of Aquinas put back, a third supply mode, and a fault in the text this programme had already supplied.** Supplement q.12 is E38's fault again (its page carries question 11's text) and Gutenberg stops at Part III, so the witness is **CCEL** — validated at 99.0%/99.1% on two questions Folio has, then cross-checked against New Advent, because CCEL and Wikisource may share a lineage and **agreement between relatives proves nothing**. II-II q.180's article 5 needed an INSERT rather than a replace: its `Art. 5` heading carries article SIX (99.83% against 45%, measured). And **28 replies shipped without their "to"** — two normalisations of the witness's abbreviations are ORDER-DEPENDENT and had been the wrong way round since E35, so `Reply Obj. 3:` became `Reply Objection 3:` in every article supplied. Nothing could see it: the words are right and the marker is a form the book never otherwise uses |
-| **E41–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E41** ✅ | the question heading that was really an article | **One chapter changed, out of a full 614-page rebuild — and that is the finding.** II-II q.153 heads itself with ARTICLE 1's title and has no prologue, so the pass dropped that heading as furniture and article 1 with it: the printing's articles 2–5 numbered 1–4, with every sentence on the page. Two fixes: a question's own title is a noun phrase and never an interrogative, so the weak role test stands down on a heading ending in "?"; and the article COUNT is read from the `ws-title` header block **every one of the 614 pages carries**, which is right even where the body's heading is missing, misnumbered or carries an article's title. Changing where the count comes from touches every question, so all 614 were refetched and diffed — **one chapter moved**, which says the header and the heading agree on 613 pages and the header is right on the one they do not. 608 of 614 questions are now numbered by their own stated count, against 4 before E39 |
+| **E42–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
@@ -396,6 +397,60 @@ not deferred.**
 ---
 
 ## 8. Batch log
+
+### E41 — the question heading that was really an article, shipped 2026-09-04
+
+**One chapter changed, and the change was found by asking where the count comes from.** E40 diagnosed
+II-II q.153 and left it: its page heads itself *"Question. 153 - Whether the matter of lust is only
+venereal desires and pleasures?"* — which is **article 1's title** — and its prologue is missing
+altogether, so `markArticuli` claimed that heading as the question's, dropped it as furniture, and
+article 1 went with it. Four headings against a stated five, the printing's articles 2 to 5 numbered
+1 to 4, and every sentence on the page.
+
+**THE ROLE TEST NEEDED ONE CLAUSE AND THE COUNT NEEDED A BETTER SOURCE.** A question's own title is a
+noun phrase set in capitals — OF LUST, OF THE CONTEMPLATIVE LIFE — and never an interrogative; an
+article's title always is one. So the weak "Question…" test does not fire on a heading ending in a
+question mark. That alone gets article 1 back as an article, and then the count has to agree for the
+page to be numbered 1..N.
+
+**AND THE COUNT WAS ON EVERY PAGE ALL ALONG.** Each of the 614 carries a `ws-title` header block —
+*"Summa Theologiae — Question 153 - OF LUST (FIVE ARTICLES)"* — put there by the transcription's own
+header template, and it is right **even where the body's question heading is missing, misnumbered, or
+carries an article's title instead**. It is furniture to a reader, which is why the `ws-noexport` pass
+strips it before this hook runs and why it had to be read from the WHOLE page rather than from the
+sliced body. The heading and E39's prose fallback stay as backstops.
+
+**THE MEASURE THAT MAKES THIS SAFE IS A FULL REBUILD, AND IT IS THE POINT OF THE BATCH.** Changing
+where `expect` comes from touches every question, so all 614 were refetched from source and the result
+diffed against what shipped: **exactly one chapter changed.** That is as strong a statement as this
+programme can make — on 613 pages the page's own header block and the body's heading agree about the
+article count, and on the one where they do not the header is right. The run also reports **608 of 614
+questions numbered by their own stated count**, where before E39 it was 4.
+
+**Its smaller half: an article may carry the question's prefix.** Read as an article, q.153's first
+head was titled *"Question. 153 - Whether the matter of lust…"* — the article named after the question
+it is in. Stripped in one place, so the duplicate test and the emitted heading compare and print the
+same string.
+
+**AND A GUARD FIRED CORRECTLY ON E38's OWN REPAIR.** Chapters 456 and 457 both report "the heading says
+8 articles and 4 were found", because E38's `pageShift` sends 456 to the page named `Question 35` —
+whose header block states question 35's count while its body carries question 34. The printed numbers
+are kept, which is right for 456, and 457 is replaced by the supplied question anyway. **A count read
+from the page is a count read from the page the redirection actually fetched.**
+
+**A NOTE FOR THE NEXT BATCH THAT ADDS AN ASSERTION HERE.** `suH` — the book file with its escaped
+quotes undone, which every markup-matching assertion in this section reads — was declared beside its
+first use. E41 added a block ABOVE that use and every assertion in the section threw *"Cannot access
+'suH' before initialization"*, which reads as a broken suite rather than as a misplaced `const`. It is
+declared beside `su` now.
+
+**THE SUMMA IS NOW AS FAR AS EITHER INSTRUMENT CAN SEE.** The book's own measure stands at **one**
+question — II-II q.48, the known false positive whose "four points of inquiry" are the plan for
+questions 48 to 51. The witness stands at **490 of 506 agreeing**, with **two** questions where it has
+an article Folio does not, and both are the Gutenberg bracket typos E38 recorded (`[I, Q. 4, Art. 4]`
+for q.42's, `[I, Q. 109, Art. 6]` for I-II's) whose text is in Folio at the right question. In the
+other direction the fourteen are Gutenberg's own missing and misnumbered headings. **There is no
+remaining disagreement that is Folio's.**
 
 ### E40 — the two articles that were simply gone, shipped 2026-09-04
 

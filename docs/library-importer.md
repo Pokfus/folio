@@ -1587,6 +1587,31 @@ second witness.
     interrogative, so a "Question…" heading ending in a question mark is an article head* — touches the
     weak role test that four other questions depend on, so it wants a whole-book remeasure.
 
+**AND THE COUNT WAS ON EVERY PAGE ALL ALONG** (Sep 2026, batch E41). Each of the 614 carries a
+`ws-title` header block — *"Summa Theologiae — Question 153 - OF LUST (FIVE ARTICLES)"* — put there by
+the transcription's own header template, and **it is right even where the body's question heading is
+missing, misnumbered, or carries an article's title instead**. `markArticuli` now reads the count from
+there first, with the body heading and E39's prose sentence as backstops.
+
+  · **IT IS READ FROM THE WHOLE PAGE, NOT FROM `b`.** That block is furniture to a reader, so the
+    `ws-noexport` pass strips it well before this hook runs; `cleanBody` passes `h` down for it.
+  · **CHANGING WHERE A COUNT COMES FROM TOUCHES EVERY QUESTION, SO ALL 614 WERE REFETCHED AND DIFFED
+    — AND EXACTLY ONE CHAPTER MOVED.** That is the strongest statement available here: on 613 pages
+    the header block and the body heading agree, and on the one where they do not the header is right.
+    **608 of 614 questions are now numbered by their own stated count**, against 4 before E39.
+  · **A QUESTION'S OWN TITLE IS A NOUN PHRASE AND NEVER AN INTERROGATIVE.** II-II q.153 heads itself
+    *"Question. 153 - Whether the matter of lust is only venereal desires and pleasures?"* — article
+    1's title — with no prologue at all, so the weak "Question…" role test claimed it, the pass
+    dropped it as furniture, and article 1 went with it. That test now stands down on a heading ending
+    in a question mark. Read as an article the head was then titled after the question it is in, so a
+    `Question. N -` prefix is stripped, in ONE place, or the duplicate test and the emitted heading
+    compare different strings.
+  · **A COUNT READ FROM THE PAGE IS A COUNT READ FROM THE PAGE THE REDIRECTION FETCHED.** Chapters 456
+    and 457 report "the heading says 8 articles and 4 were found", because E38's `pageShift` sends 456
+    to the page named `Question 35`, whose header states question 35's count while its body carries
+    question 34. The printed numbers are kept, which is right for 456, and 457 is replaced by the
+    supplied question anyway — but the guard firing there is correct and should stay.
+
 **📖 `.claude/summa-witness.js` — RUN IT AFTER ANY CHANGE TO THIS BOOK.** The fourth scanner, and the
 only one that can see text that is simply gone. Three checks: articles against the witness, each
 chapter's TITLE against its own PROLOGUE (two independent statements of one fact — this is what finds
