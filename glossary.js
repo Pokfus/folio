@@ -1995,7 +1995,8 @@ window.GLOSSARY = {
 "Latin_War": "The Latin War was fought between Rome and the Latin League, with the Campanians, the Volsci and the Sidicini on the Latin side, and Polybius makes the mastering of the Latins the first of the conquests by which Roman power in Italy grew.<sup class=\"fn\" data-fn=\"3\"></sup> Livy has it begin when the Latins, meeting under the pretext of a Samnite war, sent their praetors to demand that one consul and half the senate be drawn from Latium, a demand the consul T. Manlius Torquatus rejected outright.<sup class=\"fn\" data-fn=\"1\"></sup> The decisive fighting came at Veseris below Vesuvius and at Trifanum, after which the Latins and Campanians surrendered.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Feriae_Latinae": "The Feriae Latinae was the annual festival of Jupiter Latiaris on the Alban Mount, at which the peoples of Latium sacrificed in common under a truce; Dionysius credits its foundation to Tarquin and records 47 participating cities, each contributing an appointed share and receiving a portion of the meat.<sup class=\"fn\" data-fn=\"1\"></sup> Presidency passed from the chief magistrate of the Latins to the consuls of Rome, who afterwards conducted the sacrifice alone on behalf of all who took part.<sup class=\"fn\" data-fn=\"2\"></sup> Its date was fixed anew each year, no consul might take the field before it had been held, and a neglected rite obliged the whole festival to be repeated.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Praefectura": "A praefectura was an Italian community whose inhabitants held Roman citizenship but which elected no magistrates of its own, and to which the praetor urbanus, unable to exercise his jurisdiction in person, sent deputies called praefecti iure dicundo to administer Roman law.<sup class=\"fn\" data-fn=\"1\"></sup> Such a deputy was appointed by the delegation of a magistrate rather than by the people, and was not counted among the magistrates himself.<sup class=\"fn\" data-fn=\"2\"></sup> Festus lists 22 such places, 18 of them communities holding the citizenship without the vote; a town ceased to be one on receiving the full franchise, which carried the right to elect its own magistrates.<sup class=\"fn\" data-fn=\"1\"></sup>",
-"Latin_rights": "Latin rights were the standing a community could hold towards Rome without holding Roman citizenship, consisting of the private half of that citizenship — commercium, the capacity to act under the civil law, and conubium, that of contracting a lawful Roman marriage — but not the vote or the right to Roman office.<sup class=\"fn\" data-fn=\"1\"></sup> They began as rights exchanged reciprocally with the communities of Latium and ceased to pass between those communities after the Latin War, each town thereafter dealing with Rome directly.<sup class=\"fn\" data-fn=\"2\"></sup> A man holding a higher magistracy in such a town came into the Roman citizenship, and after the Social War the status was granted abroad as a favour.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Latin_rights": "Latin rights were the standing a community could hold towards Rome without holding Roman citizenship, consisting of the private half of that citizenship — commercium, the capacity to act under the civil law, and conubium, that of contracting a lawful Roman marriage — but not the vote or the right to Roman office.<sup class=\"fn\" data-fn=\"1\"></sup> They began as rights exchanged reciprocally with the communities of Latium and ceased to pass between those communities after the Latin War, each town thereafter dealing with Rome directly.<sup class=\"fn\" data-fn=\"2\"></sup> A man holding a higher magistracy in such a town came into the Roman citizenship, and after the Social War the status was granted abroad as a favour.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Municipium": "A municipium was a town whose inhabitants held Roman citizenship while keeping laws and magistrates of their own, bound by no Roman statute their own citizens had not ratified.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient writers defined the word two ways, for people who shared everything with Roman citizens except the vote and the holding of office, and for those whose whole community had passed into the Roman state, the first keeping a commonwealth of its own and the second governed from Rome.<sup class=\"fn\" data-fn=\"2\"></sup> Neither kind had a share in the public law, so its people were citizens but not of the fullest right.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -4013,7 +4014,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Appian_Way": ["Via Appia","Appia Antica"],
 "Aqua_Appia": ["Appian aqueduct"],
 "Aes_grave": ["aes grave"],
-"Latin_rights": ["ius Latii","Latin right"]
+"Latin_rights": ["ius Latii","Latin right"],
+"Municipium": ["municipia","municipes"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6041,7 +6043,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Latin_War": ["event","history","warfare","italy"],
 "Feriae_Latinae": ["practice","religion","history","italy"],
 "Praefectura": ["institution","history","politics","italy"],
-"Latin_rights": ["institution","history","politics","law","italy"]
+"Latin_rights": ["institution","history","politics","law","italy"],
+"Municipium": ["institution","history","politics","law","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
