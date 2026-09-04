@@ -395,7 +395,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-137  Appius Claudius Caecus
     rm-138  Via Appia
     rm-139  Aqua Appia
-    rm-140  Early Roman coinage
+    rm-140  Aes grave
 
 ### The conquest of Italy — `rm-conquest-italy`
 
