@@ -1637,6 +1637,41 @@ not ungrammatical, because every sentence but the last is whole. What it cannot 
     Edda quoting one skaldic stanza twice under two kennings with a fresh attribution each time.
     Recorded here so nobody runs it again expecting a yield.
 
+**📖 `.claude/check-pairing.js` — RUN IT AFTER ADDING AN ORIGINAL-LANGUAGE COLUMN.** The two columns
+paired the way the reader's page pairs them (Sep 2026, batch E44), and it is the first thing on this
+shelf to ask the question in **app.js's own terms** rather than in the importer's.
+
+  · **THE FAULT IT WAS WRITTEN FOR IS INVISIBLE TO EVERY OTHER CHECK.** Thucydides shipped for
+    three weeks pairing **7 of its 1,826 sections**: it is the only book here whose columns come from
+    different extractors, and each wrote a locally correct sort key — the Wikisource rule a bare
+    `<span class="bk-n">34</span>`, `teiBookChapters` a `data-n` on every marker of every book it
+    reads. app.js pairs on `parseInt(data-n ?? text)`, so the English offered 1..146 against the
+    Greek's 100..14600. Both columns complete, both correctly numbered, both printing the same figure
+    in the same place, and the page rendering every English chapter beside an empty cell and then
+    every Greek one.
+  · **THE IMPORTER'S OWN RECONCILIATION SAID THEY PAIRED PERFECTLY, BECAUSE IT COMPARED THE LABEL.**
+    That check exists so a pairing is verified against the files that shipped rather than asserted
+    from the entry, and it read the figure the marker PRINTS. Both print "34". It compares the KEY now
+    and reports the label — "121A", not 12101, being what a human reading the run needs. **A check
+    that reads a different field from the one the reader's page reads is not a check**, which is the
+    third time in seven batches an instrument has agreed with a fault.
+  · **THE RULE IS SLICED OUT OF app.js BY TEXT and the script stops if it is not there**, as every
+    other checker here slices what it tests. A scanner quietly measuring a rule the page has stopped
+    using is precisely the fault it exists to catch, and its own first cut did it — reading the
+    marker's visible text only, which found Thucydides for the wrong reason and would have found
+    nothing had the missing key been on the Greek side.
+  · **IT SEPARATES A GAP FROM A FAULT.** 107 sections across the shelf draw with one side empty, which
+    is 0.4% of 25,379 rows and is two editors dividing a text differently; a book pairing fewer than
+    half its sections is called out on its own line. All 107 were already recorded in their books'
+    entries before this was written — Herodotus's athetised 6.122, Suetonius's 58/59/60 run together,
+    the Confessions' two untranscribed chapters, the Aeneid's five cards, Boethius's deliberate
+    `data-n="0"` summaries — so **an instrument that reproduces a known residue exactly is one worth
+    believing about the one thing it adds.**
+  · **CHAPTER-LEVEL PAIRING IS A DIFFERENT AND MUCH HEALTHIER QUESTION, counted apart and in both
+    directions.** 31 of the 32 books pair every chapter; the Ramayana has three English chapters with
+    no original and every section of the rest pairs, so folding the two counts together would make
+    each sentence untrue of the other. The reader reads a level down.
+
 **📖 `.claude/check-twins.js` — RUN IT AFTER ADDING A BOOK.** The Summa's duplicated-chapter check,
 generalised to the whole shelf (Sep 2026, batch E42), and it is the one fault no other checker here
 can see: **the wrong chapter is perfectly good prose**, and what gives it away is a fact about the

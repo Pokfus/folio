@@ -163,6 +163,14 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     exist?" but **"does that text say which section each passage is?"** — app.js pairs the two columns
     on the section NUMBER, never on paragraph or list order. The number need not be the unit the
     edition is DIVIDED into, nor an integer (a Bekker page is `1094a`).
+  · **AND THE TWO COLUMNS MUST BE ON ONE SCALE, which is a second question and cost Thucydides three
+    weeks** (Sep 2026, batch E44). Where a number is not one to sort on, the importer writes an
+    explicit `data-n` sort key beside the figure it prints, and app.js pairs on
+    `parseInt(data-n ?? text)` — so a book whose two columns are written by DIFFERENT extractors can
+    have each side locally correct and share no key at all: the English offered 1..146 against the
+    Greek's 100..14600 and 1,819 sections drew beside an empty cell. **A CHECK THAT COMPARES THE
+    PRINTED LABEL CANNOT SEE THIS**, both columns printing "34", which is what the importer's own
+    reconciliation did. `node .claude/check-pairing.js` asks it of the whole shelf in app.js's terms.
   · **And ask what the TRANSLATION is a translation OF** before assuming an original can be found: a
     composite of three traditions faces nothing. **And what a medieval original's EDITOR died** — a
     constituted text is a modern work with a modern copyright.
@@ -5626,7 +5634,23 @@ dead code (never rendered).
     pair high and finds nothing. The bar is half the shorter chapter's runs, low enough that a
     partial paste shows and measured to cost nothing. It **exits 0 whatever it finds**, being a
     measure rather than a gate. **Re-run after adding a book.** Not part of the site.
-  · `node .claude/test-library.js` — the Library (333 assertions): the rename, the shelf, one book, and
+  · `node .claude/check-pairing.js` — **the two columns paired the way the READER's page pairs them**
+    (Sep 2026, batch E44). A bilingual book is drawn as rows and `bookSections` pairs on
+    `parseInt(data-n ?? textContent)`; nothing had ever asked the shelf whether the two columns' keys
+    meet. **Thucydides paired 7 of its 1,826 sections, and seven is worse than none** — it is the only
+    book whose columns come from different extractors, and each wrote a locally correct key (the wiki
+    rule a bare marker, `teiBookChapters` a `data-n` on every marker of every book it reads), so the
+    English offered 1..146 against the Greek's 100..14600 and the seven were accidental collisions
+    that READ as pairings. Both columns were complete, correctly numbered and printing the same
+    figure. **The importer's own reconciliation called them perfect, because it compared the LABEL** —
+    both print "34" — which is the finding to carry: **a check that reads a different field from the
+    one the reader's page reads is not a check.** So this one **slices the rule out of app.js by text
+    and stops if it is not there**, names each chapter by the shipped record's own title, and calls
+    out separately any book pairing under half its sections: 107 of 25,379 rows draw with one side
+    empty, which is two editors dividing a text differently, and every one of the 107 was already
+    recorded in its book's entry. Exits 0 whatever it finds. **Re-run after adding an
+    original-language column.** Not part of the site.
+  · `node .claude/test-library.js` — the Library (395 assertions): the rename, the shelf, one book, and
     the reader's place. **Re-run after touching `PAGES.library` / `PAGES.book` / `BOOKS` / `bookIngest` /
     `bookIntroChapter` / `bookNotesHTML` / `linkProperNounsOnly` / `readingPos` / `setReadingPos` /
     `bookSections` / `bookRows` / `applyLangMode` / `anchorNow` / `slideChapter` / `BOOK_SORTS` /
@@ -5643,8 +5667,9 @@ dead code (never rendered).
     `body: "plain"` slice / `extractCaput` / `extractTerzina` / `terzinaLines` / `terzinaHtml` /
     `teiVerseBooks`' `prose` branch and its two spacing rules / `cardMarks`' `both` sweep / the mid-line
     card lift / `teiVerse`'s `<choice>` resolver / `reconcileCards`' `langName` / `stripTags`'s `data-n`
-    carry and its `VOID_TAGS` guard, after running `fetch-book.js`, or after renaming anything on the
-    Collections page.**
+    carry and its `VOID_TAGS` guard / `teiBookChapters`' `data-n` scale / cleanBody's
+    `sections: "bookchapter"` marker rule, after running `fetch-book.js`, or after renaming anything on
+    the Collections page.**
   · `node .claude/test-account-page.js` — the SIGNED-IN account page and the Edit dashboard's account
     figures (Aug 2026). **Re-run after touching `acctSelfView` / `showcaseHTML` / `openCollectionWin` /
     `adminRenderDashboard` / `dashLoadRemote` / `supaFetch`'s count parsing.**

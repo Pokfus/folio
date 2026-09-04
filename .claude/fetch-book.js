@@ -4152,10 +4152,20 @@ const BOOKS = {
          citation, "2:34". None of the four older marker rules can read them.
 
        MEASURED over both editions before any of it was believed: 8 books on each side; the Greek's
-       917 chapters run 1..N in every book with no gaps, no duplicates and no lettered numbers, so
-       none of Herodotus's or the Ethics' data-n trouble arises; the English carries 916 of them, in
-       order, with the single omission at 8.61 recorded rather than repaired. Notes: four reference
-       marks in the whole work. */
+       917 chapters run 1..N in every book with no gaps, no duplicates and no lettered numbers; the
+       English carries 916 of them, in order, with the single omission at 8.61 recorded rather than
+       repaired. Notes: four reference marks in the whole work.
+
+       AND THAT MEASUREMENT ONCE ENDED "…so none of Herodotus's or the Ethics' data-n trouble arises",
+       which was true of the NUMBERS and false of the KEYS, and cost this book three weeks in which its
+       two columns paired 7 of their 1,826 sections (Sep 2026, batch E44). This is the only work on the
+       shelf whose columns are read by different code — this wiki entry against a Perseus TEI original
+       — so it is the only one where the two rules' independent decisions about `data-n` could
+       disagree, and they did: the marker rule wrote none and teiBookChapters writes one on every
+       marker of every book it reads. See `sections: "bookchapter"` in cleanBody for the repair and the
+       scale, and `.claude/check-pairing.js` for the check that now asks this of the whole shelf in
+       app.js's own terms. Both columns were complete, correctly numbered and printing the same figure
+       at the same place throughout; there was nothing wrong with either of them separately. */
     source: "wiki",
     body: "plain",
     dropHeadings: true,
@@ -17381,11 +17391,32 @@ function cleanBody(h, noteIds, book, warn) {
      silently filing 146 chapters under Book 2. Hence `expect`, passed by the caller as the Folio
      chapter being fetched and compared against the id's first half.
 
-     The chapter number is a plain integer here, so no data-n sort key is written: app.js reads the
-     marker's own text where the attribute is absent, which is exactly the pre-Aristotle behaviour and
-     is right for a book whose numbers are integers. Accepted only where it moves the sequence FORWARD,
-     the guard every rule above uses, and zero is admitted (`>= 0`) because the Gallic War established
-     that a chapter may be numbered 0 — this work has none, and the guard costs nothing either way. */
+     THE SORT KEY IS WRITTEN ON teiBookChapters' OWN SCALE, AND UNTIL SEPTEMBER 2026 IT WAS NOT
+     WRITTEN AT ALL (batch E44). It was reasoned here, and in the book's own entry, that "the Greek's
+     917 chapters run 1..N in every book with no gaps, no duplicates and no lettered numbers, so none
+     of Herodotus's or the Ethics' data-n trouble arises" — true of the NUMBERS and false of the KEYS.
+     Thucydides is the only book on this shelf whose two columns are read by different code: the
+     English by this rule, which wrote a bare `<span class="bk-n">34</span>`, and the Greek by
+     teiBookChapters, which writes `data-n` on every marker of every book it reads, lettered chapters
+     or none. app.js pairs on `parseInt(data-n ?? text)`, so the English column offered the keys
+     1..146 and the Greek 100..14600, and the two share almost nothing: every one of the work's 916
+     English chapters drew beside an empty cell, then every one of the Greek's 917 did, with SEVEN
+     accidental rows where an English chapter number happened to equal a Greek key — book 1's chapter
+     100 beside the Greek's chapter 1, which is worse than an empty cell because it reads as a pairing.
+     1,819 sections in all, in the shipped book, and this file's usual silence around it: nothing threw,
+     both columns were complete and correctly numbered, and the importer's own reconciliation of the
+     two reported them perfectly paired — because it compares the LABEL each prints, and both print
+     "34". See the note there, which now compares the key as well, and `.claude/check-pairing.js`,
+     which asks the question of the whole shelf in app.js's own terms.
+
+     THE SCALE IS `n * 100`, WHICH IS teiBookChapters', rather than the Greek being brought down to a
+     bare integer: one work, one scale, and if this transcription ever gains a lettered chapter the two
+     rules already agree about what to do with it. It is a SORT KEY and not a label — the reader still
+     sees the plain figure, and within a chapter the ordering is identical either way, which is what
+     makes the change provably nothing but the pairing. Accepted only where it moves the sequence
+     FORWARD, the guard every rule above uses, and zero is admitted (`>= 0`) because the Gallic War
+     established that a chapter may be numbered 0 — this work has none, and the guard costs nothing
+     either way. */
   if (book && book.sections === "bookchapter") {
     let seq = -1, chapters = 0;
     b = b.replace(/<span class="wst-verse[^"]*"[^>]*>[\s\S]*?<\/span>/g, (whole) => {
@@ -17405,7 +17436,7 @@ function cleanBody(h, noteIds, book, warn) {
       const n = +m[2];
       if (n <= seq) { warn && warn("chapter " + id + " repeats or goes backwards — dropped"); return ""; }
       seq = n; chapters++;
-      return '<span class="bk-n">' + n + "</span>";
+      return '<span class="bk-n" data-n="' + n * 100 + '">' + n + "</span>";
     });
     if (!chapters && warn) warn("no chapter numbers found — the book will pair as one whole block");
   }
@@ -27125,17 +27156,33 @@ async function fetchOriginal() {
         en = teiBookChapters(enXml, {}, warn);
       }
       const or = teiBookChapters(xml, {}, warn);
-      /* The chapter as the reader sees it — "121A", not the sort key behind it — because both columns
-         print the same label and a human reading this report needs the citation, not the scale. */
-      const nums = (o) => (o ? [...o.html.matchAll(/class="bk-n"[^>]*>([^<]+)</g)].map((m) => m[1]) : []);
+      /* PAIRED ON THE KEY, REPORTED BY THE LABEL — and until September 2026 this was paired on the
+         label, which is the whole reason batch E44 had a book to repair. A marker carries two numbers:
+         the figure it PRINTS and the `data-n` sort key app.js actually pairs on, and the two are the
+         same only where the importer has not written a key. Thucydides' Greek carried `data-n` on
+         every marker and its English carried none, so the shipped book paired 7 of its 1,826 sections
+         — and this check reported all 916 of them paired, because both columns print "34". A check
+         that reads a different field from the one the reader's page reads is not a check.
+         So the pairing runs on the key and the REPORT still names the citation, which is what a human
+         reading it needs: "121A", not 12101. A key that is not a number cannot arise on this branch —
+         every rule feeding it writes digits — and is reported rather than compared, since NaN pairs
+         with NaN under Set membership and would read as a row that agrees. */
+      const marks = (o) =>
+        (o ? [...o.html.matchAll(/class="bk-n"([^>]*)>([^<]+)</g)] : []).map((m) => {
+          const dn = /data-n="([^"]*)"/.exec(m[1]);
+          const k = parseInt(dn && dn[1] !== "" ? dn[1] : m[2], 10);
+          if (!(k >= 0)) warn("chapter mark " + JSON.stringify(m[2]) + " has no number to pair on");
+          return { k: k, t: m[2] };
+        });
       console.log("  reconciling the two columns' chapter numbers:");
       let paired = 0, blankOrig = 0, blankEng = 0, notes = 0;
       Object.keys(en).map(Number).sort((a, b) => a - b).forEach((n) => {
         if (!or[n]) { warn(BOOK.chapterWord + " " + n + " is missing from the original"); return; }
-        const e = nums(en[n]), o = nums(or[n]);
-        const es = new Set(e), os = new Set(o);
-        const miss = e.filter((c) => !os.has(c)), extra = o.filter((c) => !es.has(c));
-        paired += e.filter((c) => os.has(c)).length;
+        const e = marks(en[n]), o = marks(or[n]);
+        const es = new Set(e.map((c) => c.k)), os = new Set(o.map((c) => c.k));
+        const miss = e.filter((c) => !os.has(c.k)).map((c) => c.t);
+        const extra = o.filter((c) => !es.has(c.k)).map((c) => c.t);
+        paired += e.filter((c) => os.has(c.k)).length;
         blankOrig += miss.length; blankEng += extra.length;
         notes += or[n].notes.length;
         console.log("    " + BOOK.chapterWord + " " + n + " — " + e.length + " chapters in the " +

@@ -3019,6 +3019,77 @@ function aeneidChecks() {
       String((su.match(/This suffices for the Replies to the Objections/g) || []).length));
   }
 
+  /* ================= 6n. the two columns actually pair (E44) =================
+     A bilingual book is drawn as ROWS, and a row is a claim the two editions themselves make: the
+     section number by which the passage is cited, on both sides. Where the two columns' keys do not
+     meet, every English section draws beside an empty cell and then every original one does — the
+     page renders perfectly, the prose is all present, the counts are all right, and the reader is
+     handed two columns that never look at each other.
+
+     THUCYDIDES SHIPPED THAT WAY. It is the only book here whose columns come from different
+     extractors, and each wrote a locally correct sort key: the Wikisource rule wrote a bare marker,
+     the Perseus one writes `data-n` on every marker of every book it reads. app.js pairs on
+     `parseInt(data-n ?? text)`, so the English offered 1..146 against the Greek's 100..14600 and the
+     work paired 7 of its 1,826 sections — those seven an English chapter number that happened to
+     equal a Greek key, which is worse than an empty cell because it reads as a pairing.
+
+     IT IS ASSERTED IN THE BROWSER RATHER THAN OVER THE DATA FILE, and that is the point of putting it
+     here at all: `.claude/check-pairing.js` measures the shipped files against app.js's rule as that
+     script's author understands it, and this measures what the reader is actually shown. What it asks
+     is what was false — that book 1 draws 146 rows rather than 291, that every one carries BOTH
+     columns, and that a row's two cells are the SAME PASSAGE, checked on a proper name, Thucydides
+     opening with his own, which is the one word that reads alike in Crawley and in Stuart Jones. */
+  {
+    const page = await browser.newPage({ viewport: DESK });
+    await watch(page);
+    await page.goto(base + "#book/thucydides-peloponnesian-war", { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    await page.evaluate(() => { const t = [...document.querySelectorAll(".bk-tab")].find((x) => x.dataset.ch === "1"); t.click(); });
+    await page.waitForTimeout(600);
+    await page.evaluate(() => document.querySelector("#bkLang").click());
+    await page.waitForTimeout(3000);
+
+    const th = await page.evaluate(() => {
+      const rows = [...document.querySelectorAll(".bk-row")];
+      const full = rows.filter((r) => {
+        const e = r.querySelector(".bk-col-en"), o = r.querySelector(".bk-col-or");
+        return e && o && e.textContent.trim() && o.textContent.trim();
+      });
+      /* THE ROW IS FOUND BY ITS OWN PROSE, not by `data-sec="1"`, and that is deliberate: `data-sec`
+         carries the SORT KEY, so chapter 1 of this book is `data-sec="100"` — which is exactly the
+         thing under test and would make the assertion circular. It is a within-render anchor for the
+         language switch, read out of the DOM and put straight back into a selector on the same DOM,
+         so the scale it is written on changes nothing. */
+      /* THE MARKER'S OWN DIGIT IS PART OF THE COLUMN'S TEXT, which is what a `bk-n` span IS, so the
+         first thing `textContent` hands back for chapter 1 is "1Thucydides, an Athenian…" — with no
+         space in the English and one in the Greek, since the two extractors emit the marker
+         differently. Strip a leading figure before anchoring, or the row is never found and the
+         assertion fails with an empty string, which reads as a missing row rather than as a regex. */
+      const body = (r, sel) => r.querySelector(sel).textContent.trim().replace(/^\d+\s*/, "");
+      const r1 = rows.find((r) => /^Thucydides, an Athenian/.test(body(r, ".bk-col-en")));
+      return {
+        rows: rows.length,
+        full: full.length,
+        secs: rows.map((r) => r.dataset.sec).filter(Boolean).slice(0, 5).join(","),
+        en1: r1 ? body(r1, ".bk-col-en").slice(0, 60) : "",
+        or1: r1 ? body(r1, ".bk-col-or").slice(0, 60) : "",
+      };
+    });
+    /* 146 chapters in book 1 and one row apiece — before the repair this was 291, being 145 English
+       rows, 145 Greek ones and the single accidental pair. */
+    check("[pairing] book 1 of Thucydides draws one row per chapter, not two",
+      th.rows === 146, th.rows + " rows, sections " + th.secs);
+    check("[pairing] ...and every one of them carries both columns",
+      th.full === 146, th.full + " of " + th.rows + " rows have text on both sides");
+    check("[pairing] ...with chapter 1 opening the work in English",
+      /^Thucydides, an Athenian/.test(th.en1), JSON.stringify(th.en1));
+    check("[pairing] ...on a row whose key is the Greek's scale, not the printed figure",
+      /^100,200,300,400,500$/.test(th.secs), th.secs);
+    check("[pairing] ...and in Greek, on the same row",
+      /\u0398\u03bf\u03c5\u03ba\u03c5\u03b4\u03af\u03b4\u03b7\u03c2 \u1f08\u03b8\u03b7\u03bd\u03b1\u1fd6\u03bf\u03c2/.test(th.or1), JSON.stringify(th.or1));
+    await page.close();
+  }
+
   /* ================= 7. the switch is a crossfade, not a cut =================
      A regression here is silent in the worst way: the languages still swap, the reader still lands on
      the right passage, and every assertion above still passes — the switch just goes back to being the

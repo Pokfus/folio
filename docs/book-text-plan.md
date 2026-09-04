@@ -3393,3 +3393,126 @@ counterpart in the scratch copy of the raw chapters and read as conversion produ
 hazard this batch is built to avoid — and all three are in the translator's **notes**, which the dump
 excluded and the extractor does not. Check what a scratch artefact actually holds before reading an
 absence as evidence.
+
+---
+
+## E44 — the two columns that paired on nothing
+
+**THE SHELF'S BILINGUAL PAIRING, MEASURED IN app.js's OWN TERMS FOR THE FIRST TIME.** A book with an
+original-language column is drawn as ROWS, and a row is a claim the two editions themselves make: the
+section number by which the passage is cited, kept as a `<span class="bk-n">` marker on both sides.
+`bookSections` pairs on `parseInt(data-n ?? textContent)` with the guard `v >= 0`. Nothing had ever asked
+the whole shelf whether the two columns' keys actually meet.
+
+**THUCYDIDES PAIRED 7 OF ITS 1,826 SECTIONS, AND SEVEN IS WORSE THAN NONE.** It is the only book here
+whose two columns come from different extractors — a Wikisource English against a Perseus TEI Greek — and
+each wrote a locally correct sort key. The wiki rule wrote a bare `<span class="bk-n">34</span>`, on the
+stated reasoning that "the chapter number is a plain integer here, so no data-n sort key is written";
+`teiBookChapters` writes `data-n` on every marker of every book it reads, lettered chapters or none,
+because within one column a book mixing scales would sort against itself. So the English offered the keys
+1..146 and the Greek 100..14600. Every one of the work's 916 English chapters drew beside an empty cell,
+then every one of the Greek's 917 did — with seven accidental rows where an English chapter number
+happened to equal a Greek key, book 1's chapter 100 standing beside the Greek's chapter 1, which reads as
+a pairing rather than as a gap. **1,819 sections, in the shipped book, from the day both columns landed
+on 15 August to today.**
+
+**THE BOOK'S OWN ENTRY CONTAINS THE MEASUREMENT THAT MISSES IT**, and it is worth quoting because it is
+the whole shape of the fault: *"the Greek's 917 chapters run 1..N in every book with no gaps, no
+duplicates and no lettered numbers, so none of Herodotus's or the Ethics' data-n trouble arises."* True of
+the NUMBERS and false of the KEYS. Both columns were complete, correctly numbered, in order, and printed
+the same figure at the same place.
+
+**AND THE IMPORTER'S OWN RECONCILIATION REPORTED THEM PERFECTLY PAIRED, BECAUSE IT COMPARED THE LABEL.**
+That check exists precisely so a pairing is verified against the files that shipped rather than asserted
+from the entry, and it read `class="bk-n"[^>]*>([^<]+)<` — the figure the marker PRINTS. Both columns
+print "34". **A check that reads a different field from the one the reader's page reads is not a check**,
+and this is the second time in six batches that an instrument agreed with a fault (E38's similarity walk,
+E39's repair rate). It now pairs on the key and reports the label, which is what a human reading the run
+needs: "121A", not 12101.
+
+**THE FIX IS ON THE ENGLISH AND THE SCALE IS teiBookChapters'** — `n * 100`, rather than bringing the
+Greek down to a bare integer. One work, one scale, and if this transcription ever gains a lettered chapter
+the two rules already agree what to do with it. It is a sort key and not a label: the reader still sees
+the plain figure, and within a chapter the ordering is identical either way. **Proved byte-for-byte**: the
+rebuilt English is identical to what shipped once the 916 new `data-n` attributes are stripped back out,
+every one of them `n * 100`, with no marker left without one; the Greek file is untouched to the byte.
+
+**THE BOOK'S OWN FRONT MATTER TOLD THE READER THE TRUTH, WHILE THE PAGE BELOW IT DID NOT.** Thucydides'
+front matter says, in the reader's own words, that the two editions agree almost exactly and that *"the
+single exception is chapter 61 of book 8 … the Greek's 61 draws beside an empty cell rather than being
+quietly renumbered."* A reader who read that and then scrolled would have met 1,819 empty cells. Nothing
+in the pipeline compares a book's stated pairing with its actual one — the front matter is prose written
+by hand into the entry, the pairing is an emergent property of two extractors — so **the shelf carried a
+claim that contradicted the shipped file and neither knew about the other.** No change was needed to those
+sentences; what changed is that they are now true. Where a book's front matter states a measurable fact
+about its own text, that is a check waiting to be written.
+
+**`.claude/check-pairing.js` IS THE COMMITTED INSTRUMENT**, and it asks the shelf-wide question the
+importer's per-book check cannot: the importer runs only when a book is rebuilt, this runs over the files
+that are on disk. It **slices the two lines out of app.js by text** and stops if they are not there, since
+a scanner quietly measuring a rule the page has stopped using is the exact fault it exists to catch; it
+names each chapter by the shipped record's own title ("Fitt 24", "Letter 22"), the word for a chapter
+living in app.js's registry and not in the generated file; and it calls out separately any book pairing
+fewer than half its sections, because a handful of unpaired rows is two editors dividing a text
+differently and a book at 0.4% is a fault. Run against the pre-fix file it reports
+`!! thucydides-peloponnesian-war — 7 paired, 909 English-only, 910 original-only`; against the shipped one
+it reports the single omission at 8.61 that the entry already records.
+
+**1,925 UNPAIRED SECTIONS BEFORE, 107 AFTER — AND ALL 107 WERE ALREADY WRITTEN DOWN.** That is the batch's
+other result and it is a good one: across the other thirteen books the measure reproduced, exactly, the
+residue the shelf had already recorded in its own entries — Herodotus's athetised 6.122, Suetonius's
+58/59/60 run together in one division, the Confessions' two chapters never transcribed at the source (said
+in the book's `rights` and on its first page), the Aeneid's five cards and the reason each is there,
+Boethius's deliberate `data-n="0"` summaries, the Rigveda's and Seneca's verse-count differences. **An
+instrument that independently reproduces a known residue is an instrument worth believing about the one
+thing it adds.**
+
+**CHAPTER-LEVEL PAIRING IS NOT THE SAME QUESTION AND IS NEARLY PERFECT**: 31 of the 32 books pair every
+chapter, and the Ramayana has three English chapters with no original. The interesting failures are a
+level down, which is where the reader reads — and the scanner counts the two apart, since the Ramayana
+pairs every section it has and folding the counts together would make each sentence untrue of the other.
+It also counts whole-chapter gaps in BOTH directions: the walk runs over the ORIGINAL's chapters, so a
+chapter the English has and the original has not is never reached at all, and those three were invisible
+until the mirror was added.
+
+**SIBLING INERTNESS, and here it is an argument rather than a rebuild.** `cleanBody` is shared by every
+wiki book on the shelf, but the changed lines sit inside a branch gated on `book.sections ===
+"bookchapter"`, which **exactly one entry declares** — the other three occurrences of that string in the
+file are prose. `teiBookChapters`, shared with Herodotus and the Gallic War, is **not touched at all**:
+the diff carries no hunk in it, and the one book that exercises it in this run wrote a byte-identical
+Greek file. The reconciliation change writes nothing to any book; it only decides what the run prints.
+
+**E43's MIRROR QUESTION, ASKED AND ANSWERED WITH NOTHING: does any chapter START mid-sentence?**
+`check-cutoff.js` asks whether a chapter STOPS without ending; the mirror is whether one BEGINS without
+starting, and it is a different fault — a lost opening rather than a lost tail. Over all 4,403 chapters
+**three** open on a lowercase word, and the discriminator is the chapter BEFORE: a division that falls
+mid-sentence leaves the previous chapter unterminated too, and a chapter whose opening is genuinely lost
+follows one that ends properly. **One of the three follows an unterminated chapter** — the Satyricon's
+16 → 17, which E43 already read and recorded: *"We still said nothing,"* / *"and showed no approval one
+way or the other"* is one sentence across the join with nothing missing. **No chapter on the shelf has
+lost its opening.** The other two are not a truncation at all, and are the next paragraph.
+
+**AND THE MIRROR QUESTION FOUND SOMETHING ANYWAY, ONE STEP SIDEWAYS: MARKUP PRINTED AS CHARACTERS.**
+Two of the three lowercase openings are the Song of Roland's laisses 231 and 262, which begin
+`&lt;poem&gt;` — a MediaWiki extension tag that reached the page as the six characters `<poem>`. Asking
+the whole shelf for an escaped tag returns **eight, in three books**: those two, the City of God's Latin
+chapter 5, where the opening `<poem>` is matched by a closing `<§/poem>` with a section sign inside it,
+and the Rigveda's hymns 121 and 131, which each carry a raw `<A HREF="errata.htm#N">…</A>` around a word
+of Griffith's translation.
+
+**THE DISCRIMINATION IS THE WHOLE OF IT, and the sweep is useless without it: a critical text supplies
+words the manuscripts lack INSIDE ANGLE BRACKETS.** Godley's Herodotus writes "the `<Pisidians>` had
+little shields", Ross's Aristotle "`<are not wicked>`", and the Latin Seneca does it ninety-odd times
+("quo `<a>` morte vita diducitur"). Those are the EDITION, they are right, and a rule that strips angle
+brackets would delete an editor's supplements from four books. What separates the eight is that the thing
+inside is a MARKUP TAG rather than a word of the text — and note that `<a>` is both, which is why the
+Seneca hit is a false positive and why this cannot be automated on the tag name alone.
+
+**Left for E45**, being a different family from the pairing and wanting an extractor fix in three
+branches, three rebuilds and a byte-for-byte proof on each one's siblings.
+
+**THE INSTRUMENT WAS WRONG FIRST, AS IT WAS IN E38 AND E39.** Its first cut read the marker's visible text
+only and reported Thucydides with 916 unpaired sections — a real fault, found for the wrong reason, and
+had it been a book where the Greek was the side without a key the same measure would have reported
+nothing. It was rewritten off `bookSections` itself before anything was believed. **Read the rule you are
+measuring out of the code that implements it.**
