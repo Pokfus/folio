@@ -40,6 +40,15 @@ line here in the same commit as the card, and say so — this file is only usefu
 The one thing that must not happen is a card written to fill a slot. The house rule stands: never
 invent a date, a name or a definition. If a topic cannot be sourced, say so and replace the line.
 
+**AND CHECK THE SHIPPED DECK FOR THE SUBJECT UNDER ANOTHER NAME BEFORE WRITING.** A line can name an
+institution a much earlier card already carries, and the two answer terms will share no words, so
+nothing catches it — not `test-card-plans.js`, which checks ids and topics rather than subjects, and
+not a grep of the answers. `gr-470` was planned as *Boule and prytaneis* and written as **boule**,
+which duplicated `gr-312` **Council of Five Hundred** — the same body, six of ten sentences the same
+facts, and a second glossary term for a term that already existed. It was rewritten as **the
+prytaneis**, which `gr-312` touches in one clause, and the line above now says so. The check that
+would have caught it is to read the deck's existing answers for the SUBJECT, not to match the word.
+
 Card ids run `gr-001` … `gr-1000`, zero-padded to three digits, in the order below. Numbering follows
 the tree, and the tree follows chronology, so the running order is roughly chronological — which also
 means an early card and a late card in the same deck sort together on the study page, since cards are
@@ -705,7 +714,7 @@ if the sculpture term is renamed in the same commit, which would mean renaming `
     gr-467  Pericles
     gr-468  Athenian radical democracy
     gr-469  Ecclesia
-    gr-470  Boule and prytaneis
+    gr-470  The prytaneis
     gr-471  Dikasteria
     gr-472  Misthos
     gr-473  Strategos

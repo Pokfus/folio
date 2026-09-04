@@ -35,12 +35,12 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.488", released: "2026-09-04T13:35Z" };
+window.FOLIO_VERSION = { v: "1.518", released: "2026-09-04T19:04Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-04",
-    t: "Finer rivers for Italy and Greece, and Rome always on the map",
+    t: "Seventy-seven new Ancient Greece cards, and finer rivers",
     items: [
       "<b>An Atlas place on a phone or tablet is now one page, with its figures above the description</b>, so the population, area and GDP no longer take a swipe to reach.",
       "<b>An expanded Atlas place on a phone no longer grows off the top of the screen</b>, so its name and its close button stay in view however long the description.",
@@ -63,7 +63,11 @@ window.CHANGELOG = [
       "<b>The map on the Zagora card now names the place simply Zagora.</b>",
       "<b>On a phone, a played minigame tile is now coloured above its title</b> — green, or a shining gold for a perfect score — carrying a large white tick and nothing else.",
       "<b>Forty more countries on the Atlas have a full information box with sources</b> — from Iran, Turkey and Germany down to Australia, Nepal and both Koreas.",
-      "<b>132 more glossary terms</b> — central Italy and its provinces, East Africa’s fossil sites, Egypt from the Nile to Amarna, and the vocabulary of states, diplomacy and government, all sourced.",
+      "<b>208 more glossary terms</b> — central Italy and its provinces, East Africa’s fossil sites, Egypt from the Nile to Amarna, the vocabulary of states and government, and Ancient Greece’s own, all sourced.",
+      "<b>77 new cards in the Ancient Greece deck</b>, five of them the Parthenon, its sculpture and its architects.",
+      "One Ancient Greece card that repeated an older one has been rewritten on a subject the deck was missing.",
+      "Tapping <b>Ephialtes</b> in a card now opens the Athenian reformer rather than the guide at Thermopylae.",
+      "Fixed twelve pictures added today whose links were broken, so they show again.",
     ],
   },
   {
@@ -90,10 +94,11 @@ window.CHANGELOG = [
       "<b>Creating an account now tells you when the username you asked for was already taken</b>, and gives you the handle your account was made under instead.",
       "<b>Your username can now be changed</b> from the account page — it is the handle you sign in with and the one friends add you by.",
       "<b>The Sign in and Create account buttons no longer stay stuck reading \u201c\u2026\u201d</b> after an attempt that was refused.",
-      "<b>Eighty-four more glossary terms</b> — Greek pottery and regions, the sites of Crete and Cyprus, ancient materials, and Rome’s institutions and hills — each with sources and most with a picture.",
+      "<b>105 more glossary terms</b> — Greek pottery and regions, the sites of Crete and Cyprus, ancient materials, Rome’s institutions and hills, and Ancient Greece’s own — each with sources and most with a picture.",
       "<b>One hundred new artefacts to find in a chest</b> — among them a Terracotta Army warrior, the Antikythera Mechanism, the Book of Kells, the Bayeux Tapestry, the Aztec Sun Stone, an Enigma machine and a Hokusai print.",
       "<b>A new badge for collecting 100 artefacts</b>, since the ladder used to stop at 50.",
       "<b>The site now loads a little faster</b>, because an artefact's description and picture are only fetched when you open a chest.",
+      "<b>23 new cards in the Ancient Greece deck</b>.",
     ],
   },
   {
