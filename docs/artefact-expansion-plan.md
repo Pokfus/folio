@@ -280,7 +280,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | E2b/E3b/D1c | `albarello`, `phonograph-cylinder`, `green-glazed-jug` | — |
 | E3c/C1c/E2c | `bartmann-jug`, `byzantine-ivory-panel`, `gutenberg-bible-leaf` | — |
 | C3b/E3d | `wampum-bead`, `thimble` (**two, not three — see below**) | ~~moche-portrait-vessel~~ (cleared and shipped in C3c), `bodkin-arrowhead` |
-| B1d | `mughal-miniature` (UN-DEFERRED; **one, not three — see below**) | `glass-bangle` again, `mariners-astrolabe`, `turnshoe` |
+| B1d | `mughal-miniature` (UN-DEFERRED; **one, not three — see below**) | `glass-bangle` again, ~~mariners-astrolabe~~ (cleared and shipped in E2d), `turnshoe` |
 | B4b | `shell-adze` | `sumatralith` (no openable work uses the term) |
 | D1c | `novgorod-birch-bark-letter` (**UN-HELD — D1's list is now empty**) | — |
 | E3e | `steel-pen-nib` (UN-DEFERRED — **E3's list is now empty**) | — |
@@ -288,6 +288,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | C3c | `moche-portrait-vessel` (UN-DEFERRED — **C3's list is now empty**) | — |
 | B2c/B3c | `han-tomb-brick`, `buncheong-bowl` (both UN-DEFERRED — **B3's list is now empty**) | — |
 | A3a/B2d | `golden-crown-of-silla`, `inkstone` (UN-DEFERRED — **B2's list is now empty**) | — |
+| E2d | `mariners-astrolabe` (UN-DEFERRED; **one, not three — see below**) | `trench-art-shell-case`, `identity-disc`, `ban-chiang-pot` again |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1225,7 +1226,8 @@ paragraphs.
 **B1d's finding is the cost of the deferral list: a batch spent almost entirely on searching, and one
 plate to show for it.** Six subjects were opened and five closed, and the five failures are each worth
 recording, because every one of them was a plausible-looking route that does not exist.
-· **`mariners-astrolabe` has one usable work and two unreadable ones.** Markham's Hakluyt Society edition
+· **`mariners-astrolabe` has one usable work and two unreadable ones.** **(Cleared in E2d: the other two
+  works are museum records, not period manuals.)** Markham's Hakluyt Society edition
   of *The Voyages and Works of John Davis* (1880) is excellent and carries the plate's best fact — Davis,
   in *The Seaman's Secrets* of 1595, calls the compass, chart and cross-staff "instruments sufficient for
   the seaman's vse, the Astrolabie and Quadrant being instruments very vncertaine for Sea observations",
@@ -1486,6 +1488,38 @@ museum's own.
   high-resolution photographs of these crowns are scarce for the reason B3c recorded — the National Museum
   of Korea's own images are KOGL Type 1, which the pipeline's licence list does not accept — and three of
   the obvious CC candidates are under 900 px and would be refused on size.
+
+**E2d'S FINDING IS THAT A MUSEUM RECORD CAN CARRY A WHOLE PLATE, AND B1D SPENT ITS EFFORT ON THE WRONG
+SHELF.** That batch looked for `mariners-astrolabe` among the period manuals and found blackletter OCR
+that will not read — Cortés 1589 and Wright 1599 both return zero hits for "astrolab" — and deferred it
+with one usable work. The instrument is fully described by **Royal Museums Greenwich**, whose object pages
+answer 200 and carry a curatorial essay rather than a caption: NAV0022, the Greenwich (Valentia)
+astrolabe, gives the date it came into use, why the disc is cut away and weighted, how it was sighted by
+night and by day, where it was found in 1845, and the reading that its blank scale means it was never
+finished. **Search the museum before the library**; B1d's three failures were all attempts to read a book.
+· **A SECOND RECORD OF THE SAME COLLECTION IS THE CHEAPEST THIRD WORK THERE IS, and here it is the best
+  sentence in the plate.** NAV0026 is an electrotype copy of NAV0022 cast in 1981 **for Mike Richey to
+  evaluate the instrument at sea on a transatlantic voyage in *Jester***, which pairs exactly with John
+  Davis's judgement of 1595 that the astrolabe and quadrant are "very vncertaine for Sea observations" —
+  four hundred years between a navigator's complaint and somebody going out to test it.
+· **AN IMAGE `src` PATH MUST BE READ FROM THE API AND NEVER COMPOSED.** Commons stores a file under two
+  hash directories derived from the name, and a plausible-looking guess (`/commons/8/85/…` for a file that
+  lives at `/commons/4/4f/…`) returns **404**. Nothing in the pipeline catches it: `add-artefacts.js`
+  checks that a `src` has a `credit`, and in the browser the delegated `error` listener quietly marks the
+  figure `.media-dead` and shows a reader nothing at all. Take the `url` field from
+  `prop=imageinfo&iiprop=url`. **A sweep of the finished file is NOT the check** — `upload.wikimedia.org`
+  answers **429** to a run of requests from here, so a 429 says nothing either way.
+· **THE TWO FIRST WORLD WAR ARTEFACTS ARE DEFERRED AND THE REASON IS A WALL OF 403s.** `trench-art-shell-case`
+  and `identity-disc` need a collection that describes what it holds, and of the obvious ones only the
+  **Canadian War Museum** and the **National Army Museum** answer at all: `iwm.org.uk` is 403 (as the
+  plan already recorded), `aucklandmuseum.com` 403, `collection.sciencemuseumgroup.org.uk` 403, and the
+  Australian War Memorial's collection search is a 404 on the path its own pages use. The scholarship is
+  worse: Saunders's *Trench Art* is Routledge, and the one open article DOAJ returns —
+  *Museum & Society*'s "Contested Objects: Curating Soldier Art" — is about **Victorian military
+  patchwork**, which is a deliberate widening of the term rather than a source for a shell case. Commons
+  has good public-domain photographs of both (a 16th (Irish) Division vase engraved HULLUCH · LOOS ·
+  GUILLEMONT · GINCHY among them); it is the words that are missing, which is the opposite of
+  `glass-bangle`'s problem and worth remembering when picking the next batch.
 
 ## The per-artefact workflow
 

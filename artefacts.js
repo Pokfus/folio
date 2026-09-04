@@ -1330,4 +1330,11 @@ window.ARTEFACTS = [
     date: "c. 202 BCE – 1911 CE",
     origin: "China",
   },
+  {
+    id: "mariners-astrolabe",
+    name: "Mariner’s astrolabe",
+    rarity: "rare",
+    date: "c. 1470 – 1700 CE",
+    origin: "Europe",
+  },
 ];
