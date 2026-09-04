@@ -1770,7 +1770,8 @@ window.GLOSSARY = {
 "Roman_conquest_of_Greece": "The Roman conquest of Greece was the process by which Roman power replaced the independence of the Greek cities and kingdoms, beginning after Rome defeated Philip of Macedon and ending with the sack of Corinth.<sup class=\"fn\" data-fn=\"1\"></sup> It opened with a declaration rather than an annexation: at the Isthmian games a herald proclaimed the Corinthians, Phocians, Locrians, Euboeans, Thessalians and others free, without garrisons and paying no tribute, and the crowd made him read it twice.<sup class=\"fn\" data-fn=\"1\"></sup> It closed with Corinth taken and its works of art carried off or ruined, after which Macedonia and Achaia were governed from Rome and Mummius triumphed in 146 BCE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Achaean_League": "The Achaean League was a federation of cities in the Peloponnese whose institutions and name were taken up so widely that Polybius asks how all the Peloponnesians came to be called Achaeans.<sup class=\"fn\" data-fn=\"1\"></sup> He answers that no political system was so favourable to equality and freedom of speech, since the league reserved no privileges for its original members and put every new adherent on the same footing.<sup class=\"fn\" data-fn=\"1\"></sup> It went to war with Rome under leaders Polybius calls demented and perverse, and after Corinth was taken in 146 BCE the Peloponnese passed with the rest into the Roman province of Achaia.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Gracchi_brothers": "The Gracchi brothers were Tiberius and Gaius Sempronius Gracchus, tribunes of the Roman plebs whose attempts to redistribute publicly owned land ended in the violent deaths of both.<sup class=\"fn\" data-fn=\"3\"></sup> Tiberius carried a law in 133 BCE limiting any holder of Roman public land to 500 iugera, with half as much again for each of two sons, and appointed three elected commissioners to divide the remainder among poorer citizens.<sup class=\"fn\" data-fn=\"1\"></sup> He was beaten to death that year by senators led by Scipio Nasica; Gaius, tribune from 123 BCE, revived the programme with grain distributions and colonies and died in 121 BCE after armed conflict on the Aventine.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Marius_and_Sulla": "Marius and Sulla were rival Roman commanders of the early 1st century BCE whose quarrel produced the first war fought between Roman armies.<sup class=\"fn\" data-fn=\"1\"></sup> Gaius Marius, the first man elected consul seven times, secured the command against Mithridates for himself after it had fallen by lot to the consul Lucius Cornelius Sulla, who answered by leading six legions on Rome and fighting the first pitched battle inside the city.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Marius died in 86 BCE during a seventh consulship; Sulla returned, proscribed senators and knights by published list, and had himself made dictator without a fixed term before laying the office down.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Marius_and_Sulla": "Marius and Sulla were rival Roman commanders of the early 1st century BCE whose quarrel produced the first war fought between Roman armies.<sup class=\"fn\" data-fn=\"1\"></sup> Gaius Marius, the first man elected consul seven times, secured the command against Mithridates for himself after it had fallen by lot to the consul Lucius Cornelius Sulla, who answered by leading six legions on Rome and fighting the first pitched battle inside the city.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Marius died in 86 BCE during a seventh consulship; Sulla returned, proscribed senators and knights by published list, and had himself made dictator without a fixed term before laying the office down.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Third_Servile_War": "The Third Servile War is the modern name for the slave and gladiator rising against Rome that ancient writers called the war against Spartacus.<sup class=\"fn\" data-fn=\"3\"></sup> It began when gladiators broke out of a training school at Capua, seized weapons and took refuge on Vesuvius, where escaped slaves and country labourers joined them; ancient accounts of the breakout give between about 30 and 78 men.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The rebels defeated several Roman commanders over three years before Licinius Crassus destroyed them in a final battle in which Spartacus was killed, and 6,000 prisoners were crucified along the road to Rome.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2565,7 +2566,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Cannae": "216 BCE",
 "Destruction_of_Carthage": "146 BCE",
 "Gracchi_brothers": "133 – 121 BCE",
-"Marius_and_Sulla": "107 – 82 BCE"
+"Marius_and_Sulla": "107 – 82 BCE",
+"Third_Servile_War": "73 – 71 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3652,7 +3654,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Greco-Persian_Wars": ["Persian Wars","Persian War","Median war"],
 "Greek_theatre": ["Greek theater","Greek drama"],
 "Gracchi_brothers": ["Gracchi","Tiberius Gracchus","Gaius Gracchus","Sempronius Gracchus"],
-"Marius_and_Sulla": ["Gaius Marius","Lucius Cornelius Sulla","Sulla"]
+"Marius_and_Sulla": ["Gaius Marius","Lucius Cornelius Sulla","Sulla"],
+"Third_Servile_War": ["Spartacus","war of Spartacus","Spartacus revolt"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5451,7 +5454,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Roman_conquest_of_Greece": ["event","history","warfare","politics","rome","classical"],
 "Achaean_League": ["institution","history","politics","greece","classical"],
 "Gracchi_brothers": ["people","history","politics","law","rome","classical"],
-"Marius_and_Sulla": ["people","history","politics","warfare","rome","classical"]
+"Marius_and_Sulla": ["people","history","politics","warfare","rome","classical"],
+"Third_Servile_War": ["event","history","warfare","politics","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
