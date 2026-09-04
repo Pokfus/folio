@@ -1393,4 +1393,11 @@ window.ARTEFACTS = [
     date: "c. 1000 – 1500 CE",
     origin: "Medieval Europe",
   },
+  {
+    id: "bodkin-arrowhead",
+    name: "Bodkin arrowhead",
+    rarity: "common",
+    date: "c. 1200 – 1500 CE",
+    origin: "Medieval Europe",
+  },
 ];

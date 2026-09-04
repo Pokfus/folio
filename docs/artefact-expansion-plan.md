@@ -166,7 +166,7 @@ literature — which is what made batches 15 and 8 of the first pass cheap and b
 
 | batch | n | artefacts | spine |
 |---|---|---|---|
-| D1 Medieval everyday | 8 | `novgorod-birch-bark-letter`; `seal-matrix`, `bone-ice-skate`, `green-glazed-jug`, `wax-tablet`, ~~`turnshoe`~~ (cleared and shipped in D1a), `antler-comb`, `bodkin-arrowhead` | *Internet Archaeology* (open), Persée, `tidsskrift.dk`, archive.org |
+| D1 Medieval everyday | 8 | `novgorod-birch-bark-letter`; `seal-matrix`, `bone-ice-skate`, `green-glazed-jug`, `wax-tablet`, ~~`turnshoe`~~ (cleared and shipped in D1a), `antler-comb`, ~~`bodkin-arrowhead`~~ (cleared and shipped in D1b) | *Internet Archaeology* (open), Persée, `tidsskrift.dk`, archive.org |
 | D2 Prehistory's everyday, worldwide | 9 | `palaeolithic-bone-flute`; `spear-thrower` (planned under the name antler-spearthrower), `saddle-quern`, `sickle-blade`, `bone-fishhook`, `ochre-crayon`, `eyed-bone-needle`, `oak-coffin-textile`, `amber-bead` | PLOS, *Scientific Reports*, Europe PMC, Antiquity, Persée, archive.org (Evans) |
 | E1 Arms, antiquity to the twentieth century | 7 | `sling-bullet`, `mail-fragment`, `flintlock-musket`, `iron-cannonball`, `socket-bayonet`, `trench-art-shell-case`, `identity-disc` | archive.org (Ffoulkes), *Post-Medieval Archaeology*, PSAS. **`iwm.org.uk` is 403 here** |
 | E2 Instruments of knowledge | 8 | `gutenberg-bible-leaf`; `portable-sundial`, `mariners-astrolabe`, `albarello`, `type-sort`, `slide-rule`, `daguerreotype`, `telegraph-key` | Getty, Rijksmuseum, archive.org, *International Journal of Nautical Archaeology* |
@@ -279,7 +279,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | E1a | `mail-fragment`, `telegraph-key`, `iron-cannonball` | — |
 | E2b/E3b/D1c | `albarello`, `phonograph-cylinder`, `green-glazed-jug` | — |
 | E3c/C1c/E2c | `bartmann-jug`, `byzantine-ivory-panel`, `gutenberg-bible-leaf` | — |
-| C3b/E3d | `wampum-bead`, `thimble` (**two, not three — see below**) | ~~moche-portrait-vessel~~ (cleared and shipped in C3c), `bodkin-arrowhead` |
+| C3b/E3d | `wampum-bead`, `thimble` (**two, not three — see below**) | ~~moche-portrait-vessel~~ (cleared and shipped in C3c), ~~bodkin-arrowhead~~ (cleared and shipped in D1b) |
 | B1d | `mughal-miniature` (UN-DEFERRED; **one, not three — see below**) | ~~glass-bangle~~ (cleared and shipped in B1f), ~~mariners-astrolabe~~ (cleared and shipped in E2d), ~~turnshoe~~ (cleared and shipped in D1a) |
 | B4b | `shell-adze` | ~~sumatralith~~ ("no openable work uses the term" — wrong; cleared and shipped in B4c) |
 | D1c | `novgorod-birch-bark-letter` (**UN-HELD — D1's list is now empty**) | — |
@@ -290,13 +290,14 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | A3a/B2d | `golden-crown-of-silla`, `inkstone` (UN-DEFERRED — **B2's list is now empty**) | — |
 | E2d | `mariners-astrolabe` (UN-DEFERRED; **one, not three — see below**) | `trench-art-shell-case`, `identity-disc`, ~~ban-chiang-pot~~ (cleared in B4c) |
 | A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | ~~turnshoe~~ (cleared and shipped in D1a), ~~nbpw-sherd~~ (cleared and shipped in B1e), `identity-disc` again |
-| B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, ~~igbo-ukwu-bronze~~ (dropped in C2b), `bodkin-arrowhead` again, `fustat-paper` again |
+| B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, ~~igbo-ukwu-bronze~~ (dropped in C2b), ~~bodkin-arrowhead~~ (cleared and shipped in D1b), `fustat-paper` again |
 | B4c | `ban-chiang-pot`, `sumatralith` (both UN-DEFERRED — **B4's list is now empty**) | — |
-| B1f | `glass-bangle` (UN-DEFERRED, and **shipped with no picture** — see below; **B1's list is now empty**) | ~~jade-burial-suit~~ (cleared and shipped in A3d), `bodkin-arrowhead` again |
+| B1f | `glass-bangle` (UN-DEFERRED, and **shipped with no picture** — see below; **B1's list is now empty**) | ~~jade-burial-suit~~ (cleared and shipped in A3d), ~~bodkin-arrowhead~~ (cleared and shipped in D1b) |
 | S1 | **nothing — a search batch, see below** | `identity-disc` (one work found), ~~turnshoe~~ (cleared and shipped in D1a), `trench-art-shell-case`, `fustat-paper` again |
 | C2b | `benin-bronze-plaque` (**SUBSTITUTED for `igbo-ukwu-bronze` — see below**) | — |
 | A3d | `jade-burial-suit` (UN-DEFERRED; **A3's list is now empty**) | — |
 | D1a | `turnshoe` (UN-DEFERRED; **one, not three — see below**) | `bodkin-arrowhead` again (**two of three works now found**), `fustat-paper`, `ife-head` |
+| D1b/E1b | `bodkin-arrowhead` (UN-DEFERRED after four deferrals; **D1's list is now empty**) | `fustat-paper`, `ife-head` (**one work found**), `trench-art-shell-case`, `identity-disc` |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1819,6 +1820,32 @@ accepted manuscript**, which is the route worth remembering, since OpenAIRE list
 the publisher's. What is missing is a third work on the object rather than on that one case; the
 typology everything cites (Jessop 1996 in *Medieval Archaeology*) is on the Archaeology Data Service,
 and **`archaeologydataservice.ac.uk` is 403 on every path below its own front page**.
+
+**D1b clears the pass's longest-standing deferral — four refusals, on three different grounds — and
+the finding is that every one of the three was true and none of them mattered.** `bodkin-arrowhead`
+failed first "on a word" (Hewitt's *Ancient Armour* never uses it, re-checked here: zero hits in both
+volumes), then on the Archaeology Data Service, which holds Jessop's typology and is **403 on every
+path below its own front page**, and then on Wiley. What answered was three works of three different
+kinds, and only one of them says "bodkin" in a title: **a master's thesis** (Canavan on the Poulton
+skeleton, which carries Jessop's Type M7 in full — short circular socket, very long thin point, diamond
+section, 140–200 mm by 8–12 mm), **an open excavation report** (Samson on Urquhart Castle, thirteen
+London Museum type 7 heads "developed for military use, as an answer to the increasing efficiency of
+armour protection"), and **a 1545 primary source** (Ascham's *Toxophilus*, which argues the shape
+itself: a knife "wil not bore so wel as a bodkin"). **When a term blocks a search, look for the
+OBJECT under its other names** — LMMC type 7 and Jessop M7 are the same head, and both are open.
+
+**Its second finding is a new failure mode and a bad one: a repository's green copy can be the WRONG
+PAPER.** LJMU's record for the *International Journal of Osteoarchaeology* article on Poulton is
+correct in every field — authors, journal, volume, pages, CC BY licence — and the PDF behind it is an
+*American Journal of Physical Anthropology* paper about dental nonmetric traits. The URL resolves, the
+file opens, and OpenAIRE lists it as the open copy. **Nothing but reading it catches this**, which is
+the same lesson as the fabricated author in N4 one layer down: an open-access link is evidence about
+ACCESS, never about content. The paper is cited nowhere in the plate as a result, and Wiley is 403.
+
+**And a note on Ascham, because citing him needs care.** *Toxophilus* does not call an arrowhead a
+bodkin; it uses the bodkin — the sewing awl — as the model for what a narrow round point does, which is
+precisely why the arrowhead came to be named after it. The plate says that, rather than implying the
+word is his. **A primary source can carry the reasoning behind a name without carrying the name.**
 
 ## The per-artefact workflow
 
