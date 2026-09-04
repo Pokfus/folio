@@ -1783,7 +1783,8 @@ window.GLOSSARY = {
 "Tropaion": "A tropaion was the marker a Greek army set up on the ground where its enemy had broken and turned, and it is the word behind the English trophy.<sup class=\"fn\" data-fn=\"1\"></sup> It asserted a claim rather than simply recording one, so that after an indecisive action both sides might raise one and each count itself the winner.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Diodorus reports a convention that such markers be made of any wood that came to hand and never of stone, so that memorials of enmity should stand for a short time and then disappear, unlike the tenths of spoil sent in bronze and gold to the great sanctuaries.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Barbarian": "<b>Barbarian</b> renders the Greek <i>barbaros</i>, a term for someone who did not speak Greek and, later, for anyone held to live outside Greek norms. The earliest emphasis falls on speech: Homer's one use of the related adjective calls the Carians foreign of tongue, and Thucydides observed that the noun is absent from the poems, probably because the Greeks had not yet been marked off under one name.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Fifth-century writers set it against Greek freedom, as when Aeschylus has a Persian queen told that the Athenians are the slaves of no man, and Herodotus reports Athenians naming shared blood, speech, shrines and customs as what they will not betray.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Delian_League": "<b>Delian League</b> is the modern name for the alliance of Greek states led by Athens that was formed after the Persian invasions to carry the war on against Persia and named from the island of Delos, where its treasury lay. Members swore to have the same friends and enemies, and each was assessed to supply either ships or money, the funds being handled by Athenian officials called Hellenotamiai.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Thucydides describes it beginning as independent allies acting on the resolutions of a common congress and hardening into something else, dating the change to the siege of Naxos, the first member compelled back after trying to leave.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Hellenotamiai": "<b>Hellenotamiai</b>, the treasurers of the Greeks, were the Athenian officials who received and administered the money contributed by the members of the alliance formed against Persia after the invasion of 480 BCE was driven back. Thucydides records that the office was first instituted by the Athenians when it was settled which cities should give money and which ships, and that the common treasury lay at Delos.<sup class=\"fn\" data-fn=\"1\"></sup> The board outlasted the island and the democracy that made it, since the oligarchic constitution drawn up at Athens in 411 BCE still names the treasurers of the Greeks among the magistrates and bars those who manage the funds from the council.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Hellenotamiai": "<b>Hellenotamiai</b>, the treasurers of the Greeks, were the Athenian officials who received and administered the money contributed by the members of the alliance formed against Persia after the invasion of 480 BCE was driven back. Thucydides records that the office was first instituted by the Athenians when it was settled which cities should give money and which ships, and that the common treasury lay at Delos.<sup class=\"fn\" data-fn=\"1\"></sup> The board outlasted the island and the democracy that made it, since the oligarchic constitution drawn up at Athens in 411 BCE still names the treasurers of the Greeks among the magistrates and bars those who manage the funds from the council.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Phoros": "<b>Phoros</b> was the money the members of the alliance led by Athens paid into its common fund, an obligation that could be discharged instead by serving with ships. Thucydides says most preferred to pay rather than leave home, so that Athens increased her navy on their contributions while a revolt found them without ships or the practice of war.<sup class=\"fn\" data-fn=\"1\"></sup> By 431 BCE an average of 600 talents came in yearly, and what it bought was contested: Pericles held that the payers gave neither horse nor ship nor hoplite but money only, which belonged to those who took it so long as they did what they took it for.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2584,7 +2585,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Himera": "480 BCE",
 "Carthaginian_invasion_of_Sicily": "480 BCE",
 "Delian_League": "from 478 BCE",
-"Hellenotamiai": "from 478 BCE"
+"Hellenotamiai": "from 478 BCE",
+"Phoros": "from 478 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5515,7 +5517,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Tropaion": ["object","history","warfare","greece","religion"],
 "Barbarian": ["concept","history","greece","language","politics"],
 "Delian_League": ["institution","history","greece","politics","warfare"],
-"Hellenotamiai": ["institution","history","greece","politics","title"]
+"Hellenotamiai": ["institution","history","greece","politics","title"],
+"Phoros": ["concept","history","greece","politics","institution"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
