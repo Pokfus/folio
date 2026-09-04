@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-573` Phnom Penh.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-574` Harare.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -795,6 +795,27 @@ the guide is not silent about this capital; it places it correctly, and the card
 capital, the recognition guide is evidence FOR the division rather than a source that has missed the
 point** — check the consular section, which is where the commercial city turns up when the diplomatic one
 has the government.
+
+**`gw-573` PHNOM PENH IS THE RECOGNITION GUIDE'S RICHEST CITY-LEVEL PAGE SO FAR, BECAUSE THE MISSION
+KEEPS MOVING.** Mogadishu's page was good because the embassy closed for 28 years; Phnom Penh's is better
+because the mission is opened, severed, reopened, closed and opened again, and the guide dates every step
+IN THE CITY — the legation opened 14 November 1950, raised to embassy rank 24 June 1952, the first
+resident ambassador 2 October 1954, relations severed 3 May 1965 and reestablished 2 July 1969, the
+embassy reopened that August, closed 12 April 1975, a mission established 11 November 1991, the embassy
+reopened 17 May 1994. **A capital whose mission has a broken history is the easy case, not the hard one**:
+where an uneventful capital yields one date, a contested one yields eight, all of them about the city
+rather than the country. Note also that the first two ministers were resident at SAIGON — a mission
+accredited from another capital, C4's shape once more, this time visible inside a single page.
+
+**AND THE GAP IN THAT SEQUENCE IS WHERE THE SECOND SOURCE GOES.** Between the 1991 mission and the 1994
+embassy sits **Security Council resolution 745 (1992)**, adopted at the 3057th meeting on 28 February
+1992, establishing the UN Transitional Authority in Cambodia "for a period not to exceed eighteen months"
+and deciding elections were vital by May 1993, on the Paris agreements of 23 October 1991. That is the
+second time in five cards a Security Council resolution has carried what no statistical profile could —
+after Guatemala City — and the pattern is worth naming: **when the recognition guide leaves a gap of
+years in a mission's history, ask what the Security Council was doing in those years.** The guide's own
+last line spells the city "Phnom Pehn"; that is a typo in the source and the card does not reproduce it,
+by the rule Dakar's UNdata footnote established.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
