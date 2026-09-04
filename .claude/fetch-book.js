@@ -1569,6 +1569,15 @@ const BOOKS = {
       "twenty-four centuries old. (The modern translations by Desmond Lee, 1955, Allan Bloom, 1968, " +
       "and G. M. A. Grube revised by C. D. C. Reeve, 1992, are still in copyright and are not used " +
       "here.)",
+    /* ---------- A RARE WORD ONE EDIT FROM A COMMON ONE (Sep 2026, batch E19's sweep, batch E20) ----------
+       Found by asking the shelf's own vocabulary which words are rare everywhere and sit one edit from
+       a word it uses constantly, and then READING every candidate this book returned. Most were right
+       as they stood — proper names, archaic English, and real words a modern eye distrusts — and these
+       are the ones that are damage. Each is settled by this book's own usage rather than by a scan. */
+    reFixes: [
+      [/(?<![A-Za-z])continuallly(?![A-Za-z])/g, "continually",
+       "a trebled l in `continually`"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/The_Republic_of_Plato",
 
@@ -2552,6 +2561,17 @@ const BOOKS = {
       "centuries old. (The modern translations by Terence Irwin, 1985, Roger Crisp, 2000, and " +
       "Christopher Rowe, 2002, are still in copyright and are not used here — as is the 2009 Oxford " +
       "World's Classics revision of this very translation by Lesley Brown, which is a separate work.)",
+    /* ---------- A RARE WORD ONE EDIT FROM A COMMON ONE (Sep 2026, batch E19's sweep, batch E20) ----------
+       Found by asking the shelf's own vocabulary which words are rare everywhere and sit one edit from
+       a word it uses constantly, and then READING every candidate this book returned. Most were right
+       as they stood — proper names, archaic English, and real words a modern eye distrusts — and these
+       are the ones that are damage. Each is settled by this book's own usage rather than by a scan. */
+    reFixes: [
+      [/(?<![A-Za-z])andvice(?![A-Za-z])/g, "and vice",
+       "a lost space in `and vice`, in 'for virtue and vice respectively preserve and destroy'"],
+      [/(?<![A-Za-z])haye(?![A-Za-z])/g, "have",
+       "a y read for the v of `have`, in 'now goods have been divided into three classes'"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Nicomachean_Ethics_(Ross)",
 
@@ -3134,6 +3154,10 @@ const BOOKS = {
        names Tsze-hsia where the Chinese names 子游, which is a fault in the translation's own text
        rather than in its spelling and is left exactly as printed. */
     roman: [
+      /* Found by batch E19's vocabulary sweep rather than by the romanisation pass: the mountain
+         where Boyi and Shuqi starved is the only name in this book still carrying Legge's own
+         spelling, and it stands beside `Boyi`, `Shuqi` and `Zilu` in the same sentence. */
+      ["Shau-yang", "Shouyang", "首陽"],
       ["Tsze-kung", "Zigong", "子貢"],
       ["Tsze-lu", "Zilu", "子路"],
       ["Tsze-hsia", "Zixia", "子夏"],
@@ -3612,6 +3636,22 @@ const BOOKS = {
       "Attribution-ShareAlike 4.0 International licence, which both files state in their own headers. " +
       "(The modern translations by S. A. Handford, 1951, Carolyn Hammond, 1996, and James O'Donnell, " +
       "2019, are still in copyright and are not used here.)",
+    /* ---------- A RARE WORD ONE EDIT FROM A COMMON ONE (Sep 2026, batch E19's sweep, batch E20) ----------
+       Found by asking the shelf's own vocabulary which words are rare everywhere and sit one edit from
+       a word it uses constantly, and then READING every candidate this book returned. Most were right
+       as they stood — proper names, archaic English, and real words a modern eye distrusts — and these
+       are the ones that are damage. Each is settled by this book's own usage rather than by a scan. */
+    reFixes: [
+      [/(?<![A-Za-z])inflecting(?![A-Za-z])/g, "inflicting",
+       "an e read for the i of `inflicting`; this translation writes it correctly three times elsewhere"],
+      [/(?<![A-Za-z])inflected(?![A-Za-z])/g, "inflicted",
+       "the same word again in the same clause, and correct five times elsewhere in the book"],
+      [/(?<![A-Za-z])Isay(?![A-Za-z])/g, "I say",
+       "a lost space in the translator's own bracketed interjection `[I say]`. IT IS ANCHORED ON " +
+       "THE TOKEN ALONE and not on the brackets, which is E16's rule and is load-bearing here: the " +
+       "source reads `[<name>Isay</name>]`, Perseus's tagger having read the run-together words as " +
+       "a proper name, so a row written round the brackets matches nothing"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi0448.phi001/",
 
@@ -5889,6 +5929,15 @@ const BOOKS = {
       "themselves are ancient and are in the public domain everywhere. (Bernhard Karlgren's " +
       "translation of 1950 and Clae Waltham's modernisation of Legge of 1971 are still in copyright " +
       "and are not used here.)",
+    /* ---------- A RARE WORD ONE EDIT FROM A COMMON ONE (Sep 2026, batch E19's sweep, batch E20) ----------
+       Found by asking the shelf's own vocabulary which words are rare everywhere and sit one edit from
+       a word it uses constantly, and then READING every candidate this book returned. Most were right
+       as they stood — proper names, archaic English, and real words a modern eye distrusts — and these
+       are the ones that are damage. Each is settled by this book's own usage rather than by a scan. */
+    reFixes: [
+      [/(?<![A-Za-z])goverment(?![A-Za-z])/g, "government",
+       "a dropped n in `government`, in 'display these qualities in the exercise of government'"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_3/The_Shu",
 
@@ -8100,6 +8149,17 @@ const BOOKS = {
       "Attribution-ShareAlike 4.0 International licence. (The modern translations by Robert " +
       "Fitzgerald, 1961, Richmond Lattimore, 1965, Robert Fagles, 1996, and Emily Wilson, 2017, are " +
       "still in copyright and are not used here, nor is George E. Dimock's 1995 revision of Murray.)",
+    /* ---------- A RARE WORD ONE EDIT FROM A COMMON ONE (Sep 2026, batch E19's sweep, batch E20) ----------
+       Found by asking the shelf's own vocabulary which words are rare everywhere and sit one edit from
+       a word it uses constantly, and then READING every candidate this book returned. Most were right
+       as they stood — proper names, archaic English, and real words a modern eye distrusts — and these
+       are the ones that are damage. Each is settled by this book's own usage rather than by a scan. */
+    reFixes: [
+      [/(?<![A-Za-z])Archaeans(?![A-Za-z])/g, "Achaeans",
+       "a stray r in `Achaeans`, which this translation spells correctly 114 times"],
+      [/(?<![A-Za-z])faired-haired(?![A-Za-z])/g, "fair-haired",
+       "a stray d in `fair-haired`, which this translation spells correctly 19 times"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg002/",
 

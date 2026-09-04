@@ -295,13 +295,64 @@ re-run and diffed byte for byte.
 | **E17** ✅ | six books, in shared machinery | **193 spaces inserted at a citation's element boundary, and not one other byte changed in sixteen rebuilt books.** Perseus encodes a cited work as an element and leaves no whitespace at its edge, so unwrapping welds it to the prose (`Cf. Laws638 B`, `302has said`, `betweenἔρωςand`). THE FIRST DIAGNOSIS WAS WRONG and is recorded: the missing space is in the SOURCE, not eaten by our tag-strip — an abbreviation keeps its space only because its full stop sits outside the element. So it is a FLATTENING rule in `teiInline`, not a book's `fixes` table: sixteen books read this source |
 | **E18** ✅ | `plato-dialogues.grc` | **13 citations restored, and the rule is SELF-VERIFYING.** Perseus ran a beta-code converter over references that were already in Latin script, so Plato's Greek cited the Iliad as `ηομ. ιλ. 14.291` — Greek letters spelling nothing. The same `<bibl>` carries the right form on its `n=` attribute, so the repair decodes the text and writes the attribute in ONLY where the two match: 42 genuinely Greek `<title>`s cannot pass that test. One is a PREFIX match and keeps its extra reference |
 | **E19** ✅ | five books, and a fault in the machinery | **A CORRECTION ROW ADDED TO A CACHED WIKI BOOK DID NOTHING, AND NOTHING SAID SO.** `correctRaw` ran only on the fetch path, so a row met the page only when `--force` was passed — and its own comment promises the opposite. The Book of Documents shipped the same emperor title as `Tî` 25 times and `Di` 69, by which chapters happened to be cached. Fixed, proved byte-for-byte over the whole shelf, and the run now says which kind of dead row it is reporting. Plus 15 repairs to Plato and the Summa, closing E4's last two deferrals |
-| **E20–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E20** ✅ | six books | **10 repairs from 78 candidates, and E19's table is what said where to look.** Every candidate in the seven cleanest books read in full: Thucydides' nineteen were ALL correct (place names, `hods`, `hove`, `waives`), and the yield came from the others — `haye`, `goverment`, `continuallly`, `Archaeans`, `faired-haired`, `inflecting`/`inflected`, and two LOST SPACES (`andvice`, `[Isay]`) that no confusion-family sweep would have named. `Lede` for Leda is DEFERRED: it is in Perseus's file and the Greek is Λήδην, so it wants a printed witness |
+| **E21–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E20 — the cleanest books' candidates, read in full, shipped 2026-09-04
+
+**10 repairs across six books, from 78 candidates read one by one.** E19 ended with a table of the
+sweep's noise rate per book and the claim that it is an instrument for a book you have reason to
+suspect; this is that table used. The seven books at the clean end of it — the Odyssey (9.0 candidates
+per 100k words), Thucydides (9.8), Caesar (10.5), the Analects (10.9), the Ethics (11.2), the Book of
+Documents (12.2) and the Republic (12.6) — return 78 candidates between them, which is a list a person
+can read.
+
+**THE YIELD IS 13%, AND THE 87% IS THE INTERESTING PART.** What the sweep proposes and a reader
+refuses is a catalogue of what looks wrong and is not: proper names the shelf has never met
+(`Anthene`, `Glauce`, `Istone`, `Treres`, `Pele`, `Nanzi`, `Milo`, `Pero`, `Thon`), archaic English
+that is exactly right (`refusest`, `hove in sight`, `for want of hods`, `waives these his
+privileges`, `previsions`, `careen them`, `larding the plain`, `lyes`, `stingers`, `chines`), an
+editor's surname (`Burnet`, `Allen`), and a French sentence in a footnote (`Selon les anciens
+documents`). **`Thucydides' nineteen candidates are ALL of that kind — not one repair in the book**,
+which is the honest outcome a sweep should be able to produce and the reason a measure like this can
+never be run unread.
+
+**TWO OF THE TEN ARE A KIND NO EARLIER BATCH COULD HAVE FOUND: A LOST SPACE.** `andvice` in the Ethics
+(*"for virtue andvice respectively preserve and destroy"*) and `[Isay]` in Caesar (*"Adcantuannus,
+[Isay] endeavoring to make a sally"*). E14, E15 and E16 each hunted a declared character confusion,
+and two words run together is not one — it only shows up when you ask which words are rare and near
+something common, which is what E19's sweep does. **They are also the two the eye skips**, since a
+run-together pair still reads as a word.
+
+**`[Isay]` IS E16's RULE PAYING FOR ITSELF A SECOND TIME.** The row was written round the brackets,
+matched nothing, and the reason is in the source: it reads `[<name>Isay</name>]` — **Perseus's own
+tagger read the run-together words as a proper name**, which is itself the tell — so the tag stands
+between the bracket and the word. Anchored on the token alone it fires. A row carrying context carries
+its source's markup as well as its spacing.
+
+**THE OTHER EIGHT are settled by each book's own usage rather than by a scan**: `Archaeans` against
+114 correct `Achaeans`; `faired-haired` against 19 `fair-haired`; `inflecting` and `inflected` — the
+SAME CLAUSE, twice — against 3 `inflicting` and 5 `inflicted`; `haye`, `goverment` and `continuallly`,
+which are non-words; and the Analects' `Shau-yang`, the one name in that book still carrying Legge's
+own spelling while `Boyi`, `Shuqi` and `Zilu` stand beside it in the same sentence — a romanisation
+row found by an error-track sweep, which is worth noting because the two passes are otherwise separate.
+
+**ONE IS DEFERRED AND IT IS THE RIGHT KIND OF DEFERRAL.** The Odyssey reads *"And I saw Lede, the wife
+of Tyndareus"* where every English text writes **Leda**. But the word is in Perseus's file, the Greek
+is Λήδην, and `Lede` is a defensible transliteration of Λήδη — so the book's own usage cannot settle
+it (Leda appears nowhere else) and **only Murray's printed page can**. No witness is reachable, so it
+stands, recorded.
+
+**The proof.** Six books rebuilt and each diffed at the byte: the Ethics changed by one `y`→`v` and one
+inserted space, the Book of Documents by one inserted `n`, Caesar by one space and two `e`→`i`, the
+Odyssey by a dropped `ed` and a dropped `r`, the Republic by one dropped `l`, and the Analects by one
+line. Nothing else on the shelf moved.
 
 ### E19 — a correction row that did nothing, and nothing said so, shipped 2026-09-04
 

@@ -789,7 +789,12 @@ book added later will meet the same traps.
   the Library bullet — and its ~120 l→I OCR slips are the SOURCE's and are recorded rather than
   repaired, because the same pattern spells Iulus, Ilium, Italy, Ida and Ithaca in the same text and
   "Iove" is undecidable between love and Jove),
-  `homer-odyssey` (~701 KB, all 24 books, **288 card sections**, **0 notes** — A. T. Murray's Loeb
+  `homer-odyssey` (~701 KB, all 24 books, **288 card sections**, **0 notes**. **Batch E20 repaired two
+  slips** — `Archaeans` against 114 correct `Achaeans`, and `faired-haired` against 19 `fair-haired` —
+  and **DEFERRED one that wants a printed witness**: the text reads "And I saw **Lede**, the wife of
+  Tyndareus" where every English version writes Leda. That spelling is in Perseus's file, the Greek is
+  Λήδην, and `Lede` is a defensible transliteration of Λήδη, so the book's own usage cannot settle it —
+  Leda occurs nowhere else — and only Murray's printed page can. A. T. Murray's Loeb
   prose of 1919, the SECOND book on the prose-translation-against-verse-original path and the first
   to confirm the rule that path was written for rather than to discover it: of its 2,434 line
   milestones **2,097 would weld two words together** if the tag were simply dropped, and 2 of its 192
