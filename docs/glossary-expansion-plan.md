@@ -178,7 +178,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N15 | 12 | Rome's foundation and its earliest institutions — **shipped**, 8 of 12 pictured |
 | N16 | 12 | The hills of Rome and the city's topography — **shipped**, 6 of 12 pictured |
 | N17 | 12 | Latium: the Latial culture and its sites — **shipped**, 7 of 12 pictured |
-| N18 | 12 | The Italic peoples — Samnites, Sabines, Umbrians |
+| N18 | 12 | The Italic peoples — Samnites, Sabines, Umbrians — **shipped**, 6 of 12 pictured |
 | N19 | 12 | Umbria and its sanctuaries |
 | N20 | 12 | Italian landscape and geology |
 | N21 | 12 | Tanzania, the Serengeti and African mammal groups |
@@ -331,6 +331,65 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N18's findings
+
+**N18 — The Italic peoples (shipped, 6 of 12 pictured).** Samnium, Sabellic, the Aequi, the Hernici, the
+Marsi, the Paeligni, the Marrucini, the Vestini, the Frentani, the Picentes, the Lucanians and the
+Campanians. The three peoples in the batch's own title — Samnites, Sabines, Umbrians — were already terms,
+so the batch is the ones around them.
+
+**SMITH'S *GEOGRAPHY* HAS AN ENTRY FOR EVERY ITALIC PEOPLE, AND THE SLUG IS THE LATIN SPELLING SMITH USES,
+NOT THE ENGLISH ONE.** Eleven of the twelve take a Smith entry, and every entry opens by fixing the
+people's borders against their neighbours, which is exactly the second sentence a term of this kind wants.
+The one 404 is instructive: `paeligni-geo` does not exist because Smith heads the article **PELIGNI**.
+N17's rule with the diacritic taken off — probe the slug, do not derive it.
+
+**FOUR LIVY CHAPTERS COVER SEVEN PEOPLES, WHICH IS THE ECONOMY AND ALSO THE HAZARD.** Livy 8.29 names the
+Vestini, Marsi, Paeligni and Marrucini in one breath, and 9.45 has the Aequi destroyed and then the
+Marrucini, Marsi, Paeligni and Frentani suing for peace together — so three terms of this batch cite the
+same chapter. **Where several terms share a chapter, hand each a different clause of it before drafting**:
+the Aequi own the war and the thirty-one towns taken in a fortnight, the Marrucini own being first named
+among the four who obtained a treaty, the Frentani own being last. Measured afterwards, no two of the
+twelve share an eight-word run.
+
+**A MNAMON CITATION LOOKED WRONG AND WAS RIGHT, AND THE CHECK IS WORTH KEEPING.** Reading the register's
+Oscan citation in a truncated print, its `id=5` seemed to point at Mnamon's **Egyptian** page — which
+`index.php?page=Lingua&id=5` really does serve. Auditing all 34 Mnamon citations in the corpus against the
+site's own language index showed every one correct: Oscan is **id=56**, and the register's line had simply
+been cut off mid-URL in the printout. Two things came out of it. **Mnamon's ids are per PAGE TYPE** — a
+`page=Lingua` id and a `page=Scrittura` id are different number spaces, so `id=59` is Elymian as a language
+and Lepontic as a writing system, and an audit that ignores the page parameter reports false faults.
+And the general rule: **verify before repairing.** A "fix" would have rewritten 34 sound citations.
+
+**THE REGISTER IS THE FIRST PLACE TO LOOK AND THE PLACES IT POINTS ARE OFTEN SHUT.** `Latial_culture`'s
+lesson from N17 held again — Ravasini's 2024 Picene genomics paper, already cited by `Italic_peoples`,
+carries the whole third sentence of `Picentes` — but three works the register names cannot be opened from
+here at all: Fontana's 2022 lidar mapping of Samnium (`tandfonline` 403), Fontana and de Neef 2024
+(`cambridge.org` 403) and Stek's *Cult Places and Cultural Change in Republican Italy* (OAPEN 403 on both
+the handle and the bitstream). **A citation in the register is not proof the work is still reachable**;
+`Samnium` therefore takes Livy's description of the Caudine Forks as its second source instead, and
+`Pietrabbondante` — which those three works would have carried — was dropped from the batch and replaced
+by the Frentani.
+
+**AND CITE THE COPY YOU READ.** Ravasini's DOI resolves to Springer Nature Link, which answers 200 but
+whose body does not extract; the **PMC copy** at `PMC11580440` reads cleanly. The register's line points at
+the DOI, the new one points at PMC.
+
+**`Category:Picene` IS A CHEMICAL.** Picene is a polycyclic aromatic hydrocarbon, so the obvious Commons
+category for the people of Picenum returns ball-and-stick molecule diagrams. The name-in-the-wrong-place
+trap has now appeared in three consecutive batches — as a caption in N17, as a title in N16 and here as a
+**category name**, which is the layer the previous two batches recommended trusting. The way through was a
+free-text search for the Novilara stele, whose North Picene inscription is the thing worth showing.
+
+**SIX SHIP UNPICTURED BECAUSE A PEOPLE IS HARDER TO PHOTOGRAPH THAN A PLACE.** The six that shipped each
+had one concrete thing to show — the Samnite theatre at Pietrabbondante, the Agnone Tablet, the polygonal
+wall of the Hernican citadel at Alatri, the Warrior of Capestrano, the Novilara stele, a Lucanian tomb
+painting from Paestum — and the six that did not are peoples whose material record is not gathered under
+their own name. Two were refused after being looked at: the Marsic sanctuary at Lucus Angitiae is a real
+site photographed under corrugated shelters with a power line across the sky, and the only Campanian
+candidate is a museum case whose top half is an Italian wall panel. **A picture of the right subject can
+still be a picture of the display.**
 
 ### N17's findings
 
