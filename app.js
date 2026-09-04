@@ -33225,9 +33225,24 @@
       kids.forEach((k) => { h += k.offsetHeight; });
       return h;
     }
+    /* THE ROOM IS THE STAGE'S, NOT THE SCREEN'S (Sep 2026, on a bug report: on mobile the popup expanded
+       "too tall … i can't see the top of the popup or the button to close it"). The sheet is
+       `position:absolute` inside `.globe-stage`, which is a FIXED box running from the top bar down to the
+       top of the timeline — `bottom:calc(var(--timebar-h) + var(--tabbar-h) + …)` — and which CLIPS its
+       overflow. So its height is the viewport's less about 154px on a phone, and measuring the ceiling
+       against `documentElement.clientHeight` overshot by exactly that: on a long country the sheet grew
+       past the top of the stage and the title row, the breadcrumb and the × were cut off by it, with no
+       way back down but the chevron the reader could no longer see. Ask the box the sheet is actually
+       positioned in — which is also what makes CP_BOTTOM_GAP agree with the `bottom:14px` it stands for,
+       both being offsets from the same edge. `closest` rather than `offsetParent`, which is null while the
+       popup is hidden; the viewport is the fallback and never the answer. */
+    function cpRoomH() {
+      const host = cpEl && cpEl.closest(".globe-stage");
+      const h = (host && host.clientHeight) || document.documentElement.clientHeight || window.innerHeight || 0;
+      return h - CP_TOP_GAP - CP_BOTTOM_GAP;
+    }
     function cpMaxH() {
-      const room = (document.documentElement.clientHeight || window.innerHeight || 0) - CP_TOP_GAP - CP_BOTTOM_GAP;
-      return Math.max(cpMinH(), Math.min(room, cpContentNeedH()));
+      return Math.max(cpMinH(), Math.min(cpRoomH(), cpContentNeedH()));
     }
     /* Two heights and nothing in between: the name (cpMinH) or the whole of it (cpMaxH). Above the sheet's
        breakpoint the panel is a column beside the globe and neither applies, so the inline height and both
