@@ -1776,7 +1776,8 @@ window.GLOSSARY = {
 "Gallic_Wars": "The Gallic Wars were the campaigns Julius Caesar fought in Gaul from 58 BCE, in which Plutarch reckons he stormed more than 800 cities and subdued 300 nations in under ten years.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The main account of them is the memoirs Caesar wrote himself, which open by dividing Gaul between the Belgae, the Aquitani and the peoples the Romans called Gauls, and which a contemporary judged carelessly made and untruthful about their author's own actions.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The fighting culminated in 52 BCE at Alesia, where a general revolt under Vercingetorix was besieged and forced to surrender.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Caesars_civil_war": "Caesar's civil war was the conflict of 49 to 45 BCE between Julius Caesar and the Roman commanders the senate backed under Pompey, which ended with Caesar unopposed in power.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> It began when Caesar led troops across the Rubicon, the boundary of his province, having told those with him that once over the bridge the whole issue would be with the sword.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Pompey was routed at Pharsalus in 48 BCE and murdered soon afterwards, and the remaining resistance was broken at Thapsus in 46 BCE and at Munda in Hispania in 45 BCE, after which Caesar celebrated five triumphs.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Assassination_of_Julius_Caesar": "The assassination of Julius Caesar was the killing of the Roman dictator on 15 March 44 BCE, at a meeting of the senate held in the hall attached to Pompey's theatre.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> More than 60 men are said to have joined the conspiracy, led by Gaius Cassius and by Marcus and Decimus Brutus, and the attack began when one of them caught the dictator's toga at the shoulders as a signal.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Ancient accounts give him 23 wounds, of which a physician who examined the body judged only one to have been fatal.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Augustus": "Augustus was the first Roman emperor, born Gaius Octavius and given the name Augustus by decree of the senate in 27 BCE, after which he held power until his death in 14 CE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He came to power through a series of civil wars, ruling first alongside Mark Antony and Lepidus, then with Antony alone, and finally by himself.<sup class=\"fn\" data-fn=\"1\"></sup> In his own record of his deeds he says he transferred the state from his own control to the will of the senate and people, and afterwards took precedence of all in rank while holding no more power than his colleagues.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Augustus": "Augustus was the first Roman emperor, born Gaius Octavius and given the name Augustus by decree of the senate in 27 BCE, after which he held power until his death in 14 CE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He came to power through a series of civil wars, ruling first alongside Mark Antony and Lepidus, then with Antony alone, and finally by himself.<sup class=\"fn\" data-fn=\"1\"></sup> In his own record of his deeds he says he transferred the state from his own control to the will of the senate and people, and afterwards took precedence of all in rank while holding no more power than his colleagues.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Roman_Empire": "The Roman Empire was the Roman state under rule by one man, conventionally dated from 27 BCE, when the senate granted Octavian the name Augustus.<sup class=\"fn\" data-fn=\"3\"></sup> At its height it held the lands around the whole Mediterranean and its islands, reaching from the islands of the north-western ocean to the Euphrates and the Caucasus, and southward up the Nile.<sup class=\"fn\" data-fn=\"1\"></sup> Its rulers were styled imperatores rather than kings, and the territory was administered as provinces held by garrisons, whose numbers, revenues and costs Augustus recorded in a document read to the senate after his death.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2577,7 +2578,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Caesars_civil_war": "49 – 45 BCE",
 "Assassination_of_Julius_Caesar": "15 March 44 BCE",
 "Julius_Caesar": "c. 100 – 44 BCE",
-"Augustus": "27 BCE – 14 CE"
+"Augustus": "27 BCE – 14 CE",
+"Roman_Empire": "from 27 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3670,7 +3672,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Gallic_Wars": ["Gallic War","Vercingetorix","Alesia"],
 "Caesars_civil_war": ["Caesar's civil war","Pharsalus","Battle of Pharsalus","Rubicon"],
 "Assassination_of_Julius_Caesar": ["Ides of March","assassination of Caesar"],
-"Augustus": ["Octavian","Gaius Octavius","Caesar Augustus"]
+"Augustus": ["Octavian","Gaius Octavius","Caesar Augustus"],
+"Roman_Empire": ["Roman empire"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5475,7 +5478,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Gallic_Wars": ["event","history","warfare","politics","rome","classical"],
 "Caesars_civil_war": ["event","history","warfare","politics","rome","classical"],
 "Assassination_of_Julius_Caesar": ["event","history","politics","rome","classical","warfare"],
-"Augustus": ["person","ruler","history","politics","rome","classical"]
+"Augustus": ["person","ruler","history","politics","rome","classical"],
+"Roman_Empire": ["state","history","politics","warfare","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
