@@ -1748,7 +1748,8 @@ window.GLOSSARY = {
 "Greco-Persian_Wars": "The Greco-Persian Wars were fought between the Achaemenid Empire and the Greek cities in the early 5th century BCE, running from the revolt of the Ionians to the failure of the invasion led by Xerxes, a conflict Thucydides calls the greatest achievement of past times and one that nevertheless found a speedy decision in two actions by sea and two by land.<sup class=\"fn\" data-fn=\"1\"></sup> The Greeks who resisted met and exchanged guarantees, resolving to end all their feuds and sending envoys as far as Sicily to seek help.<sup class=\"fn\" data-fn=\"2\"></sup> A tithe of the spoils was set apart for Delphi and made into a tripod resting on a bronze three-headed serpent.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_Marathon": "The Battle of Marathon was fought on the plain of that name in Attica, where an Athenian force with Plataean help defeated the expedition sent against Athens and Eretria, the Persians having landed there on Hippias' guidance as the ground best suited to horses.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus says the Athenians charged at a run across the eight stades between the armies, and calls them the first Greeks known to have done so and the first to endure the sight of Median dress.<sup class=\"fn\" data-fn=\"2\"></sup> About 6,400 of the invaders fell and 192 Athenians, and Epizelus was said to have lost his sight in the fighting without any wound.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Battle_of_Thermopylae": "The Battle of Thermopylae was the Greek attempt to hold the coastal pass into central Greece against the army of Xerxes, chosen because the invaders could use neither their whole force nor their horsemen there.<sup class=\"fn\" data-fn=\"1\"></sup> Leonidas commanded, bringing the three hundred Spartans allotted him and choosing men who had living sons, and the assaults failed for two days until a man of Malis named Epialtes told the king of a path across the mountain.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The allies were then dismissed, only the Thespians staying willingly and the Thebans as hostages, and the last defenders were buried under missiles on a hill at the mouth of the pass.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Battle_of_Salamis": "The Battle of Salamis was the sea fight in the straits between Attica and the island of Salamis, where a Greek fleet of 378 triremes destroyed the far larger Persian one.<sup class=\"fn\" data-fn=\"1\"></sup> Themistocles sent his servant Sicinnus to tell the Persian generals that the Greeks were terrified and meant to flee, and they answered by closing the whole passage in silence through the night.<sup class=\"fn\" data-fn=\"2\"></sup> Aeschylus, who fought in it, has the Persian ships crowded into the narrows until they could not help one another and smashed their own banks of oars, and the sea hidden by wrecks and slaughtered men.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Battle_of_Salamis": "The Battle of Salamis was the sea fight in the straits between Attica and the island of Salamis, where a Greek fleet of 378 triremes destroyed the far larger Persian one.<sup class=\"fn\" data-fn=\"1\"></sup> Themistocles sent his servant Sicinnus to tell the Persian generals that the Greeks were terrified and meant to flee, and they answered by closing the whole passage in silence through the night.<sup class=\"fn\" data-fn=\"2\"></sup> Aeschylus, who fought in it, has the Persian ships crowded into the narrows until they could not help one another and smashed their own banks of oars, and the sea hidden by wrecks and slaughtered men.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Delian_League": "The Delian League was an alliance of Greek states led by Athens and formed after the Persian invasion, its members contributing money or ships and its treasury kept on Delos, where the congresses met in the temple.<sup class=\"fn\" data-fn=\"1\"></sup> The tribute was first fixed at 460 talents and received by officers called the Treasurers for Hellas, and the allies were at first independent, acting on the resolutions of a common congress.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Most of them chose to pay money rather than serve, so the Athenian navy grew on their contributions while a revolt left them without ships, Naxos being the first member besieged and made to return.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2526,7 +2527,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Greco-Persian_Wars": "499 – 479 BCE",
 "Battle_of_Marathon": "490 BCE",
 "Battle_of_Thermopylae": "480 BCE",
-"Battle_of_Salamis": "480 BCE"
+"Battle_of_Salamis": "480 BCE",
+"Delian_League": "founded c. 478 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5387,7 +5389,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Greco-Persian_Wars": ["event","history","warfare","greece","iran","classical"],
 "Battle_of_Marathon": ["battle","event","history","warfare","greece","iran"],
 "Battle_of_Thermopylae": ["battle","event","history","warfare","greece","iran"],
-"Battle_of_Salamis": ["battle","event","history","warfare","greece","iran"]
+"Battle_of_Salamis": ["battle","event","history","warfare","greece","iran"],
+"Delian_League": ["institution","history","greece","warfare","politics","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
