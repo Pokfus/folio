@@ -179,7 +179,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N16 | 12 | The hills of Rome and the city's topography — **shipped**, 6 of 12 pictured |
 | N17 | 12 | Latium: the Latial culture and its sites — **shipped**, 7 of 12 pictured |
 | N18 | 12 | The Italic peoples — Samnites, Sabines, Umbrians — **shipped**, 6 of 12 pictured |
-| N19 | 12 | Umbria and its sanctuaries |
+| N19 | 12 | Umbria and its sanctuaries — **shipped**, 10 of 12 pictured |
 | N20 | 12 | Italian landscape and geology |
 | N21 | 12 | Tanzania, the Serengeti and African mammal groups |
 | N22 | 12 | Olduvai beds, palaeoanthropology's institutions |
@@ -331,6 +331,80 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N19's findings
+
+**N19 — Umbria and its sanctuaries (shipped, 10 of 12 pictured).** The Umbrian language, Iguvium, the
+Atiedian Brotherhood, the Clitumnus, the Via Flaminia, Spoletium, Tuder, Mevania, Hispellum, Ocriculum,
+Carsulae and Sentinum. `Umbrians`, `Iguvine_Tables`, `Apennines` and `Tiber` were terms already, so the
+batch is the country around them.
+
+**ONE SECTION OF STRABO IS A WHOLE-BATCH SECOND SPINE, AND IT IS THE ECONOMY N18 FOUND IN LIVY AT LARGER
+SCALE.** Strabo 5.2.10 names Sentinum, Ocriculum, Narnia, Carsulae, Mevania, Interamna, Spoletium,
+Asisium, Ameria, Tuder, Hispellum, Iguvium and the Flaminian Way — ten of this batch's twelve in one
+section. Four terms cite it, each on a **different clause**, assigned before drafting exactly as N18
+assigned its Livy chapters: the road owns the thirteen hundred and fifty stadia from Ariminum to
+Ocriculum, Spoletium the towns to the right of the Way, Tuder the parenthesis *a well-fortified city*,
+Iguvium *near the passes that lead over the mountain*. Livy 9.41 carries two more, Mevania the forced
+march and Ocriculum the treaty. **Cite the corpus's own preferred edition**: the glossary already cites
+Strabo in Jones's Loeb through LacusCurtius (`Strabo/5C*.html` on `Seven_Hills_of_Rome`), and book 5 is
+at `5B*.html` — Perseus's `1999.01.0198` (Jones) has no book 5, and its `1999.01.0239` is the older
+Hamilton and Falconer translation.
+
+**N15'S CROSS-REFERENCE STUB HAS A WORSE FORM: THE STUB POINTS AT A DIFFERENT PLACE.** N15 recorded that
+a Smith entry may be a pointer with no content of its own (`quirites-cn` → "[JUS]"). `ameria-geo` is a
+pointer to **CABIRA**, a city of Pontus that also bore the name Ameria — so the fetch succeeds, the page
+is 69 KB, and a citation would send a reader to Asia Minor for a town in Umbria. `nequinum-geo` is the
+benign form of the same shape, pointing correctly at NARNIA. Ameria was dropped from the batch for want
+of an entry. **Grep the fetched entry for the term's own subject, not just for a sentence.**
+
+**THE OUT-OF-COPYRIGHT GRAMMAR CARRIED THE TERM NO MODERN WORK WOULD.** `Atiedian_Brotherhood` needed a
+description of the college itself rather than of the tablets, and the standard modern work (Poultney,
+1959) is borrow-only on archive.org while `chs.harvard.edu` answered 503 on every attempt. **Buck's
+*Grammar of Oscan and Umbrian* (1904) and Conway's *Italic Dialects* (1897) are both in full view and
+carry different halves of it** — Buck the business of the brotherhood (the purification of the sacred
+mount, the lustration of the people, the auspices, the priests' perquisites, the contributions of ten
+gentes) and Conway the officers (the *adfertor* or flamen, the *uhtur*, the drinking that belonged to
+Atiedian as to Arval assemblies). N6's rule about the canonical textbook, applied to a priesthood.
+
+**A WORK ALREADY CITED IN THE CORPUS IS NOT AUTOMATICALLY OPENABLE NOW.** Negro et al. 2024 on Gubbio is
+cited on card `rm-015` and is in *Land*, an MDPI journal: `mdpi.com` answers **403** here, so it could
+not be used and `Iguvium` took Strabo instead. Zapelloni Pavia's *Continuity and Change in Ancient
+Umbrian Cult Places*, cited on two cards, is on OAPEN, which N18 recorded as 403. **Re-open a work
+before reusing its citation**; the register records what was reachable on the day it was written.
+
+**A PERSEUS TEXT MAY STATE NO EDITION AT ALL.** The Latin Pliny (`1999.02.0139`) carries only "Letters.
+Pliny the Younger." — no editor, no publisher, no year — so a citation of it could name nothing. Project
+Gutenberg's Melmoth translation, revised by Bosanquet, states all three and carries the whole of *Letters*
+8.8, which is the description of the Clitumnus sanctuary that Smith's own entry is built on. **When a
+Perseus text has no edition statement, look for a translation that does.**
+
+**THE SIBLING PAIR TO SETTLE BEFORE DRAFTING WAS `Clitumnus` AND `Hispellum`**, which Smith and Pliny
+both tie together: Augustus gave the grove and temple of Clitumnus to the people of Hispellum. It went to
+`Clitumnus`, whose sanctuary it is, and `Hispellum` took the two colonial titles and the Constantinian
+rescript instead. The measured duplication over the batch and its neighbours is **0 shared eight-word
+runs**, after one repair: `Umbrian_language`'s first draft shared "from the Etruscans and later in the
+Latin one" with `Iguvine_Tables`, and was rewritten to PRIN's own register — an *epichoric* script
+derived from the Etruscan.
+
+**AND THE SIBLING CHECK CAUGHT A CLAIM BEFORE IT WAS MADE.** Card `rm-015` says that "whether the
+Umbrians fought at Sentinum in 295 is doubtful: Livy and Polybius report them absent", so a term asserting
+their presence would have contradicted the deck. Livy 10.27 states it outright — had the Etruscans and
+Umbrians been present the Romans must have been beaten — and the term says so, with Livy's own admission
+that no source explains where they were. **Read the neighbouring card before writing a term about a
+battle it already hedges.** Two figures were deliberately left out for the same reason: the Iguvine
+Tables' word count is 4,000 in the glossary and about 4,500 at Mnamon, and the short Umbrian inscriptions
+are "some thirty" in two existing terms, so `Umbrian_language` states neither and names the *kinds* of
+text instead.
+
+**Two terms ship unpictured.** `Atiedian_Brotherhood` has no illustration that is not the Iguvine Tables,
+which the tablets' own term already carries; `Sentinum` has almost nothing photographed at all, and the
+one usable object — a Roman mosaic of a rider, now in Munich — is shot with a plastic sheet across the
+corner and illustrates the town rather than the battle the term is about. Four further candidates were
+refused on inspection: the Ocriculum site twice (weeds, wooden fencing and an interpretation panel filling
+the frame), a Bevagna "amphitheatre" that is a **restaurant** fitted into its substructures, a Todi
+panorama whose subject is a Garibaldi statue, and a Carsulae panorama at dusk carrying the photographer's
+shadow across the middle.
 
 ### N18's findings
 
