@@ -618,7 +618,7 @@ written yet. `wh-1000 The Anthropocene` is a live scientific argument and the ca
     wh-352  Third Servile War
     wh-353  Julius Caesar
     wh-354  Gallic Wars
-    wh-355  Roman civil wars
+    wh-355  Caesar's civil war
     wh-356  Assassination of Julius Caesar
     wh-357  Augustus
     wh-358  Roman Empire
