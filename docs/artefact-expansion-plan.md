@@ -269,6 +269,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | A3a | `aztec-sun-stone`, `enigma-machine`, `dancing-girl-mohenjo-daro` | — |
 | B2a | `oracle-bone`, `bamboo-slip`, `crossbow-trigger` | ~~`longquan-celadon-bowl`~~ (shipped in B2b), `inkstone`, `igbo-ukwu-bronze`, `pazyryk-carpet` |
 | B2b | `bronze-ding`, `longquan-celadon-bowl` (UN-DEFERRED), `wax-tablet` | `han-tomb-brick` |
+| B3a | `samurai-katana`, `ukiyo-e-print`, `goryeo-celadon` | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -799,6 +800,38 @@ worth re-querying with the object's other names before writing a deferral down.
   collections that answer here**, both CC0 and both with the object shot against grey and lit properly —
   which for a bowl or a bronze is worth more than a gallery view. The Met's ding shows the vertical
   mould seams down each face, which is the plate's own casting point visible in the picture.
+
+**B3a's finding is that J-STAGE IS AN ENGINEERING ARCHIVE FIRST, and that is what makes it useful
+here.** The plan named it as Japan's national journal platform and expected it to carry archaeology; what
+it actually carries in quantity is materials science, and for an artefact that is better. The katana's
+three works are *Tetsu-to-Hagane* on tatara furnace operation, *ISIJ International* on the microstructure
+of a cutting edge, and *Scientific Reports* on neutron tomography through a finished blade — all open,
+all with free PDFs, and between them they describe how the steel was made, what the edge is made of and
+what is inside the sword, which is the whole of what a plate about a sword needs. **Search J-Stage for
+the MATERIAL rather than for the object's culture**; `Japanese sword tamahagane` returned twenty usable
+articles where `Silla crown` returned an unrelated list.
+
+· **Two of the three plates in this batch turn on a correction that only measurement could make, and both
+  invert something a reader already believes.** The Muromachi blade has MORE fine pearlite in its edge
+  than a modern one, so it is SOFTER there — and yet stronger in tension, the reverse of how ordinary
+  carbon steel behaves. And the story that cheap aniline dyes arrived from the West in the 1860s and
+  swept the older Japanese colours away does not survive Raman analysis: the change was gradual and
+  selective, and most late Edo colorants stayed in use through Meiji. **Where a popular account contains
+  the words "cheap", "garish" or "suddenly", there is usually an analytical paper disagreeing with it.**
+· **The ukiyo-e plate needed the fact that a print is a RUN, not an object**, which is the sort of thing
+  that changes what the plate can honestly claim: `Red Fuji` and its rarer `Pink Fuji` are the same
+  design and different objects, and Korenberg et al. show the pink was pulled first. The picture chosen
+  is that exact print, so the plate's argument is visible in its own illustration — the third time in
+  this pass that has been worth arranging (the Met ding's mould seams and the Han trigger's inscription
+  rubbing were the others).
+· **`ekoreajournal.net` and `koreascience.kr` both refuse the connection here**, so Korea has no national
+  platform reachable from this sandbox; what carried `goryeo-celadon` instead was Heritage Science twice
+  and a Copernicus ISPRS Archives paper on the inter-Korean excavation at Manwoldae. **The Copernicus
+  archives series is worth remembering for any object with a survey or GIS angle** — it is fully open and
+  has answered every path tried in this pass.
+· One naming caution: the Commons description page for the Met's katana spells the smith **Muntesugu**,
+  which is a typo for Munetsugu. A file page is not a catalogue, and its prose is worth reading with the
+  same suspicion as any other uncredited caption.
 
 ## The per-artefact workflow
 

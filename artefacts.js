@@ -1050,4 +1050,25 @@ window.ARTEFACTS = [
     date: "c. 14th century BCE – 19th century CE",
     origin: "The Mediterranean and Europe",
   },
+  {
+    id: "samurai-katana",
+    name: "Katana",
+    rarity: "rare",
+    date: "c. 14th – 19th century CE",
+    origin: "Japan",
+  },
+  {
+    id: "ukiyo-e-print",
+    name: "Ukiyo-e print",
+    rarity: "rare",
+    date: "c. 1660 – 1900 CE",
+    origin: "Japan",
+  },
+  {
+    id: "goryeo-celadon",
+    name: "Goryeo celadon",
+    rarity: "common",
+    date: "c. 918 – 1392 CE",
+    origin: "Korea",
+  },
 ];
