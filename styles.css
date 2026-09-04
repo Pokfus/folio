@@ -850,23 +850,56 @@ body[data-theme="gazette"] .gt-check{box-shadow:none;}
 /* arcade squares every mark off and outlines it in ink; the gazette prints flat, so the wax loses its lift */
 body[data-theme="arcade"] .gt-seal{clip-path:none; border:2px solid var(--ink); filter:none;}
 body[data-theme="gazette"] .gt-seal{filter:none;}
-/* ---------- ON A PHONE THE MARK OWNS THE TILE'S TOP-RIGHT QUARTER (Sep 2026, on request: "the checkmarks
-   and medals on completed minigame tiles should be much larger, covering the top right quarter of the
-   tile") ----------
-   Three tiles to a 390px row is about 110px each, and at 21px the mark was a speck in a corner — a reader
-   glancing at the grid to see what is left to play could not tell a played tile from an unplayed one
-   without reading it. It is sized as a FRACTION of the tile rather than in pixels, so it stays a quarter
-   at every tile width the grid produces, with `aspect-ratio:1` keeping the seal's fluted rim round and a
-   max in px so a wide phone does not grow it past the corner it belongs in.
-   THE GLYPH INSIDE SCALES WITH IT, in percent for the same reason: a 12px check floating in a 50px circle
-   reads as a ring, not as a tick. It is scoped to `.game-tile` — the review banner's own copy of these
-   marks is a different surface with its own pair of sizes, and it is not what the request is about. */
+/* ---------- ON A PHONE A PLAYED TILE WEARS ITS COLOUR ABOVE THE TITLE (Sep 2026, on request: "the minigame
+   tiles have very large green or gold circles or medals when a minigame is completed. instead, make the top
+   60% of the tile turn green/gold, while keeping the checkmark where it is" — and then, the same day, "make
+   the gold/green start just above the minigame title … remove the circle/medal from behind the checkmark,
+   and make the white checkmark quite large") ----------
+   The first answer to this grew the mark itself to 46% of the tile, which on a 110px tile is a 68px medal
+   wearing the tile rather than a tile wearing a medal. The state is read off a BAND across the top instead,
+   green for played and gold for a perfect score, and what is left standing on it is the tick alone.
+   THE BAND IS A FLEX ITEM, NOT A PERCENTAGE OF THE TILE, which is the whole of how it knows where the title
+   is. `.gt-face` is already a flex column ending on `.gt-body`, so a `::before` (the FIRST child — the mark
+   and the glyph are absolute and out of flow) taking `flex:1 1 auto` fills exactly the space above the
+   title and its score line, at any type size, in any language, whether or not the score has wrapped. A
+   percentage cannot: 60% of a 112px tile is a number that lands above the title on one phone and through it
+   on another. It reaches the tile's edges by NEGATING the padding, which is why that padding is
+   `--gt-px`/`--gt-py` — and the overflow it makes is clipped by the tile's own `overflow:hidden`, so the
+   coloured left border still shows.
+   IT PAINTS UNDER THE GLYPH AND THE WORDS with no z-index at all: it is in flow, and an in-flow background
+   paints below every positioned descendant, which the glyph, the body and the mark all are.
+   THE GLYPH GOES ALTOGETHER (on request, having first been darkened so that it could be seen on the band —
+   which is what made it worth removing: the corner icon is an ornament naming a game whose name is written
+   underneath it in words, so on a played tile it is a second mark competing with the tick for the same
+   corner and the same colour). `display:none` rather than `opacity:0`, since it is decoration and a reader
+   on a screen reader gains nothing by keeping it in the tree. It is untouched above the breakpoint and on
+   every unplayed tile, which is every tile for most of the day.
+   THE MARK LOSES ITS DISC AND ITS WAX. Both existed to hold a small tick against whatever the tile was
+   showing; the band does that now, so the green circle and the gold seal are a second badge on top of a
+   badge. What is left is a big white tick with a shadow under it — the same tick in both states, since it
+   is the BAND that says which. `.gt-seal`'s clip-path, gold and glint all go with it; they are unchanged
+   above the breakpoint, where the tile has no band. */
 @media (max-width:640px){
-  .game-tile .gt-check, .game-tile .gt-seal{
-    top:5px; right:5px; width:min(46%, 68px); height:auto; aspect-ratio:1;
+  .game-tile.done .gt-face::before, .game-tile.won .gt-face::before{
+    content:""; flex:1 1 auto; min-height:0;
+    margin:calc(-1 * var(--gt-py)) calc(-1 * var(--gt-px)) 7px;
+    background:color-mix(in srgb, var(--good, #4F9D67) 66%, var(--card));
   }
-  .game-tile .gt-check svg, .game-tile .gt-seal-face svg{width:52%; height:52%;}
-  .game-tile .gt-seal-face{width:100%; height:100%; display:grid; place-items:center;}
+  .game-tile.won .gt-face::before{
+    background:linear-gradient(160deg,
+      color-mix(in srgb, #E3C367 88%, var(--card)),
+      color-mix(in srgb, #C79E33 84%, var(--card)));
+  }
+  .game-tile.done .gt-glyph, .game-tile.won .gt-glyph{display:none;}
+  /* one tick, no badge behind it — every property either state set to hold a small mark is unset here */
+  .game-tile .gt-check, .game-tile .gt-seal{
+    top:4px; right:6px; width:auto; height:auto;
+    background:none; box-shadow:none; border:0; border-radius:0; clip-path:none;
+    animation:none; color:#fff;
+    filter:drop-shadow(0 1px 3px rgba(0,0,0,.38));
+  }
+  .game-tile .gt-check svg, .game-tile .gt-seal-face svg{width:32px; height:32px; stroke-width:3.4;}
+  .game-tile .gt-seal-face{color:#fff; filter:none;}
 }
 /* daily challenge accent treatment */
 .banner.challenge{background:linear-gradient(135deg, var(--card) 60%, var(--zh-wash));}
@@ -4665,7 +4698,8 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
   background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 20%, transparent), transparent 64%),
              linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--tile, var(--indigo)) 16%, var(--card)));
   border:1px solid var(--rule); border-left:4px solid var(--tile, var(--rule)); border-radius:14px;
-  padding:18px; box-shadow:var(--shadow-md);
+  /* the padding is a pair of properties so a full-bleed child can negate it — the played band below */
+  --gt-px:18px; --gt-py:18px; padding:var(--gt-py) var(--gt-px); box-shadow:var(--shadow-md);
   display:flex; flex-direction:column; justify-content:flex-end;
   transition:transform .18s var(--ease), box-shadow .22s var(--ease), border-color .18s;
 }
@@ -5125,7 +5159,7 @@ button.game-tile .gt-glyph{opacity:.14;}
   /* the padding is 9px, not 14, because the title has to fit on ONE line (Aug 2026, on request): three
      tiles to a 390px row leave about 89px of text at 14px of padding, and "Multiple Choice" needs 95. Nine
      gives it 97, and the type below drops with it. */
-  .game-tile{min-height:112px; padding:14px 9px;}
+  .game-tile{min-height:112px; --gt-px:9px; --gt-py:14px;}
   .gt-title{font-size:calc(12.5px * var(--fs)); line-height:1.15;}   /* one line per tile — see the padding note above */
   .gt-glyph-svg svg{width:78px; height:78px;}   /* a 112px ornament fills a 110px tile edge to edge */
   .gt-glyph-svg{top:-10px; right:-10px;}
@@ -5218,7 +5252,7 @@ button.game-tile .gt-glyph{opacity:.14;}
   /* Three tiles to a row on a 390px screen is about 110px each, so the display title comes down again:
      at 18px "Multiple Choice" breaks to three lines. */
   .game-grid{gap:8px;}
-  .game-tile{padding:12px 8px;}
+  .game-tile{--gt-px:8px; --gt-py:12px;}
   .gt-title{font-size:calc(12px * var(--fs)); line-height:1.15;}
   .gt-sub{font-size:calc(11px * var(--fs)); line-height:1.3; margin-top:3px;}
   .gt-eyebrow{margin-bottom:5px;}
