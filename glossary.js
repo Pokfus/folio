@@ -1976,7 +1976,8 @@ window.GLOSSARY = {
 "Battle_of_the_Allia": "The battle of the Allia was the Roman defeat by a Gallic army about 16 km (11 Roman miles) north of Rome, where the stream of that name runs into the Tiber, which opened the way to the capture of the city.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Livy has the Romans form up with no camp, no entrenchments and no favourable auspices, their line stretched thin against outflanking, and says none were killed while actually fighting.<sup class=\"fn\" data-fn=\"2\"></sup> Most of the survivors crossed the Tiber to hostile Veii rather than take the road home, no word of the defeat was sent to Rome, and the day was afterwards counted among the unluckiest in the Roman calendar.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Sack_of_Rome_(390_BC)": "The Gallic sack of Rome was the capture and plundering of the city by a Gallic army after its defeat at the Allia, the only time in the early Republic that Rome itself was taken.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The population left or went up to the Capitol, which was held throughout, while those who had held curule office stayed in the streets in their robes of office and were killed in their chairs.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> How far the city was destroyed is disputed in the sources themselves, Livy saying the fires were far less extensive than might be expected and Plutarch that the houses were burnt down and levelled with the ground.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Brennus_(leader_of_the_Senones)": "Brennus is the name the Roman sources give the Gaulish chieftain who took Rome and besieged the Capitol after the defeat at the Allia.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Livy and Plutarch have him agree with the consular tribune Quintus Sulpicius on a thousand Roman pounds of gold to raise the siege, then produce false weights and lay his sword on the scale with the words <i>vae victis</i>, woe to the vanquished.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He does not appear in Polybius, whose Gauls hold the city until an invasion of their own country recalls them, make a treaty and depart, which leaves the bargain and the sword resting on the Roman tradition alone.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Capitoline_geese": "The Capitoline geese are the birds kept at the temple of Juno on the Capitol which Roman tradition credits with saving the citadel during the Gallic siege, when a night attack passed the sentries and the dogs unnoticed.<sup class=\"fn\" data-fn=\"1\"></sup> Their noise is said to have roused Marcus Manlius, who knocked the leading climber back off the summit, and the soldiers rewarded him next day out of their own rations.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Livy has the birds spared through the famine because they were sacred, where Plutarch has them neglected and says it was hunger that kept them wakeful, and Pliny records that dogs were still punished yearly in Rome for their failure that night.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Capitoline_geese": "The Capitoline geese are the birds kept at the temple of Juno on the Capitol which Roman tradition credits with saving the citadel during the Gallic siege, when a night attack passed the sentries and the dogs unnoticed.<sup class=\"fn\" data-fn=\"1\"></sup> Their noise is said to have roused Marcus Manlius, who knocked the leading climber back off the summit, and the soldiers rewarded him next day out of their own rations.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Livy has the birds spared through the famine because they were sacred, where Plutarch has them neglected and says it was hunger that kept them wakeful, and Pliny records that dogs were still punished yearly in Rome for their failure that night.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Aius_Locutius": "Aius Locutius, also written Aius Loquens, is a Roman deity whose name is compounded from two verbs of speaking, worshipped at a shrine on the Nova Via in Rome.<sup class=\"fn\" data-fn=\"4\"></sup> The cult atoned for a disregarded warning: Livy reports that a plebeian, Marcus Caedicius, heard a more than human voice at night announcing the Gauls' approach, and that his humble rank was one reason it was ignored.<sup class=\"fn\" data-fn=\"1\"></sup> Cicero, who instead gives the words as an order to repair the walls and gates, describes an altar enclosed by a hedge there in his own day, and has a speaker ask why the god fell silent once he was named.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2758,7 +2759,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_the_Allia": "390 BCE, by the usual dating",
 "Sack_of_Rome_(390_BC)": "390 BCE, by the usual dating",
 "Brennus_(leader_of_the_Senones)": "fl. 390 BCE, by the usual dating",
-"Capitoline_geese": "390 BCE, by the usual dating"
+"Capitoline_geese": "390 BCE, by the usual dating",
+"Aius_Locutius": "shrine founded c. 390 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3967,7 +3969,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_the_Allia": ["battle of the Allia","Allia","dies Alliensis"],
 "Sack_of_Rome_(390_BC)": ["Gallic sack of Rome"],
 "Brennus_(leader_of_the_Senones)": ["Brennus"],
-"Capitoline_geese": ["geese of the Capitol","sacred geese of Juno"]
+"Capitoline_geese": ["geese of the Capitol","sacred geese of Juno"],
+"Aius_Locutius": ["Aius Loquens"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5976,7 +5979,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_the_Allia": ["battle","event","warfare","history","italy"],
 "Sack_of_Rome_(390_BC)": ["event","warfare","history","politics","italy"],
 "Brennus_(leader_of_the_Senones)": ["person","history","warfare","politics","italy"],
-"Capitoline_geese": ["event","animal","history","religion","italy"]
+"Capitoline_geese": ["event","animal","history","religion","italy"],
+"Aius_Locutius": ["deity","religion","mythology","history","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's

@@ -382,7 +382,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-124  The Gallic sack of Rome
     rm-125  Brennus
     rm-126  The geese of the Capitol
-    rm-127  The rebuilding of Rome after the Gauls
+    rm-127  Aius Locutius
     rm-128  Licinio-Sextian laws
     rm-129  The plebeian consulship
     rm-130  Nobiles
