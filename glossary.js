@@ -1768,7 +1768,8 @@ window.GLOSSARY = {
 "Battle_of_Cannae": "The Battle of Cannae was fought in Apulia in 216 BCE between a Roman army of about 80,000 foot and rather more than 6,000 cavalry and a smaller Carthaginian force under Hannibal.<sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Hannibal drew his Iberian and Celtic infantry into a crescent with its convex face towards the enemy and his Africans on either side, so that when the crescent gave way and the legions pressed into it the Africans stood on both their flanks.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> About 70,000 Romans died, some 10,000 were taken at their camp and seventy of the cavalry escaped with one consul, and the defeat brought Tarentum and Campanian towns over to Hannibal.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Destruction_of_Carthage": "The destruction of Carthage was the end of the third war between Rome and Carthage, when a Roman army under Scipio Aemilianus stormed the city in 146 BCE after a siege of three years.<sup class=\"fn\" data-fn=\"1\"></sup> The fighting went street by street and roof by roof up to the citadel, which Scipio fired, and Hasdrubal's wife killed her children and threw herself into the flames.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Senate then ordered whatever remained obliterated and forbade anyone to live there, and Polybius records that opinion in his own country was divided over whether Rome had shown statesmanship or something close to treachery.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Roman_conquest_of_Greece": "The Roman conquest of Greece was the process by which Roman power replaced the independence of the Greek cities and kingdoms, beginning after Rome defeated Philip of Macedon and ending with the sack of Corinth.<sup class=\"fn\" data-fn=\"1\"></sup> It opened with a declaration rather than an annexation: at the Isthmian games a herald proclaimed the Corinthians, Phocians, Locrians, Euboeans, Thessalians and others free, without garrisons and paying no tribute, and the crowd made him read it twice.<sup class=\"fn\" data-fn=\"1\"></sup> It closed with Corinth taken and its works of art carried off or ruined, after which Macedonia and Achaia were governed from Rome and Mummius triumphed in 146 BCE.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Achaean_League": "The Achaean League was a federation of cities in the Peloponnese whose institutions and name were taken up so widely that Polybius asks how all the Peloponnesians came to be called Achaeans.<sup class=\"fn\" data-fn=\"1\"></sup> He answers that no political system was so favourable to equality and freedom of speech, since the league reserved no privileges for its original members and put every new adherent on the same footing.<sup class=\"fn\" data-fn=\"1\"></sup> It went to war with Rome under leaders Polybius calls demented and perverse, and after Corinth was taken in 146 BCE the Peloponnese passed with the rest into the Roman province of Achaia.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Achaean_League": "The Achaean League was a federation of cities in the Peloponnese whose institutions and name were taken up so widely that Polybius asks how all the Peloponnesians came to be called Achaeans.<sup class=\"fn\" data-fn=\"1\"></sup> He answers that no political system was so favourable to equality and freedom of speech, since the league reserved no privileges for its original members and put every new adherent on the same footing.<sup class=\"fn\" data-fn=\"1\"></sup> It went to war with Rome under leaders Polybius calls demented and perverse, and after Corinth was taken in 146 BCE the Peloponnese passed with the rest into the Roman province of Achaia.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Gracchi_brothers": "The Gracchi brothers were Tiberius and Gaius Sempronius Gracchus, tribunes of the Roman plebs whose attempts to redistribute publicly owned land ended in the violent deaths of both.<sup class=\"fn\" data-fn=\"3\"></sup> Tiberius carried a law in 133 BCE limiting any holder of Roman public land to 500 iugera, with half as much again for each of two sons, and appointed three elected commissioners to divide the remainder among poorer citizens.<sup class=\"fn\" data-fn=\"1\"></sup> He was beaten to death that year by senators led by Scipio Nasica; Gaius, tribune from 123 BCE, revived the programme with grain distributions and colonies and died in 121 BCE after armed conflict on the Aventine.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2561,7 +2562,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Twelve_Tables": "451 – 449 BCE",
 "Conflict_of_the_Orders": "494 – 286 BCE",
 "Battle_of_Cannae": "216 BCE",
-"Destruction_of_Carthage": "146 BCE"
+"Destruction_of_Carthage": "146 BCE",
+"Gracchi_brothers": "133 – 121 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3646,7 +3648,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Xerxes_I": ["Xerxes"],
 "Darius_III": ["Darius the Third"],
 "Greco-Persian_Wars": ["Persian Wars","Persian War","Median war"],
-"Greek_theatre": ["Greek theater","Greek drama"]
+"Greek_theatre": ["Greek theater","Greek drama"],
+"Gracchi_brothers": ["Gracchi","Tiberius Gracchus","Gaius Gracchus","Sempronius Gracchus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5443,7 +5446,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Cannae": ["battle","history","warfare","rome","carthage","classical"],
 "Destruction_of_Carthage": ["event","history","warfare","rome","carthage","classical"],
 "Roman_conquest_of_Greece": ["event","history","warfare","politics","rome","classical"],
-"Achaean_League": ["institution","history","politics","greece","classical"]
+"Achaean_League": ["institution","history","politics","greece","classical"],
+"Gracchi_brothers": ["people","history","politics","law","rome","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
