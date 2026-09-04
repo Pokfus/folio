@@ -1798,7 +1798,8 @@ window.GLOSSARY = {
 "Ithome": "<b>Ithome</b> is a mountain in Messenia, in the south-west Peloponnese, whose summit served as a stronghold and a refuge, and which the Greeks associated with a cult of Zeus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Helots and perioikoi who seceded from Sparta after an earthquake held it for ten years, and Thucydides says most of them counted as Messenians, descended from those enslaved in an earlier war.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They left under a truce on terms that they quit the Peloponnese for good, which Thucydides and Pausanias both connect with an old Delphic oracle about letting go the suppliant of Zeus at Ithome, and Athens then settled them and their families at Naupactus.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Ostracism_of_Cimon": "The ostracism of Cimon was the Athenian vote that banished Cimon son of Miltiades from the city for ten years, the term Plutarch says was decreed in every case of ostracism.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says the Athenians moved against the friends of Sparta after a force sent to Ithome was dismissed, and that a trifling pretext served; one of his lives gives the charge as loving Sparta and hating the people, where Cornelius Nepos records no charge at all.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He returned before the term ran out, on a decree Plutarch says Pericles wrote, once Athens had been beaten at Tanagra and looked for a Peloponnesian army in the spring.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Ephialtes": "Ephialtes son of Sophonides was an Athenian politician of the mid-5th century BCE who broke the political power of the Council of the Areopagus.<sup class=\"fn\" data-fn=\"1\"></sup> The <i>Athenian Constitution</i> gives him the name of being incorruptible and just, says he first prosecuted many Areopagites over their conduct in office, and that in the archonship of Conon he stripped their council of the powers that made it the safeguard of the constitution.<sup class=\"fn\" data-fn=\"1\"></sup> The same work names Aristodicus of Tanagra as having craftily murdered him not long afterwards, where Diodorus says only that he was done to death by night and that nobody ever knew how.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
-"Reform_of_the_Areopagus": "The reform of the Areopagus was the vote at Athens, in the archonship of Conon, that took from the council of former archons the powers which had made it the constitution's safeguard.<sup class=\"fn\" data-fn=\"1\"></sup> The <i>Athenian Constitution</i> says Ephialtes first prosecuted many Areopagites over their conduct in office and then carried the measure, distributing what he took between the Council of Five Hundred, the assembly and the jury-courts.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus files the vote under a different archon and calls it the destruction of customs the fathers had followed, where Aristotle's <i>Politics</i> counts it among the stages by which Athens reached the democracy of his own day.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Reform_of_the_Areopagus": "The reform of the Areopagus was the vote at Athens, in the archonship of Conon, that took from the council of former archons the powers which had made it the constitution's safeguard.<sup class=\"fn\" data-fn=\"1\"></sup> The <i>Athenian Constitution</i> says Ephialtes first prosecuted many Areopagites over their conduct in office and then carried the measure, distributing what he took between the Council of Five Hundred, the assembly and the jury-courts.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus files the vote under a different archon and calls it the destruction of customs the fathers had followed, where Aristotle's <i>Politics</i> counts it among the stages by which Athens reached the democracy of his own day.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Pericles": "Pericles was an Athenian statesman and general of the 5th century BCE, the son of Xanthippus and of Agariste, a granddaughter of Cleisthenes.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says he was formed above all by Anaxagoras, that he kept a countenance which never relaxed into laughter, walked one street only in the city and declined every invitation to dinner, and that his long head is why almost all his statues wear a helmet.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup> Thucydides writes that his rank, ability and known integrity let him lead the multitude rather than be led by it, so that what was nominally a democracy became government by the first citizen.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2612,7 +2613,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Dismissal_from_Ithome": "c. 462 BCE",
 "Ostracism_of_Cimon": "c. 461 BCE",
 "Ephialtes": "d. c. 461 BCE",
-"Reform_of_the_Areopagus": "462 BCE"
+"Reform_of_the_Areopagus": "462 BCE",
+"Pericles": "c. 495 – 429 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3740,7 +3742,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Ithome": ["Mount Ithome"],
 "Ostracism_of_Cimon": ["ostracism of Cimon"],
 "Ephialtes": ["Ephialtes son of Sophonides"],
-"Reform_of_the_Areopagus": ["reform of the Areopagus"]
+"Reform_of_the_Areopagus": ["reform of the Areopagus"],
+"Pericles": ["Perikles"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5568,7 +5571,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Ithome": ["place","mountain","history","greece","warfare"],
 "Ostracism_of_Cimon": ["event","history","politics","greece","athens"],
 "Ephialtes": ["person","history","greece","politics","athens"],
-"Reform_of_the_Areopagus": ["event","history","greece","politics","athens"]
+"Reform_of_the_Areopagus": ["event","history","greece","politics","athens"],
+"Pericles": ["person","history","greece","politics","athens"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
