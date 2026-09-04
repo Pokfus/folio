@@ -286,7 +286,18 @@ book added later will meet the same traps.
   line numbers are dropped**, one every fifth line of every metre: James translates the verse into
   English verse rather than line for line, so a number there would point at a place the facing page
   cannot find — the Canterbury Tales' finding on a second book. Said on the book's own first page),
-  `three-kingdoms` (~3.03 MB, all 120 chapters, **562,900 words**, 369 verse blocks, 16 notes — C. H.
+  `three-kingdoms` (~3.03 MB, all 120 chapters, **562,900 words**, 369 verse blocks, 16 notes.
+  **Batch E22 repaired 26 slips here, the most in any book yet swept** — `afaid`, `attck`, `broher`,
+  `callected`, `flooor`, `forgotton`, `inhabiants`, `neccessary`, `preprations`, `rcentre`, `speeech`,
+  `twefth` and the rest, each a single occurrence against dozens or hundreds of the correct form.
+  **It is the counter-example to reading E19's noise table as a damage ranking**: this book sits
+  FOURTH CLEANEST on that table at 14.7 candidates per 100,000 words, and Thucydides at 9.8 returned
+  nineteen candidates and no repairs at all. The rate says how much of a list will be foreign words
+  and proper names; it says nothing about how much of the rest is damage. Two things from it are
+  worth carrying: *"He **send** a **repart** of his misfortune"* carries two faults in four words and
+  only one is a non-word, so the second was found only by reading round the first; and the book uses
+  **`repartee` three times**, so a bare substring row for `repart` would have written `reportee` in
+  all three — every row is boundary-anchored. C. H.
   Brewitt-Taylor's English of 1925, and **the book whose chapter titles are on the chapter pages and
   nowhere else worth taking them from.** Both volumes print a full table of contents and both are
   transcribed complete, so `indexPage` is the obvious move; compared against the body chapter by

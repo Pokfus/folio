@@ -8154,7 +8154,14 @@ const BOOKS = {
        a word it uses constantly, and then READING every candidate this book returned. Most were right
        as they stood — proper names, archaic English, and real words a modern eye distrusts — and these
        are the ones that are damage. Each is settled by this book's own usage rather than by a scan. */
+    /* ---------- WHAT THE FILTER HID (Sep 2026, batch E22) ----------
+       The same widened sweep as the Summa's, and it finds the SAME WORD damaged a second way: E20
+       repaired `Archaeans` and this is `Achaens`, one line of Murray's text apart in kind if not in
+       place. It also proposed `throughly` for `thoroughly`, which is LEFT: this translation is
+       deliberately archaic and never uses `thoroughly` at all. */
     reFixes: [
+      [/(?<![A-Za-z])Achaens(?![A-Za-z])/g, "Achaeans",
+       "a dropped a in `Achaeans`, against 115 correct — the second slip on this one word, after E20's `Archaeans`"],
       [/(?<![A-Za-z])Archaeans(?![A-Za-z])/g, "Achaeans",
        "a stray r in `Achaeans`, which this translation spells correctly 114 times"],
       [/(?<![A-Za-z])faired-haired(?![A-Za-z])/g, "fair-haired",
@@ -9770,7 +9777,66 @@ const BOOKS = {
        E19 and E20 — the gap the Summa's `creatuers` exposed. It is a HIGH-PRECISION test: a swap
        that lands on a word the book uses constantly is very rarely a coincidence, and each row
        below is a single occurrence against dozens or hundreds of the correct form. */
+    /* ---------- THE NEXT TIER, SWEPT (Sep 2026, batch E22) ----------
+       E19's noise table put this book at 14.7 candidates per 100,000 words — the fourth cleanest on
+       the shelf — and it turns out to be the most damaged text yet swept: 26 slips, every one a
+       single occurrence against dozens or hundreds of the correct form in the same book. A LOW NOISE
+       RATE IS NOT A LOW ERROR RATE; it only means the list is worth reading. */
     reFixes: [
+      [/(?<![A-Za-z])afaid(?![A-Za-z])/g, "afraid",
+       "`afaid` for `afraid`, which this translation spells correctly 73 times"],
+      [/(?<![A-Za-z])alredy(?![A-Za-z])/g, "already",
+       "`alredy` for `already`, which this translation spells correctly 122 times"],
+      [/(?<![A-Za-z])appintment(?![A-Za-z])/g, "appointment",
+       "`appintment` for `appointment`, which this translation spells correctly 26 times"],
+      [/(?<![A-Za-z])attck(?![A-Za-z])/g, "attack",
+       "`attck` for `attack`, which this translation spells correctly 827 times"],
+      [/(?<![A-Za-z])broher(?![A-Za-z])/g, "brother",
+       "`broher` for `brother`, which this translation spells correctly 640 times"],
+      [/(?<![A-Za-z])callected(?![A-Za-z])/g, "collected",
+       "`callected` for `collected`, which this translation spells correctly 27 times"],
+      [/(?<![A-Za-z])creft(?![A-Za-z])/g, "cleft",
+       "`creft` for `cleft`, which this translation spells correctly 3 times"],
+      [/(?<![A-Za-z])destoy(?![A-Za-z])/g, "destroy",
+       "`destoy` for `destroy`, which this translation spells correctly 146 times"],
+      [/(?<![A-Za-z])flooor(?![A-Za-z])/g, "floor",
+       "`flooor` for `floor`, which this translation spells correctly 10 times"],
+      [/(?<![A-Za-z])forgotton(?![A-Za-z])/g, "forgotten",
+       "`forgotton` for `forgotten`, which this translation spells correctly 27 times"],
+      [/(?<![A-Za-z])inhabiants(?![A-Za-z])/g, "inhabitants",
+       "`inhabiants` for `inhabitants`, which this translation spells correctly 21 times"],
+      [/(?<![A-Za-z])neccessary(?![A-Za-z])/g, "necessary",
+       "`neccessary` for `necessary`, which this translation spells correctly 61 times"],
+      [/(?<![A-Za-z])preprations(?![A-Za-z])/g, "preparations",
+       "`preprations` for `preparations`, which this translation spells correctly 65 times"],
+      [/(?<![A-Za-z])prepard(?![A-Za-z])/g, "prepared",
+       "`prepard` for `prepared`, which this translation spells correctly 233 times"],
+      [/(?<![A-Za-z])puled(?![A-Za-z])/g, "pulled",
+       "`puled` for `pulled`, which this translation spells correctly 40 times"],
+      [/(?<![A-Za-z])readly(?![A-Za-z])/g, "ready",
+       "`readly` for `ready`, which this translation spells correctly 271 times"],
+      [/(?<![A-Za-z])repart(?![A-Za-z])/g, "report",
+       "`repart` for `report`, which this translation spells correctly 100 times"],
+      [/(?<![A-Za-z])reponse(?![A-Za-z])/g, "response",
+       "`reponse` for `response`, which this translation spells correctly 12 times"],
+      [/(?<![A-Za-z])speeech(?![A-Za-z])/g, "speech",
+       "`speeech` for `speech`, which this translation spells correctly 67 times"],
+      [/(?<![A-Za-z])sticken(?![A-Za-z])/g, "stricken",
+       "`sticken` for `stricken`, which this translation spells correctly 29 times"],
+      [/(?<![A-Za-z])spead(?![A-Za-z])/g, "speed",
+       "`spead` for `speed`, which this translation spells correctly 49 times"],
+      [/(?<![A-Za-z])teror(?![A-Za-z])/g, "terror",
+       "`teror` for `terror`, which this translation spells correctly 39 times"],
+      [/(?<![A-Za-z])togther(?![A-Za-z])/g, "together",
+       "`togther` for `together`, which this translation spells correctly 193 times"],
+      [/(?<![A-Za-z])twefth(?![A-Za-z])/g, "twelfth",
+       "`twefth` for `twelfth`, which this translation spells correctly 7 times"],
+      [/(?<![A-Za-z])rcentre(?![A-Za-z])/g, "centre",
+       "a stray r on the front of `centre`, in 'beneath the standard, in the centre of the array'"],
+      [/He send a report of his misfortune/g, "He sent a report of his misfortune",
+       "`send` for `sent` — A REAL WORD IN THE WRONG PLACE, which no vocabulary sweep can name, and " +
+       "found only by reading round `repart` two words later. It is written AFTER that row on purpose, " +
+       "since it anchors on the corrected spelling"],
       [/(?<![A-Za-z])strenghten(?![A-Za-z])/g, "strengthen",
        "a transposition in `strengthen`, against 14 correct"],
     ],
@@ -13414,6 +13480,17 @@ const BOOKS = {
        wrong place, invisible to every sweep here, and was found only because `substnaces` four words
        later brought a reader to the sentence. */
     reFixes: [
+      /* ---------- WHAT THE FILTER HID (Sep 2026, batch E22) ----------
+         E21 found `Wheather` sitting in the UNFILTERED candidate list, because an inserted `a` is not
+         one of the confusion classes E20 and E21 read through. Widening that set by exactly the two
+         missing vowels returns 42 candidates across the nine books already swept, and these are the
+         three in this book that are damage. The other twenty-two here are the book's own Latin. */
+      [/(?<![A-Za-z])realations(?![A-Za-z])/g, "relations",
+       "`realations` for `relations`, and the very next clause spells it correctly — 351 in all"],
+      [/(?<![A-Za-z])monaster(?![A-Za-z])/g, "monastery",
+       "`monaster` for `monastery`, in 'from the property of his monastery' — 45 correct"],
+      [/(?<![A-Za-z])Whosever(?![A-Za-z])/g, "Whosoever",
+       "`Whosever` for `Whosoever`, quoting John 4:13 — 58 correct"],
       [/(?<![A-Za-z])accordingm(?![A-Za-z])/g, "according",
        "a stray m on `according`, in 'everything has being only according as it resembles Him'"],
       [/(?<![A-Za-z])aforsaid(?![A-Za-z])/g, "aforesaid",

@@ -297,13 +297,62 @@ re-run and diffed byte for byte.
 | **E19** ✅ | five books, and a fault in the machinery | **A CORRECTION ROW ADDED TO A CACHED WIKI BOOK DID NOTHING, AND NOTHING SAID SO.** `correctRaw` ran only on the fetch path, so a row met the page only when `--force` was passed — and its own comment promises the opposite. The Book of Documents shipped the same emperor title as `Tî` 25 times and `Di` 69, by which chapters happened to be cached. Fixed, proved byte-for-byte over the whole shelf, and the run now says which kind of dead row it is reporting. Plus 15 repairs to Plato and the Summa, closing E4's last two deferrals |
 | **E20** ✅ | six books | **10 repairs from 78 candidates, and E19's table is what said where to look.** Every candidate in the seven cleanest books read in full: Thucydides' nineteen were ALL correct (place names, `hods`, `hove`, `waives`), and the yield came from the others — `haye`, `goverment`, `continuallly`, `Archaeans`, `faired-haired`, `inflecting`/`inflected`, and two LOST SPACES (`andvice`, `[Isay]`) that no confusion-family sweep would have named. `Lede` for Leda is DEFERRED: it is in Perseus's file and the Greek is Λήδην, so it wants a printed witness |
 | **E21** ✅ | six books | **40 repairs, 30 of them in the Summa** — 2.5 million words whose candidate list had never been read. Its 245 are mostly the book's own LATIN, which no rarity test can tell from a typo; what was left is 30 slips, each a single occurrence against hundreds of the correct form. Three findings: **a TRANSPOSITION is two edits and was invisible** to E19's sweep (`creatuers`, and ten more across the shelf); **one error finds another** (three `no` for `not`, which no sweep can see, all found by reading round a neighbour); and **the filter that made the list readable hid a real error** (`Wheather`, an inserted `a`) |
-| **E22–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E22** ✅ | three books | **30 repairs, 26 of them in Three Kingdoms** — which E19's table called the FOURTH CLEANEST book on the shelf and which turns out to be the most damaged text yet swept (`afaid`, `attck`, `broher`, `flooor`, `speeech`, `twefth`). **A low noise rate is not a low error rate**; it only means the list is worth reading. The other four are what E21's filter hid: widening the confusion set by the two missing vowels returned 42 candidates across nine already-swept books, of which three in the Summa and one in the Odyssey are damage — and TWO would have destroyed archaic quotations |
+| **E23–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E22 — what the filter hid, and the next tier's worst book, shipped 2026-09-04
+
+**30 repairs across three books.** E21 ended by saying the unfiltered candidate list is where the next
+pass starts; this is that, plus the next book down E19's noise table.
+
+**FIRST, WHAT THE FILTER HID, AND IT IS LESS THAN IT LOOKED.** E21 found `Wheather` sitting outside the
+list it had read, because an inserted `a` is not one of the declared confusion classes. Running the
+sweep with **no** filter at all returns **524 candidates for the Summa alone**, which is not a work
+list — it is dominated by trailing apostrophes, the book's Latin, and ordinary singular/plural pairs.
+So the gap was measured precisely instead: widen the class by **exactly the two missing vowels**, `a`
+and `o`, and read only what that admits. **42 candidates across the nine books already swept**, of
+which **four are damage**: `realations`, `monaster` and `Whosever` in the Summa, and `Achaens` in the
+Odyssey — **the same word E20 repaired as `Archaeans`, damaged a second way**.
+
+**TWO OF THE 42 WOULD HAVE DESTROYED ARCHAIC QUOTATIONS, and that is the finding worth keeping.**
+`Trubled` in the Summa is not a slip for `troubled`: it is inside *"Trubled gost is sacrifice of God"*,
+quoted from the Prose Psalter of **A.D. 1325**. `abegging` in Plato is not a slip for `begging`: it is
+*"there came Poverty abegging"*. A vowel is the most plausible thing for a scanner to drop and also the
+most plausible thing for a 14th-century scribe to spell differently, so **the vowel class has a lower
+signal-to-noise ratio than the consonant classes by its nature**, not by accident. It is worth running
+and worth reading slowly. `throughly` in the Odyssey was left for the same reason — Murray's
+translation is deliberately archaic and never uses `thoroughly` at all.
+
+**SECOND, AND THE BULK OF THE BATCH: THREE KINGDOMS.** E19's table put it at 14.7 candidates per
+100,000 words, the **fourth cleanest** on the shelf. It is the most damaged text yet swept: **26
+slips**, every one a single occurrence against dozens or hundreds of the correct form — `afaid`,
+`alredy`, `appintment`, `attck`, `broher`, `callected`, `creft` for cleft, `destoy`, `flooor`,
+`forgotton`, `inhabiants`, `neccessary`, `preprations`, `prepard`, `puled`, `rcentre`, `readly`,
+`repart`, `reponse`, `speeech`, `sticken`, `spead`, `teror`, `togther`, `twefth`.
+
+**THE RULE THIS SETTLES: a low noise rate is not a low error rate.** The rate says how much of the
+list will be foreign words and proper names; it says nothing about how much of the rest is damage.
+Thucydides at 9.8 returned nineteen candidates and no repairs; this book at 14.7 returned eighty-two
+and twenty-six. **The table says where reading is cheap, not where reading is unnecessary.**
+
+**AND ONE ERROR FOUND ANOTHER AGAIN**, for the third batch running: *"He **send** a **repart** of his
+misfortune"* carries two faults in four words, and only `repart` is a non-word — `send` for `sent` is
+a good word in the wrong place that no sweep here can name. It is written as the row AFTER `repart` on
+purpose, since it anchors on the corrected spelling.
+
+**`repart` IS ALSO E15's `scorning` TRAP, MEASURED.** The book uses **`repartee` three times**, and a
+bare substring row would have written `reportee` in all three, silently, while the report said one fix
+applied. Every row here is boundary-anchored, which is why it did not.
+
+**The proof.** Three books rebuilt. The Odyssey is **+1 byte**; Three Kingdoms is **+10**, which is
+exactly the sum of its twenty-six repairs' own length changes; and every changed line in all three —
+25, 3 and 1 — was read and is one of the rows.
 
 ### E21 — the biggest book on the shelf, and what its errors led to, shipped 2026-09-04
 
