@@ -168,7 +168,7 @@ literature — which is what made batches 15 and 8 of the first pass cheap and b
 |---|---|---|---|
 | D1 Medieval everyday | 8 | `novgorod-birch-bark-letter`; `seal-matrix`, `bone-ice-skate`, `green-glazed-jug`, `wax-tablet`, ~~`turnshoe`~~ (cleared and shipped in D1a), `antler-comb`, ~~`bodkin-arrowhead`~~ (cleared and shipped in D1b) | *Internet Archaeology* (open), Persée, `tidsskrift.dk`, archive.org |
 | D2 Prehistory's everyday, worldwide | 9 | `palaeolithic-bone-flute`; `spear-thrower` (planned under the name antler-spearthrower), `saddle-quern`, `sickle-blade`, `bone-fishhook`, `ochre-crayon`, `eyed-bone-needle`, `oak-coffin-textile`, `amber-bead` | PLOS, *Scientific Reports*, Europe PMC, Antiquity, Persée, archive.org (Evans) |
-| E1 Arms, antiquity to the twentieth century | 7 | `sling-bullet`, `mail-fragment`, `flintlock-musket`, `iron-cannonball`, `socket-bayonet`, `trench-art-shell-case`, `identity-disc` | archive.org (Ffoulkes), *Post-Medieval Archaeology*, PSAS. **`iwm.org.uk` is 403 here** |
+| E1 Arms, antiquity to the twentieth century | 7 | `sling-bullet`, `mail-fragment`, `flintlock-musket`, `iron-cannonball`, `socket-bayonet`, ~~`trench-art-shell-case`~~, ~~`identity-disc`~~ (both cleared and shipped in E1c) | archive.org (Ffoulkes), *Post-Medieval Archaeology*, PSAS. **`iwm.org.uk` is 403 here** |
 | E2 Instruments of knowledge | 8 | `gutenberg-bible-leaf`; `portable-sundial`, `mariners-astrolabe`, `albarello`, `type-sort`, `slide-rule`, `daguerreotype`, `telegraph-key` | Getty, Rijksmuseum, archive.org, *International Journal of Nautical Archaeology* |
 | E3 The industrial everyday | 5 | `phonograph-cylinder`, `transferware`, `bartmann-jug`, `thimble`, `steel-pen-nib` | *Post-Medieval Archaeology*, *Historical Archaeology*, archive.org |
 
@@ -288,16 +288,17 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | C3c | `moche-portrait-vessel` (UN-DEFERRED — **C3's list is now empty**) | — |
 | B2c/B3c | `han-tomb-brick`, `buncheong-bowl` (both UN-DEFERRED — **B3's list is now empty**) | — |
 | A3a/B2d | `golden-crown-of-silla`, `inkstone` (UN-DEFERRED — **B2's list is now empty**) | — |
-| E2d | `mariners-astrolabe` (UN-DEFERRED; **one, not three — see below**) | `trench-art-shell-case`, `identity-disc`, ~~ban-chiang-pot~~ (cleared in B4c) |
-| A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | ~~turnshoe~~ (cleared and shipped in D1a), ~~nbpw-sherd~~ (cleared and shipped in B1e), `identity-disc` again |
+| E2d | `mariners-astrolabe` (UN-DEFERRED; **one, not three — see below**) | ~~trench-art-shell-case~~, ~~identity-disc~~ (both cleared and shipped in E1c), ~~ban-chiang-pot~~ (cleared in B4c) |
+| A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | ~~turnshoe~~ (cleared and shipped in D1a), ~~nbpw-sherd~~ (cleared and shipped in B1e), ~~identity-disc~~ (cleared and shipped in E1c) |
 | B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, ~~igbo-ukwu-bronze~~ (dropped in C2b), ~~bodkin-arrowhead~~ (cleared and shipped in D1b), `fustat-paper` again |
 | B4c | `ban-chiang-pot`, `sumatralith` (both UN-DEFERRED — **B4's list is now empty**) | — |
 | B1f | `glass-bangle` (UN-DEFERRED, and **shipped with no picture** — see below; **B1's list is now empty**) | ~~jade-burial-suit~~ (cleared and shipped in A3d), ~~bodkin-arrowhead~~ (cleared and shipped in D1b) |
-| S1 | **nothing — a search batch, see below** | `identity-disc` (one work found), ~~turnshoe~~ (cleared and shipped in D1a), `trench-art-shell-case`, `fustat-paper` again |
+| S1 | **nothing — a search batch, see below** | ~~identity-disc~~, ~~trench-art-shell-case~~ (both cleared and shipped in E1c), ~~turnshoe~~ (cleared and shipped in D1a), `fustat-paper` again |
 | C2b | `benin-bronze-plaque` (**SUBSTITUTED for `igbo-ukwu-bronze` — see below**) | — |
 | A3d | `jade-burial-suit` (UN-DEFERRED; **A3's list is now empty**) | — |
 | D1a | `turnshoe` (UN-DEFERRED; **one, not three — see below**) | `bodkin-arrowhead` again (**two of three works now found**), `fustat-paper`, `ife-head` |
 | D1b/E1b | `bodkin-arrowhead` (UN-DEFERRED after four deferrals; **D1's list is now empty**) | `fustat-paper`, `ife-head` (**one work found**), `trench-art-shell-case`, `identity-disc` |
+| E1c | `identity-disc`, `trench-art-shell-case` (both UN-DEFERRED — **E1's list is now empty**) | `fustat-paper`, `ife-head` (**one work found**) |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1846,6 +1847,35 @@ ACCESS, never about content. The paper is cited nowhere in the plate as a result
 bodkin; it uses the bodkin — the sewing awl — as the model for what a narrow round point does, which is
 precisely why the arrowhead came to be named after it. The plate says that, rather than implying the
 word is his. **A primary source can carry the reasoning behind a name without carrying the name.**
+
+**E1c clears both First World War artefacts, and the finding is a HOST: the Australian War Memorial.**
+Both had been deferred on "a wall of 403s" — `iwm.org.uk`, and here `cwgc.org` and `nzhistory.govt.nz`
+too. **`awm.gov.au` answers 200, its collection records are SERVER-RENDERED, and its advanced search is
+a plain query string** (`/advanced-search?query=…&collection=true`), which returns real object links in
+the HTML rather than a JavaScript shell — the opposite of the East Asian national museums recorded in
+the reachability survey, and of the Royal Armouries, whose search on the same day returned "Please
+enable JavaScript". A search for *identity disc* returns 431 records and one for *trench art shell case*
+as many again. **What makes the records worth citing rather than merely open is that they carry the
+MAKER'S OWN WORDS**: Sapper Pearl's vase entry quotes him on where the 75 mm case came from, and on the
+handles, which are copper steam pipe cut off a German locomotive surrendered under the Armistice, "at
+night with a hack saw in spite of a guard". A museum record that quotes its donor is a primary source.
+
+**Its second finding is that the pass's own reachability survey needs re-testing, not re-reading.** Both
+these artefacts were written off on a host list; three of the hosts on it are still shut and a fourth,
+never tried, carried both subjects. That is C7's rule about a deferral outliving its reason, arriving
+for the fourth time — and it now has a companion rule for the search order: **when a subject is national
+rather than universal, try the national institutions of every country that fought, not only the obvious
+one.** Britain's collections are shut here and Australia's are wide open.
+
+**And `identity-disc` got the scholarly work OpenAIRE was always going to find.** Sarah Ashbridge's
+article in the *British Journal for Military History* (Goldsmiths, open) is the whole history in
+twenty-two pages, and it carries the correction the plate needed: the disc was **aluminium** from 1906,
+the material was changed to **compressed fibre in 1914**, and the fibre rotted in the ground — so the
+object issued to make every soldier identifiable in death is the reason thousands of them are unknown.
+The 1916 double disc was forced through by Fabian Ware, and the new one is green so it can be told apart
+by day and lozenge-shaped so it can be found by touch, because the discs were mostly cut from bodies at
+night under fire. **A note on `bjmh.gold.ac.uk`: it resets the connection about one request in three, so
+retry rather than recording it as closed.**
 
 ## The per-artefact workflow
 

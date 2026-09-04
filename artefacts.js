@@ -1400,4 +1400,18 @@ window.ARTEFACTS = [
     date: "c. 1200 – 1500 CE",
     origin: "Medieval Europe",
   },
+  {
+    id: "identity-disc",
+    name: "Identity disc",
+    rarity: "common",
+    date: "1906 – 1918 CE",
+    origin: "British and Commonwealth forces",
+  },
+  {
+    id: "trench-art-shell-case",
+    name: "Trench art shell case",
+    rarity: "common",
+    date: "1914 – 1919 CE",
+    origin: "First World War battlefronts",
+  },
 ];
