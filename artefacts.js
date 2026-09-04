@@ -1295,4 +1295,11 @@ window.ARTEFACTS = [
     date: "c. 1280 – 1400 CE",
     origin: "Mamluk Egypt and Syria",
   },
+  {
+    id: "moche-portrait-vessel",
+    name: "Moche portrait vessel",
+    rarity: "rare",
+    date: "c. 100 – 800 CE",
+    origin: "North coast of Peru",
+  },
 ];

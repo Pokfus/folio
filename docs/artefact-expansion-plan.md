@@ -279,12 +279,13 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | E1a | `mail-fragment`, `telegraph-key`, `iron-cannonball` | — |
 | E2b/E3b/D1c | `albarello`, `phonograph-cylinder`, `green-glazed-jug` | — |
 | E3c/C1c/E2c | `bartmann-jug`, `byzantine-ivory-panel`, `gutenberg-bible-leaf` | — |
-| C3b/E3d | `wampum-bead`, `thimble` (**two, not three — see below**) | `moche-portrait-vessel`, `bodkin-arrowhead` |
+| C3b/E3d | `wampum-bead`, `thimble` (**two, not three — see below**) | ~~moche-portrait-vessel~~ (cleared and shipped in C3c), `bodkin-arrowhead` |
 | B1d | `mughal-miniature` (UN-DEFERRED; **one, not three — see below**) | `glass-bangle` again, `mariners-astrolabe`, `turnshoe` |
 | B4b | `shell-adze` | `sumatralith` (no openable work uses the term) |
 | D1c | `novgorod-birch-bark-letter` (**UN-HELD — D1's list is now empty**) | — |
 | E3e | `steel-pen-nib` (UN-DEFERRED — **E3's list is now empty**) | — |
 | C1d | `mamluk-mosque-lamp` (UN-DEFERRED) | — |
+| C3c | `moche-portrait-vessel` (UN-DEFERRED — **C3's list is now empty**) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1383,6 +1384,32 @@ horny texture" while the gilding and enamelling, learnt probably from the Byzant
   scholarship, and the 19th-century institutional shelf was never asked.** Lane-Poole, Nesbitt, Migeon,
   Bushell, Marshall, Hiroa, Beauchamp and Holmes have now each carried a plate; the museums that
   published them are the same museums whose APIs supply the third source.
+
+**C3c clears `moche-portrait-vessel`, which C3b deferred at one work, and it does it with MUSEUM RECORDS
+carrying real curatorial prose.** The distinction matters, because not every collection API is worth
+citing. The **Met's** records are FIELDS ONLY — title, culture, date, medium, dimensions, credit line —
+useful for a measurement and nothing else. **Cleveland's carry a written note**, and Cleveland's note on
+its portrait vessels is the plate's best material: "The Moche were unique in ancient Peru in creating
+realistic human portraits… such vessels represent more than 750 individuals; identities are unclear but
+most are elite men, some probably rulers," and, of a second head, that it "may represent an important
+captive who, like some Moche prisoner figures, wears double earrings and a hank of hair over the
+forehead." **Ask what a museum API RETURNS before planning a plate around it**; a record with an essay is
+a source, a record with only fields is a caption.
+· **`metmuseum.org` IS RATE-LIMITED FROM HERE and its API is not.** `collectionapi.metmuseum.org` answers
+  200 and serves full object records; the public page `metmuseum.org/art/collection/search/<id>` answers
+  **429**, with a browser user-agent and on retry. A citation has to end in a URL a reader can open, and
+  one that cannot be verified from here does not qualify — so a Met record drafted into this plate was
+  swapped for a second Cleveland one, which also supplied the size and the captive reading. **Sweep a
+  museum URL before writing the sentence that rests on it**, not after.
+· The third work is Kroeber's 1926 Field Museum report, and what it contributes is the HISTORIOGRAPHY the
+  museum records cannot: **when the style was first classified it was not called Moche at all.** Kroeber
+  files it as *Proto-Chimu*, with Uhle's excavation at the Huaca de la Luna as its touchstone because that
+  was "the only described series with grave proveniences". A plate that can say what a thing used to be
+  called is doing something a catalogue entry never does.
+· This is the third deferral in three batches cleared by the same manoeuvre — **19th- or early-20th-century
+  institutional monograph, plus a museum's own record of one object** — after `steel-pen-nib` and
+  `mamluk-mosque-lamp`. The remaining deferrals were all made looking for modern journal literature; work
+  the pair before deferring again.
 
 ## The per-artefact workflow
 

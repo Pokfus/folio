@@ -1646,6 +1646,15 @@
     "Alexander Nesbitt, <i>A Descriptive Catalogue of the Glass Vessels in the South Kensington Museum</i> (London: Eyre and Spottiswoode, 1878). [Open access] https://archive.org/details/descriptivecata00sout",
     "\"Mosque lamp,\" museum no. 324-1900, Victoria and Albert Museum, London. [Open access] https://collections.vam.ac.uk/item/O804/mosque-lamp-unknown/",
   ],
+},
+"moche-portrait-vessel": {
+  image: { src: "https://upload.wikimedia.org/wikipedia/commons/e/ee/Portrait_Head_Bottle_MET_64.228.21.jpeg", title: "A Moche portrait head bottle, 5th or 6th century", desc: "In the Metropolitan Museum of Art, 32 cm (13 inches) high. The stirrup handle and spout rise from the crown of the head; the sitter wears a wrapped headcloth and large disc ear ornaments.", credit: "Metropolitan Museum of Art, CC0, via Wikimedia Commons. https://commons.wikimedia.org/wiki/File:Portrait_Head_Bottle_MET_64.228.21.jpeg", alt: "A reddish earthenware bottle modelled as a man's head in profile, wearing a wrapped cloth headdress and round disc earrings, with a tall spout and a curved stirrup handle rising from the top of the head." },
+  desc: "A <b>Moche portrait vessel</b> is a bottle modelled as a human head, with a stirrup-shaped handle and spout rising from the crown; the stirrup mouth is the pottery form most characteristic of the Trujillo valleys and the hallmark of the whole tradition.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Moche were alone in ancient Peru in making realistic human portraits, and they made a great many: the surviving vessels represent more than 750 separate individuals, most of them elite men and some probably rulers, though who any one of them was is unclear.<sup class=\"fn\" data-fn=\"2\"></sup> They are not small — one in Cleveland stands 30.5 cm (12 inches) high and 29 cm (11 inches) across — and they are earthenware finished in coloured slips rather than glaze.<sup class=\"fn\" data-fn=\"3\"></sup> Not every sitter was a lord: that Cleveland head may be an important captive, wearing the double earrings and the hank of hair over the forehead that Moche prisoner figures wear.<sup class=\"fn\" data-fn=\"3\"></sup> When the style was first classified it was not called Moche at all: the 1926 Field Museum report on pottery from Trujillo files it as Proto-Chimu, its touchstone being Uhle's excavation at the Huaca de la Luna, then the only described series with grave proveniences.<sup class=\"fn\" data-fn=\"1\"></sup>",
+  sources: [
+    "A. L. Kroeber, <i>Archaeological Explorations in Peru, Part I: Ancient Pottery from Trujillo</i>, Field Museum of Natural History, Anthropology Memoirs 2, no. 1 (Chicago, 1926). [Open access] https://archive.org/details/archaeologicalex21kroe",
+    "\"Portrait Head Vessel,\" accession no. 1990.227, Cleveland Museum of Art. [Open access] https://clevelandart.org/art/1990.227",
+    "\"Portrait Head Vessel,\" accession no. 1930.627, Cleveland Museum of Art. [Open access] https://clevelandart.org/art/1930.627",
+  ],
 }
 };
   (window.ARTEFACTS_EXTRA_IN = window.ARTEFACTS_EXTRA_IN || []).push({ ARTEFACTS_EXTRA: ARTEFACTS_EXTRA });
