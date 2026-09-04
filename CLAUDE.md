@@ -2596,6 +2596,13 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   Mandarin voice handed "Guǎngdōng" reads the letters. It is deliberately NOT gated on `ttsEnabled()`,
   which has been off since read-aloud was set aside: like the deck control it is something the reader
   presses, and `body.no-tts` hides it where there is no speech engine at all.
+  **THE TRADITIONAL FORM SITS ON THE LINE ABOVE THE SIMPLIFIED** (Sep 2026, on request; it stood beside
+  it). `.ac-chars` is a column and the traditional span is written FIRST, so the order in the markup is the
+  order on screen; it stays the quieter of the two, smaller and at half strength, and is still emitted only
+  where it DIFFERS, so a term written the same way in both scripts is one line and looks untouched.
+  **On a phone the rule above the block is `--rule` grey, not the Chinese ink** (same request): there it
+  runs the full width of the card, where a red hairline reads as part of the answer rather than as the line
+  dividing it from the name below.
 - **Card fields (13):** `id, num, category, question` (HTML cloze with blanks), `answer`,
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
@@ -2912,6 +2919,18 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     that frames it, never awaited and never by a map card or the Atlas. **📖 read
     `.claude/build-hires-coasts.js`'s header before touching it** — it records why the coast is classified
     off the 10m data rather than off world.js, and why Russia is left out of the China frame.
+    **A SPLICED RING CAN BE THE COUNTRY TRACED TWICE, AND IT RENDERS PERFECTLY** (Sep 2026, on a bug
+    report: "in the Ancient Greece collection I can no longer see the landmass of Turkey"). The splice
+    walks the 10m chain between a low-res edge's two ends in the RING's own direction, decided once by
+    majority — and for a few edges the index mapping runs the other way, so the walk went the long way
+    round and brought back nearly the whole ring. The result has every vertex in the right place and twice
+    the signed area: stroked it is flawless, and under a NONZERO fill it is flawless, but **this window
+    fills EVEN-ODD, where two windings cancel** — so Turkey's mainland was drawn and then unfilled by its
+    own second copy, leaving Anatolia as open sea. China's was traced THREE times and so still filled, at
+    three times the points (20,610 for one ring). `edgeChain` now takes the shorter arc, which is the only
+    one a low-res edge can stand for. **The check that finds it is the SIGNED AREA of a spliced ring
+    against world.js's own** — a near-integer ratio is a ring traced that many times — and it is worth
+    running after any change here, since nothing else in the pipeline can see it.
   · **HI-RES RIVERS, ON THE SAME TWO FRAMES** (`hiresRiverIngest`, `effRivers`, `rivers/<region>.js`, the
     `river_italy` / `river_greece` bundles; Sep 2026, on request: "Rivers in Italy in the Roman deck and
     Greek rivers in the Greek deck should have a much higher resolution … and there should be more of
@@ -2931,7 +2950,16 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
     and weight as the places the collection teaches — a map of modern states with a history card's marks on
     it. The square still gives a reader a seat of government to place a site against, which is the whole
     of what that layer is for; **the words on this map belong to the collection.** `capAt` is DELETED
-    rather than left unread, a register nothing draws from being the next session's bug.
+    rather than left unread, a register nothing draws from being the next session's bug. **The square is SMALLER and
+    outlined in GREY rather than white** (Sep 2026, on request): a white keyline is what an atlas gives a
+    mark that must survive being drawn over land, sea and a label at once, and here it was a second
+    highlight around the loudest thing on a quiet map.
+  · **AND A RIVER IS THINNER WHEN THE FRAME IS WIDE** (same request). The weight was the Atlas's own
+    `0.4 + zoom * 0.16` floored at 0.5 and is `0.15 + zoom * 0.18` floored at 0.3, reaching the old figure
+    again around zoom 6 and unchanged at the deep end, where the 1.8px cap has always decided it. The
+    Atlas draws its rivers only past a zoom; this window draws all 1,073 of them at every zoom, so at a
+    card's opening ~50° view the same weight is a continent of blue thread over a map whose coast is
+    stroked at 0.7.
   · **THE COLLECTION'S HOME CITY IS ON EVERY MAP IN IT** (`CMAP_ANCHOR`; Sep 2026, on request: "Rome
     should always be visible in the Roman collection, with a slightly larger red square as icon, and Athens
     should have the same in the Ancient Greek collection"). Every other red mark is EARNED — a sibling
