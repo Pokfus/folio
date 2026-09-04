@@ -1815,7 +1815,8 @@ window.GLOSSARY = {
 "Peace_of_Callias": "The <b>Peace of Callias</b> is a treaty said to have settled the wars between Athens and Persia about 449 BCE, named after the Athenian envoy Callias son of Hipponicus, and its existence is disputed.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus gives its terms as autonomy for the Greek cities of Asia, Persian satraps kept three days' journey from the sea and Persian warships out of the waters inside Phaselis and the Cyanean Rocks, in return for Athens sending no troops against the King.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch dates it a generation earlier and preserves the ancient doubt, reporting that Callisthenes denied the King made any such agreement while a copy stood among the decrees Craterus collected.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Thirty_Years'_Peace": "The <b>Thirty Years' Peace</b> was the treaty of about 446 BCE between Athens and the Lacedaemonians and their confederates, by which Athens gave back Nisaea, Achaea, Pegae and Troezen and each side kept what it held.<sup class=\"fn\" data-fn=\"1\"></sup> Its articles bound the two sides to submit their disputes to trials of judgment, and allowed a city in league with neither to join whichever it pleased, a clause the Corcyraeans invoked in seeking an Athenian alliance.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Thucydides says the peace lasted fourteen of its thirty years, and reports that the Spartans afterwards held themselves the party at fault for having refused the arbitration it provided.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
 "Cleruchy": "A <b>cleruchy</b> was a body of Athenian settlers established on land taken from another state, each holding an allotment there; the earliest Herodotus records is the four thousand put on the lands of the Chalcidian Hippobotai in 506 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch reports a series of them under Pericles, a thousand to the Chersonese, five hundred to Naxos, half that to Andros and a thousand into Thrace, sent to lighten the city, relieve the poor and hold the allies to their obedience.<sup class=\"fn\" data-fn=\"2\"></sup> The severest example is Histiaea on Euboea in 446 BCE, whose people Thucydides says were driven from their homes so that Athenians could take over their territory.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Athenian_tribute_lists": "The <b>Athenian tribute lists</b> are the stelai on which Athens recorded, for each year from 454/3 BCE, the sixtieth part of the allied tribute paid to Athena, entered city by city at one mina per talent.<sup class=\"fn\" data-fn=\"1\"></sup> The first fifteen years were cut on a single stone reconstructed from 184 fragments, the next eight on a second, and every year after that on a stele of its own.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They preserve detail no ancient historian records: headings of 434/3 BCE that separate cities that assessed themselves from those individuals signed up to pay for, and a reassessment of 425/4 with sworn assessors, penalties for delay and a court of a thousand.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
+"Athenian_tribute_lists": "The <b>Athenian tribute lists</b> are the stelai on which Athens recorded, for each year from 454/3 BCE, the sixtieth part of the allied tribute paid to Athena, entered city by city at one mina per talent.<sup class=\"fn\" data-fn=\"1\"></sup> The first fifteen years were cut on a single stone reconstructed from 184 fragments, the next eight on a second, and every year after that on a stele of its own.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They preserve detail no ancient historian records: headings of 434/3 BCE that separate cities that assessed themselves from those individuals signed up to pay for, and a reassessment of 425/4 with sworn assessors, penalties for delay and a court of a thousand.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
+"Coinage_Decree": "The <b>Coinage Decree</b> is an Athenian decree requiring the allied cities to use Athenian silver coinage, weights and measures on pain of loss of rights, confiscation and, in one clause, death.<sup class=\"fn\" data-fn=\"1\"></sup> It is known only from fragments of the copies the cities were ordered to cut and set up in their own agoras at their own expense, found in seven places and differing from one another.<sup class=\"fn\" data-fn=\"1\"></sup> It carries no date and no ancient historian mentions it, so its year is argued from other evidence, notably a joke in Aristophanes' <i>Birds</i> of 414 BCE about adopting the weights and measures of the Olophyxians.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2640,7 +2641,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Peace_of_Callias": "c. 449 BCE",
 "Thirty_Years'_Peace": "c. 446 – 431 BCE",
 "Cleruchy": "from 506 BCE",
-"Athenian_tribute_lists": "from 454 BCE"
+"Athenian_tribute_lists": "from 454 BCE",
+"Coinage_Decree": "uncertain, 450 – 410 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3780,7 +3782,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "First_Peloponnesian_War": ["first Peloponnesian War"],
 "Egyptian_expedition": ["Athenian expedition to Egypt"],
 "Cleruchy": ["cleruch","cleruchs","cleruchies","kleruch","kleruchs","klerouchoi"],
-"Athenian_tribute_lists": ["tribute lists","Athenian quota lists","quota lists"]
+"Athenian_tribute_lists": ["tribute lists","Athenian quota lists","quota lists"],
+"Coinage_Decree": ["Standards Decree"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5626,7 +5629,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Peace_of_Callias": ["event","history","greece","athens","politics"],
 "Thirty_Years'_Peace": ["event","history","greece","athens","politics"],
 "Cleruchy": ["institution","history","greece","athens","politics"],
-"Athenian_tribute_lists": ["text","history","greece","athens","politics"]
+"Athenian_tribute_lists": ["text","history","greece","athens","politics"],
+"Coinage_Decree": ["text","history","greece","athens","politics"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
