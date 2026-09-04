@@ -1963,7 +1963,8 @@ window.GLOSSARY = {
 "Twelve_Tables": "The Twelve Tables were the earliest written law of Rome, drawn up by a board of ten men appointed for the purpose, cut on bronze and set up in a public place where anyone could read them.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They covered both public and private law, from the summons of a defendant and the treatment of a judged debtor to burial, and one ancient historian called them the source of all public and private jurisprudence.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> No copy survives: what is known of their wording comes from brief and archaic fragments quoted by later writers, and the arrangement of those fragments into tables is a modern reconstruction.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Decemviri": "The decemviri were Roman boards of ten men appointed for a particular purpose, and the best known of them is the decemviri legibus scribundis, chosen in 451 BCE to put the law in writing.<sup class=\"fn\" data-fn=\"1\"></sup> That board was given the whole government while it worked: every other magistracy was suspended, the tribunate of the plebs among them, and no appeal lay from its decisions.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> A second board of ten, elected for a further year, would not resign at the end of it and was brought down by a secession, after which the ten tables of the first and the two of the second stood together as the Twelve Tables.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Appius_Claudius_Crassus_Inregillensis_Sabinus": "Appius Claudius Crassus was the Roman patrician who presided over the first board of ten men appointed to write down the law, and the only one of them elected to the second board as well.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The annalistic tradition makes him the villain of that board's fall, holding the election at which he returned his own name and afterwards giving judgment that a betrothed girl was another man's slave, which her father answered by killing her.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> Prosecuted on that single charge once the decemvirs had resigned, he appealed to a right he had himself removed, and is said to have died by his own hand before the trial.<sup class=\"fn\" data-fn=\"5\"></sup><sup class=\"fn\" data-fn=\"6\"></sup>",
-"Verginia": "Verginia was a plebeian girl of Roman tradition, betrothed to the former tribune Lucius Icilius, whom the decemvir Appius Claudius set a client to claim in court as his slave.<sup class=\"fn\" data-fn=\"1\"></sup> Appius judged the case he had himself contrived and adjudged her a slave; her father Lucius Verginius took her aside to the booths by the shrine of Venus Cloacina and stabbed her, saying he vindicated her freedom in the only way left him.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The killing is placed in 449 BCE and made the cause of the secession that ended the decemvirate, though the accounts disagree about her family and Livy finds no stated ground for the judgment.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Verginia": "Verginia was a plebeian girl of Roman tradition, betrothed to the former tribune Lucius Icilius, whom the decemvir Appius Claudius set a client to claim in court as his slave.<sup class=\"fn\" data-fn=\"1\"></sup> Appius judged the case he had himself contrived and adjudged her a slave; her father Lucius Verginius took her aside to the booths by the shrine of Venus Cloacina and stabbed her, saying he vindicated her freedom in the only way left him.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The killing is placed in 449 BCE and made the cause of the secession that ended the decemvirate, though the accounts disagree about her family and Livy finds no stated ground for the judgment.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Valerio-Horatian_Laws": "The Valerio-Horatian laws are three laws carried at Rome in 449 BCE by the consuls Lucius Valerius Potitus and Marcus Horatius Barbatus, after the decemvirate fell.<sup class=\"fn\" data-fn=\"1\"></sup> One made what the plebs voted in their tribes binding on the whole people, one restored the right of appeal and forbade any magistrate from whom there was no appeal, and one made violence against a tribune, an aedile or a decemviral judge forfeit the offender to Jupiter.<sup class=\"fn\" data-fn=\"1\"></sup> The first is recorded as carried again in 339 BCE and a third time for the Lex Hortensia of 287 BCE, so how much was settled in 449 BCE cannot be fixed from the surviving notices.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2734,7 +2735,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lucius_Quinctius_Cincinnatus": "c. 519 – after 439 BCE",
 "Twelve_Tables": "451 – 449 BCE",
 "Appius_Claudius_Crassus_Inregillensis_Sabinus": "fl. 451 – 449 BCE",
-"Verginia": "449 BCE, by tradition"
+"Verginia": "449 BCE, by tradition",
+"Valerio-Horatian_Laws": "449 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3930,7 +3932,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Lucius_Quinctius_Cincinnatus": ["Cincinnatus","L. Quinctius Cincinnatus"],
 "Twelve_Tables": ["Lex Duodecim Tabularum","Law of the Twelve Tables"],
 "Decemviri": ["decemvirate","decemvir","decemviri legibus scribundis"],
-"Appius_Claudius_Crassus_Inregillensis_Sabinus": ["Appius Claudius Crassus","Appius Claudius the decemvir"]
+"Appius_Claudius_Crassus_Inregillensis_Sabinus": ["Appius Claudius Crassus","Appius Claudius the decemvir"],
+"Valerio-Horatian_Laws": ["Valerio-Horatian laws","leges Valeriae Horatiae"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5926,7 +5929,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Twelve_Tables": ["text","institution","history","politics","italy"],
 "Decemviri": ["institution","title","history","politics","italy"],
 "Appius_Claudius_Crassus_Inregillensis_Sabinus": ["person","history","politics","italy"],
-"Verginia": ["person","history","law","politics","italy"]
+"Verginia": ["person","history","law","politics","italy"],
+"Valerio-Horatian_Laws": ["event","law","history","politics","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
