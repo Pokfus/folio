@@ -302,8 +302,9 @@ re-run and diffed byte for byte.
 | **E24** ✅ | two books, and a STRUCTURAL fault found and deferred | **12 repairs, and a much bigger finding left unrepaired on purpose.** City of God carries **364 paragraph breaks that begin on a lowercase letter — 52 of them INSIDE A WORD** (`sensa`/`tion`, `com`/`pelled`, `him`/`self`), which a reader sees as a paragraph ending mid-word. It is a printed-page turn become a paragraph break. **The mechanism could not be confirmed** — Wikimedia is rate-limiting — and E17's rule is not to write an extractor change on an unverified diagnosis, so it is measured, recorded and left for E25 |
 | **E25** ✅ | the paragraph fault, in the extractor | **387 false paragraph breaks joined across four books, 43 of them inside a word.** The mechanism is Wikisource's own: the fetched HTML for City of God I.20 carries `no sensa` `</p><p>` `tion, nor of the irrational` literally, with no pagenum span or anchor to join on, so the lowercase letter is the only signal there is. The join is easy and the SEPARATOR is the whole problem — nothing, `<br>` or a space — decided per boundary by the book's own vocabulary and by whether the LINE is verse. Proved byte for byte over all 48 books |
 | **E26** ✅ | the original columns — and 70 quotations nobody could read | **7 quotations of Virgil restored to the Latin Seneca and 63 more made visible, 36 paragraph breaks joined, and a silent renderer fault closed.** Chasing E25's leftover found something much larger: this wiki sets a verse quotation as `{{block center|<poem>}}`, which MediaWiki renders as a centring TABLE, and "every table on this page is furniture" ate seven of them outright; 63 more were in the file and INVISIBLE, because `bookSections` split a chapter by its ELEMENT children and a text node between two paragraphs belonged to no section. Repaired at both ends, with a per-book gate for the one column on the shelf that writes a verse line break as a bare newline |
-| **E27** | the Latin Seneca's remaining run-on verse | 18 paragraphs still carry a bare newline where a line break belongs, of which **14 are verse and 5 are prose** — so it is a judgement per paragraph rather than a rule, and the list is in E26's log. They render as run-on lines rather than being lost, which is why they are a batch of their own and not a blocker |
-| **E28–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E27** ✅ | the Latin Seneca's run-on verse | **13 verse paragraphs lineated, 25 lines restored — and E26 was wrong to call it a judgement.** Measured, the eighteen paragraphs carrying an internal newline split into thirteen verse with a longest line of 25–51 characters and five prose with one of 1,428–2,179: **a gap 1,377 characters wide**, so the threshold sits in open ground rather than on a border. `versifyNewlines` runs before `joinBrokenParas`, which could then go back to asking a single question — does this paragraph carry a `<br>`? — and lose the book-specific flag E26 had given it |
+| **E28** | the Latin Seneca's lost spaces, letters 101–124 | **138 run-together words, and they are UPSTREAM**: `occupationibussum` and `Neminemres` are in Wikisource's own wikitext. They cluster hard — letters 101–124 carry all but a handful, which is the last two source pages — so it is a page-level transcription fault rather than a scattered one, and the repair is a table of rows read one at a time against the Latin, not a mechanism |
+| **E29–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
@@ -358,6 +359,49 @@ examples.
 ---
 
 ## 8. Batch log
+
+### E27 — a judgement that turned out to be a measurement, shipped 2026-09-04
+
+**Thirteen verse paragraphs lineated in the Latin Seneca, 25 lines restored, and one book-specific
+flag retired.**
+
+E26 finished by saying its leftover needed "a judgement per paragraph rather than a rule". It does
+not. The eighteen paragraphs in the book that carry an internal newline fall into two families that
+are nowhere near each other:
+
+| | paragraphs | longest line |
+|---|---|---|
+| verse | 13 | 25–51 characters |
+| prose | 5 | 1,428–2,179 characters |
+
+**A threshold of 100 sits in the middle of a gap 1,377 characters wide.** Nothing is near it, so
+there is nothing to judge — which is worth stating as a rule of its own: **count the families before
+calling them a judgement.** E26 had read all eighteen and classified them correctly by eye, and
+reading is what made them feel like eighteen separate decisions.
+
+It also had the arithmetic wrong — thirteen and five, not fourteen and five, and 13 + 5 = 18 was
+never checked. Both corrections are written into E26's entry above.
+
+**The gate stays, and it is not ceremony.** `verseNewlines` is declared on this column alone, and
+the measurement says why: read as a general rule the same length test would lineate **10,198
+paragraphs of the Summa, 2,013 of the City of God and 733 of the Confessions**, all of them prose
+wrapped at the source's own line length. The length test tells verse from prose WITHIN a book whose
+newlines mean something; it cannot tell whether they mean anything, and only the book can say that.
+
+**And the pass simplified the one before it.** `versifyNewlines` runs first, so by the time
+`joinBrokenParas` looks at a paragraph the verse already carries `<br>` — which let that function go
+back to asking a single question, and let E26's `VERSE_NL` parameter go entirely. The joins came out
+unchanged (1 joined, 4 kept), which is the proof that the two readings were the same reading.
+**A pass that normalises is worth more than a test that special-cases.**
+
+**A finding for E28, and it is upstream.** Letter 106 reads *"non quia districtus
+**occupationibussum**"* and *"**Neminemres** sequuntur"* — and both are in Wikisource's own wikitext,
+not in anything this importer does. Swept across the book, **138 run-together words**, and they
+cluster hard: letters 101–124 carry all but a handful, which is the last two source pages. A
+page-level transcription fault rather than a scattered one. The sweep's own noise is instructive too
+— Latin compounds like `intererit`, `transferre` and `satisfacere` split into two common words
+and are perfectly good Latin, so the filter has to require the SECOND half to be a function word
+(`est`, `et`, `non`, `sed`, `quam`) before the list is readable at all.
 
 ### E26 — seventy quotations of Virgil that nobody could read, shipped 2026-09-04
 
@@ -445,6 +489,12 @@ new guards changed nothing E25 had settled.
 break belongs. Fourteen are verse and five are prose (letters 87, 88, 106, 108, 109, where the
 newline stands at a section seam), so it is a judgement per paragraph rather than a rule, and the
 words are on the page either way — a run-on line, not a loss.
+
+> **E27 corrects this paragraph twice.** It is **thirteen** verse and five prose, not fourteen and
+> five — 13 + 5 = 18, and the arithmetic was never checked. And it is **not a judgement**: measured,
+> the verse paragraphs' longest line runs 25–51 characters and the prose paragraphs' 1,428–2,179,
+> which is a gap wide enough that no instance is near it. **Count the families before calling them a
+> judgement**; this one was called one on the strength of having read them rather than measured them.
 
 ### E25 — a paragraph that begins on a lowercase letter, shipped 2026-09-04
 

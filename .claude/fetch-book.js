@@ -1121,13 +1121,12 @@ const BOOKS = {
       /* THE ONE COLUMN ON THE SHELF THAT SETS A VERSE LINE WITHOUT A <br> (Sep 2026, batch E26).
          Seneca quotes Virgil, Ovid and Ennius on nearly every other page, and this transcription
          separates the lines of a quotation with a bare newline where the Iliad uses <br> 15,258 times
-         and the Aeneid 9,452. `joinBrokenParas` has to know which of its two paragraphs is verse
-         before it can decide that a break between them is real, so it is told here rather than
-         guessing: read as a general rule the same test puts a line break into 317 lines of the City
-         of God's prose, which is wrapped at the source's own line length. Eighteen paragraphs here
-         carry such a newline and five of them are prose — so this flag makes the pass CAUTIOUS,
-         never confident: a mismatch keeps the break, and only two matching verse paragraphs would
-         ever be joined with a <br>. */
+         and the Aeneid 9,452. `versifyNewlines` turns those newlines into the <br> the rest of
+         the shelf uses, and it is told here rather than guessing because the same rule read generally
+         would lineate 10,198 paragraphs of the Summa, 2,013 of the City of God and 733 of the
+         Confessions, all of them prose wrapped at the source's own line length. WITHIN this book verse
+         and prose are 1,377 characters apart on their longest line, so which paragraphs the pass
+         reaches is a measurement; whether to look at all is what this flag decides. */
       verseNewlines: true,
       // one page per book of the collection; the letters are the h2 headings inside each
       pages: [
@@ -25234,6 +25233,45 @@ async function fetchEnglish() {
    Wikisource pages and a single TEI edition — share one way of writing it out and one report at the
    end, and so cannot drift apart in what they emit. The same split, and the same reason, as
    writeOriginal below. */
+/* A VERSE LINE BREAK WRITTEN AS A BARE NEWLINE (Sep 2026, batch E27, finishing E26). The Latin
+   Seneca is the only column on the shelf with no <br> in it at all — the Iliad has 15,258, the Aeneid
+   9,452, the Ramayana 39,061 — so the lines of the verse it quotes on nearly every other page are
+   separated by newlines, which HTML collapses to spaces. E26 restored 70 of those quotations and left
+   the ones already inside a paragraph reading as run-on prose; this is the other half.
+
+   E26's log called it "a judgement per paragraph rather than a rule". THE MEASUREMENT SAYS
+   OTHERWISE, and by a margin nobody has to argue about: of the eighteen paragraphs in the book
+   carrying an internal newline, the thirteen that are verse have a longest line of 25–51 characters
+   and the five that are prose have one of 1,428–2,179. The gap between the two families is 1,377
+   characters wide, so a threshold of 100 sits in the middle of open ground rather than on a border.
+
+   IT IS STILL GATED PER BOOK (`verseNewlines`), and the gate is not ceremony — measured over the
+   whole shelf the same length rule would fire on 10,198 paragraphs of the Summa, 2,013 of the City of
+   God and 733 of the Confessions, all of them ordinary prose wrapped at the source's own line length.
+   The length test tells verse from prose WITHIN a book whose newlines mean something; it cannot tell
+   whether they mean anything, and only the book can say that.
+
+   Running before joinBrokenParas is what lets that pass go back to asking a single question — does
+   this paragraph carry a <br>? — since by then this one has written them in. */
+function versifyNewlines(chapters) {
+  let n = 0, lines = 0;
+  const fix = (html) => String(html || "").replace(/<p\b[^>]*>[\s\S]*?<\/p>/g, (para) => {
+    if (!/[^>\s]\n[^<\s]/.test(para)) return para;
+    const segs = para.replace(/<[^>]*>/g, "").replace(/&#?\w+;/g, " ")
+      .split("\n").map((x) => x.trim()).filter(Boolean);
+    if (segs.length < 2 || segs.some((x) => x.length > VERSE_LINE_MAX)) return para;
+    n++; lines += segs.length - 1;
+    return para.replace(/([^>\s])\n(?=[^<\s])/g, "$1<br>\n");
+  });
+  chapters.forEach((c) => {
+    c.html = fix(c.html);
+    if (c.notes) c.notes = c.notes.map(fix);
+  });
+  if (n) console.log("  lineated " + n + " verse paragraph" + (n === 1 ? "" : "s") +
+    " whose line breaks were bare newlines (" + lines + " lines restored)");
+}
+const VERSE_LINE_MAX = 100;
+
 /* TEXT BETWEEN TWO PARAGRAPHS AND INSIDE NEITHER IS INVISIBLE TO THE READER (Sep 2026, batch E26).
    `bookSections` in app.js walks `box.children` — ELEMENTS — to split a chapter at its section
    markers, so a bare text node between two blocks belongs to no section and is silently dropped from
@@ -25305,7 +25343,7 @@ function wrapLooseText(chapters) {
    A <p> carrying ATTRIBUTES is never joined — the opening tag is discarded by the join, and a tag
    that says something about its paragraph must not be thrown away to close a gap. None of the 387
    has one. */
-function joinBrokenParas(chapters, VERSE_NL) {
+function joinBrokenParas(chapters) {
   const word = new Map(), bigram = new Map();
   const count = (html) => {
     /* Within a paragraph only. A bigram counted ACROSS a break would be manufactured by the very
@@ -25333,15 +25371,12 @@ function joinBrokenParas(chapters, VERSE_NL) {
          only if the line it stands in is. */
       const before = all.slice(Math.max(0, all.lastIndexOf("<p", at)), at);
       const after = all.slice(at + whole.length, (all.indexOf("</p>", at + whole.length) + 1) || undefined);
-      /* A LINE BREAK IS A <br> ALMOST EVERYWHERE AND A BARE NEWLINE IN THE LATIN SENECA, which is the
-         one column on the shelf with no <br> in it at all. So the newline reading is GATED per book,
-         like every other rule in this file, and for a measured reason: read ungated it fires on
-         ordinary PROSE wrapped at the source's own line length, and it did — the City of God has 134
-         paragraph-internal newlines and one ungated run put a line break into 317 lines of Augustine's
-         prose. A rule that cannot tell a hexameter from a wrapped sentence must be told which book it
-         is looking at. */
-      const isVerse = (seg) => /<br\s*\/?>/i.test(seg) || (VERSE_NL && /[^>\s]\n[^<\s]/.test(seg));
-      const vb = isVerse(before), va = isVerse(after);
+      /* ONE QUESTION: does this paragraph carry a <br>? It was two for a day — E26 had to ask about a
+         bare newline as well, the Latin Seneca writing its verse line breaks that way — and
+         `versifyNewlines` now runs first and turns those into <br>, so the second reading is gone
+         with the book-specific flag that gated it. A pass that normalises is worth more than a test
+         that special-cases. */
+      const vb = /<br\s*\/?>/i.test(before), va = /<br\s*\/?>/i.test(after);
       /* PROSE ON ONE SIDE AND VERSE ON THE OTHER IS A BLOCK QUOTATION, AND ITS BREAK IS REAL (Sep
          2026, batch E26, extending this pass to the original-language columns). Seneca introduces a
          line of Virgil with "Deinde cum subinde recitasset" and the verse follows as a block of its
@@ -25392,8 +25427,9 @@ function writeEnglish(chapters, warnings) {
      single-syllable unaspirated rows are what turn a second pass from a no-op into a rename. */
   if (BOOK.roman && !BOOK.titlesCorrected) chapters.forEach((c) => { c.t = applyRoman(c.t); });
 
+  if (BOOK.verseNewlines) versifyNewlines(chapters);
   wrapLooseText(chapters);
-  joinBrokenParas(chapters, !!BOOK.verseNewlines);
+  joinBrokenParas(chapters);
 
   const outDir = path.join(ROOT, "books");
   fs.mkdirSync(outDir, { recursive: true });
@@ -26258,8 +26294,9 @@ function writeOriginal(byNum, warnings) {
      rather than the passes being written twice: a repair that runs on one column and not the other
      is a book whose two halves disagree about what a paragraph is. */
   const asChapters = nums.map((n) => ({ n: n, html: byNum[n] }));
+  if (O.verseNewlines) versifyNewlines(asChapters);
   wrapLooseText(asChapters);
-  joinBrokenParas(asChapters, !!O.verseNewlines);
+  joinBrokenParas(asChapters);
   asChapters.forEach((c) => { byNum[c.n] = c.html; });
 
   const outDir = path.join(ROOT, "books");

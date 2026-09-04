@@ -1154,3 +1154,26 @@ found in an hour and one found in a year.
     City of God**, whose paragraphs carry 134 internal newlines of exactly that kind. Gated, it can
     only ever refuse a join — a mismatch keeps the break — so the flag makes the pass cautious rather
     than confident.
+
+**`versifyNewlines` — A VERSE LINE BREAK WRITTEN AS A BARE NEWLINE** (Sep 2026, batch E27). The
+fourth shared repair, running before `wrapLooseText` and `joinBrokenParas`, and gated on the same
+per-book `verseNewlines` flag E26 introduced.
+
+  · **Only one column on the shelf needs it.** The Latin Seneca has no `<br>` in it at all — the
+    Iliad has 15,258, the Aeneid 9,452, the Ramayana 39,061 — so the lines of the verse it quotes on
+    nearly every other page are separated by newlines, which HTML collapses to spaces.
+  · **WHICH PARAGRAPHS ARE VERSE IS A MEASUREMENT, NOT A JUDGEMENT, and E26 called it the wrong
+    one.** Of the eighteen paragraphs in the book carrying an internal newline, the thirteen that are
+    verse have a longest line of 25–51 characters and the five that are prose have one of
+    1,428–2,179. **A threshold of 100 sits in the middle of a gap 1,377 characters wide.** Count the
+    families before calling them a judgement: E26 had read all eighteen and classified them correctly
+    by eye, and reading is what made them feel like eighteen separate decisions.
+  · **The gate is doing real work.** Read as a general rule the same length test would lineate
+    **10,198 paragraphs of the Summa, 2,013 of the City of God and 733 of the Confessions**, all of
+    them ordinary prose wrapped at the source's own line length. The length test tells verse from
+    prose WITHIN a book whose newlines mean something; it cannot tell whether they mean anything.
+  · **It simplified the pass after it.** With the `<br>` written in before `joinBrokenParas` looks,
+    that function went back to asking a single question — does this paragraph carry a `<br>`? — and
+    E26's `VERSE_NL` parameter went with it. The joins came out unchanged, which is the proof that
+    the two readings were the same reading. **A pass that normalises is worth more than a test that
+    special-cases.**

@@ -1563,8 +1563,10 @@ book added later will meet the same traps.
   that half showed only in the TWO-COLUMN view, the single-column reader rendering the chapter's html
   directly. **It is also the only column on the shelf with no `<br>` in it at all**, the Iliad having
   15,258 and the Aeneid 9,452, so its verse lines are separated by bare newlines — which is why it
-  carries `verseNewlines: true`, and why 18 of its paragraphs still render their verse run-on, listed in
-  E26's log for E27), `marcus-aurelius-meditations.grc.js` (~366 KB, all 12
+  carries `verseNewlines: true` — the flag that lets `versifyNewlines` lineate them, which batch E27 did
+  for 13 paragraphs and 25 lines. **Its remaining fault is upstream and is bounded**: 138 run-together
+  words (`occupationibussum`, `Neminemres`), which are in Wikisource's own wikitext and which cluster in
+  letters 101–124, the last two source pages), `marcus-aurelius-meditations.grc.js` (~366 KB, all 12
   books, 486 sections), `sun-tzu-art-of-war.zh.js` (~34 KB, all 13 chapters — classical Chinese is terse,
   and this is the whole work), `ovid-metamorphoses.la.js` (~575 KB, all 15 books, 156 cards, 11,927
   lines of hexameter), `suetonius-twelve-caesars.la.js` (~530 KB, all 12 lives, 541 chapters) and
