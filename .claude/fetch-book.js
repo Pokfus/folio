@@ -11942,7 +11942,7 @@ const BOOKS = {
       "One last thing about the prose column, because it is the sort of thing a reader deserves to be " +
         "told rather than to discover. It is not a typed transcription but a machine reading of the " +
         "1912 pages, and machines misread. Where the scan went wrong it has been corrected against " +
-        "photographs of the same edition, and against a second scan of it — 808 places, from single " +
+        "photographs of the same edition, and against a second scan of it — 825 places, from single " +
         "letters up to whole " +
         "lines that the reader had dropped or run together, on eight pages that were printed straight " +
         "and scanned askew. The commonest fault by far was the quotation mark. The opening one the " +
@@ -11960,8 +11960,8 @@ const BOOKS = {
         "'k nowest' is knowest — and a letter standing in for another word put right, an m that was " +
         "in and a y that was by. Nothing was mended by guess: every correction is a passage read off " +
         "the page. " +
-        "A few misreadings remain, chiefly a word whose first letter has been broken off it and some " +
-        "stray marks standing in the run of the prose.",
+        "A few misreadings remain — about twenty marks inside passages the scanner made such a mess " +
+        "of that no single rule reaches them, and they are recorded rather than guessed at.",
     ],
 
     /* THE TRANSLATION IS A PLAIN-TEXT OCR and the only copy of this edition that can be opened at all.
@@ -12520,6 +12520,43 @@ const BOOKS = {
        "the page reads 'Wherefore these woful maidens in fear of this, privily leaped'"],
       ["green  m  every", "green  in  every",
        "the page reads 'The bitter frosts, with sleet and rain, have destroyed the green in every yard'"],
+
+      /* ---------- BATCH E12: THE SPACED FULL STOP, AND THE LAST OF THE MANGLED RUNS ----------
+         E8 put the comma back on its own word and left the full stop, because in the raw the spaced
+         full stop is mostly the plate list's leader dots and the back matter's tale abbreviations —
+         `( Sh . T.)` — neither of which the extractor puts in a chapter. Six DO reach the reader, and
+         all six are a heading's own terminal stop driven a space off it. The rest below are runs the
+         scan mangled, each read against the second copy: a comma standing after a sentence is already
+         closed, a semicolon read as a comma, and in two places a small heap of marks where the page
+         prints one closing quotation mark. */
+      ["Shipman’s  Tale .", "Shipman’s  Tale.", "the heading is 'Here endeth the Shipman's Tale.'"],
+      ["Prioress’s  Tale .", "Prioress’s  Tale.", "the heading is 'The Prologue of the Prioress's Tale.'"],
+      ["Host  to  Chaucer .", "Host  to  Chaucer.", "the heading is 'Behold the merry words of the Host to Chaucer.'"],
+      ["Explicit  prima  pars .", "Explicit  prima  pars.", "the rubric is 'Explicit prima pars.'"],
+      ["Franklin  s  Tale .", "Franklin  s  Tale.", "the heading is 'Here is ended the Franklin's Tale.'"],
+      ["the  Manciple .", "the  Manciple.", "the heading is 'Thus endeth the Prologue of the Manciple.'"],
+      ["loud.  , \n\nNow  I  have", "loud. \n\nNow  I  have",
+       "the page reads 'Therefore he sang merrily and loud.' and begins a new paragraph; the sentence is closed and no comma follows it"],
+      ["Palamon.  ,  They  were", "Palamon.  They  were",
+       "the same shape — 'Arcite and the other knight Palamon.' ends the sentence"],
+      ["to  spend  !  ’  , \n\nThis  miller  despatched", "to  spend  !  ’ \n\nThis  miller  despatched",
+       "the same shape, after a closing quotation mark this time"],
+      ["quoth  she  ,  well  may  I  sing", "quoth  she  ;  ‘well  may  I  sing",
+       "the page reads '‘Yea, God wot all,’ quoth she ; ‘well may I sing Alack ! and Alas that I was born !’ — a semicolon read as a comma, and the quotation mark opening the second half of the speech lost with it"],
+      ["as  you.  .  .  ,  , \n\nThis  miller  smiled", "as  you.’ \n\nThis  miller  smiled",
+       "the page reads 'I is as ill a miller as you.’' and begins a new paragraph at 'This miller smiled at their simplicity'; four marks stand where the closing quotation mark is"],
+      ["in  hand  ?  ,  ,  _  i \n\n‘By  God", "in  hand  ?  ’ \n\n‘By  God",
+       "the page reads 'what will you do whilst it is in hand ?’' and opens the reply at '‘By God, I will be here'; four marks again for one closing quotation mark"],
+      ["amend  it.  .  Now  let  me", "amend  it.  Now  let  me",
+       "the sentence is closed at 'but I shall soon amend it.'; a full stop is not printed twice"],
+      ["her  troops.  .  ^ \n\nHer  two  sons", "her  troops. \n\nHer  two  sons",
+       "the same, with a second mark beside it — 'or put them to flight with her troops.' ends the paragraph"],
+      ["gladly  hear.  . \n\n‘  I  agree", "gladly  hear. \n\n‘  I  agree",
+       "the same — 'and then will we gladly hear.' ends the speech"],
+      ["with  thee.’ \n\n.  ‘Who  knocks", "with  thee.’ \n\n‘Who  knocks",
+       "the same, after a closing quotation mark"],
+      ["forevermore  ! .  Whatever  manner", "forevermore  !  Whatever  manner",
+       "the same, after an exclamation mark — 'take warning by me forevermore !'"],
     ],
 
     /* ---------- THE OPENING QUOTATION MARK, MISREAD SIX WAYS (Sep 2026, batch E6) ----------

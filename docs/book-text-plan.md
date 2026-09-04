@@ -287,14 +287,41 @@ re-run and diffed byte for byte.
 | **E9** ✅ | `canterbury-tales` | **71 repairs, and a character that stands for three marks.** A lone figure `1` appears 66 times: before a lowercase word it is the pronoun (37), before a CAPITAL it is an exclamation mark after a bare word and an OPENING QUOTE after a full stop, colon, dash or closing quote (21) — two rules and seven read exceptions cover every one. It also fixes the limit on the second-scan witness: that copy's OCR discards the asterisk rows this one keeps, so it answers *what is this mark* and never *is there a mark here* |
 | **E10** ✅ | `canterbury-tales` | **27 repairs, decided by MEASUREMENT.** With the second scan unable to witness an absence, the strays were classified by their bounding boxes in the page XML, and they fall into three populations that do not overlap: 121×6 or 61×7 is a RULE the edition prints at a break (kept, set as a dash); 20–47 wide by 57–67 tall is the wide space after a full stop, boxed as though it were a glyph (nothing is there); under 20×14 is a speck. The apostrophe family is excluded whatever it measures |
 | **E11** ✅ | `canterbury-tales` | **21 repairs, using the book to check itself.** A word broken open is found by joining the lone letter to the fragment and scoring the result against THIS text's own vocabulary (`H`+`ow` 619 to 6). It is a proxy: it also proposed joining `a bout` in 'cannot stand a bout', which the second scan shows is the printing, and the join would have been grammatical and wrong. The second class — a letter standing for another word (`m` for `in`, `y` for `by`, `l` for `I`) — no frequency test can see |
-| **E12** | `canterbury-tales` | the remainder: about 25 marks inside runs the scan has mangled past any single rule, the four apostrophes E10 set aside, 13 standalone commas, and the 11 spaced full stops in the back matter's `( Sh . T.)` tale abbreviations |
-| **E11–En** | the rest of the error half | what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E12** ✅ | `canterbury-tales` | **17 repairs, and the batch was small because it was COUNTED first.** The spaced full stop is 31 occurrences in the raw and six units of work: twelve are the plate list's leader dots and eleven the back matter's `( Sh . T.)` keys, neither of which the extractor puts in a chapter. The rest are mangled runs, two of them a heap of marks where the page prints one closing quote. Nine marks are left, three of which are a correct `—,` both copies read |
+| **E13–En** | the rest of the error half | six marks left in the Canterbury Tales, each inside a run needing a leaf read; then what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E12 — the spaced full stop and the last mangled runs, shipped 2026-09-04
+
+**17 repairs, taking the book to 825, and the batch is mostly the tail E8 deliberately left.** That
+batch put the comma back on its own word and left the full stop alone, because in the raw the spaced
+full stop is overwhelmingly the plate list's leader dots and the back matter's tale abbreviations —
+`( P . F.)`, `( Sh . T.)`, `( T . and C .)`. **Measuring which of the 31 actually reach a reader is
+what made the batch small**: twelve are in the list of illustrations and eleven in the glossary's
+source keys, and the extractor puts neither in a chapter. **Six ship, and all six are one shape** — a
+heading's own terminal stop driven a space off it, in `Here endeth the Shipman's Tale .` and its
+five siblings. **A class can be thirty-one occurrences and six units of work; count what ships before
+costing it.**
+
+**The rest are runs the scan mangled, and two of them are the same fault twice: a small heap of
+marks where the page prints ONE closing quotation mark.** `I is as ill a miller as you.` is followed
+in this scan by `. . , ,` and in the printing by `’`; `what will you do whilst it is in hand ?` is
+followed by `, , _ i` and in the printing by `’`. Both were read on the second copy. The remainder
+are a comma standing after a sentence already closed (three), a full stop printed twice (four), and
+one semicolon read as a comma — `‘Yea, God wot all,’ quoth she ; ‘well may I sing Alack !’ — where
+the quotation mark opening the second half of the speech had gone with it.
+
+**Nine marks are left in the shipped prose and three of them are correct.** `— ,` appears three
+times and BOTH copies read it, so the page prints a dash and a comma together, which was a real
+printer's mark in this period; it is left alone. The other six sit inside passages the scan made
+such a mess of that the second copy cannot be aligned to them at all — `you may.’ . TTT, ...`, `the
+tower . <,and guarded` — and each needs a leaf read rather than a rule. **They are recorded, and the
+book's own front matter now says so** rather than claiming the text is clean.
 
 ### E11 — the word broken open, shipped 2026-09-04
 
