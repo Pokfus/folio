@@ -276,6 +276,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | D3a | `dotaku` (UN-DEFERRED), `mississippian-shell-gorget` | — (a deferral sweep that cleared one of eight) |
 | E2a | `type-sort`, `slide-rule`, `portable-sundial` | — |
 | E3a | `transferware`, `socket-bayonet`, `flintlock-musket` | `steel-pen-nib` (one work only) |
+| E1a | `mail-fragment`, `telegraph-key`, `iron-cannonball` | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1059,6 +1060,38 @@ these books are open in full and can be read against one another.
   Jewitt's *Ceramic Art* were both published by Virtue, but the scans' own title pages do not state it
   plainly enough to be sure which Virtue, so those two citations give the place and year alone rather
   than a publisher guessed from memory.
+
+**E1a's finding is that THE TRADE MANUAL CARRIES THE PHYSICS, NOT JUST THE PRACTICE — and that is what
+makes an everyday object worth a plate.** Simpson's 1862 *Ordnance and Naval Gunnery* does not merely
+tabulate windage, it explains why windage ruins a shot: the powder's force escapes past the ball, and the
+ball rattles from side to side down the bore instead of running parallel to the axis, so it leaves the
+muzzle spinning and in a direction that depends on where it last struck. That is the whole of why a
+smoothbore is inaccurate, written by a man teaching gunners, and no modern secondary source states it as
+plainly. Ffoulkes does the same for mail — wire-drawing was not practised until the 14th century, so the
+wire was hammered from a bar, wound round a core and cut into rings — and Maver does it for the telegraph
+key, which exists to make and break one circuit and nothing else.
+
+· **A TRADE MANUAL ALSO CARRIES A READY-MADE AUTHENTICITY TEST, and that is the second reason to reach
+  for one.** Ffoulkes 1909: a piece of mail whose rings are merely BUTTED together rather than riveted or
+  welded is generally either an imitation or was made for ceremony, because the join is too insecure to
+  wear. That is the replica rule this pass keeps meeting — the Lewis chess replica, the pristine bamboo
+  slips — stated for a whole class of object by someone who handled thousands.
+· **THE THREE PERIODS OF A TRADE ARE THREE DIFFERENT BOOKS, AND THE PLATE WANTS ALL THREE.** The telegraph
+  key rests on Vail's 1847 description of the original apparatus (where the key is called "the key or
+  correspondent" beside the register), Prescott's 1860 survey (which shows the rival twenty-eight-key
+  keyboard instruments the single lever beat), and Maver's 1909 encyclopedia (which records that operators'
+  preferences displaced keys already in service, because a key that suited the hand was worth five to ten
+  messages an hour). **Early description, mid-century survey, late encyclopedia** is a shape worth
+  reaching for whenever an object had a working life of a century.
+· **A MUSEUM RECORD CAN CONTRADICT ITSELF, AND THE FIGURES ARE WHERE IT SHOWS.** The Portable Antiquities
+  record for this batch's round shot gives it as "roughly 12lbs" and as 530 g in the same sentence — a
+  factor of ten out — so the plate states the diameter and the weight and not the poundage. **Read a
+  record's numbers against each other before repeating any of them**; this is C4's read-both rule inside a
+  single source.
+· One archive.org note to add to E2a's two: **an item id that resolves for volume 1 need not resolve for
+  volume 2**. `militaryantiquit01gros` serves Grose's first volume in full; `militaryantiquit02gros`
+  returns a 503, so his artillery volume was not opened and the cannonball plate uses Simpson and Adye for
+  the ordnance instead. Search for the second volume by title rather than by incrementing the number.
 
 ## The per-artefact workflow
 

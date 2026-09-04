@@ -1183,4 +1183,25 @@ window.ARTEFACTS = [
     date: "c. 1630 – 1840 CE",
     origin: "Europe and its colonies",
   },
+  {
+    id: "mail-fragment",
+    name: "Mail fragment",
+    rarity: "common",
+    date: "c. 11th – 14th century CE",
+    origin: "Europe and the Near East",
+  },
+  {
+    id: "telegraph-key",
+    name: "Telegraph key",
+    rarity: "common",
+    date: "1844 CE onwards",
+    origin: "The United States, then worldwide",
+  },
+  {
+    id: "iron-cannonball",
+    name: "Iron cannonball",
+    rarity: "common",
+    date: "c. 15th – 19th century CE",
+    origin: "Europe and its wars",
+  },
 ];
