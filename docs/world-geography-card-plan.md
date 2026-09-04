@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-571` Quito.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-572` Harare.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -751,6 +751,28 @@ any such action." **A Security Council resolution is the second source a contest
 needs**, and `digitallibrary.un.org/search?p=S%2FRES%2F<n>%28<year>%29` resolves one by symbol where the
 free-text search returns nothing at all. Its PDF needs `curl -sL` — the files endpoint 302s, and a
 redirect not followed hands back 182 bytes that decompress to nothing.
+
+**`gw-571` QUITO IS THE FIFTH BREAK IN THE RELAY AND THE FIRST IN SOUTH AMERICA.** UNdata's *Capital city
+pop.* gives 1,847.7 thousand for 2019 and `EN.URB.LCTY` gives 2,946,158 for the same year — a 59% gap,
+because the World Bank series counts whichever city is LARGEST and Ecuador's is **Guayaquil**, on the
+coast. That is the rule stated at Astana working exactly as written, and the card does the same thing
+Yamoussoukro, Canberra and Kotte did: **cite UNdata alone for the population, and say in the prose why
+there is no second figure**, rather than leaving a reader to wonder whether one was looked for. The
+largest-city series is still cited — for the fact that it counts Guayaquil — which is the honest use of a
+source that disagrees. **Before pairing the two figures on any capital card, ask whether the capital IS
+the largest city**; where it is not, the World Bank number is about a different place and pairing them
+would be a fabrication with two real citations under it.
+
+**AND ECUADOR SUPPLIES A SECOND STATE DEPARTMENT WORK THAT IS NOT THE GUIDE.** `history.state.gov/
+departmenthistory/people/chiefsofmission/<country>` is the roll of chiefs of mission, openable, and it
+dates the PERSON where the guide dates the POST: the guide raises the legation at Quito to embassy rank on
+**5 March 1942**, the roll commissions Boaz Walton Long as ambassador on **14 April 1942**. Neither is
+wrong and they are not the same event, so the card states both and says which is which — this is C4's
+Bangladesh case in a new register, where two institutional dates bracket the thing the reader wants. **It
+is also a genuine fifth source on a capital whose statistical profile has only one usable figure**, which
+is what made this card reach the bar at all. Ecuador's recognition page is the deck's best example of the
+guide treating recognition as a SEQUENCE of acts — an 1832 letter, an 1835 exequatur, an 1836 instruction
+— rather than a date.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
