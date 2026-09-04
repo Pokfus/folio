@@ -1793,7 +1793,9 @@ window.GLOSSARY = {
 "Revolt_of_Naxos": "The <b>revolt of Naxos</b> was the attempt of an island member to leave the alliance led by Athens, and Thucydides marks its reduction as the first time membership was enforced by siege.<sup class=\"fn\" data-fn=\"1\"></sup> He notes that the rest followed in the order circumstances prescribed, and gives the usual causes as arrears of tribute and ships and failure of service, with Athens severe towards members unused to continuous labour.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He blames the members too, since most had commuted service into money and so had neither ships nor practice when they wanted them, while Plutarch reaches the same end from the other side, saying Cimon indulged them into becoming subjects.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Revolt_of_Thasos": "The <b>revolt of Thasos</b> was an island member's attempt to leave the alliance led by Athens, in a quarrel over its trading places on the Thracian coast opposite and a mine there.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus, who had seen its workings, puts its revenue at some 200 talents a year from the mainland and the mines together, and records that Darius had already made the Thasians pull down their walls and hand over their ships.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Athens beat them at sea and besieged the town, a Spartan invasion of Attica promised in secret never came, and in the third year they took the terms Darius had imposed, with tribute and the mainland added.<sup class=\"fn\" data-fn=\"4\"></sup>",
 "Third_Messenian_War": "The <b>Third Messenian War</b> is the modern name for the rising of helots and perioikoi against Sparta that followed a great earthquake, which the ancient writers call the secession to Ithome.<sup class=\"fn\" data-fn=\"1\"></sup> Thucydides says most of the rebels descended from the Messenians enslaved in the earlier war, so that all were called Messenians, while Diodorus makes the rising a calculation on Spartan losses and Pausanias reports a Messenian tradition blaming a sacrilege at Taenarum for the earthquake.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The rebels held Ithome for ten years and left on terms, quitting the Peloponnese for good on pain of enslavement if they returned, and were settled by Athens at Naupactus.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Spartan_earthquake": "The <b>Spartan earthquake</b> was a destructive shock in Laconia during the fourth year of the reign of Archidamus, which Plutarch calls greater than any before reported.<sup class=\"fn\" data-fn=\"1\"></sup> He says it left five houses standing in the city and tore peaks from Taygetus, while Diodorus puts the dead above twenty thousand and has the ground going on moving for a long time.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was widely explained as retribution for a sacrilege at the sanctuary of Poseidon at Taenarum, though Thucydides says the suppliants dragged from the altar were helots and Pausanias reports a version in which they were Lacedaemonians under sentence of death.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Spartan_earthquake": "The <b>Spartan earthquake</b> was a destructive shock in Laconia during the fourth year of the reign of Archidamus, which Plutarch calls greater than any before reported.<sup class=\"fn\" data-fn=\"1\"></sup> He says it left five houses standing in the city and tore peaks from Taygetus, while Diodorus puts the dead above twenty thousand and has the ground going on moving for a long time.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was widely explained as retribution for a sacrilege at the sanctuary of Poseidon at Taenarum, though Thucydides says the suppliants dragged from the altar were helots and Pausanias reports a version in which they were Lacedaemonians under sentence of death.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Dismissal_from_Ithome": "The <b>dismissal from Ithome</b> was Sparta's sending home of an Athenian force she had herself summoned against the Messenian rebels, and Thucydides calls it the first open quarrel between the two states.<sup class=\"fn\" data-fn=\"1\"></sup> Athens had been asked for because her men were reputed skilled at sieges, and when the assault still failed the Lacedaemonians took fright at their enterprising and revolutionary character and dismissed them alone of the allies, saying only that they were no longer needed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Athenians went home offended, broke the alliance made against Persia and swore instead to Argos, and in Plutarch's account turned on the men who had argued for helping Sparta.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Ithome": "<b>Ithome</b> is a mountain in Messenia, in the south-west Peloponnese, whose summit served as a stronghold and a refuge, and which the Greeks associated with a cult of Zeus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Helots and perioikoi who seceded from Sparta after an earthquake held it for ten years, and Thucydides says most of them counted as Messenians, descended from those enslaved in an earlier war.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They left under a truce on terms that they quit the Peloponnese for good, which Thucydides and Pausanias both connect with an old Delphic oracle about letting go the suppliant of Zeus at Ithome, and Athens then settled them and their families at Naupactus.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2603,7 +2605,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Revolt_of_Naxos": "c. 469 BCE",
 "Revolt_of_Thasos": "c. 465 - 463 BCE",
 "Third_Messenian_War": "c. 464 - 455 BCE",
-"Spartan_earthquake": "c. 464 BCE"
+"Spartan_earthquake": "c. 464 BCE",
+"Dismissal_from_Ithome": "c. 462 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3727,7 +3730,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Siege_of_Eion": ["Eion"],
 "Scyros": ["Skyros"],
 "Battle_of_the_Eurymedon": ["Eurymedon"],
-"Third_Messenian_War": ["secession to Ithome"]
+"Third_Messenian_War": ["secession to Ithome"],
+"Ithome": ["Mount Ithome"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5550,7 +5554,9 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Revolt_of_Naxos": ["event","history","greece","politics","warfare"],
 "Revolt_of_Thasos": ["event","history","greece","politics","warfare"],
 "Third_Messenian_War": ["event","history","greece","warfare","politics"],
-"Spartan_earthquake": ["event","history","greece","religion","nature"]
+"Spartan_earthquake": ["event","history","greece","religion","nature"],
+"Dismissal_from_Ithome": ["event","history","greece","politics","warfare"],
+"Ithome": ["place","mountain","history","greece","warfare"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
