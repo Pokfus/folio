@@ -148,7 +148,7 @@ literature — which is what made batches 15 and 8 of the first pass cheap and b
 |---|---|---|---|
 | A1 | 3 | `terracotta-warrior`, `antikythera-mechanism`, `great-isaiah-scroll` | `namuseum.gr` (open, and holds the mechanism), Antiquity and Nature via `doi.org`, archive.org, Qumran literature in open journals |
 | A2 | 5 | `venus-of-willendorf`, `bayeux-tapestry`, `book-of-kells`, `lewis-chessmen`, `vindolanda-tablets` | `nhm-wien.ac.at` (server-rendered, confirmed), `digitalcollections.tcd.ie`, `bayeuxmuseum.com`, Persée. **Vindolanda Tablets Online at Oxford refuses the connection — use `romaninscriptionsofbritain.org/tabvindol/`, which carries the whole corpus** |
-| A3 | 7 | `pazyryk-carpet`, `dancing-girl-mohenjo-daro`, `golden-crown-of-silla`, `jade-burial-suit`, `aztec-sun-stone`, `igbo-ukwu-bronze`, `enigma-machine` | archive.org (Marshall, Rudenko), J-Stage, Cambridge via `doi.org`, INAH, cryptologic history |
+| A3 | 7 | `pazyryk-carpet`, `dancing-girl-mohenjo-daro`, `golden-crown-of-silla`, `jade-burial-suit`, `aztec-sun-stone`, ~~`igbo-ukwu-bronze`~~ (dropped in C2b; `benin-bronze-plaque` shipped in its place), `enigma-machine` | archive.org (Marshall, Rudenko), J-Stage, Cambridge via `doi.org`, INAH, cryptologic history |
 
 ### Region by region
 
@@ -267,7 +267,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B1c | `chola-nataraja`, `gandhara-buddha-head` (both UN-DEFERRED) | — |
 | A2c | `book-of-kells`, `bayeux-tapestry`, `lewis-chessmen` (all three UN-DEFERRED — **A2's list is now empty**) | — |
 | A3a | `aztec-sun-stone`, `enigma-machine`, `dancing-girl-mohenjo-daro` | — |
-| B2a | `oracle-bone`, `bamboo-slip`, `crossbow-trigger` | ~~`longquan-celadon-bowl`~~ (shipped in B2b), ~~inkstone~~ (cleared and shipped in B2d), `igbo-ukwu-bronze`, ~~pazyryk-carpet~~ (cleared and shipped in A3c) |
+| B2a | `oracle-bone`, `bamboo-slip`, `crossbow-trigger` | ~~`longquan-celadon-bowl`~~ (shipped in B2b), ~~inkstone~~ (cleared and shipped in B2d), ~~igbo-ukwu-bronze~~ (dropped in C2b), ~~pazyryk-carpet~~ (cleared and shipped in A3c) |
 | B2b | `bronze-ding`, `longquan-celadon-bowl` (UN-DEFERRED), `wax-tablet` | ~~han-tomb-brick~~ (cleared and shipped in B2c) |
 | B3a | `samurai-katana`, `ukiyo-e-print`, `goryeo-celadon` | — |
 | B3b | `daguerreotype`, `jomon-dogu`, `magatama` (**B3's list is now empty but for `dotaku`**) | `dotaku` (needs a third openable work) |
@@ -290,10 +290,11 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | A3a/B2d | `golden-crown-of-silla`, `inkstone` (UN-DEFERRED — **B2's list is now empty**) | — |
 | E2d | `mariners-astrolabe` (UN-DEFERRED; **one, not three — see below**) | `trench-art-shell-case`, `identity-disc`, ~~ban-chiang-pot~~ (cleared in B4c) |
 | A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | `turnshoe` again, ~~nbpw-sherd~~ (cleared and shipped in B1e), `identity-disc` again |
-| B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, `igbo-ukwu-bronze`, `bodkin-arrowhead` again, `fustat-paper` again |
+| B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, ~~igbo-ukwu-bronze~~ (dropped in C2b), `bodkin-arrowhead` again, `fustat-paper` again |
 | B4c | `ban-chiang-pot`, `sumatralith` (both UN-DEFERRED — **B4's list is now empty**) | — |
 | B1f | `glass-bangle` (UN-DEFERRED, and **shipped with no picture** — see below; **B1's list is now empty**) | `jade-burial-suit`, `bodkin-arrowhead` again |
 | S1 | **nothing — a search batch, see below** | `identity-disc` (one work found), `turnshoe` again, `trench-art-shell-case`, `fustat-paper` again |
+| C2b | `benin-bronze-plaque` (**SUBSTITUTED for `igbo-ukwu-bronze` — see below**) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1699,6 +1700,44 @@ question mark over every earlier "the scan yields zero hits" note.
   Shoemaking* (1916) uses "turned shoes" exactly once, in an advertisement for a Louis-heel slipper, and
   *Shoes and Shoemaking Illustrated* (1897) not at all. The London Museum's two records — a 13th-century
   ankle-shoe and a Regency boot described as "Turnshoe construction" — remain the only works in hand.
+
+**C2b's finding is that a BLOCKED LINE CAN BE ANSWERED BY A DIFFERENT OBJECT, and that the plan is
+allowed to say so.** `igbo-ukwu-bronze` had been deferred three times (B2a, B1e, and again here) for one
+reason each time: the metallography of Igbo Isaiah is on `link.springer.com`, which serves a "Client
+Challenge" with a 200 status, and the second and third works are behind the same wall or on
+`journals.openedition.org`, which is back behind Anubis. A fourth search found nothing new. What it did
+find is that the OBJECT the line stands for — a West African copper-alloy casting, made by people who
+were importing their metal — is served just as well, and with three openable works, by a **Benin bronze
+plaque**. CLAUDE.md's rule for the card plans applies here word for word: *a plan line is a subject to
+research, not a fact to assert; rename, split or drop a line when the research says so, in the same
+commit.* So the line is struck rather than deferred a fourth time, and the region keeps its
+representation. **`ife-head` stays on the list** — it is a different thing (a naturalistic royal head,
+not a relief), and dropping both would have thinned West Africa rather than substituted within it.
+
+**Its second finding is the one that made the substitution worth making rather than merely possible: the
+plaque carries a CORRECTION.** Skowronek et al. 2023 ran ICP-MS and lead isotopes on manillas raised from
+16th–19th-century shipwrecks and identify **Germany** as the principal source of the brass traded into
+West Africa between the 15th century and the 18th, the rings cast in the Rhineland between Cologne and
+Aachen on local calamine and lead. The metal of the Benin bronzes is not Nigerian, and the plate says so
+— which is A1's rule about a legendary's third work (look for the correction) paying out on an epic. It
+also **cross-references the pool's existing `manilla`**, so the two artefacts now explain each other: one
+is the currency, the other is what the currency was melted into.
+
+**Third: a museum record can carry the provenance a paper will not.** The Cleveland Museum of Art's two
+plaque records handle 1897 directly and without euphemism — 1999.1's says the number inked at the bottom
+left corner is the British Museum's, "It entered their collection in 1898, one year after British troops
+took it from a palace storeroom during the Siege of Benin" — and that sentence is visible IN the
+photograph the plate ships. 1953.425 carries the technical half (modelled in wax, moulds pushing out the
+general shapes with detail added by hand, the quatrefoil *ebe-amẹn* 'river leaves' identified with
+Olókun, and the bent sides that fixed the plate to a palace beam). Two records from one museum, both open,
+both specific: **B1d's "search the museum before the library" rule at full strength.**
+
+**And an access finding, which is why the fourth Igbo-Ukwu search failed: Persée serves only PAGE ONE.**
+`persee.fr` answers 200 and really does hold the French archaeology journals, so it reads as a way in —
+but an article's page returns the first page of text and nothing else, `docAsPDF` is 403, and
+`?pageId=N` hands back the same landing text rather than page N. **A host that answers with the opening
+of the article is not a host that answers**, and the failure looks like a short article rather than a
+paywall. Recorded so the next batch does not spend a search on it.
 
 ## The per-artefact workflow
 

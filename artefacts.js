@@ -1372,4 +1372,11 @@ window.ARTEFACTS = [
     date: "c. 500 BCE – present",
     origin: "South Asia",
   },
+  {
+    id: "benin-bronze-plaque",
+    name: "Benin bronze plaque",
+    rarity: "epic",
+    date: "c. 1500 – 1600 CE",
+    origin: "Kingdom of Benin, southern Nigeria",
+  },
 ];
