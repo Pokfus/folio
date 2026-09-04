@@ -286,7 +286,8 @@ re-run and diffed byte for byte.
 | **E8** ✅ | `canterbury-tales` | **62 repairs, and a tool.** The second scan is queried in BULK — anchor on the words around a suspicious token, score candidate positions by the words that follow, print what the other copy has between the same two words: 221 candidates, 191 located. The finding is that this edition SPACES its `;` `!` `?` `:` as a house style and does not space its comma (10,944 attached to 40), so 59 commas were put back on their own words. A census over tag-stripped HTML first reported 22 phantom errors that were Folio's own `bk-n` markers |
 | **E9** ✅ | `canterbury-tales` | **71 repairs, and a character that stands for three marks.** A lone figure `1` appears 66 times: before a lowercase word it is the pronoun (37), before a CAPITAL it is an exclamation mark after a bare word and an OPENING QUOTE after a full stop, colon, dash or closing quote (21) — two rules and seven read exceptions cover every one. It also fixes the limit on the second-scan witness: that copy's OCR discards the asterisk rows this one keeps, so it answers *what is this mark* and never *is there a mark here* |
 | **E10** ✅ | `canterbury-tales` | **27 repairs, decided by MEASUREMENT.** With the second scan unable to witness an absence, the strays were classified by their bounding boxes in the page XML, and they fall into three populations that do not overlap: 121×6 or 61×7 is a RULE the edition prints at a break (kept, set as a dash); 20–47 wide by 57–67 tall is the wide space after a full stop, boxed as though it were a glyph (nothing is there); under 20×14 is a speck. The apostrophe family is excluded whatever it measures |
-| **E11** | `canterbury-tales` | the last of it: about 30 marks whose shape falls between the three populations — mostly inside runs the scan has mangled past any single rule — plus the four apostrophes E10 set aside, 13 standalone commas, and the word whose first letter is broken off it (`H ow`, `J eremy`, `k nowest`, `m` for `in`, `y` for `by`) |
+| **E11** ✅ | `canterbury-tales` | **21 repairs, using the book to check itself.** A word broken open is found by joining the lone letter to the fragment and scoring the result against THIS text's own vocabulary (`H`+`ow` 619 to 6). It is a proxy: it also proposed joining `a bout` in 'cannot stand a bout', which the second scan shows is the printing, and the join would have been grammatical and wrong. The second class — a letter standing for another word (`m` for `in`, `y` for `by`, `l` for `I`) — no frequency test can see |
+| **E12** | `canterbury-tales` | the remainder: about 25 marks inside runs the scan has mangled past any single rule, the four apostrophes E10 set aside, 13 standalone commas, and the 11 spaced full stops in the back matter's `( Sh . T.)` tale abbreviations |
 | **E11–En** | the rest of the error half | what E4 leaves: `plato-dialogues` (14 candidates, Loeb scan unusable), `virgil-aeneid` (22, no scan of the 1910 printing exists), `summa-theologica` (2), and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
@@ -294,6 +295,36 @@ The error half of a Chinese book rides with its romanisation batch; the rest run
 ---
 
 ## 8. Batch log
+
+### E11 — the word broken open, shipped 2026-09-04
+
+**21 repairs, taking the book to 808, and the finding is a measure that uses the book to check
+itself.** Where a lone letter stands before a fragment, join the two and ask how often the result
+appears elsewhere in this same text against how often the fragment appears alone. `H`+`ow` scores
+619 to 6; `k`+`nowest` 19 to 1; `j`+`oy` 196 to 1; `T`+`ale` 426 to 21. **No dictionary is needed and
+none would be better** — the corpus is the edition's own vocabulary, in its own spelling, so a word
+this translator uses and a modern dictionary does not is scored correctly, and a fragment that is
+also a word is scored on how the book actually uses it.
+
+**IT IS A PROXY AND IT PROPOSED A DESTRUCTIVE CHANGE, which is the whole reason every one was read.**
+`a`+`bout` scores 250 to 1, and the passage is *many a man who cannot stand a bout is nevertheless
+pleased* — where the second scan shows the two words ARE the printing. Joining them would not have
+produced a visible error: `cannot stand about` is grammatical, plausible, and wrong. **A high score
+says a join is POSSIBLE, never that it is right**; twelve of the thirteen it proposed are repairs and
+the thirteenth would have been damage, and nothing but the witness separates them.
+
+**The second class no frequency test can see at all: a letter standing in for a different word**,
+where both readings are ordinary English. `m` is `in` three times (*they made them dance in their
+father's blood*, *these woful maidens in fear of this*, *destroyed the green in every yard*), `y` is
+`by` (*neither by force nor bribe*), `l` is `I` (*of all his wit I am never the better*), `i` is `a`
+(*a fair bit of horsemanship for a cook*) and an exclamation mark once, and once it is nothing at all
+(*if you will hearken*, where the other copy has no word between). All eight came off the second scan.
+
+**Two of them are the E9 signature and worth naming: BOTH copies misread the same glyph, DIFFERENTLY.**
+This one reads `l am never the better` where the other reads `f am never the better`; this one reads
+`i fair bit` where the other reads `\ fair bit`. Two independent scans failing in two different ways
+at one point says the type is faint rather than that the scanner slipped — and it also says something
+IS printed there, which is what rules out deletion and leaves only the reading that fits.
 
 ### E10 — the strays, sorted by measuring them, shipped 2026-09-04
 

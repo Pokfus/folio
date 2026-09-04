@@ -11942,7 +11942,7 @@ const BOOKS = {
       "One last thing about the prose column, because it is the sort of thing a reader deserves to be " +
         "told rather than to discover. It is not a typed transcription but a machine reading of the " +
         "1912 pages, and machines misread. Where the scan went wrong it has been corrected against " +
-        "photographs of the same edition, and against a second scan of it — 787 places, from single " +
+        "photographs of the same edition, and against a second scan of it — 808 places, from single " +
         "letters up to whole " +
         "lines that the reader had dropped or run together, on eight pages that were printed straight " +
         "and scanned askew. The commonest fault by far was the quotation mark. The opening one the " +
@@ -11956,7 +11956,9 @@ const BOOKS = {
         "that follows. Some of what looked like stray marks turned out to be nothing at all — the wide " +
         "space this edition sets after a full stop, which the scanner boxed as though it were a letter " +
         "— and some to be a short rule the translators print where they have cut a passage, which is " +
-        "kept and set as a dash. Nothing was mended by guess: every correction is a passage read off " +
+        "kept and set as a dash. Words the scan had broken open have been closed up — 'H ow' is How, " +
+        "'k nowest' is knowest — and a letter standing in for another word put right, an m that was " +
+        "in and a y that was by. Nothing was mended by guess: every correction is a passage read off " +
         "the page. " +
         "A few misreadings remain, chiefly a word whose first letter has been broken off it and some " +
         "stray marks standing in the run of the prose.",
@@ -12464,6 +12466,60 @@ const BOOKS = {
       ["his  father  sent.  _",
        "his  father  sent.  ",
        "a speck on the leaf, 8 by 8 — far below the height of any letter on the page"],
+
+      /* ---------- BATCH E11: THE WORD BROKEN OPEN, AND THE LETTER STANDING FOR ANOTHER ----------
+         Two classes, and the first was found by asking THE BOOK'S OWN VOCABULARY rather than a
+         dictionary: where a lone letter stands before a fragment, join the two and ask how often the
+         result appears elsewhere in this text against how often the fragment appears alone. `H`+`ow`
+         scores 619 to 6, `k`+`nowest` 19 to 1, `j`+`oy` 196 to 1. It proposes thirteen, and it is a
+         PROXY rather than a verdict — it also proposed `a`+`bout`, in 'many a man who cannot stand a
+         bout is nevertheless pleased', where the second scan shows the two words ARE the printing and
+         joining them would have destroyed a correct reading. Every one was read before it was written.
+
+         The second class is a letter standing for a different word, which no frequency test can see
+         because both readings are ordinary English. All eight were read on the second scan. */
+      ["rain.  A  las,", "rain.  Alas,",
+       "the page reads 'let your holy tears fall as rain. Alas, your empress and your queen'"],
+      ["victuallers. \nH  e  was", "victuallers. \nHe  was",
+       "the page reads 'of a guild of victuallers. He was as blithe as a goldfinch'"],
+      ["rise.  H  er  duenna", "rise.  Her  duenna",
+       "the page reads 'and said she list to rise. Her duenna, one of these old women'"],
+      ["fools.”  H  ow  often", "fools.”  How  often",
+       "the page reads 'lord of all fools.” How often have you'"],
+      ["all.  H  ow  shall", "all.  How  shall",
+       "the page reads 'and profit themselves not at all. How shall I conclude'"],
+      ["eyes  ! \nH  ow  fairer", "eyes  ! \nHow  fairer",
+       "the page reads 'with thy dovelike eyes ! How fairer be thy breasts than wine'"],
+      ["you  !  N ow  that", "you  !  Now  that",
+       "the page reads 'A very pestilence fall on you ! Now that I am come to this'"],
+      ["Parson  s  T ale.", "Parson  s  Tale.",
+       "the heading reads 'Here followeth the Prologue of the Parson's Tale'; the same heading four lines on has the word whole"],
+      ["Yeoman  s  T ale.", "Yeoman  s  Tale.",
+       "the same, in 'Here endeth the Prologue of the Canon's Yeoman's Tale'"],
+      ["heart.  T rue  it", "heart.  True  it",
+       "the page reads 'dear heart. True it is, well I know'"],
+      ["full  of  j  oy", "full  of  joy",
+       "the page reads 'All full of joy and happiness was the palace'"],
+      ["and  k  nowest", "and  knowest",
+       "the page reads 'thou, his son, art proud also, and knowest all these things'"],
+      ["prophet  J eremy", "prophet  Jeremy",
+       "the page reads 'admonishes us by the prophet Jeremy, who says in this wise'"],
+      ["if  you \ni  will  hearken", "if  you \nwill  hearken",
+       "the page reads 'Now I will relate my story, if you will hearken' — there is no word between"],
+      ["my \nsoul  i  For,  brother", "my \nsoul  !  For,  brother",
+       "the page reads 'so God save my soul ! For, brother mine, take this from me'"],
+      ["his  wit \nl  am  never", "his  wit \nI  am  never",
+       "the page reads 'and of all his wit I am never the better'; the other copy misreads the same letter as an f, which is what a faint capital I looks like to two machines"],
+      ["This  was \ni  fair  bit", "This  was \na  fair  bit",
+       "the page reads 'This was a fair bit of horsemanship for a cook !'; the other copy misreads the same letter too, so something is printed there and only the article fits"],
+      ["neither \ny  force", "neither \nby  force",
+       "the page reads 'neither by force nor bribe, he thought, could he speed'"],
+      ["dance  m  their", "dance  in  their",
+       "the page reads 'they made them dance in their father's blood upon the pavement'"],
+      ["maidens \nm  fear", "maidens \nin  fear",
+       "the page reads 'Wherefore these woful maidens in fear of this, privily leaped'"],
+      ["green  m  every", "green  in  every",
+       "the page reads 'The bitter frosts, with sleet and rain, have destroyed the green in every yard'"],
     ],
 
     /* ---------- THE OPENING QUOTATION MARK, MISREAD SIX WAYS (Sep 2026, batch E6) ----------
