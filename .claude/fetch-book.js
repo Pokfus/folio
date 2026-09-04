@@ -25203,6 +25203,80 @@ async function fetchEnglish() {
    Wikisource pages and a single TEI edition — share one way of writing it out and one report at the
    end, and so cannot drift apart in what they emit. The same split, and the same reason, as
    writeOriginal below. */
+/* A PARAGRAPH NEVER BEGINS WITH A LOWERCASE LETTER, and where one does the paragraph break is not
+   the author's (Sep 2026, batch E25). The City of God is served by Wikisource one printed PAGE at a
+   time, and the page-turn arrives in the markup as a paragraph break — mid-sentence, and 43 times of
+   364 mid-WORD, so Book I chapter 20 read "...they have no sensa" and then, as a new paragraph,
+   "tion, nor of the irrational animals...". It is Wikisource's own rendering rather than anything
+   this script does: the fetched HTML carries the break literally, with no pagenum span or anchor to
+   join on, so the only signal available is the lowercase letter itself.
+
+   Measured over the whole shelf the signal is rare and clean — 387 boundaries in four books, and
+   every one of them read by eye is the same fault: 364 in the City of God, 9 in Ovid, 9 in the
+   Summa, 5 in Herodotus. Two of those four are TEI books and two are wiki books, which is why the
+   pass sits HERE, at serialization, rather than in either reader.
+
+   THE JOIN IS EASY AND THE SEPARATOR IS THE WHOLE PROBLEM. Three cases, decided per boundary:
+
+   · NOTHING, where the break fell inside a word. The test is the book's own vocabulary — the two
+     fragments concatenated must be a word the book uses elsewhere ("sensa"+"tion" is sensation, 42
+     times) AND the pair must NOT be attested as two words within a paragraph anywhere in the book.
+     Both halves are needed. Without the first, "murmur"+"ings" would be joined on a guess; without
+     the second, "in"+"the" would be welded into "inthe", "may"+"be" into "maybe" and "a"+"man" into
+     the name Aman, all three of which the shelf does contain. The bigram count is taken WITHIN a
+     paragraph precisely so that these boundaries cannot vote for themselves.
+   · <br>, where the surrounding paragraph is verse — Ovid's lines are separated by <br>, so the
+     spurious break stands exactly where a line break belongs and a space would run two hexameters
+     into one.
+   · a SPACE otherwise.
+
+   It is deliberately conservative at the one genuinely ambiguous pair: the City of God writes "can
+   not" as two words four times, so "can"+"not" is left as a space rather than welded into "cannot".
+   A wrong space is a reading a reader can see through; a wrong weld invents a word.
+
+   A <p> carrying ATTRIBUTES is never joined — the opening tag is discarded by the join, and a tag
+   that says something about its paragraph must not be thrown away to close a gap. None of the 387
+   has one. */
+function joinBrokenParas(chapters) {
+  const word = new Map(), bigram = new Map();
+  const count = (html) => {
+    /* Within a paragraph only. A bigram counted ACROSS a break would be manufactured by the very
+       fault this pass repairs, and every boundary would then attest itself as two words. */
+    for (const para of String(html || "").split(/<\/p>/)) {
+      const toks = (para.replace(/<[^>]*>/g, " ").toLowerCase().match(/[a-z]+/g) || []);
+      for (let i = 0; i < toks.length; i++) {
+        word.set(toks[i], (word.get(toks[i]) || 0) + 1);
+        if (i) { const k = toks[i - 1] + " " + toks[i]; bigram.set(k, (bigram.get(k) || 0) + 1); }
+      }
+    }
+  };
+  chapters.forEach((c) => { count(c.html); (c.notes || []).forEach(count); });
+
+  let joined = 0, welded = 0, versed = 0;
+  const fix = (html) => String(html || "").replace(
+    /([a-z]+)<\/p>\s*<p>([a-z]+)/g,
+    (whole, a, z, at, all) => {
+      const lc = a.toLowerCase(), rc = z.toLowerCase();
+      const mid = (word.get(lc + rc) || 0) > 0 && (bigram.get(lc + " " + rc) || 0) === 0;
+      /* VERSE IS ASKED OF THE TWO PARAGRAPHS, NEVER OF THE CHAPTER. The first cut tested the whole
+         html and got it wrong in two books at once: Herodotus quotes his oracles in verse and the
+         Summa its marriage mnemonic, so one <br> anywhere in the chapter put a line break into five
+         and eight lines of ordinary PROSE — "Zeus contrived<br>to show himself". A boundary is verse
+         only if the line it stands in is. */
+      const before = all.slice(Math.max(0, all.lastIndexOf("<p", at)), at);
+      const after = all.slice(at + whole.length, (all.indexOf("</p>", at + whole.length) + 1) || undefined);
+      const verse = /<br\s*\/?>/i.test(before) || /<br\s*\/?>/i.test(after);
+      joined++; if (mid) welded++; else if (verse) versed++;
+      return a + (mid ? "" : (verse ? "<br>" : " ")) + z;
+    });
+  chapters.forEach((c) => {
+    c.html = fix(c.html);
+    if (c.notes) c.notes = c.notes.map(fix);
+  });
+  if (joined) console.log("  joined " + joined + " false paragraph break" + (joined === 1 ? "" : "s") +
+    " (" + welded + " inside a word, " + versed + " between verse lines)");
+}
+
 function writeEnglish(chapters, warnings) {
   chapters.sort((a, b) => a.n - b.n);
   /* A CHAPTER TITLE IS ON THE ROMANISATION'S OTHER SIDE, and it was not for the first run of B2. The
@@ -25224,6 +25298,8 @@ function writeEnglish(chapters, warnings) {
      them correctly. It was harmless until B6b: the
      single-syllable unaspirated rows are what turn a second pass from a no-op into a rename. */
   if (BOOK.roman && !BOOK.titlesCorrected) chapters.forEach((c) => { c.t = applyRoman(c.t); });
+
+  joinBrokenParas(chapters);
 
   const outDir = path.join(ROOT, "books");
   fs.mkdirSync(outDir, { recursive: true });

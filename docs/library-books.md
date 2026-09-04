@@ -940,15 +940,18 @@ book added later will meet the same traps.
   translations a reader is likeliest to own** — Chadwick 1991, Boulding 1997, Ruden 2017 — are named
   as the ones not to reach for, and with them **Outler's of 1955, which Wikisource carries beside
   this one** and which is in copyright until 2060),
-  `city-of-god` (**~2.4 MB, the largest English text on the shelf**. ⚠ **IT HAS A STRUCTURAL FAULT
-  THAT IS MEASURED BUT NOT YET FIXED** (batch E24): **364 of its paragraphs begin on a lowercase
-  letter and 52 of those breaks fall INSIDE A WORD** — a reader meets a paragraph ending
-  `…they have no sensa` and the next beginning `tion, nor of the irrational animals…`, and the same
-  for `com`/`pelled`, `him`/`self`, `be`/`cause`, `Nep`/`tune`. It is a printed page-turn become a
-  paragraph break; the shelf carries 387 such boundaries in all and **364 of them are this one book**.
-  The repair belongs in the extractor, and it is NOT written yet because the Wikisource markup at one
-  of those boundaries could not be fetched to confirm the mechanism (Wikimedia rate-limits this
-  sandbox) — see the plan's E25 row. Batch E24 did repair nine word-level slips here
+  `city-of-god` (**~2.4 MB, the largest English text on the shelf**. **IT HAD A STRUCTURAL FAULT,
+  MEASURED IN E24 AND FIXED IN E25**: **364 of its paragraphs began on a lowercase letter and 43 of
+  those breaks fell INSIDE A WORD** — a reader met a paragraph ending `…they have no sensa` and the
+  next beginning `tion, nor of the irrational animals…`, and the same for `com`/`pelled`,
+  `him`/`self`, `be`/`cause`. It is a printed page-turn become a paragraph break, and it is
+  **Wikisource's own rendering**: the fetched HTML for Book I chapter 20 carries the break literally,
+  with no `pagenum` span and no anchor at it, so the lowercase letter is the only signal available.
+  Repaired by `joinBrokenParas`, a shared pass at serialization (the shelf carries 387 such
+  boundaries in four books, two of them TEI and two wiki, so it can live in neither reader). **The
+  separator is the hard half** and is decided per boundary — nothing where the two fragments make a
+  word the book uses and are never written as two, `<br>` where the LINE is verse, a space otherwise.
+  `can`/`not` is deliberately left as a space, this translation writing "can not" four times. Batch E24 did repair nine word-level slips here
   (`coveteousness` twice, `disgracful`, `Emperior`, `opinon`, `santification`, `superflous`, `truely`,
   `Eneas` for the ligature `Æneas` this translation uses 39 times) and **refused two that look like
   slips and are not**: `Heberews` is Augustine's own etymology, and `Phenicians` is Dods's house

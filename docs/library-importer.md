@@ -1060,3 +1060,45 @@ every rule here was paid for by a silent failure.
   · It also carries each book's **`about`** — the front matter prose, authored by hand here and emitted as
     `intro`. It lives in the generator rather than in app.js's eager `BOOKS` registry (a page of prose every
     visitor would pay for) or in the generated file (the next run would destroy it).
+
+**`joinBrokenParas` — A PARAGRAPH NEVER BEGINS ON A LOWERCASE LETTER** (Sep 2026, batch E25). The
+shelf's second shared repair after `teiInline`'s citation spacing, and it sits one level further out
+still: in `writeEnglish`, at serialization, beside the `applyRoman` title pass. It has to, because
+the fault reaches the shelf through **both** readers — Ovid and Herodotus are TEI books and the City
+of God and the Summa are wiki books — so there is no reader it could live in.
+
+  · **The fault is a printed PAGE-TURN become a paragraph break.** Wikisource serves the City of God
+    one page at a time, and the break arrives in the markup mid-sentence, 43 times of 364 mid-WORD:
+    the fetched HTML for Book I chapter 20 carries `no sensa` `</p><p>` `tion, nor of the irrational`
+    literally. It is **Wikisource's own rendering rather than anything this script does**, which is
+    the thing to establish before writing the pass — E17's rule — and the page has **no `pagenum`
+    span and no anchor** at the break, so the lowercase letter is the only signal there is.
+  · **It is rare and clean, which is what makes a signal that thin safe to use.** 387 boundaries in
+    four books out of 48; 364 City of God, 9 Ovid, 9 Summa, 5 Herodotus. Every one outside the City
+    of God was read by eye and is the same fault.
+  · **THE JOIN IS EASY AND THE SEPARATOR IS THE WHOLE PROBLEM.** Nothing, `<br>` or a space.
+  · **The mid-word test needs BOTH halves and the bigram must be counted WITHIN a paragraph.** The
+    two fragments concatenated must be a word the book uses elsewhere, AND the pair must never be
+    written as two words inside a paragraph anywhere in the book. Without the first, `murmur`+`ings`
+    is welded on a guess; without the second, `in`+`the` becomes *inthe*, `may`+`be` *maybe* and
+    `a`+`man` the name *Aman*, all three of which the shelf contains. And counted ACROSS a break the
+    test returns nothing at all, because every one of the 387 boundaries then attests itself as two
+    words. It is deliberately conservative where the two readings are both real — the City of God
+    writes "can not" four times, so `can`+`not` takes a space. **A wrong space is a reading a reader
+    can see through; a wrong weld invents a word.**
+  · **THE VERSE TEST IS ASKED OF THE TWO PARAGRAPHS, NEVER OF THE CHAPTER.** The first cut tested the
+    whole html and was wrong in two books at once: Herodotus quotes his oracles in verse and the
+    Summa its marriage mnemonic, so a single `<br>` anywhere in the chapter put a line break into
+    five and eight lines of ordinary prose — "Zeus contrived`<br>`to show himself". **The count could
+    not see it** (the run reported the right number of joins throughout); only reading the joined
+    text did.
+  · **A `<p>` carrying ATTRIBUTES is never joined.** The join discards the opening tag, and a tag
+    that says something about its paragraph must not be thrown away to close a gap. None of the 387
+    has one, so the guard is free.
+  · **It does NOT run in `writeOriginal`, and that is a limit rather than an omission.** The
+    original-language columns carry 38 such boundaries, and **Seneca's three are not this fault at
+    all** — they are Virgil quoted in verse, set as paragraphs of their own, where a lowercase
+    opening is correct. So "a paragraph never begins on a lowercase letter" fails on a block
+    quotation of verse, and the rule needs a guard for that before it can be pointed at the other
+    column. The English column happens to contain no such quotation, which is why the census had to
+    be read rather than trusted.

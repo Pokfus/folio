@@ -300,14 +300,90 @@ re-run and diffed byte for byte.
 | **E22** ✅ | three books | **30 repairs, 26 of them in Three Kingdoms** — which E19's table called the FOURTH CLEANEST book on the shelf and which turns out to be the most damaged text yet swept (`afaid`, `attck`, `broher`, `flooor`, `speeech`, `twefth`). **A low noise rate is not a low error rate**; it only means the list is worth reading. The other four are what E21's filter hid: widening the confusion set by the two missing vowels returned 42 candidates across nine already-swept books, of which three in the Summa and one in the Odyssey are damage — and TWO would have destroyed archaic quotations |
 | **E23** ✅ | two books, and a third read clean | **27 repairs — 24 in the Iliad, 3 in Herodotus, 0 in Don Quixote.** The two long narrative translations, the Iliad and Three Kingdoms, are much the most damaged texts on the shelf (24 and 26); the two histories beside them returned almost nothing. **A candidate list of proper names is not a false-positive problem, it is a COUNTING problem**: eighteen Homeric names were left alone and the two that were not — `Achaeams`, `Agamemon` — announce themselves against 598 and 174 correct spellings |
 | **E24** ✅ | two books, and a STRUCTURAL fault found and deferred | **12 repairs, and a much bigger finding left unrepaired on purpose.** City of God carries **364 paragraph breaks that begin on a lowercase letter — 52 of them INSIDE A WORD** (`sensa`/`tion`, `com`/`pelled`, `him`/`self`), which a reader sees as a paragraph ending mid-word. It is a printed-page turn become a paragraph break. **The mechanism could not be confirmed** — Wikimedia is rate-limiting — and E17's rule is not to write an extractor change on an unverified diagnosis, so it is measured, recorded and left for E25 |
-| **E25** | the City of God paragraph fault | confirm the mechanism against the Wikisource markup, then fix it in the extractor with the byte-for-byte sibling proof; only four books have any such boundary and 364 of the 387 are this one |
-| **E26–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E25** ✅ | the paragraph fault, in the extractor | **387 false paragraph breaks joined across four books, 43 of them inside a word.** The mechanism is Wikisource's own: the fetched HTML for City of God I.20 carries `no sensa` `</p><p>` `tion, nor of the irrational` literally, with no pagenum span or anchor to join on, so the lowercase letter is the only signal there is. The join is easy and the SEPARATOR is the whole problem — nothing, `<br>` or a space — decided per boundary by the book's own vocabulary and by whether the LINE is verse. Proved byte for byte over all 48 books |
+| **E26** | the same fault in the ORIGINAL-language columns | 38 boundaries — 18 in Caesar's Latin, 17 in the Canterbury Tales' Middle English, 3 in Seneca — and **Seneca's three are not the fault at all**, being Virgil quoted in verse, where a lowercase paragraph opening is correct. So the rule needs a block-quotation guard before it can be pointed at `writeOriginal`, and one of Seneca's three hides a SECOND fault: a `<quote>` dropped entirely, leaving "cum dicit Vergilius noster diserte quidem dicit" with the verse it is about missing |
+| **E27–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E25 — a paragraph that begins on a lowercase letter, shipped 2026-09-04
+
+**387 false paragraph breaks joined across four books — 364 in the City of God, 9 in Ovid, 9 in the
+Summa, 5 in Herodotus — 43 of them inside a word.** E24 measured this fault and deliberately left it
+alone, because Wikimedia was rate-limiting and E17's rule is that an extractor change is not written
+on an unverified diagnosis. The limit had cleared, and the diagnosis holds.
+
+**The mechanism is Wikisource's, not ours.** Fetching *Nicene and Post-Nicene Fathers* I/II/City of
+God/Book I/Chapter 20 returns 8,947 bytes containing, literally:
+
+> `...we do not understand this of the plants, since they have no sensa` `</p><p>` `tion, nor of
+> the irrational animals that fly, swim, walk, or creep...`
+
+The page has exactly three paragraphs and the tag census finds **no `pagenum` span and no anchor** at
+the break, so there is nothing to join on but the lowercase letter itself. It is a printed page-turn
+that has become a paragraph break somewhere upstream of us.
+
+**The pass sits at serialization, because two of the four books are TEI and two are wiki.** It is the
+same argument E17 made for putting the citation-space repair in `teiInline` rather than in a per-book
+table, one level further out: a fault that reaches a book through two different readers has to be
+repaired at the point they meet. `joinBrokenParas` runs in `writeEnglish` beside the `applyRoman`
+title pass, over every chapter's `html` and `notes`.
+
+**The join is easy and the separator is the whole problem.** Three cases, decided per boundary:
+
+| separator | when | count |
+|---|---|---|
+| nothing | the break fell inside a word | 43 |
+| `<br>` | the LINE is verse | 9 |
+| a space | otherwise | 335 |
+
+The mid-word test is the book's own corpus, and it needs **both** halves. The two fragments
+concatenated must be a word the book uses elsewhere — `sensa`+`tion` is *sensation*, 42 times — AND
+the pair must not be attested as two words within a paragraph anywhere in the book. Without the first
+test `murmur`+`ings` would be welded on a guess; without the second, `in`+`the` would become
+*inthe*, `may`+`be` *maybe* and `a`+`man` the name *Aman*, all three of which the shelf does
+contain. The bigram count is taken **within** a paragraph precisely so that these boundaries cannot
+vote for themselves — counted across the break, every one of the 387 attests itself as two words and
+the test returns nothing. It is deliberately conservative at the one genuinely ambiguous pair: the
+City of God writes "can not" as two words four times, so `can`+`not` is left as a space. **A wrong
+space is a reading a reader can see through; a wrong weld invents a word.**
+
+**THE VERSE TEST IS ASKED OF THE TWO PARAGRAPHS, NEVER OF THE CHAPTER, and the first cut got that
+wrong in two books at once.** Herodotus quotes his oracles in verse and the Summa its marriage
+mnemonic, so one `<br>` anywhere in the chapter put a line break into five and eight lines of
+ordinary prose — *"Zeus contrived`<br>`to show himself"*, *"not indeed principally and`<br>`
+perfectively"*. Scoped to the line, Ovid takes `<br>` on all nine and the two prose books take a
+space on all fourteen. **The fault was invisible in the count** — the run still reported 5, 9, 9 and
+364 joins, all correct — and only reading the joined text found it.
+
+**The proof.** Every one of the 48 books was rebuilt, and a standalone replica of the pass run over
+the *previous* files: **47 reproduce the shipped file byte for byte**, 43 of them because they have no
+such boundary and four because the replay of their 364, 9, 9 and 5 joins lands on exactly the shipped
+bytes, with every non-prose field compared verbatim beside them.
+
+**The 48th is Beowulf, and it is upstream drift again** — E17's finding a third time. An editorial
+note read *"not mere gossip of his journey, hut a statesmanlike forecast"*; the cache says `but`, so
+the shipped file was simply stale against its own source. Proved independent of this change by
+reverting the extractor and rebuilding: the same single byte moves. Adopted and counted separately.
+
+**What is left, and it is a real limit on the rule.** The original-language columns carry 38 such
+boundaries — 18 in Caesar's Latin, 17 in the Canterbury Tales' Middle English, 3 in Seneca — and
+**Seneca's three are not this fault**. They are Virgil quoted in verse, set as paragraphs of their
+own, where a lowercase opening is correct:
+
+> `clamanti 'hac` `</p><p>` `itur ad astra,` `</p><p>` `hac secundum frugalitatem via est`
+
+So "a paragraph never begins on a lowercase letter" is not universal — it fails on a block quotation
+of verse — and the pass cannot be pointed at `writeOriginal` until it can tell one from the other.
+The English column happens to contain no such quotation, which is why the rule is safe where it now
+runs and why the census had to be read rather than trusted. One of Seneca's three also hides a
+different fault worth its own look: `cum dicit Vergilius noster` `</p><p>` `diserte quidem dicit`
+is a **dropped `<quote>`** — the verse the sentence is about is missing from the file altogether.
+Both are E26.
 
 ### E24 — twelve repairs, and a structural fault worth more than all of them, shipped 2026-09-04
 
