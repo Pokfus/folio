@@ -35,13 +35,32 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.446", released: "2026-09-04T04:50Z" };
+window.FOLIO_VERSION = { v: "1.449", released: "2026-09-04T04:55Z" };
 
 window.CHANGELOG = [
   {
     d: "2026-09-04",
-    t: "Forty more Atlas countries with cited information boxes",
+    t: "Finer rivers for Italy and Greece, and Rome always on the map",
     items: [
+      "<b>An Atlas place on a phone or tablet is now one page, with its figures above the description</b>, so the population, area and GDP no longer take a swipe to reach.",
+      "<b>The close button of an Atlas place stays in its top right</b>, however long the name, instead of being pushed onto a line below it.",
+      "<b>The chip marking a place you have not opened before now reads \u201cNew discovery!\u201d</b> and no longer carries a running count.",
+      "<b>The Picture round now uses the artefacts alone</b>, and the reveal shows the object\u2019s full description with the works it rests on.",
+      "<b>An answered Picture round question stays answered</b>, so leaving the game and coming back resumes where you left off.",
+      "<b>A Picture round image can be enlarged once the answer is out</b>, with its title, description and source.",
+      "<b>Seven Ancient Rome cards now show the country they are about as an area</b> \u2014 Latium, Sabina, Samnium, Umbria, Liguria, Venetia and Messapia \u2014 rather than a single dot.",
+      "<b>The rivers of Italy and Greece are drawn in far finer detail</b> on the maps of their own collections’ cards, with many more of them shown.",
+      "<b>Rome is now always marked on the map in the Ancient Rome collection</b>, and Athens in Ancient Greece, as a red square.",
+      "<b>Modern capital cities on a card’s map no longer show their names</b>, only their squares.",
+      "<b>A card\u2019s traditional Chinese characters now sit on the line above the simplified ones</b> rather than beside them.",
+      "<b>A card\u2019s Chinese name is set flush right</b> rather than left.",
+      "<b>The Attica, Hongshan culture and Yangshao culture cards now show their region shaded on a map</b>, as the other place cards do.",
+      "<b>Turkey is on the map again in the Ancient Greece collection</b>, where a fault in the finer coastline had left Anatolia drawn as open sea.",
+      "<b>Rivers are drawn thinner on a card\u2019s map when it is zoomed out</b>, so a wide view is not a continent of blue thread.",
+      "<b>The squares marking modern capitals on a card\u2019s map are smaller and outlined in grey</b> rather than white.",
+      "<b>On a phone, the line between a card\u2019s answer and its Chinese name is grey</b> rather than red.",
+      "<b>The map on the Zagora card now names the place simply Zagora.</b>",
+      "<b>On a phone, a played minigame tile is now coloured above its title</b> — green, or a shining gold for a perfect score — carrying a large white tick and nothing else.",
       "<b>Forty more countries on the Atlas have a full information box with sources</b> — from Iran, Turkey and Germany down to Australia, Nepal and both Koreas.",
     ],
   },
@@ -49,7 +68,6 @@ window.CHANGELOG = [
     d: "2026-09-03",
     t: "Ten gemstone themes, and the crossword gets clues of its own",
     items: [
-      "<b>Eight more countries on the Atlas have a full information box with sources</b> — Russia, Mexico, Ethiopia, Japan, Egypt, the Philippines, DR Congo and Vietnam.",
       "<b>Ten new themes</b> — Diamond, Ruby, Opalite, Jade, Emerald, Amber, Amethyst, Aquamarine, Bloodstone and Carnelian — each with its own colours, type and shapes.",
       "<b>The crossword is now clued with its own simple history questions</b> rather than with card questions, so it deals a fresh grid every day.",
       "<b>The Collections page has a menu bar</b> — History, Geography, Language, Other, Community and All — and Collections is a tab in the top bar again, between Home and Library.",
@@ -67,6 +85,9 @@ window.CHANGELOG = [
       "<b>Eight Mandarin cards had their pinyin corrected</b> where an -r ending was written as a separate syllable.",
       "<b>The geography collection <i>The world</i> is now called <i>World</i></b>.",
       "<b>Every card in every geography collection now carries a picture</b> — a landmark for a state, province or country, a wide view of the city for a capital.",
+      "<b>Creating an account now tells you when the username you asked for was already taken</b>, and gives you the handle your account was made under instead.",
+      "<b>Your username can now be changed</b> from the account page — it is the handle you sign in with and the one friends add you by.",
+      "<b>The Sign in and Create account buttons no longer stay stuck reading \u201c\u2026\u201d</b> after an attempt that was refused.",
     ],
   },
   {

@@ -134,3 +134,59 @@ dot, and the honest accessibility limitation.
   `cardMapSpec` / `cardMapHTML` / `mountCardMaps` / `cardFacts` / `CMAP_ZMAX` / `TINT_SEL` /
   `serializeCardData` / `revertCard` / `gameCardIdSet`, `.claude/build-us-states.js`, or after adding a map
   card.**
+
+## The frame's own water, and the marks a locator carries (Sep 2026)
+
+Three changes on one request — "modern capitals should not have their text labels shown, only their
+squares", "Rivers in Italy in the Roman deck and Greek rivers in the Greek deck should have a much higher
+resolution … and there should be more of them", and "Rome should always be visible in the Roman collection,
+with a slightly larger red square as icon, and Athens should have the same in the Ancient Greek collection".
+The rules are in CLAUDE.md's map-card bullet; the reasoning is here.
+
+**A NAME ON THIS MAP BELONGS TO THE COLLECTION.** The capitals layer was labelled once the frame was a
+region rather than a continent — a rule written so that a card about the Roman Republic, whose opening view
+is the whole Mediterranean, would not name every capital from Nassau to Colombo. That guard was right about
+the crowd and wrong about the principle: at any zoom close enough to pass it, Tirana, Valletta and Podgorica
+were set in the same face and weight as Cumae and Veii, and a reader glancing at the map could not tell
+which of the words were the collection's. The square is what that layer is for — it gives a site a seat of
+government to be placed against — and the square survives untouched. `capAt`, the register the labels were
+drawn from, is DELETED rather than left unread: a list nothing consumes is the next session's bug.
+
+**A RIVER IS REPLACED, NOT SPLICED, AND NEVER CLIPPED.** The hi-res coastlines are spliced ring by ring
+because a land border is shared with a neighbour and a hi-res copy over a low-res one traces the Alps twice.
+None of that applies to a river: it is a polyline nothing else owns, so the honest fix is to draw the better
+one INSTEAD — which is what `supersede` is for, and the only way a river can be doubled is if a name in the
+region file that `rivers.js` also carries is missing from that list.
+
+What was rejected is the obvious build: hi-res inside the region box and `rivers.js` outside it. `rivers.js`
+is simplified at 0.05°, so the two chains are up to 5 km apart, and the box is well inside a card's opening
+~50° view — the seam would be on screen, a river visibly stepping sideways as it left the frame. So a river
+with any point in the box is taken at hi-res over its WHOLE course and its low-res entry dropped, Danube and
+Rhône included. That is affordable only because a river is a thin thing: the Danube is 547 points at full
+10m detail, and the two files come to ~89 KB and ~47 KB — the size of `coast/italy.js`, lazy on the same
+bargain, warmed at idle and never awaited.
+
+The extra rivers are Natural Earth's own doing. `rivers.js` is built from the world centreline set alone,
+which carries 21 named rivers in the Italian box and 8 in the Greek one — the Po and the Tiber and not much
+else. The **European supplement** (`ne_10m_rivers_europe`) is the file with the Arno, the Adige, the
+Volturno, the Ofanto, the Simeto, the Acheloos, the Haliacmon and the Enipefs in it: together they give 53
+named rivers for Italy and 30 for Greece.
+
+**THE HOME CITY IS THE ONE MARK THAT IS NOT EARNED.** Since the studied-siblings rule, a red mark on a
+locator's map means *you have met this place* — which is what makes the map fill up as a collection is
+worked through, and which leaves a reader three cards into Ancient Rome looking at the Mediterranean with
+one gold mark on it and nothing to place it against. The city the whole collection is about is the fixed
+point worth giving them, and it is drawn studied or not.
+
+Its coordinate is declared in `CMAP_ANCHOR` rather than looked up, and both obvious sources fail the word
+ALWAYS. `cities.js` is the `atlas` bundle, warmed at idle, so a mark taken from it would be missing for the
+first second of every card — which is exactly the second a reader is looking at the map for the first time.
+The collection's own locators would serve Rome, where 39 cards stand `within` the city, and NOT Athens,
+which no Greek card has a locator for yet. Two cities, each named beside its own numbers, is a table the
+next session can check by eye.
+
+Three suppressions go with it, each for the same reason — one place, one mark. It is dropped on the card
+that IS that city or stands inside it, where the answer's gold mark is already there; the studied sibling
+group of the same name is dropped, the anchor being that mark; and the grey capital square under it stands
+aside, exactly as it does for a sibling. Its label is placed BEFORE the siblings take their boxes, so the
+one mark that is on every map in the collection is also the one that is always named.

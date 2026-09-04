@@ -850,23 +850,82 @@ body[data-theme="gazette"] .gt-check{box-shadow:none;}
 /* arcade squares every mark off and outlines it in ink; the gazette prints flat, so the wax loses its lift */
 body[data-theme="arcade"] .gt-seal{clip-path:none; border:2px solid var(--ink); filter:none;}
 body[data-theme="gazette"] .gt-seal{filter:none;}
-/* ---------- ON A PHONE THE MARK OWNS THE TILE'S TOP-RIGHT QUARTER (Sep 2026, on request: "the checkmarks
-   and medals on completed minigame tiles should be much larger, covering the top right quarter of the
-   tile") ----------
-   Three tiles to a 390px row is about 110px each, and at 21px the mark was a speck in a corner — a reader
-   glancing at the grid to see what is left to play could not tell a played tile from an unplayed one
-   without reading it. It is sized as a FRACTION of the tile rather than in pixels, so it stays a quarter
-   at every tile width the grid produces, with `aspect-ratio:1` keeping the seal's fluted rim round and a
-   max in px so a wide phone does not grow it past the corner it belongs in.
-   THE GLYPH INSIDE SCALES WITH IT, in percent for the same reason: a 12px check floating in a 50px circle
-   reads as a ring, not as a tick. It is scoped to `.game-tile` — the review banner's own copy of these
-   marks is a different surface with its own pair of sizes, and it is not what the request is about. */
+/* ---------- ON A PHONE A PLAYED TILE WEARS ITS COLOUR ABOVE THE TITLE (Sep 2026, on request: "the minigame
+   tiles have very large green or gold circles or medals when a minigame is completed. instead, make the top
+   60% of the tile turn green/gold, while keeping the checkmark where it is" — and then, the same day, "make
+   the gold/green start just above the minigame title … remove the circle/medal from behind the checkmark,
+   and make the white checkmark quite large") ----------
+   The first answer to this grew the mark itself to 46% of the tile, which on a 110px tile is a 68px medal
+   wearing the tile rather than a tile wearing a medal. The state is read off a BAND across the top instead,
+   green for played and gold for a perfect score, and what is left standing on it is the tick alone.
+   THE BAND IS A FLEX ITEM, NOT A PERCENTAGE OF THE TILE, which is the whole of how it knows where the title
+   is. `.gt-face` is already a flex column ending on `.gt-body`, so a `::before` (the FIRST child — the mark
+   and the glyph are absolute and out of flow) taking `flex:1 1 auto` fills exactly the space above the
+   title and its score line, at any type size, in any language, whether or not the score has wrapped. A
+   percentage cannot: 60% of a 112px tile is a number that lands above the title on one phone and through it
+   on another. It reaches the tile's edges by NEGATING the padding, which is why that padding is
+   `--gt-px`/`--gt-py` — and the overflow it makes is clipped by the tile's own `overflow:hidden`, so the
+   coloured left border still shows.
+   IT PAINTS UNDER THE GLYPH AND THE WORDS with no z-index at all: it is in flow, and an in-flow background
+   paints below every positioned descendant, which the glyph, the body and the mark all are.
+   THE GLYPH GOES ALTOGETHER (on request, having first been darkened so that it could be seen on the band —
+   which is what made it worth removing: the corner icon is an ornament naming a game whose name is written
+   underneath it in words, so on a played tile it is a second mark competing with the tick for the same
+   corner and the same colour). `display:none` rather than `opacity:0`, since it is decoration and a reader
+   on a screen reader gains nothing by keeping it in the tree. It is untouched above the breakpoint and on
+   every unplayed tile, which is every tile for most of the day.
+   THE MARK LOSES ITS DISC AND ITS WAX. Both existed to hold a small tick against whatever the tile was
+   showing; the band does that now, so the green circle and the gold seal are a second badge on top of a
+   badge. What is left is a big white tick with a shadow under it — the same tick in both states, since it
+   is the BAND that says which. `.gt-seal`'s clip-path, gold and glint all go with it; they are unchanged
+   above the breakpoint, where the tile has no band.
+   NEITHER BAND IS A FLAT COLOUR (on request): each is a three-stop gradient running with the tile's own
+   diagonal, palest at the top-left and deepest at the bottom-right, so the band reads as a lit surface
+   rather than as a swatch. The gold one additionally carries `gt-gold-shine` — the seal's own sweep, at the
+   seal's own 3.4s and with the same 3.4s rest between passes, since the glint the wax used to make is the
+   thing the wax took with it when it went, and a perfect score is the one state on the page worth a
+   flourish. The shine is a first background LAYER over the gold, which is why this rule sets
+   `background-image`/`-size`/`-position` rather than the shorthand the green band uses. The global motion
+   killswitch would leave it parked on its end frame, so it is named beside `.gt-seal` in both of that
+   switch's halves — the OS setting and Folio's own — exactly as the seal is. */
 @media (max-width:640px){
-  .game-tile .gt-check, .game-tile .gt-seal{
-    top:5px; right:5px; width:min(46%, 68px); height:auto; aspect-ratio:1;
+  .game-tile.done .gt-face::before, .game-tile.won .gt-face::before{
+    content:""; flex:1 1 auto; min-height:0;
+    margin:calc(-1 * var(--gt-py)) calc(-1 * var(--gt-px)) 7px;
+    background:linear-gradient(158deg,
+      color-mix(in srgb, var(--good, #4F9D67) 54%, var(--card)) 0%,
+      color-mix(in srgb, var(--good, #4F9D67) 72%, var(--card)) 55%,
+      color-mix(in srgb, var(--good, #4F9D67) 88%, var(--card)) 100%);
   }
-  .game-tile .gt-check svg, .game-tile .gt-seal-face svg{width:52%; height:52%;}
-  .game-tile .gt-seal-face{width:100%; height:100%; display:grid; place-items:center;}
+  .game-tile.won .gt-face::before{
+    background-image:
+      linear-gradient(112deg, rgba(255,255,255,0) 40%, rgba(255,255,255,.52) 50%, rgba(255,255,255,0) 60%),
+      linear-gradient(158deg,
+        color-mix(in srgb, #F2DC9A 92%, var(--card)) 0%,
+        color-mix(in srgb, #DDB84E 90%, var(--card)) 52%,
+        color-mix(in srgb, #BE9527 88%, var(--card)) 100%);
+    background-size:250% 100%, 100% 100%;
+    background-repeat:no-repeat;
+    background-position:110% 0, 0 0;
+    animation:gt-gold-shine 3.4s ease-in-out infinite;
+  }
+  .game-tile.done .gt-glyph, .game-tile.won .gt-glyph{display:none;}
+  /* one tick, no badge behind it — every property either state set to hold a small mark is unset here */
+  .game-tile .gt-check, .game-tile .gt-seal{
+    top:4px; right:6px; width:auto; height:auto;
+    background:none; box-shadow:none; border:0; border-radius:0; clip-path:none;
+    animation:none; color:#fff;
+    filter:drop-shadow(0 1px 3px rgba(0,0,0,.38));
+  }
+  .game-tile .gt-check svg, .game-tile .gt-seal-face svg{width:32px; height:32px; stroke-width:3.4;}
+  .game-tile .gt-seal-face{color:#fff; filter:none;}
+}
+/* the band's sweep answers to the same two switches the seal's does — and this half has to be declared
+   BELOW the block that starts it: `.game-tile.won .gt-face::before` beats nothing of its own specificity
+   except by coming later, so the copy that sits up beside `.gt-seal` reaches the seal alone. (Folio's own
+   switch is `body.no-anim …`, further down with the rest of the killswitch, and outranks it outright.) */
+@media (max-width:640px) and (prefers-reduced-motion:reduce){
+  .game-tile.won .gt-face::before{animation:none;}
 }
 /* daily challenge accent treatment */
 .banner.challenge{background:linear-gradient(135deg, var(--card) 60%, var(--zh-wash));}
@@ -1449,14 +1508,22 @@ body[data-theme="folio"] .collection-deco::after{
 /* ---------- the answer's Chinese name (see answerNameHTML) ----------
    THE MIDDLE SECTION OF THE ANSWER BOX (Sep 2026, on request): a sibling of `.answer-main` and of the
    figures grid, so on a wide card it stands between the term on the left and the figures on the right,
-   ruled off from the term by a hairline. Two lines — the characters (simplified, then the traditional form
-   at half strength where it differs) over the pinyin with its speaker — and the block is centred against
-   the term, as the figures are. It was a line under the term, on a map card only; every card that carries
+   ruled off from the term by a hairline. The traditional form where it differs sits on the line above the
+   simplified, and the pinyin with its speaker under both; the block is centred against the term, as the
+   figures are. It was a line under the term, on a map card only; every card that carries
    a Chinese name gets it now. Below 640px `.answer` stacks (see the phone block), so it goes under the
    term at full width with the rule on its top edge instead. */
-.ans-cn{display:flex; flex-direction:column; align-items:flex-start; gap:2px; flex:0 1 auto; min-width:0;
-  align-self:center; padding:2px 0 2px 16px; border-left:1px solid color-mix(in srgb, var(--zh) 22%, transparent); line-height:1.15;}
-.ans-cn .ac-chars{display:flex; align-items:baseline; flex-wrap:wrap; gap:0 10px;}
+/* THE BLOCK IS SET FLUSH RIGHT (Sep 2026, on request). Its three lines are of very different widths — a
+   two-character name over a four-character one over a romanisation twice as long as either — and ranged
+   left they read as a ragged column drifting away from the rule beside them; ranged right they line up
+   against the figures grid, which is the edge the eye is already following down the card. */
+.ans-cn{display:flex; flex-direction:column; align-items:flex-end; gap:2px; flex:0 1 auto; min-width:0;
+  align-self:center; padding:2px 0 2px 16px; border-left:1px solid color-mix(in srgb, var(--zh) 22%, transparent);
+  line-height:1.15; text-align:right;}
+.ans-cn .ac-chars{display:flex; flex-direction:column; align-items:flex-end; gap:1px;}
+/* the traditional form is written FIRST in the markup and so sits on the line above; it is still the
+   quieter of the two, smaller and at half strength, so the simplified form under it reads as the name
+   and this as the second script it is also written in. */
 .ans-cn .ac-s{font-family:var(--han); font-weight:400; font-size:calc(24px * var(--fs)); color:var(--zh); line-height:1.15;}
 .ans-cn .ac-t{font-family:var(--han); font-weight:400; font-size:calc(19px * var(--fs)); color:var(--zh); opacity:.5; line-height:1.15;}
 .ans-cn .ac-row{display:flex; align-items:center; gap:7px;}
@@ -2090,6 +2157,15 @@ body.grading .stage{padding-bottom:150px;}
 .pic-frame{margin:0 0 20px; background:var(--paper-2); border:1px solid var(--rule); border-radius:12px; overflow:hidden; display:grid; place-items:center; min-height:200px;}
 .pic-img{display:block; width:100%; max-height:46vh; object-fit:contain;}
 /* a link that has rotted — there is no upload path here, so every picture is somebody else's URL */
+/* THE PICTURE IS ENLARGEABLE ONLY ONCE THE ANSWER IS OUT (Sep 2026, on request). The class is added by
+   the reveal, never by the markup, and it carries the cursor and the zoom mark alone — `.card-img`, the
+   frame the rest of the site enlarges from, would also impose its 16:9 box and reshape the picture under
+   the reader at the moment of the reveal. */
+.pic-frame.pic-open{position:relative; cursor:zoom-in;}
+.pic-frame.pic-open:hover .ci-zoom{opacity:1;}
+.pic-frame.pic-open:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:2px;}
+/* the artefact's own five sentences, and the works they rest on, under the reveal */
+.pic-note{margin-bottom:10px;}
 .pic-frame.pic-dead::after{content:"This picture didn’t load"; font-family:var(--mono); font-size:calc(11px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); padding:40px 16px;}
 .pic-frame.pic-dead .pic-img{display:none;}
 .pic-cap{font-family:var(--display); font-weight:600; font-size:calc(15px * var(--fs)); line-height:1.35; margin:0 0 6px;}
@@ -2454,6 +2530,7 @@ table.ci-hist tr td:first-child{color:var(--ink-soft);}
 .ghost-btn:hover{background:var(--paper-2); border-color:var(--ink-soft);}
 .auth-btn{font-family:var(--mono); font-size:calc(12px * var(--fs)); letter-spacing:.06em; text-transform:uppercase; color:#fff; background:var(--indigo); border:0; border-radius:10px; padding:12px 18px; cursor:pointer; transition:filter .15s;}
 .auth-btn:hover{filter:brightness(1.08);}
+.auth-btn:disabled{opacity:.6; cursor:progress; filter:none;}
 .auth-btn.sm{padding:9px 14px; font-size:calc(11px * var(--fs));}
 .mini-btn{font-family:var(--mono); font-size:calc(10px * var(--fs)); letter-spacing:.05em; text-transform:uppercase; color:var(--ink); background:var(--paper-2); border:1px solid var(--rule); border-radius:7px; padding:6px 10px; cursor:pointer;}
 .mini-btn:hover{border-color:var(--ink-soft);}
@@ -3779,8 +3856,17 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .cph-name{font-size:calc(12px * var(--fs)); font-weight:600; line-height:1.3; min-width:0;}
 /* the title and its discovery chip share one row — the chip names the place beside it, and a line of its
    own cost the short phone sheet a whole line before the description started. The 20px right margin that
-   used to sit on .cp-name moves up here: it is what clears the × button. */
-.cp-titlerow{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:0 20px 2px 0;}
+   used to sit on .cp-name moves up here: it is what clears the × button.
+   THE ROW ITSELF NO LONGER WRAPS (Sep 2026, on a bug report: a long name, with the chip beside it, pushed
+   the × onto a second line and it appeared at the sheet's bottom LEFT). Four things on one wrapping line
+   means the last two — the chevron and the × — are the ones pushed over, so the name and its chip are
+   wrapped in `.cp-titlemain`, which is the only item allowed to shrink and the only one that wraps.
+   The controls are `align-self:flex-start`, so a name running to two lines keeps them at the TOP right
+   rather than centring them against it; on a one-line name the row is the buttons' own height and the two
+   rules agree. */
+.cp-titlerow{display:flex; align-items:center; gap:8px; flex-wrap:nowrap; margin:0 20px 2px 0;}
+.cp-titlemain{display:flex; align-items:center; gap:8px; flex-wrap:wrap; flex:1 1 auto; min-width:0;}
+.cp-titlerow > .cp-more,.cp-titlerow > .cp-close{align-self:flex-start;}
 /* The × lives INSIDE the title row (see the markup note in app.js) and is still absolutely positioned
    here, so on the desktop it keeps the panel's top-right corner and the row's 20px right margin is still
    what clears it. `margin-left:auto` is what puts it last once the sheet sets it back in flow. */
@@ -3817,11 +3903,6 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .cp-v[data-tip]::before{content:""; position:absolute; bottom:calc(100% + 1px); left:15px; border:5px solid transparent; border-top-color:var(--ink); opacity:0; transition:opacity .12s ease; z-index:9;}
 .cp-v[data-tip]:hover::after, .cp-v[data-tip]:focus::after{opacity:1; transform:translateY(0);}
 .cp-v[data-tip]:hover::before, .cp-v[data-tip]:focus::before{opacity:1;}
-/* the phone pager's dots — hidden on desktop, where the sections stack and scroll vertically */
-.cp-dots{flex:none; display:flex; justify-content:center; align-items:center; gap:7px; padding:9px 0 1px; margin-top:2px;}
-.cp-dots[hidden]{display:none;}   /* the author display:flex would otherwise defeat the hidden attribute (codebase convention, cf. .country-pop[hidden]) */
-.cp-dot{appearance:none; border:0; padding:0; width:7px; height:7px; border-radius:50%; background:var(--rule); cursor:pointer; transition:background .16s var(--ease), transform .16s var(--ease);}
-.cp-dot.on{background:var(--indigo); transform:scale(1.32);}
 /* TABLETS TAKE THE SHEET TOO (Aug 2026, on request: "on tablet format, the Atlas should use the same
    popup system as mobile, not the desktop one"). The left-hand panel is written for a wide window — it
    runs the full height of the stage down one edge, which on a 900px tablet held in the hand covers a
@@ -3831,11 +3912,17 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    commonest tablet land here. */
 @media (max-width:1024px){
   .country-pop{--cp-sheet:1;}
-  /* phones and tablets: back to a BOTTOM sheet, so the globe + the × stay visible. The sheet is short, and four sections
-     stacked in it buried the figures three scrolls down — so here the sections lie SIDE BY SIDE and are swiped
-     between, one page at a time, with the dots below saying how many there are. Every page is expanded (there
-     is nothing under a page to uncover by folding it) and an empty one is dropped from the run rather than
-     shown, so a swipe never lands on a dash. The title block above and the dots below stay put. */
+  /* phones and tablets: back to a BOTTOM sheet, so the globe + the × stay visible. The sheet is short, and
+     four sections stacked in it buried the figures three scrolls down — which is why they lay SIDE BY SIDE
+     and were swiped between until Sep 2026, when the figures were moved to the TOP of the stack instead
+     (on request: "users currently need to swipe right to see the country data boxes — instead, move them
+     to above the country background paragraphs so it is all in one page"). Reading them first is the same
+     fix without the gesture, and a gesture is the worse half: a page reached only by swiping is a page a
+     reader who does not swipe never learns is there. So the sections stack and scroll, as they do on the
+     desktop, and `order` — rather than a moved node — puts the figures above the paragraphs HERE only,
+     leaving the desktop column, which has room for both and is read top to bottom, as it was.
+     An empty section is still dropped outright rather than shown collapsed: on a box this size a header
+     with nothing under it spends a line on an absence. */
   .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:52%; padding:15px 16px 8px;}
   /* the sheet is centred by a transform, so its entrance has to carry that translate rather than replace it */
   .country-pop:not([hidden]){animation-name:cpInSheet;}
@@ -3848,20 +3935,17 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
      in step with CP_FOLD_MS in app.js. */
   .country-pop.cp-sized{max-height:none; overflow:hidden; transition:height .26s var(--ease);}
   .cp-sized .cp-head{max-height:none; flex:0 1 auto; min-height:0;}
-  .cp-head{max-height:46%; overflow-y:auto;}   /* "Through the ages" can run to a dozen rows — cap it, or it pushes the pages off the sheet */
-  /* the pages ARE a horizontal scroller here, so the panel's `overflow-x:clip` is explicitly undone */
-  .cp-cols{display:flex; flex-direction:row; flex:1; gap:0; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; padding-right:0; scrollbar-width:none; -webkit-overflow-scrolling:touch;}
-  .cp-cols::-webkit-scrollbar{display:none;}
-  /* scroll-snap-stop:always is what keeps a hard flick to ONE page. Without it a fast swipe carries past
-     the year paragraph straight from the description to the figures — the middle section is skipped, and
-     silently, since the dots simply land two along. `mandatory` only says WHERE a scroll may come to rest;
-     `always` is what forbids passing a snap point within a single gesture, momentum included. */
-  .cp-cols > .cp-sec{flex:0 0 100%; width:100%; min-width:100%; scroll-snap-align:start; scroll-snap-stop:always; overflow-y:auto; overscroll-behavior-y:contain; padding:0 1px 0 0; border-top:0;}
-  .cp-cols > .cp-sec.cp-blank{display:none;}                     /* an empty page is a swipe that lands on nothing */
-  .cp-cols > .cp-sec.collapsed .cp-sec-body{display:block;}       /* the folds are pages here — always open */
-  .cp-cols > .cp-sec.collapsed .cp-sec-head{padding-bottom:6px;}
-  .cp-cols .cp-sec-head{cursor:default;}
-  .cp-cols .cp-sec-chev{display:none;}
+  .cp-head{max-height:46%; overflow-y:auto;}   /* "Through the ages" can run to a dozen rows — cap it, or it pushes the sections off the sheet */
+  .cp-cols{flex:1; gap:12px;}
+  .cp-cols > .cp-sec.cp-blank{display:none;}   /* a header with nothing under it spends a line of a small box on an absence */
+  /* THE FIGURES COME FIRST HERE. `order` rather than a moved node, so the desktop panel keeps its own
+     order (see the block comment above) — the cost is that the sheet's visual order and its DOM order
+     differ by one section, which for a four-part information panel read straight through is a fair trade
+     against a layout written twice. The rules the grid gave the figures as a MIDDLE section come off with
+     it: a separator above the first thing in a box is a line under nothing, and it moves to the
+     description, which is now what follows them. */
+  .cp-cols > .cp-statsec{order:-1; border-top:0; padding-top:0;}
+  .cp-cols > .cp-descsec{border-top:1px solid var(--rule); padding-top:10px;}
   /* ---- SHUT BY DEFAULT (Aug 2026, on request) ----
      A tap on a country asks what it is, and the name is the answer; everything else waits for the chevron.
      The height is set in JS (see cpApplyH — the floor is measured, since a long name wraps and a drilled
@@ -3885,7 +3969,7 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
      sizes side by side on the same line read as two different kinds of thing. */
   .cp-titlerow{margin-right:0;}
   .cp-titlerow .cp-close{position:static; margin-left:0; width:30px; height:30px; border-radius:9px; font-size:calc(19px * var(--fs)); color:var(--ink-soft); flex:none;}
-  .cp-shut .cp-cols,.cp-shut .cp-dots,.cp-shut .cp-tools,.cp-shut .cp-hist{display:none;}
+  .cp-shut .cp-cols,.cp-shut .cp-tools,.cp-shut .cp-hist{display:none;}
   .cp-shut .cp-head{overflow:visible;}
 }
 /* map editor toolbar (Edit → Timeline → "Edit on globe") */
@@ -4655,7 +4739,8 @@ sup.fn:focus-visible{outline:2px solid var(--indigo-bright); outline-offset:1px;
   background:linear-gradient(105deg, color-mix(in srgb, var(--tile, var(--indigo)) 20%, transparent), transparent 64%),
              linear-gradient(150deg, var(--card) 56%, color-mix(in srgb, var(--tile, var(--indigo)) 16%, var(--card)));
   border:1px solid var(--rule); border-left:4px solid var(--tile, var(--rule)); border-radius:14px;
-  padding:18px; box-shadow:var(--shadow-md);
+  /* the padding is a pair of properties so a full-bleed child can negate it — the played band below */
+  --gt-px:18px; --gt-py:18px; padding:var(--gt-py) var(--gt-px); box-shadow:var(--shadow-md);
   display:flex; flex-direction:column; justify-content:flex-end;
   transition:transform .18s var(--ease), box-shadow .22s var(--ease), border-color .18s;
 }
@@ -5023,7 +5108,10 @@ button.game-tile .gt-glyph{opacity:.14;}
   .answer{flex-direction:column; align-items:stretch; gap:0;}
   .answer-main{flex-direction:column; align-items:flex-start; gap:5px; width:100%;}
   .av-row{flex-direction:column; align-items:flex-start; gap:10px;}
-  .ans-cn{align-self:stretch; padding:10px 0 0; margin-top:8px; border-left:0; border-top:1px solid color-mix(in srgb, var(--zh) 22%, transparent);}
+  /* the rule is the ordinary `--rule` grey here, not the Chinese ink (Sep 2026, on request): on a phone
+     it runs the full width of the card, where a red hairline reads as part of the answer rather than as
+     the line dividing it from the name below. */
+  .ans-cn{align-self:stretch; padding:10px 0 0; margin-top:8px; border-left:0; border-top:1px solid var(--rule);}
   /* .answer stacks here, so "on the right" has nowhere to be — the figures go back under the answer and
      take the full width. Two columns still, which at 390px is what the tiles were sized for anyway. */
   .card-facts{max-width:none; width:100%; margin-top:12px;}
@@ -5115,7 +5203,7 @@ button.game-tile .gt-glyph{opacity:.14;}
   /* the padding is 9px, not 14, because the title has to fit on ONE line (Aug 2026, on request): three
      tiles to a 390px row leave about 89px of text at 14px of padding, and "Multiple Choice" needs 95. Nine
      gives it 97, and the type below drops with it. */
-  .game-tile{min-height:112px; padding:14px 9px;}
+  .game-tile{min-height:112px; --gt-px:9px; --gt-py:14px;}
   .gt-title{font-size:calc(12.5px * var(--fs)); line-height:1.15;}   /* one line per tile — see the padding note above */
   .gt-glyph-svg svg{width:78px; height:78px;}   /* a 112px ornament fills a 110px tile edge to edge */
   .gt-glyph-svg{top:-10px; right:-10px;}
@@ -5208,7 +5296,7 @@ button.game-tile .gt-glyph{opacity:.14;}
   /* Three tiles to a row on a 390px screen is about 110px each, so the display title comes down again:
      at 18px "Multiple Choice" breaks to three lines. */
   .game-grid{gap:8px;}
-  .game-tile{padding:12px 8px;}
+  .game-tile{--gt-px:8px; --gt-py:12px;}
   .gt-title{font-size:calc(12px * var(--fs)); line-height:1.15;}
   .gt-sub{font-size:calc(11px * var(--fs)); line-height:1.3; margin-top:3px;}
   .gt-eyebrow{margin-bottom:5px;}
@@ -5243,7 +5331,7 @@ button.game-tile .gt-glyph{opacity:.14;}
 body.no-anim *,body.no-anim *::before,body.no-anim *::after{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
 body.no-anim .page > *{animation-delay:0s !important;}
 body.no-anim .lu-conf,body.no-anim .lu-burst{display:none;}
-body.no-anim .gt-seal{animation:none;}
+body.no-anim .gt-seal, body.no-anim .game-tile.won .gt-face::before{animation:none;}
 body.no-anim .data-loading .dl-globe,body.no-anim .data-loading .dl-globe::before{animation:none; border-color:var(--rule); border-top-color:var(--indigo);}
 
 /* ============================================================

@@ -103,3 +103,12 @@ decks/Spanish-All-Levels.folio-deck.json
 # .claude/check-citations.js Crossref answers (regenerated on demand)
 .claude/.crossref-cache.json
 .claude/worktrees/
+
+# the Natural Earth 10m countries geojson .claude/build-hires-coasts.js reads the coast chains off
+# (~13 MB, fetched by .claude/dl-ne10.js). The coast/<region>.js it writes IS committed.
+.claude/ne_10m.geojson
+
+# the two Natural Earth river geojsons .claude/build-hires-rivers.js reads the centerlines off (~10 MB).
+# The rivers/<region>.js it writes IS committed — this is only the working cache behind it.
+.claude/ne_10m_rivers_lake_centerlines.geojson
+.claude/ne_10m_rivers_europe.geojson

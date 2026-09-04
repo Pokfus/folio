@@ -18,6 +18,20 @@
   and the answer are not the same words ("Cycladic civilisation" is marked at "The Cyclades"). `zoom` is
   optional and overrides the default ~50° window; a river or a region wants less, a small site more.
 
+  A PLACE WITH EXTENT DECLARES ITS SHAPE HERE, AND THE SHAPE IS THE ONE THING NOT FETCHED (Sep 2026, with
+  the six peoples of Iron Age Italy). A `kind` of "region" carries an `area` of [lon, lat] points and a
+  `kind` of "range" a `spine`; app.js draws the first as a washed shape under a DASHED edge and the second
+  as mountains along the line, and the dash is the honesty — a people's country has no border to be right
+  about, so the drawing says "about here" rather than asserting a frontier Folio surveyed.
+
+    { "cards": { "rm-012": { "title": "Rieti", "name": "The Sabine country", "kind": "region",
+                             "area": [[12.42, 42.27], [12.62, 42.12], …] } } }
+
+  The `at` is STILL FETCHED even for these: it is what a region falls back to when its own shape cannot be
+  read, and a hand-typed pair is the one error nothing downstream can see. The shape is validated the way
+  add-card.js validates a new card's — every point a real [lon, lat], at least three of them, and neither
+  `area` nor `spine` accepted on a kind that would carry it in data.js and never draw it.
+
   THE COORDINATE IS FETCHED AND NEVER TYPED. This is the whole reason the script exists: a hand-entered
   pair is a dot a degree out, which draws perfectly, sits in the right country and points at the wrong
   place — and nothing on the page, in the data or in any test can say so. Each coordinate is the PRIMARY
@@ -63,7 +77,34 @@ for (const id of Object.keys(want)) {
   if (spec.zoom != null && (!isFinite(zoom) || zoom <= 0)) die(id + ": `zoom` must be a positive number");
   const name = String(spec.name || card.answerText || "").trim();
   if (!name) die(id + ": no `name` and the card has no answerText to fall back on");
-  jobs.push({ id, card, title, name, zoom });
+  /* The authored half, validated before a single request is made — the same rule this file already
+     follows for everything else: a half-applied batch is worse than a refused one, and here a refusal
+     after the fetches would also have wasted them. */
+  const KINDS = ["point", "battle", "river", "range", "region"];
+  const kind = spec.kind == null ? "point" : String(spec.kind);
+  if (KINDS.indexOf(kind) < 0) die(id + ": `kind` must be one of " + KINDS.join(", ") + " — got " + JSON.stringify(spec.kind));
+  const shapeKey = kind === "region" ? "area" : kind === "range" ? "spine" : null;
+  const pts = (v) => {
+    if (!Array.isArray(v) || v.length < 3) return null;
+    const out = [];
+    for (const p of v) {
+      if (!Array.isArray(p) || p.length !== 2) return null;
+      const lon = Number(p[0]), lat = Number(p[1]);
+      if (!isFinite(lon) || !isFinite(lat) || Math.abs(lon) > 180 || Math.abs(lat) > 90) return null;
+      out.push([lon, lat]);
+    }
+    return out;
+  };
+  let shape = null;
+  if (shapeKey) {
+    shape = pts(spec[shapeKey]);
+    if (!shape) die(id + ": a locator of kind \"" + kind + "\" needs a `" + shapeKey + "` of at least three [lon, lat] points — without it the card falls back to a dot, which is the mark this kind exists to replace");
+  }
+  for (const extra of ["area", "spine"]) {
+    if (spec[extra] != null && extra !== shapeKey) die(id + ": `" + extra + "` is only read on a locator of kind \"" + (extra === "area" ? "region" : "range") + "\" — this one is \"" + kind + "\", so the shape would sit in data.js and never be drawn");
+  }
+  const within = spec.within == null ? "" : String(spec.within).trim();
+  jobs.push({ id, card, title, name, zoom, kind, shapeKey, shape, within });
 }
 
 (async () => {
@@ -95,8 +136,11 @@ for (const id of Object.keys(want)) {
     if (!got) { console.warn("no primary coordinate: " + j.id + " / " + j.title + (redirected ? "" : "  (no such article)")); continue; }
     const loc = { name: j.name, at: got };
     if (j.zoom) loc.zoom = j.zoom;
+    if (j.kind && j.kind !== "point") loc.kind = j.kind;
+    if (j.shapeKey && j.shape) loc[j.shapeKey] = j.shape;
+    if (j.within) loc.within = j.within;
     j.card.locator = loc;
-    done.push(j.id + "  " + j.name + "  [" + got.join(", ") + "]" + (redirected && redirected !== j.title ? "  ← " + redirected : ""));
+    done.push(j.id + "  " + j.name + "  " + (j.kind === "point" ? "" : j.kind + (j.shape ? " (" + j.shape.length + " pts)" : "") + "  ") + "[" + got.join(", ") + "]" + (redirected && redirected !== j.title ? "  ← " + redirected : ""));
     await new Promise((r) => setTimeout(r, 900));   // be polite to the API
   }
 
