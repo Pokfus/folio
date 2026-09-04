@@ -177,7 +177,7 @@ Grouped so the research is shared — one body of scholarship serves a whole bat
 | N14 | 12 | Materials, alloys and the sciences that source them — **shipped**, 10 of 12 pictured; clears N9's deferred *Poros stone* |
 | N15 | 12 | Rome's foundation and its earliest institutions — **shipped**, 8 of 12 pictured |
 | N16 | 12 | The hills of Rome and the city's topography — **shipped**, 6 of 12 pictured |
-| N17 | 12 | Latium: the Latial culture and its sites |
+| N17 | 12 | Latium: the Latial culture and its sites — **shipped**, 7 of 12 pictured |
 | N18 | 12 | The Italic peoples — Samnites, Sabines, Umbrians |
 | N19 | 12 | Umbria and its sanctuaries |
 | N20 | 12 | Italian landscape and geology |
@@ -331,6 +331,76 @@ them already recorded here and all of them learned the hard way:
 - **an alias list written before its sibling term exists will contain that sibling's name** —
   `Arcadia` is requested twice in the same list, once as a Greek region and once as the Arcadian
   homeland of Evander in Rome's foundation legend.
+
+### N17's findings
+
+**N17 — Latium: the Latial culture and its sites (shipped, 7 of 12 pictured).** The Latial culture,
+Lavinium, Gabii, Tusculum, Aricia, Ardea, Praeneste, Satricum, Crustumerium, Ficana, Fidenae and the
+grove of Ferentina.
+
+**THE SPINE MOVES ONE VOLUME ALONG: SMITH'S *GEOGRAPHY* HAS AN ENTRY FOR EVERY SITE IN LATIUM.** N16's
+Platner and Ashby is the topography of the CITY and stops at the walls; the country outside it is covered
+by Smith's *Dictionary of Greek and Roman Geography* (Perseus text id `1999.04.0064`, `-geo` slugs),
+which N13 had already used for Cyprus and the Levant. Eleven of the twelve terms take a Smith entry, and
+every entry is substantial and cites its ancient authorities by name — which is also what lets it pass
+the plan's own encyclopedia test. **Livy carries the second source for ten of them**, so the batch is
+again two works and a choice of chapter. Where a place's Smith slug does not exist the failure is loud:
+`ferentina-geo` returns the 1,877-byte error page, so the grove takes **two Livy chapters instead**, 1.50
+for Turnus Herdonius denouncing Tarquin there and 1.51 for his drowning in the spring under a weighted
+hurdle.
+
+**AND THE 1,877-BYTE AND 66,664-BYTE PERSEUS PAGES CARRY THE SAME WORDS.** N16 recorded them as two
+distinct failure modes; they are one message — "we were unable to find a document matching your query" —
+served at two sizes depending on how much navigation the surrounding page carries. **The size is not the
+diagnostic and neither is the status; the body is.**
+
+**A MODERN SECOND SOURCE FOR THE CULTURE ITSELF WAS ALREADY IN THE GLOSSARY.** `Latial_culture` is the
+one term in the batch that a 19th-century geography cannot carry alone, and Fulminante, Prignano, Morer
+and Lozano's 2017 paper on the Latin road network — cited already by `Latins`, `Latium` and `rm-010` —
+states the periodisation outright, mapping Latial IIA through IVB against the Iron Age sequence and
+saying that Latium vetus was organised in proto-urban centres and then city-states with a common material
+culture. **Read the register before searching**: Europe PMC returned nothing usable for "Latial culture"
+in three queries, and the work that answers had been sitting in the corpus for months.
+
+**THE REGISTER'S OWN CITATION OF THAT PAPER IS WRONG IN TWO WAYS, AND THE PAGE SAYS SO.** It is filed as
+"Francesca Fulminante et al." with a colon in the title; the article's own metadata gives four authors —
+Fulminante, Prignano, Morer and Lozano — and a title punctuated with a **full stop**, "Coordinated
+Decisions and Unbalanced Power. How Latin Cities Shaped Their Terrestrial Transportation Network". The
+new citation is written from the metadata. This is N4's fabricated-author finding in its mildest form and
+it is worth restating: **a citation inherited from the register is inherited, not verified.**
+
+**PERSÉE ANSWERS FOR METADATA AND REFUSES THE TEXT.** Its article record pages are open and carry
+`citation_author`, `citation_firstpage`, `citation_lastpage` and `citation_doi` in full — Bourdin's
+"Ardée et les Rutules", MEFRA 117.2 (2005): 585–631, was confirmed that way in seconds — but
+`persee.fr/docAsPDF/…` is **403** here and the record page carries no body text, so the article cannot be
+read. Under the rule that a source is cited for a claim someone has actually read, a Persée article
+verified this way is a bibliographic fact and not yet a citation.
+
+**ONE KEY WAS REFUSED ON A GENUS COLLISION AND ONE WAS KEPT, ON THE SAME MEASUREMENT.** N15's rule is to
+ask what a bare surface will match once the other collections are written. `Ardea` is also the heron
+genus, certain to appear in the planned Biology and Dinosaurs collections, and `Aricia` is a lycaenid
+butterfly genus that is not. Both were measured: today every corpus use of either is the Latin town, so
+the balance favours keeping both, and the difference between them is only how likely the modern sense is
+to arrive — **which is a judgement, recorded here rather than hidden in a key**. If a bio card ever
+writes *Ardea cinerea*, `check-gloss-links.js` will not see it (the checker compares geography tags and
+neither term carries one), so this paragraph is the record.
+
+**THE PICTURE PASS CAUGHT THE NAME-IN-THE-WRONG-PLACE TRAP FOR THE THIRD BATCH RUNNING, AND CATEGORY
+MEMBERSHIP IS WHAT CAUGHT IT.** `Latial_culture` wanted a hut urn, and Commons offers a fine bronze one
+captioned "dalla necropoli dell'osteria" — which is **Vulci**, not Osteria dell'Osa in Latium: the file's
+own categories read "Antiquities from Vulci" and "Etruscan funerary urns". A Villanovan urn illustrating
+the Latial culture would have been wrong in exactly the way the term exists to prevent, and no reading of
+the title would have shown it. **Read the categories, not the caption.** No Latium-provenance hut urn was
+found, so the term ships unpictured.
+
+**FIVE SHIP WITHOUT A PICTURE AND THE REASONS DIFFER.** `Crustumerium` has an empty Commons category and
+`Lucus_Ferentinae` none at all; `Ficana`'s only namesake is a modern village in the Marche; `Fidenae`
+offers a museum case of human remains, which is not what a place term should show; and `Latial_culture`
+is the Vulci case above. The seven that shipped divide into **sites** — the Thirteen Altars at Lavinium,
+a temple wall at Gabii, the ridge at Tusculum, the tufa wall of Ardea, the terraces of Fortuna Primigenia
+at Praeneste — and **objects from a site**, an antefix from Satricum and a votive head from the Aricia
+sanctuary. Where a Latin town survives only as a name in Pliny's list of extinct cities, there is nothing
+to photograph, and that is a fact about the subject rather than a gap in the pass.
 
 ### N16's findings
 
