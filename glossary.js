@@ -1767,7 +1767,8 @@ window.GLOSSARY = {
 "Eurybiades": "Eurybiades, son of Euryclides, was the Spartan commander of the allied Greek fleet during the invasion of Xerxes I in 480 BCE, holding the command at Artemisium and at Salamis because the allies refused to serve under Athenian leadership.<sup class=\"fn\" data-fn=\"1\"></sup> He twice favoured withdrawal, from Artemisium and from Salamis to the Isthmus, and both times was persuaded to stay, on the first occasion by money Themistocles had taken from the Euboeans.<sup class=\"fn\" data-fn=\"1\"></sup> After the victory he opposed sailing to destroy the bridges over the Hellespont, arguing that a Persian king trapped in Europe would be more dangerous than one allowed to leave, and Sparta later crowned him for valour.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Artemisia_I_of_Caria": "Artemisia I of Caria was the ruler of Halicarnassus, Cos, Nisyrus and Calydnos who fought on the Persian side in the invasion of Greece in 480 BCE, contributing five ships to the fleet of Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus, a native of her city, gives her an unusually prominent part, reporting that she alone advised the king against fighting at sea before Salamis and that she escaped the battle by ramming a ship of her own side.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Later writers added further stratagems under her name, and Pausanias records a statue of her among the marble Persians of the Persian Stoa at Sparta.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Persian_retreat_from_Greece": "The Persian retreat was the withdrawal of Xerxes I and most of his army from Greece in the autumn of 480 BCE, after the defeat at Salamis, leaving Mardonius in Thessaly with a picked force to continue the war.<sup class=\"fn\" data-fn=\"1\"></sup> Herodotus describes a march of 45 days to the Hellespont in which the troops stripped the country and then ate grass and bark, and plague and dysentery killed so many that the king brought home almost none of his host.<sup class=\"fn\" data-fn=\"1\"></sup> Other accounts differ sharply: Aeschylus has the survivors break through the ice of a frozen Strymon, and Justin has the king himself cross to Abydos in a fishing-boat.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Battle_of_Plataea": "The Battle of Plataea was fought in Boeotia in 479 BCE between an allied Greek army under the Spartan regent Pausanias and the Persian force left in Greece under Mardonius, and ended the invasion begun by Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> The Greeks were driven from their water by Persian cavalry and moved position by night; the movement went wrong in the dark, but the Persians broke when Mardonius was killed and their camp was stormed.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient counts of the losses differ widely, Herodotus giving the Greek dead as 160 and Plutarch as 1,360, while Diodorus reports more than ten thousand buried.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Battle_of_Plataea": "The Battle of Plataea was fought in Boeotia in 479 BCE between an allied Greek army under the Spartan regent Pausanias and the Persian force left in Greece under Mardonius, and ended the invasion begun by Xerxes I.<sup class=\"fn\" data-fn=\"1\"></sup> The Greeks were driven from their water by Persian cavalry and moved position by night; the movement went wrong in the dark, but the Persians broke when Mardonius was killed and their camp was stormed.<sup class=\"fn\" data-fn=\"1\"></sup> Ancient counts of the losses differ widely, Herodotus giving the Greek dead as 160 and Plutarch as 1,360, while Diodorus reports more than ten thousand buried.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Pausanias_the_regent": "Pausanias the regent was a Spartan, son of Cleombrotus, who governed for the boy king Pleistarchus and led the allied Greek army that defeated the Persians at Plataea in 479 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Given command at sea afterwards, he was recalled from Byzantium on complaints of oppression and medism, acquitted on the heaviest charge and never restored, and the couplet he had cut on the Delphic tripod claiming the victory for himself was erased by the Spartans.<sup class=\"fn\" data-fn=\"2\"></sup> Later evidence of dealings with Persia and of intrigue with the helots led the ephors to wall him into the temple of Athena of the Brazen House, where he starved.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2559,7 +2560,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Eurybiades": "fl. 480 BCE",
 "Artemisia_I_of_Caria": "fl. 480 BCE",
 "Persian_retreat_from_Greece": "480 BCE",
-"Battle_of_Plataea": "479 BCE"
+"Battle_of_Plataea": "479 BCE",
+"Pausanias_the_regent": "fl. 479 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3665,7 +3667,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Thespiae": ["Thespians","Thespian","Thespians at Thermopylae"],
 "Battle_of_Artemisium": ["Artemisium"],
 "Artemisia_I_of_Caria": ["Artemisia of Halicarnassus"],
-"Persian_retreat_from_Greece": ["Persian retreat"]
+"Persian_retreat_from_Greece": ["Persian retreat"],
+"Pausanias_the_regent": ["Pausanias, son of Cleombrotus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5462,7 +5465,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Eurybiades": ["person","history","warfare","greece"],
 "Artemisia_I_of_Caria": ["ruler","history","warfare","greece","iran"],
 "Persian_retreat_from_Greece": ["event","history","warfare","greece","iran"],
-"Battle_of_Plataea": ["battle","history","warfare","greece","iran"]
+"Battle_of_Plataea": ["battle","history","warfare","greece","iran"],
+"Pausanias_the_regent": ["person","history","warfare","greece"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
