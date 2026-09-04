@@ -63,6 +63,11 @@ const HUNDRED_RE = new RegExp("\\b(" + Object.keys(UNITS).join("|") + ")\\s+hund
 const TEENS = { ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, seventeen: 17, eighteen: 18, nineteen: 19 };
 // PROPER NAMES that contain number words — never converted
 const NUM_EXCLUDE = [/Twenty-Four Histories/gi, /Twenty-four Filial Exemplars/gi];
+// PROPER NAMES that contain an ordinal + "century" — never converted. Rule 2 is the one rule with a
+// `--fix`, so without this it does to a period's NAME what the citation mask exists to stop it doing to a
+// published title: the Crisis of the Third Century is what the period is called, and "Crisis of the 3rd
+// Century" names nothing. Rule 1 has had NUM_EXCLUDE since the Twenty-Four Histories; this is its sibling.
+const ORD_EXCLUDE = [/Crisis of the Third Century/gi];
 
 /* --- rule 3: literature titles --- */
 // Unambiguous titles (safe to auto-wrap when not already italicised)
@@ -210,7 +215,9 @@ for (const file of FILES) {
     continue;
   }
 
-  // rule 2 — centuries/millennia (pairs first, then singles)
+  // rule 2 — centuries/millennia (pairs first, then singles; proper names masked so they're never converted)
+  const ordMasks = [];
+  ORD_EXCLUDE.forEach((re) => { text = text.replace(re, (m0) => { ordMasks.push(m0); return "ORDMASK" + (ordMasks.length - 1) + "ORDMASK"; }); });
   for (const re of [ORD_PAIR_RE, ORD_RE]) {
     if (FIX) {
       text = text.replace(re, (m0, ord, tail) => {
@@ -220,6 +227,7 @@ for (const file of FILES) {
       });
     } else findAll(text, re, "century-word", report, name);
   }
+  text = text.replace(/ORDMASK(\d+)ORDMASK/g, (m0, i) => ordMasks[Number(i)]);
 
   // rule 1 — compound numbers (proper names masked first so they're never converted)
   const masks = [];
