@@ -1796,7 +1796,8 @@ window.GLOSSARY = {
 "Freetown": "Freetown is the capital of Sierra Leone, standing on the Atlantic coast of that West African state, and is its largest urban area as well as its seat of government. The United Nations Statistics Division names it as the capital and gives about 1.17 million people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area and carries past 1.38 million by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American consulate general in the city was raised to embassy status on 27 April 1961, the day Sierra Leone became independent of Britain, so the mission there changed rank rather than opening anew.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Lomé": "Lomé is the capital of Togo, standing on the Gulf of Guinea at the western edge of that narrow West African state, and is its largest urban area as well as its seat of government. The United Nations Statistics Division names it as the capital and gives about 1.79 million people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area and carries past 2.1 million by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American consulate in the city was raised to embassy status on 27 April 1960, the day the United States recognised the Republic of Togo on its independence from a French-administered United Nations trusteeship.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Vientiane": "Vientiane is the capital of Laos, standing in the west of that landlocked South-east Asian state, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 673,000 people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area and carries to some 756,000 by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American legation opened in the city on 22 August 1950 and became an embassy in 1955, but its head was downgraded to chargé d'affaires after the Lao People's Democratic Republic was founded in 1975, and no ambassador was posted again until 1992.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Ashgabat": "Ashgabat is the capital of Turkmenistan, standing in the south of that Central Asian state, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 828,000 people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area and carries past 940,000 by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy there was established on 17 March 1992, and is recorded under a heading that names the city twice over, as “Ashkabad (now Ashgabat)”, the older transliteration standing beside the current one.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Ashgabat": "Ashgabat is the capital of Turkmenistan, standing in the south of that Central Asian state, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 828,000 people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area and carries past 940,000 by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy there was established on 17 March 1992, and is recorded under a heading that names the city twice over, as “Ashkabad (now Ashgabat)”, the older transliteration standing beside the current one.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Tripoli": "Tripoli is the capital of Libya, standing on the Mediterranean coast of that North African state, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 1.16 million people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American consul took up his post in the city in 1799, and the American embassy there has closed and reopened repeatedly since: shut from 1980 until 2006 without relations being severed, suspended in 2011 and again in 2014, and working from Tunisia since March 2015.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3650,7 +3651,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Astana": ["Nur-Sultan"],
 "N'Djamena": ["Fort Lamy","Fort-Lamy"],
 "Mogadishu": ["Mogadiscio"],
-"Bujumbura": ["Usumbura"]
+"Bujumbura": ["Usumbura"],
+"Tripoli": ["Tarabulus"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5475,7 +5477,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Freetown": ["place","city","geography","capital","sierra leone"],
 "Lomé": ["place","city","geography","capital","togo"],
 "Vientiane": ["place","city","geography","capital","laos"],
-"Ashgabat": ["place","city","geography","capital","turkmenistan"]
+"Ashgabat": ["place","city","geography","capital","turkmenistan"],
+"Tripoli": ["place","city","geography","capital","libya"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
