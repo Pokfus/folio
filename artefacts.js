@@ -1351,4 +1351,18 @@ window.ARTEFACTS = [
     date: "c. 700 – 300 BCE",
     origin: "Ganges plain, northern India",
   },
+  {
+    id: "ban-chiang-pot",
+    name: "Ban Chiang pot",
+    rarity: "common",
+    date: "c. 1500 BCE – 300 CE",
+    origin: "Khorat plateau, north-eastern Thailand",
+  },
+  {
+    id: "sumatralith",
+    name: "Sumatralith",
+    rarity: "common",
+    date: "c. 11,000 – 5,000 BP",
+    origin: "Sumatra and mainland Southeast Asia",
+  },
 ];

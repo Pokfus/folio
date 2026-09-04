@@ -271,7 +271,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B2b | `bronze-ding`, `longquan-celadon-bowl` (UN-DEFERRED), `wax-tablet` | ~~han-tomb-brick~~ (cleared and shipped in B2c) |
 | B3a | `samurai-katana`, `ukiyo-e-print`, `goryeo-celadon` | — |
 | B3b | `daguerreotype`, `jomon-dogu`, `magatama` (**B3's list is now empty but for `dotaku`**) | `dotaku` (needs a third openable work) |
-| B4a | `dong-son-drum`, `lapita-pottery`, `palm-leaf-folio` | `ban-chiang-pot` |
+| B4a | `dong-son-drum`, `lapita-pottery`, `palm-leaf-folio` | ~~ban-chiang-pot~~ (cleared and shipped in B4c) |
 | C2a | `thule-harpoon-head`, `great-zimbabwe-bird` (**two, not three — see below**) | — |
 | D3a | `dotaku` (UN-DEFERRED), `mississippian-shell-gorget` | — (a deferral sweep that cleared one of eight) |
 | E2a | `type-sort`, `slide-rule`, `portable-sundial` | — |
@@ -281,16 +281,17 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | E3c/C1c/E2c | `bartmann-jug`, `byzantine-ivory-panel`, `gutenberg-bible-leaf` | — |
 | C3b/E3d | `wampum-bead`, `thimble` (**two, not three — see below**) | ~~moche-portrait-vessel~~ (cleared and shipped in C3c), `bodkin-arrowhead` |
 | B1d | `mughal-miniature` (UN-DEFERRED; **one, not three — see below**) | `glass-bangle` again, ~~mariners-astrolabe~~ (cleared and shipped in E2d), `turnshoe` |
-| B4b | `shell-adze` | `sumatralith` (no openable work uses the term) |
+| B4b | `shell-adze` | ~~sumatralith~~ ("no openable work uses the term" — wrong; cleared and shipped in B4c) |
 | D1c | `novgorod-birch-bark-letter` (**UN-HELD — D1's list is now empty**) | — |
 | E3e | `steel-pen-nib` (UN-DEFERRED — **E3's list is now empty**) | — |
 | C1d | `mamluk-mosque-lamp` (UN-DEFERRED) | — |
 | C3c | `moche-portrait-vessel` (UN-DEFERRED — **C3's list is now empty**) | — |
 | B2c/B3c | `han-tomb-brick`, `buncheong-bowl` (both UN-DEFERRED — **B3's list is now empty**) | — |
 | A3a/B2d | `golden-crown-of-silla`, `inkstone` (UN-DEFERRED — **B2's list is now empty**) | — |
-| E2d | `mariners-astrolabe` (UN-DEFERRED; **one, not three — see below**) | `trench-art-shell-case`, `identity-disc`, `ban-chiang-pot` again |
+| E2d | `mariners-astrolabe` (UN-DEFERRED; **one, not three — see below**) | `trench-art-shell-case`, `identity-disc`, ~~ban-chiang-pot~~ (cleared in B4c) |
 | A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | `turnshoe` again, ~~nbpw-sherd~~ (cleared and shipped in B1e), `identity-disc` again |
 | B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, `igbo-ukwu-bronze`, `bodkin-arrowhead` again, `fustat-paper` again |
+| B4c | `ban-chiang-pot`, `sumatralith` (both UN-DEFERRED — **B4's list is now empty**) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -911,8 +912,9 @@ journal before concluding the region has no literature.**
   free and exactly on the subject cannot be read from here without OCR. That, not paywalls, is why
   `ban-chiang-pot` is deferred: the three works on Ban Chiang's chronology are open and readable
   (Higham, Douka and Higham in PLOS ONE and in JIPA), and **nothing openable is about the painted pottery
-  itself**, which is what the artefact is. The AUP figshare archive of Ban Chiang painted pottery answers
-  **202 with an empty body**. A plate about a pot that talked about bronze chronology would be an artefact
+  itself**, which is what the artefact is. **(Cleared in B4c — van Esterik's 1973 analysis of the painted
+  pottery is in *Asian Perspectives* and reads perfectly.)** The AUP figshare archive of Ban Chiang painted
+  pottery answers **202 with an empty body**. A plate about a pot that talked about bronze chronology would be an artefact
   described from the literature that happens to exist rather than from itself.
 · **THE CORRECTION IS INSIDE THE NAME A FIFTH TIME, and here it is inside the founding paper.** Hirth held
   the metal drum to be a Chinese invention of the first century CE, made during campaigns against the
@@ -1288,6 +1290,9 @@ DOIs, and `doi.org` redirects straight to the PDF.
   **abstract page carries the whole chapter's argument**, which is often enough to decide whether the
   chapter is worth reading in full.
 · **`sumatralith` was the batch's target and it fails on the WORD, for the third time in three batches.**
+  **(WRONG, and cleared in B4c: Soejono's 1971 survey in *Asian Perspectives* uses the term four times
+  and defines it, and Li et al. 2021 in the same journal builds a whole operational sequence on it. The
+  search had not reached ScholarSpace.)**
   Forestier's chapter in Terra Australis 56 (*Quaternary Palaeontology and Archaeology of Sumatra*, 2024)
   is open, readable and describes the object in detail — van Stein Callenfels excavating the Saentis shell
   midden near Medan, the Sukajadi midden at 7,340 ± 360 BP, unifacial limestone and andesite pebble tools
@@ -1592,6 +1597,36 @@ deferral names one unreachable journal, the question is not whether that journal
   all shut: the British Museum 403, the Smithsonian 403, both OpenEdition articles on the Ita Yemoo
   excavations behind the Anubis wall, *Yoruba Studies Review*'s PDFs subset-encoded, and neither Cleveland
   nor the Met holds an Ife head. It waits for a second work, not for a better first one.
+
+**B4c EMPTIES SOUTHEAST ASIA'S LIST, AND BOTH ITS ARTEFACTS WERE DEFERRED ON STATEMENTS THAT WERE
+SIMPLY UNTRUE.** B4b recorded that "no openable work uses the term" *Sumatralith*; Soejono's 1971 survey
+in *Asian Perspectives* uses it four times and defines it outright — "flat monofacial-worked pebbles with
+elongated oval shapes" — and Li et al. 2021, in the same journal, build an entire operational sequence
+around it. B4a recorded that "nothing openable is about the painted pottery itself"; van Esterik's 1973
+analysis of Ban Chiang painted pottery is in the same journal too. **One archive answered both, and it is
+the one B1e found the day before**: *Asian Perspectives* on ScholarSpace covers the whole Asia-Pacific,
+runs from 1957 to now, and is free. Three deferrals in two batches have now been cleared by a source that
+was always there. **When a batch fails, record what was searched, not only what was missing.**
+· **THE JOURNAL'S OWN CITATION STRING WINS, AND SCHOLARSPACE OFTEN CARRIES IT.** For older *Asian
+  Perspectives* issues the printed running head, the `dc.date.issued` field and the `dc.identifier.citation`
+  string can give three different years — Soejono's paper runs its head as "XII, 1969", is issued as 1971,
+  and is cited by the journal as "Asian Perspectives 12 (1): 69–91" of 1971 — because the journal ran years
+  behind. Use `dc.identifier.citation` where the record has one (Soejono, Bronson and Asmar) and the
+  printed running head where it does not (van Esterik, Folan and Hyde, Higham). It is the MedCrave rule
+  already in this plan: read the how-to-cite block, not the generated metadata.
+· **A DEFERRED ARTEFACT'S PLATE CAN BE BETTER THAN AN EASY ONE'S, because the reason it was hard is
+  usually the story.** Ban Chiang's pots surfaced in the late 1960s beside an American military base, and
+  the publicity brought looting heavy enough to put vessels on the New York and London art markets;
+  thermoluminescence then returned a date of about 7,000 years ago, the excavators put the first bronze at
+  about 3600 BCE, and *Time* ran it as "Turning the Clock Back". None of that survives, and what replaced
+  it is **still contested** — the site's excavator puts the first bronze between about 2100 and 1500 BCE
+  and Higham's Bayesian analysis of 54 bone-collagen dates puts it about 1000 BCE. The plate gives both,
+  named, which is the plan's own rule about a contested figure and not a hedge.
+· **THE PICTURE CHOICE IS EDITORIAL WHERE THE PLATE IS ABOUT LOOTING.** Commons offers good CC0
+  photographs of Ban Chiang pots in LACMA, the Met and Honolulu; what shipped is a CC BY-SA photograph of
+  a jar in the **National Museum, Bangkok**. A plate whose second sentence is about vessels leaving
+  Thailand should not illustrate itself with one that left. The LACMA record also dates its pot to the
+  "3rd millennium B.C.", which is the chronology the plate's own sources overturned.
 
 ## The per-artefact workflow
 
