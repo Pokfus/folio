@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-611` Sofia.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-612` San Salvador.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -1613,6 +1613,37 @@ recent: the ambassador recalled from Belgrade on **21 May 1992** with the missio
 chargé, relations severed and the embassy closed on **23 March 1999**, full relations and recognition by
 an exchange of letters dated **12 November 2000**, the embassy reopened in May 2001. The UN membership
 date of **1 November 2000** falls eleven days before that recognition.
+
+**`gw-611` SOFIA IS THE FIRST CARD WHERE RELATIONS PRECEDE RECOGNITION BY YEARS, AND THE ORDER IS
+NOT A SLIP.** The recognition guide dates American relations with Bulgaria to **19 September 1903** and
+American recognition of it to **3 May 1909** — five and a half years the wrong way round on every other
+card in the deck — because Bulgaria was an autonomous Ottoman principality in 1903 and did not declare
+its independence until **5 October 1908**. The 1909 note congratulates Tsar Ferdinand "upon the admission
+of Bulgaria to the community of sovereign and independent States", which is the guide saying outright
+that the earlier date was relations with something less than a state. **Where a guide page carries both
+dates in that order, read what the polity WAS at the earlier one** rather than assuming the page has
+mislabelled a section.
+
+**AND THE EARLY MINISTERS WERE ACCREDITED FOUR WAYS AT ONCE, WITH THE FIRST NEVER PRESENTING CREDENTIALS
+AT ALL.** John B. Jackson opened relations in 1903 as Minister to Greece, Romania and Serbia as well as
+Bulgaria, and of the first agent (Charles M. Dickinson, 1901, concurrently consul general at
+Constantinople) the guide says plainly that "there is no record that he ever presented credentials in
+Sofia"; only after the First World War was an American representative commissioned solely to Bulgaria,
+with a legation at Sofia on **18 March 1919**. **A plural accreditation is a fact about the mission and
+not about the city**, so a capital card states the legation date and leaves the ministers' other posts to
+the country's own history. Donald R. Heath appears here for the **third time in this deck** — he reopened
+the Sofia legation on 27 September 1947 and Bulgaria declared him persona non grata on 19 January 1950,
+severing relations a month later, having earlier been the minister at Saigon accredited to Laos, Cambodia
+and Vietnam at `gw-603`.
+
+**SOFIA IS THE SIXTH 14 DECEMBER 1955 UN SEAT IN THE DECK, AND THE FIRST WHERE EUROSTAT AND THE WORLD
+BANK AGREE AGAINST UNDATA ON THE AREA.** The EU country page gives Bulgaria's geographical size as
+**110,996 km²** and `AG.SRF.TOTL.K2` returns **110,996.758** for 2023 — the same figure to three decimal
+places — against UNdata's **110,372 km²**, a 0.6% gap; C1's read-both rule decides it on the majority and
+the card states 110,996. The capital-city relay holds exactly (UNdata's 1,276.9 thousand for 2019 is
+`EN.URB.LCTY`'s 1,276,937 to the person), and the series is worth reading past the marked year: it peaks
+at **1,288,114 in 2023** and eases to 1,286,460 by 2025, **a capital turning over rather than growing**,
+which is the shape to expect of an EU member with a falling national population.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
