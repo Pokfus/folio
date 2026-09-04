@@ -158,7 +158,7 @@ literature — which is what made batches 15 and 8 of the first pass cheap and b
 | B2 China | 7 | `oracle-bone`, `bronze-ding`; `han-tomb-brick`, `inkstone`, `bamboo-slip`, `longquan-celadon-bowl`, `crossbow-trigger` | archive.org (Laufer, Terrien de Lacouperie), J-Stage, *Arts Asiatiques*, Cambridge |
 | B3 Japan and Korea | 7 | `samurai-katana`, `dotaku`, `ukiyo-e-print`, `goryeo-celadon`; `magatama`, `jomon-dogu`, `buncheong-bowl` | **J-Stage** (Japan's national journal platform — answers with real content), museum bulletins on archive.org, Cambridge |
 | B4 Southeast Asia and the Pacific | 6 | `dong-son-drum`, `lapita-pottery`; `ban-chiang-pot`, `sumatralith`, `shell-adze`, `palm-leaf-folio` | *Journal of Indo-Pacific Archaeology*, PLOS, Antiquity via `doi.org`. **The highest-risk batch — see below** |
-| C1 Islam and Byzantium | 8 | `lustreware-bowl`, `mamluk-mosque-lamp`, `byzantine-ivory-panel`, `byzantine-silk`; `islamic-star-tile`, `glass-coin-weight`, `fustat-paper`, `byzantine-lead-seal` | the V&A API, Cleveland's open API, Dumbarton Oaks, DOAJ, *'Atiqot* — all measured open (`collections.louvre.fr` 429s here); the five Dumbarton Oaks seal catalogue volumes are whole on archive.org |
+| C1 Islam and Byzantium | 8 | `lustreware-bowl`, `mamluk-mosque-lamp`, `byzantine-ivory-panel`, `byzantine-silk`; `islamic-star-tile`, `glass-coin-weight`, ~~`fustat-paper`~~ (renamed `islamic-paper-sheet` and shipped in C1e), `byzantine-lead-seal` | the V&A API, Cleveland's open API, Dumbarton Oaks, DOAJ, *'Atiqot* — all measured open (`collections.louvre.fr` 429s here); the five Dumbarton Oaks seal catalogue volumes are whole on archive.org |
 | C2 Africa and the Arctic | 5 | `great-zimbabwe-bird`, `ife-head`, `thule-harpoon-head`; `ostrich-eggshell-bead`, `manilla` | archive.org (Randall-MacIver, Caton-Thompson, Thurstan Shaw), PLOS and *Scientific Reports* for isotope and provenance work, *Arctic* (open, Calgary) |
 | C3 The Americas | 5 | `moche-portrait-vessel`, `mississippian-shell-gorget`, `clovis-point`; `wampum-bead`, `obsidian-blade` | *Latin American Antiquity* via Cambridge, PLOS, Europe PMC, archive.org (Squier and Davis, Moorehead) |
 
@@ -258,7 +258,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | D2b | `spear-thrower`, `saddle-quern`, `sickle-blade`, `eyed-bone-needle` | ~~`palaeolithic-bone-flute`, `bone-fishhook`~~ (both shipped in D2c) |
 | C3/C2 | `clovis-point`, `obsidian-blade`, `ostrich-eggshell-bead` | — |
 | C1 | `byzantine-lead-seal`, `lustreware-bowl`, `glass-coin-weight` | — |
-| C1b | `islamic-star-tile`, `byzantine-silk` | `fustat-paper`, ~~mamluk-mosque-lamp~~ (cleared and shipped in C1d) |
+| C1b | `islamic-star-tile`, `byzantine-silk` | ~~fustat-paper~~ (renamed and shipped in C1e), ~~mamluk-mosque-lamp~~ (cleared and shipped in C1d) |
 | D1 | `antler-comb`, `bone-ice-skate` | ~~`novgorod-birch-bark-letter`~~ (held; released and shipped in D1c) |
 | D1b/C2 | `seal-matrix`, `manilla` | — |
 | A2b/E1 | `vindolanda-tablets` (UN-DEFERRED), `sling-bullet` | — |
@@ -290,15 +290,16 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | A3a/B2d | `golden-crown-of-silla`, `inkstone` (UN-DEFERRED — **B2's list is now empty**) | — |
 | E2d | `mariners-astrolabe` (UN-DEFERRED; **one, not three — see below**) | ~~trench-art-shell-case~~, ~~identity-disc~~ (both cleared and shipped in E1c), ~~ban-chiang-pot~~ (cleared in B4c) |
 | A3c | `pazyryk-carpet` (UN-DEFERRED; **one, not three — see below**) | ~~turnshoe~~ (cleared and shipped in D1a), ~~nbpw-sherd~~ (cleared and shipped in B1e), ~~identity-disc~~ (cleared and shipped in E1c) |
-| B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, ~~igbo-ukwu-bronze~~ (dropped in C2b), ~~bodkin-arrowhead~~ (cleared and shipped in D1b), `fustat-paper` again |
+| B1e | `nbpw-sherd` (UN-DEFERRED; **one, not three — see below**) | `ife-head`, ~~igbo-ukwu-bronze~~ (dropped in C2b), ~~bodkin-arrowhead~~ (cleared and shipped in D1b), ~~fustat-paper~~ (renamed and shipped in C1e) |
 | B4c | `ban-chiang-pot`, `sumatralith` (both UN-DEFERRED — **B4's list is now empty**) | — |
 | B1f | `glass-bangle` (UN-DEFERRED, and **shipped with no picture** — see below; **B1's list is now empty**) | ~~jade-burial-suit~~ (cleared and shipped in A3d), ~~bodkin-arrowhead~~ (cleared and shipped in D1b) |
-| S1 | **nothing — a search batch, see below** | ~~identity-disc~~, ~~trench-art-shell-case~~ (both cleared and shipped in E1c), ~~turnshoe~~ (cleared and shipped in D1a), `fustat-paper` again |
+| S1 | **nothing — a search batch, see below** | ~~identity-disc~~, ~~trench-art-shell-case~~ (both cleared and shipped in E1c), ~~turnshoe~~ (cleared and shipped in D1a), ~~fustat-paper~~ (renamed and shipped in C1e) |
 | C2b | `benin-bronze-plaque` (**SUBSTITUTED for `igbo-ukwu-bronze` — see below**) | — |
 | A3d | `jade-burial-suit` (UN-DEFERRED; **A3's list is now empty**) | — |
 | D1a | `turnshoe` (UN-DEFERRED; **one, not three — see below**) | `bodkin-arrowhead` again (**two of three works now found**), `fustat-paper`, `ife-head` |
 | D1b/E1b | `bodkin-arrowhead` (UN-DEFERRED after four deferrals; **D1's list is now empty**) | `fustat-paper`, `ife-head` (**one work found**), `trench-art-shell-case`, `identity-disc` |
 | E1c | `identity-disc`, `trench-art-shell-case` (both UN-DEFERRED — **E1's list is now empty**) | `fustat-paper`, `ife-head` (**one work found**) |
+| C1e | `islamic-paper-sheet` (**RENAMED from `fustat-paper` — see below**; **C1's list is now empty**) | `ife-head` (**one work found**) |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1876,6 +1877,42 @@ The 1916 double disc was forced through by Fabian Ware, and the new one is green
 by day and lozenge-shaped so it can be found by touch, because the discs were mostly cut from bodies at
 night under fire. **A note on `bjmh.gold.ac.uk`: it resets the connection about one request in three, so
 retry rather than recording it as closed.**
+
+**C1e is a RENAME rather than a substitution, and the difference is worth stating.** C2b dropped
+`igbo-ukwu-bronze` and put a different object in its place; here the object is unchanged — a sheet of
+the paper that displaced papyrus in Egypt — and only the PLACE-NAME in the id turned out to be
+unsupportable. Every reachable work is about the material and none of them puts it at Fustat: Karabacek
+names el-Fostāt as the city letters were written FROM and never as a findspot, and the Princeton Geniza
+Project, which is open and would have carried it, says "the Ben Ezra Synagogue in Cairo" and mentions
+neither Fustat nor the support. `genizalab.princeton.edu` is 403 and `cudl.lib.cam.ac.uk` is 403, so the
+one institution that could settle it cannot be asked. **A place-name in an artefact id is a claim like
+any other, and it has to be cited or dropped** — so the line is `islamic-paper-sheet`, which is what the
+scholarship calls it and what all three works are actually about.
+
+**Its finding is the pass's cleanest 19th-century-against-modern pairing, and it needed no searching for
+— the two works simply disagree.** Karabacek's 1894 catalogue of the Rainer collection dates the whole
+craft from one event, papermakers taken prisoner at Samarkand in 751, and locates its difference from
+Chinese paper in the raw material: linen rags, which he calls "ein Sieg fremden Ingeniums über die
+Erfindungsgabe der Chinesen". Mahgoub et al. put 228 Islamic papers through profilometry, SEM, infrared,
+iodine and fibre-furnish analysis and found **no single defining characteristic at all** — the hemp, flax
+and cotton are the fibres of European papermaking too, and what most of the sheets share is only that
+88% are starched or polished or both. **Look for the 19th-century monograph and the modern archaeometry
+of the same material and read them against each other**; the correction writes itself, and Folio's
+apparatus is built to carry exactly that.
+
+**A dating note the plate rests on and which is worth having in writing.** Karabacek's collection runs
+five centuries, and it is the SERIES rather than any one document that dates the changeover: paper
+appears in Egypt sporadically and then in numbers towards the end of the 9th century, and his protocol
+no. 101 of 334 AH (13 August 945 – 1 August 946 CE) is among the last things written on papyrus, which
+he marks as "das Ende des Papyrus-Beschreibstoffes". A collection catalogue can date a transition that
+no single object can.
+
+**And two access notes.** `cudl.lib.cam.ac.uk` (Cambridge Digital Library, which holds the Taylor-
+Schechter Geniza collection) and `genizalab.princeton.edu` are both **403**, while
+`geniza.princeton.edu` is **200 and server-rendered**, with per-document records and a stated citation
+form — one institution, two hosts, opposite answers. And the Met's collection API answers and is
+searchable by department, but has no early Islamic paper: `q=Fatimid paper&departmentId=14` returns two
+objects, both ceramic.
 
 ## The per-artefact workflow
 

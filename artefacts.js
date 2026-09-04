@@ -1414,4 +1414,11 @@ window.ARTEFACTS = [
     date: "1914 – 1919 CE",
     origin: "First World War battlefronts",
   },
+  {
+    id: "islamic-paper-sheet",
+    name: "Islamic paper",
+    rarity: "rare",
+    date: "c. 850 – 1400 CE",
+    origin: "Egypt and the Islamic Mediterranean",
+  },
 ];
