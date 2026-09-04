@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-613` Asmara.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Asmara,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-614` Zagreb.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -1665,6 +1665,36 @@ Central America on **4 August 1824** precedes recognition of Salvador itself by 
 May 1849** — so the guide's El Salvador entry dates the same country three ways: as a province of Spain
 (1821), as a member of a federation (1824) and as a state in its own right (1849). **Take the date that
 matches the polity the card is about**, which for a capital card is the last of the three.
+
+**`gw-613` ASMARA IS THE ONE CAPITAL THE RECOGNITION GUIDE MAKES THE INSTRUMENT OF RECOGNITION RATHER
+THAN ITS SETTING.** Every other page in the deck records a note between governments or an envoy presenting
+credentials; Eritrea's says the United States recognised the republic on **27 April 1993**, "when the
+American consulate at Asmara informed Eritrean authorities of this decision on the same date Eritrea
+declared its independence" — the city's own post is what did the recognising, on the day the state came
+into being. There is no legation stage at all: the same consulate was **raised to embassy status on 11
+June 1993** under a chargé d'affaires ad interim, so declaration, recognition, UN admission (**28 May**)
+and embassy all fall inside seven weeks. Note also that the page's *Diplomatic Relations* section reuses
+the *Recognition* heading verbatim — after Bishkek's and Nicaragua's wrong section years, a third reason
+to **take the dates from the prose rather than the heading**.
+
+**AND UN.ORG'S OWN MEMBER-STATES PAGE IS REACHABLE AND SERVER-RENDERED**, which is worth knowing because
+`/securitycouncil/*` and `/press/*` are not (both serve a 200-status block page) and
+`digitallibrary.un.org` answers **202 with an empty body** here, so a resolution symbol cannot be looked
+up. `https://www.un.org/en/about-us/member-states` returns the whole list with each state's admission date
+in the markup ("Eritrea Date of Admission: 28-05-1993"), which gives a **second, independent** source for
+a fact otherwise resting on UNdata alone — and UNdata's own capital-city figure carries no definitional
+footnote for Eritrea at all, the opposite of San Salvador's eight-municipality enumeration one card
+earlier. The relay to `EN.URB.LCTY` still holds to the person (928,758 for 2019), on a series climbing
+more than two fifths in a decade; the AREA series is unusually restless, wandering between 121,630 and
+121,766 km² before settling, against the statistics division's 121,144.
+
+**AND `split-abstract.js` LEARNED THE CAPITAL-APOSTROPHE SURNAME HERE.** The lone-initial rule requires a
+CAPITALISED WORD after the initial and tested it as a capital followed by a LETTER — so "Joseph P.
+O'Neill", the chargé d'affaires in Eritrea's entry, split the block after the "P.", exactly as
+`S. fatalis` and "König Leopold II." did before it. The lookahead now also accepts a capital followed by
+an apostrophe and another capital, which is the shape of every O'/D' surname; **verified over all 4,681
+shipped card blocks and glossary descriptions with zero splits changed.** The guarantee is unchanged: a
+real boundary is swallowed only where the previous sentence ended on a single capital letter.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
