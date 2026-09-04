@@ -2215,7 +2215,7 @@ function scrimCheck() {
       const gap = parseFloat(getComputedStyle(cols).rowGap) || 0;
       const need = secs.reduce((a, c) => a + c.offsetHeight, 0) + gap * Math.max(0, secs.length - 1);
       const p = document.querySelector("#countryPop").getBoundingClientRect();
-      return { slack: Math.round(cols.clientHeight - need), h: Math.round(p.height), top: Math.round(p.top), secs: secs.length };
+      return { slack: Math.round(cols.clientHeight - need), need: Math.round(need), h: Math.round(p.height), top: Math.round(p.top), secs: secs.length };
     });
     /* THE DRAG IS GONE (Aug 2026, on request — "remove the size dragging system, and keep only the
        chevron"). Asserted as an ABSENCE from the DOM rather than as a hidden element: a grip that is
@@ -2327,19 +2327,41 @@ function scrimCheck() {
     /* …and folding a section away re-fits it. The heads do nothing on the sheet while the sections are
        pages — they are folds again now, and a fold that leaves the box the size of the paragraph it just
        took away is a fold that has only made a gap. It measured as a no-op when this shipped, because a
-       scroller's `scrollHeight` is never less than the box it is in. */
+       scroller's `scrollHeight` is never less than the box it is in.
+       THE BOX'S HEIGHT ALONE CANNOT SAY THIS, AND SAYING IT THAT WAY WAS TRUE ONLY BY ACCIDENT (Sep 2026).
+       The assertion read `folded.h < tall.h - 20`, which holds only where the folded content FITS the room
+       — and it did while the ceiling was measured against the VIEWPORT, since that overshot the stage by
+       about 154px and left France's remaining sections inside it. With the ceiling honest (cpRoomH) this
+       phone has 602px of room where France needs 1177 open and 649 folded, so the sheet is correctly at
+       its ceiling in BOTH states and the box does not move at all. The fold is still doing its work —
+       what it shortens there is the SCROLL — so the contract is measured instead of one of its outcomes:
+       the content must genuinely shrink, and the box must sit at whichever of the two the rule picks.
+       That still fails on a fold that does nothing, which is the bug this guards, and unlike the height
+       test it is true at every viewport rather than at the one it was written on. */
     const tall = await slack();
     await page.evaluate(async () => {
       document.querySelector("#cpDescSec .cp-sec-head").click();
       await new Promise((r) => setTimeout(r, 450));
     });
     await page.waitForTimeout(400);
-    const folded = await page.evaluate(() => ({
-      h: Math.round(document.querySelector("#countryPop").getBoundingClientRect().height),
-      collapsed: document.querySelector("#cpDescSec").classList.contains("collapsed"),
-    }));
-    check("...folding a section shrinks the sheet to fit what is left",
-      folded.collapsed && folded.h < tall.h - 20, JSON.stringify({ tall: tall.h, folded: folded }));
+    const folded = await page.evaluate(() => {
+      const p = document.querySelector("#countryPop"), stage = p.closest(".globe-stage");
+      const cols = document.querySelector(".cp-cols");
+      const secs = [...cols.children].filter((c) => !c.hidden && getComputedStyle(c).display !== "none");
+      const gap = parseFloat(getComputedStyle(cols).rowGap) || 0;
+      const need = secs.reduce((a, c) => a + c.offsetHeight, 0) + gap * Math.max(0, secs.length - 1);
+      const head = p.querySelector(".cp-head");
+      const chrome = (head ? head.offsetTop + head.scrollHeight : 0) + (parseFloat(getComputedStyle(p).paddingBottom) || 0);
+      return {
+        h: Math.round(p.getBoundingClientRect().height),
+        collapsed: document.querySelector("#cpDescSec").classList.contains("collapsed"),
+        need: Math.round(need), room: stage.clientHeight - 8 - 14, want: Math.round(chrome + need + 2),
+      };
+    });
+    check("...folding a section shrinks what the sheet has to show",
+      folded.collapsed && folded.need < tall.need - 20, JSON.stringify({ tall: tall.need, folded: folded }));
+    check("...and the sheet is then the smaller of that and the room the stage leaves",
+      Math.abs(folded.h - Math.min(folded.room, folded.want)) <= 2, JSON.stringify(folded));
 
     /* THE NEXT PLACE OPENS SHUT, AND THEN TO ITS OWN CONTENT'S HEIGHT — there is nothing remembered now, which
        is what removing the drag bought. Both halves are asserted because they fail in opposite directions:
