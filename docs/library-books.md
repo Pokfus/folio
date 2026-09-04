@@ -826,7 +826,16 @@ book added later will meet the same traps.
   columns and there is no harder half to state. **AND `<del>` IS INERT HERE, MEASURED RATHER THAN
   ASSUMED**: zero in either file, and zero `<gap>` — worth the measurement every time, since
   Lucretius's 116 marks cost that poem thirty whole lines and the Iliad's cost it four),
-  `homer-iliad` (~955 KB, all 24 books, **425 card sections**, **0 notes** — A. T. Murray's Loeb
+  `homer-iliad` (~955 KB, all 24 books, **425 card sections**, **0 notes**. **Batch E23 repaired 24
+  slips here** — `thiat` against 2,421 correct `that`, `thiem` against 966 `them`, `thelr` against 813
+  `their`, `froma`, `switft-footed`, `honses` for horses, `beart ful` for "heart full" — which with
+  Three Kingdoms' 26 makes **the two long narrative translations much the most damaged texts on the
+  shelf**. **Half its candidate list is Homeric names and all eighteen were left alone**; the two that
+  were not, `Achaeams` and `Agamemon`, stand against 598 and 174 correct spellings, so the count is
+  what tells them apart and the same count is what spares the rest. Twice the sweep proposed the wrong
+  repair for a real fault — `night` for `niight` where the sentence wants **might**, `beat` for `beart`
+  where it wants **heart** — which is the standing rule in miniature: the sweep names the damage, the
+  sentence names the repair. A. T. Murray's Loeb
   prose of 1924, and **the first book here whose TRANSLATION IS PROSE while its ORIGINAL IS VERSE.**
   Every earlier book on the TEI card path has verse facing verse, so `teiVerseBooks` read `<l>` and
   nothing else and returned twenty-four empty books when pointed at Murray; it grew a gated `prose`

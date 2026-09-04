@@ -2909,6 +2909,19 @@ const BOOKS = {
       "Attribution-ShareAlike 4.0 International licence. (The modern translations by Aubrey de " +
       "Sélincourt, 1954, Robin Waterfield, 1998, Andrea Purvis, 2007, and Tom Holland, 2013, are " +
       "still in copyright and are not used here.)",
+    /* ---------- THE NEXT TIER, SWEPT (Sep 2026, batch E23) ----------
+       Fifty-nine candidates and three repairs: this translation's list is almost entirely Greek and
+       Egyptian names the shelf has never met (Coresus, Lydias, Hoples, Binded, Matten, Patah,
+       Aegira), and one entry that is neither a name nor a slip — `farted` is Amasis at 2.162, rising
+       on his horse to answer an embassy, and it is what Herodotus wrote. */
+    reFixes: [
+      [/(?<![A-Za-z])Lacedamonians(?![A-Za-z])/g, "Lacedaemonians",
+       "`Lacedamonians` for `Lacedaemonians` — a dropped e, against 213 correct"],
+      [/(?<![A-Za-z])Samnians(?![A-Za-z])/g, "Samians",
+       "`Samnians` for `Samians` — a stray n, in 'it was the Samians who were most brave' — 71 correct"],
+      [/(?<![A-Za-z])Plataeae(?![A-Za-z])/g, "Plataea",
+       "`Plataeae` for `Plataea` — a stray e, in 'whose tombs are to be seen at Plataea' — 35 correct"],
+    ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0016.tlg001/",
 
@@ -7909,7 +7922,66 @@ const BOOKS = {
        decides — `looked` against `Iooked`, counted in this text — and each was then read, because the
        measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
        cry `Io Paean!` in four books where it is exactly right. */
+    /* ---------- THE NEXT TIER, SWEPT (Sep 2026, batch E23) ----------
+       Twenty-four slips, which with Three Kingdoms' twenty-six makes the two long narrative
+       translations much the most damaged texts on the shelf. Every one is a single occurrence
+       against dozens, hundreds or thousands of the correct form in the same book, so each is
+       settled by Murray's own usage and no scan was opened.
+
+       THE CANDIDATE LIST IS MOSTLY HOMERIC NAMES and they are left alone: Azeus, Croesmus, Dresus,
+       Mases, Ilean, Messe, Orthe, Troes, Selli, Borus, Harma, Molion, Menon, Mestor, Linos, Glauce,
+       Otreus, Cynus are all real, and the two that are NOT — `Achaeams` and `Agamemon` — announce
+       themselves against 598 and 174 correct spellings. A name is only a false positive until you
+       count it. */
     reFixes: [
+      [/(?<![A-Za-z])Achaeams(?![A-Za-z])/g, "Achaeans",
+       "`Achaeams` for `Achaeans` — against 598 correct"],
+      [/(?<![A-Za-z])Agamemon(?![A-Za-z])/g, "Agamemnon",
+       "`Agamemon` for `Agamemnon` — a dropped n, against 174 correct"],
+      [/(?<![A-Za-z])chieftans(?![A-Za-z])/g, "chieftains",
+       "`chieftans` for `chieftains` — a dropped i, against 24 correct"],
+      [/(?<![A-Za-z])fulfilll(?![A-Za-z])/g, "fulfill",
+       "`fulfilll` for `fulfill` — a trebled l, against 22 correct"],
+      [/(?<![A-Za-z])methiinks(?![A-Za-z])/g, "methinks",
+       "`methiinks` for `methinks` — a doubled i, against 47 correct"],
+      [/(?<![A-Za-z])monnment(?![A-Za-z])/g, "monument",
+       "`monnment` for `monument` — an n read for the u"],
+      [/(?<![A-Za-z])neeks(?![A-Za-z])/g, "necks",
+       "`neeks` for `necks` — an e read for the c"],
+      [/(?<![A-Za-z])niight(?![A-Za-z])/g, "might",
+       "`niight` for `might` — an n read for the m and a doubled i, in 'if so be they might have sight of Nestor's son'"],
+      [/(?<![A-Za-z])offiering(?![A-Za-z])/g, "offering",
+       "`offiering` for `offering` — a stray i, in 'the drink-offering and the savour of burnt-offering'"],
+      [/(?<![A-Za-z])shepheard(?![A-Za-z])/g, "shepherd",
+       "`shepheard` for `shepherd` — a stray a, against 51 correct"],
+      [/(?<![A-Za-z])sovreignty(?![A-Za-z])/g, "sovereignty",
+       "`sovreignty` for `sovereignty` — a dropped e"],
+      [/(?<![A-Za-z])spaclous(?![A-Za-z])/g, "spacious",
+       "`spaclous` for `spacious` — an l read for the i, against 2 correct"],
+      [/(?<![A-Za-z])switft(?![A-Za-z])/g, "swift",
+       "`switft` for `swift` — a stray t, in 'swift-footed goodly Achilles' — 320 correct"],
+      [/(?<![A-Za-z])thelr(?![A-Za-z])/g, "their",
+       "`thelr` for `their` — an l read for the i, against 813 correct"],
+      [/(?<![A-Za-z])themuselves(?![A-Za-z])/g, "themselves",
+       "`themuselves` for `themselves` — a stray u, against 76 correct"],
+      [/(?<![A-Za-z])thiat(?![A-Za-z])/g, "that",
+       "`thiat` for `that` — a stray i, against 2,421 correct"],
+      [/(?<![A-Za-z])thiem(?![A-Za-z])/g, "them",
+       "`thiem` for `them` — a stray i, against 966 correct"],
+      [/(?<![A-Za-z])honses(?![A-Za-z])/g, "horses",
+       "`honses` for `horses` — an n read for the r, in 'his chariot and his swift horses' — 350 correct"],
+      [/(?<![A-Za-z])heside(?![A-Za-z])/g, "beside",
+       "`heside` for `beside` — an h read for the b, against 134 correct"],
+      [/(?<![A-Za-z])beart(?![A-Za-z])/g, "heart",
+       "`beart` for `heart` — a b read for the h, in 'his heart full of savage wrath' — 486 correct"],
+      [/(?<![A-Za-z])ful(?![A-Za-z])/g, "full",
+       "`ful` for `full` — a dropped l, in the same clause as `beart` and found beside it — 165 correct"],
+      [/(?<![A-Za-z])finst(?![A-Za-z])/g, "first",
+       "`finst` for `first` — an n read for the r, against 195 correct"],
+      [/(?<![A-Za-z])froma(?![A-Za-z])/g, "from",
+       "`froma` for `from` — a stray a, in 'drag the corpse from beneath Aias' — 1,401 correct"],
+      [/(?<![A-Za-z])annointed(?![A-Za-z])/g, "anointed",
+       "`annointed` for `anointed` — a doubled n; this translation writes it correctly 6 times"],
       [/(?<![A-Za-z0-9])equa1(?![A-Za-z0-9])/g, "equal",
        "a 1 read for the l of `equal`, in 'take then equal prizes and go your ways'"],
       [/(?<![A-Za-z0-9])a1oud(?![A-Za-z0-9])/g, "aloud",

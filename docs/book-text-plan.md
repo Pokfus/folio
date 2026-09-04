@@ -298,13 +298,53 @@ re-run and diffed byte for byte.
 | **E20** ✅ | six books | **10 repairs from 78 candidates, and E19's table is what said where to look.** Every candidate in the seven cleanest books read in full: Thucydides' nineteen were ALL correct (place names, `hods`, `hove`, `waives`), and the yield came from the others — `haye`, `goverment`, `continuallly`, `Archaeans`, `faired-haired`, `inflecting`/`inflected`, and two LOST SPACES (`andvice`, `[Isay]`) that no confusion-family sweep would have named. `Lede` for Leda is DEFERRED: it is in Perseus's file and the Greek is Λήδην, so it wants a printed witness |
 | **E21** ✅ | six books | **40 repairs, 30 of them in the Summa** — 2.5 million words whose candidate list had never been read. Its 245 are mostly the book's own LATIN, which no rarity test can tell from a typo; what was left is 30 slips, each a single occurrence against hundreds of the correct form. Three findings: **a TRANSPOSITION is two edits and was invisible** to E19's sweep (`creatuers`, and ten more across the shelf); **one error finds another** (three `no` for `not`, which no sweep can see, all found by reading round a neighbour); and **the filter that made the list readable hid a real error** (`Wheather`, an inserted `a`) |
 | **E22** ✅ | three books | **30 repairs, 26 of them in Three Kingdoms** — which E19's table called the FOURTH CLEANEST book on the shelf and which turns out to be the most damaged text yet swept (`afaid`, `attck`, `broher`, `flooor`, `speeech`, `twefth`). **A low noise rate is not a low error rate**; it only means the list is worth reading. The other four are what E21's filter hid: widening the confusion set by the two missing vowels returned 42 candidates across nine already-swept books, of which three in the Summa and one in the Odyssey are damage — and TWO would have destroyed archaic quotations |
-| **E23–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E23** ✅ | two books, and a third read clean | **27 repairs — 24 in the Iliad, 3 in Herodotus, 0 in Don Quixote.** The two long narrative translations, the Iliad and Three Kingdoms, are much the most damaged texts on the shelf (24 and 26); the two histories beside them returned almost nothing. **A candidate list of proper names is not a false-positive problem, it is a COUNTING problem**: eighteen Homeric names were left alone and the two that were not — `Achaeams`, `Agamemon` — announce themselves against 598 and 174 correct spellings |
+| **E24–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
 ---
 
 ## 8. Batch log
+
+### E23 — the Iliad, and two books that read clean, shipped 2026-09-04
+
+**27 repairs: 24 in the Iliad, 3 in Herodotus, and none at all in Don Quixote.**
+
+**THE ILIAD IS THE SECOND OF THE TWO BADLY DAMAGED TEXTS.** With Three Kingdoms' twenty-six, these two
+long narrative translations account for **fifty of the shelf's repairs** while everything else swept so
+far has yielded ones and threes. Every one is a single occurrence against dozens, hundreds or thousands
+of the correct form in Murray's own pages — `thiat` against 2,421 `that`, `thiem` against 966 `them`,
+`thelr` against 813 `their`, `froma` against 1,401 `from`, `switft-footed` against 320 `swift`.
+
+**A CANDIDATE LIST OF PROPER NAMES IS NOT A FALSE-POSITIVE PROBLEM; IT IS A COUNTING PROBLEM.** Half
+the Iliad's list is Homeric names the shelf has never met — Azeus, Croesmus, Dresus, Mases, Ilean,
+Messe, Orthe, Troes, Selli, Borus, Harma, Molion, Menon, Mestor, Linos, Glauce, Otreus, Cynus — and
+every one of them is real. Two are not, and they do not need judgement to tell apart: **`Achaeams`
+stands against 598 `Achaeans` and `Agamemon` against 174 `Agamemnon`**. The count is the test, and it
+is the same test that spares the eighteen.
+
+**ONE ERROR FOUND ANOTHER FOR THE FOURTH BATCH RUNNING**: *"his **beart** **ful** of savage wrath"* —
+two faults in three words, on the same line. And the sweep's own proposal was wrong twice in a way
+worth recording: it offered `night` for `niight` where the sentence wants **`might`** (*"if so be they
+might have sight of Nestor's son"*), and `beat`/`bear` for `beart` where it wants **`heart`**. **The
+sweep names the damage; the sentence names the repair.**
+
+**HERODOTUS RETURNED 59 CANDIDATES AND 3 REPAIRS**, and its list is the cleanest illustration yet of
+what the measure cannot do: Coresus, Lydias, Hoples, Binded, Matten, Patah, Aegira are Greek and
+Egyptian names, and one entry is neither a name nor a slip — **`farted` is Amasis at 2.162**, rising on
+his horse to answer a Persian embassy, and it is exactly what Herodotus wrote. The three that are
+damage are `Lacedamonians` (213 correct), `Samnians` (71) and `Plataeae` (35).
+
+**AND DON QUIXOTE RETURNED 71 CANDIDATES AND NOTHING AT ALL.** Ormsby quotes Spanish, Latin and Italian
+throughout — `Foces`, `piace`, `Dulcinea`, `infanta`, `pagano`, `torre`, `firme`, `Calle de Santiago`,
+`stultorum infinitum est numerus`, `operibus credite et non verbis` — and the sweep cannot tell any of
+it from a typo. **That is the second book to read completely clean** after Thucydides, and both are
+worth recording: a sweep that never returns zero is a sweep that is not being read.
+
+**The proof.** Two books rebuilt. The Iliad is **−7 bytes** and Herodotus **−1**, each exactly the sum
+of its own repairs' length changes; 21 changed lines in the Iliad carry the 24 repairs (three lines
+hold two each) and 3 in Herodotus carry 3. Every one was read.
 
 ### E22 — what the filter hid, and the next tier's worst book, shipped 2026-09-04
 
