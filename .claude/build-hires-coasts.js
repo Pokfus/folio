@@ -6,7 +6,7 @@
   coastlines of Italy / Greece / China" in the card Atlas windows of the Rome, Greece and China
   collections). Standalone Node helper, zero deps. Not part of the site.
 
-    node .claude/build-hires-coasts.js [--src=<ne_10m_admin_0_countries.geojson>] [--tol=0.0015] [--region=italy]
+    node .claude/build-hires-coasts.js [--src=<the 10m countries geojson>] [--tol=0.0015] [--region=italy]
 
   Writes coast/<region>.js, one file per region, each pushing onto `window.HIRES_COAST_IN` — a QUEUE
   rather than an assignment, for the reason the i18n files push: two regions may land in one session and
@@ -59,7 +59,11 @@
 const fs = require("fs"), path = require("path");
 const ROOT = path.join(__dirname, "..");
 const args = Object.fromEntries(process.argv.slice(2).map((a) => { const m = /^--([^=]+)(?:=(.*))?$/.exec(a); return m ? [m[1], m[2] == null ? true : m[2]] : [a, true]; }));
-const SRC = args.src || path.join(__dirname, "ne_10m_admin_0_countries.geojson");
+/* `dl-ne10.js` writes `ne_10m.geojson`; the default here named the file by its upstream name, which that
+   downloader has never produced — so a first run died on a file nobody could have had. Both are accepted:
+   the one the downloader writes wins, and a hand-placed copy under the upstream name still works. */
+const SRC = args.src || ["ne_10m.geojson", "ne_10m_admin_0_countries.geojson"]
+  .map((f) => path.join(__dirname, f)).find((f) => fs.existsSync(f)) || path.join(__dirname, "ne_10m.geojson");
 const TOL_DEFAULT = Number(args.tol) || 0.002;
 const ONLY = args.region ? String(args.region) : null;
 const die = (m) => { console.error("ERROR: " + m); process.exit(1); };
