@@ -1081,7 +1081,12 @@ book added later will meet the same traps.
   words in the wrong place (`sling` for `sting`, `patent` for `potent`) and still want a leaf read.
   **Batch E15 then established which OCR families are worth sweeping at all**: one is safe exactly
   where the wrong spelling is a NON-WORD, so the capital-I family paid and the `rn`/`m` family did
-  not — seven of its thirteen candidates were correct as they stood. The first book here whose chapter is a
+  not — seven of its thirteen candidates were correct as they stood. **Batch E16 then took the third
+  family, a word mixing letters and digits** (23 repairs across eight books, running BOTH ways: a
+  digit for a letter in `0ceanus` and `k9ew`, a letter for a digit in Suetonius's `[i6th March]`),
+  and its own lesson is that **a correction row carrying context carries its source's SPACING** —
+  written first with the Canterbury Tales' double spaces, 22 of 23 were dead against the TEI and
+  wiki books, which set one. The first book here whose chapter is a
   separate work rather than a division of one, so both columns are addressed through a table
   (`DIALOGUES` in the importer) instead of by arithmetic. It **absorbed the standalone
   `plato-symposium`** on 2026-08-06 — a `S.reading` / `S.bookFavs` migration in app.js carries the

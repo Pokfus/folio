@@ -291,7 +291,8 @@ re-run and diffed byte for byte.
 | **E13** ✅ | `canterbury-tales` | **6 repairs, every one cropped out of the page image and read**, the second scan being unable to align to a run it garbles differently. Two are punctuation the scan flattened and both change the sentence (a colon, a question mark); one is a closing quote lost while its neighbours survived; three are nothing, and each a different kind of nothing — a line break, SHOW-THROUGH from the facing page, and a reader's PENCIL down the margin. It also corrects a figure E12 estimated rather than measured |
 | **E14** ✅ | eight books | **42 repairs, and it UNBLOCKS the two E4 wrote off.** The capital I and the lowercase l are the same stroke, so an OCR writes `Iooked` for `looked` and `househoIds` for `households` — `virgil-aeneid`'s 22 unrepairable candidates are this class exactly, and eight of `plato-dialogues`' fourteen. Inside a word no witness is needed (no type sets one there); at the start the book's own vocabulary decides. It proposed six CORRECT readings — `Io` the nymph, `Io Pæan!`, the Gnostic `Ieu` — all excluded by name |
 | **E15** ✅ | five books | **6 repairs, and a rule that applies BEFORE the work: a substitution family is safe exactly where the wrong spelling is a NON-WORD.** E14's capital-I yield was ~100% because a capital mid-word never is one; the same sweep for `rn`/`m` proposed thirteen and SEVEN were right as they stood (a `dose`, papers `torn`, the city `Homs`, archaic `doth`, Old French `corne`), and `cl`/`d` got all three wrong. It also closes `summa-theologica`'s `corning` — E4's third deferral — with no volume opened |
-| **E16** | twelve books | **the third family, already measured: a word that MIXES LETTERS AND DIGITS** — 108 across twelve books, of which the legitimate ones are bibliographic and name themselves (`1ff`, `78ff` for 'and following', `8vo` and `4to` for octavo and quarto, `1274bb` for a Bekker page), leaving ~35 that are damage: `0ceanus`, `1ndra`×4, `f1ed`, `3trength`, `k9ew`, `4orth`, `equa1`, `highe3t`, `com6`, `baggag6`. It passes E15's test — a digit inside an English word is a non-word — but several need reading (`1ii`, `Na4o`, `m6me`, `1grown` are not obvious) |
+| **E16** ✅ | eight books | **23 repairs in the family E15 predicted would pay** — a digit inside an English word is a non-word. It runs BOTH ways (`0ceanus`, `1ndra`, `k9ew`, `equa1`; and Suetonius's `[i6th March]` where the letter stands for the digit), and the legitimate cases name themselves (`1ff`, `8vo`, `1274bb`). Its lesson is that **a row carrying context carries its source's SPACING**: written first with the Canterbury Tales' double spaces, 22 of 23 were dead |
+| **E17** | `plato-dialogues`, and a change to shared machinery | ~38 references run together in the prose (`Cf. Laws638 B`, `Hom. Il. 14.201, 302has said`). An abbreviated work name keeps its space and a spelled-out one loses it, which is a TAG-STRIP JOIN and not scanner damage — so it is fixed in the extractor, with the byte-for-byte proof on every TEI sibling that a shared change requires |
 | **E17–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
@@ -299,6 +300,52 @@ The error half of a Chinese book rides with its romanisation batch; the rest run
 ---
 
 ## 8. Batch log
+
+### E16 — the third family, and what a row carries with its context, shipped 2026-09-04
+
+**23 repairs across eight books, in the family E15's rule predicted would pay: a word mixing letters
+and digits.** A digit inside an English word is a non-word, so the sweep is safe — and the measured
+yield bears the rule out. 108 candidates across twelve books, of which **the legitimate ones name
+themselves and are BIBLIOGRAPHIC**: `1ff` and `78ff` for *and following*, `8vo` and `4to` for octavo
+and quarto, `1274bb` for a Bekker page. Nothing else in the corpus mixes the two on purpose.
+
+**The repairs run in BOTH directions, which the family's name does not suggest.** A digit stands for
+a letter — `0ceanus` for *Oceanus*, `1ndra` for *Indra*, `f1ed` for *fled*, `equa1` for *equal*,
+`k9ew` for *knew*, `4orth` for *worth*, `highe3t` for *highest*, `com6` for *come*, `baggag6` for
+*baggage*, `Earl61y` for *Early* — and a letter stands for a digit, in Suetonius's `[i6th March]`
+and `[I8th May]`, where the dates are 16th and 18th. **One is in French**: the Book of Rites quotes
+Callery in the original, and `m6me` is *même*.
+
+**Two are the earlier batches meeting this one.** `4so` in the Canterbury Tales is E6's family with
+no space to separate it — the opening quotation mark read as a figure 4 and run onto the word, in
+*‘Nay, nay,’ quoth she, ‘so may God help me’*. And `1ioff` in Journey to the West is a Chinese
+distance unit and an English word run together: *only 20 li off*.
+
+**A ROW CARRYING CONTEXT CARRIES ITS SOURCE'S SPACING WITH IT, and this batch was written wrong
+first.** The rows went in as substring `fixes` with the words either side for safety, copied in shape
+from the Canterbury Tales' — and **twenty-two of twenty-three were dead**. The Tales' djvu source
+sets TWO spaces between words; every TEI and wiki book on this shelf sets one. Nothing was wrong with
+the readings; the context was borrowed from a book with a different idiom. Rewritten as `reFixes`
+anchored on the damaged token alone, every one fired. **Anchor on the token, not on its neighbours**
+— and the dead-row report is what turns this from a silent no-op into a five-minute correction.
+
+**Three are deferred and named rather than guessed at.** `Na4o` in Journey to the West is a character
+speaking in a badly garbled passage (*Na4o replied; "You wretched monkey naonster, know that I aoa
+the third son"*) — the third son of Li Jing is Nezha, but which romanisation Richard used is the
+question, and the surrounding words are damaged too. `1ii«` wants to be *the* from the sense (*the
+lowest official position of all*) and does not look like it. And the Rigveda's `Varuni3` sits in a
+line addressing two gods, where the vocative could be *Varuna* or a dual form.
+
+**The Rigveda's five rows were still rebuilding when this was committed** — it is 1,028 pages and
+takes some forty minutes — and are confirmed separately, as E14's and E15's were. Its five are
+`1ndra` (four times), `3trength`, `we.1grown`, `f1ed` and `Marut3`, all read in context beforehand.
+
+**A separate fault surfaced and is NOT repaired here, because it is ours and not the source's.**
+About thirty-eight of Plato's references are run together in the prose — `Cf. Laws638 B`, `Hom. Il.
+14.201, 302has said`, `Hes. WD 25and in all other cases`. The pattern is structural: **an abbreviated
+work name keeps its space (`Rep. 392 D`) and a spelled-out one loses it (`Laws638`)**, which is what
+a tag-strip joining two elements looks like, not what a scanner does. It belongs in the extractor
+with the byte-for-byte sibling proof a shared change requires, and it is E17.
 
 ### E15 — the second OCR family, and the rule for which families pay, shipped 2026-09-04
 

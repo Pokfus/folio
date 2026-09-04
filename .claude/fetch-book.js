@@ -1738,6 +1738,8 @@ const BOOKS = {
        measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
        cry `Io Paean!` in four books where it is exactly right. */
     reFixes: [
+      [/(?<![A-Za-z0-9])0ceanus(?![A-Za-z0-9])/g, "Oceanus",
+       "a zero read for the O of `Oceanus`, in the line 'Oceanus the origin of the gods'"],
       [/(?<![A-Za-z])househoIds(?![A-Za-z])/g, "households",
        "a capital I read for the lowercase l of `households`"],
       [/(?<![A-Za-z])illiberaI(?![A-Za-z])/g, "illiberal",
@@ -1754,6 +1756,14 @@ const BOOKS = {
        "a capital I read for the lowercase l of `ignobly`"],
       [/(?<![A-Za-z])equaIizing(?![A-Za-z])/g, "equalizing",
        "a capital I read for the lowercase l of `equalizing`"],
+    ],
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it is NOT safe against is the BIBLIOGRAPHIC forms, which name
+       themselves and are left alone — `1ff` and `78ff` for 'and following', `8vo` and `4to` for
+       octavo and quarto, `1274bb` for a Bekker page. 108 candidates across twelve books; these are
+       the ones that are damage. */
+    fixes: [
     ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0059/",
@@ -2097,8 +2107,20 @@ const BOOKS = {
        measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
        cry `Io Paean!` in four books where it is exactly right. */
     reFixes: [
+      [/(?<![A-Za-z0-9])i6th(?![A-Za-z0-9])/g, "16th",
+       "an i read for the 1 of `16th` — this family running the other way, a letter for a digit — in '[16th March]'"],
+      [/(?<![A-Za-z0-9])I8th(?![A-Za-z0-9])/g, "18th",
+       "the same, a capital I for the 1 of `18th`, in '[18th May]'"],
       [/(?<![A-Za-z])Iviii(?![A-Za-z])/g, "lviii",
        "a capital I read for the lowercase l of `lviii`"],
+    ],
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it is NOT safe against is the BIBLIOGRAPHIC forms, which name
+       themselves and are left alone — `1ff` and `78ff` for 'and following', `8vo` and `4to` for
+       octavo and quarto, `1274bb` for a Bekker page. 108 candidates across twelve books; these are
+       the ones that are damage. */
+    fixes: [
     ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:latinLit:phi1348/",
@@ -3731,6 +3753,27 @@ const BOOKS = {
       "Attribution-ShareAlike 4.0 International licence. (The modern translations by Rex Warner, " +
       "1954, Steven Lattimore, 1998, and Jeremy Mynott, 2013, are still in copyright and are not " +
       "used here, and neither is the revised Crawley printed in the Landmark Thucydides of 1996.)",
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it is NOT safe against is the BIBLIOGRAPHIC forms, which name
+       themselves and are left alone — `1ff` and `78ff` for 'and following', `8vo` and `4to` for
+       octavo and quarto, `1274bb` for a Bekker page. 108 candidates across twelve books; these are
+       the ones that are damage. */
+    fixes: [
+    ],
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it must NOT touch is the BIBLIOGRAPHIC forms, which name themselves —
+       `1ff` and `78ff` for 'and following', `8vo` and `4to` for octavo and quarto, `1274bb` for a
+       Bekker page — so every row is anchored on the damaged token alone. THEY ARE reFixes AND NOT
+       fixes FOR A REASON WORTH KEEPING: written first as substring rows with the words either side
+       for context, twenty-two of twenty-three were DEAD, because the context was copied from the
+       Canterbury Tales, whose djvu source sets TWO spaces between words where every TEI and wiki
+       book on this shelf sets one. A row carrying context carries that source's spacing with it. */
+    reFixes: [
+      [/(?<![A-Za-z0-9])Earl61y(?![A-Za-z0-9])/g, "Early",
+       "two digits read into the middle of `Early`, in 'Early in the spring of the summer'"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/History_of_the_Peloponnesian_War",
 
@@ -6439,6 +6482,31 @@ const BOOKS = {
       "themselves are ancient and are in the public domain everywhere. (Wing-tsit Chan's translations " +
       "of 1963 and the Library of Chinese Classics edition of 2001 are still in copyright and are not " +
       "used here.)",
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it is NOT safe against is the BIBLIOGRAPHIC forms, which name
+       themselves and are left alone — `1ff` and `78ff` for 'and following', `8vo` and `4to` for
+       octavo and quarto, `1274bb` for a Bekker page. 108 candidates across twelve books; these are
+       the ones that are damage. */
+    fixes: [
+    ],
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it must NOT touch is the BIBLIOGRAPHIC forms, which name themselves —
+       `1ff` and `78ff` for 'and following', `8vo` and `4to` for octavo and quarto, `1274bb` for a
+       Bekker page — so every row is anchored on the damaged token alone. THEY ARE reFixes AND NOT
+       fixes FOR A REASON WORTH KEEPING: written first as substring rows with the words either side
+       for context, twenty-two of twenty-three were DEAD, because the context was copied from the
+       Canterbury Tales, whose djvu source sets TWO spaces between words where every TEI and wiki
+       book on this shelf sets one. A row carrying context carries that source's spacing with it. */
+    reFixes: [
+      [/(?<![A-Za-z0-9])m6me(?![A-Za-z0-9])/g, "même",
+       "a 6 read for the ê of the French `même`, in the note 'lors même que ce n'était pas pour soi'"],
+      [/(?<![A-Za-z0-9])highe3t(?![A-Za-z0-9])/g, "highest",
+       "a 3 read for the s of `highest`, in 'the rules of ceremony are the highest expression'"],
+      [/(?<![A-Za-z0-9])large4eaved(?![A-Za-z0-9])/g, "large-leaved",
+       "a 4 read for the hyphen and l of `large-leaved`, in 'the ordinary or the large-leaved violets'"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Sacred_Books_of_the_East/Volume_27",
 
@@ -7750,6 +7818,8 @@ const BOOKS = {
        measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
        cry `Io Paean!` in four books where it is exactly right. */
     reFixes: [
+      [/(?<![A-Za-z0-9])equa1(?![A-Za-z0-9])/g, "equal",
+       "a 1 read for the l of `equal`, in 'take then equal prizes and go your ways'"],
       [/(?<![A-Za-z0-9])a1oud(?![A-Za-z0-9])/g, "aloud",
        "the digit 1 read for the l of `aloud`, in 'and Athene cried aloud'"],
       [/(?<![A-Za-z])walI(?![A-Za-z])/g, "wall",
@@ -7764,6 +7834,14 @@ const BOOKS = {
        "a capital I read for the lowercase l of `fell`"],
       [/(?<![A-Za-z])muIe(?![A-Za-z])/g, "mule",
        "a capital I read for the lowercase l of `mule`"],
+    ],
+    /* ---------- A WORD MIXING LETTERS AND DIGITS (Sep 2026, batch E16) ----------
+       The third family, and it passes E15's test: a digit inside an English word is a non-word, so
+       the sweep is safe. What it is NOT safe against is the BIBLIOGRAPHIC forms, which name
+       themselves and are left alone — `1ff` and `78ff` for 'and following', `8vo` and `4to` for
+       octavo and quarto, `1274bb` for a Bekker page. 108 candidates across twelve books; these are
+       the ones that are damage. */
+    fixes: [
     ],
     sourceName: "Perseus Digital Library",
     sourceUrl: "https://scaife.perseus.org/library/urn:cts:greekLit:tlg0012.tlg001/",
@@ -8796,6 +8874,18 @@ const BOOKS = {
        "united", "deviL" for "devil"), never in whole lines, and it is recorded rather than repaired,
        since a repair pass over ninety thousand words would be rewriting somebody's book by guess. */
     reFixes: [
+      [/3"0ung/g, "young",
+       "a digit, a quote and a zero read into `young`, in 'there were 3,600 women, young and old, in the palace'"],
+      [/(?<![A-Za-z0-9])monke3-s(?![A-Za-z0-9])/g, "monkeys",
+       "a 3 and a hyphen read into `monkeys`, in 'All the monkeys fell on their faces'"],
+      [/(?<![A-Za-z0-9])com6(?![A-Za-z0-9])/g, "come",
+       "a 6 read for the e of `come`, in 'daring to come to my cave'"],
+      [/(?<![A-Za-z0-9])angr3(?![A-Za-z0-9])/g, "angry",
+       "a 3 read for the y of `angry`, in 'The Great Holy One was very angry'"],
+      [/(?<![A-Za-z0-9])1ioff(?![A-Za-z0-9])/g, "li off",
+       "the Chinese distance unit `li` and the word `off` run together and mis-read, in 'only 20 li off'"],
+      [/(?<![A-Za-z0-9])baggag6(?![A-Za-z0-9])/g, "baggage",
+       "a 6 read for the e of `baggage`, in 'their horse and baggage were taken into the mansion'"],
       [/(?<![A-Za-z])rnen(?![A-Za-z])/g, "men",
        "an rn read for the m of `men`, in 'you are one of the superior men, full of filial piety'"],
     ],
@@ -12164,6 +12254,8 @@ const BOOKS = {
        cannot shadow or cascade. 151 substitutions in all when this table shipped; batch E6 added three
        more rows below it, each an exception the sweep in `reFixes` must not see. */
     fixes: [
+      ["else5>", "else,",
+       "a digit and a bracket read for the comma of 'Learn to endure, or else, on my life, ye shall learn it'"],
       ["•  ^Pon  a  ^  ma^  went  toward  a  temple  in  the  town \n",
        "Upon  a  day  this  maid  went  toward  a  temple  in  the  town, \n",
        "page 142 reads 'Upon a day this maid went toward a temple in the town,'; the scan lost 'a day this maid'"],
@@ -12746,6 +12838,12 @@ const BOOKS = {
        mark standing where an OPENING quotation mark belongs, so none belongs in this table; the
        possessive and the closing quote read as a slash are batch E7, in `reFixes` below. */
     reFixes: [
+      [/(?<![A-Za-z0-9])4orth(?![A-Za-z0-9])/g, "worth",
+       "a 4 read for the w of `worth`, in 'that tale is not worth a rake-handle'"],
+      [/(?<![A-Za-z0-9])k9ew(?![A-Za-z0-9])/g, "knew",
+       "a 9 read for the n of `knew`, in 'And Damian who knew all her plan'"],
+      [/(?<![A-Za-z0-9])4so(?![A-Za-z0-9])/g, "‘so",
+       "the opening quotation mark read as a 4 and run onto the word — E6's family with no space to separate them, in '‘Nay, nay,’ quoth she, ‘so may God help me’'"],
       [/(?<=\s)c(?= {1,2}[A-Za-z“])/g, "‘",
        "the opening single quote read as a lowercase c; all 227 were listed and read, and every one opens a speech. It is the ONE row that allows a single space: the printing sets two between words, so a lone space is itself a scanning fault, and widening the others by a space would take a stray brace and two currency figures out of the back matter"],
       [/(?<=[.,;:!?’”—‘\]]\s{1,3}|\n\n)\*(?=  [A-Za-z“])/g, "‘",
@@ -13867,6 +13965,16 @@ const BOOKS = {
        measure proposes `Io` wherever `lo` is common and `Io` is the nymph, the Gnostic name and the
        cry `Io Paean!` in four books where it is exactly right. */
     reFixes: [
+      [/(?<![A-Za-z0-9])1ndra(?![A-Za-z0-9])/g, "Indra",
+       "a 1 read for the I of `Indra`"],
+      [/(?<![A-Za-z0-9])3trength(?![A-Za-z0-9])/g, "strength",
+       "a 3 read for the s of `strength`, in 'within your arms is laid your energy and strength'"],
+      [/(?<![A-Za-z0-9])we\.1grown(?![A-Za-z0-9])/g, "well-grown",
+       "digits and a stop read into `well-grown`, in 'The Heroes have waxed strong like well-grown manly youths'"],
+      [/(?<![A-Za-z0-9])f1ed(?![A-Za-z0-9])/g, "fled",
+       "a 1 read for the l of `fled`, in 'the Panis fled, neath a hundred blows'"],
+      [/(?<![A-Za-z0-9])Marut3(?![A-Za-z0-9])/g, "Maruts",
+       "a 3 read for the s of `Maruts`, in 'In thee the Maruts’ company have great delight'"],
       [/(?<![A-Za-z0-9])Se1f(?![A-Za-z0-9])/g, "Self",
        "the digit 1 read for the l of `Self`, in 'Invincible! Self-luminous!'"],
       [/(?<![A-Za-z])Pavarnana(?![A-Za-z])/g, "Pavamana",
