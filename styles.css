@@ -850,23 +850,37 @@ body[data-theme="gazette"] .gt-check{box-shadow:none;}
 /* arcade squares every mark off and outlines it in ink; the gazette prints flat, so the wax loses its lift */
 body[data-theme="arcade"] .gt-seal{clip-path:none; border:2px solid var(--ink); filter:none;}
 body[data-theme="gazette"] .gt-seal{filter:none;}
-/* ---------- ON A PHONE THE MARK OWNS THE TILE'S TOP-RIGHT QUARTER (Sep 2026, on request: "the checkmarks
-   and medals on completed minigame tiles should be much larger, covering the top right quarter of the
-   tile") ----------
-   Three tiles to a 390px row is about 110px each, and at 21px the mark was a speck in a corner — a reader
-   glancing at the grid to see what is left to play could not tell a played tile from an unplayed one
-   without reading it. It is sized as a FRACTION of the tile rather than in pixels, so it stays a quarter
-   at every tile width the grid produces, with `aspect-ratio:1` keeping the seal's fluted rim round and a
-   max in px so a wide phone does not grow it past the corner it belongs in.
-   THE GLYPH INSIDE SCALES WITH IT, in percent for the same reason: a 12px check floating in a 50px circle
-   reads as a ring, not as a tick. It is scoped to `.game-tile` — the review banner's own copy of these
-   marks is a different surface with its own pair of sizes, and it is not what the request is about. */
+/* ---------- ON A PHONE A PLAYED TILE WEARS ITS COLOUR ACROSS THE TOP (Sep 2026, on request: "the minigame
+   tiles have very large green or gold circles or medals when a minigame is completed. instead, make the top
+   60% of the tile turn green/gold, while keeping the checkmark where it is") ----------
+   The previous answer to the same question grew the mark itself to 46% of the tile, which said "played"
+   from across the room and did it by putting a 68px disc on a 110px tile — a medal wearing the tile rather
+   than a tile wearing a medal. A BAND says the same thing with none of the weight: the state is read off
+   the tile's own top edge and the mark goes back to the size it is at every other width, in the corner it
+   has always been in, which is what "keeping the checkmark where it is" asks for.
+   IT IS A TINT, NOT A FILL, and that is what keeps the mark legible: the green check is a solid green disc
+   and the perfect-score seal is gold, so a band at full saturation would swallow whichever one is standing
+   on it. Mixed with the card it stays plainly green or gold and the mark still reads as a mark.
+   THE BAND IS `.gt-face::after` rather than a pseudo-element on the tile: `::before` is the non-folio
+   themes' deco wash and `::after` is the gazette's corner fold, both of them on `.game-tile` itself.
+   `.gt-face` is deliberately UNPOSITIONED (see its own note), so an absolute child of it resolves against
+   the tile — which is exactly the box the band wants — and it dies with the front face when the tile is
+   flipped to its record, with no rule of its own. It sits UNDER the glyph and the words (z-index 0 against
+   their 1 and 2, the theme deco's own stacking) so nothing on the tile has to be re-coloured to survive it,
+   and the marks stay at z-index 3, above both. */
 @media (max-width:640px){
-  .game-tile .gt-check, .game-tile .gt-seal{
-    top:5px; right:5px; width:min(46%, 68px); height:auto; aspect-ratio:1;
+  .game-tile.done .gt-face::after, .game-tile.won .gt-face::after{
+    content:""; position:absolute; left:0; right:0; top:0; height:60%;
+    z-index:0; pointer-events:none;
+    background:color-mix(in srgb, var(--good, #4F9D67) 58%, var(--card));
   }
-  .game-tile .gt-check svg, .game-tile .gt-seal-face svg{width:52%; height:52%;}
-  .game-tile .gt-seal-face{width:100%; height:100%; display:grid; place-items:center;}
+  .game-tile.won .gt-face::after{
+    background:linear-gradient(160deg,
+      color-mix(in srgb, #F0DC97 72%, var(--card)),
+      color-mix(in srgb, #D8B44B 66%, var(--card)));
+  }
+  .game-tile.done .gt-glyph, .game-tile.won .gt-glyph{z-index:1;}
+  .game-tile.done .gt-body, .game-tile.won .gt-body{z-index:2;}
 }
 /* daily challenge accent treatment */
 .banner.challenge{background:linear-gradient(135deg, var(--card) 60%, var(--zh-wash));}
