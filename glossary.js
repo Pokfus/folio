@@ -1800,7 +1800,8 @@ window.GLOSSARY = {
 "Tripoli": "Tripoli is the capital of Libya, standing on the Mediterranean coast of that North African state, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 1.16 million people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> An American consul took up his post in the city in 1799, and the American embassy there has closed and reopened repeatedly since: shut from 1980 until 2006 without relations being severed, suspended in 2011 and again in 2014, and working from Tunisia since March 2015.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Bishkek": "Bishkek is the capital of Kyrgyzstan, standing in the north of that landlocked Central Asian state below the mountains, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 1.02 million people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area and carries past 1.15 million by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy there was established on 1 February 1992 with Edmund McWilliams as chargé d'affaires, six weeks before the same officer opened the embassy at Dushanbe.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Asunción": "Asunción is the capital of Paraguay, standing on the Paraguay river in the west of that landlocked South American state. The United Nations Statistics Division names it as the capital and gives about 3.28 million people for 2019, a figure its own footnote defines as the district of Asunción together with the 19 districts of Central Department — nearly half the country's population.<sup class=\"fn\" data-fn=\"1\"></sup> The United States recognised Paraguay in 1852 through its chargé d'affaires at Buenos Aires, and no American mission stood in the city until a legation was established there on 26 November 1861.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Managua": "Managua is the capital of Nicaragua, standing on the southern shore of Lake Managua in the west of that Central American state, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 1.06 million people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area and carries past 1.12 million by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The first American mission in the country was established in 1851, two years after the United States recognised Nicaragua separately from the Federation of Central American States it had left in 1838, and the legation at Managua became an embassy in 1943.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Managua": "Managua is the capital of Nicaragua, standing on the southern shore of Lake Managua in the west of that Central American state, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 1.06 million people for 2019, the same number the World Bank returns that year for the country's largest metropolitan area and carries past 1.12 million by 2025.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The first American mission in the country was established in 1851, two years after the United States recognised Nicaragua separately from the Federation of Central American States it had left in 1838, and the legation at Managua became an embassy in 1943.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Belgrade": "Belgrade is the capital of Serbia, standing in the north of that landlocked state where the Sava joins the Danube, and is its largest urban area. The United Nations Statistics Division names it as the capital and gives about 1.39 million people for 2019, a figure its footnote describes simply as the urban population of the Belgrade area, and the same number the World Bank returns that year for the country's largest metropolitan area.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The American embassy in the city closed on 23 March 1999, the day before the NATO bombing began, and reopened in May 2001 after full relations were established by an exchange of letters the previous November.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3656,7 +3657,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Mogadishu": ["Mogadiscio"],
 "Bujumbura": ["Usumbura"],
 "Tripoli": ["Tarabulus"],
-"Asunción": ["Asuncion"]
+"Asunción": ["Asuncion"],
+"Belgrade": ["Beograd"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5485,7 +5487,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Tripoli": ["place","city","geography","capital","libya"],
 "Bishkek": ["place","city","geography","capital","kyrgyzstan"],
 "Asunción": ["place","city","geography","capital","paraguay"],
-"Managua": ["place","city","geography","capital","nicaragua"]
+"Managua": ["place","city","geography","capital","nicaragua"],
+"Belgrade": ["place","city","geography","capital","serbia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
