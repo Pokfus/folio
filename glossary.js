@@ -1808,7 +1808,8 @@ window.GLOSSARY = {
 "Strategos": "A strategos was one of the ten generals of Athens, elected by a show of hands as every military officer there was, where the other offices were filled by lot.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The <i>Athenian Constitution</i> says the same vote assigned each his command, the heavy infantry abroad, the defence of the country, the two posts in the Piraeus and the trierarchs, and sent the rest out as occasion arose.<sup class=\"fn\" data-fn=\"1\"></sup> A confirmatory vote was taken on each of them in every presidency, and one who lost it went before a jury-court, which assessed his penalty or returned him to his command.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Pericles'_citizenship_law": "Pericles' citizenship law confined Athenian standing to men of citizen birth on both sides, and the <i>Athenian Constitution</i> dates it to the archonship of Antidotus, giving the large number of the citizens as its reason.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says that when the king of Egypt sent forty thousand measures of grain to be shared among the citizens, prosecutions followed against men of illegal birth, a little under five thousand were sold, and fourteen thousand and forty were adjudged Athenians.<sup class=\"fn\" data-fn=\"2\"></sup> Years later, his legitimate sons dead, Pericles asked for the law he had carried to be suspended, and the Athenians let his illegitimate son be enrolled and given his name.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "First_Peloponnesian_War": "The First Peloponnesian War is a modern name for the fighting between Athens and the Peloponnesians in the years between the Persian invasions and the war of 431.<sup class=\"fn\" data-fn=\"1\"></sup> Thucydides begins it with the defection of Megara from the Spartan alliance, which brought Athens the Megarid and long walls down to Nisaea, and which he calls the principal cause of Corinthian hatred for Athens.<sup class=\"fn\" data-fn=\"2\"></sup> It ended when Euboea and Megara revolted and a Peloponnesian army reached Eleusis, after which Athens made a truce for thirty years and gave up Nisaea, Pegae, Troezen and Achaea.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
-"Battle_of_Tanagra": "The <b>Battle of Tanagra</b> was fought in eastern Boeotia in about 457 BCE between a Peloponnesian force returning from Doris and an Athenian army of 14,000, which included 1,000 Argives and Thessalian cavalry that changed sides mid-battle.<sup class=\"fn\" data-fn=\"1\"></sup> The two surviving accounts disagree about the outcome: Thucydides says that after heavy loss on both sides the victory went to the Lacedaemonians, while Diodorus says the armies fought until nightfall parted them and later agreed a truce of four months, with each side claiming to have won.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Diodorus adds a night attack on the Athenian supply train by the Thessalians who had deserted, and a second engagement the following day.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Battle_of_Tanagra": "The <b>Battle of Tanagra</b> was fought in eastern Boeotia in about 457 BCE between a Peloponnesian force returning from Doris and an Athenian army of 14,000, which included 1,000 Argives and Thessalian cavalry that changed sides mid-battle.<sup class=\"fn\" data-fn=\"1\"></sup> The two surviving accounts disagree about the outcome: Thucydides says that after heavy loss on both sides the victory went to the Lacedaemonians, while Diodorus says the armies fought until nightfall parted them and later agreed a truce of four months, with each side claiming to have won.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Diodorus adds a night attack on the Athenian supply train by the Thessalians who had deserted, and a second engagement the following day.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Battle_of_Oenophyta": "The <b>Battle of Oenophyta</b> was an Athenian victory over the Boeotians in Boeotia in about 457 BCE, which Thucydides dates 62 days after the Athenian defeat at Tanagra and credits with making Athens master of Boeotia and Phocis.<sup class=\"fn\" data-fn=\"1\"></sup> The Athenian commander was Myronides son of Callias, and Diodorus, who says the Boeotians broke only after a day-long struggle, leaves him master of every Boeotian city except Thebes.<sup class=\"fn\" data-fn=\"2\"></sup> The two accounts also differ in shape, Thucydides giving a single battle where Diodorus puts an earlier victory and the taking of Tanagra before it; the Athenian hold on Boeotia lasted until 447.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2626,7 +2627,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Pericles": "c. 495 – 429 BCE",
 "Pericles'_citizenship_law": "451 BCE",
 "First_Peloponnesian_War": "c. 460 – 446 BCE",
-"Battle_of_Tanagra": "c. 457 BCE"
+"Battle_of_Tanagra": "c. 457 BCE",
+"Battle_of_Oenophyta": "c. 457 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -5602,7 +5604,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Strategos": ["title","history","greece","politics","warfare"],
 "Pericles'_citizenship_law": ["event","history","greece","politics","athens"],
 "First_Peloponnesian_War": ["event","history","greece","warfare","athens"],
-"Battle_of_Tanagra": ["event","history","warfare","greece","boeotia"]
+"Battle_of_Tanagra": ["event","history","warfare","greece","boeotia"],
+"Battle_of_Oenophyta": ["event","history","warfare","greece","boeotia"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
