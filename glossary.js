@@ -1813,7 +1813,8 @@ window.GLOSSARY = {
 "Egyptian_expedition": "The <b>Egyptian expedition</b> was the Athenian intervention, between about 460 and 454 BCE, in a revolt of Egypt against Persia led by Inaros son of Psammetichus, who invited the Athenians in while they were campaigning in Cyprus.<sup class=\"fn\" data-fn=\"1\"></sup> Thucydides says they took 200 ships into the Nile and held two-thirds of Memphis, but were driven out and besieged on the island of Prosopitis for a year and six months, until the Persians drained the canal and marched across.<sup class=\"fn\" data-fn=\"1\"></sup> He calls the whole enterprise a ruin in which most of the host perished, where Diodorus has the Persian generals grant a truce that let the survivors leave Egypt.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "Transfer_of_the_treasury": "The <b>transfer of the treasury</b> was the removal of the common fund of the Delian League from Delos to Athens, conventionally dated to 454/3 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> No surviving historian records the move, and the date rests on the first of the Athenian quota lists, which from the archonship of Ariston set out on stone at Athens the sixtieth of each city's tribute paid to Athena.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch reports the political cost in Athens, where Pericles' opponents said the city had lost its good name by taking the money of the Greeks into its own keeping, and has Pericles answer that Athens owed no account while she kept the barbarian off.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Peace_of_Callias": "The <b>Peace of Callias</b> is a treaty said to have settled the wars between Athens and Persia about 449 BCE, named after the Athenian envoy Callias son of Hipponicus, and its existence is disputed.<sup class=\"fn\" data-fn=\"1\"></sup> Diodorus gives its terms as autonomy for the Greek cities of Asia, Persian satraps kept three days' journey from the sea and Persian warships out of the waters inside Phaselis and the Cyanean Rocks, in return for Athens sending no troops against the King.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch dates it a generation earlier and preserves the ancient doubt, reporting that Callisthenes denied the King made any such agreement while a copy stood among the decrees Craterus collected.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Thirty_Years'_Peace": "The <b>Thirty Years' Peace</b> was the treaty of about 446 BCE between Athens and the Lacedaemonians and their confederates, by which Athens gave back Nisaea, Achaea, Pegae and Troezen and each side kept what it held.<sup class=\"fn\" data-fn=\"1\"></sup> Its articles bound the two sides to submit their disputes to trials of judgment, and allowed a city in league with neither to join whichever it pleased, a clause the Corcyraeans invoked in seeking an Athenian alliance.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Thucydides says the peace lasted fourteen of its thirty years, and reports that the Spartans afterwards held themselves the party at fault for having refused the arbitration it provided.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>"
+"Thirty_Years'_Peace": "The <b>Thirty Years' Peace</b> was the treaty of about 446 BCE between Athens and the Lacedaemonians and their confederates, by which Athens gave back Nisaea, Achaea, Pegae and Troezen and each side kept what it held.<sup class=\"fn\" data-fn=\"1\"></sup> Its articles bound the two sides to submit their disputes to trials of judgment, and allowed a city in league with neither to join whichever it pleased, a clause the Corcyraeans invoked in seeking an Athenian alliance.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Thucydides says the peace lasted fourteen of its thirty years, and reports that the Spartans afterwards held themselves the party at fault for having refused the arbitration it provided.<sup class=\"fn\" data-fn=\"4\"></sup><sup class=\"fn\" data-fn=\"5\"></sup>",
+"Cleruchy": "A <b>cleruchy</b> was a body of Athenian settlers established on land taken from another state, each holding an allotment there; the earliest Herodotus records is the four thousand put on the lands of the Chalcidian Hippobotai in 506 BCE.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch reports a series of them under Pericles, a thousand to the Chersonese, five hundred to Naxos, half that to Andros and a thousand into Thrace, sent to lighten the city, relieve the poor and hold the allies to their obedience.<sup class=\"fn\" data-fn=\"2\"></sup> The severest example is Histiaea on Euboea in 446 BCE, whose people Thucydides says were driven from their homes so that Athenians could take over their territory.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2636,7 +2637,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Egyptian_expedition": "c. 460 – 454 BCE",
 "Transfer_of_the_treasury": "454/3 BCE",
 "Peace_of_Callias": "c. 449 BCE",
-"Thirty_Years'_Peace": "c. 446 – 431 BCE"
+"Thirty_Years'_Peace": "c. 446 – 431 BCE",
+"Cleruchy": "from 506 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3774,7 +3776,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Strategos": ["strategos","strategoi","strategus"],
 "Pericles'_citizenship_law": ["Periclean citizenship law","citizenship law of Pericles"],
 "First_Peloponnesian_War": ["first Peloponnesian War"],
-"Egyptian_expedition": ["Athenian expedition to Egypt"]
+"Egyptian_expedition": ["Athenian expedition to Egypt"],
+"Cleruchy": ["cleruch","cleruchs","cleruchies","kleruch","kleruchs","klerouchoi"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5618,7 +5621,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Egyptian_expedition": ["event","history","warfare","greece","egypt"],
 "Transfer_of_the_treasury": ["event","history","greece","athens","politics"],
 "Peace_of_Callias": ["event","history","greece","athens","politics"],
-"Thirty_Years'_Peace": ["event","history","greece","athens","politics"]
+"Thirty_Years'_Peace": ["event","history","greece","athens","politics"],
+"Cleruchy": ["institution","history","greece","athens","politics"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
