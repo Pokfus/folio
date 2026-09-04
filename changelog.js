@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.446", released: "2026-09-04T03:03Z" };
+window.FOLIO_VERSION = { v: "1.447", released: "2026-09-04T03:29Z" };
 
 window.CHANGELOG = [
   {
@@ -50,6 +50,8 @@ window.CHANGELOG = [
       "<b>Rome is now always marked on the map in the Ancient Rome collection</b>, and Athens in Ancient Greece, as a red square.",
       "<b>Modern capital cities on a card’s map no longer show their names</b>, only their squares.",
       "<b>A card\u2019s traditional Chinese characters now sit on the line above the simplified ones</b> rather than beside them.",
+      "<b>A card\u2019s Chinese name is set flush right</b> rather than left.",
+      "<b>The Attica, Hongshan culture and Yangshao culture cards now show their region shaded on a map</b>, as the other place cards do.",
       "<b>Turkey is on the map again in the Ancient Greece collection</b>, where a fault in the finer coastline had left Anatolia drawn as open sea.",
       "<b>Rivers are drawn thinner on a card\u2019s map when it is zoomed out</b>, so a wide view is not a continent of blue thread.",
       "<b>The squares marking modern capitals on a card\u2019s map are smaller and outlined in grey</b> rather than white.",

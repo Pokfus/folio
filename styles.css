@@ -1513,9 +1513,14 @@ body[data-theme="folio"] .collection-deco::after{
    figures are. It was a line under the term, on a map card only; every card that carries
    a Chinese name gets it now. Below 640px `.answer` stacks (see the phone block), so it goes under the
    term at full width with the rule on its top edge instead. */
-.ans-cn{display:flex; flex-direction:column; align-items:flex-start; gap:2px; flex:0 1 auto; min-width:0;
-  align-self:center; padding:2px 0 2px 16px; border-left:1px solid color-mix(in srgb, var(--zh) 22%, transparent); line-height:1.15;}
-.ans-cn .ac-chars{display:flex; flex-direction:column; align-items:flex-start; gap:1px;}
+/* THE BLOCK IS SET FLUSH RIGHT (Sep 2026, on request). Its three lines are of very different widths — a
+   two-character name over a four-character one over a romanisation twice as long as either — and ranged
+   left they read as a ragged column drifting away from the rule beside them; ranged right they line up
+   against the figures grid, which is the edge the eye is already following down the card. */
+.ans-cn{display:flex; flex-direction:column; align-items:flex-end; gap:2px; flex:0 1 auto; min-width:0;
+  align-self:center; padding:2px 0 2px 16px; border-left:1px solid color-mix(in srgb, var(--zh) 22%, transparent);
+  line-height:1.15; text-align:right;}
+.ans-cn .ac-chars{display:flex; flex-direction:column; align-items:flex-end; gap:1px;}
 /* the traditional form is written FIRST in the markup and so sits on the line above; it is still the
    quieter of the two, smaller and at half strength, so the simplified form under it reads as the name
    and this as the second script it is also written in. */

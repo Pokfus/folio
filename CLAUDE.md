@@ -2603,6 +2603,10 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   **On a phone the rule above the block is `--rule` grey, not the Chinese ink** (same request): there it
   runs the full width of the card, where a red hairline reads as part of the answer rather than as the line
   dividing it from the name below.
+  **AND THE WHOLE BLOCK IS SET FLUSH RIGHT** (Sep 2026, on request): its three lines are of very different
+  widths — a two-character name over a four-character one over a romanisation twice as long as either — so
+  ranged left they read as a ragged column drifting away from the rule beside them, and ranged right they
+  line up against the figures grid, which is the edge the eye is already following down the card.
 - **Card fields (13):** `id, num, category, question` (HTML cloze with blanks), `answer`,
   `answerDate` (HTML), `traditional, hanzi, pinyin, translations` (HTML), `abstract` (rich HTML
   card background; may carry `ttip` glossary links, but newly generated cards omit them),
