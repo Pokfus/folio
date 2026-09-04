@@ -402,7 +402,7 @@ sites than by scholarship and the cited source has to be chosen with care.
     rm-141  Roman expansion in Italy
     rm-142  Latin War
     rm-143  Feriae Latinae
-    rm-144  The settlement of 338 BCE
+    rm-144  Praefectura
     rm-145  Latin rights
     rm-146  Municipium
     rm-147  Civitas sine suffragio
