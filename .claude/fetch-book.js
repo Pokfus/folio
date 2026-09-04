@@ -1128,6 +1128,143 @@ const BOOKS = {
          and prose are 1,377 characters apart on their longest line, so which paragraphs the pass
          reaches is a measurement; whether to look at all is what this flag decides. */
       verseNewlines: true,
+      /* THE 483 SPACES WIKISOURCE'S TYPING SWALLOWED — see restoreLostSpaces for how they were found
+         and how the real Latin words that split the same way were sorted out of them. Sorted by
+         letter, then alphabetically; every one must fire, and the run says so if one does not. */
+      lostSpaces: {
+        "nequitiaest": "nequitia est", "commodumet": "commodum et", "fiduciaest": "fiducia est", "causaeetiam": "causae etiam",
+        "enimvarietas": "enim varietas", "etliberos": "et liberos", "incertumest": "incertum est", "inmalis": "in malis",
+        "inspem": "in spem", "ipsamquam": "ipsam quam", "Neganunc": "Nega nunc", "nihilinteresse": "nihil interesse",
+        "nostrumquam": "nostrum quam", "quaequoniam": "quae quoniam", "quammirari": "quam mirari", "Quidhuic": "Quid huic",
+        "quisquamde": "quisquam de", "sedper": "sed per", "sitillud": "sit illud", "advocem": "ad vocem",
+        "animosubsidere": "animo subsidere", "atquihoc": "atqui hoc", "autemista": "autem ista", "bonumesse": "bonum esse",
+        "bonumex": "bonum ex", "claritassit": "claritas sit", "condicioest": "condicio est", "cumsubito": "cum subito",
+        "dieset": "dies et", "enimgeritur": "enim geritur", "enimquicquam": "enim quicquam", "epistulatua": "epistula tua",
+        "ergonon": "ergo non", "ergoutriusque": "ergo utriusque", "esseiudicat": "esse iudicat", "idempotest": "idem potest",
+        "inaperto": "in aperto", "lausetiam": "laus etiam", "mixtumhoc": "mixtum hoc", "naturaetibi": "naturae tibi",
+        "nobisesse": "nobis esse", "nonpotuisset": "non potuisset", "nullusest": "nullus est", "omniainvenies": "omnia invenies",
+        "perquos": "per quos", "ponendaest": "ponenda est", "senectutemin": "senectutem in", "sibiipsum": "sibi ipsum",
+        "sibised": "sibi sed", "sitet": "sit et", "sumquo": "sum quo", "tamquamnon": "tamquam non", "tantumsed": "tantum sed",
+        "abhomine": "ab homine", "multisfuit": "multis fuit", "nisiquod": "nisi quod", "possuntet": "possunt et",
+        "quidquidnon": "quidquid non", "quioccurrunt": "qui occurrunt", "tamenita": "tamen ita", "argentumet": "argentum et",
+        "bellofuit": "bello fuit", "benecum": "bene cum", "Caesaremet": "Caesarem et", "cumquo": "cum quo",
+        "cumsciam": "cum sciam", "eripiturex": "eripitur ex", "essetdecem": "esset decem", "estvideri": "est videri",
+        "etmortem": "et mortem", "exaperto": "ex aperto", "facerenon": "facere non", "gaudiumet": "gaudium et",
+        "habebatquod": "habebat quod", "hoctibi": "hoc tibi", "honoremet": "honorem et", "horate": "hora te",
+        "inmorte": "in morte", "inore": "in ore", "Itaquequae": "Itaque quae", "laudemet": "laudem et",
+        "loquiet": "loqui et", "minusquam": "minus quam", "nonregio": "non regio", "nonvehiculum": "non vehiculum",
+        "periculased": "pericula sed", "petendumest": "petendum est", "Quamdiuquidem": "Quamdiu quidem",
+        "quamfama": "quam fama", "quidsupervacuum": "quid supervacuum", "quodmagni": "quod magni", "rerumaliqua": "rerum aliqua",
+        "sitmali": "sit mali", "siveut": "sive ut", "suorumvel": "suorum vel", "tecumsunt": "tecum sunt",
+        "tefuerit": "te fuerit", "venissete": "venisse te", "voluptatesilla": "voluptates illa", "alienamet": "alienam et",
+        "autest": "aut est", "habetqui": "habet qui", "mediocritaset": "mediocritas et", "tesensus": "te sensus",
+        "valetudinemin": "valetudinem in", "vitamet": "vitam et", "corporasunt": "corpora sunt", "corpusest": "corpus est",
+        "ergoet": "ergo et", "facimusaut": "facimus aut", "illumet": "illum et", "necesseest": "necesse est",
+        "Neminemres": "Neminem res", "occupationibussum": "occupationibus sum", "sednos": "sed nos", "sicuthoc": "sicut hoc",
+        "tibiextra": "tibi extra", "animuscontra": "animus contra", "deincepsquae": "deinceps quae", "deosquam": "deos quam",
+        "mariacum": "maria cum", "molestumesse": "molestum esse", "patiquod": "pati quod", "quiaparia": "quia paria",
+        "adhanc": "ad hanc", "animoet": "animo et", "deindead": "deinde ad", "estnullus": "est nullus",
+        "estquantum": "est quantum", "Facileest": "Facile est", "Indein": "Inde in", "Indemihi": "Inde mihi",
+        "nectantum": "nec tantum", "nonvivere": "non vivere", "oblectamentasunt": "oblectamenta sunt",
+        "perstudia": "per studia", "plusquam": "plus quam", "quoscum": "quos cum", "suntista": "sunt ista",
+        "suosnon": "suos non", "ultraquam": "ultra quam", "utverba": "ut verba", "videriset": "videris et",
+        "voluptatibussed": "voluptatibus sed", "amorsui": "amor sui", "autemsuadet": "autem suadet", "conplectiet": "conplecti et",
+        "Ergonec": "Ergo nec", "essein": "esse in", "nevirtus": "ne virtus", "Praetereaillud": "Praeterea illud",
+        "Proderitautem": "Proderit autem", "Proderitergo": "Proderit ergo", "quaedamsunt": "quaedam sunt",
+        "quemadmodumipse": "quemadmodum ipse", "quidemille": "quidem ille", "quiparia": "qui paria", "sapiensnon": "sapiens non",
+        "supervacuumest": "supervacuum est", "tibidicere": "tibi dicere", "virtuteset": "virtutes et",
+        "inparia": "in paria", "bonumest": "bonum est", "dabonec": "dabo nec", "quidsi": "quid si", "semouet": "se mouet",
+        "actumest": "actum est", "Adsummam": "Ad summam", "Anhas": "An has", "delicisomnia": "delicis omnia",
+        "denobis": "de nobis", "estnec": "est nec", "illanos": "illa nos", "Inanime": "Inani me", "ipsamihi": "ipsa mihi",
+        "ipsemihi": "ipse mihi", "multumest": "multum est", "necinmerito": "nec inmerito", "nihilpraeter": "nihil praeter",
+        "Paratumtibi": "Paratum tibi", "PlusIuppiter": "Plus Iuppiter", "populumet": "populum et", "potestesse": "potest esse",
+        "Quaerisquae": "Quaeris quae", "quamex": "quam ex", "Quantulumcumqueest": "Quantulumcumque est",
+        "Quimultum": "Qui multum", "satisest": "satis est", "simultum": "si multum", "sitres": "si tres",
+        "utomnia": "ut omnia", "atquealius": "atque alius", "corporisanimo": "corporis animo", "datquidem": "dat quidem",
+        "decoretam": "decore tam", "efficeut": "effice ut", "exirenon": "exire non", "exquo": "ex quo",
+        "feceratnon": "fecerat non", "iamfacta": "iam facta", "imaginemnobis": "imaginem nobis", "indiciumest": "indicium est",
+        "innotitiam": "in notitiam", "nequis": "ne quis", "nosilla": "nos illa", "numquamde": "numquam de",
+        "ordoeius": "ordo eius", "periculumesse": "periculum esse", "placiduset": "placidus et", "quamin": "quam in",
+        "sciatan": "sciat an", "sicmentitur": "sic mentitur", "sithoc": "sit hoc", "speciesnon": "species non",
+        "tantumtamquam": "tantum tamquam", "utuita": "ut uita", "aliterquam": "aliter quam", "animalad": "animal ad",
+        "apparetnon": "apparet non", "autunde": "aut unde", "constitutioest": "constitutio est", "Esseautem": "Esse autem",
+        "etuiuere": "et uiuere", "illudignorat": "illud ignorat", "instrumentasua": "instrumenta sua",
+        "manuset": "manus et", "membrorumtam": "membrorum tam", "necumquam": "nec umquam", "nisiquid": "nisi quid",
+        "nonex": "non ex", "Nosquoque": "Nos quoque", "nullumest": "nullum est", "omnesei": "omnes ei",
+        "omnibusest": "omnibus est", "quaenecessitate": "quae necessitate", "quasatis": "qua satis", "quodtranseat": "quod transeat",
+        "rationalipotest": "rationali potest", "seper": "se per", "suiet": "sui et", "tamendesiderio": "tamen desiderio",
+        "aliauita": "alia uita", "aliquidex": "aliquid ex", "facerequod": "facere quod", "faciuntet": "faciunt et",
+        "ineadem": "in eadem", "interse": "inter se", "multishoc": "multis hoc", "namsi": "nam si", "naturamqui": "naturam qui",
+        "neaetas": "ne aetas", "noctisquid": "noctis quid", "nonuidentur": "non uidentur", "omniadebitum": "omnia debitum",
+        "petuntomnes": "petunt omnes", "sesupra": "se supra", "totamuitam": "totam uitam", "utdixi": "ut dixi",
+        "argumentaquae": "argumenta quae", "asperaet": "aspera et", "estneminem": "est neminem", "fecerisnec": "feceris nec",
+        "hocest": "hoc est", "malumnon": "malum non", "multanocte": "multa nocte", "namcum": "nam cum",
+        "nametiam": "nam etiam", "necante": "nec ante", "Necfacile": "Nec facile", "nonhabet": "non habet",
+        "nosaut": "nos aut", "nosetiam": "nos etiam", "Quemadmodumqui": "Quemadmodum qui", "quiddamest": "quiddam est",
+        "turpeest": "turpe est", "uiueresed": "uiuere sed", "utillos": "ut illos", "Animalibustantum": "Animalibus tantum",
+        "bonumin": "bonum in", "bonumtuum": "bonum tuum", "daturde": "datur de", "essesecurum": "esse securum",
+        "hebeset": "hebes et", "innullo": "in nullo", "inperfectumet": "inperfectum et", "Itadico": "Ita dico",
+        "maximesolum": "maxime solum", "naturaeest": "naturae est", "naturaesunt": "naturae sunt", "naturamest": "naturam est",
+        "necid": "nec id", "necin": "nec in", "nondico": "non dico", "noneris": "non eris", "nonessent": "non essent",
+        "Nonpotest": "Non potest", "perfectaest": "perfecta est", "possuntin": "possunt in", "potesteorum": "potest eorum",
+        "quaerettuli": "quae rettuli", "quamoculorum": "quam oculorum", "quemde": "quem de", "quidemcadere": "quidem cadere",
+        "Quidninon": "Quidni non", "quiillud": "qui illud", "quodesse": "quod esse", "Quodne": "Quod ne",
+        "quodnondum": "quod nondum", "rationaleest": "rationale est", "sednec": "sed nec", "sitpalam": "sit palam",
+        "Tempusenim": "Tempus enim", "Tertiumuero": "Tertium uero", "tuaetantum": "tuae tantum", "tuoprofutura": "tuo profutura",
+        "uiaest": "uia est", "uitafundamentum": "uita fundamentum", "uoluptatemin": "uoluptatem in",
+        "diumori": "diu mori", "extremaventum": "extrema ventum", "Huicputes": "Huic putes", "Maximumvitae": "Maximum vitae",
+        "quantadementia": "quanta dementia", "vulnussuum": "vulnus suum", "adhucmembra": "adhuc membra",
+        "aliquemiudicet": "aliquem iudicet", "bonumputamus": "bonum putamus", "claritasbonum": "claritas bonum",
+        "claritasdesiderat": "claritas desiderat", "contingerecontenta": "contingere contenta", "cuiusante": "cuius ante",
+        "distantibusbonum": "distantibus bonum", "divinalux": "divina lux", "eorumquibus": "eorum quibus",
+        "iudicisconstat": "iudicis constat", "locoposita": "loco posita", "magnorumvirorum": "magnorum virorum",
+        "potessub": "potes sub", "Quidquidcirca": "Quidquid circa", "secundumquem": "secundum quem", "tamquamextremum": "tamquam extremum",
+        "totamlucem": "totam lucem", "unafacies": "una facies", "uniussermo": "unius sermo", "Quantumpotes": "Quantum potes",
+        "adversusminas": "adversus minas", "antequamnecesse": "antequam necesse", "constarelibertas": "constare libertas",
+        "desideriaintra": "desideria intra", "extrametus": "extra metus", "fortunavivere": "fortuna vivere",
+        "habereanimi": "habere animi", "locodiscitur": "loco discitur", "mortemhomo": "mortem homo", "pertinetquos": "pertinet quos",
+        "quamdiumalorum": "quamdiu malorum", "quorumnemo": "quorum nemo", "sineullis": "sine ullis", "suorumexigit": "suorum exigit",
+        "virovivendum": "viro vivendum", "visista": "vis ista", "vitaeusus": "vitae usus", "aliisloqui": "aliis loqui",
+        "aliudagere": "aliud agere", "apudaliquem": "apud aliquem", "domimolestum": "domi molestum", "malaconscientia": "mala conscientia",
+        "omnibusistis": "omnibus istis", "periculopossint": "periculo possint", "populumfaciet": "populum faciet",
+        "quisquisexpectat": "quisquis expectat", "ullotempore": "ullo tempore", "anid": "an id", "bonumhominis": "bonum hominis",
+        "philosophiamvelle": "philosophiam velle", "Quemadmodumomnium": "Quemadmodum omnium", "rettulivirtutes": "rettuli virtutes",
+        "Alioloco": "Alio loco", "aliquispati": "aliquis pati", "fortiterfortuita": "fortiter fortuita",
+        "hanclegem": "hanc legem", "illisnoster": "illis noster", "quaecumquefiunt": "quaecumque fiunt",
+        "ubimagnitudo": "ubi magnitudo", "videsregnum": "vides regnum", "aliquasdisputationes": "aliquas disputationes",
+        "divitemfecit": "divitem fecit", "egregiumsensum": "egregium sensum", "fundamentadedit": "fundamenta dedit",
+        "legemvitae": "legem vitae", "philosophiaevis": "philosophiae vis", "philosophumfuerunt": "philosophum fuerunt",
+        "prodessevelit": "prodesse velit", "quoniamquaedam": "quoniam quaedam", "secumboni": "secum boni",
+        "spiritusnoster": "spiritus noster", "veloxdies": "velox dies", "Aiunthomines": "Aiunt homines",
+        "bonusbono": "bonus bono", "nihilominusprodesse": "nihilominus prodesse", "omnibono": "omni bono",
+        "omnibusinter": "omnibus inter", "plurimumvitia": "plurimum vitia", "Primummultum": "Primum multum",
+        "Prodessedicuntur": "Prodesse dicuntur", "prodessesapienti": "prodesse sapienti", "quisqueconciliatur": "quisque conciliatur",
+        "sapienssapienti": "sapiens sapienti", "sapientiproderit": "sapienti proderit", "ubihonesta": "ubi honesta",
+        "utrumquevalere": "utrumque valere", "beneficiointer": "beneficio inter", "egregiedictum": "egregie dictum",
+        "extrasensum": "extra sensum", "Horatiusnegat": "Horatius negat", "nimiscurat": "nimis curat",
+        "occupatapaupertas": "occupata paupertas", "suaebeneficio": "suae beneficio", "utroqueeadem": "utroque eadem",
+        "aliquandosuperest": "aliquando superest", "bellofortem": "bello fortem", "bonumiudicant": "bonum iudicant",
+        "distinguerespecie": "distinguere specie", "facereposset": "facere posset", "interista": "inter ista",
+        "istaduo": "ista duo", "magnitudosuper": "magnitudo super", "mensnostra": "mens nostra", "meritodici": "merito dici",
+        "numquameundem": "numquam eundem", "perfectumanimum": "perfectum animum", "primaboni": "prima boni",
+        "unumhominem": "unum hominem", "constitutionemhabet": "constitutionem habet", "constitutionemsuam": "constitutionem suam",
+        "constitutionissuae": "constitutionis suae", "demumintelleges": "demum intelleges", "felicitasdicitur": "felicitas dicitur",
+        "hisnatura": "his natura", "hominemnatura": "hominem natura", "hominemsibi": "hominem sibi", "huicconstitutioni": "huic constitutioni",
+        "iudicasmores": "iudicas mores", "nascioportet": "nasci oportet", "naturacommendat": "natura commendat",
+        "naturaetuae": "naturae tuae", "nullimortalium": "nulli mortalium", "Praetereaipsam": "Praeterea ipsam",
+        "quaedamnaturam": "quaedam naturam", "quamuisnaturam": "quamuis naturam", "quemadmodumintellegat": "quemadmodum intellegat",
+        "simultemptare": "simul temptare", "diciturrationes": "dicitur rationes", "huiusdiem": "huius diem",
+        "malorumdixerim": "malorum dixerim", "nesciuntquando": "nesciunt quando", "nisinoctem": "nisi noctem",
+        "sudoremquem": "sudorem quem", "totodie": "toto die", "aequeapparet": "aeque apparet", "alioaliunde": "alio aliunde",
+        "auribusnostris": "auribus nostris", "famesreddet": "fames reddet", "interestutrum": "interest utrum",
+        "ipsoloquor": "ipso loquor", "lassitudinempono": "lassitudinem pono", "multaetemporum": "multae temporum",
+        "rectumsequi": "rectum sequi", "aliquodbonum": "aliquod bonum", "alteriuscura": "alterius cura",
+        "alterummortale": "alterum mortale", "animalibusdecore": "animalibus decore", "animalibustalis": "animalibus talis",
+        "diceretillum": "diceret illum", "Dicimusbeata": "Dicimus beata", "haberemanifestum": "habere manifestum",
+        "initioperfectum": "initio perfectum", "longostudio": "longo studio", "naturatalis": "natura talis",
+        "plurimumcrescere": "plurimum crescere", "quantuluminterest": "quantulum interest", "soliscontingunt": "solis contingunt",
+        "uidentursecundum": "uidentur secundum",
+      },
       // one page per book of the collection; the letters are the h2 headings inside each
       pages: [
         "Epistulae morales ad Lucilium/Liber I",
@@ -25233,6 +25370,56 @@ async function fetchEnglish() {
    Wikisource pages and a single TEI edition — share one way of writing it out and one report at the
    end, and so cannot drift apart in what they emit. The same split, and the same reason, as
    writeOriginal below. */
+/* A SPACE LOST AT A LINE END, IN THE SOURCE (Sep 2026, batch E28). The last four books of the Latin
+   Seneca — letters 101 to 124, which Wikisource carries as Liber XVII–XVIII, XIX and XX — were typed
+   with the space at each line end swallowed, so the text reads "bonumesse", "nullusest",
+   "occupationibussum", "Neminemres". It is upstream and not ours: every one of the 483 forms declared
+   below appears glued in the wikitext that `?action=raw` returns, so no rule in this file could have
+   produced it and none can be written to undo it — a lost space leaves nothing behind to key on.
+
+   THE FIRST HUNDRED LETTERS ARE CLEAN and that is what makes the finding trustworthy: three isolated
+   slips in letters 1–100 against about fourteen a letter from 101 on, which is a page-level fault in
+   somebody's transcription rather than a scatter. Read as a rate it is the same shape as the
+   Canterbury Tales' scan damage, one wiki over.
+
+   IT IS A DECLARED MAP RATHER THAN A RULE, and the reason is that no rule can be right here. The
+   candidates were found by asking for a single-occurrence token that splits into two words the book
+   uses at least three times, one of them a function word — and that measure returns real Latin as
+   well: `officiosum`, `adprobari`, `inmortales`, `satisfaciam`, `incesserit`, `aberrat`, `curatam`,
+   `quate` and eighteen more are perfectly good words that happen to split. They were sorted from the
+   damage in two passes: a LEXICON of 833,000 words of Latin from the other originals on this shelf —
+   the City of God, Boethius, Caesar, Ovid, Lucretius, Suetonius, the Aeneid, the Satyricon, Bede —
+   which knew 33 of 35 real words tested and none of the errors; and then a reading of every survivor
+   in its own sentence, which is what caught the last of them. Four went the other way and are
+   repaired because the sentence says so: `advocem` is "non ad vocem referunt sed ad sententiam",
+   `semouet` is "impetum animi tendentis ad se mouet", `Inanime` is Horace's "'Inani me' inquis",
+   and `nequis` is "id agit ne quis sit officiosior seruus".
+
+   EVERY ENTRY IS ANCHORED ON BOTH SIDES and every entry must FIRE. A key here is a whole word — the
+   forms are letters only, so there is nothing to escape — and a key that matches nothing is reported
+   at the end of the run, exactly as a dead `reFix` is: a repair that has stopped applying and says so
+   is a finding, and one that stops applying in silence is a text quietly going back to being wrong. */
+const ORIG_SPACE_HITS = {};
+function restoreLostSpaces(chapters, O) {
+  const map = O && O.lostSpaces;
+  if (!map) return;
+  const keys = Object.keys(map);
+  const bad = keys.filter((k) => !/^[A-Za-z]+$/.test(k));
+  if (bad.length) throw new Error("lostSpaces keys must be letters only: " + bad.slice(0, 3).join(", "));
+  keys.sort((a, b) => b.length - a.length);
+  const rx = new RegExp("(?<![A-Za-z])(" + keys.join("|") + ")(?![A-Za-z])", "g");
+  let n = 0;
+  const fix = (html) => String(html || "").replace(rx, (w) => {
+    ORIG_SPACE_HITS[w] = (ORIG_SPACE_HITS[w] || 0) + 1; n++;
+    return map[w];
+  });
+  chapters.forEach((c) => { c.html = fix(c.html); });
+  const dead = keys.filter((k) => !ORIG_SPACE_HITS[k]);
+  console.log("  restored " + n + " space" + (n === 1 ? "" : "s") + " the source had swallowed" +
+    (dead.length ? " — " + dead.length + " declared row(s) DID NOT FIRE: " + dead.slice(0, 6).join(", ") : ""));
+  return dead.length;
+}
+
 /* A VERSE LINE BREAK WRITTEN AS A BARE NEWLINE (Sep 2026, batch E27, finishing E26). The Latin
    Seneca is the only column on the shelf with no <br> in it at all — the Iliad has 15,258, the Aeneid
    9,452, the Ramayana 39,061 — so the lines of the verse it quotes on nearly every other page are
@@ -26294,6 +26481,7 @@ function writeOriginal(byNum, warnings) {
      rather than the passes being written twice: a repair that runs on one column and not the other
      is a book whose two halves disagree about what a paragraph is. */
   const asChapters = nums.map((n) => ({ n: n, html: byNum[n] }));
+  restoreLostSpaces(asChapters, O);
   if (O.verseNewlines) versifyNewlines(asChapters);
   wrapLooseText(asChapters);
   joinBrokenParas(asChapters);

@@ -303,8 +303,9 @@ re-run and diffed byte for byte.
 | **E25** ✅ | the paragraph fault, in the extractor | **387 false paragraph breaks joined across four books, 43 of them inside a word.** The mechanism is Wikisource's own: the fetched HTML for City of God I.20 carries `no sensa` `</p><p>` `tion, nor of the irrational` literally, with no pagenum span or anchor to join on, so the lowercase letter is the only signal there is. The join is easy and the SEPARATOR is the whole problem — nothing, `<br>` or a space — decided per boundary by the book's own vocabulary and by whether the LINE is verse. Proved byte for byte over all 48 books |
 | **E26** ✅ | the original columns — and 70 quotations nobody could read | **7 quotations of Virgil restored to the Latin Seneca and 63 more made visible, 36 paragraph breaks joined, and a silent renderer fault closed.** Chasing E25's leftover found something much larger: this wiki sets a verse quotation as `{{block center|<poem>}}`, which MediaWiki renders as a centring TABLE, and "every table on this page is furniture" ate seven of them outright; 63 more were in the file and INVISIBLE, because `bookSections` split a chapter by its ELEMENT children and a text node between two paragraphs belonged to no section. Repaired at both ends, with a per-book gate for the one column on the shelf that writes a verse line break as a bare newline |
 | **E27** ✅ | the Latin Seneca's run-on verse | **13 verse paragraphs lineated, 25 lines restored — and E26 was wrong to call it a judgement.** Measured, the eighteen paragraphs carrying an internal newline split into thirteen verse with a longest line of 25–51 characters and five prose with one of 1,428–2,179: **a gap 1,377 characters wide**, so the threshold sits in open ground rather than on a border. `versifyNewlines` runs before `joinBrokenParas`, which could then go back to asking a single question — does this paragraph carry a `<br>`? — and lose the book-specific flag E26 had given it |
-| **E28** | the Latin Seneca's lost spaces, letters 101–124 | **138 run-together words, and they are UPSTREAM**: `occupationibussum` and `Neminemres` are in Wikisource's own wikitext. They cluster hard — letters 101–124 carry all but a handful, which is the last two source pages — so it is a page-level transcription fault rather than a scattered one, and the repair is a table of rows read one at a time against the Latin, not a mechanism |
-| **E29–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E28** ✅ | the Latin Seneca's lost spaces | **483 spaces restored, and the first sweep understated it by three and a half times.** The last four books — letters 101 to 124 — were typed into Wikisource with the space at each line end swallowed: `bonumesse`, `occupationibussum`, `claritasbonum`, `mortemhomo`. It is upstream (every form is glued in the wikitext) so no rule could undo it, and the repair is a declared map of 483 entries on the book's `original`. Sorting the damage from the real Latin that splits the same way took a **833,000-word lexicon** built out of the shelf's other Latin, and then a reading of every survivor |
+| **E29** | the correction chain runs BEFORE the cache on the biggest wiki branch | `let h = correctRaw(await api(...))` corrects the page and the extracted prose is then cached, so a live row reports DEAD one run after it is added — which is E19's caveat and the reason `corning` was once announced as shipped. Seneca's two English rows report dead now and the live page still carries `Govenor`, so they are alive. Correcting AFTER extraction makes the report trustworthy; it is a shared change wanting the byte-for-byte proof |
+| **E30–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
@@ -359,6 +360,67 @@ examples.
 ---
 
 ## 8. Batch log
+
+### E28 — 483 spaces the source swallowed, shipped 2026-09-04
+
+**The last four books of the Latin Seneca — letters 101 to 124 — were typed into Wikisource with the
+space at each line end lost.** `bonumesse`, `nullusest`, `occupationibussum`, `Neminemres`,
+`claritasbonum`, `mortemhomo`, `quantadementia`. It is upstream and not ours: every one of the 483
+forms appears glued in the wikitext `?action=raw` returns, so no rule in this file produced it and
+none can undo it — **a lost space leaves nothing behind to key on** — and the repair is a declared map.
+
+**The first hundred letters are clean, and that is what makes the finding trustworthy.** Three
+isolated slips in letters 1–100 against about twenty a letter from 101 on: a page-level fault in one
+contributor's transcription rather than a scatter.
+
+**E27's estimate was 138 and the answer is 483, because the first sweep asked the wrong question.**
+It required the second half of a glued pair to be a FUNCTION word (`est`, `et`, `non`, `quam`),
+which is what makes such a list readable — and it is blind to the commoner case, two content words
+run together. Two sweeps were needed and the second is the larger:
+
+| family | candidates | real Latin refused | repairs |
+|---|---|---|---|
+| a function word on one side | 341 | 26 | 318 |
+| two content words | 204 | 40 | 164 |
+| below the length filter | 1 | 0 | 1 |
+
+**Sorting the damage from the real Latin is the whole difficulty, and it took a lexicon.** The measure
+returns perfectly good words that happen to split: `officiosum`, `adprobari`, `inmortales`,
+`satisfaciam`, `incesserit`, `aberrat`, `curatam`, `quate`, `maledixit`, and — a whole family of
+them — every verb carrying the enclitic `-que` or a first-person `-mus`. So a **lexicon of 833,000
+words of Latin was built out of the other originals on this shelf** — the City of God, Boethius,
+Caesar, Ovid, Lucretius, Suetonius, the Aeneid, the Satyricon, Bede — and tested before it was
+trusted: it knew **33 of 35** real words put to it and **none** of the errors. The two it missed are
+why the survivors were then read one at a time in their own sentences.
+
+**Four went the other way and are repaired because the sentence says so**, which is the reading half
+doing what no lexicon can:
+
+- `advocem` → *non **ad vocem** referunt sed ad sententiam* — "they refer not to the word but to
+  the sense", and the parallel `ad sententiam` settles it.
+- `semouet` → *impetum animi tendentis ad **se mouet***.
+- `Inanime` → Horace, quoted: *"**Inani me**" inquis "lance muneras"*.
+- `nequis` → *id agit **ne quis** sit officiosior seruus*.
+
+**The machinery is a gap the file had already named.** `correctRaw`'s own comment says the chain "IS
+THE ENGLISH SIDE ONLY … An original that needs a slip corrected wants a table of its own on `O`;
+none does today, and that is a gap rather than a decision." One does now. `restoreLostSpaces` reads
+`O.lostSpaces`, is anchored on both sides of every key, and **reports any key that fires nowhere** —
+a repair that has stopped applying and says so is a finding; one that stops in silence is a text
+quietly going back to being wrong. All 483 fire.
+
+**A finding for E29, and E19's caveat is what caught it.** The run reports Seneca's two ENGLISH rows
+— `Govenor` and `Lucillius`, added in E24 — as DEAD. They are not: the live Wikisource page still
+reads `Govenor`, checked. The cause is that on this branch the correction runs BEFORE the cache is
+written (`let h = correctRaw(await api(...))`, and the extracted prose is cached from the corrected
+page), so a row goes dead one run after it is added and only `--force` can tell that from a real
+death. E19 added the caveat line that says so, and it printed. **That caveat is the only thing
+standing between this and another `corning`** — E15's repair that was announced as shipped and had
+never applied — so correcting AFTER extraction is worth a batch of its own.
+
+**And the corpus is clean afterwards.** Re-swept at a minimum length of four, letters 101–124 return
+27 candidates and 26 of them are the real Latin words refused above; the twenty-seventh, `anid`, was
+below the first sweep's length filter and is repaired here.
 
 ### E27 — a judgement that turned out to be a measurement, shipped 2026-09-04
 

@@ -1177,3 +1177,28 @@ per-book `verseNewlines` flag E26 introduced.
     E26's `VERSE_NL` parameter went with it. The joins came out unchanged, which is the proof that
     the two readings were the same reading. **A pass that normalises is worth more than a test that
     special-cases.**
+
+**`restoreLostSpaces` — A TABLE ON THE ORIGINAL, WHICH THIS FILE HAD ALREADY SAID IT WANTED** (Sep
+2026, batch E28). `correctRaw`'s own comment ends "An original that needs a slip corrected wants a
+table of its own on `O`; none does today, and that is a gap rather than a decision." One does now.
+
+  · **The fault it was written for is a space lost at a line end, in the SOURCE.** The last four
+    books of the Latin Seneca — letters 101 to 124 — were typed into Wikisource with the space at
+    each line end swallowed: `bonumesse`, `occupationibussum`, `claritasbonum`, `mortemhomo`. Every
+    one of the 483 forms is glued in the wikitext `?action=raw` returns, so **no rule here could have
+    produced it and none can undo it** — a lost space leaves nothing behind to key on. Hence a map.
+  · **The first hundred letters are clean**, which is what makes it a finding rather than a guess:
+    three isolated slips in letters 1–100 against about twenty a letter from 101 on.
+  · **SORTING THE DAMAGE FROM THE REAL LATIN IS THE WHOLE DIFFICULTY.** The measure — a
+    single-occurrence token that splits into two words the book uses several times — returns
+    perfectly good words: `officiosum`, `adprobari`, `inmortales`, `satisfaciam`, `aberrat`,
+    `curatam`, `quate`, `maledixit`, and every verb carrying the enclitic `-que` or a first-person
+    `-mus`. So a **lexicon of 833,000 words of Latin from the other originals on this shelf** was
+    built and TESTED before it was trusted (it knew 33 of 35 real words and none of the errors), and
+    every survivor was then read in its own sentence, which is what caught the last two.
+  · **Two sweeps, and the second is the larger.** Requiring the second half to be a FUNCTION word is
+    what makes such a list readable, and it is blind to two content words run together: 318 repairs
+    from the first family, 164 from the second.
+  · **Every key is anchored on both sides, keys are letters only (so there is nothing to escape), and
+    a key that fires nowhere is REPORTED.** A repair that has stopped applying and says so is a
+    finding; one that stops in silence is a text quietly going back to being wrong.
