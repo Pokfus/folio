@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-556` Pyongyang.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-557` Damascus.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -319,6 +319,8 @@ twice**, which is C8's false-corroboration finding one indicator over. `gw-541` 
 and has been corrected, on the card and on its glossary term. **Read the footnote before citing the
 row**: give the current figure to the World Bank, and where the UN figure is worth stating at all, state
 what it is — the same series at the year its footnote names.
+**`gw-556` Pyongyang is the fifth** — 3,060.9 against 3,060,864 for 2019, the footnote again reading
+2019 under a heading saying 2025.
 **`gw-544` Kuala Lumpur is the fourth confirmation and it adds the second half of the trap** — 7,780.3
 against the World Bank's 7,780,301 for 2019 — because there UNdata footnotes the row TWICE, the second
 footnote reading *"Refers to the Greater Kuala Lumpur"*. So the figure is not the city at all but the
@@ -381,6 +383,26 @@ against 5.4 million in `EN.URB.LCTY` — so the rule now has an instance in a ri
 as well as in Côte d'Ivoire. Australia, Côte d'Ivoire, and any other state whose seat of government is
 not its biggest city, are cited on UNdata alone.
 
+
+**`gw-556` PYONGYANG IS THE FIRST CAPITAL WITH NO RECOGNITION-GUIDE PAGE AT ALL, AND THE GUIDE FAILS
+TWICE OVER.** `history.state.gov/countries/north-korea` and `/korea-north` are both 404 — the United
+States has never recognised the state, so the guide has nothing to record — and `/countries/korea`,
+which does exist, is about the **Kingdom of Chosŏn**: it opens on the 1882 treaty of amity and commerce
+at Chemulpo and ENDS on 28 November 1905, when Japan took over Korean foreign relations and the legation
+at Seoul closed. So half the two-fetch recipe is simply absent on the peninsula, for both Koreas, and it
+is absent in a way a slug check cannot see — the page answers 200 and says nothing about the century the
+card is written from. What replaced it is **FRUS full-text search plus the UN Digital Library**, which
+between them gave the city its whole card. `history.army.mil` is **403** here, root and all, so the
+Center of Military History's official Korean War volumes — the obvious source for a city that changed
+hands twice — are not available; record that before the Korea collection is written rather than during it.
+
+**AND A UN DIGITAL LIBRARY RECORD SUMMARY DROPS THE PLACE, WHICH IS THE ONE THING A CAPITAL CARD NEEDS.**
+The catalogue summary for A/RES/62/5 says the Assembly welcomes "the inter-Korean summit held from 2-4
+Oct. 2007" and names no city; the resolution's own text says "the summit meeting **held in Pyongyang**
+from 2 to 4 October 2007", and A/RES/55/11 likewise says "the historic summit meeting, **held in
+Pyongyang** from 13 to 15 June 2000". Both were readable only by pulling the PDF apart with the `zlib`
+recipe above. **Read the document, never the record** — a catalogue is written to be searched by subject,
+and the subject of an inter-Korean summit is not where it happened.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
