@@ -275,7 +275,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | C2a | `thule-harpoon-head`, `great-zimbabwe-bird` (**two, not three — see below**) | — |
 | D3a | `dotaku` (UN-DEFERRED), `mississippian-shell-gorget` | — (a deferral sweep that cleared one of eight) |
 | E2a | `type-sort`, `slide-rule`, `portable-sundial` | — |
-| E3a | `transferware`, `socket-bayonet`, `flintlock-musket` | `steel-pen-nib` (one work only) |
+| E3a | `transferware`, `socket-bayonet`, `flintlock-musket` | ~~steel-pen-nib~~ (one work only; cleared and shipped in E3e) |
 | E1a | `mail-fragment`, `telegraph-key`, `iron-cannonball` | — |
 | E2b/E3b/D1c | `albarello`, `phonograph-cylinder`, `green-glazed-jug` | — |
 | E3c/C1c/E2c | `bartmann-jug`, `byzantine-ivory-panel`, `gutenberg-bible-leaf` | — |
@@ -283,6 +283,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B1d | `mughal-miniature` (UN-DEFERRED; **one, not three — see below**) | `glass-bangle` again, `mariners-astrolabe`, `turnshoe` |
 | B4b | `shell-adze` | `sumatralith` (no openable work uses the term) |
 | D1c | `novgorod-birch-bark-letter` (**UN-HELD — D1's list is now empty**) | — |
+| E3e | `steel-pen-nib` (UN-DEFERRED — **E3's list is now empty**) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1328,6 +1329,31 @@ complete letters under twenty, and a corpus of 1,209 from thirteen towns by the 
   way to parchment yields its REFERENCES in full and not one word of its Cyrillic body, which reads at a
   glance like a successful extraction and is not one. **Grep an extraction for a word the body must
   contain before believing it.**
+
+**E3e clears E3's last deferral, and it cost one grep of files already on disk.** `steel-pen-nib` was
+deferred in E3a with Timmins's 1866 Birmingham survey as its only work. The two that complete it had been
+downloaded for OTHER artefacts and never searched for this one: **Ure's *Dictionary* has a full "Pens,
+Steel, and of Other Metals" article** (fetched for `thimble`) and **Tomlinson's *Cyclopaedia* has "Pens"**
+(fetched for `transferware`). **Before deferring a subject, grep the trade literature already fetched** —
+a Victorian dictionary of manufactures has an article on nearly everything the industrial everyday
+contains, and the marginal cost of asking is nil.
+· **THE THREE WORKS DIVIDE BY WHAT EACH KIND OF BOOK IS FOR, which is why the plate holds together.**
+  Timmins is a TRADE survey and gives the history and the economics — the earliest known pens of about
+  1809 were steel bent into a tube with the junction of its edges forming the nib, highly polished, five
+  shillings each and given as presents; the modern trade goes back no further than 1829, when hand-made
+  pens gave way to the press; twelve Birmingham makers turned out 98,000 gross a week from ten tons of
+  Sheffield steel. Ure is a DICTIONARY OF MANUFACTURES and gives the process, one pen through a dozen
+  hands at Gillott's works, 600 of them and four-fifths women. Tomlinson is an ENCYCLOPEDIA and gives
+  what the thing replaced: 22,024,000 goose quills entered for home consumption in 1840, 27 million from
+  St Petersburg in a single year, a wing yielding about five good ones.
+· **AND URE QUOTES TIMMINS AT LENGTH**, which is B1d's rule met again from the other side: where a survey
+  quotes a primary source, cite both. Here the primary source is the one this pass already had, and the
+  survey is what makes its figures checkable — Ure reprints Timmins's returns and adds the sixteen-year
+  increase behind them, which is a second author vouching for a first.
+· A small content note. **The plate's best sentence is about the thing that WENT AWAY.** A steel nib is
+  hard to make interesting on its own terms; the quill trade it destroyed is not, and Tomlinson happens
+  to have counted it. **When an industrial artefact reads flat, look for what it displaced** — the
+  displaced thing is usually better documented, because somebody was still measuring it when it died.
 
 ## The per-artefact workflow
 

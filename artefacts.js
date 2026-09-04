@@ -1281,4 +1281,11 @@ window.ARTEFACTS = [
     date: "11th – 15th century CE",
     origin: "Novgorod, Rus'",
   },
+  {
+    id: "steel-pen-nib",
+    name: "Steel pen nib",
+    rarity: "common",
+    date: "c. 1810 – 1900 CE",
+    origin: "Birmingham",
+  },
 ];
