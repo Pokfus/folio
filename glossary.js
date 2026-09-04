@@ -1798,7 +1798,8 @@ window.GLOSSARY = {
 "Romulus_Augustulus": "Romulus Augustulus was the last man to hold the title of Roman emperor in the west, put on the throne as a boy by his father Orestes and deposed within the year. Procopius says the Romans called him by the diminutive Augustulus because he took the empire while still a lad, and that when the troops killed Orestes and made Odoacer king, the boy was left alive as a private citizen.<sup class=\"fn\" data-fn=\"2\"></sup> Jordanes has him driven from the throne and condemned to exile in Campania, and says the western empire of the Roman race perished with him.<sup class=\"fn\" data-fn=\"1\"></sup>",
 "Mahajanapadas": "The mahajanapadas were the states of northern India in the age of the Buddha and before it, remembered in a stock list of sixteen great countries that recurs in the Buddhist canon. The names on that list are names of peoples rather than of places, and it is older than the books that carry it: three of the sixteen had already lost their independence by the Buddha's lifetime.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Some were monarchies and some were clan states whose business was done in a public assembly under an elected chief, and they ran from Gandhara in the north-west to Avanti in the centre.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Upanishads": "The Upanishads are Sanskrit texts standing at the end of the Brahmanas, whose name means sitting down beside and came to mean a secret doctrine, because they were imparted to selected pupils rather than to the wider circle.<sup class=\"fn\" data-fn=\"1\"></sup> They set the sacrificial religion of the Vedas aside for enquiry into the self, and teach that the self in each person is identical with the self of the universe, put as 'that art thou' and as 'I am brahma'.<sup class=\"fn\" data-fn=\"2\"></sup> Thirteen are counted as the principal ones,<sup class=\"fn\" data-fn=\"3\"></sup> and the older of them are dated on the whole no later than 550 BCE.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Hinduism": "Hinduism, the religion of about a billion people, 15% of the world, takes its name from a river: the Old Persian and Avestan <i>Hindu</i>, from Sanskrit <i>Sindhu</i>, meant the land beyond the Indus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> There is no one book: the Vedas count as revelation, <i>shruti</i>, and the rest of the tradition as <i>smriti</i>, what is remembered; from that literature come samsara, the round of rebirth, and karma, the action deciding it.<sup class=\"fn\" data-fn=\"2\"></sup> The classical law-books set out four orders of life and a fourfold division of society, while practice varies enormously; 94% of adherents live in India, and they are a majority in three countries.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
+"Hinduism": "Hinduism, the religion of about a billion people, 15% of the world, takes its name from a river: the Old Persian and Avestan <i>Hindu</i>, from Sanskrit <i>Sindhu</i>, meant the land beyond the Indus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"4\"></sup> There is no one book: the Vedas count as revelation, <i>shruti</i>, and the rest of the tradition as <i>smriti</i>, what is remembered; from that literature come samsara, the round of rebirth, and karma, the action deciding it.<sup class=\"fn\" data-fn=\"2\"></sup> The classical law-books set out four orders of life and a fourfold division of society, while practice varies enormously; 94% of adherents live in India, and they are a majority in three countries.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
+"Varna_(Hinduism)": "Varna is the fourfold ordering of society set out in classical Sanskrit texts, into Brahmana, Kshatriya, Vaishya and Shudra, and the word means 'colour'.<sup class=\"fn\" data-fn=\"1\"></sup> A late hymn of the Rigveda derives the four from the body of a primeval man, and the law-books give each its work, making the first three twice-born, the Shudra a servant of the others, and denying that there is a fifth.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The groups people are actually born into are the <i>jati</i>, hundreds of endogamous bodies each with a common name and a traditional occupation, of which the Rigveda knows nothing, so the scheme is a frame rather than a description.<sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3720,7 +3721,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Fall_of_the_Western_Roman_Empire": ["Fall of Rome"],
 "Mahajanapadas": ["mahajanapada"],
 "Upanishads": ["Upanishad"],
-"Hinduism": ["Hindus"]
+"Hinduism": ["Hindus"],
+"Varna_(Hinduism)": ["varna","jati"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -3745,7 +3747,8 @@ window.GLOSSARY_CASESENSITIVE = Object.assign(window.GLOSSARY_CASESENSITIVE || {
 "Great_Pyramid_of_Giza": true,
 "Ding_(vessel)": true,
 "Immortals": true,
-"Battle_of_Lade": true
+"Battle_of_Lade": true,
+"Varna_(Hinduism)": true
 });
 
 /* Category tags per term (slug -> [tags]) — shown in the admin glossary list and filterable from its left bar. */
@@ -5547,7 +5550,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Romulus_Augustulus": ["ruler","person","history","politics","rome","classical"],
 "Mahajanapadas": ["state","history","politics","india","iron age"],
 "Upanishads": ["text","history","philosophy","religion","india","iron age"],
-"Hinduism": ["religion","practice","history","philosophy","india"]
+"Hinduism": ["religion","practice","history","philosophy","india"],
+"Varna_(Hinduism)": ["concept","practice","history","religion","india"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
