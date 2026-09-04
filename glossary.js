@@ -1751,7 +1751,8 @@ window.GLOSSARY = {
 "Battle_of_Salamis": "The Battle of Salamis was the sea fight in the straits between Attica and the island of Salamis, where a Greek fleet of 378 triremes destroyed the far larger Persian one.<sup class=\"fn\" data-fn=\"1\"></sup> Themistocles sent his servant Sicinnus to tell the Persian generals that the Greeks were terrified and meant to flee, and they answered by closing the whole passage in silence through the night.<sup class=\"fn\" data-fn=\"2\"></sup> Aeschylus, who fought in it, has the Persian ships crowded into the narrows until they could not help one another and smashed their own banks of oars, and the sea hidden by wrecks and slaughtered men.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Delian_League": "The Delian League was an alliance of Greek states led by Athens and formed after the Persian invasion, its members contributing money or ships and its treasury kept on Delos, where the congresses met in the temple.<sup class=\"fn\" data-fn=\"1\"></sup> The tribute was first fixed at 460 talents and received by officers called the Treasurers for Hellas, and the allies were at first independent, acting on the resolutions of a common congress.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Most of them chose to pay money rather than serve, so the Athenian navy grew on their contributions while a revolt left them without ships, Naxos being the first member besieged and made to return.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Pericles": "Pericles was the Athenian statesman who led the city in the middle of the 5th century BCE and into the war with Sparta, and whom Thucydides calls the first man of his time, ablest in counsel and action.<sup class=\"fn\" data-fn=\"1\"></sup> The Constitution of the Athenians credits him with taking functions from the Areopagus, urging the state towards naval power, making jury service a paid office, and confining citizenship to those of citizen birth on both sides.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Thucydides writes that his rank, ability and known integrity let him lead the multitude rather than be led, so that what was nominally a democracy became in his hands government by the first citizen.<sup class=\"fn\" data-fn=\"4\"></sup>",
-"Parthenon": "The Parthenon is the temple of Athena on the acropolis of Athens, built after the Persian sack out of the tribute of Athens' allies, with Callicrates and Ictinus as its architects and Pheidias overseeing the work.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias found the front pediment given to the birth of Athena and the rear to her contest with Poseidon for the land, and inside a standing statue of ivory and gold with a Victory in one hand and a spear in the other.<sup class=\"fn\" data-fn=\"2\"></sup> Thucydides reckoned forty talents of pure gold on that statue, all of it removable, which the city might use to save itself and would afterwards have to restore in full.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Parthenon": "The Parthenon is the temple of Athena on the acropolis of Athens, built after the Persian sack out of the tribute of Athens' allies, with Callicrates and Ictinus as its architects and Pheidias overseeing the work.<sup class=\"fn\" data-fn=\"1\"></sup> Pausanias found the front pediment given to the birth of Athena and the rear to her contest with Poseidon for the land, and inside a standing statue of ivory and gold with a Victory in one hand and a spear in the other.<sup class=\"fn\" data-fn=\"2\"></sup> Thucydides reckoned forty talents of pure gold on that statue, all of it removable, which the city might use to save itself and would afterwards have to restore in full.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Greek_theatre": "Greek theatre means the plays performed in competition at the Athenian festivals of Dionysus, for which the chief archon appointed the chorus-leaders of the tragedies from among the wealthiest men in the city.<sup class=\"fn\" data-fn=\"1\"></sup> Aristotle traces tragedy and comedy alike to improvisation, the one from the prelude to the dithyramb and the other from the prelude to the phallic songs, and credits Aeschylus with the second actor and Sophocles with the third and with scene-painting.<sup class=\"fn\" data-fn=\"2\"></sup> He defines tragedy as a representation of an action heroic and complete, acted rather than narrated, whose six parts are plot, character, diction, thought, spectacle and song.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2532,7 +2533,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Battle_of_Salamis": "480 BCE",
 "Delian_League": "founded c. 478 BCE",
 "Pericles": "died 429 BCE",
-"Parthenon": "c. 447 – 432 BCE"
+"Parthenon": "c. 447 – 432 BCE",
+"Greek_theatre": "c. 500 – 400 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3616,7 +3618,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Ürümqi": ["Urumqi"],
 "Xerxes_I": ["Xerxes"],
 "Darius_III": ["Darius the Third"],
-"Greco-Persian_Wars": ["Persian Wars","Persian War","Median war"]
+"Greco-Persian_Wars": ["Persian Wars","Persian War","Median war"],
+"Greek_theatre": ["Greek theater","Greek drama"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5396,7 +5399,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Battle_of_Salamis": ["battle","event","history","warfare","greece","iran"],
 "Delian_League": ["institution","history","greece","warfare","politics","classical"],
 "Pericles": ["person","history","greece","politics","classical"],
-"Parthenon": ["building","history","greece","art","religion","classical"]
+"Parthenon": ["building","history","greece","art","religion","classical"],
+"Greek_theatre": ["practice","art","history","greece","religion","classical"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
