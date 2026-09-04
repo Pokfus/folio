@@ -1872,7 +1872,8 @@ window.GLOSSARY = {
 "Papeete": "<b>Papeete</b> is the capital of French Polynesia, a French territory in the South Pacific whose United Nations profile gives the capital 136,000 people for 2018, against 282,000 for the territory in 2025.<sup class=\"fn\" data-fn=\"1\"></sup> That capital figure is defined rather than left bare, counting the communes of Arue, Faaa, Mahina, Papara, Papeete, Pirae and Punaauia together, which is about half the territory’s people and some four fifths of those it counts as urban.<sup class=\"fn\" data-fn=\"1\"></sup> The town stands on Tahiti, its harbour run by the Autonomous Port of Papeete, and the territory’s only international airport lies at Faaa, one of the seven communes the capital figure takes in.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"1\"></sup>",
 "São_Tomé": "<b>São Tomé</b> is the capital of São Tomé and Príncipe, a two-island state in the Gulf of Guinea whose United Nations profile gives the city 80,100 people for 2018, against 240,000 for the country in 2025.<sup class=\"fn\" data-fn=\"1\"></sup> That is under two fifths of a population living on 964 square kilometres, short of the urban share of 73.6 per cent for 2019, so many of the country’s town dwellers live outside it, and no second count of the city is published.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The United States recognised the republic on 12 July 1975, after Portuguese sovereignty, but the guide records no American embassy or consulate in the city at any point since.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Apia": "<b>Apia</b> is the capital of Samoa, a Polynesian country whose United Nations profile gives the city 36,100 people for 2018, against 219,000 for the country in 2025.<sup class=\"fn\" data-fn=\"1\"></sup> That is about a sixth of a population living on 2,842 square kilometres, almost exactly the urban share of 18.1 per cent for 2019, so nearly everyone counted as urban is counted at Apia, and no second count of the city is published.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The United States had a commercial agent there by 1844 and a consulate from 1856 until 1927, and opened an embassy in the city in 1988, though its ambassador to Samoa has remained resident at Wellington throughout.<sup class=\"fn\" data-fn=\"3\"></sup>",
-"Castries": "<b>Castries</b> is the capital of Saint Lucia, a Caribbean island state whose United Nations profile gives the city 22,300 people for 2018, against 180,000 for the country in 2025.<sup class=\"fn\" data-fn=\"1\"></sup> That is about an eighth of a population living on 616 square kilometres, against an urban share of 18.8 per cent for 2019, so roughly two thirds of the country’s town dwellers live in the capital, and no second count of the city is published.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The United States keeps no mission there: it recognised the country on 17 May 1979 by appointing an ambassador, and every such ambassador has been resident at Barbados and travels over.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Castries": "<b>Castries</b> is the capital of Saint Lucia, a Caribbean island state whose United Nations profile gives the city 22,300 people for 2018, against 180,000 for the country in 2025.<sup class=\"fn\" data-fn=\"1\"></sup> That is about an eighth of a population living on 616 square kilometres, against an urban share of 18.8 per cent for 2019, so roughly two thirds of the country’s town dwellers live in the capital, and no second count of the city is published.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The United States keeps no mission there: it recognised the country on 17 May 1979 by appointing an ambassador, and every such ambassador has been resident at Barbados and travels over.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Hagåtña": "<b>Hagåtña</b> is the capital of Guam, a United States territory in the Mariana Islands whose United Nations profile gives the capital 146,900 people for 2018, against 169,000 for the territory in 2025.<sup class=\"fn\" data-fn=\"1\"></sup> That is about nine tenths of a population living on 541 square kilometres, close to the urban share of 94.9 per cent for 2019, so the figure covers most of the island rather than the seat of government, and no second count is published.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Guam is a Non-Self-Governing Territory administered through the Office of Insular Affairs, and a plebiscite on statehood, independence or free association set for 2 November 2004 was postponed for want of an identified electorate.<sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -3744,7 +3745,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Luxembourg_(city)": ["Luxembourg City"],
 "Reykjavík": ["Reykjavik"],
 "Port_Vila": ["Port-Vila"],
-"São_Tomé": ["Sao Tome"]
+"São_Tomé": ["Sao Tome"],
+"Hagåtña": ["Hagatna","Agana"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5645,7 +5647,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Papeete": ["place","city","geography","capital","polynesia","french polynesia"],
 "São_Tomé": ["place","city","geography","capital","africa","sao tome and principe"],
 "Apia": ["place","city","geography","capital","polynesia","samoa"],
-"Castries": ["place","city","geography","capital","caribbean","saint lucia"]
+"Castries": ["place","city","geography","capital","caribbean","saint lucia"],
+"Hagåtña": ["place","city","geography","capital","micronesia","guam"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
