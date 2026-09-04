@@ -326,7 +326,7 @@ re-run and diffed byte for byte.
 | **E33** ✅ | a third scanner, and what it found in the first minute | **86 italic passages restored to Don Quixote, 13 more corrections, and two confusion shapes the scanner's set did not carry.** A new audit — *is this a thing a finished book should contain at all?* — found Don Quixote's italics shipping as literal underscores: Gutenberg marks italic with a pair of them, `extractChaucer` has converted them since the day it was written and `extractQuixote` never did. Reading round the findings turned up **`h` read as `n`** (`somewnat`, `cniefest`, `bethougnt`, `Tney`) and **`na` read as `m`** (`Damans` for *Danaans*, three times; `naortal`, `naagic`), neither in the confusion set. **The shelf is the dictionary**: the h/n sweep returns 57 candidates, nearly all ordinary words, and filtering to forms no other book knows cuts it to nine — four damage, five real archaic words |
 | **E34** ✅ | the Journey scan's plate captions | **Twenty-two plate captions, eighteen blocks of engraving noise and a leaked running head removed — nearly 2 KB of furniture, three of it inside a sentence.** The table of what to remove is **the book's own List of Illustrations**, read out of the front matter the reader throws away: a rule about the SHAPE of a caption is impossible here, the scan having 523 runs of four blank lines. Its finding is about the threshold — **the correction chain romanises the LIST and not the mangled caption**, so the two drift apart by the width of the correction and one caption moves from 0.30 to 0.40. A row that fires on one side of a comparison and not on the other widens it |
 | **E35** ✅ | two articles of the Summa, put back | **A new check — does the book carry a paragraph twice in one chapter? — found the Summa missing two articles of Aquinas.** Wikisource sets article 2 of I-II q.52 twice under article 3's number, and article 4 of II-II q.43 twice under article 5's, so Folio was making a false claim rather than merely repeating one. Each question's own list of points of inquiry names what is gone; the replacement is Project Gutenberg's transcription of the same translation, **99.83% word-identical on an article both carry**. Its finding is the instrument: **II-II q.47 looks identical and gets no repair, because the Gutenberg transcription carries the same wrong heading** — two independent transcriptions agreeing is what tells a transcriber's error from the printer's |
-| **E36** | the rest of the Summa's duplication | **15 paragraphs still repeat inside a chapter**, twelve of them in I-II q.20, whose wiki page carries SEVEN article headings for a six-article question — article 5 set twice, the second time under article 6's number, and the real sixth under a seventh. No text is lost there, so the repair is a rule in `markArticuli` (two consecutive headings with the same title and the same body are one article) and it must be proved inert across all 614 questions. Three single repeats in q.108, q.109 and q.95 want reading first |
+| **E36** ✅ | the rest of the Summa's duplication | **Seventeen paragraphs removed, in the four questions that were read and nowhere else.** Two faults: the tail of one article pasted at the end of the one before it (I q.108, I q.109 — four paragraphs, the first of each pair truncated, so an article ends by answering objections it never raised), and a run set twice in a row (I-II q.20's eleven, plus two single paragraphs). **The finding is the four cases that look identical and are not**: six article boundaries end with a paragraph that also stands in the next article, and four are the Summa's own closing formula, which it prints 55 times. They run 48–66 characters against the real faults' 213 and 416, so the bar sits in 147 characters of open ground |
 | **E37–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
@@ -392,6 +392,52 @@ not deferred.**
 ---
 
 ## 8. Batch log
+
+### E36 — the four cases that look identical and are not, shipped 2026-09-04
+
+**E35 put back two articles the Summa's transcription had lost; fifteen paragraphs still stood twice.**
+Read out they are two faults, and both are a transcriber's paste gone astray rather than anything the
+printing did.
+
+| | question | what the transcription does |
+|---|---|---|
+| **the tail of the next article, pasted at the end of this one** | I q. 108, I q. 109 | the last two paragraphs of one article are the last two of the NEXT, the first of the pair truncated — so article 1 of q.109 ends by answering objections it never raised |
+| **a run of paragraphs set twice in a row** | I-II q. 20, I-II q. 20, II-II q. 95 | q.20's page carries **seven article headings for a six-article question**: article 5 set twice, the second under article 6's number, the real sixth pushed to a seventh. Eleven paragraphs, and two more questions with one paragraph typed twice |
+
+Seventeen paragraphs in all, and **the four questions that changed are the four that were read**.
+
+**THE FINDING IS THE FOUR CASES THAT LOOK IDENTICAL AND ARE NOT.** Six article boundaries in the Summa
+end with a paragraph that also stands in the next article. Four of them are not damage: they are the
+work's own closing formula — *"This suffices for the Replies to the Objections"* — which the book
+prints **55 times**, so two adjacent articles ending the same way is Aquinas's convention.
+
+| | length | what it is |
+|---|---|---|
+| II-II q. 17, Suppl. q. 97, App. q. 2 | 48 chars | *"This suffices for the Replies to the Objections."* |
+| I-II q. 23 | 66 chars | *"From what has been said the replies to the objections are evident."* |
+| I q. 108 | 213 chars | a Reply to Objection 3 about the Day of Judgment |
+| I q. 109 | 416 chars | a Reply to Objection 3 about the precedence of demons |
+
+> **147 characters of open ground.** A rule that fires six times where two are wrong is not a rule;
+> the measurement is what turns it into one. This is E31's discriminator in a new subject — the
+> arithmetic was already in the candidate list, and reading it is what separates damage from the
+> work's own habits.
+
+**AND IT SPLICES RATHER THAN REASSEMBLES, which is a rule about how to write a rule.** The first cut
+rebuilt each chapter from its paragraphs, and the book **grew by 45 KB**: the whitespace between every
+paragraph in 614 questions, changed for nothing, on every line of a 15 MB diff. Dropping character
+ranges out of the original html instead leaves the file byte-identical everywhere the rule did not
+fire — **four lines of `books/summa-theologica.js` changed**. A rule that touches a file it had no
+finding in cannot be proved inert, whatever it did to the text.
+
+> **THE AUDIT'S REPEATED-PARAGRAPH CHECK NOW HAS TWO KNOWN FALSE FAMILIES**, and they are the same
+> lesson twice. The Summa's closing formula is one. The other is in the Latin Bede, which the check
+> still reports: book 1 quotes several of Gregory the Great's letters, and two carry the identical
+> dating clause — *"Data die X. Kalendarum Iuliarum, imperante domino nostro Mauricio Tiberio…"* —
+> because they were sent on the same day, one closing *reverentissime frater* to a bishop and one
+> *domine fili* to a king. **A work that repeats itself by convention looks exactly like a
+> transcription that repeats itself by accident**, and only reading the two occurrences apart tells
+> them apart. The check stays as it is: it produces evidence, and the reading is the batch.
 
 ### E35 — two articles of Aquinas, put back, shipped 2026-09-04
 

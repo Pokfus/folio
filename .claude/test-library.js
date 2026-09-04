@@ -2824,6 +2824,26 @@ function aeneidChecks() {
        would be inventing a heading no edition has. */
     check("[summa] q.47's duplicated heading is left as the printing has it",
       (su.match(/Whether solicitude belongs to prudence\?/g) || []).length === 2);
+
+    /* E36 — the other two shapes of duplication in the same transcription. Asserted on the shipped
+       text and BOTH WAYS ROUND, because the rule that removes them is one measurement away from
+       removing the work's own closing formula: I q.109's article 1 must no longer end by answering
+       objections it never raised, and the four articles that legitimately end on "This suffices for
+       the Replies to the Objections" must still do so. */
+    check("[summa] the paste at the end of q.109 article 1 is gone",
+      (su.match(/The demons are not equal in nature/g) || []).length === 1);
+    /* The truncated half is a SUFFIX of the legitimate paragraph, so it cannot be tested for by its
+       words — only by the fact that it stood as a paragraph of its own, opening mid-sentence. */
+    check("[summa] ...and the truncated half of it with it",
+      !/<p>whereby some obey others/.test(su) && !/<p>conclusion, but not knowledge/.test(su));
+    check("[summa] q.20's eleven-paragraph repeat is gone",
+      (su.match(/It would seem that the consequences of the external action increase its goodness/g) || []).length === 1);
+    check("[summa] ...and so are the two single ones",
+      (su.match(/The same thing cannot be the subject of contraries/g) || []).length === 1 &&
+      (su.match(/there were some possessed of the spirit of prophecy/g) || []).length === 1);
+    check("[summa] but the work's own closing formula is untouched, 55 times over",
+      (su.match(/This suffices for the Replies to the Objections/g) || []).length === 55,
+      String((su.match(/This suffices for the Replies to the Objections/g) || []).length));
   }
 
   /* ================= 7. the switch is a crossfade, not a cut =================

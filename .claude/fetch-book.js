@@ -14147,6 +14147,10 @@ const BOOKS = {
        transcription of the same translation. See supplyArticles, and the header of the file itself
        for what was measured before a word of it was used. */
     supplied: "summa-supplied.json",
+    /* AND TWO SHAPES OF DUPLICATION THE SAME TRANSCRIPTION LEAVES BEHIND — see dedupeArticles for
+       what each is, what was measured before the rule was written, and why the length bar is what
+       keeps this book's own closing formula out of it. */
+    dedupe: true,
     /* The shortest question in the sample is 6.0 KB of prose and the shortest article-less page would
        be a fraction of that; 2,500 sits well below the one and far above what a failed extraction
        returns. */
@@ -17874,6 +17878,99 @@ function correctRaw(t) {
    with it, a chapter head being English text like any other. Both shapes an extractor returns are
    taken — an ARRAY of parts (`play`, `laisses`) and a single object (the other three) — since the
    alternative is five copies of the same three lines. */
+/* TWO SHAPES OF DUPLICATION IN A TRANSCRIPTION, BOTH MEASURED OVER THE WHOLE BOOK BEFORE THE RULE
+   WAS WRITTEN (Sep 2026, batch E36). E35 put back two articles the Summa's transcription had lost;
+   fifteen paragraphs still stood twice, and read out they are two faults with nothing else in common
+   than that a transcriber's paste went astray.
+
+   TRAILING PARAGRAPHS THAT BELONG TO THE NEXT ARTICLE. In I q.108 and I q.109 the last two paragraphs
+   of one article are the last two of the NEXT one, the first of the pair truncated — article 1 of
+   q.109 ends by answering objections it never raised. Four paragraphs in the whole book, in two
+   questions, both read against the wikitext.
+
+   THE LENGTH BAR IS THE WHOLE OF WHAT MAKES THAT RULE SAFE, and it is measured rather than chosen.
+   Six article boundaries in the Summa end with a paragraph that also stands in the next article, and
+   FOUR OF THEM ARE NOT DAMAGE: they are the work's own closing formula — "This suffices for the
+   Replies to the Objections", which the book prints 55 times — so two adjacent articles ending the
+   same way is Aquinas's convention and not a paste. The four run 48 to 66 characters and the two real
+   faults 213 and 416, so the bar sits in 147 characters of open ground. A truncated paste is caught
+   as a SUFFIX of a paragraph in the next article, which is what the shorter of each pair is.
+
+   AN IMMEDIATELY REPEATED RUN OF PARAGRAPHS. In I-II q.20 the wiki page carries seven article
+   headings for a six-article question — article 5 set twice, the second time under article 6's
+   number, with the real sixth pushed to a seventh — so eleven paragraphs stand twice in a row; and
+   two questions have a single paragraph typed twice. Three runs in the whole book, all three checked
+   in the wikitext.
+
+   BOTH RULES ARE GATED PER BOOK and both are counted and reported, so a run in which either stops
+   firing is a run to look at: the transcription may have been corrected upstream, or this file may
+   have lost its grip on the page, and a silent build cannot tell you which. */
+let DEDUPE_TRAIL = 0, DEDUPE_RUN = 0;
+function dedupeArticles(rec, book, warn) {
+  const HEAD = /<p><span class="bk-n">(\d+)<\/span>\s*<b>([\s\S]*?)<\/b><\/p>/g;
+  const cuts = [];
+  let m;
+  while ((m = HEAD.exec(rec.html))) cuts.push({ at: m.index, after: m.index + m[0].length });
+  if (cuts.length < 2) return rec.html;
+  const text = (h) => h.replace(/<[^>]*>/g, " ").replace(/&[a-z]+;|&#\d+;/g, " ").replace(/\s+/g, " ").trim();
+  /* Each article's paragraphs WITH THEIR POSITIONS, because what is written back is the original
+     html minus a few spans rather than a re-joined copy of it: reassembling from the pieces changes
+     the whitespace between every paragraph in the book, which is 45 KB of diff saying nothing. */
+  const arts = cuts.map((c, i) => {
+    const end = i + 1 < cuts.length ? cuts[i + 1].at : rec.html.length;
+    const ps = [];
+    const RX = /<p[^>]*>[\s\S]*?<\/p>/g;
+    RX.lastIndex = 0;
+    let q;
+    const body = rec.html.slice(c.after, end);
+    while ((q = RX.exec(body))) ps.push({ at: c.after + q.index, to: c.after + q.index + q[0].length, t: text(q[0]) });
+    return ps;
+  });
+  const drop = [];
+
+  /* 1 — the tail of the next article, pasted at the end of this one. The empty spacer paragraph a
+     chapter's articles end on is stepped over rather than counted, or the walk stops on the first
+     one and the rule never fires at all — which is exactly what it did on its first run. */
+  for (let i = 0; i + 1 < arts.length; i++) {
+    const next = arts[i + 1].map((x) => x.t);
+    let k = arts[i].length - 1;
+    for (;;) {
+      while (k >= 0 && !arts[i][k].t) k--;
+      if (k < 0) break;
+      const t = arts[i][k].t;
+      const exact = t.length >= 120 && next.includes(t);
+      const suffix = t.length >= 40 && next.some((q) => q !== t && q.endsWith(t));
+      if (!exact && !suffix) break;
+      drop.push(arts[i][k]);
+      DEDUPE_TRAIL++;
+      k--;
+    }
+  }
+
+  /* 2 — a run of paragraphs immediately repeated inside one article */
+  for (const a of arts) {
+    const ps = a.filter((x) => x.t);
+    for (let i = 0; i < ps.length; i++) {
+      for (let k = Math.floor((ps.length - i) / 2); k >= 1; k--) {
+        let same = true;
+        for (let j = 0; j < k; j++) if (ps[i + j].t !== ps[i + k + j].t || ps[i + j].t.length < 40) { same = false; break; }
+        if (!same) continue;
+        for (let j = 0; j < k; j++) { drop.push(ps[i + k + j]); DEDUPE_RUN++; }
+        ps.splice(i + k, k);
+        i += k - 1;
+        break;
+      }
+    }
+  }
+
+  if (!drop.length) return rec.html;
+  drop.sort((a, b) => b.at - a.at);
+  let html = rec.html;
+  for (const d of drop) html = html.slice(0, d.at) + html.slice(d.to);
+  return html;
+}
+
+
 /* AN ARTICLE THE TRANSCRIPTION LOST, PUT BACK FROM ANOTHER TRANSCRIPTION OF THE SAME EDITION
    (Sep 2026, batch E35). Wikisource's Summa sets article 2 of I-II q.52 twice — the second time under
    article 3's number — and article 4 of II-II q.43 twice under article 5's. Each question opens by
@@ -25705,6 +25802,7 @@ async function fetchEnglish() {
       const notes = (c.notes || []).map(correctRaw);
       const cached = { n, t: titles[n] || c.t || chapterTitle(n), p: partOf(n), html: html, notes: notes };
       if (BOOK.supplied) cached.html = supplyArticles(cached, BOOK, (m) => warnings.push(m));
+      if (BOOK.dedupe) cached.html = dedupeArticles(cached, BOOK, (m) => warnings.push(m));
       chapters.push(cached);
       continue;
     }
@@ -25878,6 +25976,7 @@ async function fetchEnglish() {
     rec.html = correctRaw(rec.html);
     rec.notes = (rec.notes || []).map(correctRaw);
     if (BOOK.supplied) rec.html = supplyArticles(rec, BOOK, (m) => warnings.push(m));
+    if (BOOK.dedupe) rec.html = dedupeArticles(rec, BOOK, (m) => warnings.push(m));
     chapters.push(rec);
     console.log("  " + BOOK.chapterWord + " " + n + " — " + rec.t + " (" + html.length + " chars, " + notes.length + " notes)");
     await sleep(700);
@@ -26235,6 +26334,9 @@ function writeEnglish(chapters, warnings) {
   if (BOOK.supplied)
     console.log("  " + SUPPLIED + " article(s) supplied from a second transcription of the same edition" +
       (SUPPLY_DEAD.length ? ", and " + SUPPLY_DEAD.length + " entr(y/ies) that no longer apply" : ""));
+  if (BOOK.dedupe)
+    console.log("  " + DEDUPE_TRAIL + " paragraph(s) removed from the end of an article they do not belong to, and " +
+      DEDUPE_RUN + " from a run the transcription set twice");
   for (const d of SUPPLY_DEAD) warnings.push("a supplied article did not apply — " + d);
 
   if (BOOK.glyphs) {

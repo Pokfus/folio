@@ -1483,3 +1483,40 @@ that the fault is the PRINTING's rather than the wiki's, so it is transcribed as
 repair. That is E31's Bhagavad-Gita rule one batch on, and it names the instrument: **a second
 transcription of the same edition is what tells a transcriber's error from the printer's, and nothing
 else can.** Where only one transcription exists, the question cannot be settled and the text stands.
+
+**TWO MORE SHAPES OF DUPLICATION, AND THE FOUR CASES THAT LOOK IDENTICAL AND ARE NOT** (Sep 2026,
+batch E36, `dedupeArticles`). E35 put back two articles the Summa's transcription had lost; fifteen
+paragraphs still stood twice. Read out they are two faults, both a transcriber's paste gone astray:
+
+  · **THE TAIL OF THE NEXT ARTICLE, PASTED AT THE END OF THIS ONE.** In I q.108 and I q.109 the last
+    two paragraphs of one article are the last two of the NEXT one, the first of the pair truncated —
+    so article 1 of q.109 ends by answering objections it never raised. **Four paragraphs in the whole
+    book, in two questions, both read against the wikitext.** The truncated half is caught as a SUFFIX
+    of a paragraph in the next article, which is what a half-pasted block is.
+  · **A RUN OF PARAGRAPHS SET TWICE IN A ROW.** I-II q.20's page carries **seven article headings for
+    a six-article question** — article 5 set twice, the second under article 6's number, the real
+    sixth pushed to a seventh — so eleven paragraphs stand twice; and two questions have one paragraph
+    typed twice. **Three runs in the whole book, all three checked in the wikitext.**
+
+**THE LENGTH BAR IS THE WHOLE OF WHAT MAKES THE FIRST RULE SAFE, AND IT IS MEASURED.** Six article
+boundaries in the Summa end with a paragraph that also stands in the next article, and **four of them
+are not damage at all**: they are the work's own closing formula — *"This suffices for the Replies to
+the Objections"*, which the book prints **55 times** — so two adjacent articles ending the same way is
+Aquinas's convention rather than a paste. The four run **48 to 66 characters** and the two real faults
+**213 and 416**, so the bar sits in 147 characters of open ground. **A rule that fires six times where
+two are wrong is not a rule; the measurement is what turns it into one.**
+
+**AND IT SPLICES RATHER THAN REASSEMBLES.** The first cut rebuilt each chapter from its paragraphs and
+the book **grew by 45 KB** — the whitespace between every paragraph in 614 questions, changed for
+nothing, and a diff saying nothing on every line. Dropping character ranges out of the original html
+leaves the file byte-identical everywhere the rule did not fire: **four lines of `books/` changed, and
+they are the four questions that were read.** A rule that touches a file it had no finding in cannot be
+proved inert, whatever it did to the text.
+
+> **THE AUDIT'S REPEATED-PARAGRAPH CHECK NOW HAS TWO KNOWN FALSE FAMILIES, and both are the same
+> lesson.** The Summa's closing formula is one. The other is in the Latin Bede: book 1 quotes several
+> of Gregory the Great's letters, and two of them carry the identical dating clause — *"Data die X.
+> Kalendarum Iuliarum, imperante domino nostro Mauricio Tiberio…"* — because they were sent on the
+> same day, one closing *reverentissime frater* to a bishop and one *domine fili* to a king. **A work
+> that repeats itself by convention looks exactly like a transcription that repeats itself by
+> accident, and only reading the two occurrences apart tells them apart.**
