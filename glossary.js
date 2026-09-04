@@ -1796,7 +1796,8 @@ window.GLOSSARY = {
 "Spartan_earthquake": "The <b>Spartan earthquake</b> was a destructive shock in Laconia during the fourth year of the reign of Archidamus, which Plutarch calls greater than any before reported.<sup class=\"fn\" data-fn=\"1\"></sup> He says it left five houses standing in the city and tore peaks from Taygetus, while Diodorus puts the dead above twenty thousand and has the ground going on moving for a long time.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> It was widely explained as retribution for a sacrilege at the sanctuary of Poseidon at Taenarum, though Thucydides says the suppliants dragged from the altar were helots and Pausanias reports a version in which they were Lacedaemonians under sentence of death.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Dismissal_from_Ithome": "The <b>dismissal from Ithome</b> was Sparta's sending home of an Athenian force she had herself summoned against the Messenian rebels, and Thucydides calls it the first open quarrel between the two states.<sup class=\"fn\" data-fn=\"1\"></sup> Athens had been asked for because her men were reputed skilled at sieges, and when the assault still failed the Lacedaemonians took fright at their enterprising and revolutionary character and dismissed them alone of the allies, saying only that they were no longer needed.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> The Athenians went home offended, broke the alliance made against Persia and swore instead to Argos, and in Plutarch's account turned on the men who had argued for helping Sparta.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
 "Ithome": "<b>Ithome</b> is a mountain in Messenia, in the south-west Peloponnese, whose summit served as a stronghold and a refuge, and which the Greeks associated with a cult of Zeus.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Helots and perioikoi who seceded from Sparta after an earthquake held it for ten years, and Thucydides says most of them counted as Messenians, descended from those enslaved in an earlier war.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> They left under a truce on terms that they quit the Peloponnese for good, which Thucydides and Pausanias both connect with an old Delphic oracle about letting go the suppliant of Zeus at Ithome, and Athens then settled them and their families at Naupactus.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Ostracism_of_Cimon": "The ostracism of Cimon was the Athenian vote that banished Cimon son of Miltiades from the city for ten years, the term Plutarch says was decreed in every case of ostracism.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says the Athenians moved against the friends of Sparta after a force sent to Ithome was dismissed, and that a trifling pretext served; one of his lives gives the charge as loving Sparta and hating the people, where Cornelius Nepos records no charge at all.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He returned before the term ran out, on a decree Plutarch says Pericles wrote, once Athens had been beaten at Tanagra and looked for a Peloponnesian army in the spring.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Ostracism_of_Cimon": "The ostracism of Cimon was the Athenian vote that banished Cimon son of Miltiades from the city for ten years, the term Plutarch says was decreed in every case of ostracism.<sup class=\"fn\" data-fn=\"1\"></sup> Plutarch says the Athenians moved against the friends of Sparta after a force sent to Ithome was dismissed, and that a trifling pretext served; one of his lives gives the charge as loving Sparta and hating the people, where Cornelius Nepos records no charge at all.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> He returned before the term ran out, on a decree Plutarch says Pericles wrote, once Athens had been beaten at Tanagra and looked for a Peloponnesian army in the spring.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Ephialtes": "Ephialtes son of Sophonides was an Athenian politician of the mid-5th century BCE who broke the political power of the Council of the Areopagus.<sup class=\"fn\" data-fn=\"1\"></sup> The <i>Athenian Constitution</i> gives him the name of being incorruptible and just, says he first prosecuted many Areopagites over their conduct in office, and that in the archonship of Conon he stripped their council of the powers that made it the safeguard of the constitution.<sup class=\"fn\" data-fn=\"1\"></sup> The same work names Aristodicus of Tanagra as having craftily murdered him not long afterwards, where Diodorus says only that he was done to death by night and that nobody ever knew how.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2608,7 +2609,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Third_Messenian_War": "c. 464 - 455 BCE",
 "Spartan_earthquake": "c. 464 BCE",
 "Dismissal_from_Ithome": "c. 462 BCE",
-"Ostracism_of_Cimon": "c. 461 BCE"
+"Ostracism_of_Cimon": "c. 461 BCE",
+"Ephialtes": "d. c. 461 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3710,7 +3712,7 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tempe_expedition": ["expedition to Tempe"],
 "Battle_of_Thermopylae": ["Thermopylae"],
 "Leonidas_I": ["Leonidas"],
-"Ephialtes_of_Trachis": ["Ephialtes"],
+"Ephialtes_of_Trachis": [],
 "Thespiae": ["Thespians","Thespian","Thespians at Thermopylae"],
 "Battle_of_Artemisium": ["Artemisium"],
 "Artemisia_I_of_Caria": ["Artemisia of Halicarnassus"],
@@ -3734,7 +3736,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Battle_of_the_Eurymedon": ["Eurymedon"],
 "Third_Messenian_War": ["secession to Ithome"],
 "Ithome": ["Mount Ithome"],
-"Ostracism_of_Cimon": ["ostracism of Cimon"]
+"Ostracism_of_Cimon": ["ostracism of Cimon"],
+"Ephialtes": ["Ephialtes son of Sophonides"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5560,7 +5563,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Spartan_earthquake": ["event","history","greece","religion","nature"],
 "Dismissal_from_Ithome": ["event","history","greece","politics","warfare"],
 "Ithome": ["place","mountain","history","greece","warfare"],
-"Ostracism_of_Cimon": ["event","history","politics","greece","athens"]
+"Ostracism_of_Cimon": ["event","history","politics","greece","athens"],
+"Ephialtes": ["person","history","greece","politics","athens"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
