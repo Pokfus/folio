@@ -2003,7 +2003,8 @@ window.GLOSSARY = {
 "Ager_publicus": "The ager publicus was land held in common by the Roman people, made out of conquest: a defeated community was commonly left standing but stripped of part of its territory, often a third.<sup class=\"fn\" data-fn=\"2\"></sup> Cultivated ground was assigned to settlers in surveyed lots, sold by the quaestors in full ownership, or leased, while the greater part, lying wasted by war, was thrown open to whoever would work it for a tenth of the grain and a fifth of the fruit.<sup class=\"fn\" data-fn=\"1\"></sup> Those occupiers were called possessores, and although holding state land gave them no right against the state, the arrangement was recognised in law and could be undone only by legislation.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Samnite_Wars": "The Samnite Wars were three wars fought between Rome and the Samnite league of the central Apennines, beginning in 343 BCE when the Campanians, attacked by Samnium, asked Rome for help against a people Rome had lately made a treaty with.<sup class=\"fn\" data-fn=\"2\"></sup> The second opened in 326 BCE over the Greek city of Palaepolis and the third in 298 BCE, when Samnium leagued with the Etruscans, Umbrians and Gauls and the fighting spread far beyond its own hills.<sup class=\"fn\" data-fn=\"1\"></sup> The Samnites laid down their arms in 290 BCE, and Livy introduced the whole struggle as one greater than any before it in the forces engaged, its length and the ground it covered.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup>",
 "First_Samnite_War": "The First Samnite War began in 343 BCE, when Rome answered a Campanian appeal against Samnium, sent the fetials to demand redress and had the people vote a declaration of war.<sup class=\"fn\" data-fn=\"1\"></sup> Both consuls took the field, winning below Mount Gaurus, near Saticula and at Suessula, and both triumphed.<sup class=\"fn\" data-fn=\"2\"></sup> A mutiny among the troops wintering in Campania, unrest at Rome and the cooling of the Latins brought a treaty in 341 BCE that renewed the old alliance and left the Samnites free to make peace or war with the Sidicini as they chose, which is hard to reconcile with the account that makes Samnium humbled.<sup class=\"fn\" data-fn=\"2\"></sup>",
-"Second_Samnite_War": "The Second Samnite War began in 326 BCE, when Samnite and Nolan troops were put into the Greek cities of Palaepolis and Neapolis after Rome had declared war on them; Palaepolis fell to a plot from within and Neapolis kept the Roman alliance ever after.<sup class=\"fn\" data-fn=\"1\"></sup> It was fought in two theatres, on the Campanian frontier and up the Volturnus into Samnium, and in Apulia in support of new allies there.<sup class=\"fn\" data-fn=\"2\"></sup> A Roman army was trapped at Caudium in 321 BCE and Samnite victories followed, but Rome recovered, sacked the Pentrian capital of Bovianum twice, and made peace in 304 BCE on terms the sources do not agree about.<sup class=\"fn\" data-fn=\"2\"></sup>"
+"Second_Samnite_War": "The Second Samnite War began in 326 BCE, when Samnite and Nolan troops were put into the Greek cities of Palaepolis and Neapolis after Rome had declared war on them; Palaepolis fell to a plot from within and Neapolis kept the Roman alliance ever after.<sup class=\"fn\" data-fn=\"1\"></sup> It was fought in two theatres, on the Campanian frontier and up the Volturnus into Samnium, and in Apulia in support of new allies there.<sup class=\"fn\" data-fn=\"2\"></sup> A Roman army was trapped at Caudium in 321 BCE and Samnite victories followed, but Rome recovered, sacked the Pentrian capital of Bovianum twice, and made peace in 304 BCE on terms the sources do not agree about.<sup class=\"fn\" data-fn=\"2\"></sup>",
+"Caudine_Forks": "The Caudine Forks were a defile in Samnium, in the central Apennines of Italy, where a Roman army was surrounded and forced to surrender in 321 BCE during the second war between Rome and the Samnites.<sup class=\"fn\" data-fn=\"1\"></sup> Livy places the trap between two narrow wooded passes enclosing a grassy plain, both of them barricaded once the legions had marched in, and reports that the Samnite commander Gaius Pontius disarmed the men and sent them under the yoke rather than free or kill them.<sup class=\"fn\" data-fn=\"1\"></sup> Rome afterwards disowned the terms and the fighting resumed, and later scholarship has held that the surviving accounts of the episode are heavily reworked.<sup class=\"fn\" data-fn=\"2\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2800,7 +2801,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Roman_expansion_in_Italy": "c. 387 – 264 BCE",
 "Samnite_Wars": "343 – 290 BCE",
 "First_Samnite_War": "343 – 341 BCE",
-"Second_Samnite_War": "326 – 304 BCE"
+"Second_Samnite_War": "326 – 304 BCE",
+"Caudine_Forks": "321 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -4027,7 +4029,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Latin_rights": ["ius Latii","Latin right"],
 "Municipium": ["municipia","municipes"],
 "Colonia_(Roman)": ["colonia","coloniae","Roman colony"],
-"Latin_colony": ["Latin colonies","colonia Latina","coloniae Latinae"]
+"Latin_colony": ["Latin colonies","colonia Latina","coloniae Latinae"],
+"Caudine_Forks": ["Caudine Pass"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -6063,7 +6066,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Ager_publicus": ["institution","history","politics","agriculture","italy"],
 "Samnite_Wars": ["event","history","warfare","politics","italy"],
 "First_Samnite_War": ["event","history","warfare","italy"],
-"Second_Samnite_War": ["event","history","warfare","italy"]
+"Second_Samnite_War": ["event","history","warfare","italy"],
+"Caudine_Forks": ["event","history","warfare","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
