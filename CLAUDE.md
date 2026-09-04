@@ -3950,12 +3950,44 @@ the Heightmap legend toggle / zoom, not `DATA_BUNDLES`.
   the row's last flex item, matching the chevron's 30px box rather than keeping its own 24px one — two
   controls of different sizes side by side read as two different kinds of thing. The row's 20px right
   margin goes with the absolute positioning, that margin having existed only to clear the corner button.
+- **THE ATLAS SHEET IS ONE PAGE, WITH THE FIGURES AT THE TOP OF IT** (Sep 2026, on request: "users
+  currently need to swipe right to see the country data boxes — instead, move them to above the country
+  background paragraphs so it is all in one page"). The four sections lay SIDE BY SIDE and were swiped
+  between, with dots under them saying how many there were. That answered a real fault — a bottom sheet is
+  short, and four sections stacked in it buried the figures three scrolls down — but it answered it by
+  putting the figures behind a GESTURE, which is worse than putting them low: a page reached only by
+  swiping is one a reader who does not swipe never learns is there. Reading the figures first retires the
+  fault the pager was built for, so the pager goes with it and the sheet scrolls as the desktop panel
+  always has. Four things. **`.cp-statsec` is lifted by `order:-1` in the ≤1024px block rather than by
+  moving the node**, so the desktop column — which has room for both, and where the paragraph is what the
+  reader came for — keeps the order it has always had; the cost is a sheet whose visual order and DOM order
+  differ by one section. **The section heads FOLD again** (they were inert while they were pages) and a
+  fold re-applies the sheet's height. **`#cpDots`, `cpSyncDots`, `cpActiveDot`, `cpPanes`, `cpFitH`,
+  `scroll-snap-stop:always` and `wireOnePageSwipe` are DELETED** — the last had no other caller. And
+  **both halves of the height measurement had to stop reading BOXES**: the head is measured by its own
+  `scrollHeight`, since it is `flex:0 1 auto` inside the box being resized and is measured while that box
+  is still at the height it is opening FROM, so it read squeezed and the sheet opened ~26px shy of its
+  content; and the sections are added up by `cpColsContentH` rather than read off `.cp-cols`'s
+  `scrollHeight`, which can never be less than the padding box we have just given a height — so folding a
+  section away measured as a no-op and left the sheet as tall as the paragraph that was no longer in it.
+- **…AND THE TITLE ROW NO LONGER WRAPS, so the × keeps the corner** (`.cp-titlemain`; Sep 2026, on a bug
+  report: a country name long enough "pushes the X button for closing the popup to the next line,
+  especially when the new place chip is there, so it appears in the bottom left"). Four items on one
+  `flex-wrap:wrap` line means the last two — the chevron and the × — are the ones pushed over, and the
+  close button of a panel then sits as far from where a reader looks for it as the box allows. The name
+  and its chip go in `.cp-titlemain`, the only item allowed to shrink or to wrap; the row is `nowrap`, and
+  the two controls are `align-self:flex-start`, so a two-line name keeps them at the TOP right rather than
+  centring them against it. **The discovery chip reads "New discovery!" and carries no counter** (same
+  request): a running "7 / 258" beside a place's name is a second number competing with the one thing that
+  line is for, and the reader's tally is on the account page, read on purpose rather than glanced at over a
+  map. The Atlas's own `geoNameSet` / `countriesSeenCount` went with it — `placesSeen` is still written and
+  `countrySeenCount` still reports it.
 - **THE ATLAS PLACE PANEL'S BREAKPOINT IS DECLARED ONCE, IN CSS** (`--cp-sheet` on `.country-pop`, read
   back by `cpSheetMode()`; Aug 2026, on request that tablets get the phone's sheet). It was a
   `matchMedia("(max-width:720px)")` in app.js beside a `@media (max-width:720px)` in the stylesheet — one
   decision in two files, so widening it meant finding both, and getting one meant a window laid out as a
-  sheet by CSS while JS went on treating it as the desktop panel (pager unwired, fold inert, height
-  unfitted). **It is 1024px now** — the iPad's landscape width, so both orientations land on the sheet.
+  sheet by CSS while JS went on treating it as the desktop panel (fold inert, height unfitted, the sheet's
+  own controls unreachable). **It is 1024px now** — the iPad's landscape width, so both orientations land on the sheet.
   A custom property rather than a geometric read-back: `getComputedStyle().top` on a positioned element
   hands back the USED value, so `top:auto` cannot be told from `top:16px` that way. **The panel also never
   scrolls sideways and draws no scrollbar** — `overflow-x:clip` (never the shorthand, never `hidden`)
@@ -5515,14 +5547,14 @@ dead code (never rendered).
   · `node .claude/test-layout.js` — 308 assertions on **the shell**: the rules that break silently
     because nothing throws when a layout is wrong. **Re-run after touching `.tabbar` / `--tabbar-h` /
     `--timebar-h` / `layoutTicks` / the Atlas chrome's media queries / `.settings` / `.auth-split` / the
-    coming-soon rows / `wireOnePageSwipe` / `.home-collections` / `.games-sec` / `.home-about` /
+    coming-soon rows / `.home-collections` / `.games-sec` / `.home-about` /
     `gameSub` / `pileCounts` / `adProg` / `.active-deck` / `gbWireResize` / `.gb-fold` /
     `body.gb-compact` / `wirePageSwipe` / `SWIPE_ORDER` / `makePageGhost` / `clipStageFor` / the
     `.page-next`/`.page-prev` keyframes / `applyTheme`'s `data-fs` / `var(--fs)` / `.fs-slide` /
     `#fsRange` / `MULTILANG` / `ensureWBTools` / `.wb-pick` / the `.wb-toggle` click handler /
     `wbDefaultPos` / `wbGoHome` / `wbStopHome` / `.wb-homing` / `.tab .tab-label` / the ink layer's
     pass-through / `GB_FOLD_EASE` / `flipHeight` / `.gk` / `.ghb-keys` / the `*-mode` list on
-    `.admin-list-items` / `cpWireResize` / `cpPaneNeedH` / `cpFitH` / `lockHeight`, or after adding an
+    `.admin-list-items` / `cpWireResize` / `cpContentNeedH` / `cpColsContentH` / `.cp-titlemain` / `lockHeight`, or after adding an
     overlay to `document.body`.**
   · `node .claude/test-discovery.js` — 22 assertions on the counting behind the discovery chips and the
     "Beyond the cards" meters, run against the **real** `world.js` / `timeline.js` / `glossary.js` —

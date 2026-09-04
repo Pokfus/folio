@@ -261,51 +261,64 @@ The bullet below is as it stood in CLAUDE.md, verbatim.
   ACROSS on the phone.
   **Its parts each fold** (`.cp-sec` + `.cp-sec-head`/`.cp-sec-body`, one delegated click listener on
   `#countryPop`): the description, the year paragraph (whose header IS the year number, so it still reads while
-  shut), the figures grid and the sources. `cpSection(sec, hasContent, alwaysPane)` sets each one as the popup is
+  shut), the figures grid and the sources. `cpSection(sec, hasContent, alwaysShow)` sets each one as the popup is
   filled — **open when it has something, closed when it doesn't**, so a place with no year paragraph and no
   figures shows two quiet headers instead of a dash and a grid of dashes. That **resets per entity**: a reader's
   manual toggles belong to the popup they were made in, not to the next country.
-  **On a phone those sections are PAGES, not folds** (Aug 2026, on request). The sheet is short and four stacked
-  sections buried the figures three scrolls down, so at ≤720px `.cp-cols` becomes a `flex-direction:row`
-  `scroll-snap-type:x mandatory` scroller whose `.cp-sec` children are each `flex:0 0 100%`, swiped between one
-  page at a time. Three things follow from that and are load-bearing: **the title block lives in `.cp-head`,
-  OUTSIDE the scroller** (it was `.cp-main`, inside it, and would have slid away with the first swipe, leaving the
-  figures unlabelled); every page renders **expanded** and the head is inert there (`cpPagerOn()` makes the
-  delegated fold handler return, so a tap can't write `srcCollapsed` either) since there is nothing under a page
-  to uncover by shutting it; and an EMPTY section is **dropped from the run** (`cp-blank`) rather than collapsed,
-  so a swipe never lands on a dash — except the description, which passes `alwaysPane` because it carries a "no
-  description yet" line and is **the page every place must open on**. `#cpDots` is the pager (built by
-  `cpSyncDots`, followed by `cpActiveDot` on scroll, and a tap on one turns to that page); it is hidden outright
-  in the stacked layout, and `cpResize` rebuilds it when a rotation crosses the breakpoint.
-  **A swipe may never move more than ONE page** (Aug 2026, on a bug report: a hard flick carried from the
-  description straight to the figures, skipping the year paragraph). `mandatory` only says WHERE a scroll may come
-  to rest; **`scroll-snap-stop:always`** on `.cp-sec` is what forbids passing a snap point within one gesture,
-  momentum included, and is the real fix. **`wireOnePageSwipe(el)`** (beside `animateProgs`; it was shared with
-  the home pager, which no longer exists) is the net under it for engines that lack the property: it records the page a gesture STARTED on and,
-  once the scroller has settled, pulls it back to one step away if snapping landed further. The correction comes
-  **after** the settle rather than fighting the gesture — nothing can predict a fling, and a scroller wrestled
-  mid-flick feels broken in a way an overshoot does not. It is RTL-aware (`scrollLeft` runs negative there) and
-  the skip is invisible when it happens, which is why it does not rest on one mechanism.
+  **On a phone and a tablet those sections were PAGES for a year** (Aug 2026, on request). The sheet is short,
+  and four stacked sections buried the figures three scrolls down, so `.cp-cols` became a `flex-direction:row`
+  `scroll-snap-type:x mandatory` scroller whose `.cp-sec` children were each `flex:0 0 100%`, swiped between one
+  page at a time under a row of dots. **Retired Sep 2026, on request**: "users currently need to swipe right to
+  see the country data boxes — instead, move them to above the country background paragraphs so it is all in one
+  page." Reading the figures FIRST fixes what the pager was built for without a gesture, and the gesture was the
+  worse half of it — a page reached only by swiping is a page a reader who does not swipe never learns is there,
+  and the dots were the only thing on the sheet saying otherwise. Gone with it: `#cpDots` and `cpSyncDots` /
+  `cpActiveDot` / `cpPanes`, the snap and one-page-swipe machinery (`scroll-snap-stop:always` and
+  `wireOnePageSwipe`, whose only caller this was), and `cpFitH`, which re-fitted the sheet after a swipe.
+  What the sheet is now: the sections **stack and scroll**, as they do on the desktop, with `.cp-statsec`
+  lifted above them by **`order:-1`** in the ≤1024px block. It is `order` rather than a moved node so the
+  DESKTOP column — which has room for both and is read top to bottom, where the paragraph is what the reader
+  came for — keeps the order it has always had; the cost is that the sheet's visual order and its DOM order
+  differ by one section. Three things survive from the pager and are still load-bearing: **the title block
+  lives in `.cp-head`, outside the scroller** (it was `.cp-main`, inside it); an EMPTY section is **dropped
+  outright** (`cp-blank`) rather than shown collapsed, since on a box this size a header with nothing under it
+  spends a line on an absence — except the description, which passes `alwaysShow` because it carries a "no
+  description yet" line; and `cpResize` re-derives the height when a rotation crosses the breakpoint.
+  **The section heads fold again on the sheet**, which they could not while they were pages, and a fold
+  re-applies the height (see below).
   **The discovery chip shares the title's row** (`.cp-titlerow` wrapping `#cpName` + `#cpNew`, Aug 2026, on
   request): it names the place beside it, and a line of its own cost the short phone sheet a whole line before
-  the description started. The 20px right margin that clears the × moved from `.cp-name` up to the row.
-  **The sheet's CEILING is what the PAGE ON SCREEN needs** (`cpPaneNeedH` / `cpFitH`, Aug 2026, on request:
+  the description started. It reads **"New discovery!" and carries no counter** since Sep 2026, on request —
+  a running "7 / 258" beside a place's name is a second number competing with the one thing that line is for,
+  and the reader's tally is on the account page, read on purpose rather than glanced at over a map. The Atlas's
+  own `geoNameSet` / `countriesSeenCount` went with it; `placesSeen` is still written, and `countrySeenCount`
+  still reports it.
+  **…AND THE ROW NO LONGER WRAPS** (Sep 2026, on a bug report: a long country name, with the chip beside it,
+  pushed the × onto a second line, "so it appears in the bottom left"). Four items on one `flex-wrap:wrap` line
+  means the last two — the chevron and the × — are the ones pushed over, and the close button of a panel then
+  sits as far from where a reader looks for it as the box allows. `.cp-titlemain` wraps the name and its chip
+  and is the only item allowed to shrink or to wrap; the row itself is `nowrap`, and the two controls are
+  `align-self:flex-start` so a two-line name keeps them at the TOP right rather than centring them against it.
+  **The sheet's CEILING is what its CONTENT needs** (`cpContentNeedH` / `cpColsContentH`, Aug 2026, on request:
   "the max height should always be the point where everything is displayed fully, so we are never left with
-  empty space at the bottom"). `cpMaxH()` is now the smaller of the room the screen has and the height the
-  active pane actually asks for, and a swipe to a shorter page pulls the sheet down to fit it. The reader's
-  own dragged height is kept as the CAP it always was rather than overwritten, so swiping back to a long page
-  restores it — a swipe answers for the page it lands on and must not quietly relitigate a setting. The fit
-  is **debounced past the scroll settle**, not run per scroll event: resizing the box a gesture is being made
-  inside means the snap is measuring a moving target. `cpSyncDots` has to run BEFORE `cpApplyH` on every
-  populate, since the dot row is part of what the sheet must make room for.
+  empty space at the bottom"). `cpMaxH()` is the smaller of the room the screen has and the height the sections
+  actually ask for, and folding one away pulls the sheet down to fit what is left. **Both halves of that
+  measurement are taken off content rather than off boxes, and each was wrong once for the same reason.** The
+  head is measured by its own `scrollHeight`, not by where `.cp-cols` sits under it: it is `flex:0 1 auto`
+  inside the box being resized and is measured while the box is still at the height it is opening FROM, so at
+  that instant it is squeezed and the sheet opened ~26px shy of its content — a paragraph cut off mid-line, in
+  the state the fit exists to prevent. And the sections are added up (`cpColsContentH`) rather than read off
+  `.cp-cols`'s `scrollHeight`, which can never be less than the padding box we have already given a height:
+  folding a section away therefore measured as a no-op and left the sheet exactly as tall as the paragraph
+  that was no longer in it.
   **The sheet's HEIGHT is the reader's to set** (`.cp-grab` / `cpWireResize` / `cpApplyH` / `cpMinH` / `cpMaxH`,
   Aug 2026, on request): drag the grip at its top edge — a pill centred on it, since a draggable edge with no
   mark on it is one nobody will find — down to the title bar alone or up to the top of the screen. Stored as a
   **fraction of the viewport** in `localStorage["folio_cp_h_v1"]` (device-local like the marker's position, and a
   fraction so a rotation keeps the proportion), re-applied on every `showCountryPopupName`, so the next place
   opens at the height the last was left at. `.cp-sized` is what takes the stylesheet's 52% cap off and lets
-  `.cp-head` shrink; the desktop panel is untouched (`cpPagerOn()` gates everything, and the grip is
-  `display:none` above 720px).
+  `.cp-head` shrink; the desktop panel is untouched (`cpSheetOn()` — `cpPagerOn` until Sep 2026, when the
+  pager it was named for went — gates everything, and the grip is `display:none` above the breakpoint).
   **`cpMinH` measures through `offsetTop`/`offsetHeight`, never `getBoundingClientRect`** — and this is the whole
   trick. The head is a scroller inside the very box being shrunk, so its rect reports whatever is left of it, and
   a floor derived from that collapses as the drag approaches it: the first version bottomed out at the hard 56px

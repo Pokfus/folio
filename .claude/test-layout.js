@@ -1867,7 +1867,7 @@ function scrimCheck() {
     await page.close();
   }
 
-  /* ================= 7c. the Atlas panel's discovery chip and its pages ================= */
+  /* ================= 7c. the Atlas panel's discovery chip and its title row ================= */
   {
     const page = await browser.newPage({ viewport: PHONE });
     await watch(page);
@@ -1882,18 +1882,37 @@ function scrimCheck() {
       name.textContent = "France";
       el.hidden = false;
       const a = name.getBoundingClientRect(), b = chip.getBoundingClientRect();
-      const secs = [...document.querySelectorAll(".cp-cols > .cp-sec")];
       return {
         sameRow: b.top < a.bottom - 2 && b.bottom > a.top + 2,   // vertically overlapping = one horizontal bar
         beside: b.left >= a.right - 1,
-        stop: secs.length ? getComputedStyle(secs[0]).scrollSnapStop : "",
-        headed: !!document.querySelector(".cp-titlerow #cpName") && !!document.querySelector(".cp-titlerow #cpNew"),
+        headed: !!document.querySelector(".cp-titlemain #cpName") && !!document.querySelector(".cp-titlemain #cpNew"),
+        counter: !!chip.querySelector(".disc-n"),
       };
     });
     check("the discovery chip shares the popup title's row", cp.sameRow && cp.beside, JSON.stringify(cp));
     check("...as its sibling in the title row", cp.headed);
-    // a big swipe used to carry from the description straight to the figures, skipping the year paragraph
-    check("...and a swipe can never skip the year section", cp.stop === "always", cp.stop);
+    /* THE CONTROLS KEEP THE TOP-RIGHT CORNER AT EVERY NAME LENGTH (Sep 2026, on a bug report). The row
+       wrapped, so a long name — with the chip beside it — pushed the chevron and the × onto a second line,
+       where they appeared at the BOTTOM LEFT of the sheet: the close button of a panel, as far from where a
+       reader looks for it as the box allows. Asserted with the longest name the Atlas actually carries. */
+    const corner = await page.evaluate(() => {
+      const el = document.querySelector("#countryPop");
+      document.querySelector("#cpName").textContent = "United Kingdom of Great Britain and Northern Ireland";
+      const p = el.getBoundingClientRect();
+      const x = document.querySelector("#cpClose").getBoundingClientRect();
+      const m = document.querySelector("#cpMore").getBoundingClientRect();
+      const n = document.querySelector("#cpName").getBoundingClientRect();
+      return {
+        wrapped: n.height > 30,                      // the name really did take more than one line
+        right: Math.round(p.right - x.right),        // …and the × is still at the panel's right edge
+        top: Math.round(x.top - p.top),              // …and at its TOP, not centred against two lines
+        sameLine: Math.abs(x.top - m.top) < 2,
+        afterChev: x.left >= m.right - 1,
+      };
+    });
+    check("a long name never pushes the × off the title's line", corner.wrapped && corner.sameLine && corner.afterChev,
+      JSON.stringify(corner));
+    check("...and it keeps the panel's top-right corner", corner.right < 26 && corner.top < 26, JSON.stringify(corner));
     await page.close();
   }
 
@@ -2187,13 +2206,16 @@ function scrimCheck() {
     await atlas(page, base);
     await page.evaluate(() => { location.hash = "#map/2026/france"; });
     await page.waitForTimeout(2500);
-    // how much of the scroller is NOT filled by the page in it — the "empty space at the bottom"
+    // how much of the scroller is NOT filled by what is in it — the "empty space at the bottom". The
+    // sections are added up rather than read off the scroller's own scrollHeight, which can never be less
+    // than the box we have just given a height (see cpColsContentH).
     const slack = () => page.evaluate(() => {
       const cols = document.querySelector(".cp-cols");
-      const panes = [...cols.children].filter((c) => !c.hidden && !c.classList.contains("cp-blank"));
-      const i = Math.max(0, Math.min(panes.length - 1, Math.round(cols.scrollLeft / (cols.clientWidth || 1))));
+      const secs = [...cols.children].filter((c) => !c.hidden && getComputedStyle(c).display !== "none");
+      const gap = parseFloat(getComputedStyle(cols).rowGap) || 0;
+      const need = secs.reduce((a, c) => a + c.offsetHeight, 0) + gap * Math.max(0, secs.length - 1);
       const p = document.querySelector("#countryPop").getBoundingClientRect();
-      return { slack: Math.round(cols.clientHeight - panes[i].scrollHeight), h: Math.round(p.height), top: Math.round(p.top), pane: i, panes: panes.length };
+      return { slack: Math.round(cols.clientHeight - need), h: Math.round(p.height), top: Math.round(p.top), secs: secs.length };
     });
     /* THE DRAG IS GONE (Aug 2026, on request — "remove the size dragging system, and keep only the
        chevron"). Asserted as an ABSENCE from the DOM rather than as a hidden element: a grip that is
@@ -2256,7 +2278,30 @@ function scrimCheck() {
       && opened.h > shut.h, JSON.stringify({ shut: shut.h, opened: opened.h }));
 
     const s0 = await slack();
-    check("...and opens no taller than the page in it needs", s0.slack <= 24, JSON.stringify(s0));
+    check("...and opens no taller than the sections in it need", s0.slack <= 24, JSON.stringify(s0));
+
+    /* THE FIGURES ARE READ WITHOUT A GESTURE (Sep 2026, on request: "users currently need to swipe right to
+       see the country data boxes — instead, move them to above the country background paragraphs so it is
+       all in one page"). Three things, and each fails in its own silent way: a horizontal scroller left
+       behind would put the figures back behind a swipe; the figures BELOW the description would be the
+       fault the pager was built to fix; and a figures grid whose bottom edge falls outside the sheet is a
+       page that fits on paper and not on the screen. */
+    const onepage = await page.evaluate(() => {
+      const p = document.querySelector("#countryPop").getBoundingClientRect();
+      const cols = document.querySelector(".cp-cols");
+      const st = document.querySelector("#cpStatsSec").getBoundingClientRect();
+      const de = document.querySelector("#cpDescSec").getBoundingClientRect();
+      return {
+        horiz: cols.scrollWidth - cols.clientWidth,
+        statsTop: Math.round(st.top), descTop: Math.round(de.top),
+        statsIn: st.top >= p.top - 1 && st.bottom <= p.bottom + 1,
+        dots: !!document.querySelector(".cp-dots"),
+      };
+    });
+    check("the sheet scrolls one way only — there are no pages to swipe",
+      onepage.horiz <= 1 && !onepage.dots, JSON.stringify(onepage));
+    check("...the figures are read ABOVE the description", onepage.statsTop < onepage.descTop, JSON.stringify(onepage));
+    check("...and are wholly on screen when the sheet opens", onepage.statsIn, JSON.stringify(onepage));
 
     /* IT FOLDS RATHER THAN CUTTING (Aug 2026, on request), and both halves are measured MID-FLIGHT — a
        settled fold and a jumpcut end in exactly the same place, so anything asserted afterwards passes on
@@ -2279,20 +2324,24 @@ function scrimCheck() {
 
     await page.click("#cpMore");
     await page.waitForTimeout(600);
-    // …and a swipe to another page re-fits it. The figures grid is far shorter than the description.
+    /* …and folding a section away re-fits it. The heads do nothing on the sheet while the sections are
+       pages — they are folds again now, and a fold that leaves the box the size of the paragraph it just
+       took away is a fold that has only made a gap. It measured as a no-op when this shipped, because a
+       scroller's `scrollHeight` is never less than the box it is in. */
     const tall = await slack();
     await page.evaluate(async () => {
-      const cols = document.querySelector(".cp-cols");
-      cols.scrollLeft = cols.clientWidth * ([...cols.children].filter((c) => !c.hidden && !c.classList.contains("cp-blank")).length - 1);
-      cols.dispatchEvent(new Event("scroll"));
-      await new Promise((r) => setTimeout(r, 500));
+      document.querySelector("#cpDescSec .cp-sec-head").click();
+      await new Promise((r) => setTimeout(r, 450));
     });
     await page.waitForTimeout(400);
-    const swiped = await slack();
-    check("...swiping to a shorter page shrinks the sheet to fit it", swiped.slack <= 24 && swiped.h <= tall.h + 1,
-      JSON.stringify({ tall: tall, swiped: swiped }));
+    const folded = await page.evaluate(() => ({
+      h: Math.round(document.querySelector("#countryPop").getBoundingClientRect().height),
+      collapsed: document.querySelector("#cpDescSec").classList.contains("collapsed"),
+    }));
+    check("...folding a section shrinks the sheet to fit what is left",
+      folded.collapsed && folded.h < tall.h - 20, JSON.stringify({ tall: tall.h, folded: folded }));
 
-    /* THE NEXT PLACE OPENS SHUT, AND THEN TO ITS OWN PAGE'S HEIGHT — there is nothing remembered now, which
+    /* THE NEXT PLACE OPENS SHUT, AND THEN TO ITS OWN CONTENT'S HEIGHT — there is nothing remembered now, which
        is what removing the drag bought. Both halves are asserted because they fail in opposite directions:
        a sheet still carrying a height from the last place would be the thing the grip was removed for, and
        one that would not open at all is worse than either. */
@@ -2307,7 +2356,7 @@ function scrimCheck() {
     await page.click("#cpMore");
     await page.waitForTimeout(600);
     const reopened = await slack();
-    check("...and opens to what ITS own page needs", reopened.slack <= 24 && reopened.h > next.h,
+    check("...and opens to what ITS own sections need", reopened.slack <= 24 && reopened.h > next.h,
       JSON.stringify({ shut: next.h, opened: reopened }));
     await page.close();
   }

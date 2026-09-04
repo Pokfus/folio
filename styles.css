@@ -3856,8 +3856,17 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .cph-name{font-size:calc(12px * var(--fs)); font-weight:600; line-height:1.3; min-width:0;}
 /* the title and its discovery chip share one row — the chip names the place beside it, and a line of its
    own cost the short phone sheet a whole line before the description started. The 20px right margin that
-   used to sit on .cp-name moves up here: it is what clears the × button. */
-.cp-titlerow{display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:0 20px 2px 0;}
+   used to sit on .cp-name moves up here: it is what clears the × button.
+   THE ROW ITSELF NO LONGER WRAPS (Sep 2026, on a bug report: a long name, with the chip beside it, pushed
+   the × onto a second line and it appeared at the sheet's bottom LEFT). Four things on one wrapping line
+   means the last two — the chevron and the × — are the ones pushed over, so the name and its chip are
+   wrapped in `.cp-titlemain`, which is the only item allowed to shrink and the only one that wraps.
+   The controls are `align-self:flex-start`, so a name running to two lines keeps them at the TOP right
+   rather than centring them against it; on a one-line name the row is the buttons' own height and the two
+   rules agree. */
+.cp-titlerow{display:flex; align-items:center; gap:8px; flex-wrap:nowrap; margin:0 20px 2px 0;}
+.cp-titlemain{display:flex; align-items:center; gap:8px; flex-wrap:wrap; flex:1 1 auto; min-width:0;}
+.cp-titlerow > .cp-more,.cp-titlerow > .cp-close{align-self:flex-start;}
 /* The × lives INSIDE the title row (see the markup note in app.js) and is still absolutely positioned
    here, so on the desktop it keeps the panel's top-right corner and the row's 20px right margin is still
    what clears it. `margin-left:auto` is what puts it last once the sheet sets it back in flow. */
@@ -3894,11 +3903,6 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
 .cp-v[data-tip]::before{content:""; position:absolute; bottom:calc(100% + 1px); left:15px; border:5px solid transparent; border-top-color:var(--ink); opacity:0; transition:opacity .12s ease; z-index:9;}
 .cp-v[data-tip]:hover::after, .cp-v[data-tip]:focus::after{opacity:1; transform:translateY(0);}
 .cp-v[data-tip]:hover::before, .cp-v[data-tip]:focus::before{opacity:1;}
-/* the phone pager's dots — hidden on desktop, where the sections stack and scroll vertically */
-.cp-dots{flex:none; display:flex; justify-content:center; align-items:center; gap:7px; padding:9px 0 1px; margin-top:2px;}
-.cp-dots[hidden]{display:none;}   /* the author display:flex would otherwise defeat the hidden attribute (codebase convention, cf. .country-pop[hidden]) */
-.cp-dot{appearance:none; border:0; padding:0; width:7px; height:7px; border-radius:50%; background:var(--rule); cursor:pointer; transition:background .16s var(--ease), transform .16s var(--ease);}
-.cp-dot.on{background:var(--indigo); transform:scale(1.32);}
 /* TABLETS TAKE THE SHEET TOO (Aug 2026, on request: "on tablet format, the Atlas should use the same
    popup system as mobile, not the desktop one"). The left-hand panel is written for a wide window — it
    runs the full height of the stage down one edge, which on a 900px tablet held in the hand covers a
@@ -3908,11 +3912,17 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
    commonest tablet land here. */
 @media (max-width:1024px){
   .country-pop{--cp-sheet:1;}
-  /* phones and tablets: back to a BOTTOM sheet, so the globe + the × stay visible. The sheet is short, and four sections
-     stacked in it buried the figures three scrolls down — so here the sections lie SIDE BY SIDE and are swiped
-     between, one page at a time, with the dots below saying how many there are. Every page is expanded (there
-     is nothing under a page to uncover by folding it) and an empty one is dropped from the run rather than
-     shown, so a swipe never lands on a dash. The title block above and the dots below stay put. */
+  /* phones and tablets: back to a BOTTOM sheet, so the globe + the × stay visible. The sheet is short, and
+     four sections stacked in it buried the figures three scrolls down — which is why they lay SIDE BY SIDE
+     and were swiped between until Sep 2026, when the figures were moved to the TOP of the stack instead
+     (on request: "users currently need to swipe right to see the country data boxes — instead, move them
+     to above the country background paragraphs so it is all in one page"). Reading them first is the same
+     fix without the gesture, and a gesture is the worse half: a page reached only by swiping is a page a
+     reader who does not swipe never learns is there. So the sections stack and scroll, as they do on the
+     desktop, and `order` — rather than a moved node — puts the figures above the paragraphs HERE only,
+     leaving the desktop column, which has room for both and is read top to bottom, as it was.
+     An empty section is still dropped outright rather than shown collapsed: on a box this size a header
+     with nothing under it spends a line on an absence. */
   .country-pop{left:50%; top:auto; bottom:14px; transform:translateX(-50%); width:calc(100% - 28px); max-height:52%; padding:15px 16px 8px;}
   /* the sheet is centred by a transform, so its entrance has to carry that translate rather than replace it */
   .country-pop:not([hidden]){animation-name:cpInSheet;}
@@ -3925,20 +3935,17 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
      in step with CP_FOLD_MS in app.js. */
   .country-pop.cp-sized{max-height:none; overflow:hidden; transition:height .26s var(--ease);}
   .cp-sized .cp-head{max-height:none; flex:0 1 auto; min-height:0;}
-  .cp-head{max-height:46%; overflow-y:auto;}   /* "Through the ages" can run to a dozen rows — cap it, or it pushes the pages off the sheet */
-  /* the pages ARE a horizontal scroller here, so the panel's `overflow-x:clip` is explicitly undone */
-  .cp-cols{display:flex; flex-direction:row; flex:1; gap:0; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; padding-right:0; scrollbar-width:none; -webkit-overflow-scrolling:touch;}
-  .cp-cols::-webkit-scrollbar{display:none;}
-  /* scroll-snap-stop:always is what keeps a hard flick to ONE page. Without it a fast swipe carries past
-     the year paragraph straight from the description to the figures — the middle section is skipped, and
-     silently, since the dots simply land two along. `mandatory` only says WHERE a scroll may come to rest;
-     `always` is what forbids passing a snap point within a single gesture, momentum included. */
-  .cp-cols > .cp-sec{flex:0 0 100%; width:100%; min-width:100%; scroll-snap-align:start; scroll-snap-stop:always; overflow-y:auto; overscroll-behavior-y:contain; padding:0 1px 0 0; border-top:0;}
-  .cp-cols > .cp-sec.cp-blank{display:none;}                     /* an empty page is a swipe that lands on nothing */
-  .cp-cols > .cp-sec.collapsed .cp-sec-body{display:block;}       /* the folds are pages here — always open */
-  .cp-cols > .cp-sec.collapsed .cp-sec-head{padding-bottom:6px;}
-  .cp-cols .cp-sec-head{cursor:default;}
-  .cp-cols .cp-sec-chev{display:none;}
+  .cp-head{max-height:46%; overflow-y:auto;}   /* "Through the ages" can run to a dozen rows — cap it, or it pushes the sections off the sheet */
+  .cp-cols{flex:1; gap:12px;}
+  .cp-cols > .cp-sec.cp-blank{display:none;}   /* a header with nothing under it spends a line of a small box on an absence */
+  /* THE FIGURES COME FIRST HERE. `order` rather than a moved node, so the desktop panel keeps its own
+     order (see the block comment above) — the cost is that the sheet's visual order and its DOM order
+     differ by one section, which for a four-part information panel read straight through is a fair trade
+     against a layout written twice. The rules the grid gave the figures as a MIDDLE section come off with
+     it: a separator above the first thing in a box is a line under nothing, and it moves to the
+     description, which is now what follows them. */
+  .cp-cols > .cp-statsec{order:-1; border-top:0; padding-top:0;}
+  .cp-cols > .cp-descsec{border-top:1px solid var(--rule); padding-top:10px;}
   /* ---- SHUT BY DEFAULT (Aug 2026, on request) ----
      A tap on a country asks what it is, and the name is the answer; everything else waits for the chevron.
      The height is set in JS (see cpApplyH — the floor is measured, since a long name wraps and a drilled
@@ -3962,7 +3969,7 @@ body.no-anim .chest-pop.opening[data-rar="legendary"]::after{animation:none; opa
      sizes side by side on the same line read as two different kinds of thing. */
   .cp-titlerow{margin-right:0;}
   .cp-titlerow .cp-close{position:static; margin-left:0; width:30px; height:30px; border-radius:9px; font-size:calc(19px * var(--fs)); color:var(--ink-soft); flex:none;}
-  .cp-shut .cp-cols,.cp-shut .cp-dots,.cp-shut .cp-tools,.cp-shut .cp-hist{display:none;}
+  .cp-shut .cp-cols,.cp-shut .cp-tools,.cp-shut .cp-hist{display:none;}
   .cp-shut .cp-head{overflow:visible;}
 }
 /* map editor toolbar (Edit → Timeline → "Edit on globe") */
