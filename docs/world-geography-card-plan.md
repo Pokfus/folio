@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-688` Tarawa.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako, `gw-559` Ouagadougou, `gw-560` Taipei, `gw-561` Sri Jayawardenepura Kotte, `gw-562` Lilongwe, `gw-563` Lusaka, `gw-564` Astana, `gw-565` N'Djamena, `gw-566` Santiago, `gw-567` Bucharest, `gw-568` Mogadishu, `gw-569` Dakar, `gw-570` Guatemala City, `gw-571` Quito, `gw-572` Amsterdam, `gw-573` Phnom Penh, `gw-574` Harare, `gw-575` Conakry, `gw-576` Porto-Novo, `gw-577` Kigali, `gw-762` Bujumbura, `gw-579` Sucre, `gw-580` Tunis, `gw-581` Juba, `gw-582` Brussels, `gw-583` Port-au-Prince, `gw-584` Amman, `gw-585` Santo Domingo, `gw-586` Abu Dhabi, `gw-587` Havana, `gw-588` Prague, `gw-589` Tegucigalpa, `gw-590` Lisbon, `gw-591` Dushanbe, `gw-592` Port Moresby, `gw-593` Stockholm, `gw-594` Athens, `gw-595` Baku, `gw-597` Budapest, `gw-598` Vienna, `gw-599` Minsk, `gw-600` Bern, `gw-601` Freetown, `gw-602` Lomé, `gw-603` Vientiane, `gw-605` Ashgabat, `gw-606` Tripoli, `gw-607` Bishkek, `gw-608` Asunción, `gw-609` Managua, `gw-610` Belgrade, `gw-611` Sofia, `gw-612` San Salvador, `gw-613` Brazzaville, `gw-615` Copenhagen, `gw-616` Beirut, `gw-617` Helsinki, `gw-618` Monrovia, `gw-619` Oslo, `gw-620` Bratislava, `gw-621` Dublin, `gw-622` Bangui, `gw-623` Wellington, `gw-632` Asmara, `gw-630` Zagreb, `gw-639` Vilnius, `gw-645` Chișinău, `gw-631` Tbilisi, `gw-637` Yerevan, `gw-633` Ulaanbaatar, `gw-640` Doha, `gw-625` Muscat, `gw-626` Nouakchott, `gw-627` San José, `gw-628` Kuwait City, `gw-629` Panama City, `gw-634` Montevideo, `gw-635` San Juan, `gw-636` Sarajevo, `gw-638` Windhoek, `gw-641` Kingston, `gw-642` Banjul, `gw-643` Libreville, `gw-644` Gaborone, `gw-646` Tirana, `gw-647` Maseru, `gw-648` Bissau, `gw-649` Ljubljana, `gw-650` Malabo, `gw-651` Riga, `gw-652` Skopje, `gw-653` Pristina, `gw-654` Manama, `gw-655` Dili, `gw-656` Tallinn, `gw-657` Port-of-Spain, `gw-658` Nicosia, `gw-659` Port Louis, `gw-660` Mbabane, `gw-661` Djibouti, `gw-662` Suva, `gw-663` Moroni, `gw-664` Georgetown, `gw-665` Honiara, `gw-666` Thimphu, `gw-668` Luxembourg, `gw-669` Paramaribo, `gw-670` Podgorica, `gw-672` Valletta, `gw-673` Malé, `gw-674` Praia, `gw-675` Bandar Seri Begawan, `gw-676` Belmopan, `gw-677` Nassau, `gw-678` Reykjavík, `gw-679` Port Vila, `gw-680` Nouméa, `gw-681` Bridgetown, `gw-682` Papeete, `gw-683` São Tomé, `gw-684` Apia, `gw-685` Castries, `gw-686` Hagåtña, `gw-687` Willemstad, `gw-688` Tarawa,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-689` Victoria.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -3518,6 +3518,45 @@ ambiguous rather than merely absent. Hagåtña was the same shape one card earli
 `allcategories` with the city's name as a prefix before concluding anything about a category.** What
 shipped is `Curacao Willemstad (36699795245).jpg` (dronepicr, CC BY 2.0, 6000×4000), the Handelskade
 gables along the Sint Annabaai — the one view that is unmistakably this city.
+
+**`gw-688` TARAWA IS THE OTHER END OF THE CAPITAL FIELD, AND THE SOURCES DISAGREE ON THE CAPITAL'S
+NAME.** UNdata's *Capital city* for Kiribati is **Bairiki**, at **3,200** people (2015); the
+Commonwealth Secretariat, `world-capitals.js` and this plan all say **Tarawa**. Curaçao's field was
+the whole island less a few districts and Hagåtña's was ninety per cent of a territory; this one is a
+**village inside the capital**. The taxonomy is therefore complete in both directions, and the field's
+name can be wrong as well as its extent.
+
+**THE RECONCILIATION IS A PRIMARY SOURCE AND IT IS A POSTAL ADDRESS.** `president.gov.ki` — the
+Office of Te Beretitenti — prints its own contact details as **"P.O Box 68, Bairiki, Tarawa,
+Kiribati"**, which places Bairiki inside Tarawa on the government's own authority, in a form that
+cannot be an editorial gloss. **When two institutional sources name a capital differently, look for
+the government's own address block**: a ministry's footer settles a relation that no statistical
+profile states. (`mfa.gov.ki` returns 406 and `forumsec.org`'s member page 404s; the president's
+office answers 200.)
+
+**AND UNdata's KIRIBATI AREA FOOTNOTE RESOLVES A DIVERGENCE C10 RECORDED AS UNEXPLAINED.** C10 found
+UNdata's 726 km² against 811 at the Commonwealth, 810 at the World Bank and 811 in the glossary term,
+and **dropped UNdata from that term outright** — the only time Phase 3's Source A has been discarded.
+Footnote b on the profile reads *"Land area only. Excluding 84 square km of uninhabited islands"*, and
+**726 + 84 = 810**, the World Bank's figure exactly. The country card `gw-188` already carries this;
+the point for the record is that the "outlier" was a stated definition all along, and the glossary term
+`Kiribati` could have UNdata restored to it. **Read the area footnote before dropping a source over an
+area.**
+
+**THE MISSION-ELSEWHERE PATTERN IS NOW THREE CARDS IN FOUR.** Castries' ambassador sits in Bridgetown,
+Willemstad's foreign policy is made in The Hague, and here **William Bodde Jr was appointed Envoy
+Extraordinary and Minister Plenipotentiary on 26 September 1980 and stationed at Suva, Fiji, "as no
+diplomatic facilities exist on Kiribati"**. Recognition itself came by a further new mechanism — **the
+signing of a treaty of friendship**, on 20 September 1979 — which is the tenth distinct recognising act
+the run has met. And the UN membership date lags independence by **twenty years** (12 July 1979 to
+14 September 1999), the longest such gap yet, after Samoa's fourteen.
+
+**PICTURE.** `Category:Tarawa` does not exist (the near-miss `Category:Tarawa, Kitibati` does, spelt
+wrong, and `Category:Tarawa Atoll` is about the 1943 battle); the live one is **`Category:South
+Tarawa`** — the third card running where an `allcategories` prefix query was the fastest route. What
+shipped is `South Tarawa from the air.jpg` (an employee of the Government of Kiribati, CC BY 3.0,
+3000×1569), the ribbon of settlement between lagoon and ocean, which is the one picture that shows
+what this capital physically is.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
