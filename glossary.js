@@ -1969,7 +1969,8 @@ window.GLOSSARY = {
 "Consular_tribune": "A consular tribune, properly a military tribune with consular power, was one of a college of magistrates the Romans elected in place of consuls in most years between 444 and 367 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> The office was open to plebeians as the consulship was not, though the first college was wholly patrician and none held it until the Veientine war, and their number ran from three to six, or eight where the censors are counted with them.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> From year to year the senate proposed and the people chose whether to elect consuls or tribunes, until the office was abolished in 367 BCE by the Licinian law and the consulship restored.<sup class=\"fn\" data-fn=\"3\"></sup>",
 "Roman_censor": "The Roman censorship was a magistracy created in 443 BCE, held by two men, taking over the register of citizens and their property the consuls had kept since the kings.<sup class=\"fn\" data-fn=\"2\"></sup> Beyond the census it came to control the roll of the senate and the equestrian order, the letting of the state’s revenues, and the <i>regimen morum</i>, an oversight of conduct answerable to nobody, exercised through the <i>nota censoria</i>, valid only if both censors agreed and liftable by their successors.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Its holders originally served a <i>lustrum</i> of five years, cut to eighteen months in 433 BCE, and were drawn only from the patricians until 351 BCE.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Quaestor": "A quaestor was the holder of the lowest of Rome’s regular magistracies, a name that covered both the officers who kept the public treasury and the two public accusers who brought capital charges before the assembly.<sup class=\"fn\" data-fn=\"3\"></sup> The treasury quaestors paid out of the <i>aerarium</i>, took in the revenues and kept the public accounts, but could spend nothing except as the senate directed.<sup class=\"fn\" data-fn=\"3\"></sup> Their number was doubled to four in 421 BCE and the office was then opened to either order, which Livy calls the only one the senate had left open to both, though no plebeian was elected until 409 BCE.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Roman_legion": "A Roman legion was the standing unit of the Roman army, numbering some 4,000 to 5,000 foot with about 300 horse in the centuries of the Republic before the Punic Wars.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Livy describes two very different arrangements: an infantry graded by property, each man arming himself according to his class, and a later order of maniples drawn up in three lines of <i>hastati</i>, <i>principes</i> and <i>triarii</i>, each line falling back through the gaps in the one behind it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He attributes the change from the round <i>clipeus</i> to the oblong <i>scutum</i>, and the abandoning of the phalanx, to the point at which soldiers began to be paid.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
+"Roman_legion": "A Roman legion was the standing unit of the Roman army, numbering some 4,000 to 5,000 foot with about 300 horse in the centuries of the Republic before the Punic Wars.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup> Livy describes two very different arrangements: an infantry graded by property, each man arming himself according to his class, and a later order of maniples drawn up in three lines of <i>hastati</i>, <i>principes</i> and <i>triarii</i>, each line falling back through the gaps in the one behind it.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He attributes the change from the round <i>clipeus</i> to the oblong <i>scutum</i>, and the abandoning of the phalanx, to the point at which soldiers began to be paid.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
+"Siege_of_Veii": "The siege of Veii was the Roman capture of the nearest Etruscan city, which Livy gives as ten summers and winters of blockade ended by a mine into the citadel rather than by assault.<sup class=\"fn\" data-fn=\"2\"></sup> It obliged the Romans to keep an army in the field through the winter, a novelty for their soldiers, and the tribunes of the plebs read the new military pay as a device to keep able-bodied men out of the city.<sup class=\"fn\" data-fn=\"1\"></sup> On its fall the survivors were sold as slaves, the city's Juno was formally invited to move to Rome, and the tenth of the spoils vowed to Apollo became a grievance against the victorious commander.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2745,7 +2746,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Lex_Canuleia": "445 BCE",
 "Consular_tribune": "444 – 367 BCE",
 "Roman_censor": "443 BCE – 22 BCE",
-"Quaestor": "447 BCE onwards"
+"Quaestor": "447 BCE onwards",
+"Siege_of_Veii": "ended 396 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3947,7 +3949,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Consular_tribune": ["consular tribunes","military tribune with consular power","military tribunes with consular power","tribuni militum consulari potestate"],
 "Roman_censor": ["censorship","censors","Roman censorship","Roman censor"],
 "Quaestor": ["quaestors","quaestorship","quaestores"],
-"Roman_legion": ["legion","legions","legio"]
+"Roman_legion": ["legion","legions","legio"],
+"Siege_of_Veii": ["siege of Veii","capture of Veii","fall of Veii"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5949,7 +5952,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Consular_tribune": ["title","institution","history","politics","italy"],
 "Roman_censor": ["title","institution","history","politics","italy"],
 "Quaestor": ["title","institution","history","politics","italy"],
-"Roman_legion": ["institution","warfare","history","politics","italy"]
+"Roman_legion": ["institution","warfare","history","politics","italy"],
+"Siege_of_Veii": ["event","warfare","history","religion","italy"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
