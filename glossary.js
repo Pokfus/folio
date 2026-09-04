@@ -1785,7 +1785,8 @@ window.GLOSSARY = {
 "Delian_League": "<b>Delian League</b> is the modern name for the alliance of Greek states led by Athens that was formed after the Persian invasions to carry the war on against Persia and named from the island of Delos, where its treasury lay. Members swore to have the same friends and enemies, and each was assessed to supply either ships or money, the funds being handled by Athenian officials called Hellenotamiai.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Thucydides describes it beginning as independent allies acting on the resolutions of a common congress and hardening into something else, dating the change to the siege of Naxos, the first member compelled back after trying to leave.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>",
 "Hellenotamiai": "<b>Hellenotamiai</b>, the treasurers of the Greeks, were the Athenian officials who received and administered the money contributed by the members of the alliance formed against Persia after the invasion of 480 BCE was driven back. Thucydides records that the office was first instituted by the Athenians when it was settled which cities should give money and which ships, and that the common treasury lay at Delos.<sup class=\"fn\" data-fn=\"1\"></sup> The board outlasted the island and the democracy that made it, since the oligarchic constitution drawn up at Athens in 411 BCE still names the treasurers of the Greeks among the magistrates and bars those who manage the funds from the council.<sup class=\"fn\" data-fn=\"2\"></sup>",
 "Phoros": "<b>Phoros</b> was the money the members of the alliance led by Athens paid into its common fund, an obligation that could be discharged instead by serving with ships. Thucydides says most preferred to pay rather than leave home, so that Athens increased her navy on their contributions while a revolt found them without ships or the practice of war.<sup class=\"fn\" data-fn=\"1\"></sup> By 431 BCE an average of 600 talents came in yearly, and what it bought was contested: Pericles held that the payers gave neither horse nor ship nor hoplite but money only, which belonged to those who took it so long as they did what they took it for.<sup class=\"fn\" data-fn=\"2\"></sup><sup class=\"fn\" data-fn=\"3\"></sup>",
-"Assessment_of_Aristides": "The <b>assessment of Aristides</b> was the first fixing of what each member of the alliance led by Athens owed, made two years after the battle of Salamis and setting the total at 460 talents.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Plutarch says the allies asked for Aristides themselves and had him inspect their territories and revenues before fixing sums according to each one's worth and ability to pay, and that he returned from the commission poorer than he set out.<sup class=\"fn\" data-fn=\"3\"></sup> It was remembered as a fair settlement and praised as a golden age, a reputation Plutarch connects with what followed, since the tariff was doubled, then trebled, and at last reached 1,300 talents.<sup class=\"fn\" data-fn=\"3\"></sup>"
+"Assessment_of_Aristides": "The <b>assessment of Aristides</b> was the first fixing of what each member of the alliance led by Athens owed, made two years after the battle of Salamis and setting the total at 460 talents.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> Plutarch says the allies asked for Aristides themselves and had him inspect their territories and revenues before fixing sums according to each one's worth and ability to pay, and that he returned from the commission poorer than he set out.<sup class=\"fn\" data-fn=\"3\"></sup> It was remembered as a fair settlement and praised as a golden age, a reputation Plutarch connects with what followed, since the tariff was doubled, then trebled, and at last reached 1,300 talents.<sup class=\"fn\" data-fn=\"3\"></sup>",
+"Cimon": "<b>Cimon</b> was an Athenian general and statesman, the son of Miltiades, who commanded for the alliance led by Athens through the years in which it turned into an empire. Plutarch reports that he inherited his father's unpaid fine of 50 talents and a poor reputation, and that once rich he took the fences from his farms so that anyone might take the fruit and kept a daily table for the poor.<sup class=\"fn\" data-fn=\"1\"></sup><sup class=\"fn\" data-fn=\"2\"></sup> He held that Greece needed both its leading states and named a son Lacedaemonius, a policy broken when Sparta dismissed his troops from Ithome and Athens then abandoned the alliance against Persia.<sup class=\"fn\" data-fn=\"3\"></sup><sup class=\"fn\" data-fn=\"4\"></sup>"
 };
 
 /* Optional date shown next to a term (e.g. "c. 145-86 BCE", "1644-1912"). Keyed by the same slug. */
@@ -2588,7 +2589,8 @@ window.GLOSSARY_DATES = Object.assign(window.GLOSSARY_DATES || {}, {
 "Delian_League": "from 478 BCE",
 "Hellenotamiai": "from 478 BCE",
 "Phoros": "from 478 BCE",
-"Assessment_of_Aristides": "478 BCE"
+"Assessment_of_Aristides": "478 BCE",
+"Cimon": "c. 510 - c. 450 BCE"
 });
 
 /* Optional alternative background spellings that also open a term's popup (slug -> [forms]); plurals auto-link. */
@@ -3707,7 +3709,8 @@ window.GLOSSARY_ALIASES = Object.assign(window.GLOSSARY_ALIASES || {}, {
 "Tropaion": ["tropaia"],
 "Barbarian": ["barbaros","barbaroi"],
 "Hellenotamiai": ["Hellenotamias","treasurers of the Greeks"],
-"Assessment_of_Aristides": ["Aristides' assessment"]
+"Assessment_of_Aristides": ["Aristides' assessment"],
+"Cimon": ["Kimon"]
 });
 
 /* Slugs that only auto-link when the surface matches the term's own capitalization (e.g. Heaven, not heaven). */
@@ -5522,7 +5525,8 @@ window.GLOSSARY_TAGS = Object.assign(window.GLOSSARY_TAGS || {}, {
 "Delian_League": ["institution","history","greece","politics","warfare"],
 "Hellenotamiai": ["institution","history","greece","politics","title"],
 "Phoros": ["concept","history","greece","politics","institution"],
-"Assessment_of_Aristides": ["event","history","greece","politics","institution"]
+"Assessment_of_Aristides": ["event","history","greece","politics","institution"],
+"Cimon": ["person","history","greece","politics","warfare"]
 });
 
 /* Point-locations for the gloss popup's map-marker button: slug -> [lon, lat], fetched from Wikipedia's
