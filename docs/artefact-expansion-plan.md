@@ -274,6 +274,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B4a | `dong-son-drum`, `lapita-pottery`, `palm-leaf-folio` | `ban-chiang-pot` |
 | C2a | `thule-harpoon-head`, `great-zimbabwe-bird` (**two, not three — see below**) | — |
 | D3a | `dotaku` (UN-DEFERRED), `mississippian-shell-gorget` | — (a deferral sweep that cleared one of eight) |
+| E2a | `type-sort`, `slide-rule`, `portable-sundial` | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -987,6 +988,43 @@ works none of which existed in B3b's search because none was found by searching 
 · One access note: **`id.erudit.org` and `journals.openedition.org` remain shut**, `koreascience.kr`
   refuses, and the Korean art-history journals (`kjah`, `jkaahe`, `dah`, `jshs`) resolve to closed
   aggregators — so `buncheong-bowl` has no route yet either.
+
+**E2a's finding is the answer to C2a's warning that E1–E3 are shut: THE INSTRUMENTS AND THE
+INDUSTRIAL EVERYDAY ARE THE ONE PART OF THIS POOL BEST SERVED BY OUT-OF-COPYRIGHT BOOKS, because the
+people who made and used them wrote manuals about it and those manuals are on archive.org whole.**
+Three artefacts, nine works, not one journal article: Moxon 1683 and De Vinne 1900 and Legros and Grant
+1916 for the type sort; Cajori's *William Oughtred* of 1916, Kentish 1864 and Dunlop and Jackson for the
+slide rule; Lewis Evans's chapter in Gatty's *Book of Sun-Dials* of 1900, Cajori again and Leadbetter
+1756 for the portable dial. **A trade manual is a better source for an everyday object than a modern
+paper is**, because it was written for someone who had to make the thing: De Vinne names the ten parts of
+a sort and explains that the punch-cutter's first tool is a counter-punch bearing the letter's HOLE, and
+Legros and Grant give the point as 0.3515 mm and then note that the British and American inches the
+founders worked from differ from one another.
+
+· **THE BATCH CAME OUT OF ONE SHARED QUARREL, AND THAT WAS NOT PLANNED.** Cajori's Oughtred was fetched
+  for the slide rule and turns out to record that the priority dispute with Oughtred's own pupil Richard
+  Delamain was over the circular rule AND *a horizontal instrument or portable sun-dial* — so the two
+  E2 artefacts written this batch are two ends of one seventeenth-century argument, and the same work
+  cites both. **Read a book fetched for one artefact with the rest of the batch in mind.**
+· **THE `_djvu.txt` IS NAMED AFTER THE PRIMARY FILE, NOT THE ITEM ID.** `archive.org/download/<id>/<id>_djvu.txt`
+  404s on any item whose uploaded file has a different name — which is most user uploads — and
+  `archive.org/metadata/<id>` lists the true name. Two of this batch's books were briefly written off on
+  that 404 before the metadata was asked. This is `artefact-citation-plan.md`'s "a 200 from archive.org is
+  not a readable book" with the failure one step earlier.
+· **AN ARCHIVE.ORG ITEM CAN BE A MODERN RE-SET EDITION OF A PUBLIC-DOMAIN BOOK, NOT A SCAN OF IT.** The
+  only copy of Cajori's *History of the Logarithmic Slide Rule* (1909) reachable here is a re-typeset
+  photocopy edition posted by a slide-rule museum, whose own editor's foreword says the pagination is
+  different, the index is gone and it "should be regarded as for general interest". Citing it as the 1909
+  original would misdescribe it, so the plate uses Cajori's 1916 *William Oughtred* instead, which is a
+  true scan. **Read the item's own front matter before citing a page.**
+· **E3 STILL HAS NO ROUTE and this is where it will come from.** The journals are shut (*Post-Medieval
+  Archaeology* 403, *Historical Archaeology* behind a Springer stub, OpenEdition behind Anubis), but
+  Jewitt's *Ceramic Art of Great Britain*, Greener's *The Gun and Its Development* and the Edison-era
+  phonograph manuals are all the same kind of book as this batch's nine. **Write E1 and E3 from the trade
+  literature, not from the archaeology.**
+· One honest note about `slide-rule`'s illustration: no photograph of a seventeenth- or
+  eighteenth-century rule could be found on Commons, so the plate shows a modern one, which is the same
+  instrument and is captioned as what it is rather than dressed as an antique.
 
 ## The per-artefact workflow
 

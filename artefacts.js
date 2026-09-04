@@ -1141,4 +1141,25 @@ window.ARTEFACTS = [
     date: "c. 1200 – 1600 CE",
     origin: "The Mississippian and Caddo Southeast",
   },
+  {
+    id: "type-sort",
+    name: "Type sort",
+    rarity: "common",
+    date: "c. 1450 – 20th century CE",
+    origin: "Europe, and wherever printing went after it",
+  },
+  {
+    id: "slide-rule",
+    name: "Slide rule",
+    rarity: "common",
+    date: "1632 CE onwards",
+    origin: "England, then worldwide",
+  },
+  {
+    id: "portable-sundial",
+    name: "Portable sundial",
+    rarity: "common",
+    date: "c. 1500 – 1800 CE",
+    origin: "Europe, above all Nuremberg and Paris",
+  },
 ];
