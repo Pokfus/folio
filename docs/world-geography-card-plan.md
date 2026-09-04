@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-557` Damascus.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-558` Bamako.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -403,6 +403,26 @@ from 2 to 4 October 2007", and A/RES/55/11 likewise says "the historic summit me
 Pyongyang** from 13 to 15 June 2000". Both were readable only by pulling the PDF apart with the `zlib`
 recipe above. **Read the document, never the record** — a catalogue is written to be searched by subject,
 and the subject of an inter-Korean summit is not where it happened.
+
+**`gw-557` DAMASCUS IS WHERE THE RECOGNITION GUIDE PAYS BEST, BECAUSE THE POST ITSELF IS THE STORY.**
+Most country pages give a recognition date and an embassy date and stop; Syria's gives eight events and
+six of them happen to the mission in this one city — a legation in November 1944, **reclassified as a
+consulate general** on 25 February 1958 when Syria joined Egypt and the capital of the new state became
+Cairo, raised back to an embassy on 10 October 1961, closed when Syria severed relations on 6 June 1967,
+an **interests section inside the Italian embassy** from 8 February 1974, and the embassy restored on 16
+June. **Read the Diplomatic Relations half of a guide page before deciding a capital is thinly sourced**:
+a mission that is opened, downgraded, closed and reopened is a card, where a mission that opens once is a
+sentence. FRUS then supplied both ends the guide cannot — the French mandate, in two 1925 telegrams from
+the consul at Beirut reporting two thirds of the city in the hands of revolutionists and a demand for
+100,000 Turkish gold pounds and 3,000 rifles on pain of the bombardment recommencing, and the interests
+section itself, in a telegram Kissinger sent **from** it on 21 May 1974.
+
+**AND UNDATA CAN WARN YOU OFF ITS OWN FIGURE, WHICH IS WORTH SAYING IN THE PROSE.** Syria's capital-city
+row carries two footnotes rather than one: `d` is the usual 2019, and `c` reads *"Est. should be viewed
+with caution as these are derived from scarce data."* That is the first capital in this deck where the
+source hedges its own number, and the honest card says so rather than printing the figure flat. The relay
+holds regardless — 2,353.6 thousand against `EN.URB.LCTY`'s 2,353,637 for 2019, a sixth confirmation — so
+the current figure is still the World Bank's, at 2.8 million for 2025.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
