@@ -32,8 +32,8 @@ Ababa, `gw-513` Cairo, `gw-514` Manila, `gw-515` Kinshasa, `gw-516` Hanoi, `gw-5
 Ankara, `gw-519` Berlin, `gw-520` Bangkok, `gw-521` London, `gw-522` Dodoma, `gw-523` Paris, `gw-524`
 Pretoria, `gw-525` Rome, `gw-526` Nairobi, `gw-527` Naypyidaw, `gw-528` Bogotá, `gw-529` Seoul, `gw-530`
 Khartoum, `gw-531` Kampala, `gw-532` Madrid, `gw-533` Algiers, `gw-534` Baghdad, `gw-535` Buenos Aires,
-`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus,
-`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-558` Bamako.
+`gw-536` Kabul, `gw-537` Ottawa, `gw-538` Sana'a, `gw-539` Rabat, `gw-540` Luanda, `gw-541` Kyiv, `gw-542` Warsaw, `gw-543` Tashkent, `gw-544` Kuala Lumpur, `gw-545` Riyadh, `gw-546` Maputo, `gw-547` Accra, `gw-548` Lima, `gw-549` Antananarivo, `gw-550` Yamoussoukro, `gw-551` Kathmandu, `gw-552` Yaoundé, `gw-553` Caracas, `gw-554` Canberra, `gw-555` Niamey, `gw-556` Pyongyang, `gw-557` Damascus, `gw-558` Bamako,
+`gw-751` Dar es Salaam, `gw-752` Cape Town and `gw-753` Bloemfontein.** **The countries and territories deck is COMPLETE at 227 of 233**, the six deferred being `gw-195` Jersey, `gw-201` Guernsey, `gw-218` Saint Martin, `gw-223` Wallis and Futuna, `gw-224` Saint Barthélemy and `gw-230` Norfolk Island — each for a facts box no openable source can fill, and each waiting on one field rather than on research. The next card is a CAPITAL: `gw-559` Harare.
 
 **Seven capitals are DEFERRED, and between them they name every way a capital source can fail.**
 `gw-501` New Delhi and `gw-502` Beijing are reachable here only through the foreign legations that sat in
@@ -423,6 +423,35 @@ with caution as these are derived from scarce data."* That is the first capital 
 source hedges its own number, and the honest card says so rather than printing the figure flat. The relay
 holds regardless — 2,353.6 thousand against `EN.URB.LCTY`'s 2,353,637 for 2019, a sixth confirmation — so
 the current figure is still the World Bank's, at 2.8 million for 2025.
+
+**`gw-558` BAMAKO IS THE THIRD CAPITAL IN FOUR WHOSE CARD IS ABOUT A MISSION SOMEWHERE ELSE, AND
+THAT IS NOW A SHAPE TO LOOK FOR RATHER THAN A COINCIDENCE.** Niamey's first ambassador lived at
+Abidjan, Damascus lost its embassy to Cairo for three years, and Bamako was not the capital of the
+state that first became independent at all: the **Federation of Mali** was Senegal and the Soudanese
+Republic together, it left French sovereignty on 20 June 1960, and the American embassy to it was the
+consulate general at **Dakar**, raised that day. When Senegal withdrew and the Soudanese Republic
+renamed itself on 22 September, Washington recognised it on the 24th, raised the consulate general at
+Bamako to an embassy, and reaccredited the Dakar embassy to Senegal — **one day on which one city
+became a capital in American eyes and another stopped being one**. **On a state that federated,
+merged or seceded, read the guide for where the MISSION was**: the interesting sentence is almost
+never the recognition date.
+
+**AND FRUS DATES THE DECISION TO THE CITY WHERE IT WAS TAKEN.** Dillon's memorandum to Eisenhower of
+23 September 1960 opens "As a result of the party conference held in Bamako yesterday", says that by
+tacitly admitting the federation no longer existed the Soudanese had made it easier to recognise the
+two countries separately, and adds that Washington was "particularly anxious to avoid a repetition of
+the Guinean experience". A recognition guide gives the date Washington acted; the FRUS memorandum
+behind it gives the date and place the other government acted, which is what a capital card wants.
+Resolution 1491 (XV) then admitted Mali and Senegal at **one sitting**, the 876th plenary meeting of
+28 September 1960, on Security Council recommendations of the same day.
+
+**A COMMONS PICTURE CAN BE THE ARTICLE'S AND STILL BE TOO SMALL.** Three of the obvious Bamako
+candidates are under the 900px bar — the widely-used `Bamako ACI 2000 view.jpg` is 715px — and the
+`Special:FilePath?width=N` route does NOT tell you so: it serves the ORIGINAL when the original is
+smaller than the width asked for, so a 715px file comes back looking like a successful 900px fetch.
+**Read the size off the returned bytes, not off the request.** With the API rate-limited, the file
+DESCRIPTION page carries "Original file (5,172 × 2,906 pixels)" and the licence in plain text, which
+is the fallback that got this card its picture.
 
 **TWO SANDBOX MECHANICS WORTH NOT REDISCOVERING.** `pypdf` is installed but **broken here** (its crypt
 provider imports `cryptography`, which panics), so a UN resolution PDF is read by decompressing the
