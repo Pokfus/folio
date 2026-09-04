@@ -35,7 +35,7 @@
    noon reads as an afternoon (Aug 2026, on a report). Writing an explicit offset instead of `Z` is equally
    correct and equally safe: `2026-08-10T11:24+02:00`. What is never safe is typing the hour you see on
    your own clock and calling it UTC. */
-window.FOLIO_VERSION = { v: "1.477", released: "2026-09-04T19:11Z" };
+window.FOLIO_VERSION = { v: "1.478", released: "2026-09-04T20:10Z" };
 
 window.CHANGELOG = [
   {
@@ -50,6 +50,7 @@ window.CHANGELOG = [
       "<b>483 lost spaces restored to Seneca’s Latin</b> — the last quarter of the book had been typed with the space at every line end swallowed, so its words ran together.",
       "<b>Fourteen missing articles of the Summa Theologica put back</b>, among them the eight on Christ's Nativity, with 28 unnumbered ones and seventeen printed twice put right.",
       "<b>Aesop's fable of the Old Lion restored</b>, its page having carried the fable before it, and every other book on the shelf checked for the same fault.",
+      "<b>Five chapters of the Summa Theologica that broke off mid-sentence completed</b>, one of them missing the last thousand words of its argument.",
       "<b>Forty-three lines of printing lifted out of Journey to the West</b> — the scanner read the book’s engravings as text, so their captions had landed in the middle of the paragraphs they interrupted.",
       "<b>Eighty-six italic passages restored to Don Quixote</b> — the transcription marks italic with underscores, and they had been showing on the page instead: <i>terra firma</i> read as _terra firma_.",
       "<b>974 names put right in Romance of the Three Kingdoms</b> — a fault of ours had spelled them a second time, so Chang’an had become Zhang’an and Ma Chao had become Ma Zhao.",

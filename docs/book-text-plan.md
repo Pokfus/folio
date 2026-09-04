@@ -333,7 +333,8 @@ re-run and diffed byte for byte.
 | **E40** ✅ | the two articles that were simply gone | **Four more articles of Aquinas put back, a third supply mode, and a fault in the text this programme had already supplied.** Supplement q.12 is E38's fault again (its page carries question 11's text) and Gutenberg stops at Part III, so the witness is **CCEL** — validated at 99.0%/99.1% on two questions Folio has, then cross-checked against New Advent, because CCEL and Wikisource may share a lineage and **agreement between relatives proves nothing**. II-II q.180's article 5 needed an INSERT rather than a replace: its `Art. 5` heading carries article SIX (99.83% against 45%, measured). And **28 replies shipped without their "to"** — two normalisations of the witness's abbreviations are ORDER-DEPENDENT and had been the wrong way round since E35, so `Reply Obj. 3:` became `Reply Objection 3:` in every article supplied. Nothing could see it: the words are right and the marker is a form the book never otherwise uses |
 | **E41** ✅ | the question heading that was really an article | **One chapter changed, out of a full 614-page rebuild — and that is the finding.** II-II q.153 heads itself with ARTICLE 1's title and has no prologue, so the pass dropped that heading as furniture and article 1 with it: the printing's articles 2–5 numbered 1–4, with every sentence on the page. Two fixes: a question's own title is a noun phrase and never an interrogative, so the weak role test stands down on a heading ending in "?"; and the article COUNT is read from the `ws-title` header block **every one of the 614 pages carries**, which is right even where the body's heading is missing, misnumbered or carries an article's title. Changing where the count comes from touches every question, so all 614 were refetched and diffed — **one chapter moved**, which says the header and the heading agree on 613 pages and the header is right on the one they do not. 608 of 614 questions are now numbered by their own stated count, against 4 before E39 |
 | **E42** ✅ | the shelf's own structure, checked | **The Summa's cheapest check pointed at the other 47 books, and it found one thing.** Aesop's fable 122, "The Old Lion", was carrying fable 121's text: scan page 90 holds three fables and Wikisource's page for that one transcludes the first. **Its witness is the scan page this book is transcribed FROM**, so for the first time a supplied text validates EXACTLY — byte-for-byte, on the fable printed beside it — where Gutenberg's Townsend was refused as an American reprint (`clamor` for `clamour`). Over the shelf: **4,397 chapters compared pairwise, one pair**, so apart from the Summa's two and this one no chapter carries another's text. It compares eight-word RUNS, not vocabulary: two chapters of one work share their author's whole vocabulary and a bag-of-words test finds nothing. The sibling title-check does NOT transfer — 123 flags of 1,979, essentially all legitimate — because **a title check only works where the title is a claim about the text** |
-| **E43–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E43** ✅ | a chapter that repeats itself, and one that stops early | **Two more no-witness questions asked of the whole shelf: the first clean, the second 1,130 words of Aquinas.** E36's within-chapter duplication check, never run outside the Summa, returns **13 findings in 91,149 paragraphs and every one legitimate** — the Poetic Edda's asterisk divider, the Summa's own short formulae, and the Prose Edda quoting one stanza twice under two kennings. The new question's tell is **terminal punctuation**, and it is the only one there is: a truncated chapter is not short and not ungrammatical, so neither structural scanner can see it. 22 of 4,403 end without a stop; **five are the Summa's and all five are the SOURCE's truncation** — three missing a full stop, one six words, and Supplement q.95 the rest of its last answer and all nine paragraphs after it. A fourth supply mode covers both shapes. The other seventeen are settled by asking **what the next chapter opens with**: a lowercase word means the division simply falls mid-sentence |
+| **E44–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
@@ -398,6 +399,57 @@ not deferred.**
 ---
 
 ## 8. Batch log
+
+### E43 — a chapter that repeats itself, and one that stops early, shipped 2026-09-04
+
+**Two more no-witness questions asked of the whole shelf. The first came back clean; the second
+restored 1,130 words of Aquinas.**
+
+**THE CLEAN ONE IS WORTH RECORDING SO NOBODY RUNS IT AGAIN.** E36 found seventeen paragraphs the
+Summa printed twice, within one chapter, and that check had never been pointed at the other 47 books.
+Over the shelf: **91,149 paragraphs of sixty characters or more, and thirteen that stand twice in one
+chapter — every one of them legitimate.** Nine are the Poetic Edda's row of asterisks used as a
+section divider; two are the Summa's own short formulae, at 66 and 84 characters, sitting exactly in
+the band E36's length bar was drawn to exclude; and two are the Prose Edda quoting one skaldic stanza
+twice under two different kennings, each time with its own fresh attribution — *"Thus sang
+Viga-Glúmr"* and *"So sang Víga-Glúmr"* — which is what a handbook of poetic diction does.
+
+**THE SECOND QUESTION IS NEW AND ITS TELL IS THE ONLY ONE THERE IS: TERMINAL PUNCTUATION.** A
+truncated chapter is not short — Supplement q.95 lost 1,123 words and still ran to 20 KB — and it is
+not ungrammatical, because every sentence but the last is whole. What it cannot be is properly ended.
+**Neither structural scanner can see this**: `check-twins.js` asks whether a chapter is the WRONG
+chapter and `summa-witness.js` whether an article is missing, and a chapter that is the right chapter,
+correctly placed, and simply stops two thirds of the way through passes both — as it passes every
+spelling sweep, since the words it does have are correct.
+
+**Twenty-two chapters of 4,403, five of them the Summa's, and all five the SOURCE's truncation rather
+than the importer's** — each wiki page itself stops where Folio stopped, mid-sentence, with the
+MediaWiki parser report following immediately. Three were missing only a full stop; II-II q.148 six
+words; and **Supplement q.95 the rest of its last article's answer and all nine paragraphs after it,
+every Reply to the Objections among them.**
+
+**A FOURTH SUPPLY MODE, AND ONE MODE FOR BOTH SHAPES.** `completion` finishes the paragraph the
+chapter breaks off inside; `paragraphs` are whole ones lost after it. Either may be absent, so a bare
+missing full stop and a lost half-article are the same entry with different fields filled in.
+`endsWith` is the guard, naming the last words as they stand WHILE THE FAULT DOES. Two details paid
+for themselves: the completions are found by matching the **last 90 characters** of the chapter
+against the witness rather than the whole last paragraph, because Gutenberg abbreviates `Reply Obj.
+3:` where this book writes it out and a whole-paragraph match therefore fails on nearly every
+paragraph; and the join **adds no space before punctuation that attaches to the word before it**,
+which three of the five entries are, and which read "and this is done by moral virtue ." until it did.
+
+**THE OTHER SEVENTEEN ARE NOT TRUNCATIONS, and establishing that cost one question: what does the
+NEXT chapter open with?** A lowercase word means the division simply falls mid-sentence and nothing
+is missing — which is the Satyricon's chapter 16 exactly. Eleven of the seventeen are VERSE (nine
+hymns of the Rigveda, two cantos of the Ramayana) where Griffith's last line often carries no stop;
+three are the Satyricon's sections, which fall where they fall; and Aesop's moral, Machiavelli's
+chapter 25 and a Canterbury colophon each want a page-image read to settle a single mark. Recorded
+rather than guessed at.
+
+**`.claude/check-cutoff.js` is committed**, so the next book added is measured. Like `check-twins.js`
+and `card-focus.js` it **exits 0 whatever it finds**: its standing residue is those seventeen, read
+and recorded, and a gate that goes red on a finding somebody has already read is a gate everybody
+learns to ignore.
 
 ### E42 — the shelf's own structure, checked, shipped 2026-09-04
 

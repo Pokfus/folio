@@ -5606,6 +5606,15 @@ dead code (never rendered).
     the bracket the first run reported 33 phantom findings. **It exits 0 whatever it finds**, being a
     measure like `card-focus.js` rather than a gate. **Re-run after any change to that book.** Not
     part of the site.
+  · `node .claude/check-cutoff.js` — **a chapter that STOPS rather than ends** (Sep 2026, batch
+    E43). The tell is terminal punctuation and it is the only one there is: a truncated chapter is
+    not short — the Summa's Supplement q.95 lost 1,123 words and still ran to 20 KB — and it is not
+    ungrammatical, every sentence but the last being whole. **Neither other structural scanner can
+    see it**, since a chapter that is the right chapter, correctly placed, and simply stops two
+    thirds of the way through passes both. It found 22 of 4,403, five of them the Summa's and all
+    five the SOURCE's truncation. **The rest are settled by asking what the NEXT chapter opens
+    with** — a lowercase word means the division falls mid-sentence and nothing is missing. Exits 0
+    whatever it finds. **Re-run after adding a book.** Not part of the site.
   · `node .claude/check-twins.js` — **a chapter carrying another chapter's text, over the whole
     shelf** (Sep 2026, batch E42). The Summa's cheapest check — the one in `summa-witness.js` that
     needs no second transcription — pointed at all 48 books. It found Aesop's fable 122, *The Old

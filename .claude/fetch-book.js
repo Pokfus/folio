@@ -18279,6 +18279,59 @@ function supplyChapter(rec, book, warn) {
 }
 
 
+/* A CHAPTER THAT STOPS RATHER THAN ENDS (Sep 2026, batch E43). The three modes above put back text
+   the transcription set in the wrong place or lost between one chapter and the next. This puts back
+   text that is missing from the END of a chapter, which is a different fault and has a different
+   tell: **the last paragraph has no terminal punctuation.**
+
+   Swept over the shelf, 22 chapters of 4,403 end that way, and five of them are the Summa's. All
+   five are the SOURCE's truncation and not this file's — each wiki page itself stops where Folio
+   stops, mid-sentence, with the MediaWiki parser report following immediately. Three are missing
+   only a full stop; one is missing six words; and Supplement q.95 loses the rest of its last
+   article's answer and all nine paragraphs after it, 1,123 words.
+
+   ONE MODE FOR BOTH SHAPES. `completion` finishes the paragraph the chapter breaks off in the
+   middle of; `paragraphs` are whole ones lost after it. Either may be absent, so a bare missing full
+   stop and a lost half-article are the same entry with different fields filled in.
+
+   THE GUARD IS WHAT THE CHAPTER CURRENTLY ENDS WITH. `endsWith` names the last words as they stand
+   WHILE THE FAULT DOES; if the transcription is completed upstream the chapter no longer ends that
+   way and the entry reports itself dead rather than appending a second copy of the tail. A dead
+   entry is reported exactly as a dead correction row is. */
+let TAILED = 0;
+const TAIL_DEAD = [];
+let _tailTable = null;
+function completeTail(rec, book, warn) {
+  if (!_tailTable) {
+    const p = path.join(__dirname, book.supplied);
+    _tailTable = fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, "utf8")).tails || [] : [];
+  }
+  const a = _tailTable.find((x) => x.ch === rec.n);
+  if (!a) return rec.html;
+  const flat = rec.html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  if (!flat.endsWith(a.endsWith)) {
+    TAIL_DEAD.push("chapter " + rec.n + ": no longer ends on \u201c\u2026" + a.endsWith.slice(-48) +
+      "\u201d \u2014 the transcription may have been completed upstream, so read it before trusting " +
+      "this entry");
+    return rec.html;
+  }
+  let html = rec.html;
+  /* the completion goes inside the last paragraph, which is the one that breaks off */
+  if (a.completion) {
+    const at = html.lastIndexOf("</p>");
+    if (at < 0) { TAIL_DEAD.push("chapter " + rec.n + ": no closing paragraph to complete"); return rec.html; }
+    /* NO SPACE BEFORE PUNCTUATION THAT ATTACHES TO THE WORD IT FOLLOWS. Three of the five entries
+       are a bare full stop, and joined with a space they read "and this is done by moral virtue ." */
+    const join = /^[,.;:!?)\]'"’”]/.test(a.completion) ? "" : " ";
+    html = html.slice(0, at) + join + a.completion + html.slice(at);
+  }
+  if (a.paragraphs && a.paragraphs.length)
+    html += "\n" + a.paragraphs.map((q) => "<p>" + q + "</p>").join("\n");
+  TAILED++;
+  return html;
+}
+
+
 /* A LOST ARTICLE, WHICH IS NEITHER OF THE OTHER TWO (Sep 2026, batch E40). `supplyArticles` REPLACES
    an article the wiki set twice under its neighbour's number; `supplyChapter` REPLACES a whole
    question whose page carries the one before it. This INSERTS an article that is simply absent, and
@@ -26145,6 +26198,7 @@ async function fetchEnglish() {
       if (BOOK.supplied) cached.html = supplyChapter(cached, BOOK, (m) => warnings.push(m));
       if (BOOK.supplied) cached.html = supplyArticles(cached, BOOK, (m) => warnings.push(m));
       if (BOOK.supplied) cached.html = insertArticle(cached, BOOK, (m) => warnings.push(m));
+      if (BOOK.supplied) cached.html = completeTail(cached, BOOK, (m) => warnings.push(m));
       if (BOOK.dedupe) cached.html = dedupeArticles(cached, BOOK, (m) => warnings.push(m));
       chapters.push(cached);
       continue;
@@ -26330,6 +26384,7 @@ async function fetchEnglish() {
     if (BOOK.supplied) rec.html = supplyChapter(rec, BOOK, (m) => warnings.push(m));
     if (BOOK.supplied) rec.html = supplyArticles(rec, BOOK, (m) => warnings.push(m));
     if (BOOK.supplied) rec.html = insertArticle(rec, BOOK, (m) => warnings.push(m));
+    if (BOOK.supplied) rec.html = completeTail(rec, BOOK, (m) => warnings.push(m));
     if (BOOK.dedupe) rec.html = dedupeArticles(rec, BOOK, (m) => warnings.push(m));
     chapters.push(rec);
     console.log("  " + BOOK.chapterWord + " " + n + " — " + rec.t + " (" + html.length + " chars, " + notes.length + " notes)");
@@ -26688,9 +26743,10 @@ function writeEnglish(chapters, warnings) {
   if (BOOK.supplied)
     console.log("  " + SUPPLIED + " article(s) and " + SUPPLIED_C +
       " whole chapter(s) and " + INSERTED +
-      " inserted article(s) supplied from a second transcription of the same edition" +
-      (SUPPLY_DEAD.length + SUPPLY_C_DEAD.length + INSERT_DEAD.length
-        ? ", and " + (SUPPLY_DEAD.length + SUPPLY_C_DEAD.length + INSERT_DEAD.length) +
+      " inserted article(s) and " + TAILED +
+      " completed tail(s) supplied from a second transcription of the same edition" +
+      (SUPPLY_DEAD.length + SUPPLY_C_DEAD.length + INSERT_DEAD.length + TAIL_DEAD.length
+        ? ", and " + (SUPPLY_DEAD.length + SUPPLY_C_DEAD.length + INSERT_DEAD.length + TAIL_DEAD.length) +
           " entr(y/ies) that no longer apply" : ""));
   if (BOOK.dedupe)
     console.log("  " + DEDUPE_TRAIL + " paragraph(s) removed from the end of an article they do not belong to, and " +
@@ -26698,6 +26754,7 @@ function writeEnglish(chapters, warnings) {
   for (const d of SUPPLY_DEAD) warnings.push("a supplied article did not apply — " + d);
   for (const d of SUPPLY_C_DEAD) warnings.push("a supplied chapter did not apply — " + d);
   for (const d of INSERT_DEAD) warnings.push("a supplied article was not inserted — " + d);
+  for (const d of TAIL_DEAD) warnings.push("a completed tail did not apply — " + d);
   for (const d of SHIFT_DEAD) warnings.push("a page redirection may no longer be needed — " + d);
 
   if (BOOK.glyphs) {

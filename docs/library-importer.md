@@ -1612,6 +1612,31 @@ there first, with the body heading and E39's prose sentence as backstops.
     question 34. The printed numbers are kept, which is right for 456, and 457 is replaced by the
     supplied question anyway — but the guard firing there is correct and should stay.
 
+**📖 `.claude/check-cutoff.js` — RUN IT AFTER ADDING A BOOK.** A chapter that STOPS rather than ends
+(Sep 2026, batch E43), and **the tell is terminal punctuation, the only one there is**: a truncated
+chapter is not short — the Summa's Supplement q.95 lost 1,123 words and still ran to 20 KB — and it is
+not ungrammatical, because every sentence but the last is whole. What it cannot be is properly ended.
+
+  · **NEITHER OTHER STRUCTURAL SCANNER CAN SEE IT.** `check-twins.js` asks whether a chapter is the
+    WRONG chapter; `summa-witness.js` whether an article is missing. A chapter that is the right
+    chapter, correctly placed, and simply stops two thirds of the way through passes both — and
+    passes every spelling sweep, the words it does have being correct.
+  · **22 of 4,403 on its first run, five of them the Summa's, and all five the SOURCE's truncation**:
+    each wiki page itself stops where Folio stopped, mid-sentence, with the MediaWiki parser report
+    immediately after. Three were missing only a full stop, one six words, and Supplement q.95 the
+    rest of its last article's answer and all nine paragraphs after it.
+  · **THE OTHER SEVENTEEN ARE SETTLED BY ONE QUESTION: what does the NEXT chapter open with?** A
+    lowercase word means the division simply falls mid-sentence and nothing is missing, which is the
+    Satyricon's chapter 16 exactly. Eleven are VERSE (nine Rigveda hymns, two Ramayana cantos) where
+    Griffith's last line often carries no stop; three are the Satyricon's sections; and Aesop's
+    moral, Machiavelli's chapter 25 and a Canterbury colophon each want a page-image read to settle
+    one mark. Read and recorded, not guessed at.
+  · **AND E36's WITHIN-CHAPTER DUPLICATION CHECK, RUN OVER THE SHELF, COMES BACK CLEAN** — 13
+    findings in 91,149 paragraphs and every one legitimate: the Poetic Edda's asterisk divider, the
+    Summa's own short formulae sitting exactly in the band E36's length bar excludes, and the Prose
+    Edda quoting one skaldic stanza twice under two kennings with a fresh attribution each time.
+    Recorded here so nobody runs it again expecting a yield.
+
 **📖 `.claude/check-twins.js` — RUN IT AFTER ADDING A BOOK.** The Summa's duplicated-chapter check,
 generalised to the whole shelf (Sep 2026, batch E42), and it is the one fault no other checker here
 can see: **the wrong chapter is perfectly good prose**, and what gives it away is a fact about the

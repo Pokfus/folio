@@ -2882,6 +2882,25 @@ function aeneidChecks() {
       /Cao Pi|Tao Qian|Gan Ning/.test(titles) && !/Cao Bi|Dao Qian/.test(titles),
       (titles.match(/Cao Bi|Dao Qian/) || [""])[0]);
 
+    /* ================= 6m. the chapters that stopped rather than ended =================
+       Sep 2026, batch E43. A shelf-wide sweep for a chapter whose last paragraph has no terminal
+       punctuation found 22 of 4,403, five of them the Summa's — and all five are the SOURCE's
+       truncation, each wiki page itself stopping where Folio stopped. A truncated chapter is not
+       short and not ungrammatical: q.95's still ran to 20 KB with every sentence but the last whole.
+       What it cannot be is properly ended, which is the only tell there is. */
+    check("[summa] II-II q.148 no longer breaks off on 'wherefore'",
+      /but from the lustful will: wherefore it may be referred to either vice\./.test(su));
+    check("[summa] Supplement q.95 keeps the rest of its last answer",
+      /others reckon them to be vision, comprehension, and fruition/.test(su));
+    check("[summa] ...and the nine paragraphs after it, its Replies among them",
+      /these five should not be called dowries, but conditions of beatitude\./.test(su) &&
+      /Reply to Objection 7: The five things aforesaid mentioned by Boethius/.test(su));
+    /* And the three that were missing only a full stop. */
+    check("[summa] the three chapters missing only their last mark have it",
+      /be removed; and this is done by moral virtue\./.test(su) &&
+      /what is more difficult, and at the same time better\./.test(su) &&
+      /the point of restitution being immediate\./.test(su));
+
     /* ================= 6l. the fable that was its neighbour =================
        Sep 2026, batch E42. The Summa's duplicated-chapter check was pointed at the other 47 books
        and found one pair: Aesop's fable 122, "The Old Lion", carrying fable 121's text, because
