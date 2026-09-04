@@ -267,7 +267,7 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | B1c | `chola-nataraja`, `gandhara-buddha-head` (both UN-DEFERRED) | — |
 | A2c | `book-of-kells`, `bayeux-tapestry`, `lewis-chessmen` (all three UN-DEFERRED — **A2's list is now empty**) | — |
 | A3a | `aztec-sun-stone`, `enigma-machine`, `dancing-girl-mohenjo-daro` | — |
-| B2a | `oracle-bone`, `bamboo-slip`, `crossbow-trigger` | ~~`longquan-celadon-bowl`~~ (shipped in B2b), `inkstone`, `igbo-ukwu-bronze`, `pazyryk-carpet` |
+| B2a | `oracle-bone`, `bamboo-slip`, `crossbow-trigger` | ~~`longquan-celadon-bowl`~~ (shipped in B2b), ~~inkstone~~ (cleared and shipped in B2d), `igbo-ukwu-bronze`, `pazyryk-carpet` |
 | B2b | `bronze-ding`, `longquan-celadon-bowl` (UN-DEFERRED), `wax-tablet` | ~~han-tomb-brick~~ (cleared and shipped in B2c) |
 | B3a | `samurai-katana`, `ukiyo-e-print`, `goryeo-celadon` | — |
 | B3b | `daguerreotype`, `jomon-dogu`, `magatama` (**B3's list is now empty but for `dotaku`**) | `dotaku` (needs a third openable work) |
@@ -286,7 +286,8 @@ Both answered, Sep 2026, on request — recorded because the reasoning behind ea
 | E3e | `steel-pen-nib` (UN-DEFERRED — **E3's list is now empty**) | — |
 | C1d | `mamluk-mosque-lamp` (UN-DEFERRED) | — |
 | C3c | `moche-portrait-vessel` (UN-DEFERRED — **C3's list is now empty**) | — |
-| B2c/B3c | `han-tomb-brick`, `buncheong-bowl` (both UN-DEFERRED — **B2's and B3's lists are now empty**) | — |
+| B2c/B3c | `han-tomb-brick`, `buncheong-bowl` (both UN-DEFERRED — **B3's list is now empty**) | — |
+| A3a/B2d | `golden-crown-of-silla`, `inkstone` (UN-DEFERRED — **B2's list is now empty**) | — |
 
 **A1's finding is that a legendary artefact's third work is often a CORRECTION, and it is worth looking
 for one.** The Terracotta Army rests partly on Martinón-Torres et al. 2019, which shows the chromium film
@@ -1248,7 +1249,8 @@ recording, because every one of them was a plausible-looking route that does not
   and monuments, never as made. Costume history is not construction history; the term is 20th-century
   leather archaeology, and the 19th century cannot answer for it.
 · **`han-tomb-brick` and `inkstone` were probed and left.** **(The brick was cleared in B2c — the one
-  Laufer fact turned out to be enough as a THIRD work beside two museum records.)** Laufer's *Beginnings of Porcelain in China*
+  Laufer fact turned out to be enough as a THIRD work beside two museum records; the inkstone was
+  cleared in B2d, on a residue-analysis paper in *Heritage Science* rather than on any book.)** Laufer's *Beginnings of Porcelain in China*
   (1917) carries one real fact about them — "the bricks and tiles of the Han and Wei periods, as far as we
   know them, are all unglazed" — and no more; Bushell's *Chinese Art* mentions ink-stones only in a list of
   crafts. Both need a source class this pass has not found.
@@ -1450,6 +1452,40 @@ whether it could carry a sentence.
   is CC0 and was looked at and rejected on the picture instead: a 1917 black-and-white record shot with
   the accession number inked on the foot. What shipped is a CC BY-SA 4.0 photograph of a stamped lidded
   bowl in the Horim Museum.
+
+**A3a/B2d'S FINDING IS THAT THE OPEN-ACCESS DIRECTORIES ARE A BETTER FIRST MOVE THAN A HOST SURVEY,
+AND `doaj.org/api` IS THE ONE TO REACH FOR.** Every earlier batch has opened by asking which HOSTS answer
+from here; this one opened by asking which ARTICLES are open, which is a different question and a much
+shorter list. Two calls to the DOAJ article API found the *Heritage Science* residue paper that carries
+the whole first half of the inkstone plate, and a Crossref bibliographic query found the *Journal of Korean
+Art and Archaeology* — the National Museum of Korea's own journal, CC BY-NC-ND and free — which is the one
+work that describes what a Silla crown physically IS. C2a had recorded that "the Korean art-history
+journals resolve to closed aggregators" and that is true of the four it named; it is not true of the
+museum's own.
+· **A MACHINE-GENERATED ABSTRACT IS NOT THE ARTICLE, AND THE JKAA SAYS SO ON ITS FACE.** Its abstract
+  block is headed "This abstract was automatically generated using ChatGPT 4o." Everything the plate takes
+  — more than eighty crowns, all of the fifth and sixth centuries, three tree-shaped uprights and two
+  antler-shaped, the intersecting bands whose purpose "remains unknown", the skull fragments still stuck to
+  the bronze crown from Chuam-dong — was read out of the BODY, and the abstract was used only to find the
+  paragraphs. **Check whether a journal's abstract is generated before quoting from it.**
+· **A KOREAN OR CHINESE BYLINE PRINTED SURNAME-FIRST READS AS A MISMATCH.** `check-citations.js` compared
+  the article page's own "Gu Moon-gyoung" against Crossref's given "Moon-gyoung" and family "Gu" and
+  reported a wrong surname. Crossref is not wrong here and no `CROSSREF_WRONG` row belongs: the record
+  parses the name correctly and merely renders it in Western order, so the citation was rewritten to
+  **"Moon-gyoung Gu"**, which is Chicago note form anyway. **Write the name in the order the given/family
+  fields give**, not the order the page prints.
+· **THE ANUBIS WALL COMES AND GOES, IN BOTH DIRECTIONS.** N3 recorded that `journals.openedition.org` had
+  dropped it; it is back, serving a proof-of-work challenge page **with a 200 status** — a sixth variety of
+  200-status error document — which cost this batch the two OpenEdition articles on the Ile-Ife
+  excavations and is why `ife-head` is not in it. **Re-test a host rather than trusting a recorded state,
+  favourable or not.**
+· **A COMMONS FILE NAMED FOR A SITE IS OFTEN A PHOTOGRAPH OF THE SITE, NOT OF WHAT CAME OUT OF IT.**
+  `Geumgwanchong 01.JPG` is public domain, 3648 × 2736 and the top hit for the Gold Crown Tomb; it is a
+  photograph of a grassy mound. The picture that shipped is `Royal crown GNM Bongwan 9435 n01.jpg`, whose
+  name says nothing about Silla at all. **Look at the file; the name is not the subject.** The free
+  high-resolution photographs of these crowns are scarce for the reason B3c recorded — the National Museum
+  of Korea's own images are KOGL Type 1, which the pipeline's licence list does not accept — and three of
+  the obvious CC candidates are under 900 px and would be refused on size.
 
 ## The per-artefact workflow
 

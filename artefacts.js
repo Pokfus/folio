@@ -1316,4 +1316,18 @@ window.ARTEFACTS = [
     date: "c. 1400 – 1600 CE",
     origin: "Korea",
   },
+  {
+    id: "golden-crown-of-silla",
+    name: "Silla gold crown",
+    rarity: "epic",
+    date: "c. 400 – 600 CE",
+    origin: "Silla, southeastern Korea",
+  },
+  {
+    id: "inkstone",
+    name: "Inkstone",
+    rarity: "common",
+    date: "c. 202 BCE – 1911 CE",
+    origin: "China",
+  },
 ];
