@@ -2677,6 +2677,58 @@ function aeneidChecks() {
     await page.close();
   }
 
+  /* ================= 6c. every English branch is in the correction chain =================
+     Sep 2026, batch E31. Five branches — `play`, `fitts`, `terzine`, `eddapoem`, `laisses` — read a
+     cached page, handed it to a reader of their own and pushed the result onto `chapters` without
+     ever calling `correctRaw`, so a book on one of those branches never got its own corrections.
+     Nothing threw and the books built perfectly; the only symptom was a DID NOT FIRE line beside a
+     row whose word was plainly in the shipped file.
+
+     ASSERTED STATICALLY, OUT OF THE IMPORTER ITSELF, because there is nothing to click: this is a
+     property of a build-time script, and the browser only ever sees its output. The check runs over
+     `fetchBook` — the English half, which ends where `fetchOriginal` begins, the original column
+     being deliberately OUT of the chain — and holds every `const got = extract…(` to being in the
+     chain by ONE OF THE TWO SHAPES: wrapped in `correctGot(`, or preceded by `correctRaw` applied to
+     the page it just read. Both are live and both fire on every run, the caches on these branches
+     holding raw pages; E29 argues the first is the better of the two and seven branches are still on
+     the second. Written to accept either, so it guards against a branch in NEITHER — which is what
+     E31 found — rather than against the shape a branch happens to use. The two shipped repairs are
+     checked beside it, since a guard on the mechanism and a guard on the result fail for different
+     reasons. */
+  {
+    const src = fs.readFileSync(path.join(ROOT, ".claude", "fetch-book.js"), "utf8");
+    const cut = src.indexOf("async function fetchOriginal");
+    check("[chain] fetchOriginal is where the English half ends", cut > 0, String(cut));
+    const english = src.slice(0, cut);
+    const rx = /const got = (correctGot\()?extract([A-Za-z]+)\(/g;
+    const bare = [];
+    let m, sites = 0;
+    while ((m = rx.exec(english))) {
+      sites++;
+      if (m[1]) continue;                                    /* corrects the extracted prose */
+      const above = english.slice(Math.max(0, m.index - 1400), m.index);
+      if (/\b(h|raw|xml)\s*=\s*correctRaw\(/.test(above)) continue;   /* corrects the page */
+      bare.push(m[2]);
+    }
+    check("[chain] every English branch is in the correction chain",
+      sites >= 13 && bare.length === 0,
+      sites + " call sites, " + bare.length + " outside the chain: " + bare.join(" "));
+
+    const roland = fs.readFileSync(path.join(ROOT, "books", "song-of-roland.js"), "utf8");
+    const edda = fs.readFileSync(path.join(ROOT, "books", "poetic-edda.js"), "utf8");
+    const bad = [
+      ["song-of-roland", roland, /(?<![A-Za-z])(Carlum|Marsilium|Sarrazens)(?![A-Za-z])/g],
+      ["poetic-edda", edda, /(?<![A-Za-z])Balled(?![A-Za-z])/g],
+    ].flatMap(([id, txt, rx]) => (txt.match(rx) || []).map((w) => id + ":" + w));
+    check("[chain] ...and the four E31 repairs are in the shipped books",
+      bad.length === 0, bad.join(" "));
+    check("[chain] the corrected spellings really are there",
+      /(?<![A-Za-z])Carlun(?![A-Za-z])/.test(roland) &&
+      /(?<![A-Za-z])Marsiliun(?![A-Za-z])/.test(roland) &&
+      /(?<![A-Za-z])Sarrazins(?![A-Za-z])/.test(roland) &&
+      /(?<![A-Za-z])Ballad(?![A-Za-z])/.test(edda));
+  }
+
   /* ================= 7. the switch is a crossfade, not a cut =================
      A regression here is silent in the worst way: the languages still swap, the reader still lands on
      the right passage, and every assertion above still passes — the switch just goes back to being the

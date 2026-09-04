@@ -3609,6 +3609,21 @@ const BOOKS = {
       "text printed beside it is five centuries old and is in the public domain everywhere. (The " +
       "modern translations by George Bull, 1961, Harvey Mansfield, 1985, Peter Bondanella, 2005, and " +
       "Tim Parks, 2009, are still in copyright and are not used here.)",
+    /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+       Every single-occurrence token one confusion-class substitution or one transposition away from a
+       form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+       twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+       THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not a
+       nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so the
+       edition plainly knows the word and this one instance is damage. A form the edition uses to the
+       EXCLUSION of the right one is the edition's own spelling and must be left — the Bhagavad-Gita's
+       eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the page and twice in
+       the text, with the correct spelling nowhere in the book, and a row for it was written and then
+       withdrawn on exactly that count. */
+    reFixes: [
+      [/(?<![A-Za-z])soliders(?![A-Za-z])/g, "soldiers",
+       "a transposed e in `soldiers`, of the Swiss and the Spanish"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/The_Prince_(Marriott)",
 
@@ -3813,6 +3828,20 @@ const BOOKS = {
        as they stood — proper names, archaic English, and real words a modern eye distrusts — and these
        are the ones that are damage. Each is settled by this book's own usage rather than by a scan. */
     reFixes: [
+      /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+         Every single-occurrence token one confusion-class substitution or one transposition away from a
+         form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+         twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+         THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not
+         a nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so
+         the edition plainly knows the word and this one instance is damage. A form the edition uses
+         to the EXCLUSION of the right one is the edition's own spelling and must be left — the
+         Bhagavad-Gita's eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the
+         page and twice in the text, with the correct spelling nowhere in the book, and a row for it
+         was written and then withdrawn on exactly that count. */
+      [/(?<![A-Za-z])Triviri(?![A-Za-z])/g, "Treviri",
+       "an i read for the e of `Treviri`, the Gallic tribe — 1 against the form used everywhere else"],
+
       [/(?<![A-Za-z])inflecting(?![A-Za-z])/g, "inflicting",
        "an e read for the i of `inflicting`; this translation writes it correctly three times elsewhere"],
       [/(?<![A-Za-z])inflected(?![A-Za-z])/g, "inflicted",
@@ -4235,6 +4264,21 @@ const BOOKS = {
       "is a Routledge reprint its own index page dates to 1887; the translation is the 1867 one " +
       "either way. (The modern translations by S. A. Handford, 1954, Olivia and Robert Temple, 1998, " +
       "and Laura Gibbs, 2002, are still in copyright and are not used here.)",
+    /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+       Every single-occurrence token one confusion-class substitution or one transposition away from a
+       form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+       twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+       THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not a
+       nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so the
+       edition plainly knows the word and this one instance is damage. A form the edition uses to the
+       EXCLUSION of the right one is the edition's own spelling and must be left — the Bhagavad-Gita's
+       eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the page and twice in
+       the text, with the correct spelling nowhere in the book, and a row for it was written and then
+       withdrawn on exactly that count. */
+    reFixes: [
+      [/(?<![A-Za-z])beagn(?![A-Za-z])/g, "began",
+       "a transposed a in `began`, of the boys pelting the frogs"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/Three_Hundred_%C3%86sop%27s_Fables",
 
@@ -4443,6 +4487,28 @@ const BOOKS = {
       "are later works by other hands and are not reproduced here; what is taken is the poem. (The " +
       "modern translations by Dorothy L. Sayers, 1957, Robert Harrison, 1970, Frederick Goldin, " +
       "1978, Gerard Brault, 1978, and Glyn Burgess, 1990, are still in copyright and are not used.)",
+    /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+       Every single-occurrence token one confusion-class substitution or one transposition away from a
+       form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+       twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+       THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not a
+       nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so the
+       edition plainly knows the word and this one instance is damage. A form the edition uses to the
+       EXCLUSION of the right one is the edition's own spelling and must be left — the Bhagavad-Gita's
+       eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the page and twice in
+       the text, with the correct spelling nowhere in the book, and a row for it was written and then
+       withdrawn on exactly that count. */
+    reFixes: [
+      /* Three names, each ONE occurrence against ten to nineteen of the form this translation uses
+         everywhere else — E23's counting rule, which is what tells a scan's damage from a translator's
+         variation when the word is a proper name nobody outside the poem meets. */
+      [/(?<![A-Za-z])Carlum(?![A-Za-z])/g, "Carlun",
+       "an m read for the n of `Carlun`, Charlemagne's name in the oblique case — 1 against 19"],
+      [/(?<![A-Za-z])Marsilium(?![A-Za-z])/g, "Marsiliun",
+       "an m read for the n of `Marsiliun`, the Saracen king — 1 against 10"],
+      [/(?<![A-Za-z])Sarrazens(?![A-Za-z])/g, "Sarrazins",
+       "an e read for the i of `Sarrazins` — 1 against 17"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/The_Song_of_Roland",
 
@@ -5023,6 +5089,21 @@ const BOOKS = {
        third of it. The transcriber is named because a transcription is work, and because a reader
        who wants to check this text against the printed page should be told which copy they are
        reading. */
+    /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+       Every single-occurrence token one confusion-class substitution or one transposition away from a
+       form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+       twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+       THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not a
+       nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so the
+       edition plainly knows the word and this one instance is damage. A form the edition uses to the
+       EXCLUSION of the right one is the edition's own spelling and must be left — the Bhagavad-Gita's
+       eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the page and twice in
+       the text, with the correct spelling nowhere in the book, and a row for it was written and then
+       withdrawn on exactly that count. */
+    reFixes: [
+      [/(?<![A-Za-z])goner(?![A-Za-z])/g, "gone",
+       "a stray r in `gone`, in the editors' summary of the eighth tablet"],
+    ],
     sourceName: "Global Grey",
     sourceUrl: "https://www.globalgreyebooks.com/epic-of-gilgamesh-ebook.html",
     source: "html",
@@ -7705,6 +7786,21 @@ const BOOKS = {
       "edition is transcribed anywhere reachable rather than that any of them is shut — see the " +
       "front matter. (The translations by Lee M. Hollander, 1928, Carolyne Larrington, 1996, and " +
       "Jackson Crawford, 2015, are still in copyright and are not used here.)",
+    /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+       Every single-occurrence token one confusion-class substitution or one transposition away from a
+       form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+       twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+       THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not a
+       nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so the
+       edition plainly knows the word and this one instance is damage. A form the edition uses to the
+       EXCLUSION of the right one is the edition's own spelling and must be left — the Bhagavad-Gita's
+       eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the page and twice in
+       the text, with the correct spelling nowhere in the book, and a row for it was written and then
+       withdrawn on exactly that count. */
+    reFixes: [
+      [/(?<![A-Za-z])Balled(?![A-Za-z])/g, "Ballad",
+       "a transposed a in `Ballad`, in Bellows's note on the Ballad of Regin — 1 against 16"],
+    ],
     sourceName: "Wikisource",
     sourceUrl: "https://en.wikisource.org/wiki/The_Poetic_Edda_(tr._Bellows)",
 
@@ -14877,6 +14973,21 @@ const BOOKS = {
       "1997, Garry Wills, 2006, and Sarah Ruden, 2017, are still in copyright and are not used.) " +
       "Two chapters of Book I have never been transcribed at the source and are absent from the " +
       "English column; the Latin carries them, and the book's own first page says so.",
+    /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+       Every single-occurrence token one confusion-class substitution or one transposition away from a
+       form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+       twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+       THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not a
+       nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so the
+       edition plainly knows the word and this one instance is damage. A form the edition uses to the
+       EXCLUSION of the right one is the edition's own spelling and must be left — the Bhagavad-Gita's
+       eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the page and twice in
+       the text, with the correct spelling nowhere in the book, and a row for it was written and then
+       withdrawn on exactly that count. */
+    reFixes: [
+      [/(?<![A-Za-z])carth(?![A-Za-z])/g, "earth",
+       "a c read for the e of `earth`, quoting Genesis: \"the carth was invisible and without form\""],
+    ],
     sourceName: "Wikisource",
     sourceUrl:
       "https://en.wikisource.org/wiki/Nicene_and_Post-Nicene_Fathers:_Series_I/Volume_I/Confessions",
@@ -15298,6 +15409,27 @@ const BOOKS = {
        that lands on a word the book uses constantly is very rarely a coincidence, and each row
        below is a single occurrence against dozens or hundreds of the correct form. */
     reFixes: [
+      /* ---------- E31: A BOOK WHOSE CANDIDATE LIST HAD NEVER BEEN READ (Sep 2026) ----------
+         Every single-occurrence token one confusion-class substitution or one transposition away from a
+         form this book uses ten times or more, read in its own sentence. Of 434 such candidates across
+         twenty-one books, 12 were damage; the rest are these translations' own vocabulary.
+         THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and it is not
+         a nicety: every one of these twelve stands alone against 5 to 230 of the right spelling, so
+         the edition plainly knows the word and this one instance is damage. A form the edition uses
+         to the EXCLUSION of the right one is the edition's own spelling and must be left — the
+         Bhagavad-Gita's eighth discourse is "THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL" on the
+         page and twice in the text, with the correct spelling nowhere in the book, and a row for it
+         was written and then withdrawn on exactly that count. */
+      /* Three spellings, each ONE occurrence against thirty-three, eighty-one and forty-one of the
+         form this edition uses everywhere else. Malory's own spelling varies, which is exactly why
+         the count has to do the deciding and not the eye. */
+      [/(?<![A-Za-z])Tintagel(?![A-Za-z])/g, "Tintagil",
+       "an e read for the i of `Tintagil` — 1 against 33"],
+      [/(?<![A-Za-z])Eleine(?![A-Za-z])/g, "Elaine",
+       "an e read for the a of `Elaine` — 1 against 81"],
+      [/(?<![A-Za-z])sithin(?![A-Za-z])/g, "sithen",
+       "an i read for the e of the archaic `sithen` — 1 against 41"],
+
       [/(?<![A-Za-z])afroe(?![A-Za-z])/g, "afore",
        "a transposition in `afore`, which Malory uses 247 times"],
     ],
@@ -17653,6 +17785,31 @@ function applyRoman(h) {
    does today, and that is a gap rather than a decision. */
 function correctRaw(t) {
   return applyRoman(applyReFixes(applyFixes(applyGlyphs(unwrapNameMarkup(t)))));
+}
+
+
+/* THE CHAIN, OVER AN EXTRACTOR'S OWN OUTPUT — five English branches (`play`, `fitts`, `terzine`,
+   `eddapoem`, `laisses`) read a cached page, hand it straight to a reader of their own, and pushed
+   the result onto `chapters` without ever calling `correctRaw`. That is B4's "one spelling of the
+   chain, called on every branch that has raw English in hand" being untrue for five of them, and it
+   is SILENT: a book on one of those branches simply never gets its own corrections, and the only
+   symptom is a DID NOT FIRE line beside a row whose word is plainly in the printed text. Found in
+   Sep 2026 (batch E31), when four rows written for the Poetic Edda and the Song of Roland reported
+   exactly that.
+   It corrects the EXTRACTED PROSE rather than the page (E29's rule): the caches stay raw, so a row
+   added later fires on the next run without `--force`, and a title read off the page goes through
+   with it, a chapter head being English text like any other. Both shapes an extractor returns are
+   taken — an ARRAY of parts (`play`, `laisses`) and a single object (the other three) — since the
+   alternative is five copies of the same three lines. */
+function correctGot(got) {
+  const one = (c) => {
+    if (!c || typeof c !== "object") return c;
+    if (typeof c.html === "string") c.html = correctRaw(c.html);
+    if (typeof c.t === "string") c.t = correctRaw(c.t);
+    if (Array.isArray(c.notes)) c.notes = c.notes.map((x) => (typeof x === "string" ? correctRaw(x) : x));
+    return c;
+  };
+  return Array.isArray(got) ? got.map(one) : one(got);
 }
 
 
@@ -24712,7 +24869,7 @@ async function fetchEnglish() {
     let h;
     if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
     else { h = await api(BOOK.onePage); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, h); }
-    const got = extractPlay(h, BOOK, warn);
+    const got = correctGot(extractPlay(h, BOOK, warn));
     if (got.length !== BOOK.chapters.length)
       warn("the cut yields " + got.length + " parts; the entry expects " + BOOK.chapters.length);
     got.forEach((c) => {
@@ -24743,7 +24900,7 @@ async function fetchEnglish() {
       let h;
       if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
       else { h = await api(BOOK.page(n)); fs.writeFileSync(cf, h); await sleep(900); }
-      const got = extractFitt(h, warn, where);
+      const got = correctGot(extractFitt(h, warn, where));
       if (got.html.length < (BOOK.minChars || 200))
         throw new Error(where + " came back short (" + got.html.length + " chars)");
       chapters.push({ n: n, t: titles[n] || chapterTitle(n), p: partOf(n), html: got.html, notes: got.notes });
@@ -24819,7 +24976,7 @@ async function fetchEnglish() {
         fs.writeFileSync(cf, h);
         await sleep(900);
       }
-      const got = extractTerzina(h, where, warn);
+      const got = correctGot(extractTerzina(h, where, warn));
       if (got.html.length < (BOOK.minChars || 200))
         throw new Error(where + " came back short (" + got.html.length + " chars)");
       lines += got.lines; printed += got.printed; bad += got.bad;
@@ -24861,7 +25018,7 @@ async function fetchEnglish() {
       let h;
       if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
       else { h = await api(BOOK.page(n)); fs.mkdirSync(CACHE, { recursive: true }); fs.writeFileSync(cf, h); await sleep(1200); }
-      const got = extractEdda(h, t, warn, where, (BOOK.prose || []).includes(n));
+      const got = correctGot(extractEdda(h, t, warn, where, (BOOK.prose || []).includes(n)));
       if (got.html.length < (BOOK.minChars || 200))
         throw new Error(where + " came back short (" + got.html.length + " chars)");
       chapters.push({ n: n, t: t, p: partOf(n), html: got.html, notes: got.notes });
@@ -24880,7 +25037,7 @@ async function fetchEnglish() {
     let h;
     if (!FORCE && fs.existsSync(cf)) h = fs.readFileSync(cf, "utf8");
     else { h = await api(BOOK.onePage); fs.writeFileSync(cf, h); }
-    const got = extractLaisses(h, BOOK, warn);
+    const got = correctGot(extractLaisses(h, BOOK, warn));
     if (got.length !== BOOK.chapters.length)
       warn("the edition carries " + got.length + " laisses; the entry expects " + BOOK.chapters.length);
     got.forEach((c) => {

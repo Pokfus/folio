@@ -1270,3 +1270,46 @@ Nothing rendered differently, both books on that path stating their titles in th
 marker went missing on exactly the books a `--force` run had just made trustworthy**, which is the
 reverse of what it is for. The record on disk is now read even under `--force` and merged rather than
 replaced.
+
+**…AND FIVE ENGLISH BRANCHES WERE NEVER IN THE CHAIN AT ALL** (`correctGot`, Sep 2026, batch E31).
+E29 said there is now one spelling of the correction chain and every branch that has raw English in
+hand calls it. That was untrue for five: `play`, `fitts`, `terzine`, `eddapoem` and `laisses` each
+read a cached page, handed it straight to a reader of their own, and pushed the result onto
+`chapters` without ever calling `correctRaw`. A book on one of those branches simply never got its
+own corrections.
+
+  · **THE SYMPTOM IS A DEAD ROW BESIDE A WORD THAT IS PLAINLY IN THE TEXT.** Four rows written for
+    the Poetic Edda and the Song of Roland reported `DID NOT FIRE` — `Balled` for `Ballad`, `Carlum`
+    for `Carlun`, `Marsilium` for `Marsiliun`, `Sarrazens` for `Sarrazins` — with the misspellings
+    sitting in the shipped files where anyone could grep them. Nothing threw and the books built
+    perfectly; the rows were simply never consulted. **A `DID NOT FIRE` line is a claim about the
+    chain as much as about the text** — E30 made that point one way round (the cache held prose the
+    chain had already corrected) and this makes it the other (the chain was never run).
+  · **IT CORRECTS THE EXTRACTED PROSE, NOT THE PAGE**, which is E29's rule and buys E29's property:
+    the caches stay raw, so a row added later fires on the next ordinary run with no `--force`.
+  · **AND IT TAKES THE TITLE WITH IT.** `extractPlay` reads a scene's head off the page, so a chapter
+    title is English text like any other and goes through the chain. It is `c.t` that is corrected,
+    never the `titles` table in this file, which is Folio's own declaration and not a transcription.
+  · **ONE HELPER RATHER THAN FIVE COPIES OF THREE LINES.** `correctGot` takes both shapes an extractor
+    returns — an ARRAY of parts (`play`, `laisses`) and a single object (the other three) — and
+    touches `html`, `t` and `notes` where each is a string.
+  · **PROVED BYTE-FOR-BYTE ON EVERY BOOK ON THOSE BRANCHES**, which is five and not fifty: Lysistrata
+    (`play`), Beowulf (`fitts`) and the Divine Comedy (`terzine`) declare no correction tables and
+    came back identical to the byte, the Song of Roland changed on three lines and the Poetic Edda on
+    one, and those four lines are the four rows. `applyGlyphs` and `unwrapNameMarkup` both return
+    their input untouched when the book declares no table, so the three were inert by construction as
+    well as by measurement.
+
+**A FORM THE EDITION USES TO THE EXCLUSION OF THE RIGHT ONE IS THE EDITION'S OWN SPELLING** (Sep
+2026, batch E31, and the discriminator every sweep since B6 should have been stating out loud). The
+single-occurrence sweep asks for a token one confusion-class substitution away from a form the book
+uses ten times or more — so the arithmetic is already in the candidate list, and reading it is what
+tells damage from vocabulary. Each of E31's twelve repairs stands alone against 5 to 230 of the
+correct spelling: the edition plainly knows the word.
+
+The Bhagavad-Gita's eighth discourse does not. It is *"THE YOGA OF THE INDESCTRUCTIBLE SUPREME
+ETERNAL"* on the page, twice in the text, with the correct spelling **nowhere in the book** — the
+misspelling is the 1922 Natesan printing's own, this file's entry had already recorded the decision
+to keep it as printed, and a row for it was written, applied, and then withdrawn. Transcribing a
+title means transcribing it. **The count was in front of me the whole time and said 0 correct** —
+the check costs one grep, and it is the one that separates a slip from an edition's own error.

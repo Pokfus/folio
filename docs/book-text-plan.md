@@ -306,11 +306,13 @@ re-run and diffed byte for byte.
 | **E28** ✅ | the Latin Seneca's lost spaces | **483 spaces restored, and the first sweep understated it by three and a half times.** The last four books — letters 101 to 124 — were typed into Wikisource with the space at each line end swallowed: `bonumesse`, `occupationibussum`, `claritasbonum`, `mortemhomo`. It is upstream (every form is glued in the wikitext) so no rule could undo it, and the repair is a declared map of 483 entries on the book's `original`. Sorting the damage from the real Latin that splits the same way took a **833,000-word lexicon** built out of the shelf's other Latin, and then a reading of every survivor |
 | **E29** ✅ | the correction chain moves after the cache | **The chain was running against MARKUP where it should have run against PROSE, and it was weaker for it.** Correcting on the way in poisoned the cache (so a live row reported DEAD one run later — E19's caveat) and, worse, made every row face a page still full of tags: the Book of Documents came back from a refetch with four `Tî` the romanisation had missed and a running head the Book of Rites' own remover could no longer see. Moved to run on the extracted prose. **The title is the one exception and it had to be**, `applyRoman` not being idempotent |
 | **E30** ✅ | the caches refreshed, and what fell out | **974 double-romanised names repaired across 111 of the Three Kingdoms' 120 chapters, and a row E19 deleted put back.** Refetching the twelve books that carry a correction table turned E29's machinery on and turned up two regressions of this programme's own making: E19's cached-path correction was applying `roman` a SECOND time to prose already romanised (`Ma Chao` → `Ma Zhao`, `Chang'an` → `Zhang'an`, `Kan Ze` → `Gan Ze`), and E19 had removed E15's live `corning` row on a dead-row report that meant nothing. A record now says whether its prose is the source's or ours, and the run says which it read |
-| **E31–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
+| **E31** ✅ | the twenty-one books nobody had read, and five branches outside the chain | **12 repairs across eight books — and four of them could not land, because five English branches never called the correction chain at all.** The 434 single-occurrence candidates in the 21 never-swept books yielded twelve slips (`beagn`, `soliders`, `carth` for *earth*, `Triviri`, `Tintagel`, `Eleine`, `sithin`, `Balled`, `Carlum`, `Marsilium`, `Sarrazens`, `goner`). Four reported `DID NOT FIRE` with the misspellings sitting in the shipped files: `play`, `fitts`, `terzine`, `eddapoem` and `laisses` each read a cached page, handed it to a reader of their own and pushed the result on without ever calling `correctRaw` — **E29's "one spelling of the chain, called on every branch" was untrue for five of them**. A thirteenth row was written, applied and withdrawn: the Gita's `INDESCTRUCTIBLE` is the 1922 printing's own, with the correct spelling nowhere in the book |
+| **E32** | E29's move, finished | **Seven English branches still correct the PAGE rather than the extracted prose.** E29 moved one branch — the per-chapter wiki walk — and gave the reason: a row facing a page full of tags is weaker than one facing prose, and refetching the Book of Documents under the old order returned four `Tî` the romanisation had missed and a running head the Book of Rites' own remover could no longer see. `extractRamayan`, `extractSatyricon`, `extractSukta`, `extractJourney`, `extractPtahhotep`, `extractQuixote`, `extractChaucer` and `extractTablets` are still on it. They FIRE — those caches hold raw pages, so the chain runs at read — so this is a strength question rather than a correctness one, and it is bounded: eight call sites, and a byte-for-byte rebuild of the books on them says whether any row was being blocked by markup |
+| **E33–En** | the rest of the error half | 45 marks left in the Canterbury Tales and six of `plato-dialogues`' candidates, all inside runs needing a leaf read; `summa-theologica`'s `inproportionate`; and the books below them; a book with no printed witness reachable contributes findings rather than fixes |
 
 The error half of a Chinese book rides with its romanisation batch; the rest run on their own.
 
-### How much is left (measured 2026-09-04, after E26)
+### How much is left (measured 2026-09-04, after E26; re-measured after E31)
 
 **The structural half is nearly closed and the error half is bounded by reading, not by a list.** Two
 figures rather than one, because they behave differently.
@@ -324,8 +326,14 @@ last two were found by pulling on a thread the batch before had recorded rather 
 One row is open and bounded (E27, eighteen paragraphs), and there is no reason to think it is the
 last of the family.
 
-**The error half — a scan's own damage — has 434 candidates left to read, across the 21 books whose
-lists have never been read at all.** Measured with E22's own settings (a single occurrence, one
+> **AFTER E31 THIS HALF IS READ.** All 434 candidates below were read in that batch and yielded
+> twelve repairs across eight books. What the table now records is where the sweep has BEEN, not what
+> is queued — and the shelf's single-occurrence lists are, at E22's settings, exhausted. What is left
+> of the error half is the leaf reads and the deferrals named at the foot of this section, and
+> whatever a WIDER sweep would return, which is a decision nobody has taken yet.
+
+**The error half — a scan's own damage — had 434 candidates left to read, across the 21 books whose
+lists had never been read at all.** Measured with E22's own settings (a single occurrence, one
 confusion-class substitution or one transposition away from a form the same book uses ten times or
 more):
 
@@ -344,8 +352,10 @@ more):
 | | | | | sophocles-antigone | 6,657 | 4 |
 | | | | | ptahhotep | 2,326 | 0 |
 
-That is **762,434 words, about a sixth of the shelf**, and at the pace of E20–E23 — 78, 245 and ~200
-candidates read per batch — it is **two or three batches of reading**. What it is NOT is a count of
+That is **762,434 words, about a sixth of the shelf**. Estimated at two or three batches of reading
+at the pace of E20–E23, it took **one** — the lists are short because these books are short, and a
+batch's cost is dominated by the handful of candidates that need a source consulted rather than by
+the length of the list. What it is NOT is a count of
 errors: E23 read Don Quixote's whole list and repaired nothing, and E22 found Three Kingdoms, which
 the noise-rate table called the fourth cleanest book on the shelf, to be the most damaged text yet
 swept. **A low noise rate is not a low error rate**; it only says the list is short enough to read.
@@ -356,11 +366,88 @@ inside runs that need a page-image leaf read; `summa-theologica`'s `inproportion
 word in *"there several real relations in God"*; `Lede` for Leda in the Odyssey and `jade graps` in
 Journey to the West, both wanting a printed witness this sandbox cannot reach. **A book with no
 printed witness reachable contributes findings rather than fixes**, and those five are the standing
-examples.
+examples. E31 adds a sixth of a different kind: the Bhagavad-Gita's `INDESCTRUCTIBLE` has a printed
+witness, and the witness says the page reads that way. **A candidate the source confirms is closed,
+not deferred.**
 
 ---
 
 ## 8. Batch log
+
+### E31 — the twenty-one unread books, and five branches outside the chain, shipped 2026-09-04
+
+**The programme's sweep had never been pointed at twenty-one of the forty-eight books.** This batch
+reads all 434 of their single-occurrence candidates — every token one confusion-class substitution or
+one transposition away from a form the book uses ten times or more — and finds **twelve slips across
+eight books**. It also finds, by trying to fix them, that a fifth of the shelf's English branches were
+never in the correction chain at all.
+
+**The twelve.**
+
+| book | reads | should read | against |
+|---|---|---|---|
+| Aesop's Fables | `beagn` | `began` | 18 |
+| Caesar, *The Gallic War* | `Triviri` | `Treviri` | 39 |
+| Augustine, *Confessions* | `carth` | `earth` | 230 |
+| *The Epic of Gilgamesh* | `goner` | `gone` | 5 |
+| Machiavelli, *The Prince* | `soliders` | `soldiers` | 42 |
+| Malory, *Le Morte d'Arthur* | `Tintagel` | `Tintagil` | 31 |
+| Malory, *Le Morte d'Arthur* | `Eleine` | `Elaine` | 71 |
+| Malory, *Le Morte d'Arthur* | `sithin` | `sithen` | 36 |
+| *The Poetic Edda* | `Balled` | `Ballad` | 16 |
+| *The Song of Roland* | `Carlum` | `Carlun` | 19 |
+| *The Song of Roland* | `Marsilium` | `Marsiliun` | 10 |
+| *The Song of Roland* | `Sarrazens` | `Sarrazins` | 17 |
+
+Malory's three are the interesting ones, because *Le Morte d'Arthur* spells almost everything several
+ways and a variant is the null hypothesis. What settles them is the same arithmetic that settles the
+rest: this edition writes Tintagil 31 times, Elaine 71 and sithen 36, and each of these forms **once**.
+
+**AND FOUR OF THE TWELVE WOULD NOT LAND.** The Song of Roland's three rows and the Edda's one reported
+`DID NOT FIRE` with the misspellings sitting in the shipped files where anyone could grep them.
+Scanning every `readFileSync(cf)` site found the reason: **five English branches — `play`, `fitts`,
+`terzine`, `eddapoem` and `laisses` — read a cached page, hand it straight to a reader of their own,
+and push the result onto `chapters` without ever calling `correctRaw`.** E29's summary of itself was
+"there is now ONE spelling of the chain and every branch that has raw English text in hand calls it";
+that was untrue for five of the fifteen. `correctGot` closes it, correcting the EXTRACTED PROSE so the
+caches stay raw and a row added later fires on the next ordinary run.
+
+**AND THE SCAN FOR BARE BRANCHES TURNED UP THE NEXT BATCH.** Thirteen English call sites, five now
+wrapped in `correctGot` and **eight still correcting the page** — `extractRamayan`,
+`extractSatyricon`, `extractSukta`, `extractJourney`, `extractPtahhotep`, `extractQuixote`,
+`extractChaucer`, `extractTablets`. Those eight are in the chain and their rows fire, the caches on
+those branches holding raw pages; what they are not is E29's better shape, and E29 gave a measured
+reason for preferring it. Recorded as E32 rather than done here: this batch's subject is the twelve
+slips and the five branches that were in NO chain at all, and a second extractor change riding along
+with it would have to be proved inert separately anyway.
+
+> **The dead-row report is now two claims, not one.** E30 found a row reported dead because the cache
+> held prose the chain had already corrected. E31 finds four reported dead because the chain was never
+> run. **A `DID NOT FIRE` line is evidence about the chain as much as about the text**, and the first
+> thing to ask of one is which of the two it is — a grep of the shipped file answers it in a second,
+> and here it answered immediately, because the word was right there.
+
+**Proved byte-for-byte on every book on those branches, which is five and not fifty.** Lysistrata
+(`play`), Beowulf (`fitts`) and the Divine Comedy (`terzine`) declare no correction tables and came
+back identical to the byte; the Song of Roland changed on three lines and the Poetic Edda on one, and
+those four lines are the four rows. `applyGlyphs` and `unwrapNameMarkup` return their input untouched
+when a book declares no table, so the three were inert by construction as well as by measurement. The
+whole batch is twelve substitutions in eight files and nothing else, checked token by token.
+
+**A THIRTEENTH ROW WAS WRITTEN, APPLIED, AND WITHDRAWN, and it is the most useful thing here.** The
+Bhagavad-Gita's eighth discourse is titled *"THE YOGA OF THE INDESCTRUCTIBLE SUPREME ETERNAL"*. It
+looks exactly like the other twelve — a single inserted C in a word anybody can spell — and it is the
+1922 Natesan printing's own error, transcribed at Wikisource's proofread level 3, standing **twice** in
+the text with the correct spelling **nowhere in the book**. This file's own entry for the Gita had
+recorded the decision to keep it as printed, in as many words, and the row was written anyway.
+
+> **THE DISCRIMINATOR IS WHETHER THE CORRECT FORM IS ATTESTED IN THE SAME EDITION, and the count is
+> already in the candidate list.** The sweep asks for a token near a form the book uses ten times or
+> more, so every candidate arrives with its own answer attached. Twelve read *1 against 5 to 230*; the
+> Gita read *2 against 0*. A form the edition uses to the EXCLUSION of the right one is the edition's
+> spelling and must be left — transcribing a title means transcribing it, and a silent correction to
+> somebody else's page is the one thing this importer refuses to make. **The check costs one grep and
+> it was not run**, which is why it is now written into the rule rather than into a batch's prose.
 
 ### E30 — the caches refreshed, and two regressions of our own, shipped 2026-09-04
 
